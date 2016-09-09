@@ -102,7 +102,7 @@ script(type='text/ng-template', id='modals/send-gift.html')
 
 script(type='text/ng-template', id='modals/abuse-flag.html')
   .modal-header
-    h4!=env.t('abuseFlagModalHeading', {name: "<span class='text-danger'>{{isSystemMessage ? env.t('systemMessage') : profile.profile.name}}</span>"})
+    h4!=env.t('abuseFlagModalHeading', {name: "<span class='text-danger'>{{isSystemMessage ? env.t('systemMessage') : abuseObject.user}}</span>"})
   .modal-body
     blockquote
       markdown(text="abuseObject.text")

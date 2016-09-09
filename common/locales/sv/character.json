@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Kom ihåg att ditt Användarnamn, Profilbild och dina ord om dig måste följa de <a href='https://habitica.com/static/community-guidelines' target='_blank'>Gemensamma Riktlinjerna</a> (t.ex. inga hädelser, inga vuxna ämnen, inga förolämpningar, osv.) Om du har några frågor om huruvida något är lämpligt, var god maila  <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
     "statsAch": "Statistik & Prestationer",
     "profile": "Profil",
     "avatar": "Skräddarsy Avatar",
@@ -121,7 +121,7 @@
     "classAllocation": "Dela ut poäng baserat på Klass",
     "classAllocationPop": "Tillderar fler poäng till attributen som är viktiga för din Klass",
     "taskAllocation": "Dela ut poäng baserat på uppgifts-aktivitet",
-    "taskAllocationPop": "Tilldelar poäng baserat på de fysiska (styrka), mentala (intelligens), sociala (tålighet), och andra (uppmärksamhet) kategorier associerade till uppgifterna du slutför.",
+    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
     "distributePoints": "Dela ut outdelade poäng",
     "distributePointsPop": "Dela ut alla outdelade egenskapspoäng enligt den valda utdelningsplanen.",
     "warriorText": "Krigare får fler och bättre \"kritiska träffar\", vilket slumpmässigt ger bonusar i form av guld, erfarenhet och fyndchanser efter att ha fullbordat en uppgift. De åsamkar också stor skada på bossar. Spela en krigare om du blir motiverad av oförutsägbara jackpot-liknande belöningar, eller om du vill göra mycket skada i bossuppdrag!",
@@ -169,5 +169,5 @@
     "quickAllocationLevelPopover": "Varje nivå ger dig en poäng att lägga ut på ett valfritt attribut. Du kan gör så själv eller låta spelet bestämma åt dig genom en av inställningarna under Användare -> Statistik & Prestationer",
     "invalidAttribute": "\"<%= attr %>\" är inte en godkänd egenskap.",
     "notEnoughAttrPoints": "Du har inte tillräckligt med egenskapspoäng.",
-    "gearNotOwned": "You do not own this item."
+    "gearNotOwned": "Du äger inte detta föremål"
 }

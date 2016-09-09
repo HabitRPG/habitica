@@ -1,6 +1,6 @@
 {
     "friend": "Freund",
-    "friendFirst": "Wenn Dein <strong>erster</strong> Beitrag angenommen wird, erhältst Du ein Habitica-Mitwirkende(r)-Abzeichen. Im Gasthaus wird Dein Name, dafür dass Du ein Mitwirkender bist, stolz angezeigt. Als Belohnung für Deine Bemühungen erhältst Du außerdem <strong>3 Edelsteine</strong>.",
+    "friendFirst": "Wenn Dein <strong>erster</strong> Beitrag angenommen wird, erhältst Du ein Habitica-Mitwirkenden-Abzeichen. Im Gasthaus wird Dein Name, dafür dass Du ein Mitwirkender bist, stolz angezeigt. Als Belohnung für Deine Bemühungen erhältst Du außerdem <strong>3 Edelsteine</strong>.",
     "friendSecond": "Wenn das <strong>zweite</strong> Bündel Deiner Beiträge angenommen wurde, kannst Du die <strong>Kristallrüstung</strong> im Belohnungs-Shop kaufen. Als Belohnung Deiner fortwährenden Arbeit erhältst Du außerdem <strong>3 Edelsteine</strong>.",
     "elite": "Elite",
     "eliteThird": "Wenn das <strong>dritte</strong> Bündel Deiner Beiträge angenommen wurde, kannst Du den <strong>Kristallhelm</strong> im Belohnungs-Shop kaufen. Als Belohnung Deiner fortwährenden Arbeit erhältst Du außerdem <strong>3 Edelsteine</strong>.",
@@ -60,7 +60,7 @@
     "surveysMultiple": "Half Habitica <%= surveys %> mal zu wachsen, durch das Ausfüllen einer Umfrage oder durch große Hilfe beim Testen. Danke!",
     "currentSurvey": "Aktuelle Umfrage",
     "surveyWhen": "Das Abzeichen wird gegen Ende März verliehen, wenn alle Umfragen bearbeitet wurden.",
-    "blurbInbox": "Hier werden Deine privaten Nachrichten (PN) gespeichert! Du kannst jemandem eine Nachricht schreiben, indem Du auf den Umschlag neben seinem Namen im Gasthaus-, Gruppen- oder Gildenchat klickst. Falls Du eine unangemessene PN erhältst, schicke eine E-Mail mit einem Screenshot davon an Lemoness\n(<a href=\"mailto:leslie@habitica.com\">leslie@habitica.com</a>)",
+    "blurbInbox": "Hier werden Deine privaten Nachrichten (PN) gespeichert! Du kannst jemandem eine Nachricht schreiben, indem Du auf den Umschlag neben seinem Namen im Gasthaus-, Gruppen- oder Gildenchat klickst. Falls Du eine unangemessene PN erhältst, schicke eine E-Mail mit einem Screenshot davon an die Mitarbeiter (<a href=\"mailto:admin@habitica.com\">admin@habitica.com</a>)",
     "blurbGuildsPage": "Gilden sind Chatgruppen mit einem gemeinsamen Interesse. Sie sind von Spielern für Spieler erstellt worden. Durchblättere die Liste und tritt den Gilden bei, die Dich interessieren.",
     "blurbChallenges": "Wettbewerbe werden von anderen Spielern erstellt. Wenn Du einem Wettbewerb beitrittst, werden seine Aufgaben Deinem Aufgabenmenü hinzugefügt, und wenn Du einen Wettbewerb gewinnst erhältst Du einen Erfolg und oft auch einen Edelstein-Preis!",
     "blurbHallPatrons": "Dies ist die Halle der Schirmherren, in der wir die edlen Abenteurer ehren, die Habiticas ursprüngliche Kickstarter-Kampagne unterstützt haben. Wir danken ihnen für die Hilfe Habitica zum Leben zu erwecken!",

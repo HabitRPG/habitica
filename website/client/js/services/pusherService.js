@@ -40,7 +40,6 @@ angular.module('habitrpg')
       var awaitIdle = function() {
         if(disconnectionTimeout) clearTimeout(disconnectionTimeout);
         disconnectionTimeout = setTimeout(function () {
-          console.log('Disconnecting from Pusher.');
           $(document).off('mousemove keydown mousedown touchstart', awaitIdle);
           disconnectPusher();
         }, DISCONNECTION_AFTER);
@@ -57,6 +56,8 @@ angular.module('habitrpg')
       api.pusher.connection.bind('connected', function () {
         api.socketId = api.pusher.connection.socket_id;
       });
+
+      if (!partyId) return;
 
       var partyChannelName = 'presence-group-' + partyId;
       var partyChannel = api.pusher.subscribe(partyChannelName);
@@ -108,7 +109,6 @@ angular.module('habitrpg')
       api.pusher.disconnect();
 
       var awaitActivity = function() {
-        console.log('Reconnecting to Pusher.');
         $(document).off('mousemove keydown mousedown touchstart', awaitActivity);
         if (!localStorage.getItem(tabIdKey) || localStorage.getItem(tabIdKey) === tabId) {
           connectToPusher(partyId);
@@ -116,7 +116,6 @@ angular.module('habitrpg')
       };
 
       $(document).on('mousemove keydown mousedown touchstart', awaitActivity);
-
     };
 
     // Setup chat channels once app is ready, only for parties for now
@@ -139,7 +138,7 @@ angular.module('habitrpg')
 
       // when a tab is closed, connect the next one
       // wait between 100 and 500ms to avoid two tabs connecting at the same time
-      window.addEventListener('storage', function(e) {  
+      window.addEventListener('storage', function(e) {
         if (e.key === tabIdKey && e.newValue === null) {
           setTimeout(function () {
             if (!localStorage.getItem(tabIdKey)) {
@@ -147,7 +146,7 @@ angular.module('habitrpg')
             }
           }, Math.floor(Math.random() * 501) + 100);
         }
-      });      
+      });
     });
 
     return api;

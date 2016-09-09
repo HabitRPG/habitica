@@ -3,6 +3,7 @@ import nconf from 'nconf';
 import Amplitude from 'amplitude';
 import Bluebird from 'bluebird';
 import googleAnalytics from 'universal-analytics';
+import useragent from 'useragent';
 import {
   each,
   omit,
@@ -13,7 +14,13 @@ const AMPLIUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
 const GA_TOKEN = nconf.get('GA_ID');
 const GA_POSSIBLE_LABELS = ['gaLabel', 'itemKey'];
 const GA_POSSIBLE_VALUES = ['gaValue', 'gemCost', 'goldCost'];
-const AMPLITUDE_PROPERTIES_TO_SCRUB = ['uuid', 'user', 'purchaseValue', 'gaLabel', 'gaValue'];
+const AMPLITUDE_PROPERTIES_TO_SCRUB = ['uuid', 'user', 'purchaseValue', 'gaLabel', 'gaValue', 'headers'];
+
+const PLATFORM_MAP = Object.freeze({
+  'habitica-web': 'Web',
+  'habitica-ios': 'iOS',
+  'habitica-android': 'Android',
+});
 
 let amplitude = new Amplitude(AMPLIUDE_TOKEN);
 let ga = googleAnalytics(GA_TOKEN);
@@ -81,13 +88,48 @@ let _formatUserData = (user) => {
   return properties;
 };
 
+let _formatPlatformForAmplitude = (platform) => {
+  if (!platform) {
+    return 'Unknown';
+  }
+
+  if (platform in PLATFORM_MAP) {
+    return PLATFORM_MAP[platform];
+  }
+
+  return '3rd Party';
+};
+
+let _formatUserAgentForAmplitude = (platform, agentString) => {
+  if (!agentString) {
+    return 'Unknown';
+  }
+
+  let agent = useragent.lookup(agentString).toJSON();
+  let formattedAgent = {};
+  if (platform === 'iOS' || platform === 'Android') {
+    formattedAgent.name = agent.os.family;
+    formattedAgent.version = `${agent.os.major}.${agent.os.minor}.${agent.os.patch}`;
+    if (platform === 'Android' && formattedAgent.name === 'Other') {
+      formattedAgent.name = 'Android';
+    }
+  } else {
+    formattedAgent.name = agent.family;
+    formattedAgent.version = agent.major;
+  }
+
+  return formattedAgent;
+};
 
 let _formatDataForAmplitude = (data) => {
   let event_properties = omit(data, AMPLITUDE_PROPERTIES_TO_SCRUB);
-
+  let platform = _formatPlatformForAmplitude(data.headers && data.headers['x-client']);
+  let agent = _formatUserAgentForAmplitude(platform, data.headers && data.headers['user-agent']);
   let ampData = {
     user_id: data.uuid || 'no-user-id-was-provided',
-    platform: 'server',
+    platform,
+    os_name: agent.name,
+    os_version: agent.version,
     event_properties,
   };
 
@@ -100,7 +142,6 @@ let _formatDataForAmplitude = (data) => {
   if (itemName) {
     event_properties.itemName = itemName;
   }
-
   return ampData;
 };
 

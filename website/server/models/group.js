@@ -6,6 +6,7 @@ import {
 import shared from '../../../common';
 import _  from 'lodash';
 import { model as Challenge} from './challenge';
+import * as Tasks from './task';
 import validator from 'validator';
 import { removeFromArray } from '../libs/collectionManipulators';
 import {
@@ -18,6 +19,9 @@ import Bluebird from 'bluebird';
 import nconf from 'nconf';
 import sendPushNotification from '../libs/pushNotifications';
 import pusher from '../libs/pusher';
+import {
+  syncableAttrs,
+} from '../libs/taskManager';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -79,13 +83,19 @@ export let schema = new Schema({
       return {};
     }},
   },
+  tasksOrder: {
+    habits: [{type: String, ref: 'Task'}],
+    dailys: [{type: String, ref: 'Task'}],
+    todos: [{type: String, ref: 'Task'}],
+    rewards: [{type: String, ref: 'Task'}],
+  },
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount'],
+  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder'],
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
@@ -340,6 +350,12 @@ schema.methods.sendChat = function sendChat (message, user) {
   query._id = { $ne: user ? user._id : ''};
 
   User.update(query, lastSeenUpdate, {multi: true}).exec();
+
+  // If the message being sent is a system message (not gone through the api.postChat controller)
+  // then notify Pusher about it (only parties for now)
+  if (newMessage.uuid === 'system' && this.privacy === 'private' && this.type === 'party') {
+    pusher.trigger(`presence-group-${this._id}`, 'new-chat', newMessage);
+  }
 
   return newMessage;
 };
@@ -758,6 +774,117 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   }
 
   return await Bluebird.all(promises);
+};
+
+schema.methods.updateTask = async function updateTask (taskToSync) {
+  let group = this;
+
+  let updateCmd = {$set: {}};
+
+  let syncableAttributes = syncableAttrs(taskToSync);
+  for (let key in syncableAttributes) {
+    updateCmd.$set[key] = syncableAttributes[key];
+  }
+
+  let taskSchema = Tasks[taskToSync.type];
+  // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
+  await taskSchema.update({
+    userId: {$exists: true},
+    'group.id': group.id,
+    'group.taskId': taskToSync._id,
+  }, updateCmd, {multi: true}).exec();
+};
+
+schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
+  let group = this;
+  let toSave = [];
+
+  if (taskToSync.group.assignedUsers.indexOf(user._id) === -1) {
+    taskToSync.group.assignedUsers.push(user._id);
+  }
+
+  // Sync tags
+  let userTags = user.tags;
+  let i = _.findIndex(userTags, {id: group._id});
+
+  if (i !== -1) {
+    if (userTags[i].name !== group.name) {
+      // update the name - it's been changed since
+      userTags[i].name = group.name;
+    }
+  } else {
+    userTags.push({
+      id: group._id,
+      name: group.name,
+    });
+  }
+
+  let findQuery = {
+    'group.taskId': taskToSync._id,
+    userId: user._id,
+    'group.id': group._id,
+  };
+
+  let matchingTask = await Tasks.Task.findOne(findQuery).exec();
+
+  if (!matchingTask) { // If the task is new, create it
+    matchingTask = new Tasks[taskToSync.type](Tasks.Task.sanitize(syncableAttrs(taskToSync)));
+    matchingTask.group.id = taskToSync.group.id;
+    matchingTask.userId = user._id;
+    matchingTask.group.taskId = taskToSync._id;
+    user.tasksOrder[`${taskToSync.type}s`].push(matchingTask._id);
+  } else {
+    _.merge(matchingTask, syncableAttrs(taskToSync));
+    // Make sure the task is in user.tasksOrder
+    let orderList = user.tasksOrder[`${taskToSync.type}s`];
+    if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
+  }
+
+  if (!matchingTask.notes) matchingTask.notes = taskToSync.notes; // don't override the notes, but provide it if not provided
+  if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id); // add tag if missing
+
+  toSave.push(matchingTask.save(), taskToSync.save(), user.save());
+  return Bluebird.all(toSave);
+};
+
+schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user, keep) {
+  let findQuery = {
+    'group.taskId': unlinkingTask._id,
+    userId: user._id,
+  };
+
+  let assignedUserIndex = unlinkingTask.group.assignedUsers.indexOf(user._id);
+  unlinkingTask.group.assignedUsers.splice(assignedUserIndex, 1);
+
+  if (keep === 'keep-all') {
+    await Tasks.Task.update(findQuery, {
+      $set: {group: {}},
+    }).exec();
+
+    await user.save();
+  } else { // keep = 'remove-all'
+    let task = await Tasks.Task.findOne(findQuery).select('_id type completed').exec();
+    // Remove task from user.tasksOrder and delete them
+    if (task.type !== 'todo' || !task.completed) {
+      removeFromArray(user.tasksOrder[`${task.type}s`], task._id);
+      user.markModified('tasksOrder');
+    }
+
+    return Bluebird.all([task.remove(), user.save(), unlinkingTask.save()]);
+  }
+};
+
+schema.methods.removeTask = async function groupRemoveTask (task) {
+  let group = this;
+
+  // Set the task as broken
+  await Tasks.Task.update({
+    userId: {$exists: true},
+    'group.id': group.id,
+    'group.taskId': task._id,
+  }, {
+    $set: {'group.broken': 'TASK_DELETED'},
+  }, {multi: true}).exec();
 };
 
 export let model = mongoose.model('Group', schema);

@@ -34,11 +34,6 @@ habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$r
           Groups.Group.create(group)
             .then(function (response) {
               var createdGroup = response.data.data;
-              if (createdGroup.privacy == 'public') {
-                Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'join group', 'owner':true, 'groupType':'guild', 'privacy': createdGroup.privacy, 'groupName':createdGroup.name})
-              } else {
-                Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'join group', 'owner':true, 'groupType':'guild', 'privacy': createdGroup.privacy})
-              }
               $rootScope.hardRedirect('/#/options/groups/guilds/' + createdGroup._id);
             });
         }
@@ -58,12 +53,6 @@ habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$r
             var joinedGroup = response.data.data;
 
             User.user.guilds.push(joinedGroup._id);
-
-            if (joinedGroup.privacy == 'public') {
-              Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'join group', 'owner':false, 'groupType':'guild','privacy': joinedGroup.privacy, 'groupName': joinedGroup.name})
-            } else {
-              Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'join group', 'owner':false, 'groupType':'guild','privacy': joinedGroup.privacy})
-            }
 
             _.pull(User.user.invitations.guilds, group);
 

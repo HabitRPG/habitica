@@ -60,6 +60,7 @@
             "js/services/userServices.js",
             "js/services/hallServices.js",
             "js/services/pusherService.js",
+            "js/services/achievementServices.js",
 
             "js/filters/money.js",
             "js/filters/roundLargeNumbers.js",

@@ -1,6 +1,6 @@
 {
   "habiticaBackSoon": "Jangan khawatir, Habitica akan segera kembali!",
-  "importantMaintenance": "Kami sedang melakukan perbaikan penting yang kami perkirakan akan berlangsung hingga <%= localDate%> pada zona waktu Anda.",
+  "importantMaintenance": "Kami sedang melakukan perbaikan penting yang kami perkirakan akan berlangsung hingga 10pm Pacific Time (5am UTC).",
   "maintenance": "Perbaikan",
   "maintenanceMoreInfo": "Ingin informasi lebih lanjut mengenai perbaikan? <%= linkStart %>Periksa halaman informasi kami<%= linkEnd %>.",
   "noDamageKeepStreaks": "Kamu TIDAK akan terkena serangan atau kehilangan penghitungan!",

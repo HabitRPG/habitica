@@ -34,8 +34,12 @@ api.createSubscription = async function createSubscription (data) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
       plan.extraMonths += months;
     } else {
-      plan.dateTerminated = moment(plan.dateTerminated).add({months}).toDate();
       if (!plan.dateUpdated) plan.dateUpdated = new Date();
+      if (moment(plan.dateTerminated).isAfter()) {
+        plan.dateTerminated = moment(plan.dateTerminated).add({months}).toDate();
+      } else {
+        plan.dateTerminated = moment().add({months}).toDate();
+      }
     }
 
     if (!plan.customerId) plan.customerId = 'Gift'; // don't override existing customer, but all sub need a customerId
@@ -82,6 +86,7 @@ api.createSubscription = async function createSubscription (data) {
     quantity: 1,
     gift: Boolean(data.gift),
     purchaseValue: block.price,
+    headers: data.headers,
   });
 
   data.user.purchased.txnCount++;
@@ -145,6 +150,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
     gaCategory: 'commerce',
     gaLabel: data.paymentMethod,
     paymentMethod: data.paymentMethod,
+    headers: data.headers,
   });
 };
 
@@ -166,6 +172,7 @@ api.buyGems = async function buyGems (data) {
     quantity: 1,
     gift: Boolean(data.gift),
     purchaseValue: amt,
+    headers: data.headers,
   });
 
   if (data.gift) {

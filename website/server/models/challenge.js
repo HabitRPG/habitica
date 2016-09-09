@@ -14,6 +14,7 @@ import shared from '../../../common';
 import { sendTxn as txnEmail } from '../libs/email';
 import sendPushNotification from '../libs/pushNotifications';
 import cwait from 'cwait';
+import { syncableAttrs } from '../libs/taskManager';
 
 const Schema = mongoose.Schema;
 
@@ -71,15 +72,6 @@ schema.methods.canView = function canViewChallenge (user, group) {
   return this.hasAccess(user, group);
 };
 
-// Takes a Task document and return a plain object of attributes that can be synced to the user
-function _syncableAttrs (task) {
-  let t = task.toObject(); // lodash doesn't seem to like _.omit on Document
-  // only sync/compare important attrs
-  let omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt'];
-  if (t.type !== 'reward') omitAttrs.push('value');
-  return _.omit(t, omitAttrs);
-}
-
 // Sync challenge to user, including tasks and tags.
 // Used when user joins the challenge or to force sync.
 schema.methods.syncToUser = async function syncChallengeToUser (user) {
@@ -125,12 +117,12 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
     let matchingTask = _.find(userTasks, userTask => userTask.challenge.taskId === chalTask._id);
 
     if (!matchingTask) { // If the task is new, create it
-      matchingTask = new Tasks[chalTask.type](Tasks.Task.sanitize(_syncableAttrs(chalTask)));
+      matchingTask = new Tasks[chalTask.type](Tasks.Task.sanitize(syncableAttrs(chalTask)));
       matchingTask.challenge = {taskId: chalTask._id, id: challenge._id};
       matchingTask.userId = user._id;
       user.tasksOrder[`${chalTask.type}s`].push(matchingTask._id);
     } else {
-      _.merge(matchingTask, _syncableAttrs(chalTask));
+      _.merge(matchingTask, syncableAttrs(chalTask));
       // Make sure the task is in user.tasksOrder
       let orderList = user.tasksOrder[`${chalTask.type}s`];
       if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
@@ -162,7 +154,7 @@ async function _addTaskFn (challenge, tasks, memberId) {
   let toSave = [];
 
   tasks.forEach(chalTask => {
-    let userTask = new Tasks[chalTask.type](Tasks.Task.sanitize(_syncableAttrs(chalTask)));
+    let userTask = new Tasks[chalTask.type](Tasks.Task.sanitize(syncableAttrs(chalTask)));
     userTask.challenge = {taskId: chalTask._id, id: challenge._id};
     userTask.userId = memberId;
 
@@ -204,13 +196,14 @@ schema.methods.updateTask = async function challengeUpdateTask (task) {
 
   let updateCmd = {$set: {}};
 
-  let syncableAttrs = _syncableAttrs(task);
-  for (let key in syncableAttrs) {
-    updateCmd.$set[key] = syncableAttrs[key];
+  let syncableTask = syncableAttrs(task);
+  for (let key in syncableTask) {
+    updateCmd.$set[key] = syncableTask[key];
   }
 
+  let taskSchema = Tasks[task.type];
   // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
-  await Tasks.Task.update({
+  await taskSchema.update({
     userId: {$exists: true},
     'challenge.id': challenge.id,
     'challenge.taskId': task._id,

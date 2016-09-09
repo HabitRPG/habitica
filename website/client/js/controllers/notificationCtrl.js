@@ -1,8 +1,8 @@
 'use strict';
 
 habitrpg.controller('NotificationCtrl',
-  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics',
-  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics) {
+  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement',
+  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement) {
 
     $rootScope.$watch('user.stats.hp', function (after, before) {
       if (after <= 0){
@@ -97,23 +97,25 @@ habitrpg.controller('NotificationCtrl',
             $rootScope.openModal('rebirthEnabled');
             break;
           case 'WON_CHALLENGE':
-            $rootScope.openModal('wonChallenge', {controller: 'UserCtrl', size: 'sm'});
+            User.sync().then( function() {
+              Achievement.displayAchievement('wonChallenge');
+            });
             break;
           case 'STREAK_ACHIEVEMENT':
             Notification.streak(User.user.achievements.streak);
             $rootScope.playSound('Achievement_Unlocked');
             if (!User.user.preferences.suppressModals.streak) {
-              $rootScope.openModal('achievements/streak', {controller:'UserCtrl'});
+              Achievement.displayAchievement('streak', {size: 'md'});
             }
             break;
           case 'ULTIMATE_GEAR_ACHIEVEMENT':
-            $rootScope.openModal('achievements/ultimateGear', {controller:'UserCtrl'});
+            Achievement.displayAchievement('ultimateGear', {size: 'md'});
             break;
           case 'REBIRTH_ACHIEVEMENT':
-            $rootScope.openModal('achievements/rebirth', {controller:'UserCtrl', size: 'sm'});
+            Achievement.displayAchievement('rebirth');
             break;
           case 'NEW_CONTRIBUTOR_LEVEL':
-            $rootScope.openModal('achievements/contributor',{controller:'UserCtrl'});
+            Achievement.displayAchievement('contributor', {size: 'md'});
             break;
           case 'CRON':
             if (notification.data) {
@@ -133,7 +135,7 @@ habitrpg.controller('NotificationCtrl',
     }
 
     // Since we don't use localStorage anymore, notifications for achievements and new contributor levels
-    // are now stored user.notifications.
+    // are now stored in user.notifications.
     $rootScope.$watchCollection('userNotifications', function (after) {
       if (!User.user._wrapped) return;
       handleUserNotifications(after);
