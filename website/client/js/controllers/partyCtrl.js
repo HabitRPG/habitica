@@ -26,7 +26,9 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         checkForNotifications();
         if ($state.is('options.social.party')) {
           if ('Notification' in window && window.Notification.permission === 'default') {
-            window.Notification.requestPermission();
+            setTimeout(function () {
+              window.Notification.requestPermission();
+            }, 100);
           }
           Chat.markChatSeen($scope.group._id);
         }
