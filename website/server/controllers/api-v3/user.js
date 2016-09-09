@@ -14,6 +14,8 @@ import { model as User } from '../../models/user';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/password';
+import moment from 'moment';
+import locals from '../../middlewares/locals';
 
 let api = {};
 
@@ -27,16 +29,18 @@ let api = {};
  */
 api.getUser = {
   method: 'GET',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), locals],
   url: '/user',
   async handler (req, res) {
     let user = res.locals.user;
     let userToJSON = user.toJSON();
+    let env = res.locals.habitrpg;
 
     // Remove apiToken from response TODO make it private at the user level? returned in signup/login
     delete userToJSON.apiToken;
 
     user.addComputedStatsToJSONObj(userToJSON);
+    userToJSON.flags.newStuff = moment(user.flags.newStuffSeenDate).isBefore(env.NEWS_DATE);
     return res.respond(200, userToJSON);
   },
 };
@@ -138,6 +142,16 @@ let checkPreferencePurchase = (user, path, item) => {
   return _.get(user.purchased, itemPath);
 };
 
+function _setNewStuffFlag (val, res) {
+  if (val === true) {
+    return moment(res.locals.habitrpg.NEWS_DATE).subtract(1, 'days').toDate();
+  } else if (val === false) {
+    return new Date();
+  } else {
+    throw new BadRequest(res.t('messageBooleanProperty'));
+  }
+}
+
 /**
  * @api {put} /api/v3/user Update the user
  * @apiDescription Example body: {'stats.hp':50, 'preferences.background': 'beach'}
@@ -149,7 +163,7 @@ let checkPreferencePurchase = (user, path, item) => {
  */
 api.updateUser = {
   method: 'PUT',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), locals],
   url: '/user',
   async handler (req, res) {
     let user = res.locals.user;
@@ -162,6 +176,10 @@ api.updateUser = {
       }
 
       if (acceptablePUTPaths[key]) {
+        if (key === 'flags.newStuff') {
+          val = _setNewStuffFlag(val, res);
+          key = 'flags.newStuffSeenDate';
+        }
         _.set(user, key, val);
       } else {
         throw new NotAuthorized(res.t('messageUserOperationProtected', { operation: key }));
