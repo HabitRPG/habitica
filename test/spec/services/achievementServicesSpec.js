@@ -22,7 +22,7 @@ describe('achievementServices', function() {
       expect(rootScope.openModal).to.be.calledWith('achievements/beastMaster');
     });
 
-    it('calls openModal with UserCtrl and specified small modal size', function() {
+    it('calls openModal with UserCtrl and small modal size if no other size is given', function() {
       achievementService.displayAchievement('test');
 
       expect(rootScope.openModal).to.be.calledOnce;
@@ -31,23 +31,24 @@ describe('achievementServices', function() {
         { controller: 'UserCtrl', size: 'sm' }
       );
     });
-  });
 
-  describe('#displayBulkyAchievement', function() {
-    it('passes given achievement name to openModal', function() {
-      achievementService.displayBulkyAchievement('beastMaster');
-
-      expect(rootScope.openModal).to.be.calledOnce;
-      expect(rootScope.openModal).to.be.calledWith('achievements/beastMaster');
-    });
-
-    it('calls openModal with UserCtrl and unspecified modal size', function() {
-      achievementService.displayBulkyAchievement('test');
+    it('calls openModal with UserCtrl and specified modal size if one is given', function() {
+      achievementService.displayAchievement('test', {size: 'md'});
 
       expect(rootScope.openModal).to.be.calledOnce;
       expect(rootScope.openModal).to.be.calledWith(
         'achievements/test',
-        { controller: 'UserCtrl' }
+        { controller: 'UserCtrl', size: 'md' }
+      );
+    });
+
+    it('calls openModal with UserCtrl and default \'sm\' size if invalid size is given', function() {
+      achievementService.displayAchievement('test', {size: 'INVALID_SIZE'});
+
+      expect(rootScope.openModal).to.be.calledOnce;
+      expect(rootScope.openModal).to.be.calledWith(
+        'achievements/test',
+        { controller: 'UserCtrl', size: 'sm' }
       );
     });
   });

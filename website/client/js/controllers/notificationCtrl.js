@@ -105,17 +105,17 @@ habitrpg.controller('NotificationCtrl',
             Notification.streak(User.user.achievements.streak);
             $rootScope.playSound('Achievement_Unlocked');
             if (!User.user.preferences.suppressModals.streak) {
-              Achievement.displayBulkyAchievement('streak');
+              Achievement.displayAchievement('streak', {size: 'md'});
             }
             break;
           case 'ULTIMATE_GEAR_ACHIEVEMENT':
-            Achievement.displayBulkyAchievement('ultimateGear');
+            Achievement.displayAchievement('ultimateGear', {size: 'md'});
             break;
           case 'REBIRTH_ACHIEVEMENT':
             Achievement.displayAchievement('rebirth');
             break;
           case 'NEW_CONTRIBUTOR_LEVEL':
-            Achievement.displayBulkyAchievement('contributor');
+            Achievement.displayAchievement('contributor', {size: 'md'});
             break;
           case 'CRON':
             if (notification.data) {
