@@ -24,6 +24,12 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         $scope.group = $rootScope.party;
         $scope.group.loadingParty = false;
         checkForNotifications();
+        if ($state.is('options.social.party')) {
+          if ('Notification' in window && window.Notification.permission === 'default') {
+            window.Notification.requestPermission();
+          }
+          Chat.markChatSeen($scope.group._id);
+        }
       }
 
       function handlePartyError (response) {
@@ -50,10 +56,6 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
           User.set({'achievements.partyOn':true});
           $rootScope.openModal('achievements/partyOn', {controller:'UserCtrl', size:'sm'});
         }
-      }
-
-      if ($scope.group && $scope.group._id) {
-        Chat.markChatSeen($scope.group._id);
       }
 
       $scope.create = function(group) {

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg')
-.factory('Pusher', ['$rootScope', 'STORAGE_SETTINGS_ID', 'Groups', 'Shared', '$state', 'Chat',
-  function($rootScope, STORAGE_SETTINGS_ID, Groups, Shared, $state, Chat) {
+.factory('Pusher', ['$rootScope', 'STORAGE_SETTINGS_ID', 'Groups', 'Shared', '$state', 'Chat', 'Notification',
+  function($rootScope, STORAGE_SETTINGS_ID, Groups, Shared, $state, Chat, Notification) {
     var settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS_ID));
     var IS_PUSHER_ENABLED = window.env['PUSHER:ENABLED'] === 'true';
 
@@ -128,29 +128,50 @@ angular.module('habitrpg')
       });
 
       // When a new chat message is posted
-      partyChannel.bind('new-chat', function (data) {
+      partyChannel.bind('new-chat', function (chatData) {
         Groups.party().then(function () { // wait for the party to be fully loaded
           $rootScope.loadingParty = false; // make sure the party is set as loaded
 
           // Update the party data
-          Groups.data.party.chat.unshift(data);
+          Groups.data.party.chat.unshift(chatData);
           Groups.data.party.chat.splice(200);
 
           // If a system message comes in, sync the party as quest status may have changed
-          if (data.uuid === 'system') {
+          if (chatData.uuid === 'system') {
             Groups.party(true).then(function (syncedParty) {
               // Assign and not replace so that all the references get the modifications
               _.assign($rootScope.party, syncedParty);
             });
           }
 
-          if ($state.is('options.social.party')) { // if we're on the party page, mark the chat as read
+          if ($state.is('options.social.party') && document.hasFocus()) { // if we're on the party page, mark the chat as read
             Chat.markChatSeen($rootScope.party._id);
           } else { // show a notification
             $rootScope.User.user.newMessages[$rootScope.party._id] = {
               name: $rootScope.party.name,
               value: true,
             };
+
+            if ('Notification' in window && window.Notification.permission === 'granted') {
+              var notif = new window.Notification(env.t('newChatMessageTitle', {
+                groupName: $rootScope.party.name,
+              }), {
+                body: (chatData.user || chatData.uuid) + ': ' + chatData.text,
+                icon: '/favicon_192x192-00993687.png?v=4'
+              });
+
+              notif.addEventListener('click', function () {
+                $state.go('options.social.party');
+                notif.close();
+              });
+            } else {
+              Notification.text(env.t('newChatMessagePlainNotification', {
+                groupName: $rootScope.party.name,
+                authorName: chatData.user || chatData.uuid,
+              }), function() {
+                $state.go('options.social.party');
+              });
+            }
           }
         });
       });
