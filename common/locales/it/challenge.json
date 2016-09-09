@@ -66,7 +66,7 @@
     "noChallengeOwnerPopover": "Questa sfida non ha un proprietario perché la persona che ha creato la sfida ha eliminato il proprio account.",
     "challengeMemberNotFound": "Utente non rilevato tra i membri della sfida",
     "onlyGroupLeaderChal": "Solo il leader del gruppo può creare le sfide",
-    "tavChalsMinPrize": "Il premio deve essere almeno di 1 gemma per le sfide della taverna",
+    "tavChalsMinPrize": "Il premio deve essere almeno di 1 gemma per le sfide della Taverna.",
     "cantAfford": "Non puoi permetterti questo premio. Acquista più gemme o abbassa l'ammontare del premio.",
     "challengeIdRequired": "\"challengeId\" deve essere un UUID valido.",
     "winnerIdRequired": "\"winnerId\" deve essere un UUID valido.",

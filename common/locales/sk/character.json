@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Maj na pamäti, že tvoja zobrazované meno, profilová fotka a informácie o tebe musia vyhovovať <a href='https://habitica.com/static/community-guidelines' target='_blank'>Komunitných pravidiel</a> (napr. žiadne vulgarizmy, témy len pre dospelých, urážky a pod.). Ak máš nejaké otázky ohľadom toho, či je niečo vhodné alebo nevhodné, napíš na <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
     "statsAch": "Štatistiky a odznaky",
     "profile": "Profil",
     "avatar": "Prispôsobiť avatara",
@@ -121,7 +121,7 @@
     "classAllocation": "Rozdelenie bodov na základe povolania",
     "classAllocationPop": "Pridelí viac bodov do atribútov, ktoré sú dôležité pre tvoje povolanie.",
     "taskAllocation": "Rozdelenie bodov na základe aktivity v úlohách",
-    "taskAllocationPop": "Pridelí body na základe fyzickej (sila), mentálnej (inteligencia), sociálnej (odolnosť) a iných (postreh) kategórií priradených k úlohám, ktoré dokončíš.",
+    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
     "distributePoints": "Rozdelenie nepridelených bodov",
     "distributePointsPop": "Pridelí všetky nepriradené body atribútov v závislosti od zvoleného spôsobu rozdelenia.",
     "warriorText": "Bojovníci ľahšie udelia \"kritický zásah\", ktorý náhodne dáva zlato, skúsenosti a zvyšuje šancu na získanie predmetov pri plnení úloh. Kritický zásah taktiež uštedrí silnú ranu boss monštrám. Hraj za bojovníka, ak ťa motivujú nepredvídateľné odmeny, ako keď vyhráš jackpot, alebo chceš naservírovať bossom riadne rany na výpravách!",

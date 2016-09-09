@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "שימו לב ששם התצוגה, תמונת הפרופיל, וה״חרטוט״, חייבים לעמוד ב<a href='https://habitica.com/static/community-guidelines' target='_blank'>הנחיות הקהילה</a> (למשל: איסור על גסויות, נושאים שהם למבוגרים-בלבד, העלבות, וכד׳). אם יש לכם ספק בנוגע לעמידה בכללים, הרגישו חופשיים לשלוח מייל ל<a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
     "statsAch": "תכונות והישגים",
     "profile": "פרופיל",
     "avatar": "התאם דמות",
@@ -121,7 +121,7 @@
     "classAllocation": "להקצות נקודות לפי מקצוע",
     "classAllocationPop": "מקצה יותר נקודות לתכונות שחשובות למקצוע שלך",
     "taskAllocation": "להקצות נקודות תכונה לפי המשימות שאתה מבצע",
-    "taskAllocationPop": "הקצה נקודות בהתבסס על הקטגוריות \"גופני\"(כוח), \"מחשבתי\"(תבונה), \"חברתי\"(חוסן), ו\"אחר\"(תפיסה), המקושרות למשימות שאתה מבצע.",
+    "taskAllocationPop": "הקצו נקודות בהתבסס על הקטגוריות של כוח, תבונה, חוסן, ותפיסה שקשורות למשימות שאתם משלימים.",
     "distributePoints": "הקצה נקודות שעדיין לא נוצלו",
     "distributePointsPop": "מקצה את כל נקודות התכונה שלא נוצלו לפי שיטת ההקצאה שבחרת.",
     "warriorText": "לוחמים גורמים ליותר \"פגיעות חמורות\", אשר נותנות בונוס אקראי של זהב, ניסיון או סיכוי למציאת חפץ כשמשלימים משימה. הם גם גורמים נזק רב למפלצות האויב. שחק כלוחם אם אתה אוהב למצוא פרסים גדולים ומפתיעים, או אם אתה רוצה לקרוע את אויביך לגזרים ולנגב את הרצפה עם הגופות המרוטשות שלהם!",

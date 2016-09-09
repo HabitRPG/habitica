@@ -75,8 +75,8 @@
     "shipSoothsayerSet": "船の占い師 (魔道士)",
     "strappingSailorSet": "がっしりした船乗り (治療師)",
     "reefRenegadeSet": "礁の裏切り者 (盗賊)",
-    "fallEventAvailability": "Available for purchase until October 31.",
-    "winterEventAvailability": "Available for purchase until December 31.",
-    "springEventAvailability": "Available for purchase until May 31.",
-    "summerEventAvailability": "Available for purchase until August 31."
+    "fallEventAvailability": "10月31日まで購入できます。",
+    "winterEventAvailability": "12月31日まで購入できます。",
+    "springEventAvailability": "5月31日まで購入できます。",
+    "summerEventAvailability": "8月31日まで購入できます。"
 }

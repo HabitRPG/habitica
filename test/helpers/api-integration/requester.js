@@ -33,7 +33,7 @@ function _requestMaker (user, method, additionalSets = {}) {
       let url = `http://localhost:${API_TEST_SERVER_PORT}`;
 
       // do not prefix with api/apiVersion requests to top level routes like dataexport, payments and emails
-      if (route.indexOf('/email') === 0 || route.indexOf('/export') === 0 || route.indexOf('/paypal') === 0 || route.indexOf('/amazon') === 0 || route.indexOf('/stripe') === 0) {
+      if (route.indexOf('/email') === 0 || route.indexOf('/export') === 0 || route.indexOf('/paypal') === 0 || route.indexOf('/amazon') === 0 || route.indexOf('/stripe') === 0 || route.indexOf('/qr-code') === 0) {
         url += `${route}`;
       } else {
         url += `/api/${apiVersion}${route}`;

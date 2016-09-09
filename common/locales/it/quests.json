@@ -89,7 +89,7 @@
     "questAlreadyUnderway": "La tua squadra  è già in missione. Riprova quando la missione corrente è terminata.",
     "questAlreadyAccepted": "Hai già accettato l'invito alla missione.",
     "noActiveQuestToLeave": "Nessuna missione attiva da abbandonare",
-    "questLeaderCannotLeaveQuest": "Il capo della missione non la può abbandonare",
+    "questLeaderCannotLeaveQuest": "Il Capomissione non può abbandonare la missione",
     "notPartOfQuest": "Non fai parte della missione",
     "noActiveQuestToAbort": "Non c'è una missione attiva da annullare.",
     "onlyLeaderAbortQuest": "Solo il capo del gruppo o della missione può annullare una missione",

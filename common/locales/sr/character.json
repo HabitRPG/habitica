@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
     "statsAch": "Karakteristike i odlikovanja",
     "profile": "Profil",
     "avatar": "Customize Avatar",
@@ -121,7 +121,7 @@
     "classAllocation": "Raspodela na osnovu klase",
     "classAllocationPop": "Više poena za osobine koje su bitne Vašoj klasi.",
     "taskAllocation": "Raspodela na osnovu zadataka",
-    "taskAllocationPop": "Raspodela poena na osnovu fizičkih (Snaga), umnih (Inteligencija), društvenih (Vitalnost) i drugih (opažanje) kategorija u vezi sa zadacima koje obavljate.",
+    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
     "distributePoints": "Raspodela neupotrebljenih poena",
     "distributePointsPop": "Raspodeliti sve poene u skladu sa izabranim sistemom raspodele.",
     "warriorText": "Ratnici postižu više kritičnih udaraca, koji daju više zlata, iskustva, i veće šanse za dobijanje predmeta. Efikasniji su u borbi protiv bosova. Postanite Ratnik ako Vas motivišu džekpot nagrade sa nepredvidivim iznosom, ili ako želite da se borite potiv bosova.",

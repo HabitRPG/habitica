@@ -36,13 +36,13 @@ describe('User Model', () => {
     let user = new User();
     let userToJSON = user.toJSON();
 
-    expect(userToJSON.stats.maxMP).to.not.exists;
-    expect(userToJSON.stats.maxHealth).to.not.exists;
-    expect(userToJSON.stats.toNextLevel).to.not.exists;
+    expect(userToJSON.stats.maxMP).to.not.exist;
+    expect(userToJSON.stats.maxHealth).to.not.exist;
+    expect(userToJSON.stats.toNextLevel).to.not.exist;
 
     user.addComputedStatsToJSONObj(userToJSON);
 
-    expect(userToJSON.stats.maxMP).to.exists;
+    expect(userToJSON.stats.maxMP).to.exist;
     expect(userToJSON.stats.maxHealth).to.equal(common.maxHealth);
     expect(userToJSON.stats.toNextLevel).to.equal(common.tnl(user.stats.lvl));
   });

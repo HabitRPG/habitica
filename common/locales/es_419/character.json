@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Por favor ten en cuenta que tu nombre para mostrar, foto de perfil, y resumen sobre mí deben cumplir con las <a href='https://habitica.com/static/community-guidelines' target='_blank'> Normas de la comunidad</a> (ej. ninguna blasfemia, ningún tema de adultos, ningún insulto, etc.) Si tienes alguna pregunta sobre si algo es adecuado o no, ¡no dudes en mandar un correo electrónico a <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
     "statsAch": "Estadísticas y Logros",
     "profile": "Perfil",
     "avatar": "Personalizar avatar",
@@ -121,7 +121,7 @@
     "classAllocation": "Distribuir los puntos basándose en la clase",
     "classAllocationPop": "Asignar más puntos a los atributos importantes para tu clase.",
     "taskAllocation": "Distribuir los puntos según la actividad de tus tareas",
-    "taskAllocationPop": "Asigna puntos basándose en las categorías Físicas (Fuerza), Mentales (Inteligencia), Sociales (Constitución), y Otras (Percepción) asociadas con las tareas que completas.",
+    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
     "distributePoints": "Distribuir puntos no asignados",
     "distributePointsPop": "Asigna los puntos no distribuidos según el esquema de asignación seleccionado.",
     "warriorText": "Los Guerreros consiguen más y mejores \"golpes críticos\", los cuales otorgan bonus de Oro, Experiencia y probabilidad de botín al completar una tarea. También hacen graves daños a los monstruos jefes. ¡Juega como un Guerrero si te motivan las recompensas impredecibles como al ganar la lotería o si deseas ser la fuente de daño en las Misiones!",
@@ -169,5 +169,5 @@
     "quickAllocationLevelPopover": "Con cada nivel consigues un punto para asignar a un atributo de tu elección. Lo puedes asignar manualmente o dejar que el juego decida por ti usando una de las opciones de Asignación Automática que se encuentran en Usuario -> Estadísticas.",
     "invalidAttribute": "\"<%= attr %>\" no es un atributo válido.",
     "notEnoughAttrPoints": "No tienes suficientes Puntos de Atributo.",
-    "gearNotOwned": "You do not own this item."
+    "gearNotOwned": "No tienes este objeto."
 }

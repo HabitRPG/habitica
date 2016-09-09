@@ -55,6 +55,17 @@ describe('PUT /user/auth/update-email', () => {
       await user.sync();
       expect(user.auth.local.email).to.eql(newEmail);
     });
+
+    it('rejects if email is already taken', async () => {
+      await expect(user.put(ENDPOINT, {
+        newEmail: user.auth.local.email,
+        password: oldPassword,
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('cannotFulfillReq'),
+      });
+    });
   });
 
   context('Social Login User', async () => {

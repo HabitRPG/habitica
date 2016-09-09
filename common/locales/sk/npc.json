@@ -60,7 +60,7 @@
     "classGearText": "Poprvé: Nepanikár! Svoju starú výzbroj máš v inventári. Teraz máš oblečenú učňovskú výzbroj tvojho nového povolania. Keď máš oblečenú výzbroj určenú pre tvoje povolanie, získavaš 50% bonus k štatistikám. Ak chceš, môžeš si obliecť aj svoju starú výzbroj.",
     "classStats": "Toto sú štatistiky pre tvoje povolanie; majú vplyv na hru. Zakaždým, keď získaš level, dostaneš jeden bod, ktorý si pridelíš k niektorej z vlastností. Pre viac informácií prejdi myšou ponad vlastnosť. ",
     "autoAllocate": "Automatické prideľovanie",
-    "autoAllocateText": "Ak je nastavené automatické prideľovanie, tvoj avatar získava vlastnosti na základe atribútov tvojich úloh, ktoré nájdeš v menu <strong>ÚLOHY > Upraviť > Pokročilé > Vlastnosti</strong>. Napríklad, ak chodíš často do posilňovne a tvoja denná úloha \"Posilňovňa\" má nastavený atribút \"fyzické\", automaticky získaš Silu.",
+    "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Strength', you'll gain Strength automatically.",
     "spells": "Kúzla",
     "spellsText": "Teraz môžeš odomknúť kúzla špecifické pre triedu. Prvé uvidíš na 11. leveli. Tvoja mana sa obnovuje rýchlosťou 10 bodov za deň a 1 bod za každé dokončené",
     "toDo": "Úlohy",
