@@ -141,7 +141,7 @@ api.postChat = {
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.privacy !== 'private' && user.flags.chatRevoked) {
-      throw new NotFound(res.t('chatPrivilegesRevoked'));
+      throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
     }
 
     if (group._id === TAVERN_ID && textContainsBannedWords(req.body.message)) {

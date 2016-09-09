@@ -90,8 +90,8 @@ describe('POST /members/send-private-message', () => {
       message: messageToSend,
       toUserId: receiver._id,
     })).to.eventually.be.rejected.and.eql({
-      code: 404,
-      error: 'NotFound',
+      code: 401,
+      error: 'NotAuthorized',
       message: t('chatPrivilegesRevoked'),
     });
   });
