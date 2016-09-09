@@ -46,10 +46,10 @@ describe('POST /user/auth/local/register', () => {
       });
 
       expect(user.tags).to.have.a.lengthOf(7);
-      expect(user.tasksOrder.todos).to.have.a.lengthOf(1);
+      expect(user.tasksOrder.todos).to.have.a.lengthOf(4);
       expect(user.tasksOrder.dailys).to.have.a.lengthOf(0);
-      expect(user.tasksOrder.rewards).to.have.a.lengthOf(0);
-      expect(user.tasksOrder.habits).to.have.a.lengthOf(0);
+      expect(user.tasksOrder.rewards).to.have.a.lengthOf(1);
+      expect(user.tasksOrder.habits).to.have.a.lengthOf(3);
     });
 
     it('requires password and confirmPassword to match', async () => {
