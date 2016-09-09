@@ -1283,7 +1283,7 @@ api.quests = {
     collect: {
       lightCrystal: {
         text: t('questVice2CollectLightCrystal'),
-        count: 45
+        count: 30
       }
     },
     drop: {
@@ -1351,7 +1351,7 @@ api.quests = {
     collect: {
       plainEgg: {
         text: t('questEggHuntCollectPlainEgg'),
-        count: 100
+        count: 40
       }
     },
     drop: {
@@ -1684,7 +1684,7 @@ api.quests = {
     collect: {
       moonstone: {
         text: t('questMoonstone1CollectMoonstone'),
-        count: 500
+        count: 100
       }
     },
     drop: {
@@ -1789,7 +1789,7 @@ api.quests = {
     collect: {
       testimony: {
         text: t('questGoldenknight1CollectTestimony'),
-        count: 300
+        count: 60
       }
     },
     drop: {
@@ -2230,11 +2230,11 @@ api.quests = {
     collect: {
       fireCoral: {
         text: t('questDilatoryDistress1CollectFireCoral'),
-        count: 25
+        count: 20
       },
       blueFins: {
         text: t('questDilatoryDistress1CollectBlueFins'),
-        count: 25
+        count: 20
       }
     },
     drop: {
