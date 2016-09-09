@@ -1,9 +1,9 @@
 {
   "habiticaBackSoon": "Maak je geen zorgen, Habitica is snel weer terug!",
-  "importantMaintenance": "We doen belangrijk onderhoud dat waarschijnlijk tot <%= localDate %> in jouw tijdzone zal duren.",
+  "importantMaintenance": "We zijn bezig met belangrijke onderhoud waarvan we schatten dat het tot 10 uur s'nachts Pacifische Tijd (5:00 UTC) zal duren.",
   "maintenance": "Onderhoud",
   "maintenanceMoreInfo": "Wil je meer informatie over het onderhoud? <%= linkStart %>Bekijk onze infopagina<%= linkEnd %>.",
-  "noDamageKeepStreaks": "Je zal GEEN schade ontvangen of series verliezen!",
+  "noDamageKeepStreaks": "Je zult GEEN schade ontvangen of series verliezen!",
   "thanksForPatience": "Bedankt voor je geduld!",
   "twitterMaintenanceUpdates": "Voor de meest recente updates, bekijk onze <a href='https://twitter.com/habitica'>Twitter</a>, waar we alle status informatie plaatsen",
   "veteranPetAward": "Aan het einde zul je een Veteraan dier ontvangen!",

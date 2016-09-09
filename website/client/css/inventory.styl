@@ -1,16 +1,27 @@
 .gem-wallet
   cursor: pointer
-  padding-top: 10px;
+  &.pull-right
+    margin-right: 20px
   .tile
     background-color: darken($neutral, 10%)
-  .add-gems-btn
-    opacity: 0
+    &.add-gems-btn
+      opacity: 0
   &:hover, &:focus
-    .add-gems-btn
-      opacity: 1
-      background-color: $good
     .tile
       opacity: 1
+      &.has-add-gems
+        border-top-left-radius: 0px
+        border-bottom-left-radius: 0px
+      &.add-gems-btn
+        opacity: 1
+        background-color: $good
+        border-right: 0
+        border-radius: 0px
+        border-top-left-radius: 4px
+        border-bottom-left-radius: 4px
+    text-decoration: none
+.buy-gems .gem-wallet
+  margin-right: 0px
 
 .modal-header .gem-wallet
   padding-top: 0px
@@ -28,7 +39,7 @@
 .stable .static-popover
   max-width: 550px
 
-menu.pets div 
+menu.pets div
   display: inline-block
   vertical-align: top
 

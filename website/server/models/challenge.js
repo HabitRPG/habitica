@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import Bluebird from 'bluebird';
 import validator from 'validator';
-import baseModel from '../libs/api-v3/baseModel';
+import baseModel from '../libs/baseModel';
 import _ from 'lodash';
 import * as Tasks from './task';
 import { model as User } from './user';
@@ -9,11 +9,12 @@ import {
   model as Group,
   TAVERN_ID,
 } from './group';
-import { removeFromArray } from '../libs/api-v3/collectionManipulators';
+import { removeFromArray } from '../libs/collectionManipulators';
 import shared from '../../../common';
-import { sendTxn as txnEmail } from '../libs/api-v3/email';
-import sendPushNotification from '../libs/api-v3/pushNotifications';
+import { sendTxn as txnEmail } from '../libs/email';
+import sendPushNotification from '../libs/pushNotifications';
 import cwait from 'cwait';
+import { syncableAttrs } from '../libs/taskManager';
 
 const Schema = mongoose.Schema;
 
@@ -71,15 +72,6 @@ schema.methods.canView = function canViewChallenge (user, group) {
   return this.hasAccess(user, group);
 };
 
-// Takes a Task document and return a plain object of attributes that can be synced to the user
-function _syncableAttrs (task) {
-  let t = task.toObject(); // lodash doesn't seem to like _.omit on Document
-  // only sync/compare important attrs
-  let omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt'];
-  if (t.type !== 'reward') omitAttrs.push('value');
-  return _.omit(t, omitAttrs);
-}
-
 // Sync challenge to user, including tasks and tags.
 // Used when user joins the challenge or to force sync.
 schema.methods.syncToUser = async function syncChallengeToUser (user) {
@@ -125,12 +117,12 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
     let matchingTask = _.find(userTasks, userTask => userTask.challenge.taskId === chalTask._id);
 
     if (!matchingTask) { // If the task is new, create it
-      matchingTask = new Tasks[chalTask.type](Tasks.Task.sanitize(_syncableAttrs(chalTask)));
+      matchingTask = new Tasks[chalTask.type](Tasks.Task.sanitize(syncableAttrs(chalTask)));
       matchingTask.challenge = {taskId: chalTask._id, id: challenge._id};
       matchingTask.userId = user._id;
       user.tasksOrder[`${chalTask.type}s`].push(matchingTask._id);
     } else {
-      _.merge(matchingTask, _syncableAttrs(chalTask));
+      _.merge(matchingTask, syncableAttrs(chalTask));
       // Make sure the task is in user.tasksOrder
       let orderList = user.tasksOrder[`${chalTask.type}s`];
       if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
@@ -162,7 +154,7 @@ async function _addTaskFn (challenge, tasks, memberId) {
   let toSave = [];
 
   tasks.forEach(chalTask => {
-    let userTask = new Tasks[chalTask.type](Tasks.Task.sanitize(_syncableAttrs(chalTask)));
+    let userTask = new Tasks[chalTask.type](Tasks.Task.sanitize(syncableAttrs(chalTask)));
     userTask.challenge = {taskId: chalTask._id, id: challenge._id};
     userTask.userId = memberId;
 
@@ -204,13 +196,14 @@ schema.methods.updateTask = async function challengeUpdateTask (task) {
 
   let updateCmd = {$set: {}};
 
-  let syncableAttrs = _syncableAttrs(task);
-  for (let key in syncableAttrs) {
-    updateCmd.$set[key] = syncableAttrs[key];
+  let syncableTask = syncableAttrs(task);
+  for (let key in syncableTask) {
+    updateCmd.$set[key] = syncableTask[key];
   }
 
+  let taskSchema = Tasks[task.type];
   // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
-  await Tasks.Task.update({
+  await taskSchema.update({
     userId: {$exists: true},
     'challenge.id': challenge.id,
     'challenge.taskId': task._id,
@@ -331,106 +324,5 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
 
   Bluebird.all(backgroundTasks);
 };
-
-// Methods to adapt the new schema to API v2 responses (mostly tasks inside the challenge model)
-// These will be removed once API v2 is discontinued
-
-// Get all the tasks belonging to a challenge,
-schema.methods.getTasks = function getChallengeTasks () {
-  let args = Array.from(arguments);
-  let cb;
-  let type;
-
-  if (args.length === 1) {
-    cb = args[0];
-  } else if (args.length > 1) {
-    type = args[0];
-    cb = args[1];
-  } else {
-    cb = function noop () {};
-  }
-
-  let query = {
-    userId: {
-      $exists: false,
-    },
-
-    'challenge.id': this._id,
-  };
-
-  if (type) query.type = type;
-
-  return Tasks.Task.find(query, cb); // so we can use it as a promise
-};
-
-// Given challenge and an array of tasks and one of members return an API compatible challenge + tasks obj + members
-schema.methods.addToChallenge = function addToChallenge (tasks, members) {
-  let obj = this.toJSON();
-  obj.members = members;
-
-  let tasksOrder = obj.tasksOrder; // Saving a reference because we won't return it
-
-  obj.habits = [];
-  obj.dailys = [];
-  obj.todos = [];
-  obj.rewards = [];
-
-  obj.tasksOrder = undefined;
-  let unordered = [];
-
-  tasks.forEach((task) => {
-    // We want to push the task at the same position where it's stored in tasksOrder
-    let pos = tasksOrder[`${task.type}s`].indexOf(task._id);
-    if (pos === -1) { // Should never happen, it means the lists got out of sync
-      unordered.push(task.toJSONV2());
-    } else {
-      obj[`${task.type}s`][pos] = task.toJSONV2();
-    }
-  });
-
-  // Reconcile unordered items
-  unordered.forEach((task) => {
-    obj[`${task.type}s`].push(task);
-  });
-
-  // Remove null values that can be created when inserting tasks at an index > length
-  ['habits', 'dailys', 'rewards', 'todos'].forEach((type) => {
-    obj[type] = _.compact(obj[type]);
-  });
-
-  return obj;
-};
-
-// Return the data maintaining backward compatibility
-schema.methods.getTransformedData = function getTransformedData (options) {
-  let self = this;
-
-  let cb = options.cb;
-  let populateMembers = options.populateMembers;
-
-  let queryMembers = {
-    challenges: self._id,
-  };
-
-  let selectDataMembers = '_id';
-
-  if (populateMembers) {
-    selectDataMembers += ` ${populateMembers}`;
-  }
-
-  let membersQuery = User.find(queryMembers).select(selectDataMembers);
-  if (options.limitPopulation) membersQuery.limit(15);
-
-  Bluebird.all([
-    membersQuery.exec(),
-    self.getTasks(),
-  ])
-  .then((results) => {
-    cb(null, self.addToChallenge(results[1], results[0]));
-  })
-  .catch(cb);
-};
-
-// END of API v2 methods
 
 export let model = mongoose.model('Challenge', schema);

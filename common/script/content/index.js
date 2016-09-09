@@ -408,6 +408,13 @@ api.questEggs = {
       return u.achievements.quests && (u.achievements.quests.turtle != null) > 0;
     }),
   },
+  Armadillo: {
+    text: t('questEggArmadilloText'),
+    adjective: t('questEggArmadilloAdjective'),
+    canBuy: (function(u) {
+      return u.achievements.quests && (u.achievements.quests.armadillo != null) > 0;
+    }),
+  },
 };
 
 _.each(api.questEggs, function(egg, key) {
@@ -441,6 +448,7 @@ api.specialPets = {
   'Turkey-Gilded': 'gildedTurkey',
   'MagicalBee-Base': 'magicalBee',
   'Lion-Veteran': 'veteranLion',
+  'Gryphon-RoyalPurple': 'royalPurpleGryphon',
 };
 
 api.specialMounts = {
@@ -517,25 +525,25 @@ api.premiumHatchingPotions = {
     value: 2,
     text: t('hatchingPotionSpooky'),
     limited: true,
-    canBuy: (function() {
-      return false;
-    })
+    _season: 'fall',
   },
   Peppermint: {
     value: 2,
     text: t('hatchingPotionPeppermint'),
     limited: true,
-    canBuy: (function() {
-      return false;
-    })
+    _season: 'winter',
   },
   Floral: {
     value: 2,
     text: t('hatchingPotionFloral'),
     limited: true,
-    canBuy: (function() {
-      return false;
-    }),
+    _season: 'spring',
+  },
+  Thunderstorm: {
+    value: 2,
+    text: t('hatchingPotionThunderstorm'),
+    limited: true,
+    _season: 'summer',
   },
 };
 
@@ -561,11 +569,11 @@ _.each(api.premiumHatchingPotions, function(pot, key) {
     notes: t('hatchingPotionNotes', {
       potText: pot.text
     }),
-    addlNotes: t('premiumPotionAddlNotes'),
+    _addlNotes: t(`${pot._season}EventAvailability`),
     premium: true,
     limited: false,
     canBuy: (function() {
-      return true;
+      return false;
     })
   });
 });
@@ -2787,6 +2795,38 @@ api.quests = {
       gp: 25,
       exp: 125,
       unlock: t('questTurtleUnlockText'),
+    },
+  },
+  armadillo: {
+    text: t('questArmadilloText'),
+    notes: t('questArmadilloNotes'),
+    completion: t('questArmadilloCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questArmadilloBoss'),
+      hp: 600,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Armadillo',
+          text: t('questArmadilloDropArmadilloEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Armadillo',
+          text: t('questArmadilloDropArmadilloEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Armadillo',
+          text: t('questArmadilloDropArmadilloEgg'),
+        }
+      ],
+      gp: 43,
+      exp: 350,
+      unlock: t('questArmadilloUnlockText'),
     },
   },
 };

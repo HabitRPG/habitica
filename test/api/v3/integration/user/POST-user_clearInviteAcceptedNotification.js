@@ -3,7 +3,7 @@ import {
 } from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
-describe('POST /user/clerInviteAcceptedNotification', () => {
+describe('POST /user/clearInviteAcceptedNotification', () => {
   let user;
   let groupId = generateUUID();
   let acceptedInvitationNotification = {id: groupId, groupName: 'group', invitedUsername: 'test', type: 'party'};

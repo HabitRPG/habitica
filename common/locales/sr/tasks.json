@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Obrisati završene zadatke",
-    "lotOfToDos": "Završeni zadaci automatski se odlažu u arhivu posle 3 dana. Možete ih naći u Postavke > Export.",
+    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
     "deleteToDosExplanation": "Ako kliknete na ovo dugme, svi završeni i arhivirani zadaci biće trajno obrisani. Upotrebite Export funkciju ako želite da ih sačuvate.",
     "addmultiple": "Dodaj više odjednom",
     "addsingle": "Dodaj pojedinačno",

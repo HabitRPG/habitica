@@ -72,10 +72,11 @@
     "comfortingKittySet": "Comfortin' Kitty (Doc)",
     "sneakySqueakerSet": "Sneaky Squeaker (Scallywag)",
     "sunfishWarriorSet": "Sunfish Warrior (Warrior)",
-    "shipSoothsayerSet": "Ship Soothsayer (Mage)",
-    "strappingSailorSet": "Strapping Sailor (Healer)",
-    "reefRenegadeSet": "Reef Renegade (Rogue)",
-    "fallEventAvailability": "Available 'til October 31",
-    "winterEventAvailability": "Available until December 31",
-    "springEventAvailability": "Available 'til May 31"
+    "shipSoothsayerSet": "Ship Soothsayer (Magician)",
+    "strappingSailorSet": "Strappin' Sailor (Doc)",
+    "reefRenegadeSet": "Reef Renegade (Scallywag)",
+    "fallEventAvailability": "Available for purchase until October 31.",
+    "winterEventAvailability": "Available for purchase until December 31.",
+    "springEventAvailability": "Available for purchase until May 31.",
+    "summerEventAvailability": "Available for purchase until August 31."
 }

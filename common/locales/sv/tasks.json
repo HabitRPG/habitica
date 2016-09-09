@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Borttagning slutförd",
-    "lotOfToDos": "Slutförda Att-göra sparas automatiskt efter 3 dagar. Du har tillgång till dem under Inställningar > Export.",
+    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
     "deleteToDosExplanation": "Om du klickar på knappen nedan, kommer alla dina Att-Göra uppgifter, och arkiverade Att-Göra uppgifter att bli permanent raderade. Exportera dem först om du vill behålla datan.",
     "addmultiple": "Lägg till fler",
     "addsingle": "Lägg till en",

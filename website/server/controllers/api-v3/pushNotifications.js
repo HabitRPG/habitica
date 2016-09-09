@@ -1,8 +1,8 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import { authWithHeaders } from '../../middlewares/auth';
 import {
   NotAuthorized,
   NotFound,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
 
 let api = {};
 
@@ -13,11 +13,11 @@ let api = {};
  * @apiName UserAddPushDevice
  * @apiGroup User
  *
- * @apiParam {string} regId The id of the push device
- * @apiParam {string} type The type of push device
+ * @apiParam {String} regId The id of the push device
+ * @apiParam {String} type The type of push device
  *
  * @apiSuccess {Object} data List of push devices
- * @apiSuccess {string} message Success message
+ * @apiSuccess {String} message Success message
  */
 api.addPushDevice = {
   method: 'POST',
@@ -58,10 +58,10 @@ api.addPushDevice = {
  * @apiName UserRemovePushDevice
  * @apiGroup User
  *
- * @apiParam {string} regId The id of the push device
+ * @apiParam {String} regId The id of the push device
  *
  * @apiSuccess {Object} data List of push devices
- * @apiSuccess {string} message Success message
+ * @apiSuccess {String} message Success message
  */
 api.removePushDevice = {
   method: 'DELETE',

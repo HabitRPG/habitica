@@ -175,6 +175,10 @@
   "questEggTurtleMountText": "Giant Sea Turtle",
   "questEggTurtleAdjective": "a peaceful",
 
+  "questEggArmadilloText": "Armadillo",
+  "questEggArmadilloMountText": "Armadillo",
+  "questEggArmadilloAdjective": "an armored",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
@@ -190,6 +194,7 @@
   "hatchingPotionSpooky": "Spooky",
   "hatchingPotionPeppermint": "Peppermint",
   "hatchingPotionFloral": "Floral",
+  "hatchingPotionThunderstorm": "Thunderstorm",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
   "premiumPotionAddlNotes": "Not usable on quest pet eggs.",

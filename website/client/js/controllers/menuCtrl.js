@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg')
-  .controller('MenuCtrl', ['$scope', '$rootScope', '$http', 'Chat', 'User',
-    function($scope, $rootScope, $http, Chat, User) {
+  .controller('MenuCtrl', ['$scope', '$rootScope', '$http', 'Chat', 'Content', 'User',
+    function($scope, $rootScope, $http, Chat, Content, User) {
 
       $scope.logout = function() {
         localStorage.clear();
@@ -26,6 +26,41 @@ angular.module('habitrpg')
           return noneValue;
         }
       }
+
+      $scope.hasQuestProgress = function() {
+        var user = $scope.user;
+        if (user.party.quest) {
+          var userQuest = Content.quests[user.party.quest.key];
+
+          if (!userQuest) {
+            return false;
+          }
+          if (userQuest.boss && user.party.quest.progress.up > 0) {
+            return true;
+          }
+          if (userQuest.collect && user.party.quest.progress.collectedItems > 0) {
+            return true;
+          }
+        }
+        return false;
+      };
+
+      $scope.getQuestInfo = function() {
+        var user = $scope.user;
+        var questInfo = {};
+        if (user.party.quest) {
+          var userQuest = Content.quests[user.party.quest.key];
+
+          questInfo.title = userQuest.text();
+
+          if (userQuest.boss) {
+            questInfo.body =  window.env.t('questTaskDamage', { damage: user.party.quest.progress.up.toFixed(1) });
+          } else if (userQuest.collect) {
+            questInfo.body = window.env.t('questTaskCollection', { items: user.party.quest.progress.collectedItems });
+          }
+        }
+        return questInfo;
+      };
 
       $scope.clearMessages = Chat.markChatSeen;
       $scope.clearCards = Chat.clearCards;

@@ -1,6 +1,6 @@
 {
   "habiticaBackSoon": "Ne aggódj! Habitica hamarosan visszatér.",
-  "importantMaintenance": "Fontos karbantartási munkákat végzünk, ami eltarthat körülbelül <%= localDate %>-ig a te időzónád szerint.",
+  "importantMaintenance": "We are doing important maintenance that we estimate will last until 10pm Pacific Time (5am UTC).",
   "maintenance": "Karbantartás",
   "maintenanceMoreInfo": "Szeretnél többet megtudni a karbantartásról? <%= linkStart %> Nézd meg itt. <%= linkEnd%>",
   "noDamageKeepStreaks": "NEM kapsz sebzést, és NEM veszítesz szériát!",

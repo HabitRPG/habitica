@@ -28,7 +28,6 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       }
       User.score({params:{task: task, direction:direction}});
       Analytics.updateUser();
-      Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'score task','taskType':task.type,'direction':direction});
     };
 
     function addTask(addTo, listDef, tasks) {
@@ -69,6 +68,23 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     };
 
     $scope.editTask = Tasks.editTask;
+
+    $scope.canEdit = function(task) {
+      // can't edit challenge tasks
+      return !task.challenge.id;
+    }
+
+    $scope.doubleClickTask = function (obj, task) {
+      if (obj._locked) {
+        return false;
+      }
+
+      if (task._editing) {
+        $scope.saveTask(task);
+      } else {
+        $scope.editTask(task, User.user);
+      }
+    }
 
     /**
      * Add the new task to the actions log

@@ -352,6 +352,39 @@ habitrpg.controller("InventoryCtrl",
       User.hourglassPurchase({params:{type:type,key:key}});
     };
 
+    $scope.marketShopCategories = Shared.shops.getMarketCategories(user);
+    $scope.questShopCategories = Shared.shops.getQuestShopCategories(user);
+    $scope.timeTravelersCategories = Shared.shops.getTimeTravelersCategories(user);
+    $scope.seasonalShopCategories = Shared.shops.getSeasonalShopCategories(user);
+
+    $scope.shouldShowPremiumPetRow = function (potion) {
+      potion = Content.premiumHatchingPotions[potion];
+
+      if (!potion) {
+        return false;
+      }
+      if (user.items.hatchingPotions[potion.key] > 0) {
+        return true;
+      }
+      if (potion.canBuy()) {
+        return true;
+      }
+
+      var pets = Object.keys(user.items.pets);
+      var hasAPetOfPotion = pets.find(function (pet) {
+        return pet.indexOf(potion.key) !== -1;
+      });
+
+      return hasAPetOfPotion;
+    };
+
+    $scope.shouldShowPremiumPetSection = function () {
+      var potions = Content.premiumHatchingPotions;
+      return Object.keys(potions).find(function (potion) {
+        return $scope.shouldShowPremiumPetRow(potions[potion].key);
+      });
+    };
+
     function _updateDropAnimalCount(items) {
       $scope.petCount = Shared.count.beastMasterProgress(items.pets);
       $scope.mountCount = Shared.count.mountMasterProgress(items.mounts);

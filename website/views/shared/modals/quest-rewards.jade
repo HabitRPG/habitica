@@ -5,10 +5,10 @@ script(id='partials/options.social.party.quest-rewards.html', type='text/ng-temp
     tr(ng-repeat='drop in quest.drop.items')
       td {{::drop.text()}}
     tr(ng-if='::quest.drop.exp > 0')
-      td {{::quest.drop.exp}} 
+      td {{::quest.drop.exp}}
         =env.t('experience')
     tr(ng-if='::quest.drop.gp > 0')
-      td {{::quest.drop.gp}} 
+      td {{::quest.drop.gp}}
         =env.t('gold')
     tr(ng-if='::quest.drop.unlock()')
       td {{::quest.drop.unlock()}}
