@@ -2,7 +2,7 @@ import { model as Challenge } from '../../../../../website/server/models/challen
 import { model as Group } from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
 import * as Tasks from '../../../../../website/server/models/task';
-import common from '../../../../../common/';
+import common from '../../../../../website/common/';
 import { each, find } from 'lodash';
 
 describe('Challenge Model', () => {

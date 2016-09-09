@@ -8,7 +8,7 @@ import babel from 'babelify';
 
 gulp.task('browserify', function () {
   let bundler = browserify({
-    entries: './common/browserify.js',
+    entries: './website/common/browserify.js',
     debug: true,
     transform: [[babel, { compact: false }]],
   });
@@ -27,5 +27,5 @@ gulp.task('browserify', function () {
 });
 
 gulp.task('browserify:watch', () => {
-  gulp.watch('./common/script/**/*.js', ['browserify']);
+  gulp.watch('./website/common/script/**/*.js', ['browserify']);
 });
