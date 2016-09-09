@@ -1,7 +1,7 @@
 'use strict';
 
-habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social', 'Pusher',
-    function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social, Pusher) {
+habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social','Pusher','Achievement',
+    function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social, Pusher, Achievement) {
 
       var PARTY_LOADING_MESSAGES = 4;
 
@@ -38,14 +38,14 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         if(!user.achievements.partyUp
             && $scope.group.memberCount >= 2) {
           User.set({'achievements.partyUp':true});
-          $rootScope.openModal('achievements/partyUp', {controller:'UserCtrl', size:'sm'});
+          Achievement.displayAchievement('partyUp');
         }
 
         // Checks if user's party has reached 4 players for the first time.
         if(!user.achievements.partyOn
             && $scope.group.memberCount >= 4) {
           User.set({'achievements.partyOn':true});
-          $rootScope.openModal('achievements/partyOn', {controller:'UserCtrl', size:'sm'});
+          Achievement.displayAchievement('partyOn');
         }
       }
 

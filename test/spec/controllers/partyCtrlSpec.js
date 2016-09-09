@@ -1,8 +1,7 @@
 'use strict';
 
 describe("Party Controller", function() {
-  var scope, ctrl, user, User, questsService, groups, rootScope, $controller, deferred;
-  var party;
+  var scope, ctrl, user, User, questsService, groups, achievement, rootScope, $controller, deferred, party;
 
   beforeEach(function() {
     user = specHelper.newUser(),
@@ -23,7 +22,7 @@ describe("Party Controller", function() {
       $provide.value('User', User);
     });
 
-    inject(function(_$rootScope_, _$controller_, Groups, Quests, _$q_){
+    inject(function(_$rootScope_, _$controller_, Groups, Quests, _$q_, Achievement){
 
       rootScope = _$rootScope_;
 
@@ -33,6 +32,7 @@ describe("Party Controller", function() {
 
       groups = Groups;
       questsService = Quests;
+      achievement = Achievement;
 
       // Load RootCtrl to ensure shared behaviors are loaded
       $controller('RootCtrl',  {$scope: scope, User: User});
@@ -61,7 +61,7 @@ describe("Party Controller", function() {
     };
 
     beforeEach(function() {
-      sandbox.stub(rootScope, 'openModal');
+      sandbox.stub(achievement, 'displayAchievement');
     });
 
     context('party has 1 member', function() {
@@ -71,7 +71,7 @@ describe("Party Controller", function() {
         initializeControllerWithStubbedState();
 
         expect(User.set).to.not.be.called;
-        expect(rootScope.openModal).to.not.be.called;
+        expect(achievement.displayAchievement).to.not.be.called;
       });
     });
 
@@ -87,8 +87,8 @@ describe("Party Controller", function() {
             expect(User.set).to.be.calledWith(
               { 'achievements.partyUp': true }
             );
-            expect(rootScope.openModal).to.be.calledOnce;
-            expect(rootScope.openModal).to.be.calledWith('achievements/partyUp');
+            expect(achievement.displayAchievement).to.be.calledOnce;
+            expect(achievement.displayAchievement).to.be.calledWith('partyUp');
             done();
           }, 1000);
         });
@@ -112,8 +112,8 @@ describe("Party Controller", function() {
             expect(User.set).to.be.calledWith(
               { 'achievements.partyOn': true }
             );
-            expect(rootScope.openModal).to.be.calledOnce;
-            expect(rootScope.openModal).to.be.calledWith('achievements/partyOn');
+            expect(achievement.displayAchievement).to.be.calledOnce;
+            expect(achievement.displayAchievement).to.be.calledWith('partyOn');
             done();
           }, 1000);
         });
@@ -131,9 +131,9 @@ describe("Party Controller", function() {
             expect(User.set).to.be.calledWith(
               { 'achievements.partyOn': true}
             );
-            expect(rootScope.openModal).to.have.been.called;
-            expect(rootScope.openModal).to.be.calledWith('achievements/partyUp');
-            expect(rootScope.openModal).to.be.calledWith('achievements/partyOn');
+            expect(achievement.displayAchievement).to.have.been.called;
+            expect(achievement.displayAchievement).to.be.calledWith('partyUp');
+            expect(achievement.displayAchievement).to.be.calledWith('partyOn');
             done();
           }, 1000);
         });
@@ -147,7 +147,7 @@ describe("Party Controller", function() {
           initializeControllerWithStubbedState();
 
           expect(User.set).to.not.be.called;
-          expect(rootScope.openModal).to.not.be.called;
+          expect(achievement.displayAchievement).to.not.be.called;
         });
       });
     });
