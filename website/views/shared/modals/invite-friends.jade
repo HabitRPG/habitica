@@ -12,11 +12,10 @@ script(type='text/ng-template', id='modals/invite-guild.html')
           tr(ng-repeat='user in invitees track by $index')
             td
               input.form-control(type='text', ng-model='user.uuid')
-          //- @TODO: Refactor src/controllers/groups api.invite to use promises before implimenting this
-          //- tr
-          //-   td
-          //-     a.btn.btn-xs.pull-right(ng-click='addUuid()')
-          //-       i.glyphicon.glyphicon-plus
+           tr
+            td
+              a.btn.btn-xs.pull-right(ng-click='addUuid()')
+               i.glyphicon.glyphicon-plus
           tr
             td
               .col-sm-4.col-sm-offset-8
@@ -91,11 +90,10 @@ script(type='text/ng-template', id='modals/invite-party.html')
               tr(ng-repeat='user in invitees track by $index')
                 td
                   input.form-control(type='text', ng-model='user.uuid')
-              //- @TODO: Refactor src/controllers/groups api.invite to use promises before implimenting this
-              //- tr
-              //-   td
-              //-     a.btn.btn-xs.pull-right(ng-click='addUuid()')
-              //-       i.glyphicon.glyphicon-plus
+              tr
+                td
+                  a.btn.btn-xs.pull-right(ng-click='addUuid()')
+                   i.glyphicon.glyphicon-plus
               tr
                 td
                   .col-sm-4.col-sm-offset-8
