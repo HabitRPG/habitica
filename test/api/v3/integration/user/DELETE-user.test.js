@@ -3,7 +3,6 @@ import {
   createAndPopulateGroup,
   generateGroup,
   generateUser,
-  generateHabit,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 import {
@@ -45,8 +44,12 @@ describe('DELETE /user', () => {
 
   it('deletes the user\'s tasks', async () => {
     // generates a few habits (because generateUser scrubs all tasks)
-    await generateHabit({ userId: user._id });
-    await generateHabit({ userId: user._id, text: 'Test' });
+    await user.post('/tasks/user', [
+      {type: 'habit', text: 'habit1'},
+      {type: 'habit', text: 'habit2'},
+      {type: 'habit', text: 'habit3'},
+      {type: 'todo', text: 'todo1'},
+    ]);
     await user.sync();
 
     // gets the user's tasks ids
