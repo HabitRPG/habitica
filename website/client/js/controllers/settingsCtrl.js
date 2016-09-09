@@ -64,8 +64,8 @@ habitrpg.controller('SettingsCtrl',
     }
 
     $scope.showBailey = function(){
-      var yesterday = moment(env.NEWS_DATE).subtract(1,'days').toDate();
-      User.set({'flags.newStuffSeenDate': yesterday});
+      var beforeNewsDate = moment(env.NEWS_DATE).subtract(1,'days').toDate();
+      User.set({'flags.newStuffSeenDate': beforeNewsDate});
     }
 
     $scope.dayStart = User.user.preferences.dayStart;
