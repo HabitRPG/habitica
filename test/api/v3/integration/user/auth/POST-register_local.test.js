@@ -49,7 +49,7 @@ describe('POST /user/auth/local/register', () => {
       expect(user.tasksOrder.todos).to.have.a.lengthOf(4);
       expect(user.tasksOrder.dailys).to.have.a.lengthOf(0);
       expect(user.tasksOrder.rewards).to.have.a.lengthOf(0);
-      expect(user.tasksOrder.habits).to.have.a.lengthOf(3);
+      expect(user.tasksOrder.habits).to.have.a.lengthOf(0);
     });
 
     it('requires password and confirmPassword to match', async () => {
