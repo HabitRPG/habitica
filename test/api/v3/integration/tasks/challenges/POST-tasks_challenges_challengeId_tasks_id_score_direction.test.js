@@ -129,7 +129,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       });
       await Bluebird.delay(1000);
       let updatedUser = await user.get('/user');
-      usersChallengeTaskId = updatedUser.tasksOrder.todos[0];
+      usersChallengeTaskId = updatedUser.tasksOrder.rewards[0];
     });
 
     it('does not score', async () => {
