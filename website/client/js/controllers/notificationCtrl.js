@@ -180,7 +180,8 @@ habitrpg.controller('NotificationCtrl',
     });
 
     // Show new-stuff modal on load
-    if (moment(User.user.flags.newStuffSeenDate).toDate() < moment(env.NEWS_DATE).toDate())
+    if (moment(User.user.flags.newStuffSeenDate).isBefore(env.NEWS_DATE)) {
       $rootScope.openModal('newStuff', {size:'lg'});
+    }
   }
 ]);

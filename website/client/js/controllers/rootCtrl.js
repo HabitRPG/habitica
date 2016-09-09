@@ -28,7 +28,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.$on('$stateChangeSuccess',
       function(event, toState, toParams, fromState, fromParams){
         $rootScope.pageTitle = $state.current.title;
-        
+
         if (!($state.current.name in IGNORE_SCROLL_PAGES)) {
             $window.scrollTo(0, 0);
         }
@@ -159,7 +159,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     }
 
     $rootScope.dismissAlert = function() {
-      $rootScope.set({'flags.newStuffSeenDate':moment()});
+      $rootScope.set({'flags.newStuffSeenDate':new Date()});
     }
 
     $rootScope.acceptCommunityGuidelines = function() {
