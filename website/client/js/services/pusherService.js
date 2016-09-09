@@ -144,7 +144,10 @@ angular.module('habitrpg')
             });
           }
 
-          if ($state.is('options.social.party') && document.hasFocus()) { // if we're on the party page, mark the chat as read
+          var docHasFocus = document.hasFocus();
+          var isOnPartyPage = $state.is('options.social.party');
+
+          if (isOnPartyPage && docHasFocus) { // if we're on the party page, mark the chat as read
             Chat.markChatSeen($rootScope.party._id);
           } else { // show a notification
             $rootScope.User.user.newMessages[$rootScope.party._id] = {
@@ -161,7 +164,8 @@ angular.module('habitrpg')
               });
 
               notif.addEventListener('click', function () {
-                $state.go('options.social.party');
+                if (!isOnPartyPage) $state.go('options.social.party');
+                if (!docHasFocus) Chat.markChatSeen($rootScope.party._id);
                 notif.close();
               });
             } else {
@@ -169,7 +173,8 @@ angular.module('habitrpg')
                 groupName: $rootScope.party.name,
                 authorName: chatData.user || chatData.uuid,
               }), function() {
-                $state.go('options.social.party');
+                if (!isOnPartyPage) $state.go('options.social.party');
+                if (!docHasFocus) Chat.markChatSeen($rootScope.party._id);
               });
             }
           }
