@@ -269,6 +269,22 @@ api.getChallengeMemberProgress = {
   },
 };
 
+// Throws an exception if for any reason the sender is not allowed to interact with
+// the receiver.
+function _throwUnlessInteractionAllowedBetween (sender, receiver, res) {
+  if (sender.flags.chatRevoked) {
+    throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
+  }
+
+  let userBlockedSender = receiver.inbox.blocks.indexOf(sender._id) !== -1;
+  let userIsBlockBySender = sender.inbox.blocks.indexOf(receiver._id) !== -1;
+  let userOptedOutOfMessaging = receiver.inbox.optOut;
+
+  if (userBlockedSender || userIsBlockBySender || userOptedOutOfMessaging) {
+    throw new NotAuthorized(res.t('notAuthorizedToSendMessageToThisUser'));
+  }
+}
+
 /**
  * @api {posts} /api/v3/members/send-private-message Send a private message to a member
  * @apiVersion 3.0.0
@@ -293,19 +309,10 @@ api.sendPrivateMessage = {
 
     let sender = res.locals.user;
     let message = req.body.message;
-
-    if (sender.flags.chatRevoked) throw new NotFound(res.t('chatPrivilegesRevoked'));
-
     let receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
 
-    let userBlockedSender = receiver.inbox.blocks.indexOf(sender._id) !== -1;
-    let userIsBlockBySender = sender.inbox.blocks.indexOf(receiver._id) !== -1;
-    let userOptedOutOfMessaging = receiver.inbox.optOut;
-
-    if (userBlockedSender || userIsBlockBySender || userOptedOutOfMessaging) {
-      throw new NotAuthorized(res.t('notAuthorizedToSendMessageToThisUser'));
-    }
+    _throwUnlessInteractionAllowedBetween(sender, receiver, res);
 
     await sender.sendMessage(receiver, message);
 
@@ -356,13 +363,14 @@ api.transferGems = {
     if (validationErrors) throw validationErrors;
 
     let sender = res.locals.user;
-
     let receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
 
     if (receiver._id === sender._id) {
       throw new NotAuthorized(res.t('cannotSendGemsToYourself'));
     }
+
+    _throwUnlessInteractionAllowedBetween(sender, receiver, res);
 
     let gemAmount = req.body.gemAmount;
     let amount = gemAmount / 4;

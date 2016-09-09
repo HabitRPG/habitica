@@ -42,8 +42,8 @@ describe('POST /chat', () => {
 
   it('Returns an error when chat privileges are revoked', async () => {
     await expect(userWithChatRevoked.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
-      code: 404,
-      error: 'NotFound',
+      code: 401,
+      error: 'NotAuthorized',
       message: t('chatPrivilegesRevoked'),
     });
   });

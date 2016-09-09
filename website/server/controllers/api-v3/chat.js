@@ -95,7 +95,7 @@ api.postChat = {
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party' && user.flags.chatRevoked) {
-      throw new NotFound(res.t('chatPrivilegesRevoked'));
+      throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
     }
 
     let lastClientMsg = req.query.previousMsg;
