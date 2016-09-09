@@ -64,8 +64,8 @@ describe('POST /user/auth/local/register', () => {
         confirmPassword: password,
       });
 
-      expect(user.ABtest).to.exist;
-      expect(user.ABtest).to.be.a('string');
+      expect(user._ABtest).to.exist;
+      expect(user._ABtest).to.be.a('string');
     });
 
     it('requires password and confirmPassword to match', async () => {

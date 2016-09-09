@@ -133,9 +133,9 @@ api.registerLocal = {
     // A/B Test 2016-09-12: Start with Sound Enabled?
     if (Math.random() < 0.5) {
       newUser.preferences.sound = 'rosstavoTheme';
-      newUser.ABtest = '20160912-soundEnabled';
+      newUser._ABtest = '20160912-soundEnabled';
     } else {
-      newUser.ABtest = '20160912-soundDisabled';
+      newUser._ABtest = '20160912-soundDisabled';
     }
 
     // we check for partyInvite for backward compatibility

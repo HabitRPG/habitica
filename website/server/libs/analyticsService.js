@@ -85,8 +85,8 @@ let _formatUserData = (user) => {
     properties.subscription = user.purchased.plan.planId;
   }
 
-  if (user.ABtest) {
-    properties.ABtest = user.ABtest;
+  if (user._ABtest) {
+    properties.ABtest = user._ABtest;
   }
 
   return properties;
