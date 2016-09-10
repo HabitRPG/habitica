@@ -6,7 +6,7 @@ mixin mountList(eggSource, potionSource)
           menu
             each potion in potionSource
               - mount = egg.key+"-"+potion.key
-              div(popover-trigger='mouseenter', popover=env.t('mountName', {potion: potion.text(env.language.code), mount: egg.mountText(env.language.code)}), popover-placement='bottom')
+              div(popover-trigger='mouseenter', popover=env.t('mountName', {potion: potion.text, mount: egg.mountText}), popover-placement='bottom')
                 button(class="pet-button Mount_Icon_#{mount}", ng-show='user.items.mounts["#{mount}"]', ng-class='{active: user.items.currentMount == "#{mount}"}', ng-click='chooseMount("#{egg.key}", "#{potion.key}")')
                 button(class="pet-button mount-not-owned", ng-if='!user.items.mounts["#{mount}"] && (#{potion.canBuy()} || user.items.hatchingPotions["#{potion.key}"] || user.items.pets["#{mount}"])')
                   .PixelPaw
@@ -33,7 +33,7 @@ mixin mountList(eggSource, potionSource)
           menu
             each egg in env.Content.dropEggs
               - mount = egg.key+"-"+potion.key
-              div(popover-trigger='mouseenter', popover=env.t('mountName', {potion: potion.text(env.language.code), mount: egg.mountText(env.language.code)}), popover-placement='bottom')
+              div(popover-trigger='mouseenter', popover=env.t('mountName', {potion: potion.text, mount: egg.mountText}), popover-placement='bottom')
                 button(class="pet-button Mount_Icon_#{mount}", ng-show='user.items.mounts["#{mount}"]', ng-class='{active: user.items.currentMount == "#{mount}"}', ng-click='chooseMount("#{egg.key}", "#{potion.key}")')
                 button(class="pet-button mount-not-owned", ng-if='!user.items.mounts["#{mount}"] && (#{potion.canBuy()} || user.items.hatchingPotions["#{potion.key}"] || user.items.pets["#{mount}"])')
                   .PixelPaw

@@ -5,7 +5,7 @@ mixin petList(eggSource, potionSource)
         menu
           each potion in potionSource
             - pet = egg.key+"-"+potion.key
-            div(popover-trigger='mouseenter', popover=env.t('petName', {potion: potion.text(env.language.code), egg: egg.text(env.language.code)}), popover-placement='bottom')
+            div(popover-trigger='mouseenter', popover=env.t('petName', {potion: potion.text, egg: egg.text}), popover-placement='bottom')
               button(class="pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0', ng-class='{active: user.items.currentPet == "#{pet}", selectableInventory: #{!egg.noMount} && selectedFood && !user.items.mounts["#{pet}"]}', ng-click='choosePet("#{egg.key}", "#{potion.key}")')
                 .progress(ng-show='!user.items.mounts["#{pet}"]')
                   .progress-bar.progress-bar-success(ng-style='{width: user.items.pets["#{pet}"]/.5 + "%"}')
@@ -33,7 +33,7 @@ mixin petList(eggSource, potionSource)
           menu
             each egg in env.Content.dropEggs
               - pet = egg.key+"-"+potion.key
-              div(popover-trigger='mouseenter', popover=env.t('petName', {potion: potion.text(env.language.code), egg: egg.text(env.language.code)}), popover-placement='bottom')
+              div(popover-trigger='mouseenter', popover=env.t('petName', {potion: potion.text, egg: egg.text}), popover-placement='bottom')
                 button(class="pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0', ng-class='{active: user.items.currentPet == "#{pet}", selectableInventory: #{!egg.noMount} && selectedFood && !user.items.mounts["#{pet}"]}', ng-click='choosePet("#{egg.key}", "#{potion.key}")')
                   .progress(ng-show='!user.items.mounts["#{pet}"]')
                     .progress-bar.progress-bar-success(ng-style='{width: user.items.pets["#{pet}"]/.5 + "%"}')
