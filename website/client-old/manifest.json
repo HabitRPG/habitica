@@ -124,7 +124,10 @@
             "bower_components/pnotify/jquery.pnotify.default.icons.css",
             "css/habitrpg-shared.css",
             "bower_components/bootstrap-tour/build/css/bootstrap-tour.css",
-            "fontello/css/fontelico.css"
+            "fontello/css/fontelico.css",
+            "bower_components/jquery-ui/themes/base/minified/jquery.ui.autocomplete.min.css",
+            "bower_components/jquery-ui/themes/base/minified/jquery.ui.menu.min.css",
+            "bower_components/jquery-ui/themes/ui-lightness/jquery-ui.min.css"
         ]
     },
     "static": {
