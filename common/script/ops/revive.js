@@ -1,6 +1,7 @@
 import content from '../content/index';
 import i18n from '../i18n';
 import _ from 'lodash';
+import _predictableRandom from '../fns/predictableRandom';
 import {
   NotAuthorized,
 } from '../libs/errors';
@@ -26,7 +27,7 @@ module.exports = function revive (user, req = {}, analytics) {
       m[k] = k;
     }
     return m;
-  }, {}));
+  }, {}, _predictableRandom));
 
   if (lostStat) {
     user.stats[lostStat]--;
@@ -68,7 +69,7 @@ module.exports = function revive (user, req = {}, analytics) {
     }
   });
 
-  let lostItem = randomVal(user, losableItems);
+  let lostItem = randomVal(user, losableItems, {}, _predictableRandom);
 
   let message = '';
   let item = content.gear.flat[lostItem];
