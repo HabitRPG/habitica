@@ -5,7 +5,7 @@ import {
   expectValidTranslationString,
 } from '../helpers/content.helper';
 
-import hatchingPotions from '../../common/script/content/hatching-potions';
+import hatchingPotions from '../../website/common/script/content/hatching-potions';
 
 describe('hatchingPotions', ()  => {
   describe('all', ()  => {
