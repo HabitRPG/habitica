@@ -253,7 +253,6 @@ api.wrap = function wrapUser (user, main = true) {
 
   if (main) {
     user.ops = {
-      update: _.partial(importedOps.update, user),
       sleep: _.partial(importedOps.sleep, user),
       revive: _.partial(importedOps.revive, user),
       reset: _.partial(importedOps.reset, user),
@@ -266,8 +265,6 @@ api.wrap = function wrapUser (user, main = true) {
       addTask: _.partial(importedOps.addTask, user),
       addTag: _.partial(importedOps.addTag, user),
       sortTag: _.partial(importedOps.sortTag, user),
-      getTags: _.partial(importedOps.getTags, user),
-      getTag: _.partial(importedOps.getTag, user),
       updateTag: _.partial(importedOps.updateTag, user),
       deleteTag: _.partial(importedOps.deleteTag, user),
       addWebhook: _.partial(importedOps.addWebhook, user),

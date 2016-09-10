@@ -33,12 +33,8 @@ module.exports = function releaseMounts (user, req = {}, analytics) {
     });
   }
 
-  if (req.v2 === true) {
-    return user;
-  } else {
-    return [
-      user.items.mounts,
-      i18n.t('mountsReleased'),
-    ];
-  }
+  return [
+    user.items.mounts,
+    i18n.t('mountsReleased'),
+  ];
 };

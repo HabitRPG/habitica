@@ -11,6 +11,10 @@ describe('analyticsService', () => {
     sandbox.stub(Visitor.prototype, 'transaction');
   });
 
+  afterEach(() => {
+    sandbox.restore();
+  });
+
   describe('#track', () => {
     let eventType, data;
 

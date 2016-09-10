@@ -1,4 +1,3 @@
-import update from './update';
 import sleep from './sleep';
 import revive from './revive';
 import reset from './reset';
@@ -11,8 +10,6 @@ import deleteTask from './deleteTask';
 import addTask from './addTask';
 import addTag from './addTag';
 import sortTag from './sortTag';
-import getTags from './getTags';
-import getTag from './getTag';
 import updateTag from './updateTag';
 import deleteTag from './deleteTag';
 import addWebhook from './addWebhook';
@@ -47,7 +44,6 @@ import scoreTask from './scoreTask';
 import markPmsRead from './markPMSRead';
 
 module.exports = {
-  update,
   sleep,
   revive,
   reset,
@@ -60,8 +56,6 @@ module.exports = {
   addTask,
   addTag,
   sortTag,
-  getTags,
-  getTag,
   updateTag,
   deleteTag,
   addWebhook,
