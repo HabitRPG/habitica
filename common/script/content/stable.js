@@ -49,7 +49,7 @@ function constructSet (type, eggs, potions) {
   return [pets, mounts];
 }
 
-let [pets, mounts] = constructSet('drop', dropEggs, dropPotions);
+let [dropPets, dropMounts] = constructSet('drop', dropEggs, dropPotions);
 let [premiumPets, premiumMounts] = constructSet('premium', dropEggs, premiumPotions);
 let [questPets, questMounts] = constructSet('quest', questEggs, dropPotions);
 
@@ -100,10 +100,10 @@ each(specialMounts, (translationString, key) => {
 });
 
 module.exports = {
-  pets,
+  dropPets,
   premiumPets,
   questPets,
-  mounts,
+  dropMounts,
   questMounts,
   premiumMounts,
   specialPets,
