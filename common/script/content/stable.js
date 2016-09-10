@@ -26,8 +26,8 @@ function constructSet (type, eggs, potions) {
         return {
           key,
           type,
-          potion,
-          egg,
+          potion: potion.key,
+          egg: egg.key,
           text,
         };
       }
