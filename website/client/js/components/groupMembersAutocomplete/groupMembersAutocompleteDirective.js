@@ -31,6 +31,8 @@
 
           var taggle = new Taggle('taggle', {
             tags: currentTags,
+            allowedTags: currentTags,
+            allowDuplicates: false,
             onBeforeTagAdd: function(event, tag) {
               return confirm('You really wanna add ' + tag + '?');
             },
