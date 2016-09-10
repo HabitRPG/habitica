@@ -23,8 +23,8 @@ describe('POST /user/feed/:pet/:food', () => {
 
     let food = content.food.Milk;
     let [egg, potion] = 'Wolf-Base'.split('-');
-    let potionText = content.hatchingPotions[potion] ? content.hatchingPotions[potion].text() : potion;
-    let eggText = content.eggs[egg] ? content.eggs[egg].text() : egg;
+    potion = content.hatchingPotions[potion];
+    egg = content.eggs[egg];
 
     let res = await user.post('/user/feed/Wolf-Base/Milk');
     await user.sync();
@@ -32,8 +32,8 @@ describe('POST /user/feed/:pet/:food', () => {
       data: user.items.pets['Wolf-Base'],
       message: t('messageDontEnjoyFood', {
         egg: t('petName', {
-          potion: potionText,
-          egg: eggText,
+          potion: potion.text,
+          egg: egg.text,
         }),
         foodText: food.text(),
       }),

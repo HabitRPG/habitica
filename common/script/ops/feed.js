@@ -43,12 +43,12 @@ module.exports = function feed (user, req = {}) {
 
   let [egg, potion] = pet.split('-');
 
-  let potionText = content.hatchingPotions[potion] ? content.hatchingPotions[potion].text(req.language) : potion;
-  let eggText = content.eggs[egg] ? content.eggs[egg].text(req.language) : egg;
+  potion = content.hatchingPotions[potion];
+  egg = content.eggs[egg];
 
   let petDisplayName = i18n.t('petName', {
-    potion: potionText,
-    egg: eggText,
+    potion: potion.text,
+    egg: egg.text,
   }, req.language);
 
   if (!user.items.food[food.key]) {
@@ -68,7 +68,7 @@ module.exports = function feed (user, req = {}) {
   if (food.key === 'Saddle') {
     message = evolve(user, pet, petDisplayName, req);
   } else {
-    if (food.target === potion || content.hatchingPotions[potion].premium) {
+    if (food.target === potion.key || potion.premium) {
       userPets[pet] += 5;
       message = i18n.t('messageLikesFood', {
         egg: petDisplayName,
