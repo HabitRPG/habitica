@@ -45,6 +45,7 @@
     "chat": "Chat",
     "sendChat": "Send Besked",
     "toolTipMsg": "Hent Nye Beskeder",
+    "syncPartyAndChat": "Sync Party and Chat",
     "guildBankPop1": "Klanbank",
     "guildBankPop2": "Ædelsten som din klanleder kan bruge til udfordringspræmier.",
     "guildGems": "Klanens Ædelsten",
@@ -138,6 +139,7 @@
     "inviteNewUsers": "Invitér Nye Brugere",
     "sendInvitations": "Send Invitationer",
     "invitationsSent": "Invitationer sendt!",
+    "invitationSent": "Invitation sent!",
     "inviteAlertInfo2": "Eller del dette link (kopier/indsæt):",
     "sendGiftHeading": "Send Gave til <%= name %>",
     "sendGiftGemsBalance": "Fra <%= number %> Ædelsten",
@@ -191,5 +193,9 @@
     "uuidsMustBeAnArray": "User ID invites must be an array.",
     "emailsMustBeAnArray": "Email address invites must be an array.",
     "canOnlyInviteMaxInvites": "You can only invite \"<%= maxInvites %>\" at a time",
-    "onlyCreatorOrAdminCanDeleteChat": "Not authorized to delete this message!"
+    "onlyCreatorOrAdminCanDeleteChat": "Not authorized to delete this message!",
+    "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
+    "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
+    "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
+    "newChatMessageTitle": "New message in <%= groupName %>"
 }

@@ -68,6 +68,7 @@
     "APIv3": "API v. 3",
     "APIText": "Copie esto para usarlo en aplicaciones de terceros. Sin embargo, pensá en tu API Token como una contraseña, no la compartas en público. En ocasiones se te solicitará tu ID de Usuario, pero nunca publiques tu API Token donde otros puedan verla, incluyendo Github.",
     "APIToken": "API Token (esto es una contraseña - mira la advertencia de arriba!)",
+    "APITokenWarning": "If you need a new API Token (e.g., if you accidentally shared it), email <a href='mailto:admin@habitica.com'>admin@habitica.com</a> with your User ID and current Token. Once it is reset you will need to re-authorize everything by logging out of the website and mobile app and by providing the new Token to any other Habitica tools that you use.",
     "thirdPartyApps": "Aplicaciones de terceros",
     "dataToolDesc": "Una página que te muestra determinada información de tu cuenta de Habitica, como estadísticas sobre tus tareas, tu equipo o tus habilidades.",
     "beeminder": "Beeminder",

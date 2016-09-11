@@ -68,6 +68,7 @@
     "APIv3": "API v3",
     "APIText": "Másold ki ezt, külső alkalmazások használatához. Egyébiránt úgy gondolj az API Kulcsodra, mint egy jelszóra és ne oszd meg senkivel nyilvánosan. Előfordulhat, hogy a felhasználói azonosítódat kérik, de soha ne írd be sehova az API Kulcsodat, ahol mások esetleg láthatják, még a Githubra se.",
     "APIToken": "API Kulcs (ez egy jelszó - lásd a figyelmeztetést lejjebb)",
+    "APITokenWarning": "If you need a new API Token (e.g., if you accidentally shared it), email <a href='mailto:admin@habitica.com'>admin@habitica.com</a> with your User ID and current Token. Once it is reset you will need to re-authorize everything by logging out of the website and mobile app and by providing the new Token to any other Habitica tools that you use.",
     "thirdPartyApps": "Harmadik féltől származó alkalmazások",
     "dataToolDesc": "A webpage that shows you certain information from your Habitica account, such as statistics about your tasks, equipment, and skills.",
     "beeminder": "Beeminder",

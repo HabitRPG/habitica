@@ -9,7 +9,11 @@
     "defaultTodo1Text": "Habiticaに参加する(チェックして完了しましょう！)",
     "defaultReward1Text": "15分間の休憩",
     "defaultReward1Notes": "自分で「ごほうび」にするものは様々です。例えば、ゴールドを支払わなければ、好きなテレビ番組を見られないようにしている人もいます。",
-    "defaultTag1": "朝",
-    "defaultTag2": "昼",
-    "defaultTag3": "夜"
+    "defaultTag1": "仕事",
+    "defaultTag2": "運動",
+    "defaultTag3": "健康・フィットネス",
+    "defaultTag4": "学校",
+    "defaultTag5": "チーム",
+    "defaultTag6": "家事",
+    "defaultTag7": "クリエイティブ"
 }

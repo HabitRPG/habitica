@@ -180,5 +180,8 @@
     "raisePetShare": "Moje zvieratko vyrástlo v tátoše vďaka plneniu úloh v reálnom živote!",
     "wonChallengeShare": "Vyhral som výzvu v Habitike!",
     "achievementShare": "Získal som nový odznak v Habitike!",
-    "orderBy": "Zoradiť podľa <%= item %>"
+    "orderBy": "Zoradiť podľa <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

@@ -13,13 +13,14 @@ angular.module('habitrpg')
       var isUserAvailable = $rootScope.appLoaded === true;
       var hasUserV = response.data && response.data.userV;
       var isNotSync = response.config.url.indexOf('/api/v3/user') !== 0 || response.config.method !== 'GET';
+      var isNotMarkChatSeen = response.config.url.indexOf('/chat/seen') === -1; // exclude chat seen requests because with real time chat they would be too many
 
       if (isApiCall && isUserAvailable && hasUserV) {
         var oldUserV = $rootScope.User.user._v;
         $rootScope.User.user._v = response.data.userV;
 
         // Something has changed on the user object that was not tracked here, sync the user
-        if (isNotSync && ($rootScope.User.user._v - oldUserV) > 1) {
+        if (isNotMarkChatSeen && isNotSync && ($rootScope.User.user._v - oldUserV) > 1) {
           $rootScope.User.sync();
         }
       }

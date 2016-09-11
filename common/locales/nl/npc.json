@@ -60,7 +60,7 @@
     "classGearText": "Allereerst: geen paniek! Je oude uitrusting zit in je boedel en je draagt nu de leerlinguitrusting van je nieuwe klasse. Je klasse-uitrusting dragen geeft je een bonus van 50% op je eigenschappen. Voel je echter vrij om je oude uitrusting weer aan te trekken.",
     "classStats": "Dit zijn je klasse-eigenschappen; ze beïnvloeden het spel. Elke keer als je een niveau stijgt, krijg je één punt om aan een bepaalde eigenschap toe te wijzen. Plaats je muis op iedere eigenschap voor meer informatie.",
     "autoAllocate": "Automatische verdeling",
-    "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Strength', you'll gain Strength automatically.",
+    "autoAllocateText": "Als 'automatisch toewijzen' aangevinkt is zal je avatar automatisch eigenschapspunten toegewezen krijgen afhankelijk van de eigenschappen van je taken. Die kan je vinden in <strong>TAAK > Bewerken > Geavanceerd > Eigenschappen</strong>. Als je bijvoorbeeld vaak naar de fitness gaat en je dagelijkse 'Fitness' taak is ingesteld op 'Kracht', dan krijg je automatisch Kracht.",
     "spells": "Spreuken",
     "spellsText": "Vanaf nu kun je klassespecifieke spreuken vrijspelen. Je krijgt je eerste spreuk als je niveau 11 bereikt. Je mana herstelt zich met 10 punten per dag, plus 1 punt per voltooide",
     "toDo": "To-do",

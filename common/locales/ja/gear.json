@@ -121,7 +121,7 @@
     "weaponSpecialSpring2015RogueText": "爆発するピヨピヨ",
     "weaponSpecialSpring2015RogueNotes": "この音にだまされないで。この爆発は強打を与えます。力が <%= str %> 上がります。2015年春の限定装備。",
     "weaponSpecialSpring2015WarriorText": "骨のこん棒",
-    "weaponSpecialSpring2015WarriorNotes": "本物の骨でできたこん棒であり、犬たちを本当にこわがらせ、犬がかんで喜ぶおもちゃではありません。期間限定の魔女が「だれがいいコちゃん?　だ～れ～が～いいコ・な・の?………お前よ!!!」って、あなたにくれたものです。力が <%= str %> 上がります。2015年春の限定装備。",
+    "weaponSpecialSpring2015WarriorNotes": "本物の骨でできたこん棒であり、犬たちを本当にこわがらせ、犬がかんで喜ぶおもちゃではありません。季節の魔女が「だれがいいコちゃん?　だ～れ～が～いいコ・な・の?………お前よ!!!」って、あなたにくれたものです。力が <%= str %> 上がります。2015年春の限定装備。",
     "weaponSpecialSpring2015MageText": "手品師のつえ",
     "weaponSpecialSpring2015MageNotes": "このかわいいつえで、自分のためにニンジンを召喚しましょう。知能が <%= int %> 、知覚が <%= per %> 上がります。2015年春の限定装備。",
     "weaponSpecialSpring2015HealerText": "猫のがらがら",

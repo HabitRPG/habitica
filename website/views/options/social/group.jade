@@ -69,6 +69,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
         .panel-heading
           h3.panel-title
             =env.t('members')
+            span(ng-if='group.type=="party"')= ' (' + env.t('onlineCount', {count: "{{group.onlineUsers}}"}) + ')'
             button.pull-right.btn.btn-primary(ng-click="openInviteModal(group)")=env.t("inviteFriends")
 
         .panel-body.modal-fixed-height
@@ -84,7 +85,9 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                   span(ng-click='clickMember(member._id, true)')
                       | {{member.profile.name}}
                     span(ng-if='group.type === "party"')
-                      |  (#[strong {{member.stats.hp.toFixed(1)}}] #{env.t('hp')})
+                      |  (#[strong {{member.stats.hp.toFixed(1)}}] #{env.t('hp')}) {{member.id === user.id ? ' (' + env.t('you') + ') ' : ''}}
+                .pull-right(ng-if='group.type === "party"')
+                  span.text-success {{member.online ? '&#9679 ' + env.t('online') : ''}}
             tr(ng-if='::group.memberCount > group.members.length')
               td
                 span.badge {{group.memberCount - group.members.length}}

@@ -45,6 +45,7 @@
     "chat": "チャット",
     "sendChat": "チャット送信",
     "toolTipMsg": "最新のメッセージを取得する",
+    "syncPartyAndChat": "Sync Party and Chat",
     "guildBankPop1": "ギルド口座",
     "guildBankPop2": "ギルドリーダーがチャレンジの賞金として使えるジェム。",
     "guildGems": "ジェム ( ギルド所有 )",
@@ -138,6 +139,7 @@
     "inviteNewUsers": "Habitica をつかってない人を招待する",
     "sendInvitations": "招待状を送る",
     "invitationsSent": "招待状を送りました!",
+    "invitationSent": "Invitation sent!",
     "inviteAlertInfo2": "もしくはこのリンクを共有する(コピー/ペースト):",
     "sendGiftHeading": "<%= name %>に贈り物を送る",
     "sendGiftGemsBalance": "<%= number %>個のジェムから",
@@ -191,5 +193,9 @@
     "uuidsMustBeAnArray": "ユーザーID を正確に入力してください。",
     "emailsMustBeAnArray": "メールアドレスを正確に入力してください。",
     "canOnlyInviteMaxInvites": "一度に招待できるのは、<%= maxInvites %>人までです。",
-    "onlyCreatorOrAdminCanDeleteChat": "このメッセージを削除する権限がありません。"
+    "onlyCreatorOrAdminCanDeleteChat": "このメッセージを削除する権限がありません。",
+    "onlyGroupLeaderCanEditTasks": "タスクを管理する権限がありません。",
+    "onlyGroupTasksCanBeAssigned": "グループのタスクのみ、割り当てできます",
+    "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
+    "newChatMessageTitle": "New message in <%= groupName %>"
 }
