@@ -26,19 +26,19 @@ function constructSet (type, eggs, potions) {
         return {
           key,
           type,
-          potion,
-          egg,
+          potion: potion.key,
+          egg: egg.key,
           text,
         };
       }
 
       petInfo[key] = getAnimalData(t('petName', {
-        potion: potion.text(),
-        egg: egg.text(),
+        potion: potion.text,
+        egg: egg.text,
       }));
       mountInfo[key] = getAnimalData(t('mountName', {
-        potion: potion.text(),
-        mount: egg.mountText(),
+        potion: potion.text,
+        mount: egg.mountText,
       }));
 
       pets[key] = true;

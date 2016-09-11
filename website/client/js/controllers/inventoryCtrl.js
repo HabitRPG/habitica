@@ -180,11 +180,8 @@ habitrpg.controller("InventoryCtrl",
     }
 
     $scope.choosePet = function(egg, potion){
-      var petDisplayName = env.t('petName', {
-          potion: Content.hatchingPotions[potion] ? Content.hatchingPotions[potion].text() : potion,
-          egg: Content.eggs[egg] ? Content.eggs[egg].text() : egg
-        }),
-        pet = egg + '-' + potion;
+      var pet = Content.petInfo[egg + '-' + potion];
+      var petDisplayName = pet.text();
 
       // Feeding Pet
       if ($scope.selectedFood) {
@@ -195,14 +192,14 @@ habitrpg.controller("InventoryCtrl",
         } else if (!$window.confirm(window.env.t('feedPet', {name: petDisplayName, article: food.article, text: food.text()}))) {
           return;
         }
-        User.feed({params:{pet: pet, food: food.key}});
+        User.feed({params:{pet: pet.key, food: food.key}});
         $scope.selectedFood = null;
 
         _updateDropAnimalCount(user.items);
         if ($rootScope.countExists(user.items.mounts) > startingMounts && !user.preferences.suppressModals.raisePet) {
           $scope.raisedPet = {
             displayName: petDisplayName,
-            spriteName: pet,
+            spriteName: pet.key,
             egg: egg,
             potion: potion
           }
@@ -221,7 +218,7 @@ habitrpg.controller("InventoryCtrl",
 
       // Selecting Pet
       } else {
-        User.equip({params:{type: 'pet', key: pet}});
+        User.equip({params:{type: 'pet', key: pet.key}});
       }
     }
 
