@@ -20,6 +20,49 @@ schema.methods.getGroups = function getUserGroups () {
   return userGroups;
 };
 
+// Get an array of error message keys that would be thrown if the given interaction was attempted
+schema.methods.getObjectionsToInteractionIfAny = function getObjectionsToInteractionIfAny (interaction, receiver) {
+  let sender = this;
+
+  /* eslint-disable no-unused-vars */
+  let checks = {
+    always: [
+      // Revoked chat privileges block all interactions to prevent the evading of harassment protections
+      // See issue #7971 for some discussion
+      (sndr, rcvr) => sndr.flags.chatRevoked && 'chatPrivilegesRevoked',
+
+      // Direct user blocks prevent all interactions
+      (sndr, rcvr) => rcvr.inbox.blocks.includes(sndr._id) && 'notAuthorizedToSendMessageToThisUser',
+      (sndr, rcvr) => sndr.inbox.blocks.includes(rcvr._id) && 'notAuthorizedToSendMessageToThisUser',
+    ],
+
+    'send-private-message': [
+      // Private messaging has an opt-out, which does not affect other interactions
+      (sndr, rcvr) => rcvr.inbox.optOut && 'notAuthorizedToSendMessageToThisUser',
+
+      // NB: We allow a player to message themselves so they can test how PMs work or send their own notes to themselves
+    ],
+
+    'transfer-gems': [
+      // Unlike private messages, gems can't be sent to oneself
+      (sndr, rcvr) => rcvr._id === sndr._id && 'cannotSendGemsToYourself',
+    ],
+  };
+  /* eslint-enable no-unused-vars */
+
+  let knownInteractions = Object.keys(checks).filter((k) => k !== 'always');
+
+  if (!knownInteractions.includes(interaction)) {
+    throw new Error(`Unknown kind of interaction: "${interaction}", expected one of ${knownInteractions.join(', ')}`);
+  }
+
+  let checksToRun = checks.always.concat(checks[interaction]);
+  let results = checksToRun.map((test) => test(sender, receiver));
+  let objections = results.filter((objection) => Boolean(objection));
+
+  return objections;
+};
+
 schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, message) {
   let sender = this;
 

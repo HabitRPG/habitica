@@ -87,21 +87,6 @@ describe('POST /members/transfer-gems', () => {
     });
   });
 
-  it('returns error when to user has opted out of messaging', async () => {
-    // FIXME: Not sure this is wanted
-    let receiverOptOut = await generateUser({'inbox.optOut': true});
-
-    await expect(userToSendMessage.post('/members/transfer-gems', {
-      message,
-      gemAmount,
-      toUserId: receiverOptOut._id,
-    })).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
-      message: t('notAuthorizedToSendMessageToThisUser'),
-    });
-  });
-
   it('returns an error when chat privileges are revoked', async () => {
     let userWithChatRevoked = await generateUser({'flags.chatRevoked': true});
 

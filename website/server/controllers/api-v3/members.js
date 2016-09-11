@@ -269,21 +269,43 @@ api.getChallengeMemberProgress = {
   },
 };
 
-// Throws an exception if for any reason the sender is not allowed to interact with
-// the receiver.
-function _throwUnlessInteractionAllowedBetween (sender, receiver, res) {
-  if (sender.flags.chatRevoked) {
-    throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
-  }
+/**
+ * @api {get} /api/v3/members/:toUserId/objections-to/:interaction Get the message of any errors that would occur if the given interaction was attempted
+ * @apiVersion 3.0.0
+ * @apiName GetObjectionsToInteractionIfAny
+ * @apiGroup Member
+ *
+ * @apiParam {UUID} toUserId The user to interact with
+ * @apiParam {String} interaction Name of the interaction to query, e.g. "send-private-message"
+ *
+ * @apiSuccess {Array} data Return an array of error messages, if the interaction would be blocked; otherwise an empty array
+ */
+api.getObjectionsToInteractionIfAny = {
+  method: 'GET',
+  url: '/members/:toUserId/objections-to/:interaction',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    req.checkParams('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();
+    req.checkParams('interaction', res.t('interactionRequired')).notEmpty();
 
-  let userBlockedSender = receiver.inbox.blocks.indexOf(sender._id) !== -1;
-  let userIsBlockBySender = sender.inbox.blocks.indexOf(receiver._id) !== -1;
-  let userOptedOutOfMessaging = receiver.inbox.optOut;
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
 
-  if (userBlockedSender || userIsBlockBySender || userOptedOutOfMessaging) {
-    throw new NotAuthorized(res.t('notAuthorizedToSendMessageToThisUser'));
-  }
-}
+    let sender = res.locals.user;
+    let receiver = await User.findById(req.params.toUserId).exec();
+    if (!receiver) throw new NotFound(res.t('userWithIDNotFound', {userId: req.params.toUserId}));
+
+    let response;
+
+    try {
+      response = sender.getObjectionsToInteractionIfAny(req.params.interaction, receiver);
+    } catch (e) {
+      throw new NotFound(e.message);
+    }
+
+    res.respond(200, response.map(res.t));
+  },
+};
 
 /**
  * @api {posts} /api/v3/members/send-private-message Send a private message to a member
@@ -312,7 +334,8 @@ api.sendPrivateMessage = {
     let receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
 
-    _throwUnlessInteractionAllowedBetween(sender, receiver, res);
+    let objections = sender.getObjectionsToInteractionIfAny('send-private-message', receiver);
+    if (objections.length > 0) throw new NotAuthorized(res.t(objections[0]));
 
     await sender.sendMessage(receiver, message);
 
@@ -366,11 +389,8 @@ api.transferGems = {
     let receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
 
-    if (receiver._id === sender._id) {
-      throw new NotAuthorized(res.t('cannotSendGemsToYourself'));
-    }
-
-    _throwUnlessInteractionAllowedBetween(sender, receiver, res);
+    let objections = sender.getObjectionsToInteractionIfAny('transfer-gems', receiver);
+    if (objections.length > 0) throw new NotAuthorized(res.t(objections[0]));
 
     let gemAmount = req.body.gemAmount;
     let amount = gemAmount / 4;
