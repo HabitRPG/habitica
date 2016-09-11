@@ -93,9 +93,9 @@ angular.module("habitrpg").factory("Notification",
     _notify(window.env.t('streakName') + ': ' + val, 'streak', 'glyphicon glyphicon-repeat');
   }
 
-  function text(val){
+  function text(val, onClick){
     if (val) {
-      _notify(val, 'info');
+      _notify(val, 'info', null, null, onClick);
     }
   }
 
@@ -114,7 +114,7 @@ angular.module("habitrpg").factory("Notification",
   // Used to stack notifications, must be outside of _notify
   var stack_topright = {"dir1": "down", "dir2": "left", "spacing1": 15, "spacing2": 15, "firstpos1": 60};
 
-  function _notify(html, type, icon, canHide) {
+  function _notify(html, type, icon, canHide, onClick) {
     var notice = $.pnotify({
       type: type || 'warning', //('info', 'text', 'warning', 'success', 'gp', 'xp', 'hp', 'lvl', 'death', 'mp', 'crit')
       text: html,
@@ -126,7 +126,13 @@ angular.module("habitrpg").factory("Notification",
       width: "250px",
       stack: stack_topright,
       icon: icon || false
-    }).click(function() { notice.pnotify_remove() });
+    }).click(function() {
+      notice.pnotify_remove();
+
+      if (onClick) {
+        onClick();
+      }
+    });
   }
 
   return {
