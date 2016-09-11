@@ -180,5 +180,8 @@
     "raisePetShare": "Превърнах любимец в превоз като изпълнявах задачите си в истинския живот!",
     "wonChallengeShare": "Спечелих предизвикателство в Хабитика!",
     "achievementShare": "Спечелих ново постижение в Хабитика!",
-    "orderBy": "Подреждане по <%= item %>"
+    "orderBy": "Подреждане по <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

@@ -48,6 +48,8 @@
     "leaveQuest": "Tinggalkan Sayembara",
     "sureLeave": "Apakah kamu yakin kamu mau meninggalkan sayembara yang aktif? Semua perkembangan sayembaramu akan hilang.",
     "questOwner": "Pemilik Sayembara",
+    "questTaskDamage": "+<%= damage %> pending damage to boss",
+    "questTaskCollection": "<%= items %> items collected today",
     "questOwnerNotInPendingQuest": "Pemilik sayembara telah meninggalkan sayembara dan tidak lagi memulainya. Dianjurkan kamu membatalkan. Pemilik sayembara akan mendapatkan gulungan sayembaranya kembali.",
     "questOwnerNotInRunningQuest": "Pemilik sayembara telah meninggalkan kelompok. Kamu dapat membatalkan sayembara jika perlu namun kamu dapat membiarkannya terus berlangsung dan semua peserta yang tersisa akan mendapatkan hadiah sayembara ketika sayembara berakhir.",
     "questOwnerNotInPendingQuestParty": "Pemilik sayembara telah meninggalkan kelompok dan tak bisa lagi memulai sayembara. Dianjurkan kamu membatalkannya sekarang. Gulungan sayembara akan dikembalikan kepada pemiliknya.",

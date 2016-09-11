@@ -68,6 +68,7 @@
     "APIv3": "API v3",
     "APIText": "Kopiér disse til brug i tredjeparts-applikationer. Dog skal du tænke på din API Nøgle som et kodeord, og lade være med at dele den offentligt. Du kan nogen gange blive bedt om dit Bruger ID, men skriv aldrig din API Nøgle hvor andre kan se den, heller ikke på Github.",
     "APIToken": "API Nøgle (det er et kodeord - se advarsel ovenfor!)",
+    "APITokenWarning": "If you need a new API Token (e.g., if you accidentally shared it), email <a href='mailto:admin@habitica.com'>admin@habitica.com</a> with your User ID and current Token. Once it is reset you will need to re-authorize everything by logging out of the website and mobile app and by providing the new Token to any other Habitica tools that you use.",
     "thirdPartyApps": "Tredjeparts-Apps",
     "dataToolDesc": "En side som viser dig visse oplysninger om din Habitica bruger, såsom statistisk omkring dine opgaver, udstyr og evner.",
     "beeminder": "Beeminder",

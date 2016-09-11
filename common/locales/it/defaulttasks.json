@@ -9,7 +9,11 @@
     "defaultTodo1Text": "Unisciti ad Habitica (Spuntami!)",
     "defaultReward1Text": "15 minuti di pausa",
     "defaultReward1Notes": "Le ricompense personalizzate possono essere di diversi tipi. Alcuni potrebbero voler guardare la televisione finchè hanno abbastanza oro per poterselo permettere.",
-    "defaultTag1": "mattino",
-    "defaultTag2": "pomeriggio",
-    "defaultTag3": "sera"
+    "defaultTag1": "Lavoro",
+    "defaultTag2": "Esercizio fisico",
+    "defaultTag3": "Salute + Benessere",
+    "defaultTag4": "Scuola",
+    "defaultTag5": "Squadre",
+    "defaultTag6": "Faccende di casa",
+    "defaultTag7": "Creatività"
 }

@@ -210,7 +210,7 @@
     "weaponArmoireSandySpadeNotes": "Uma ferramenta para cavar, assim como jogar areia nos olhos dos monstros inimigos. Aumenta Força em <%= str %>. Armário Encantado: Conjunto do Mar (Item 1 de 3).",
     "weaponArmoireCannonText": "Canhão",
     "weaponArmoireCannonNotes": "Arr! Ajusta sua mira com determinação. Aumenta Força em <%= str %>. Armário Encantado: Conjunto do Artilheiro (Item 1 de 3).",
-    "weaponArmoireVermilionArcherBowText": "Vermilion Archer Bow",
+    "weaponArmoireVermilionArcherBowText": "Arco de Arqueiro Vermilion",
     "weaponArmoireVermilionArcherBowNotes": "Your arrow will fly like a shooting star from this brilliant red bow! Increases Strength by <%= str %>. Enchanted Armoire: Vermilion Archer Set (Item 1 of 3).",
     "armor": "armadura",
     "armorCapitalized": "Armadura",

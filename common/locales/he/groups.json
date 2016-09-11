@@ -45,6 +45,7 @@
     "chat": "שיחה",
     "sendChat": "שילחו הודעה",
     "toolTipMsg": "טעינת הודעות אחרונות",
+    "syncPartyAndChat": "Sync Party and Chat",
     "guildBankPop1": "בנק הגילדה",
     "guildBankPop2": "אבני חן שזמינות לראש הגילדה שלכם כפרסים עבור אתגרים.",
     "guildGems": "אבני חן של הגילדה",
@@ -138,6 +139,7 @@
     "inviteNewUsers": "הזמן משתמשים חדשים",
     "sendInvitations": "שלח הזמנות",
     "invitationsSent": "הזמנות נשלחו!",
+    "invitationSent": "Invitation sent!",
     "inviteAlertInfo2": "או שתפו את הקישור (העתק/הדבק):",
     "sendGiftHeading": "שלחו מתנה ל<%= name %>",
     "sendGiftGemsBalance": "החל מ-<%= number %> אבני חן",
@@ -191,5 +193,9 @@
     "uuidsMustBeAnArray": "הזמנות של מספר זהות משתמש/ת חייבות להיות מערך.",
     "emailsMustBeAnArray": "הזמנות של כתובת אימייל חייבות להיות מערך.",
     "canOnlyInviteMaxInvites": "ניתן להזמין רק \"<%= maxInvites %>\" בכל פעם",
-    "onlyCreatorOrAdminCanDeleteChat": "אין לך הרשאה למחוק את ההודעה הזאת!"
+    "onlyCreatorOrAdminCanDeleteChat": "אין לך הרשאה למחוק את ההודעה הזאת!",
+    "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
+    "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
+    "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
+    "newChatMessageTitle": "New message in <%= groupName %>"
 }

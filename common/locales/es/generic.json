@@ -180,5 +180,8 @@
     "raisePetShare": "¡He convertido a una mascota en montura cumpliendo tareas en el mundo real!",
     "wonChallengeShare": "¡He ganado un desafío en Habitica!",
     "achievementShare": "¡He obtenido un nuevo logro en Habitica!",
-    "orderBy": "Ordenar por <%= item %>"
+    "orderBy": "Ordenar por <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }
