@@ -39,7 +39,7 @@
     "officialChallenge": "Desafio Oficial do Habitica",
     "by": "por",
     "participants": "<%= membercount %> Participantes",
-    "join": "Aceitar",
+    "join": "Entrar",
     "exportChallengeCSV": "Exportar para CSV",
     "selectGroup": "Favor selecionar grupo",
     "challengeCreated": "Desafio criado",
@@ -72,12 +72,12 @@
     "winnerIdRequired": "\"winnerId\" precisa ser um UUID válido.",
     "challengeNotFound": "Desafio não encontrado ou ao qual você não tem acesso.",
     "onlyLeaderDeleteChal": "Apenas o líder desafio pode excluí-lo.",
-    "onlyLeaderUpdateChal": "Apenas o líder desafio pode atualizá-lo.",
-    "winnerNotFound": "Vencedor com id \"<%= userId %>\" não encontrado ou não faz parte do desafio.",
+    "onlyLeaderUpdateChal": "Apenas o líder do desafio pode atualizá-lo.",
+    "winnerNotFound": "Vencedor com id \"<%= userId %>\" não foi encontrado ou não faz parte do desafio.",
     "noCompletedTodosChallenge": "\"includeCompletedTodos\" não é suportado ao buscar tarefas de desafios.",
     "userTasksNoChallengeId": "Quando \"tasksOwner\" é um \"user\",  \"challengeId\" não pode ser passado.",
     "onlyChalLeaderEditTasks": "Tarefas pertencentes a um desafio só podem ser editadas pelo líder.",
-    "userAlreadyInChallenge": "Usuário já está participando desse desafio.",
+    "userAlreadyInChallenge": "O usuário já está participando desse desafio.",
     "cantOnlyUnlinkChalTask": "Apenas links de desafios quebrados podem ser desfeitos.",
-    "shortNameTooShort": "Nome da etiqueta deve ter pelo menos 3 caracteres."
+    "shortNameTooShort": "O nome da etiqueta deve ter pelo menos 3 caracteres."
 }

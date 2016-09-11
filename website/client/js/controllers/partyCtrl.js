@@ -1,7 +1,7 @@
 'use strict';
 
-habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social', 'Pusher',
-    function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social, Pusher) {
+habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social', 'Achievement',
+    function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social, Achievement) {
 
       var PARTY_LOADING_MESSAGES = 4;
 
@@ -19,8 +19,19 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.partyLoadingMessage = window.env.t('partyLoading' + partyMessageNumber);
 
       function handlePartyResponse (group) {
-        $rootScope.party = $scope.group = group;
+        // Assign and not replace so that all the references get the modifications
+        _.assign($rootScope.party, group);
+        $scope.group = $rootScope.party;
+        $scope.group.loadingParty = false;
         checkForNotifications();
+        if ($state.is('options.social.party')) {
+          if ('Notification' in window && window.Notification.permission === 'default') {
+            setTimeout(function () {
+              window.Notification.requestPermission();
+            }, 100);
+          }
+          Chat.markChatSeen($scope.group._id);
+        }
       }
 
       function handlePartyError (response) {
@@ -28,7 +39,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       }
 
       if ($state.is('options.social.party') && $rootScope.party && $rootScope.party.id) {
-        Groups.party(true).then(handlePartyResponse, handlePartyError);
+        Groups.party().then(handlePartyResponse, handlePartyError);
       } else {
         Groups.Group.syncParty().then(handlePartyResponse, handlePartyError);
       }
@@ -38,19 +49,15 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         if(!user.achievements.partyUp
             && $scope.group.memberCount >= 2) {
           User.set({'achievements.partyUp':true});
-          $rootScope.openModal('achievements/partyUp', {controller:'UserCtrl', size:'sm'});
+          Achievement.displayAchievement('partyUp');
         }
 
         // Checks if user's party has reached 4 players for the first time.
         if(!user.achievements.partyOn
             && $scope.group.memberCount >= 4) {
           User.set({'achievements.partyOn':true});
-          $rootScope.openModal('achievements/partyOn', {controller:'UserCtrl', size:'sm'});
+          Achievement.displayAchievement('partyOn');
         }
-      }
-
-      if ($scope.group && $scope.group._id) {
-        Chat.markChatSeen($scope.group._id);
       }
 
       $scope.create = function(group) {

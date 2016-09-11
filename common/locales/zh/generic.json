@@ -180,5 +180,8 @@
     "raisePetShare": "我完成了我的任务，培养了一匹新坐骑！",
     "wonChallengeShare": "我在Habitica赢了一个挑战！",
     "achievementShare": "我在Habitica得到了一个新成就！",
-    "orderBy": "以<%= item %>排序"
+    "orderBy": "以<%= item %>排序",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

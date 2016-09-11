@@ -9,7 +9,11 @@
     "defaultTodo1Text": "Pridružiti se Habitica-u (Urađeno, klikni me!)",
     "defaultReward1Text": "Pauza 15 minuta",
     "defaultReward1Notes": "Možete sami napraviti nagrade kakve Vam odgovaraju. Neki odlučuju da odlože gledanje omiljene serije dok ne prikupe dovoljno zlata da je plate.",
-    "defaultTag1": "jutro",
-    "defaultTag2": "poslepodne",
-    "defaultTag3": "veče"
+    "defaultTag1": "Work",
+    "defaultTag2": "Exercise",
+    "defaultTag3": "Health + Wellness",
+    "defaultTag4": "School",
+    "defaultTag5": "Teams",
+    "defaultTag6": "Chores",
+    "defaultTag7": "Creativity"
 }

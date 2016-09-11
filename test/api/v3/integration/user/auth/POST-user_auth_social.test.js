@@ -18,7 +18,7 @@ describe('POST /user/auth/social', () => {
     user = await generateUser();
 
     let expectedResult = {id: facebookId};
-    let passportFacebookProfile = sinon.stub(passport._strategies.facebook, 'userProfile');
+    let passportFacebookProfile = sandbox.stub(passport._strategies.facebook, 'userProfile');
     passportFacebookProfile.yields(null, expectedResult);
   });
 

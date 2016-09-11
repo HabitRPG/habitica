@@ -45,6 +45,7 @@
     "chat": "Discussion",
     "sendChat": "Envoyer un Message",
     "toolTipMsg": "Récupérer les Messages Récents",
+    "syncPartyAndChat": "Sync Party and Chat",
     "guildBankPop1": "Banque de la Guilde",
     "guildBankPop2": "Gemmes que votre maître de guilde peut utiliser en tant que récompenses de challenge.",
     "guildGems": "Gemmes de Guilde",
@@ -138,6 +139,7 @@
     "inviteNewUsers": "Inviter de nouveaux membres",
     "sendInvitations": "Envoyer des Invitations",
     "invitationsSent": "Invitations envoyées !",
+    "invitationSent": "Invitation sent!",
     "inviteAlertInfo2": "Ou partagez ce lien (copier/coller) :",
     "sendGiftHeading": "Envoyer un cadeau à <%= name %>",
     "sendGiftGemsBalance": "De vos <%= number %> Gemmes",
@@ -191,5 +193,9 @@
     "uuidsMustBeAnArray": "Les ID utilisateurs des invitations doivent être un tableau.",
     "emailsMustBeAnArray": "Les emails des invitations doivent être un tableau.",
     "canOnlyInviteMaxInvites": "Vous ne pouvez envoyer que \"<%= maxInvites %>\" invitations à la fois",
-    "onlyCreatorOrAdminCanDeleteChat": "Vous n'êtes pas autorisé à supprimer ce message !"
+    "onlyCreatorOrAdminCanDeleteChat": "Vous n'êtes pas autorisé à supprimer ce message !",
+    "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
+    "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
+    "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
+    "newChatMessageTitle": "New message in <%= groupName %>"
 }

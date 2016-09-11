@@ -9,7 +9,11 @@
     "defaultTodo1Text": "Присоединиться к Habitica (Поставьте на мне галочку!)",
     "defaultReward1Text": "Перерыв 15 минут",
     "defaultReward1Notes": "Свои собственные награды могут принимать разные формы. Некоторые люди откладывают просмотр любимого сериала, если у них нет достаточно золота.",
-    "defaultTag1": "утро",
-    "defaultTag2": "день",
-    "defaultTag3": "вечер"
+    "defaultTag1": "Work",
+    "defaultTag2": "Exercise",
+    "defaultTag3": "Health + Wellness",
+    "defaultTag4": "School",
+    "defaultTag5": "Teams",
+    "defaultTag6": "Chores",
+    "defaultTag7": "Creativity"
 }

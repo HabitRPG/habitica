@@ -180,5 +180,8 @@
     "raisePetShare": "Мой питомец вырос в скакуна благодаря завершению заданий в реальной жизни!",
     "wonChallengeShare": "Я выиграл испытание в Habitica!",
     "achievementShare": "Я получил новое достижение в Habitica!",
-    "orderBy": "Упорядочить по <%= item %>"
+    "orderBy": "Упорядочить по <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

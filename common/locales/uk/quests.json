@@ -48,6 +48,8 @@
     "leaveQuest": "Leave Quest",
     "sureLeave": "Are you sure you want to leave the active quest? All your quest progress will be lost.",
     "questOwner": "Власник квесту",
+    "questTaskDamage": "+<%= damage %> pending damage to boss",
+    "questTaskCollection": "<%= items %> items collected today",
     "questOwnerNotInPendingQuest": "Власник квесту покинув його і більше не може почати його. Рекомендується скасувати його зараз. Власник квесту зберігає собі квестовий сувій.",
     "questOwnerNotInRunningQuest": "Власник квесту покинув його. Ви можете скасувати квест, якщо бажаєте. Також ви можете продовжити його, щоб разом з іншими отримати нагороду, коли квест скінчиться.",
     "questOwnerNotInPendingQuestParty": "Власник квесту покинув його і більше не може почати його. Рекомендується скасувати його зараз. Квестовий сувій повернеться до власника.",

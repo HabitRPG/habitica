@@ -180,5 +180,8 @@
     "raisePetShare": "Jag uppfostrade mitt husdjur till ett riddjur genom att slutföra mina uppgifter!",
     "wonChallengeShare": "Jag van en utmaning i HabitRPG!",
     "achievementShare": "Jag har klarat av en ny bedrift i HabitRPG!",
-    "orderBy": "Sortera enligt <%= item %>"
+    "orderBy": "Sortera enligt <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

@@ -327,7 +327,7 @@ api.pusherAuth = {
     // Channel names are in the form of {presence|private}-{group|...}-{resourceId}
     let [channelType, resourceType, ...resourceId] = channelName.split('-');
 
-    if (['presence'].indexOf(channelType) === -1) { // presence is used only for parties, private for guilds too
+    if (['presence'].indexOf(channelType) === -1) { // presence is used only for parties, private for guilds
       throw new BadRequest('Invalid Pusher channel type.');
     }
 

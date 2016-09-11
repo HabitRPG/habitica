@@ -393,6 +393,17 @@ schema.methods.startQuest = async function startQuest (user) {
   let nonUserQuestMembers = _.keys(this.quest.members);
   removeFromArray(nonUserQuestMembers, user._id);
 
+  // remove any users from quest.members who aren't in the party
+  let partyId = this._id;
+  let questMembers = this.quest.members;
+  await Bluebird.map(Object.keys(this.quest.members), async (memberId) => {
+    let member = await User.findOne({_id: memberId, 'party._id': partyId}).select('_id').lean();
+
+    if (!member) {
+      delete questMembers[memberId];
+    }
+  });
+
   if (userIsParticipating) {
     user.party.quest.key = this.quest.key;
     user.party.quest.progress.down = 0;
@@ -607,12 +618,19 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
     group.quest.progress.collect[item]++;
   });
 
+  // Add 0 for all items not found
+  Object.keys(this.quest.progress.collect).forEach((item) => {
+    if (!itemsFound[item]) {
+      itemsFound[item] = 0;
+    }
+  });
+
   let foundText = _.reduce(itemsFound, (m, v, k) => {
     m.push(`${v} ${quest.collect[k].text('en')}`);
     return m;
   }, []);
 
-  foundText = foundText.length > 0 ? foundText.join(', ') : 'nothing';
+  foundText = foundText.join(', ');
   group.sendChat(`\`${user.profile.name} found ${foundText}.\``);
   group.markModified('quest.progress.collect');
 

@@ -180,5 +180,8 @@
     "raisePetShare": "Ich habe ein Haustier zu einem Reittier großgezogen, indem ich meine Aufgaben im echten Leben erledigt habe!",
     "wonChallengeShare": "Ich habe in Habitica einen Wettbewerb gewonnen!",
     "achievementShare": "Ich habe in Habitica einen neuen Erfolg verdient!",
-    "orderBy": "Sortieren nach <%= item %>"
+    "orderBy": "Sortieren nach <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

@@ -9,7 +9,11 @@
     "defaultTodo1Text": "Rejoindre Habitica (Cochez-moi !)",
     "defaultReward1Text": "15 minutes de pause",
     "defaultReward1Notes": "Les récompenses personnalisées peuvent prendre de nombreuses formes. Certaines personnes se retiendront de regarder leur série préférée jusqu'à ce qu'elles aient assez d'or pour la payer.",
-    "defaultTag1": "matin",
-    "defaultTag2": "après-midi",
-    "defaultTag3": "soir"
+    "defaultTag1": "Travailler",
+    "defaultTag2": "Faire de l'exercice",
+    "defaultTag3": "Santé + bien-être",
+    "defaultTag4": "École",
+    "defaultTag5": "Équipes",
+    "defaultTag6": "Tâches ménagères",
+    "defaultTag7": "Créativité"
 }

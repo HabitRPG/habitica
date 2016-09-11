@@ -20,7 +20,7 @@ describe('shared.ops.rebirth', () => {
 
   beforeEach(() => {
     user = generateUser();
-    user.balance = 2;
+    user.balance = 1.5;
     tasks = [generateHabit(), generateDaily(), generateTodo(), generateReward()];
   });
 
@@ -119,27 +119,25 @@ describe('shared.ops.rebirth', () => {
     });
   });
 
-  it('resets a user\'s gear', () => {
-    let gearReset = {
-      armor: 'armor_base_0',
-      weapon: 'weapon_warrior_0',
-      head: 'head_base_0',
-      shield: 'shield_base_0',
-    };
+  it('retains a user\'s gear', () => {
+    let prevGearEquipped = user.items.gear.equipped;
+    let prevGearCostume = user.items.gear.costume;
+    let prevPrefCostume = user.preferences.costume;
 
     rebirth(user);
 
-    expect(user.items.gear.equipped).to.deep.equal(gearReset);
-    expect(user.items.gear.costume).to.deep.equal(gearReset);
-    expect(user.preferences.costume).to.be.false;
+    expect(user.items.gear.equipped).to.deep.equal(prevGearEquipped);
+    expect(user.items.gear.costume).to.deep.equal(prevGearCostume);
+    expect(user.preferences.costume).to.equal(prevPrefCostume);
   });
 
-  it('resets a user\'s gear owned', () => {
+  it('retains a user\'s gear owned', () => {
     user.items.gear.owned.weapon_warrior_1 = true; // eslint-disable-line camelcase
+    let prevGearOwned = user.items.gear.owned;
+
     rebirth(user);
 
-    expect(user.items.gear.owned.weapon_warrior_1).to.be.false;
-    expect(user.items.gear.owned.weapon_warrior_0).to.be.true;
+    expect(user.items.gear.owned).to.equal(prevGearOwned);
   });
 
   it('resets a user\'s current pet', () => {
