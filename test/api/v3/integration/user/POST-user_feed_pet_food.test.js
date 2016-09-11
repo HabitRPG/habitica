@@ -22,19 +22,14 @@ describe('POST /user/feed/:pet/:food', () => {
     });
 
     let food = content.food.Milk;
-    let [egg, potion] = 'Wolf-Base'.split('-');
-    potion = content.hatchingPotions[potion];
-    egg = content.eggs[egg];
+    let pet = content.petInfo['Wolf-Base'];
 
     let res = await user.post('/user/feed/Wolf-Base/Milk');
     await user.sync();
     expect(res).to.eql({
       data: user.items.pets['Wolf-Base'],
       message: t('messageDontEnjoyFood', {
-        egg: t('petName', {
-          potion: potion.text,
-          egg: egg.text,
-        }),
+        egg: pet.text(),
         foodText: food.text(),
       }),
     });
