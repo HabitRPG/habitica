@@ -3,7 +3,6 @@ import {
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
-// import common from '../../../../../common';
 
 describe('GET /members/:toUserId/objections-to/:interaction', () => {
   let user;

@@ -272,7 +272,7 @@ api.getChallengeMemberProgress = {
 /**
  * @api {get} /api/v3/members/:toUserId/objections-to/:interaction Get the message of any errors that would occur if the given interaction was attempted
  * @apiVersion 3.0.0
- * @apiName GetObjectionsToInteractionIfAny
+ * @apiName GetObjectionsToInteraction
  * @apiGroup Member
  *
  * @apiParam {UUID} toUserId The user to interact with
@@ -280,7 +280,7 @@ api.getChallengeMemberProgress = {
  *
  * @apiSuccess {Array} data Return an array of error messages, if the interaction would be blocked; otherwise an empty array
  */
-api.getObjectionsToInteractionIfAny = {
+api.getObjectionsToInteraction = {
   method: 'GET',
   url: '/members/:toUserId/objections-to/:interaction',
   middlewares: [authWithHeaders()],
@@ -298,8 +298,9 @@ api.getObjectionsToInteractionIfAny = {
     let response;
 
     try {
-      response = sender.getObjectionsToInteractionIfAny(req.params.interaction, receiver);
+      response = sender.getObjectionsToInteraction(req.params.interaction, receiver);
     } catch (e) {
+      // Rethrow, so that the message gets passed to the client
       throw new NotFound(e.message);
     }
 
@@ -334,7 +335,7 @@ api.sendPrivateMessage = {
     let receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
 
-    let objections = sender.getObjectionsToInteractionIfAny('send-private-message', receiver);
+    let objections = sender.getObjectionsToInteraction('send-private-message', receiver);
     if (objections.length > 0) throw new NotAuthorized(res.t(objections[0]));
 
     await sender.sendMessage(receiver, message);
@@ -389,7 +390,7 @@ api.transferGems = {
     let receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
 
-    let objections = sender.getObjectionsToInteractionIfAny('transfer-gems', receiver);
+    let objections = sender.getObjectionsToInteraction('transfer-gems', receiver);
     if (objections.length > 0) throw new NotAuthorized(res.t(objections[0]));
 
     let gemAmount = req.body.gemAmount;

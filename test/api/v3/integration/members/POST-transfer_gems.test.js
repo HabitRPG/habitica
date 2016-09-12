@@ -60,12 +60,12 @@ describe('POST /members/transfer-gems', () => {
   });
 
   it('returns error when to user has blocked the sender', async () => {
-    let receiverBlocks = await generateUser({'inbox.blocks': [userToSendMessage._id]});
+    let receiverWhoBlocksUser = await generateUser({'inbox.blocks': [userToSendMessage._id]});
 
     await expect(userToSendMessage.post('/members/transfer-gems', {
       message,
       gemAmount,
-      toUserId: receiverBlocks._id,
+      toUserId: receiverWhoBlocksUser._id,
     })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
@@ -99,6 +99,22 @@ describe('POST /members/transfer-gems', () => {
       error: 'NotAuthorized',
       message: t('chatPrivilegesRevoked'),
     });
+  });
+
+  it('works when only the receiver\'s chat privileges are revoked', async () => {
+    let receiverWithChatRevoked = await generateUser({'flags.chatRevoked': true});
+
+    await expect(userToSendMessage.post('/members/transfer-gems', {
+      message,
+      gemAmount,
+      toUserId: receiverWithChatRevoked._id,
+    })).to.eventually.be.fulfilled;
+
+    let updatedReceiver = await receiverWithChatRevoked.get('/user');
+    let updatedSender = await userToSendMessage.get('/user');
+
+    expect(updatedReceiver.balance).to.equal(gemAmount / 4);
+    expect(updatedSender.balance).to.equal(0);
   });
 
   it('returns error when there is no gemAmount', async () => {

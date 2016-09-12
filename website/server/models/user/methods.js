@@ -21,10 +21,10 @@ schema.methods.getGroups = function getUserGroups () {
 };
 
 // Get an array of error message keys that would be thrown if the given interaction was attempted
-schema.methods.getObjectionsToInteractionIfAny = function getObjectionsToInteractionIfAny (interaction, receiver) {
+schema.methods.getObjectionsToInteraction = function getObjectionsToInteraction (interaction, receiver) {
   let sender = this;
 
-  /* eslint-disable no-unused-vars */
+  /* eslint-disable no-unused-vars */ // The checks below all get access to sndr and rcvr, but not all use both
   let checks = {
     always: [
       // Revoked chat privileges block all interactions to prevent the evading of harassment protections
@@ -40,7 +40,7 @@ schema.methods.getObjectionsToInteractionIfAny = function getObjectionsToInterac
       // Private messaging has an opt-out, which does not affect other interactions
       (sndr, rcvr) => rcvr.inbox.optOut && 'notAuthorizedToSendMessageToThisUser',
 
-      // NB: We allow a player to message themselves so they can test how PMs work or send their own notes to themselves
+      // We allow a player to message themselves so they can test how PMs work or send their own notes to themselves
     ],
 
     'transfer-gems': [
@@ -50,7 +50,7 @@ schema.methods.getObjectionsToInteractionIfAny = function getObjectionsToInterac
   };
   /* eslint-enable no-unused-vars */
 
-  let knownInteractions = Object.keys(checks).filter((k) => k !== 'always');
+  let knownInteractions = Object.keys(checks).filter((key) => key !== 'always');
 
   if (!knownInteractions.includes(interaction)) {
     throw new Error(`Unknown kind of interaction: "${interaction}", expected one of ${knownInteractions.join(', ')}`);
