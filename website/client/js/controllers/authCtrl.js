@@ -40,6 +40,16 @@ angular.module('habitrpg')
 
       $scope.registrationInProgress = false;
 
+      $scope.invalidDomains = window.habitrpgShared.INVALID_DOMAINS;
+
+      $scope.invalidDomainRegex = function() {
+        var domainRegex = [];
+        for(var i = 0; i < $scope.invalidDomains.length; i++) {
+          domainRegex.push('(?:'+ $scope.invalidDomains[i].replace('.', '\\.') +')');
+        }
+        return '.+@(?!(?:' + domainRegex.join('|') + ')).+'
+      }
+
       $scope.register = function() {
         /*TODO highlight invalid inputs
          we have this as a workaround for https://github.com/HabitRPG/habitrpg-mobile/issues/64

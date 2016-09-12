@@ -3,7 +3,7 @@ mixin registrationForm
     .form-group
       input.form-control(type='text', ng-model='registerVals.username', placeholder=env.t('username'), spellcheck='false', required)
     .form-group
-      input.form-control(type='email', ng-model='registerVals.email', placeholder=env.t('email'), required)
+      input.form-control(type='email', ng-model='registerVals.email', placeholder=env.t('email'), pattern='{{invalidDomainRegex()}}', title=env.t('usesHabiticaEmail'), required)
     .form-group
       input.form-control(type='password', ng-model='registerVals.password', placeholder=env.t('password'), required)
     .form-group
