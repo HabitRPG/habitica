@@ -3,6 +3,7 @@ import {
   requester,
   translate as t,
   createAndPopulateGroup,
+  getProperty,
 } from '../../../../../helpers/api-integration/v3';
 import { v4 as generateRandomUserName } from 'uuid';
 import { each } from 'lodash';
@@ -64,8 +65,8 @@ describe('POST /user/auth/local/register', () => {
         confirmPassword: password,
       });
 
-      expect(user._ABtest).to.exist;
-      expect(user._ABtest).to.be.a('string');
+      await expect(getProperty('users', user._id, '_ABtest')).to.eventually.exist;
+      await expect(getProperty('users', user._id, '_ABtest')).to.eventually.be.a('string');
     });
 
     it('requires password and confirmPassword to match', async () => {
