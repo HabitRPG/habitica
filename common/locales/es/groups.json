@@ -45,6 +45,7 @@
     "chat": "Chat",
     "sendChat": "Enviar Chat",
     "toolTipMsg": "Recuperar Mensajes Recientes",
+    "syncPartyAndChat": "Sync Party and Chat",
     "guildBankPop1": "Banco del Gremio",
     "guildBankPop2": "Gemas que el líder de su gremio puede usar como premios de los desafíos.",
     "guildGems": "Gemas del Gremio",
@@ -138,6 +139,7 @@
     "inviteNewUsers": "Invitar a usuarios nuevos",
     "sendInvitations": "Enviar invitaciones",
     "invitationsSent": "¡Invitaciones enviadas!",
+    "invitationSent": "Invitation sent!",
     "inviteAlertInfo2": "O compra este enlace (copia/pega):",
     "sendGiftHeading": "Enviar regalo a <%= name %>",
     "sendGiftGemsBalance": "De <%= number %> Gemas",
@@ -191,5 +193,9 @@
     "uuidsMustBeAnArray": "Las invitaciones por ID de usuario deben ser una matriz.",
     "emailsMustBeAnArray": "Las invitaciones por dirección de correo electrónico deben ser una matriz.",
     "canOnlyInviteMaxInvites": "No puedes invitar a más de \"<%= maxInvites %>\" usuarios a la vez",
-    "onlyCreatorOrAdminCanDeleteChat": "No estás autorizado para borrar este mensaje!"
+    "onlyCreatorOrAdminCanDeleteChat": "No estás autorizado para borrar este mensaje!",
+    "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
+    "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
+    "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
+    "newChatMessageTitle": "New message in <%= groupName %>"
 }

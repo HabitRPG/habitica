@@ -90,7 +90,10 @@ gulp.task('test:sanity', (cb) => {
   let runner = exec(
     testBin(SANITY_TEST_COMMAND),
     (err, stdout, stderr) => {
-    	cb(err);
+      if (err) {
+        process.exit(1);
+      }
+      cb();
     }
   );
   pipe(runner);
@@ -100,7 +103,10 @@ gulp.task('test:common', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin(COMMON_TEST_COMMAND),
     (err, stdout, stderr) => {
-    	cb(err);
+      if (err) {
+        process.exit(1);
+      }
+      cb();
     }
   );
   pipe(runner);
@@ -135,7 +141,10 @@ gulp.task('test:content', ['test:prepare:build'], (cb) => {
     testBin(CONTENT_TEST_COMMAND),
     CONTENT_OPTIONS,
     (err, stdout, stderr) => {
-    	cb(err);
+      if (err) {
+        process.exit(1);
+      }
+      cb();
     }
   );
   pipe(runner);
@@ -170,7 +179,7 @@ gulp.task('test:server_side', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin(SERVER_SIDE_TEST_COMMAND),
     (err, stdout, stderr) => {
-    	cb(err);
+      cb(err);
     }
   );
   pipe(runner);
@@ -196,7 +205,10 @@ gulp.task('test:karma', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin(KARMA_TEST_COMMAND),
     (err, stdout) => {
-    	cb(err);
+      if (err) {
+        process.exit(1);
+      }
+      cb();
     }
   );
   pipe(runner);
@@ -206,7 +218,7 @@ gulp.task('test:karma:watch', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin(`${KARMA_TEST_COMMAND}:watch`),
     (err, stdout) => {
-    	cb(err);
+      cb(err);
     }
   );
   pipe(runner);
@@ -243,7 +255,10 @@ gulp.task('test:e2e', ['test:prepare', 'test:prepare:server'], (cb) => {
       'npm run test:e2e',
       (err, stdout, stderr) => {
         support.forEach(kill);
-        cb(err);
+        if (err) {
+          process.exit(1);
+        }
+        cb();
       }
     );
     pipe(runner);
@@ -282,7 +297,12 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
 gulp.task('test:api-v3:unit', (done) => {
   let runner = exec(
     testBin('mocha test/api/v3/unit --recursive'),
-    (err, stdout, stderr) => done(err)
+    (err, stdout, stderr) => {
+      if (err) {
+        process.exit(1);
+      }
+      done();
+    }
   )
 
   pipe(runner);
@@ -296,7 +316,12 @@ gulp.task('test:api-v3:integration', (done) => {
   let runner = exec(
     testBin('mocha test/api/v3/integration --recursive'),
     {maxBuffer: 500*1024},
-    (err, stdout, stderr) => done(err)
+    (err, stdout, stderr) => {
+      if (err) {
+        process.exit(1);
+      }
+      done();
+    }
   )
 
   pipe(runner);
@@ -320,6 +345,7 @@ gulp.task('test:api-v3:integration:separate-server', (done) => {
 gulp.task('test', (done) => {
   runSequence(
     'test:sanity',
+    'test:content',
     'test:common',
     'test:karma',
     'test:api-v3:unit',

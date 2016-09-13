@@ -169,5 +169,5 @@
     "quickAllocationLevelPopover": "S každou další úrovní získáš jeden bod, který můžeš přiřadit k libovolné vlastnosti. Přiřadit body můžeš buď manuálně anebo můžeš nechat hru rozhodnout za tebe na základě některé z možností automatického přiřazení, které nalezneš v Uživatel -> Statistiky",
     "invalidAttribute": "„<%= attr %>\" není platná vlastnost.",
     "notEnoughAttrPoints": "Nemáte dostatek bodů vlastností.",
-    "gearNotOwned": "You do not own this item."
+    "gearNotOwned": "Nevlastníte tento předmět."
 }

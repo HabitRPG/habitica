@@ -68,6 +68,7 @@
     "APIv3": "API גרסה 3",
     "APIText": "העתיקו את השדות הללו לשימוש באפליקציות חיצוניות. עם זאת, חשבו על אסימון הממשק שלכם כמו על סיסמא, ואל תחלקו אותו בציבור. ייתכן שיבקשו מכם את זהות המשתמש שלכם במקום ציבורי, אבל לעולם לא את אסימון הממשק. כולל ב-github.",
     "APIToken": "אסימון ממשק (זו סיסמא של ממש! ראו אזהרה למעלה!)",
+    "APITokenWarning": "If you need a new API Token (e.g., if you accidentally shared it), email <a href='mailto:admin@habitica.com'>admin@habitica.com</a> with your User ID and current Token. Once it is reset you will need to re-authorize everything by logging out of the website and mobile app and by providing the new Token to any other Habitica tools that you use.",
     "thirdPartyApps": "אפליקציות צד שלישי",
     "dataToolDesc": "דף אינטרנט שמראה לכם מידע מסויים מחשבון ההאביטיקה שלכם, כגון סטטיסטיקות לגבי המשימות שלכם, ציוד, ותכונות.",
     "beeminder": "Beeminder",

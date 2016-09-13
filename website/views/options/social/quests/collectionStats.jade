@@ -1,7 +1,7 @@
 div(class="quest_{{::group.quest.key}}")
 h4=env.t('collected') + ':'
 table.table.table-striped
-  tr(ng-repeat='(item,number) in group.quest.progress.collect', 
+  tr(ng-repeat='(item,number) in group.quest.progress.collect',
     class='quest_collected_{{number >= Content.quests[group.quest.key].collect[item].count}}')
     td
       .pull-left(class='quest_{{::group.quest.key}}_{{::item}}')

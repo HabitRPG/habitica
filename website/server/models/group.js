@@ -351,6 +351,12 @@ schema.methods.sendChat = function sendChat (message, user) {
 
   User.update(query, lastSeenUpdate, {multi: true}).exec();
 
+  // If the message being sent is a system message (not gone through the api.postChat controller)
+  // then notify Pusher about it (only parties for now)
+  if (newMessage.uuid === 'system' && this.privacy === 'private' && this.type === 'party') {
+    pusher.trigger(`presence-group-${this._id}`, 'new-chat', newMessage);
+  }
+
   return newMessage;
 };
 
@@ -386,6 +392,17 @@ schema.methods.startQuest = async function startQuest (user) {
   this.quest.members = _.pick(this.quest.members, _.identity);
   let nonUserQuestMembers = _.keys(this.quest.members);
   removeFromArray(nonUserQuestMembers, user._id);
+
+  // remove any users from quest.members who aren't in the party
+  let partyId = this._id;
+  let questMembers = this.quest.members;
+  await Bluebird.map(Object.keys(this.quest.members), async (memberId) => {
+    let member = await User.findOne({_id: memberId, 'party._id': partyId}).select('_id').lean();
+
+    if (!member) {
+      delete questMembers[memberId];
+    }
+  });
 
   if (userIsParticipating) {
     user.party.quest.key = this.quest.key;
@@ -601,12 +618,19 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
     group.quest.progress.collect[item]++;
   });
 
+  // Add 0 for all items not found
+  Object.keys(this.quest.progress.collect).forEach((item) => {
+    if (!itemsFound[item]) {
+      itemsFound[item] = 0;
+    }
+  });
+
   let foundText = _.reduce(itemsFound, (m, v, k) => {
     m.push(`${v} ${quest.collect[k].text('en')}`);
     return m;
   }, []);
 
-  foundText = foundText.length > 0 ? foundText.join(', ') : 'nothing';
+  foundText = foundText.join(', ');
   group.sendChat(`\`${user.profile.name} found ${foundText}.\``);
   group.markModified('quest.progress.collect');
 

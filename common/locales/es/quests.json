@@ -48,6 +48,8 @@
     "leaveQuest": "Abandonar la misión",
     "sureLeave": "¿Seguro que quieres abandonar la misión actual? Se perderá todo el progreso de esta misión.",
     "questOwner": "Dueño de la Misión",
+    "questTaskDamage": "+<%= damage %> pending damage to boss",
+    "questTaskCollection": "<%= items %> items collected today",
     "questOwnerNotInPendingQuest": "El dueño de la misión ha abandonado y por consiguiente no puedes empezarla de nuevo. Te recomendamos que canceles la misión. El dueño de la misión se quedará con el pergamino usado.",
     "questOwnerNotInRunningQuest": "El dueño de la misión ha abandonado. Puedes abandonar tú también si es necesario. También puedes permitir que siga activa y todos los demás participantes recibirán los premios de la misión cuando ésta sea completada.",
     "questOwnerNotInPendingQuestParty": "El dueño de la misión ha abandonado el grupo y por consiguiente no puede empezar la misión de nuevo. Te recomendamos que canceles la misión. El dueño de la misión se quedará con el pergamino usado.",

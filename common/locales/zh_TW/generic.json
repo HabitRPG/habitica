@@ -180,5 +180,8 @@
     "raisePetShare": "實現了現實生活中的任務，成功將寵物養成座騎！",
     "wonChallengeShare": "我在 Habitica 贏得了挑戰！",
     "achievementShare": "我在 Habitica 獲得了一個新成就！",
-    "orderBy": "以 <%= item %> 排序"
+    "orderBy": "以 <%= item %> 排序",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

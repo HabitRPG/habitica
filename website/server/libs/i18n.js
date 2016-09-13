@@ -17,6 +17,7 @@ let momentLangsMapping = {
   no: 'nn',
   zh: 'zh-cn',
   es_419: 'es', // eslint-disable-line camelcase
+  pt_BR: 'pt-br', // eslint-disable-line camelcase
 };
 
 function _loadTranslations (locale) {
@@ -101,5 +102,8 @@ export let multipleVersionsLanguages = {
   },
   zh: {
     'zh-tw': 'zh_TW',
+  },
+  pt: {
+    'pt-br': 'pt_BR',
   },
 };
