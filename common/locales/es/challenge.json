@@ -1,6 +1,6 @@
 {
     "challenge": "Desafío",
-    "brokenChaLink": "Enlace al desafío roto",
+    "brokenChaLink": "El enlace al desafío no funciona",
     "brokenTask": "Enlace al desafío interrumpido: esta tarea formaba parte de un desafío, pero se ha eliminado de él. ¿Qué deseas hacer?",
     "keepIt": "Conservarla",
     "removeIt": "Eliminarla",

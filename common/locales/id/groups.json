@@ -14,7 +14,6 @@
     "dataTool": "Alat Penampil Data",
     "resources": "Sumber",
     "askQuestionNewbiesGuild": "Tanyakan sebuah Pertanyaan (Perkumpulan Para Pemula)",
-    "tavernTalk": "Pembicaraan di Kedai Minuman",
     "tavernAlert1": "Untuk melaporkan masalah, kunjungi",
     "tavernAlert2": "Perkumpulan Laporan Masalah",
     "moderatorIntro1": "Moderator kedai minuman dan perkumpulan:",
@@ -46,6 +45,7 @@
     "chat": "Percakapan",
     "sendChat": "Kirim Chat",
     "toolTipMsg": "Dapatkan Pesan Terbaru",
+    "syncPartyAndChat": "Sync Party and Chat",
     "guildBankPop1": "Tabungan Perkumpulan",
     "guildBankPop2": "Permata yang digunakan ketua perkumpulan untuk hadiah tantangan.",
     "guildGems": "Permata Perkumpulan",
@@ -139,6 +139,7 @@
     "inviteNewUsers": "Undang Pengguna Baru",
     "sendInvitations": "Kirim Undangan",
     "invitationsSent": "Undangan terkirim!",
+    "invitationSent": "Invitation sent!",
     "inviteAlertInfo2": "Atau bagikan tautan ini (salin/tempel):",
     "sendGiftHeading": "Kirim hadiah ke  <%= name %>",
     "sendGiftGemsBalance": "Dari <%= number %> Permata",
@@ -192,5 +193,9 @@
     "uuidsMustBeAnArray": "Undangan ID pengguna harus berupa array.",
     "emailsMustBeAnArray": "Undangan alamat email harus berupa array.",
     "canOnlyInviteMaxInvites": "Kamu hanya dapat mengundang \"<%= maxInvites %>\" pada satu waktu",
-    "onlyCreatorOrAdminCanDeleteChat": "Tidak berhak untuk menghapus pesan ini!"
+    "onlyCreatorOrAdminCanDeleteChat": "Tidak berhak untuk menghapus pesan ini!",
+    "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
+    "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
+    "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
+    "newChatMessageTitle": "New message in <%= groupName %>"
 }

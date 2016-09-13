@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "请注意您的显示名称、照片和简介，它们必须遵从<a href='https://habitica.com/static/community-guidelines' target='_blank'>社区指南</a> (例如，没有亵渎言论，没有成人话题，没有侮辱言论)。如果您对是否适当有任何问题，欢迎发送电子邮件给<a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>！",
+    "communityGuidelinesWarning": "请注意您的显示名称、照片和简介，它们必须遵从<a href='https://habitica.com/static/community-guidelines' target='_blank'>社区指南</a> (例如，没有亵渎言论，没有成人话题，没有侮辱言论)。如果您对是否适当有任何问题，欢迎发送电子邮件给<a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
     "statsAch": "角色属性及成就",
     "profile": "角色信息",
     "avatar": "角色形象",
@@ -121,7 +121,7 @@
     "classAllocation": "根据职业分配属性点",
     "classAllocationPop": "分配更多的技能点到对你职业有用的属性.",
     "taskAllocation": "根据任务分配技能点",
-    "taskAllocationPop": "根据你所要完成的任务合理的分配力量、精神、社交以及其他相关属性点",
+    "taskAllocationPop": "根据力量，智力，体质分配属性点，感知类别与你完成的任务相关。",
     "distributePoints": "配置未分配的属性点",
     "distributePointsPop": "根据你所选择的方法来分配所有未分配的属性点。",
     "warriorText": "战士们会有更大的机率触发暴击并在完成任务时随机获得额外的金币，经验和掉率。他们还能对boss造成严重的伤害。如果你希望获得随机性的奖励，或者在boss任务中重创boss，来玩战士吧！",

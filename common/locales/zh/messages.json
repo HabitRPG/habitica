@@ -29,6 +29,7 @@
     "messageFoundQuest": "你有个新剧情任务\"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "你之前已经购买了这件装备，但现在它已经不属于你了。你可以重新在任务页面的奖励栏里购买它。",
     "messageAlreadyOwnGear": "你已经拥有了这个道具，可以在装备页面上装配它。",
+    "messageHealthAlreadyMax": "你的体力已经达到最大值。",
     "armoireEquipment": "<%= image %> 你发现了一件稀有装备!恭喜你 <%= dropText %>! ",
     "armoireFood": "<%= image %> 你找到了 <%= dropArticle %><%= dropText %>. 它是用来做什么的?",
     "armoireExp": "你和大衣柜展开了殊死搏斗，并赢得了经验，尝尝这个吧！",

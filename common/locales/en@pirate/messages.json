@@ -29,6 +29,7 @@
     "messageFoundQuest": "Ye 'ave found th' adventure \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Ye purchased this gear in th' past, but do not currently own it. Ye can buy it again in th' rewards column on th' tasks page.",
     "messageAlreadyOwnGear": "Ye already own this item. Equip it by going to th' equipment page.",
+    "messageHealthAlreadyMax": "You already have maximum health.",
     "armoireEquipment": "<%= image %> Ye found a piece of rare Equipment in th' Armoire: <%= dropText %>! Awesome!",
     "armoireFood": "<%= image %> Ye rummage in the Armoire an' find <%= dropArticle %><%= dropText %>. What's tha' doin' in here?",
     "armoireExp": "Ye wrestle wi' th' Armoire an' gain Experience. Take that!",

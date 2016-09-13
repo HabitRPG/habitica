@@ -1,6 +1,6 @@
 habitrpg.controller("InventoryCtrl",
-  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content', 'Analytics', 'Quests', 'Stats', 'Social',
-  function($rootScope, $scope, Shared, $window, User, Content, Analytics, Quests, Stats, Social) {
+  ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content', 'Analytics', 'Quests', 'Stats', 'Social', 'Achievement',
+  function($rootScope, $scope, Shared, $window, User, Content, Analytics, Quests, Stats, Social, Achievement) {
 
     var user = User.user;
 
@@ -167,7 +167,7 @@ habitrpg.controller("InventoryCtrl",
       if(!user.achievements.beastMaster
           && $scope.petCount >= 90) {
         User.user.achievements.beastMaster = true;
-        $rootScope.openModal('achievements/beastMaster', {controller:'UserCtrl', size:'sm'});
+        Achievement.displayAchievement('beastMaster');
       }
 
       // Checks if Triad Bingo has been reached for the first time
@@ -175,16 +175,13 @@ habitrpg.controller("InventoryCtrl",
           && $scope.mountCount >= 90
           && Shared.count.dropPetsCurrentlyOwned(User.user.items.pets) >= 90) {
         User.user.achievements.triadBingo = true;
-        $rootScope.openModal('achievements/triadBingo', {controller:'UserCtrl', size:'sm'});
+        Achievement.displayAchievement('triadBingo');
       }
     }
 
     $scope.choosePet = function(egg, potion){
-      var petDisplayName = env.t('petName', {
-          potion: Content.hatchingPotions[potion] ? Content.hatchingPotions[potion].text() : potion,
-          egg: Content.eggs[egg] ? Content.eggs[egg].text() : egg
-        }),
-        pet = egg + '-' + potion;
+      var pet = Content.petInfo[egg + '-' + potion];
+      var petDisplayName = pet.text();
 
       // Feeding Pet
       if ($scope.selectedFood) {
@@ -195,14 +192,14 @@ habitrpg.controller("InventoryCtrl",
         } else if (!$window.confirm(window.env.t('feedPet', {name: petDisplayName, article: food.article, text: food.text()}))) {
           return;
         }
-        User.feed({params:{pet: pet, food: food.key}});
+        User.feed({params:{pet: pet.key, food: food.key}});
         $scope.selectedFood = null;
 
         _updateDropAnimalCount(user.items);
         if ($rootScope.countExists(user.items.mounts) > startingMounts && !user.preferences.suppressModals.raisePet) {
           $scope.raisedPet = {
             displayName: petDisplayName,
-            spriteName: pet,
+            spriteName: pet.key,
             egg: egg,
             potion: potion
           }
@@ -216,12 +213,12 @@ habitrpg.controller("InventoryCtrl",
         if(!user.achievements.mountMaster
             && $scope.mountCount >= 90) {
           User.user.achievements.mountMaster = true;
-          $rootScope.openModal('achievements/mountMaster', {controller:'UserCtrl', size:'sm'});
+          Achievement.displayAchievement('mountMaster');
         }
 
       // Selecting Pet
       } else {
-        User.equip({params:{type: 'pet', key: pet}});
+        User.equip({params:{type: 'pet', key: pet.key}});
       }
     }
 
@@ -356,6 +353,34 @@ habitrpg.controller("InventoryCtrl",
     $scope.questShopCategories = Shared.shops.getQuestShopCategories(user);
     $scope.timeTravelersCategories = Shared.shops.getTimeTravelersCategories(user);
     $scope.seasonalShopCategories = Shared.shops.getSeasonalShopCategories(user);
+
+    $scope.shouldShowPremiumPetRow = function (potion) {
+      potion = Content.premiumHatchingPotions[potion];
+
+      if (!potion) {
+        return false;
+      }
+      if (user.items.hatchingPotions[potion.key] > 0) {
+        return true;
+      }
+      if (potion.canBuy()) {
+        return true;
+      }
+
+      var pets = Object.keys(user.items.pets);
+      var hasAPetOfPotion = pets.find(function (pet) {
+        return pet.indexOf(potion.key) !== -1;
+      });
+
+      return hasAPetOfPotion;
+    };
+
+    $scope.shouldShowPremiumPetSection = function () {
+      var potions = Content.premiumHatchingPotions;
+      return Object.keys(potions).find(function (potion) {
+        return $scope.shouldShowPremiumPetRow(potions[potion].key);
+      });
+    };
 
     function _updateDropAnimalCount(items) {
       $scope.petCount = Shared.count.beastMasterProgress(items.pets);

@@ -43,9 +43,13 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', '$rootScope', 'User', 'Group
       }
 
       Groups.Group.invite($scope.group._id, invitationDetails)
-        .then(function() {
-          Notification.text(window.env.t('invitationsSent'));
-          _resetInvitees();
+        .then(function () {
+           var invitesSent = invitationDetails.emails || invitationDetails.uuids;
+           var invitationString = invitesSent.length > 1 ? 'invitationsSent' : 'invitationSent';
+
+           Notification.text(window.env.t(invitationString));
+
+           _resetInvitees();
 
           if ($scope.group.type === 'party') {
             $rootScope.hardRedirect('/#/options/groups/party');

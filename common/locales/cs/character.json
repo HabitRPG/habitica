@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Prosím, měj na paměti, že tvé jméno, profilová fotka a záložka musí být v souladu s <a href='https://habitica.com/static/community-guidelines' target='_blank'> zásadami komunity</a>. (žádné vulgarismy, témata pro dospělé, urážky atd.). Jestli máš nějaké otázky o tom, jestli něco je nebo není správné, klidně napiš na e-mail <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a> !",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
     "statsAch": "Statistiky a úspěchy",
     "profile": "Profil",
     "avatar": "Upravit postavu",
@@ -121,7 +121,7 @@
     "classAllocation": "Přiřazovat body na základě povolání",
     "classAllocationPop": "Přiřadí více bodů k vlastnostem, které jsou důležité pro tvé povolání.",
     "taskAllocation": "Přiřazovat body na základě aktivity v úkolech",
-    "taskAllocationPop": "Přiřadí body podle Fyzické (síla), Mentální (Inteligence), Sociální (Obrana) a Další (Vnímání) kategorie přiřazené k úkolům, které splníš.",
+    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
     "distributePoints": "Přiřaď nevyužité body.",
     "distributePointsPop": "Přiřadí všechny nepřidělené body v závislosti na zvoleném režimu přidělování.",
     "warriorText": "Válečníci získávají lepší \"kritické zásahy\", které náhodně dávají bonusové zlaťáky a zkušenosti a zvyšují šanci na nalezení předmětů při splnění úkolu. Také způsobují větší újmu příšerám. Hraj za válečníka, pokud tě motivují nepředvídatelné odměny nebo to chceš pořádně nandat příšerám při Výpravách!",
@@ -169,5 +169,5 @@
     "quickAllocationLevelPopover": "S každou další úrovní získáš jeden bod, který můžeš přiřadit k libovolné vlastnosti. Přiřadit body můžeš buď manuálně anebo můžeš nechat hru rozhodnout za tebe na základě některé z možností automatického přiřazení, které nalezneš v Uživatel -> Statistiky",
     "invalidAttribute": "„<%= attr %>\" není platná vlastnost.",
     "notEnoughAttrPoints": "Nemáte dostatek bodů vlastností.",
-    "gearNotOwned": "You do not own this item."
+    "gearNotOwned": "Nevlastníte tento předmět."
 }

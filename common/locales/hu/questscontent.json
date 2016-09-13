@@ -15,7 +15,7 @@
     "questGryphonCompletion": "Miután legyőzted, a hatalmas bestia megszégyenülten visszasomfordál a gazdájához. \"Szavamra! Kiváló munka, kalandorok!\" <strong>baconsaur</strong> felkiált: \"Kérlek fogadjátok el pár grifftojást. Biztos vagyok benne, hogy jól fel fogjátok őket nevelni!\"",
     "questGryphonBoss": "A tüzes griffmadár",
     "questGryphonDropGryphonEgg": "Griff  (tojás)",
-    "questGryphonUnlockText": "Unlocks purchasable Gryphon eggs in the Market",
+    "questGryphonUnlockText": "Elérhetővé teszi a griffmadár tojások megvásárlását a piacon.",
     "questHedgehogText": "A sünszörny",
     "questHedgehogNotes": "A sündisznók vicces állatok. Ők talán a legszeretetteljesebb háziállatok, amit egy Kalandozó birtokolhat. Ennek ellenére azt pletykálják, hogy ha tejjel eteted őket éjfél után, akkor idegesitővé válnak. És ötvenszer nagyobbá. És <strong>Inventrix</strong> pont ezt tette. Upsz.",
     "questHedgehogCompletion": "A csapatod sikeresen lenyugtatta a sündisznót! Miután összement normál méretre visszabiceg a tojásaihoz, majd újra megjelenik cincogó hangot hallatva: pár tojást bökdös éppen a csapatod irányába. Remélhetőleg ezek a sünik jobban szeretik a tejet!",
@@ -334,6 +334,12 @@
     "questTurtleNotes": "Help! This giant sea turtle cannot find her way to her nesting beach. She returns there every year to lay her eggs, but this year Inkomplete Bay is filled with toxic Task Flotsam made of red dailies and unchecked to-dos. \"She's thrashing in a panic!\" @JessicaChase says.<br><br>@UncommonCriminal nods. \"It's because her guiding senses are fogged and confused.\"<br><br>@Scarabsi grabs your arm. \"Can you help clear the Task Flotsam blocking her path? It may be hazardous, but we have to help her!\"",
     "questTurtleCompletion": "Your valiant work has cleared the waters for our sea turtle to find her beach. You, @Bambin, and @JaizakAripaik watch as she buries her brood of eggs deep in the sand so they can grow and hatch into hundreds of little sea turtles. Ever the lady, she gives you three eggs each, asking that you feed and nurture them so one day they become big sea turtles themselves.",
     "questTurtleBoss": "Task Flotsam",
-    "questTurtleDropTurtleEgg": "Turtle (Egg)",
-    "questTurtleUnlockText": "Unlocks purchasable Turtle eggs in the Market"
+    "questTurtleDropTurtleEgg": "Teknős (Tojás)",
+    "questTurtleUnlockText": "Elérhetővé teszi a teknős tojások megvásárlását a piacon.",
+    "questArmadilloText": "The Indulgent Armadillo",
+    "questArmadilloNotes": "It's time to get outside and start your day. You swing open your door only to be met with what looks like a sheet of rock. \"I'm just giving you the day off!\" says a muffled voice through the blocked door. \"Don't be such a bummer, just relax today!\"<br><br>Suddenly, @Beffymaroo and @PainterProphet knock on your window. \"Looks like the Indulgence Armadillo has taken a liking to you! C'mon, we'll help you get her out of your way!\"",
+    "questArmadilloCompletion": "Finally, after a long morning of convincing the Indulgence Armadillo that you do, in fact, want to work, she caves. \"I'm sorry!\" She apologizes. \"I just wanted to help. I thought everyone liked lazy days!\"<br><br>You smile, and let her know that next time you've earned a day off you'll invite her over. She grins back at you. Passers-by @Tipsy and @krajzega congratulate you on the good work as she rolls away, leaving a few eggs as an apology.",
+    "questArmadilloBoss": "Indulgence Armadillo",
+    "questArmadilloDropArmadilloEgg": "Armadillo (Egg)",
+    "questArmadilloUnlockText": "Unlocks purchasable Armadillo eggs in the Market"
 }

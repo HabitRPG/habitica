@@ -70,7 +70,7 @@
     "cantAfford": "Nemůžete zadat tuto odměnu. Kupte si více drahokamů nebo snižte odměnu.",
     "challengeIdRequired": "„challengeId\" musí být platné UUID.",
     "winnerIdRequired": "„winnerId\" musí být platné UUID.",
-    "challengeNotFound": "Challenge not found or you don't have access.",
+    "challengeNotFound": "Výzva nebyla nalezena nebo k ní nemáš přístup.",
     "onlyLeaderDeleteChal": "Pouze vůdce výzvy ji může smazat.",
     "onlyLeaderUpdateChal": "Pouze vůdce výzvy ji může aktualizovat.",
     "winnerNotFound": "Vítěz s id „<%= userId %>\" nenalezen, nebo se neúčastnil výzvy.",

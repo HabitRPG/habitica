@@ -9,7 +9,11 @@
     "defaultTodo1Text": "Habitica beitreten (Hake mich ab!)",
     "defaultReward1Text": "15 Minuten Pause",
     "defaultReward1Notes": "Individuelle Belohnungen können viele Formen annehmen. Manche Leute verzichten auf ihre Lieblingsserien bis sie genügend Gold gesammelt haben um sie sich leisten zu können.",
-    "defaultTag1": "Morgens",
-    "defaultTag2": "Mittags",
-    "defaultTag3": "Abends"
+    "defaultTag1": "Arbeit",
+    "defaultTag2": "Training",
+    "defaultTag3": "Gesundheit + Wohlbefinden",
+    "defaultTag4": "Schule",
+    "defaultTag5": "Teams",
+    "defaultTag6": "Hausarbeiten",
+    "defaultTag7": "Kreativität"
 }

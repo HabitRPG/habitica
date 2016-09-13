@@ -9,7 +9,11 @@
     "defaultTodo1Text": "Gå med i Habitica (Bocka av mig!)",
     "defaultReward1Text": "15 Minuter Paus",
     "defaultReward1Notes": "Skräddarsydda belöningar kan komma i många former. Vissa personer kommer att undvika kolla på sin favoritserie så länge de inte har guld att betala för det.",
-    "defaultTag1": "morgon",
-    "defaultTag2": "eftermiddag",
-    "defaultTag3": "kväll"
+    "defaultTag1": "Work",
+    "defaultTag2": "Exercise",
+    "defaultTag3": "Health + Wellness",
+    "defaultTag4": "School",
+    "defaultTag5": "Teams",
+    "defaultTag6": "Chores",
+    "defaultTag7": "Creativity"
 }

@@ -335,5 +335,11 @@
     "questTurtleCompletion": "Grâce à vos vaillants efforts, les eaux ont été dégagées, permettant à notre chère tortue marine de retrouver la plage. Vous, @Bambin, et @JaizakAripaik la regardez pendant qu’elle enterre sa nichée dans le sable pour permettre à ses œufs d’incuber et d’éclore en centaines de petites tortues. La sage tortue vous donne à chacun trois œufs, et demande à ce que vous les nourrissiez et les éleviez afin qu’ils deviennent un jour, eux aussi, de grandes tortues marines.",
     "questTurtleBoss": "Épaves de tâches",
     "questTurtleDropTurtleEgg": "Tortue (Œuf)",
-    "questTurtleUnlockText": "Déverrouille l'achat d’œufs de tortue au marché"
+    "questTurtleUnlockText": "Déverrouille l'achat d’œufs de tortue au marché",
+    "questArmadilloText": "Le Tatou Indulgent",
+    "questArmadilloNotes": "Il est temps de sortir de votre maison et de commencer votre journée. Vous ouvrez votre porte et vous retrouvez face à ce qui ressemble à un rideau de pierre. \"Je te donne congé pour la journée!\" dit une voix étouffée au travers de la porte bloquée. \"Ne sois pas si déçu•e, détends-toi aujourd'hui!\" <br><br> Soudain, @Beffymaroo et @PainterProphet toquent à votre fenêtre. \"On dirait que le tatou indulgent s'est pris d'affection pour toi! Allez, nous allons t'aider à l'enlever de ton chemin!\"",
+    "questArmadilloCompletion": "Finalement, après une longue matinée passée à convaincre le tatou indulgent que vous voulez, en fait, vraiment travailler, il abandonne. \"Je suis désolé!\" s'excuse-t-il. \"Je voulais seulement aider. Je pensais que tout le monde aimait les jours paresseux!\"<br><br>Vous souriez, et lui dites que la prochaine fois que vous aurez mérité un jour de congé, vous l'inviterez chez vous. Il sourit en retour. @Tipsy et @krajzega vous félicitent en passant pour votre bon travail pendant que le tatou s'éloigne en roulant, vous laissant quelques œufs en guise d'excuse.",
+    "questArmadilloBoss": "L'indulgence du tatou",
+    "questArmadilloDropArmadilloEgg": "Tatou (œuf)",
+    "questArmadilloUnlockText": "Déverrouille l'achat d'œufs de tatou au Marché"
 }

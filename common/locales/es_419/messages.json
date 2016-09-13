@@ -29,6 +29,7 @@
     "messageFoundQuest": "¡Has encontrado la misión \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Compraste este equipamiento antes, pero no lo posees actualmente. Lo puedes volver a comprar en la columna de recompensas en la página de tareas.",
     "messageAlreadyOwnGear": "Ya posees este artículo. Equípalo desde la página de equipamiento.",
+    "messageHealthAlreadyMax": "Tu salud ya se encuentra en el nivel máximo.",
     "armoireEquipment": "<%= image %> Hallaste una pieza de Equipamiento raro en el Armario: ¡<%= dropText %>! ¡Genial!",
     "armoireFood": "<%= image %> Hurgas en el Armario y encuentras <%= dropArticle %><%= dropText %>. ¿Que hacía eso ahí?",
     "armoireExp": "Luchas con el Armario y ganas Experiencia. ¡Toma esto!",
@@ -53,5 +54,5 @@
     "messageGroupChatAdminClearFlagCount": "¡Sólo un administrador puede borrar el número de denuncias!",
     "messageUserOperationProtected": "la ruta `<%= operation %>` no ha sido guardada, ya que es una ruta protegida.",
     "messageUserOperationNotFound": "<%= operation %> operación no encontrada",
-    "messageNotificationNotFound": "Notification not found."
+    "messageNotificationNotFound": "Notificación no encontrada."
 }

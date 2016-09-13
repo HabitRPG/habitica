@@ -48,6 +48,8 @@
     "leaveQuest": "Opustiť výpravu",
     "sureLeave": "Si si istý, že chceš opustiť aktívnu výpravu? Celý tvoj postup vo výprave bude stratený.",
     "questOwner": "Vlastník výpravy",
+    "questTaskDamage": "+<%= damage %> pending damage to boss",
+    "questTaskCollection": "<%= items %> items collected today",
     "questOwnerNotInPendingQuest": "Vlastník výpravy opustil výpravu a teda ju už nemôže začať. Odporúčame aby si ju teraz ukončil. Vlastník výpravy získa zvitok naspäť.",
     "questOwnerNotInRunningQuest": "Vlastník výpavy ju opustil. Môžes ju opustiť aj ty, ak potrebuješ. Ale môžeš aj ďalej pokračovať a všetci účastníci na konci dostanú odmeny za danú výpravu.",
     "questOwnerNotInPendingQuestParty": "Vlastník výpravy opustil družinu a teda ju už nemôže začať výpravu. Odporúčame aby si ju teraz ukončil. Vlastník výpravy získa zvitok naspäť.",

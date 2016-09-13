@@ -7,7 +7,9 @@ describe('POST /reorder-tags', () => {
   let user;
 
   before(async () => {
-    user = await generateUser();
+    user = await generateUser({
+      tags: [],
+    });
   });
 
   it('returns error when no parameters are provided', async () => {
@@ -35,10 +37,10 @@ describe('POST /reorder-tags', () => {
     await user.post('/tags', {name: tag2Name});
     await user.sync();
 
-    await user.post('/reorder-tags', {tagId: user.tags[4].id, to: 3});
+    await user.post('/reorder-tags', {tagId: user.tags[0].id, to: 1});
     await user.sync();
 
-    expect(user.tags[3].name).to.equal(tag2Name);
-    expect(user.tags[4].name).to.equal(tag1Name);
+    expect(user.tags[0].name).to.equal(tag2Name);
+    expect(user.tags[1].name).to.equal(tag1Name);
   });
 });
