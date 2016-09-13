@@ -98,7 +98,7 @@
     "buyThis": "Kúpiť <%= text %> za <%= price %> z tvojich <%= gems %> drahokamov?",
     "noReachServer": "Serve je dočasne nedostupný, skús neskôr",
     "errorUpCase": "CHYBA:",
-    "newPassSent": "If we have your email on file, a new password has been sent to your email.",
+    "newPassSent": "Ak máme uložení tvoj e-mail, pošleme ti nové heslo tam.",
     "serverUnreach": "Server je dočasne nedostupný.",
     "requestError": "Och, nastala chyba! <strong>Prosím, znova načítaj stránku,</strong> tvoja posledná činnosť nemusela byť správne uložená.",
     "seeConsole": "Ak chyba pretrváva, prosím nahláste ju v sekcií Pomoc > Nahlásiť chybu. Ak si rozumieš s konzolou prehliadača, prosím pripoj aj chybové správy.",
@@ -114,7 +114,8 @@
     "audioTheme_wattsTheme": "Wattsova téma",
     "audioTheme_gokulTheme": "Téma Gokul",
     "audioTheme_luneFoxTheme": "Téma od LuneFox",
-    "audioTheme_rosstavoTheme": "Rosstavo's Theme",
+    "audioTheme_rosstavoTheme": "Rosstavova téma",
+    "audioTheme_dewinTheme": "Dewin's Theme",
     "askQuestion": "Spýtaj sa otázku",
     "reportBug": "Nahlás problém",
     "HabiticaWiki": "Wiki Habitiky",
@@ -179,5 +180,8 @@
     "raisePetShare": "Moje zvieratko vyrástlo v tátoše vďaka plneniu úloh v reálnom živote!",
     "wonChallengeShare": "Vyhral som výzvu v Habitike!",
     "achievementShare": "Získal som nový odznak v Habitike!",
-    "orderBy": "Zoradiť podľa <%= item %>"
+    "orderBy": "Zoradiť podľa <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

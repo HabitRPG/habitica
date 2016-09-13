@@ -98,7 +98,7 @@
     "buyThis": "Comprar <%= text %> com <%= price %> de suas <%= gems %> Gemas?",
     "noReachServer": "Servidor não disponível no momento, tente novamente mais tarde",
     "errorUpCase": "ERRO:",
-    "newPassSent": "Se nós tivermos o seu email em arquivo, uma nova senha será mandada ao seu email.",
+    "newPassSent": "Se tivermos o seu email em registro, uma nova senha será enviada para seu email.",
     "serverUnreach": "Servidor não disponível no momento.",
     "requestError": "Caramba, um errou ocorreu! <strong>Por favor recarregue a página,</strong> sua última ação pode não ter sido salva corretamente. ",
     "seeConsole": "Se o erro persistir, por favor reporte em Ajuda > Reportar um Problema. Se você estiver familiarizado com o console do seu navegador, por favor inclua quaisquer mensagens de erro.",
@@ -114,11 +114,12 @@
     "audioTheme_wattsTheme": "Tema de Watts",
     "audioTheme_gokulTheme": "Tema Gokul",
     "audioTheme_luneFoxTheme": "Tema da Raposa Lunar",
-    "audioTheme_rosstavoTheme": "Rosstavo's Theme",
+    "audioTheme_rosstavoTheme": "Tema de Rosstavo",
+    "audioTheme_dewinTheme": "Tema de Dewin",
     "askQuestion": "Fazer uma Pergunta",
     "reportBug": "Reportar um Problema",
     "HabiticaWiki": "A Wiki Habitica",
-    "HabiticaWikiFrontPage": "http://habitica.wikia.com/wiki/Habitica_Wiki",
+    "HabiticaWikiFrontPage": "http://pt-br.habitica.wikia.com/wiki/Habitica_Wiki",
     "contributeToHRPG": "Contribuir com o Habitica",
     "overview": "Visão Geral para Novos Usuários.",
     "January": "Janeiro",
@@ -179,5 +180,8 @@
     "raisePetShare": "Transformei meu mascote em uma montaria completando minhas tarefas da vida real!",
     "wonChallengeShare": "Venci um desafio em Habitica!",
     "achievementShare": "Consegui uma nova conquista em Habitica!",
-    "orderBy": "Ordenar por <%= item %>"
+    "orderBy": "Ordenar por <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

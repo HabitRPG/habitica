@@ -48,6 +48,8 @@
     "leaveQuest": "Küldetés Elhagyása",
     "sureLeave": "Are you sure you want to leave the active quest? All your quest progress will be lost.",
     "questOwner": "Küldetés tulajdonos",
+    "questTaskDamage": "+<%= damage %> pending damage to boss",
+    "questTaskCollection": "<%= items %> items collected today",
     "questOwnerNotInPendingQuest": "A küldetés tulajdonosa kilépett a küldetésből és már nem tudja elindítani. Ajánlott, hogy lépj vissza te is. A küldetés tulajdonosánál marad a küldetés tekercse.",
     "questOwnerNotInRunningQuest": "A küldetés tulajdonosa kilépett a küldetésből. Megszakíthatod a küldetést, ha kell. Egyébként hagyhatod, hogy menjen tovább és a maradék résztvevők megkapják a küldetés jutalmát amikor a küldetés véget ér.",
     "questOwnerNotInPendingQuestParty": "A küldetés tulajdonosa elhagyta a csapatot és már nem tudja elkezdeni a küldetést. Azt ajánljuk, hogy szakítsd meg most. A küldetés tulajdonosa megtartja a küldetés tekercset.",

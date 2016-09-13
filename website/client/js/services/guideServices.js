@@ -195,19 +195,28 @@ function($rootScope, User, $timeout, $state, Analytics) {
         }
       };
       step.onHide = function(){
-        var ups={};
-        if (!$rootScope.stepAwarded) $rootScope.stepAwarded = {};
-        if (!$rootScope.stepAwarded[i]) {
-          $rootScope.stepAwarded[i] = true;
-          ups['stats.gp'] = User.user.stats.gp + (step.gold || 0);
-          ups['stats.exp'] = User.user.stats.exp + (step.experience || 0);
+        var ups = {};
+        var lastKnownStep = User.user.flags.tour[k];
+
+        // Return early if user has already completed this tutorial
+        if (lastKnownStep === -2) {
+          return;
+        }
+        if (i > lastKnownStep) {
+          if (step.gold) ups['stats.gp'] = User.user.stats.gp + step.gold;
+          if (step.experience) ups['stats.exp'] = User.user.stats.exp + step.experience;
+          ups['flags.tour.'+k] = i;
         }
         if (step.final) { // -2 indicates complete
           ups['flags.tour.'+k] = -2;
-          $rootScope.stepAwarded = null;
           Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'tutorial','eventLabel':k+'-web','eventValue':i+1,'complete':true})
         }
+
         User.set(ups);
+        // User.set() doesn't include a check for level changes, so manually check here.
+        if (step.experience) {
+          User.user.fns.updateStats(User.user.stats);
+        }
       }
     }).value();
   });
@@ -245,8 +254,6 @@ function($rootScope, User, $timeout, $state, Analytics) {
     if (page === -1) page = 0;
     var curr = User.user.flags.tour[chapter];
     if (page != curr+1 && !force) return;
-    var updates = {};updates['flags.tour.'+chapter] = page;
-    User.set(updates);
     var chap = tour[chapter], opts = chap._options;
     opts.steps = [];
     _.times(page, function(p){
@@ -259,7 +266,12 @@ function($rootScope, User, $timeout, $state, Analytics) {
       chap.goTo(end);
     } else {
       chap.setCurrentStep(end);
-      chap.start();
+      if (page > 0) {
+        chap.init();
+        chap.goTo(page);
+      } else {
+        chap.start();
+      }
     }
   }
 

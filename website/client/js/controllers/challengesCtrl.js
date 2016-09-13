@@ -1,5 +1,5 @@
-habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$stateParams', 'Members', 'Tasks', 'TAVERN_ID',
-  function($rootScope, $scope, Shared, User, Challenges, Notification, $compile, Groups, $state, $stateParams, Members, Tasks, TAVERN_ID) {
+habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 'Tasks', 'Challenges', 'Notification', '$compile', 'Groups', '$state', '$stateParams', 'Members', 'Tasks', 'TAVERN_ID',
+  function($rootScope, $scope, Shared, User, Tasks, Challenges, Notification, $compile, Groups, $state, $stateParams, Members, Tasks, TAVERN_ID) {
 
     // Use presence of cid to determine whether to show a list or a single
     // challenge
@@ -35,6 +35,22 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     }
 
     $scope.editTask = Tasks.editTask;
+
+    $scope.canEdit = function(task) {
+      return true;
+    }
+
+    $scope.doubleClickTask = function (obj, task) {
+      if (obj._locked) {
+        return false;
+      }
+
+      if (task._editing) {
+        $scope.saveTask(task);
+      } else {
+        $scope.editTask(task);
+      }
+    }
 
     /**
      * Create
@@ -241,28 +257,42 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     //------------------------------------------------------------
     // Tasks
     //------------------------------------------------------------
-    function addTask (addTo, listDef, challenge) {
-      var task = Shared.taskDefaults({text: listDef.newTask, type: listDef.type});
-      //If the challenge has not been created, we bulk add tasks on save
-      if (challenge._id) Tasks.createChallengeTasks(challenge._id, task);
-      if (!challenge[task.type + 's']) challenge[task.type + 's'] = [];
-      challenge[task.type + 's'].unshift(task);
-      delete listDef.newTask;
+    function addChallengeTasks (listDef, challenge, tasks) {
+      var type = listDef.type;
+
+      // If the challenge has not been created, we bulk add tasks on save
+      tasks = tasks.map(function (task) {
+        return Shared.taskDefaults({
+          text: task,
+          type: type,
+        });
+      });
+
+      type = type + 's';
+
+      if (challenge._id) {
+        Tasks.createChallengeTasks(challenge._id, tasks).then(function (res) {
+          addToList(challenge, type, res.data.data);
+        });
+      } else {
+        addToList(challenge, type, tasks);
+      }
     };
 
-    $scope.addTask = function(addTo, listDef, challenge) {
-      if (listDef.bulk) {
-        var tasks = listDef.newTask.split(/[\n\r]+/);
-        //Reverse the order of tasks so the tasks will appear in the order the user entered them
-        tasks.reverse();
-        _.each(tasks, function(t) {
-          listDef.newTask = t;
-          addTask(addTo, listDef, challenge);
-        });
-        listDef.bulk = false;
-      } else {
-        addTask(addTo, listDef, challenge);
+    function addToList (challenge, type, tasks) {
+      if (!_.isArray(tasks)) {
+        tasks = [tasks];
       }
+      if (!challenge[type]) {
+        challenge[type] = [];
+      }
+      challenge[type].unshift.apply(challenge[type], tasks);
+    }
+
+    $scope.addTask = function(listDef, challenge) {
+      Tasks.addTasks(listDef, function (listDef, tasks) {
+        addChallengeTasks(listDef, challenge, tasks);
+      });
     }
 
     $scope.removeTask = function(task, challenge) {
@@ -274,17 +304,11 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     };
 
     $scope.saveTask = function(task){
+      Tasks.updateTask(task._id, task);
       task._editing = false;
-      // TODO persist
     }
 
-    $scope.toggleBulk = function(list) {
-      if (typeof list.bulk === 'undefined') {
-        list.bulk = false;
-      }
-      list.bulk = !list.bulk;
-      list.focus = true;
-    };
+    $scope.toggleBulk = Tasks.toggleBulk;
 
     /*
     --------------------------
@@ -358,7 +382,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
 
       _calculateMaxPrize(gid);
 
-      if (gid == TAVERN_ID) {
+      if (gid == TAVERN_ID && !($scope.newChallenge.prize > 0)) {
         $scope.newChallenge.prize = 1;
       }
     })

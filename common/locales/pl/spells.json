@@ -7,7 +7,7 @@
     "spellWizardEarthNotes": "Twoja siła umysłu trzęsie ziemią. Cała twoja drużyna zyskuje wzmocnienie do Inteligencji! (Bazuje na: Niewzmocnionej INT)",
     "spellWizardFrostText": "Przeszywający chłód",
     "spellWizardFrostNotes": "Lód pokrywa twoje zadania. Jutro żadna z twoich serii nie ulegnie wyzerowaniu! (Jeden rzut wpływa na wszystkie serie)",
-    "spellWizardFrostAlreadyCast": "You have already cast this today. Your streaks are frozen, and there's no need to cast this again.",
+    "spellWizardFrostAlreadyCast": "Dzisiaj rzuciłeś już ten czar. Twoje serie są zamrożone, dlatego nie ma potrzeby ponownego rzucania tego czaru.",
     "spellWarriorSmashText": "Brutalne uderzenie",
     "spellWarriorSmashNotes": "Uderzasz zadanie całą swoją mocą. Zwiększa się jego niebieskość/zmniejsza czerwień i zadajesz Bossom dodatkowe obrażenia! Aby rzucić, kliknij na zadanie. (Bazuje na: SIŁ)",
     "spellWarriorDefensiveStanceText": "Pozycja obronna",
@@ -52,8 +52,8 @@
     "spellSpecialSandNotes": "Anuluj skutki Piany Morskiej",
     "spellNotFound": "Nie znaleziono umiejętności \"<%= spellId %>\".",
     "partyNotFound": "Nie znaleziono drużyny.",
-    "targetIdUUID": "\"targetId\" must be a valid User ID.",
-    "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
+    "targetIdUUID": "\"targetId\" musi być prawidłowym ID użytkownika.",
+    "challengeTasksNoCast": "Rzucanie czaru na zadanie z wyzwań nie jest dozwolone.",
     "spellNotOwned": "Nie posiadasz tej umiejętności.",
     "spellLevelTooHigh": "Ta umiejętność wymaga poziomu <%= level %>."
 }

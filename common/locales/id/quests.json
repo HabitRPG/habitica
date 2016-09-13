@@ -2,7 +2,7 @@
     "quests": "Misi",
     "quest": "misi",
     "whereAreMyQuests": "Misi sekarang dapat diakses pada halaman terpisah! Klik pada Inventori -> Misi untuk membukanya.",
-    "yourQuests": "Misimu",
+    "yourQuests": "Misi yang Dimiliki",
     "questsForSale": "Misi yang Tersedia",
     "petQuests": "Peliharaan dan Tunggangan Misi",
     "unlockableQuests": "Misi yang bisa didapatkan",
@@ -48,6 +48,8 @@
     "leaveQuest": "Tinggalkan Sayembara",
     "sureLeave": "Apakah kamu yakin kamu mau meninggalkan sayembara yang aktif? Semua perkembangan sayembaramu akan hilang.",
     "questOwner": "Pemilik Sayembara",
+    "questTaskDamage": "+<%= damage %> pending damage to boss",
+    "questTaskCollection": "<%= items %> items collected today",
     "questOwnerNotInPendingQuest": "Pemilik sayembara telah meninggalkan sayembara dan tidak lagi memulainya. Dianjurkan kamu membatalkan. Pemilik sayembara akan mendapatkan gulungan sayembaranya kembali.",
     "questOwnerNotInRunningQuest": "Pemilik sayembara telah meninggalkan kelompok. Kamu dapat membatalkan sayembara jika perlu namun kamu dapat membiarkannya terus berlangsung dan semua peserta yang tersisa akan mendapatkan hadiah sayembara ketika sayembara berakhir.",
     "questOwnerNotInPendingQuestParty": "Pemilik sayembara telah meninggalkan kelompok dan tak bisa lagi memulai sayembara. Dianjurkan kamu membatalkannya sekarang. Gulungan sayembara akan dikembalikan kepada pemiliknya.",
@@ -94,8 +96,8 @@
     "noActiveQuestToAbort": "Tidak ada misi aktif untuk dibatalkan.",
     "onlyLeaderAbortQuest": "Hanya pemimpin kelompok atau misi yang dapat membatalkan misi.",
     "questAlreadyRejected": "Kamu telah menolak undangan misi.",
-    "cantCancelActiveQuest": "You can not cancel an active quest, use the abort functionality.",
+    "cantCancelActiveQuest": "Anda tidak dapat membatalkan misi yang aktif, gunakan fungsi pembatalan.",
     "onlyLeaderCancelQuest": "Hanya ketua kelompok atau pemilik gulungan misi yang dapat membatalkan misi.",
     "questNotPending": "Tidak ada misi untuk dimulai",
-    "questOrGroupLeaderOnlyStartQuest": "Only the quest leader or group leader can force start the quest"
+    "questOrGroupLeaderOnlyStartQuest": "Hanya pemimpin misi atau pemimpin kelompok dapat memaksa memulai misi"
 }

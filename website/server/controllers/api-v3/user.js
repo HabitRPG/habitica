@@ -30,19 +30,14 @@ api.getUser = {
   middlewares: [authWithHeaders()],
   url: '/user',
   async handler (req, res) {
-    let user = res.locals.user.toJSON();
+    let user = res.locals.user;
+    let userToJSON = user.toJSON();
 
     // Remove apiToken from response TODO make it private at the user level? returned in signup/login
-    delete user.apiToken;
+    delete userToJSON.apiToken;
 
-    // TODO move to model? (maybe virtuals, maybe in toJSON)
-    // NOTE: if an item is manually added to user.stats common/fns/predictableRandom must be tweaked
-    // so it's not considered. Otherwise the client will have it while the server won't and the results will be different.
-    user.stats.toNextLevel = common.tnl(user.stats.lvl);
-    user.stats.maxHealth = common.maxHealth;
-    user.stats.maxMP = common.statsComputed(user).maxMP;
-
-    return res.respond(200, user);
+    user.addComputedStatsToJSONObj(userToJSON);
+    return res.respond(200, userToJSON);
   },
 };
 
@@ -1143,8 +1138,7 @@ api.userRebirth = {
 };
 
 /**
- * @api {post} /api/v3/user/block/:uuid Block and unblock a user
- * @apiDescription Must be an admin to make this request.
+ * @api {post} /api/v3/user/block/:uuid Block / unblock a user from sending you a PM
  * @apiVersion 3.0.0
  * @apiName BlockUser
  * @apiGroup User

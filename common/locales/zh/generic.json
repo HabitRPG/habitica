@@ -114,7 +114,8 @@
     "audioTheme_wattsTheme": "瓦特的主题",
     "audioTheme_gokulTheme": "郭克的主题",
     "audioTheme_luneFoxTheme": "鲁聂狐狸的主题",
-    "audioTheme_rosstavoTheme": "Rosstavo's Theme",
+    "audioTheme_rosstavoTheme": "Rosstavo的主题",
+    "audioTheme_dewinTheme": "Dewin的主题",
     "askQuestion": "问个问题",
     "reportBug": "报告一个问题",
     "HabiticaWiki": "Habitica 维基",
@@ -145,7 +146,7 @@
     "cardReceivedFrom": "来自 <%= userName %> 的 <%= cardType %> ",
     "greetingCard": "祝贺卡",
     "greetingCardExplanation": "你们两个人都获得了“欢乐伙伴”的成就！",
-    "greetingCardNotes": "给一个队伍者个祝贺卡。",
+    "greetingCardNotes": "给一个队友发一张祝贺卡。",
     "greeting0": "嗨！你好！",
     "greeting1": "就说声你好 :)",
     "greeting2": "`疯狂的招手`",
@@ -179,5 +180,8 @@
     "raisePetShare": "我完成了我的任务，培养了一匹新坐骑！",
     "wonChallengeShare": "我在Habitica赢了一个挑战！",
     "achievementShare": "我在Habitica得到了一个新成就！",
-    "orderBy": "以<%= item %>排序"
+    "orderBy": "以<%= item %>排序",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

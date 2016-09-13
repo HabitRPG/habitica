@@ -1,4 +1,4 @@
-import shared from '../../../../common';
+import common from '../../../../common';
 import Bluebird from 'bluebird';
 import {
   chatDefaults,
@@ -23,12 +23,12 @@ schema.methods.getGroups = function getUserGroups () {
 schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, message) {
   let sender = this;
 
-  shared.refPush(userToReceiveMessage.inbox.messages, chatDefaults(message, sender));
+  common.refPush(userToReceiveMessage.inbox.messages, chatDefaults(message, sender));
   userToReceiveMessage.inbox.newMessages++;
   userToReceiveMessage._v++;
   userToReceiveMessage.markModified('inbox.messages');
 
-  shared.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(message, userToReceiveMessage)));
+  common.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(message, userToReceiveMessage)));
   sender.markModified('inbox.messages');
 
   let promises = [userToReceiveMessage.save(), sender.save()];
@@ -40,4 +40,15 @@ schema.methods.addNotification = function addUserNotification (type, data = {}) 
     type,
     data,
   });
+};
+
+// Add stats.toNextLevel, stats.maxMP and stats.maxHealth
+// to a JSONified User object
+schema.methods.addComputedStatsToJSONObj = function addComputedStatsToUserJSONObj (obj) {
+  // NOTE: if an item is manually added to user.stats then
+  // common/fns/predictableRandom must be tweaked so the new item is not considered.
+  // Otherwise the client will have it while the server won't and the results will be different.
+  obj.stats.toNextLevel = common.tnl(this.stats.lvl);
+  obj.stats.maxHealth = common.maxHealth;
+  obj.stats.maxMP = common.statsComputed(this).maxMP;
 };

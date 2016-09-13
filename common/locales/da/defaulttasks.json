@@ -9,7 +9,11 @@
     "defaultTodo1Text": "Start med at spille Habitica (Markér mig som færdig!)",
     "defaultReward1Text": "15 minutters pause",
     "defaultReward1Notes": "Tilpassede belønninger kommer i mange former. Nogle mennesker vil undlade at se deres favoritserie, hvis de ikke har guld til at betale for det.",
-    "defaultTag1": "morgen",
-    "defaultTag2": "eftermiddag",
-    "defaultTag3": "aften"
+    "defaultTag1": "Work",
+    "defaultTag2": "Exercise",
+    "defaultTag3": "Health + Wellness",
+    "defaultTag4": "School",
+    "defaultTag5": "Teams",
+    "defaultTag6": "Chores",
+    "defaultTag7": "Creativity"
 }

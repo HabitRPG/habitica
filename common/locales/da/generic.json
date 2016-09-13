@@ -115,6 +115,7 @@
     "audioTheme_gokulTheme": "Gokul Tema",
     "audioTheme_luneFoxTheme": "Lunefox' Tema",
     "audioTheme_rosstavoTheme": "Rosstavo's Theme",
+    "audioTheme_dewinTheme": "Dewin's Theme",
     "askQuestion": "Stil et Spørgsmål",
     "reportBug": "Rapporter en Fejl",
     "HabiticaWiki": "Habitica Wikien",
@@ -179,5 +180,8 @@
     "raisePetShare": "Jeg opdrættede et kæledyr til et ridedyr ved at færdiggøre opgaver i mit virkelige liv!",
     "wonChallengeShare": "Jeg har vundet en udfordring i Habitica!",
     "achievementShare": "Jeg har opnået en ny præstation i Habitica!",
-    "orderBy": "Order By <%= item %>"
+    "orderBy": "Order By <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

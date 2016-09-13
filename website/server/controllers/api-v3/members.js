@@ -16,7 +16,7 @@ import {
   sendTxn as sendTxnEmail,
 } from '../../libs/email';
 import Bluebird from 'bluebird';
-import sendPushNotification from '../../libs/pushNotifications';
+import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 
 let api = {};
 
@@ -50,7 +50,10 @@ api.getMember = {
     if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
 
     // manually call toJSON with minimize: true so empty paths aren't returned
-    res.respond(200, member.toJSON({minimize: true}));
+    let memberToJSON = member.toJSON({minimize: true});
+    member.addComputedStatsToJSONObj(memberToJSON);
+
+    res.respond(200, memberToJSON);
   },
 };
 
@@ -100,6 +103,7 @@ function _getMembersForItem (type) {
 
     let query = {};
     let fields = nameFields;
+    let addComputedStats = false; // add computes stats to the member info when items and stats are available
 
     if (type === 'challenge-members') {
       query.challenges = challenge._id;
@@ -111,6 +115,7 @@ function _getMembersForItem (type) {
 
         if (req.query.includeAllPublicFields === 'true') {
           fields = memberFields;
+          addComputedStats = true;
         }
       }
     } else if (type === 'group-invites') {
@@ -138,7 +143,13 @@ function _getMembersForItem (type) {
       .exec();
 
     // manually call toJSON with minimize: true so empty paths aren't returned
-    res.respond(200, members.map(member => member.toJSON({minimize: true})));
+    let membersToJSON = members.map(member => {
+      let memberToJSON = member.toJSON({minimize: true});
+      if (addComputedStats) member.addComputedStatsToJSONObj(memberToJSON);
+
+      return memberToJSON;
+    });
+    res.respond(200, membersToJSON);
   };
 }
 
@@ -151,7 +162,7 @@ function _getMembersForItem (type) {
  *
  * @apiParam {UUID} groupId The group id
  * @apiParam {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
- * @apiParam {boolean} includeAllPublicFields Query parameter available only when fetching a party. If === `true` then all public fields for members will be returned (liek when making a request for a single member)
+ * @apiParam {boolean} includeAllPublicFields Query parameter available only when fetching a party. If === `true` then all public fields for members will be returned (like when making a request for a single member)
  *
  * @apiSuccess {array} data An array of members, sorted by _id
  */

@@ -58,7 +58,7 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
         }
       )
       if (User.user.party.orderAscending == "descending") {
-      	result = result.reverse()
+        result = result.reverse()
       }
 
       return result;

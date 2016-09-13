@@ -115,6 +115,7 @@
     "audioTheme_gokulTheme": "Gokul téma",
     "audioTheme_luneFoxTheme": "Téma od LuneFox",
     "audioTheme_rosstavoTheme": "Rosstavo's Theme",
+    "audioTheme_dewinTheme": "Dewin's Theme",
     "askQuestion": "Položit otázku",
     "reportBug": "Nahlásit chybu",
     "HabiticaWiki": "Habitica Wiki",
@@ -179,5 +180,8 @@
     "raisePetShare": "Mazlíček mi vyrostl v silné zvíře, protože jsem svědomitě plnil úkoly!",
     "wonChallengeShare": "V Habitica jsem vyhrál výzvu!",
     "achievementShare": "Získal jsem v zemi Habitica nové ocenění!",
-    "orderBy": "Seřadit podle <%= item %>"
+    "orderBy": "Seřadit podle <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

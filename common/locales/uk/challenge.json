@@ -74,10 +74,10 @@
     "onlyLeaderDeleteChal": "Тільки лідер випробування може видалити це.",
     "onlyLeaderUpdateChal": "Тільки лідер випробування може оновити це.",
     "winnerNotFound": "Переможець з id \"<%= userId %>\" не знайдений або не приймає участь у випробуванні.",
-    "noCompletedTodosChallenge": "\"includeCompletedTodos\" is not supported when fetching challenge tasks.",
-    "userTasksNoChallengeId": "When \"tasksOwner\" is \"user\" \"challengeId\" can't be passed.",
-    "onlyChalLeaderEditTasks": "Tasks belonging to a challenge can only be edited by the leader.",
-    "userAlreadyInChallenge": "User is already participating in this challenge.",
-    "cantOnlyUnlinkChalTask": "Only broken challenges tasks can be unlinked.",
-    "shortNameTooShort": "Tag Name must have at least 3 characters."
+    "noCompletedTodosChallenge": "\"includeCompletedTodos\" не підтримується при отриманні завдань із випробовувань.",
+    "userTasksNoChallengeId": "Коли \"tasksOwner\" рівно \"user\", \"challengeId\" не можна передати.",
+    "onlyChalLeaderEditTasks": "Тільки лідер може редагувати завдання з випробовувань.",
+    "userAlreadyInChallenge": "Цей користувач вже участує в випробовуванні.",
+    "cantOnlyUnlinkChalTask": "Лише завдання з завершених випробовувань можна від'єднати.",
+    "shortNameTooShort": "Заголовок ярлика повинен складатись з щонайменш 3х символів."
 }

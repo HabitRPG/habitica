@@ -5,6 +5,29 @@ var TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'history
 angular.module('habitrpg')
 .factory('Tasks', ['$rootScope', 'Shared', '$http',
   function tasksFactory($rootScope, Shared, $http) {
+    function addTasks(listDef, addTaskFn) {
+      var tasks = listDef.newTask;
+
+      if (listDef.bulk) {
+        tasks = tasks.split(/[\n\r]+/);
+        // Reverse the order of tasks so the tasks
+        // will appear in the order the user entered them
+        tasks.reverse();
+        listDef.bulk = false;
+      } else {
+        tasks = [tasks];
+      }
+
+      addTaskFn(listDef, tasks);
+
+      delete listDef.newTask;
+      delete listDef.focus;
+    }
+
+    function toggleBulk (list) {
+      list.bulk = !list.bulk;
+      list.focus = true;
+    };
 
     function getUserTasks (getCompletedTodos) {
       var url = '/api/v3/tasks/user';
@@ -33,11 +56,11 @@ angular.module('habitrpg')
       });
     };
 
-    function createChallengeTasks (challengeId, taskDetails) {
+    function createChallengeTasks (challengeId, tasks) {
       return $http({
         method: 'POST',
         url: '/api/v3/tasks/challenge/' + challengeId,
-        data: taskDetails,
+        data: tasks,
       });
     };
 
@@ -181,6 +204,8 @@ angular.module('habitrpg')
     }
 
     return {
+      addTasks: addTasks,
+      toggleBulk: toggleBulk,
       getUserTasks: getUserTasks,
       loadedCompletedTodos: false,
       createUserTasks: createUserTasks,

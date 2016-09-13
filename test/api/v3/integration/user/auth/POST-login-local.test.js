@@ -13,6 +13,7 @@ describe('POST /user/auth/local/login', () => {
     api = requester();
     user = await generateUser();
   });
+
   it('success with username', async () => {
     let response = await api.post(endpoint, {
       username: user.auth.local.username,
@@ -20,6 +21,7 @@ describe('POST /user/auth/local/login', () => {
     });
     expect(response.apiToken).to.eql(user.apiToken);
   });
+
   it('success with email', async () => {
     let response = await api.post(endpoint, {
       username: user.auth.local.email,
@@ -27,6 +29,7 @@ describe('POST /user/auth/local/login', () => {
     });
     expect(response.apiToken).to.eql(user.apiToken);
   });
+
   it('user is blocked', async () => {
     await user.update({ 'auth.blocked': 1 });
     await expect(api.post(endpoint, {
@@ -38,6 +41,7 @@ describe('POST /user/auth/local/login', () => {
       message: t('accountSuspended', { userId: user._id }),
     });
   });
+
   it('wrong password', async () => {
     await expect(api.post(endpoint, {
       username: user.auth.local.username,
@@ -48,6 +52,7 @@ describe('POST /user/auth/local/login', () => {
       message: t('invalidLoginCredentialsLong'),
     });
   });
+
   it('missing username', async () => {
     await expect(api.post(endpoint, {
       password: 'wrong-password',
@@ -57,6 +62,7 @@ describe('POST /user/auth/local/login', () => {
       message: t('invalidReqParams'),
     });
   });
+
   it('missing password', async () => {
     await expect(api.post(endpoint, {
       username: user.auth.local.username,

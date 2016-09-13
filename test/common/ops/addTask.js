@@ -32,7 +32,7 @@ describe('shared.ops.addTask', () => {
     expect(habit.up).to.equal(true);
     expect(habit.down).to.equal(false);
     expect(habit.history).to.eql([]);
-    expect(habit.checklist).to.not.exists;
+    expect(habit.checklist).to.not.exist;
   });
 
   it('adds an habtit when type is invalid', () => {
@@ -53,7 +53,7 @@ describe('shared.ops.addTask', () => {
     expect(habit.up).to.equal(true);
     expect(habit.down).to.equal(false);
     expect(habit.history).to.eql([]);
-    expect(habit.checklist).to.not.exists;
+    expect(habit.checklist).to.not.exist;
   });
 
   it('adds a daily', () => {
@@ -73,7 +73,7 @@ describe('shared.ops.addTask', () => {
     expect(daily.history).to.eql([]);
     expect(daily.checklist).to.eql([]);
     expect(daily.completed).to.be.false;
-    expect(daily.up).to.not.exists;
+    expect(daily.up).to.not.exist;
   });
 
   it('adds a todo', () => {
@@ -92,7 +92,7 @@ describe('shared.ops.addTask', () => {
     expect(todo.text).to.equal('todo');
     expect(todo.checklist).to.eql([]);
     expect(todo.completed).to.be.false;
-    expect(todo.up).to.not.exists;
+    expect(todo.up).to.not.exist;
   });
 
   it('adds a reward', () => {
@@ -110,7 +110,7 @@ describe('shared.ops.addTask', () => {
     expect(reward.type).to.equal('reward');
     expect(reward.text).to.equal('reward');
     expect(reward.value).to.equal(10);
-    expect(reward.up).to.not.exists;
+    expect(reward.up).to.not.exist;
   });
 
   context('user preferences', () => {

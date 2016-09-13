@@ -14,6 +14,9 @@ let api = module.exports;
 
 import mysterySets from './mystery-sets';
 
+import eggs from './eggs';
+import hatchingPotions from './hatching-potions';
+import stable from './stable';
 import gear from './gear';
 
 import appearances from './appearance';
@@ -127,335 +130,9 @@ api.cardTypes = {
 
 api.special = api.spells.special;
 
-/*
-  ---------------------------------------------------------------
-  Drops
-  ---------------------------------------------------------------
- */
-
-api.dropEggs = {
-  Wolf: {
-    text: t('dropEggWolfText'),
-    adjective: t('dropEggWolfAdjective')
-  },
-  TigerCub: {
-    text: t('dropEggTigerCubText'),
-    mountText: t('dropEggTigerCubMountText'),
-    adjective: t('dropEggTigerCubAdjective')
-  },
-  PandaCub: {
-    text: t('dropEggPandaCubText'),
-    mountText: t('dropEggPandaCubMountText'),
-    adjective: t('dropEggPandaCubAdjective')
-  },
-  LionCub: {
-    text: t('dropEggLionCubText'),
-    mountText: t('dropEggLionCubMountText'),
-    adjective: t('dropEggLionCubAdjective')
-  },
-  Fox: {
-    text: t('dropEggFoxText'),
-    adjective: t('dropEggFoxAdjective')
-  },
-  FlyingPig: {
-    text: t('dropEggFlyingPigText'),
-    adjective: t('dropEggFlyingPigAdjective')
-  },
-  Dragon: {
-    text: t('dropEggDragonText'),
-    adjective: t('dropEggDragonAdjective')
-  },
-  Cactus: {
-    text: t('dropEggCactusText'),
-    adjective: t('dropEggCactusAdjective')
-  },
-  BearCub: {
-    text: t('dropEggBearCubText'),
-    mountText: t('dropEggBearCubMountText'),
-    adjective: t('dropEggBearCubAdjective')
-  }
-};
-
-_.each(api.dropEggs, function(egg, key) {
-  return _.defaults(egg, {
-    canBuy: (function() {
-      return true;
-    }),
-    value: 3,
-    key: key,
-    notes: t('eggNotes', {
-      eggText: egg.text,
-      eggAdjective: egg.adjective
-    }),
-    mountText: egg.text
-  });
-});
-
-api.questEggs = {
-  Gryphon: {
-    text: t('questEggGryphonText'),
-    adjective: t('questEggGryphonAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.gryphon != null) > 0;
-    })
-  },
-  Hedgehog: {
-    text: t('questEggHedgehogText'),
-    adjective: t('questEggHedgehogAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.hedgehog != null) > 0;
-    })
-  },
-  Deer: {
-    text: t('questEggDeerText'),
-    adjective: t('questEggDeerAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.ghost_stag != null) > 0;
-    })
-  },
-  Egg: {
-    text: t('questEggEggText'),
-    adjective: t('questEggEggAdjective'),
-    mountText: t('questEggEggMountText')
-  },
-  Rat: {
-    text: t('questEggRatText'),
-    adjective: t('questEggRatAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.rat != null) > 0;
-    })
-  },
-  Octopus: {
-    text: t('questEggOctopusText'),
-    adjective: t('questEggOctopusAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.octopus != null) > 0;
-    })
-  },
-  Seahorse: {
-    text: t('questEggSeahorseText'),
-    adjective: t('questEggSeahorseAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.dilatory_derby != null) > 0;
-    })
-  },
-  Parrot: {
-    text: t('questEggParrotText'),
-    adjective: t('questEggParrotAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.harpy != null) > 0;
-    })
-  },
-  Rooster: {
-    text: t('questEggRoosterText'),
-    adjective: t('questEggRoosterAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.rooster != null) > 0;
-    })
-  },
-  Spider: {
-    text: t('questEggSpiderText'),
-    adjective: t('questEggSpiderAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.spider != null) > 0;
-    })
-  },
-  Owl: {
-    text: t('questEggOwlText'),
-    adjective: t('questEggOwlAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.owl != null) > 0;
-    })
-  },
-  Penguin: {
-    text: t('questEggPenguinText'),
-    adjective: t('questEggPenguinAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.penguin != null) > 0;
-    })
-  },
-  TRex: {
-    text: t('questEggTRexText'),
-    adjective: t('questEggTRexAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && ((u.achievements.quests.trex != null) > 0 || (u.achievements.quests.trex_undead != null) > 0);
-    })
-  },
-  Rock: {
-    text: t('questEggRockText'),
-    adjective: t('questEggRockAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.rock != null) > 0;
-    })
-  },
-  Bunny: {
-    text: t('questEggBunnyText'),
-    adjective: t('questEggBunnyAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.bunny != null) > 0;
-    })
-  },
-  Slime: {
-    text: t('questEggSlimeText'),
-    adjective: t('questEggSlimeAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.slime != null) > 0;
-    })
-  },
-  Sheep: {
-    text: t('questEggSheepText'),
-    adjective: t('questEggSheepAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.sheep != null) > 0;
-    })
-  },
-  Cuttlefish: {
-    text: t('questEggCuttlefishText'),
-    adjective: t('questEggCuttlefishAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.kraken != null) > 0;
-    })
-  },
-  Whale: {
-    text: t('questEggWhaleText'),
-    adjective: t('questEggWhaleAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.whale != null) > 0;
-    })
-  },
-  Cheetah: {
-    text: t('questEggCheetahText'),
-    adjective: t('questEggCheetahAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.cheetah != null) > 0;
-    })
-  },
-  Horse: {
-    text: t('questEggHorseText'),
-    adjective: t('questEggHorseAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.horse != null) > 0;
-    })
-  },
-  Frog: {
-    text: t('questEggFrogText'),
-    adjective: t('questEggFrogAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.frog != null) > 0;
-    })
-  },
-  Snake: {
-    text: t('questEggSnakeText'),
-    adjective: t('questEggSnakeAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.snake != null) > 0;
-    })
-  },
-  Unicorn: {
-    text: t('questEggUnicornText'),
-    mountText: t('questEggUnicornMountText'),
-    adjective: t('questEggUnicornAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.unicorn != null) > 0;
-    })
-  },
-  Sabretooth: {
-    text: t('questEggSabretoothText'),
-    adjective: t('questEggSabretoothAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.sabretooth != null) > 0;
-    })
-  },
-  Monkey: {
-    text: t('questEggMonkeyText'),
-    adjective: t('questEggMonkeyAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.monkey != null) > 0;
-    })
-  },
-  Snail: {
-    text: t('questEggSnailText'),
-    adjective: t('questEggSnailAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.snail != null) > 0;
-    }),
-  },
-  Falcon: {
-    text: t('questEggFalconText'),
-    adjective: t('questEggFalconAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.falcon != null) > 0;
-    }),
-  },
-  Treeling: {
-    text: t('questEggTreelingText'),
-    adjective: t('questEggTreelingAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.treeling != null) > 0;
-    }),
-  },
-  Axolotl: {
-    text: t('questEggAxolotlText'),
-    adjective: t('questEggAxolotlAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.axolotl != null) > 0;
-    }),
-  },
-  Turtle: {
-    text: t('questEggTurtleText'),
-    adjective: t('questEggTurtleAdjective'),
-    canBuy: (function(u) {
-      return u.achievements.quests && (u.achievements.quests.turtle != null) > 0;
-    }),
-  },
-};
-
-_.each(api.questEggs, function(egg, key) {
-  return _.defaults(egg, {
-    canBuy: (function() {
-      return false;
-    }),
-    value: 3,
-    key: key,
-    notes: t('eggNotes', {
-      eggText: egg.text,
-      eggAdjective: egg.adjective
-    }),
-    mountText: egg.text
-  });
-});
-
-api.eggs = _.assign(_.cloneDeep(api.dropEggs), api.questEggs);
-
-api.specialPets = {
-  'Wolf-Veteran': 'veteranWolf',
-  'Wolf-Cerberus': 'cerberusPup',
-  'Dragon-Hydra': 'hydra',
-  'Turkey-Base': 'turkey',
-  'BearCub-Polar': 'polarBearPup',
-  'MantisShrimp-Base': 'mantisShrimp',
-  'JackOLantern-Base': 'jackolantern',
-  'Mammoth-Base': 'mammoth',
-  'Tiger-Veteran': 'veteranTiger',
-  'Phoenix-Base': 'phoenix',
-  'Turkey-Gilded': 'gildedTurkey',
-  'MagicalBee-Base': 'magicalBee',
-  'Lion-Veteran': 'veteranLion',
-  'Gryphon-RoyalPurple': 'royalPurpleGryphon',
-};
-
-api.specialMounts = {
-  'BearCub-Polar': 'polarBear',
-  'LionCub-Ethereal': 'etherealLion',
-  'MantisShrimp-Base': 'mantisShrimp',
-  'Turkey-Base': 'turkey',
-  'Mammoth-Base': 'mammoth',
-  'Orca-Base': 'orca',
-  'Gryphon-RoyalPurple': 'royalPurpleGryphon',
-  'Phoenix-Base': 'phoenix',
-  'JackOLantern-Base': 'jackolantern',
-  'MagicalBee-Base': 'magicalBee',
-};
+api.dropEggs = eggs.drops;
+api.questEggs = eggs.quests;
+api.eggs = eggs.all;
 
 api.timeTravelStable = {
   pets: {
@@ -470,160 +147,21 @@ api.timeTravelStable = {
   }
 };
 
-api.dropHatchingPotions = {
-  Base: {
-    value: 2,
-    text: t('hatchingPotionBase')
-  },
-  White: {
-    value: 2,
-    text: t('hatchingPotionWhite')
-  },
-  Desert: {
-    value: 2,
-    text: t('hatchingPotionDesert')
-  },
-  Red: {
-    value: 3,
-    text: t('hatchingPotionRed')
-  },
-  Shade: {
-    value: 3,
-    text: t('hatchingPotionShade')
-  },
-  Skeleton: {
-    value: 3,
-    text: t('hatchingPotionSkeleton')
-  },
-  Zombie: {
-    value: 4,
-    text: t('hatchingPotionZombie')
-  },
-  CottonCandyPink: {
-    value: 4,
-    text: t('hatchingPotionCottonCandyPink')
-  },
-  CottonCandyBlue: {
-    value: 4,
-    text: t('hatchingPotionCottonCandyBlue')
-  },
-  Golden: {
-    value: 5,
-    text: t('hatchingPotionGolden')
-  }
-};
+api.dropHatchingPotions = hatchingPotions.drops;
+api.premiumHatchingPotions = hatchingPotions.premium;
+api.hatchingPotions = hatchingPotions.all;
 
-api.premiumHatchingPotions = {
-  Spooky: {
-    value: 2,
-    text: t('hatchingPotionSpooky'),
-    limited: true,
-    canBuy: (function() {
-      return false;
-    })
-  },
-  Peppermint: {
-    value: 2,
-    text: t('hatchingPotionPeppermint'),
-    limited: true,
-    canBuy: (function() {
-      return false;
-    })
-  },
-  Floral: {
-    value: 2,
-    text: t('hatchingPotionFloral'),
-    limited: true,
-    canBuy: (function() {
-      return false;
-    }),
-  },
-};
+api.pets = stable.dropPets;
+api.premiumPets = stable.premiumPets;
+api.questPets = stable.questPets;
+api.specialPets = stable.specialPets;
+api.petInfo = stable.petInfo;
 
-_.each(api.dropHatchingPotions, function(pot, key) {
-  return _.defaults(pot, {
-    key: key,
-    value: 2,
-    notes: t('hatchingPotionNotes', {
-      potText: pot.text
-    }),
-    premium: false,
-    limited: false,
-    canBuy: (function() {
-      return true;
-    })
-  });
-});
-
-_.each(api.premiumHatchingPotions, function(pot, key) {
-  return _.defaults(pot, {
-    key: key,
-    value: 2,
-    notes: t('hatchingPotionNotes', {
-      potText: pot.text
-    }),
-    addlNotes: t('premiumPotionAddlNotes'),
-    premium: true,
-    limited: false,
-    canBuy: (function() {
-      return true;
-    })
-  });
-});
-
-api.hatchingPotions = {};
-
-_.merge(api.hatchingPotions, api.dropHatchingPotions);
-
-_.merge(api.hatchingPotions, api.premiumHatchingPotions);
-
-api.pets = _.transform(api.dropEggs, function(m, egg) {
-  return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
-    if (!pot.premium) {
-      return m2[egg.key + "-" + pot.key] = true;
-    }
-  }));
-});
-
-api.premiumPets = _.transform(api.dropEggs, function(m, egg) {
-  return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
-    if (pot.premium) {
-      return m2[egg.key + "-" + pot.key] = true;
-    }
-  }));
-});
-
-api.questPets = _.transform(api.questEggs, function(m, egg) {
-  return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
-    if (!pot.premium) {
-      return m2[egg.key + "-" + pot.key] = true;
-    }
-  }));
-});
-
-api.mounts = _.transform(api.dropEggs, function(m, egg) {
-  return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
-    if (!pot.premium) {
-      return m2[egg.key + "-" + pot.key] = true;
-    }
-  }));
-});
-
-api.questMounts = _.transform(api.questEggs, function(m, egg) {
-  return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
-    if (!pot.premium) {
-      return m2[egg.key + "-" + pot.key] = true;
-    }
-  }));
-});
-
-api.premiumMounts = _.transform(api.dropEggs, function(m, egg) {
-  return _.defaults(m, _.transform(api.hatchingPotions, function(m2, pot) {
-    if (pot.premium) {
-      return m2[egg.key + "-" + pot.key] = true;
-    }
-  }));
-});
+api.mounts = stable.dropMounts;
+api.questMounts = stable.questMounts;
+api.premiumMounts = stable.premiumMounts;
+api.specialMounts = stable.specialMounts;
+api.mountInfo = stable.mountInfo;
 
 api.food = {
   Meat: {
@@ -2790,6 +2328,38 @@ api.quests = {
       unlock: t('questTurtleUnlockText'),
     },
   },
+  armadillo: {
+    text: t('questArmadilloText'),
+    notes: t('questArmadilloNotes'),
+    completion: t('questArmadilloCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questArmadilloBoss'),
+      hp: 600,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Armadillo',
+          text: t('questArmadilloDropArmadilloEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Armadillo',
+          text: t('questArmadilloDropArmadilloEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Armadillo',
+          text: t('questArmadilloDropArmadilloEgg'),
+        }
+      ],
+      gp: 43,
+      exp: 350,
+      unlock: t('questArmadilloUnlockText'),
+    },
+  },
 };
 
 _.each(api.quests, function(v, key) {
@@ -2901,6 +2471,14 @@ api.userDefaults = {
       name: t('defaultTag2')
     }, {
       name: t('defaultTag3')
+    }, {
+      name: t('defaultTag4')
+    }, {
+      name: t('defaultTag5')
+    }, {
+      name: t('defaultTag6')
+    }, {
+      name: t('defaultTag7')
     }
   ]
 };

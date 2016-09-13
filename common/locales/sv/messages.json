@@ -29,6 +29,7 @@
     "messageFoundQuest": "Du hittade uppdraget \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Du har köpt den här utrustning förrut, men äger den inte just nu. Du kan köpa den igen i belönings-kolumnen på uppgifts-sidan.",
     "messageAlreadyOwnGear": "Du äger redan det här föremålet. Utrusta dig med den genom att gå till utrustningssidan.",
+    "messageHealthAlreadyMax": "You already have maximum health.",
     "armoireEquipment": "<%= image %> Du hittade en bit sällsynt utrustning i vapenskåpet:  <%= dropText %>! Grymt!",
     "armoireFood": "<%= image %> Du rotar igenom vapenskåpet och hittar <%= dropArticle %><%= dropText %>. Vad gör den här?",
     "armoireExp": "Du brottas med vapenskåpet och tjänar erfarenhet. Ta det! ",
@@ -53,5 +54,5 @@
     "messageGroupChatAdminClearFlagCount": "Endast en administratör kan rensa flagg-räknaren!",
     "messageUserOperationProtected": "sökvägen `<%= operation %>` sparades inte, eftersom det är en skyddad sökväg.",
     "messageUserOperationNotFound": "<%= operation %> operationen hittades inte",
-    "messageNotificationNotFound": "Notification not found."
+    "messageNotificationNotFound": "Notisen hittades inte."
 }

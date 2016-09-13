@@ -98,7 +98,7 @@
     "buyThis": "Beli <%= text %> ini dengan <%= price %> dari <%= gems %> permatamu?",
     "noReachServer": "Server tidak dapat terhubung, coba lagi nanti",
     "errorUpCase": "ERROR:",
-    "newPassSent": "If we have your email on file, a new password has been sent to your email.",
+    "newPassSent": "Jika email-mu telah terdaftar, kami akan mengirimkan kata sandi baru ke email kamu.",
     "serverUnreach": "Server saat ini tidak terhubung.",
     "requestError": "Waduh, terjadi kesalahan! <strong>Mohon Muat ulang halaman,</strong> tindakan terakhir anda mungkin tidak dapat tersimpan dengan benar.",
     "seeConsole": "Jika kesalahan terus berlanjut, tolong laporkan pada Bantuan > Laporkan Gangguan. Jika kamu familiar dengan konsol browser, tolong sertakan pesan kesalahan.",
@@ -114,7 +114,8 @@
     "audioTheme_wattsTheme": "Tema Watts",
     "audioTheme_gokulTheme": "Tema Gokul",
     "audioTheme_luneFoxTheme": "Tema LuneFox",
-    "audioTheme_rosstavoTheme": "Rosstavo's Theme",
+    "audioTheme_rosstavoTheme": "Tema Rosstavo",
+    "audioTheme_dewinTheme": "Tema Dewin",
     "askQuestion": "Tanyakan sebuah Pertanyaan",
     "reportBug": "Laporkan Bug",
     "HabiticaWiki": "Habitica Wiki",
@@ -179,5 +180,8 @@
     "raisePetShare": "Aku membesarkan peliharaan menjadi tunggangan dengan melengkapi tugas dalam hidupku!",
     "wonChallengeShare": "Aku memenangkan sebuah tantangan di Habitica!",
     "achievementShare": "Aku mendapatkan sebuah pendapatan baru di Habitica!",
-    "orderBy": "Urutkan Berdasarkan <%= item %>"
+    "orderBy": "Urutkan Berdasarkan <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

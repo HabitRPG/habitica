@@ -33,7 +33,7 @@
     "seasonalShopFallText": "Benvenuto nel Negozio Stagionale! Abbiamo in vendita degli oggetti autunnali in <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edizione Stagionale</a>. Ogni cosa qui sarà acquistabile durante l'evento \"Fall Festival\" ogni anno, ma siamo aperti solo fino al 31 ottobre! Quindi fai scorta adesso, sennò dovrai aspettare il prossimo anno per poter acquistare questi oggetti!",
     "seasonalShopWinterText": "Benvenuto nel Negozio Stagionale! Abbiamo in vendita degli oggetti invernali in <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Edizione Stagionale</a>. Ogni cosa qui sarà acquistabile durante l'evento \"Winter Wonderland\" ogni anno, ma siamo aperti solo fino al 31 gennaio! Quindi fai scorta adesso, sennò dovrai aspettare il prossimo anno per poter acquistare questi oggetti!",
     "seasonalShopFallTextBroken": "Oh... Benvenuto nel Negozio Stagionale... Abbiamo in vendita oggetti dell'Edizione Stagionale autunnale, o qualcosa del genere... Tutto quello che vedi qui sarà disponibile per l'acquisto durante l'evento \"Fall Festival\" di ogni anno, ma siamo aperti sono fino al 31 ottobre... Penso che dovresti rifornirti ora altrimenti dovrai aspettare... e aspettare... e aspettare... <strong>*sigh*</strong>",
-    "seasonalShopRebirth": "Se hai usato la Sfera della Rinascita, potrai riacquistare questo equipaggiamento dalla colonna delle Ricompense. All'inizio potrai comprare solo gli oggetti per la tua classe attuale (Guerriero, se non l'hai ancora scelta/cambiata), ma niente paura, gli altri oggetti specifici per le varie classi diventeranno disponibili se ti converti a quella classe.",
+    "seasonalShopRebirth": "If you bought any of this equipment in the past but don't currently own it, you can repurchase it in the Rewards Column. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Caramello (Mago)",
     "skiSet": "Nevassassino (Assassino)",
     "snowflakeSet": "Fioccodineve (Guaritore)",
@@ -71,11 +71,12 @@
     "magicianBunnySet": "Coniglio del Mago (Mago)",
     "comfortingKittySet": "Gattino Confortante (Guaritore)",
     "sneakySqueakerSet": "Roditore Furtivo (Assassino)",
-    "sunfishWarriorSet": "Sunfish Warrior (Warrior)",
-    "shipSoothsayerSet": "Ship Soothsayer (Mage)",
-    "strappingSailorSet": "Strapping Sailor (Healer)",
-    "reefRenegadeSet": "Reef Renegade (Rogue)",
-    "fallEventAvailability": "Disponibile fino al 31 ottobre",
-    "winterEventAvailability": "Disponibili fino al 31 dicembre",
-    "springEventAvailability": "Disponibile fino al 31 maggio"
+    "sunfishWarriorSet": "Guerriero manta (Guerriero)",
+    "shipSoothsayerSet": "Astrologo da nave (Mago)",
+    "strappingSailorSet": "Robusto Marinaio (Guaritore)",
+    "reefRenegadeSet": "Rinnegato delle scogliere (Assassino)",
+    "fallEventAvailability": "Disponibile fino al 31 ottobre.",
+    "winterEventAvailability": "Disponibile fino al 31 dicembre.",
+    "springEventAvailability": "Disponibile fino al 31 maggio.",
+    "summerEventAvailability": "Disponibile fino al 31 agosto."
 }

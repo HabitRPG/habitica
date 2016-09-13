@@ -115,6 +115,7 @@
     "audioTheme_gokulTheme": "Motyw dźwiękowy Gokula",
     "audioTheme_luneFoxTheme": "Motyw dźwiękowy LuneFoxa",
     "audioTheme_rosstavoTheme": "Rosstavo's Theme",
+    "audioTheme_dewinTheme": "Dewin's Theme",
     "askQuestion": "Zadaj pytanie",
     "reportBug": "Zgłoś błąd",
     "HabiticaWiki": "Wiki Habitiki",
@@ -179,5 +180,8 @@
     "raisePetShare": "Mam nowego wierzchowca dzięki ukończeniu moich zadań w prawdziwym życiu!",
     "wonChallengeShare": "Wyzwanie zaliczone!",
     "achievementShare": "Zdobyto nowe osiągnięcie w Habitice!",
-    "orderBy": "Sortuj po <%= item %>"
+    "orderBy": "Sortuj po <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

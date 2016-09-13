@@ -114,7 +114,8 @@
     "audioTheme_wattsTheme": "Tema di Watts",
     "audioTheme_gokulTheme": "Tema Gokul",
     "audioTheme_luneFoxTheme": "Tema di LuneFox",
-    "audioTheme_rosstavoTheme": "Rosstavo's Theme",
+    "audioTheme_rosstavoTheme": "Tema di Rosstavo",
+    "audioTheme_dewinTheme": "Tema di Dewin",
     "askQuestion": "Fai una domanda",
     "reportBug": "Segnala un bug",
     "HabiticaWiki": "La wiki di Habitica",
@@ -145,7 +146,7 @@
     "cardReceivedFrom": "<%= cardType %> da <%= userName %>",
     "greetingCard": "Cartolina di saluto",
     "greetingCardExplanation": "Entrambi ricevete la medaglia Cheery Chum",
-    "greetingCardNotes": "Invia una cartolina di saluto a un membro della squadra.",
+    "greetingCardNotes": "Invia una cartolina di saluto a un compagno di squadra.",
     "greeting0": "Ehilà!",
     "greeting1": "Volevo solo dirti ciao :)",
     "greeting2": "'saluta agitatamente'",
@@ -179,5 +180,8 @@
     "raisePetShare": "Ho fatto crescere un animaletto completando le mie attività nella vita reale!",
     "wonChallengeShare": "Ho vinto una sfida in Habitica!",
     "achievementShare": "Ho ottenuto una nuova medaglia su Habitica!",
-    "orderBy": "Ordina per <%= item %>"
+    "orderBy": "Ordina per <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

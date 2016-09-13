@@ -33,7 +33,7 @@
     "seasonalShopFallText": "歡迎來到季節商店!! 我們上架了秋季<a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>季節限定</a>商品。這裡的所有東西會在每年的秋季節慶活動中開放購買，但只開放到 10 月 31 日為止，所以請務必在此時購入，否則就要再等一年才能買到囉！",
     "seasonalShopWinterText": "Welcome to the Seasonal Shop!! We're stocking winter <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Winter Wonderland event each year, but we're only open until January 31, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopFallTextBroken": "哦....歡迎來到季節商店...我們目前有秋季季節限定的商品，之類的...這裡的所有東西會在每年的秋季節慶活動中開放購買，但我們只開放到 10 月 31 日...我想你現在就該買起來，不然你就要一直等...一直等...一直等...<strong>*嘆氣*</strong>",
-    "seasonalShopRebirth": "如果你曾使用過重生球，你可以在獎勵欄中再購買這個道具。一開始你只能購買目前職業 ( 預設是戰士 ) 的道具，但不要怕，其他職業限定的道具會在你轉換到該職業後開放。",
+    "seasonalShopRebirth": "If you bought any of this equipment in the past but don't currently own it, you can repurchase it in the Rewards Column. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "拐杖糖 ( 法師 )",
     "skiSet": "滑雪杖 ( 盜賊 )",
     "snowflakeSet": "雪花 ( 醫者 )",
@@ -75,7 +75,8 @@
     "shipSoothsayerSet": "Ship Soothsayer (Mage)",
     "strappingSailorSet": "Strapping Sailor (Healer)",
     "reefRenegadeSet": "Reef Renegade (Rogue)",
-    "fallEventAvailability": "即日起至10月31日",
-    "winterEventAvailability": "Available until December 31",
-    "springEventAvailability": "Available until May 31"
+    "fallEventAvailability": "Available for purchase until October 31.",
+    "winterEventAvailability": "Available for purchase until December 31.",
+    "springEventAvailability": "Available for purchase until May 31.",
+    "summerEventAvailability": "Available for purchase until August 31."
 }

@@ -31,10 +31,6 @@
                 .badge.badge-info.stack-count {{points}}
 
         li.customize-menu
-          menu.pets-menu(label=env.t('quests'))
-            p=env.t('whereAreMyQuests')
-
-        li.customize-menu
           menu.pets-menu(label=env.t('food') + ' ({{foodCount}})')
             p.muted(ng-show='foodCount < 1')=env.t('noFood')
             div(ng-repeat='(food,points) in ownedItems(user.items.food)')
@@ -111,7 +107,7 @@
 
       menu.inventory-list(type='list')
         li.customize-menu(ng-repeat='category in marketShopCategories')
-          menu.pets-menu(label='{{category.text}}')
+          menu.pets-menu(label='{{category.text}}', ng-if='category.items.length > 0')
             p.muted(ng-bind-html='category.notes')
 
             div(ng-repeat='item in category.items')
@@ -119,7 +115,7 @@
                 popover='{{item.notes}}', popover-append-to-body='true',
                 popover-title!='{{item.text}}',
                 popover-trigger='mouseenter', popover-placement='top',
-                ng-click='purchase(category.identifier, item)')
+                ng-click='purchase(item.purchaseType, item)')
               p {{item.value}}&nbsp;
                 span.Pet_Currency_Gem1x.inline-gems(ng-if='item.currency === "gems"')
                 span(class='shop_gold', ng-if='item.currency === "gold"')
@@ -143,7 +139,7 @@
                 popover-append-to-body='true',
                 ng-click='openModal("rebirth")')
               p(ng-show='user.stats.lvl < 100')
-                | 8&nbsp;
+                | 6&nbsp;
                 span.Pet_Currency_Gem1x.inline-gems
             div(ng-show='petCount >= 90 || mountCount >= 90')
               button.customize-option(popover=env.t('petKeyPop'), popover-title=env.t('petKeyName'),

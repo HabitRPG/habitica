@@ -64,6 +64,13 @@ export let TaskSchema = new Schema({
     winner: String, // user.profile.name of the winner
   },
 
+  group: {
+    id: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']},
+    broken: {type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED']},
+    assignedUsers: [{type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']}],
+    taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']},
+  },
+
   reminders: [{
     _id: false,
     id: {type: String, validate: [validator.isUUID, 'Invalid uuid.'], default: shared.uuid, required: true},
@@ -76,7 +83,7 @@ export let TaskSchema = new Schema({
 }, discriminatorOptions));
 
 TaskSchema.plugin(baseModel, {
-  noSet: ['challenge', 'userId', 'completed', 'history', 'dateCompleted', '_legacyId'],
+  noSet: ['challenge', 'userId', 'completed', 'history', 'dateCompleted', '_legacyId', 'group'],
   sanitizeTransform (taskObj) {
     if (taskObj.type && taskObj.type !== 'reward') { // value should be settable directly only for rewards
       delete taskObj.value;

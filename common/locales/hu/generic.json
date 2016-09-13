@@ -115,6 +115,7 @@
     "audioTheme_gokulTheme": "Gokul téma",
     "audioTheme_luneFoxTheme": "LuneFox témája",
     "audioTheme_rosstavoTheme": "Rosstavo's Theme",
+    "audioTheme_dewinTheme": "Dewin's Theme",
     "askQuestion": "Tegyél fel egy kérdést",
     "reportBug": "Programhiba jelentése",
     "HabiticaWiki": "A Habitica Wiki",
@@ -179,5 +180,8 @@
     "raisePetShare": "Hátassá neveltem egy háziállatot, azzal, hogy való-életbeli tennivalóim elvégeztem!",
     "wonChallengeShare": "Megnyertem egy kihívást a Habiticán!",
     "achievementShare": "Új kitüntetést szereztem a Habiticán!",
-    "orderBy": "Rendezés <%= item %> szerint"
+    "orderBy": "Rendezés <%= item %> szerint",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

@@ -48,6 +48,8 @@
     "leaveQuest": "Opuść misję",
     "sureLeave": "Czy na pewno chcesz opuścić aktywną misję? Cały twój postęp zostanie stracony.",
     "questOwner": "Właściciel misji",
+    "questTaskDamage": "+<%= damage %> pending damage to boss",
+    "questTaskCollection": "<%= items %> items collected today",
     "questOwnerNotInPendingQuest": "Właściciel misji opuścił misję i nie może jej już rozpocząć. Zaleca się anulowanie jej na tym etapie. Właściciel misji zatrzyma zwój misji.",
     "questOwnerNotInRunningQuest": "Właściciel misji opuścił misję. Możesz ją porzucić, jeśli chcesz. Możesz ją także kontynować, a wszyscy uczestnicy, którzy zostaną, otrzymają nagrody misji po jej ukończeniu.",
     "questOwnerNotInPendingQuestParty": "Właściciel misji opuścił drużynę i nie może już rozpocząć misji. Zaleca się jej anulowanie jej. Zwój misji zostanie zwrócony właścicielowi.",
@@ -91,11 +93,11 @@
     "noActiveQuestToLeave": "Brak aktywnych misji do opuszczenia",
     "questLeaderCannotLeaveQuest": "Przywódca misji nie może jej opuścić",
     "notPartOfQuest": "Nie uczestniczysz w misji",
-    "noActiveQuestToAbort": "There is no active quest to abort.",
-    "onlyLeaderAbortQuest": "Only the group or quest leader can abort a quest.",
+    "noActiveQuestToAbort": "Brak aktywnego zadania do przerwania.",
+    "onlyLeaderAbortQuest": "Tylko przywódca grupy lub misji może ją przerwać.",
     "questAlreadyRejected": "Już odrzuciłeś zaproszenie na misje.",
     "cantCancelActiveQuest": "You can not cancel an active quest, use the abort functionality.",
     "onlyLeaderCancelQuest": "Only the group or quest leader can cancel the quest.",
-    "questNotPending": "There is no quest to start.",
+    "questNotPending": "Brak zadania do rozpoczęcia.",
     "questOrGroupLeaderOnlyStartQuest": "Only the quest leader or group leader can force start the quest"
 }

@@ -98,7 +98,7 @@
     "buyThis": "Buy this <%= text %> with <%= price %> o' yer <%= gems %> Sapphires?",
     "noReachServer": "Th' server be unreachable at the mo', try again later",
     "errorUpCase": "ERROR:",
-    "newPassSent": "If we have your email on file, a new password has been sent to your email.",
+    "newPassSent": "If we have yer email on file, a new password has been sent t' yer email.",
     "serverUnreach": "Th' server be unreachable at the mo'.",
     "requestError": "Cor blimey, an error occurred! <strong>Kindly be reloadin' the page,</strong> yer last action may not have been saved correctly.",
     "seeConsole": "If the error be persistin', report it at Help > Report a Bug. If ye be familiar with yer browser's console, please include any error messages.",
@@ -114,7 +114,8 @@
     "audioTheme_wattsTheme": "Watts' Theme",
     "audioTheme_gokulTheme": "Gokul Theme",
     "audioTheme_luneFoxTheme": "LuneFox's Theme",
-    "audioTheme_rosstavoTheme": "Rosstavo's Theme",
+    "audioTheme_rosstavoTheme": "Theme o' Rosstavo",
+    "audioTheme_dewinTheme": "Dewin's Theme",
     "askQuestion": "Ask a Question",
     "reportBug": "Report a Bug",
     "HabiticaWiki": "Th' Habitica Wiki",
@@ -179,5 +180,8 @@
     "raisePetShare": "I raised a pet into a mount by completin' me real-life tasks!",
     "wonChallengeShare": "I won a challenge in Habitica!",
     "achievementShare": "I earned meself a new achievement in Habitica!",
-    "orderBy": "Order By <%= item %>"
+    "orderBy": "Order By <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

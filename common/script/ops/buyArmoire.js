@@ -98,6 +98,7 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
       acquireMethod: 'Gold',
       goldCost: item.value,
       category: 'behavior',
+      headers: req.headers,
     });
   }
 

@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Вилучити виконані",
-    "lotOfToDos": "Завершені Щоденні завдання автоматично архівуються через 3 дні. Ви можете отримати їх через Налаштування > Экспорт.",
+    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
     "deleteToDosExplanation": "Якщо натиснути на кнопку внизу, то всі з виконаних Зробити та архівних Зробити будуть остаточно вилучені. Якщо хочете зберегти запис про них, спершу експортуйте їх.",
     "addmultiple": "Додати декілька",
     "addsingle": "Додати одне",
@@ -119,7 +119,7 @@
     "clickForHelp": "Клацніть для довідки",
     "taskIdRequired": "\"taskId\" must be a valid UUID.",
     "taskAliasAlreadyUsed": "Task alias already used on another task.",
-    "taskNotFound": "Task not found.",
+    "taskNotFound": "Завдання немає.",
     "invalidTaskType": "Task type must be one of \"habit\", \"daily\", \"todo\", \"reward\".",
     "cantDeleteChallengeTasks": "A task belonging to a challenge can't be deleted.",
     "checklistOnlyDailyTodo": "Checklists are supported only on dailies and todos",

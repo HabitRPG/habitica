@@ -33,7 +33,7 @@
     "seasonalShopFallText": "Willkommen auf dem Jahreszeitenmarkt!! Momentan haben wir <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Herbstgegenstände</a> auf Lager. Alles hier wird während des Herbstevents, das jedes Jahr stattfindet, verfügbar sein. Allerdings nur bis zum 31. Oktober, also stocke jetzt Deine Vorräte auf, ansonsten musst Du bis nächstes Jahr warten.",
     "seasonalShopWinterText": "Willkommen auf dem Jahreszeitenmarkt!! Momentan haben wir <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'> Saisonale Edition </a> Gegenstände auf Lager. Alles hier wird während des Winter-Wunderlandes, das jedes Jahr stattfindet, verfügbar sein. Allerdings nur bis 31. Januar, also decke Dich jetzt ein, sonst musst Du bis nächstes Jahr warten!",
     "seasonalShopFallTextBroken": "Willkommen auf dem Jahreszeitenmarkt!! Momentan haben wir Herbstgegenstände auf Lager. Alles hier wird während des Herbstevents, das jedes Jahr stattfindet, verfügbar sein. Allerdings nur bis zum 31. Oktober, also stocke jetzt Deine Vorräte auf, ansonsten musst Du bis nächstes Jahr warten ... <strong>*hach*</strong>",
-    "seasonalShopRebirth": "Wenn Du die Sphäre der Wiedergeburt benutzt hast, kannst Du diesen Ausrüstungsgegenstand in der Belohnungsspalte erneut kaufen. Anfangs wirst Du nur Gegenstände für Deine momentane Klasse (Krieger) kaufen können, aber keine Sorge, die anderen klassenspezifischen Gegenstände werden verfügbar, sobald Du zur jeweiligen Klasse wechselst.",
+    "seasonalShopRebirth": "If you bought any of this equipment in the past but don't currently own it, you can repurchase it in the Rewards Column. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Zuckerstange (Magier)",
     "skiSet": "Ski-Attentäter (Schurke)",
     "snowflakeSet": "Schneeflocke (Heiler)",
@@ -72,10 +72,11 @@
     "comfortingKittySet": "Tröstendes Kätzchen (Heiler)",
     "sneakySqueakerSet": "Raffinierter Raffzahn (Schurke)",
     "sunfishWarriorSet": "Sonnenbarsch-Krieger (Krieger)",
-    "shipSoothsayerSet": "Schiffs-Wahrsager (Magier)",
-    "strappingSailorSet": "Umgürteter Seefahrer (Heiler)",
-    "reefRenegadeSet": "Abtrünniger des Riffs (Schurke)",
-    "fallEventAvailability": "Verfügbar bis zum 31. Oktober",
-    "winterEventAvailability": "Verfügbar bis zum 31. Dezember",
-    "springEventAvailability": "Verfügbar bis zum 31. Mai"
+    "shipSoothsayerSet": "Schiffs-Hellseher (Magier)",
+    "strappingSailorSet": "Strammer Matrose (Heiler)",
+    "reefRenegadeSet": "Abtrünniger der Koralle (Schurke)",
+    "fallEventAvailability": "Zum Kauf verfügbar bis zum 31. Oktober.",
+    "winterEventAvailability": "Zum Kauf verfügbar bis zum 31. Dezember.",
+    "springEventAvailability": "Zum Kauf verfügbar bis zum 31. Mai.",
+    "summerEventAvailability": "Zum Kauf verfügbar bis zum 31. August."
 }

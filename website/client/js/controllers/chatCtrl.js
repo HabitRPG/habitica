@@ -2,9 +2,6 @@
 
 habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'ApiUrl', 'Notification', 'Members', '$rootScope', 'Analytics',
     function($scope, Groups, Chat, User, $http, ApiUrl, Notification, Members, $rootScope, Analytics){
-    if ($scope.group) {
-      Chat.markChatSeen($scope.group.id);
-    }
     $scope.message = {content:''};
     $scope._sending = false;
 
@@ -96,20 +93,10 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
         $scope.groupId = groupId;
 
         $scope.isSystemMessage = message.uuid === 'system';
-        if (message.uuid === 'system') {
-            $rootScope.openModal('abuse-flag',{
-              controller:'MemberModalCtrl',
-              scope: $scope
-            });
-        } else {
-          Members.selectMember(message.uuid)
-            .then(function () {
-              $rootScope.openModal('abuse-flag',{
-                controller:'MemberModalCtrl',
-                scope: $scope
-              });
-            });
-        }
+        $rootScope.openModal('abuse-flag',{
+          controller:'MemberModalCtrl',
+          scope: $scope
+        });
       }
     };
 

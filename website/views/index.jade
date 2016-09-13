@@ -4,14 +4,16 @@ html(ng-app='habitrpg', ng-controller='RootCtrl', ng-class='{"applying-action":a
   head
     title(ng-bind="env.t('habitica') + ' | ' + $root.pageTitle")
     // ?v=1 needed to force refresh
-    link(rel='shortcut icon', sizes="32x32", href='#{env.getBuildUrl("favicon.ico")}?v=4')
-    link(rel='shortcut icon', sizes="144x144", href='#{env.getBuildUrl("favicon_192x192.png")}?v=4')
-    link(rel='mask-icon', href='#{env.getBuildUrl("favicon.ico")}?v=4')
+    link(rel='shortcut icon', sizes="32x32", href='#{env.getBuildUrl("favicon.ico")}')
+    link(rel='shortcut icon', sizes="144x144", href='#{env.getBuildUrl("favicon_192x192.png")}')
+    link(rel='mask-icon', href='#{env.getBuildUrl("favicon.ico")}')
 
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     meta(name='apple-mobile-web-app-capable', content='yes')
     meta(name='mobile-web-app-capable', content='yes')
+    noscript
+      img(height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=#{env.FACEBOOK_ANALYTICS}&ev=PageView&noscript=1")
 
     != env.getManifestFiles("app", "css")
 

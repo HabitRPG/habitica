@@ -33,7 +33,7 @@
     "seasonalShopFallText": "Velkommen til Sæson-markedet! Vi har efterårs-<a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>sæson</a> godter lige nu. Alting her kan købes under Efterårsfestival-eventet hvert år, men vi holder kun åbent indtil 31. oktober, så husk at købe ind nu, ellers må du vente et helt år for igen at kunne købe disse ting!",
     "seasonalShopWinterText": "Velkommen til Sæson-markedet! Vi har vinter-<a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>sæson</a>-varer lige i øjeblikket. Alting her vil være tilgængeligt under Vinterland-eventet hvert år, men vi har kun åbent indtil den 31. januar, så sørg for at få købt ind nu, ellers må du vente et helt år for igen at kunne købe disse ting!",
     "seasonalShopFallTextBroken": "Åh.... Velkommen til Sæson-markedet... Vi har efterårs-sæson varer, eller noget... Alting her kan købes under Efterårsfestival-eventet hvert år, men vi har kun åbent indtil den 31. oktober... Du burde nok købe ind nu, ellers vil du skulle vente... og vente... og vente... <strong>*suk*</strong>",
-    "seasonalShopRebirth": "Hvis du har brugt Genfødselskuglen kan du genkøbe dette udstyr i Belønningskolonnen efter du har fået adgang til Udstyrsbutikken. I starten vil du kun kunne købe tingene, der passer til din nuværende klasse (Kriger som standard), men frygt ej, de andre klasse-specifikke varer bliver tilgængelige hvis du skifter til den klasse.",
+    "seasonalShopRebirth": "If you bought any of this equipment in the past but don't currently own it, you can repurchase it in the Rewards Column. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Slikstok (Magiker)",
     "skiSet": "Ski-morder (Slyngel)",
     "snowflakeSet": "Snefnug (Helbreder)",
@@ -75,7 +75,8 @@
     "shipSoothsayerSet": "Ship Soothsayer (Mage)",
     "strappingSailorSet": "Strapping Sailor (Healer)",
     "reefRenegadeSet": "Reef Renegade (Rogue)",
-    "fallEventAvailability": "Tilgængelig indtil 31. oktober",
-    "winterEventAvailability": "Tilgængelig indtil 31. december",
-    "springEventAvailability": "Available until May 31"
+    "fallEventAvailability": "Available for purchase until October 31.",
+    "winterEventAvailability": "Available for purchase until December 31.",
+    "springEventAvailability": "Available for purchase until May 31.",
+    "summerEventAvailability": "Available for purchase until August 31."
 }

@@ -4,7 +4,7 @@ div.chat-form.guidelines-not-accepted(ng-if='!user.flags.communityGuidelinesAcce
     div
       button.btn.btn-warning(ng-click='acceptCommunityGuidelines()')=env.t('iAcceptCommunityGuidelines')
     .chat-buttons
-      button(type="button", ng-click='sync(group)')=env.t('toolTipMsg')
+      button(type="button", ng-click='sync(group)') {{group.type === 'party' ? env.t('syncPartyAndChat') : env.t('toolTipMsg')}}
 
 form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postChat(group,message.content)')
   div(ng-controller='AutocompleteCtrl')
@@ -16,7 +16,7 @@ form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postCha
   .chat-controls.clearfix
     .chat-buttons
       input.btn(type='submit', value=env.t('sendChat'), ng-disabled='_sending')
-      button.btn(type="button", ng-click='sync(group)', ng-disabled='_sending')=env.t('toolTipMsg')
+      button.btn(type="button", ng-click='sync(group)', ng-disabled='_sending') {{group.type === 'party' ? env.t('syncPartyAndChat') : env.t('toolTipMsg')}}
     include ../../shared/formatting-help
   .chat-controls.clearfix
     .chat-buttons

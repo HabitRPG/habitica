@@ -98,7 +98,7 @@
     "buyThis": "<%= text %> kopen met <%= price %> van je <%= gems %> edelstenen?",
     "noReachServer": "Server momenteel niet bereikbaar, probeer het later opnieuw",
     "errorUpCase": "FOUT:",
-    "newPassSent": "Als we jouw e-mailadres in ons bestand hebben, dan is een nieuw wachtwoord gestuurd naar jouw e-mailadres.",
+    "newPassSent": "Als we jouw e-mailadres in ons bestand hebben, is er een nieuw wachtwoord gestuurd naar jouw e-mailadres.",
     "serverUnreach": "Server momenteel niet bereikbaar.",
     "requestError": "Oei, er is iets fout gegaan!<strong>Laad de pagina opnieuw in,</strong> je laatste handelingen zijn misschien niet goed opgeslagen.",
     "seeConsole": "Als de fout blijft optreden, geef dat dan door via Help > Fout melden. Als je de console van je browser kunt vinden, geef dan alsjeblieft de foutmeldingen mee door.",
@@ -115,6 +115,7 @@
     "audioTheme_gokulTheme": "Gokulthema",
     "audioTheme_luneFoxTheme": "Achtergrondmuziek van LuneFox",
     "audioTheme_rosstavoTheme": "Achtergrondmuziek van Rosstavo",
+    "audioTheme_dewinTheme": "Dewin's thema",
     "askQuestion": "Vraag stellen",
     "reportBug": "Fout melden",
     "HabiticaWiki": "De Wiki van Habitica",
@@ -179,5 +180,8 @@
     "raisePetShare": "Ik heb een huisdier opgevoed naar een rijdier door mijn taken uit het echte leven te voltooien!",
     "wonChallengeShare": "Ik heb een uitdaging gewonnen in Habitica!",
     "achievementShare": "Ik heb een nieuwe prestatie behaald in Habitica!",
-    "orderBy": "Order per <%= item %>"
+    "orderBy": "Order per <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

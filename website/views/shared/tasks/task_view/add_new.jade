@@ -1,5 +1,5 @@
-form.task-add(name='new{{list.type}}form', ng-hide='obj._locked', ng-submit='addTask(obj[list.type+"s"], list, obj)', novalidate)
-  textarea(rows='6', focus-element='list.bulk && list.focus', ng-model='list.newTask', placeholder='{{list.placeHolderBulk}}', ng-if='list.bulk', ui-keydown='{"meta-enter ctrl-enter":"addTask(obj[list.type+\'s\'],list)"}', required)
+form.task-add(name='new{{list.type}}form', ng-hide='obj._locked', ng-submit='addTask(list, obj)', novalidate)
+  textarea(rows='6', focus-element='list.bulk && list.focus', ng-model='list.newTask', placeholder='{{list.placeHolderBulk}}', ng-if='list.bulk', ui-keydown='{"meta-enter ctrl-enter":"addTask(list, obj)"}', required)
   input(type='text', focus-element='!list.bulk && list.focus', ng-model='list.newTask', placeholder='{{list.placeHolder}}', ng-if='!list.bulk', required)
   button(type='submit', ng-disabled='new{{list.type}}form.$invalid')
     div(ng-show='new{{list.type}}form.$invalid', tooltip=env.t("emptyTask"))

@@ -115,6 +115,7 @@
     "audioTheme_gokulTheme": "Gokul 的聲音主題",
     "audioTheme_luneFoxTheme": "LuneFox 的聲音主題",
     "audioTheme_rosstavoTheme": "Rosstavo's Theme",
+    "audioTheme_dewinTheme": "Dewin's Theme",
     "askQuestion": "問問題",
     "reportBug": "回報問題",
     "HabiticaWiki": "The Habitica Wiki",
@@ -179,5 +180,8 @@
     "raisePetShare": "實現了現實生活中的任務，成功將寵物養成座騎！",
     "wonChallengeShare": "我在 Habitica 贏得了挑戰！",
     "achievementShare": "我在 Habitica 獲得了一個新成就！",
-    "orderBy": "以 <%= item %> 排序"
+    "orderBy": "以 <%= item %> 排序",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

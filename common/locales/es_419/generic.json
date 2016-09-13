@@ -98,7 +98,7 @@
     "buyThis": "¿Comprarás este/a <%= text %> con <%= price %> de tus <%= gems %> Gemas?",
     "noReachServer": "Error en la conexión al servidor, inténtalo más tarde.",
     "errorUpCase": "ERROR:",
-    "newPassSent": "If we have your email on file, a new password has been sent to your email.",
+    "newPassSent": "Si tenemos tu correo archivado, una nueva contraseña a sido enviada a tu correo.",
     "serverUnreach": "Error en la conexión al servidor.",
     "requestError": "¡Rayos, ha ocurrido un error! <strong>Por favor vuelve a cargar la página,</strong> tu última acción puede no haberse guardado correctamente.",
     "seeConsole": "Si el error persiste, por favor repórtalo en Ayuda > Reportar un error. Si estas familiarizado con la consola de tu navegador, por favor incluye cualquier mensaje de error.",
@@ -114,7 +114,8 @@
     "audioTheme_wattsTheme": "Tema de Watts",
     "audioTheme_gokulTheme": "Tema de Gokul",
     "audioTheme_luneFoxTheme": "Tema de LuneFox",
-    "audioTheme_rosstavoTheme": "Rosstavo's Theme",
+    "audioTheme_rosstavoTheme": "Tema de Rosstavo",
+    "audioTheme_dewinTheme": "Tema de Dewin",
     "askQuestion": "Hacer una pregunta",
     "reportBug": "Reportar un error",
     "HabiticaWiki": "La Wiki de Habitica",
@@ -179,5 +180,8 @@
     "raisePetShare": "¡Convertí una mascota en montura completando mis tareas de la vida real!",
     "wonChallengeShare": "¡Gané un desafío en Habitica!",
     "achievementShare": "¡Gané un nuevo logro en Habitica!",
-    "orderBy": "Ordenar por <%= item %>"
+    "orderBy": "Ordenar por <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

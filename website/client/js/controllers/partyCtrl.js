@@ -1,20 +1,37 @@
 'use strict';
 
-habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social', 'Pusher',
-    function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social, Pusher) {
+habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social', 'Achievement',
+    function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social, Achievement) {
+
+      var PARTY_LOADING_MESSAGES = 4;
 
       var user = User.user;
 
       $scope.type = 'party';
       $scope.text = window.env.t('party');
-      $scope.group = {loadingParty: true}
+      $scope.group = {loadingParty: true};
 
       $scope.inviteOrStartParty = Groups.inviteOrStartParty;
       $scope.loadWidgets = Social.loadWidgets;
 
+      // Random message between 1 and PARTY_LOADING_MESSAGES
+      var partyMessageNumber = Math.floor(Math.random() * PARTY_LOADING_MESSAGES) + 1;
+      $scope.partyLoadingMessage = window.env.t('partyLoading' + partyMessageNumber);
+
       function handlePartyResponse (group) {
-        $rootScope.party = $scope.group = group;
+        // Assign and not replace so that all the references get the modifications
+        _.assign($rootScope.party, group);
+        $scope.group = $rootScope.party;
+        $scope.group.loadingParty = false;
         checkForNotifications();
+        if ($state.is('options.social.party')) {
+          if ('Notification' in window && window.Notification.permission === 'default') {
+            setTimeout(function () {
+              window.Notification.requestPermission();
+            }, 100);
+          }
+          Chat.markChatSeen($scope.group._id);
+        }
       }
 
       function handlePartyError (response) {
@@ -22,7 +39,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       }
 
       if ($state.is('options.social.party') && $rootScope.party && $rootScope.party.id) {
-        Groups.party(true).then(handlePartyResponse, handlePartyError);
+        Groups.party().then(handlePartyResponse, handlePartyError);
       } else {
         Groups.Group.syncParty().then(handlePartyResponse, handlePartyError);
       }
@@ -32,19 +49,15 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         if(!user.achievements.partyUp
             && $scope.group.memberCount >= 2) {
           User.set({'achievements.partyUp':true});
-          $rootScope.openModal('achievements/partyUp', {controller:'UserCtrl', size:'sm'});
+          Achievement.displayAchievement('partyUp');
         }
 
         // Checks if user's party has reached 4 players for the first time.
         if(!user.achievements.partyOn
             && $scope.group.memberCount >= 4) {
           User.set({'achievements.partyOn':true});
-          $rootScope.openModal('achievements/partyOn', {controller:'UserCtrl', size:'sm'});
+          Achievement.displayAchievement('partyOn');
         }
-      }
-
-      if ($scope.group && $scope.group._id) {
-        Chat.markChatSeen($scope.group._id);
       }
 
       $scope.create = function(group) {
@@ -53,7 +66,6 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         if (!group.name) group.name = env.t('possessiveParty', {name: User.user.profile.name});
         Groups.Group.create(group)
           .then(function(response) {
-            Analytics.track({'hitType':'event', 'eventCategory':'behavior', 'eventAction':'join group', 'owner':true, 'groupType':'party', 'privacy':'private'});
             Analytics.updateUser({'party.id': $scope.group ._id, 'partySize': 1});
             $rootScope.hardRedirect('/#/options/groups/party');
           });
@@ -64,7 +76,6 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
           .then(function (response) {
             $rootScope.party = $scope.group = response.data.data;
             User.sync();
-            Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'join group','owner':false,'groupType':'party','privacy':'private'});
             Analytics.updateUser({'partyID': party.id});
             $rootScope.hardRedirect('/#/options/groups/party');
           });

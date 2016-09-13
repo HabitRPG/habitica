@@ -33,7 +33,7 @@
     "seasonalShopFallText": "Bienvenue à la Boutique Saisonnière !! Nous avons actuellement reçu les nouveautés <a href='http://fr.habitica.wikia.com/wiki/Disponibilit%C3%A9_des_Objets' target='_blank'>Édition Saisonnière</a> d'automne. Tout l'équipement est disponible à l'achat pendant le Festival d'Automne chaque année, mais nous ne sommes ouverts que jusqu'au 31 octobre, alors faites un stock dès maintenant, ou vous devrez attendre un an pour acheter à nouveau cet équipement !",
     "seasonalShopWinterText": "Bienvenue à la Boutique Saisonnière !! Nous avons actuellement reçu les nouveautés de l'<a href='http://fr.habitica.wikia.com/wiki/Disponibilit%C3%A9_des_Objets' target='_blank'>Édition Saisonnière</a> de l'Hiver. Tout l'équipement est disponible à l'achat pendant La Fantaisie Hivernale chaque année, mais nous ne sommes ouverts que jusqu'au 31 janvier, alors faites un stock dès maintenant, ou vous devrez attendre un an pour acheter à nouveau cet équipement !",
     "seasonalShopFallTextBroken": "Oh... Bienvenue à la Boutique Saisonnière... Nous avons actuellement reçu les nouveautés Édition Saisonnière d'automne, ou quelque chose du genre... Tout l'équipement est disponible à l'achat pendant le Festival d'Automne chaque année, mais nous ne sommes ouverts que jusqu'au 31 octobre... alors je suppose que vous devriez faire le stock dès maintenant, ou vous devrez attendre... et attendre... et attendre... <strong>*soupir*</strong>",
-    "seasonalShopRebirth": "Si vous avez utilisé l'Orbe de Renaissance, vous pouvez racheter cet équipement dans la colonne des Récompenses. Au début, vous pourrez seulement acheter les objets associés à votre classe actuelle (Guerrier par défaut), mais n'ayez crainte, les objets spécifiques à une classe deviendront disponibles si vous choisissez cette classe.",
+    "seasonalShopRebirth": "If you bought any of this equipment in the past but don't currently own it, you can repurchase it in the Rewards Column. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Sucre d'Orge (Mage)",
     "skiSet": "Ski-sassin (Voleur)",
     "snowflakeSet": "Flocon de Neige (Guérisseur)",
@@ -75,7 +75,8 @@
     "shipSoothsayerSet": "Devin du Navire (Mage)",
     "strappingSailorSet": "Marin Costaud (Guérisseur)",
     "reefRenegadeSet": "Renégat du Récif (Voleur)",
-    "fallEventAvailability": "Disponible jusqu'au 31 octobre",
-    "winterEventAvailability": "Disponible jusqu'au 31 décembre",
-    "springEventAvailability": "Disponible jusqu'au 31 mai"
+    "fallEventAvailability": "Disponible à l'achat jusqu'au 31 octobre.",
+    "winterEventAvailability": "Disponible à l'achat jusqu'au 31 décembre.",
+    "springEventAvailability": "Disponible à l'achat jusqu'au 31 mai.",
+    "summerEventAvailability": "Disponible à l'achat jusqu'au 31 août."
 }

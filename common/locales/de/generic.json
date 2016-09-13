@@ -98,7 +98,7 @@
     "buyThis": "Kaufe <%= text %> mit <%= price %> Deiner <%= gems %> Edelsteinen?",
     "noReachServer": "Der Server ist momentan nicht erreichbar, versuche es später noch einmal",
     "errorUpCase": "FEHLER:",
-    "newPassSent": "Wenn wir Deine E-Mail-Adresse kennen, wurde Dein Passwort-Wiederherstellungs-Link dorthin verschickt.",
+    "newPassSent": "Wenn Du uns Deine E-Mail-Adresse angegeben hast, wurde ein neues Passwort dorthin verschickt.",
     "serverUnreach": "Der Server ist momentan nicht erreichbar.",
     "requestError": "Ojeh, ein Fehler ist aufgetreten! <strong> Bitte lade die Seite neu, </strong> Deine letzte Aktion wurde vielleicht nicht korrekt gespeichert.",
     "seeConsole": "Tritt der Fehler weiterhin auf, melde ihn unter Hilfe > Berichte einen Bug. Falls Du weißt, wie Du die Konsole Deines Internetbrowsers einsehen kannst, füge die entsprechenden Fehlernachrichten bei.",
@@ -114,7 +114,8 @@
     "audioTheme_wattsTheme": "Watts-Motiv",
     "audioTheme_gokulTheme": "Gokul-Motiv",
     "audioTheme_luneFoxTheme": "Lunefox-Motiv",
-    "audioTheme_rosstavoTheme": "Rosstavo's Theme",
+    "audioTheme_rosstavoTheme": "Rosstavo-Motiv",
+    "audioTheme_dewinTheme": "Dewins-Motiv",
     "askQuestion": "Stelle eine Frage",
     "reportBug": "Melde einen Fehler",
     "HabiticaWiki": "Das Habitica-Wiki",
@@ -179,5 +180,8 @@
     "raisePetShare": "Ich habe ein Haustier zu einem Reittier großgezogen, indem ich meine Aufgaben im echten Leben erledigt habe!",
     "wonChallengeShare": "Ich habe in Habitica einen Wettbewerb gewonnen!",
     "achievementShare": "Ich habe in Habitica einen neuen Erfolg verdient!",
-    "orderBy": "Sortieren nach <%= item %>"
+    "orderBy": "Sortieren nach <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

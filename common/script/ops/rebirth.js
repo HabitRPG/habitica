@@ -5,13 +5,12 @@ import { MAX_LEVEL } from '../constants';
 import {
   NotAuthorized,
 } from '../libs/errors';
-import resetGear from '../fns/resetGear';
 import equip from './equip';
 
 const USERSTATSLIST = ['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'];
 
 module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
-  if (user.balance < 2 && user.stats.lvl < MAX_LEVEL) {
+  if (user.balance < 1.5 && user.stats.lvl < MAX_LEVEL) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
 
@@ -21,15 +20,16 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
   };
 
   if (user.stats.lvl < MAX_LEVEL) {
-    user.balance -= 2;
+    user.balance -= 1.5;
     analyticsData.acquireMethod = 'Gems';
-    analyticsData.gemCost = 8;
+    analyticsData.gemCost = 6;
   } else {
     analyticsData.gemCost = 0;
     analyticsData.acquireMethod = '> 100';
   }
 
   if (analytics) {
+    analyticsData.headers = req.headers;
     analytics.track('Rebirth', analyticsData);
   }
 
@@ -57,8 +57,6 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
   _.each(USERSTATSLIST, function resetStats (value) {
     stats[value] = 0;
   });
-
-  resetGear(user);
 
   if (user.items.currentPet) {
     equip(user, {

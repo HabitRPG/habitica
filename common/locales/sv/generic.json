@@ -98,7 +98,7 @@
     "buyThis": "Vill du verkligen köpa <%= text %> med <%= price %> av dina <%= gems %> Juveler?",
     "noReachServer": "Servern är otillgänglig för tillfället, försök igen senare",
     "errorUpCase": "FEL:",
-    "newPassSent": "If we have your email on file, a new password has been sent to your email.",
+    "newPassSent": "Ett nytt lösenord har skickats till den email du angivit.",
     "serverUnreach": "Servern är otillgänglig för tillfället.",
     "requestError": "Ojsan, ett fel har skett! <strong>Vänligen ladda om sidan,</strong> din senaste handling kanske inte sparats ordentligt.",
     "seeConsole": "Om felet fortsätter, rapportera in det under Gemenskap > Rapportera bugg. Om du känner till din webläsare ordentligt, inkludera gärna felmeddelanden därifrån.",
@@ -114,7 +114,8 @@
     "audioTheme_wattsTheme": "Watts Tema",
     "audioTheme_gokulTheme": "Gokul Tema",
     "audioTheme_luneFoxTheme": "LuneFoxs tema",
-    "audioTheme_rosstavoTheme": "Rosstavo's Theme",
+    "audioTheme_rosstavoTheme": "Rosstavo's Tema",
+    "audioTheme_dewinTheme": "Derwin's tema",
     "askQuestion": "Ställ en fråga",
     "reportBug": "Rapportera ett fel",
     "HabiticaWiki": "Habitica Wikin",
@@ -179,5 +180,8 @@
     "raisePetShare": "Jag uppfostrade mitt husdjur till ett riddjur genom att slutföra mina uppgifter!",
     "wonChallengeShare": "Jag van en utmaning i HabitRPG!",
     "achievementShare": "Jag har klarat av en ny bedrift i HabitRPG!",
-    "orderBy": "Sortera enligt <%= item %>"
+    "orderBy": "Sortera enligt <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }
