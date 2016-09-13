@@ -30,42 +30,25 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       Analytics.updateUser();
     };
 
-    function addTask(addTo, listDef, tasks) {
-      tasks = _.isArray(tasks) ? tasks : [tasks];
-
+    function addUserTasks(listDef, tasks) {
+      tasks = tasks.map(function (task) {
+        return {
+          text: task,
+          type: listDef.type,
+          tags: _.keys(User.user.filters),
+        };
+      });
       User.addTask({
-        body: tasks.map(function (task) {
-          return {
-            text: task,
-            type: listDef.type,
-            tags: _.keys(User.user.filters),
-          }
-        }),
+        body: tasks,
       });
     }
 
-    $scope.addTask = function(addTo, listDef) {
-      if (listDef.bulk) {
-        var tasks = listDef.newTask.split(/[\n\r]+/);
-        //Reverse the order of tasks so the tasks will appear in the order the user entered them
-        tasks.reverse();
-        addTask(addTo, listDef, tasks);
-        listDef.bulk = false;
-      } else {
-        addTask(addTo, listDef, listDef.newTask);
-      }
-      delete listDef.newTask;
-      delete listDef.focus;
+    $scope.addTask = function(listDef) {
+      Tasks.addTasks(listDef, addUserTasks);
       if (listDef.type=='daily') Guide.goto('intro', 2);
     };
 
-    $scope.toggleBulk = function(list) {
-      if (typeof list.bulk === 'undefined') {
-        list.bulk = false;
-      }
-      list.bulk = !list.bulk;
-      list.focus = true;
-    };
+    $scope.toggleBulk = Tasks.toggleBulk;
 
     $scope.editTask = Tasks.editTask;
 

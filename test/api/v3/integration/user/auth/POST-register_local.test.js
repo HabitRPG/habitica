@@ -33,6 +33,25 @@ describe('POST /user/auth/local/register', () => {
       expect(user.auth.local.username).to.eql(username);
     });
 
+    it('provides default tags and tasks', async () => {
+      let username = generateRandomUserName();
+      let email = `${username}@example.com`;
+      let password = 'password';
+
+      let user = await api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      expect(user.tags).to.have.a.lengthOf(7);
+      expect(user.tasksOrder.todos).to.have.a.lengthOf(1);
+      expect(user.tasksOrder.dailys).to.have.a.lengthOf(0);
+      expect(user.tasksOrder.rewards).to.have.a.lengthOf(0);
+      expect(user.tasksOrder.habits).to.have.a.lengthOf(0);
+    });
+
     it('requires password and confirmPassword to match', async () => {
       let username = generateRandomUserName();
       let email = `${username}@example.com`;

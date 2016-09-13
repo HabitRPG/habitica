@@ -48,6 +48,8 @@
     "leaveQuest": "Leave Quest",
     "sureLeave": "Are you sure you want to leave the active quest? All your quest progress will be lost.",
     "questOwner": "Proprietarul aventurii",
+    "questTaskDamage": "+<%= damage %> pending damage to boss",
+    "questTaskCollection": "<%= items %> items collected today",
     "questOwnerNotInPendingQuest": "Proprietarul aventurii a abandonat aventure și nu o mai poate începe. Se recomandă să o anulezi acum. Proprietarul aventurii va păstra răvașul aventurii.",
     "questOwnerNotInRunningQuest": "The quest owner has left the quest. You can abort the quest if you need to. You can also allow it to keep running and all remaining participants will receive the quest rewards when the quest finishes.",
     "questOwnerNotInPendingQuestParty": "The quest owner has left the party and can no longer begin the quest. It is recommended that you cancel it now. The quest scroll will be returned to the quest owner.",

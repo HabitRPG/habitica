@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Пам'ятайте - ваше ім'я, фото та опис профілю, не повинні порушувати <a href='https://habitica.com/static/community-guidelines' target='_blank'>правил спілльноти</a> (напр. лайок, образливих та \"дорослих\" тем, і т.д.). Якщо ви не певні щодо відповідності чого-небудь, не соромтеся, пишіть на електронку <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Будь-ласка, зауважте, що ваші ім'я та фото не повинні порушувати <a href='https://habitica.com/static/community-guidelines' target='_blank'>правил спільноти</a> (тобто без грубощів, дорослих тем, образ). Питання щодо дозволеності того чи іншого можна посилати на почту <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
     "statsAch": "Герой і здобутки",
     "profile": "Профіль",
     "avatar": "Редагувати Аватар",
@@ -121,7 +121,7 @@
     "classAllocation": "Розподіляти очки відповідно до класу",
     "classAllocationPop": "Розподіляти більше очок на характеристики, важливі Вашому класу.",
     "taskAllocation": "Розподіляти очки відповідно до активності завдань",
-    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
+    "taskAllocationPop": "Розподіляє очки в залежності від категорій сили, інтелекту, комплекції та спостережливості пов'язаних з виконаними вами завданнями.",
     "distributePoints": "Використайте нерозподілені очки",
     "distributePointsPop": "Призначити всі нерозподілені очки на характеристики, відповідно до обраної схеми розподілення.",
     "warriorText": "Воїни частіше завдають „критичних ударів“, які приносять додаткове золото, досвід та випадіння предметів за виконане завдання. Також вони завдають значної шкоди босам. Грайте за Воїна, якщо бажаєте несподіваних трофеїв та прагнете дати на горіхи у квестах із босами!",

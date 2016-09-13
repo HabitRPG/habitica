@@ -115,7 +115,7 @@
     "audioTheme_gokulTheme": "Tema Gokul",
     "audioTheme_luneFoxTheme": "Tema di LuneFox",
     "audioTheme_rosstavoTheme": "Tema di Rosstavo",
-    "audioTheme_dewinTheme": "Dewin's Theme",
+    "audioTheme_dewinTheme": "Tema di Dewin",
     "askQuestion": "Fai una domanda",
     "reportBug": "Segnala un bug",
     "HabiticaWiki": "La wiki di Habitica",
@@ -180,5 +180,8 @@
     "raisePetShare": "Ho fatto crescere un animaletto completando le mie attività nella vita reale!",
     "wonChallengeShare": "Ho vinto una sfida in Habitica!",
     "achievementShare": "Ho ottenuto una nuova medaglia su Habitica!",
-    "orderBy": "Ordina per <%= item %>"
+    "orderBy": "Ordina per <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

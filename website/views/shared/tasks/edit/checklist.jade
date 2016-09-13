@@ -17,7 +17,7 @@
           //input(type='checkbox',ng-model='item.completed',ng-change='saveTask(task,true)')
           //-,ng-blur='saveTask(task,true)')
           span.checklist-icon.glyphicon.glyphicon-resize-vertical
-          input(type='text', ng-model='item.text', 
+          input(type='text', ng-model='item.text',
             ui-keyup="{'13':'addChecklistItem(task,$event,$index)','38 40':'navigateChecklist(task,$index,$event)'}")
           a(ng-click='removeChecklistItem(task,$event,$index,true)')
             span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))

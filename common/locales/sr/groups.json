@@ -14,7 +14,6 @@
     "dataTool": "Statistika",
     "resources": "Resursi",
     "askQuestionNewbiesGuild": "Ask a Question (Newbies Guild)",
-    "tavernTalk": "Razgovori u Krčmi",
     "tavernAlert1": "To report a bug, visit",
     "tavernAlert2": "the Report a Bug Guild",
     "moderatorIntro1": "Moderatori za Krčmu i udruženja su:",
@@ -46,6 +45,7 @@
     "chat": "Čet",
     "sendChat": "Poslati",
     "toolTipMsg": "Proveriti poruke",
+    "syncPartyAndChat": "Sync Party and Chat",
     "guildBankPop1": "Banka udruženja",
     "guildBankPop2": "Dragulji koje vođa može da upotrebi kao nagrade za izazove.",
     "guildGems": "Dragulji udruženja",
@@ -139,6 +139,7 @@
     "inviteNewUsers": "Invite New Users",
     "sendInvitations": "Send Invitations",
     "invitationsSent": "Invitations sent!",
+    "invitationSent": "Invitation sent!",
     "inviteAlertInfo2": "Ili pošaljilte ovaj link (copy/paste):",
     "sendGiftHeading": "Send Gift to <%= name %>",
     "sendGiftGemsBalance": "From <%= number %> Gems",
@@ -192,5 +193,9 @@
     "uuidsMustBeAnArray": "User ID invites must be an array.",
     "emailsMustBeAnArray": "Email address invites must be an array.",
     "canOnlyInviteMaxInvites": "You can only invite \"<%= maxInvites %>\" at a time",
-    "onlyCreatorOrAdminCanDeleteChat": "Not authorized to delete this message!"
+    "onlyCreatorOrAdminCanDeleteChat": "Not authorized to delete this message!",
+    "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
+    "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
+    "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
+    "newChatMessageTitle": "New message in <%= groupName %>"
 }

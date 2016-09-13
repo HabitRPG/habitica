@@ -1,9 +1,10 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "3.34.1",
+  "version": "3.40.0",
   "main": "./website/server/index.js",
   "dependencies": {
+    "@slack/client": "3.6.0",
     "accepts": "^1.3.2",
     "amazon-payments": "0.0.4",
     "amplitude": "^2.0.3",
@@ -89,12 +90,12 @@
     "superagent": "^1.8.3",
     "swagger-node-express": "lefnire/swagger-node-express#habitrpg",
     "universal-analytics": "~0.3.2",
+    "useragent": "2.1.9",
     "uuid": "^2.0.1",
     "validator": "^4.9.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "winston": "^2.1.0",
-    "useragent": "2.1.9"
+    "winston": "^2.1.0"
   },
   "private": true,
   "engines": {
@@ -150,7 +151,7 @@
     "mongoskin": "~2.1.0",
     "phantomjs": "^1.9",
     "protractor": "^3.1.1",
-    "require-again": "^1.0.1",
+    "require-again": "^2.0.0",
     "rewire": "^2.3.3",
     "shelljs": "^0.7.0",
     "sinon": "^1.17.2",

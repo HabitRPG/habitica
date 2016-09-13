@@ -48,6 +48,8 @@
     "leaveQuest": "Abandonar Misión",
     "sureLeave": "¿Estás seguro de que quieres abandonar la misión activa? Todo tu progreso en la misión se perderá.",
     "questOwner": "Organizador de la Misión",
+    "questTaskDamage": "+<%= damage %> pending damage to boss",
+    "questTaskCollection": "<%= items %> items collected today",
     "questOwnerNotInPendingQuest": "El organizador ha abandonado la misión y ya no puede iniciarla. Se recomienda cancelarla ahora. El organizador se quedará con el pergamino de misión.",
     "questOwnerNotInRunningQuest": "El organizador ha abandonado la misión. Si necesitas abortar la misión, puedes hacerlo. También puedes dejarla activa y todos los participantes restantes recibirán las recompensas al concluir la misión.",
     "questOwnerNotInPendingQuestParty": "El organizador ha dejado el equipo y ya no puede comenzar la misión. Se recomienda cancelarla ahora. El pergamino de misión será regresado al organizador.",

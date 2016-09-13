@@ -19,12 +19,6 @@ describe('shops', () => {
       expect(identifiers.length).to.eql(shopCategories.length);
     });
 
-    it('does not contain an empty category', () => {
-      _.each(shopCategories, (category) => {
-        expect(category.items.length).to.be.greaterThan(0);
-      });
-    });
-
     it('items contain required fields', () => {
       _.each(shopCategories, (category) => {
         _.each(category.items, (item) => {

@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Por favor, tenha em mente que seu Nome de exibição, foto de perfil, e sinopse devem estar de acordo com as <a href='https://habitica.com/static/community-guidelines' target='_blank'>Diretrizes da Comunidade</a> (ou seja, sem profanidades, sem tópicos adultos, sem insultos, etc). Se você tem qualquer dúvida sobre se algo é ou não apropriado, entre em contato pelo email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Por favor mantém presente que o teu Nome Públco, perfil, foto e descrição devem obedecer aos <a href='https://habitica.com/static/community-guidelines' target='_blank'>Termos de Uso</a> (ou seja, não conter profanidades, fotos com conteúdo adulto, insultos, etc). Caso tenhas dúvidas de se algo é ou não apropriado, está à vontade para enviar um e-mail a <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
     "statsAch": "Estatísticas & Conquistas",
     "profile": "Perfil",
     "avatar": "Personalizar Avatar",
@@ -121,7 +121,7 @@
     "classAllocation": "Distribui pontos de acordo com a Classe",
     "classAllocationPop": "Atribui mais pontos para os atributos importantes para sua Classe.",
     "taskAllocation": "Distribui pontos de acordo com o tipo de atividades de suas tarefas",
-    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
+    "taskAllocationPop": "Distribua pontos nas categorias baseadas em Força, Inteligência, Constituiçao, e Percepção com as tarefas que você completar.",
     "distributePoints": "Distribuir Pontos não Distribuídos",
     "distributePointsPop": "Atribui todos pontos não distribuídos de acordo com o esquema de distribuição selecionado.",
     "warriorText": "Guerreiros causam melhores \"golpes críticos\" e com mais frequência, que aleatoriamente dão bônus de Ouro, Experiência e chance de drop ao cumprir uma tarefa. Eles também causam muito dano aos chefões Jogue de Guerreiro se encontra motivação em recompensas aleatórias, ou se gosta de acabar com chefões de Missões.",

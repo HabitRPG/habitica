@@ -236,7 +236,7 @@ describe('Challenges Controller', function() {
           type: 'todo'
         }
 
-        scope.addTask(taskArray, listDef, challenge);
+        scope.addTask(listDef, challenge);
 
         expect(challenge['todos'].length).to.eql(1);
         expect(challenge['todos'][0].text).to.eql('new todo text');
@@ -252,7 +252,7 @@ describe('Challenges Controller', function() {
           type: 'todo'
         }
 
-        scope.addTask(taskArray, listDef, challenge);
+        scope.addTask(listDef, challenge);
 
         expect(challenge['todos'].length).to.eql(2);
         expect(challenge['todos'][0].text).to.eql('new todo');
@@ -266,7 +266,7 @@ describe('Challenges Controller', function() {
           type: 'todo'
         }
 
-        scope.addTask(taskArray, listDef, challenge);
+        scope.addTask(listDef, challenge);
 
         expect(listDef.newTask).to.not.exist;
       });

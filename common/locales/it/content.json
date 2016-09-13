@@ -127,7 +127,7 @@
     "questEggTurtleAdjective": "una pacifica",
     "questEggArmadilloText": "Armadillo",
     "questEggArmadilloMountText": "Armadillo",
-    "questEggArmadilloAdjective": "an armored",
+    "questEggArmadilloAdjective": "un corazzato",
     "eggNotes": "Trova una pozione per far schiudere questo uovo, e nascerà <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Bianco",

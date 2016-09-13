@@ -14,7 +14,6 @@
     "dataTool": "Visualizzazione dati utente (in inglese)",
     "resources": "Risorse",
     "askQuestionNewbiesGuild": "Fai una domanda (Gilda dei Novelli)",
-    "tavernTalk": "Chiacchiere in Taverna",
     "tavernAlert1": "Per segnalare un bug, visita",
     "tavernAlert2": "la Gilda \"Report a Bug\"",
     "moderatorIntro1": "I moderatori della Taverna e delle Gilde sono:",
@@ -46,6 +45,7 @@
     "chat": "Chat",
     "sendChat": "Invia messaggio",
     "toolTipMsg": "Recupera messaggi recenti",
+    "syncPartyAndChat": "Sync Party and Chat",
     "guildBankPop1": "Banca della Gilda",
     "guildBankPop2": "Gemme che il leader della tua Gilda può usare per i premi delle sfide.",
     "guildGems": "Gemme della Gilda",
@@ -139,6 +139,7 @@
     "inviteNewUsers": "Invita nuovi utenti",
     "sendInvitations": "Spedisci inviti",
     "invitationsSent": "Inviti spediti!",
+    "invitationSent": "Invitation sent!",
     "inviteAlertInfo2": "Oppure condividi questo link (copia/incolla):",
     "sendGiftHeading": "Invia regalo a <%= name %>",
     "sendGiftGemsBalance": "Da <%= number %> Gemme",
@@ -192,5 +193,9 @@
     "uuidsMustBeAnArray": "ID Utente deve essere un vettore",
     "emailsMustBeAnArray": "L' invito dell' Indirizzo email deve essere un vettore",
     "canOnlyInviteMaxInvites": "Puoi invitare solo \"<%= maxInvites %>\" alla volta",
-    "onlyCreatorOrAdminCanDeleteChat": "Non autorizzato a rimuovere questo messaggio!"
+    "onlyCreatorOrAdminCanDeleteChat": "Non autorizzato a rimuovere questo messaggio!",
+    "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
+    "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
+    "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
+    "newChatMessageTitle": "New message in <%= groupName %>"
 }

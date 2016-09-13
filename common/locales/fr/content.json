@@ -127,7 +127,7 @@
     "questEggTurtleAdjective": "une paisible",
     "questEggArmadilloText": "Tatou",
     "questEggArmadilloMountText": "Tatou",
-    "questEggArmadilloAdjective": "an armored",
+    "questEggArmadilloAdjective": "Un solide",
     "eggNotes": "Trouvez une potion d’éclosion à verser sur cet œuf et il en sortira <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "de Base",
     "hatchingPotionWhite": "Blanc•he",

@@ -180,5 +180,8 @@
     "raisePetShare": "Aku membesarkan peliharaan menjadi tunggangan dengan melengkapi tugas dalam hidupku!",
     "wonChallengeShare": "Aku memenangkan sebuah tantangan di Habitica!",
     "achievementShare": "Aku mendapatkan sebuah pendapatan baru di Habitica!",
-    "orderBy": "Urutkan Berdasarkan <%= item %>"
+    "orderBy": "Urutkan Berdasarkan <%= item %>",
+    "you": "you",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

@@ -336,10 +336,10 @@
     "questTurtleBoss": "Рабочие Обломки",
     "questTurtleDropTurtleEgg": "Черепаха (Яйцо)",
     "questTurtleUnlockText": "Позволяет покупать на Рынке яйца Черепах",
-    "questArmadilloText": "The Indulgent Armadillo",
-    "questArmadilloNotes": "It's time to get outside and start your day. You swing open your door only to be met with what looks like a sheet of rock. \"I'm just giving you the day off!\" says a muffled voice through the blocked door. \"Don't be such a bummer, just relax today!\"<br><br>Suddenly, @Beffymaroo and @PainterProphet knock on your window. \"Looks like the Indulgence Armadillo has taken a liking to you! C'mon, we'll help you get her out of your way!\"",
+    "questArmadilloText": "Потакание броненосца",
+    "questArmadilloNotes": "Начался новый день, самое время выйти на улицу. Вы открываете дверь и обнаруживаете, что за ней - каменная стена.  \"Я здесь, чтобы дать тебе выходной день!\",  слышен приглушенный голос из-за блокированной двери. \"Не напрягайся, сегодня можно просто отдохнуть!\"<br><br>Вдруг @Beffymaroo и @PainterProphet стучатся в окно. \"Слушай, похоже, Броненосец Потакания положил на тебя глаз! Давай, мы поможем прогнать его прочь!\"",
     "questArmadilloCompletion": "Finally, after a long morning of convincing the Indulgence Armadillo that you do, in fact, want to work, she caves. \"I'm sorry!\" She apologizes. \"I just wanted to help. I thought everyone liked lazy days!\"<br><br>You smile, and let her know that next time you've earned a day off you'll invite her over. She grins back at you. Passers-by @Tipsy and @krajzega congratulate you on the good work as she rolls away, leaving a few eggs as an apology.",
-    "questArmadilloBoss": "Indulgence Armadillo",
-    "questArmadilloDropArmadilloEgg": "Armadillo (Egg)",
-    "questArmadilloUnlockText": "Unlocks purchasable Armadillo eggs in the Market"
+    "questArmadilloBoss": "Броненосец Потакания",
+    "questArmadilloDropArmadilloEgg": "Броненосец (яйцо)",
+    "questArmadilloUnlockText": "Позволяет покупать на рынке броненосца в яйце"
 }

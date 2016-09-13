@@ -215,5 +215,13 @@
   "backgroundMountainPyramidText": "Mountain Pyramid",
   "backgroundMountainPyramidNotes": "Climb the many steps of a Mountain Pyramid.",
   "backgroundStormyShipText": "Stormy Ship",
-  "backgroundStormyShipNotes": "Hold steady against wind and wave aboard a Stormy Ship."
+  "backgroundStormyShipNotes": "Hold steady against wind and wave aboard a Stormy Ship.",
+
+  "backgrounds092016": "SET 28: Released September 2016",
+  "backgroundCornfieldsText": "Cornfields",
+  "backgroundCornfieldsNotes": "Enjoy a beautiful day out in the Cornfields.",
+  "backgroundFarmhouseText": "Farmhouse",
+  "backgroundFarmhouseNotes": "Say hello to the animals on your way to the Farmhouse.",
+  "backgroundOrchardText": "Orchard",
+  "backgroundOrchardNotes": "Pick ripe fruit in an Orchard."
 }
