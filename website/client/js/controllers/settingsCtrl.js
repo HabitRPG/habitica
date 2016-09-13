@@ -313,9 +313,7 @@ habitrpg.controller('SettingsCtrl',
 
     $scope.deleteSocialAuth = function (networkKey) {
       var network = SOCIAL_AUTH_NETWORKS.find(function (network) {
-        if (network.key === networkKey) {
-          return network.name;
-        }
+        return network.key === networkKey;
       });
       $http.delete(ApiUrl.get() + "/api/v3/user/auth/social/"+networkKey).success(function(){
         Notification.text(env.t("detachedSocial", {network: network.name}));
