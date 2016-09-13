@@ -97,8 +97,8 @@ api.statsComputed = statsComputed;
 import shops from './libs/shops';
 api.shops = shops;
 
-import achievs from './libs/achievs';
-api.achievs = achievs;
+import achievements from './libs/achievements';
+api.achievements = achievements;
 
 import autoAllocate from './fns/autoAllocate';
 import crit from './fns/crit';

@@ -83,7 +83,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       }).join(',');
     }
 
-    $scope.achievements = Shared.achievs.getAchievementsForProfile($scope.profile);
+    $scope.achievements = Shared.achievements.getAchievementsForProfile($scope.profile);
 
   }
 ]);

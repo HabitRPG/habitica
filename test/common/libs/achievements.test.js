@@ -3,10 +3,10 @@ import {
   generateUser,
 } from '../../helpers/common.helper';
 
-describe('achievs', () => {
+describe('achievements', () => {
   describe('general well-formedness', () => {
     let user = generateUser();
-    let achievements = shared.achievs.getAchievementsForProfile(user);
+    let achievements = shared.achievements.getAchievementsForProfile(user);
 
     it('each category has \'label\' and \'achievements\' fields', () => {
       _.each(achievements, (category) => {
@@ -71,7 +71,7 @@ describe('achievs', () => {
 
   describe('unearned basic achievements', () => {
     let user = generateUser();
-    let basicAchievs = shared.achievs.getAchievementsForProfile(user).basic.achievements;
+    let basicAchievs = shared.achievements.getAchievementsForProfile(user).basic.achievements;
 
     it('streak and perfect day achievements exist with counts', () => {
       let streak = basicAchievs.streak;
@@ -131,7 +131,7 @@ describe('achievs', () => {
 
   describe('unearned seasonal achievements', () => {
     let user = generateUser();
-    let seasonalAchievs = shared.achievs.getAchievementsForProfile(user).seasonal.achievements;
+    let seasonalAchievs = shared.achievements.getAchievementsForProfile(user).seasonal.achievements;
 
     it('habiticaDays and habitBirthdays achievements exist with counts', () => {
       let habiticaDays = seasonalAchievs.habiticaDays;
@@ -188,7 +188,7 @@ describe('achievs', () => {
 
   describe('unearned special achievements', () => {
     let user = generateUser();
-    let specialAchievs = shared.achievs.getAchievementsForProfile(user).special.achievements;
+    let specialAchievs = shared.achievements.getAchievementsForProfile(user).special.achievements;
 
     it('habitSurveys achievement exists with count', () => {
       let habitSurveys = specialAchievs.habitSurveys;
@@ -238,7 +238,7 @@ describe('achievs', () => {
       backer: {tier: 3},
       contributor: {level: 1},
     });
-    let specialAchievs = shared.achievs.getAchievementsForProfile(user).special.achievements;
+    let specialAchievs = shared.achievements.getAchievementsForProfile(user).special.achievements;
 
     it('habitSurveys achievement is earned with correct value', () => {
       let habitSurveys = specialAchievs.habitSurveys;
@@ -260,7 +260,7 @@ describe('achievs', () => {
       let npcUser = generateUser({
         backer: {npc: 'test'},
       });
-      let npc = shared.achievs.getAchievementsForProfile(npcUser).special.achievements.npc;
+      let npc = shared.achievements.getAchievementsForProfile(npcUser).special.achievements.npc;
 
       expect(npc).to.exist;
       expect(npc.earned).to.eql(true);

@@ -17,7 +17,7 @@ import {
 } from '../../libs/email';
 import Bluebird from 'bluebird';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
-import { achievs } from '../../../../common/';
+import { achievements } from '../../../../common/';
 
 let api = {};
 
@@ -87,9 +87,9 @@ api.getMemberAchievements = {
 
     if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
 
-    let achievements = achievs.getAchievementsForProfile(member, req.language);
+    let achievsObject = achievements.getAchievementsForProfile(member, req.language);
 
-    res.respond(200, achievements);
+    res.respond(200, achievsObject);
   },
 };
 
