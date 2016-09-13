@@ -78,7 +78,7 @@ function _addSimpleWithMasterCount (result, user, data) {
   }
 
   let text = i18n.t(`${data.path}Text`, language);
-  if (value === 0) {
+  if (value > 0) {
     text += i18n.t(`${data.path}Text2`, {count: value}, language);
   }
 

@@ -289,4 +289,44 @@ describe('achievements', () => {
       expect(originalUser.earned).to.eql(true);
     });
   });
+
+  describe('mountMaster, beastMaster, and triadBingo achievements', () => {
+    it('master and triad bingo achievements do not include *Text2 strings if no keys have been used', () => {
+      let user = generateUser();
+      let basicAchievs = shared.achievements.getAchievementsForProfile(user).basic.achievements;
+
+      let beastMaster = basicAchievs.beastMaster;
+      let mountMaster = basicAchievs.mountMaster;
+      let triadBingo = basicAchievs.triadBingo;
+
+      expect(beastMaster.text).to.not.match(/released/);
+      expect(beastMaster.text).to.not.match(/0 times/);
+      expect(mountMaster.text).to.not.match(/released/);
+      expect(mountMaster.text).to.not.match(/0 times/);
+      expect(triadBingo.text).to.not.match(/released/);
+      expect(triadBingo.text).to.not.match(/0 times/);
+    });
+
+    it('master and triad bingo achievements includes *Text2 strings if keys have been used', () => {
+      let user = generateUser({
+        achievements: {
+          beastMasterCount: 1,
+          mountMasterCount: 2,
+          triadBingoCount: 3,
+        },
+      });
+      let basicAchievs = shared.achievements.getAchievementsForProfile(user).basic.achievements;
+
+      let beastMaster = basicAchievs.beastMaster;
+      let mountMaster = basicAchievs.mountMaster;
+      let triadBingo = basicAchievs.triadBingo;
+
+      expect(beastMaster.text).to.match(/released/);
+      expect(beastMaster.text).to.match(/1 times/);
+      expect(mountMaster.text).to.match(/released/);
+      expect(mountMaster.text).to.match(/2 times/);
+      expect(triadBingo.text).to.match(/released/);
+      expect(triadBingo.text).to.match(/3 times/);
+    });
+  });
 });
