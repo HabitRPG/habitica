@@ -27,7 +27,10 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         if ($state.is('options.social.party')) {
           if ('Notification' in window && window.Notification.permission === 'default') {
             setTimeout(function () {
-              window.Notification.requestPermission();
+              var notifsModal = $rootScope.openModal('enableDesktopNotifications');
+              window.Notification.requestPermission().then(function () {
+                notifsModal.close();
+              });
             }, 100);
           }
           Chat.markChatSeen($scope.group._id);

@@ -199,5 +199,6 @@
     "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
     "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
     "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
-    "newChatMessageTitle": "New message in <%= groupName %>"
+    "newChatMessageTitle": "New message in <%= groupName %>",
+    "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in your party chat, please follow your browser instructions.<br><br> You'll receive these notifications only as long as Habitica is open on your computer. Our advice is to enable them because they offer a better experience and, in case you don't like them, they can be disabled from your browser's settings.<br><br> This box will close automatically when a decision is made."
 }
