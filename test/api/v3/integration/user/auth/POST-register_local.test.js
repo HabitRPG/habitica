@@ -3,6 +3,7 @@ import {
   requester,
   translate as t,
   createAndPopulateGroup,
+  getProperty,
 } from '../../../../../helpers/api-integration/v3';
 import { v4 as generateRandomUserName } from 'uuid';
 import { each } from 'lodash';
@@ -50,6 +51,22 @@ describe('POST /user/auth/local/register', () => {
       expect(user.tasksOrder.dailys).to.have.a.lengthOf(0);
       expect(user.tasksOrder.rewards).to.have.a.lengthOf(0);
       expect(user.tasksOrder.habits).to.have.a.lengthOf(0);
+    });
+
+    it('enrolls new users in an A/B test', async () => {
+      let username = generateRandomUserName();
+      let email = `${username}@example.com`;
+      let password = 'password';
+
+      let user = await api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      await expect(getProperty('users', user._id, '_ABtest')).to.eventually.exist;
+      await expect(getProperty('users', user._id, '_ABtest')).to.eventually.be.a('string');
     });
 
     it('requires password and confirmPassword to match', async () => {
