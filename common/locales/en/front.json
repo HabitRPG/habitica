@@ -244,6 +244,7 @@
     "missingUsername": "Missing username.",
     "missingPassword": "Missing password.",
     "missingNewPassword": "Missing new password.",
+    "invalidEmailDomain": "You cannot register with emails with the following domains: <%= domains %>",
     "wrongPassword": "Wrong password.",
     "notAnEmail": "Invalid email address.",
     "emailTaken": "Email address is already used in an account.",
