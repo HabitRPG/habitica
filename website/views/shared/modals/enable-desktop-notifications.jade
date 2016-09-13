@@ -1,0 +1,7 @@
+script(type='text/ng-template', id='modals/enableDesktopNotifications.html')
+  .modal-header
+    h4!=env.t('enableDesktopNotifications')
+  .modal-body
+    p!=env.t('desktopNotificationsText')
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('close')
