@@ -1,6 +1,5 @@
 {
     "communityGuidelinesWarning": "Por favor, tenha em mente que seu Nome de exibição, foto de perfil, e sobre devem estar de acordo com as <a href='https://habitica.com/static/community-guidelines' target='_blank'>Diretrizes da Comunidade</a> (ou seja, sem profanidades, sem tópicos adultos, sem insultos, etc). Se você tem qualquer dúvida sobre se algo é ou não apropriado, entre em contato pelo email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
-    "statsAch": "Atributos e Conquistas",
     "profile": "Perfil",
     "avatar": "Personalizar Avatar",
     "other": "Outros",
@@ -83,7 +82,8 @@
     "allocateInt": "Pontos distribuídos em Inteligência:",
     "allocateIntPop": "Adicionar um ponto em Inteligência",
     "noMoreAllocate": "Agora que você chegou no nível 100, não receberá mais Pontos de Atributo. Você pode continuar subindo de nível ou começar uma nova aventura no nível 1 usando uma <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe do Renascimento</a>, agora disponível de graça no Mercado.",
-    "stats": "Atributos do Avatar",
+    "stats": "Stats",
+    "achievs": "Achievements",
     "strength": "Força",
     "strengthText": "Força aumenta a chance de \"golpes críticos\" aleatórios e o bônus de Ouro, Experiência e chance de drop deles. Também ajuda a causar dano aos chefões.",
     "constitution": "Constituição",

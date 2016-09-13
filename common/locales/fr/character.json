@@ -1,6 +1,5 @@
 {
     "communityGuidelinesWarning": "Veuillez garder à l'esprit que votre nom d'utilisateur, votre photo de profil et votre résumé doivent obéir aux <a href='https://habitica.com/static/community-guidelines' target='_blank'>Règles de Vie en Communauté</a> (par exemple, grossièretés, sujets adultes, insultes, etc. sont interdits). Si vous ne savez pas si quelque chose est inconvenant ou non, n'hésitez pas à envoyer un courriel à <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
-    "statsAch": "Caractéristiques & Succès",
     "profile": "Profil",
     "avatar": "Personnalisez votre avatar",
     "other": "Autres",
@@ -83,7 +82,8 @@
     "allocateInt": "Points alloués en Intelligence :",
     "allocateIntPop": "Ajouter un point en Intelligence",
     "noMoreAllocate": "Maintenant que vous avez atteint le niveau 100, vous ne gagnerez plus de Points d'Attribut. Vous pouvez continuer à passer des niveaux ou commencer une nouvelle aventure depuis le niveau 1 en utilisant l'<a href='http://fr.habitica.wikia.com/wiki/Orbe_de_Renaissance'>Orbe de Renaissance</a>, disponible gratuitement au Marché dès maintenant.",
-    "stats": "Caractéristiques de l'avatar",
+    "stats": "Stats",
+    "achievs": "Achievements",
     "strength": "Force",
     "strengthText": "La Force augmente les chances de \"coups critiques\" aléatoires et donc les bonus d'or, d'expérience et de gain de butin qui en découlent. Elle aide aussi à infliger des dommages aux boss.",
     "constitution": "Constitution",

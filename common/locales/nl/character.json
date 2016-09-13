@@ -1,6 +1,5 @@
 {
     "communityGuidelinesWarning": "Onthoud dat je weergegeven Naam, profielfoto en blurb overeen moeten komen met de <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Richtlijnen</a> (b.v. geen grof taalgebruik, geen volwassen onderwerpen, geen beledigingen, etc.). Als je vragen hebt over of iets geschikt is of niet, voel je dan vrij om een e-mail te sturen naar <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
-    "statsAch": "Statistieken en prestaties",
     "profile": "Profiel",
     "avatar": "Avatar aanpassen",
     "other": "Overige",
@@ -83,7 +82,8 @@
     "allocateInt": "Punten toegewezen aan Intelligentie:",
     "allocateIntPop": "Voeg punt toe aan Intelligentie",
     "noMoreAllocate": "Nu je niveau 100 bent, verdien je geen nieuwe eigenschapspunten meer. Je kunt doorgaan met hogere niveaus bereiken of een nieuw avontuur beginnen vanaf niveau 1 door de <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Bol der Hergeboorte</a> te gebruiken. Deze is nu gratis te krijgen op de markt.",
-    "stats": "Statistieken avatar",
+    "stats": "Stats",
+    "achievs": "Achievements",
     "strength": "Kracht",
     "strengthText": "Kracht verhoogt de kans op willekeurige \"voltreffers\" en de extra goud, ervaringspunten, en vondstkans van deze voltreffers. Het helpt ook schade toe te brengen aan eindbazen.",
     "constitution": "Lichaam",

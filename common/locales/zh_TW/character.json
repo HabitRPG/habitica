@@ -1,6 +1,5 @@
 {
     "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
-    "statsAch": "屬性及成就",
     "profile": "基本資料",
     "avatar": "客制化角色圖像",
     "other": "其他",
@@ -83,7 +82,8 @@
     "allocateInt": "分配給智力的屬性點：",
     "allocateIntPop": "增加一點智力",
     "noMoreAllocate": "恭喜您！您的角色已經達到了等級 100，所以往後的等級您將不會再獲得屬性點。您可以使用這個角色續續升級，又或者透過巿集取得免費的<a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>重生之球</a>，從等級 1 開始一場嶄新的冒險。",
-    "stats": "角色狀態",
+    "stats": "Stats",
+    "achievs": "Achievements",
     "strength": "力量",
     "strengthText": "力量會增加「會心一擊」的機率，而會心一擊時會提升金幣、經驗和物品掉落的機率。力量還能幫助你傷害 BOSS。",
     "constitution": "體質",
