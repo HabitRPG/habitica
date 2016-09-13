@@ -27,11 +27,11 @@
       | &nbsp;
       span.glyphicon.glyphicon-pencil(ng-hide='task._editing')
     | &nbsp;
-    a(ng-hide='!task._editing', ng-click='cancelTaskEdit(task)', tooltip=env.t('cancel'))
+    a(ng-hide='!task._editing', ng-click='editTask(task, user)', tooltip=env.t('cancel'))
       span.glyphicon.glyphicon-remove(ng-hide='!task._editing')
       | &nbsp;
     // save
-    a(ng-hide='!task._editing', ng-click='saveTask(task)', tooltip=env.t('save'))
+    a(ng-hide='!task._editing', ng-click='editTask(task, user);saveTask(task)', tooltip=env.t('save'))
       span.glyphicon.glyphicon-ok(ng-hide='!task._editing')
     | &nbsp;
     //challenges

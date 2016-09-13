@@ -158,9 +158,11 @@ describe('Tasks Service', function() {
       task = specHelper.newTask();
     });
 
-    it('sets _editing to true', function() {
+    it('toggles the _editing property', function() {
       tasks.editTask(task, user);
       expect(task._editing).to.eql(true);
+      tasks.editTask(task, user);
+      expect(task._editing).to.eql(false);
     });
 
     it('sets _tags to true by default', function() {
@@ -195,20 +197,6 @@ describe('Tasks Service', function() {
 
       tasks.editTask(task, user);
       expect(rootScope.charts[task.id]).to.eql(false);
-    });
-  });
-
-  describe('cancelTaskEdit', function() {
-    var task;
-
-    beforeEach(function(){
-      task = specHelper.newTask();
-    });
-
-    it('sets _editing to false', function() {
-      task._editing = true;
-      tasks.cancelTaskEdit(task);
-      expect(task._editing).to.eql(false);
     });
   });
 
