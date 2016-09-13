@@ -182,7 +182,8 @@
     "wonChallengeShare": "Megnyertem egy kihívást a Habiticán!",
     "achievementShare": "Új kitüntetést szereztem a Habiticán!",
     "orderBy": "Rendezés <%= item %> szerint",
-    "you": "you",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
     "online": "online",
     "onlineCount": "<%= count %> online"
 }

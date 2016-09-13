@@ -182,7 +182,8 @@
     "wonChallengeShare": "Wyzwanie zaliczone!",
     "achievementShare": "Zdobyto nowe osiągnięcie w Habitice!",
     "orderBy": "Sortuj po <%= item %>",
-    "you": "you",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
     "online": "online",
     "onlineCount": "<%= count %> online"
 }

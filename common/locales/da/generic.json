@@ -182,7 +182,8 @@
     "wonChallengeShare": "Jeg har vundet en udfordring i Habitica!",
     "achievementShare": "Jeg har opnået en ny præstation i Habitica!",
     "orderBy": "Order By <%= item %>",
-    "you": "you",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
     "online": "online",
     "onlineCount": "<%= count %> online"
 }

@@ -125,8 +125,8 @@
     "copyMessageAsToDo": "Nachricht als To-Do übernehmen",
     "messageAddedAsToDo": "Nachricht als To-Do übernommen.",
     "messageWroteIn": "<%= user %> schrieb in <%= group %>",
-    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
-    "taskTextFromInbox": "Message from <%= from %>",
+    "taskFromInbox": "<%= from %> schrieb '<%= message %>'",
+    "taskTextFromInbox": "Nachricht von <%= from %>",
     "msgPreviewHeading": "Nachrichtenvorschau",
     "leaderOnlyChallenges": "Nur der Gruppenleiter kann Wettbewerbe erstellen",
     "sendGift": "Geschenk schicken",
@@ -199,5 +199,6 @@
     "onlyGroupLeaderCanEditTasks": "Nicht berechtigt, Aufgaben zu bearbeiten!",
     "onlyGroupTasksCanBeAssigned": "Nur Gruppenaufgaben können verteilt werden",
     "newChatMessagePlainNotification": "Neue Nachricht in <%= groupName %> von <%= authorName %>. Hier geht's zur Chat Seite!",
-    "newChatMessageTitle": "Neue Nachricht in <%= groupName %>"
+    "newChatMessageTitle": "Neue Nachricht in <%= groupName %>",
+    "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made."
 }

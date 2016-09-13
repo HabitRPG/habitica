@@ -182,7 +182,8 @@
     "wonChallengeShare": "סיימתי אתגר בהביטיקה!",
     "achievementShare": "השגתי הישג חדש בהביטיקה!",
     "orderBy": "סדר לפי <%= item %>",
-    "you": "you",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
     "online": "online",
     "onlineCount": "<%= count %> online"
 }

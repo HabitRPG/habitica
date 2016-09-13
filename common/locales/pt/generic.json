@@ -182,7 +182,8 @@
     "wonChallengeShare": "Venci um desafio em Habitica!",
     "achievementShare": "Consegui uma nova conquista em Habitica!",
     "orderBy": "Ordenar por <%= item %>",
-    "you": "voce",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
     "online": "online",
     "onlineCount": "<%= count %> online"
 }

@@ -48,7 +48,6 @@
     "messageGroupCannotRemoveSelf": "Você não pode se remover!",
     "messageGroupChatBlankMessage": "Você não pode mandar uma mensagem em branco",
     "messageGroupChatLikeOwnMessage": "Não é possível curtir sua própria mensagem. Não seja 'aquela' pessoa.",
-    "messageGroupChatFlagOwnMessage": "Não é possível denunciar sua própria mensagem.",
     "messageGroupChatFlagAlreadyReported": "Você já reportou essa mensagem.",
     "messageGroupChatNotFound": "Mensagem não encontrada!",
     "messageGroupChatAdminClearFlagCount": "Somente um administrador pode remover o contador de denúncias!",

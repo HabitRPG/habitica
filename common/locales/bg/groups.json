@@ -125,8 +125,8 @@
     "copyMessageAsToDo": "Копиране на съобщението като задача",
     "messageAddedAsToDo": "Съобщението беше копирано като задача.",
     "messageWroteIn": "<%= user %> публикува нещо в <%= group %>",
-    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
-    "taskTextFromInbox": "Message from <%= from %>",
+    "taskFromInbox": "<%= from %> написа „<%= message %>“",
+    "taskTextFromInbox": "Съобщение от <%= from %>",
     "msgPreviewHeading": "Преглед на съобщението",
     "leaderOnlyChallenges": "Само водачът на групата може да създава предизвикателства",
     "sendGift": "Изпращане на подарък",
@@ -199,5 +199,6 @@
     "onlyGroupLeaderCanEditTasks": "Нямате право да управлявате задачите!",
     "onlyGroupTasksCanBeAssigned": "Само групови задачи могат да бъдат зададени",
     "newChatMessagePlainNotification": "Има ново съобщение в <%= groupName %> от <%= authorName %>. Щракнете тук, за да отворите страницата!",
-    "newChatMessageTitle": "Има ново съобщение в <%= groupName %>"
+    "newChatMessageTitle": "Има ново съобщение в <%= groupName %>",
+    "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made."
 }

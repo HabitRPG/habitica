@@ -341,5 +341,11 @@
     "questArmadilloCompletion": "最后，在一个漫长的早晨，你劝说放纵的犰狳你事实上很想去工作，之后她终于妥协了。“我很抱歉！”她道歉道。“我只是想要帮忙。我以为每个人都喜欢懒散的一天！”<br><br>你微笑着，并告诉她，下次你休假的时候你会再次邀请她。她对你露齿而笑。路人 @Tipsy 和 @krajzega 祝贺你在她离开后能好好的工作，她还留下了一些蛋作为歉礼。",
     "questArmadilloBoss": "放纵的犰狳",
     "questArmadilloDropArmadilloEgg": "犰狳(蛋)",
-    "questArmadilloUnlockText": "解锁犰狳蛋购买功能"
+    "questArmadilloUnlockText": "解锁犰狳蛋购买功能",
+    "questCowText": "The Mootant Cow",
+    "questCowNotes": "Flavor: It’s been a long, hot day at Sparring Farms, and there is nothing more you want than a long sip of water and some sleep. You're standing there daydreaming when @Soloana suddenly screams, \"Everyone run! The prize cow has mootated!\"<br><br>@eevachu gulps. \"It must be our bad habits that infected it.\"<br><br>\"Quick!\" Feralem Tau says. \"Let’s do something before the udder cows mootate, too.\"<br><br>You’ve herd enough. No more daydreaming -- it's time to get those bad habits under control!",
+    "questCowCompletion": "You milk your good habits for all they are worth until the cow reverts to its original form. The cow looks over at you with her pretty brown eyes and nudges over three eggs.<br><br>@fuzzytrees laughs and hands you the eggs, \"Maybe it still is mootated if there are baby cows in these eggs. But I trust you to stick to your good habits when you raise them!\"",
+    "questCowBoss": "Mootant Cow",
+    "questCowDropCowEgg": "Cow (Egg)",
+    "questCowUnlockText": "Unlocks purchasable Cow eggs in the Market"
 }

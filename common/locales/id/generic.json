@@ -182,7 +182,8 @@
     "wonChallengeShare": "Aku memenangkan sebuah tantangan di Habitica!",
     "achievementShare": "Aku mendapatkan sebuah pendapatan baru di Habitica!",
     "orderBy": "Urutkan Berdasarkan <%= item %>",
-    "you": "you",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
     "online": "online",
     "onlineCount": "<%= count %> online"
 }

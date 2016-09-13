@@ -182,7 +182,8 @@
     "wonChallengeShare": "V Habitica jsem vyhrál výzvu!",
     "achievementShare": "Získal jsem v zemi Habitica nové ocenění!",
     "orderBy": "Seřadit podle <%= item %>",
-    "you": "you",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
     "online": "online",
     "onlineCount": "<%= count %> online"
 }
