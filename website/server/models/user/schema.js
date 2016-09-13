@@ -371,6 +371,7 @@ let schema = new Schema({
     party: {type: Schema.Types.Mixed, default: () => {
       return {};
     }},
+    accepted: {type: Array, default: () => []},
   },
 
   guilds: [{type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']}],

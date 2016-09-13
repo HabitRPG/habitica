@@ -1320,4 +1320,33 @@ api.setCustomDayStart = {
   },
 };
 
+/**
+* @api {post} /api/v3/user/clearInviteAcceptedNotification/:invitedUsername/:groupId Clear a notification of an accepted invite
+* @apiVersion 3.0.0
+* @apiName clearInviteAcceptedNotification
+* @apiGroup User
+*
+* @apiParam {String} invitedUsername The username of the user that accepted the invitation
+* @apiParam {UUID} groupId The id of the group that was joined
+*
+* @apiSuccess {Object} data The updated user.invitations.accepted array
+*/
+api.clearInviteAcceptedNotification = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/clearInviteAcceptedNotification/:invitedUsername/:groupId',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let invitedUsername = req.params.invitedUsername;
+    let groupId = req.params.groupId;
+
+    _.remove(user.invitations.accepted, {invitedUsername, id: groupId});
+
+    await User.update(
+      {_id: user._id},
+      {$set: {'invitations.accepted': user.invitations.accepted}}).exec();
+    res.respond(200, user.invitations.accepted);
+  },
+};
+
 module.exports = api;

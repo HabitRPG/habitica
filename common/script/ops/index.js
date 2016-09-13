@@ -45,6 +45,7 @@ import readCard from './readCard';
 import openMysteryItem from './openMysteryItem';
 import scoreTask from './scoreTask';
 import markPmsRead from './markPMSRead';
+import clearInviteAcceptedNotification from './clearInviteAcceptedNotification';
 
 module.exports = {
   update,
@@ -94,4 +95,5 @@ module.exports = {
   openMysteryItem,
   scoreTask,
   markPmsRead,
+  clearInviteAcceptedNotification,
 };

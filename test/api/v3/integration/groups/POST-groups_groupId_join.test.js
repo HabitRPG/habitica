@@ -134,6 +134,14 @@ describe('POST /group/:groupId/join', () => {
 
         await expect(user.get('/user')).to.eventually.have.deep.property('items.quests.basilist', 1);
       });
+
+      it('pushes the accepted invitation to invitations.accepted of the inviting user', async () => {
+        await invitedUser.post(`/groups/${guild._id}/join`);
+
+        await user.sync();
+
+        expect(user.invitations.accepted).to.include({id: guild._id, groupName: guild.name, invitedUsername: invitedUser.profile.name, type: 'guild'});
+      });
     });
   });
 
@@ -231,6 +239,14 @@ describe('POST /group/:groupId/join', () => {
         expect(invitedUser).to.have.deep.property('party.quest.RSVPNeeded', true);
         expect(invitedUser).to.have.deep.property('party.quest.key', party.quest.key);
         expect(party.quest.members[invitedUser._id]).to.be.null;
+      });
+
+      it('pushes the accepted invitation to invitations.accepted of the inviting user', async () => {
+        await invitedUser.post(`/groups/${party._id}/join`);
+
+        await user.sync();
+
+        expect(user.invitations.accepted).to.include({id: party._id, groupName: party.name, invitedUsername: invitedUser.profile.name, type: 'party'});
       });
     });
   });

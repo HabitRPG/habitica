@@ -208,6 +208,11 @@ nav.toolbar(ng-controller='MenuCtrl')
                 a(ui-sref='options.social.guilds.public', data-close-menu)
                   span.glyphicon.glyphicon-user
                   span=env.t('invitedTo', {name: '{{guild.name}}'})
+              li(ng-repeat='acceptedInvitation in user.invitations.accepted')
+                a(ng-click='clearInviteAcceptedNotification({params: acceptedInvitation})', popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
+                  span.glyphicon.glyphicon-user
+                  span=env.t('userAcceptedInvitationTo', {groupName: '{{acceptedInvitation.groupName}}', username: '{{acceptedInvitation.invitedUsername}}'})
+                  span.glyphicon.glyphicon-remove-circle
               li(ng-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points')
                 a(ui-sref='options.profile.stats', data-close-menu)
                   span.glyphicon.glyphicon-plus-sign

@@ -156,6 +156,7 @@ import deletePM from './ops/deletePM';
 import reroll from './ops/reroll';
 import reset from './ops/reset';
 import markPmsRead from './ops/markPMSRead';
+import clearInviteAcceptedNotification from './ops/clearInviteAcceptedNotification';
 
 api.ops = {
   scoreTask,
@@ -195,6 +196,7 @@ api.ops = {
   reroll,
   reset,
   markPmsRead,
+  clearInviteAcceptedNotification,
 };
 
 /*
@@ -300,6 +302,7 @@ api.wrap = function wrapUser (user, main = true) {
       openMysteryItem: _.partial(importedOps.openMysteryItem, user),
       score: _.partial(importedOps.scoreTask, user),
       markPmsRead: _.partial(importedOps.markPmsRead, user),
+      clearInviteAcceptedNotification: _.partial(importedOps.clearInviteAcceptedNotification, user),
     };
   }
 

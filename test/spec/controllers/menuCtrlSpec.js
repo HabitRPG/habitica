@@ -8,12 +8,13 @@ describe('Menu Controller', function() {
     beforeEach(function(){
       module(function($provide) {
         $provide.value('Chat', { seenMessage: function() {} });
+        $provide.value('User', { clearInviteAcceptedNotification: function() {} });
       });
 
-      inject(function(_$httpBackend_, $rootScope, $controller) {
+      inject(function(_$httpBackend_, $rootScope, $controller, User) {
         scope = $rootScope.$new();
 
-        ctrl = $controller('MenuCtrl', {$scope: scope, $window: $window, User: user});
+        ctrl = $controller('MenuCtrl', {$scope: scope, $window: $window});
       })
     });
 
