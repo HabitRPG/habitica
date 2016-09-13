@@ -3,7 +3,7 @@
 let glob = require('glob').sync;
 
 describe('Locales files', () => {
-  it.skip('do not contain duplicates of any keys', () => {
+  it('do not contain duplicates of any keys', () => {
     let translationFiles = glob('./common/locales/en/*.json');
 
     if (translationFiles.length === 0) {
