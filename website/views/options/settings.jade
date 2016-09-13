@@ -134,7 +134,7 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
             div
               ul.list-inline
                 li(ng-repeat='network in SOCIAL_AUTH_NETWORKS')
-                  button.btn.btn-primary(ng-if='!user.auth[network.key].id', ng-click='socialLogin(network.key)')=env.t('registerWithSocial', {network: '{{network.name}}'})
+                  button.btn.btn-primary(ng-if='!user.auth[network.key].id', ng-click='socialLogin(network.key, user)')=env.t('registerWithSocial', {network: '{{network.name}}'})
                   button.btn.btn-primary(disabled='disabled', ng-if='!hasBackupAuthOption(user, network.key) && user.auth[network.key].id')=env.t('registeredWithSocial', {network: '{{network.name}}'})
                   button.btn.btn-danger(ng-click='deleteSocialAuth(network.key)', ng-if='hasBackupAuthOption(user, network.key) && user.auth[network.key].id')=env.t('detachSocial', {network: '{{network.name}}'})
               hr

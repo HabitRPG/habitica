@@ -5,22 +5,13 @@
  */
 
 angular.module('habitrpg')
-  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrl', '$modal', 'Alert', 'Analytics',
-    function($scope, $rootScope, User, $http, $location, $window, ApiUrl, $modal, Alert, Analytics) {
+  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrl', '$modal', 'Alert', 'Analytics', 'Auth',
+    function($scope, $rootScope, User, $http, $location, $window, ApiUrl, $modal, Alert, Analytics, Auth) {
       $scope.Analytics = Analytics;
 
       $scope.logout = function() {
         localStorage.clear();
         $window.location.href = '/logout';
-      };
-
-      var runAuth = function(id, token) {
-        User.authenticate(id, token, function(err) {
-          if(!err) $scope.registrationInProgress = false;
-          Analytics.login();
-          Analytics.updateUser();
-          $window.location.href = ('/' + window.location.hash);
-        });
       };
 
       $scope.registrationInProgress = false;
@@ -45,7 +36,7 @@ angular.module('habitrpg')
         }
 
         $http.post(url, scope.registerVals).success(function(res, status, headers, config) {
-          runAuth(res.data._id, res.data.apiToken);
+          Auth.runAuth(res.data._id, res.data.apiToken);
           Analytics.register();
         }).error(function(data, status, headers, config) {
           $scope.registrationInProgress = false;
@@ -61,7 +52,7 @@ angular.module('habitrpg')
         //@TODO: Move all the $http methods to a service
         $http.post(ApiUrl.get() + "/api/v3/user/auth/local/login", data)
           .success(function(res, status, headers, config) {
-            runAuth(res.data.id, res.data.apiToken);
+            Auth.runAuth(res.data.id, res.data.apiToken);
           }).error(Alert.authErrorAlert);
       };
 
@@ -101,7 +92,7 @@ angular.module('habitrpg')
         hello(network).login({scope:'email'}).then(function(auth){
           $http.post(ApiUrl.get() + "/api/v3/user/auth/social", auth)
             .success(function(res, status, headers, config) {
-              runAuth(res.data.id, res.data.apiToken);
+              Auth.runAuth(res.data.id, res.data.apiToken);
             }).error(Alert.authErrorAlert);
         }, function( e ){
           alert("Signin error: " + e.message );

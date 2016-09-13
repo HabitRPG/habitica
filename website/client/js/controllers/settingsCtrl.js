@@ -10,10 +10,7 @@ habitrpg.controller('SettingsCtrl',
       both: 'releaseBoth',
     };
 
-    var SOCIAL_AUTH_NETWORKS = [
-      {key: 'facebook', name: 'Facebook'},
-      {key: 'google', name: 'Google'},
-    ];
+    var SOCIAL_AUTH_NETWORKS = window.habitrpgShared.constants.SUPPORTED_SOCIAL_NETWORKS
     $scope.SOCIAL_AUTH_NETWORKS = SOCIAL_AUTH_NETWORKS;
 
     // FIXME we have this re-declared everywhere, figure which is the canonical version and delete the rest
@@ -315,7 +312,15 @@ habitrpg.controller('SettingsCtrl',
     };
 
     $scope.deleteSocialAuth = function (networkKey) {
-      $http("delete", ApiUrl.get() + "/api/v3/user/auth/social/"+networkKey, null, "detachedSocial");
+      var network = SOCIAL_AUTH_NETWORKS.find(function (network) {
+        if (network.key === networkKey) {
+          return network.name;
+        }
+      });
+      $http.delete(ApiUrl.get() + "/api/v3/user/auth/social/"+networkKey).success(function(){
+        Notification.text(env.t("detachedSocial", {network: network.name}));
+        User.sync();
+      });
     };
 
     $scope.socialLogin = Social.socialLogin;

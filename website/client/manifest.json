@@ -43,6 +43,7 @@
 
             "js/services/sharedServices.js",
             "js/services/alertServices.js",
+            "js/services/authServices.js",
             "js/services/notificationServices.js",
             "js/directives/directives.js",
             "js/services/analyticsServices.js",
@@ -135,6 +136,7 @@
             "js/static.js",
             "js/services/alertServices.js",
             "js/services/analyticsServices.js",
+            "js/services/authServices.js",
             "js/services/notificationServices.js",
             "js/services/userNotificationsService.js",
             "js/services/userServices.js",
@@ -174,6 +176,7 @@
             "js/static.js",
             "js/services/alertServices.js",
             "js/services/analyticsServices.js",
+            "js/services/authServices.js",
             "js/services/notificationServices.js",
             "js/services/sharedServices.js",
             "js/services/socialServices.js",

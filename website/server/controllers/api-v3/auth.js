@@ -19,8 +19,7 @@ import { sendTxn as sendTxnEmail } from '../../libs/email';
 import { decrypt } from '../../libs/encryption';
 import { send as sendEmail } from '../../libs/email';
 import pusher from '../../libs/pusher';
-
-const SUPPORTED_SOCIAL_NETWORKS = Object.freeze(['facebook', 'google']);
+import common from '../../../../common';
 
 let api = {};
 
@@ -123,9 +122,9 @@ api.registerLocal = {
     };
 
     if (existingUser) {
-      let hasSocialAuth = SUPPORTED_SOCIAL_NETWORKS.find(network => {
-        if (existingUser.auth.hasOwnProperty(network)) {
-          return existingUser.auth[network].id;
+      let hasSocialAuth = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(network => {
+        if (existingUser.auth.hasOwnProperty(network.key)) {
+          return existingUser.auth[network.key].id;
         }
       });
       if (!hasSocialAuth) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
@@ -248,13 +247,17 @@ function _passportProfile (network, accessToken) {
 // Called as a callback by Facebook (or other social providers). Internal route
 api.loginSocial = {
   method: 'POST',
+  middlewares: [authWithHeaders(true)],
   url: '/user/auth/social', // this isn't the most appropriate url but must be the same as v2
   async handler (req, res) {
     let existingUser = res.locals.user;
     let accessToken = req.body.authResponse.access_token;
     let network = req.body.network;
 
-    if (SUPPORTED_SOCIAL_NETWORKS.indexOf(network) === -1) throw new BadRequest(res.t('unsupportedNetwork'));
+    let isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(supportedNetwork => {
+      return supportedNetwork.key === network;
+    });
+    if (!isSupportedNetwork) throw new BadRequest(res.t('unsupportedNetwork'));
 
     let profile = await _passportProfile(network, accessToken);
 
@@ -274,6 +277,8 @@ api.loginSocial = {
           language: req.language,
         },
       };
+
+
 
       if (existingUser) {
         existingUser.auth[network] = user.auth[network];
@@ -592,7 +597,10 @@ api.deleteSocial = {
   async handler (req, res) {
     let user = res.locals.user;
     let network = req.params.network;
-    if (SUPPORTED_SOCIAL_NETWORKS.indexOf(network) === -1) throw new BadRequest(res.t('unsupportedNetwork'));
+    let isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(supportedNetwork => {
+      return supportedNetwork.key === network;
+    });
+    if (!isSupportedNetwork) throw new BadRequest(res.t('unsupportedNetwork'));
     if (!user.auth.local.username) throw new NotAuthorized(res.t('cantDetachSocial'));
     let unset = {
       [`auth.${network}`]: 1,

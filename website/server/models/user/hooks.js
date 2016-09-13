@@ -114,11 +114,10 @@ function _setProfileName (user) {
   let google = user.auth.google;
 
   let localUsername = user.auth.local && user.auth.local.username;
-  let facebookUsername = _getFacebookName(user.auth.facebook);
   let googleUsername = google && google.displayName;
   let anonymous = 'Anonymous';
 
-  return localUsername || facebookUsername || googleUsername || anonymous;
+  return localUsername || _getFacebookName(user.auth.facebook) || googleUsername || anonymous;
 }
 
 schema.pre('save', true, function preSaveUser (next, done) {
