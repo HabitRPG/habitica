@@ -10,27 +10,12 @@
   ];
 
   function costumeFactory(Content) {
-    function animalInfo(name, type) {
-      var tmp = name.split('-');
-      var data = {
-        egg: tmp[0],
-        potion: tmp[1]
-      };
-      data.isSpecial = !Content.hatchingPotions[data.potion];
-      return data;
-    }
     
     function formatAnimal(name, type) {
-      var info = animalInfo(name, type);
-      if(!info.isSpecial) {
-        var animal = {
-          potion: Content.hatchingPotions[info.potion].text()
-        };
-        animal[type === 'pet' ? 'egg' : 'mount'] = Content.eggs[info.egg].text();
-        return window.env.t(type+'Name', animal);
-      } else {
-        var capitalizedType = type.charAt(0).toUpperCase() + type.slice(1); // pet -> Pet, mount -> Mount
-        return window.env.t(Content['special' + capitalizedType + 's'][name]);
+      if(type === 'pet' && name in Content.petsInfo) {
+        return Content.petsInfo[name].text();
+      } else if(type === 'mount' && name in Content.mountsInfo) {
+        return Content.mountsInfo[name].text();
       }
     }
 
