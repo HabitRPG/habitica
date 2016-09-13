@@ -19,6 +19,8 @@ habitrpg
           $scope.profile = member;
 
           $scope.achievements = Shared.achievements.getAchievementsForProfile($scope.profile);
+          $scope.achievPopoverPlacement = 'left';
+          $scope.achievAppendToBody = 'false'; // append-to-body breaks popovers in modal windows
         }
       });
 
