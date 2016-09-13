@@ -186,7 +186,6 @@ angular.module('habitrpg')
       task._editing = false;
     };
 
-
     function cloneTask(task) {
       var clonedTask = _.cloneDeep(task);
       clonedTask = _cleanUpTask(clonedTask);
