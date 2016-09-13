@@ -179,6 +179,10 @@
   "questEggArmadilloMountText": "Armadillo",
   "questEggArmadilloAdjective": "an armored",
 
+  "questEggCowText": "Cow",
+  "questEggCowMountText": "Cow",
+  "questEggCowAdjective": "a mooing",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",

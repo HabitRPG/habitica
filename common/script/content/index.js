@@ -2360,6 +2360,38 @@ api.quests = {
       unlock: t('questArmadilloUnlockText'),
     },
   },
+  cow: {
+    text: t('questCowText'),
+    notes: t('questCowNotes'),
+    completion: t('questCowCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questCowBoss'),
+      hp: 400,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Cow',
+          text: t('questCowDropCowEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Cow',
+          text: t('questCowDropCowEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Cow',
+          text: t('questCowDropCowEgg'),
+        }
+      ],
+      gp: 31,
+      exp: 200,
+      unlock: t('questCowUnlockText'),
+    },
+  },
 };
 
 _.each(api.quests, function(v, key) {
