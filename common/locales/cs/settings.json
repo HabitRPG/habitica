@@ -159,7 +159,6 @@
     "pushDeviceAlreadyAdded": "The user already has the push device",
     "pushDeviceNotFound": "The user has no push device with this id.",
     "pushDeviceRemoved": "Push device removed successfully.",
-    "add": "Přidat",
     "buyGemsGoldCap": "Strop zvýšen na <%= amount %>",
     "mysticHourglass": "<%= amount %> Mystických přesýpacích hodin",
     "mysticHourglassText": "Mystické přesýpací hodiny ti umožní koupit si záhadné sety předmětů z předchozích měsíců.",

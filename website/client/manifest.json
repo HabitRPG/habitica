@@ -90,6 +90,7 @@
             "js/controllers/guildsCtrl.js",
             "js/controllers/hallCtrl.js",
             "js/controllers/headerCtrl.js",
+            "js/controllers/inboxCtrl.js",
             "js/controllers/inventoryCtrl.js",
             "js/controllers/inviteToGroupCtrl.js",
             "js/controllers/memberModalCtrl.js",

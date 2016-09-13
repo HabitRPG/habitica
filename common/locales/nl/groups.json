@@ -45,7 +45,7 @@
     "chat": "Chat",
     "sendChat": "Chat verzenden",
     "toolTipMsg": "Recente berichten laden",
-    "syncPartyAndChat": "Sync Party and Chat",
+    "syncPartyAndChat": "Synchroniseer Groep en Chat",
     "guildBankPop1": "Gildebank",
     "guildBankPop2": "Edelstenen die de gildeleider kan gebruiken als prijzen bij uitdagingen.",
     "guildGems": "Gilde-edelstenen",
@@ -125,6 +125,8 @@
     "copyMessageAsToDo": "Bericht kopiëren als To-do",
     "messageAddedAsToDo": "Bericht gekopieerd als To-do.",
     "messageWroteIn": "<%= user %> schreef in <%= group %>",
+    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
+    "taskTextFromInbox": "Message from <%= from %>",
     "msgPreviewHeading": "Bericht preview",
     "leaderOnlyChallenges": "Alleen de groepsleider kan uitdagingen aanmaken",
     "sendGift": "Geschenk versturen",
@@ -139,7 +141,7 @@
     "inviteNewUsers": "Nieuwe gebruikers uitnodigen",
     "sendInvitations": "Uitnodigingen versturen",
     "invitationsSent": "Uitnodigingen verstuurd!",
-    "invitationSent": "Invitation sent!",
+    "invitationSent": "Uitnodiging verstuurd!",
     "inviteAlertInfo2": "Of deel deze link (knip en plak):",
     "sendGiftHeading": "Geschenk verzenden naar <%= name %>",
     "sendGiftGemsBalance": "Van <%= number %> edelstenen",
@@ -196,6 +198,6 @@
     "onlyCreatorOrAdminCanDeleteChat": "Niet geautoriseerd om dit bericht te verwijderen!",
     "onlyGroupLeaderCanEditTasks": "Niet gemachtigd om taken te beheren!",
     "onlyGroupTasksCanBeAssigned": "Enkel groepstaken kunnen toegewezen worden.",
-    "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
-    "newChatMessageTitle": "New message in <%= groupName %>"
+    "newChatMessagePlainNotification": "Nieuw bericht in <%= groupName %> door <%= authorName %>. Klik hier om de chat pagina te openen!",
+    "newChatMessageTitle": "Nieuw bericht in <%= groupName %>"
 }

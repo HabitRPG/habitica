@@ -159,7 +159,6 @@
     "pushDeviceAlreadyAdded": "O usuário já possui o dispositivo push",
     "pushDeviceNotFound": "O usuário não tem dispositivo push nesse id.",
     "pushDeviceRemoved": "Dispositivo push removido com sucesso.",
-    "add": "Adicionar",
     "buyGemsGoldCap": "Máximo aumentado para <%= amount %>",
     "mysticHourglass": "<%= amount %> Ampulhetas Místicas",
     "mysticHourglassText": "Ampulhetas Místicas te permitem comprar Conjuntos de Itens Misteriosos de meses anteriores.",

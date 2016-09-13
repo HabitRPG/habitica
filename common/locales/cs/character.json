@@ -49,8 +49,6 @@
     "equipment": "Vybavení",
     "equipmentBonus": "Vybavení",
     "equipmentBonusText": "Dovednostní bonusy, které ti poskytuje výbava, kterou používáš. Aby sis mohl vybrat výbavu, klikni na Inventář a pak na Vybavení.",
-    "classBonus": "Bonus vybavení povolání",
-    "classBonusText": "Tvé povolání (válečník - pokud jsi neodemkl nebo sis nevybral jiné) využívá vybavení přímo pro to povolání efektivněji než vybavení pro ostatní povolání. Pokud používáš vybavení pro tvé současné povolání, přidává ti to 50% bonus k poskytované vlastnosti.",
     "classEquipBonus": "Bonus třídy",
     "battleGear": "Bojová výzbroj",
     "battleGearText": "Tohle je tvé vybavení, které máš na sobě do bitvy; ovlivňuje čísla, když pracuješ se svými úkoly.",

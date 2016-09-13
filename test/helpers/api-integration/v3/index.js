@@ -6,6 +6,6 @@ requester.setApiVersion('v3');
 export { requester };
 
 export { translate } from '../translate';
-export { checkExistence, resetHabiticaDB } from '../../mongo';
+export { checkExistence, getProperty, resetHabiticaDB } from '../../mongo';
 export * from  './object-generators';
 export { sleep } from '../../sleep';

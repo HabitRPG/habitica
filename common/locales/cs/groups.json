@@ -125,6 +125,8 @@
     "copyMessageAsToDo": "Zkopírovat zprávu jako Úkol",
     "messageAddedAsToDo": "Zpráva zkopírována jako Úkol",
     "messageWroteIn": "<%= user %> napsal v <%= group %>",
+    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
+    "taskTextFromInbox": "Message from <%= from %>",
     "msgPreviewHeading": "Náhled zprávy",
     "leaderOnlyChallenges": "Pouze velitel družiny může vytvářet Výzvy",
     "sendGift": "Poslat dárek",

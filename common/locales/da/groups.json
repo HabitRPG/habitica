@@ -125,6 +125,8 @@
     "copyMessageAsToDo": "Kopier besked som To-Do",
     "messageAddedAsToDo": "Besked kopieret som To-Do",
     "messageWroteIn": "<%= user %> skrev i <%= group %>",
+    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
+    "taskTextFromInbox": "Message from <%= from %>",
     "msgPreviewHeading": "Besked-smugkig",
     "leaderOnlyChallenges": "Kun gruppelederen kan oprette Udfordringer",
     "sendGift": "Send Gave",

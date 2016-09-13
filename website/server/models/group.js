@@ -17,7 +17,7 @@ import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email';
 import Bluebird from 'bluebird';
 import nconf from 'nconf';
-import sendPushNotification from '../libs/pushNotifications';
+import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
 import pusher from '../libs/pusher';
 import {
   syncableAttrs,

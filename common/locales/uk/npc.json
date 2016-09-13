@@ -1,6 +1,6 @@
 {
     "npc": "НІП",
-    "npcText": "Підтримав проєкт на Kickstarter на максимальний рівень!",
+    "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
     "mattBoch": "Митько Боч",
     "mattShall": "Привести вашого скакуна, <%= name %>? Коли ви відгодуєте тваринку достатньо, і вона перетвориться в скакуна, він опиниться тут. Клацніть на нього щоб осідлати!",
     "mattBochText1": "Welcome to the Stable! I'm Matt, the beast master. Starting at level 3, you can hatch pets using eggs and potions. When you hatch a pet in the Market, it will appear here! Click a pet's image to add it to your avatar. Feed them with the food you find after level 3, and they'll grow into hardy mounts.",

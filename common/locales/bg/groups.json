@@ -45,7 +45,7 @@
     "chat": "Съобщения",
     "sendChat": "Изпращане на съобщението",
     "toolTipMsg": "Изтегляне на последните съобщения",
-    "syncPartyAndChat": "Sync Party and Chat",
+    "syncPartyAndChat": "Синхронизиране на групата и чата",
     "guildBankPop1": "Банка на гилдията",
     "guildBankPop2": "Диаманти, които водачът на гилдията може да използва за награди за предизвикателства.",
     "guildGems": "диаманти в гилдията",
@@ -125,6 +125,8 @@
     "copyMessageAsToDo": "Копиране на съобщението като задача",
     "messageAddedAsToDo": "Съобщението беше копирано като задача.",
     "messageWroteIn": "<%= user %> публикува нещо в <%= group %>",
+    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
+    "taskTextFromInbox": "Message from <%= from %>",
     "msgPreviewHeading": "Преглед на съобщението",
     "leaderOnlyChallenges": "Само водачът на групата може да създава предизвикателства",
     "sendGift": "Изпращане на подарък",
@@ -139,7 +141,7 @@
     "inviteNewUsers": "Поканете нови потребители",
     "sendInvitations": "Изпращане на поканите",
     "invitationsSent": "Поканите са изпратени!",
-    "invitationSent": "Invitation sent!",
+    "invitationSent": "Поканата е изпратена!",
     "inviteAlertInfo2": "Или споделете тази връзка (копиране/поставяне):",
     "sendGiftHeading": "Изпращане на подарък до <%= name %>",
     "sendGiftGemsBalance": "От <%= number %> диаманта",
@@ -196,6 +198,6 @@
     "onlyCreatorOrAdminCanDeleteChat": "Нямате право да изтриете това съобщение!",
     "onlyGroupLeaderCanEditTasks": "Нямате право да управлявате задачите!",
     "onlyGroupTasksCanBeAssigned": "Само групови задачи могат да бъдат зададени",
-    "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
-    "newChatMessageTitle": "New message in <%= groupName %>"
+    "newChatMessagePlainNotification": "Има ново съобщение в <%= groupName %> от <%= authorName %>. Щракнете тук, за да отворите страницата!",
+    "newChatMessageTitle": "Има ново съобщение в <%= groupName %>"
 }

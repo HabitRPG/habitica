@@ -439,7 +439,7 @@ function _getSpecialAchievements (user, language) {
   if (user.backer && user.backer.npc) {
     _add(result, {
       title: user.backer.npc + i18n.t('npc', language),
-      text: i18n.t('npcText', language),
+      text: i18n.t('npcAchievementText', language),
       icon: 'achievement-ultimate-warrior',
       key: 'npc',
       value: user.backer.npc,

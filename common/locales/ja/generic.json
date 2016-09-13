@@ -181,7 +181,7 @@
     "wonChallengeShare": "Habitica のチャレンジに成功したよ!",
     "achievementShare": "Habitica で新しい実績を解除したよ!",
     "orderBy": "並び順 : <%= item %>",
-    "you": "you",
-    "online": "online",
-    "onlineCount": "<%= count %> online"
+    "you": "あなた",
+    "online": "オンライン",
+    "onlineCount": "<%= count %> 人がオンライン"
 }

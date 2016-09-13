@@ -125,6 +125,8 @@
     "copyMessageAsToDo": "Copy message as T'-Do",
     "messageAddedAsToDo": "Message copied as T'-Do.",
     "messageWroteIn": "<%= user %> wrote in <%= group %>",
+    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
+    "taskTextFromInbox": "Message from <%= from %>",
     "msgPreviewHeading": "Message Preview",
     "leaderOnlyChallenges": "Only group captain can create challenges",
     "sendGift": "Send Gift",

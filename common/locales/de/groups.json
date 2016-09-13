@@ -45,7 +45,7 @@
     "chat": "Chat",
     "sendChat": "Nachricht senden",
     "toolTipMsg": "Nachrichten abholen",
-    "syncPartyAndChat": "Sync Party and Chat",
+    "syncPartyAndChat": "Synchronisiere Gruppe und Chat",
     "guildBankPop1": "Gildenbank",
     "guildBankPop2": "Edelsteine, die Dein Gildenleiter als Preise für Wettbewerbe verwenden kann.",
     "guildGems": "Gildenedelsteine",
@@ -125,6 +125,8 @@
     "copyMessageAsToDo": "Nachricht als To-Do übernehmen",
     "messageAddedAsToDo": "Nachricht als To-Do übernommen.",
     "messageWroteIn": "<%= user %> schrieb in <%= group %>",
+    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
+    "taskTextFromInbox": "Message from <%= from %>",
     "msgPreviewHeading": "Nachrichtenvorschau",
     "leaderOnlyChallenges": "Nur der Gruppenleiter kann Wettbewerbe erstellen",
     "sendGift": "Geschenk schicken",
@@ -139,7 +141,7 @@
     "inviteNewUsers": "Neue Nutzer einladen",
     "sendInvitations": "Einladungen verschicken",
     "invitationsSent": "Einladungen verschickt!",
-    "invitationSent": "Invitation sent!",
+    "invitationSent": "Einladung verschickt!",
     "inviteAlertInfo2": "Oder teile diesen Link (kopieren/einfügen):",
     "sendGiftHeading": "Sende Geschenk an <%= name %>",
     "sendGiftGemsBalance": "Von <%= number %> Edelsteinen",
@@ -196,6 +198,6 @@
     "onlyCreatorOrAdminCanDeleteChat": "Löschen der Nachricht nicht erlaubt!",
     "onlyGroupLeaderCanEditTasks": "Nicht berechtigt, Aufgaben zu bearbeiten!",
     "onlyGroupTasksCanBeAssigned": "Nur Gruppenaufgaben können verteilt werden",
-    "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
-    "newChatMessageTitle": "New message in <%= groupName %>"
+    "newChatMessagePlainNotification": "Neue Nachricht in <%= groupName %> von <%= authorName %>. Hier geht's zur Chat Seite!",
+    "newChatMessageTitle": "Neue Nachricht in <%= groupName %>"
 }

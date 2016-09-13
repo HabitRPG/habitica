@@ -181,7 +181,7 @@
     "wonChallengeShare": "Ich habe in Habitica einen Wettbewerb gewonnen!",
     "achievementShare": "Ich habe in Habitica einen neuen Erfolg verdient!",
     "orderBy": "Sortieren nach <%= item %>",
-    "you": "you",
+    "you": "Du",
     "online": "online",
     "onlineCount": "<%= count %> online"
 }

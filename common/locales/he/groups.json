@@ -125,6 +125,8 @@
     "copyMessageAsToDo": "העתק הודעה כמשימה.",
     "messageAddedAsToDo": "הודעה הועתקה כמשימה.",
     "messageWroteIn": "<%= user %>כתב ב<%= group %>",
+    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
+    "taskTextFromInbox": "Message from <%= from %>",
     "msgPreviewHeading": "תצוגה מקדימה של הודעה",
     "leaderOnlyChallenges": "רק מנהיג חבורה יכול לייצר אתגרים",
     "sendGift": "שלח מתנה",

@@ -1,6 +1,6 @@
 {
     "npc": "NPC",
-    "npcText": "用尽全力支持了我们的Kickstarter项目！",
+    "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
     "mattBoch": "马特·博赫",
     "mattShall": "<%= name %>，需要我带你去见坐骑吗？一旦你喂养一只宠物足够的食物来将它转为坐骑后，它会出现在这里。点击一只坐骑进行乘骑。",
     "mattBochText1": "欢迎来到马厩！我是马特，训兽大师。当你3级时，您可以孵化宠物和使用药水。你在市场上购买的宠物蛋，会出现在这里！点击宠物将它添加到你的头像。你3级后，找食物喂它们，它们将会成长为强壮的坐骑。",

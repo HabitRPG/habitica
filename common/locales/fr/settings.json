@@ -159,7 +159,6 @@
     "pushDeviceAlreadyAdded": "L'utilisateur a déjà l'appareil push",
     "pushDeviceNotFound": "Vous n'avez pas d'appareil push avec cet identifiant.",
     "pushDeviceRemoved": "Appareil push supprimé avec succès.",
-    "add": "Ajouter",
     "buyGemsGoldCap": "Limite augmentée à <%= amount %>",
     "mysticHourglass": "<%= amount %> Sablier Mystique ",
     "mysticHourglassText": "Un Sablier Mystique vous permet d'acheter des Sets d'Objets Mystère d'un mois passé.",

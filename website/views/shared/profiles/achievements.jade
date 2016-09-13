@@ -12,9 +12,6 @@ mixin simpleAchiev(achiev)
       .achievement(class='achievement-unearned2x', ng-if='!(achiev.earned)')
 
 
-if mobile
-  .item.item-divider=env.t('achievements')
-
 .container-fluid
   .row
     .col-md-12(ng-repeat='(key,cat) in achievements', ng-init='heading=env.t(key+"Achievs")')

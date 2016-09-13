@@ -159,7 +159,6 @@
     "pushDeviceAlreadyAdded": "De gebruiker heeft al een pushknop",
     "pushDeviceNotFound": "De gebruiker heeft geen pushtoestel met dit id.",
     "pushDeviceRemoved": "Pushtoestel succesvol verwijderd.",
-    "add": "Toevoegen",
     "buyGemsGoldCap": "Capaciteit verhoogd naar <%= amount %>",
     "mysticHourglass": "<%= amount %> mystieke zandloper(s)",
     "mysticHourglassText": "Met mystieke zandlopers kun je abonnee-uitrusting uit eerdere maanden kopen.",

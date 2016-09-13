@@ -181,7 +181,7 @@
     "wonChallengeShare": "¡He ganado un desafío en Habitica!",
     "achievementShare": "¡He obtenido un nuevo logro en Habitica!",
     "orderBy": "Ordenar por <%= item %>",
-    "you": "you",
+    "you": "tú",
     "online": "online",
     "onlineCount": "<%= count %> online"
 }
