@@ -1,5 +1,5 @@
 {
-    "defaultHabit1Text": "高效的工作   (点击铅笔图标以编辑)",
+    "defaultHabit1Text": "高效地工作   (点击铅笔图标以编辑)",
     "defaultHabit1Notes": "好习惯的例子: +吃健康的蔬菜+15分钟的高效工作",
     "defaultHabit2Text": "吃垃圾食品   (点击铅笔图标以编辑)",
     "defaultHabit2Notes": "坏习惯的例子: - 抽烟 - 拖延症",
@@ -11,9 +11,9 @@
     "defaultReward1Notes": "自定义奖励可以是多种形式的。有些人会把看最新一集电视节目设为奖励，花金币购买以后再看。",
     "defaultTag1": "工作",
     "defaultTag2": "锻炼身体",
-    "defaultTag3": "Health + Wellness",
+    "defaultTag3": "健康的生活方式",
     "defaultTag4": "学校",
     "defaultTag5": "团队",
     "defaultTag6": "杂项",
-    "defaultTag7": "Creativity"
+    "defaultTag7": "创作力"
 }

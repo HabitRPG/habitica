@@ -49,8 +49,6 @@
     "equipment": "Felszerelés",
     "equipmentBonus": "Felszerelés",
     "equipmentBonusText": "A tulajdonság bónuszokat a viselt harci felszereléseid adják. Lesd meg a Felszerelés fület a Tárgylistádban, hogy kiválaszd a viselt harci felszereléseket.",
-    "classBonus": "Kaszt felszerelés bónusz",
-    "classBonusText": "A kasztod (Harcos, ha még nem oldottál fel, vagy választottál ki másik kasztot) a saját kasztjához tartozó felszereléseket hatékonyabban használja. Ha a jelenlegi kasztodnak megfelelő holmit használsz, akkor az általa biztosított tulajdonság bónuszok 50%-kal nőnek.",
     "classEquipBonus": "Kaszt Tárgy Bónusz",
     "battleGear": "Harci felszerelés",
     "battleGearText": "Ez itt a felszerelésed, amit a csatákban viselsz; hatással van számokra, amikor a feladataidat teljesíted.",

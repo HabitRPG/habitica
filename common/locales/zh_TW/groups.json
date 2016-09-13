@@ -125,6 +125,8 @@
     "copyMessageAsToDo": "複製訊息為待辦事項",
     "messageAddedAsToDo": "已複製訊息為待辦事項。",
     "messageWroteIn": "<%= user %> 在 <%= group %> 發言",
+    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
+    "taskTextFromInbox": "Message from <%= from %>",
     "msgPreviewHeading": "訊息預覽",
     "leaderOnlyChallenges": "只有群組發起者可以建立挑戰",
     "sendGift": "送禮物",

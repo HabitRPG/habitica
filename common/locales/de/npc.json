@@ -1,6 +1,6 @@
 {
     "npc": "NPC",
-    "npcText": "Hat die Kickstarter-Kampagne auf dem höchsten Level mitgetragen!",
+    "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
     "mattBoch": "Matt Boch",
     "mattShall": "Soll ich Dir Dein Ross bringen, <%= name %>? Sobald Du einem Haustier so viel Futter gegeben hast, dass es zu einem Reittier werden konnte, wird es hier erscheinen. Klicke auf ein Reittier um aufzusteigen!",
     "mattBochText1": "Willkommen im Stall! Ich bin Matt, der Bestienmeister. Ab Level 3 kannst Du mit Hilfe von Eiern und Tränken Haustiere ausbrüten. Wenn Du auf dem Marktplatz ein Haustier schlüpfen lässt, wird es hier erscheinen! Klicke auf ein Haustier, um es Deinem Avatar hinzuzufügen. Füttere Deine Tiere mit dem Futter, das Du ab Level 3 findest, damit sie zu mächtigen Reittieren heranwachsen.",

@@ -49,8 +49,6 @@
     "equipment": "Oprema",
     "equipmentBonus": "oprema",
     "equipmentBonusText": "Od opreme koju nosite dobijate bonuse na osobine. Opremu možete birati u Inventaru na tabu Oprema.",
-    "classBonus": "Bonus klase",
-    "classBonusText": "Vaša klasa (ako još niste otključali i odabrali klasu, onda ste Ratnik) bolje se snalazi sa svojom opremom, nego sa opremom drugih klasa. Kad nosite opremu namenjenu Vašoj klasi, uvećavate njene bonus osobine za 50%.",
     "classEquipBonus": "Bonus klase",
     "battleGear": "Borbena oprema",
     "battleGearText": "Oprema u kojoj se borite. Utiče na interakciju sa zadacima.",

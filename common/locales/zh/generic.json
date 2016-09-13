@@ -181,7 +181,7 @@
     "wonChallengeShare": "我在Habitica赢了一个挑战！",
     "achievementShare": "我在Habitica得到了一个新成就！",
     "orderBy": "以<%= item %>排序",
-    "you": "you",
-    "online": "online",
-    "onlineCount": "<%= count %> online"
+    "you": "你",
+    "online": "在线",
+    "onlineCount": "<%= count %> 人在线"
 }

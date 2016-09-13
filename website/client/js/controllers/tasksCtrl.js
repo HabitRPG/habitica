@@ -99,17 +99,18 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       }
     };
 
-    $scope.removeTask = function(task) {
-      if (!confirm(window.env.t('sureDelete', {taskType: window.env.t(task.type), taskText: task.text}))) return;
-      User.deleteTask({params:{id: task._id, taskType: task.type}})
-    };
-
     $scope.saveTask = function(task, stayOpen, isSaveAndClose) {
+      if (task._edit) {
+        angular.copy(task._edit, task);
+      }
+      task._edit = undefined;
+
       if (task.checklist) {
         task.checklist = _.filter(task.checklist, function (i) {
           return !!i.text
         });
       }
+
       User.updateTask(task, {body: task});
       if (!stayOpen) task._editing = false;
 
@@ -120,17 +121,19 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       if (task.type == 'habit') Guide.goto('intro', 3);
     };
 
+    $scope.completeChecklistItem = function completeChecklistItem(task) {
+      User.updateTask(task, {body: task});
+    };
+
     /**
      * Reset $scope.task to $scope.originalTask
      */
-    $scope.cancel = function() {
-      var key;
-      for (key in $scope.task) {
-        $scope.task[key] = $scope.originalTask[key];
-      }
-      $scope.originalTask = null;
-      $scope.editedTask = null;
-      $scope.editing = false;
+    $scope.cancelTaskEdit = Tasks.cancelTaskEdit;
+
+    $scope.removeTask = function(task) {
+      if (!confirm(window.env.t('sureDelete', {taskType: window.env.t(task.type), taskText: task.text}))) return;
+      task._edit = undefined;
+      User.deleteTask({params:{id: task._id, taskType: task.type}})
     };
 
     $scope.unlink = function(task, keep) {
@@ -193,16 +196,16 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     }
 
     $scope.addChecklist = function(task) {
-      task.checklist = [{completed:false, text:""}];
-      focusChecklist(task,0);
+      task._edit.checklist = [{completed:false, text:""}];
+      focusChecklist(task._edit,0);
     }
 
     $scope.addChecklistItem = function(task, $event, $index) {
-      if (task.checklist[$index].text) {
-        $scope.saveTask(task, true);
-        if ($index === task.checklist.length - 1)
-          task.checklist.push({ completed: false, text: '' });
-        focusChecklist(task, $index + 1);
+      if (task._edit.checklist[$index].text) {
+        if ($index === task._edit.checklist.length - 1) {
+          task._edit.checklist.push({ completed: false, text: '' });
+        }
+        focusChecklist(task._edit, $index + 1);
       } else {
         // TODO Provide UI feedback that this item is still blank
       }
@@ -211,24 +214,21 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.removeChecklistItem = function(task, $event, $index, force) {
       // Remove item if clicked on trash icon
       if (force) {
-        if (task.checklist[$index].id) Tasks.removeChecklistItem(task._id, task.checklist[$index].id);
-        task.checklist.splice($index, 1);
-      } else if (!task.checklist[$index].text) {
+        task._edit.checklist.splice($index, 1);
+      } else if (!task._edit.checklist[$index].text) {
         // User deleted all the text and is now wishing to delete the item
         // saveTask will prune the empty item
-        if (task.checklist[$index].id) Tasks.removeChecklistItem(task._id, task.checklist[$index].id);
         // Move focus if the list is still non-empty
         if ($index > 0)
-          focusChecklist(task, $index-1);
+          focusChecklist(task._edit, $index-1);
         // Don't allow the backspace key to navigate back now that the field is gone
         $event.preventDefault();
       }
     }
 
     $scope.swapChecklistItems = function(task, oldIndex, newIndex) {
-      var toSwap = task.checklist.splice(oldIndex, 1)[0];
-      task.checklist.splice(newIndex, 0, toSwap);
-      $scope.saveTask(task, true);
+      var toSwap = task._edit.checklist.splice(oldIndex, 1)[0];
+      task._edit.checklist.splice(newIndex, 0, toSwap);
     }
 
     $scope.navigateChecklist = function(task,$index,$event){
@@ -332,7 +332,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     */
 
     $scope.updateTaskTags = function (tagId, task) {
-      var tagIndex = task.tags.indexOf(tagId);
+      var tagIndex = task._edit.tags.indexOf(tagId);
       if (tagIndex === -1) {
         Tasks.addTagToTask(task._id, tagId);
         task.tags.push(tagId);
@@ -340,6 +340,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         Tasks.removeTagFromTask(task._id, tagId);
         task.tags.splice(tagIndex, 1);
       }
+      angular.copy(task.tags, task._edit.tags);
     }
 
     /*

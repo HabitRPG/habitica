@@ -45,7 +45,7 @@
     "chat": "Conversas",
     "sendChat": "Enviar Mensagem",
     "toolTipMsg": "Atualizar Mensagens",
-    "syncPartyAndChat": "Sync Party and Chat",
+    "syncPartyAndChat": "Sincronizar Equipe e Chat",
     "guildBankPop1": "Banco da Guilda",
     "guildBankPop2": "Gemas que o líder da guilda pode usar para prêmios de desafios.",
     "guildGems": "Gemas da Guilda",
@@ -125,6 +125,8 @@
     "copyMessageAsToDo": "Copiar mensagem como Afazer",
     "messageAddedAsToDo": "Mensagem copiada como Afazer",
     "messageWroteIn": "<%= user %> escreveu em <%= group %>",
+    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
+    "taskTextFromInbox": "Message from <%= from %>",
     "msgPreviewHeading": "Prévia da Mensagem",
     "leaderOnlyChallenges": "Somente o líder do grupo pode criar desafios",
     "sendGift": "Enviar Presente",
@@ -139,7 +141,7 @@
     "inviteNewUsers": "Convidar Novos Usuários",
     "sendInvitations": "Enviar Convites",
     "invitationsSent": "Convites enviados!",
-    "invitationSent": "Invitation sent!",
+    "invitationSent": "Convite enviado!",
     "inviteAlertInfo2": "Ou compartilhe este link (copiar/colar):",
     "sendGiftHeading": "Enviar Presente para <%= name %>",
     "sendGiftGemsBalance": "De <%= number %> Gemas",
@@ -196,6 +198,6 @@
     "onlyCreatorOrAdminCanDeleteChat": "Não autorizado a deletar essa mensagem!",
     "onlyGroupLeaderCanEditTasks": "Não tem autorização para gerenciar tarefas!",
     "onlyGroupTasksCanBeAssigned": "Apenas tarefas de grupo podem ser designadas",
-    "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
-    "newChatMessageTitle": "New message in <%= groupName %>"
+    "newChatMessagePlainNotification": "Nova mensagem em <%= groupName %> de <%= authorName %>. Clique aqui para abrir a página do chat!",
+    "newChatMessageTitle": "Nova mensagem em <%= groupName %>"
 }

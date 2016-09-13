@@ -49,8 +49,6 @@
     "equipment": "Udstyr",
     "equipmentBonus": "Udstyr",
     "equipmentBonusText": "Attributbonusser fra din nuværende kamprustning. Se Udstyrsfanen under Inventar for at vælge din kamprustning.",
-    "classBonus": "Klasseudstyrsbonus",
-    "classBonusText": "Din klasse (Kriger, hvis du ikke har opnået eller valgt en anden klasse) bruger sit eget udstyr mere effektivt end udstyr fra andre klasser. Båret udstyr der hører til din nuværende klasse får et 50% boost til den attributbonus, den giver.",
     "classEquipBonus": "Klassebonus",
     "battleGear": "Kampudstyr",
     "battleGearText": "Dette er den udrustning du bærer i kamp. Den påvirker resultaterne når du interagerer med dine opgaver.",

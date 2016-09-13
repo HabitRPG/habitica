@@ -49,8 +49,6 @@
     "equipment": "Perlengkapan",
     "equipmentBonus": "Perlengkapan",
     "equipmentBonusText": "Bonus atribut diberikan dari perlengkapan perang yang digunakan. Lihat bagian Perlengkapan di bagian bawah Inventori untuk memilih perlengkapan perang.",
-    "classBonus": "Bonus Perlengkapan Pekerjaan",
-    "classBonusText": "Pekerjaanmu (prajurit, jika kamu belum membuka atau memilih pekerjaan lain) menggunakan perlengkapan khusus masing-masing pekerjaan. Perlengkapan yang digunakan dari pekerjaanmu sekarang mendapatkan tambahan atribut sebesar 50%.",
     "classEquipBonus": "Bonus Pekerjaan",
     "battleGear": "Perlengkapan Perang",
     "battleGearText": "Ini adalah perlengkapan yang kamu kenakan di dalam pertarungan; ia memengaruhi nilai ketika berinteraksi dengan tugas-tugasmu.",

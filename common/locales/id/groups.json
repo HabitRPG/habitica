@@ -125,6 +125,8 @@
     "copyMessageAsToDo": "Salin pesan sebagai To-Do",
     "messageAddedAsToDo": "Pesan tersalin sebagai To-Do.",
     "messageWroteIn": "<%= user %> menulis di <%= group %>",
+    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
+    "taskTextFromInbox": "Message from <%= from %>",
     "msgPreviewHeading": "Tampilan Pesan",
     "leaderOnlyChallenges": "Hanya ketua kelompok yang dapat membuat Tantangan baru",
     "sendGift": "Kirim Hadiah",

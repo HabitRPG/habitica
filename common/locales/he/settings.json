@@ -159,7 +159,6 @@
     "pushDeviceAlreadyAdded": "ברשותך כבר יש push device",
     "pushDeviceNotFound": "למשתמש אין מכשיר שיכול לקבל הודעות בדחיפה עם מזהה משתמש זה.",
     "pushDeviceRemoved": "מכשיר שמקבל הודעות בדחיפה הוסר בהצלחה.",
-    "add": "הוסף",
     "buyGemsGoldCap": "סף הועלה ל<%= amount %>",
     "mysticHourglass": "<%= amount %> שעוני-חול מיסטיים",
     "mysticHourglassText": "שעוני-חול מיסטיים מאפשרים לרכוש סטים של חפצים מיסתוריים מחודשים קודמים.",

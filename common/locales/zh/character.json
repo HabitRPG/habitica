@@ -49,8 +49,6 @@
     "equipment": "装备",
     "equipmentBonus": "装备",
     "equipmentBonusText": "装备提供的奖励加成. 详情见物品栏中的装备.",
-    "classBonus": "职业装备额外奖励",
-    "classBonusText": "用跟你的职业相符的装备会比其他更有效。(在你还没有解锁或选择其他职业之前，你是个战士) 使用相符的装备能给你的属性点50%的提升。",
     "classEquipBonus": "职业奖励",
     "battleGear": "战斗装备",
     "battleGearText": "这是你在战斗中的装备；这会影响您在任务重的各项数值",

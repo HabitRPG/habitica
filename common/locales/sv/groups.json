@@ -125,6 +125,8 @@
     "copyMessageAsToDo": "Kopiera meddelande som \"att göra\"-uppgift",
     "messageAddedAsToDo": "Message copied as To-Do.",
     "messageWroteIn": "<%= user %> wrote in <%= group %>",
+    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
+    "taskTextFromInbox": "Message from <%= from %>",
     "msgPreviewHeading": "Förhandsvisning av meddelande",
     "leaderOnlyChallenges": "Bara gruppledare kan skapa utmaningar",
     "sendGift": "Skicka Gåva",

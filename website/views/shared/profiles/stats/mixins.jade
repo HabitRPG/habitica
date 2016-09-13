@@ -11,11 +11,3 @@ mixin statList(calculatedStat, popover, text, useOneTimeBinding)
       popover-placement='top', popover=env.t('#{popover}Text'))
       =env.t(text)
     =': {{' + binding + calculatedStat + '}}'
-
-include ./stats/basic-stats
-include ./stats/attributes
-include ./stats/equipment
-include ./stats/pets-and-mounts
-hr
-include ./stats/costume
-include ./stats/background

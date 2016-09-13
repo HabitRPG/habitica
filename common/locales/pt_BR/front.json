@@ -38,7 +38,6 @@
     "dragonsilverQuote": "Eu perdi as contas de quantos gerenciadores de tempo e tarefas eu tentei ao longo das décadas... [Habitica] é a única coisa que usei que realmente me ajuda a fazer as coisas ao invés de só listá-las.",
     "dreimQuote": "Quando eu descobri [Habitica] no último verão, eu tinha acabado de tirar nota baixa em cerca de metade das minhas provas. Graças às Diárias... Eu pude me organizar e disciplinar e cheguei a passar em todas as provas com notas muito boas no mês passado.",
     "elmiQuote": "Toda manhã eu me apresso em levantar para conseguir mais ouro!",
-    "email": "Email",
     "emailNewPass": "Enviar Nova Senha",
     "evagantzQuote": "Minha primeira consulta na qual o dentista ficou impressionado com meu hábito de usar fio dental. Obrigado, [Habitica]!",
     "examplesHeading": "Jogadores usam Habitica para gerenciar...",
@@ -68,7 +67,7 @@
     "goalSample5": "Leia um Artigo Informativo",
     "goals": "Metas",
     "guidanceForBlacksmiths": "Diretrizes para Ferreiros",
-    "health": "Saúde",
+    "wellness": "Health",
     "healthSample1": "Beba água/refrigerante",
     "healthSample2": "Masque chiclete/fume",
     "healthSample3": "Pegue as escadas/elevador",
@@ -244,6 +243,7 @@
     "missingUsername": "Faltando nome de usuário.",
     "missingPassword": "Faltando senha.",
     "missingNewPassword": "Faltando nova senha.",
+    "invalidEmailDomain": "You cannot register with emails with the following domains: <%= domains %>",
     "wrongPassword": "Senha incorreta.",
     "notAnEmail": "Endereço de e-mail inválido.",
     "emailTaken": "Endereço de e-mail já está sendo usado em uma conta.",
@@ -264,5 +264,5 @@
     "invalidReqParams": "Parâmetros de requerimento inválidos.",
     "memberIdRequired": "\"member\" precisa ser um UUID válido.",
     "heroIdRequired": "\"heroId\" precisa ser um UUID válido.",
-    "cannotFulfillReq": "Sua solicitação não pode ser cumprida. Mande um email para admin@habitica.com se esse erro persistir."
+    "cannotFulfillReq": "Sua solicitação não pode ser cumprida. Mande um e-mail para admin@habitica.com se esse erro persistir."
 }

@@ -181,7 +181,7 @@
     "wonChallengeShare": "Я выиграл испытание в Habitica!",
     "achievementShare": "Я получил новое достижение в Habitica!",
     "orderBy": "Упорядочить по <%= item %>",
-    "you": "you",
-    "online": "online",
-    "onlineCount": "<%= count %> online"
+    "you": "вы",
+    "online": "в сети",
+    "onlineCount": "<%= count %> в сети"
 }

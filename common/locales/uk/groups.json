@@ -125,6 +125,8 @@
     "copyMessageAsToDo": "Скопіювати текст в ваш список завдань",
     "messageAddedAsToDo": "Повідомлення скопійоване як завдання.",
     "messageWroteIn": "<%= user %> wrote in <%= group %>",
+    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
+    "taskTextFromInbox": "Message from <%= from %>",
     "msgPreviewHeading": "Попередній перегляд повідомлення",
     "leaderOnlyChallenges": "Лише керівник групи може створювати випробовування",
     "sendGift": "Послати подарунок",

@@ -159,7 +159,6 @@
     "pushDeviceAlreadyAdded": "El usuario ya tiene el dispositivo Push.",
     "pushDeviceNotFound": "El usuario no tiene dispositivo Push con este id.",
     "pushDeviceRemoved": "Dispositivo Push eliminado satisfactoriamente.",
-    "add": "Agregar",
     "buyGemsGoldCap": "Tope aumentado a <%= amount %>",
     "mysticHourglass": "<%= amount %> Reloj de Arena Místico",
     "mysticHourglassText": "Los Relojes de Arena Místicos permiten comprar un Conjunto de Artículos Misteriosos de un mes previo.",
