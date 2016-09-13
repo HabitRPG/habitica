@@ -222,8 +222,6 @@ api.flagChat = {
 
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
 
-    if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatFlagOwnMessage'));
-
     let update = {$set: {}};
 
     // Log user ids that have flagged the message
