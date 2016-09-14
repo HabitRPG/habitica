@@ -329,4 +329,20 @@ describe('achievements', () => {
       expect(triadBingo.text).to.match(/3 times/);
     });
   });
+
+  describe('ultimateGear achievements', () => {
+    it('title and text contain localized class info', () => {
+      let user = generateUser();
+      let basicAchievs = shared.achievements.getAchievementsForProfile(user).basic.achievements;
+      let gearTypes = ['healer', 'rogue', 'warrior', 'mage'];
+
+      gearTypes.forEach((gear) => {
+        let gearAchiev = basicAchievs[`${gear}UltimateGear`];
+        let classNameRegex = new RegExp(gear.charAt(0).toUpperCase() + gear.slice(1));
+
+        expect(gearAchiev.title).to.match(classNameRegex);
+        expect(gearAchiev.text).to.match(classNameRegex);
+      });
+    });
+  });
 });

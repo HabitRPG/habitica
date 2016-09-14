@@ -161,8 +161,10 @@ function _addUltimateGear (result, user, data) {
 
   let value = user.achievements.ultimateGearSets[data.altPath];
 
-  let title = i18n.t('ultimGearName', {ultClass: i18n.t(data.path, data.language)}, data.language);
-  let text = i18n.t(`${data.path}UltimGearText`, data.language);
+  let localizedClass = i18n.t(data.path, data.language);
+
+  let title = i18n.t('ultimGearName', {ultClass: localizedClass}, data.language);
+  let text = i18n.t('ultimGearText', {ultClass: localizedClass}, data.language);
 
   _add(result, {
     title,
