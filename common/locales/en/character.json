@@ -102,6 +102,7 @@
     "characterBuild": "Character Build",
     "class": "Class",
     "experience": "Experience",
+    "canLevelUp": "Complete a Task to Level Up!",
     "warrior": "Warrior",
     "healer": "Healer",
     "rogue": "Rogue",

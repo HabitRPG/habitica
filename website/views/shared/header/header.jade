@@ -1,9 +1,9 @@
 .header-wrap(ng-controller='HeaderCtrl')
   a.label.label-default.undo-button(x-bind='click:undo', ng-show='_undo')=env.t('undo')
 
-  header.site-header(ng-hide='user.preferences.hideHeader', role='banner', data-partysize='{{party.members.length>1 ? truarr(party.members.length) : 0}}')
+  header.site-header(ng-controller='UserCtrl', ng-hide='user.preferences.hideHeader', role='banner', data-partysize='{{party.members.length>1 ? truarr(party.members.length) : 0}}')
     // avatar
-    .herobox-wrap.main-herobox(ng-controller='UserCtrl')
+    .herobox-wrap.main-herobox
       +herobox({main:1})
     // stat bars
     .hero-stats
@@ -12,23 +12,25 @@
       .meter.health(tooltip='{{Math.round(user.stats.hp * 100) / 100}}')
         .bar(ng-style='{"width": Shared.percent(user.stats.hp, Shared.maxHealth)+"%"}')
         span.meter-text.value
-          | {{Math.ceil(user.stats.hp)}} / {{::Shared.maxHealth}}
+          | {{statCalc.hpDisplay(user.stats.hp)}}
       .meter-label(tooltip=env.t('experience'))
         span.glyphicon.glyphicon-star
       .meter.experience(tooltip='{{Math.round(user.stats.exp * 100) / 100}}')
         .bar(ng-style='{"width": Shared.percent(user.stats.exp,Shared.tnl(user.stats.lvl))+"%"}')
         span.meter-text.value
+          span(ng-show='statCalc.canLevelUp(user)' class="hidden-xs")=env.t('canLevelUp')
           span(ng-show='user.history.exp', tooltip=env.t('progress'))
             a(ng-click='toggleChart("exp")').glyphicon.glyphicon-signal
           span
-          | {{Math.floor(user.stats.exp) | number:0}} / {{Shared.tnl(user.stats.lvl) | number:0}}
+          | {{statCalc.expDisplay(user)}}
       .meter-label(tooltip=env.t('mana'), ng-if='user.flags.classSelected && !user.preferences.disableClasses')
         span.glyphicon.glyphicon-fire
       .meter.mana(ng-if='user.flags.classSelected && !user.preferences.disableClasses', tooltip='{{Math.round(user.stats.mp * 100) / 100}}')
         .bar(ng-style='{"width": (user.stats.mp / user.fns.statsComputed().maxMP * 100) + "%"}')
         span.meter-text.value
           span
-          | {{Math.floor(user.stats.mp)}} / {{user.fns.statsComputed().maxMP}}
+          | {{statCalc.mpDisplay(user)}}
+      span(ng-show='statCalc.canLevelUp(user)' class="visible-xs pull-right")=env.t('canLevelUp')
     // party
     .party(ng-controller='PartyCtrl')
       .herobox-wrap(ng-repeat='profile in partyMinusSelf')
