@@ -259,7 +259,7 @@
     "armorSpecial0Text": "Oklop senke",
     "armorSpecial0Notes": "Ispušta vrisak kad primi udarac, jer oseća bol umesto svog vlasnika. Povećava Vitalnost za <%= con %>.",
     "armorSpecial1Text": "Kristalni oklop",
-    "armorSpecial1Notes": "Njegova nepresušna moć čini vlasnika otpornim na neudobnost. Povećava Vitalnost za <%= con %>.",
+    "armorSpecial1Notes": "Njegova nepresušna moć čini vlasnika otpornim na neudobnost. Povećava Vitalnost za <%= attrs %>.",
     "armorSpecial2Text": "Kraljevska tunika Žana Šaralda",
     "armorSpecial2Notes": "Osećaćete se izuzetno paperjasto!  Povećava Vitalnost i Inteligenciju za <%= attrs %>.",
     "armorSpecialTakeThisText": "Take This Armor",

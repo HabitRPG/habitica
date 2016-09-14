@@ -48,7 +48,6 @@
     "messageGroupCannotRemoveSelf": "Nu te poți elimina singur!",
     "messageGroupChatBlankMessage": "Nu poți trimite un mesaj gol",
     "messageGroupChatLikeOwnMessage": "Nu-ți poți aprecia propriul mesaj. Nu fi acea persoană.",
-    "messageGroupChatFlagOwnMessage": "Nu-ți poți raporta propriul mesaj.",
     "messageGroupChatFlagAlreadyReported": "Ai raportat deja acest mesaj.",
     "messageGroupChatNotFound": "Mesajul nu a fost găsit!",
     "messageGroupChatAdminClearFlagCount": "Doar un administrator poate curăța numărul de atenționări!",

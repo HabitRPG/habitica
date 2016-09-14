@@ -5,7 +5,7 @@ import {
   sendTxn as txnEmail,
 } from './email';
 import moment from 'moment';
-import sendPushNotification from './pushNotifications';
+import { sendNotification as sendPushNotification } from './pushNotifications';
 import shared from '../../common' ;
 
 let api = {};

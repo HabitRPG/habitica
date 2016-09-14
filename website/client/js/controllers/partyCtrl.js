@@ -1,7 +1,7 @@
 'use strict';
 
-habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social','Pusher','Achievement',
-    function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social, Pusher, Achievement) {
+habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social', 'Achievement',
+    function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social, Achievement) {
 
       var PARTY_LOADING_MESSAGES = 4;
 
@@ -19,8 +19,32 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.partyLoadingMessage = window.env.t('partyLoading' + partyMessageNumber);
 
       function handlePartyResponse (group) {
-        $rootScope.party = $scope.group = group;
+        // Assign and not replace so that all the references get the modifications
+        _.assign($rootScope.party, group);
+        $scope.group = $rootScope.party;
+        $scope.group.loadingParty = false;
         checkForNotifications();
+        if ($state.is('options.social.party')) {
+          if ('Notification' in window && window.Notification.permission === 'default') {
+            setTimeout(function () {
+              var notifsModal = $rootScope.openModal('enableDesktopNotifications', {
+                backdrop: true,
+                windowClass: 'vertically-centered-modals',
+              });
+
+              // Safari doesn't support promises
+              var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+              function closeModal () { notifsModal.close(); }
+              if (isSafari) {
+                window.Notification.requestPermission(closeModal);
+              } else {
+                window.Notification.requestPermission().then(closeModal);
+              }
+            }, 100);
+          }
+          Chat.markChatSeen($scope.group._id);
+        }
       }
 
       function handlePartyError (response) {
@@ -28,7 +52,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       }
 
       if ($state.is('options.social.party') && $rootScope.party && $rootScope.party.id) {
-        Groups.party(true).then(handlePartyResponse, handlePartyError);
+        Groups.party().then(handlePartyResponse, handlePartyError);
       } else {
         Groups.Group.syncParty().then(handlePartyResponse, handlePartyError);
       }
@@ -47,10 +71,6 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
           User.set({'achievements.partyOn':true});
           Achievement.displayAchievement('partyOn');
         }
-      }
-
-      if ($scope.group && $scope.group._id) {
-        Chat.markChatSeen($scope.group._id);
       }
 
       $scope.create = function(group) {

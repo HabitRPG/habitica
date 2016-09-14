@@ -10,7 +10,8 @@ export function expectValidTranslationString (attribute) {
 
   let translatedString = attribute();
 
-  expect(translatedString).to.not.be.empty;
+  expect(translatedString.trim()).to.not.be.empty;
+  expect(translatedString).to.not.contain('function func(lang)');
   expect(translatedString).to.not.eql(STRING_ERROR_MSG);
   expect(translatedString).to.not.match(STRING_DOES_NOT_EXIST_MSG);
 }

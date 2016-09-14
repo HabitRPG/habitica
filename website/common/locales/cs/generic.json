@@ -6,7 +6,8 @@
     "titleTasks": "Úkoly",
     "titleAvatar": "Postava",
     "titleBackgrounds": "Pozadí",
-    "titleStats": "Statistiky a úspěchy",
+    "titleStats": "Stats",
+    "titleAchievs": "Achievements",
     "titleProfile": "Profil",
     "titleInbox": "Příchozí zprávy",
     "titleTavern": "Krčma",
@@ -180,5 +181,9 @@
     "raisePetShare": "Mazlíček mi vyrostl v silné zvíře, protože jsem svědomitě plnil úkoly!",
     "wonChallengeShare": "V Habitica jsem vyhrál výzvu!",
     "achievementShare": "Získal jsem v zemi Habitica nové ocenění!",
-    "orderBy": "Seřadit podle <%= item %>"
+    "orderBy": "Seřadit podle <%= item %>",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

@@ -48,7 +48,6 @@
     "messageGroupCannotRemoveSelf": "您不能刪除自己！",
     "messageGroupChatBlankMessage": "不能傳送空白的留言。",
     "messageGroupChatLikeOwnMessage": "不能讚自己的留言。不要這樣做吧！",
-    "messageGroupChatFlagOwnMessage": "不能舉報自己的留言。",
     "messageGroupChatFlagAlreadyReported": "你已經舉報了這個留言。",
     "messageGroupChatNotFound": "找不到留言 !",
     "messageGroupChatAdminClearFlagCount": "只有管理員才可以把標記計數清除！",

@@ -12,7 +12,7 @@ import {
 import { removeFromArray } from '../libs/collectionManipulators';
 import shared from '../../common';
 import { sendTxn as txnEmail } from '../libs/email';
-import sendPushNotification from '../libs/pushNotifications';
+import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
 import cwait from 'cwait';
 import { syncableAttrs } from '../libs/taskManager';
 

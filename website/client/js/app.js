@@ -84,6 +84,11 @@ window.habitrpg = angular.module('habitrpg',
           templateUrl: "partials/options.profile.stats.html",
           title: env.t('titleStats')
         })
+        .state('options.profile.achievements', {
+          url: "/achievements",
+          templateUrl: "partials/options.profile.achievements.html",
+          title: env.t('titleAchievs')
+        })
         .state('options.profile.profile', {
           url: "/profile",
           templateUrl: "partials/options.profile.profile.html",
@@ -97,8 +102,9 @@ window.habitrpg = angular.module('habitrpg',
         })
 
         .state('options.social.inbox', {
-          url: "/inbox",
-          templateUrl: "partials/options.social.inbox.html",
+          url: '/inbox',
+          templateUrl: 'partials/options.social.inbox.html',
+          controller: 'InboxCtrl',
           title: env.t('titleInbox')
         })
 

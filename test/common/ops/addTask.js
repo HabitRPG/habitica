@@ -117,9 +117,11 @@ describe('shared.ops.addTask', () => {
     it('respects newTaskEdit preference', () => {
       user.preferences.newTaskEdit = true;
       expect(addTask(user)._editing).to.be.ok;
+      expect(addTask(user)._edit).to.be.ok;
 
       user.preferences.newTaskEdit = false;
       expect(addTask(user)._editing).not.be.ok;
+      expect(addTask(user)._edit).to.not.be.ok;
     });
 
     it('respects tagsCollapsed preference', () => {

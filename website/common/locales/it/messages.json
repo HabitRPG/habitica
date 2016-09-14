@@ -48,7 +48,6 @@
     "messageGroupCannotRemoveSelf": "Non puoi rimuovere te stesso!",
     "messageGroupChatBlankMessage": "Non puoi inviare un messaggio vuoto",
     "messageGroupChatLikeOwnMessage": "Non puoi mettere 'mi piace' ai tuoi stessi messaggi. Non essere quel tipo di persona.",
-    "messageGroupChatFlagOwnMessage": "Non puoi segnalare un tuo messaggio.",
     "messageGroupChatFlagAlreadyReported": "Hai già segnalato questo messaggio.",
     "messageGroupChatNotFound": "Messaggio non trovato!",
     "messageGroupChatAdminClearFlagCount": "Solo un amministratore può azzerare il conteggio flag!",
