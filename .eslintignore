@@ -8,8 +8,8 @@ website/transpiled-babel/
 
 migrations/*
 
-# The files in website/client/js should be moved out and browserified
-website/client/
+# The files in website/client-old/js should be moved out and browserified
+website/client-old/
 
 # Temporarilly disabled. These should be removed when the linting errors are fixed
 website/common/script/content/index.js

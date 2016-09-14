@@ -4,7 +4,7 @@ import {writeFileSync} from 'fs';
 
 gulp.task('prepare:staticNewStuff', () => {
   writeFileSync(
-    './website/client/new-stuff.html',
+    './website/client-old/new-stuff.html',
     jade.compileFile('./website/views/shared/new-stuff.jade')()
   );
 });

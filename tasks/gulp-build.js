@@ -30,7 +30,7 @@ gulp.task('build:dev', ['browserify', 'prepare:staticNewStuff'], (done) => {
 });
 
 gulp.task('build:dev:watch', ['build:dev'], () => {
-  gulp.watch(['website/client/**/*.styl', 'website/common/script/*']);
+  gulp.watch(['website/client-old/**/*.styl', 'website/common/script/*']);
 });
 
 gulp.task('build:prod', ['browserify', 'build:server', 'prepare:staticNewStuff'], (done) => {
