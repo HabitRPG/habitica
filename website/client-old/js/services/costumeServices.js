@@ -12,10 +12,18 @@
   function costumeFactory(Content) {
     
     function formatAnimal(name, type) {
-      if(type === 'pet' && name in Content.petsInfo) {
-        return Content.petsInfo[name].text();
-      } else if(type === 'mount' && name in Content.mountsInfo) {
-        return Content.mountsInfo[name].text();
+      if(type === 'pet') {
+        if(Content.petsInfo.hasOwnProperty(name)) {
+          return Content.petsInfo[name].text();
+        } else {
+          return window.env.t('noActivePet');
+        }
+      } else if(type === 'mount') {
+        if(Content.mountsInfo.hasOwnProperty(name)) {
+          return Content.mountsInfo[name].text();
+        } else {
+          return window.env.t('noActiveMount');
+        }
       }
     }
 
