@@ -45,6 +45,7 @@
     "chat": "Csevegő",
     "sendChat": "Üzenet küldése",
     "toolTipMsg": "Üzenetek frissítése",
+    "syncPartyAndChat": "Sync Party and Chat",
     "guildBankPop1": "Céhbank",
     "guildBankPop2": "Drágakövek, amiket a céhmester használhat kihívások jutalmául.",
     "guildGems": "Céh Drágakövei",
@@ -124,6 +125,8 @@
     "copyMessageAsToDo": "Copy message as To-Do",
     "messageAddedAsToDo": "Message copied as To-Do.",
     "messageWroteIn": "<%= user %> wrote in <%= group %>",
+    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
+    "taskTextFromInbox": "Message from <%= from %>",
     "msgPreviewHeading": "Message Preview",
     "leaderOnlyChallenges": "Only group leader can create challenges",
     "sendGift": "Küldj ajándékot",
@@ -138,6 +141,7 @@
     "inviteNewUsers": "Invite New Users",
     "sendInvitations": "Send Invitations",
     "invitationsSent": "Invitations sent!",
+    "invitationSent": "Invitation sent!",
     "inviteAlertInfo2": "Or share this link (copy/paste):",
     "sendGiftHeading": "Send Gift to <%= name %>",
     "sendGiftGemsBalance": "From <%= number %> Gems",
@@ -191,5 +195,10 @@
     "uuidsMustBeAnArray": "User ID invites must be an array.",
     "emailsMustBeAnArray": "Email address invites must be an array.",
     "canOnlyInviteMaxInvites": "You can only invite \"<%= maxInvites %>\" at a time",
-    "onlyCreatorOrAdminCanDeleteChat": "Not authorized to delete this message!"
+    "onlyCreatorOrAdminCanDeleteChat": "Not authorized to delete this message!",
+    "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
+    "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
+    "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
+    "newChatMessageTitle": "New message in <%= groupName %>",
+    "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made."
 }

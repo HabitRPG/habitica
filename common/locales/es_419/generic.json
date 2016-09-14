@@ -6,7 +6,8 @@
     "titleTasks": "Tareas",
     "titleAvatar": "Avatar",
     "titleBackgrounds": "Fondos",
-    "titleStats": "Estadísticas y Logros",
+    "titleStats": "Stats",
+    "titleAchievs": "Achievements",
     "titleProfile": "Perfil",
     "titleInbox": "Bandeja de entrada",
     "titleTavern": "Taberna",
@@ -170,7 +171,7 @@
     "birthdayCardAchievementText": "¡Muchas felicidades! Envió o recibió <%= cards %> tarjetas de cumpleaños.",
     "streakAchievement": "¡Ganaste un logro de racha!",
     "firstStreakAchievement": "Racha de 21 días",
-    "streakAchievementCount": "<%= userCount %> Rachas de 21 días",
+    "streakAchievementCount": "<%= streaks %> Rachas de 21 días",
     "twentyOneDays": "¡Completaste tu Diaria por 21 días seguidos!",
     "dontBreakStreak": "Fantástico trabajo. ¡No rompas la racha!",
     "dontStop": "¡No frenes ahora!",
@@ -180,5 +181,9 @@
     "raisePetShare": "¡Convertí una mascota en montura completando mis tareas de la vida real!",
     "wonChallengeShare": "¡Gané un desafío en Habitica!",
     "achievementShare": "¡Gané un nuevo logro en Habitica!",
-    "orderBy": "Ordenar por <%= item %>"
+    "orderBy": "Ordenar por <%= item %>",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

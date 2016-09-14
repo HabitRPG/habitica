@@ -7,16 +7,16 @@ import {
   NotFound,
 } from '../libs/errors';
 
-function evolve (user, pet, petDisplayName, req) {
-  user.items.pets[pet] = -1;
-  user.items.mounts[pet] = true;
+function evolve (user, pet, req) {
+  user.items.pets[pet.key] = -1;
+  user.items.mounts[pet.key] = true;
 
-  if (pet === user.items.currentPet) {
+  if (pet.key === user.items.currentPet) {
     user.items.currentPet = '';
   }
 
   return i18n.t('messageEvolve', {
-    egg: petDisplayName,
+    egg: pet.text(req.language),
   }, req.language);
 }
 
@@ -26,7 +26,9 @@ module.exports = function feed (user, req = {}) {
 
   if (!pet || !foodK) throw new BadRequest(i18n.t('missingPetFoodFeed', req.language));
 
-  if (pet.indexOf('-') === -1) {
+  pet = content.petInfo[pet];
+
+  if (!pet) {
     throw new BadRequest(i18n.t('invalidPetName', req.language));
   }
 
@@ -37,53 +39,42 @@ module.exports = function feed (user, req = {}) {
 
   let userPets = user.items.pets;
 
-  if (!userPets[pet]) {
+  if (!userPets[pet.key]) {
     throw new NotFound(i18n.t('messagePetNotFound', req.language));
   }
-
-  let [egg, potion] = pet.split('-');
-
-  let potionText = content.hatchingPotions[potion] ? content.hatchingPotions[potion].text(req.language) : potion;
-  let eggText = content.eggs[egg] ? content.eggs[egg].text(req.language) : egg;
-
-  let petDisplayName = i18n.t('petName', {
-    potion: potionText,
-    egg: eggText,
-  }, req.language);
 
   if (!user.items.food[food.key]) {
     throw new NotFound(i18n.t('messageFoodNotFound', req.language));
   }
 
-  if (content.specialPets[pet]) {
+  if (pet.type === 'special') {
     throw new NotAuthorized(i18n.t('messageCannotFeedPet', req.language));
   }
 
-  if (user.items.mounts[pet]) {
+  if (user.items.mounts[pet.key]) {
     throw new NotAuthorized(i18n.t('messageAlreadyMount', req.language));
   }
 
   let message;
 
   if (food.key === 'Saddle') {
-    message = evolve(user, pet, petDisplayName, req);
+    message = evolve(user, pet, req);
   } else {
-    if (food.target === potion || content.hatchingPotions[potion].premium) {
-      userPets[pet] += 5;
-      message = i18n.t('messageLikesFood', {
-        egg: petDisplayName,
-        foodText: food.text(req.language),
-      }, req.language);
+    let messageParams = {
+      egg: pet.text(req.language),
+      foodText: food.text(req.language),
+    };
+
+    if (food.target === pet.potion || pet.type === 'premium') {
+      userPets[pet.key] += 5;
+      message = i18n.t('messageLikesFood', messageParams, req.language);
     } else {
-      userPets[pet] += 2;
-      message = i18n.t('messageDontEnjoyFood', {
-        egg: petDisplayName,
-        foodText: food.text(req.language),
-      }, req.language);
+      userPets[pet.key] += 2;
+      message = i18n.t('messageDontEnjoyFood', messageParams, req.language);
     }
 
-    if (userPets[pet] >= 50 && !user.items.mounts[pet]) {
-      message = evolve(user, pet, petDisplayName, req);
+    if (userPets[pet.key] >= 50 && !user.items.mounts[pet.key]) {
+      message = evolve(user, pet, req);
     }
   }
 
@@ -91,11 +82,11 @@ module.exports = function feed (user, req = {}) {
 
   if (req.v2 === true) {
     return {
-      value: userPets[pet],
+      value: userPets[pet.key],
     };
   } else {
     return [
-      userPets[pet],
+      userPets[pet.key],
       message,
     ];
   }

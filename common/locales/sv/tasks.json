@@ -83,7 +83,7 @@
     "streakSingular": "Bedriftaren",
     "streakSingularText": "Har utfört en 21-dagars-följd på en daglig utmaning.",
     "perfectName": "Perfekta Dagar",
-    "perfectText": "Slutfört alla dagliga utmaningar under en <%= perfekt %>  dag. Med denna bedrift får du en +level/2 buff till alla egenskaper för nästa dag. Nivåer över 100 får ingen effekt av buffs.",
+    "perfectText": "Slutfört alla dagliga utmaningar under en <%= perfects %>  dag. Med denna bedrift får du en +level/2 buff till alla egenskaper för nästa dag. Nivåer över 100 får ingen effekt av buffs.",
     "perfectSingular": "Perfekt Dag",
     "perfectSingularText": "Slutfört alla dagliga utmaningar under en dag. Med denna bedrift får du en +level/2 buff till alla egenskaper för nästa dag. Nivåer över 100 får ingen effekt av buffs.",
     "streakerAchievement": "Du har uppnått \"Bedriftaren\" bedriften! 21-dagars-gränsen är en milstolpe för att forma vanor. Du kan fortsätta att lagra denna bedrift för varje 21-dagars period, på denna dagliga utmaning eller någon annan!",

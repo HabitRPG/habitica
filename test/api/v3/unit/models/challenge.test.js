@@ -210,7 +210,7 @@ describe('Challenge Model', () => {
       let updatedLeader = await User.findOne({_id: leader._id});
       let updatedUserTask = await Tasks.Task.findById(updatedLeader.tasksOrder.todos[0]);
 
-      expect(updatedUserTask.checklist).to.deep.equal([]);
+      expect(updatedUserTask.checklist.toObject()).to.deep.equal([]);
     });
 
     it('updates daily specific field to challenge and challenge members', async () => {

@@ -8,8 +8,10 @@ mixin generatedAvatar(options)
   - options = options || {}
   span(class='chair_{{profile.preferences.chair}}')
   +costumeSetting('back')
-  if options.sleep
+  if options.sleep === true
     span(ng-class="'skin_' + profile.preferences.skin + '_sleep'")
+  else if options.sleep === false
+    span(ng-class="'skin_' + profile.preferences.skin")
   else
     span(ng-class="profile.preferences.sleep ? 'skin_' + profile.preferences.skin + '_sleep' : 'skin_' + profile.preferences.skin")
   span(class='{{profile.preferences.size}}_shirt_{{profile.preferences.shirt}}')

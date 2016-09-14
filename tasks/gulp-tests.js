@@ -345,6 +345,7 @@ gulp.task('test:api-v3:integration:separate-server', (done) => {
 gulp.task('test', (done) => {
   runSequence(
     'test:sanity',
+    'test:content',
     'test:common',
     'test:karma',
     'test:api-v3:unit',

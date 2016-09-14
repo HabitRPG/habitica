@@ -1,6 +1,6 @@
 {
     "npc": "NPC",
-    "npcText": "全力支持了我們的Kickstarter項目！",
+    "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
     "mattBoch": "Matt Boch",
     "mattShall": "需要我把你的坐騎<%= name %>帶出來嗎？當寵物吃飽時就會變成坐騎顯示在這邊。點擊一隻坐騎來騎上牠吧 !",
     "mattBochText1": "歡迎來到馬廄！我是野獸大師Matt。從3等級開始，你就夠使用藥水和寵物蛋來孵化寵物！當你在市場孵化了寵物，牠就會顯示在這裡。點選一隻寵物的圖片把牠加入你的角色。 用你在升上4等級後所尋獲的食物餵食牠們，牠們將會成長為力量充沛的坐騎! ",

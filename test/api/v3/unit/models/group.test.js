@@ -350,7 +350,25 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWith('`Participating Member found nothing.`');
+          expect(Group.prototype.sendChat).to.be.calledWith('`Participating Member found 0 Bars of Soap.`');
+        });
+
+        it('sends a chat message if no progress is made on quest with multiple items', async () => {
+          progress.collectedItems = 0;
+          party.quest.key = 'dilatoryDistress1';
+          party.quest.active = false;
+
+          await party.startQuest(questLeader);
+          await party.save();
+
+          await Group.processQuestProgress(participatingMember, progress);
+
+          party = await Group.findOne({_id: party._id});
+
+          expect(Group.prototype.sendChat).to.be.calledOnce;
+          expect(Group.prototype.sendChat).to.be.calledWithMatch(/`Participating Member found/);
+          expect(Group.prototype.sendChat).to.be.calledWithMatch(/0 Blue Fins/);
+          expect(Group.prototype.sendChat).to.be.calledWithMatch(/0 Fire Coral/);
         });
 
         it('handles collection quests with multiple items', async () => {

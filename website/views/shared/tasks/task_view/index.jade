@@ -38,10 +38,10 @@
 
 // main content
 .task-text(ng-dblclick='doubleClickTask(obj, task)')
-  markdown(text='task.text',target='_blank')
+  markdown(text='task._editing ? task._edit.text : task.text',target='_blank')
 
   div(ng-if='task.checklist && !$state.includes("options.social.challenges") && !task.collapseChecklist && !task._editing')
     fieldset.option-group.task-checklist
       label.checkbox(ng-repeat='item in task.checklist')
-        input(type='checkbox', ng-model='item.completed', ng-change='saveTask(task,true)')
+        input(type='checkbox', ng-model='item.completed', ng-change='completeChecklistItem(task)')
         markdown(text='item.text', target='_blank')

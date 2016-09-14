@@ -6,10 +6,14 @@
     "defaultHabit3Text": "Jít po schodech/Jet výtahem (uprav kliknutím na tužku)",
     "defaultHabit3Notes": "Příklad Dobrého zvyku nebo zlozvyku: +/- Schody/Výtah; +/- Voda/Limonáda",
     "defaultTodoNotes": "Tento úkol můžeš dokončit, upravit nebo odstranit.",
-    "defaultTodo1Text": "Přidat se k Habitice (Odškrtni mě!)",
+    "defaultTodo1Text": "Vydat se do země Habitica (Odškrtni mě!)",
     "defaultReward1Text": "15minutová přestávka",
     "defaultReward1Notes": "Vlastní odměny mohou mít mnoho podob. Někteří lidé se zdrží sledování své oblíbené šou, pokud nemají dost zlata na její zaplacení.",
-    "defaultTag1": "ráno",
-    "defaultTag2": "odpoledne",
-    "defaultTag3": "večer"
+    "defaultTag1": "Work",
+    "defaultTag2": "Exercise",
+    "defaultTag3": "Health + Wellness",
+    "defaultTag4": "School",
+    "defaultTag5": "Teams",
+    "defaultTag6": "Chores",
+    "defaultTag7": "Creativity"
 }

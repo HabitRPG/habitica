@@ -48,7 +48,6 @@
     "messageGroupCannotRemoveSelf": "Nie możesz usunąć siebie!",
     "messageGroupChatBlankMessage": "Nie możesz wysłać pustej wiadomości.",
     "messageGroupChatLikeOwnMessage": "Nie możesz polubić własnej wiadomości. Nie bądź taki.",
-    "messageGroupChatFlagOwnMessage": "Nie możesz zgłosić własnej wiadomości.",
     "messageGroupChatFlagAlreadyReported": "Już zgłosiłeś tę wiadomość.",
     "messageGroupChatNotFound": "Nie znaleziono wiadomości!",
     "messageGroupChatAdminClearFlagCount": "Tylko administrator może wyczyścić licznik flag!",

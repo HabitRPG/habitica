@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Elimina attività completate",
     "lotOfToDos": "Le ultime 30 To-do completate sono mostrate qui. Puoi vedere ulteriori To-do completate in \"Dati utente > Visualizzazione dati utente\" oppure in \"Dati utente > Esporta dati > Dati utente\".",
-    "deleteToDosExplanation": "Cliccando il bottone qui sotto, tutti i tuoi To-Do completati e quelli archiviati verranno cancellati in modo permanente. Esportali dall'apposito menù nelle impostazioni se vuoi mantenerne una copia.",
+    "deleteToDosExplanation": "Cliccando il bottone qui sotto, tutte le tue To-Do completate e quelle archiviate verranno cancellate in modo permanente. Esportale dall'apposito menù nelle impostazioni se vuoi conservarne una copia.",
     "addmultiple": "Aggiungi multiple",
     "addsingle": "Aggiungi singola",
     "habit": "Habit",

@@ -341,5 +341,11 @@
     "questArmadilloCompletion": "Finalement, après une longue matinée passée à convaincre le tatou indulgent que vous voulez, en fait, vraiment travailler, il abandonne. \"Je suis désolé!\" s'excuse-t-il. \"Je voulais seulement aider. Je pensais que tout le monde aimait les jours paresseux!\"<br><br>Vous souriez, et lui dites que la prochaine fois que vous aurez mérité un jour de congé, vous l'inviterez chez vous. Il sourit en retour. @Tipsy et @krajzega vous félicitent en passant pour votre bon travail pendant que le tatou s'éloigne en roulant, vous laissant quelques œufs en guise d'excuse.",
     "questArmadilloBoss": "L'indulgence du tatou",
     "questArmadilloDropArmadilloEgg": "Tatou (œuf)",
-    "questArmadilloUnlockText": "Déverrouille l'achat d'œufs de tatou au Marché"
+    "questArmadilloUnlockText": "Déverrouille l'achat d'œufs de tatou au Marché",
+    "questCowText": "The Mootant Cow",
+    "questCowNotes": "Ça a été une longue et chaude journée à Sparring Farms et il n'y a rien que vous ne voulez plus qu'une grande gorgée d'eau et un peu de sommeil. Vous êtes là à rêvasser quand @Soloana crie tout à coup «Courez tous ! La vache de récompense a mootatée!\" <br><br>@eevachu avale. \"ça doit être nos mauvaises habitudes qui l'ont infecté\" <br><br> \"Vite!\" Feralem Tau dit. \"Faisons quelque chose avant que les vaches de la mamelle mootate, aussi.\" <br> <br> Vous en avez assez entendu. Plus de rêveries -- il est temps d'en finir avec ces mauvaises habitudes!",
+    "questCowCompletion": "You milk your good habits for all they are worth until the cow reverts to its original form. The cow looks over at you with her pretty brown eyes and nudges over three eggs.<br><br>@fuzzytrees laughs and hands you the eggs, \"Maybe it still is mootated if there are baby cows in these eggs. But I trust you to stick to your good habits when you raise them!\"",
+    "questCowBoss": "Mootant Cow",
+    "questCowDropCowEgg": "Cow (Egg)",
+    "questCowUnlockText": "Unlocks purchasable Cow eggs in the Market"
 }

@@ -48,7 +48,6 @@
     "messageGroupCannotRemoveSelf": "Je kunt jezelf niet verwijderen!",
     "messageGroupChatBlankMessage": "Je kunt geen leeg bericht sturen",
     "messageGroupChatLikeOwnMessage": "Je kunt jezelf geen +1 geven. Zo iemand wil je niet zijn.",
-    "messageGroupChatFlagOwnMessage": "Je kunt je eigen bericht niet rapporteren.",
     "messageGroupChatFlagAlreadyReported": "Je hebt dit bericht al gerapporteerd.",
     "messageGroupChatNotFound": "Bericht niet gevonden.",
     "messageGroupChatAdminClearFlagCount": "Alleen een admin kan de flag-telling leegmaken!",
