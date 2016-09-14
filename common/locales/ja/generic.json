@@ -6,8 +6,8 @@
     "titleTasks": "タスク",
     "titleAvatar": "アバター",
     "titleBackgrounds": "背景",
-    "titleStats": "Stats",
-    "titleAchievs": "Achievements",
+    "titleStats": "データ",
+    "titleAchievs": "実績",
     "titleProfile": "プロフィール",
     "titleInbox": "受信トレイ",
     "titleTavern": "キャンプ場",
@@ -182,8 +182,8 @@
     "wonChallengeShare": "Habitica のチャレンジに成功したよ!",
     "achievementShare": "Habitica で新しい実績を解除したよ!",
     "orderBy": "並び順 : <%= item %>",
-    "you": "(you)",
-    "enableDesktopNotifications": "Enable Desktop Notifications",
+    "you": "( あなた )",
+    "enableDesktopNotifications": "デスクトップ通知を有効にする",
     "online": "オンライン",
     "onlineCount": "<%= count %> 人がオンライン"
 }

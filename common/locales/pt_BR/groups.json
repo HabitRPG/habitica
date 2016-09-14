@@ -200,5 +200,5 @@
     "onlyGroupTasksCanBeAssigned": "Apenas tarefas de grupo podem ser designadas",
     "newChatMessagePlainNotification": "Nova mensagem em <%= groupName %> de <%= authorName %>. Clique aqui para abrir a página do chat!",
     "newChatMessageTitle": "Nova mensagem em <%= groupName %>",
-    "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made."
+    "desktopNotificationsText": "Nós precisamos de sua autorização para habilitar as notificações na área de trabalho para novas mensagens no chat do grupo! Siga as instruções do seu navegador para habilitá-las. <br><br>Você irá receber estas notificações apenas quando estiver com o Habitica aberto. Se você não gostar delas, poderá desativar nas configurações do seu navegador.<br><br>Esta caixa de texto irá fechar automaticamente quando uma decisão for tomada."
 }
