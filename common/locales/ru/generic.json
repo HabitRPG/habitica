@@ -6,8 +6,8 @@
     "titleTasks": "Задачи",
     "titleAvatar": "Аватар",
     "titleBackgrounds": "Фон",
-    "titleStats": "Stats",
-    "titleAchievs": "Achievements",
+    "titleStats": "Характеристики",
+    "titleAchievs": "Достижения",
     "titleProfile": "Профиль",
     "titleInbox": "Почта",
     "titleTavern": "Таверна",
@@ -182,8 +182,8 @@
     "wonChallengeShare": "Я выиграл испытание в Habitica!",
     "achievementShare": "Я получил новое достижение в Habitica!",
     "orderBy": "Упорядочить по <%= item %>",
-    "you": "(you)",
-    "enableDesktopNotifications": "Enable Desktop Notifications",
+    "you": "(вы)",
+    "enableDesktopNotifications": "Включить уведомления на рабочем столе",
     "online": "в сети",
     "onlineCount": "<%= count %> в сети"
 }

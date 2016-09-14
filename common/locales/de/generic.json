@@ -182,8 +182,8 @@
     "wonChallengeShare": "Ich habe in Habitica einen Wettbewerb gewonnen!",
     "achievementShare": "Ich habe in Habitica einen neuen Erfolg verdient!",
     "orderBy": "Sortieren nach <%= item %>",
-    "you": "(you)",
-    "enableDesktopNotifications": "Enable Desktop Notifications",
+    "you": "(Du)",
+    "enableDesktopNotifications": "Desktop-Benachrichtigungen aktivieren",
     "online": "online",
     "onlineCount": "<%= count %> online"
 }
