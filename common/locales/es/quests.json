@@ -61,7 +61,7 @@
     "scrollsText2": "crea un grupo vacío.",
     "scrollsPre": "Aún no has desbloqueado esta misión.",
     "alreadyEarnedQuestLevel": "Ya has conseguido esta misión al llegar al nivel <%= level %>.",
-    "alreadyEarnedQuestReward": "Ya has conseguido esta misión al completar <%= level %>.",
+    "alreadyEarnedQuestReward": "Ya has conseguido esta misión al completar <%= priorQuest %>.",
     "completedQuests": "Completó las siguientes misiones",
     "mustComplete": "Primero necesitas terminar <%= quest %>.",
     "mustLevel": "Para emprender esta misión, tienes que llegar al nivel <%= level %>.",

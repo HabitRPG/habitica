@@ -27,7 +27,20 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         if ($state.is('options.social.party')) {
           if ('Notification' in window && window.Notification.permission === 'default') {
             setTimeout(function () {
-              window.Notification.requestPermission();
+              var notifsModal = $rootScope.openModal('enableDesktopNotifications', {
+                backdrop: true,
+                windowClass: 'vertically-centered-modals',
+              });
+
+              // Safari doesn't support promises
+              var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+              function closeModal () { notifsModal.close(); }
+              if (isSafari) {
+                window.Notification.requestPermission(closeModal);
+              } else {
+                window.Notification.requestPermission().then(closeModal);
+              }
             }, 100);
           }
           Chat.markChatSeen($scope.group._id);

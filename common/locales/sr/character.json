@@ -1,6 +1,5 @@
 {
     "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
-    "statsAch": "Karakteristike i odlikovanja",
     "profile": "Profil",
     "avatar": "Customize Avatar",
     "other": "Ostalo",
@@ -83,7 +82,8 @@
     "allocateInt": "Poeni dodeljeni Inteligenciji:",
     "allocateIntPop": "Dodaj poen Inteligenciji",
     "noMoreAllocate": "Dostigli ste 100. nivo, i više nećete dobijati poene koje biste dodeljivali svojim osobinama. Možete i dalje da dobijate nivoe, ili da upotrebite <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Sferu za Reinkarnaciju</a>, koju ćete naći na Pijaci, i da započnete novu avanturu od 1. nivoa.",
-    "stats": "Avatar Stats",
+    "stats": "Stats",
+    "achievs": "Achievements",
     "strength": "Snaga",
     "strengthText": "Snaga povećava šansu da zadate kritični udarac, kao i Zlato, Iskustvo i predmete koje od takvih udaraca dobijate. Takođe pomaže u borbi protiv bosova.",
     "constitution": "Vitalnost",

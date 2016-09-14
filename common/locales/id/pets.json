@@ -57,7 +57,7 @@
     "triadBingoAchievement": "Kamu telah mendapatkan medali \"Triad Bingo\" karena sudah menemukan semua peliharaan, menjinakkan mereka semua, dan menemukan lagi semua peliharaan yang lain!",
     "dropsEnabled": "Jatuhan Diaktifkan!",
     "itemDrop": "Sebuah item telah terjatuh",
-    "firstDrop": "Anda telah membuka Sistem Jatuhan! Sekarang ketika Anda menyelesaikan tugas, Anda memiliki kesempatan kecil untuk menemukan item, termasuk telur, ramuan, dan makanan! Anda baru saja menemukan sebuah <strong> <% = eggText%> Telur</strong>! <% = EggNotes%>",
+    "firstDrop": "Anda telah membuka Sistem Jatuhan! Sekarang ketika Anda menyelesaikan tugas, Anda memiliki kesempatan kecil untuk menemukan item, termasuk telur, ramuan, dan makanan! Anda baru saja menemukan sebuah <strong> <%= eggText %> Telur</strong>! <%= EggNotes %>",
     "useGems": "Kalau kamu ingin memelihara sesuatu, tapi tidak sabar menunggu kapan ia akan muncul, gunakan permata di <strong>Inventori > Pasar</strong> untuk membeli telurnya!",
     "hatchAPot": "Tetaskan seekor <%= egg %> <%= potion %>?",
     "hatchedPet": "Kamu menetaskan seekor <%= egg %> <%= potion %>!",

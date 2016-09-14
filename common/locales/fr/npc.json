@@ -1,6 +1,6 @@
 {
     "npc": "PNJ",
-    "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
+    "npcAchievementText": "A soutenu le projet Kickstarter à son niveau maximum!",
     "mattBoch": "Matt Boch",
     "mattShall": "Dois-je préparer votre coursier, <%= name %> ? Lorsque vous avez assez nourri un animal pour qu'il devienne une fière monture, il apparaît ici. Cliquez sur une monture pour monter en selle !",
     "mattBochText1": "Bienvenue à l'Écurie ! Je suis Matt, le Maître des Bêtes. Après avoir passé le niveau 3, vous pouvez faire éclore vos familiers grâce à vos œufs et potions. Lorsque vous faites éclore un animal au Marché, il apparaît ici! Cliquez sur l'image d'un animal pour le faire rejoindre votre avatar. Donnez à vos familiers la nourriture que vous trouvez dès la fin du niveau 3, et ils deviendront de puissantes montures.",

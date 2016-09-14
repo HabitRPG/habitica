@@ -1,6 +1,5 @@
 {
     "communityGuidelinesWarning": "Por favor, ten en cuenta que tu nombre de usuario, foto de perfil y biografía deben cumplir con las <a href='https://habitica.com/static/community-guidelines' target='_blank'>Normas de la comunidad</a> (por ejemplo,  no se permite lenguaje grosero, contenido para adultos, insultos, etc.) Si tienes cuestiones sobre qué es o no apropiado, siéntete libre de enviar un email a <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
-    "statsAch": "Estadísticas y logros",
     "profile": "Perfil",
     "avatar": "Personalizar personaje",
     "other": "Otro",
@@ -83,7 +82,8 @@
     "allocateInt": "Puntos asignados a Inteligencia:",
     "allocateIntPop": "Añadir un punto a Inteligencia",
     "noMoreAllocate": "Ahora que has alcanzado el nivel 100, no ganarás más puntos de atributo. Puedes seguir subiendo de nivel o empezar una nueva aventura desde el nivel 1 con la <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe de renacimiento</a>, ya disponible gratis en el Mercado.",
-    "stats": "Atributos del personaje",
+    "stats": "Stats",
+    "achievs": "Achievements",
     "strength": "Fuerza",
     "strengthText": "La fuerza aumenta la probabilidad de conseguir «golpes críticos» aleatorios y el Oro, la Experiencia y la probabilidad de conseguir botín al asestarlos. También ayuda a hacer daño a los monstruos jefe.",
     "constitution": "Constitución",

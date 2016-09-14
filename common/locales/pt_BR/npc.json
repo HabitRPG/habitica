@@ -1,6 +1,6 @@
 {
     "npc": "NPC",
-    "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
+    "npcAchievementText": "Apoiou o projeto no Kickstarter no nível máximo!",
     "mattBoch": "Matt Boch",
     "mattShall": "Devo trazer seu corcel, <%= name %>? Uma vez que você alimentou o seu mascote o suficiente para torná-lo uma montaria, ele aparecerá aqui. Clique em uma montaria para montá-la.",
     "mattBochText1": "Bem-vindo ao meu Estábulo! Sou Matt, o mestre das bestas. Começando no nível 3, você pode chocar mascotes usando ovos e poções. Quando você choca um mascote no Mercado, ele aparecerá aqui! Clique na imagem de um mascote para adicioná-lo ao seu avatar. Alimente-os usando a comida que você encontrar depois do nível 3 e eles se transformarão em poderosas montarias.",

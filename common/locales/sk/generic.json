@@ -6,7 +6,8 @@
     "titleTasks": "Úlohy",
     "titleAvatar": "Avatar",
     "titleBackgrounds": "Pozadie",
-    "titleStats": "Štatistiky a Odznaky",
+    "titleStats": "Stats",
+    "titleAchievs": "Achievements",
     "titleProfile": "Profil",
     "titleInbox": "Poštová schránka",
     "titleTavern": "Hostinec",
@@ -181,7 +182,8 @@
     "wonChallengeShare": "Vyhral som výzvu v Habitike!",
     "achievementShare": "Získal som nový odznak v Habitike!",
     "orderBy": "Zoradiť podľa <%= item %>",
-    "you": "you",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
     "online": "online",
     "onlineCount": "<%= count %> online"
 }

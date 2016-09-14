@@ -297,7 +297,7 @@
     "armorSpecialSummerMageText": "綠寶石尾巴",
     "armorSpecialSummerMageNotes": "這件有著閃亮鱗片的衣服可以將它的穿戴者變成一個真正的法師！增加智力<%= int %>。2014年夏季限定版裝備",
     "armorSpecialSummerHealerText": "海洋治療師尾巴",
-    "armorSpecialSummerHealerNotes": "這件有著閃亮鱗片的衣裳可以將它的穿戴者變成一個真正的海洋治療師！增加體質<%= int %>。2014年夏季限定版裝備",
+    "armorSpecialSummerHealerNotes": "這件有著閃亮鱗片的衣裳可以將它的穿戴者變成一個真正的海洋治療師！增加體質<%= con %>。2014年夏季限定版裝備",
     "armorSpecialFallRogueText": "血紅長袍",
     "armorSpecialFallRogueNotes": "鮮豔的。柔軟的。吸血鬼的。增加<%= per %>點感知。2014年秋季限定版裝備。",
     "armorSpecialFallWarriorText": "實驗衣",

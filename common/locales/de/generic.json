@@ -6,7 +6,8 @@
     "titleTasks": "Aufgaben",
     "titleAvatar": "Avatar",
     "titleBackgrounds": "Ambiente",
-    "titleStats": "Werte & Erfolge",
+    "titleStats": "Werte",
+    "titleAchievs": "Erfolge",
     "titleProfile": "Profil",
     "titleInbox": "Posteingang",
     "titleTavern": "Gasthaus",
@@ -181,7 +182,8 @@
     "wonChallengeShare": "Ich habe in Habitica einen Wettbewerb gewonnen!",
     "achievementShare": "Ich habe in Habitica einen neuen Erfolg verdient!",
     "orderBy": "Sortieren nach <%= item %>",
-    "you": "Du",
+    "you": "(Du)",
+    "enableDesktopNotifications": "Desktop-Benachrichtigungen aktivieren",
     "online": "online",
     "onlineCount": "<%= count %> online"
 }

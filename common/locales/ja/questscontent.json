@@ -341,5 +341,11 @@
     "questArmadilloCompletion": "朝からの長い説得によって、ついに、ゆるゆるのアルマジロは、あなたが期待していた通り、実際にはアルマジロがそうしたいと思って、穴にもぐっていきました。「ごめんなさい!」　彼女は謝ります。「ただお手伝いがしたかった。だれもが自堕落な日々が好きだと思い込んでたの!」<br><br>あなたは笑って、次のオフを取る日を知らせて、アルマジロを招待し、1日中もてなすと伝えました。彼女はふりかえってニヤッと笑いました。通りがかった @Tipsy と @krajzega は、アルマジロが転がり去っていったあなたの仕事ぶりと、おわびに残されていった「たまご」とについて盛大に祝ってくれました。",
     "questArmadilloBoss": "ゆるゆるのアルマジロ",
     "questArmadilloDropArmadilloEgg": "アルマジロ( たまご )",
-    "questArmadilloUnlockText": "市場でアルマジロのたまごを買えるようにする"
+    "questArmadilloUnlockText": "市場でアルマジロのたまごを買えるようにする",
+    "questCowText": "The Mootant Cow",
+    "questCowNotes": "It’s been a long, hot day at Sparring Farms, and there is nothing more you want than a long sip of water and some sleep. You're standing there daydreaming when @Soloana suddenly screams, \"Everyone run! The prize cow has mootated!\"<br><br>@eevachu gulps. \"It must be our bad habits that infected it.\"<br><br>\"Quick!\" Feralem Tau says. \"Let’s do something before the udder cows mootate, too.\"<br><br>You’ve herd enough. No more daydreaming -- it's time to get those bad habits under control!",
+    "questCowCompletion": "You milk your good habits for all they are worth until the cow reverts to its original form. The cow looks over at you with her pretty brown eyes and nudges over three eggs.<br><br>@fuzzytrees laughs and hands you the eggs, \"Maybe it still is mootated if there are baby cows in these eggs. But I trust you to stick to your good habits when you raise them!\"",
+    "questCowBoss": "Mootant Cow",
+    "questCowDropCowEgg": "Cow (Egg)",
+    "questCowUnlockText": "Unlocks purchasable Cow eggs in the Market"
 }

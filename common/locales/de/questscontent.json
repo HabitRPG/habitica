@@ -341,5 +341,11 @@
     "questArmadilloCompletion": "Endlich, nachdem Du den ganzen Morgen gebraucht hast, um das duldsame Gürteltier zu überzeugen, dass Du tatsächlich zur Arbeit willst, gibt es nach. \"Es tut mir leid!\", entschuldigt es sich. \"Ich wollte doch nur helfen. Mögen denn nicht alle Leute mal einen faulen Tag?\"<br><br>Du lächelst und lässt es wissen, dass Du es zu Deinem nächsten - verdienten - freien Tag einlädst. Es strahlt Dich an. @Tipsy und @krajzega, die gerade vorbeigehen, gratulieren Dir zu dieser Leistung, während das Gürteltier wegrollt und Dir ein paar Eier als Entschädigung da lässt.",
     "questArmadilloBoss": "Gutmütiges Gürteltier",
     "questArmadilloDropArmadilloEgg": "Gürteltier (Ei)",
-    "questArmadilloUnlockText": "Ermöglicht den Kauf von Gürteltiereiern auf dem Marktplatz"
+    "questArmadilloUnlockText": "Ermöglicht den Kauf von Gürteltiereiern auf dem Marktplatz",
+    "questCowText": "Die Muhtanten-Kuh",
+    "questCowNotes": "Es war ein langer, heißer Tag auf der Übungs-Farm, und Du würdest nichts lieber tun als einen großen Schluck Wasser zu trinken und etwas zu schlafen. Während Du vor Dich hinträumst, schreit @Soloana plötzlich, \"Lauft! Die Siegerkuh ist muhtiert!\"<br><br>@eevachu schluckt. \"Unsere schlechten Angewohnheiten müssen sie infiziert haben.\"<br><br>\"Schnell!\" meint Feralem Tau. \"Lasst uns etwas unternehmen, bevor die anderen Kühe ebenfalls muhtieren.\"<br><br>Du hast genug gehört. Keine Tagträumereien mehr -- Es ist Zeit die schlechten Angewohnheiten unter Kontrolle zu bringen!",
+    "questCowCompletion": "Du pflegst Deine guten Gewohnheiten solange, bis die Kuh wieder ihre ursprüngliche Gestalt annimmt. Die Kuh sieht Dich mit ihren schönen, braunen Augen an und schubst drei Eier zu Dir herüber.<br><br>@fuzzytrees lacht und überreicht Dir die Eier, \"Vielleicht sind die Babykühe darin immernoch muhtiert. Aber ich vertraue darauf, dass Du Deine guten Gewohnheiten beibehältst, wenn Du sie großziehst!\"",
+    "questCowBoss": "Muhtanten-Kuh",
+    "questCowDropCowEgg": "Kuh (Ei)",
+    "questCowUnlockText": "Ermöglicht den Kauf von Kuheiern auf dem Marktplatz"
 }

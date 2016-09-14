@@ -155,7 +155,7 @@
     "weaponSpecialSpring2016WarriorText": "Mazo de Queso",
     "weaponSpecialSpring2016WarriorNotes": "Nadie tiene tantos amigos como un ratón con quesos tiernos. Incrementa la Fuerza por <%= str %>. Equipamiento de Edición Limitada de Primavera 2016.",
     "weaponSpecialSpring2016MageText": "Báculo de Campanas",
-    "weaponSpecialSpring2016MageNotes": "¡Abragatabra! ¡Tan deslumbrante que puedes llegar a hipnotizarte a ti mismo! Ooh... tintinea... Incrementa la Inteligencia por <%= Int %> y la Percepción por <%= per %>. Equipamiento de Edición Limitada de Primavera 2016.",
+    "weaponSpecialSpring2016MageNotes": "¡Abragatabra! ¡Tan deslumbrante que puedes llegar a hipnotizarte a ti mismo! Ooh... tintinea... Incrementa la Inteligencia por <%= int %> y la Percepción por <%= per %>. Equipamiento de Edición Limitada de Primavera 2016.",
     "weaponSpecialSpring2016HealerText": "Varita de Flores de la Primavera",
     "weaponSpecialSpring2016HealerNotes": "Con un ademán de la mano y un guiño, ¡haces florecer los campos y bosques! O das coscorrones a ratones molestos. Incrementa la Inteligencia por <%= int %>. Equipamiento de Edición Limitada de Primavera 2016.",
     "weaponSpecialSummer2016RogueText": "Vara electrica",

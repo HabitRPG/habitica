@@ -48,7 +48,6 @@
     "messageGroupCannotRemoveSelf": "Nemůžeš se sám odebrat!",
     "messageGroupChatBlankMessage": "Nemůžeš poslat prázdnou zprávu",
     "messageGroupChatLikeOwnMessage": "Nemůže se ti líbit tvoje vlastní zpráva. Nebuď takový.",
-    "messageGroupChatFlagOwnMessage": "Nemůžeš nahlásit vlastní zprávu.",
     "messageGroupChatFlagAlreadyReported": "Již jsi tento příspěvek nahlásil",
     "messageGroupChatNotFound": "Zpráva nenalezena!",
     "messageGroupChatAdminClearFlagCount": "Pouze admin může smazat počet označení!",

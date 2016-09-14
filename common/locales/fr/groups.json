@@ -125,8 +125,8 @@
     "copyMessageAsToDo": "Copier le message comme A Faire",
     "messageAddedAsToDo": "Message copié comme A Faire.",
     "messageWroteIn": "<%= user %> a écrit dans <%= group %>",
-    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
-    "taskTextFromInbox": "Message from <%= from %>",
+    "taskFromInbox": "<%= from %> a écrit '<%= message %>'",
+    "taskTextFromInbox": "Message de <%= from %>",
     "msgPreviewHeading": "Aperçu du message",
     "leaderOnlyChallenges": "Seul le responsable du groupe peut créer des défis",
     "sendGift": "Envoyer un cadeau",
@@ -199,5 +199,6 @@
     "onlyGroupLeaderCanEditTasks": "Pas d'autorisation pour gérer les tâches",
     "onlyGroupTasksCanBeAssigned": "Seules les tâches de groupe peuvent être assignées",
     "newChatMessagePlainNotification": "Nouveau message dans <%= groupName %> par <%= authorName %>. Cliquez ici pour ouvrir la page de discussion !",
-    "newChatMessageTitle": "Nouveau message dans <%= groupName %>"
+    "newChatMessageTitle": "Nouveau message dans <%= groupName %>",
+    "desktopNotificationsText": "Nous avons besoin de votre autorisation pour activer les notifications sur le bureau pour les nouveau message dans le chat d'équipe. Suivez les instructions de votre navigateur pour les activer.<br><br>Vous allez recevoir ces notifications seulement lorsque Habitica est ouvert. Si vous vous apercevez que vous ne les appréciez pas, elles peuvent être désactivées dans les réglages de votre navigateur.<br><br>Cette fenêtre se fermera automatiquement lorsqu'une décision aura été prise."
 }

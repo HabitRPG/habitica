@@ -48,7 +48,6 @@
     "messageGroupCannotRemoveSelf": "Du kan ikke fjerne dig selv!",
     "messageGroupChatBlankMessage": "Du kan ikke sende en tom besked",
     "messageGroupChatLikeOwnMessage": "Du kan ikke synes godt om din egen besked. Vær ikke den type.",
-    "messageGroupChatFlagOwnMessage": "Du kan ikke indberette din egen besked.",
     "messageGroupChatFlagAlreadyReported": "Du har allerede anmeldt denne besked",
     "messageGroupChatNotFound": "Besked ikke fundet!",
     "messageGroupChatAdminClearFlagCount": "Kun en administrator kan rydde flagtælleren!",

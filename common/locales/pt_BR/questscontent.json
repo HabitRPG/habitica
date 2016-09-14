@@ -341,5 +341,11 @@
     "questArmadilloCompletion": "Finalmente, após uma longa manhã tentando convencer a Tatu Preguiçosa que você quer, de fato, trabalhar, ela desiste. \"Me perdoe!\" Ela se desculpa. \"Eu só queria ajudar. Eu achei que tomo mundo gostasse de dias de preguiça!\"<br><br>Você sorri e explica pra ela que da próxima vez que você merecer um dia de folga, ela será convidada. @Tipsy e @krajzega te parabenizam pelo bom trabalho enquanto ela rola e vai embora, deixando alguns ovos como pedido de desculpas.",
     "questArmadilloBoss": "Tatu Preguiçosa",
     "questArmadilloDropArmadilloEgg": "Tatu (Ovo)",
-    "questArmadilloUnlockText": "Desbloqueia Ovos de Tatu para compra no Mercado."
+    "questArmadilloUnlockText": "Desbloqueia Ovos de Tatu para compra no Mercado.",
+    "questCowText": "A Vaca Mutante",
+    "questCowNotes": "Foi um dia longo e quente nas Fazendas Sparring, e não há nada que você queira mais que um belo gole d'água e um descanso. Você está parado lá, sonhando acordado, quando @Soloana de repente grita, \"Todo mundo, corre! A vaca premiada se transoformou!\"<br><br>@eevachu Encole seco. \"Devem ter sido nossos maus hábitos que infectaram ela.\" <br><br>\"Rápido!\" Diz Feralem Tau. \"Vamos fazer algo antes que as vacas leiteiras se transformem também.<br><br>Você não aguenta mais. Chega de sonhar acordado -- Tá na hora de contolar esses maus hábitos!",
+    "questCowCompletion": "Você ordenha seus bons hábitos por tudo que eles valem até que a vaca volta à sua forma original. A vaca olha para você com seus bonitos olhos castanhos e deixa três ovos.<br><br>@fuzzytrees ri e te dá os ovos, \"Talvez ainda esteja muutante se houverem bebês vaca nesses ovos. Mas eu confio em você para manter seus bons hábitos ao criar estes ovos!\"",
+    "questCowBoss": "Vaca Mutante",
+    "questCowDropCowEgg": "Vaca (Ovo)",
+    "questCowUnlockText": "Desbloqueia Ovos de Vaca para compra no Mercado"
 }

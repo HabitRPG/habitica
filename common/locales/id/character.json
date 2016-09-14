@@ -1,6 +1,5 @@
 {
     "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
-    "statsAch": "Status & Pencapaian",
     "profile": "Profil",
     "avatar": "Ubah Tampilan Avatar",
     "other": "Lainnya",
@@ -83,7 +82,8 @@
     "allocateInt": "Poin yang diberikan untuk Kecerdasan:",
     "allocateIntPop": "Tambahkan satu poin ke Kecerdasan",
     "noMoreAllocate": "Sekarang kamu sudah mencapai level 100, kamu tidak akan mendapat poin atribut lagi. Kamu bisa terus menaikkan level, atau mulai petualangan baru dari level 1 dengan menggunakan <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> yang sekarang bisa diambil gratis di Pasar.",
-    "stats": "Status Avatar",
+    "stats": "Stats",
+    "achievs": "Achievements",
     "strength": "Kekuatan",
     "strengthText": "Kekuatan meningkatkan peluang \"serangan kritikal\" yang akan menambah jumlah Koin Emas dan Pengalaman (XP) yang didapatkan serta memperbesar kemungkinan mendapatkan item. Kekuatan juga membantu meningkatkan damage kamu terhadap monster boss.",
     "constitution": "Ketahanan",

@@ -451,7 +451,7 @@
     "headBase0Text": "Bez helmy",
     "headBase0Notes": "Bez pokrývky hlavy.",
     "headWarrior1Text": "Kožená čapica",
-    "headWarrior1Notes": "Čiapka z odolnej prevarenej kože. Zvyšuje silu o <%= con %>.",
+    "headWarrior1Notes": "Čiapka z odolnej prevarenej kože. Zvyšuje silu o <%= str %>.",
     "headWarrior2Text": "Krúžková helma",
     "headWarrior2Notes": "Kukla vyrobená z pospájaných kovových krúžkov. Zvyšuje silu o <%= str %>.",
     "headWarrior3Text": "Plátová helma",

@@ -1,6 +1,5 @@
 {
     "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
-    "statsAch": "Karakterlap és kitűntetések",
     "profile": "Profil",
     "avatar": "Avatár személyreszabása",
     "other": "Egyéb",
@@ -83,7 +82,8 @@
     "allocateInt": "Intelligenciára költött pontok:",
     "allocateIntPop": "Egy pont hozzáadása az Intelligenciához:",
     "noMoreAllocate": "Most, hogy elérted a 100-as szintet, nem kapsz több pontot a tulajdonságaidhoz. A szintedet tovább növelheted, vagy egy újabb kalandba kezdhetsz az <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Újjászületés Gömbjével</a>, ami mostantól ingyenesen elérhető a piacon.",
-    "stats": "Karakterlap",
+    "stats": "Stats",
+    "achievs": "Achievements",
     "strength": "Erő",
     "strengthText": "Az erő növeli a \"kritikus csapások\" esélyét, növeli az arany és a tapasztalat szerzést, valamint a zsákmányok szerzésének esélyét. Továbbá segít a főellenségek sebzésében.",
     "constitution": "Szervezettség",

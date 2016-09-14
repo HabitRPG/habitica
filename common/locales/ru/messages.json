@@ -48,7 +48,6 @@
     "messageGroupCannotRemoveSelf": "Вы не можете удалить себя!",
     "messageGroupChatBlankMessage": "Вы не можете отправить пустое сообщение.",
     "messageGroupChatLikeOwnMessage": "Не стоит ставить лайк на своём сообщении. Не будьте таким человеком.",
-    "messageGroupChatFlagOwnMessage": "Вы не можете пожаловаться на своё сообщение.",
     "messageGroupChatFlagAlreadyReported": "Вы уже отправили жалобу на это сообщение.",
     "messageGroupChatNotFound": "Сообщение не найдено!",
     "messageGroupChatAdminClearFlagCount": "Только администратор может очистить счётчик отметок.",

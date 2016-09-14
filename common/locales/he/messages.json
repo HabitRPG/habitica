@@ -48,7 +48,6 @@
     "messageGroupCannotRemoveSelf": "אתם לא יכולים להסיר את עצמכם!",
     "messageGroupChatBlankMessage": "אתם לא יכולים לשלוח הודעה ריקה",
     "messageGroupChatLikeOwnMessage": "אתם לא יכולים לסמן ״אהבתי״ על ההודעה של עצמכם. אל תהיו כאלו.",
-    "messageGroupChatFlagOwnMessage": "אתם לא יכולים לדווח על ההודעה שלכם.",
     "messageGroupChatFlagAlreadyReported": "כבר דיווחתם על ההודעה הזו",
     "messageGroupChatNotFound": "הודעה לא נמצאה!",
     "messageGroupChatAdminClearFlagCount": "רק מנהל מערכת יכול לאפס את ספירת הדגלים!",

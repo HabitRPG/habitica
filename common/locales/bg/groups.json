@@ -125,8 +125,8 @@
     "copyMessageAsToDo": "Копиране на съобщението като задача",
     "messageAddedAsToDo": "Съобщението беше копирано като задача.",
     "messageWroteIn": "<%= user %> публикува нещо в <%= group %>",
-    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
-    "taskTextFromInbox": "Message from <%= from %>",
+    "taskFromInbox": "<%= from %> написа „<%= message %>“",
+    "taskTextFromInbox": "Съобщение от <%= from %>",
     "msgPreviewHeading": "Преглед на съобщението",
     "leaderOnlyChallenges": "Само водачът на групата може да създава предизвикателства",
     "sendGift": "Изпращане на подарък",
@@ -199,5 +199,6 @@
     "onlyGroupLeaderCanEditTasks": "Нямате право да управлявате задачите!",
     "onlyGroupTasksCanBeAssigned": "Само групови задачи могат да бъдат зададени",
     "newChatMessagePlainNotification": "Има ново съобщение в <%= groupName %> от <%= authorName %>. Щракнете тук, за да отворите страницата!",
-    "newChatMessageTitle": "Има ново съобщение в <%= groupName %>"
+    "newChatMessageTitle": "Има ново съобщение в <%= groupName %>",
+    "desktopNotificationsText": "Нуждаем се от разрешението Ви да включим известията на работния плот за новите съобщения в груповия чат! Следвайте инструкциите на браузъра си, за да ги включите.<br><br>Ще получавате тези известия само когато страницата на Хабитика е отворена. Ако решите, че не Ви харесват, можете да ги изключите от настройките на браузъра си.<br><br>Тази кутийка ще се затвори автоматично след като вземете решение."
 }
