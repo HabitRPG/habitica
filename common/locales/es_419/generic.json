@@ -171,7 +171,7 @@
     "birthdayCardAchievementText": "¡Muchas felicidades! Envió o recibió <%= cards %> tarjetas de cumpleaños.",
     "streakAchievement": "¡Ganaste un logro de racha!",
     "firstStreakAchievement": "Racha de 21 días",
-    "streakAchievementCount": "<%= userCount %> Rachas de 21 días",
+    "streakAchievementCount": "<%= streaks %> Rachas de 21 días",
     "twentyOneDays": "¡Completaste tu Diaria por 21 días seguidos!",
     "dontBreakStreak": "Fantástico trabajo. ¡No rompas la racha!",
     "dontStop": "¡No frenes ahora!",
