@@ -16,7 +16,7 @@ import {
   sendTxn as sendTxnEmail,
 } from '../../libs/email';
 import Bluebird from 'bluebird';
-import sendPushNotification from '../../libs/pushNotifications';
+import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 
 let api = {};
 
@@ -162,7 +162,7 @@ function _getMembersForItem (type) {
  *
  * @apiParam {UUID} groupId The group id
  * @apiParam {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
- * @apiParam {boolean} includeAllPublicFields Query parameter available only when fetching a party. If === `true` then all public fields for members will be returned (liek when making a request for a single member)
+ * @apiParam {boolean} includeAllPublicFields Query parameter available only when fetching a party. If === `true` then all public fields for members will be returned (like when making a request for a single member)
  *
  * @apiSuccess {array} data An array of members, sorted by _id
  */

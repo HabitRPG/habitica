@@ -1,9 +1,9 @@
 {
   "habiticaBackSoon": "Oroa dig inte. Habitica kommer snart tillbaka!",
-  "importantMaintenance": "Vi håller på med viktigt underhåll som vi beräknar kommer pågå fram till <%= localDate %> i din tidszon.",
+  "importantMaintenance": "We are doing important maintenance that we estimate will last until 10pm Pacific Time (5am UTC).",
   "maintenance": "Underhåll",
   "maintenanceMoreInfo": "Vill du ha mer information om underhållet?? <%= linkStart %>Spana in info-sidan<%= linkEnd %>.",
-  "noDamageKeepStreaks": "You will NOT take damage or lose streaks!",
+  "noDamageKeepStreaks": "Du kommer INTE att ta skada eller förlora inslag!",
   "thanksForPatience": "Tack för ditt tålamod!",
   "twitterMaintenanceUpdates": "For the most recent updates, watch our <a href='https://twitter.com/habitica'>Twitter</a>, where we will be posting status information.",
   "veteranPetAward": "När det är över kommer du få ett Veteranhusdjur!",

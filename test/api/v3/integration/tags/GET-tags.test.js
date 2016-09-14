@@ -6,7 +6,9 @@ describe('GET /tags', () => {
   let user;
 
   before(async () => {
-    user = await generateUser();
+    user = await generateUser({
+      tags: [],
+    });
   });
 
   it('returns all user\'s tags', async () => {
@@ -15,8 +17,8 @@ describe('GET /tags', () => {
 
     let tags = await user.get('/tags');
 
-    expect(tags.length).to.equal(2 + 3); // + 3 because 1 is a default task
-    expect(tags[tags.length - 2].name).to.equal(tag1.name);
-    expect(tags[tags.length - 1].name).to.equal(tag2.name);
+    expect(tags.length).to.equal(2);
+    expect(tags[0].name).to.equal(tag1.name);
+    expect(tags[1].name).to.equal(tag2.name);
   });
 });

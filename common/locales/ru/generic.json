@@ -6,7 +6,8 @@
     "titleTasks": "Задачи",
     "titleAvatar": "Аватар",
     "titleBackgrounds": "Фон",
-    "titleStats": "Характеристики и достижения",
+    "titleStats": "Характеристики",
+    "titleAchievs": "Достижения",
     "titleProfile": "Профиль",
     "titleInbox": "Почта",
     "titleTavern": "Таверна",
@@ -114,7 +115,8 @@
     "audioTheme_wattsTheme": "Тема Уоттса",
     "audioTheme_gokulTheme": "Тема Гокула",
     "audioTheme_luneFoxTheme": "Тема от LuneFox",
-    "audioTheme_rosstavoTheme": "Rosstavo's Theme",
+    "audioTheme_rosstavoTheme": "Тема от Rosstavo",
+    "audioTheme_dewinTheme": "Тема от Dewin",
     "askQuestion": "Задать вопрос",
     "reportBug": "Сообщить о проблеме",
     "HabiticaWiki": "Habitica Вики",
@@ -179,5 +181,9 @@
     "raisePetShare": "Мой питомец вырос в скакуна благодаря завершению заданий в реальной жизни!",
     "wonChallengeShare": "Я выиграл испытание в Habitica!",
     "achievementShare": "Я получил новое достижение в Habitica!",
-    "orderBy": "Упорядочить по <%= item %>"
+    "orderBy": "Упорядочить по <%= item %>",
+    "you": "(вы)",
+    "enableDesktopNotifications": "Включить уведомления на рабочем столе",
+    "online": "в сети",
+    "onlineCount": "<%= count %> в сети"
 }

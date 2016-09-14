@@ -33,7 +33,7 @@
     "seasonalShopFallText": "Welcome to the Seasonal Shop!! We're stocking autumn <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Fall Festival event each year, but we're only open until October 31, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopWinterText": "Welcome to the Seasonal Shop!! We're stocking winter <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies at the moment. Everything here will be available to purchase during the Winter Wonderland event each year, but we're only open until January 31, so be sure to stock up now, or you'll have to wait a year to buy these items again!",
     "seasonalShopFallTextBroken": "Oh... Vitaj v Sezónnom obchode... Máme tu jesennú Sezónnu edíciu vecičiek, alebo také niečo... Všetko čo tu vidíš si môžeš kúpiť počas Fall Festivalu každý rok, ale máme otvorené len do 31. Októbra... Myslím, že by si si mal niečo kúpiť teraz, inak budeš musieť čakať... a čakať... a čakať... <strong>*povzdych*</strong>",
-    "seasonalShopRebirth": "Ak použiješ Orb znovuzrodenia, môžeš si kúpiť výstroj v stĺpci odmien. Spočiatku si budeš môcť kúpiť len predmety k tvojmu súčasnému povolaniu (k bojovníkovi, s ktorým začínaš), ale neboj sa, ostatné špecifické predmety pre povolania budú dostupné, keď zmeníš povolanie.",
+    "seasonalShopRebirth": "If you bought any of this equipment in the past but don't currently own it, you can repurchase it in the Rewards Column. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Candy Cane (Mage)",
     "skiSet": "Ski-sassin (Rogue)",
     "snowflakeSet": "Snowflake (Healer)",
@@ -75,7 +75,8 @@
     "shipSoothsayerSet": "Ship Soothsayer (Mage)",
     "strappingSailorSet": "Strapping Sailor (Healer)",
     "reefRenegadeSet": "Reef Renegade (Rogue)",
-    "fallEventAvailability": "K dispozícii do 31. Októbra",
-    "winterEventAvailability": "K dispozícii do 31. Decembra",
-    "springEventAvailability": "Available until May 31"
+    "fallEventAvailability": "Available for purchase until October 31.",
+    "winterEventAvailability": "Available for purchase until December 31.",
+    "springEventAvailability": "Available for purchase until May 31.",
+    "summerEventAvailability": "Available for purchase until August 31."
 }

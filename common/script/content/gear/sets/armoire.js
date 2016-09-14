@@ -158,6 +158,14 @@ let armor = {
     set: 'falconer',
     canOwn: ownsItem('armor_armoire_falconerArmor'),
   },
+  vermilionArcherArmor: {
+    text: t('armorArmoireVermilionArcherArmorText'),
+    notes: t('armorArmoireVermilionArcherArmorNotes', { per: 15 }),
+    value: 100,
+    per: 15,
+    set: 'vermilionArcher',
+    canOwn: ownsItem('armor_armoire_vermilionArcherArmor'),
+  },
 };
 
 let eyewear = {
@@ -396,6 +404,14 @@ let head = {
     set: 'falconer',
     canOwn: ownsItem('head_armoire_falconerCap'),
   },
+  vermilionArcherHelm: {
+    text: t('headArmoireVermilionArcherHelmText'),
+    notes: t('headArmoireVermilionArcherHelmNotes', { per: 12 }),
+    value: 100,
+    per: 12,
+    set: 'vermilionArcher',
+    canOwn: ownsItem('head_armoire_vermilionArcherHelm'),
+  },
 };
 
 let shield = {
@@ -633,6 +649,15 @@ let weapon = {
     str: 15,
     set: 'cannoneer',
     canOwn: ownsItem('weapon_armoire_cannon'),
+  },
+  vermilionArcherBow: {
+    text: t('weaponArmoireVermilionArcherBowText'),
+    notes: t('weaponArmoireVermilionArcherBowNotes', { str: 15 }),
+    value: 100,
+    str: 15,
+    twoHanded: true,
+    set: 'vermilionArcher',
+    canOwn: ownsItem('weapon_armoire_vermilionArcherBow'),
   },
 };
 

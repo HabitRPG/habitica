@@ -33,7 +33,7 @@
     "seasonalShopFallText": "Welkom in de Seizoenswinkel! We hebben op het moment najaars <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>seizoenseditie</a> spullen in voorraad. Alles is te koop tijdens het Najaars Volksfeest-evenement ieder jaar, maar we zijn maar open tot 31 oktober. Dus zorg dat je nu inslaat of je moet een jaar wachten voordat je deze voorwerpen weer kunt kopen!",
     "seasonalShopWinterText": "Welkom in de Seizoenswinkel!! We hebben nu winterse <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>seizoensspulletjes</a> in het assortiment. Alles hier is ieder jaar te koop tijdens het Winter Wonderlandevenement, maar we zijn slechts open tot 31 januari. Zorg er dus voor dat je nu inslaat, anders moet je een jaar wachten om deze voorwerpen weer te kunnen kopen!",
     "seasonalShopFallTextBroken": "Oh... Welkom in de Seizoenswinkel... We hebben op het moment najaars spullen in voorraad, ofzo... Alles is te koop tijdens het Najaars Volksfeest-evenement ieder jaar, maar we zijn maar open tot 31 oktober... Zorg maar dat je inslaat anders zou je moeten wachten... wachten... en nog eens wachten... <strong>*zucht*</strong>",
-    "seasonalShopRebirth": "Als je een Bol der Hergeboorte gebruikt hebt, kun je deze uitrustingsstukken weer kopen in de beloningen kolom. In het begin kun je alleen de uitrustingsstukken van je huidige klasse kopen (dat is standaard Krijger), maar vrees niet, de uitrustingsstukken die bij een andere klasse horen worden weer beschikbaar als je die klasse kiest.",
+    "seasonalShopRebirth": "If you bought any of this equipment in the past but don't currently own it, you can repurchase it in the Rewards Column. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Zuurstok (Magiër)",
     "skiSet": "Skimoordenaar (Dief)",
     "snowflakeSet": "Sneeuwvolk (Heler)",
@@ -72,10 +72,11 @@
     "comfortingKittySet": "Troostend Katje (Heler)",
     "sneakySqueakerSet": "Sneaky Pieper (Dief)",
     "sunfishWarriorSet": "Maanviskrijger (Krijger)",
-    "shipSoothsayerSet": "Waarzeggersschip (Magiër)",
+    "shipSoothsayerSet": "Schipswaarzegger (Magiër)",
     "strappingSailorSet": "Ontzagwekkende zeiler (Heler)",
-    "reefRenegadeSet": "Rif-overloper (Dief)",
-    "fallEventAvailability": "Beschikbaar tot 31 oktober",
-    "winterEventAvailability": "Beschikbaar tot 31 december",
-    "springEventAvailability": "Beschikbaar tot 31 mei"
+    "reefRenegadeSet": "Rif-rebel (Dief)",
+    "fallEventAvailability": "Verkrijgbaar voor aankoop tot 31 oktober.",
+    "winterEventAvailability": "Verkrijgbaar voor aankoop tot 31 december.",
+    "springEventAvailability": "Verkrijgbaar voor aankoop tot 31 mei.",
+    "summerEventAvailability": "Verkrijgbaar voor aankoop tot 31 augustus."
 }

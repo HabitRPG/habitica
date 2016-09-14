@@ -24,6 +24,7 @@ module.exports = function openMysteryItem (user, req = {}, analytics) {
       itemType: 'Subscriber Gear',
       acquireMethod: 'Subscriber',
       category: 'behavior',
+      headers: req.headers,
     });
   }
 

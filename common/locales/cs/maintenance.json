@@ -1,6 +1,6 @@
 {
   "habiticaBackSoon": "Nebojte se, Habitica bude brzy zpět!",
-  "importantMaintenance": "Provádíme důležitou údržbu, která dle našich odhadů bude trvat do <%= localDate %> ve vašem časovém pásmu.",
+  "importantMaintenance": "Právě probíhá důležitá údržba. Odhadujeme, že bude trvat do 10PM Pacifického času (5:00AM UTC).",
   "maintenance": "Údržba",
   "maintenanceMoreInfo": "Chcete více informací ohledně údržby? <%= linkStart %>Podívejte se na naši stránku<%= linkEnd %>.",
   "noDamageKeepStreaks": "Neutrpíte ŽÁDNÉ poškození a neztratíte vaše série úspěšnosti!",

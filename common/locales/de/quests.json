@@ -48,6 +48,8 @@
     "leaveQuest": "Quest verlassen",
     "sureLeave": "Willst Du die aktive Quest wirklich verlassen? Dein kompletter Questfortschritt wird verloren gehen.",
     "questOwner": "Quest-Besitzer",
+    "questTaskDamage": "+<%= damage %> Schaden ausstehend für den Boss",
+    "questTaskCollection": "Heute <%= items %> Gegenstände eingesammelt",
     "questOwnerNotInPendingQuest": "Der Quest-Besitzer hat die Gruppe verlassen und kann die Quest nicht mehr starten. Es wird empfohlen, dass Du sie jetzt abbrichst. Der Quest-Besitzer wird die Questrolle zurück bekommen.",
     "questOwnerNotInRunningQuest": "Der Quest-Besitzer hat die Quest verlassen. Wenn Du willst, kannst Du die Quest abbrechen. Du kannst sie auch weiterlaufen lassen und alle übrigen Teilnehmer werden die Questbelohnungen erhalten wenn sie die Quest geschafft haben.",
     "questOwnerNotInPendingQuestParty": "Der Quest-Besitzer hat die Gruppe verlassen und kann die Quest nicht mehr starten. Es wird empfohlen, dass Du sie jetzt abbrichst. Der Quest-Besitzer wird die Questrolle zurück bekommen.",
@@ -95,7 +97,7 @@
     "onlyLeaderAbortQuest": "Nur der Gruppen- oder Quest-Leiter kann die Quest abbrechen.",
     "questAlreadyRejected": "Du hast die Questeinladung bereits abgelehnt.",
     "cantCancelActiveQuest": "Du kannst eine aktive Quest nicht zurückziehen, verwende die Funktion Abbrechen.",
-    "onlyLeaderCancelQuest": "Nur der Gruppen- oder Quest-Leiter kann die Quest zurückziehen.",
+    "onlyLeaderCancelQuest": "Nur der Gruppen- oder Quest-Leiter kann die Quest abbrechen.",
     "questNotPending": "Es ist keine Quest zum Start vorhanden.",
     "questOrGroupLeaderOnlyStartQuest": "Nur der Quest- oder Gruppen-Leiter kann den Quest-Start erzwingen"
 }

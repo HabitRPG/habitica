@@ -8,7 +8,8 @@
     "titleTasks": "Tasks",
     "titleAvatar": "Avatar",
     "titleBackgrounds": "Backgrounds",
-    "titleStats": "Stats & Achievements",
+    "titleStats": "Stats",
+    "titleAchievs": "Achievements",
     "titleProfile": "Profile",
     "titleInbox": "Inbox",
     "titleTavern": "Tavern",
@@ -185,5 +186,9 @@
     "raisePetShare": "I raised a pet into a mount by completing my real-life tasks!",
     "wonChallengeShare": "I won a challenge in Habitica!",
     "achievementShare": "I earned a new achievement in Habitica!",
-    "orderBy": "Order By <%= item %>"
+    "orderBy": "Order By <%= item %>",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

@@ -148,7 +148,7 @@
   "weaponSpecialSummer2015MageNotes": "Hidden power glimmers in the jewels of this staff. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2015 Summer Gear.",
   "weaponSpecialSummer2015HealerText": "Wand of the Waves",
   "weaponSpecialSummer2015HealerNotes": "Cures seasickness and sea sickness! Increases Intelligence by <%= int %>. Limited Edition 2015 Summer Gear.",
-  
+
   "weaponSpecialFall2015RogueText": "Bat-tle Ax",
   "weaponSpecialFall2015RogueNotes": "Fearsome To-Dos cower before the flapping of this ax. Increases Strength by <%= str %>. Limited Edition 2015 Autumn Gear.",
   "weaponSpecialFall2015WarriorText": "Wooden Plank",
@@ -184,7 +184,7 @@
   "weaponSpecialSummer2016MageNotes": "All the power of the seas filters through this staff. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2016 Summer Gear.",
   "weaponSpecialSummer2016HealerText": "Healing Trident",
   "weaponSpecialSummer2016HealerNotes": "One spike harms, the other heals. Increases Intelligence by <%= int %>. Limited Edition 2016 Summer Gear.",
-  
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -230,6 +230,8 @@
   "weaponArmoireSandySpadeNotes": "A tool for digging, as well as flicking sand into the eyes of enemy monsters. Increases Strength by <%= str %>. Enchanted Armoire: Seaside Set (Item 1 of 3).",
   "weaponArmoireCannonText": "Cannon",
   "weaponArmoireCannonNotes": "Arr! Set your aim with determination. Increases Strength by <%= str %>. Enchanted Armoire: Cannoneer Set (Item 1 of 3).",
+  "weaponArmoireVermilionArcherBowText": "Vermilion Archer Bow",
+  "weaponArmoireVermilionArcherBowNotes": "Your arrow will fly like a shooting star from this brilliant red bow! Increases Strength by <%= str %>. Enchanted Armoire: Vermilion Archer Set (Item 1 of 3).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -363,7 +365,7 @@
   "armorSpecialSummer2015MageNotes": "Hidden power resides in the puffs of these sleeves. Increases Intelligence by <%= int %>. Limited Edition 2015 Summer Gear.",
   "armorSpecialSummer2015HealerText": "Sailor's Armor",
   "armorSpecialSummer2015HealerNotes": "This armor lets everyone know that you are an honest merchant sailor who would never dream of behaving like a scalawag. Increases Constitution by <%= con %>. Limited Edition 2015 Summer Gear.",
-  
+
   "armorSpecialFall2015RogueText": "Bat-tle Armor",
   "armorSpecialFall2015RogueNotes": "Fly into bat-tle! Increases Perception by <%= per %>. Limited Edition 2015 Autumn Gear.",
   "armorSpecialFall2015WarriorText": "Scarecrow Armor",
@@ -372,7 +374,7 @@
   "armorSpecialFall2015MageNotes": "Every stitch in this armor shimmers with enchantment. Increases Intelligence by <%= int %>. Limited Edition 2015 Autumn Gear.",
   "armorSpecialFall2015HealerText": "Potioner Robes",
   "armorSpecialFall2015HealerNotes": "What? Of course that was a potion of constitution. No, you are definitely not turning into a frog! Don't be ribbiticulous. Increases Constitution by <%= con %>. Limited Edition 2015 Autumn Gear.",
-  
+
   "armorSpecialWinter2016RogueText": "Cocoa Armor",
   "armorSpecialWinter2016RogueNotes": "This leather armor keeps you nice and toasty. Is it actually made from cocoa? You'll never tell. Increases Perception by <%= per %>. Limited Edition 2015-2016 Winter Gear.",
   "armorSpecialWinter2016WarriorText": "Snowman Suit",
@@ -399,7 +401,7 @@
   "armorSpecialSummer2016MageNotes": "This slippery garment transforms its wearer into a real Dolphin Mage! Increases Intelligence by <%= int %>. Limited Edition 2016 Summer Gear.",
   "armorSpecialSummer2016HealerText": "Seahorse Tail",
   "armorSpecialSummer2016HealerNotes": "This spiky garment transforms its wearer into a real Seahorse Healer! Increases Constitution by <%= con %>. Limited Edition 2016 Summer Gear.",
-  
+
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
   "armorMystery201403Text": "Forest Walker Armor",
@@ -483,6 +485,8 @@
   "armorArmoireCannoneerRagsNotes": "These rags be tougher than they look. Increases Constitution by <%= con %>. Enchanted Armoire: Cannoneer Set (Item 2 of 3).",
   "armorArmoireFalconerArmorText": "Falconer Armor",
   "armorArmoireFalconerArmorNotes": "Keep away talon attacks with this sturdy armor! Increases Constitution by <%= con %>. Enchanted Armoire: Falconer Set (Item 1 of 3).",
+  "armorArmoireVermilionArcherArmorText": "Vermilion Archer Armor",
+  "armorArmoireVermilionArcherArmorNotes": "This armor is made of a specially enchanted red metal for maximum protection, minimal restriction, and maximum flair! Increases Perception by <%= per %>. Enchanted Armoire: Vermilion Archer Set (Item 2 of 3).",
 
   "headgear": "headgear",
   "headgearCapitalized": "Headgear",
@@ -693,6 +697,8 @@
   "headMystery201606Notes": "Hum the tune of the ocean as you blend in with the frolicking seals! Confers no benefit. June 2016 Subscriber Item.",
   "headMystery201607Text": "Seafloor Rogue Helm",
   "headMystery201607Notes": "The kelp growing from this helm helps camouflage you. Confers no benefit. July 2016 Subscriber Item.",
+  "headMystery201608Text": "Helm of Lightning",
+  "headMystery201608Notes": "This crackling helm conducts electricity! Confers no benefit. August 2016 Subscriber Item.",
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
   "headMystery301405Text": "Basic Top Hat",
@@ -750,6 +756,8 @@
   "headArmoireCannoneerBandannaNotes": "'Tis a cannoneer's life for me! Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Cannoneer Set (Item 3 of 3).",
   "headArmoireFalconerCapText": "Falconer Cap",
   "headArmoireFalconerCapNotes": "This jaunty cap helps you better understand birds of prey. Increases Intelligence by <%= int %>. Enchanted Armoire: Falconer Set (Item 2 of 3).",
+  "headArmoireVermilionArcherHelmText": "Vermilion Archer Helm",
+  "headArmoireVermilionArcherHelmNotes": "The magic ruby in this helm will help you aim with laser focus! Increases Perception by <%= per %>. Enchanted Armoire: Vermilion Archer Set (Item 3 of 3).",
 
   "offhand": "shield-hand item",
   "offhandCapitalized": "Shield-Hand Item",
@@ -837,14 +845,14 @@
   "shieldSpecialSummer2015WarriorNotes": "Crafted of deep-ocean metal by the artisans of Dilatory, this shield shines like the sand and the sea. Increases Constitution by <%= con %>. Limited Edition 2015 Summer Gear.",
   "shieldSpecialSummer2015HealerText": "Strapping Shield",
   "shieldSpecialSummer2015HealerNotes": "Use this shield to bash away bilge rats. Increases Constitution by <%= con %>. Limited Edition 2015 Summer Gear.",
-  
+
   "shieldSpecialFall2015RogueText": "Bat-tle Ax",
   "shieldSpecialFall2015RogueNotes": "Fearsome To-Dos cower before the flapping of this ax. Increases Strength by <%= str %>. Limited Edition 2015 Autumn Gear.",
   "shieldSpecialFall2015WarriorText": "Birdseed Bag",
   "shieldSpecialFall2015WarriorNotes": "It's true that you're supposed to be SCARING the crows, but there's nothing wrong with making friends! Increases Constitution by <%= con %>. Limited Edition 2015 Autumn Gear.",
   "shieldSpecialFall2015HealerText": "Stirring Stick",
   "shieldSpecialFall2015HealerNotes": "This stick can stir anything without melting, dissolving, or bursting into flame! It can also be used to fiercely poke enemy tasks. Increases Constitution by <%= con %>. Limited Edition 2015 Autumn Gear.",
-  
+
   "shieldSpecialWinter2016RogueText": "Cocoa Mug",
   "shieldSpecialWinter2016RogueNotes": "Warming drink, or boiling projectile? You decide... Increases Strength by <%= str %>. Limited Edition 2015-2016 Winter Gear.",
   "shieldSpecialWinter2016WarriorText": "Sled Shield",
@@ -865,7 +873,7 @@
   "shieldSpecialSummer2016WarriorNotes": "Bite those tough tasks with this toothy shield! Increases Constitution by <%= con %>. Limited Edition 2016 Summer Gear.",
   "shieldSpecialSummer2016HealerText": "Sea Star Shield",
   "shieldSpecialSummer2016HealerNotes": "Sometimes mistakenly called a Starfish Shield. Increases Constitution by <%= con %>. Limited Edition 2016 Summer Gear.",
-  
+
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
   "shieldMystery301405Text": "Clock Shield",
@@ -906,6 +914,8 @@
   "backMystery201510Notes": "Prehensile and powerful! Confers no benefit. October 2015 Subscriber Item.",
   "backMystery201602Text": "Heartbreaker Cape",
   "backMystery201602Notes": "With a swish of your cape, your enemies fall before you! Confers no benefit. February 2016 Subscriber Item.",
+  "backMystery201608Text": "Cape of Thunder",
+  "backMystery201608Notes": "Fly through the stormy skies with this billowing cape! Confers no benefit. August 2016 Subscriber Item.",
 
   "backSpecialWonderconRedText": "Mighty Cape",
   "backSpecialWonderconRedNotes": "Swishes with strength and beauty. Confers no benefit. Special Edition Convention Item.",

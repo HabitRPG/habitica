@@ -33,7 +33,7 @@
     "seasonalShopFallText": "Добро пожаловать в Сезонную лавку! Сейчас мы предлагаем товары осеннего <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>сезонного выпуска</a>. Товары будут доступны ежегодно во время Осеннего Фестиваля, но только до 31 октября, так что спешите закупиться сейчас, иначе придется ждать целый год!",
     "seasonalShopWinterText": "Добро пожаловать в Сезонную Лавку!! Сейчас вашему вниманию представляется наша зимняя <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'> Сезонная Коллекция</a>. Она будет доступна в течение праздника Зимней Страны Чудес каждый год, но мы открыты только до 31-го Января! Покупайте пока не поздно, или придется ждать до следующего года!",
     "seasonalShopFallTextBroken": "Ох... Добро пожаловать в Сезонную Лавку... Мы предлагаем товары осеннего Сезонного выпуска, или что-то такое... Всё, что есть здесь, будет ежегодно доступно для покупки на протяжении Осеннего Фестиваля, но мы открыты только до 31 Октября... Я полагаю, вам стоит закупиться сейчас, либо придётся ждать... и ждать... и ждать... <strong>*вздох*</strong>",
-    "seasonalShopRebirth": "Использовав шар возрождения, вы сможете повторно купить это снаряжение в колонке наград. Поначалу вы сможете купить только предметы для вашего текущего класса (класс по умолчанию – воин), но не волнуйтесь: после смены класса вам станут доступны другие классовые предметы.",
+    "seasonalShopRebirth": "If you bought any of this equipment in the past but don't currently own it, you can repurchase it in the Rewards Column. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Карамельная палочка (Маг)",
     "skiSet": "Лыжник-ассасин (Разбойник)",
     "snowflakeSet": "Снежинка (Целитель)",
@@ -75,7 +75,8 @@
     "shipSoothsayerSet": "Предсказатель корабля (Маг)",
     "strappingSailorSet": "Здоровый матрос (Целитель)",
     "reefRenegadeSet": "Предатель Рифа (Разбойник)",
-    "fallEventAvailability": "Доступно до 31 октября",
-    "winterEventAvailability": "Доступен до 31 декабря",
-    "springEventAvailability": "Доступно до 31 Мая"
+    "fallEventAvailability": "Можно купить до 31 октября.",
+    "winterEventAvailability": "Можно купить до 31 декабря.",
+    "springEventAvailability": "Можно купить до 31 мая.",
+    "summerEventAvailability": "Можно купить до 31 августа."
 }

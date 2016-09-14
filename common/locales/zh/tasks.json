@@ -1,6 +1,6 @@
 {
     "clearCompleted": "删除已完成任务",
-    "lotOfToDos": "已经完成的待办事项将会在3天后自动归档。你可以在选项>设定>数据导出中找到它们。",
+    "lotOfToDos": "你最近完成的30个待办事项显示在这。你可以在数据>数据显示工具或者数据>导出数据>用户数据查看更早完成的代办事项。",
     "deleteToDosExplanation": "点击下面的按钮后，所有已完成的和被归档的待办事项会被永久删除。如果你希望保留记录，先导出它们。",
     "addmultiple": "多个添加",
     "addsingle": "单个添加",
@@ -134,5 +134,5 @@
     "strengthExample": "相关于运动和活动",
     "intelligenceExample": "相关于学术或智力精神上挑战追求",
     "perceptionExample": "相关于工作或财务任务",
-    "constitutionExample": "相关与健康，福利和社交活动"
+    "constitutionExample": "与健康，福利和社交相关的活动"
 }

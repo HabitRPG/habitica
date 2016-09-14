@@ -4,6 +4,7 @@
     "IP":"0.0.0.0",
     "CORES":1,
     "BASE_URL":"http://localhost:3000",
+    "FACEBOOK_ANALYTICS":"1234567890123456",
     "FACEBOOK_KEY":"123456789012345",
     "FACEBOOK_SECRET":"aaaabbbbccccddddeeeeffff00001111",
     "NODE_DB_URI":"mongodb://localhost/habitrpg",
@@ -73,5 +74,9 @@
         "APP_ID": "appId",
         "KEY": "key",
         "SECRET": "secret"
+    },
+    "SLACK": {
+        "FLAGGING_URL": "https://hooks.slack.com/services/id/id/id",
+        "FLAGGING_FOOTER_LINK": "https://habitrpg.github.io/flag-o-rama/"
     }
 }

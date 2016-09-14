@@ -6,7 +6,8 @@
     "titleTasks": "משימות",
     "titleAvatar": "דמות",
     "titleBackgrounds": "רקעים",
-    "titleStats": "סטטיסטיקות והישגים",
+    "titleStats": "Stats",
+    "titleAchievs": "Achievements",
     "titleProfile": "פרופיל",
     "titleInbox": "דואר נכנס",
     "titleTavern": "פונדק",
@@ -115,6 +116,7 @@
     "audioTheme_gokulTheme": "ערכת גוקול",
     "audioTheme_luneFoxTheme": "ערכת לונפוקס",
     "audioTheme_rosstavoTheme": "ערכת רוסטאבו",
+    "audioTheme_dewinTheme": "ערכת דווין",
     "askQuestion": "שאלו שאלה",
     "reportBug": "דיווח על תקלה",
     "HabiticaWiki": "הוויקי של האביטיקה",
@@ -179,5 +181,9 @@
     "raisePetShare": "אילפתי חיית מחמד להיות חיית רכיבה על ידי השלמת משימות מהעולם האמיתי!",
     "wonChallengeShare": "סיימתי אתגר בהביטיקה!",
     "achievementShare": "השגתי הישג חדש בהביטיקה!",
-    "orderBy": "סדר לפי <%= item %>"
+    "orderBy": "סדר לפי <%= item %>",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

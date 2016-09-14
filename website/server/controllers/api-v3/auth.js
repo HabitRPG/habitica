@@ -130,6 +130,14 @@ api.registerLocal = {
       newUser.registeredThrough = req.headers['x-client']; // Not saved, used to create the correct tasks based on the device used
     }
 
+    // A/B Test 2016-09-12: Start with Sound Enabled?
+    if (Math.random() < 0.5) {
+      newUser.preferences.sound = 'rosstavoTheme';
+      newUser._ABtest = '20160912-soundEnabled';
+    } else {
+      newUser._ABtest = '20160912-soundDisabled';
+    }
+
     // we check for partyInvite for backward compatibility
     if (req.query.groupInvite || req.query.partyInvite) {
       await _handleGroupInvitation(newUser, req.query.groupInvite || req.query.partyInvite);
@@ -154,6 +162,7 @@ api.registerLocal = {
         type: 'local',
         gaLabel: 'local',
         uuid: savedUser._id,
+        headers: req.headers,
       });
     }
 
@@ -213,6 +222,15 @@ api.loginLocal = {
     let user = await User.findOne(login, {auth: 1, apiToken: 1}).exec();
     let isValidPassword = user && user.auth.local.hashed_password === passwordUtils.encrypt(req.body.password, user.auth.local.salt);
     if (!isValidPassword) throw new NotAuthorized(res.t('invalidLoginCredentialsLong'));
+
+    res.analytics.track('login', {
+      category: 'behaviour',
+      type: 'local',
+      gaLabel: 'local',
+      uuid: user._id,
+      headers: req.headers,
+    });
+
     return _loginRes(user, ...arguments);
   },
 };
@@ -277,6 +295,7 @@ api.loginSocial = {
         type: network,
         gaLabel: network,
         uuid: savedUser._id,
+        headers: req.headers,
       });
 
       return null;
@@ -316,7 +335,7 @@ api.pusherAuth = {
     // Channel names are in the form of {presence|private}-{group|...}-{resourceId}
     let [channelType, resourceType, ...resourceId] = channelName.split('-');
 
-    if (['presence'].indexOf(channelType) === -1) { // presence is used only for parties, private for guilds too
+    if (['presence'].indexOf(channelType) === -1) { // presence is used only for parties, private for guilds
       throw new BadRequest('Invalid Pusher channel type.');
     }
 
@@ -533,6 +552,9 @@ api.updateEmail = {
     req.checkBody('password', res.t('missingPassword')).notEmpty();
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
+
+    let emailAlreadyInUse = await User.findOne({'auth.local.email': req.body.newEmail}).select({_id: 1}).lean().exec();
+    if (emailAlreadyInUse) throw new NotAuthorized(res.t('cannotFulfillReq'));
 
     let candidatePassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
     if (candidatePassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));

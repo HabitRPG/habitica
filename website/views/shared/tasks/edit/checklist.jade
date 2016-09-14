@@ -1,23 +1,23 @@
 .task-checklist-edit(ng-if='::!$state.includes("options.social.challenges") && (task.type=="daily" || task.type=="todo")')
   ul
     li
-      button(type='button', ng-if='!task.checklist[0]'
+      button(type='button', ng-if='!task._edit.checklist[0]'
         popover=env.t('checklistText'), popover-trigger='mouseenter', popover-placement='bottom',
         ng-click='addChecklist(task)')
         span.glyphicon.glyphicon-tasks
         span=env.t('addChecklist')
 
-  .checklist-form(ng-if='task.checklist')
+  .checklist-form(ng-if='task._edit.checklist')
     fieldset.option-group(ng-if='!$state.includes("options.social.challenges")')
-      legend.option-title(ng-if='task.checklist[0]')
+      legend.option-title(ng-if='task._edit.checklist[0]')
         span.hint(popover=env.t('checklistText'), popover-trigger='mouseenter', popover-placement='bottom')
           =env.t('checklist')
       ul(hrpg-sort-checklist)
-        li(ng-repeat='item in task.checklist')
+        li(ng-repeat='item in task._edit.checklist')
           //input(type='checkbox',ng-model='item.completed',ng-change='saveTask(task,true)')
           //-,ng-blur='saveTask(task,true)')
           span.checklist-icon.glyphicon.glyphicon-resize-vertical
-          input(type='text', ng-model='item.text', 
+          input(type='text', ng-model='item.text',
             ui-keyup="{'13':'addChecklistItem(task,$event,$index)','38 40':'navigateChecklist(task,$index,$event)'}")
           a(ng-click='removeChecklistItem(task,$event,$index,true)')
             span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))

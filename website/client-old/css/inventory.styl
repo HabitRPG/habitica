@@ -1,0 +1,142 @@
+.gem-wallet
+  cursor: pointer
+  &.pull-right
+    margin-right: 20px
+  .tile
+    background-color: darken($neutral, 10%)
+    &.add-gems-btn
+      opacity: 0
+  &:hover, &:focus
+    .tile
+      opacity: 1
+      &.has-add-gems
+        border-top-left-radius: 0px
+        border-bottom-left-radius: 0px
+      &.add-gems-btn
+        opacity: 1
+        background-color: $good
+        border-right: 0
+        border-radius: 0px
+        border-top-left-radius: 4px
+        border-bottom-left-radius: 4px
+    text-decoration: none
+.buy-gems .gem-wallet
+  margin-right: 0px
+
+.modal-header .gem-wallet
+  padding-top: 0px
+
+.equipment-title
+  display: inline-block
+  vertical-align: bottom
+  margin-right: 20px
+
+.well.use-costume-info
+  margin-top: 10px
+  p:first-child
+    margin-bottom: 20px
+
+.stable .static-popover
+  max-width: 550px
+
+menu.pets div
+  display: inline-block
+  vertical-align: top
+
+.current-pet
+    left: 0px
+    bottom: 0px
+
+.item-drop-icon
+    float:left
+    padding-right:20px
+    padding-bottom:20px
+
+//.Pet_Currency_Gem, .Pet_Currency_Gem2x, .Pet_Currency_Gem1x
+//    background: url("/bower_components/habitrpg-shared/img/sprites/Egg_Sprite_Sheet.png") no-repeat
+//    display:block
+
+.food-tray
+  position: fixed
+  right: 15px
+  bottom: 0px
+  width: 30%
+  max-width: 17em;
+  height: 50%
+  overflow-y: auto
+  z-index: 1
+  padding-bottom: 0
+
+.inventory-list
+  p
+    //display: none
+  li
+    clear:both
+  button.customize-option
+    position:relative
+  .stack-count
+    position:absolute
+    bottom:-6px
+    right:-9px
+
+.pets-menu > div
+    display:inline-block
+    vertical-align:top
+    padding:.3em
+    width:6em
+    margin-top:1em
+    text-align:center
+    p
+      //width:6em
+      margin-top:-.3em
+.hatchingPotion-menu > div
+    display:inline-block
+    vertical-align:top
+    padding:.3em
+    width:6em
+    margin-top:1em
+    p
+      text-align:center
+      width:6em
+      margin-top:-.5em
+
+// This adds feeding progress bars to pets. If we have any issues with `menu.pets > button`, revisit
+menu.pets .customize-menu
+
+  button
+    position: relative
+  .progress
+    width: 60%
+    position: absolute
+    bottom: -25px
+    left: 20%
+    height: 5px
+
+.pet-button
+    border: none
+    background: none white
+.pet-not-owned, .mount-not-owned
+    width: 81px;
+    height: 99px;
+    /* Would use css3 filters and just display the original pet image with a black hue,
+       but doesn't seem to work in Firefox or Opera */
+    /*filter: brightness(0%)
+    -webkit-filter: brightness(0%)
+    -moz-filter: brightness(0%)
+    -o-filter: brightness(0%)
+    -ms-filter: brightness(0%)*/
+
+    .PixelPaw
+      margin-top: 36px // align paw with pets, at the bottom of the button
+
+// styles for pets that have been fed until they evolve into a mount
+.pet-evolved
+    opacity: 0.1
+
+.selectableInventory
+  background-color: lightgreen !important
+  border-radius: 50%
+
+.sell-inventory
+  width: 162px
+  height: 138px

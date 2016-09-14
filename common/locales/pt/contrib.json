@@ -56,13 +56,13 @@
     "visitHeroes": "Visite o Salão de Heróis (colaboradores e apoiadores)",
     "conLearn": "Saiba mais sobre recompensas de colaboradores",
     "conLearnHow": "Saiba como contribuir ao Habitica",
-    "surveysSingle": "Ajudou Habitica a crescer, ou preenchendo uma pesquisa ouu ajudando com um grande esforço de testagem. Obrigado!",
-    "surveysMultiple": "Ajudou Habitica a crescer em <%= surveys %> ocasiões, ou preenchendo uma pesquisa ouu ajudando com um grande esforço de testagem. Obrigado!",
+    "surveysSingle": "Ajudou Habitica a crescer, preenchendo uma pesquisa ou ajudando com um grande esforço em testes. Obrigado!",
+    "surveysMultiple": "Ajudou Habitica a crescer em <%= surveys %> ocasiões, preenchendo uma pesquisa ou ajudando com um grande esforço em testes. Obrigado!",
     "currentSurvey": "Pesquisa Atual",
     "surveyWhen": "A insígnia será ofertada a todos os participantes quando as pesquisas tiverem sido processadas, no final de março.",
-    "blurbInbox": "É aqui que suas mensagens particulares ficam guardadas! Você pode enviar uma mensagem à alguém clicando no ícone do envelope próximo a seu nome na Taverna, Equipe, ou nas Conversas da Guilda. Se você recebeu uma MP inapropriada, você deve enviar uma imagem da mensagem para Lemoness (<a href=\"mailto:leslie@habitica.com\">leslie@habitica.com</a>)",
+    "blurbInbox": "This is where your private messages are stored! You can send someone a message by clicking on the envelope icon next to their name in Tavern, Party, or Guild Chat. If you've received an inappropriate PM, you should email a screenshot of it to the staff (<a href=\"mailto:admin@habitica.com\">admin@habitica.com</a>)",
     "blurbGuildsPage": "Guildas são grupos para conversas de interesse comum  criados por jogadores, para jogadores. Navegue pela lista e junte-se às Guildas que lhe interessam!",
     "blurbChallenges": "Desafios são criados pelos seus colegas. Juntar-se à um Desafio irá adicionar novas tarefas ao seu painel de tarefas, e ganhar um Desafio irá lhe dar uma conquista e muitas vezes um prêmio em Gemas!",
     "blurbHallPatrons": "Este é o Salão dos Patrocinadores, onde honramos os nobres aventureiros que apoiaram Habitica no Kickstarter. Agradecemos a eles por nos ajudar a trazer Habitica à vida!",
-    "blurbHallContributors": "Aqui é o Salão dos Contribuidores, onde colaboradores do código aberto de Habitica são homenageados. Seja através de programação, arte, música, escrita ou apenas ajudando, eles ganharam <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> Gemas, equipamentos exclusivos</a> e <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'> títulos de prestígio.</a> Você também pode colaborar com o Habitica! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Saiba mais aqui.</a>"
+    "blurbHallContributors": "Isto é o Salão dos Colaboradores, onde os colaboradores de código aberto para o Habitica são homenageados. Quer seja através de programação, arte, música, escrita ou apenas prestabilidade, eles ganharam <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> gemas, equipamento exclusivo</a> e <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>títulos de prestígio.</a> Você também pode colaborar para o Habitica! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Saiba mais aqui.</a>"
 }

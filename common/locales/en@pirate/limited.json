@@ -33,7 +33,7 @@
     "seasonalShopFallText": "Welcome t' th' Seasonal Shop!! We be stockin' autumn <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> goodies a' th' moment. Everything here 'll be available t' purchase durin' th' Fall Festival even' each year, but we only be open 'til October 31, so be sure t' stock up now, or ye'll have t' wait a year t' buy these items again!",
     "seasonalShopWinterText": "Ahoy! Welcome t' th' Seasonal Shop!! We be stockin' winter <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Seasonal Edition</a> loot at th' moment. Ev'rything here be available to buy during the Winter Wonderland event errry year, but we only be open until January 31, so be sure to stock up now, or ye'll have to wait a year to buy these items again!",
     "seasonalShopFallTextBroken": "Oh.... Welcome t' th' Seasonal Shop... We be stockin' autumn Seasonal Edition goodies, 'r somethin'... Everything here will be available t' purchase durin' th' Fall Festival even' each year, but we only be open 'til October 31... I guess ye should be stockin' up now, or ye'll be havin' t' wait... an' wait... an' wait... <strong>*sigh*</strong>",
-    "seasonalShopRebirth": "If ye've used th' Orb o' Rebirth, ye can repurchase this gear in th' Loot Column. At first, ye'll only be able to buy the items fer yer current class (Mercenary by default), but remain stout o' heart, ye can have the other classes' stuff if ye switch to that class.",
+    "seasonalShopRebirth": "If you bought any of this equipment in the past but don't currently own it, you can repurchase it in the Rewards Column. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Candy Cane (Mage)",
     "skiSet": "Ski-sassin (Scallywag)",
     "snowflakeSet": "Snowflake (Doc)",
@@ -72,10 +72,11 @@
     "comfortingKittySet": "Comfortin' Kitty (Doc)",
     "sneakySqueakerSet": "Sneaky Squeaker (Scallywag)",
     "sunfishWarriorSet": "Sunfish Warrior (Warrior)",
-    "shipSoothsayerSet": "Ship Soothsayer (Mage)",
-    "strappingSailorSet": "Strapping Sailor (Healer)",
-    "reefRenegadeSet": "Reef Renegade (Rogue)",
-    "fallEventAvailability": "Available 'til October 31",
-    "winterEventAvailability": "Available until December 31",
-    "springEventAvailability": "Available 'til May 31"
+    "shipSoothsayerSet": "Ship Soothsayer (Magician)",
+    "strappingSailorSet": "Strappin' Sailor (Doc)",
+    "reefRenegadeSet": "Reef Renegade (Scallywag)",
+    "fallEventAvailability": "Available for purchase until October 31.",
+    "winterEventAvailability": "Available for purchase until December 31.",
+    "springEventAvailability": "Available for purchase until May 31.",
+    "summerEventAvailability": "Available for purchase until August 31."
 }

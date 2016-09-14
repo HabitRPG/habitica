@@ -9,7 +9,11 @@
     "defaultTodo1Text": "Juntar-se ao Habitica (me complete!)",
     "defaultReward1Text": "Pausa de 15 minutos",
     "defaultReward1Notes": "Recompensas customizadas podem ser de vários tipos. Algumas pessoas vão esperar para assistir seu programa favorito até que elas tenham ouro suficiente para pagar por ele.",
-    "defaultTag1": "manhã",
-    "defaultTag2": "tarde",
-    "defaultTag3": "noite"
+    "defaultTag1": "Trabalho",
+    "defaultTag2": "Exercícios",
+    "defaultTag3": "Saúde + Bem Estar",
+    "defaultTag4": "Escola",
+    "defaultTag5": "Times",
+    "defaultTag6": "Tarefas",
+    "defaultTag7": "Creatividade"
 }

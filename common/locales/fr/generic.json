@@ -6,7 +6,8 @@
     "titleTasks": "Tâches",
     "titleAvatar": "Avatar",
     "titleBackgrounds": "Arrière-plans",
-    "titleStats": "Caractéristiques & Succès",
+    "titleStats": "Caractéristiques",
+    "titleAchievs": "Succès",
     "titleProfile": "Profil",
     "titleInbox": "Boîte de Réception",
     "titleTavern": "Taverne",
@@ -115,6 +116,7 @@
     "audioTheme_gokulTheme": "Thème de Gokul",
     "audioTheme_luneFoxTheme": "Thème de LuneFox",
     "audioTheme_rosstavoTheme": "Thème de Rosstavo",
+    "audioTheme_dewinTheme": "Thème de Dewin",
     "askQuestion": "Poser une Question",
     "reportBug": "Signaler un Bug",
     "HabiticaWiki": "Le Wiki Habitica",
@@ -179,5 +181,9 @@
     "raisePetShare": "J'ai transformé un familier en monture en terminant des tâches de ma vie réelle!",
     "wonChallengeShare": "J'ai gagné un défi sur Habitica !",
     "achievementShare": "J'ai gagné un nouveau succès sur Habitica !",
-    "orderBy": "Trier par <%= item %>"
+    "orderBy": "Trier par <%= item %>",
+    "you": "(vous)",
+    "enableDesktopNotifications": "Activer les notifications sur le bureau",
+    "online": "en ligne",
+    "onlineCount": "<%= count %> en ligne"
 }

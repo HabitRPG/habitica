@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Elimina attività completate",
-    "lotOfToDos": "Le To-Do completate vengono automaticamente archiviate dopo 3 giorni. Puoi accedervi in Impostazioni > Esporta dati.",
-    "deleteToDosExplanation": "Cliccando il bottone qui sotto, tutti i tuoi To-Do completati e quelli archiviati verranno cancellati in modo permanente. Esportali dall'apposito menù nelle impostazioni se vuoi mantenerne una copia.",
+    "lotOfToDos": "Le ultime 30 To-do completate sono mostrate qui. Puoi vedere ulteriori To-do completate in \"Dati utente > Visualizzazione dati utente\" oppure in \"Dati utente > Esporta dati > Dati utente\".",
+    "deleteToDosExplanation": "Cliccando il bottone qui sotto, tutte le tue To-Do completate e quelle archiviate verranno cancellate in modo permanente. Esportale dall'apposito menù nelle impostazioni se vuoi conservarne una copia.",
     "addmultiple": "Aggiungi multiple",
     "addsingle": "Aggiungi singola",
     "habit": "Habit",
@@ -74,7 +74,7 @@
     "clearTags": "Deseleziona",
     "hideTags": "Nascondi",
     "showTags": "Mostra",
-    "toRequired": "Devi fornire un valore.",
+    "toRequired": "Devi fornire un valore \"to\"",
     "startDate": "Data di inizio",
     "startDateHelpTitle": "Quando dovrebbe cominciare questa attività?",
     "startDateHelp": "Imposta la data in cui l'attività sarà \"attiva\". Non sarà necessario completarla prima di quel giorno.",
@@ -131,7 +131,7 @@
     "cantMoveCompletedTodo": "Non è possibile spostare una To-Do completata.",
     "directionUpDown": "\"direction\" è richiesto e deve essere 'up' oppure 'down'.",
     "alreadyTagged": "L'attività ha già l'etichetta specificata.",
-    "strengthExample": "Relativo agli esercizi e all'attività",
+    "strengthExample": "Relativo agli esercizi e all'attività fisica",
     "intelligenceExample": "Relativo agli scopi accademici o mentalmente complessi",
     "perceptionExample": "Relativo al lavoro o a operazioni finanziare",
     "constitutionExample": "Relativo alla salute, al benessere e all'interazione sociale"
