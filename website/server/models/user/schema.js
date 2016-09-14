@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 import shared from '../../../../common';
 import _ from 'lodash';
 import validator from 'validator';
@@ -371,6 +372,7 @@ let schema = new Schema({
     party: {type: Schema.Types.Mixed, default: () => {
       return {};
     }},
+    parties: {type: [{}], default: () => []},
   },
 
   guilds: [{type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']}],
