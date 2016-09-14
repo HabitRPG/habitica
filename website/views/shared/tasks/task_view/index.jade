@@ -35,6 +35,7 @@
     input.visuallyhidden.focusable(id='box-{{::obj._id}}_{{::task._id}}', type='checkbox',
       ng-if='!$state.includes("tasks")')
     label(for='box-{{::obj._id}}_{{::task._id}}')
+    group-task-meta-actions(ng-if="obj.type == 'guild'", task='task', group='obj')
 
 // main content
 .task-text(ng-dblclick='doubleClickTask(obj, task)')
