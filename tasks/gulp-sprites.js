@@ -10,17 +10,17 @@ import {each} from 'lodash';
 
 // https://github.com/Ensighten/grunt-spritesmith/issues/67#issuecomment-34786248
 const MAX_SPRITESHEET_SIZE = 1024 * 1024 * 3;
-const DIST_PATH = 'common/dist/sprites/';
+const DIST_PATH = 'website/assets/sprites/dist/';
 
 gulp.task('sprites:compile', ['sprites:clean', 'sprites:main', 'sprites:largeSprites', 'sprites:checkCompiledDimensions']);
 
 gulp.task('sprites:main', () => {
-  let mainSrc = sync('common/img/sprites/spritesmith/**/*.png');
+  let mainSrc = sync('website/assets/sprites/spritesmith/**/*.png');
   return createSpritesStream('main', mainSrc);
 });
 
 gulp.task('sprites:largeSprites', () => {
-  let largeSrc = sync('common/img/sprites/spritesmith_large/**/*.png');
+  let largeSrc = sync('website/assets/sprites/spritesmith_large/**/*.png');
   return createSpritesStream('largeSprites', largeSrc);
 });
 

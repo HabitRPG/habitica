@@ -111,7 +111,7 @@
             "app.css",
             "bower_components/pnotify/jquery.pnotify.default.css",
             "bower_components/pnotify/jquery.pnotify.default.icons.css",
-            "common/dist/sprites/habitrpg-shared.css",
+            "assets/sprites/habitrpg-shared.css",
             "bower_components/bootstrap-tour/build/css/bootstrap-tour.css",
             "fontello/css/fontelico.css"
         ]
@@ -153,7 +153,7 @@
             "bower_components/jquery-colorbox/example1/colorbox.css",
             "bower_components/smart-app-banner/smart-app-banner.css",
             "app.css",
-            "common/dist/sprites/habitrpg-shared.css",
+            "assets/sprites/habitrpg-shared.css",
             "static.css"
         ]
     },
@@ -189,7 +189,7 @@
             "bower_components/css-social-buttons/css/zocial.css",
             "bower_components/smart-app-banner/smart-app-banner.css",
             "front/staticstyle.css",
-            "common/dist/sprites/habitrpg-shared.css",
+            "assets/sprites/habitrpg-shared.css",
             "app.css"
         ]
     }

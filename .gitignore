@@ -30,7 +30,7 @@ website/client-old/docs
 coverage
 coverage.html
 common/dist/scripts/*
-common/dist/sprites/habitrpg-shared.css
+website/assets/sprites/dist/habitrpg-shared.css
 
 test/spec/mocks/translations.js
 
