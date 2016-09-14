@@ -78,14 +78,14 @@ angular.module('habitrpg')
           }
 
           $rootScope.party.onlineUsers = pusherMembers.count;
-          
+
           $rootScope.party.members.forEach(function (member) {
             if (pusherMembers.members[member._id]) {
               member.online = true;
             }
           });
         });
-        
+
         // When a member enters the party channel
         partyChannel.bind('pusher:member_added', function(pusherMember) {
           $rootScope.$apply(function() {
@@ -109,7 +109,7 @@ angular.module('habitrpg')
                 return true;
               }
             });
-          }); 
+          });
         });
       });
 
@@ -160,7 +160,7 @@ angular.module('habitrpg')
                 groupName: $rootScope.party.name,
               }), {
                 body: (chatData.user || chatData.uuid) + ': ' + chatData.text,
-                icon: '/common/img/gryphon_192-20.png'
+                icon: '/assets/img/gryphon_192-20.png'
               });
 
               notif.addEventListener('click', function () {
