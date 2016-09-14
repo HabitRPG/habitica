@@ -16,5 +16,5 @@ module.exports = function staticMiddleware (expressApp) {
   expressApp.use(express.static(PUBLIC_DIR));
 
   // Expose new client when not in production
-  if (!IS_PROD) expressApp.use('/new-app', express.static(`${PUBLIC_DIR}/../client-new`));
+  if (!IS_PROD) expressApp.use('/new-app', express.static(`${PUBLIC_DIR}/../client`));
 };
