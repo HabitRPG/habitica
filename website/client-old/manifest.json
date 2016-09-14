@@ -34,7 +34,7 @@
             "bower_components/jquery-ui/ui/minified/jquery.ui.sortable.min.js",
             "bower_components/smart-app-banner/smart-app-banner.js",
 
-            "common/dist/scripts/habitrpg-shared.js",
+            "habitrpg-shared.js",
 
             "js/env.js",
 
@@ -119,7 +119,7 @@
     "static": {
         "js": [
             "bower_components/jquery/dist/jquery.min.js",
-            "common/dist/scripts/habitrpg-shared.js",
+            "habitrpg-shared.js",
             "bower_components/angular/angular.js",
             "bower_components/angular-ui/build/angular-ui.js",
             "bower_components/angular-bootstrap/ui-bootstrap.js",
@@ -160,7 +160,7 @@
     "tmp_static_front": {
         "js": [
             "bower_components/jquery/dist/jquery.min.js",
-            "common/dist/scripts/habitrpg-shared.js",
+            "habitrpg-shared.js",
             "bower_components/angular/angular.js",
             "bower_components/angular-ui/build/angular-ui.js",
             "bower_components/jquery-colorbox/jquery.colorbox-min.js",
