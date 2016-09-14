@@ -6,7 +6,8 @@
     "titleTasks": "任务",
     "titleAvatar": "角色形象",
     "titleBackgrounds": "背景",
-    "titleStats": "角色属性及成就",
+    "titleStats": "属性",
+    "titleAchievs": "成就",
     "titleProfile": "角色信息",
     "titleInbox": "收件箱",
     "titleTavern": "酒馆",
@@ -181,7 +182,8 @@
     "wonChallengeShare": "我在Habitica赢了一个挑战！",
     "achievementShare": "我在Habitica得到了一个新成就！",
     "orderBy": "以<%= item %>排序",
-    "you": "你",
+    "you": "（自己）",
+    "enableDesktopNotifications": "开启桌面通知",
     "online": "在线",
     "onlineCount": "<%= count %> 人在线"
 }

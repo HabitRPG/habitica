@@ -6,7 +6,8 @@
     "titleTasks": "Tasks",
     "titleAvatar": "Avatarrr",
     "titleBackgrounds": "Backgrounds",
-    "titleStats": "Stats 'n Achievements",
+    "titleStats": "Stats",
+    "titleAchievs": "Achievements",
     "titleProfile": "Profile",
     "titleInbox": "Carrier Pigeon",
     "titleTavern": "Pub",
@@ -181,7 +182,8 @@
     "wonChallengeShare": "I won a challenge in Habitica!",
     "achievementShare": "I earned meself a new achievement in Habitica!",
     "orderBy": "Order By <%= item %>",
-    "you": "you",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
     "online": "online",
     "onlineCount": "<%= count %> online"
 }

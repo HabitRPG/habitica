@@ -6,7 +6,8 @@
     "titleTasks": "Tarefas",
     "titleAvatar": "Avatar",
     "titleBackgrounds": "Planos de fundo",
-    "titleStats": "Atributos e Conquistas",
+    "titleStats": "Atributos",
+    "titleAchievs": "Conquistas",
     "titleProfile": "Perfil",
     "titleInbox": "Mensagens",
     "titleTavern": "Taverna",
@@ -181,7 +182,8 @@
     "wonChallengeShare": "Venci um desafio em Habitica!",
     "achievementShare": "Consegui uma nova conquista em Habitica!",
     "orderBy": "Ordenar por <%= item %>",
-    "you": "você",
+    "you": "(você)",
+    "enableDesktopNotifications": "Habilitar Notificações na Área de Trabalho",
     "online": "online",
     "onlineCount": "<%= count %> online"
 }

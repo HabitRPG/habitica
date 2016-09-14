@@ -1,6 +1,5 @@
 {
     "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
-    "statsAch": "Statistik & Prestationer",
     "profile": "Profil",
     "avatar": "Skräddarsy Avatar",
     "other": "Annat",
@@ -83,7 +82,8 @@
     "allocateInt": "Poäng tilldelade till intelligens:",
     "allocateIntPop": "Lägg till ett poäng till Intelligens",
     "noMoreAllocate": "Nu när du uppnåt nivå 100 kommer du inte få några fler attributpoäng. Du kan fortsätta att gå upp i nivå, eller starta ett nytt äventyr på nivå 1 genom att använda <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Återfödelsens sfär</a>, nu gratis på Marknaden!",
-    "stats": "Avatar Statistik",
+    "stats": "Stats",
+    "achievs": "Achievements",
     "strength": "Styrka",
     "strengthText": "Styrka ökar chansen för slumpmässiga \"kritiska träffar\" och guld-, erfarenhet-, och fyndchansen höjs. Styrka hjälper också för att tillfoga skada till bossar.",
     "constitution": "Tålighet",

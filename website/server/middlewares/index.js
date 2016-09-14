@@ -29,7 +29,7 @@ import {
 
 const IS_PROD = nconf.get('IS_PROD');
 const DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING');
-const PUBLIC_DIR = path.join(__dirname, '/../../client');
+const PUBLIC_DIR = path.join(__dirname, '/../../client-old');
 
 const SESSION_SECRET = nconf.get('SESSION_SECRET');
 const TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;

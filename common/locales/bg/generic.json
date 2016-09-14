@@ -6,7 +6,8 @@
     "titleTasks": "Задачи",
     "titleAvatar": "Герой",
     "titleBackgrounds": "Фонови изображения",
-    "titleStats": "Атрибути и постижения",
+    "titleStats": "Атрибути",
+    "titleAchievs": "Постижения",
     "titleProfile": "Профил",
     "titleInbox": "Входяща поща",
     "titleTavern": "Кръчма",
@@ -181,7 +182,8 @@
     "wonChallengeShare": "Спечелих предизвикателство в Хабитика!",
     "achievementShare": "Спечелих ново постижение в Хабитика!",
     "orderBy": "Подреждане по <%= item %>",
-    "you": "Вие",
+    "you": "(Вие)",
+    "enableDesktopNotifications": "Включване на известията на работния плот",
     "online": "на линия",
     "onlineCount": "<%= count %> на линия"
 }

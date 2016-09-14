@@ -563,7 +563,7 @@
     "headSpecialFall2015RogueText": "战蝠之翼",
     "headSpecialFall2015RogueNotes": "这款超强功能的头盔可以通过回声定位你的敌人的位置！提高 <%= per %>点感知，2015年秋季限量版装备。",
     "headSpecialFall2015WarriorText": "稻草人的帽子",
-    "headSpecialFall2015WarriorNotes": "聪明人都希望获得这顶帽子。提升 <%= per %>点力量。2015年秋季限量版装备。",
+    "headSpecialFall2015WarriorNotes": "聪明人都希望获得这顶帽子。提升 <%= str %>点力量。2015年秋季限量版装备。",
     "headSpecialFall2015MageText": "缝纫女巫之帽子",
     "headSpecialFall2015MageNotes": "每一个针脚都闪耀魔咒的光辉。增加<%= per %>点感知。2015年秋季限量版装备。",
     "headSpecialFall2015HealerText": "青蛙帽子",

@@ -1,6 +1,5 @@
 {
     "communityGuidelinesWarning": "Bitte denke daran, dass Dein angezeigter Name, Dein Profilbild und Dein Profiltext die <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community-Richtlinien</a> einhalten müssen (das heißt keine Fluchwörter, keine sexuellen Themen, keine Beleidigungen, usw.). Wenn Du Fragen hast, ob etwas angebracht ist oder nicht, schreib einfach eine E-Mail an <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
-    "statsAch": "Werte & Erfolge",
     "profile": "Profil",
     "avatar": "Avatar anpassen",
     "other": "Anderes",
@@ -83,7 +82,8 @@
     "allocateInt": "Zugewiesene Intelligenzpunkte:",
     "allocateIntPop": "Füge einen Punkt zu Intelligenz hinzu",
     "noMoreAllocate": "Jetzt, da Du Level 100 erreicht hast, wirst Du keine weiteren Attributpunkte erhalten. Du kannst weiterspielen, oder ein neues Abenteuer auf Level 1 anfangen, indem Du die <a href='http://de.habitica.wikia.com/wiki/Sphäre_der_Wiedergeburt' target='_blank'>Sphäre der Wiedergeburt </a> benutzt. Sie ist jetzt kostenlos auf dem Marktplatz erhältlich.",
-    "stats": "Statuswerte",
+    "stats": "Werte",
+    "achievs": "Erfolge",
     "strength": "Stärke",
     "strengthText": "Stärke erhöht die Wahrscheinlichkeit zufälliger kritischer Treffer und die Rate mit der durch sie Gold, Beute und Erfahrung gewonnen wird. Weiterhin erhöht sich der Schaden an Bossen.",
     "constitution": "Ausdauer",

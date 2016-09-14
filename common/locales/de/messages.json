@@ -48,7 +48,6 @@
     "messageGroupCannotRemoveSelf": "Du kannst Dich nicht selbst entfernen!",
     "messageGroupChatBlankMessage": "Du kannst keine leere Nachricht versenden",
     "messageGroupChatLikeOwnMessage": "\"Gefällt mir\" funktioniert nicht bei eigenen Nachrichten. Sei nicht so einer.",
-    "messageGroupChatFlagOwnMessage": "Du kannst Deine eigene Nachricht nicht melden.",
     "messageGroupChatFlagAlreadyReported": "Du hast diese Nachricht bereits gemeldet",
     "messageGroupChatNotFound": "Nachricht wurde nicht gefunden!",
     "messageGroupChatAdminClearFlagCount": "Nur Admins können den Zählmarker zurücksetzen!",

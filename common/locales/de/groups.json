@@ -109,7 +109,7 @@
     "toUserIDRequired": "Eine Benutzer-ID wird benötigt",
     "gemAmountRequired": "Eine Anzahl an Edelsteinen wird benötigt",
     "notAuthorizedToSendMessageToThisUser": "Nachricht kann nicht an diesen Benutzer verschickt werden.",
-    "privateMessageGiftIntro": "Hallo <%= receiverName %>, Du hast etwas von <%= senderName =%> geschickt bekommen:",
+    "privateMessageGiftIntro": "Hallo <%= receiverName %>, Du hast etwas von <%= senderName %> geschickt bekommen:",
     "privateMessageGiftGemsMessage": "<%= gemAmount %> Edelsteine!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> Monate Abonnement!",
     "cannotSendGemsToYourself": "Edelsteine können nicht an Dich selbst geschickt werden. Versuche es stattdessen mit einem Abonnement.",
@@ -125,8 +125,8 @@
     "copyMessageAsToDo": "Nachricht als To-Do übernehmen",
     "messageAddedAsToDo": "Nachricht als To-Do übernommen.",
     "messageWroteIn": "<%= user %> schrieb in <%= group %>",
-    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
-    "taskTextFromInbox": "Message from <%= from %>",
+    "taskFromInbox": "<%= from %> schrieb '<%= message %>'",
+    "taskTextFromInbox": "Nachricht von <%= from %>",
     "msgPreviewHeading": "Nachrichtenvorschau",
     "leaderOnlyChallenges": "Nur der Gruppenleiter kann Wettbewerbe erstellen",
     "sendGift": "Geschenk schicken",
@@ -199,5 +199,6 @@
     "onlyGroupLeaderCanEditTasks": "Nicht berechtigt, Aufgaben zu bearbeiten!",
     "onlyGroupTasksCanBeAssigned": "Nur Gruppenaufgaben können verteilt werden",
     "newChatMessagePlainNotification": "Neue Nachricht in <%= groupName %> von <%= authorName %>. Hier geht's zur Chat Seite!",
-    "newChatMessageTitle": "Neue Nachricht in <%= groupName %>"
+    "newChatMessageTitle": "Neue Nachricht in <%= groupName %>",
+    "desktopNotificationsText": "Wir benötigen Deine Erlaubnis, um die Desktop-Benachrichtigungen für neue Nachrichten im Gruppen-Chat zu aktivieren! Folge den Anweisungen Deines Browsers um sie anzuschalten.<br><br>Du wirst diese Benachrichtigungen nur erhalten, solange Habitica geöffnet ist. Wenn Dir diese nicht gefallen sollten, können sie in Deinen Browser-Einstellungen deaktiviert werden.<br><br>Dieser Hinweis wird automatisch geschlossen, sobald eine Entscheidung getroffen wurde."
 }

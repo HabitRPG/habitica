@@ -6,7 +6,8 @@
     "titleTasks": "Завдання",
     "titleAvatar": "Персонаж",
     "titleBackgrounds": "Фони",
-    "titleStats": "Stats & Achievements",
+    "titleStats": "Stats",
+    "titleAchievs": "Achievements",
     "titleProfile": "Профіль",
     "titleInbox": "Повідомлення",
     "titleTavern": "Таверна",
@@ -181,7 +182,8 @@
     "wonChallengeShare": "I won a challenge in Habitica!",
     "achievementShare": "I earned a new achievement in Habitica!",
     "orderBy": "Order By <%= item %>",
-    "you": "you",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
     "online": "online",
     "onlineCount": "<%= count %> online"
 }

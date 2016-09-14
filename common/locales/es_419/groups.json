@@ -111,7 +111,7 @@
     "notAuthorizedToSendMessageToThisUser": "no puede mandar un mensaje a este usuario.",
     "privateMessageGiftIntro": "Hola <%= receiverName %>, <%= senderName %> te ha enviado",
     "privateMessageGiftGemsMessage": "¡<%= gemAmount %> gemas!",
-    "privateMessageGiftSubscriptionMessage": "Tienes <%=months %> meses de suscripción.",
+    "privateMessageGiftSubscriptionMessage": "Tienes <%= numberOfMonths %> meses de suscripción.",
     "cannotSendGemsToYourself": "No puedes enviarte gemas a ti mismo. Prueba con una suscripción en su lugar.",
     "badAmountOfGemsToSend": "La cantidad de gemas debe de estar entre 1 y el número de gemas que tienes. ",
     "abuseFlag": "Reportar una violación de las Normas de la Comunidad",
@@ -199,5 +199,6 @@
     "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
     "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
     "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
-    "newChatMessageTitle": "New message in <%= groupName %>"
+    "newChatMessageTitle": "New message in <%= groupName %>",
+    "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made."
 }

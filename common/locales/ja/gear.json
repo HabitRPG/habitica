@@ -653,7 +653,7 @@
     "headArmoireRancherHatText": "牧童の帽子",
     "headArmoireRancherHatNotes": "この魔法の牧童の帽子をかぶって、ペットたちを集め、乗騎たちの世話をしましょう!　力が <%= str %>、知覚が<%= per %>、知能が<%= int %> 上がります。ラッキー宝箱 : 牧場セット ( 3 個中 1 個目のアイテム)",
     "headArmoireBlueHairbowText": "青いリボン",
-    "headArmoireBlueHairbowNotes": "この美しい青いリボンをつけると敏感に、タフに、そして賢くなります!　力が <%= str %>、体質が <%= con %>、そして知能が <%= int %> 上がります。ラッキー宝箱 : 個別のアイテム。",
+    "headArmoireBlueHairbowNotes": "この美しい青いリボンをつけると敏感に、タフに、そして賢くなります!　力が <%= per %>、体質が <%= con %>、そして知能が <%= int %> 上がります。ラッキー宝箱 : 個別のアイテム。",
     "headArmoireRoyalCrownText": "王家の冠",
     "headArmoireRoyalCrownNotes": "偉大にして強大なる君主、万歳!　力が<%= str %>上がります。ラッキー宝箱 : 王家セット( 3 個中 1 個目のアイテム)。",
     "headArmoireGoldenLaurelsText": "黄金の月桂冠",

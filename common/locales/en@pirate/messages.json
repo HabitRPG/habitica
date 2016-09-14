@@ -48,7 +48,6 @@
     "messageGroupCannotRemoveSelf": "Ye can't remove yerself!",
     "messageGroupChatBlankMessage": "Ye can't be sendin' a blank message",
     "messageGroupChatLikeOwnMessage": "Ye can't like yer own message. Don't be that person.",
-    "messageGroupChatFlagOwnMessage": "Ye can't be reportin' yer own message.",
     "messageGroupChatFlagAlreadyReported": "Ye be reportin' this message already",
     "messageGroupChatNotFound": "Message not found! ",
     "messageGroupChatAdminClearFlagCount": "Only an admin be able to clear the flag count!",
