@@ -14,4 +14,7 @@ module.exports = function staticMiddleware (expressApp) {
   expressApp.use('/common/audio', express.static(`${PUBLIC_DIR}/../../common/audio`, { maxAge: MAX_AGE }));
   expressApp.use('/common/img', express.static(`${PUBLIC_DIR}/../../common/img`, { maxAge: MAX_AGE }));
   expressApp.use(express.static(PUBLIC_DIR));
+
+  // Expose new client when not in production
+  if (!IS_PROD) expressApp.use('/new-app', express.static(`${PUBLIC_DIR}/../client-new`));
 };
