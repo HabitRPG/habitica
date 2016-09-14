@@ -30,9 +30,9 @@ module.exports = function(grunt) {
         files:{
           "website/assets/sprites/dist/habitrpg-shared.css": [
             "website/assets/sprites/dist/spritesmith*.css",
-            "common/css/backer.css",
-            "common/css/Mounts.css",
-            "common/css/index.css"
+            "website/assets/sprites/css/backer.css",
+            "website/assets/sprites/css/Mounts.css",
+            "website/assets/sprites/css/index.css"
           ]
         }
       }

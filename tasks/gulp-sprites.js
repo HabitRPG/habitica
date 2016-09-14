@@ -65,7 +65,7 @@ function createSpritesStream(name, src) {
         cssName: `spritesmith-${name}-${index}.css`,
         algorithm: 'binary-tree',
         padding: 1,
-        cssTemplate: 'common/css/css.template.handlebars',
+        cssTemplate: 'website/assets/sprites/css/css.template.handlebars',
         cssVarMap: cssVarMap
       }));
 
