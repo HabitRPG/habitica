@@ -115,14 +115,14 @@ angular.module('habitrpg')
 
       // When the user is booted from the party, they get disconnected from Pusher
       partyChannel.bind('user-removed', function (data) {
-        if (data.userId === user._id) {
+        if (data.userId === $rootScope.User.user._id) {
           api.pusher.unsubscribe(partyChannelName);
         }
       });
 
       // Same when the user leaves the party
       partyChannel.bind('user-left', function (data) {
-        if (data.userId === user._id) {
+        if (data.userId === $rootScope.User.user._id) {
           api.pusher.unsubscribe(partyChannelName);
         }
       });
@@ -147,7 +147,8 @@ angular.module('habitrpg')
           var docHasFocus = document.hasFocus();
           var isOnPartyPage = $state.is('options.social.party');
 
-          if (isOnPartyPage && docHasFocus) { // if we're on the party page, mark the chat as read
+          // if we're on the party page or the message was sent by us, mark the chat as read but don't show notifications
+          if ((isOnPartyPage && docHasFocus) || chatData.uuid === $rootScope.User.user._id) {
             Chat.markChatSeen($rootScope.party._id);
           } else { // show a notification
             $rootScope.User.user.newMessages[$rootScope.party._id] = {
