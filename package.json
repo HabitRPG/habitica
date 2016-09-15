@@ -117,7 +117,7 @@
     "test:karma:watch": "karma start",
     "test:prepare:webdriver": "webdriver-manager update",
     "test:e2e:webdriver": "webdriver-manager start",
-    "test:e2e": "protractor test/e2e/protractor.conf.js",
+    "test:e2e": "protractor test/client-old/e2e/protractor.conf.js",
     "test:nodemon": "gulp test:nodemon",
     "start": "gulp run:dev",
     "sprites": "gulp sprites:compile",

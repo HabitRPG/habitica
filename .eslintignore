@@ -21,8 +21,6 @@ gulpfile.js
 Gruntfile.js
 newrelic.js
 
-test/api-legacy/**/*
-test/common/simulations/**/*
 test/content/**/*
 test/server_side/**/*
-test/spec/**/*
+test/client-old/spec/**/*
