@@ -1,9 +1,10 @@
 import content from '../content/index';
 import i18n from '../i18n';
+import { get } from 'lodash';
 
 let achievs = {};
 let achievsContent = content.achievements;
-let index; // must be reset in each exported function
+let index = 0;
 
 function contribText (contrib, backer, language) {
   if (!contrib && !backer) return;
@@ -43,19 +44,7 @@ function _add (result, data) {
 }
 
 function _addSimpleWithCustomPath (result, user, data) {
-  let value = user;
-
-  // traverse the custom path into the user object
-  data.path.split('.').forEach(pathSeg => {
-    if (value[pathSeg]) {
-      value = value[pathSeg];
-    } else {
-      // error condition (invalid custom path) so fail early
-      value = undefined;
-      return false;
-    }
-  });
-
+  let value = get(user, data.path);
   let thisContent = achievsContent[data.key];
 
   _add(result, {
@@ -92,10 +81,7 @@ function _addSimple (result, user, data) {
 
 function _addSimpleWithMasterCount (result, user, data) {
   let language = data.language;
-  let value = user.achievements[`${data.path}Count`];
-  if (!value) {
-    value = 0;
-  }
+  let value = user.achievements[`${data.path}Count`] || 0;
 
   let thisContent = achievsContent[data.path];
 
@@ -116,10 +102,7 @@ function _addSimpleWithMasterCount (result, user, data) {
 }
 
 function _addSimpleWithCount (result, user, data) {
-  let value = user.achievements[data.path];
-  if (!value) {
-    value = 0;
-  }
+  let value = user.achievements[data.path] || 0;
 
   let key = data.key || data.path;
   let thisContent = achievsContent[key];
@@ -136,23 +119,26 @@ function _addSimpleWithCount (result, user, data) {
 }
 
 function _addPlural (result, user, data) {
-  let value = user.achievements[data.path];
-  if (!value) {
-    value = 0;
-  }
+  let value = user.achievements[data.path] || 0;
 
   let key = data.key || data.path;
   let thisContent = achievsContent[key];
 
+  let titleKey;
+  let textKey;
   // If value === 0, use singular versions of strings.
   // If value !== 0, use plural versions of strings.
-
-  let title = i18n.t(value === 0 ? thisContent.singularTitleKey : thisContent.pluralTitleKey, {count: value}, data.language);
-  let text = i18n.t(value === 0 ? thisContent.singularTextKey : thisContent.pluralTextKey, {count: value}, data.language);
+  if (value === 0) {
+    titleKey = thisContent.singularTitleKey;
+    textKey = thisContent.singularTextKey;
+  } else {
+    titleKey = thisContent.pluralTitleKey;
+    textKey = thisContent.pluralTextKey;
+  }
 
   _add(result, {
-    title,
-    text,
+    title: i18n.t(titleKey, {count: value}, data.language),
+    text: i18n.t(textKey, {count: value}, data.language),
     icon: thisContent.icon,
     key,
     value,
@@ -300,7 +286,6 @@ function _getSpecialAchievements (user, language) {
 
 // Build and return the given user's achievement data.
 achievs.getAchievementsForProfile = function getAchievementsForProfile (user, language) {
-  index = 0;
   let result = {
     basic: {
       label: 'Basic',
@@ -315,7 +300,6 @@ achievs.getAchievementsForProfile = function getAchievementsForProfile (user, la
       achievements: _getSpecialAchievements(user, language),
     },
   };
-
   return result;
 };
 

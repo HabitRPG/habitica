@@ -69,6 +69,5 @@ habitrpg
             $scope.$close();
           });
       }
-
     }
   ]);
