@@ -11,60 +11,76 @@ block extraHead
   style.
     .press-img {
       max-width: 500px;
+      max-height: 500px;
+      padding: 5px;
     }
 
 block content
-  h2= env.t('presskit')
-  p= env.t('presskitText')
-  p= env.t('presskitDownload')
-    | &nbsp;
-    a.btn.btn-success(href='/presskit/presskit.zip') presskit.zip
+  div.jumbotron
+    h1= env.t('presskit')
+    p= env.t('presskitText')
+    p
+      a.btn.btn-lg.btn-success(href='/presskit/presskit.zip') presskit.zip
+
+  h2= env.t('pkVideo')
+  | <iframe width="560" height="315" src="https://www.youtube.com/embed/hgdeJnSili0" frameborder="0" allowfullscreen></iframe>
+
   -
-    var imgs = [
-      'Habitica Promo',
-      'Habitica Promo - Thin',
-      'Habitica Logo - Icon with Text',
-      'Habitica Logo - Text',
-      'Habitica Logo - Icon',
-      'Habitica Logo - iOS',
-      'Habitica Logo - Android',
-      'Habitica Gryphon',
-      'Boss - Basi-List',
-      'Boss - Stagnant Dishes',
-      'Boss - SnackLess Monster',
-      'Boss - Laundromancer',
-      'Boss - Battling the Ghost Stag',
-      'Boss - Necro-Vice',
-      'World Boss - Dread Drag\'on of Dilatory',
-      'Sample Screen - Tasks Page',
-      'Sample Screen - Market',
-      'Sample Screen - Equipment',
-      'Sample Screen - Guilds',
-      'Sample Screen - Challenges',
-      'Sample Screen - Tasks Page (iOS)',
-      'Sample Screen - Level Up (iOS)',
-      'Sample Screen - Pets (iOS)',
-      'Sample Screen - Party (iOS)',
-      'Sample Screen - Boss (iOS)'
-    ]
+    var imgs = {
+      'Promo': [
+        'Promo',
+        'Promo - Thin'
+      ],
+      'Logo': [
+        'Icon with Text',
+        'Habitica Gryphon',
+        'iOS',
+        'Android'
+      ],
+      'Boss': [
+        'Basi-List',
+        'Stagnant Dishes',
+        'SnackLess Monster',
+        'Laundromancer',
+        'Necro-Vice',
+        'Battling the Ghost Stag',
+        'Dread Drag\'on of Dilatory'
+      ],
+      'Samples': {
+        'Website': [
+          'Tasks Page',
+          'Equipment',
+          'Market',
+          'Guilds',
+          'Challenges'
+        ],
+        'iOS': [
+          'Tasks Page',
+          'Level Up',
+          'Pets',
+          'Party',
+          'Boss'
+        ],
+        'Android': [
+          'User',
+          'Tasks Page',
+          'Reward',
+          'Level Up',
+          'Tavern',
+          'Party'
+        ]
+      }
+    }
 
-  //-#carousel.carousel.slide(data-ride='carousel')
-    ol.carousel-indicators
-      each img, i in imgs
-        li(class=i==0?'active':'', data-target='#carousel', data-slide-to=i)
-    .carousel-inner(role='listbox')
-      each img, i in imgs
-        .item(class=i==0?'active':'')
-          img(src="/presskit/#{img}.png")
-          //.carousel-caption=img
-    a.left.carousel-control(href='#carousel', role='button', data-slide='prev')
-      span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
-      span.sr-only= env.t('previous')
-    a.right.carousel-control(href='#carousel', role='button', data-slide='next')
-      span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
-      span.sr-only= env.t('next')
-
-  ul.list-unstyled
-    each img in imgs
-      li
-        img.img-rendering-auto.press-img(src="/presskit/#{img}.png")
+  each images, category in imgs
+    div
+      h2= env.t('pk' + category)
+      if Array.isArray(images)
+        each img in images
+          img.img-rendering-auto.press-img(src="/presskit/#{category}/#{img}.png")
+      else
+        each item, cat in images
+          div
+            h3= env.t('pk' + cat)
+            each img in item
+              img.img-rendering-auto.press-img(src="/presskit/#{category}/#{cat}/#{img}.png")

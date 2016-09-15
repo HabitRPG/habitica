@@ -1,6 +1,6 @@
 {
     "npc": "NPC",
-    "npcText": "Podporil projekt na Kickstarteri na najvyššej úrovni!",
+    "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
     "mattBoch": "Matúš Boch",
     "mattShall": "Smiem ti priviesť tvojho tátoša, <%= name %>? Raz ako vykŕmiš svoje zvieratko dosť na to, aby sa z neho stal tátoš, objaví sa tu. Klikni na toho, ktorého chceš osedlať!",
     "mattBochText1": "Vitaj v Stajni! Som Matúš, pán šeliem. Od levela 3 môžeš liahnuť zvieratká pomocou vajíčok a elixírov. Keď vyliahneš zvieratko na Trhu, objaví sa tu! Klikni na obrázok zvieratka, aby si ho pridal k svojmu avatarovi. Kŕm ich jedlom, ktoré nájdeš po dosiahnutí levela 3 a oni vyrastú na neohrozené tátoše. ",

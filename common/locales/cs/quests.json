@@ -48,6 +48,8 @@
     "leaveQuest": "Opustit Výpravu",
     "sureLeave": "Jsi si jistý, že chceš opustit aktivní výpravu? Ztratíš v ní všechen svůj pokrok.",
     "questOwner": "Majitel výpravy",
+    "questTaskDamage": "+<%= damage %> pending damage to boss",
+    "questTaskCollection": "<%= items %> items collected today",
     "questOwnerNotInPendingQuest": "Majitel výpravy výpravu opustil a nemůže ji již začít. Doporučujeme ji zrušit. Majitel výpravy získá zpět svitek.",
     "questOwnerNotInRunningQuest": "Majitel výpravy výpravu opustil. Můžete výpravu ukončit, pokud chcete. Můžete však pokračovat dále a všichni zbývající účastnici si po jejím skončení rozdělí kořist.",
     "questOwnerNotInPendingQuestParty": "Majitel výpravy výpravu opustil a nemůže ji již začít. Doporučujeme ji zrušit. Majitel výpravy získá zpět svitek.",

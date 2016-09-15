@@ -29,7 +29,7 @@ describe('pushNotifications', () => {
       send: apnSendSpy,
     });
 
-    sendPushNotification = requireAgain(pathToPushNotifications);
+    sendPushNotification = requireAgain(pathToPushNotifications).sendNotification;
   });
 
   afterEach(() => {

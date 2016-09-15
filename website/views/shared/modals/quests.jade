@@ -101,7 +101,7 @@ script(type='text/ng-template', id='modals/questDrop.html')
           .col-xs-4(style='padding:0')
             .herobox(style='padding:0; width: 0; height: 0')
               .character-sprites(style='width:0')
-                +generatedAvatar
+                +generatedAvatar({sleep: false})
           .col-xs-4(style='padding:0')
             .herobox(style='width: 6.7em; height: 5em; position: absolute')
               .avatar-level(ng-class='userLevelStyle(user)')=env.t('level')+' {{user.stats.lvl}}'

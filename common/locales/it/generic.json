@@ -6,7 +6,8 @@
     "titleTasks": "Attività",
     "titleAvatar": "Avatar",
     "titleBackgrounds": "Sfondi",
-    "titleStats": "Statistiche e medaglie",
+    "titleStats": "Statistiche",
+    "titleAchievs": "Medaglie",
     "titleProfile": "Profilo",
     "titleInbox": "Messaggi",
     "titleTavern": "Taverna",
@@ -180,5 +181,9 @@
     "raisePetShare": "Ho fatto crescere un animaletto completando le mie attività nella vita reale!",
     "wonChallengeShare": "Ho vinto una sfida in Habitica!",
     "achievementShare": "Ho ottenuto una nuova medaglia su Habitica!",
-    "orderBy": "Ordina per <%= item %>"
+    "orderBy": "Ordina per <%= item %>",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

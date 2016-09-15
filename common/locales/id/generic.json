@@ -6,7 +6,8 @@
     "titleTasks": "Tugas",
     "titleAvatar": "Avatar",
     "titleBackgrounds": "Latar Belakang",
-    "titleStats": "Status & Pencapaian",
+    "titleStats": "Stats",
+    "titleAchievs": "Achievements",
     "titleProfile": "Profi",
     "titleInbox": "Kotak Masu",
     "titleTavern": "Kedai Minuman",
@@ -180,5 +181,9 @@
     "raisePetShare": "Aku membesarkan peliharaan menjadi tunggangan dengan melengkapi tugas dalam hidupku!",
     "wonChallengeShare": "Aku memenangkan sebuah tantangan di Habitica!",
     "achievementShare": "Aku mendapatkan sebuah pendapatan baru di Habitica!",
-    "orderBy": "Urutkan Berdasarkan <%= item %>"
+    "orderBy": "Urutkan Berdasarkan <%= item %>",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

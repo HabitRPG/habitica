@@ -48,7 +48,6 @@
     "messageGroupCannotRemoveSelf": "Nemôžeš odstrániť sám seba!",
     "messageGroupChatBlankMessage": "Nemôžeš poslať prázdnu správu",
     "messageGroupChatLikeOwnMessage": "Nemôžeš označiť, že sa ti páči vlastná správa. Nebuď ten druh človeka.",
-    "messageGroupChatFlagOwnMessage": "Nemôžeš nahlásiť tvoju vlastnú správu.",
     "messageGroupChatFlagAlreadyReported": "Túto správu si už nahlásil",
     "messageGroupChatNotFound": "Správa sa nenašla!",
     "messageGroupChatAdminClearFlagCount": "Len správca môže vynulovať počet označení.",

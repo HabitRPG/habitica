@@ -9,7 +9,11 @@
     "defaultTodo1Text": "Unirse a Habitica (¡Tíldame como completada!)",
     "defaultReward1Text": "Descanso de 15 minutos",
     "defaultReward1Notes": "Las recompensas personalizadas pueden tener muchas formas. Algunos eligen no ver su programa favorito a menos que tengan el oro para pagar por ello.",
-    "defaultTag1": "mañana",
-    "defaultTag2": "tarde",
-    "defaultTag3": "noche"
+    "defaultTag1": "Work",
+    "defaultTag2": "Exercise",
+    "defaultTag3": "Health + Wellness",
+    "defaultTag4": "School",
+    "defaultTag5": "Teams",
+    "defaultTag6": "Chores",
+    "defaultTag7": "Creativity"
 }

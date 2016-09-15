@@ -45,6 +45,7 @@
     "chat": "聊天",
     "sendChat": "发送",
     "toolTipMsg": "查看最近的消息",
+    "syncPartyAndChat": "同步队伍和对话",
     "guildBankPop1": "公会银行",
     "guildBankPop2": "公会会长可用的挑战完成奖励宝石",
     "guildGems": "公会宝石",
@@ -124,6 +125,8 @@
     "copyMessageAsToDo": "将消息复制为代办事项",
     "messageAddedAsToDo": "消息已经复制为代办事项",
     "messageWroteIn": "<%= user %>加入了<%= group %>",
+    "taskFromInbox": "<%= from %> 给你写了 '<%= message %>'",
+    "taskTextFromInbox": "有来自 <%= from %> 的新消息",
     "msgPreviewHeading": "消息预览",
     "leaderOnlyChallenges": "只有会长能创建挑战",
     "sendGift": "赠送礼物",
@@ -138,6 +141,7 @@
     "inviteNewUsers": "邀请新用户",
     "sendInvitations": "发送邀请",
     "invitationsSent": "邀请已发送！",
+    "invitationSent": "邀请已发出",
     "inviteAlertInfo2": "或者分享这个链接(复制/粘贴)",
     "sendGiftHeading": "给 <%= name %>赠送礼物",
     "sendGiftGemsBalance": "来自 <%= number %> 宝石",
@@ -191,5 +195,10 @@
     "uuidsMustBeAnArray": "用户ID邀请必须是一个数组。",
     "emailsMustBeAnArray": "电子邮件地址邀请必须是一个数组。",
     "canOnlyInviteMaxInvites": "你仅能在同一时间邀请\"<%= maxInvites %>\"个",
-    "onlyCreatorOrAdminCanDeleteChat": "没有权利删除这个消息！"
+    "onlyCreatorOrAdminCanDeleteChat": "没有权利删除这个消息！",
+    "onlyGroupLeaderCanEditTasks": "你没有管理任务的权限",
+    "onlyGroupTasksCanBeAssigned": "只有小组任务可以被分配",
+    "newChatMessagePlainNotification": "<%= groupName %>中有来自<%= authorName %>的消息. 点击这里进行聊天！",
+    "newChatMessageTitle": "<%= groupName %> 中有新的消息",
+    "desktopNotificationsText": "为了你能及时收到队伍聊天中的新消息，请开启桌面通知。现在根据浏览器的指引，来开启桌面通知。<br><br>当你开启通知后，你只有在Habitica的网页打开的状态下才能收到推送，如果你不喜欢被推送通知，你可以在浏览器的设置中关闭。<br><br>这个弹窗将在你做出选择后自动关闭"
 }
