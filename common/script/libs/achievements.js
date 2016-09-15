@@ -1,7 +1,9 @@
+import content from '../content/index';
 import i18n from '../i18n';
 
 let achievs = {};
-let index;
+let achievsContent = content.achievements;
+let index; // must be reset in each exported function
 
 function contribText (contrib, backer, language) {
   if (!contrib && !backer) return;
@@ -40,32 +42,50 @@ function _add (result, data) {
   };
 }
 
-function _addQuest (result, user, data) {
-  let value;
+function _addSimpleWithCustomPath (result, user, data) {
+  let value = user;
 
-  if (user.achievements.quests) {
-    value = user.achievements.quests[data.path];
-  }
+  // traverse the custom path into the user object
+  data.path.split('.').forEach(pathSeg => {
+    if (value[pathSeg]) {
+      value = value[pathSeg];
+    } else {
+      // error condition (invalid custom path) so fail early
+      value = undefined;
+      return false;
+    }
+  });
+
+  let thisContent = achievsContent[data.key];
 
   _add(result, {
-    title: i18n.t(data.title, data.language),
-    text: i18n.t(data.text, data.language),
-    icon: data.icon,
-    key: `${data.path}Quest`,
+    title: i18n.t(thisContent.titleKey, {key: value}, data.language),
+    text: i18n.t(thisContent.textKey, data.language),
+    icon: thisContent.icon,
+    key: data.key,
     value,
     earned: Boolean(value),
   });
 }
 
+function _addQuest (result, user, data) {
+  data.key = `${data.path}Quest`;
+  data.path = `achievements.quests.${data.path}`;
+  _addSimpleWithCustomPath(result, user, data);
+}
+
 function _addSimple (result, user, data) {
   let value = user.achievements[data.path];
 
+  let key = data.key || data.path;
+  let thisContent = achievsContent[key];
+
   _add(result, {
-    title: i18n.t(data.title, data.language),
-    text: i18n.t(data.text, data.language),
-    icon: data.icon,
-    key: data.key || data.path,
-    value: data.value,
+    title: i18n.t(thisContent.titleKey, data.language),
+    text: i18n.t(thisContent.textKey, data.language),
+    icon: thisContent.icon,
+    key,
+    value,
     earned: Boolean(value),
   });
 }
@@ -77,15 +97,17 @@ function _addSimpleWithMasterCount (result, user, data) {
     value = 0;
   }
 
-  let text = i18n.t(`${data.path}Text`, language);
+  let thisContent = achievsContent[data.path];
+
+  let text = i18n.t(thisContent.textKey, language);
   if (value > 0) {
-    text += i18n.t(`${data.path}Text2`, {count: value}, language);
+    text += i18n.t(thisContent.text2Key, {count: value}, language);
   }
 
   _add(result, {
-    title: i18n.t(`${data.path}Name`, language),
+    title: i18n.t(thisContent.titleKey, language),
     text,
-    icon: data.icon,
+    icon: thisContent.icon,
     key: data.path,
     value,
     optionalCount: value,
@@ -99,18 +121,14 @@ function _addSimpleWithCount (result, user, data) {
     value = 0;
   }
 
-  if (!data.labels) {
-    data.labels = {
-      title: `${data.path}Name`,
-      text: `${data.path}Text`,
-    };
-  }
+  let key = data.key || data.path;
+  let thisContent = achievsContent[key];
 
   _add(result, {
-    title: i18n.t(data.labels.title, data.language),
-    text: i18n.t(data.labels.text, {count: value}, data.language),
-    icon: data.icon,
-    key: data.key || data.path,
+    title: i18n.t(thisContent.titleKey, data.language),
+    text: i18n.t(thisContent.textKey, {count: value}, data.language),
+    icon: thisContent.icon,
+    key,
     value,
     optionalCount: value,
     earned: Boolean(value),
@@ -118,36 +136,25 @@ function _addSimpleWithCount (result, user, data) {
 }
 
 function _addPlural (result, user, data) {
-  if (!data.altPath) {
-    data.altPath = data.path;
-  }
-
-  let value = user.achievements[data.altPath];
+  let value = user.achievements[data.path];
   if (!value) {
     value = 0;
   }
 
-  if (!data.labels) {
-    data.labels = {
-      singularTitle: `${data.path}Singular`,
-      singularText: `${data.path}SingularText`,
+  let key = data.key || data.path;
+  let thisContent = achievsContent[key];
 
-      pluralTitle: `${data.path}Name`,
-      pluralText: `${data.path}Text`,
-    };
-  }
+  // If value === 0, use singular versions of strings.
+  // If value !== 0, use plural versions of strings.
 
-  // value === 0, labels.singularTitle, labels.singularText
-  // value !== 0, labels.pluralTitle, labels.pluralText
-
-  let title = i18n.t(value === 0 ? data.labels.singularTitle : data.labels.pluralTitle, {count: value}, data.language);
-  let text = i18n.t(value === 0 ? data.labels.singularText : data.labels.pluralText, {count: value}, data.language);
+  let title = i18n.t(value === 0 ? thisContent.singularTitleKey : thisContent.pluralTitleKey, {count: value}, data.language);
+  let text = i18n.t(value === 0 ? thisContent.singularTextKey : thisContent.pluralTextKey, {count: value}, data.language);
 
   _add(result, {
     title,
     text,
-    icon: data.icon,
-    key: data.key || data.path,
+    icon: thisContent.icon,
+    key,
     value,
     optionalCount: value,
     earned: Boolean(value),
@@ -161,16 +168,18 @@ function _addUltimateGear (result, user, data) {
 
   let value = user.achievements.ultimateGearSets[data.altPath];
 
-  let localizedClass = i18n.t(data.path, data.language);
+  let key = `${data.path}UltimateGear`;
+  let thisContent = achievsContent[key];
 
-  let title = i18n.t('ultimGearName', {ultClass: localizedClass}, data.language);
-  let text = i18n.t('ultimGearText', {ultClass: localizedClass}, data.language);
+  let localizedClass = i18n.t(data.path, data.language);
+  let title = i18n.t(thisContent.titleKey, {ultClass: localizedClass}, data.language);
+  let text = i18n.t(thisContent.textKey, {ultClass: localizedClass}, data.language);
 
   _add(result, {
     title,
     text,
-    icon: data.icon,
-    key: `${data.path}UltimateGear`,
+    icon: thisContent.icon,
+    key,
     value,
     earned: Boolean(value),
   });
@@ -179,76 +188,20 @@ function _addUltimateGear (result, user, data) {
 function _getBasicAchievements (user, language) {
   let result = {};
 
-  _addPlural(result, user, {
-    path: 'streak',
-    icon: 'achievement-thermometer',
-    language,
-  });
+  _addPlural(result, user, {path: 'streak', language});
+  _addPlural(result, user, {path: 'perfect', language});
 
-  _addPlural(result, user, {
-    path: 'perfect',
-    icon: 'achievement-perfect',
-    language,
-  });
+  _addSimple(result, user, {path: 'partyUp', language});
+  _addSimple(result, user, {path: 'partyOn', language});
 
-  _addSimple(result, user, {
-    path: 'partyUp',
-    icon: 'achievement-partyUp',
-    title: 'partyUpName',
-    text: 'partyUpText',
-    language,
-  });
+  _addSimpleWithMasterCount(result, user, {path: 'beastMaster', language});
+  _addSimpleWithMasterCount(result, user, {path: 'mountMaster', language});
+  _addSimpleWithMasterCount(result, user, {path: 'triadBingo', language});
 
-  _addSimple(result, user, {
-    path: 'partyOn',
-    icon: 'achievement-partyOn',
-    title: 'partyOnName',
-    text: 'partyOnText',
-    language,
-  });
-
-  _addSimpleWithMasterCount(result, user, {
-    path: 'beastMaster',
-    icon: 'achievement-rat',
-    language,
-  });
-
-  _addSimpleWithMasterCount(result, user, {
-    path: 'mountMaster',
-    icon: 'achievement-wolf',
-    language,
-  });
-
-  _addSimpleWithMasterCount(result, user, {
-    path: 'triadBingo',
-    icon: 'achievement-triadbingo',
-    language,
-  });
-
-  _addUltimateGear(result, user, {
-    path: 'healer',
-    icon: 'achievement-ultimate-healer',
-    language,
-  });
-
-  _addUltimateGear(result, user, {
-    path: 'rogue',
-    icon: 'achievement-ultimate-rogue',
-    language,
-  });
-
-  _addUltimateGear(result, user, {
-    path: 'warrior',
-    icon: 'achievement-ultimate-warrior',
-    language,
-  });
-
-  _addUltimateGear(result, user, {
-    path: 'mage',
-    icon: 'achievement-ultimate-mage',
-    altpath: 'wizard',
-    language,
-  });
+  _addUltimateGear(result, user, {path: 'healer', language});
+  _addUltimateGear(result, user, {path: 'rogue', language});
+  _addUltimateGear(result, user, {path: 'warrior', language});
+  _addUltimateGear(result, user, {path: 'mage', altpath: 'wizard', language});
 
   let rebirthTitle;
   let rebirthText;
@@ -281,127 +234,24 @@ function _getBasicAchievements (user, language) {
 function _getSeasonalAchievements (user, language) {
   let result = {};
 
-  _addPlural(result, user, {
-    path: 'habiticaDays',
-    icon: 'achievement-habiticaDay',
-    labels: {
-      singularTitle: 'habiticaDay',
-      singularText: 'habiticaDaySingularText',
-      pluralTitle: 'habiticaDay',
-      pluralText: 'habiticaDayPluralText',
-    },
-    language,
+  _addPlural(result, user, {path: 'habiticaDays', language});
+  _addPlural(result, user, {path: 'habitBirthdays', language});
+
+  let spellAchievements = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
+  spellAchievements.forEach(path => {
+    _addSimpleWithCount(result, user, {path, language});
   });
 
-  _addPlural(result, user, {
-    path: 'habitBirthdays',
-    icon: 'achievement-habitBirthday',
-    labels: {
-      singularTitle: 'habitBirthday',
-      singularText: 'habitBirthdayText',
-      pluralTitle: 'habitBirthday',
-      pluralText: 'habitBirthdayPluralText',
-    },
-    language,
+  let questAchievements = ['dilatory', 'stressbeast', 'burnout', 'bewilder'];
+  questAchievements.forEach(path => {
+    _addQuest(result, user, {path, language});
   });
 
-  _addSimpleWithCount(result, user, {
-    path: 'snowball',
-    icon: 'achievement-snowball',
-    labels: {
-      title: 'annoyingFriends',
-      text: 'annoyingFriendsText',
-    },
-    language,
-  });
-
-  _addSimpleWithCount(result, user, {
-    path: 'spookySparkles',
-    icon: 'achievement-spookySparkles',
-    labels: {
-      title: 'alarmingFriends',
-      text: 'alarmingFriendsText',
-    },
-    language,
-  });
-
-  _addSimpleWithCount(result, user, {
-    path: 'shinySeed',
-    icon: 'achievement-shinySeed',
-    labels: {
-      title: 'agriculturalFriends',
-      text: 'agriculturalFriendsText',
-    },
-    language,
-  });
-
-  _addSimpleWithCount(result, user, {
-    path: 'seafoam',
-    icon: 'achievement-seafoam',
-    labels: {
-      title: 'aquaticFriends',
-      text: 'aquaticFriendsText',
-    },
-    language,
-  });
-
-  _addQuest(result, user, {
-    path: 'dilatory',
-    icon: 'achievement-dilatory',
-    title: 'achievementDilatory',
-    text: 'achievementDilatoryText',
-    language,
-  });
-
-  _addQuest(result, user, {
-    path: 'stressbeast',
-    icon: 'achievement-stoikalm',
-    title: 'achievementStressbeast',
-    text: 'achievementStressbeastText',
-    language,
-  });
-
-  _addQuest(result, user, {
-    path: 'burnout',
-    icon: 'achievement-burnout',
-    title: 'achievementBurnout',
-    text: 'achievementBurnoutText',
-    language,
-  });
-
-  _addQuest(result, user, {
-    path: 'bewilder',
-    icon: 'achievement-bewilder',
-    title: 'achievementBewilder',
-    text: 'achievementBewilderText',
-    language,
-  });
-
-  _addPlural(result, user, {
-    path: 'costumeContests',
-    icon: 'achievement-costumeContest',
-    labels: {
-      singularTitle: 'costumeContest',
-      singularText: 'costumeContestText',
-      pluralTitle: 'costumeContest',
-      pluralText: 'costumeContestTextPlural',
-    },
-    language,
-  });
+  _addPlural(result, user, {path: 'costumeContests', language});
 
   let cardAchievements = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday'];
-
   cardAchievements.forEach(path => {
-    _addSimpleWithCount(result, user, {
-      path,
-      key: `${path}Cards`,
-      icon: `achievement-${path}`,
-      labels: {
-        title: `${path}CardAchievementTitle`,
-        text: `${path}CardAchievementText`,
-      },
-      language,
-    });
+    _addSimpleWithCount(result, user, {path, key: `${path}Cards`, language});
   });
 
   return result;
@@ -410,76 +260,39 @@ function _getSeasonalAchievements (user, language) {
 function _getSpecialAchievements (user, language) {
   let result = {};
 
-  _addPlural(result, user, {
-    path: 'habitSurveys',
-    icon: 'achievement-tree',
-    labels: {
-      singularTitle: 'helped',
-      singularText: 'surveysSingle',
-      pluralTitle: 'helped',
-      pluralText: 'surveysMultiple',
-    },
-    language,
-  });
+  _addPlural(result, user, {path: 'habitSurveys', language});
 
+  let contribKey = 'contributor';
+  let contribContent = achievsContent[contribKey];
   let contributorAchiev = {
-    key: 'contributor',
-    icon: 'achievement-boot',
-    text: i18n.t('contribText', language),
+    key: contribKey,
+    text: i18n.t(contribContent.textKey, language),
+    icon: contribContent.icon,
+    earned: Boolean(user.contributor && user.contributor.level),
   };
   if (user.contributor && user.contributor.level) {
     contributorAchiev.value = user.contributor.level;
-    contributorAchiev.earned = true;
     contributorAchiev.title = contribText(user.contributor, user.backer, language);
   } else {
     contributorAchiev.value = 0;
-    contributorAchiev.earned = false;
-    contributorAchiev.title = i18n.t('contribName', language);
+    contributorAchiev.title = i18n.t(contribContent.titleKey, language);
   }
   _add(result, contributorAchiev);
 
   if (user.backer && user.backer.npc) {
-    _add(result, {
-      title: user.backer.npc + i18n.t('npc', language),
-      text: i18n.t('npcAchievementText', language),
-      icon: 'achievement-ultimate-warrior',
-      key: 'npc',
-      value: user.backer.npc,
-      earned: true,
-    });
+    _addSimpleWithCustomPath(result, user, {key: 'npc', path: 'backer.npc', language});
   }
 
   if (user.backer && user.backer.tier) {
-    _add(result, {
-      title: i18n.t('kickstartName', {tier: user.backer.tier}, language),
-      text: i18n.t('kickstartText', language),
-      icon: 'achievement-heart',
-      key: 'kickstarter',
-      value: user.backer.tier,
-      earned: true,
-    });
+    _addSimpleWithCustomPath(result, user, {key: 'kickstarter', path: 'backer.tier', language});
   }
 
   if (user.achievements.veteran) {
-    _add(result, {
-      title: i18n.t('veteran', language),
-      text: i18n.t('veteranText', language),
-      icon: 'achievement-cake',
-      key: 'veteran',
-      value: user.achievements.veteran,
-      earned: true,
-    });
+    _addSimple(result, user, {path: 'veteran', language});
   }
 
   if (user.achievements.originalUser) {
-    _add(result, {
-      title: i18n.t('originalUser', language),
-      text: i18n.t('originalUserText', language),
-      icon: 'achievement-alpha',
-      key: 'originalUser',
-      value: user.achievements.originalUser,
-      earned: true,
-    });
+    _addSimple(result, user, {path: 'originalUser', language});
   }
 
   return result;
