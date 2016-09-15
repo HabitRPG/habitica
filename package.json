@@ -143,6 +143,7 @@
     "eslint": "~2.12.0",
     "eslint-config-habitrpg": "^1.0.0",
     "eslint-plugin-babel": "^3.0.0",
+    "eslint-plugin-html": "^3.0.0",
     "eslint-plugin-mocha": "^2.1.0",
     "event-stream": "^3.2.2",
     "expect.js": "~0.2.0",

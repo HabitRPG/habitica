@@ -7,7 +7,7 @@ module.exports = {
     // automatically uses dev Server port from /config.index.js
     // default: http://localhost:8080
     // see nightwatch.conf.js
-    var devServer = browser.globals.devServerURL
+    var devServer = browser.globals.devServerURL;
 
     browser
     .url(devServer)
@@ -15,6 +15,6 @@ module.exports = {
       .assert.elementPresent('.logo')
       .assert.containsText('h1', 'Hello Vue!')
       .assert.elementCount('p', 3)
-      .end()
-  }
-}
+      .end();
+  },
+};

@@ -3,49 +3,49 @@
 // we are also using it with karma-webpack
 //   https://github.com/webpack/karma-webpack
 
-var path = require('path')
-var merge = require('webpack-merge')
-var baseConfig = require('../../build/webpack.base.conf')
-var utils = require('../../build/utils')
-var webpack = require('webpack')
-var projectRoot = path.resolve(__dirname, '../../')
+var path = require('path');
+var merge = require('webpack-merge');
+var baseConfig = require('../../build/webpack.base.conf');
+var utils = require('../../build/utils');
+var webpack = require('webpack');
+var projectRoot = path.resolve(__dirname, '../../');
 
 var webpackConfig = merge(baseConfig, {
   // use inline sourcemap for karma-sourcemap-loader
   module: {
-    loaders: utils.styleLoaders()
+    loaders: utils.styleLoaders(),
   },
   devtool: '#inline-source-map',
   vue: {
     loaders: {
-      js: 'isparta'
-    }
+      js: 'isparta',
+    },
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': require('../../config/test.env')
-    })
-  ]
-})
+      'process.env': require('../../config/test.env'),
+    }),
+  ],
+});
 
 // no need for app entry during tests
-delete webpackConfig.entry
+delete webpackConfig.entry;
 
 // make sure isparta loader is applied before eslint
-webpackConfig.module.preLoaders = webpackConfig.module.preLoaders || []
+webpackConfig.module.preLoaders = webpackConfig.module.preLoaders || [];
 webpackConfig.module.preLoaders.unshift({
   test: /\.js$/,
   loader: 'isparta',
-  include: path.resolve(projectRoot, 'src')
-})
+  include: path.resolve(projectRoot, 'src'),
+});
 
 // only apply babel for test files when using isparta
 webpackConfig.module.loaders.some(function (loader, i) {
   if (loader.loader === 'babel') {
-    loader.include = path.resolve(projectRoot, 'test/unit')
-    return true
+    loader.include = path.resolve(projectRoot, 'test/unit');
+    return true;
   }
-})
+});
 
 module.exports = function (config) {
   config.set({
@@ -58,18 +58,18 @@ module.exports = function (config) {
     reporters: ['spec', 'coverage'],
     files: ['./index.js'],
     preprocessors: {
-      './index.js': ['webpack', 'sourcemap']
+      './index.js': ['webpack', 'sourcemap'],
     },
     webpack: webpackConfig,
     webpackMiddleware: {
-      noInfo: true
+      noInfo: true,
     },
     coverageReporter: {
       dir: './coverage',
       reporters: [
         { type: 'lcov', subdir: '.' },
-        { type: 'text-summary' }
-      ]
-    }
-  })
-}
+        { type: 'text-summary' },
+      ],
+    },
+  });
+};
