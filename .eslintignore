@@ -18,10 +18,8 @@ common/script/content/index.js
 
 debug-scripts/*
 scripts/*
-tasks/*.js
 gulpfile.js
 Gruntfile.js
-newrelic.js
 
 test/content/**/*
 test/server_side/**/*
