@@ -6,7 +6,8 @@
     "titleTasks": "タスク",
     "titleAvatar": "アバター",
     "titleBackgrounds": "背景",
-    "titleStats": "ステータスと実績",
+    "titleStats": "データ",
+    "titleAchievs": "実績",
     "titleProfile": "プロフィール",
     "titleInbox": "受信トレイ",
     "titleTavern": "キャンプ場",
@@ -21,7 +22,7 @@
     "titleMounts": "乗騎",
     "titleEquipment": "装備",
     "titleTimeTravelers": "タイムトラベラー",
-    "titleSeasonalShop": "期間限定ショップ",
+    "titleSeasonalShop": "季節の店",
     "titleSettings": "設定",
     "expandToolbar": "ツールバーを開く",
     "collapseToolbar": "ツールバーを閉じる",
@@ -76,7 +77,7 @@
     "moreInfo": "詳細情報",
     "showMoreMore": "(もっと表示する)",
     "showMoreLess": "(表示を減らす)",
-    "gemsWhatFor": "クリックしてジェムの購入へ!　クエストやアバターカスタマイズや期間限定装備のような特別なアイテムがジェムで買えます。",
+    "gemsWhatFor": "クリックしてジェムの購入へ!　クエストやアバターカスタマイズや季節限定商品のような特別なアイテムがジェムで買えます。",
     "veteran": "ベテラン",
     "veteranText": "Habit The Grey (以前のウェブサイト)は役目を終え、数々のバグから多くの教訓を得ることができました。",
     "originalUser": "最初からのユーザー!",
@@ -180,5 +181,9 @@
     "raisePetShare": "実生活でタスクを達成して、ペットが乗れるほど大きくなったよ!",
     "wonChallengeShare": "Habitica のチャレンジに成功したよ!",
     "achievementShare": "Habitica で新しい実績を解除したよ!",
-    "orderBy": "並び順 : <%= item %>"
+    "orderBy": "並び順 : <%= item %>",
+    "you": "( あなた )",
+    "enableDesktopNotifications": "デスクトップ通知を有効にする",
+    "online": "オンライン",
+    "onlineCount": "<%= count %> 人がオンライン"
 }

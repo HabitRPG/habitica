@@ -1,6 +1,6 @@
 include ../avatar/generated_avatar
 
-script(type='text/ng-template', id='modals/wonChallenge.html')
+script(type='text/ng-template', id='modals/achievements/wonChallenge.html')
   - var tweet = env.t('wonChallengeShare');
   .modal-content(style='min-width:28em')
     .modal-body.text-center
@@ -17,7 +17,7 @@ script(type='text/ng-template', id='modals/wonChallenge.html')
           .col-xs-4(style='padding:0')
             .herobox(style='padding:0; width:0; height:7em')
               .character-sprites(style='width:0')
-                +generatedAvatar
+                +generatedAvatar({sleep: false})
           .col-xs-4(style='padding:0')
             .container-fluid
               .row

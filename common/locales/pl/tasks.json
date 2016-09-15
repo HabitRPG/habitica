@@ -21,9 +21,9 @@
     "direction/Actions": "Kierunek/działania",
     "advancedOptions": "Zaawansowane opcje",
     "taskAlias": "Alias zadania",
-    "taskAliasPopover": "Nazwa zadania może być stosowana podczas integracji z osobami 3-cimi. Tylko kreski, podkreślenia i znaki alfanumeryczne są obsługiwane. Nazwa zadania musi być unikalna spośród wszystkich zadań.",
+    "taskAliasPopover": "Nazwa zadania może być stosowana podczas integracji z aplikacjami trzecimi. Obsługiwane są tylko znaki podkreślenia, myślniki i znaki alfanumeryczne. Alias zadania nie może się powtarzać.",
     "taskAliasPlaceholder": "tutaj-alias-twojego-zadania",
-    "taskAliasPopoverWarning": "UWAGA: Zmiana tej wartości może przerwać wszelkie integracje z osobami 3-cimi, które opierają się na nazwie zadania.",
+    "taskAliasPopoverWarning": "UWAGA: Zmiana tej wartości przerwie wszelkie integracje z aplikacjami trzecimi, które opierają się na aliasie zadania.",
     "difficulty": "Trudność",
     "difficultyHelpTitle": "Jak trudne jest to zadane?",
     "difficultyHelpContent": "Im trudniejsze zadanie, tym więcej doświadczenia i złota otrzymasz, gdy je odhaczysz... jednak otrzymasz więcej obrażeń, jeśli jest to Codzienne lub zły Nawyk!",
@@ -133,6 +133,6 @@
     "alreadyTagged": "The task is already tagged with given tag.",
     "strengthExample": "Nawiązuje do ćwiczeń i aktywności",
     "intelligenceExample": "Relating to academic or mentally challenging pursuits",
-    "perceptionExample": "Relating to work or financial tasks",
-    "constitutionExample": "Relating to health, wellness, and social interaction"
+    "perceptionExample": "Zadania dotyczące pracy lub finansów",
+    "constitutionExample": "Dotyczące zdrowia, dobrobytu i relacji"
 }

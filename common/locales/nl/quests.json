@@ -48,6 +48,8 @@
     "leaveQuest": "Queeste verlaten",
     "sureLeave": "Weet je zeker dat je de queeste wilt verlaten? Al jouw vooruitgang binnen de queeste zal verloren raken.",
     "questOwner": "Eigenaar van de queeste",
+    "questTaskDamage": "+<%= damage %> schade aan eindbaas morgen",
+    "questTaskCollection": "<%= items %> voorwerpen vandaag verzameld",
     "questOwnerNotInPendingQuest": "De eigenaar van de queeste heeft de queeste verlaten en kan deze niet meer handmatig starten. Advies is om de queeste te annuleren. De eigenaar van de queeste houdt de queeste-perkamentrol.",
     "questOwnerNotInRunningQuest": "De eigenaar van de queeste heeft de queeste verlaten. Als het nodig is, kun je de queeste afbreken. Het is ook mogelijk om de queeste door te laten gaan; alle resterende deelnemers krijgen hun beloning als de queeste afgelopen is.",
     "questOwnerNotInPendingQuestParty": "De eigenaar van de queeste heeft de groep verlaten en kan de queeste niet meer handmatig starten. Advies is om de queeste te annuleren. De eigenaar van de queeste houdt de queeste-perkamentrol.",

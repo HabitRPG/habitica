@@ -1,6 +1,6 @@
 {
     "npc": "NPC",
-    "npcText": "Pružio maksimalnu podršku na Kickstarter-u!",
+    "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
     "mattBoch": "Met Bok",
     "mattShall": "Želite li da jašete, <%= name %>? Zveri kojima date dovoljno hrane će odrasti i pojaviće se ovde. Odaberite zver, i spremni ste.",
     "mattBochText1": "Dobro došli u Štalu! Ja sam Met, krotitelj zveri. Posle 4. nivoa možete da dobijete zveri pomoću jaja i napitaka. Kliknite na zver da bi se ona pojavila na Vašem avataru. Ako je budete hranili, izrašće u veliku životinju, koju ćete moći da jašete.",

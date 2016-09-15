@@ -6,7 +6,8 @@
     "titleTasks": "Taken",
     "titleAvatar": "Avatar",
     "titleBackgrounds": "Achtergronden",
-    "titleStats": "Statistieken en prestaties",
+    "titleStats": "Statistieken",
+    "titleAchievs": "Prestaties",
     "titleProfile": "Profiel",
     "titleInbox": "Inbox",
     "titleTavern": "Herberg",
@@ -180,5 +181,9 @@
     "raisePetShare": "Ik heb een huisdier opgevoed naar een rijdier door mijn taken uit het echte leven te voltooien!",
     "wonChallengeShare": "Ik heb een uitdaging gewonnen in Habitica!",
     "achievementShare": "Ik heb een nieuwe prestatie behaald in Habitica!",
-    "orderBy": "Order per <%= item %>"
+    "orderBy": "Order per <%= item %>",
+    "you": "(jij)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

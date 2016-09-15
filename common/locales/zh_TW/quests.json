@@ -48,6 +48,8 @@
     "leaveQuest": "退出任務",
     "sureLeave": "你確定要退出執行中的任務嗎？所有執行任務的成果將會遺失。",
     "questOwner": "任務擁有者",
+    "questTaskDamage": "+<%= damage %> pending damage to boss",
+    "questTaskCollection": "<%= items %> items collected today",
     "questOwnerNotInPendingQuest": "任務擁有者已經離開這個任務，無法再啟動這個任務。我們建議您現在取消它。任務擁有者將保留原本持有的任務卷軸。",
     "questOwnerNotInRunningQuest": "任務擁有者已經離開這個任務。如果你需要的話，你可以退出這個任務，但你也可以繼續執行任務，其餘的參與者將會在完成任務時獲得任務獎勵。",
     "questOwnerNotInPendingQuestParty": "任務擁有者已經離開這個隊伍，無法再啟動這個任務。我們建議您現在取消它。任務擁有者將保留原本持有的任務卷軸。",

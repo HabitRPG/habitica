@@ -1,6 +1,6 @@
 {
     "potionText": "Poção de Vida",
-    "potionNotes": "Recupera 15 de Vida (instantâneo)",
+    "potionNotes": "Recuperar 15 Vidas (Utilização instantânea)",
     "armoireText": "Armário Encantado",
     "armoireNotesFull": "Abra o Armário para receber aleatóriamente um equipamento especial, experiência ou comida! Partes de equipamento restantes:",
     "armoireLastItem": "Você achou o último equipamento raro no Armário Encantado.",
@@ -128,6 +128,9 @@
     "questEggArmadilloText": "Tatu",
     "questEggArmadilloMountText": "Tatu",
     "questEggArmadilloAdjective": "Um armado",
+    "questEggCowText": "Cow",
+    "questEggCowMountText": "Cow",
+    "questEggCowAdjective": "a mooing",
     "eggNotes": "Ache uma poção de eclosão para usar nesse ovo e ele irá eclodir em um <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Básico",
     "hatchingPotionWhite": "Branco",

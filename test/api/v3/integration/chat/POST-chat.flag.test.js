@@ -29,14 +29,9 @@ describe('POST /chat/:chatId/flag', () => {
       });
   });
 
-  it('Returns an error when user tries to flag their own message', async () => {
+  it('Allows players to flag their own message', async () => {
     let message = await user.post(`/groups/${group._id}/chat`, {message: TEST_MESSAGE});
-    await expect(user.post(`/groups/${group._id}/chat/${message.message.id}/flag`))
-      .to.eventually.be.rejected.and.eql({
-        code: 404,
-        error: 'NotFound',
-        message: t('messageGroupChatFlagOwnMessage'),
-      });
+    await expect(user.post(`/groups/${group._id}/chat/${message.message.id}/flag`)).to.eventually.be.ok;
   });
 
   it('Flags a chat', async () => {

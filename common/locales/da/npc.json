@@ -1,6 +1,6 @@
 {
     "npc": "NPC",
-    "npcText": "Støttede Kickstarterprojektet på det maksimale niveau!",
+    "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
     "mattBoch": "Matt Boch",
     "mattShall": "Skal jeg hente dit ridedyr, <%= name %>? Når du har fodret et kæledyr nok til, at det bliver til et ridedyr, så vil det flytte hertil. Klik på et ridedyr for at bestige det.",
     "mattBochText1": "Velkommen til Stalden! Jeg er Dyretæmmeren Matt. Efter niveau 3 kan du udruge kæledyr ved at bruge æg og udrugningseliksirer. Når du udruger et kæledyr i Markedet, vil det dukke op her. Klik på billedet af kæledyret for at føje det til din avatar. Giv dem mad, som du også kan finde efter niveau 3, og de vil vokse sig til kraftfulde ridedyr.",

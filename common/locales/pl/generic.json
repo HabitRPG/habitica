@@ -6,7 +6,8 @@
     "titleTasks": "Zadania",
     "titleAvatar": "Awatar",
     "titleBackgrounds": "Tła",
-    "titleStats": "Statystyki i osiągnięcia",
+    "titleStats": "Stats",
+    "titleAchievs": "Achievements",
     "titleProfile": "Profil",
     "titleInbox": "Skrzynka na wiadomości",
     "titleTavern": "Karczma",
@@ -180,5 +181,9 @@
     "raisePetShare": "Mam nowego wierzchowca dzięki ukończeniu moich zadań w prawdziwym życiu!",
     "wonChallengeShare": "Wyzwanie zaliczone!",
     "achievementShare": "Zdobyto nowe osiągnięcie w Habitice!",
-    "orderBy": "Sortuj po <%= item %>"
+    "orderBy": "Sortuj po <%= item %>",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

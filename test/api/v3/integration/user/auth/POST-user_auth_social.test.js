@@ -33,7 +33,7 @@ describe('POST /user/auth/social', () => {
   describe('facebook', () => {
     before(async () => {
       let expectedResult = {id: facebookId};
-      let passportFacebookProfile = sinon.stub(passport._strategies.facebook, 'userProfile');
+      let passportFacebookProfile = sandbox.stub(passport._strategies.facebook, 'userProfile');
       passportFacebookProfile.yields(null, expectedResult);
       network = 'facebook';
     });
@@ -77,7 +77,7 @@ describe('POST /user/auth/social', () => {
   describe('google', () => {
     before(async () => {
       let expectedResult = {id: googleId};
-      let passportGoogleProfile = sinon.stub(passport._strategies.google, 'userProfile');
+      let passportGoogleProfile = sandbox.stub(passport._strategies.google, 'userProfile');
       passportGoogleProfile.yields(null, expectedResult);
       network = 'google';
     });

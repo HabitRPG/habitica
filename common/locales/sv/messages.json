@@ -48,7 +48,6 @@
     "messageGroupCannotRemoveSelf": "Du kan inte ta bort dig själv!",
     "messageGroupChatBlankMessage": "Du kan inte skicka ett blankt meddelande",
     "messageGroupChatLikeOwnMessage": "Du kan inte gilla ditt eget meddelande. Var inte den typen.",
-    "messageGroupChatFlagOwnMessage": "Du kan inte rapportera ditt eget meddelande.",
     "messageGroupChatFlagAlreadyReported": "Du har redan rapporterat det här meddelandet",
     "messageGroupChatNotFound": "Meddelandet hittades inte!",
     "messageGroupChatAdminClearFlagCount": "Endast en administratör kan rensa flagg-räknaren!",
