@@ -1,6 +1,8 @@
 import { each } from 'lodash';
 
-let achievementsData = {
+let achievementsData = {};
+
+let worldQuestAchievs = {
   dilatoryQuest: {
     icon: 'achievement-dilatory',
     titleKey: 'achievementDilatory',
@@ -21,16 +23,10 @@ let achievementsData = {
     titleKey: 'achievementBewilder',
     textKey: 'achievementBewilderText',
   },
-  partyUp: {
-    icon: 'achievement-partyUp',
-    titleKey: 'partyUpName',
-    textKey: 'partyUpText',
-  },
-  partyOn: {
-    icon: 'achievement-partyOn',
-    titleKey: 'partyOnName',
-    textKey: 'partyOnText',
-  },
+};
+Object.assign(achievementsData, worldQuestAchievs);
+
+let seasonalSpellAchievs = {
   snowball: {
     icon: 'achievement-snowball',
     titleKey: 'annoyingFriends',
@@ -51,6 +47,60 @@ let achievementsData = {
     titleKey: 'aquaticFriends',
     textKey: 'aquaticFriendsText',
   },
+};
+Object.assign(achievementsData, seasonalSpellAchievs);
+
+let masterAchievs = {
+  beastMaster: {
+    icon: 'achievement-rat',
+    titleKey: 'beastMasterName',
+    textKey: 'beastMasterText',
+    text2Key: 'beastMasterText2',
+  },
+  mountMaster: {
+    icon: 'achievement-wolf',
+    titleKey: 'mountMasterName',
+    textKey: 'mountMasterText',
+    text2Key: 'mountMasterText2',
+  },
+  triadBingo: {
+    icon: 'achievement-triadbingo',
+    titleKey: 'triadBingoName',
+    textKey: 'triadBingoText',
+    text2Key: 'triadBingoText2',
+  },
+};
+Object.assign(achievementsData, masterAchievs);
+
+let basicAchievs = {
+  partyUp: {
+    icon: 'achievement-partyUp',
+    titleKey: 'partyUpName',
+    textKey: 'partyUpText',
+  },
+  partyOn: {
+    icon: 'achievement-partyOn',
+    titleKey: 'partyOnName',
+    textKey: 'partyOnText',
+  },
+  streak: {
+    icon: 'achievement-thermometer',
+    singularTitleKey: 'streakSingular',
+    singularTextKey: 'streakSingularText',
+    pluralTitleKey: 'streakName',
+    pluralTextKey: 'streakText',
+  },
+  perfect: {
+    icon: 'achievement-perfect',
+    singularTitleKey: 'perfectSingular',
+    singularTextKey: 'perfectSingularText',
+    pluralTitleKey: 'perfectName',
+    pluralTextKey: 'perfectText',
+  },
+};
+Object.assign(achievementsData, basicAchievs);
+
+let specialAchievs = {
   contributor: {
     icon: 'achievement-boot',
     titleKey: 'contribName',
@@ -76,38 +126,17 @@ let achievementsData = {
     titleKey: 'originalUser',
     textKey: 'originalUserText',
   },
-  beastMaster: {
-    icon: 'achievement-rat',
-    titleKey: 'beastMasterName',
-    textKey: 'beastMasterText',
-    text2Key: 'beastMasterText2',
+  habitSurveys: {
+    icon: 'achievement-tree',
+    singularTitleKey: 'helped',
+    singularTextKey: 'surveysSingle',
+    pluralTitleKey: 'helped',
+    pluralTextKey: 'surveysMultiple',
   },
-  mountMaster: {
-    icon: 'achievement-wolf',
-    titleKey: 'mountMasterName',
-    textKey: 'mountMasterText',
-    text2Key: 'mountMasterText2',
-  },
-  triadBingo: {
-    icon: 'achievement-triadbingo',
-    titleKey: 'triadBingoName',
-    textKey: 'triadBingoText',
-    text2Key: 'triadBingoText2',
-  },
-  streak: {
-    icon: 'achievement-thermometer',
-    singularTitleKey: 'streakSingular',
-    singularTextKey: 'streakSingularText',
-    pluralTitleKey: 'streakName',
-    pluralTextKey: 'streakText',
-  },
-  perfect: {
-    icon: 'achievement-perfect',
-    singularTitleKey: 'perfectSingular',
-    singularTextKey: 'perfectSingularText',
-    pluralTitleKey: 'perfectName',
-    pluralTextKey: 'perfectText',
-  },
+};
+Object.assign(achievementsData, specialAchievs);
+
+let holidayAchievs = {
   habiticaDays: {
     icon: 'achievement-habiticaDay',
     singularTitleKey: 'habiticaDay',
@@ -129,32 +158,28 @@ let achievementsData = {
     pluralTitleKey: 'costumeContest',
     pluralTextKey: 'costumeContestTextPlural',
   },
-  habitSurveys: {
-    icon: 'achievement-tree',
-    singularTitleKey: 'helped',
-    singularTextKey: 'surveysSingle',
-    pluralTitleKey: 'helped',
-    pluralTextKey: 'surveysMultiple',
-  },
 };
+Object.assign(achievementsData, holidayAchievs);
 
-let ultimateGearTypes = ['healer', 'rogue', 'warrior', 'mage'];
-each(ultimateGearTypes, (type) => {
-  achievementsData[`${type}UltimateGear`] = {
+let ultimateGearAchievs = ['healer', 'rogue', 'warrior', 'mage'].reduce((achievs, type) => {
+  achievs[`${type}UltimateGear`] = {
     icon: `achievement-ultimate-${type}`,
     titleKey: 'ultimGearName',
     textKey: 'ultimGearText',
   };
-});
+  return achievs;
+}, {});
+Object.assign(achievementsData, ultimateGearAchievs);
 
-let cardTypes = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday'];
-each(cardTypes, (type) => {
-  achievementsData[`${type}Cards`] = {
+let cardAchievs = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday'].reduce((achievs, type) => {
+  achievs[`${type}Cards`] = {
     icon: `achievement-${type}`,
     titleKey: `${type}CardAchievementTitle`,
     textKey: `${type}CardAchievementText`,
   };
-});
+  return achievs;
+}, {});
+Object.assign(achievementsData, cardAchievs);
 
 each(achievementsData, (value, key) => {
   value.key = key;
