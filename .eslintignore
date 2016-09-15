@@ -6,6 +6,8 @@ database_reports/
 website/build/
 website/transpiled-babel/
 
+dist/
+
 migrations/*
 
 # The files in website/client-old/js should be moved out and browserified

@@ -31,6 +31,7 @@ coverage
 coverage.html
 common/dist/scripts/*
 common/dist/sprites/habitrpg-shared.css
+dist
 
 test/spec/mocks/translations.js
 

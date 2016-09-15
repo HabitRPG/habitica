@@ -124,13 +124,13 @@
     "start": "gulp run:dev",
     "sprites": "gulp sprites:compile",
     "postinstall": "bower --config.interactive=false install -f; gulp build;",
-    "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html"
+    "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html",
   
     "client:dev": "node webpack/dev-server.js",
     "client:build": "node webpack/build.js",
     "client:unit": "karma start test/client/unit/karma.conf.js --single-run",
     "client:e2e": "node test/client/e2e/runner.js",
-    "client:test": "npm run client:unit && npm run client:e2e",
+    "client:test": "npm run client:unit && npm run client:e2e"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.0",

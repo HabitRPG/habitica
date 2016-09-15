@@ -1,11 +1,11 @@
 var path = require('path')
-var config = require('../config')
+var config = require('./config')
 var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './website/client/main.js'
   },
   output: {
     path: config.build.assetsRoot,
@@ -16,9 +16,9 @@ module.exports = {
     extensions: ['', '.js', '.vue'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
-      'src': path.resolve(__dirname, '../src'),
-      'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
+      'src': path.resolve(__dirname, '../website/client'),
+      'assets': path.resolve(__dirname, '../website/client/assets'),
+      'components': path.resolve(__dirname, '../website/client/components')
     }
   },
   resolveLoader: {
@@ -26,7 +26,7 @@ module.exports = {
   },
   module: {
     preLoaders: [
-      {
+      /*{
         test: /\.vue$/,
         loader: 'eslint',
         include: projectRoot,
@@ -37,7 +37,7 @@ module.exports = {
         loader: 'eslint',
         include: projectRoot,
         exclude: /node_modules/
-      }
+      }*/
     ],
     loaders: [
       {
