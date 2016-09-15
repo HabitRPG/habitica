@@ -2,8 +2,9 @@
 website/client-old/gen
 website/client-old/common
 website/client-old/apidoc
+website/client-old/js/habitrpg-shared.js*
 website/transpiled-babel/
-common/transpiled-babel/
+website/common/transpiled-babel/
 node_modules
 *.swp
 .idea*

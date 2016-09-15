@@ -23,7 +23,7 @@ gulp.task('browserify', function () {
       this.emit('end');
     })
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('./website/build/'));
+    .pipe(gulp.dest('./website/client-old/js/'));
 });
 
 gulp.task('browserify:watch', () => {
