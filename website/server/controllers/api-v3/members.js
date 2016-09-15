@@ -66,7 +66,24 @@ api.getMember = {
  *
  * @apiParam {UUID} memberId The member's id
  *
- * @apiSuccess {Object} data The Achievements object
+ * @apiSuccess {Object} data The achievements object
+ *
+ * @apiSuccess {Object} data.basic The basic achievements object
+ * @apiSuccess {Object} data.seasonal The seasonal achievements object
+ * @apiSuccess {Object} data.special The special achievements object
+ *
+ * @apiSuccess {String} data.*.label The label for that category
+ * @apiSuccess {Object} data.*.achievements The achievements in that category
+ *
+ * @apiSuccess {String} data.*.achievements.title The localized title string
+ * @apiSuccess {String} data.*.achievements.text The localized description string
+ * @apiSuccess {Boolean} data.*.achievements.earned Whether the user has earned the achievement
+ * @apiSuccess {Number} data.*.achievements.index The unique index assigned to the achievement (only for sorting purposes)
+ * @apiSuccess {Anything} data.*.achievements.value The value related to the achievement (if applicable)
+ * @apiSuccess {Number} data.*.achievements.optionalCount The count related to the achievement (if applicable)
+ *
+ * @apiError MemberIdRequired The `id` param is required and must be a valid `UUID`
+ * @apiError UserWithIdNotFound The `id` param did not belong to an existing member
  */
 api.getMemberAchievements = {
   method: 'GET',
