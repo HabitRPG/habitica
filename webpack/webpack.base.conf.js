@@ -26,7 +26,7 @@ module.exports = {
   },
   module: {
     preLoaders: [
-      /* {
+      {
         test: /\.vue$/,
         loader: 'eslint',
         include: projectRoot,
@@ -37,7 +37,7 @@ module.exports = {
         loader: 'eslint',
         include: projectRoot,
         exclude: /node_modules/
-      }*/
+      }
     ],
     loaders: [
       {
