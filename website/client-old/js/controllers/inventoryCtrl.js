@@ -355,7 +355,7 @@ habitrpg.controller("InventoryCtrl",
     $scope.seasonalShopCategories = Shared.shops.getSeasonalShopCategories(user);
 
     $scope.shouldShowPremiumPetRow = function (potion) {
-      premiumPotion = Content.premiumHatchingPotions[potion];
+      var premiumPotion = Content.premiumHatchingPotions[potion];
 
       if (!premiumPotion) {
         return false;
