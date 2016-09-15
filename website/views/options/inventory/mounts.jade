@@ -30,7 +30,7 @@ mixin mountList(eggSource, potionSource)
     h4=env.t('magicMounts')
     menu.pets(type='list')
       each potion in env.Content.premiumHatchingPotions
-        li.customize-menu(ng-if="::shouldShowPremiumMountRow('#{potion.key}')")
+        li.customize-menu(ng-if="::hasAPetOfPotion('#{potion.key}')")
           menu
             each egg in env.Content.dropEggs
               - var mountKey = egg.key + "-" + potion.key

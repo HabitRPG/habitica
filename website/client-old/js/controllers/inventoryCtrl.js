@@ -367,25 +367,13 @@ habitrpg.controller("InventoryCtrl",
         return true;
       }
 
-      var pets = Object.keys(user.items.pets);
-      return pets.find(function (petKey) {
-        var pet = Content.petInfo[petKey];
-        return pet.potion === potion;
-      });
+      return $scope.hasAPetOfPotion(potion);
     };
 
     $scope.shouldShowPremiumPetSection = function () {
       var potions = Content.premiumHatchingPotions;
       return Object.keys(potions).find(function (potion) {
         return $scope.shouldShowPremiumPetRow(potions[potion].key);
-      });
-    };
-
-    $scope.shouldShowPremiumMountRow = function (potion) {
-      var pets = Object.keys(user.items.pets);
-      return pets.find(function (petKey) {
-        var pet = Content.petInfo[petKey];
-        return pet.potion === potion;
       });
     };
 
@@ -396,6 +384,14 @@ habitrpg.controller("InventoryCtrl",
         return pet.type === 'premium';
       });
     };
+
+    $scope.hasAPetOfPotion = function (potion) {
+      var pets = Object.keys(user.items.pets);
+      return pets.find(function (petKey) {
+        var pet = Content.petInfo[petKey];
+        return pet.potion === potion;
+      });
+    }
 
     function _updateDropAnimalCount(items) {
       $scope.petCount = Shared.count.beastMasterProgress(items.pets);
