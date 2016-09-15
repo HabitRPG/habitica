@@ -5,27 +5,24 @@ coverage/
 database_reports/
 website/build/
 website/transpiled-babel/
-
 dist/
 
+# Not linted
 migrations/*
-
-# The files in website/client-old/js should be moved out and browserified
 website/client-old/
-
-# Temporarilly disabled. These should be removed when the linting errors are fixed
-common/script/content/index.js
-
 debug-scripts/*
 scripts/*
+test/server_side/**/*
+test/client-old/spec/**/*
+
+# TODO to lint
+common/script/content/index.js
+
 gulpfile.js
 Gruntfile.js
 
 test/content/**/*
-test/server_side/**/*
-test/client-old/spec/**/*
 
-# TODO
 gulp
 webpack
 test/client
