@@ -355,24 +355,23 @@ habitrpg.controller("InventoryCtrl",
     $scope.seasonalShopCategories = Shared.shops.getSeasonalShopCategories(user);
 
     $scope.shouldShowPremiumPetRow = function (potion) {
-      potion = Content.premiumHatchingPotions[potion];
+      premiumPotion = Content.premiumHatchingPotions[potion];
 
-      if (!potion) {
+      if (!premiumPotion) {
         return false;
       }
-      if (user.items.hatchingPotions[potion.key] > 0) {
+      if (user.items.hatchingPotions[premiumPotion.key] > 0) {
         return true;
       }
-      if (potion.canBuy()) {
+      if (premiumPotion.canBuy()) {
         return true;
       }
 
       var pets = Object.keys(user.items.pets);
-      var hasAPetOfPotion = pets.find(function (pet) {
-        return pet.indexOf(potion.key) !== -1;
+      return pets.find(function (petKey) {
+        var pet = Content.petInfo[petKey];
+        return pet.potion === potion;
       });
-
-      return hasAPetOfPotion;
     };
 
     $scope.shouldShowPremiumPetSection = function () {
@@ -383,21 +382,19 @@ habitrpg.controller("InventoryCtrl",
     };
 
     $scope.shouldShowPremiumMountRow = function (potion) {
-      potion = Content.premiumHatchingPotions[potion].key;
       var pets = Object.keys(user.items.pets);
-      return pets.find(function (pet) {
-        return pet.indexOf(potion) !== -1;
+      return pets.find(function (petKey) {
+        var pet = Content.petInfo[petKey];
+        return pet.potion === potion;
       });
     };
 
     $scope.shouldShowPremiumMountSection = function () {
-      var potions = Object.keys(Content.premiumHatchingPotions);
       var pets = Object.keys(user.items.pets);
-      return pets.find(function (pet) {
-        return potions.find(function (potion) { 
-          return pet.indexOf(potion) !== -1;
-        });
-      }).length >= 1;
+      return pets.find(function (petKey) {
+        var pet = Content.petInfo[petKey];
+        return pet.type === 'premium';
+      });
     };
 
     function _updateDropAnimalCount(items) {
