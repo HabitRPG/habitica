@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "habitrpg/browser",
+    "habitrpg/mocha",
+    "habitrpg/babel"
+  ],
+  "globals": {
+    "_": true,
+    "Promise": true
+  }
+}
