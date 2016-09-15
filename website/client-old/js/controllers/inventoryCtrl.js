@@ -382,6 +382,24 @@ habitrpg.controller("InventoryCtrl",
       });
     };
 
+    $scope.shouldShowPremiumMountRow = function (potion) {
+      potion = Content.premiumHatchingPotions[potion].key;
+      var pets = Object.keys(user.items.pets);
+      return pets.find(function (pet) {
+        return pet.indexOf(potion) !== -1;
+      });
+    };
+
+    $scope.shouldShowPremiumMountSection = function () {
+      var potions = Object.keys(Content.premiumHatchingPotions);
+      var pets = Object.keys(user.items.pets);
+      return pets.find(function (pet) {
+        return potions.find(function (potion) { 
+          return pet.indexOf(potion) !== -1;
+        });
+      }).length >= 1;
+    };
+
     function _updateDropAnimalCount(items) {
       $scope.petCount = Shared.count.beastMasterProgress(items.pets);
       $scope.mountCount = Shared.count.mountMasterProgress(items.mounts);
