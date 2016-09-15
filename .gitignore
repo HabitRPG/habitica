@@ -32,7 +32,9 @@ coverage.html
 common/dist/scripts/*
 common/dist/sprites/habitrpg-shared.css
 dist
-
+selenium-debug.log
+test/client/unit/coverage
+test/client/e2e/reports
 test/spec/mocks/translations.js
 
 # Elastic Beanstalk Files

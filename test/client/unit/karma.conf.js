@@ -5,10 +5,10 @@
 
 var path = require('path');
 var merge = require('webpack-merge');
-var baseConfig = require('../../build/webpack.base.conf');
-var utils = require('../../build/utils');
+var baseConfig = require('../../../webpack/webpack.base.conf');
+var utils = require('../../../webpack/utils');
 var webpack = require('webpack');
-var projectRoot = path.resolve(__dirname, '../../');
+var projectRoot = path.resolve(__dirname, '../../../');
 
 var webpackConfig = merge(baseConfig, {
   // use inline sourcemap for karma-sourcemap-loader
@@ -23,7 +23,7 @@ var webpackConfig = merge(baseConfig, {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': require('../../config/test.env'),
+      'process.env': require('../../../webpack/config/test.env'),
     }),
   ],
 });
@@ -36,13 +36,13 @@ webpackConfig.module.preLoaders = webpackConfig.module.preLoaders || [];
 webpackConfig.module.preLoaders.unshift({
   test: /\.js$/,
   loader: 'isparta',
-  include: path.resolve(projectRoot, 'src'),
+  include: path.resolve(projectRoot, 'website/client'),
 });
 
 // only apply babel for test files when using isparta
 webpackConfig.module.loaders.some(function (loader, i) {
   if (loader.loader === 'babel') {
-    loader.include = path.resolve(projectRoot, 'test/unit');
+    loader.include = path.resolve(projectRoot, 'test/client/unit');
     return true;
   }
 });
