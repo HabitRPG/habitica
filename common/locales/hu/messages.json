@@ -48,7 +48,6 @@
     "messageGroupCannotRemoveSelf": "Nem törölheted magadat!",
     "messageGroupChatBlankMessage": "Nem küldhetsz üres üzenetet",
     "messageGroupChatLikeOwnMessage": "Nem kedvelheted a saját üzenetedet. Ne legyél az az ember.",
-    "messageGroupChatFlagOwnMessage": "Nem jelentheted a saját üzenetedet.",
     "messageGroupChatFlagAlreadyReported": "Már jelentetted ezt az üzenetet",
     "messageGroupChatNotFound": "Üzenet nem található!",
     "messageGroupChatAdminClearFlagCount": "Csak egy adminisztrátor törölheti flag számlálót.",

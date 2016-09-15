@@ -48,7 +48,6 @@
     "messageGroupCannotRemoveSelf": "Vous ne pouvez pas vous supprimer vous-même!",
     "messageGroupChatBlankMessage": "Vous ne pouvez pas envoyer de message vierge. ",
     "messageGroupChatLikeOwnMessage": "Vous ne pouvez pas aimer votre propre message. Ne soyez pas ce genre de personne !",
-    "messageGroupChatFlagOwnMessage": "Vous ne pouvez pas signaler votre propre message. ",
     "messageGroupChatFlagAlreadyReported": "Vous avez déjà signalé ce message.",
     "messageGroupChatNotFound": "Message introuvable !",
     "messageGroupChatAdminClearFlagCount": "Seul un administrateur peut modifier ce compteur !",

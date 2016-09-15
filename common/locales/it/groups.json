@@ -45,6 +45,7 @@
     "chat": "Chat",
     "sendChat": "Invia messaggio",
     "toolTipMsg": "Recupera messaggi recenti",
+    "syncPartyAndChat": "Sync Party and Chat",
     "guildBankPop1": "Banca della Gilda",
     "guildBankPop2": "Gemme che il leader della tua Gilda può usare per i premi delle sfide.",
     "guildGems": "Gemme della Gilda",
@@ -124,6 +125,8 @@
     "copyMessageAsToDo": "Copia messaggio come To-Do",
     "messageAddedAsToDo": "Messaggio copiato come To-Do.",
     "messageWroteIn": "Scritto in <%= group %> da <%= user %>",
+    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
+    "taskTextFromInbox": "Message from <%= from %>",
     "msgPreviewHeading": "Anteprima messaggio",
     "leaderOnlyChallenges": "Solo il leader del gruppo può creare le sfide",
     "sendGift": "Invia regalo",
@@ -138,6 +141,7 @@
     "inviteNewUsers": "Invita nuovi utenti",
     "sendInvitations": "Spedisci inviti",
     "invitationsSent": "Inviti spediti!",
+    "invitationSent": "Invitation sent!",
     "inviteAlertInfo2": "Oppure condividi questo link (copia/incolla):",
     "sendGiftHeading": "Invia regalo a <%= name %>",
     "sendGiftGemsBalance": "Da <%= number %> Gemme",
@@ -191,5 +195,10 @@
     "uuidsMustBeAnArray": "ID Utente deve essere un vettore",
     "emailsMustBeAnArray": "L' invito dell' Indirizzo email deve essere un vettore",
     "canOnlyInviteMaxInvites": "Puoi invitare solo \"<%= maxInvites %>\" alla volta",
-    "onlyCreatorOrAdminCanDeleteChat": "Non autorizzato a rimuovere questo messaggio!"
+    "onlyCreatorOrAdminCanDeleteChat": "Non autorizzato a rimuovere questo messaggio!",
+    "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
+    "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
+    "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
+    "newChatMessageTitle": "New message in <%= groupName %>",
+    "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made."
 }

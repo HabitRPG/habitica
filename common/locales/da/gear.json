@@ -175,7 +175,7 @@
     "weaponMystery301404Text": "Steampunk Stok",
     "weaponMystery301404Notes": "Perfekt at svinge rundt i hele byen. Marts 3015 Abonnentvare. Giver ingen bonusser.",
     "weaponArmoireBasicCrossbowText": "Basis-armbrøst",
-    "weaponArmoireBasicCrossbowNotes": "Denne armbrøst kan gennembore opgavernes rustning på meget lang afstand. Øger Styrke med <%= str %>, Opfattelse med <%= per %> og Konstitution med <%= kon %>. Fortryllet Klædeskab: Ikke del af et sæt.",
+    "weaponArmoireBasicCrossbowNotes": "Denne armbrøst kan gennembore opgavernes rustning på meget lang afstand. Øger Styrke med <%= str %>, Opfattelse med <%= per %> og Konstitution med <%= con %>. Fortryllet Klædeskab: Ikke del af et sæt.",
     "weaponArmoireLunarSceptreText": "Lindrende Måne-scepter",
     "weaponArmoireLunarSceptreNotes": "De helbredende kræfter i denne tryllestav stiger og falder. Øger Konstitution med <%= con %> og Intelligens med <%= int %>. Fortryllet Klædeskab: Beroligende Månesæt (Genstand 3 af 3).",
     "weaponArmoireRancherLassoText": "Ranch-ejerens Lasso",

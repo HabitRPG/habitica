@@ -2,6 +2,7 @@ node_modules/**
 .bower-cache/**
 .bower-tmp/**
 .bower-registry/**
+website/client-old/**
 website/client/**
 website/views/**
 website/build/**

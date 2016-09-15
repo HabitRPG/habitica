@@ -6,7 +6,8 @@
     "titleTasks": "任務",
     "titleAvatar": "角色",
     "titleBackgrounds": "背景",
-    "titleStats": " 數據及成就",
+    "titleStats": "Stats",
+    "titleAchievs": "Achievements",
     "titleProfile": "基本資料",
     "titleInbox": "收信匣",
     "titleTavern": "酒館",
@@ -180,5 +181,9 @@
     "raisePetShare": "實現了現實生活中的任務，成功將寵物養成座騎！",
     "wonChallengeShare": "我在 Habitica 贏得了挑戰！",
     "achievementShare": "我在 Habitica 獲得了一個新成就！",
-    "orderBy": "以 <%= item %> 排序"
+    "orderBy": "以 <%= item %> 排序",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

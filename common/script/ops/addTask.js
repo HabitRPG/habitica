@@ -1,4 +1,5 @@
 import taskDefaults from '../libs/taskDefaults';
+import clone from 'lodash/lang/clone';
 
 // TODO move to client since it's only used there?
 
@@ -8,6 +9,9 @@ module.exports = function addTask (user, req = {body: {}}) {
   user[`${task.type}s`].unshift(task);
 
   task._editing = user.preferences.newTaskEdit;
+  if (task._editing) {
+    task._edit = clone(task);
+  }
   task._tags = !user.preferences.tagsCollapsed;
   task._advanced = !user.preferences.advancedCollapsed;
 

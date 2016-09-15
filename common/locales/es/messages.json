@@ -48,7 +48,6 @@
     "messageGroupCannotRemoveSelf": "¡No puedes eliminarte a ti mismo!",
     "messageGroupChatBlankMessage": "No puedes enviar un mensaje en blanco",
     "messageGroupChatLikeOwnMessage": "No puedes indicar que te gusta tu propio mensaje. Mejor no seas esa clase de persona...",
-    "messageGroupChatFlagOwnMessage": "No puedes reportar tu propio mensaje.",
     "messageGroupChatFlagAlreadyReported": "Has reportado este mensaje",
     "messageGroupChatNotFound": "¡Mensaje no encontrado!",
     "messageGroupChatAdminClearFlagCount": "¡Sólo un administrador puede borrar la cuenta!",

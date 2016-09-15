@@ -1,6 +1,6 @@
 {
     "npc": "NPC",
-    "npcText": "Backed th' Kickstarter project at th' maximum level!",
+    "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
     "mattBoch": "Matt Boch",
     "mattShall": "Shall I bring ye yer steed, <%= name %>? Once ye've fed a pet enough food t' turn it into a mount, it will appear here. Click a mount t' saddle up!",
     "mattBochText1": "Welcome t' th' Stable! I'm Matt, th' beast master. After level 4, ye can hatch pets usin' eggs an' potions. When you hatch a pet in th' Market, it will appear here! Click a pet's image t' add it t' yer avatar. Feed them wi' th' food you find after level 4, and they'll grow into powerful mounts.",

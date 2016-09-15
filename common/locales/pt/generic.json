@@ -6,7 +6,8 @@
     "titleTasks": "Tarefas",
     "titleAvatar": "Avatar",
     "titleBackgrounds": "Planos de fundo",
-    "titleStats": "Estatísticas & Conquistas",
+    "titleStats": "Stats",
+    "titleAchievs": "Achievements",
     "titleProfile": "Perfil",
     "titleInbox": "Caixa de Entrada",
     "titleTavern": "Taberna",
@@ -180,5 +181,9 @@
     "raisePetShare": "Transformei meu mascote em uma montaria completando minhas tarefas da vida real!",
     "wonChallengeShare": "Venci um desafio em Habitica!",
     "achievementShare": "Consegui uma nova conquista em Habitica!",
-    "orderBy": "Ordenar por <%= item %>"
+    "orderBy": "Ordenar por <%= item %>",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

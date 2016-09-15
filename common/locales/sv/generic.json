@@ -6,7 +6,8 @@
     "titleTasks": "Uppgifter",
     "titleAvatar": "Avatar",
     "titleBackgrounds": "Bakgrunder",
-    "titleStats": "Statistik & Bedrifter",
+    "titleStats": "Stats",
+    "titleAchievs": "Achievements",
     "titleProfile": "Profil",
     "titleInbox": "Inkorg",
     "titleTavern": "Värdshus",
@@ -180,5 +181,9 @@
     "raisePetShare": "Jag uppfostrade mitt husdjur till ett riddjur genom att slutföra mina uppgifter!",
     "wonChallengeShare": "Jag van en utmaning i HabitRPG!",
     "achievementShare": "Jag har klarat av en ny bedrift i HabitRPG!",
-    "orderBy": "Sortera enligt <%= item %>"
+    "orderBy": "Sortera enligt <%= item %>",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }

@@ -48,7 +48,6 @@
     "messageGroupCannotRemoveSelf": "Не можете да премахнете себе си!",
     "messageGroupChatBlankMessage": "Не можете да изпратите празно съобщение",
     "messageGroupChatLikeOwnMessage": "Не можете да харесате собственото си съобщение. Не бъдете такъв човек.",
-    "messageGroupChatFlagOwnMessage": "Не можете да докладвате собственото си съобщение",
     "messageGroupChatFlagAlreadyReported": "Вече сте докладвали това съобщение",
     "messageGroupChatNotFound": "Съобщението не е намерено!",
     "messageGroupChatAdminClearFlagCount": "Само администратор може да изчисти броя на докладванията!",

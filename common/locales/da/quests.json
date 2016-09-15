@@ -48,6 +48,8 @@
     "leaveQuest": "Forlad Quest",
     "sureLeave": "Er du sikker på at du vil forlade den aktive quest? Alt dit questfremskridt vil gå tabt.",
     "questOwner": "Quest-leder",
+    "questTaskDamage": "+<%= damage %> pending damage to boss",
+    "questTaskCollection": "<%= items %> items collected today",
     "questOwnerNotInPendingQuest": "Quest-lederen har forladt questen og kan ikke længere starte den. Det anbefales at du afbryder den nu. Quest-lederen beholder quest-skriftrullen.",
     "questOwnerNotInRunningQuest": "Quest-lederen har forladt questen. Du kan afbryde questen hvis du har brug for det, men du kan også lade den fortsætte, og dermed lade alle tilbageværende deltagere modtage quest-præmierne når questen er overstået.",
     "questOwnerNotInPendingQuestParty": "Quest-lederen har forladt gruppen og kan ikke længere starte questen. Det anbefales at du afbryder den nu. Quest-skriftrullen vil blive returneret til quest-lederen.",
