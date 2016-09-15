@@ -10,7 +10,7 @@ habitrpg.controller('SettingsCtrl',
       both: 'releaseBoth',
     };
 
-    var SOCIAL_AUTH_NETWORKS = window.habitrpgShared.constants.SUPPORTED_SOCIAL_NETWORKS
+    var SOCIAL_AUTH_NETWORKS = Shared.constants.SUPPORTED_SOCIAL_NETWORKS;
     $scope.SOCIAL_AUTH_NETWORKS = SOCIAL_AUTH_NETWORKS;
 
     // FIXME we have this re-declared everywhere, figure which is the canonical version and delete the rest

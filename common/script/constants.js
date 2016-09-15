@@ -8,5 +8,5 @@ export const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = 5000;
 
 export const SUPPORTED_SOCIAL_NETWORKS = [
   {key: 'facebook', name: 'Facebook'},
-  {key: 'google', name: 'Google'}
+  {key: 'google', name: 'Google'},
 ];

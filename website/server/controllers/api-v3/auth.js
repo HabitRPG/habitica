@@ -277,9 +277,6 @@ api.loginSocial = {
           language: req.language,
         },
       };
-
-
-
       if (existingUser) {
         existingUser.auth[network] = user.auth[network];
         user = existingUser;

@@ -607,6 +607,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
   let userToContact = await User.findOne({$or: [
     {'auth.local.email': invite.email},
     {'auth.facebook.emails.value': invite.email},
+    {'auth.google.emails.value': invite.email},
   ]})
   .select({_id: true, 'preferences.emailNotifications': true})
   .exec();
