@@ -8,107 +8,106 @@ block title
   title=env.t('companyAbout')
 
 block content
-  .row#about-page(ng-controller='AboutCtrl')
-    .col-md-12#aboutPage
-      .marketing
-        h1=env.t('marketing1Header')
-        .row
-          .col-md-6
-            a.gallery(href='/marketing/screenshot.png', title=env.t('marketing1Header'))
-              img.img-rendering-auto(src='/marketing/screenshot.png')
-            p.lead=env.t('marketing1Lead1')
-          .col-md-6
+  #about-page(ng-controller='AboutCtrl')
+    #aboutPage
+    .marketing
+      h1=env.t('marketing1Header')
+      .row
+        .col-md-6
+          a.gallery(href='/marketing/screenshot.png', title=env.t('marketing1Header'))
+            img.img-rendering-auto(src='/marketing/screenshot.png')
+          p.lead=env.t('marketing1Lead1')
+        .col-md-6
+          a.gallery(href='/marketing/gear.png', title=env.t('marketing1Lead2Title'))
+            img.img-rendering-auto(src='/marketing/gear.png')
+          p.lead!=env.t('marketing1Lead2')
 
-            a.gallery(href='/marketing/gear.png', title=env.t('marketing1Lead2Title'))
-              img.img-rendering-auto(src='/marketing/gear.png')
-            p.lead!=env.t('marketing1Lead2')
+          a.gallery(href='/marketing/drops.png', title=env.t('marketing1Lead3Title'))
+            img.img-rendering-auto(src='/marketing/drops.png',style='max-height:200px')
+          p.lead!=env.t('marketing1Lead3')
 
-            a.gallery(href='/marketing/drops.png', title=env.t('marketing1Lead3Title'))
-              img.img-rendering-auto(src='/marketing/drops.png',style='max-height:200px')
-            p.lead!=env.t('marketing1Lead3')
+          // TODO achievements
 
-            // TODO achievements
+      hr.clearfix
 
-        hr.clearfix
+      h1=env.t('marketing2Header')
+      .row
+        .col-md-6
+          a.gallery(href='/marketing/guild.png', title=env.t('marketing2Header'))
+            img.img-rendering-auto(src='/marketing/guild.png')
+          p.lead=env.t('marketing2Lead1')
+          a.gallery(href='/common/img/sprites/spritesmith/quests/bosses/quest_vice3.png', title=env.t('marketing2Lead2Title'))
+            img(src='/common/img/sprites/spritesmith/quests/bosses/quest_vice3.png')
+          p.lead!=env.t('marketing2Lead2')
+        .col-md-6
+          a.gallery(href='/marketing/challenge.png', title=env.t('challenges'))
+            img.img-rendering-auto(src='/marketing/challenge.png')
+          p.lead!=env.t('marketing2Lead3')
 
-        h1=env.t('marketing2Header')
-        .row
-          .col-md-6
-            a.gallery(href='/marketing/guild.png', title=env.t('marketing2Header'))
-              img.img-rendering-auto(src='/marketing/guild.png')
-            p.lead=env.t('marketing2Lead1')
-            a.gallery(href='/common/img/sprites/spritesmith/quests/bosses/quest_vice3.png', title=env.t('marketing2Lead2Title'))
-              img(src='/common/img/sprites/spritesmith/quests/bosses/quest_vice3.png')
-            p.lead!=env.t('marketing2Lead2')
-          .col-md-6
-            a.gallery(href='/marketing/challenge.png', title=env.t('challenges'))
-              img.img-rendering-auto(src='/marketing/challenge.png')
-            p.lead!=env.t('marketing2Lead3')
+      hr.clearfix
 
-        hr.clearfix
+      h1=env.t('marketing3Header')
+      .row
+        .col-md-6
+          a.gallery(href='/marketing/android_iphone.png', title=env.t('marketing3LeadTitle'))
+            img.img-rendering-auto(src='/marketing/android_iphone.png',style='box-shadow:none;')
+          p.lead!=env.t('marketing3Lead1')
+        .col-md-6
+          a.gallery(href='/marketing/integration.png', title=env.t('marketing3LeadTitle'))
+            img.img-rendering-auto(src='/marketing/integration.png')
+          p.lead!=env.t('marketing3Lead2')
 
-        h1=env.t('marketing3Header')
-        .row
-          .col-md-6
-            a.gallery(href='/marketing/android_iphone.png', title=env.t('marketing3LeadTitle'))
-              img.img-rendering-auto(src='/marketing/android_iphone.png',style='box-shadow:none;')
-            p.lead!=env.t('marketing3Lead1')
-          .col-md-6
-            a.gallery(href='/marketing/integration.png', title=env.t('marketing3LeadTitle'))
-              img.img-rendering-auto(src='/marketing/integration.png')
-            p.lead!=env.t('marketing3Lead2')
+      hr.clearfix
 
-        hr.clearfix
-
-        h1=env.t('marketing4Header')
-        .row
-          .col-md-6
-            h3=env.t('marketing4Lead1Title')
-            img.pull-left(src='/marketing/education.png')
-            p.lead=env.t('marketing4Lead1')
-          .col-md-6
-            h3=env.t('marketing4Lead2Title')
-            img.pull-left(src='/marketing/wellness.png')
-            p.lead=env.t('marketing4Lead2')
-        .row
-          .col-md-6.col-md-offset-3
-            h3=env.t('marketing4Lead3Title')
-            img.img-rendering-auto(src='/marketing/lefnire.png')
-            p.lead
-              =env.t('marketing4Lead3-1')
-              |&nbsp;
-              a.btn.btn-primary(ng-click='playButtonClick()')=env.t('playButton')
-              |&nbsp;
-              =env.t('marketing4Lead3-2')
-              |&nbsp;
-              a.btn.btn-primary(href='/static/plans',target='_blank')=env.t('contactUs')
-              |&nbsp;
-              =env.t('marketing4Lead3-3')
-              |&nbsp;
-              a.btn.btn-primary(href='/static/videos')=env.t('watchVideos')
-
-
-        hr
-        p.lead=env.t('landingp1')
-        h2=env.t('landingp2header')
-        //images in these parts could be useful, too
-        //if there's a language workaround, image headers? people like pictures!
-        p.lead
-          =env.t('landingp2')
-          |&nbsp;
-        h2=env.t('landingp3header')
-        //I'm not sold on "Consquences as the title here. Anyone got a better idea?
-        p.lead
-          =env.t('landingp3')
-          |&nbsp;
-        h2=env.t('landingp4header')
-        p.lead=env.t('landingp4')
-        //- TODO
-          h2=env.t('landingend')
+      h1=env.t('marketing4Header')
+      .row
+        .col-md-6
+          h3=env.t('marketing4Lead1Title')
+          img.pull-left(src='/marketing/education.png')
+          p.lead=env.t('marketing4Lead1')
+        .col-md-6
+          h3=env.t('marketing4Lead2Title')
+          img.pull-left(src='/marketing/wellness.png')
+          p.lead=env.t('marketing4Lead2')
+      .row
+        .col-md-6.col-md-offset-3
+          h3=env.t('marketing4Lead3Title')
+          img.img-rendering-auto(src='/marketing/lefnire.png')
           p.lead
-            =env.t('landingend2')
-            a(href="FEATURESPAGEHERE")=env.t('landingfeatureslink')
-            =env.t('landingend3')
-            a(href="ENTERPRISEPAGEHERE")=env.t('landingadminlink')
+            =env.t('marketing4Lead3-1')
             |&nbsp;
-            =env.t('landingend4')
+            a.btn.btn-primary(ng-click='playButtonClick()')=env.t('playButton')
+            |&nbsp;
+            =env.t('marketing4Lead3-2')
+            |&nbsp;
+            a.btn.btn-primary(href='/static/plans',target='_blank')=env.t('contactUs')
+            |&nbsp;
+            =env.t('marketing4Lead3-3')
+            |&nbsp;
+            a.btn.btn-primary(href='/static/videos')=env.t('watchVideos')
+
+
+      hr
+      p.lead=env.t('landingp1')
+      h2=env.t('landingp2header')
+      //images in these parts could be useful, too
+      //if there's a language workaround, image headers? people like pictures!
+      p.lead
+        =env.t('landingp2')
+        |&nbsp;
+      h2=env.t('landingp3header')
+      //I'm not sold on "Consquences as the title here. Anyone got a better idea?
+      p.lead
+        =env.t('landingp3')
+        |&nbsp;
+      h2=env.t('landingp4header')
+      p.lead=env.t('landingp4')
+      //- TODO
+        h2=env.t('landingend')
+        p.lead
+          =env.t('landingend2')
+          a(href="FEATURESPAGEHERE")=env.t('landingfeatureslink')
+          =env.t('landingend3')
+          a(href="ENTERPRISEPAGEHERE")=env.t('landingadminlink')
+          |&nbsp;
+          =env.t('landingend4')
