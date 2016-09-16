@@ -1,11 +1,11 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import { authWithHeaders } from '../../middlewares/auth';
 import { model as Tag } from '../../models/tag';
 import * as Tasks from '../../models/task';
 import {
   NotFound,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
 import _ from 'lodash';
-import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
+import { removeFromArray } from '../../libs/collectionManipulators';
 
 let api = {};
 
@@ -59,7 +59,7 @@ api.getTags = {
  *
  * @apiParam {UUID} tagId The tag _id
  *
- * @apiSuccess {object} data The tag object
+ * @apiSuccess {Object} data The tag object
  */
 api.getTag = {
   method: 'GET',
@@ -87,7 +87,7 @@ api.getTag = {
  *
  * @apiParam {UUID} tagId The tag _id
  *
- * @apiSuccess {object} data The updated tag
+ * @apiSuccess {Object} data The updated tag
  */
 api.updateTag = {
   method: 'PUT',
@@ -119,10 +119,10 @@ api.updateTag = {
  * @apiName ReorderTags
  * @apiGroup Tag
  *
- * @apiParam {tagId} UUID Id of the tag to move
- * @apiParam {to} number Position the tag is moving to
+ * @apiParam {UUID} tagId Id of the tag to move
+ * @apiParam {Number} to Position the tag is moving to
  *
- * @apiSuccess {object} data An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.reorderTags = {
   method: 'POST',
@@ -156,7 +156,7 @@ api.reorderTags = {
  *
  * @apiParam {UUID} tagId The tag _id
  *
- * @apiSuccess {object} data An empty object
+ * @apiSuccess {Object} data An empty object
  */
 api.deleteTag = {
   method: 'DELETE',

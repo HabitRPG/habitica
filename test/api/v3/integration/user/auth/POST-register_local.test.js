@@ -3,10 +3,11 @@ import {
   requester,
   translate as t,
   createAndPopulateGroup,
+  getProperty,
 } from '../../../../../helpers/api-integration/v3';
 import { v4 as generateRandomUserName } from 'uuid';
 import { each } from 'lodash';
-import { encrypt } from '../../../../../../website/server/libs/api-v3/encryption';
+import { encrypt } from '../../../../../../website/server/libs/encryption';
 
 describe('POST /user/auth/local/register', () => {
   context('username and email are free', () => {
@@ -31,6 +32,40 @@ describe('POST /user/auth/local/register', () => {
       expect(user._id).to.exist;
       expect(user.apiToken).to.exist;
       expect(user.auth.local.username).to.eql(username);
+    });
+
+    it('provides default tags and tasks', async () => {
+      let username = generateRandomUserName();
+      let email = `${username}@example.com`;
+      let password = 'password';
+
+      let user = await api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      expect(user.tags).to.have.a.lengthOf(7);
+      expect(user.tasksOrder.todos).to.have.a.lengthOf(1);
+      expect(user.tasksOrder.dailys).to.have.a.lengthOf(0);
+      expect(user.tasksOrder.rewards).to.have.a.lengthOf(0);
+      expect(user.tasksOrder.habits).to.have.a.lengthOf(0);
+    });
+
+    it('enrolls new users in an A/B test', async () => {
+      let username = generateRandomUserName();
+      let email = `${username}@example.com`;
+      let password = 'password';
+
+      let user = await api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      await expect(getProperty('users', user._id, '_ABtest')).to.eventually.be.a('string');
     });
 
     it('requires password and confirmPassword to match', async () => {
@@ -96,6 +131,40 @@ describe('POST /user/auth/local/register', () => {
         code: 400,
         error: 'BadRequest',
         message: t('invalidReqParams'),
+      });
+    });
+
+    it('fails on a habitica.com email', async () => {
+      let username = generateRandomUserName();
+      let email = `${username}@habitica.com`;
+      let password = 'password';
+
+      await expect(api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'User validation failed',
+      });
+    });
+
+    it('fails on a habitrpg.com email', async () => {
+      let username = generateRandomUserName();
+      let email = `${username}@habitrpg.com`;
+      let password = 'password';
+
+      await expect(api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'User validation failed',
       });
     });
 

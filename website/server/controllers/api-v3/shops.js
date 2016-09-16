@@ -1,4 +1,4 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import { authWithHeaders } from '../../middlewares/auth';
 import { shops } from '../../../../common/';
 
 let api = {};
@@ -111,8 +111,8 @@ api.getSeasonalShopItems = {
     let resObject = {
       identifier: 'seasonalShop',
       text: res.t('seasonalShop'),
-      notes: res.t('seasonalShopSummerText'),
-      imageName: 'seasonalshop_open',
+      notes: res.t('seasonalShopClosedText'),
+      imageName: 'seasonalshop_closed',
       categories: shops.getSeasonalShopCategories(user, req.language),
     };
 

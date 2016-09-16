@@ -48,6 +48,8 @@
     "leaveQuest": "Lämna Uppdraget",
     "sureLeave": "Är du säker på att du vill lämna det aktiva uppdraget? Alla uppdragsframsteg går förlorad om du gör det.",
     "questOwner": "Uppdragsägare",
+    "questTaskDamage": "+<%= damage %> pending damage to boss",
+    "questTaskCollection": "<%= items %> items collected today",
     "questOwnerNotInPendingQuest": "Uppdragsägaren har lämnat uppdraget och kan inte längre starta det. Det är rekommenderat att du avbryter det nu. Uppdragsägaren kommer återfå uppdragsskriftsrullen.",
     "questOwnerNotInRunningQuest": "Uppdragsägaren har lämnat uppdraget. Du kan avbryta uppdraget om du behöver, men du kan även fortsätta och alla kvarvarande deltagare kommer belönas när uppdraget är slutfört.",
     "questOwnerNotInPendingQuestParty": "The quest owner has left the party and can no longer begin the quest. It is recommended that you cancel it now. The quest scroll will be returned to the quest owner.",

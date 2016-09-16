@@ -1,4 +1,4 @@
-import locals from '../../middlewares/api-v3/locals';
+import locals from '../../middlewares/locals';
 import _ from 'lodash';
 import markdownIt from 'markdown-it';
 
@@ -8,7 +8,7 @@ const md = markdownIt({
 
 let api = {};
 
-const TOTAL_USER_COUNT = '1,100,000';
+const TOTAL_USER_COUNT = '1,500,000';
 const LOADING_SCREEN_TIPS = 32;
 
 api.getFrontPage = {
@@ -29,7 +29,7 @@ api.getFrontPage = {
   },
 };
 
-let staticPages = ['front', 'privacy', 'terms', 'api-v2', 'features',
+let staticPages = ['front', 'privacy', 'terms', 'features',
             'videos', 'contact', 'plans', 'new-stuff', 'community-guidelines',
             'old-news', 'press-kit', 'faq', 'overview', 'apps',
             'clear-browser-data', 'merch', 'maintenance-info'];

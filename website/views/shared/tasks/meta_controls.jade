@@ -27,11 +27,11 @@
       | &nbsp;
       span.glyphicon.glyphicon-pencil(ng-hide='task._editing')
     | &nbsp;
-    a(ng-hide='!task._editing', ng-click='editTask(task, user)', tooltip=env.t('cancel'))
+    a(ng-hide='!task._editing', ng-click='cancelTaskEdit(task)', tooltip=env.t('cancel'))
       span.glyphicon.glyphicon-remove(ng-hide='!task._editing')
       | &nbsp;
     // save
-    a(ng-hide='!task._editing', ng-click='editTask(task, user);saveTask(task)', tooltip=env.t('save'))
+    a(ng-hide='!task._editing', ng-click='saveTask(task)', tooltip=env.t('save'))
       span.glyphicon.glyphicon-ok(ng-hide='!task._editing')
     | &nbsp;
     //challenges
@@ -53,7 +53,7 @@
       | &nbsp;
     // notes
 
-  // Make this icon available regardless of task ownership  
+  // Make this icon available regardless of task ownership
   a.task-notes(ng-show='task.notes && !task._editing', ng-click='task.popoverOpen = !task.popoverOpen', popover-trigger='click', data-popover-html="{{task.notes | markdown}}", popover-placement="top", popover-append-to-body='{{::modal ? "false":"true"}}')
     span.glyphicon.glyphicon-comment
     | &nbsp;

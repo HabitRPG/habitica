@@ -230,8 +230,7 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
         pre.prettyprint {{user.id}}
         h6=env.t('APIToken')
         pre.prettyprint {{User.settings.auth.apiToken}}
-        h6=env.t('qrCode')
-        img.img-rendering-auto(src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%7B%22address%22%3A%22https%3A%2F%2Fhabitrpg.com%22%2C%22user%22%3A%22{{user.id}}%22%2C%22key%22%3A%22{{User.settings.auth.apiToken}}%22%7D&choe=UTF-8&chld=L', alt='qrcode')
+        small!=env.t("APITokenWarning")
         br
         h3=env.t('thirdPartyApps')
         ul

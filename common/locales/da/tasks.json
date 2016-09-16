@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Slet Færdiggjorte",
-    "lotOfToDos": "Færdiggjorte To-Dos bliver automatisk arkiveret efter 3 dage. Du kan tilgå dem i Indstillinger > Eksport.",
+    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
     "deleteToDosExplanation": "Hvis du trykker på knappen nedenunder vil alle dine færdiggjorte To-Dos og arkiverede To-Dos permanent blive slettet. Eksporter dem først, hvis du vil beholde en optegnelse af dem.",
     "addmultiple": "Tilføj Flere",
     "addsingle": "Tilføj Én",

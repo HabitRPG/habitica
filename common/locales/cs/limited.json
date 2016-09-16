@@ -33,7 +33,7 @@
     "seasonalShopFallText": "Vítej v Sezonním obchodě! Zrovna tu máme podzimní <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Sezonní edici</a> zboží. Všechno zde je možné zakoupit v průběhu Podzimního estivalu každý rok, ale máme otevřeno pouze do 31. října, tak si nakup teď, nebo budeš muset čekat další rok!",
     "seasonalShopWinterText": "Vítej v Sezonním obchodě! Zrovna tu máme zimní <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Sezonní edici</a> zboží. Všechno zde je možné zakoupit v průběhu Zimní Země divů každý rok, ale máme otevřeno pouze do 31. ledna, tak si nakup teď, nebo budeš muset čekat další rok!",
     "seasonalShopFallTextBroken": "Eh... vítej v Sezonním obchodě... Zrovna tu máme podzimní Sezonní edici zboží nebo tak... Všechno zde je možné zakoupit v průběhu Podzimního estivalu každý rok, ale máme otevřeno pouze do 31. října... asi si nakup teď, nebo budeš muset čekat... a čekat... a čekat <strong>*ugh*</strong>",
-    "seasonalShopRebirth": "Pokud jsi použil Kouli znovuzrození, můžeš si znovu zakoupit toto vybavení ve sloupci s odměnami, jakmile odemkneš Obchod. Ze začátku si budeš moci koupit pouze vybavení pro tvou momentální třídu (výchozí je Válečník), ale neboj, další vybavení pro další třídy bude přístupné jakmile si tuto třídu vybereš.",
+    "seasonalShopRebirth": "If you bought any of this equipment in the past but don't currently own it, you can repurchase it in the Rewards Column. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "Cukrátková hůl (mág)",
     "skiSet": "Lyžovrah (zloděj)",
     "snowflakeSet": "Sněhová vločka (léčitel)",
@@ -75,7 +75,8 @@
     "shipSoothsayerSet": "Ship Soothsayer (Mage)",
     "strappingSailorSet": "Strapping Sailor (Healer)",
     "reefRenegadeSet": "Reef Renegade (Rogue)",
-    "fallEventAvailability": "Dostupné do 31. října",
-    "winterEventAvailability": "Dostupné do 31. prosince",
-    "springEventAvailability": "Dostupné do 31. května"
+    "fallEventAvailability": "Available for purchase until October 31.",
+    "winterEventAvailability": "Available for purchase until December 31.",
+    "springEventAvailability": "Available for purchase until May 31.",
+    "summerEventAvailability": "Available for purchase until August 31."
 }

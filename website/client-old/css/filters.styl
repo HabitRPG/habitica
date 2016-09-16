@@ -1,0 +1,42 @@
+.filters
+  padding: 1em 15px 0.382em
+  margin-left: 0.382em
+  margin-right: 0em
+  @extend $clearfix
+  ul
+    float: left
+    list-style: none
+    margin-right: 1em
+  .filters-controls
+    @extend $hrpg-button-bar-with-heading
+    hrpg-button-bar-mixin($color-options-menu)
+    li
+      @extend $hrpg-button-master
+      hrpg-button-color-mixin($color-options-menu)
+  .filters-tags, .filters-edit
+    float: left
+  .filters-edit
+    margin-bottom: 0.382em
+  .filters-tags
+    @extend $hrpg-button
+    hrpg-button-color-mixin($color-filter-tag)
+    margin-bottom: 0.618em
+    margin-right: 0.618em
+    &.challenge
+      hrpg-button-color-mixin($color-filter-tag-challenge)
+      span
+        margin-right: 0.382em
+      form
+        display: none
+    .habitica-emoji
+      margin-top: -.5em
+  markdown
+    display: inline-block
+  .hrpg-input-group
+    display: inline-block
+    margin-right: 0.618em
+    @extend $hrpg-button-with-input
+    hrpg-button-color-mixin($color-options-submenu)
+  .filters-search
+    margin-bottom: 0.618em
+    max-width: 180px

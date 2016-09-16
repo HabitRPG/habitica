@@ -30,6 +30,7 @@
 
   "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
   "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",
+  "messageHealthAlreadyMax": "You already have maximum health.",
 
   "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
   "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropArticle %><%= dropText %>. What's that doing in here?",
@@ -52,7 +53,6 @@
   "messageGroupCannotRemoveSelf": "You cannot remove yourself!",
   "messageGroupChatBlankMessage": "You cannot send a blank message",
   "messageGroupChatLikeOwnMessage": "Can't like your own message. Don't be that person.",
-  "messageGroupChatFlagOwnMessage": "Can't report your own message.",
   "messageGroupChatFlagAlreadyReported": "You have already reported this message",
   "messageGroupChatNotFound": "Message not found!",
   "messageGroupChatAdminClearFlagCount": "Only an admin can clear the flag count!",

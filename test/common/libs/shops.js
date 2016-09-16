@@ -13,10 +13,10 @@ describe('shops', () => {
       expect(shopCategories.length).to.be.greaterThan(2);
     });
 
-    it('does not contain an empty category', () => {
-      _.each(shopCategories, (category) => {
-        expect(category.items.length).to.be.greaterThan(0);
-      });
+    it('does not duplicate identifiers', () => {
+      let identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)));
+
+      expect(identifiers.length).to.eql(shopCategories.length);
     });
 
     it('items contain required fields', () => {
@@ -37,6 +37,12 @@ describe('shops', () => {
       });
     });
 
+    it('does not duplicate identifiers', () => {
+      let identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)));
+
+      expect(identifiers.length).to.eql(shopCategories.length);
+    });
+
     it('items contain required fields', () => {
       _.each(shopCategories, (category) => {
         _.each(category.items, (item) => {
@@ -55,6 +61,12 @@ describe('shops', () => {
       });
     });
 
+    it('does not duplicate identifiers', () => {
+      let identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)));
+
+      expect(identifiers.length).to.eql(shopCategories.length);
+    });
+
     it('items contain required fields', () => {
       _.each(shopCategories, (category) => {
         _.each(category.items, (item) => {
@@ -71,6 +83,12 @@ describe('shops', () => {
       _.each(shopCategories, (category) => {
         expect(category.items.length).to.be.greaterThan(0);
       });
+    });
+
+    it('does not duplicate identifiers', () => {
+      let identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)));
+
+      expect(identifiers.length).to.eql(shopCategories.length);
     });
 
     it('items contain required fields', () => {

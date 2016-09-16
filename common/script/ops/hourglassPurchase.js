@@ -47,6 +47,7 @@ module.exports = function purchaseHourglass (user, req = {}, analytics) {
       itemType: type,
       acquireMethod: 'Hourglass',
       category: 'behavior',
+      headers: req.headers,
     });
   }
 

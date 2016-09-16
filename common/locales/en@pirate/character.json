@@ -1,6 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that yer Display Name, profile photo, an' blurb must comply wit' th' <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If ye have any questions about whether or not somethin' be appropriate, feel free t' email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
-    "statsAch": "Stats & Achievements",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
     "profile": "Profile",
     "avatar": "Customize Avatar",
     "other": "Other",
@@ -49,8 +48,6 @@
     "equipment": "Slops",
     "equipmentBonus": "Equipment",
     "equipmentBonusText": "Attribute bonuses provided by ye equipped battle gear. See th' Equipment tab under Inventory to select ye battle gear.",
-    "classBonus": "Class Equipment Bonus",
-    "classBonusText": "Yer class (Mercenary, if ye haven't unlocked or picked another class) uses its own gear more effective-like than gear from other classes. Equipped gear from yer current class gets a 50% boost to the attribute bonus it gives ye.",
     "classEquipBonus": "Class Bonus",
     "battleGear": "Battle Gear",
     "battleGearText": "This be th' gear ye wear into battle; it affects numbers when interactin' with ye tasks.",
@@ -85,7 +82,8 @@
     "allocateInt": "Points allocated t' Intelligence:",
     "allocateIntPop": "Add a point t' Intelligence",
     "noMoreAllocate": "Now that yor'ge hit level 100, you won't gain any yore Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Re'birth</a>, now available for free in the Market.",
-    "stats": "Avatar Stats",
+    "stats": "Stats",
+    "achievs": "Achievements",
     "strength": "Strength",
     "strengthText": "Strength increases th' chance 'o random \"critical hits\" 'n th' Doubloon, Experience, 'n loot chance boost from them. It also helps deal damage to boss monsters.",
     "constitution": "Constitution",
@@ -121,7 +119,7 @@
     "classAllocation": "Distribute points based on Class",
     "classAllocationPop": "Assigns more points to th' attributes important to ye Class.",
     "taskAllocation": "Distribute yer points based on task activity",
-    "taskAllocationPop": "Assigns points based on th' Physical (Strength), Mental (Intelligence), Social (Constitution), 'n Other (Perception) categories associated wit' th' tasks ye complete.",
+    "taskAllocationPop": "Assigns points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
     "distributePoints": "Distribute Unallocated Points",
     "distributePointsPop": "Assigns all unallocated attribute points accordin' to th' selected allocation scheme.",
     "warriorText": "Warriors score more 'n better \"critical hits\", which randomly gift bonus Doubloons, Experience, 'n loot chance fer scorin' a task. They also deal heavy damage to boss monsters. Play a Warrior if ye find motivation from unpredictable jackpot-style rewards, or want to dish out th' hurt in boss Quests!",
@@ -169,5 +167,5 @@
     "quickAllocationLevelPopover": "Each level earns ye one point t' assign t' an attribute o' yer choice. Ye can do so manually, or let th' game decide for ye using one o' th' Automatic Allocation options found in User -> Stats.",
     "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
     "notEnoughAttrPoints": "Ye don't have enough attribute points.",
-    "gearNotOwned": "You do not own this item."
+    "gearNotOwned": "Ye don't own this item."
 }

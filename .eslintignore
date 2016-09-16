@@ -8,18 +8,11 @@ website/transpiled-babel/
 
 migrations/*
 
-# The files in website/client/js should be moved out and browserified
-website/client/
+# The files in website/client-old/js should be moved out and browserified
+website/client-old/
 
 # Temporarilly disabled. These should be removed when the linting errors are fixed
 common/script/content/index.js
-common/script/public/**/*.js
-
-website/server/**/api-v2/**/*.js
-website/server/routes/payments.js
-website/server/routes/pages.js
-website/server/middlewares/apiThrottle.js
-website/server/middlewares/forceRefresh.js
 
 debug-scripts/*
 scripts/*
@@ -28,8 +21,6 @@ gulpfile.js
 Gruntfile.js
 newrelic.js
 
-test/api-legacy/**/*
-test/common/simulations/**/*
 test/content/**/*
 test/server_side/**/*
-test/spec/**/*
+test/client-old/spec/**/*

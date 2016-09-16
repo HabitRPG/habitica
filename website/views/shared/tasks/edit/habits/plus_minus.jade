@@ -1,8 +1,8 @@
-fieldset.option-group.plusminus(ng-if='task.type=="habit" && !task.challenge.id')
+fieldset.option-group.plusminus(ng-if='task.type === "habit" && canEdit(task)')
   legend.option-title=env.t('direction/Actions')
   span.task-checker
-    input.visuallyhidden.focusable(id='{{obj._id}}_{{task._id}}-option-plus', type='checkbox', ng-model='task.up')
+    input.visuallyhidden.focusable(id='{{obj._id}}_{{task._id}}-option-plus', type='checkbox', ng-model='task._edit.up')
     label(for='{{obj._id}}_{{task._id}}-option-plus')
   span.task-checker
-    input.visuallyhidden.focusable(id='{{obj._id}}_{{task._id}}-option-minus', type='checkbox', ng-model='task.down')
+    input.visuallyhidden.focusable(id='{{obj._id}}_{{task._id}}-option-minus', type='checkbox', ng-model='task._edit.down')
     label(for='{{obj._id}}_{{task._id}}-option-minus')

@@ -1,6 +1,7 @@
-import * as sender from '../../../../../website/server/libs/api-v3/email';
-import * as api from '../../../../../website/server/libs/api-v3/payments';
-import analytics from '../../../../../website/server/libs/api-v3/analyticsService';
+import * as sender from '../../../../../website/server/libs/email';
+import * as api from '../../../../../website/server/libs/payments';
+import analytics from '../../../../../website/server/libs/analyticsService';
+import notifications from '../../../../../website/server/libs/pushNotifications';
 import { model as User } from '../../../../../website/server/models/user';
 import moment from 'moment';
 
@@ -15,6 +16,7 @@ describe('payments/index', () => {
     sandbox.stub(user, 'sendMessage');
     sandbox.stub(analytics, 'trackPurchase');
     sandbox.stub(analytics, 'track');
+    sandbox.stub(notifications, 'sendNotification');
 
     data = {
       user,
@@ -23,6 +25,10 @@ describe('payments/index', () => {
       },
       customerId: 'customer-id',
       paymentMethod: 'Payment Method',
+      headers: {
+        'x-client': 'habitica-web',
+        'user-agent': '',
+      },
     };
 
     plan = {
@@ -74,14 +80,23 @@ describe('payments/index', () => {
         expect(recipient.purchased.plan.extraMonths).to.eql(3);
       });
 
-      it('updates date terminated for an existing plan with a terminated date', async () => {
-        let dateTerminated = new Date();
+      it('adds to date terminated for an existing plan with a future terminated date', async () => {
+        let dateTerminated = moment().add(1, 'months').toDate();
         recipient.purchased.plan = plan;
         recipient.purchased.plan.dateTerminated = dateTerminated;
 
         await api.createSubscription(data);
 
         expect(recipient.purchased.plan.dateTerminated).to.eql(moment(dateTerminated).add(3, 'months').toDate());
+      });
+
+      it('replaces date terminated for an account with a past terminated date', async () => {
+        let dateTerminated = moment().subtract(1, 'months').toDate();
+        recipient.purchased.plan.dateTerminated = dateTerminated;
+
+        await api.createSubscription(data);
+
+        expect(moment(recipient.purchased.plan.dateTerminated).format('YYYY-MM-DD')).to.eql(moment().add(3, 'months').format('YYYY-MM-DD'));
       });
 
       it('sets a dateTerminated date for a user without an existing subscription', async () => {
@@ -136,15 +151,15 @@ describe('payments/index', () => {
       it('sends an email about the gift', async () => {
         await api.createSubscription(data);
 
-        expect(sender.sendTxn).to.be.calledOnce;
         expect(sender.sendTxn).to.be.calledWith(recipient, 'gifted-subscription', [
           {name: 'GIFTER', content: 'sender'},
           {name: 'X_MONTHS_SUBSCRIPTION', content: 3},
         ]);
       });
 
-      xit('sends a push notification about the gift', async () => {
-        // TODO: the push notification library needs to be refactored to export an object with properties to better stub it
+      it('sends a push notification about the gift', async () => {
+        await api.createSubscription(data);
+        expect(notifications.sendNotification).to.be.calledOnce;
       });
 
       it('tracks subscription purchase as gift', async () => {
@@ -160,6 +175,10 @@ describe('payments/index', () => {
           quantity: 1,
           gift: true,
           purchaseValue: 15,
+          headers: {
+            'x-client': 'habitica-web',
+            'user-agent': '',
+          },
         });
       });
     });
@@ -227,6 +246,10 @@ describe('payments/index', () => {
           quantity: 1,
           gift: false,
           purchaseValue: 15,
+          headers: {
+            'x-client': 'habitica-web',
+            'user-agent': '',
+          },
         });
       });
     });
@@ -429,6 +452,10 @@ describe('payments/index', () => {
       data = {
         user,
         paymentMethod: 'payment',
+        headers: {
+          'x-client': 'habitica-web',
+          'user-agent': '',
+        },
       };
     });
 
@@ -493,8 +520,9 @@ describe('payments/index', () => {
         expect(user.sendMessage).to.be.calledWith(recipient, '\`Hello recipient, sender has sent you 4 gems!\`');
       });
 
-      xit('sends a push notification if user did not gift to self', async () => {
-        // TODO: the push notification library needs to be refactored to export an object with properties to better stub it
+      it('sends a push notification if user did not gift to self', async () => {
+        await api.buyGems(data);
+        expect(notifications.sendNotification).to.be.calledOnce;
       });
     });
   });

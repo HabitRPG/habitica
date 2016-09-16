@@ -53,10 +53,32 @@ shops.getMarketCategories = function getMarket (user, language) {
         value: hatchingPotion.value,
         locked: false,
         currency: 'gems',
-        purchaseType: 'hatchingpotions',
+        purchaseType: 'hatchingPotions',
       };
     }).sortBy('key').value();
   categories.push(hatchingPotionsCategory);
+
+  let premiumHatchingPotionsCategory = {
+    identifier: 'premiumHatchingPotions',
+    text: i18n.t('magicHatchingPotions', language),
+    notes: i18n.t('premiumPotionNoDropExplanation', language),
+  };
+  premiumHatchingPotionsCategory.items = _(content.hatchingPotions)
+    .values()
+    .filter(hp => hp.limited && hp.canBuy())
+    .map(premiumHatchingPotion => {
+      return {
+        key: premiumHatchingPotion.key,
+        text: premiumHatchingPotion.text(language),
+        notes: `${premiumHatchingPotion.notes(language)} ${premiumHatchingPotion._addlNotes(language)}`,
+        class: `Pet_HatchingPotion_${premiumHatchingPotion.key}`,
+        value: premiumHatchingPotion.value,
+        locked: false,
+        currency: 'gems',
+        purchaseType: 'hatchingPotions',
+      };
+    }).sortBy('key').value();
+  categories.push(premiumHatchingPotionsCategory);
 
   let foodCategory = {
     identifier: 'food',
@@ -192,14 +214,6 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
 // };
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
   let availableSets = {
-    summerWarrior: i18n.t('daringSwashbucklerSet', language),
-    summerMage: i18n.t('emeraldMermageSet', language),
-    summerHealer: i18n.t('reefSeahealerSet', language),
-    summerRogue: i18n.t('roguishPirateSet', language),
-    summer2015Warrior: i18n.t('sunfishWarriorSet', language),
-    summer2015Mage: i18n.t('shipSoothsayerSet', language),
-    summer2015Healer: i18n.t('strappingSailorSet', language),
-    summer2015Rogue: i18n.t('reefRenegadeSet', language),
   };
 
   let categories = [];
@@ -217,7 +231,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
         if (gear.index !== key) {
           return false;
         }
-        return user.items.gear.owned[gear.key] !== true;
+        return user.items.gear.owned[gear.key] === undefined;
       }).where({index: key}).map(gear => {
         return {
           key: gear.key,

@@ -33,7 +33,7 @@
     "seasonalShopFallText": "ברוכים הבאים לחנות העונתית!! אנחנו אוגרים <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>מהדורות עונתיות</a> של טובין סתוויים כרגע. כל מה שפה ניתן יהיה לרכישה במהלך אירוע פסטיבל השלכת בכל שנה, אך אנחנו פתוחים רק עד ה 31 באוקטובר, אז הזדרזו לאגור כבר עכשיו, או שתאלצו לחכות שנה כדי לרכוש את החפצים האלו שוב!",
     "seasonalShopWinterText": "ברוכים הבאים לחנות העונתית!! אנחנו אוגרים <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>מהדורות עונתיות</a> של טובין חורפיים כרגע. כל מה שפה ניתן יהיה לרכישה במהלך אירועי חורף הפלאות בכל שנה, אך אנחנו פתוחים רק עד ה 31 בינואר, אז הזדרזו לאגור כבר עכשיו, או שתאלצו לחכות שנה כדי לרכוש את החפצים האלו שוב!",
     "seasonalShopFallTextBroken": "אה.... ברוכים הבאים לחנות העונתית... אנחנו אוגרים מהדורה עונתית סתווית של טובין, או משהו... כל מה שפה יהיה מוצע למכירה במהלך אירוע פסטיבל השלכת בכל שנה, אבל אנחנו פתוחים רק עד ה 31 באוקטובר... אני מתאר לעצמי שכדאי שתאגרו עכשיו, או שתאלצו להמתין... ולהמתין... ולהמתין... <strong>*הםםם*</strong>",
-    "seasonalShopRebirth": "אם השתמשתם בכדור הלידה מחדש, תוכלו לרכוש מחדש את הרכוש הזה בעמודת הפרסים. בהתחלה, תוכלו לרכוש רק את החפצים למקצוע הנוכחי שלכם (לוחם כברירת מחדל), אך אל דאגה, החפצים האחרים שהם למקצועות מסויימים יוצעו אם תחליפו למקצועות הללו.",
+    "seasonalShopRebirth": "If you bought any of this equipment in the past but don't currently own it, you can repurchase it in the Rewards Column. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "סוכרייה על מקל הליכה (מכשף)",
     "skiSet": "מתנקש-סקי (נוכל)",
     "snowflakeSet": "פתית שלג (מרפא)",
@@ -75,7 +75,8 @@
     "shipSoothsayerSet": "מגיד עתידות בספינה (מכשף)",
     "strappingSailorSet": "ימאי חסון (מרפא)",
     "reefRenegadeSet": "עריק שונית (נוכל)",
-    "fallEventAvailability": "זמין עד ה 31 באוקטובר",
-    "winterEventAvailability": "זמין עד ה 31 בדצמבר",
-    "springEventAvailability": "זמין עד ה 31 במאי"
+    "fallEventAvailability": "זמין לרכישה עד ה 31 באוקטובר.",
+    "winterEventAvailability": "זמין לרכישה עד ה 31 בדצמבר.",
+    "springEventAvailability": "זמין לרכישה עד ה 31 במאי.",
+    "summerEventAvailability": "זמין לרכישה עד ה 31 באוגוסט."
 }

@@ -33,7 +33,7 @@
     "seasonalShopFallText": "欢迎来到季度商店!! 我们现在推挤了不少秋日时光 <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>季度版</a>商品。在这里的所有东西在金秋佳节活动期间你都可以购买，但是我们只开放到十月月31日，所以赶快来购买吧，不然你要等一整年才可以再次买到!",
     "seasonalShopWinterText": "欢迎来到季度商店!! 我们现在进货了不少冬日<a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>季度版</a>商品。在这里的所有东西在每一年冬日游乐园期间你都可以购买，但是我们只开放到1月31日，所以赶快来购买吧，不然你要等一整年才可以再次买到!",
     "seasonalShopFallTextBroken": "啊……欢迎来到季节商店……我们正在准备秋季特供产品，还有其他一些什么的…… 这里所有的东西都会在每年秋季节庆期间开放购买，但我们只开门到10月31日……你可能现在可以开始囤货了，或者只能继续等，等，等…… <strong>*叹气*</strong>",
-    "seasonalShopRebirth": "如果你曾经使用过重生之球，你可以在奖励栏重新购买此项物品。最开始，你只能购买与你的职业对应的物品(默认为战士)，但是不要害怕，当你转职之后，你也可以购买其他职业特有的物品。",
+    "seasonalShopRebirth": "If you bought any of this equipment in the past but don't currently own it, you can repurchase it in the Rewards Column. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
     "candycaneSet": "拐杖糖 (法师)",
     "skiSet": "雪橇刺客 (盗贼)",
     "snowflakeSet": "雪片 (医师)",
@@ -75,7 +75,8 @@
     "shipSoothsayerSet": "船上预言者(法师)",
     "strappingSailorSet": "魁梧的水手(医师)",
     "reefRenegadeSet": "珊瑚礁的叛徒(盗贼)",
-    "fallEventAvailability": "有效期至十月31日",
-    "winterEventAvailability": "有效期至十二月31日",
-    "springEventAvailability": "5月31日前可用"
+    "fallEventAvailability": "10月31日前可购买",
+    "winterEventAvailability": "12月31日前可购买",
+    "springEventAvailability": "5月31日前可购买",
+    "summerEventAvailability": "8月31日前可购买"
 }

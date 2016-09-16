@@ -1,6 +1,6 @@
 {
   "habiticaBackSoon": "Pas de panique, Habitica revient vite !",
-  "importantMaintenance": "Nous sommes en train d'effectuer d'importantes tâches de maintenance qui devraient être terminées à <%= localDate %> dans votre fuseau horaire.",
+  "importantMaintenance": "Nous sommes en train d'effectuer d'importantes tâches de maintenance qui devraient durer jusqu'à 22h PST (5h UTC).",
   "maintenance": "Maintenance",
   "maintenanceMoreInfo": "Vous voulez plus d'information sur la maintenance ? <%= linkStart %>Allez voir notre page d'information<%= linkEnd %>.",
   "noDamageKeepStreaks": "Vous ne prendrez AUCUN dommage et ne perdrez aucun combo !",

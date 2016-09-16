@@ -27,6 +27,7 @@ module.exports = function releasePets (user, req = {}, analytics) {
       acquireMethod: 'Gems',
       gemCost: 4,
       category: 'behavior',
+      headers: req.headers,
     });
   }
 

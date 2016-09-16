@@ -6,7 +6,8 @@
     "titleTasks": "Zadaci",
     "titleAvatar": "Avatar",
     "titleBackgrounds": "Backgrounds",
-    "titleStats": "Stats & Achievements",
+    "titleStats": "Stats",
+    "titleAchievs": "Achievements",
     "titleProfile": "Profil",
     "titleInbox": "Sanduče",
     "titleTavern": "Tavern",
@@ -115,6 +116,7 @@
     "audioTheme_gokulTheme": "Gokul Theme",
     "audioTheme_luneFoxTheme": "LuneFox's Theme",
     "audioTheme_rosstavoTheme": "Rosstavo's Theme",
+    "audioTheme_dewinTheme": "Dewin's Theme",
     "askQuestion": "Pitanja",
     "reportBug": "Prijaviti grešku",
     "HabiticaWiki": "The Habitica Wiki",
@@ -179,5 +181,9 @@
     "raisePetShare": "I raised a pet into a mount by completing my real-life tasks!",
     "wonChallengeShare": "I won a challenge in Habitica!",
     "achievementShare": "I earned a new achievement in Habitica!",
-    "orderBy": "Order By <%= item %>"
+    "orderBy": "Order By <%= item %>",
+    "you": "(you)",
+    "enableDesktopNotifications": "Enable Desktop Notifications",
+    "online": "online",
+    "onlineCount": "<%= count %> online"
 }
