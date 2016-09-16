@@ -1,6 +1,6 @@
 {
   "name": "habitica",
-  "version": "3.41.2",
+  "version": "3.41.3",
   "dependencies": {
     "@slack/client": {
       "version": "3.6.0",
