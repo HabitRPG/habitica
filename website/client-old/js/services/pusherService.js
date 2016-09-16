@@ -16,14 +16,29 @@ angular.module('habitrpg')
     var tabIdKey = 'habitica-active-tab-v1';
     var tabId = Shared.uuid();
 
+    var localStorageDateInterval;
+
+    function onDisconnect () {
+      localStorage.removeItem(tabIdKey);
+      localStorage.removeItem(tabIdKey + '-time');
+      clearInterval(localStorageDateInterval);
+    }
+
     function connectToPusher (partyId, reconnecting) {
       console.log('Connecting to Pusher.');
 
       // Limit 1 tab connected per user
       localStorage.setItem(tabIdKey, tabId);
-      window.onbeforeunload = function () {
-        localStorage.removeItem(tabIdKey);
-      };
+      localStorage.setItem(tabIdKey + '-time', Date.now());
+
+      // Every 10 seconds log the current time to localstorage, so if for some reason
+      // localStorage.tabIdKey get stuck, the next time the user reconnect and
+      // the last logged date has been long ago
+      localStorageDateInterval = setInterval(function () {
+        localStorage.setItem(tabIdKey + '-time', Date.now());
+      }, 10000);
+
+      window.onbeforeunload = onDisconnect;
 
       api.pusher = new Pusher(window.env['PUSHER:KEY'], {
         encrypted: true,
@@ -188,11 +203,14 @@ angular.module('habitrpg')
     function disconnectPusher () {
       console.log('Disconnecting from Pusher for inactivity.');
       api.pusher.disconnect();
-      localStorage.removeItem(tabIdKey);
+      window.onbeforeunload = null; // TODO use addEventListener
+      onDisconnect();
 
       var awaitActivity = function() {
         $(document).off('mousemove keydown mousedown touchstart', awaitActivity);
-        if (!localStorage.getItem(tabIdKey) || localStorage.getItem(tabIdKey) === tabId) {
+        var lastSavedDate = localStorage.getItem(tabIdKey + '-time') || 0;
+
+        if (!localStorage.getItem(tabIdKey) || localStorage.getItem(tabIdKey) === tabId || ((Date.now() - lastSavedDate) > 30000)) {
           connectToPusher(partyId, true);
         } else {
           console.log('Cannot connect 2 tabs to Pusher.');
@@ -215,8 +233,10 @@ angular.module('habitrpg')
       partyId = user && $rootScope.user.party && $rootScope.user.party._id;
       if (!partyId) return;
 
-      // See if another tab is already connected to Pusher
-      if (!localStorage.getItem(tabIdKey)) {
+      // See if another tab is already connected to Pusher (or if it got stuck: last saved date more than 30 sec ago)
+      var lastSavedDate = localStorage.getItem(tabIdKey + '-time') || 0;
+
+      if (!localStorage.getItem(tabIdKey) || ((Date.now() - lastSavedDate) > 30000)) {
         connectToPusher(partyId);
       } else {
         console.log('Cannot connect 2 tabs to Pusher.');
@@ -227,7 +247,8 @@ angular.module('habitrpg')
       window.addEventListener('storage', function(e) {
         if (e.key === tabIdKey && e.newValue === null) {
           setTimeout(function () {
-            if (!localStorage.getItem(tabIdKey)) {
+            var lastSavedDate = localStorage.getItem(tabIdKey + '-time') || 0;
+            if (!localStorage.getItem(tabIdKey) || ((Date.now() - lastSavedDate) > 30000)) {
               connectToPusher(partyId, true);
             } else {
               console.log('Cannot connect 2 tabs to Pusher.');
