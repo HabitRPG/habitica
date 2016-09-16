@@ -10,7 +10,7 @@ const SLACK_CONFIG = {
   emoji: 'transifex'
 }
 
-const LOCALES = './common/locales/';
+const LOCALES = './website/common/locales/';
 const ENGLISH_LOCALE = `${LOCALES}en/`;
 const ALL_LANGUAGES = getArrayOfLanguages();
 

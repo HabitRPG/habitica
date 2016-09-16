@@ -1,5 +1,5 @@
 import { authWithHeaders } from '../../middlewares/auth';
-import common from '../../../../common';
+import common from '../../../common';
 import {
   NotFound,
   BadRequest,

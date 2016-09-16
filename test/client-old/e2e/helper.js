@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { resetHabiticaDB } from '../helpers/api-integration/mongo';
+import { resetHabiticaDB } from '../../helpers/api-integration/mongo';
 
 before(async () => {
   await resetHabiticaDB();

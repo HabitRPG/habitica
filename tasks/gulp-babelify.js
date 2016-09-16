@@ -8,7 +8,7 @@ import babel from 'babelify';
 
 gulp.task('browserify', function () {
   let bundler = browserify({
-    entries: './common/browserify.js',
+    entries: './website/common/browserify.js',
     debug: true,
     transform: [[babel, { compact: false }]],
   });
@@ -23,9 +23,9 @@ gulp.task('browserify', function () {
       this.emit('end');
     })
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('./common/dist/scripts/'));
+    .pipe(gulp.dest('./website/client-old/js/'));
 });
 
 gulp.task('browserify:watch', () => {
-  gulp.watch('./common/script/**/*.js', ['browserify']);
+  gulp.watch('./website/common/script/**/*.js', ['browserify']);
 });

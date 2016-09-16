@@ -1,4 +1,4 @@
-import shared from '../../../../common';
+import shared from '../../../common';
 import _ from 'lodash';
 import moment from 'moment';
 import * as Tasks from '../task';

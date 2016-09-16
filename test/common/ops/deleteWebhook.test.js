@@ -1,4 +1,4 @@
-import deleteWebhook from '../../../common/script/ops/deleteWebhook';
+import deleteWebhook from '../../../website/common/script/ops/deleteWebhook';
 import {
   generateUser,
 } from '../../helpers/common.helper';

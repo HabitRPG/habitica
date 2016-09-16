@@ -1,4 +1,4 @@
-import updateStats from '../../../common/script/fns/updateStats';
+import updateStats from '../../../website/common/script/fns/updateStats';
 import {
   generateUser,
 } from '../../helpers/common.helper';
