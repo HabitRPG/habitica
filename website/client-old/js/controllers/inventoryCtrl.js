@@ -378,18 +378,22 @@ habitrpg.controller("InventoryCtrl",
     };
 
     $scope.shouldShowPremiumMountSection = function () {
-      var pets = Object.keys(user.items.pets);
-      return pets.find(function (petKey) {
-        var pet = Content.petInfo[petKey];
+      return findPet(function (pet) {
         return pet.type === 'premium';
       });
     };
 
     $scope.hasAPetOfPotion = function (potion) {
+      return findPet(function (pet) {
+        return pet.potion === potion;
+      });
+    };
+
+    function findPet (fn) {
       var pets = Object.keys(user.items.pets);
       return pets.find(function (petKey) {
         var pet = Content.petInfo[petKey];
-        return pet.potion === potion;
+        return fn(pet);
       });
     }
 
