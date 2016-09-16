@@ -983,7 +983,7 @@ describe('Group Model', () => {
           expect(updatedParticipatingMember.items.hatchingPotions.Shade).to.eql(2);
         });
 
-        it('awards quests', async () => {
+        it('awards quest scrolls to owner', async () => {
           let questAwardQuest = questScrolls.vice2;
 
           await party.finishQuest(questAwardQuest);

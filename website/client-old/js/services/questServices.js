@@ -69,23 +69,24 @@ angular.module('habitrpg')
       }
       text += '---\n\n';
       text += '**' + window.env.t('rewardsAllParticipants') + ':**\n\n';
-      var participantRewards = quest.drop.items ? _.reject(quest.drop.items, 'onlyOwner') : quest.drop.items;
-      if(participantRewards) {
-        for (var item in participantRewards) {
+      var participantRewards = _.reject(quest.drop.items, 'onlyOwner');
+      if(participantRewards.length > 0) {
+        _.each( participantRewards, function(item) {
           text += quest.drop.items[item].text() + '\n\n';
-        }
+        });
       }
       if(quest.drop.exp)
         text += quest.drop.exp + ' ' + window.env.t('experience') + '\n\n';
       if(quest.drop.gp)
         text += quest.drop.gp + ' ' + window.env.t('gold') + '\n\n';
 
-      var ownerRewards = quest.drop.items ? _.filter(quest.drop.items, 'onlyOwner') : quest.drop.items;
-      if(ownerRewards && ownerRewards.length > 0) {
+      var ownerRewards = _.filter(quest.drop.items, 'onlyOwner');
+      if(ownerRewards.length > 0) {
         text += '**' + window.env.t('rewardsQuestOwner') + ':**\n\n';
         for (var item in ownerRewards) {
+        _.each( ownerRewards, function(item){
           text += quest.drop.items[item].text() + '\n\n';
-        }
+        });
       }
 
       return text;
