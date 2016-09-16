@@ -276,7 +276,7 @@ api.getChallengeMemberProgress = {
  * @apiGroup Member
  *
  * @apiParam {UUID} toUserId The user to interact with
- * @apiParam {String} interaction Name of the interaction to query, e.g. "send-private-message"
+ * @apiParam {String="send-private-message","transfer-gems"} interaction Name of the interaction to query
  *
  * @apiSuccess {Array} data Return an array of error messages, if the interaction would be blocked; otherwise an empty array
  */
