@@ -50,17 +50,6 @@ async function _handleGroupInvitation (user, invite) {
   }
 }
 
-function _assignABtest (user) {
-  // A/B Test 2016-09-12: Start with Sound Enabled?
-  if (Math.random() < 0.5) {
-    user.preferences.sound = 'rosstavoTheme';
-    user._ABtest = '20160912-soundEnabled';
-  } else {
-    user._ABtest = '20160912-soundDisabled';
-  }
-  return user;
-}
-
 /**
  * @api {post} /api/v3/user/auth/local/register Register
  * @apiDescription Register a new user with email, username and password or attach local auth to a social user
@@ -138,7 +127,6 @@ api.registerLocal = {
       newUser = fbUser;
     } else {
       newUser = new User(newUser);
-      newUser = _assignABtest(newUser);
       newUser.registeredThrough = req.headers['x-client']; // Not saved, used to create the correct tasks based on the device used
     }
 
@@ -279,7 +267,6 @@ api.loginSocial = {
           language: req.language,
         },
       });
-      user = _assignABtest(user);
       user.registeredThrough = req.headers['x-client'];
 
       let savedUser = await user.save();
