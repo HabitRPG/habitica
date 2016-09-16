@@ -130,7 +130,7 @@
     "questEggArmadilloAdjective": "een bepantserd",
     "questEggCowText": "Koe",
     "questEggCowMountText": "Koe",
-    "questEggCowAdjective": "a mooing",
+    "questEggCowAdjective": "een loeiende",
     "eggNotes": "Vind een uitbroedtoverdrank om over dit ei te gieten en er zal een <%= eggAdjective(locale) %> <%= eggText(locale) %> uitkomen.",
     "hatchingPotionBase": "Normale",
     "hatchingPotionWhite": "Witte",

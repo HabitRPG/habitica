@@ -103,7 +103,7 @@
     "questGoldenknight3DropGoldenPotion": "黄金孵化药水",
     "questGoldenknight3DropWeapon": "马斯泰因的碎石流星锤(副手武器)",
     "questBasilistText": "基础列表",
-    "questBasilistNotes": "集市上发生了一场让人想要逃跑的骚乱。而你作为一名勇敢的冒险者却明知山有虎偏向虎山行，发现一条由一堆未完成的待办事项聚合成的基础列表！附近的Habitican们被基础列表的长度吓得不能动弹，更别提着手工作了。这时你听到@Arcosine在不远处喊道：“快！在有人收到剪纸之前完成你的待办事项和每日任务来消除这条怪兽的威胁！”快速出击吧，冒险者，核对你的任务——但是要记住！如果你有任何未完成的每日任务，这条基础列表就会攻击你和你的队伍！",
+    "questBasilistNotes": "集市上发生了一场让人想要逃跑的骚乱。而你作为一名勇敢的冒险者，却明知山有虎偏向虎山行，发现了由一堆未完成的待办事项聚合成的一个怪兽<基础列表>！附近的Habitican们被<基础列表>的长度吓得不能动弹，更别提着手工作了。这时你听到 @Arcosine 在不远处喊道：“快！在有人受到轻微的伤害之前，完成你的待办事项和每日任务来打败这条怪兽！”冒险者们，速战速决，核对你的任务——但是注意！如果你有任何未完成的每日任务，这条<基础列表>就会攻击你和你的队伍！",
     "questBasilistCompletion": "这条基础列表碎成了漫天的碎纸片，微微地闪着彩虹色。“吁，”@Arcosine说道，“有你们在真是太棒了！”你从地上的碎纸片中收集起散落的金币，感觉自己与以前相比更加老练了。",
     "questBasilistBoss": "基础列表",
     "questEggHuntText": "狩猎鸡蛋",
@@ -342,10 +342,10 @@
     "questArmadilloBoss": "放纵的犰狳",
     "questArmadilloDropArmadilloEgg": "犰狳(蛋)",
     "questArmadilloUnlockText": "解锁犰狳蛋购买功能",
-    "questCowText": "The Mootant Cow",
-    "questCowNotes": "It’s been a long, hot day at Sparring Farms, and there is nothing more you want than a long sip of water and some sleep. You're standing there daydreaming when @Soloana suddenly screams, \"Everyone run! The prize cow has mootated!\"<br><br>@eevachu gulps. \"It must be our bad habits that infected it.\"<br><br>\"Quick!\" Feralem Tau says. \"Let’s do something before the udder cows mootate, too.\"<br><br>You’ve herd enough. No more daydreaming -- it's time to get those bad habits under control!",
-    "questCowCompletion": "You milk your good habits for all they are worth until the cow reverts to its original form. The cow looks over at you with her pretty brown eyes and nudges over three eggs.<br><br>@fuzzytrees laughs and hands you the eggs, \"Maybe it still is mootated if there are baby cows in these eggs. But I trust you to stick to your good habits when you raise them!\"",
-    "questCowBoss": "Mootant Cow",
-    "questCowDropCowEgg": "Cow (Egg)",
-    "questCowUnlockText": "Unlocks purchasable Cow eggs in the Market"
+    "questCowText": "变异奶牛",
+    "questCowNotes": "那是在斯巴英农场中又热又长的一天，除了只想喝一大口水然后去睡觉，你什么也不想做。正当你站在那里做白日梦的时候，@Soloana 突然尖叫起来，“所有人快跑！被捕获的牛开始暴动了！”<br><br>@eevachu 吞了一口唾沫，“它一定是被我们的坏习惯感染了。”<br><br>“快点！”Feralem Tau喊道，“在穆塔特牛来前行动起来！”<br><br>你对自己的放羊时间已经够长了，不要再做白日梦了，是时候获取那些坏习惯的控制权了！",
+    "questCowCompletion": "当你的好习惯奶牛一直保持有价值的时候，你从中挤出牛奶， 直到好习惯奶牛回复成它原来的样子。奶牛用它的棕色漂亮的眼睛看着你，并产出三个蛋。<br><br>@fuzzytrees 一边笑着将这些蛋交给你，”如果蛋里面有牛宝宝，也许它仍然是变异的。但是我相信你抚养它们的时候，会坚持你的好习惯！”",
+    "questCowBoss": "变异奶牛",
+    "questCowDropCowEgg": "奶牛 (宠物蛋)",
+    "questCowUnlockText": "解锁奶牛蛋购买功能。"
 }
