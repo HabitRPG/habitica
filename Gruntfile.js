@@ -133,7 +133,7 @@ module.exports = function(grunt) {
   grunt.registerTask('test:prepare:translations', function() {
     var i18n  = require('./website/server/libs/i18n'),
         fs    = require('fs');
-    fs.writeFileSync('test/spec/mocks/translations.js',
+    fs.writeFileSync('test/client-old/spec/mocks/translations.js',
       "if(!window.env) window.env = {};\n" +
       "window.env.translations = " + JSON.stringify(i18n.translations['en']) + ';');
   });
