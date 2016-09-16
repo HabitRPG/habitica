@@ -2,7 +2,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import content from '../../../../../common/script/content/index';
+import content from '../../../../../website/common/script/content/index';
 
 describe('POST /user/open-mystery-item', () => {
   let user;

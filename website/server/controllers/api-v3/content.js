@@ -1,4 +1,4 @@
-import common from '../../../../common';
+import common from '../../../common';
 import _ from 'lodash';
 import { langCodes } from '../../libs/i18n';
 import Bluebird from 'bluebird';
