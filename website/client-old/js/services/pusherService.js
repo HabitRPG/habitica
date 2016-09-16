@@ -21,7 +21,7 @@ angular.module('habitrpg')
     function onDisconnect () {
       localStorage.removeItem(tabIdKey);
       localStorage.removeItem(tabIdKey + '-time');
-      clearInterval(localStorageDateInterval);
+      if (localStorageDateInterval) clearInterval(localStorageDateInterval);
     }
 
     function connectToPusher (partyId, reconnecting) {
