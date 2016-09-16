@@ -26,3 +26,7 @@ ng-form.form-group(name='everyX', ng-if='task._edit.frequency=="daily"')
     +dayOfWeek('th', 4)
     +dayOfWeek('f', 5)
     +dayOfWeek('s', 6)
+
+label.checkbox
+  input(type='checkbox', ng-model='task.activeUntilCompleted', ng-click='saveTask(task, true, false)')
+  p Active until completed 

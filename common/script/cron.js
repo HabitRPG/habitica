@@ -5,6 +5,7 @@
   ------------------------------------------------------
  */
 import _ from 'lodash';
+import reverse from 'lodash.reverse';
 import moment from 'moment';
 
 export const DAY_MAPPING = {
@@ -88,6 +89,21 @@ export function daysSince (yesterday, options = {}) {
   Should the user do this task on this date, given the task's repeat options and user.preferences.dayStart?
  */
 
+function _missedLastDueCheck (dailyHistory) {
+  reverse(dailyHistory); // Work in reverse chronological order
+  let nextIndex = 1;
+  for (let entry of dailyHistory) {
+    if (!dailyHistory[nextIndex]) {
+      return true; // History is empty or value static throughout; Daily was never completed or failed
+    }
+    if (entry.value < dailyHistory[nextIndex].value) {
+      return true; // We've found a value lower than the next older one in dailyHistory; Daily was failed
+    } else if (entry.value > dailyHistory[nextIndex].value) {
+      return false; // We've found a value higher than the next older one in dailyHistory; Daily was completed
+    } else nextIndex++; // Values are equal; Daily was skipped that day. Keep looking
+  }
+}
+
 export function shouldDo (day, dailyTask, options = {}) {
   if (dailyTask.type !== 'daily') {
     return false;
@@ -104,14 +120,26 @@ export function shouldDo (day, dailyTask, options = {}) {
   if (taskStartDate > startOfDayWithCDSTime.startOf('day')) {
     return false; // Daily starts in the future
   }
-  if (dailyTask.frequency === 'daily') { // "Every X Days"
+  let frequency = dailyTask.frequency;
+  let activeUntilCompleted = dailyTask.activeUntilCompleted || false;
+
+  if (frequency === 'daily') { // "Every X Intervals"
     if (!dailyTask.everyX) {
       return false; // error condition
     }
-    let daysSinceTaskStart = startOfDayWithCDSTime.startOf('day').diff(taskStartDate, 'days');
+    let intervalUnit = dailyTask.intervalUnit || 'days';
+    let intervalsSinceTaskStart = startOfDayWithCDSTime.startOf('day').diff(taskStartDate, intervalUnit);
 
-    return daysSinceTaskStart % dailyTask.everyX === 0;
-  } else if (dailyTask.frequency === 'weekly') { // "On Certain Days of the Week"
+    if (intervalsSinceTaskStart % dailyTask.everyX === 0) {
+      return true;
+    } else if (activeUntilCompleted) {
+      return _missedLastDueCheck(dailyTask.history);
+    } else {
+      return false;
+    }
+  /* } else if (frequency === 'sinceCompletion') {
+  } else if (frequency === 'timesInInterval') { */
+  } else if (frequency === 'weekly') { // "On Certain Days of the Week"
     if (!dailyTask.repeat) {
       return false; // error condition
     }
