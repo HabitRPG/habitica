@@ -8,7 +8,11 @@ let _sendWebhook = (url, body) => {
     url,
     body,
     json: true,
-  }, (err) => logger.error(err));
+  }, (err) => {
+    if (err) {
+      logger.error(err);
+    }
+  });
 };
 
 let _isInvalidWebhook = (hook) => {

@@ -1,7 +1,7 @@
 import {
   generateUser,
 } from '../../../../helpers/api-integration/v3';
-import common from '../../../../../common';
+import common from '../../../../../website/common';
 
 describe('GET /user', () => {
   let user;

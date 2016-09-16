@@ -4,7 +4,7 @@ import {
   sleep,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
-import { quests as questScrolls } from '../../../../../common/script/content';
+import { quests as questScrolls } from '../../../../../website/common/script/content';
 
 describe('POST /groups/:groupId/quests/invite/:questKey', () => {
   let questingGroup;

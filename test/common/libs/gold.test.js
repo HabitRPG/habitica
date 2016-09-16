@@ -1,4 +1,4 @@
-import gold from '../../../common/script/libs/gold';
+import gold from '../../../website/common/script/libs/gold';
 
 describe('gold', () => {
   it('is 0', () => {

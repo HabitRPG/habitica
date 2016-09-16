@@ -32,9 +32,9 @@ module.exports = function karmaConfig (config) {
       'website/client-old/bower_components/select2/select2.js',
       'website/client-old/bower_components/angular-ui-select2/src/select2.js',
       'website/client-old/bower_components/habitica-markdown/dist/habitica-markdown.min.js',
-      'common/dist/scripts/habitrpg-shared.js',
+      'website/client-old/js/habitrpg-shared.js',
 
-      'test/spec/mocks/**/*.js',
+      'test/client-old/spec/mocks/**/*.js',
 
       'website/client-old/js/env.js',
       'website/client-old/js/app.js',
@@ -46,8 +46,8 @@ module.exports = function karmaConfig (config) {
       'website/client-old/js/directives/**/*.js',
       'website/client-old/js/controllers/**/*.js',
 
-      'test/spec/specHelper.js',
-      'test/spec/**/*.js',
+      'test/client-old/spec/specHelper.js',
+      'test/client-old/spec/**/*.js',
     ],
 
     // list of files / patterns to exclude

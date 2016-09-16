@@ -3,7 +3,7 @@ import {
   getTasks,
   syncableAttrs,
 } from '../../../../../website/server/libs/taskManager';
-import i18n from '../../../../../common/script/i18n';
+import i18n from '../../../../../website/common/script/i18n';
 import {
   generateUser,
   generateGroup,

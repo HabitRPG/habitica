@@ -18,9 +18,9 @@ gulp.task('build:src', () => {
 });
 
 gulp.task('build:common', () => {
-  return gulp.src('common/script/**/*.js')
+  return gulp.src('website/common/script/**/*.js')
     .pipe(babel())
-    .pipe(gulp.dest('common/transpiled-babel/'));
+    .pipe(gulp.dest('website/common/transpiled-babel/'));
 });
 
 gulp.task('build:server', ['build:src', 'build:common']);
@@ -30,7 +30,7 @@ gulp.task('build:dev', ['browserify', 'prepare:staticNewStuff'], (done) => {
 });
 
 gulp.task('build:dev:watch', ['build:dev'], () => {
-  gulp.watch(['website/client-old/**/*.styl', 'common/script/*']);
+  gulp.watch(['website/client-old/**/*.styl', 'website/common/script/*']);
 });
 
 gulp.task('build:prod', ['browserify', 'build:server', 'prepare:staticNewStuff'], (done) => {
