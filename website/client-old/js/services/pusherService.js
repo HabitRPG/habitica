@@ -139,6 +139,7 @@ angular.module('habitrpg')
 
           // If a system message comes in, sync the party as quest status may have changed
           if (chatData.uuid === 'system') {
+            $rootScope.User.sync();
             Groups.party(true).then(function (syncedParty) {
               // Assign and not replace so that all the references get the modifications
               _.assign($rootScope.party, syncedParty);
