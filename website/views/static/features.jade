@@ -70,17 +70,19 @@ block content
           img.pull-left(src='/marketing/wellness.png')
           p.lead=env.t('marketing4Lead2')
       .row
-        .col-md-6.col-md-offset-3
+        .col-md-8.col-md-offset-2
           h3=env.t('marketing4Lead3Title')
           img.img-rendering-auto(src='/marketing/lefnire.png')
           p.lead
             =env.t('marketing4Lead3-1')
             |&nbsp;
             a.btn.btn-primary(ng-click='playButtonClick()')=env.t('playButton')
+            br
             |&nbsp;
             =env.t('marketing4Lead3-2')
             |&nbsp;
             a.btn.btn-primary(href='/static/plans',target='_blank')=env.t('contactUs')
+            br
             |&nbsp;
             =env.t('marketing4Lead3-3')
             |&nbsp;
