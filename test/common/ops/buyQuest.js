@@ -1,12 +1,12 @@
 import {
   generateUser,
 } from '../../helpers/common.helper';
-import buyQuest from '../../../common/script/ops/buyQuest';
+import buyQuest from '../../../website/common/script/ops/buyQuest';
 import {
   NotAuthorized,
   NotFound,
-} from '../../../common/script/libs/errors';
-import i18n from '../../../common/script/i18n';
+} from '../../../website/common/script/libs/errors';
+import i18n from '../../../website/common/script/i18n';
 
 describe('shared.ops.buyQuest', () => {
   let user;
