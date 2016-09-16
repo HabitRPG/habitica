@@ -1,4 +1,4 @@
-import updateTask from '../../../common/script/ops/updateTask';
+import updateTask from '../../../website/common/script/ops/updateTask';
 import {
   generateHabit,
 } from '../../helpers/common.helper';

@@ -178,7 +178,7 @@ angular.module('habitrpg')
                 groupName: $rootScope.party.name,
               }), {
                 body: (chatData.user || chatData.uuid) + ': ' + chatData.text,
-                icon: '/common/img/gryphon_192-20.png',
+                icon: '/assets/img/gryphon_192-20.png'
               });
 
               notif.addEventListener('click', function () {

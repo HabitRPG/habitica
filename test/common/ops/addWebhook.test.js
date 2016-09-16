@@ -1,8 +1,8 @@
-import addWebhook from '../../../common/script/ops/addWebhook';
+import addWebhook from '../../../website/common/script/ops/addWebhook';
 import {
   BadRequest,
-} from '../../../common/script/libs/errors';
-import i18n from '../../../common/script/i18n';
+} from '../../../website/common/script/libs/errors';
+import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';
