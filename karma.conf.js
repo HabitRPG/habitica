@@ -32,7 +32,7 @@ module.exports = function karmaConfig (config) {
       'website/client-old/bower_components/select2/select2.js',
       'website/client-old/bower_components/angular-ui-select2/src/select2.js',
       'website/client-old/bower_components/habitica-markdown/dist/habitica-markdown.min.js',
-      'common/dist/scripts/habitrpg-shared.js',
+      'website/client-old/js/habitrpg-shared.js',
 
       'test/client-old/spec/mocks/**/*.js',
 

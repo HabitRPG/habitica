@@ -1,6 +1,6 @@
 import amazonPayments from 'amazon-payments';
 import nconf from 'nconf';
-import common from '../../../common';
+import common from '../../common';
 import Bluebird from 'bluebird';
 import {
   BadRequest,

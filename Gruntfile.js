@@ -28,11 +28,11 @@ module.exports = function(grunt) {
           report: 'gzip'
         },
         files:{
-          "common/dist/sprites/habitrpg-shared.css": [
-            "common/dist/sprites/spritesmith*.css",
-            "common/css/backer.css",
-            "common/css/Mounts.css",
-            "common/css/index.css"
+          "website/client-old/css/habitrpg-shared.css": [
+            "website/assets/sprites/dist/spritesmith*.css",
+            "website/assets/sprites/css/backer.css",
+            "website/assets/sprites/css/Mounts.css",
+            "website/assets/sprites/css/index.css"
           ]
         }
       }
@@ -57,10 +57,10 @@ module.exports = function(grunt) {
         files: [
           {expand: true, cwd: 'website/client-old/', src: 'favicon.ico', dest: 'website/build/'},
           {expand: true, cwd: 'website/client-old/', src: 'favicon_192x192.png', dest: 'website/build/'},
-          {expand: true, cwd: '', src: 'common/dist/sprites/spritesmith*.png', dest: 'website/build/'},
-          {expand: true, cwd: '', src: 'common/img/sprites/backer-only/*.gif', dest: 'website/build/'},
-          {expand: true, cwd: '', src: 'common/img/sprites/npc_ian.gif', dest: 'website/build/'},
-          {expand: true, cwd: '', src: 'common/img/sprites/quest_*.gif', dest: 'website/build/'},
+          {expand: true, cwd: 'website/assets/sprites/dist/', src: 'spritesmith*.png', dest: 'website/build/'},
+          {expand: true, cwd: '', src: 'website/assets/sprites/backer-only/*.gif', dest: 'website/build/'},
+          {expand: true, cwd: '', src: 'website/assets/sprites/npc_ian.gif', dest: 'website/build/'},
+          {expand: true, cwd: '', src: 'website/assets/sprites/quest_*.gif', dest: 'website/build/'},
           {expand: true, cwd: 'website/client-old/', src: 'bower_components/bootstrap/dist/fonts/*', dest: 'website/build/'}
         ]
       }
@@ -77,10 +77,10 @@ module.exports = function(grunt) {
           'website/build/*.css',
           'website/build/favicon.ico',
           'website/build/favicon_192x192.png',
-          'website/build/common/dist/sprites/*.png',
-          'website/build/common/img/sprites/backer-only/*.gif',
-          'website/build/common/img/sprites/npc_ian.gif',
-          'website/build/common/img/sprites/quest_*.gif',
+          'website/build/website/assets/sprites/dist/*.png',
+          'website/build/website/assets/sprites/backer-only/*.gif',
+          'website/build/website/assets/sprites/npc_ian.gif',
+          'website/build/website/assets/sprites/quest_*.gif',
           'website/build/bower_components/bootstrap/dist/fonts/*'
         ],
         dest: 'website/build/*.css'

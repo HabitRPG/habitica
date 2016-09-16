@@ -1,4 +1,4 @@
-import splitWhitespace from '../../../common/script/libs/splitWhitespace';
+import splitWhitespace from '../../../website/common/script/libs/splitWhitespace';
 
 describe('splitWhitespace', () => {
   it('returns an array', () => {

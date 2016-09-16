@@ -1,4 +1,4 @@
-import taskDefaults from '../../../common/script/libs/taskDefaults';
+import taskDefaults from '../../../website/common/script/libs/taskDefaults';
 
 describe('taskDefaults', () => {
   it('applies defaults to undefined type or habit', () => {
