@@ -1,11 +1,11 @@
-import purchase from '../../../common/script/ops/purchase';
-import planGemLimits from '../../../common/script/libs/planGemLimits';
+import purchase from '../../../website/common/script/ops/purchase';
+import planGemLimits from '../../../website/common/script/libs/planGemLimits';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
-} from '../../../common/script/libs/errors';
-import i18n from '../../../common/script/i18n';
+} from '../../../website/common/script/libs/errors';
+import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';

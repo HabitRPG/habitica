@@ -34,7 +34,7 @@
             "bower_components/jquery-ui/ui/minified/jquery.ui.sortable.min.js",
             "bower_components/smart-app-banner/smart-app-banner.js",
 
-            "common/dist/scripts/habitrpg-shared.js",
+            "js/habitrpg-shared.js",
 
             "js/env.js",
 
@@ -111,7 +111,7 @@
             "app.css",
             "bower_components/pnotify/jquery.pnotify.default.css",
             "bower_components/pnotify/jquery.pnotify.default.icons.css",
-            "common/dist/sprites/habitrpg-shared.css",
+            "css/habitrpg-shared.css",
             "bower_components/bootstrap-tour/build/css/bootstrap-tour.css",
             "fontello/css/fontelico.css"
         ]
@@ -119,7 +119,7 @@
     "static": {
         "js": [
             "bower_components/jquery/dist/jquery.min.js",
-            "common/dist/scripts/habitrpg-shared.js",
+            "js/habitrpg-shared.js",
             "bower_components/angular/angular.js",
             "bower_components/angular-ui/build/angular-ui.js",
             "bower_components/angular-bootstrap/ui-bootstrap.js",
@@ -153,14 +153,14 @@
             "bower_components/jquery-colorbox/example1/colorbox.css",
             "bower_components/smart-app-banner/smart-app-banner.css",
             "app.css",
-            "common/dist/sprites/habitrpg-shared.css",
+            "css/habitrpg-shared.css",
             "static.css"
         ]
     },
     "tmp_static_front": {
         "js": [
             "bower_components/jquery/dist/jquery.min.js",
-            "common/dist/scripts/habitrpg-shared.js",
+            "js/habitrpg-shared.js",
             "bower_components/angular/angular.js",
             "bower_components/angular-ui/build/angular-ui.js",
             "bower_components/jquery-colorbox/jquery.colorbox-min.js",
@@ -189,7 +189,7 @@
             "bower_components/css-social-buttons/css/zocial.css",
             "bower_components/smart-app-banner/smart-app-banner.css",
             "front/staticstyle.css",
-            "common/dist/sprites/habitrpg-shared.css",
+            "css/habitrpg-shared.css",
             "app.css"
         ]
     }

@@ -1,4 +1,4 @@
-import scoreTask from '../../../common/script/ops/scoreTask';
+import scoreTask from '../../../website/common/script/ops/scoreTask';
 import {
   generateUser,
   generateDaily,
@@ -6,11 +6,11 @@ import {
   generateTodo,
   generateReward,
 } from '../../helpers/common.helper';
-import common from '../../../common';
-import i18n from '../../../common/script/i18n';
+import common from '../../../website/common';
+import i18n from '../../../website/common/script/i18n';
 import {
   NotAuthorized,
-} from '../../../common/script/libs/errors';
+} from '../../../website/common/script/libs/errors';
 
 let EPSILON = 0.0001; // negligible distance between datapoints
 

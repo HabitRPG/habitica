@@ -1,6 +1,6 @@
 import { model as User } from '../models/user';
 import accepts from 'accepts';
-import common from '../../../common';
+import common from '../../common';
 import _ from 'lodash';
 import {
   translations,

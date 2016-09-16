@@ -1,5 +1,5 @@
-import reroll from '../../../common/script/ops/reroll';
-import i18n from '../../../common/script/i18n';
+import reroll from '../../../website/common/script/ops/reroll';
+import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
   generateDaily,
@@ -7,7 +7,7 @@ import {
 } from '../../helpers/common.helper';
 import {
   NotAuthorized,
-} from '../../../common/script/libs/errors';
+} from '../../../website/common/script/libs/errors';
 
 describe('shared.ops.reroll', () => {
   let user;

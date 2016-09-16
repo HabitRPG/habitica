@@ -5,7 +5,7 @@ import {
   expectValidTranslationString,
 } from '../helpers/content.helper';
 
-import eggs from '../../common/script/content/eggs';
+import eggs from '../../website/common/script/content/eggs';
 
 describe('eggs', ()  => {
   describe('all', ()  => {

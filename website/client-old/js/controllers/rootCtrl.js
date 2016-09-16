@@ -28,7 +28,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.$on('$stateChangeSuccess',
       function(event, toState, toParams, fromState, fromParams){
         $rootScope.pageTitle = $state.current.title;
-        
+
         if (!($state.current.name in IGNORE_SCROLL_PAGES)) {
             $window.scrollTo(0, 0);
         }
@@ -101,7 +101,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.playSound = function(id){
       if (!user.preferences.sound || user.preferences.sound == 'off') return;
       var theme = user.preferences.sound;
-      var file =  'common/audio/' + theme + '/' + id;
+      var file =  'assets/audio/' + theme + '/' + id;
       document.getElementById('oggSource').src = file + '.ogg';
       document.getElementById('mp3Source').src = file + '.mp3';
       document.getElementById('sound').load();
