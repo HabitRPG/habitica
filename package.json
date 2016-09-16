@@ -162,7 +162,7 @@
     "karma-phantomjs-launcher": "~0.2.1",
     "karma-sinon-chai": "^1.2.0",
     "karma-webpack": "^1.7.0",
-    "chromedrive": "^2.21.2",
+    "chromedriver": "^2.21.2",
     "nightwatch": "^0.8.18",
     "karma-sourcemap-loader": "^0.3.7",
     "isparta-loader": "^2.0.0",
