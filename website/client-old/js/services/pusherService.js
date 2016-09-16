@@ -13,16 +13,17 @@ angular.module('habitrpg')
       pusher: undefined,
       socketId: undefined, // when defined the user is connected
     };
-    var tabIdKey = 'habitica-active-tab';
+    var tabIdKey = 'habitica-active-tab-v1';
     var tabId = Shared.uuid();
 
-
     function connectToPusher (partyId, reconnecting) {
+      console.log('Connecting to Pusher.');
+
       // Limit 1 tab connected per user
       localStorage.setItem(tabIdKey, tabId);
       window.onbeforeunload = function () {
         localStorage.removeItem(tabIdKey);
-      }
+      };
 
       api.pusher = new Pusher(window.env['PUSHER:KEY'], {
         encrypted: true,
@@ -39,7 +40,7 @@ angular.module('habitrpg')
       var DISCONNECTION_AFTER = 1800000; // 30m
       var disconnectionTimeout;
 
-      var awaitIdle = function() {
+      var awaitIdle = function () {
         if(disconnectionTimeout) clearTimeout(disconnectionTimeout);
         disconnectionTimeout = setTimeout(function () {
           $(document).off('mousemove keydown mousedown touchstart', awaitIdle);
@@ -50,7 +51,7 @@ angular.module('habitrpg')
       awaitIdle();
       $(document).on('mousemove keydown mousedown touchstart', awaitIdle);
 
-      api.pusher.connection.bind('error', function(err) {
+      api.pusher.connection.bind('error', function (err) {
         console.error(err);
         // TODO if( err.data.code === 4004 ) detected connection limit
       });
@@ -78,14 +79,14 @@ angular.module('habitrpg')
           }
 
           $rootScope.party.onlineUsers = pusherMembers.count;
-          
+
           $rootScope.party.members.forEach(function (member) {
             if (pusherMembers.members[member._id]) {
               member.online = true;
             }
           });
         });
-        
+
         // When a member enters the party channel
         partyChannel.bind('pusher:member_added', function(pusherMember) {
           $rootScope.$apply(function() {
@@ -109,7 +110,7 @@ angular.module('habitrpg')
                 return true;
               }
             });
-          }); 
+          });
         });
       });
 
@@ -184,12 +185,16 @@ angular.module('habitrpg')
     };
 
     function disconnectPusher () {
+      console.log('Disconnecting from Pusher for inactivity.');
       api.pusher.disconnect();
+      localStorage.removeItem(tabIdKey);
 
       var awaitActivity = function() {
         $(document).off('mousemove keydown mousedown touchstart', awaitActivity);
         if (!localStorage.getItem(tabIdKey) || localStorage.getItem(tabIdKey) === tabId) {
           connectToPusher(partyId, true);
+        } else {
+          console.log('Cannot connect 2 tabs to Pusher.');
         }
       };
 
@@ -212,6 +217,8 @@ angular.module('habitrpg')
       // See if another tab is already connected to Pusher
       if (!localStorage.getItem(tabIdKey)) {
         connectToPusher(partyId);
+      } else {
+        console.log('Cannot connect 2 tabs to Pusher.');
       }
 
       // when a tab is closed, connect the next one
@@ -221,6 +228,8 @@ angular.module('habitrpg')
           setTimeout(function () {
             if (!localStorage.getItem(tabIdKey)) {
               connectToPusher(partyId, true);
+            } else {
+              console.log('Cannot connect 2 tabs to Pusher.');
             }
           }, Math.floor(Math.random() * 501) + 100);
         }
