@@ -28,7 +28,7 @@ module.exports = function(grunt) {
           report: 'gzip'
         },
         files:{
-          "website/assets/sprites/dist/habitrpg-shared.css": [
+          "website/client-old/css/habitrpg-shared.css": [
             "website/assets/sprites/dist/spritesmith*.css",
             "website/assets/sprites/css/backer.css",
             "website/assets/sprites/css/Mounts.css",
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
         files: [
           {expand: true, cwd: 'website/client-old/', src: 'favicon.ico', dest: 'website/build/'},
           {expand: true, cwd: 'website/client-old/', src: 'favicon_192x192.png', dest: 'website/build/'},
-          {expand: true, cwd: '', src: 'website/assets/sprites/dist/spritesmith*.png', dest: 'website/build/'},
+          {expand: true, cwd: 'website/assets/sprites/dist/', src: 'spritesmith*.png', dest: 'website/build/'},
           {expand: true, cwd: '', src: 'website/assets/sprites/backer-only/*.gif', dest: 'website/build/'},
           {expand: true, cwd: '', src: 'website/assets/sprites/npc_ian.gif', dest: 'website/build/'},
           {expand: true, cwd: '', src: 'website/assets/sprites/quest_*.gif', dest: 'website/build/'},
