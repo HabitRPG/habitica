@@ -315,6 +315,10 @@ api.scoreTask = {
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
+    if (task.requiresApproval && !task.approved) {
+      throw new NotAuthorized(res.t('taskRequiresApproval'));
+    }
+
     let wasCompleted = task.completed;
 
     let [delta] = common.ops.scoreTask({task, user, direction}, req);

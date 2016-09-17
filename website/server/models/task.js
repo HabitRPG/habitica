@@ -71,6 +71,9 @@ export let TaskSchema = new Schema({
     taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']},
   },
 
+  requiresApproval: {type: Boolean, default: false},
+  approved: {type: Boolean, default: false},
+
   reminders: [{
     _id: false,
     id: {type: String, validate: [validator.isUUID, 'Invalid uuid.'], default: shared.uuid, required: true},
