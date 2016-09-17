@@ -4,7 +4,7 @@ import { TAVERN_ID } from '../models/group';
 import { encrypt } from './encryption';
 import request from 'request';
 import logger from './logger';
-import common from '../../../common';
+import common from '../../common';
 
 const IS_PROD = nconf.get('IS_PROD');
 const EMAIL_SERVER = {

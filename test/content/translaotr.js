@@ -1,5 +1,5 @@
 import {STRING_ERROR_MSG, STRING_DOES_NOT_EXIST_MSG} from '../helpers/content.helper';
-import translator from '../../common/script/content/translation';
+import translator from '../../website/common/script/content/translation';
 
 describe('Translator', () => {
   it('returns error message if string is not properly formatted', () => {

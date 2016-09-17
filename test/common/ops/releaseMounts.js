@@ -1,11 +1,11 @@
-import releaseMounts from '../../../common/script/ops/releaseMounts';
-import i18n from '../../../common/script/i18n';
+import releaseMounts from '../../../website/common/script/ops/releaseMounts';
+import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';
 import {
   NotAuthorized,
-} from '../../../common/script/libs/errors';
+} from '../../../website/common/script/libs/errors';
 
 describe('shared.ops.releaseMounts', () => {
   let user;

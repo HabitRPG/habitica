@@ -1,4 +1,4 @@
-import percent from '../../../common/script/libs/percent';
+import percent from '../../../website/common/script/libs/percent';
 
 describe('percent', () => {
   it('with direction "up"', () => {

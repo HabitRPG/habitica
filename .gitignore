@@ -2,8 +2,10 @@
 website/client-old/gen
 website/client-old/common
 website/client-old/apidoc
+website/client-old/js/habitrpg-shared.js*
+website/client-old/css/habitrpg-shared.css
 website/transpiled-babel/
-common/transpiled-babel/
+website/common/transpiled-babel/
 node_modules
 *.swp
 .idea*
@@ -30,7 +32,6 @@ website/client-old/docs
 coverage
 coverage.html
 common/dist/scripts/*
-common/dist/sprites/habitrpg-shared.css
 
 test/spec/mocks/translations.js
 
