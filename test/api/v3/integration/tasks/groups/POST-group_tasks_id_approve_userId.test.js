@@ -29,27 +29,35 @@ describe('POST /tasks/:id/approve/:userId', () => {
       type: 'todo',
       requiresApproval: true,
     });
-
-    await user.post(`/tasks/${task._id}/assign/${member._id}`);
   });
 
-  it('approves an assigned user', async () => {
-    let memberTasks = await member.get('/tasks/user');
-    let syncedTask = find(memberTasks, findAssignedTask);
-
+  it('errors when user is not assigned', async () => {
     await expect(user.post(`/tasks/${task._id}/approve/${member._id}`))
-      .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskRequiresApproval'),
+      .to.eventually.be.rejected.and.to.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('taskNotFound'),
       });
   });
 
-  // it('prevents user from scoring a task that needs to be approved', async () => {
-  //   await user.post(`/tasks/${task._id}/score/up`);
-  //   let task = await user.get(`/tasks/${todo._id}`);
-  //
-  //   expect(task.completed).to.equal(true);
-  //   expect(task.dateCompleted).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
-  // });
+  it('errors when user is not the group leader', async () => {
+    await user.post(`/tasks/${task._id}/assign/${member._id}`);
+    await expect(member.post(`/tasks/${task._id}/approve/${member._id}`))
+      .to.eventually.be.rejected.and.to.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('onlyGroupLeaderCanEditTasks'),
+      });
+  });
+
+
+  it('approves an assigned user', async () => {
+    await user.post(`/tasks/${task._id}/assign/${member._id}`);
+    await user.post(`/tasks/${task._id}/approve/${member._id}`);
+
+    let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, findAssignedTask);
+
+    expect(syncedTask.approved).to.be.true;
+  });
 });

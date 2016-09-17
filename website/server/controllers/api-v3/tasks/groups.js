@@ -196,24 +196,22 @@ api.approveTask = {
   middlewares: [ensureDevelpmentMode, authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
-    req.checkParams('assignedUserId', res.t('userIdRequired')).notEmpty().isUUID();
+    req.checkParams('userId', res.t('userIdRequired')).notEmpty().isUUID();
 
     let reqValidationErrors = req.validationErrors();
     if (reqValidationErrors) throw reqValidationErrors;
 
     let user = res.locals.user;
-    let assignedUserId = req.params.assignedUserId;
-    let assignedUser = await User.findById(assignedUserId);
+    let assignedUserId = req.params.userId;
 
     let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
+    let task = await Tasks.Task.findOne({
+      'group.taskId': taskId,
+      'userId': assignedUserId,
+    });
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
-    }
-
-    if (!task.group.id) {
-      throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
     }
 
     let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
@@ -221,7 +219,8 @@ api.approveTask = {
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
-    await group.unlinkTask(task, assignedUser);
+    task.approved = true;
+    await task.save();
 
     res.respond(200, task);
   },
