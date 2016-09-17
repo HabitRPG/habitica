@@ -355,24 +355,19 @@ habitrpg.controller("InventoryCtrl",
     $scope.seasonalShopCategories = Shared.shops.getSeasonalShopCategories(user);
 
     $scope.shouldShowPremiumPetRow = function (potion) {
-      potion = Content.premiumHatchingPotions[potion];
+      var premiumPotion = Content.premiumHatchingPotions[potion];
 
-      if (!potion) {
+      if (!premiumPotion) {
         return false;
       }
-      if (user.items.hatchingPotions[potion.key] > 0) {
+      if (user.items.hatchingPotions[premiumPotion.key] > 0) {
         return true;
       }
-      if (potion.canBuy()) {
+      if (premiumPotion.canBuy()) {
         return true;
       }
 
-      var pets = Object.keys(user.items.pets);
-      var hasAPetOfPotion = pets.find(function (pet) {
-        return pet.indexOf(potion.key) !== -1;
-      });
-
-      return hasAPetOfPotion;
+      return $scope.hasAPetOfPotion(potion);
     };
 
     $scope.shouldShowPremiumPetSection = function () {
@@ -381,6 +376,26 @@ habitrpg.controller("InventoryCtrl",
         return $scope.shouldShowPremiumPetRow(potions[potion].key);
       });
     };
+
+    $scope.shouldShowPremiumMountSection = function () {
+      return findPet(function (pet) {
+        return pet.type === 'premium';
+      });
+    };
+
+    $scope.hasAPetOfPotion = function (potion) {
+      return findPet(function (pet) {
+        return pet.potion === potion;
+      });
+    };
+
+    function findPet (fn) {
+      var pets = Object.keys(user.items.pets);
+      return pets.find(function (petKey) {
+        var pet = Content.petInfo[petKey];
+        return fn(pet);
+      });
+    }
 
     function _updateDropAnimalCount(items) {
       $scope.petCount = Shared.count.beastMasterProgress(items.pets);

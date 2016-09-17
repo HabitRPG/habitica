@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
-import shared from '../../../common';
+import shared from '../../common';
 
-export const localePath = path.join(__dirname, '/../../../common/locales/');
+export const localePath = path.join(__dirname, '../../common/locales/');
 
 // Store translations
 export let translations = {};

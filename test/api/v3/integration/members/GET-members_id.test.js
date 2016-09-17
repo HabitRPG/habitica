@@ -3,7 +3,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
-import common from '../../../../../common';
+import common from '../../../../../website/common';
 
 describe('GET /members/:memberId', () => {
   let user;

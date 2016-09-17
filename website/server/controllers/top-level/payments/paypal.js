@@ -6,7 +6,7 @@ import _ from 'lodash';
 import payments from '../../../libs/payments';
 import ipn from 'paypal-ipn';
 import paypal from 'paypal-rest-sdk';
-import shared from '../../../../../common';
+import shared from '../../../../common';
 import cc from 'coupon-code';
 import Bluebird from 'bluebird';
 import { model as Coupon } from '../../../models/coupon';

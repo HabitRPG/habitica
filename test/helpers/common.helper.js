@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import { wrap as wrapUser } from '../../common/script/index';
+import { wrap as wrapUser } from '../../website/common/script/index';
 import { model as User } from '../../website/server/models/user';
 import {
   DailySchema,
