@@ -43,12 +43,6 @@ api.diminishingReturns = statHelpers.diminishingReturns;
 import splitWhitespace from './libs/splitWhitespace';
 api.$w = splitWhitespace;
 
-import dotSet from './libs/dotSet';
-api.dotSet = dotSet;
-
-import dotGet from './libs/dotGet';
-api.dotGet = dotGet;
-
 import refPush from './libs/refPush';
 api.refPush = refPush;
 
@@ -305,14 +299,11 @@ api.wrap = function wrapUser (user, main = true) {
     predictableRandom: _.partial(importedFns.predictableRandom, user),
     crit: _.partial(importedFns.crit, user),
     randomVal: _.partial(importedFns.randomVal, user),
-    dotSet: _.partial(importedFns.dotSet, user),
-    dotGet: _.partial(importedFns.dotGet, user),
     randomDrop: _.partial(importedFns.randomDrop, user),
     autoAllocate: _.partial(importedFns.autoAllocate, user),
     updateStats: _.partial(importedFns.updateStats, user),
     statsComputed: _.partial(statsComputed, user),
     ultimateGear: _.partial(importedFns.ultimateGear, user),
-    nullify: _.partial(importedFns.nullify, user),
   };
 
   Object.defineProperty(user, '_statsComputed', {

@@ -65,7 +65,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       if (fullSet) {
         if (confirm(window.env.t('purchaseFor',{cost:cost*4})) !== true) return;
         if (User.user.balance < cost) return $rootScope.openModal('buyGems');
-      } else if (!User.user.fns.dotGet('purchased.' + path)) {
+      } else if (!_.get(user, 'purchased.' + path)) {
         if (confirm(window.env.t('purchaseFor',{cost:cost*4})) !== true) return;
         if (User.user.balance < cost) return $rootScope.openModal('buyGems');
       }
