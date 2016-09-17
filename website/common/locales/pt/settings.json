@@ -1,11 +1,11 @@
 {
     "settings": "Configurações",
     "language": "Idioma",
-    "americanEnglishGovern": "No caso de uma discrepância nas traduções, a versão em Inglês Americano domina.",
+    "americanEnglishGovern": "No caso de uma discrepância nas traduções, a versão em Inglês Americano prevalece.",
     "helpWithTranslation": "Gostaria de ajudar com a tradução do Habitica? Fantástico! Então visite <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\">este</a> cartão do Trello.",
     "showHeaderPop": "Mostrar seu avatar, barras de Vida/Experiência, e equipe.",
     "stickyHeader": "Cabeçalho Fixo",
-    "stickyHeaderPop": "Fixa o cabeçalho no topo da tela. Desmarcado significa que ele rolará para fora da vista.",
+    "stickyHeaderPop": "Fixar o cabeçalho no topo da tela. Desmarcado significa que ele rolará para fora da vista.",
     "newTaskEdit": "Abrir nova tarefa no modo de edição",
     "newTaskEditPop": "Com essa opção ativada, novas tarefas abrirão imediatamente para você adicionar detalhes como notas e etiquetas.",
     "dailyDueDefaultView": "Abrir Tarefas Diárias por padrão na aba 'de hoje'",

@@ -88,8 +88,8 @@
     "habiticaDay": "Habitica Naming Day",
     "habiticaDaySingularText": "Ha celebrato l'Habitica Naming Day! Grazie per essere un utente fantastico.",
     "habiticaDayPluralText": "Ha celebrato <%= number %> Habitica Naming Day! Grazie per essere un utente fantastico.",
-    "achievementDilatory": "Eroe dei Dilatori",
-    "achievementDilatoryText": "Ha contribuito alla sconfitta del Drago Terrore dei Dilatori durante l'evento Summer Splash 2014!",
+    "achievementDilatory": "Eroe di Dilatory",
+    "achievementDilatoryText": "Ha contribuito alla sconfitta del Drago Terrore di Dilatory durante l'evento Summer Splash 2014!",
     "costumeContest": "Costume da Concorrente",
     "costumeContestText": "Ha partecipato alla gara in costume di Habitoween. Guarda alcuni arrivi <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'> sul blog di Habitica</a>!",
     "costumeContestTextPlural": "Ha partecipato <%= number %>alle gare in costume di Habitoween. guarda alcuni nuovi arrivi <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>sul blog di Habitica</a>!",
@@ -182,8 +182,8 @@
     "wonChallengeShare": "Ho vinto una sfida in Habitica!",
     "achievementShare": "Ho ottenuto una nuova medaglia su Habitica!",
     "orderBy": "Ordina per <%= item %>",
-    "you": "(you)",
-    "enableDesktopNotifications": "Enable Desktop Notifications",
+    "you": "(tu)",
+    "enableDesktopNotifications": "Abilita notifiche desktop",
     "online": "online",
     "onlineCount": "<%= count %> online"
 }
