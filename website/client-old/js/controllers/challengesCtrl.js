@@ -391,13 +391,13 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     })
 
     $scope.selectAll = function(){
-      $scope.search.group = _.transform($scope.groups, function(searchPool, group){
+      $scope.search.group = _.transform($scope.groupsFilter, function(searchPool, group){
         searchPool[group._id] = true;
       });
     }
 
     $scope.selectNone = function(){
-      $scope.search.group = _.transform($scope.groups, function(searchPool, group){
+      $scope.search.group = _.transform($scope.groupsFilter, function(searchPool, group){
         searchPool[group._id] = false;
       });
     }
@@ -435,7 +435,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       $scope.groupsFilter = _.uniq(_.compact(_.pluck($scope.challenges, 'group')), function(g) {return g._id});
 
       $scope.search = {
-        group: _.transform($scope.groups, function(m,g) { m[g._id] = true;}),
+        group: _.transform($scope.groupsFilter, function(m,g) { m[g._id] = true;}),
         _isMember: "either",
         _isOwner: "either"
       };
