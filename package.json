@@ -184,7 +184,7 @@
     "mongoskin": "~2.1.0",
     "nightwatch": "^0.8.18",
     "ora": "^0.2.0",
-    "phantomjs": "^1.9",
+    "phantomjs-prebuilt": "^2.1.12",
     "protractor": "^3.1.1",
     "require-again": "^2.0.0",
     "rewire": "^2.3.3",

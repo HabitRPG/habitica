@@ -38,8 +38,7 @@ module.exports = function karmaConfig (config) {
 
       'website/client-old/js/env.js',
       'website/client-old/js/app.js',
-      'common/script/public/config.js',
-      'common/script/public/directives.js',
+      'website/client-old/js/config.js',
 
       'website/client-old/js/services/**/*.js',
       'website/client-old/js/filters/**/*.js',
