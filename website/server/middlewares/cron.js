@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment';
-import common from '../../../common';
+import common from '../../common';
 import * as Tasks from '../models/task';
 import Bluebird from 'bluebird';
 import { model as Group } from '../models/group';

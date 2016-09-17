@@ -1,4 +1,4 @@
-import shared from '../../../common';
+import shared from '../../../website/common';
 import {
   generateUser,
 } from '../../helpers/common.helper';

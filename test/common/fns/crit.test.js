@@ -1,4 +1,4 @@
-import crit from '../../../common/script/fns/crit';
+import crit from '../../../website/common/script/fns/crit';
 import {
   generateUser,
 } from '../../helpers/common.helper';
