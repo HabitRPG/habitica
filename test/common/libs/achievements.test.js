@@ -1,4 +1,4 @@
-import shared from '../../../common';
+import shared from '../../../website/common';
 import {
   generateUser,
 } from '../../helpers/common.helper';
@@ -300,11 +300,11 @@ describe('achievements', () => {
       let triadBingo = basicAchievs.triadBingo;
 
       expect(beastMaster.text).to.not.match(/released/);
-      expect(beastMaster.text).to.not.match(/0 times/);
+      expect(beastMaster.text).to.not.match(/0 time\(s\)/);
       expect(mountMaster.text).to.not.match(/released/);
-      expect(mountMaster.text).to.not.match(/0 times/);
+      expect(mountMaster.text).to.not.match(/0 time\(s\)/);
       expect(triadBingo.text).to.not.match(/released/);
-      expect(triadBingo.text).to.not.match(/0 times/);
+      expect(triadBingo.text).to.not.match(/0 time\(s\)/);
     });
 
     it('master and triad bingo achievements includes *Text2 strings if keys have been used', () => {
@@ -322,11 +322,11 @@ describe('achievements', () => {
       let triadBingo = basicAchievs.triadBingo;
 
       expect(beastMaster.text).to.match(/released/);
-      expect(beastMaster.text).to.match(/1 times/);
+      expect(beastMaster.text).to.match(/1 time\(s\)/);
       expect(mountMaster.text).to.match(/released/);
-      expect(mountMaster.text).to.match(/2 times/);
+      expect(mountMaster.text).to.match(/2 time\(s\)/);
       expect(triadBingo.text).to.match(/released/);
-      expect(triadBingo.text).to.match(/3 times/);
+      expect(triadBingo.text).to.match(/3 time\(s\)/);
     });
   });
 

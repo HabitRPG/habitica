@@ -17,7 +17,7 @@ import {
 } from '../../libs/email';
 import Bluebird from 'bluebird';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
-import { achievements } from '../../../../common/';
+import { achievements } from '../../../../website/common/';
 
 let api = {};
 
