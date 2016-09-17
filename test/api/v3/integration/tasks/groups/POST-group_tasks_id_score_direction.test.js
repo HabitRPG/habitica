@@ -45,10 +45,14 @@ describe('POST /tasks/:id/score/:direction', () => {
       });
   });
 
-  xit('allows a user to score an apporoved task', async () => {
+  it('allows a user to score an apporoved task', async () => {
+    let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, findAssignedTask);
+
     await user.post(`/tasks/${task._id}/approve/${member._id}`);
-    await user.post(`/tasks/${task._id}/score/up`);
-    let updatedTask = await user.get(`/tasks/${task._id}`);
+
+    await member.post(`/tasks/${syncedTask._id}/score/up`);
+    let updatedTask = await member.get(`/tasks/${syncedTask._id}`);
 
     expect(updatedTask.completed).to.equal(true);
     expect(updatedTask.dateCompleted).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
