@@ -446,7 +446,7 @@ api.addChecklistItem = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
-    } else if (task.group.id) {
+    } else if (task.group.id && !task.userId) {
       let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
@@ -539,6 +539,10 @@ api.updateChecklistItem = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
+    } else if (task.group.id && !task.userId) {
+      let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
@@ -589,6 +593,10 @@ api.removeChecklistItem = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
+    } else if (task.group.id && !task.userId) {
+      let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
@@ -633,7 +641,7 @@ api.addTagToTask = {
     if (validationErrors) throw validationErrors;
 
     let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     let tagId = req.params.tagId;
@@ -673,7 +681,7 @@ api.removeTagFromTask = {
     if (validationErrors) throw validationErrors;
 
     let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
