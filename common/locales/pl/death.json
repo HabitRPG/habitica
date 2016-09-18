@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "Skończyły ci się punkty zdrowia!",
+    "dontDespair": "Nie rozpaczaj!",
+    "deathPenaltyDetails": "Tracisz poziom, złoto i część wyposażenia, ale możesz to wszystko odzyskać przykładając się do pracy. Powodzenia, na pewno dasz radę! ",
+    "refillHealthTryAgain": "Uzupełnij punkty zdrowia i spróbuj jeszcze raz",
+    "dyingOftenTips": "Czy to się często zdarza? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Tutaj znajdziesz pewne wskazówki!</a>",
+    "losingHealthWarning": "Ostrożnie - tracisz zdrowie!",
+    "losingHealthWarning2": "Nie pozwól swojemu zdrowiu spaść do zera! Jeśli się to stanie, stracisz poziom, złoto i element wyposażenia.",
+    "toRegainHealth": "By odzyskać zdrowie:",
+    "lowHealthTips1": "Zdobądź poziom, by odzyskać pełne zdrowie!",
+    "lowHealthTips2": "Kup Eliksir uzdrawiający z kolumny Nagrody, by przywrócić 15 punktów zdrowia.",
+    "losingHealthQuickly": "Szybko tracisz zdrowie?",
+    "lowHealthTips3": "Niewykonane Codzienne ranią ciebie w nocy, więc uważaj, by na początku nie dodać ich zbyt dużo!",
+    "lowHealthTips4": "Jeśli Codzienne nie jest zaplanowane na konkretny dzień, możesz je wyłączyć klikając na ikonę ołówka.",
+    "goodLuck": "Powodzenia!",
+    "cannotRevive": "Nie można ożywić kogoś, kto nie jest martwy"
+}

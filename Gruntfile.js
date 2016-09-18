@@ -9,10 +9,10 @@ module.exports = function(grunt) {
 
     karma: {
       unit: {
-        configFile: 'test/client-old/spec/karma.conf.js'
+        configFile: 'karma.conf.js'
       },
       continuous: {
-        configFile: 'test/client-old/spec/karma.conf.js',
+        configFile: 'karma.conf.js',
         singleRun: true,
         autoWatch: false
       }

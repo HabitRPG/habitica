@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "Ai rămas fără sănătate!",
+    "dontDespair": "Nu dispera",
+    "deathPenaltyDetails": "Ai pierdut un nivel, aurul și o piesă de echipament, dar le poți obține înapoi prin muncă susținută! Mult noroc -- o să fie bine.",
+    "refillHealthTryAgain": "Realimentează cu sănătate și încearcă din nou.",
+    "dyingOftenTips": "Se întâmplă des? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Aici sunt niște indicii!</a>",
+    "losingHealthWarning": "Atenție - pierzi din sănătate!",
+    "losingHealthWarning2": "Nu lăsa sănătatea să scadă la zero! Dacă faci asta, vei pierde un nivel, tot aurul și o piesă de echipament.",
+    "toRegainHealth": "Pentru a recâștiga sănătate:",
+    "lowHealthTips1": "Avansează un nivel pentru a te vindeca complet!",
+    "lowHealthTips2": "Cumpără o licoare de sănătate din Coloana de răsplăți pentru a restaura 15 puncte de sănătate.",
+    "losingHealthQuickly": "Pierzi sănătate prea rapid?",
+    "lowHealthTips3": "Sarcini zilnice necompletate te rănesc peste noapte, așa că ai grijă să nu adaugi prea multe la început.",
+    "lowHealthTips4": "Dacă o sarcină zilnică nu trebuie realizată ziua respectivă, o poți dezactiva printr-un clic pe iconița cu creion.",
+    "goodLuck": "Baftă!",
+    "cannotRevive": "Cannot revive if not dead"
+}

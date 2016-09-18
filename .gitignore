@@ -32,12 +32,11 @@ website/client-old/docs
 coverage
 coverage.html
 common/dist/scripts/*
-dist
-test/client/unit/coverage
-test/client/e2e/reports
-test/client-old/spec/mocks/translations.js
+
+test/spec/mocks/translations.js
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+rundev.sh

@@ -1,0 +1,19 @@
+{
+    "defaultHabit1Text": "生産的な仕事 (鉛筆をクリックして編集)",
+    "defaultHabit1Notes": "いい習慣の例 : + 野菜を食べる +15分の生産的な仕事",
+    "defaultHabit2Text": "ジャンクフードを食べる(鉛筆をクリックして編集)",
+    "defaultHabit2Notes": "悪い習慣の例 : - タバコ - 先延ばし",
+    "defaultHabit3Text": "階段・エレベーター(鉛筆をクリックして編集)",
+    "defaultHabit3Notes": "いい・悪い習慣の例 : +/- 階段で行く・エレベーターで行く; +/- 水を飲む・炭酸飲料を飲む",
+    "defaultTodoNotes": "このTo-Doを完了にする、または編集、削除できます。",
+    "defaultTodo1Text": "Habiticaに参加する(チェックして完了しましょう！)",
+    "defaultReward1Text": "15分間の休憩",
+    "defaultReward1Notes": "自分で「ごほうび」にするものは様々です。例えば、ゴールドを支払わなければ、好きなテレビ番組を見られないようにしている人もいます。",
+    "defaultTag1": "仕事",
+    "defaultTag2": "運動",
+    "defaultTag3": "健康・フィットネス",
+    "defaultTag4": "学校",
+    "defaultTag5": "チーム",
+    "defaultTag6": "家事",
+    "defaultTag7": "クリエイティブ"
+}

@@ -3,10 +3,8 @@
     "habitrpg/mocha",
     "habitrpg/babel"
   ],
-  "env": {
-    "node": true,
-  },
   "globals": {
     "_": true,
+    "Promise": true
   }
 }

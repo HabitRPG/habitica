@@ -1,0 +1,80 @@
+{
+  "spellWizardFireballText": "Burst of Flames",
+  "spellWizardFireballNotes": "Flames burst from your hands. You gain XP, and you deal extra damage to Bosses! Click on a task to cast. (Based on: INT)",
+
+  "spellWizardMPHealText": "Ethereal Surge",
+  "spellWizardMPHealNotes": "You sacrifice mana to help your friends. The rest of your party gains MP! (Based on: INT)",
+
+  "spellWizardEarthText": "Earthquake",
+  "spellWizardEarthNotes": "Your mental power shakes the earth. Your whole party gains a buff to Intelligence! (Based on: Unbuffed INT)",
+
+  "spellWizardFrostText": "Chilling Frost",
+  "spellWizardFrostNotes": "Ice covers your tasks. None of your streaks will reset to zero tomorrow! (One cast affects all streaks.)",
+  "spellWizardFrostAlreadyCast": " You have already cast this today. Your streaks are frozen, and there's no need to cast this again.",
+
+
+  "spellWarriorSmashText": "Brutal Smash",
+  "spellWarriorSmashNotes": "You hit a task with all of your might. It gets more blue/less red, and you deal extra damage to Bosses! Click on a task to cast. (Based on: STR)",
+
+  "spellWarriorDefensiveStanceText": "Defensive Stance",
+  "spellWarriorDefensiveStanceNotes": "You prepare yourself for the onslaught of your tasks. You gain a buff to Constitution! (Based on: Unbuffed CON)",
+
+  "spellWarriorValorousPresenceText": "Valorous Presence",
+  "spellWarriorValorousPresenceNotes": "Your presence emboldens your party. Your whole party gains a buff to Strength! (Based on: Unbuffed STR)",
+
+  "spellWarriorIntimidateText": "Intimidating Gaze",
+  "spellWarriorIntimidateNotes": "Your gaze strikes fear into your enemies. Your whole party gains a buff to Constitution! (Based on: Unbuffed CON)",
+
+  "spellRoguePickPocketText": "Pickpocket",
+  "spellRoguePickPocketNotes": "You rob a nearby task. You gain gold! Click on a task to cast. (Based on: PER)",
+
+  "spellRogueBackStabText": "Backstab",
+  "spellRogueBackStabNotes": "You betray a foolish task. You gain gold and XP! Click on a task to cast. (Based on: STR)",
+
+  "spellRogueToolsOfTradeText": "Tools of the Trade",
+  "spellRogueToolsOfTradeNotes": "You share your talents with friends. Your whole party gains a buff to Perception! (Based on: Unbuffed PER)",
+
+  "spellRogueStealthText": "Stealth",
+  "spellRogueStealthNotes": "You are too sneaky to spot. Some of your undone Dailies will not cause damage tonight, and their streaks/color will not change. (Cast multiple times to affect more Dailies)",
+  "spellRogueStealthDaliesAvoided": "<%= originalText %> Number of dailies avoided: <%= number %>.",
+  "spellRogueStealthMaxedOut": " You have already avoided all your dailies; there's no need to cast this again.",
+
+  "spellHealerHealText": "Healing Light",
+  "spellHealerHealNotes": "Light covers your body, healing your wounds. You regain health! (Based on: CON and INT)",
+
+  "spellHealerBrightnessText": "Searing Brightness",
+  "spellHealerBrightnessNotes": "A burst of light dazzles your tasks. They become more blue and less red! (Based on: INT)",
+
+  "spellHealerProtectAuraText": "Protective Aura",
+  "spellHealerProtectAuraNotes": "You shield your party from damage. Your whole party gains a buff to Constitution! (Based on: Unbuffed CON)",
+
+  "spellHealerHealAllText": "Blessing",
+  "spellHealerHealAllNotes": "A soothing aura surrounds you. Your whole party regains health! (Based on: CON and INT)",
+
+  "spellSpecialSnowballAuraText": "Snowball",
+  "spellSpecialSnowballAuraNotes": "Throw a snowball at a party member! What could possibly go wrong? Lasts until member's new day.",
+  "spellSpecialSaltText": "Salt",
+  "spellSpecialSaltNotes": "Someone has snowballed you. Ha ha, very funny. Now get this snow off me!",
+
+  "spellSpecialSpookySparklesText": "Spooky Sparkles",
+  "spellSpecialSpookySparklesNotes": "Turn a friend into a floating blanket with eyes!",
+  "spellSpecialOpaquePotionText": "Opaque Potion",
+  "spellSpecialOpaquePotionNotes": "Cancel the effects of Spooky Sparkles.",
+
+  "spellSpecialShinySeedText": "Shiny Seed",
+  "spellSpecialShinySeedNotes": "Turn a friend into a joyous flower!",
+  "spellSpecialPetalFreePotionText": "Petal-Free Potion",
+  "spellSpecialPetalFreePotionNotes": "Cancel the effects of a Shiny Seed.",
+
+  "spellSpecialSeafoamText": "Seafoam",
+  "spellSpecialSeafoamNotes": "Turn a friend into a sea creature!",
+  "spellSpecialSandText": "Sand",
+  "spellSpecialSandNotes": "Cancel the effects of Seafoam.",
+
+  "spellNotFound": "Skill \"<%= spellId %>\" not found.",
+  "partyNotFound": "Party not found",
+  "targetIdUUID": "\"targetId\" must be a valid User ID.",
+  "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
+  "spellNotOwned": "You don't own this skill.",
+  "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
+}

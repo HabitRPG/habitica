@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "体力がなくなった!",
+    "dontDespair": "絶望しないで!",
+    "deathPenaltyDetails": "レベル、ゴールド、いくつかの装備品を失ってしまいました。しかし、がんばればすべてを取りかえせます!　あなたなら、きっとやれる――幸あらんことを。",
+    "refillHealthTryAgain": "体力を復活させて、もう一度",
+    "dyingOftenTips": "いつもやり直しですか? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>ここにヒントがあります! </a>",
+    "losingHealthWarning": "気をつけて - 体力が減っています!",
+    "losingHealthWarning2": "体力をゼロにしないように!　体力がゼロになると、レベルとゴールド、いくつかの装備を失います。",
+    "toRegainHealth": "体力を回復するには : ",
+    "lowHealthTips1": "レベルアップして、体力を復活させましょう!",
+    "lowHealthTips2": "ごほうびの中から「体力の薬」を買うと体力値が15回復します。",
+    "losingHealthQuickly": "体力が減るのが速すぎる?",
+    "lowHealthTips3": "日課をやらないで夜を越すとダメージを受けます。はじめにたくさんの日課を追加しすぎないように!",
+    "lowHealthTips4": "特定の日には日課をやらないでいいのなら、鉛筆アイコンをクリックして無効にします。",
+    "goodLuck": "がんばって!",
+    "cannotRevive": "生きている間は復活できません。"
+}
