@@ -186,6 +186,7 @@
     "ora": "^0.2.0",
     "phantomjs-prebuilt": "^2.1.12",
     "protractor": "^3.1.1",
+    "pug": "^2.0.0-beta6",
     "require-again": "^2.0.0",
     "rewire": "^2.3.3",
     "selenium-server": "2.53.0",
