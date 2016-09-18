@@ -34,13 +34,13 @@
             allowedTags: currentTags,
             allowDuplicates: false,
             onBeforeTagAdd: function(event, tag) {
-              return confirm(window.env.t('confirmAddTag', {tag: tag}));
+              return confirm('You really wanna add ' + tag + '?');
             },
             onTagAdd: function(event, tag) {
               $rootScope.$broadcast('addedGroupMember', memberProfileNameToIdMap[tag]);
             },
             onBeforeTagRemove: function(event, tag) {
-              return confirm(window.env.t('confirmRemoveTag', {tag: tag}))
+              return confirm('You really wanna remove ' + tag + '?');
             },
             onTagRemove: function(event, tag) {
               $rootScope.$broadcast('removedGroupMember', memberProfileNameToIdMap[tag]);
