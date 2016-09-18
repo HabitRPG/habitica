@@ -1,7 +1,12 @@
 <template lang="pug">
 #app
   img.logo(src='../assets/logo.png')
-  hello
+  ul
+    li
+      router-link(to='/') Home
+    li
+      router-link(to='/sub') Sub
+  router-view.view
   p Welcome to your Vue.js app!
   p
     | To get a better understanding of how this boilerplate works, check out
