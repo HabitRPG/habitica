@@ -207,7 +207,7 @@ api.approveTask = {
     let taskId = req.params.taskId;
     let task = await Tasks.Task.findOne({
       'group.taskId': taskId,
-      'userId': assignedUserId,
+      userId: assignedUserId,
     });
 
     if (!task) {
