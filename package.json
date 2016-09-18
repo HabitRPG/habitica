@@ -160,7 +160,6 @@
     "expect.js": "~0.2.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.4",
-    "function-bind": "^1.0.2",
     "html-webpack-plugin": "^2.8.1",
     "http-proxy-middleware": "^0.12.0",
     "inject-loader": "^2.0.1",
