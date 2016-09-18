@@ -59,6 +59,7 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
       Checklists
       ------------------------
       */
+<<<<<<< HEAD
      $scope.addChecklist = Tasks.addChecklist;
 
      $scope.addChecklistItem = Tasks.addChecklistItemToUI;
@@ -76,4 +77,60 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
        //@TODO: Currently the api save of the task is separate, so whenever we need to save the task we need to call the respective api
        Tasks.updateTask(task._id, task);
      };
+=======
+     function focusChecklist(task,index) {
+       window.setTimeout(function(){
+         $('#task-'+task._id+' .checklist-form input[type="text"]')[index].focus();
+       });
+     }
+
+     $scope.addChecklist = function(task) {
+       task._edit.checklist = [{completed:false, text:""}];
+       focusChecklist(task._edit,0);
+     }
+
+     $scope.addChecklistItem = function(task, $event, $index) {
+       if (task._edit.checklist[$index].text) {
+         if ($index === task._edit.checklist.length - 1) {
+           task._edit.checklist.push({ completed: false, text: '' });
+         }
+         focusChecklist(task._edit, $index + 1);
+       } else {
+         // TODO Provide UI feedback that this item is still blank
+       }
+     }
+
+     $scope.removeChecklistItem = function(task, $event, $index, force) {
+       // Remove item if clicked on trash icon
+       if (force) {
+         task._edit.checklist.splice($index, 1);
+       } else if (!task._edit.checklist[$index].text) {
+         // User deleted all the text and is now wishing to delete the item
+         // saveTask will prune the empty item
+         // Move focus if the list is still non-empty
+         if ($index > 0)
+           focusChecklist(task._edit, $index-1);
+         // Don't allow the backspace key to navigate back now that the field is gone
+         $event.preventDefault();
+       }
+     }
+
+     $scope.swapChecklistItems = function(task, oldIndex, newIndex) {
+       var toSwap = task._edit.checklist.splice(oldIndex, 1)[0];
+       task._edit.checklist.splice(newIndex, 0, toSwap);
+     }
+
+     $scope.navigateChecklist = function(task,$index,$event){
+       focusChecklist(task, $event.keyCode == '40' ? $index+1 : $index-1);
+     }
+
+     $scope.checklistCompletion = function(checklist){
+       return _.reduce(checklist,function(m,i){return m+(i.completed ? 1 : 0);},0)
+     }
+
+     $scope.collapseChecklist = function(task) {
+       task.collapseChecklist = !task.collapseChecklist;
+       $scope.saveTask(task,true);
+     }
+>>>>>>> Updatd with new checklist logic and fixed columns
   }]);
