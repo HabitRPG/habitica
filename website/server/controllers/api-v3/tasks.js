@@ -680,7 +680,7 @@ api.addTagToTask = {
     if (validationErrors) throw validationErrors;
 
     let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     let tagId = req.params.tagId;
@@ -722,7 +722,7 @@ api.removeTagFromTask = {
     if (validationErrors) throw validationErrors;
 
     let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
