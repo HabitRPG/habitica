@@ -70,7 +70,7 @@
     "APIToken": "API トークン ( これはあなたのパスワードです。 上記の注意をよく読んでください! )",
     "APITokenWarning": "新しいAPI トークンが必要な場合 (例 : 誤って共有・公開してしまった) は、<a href='mailto:admin@habitica.com'>admin@habitica.com</a> あてに、ユーザーID と現在のトークンを書き添えて、Eメールを送ってください。一度リセットした後は、Webサイトとモバイルアプリをログアウトする、またお使いのあらゆる Habitica ツールに新しいトークンを指定するといった再認証作業が必要です。 ",
     "thirdPartyApps": "サードパーティー アプリ",
-    "dataToolDesc": "あなたの Habitica のアカウントから、タスク、所持品、特殊能力の統計といった正確な情報を表示するWeb ページです。",
+    "dataToolDesc": "あなたの Habitica のアカウントから、タスク、所持品、スキルの統計といった正確な情報を表示するWeb ページです。",
     "beeminder": "Beeminder",
     "beeminderDesc": "Beeminder にあなたの Habitica の To-Do を自動監視させます。日ごと、週ごとの To-Do の達成数目標を管理する契約 (Commit) をしたり、また徐々に未達成の To-Do を減らしていく契約ができます。( Beeminder における 「commit」は、現実のお金を支払わなければならない恐れを意味します!　しかし、Beeminder の美しいグラフは、お気に召すことでしょう。)",
     "chromeChatExtension": "チャット Chrome 拡張機能",

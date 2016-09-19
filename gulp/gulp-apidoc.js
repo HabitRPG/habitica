@@ -15,7 +15,7 @@ gulp.task('apidoc', ['apidoc:clean'], (done) => {
   });
 
   if (result === false) {
-    done(new Error('There was a problem generating apiDoc documentation.'))
+    done(new Error('There was a problem generating apiDoc documentation.'));
   } else {
     done();
   }

@@ -65,7 +65,7 @@
     "displayLater": "あとで表示",
     "petNotOwned": "このペットをもっていません。",
     "earnedCompanion": "あなたの前向きな行動の一つひとつから、新しい仲間が生まれました。えさをやって成長させましょう!",
-    "feedPet": "<%= name %>に<%= article %><%= text %>をやりますか?",
+    "feedPet": "<%= name %>に<%= text %>をやりますか?",
     "useSaddle": "<%= pet %>にくらをおきますか?",
     "raisedPet": "<%= pet %>を育てた!",
     "earnedSteed": "多くのタスクを達成して、忠実な乗騎を手に入れた!",

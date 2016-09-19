@@ -2,6 +2,7 @@ import {
   generateUser,
   requester,
   translate as t,
+  getProperty,
 } from '../../../../../helpers/api-integration/v3';
 import passport from 'passport';
 
@@ -42,6 +43,15 @@ describe('POST /user/auth/social', () => {
     expect(response.apiToken).to.exist;
     expect(response.id).to.exist;
     expect(response.newUser).to.be.true;
+  });
+
+  it('enrolls a new user in an A/B test', async () => {
+    await api.post(endpoint, {
+      authResponse: {access_token: randomAccessToken}, // eslint-disable-line camelcase
+      network,
+    });
+
+    await expect(getProperty('users', user._id, '_ABtest')).to.eventually.be.a('string');
   });
 
   it('logs an existing user in', async () => {

@@ -9,11 +9,11 @@
 require('babel-register');
 
 if (process.env.NODE_ENV === 'production') {
-  require('./tasks/gulp-apidoc');
-  require('./tasks/gulp-newstuff');
-  require('./tasks/gulp-build');
-  require('./tasks/gulp-babelify');
+  require('./gulp/gulp-apidoc');
+  require('./gulp/gulp-newstuff');
+  require('./gulp/gulp-build');
+  require('./gulp/gulp-babelify');
 } else {
-  require('glob').sync('./tasks/gulp-*').forEach(require);
+  require('glob').sync('./gulp/gulp-*').forEach(require);
   require('gulp').task('default', ['test']);
 }

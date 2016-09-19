@@ -29,7 +29,7 @@
     "messageFoundQuest": "Znalazłeś misję: \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Ten element wyposażenia został zakupiony, ale już go nie posiadasz. Możesz kupić go ponownie w sekcji nagród na stronie z zadaniami.",
     "messageAlreadyOwnGear": "Już posiadasz ten przedmiot. Przejdź do strony z wyposażeniem, aby zacząć go używać.",
-    "messageHealthAlreadyMax": "You already have maximum health.",
+    "messageHealthAlreadyMax": "Już masz maksymalny poziom zdrowia.",
     "armoireEquipment": "<%= image %> Znalazłeś część rzadkiego wyposażenia w Zaczarowanej Szafie: <%= dropText %>! Fantastycznie!",
     "armoireFood": "<%= image %> Przeszukując Zaczarowaną Szafę znaleziono <%= dropArticle %><%= dropText %>. Co to tutaj robi?",
     "armoireExp": "Mocujesz się z Zaczarowaną Szafą i zyskujesz doświadczenie. Masz za swoje!",

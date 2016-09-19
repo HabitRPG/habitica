@@ -22,8 +22,8 @@ block content
       - for heading, index in headings
         a.h2.accordion.collapsed(ng-href='#' + heading, data-toggle='collapse')=env.t('faqQuestion' + index)
         .clearfix.collapse(id=heading)
-          !=md.render(env.t('webFaqAnswer' + index))
+          !=md.unsafeHTMLRender(env.t('webFaqAnswer' + index))
 
       hr
 
-      h3!=md.render(env.t('webFaqStillNeedHelp'))
+      h3!=md.unsafeHTMLRender(env.t('webFaqStillNeedHelp'))

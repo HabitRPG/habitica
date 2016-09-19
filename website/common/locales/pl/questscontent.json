@@ -328,7 +328,7 @@
     "questAxolotlDropAxolotlEgg": "Salamandra (jajo)",
     "questAxolotlUnlockText": "Odblokowuje dostęp do kupna jaj salamandry na Targu",
     "questAxolotlRageTitle": "Axolotl Regeneration",
-    "questAxolotlRageDescription": "This bar fills when you don't complete your Dailies. When it is full, the Magical Axolotl will heal 30% of its remaining health!",
+    "questAxolotlRageDescription": "Ten pasek rośnie, gdy zaniedbujecie swoje Codzienne. Kiedy napełni się do końca, Magiczna salamandra uleczy 30% zdrowia, które jej pozostało!",
     "questAxolotlRageEffect": "`Magical Axolotl uses AXOLOTL REGENERATION!`\n\n`A curtain of colorful bubbles obscures the monster for a moment, and when it clears, some of its wounds have vanished!`",
     "questTurtleText": "Guide the Turtle",
     "questTurtleNotes": "Help! This giant sea turtle cannot find her way to her nesting beach. She returns there every year to lay her eggs, but this year Inkomplete Bay is filled with toxic Task Flotsam made of red dailies and unchecked to-dos. \"She's thrashing in a panic!\" @JessicaChase says.<br><br>@UncommonCriminal nods. \"It's because her guiding senses are fogged and confused.\"<br><br>@Scarabsi grabs your arm. \"Can you help clear the Task Flotsam blocking her path? It may be hazardous, but we have to help her!\"",
@@ -342,10 +342,10 @@
     "questArmadilloBoss": "Pobłażliwy pancernik",
     "questArmadilloDropArmadilloEgg": "Pancernik (jajo)",
     "questArmadilloUnlockText": "Odblokowuje dostęp do kupna jaj pancernika na Targu",
-    "questCowText": "The Mootant Cow",
+    "questCowText": "Zmuutowana krowa",
     "questCowNotes": "It’s been a long, hot day at Sparring Farms, and there is nothing more you want than a long sip of water and some sleep. You're standing there daydreaming when @Soloana suddenly screams, \"Everyone run! The prize cow has mootated!\"<br><br>@eevachu gulps. \"It must be our bad habits that infected it.\"<br><br>\"Quick!\" Feralem Tau says. \"Let’s do something before the udder cows mootate, too.\"<br><br>You’ve herd enough. No more daydreaming -- it's time to get those bad habits under control!",
     "questCowCompletion": "You milk your good habits for all they are worth until the cow reverts to its original form. The cow looks over at you with her pretty brown eyes and nudges over three eggs.<br><br>@fuzzytrees laughs and hands you the eggs, \"Maybe it still is mootated if there are baby cows in these eggs. But I trust you to stick to your good habits when you raise them!\"",
-    "questCowBoss": "Mootant Cow",
-    "questCowDropCowEgg": "Cow (Egg)",
-    "questCowUnlockText": "Unlocks purchasable Cow eggs in the Market"
+    "questCowBoss": "Zmuutowana krowa",
+    "questCowDropCowEgg": "Krowa (jajo)",
+    "questCowUnlockText": "Odblokowuje dostęp do kupna krowich jaj na Targu"
 }

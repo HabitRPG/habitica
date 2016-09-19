@@ -52,7 +52,7 @@ gulp.task('sprites:checkCompiledDimensions', ['sprites:main', 'sprites:largeSpri
   }
 });
 
-function createSpritesStream(name, src) {
+function createSpritesStream (name, src) {
   let spritesheetSliceIndicies = calculateSpritesheetsSrcIndicies(src);
   let stream = mergeStream();
 
@@ -83,7 +83,7 @@ function createSpritesStream(name, src) {
   return stream;
 }
 
-function calculateSpritesheetsSrcIndicies(src) {
+function calculateSpritesheetsSrcIndicies (src) {
   let totalPixels = 0;
   let slices = [0];
 
@@ -100,7 +100,7 @@ function calculateSpritesheetsSrcIndicies(src) {
   return slices;
 }
 
-function calculateImgDimensions(img, addPadding) {
+function calculateImgDimensions (img, addPadding) {
   let dims = sizeOf(img);
 
   let requiresSpecialTreatment = checkForSpecialTreatment(img);
@@ -109,7 +109,7 @@ function calculateImgDimensions(img, addPadding) {
     let newHeight = dims.height < 90 ? 90 : dims.height;
     dims = {
       width: newWidth,
-      height: newHeight
+      height: newHeight,
     };
   }
 
@@ -119,19 +119,19 @@ function calculateImgDimensions(img, addPadding) {
     padding = (dims.width * 8) + (dims.height * 8);
   }
 
-  if(!dims.width || !dims.height) console.error('MISSING DIMENSIONS:', dims);
+  if (!dims.width || !dims.height) console.error('MISSING DIMENSIONS:', dims);
 
   let totalPixelSize = (dims.width * dims.height) + padding;
 
   return totalPixelSize;
 }
 
-function checkForSpecialTreatment(name) {
+function checkForSpecialTreatment (name) {
   let regex = /^hair|skin|beard|mustach|shirt|flower|^headAccessory_special_\w+Ears|^eyewear_special_\w+TopFrame/;
   return name.match(regex) || name === 'head_0';
 }
 
-function cssVarMap(sprite) {
+function cssVarMap (sprite) {
   // For hair, skins, beards, etc. we want to output a '.customize-options.WHATEVER' class, which works as a
   // 60x60 image pointing at the proper part of the 90x90 sprite.
   // We set up the custom info here, and the template makes use of it.
@@ -142,9 +142,9 @@ function cssVarMap(sprite) {
         offset_x: `-${ sprite.x + 25 }px`,
         offset_y: `-${ sprite.y + 15 }px`,
         width: '60px',
-        height: '60px'
-      }
-    }
+        height: '60px',
+      },
+    };
   }
   if (~sprite.name.indexOf('shirt'))
     sprite.custom.px.offset_y = `-${ sprite.y + 30 }px`; // even more for shirts
