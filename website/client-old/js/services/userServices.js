@@ -318,8 +318,9 @@ angular.module('habitrpg')
         },
 
         addTag: function(data) {
-          user.ops.addTag(data);
-          Tags.createTag(data.body);
+          Tags.createTag(data.body).then(function(res) {
+            user.ops.addTag({body: res.data.data});
+          });
         },
 
         updateTag: function(data) {

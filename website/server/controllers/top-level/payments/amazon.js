@@ -7,7 +7,7 @@ import {
   authWithHeaders,
   authWithUrl,
 } from '../../../middlewares/auth';
-import shared from '../../../../common';
+import shared from '../../../../../common';
 import payments from '../../../libs/payments';
 import moment from 'moment';
 import { model as Coupon } from '../../../models/coupon';

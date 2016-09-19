@@ -2,7 +2,7 @@
 
 import mongoose from 'mongoose';
 import _ from 'lodash';
-import shared from '../../common';
+import shared from '../../../common';
 import couponCode from 'coupon-code';
 import baseModel from '../libs/baseModel';
 import {

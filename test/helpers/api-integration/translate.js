@@ -1,4 +1,4 @@
-import i18n from '../../../website/common/script/i18n';
+import i18n from '../../../common/script/i18n';
 i18n.translations = require('../../../website/server/libs/i18n').translations;
 
 // Use this to verify error messages returned by the server

@@ -1,11 +1,11 @@
-import feed from '../../../website/common/script/ops/feed';
-import content from '../../../website/common/script/content';
+import feed from '../../../common/script/ops/feed';
+import content from '../../../common/script/content';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
-} from '../../../website/common/script/libs/errors';
-import i18n from '../../../website/common/script/i18n';
+} from '../../../common/script/libs/errors';
+import i18n from '../../../common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';

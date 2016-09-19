@@ -4,7 +4,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
-import common from '../../../../../website/common';
+import common from '../../../../../common';
 
 describe('GET /groups/:groupId/members', () => {
   let user;

@@ -1,12 +1,12 @@
-import readCard from '../../../website/common/script/ops/readCard';
-import i18n from '../../../website/common/script/i18n';
+import readCard from '../../../common/script/ops/readCard';
+import i18n from '../../../common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';
 import {
   BadRequest,
   NotAuthorized,
-} from '../../../website/common/script/libs/errors';
+} from '../../../common/script/libs/errors';
 
 describe('shared.ops.readCard', () => {
   let user;

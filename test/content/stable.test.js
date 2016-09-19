@@ -4,11 +4,11 @@ import {
 import {
   expectValidTranslationString,
 } from '../helpers/content.helper';
-import t from '../../website/common/script/content/translation';
+import t from '../../common/script/content/translation';
 
-import stable from '../../website/common/script/content/stable';
-import eggs from '../../website/common/script/content/eggs';
-import potions from '../../website/common/script/content/hatching-potions';
+import stable from '../../common/script/content/stable';
+import eggs from '../../common/script/content/eggs';
+import potions from '../../common/script/content/hatching-potions';
 
 describe('stable', ()  => {
   describe('dropPets', () => {

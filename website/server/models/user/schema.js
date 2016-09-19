@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import shared from '../../../common';
+import shared from '../../../../common';
 import _ from 'lodash';
 import validator from 'validator';
 import { schema as TagSchema } from '../tag';

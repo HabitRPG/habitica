@@ -1,4 +1,4 @@
-import randomDrop from '../../../website/common/script/fns/randomDrop';
+import randomDrop from '../../../common/script/fns/randomDrop';
 import {
   generateUser,
   generateTodo,

@@ -1,12 +1,12 @@
-import unlock from '../../../website/common/script/ops/unlock';
-import i18n from '../../../website/common/script/i18n';
+import unlock from '../../../common/script/ops/unlock';
+import i18n from '../../../common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';
 import {
   NotAuthorized,
   BadRequest,
-} from '../../../website/common/script/libs/errors';
+} from '../../../common/script/libs/errors';
 
 describe('shared.ops.unlock', () => {
   let user;

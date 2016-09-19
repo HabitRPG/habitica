@@ -1,7 +1,7 @@
 import moment from 'moment';
 import Bluebird from 'bluebird';
 import { model as User } from '../models/user';
-import common from '../../common/';
+import common from '../../../common/';
 import { preenUserHistory } from '../libs/preening';
 import _ from 'lodash';
 import nconf from 'nconf';

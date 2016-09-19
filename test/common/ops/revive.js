@@ -1,12 +1,12 @@
-import revive from '../../../website/common/script/ops/revive';
-import i18n from '../../../website/common/script/i18n';
+import revive from '../../../common/script/ops/revive';
+import i18n from '../../../common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';
 import {
   NotAuthorized,
-} from '../../../website/common/script/libs/errors';
-import content from '../../../website/common/script/content/index';
+} from '../../../common/script/libs/errors';
+import content from '../../../common/script/content/index';
 
 describe('shared.ops.revive', () => {
   let user;

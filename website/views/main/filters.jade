@@ -10,7 +10,7 @@
         //- Edit button
         li
           a(ng-click='saveOrEdit()')
-            span(ng-if='_editing')=env.t('save')
+            span(ng-if='_editing')=env.t('done')
             span(ng-if='!_editing')=env.t('editTags')
         li(ng-hide='_editing')
           a(ng-click='areTagsHidden = !areTagsHidden')

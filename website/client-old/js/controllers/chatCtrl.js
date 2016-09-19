@@ -26,13 +26,8 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
     $scope.postChat = function(group, message){
       if (_.isEmpty(message) || $scope._sending) return;
       $scope._sending = true;
-
-      var previousMsg = false;
-      if (group.type !== 'party' && group.chat && group.chat[0]) { // not sending the previousMsg for parties as we have real time updates
-        previousMsg = group.chat[0].id;
-      }
-
-      Chat.postChat(group._id, message, previousMsg)
+      // var previousMsg = (group.chat && group.chat[0]) ? group.chat[0].id : false;
+      Chat.postChat(group._id, message) //, previousMsg) not sending the previousMsg as we have real time updates
         .then(function(response) {
           var message = response.data.data.message;
 

@@ -4,12 +4,12 @@ import sinon from 'sinon'; // eslint-disable-line no-shadow
 import {
   generateUser,
 } from '../../helpers/common.helper';
-import buyGear from '../../../website/common/script/ops/buyGear';
-import shared from '../../../website/common/script';
+import buyGear from '../../../common/script/ops/buyGear';
+import shared from '../../../common/script';
 import {
   NotAuthorized,
-} from '../../../website/common/script/libs/errors';
-import i18n from '../../../website/common/script/i18n';
+} from '../../../common/script/libs/errors';
+import i18n from '../../../common/script/i18n';
 
 describe('shared.ops.buyGear', () => {
   let user;

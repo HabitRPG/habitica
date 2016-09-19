@@ -4,14 +4,14 @@ import sinon from 'sinon'; // eslint-disable-line no-shadow
 import {
   generateUser,
 } from '../../helpers/common.helper';
-import count from '../../../website/common/script/count';
-import buyArmoire from '../../../website/common/script/ops/buyArmoire';
-import shared from '../../../website/common/script';
-import content from '../../../website/common/script/content/index';
+import count from '../../../common/script/count';
+import buyArmoire from '../../../common/script/ops/buyArmoire';
+import shared from '../../../common/script';
+import content from '../../../common/script/content/index';
 import {
   NotAuthorized,
-} from '../../../website/common/script/libs/errors';
-import i18n from '../../../website/common/script/i18n';
+} from '../../../common/script/libs/errors';
+import i18n from '../../../common/script/i18n';
 
 describe('shared.ops.buyArmoire', () => {
   let user;

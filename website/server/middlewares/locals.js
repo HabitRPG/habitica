@@ -1,6 +1,6 @@
 import nconf from 'nconf';
 import _ from 'lodash';
-import shared from '../../common';
+import shared from '../../../common';
 import * as i18n from '../libs/i18n';
 import {
   getBuildUrl,

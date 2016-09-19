@@ -2,11 +2,11 @@
 import {
   generateUser,
 } from '../../helpers/common.helper';
-import buyHealthPotion from '../../../website/common/script/ops/buyHealthPotion';
+import buyHealthPotion from '../../../common/script/ops/buyHealthPotion';
 import {
   NotAuthorized,
-} from '../../../website/common/script/libs/errors';
-import i18n from '../../../website/common/script/i18n';
+} from '../../../common/script/libs/errors';
+import i18n from '../../../common/script/i18n';
 
 describe('shared.ops.buyHealthPotion', () => {
   let user;

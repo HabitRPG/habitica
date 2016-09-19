@@ -1,4 +1,4 @@
-import shared from '../../../website/common';
+import shared from '../../../common';
 import { v4 as generateUUID } from 'uuid';
 
 describe('refPush', () => {

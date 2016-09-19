@@ -1,6 +1,10 @@
 import locals from '../../middlewares/locals';
 import _ from 'lodash';
-import md from 'habitica-markdown';
+import markdownIt from 'markdown-it';
+
+const md = markdownIt({
+  html: true,
+});
 
 let api = {};
 

@@ -18,6 +18,6 @@ block content
       - for step in stepsNum
         h3=env.t('step'+step)
         p
-          !=md.unsafeHTMLRender(env.t('webStep'+step+'Text'))
+          !=md.render(env.t('webStep'+step+'Text'))
         hr
-      !=md.unsafeHTMLRender(env.t('overviewQuestions'))
+      !=md.render(env.t('overviewQuestions'))
