@@ -14,7 +14,6 @@ import { model as User } from '../../models/user';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/password';
-import { send } from '../../libs/email';
 
 let api = {};
 
@@ -225,14 +224,7 @@ api.deleteUser = {
     await user.remove();
 
     if (req.body.feedback) {
-      let mailOptions = {
-        from: '"Habitica" <admin@habitica.com>',
-        to: 'admin@habitica.com',
-        subject: 'Feedback received',
-        html: '<b>Feedback:</b> ${req.body.feedback}',
-      };
-
-      //send(mailOptions);
+      // Send feedback via email
     }
 
     res.respond(200, {});
