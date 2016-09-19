@@ -207,7 +207,6 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       if($rootScope.charts[id]) {
         var handleResize = _.debounce(function() {
           drawChart(id, data);
-          console.log("triggered");
         }, 300);
 
         $rootScope.resizeCharts[id] = $rootScope.resizeCharts[id] || _.once(function() { $(window).resize(handleResize) });
