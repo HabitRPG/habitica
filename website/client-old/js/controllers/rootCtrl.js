@@ -186,9 +186,9 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     }
 
     $rootScope.charts = {};
-    $rootScope.resizeCharts = {};
+    var resizeChartFunctions = {};
     $rootScope.toggleChart = function(id, task) {
-      var history = [], matrix, data, options, container;
+      var history = [], matrix, data;
       switch (id) {
         case 'exp':
           history = User.user.history.exp;
@@ -204,13 +204,12 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
           if (task && task._editing) task._editing = false;
       }
 
-      if($rootScope.charts[id]) {
-        var handleResize = _.debounce(function() {
+      if ($rootScope.charts[id] && !resizeChartFunctions[id]) {
+        resizeChartFunctions[id] = function() {
           drawChart(id, data);
-        }, 300);
-
-        $rootScope.resizeCharts[id] = $rootScope.resizeCharts[id] || _.once(function() { $(window).resize(handleResize) });
-        $rootScope.resizeCharts[id]();
+        };
+      } else if (!$rootScope.charts[id]) {
+        delete resizeChartFunctions[id];
       }
 
       matrix = [[env.t('date'), env.t('score')]];
@@ -222,15 +221,15 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       drawChart(id, data);
     };
 
-    function drawChart(id, data, options) {
-      var chart, width;
+    function drawChart(id, data) {
+      var chart, width, options;
 
-      if(id === "exp") {
-        width = $(".row").width() - 20;
-      } else if(id === "todos") {
-        width = $(".task-column.todos").width();
+      if (id === 'exp') {
+        width = $('.row').width() - 20;
+      } else if (id === 'todos') {
+        width = $('.task-column.todos').width();
       } else {
-        width = $(".task-text").width() - 15;
+        width = $('.task-text').width() - 20;
       }
 
       options = {
@@ -430,5 +429,12 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         $scope.ctrlPressed = false;
       }
     });
+
+    var resizeAllCharts = _.debounce(function () {
+      _.each(resizeChartFunctions, function (fn) {
+        fn();
+      });
+    }, 100);
+    $(window).resize(resizeAllCharts);
   }
 ]);
