@@ -13,14 +13,14 @@
     
     function formatAnimal(name, type) {
       if(type === 'pet') {
-        if(Content.petsInfo.hasOwnProperty(name)) {
-          return Content.petsInfo[name].text();
+        if(Content.petInfo.hasOwnProperty(name)) {
+          return Content.petInfo[name].text();
         } else {
           return window.env.t('noActivePet');
         }
       } else if(type === 'mount') {
-        if(Content.mountsInfo.hasOwnProperty(name)) {
-          return Content.mountsInfo[name].text();
+        if(Content.mountInfo.hasOwnProperty(name)) {
+          return Content.mountInfo[name].text();
         } else {
           return window.env.t('noActiveMount');
         }
@@ -28,7 +28,7 @@
     }
 
     function formatBackground(background) {
-      var bg = Content.background;
+      var bg = Content.appearances.background;
       
       if(bg.hasOwnProperty(background)) {
         return bg[background].text() + ' (' + bg[background].set.text() + ')';
