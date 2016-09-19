@@ -72,27 +72,16 @@ angular.module('habitrpg')
     };
 
     function updateTask (taskId, taskDetails) {
+      var taskDetailsToSend = _.omit(
+        taskDetails,
+        ['challenge', 'completed', 'createdAt', 'group', 'history', 'id',
+         'reminders', 'tags', 'type', 'updatedAt', 'userId']
+      )
+
       return $http({
         method: 'PUT',
         url: '/api/v3/tasks/' + taskId,
-        data: {
-          alias: taskDetails.alias,
-          attribute: taskDetails.attribute,
-          checklist: taskDetails.checklist,
-          collapseChecklist: taskDetails.collapseChecklist,
-          date: taskDetails.date,
-          down: taskDetails.down,
-          everyX: taskDetails.everyX,
-          frequency: taskDetails.frequency,
-          notes: taskDetails.notes,
-          priority: taskDetails.priority,
-          repeat: taskDetails.repeat,
-          startDate: taskDetails.startDate,
-          streak: taskDetails.streak,
-          text: taskDetails.text,
-          up: taskDetails.up,
-          value: taskDetails.value,
-        },
+        data: taskDetailsToSend,
       });
     };
 
