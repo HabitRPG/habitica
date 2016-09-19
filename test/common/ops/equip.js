@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
-import equip from '../../../website/common/script/ops/equip';
-import i18n from '../../../website/common/script/i18n';
+import equip from '../../../common/script/ops/equip';
+import i18n from '../../../common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';
-import content from '../../../website/common/script/content/index';
+import content from '../../../common/script/content/index';
 
 describe('shared.ops.equip', () => {
   let user;

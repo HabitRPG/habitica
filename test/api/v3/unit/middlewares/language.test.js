@@ -7,7 +7,7 @@ import {
   getUserLanguage,
   attachTranslateFunction,
 } from '../../../../../website/server/middlewares/language';
-import common from '../../../../../website/common';
+import common from '../../../../../common';
 import Bluebird from 'bluebird';
 import { model as User } from '../../../../../website/server/models/user';
 

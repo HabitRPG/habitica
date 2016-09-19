@@ -3,13 +3,13 @@
 /* Refresh page if idle > 6h */
 var REFRESH_FREQUENCY = 21600000;
 var refresh;
-window.refresher = function() {
+var refresher = function() {
   window.location.reload(true);
 };
 
 var awaitIdle = function() {
   if(refresh) clearTimeout(refresh);
-  refresh = setTimeout(window.refresher, REFRESH_FREQUENCY);
+  refresh = setTimeout(refresher, REFRESH_FREQUENCY);
 };
 
 awaitIdle();

@@ -4,7 +4,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import content from '../../../../../website/common/script/content';
+import content from '../../../../../common/script/content';
 
 describe('POST /user/feed/:pet/:food', () => {
   let user;

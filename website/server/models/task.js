@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import shared from '../../common';
+import shared from '../../../common';
 import validator from 'validator';
 import moment from 'moment';
 import baseModel from '../libs/baseModel';

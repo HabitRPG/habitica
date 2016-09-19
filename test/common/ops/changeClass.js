@@ -1,8 +1,8 @@
-import changeClass from '../../../website/common/script/ops/changeClass';
+import changeClass from '../../../common/script/ops/changeClass';
 import {
   NotAuthorized,
-} from '../../../website/common/script/libs/errors';
-import i18n from '../../../website/common/script/i18n';
+} from '../../../common/script/libs/errors';
+import i18n from '../../../common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';

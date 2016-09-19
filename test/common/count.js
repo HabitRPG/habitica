@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-let count = require('../../website/common/script/count');
+let count = require('../../common/script/count');
 
 describe('count', () => {
   describe('beastMasterProgress', () => {

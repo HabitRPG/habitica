@@ -4,7 +4,7 @@ import {
   generateReq,
   generateNext,
 } from '../../../../helpers/api-unit.helper';
-import i18n from '../../../../../website/common/script/i18n';
+import i18n from '../../../../../common/script/i18n';
 import { ensureAdmin, ensureSudo } from '../../../../../website/server/middlewares/ensureAccessRight';
 import { NotAuthorized } from '../../../../../website/server/libs/errors';
 

@@ -1,4 +1,4 @@
-import randomVal from '../../../website/common/script/fns/randomVal';
+import randomVal from '../../../common/script/fns/randomVal';
 import {
   generateUser,
 } from '../../helpers/common.helper';

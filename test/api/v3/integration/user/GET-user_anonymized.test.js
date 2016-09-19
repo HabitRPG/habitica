@@ -4,7 +4,7 @@ import {
   generateDaily,
   generateReward,
 } from '../../../../helpers/api-integration/v3';
-import common from '../../../../../website/common';
+import common from '../../../../../common';
 import { v4 as generateUUID } from 'uuid';
 
 describe('GET /user/anonymized', () => {

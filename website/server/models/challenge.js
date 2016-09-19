@@ -10,7 +10,7 @@ import {
   TAVERN_ID,
 } from './group';
 import { removeFromArray } from '../libs/collectionManipulators';
-import shared from '../../common';
+import shared from '../../../common';
 import { sendTxn as txnEmail } from '../libs/email';
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
 import cwait from 'cwait';

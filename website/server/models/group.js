@@ -3,7 +3,7 @@ import {
   model as User,
   nameFields,
 } from './user';
-import shared from '../../common';
+import shared from '../../../common';
 import _  from 'lodash';
 import { model as Challenge} from './challenge';
 import * as Tasks from './task';
