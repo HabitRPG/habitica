@@ -73,9 +73,17 @@ function _populateDefaultTasks (user, taskTypes) {
     });
 }
 
-function _populateDefaultsForNewUser (user) {
+function _setUpNewUser (user) {
   let taskTypes;
   let iterableFlags = user.flags.toObject();
+
+  // A/B Test 2016-09-12: Start with Sound Enabled?
+  if (Math.random() < 0.5) {
+    user.preferences.sound = 'rosstavoTheme';
+    user._ABtest = '20160912-soundEnabled';
+  } else {
+    user._ABtest = '20160912-soundDisabled';
+  }
 
   if (user.registeredThrough === 'habitica-web' || user.registeredThrough === 'habitica-android') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
@@ -158,7 +166,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
 
   // Populate new users with default content
   if (this.isNew) {
-    _populateDefaultsForNewUser(this)
+    _setUpNewUser(this)
       .then(() => done())
       .catch(done);
   } else {

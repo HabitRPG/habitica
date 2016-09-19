@@ -7,8 +7,8 @@ import { postToSlack, conf } from './taskHelper';
 const SLACK_CONFIG = {
   channel: conf.get('TRANSIFEX_SLACK_CHANNEL'),
   username: 'Transifex',
-  emoji: 'transifex'
-}
+  emoji: 'transifex',
+};
 
 const LOCALES = './website/common/locales/';
 const ENGLISH_LOCALE = `${LOCALES}en/`;
@@ -17,8 +17,8 @@ const ALL_LANGUAGES = getArrayOfLanguages();
 const malformedStringExceptions = {
   messageDropFood: true,
   armoireFood: true,
-  feedPet: true
-}
+  feedPet: true,
+};
 
 gulp.task('transifex', ['transifex:missingFiles', 'transifex:missingStrings', 'transifex:malformedStrings']);
 
@@ -27,7 +27,7 @@ gulp.task('transifex:missingFiles', () => {
   let missingStrings = [];
 
   eachTranslationFile(ALL_LANGUAGES, (error) => {
-    if(error) {
+    if (error) {
       missingStrings.push(error.path);
     }
   });
@@ -67,13 +67,13 @@ gulp.task('transifex:malformedStrings', () => {
   let stringsWithIncorrectNumberOfInterpolations = [];
 
   let count = 0;
-  _(ALL_LANGUAGES).each(function(lang) {
+  _(ALL_LANGUAGES).each(function (lang) {
 
-    _.each(stringsToLookFor, function(strings, file) {
+    _.each(stringsToLookFor, function (strings, file) {
       let translationFile = fs.readFileSync(LOCALES + lang + '/' + file);
       let parsedTranslationFile = JSON.parse(translationFile);
 
-      _.each(strings, function(value, key) {
+      _.each(strings, function (value, key) {
         let translationString = parsedTranslationFile[key];
         if (!translationString) return;
 
@@ -104,14 +104,14 @@ gulp.task('transifex:malformedStrings', () => {
   }
 });
 
-function getArrayOfLanguages() {
+function getArrayOfLanguages () {
   let languages = fs.readdirSync(LOCALES);
   languages.shift(); // Remove README.md from array of languages
 
   return languages;
 }
 
-function eachTranslationFile(languages, cb) {
+function eachTranslationFile (languages, cb) {
   let jsonFiles = stripOutNonJsonFiles(fs.readdirSync(ENGLISH_LOCALE));
 
   _(languages).each((lang) => {
@@ -126,12 +126,12 @@ function eachTranslationFile(languages, cb) {
       let englishFile = fs.readFileSync(ENGLISH_LOCALE + filename);
       let parsedEnglishFile = JSON.parse(englishFile);
 
-      cb(null, lang, filename, parsedEnglishFile, parsedTranslationFile)
+      cb(null, lang, filename, parsedEnglishFile, parsedTranslationFile);
     });
   }).value();
 }
 
-function eachTranslationString(languages, cb) {
+function eachTranslationString (languages, cb) {
   eachTranslationFile(languages, (error, language, filename, englishJSON, translationJSON) => {
     if (error) return;
     _.each(englishJSON, (string, key) => {
@@ -141,7 +141,7 @@ function eachTranslationString(languages, cb) {
   });
 }
 
-function formatMessageForPosting(msg, items) {
+function formatMessageForPosting (msg, items) {
   let body = `*Warning:* ${msg}`;
   body += '\n\n```\n';
   body += items.join('\n');
@@ -150,24 +150,24 @@ function formatMessageForPosting(msg, items) {
   return body;
 }
 
-function getStringsWith(json, interpolationRegex) {
+function getStringsWith (json, interpolationRegex) {
   var strings = {};
 
-  _(json).each(function(file_name) {
+  _(json).each(function (file_name) {
     var raw_file = fs.readFileSync(ENGLISH_LOCALE + file_name);
     var parsed_json = JSON.parse(raw_file);
 
     strings[file_name] = {};
-    _.each(parsed_json, function(value, key) {
+    _.each(parsed_json, function (value, key) {
       var match = value.match(interpolationRegex);
-      if(match) strings[file_name][key] = match;
+      if (match) strings[file_name][key] = match;
     });
   }).value();
 
   return strings;
 }
 
-function stripOutNonJsonFiles(collection) {
+function stripOutNonJsonFiles (collection) {
   let onlyJson = _.filter(collection, (file) => {
     return file.match(/[a-zA-Z]*\.json/);
   });

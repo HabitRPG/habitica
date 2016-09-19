@@ -16,7 +16,7 @@ import nconf                      from 'nconf';
 
 // TODO rewrite
 
-const TEST_SERVER_PORT  = 3003
+const TEST_SERVER_PORT  = 3003;
 let server;
 
 const TEST_DB_URI       = nconf.get('TEST_DB_URI');
@@ -33,11 +33,11 @@ let testResults = [];
 let testCount = (stdout, regexp) => {
   let match = stdout.match(regexp);
   return parseInt(match && match[1] || 0);
-}
+};
 
 let testBin = (string, additionalEnvVariables = '') => {
-  if(os.platform() === "win32") {
-    if(additionalEnvVariables != '') {
+  if (os.platform() === 'win32') {
+    if (additionalEnvVariables != '') {
       additionalEnvVariables = additionalEnvVariables.split(' ').join('&&set ');
       additionalEnvVariables = 'set ' + additionalEnvVariables + '&&';
     }
@@ -49,7 +49,7 @@ let testBin = (string, additionalEnvVariables = '') => {
 
 gulp.task('test:nodemon', (done) => {
   process.env.PORT = TEST_SERVER_PORT;
-  process.env.NODE_DB_URI=TEST_DB_URI;
+  process.env.NODE_DB_URI = TEST_DB_URI;
 
   runSequence('nodemon');
 });
@@ -65,7 +65,7 @@ gulp.task('test:prepare:mongo', (cb) => {
 
 gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
   if (!server) {
-    server = exec(testBin(`node ./website/server/index.js`, `NODE_DB_URI=${TEST_DB_URI} PORT=${TEST_SERVER_PORT}`), (error, stdout, stderr) => {
+    server = exec(testBin('node ./website/server/index.js', `NODE_DB_URI=${TEST_DB_URI} PORT=${TEST_SERVER_PORT}`), (error, stdout, stderr) => {
       if (error) { throw `Problem with the server: ${error}`; }
       if (stderr) { console.error(stderr); }
     });
@@ -83,7 +83,7 @@ gulp.task('test:prepare:webdriver', (cb) => {
 gulp.task('test:prepare', [
   'test:prepare:build',
   'test:prepare:mongo',
-  'test:prepare:webdriver'
+  'test:prepare:webdriver',
 ]);
 
 gulp.task('test:sanity', (cb) => {
@@ -128,7 +128,7 @@ gulp.task('test:common:safe', ['test:prepare:build'], (cb) => {
         suite: 'Common Specs\t',
         pass: testCount(stdout, /(\d+) passing/),
         fail: testCount(stdout, /(\d+) failing/),
-        pend: testCount(stdout, /(\d+) pending/)
+        pend: testCount(stdout, /(\d+) pending/),
       });
       cb();
     }
@@ -167,7 +167,7 @@ gulp.task('test:content:safe', ['test:prepare:build'], (cb) => {
         suite: 'Content Specs\t',
         pass: testCount(stdout, /(\d+) passing/),
         fail: testCount(stdout, /(\d+) failing/),
-        pend: testCount(stdout, /(\d+) pending/)
+        pend: testCount(stdout, /(\d+) pending/),
       });
       cb();
     }
@@ -193,7 +193,7 @@ gulp.task('test:server_side:safe', ['test:prepare:build'], (cb) => {
         suite: 'Server Side Specs',
         pass: testCount(stdout, /(\d+) passing/),
         fail: testCount(stdout, /(\d+) failing/),
-        pend: testCount(stdout, /(\d+) pending/)
+        pend: testCount(stdout, /(\d+) pending/),
       });
       cb();
     }
@@ -232,7 +232,7 @@ gulp.task('test:karma:safe', ['test:prepare:build'], (cb) => {
         suite: 'Karma Specs\t',
         pass: testCount(stdout, /(\d+) tests? completed/),
         fail: testCount(stdout, /(\d+) tests? failed/),
-        pend: testCount(stdout, /(\d+) tests? skipped/)
+        pend: testCount(stdout, /(\d+) tests? skipped/),
       });
       cb();
     }
@@ -249,7 +249,7 @@ gulp.task('test:e2e', ['test:prepare', 'test:prepare:server'], (cb) => {
 
   Bluebird.all([
     awaitPort(TEST_SERVER_PORT),
-    awaitPort(4444)
+    awaitPort(4444),
   ]).then(() => {
     let runner = exec(
       'npm run test:e2e',
@@ -273,7 +273,7 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
 
   Bluebird.all([
     awaitPort(TEST_SERVER_PORT),
-    awaitPort(4444)
+    awaitPort(4444),
   ]).then(() => {
     let runner = exec(
       'npm run test:e2e',
@@ -284,7 +284,7 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
           suite: 'End-to-End Specs\t',
           pass: testCount(stdout, /(\d+) passing/),
           fail: testCount(stdout, /(\d+) failing/),
-          pend: testCount(stdout, /(\d+) pending/)
+          pend: testCount(stdout, /(\d+) pending/),
         });
         support.forEach(kill);
         cb();
@@ -303,7 +303,7 @@ gulp.task('test:api-v3:unit', (done) => {
       }
       done();
     }
-  )
+  );
 
   pipe(runner);
 });
@@ -315,14 +315,14 @@ gulp.task('test:api-v3:unit:watch', () => {
 gulp.task('test:api-v3:integration', (done) => {
   let runner = exec(
     testBin('mocha test/api/v3/integration --recursive'),
-    {maxBuffer: 500*1024},
+    {maxBuffer: 500 * 1024},
     (err, stdout, stderr) => {
       if (err) {
         process.exit(1);
       }
       done();
     }
-  )
+  );
 
   pipe(runner);
 });
@@ -335,9 +335,9 @@ gulp.task('test:api-v3:integration:watch', () => {
 gulp.task('test:api-v3:integration:separate-server', (done) => {
   let runner = exec(
     testBin('mocha test/api/v3/integration --recursive', 'LOAD_SERVER=0'),
-    {maxBuffer: 500*1024},
+    {maxBuffer: 500 * 1024},
     (err, stdout, stderr) => done(err)
-  )
+  );
 
   pipe(runner);
 });

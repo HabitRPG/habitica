@@ -183,7 +183,7 @@
     "achievementShare": "Ik heb een nieuwe prestatie behaald in Habitica!",
     "orderBy": "Order per <%= item %>",
     "you": "(jij)",
-    "enableDesktopNotifications": "Enable Desktop Notifications",
+    "enableDesktopNotifications": "Zet bureaublad notificaties aan",
     "online": "online",
     "onlineCount": "<%= count %> online"
 }
