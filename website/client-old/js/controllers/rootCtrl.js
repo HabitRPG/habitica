@@ -186,6 +186,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     }
 
     $rootScope.charts = {};
+    $rootScope.resizeCharts = {};
     $rootScope.toggleChart = function(id, task) {
       var history = [], matrix, data, options, container;
       switch (id) {
@@ -206,9 +207,11 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       if($rootScope.charts[id]) {
         var handleResize = _.debounce(function() {
           drawChart(id, data);
+          console.log("triggered");
         }, 300);
 
-        $(window).resize(handleResize);
+        $rootScope.resizeCharts[id] = $rootScope.resizeCharts[id] || _.once(function() { $(window).resize(handleResize) });
+        $rootScope.resizeCharts[id]();
       }
 
       matrix = [[env.t('date'), env.t('score')]];
@@ -241,7 +244,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
           fill: 'transparent'
         },
         hAxis: {
-          slantedText: true, 
+          slantedText: true,
           slantedTextAngle: 90,
           textStyle: {
             fontSize: 12
@@ -254,10 +257,10 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
           }
         },
         width: width,
-        height: 270,      
+        height: 270,
         chartArea: {
           left: 50,
-          top: 30,  
+          top: 30,
           right: 20,
           bottom: 65
         },
