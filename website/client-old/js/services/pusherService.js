@@ -204,7 +204,7 @@ angular.module('habitrpg')
       console.log('Disconnecting from Pusher for inactivity.');
       api.pusher.disconnect();
       window.onbeforeunload = null; // TODO use addEventListener
-      onDisconnect();
+      // onDisconnect();
 
       var awaitActivity = function() {
         $(document).off('mousemove keydown mousedown touchstart', awaitActivity);
