@@ -225,16 +225,12 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     function drawChart(id, data, options) {
       var chart, width;
 
-      switch(id) {
-        case 'exp':
-          width = $(".row").width() - 20;
-          break;
-        case 'todos':
-          width = $(".task-column.todos").width();
-          break;
-        default:
-          width = $(".task-text").width() - 15;
-          break;
+      if(id === "exp") {
+        width = $(".row").width() - 20;
+      } else if(id === "todos") {
+        width = $(".task-column.todos").width();
+      } else {
+        width = $(".task-text").width() - 15;
       }
 
       options = {
