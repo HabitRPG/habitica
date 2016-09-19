@@ -12,6 +12,6 @@ gulp.task('nodemon', () => {
       'website/client-old/*',
       'website/views/*',
       'common/dist/script/content/*',
-    ]
+    ],
   });
 });

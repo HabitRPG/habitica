@@ -19,23 +19,23 @@ export var conf = nconf;
  * This is necessary to ensure that Gulp will terminate when it has completed
  * its tasks.
  */
-export function kill(proc) {
+export function kill (proc) {
   let killProcess = (pid) => {
     psTree(pid, (_, pids) => {
-      if(pids.length) {
-        pids.forEach(kill); return
+      if (pids.length) {
+        pids.forEach(kill); return;
       }
       try {
         exec(/^win/.test(process.platform)
           ? `taskkill /PID ${pid} /T /F`
-          : `kill -9 ${pid}`)
+          : `kill -9 ${pid}`);
       }
-      catch(e) { console.log(e) }
+      catch (e) { console.log(e); }
     });
-  }
+  };
 
   killProcess(proc.PID || proc.pid);
-};
+}
 
 /*
  * Return a promise that will execute when Node is able to connect on a
@@ -43,7 +43,7 @@ export function kill(proc) {
  * has fully spun up. Optionally provide a maximum number of seconds to wait
  * before failing.
  */
-export function awaitPort (port, max=60) {
+export function awaitPort (port, max = 60) {
   return new Bluebird((reject, resolve) => {
     let socket, timeout, interval;
 
@@ -58,23 +58,23 @@ export function awaitPort (port, max=60) {
         clearTimeout(timeout);
         socket.destroy();
         resolve();
-      }).on('error', () => { socket.destroy });
+      }).on('error', () => { socket.destroy; });
     }, 1000);
   });
-};
+}
 
 /*
  * Pipe the child's stdin and stderr to the parent process.
  */
-export function pipe(child) {
-  child.stdout.on('data', (data) => { process.stdout.write(data) });
-  child.stderr.on('data', (data) => { process.stderr.write(data) });
-};
+export function pipe (child) {
+  child.stdout.on('data', (data) => { process.stdout.write(data); });
+  child.stderr.on('data', (data) => { process.stderr.write(data); });
+}
 
 /*
  * Post request to notify configured slack channel
  */
-export function postToSlack(msg, config={}) {
+export function postToSlack (msg, config = {}) {
   let slackUrl = nconf.get('SLACK_URL');
 
   if (!slackUrl) {
@@ -89,14 +89,14 @@ export function postToSlack(msg, config={}) {
       channel: `#${config.channel || '#general'}`,
       username: config.username || 'gulp task',
       text: msg,
-      icon_emoji: `:${config.emoji || 'gulp'}:`
+      icon_emoji: `:${config.emoji || 'gulp'}:`,
     })
     .end((err, res) => {
       if (err) console.error('Unable to post to slack', err);
     });
 }
 
-export function runMochaTests(files, server, cb) {
+export function runMochaTests (files, server, cb) {
   require('../test/helpers/globals.helper');
 
   let mocha = new Mocha({reporter: 'spec'});

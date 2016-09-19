@@ -1,10 +1,10 @@
 {
+  "root": true,
+  "env": {
+    "node": true,
+  },
   "extends": [
-    "habitrpg/server",
-    "habitrpg/babel"
+    "habitrpg/es6",
+    "habitrpg"
   ],
-  "globals": {
-    "Promise": true,
-    "Set": false
-  }
 }
