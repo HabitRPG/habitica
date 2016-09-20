@@ -29,7 +29,7 @@
     "messageFoundQuest": "מצאת את ההרפתקה \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "רכשתם את החפץ הזה בעבר, אך כעת הוא לא ברשותכם. תוכלו לרכוש אותו שוב בעמודת הפרסים בדף המשימות.",
     "messageAlreadyOwnGear": "כבר יש לכם את החפץ הזה. הצטיידו בו בדף הציוד.",
-    "messageHealthAlreadyMax": "You already have maximum health.",
+    "messageHealthAlreadyMax": "כבר יש לכם את הבריאות המקסימלית.",
     "armoireEquipment": "<%= image %> מצאתם ציוד נדיר בארמואר: <%= dropText %>! מגניב!",
     "armoireFood": "<%= image %> אתם נוברים בארמואר ומוצאים <%= dropArticle %><%= dropText %>. מה זה עושה פה?",
     "armoireExp": "אתם נאבקים בארמואר ומרוויחים ניסיון. קבלו!",

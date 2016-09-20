@@ -126,7 +126,7 @@
     "messageAddedAsToDo": "Bericht gekopieerd als To-do.",
     "messageWroteIn": "<%= user %> schreef in <%= group %>",
     "taskFromInbox": "<%= from %> wrote '<%= message %>'",
-    "taskTextFromInbox": "Message from <%= from %>",
+    "taskTextFromInbox": "Bericht van <%= from %>",
     "msgPreviewHeading": "Bericht preview",
     "leaderOnlyChallenges": "Alleen de groepsleider kan uitdagingen aanmaken",
     "sendGift": "Geschenk versturen",

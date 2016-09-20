@@ -141,7 +141,7 @@
     "inviteNewUsers": "Pozvi nové uživatele",
     "sendInvitations": "Pošli pozvánky",
     "invitationsSent": "Pozvánky odeslány!",
-    "invitationSent": "Invitation sent!",
+    "invitationSent": "Pozvánka odeslána!",
     "inviteAlertInfo2": "Nebo sdílej tento link (kopírovat/vložit):",
     "sendGiftHeading": "Poslat dárek <%= name %>",
     "sendGiftGemsBalance": "Z <%= number %> Drahokamů",

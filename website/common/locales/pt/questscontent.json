@@ -337,15 +337,15 @@
     "questTurtleDropTurtleEgg": "Tartaruga (Ovo)",
     "questTurtleUnlockText": "Desbloqueia ovos de Tartaruga para compra no Mercado",
     "questArmadilloText": "O Tatu indulgente",
-    "questArmadilloNotes": "It's time to get outside and start your day. You swing open your door only to be met with what looks like a sheet of rock. \"I'm just giving you the day off!\" says a muffled voice through the blocked door. \"Don't be such a bummer, just relax today!\"<br><br>Suddenly, @Beffymaroo and @PainterProphet knock on your window. \"Looks like the Indulgence Armadillo has taken a liking to you! C'mon, we'll help you get her out of your way!\"",
+    "questArmadilloNotes": "É hora de sair à rua e começar o seu dia. Você abre a sua porta apenas para ver o que parece ser uma muralha de pedra. \"Estou simplesmente a dar-lhe um dia de folga!\" diz uma voz abafada por trás da porta bloqueada. \"Não seja tão secante, relaxe hoje!\"<br><br>Subitamente, @Beffymaroo e @PainterProphet batem à sua janela. \"Parece que o Tatu da Indulgência tomou um gosto a si! Venha, nós ajudamo-lo a tira-la do seu caminho!\"",
     "questArmadilloCompletion": "Finalmente, após uma longa manhã de convencimento ao Tatu da Indulgência, que você quer, de fato, que trabalhe, ela aceita. \"Estou arrependida!\" Ela se desculpa. \"Eu só queria ajudar. Eu pensei que todo mundo gostasse de dias preguiçosos! \"<br><br>Você sorri, e deixa ela saber que da próxima vez que você receber um dia de folga, você irá chamá-la. Ela sorri de volta para você. Os pedestres @Tipsy e @krajzega te parabenizam no bom trabalho enquanto ela rola embora, deixando alguns ovos como pedido de desculpas.",
     "questArmadilloBoss": "Tatu da Indulgência",
     "questArmadilloDropArmadilloEgg": "Tatu (Ovo)",
     "questArmadilloUnlockText": "Desbloqueie ovos de Tatu compráveis no Mercado",
-    "questCowText": "The Mootant Cow",
-    "questCowNotes": "It’s been a long, hot day at Sparring Farms, and there is nothing more you want than a long sip of water and some sleep. You're standing there daydreaming when @Soloana suddenly screams, \"Everyone run! The prize cow has mootated!\"<br><br>@eevachu gulps. \"It must be our bad habits that infected it.\"<br><br>\"Quick!\" Feralem Tau says. \"Let’s do something before the udder cows mootate, too.\"<br><br>You’ve herd enough. No more daydreaming -- it's time to get those bad habits under control!",
-    "questCowCompletion": "You milk your good habits for all they are worth until the cow reverts to its original form. The cow looks over at you with her pretty brown eyes and nudges over three eggs.<br><br>@fuzzytrees laughs and hands you the eggs, \"Maybe it still is mootated if there are baby cows in these eggs. But I trust you to stick to your good habits when you raise them!\"",
-    "questCowBoss": "Mootant Cow",
-    "questCowDropCowEgg": "Cow (Egg)",
-    "questCowUnlockText": "Unlocks purchasable Cow eggs in the Market"
+    "questCowText": "A vaca Mootante",
+    "questCowNotes": "Tem sido um dia longo e quente nas Sparring Farms e não há nada mais desejável agora que um bom copo de água e algum sono. Está ali parado de pé, a sonhar acordado, quando @Soloana subitamente grita, \"Fujam! A vaca de prémio mootou!\"<br><br>@eevachu engole em seco. \"Devem ser os nossos maus hábitos que a infectaram.\"<br><br>\"Depressa!\" diz Feralem Tau. \"Façamos algo antes que as outras vacas mootem também!\"<br><br>Você ouviu o suficiente. Chega de sonhar acordado -- é altura de por estes maus hábitos sobe controle!",
+    "questCowCompletion": "Você espreme os seus bons hábitos por todo o seu valor até que a vaca reverte à sua forma original. A vaca olha para sim com os seus olhos castanhos bonitos e empurra 3 ovos.<br><br>@fuzzytrees ri-se e entrega-lhe os ovos. \"Talvez ainda tenha uma mootação se existem vitelos nestes ovos. Confio em ti para te manteres disciplinado nos teus bons hábitos quando as estiveres a criar!\"",
+    "questCowBoss": "Vaca Mootante",
+    "questCowDropCowEgg": "Vaca (Ovo)",
+    "questCowUnlockText": "Desbloqueia ovos de vaca para compra no mercado"
 }

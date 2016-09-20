@@ -96,8 +96,8 @@
     "noActiveQuestToAbort": "Brak aktywnego zadania do przerwania.",
     "onlyLeaderAbortQuest": "Tylko przywódca grupy lub misji może ją przerwać.",
     "questAlreadyRejected": "Już odrzuciłeś zaproszenie na misje.",
-    "cantCancelActiveQuest": "You can not cancel an active quest, use the abort functionality.",
-    "onlyLeaderCancelQuest": "Only the group or quest leader can cancel the quest.",
+    "cantCancelActiveQuest": "Nie możesz anulować aktywnej misji, użyj funkcji zrezygnuj.",
+    "onlyLeaderCancelQuest": "Jedynie przywódca grupy lub misji może anulować misję.",
     "questNotPending": "Brak zadania do rozpoczęcia.",
-    "questOrGroupLeaderOnlyStartQuest": "Only the quest leader or group leader can force start the quest"
+    "questOrGroupLeaderOnlyStartQuest": "Jedynie przywódca grupy lub misji może wymusić rozpoczęcie misji."
 }

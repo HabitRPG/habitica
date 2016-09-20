@@ -49,7 +49,7 @@
     "sureLeave": "האם אתם בטוחים שאתם מעוניינים לעזוב את ההרפתקה הפעילה? כל ההתקדמות בהרפתקה תאבד.",
     "questOwner": "בעלי ההרפתקה",
     "questTaskDamage": "+<%= damage %> pending damage to boss",
-    "questTaskCollection": "<%= items %> items collected today",
+    "questTaskCollection": "<%= items %> חפצים נאספו היום",
     "questOwnerNotInPendingQuest": "בעלי ההרפתקה עזבו את ההרפתקה וכבר לא יכולים להתחיל אותה. מומלץ שגם אתם תבטלו אותה כעת. בעלי ההרפתקה ישמרו בעלות על המגילה.",
     "questOwnerNotInRunningQuest": "בעלי ההרפתקה עזבו את ההרפתקה. אתם יכולים לבטל אותה אם זהו רצונכם, או להמשיך אותה ולקבל את הפרסים בסופה, יחד עם כל שאר המשתתפים.",
     "questOwnerNotInPendingQuestParty": "בעלי ההרפתקה עזבו את ההרפתקה וכבר לא יכולים להתחיל אותה. מומלץ שגם אתם תבטלו אותה כעת. בעלי המשימה ישמרו בעלות על המגילה.",
