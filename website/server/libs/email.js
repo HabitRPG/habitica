@@ -50,8 +50,8 @@ export function getUserInfo (user, fields = []) {
       info.email = user.auth.local.email;
     } else {
       common.constants.SUPPORTED_SOCIAL_NETWORKS.forEach(network => {
-        if (user.auth[network.id] && user.auth[network.id].emails && user.auth[network.id].emails[0] && user.auth[network.id].emails[0].value) {
-          info.email = user.auth.facebook.emails[0].value;
+        if (user.auth[network.key] && user.auth[network.key].emails && user.auth[network.key].emails[0] && user.auth[network.key].emails[0].value) {
+          info.email = user.auth[network.key].emails[0].value;
         }
       });
     }
