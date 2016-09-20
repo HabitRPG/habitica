@@ -31,7 +31,7 @@
       var bg = Content.appearances.background;
       
       if(bg.hasOwnProperty(background)) {
-        return bg[background].text() + ' (' + bg[background].set.text() + ')';
+        return bg[background].text() + ' (' + window.env.t(bg[background].set.text) + ')';
       }
       return window.env.t('noBackground');
     }
