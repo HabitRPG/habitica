@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "Du løb tør for Liv!",
+    "dontDespair": "Bare rolig!",
+    "deathPenaltyDetails": "Du mistede et Niveau, dit Guld og et stykke Udstyr, men du kan få det hele igen med hårdt arbejde! Held og lykke - du skal nok klare den.",
+    "refillHealthTryAgain": "Genfyld Liv og Prøv Igen",
+    "dyingOftenTips": "Sker dette ofte? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Her er nogle fif!</a>",
+    "losingHealthWarning": "Pas på - du mister Liv!",
+    "losingHealthWarning2": "Lad ikke dit Liv falde til nul! Hvis du gør det vil du tabe et niveau, alt dit guld og et stykke udstyr.",
+    "toRegainHealth": "For at genopfylde Liv:",
+    "lowHealthTips1": "Stig i niveau for at hele fuldt!",
+    "lowHealthTips2": "Køb en Livseliksir fra Belønningskolonnen for at hele 15 Livspoint.",
+    "losingHealthQuickly": "Mister du hurtigt Liv?",
+    "lowHealthTips3": "Ufærdige Daglige skader dig i løbet af natten, så pas på med at tilføje for mange til at starte med!",
+    "lowHealthTips4": "Hvis en Daglig ikke er forfalden på en given dag, kan du deaktivere den ved at klikke på blyanten.",
+    "goodLuck": "Held og lykke!",
+    "cannotRevive": "Du kan ikke genoplive hvis du ikke er død"
+}

@@ -1,0 +1,19 @@
+{
+    "defaultHabit1Text": "Trabajo productivo (hacer clic al lápiz para editar)",
+    "defaultHabit1Notes": "Ejemplo de Buenos Hábitos: + Comer verduras + 15 minutos de Trabajo Productivo",
+    "defaultHabit2Text": "Comer Comida Basura (Click en el lápiz para editar)",
+    "defaultHabit2Notes": "Ejemplo de Malos Hábitos: - Fumar - Procastinar",
+    "defaultHabit3Text": "Usar escaleras/ascensor (Hacer clic al lápiz para editar)",
+    "defaultHabit3Notes": "Ejemplo de Buenos o Malos Hábitos: +/- Ir por las Escaleras/Ascensor ; +/- Beber agua/Bebida con Gas",
+    "defaultTodoNotes": "Puedes completar esta tarea Pendiente, editarla o borrarla.",
+    "defaultTodo1Text": "Unirse a Habitica (¡Quitame de la lista!)",
+    "defaultReward1Text": "Descanso de 15 minutos",
+    "defaultReward1Notes": "Recompensas personalizadas pueden tener muchas formas. Algunos eligen no ver su programa favorita hasta que tengan el oro para pagar.",
+    "defaultTag1": "Trabajo",
+    "defaultTag2": "Hacer ejericicio",
+    "defaultTag3": "Salud y bienestar",
+    "defaultTag4": "Estudios",
+    "defaultTag5": "Equipos",
+    "defaultTag6": "Tareas de casa",
+    "defaultTag7": "Creatividad"
+}

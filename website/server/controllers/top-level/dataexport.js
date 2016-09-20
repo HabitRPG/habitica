@@ -13,6 +13,7 @@ import nconf from 'nconf';
 import got from 'got';
 import Bluebird from 'bluebird';
 import locals from '../../middlewares/locals';
+import md from 'habitica-markdown';
 import {
   S3,
 } from '../../libs/aws';
@@ -240,6 +241,63 @@ api.exportUserAvatarPng = {
     });
 
     res.redirect(s3res.Location);
+  },
+};
+
+/**
+ * @api {get} /export/inbox.html Export user private messages as HTML document
+ * @apiVersion 3.0.0
+ * @apiName ExportUserPrivateMessages
+ * @apiGroup DataExport
+ * @apiDescription NOTE: Part of the private API that may change at any time.
+ *
+ * @apiSuccess {String} An html page
+ */
+api.exportUserPrivateMessages = {
+  method: 'GET',
+  url: '/export/inbox.html',
+  middlewares: [authWithSession],
+  async handler (req, res) {
+    const timezoneOffset = res.locals.user.preferences.timezoneOffset;
+    const dateFormat = res.locals.user.preferences.dateFormat.toUpperCase();
+
+    let inbox = Object.keys(res.locals.user.inbox.messages).map(key => res.locals.user.inbox.messages[key]);
+
+    // Sort array in descending order
+    inbox = _.sortBy(inbox, function sortBy (num) {
+      return num.sort * -1;
+    });
+
+    let messages = '<!DOCTYPE html><html><head></head><body>';
+    let recipientIcon;
+    let user;
+    let timestamp;
+    let text;
+
+    inbox.forEach((message, index) => {
+      recipientIcon = message.sent ? '=>' : '<=';
+      user = message.user;
+      timestamp = moment.utc(message.timestamp).zone(timezoneOffset).format(`${dateFormat } HH:mm:ss`);
+      text = md.render(message.text);
+      index = `(${index + 1}/${inbox.length})`;
+      messages += `
+      <p>
+        ${recipientIcon}<strong>${user}</strong> ${timestamp}
+        ${index}
+        <br />
+        ${text}
+      </p>
+      <hr />`;
+    });
+
+    messages += '</body></html>';
+
+    res.set({
+      'Content-Type': 'text/html',
+      'Content-disposition': 'attachment; filename=inbox.html',
+    });
+
+    res.status(200).send(messages);
   },
 };
 

@@ -1,0 +1,6 @@
+{
+    "jsDisabledHeading": "おおっと。あなたのブラウザは JavaScript が有効になっていません。",
+    "jsDisabledHeadingFull": "おおっと。あなたのブラウザは JavaScript が有効になっていないか、導入されていないので、Habiticaを起動できません。",
+    "jsDisabledText": "HabiticaはJavaScriptなしでは起動できません！",
+    "jsDisabledLink": "JavaScriptの許可をお願いします！"
+}

@@ -35,7 +35,7 @@
     "deleteAccPop": "Cancel and remove your Habitica account.",
     "qrCode": "QR Code",
     "dataExport": "Data Export",
-    "saveData": "Here are a few options for saving your data.",
+    "saveData": "Here are a few options for saving your data. You can export your private messages from your inbox.",
     "habitHistory": "Habit History",
     "exportHistory": "Export History:",
     "csv": "(CSV)",
