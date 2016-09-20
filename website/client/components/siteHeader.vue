@@ -1,15 +1,14 @@
 <template lang="pug">
-.hello
-  h1 {{ msg }}
+h1 {{ title }}
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
-  data () {
-    return {
-      msg: 'Hello Sub Route!',
-    };
-  },
+  computed: mapState([
+    'title',
+  ]),
 };
 </script>
 
