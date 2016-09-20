@@ -90,6 +90,9 @@ export let schema = new Schema({
     todos: [{type: String, ref: 'Task'}],
     rewards: [{type: String, ref: 'Task'}],
   },
+  purchased: {
+    active: {type: Boolean, default: false},
+  },
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
