@@ -96,6 +96,8 @@
     "vinyl-source-stream": "^1.1.0",
     "vue": "^2.0.0-rc.6",
     "vue-router": "^2.0.0-rc.5",
+    "vuex": "^2.0.0-rc.5",
+    "vuex-router-sync": "^3.0.0",
     "winston": "^2.1.0",
     "xml2js": "^0.4.4"
   },
@@ -135,7 +137,6 @@
     "babel-core": "^6.0.0",
     "babel-eslint": "^6.0.0",
     "babel-loader": "^6.0.0",
-    "babel-plugin-transform-runtime": "^6.0.0",
     "chai": "^3.4.0",
     "chai-as-promised": "^5.1.0",
     "chalk": "^1.1.3",
