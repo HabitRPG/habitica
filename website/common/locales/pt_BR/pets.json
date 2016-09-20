@@ -41,7 +41,7 @@
     "beastMasterProgress": "Progresso Como Mestre das Bestas",
     "stableBeastMasterProgress": "Progresso Como Mestre das Bestas: <%= number %> Mascotes Encontrados",
     "beastAchievement": "Você adquiriu a Conquista \"Mestre das Bestas\" por coletar todos mascotes!",
-    "beastMasterName": "Mestra das Bestas",
+    "beastMasterName": "Mestre das Bestas",
     "beastMasterText": "Encontrou todos os 90 mascotes (incrivelmente difícil, parabenize esse usuário!) ",
     "beastMasterText2": "e soltou os seus mascotes um total de <%= count %> vezes.",
     "mountMasterProgress": "Progresso Como Mestre das Montarias",
