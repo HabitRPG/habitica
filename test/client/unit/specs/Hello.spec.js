@@ -9,4 +9,8 @@ describe('Hello.vue', () => {
     });
     expect(vm.$el.querySelector('.hello h1').textContent).to.equal('Hello Vue!');
   });
+
+  it('should make assertions', () => {
+    expect(true).to.equal(true);
+  });
 });

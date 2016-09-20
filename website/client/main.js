@@ -1,3 +1,7 @@
+// TODO verify if it's needed, added because Vuex require Promise in the global scope
+// and babel-runtime doesn't affect external libraries
+require('babel-polyfill');
+
 import Vue from 'vue';
 import VuexRouterSync from 'vuex-router-sync';
 import App from './components/app';
