@@ -243,7 +243,7 @@
     "missingUsername": "Ontbrekende gebruikersnaam.",
     "missingPassword": "Ontbrekend wachtwoord.",
     "missingNewPassword": "Ontbrekend nieuw wachtwoord.",
-    "invalidEmailDomain": "You cannot register with emails with the following domains: <%= domains %>",
+    "invalidEmailDomain": "Je kunt je niet registreren met e-mailadressen met de volgende domeinnamen: <%= domains %>",
     "wrongPassword": "Verkeerd wachtwoord.",
     "notAnEmail": "Ongeldig e-mailadres.",
     "emailTaken": "E-mailadres is al in gebruik door een account.",

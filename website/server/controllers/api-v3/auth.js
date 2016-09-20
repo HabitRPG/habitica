@@ -19,7 +19,7 @@ import { sendTxn as sendTxnEmail } from '../../libs/email';
 import { decrypt } from '../../libs/encryption';
 import { send as sendEmail } from '../../libs/email';
 import pusher from '../../libs/pusher';
-import common from '../../../../common';
+import common from '../../../common';
 
 let api = {};
 
@@ -133,14 +133,6 @@ api.registerLocal = {
     } else {
       newUser = new User(newUser);
       newUser.registeredThrough = req.headers['x-client']; // Not saved, used to create the correct tasks based on the device used
-    }
-
-    // A/B Test 2016-09-12: Start with Sound Enabled?
-    if (Math.random() < 0.5) {
-      newUser.preferences.sound = 'rosstavoTheme';
-      newUser._ABtest = '20160912-soundEnabled';
-    } else {
-      newUser._ABtest = '20160912-soundDisabled';
     }
 
     // we check for partyInvite for backward compatibility

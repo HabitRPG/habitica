@@ -68,7 +68,7 @@
     "APIv3": "API версия 3",
     "APIText": "Скопируйте, чтобы использовать в сторонних приложениях. Однако, относитесь к токену API, как к паролю — не выкладывайте его в открытый доступ. Иногда у вас могут попросить ваш ID пользователя, но никогда не публикуйте токен API там, где его могут увидеть другие, включая Github.",
     "APIToken": "Токен API (это пароль — смотри предупреждение выше!)",
-    "APITokenWarning": "If you need a new API Token (e.g., if you accidentally shared it), email <a href='mailto:admin@habitica.com'>admin@habitica.com</a> with your User ID and current Token. Once it is reset you will need to re-authorize everything by logging out of the website and mobile app and by providing the new Token to any other Habitica tools that you use.",
+    "APITokenWarning": "Если вам нужен новый API токен (например, если он случайно попал в общий доступ), напишите на почту <a href='mailto:admin@habitica.com'>admin@habitica.com</a>, указав ID пользователя и текущий токен. После смены токена вам потребуется разлогиниться и повторно авторизоваться на сайте и мобильных устройствах, а также вести новый токен везде, где используются инструменты Хабитики.",
     "thirdPartyApps": "Сторонние приложения",
     "dataToolDesc": "Веб-страница, которая отображает определенную информацию из вашего аккаунта в Habitica, такую как статистика по задачам, снаряжение и умения.",
     "beeminder": "Beeminder",
