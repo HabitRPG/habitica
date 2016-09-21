@@ -5,6 +5,7 @@ website/build/
 website/transpiled-babel/
 website/common/transpiled-babel/
 dist/
+dist-client/
 
 # Not linted
 migrations/*
