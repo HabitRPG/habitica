@@ -46,7 +46,7 @@ export function getManifestFiles (page, type) {
 
   let htmlCode = '';
 
-  if (!IS_PROD) {
+  if (IS_PROD) {
     if (type !== 'js') {
       htmlCode += `<link rel="stylesheet" type="text/css" href="${getBuildUrl(page + '.css')}">`; // eslint-disable-line prefer-template
     }
