@@ -58,9 +58,9 @@ module.exports = function(grunt) {
           {expand: true, cwd: 'website/client-old/', src: 'favicon.ico', dest: 'website/build/'},
           {expand: true, cwd: 'website/client-old/', src: 'favicon_192x192.png', dest: 'website/build/'},
           {expand: true, cwd: 'website/assets/sprites/dist/', src: 'spritesmith*.png', dest: 'website/build/'},
-          {expand: true, cwd: '', src: 'website/assets/sprites/backer-only/*.gif', dest: 'website/build/'},
-          {expand: true, cwd: '', src: 'website/assets/sprites/npc_ian.gif', dest: 'website/build/'},
-          {expand: true, cwd: '', src: 'website/assets/sprites/quest_*.gif', dest: 'website/build/'},
+          {expand: true, cwd: 'website/assets/sprites/', src: 'backer-only/*.gif', dest: 'website/build/'},
+          {expand: true, cwd: 'website/assets/sprites/', src: 'npc_ian.gif', dest: 'website/build/'},
+          {expand: true, cwd: 'website/assets/sprites/', src: 'quest_*.gif', dest: 'website/build/'},
           {expand: true, cwd: 'website/client-old/', src: 'bower_components/bootstrap/dist/fonts/*', dest: 'website/build/'}
         ]
       }
@@ -77,10 +77,8 @@ module.exports = function(grunt) {
           'website/build/*.css',
           'website/build/favicon.ico',
           'website/build/favicon_192x192.png',
-          'website/build/website/assets/sprites/dist/*.png',
-          'website/build/website/assets/sprites/backer-only/*.gif',
-          'website/build/website/assets/sprites/npc_ian.gif',
-          'website/build/website/assets/sprites/quest_*.gif',
+          'website/build/*.png',
+          'website/build/*.gif',
           'website/build/bower_components/bootstrap/dist/fonts/*'
         ],
         dest: 'website/build/*.css'
