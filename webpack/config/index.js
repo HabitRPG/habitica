@@ -5,10 +5,10 @@ var staticAssetsDirectory = './website/static/.'; // The folder where static fil
 module.exports = {
   build: {
     env: require('./prod.env'),
-    index: path.resolve(__dirname, '../../dist/index.html'),
-    assetsRoot: path.resolve(__dirname, '../../dist'),
+    index: path.resolve(__dirname, '../../dist-client/index.html'),
+    assetsRoot: path.resolve(__dirname, '../../dist-client'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: '/new-app',
     staticAssetsDirectory: staticAssetsDirectory,
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
