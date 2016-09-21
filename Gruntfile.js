@@ -146,6 +146,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-hashres');
-  grunt.loadNpmTasks('grunt-karma');
+  if (process.env.NODE_ENV !== 'production') grunt.loadNpmTasks('grunt-karma');
 
 };

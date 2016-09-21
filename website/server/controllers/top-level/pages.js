@@ -91,6 +91,7 @@ if (IS_PROD && IS_NEW_CLIENT_ENABLED) {
     method: 'GET',
     url: /^\/new-app($|\/(?!(static\/.?|static$)))/,
     async handler (req, res) {
+      console.log(req.session, req.session.userId)
       if (!(req.session && req.session.userId)) {
         return res.redirect('/static/front');
       }
