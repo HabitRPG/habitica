@@ -1,17 +1,17 @@
 .container-fluid
   .stable.row: .col-xs-12
-    div(class="#{env.worldDmg.seasonalShop ? 'seasonalshop_broken' : 'seasonalshop_closed'}").pull-left-sm.col-centered
+    div(class="#{env.worldDmg.seasonalShop ? 'seasonalshop_broken' : 'seasonalshop_open'}").pull-left-sm.col-centered
     .popover.static-popover.fade.right.in.pull-left-sm.col-centered
       .arrow.hidden-xs
-      h3.popover-title!=env.t('seasonalShopClosedTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
+      h3.popover-title!=env.t('seasonalShopTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
       .popover-content
-        p(ng-if='!env.worldDmg.seasonalShop')!=env.t('seasonalShopClosedText')
-        p(ng-if='env.worldDmg.seasonalShop')!=env.t('seasonalShopClosedText')
+        p(ng-if='!env.worldDmg.seasonalShop')!=env.t('seasonalShopFallText')
+        p(ng-if='env.worldDmg.seasonalShop')!=env.t('seasonalShopFallText')
 
   // .well=env.t('seasonalShopRebirth')
 
-  // li.customize-menu.inventory-gear
-    menu.pets-menu(label=env.t('seasonalItems'))
+  li.customize-menu.inventory-gear
+    // menu.pets-menu(label=env.t('seasonalItems'))
       div
         button.customize-option(class='inventory_special_seafoam',
           popover='{{::Content.spells.special.seafoam.notes()}}',
