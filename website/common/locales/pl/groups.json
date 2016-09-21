@@ -112,7 +112,7 @@
     "privateMessageGiftIntro": "Hej <%= receiverName %>, <%= senderName %> wysłał Tobie",
     "privateMessageGiftGemsMessage": "<%= gemAmount %> klejnotów!",
     "privateMessageGiftSubscriptionMessage": "Miesięcy abonamentu: <%= numberOfMonths %>!",
-    "cannotSendGemsToYourself": "Nie możesz sobie wysłać klejnotów. Zamiast tego wypróbuj subskrypcję.",
+    "cannotSendGemsToYourself": "Nie możesz wysłać sobie klejnotów. Zamiast tego wypróbuj subskrypcję.",
     "badAmountOfGemsToSend": "Wartość musi być pomiędzy 1 i aktualną liczbą klejnotów.",
     "abuseFlag": "Zgłoś naruszenie regulaminu społeczności.",
     "abuseFlagModalHeading": "Zgłosić naruszenie zasad przez <%= name %>?",

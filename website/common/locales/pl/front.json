@@ -130,10 +130,10 @@
     "passMan": "Jeśli korzystasz z menedżera haseł (na przykład 1Password) i nie możesz się zalogować, spróbuj wpisać ręcznie nazwę użytkownika i hasło.",
     "password": "Hasło",
     "playButton": "Zagraj",
-    "playButtonFull": "Wejdź do Habitiki",
+    "playButtonFull": "Wejdź do Habitica",
     "presskit": "Dla mediów",
     "presskitDownload": "Ściągnij wszystkie zdjęcia:",
-    "presskitText": "Dziękujemy za twoje zainteresowanie Habitiką! Poniższe zdjęcia mogą być użyte w artykułach lub filmach na temat Habitiki. W sprawie dalszych informacji prosimy kontaktować się z obsługą pod adresem admin@habitica.com.",
+    "presskitText": "Dziękujemy za twoje zainteresowanie Habitica! Poniższe zdjęcia mogą być użyte w artykułach lub filmach na temat Habitica. W sprawie dalszych informacji prosimy kontaktować się z obsługą pod adresem admin@habitica.com.",
     "pkVideo": "Film",
     "pkPromo": "Promocje",
     "pkLogo": "Loga",
@@ -257,12 +257,12 @@
     "passwordResetEmailHtml": "Hasło dla <strong><%= username %></strong> zostało zresetowane do <strong><%= newPassword %></strong><br /><br />. Ważne! Nazwa użytkownika i hasło zależne są od wielkości liter - wprowadź obie wartości tak, jak jest to przedstawione tutaj. Polecamy skopiować i wkleić wartości, zamiast wpisywać je ręcznie.<br /><br />Zaloguj się tutaj <%= baseUrl %>. Po zalogowaniu, przejdź <%= baseUrl %>/#/options/settings/settings i zmień swoje hasło.",
     "invalidLoginCredentialsLong": "Ojej, twoja nazwa użytkownika lub hasło są błędne.\n– Upewnij się, że poprawnie wpisałeś nazwę użytkownika lub e-mail.\n– Być może rejestrowałeś się za pomocą Facebooka, a nie e-maila. Upewnij się, że tak nie było, próbując logowania przez Facebook.\n– Jeśli zapomniałeś hasła, wybierz \"zapomniałem hasła\".",
     "invalidCredentials": "Takie konto nie istnieje.",
-    "accountSuspended": "Account has been suspended, please contact admin@habitica.com with your User ID \"<%= userId %>\" for assistance.",
+    "accountSuspended": "Konto zostało zawieszone. Aby uzyskać pomoc, napisz na admin@habitica.com, umieszczając w treści swoje ID użytkownika – „<%= userId %>”.",
     "onlyFbSupported": "Aktualnie tylko Facebook jest wpierany.",
     "cantDetachFb": "Konto nie zawiera innej formy uwierzytelnienia, nie można rozłączyć z Facebookiem.",
     "onlySocialAttachLocal": "Lokalne uwierzytelnienie może być dodane tylko do kont społecznych. ",
     "invalidReqParams": "Nieprawidłowe parametry żądania.",
     "memberIdRequired": "\"member\" musi być prawidłowym UUID.",
     "heroIdRequired": "\"heroId\" musi być prawidłowym UUID.",
-    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
+    "cannotFulfillReq": "Twoje żądanie nie mogło zostać spełnione. Skontaktuj się z admin@habitica.com, jeśli ten błąd będzie się powtarzał."
 }
