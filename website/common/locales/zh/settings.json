@@ -62,7 +62,7 @@
     "newUsername": "新的登录名",
     "dangerZone": "危险区域",
     "resetText1": "警告！这会重置你角色的许多数值。强烈不建议你这样做。不过，在短暂的试玩一段时间后，进行重置或许会有所帮助。",
-    "resetText2": "你将会失去你所有等级，金币和经验。你的所有任务(除了那些来自挑战的任务)将会被永久删除并且你将失去所有它们的历史数据。你将会丢失所有的装备但你能够再次购买回来，包括所有你已拥有的限定版装备或捐赠者神秘物品(你将需要是恰当的职业才能重新购买职业限定装备)。你将会保留你当前职业和你的宠物和坐骑。你可能更愿意去使用 重生球 来替代，这是一个更安全的选择，它能保存你所有的任务。",
+    "resetText2": "You will lose all your levels, gold, and experience points. All your tasks (except those from challenges) will be deleted permanently and you will lose all of their historical data. You will lose all your equipment but you will be able to buy it all back, including all limited edition equipment or subscriber Mystery items that you already own (you will need to be in the correct class to re-buy class-specific gear). You will keep your current class and your pets and mounts. You might prefer to use an Orb of Rebirth instead, which is a much safer option and which will preserve your tasks and equipment.",
     "deleteLocalAccountText": "你确定吗？这会永久地删除你的帐号，并且永远也无法恢复！如果希望再次使用Habitica需要注册一个新的帐号。已有的金钱和花掉的宝石无法被退费。如果你非常确定，在下面的文本框中输入你的密码。",
     "API": "API / 应用程序接口",
     "APIv3": "API v3",

@@ -74,7 +74,7 @@
     "clearTags": "Vyčistiť",
     "hideTags": "Skryť",
     "showTags": "Zobraziť",
-    "toRequired": "You must supply a to value",
+    "toRequired": "You must supply a \"to\" property",
     "startDate": "Počiatočný dátum",
     "startDateHelpTitle": "Kedy by mala táto úloha začať?",
     "startDateHelp": "Nastav dátum, kedy bude táto úloha platná. Jej plnenie nebude povinné počas predchádzajúcich dní.",

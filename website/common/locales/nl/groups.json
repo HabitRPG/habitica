@@ -125,8 +125,8 @@
     "copyMessageAsToDo": "Bericht kopiëren als To-do",
     "messageAddedAsToDo": "Bericht gekopieerd als To-do.",
     "messageWroteIn": "<%= user %> schreef in <%= group %>",
-    "taskFromInbox": "<%= from %> wrote '<%= message %>'",
-    "taskTextFromInbox": "Message from <%= from %>",
+    "taskFromInbox": "<%= from %> schreef '<%= message %>'",
+    "taskTextFromInbox": "Bericht van <%= from %>",
     "msgPreviewHeading": "Bericht preview",
     "leaderOnlyChallenges": "Alleen de groepsleider kan uitdagingen aanmaken",
     "sendGift": "Geschenk versturen",
@@ -200,5 +200,10 @@
     "onlyGroupTasksCanBeAssigned": "Enkel groepstaken kunnen toegewezen worden.",
     "newChatMessagePlainNotification": "Nieuw bericht in <%= groupName %> door <%= authorName %>. Klik hier om de chat pagina te openen!",
     "newChatMessageTitle": "Nieuw bericht in <%= groupName %>",
-    "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made."
+    "exportInbox": "Export Messages",
+    "exportInboxPopoverTitle": "Export your messages as HTML",
+    "exportInboxPopoverBody": "HTML allows easy reading of messages in a browser. For a machine-readable format, use Data > Export Data",
+    "to": "To:",
+    "from": "From:",
+    "desktopNotificationsText": "We hebben je toestemming nodig om bureaubladnotificaties te gebruiken voor nieuwe berichten in de groepschat! Volg de instructies van je browser om ze in te schakelen.<br><br>Je zult deze notificaties alleen ontvangen wanneer je Habitica geopend hebt. Als je besluit dat je ze niet fijn vind, kunnen ze worden uitgeschakeld in de instellingen van je browser.<br><br>Dit scherm zal automatisch sluiten wanneer je een keuze hebt gemaakt."
 }

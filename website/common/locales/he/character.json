@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "profile": "פרופיל",
     "avatar": "התאם דמות",
     "other": "אחר",
@@ -48,6 +48,7 @@
     "equipment": "ציוד",
     "equipmentBonus": "ציוד",
     "equipmentBonusText": "תוספי תכונה מוענקים על ידי כלי המלחמה בהם אתה משתמש. הבט בלשונית הציוד תחת מלאי הציוד שלך כדי לבחור כלי המלחמה.",
+    "classBonusText": "Your class (Warrior, if you haven't unlocked or selected another class) uses its own equipment more effectively than gear from other classes. Equipped gear from your current class gets a 50% boost to the attribute bonus it grants.",
     "classEquipBonus": "תוסף מקצוע",
     "battleGear": "ציוד לחימה",
     "battleGearText": "זהו הציוד שאתה נושא עמך אל הקרב! הציוד משפיע על ערכי התכונות שלך כשאתה מבצע משימות.",
@@ -83,7 +84,7 @@
     "allocateIntPop": "הוסף נקודה לתבונה שלך",
     "noMoreAllocate": "עכשיו כשהגעת לדרגה 100, לא ניתן להרוויח עוד נקודות תכונה. אתה תוכל להמשיך ולעלות ברמה, או להתחיל הרפתקה חדשה בדרגה 1 ע״י שימוש ב <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>כדור הלידה מחדש</a>, זמין כעת בחינם בשוק.",
     "stats": "Stats",
-    "achievs": "Achievements",
+    "achievs": "הישגים",
     "strength": "כוח",
     "strengthText": "כוח מגביר את הסיכוי ל\"פגיעות חמורות\" ואת הסיכוי לקבלת מהם זהב, ניסיון, וחפצי ערך. הוא גם מסייע לגרום נזק למפלצות האויב.",
     "constitution": "חוסן",

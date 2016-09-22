@@ -6,6 +6,7 @@ website/client-old/**
 website/client/**
 website/views/**
 website/build/**
+dist/**
 test/**
 .git/**
 Gruntfile.js

@@ -186,8 +186,9 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     }
 
     $rootScope.charts = {};
+    var resizeChartFunctions = {};
     $rootScope.toggleChart = function(id, task) {
-      var history = [], matrix, data, chart, options;
+      var history = [], matrix, data;
       switch (id) {
         case 'exp':
           history = User.user.history.exp;
@@ -202,23 +203,69 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
           $rootScope.charts[id] = (history.length == 0) ? false : !$rootScope.charts[id];
           if (task && task._editing) task._editing = false;
       }
+
+      if ($rootScope.charts[id] && !resizeChartFunctions[id]) {
+        resizeChartFunctions[id] = function() {
+          drawChart(id, data);
+        };
+      } else if (!$rootScope.charts[id]) {
+        delete resizeChartFunctions[id];
+      }
+
       matrix = [[env.t('date'), env.t('score')]];
       _.each(history, function(obj) {
         matrix.push([moment(obj.date).format(User.user.preferences.dateFormat.toUpperCase().replace('YYYY','YY') ), obj.value]);
       });
       data = google.visualization.arrayToDataTable(matrix);
+
+      drawChart(id, data);
+    };
+
+    function drawChart(id, data) {
+      var chart, width, options;
+
+      if (id === 'exp') {
+        width = $('.row').width() - 20;
+      } else if (id === 'todos') {
+        width = $('.task-column.todos').width();
+      } else {
+        width = $('.task-text').width() - 20;
+      }
+
       options = {
         title: window.env.t('history'),
         backgroundColor: {
           fill: 'transparent'
         },
-        hAxis: {slantedText:true, slantedTextAngle: 90},
-        height:270,
-        width:300
+        hAxis: {
+          slantedText: true,
+          slantedTextAngle: 90,
+          textStyle: {
+            fontSize: 12
+          }
+        },
+        vAxis: {
+          format: 'short',
+          textStyle: {
+            fontSize: 12
+          }
+        },
+        width: width,
+        height: 270,
+        chartArea: {
+          left: 50,
+          top: 30,
+          right: 20,
+          bottom: 65
+        },
+        legend: {
+          position: 'none'
+        }
       };
+
       chart = new google.visualization.LineChart($("." + id + "-chart")[0]);
       chart.draw(data, options);
-    };
+    }
 
     $rootScope.getGearArray = function(set){
       var flatGearArray = _.toArray(Content.gear.flat);
@@ -382,5 +429,12 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         $scope.ctrlPressed = false;
       }
     });
+
+    var resizeAllCharts = _.debounce(function () {
+      _.each(resizeChartFunctions, function (fn) {
+        fn();
+      });
+    }, 100);
+    $(window).resize(resizeAllCharts);
   }
 ]);

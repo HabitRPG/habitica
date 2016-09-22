@@ -74,7 +74,7 @@
     "clearTags": "清除",
     "hideTags": "隐藏",
     "showTags": "显示",
-    "toRequired": "你必须提供一个去向值",
+    "toRequired": "You must supply a \"to\" property",
     "startDate": "开始日期",
     "startDateHelpTitle": "这个 任务 什么时候开始",
     "startDateHelp": "设置任务生效的日期。在这之前将不会到期。",

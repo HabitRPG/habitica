@@ -5,7 +5,7 @@
     "rebirthStartOver": "Переродження запускає вашого персонажа заново з 1го рівня.",
     "rebirthAdvList1": "Ви повністю оздоровилися.",
     "rebirthAdvList2": "You have no Experience or Gold.",
-    "rebirthAdvList3": "Збиває колір ваших звичок, щоденних та завдань до жовтого, крім завдань із випробовувань.",
+    "rebirthAdvList3": "Your Habits, Dailies, and To-Dos reset to yellow, and streaks reset, except for challenge tasks.",
     "rebirthAdvList4": "Ви починаєте класом воїна, допоки не заслужите новий клас.",
     "rebirthInherit": "Ваш персонаж успадкує декілька речей від попередника:",
     "rebirthInList1": "Tasks, history, equipment, and settings remain.",
@@ -24,5 +24,5 @@
     "rebirthName": "Куля переродження",
     "reborn": "Переродження, максимальний рівень <%= reLevel %>",
     "confirmReborn": "Ви впевнені?",
-    "rebirthComplete": "Ви переродились!"
+    "rebirthComplete": "You have been reborn!"
 }

@@ -160,6 +160,7 @@ api.registerLocal = {
         gaLabel: 'local',
         uuid: savedUser._id,
         headers: req.headers,
+        user: savedUser,
       });
     }
 

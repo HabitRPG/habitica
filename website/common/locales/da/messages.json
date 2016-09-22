@@ -29,7 +29,7 @@
     "messageFoundQuest": "Du fandt questen \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Du har engang købt dette udstyr, men ejer det ikke på nuværende tidspunkt. Du kan købe det igen i belønningskolonnen på opgavesiden.",
     "messageAlreadyOwnGear": "Du ejer allerede denne ting. Tag det på ved at gå til udstyrssiden.",
-    "messageHealthAlreadyMax": "You already have maximum health.",
+    "messageHealthAlreadyMax": "Du har allerede fuldt liv.",
     "armoireEquipment": "<%= image %> Du har fundet sjældent Udstyr i Klædeskabet: <%= dropText %>! Fantastisk!",
     "armoireFood": "<%= image %> Du roder rundt i bunden af Klædeskabet. Pludselig finder du <%= dropText %>. Gad vide hvad den laver her?",
     "armoireExp": "Du kæmper med Klædeskabet og får Erfaring. Sådan!",

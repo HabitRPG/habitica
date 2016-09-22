@@ -75,7 +75,11 @@
     "shipSoothsayerSet": "Ship Soothsayer (Mage)",
     "strappingSailorSet": "Strapping Sailor (Healer)",
     "reefRenegadeSet": "Reef Renegade (Rogue)",
-    "fallEventAvailability": "Available for purchase until October 31.",
+    "scarecrowWarriorSet": "Scarecrow Warrior (Warrior)",
+    "stitchWitchSet": "Stitch Witch (Mage)",
+    "potionerSet": "Potioner (Healer)",
+    "battleRogueSet": "Bat-tle Rogue (Rogue)",
+    "fallEventAvailability": "Dostępne w sprzedaży do 31 października.",
     "winterEventAvailability": "Dostępne w sprzedaży do 31 grudnia.",
     "springEventAvailability": "Dostępne w sprzedaży do 31 maja.",
     "summerEventAvailability": "Dostępne w sprzedaży do 31 sierpnia."

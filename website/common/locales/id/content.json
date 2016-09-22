@@ -146,6 +146,7 @@
     "hatchingPotionPeppermint": "Peppermint",
     "hatchingPotionFloral": "Bunga",
     "hatchingPotionThunderstorm": "Petir",
+    "hatchingPotionGhost": "Ghost",
     "hatchingPotionNotes": "Berikan ini pada sebuah telur, dan ia akan menetas menjadi binatang peliharaan <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Tidak dapat digunakan pada telur peliharaan sayembara",
     "foodMeat": "Daging",

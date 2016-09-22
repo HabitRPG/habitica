@@ -146,6 +146,7 @@
     "hatchingPotionPeppermint": "Pepparmint",
     "hatchingPotionFloral": "Blommig",
     "hatchingPotionThunderstorm": "Åskväder",
+    "hatchingPotionGhost": "Ghost",
     "hatchingPotionNotes": "Häll den här på ett ägg, så kläcks det som ett <%= potText(locale) %> husdjur.",
     "premiumPotionAddlNotes": "Kan ej användas på ägg till uppdragshusdjur",
     "foodMeat": "Kött",

@@ -1,6 +1,6 @@
 {
     "npc": "NPC",
-    "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
+    "npcAchievementText": "Apoiou o projeto do Kickstarter ao nível máximo!",
     "mattBoch": "Matt Boch",
     "mattShall": "Devo trazer seu corcel, <%= name %>? Uma vez que você alimentou o seu mascote o suficiente para torná-lo uma montaria, ele aparecerá aqui. Clique em uma montaria para montá-la.",
     "mattBochText1": "Bem-vindo ao meu Estábulo! Sou Matt, o mestre das bestas. Depois do nível 4, você pode chocar mascotes usando ovos e poções. Quanto você choca um mascote no Mercado, ele aparecerá aqui! Clique na imagem de um mascote para adicioná-lo ao seu avatar. Alimente-os usando a comida que você encontrar depois do nível 4 e eles se transformarão em poderosas montarias.",
@@ -60,7 +60,7 @@
     "classGearText": "Primeiro: Não entre em pânico! Seu equipamento antigo está no seu inventário, e agora você está usando um equipamento de aprendiz da sua nova classe. Usar o equipamento de sua classe lhe concede um bonus de 50% em atributos. De qualquer modo, sinta-se livre para mudar para o seu equipamento antigo.",
     "classStats": "Esses são seus atributos da classe; eles afetam a jogabilidade. Cada vez que subir de nível, ganhará um ponto para distribuir em um atributo particular. Passe o mouse em cima de cada atributo para mais informações.",
     "autoAllocate": "Distribuição Automática",
-    "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Strength', you'll gain Strength automatically.",
+    "autoAllocateText": "Se 'alocação automática' estiver activa, o seu avatar ganha pontos de características automaticamente com base nos atributos das suas tarefas, que pode encontrar em <strong>TAREFA > Editar > Avançado > Atributos</strong>. Por exemplo, se vai ao ginásio habitualmente e a sua tarefa diária de 'Ginásio' está configurada para 'Força', ganhará pontos de Força automaticamente.",
     "spells": "Magias",
     "spellsText": "Agora você pode liberar magias específicas da sua classe. Você verá a sua primeira no nível 11. Você recupera 10 pontos de mana por dia, mais 1 ponto por completar",
     "toDo": "Afazeres",

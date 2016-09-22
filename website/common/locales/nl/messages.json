@@ -29,7 +29,7 @@
     "messageFoundQuest": "Je hebt de queeste \"<%= questText %>\" gevonden!",
     "messageAlreadyPurchasedGear": "Je hebt dit stuk uitrusting in het verleden al eens gekocht, maar hebt het nu niet in je bezit. Je kunt het opnieuw aanschaffen in de beloningenkolom op de Takenpagina.",
     "messageAlreadyOwnGear": "Je hebt dit uitrustingsstuk al. Je kunt het aantrekken op de uitrustingspagina.",
-    "messageHealthAlreadyMax": "Je hebt al maximum gezondheid.",
+    "messageHealthAlreadyMax": "Je hebt de maximale gezondheid al.",
     "armoireEquipment": "<%= image %> Je hebt een zeldzaam uitrustingsstuk gevonden in het kabinet: <%= dropText %>! Super!",
     "armoireFood": "<%= image %> Je rommelt wat in het kabinet en vindt <%= dropText %>. Hoe komt dat nou hier?",
     "armoireExp": "Je worstelt met het kabinet en krijgt er ervaringspunten bij. Daar met je!",

@@ -7,7 +7,7 @@
     "titleAvatar": "דמות",
     "titleBackgrounds": "רקעים",
     "titleStats": "Stats",
-    "titleAchievs": "Achievements",
+    "titleAchievs": "הישגים",
     "titleProfile": "פרופיל",
     "titleInbox": "דואר נכנס",
     "titleTavern": "פונדק",
@@ -182,8 +182,8 @@
     "wonChallengeShare": "סיימתי אתגר בהביטיקה!",
     "achievementShare": "השגתי הישג חדש בהביטיקה!",
     "orderBy": "סדר לפי <%= item %>",
-    "you": "(you)",
-    "enableDesktopNotifications": "Enable Desktop Notifications",
+    "you": "(אתם)",
+    "enableDesktopNotifications": "אפשרו התראות מחשב-שולחני",
     "online": "online",
     "onlineCount": "<%= count %> online"
 }

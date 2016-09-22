@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "profile": "Profile",
     "avatar": "Customize Avatar",
     "other": "Other",
@@ -48,6 +48,7 @@
     "equipment": "Slops",
     "equipmentBonus": "Equipment",
     "equipmentBonusText": "Attribute bonuses provided by ye equipped battle gear. See th' Equipment tab under Inventory to select ye battle gear.",
+    "classBonusText": "Your class (Warrior, if you haven't unlocked or selected another class) uses its own equipment more effectively than gear from other classes. Equipped gear from your current class gets a 50% boost to the attribute bonus it grants.",
     "classEquipBonus": "Class Bonus",
     "battleGear": "Battle Gear",
     "battleGearText": "This be th' gear ye wear into battle; it affects numbers when interactin' with ye tasks.",

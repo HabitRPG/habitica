@@ -146,6 +146,7 @@
     "hatchingPotionPeppermint": "Menta",
     "hatchingPotionFloral": "Floral",
     "hatchingPotionThunderstorm": "Tormenta eléctrica",
+    "hatchingPotionGhost": "Ghost",
     "hatchingPotionNotes": "Vierte esto sobre un huevo, y nacerá una mascota <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "No se puede usar con huevos de mascotas de misión.",
     "foodMeat": "Carne",
