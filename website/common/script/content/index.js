@@ -41,9 +41,12 @@ _.each(api.mystery, function(v, k) {
   });
 });
 
-api.timeTravelerStore = function(owned) {
+api.timeTravelerStore = function(user) {
   var ownedKeys;
+  var owned = user.items.gear.owned;
+  var unopenedGifts = user.purchased.plan.mysteryItems;
   ownedKeys = _.keys((typeof owned.toObject === "function" ? owned.toObject() : void 0) || owned);
+  ownedKeys = _.union(ownedKeys, unopenedGifts);
   return _.reduce(api.mystery, function(m, v, k) {
     if (k === 'wondercon' || ~ownedKeys.indexOf(v.items[0].key)) {
       return m;

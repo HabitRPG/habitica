@@ -17,7 +17,7 @@ module.exports = function buyMysterySet (user, req = {}, analytics) {
     throw new NotAuthorized(i18n.t('notEnoughHourglasses', req.language));
   }
 
-  let ref = content.timeTravelerStore(user.items.gear.owned);
+  let ref = content.timeTravelerStore(user);
   let mysterySet = ref ? ref[key] : undefined;
 
   if (!mysterySet) {

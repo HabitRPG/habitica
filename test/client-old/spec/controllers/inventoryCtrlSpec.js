@@ -28,7 +28,10 @@ describe('Inventory Controller', function() {
         },
         preferences: {
           suppressModals: {}
-        }
+        },
+        purchased: {
+          plan: {}
+        },
       });
 
       Shared.wrap(user);
