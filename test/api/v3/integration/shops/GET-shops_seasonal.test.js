@@ -15,7 +15,7 @@ describe('GET /shops/seasonal', () => {
 
     expect(shop.identifier).to.equal('seasonalShop');
     expect(shop.text).to.eql(t('seasonalShop'));
-    expect(shop.notes).to.eql(t('seasonalShopClosedText'));
+    expect(shop.notes).to.eql(t('seasonalShopFallText'));
     expect(shop.imageName).to.be.a('string');
     expect(shop.categories).to.be.an('array');
   });
