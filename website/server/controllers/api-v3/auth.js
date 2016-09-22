@@ -308,6 +308,7 @@ api.loginSocial = {
           gaLabel: network,
           uuid: savedUser._id,
           headers: req.headers,
+          user: savedUser,
         });
       }
 
