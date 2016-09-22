@@ -146,6 +146,7 @@
     "hatchingPotionPeppermint": "Pebermynte",
     "hatchingPotionFloral": "Blomstret",
     "hatchingPotionThunderstorm": "Tordenvejr",
+    "hatchingPotionGhost": "Ghost",
     "hatchingPotionNotes": "Hæld på et æg, og det vil udklække til et <%= potText(locale) %> kæledyr.",
     "premiumPotionAddlNotes": "Kan ikke bruges på quest-æg.",
     "foodMeat": "Kød",

@@ -74,7 +74,7 @@
     "clearTags": "Limpiar",
     "hideTags": "Ocultar",
     "showTags": "Mostrar",
-    "toRequired": "Debes proporcionar un valor \"to\"",
+    "toRequired": "You must supply a \"to\" property",
     "startDate": "Fecha de Inicio",
     "startDateHelpTitle": "¿Cuándo debería empezar esta tarea?",
     "startDateHelp": "Fija la fecha para la que esta tarea toma efecto. No se acabará el plazo en días anteriores.",

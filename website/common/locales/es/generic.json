@@ -183,7 +183,7 @@
     "achievementShare": "¡He obtenido un nuevo logro en Habitica!",
     "orderBy": "Ordenar por <%= item %>",
     "you": "(tu)",
-    "enableDesktopNotifications": "Enable Desktop Notifications",
-    "online": "online",
-    "onlineCount": "<%= count %> online"
+    "enableDesktopNotifications": "Permitir Notificaciones de Escritorio",
+    "online": "en línea",
+    "onlineCount": "<%= count %> en línea"
 }

@@ -60,7 +60,7 @@
     "surveysMultiple": "在<%= surveys %>个场合下帮助Habitica成长，通过填写一份问卷或在一次大型的测试提供帮助。谢谢你们！",
     "currentSurvey": "现在的问卷",
     "surveyWhen": "那个章将会在三约尾给所有参与过问卷的玩家",
-    "blurbInbox": "这是你的私人邮件箱！你能在酒馆、队伍或者工会聊天中通过点击其他人名字边上的邮件图标给他们发送信息。如果你收到了一封不合适的私人消息，请截图发给职员 (<a href=\"mailto:admin@habitica.com\">admin@habitica.com</a>)",
+    "blurbInbox": "This is where your private messages are stored! You can send someone a message by clicking on the envelope icon next to their name in Tavern, Party, or Guild Chat. If you've received an inappropriate PM, you should email a screenshot of it to Lemoness (<a href=\"mailto:leslie@habitica.com\">leslie@habitica.com</a>)",
     "blurbGuildsPage": "公会是由玩家为玩家创建的基于共同兴趣的聊天组。浏览公会目录并选择你感兴趣的加入！",
     "blurbChallenges": "挑战是由你关注的玩家创建的。加入一个挑战会将它的任务加入你的任务列表，完成一个挑战会给你一个成就，通常还有一些宝石奖励。",
     "blurbHallPatrons": "这里是赞助者的殿堂，我们纪念在Kickstarter众筹上支持Habitica的会员们。感谢他们帮助我们让Habitica诞生！",

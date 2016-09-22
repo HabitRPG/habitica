@@ -200,5 +200,10 @@
     "onlyGroupTasksCanBeAssigned": "Apenas tarefas de grupo podem ser escolhidas!",
     "newChatMessagePlainNotification": "Nova mensagem em <%= groupName %> por <%= authorName %>. Carregue aqui para abrir a página de chat!",
     "newChatMessageTitle": "Nova mensagem em <%= groupName %>",
+    "exportInbox": "Export Messages",
+    "exportInboxPopoverTitle": "Export your messages as HTML",
+    "exportInboxPopoverBody": "HTML allows easy reading of messages in a browser. For a machine-readable format, use Data > Export Data",
+    "to": "To:",
+    "from": "From:",
     "desktopNotificationsText": "Precisamos de sua permissão para ativar as notificações na área de trabalho para novas mensagens do bate-papo da equipa ! Siga as instruções do seu navegador para ativá-las.<br><br>Você receberá essas notificações somente enquanto você tiver Habitica aberto. Se você decidir que não gosta delas, podem ser desativadas nas configurações do seu navegador.<br><br>Esta caixa irá fechar automaticamente quando uma decisão é tomada."
 }

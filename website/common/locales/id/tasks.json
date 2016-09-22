@@ -74,7 +74,7 @@
     "clearTags": "Hapus",
     "hideTags": "Sembunyikan",
     "showTags": "Perlihatkan",
-    "toRequired": "Kamu harus menyediakan nilai",
+    "toRequired": "You must supply a \"to\" property",
     "startDate": "Tanggal Mulai",
     "startDateHelpTitle": "Kapan tugas ini dimulai?",
     "startDateHelp": "Tentukan tanggal di mana tugas ini memiliki efek. Tidak akan bisa menentukan tenggat waktu pada hari yang telah lewat.",
