@@ -1,4 +1,4 @@
-import predictableRandom from '../../../common/script/fns/predictableRandom';
+import predictableRandom from '../../../website/common/script/fns/predictableRandom';
 import {
   generateUser,
 } from '../../helpers/common.helper';

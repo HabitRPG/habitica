@@ -1,0 +1,10 @@
+{
+  "root": true,
+  "env": {
+    "node": true,
+  },
+  "extends": [
+    "habitrpg/server",
+    "habitrpg/babel"
+  ],
+}

@@ -1,4 +1,4 @@
-import statsComputed from '../../../common/script/libs/statsComputed';
+import statsComputed from '../../../website/common/script/libs/statsComputed';
 import {
   generateUser,
 } from '../../helpers/common.helper';

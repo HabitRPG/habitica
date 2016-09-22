@@ -1,4 +1,4 @@
-import autoAllocate from '../../../common/script/fns/autoAllocate';
+import autoAllocate from '../../../website/common/script/fns/autoAllocate';
 import {
   generateUser,
 } from '../../helpers/common.helper';

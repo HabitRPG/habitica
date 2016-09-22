@@ -8,7 +8,7 @@ import {
   each,
   omit,
 } from 'lodash';
-import { content as Content } from '../../../common';
+import { content as Content } from '../../common';
 
 const AMPLIUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
 const GA_TOKEN = nconf.get('GA_ID');
@@ -144,7 +144,7 @@ let _formatDataForAmplitude = (data) => {
   let itemName = _lookUpItemName(data.itemKey);
 
   if (itemName) {
-    event_properties.itemName = itemName;
+    ampData.event_properties.itemName = itemName;
   }
   return ampData;
 };

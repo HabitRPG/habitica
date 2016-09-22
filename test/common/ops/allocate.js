@@ -1,9 +1,9 @@
-import allocate from '../../../common/script/ops/allocate';
+import allocate from '../../../website/common/script/ops/allocate';
 import {
   BadRequest,
   NotAuthorized,
-} from '../../../common/script/libs/errors';
-import i18n from '../../../common/script/i18n';
+} from '../../../website/common/script/libs/errors';
+import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';

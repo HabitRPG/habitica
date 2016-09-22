@@ -13,16 +13,32 @@ angular.module('habitrpg')
       pusher: undefined,
       socketId: undefined, // when defined the user is connected
     };
-    var tabIdKey = 'habitica-active-tab';
+    var tabIdKey = 'habitica-active-tab-v1';
     var tabId = Shared.uuid();
 
+    var localStorageDateInterval;
+
+    function onDisconnect () {
+      localStorage.removeItem(tabIdKey);
+      localStorage.removeItem(tabIdKey + '-time');
+      if (localStorageDateInterval) clearInterval(localStorageDateInterval);
+    }
 
     function connectToPusher (partyId, reconnecting) {
+      console.log('Connecting to Pusher.');
+
       // Limit 1 tab connected per user
       localStorage.setItem(tabIdKey, tabId);
-      window.onbeforeunload = function () {
-        localStorage.removeItem(tabIdKey);
-      }
+      localStorage.setItem(tabIdKey + '-time', Date.now());
+
+      // Every 10 seconds log the current time to localstorage, so if for some reason
+      // localStorage.tabIdKey get stuck, the next time the user reconnect and
+      // the last logged date has been long ago
+      localStorageDateInterval = setInterval(function () {
+        localStorage.setItem(tabIdKey + '-time', Date.now());
+      }, 10000);
+
+      window.onbeforeunload = onDisconnect;
 
       api.pusher = new Pusher(window.env['PUSHER:KEY'], {
         encrypted: true,
@@ -39,7 +55,7 @@ angular.module('habitrpg')
       var DISCONNECTION_AFTER = 1800000; // 30m
       var disconnectionTimeout;
 
-      var awaitIdle = function() {
+      var awaitIdle = function () {
         if(disconnectionTimeout) clearTimeout(disconnectionTimeout);
         disconnectionTimeout = setTimeout(function () {
           $(document).off('mousemove keydown mousedown touchstart', awaitIdle);
@@ -50,7 +66,7 @@ angular.module('habitrpg')
       awaitIdle();
       $(document).on('mousemove keydown mousedown touchstart', awaitIdle);
 
-      api.pusher.connection.bind('error', function(err) {
+      api.pusher.connection.bind('error', function (err) {
         console.error(err);
         // TODO if( err.data.code === 4004 ) detected connection limit
       });
@@ -78,14 +94,14 @@ angular.module('habitrpg')
           }
 
           $rootScope.party.onlineUsers = pusherMembers.count;
-          
+
           $rootScope.party.members.forEach(function (member) {
             if (pusherMembers.members[member._id]) {
               member.online = true;
             }
           });
         });
-        
+
         // When a member enters the party channel
         partyChannel.bind('pusher:member_added', function(pusherMember) {
           $rootScope.$apply(function() {
@@ -109,7 +125,7 @@ angular.module('habitrpg')
                 return true;
               }
             });
-          }); 
+          });
         });
       });
 
@@ -138,6 +154,7 @@ angular.module('habitrpg')
 
           // If a system message comes in, sync the party as quest status may have changed
           if (chatData.uuid === 'system') {
+            $rootScope.User.sync();
             Groups.party(true).then(function (syncedParty) {
               // Assign and not replace so that all the references get the modifications
               _.assign($rootScope.party, syncedParty);
@@ -161,7 +178,7 @@ angular.module('habitrpg')
                 groupName: $rootScope.party.name,
               }), {
                 body: (chatData.user || chatData.uuid) + ': ' + chatData.text,
-                icon: '/common/img/gryphon_192-20.png',
+                icon: '/assets/img/gryphon_192-20.png'
               });
 
               notif.addEventListener('click', function () {
@@ -184,12 +201,19 @@ angular.module('habitrpg')
     };
 
     function disconnectPusher () {
+      console.log('Disconnecting from Pusher for inactivity.');
       api.pusher.disconnect();
+      window.onbeforeunload = null; // TODO use addEventListener
+      // onDisconnect();
 
       var awaitActivity = function() {
         $(document).off('mousemove keydown mousedown touchstart', awaitActivity);
-        if (!localStorage.getItem(tabIdKey) || localStorage.getItem(tabIdKey) === tabId) {
+        var lastSavedDate = localStorage.getItem(tabIdKey + '-time') || 0;
+
+        if (!localStorage.getItem(tabIdKey) || localStorage.getItem(tabIdKey) === tabId || ((Date.now() - lastSavedDate) > 30000)) {
           connectToPusher(partyId, true);
+        } else {
+          console.log('Cannot connect 2 tabs to Pusher.');
         }
       };
 
@@ -209,9 +233,13 @@ angular.module('habitrpg')
       partyId = user && $rootScope.user.party && $rootScope.user.party._id;
       if (!partyId) return;
 
-      // See if another tab is already connected to Pusher
-      if (!localStorage.getItem(tabIdKey)) {
+      // See if another tab is already connected to Pusher (or if it got stuck: last saved date more than 30 sec ago)
+      var lastSavedDate = localStorage.getItem(tabIdKey + '-time') || 0;
+
+      if (!localStorage.getItem(tabIdKey) || ((Date.now() - lastSavedDate) > 30000)) {
         connectToPusher(partyId);
+      } else {
+        console.log('Cannot connect 2 tabs to Pusher.');
       }
 
       // when a tab is closed, connect the next one
@@ -219,8 +247,11 @@ angular.module('habitrpg')
       window.addEventListener('storage', function(e) {
         if (e.key === tabIdKey && e.newValue === null) {
           setTimeout(function () {
-            if (!localStorage.getItem(tabIdKey)) {
+            var lastSavedDate = localStorage.getItem(tabIdKey + '-time') || 0;
+            if (!localStorage.getItem(tabIdKey) || ((Date.now() - lastSavedDate) > 30000)) {
               connectToPusher(partyId, true);
+            } else {
+              console.log('Cannot connect 2 tabs to Pusher.');
             }
           }, Math.floor(Math.random() * 501) + 100);
         }

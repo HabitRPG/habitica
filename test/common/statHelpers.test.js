@@ -4,7 +4,7 @@ import {
   capByLevel,
   tnl,
   diminishingReturns,
-} from '../../common/script/index';
+} from '../../website/common/script/index';
 
 describe('helper functions used in stat calculations', () => {
   describe('maxHealth', () => {

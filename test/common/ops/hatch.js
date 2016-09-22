@@ -1,10 +1,10 @@
-import hatch from '../../../common/script/ops/hatch';
+import hatch from '../../../website/common/script/ops/hatch';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
-} from '../../../common/script/libs/errors';
-import i18n from '../../../common/script/i18n';
+} from '../../../website/common/script/libs/errors';
+import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';

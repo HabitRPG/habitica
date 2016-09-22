@@ -1,5 +1,5 @@
 import stripeModule from 'stripe';
-import shared from '../../../../../common';
+import shared from '../../../../common';
 import {
   BadRequest,
   NotAuthorized,

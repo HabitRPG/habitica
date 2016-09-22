@@ -1,4 +1,4 @@
-import common from '../../../../common';
+import common from '../../../common';
 import Bluebird from 'bluebird';
 import {
   chatDefaults,

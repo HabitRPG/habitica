@@ -1,15 +1,14 @@
 import locals from '../../middlewares/locals';
 import _ from 'lodash';
-import markdownIt from 'markdown-it';
-
-const md = markdownIt({
-  html: true,
-});
+import md from 'habitica-markdown';
+import nconf from 'nconf';
 
 let api = {};
 
+const IS_PROD = nconf.get('IS_PROD');
 const TOTAL_USER_COUNT = '1,500,000';
 const LOADING_SCREEN_TIPS = 32;
+const IS_NEW_CLIENT_ENABLED = nconf.get('NEW_CLIENT_ENABLED') === 'true';
 
 api.getFrontPage = {
   method: 'GET',
@@ -86,5 +85,19 @@ api.redirectExtensionsPage = {
   },
 };
 
+// All requests to /new_app (expect /new_app/static) should serve the new client in development
+if (IS_PROD && IS_NEW_CLIENT_ENABLED) {
+  api.getNewClient = {
+    method: 'GET',
+    url: /^\/new-app($|\/(?!(static\/.?|static$)))/,
+    async handler (req, res) {
+      if (!(req.session && req.session.userId)) {
+        return res.redirect('/static/front');
+      }
+
+      return res.sendFile('./dist-client/index.html', {root: `${__dirname}/../../../../`});
+    },
+  };
+}
 
 module.exports = api;
