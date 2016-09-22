@@ -15,7 +15,7 @@ describe('POST /user/auth/social', () => {
   let googleId = 'googleId';
   let network = 'NoNetwork';
 
-  before(async () => {
+  beforeEach(async () => {
     api = requester();
     user = await generateUser();
   });
@@ -34,8 +34,7 @@ describe('POST /user/auth/social', () => {
   describe('facebook', () => {
     before(async () => {
       let expectedResult = {id: facebookId};
-      let passportFacebookProfile = sandbox.stub(passport._strategies.facebook, 'userProfile');
-      passportFacebookProfile.yields(null, expectedResult);
+      sandbox.stub(passport._strategies.facebook, 'userProfile').yields(null, expectedResult);
       network = 'facebook';
     });
 
@@ -87,8 +86,7 @@ describe('POST /user/auth/social', () => {
   describe('google', () => {
     before(async () => {
       let expectedResult = {id: googleId};
-      let passportGoogleProfile = sandbox.stub(passport._strategies.google, 'userProfile');
-      passportGoogleProfile.yields(null, expectedResult);
+      sandbox.stub(passport._strategies.google, 'userProfile').yields(null, expectedResult);
       network = 'google';
     });
 
