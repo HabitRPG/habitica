@@ -1,7 +1,7 @@
 import resetGear from '../fns/resetGear';
 import i18n from '../i18n';
 
-module.exports = function reset (user, tasks = [], req = {}) {
+module.exports = function reset (user, tasks = []) {
   user.stats.hp = 50;
   user.stats.lvl = 1;
   user.stats.gp = 0;
@@ -20,12 +20,8 @@ module.exports = function reset (user, tasks = [], req = {}) {
 
   user.preferences.automaticAllocation = false;
 
-  if (req.v2 === true) {
-    return user;
-  } else {
-    return [
-      {user, tasksToRemove},
-      i18n.t('resetComplete'),
-    ];
-  }
+  return [
+    {user, tasksToRemove},
+    i18n.t('resetComplete'),
+  ];
 };

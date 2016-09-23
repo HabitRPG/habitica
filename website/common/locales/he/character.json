@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "profile": "פרופיל",
     "avatar": "התאם דמות",
     "other": "אחר",
@@ -48,6 +48,7 @@
     "equipment": "ציוד",
     "equipmentBonus": "ציוד",
     "equipmentBonusText": "תוספי תכונה מוענקים על ידי כלי המלחמה בהם אתה משתמש. הבט בלשונית הציוד תחת מלאי הציוד שלך כדי לבחור כלי המלחמה.",
+    "classBonusText": "Your class (Warrior, if you haven't unlocked or selected another class) uses its own equipment more effectively than gear from other classes. Equipped gear from your current class gets a 50% boost to the attribute bonus it grants.",
     "classEquipBonus": "תוסף מקצוע",
     "battleGear": "ציוד לחימה",
     "battleGearText": "זהו הציוד שאתה נושא עמך אל הקרב! הציוד משפיע על ערכי התכונות שלך כשאתה מבצע משימות.",

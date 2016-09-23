@@ -537,7 +537,7 @@ api.allocateNow = {
   url: '/user/allocate-now',
   async handler (req, res) {
     let user = res.locals.user;
-    let allocateNowRes = common.ops.allocateNow(user, req);
+    let allocateNowRes = common.ops.allocateNow(user);
     await user.save();
     res.respond(200, ...allocateNowRes);
   },
@@ -1241,7 +1241,7 @@ api.markPmsRead = {
   url: '/user/mark-pms-read',
   async handler (req, res) {
     let user = res.locals.user;
-    let markPmsResponse = common.ops.markPmsRead(user, req);
+    let markPmsResponse = common.ops.markPmsRead(user);
     await user.save();
     res.respond(200, markPmsResponse);
   },
@@ -1308,7 +1308,7 @@ api.userReset = {
       ],
     }).select('_id type challenge').exec();
 
-    let resetRes = common.ops.reset(user, tasks, req);
+    let resetRes = common.ops.reset(user, tasks);
 
     await Bluebird.all([
       Tasks.Task.remove({_id: {$in: resetRes[0].tasksToRemove}, userId: user._id}),

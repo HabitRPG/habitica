@@ -200,5 +200,10 @@
     "onlyGroupTasksCanBeAssigned": "Nur Gruppenaufgaben können verteilt werden",
     "newChatMessagePlainNotification": "Neue Nachricht in <%= groupName %> von <%= authorName %>. Hier geht's zur Chat Seite!",
     "newChatMessageTitle": "Neue Nachricht in <%= groupName %>",
+    "exportInbox": "Nachrichten exportieren",
+    "exportInboxPopoverTitle": "Exportiere Deine Nachrichten als HTML",
+    "exportInboxPopoverBody": "HTML erlaubt es Nachrichten einfach im Browser zu lesen. Für ein Maschinen-lesbares Format, verwende Daten > Daten exportieren",
+    "to": "An:",
+    "from": "Von:",
     "desktopNotificationsText": "Wir benötigen Deine Erlaubnis, um die Desktop-Benachrichtigungen für neue Nachrichten im Gruppen-Chat zu aktivieren! Folge den Anweisungen Deines Browsers um sie anzuschalten.<br><br>Du wirst diese Benachrichtigungen nur erhalten, solange Habitica geöffnet ist. Wenn Dir diese nicht gefallen sollten, können sie in Deinen Browser-Einstellungen deaktiviert werden.<br><br>Dieser Hinweis wird automatisch geschlossen, sobald eine Entscheidung getroffen wurde."
 }

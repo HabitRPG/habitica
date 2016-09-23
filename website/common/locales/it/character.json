@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Tieni presente che il tuo nome pubblico, la foto profilo e la sezione \"su di me\" devono rispettare le <a href='https://habitica.com/static/community-guidelines' target='_blank'>Linee guida della community</a> (per esempio no parolacce, no argomenti per adulti, no insulti, ecc.). Se hai qualche dubbio se qualcosa sia appropriato o meno, puoi tranquillamente scrivere una e-mail a <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "profile": "Profilo",
     "avatar": "Personalizza Avatar",
     "other": "Altro",
@@ -48,6 +48,7 @@
     "equipment": "Equipaggiamento",
     "equipmentBonus": "Equipaggiamento",
     "equipmentBonusText": "Attributi bonus forniti dall'equipaggiamento di battaglia che indossi. Vedi la scheda Equipaggiamento (sotto Inventario) per scegliere il tuo equipaggiamento di battaglia.",
+    "classBonusText": "Your class (Warrior, if you haven't unlocked or selected another class) uses its own equipment more effectively than gear from other classes. Equipped gear from your current class gets a 50% boost to the attribute bonus it grants.",
     "classEquipBonus": "Bonus classe",
     "battleGear": "Assetto di battaglia",
     "battleGearText": "Questo è l'equipaggiamento che indossi in battaglia, esso modifica alcuni valori quando interagisci con le tue attività.",

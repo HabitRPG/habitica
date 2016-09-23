@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Onthoud dat je weergegeven Naam, profielfoto en blurb overeen moeten komen met de <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Richtlijnen</a> (b.v. geen grof taalgebruik, geen volwassen onderwerpen, geen beledigingen, etc.). Als je vragen hebt over of iets geschikt is of niet, voel je dan vrij om een e-mail te sturen naar <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "profile": "Profiel",
     "avatar": "Avatar aanpassen",
     "other": "Overige",
@@ -48,6 +48,7 @@
     "equipment": "Uitrusting",
     "equipmentBonus": "Uitrusting",
     "equipmentBonusText": "Door je strijduitrusting geleverde bonuspunten voor je eigenschappen. Zie het Uitrustingstabblad onder Boedel om je strijduitrusting te selecteren.",
+    "classBonusText": "Your class (Warrior, if you haven't unlocked or selected another class) uses its own equipment more effectively than gear from other classes. Equipped gear from your current class gets a 50% boost to the attribute bonus it grants.",
     "classEquipBonus": "Klassebonus",
     "battleGear": "Strijduitrusting",
     "battleGearText": "Dit is de uitrusting die je in de strijd draagt. Het beïnvloedt scores als je met taken bezig bent.",

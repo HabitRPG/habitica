@@ -146,6 +146,7 @@
     "hatchingPotionPeppermint": "薄荷",
     "hatchingPotionFloral": "草花",
     "hatchingPotionThunderstorm": "暴风雨",
+    "hatchingPotionGhost": "Ghost",
     "hatchingPotionNotes": "把它倒在宠物蛋上可以孵化出一只<%= potText(locale) %>宠物。",
     "premiumPotionAddlNotes": "无法在任务奖励宠物蛋上使用",
     "foodMeat": "肉",

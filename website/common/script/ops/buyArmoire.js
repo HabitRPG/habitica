@@ -105,12 +105,8 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
   let resData = _.pick(user, splitWhitespace('items flags'));
   if (armoireResp) resData.armoire = armoireResp;
 
-  if (req.v2 === true) {
-    return resData;
-  } else {
-    return [
-      resData,
-      message,
-    ];
-  }
+  return [
+    resData,
+    message,
+  ];
 };

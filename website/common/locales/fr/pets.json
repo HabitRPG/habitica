@@ -53,7 +53,7 @@
     "beastMountMasterName": "Maître des Bêtes et Maître des Montures",
     "triadBingoName": "Triple Bingo",
     "triadBingoText": "A trouvé les 90 familiers, les 90 montures, et les 90 familiers À NOUVEAU ! (COMMENT VOUS AVEZ FAIT ÇA !)",
-    "triadBingoText2": "et a libéré une écurie entière  <%= count %> fois",
+    "triadBingoText2": "et a libéré une écurie entière <%= count %> fois",
     "triadBingoAchievement": "Vous avez remporté le succès \"Triple Bingo\" pour avoir trouvé tous les familiers, dompté toutes les montures, et trouvé tous les familiers à nouveau !",
     "dropsEnabled": "Butins activés !",
     "itemDrop": "Vous avez trouvé un objet !",

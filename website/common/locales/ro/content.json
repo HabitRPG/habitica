@@ -146,6 +146,7 @@
     "hatchingPotionPeppermint": "Mentă",
     "hatchingPotionFloral": "Floral",
     "hatchingPotionThunderstorm": "Thunderstorm",
+    "hatchingPotionGhost": "Ghost",
     "hatchingPotionNotes": "Toarnă aceasta pe un ou și va ecloza ca un companion <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Neutilizabil pe ouă de companioni obținute din expediții.",
     "foodMeat": "Carne",

@@ -74,7 +74,7 @@
     "clearTags": "Očistiti",
     "hideTags": "Sakriti",
     "showTags": "Prikazati",
-    "toRequired": "You must supply a to value",
+    "toRequired": "You must supply a \"to\" property",
     "startDate": "Start Date",
     "startDateHelpTitle": "When should this task start?",
     "startDateHelp": "Set the date for which this task takes effect. Will not be due on earlier days.",

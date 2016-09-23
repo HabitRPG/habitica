@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "profile": "Profil",
     "avatar": "Upravit postavu",
     "other": "Další",
@@ -48,6 +48,7 @@
     "equipment": "Vybavení",
     "equipmentBonus": "Vybavení",
     "equipmentBonusText": "Dovednostní bonusy, které ti poskytuje výbava, kterou používáš. Aby sis mohl vybrat výbavu, klikni na Inventář a pak na Vybavení.",
+    "classBonusText": "Your class (Warrior, if you haven't unlocked or selected another class) uses its own equipment more effectively than gear from other classes. Equipped gear from your current class gets a 50% boost to the attribute bonus it grants.",
     "classEquipBonus": "Bonus třídy",
     "battleGear": "Bojová výzbroj",
     "battleGearText": "Tohle je tvé vybavení, které máš na sobě do bitvy; ovlivňuje čísla, když pracuješ se svými úkoly.",

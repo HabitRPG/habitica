@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "profile": "基本資料",
     "avatar": "客制化角色圖像",
     "other": "其他",
@@ -48,6 +48,7 @@
     "equipment": "裝備",
     "equipmentBonus": "裝備",
     "equipmentBonusText": "穿上某些戰鬥裝備可獲得屬性加成。你可以從背包 > 裝備中查看你擁有的戰鬥裝備。",
+    "classBonusText": "Your class (Warrior, if you haven't unlocked or selected another class) uses its own equipment more effectively than gear from other classes. Equipped gear from your current class gets a 50% boost to the attribute bonus it grants.",
     "classEquipBonus": "職業加成",
     "battleGear": "戰鬥裝備",
     "battleGearText": "這是你穿上戰場的裝備，在你做任務時會影響一些數值。",

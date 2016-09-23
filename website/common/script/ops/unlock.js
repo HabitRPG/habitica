@@ -111,9 +111,5 @@ module.exports = function unlock (user, req = {}, analytics) {
 
   if (!alreadyOwns) response.push(i18n.t('unlocked', req.language));
 
-  if (req.v2 === true) {
-    return response[0];
-  } else {
-    return response;
-  }
+  return response;
 };
