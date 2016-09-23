@@ -74,7 +74,7 @@
     "clearTags": "Aufräumen",
     "hideTags": "Verbergen",
     "showTags": "Anzeigen",
-    "toRequired": "Du musst einen gültigen Endwert eingeben",
+    "toRequired": "Du musst die \"to\"-Eigenschaft angeben",
     "startDate": "Starttermin",
     "startDateHelpTitle": "Wann soll diese Aufgabe beginnen?",
     "startDateHelp": "Setze das Datum fest, ab dem diese Aufgabe in Kraft tritt. Davor wird sie nicht fällig werden.",

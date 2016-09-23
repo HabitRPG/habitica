@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Bitte denke daran, dass Dein angezeigter Name, Dein Profilbild und Dein Profiltext die <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community-Richtlinien</a> einhalten müssen (das heißt keine Fluchwörter, keine sexuellen Themen, keine Beleidigungen, usw.). Wenn Du Fragen hast, ob etwas angebracht ist oder nicht, schreib einfach eine E-Mail an <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
+    "communityGuidelinesWarning": "Bitte denke daran, dass Dein angezeigter Name, Dein Profilbild und Dein Profiltext die <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community-Richtlinien</a> einhalten müssen (das heißt keine Fluchwörter, keine sexuellen Themen, keine Beleidigungen, usw.). Wenn Du Fragen hast, ob etwas angebracht ist oder nicht, schreib einfach eine E-Mail an <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "profile": "Profil",
     "avatar": "Avatar anpassen",
     "other": "Anderes",
@@ -48,6 +48,7 @@
     "equipment": "Ausrüstung",
     "equipmentBonus": "Ausrüstung",
     "equipmentBonusText": "Attributboni, die von Deiner Kampfausrüstung stammen. Im Ausrüstungs-Tab unter Inventar kannst Du Deine Kampfausrüstung zusammenstellen.",
+    "classBonusText": "Deine Klasse (Krieger, wenn Du keine andere Klasse freigeschaltet oder gewählt hast) kann ihre eigene Ausrüstung besser nutzen, als die Ausrüstung anderer Klassen. Ausrüstung Deiner aktuellen Klasse verleiht einen 50% größeren Attributbonus als klassenfremde Ausrüstung.",
     "classEquipBonus": "Klassenbonus",
     "battleGear": "Kampfausrüstung",
     "battleGearText": "Das ist Deine Kampfausrüstung; sie beeinflusst Zahlen, wenn Du mit Deinen Aufgaben interagierst.",

@@ -74,7 +74,7 @@
     "clearTags": "Wissen",
     "hideTags": "Verbergen",
     "showTags": "Weergeven",
-    "toRequired": "Je moet een waarde geven",
+    "toRequired": "You must supply a \"to\" property",
     "startDate": "Begindatum",
     "startDateHelpTitle": "Wanneer moet deze taak beginnen?",
     "startDateHelp": "Selecteer de datum waarop deze taak actief wordt. Hij hoeft vóór deze datum niet voltooid te worden.",

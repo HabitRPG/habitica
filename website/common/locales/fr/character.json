@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Veuillez garder à l'esprit que votre nom d'utilisateur, votre photo de profil et votre résumé doivent obéir aux <a href='https://habitica.com/static/community-guidelines' target='_blank'>Règles de Vie en Communauté</a> (par exemple, grossièretés, sujets adultes, insultes, etc. sont interdits). Si vous ne savez pas si quelque chose est inconvenant ou non, n'hésitez pas à envoyer un courriel à <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
+    "communityGuidelinesWarning": "Veuillez garder à l'esprit que votre nom d'utilisateur, votre photo de profil et votre résumé doivent obéir aux <a href='https://habitica.com/static/community-guidelines' target='_blank'>Règles de Vie en Communauté</a> (par exemple, grossièretés, sujets adultes, insultes, etc. sont interdits). Si vous ne savez pas si quelque chose est inconvenant ou non, n'hésitez pas à envoyer un courriel à <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "profile": "Profil",
     "avatar": "Personnalisez votre avatar",
     "other": "Autres",
@@ -48,6 +48,7 @@
     "equipment": "Équipement",
     "equipmentBonus": "Équipement",
     "equipmentBonusText": "Bonus d'attribut de votre équipement. Voir l'onglet Équipement dans l'Inventaire pour choisir votre équipement.",
+    "classBonusText": "Votre classe (Guerrier, si vous n'avez pas débloqué ou sélectionné d'autre classe) utilise mieux son équipement spécifique que celui d'autres classes. Le bonus conféré par l'équipement spécifique à votre classe actuelle est augmenté de 50%.",
     "classEquipBonus": "Bonus de Classe",
     "battleGear": "Équipement de combat",
     "battleGearText": "Voici l'équipement que vous portez au combat ; il affecte les chiffres obtenus lorsque vous interagissez avec vos tâches.",

@@ -200,5 +200,10 @@
     "onlyGroupTasksCanBeAssigned": "Seules les tâches de groupe peuvent être assignées",
     "newChatMessagePlainNotification": "Nouveau message dans <%= groupName %> par <%= authorName %>. Cliquez ici pour ouvrir la page de discussion !",
     "newChatMessageTitle": "Nouveau message dans <%= groupName %>",
+    "exportInbox": "Exporter les messages",
+    "exportInboxPopoverTitle": "Exporter vos messages au format HTML",
+    "exportInboxPopoverBody": "HTML permet une lecture facile des messages dans un navigateur. Pour un format lisible par une machine, uilisez Donnés > Export de Données",
+    "to": "À : ",
+    "from": "De : ",
     "desktopNotificationsText": "Nous avons besoin de votre autorisation pour activer les notifications sur le bureau pour les nouveau message dans le chat d'équipe. Suivez les instructions de votre navigateur pour les activer.<br><br>Vous allez recevoir ces notifications seulement lorsque Habitica est ouvert. Si vous vous apercevez que vous ne les appréciez pas, elles peuvent être désactivées dans les réglages de votre navigateur.<br><br>Cette fenêtre se fermera automatiquement lorsqu'une décision aura été prise."
 }

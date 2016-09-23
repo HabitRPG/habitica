@@ -294,7 +294,7 @@ habitrpg.controller('SettingsCtrl',
       if (user.auth.local.username) {
         return true;
       }
-      return SOCIAL_AUTH_NETWORKS.find(function (network) {
+      return _.find(SOCIAL_AUTH_NETWORKS, function (network) {
         if (network.key !== checkedNetworkKey) {
           if (user.auth.hasOwnProperty(network.key)) {
             return user.auth[network.key].id;
@@ -304,7 +304,7 @@ habitrpg.controller('SettingsCtrl',
     };
 
     $scope.hasSocialAuth = function (user) {
-      return SOCIAL_AUTH_NETWORKS.find(function (network) {
+      return _.find(SOCIAL_AUTH_NETWORKS, function (network) {
         if (user.auth.hasOwnProperty(network.key)) {
           return user.auth[network.key].id;
         }
@@ -312,9 +312,10 @@ habitrpg.controller('SettingsCtrl',
     };
 
     $scope.deleteSocialAuth = function (networkKey) {
-      var network = SOCIAL_AUTH_NETWORKS.find(function (network) {
+      var network = _.find(SOCIAL_AUTH_NETWORKS, function (network) {
         return network.key === networkKey;
       });
+
       $http.delete(ApiUrl.get() + "/api/v3/user/auth/social/"+networkKey).success(function(){
         Notification.text(env.t("detachedSocial", {network: network.name}));
         User.sync();

@@ -6,8 +6,8 @@
     "titleTasks": "Tareas",
     "titleAvatar": "Personaje",
     "titleBackgrounds": "Fondos",
-    "titleStats": "Stats",
-    "titleAchievs": "Achievements",
+    "titleStats": "Estadísticas",
+    "titleAchievs": "Logros",
     "titleProfile": "Perfil",
     "titleInbox": "Bandeja de entrada",
     "titleTavern": "Taberna",
@@ -182,8 +182,8 @@
     "wonChallengeShare": "¡He ganado un desafío en Habitica!",
     "achievementShare": "¡He obtenido un nuevo logro en Habitica!",
     "orderBy": "Ordenar por <%= item %>",
-    "you": "(you)",
-    "enableDesktopNotifications": "Enable Desktop Notifications",
-    "online": "online",
-    "onlineCount": "<%= count %> online"
+    "you": "(tu)",
+    "enableDesktopNotifications": "Permitir Notificaciones de Escritorio",
+    "online": "en línea",
+    "onlineCount": "<%= count %> en línea"
 }

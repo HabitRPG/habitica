@@ -72,10 +72,12 @@ angular.module('habitrpg')
     };
 
     function updateTask (taskId, taskDetails) {
+      var taskDetailsToSend = _.omit(taskDetails, ['challenge', 'group', 'history', 'reminders', 'tags'])
+
       return $http({
         method: 'PUT',
         url: '/api/v3/tasks/' + taskId,
-        data: taskDetails,
+        data: taskDetailsToSend,
       });
     };
 

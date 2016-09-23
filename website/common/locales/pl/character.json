@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
+    "communityGuidelinesWarning": "Pamiętaj, że twoja nazwa gracza, zdjęcie profilowe oraz krótki opis muszą zgadzać się z <a href='https://habitica.com/static/community-guidelines' target='_blank'>wytycznymi społeczności</a> (np. brak profanacji, brak tematów dla dorosłych, brak obraźliwych rzeczy itd.) Jeśli masz jakieś pytania odnośnie poprawności, skontaktuj się z <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "profile": "Profil",
     "avatar": "Dostosuj Awatara",
     "other": "Inne",
@@ -48,6 +48,7 @@
     "equipment": "Wyposażenie",
     "equipmentBonus": "Wyposażenie",
     "equipmentBonusText": "Premie do atrybutów zapewniane przez Twoje wyposażenie bojowe. Zajrzyj do zakładki \"Wyposażenie\" w dziale \"Ekwipunek\", żeby wybrać broń i zbroję.",
+    "classBonusText": "Twoja klasa postaci (Wojownik, jeśli nie wybrałeś innej klasy lub nie odblokowałeś jeszcze tej możliwości) o wiele skuteczniej włada wyposażeniem jej przypisanym niż przeznaczonym dla innych klas. Wyposażenie przypisane do twojej aktualnej klasy zwiększa premię do atrybutu o dodatkowe 50%.",
     "classEquipBonus": "Premia klasowa",
     "battleGear": "Wyposażenie bojowe",
     "battleGearText": "Z tym wyposażeniem ruszasz do boju. Ma ono wpływ na punkty podczas interakcji z zadaniami.",

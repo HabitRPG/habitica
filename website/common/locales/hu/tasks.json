@@ -74,7 +74,7 @@
     "clearTags": "Törlés",
     "hideTags": "Elrejt",
     "showTags": "Mutat",
-    "toRequired": "Kötelező értéket megadnod.",
+    "toRequired": "You must supply a \"to\" property",
     "startDate": "Kezdő dátum",
     "startDateHelpTitle": "Mikortól induljon a feladat?",
     "startDateHelp": "Állítsd be a feladat dátumát, amikortól aktív lesz. Előtte inaktív marad.",

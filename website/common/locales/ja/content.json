@@ -146,6 +146,7 @@
     "hatchingPotionPeppermint": "薄緑色の",
     "hatchingPotionFloral": "花の",
     "hatchingPotionThunderstorm": "雷雨",
+    "hatchingPotionGhost": "おばけ",
     "hatchingPotionNotes": "これをたまごにかけると、<%= potText(locale) %> ペットが生まれます。",
     "premiumPotionAddlNotes": "クエスト ペットのたまごには使えません。",
     "foodMeat": "肉",

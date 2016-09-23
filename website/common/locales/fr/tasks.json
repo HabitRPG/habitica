@@ -74,7 +74,7 @@
     "clearTags": "Nettoyer",
     "hideTags": "Masquer",
     "showTags": "Afficher",
-    "toRequired": "Vous devez indiquer une valeur",
+    "toRequired": "Vous devez indiquer une valeur \"to\"",
     "startDate": "Date de début",
     "startDateHelpTitle": "Quand cette tâche devrait-elle démarrer ?",
     "startDateHelp": "Définissez la date à laquelle cette tâche prendra effet. Elle ne sera pas active avant cette date.",

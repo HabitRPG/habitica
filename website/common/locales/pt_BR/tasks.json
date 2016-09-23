@@ -74,7 +74,7 @@
     "clearTags": "Limpar",
     "hideTags": "Ocultar",
     "showTags": "Mostrar",
-    "toRequired": "Você precisa fornecer um valor",
+    "toRequired": "Você deve informar uma \"para\" propriedade",
     "startDate": "Data Inicial",
     "startDateHelpTitle": "Quando esta tarefa deve começar?",
     "startDateHelp": "Defina a data na qual esta tarefa entrará em vigor. Ela não te prejudicará nos dias anteriores.",

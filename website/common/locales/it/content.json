@@ -146,6 +146,7 @@
     "hatchingPotionPeppermint": "Menta Piperita",
     "hatchingPotionFloral": "Floreale",
     "hatchingPotionThunderstorm": "Tempesta",
+    "hatchingPotionGhost": "Ghost",
     "hatchingPotionNotes": "Versa questa pozione su un uovo, e nascerà un animale <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Non utilizzabile su uova di animali ottenute dalle missioni.",
     "foodMeat": "Carne",

@@ -1,4 +1,10 @@
 {
-  "extends": "habitrpg/browser"
+  "extends": [
+    "habitrpg/browser",
+    "habitrpg/babel"
+  ],
+  "plugins": [
+    "html"
+  ]
 }
 

@@ -24,7 +24,7 @@ describe('AppJS', function() {
 
     it('should call refresher if idle time is 6 hours or greater', function() {
       window.awaitIdle();
-      clock.tick(21600000);
+      clock.tick(21900000);
       expect(window.refresher).to.be.called;
     });
   });

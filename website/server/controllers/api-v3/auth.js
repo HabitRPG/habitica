@@ -160,6 +160,7 @@ api.registerLocal = {
         gaLabel: 'local',
         uuid: savedUser._id,
         headers: req.headers,
+        user: savedUser,
       });
     }
 
@@ -307,6 +308,7 @@ api.loginSocial = {
           gaLabel: network,
           uuid: savedUser._id,
           headers: req.headers,
+          user: savedUser,
         });
       }
 

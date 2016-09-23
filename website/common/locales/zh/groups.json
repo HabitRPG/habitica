@@ -200,5 +200,10 @@
     "onlyGroupTasksCanBeAssigned": "只有小组任务可以被分配",
     "newChatMessagePlainNotification": "<%= groupName %>中有来自<%= authorName %>的消息. 点击这里进行聊天！",
     "newChatMessageTitle": "<%= groupName %> 中有新的消息",
+    "exportInbox": "Export Messages",
+    "exportInboxPopoverTitle": "Export your messages as HTML",
+    "exportInboxPopoverBody": "HTML allows easy reading of messages in a browser. For a machine-readable format, use Data > Export Data",
+    "to": "To:",
+    "from": "From:",
     "desktopNotificationsText": "为了你能及时收到队伍聊天中的新消息，请开启桌面通知。现在根据浏览器的指引，来开启桌面通知。<br><br>当你开启通知后，你只有在Habitica的网页打开的状态下才能收到推送，如果你不喜欢被推送通知，你可以在浏览器的设置中关闭。<br><br>这个弹窗将在你做出选择后自动关闭"
 }

@@ -144,7 +144,7 @@ let _formatDataForAmplitude = (data) => {
   let itemName = _lookUpItemName(data.itemKey);
 
   if (itemName) {
-    event_properties.itemName = itemName;
+    ampData.event_properties.itemName = itemName;
   }
   return ampData;
 };
