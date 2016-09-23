@@ -2,7 +2,7 @@
     "npc": "НІП",
     "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
     "mattBoch": "Митько Боч",
-    "mattShall": "Привести вашого скакуна, <%= name %>? Коли ви відгодуєте тваринку достатньо, і вона перетвориться в скакуна, він опиниться тут. Клацніть на нього щоб осідлати!",
+    "mattShall": "Shall I bring you your steed, <%= name %>? Once you've fed a pet enough food to turn it into a mount, it will appear here. Click a mount to saddle up!",
     "mattBochText1": "Welcome to the Stable! I'm Matt, the beast master. Starting at level 3, you can hatch pets using eggs and potions. When you hatch a pet in the Market, it will appear here! Click a pet's image to add it to your avatar. Feed them with the food you find after level 3, and they'll grow into hardy mounts.",
     "daniel": "Данило",
     "danielText": "Ласкаво просимо до Таверни! Залиштеся трохи та познайомтеся з тутешніми. Якщо вам потрібно відпочити (відпустка? хвороба?), я облаштую вас у господі. Доки ви перебуватимете в господі, ваші Щоденні завдання не наноситимуть ушкоджень в кінці дня, але ви все одно можете їх виконувати.",

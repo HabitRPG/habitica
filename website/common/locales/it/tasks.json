@@ -74,7 +74,7 @@
     "clearTags": "Deseleziona",
     "hideTags": "Nascondi",
     "showTags": "Mostra",
-    "toRequired": "Devi fornire un valore \"to\"",
+    "toRequired": "You must supply a \"to\" property",
     "startDate": "Data di inizio",
     "startDateHelpTitle": "Quando dovrebbe cominciare questa attività?",
     "startDateHelp": "Imposta la data in cui l'attività sarà \"attiva\". Non sarà necessario completarla prima di quel giorno.",

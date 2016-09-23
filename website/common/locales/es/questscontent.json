@@ -342,10 +342,10 @@
     "questArmadilloBoss": "Armadillo Indulgente",
     "questArmadilloDropArmadilloEgg": "Armadillo (Huevo)",
     "questArmadilloUnlockText": "Desbloquear la compra de huevos de Armadillo en el Mercado",
-    "questCowText": "The Mootant Cow",
+    "questCowText": "La Vaca Muutante",
     "questCowNotes": "It’s been a long, hot day at Sparring Farms, and there is nothing more you want than a long sip of water and some sleep. You're standing there daydreaming when @Soloana suddenly screams, \"Everyone run! The prize cow has mootated!\"<br><br>@eevachu gulps. \"It must be our bad habits that infected it.\"<br><br>\"Quick!\" Feralem Tau says. \"Let’s do something before the udder cows mootate, too.\"<br><br>You’ve herd enough. No more daydreaming -- it's time to get those bad habits under control!",
     "questCowCompletion": "You milk your good habits for all they are worth until the cow reverts to its original form. The cow looks over at you with her pretty brown eyes and nudges over three eggs.<br><br>@fuzzytrees laughs and hands you the eggs, \"Maybe it still is mootated if there are baby cows in these eggs. But I trust you to stick to your good habits when you raise them!\"",
-    "questCowBoss": "Mootant Cow",
-    "questCowDropCowEgg": "Cow (Egg)",
-    "questCowUnlockText": "Unlocks purchasable Cow eggs in the Market"
+    "questCowBoss": "Vaca Muutante",
+    "questCowDropCowEgg": "Vaca (Huevo)",
+    "questCowUnlockText": "Desbloquear la compra de huevos de Vaca en el Mercado"
 }

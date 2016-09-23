@@ -14,7 +14,7 @@
 
 /* Critical */
 .weapon_special_critical {
-  background: url("/website/assets/sprites/backer-only/weapon_special_critical.gif") no-repeat;
+  background: url("/weapon_special_critical.gif") no-repeat;
   width: 90px;
   height: 90px;
   margin-left:-12px;
@@ -31,30 +31,30 @@
 }
 
 .head_special_0 {
-  background: url("/website/assets/sprites/backer-only/BackerOnly-Equip-ShadeHelmet.gif") no-repeat;
+  background: url("/BackerOnly-Equip-ShadeHelmet.gif") no-repeat;
 }
 .head_special_1 {
-  background: url("/website/assets/sprites/backer-only/ContributorOnly-Equip-CrystalHelmet.gif") no-repeat;
+  background: url("/ContributorOnly-Equip-CrystalHelmet.gif") no-repeat;
   margin-top: 3px;
 }
 
 .broad_armor_special_0,.slim_armor_special_0 {
-  background: url("/website/assets/sprites/backer-only/BackerOnly-Equip-ShadeArmor.gif") no-repeat;
+  background: url("/BackerOnly-Equip-ShadeArmor.gif") no-repeat;
 }
 .broad_armor_special_1,.slim_armor_special_1 {
-  background: url("/website/assets/sprites/backer-only/ContributorOnly-Equip-CrystalArmor.gif") no-repeat;
+  background: url("/ContributorOnly-Equip-CrystalArmor.gif") no-repeat;
 }
 
 .shield_special_0 {
-  background: url("/website/assets/sprites/backer-only/BackerOnly-Shield-TormentedSkull.gif") no-repeat;
+  background: url("/BackerOnly-Shield-TormentedSkull.gif") no-repeat;
 }
 
 .weapon_special_0 {
-  background: url("/website/assets/sprites/backer-only/BackerOnly-Weapon-DarkSoulsBlade.gif") no-repeat;
+  background: url("/BackerOnly-Weapon-DarkSoulsBlade.gif") no-repeat;
 }
 
 .Pet-Wolf-Cerberus {
   width: 105px;
   height: 72px;
-  background: url("/website/assets/sprites/backer-only/BackerOnly-Pet-CerberusPup.gif") no-repeat;
+  background: url("/BackerOnly-Pet-CerberusPup.gif") no-repeat;
 }

@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "あなたの表示名、プロフィル写真、自己紹介文は、<a href='https://habitica.com/static/community-guidelines' target='_blank'>コミュニティー ガイドライン</a>に従わなくてはならないことを、心に刻んでおいてください(例 : 冒涜・不敬の禁止、成人向けの話題の禁止、侮辱行為の禁止など)。適切かどうかについてのご質問は、お気軽に <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a> へメールをお寄せください!",
+    "communityGuidelinesWarning": "あなたの表示名、プロフィル写真、自己紹介文は、<a href='https://habitica.com/static/community-guidelines' target='_blank'>コミュニティー ガイドライン</a>に従わなくてはならないことを、心に刻んでおいてください(例 : 冒涜・不敬の禁止、成人向けの話題の禁止、侮辱行為の禁止など)。適切かどうかについてのご質問は、お気軽に <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a> へメールをお寄せください!",
     "profile": "プロフィール",
     "avatar": "アバターのカスタマイズ",
     "other": "その他",
@@ -48,6 +48,7 @@
     "equipment": "装備",
     "equipmentBonus": "装備",
     "equipmentBonusText": "装備するアイテムによって能力値がアップします。所持品メニューの装備タブで、身に着ける武装を選んでください。",
+    "classBonusText": "現在の自分のクラスで、そのクラス用の武器・防具などのアイテムを使えばずっと効果的です。自分のクラス用の所持品を武装すると、得られる能力値のボーナスが50%増しになります。 (クラスをアンロックしていないか、別のクラスを選んでいない場合は、戦士クラスです)",
     "classEquipBonus": "クラスボーナス",
     "battleGear": "武装",
     "battleGearText": "こちらは、戦いのときに身に着けるアイテムです。タスクを達成したときに得られる数値に影響します。",

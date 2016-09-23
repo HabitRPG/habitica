@@ -146,6 +146,7 @@
     "hatchingPotionPeppermint": "Peppermint",
     "hatchingPotionFloral": "Floral",
     "hatchingPotionThunderstorm": "Thunderstorm",
+    "hatchingPotionGhost": "Ghost",
     "hatchingPotionNotes": "Pospite ovo po jajetu, i iz njega će se izleći <%= potText(locale)  %> ljubimac.",
     "premiumPotionAddlNotes": "Not usable on quest pet eggs.",
     "foodMeat": "Meso",

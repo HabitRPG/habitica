@@ -200,5 +200,10 @@
     "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
     "newChatMessagePlainNotification": "Новое сообщение в <%= groupName %> от <%= authorName %>. Нажмите, чтобы открыть чат!",
     "newChatMessageTitle": "Новое сообщение в <%= groupName %>",
+    "exportInbox": "Экспортировать сообщения",
+    "exportInboxPopoverTitle": "Экспортировать сообщения в виде HTML",
+    "exportInboxPopoverBody": "HTML allows easy reading of messages in a browser. For a machine-readable format, use Data > Export Data",
+    "to": "Кому:",
+    "from": "От:",
     "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made."
 }

@@ -74,7 +74,7 @@
     "clearTags": "クリア",
     "hideTags": "非表示にする",
     "showTags": "表示する",
-    "toRequired": "値を設定してください。",
+    "toRequired": "あて先プロパティーは必須です。",
     "startDate": "開始日",
     "startDateHelpTitle": "このタスクはいつ始めますか?",
     "startDateHelp": "タスクを始める日を設定します。ただし、過去の日付を設定することができません。",

@@ -1,4 +1,3 @@
-import splitWhitespace from '../libs/splitWhitespace';
 import _ from 'lodash';
 import i18n from '../i18n';
 import {
@@ -21,12 +20,8 @@ module.exports = function readCard (user, req = {}) {
   user.items.special[`${cardType}Received`].shift();
   user.flags.cardReceived = false;
 
-  if (req.v2 === true) {
-    return _.pick(user, splitWhitespace('items.special flags.cardReceived'));
-  } else {
-    return [
-      { specialItems: user.items.special, cardReceived: user.flags.cardReceived },
-      i18n.t('readCard', {cardType}, req.language),
-    ];
-  }
+  return [
+    { specialItems: user.items.special, cardReceived: user.flags.cardReceived },
+    i18n.t('readCard', {cardType}, req.language),
+  ];
 };

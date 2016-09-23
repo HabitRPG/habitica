@@ -74,7 +74,7 @@
     "clearTags": "清除",
     "hideTags": "隱藏標籤",
     "showTags": "展開標籤",
-    "toRequired": "You must supply a to value",
+    "toRequired": "You must supply a \"to\" property",
     "startDate": "開始日",
     "startDateHelpTitle": "這個任務的開始日？",
     "startDateHelp": "設定這個認識開始有效的日期，在那之前它不會出現在到期清單。",

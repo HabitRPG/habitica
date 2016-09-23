@@ -200,5 +200,10 @@
     "onlyGroupTasksCanBeAssigned": "グループのタスクのみ、割り当てできます",
     "newChatMessagePlainNotification": "<%= groupName %> に <%= authorName %> からの新着メッセージがあります。ここをクリックするとチャットページが開きます!",
     "newChatMessageTitle": "<%= groupName %> に 新着メッセージ",
-    "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made."
+    "exportInbox": "メッセージをエクスポート",
+    "exportInboxPopoverTitle": "メッセージを HTML でエクスポートします",
+    "exportInboxPopoverBody": "HTML は、ブラウザで簡単に読むことができます。システム形式には、データ > データをエクスポート から出力してください。",
+    "to": "→ ",
+    "from": "← ",
+    "desktopNotificationsText": "パーティーチャットの新しいメッセージをデスクトップに通知するため、あなたの認証を必要とします!　ブラウザに表示される案内にそって、許可をお願いします。<br><br>通知されるのは、Habitica を開いている間だけです。もしお気に召さなければ、ブラウザの設定で無効に設定することもできます。<br><br>このメッセージボックスは、決定がなされた後、自動的に閉じます。"
 }

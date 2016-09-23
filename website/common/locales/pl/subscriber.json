@@ -111,6 +111,7 @@
     "mysterySet201606": "Zestaw Szat Selkie",
     "mysterySet201607": "Seafloor Rogue Set",
     "mysterySet201608": "Zestaw Burzowy",
+    "mysterySet201609": "Cow Costume Set",
     "mysterySet301404": "Standardowy zestaw steampunkowy",
     "mysterySet301405": "Zestaw steampunkowych akcesoriów",
     "mysterySetwondercon": "Konwent Wspaniałości",
@@ -133,7 +134,7 @@
     "cannotDeleteActiveAccount": "Posiadasz aktywną subskrypcję. Wycofaj ją przed usunięciem konta.",
     "paymentNotSuccessful": "Płatność nie została dokonana",
     "planNotActive": "The plan hasn't activated yet (due to a PayPal bug). It will begin <%= nextBillingDate %>, after which you can cancel to retain your full benefits",
-    "notAllowedHourglass": "Pet/Mount not available for purchase with Mystic Hourglass.",
+    "notAllowedHourglass": "Tego chowańca/wierzchowca nie można kupić za Mistyczne Klepsydry.",
     "readCard": "<%= cardType %> został odczytany",
     "cardTypeRequired": "Wymagany typ karty",
     "cardTypeNotAllowed": "Nieznany typ karty.",
@@ -142,5 +143,5 @@
     "noSudoAccess": "You don't have sudo access.",
     "couponCodeRequired": "Kod promocyjny jest wymagany.",
     "eventRequired": "\"req.params.event\" jest wymagane.",
-    "countRequired": "\"req.query.count\" is required."
+    "countRequired": "\"req.params.event\" jest wymagane."
 }

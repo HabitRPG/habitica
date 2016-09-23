@@ -1,6 +1,6 @@
 {
     "npc": "NPC",
-    "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
+    "npcAchievementText": "Wsparł projekt na Kickstarterze na maksymalnym poziomie!",
     "mattBoch": "Matt Boch",
     "mattShall": "Mam przyprowadzić wierzchowca, <%= name %>? Gdy nakarmisz chowańca wystarczającą ilością jedzenia, by zamienił się w wierzchowca, pojawi się tutaj. Kliknij wierzchowca, by go osiodłać!",
     "mattBochText1": "Witaj w stajni! Mam na imię Matt i jestem władcą chowańców. Od poziomu 3 możesz za pomocą jaj i eliksirów wykluwać chowańce. Gdy na Targu wyklujesz chowańca, to pojawi się on tutaj! Kliknij na obrazek jednego z nich, by pojawił się na twoim awatarze. Karm chowańce jedzeniem znajdowanym od poziomu 3, by wyrosły z nich potężne wierzchowce.",
@@ -60,7 +60,7 @@
     "classGearText": "Po pierwsze: nie panikuj! Twoje stare wyposażenie znajduje się w ekwipunku, a teraz nosisz wyposażenie swojej nowej klasy. Używanie wyposażenia swojej klasy zapewnia 50% premię do atrybutów. Możesz jednak w każdej chwili wrócić do swojego starego wyposażenia.",
     "classStats": "To statystyki twojej klasy; wpływają one na rozgrywkę. Za każdym razem gdy awansujesz, otrzymujesz jeden punkt do przydzielenia w wybraną statystykę. Najedź na każdą statystykę by otrzymać więcej informacji.",
     "autoAllocate": "Automatyczne rozlokowanie",
-    "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Strength', you'll gain Strength automatically.",
+    "autoAllocateText": "Jeśli 'automatyczne rozlokowanie' jest zaznaczone, twój awatar zyskuje statystyki automatycznie w oparciu o atrybuty zadań, które możesz znaleźć w <strong>ZADANIE > Edycja > Zaawansowane > Atrybuty</strong>. Na przykład, jeśli często odwiedzasz siłownię oraz twoje Codzienne 'Siłownia' jest ustawione na 'Fizyczne', twoja Siła zwiększy się automatycznie.",
     "spells": "Zaklęcia",
     "spellsText": "Możesz teraz odblokować zaklęcia unikalne dla Twojej klasy. Pierwsze z nich zobaczysz na 11 poziomie. Twoja mana odnawia się o 10 punktów każdego dnia, plus 1 punkt za wykonane",
     "toDo": "Do-Zrobienia",
