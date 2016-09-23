@@ -1,4 +1,4 @@
-module.exports = {
+{
   "extends": [
     "habitrpg/browser",
     "habitrpg/babel"
@@ -7,4 +7,3 @@ module.exports = {
     "html"
   ]
 }
-
