@@ -1,7 +1,7 @@
 habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', function ($scope, Shared, Tasks, User) {
     $scope.editTask = Tasks.editTask;
 
-    function addTask (addTo, listDef, group) {
+    function addTask (listDef, group) {
       var task = Shared.taskDefaults({text: listDef.newTask, type: listDef.type});
       //If the group has not been created, we bulk add tasks on save
       if (group._id) Tasks.createGroupTasks(group._id, task);
@@ -10,18 +10,18 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
       delete listDef.newTask;
     };
 
-    $scope.addTask = function(addTo, listDef, group) {
+    $scope.addTask = function(listDef, group) {
       if (listDef.bulk) {
         var tasks = listDef.newTask.split(/[\n\r]+/);
         //Reverse the order of tasks so the tasks will appear in the order the user entered them
         tasks.reverse();
         _.each(tasks, function(t) {
           listDef.newTask = t;
-          addTask(addTo, listDef, group);
+          addTask(listDef, group);
         });
         listDef.bulk = false;
       } else {
-        addTask(addTo, listDef, group);
+        addTask(listDef, group);
       }
     }
 
@@ -51,8 +51,6 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
       if (isSaveAndClose) {
         $("#task-" + task._id).parent().children('.popover').removeClass('in');
       }
-
-      if (task.type == 'habit') Guide.goto('intro', 3);
     };
 
     $scope.toggleBulk = function(list) {
