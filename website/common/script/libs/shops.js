@@ -245,7 +245,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
           key: gear.key,
           text: gear.text(language),
           notes: gear.notes(language),
-          value: 1,
+          value: gear.twoHanded ? 2 : 1,
           type: gear.type,
           specialClass: gear.specialClass,
           locked: false,
