@@ -58,12 +58,8 @@ module.exports = function releaseBoth (user, req = {}, analytics) {
     user.achievements.triadBingoCount++;
   }
 
-  if (req.v2 === true) {
-    return user;
-  } else {
-    return [
-      _.pick(user, splitWhitespace('achievements items balance')),
-      i18n.t('mountsAndPetsReleased'),
-    ];
-  }
+  return [
+    _.pick(user, splitWhitespace('achievements items balance')),
+    i18n.t('mountsAndPetsReleased'),
+  ];
 };

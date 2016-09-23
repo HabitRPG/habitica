@@ -119,11 +119,7 @@ module.exports = function purchase (user, req = {}, analytics) {
     });
   }
 
-  if (req.v2 === true) {
-    return _.pick(user, splitWhitespace('items balance'));
-  } else {
-    return [
-      _.pick(user, splitWhitespace('items balance')),
-    ];
-  }
+  return [
+    _.pick(user, splitWhitespace('items balance')),
+  ];
 };
