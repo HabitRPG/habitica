@@ -30,12 +30,8 @@ module.exports = function reroll (user, tasks = [], req = {}, analytics) {
     });
   }
 
-  if (req.v2 === true) {
-    return user;
-  } else {
-    return [
-      {user, tasks},
-      i18n.t('fortifyComplete'),
-    ];
-  }
+  return [
+    {user, tasks},
+    i18n.t('fortifyComplete'),
+  ];
 };

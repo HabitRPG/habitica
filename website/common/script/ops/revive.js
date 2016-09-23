@@ -97,12 +97,8 @@ module.exports = function revive (user, req = {}, analytics) {
     });
   }
 
-  if (req.v2 === true) {
-    return user;
-  } else {
-    return [
-      user.items,
-      message,
-    ];
-  }
+  return [
+    user.items,
+    message,
+  ];
 };
