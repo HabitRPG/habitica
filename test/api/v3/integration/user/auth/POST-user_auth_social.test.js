@@ -50,15 +50,18 @@ describe('POST /user/auth/social', () => {
     });
 
     it('logs an existing user in', async () => {
-      await user.update({ 'auth.facebook.id': facebookId });
+      let registerResponse = await api.post(endpoint, {
+        authResponse: {access_token: randomAccessToken}, // eslint-disable-line camelcase
+        network,
+      });
 
       let response = await api.post(endpoint, {
         authResponse: {access_token: randomAccessToken}, // eslint-disable-line camelcase
         network,
       });
 
-      expect(response.apiToken).to.eql(user.apiToken);
-      expect(response.id).to.eql(user._id);
+      expect(response.apiToken).to.eql(registerResponse.apiToken);
+      expect(response.id).to.eql(registerResponse.id);
       expect(response.newUser).to.be.false;
     });
 
@@ -102,15 +105,18 @@ describe('POST /user/auth/social', () => {
     });
 
     it('logs an existing user in', async () => {
-      await user.update({ 'auth.google.id': googleId });
+      let registerResponse = await api.post(endpoint, {
+        authResponse: {access_token: randomAccessToken}, // eslint-disable-line camelcase
+        network,
+      });
 
       let response = await api.post(endpoint, {
         authResponse: {access_token: randomAccessToken}, // eslint-disable-line camelcase
         network,
       });
 
-      expect(response.apiToken).to.eql(user.apiToken);
-      expect(response.id).to.eql(user._id);
+      expect(response.apiToken).to.eql(registerResponse.apiToken);
+      expect(response.id).to.eql(registerResponse.id);
       expect(response.newUser).to.be.false;
     });
 
