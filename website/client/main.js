@@ -10,8 +10,16 @@ import router from './router';
 import store from './vuex/store';
 
 Vue.use(VueResource);
-Vue.http.headers.common['x-api-user'] = '';
-Vue.http.headers.common['x-api-key'] = '';
+
+// TODO just for the beginning
+
+let authSettings = localStorage.getItem('habit-mobile-settings');
+
+if (authSettings) {
+  authSettings = JSON.parse(authSettings);
+  Vue.http.headers.common['x-api-user'] = authSettings.auth.apiId;
+  Vue.http.headers.common['x-api-key'] = authSettings.auth.apiToken;
+}
 
 // Sync Vuex and Router
 VuexRouterSync.sync(store, router);
@@ -38,3 +46,9 @@ let userWatcher = store.watch(state => state.user, (user) => {
     app.$mount('#app');
   }
 });
+
+// Load the user
+store.dispatch('fetchUser')
+  .catch(() => {
+    alert('Impossible to fetch user. Copy into localStorage a valid habit-mobile-settings object.');
+  });
