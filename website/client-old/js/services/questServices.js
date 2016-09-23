@@ -71,7 +71,7 @@ angular.module('habitrpg')
       text += '**' + window.env.t('rewardsAllParticipants') + ':**\n\n';
       var participantRewards = _.reject(quest.drop.items, 'onlyOwner');
       if(participantRewards.length > 0) {
-        _.each( participantRewards, function(item) {
+        _.each(participantRewards, function(item) {
           text += quest.drop.items[item].text() + '\n\n';
         });
       }
@@ -83,7 +83,7 @@ angular.module('habitrpg')
       var ownerRewards = _.filter(quest.drop.items, 'onlyOwner');
       if(ownerRewards.length > 0) {
         text += '**' + window.env.t('rewardsQuestOwner') + ':**\n\n';
-        _.each( ownerRewards, function(item){
+        _.each(ownerRewards, function(item){
           text += quest.drop.items[item].text() + '\n\n';
         });
       }
