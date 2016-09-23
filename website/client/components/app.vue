@@ -1,7 +1,7 @@
 <template lang="pug">
 #app
   site-header
-  p Welcome back {{user.profile.name}}
+  p Welcome back {{user.profile.name}}!
   ul
     li
       router-link(to='/') Home
