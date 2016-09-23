@@ -3,6 +3,7 @@ import {
   createAndPopulateGroup,
   generateGroup,
   generateUser,
+  generateChallenge,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 import {
@@ -58,6 +59,30 @@ describe('DELETE /user', () => {
     await Bluebird.all(map(ids, id => {
       return expect(checkExistence('tasks', id)).to.eventually.eql(false);
     }));
+  });
+
+  it('reduces memberCount in challenges user is linked to', async () => {
+    let populatedGroup = await createAndPopulateGroup({
+      members: 2,
+    });
+
+    let group = populatedGroup.group;
+    let authorizedUser = populatedGroup.members[1];
+
+    let challenge = await generateChallenge(populatedGroup.groupLeader, group);
+    await authorizedUser.post(`/challenges/${challenge._id}/join`);
+
+    await challenge.sync();
+
+    expect(challenge.memberCount).to.eql(2);
+
+    await authorizedUser.del('/user', {
+      password,
+    });
+
+    await challenge.sync();
+
+    expect(challenge.memberCount).to.eql(1);
   });
 
   it('deletes the user', async () => {

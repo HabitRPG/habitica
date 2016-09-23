@@ -750,15 +750,18 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     $inc: {memberCount: -1},
   };
 
-  let challenges = await Challenge.find({
-    _id: {$in: user.challenges},
-    group: group._id,
-  });
+  // only remove user from challenges if it's set to remove-all
+  if (keep === 'remove-all') {
+    let challenges = await Challenge.find({
+      _id: {$in: user.challenges},
+      group: group._id,
+    });
 
-  let challengesToRemoveUserFrom = challenges.map(chal => {
-    return chal.unlinkTasks(user, keep);
-  });
-  await Bluebird.all(challengesToRemoveUserFrom);
+    let challengesToRemoveUserFrom = challenges.map(chal => {
+      return chal.unlinkTasks(user, keep);
+    });
+    await Bluebird.all(challengesToRemoveUserFrom);
+  }
 
   let promises = [];
 

@@ -93,7 +93,7 @@ describe('POST /groups/:groupId/leave', () => {
 
           let userWithChallengeTasks = await leader.get('/user');
 
-          expect(userWithChallengeTasks.challenges).to.not.include(challenge._id);
+          expect(userWithChallengeTasks.challenges).to.include(challenge._id);
           // @TODO find elegant way to assert against the task existing
           expect(userWithChallengeTasks.tasksOrder.habits).to.not.be.empty;
         });
