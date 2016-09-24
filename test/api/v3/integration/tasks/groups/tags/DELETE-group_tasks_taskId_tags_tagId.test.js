@@ -4,7 +4,7 @@ import {
 } from '../../../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
-describe('DELETE group /tasks/:taskId/tags/:tagId', () => {
+xdescribe('DELETE group /tasks/:taskId/tags/:tagId', () => {
   let user, guild, task;
 
   before(async () => {
