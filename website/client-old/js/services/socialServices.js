@@ -42,7 +42,7 @@
     });
 
     function socialLogin(network){
-      hello(network).login({scope:['email', 'profile']}).then(function(auth){
+      hello(network).login({scope:['email']}).then(function(auth){
         $http.post(ApiUrl.get() + "/api/v3/user/auth/social", auth)
           .success(function(res, status, headers, config) {
             Auth.runAuth(res.data.id, res.data.apiToken);
