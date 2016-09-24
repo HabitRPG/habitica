@@ -39,6 +39,8 @@ module.exports = function randomDrop (user, options, req = {}) {
   if (predictableRandom(user, user.stats.gp) < chance) {
     if (!user.party.quest.progress.collectedItems) user.party.quest.progress.collectedItems = 0;
     user.party.quest.progress.collectedItems++;
+    if (!user._tmp.quest) user._tmp.quest = {};
+    user._tmp.quest.collection = 1;
     user.markModified('party.quest.progress');
   }
 
