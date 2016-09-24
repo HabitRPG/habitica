@@ -50,6 +50,18 @@ async function _handleGroupInvitation (user, invite) {
   }
 }
 
+function hasBackupAuth (user, networkToRemove) {
+  if (user.auth.local.username) {
+    return true;
+  }
+
+  let hasAlternateNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find((network) => {
+    return network.key !== networkToRemove && user.auth[network.key].id;
+  });
+
+  return hasAlternateNetwork;
+}
+
 /**
  * @api {post} /api/v3/user/auth/local/register Register
  * @apiDescription Register a new user with email, username and password or attach local auth to a social user
@@ -600,7 +612,7 @@ api.deleteSocial = {
       return supportedNetwork.key === network;
     });
     if (!isSupportedNetwork) throw new BadRequest(res.t('unsupportedNetwork'));
-    if (!user.auth.local.username) throw new NotAuthorized(res.t('cantDetachSocial'));
+    if (!hasBackupAuth(user, network)) throw new NotAuthorized(res.t('cantDetachSocial'));
     let unset = {
       [`auth.${network}`]: 1,
     };

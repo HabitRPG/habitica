@@ -21,7 +21,7 @@ describe('DELETE social registration', () => {
   });
 
   context('Facebook', () => {
-    it('fails if local registration does not exist for this user', async () => {
+    it('fails if user does not have an alternative registration method', async () => {
       await user.update({
         'auth.facebook.id': 'some-fb-id',
         'auth.local': { ok: true },
@@ -33,9 +33,22 @@ describe('DELETE social registration', () => {
       });
     });
 
-    it('succeeds', async () => {
+    it('succeeds if user has a local registration', async () => {
       await user.update({
         'auth.facebook.id': 'some-fb-id',
+      });
+
+      let response = await user.del('/user/auth/social/facebook');
+      expect(response).to.eql({});
+      await user.sync();
+      expect(user.auth.facebook).to.be.empty;
+    });
+
+    it('succeeds if user has a google registration', async () => {
+      await user.update({
+        'auth.facebook.id': 'some-fb-id',
+        'auth.google.id': 'some-google-id',
+        'auth.local': { ok: true },
       });
 
       let response = await user.del('/user/auth/social/facebook');
@@ -46,7 +59,7 @@ describe('DELETE social registration', () => {
   });
 
   context('Google', () => {
-    it('fails if local registration does not exist for this user', async () => {
+    it('fails if user does not have an alternative registration method', async () => {
       await user.update({
         'auth.google.id': 'some-google-id',
         'auth.local': { ok: true },
@@ -58,9 +71,22 @@ describe('DELETE social registration', () => {
       });
     });
 
-    it('succeeds', async () => {
+    it('succeeds if user has a local registration', async () => {
       await user.update({
         'auth.google.id': 'some-google-id',
+      });
+
+      let response = await user.del('/user/auth/social/google');
+      expect(response).to.eql({});
+      await user.sync();
+      expect(user.auth.google).to.be.empty;
+    });
+
+    it('succeeds if user has a facebook registration', async () => {
+      await user.update({
+        'auth.google.id': 'some-google-id',
+        'auth.facebook.id': 'some-facebook-id',
+        'auth.local': { ok: true },
       });
 
       let response = await user.del('/user/auth/social/google');
