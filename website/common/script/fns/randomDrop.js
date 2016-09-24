@@ -3,7 +3,6 @@ import content from '../content/index';
 import i18n from '../i18n';
 import { daysSince } from '../cron';
 import { diminishingReturns } from '../statHelpers';
-import _predictableRandom from './predictableRandom';
 import randomVal from './randomVal';
 
 // Clone a drop object maintaining its functions so that we can change it without affecting the original item
@@ -21,7 +20,7 @@ module.exports = function randomDrop (user, options, req = {}) {
   let rarity;
   let task;
 
-  let predictableRandom = options.predictableRandom || _predictableRandom;
+  let predictableRandom = options.predictableRandom || Math.random;
   task = options.task;
 
   chance = _.min([Math.abs(task.value - 21.27), 37.5]) / 150 + 0.02;
