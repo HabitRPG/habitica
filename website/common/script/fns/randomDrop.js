@@ -56,7 +56,7 @@ module.exports = function randomDrop (user, options, req = {}) {
     rarity = predictableRandom(user, user.stats.gp);
 
     if (rarity > 0.6) { // food 40% chance
-      drop = cloneDropItem(randomVal(user, _.where(content.food, {
+      drop = cloneDropItem(randomVal(_.where(content.food, {
         canDrop: true,
       })));
 
@@ -71,7 +71,7 @@ module.exports = function randomDrop (user, options, req = {}) {
         dropNotes: drop.notes(req.language),
       }, req.language);
     } else if (rarity > 0.3) { // eggs 30% chance
-      drop = cloneDropItem(randomVal(user, content.dropEggs));
+      drop = cloneDropItem(randomVal(content.dropEggs));
       if (!user.items.eggs[drop.key]) {
         user.items.eggs[drop.key] = 0;
       }
@@ -91,7 +91,7 @@ module.exports = function randomDrop (user, options, req = {}) {
       } else { // common, 40% of 30%
         acceptableDrops = ['Base', 'White', 'Desert'];
       }
-      drop = cloneDropItem(randomVal(user, _.pick(content.hatchingPotions, (v, k) => {
+      drop = cloneDropItem(randomVal(_.pick(content.hatchingPotions, (v, k) => {
         return acceptableDrops.indexOf(k) >= 0;
       })));
       if (!user.items.hatchingPotions[drop.key]) {

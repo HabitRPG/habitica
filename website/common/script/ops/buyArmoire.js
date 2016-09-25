@@ -8,6 +8,9 @@ import {
 } from '../libs/errors';
 import randomVal from '../fns/randomVal';
 
+// TODO this is only used on the server
+// move out of common?
+
 const YIELD_EQUIPMENT_THRESHOLD = 0.6;
 const YIELD_FOOD_THRESHOLD = 0.8;
 
@@ -34,7 +37,7 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
 
   if (armoireHasEquipment && (armoireResult < YIELD_EQUIPMENT_THRESHOLD || !user.flags.armoireOpened)) {
     eligibleEquipment.sort();
-    drop = randomVal(user, eligibleEquipment);
+    drop = randomVal(eligibleEquipment);
 
     if (user.items.gear.owned[drop.key]) {
       throw new NotAuthorized(i18n.t('equipmentAlradyOwned', req.language));
@@ -57,7 +60,7 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
       dropText: drop.text(req.language),
     };
   } else if ((armoireHasEquipment && armoireResult < YIELD_FOOD_THRESHOLD) || armoireResult < 0.5) { // eslint-disable-line no-extra-parens
-    drop = randomVal(user, _.where(content.food, {
+    drop = randomVal(_.where(content.food, {
       canDrop: true,
     }));
 

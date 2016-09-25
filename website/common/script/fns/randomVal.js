@@ -7,9 +7,9 @@ function randomGenerator (user, seed, providedRandom) {
   return providedRandom ? providedRandom(user, seed) : Math.random();
 }
 
-module.exports = function randomVal (user, obj, options = {}) {
+module.exports = function randomVal (obj, options = {}) {
   let array = options.key ? _.keys(obj) : _.values(obj);
-  let rand = randomGenerator(user, options.seed, options.randomFunc);
+  let rand = randomGenerator(options.user, options.seed, options.randomFunc);
 
   array.sort();
 
