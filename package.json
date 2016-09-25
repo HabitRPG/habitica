@@ -110,8 +110,6 @@
     "vue-loader": "^9.4.0",
     "vue-resource": "^1.0.2",
     "vue-router": "^2.0.0-rc.5",
-    "vuex": "^2.0.0-rc.5",
-    "vuex-router-sync": "^3.0.0",
     "webpack": "^1.12.2",
     "webpack-merge": "^0.8.3",
     "winston": "^2.1.0",

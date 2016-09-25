@@ -3,11 +3,10 @@
 require('babel-polyfill');
 
 import Vue from 'vue';
-import VuexRouterSync from 'vuex-router-sync';
 import VueResource from 'vue-resource';
 import AppComponent from './components/app';
 import router from './router';
-import store from './vuex/store';
+import store from './store';
 
 Vue.use(VueResource);
 
@@ -21,12 +20,16 @@ if (authSettings) {
   Vue.http.headers.common['x-api-key'] = authSettings.auth.apiToken;
 }
 
-// Sync Vuex and Router
-VuexRouterSync.sync(store, router);
+// Make the store accessible from all components
+Vue.mixin({
+  beforeCreate () {
+    this.$store = store;
+  },
+});
 
-const app =  new Vue({ // eslint-disable-line no-new
+const app =  new Vue({
+  data: store.state,
   router,
-  store,
   render: h => h(AppComponent),
   mounted () { // Remove the loading screen when the app is mounted
     let loadingScreen = document.getElementById('loading-screen');
@@ -34,13 +37,13 @@ const app =  new Vue({ // eslint-disable-line no-new
   },
 });
 
-// Setup listener for title that is outside Vue's scope
-store.watch(state => state.title, (title) => {
+// Setup listener for title
+app.$watch('title', (title) => {
   document.title = title;
 });
 
 // Mount the app when the user is loaded
-let userWatcher = store.watch(state => state.user, (user) => {
+let userWatcher = app.$watch('user', (user) => {
   if (user && user._id) {
     userWatcher(); // remove the watcher
     app.$mount('#app');
