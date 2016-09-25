@@ -22,7 +22,8 @@ const store = {
     if (!action) throw new Error(`Action "${type}" not found.`);
     return action(store, ...args);
   },
-  $watch (getter, cb, options) {
+  watch (getter, cb, options) {
+    if (typeof getter !== 'function') throw new Error('The first argument of store.watch must be a function.');
     return _vm.$watch(() => getter(state), cb, options);
   },
 };
