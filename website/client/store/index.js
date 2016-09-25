@@ -34,7 +34,7 @@ const _computed = {};
 Object.keys(getters).forEach(key => {
   let getter = getters[key];
 
-  _computed[key] = () => getter(state);
+  _computed[key] = () => getter(store);
 
   Object.defineProperty(store.getters, key, {
     get: () => _vm[key],

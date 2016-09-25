@@ -29,16 +29,12 @@ const app =  new Vue({
 });
 
 // Setup listener for title
-store.$watch(state => state.title, (title) => {
+store.watch(state => state.title, (title) => {
   document.title = title;
 });
 
-setTimeout(() => {
-  store.state.user.profile = {name: 'aaa'};
-}, 1000);
-
 // Mount the app when the user is loaded
-let userWatcher = store.$watch(state => state.user, (user) => {
+let userWatcher = store.watch(state => state.user, (user) => {
   if (user && user._id) {
     userWatcher(); // remove the watcher
     app.$mount('#app');

@@ -1,4 +1,4 @@
-export function profileName (state) {
+export function profileName ({ state }) {
   let userProfileName = state.user.profile && state.user.profile.name;
 
   if (!userProfileName) {
