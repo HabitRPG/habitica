@@ -5,6 +5,9 @@ import { daysSince } from '../cron';
 import { diminishingReturns } from '../statHelpers';
 import randomVal from './randomVal';
 
+// TODO This is only used on the server
+// move to user model as an instance method?
+
 // Clone a drop object maintaining its functions so that we can change it without affecting the original item
 function cloneDropItem (drop) {
   return _.cloneDeep(drop, (val) => {
@@ -12,18 +15,20 @@ function cloneDropItem (drop) {
   });
 }
 
+function trueRandom () {
+  return Math.random();
+}
+
 module.exports = function randomDrop (user, options, req = {}) {
   let acceptableDrops;
-  let chance;
   let drop;
   let dropMultiplier;
   let rarity;
-  let task;
 
-  let predictableRandom = options.predictableRandom || Math.random;
-  task = options.task;
+  let predictableRandom = options.predictableRandom || trueRandom;
+  let task = options.task;
 
-  chance = _.min([Math.abs(task.value - 21.27), 37.5]) / 150 + 0.02;
+  let chance = _.min([Math.abs(task.value - 21.27), 37.5]) / 150 + 0.02;
   chance *= task.priority *                             // Task priority: +50% for Medium, +100% for Hard
     (1 + (task.streak / 100 || 0)) *                    // Streak bonus: +1% per streak
     (1 + user._statsComputed.per / 100) *               // PERception: +1% per point
@@ -35,7 +40,7 @@ module.exports = function randomDrop (user, options, req = {}) {
     }, 0) || 0));
   chance = diminishingReturns(chance, 0.75);
 
-  if (predictableRandom(user, user.stats.gp) < chance) {
+  if (predictableRandom() < chance) {
     if (!user.party.quest.progress.collectedItems) user.party.quest.progress.collectedItems = 0;
     user.party.quest.progress.collectedItems++;
     user.markModified('party.quest.progress');
@@ -52,8 +57,8 @@ module.exports = function randomDrop (user, options, req = {}) {
     return;
   }
 
-  if (user.flags && user.flags.dropsEnabled && predictableRandom(user, user.stats.exp) < chance) {
-    rarity = predictableRandom(user, user.stats.gp);
+  if (user.flags && user.flags.dropsEnabled && predictableRandom() < chance) {
+    rarity = predictableRandom();
 
     if (rarity > 0.6) { // food 40% chance
       drop = cloneDropItem(randomVal(_.where(content.food, {
