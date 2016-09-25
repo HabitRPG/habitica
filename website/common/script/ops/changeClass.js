@@ -35,8 +35,6 @@ module.exports = function changeClass (user, req = {}, analytics) {
         }
       }
 
-      user.items.gear.equipped[type] = foundKey;
-
       if (type === 'weapon' || (type === 'shield' && klass === 'rogue')) { // eslint-disable-line no-extra-parens
         user.items.gear.owned[`${type}_${klass}_0`] = true;
       }
