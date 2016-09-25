@@ -40,12 +40,11 @@ describe('shared.fns.randomVal', () => {
     let result = randomVal(obj, {
       user,
       seed: 100,
-      randomFunc: randomSpy,
+      predictableRandom: randomSpy,
     });
 
     expect(Math.random).to.not.be.called;
     expect(randomSpy).to.be.calledOnce;
-    expect(randomSpy).to.be.calledWith(user, 100);
     expect(result).to.equal(2);
   });
 
