@@ -3,7 +3,7 @@ import {
   translate as t,
 } from '../../../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
-
+// Currently we do not support adding tags to group original tasks, but if we do in the future, these tests will check
 xdescribe('POST group /tasks/:taskId/tags/:tagId', () => {
   let user, guild, task;
 
