@@ -3,11 +3,17 @@ import state from './state';
 import * as actions from './actions';
 import * as getters from './getters';
 
+// Central application store for Habitica
+// Heavily inspired to Vuex (https://github.com/vuejs/vuex) with a
+// similar internal implementation (thanks!), main difference is the absence of mutations.
+
 let _vm; // defined below
 
 const store = {
   getters: {},
-  state,
+  get state () {
+    return _vm.$data.state;
+  },
   actions,
   // Actions should be called using store.dispatch(ACTION, ...ARGS)
   dispatch (type, ...args) {
