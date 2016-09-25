@@ -1,7 +1,7 @@
 <template lang="pug">
 #app
   site-header
-  p Welcome back {{user.profile.name}}!
+  p Welcome back {{user.profile.name}} {{profileName}}!
   ul
     li
       router-link(to='/') Home
@@ -12,14 +12,20 @@
 
 <script>
 import SiteHeader from './siteHeader';
-import { mapState } from 'vuex';
 
 export default {
   components: {
     SiteHeader,
   },
 
-  computed: mapState(['user']),
+  computed: {
+    user () {
+      return this.$store.state.user;
+    },
+    profileName () {
+      return this.$store.getters.profileName;
+    },
+  },
 };
 </script>
 

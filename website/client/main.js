@@ -8,9 +8,8 @@ import AppComponent from './components/app';
 import router from './router';
 import store from './store';
 
-Vue.use(VueResource);
-
 // TODO just for the beginning
+Vue.use(VueResource);
 
 let authSettings = localStorage.getItem('habit-mobile-settings');
 
@@ -20,15 +19,7 @@ if (authSettings) {
   Vue.http.headers.common['x-api-key'] = authSettings.auth.apiToken;
 }
 
-// Make the store accessible from all components
-Vue.mixin({
-  beforeCreate () {
-    this.$store = store;
-  },
-});
-
 const app =  new Vue({
-  data: store.state,
   router,
   render: h => h(AppComponent),
   mounted () { // Remove the loading screen when the app is mounted
@@ -38,12 +29,16 @@ const app =  new Vue({
 });
 
 // Setup listener for title
-app.$watch('title', (title) => {
+store.$watch(state => state.title, (title) => {
   document.title = title;
 });
 
+setTimeout(() => {
+  store.state.user.profile = {name: 'aaa'};
+}, 1000);
+
 // Mount the app when the user is loaded
-let userWatcher = app.$watch('user', (user) => {
+let userWatcher = store.$watch(state => state.user, (user) => {
   if (user && user._id) {
     userWatcher(); // remove the watcher
     app.$mount('#app');
