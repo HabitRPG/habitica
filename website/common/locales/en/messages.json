@@ -56,6 +56,7 @@
   "messageGroupChatFlagAlreadyReported": "You have already reported this message",
   "messageGroupChatNotFound": "Message not found!",
   "messageGroupChatAdminClearFlagCount": "Only an admin can clear the flag count!",
+  "messageGroupChatSpam": "You have been sending messages too quickly, please wait briefly and try again.",
 
   "messageUserOperationProtected": "path `<%= operation %>` was not saved, as it's a protected path.",
   "messageUserOperationNotFound": "<%= operation %> operation not found",
