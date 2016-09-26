@@ -52,7 +52,7 @@ function($rootScope, User, $timeout, $state, Analytics) {
         {
           state: 'tasks',
           element: "h2.task-column_title.reward-title",
-          content: window.env.t('tourRewardsBrief'),
+          content: User.user.flags.armoireEnabled ? window.env.t('tourRewardsArmoire') : window.env.t('tourRewardsBrief'),
           placement: "left",
           proceed: window.env.t('tourRewardsProceed'),
           gold: 4,
