@@ -6,7 +6,7 @@ p {{ msg }}
 export default {
   data () {
     return {
-      msg: 'You\'re not the Home page!',
+      msg: 'You\'re on the Home page!',
     };
   },
 };

@@ -1,3 +1,2 @@
-/*******************************
-     User Global Variables
-*******************************/
+// Disable google fonts
+@importGoogleFonts: false;

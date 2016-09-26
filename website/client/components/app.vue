@@ -1,7 +1,6 @@
 <template lang="pug">
-#app
+#app.ui.fluid.container
   site-header
-  button.ui.button Custom background!
   p Welcome back {{user.profile.name}}!
   ul
     li
@@ -27,28 +26,9 @@ export default {
 <style lang="less">
 @import '../semantic-ui/semantic.less';
 
-html, body {
-  width: 100%;
+// Element is rendered outside of Vue because it cannot wait for JS to be loaded
+// Placing CSS here so it benefits from pre-processing
+#loading-screen {
   height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-#loading-screen { /* outside Vue because can't wait for rendering to finish */
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #fff;
-  z-index: 10001;
-}
-
-#app {
-  margin: 0 auto;
-  width: 80%;
-  border-left : 1px solid;
-  border-right: 1px solid;
-  padding: 20px;
 }
 </style>
