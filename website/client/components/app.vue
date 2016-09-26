@@ -1,6 +1,7 @@
 <template lang="pug">
 #app
   site-header
+  button.ui.button Custom background!
   p Welcome back {{user.profile.name}}!
   ul
     li
@@ -23,7 +24,9 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less">
+@import '../semantic-ui/semantic.less';
+
 html, body {
   width: 100%;
   height: 100%;

@@ -94,6 +94,7 @@
     "rimraf": "^2.4.3",
     "run-sequence": "^1.1.4",
     "s3-upload-stream": "^1.0.6",
+    "semantic-ui-less": "^2.2.4",
     "serve-favicon": "^2.3.0",
     "shelljs": "^0.6.0",
     "stripe": "^4.2.0",
