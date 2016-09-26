@@ -17,6 +17,16 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
   return { email, canSend: true };
 });
 
+/*
+  Spam constants to limit people from sending too many messages too quickly
+    MESSAGE_LIMIT - The amount of messages that can be sent in a time window
+    WINDOW_LENGTH - The window length for spam protection in milliseconds
+    CONTRIBUTOR_LEVEL - Anyone at or above this level is exempt
+ */
+const SPAM_MESSAGE_LIMIT = 4;
+const SPAM_WINDOW_LENGTH = 5000; // 5 seconds
+const SPAM_CONTRIBUTOR_LEVEL = 4;
+
 let api = {};
 
 async function getAuthorEmailFromMessage (message) {
@@ -100,6 +110,22 @@ api.postChat = {
 
     let lastClientMsg = req.query.previousMsg;
     chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
+
+    // Check for spam by seeing if the current user has posted too many messages in a short window
+    if (!(user.contributor.level >= SPAM_CONTRIBUTOR_LEVEL) && (group.type === 'party' || group.type === 'guild')) {
+      let currentTime = Number(new Date());
+      let userMessages = 0;
+      for (let i = 0; i < group.chat.length; i++) {
+        let message = group.chat[i];
+        if (message.uuid === user._id && currentTime - message.timestamp <= SPAM_WINDOW_LENGTH) {
+          if (++userMessages >= SPAM_MESSAGE_LIMIT) {
+            throw new NotFound(res.t('messageGroupChatSpam'));
+          }
+        } else if (currentTime - message.timestamp > SPAM_WINDOW_LENGTH) {
+          break;
+        }
+      }
+    }
 
     let newChatMessage = group.sendChat(req.body.message, user);
 
