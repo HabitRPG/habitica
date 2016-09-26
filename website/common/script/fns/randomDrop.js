@@ -3,7 +3,7 @@ import content from '../content/index';
 import i18n from '../i18n';
 import { daysSince } from '../cron';
 import { diminishingReturns } from '../statHelpers';
-import randomVal from './randomVal';
+import randomVal from '../libs/randomVal';
 
 // TODO This is only used on the server
 // move to user model as an instance method?

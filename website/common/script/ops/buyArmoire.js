@@ -6,7 +6,7 @@ import splitWhitespace from '../libs/splitWhitespace';
 import {
   NotAuthorized,
 } from '../libs/errors';
-import randomVal from '../fns/randomVal';
+import randomVal from '../libs/randomVal';
 
 // TODO this is only used on the server
 // move out of common?

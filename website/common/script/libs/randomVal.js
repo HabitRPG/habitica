@@ -1,12 +1,11 @@
 import _ from 'lodash';
 
-// Get a random property from an object
-// returns random property (the value)
-
 function trueRandom () {
   return Math.random();
 }
 
+// Get a random property from an object
+// returns random property (the value)
 module.exports = function randomVal (obj, options = {}) {
   let array = options.key ? _.keys(obj) : _.values(obj);
   let random = (options.predictableRandom || trueRandom)();
