@@ -91,12 +91,14 @@ api.statsComputed = statsComputed;
 import shops from './libs/shops';
 api.shops = shops;
 
+import randomVal from './libs/randomVal';
+api.randomVal = randomVal;
+
 import autoAllocate from './fns/autoAllocate';
 import crit from './fns/crit';
 import handleTwoHanded from './fns/handleTwoHanded';
 import predictableRandom from './fns/predictableRandom';
 import randomDrop from './fns/randomDrop';
-import randomVal from './fns/randomVal';
 import resetGear from './fns/resetGear';
 import ultimateGear from './fns/ultimateGear';
 import updateStats from './fns/updateStats';
@@ -107,7 +109,6 @@ api.fns = {
   handleTwoHanded,
   predictableRandom,
   randomDrop,
-  randomVal,
   resetGear,
   ultimateGear,
   updateStats,

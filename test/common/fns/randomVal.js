@@ -1,9 +1,9 @@
-import randomVal from '../../../website/common/script/fns/randomVal';
+import randomVal from '../../../website/common/script/libs/randomVal';
 import {
   generateUser,
 } from '../../helpers/common.helper';
 
-describe('shared.fns.randomVal', () => {
+describe('randomVal', () => {
   let obj;
 
   beforeEach(() => {
