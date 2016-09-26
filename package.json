@@ -65,6 +65,8 @@
     "jade": "~1.11.0",
     "js2xmlparser": "~1.0.0",
     "json-loader": "^0.5.4",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
     "lodash": "^3.10.1",
     "lodash.setwith": "^4.2.0",
     "merge-stream": "^1.0.0",
