@@ -19,7 +19,7 @@ if (authSettings) {
   Vue.http.headers.common['x-api-key'] = authSettings.auth.apiToken;
 }
 
-const app =  new Vue({
+const app = new Vue({
   router,
   render: h => h(AppComponent),
   mounted () { // Remove the loading screen when the app is mounted
