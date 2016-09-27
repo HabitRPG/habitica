@@ -45,7 +45,7 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
         });
       }
 
-      User.updateTask(task, {body: task});
+      Tasks.updateTask(task._id, task);
       if (!stayOpen) task._editing = false;
 
       if (isSaveAndClose) {
