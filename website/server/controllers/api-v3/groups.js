@@ -366,7 +366,7 @@ api.rejectGroupInvite = {
  * @apiGroup Group
  *
  * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {String="remove-all","keep-all"} keep Query parameter - Whether or not to remain in challenges belonging to the group being left. Defaults to keep-all
+ * @apiParam {String="remove-all","keep-all"} keep Query parameter - Whether or not to keep challenges belonging to the group being left. Defaults to keep-all
  *
  * @apiSuccess {Object} data An empty object
  */
