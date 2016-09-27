@@ -1,6 +1,6 @@
 {
   "name": "habitica",
-  "version": "3.43.0",
+  "version": "3.43.1",
   "dependencies": {
     "@slack/client": {
       "version": "3.6.0",
@@ -9418,6 +9418,11 @@
           "resolved": "https://registry.npmjs.org/vue-hot-reload-api/-/vue-hot-reload-api-2.0.6.tgz"
         }
       }
+    },
+    "vue-resource": {
+      "version": "1.0.3",
+      "from": "vue-resource@>=1.0.2 <2.0.0",
+      "resolved": "https://registry.npmjs.org/vue-resource/-/vue-resource-1.0.3.tgz"
     },
     "vue-router": {
       "version": "2.0.0-rc.5",
