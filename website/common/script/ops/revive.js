@@ -4,7 +4,10 @@ import _ from 'lodash';
 import {
   NotAuthorized,
 } from '../libs/errors';
-import randomVal from '../fns/randomVal';
+import randomVal from '../libs/randomVal';
+
+// TODO this is only used on the server
+// move out of common?
 
 module.exports = function revive (user, req = {}, analytics) {
   if (user.stats.hp > 0) {
@@ -21,7 +24,7 @@ module.exports = function revive (user, req = {}, analytics) {
     user.stats.lvl--;
   }
 
-  let lostStat = randomVal(user, _.reduce(['str', 'con', 'per', 'int'], function findRandomStat (m, k) {
+  let lostStat = randomVal(_.reduce(['str', 'con', 'per', 'int'], function findRandomStat (m, k) {
     if (user.stats[k]) {
       m[k] = k;
     }
@@ -68,7 +71,7 @@ module.exports = function revive (user, req = {}, analytics) {
     }
   });
 
-  let lostItem = randomVal(user, losableItems);
+  let lostItem = randomVal(losableItems);
 
   let message = '';
   let item = content.gear.flat[lostItem];

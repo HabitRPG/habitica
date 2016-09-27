@@ -9419,6 +9419,11 @@
         }
       }
     },
+    "vue-resource": {
+      "version": "1.0.3",
+      "from": "vue-resource@>=1.0.2 <2.0.0",
+      "resolved": "https://registry.npmjs.org/vue-resource/-/vue-resource-1.0.3.tgz"
+    },
     "vue-router": {
       "version": "2.0.0-rc.5",
       "from": "vue-router@>=2.0.0-rc.5 <3.0.0",

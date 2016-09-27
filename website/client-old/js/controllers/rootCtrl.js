@@ -326,6 +326,24 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       }
     }
 
+    function _questProgress() {
+      var user = $scope.user;
+      if (user.party.quest) {
+        var userQuest = Content.quests[user.party.quest.key];
+
+        if (!userQuest) {
+          return 0;
+        }
+        if (userQuest.boss && user.party.quest.progress.up > 0) {
+          return user.party.quest.progress.up;
+        }
+        if (userQuest.collect && user.party.quest.progress.collectedItems > 0) {
+          return user.party.quest.progress.collectedItems;
+        }
+      }
+      return 0;
+    }
+
     /*
      ------------------------
      Spells
@@ -365,6 +383,8 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     }
 
     $scope.castEnd = function(target, type, $event){
+      var beforeQuestProgress = _questProgress();
+
       if (!$rootScope.applyingAction) return 'No applying action';
       $event && ($event.stopPropagation(),$event.preventDefault());
 
@@ -383,12 +403,22 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
       $http.post(spellUrl)
         .success(function(){ // TODO response will always include the modified data, no need to sync!
           var msg = window.env.t('youCast', {spell: spell.text()});
+
           switch (type) {
             case 'task': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.text});break;
             case 'user': msg = window.env.t('youCastTarget', {spell: spell.text(), target: target.profile.name});break;
             case 'party': msg = window.env.t('youCastParty', {spell: spell.text()});break;
           }
           Notification.markdown(msg);
+          var questProgress = _questProgress() - beforeQuestProgress;
+          if (questProgress > 0) {
+            var userQuest = Content.quests[user.party.quest.key];
+            if (userQuest.boss) {
+              Notification.quest('questDamage', questProgress.toFixed(1));
+            } else if (quest.collection && userQuest.collect) {
+              Notification.quest('questCollection', questProgress);
+            }
+          }
           User.sync();
         });
     }
