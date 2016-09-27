@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style lang="less">
-@import '../semantic-ui/semantic.less';
+@import '../assets/semantic-ui/semantic.less';
 
 // Element is rendered outside of Vue because it cannot wait for JS to be loaded
 // Placing CSS here so it benefits from pre-processing
