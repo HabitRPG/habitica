@@ -4,7 +4,7 @@ require('babel-polyfill');
 
 import Vue from 'vue';
 import VueResource from 'vue-resource';
-import AppComponent from './components/app';
+import AppComponent from './app';
 import router from './router';
 import store from './store';
 
@@ -33,16 +33,18 @@ store.watch(state => state.title, (title) => {
   document.title = title;
 });
 
-// Mount the app when the user is loaded
-let userWatcher = store.watch(state => state.user, (user) => {
-  if (user && user._id) {
-    userWatcher(); // remove the watcher
+// Mount the app when user and tasks are loaded
+let userDataWatcher = store.watch(state => [state.user, state.tasks], ([user, tasks]) => {
+  if (user && user._id && tasks && tasks.length) {
+    userDataWatcher(); // remove the watcher
     app.$mount('#app');
   }
 });
 
-// Load the user
-store.dispatch('fetchUser')
-  .catch(() => {
-    alert('Impossible to fetch user. Copy into localStorage a valid habit-mobile-settings object.');
-  });
+// Load the user and the user tasks
+Promise.all([
+  store.dispatch('fetchUser'),
+  store.dispatch('fetchUserTasks'),
+]).catch(() => {
+  alert('Impossible to fetch user. Copy into localStorage a valid habit-mobile-settings object.');
+});
