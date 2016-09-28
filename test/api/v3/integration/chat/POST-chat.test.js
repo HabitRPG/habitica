@@ -4,7 +4,7 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 
 describe('POST /chat', () => {
-  let user, groupWithChat, userWithChatRevoked, userSocialite, member;
+  let user, groupWithChat, member, additionalMember;
   let testMessage = 'Test Message';
 
   before(async () => {
@@ -19,9 +19,8 @@ describe('POST /chat', () => {
 
     user = groupLeader;
     groupWithChat = group;
-    userWithChatRevoked = await members[0].update({'flags.chatRevoked': true});
-    userSocialite = await members[1].update({'contributor.level': 5});
     member = members[0];
+    additionalMember = members[1];
   });
 
   it('Returns an error when no message is provided', async () => {
@@ -42,6 +41,7 @@ describe('POST /chat', () => {
   });
 
   it('Returns an error when chat privileges are revoked', async () => {
+    let userWithChatRevoked = await member.update({'flags.chatRevoked': true});
     await expect(userWithChatRevoked.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
@@ -81,26 +81,23 @@ describe('POST /chat', () => {
   });
 
   it('Returns an error when the user has been posting too many messages', async () => {
-    let spamError = {};
-
-    // this loop should only actually run 10 times if the test would fail, else it is cut short at first error
-    for (let i = 0; i < 5; i++) {
-      try {
-        await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage }); // eslint-disable-line babel/no-await-in-loop
-      } catch (error) {
-        spamError = error;
-        break;
-      }
+    // Post 4 messages which is the limit for spam
+    for (let i = 0; i < 4; i++) {
+      let result = await additionalMember.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage }); // eslint-disable-line babel/no-await-in-loop
+      expect(result.message.id).to.exist;
     }
 
-    expect(spamError).to.eql({
-      code: 404,
-      error: 'NotFound',
-      message: 'You have been sending messages too quickly, please wait briefly and try again.',
+    await expect(additionalMember.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage })).to.eventually.be.rejected.and.eql({
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('messageGroupChatSpam'),
     });
   });
 
   it('contributor should not receive spam alert', async () => {
+    let userSocialite = await member.update({'contributor.level': 4, 'flags.chatRevoked': false});
+
+    // Post 5 messages which is 1 more than the limit for spam
     for (let i = 0; i < 5; i++) {
       let result = await userSocialite.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage }); // eslint-disable-line babel/no-await-in-loop
       expect(result.message.id).to.exist;

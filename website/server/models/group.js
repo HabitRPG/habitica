@@ -35,6 +35,16 @@ const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = shared.constants.LARGE_GROUP_COUNT_MESS
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 
+/*
+#  Spam constants to limit people from sending too many messages too quickly
+#    MESSAGE_LIMIT - The amount of messages that can be sent in a time window
+#    WINDOW_LENGTH - The window length for spam protection in milliseconds
+#    CONTRIBUTOR_LEVEL - Anyone at or above this level is exempt
+*/
+const SPAM_MESSAGE_LIMIT = 4;
+const SPAM_WINDOW_LENGTH = 5000; // 5 seconds
+const SPAM_CONTRIBUTOR_LEVEL = 4;
+
 export let schema = new Schema({
   name: {type: String, required: true},
   description: String,
@@ -903,6 +913,28 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
   }, {
     $set: {'group.broken': 'TASK_DELETED'},
   }, {multi: true}).exec();
+};
+
+// Returns true if the user has reached the spam message limit
+schema.methods.checkChatSpam = function groupCheckChatSpam (user) {
+  let group = this;
+  if (!(user.contributor.level >= SPAM_CONTRIBUTOR_LEVEL)) {
+    let currentTime = Number(new Date());
+    let userMessages = 0;
+    for (let i = 0; i < group.chat.length; i++) {
+      let message = group.chat[i];
+      if (message.uuid === user._id && currentTime - message.timestamp <= SPAM_WINDOW_LENGTH) {
+        userMessages++;
+        if (userMessages >= SPAM_MESSAGE_LIMIT) {
+          return true;
+        }
+      } else if (currentTime - message.timestamp > SPAM_WINDOW_LENGTH) {
+        break;
+      }
+    }
+  }
+
+  return false;
 };
 
 export let model = mongoose.model('Group', schema);
