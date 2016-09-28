@@ -33,6 +33,7 @@ coverage
 coverage.html
 common/dist/scripts/*
 dist
+dist-client
 test/client/unit/coverage
 test/client/e2e/reports
 test/client-old/spec/mocks/translations.js

@@ -26,6 +26,8 @@
     "pending": "Pendente",
     "questStart": "Assim que todos os membros tenham aceitado ou rejeitado, a missão começa. Apenas aqueles que clicaram \"aceitar\" participarão da missão e receberão os prêmios. Se os membros estiverem pendentes por muito tempo (inativos?), o dono da missão pode começá-la sem eles clicando em \"Começar\". O dono da missão também pode cancelá-la e recuperar o pergaminho de missão clicando em \"Cancelar\".",
     "questStartBroken": "Assim que todos os membros tenham aceitado ou rejeitado, a missão começa... Apenas aqueles que clicaram \"aceitar\" participarão da missão e receberão os prêmios... Se os membros estiverem pendentes por muito tempo (inativos?), o dono da missão pode começá-la sem eles clicando em \"Começar\"... O dono da missão também pode cancelar a missão e recuperar o pergaminho de missão clicando em \"Cancelar\".",
+    "questCollection": "+<%= val %> quest item(s) found",
+    "questDamage": "+<%= val %> damage to boss",
     "begin": "Começar",
     "bossHP": "Vida do Chefão",
     "bossStrength": "Força do Chefão",

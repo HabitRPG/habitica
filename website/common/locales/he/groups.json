@@ -45,7 +45,7 @@
     "chat": "שיחה",
     "sendChat": "שילחו הודעה",
     "toolTipMsg": "טעינת הודעות אחרונות",
-    "syncPartyAndChat": "Sync Party and Chat",
+    "syncPartyAndChat": "סנכרנו חבורה וצ׳אט",
     "guildBankPop1": "בנק הגילדה",
     "guildBankPop2": "אבני חן שזמינות לראש הגילדה שלכם כפרסים עבור אתגרים.",
     "guildGems": "אבני חן של הגילדה",
@@ -141,7 +141,7 @@
     "inviteNewUsers": "הזמן משתמשים חדשים",
     "sendInvitations": "שלח הזמנות",
     "invitationsSent": "הזמנות נשלחו!",
-    "invitationSent": "Invitation sent!",
+    "invitationSent": "הזמנה נשלחה!",
     "inviteAlertInfo2": "או שתפו את הקישור (העתק/הדבק):",
     "sendGiftHeading": "שלחו מתנה ל<%= name %>",
     "sendGiftGemsBalance": "החל מ-<%= number %> אבני חן",
@@ -200,5 +200,10 @@
     "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
     "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
     "newChatMessageTitle": "New message in <%= groupName %>",
+    "exportInbox": "Export Messages",
+    "exportInboxPopoverTitle": "Export your messages as HTML",
+    "exportInboxPopoverBody": "HTML allows easy reading of messages in a browser. For a machine-readable format, use Data > Export Data",
+    "to": "To:",
+    "from": "From:",
     "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made."
 }

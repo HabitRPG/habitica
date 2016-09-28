@@ -26,6 +26,8 @@
     "pending": "En attente",
     "questStart": "Une fois que tous les membres ont soit accepté, soit refusé, la quête commence. Seuls ceux qui ont cliqué sur \"accepter\" pourront participer à la quête et recevoir les récompenses. Si certains membres mettent trop de temps à répondre (peut-être sont-ils inactifs ?), le lanceur de quête peut démarrer la quête sans eux en cliquant sur \"commencer\". Le lanceur de quête peut également annuler la quête et récupérer le parchemin de quête en cliquant sur \"Annuler\".",
     "questStartBroken": "Une fois que tous les membres ont soit accepté, soit refusé, la quête commence... Seuls ceux qui ont cliqué sur « Accepter » pourront participer à la quête et recevoir les récompenses... Si certains membres mettent trop de temps à répondre (peut-être sont-ils inactifs ?), le propriétaire de la quête peut démarrer la quête sans eux en cliquant sur « Commencer »... Le propriétaire de la quête peut également annuler la quête et récupérer le parchemin de quête en cliquant sur « Annuler »....",
+    "questCollection": "+<%= val %> objet(s) de quête trouvé(s)",
+    "questDamage": "+<%= val %> dégâts au boss",
     "begin": "Commencer",
     "bossHP": "Santé du Boss",
     "bossStrength": "Force du Boss",

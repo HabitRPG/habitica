@@ -196,9 +196,14 @@
     "emailsMustBeAnArray": "приглашения по электронной почте должны быть массивом.",
     "canOnlyInviteMaxInvites": "Вы можете приглашать только \"<%= maxInvites %>\" единовременно",
     "onlyCreatorOrAdminCanDeleteChat": "Вы не авторизованы чтобы удаить это сообщение!",
-    "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
-    "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
+    "onlyGroupLeaderCanEditTasks": "Вы не авторизованы, чтобы редактировать задачи!",
+    "onlyGroupTasksCanBeAssigned": "Можно назначать только командные задачи",
     "newChatMessagePlainNotification": "Новое сообщение в <%= groupName %> от <%= authorName %>. Нажмите, чтобы открыть чат!",
     "newChatMessageTitle": "Новое сообщение в <%= groupName %>",
-    "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made."
+    "exportInbox": "Экспортировать сообщения",
+    "exportInboxPopoverTitle": "Экспортировать сообщения в виде HTML",
+    "exportInboxPopoverBody": "HTML позволяет читать сообщения в браузере. Для перевода в этот формат используйте Данны > Экспорт Данных",
+    "to": "Кому:",
+    "from": "От:",
+    "desktopNotificationsText": "Требуется ваше согласие на включение уведомлений на рабочем столе о новых сообщениях в командном чате! Выполните инструкции вашего браузера и включите их.<br><br>Вы будете получать уведомления только тогда, когда у вас открыта Habitica. Если вы решили отключить их, сделайте это в настройках браузера.<br><br>Это окно закроется автоматически после принятия решения."
 }

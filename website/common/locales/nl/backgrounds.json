@@ -195,5 +195,12 @@
     "backgroundFarmhouseText": "Boerenhuis",
     "backgroundFarmhouseNotes": "Begroet de dieren op weg naar het boerenhuis.",
     "backgroundOrchardText": "Boomgaard",
-    "backgroundOrchardNotes": "Pluk rijpe vruchten in een boomgaard."
+    "backgroundOrchardNotes": "Pluk rijpe vruchten in een boomgaard.",
+    "backgrounds102016": "SET 29: Released October 2016",
+    "backgroundSpiderWebText": "Spider Web",
+    "backgroundSpiderWebNotes": "Get snagged in a Spider Web.",
+    "backgroundStrangeSewersText": "Strange Sewers",
+    "backgroundStrangeSewersNotes": "Slither through the Strange Sewers.",
+    "backgroundRainyCityText": "Rainy City",
+    "backgroundRainyCityNotes": "Splash through a Rainy City."
 }

@@ -60,12 +60,8 @@ module.exports = function buyGear (user, req = {}, analytics) {
     });
   }
 
-  if (req.v2 === true) {
-    return _.pick(user, splitWhitespace('items achievements stats flags'));
-  } else {
-    return [
-      _.pick(user, splitWhitespace('items achievements stats flags')),
-      message,
-    ];
-  }
+  return [
+    _.pick(user, splitWhitespace('items achievements stats flags')),
+    message,
+  ];
 };

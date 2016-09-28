@@ -36,6 +36,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
           text: task,
           type: listDef.type,
           tags: _.keys(User.user.filters),
+          _advanced: !User.user.preferences.advancedCollapsed,
         };
       });
       User.addTask({

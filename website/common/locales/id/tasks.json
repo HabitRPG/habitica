@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Hapus yang Telah Selesai",
-    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
+    "lotOfToDos": "30 tugas terakhir yang Anda selesaikan ditampilkan di sini. Anda dapat melihat tugas lama yang telah Anda selesaikan dari Data > Data Display Tool or Data > Export Data > User Data.",
     "deleteToDosExplanation": "Jika kamu menekan tombol di bawah ini, semua tugas yang telah diselesaikan dan tugas yang diarsipkan akan dibuang secara permanen. Silakan ekspor terlebih dahulu jika kamu ingin menyimpan catatan tugas tersebut.",
     "addmultiple": "Tambah Lebih dari Satu",
     "addsingle": "Tambah satu",
@@ -74,7 +74,7 @@
     "clearTags": "Hapus",
     "hideTags": "Sembunyikan",
     "showTags": "Perlihatkan",
-    "toRequired": "Kamu harus menyediakan nilai",
+    "toRequired": "You must supply a \"to\" property",
     "startDate": "Tanggal Mulai",
     "startDateHelpTitle": "Kapan tugas ini dimulai?",
     "startDateHelp": "Tentukan tanggal di mana tugas ini memiliki efek. Tidak akan bisa menentukan tenggat waktu pada hari yang telah lewat.",

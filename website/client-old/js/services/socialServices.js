@@ -5,9 +5,11 @@
     .module('habitrpg')
     .factory('Social', socialFactory);
 
-  socialFactory.$inject = [];
+  socialFactory.$inject = [
+    '$http','ApiUrl', 'Alert', 'Auth'
+  ];
 
-  function socialFactory() {
+  function socialFactory($http, ApiUrl, Alert, Auth) {
 
     function loadWidgets() {
       // Facebook
@@ -34,8 +36,27 @@
       }
     }
 
+    hello.init({
+      facebook : window.env.FACEBOOK_KEY,
+      google : window.env.GOOGLE_CLIENT_ID
+    });
+
+    function socialLogin(network){
+      hello(network).login({scope:['email']}).then(function(auth){
+        $http.post(ApiUrl.get() + "/api/v3/user/auth/social", auth)
+          .success(function(res, status, headers, config) {
+            Auth.runAuth(res.data.id, res.data.apiToken);
+          }).error(Alert.authErrorAlert);
+      }, function( err ){
+        alert("Signin error: " + err.message );
+      });
+    };
+
+
+
     return {
-      loadWidgets: loadWidgets
+      loadWidgets: loadWidgets,
+      socialLogin: socialLogin
     }
   }
 }());

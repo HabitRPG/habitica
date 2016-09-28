@@ -1,11 +1,11 @@
 # Compiled and vendored files
-common/dist/
-common/transpiled-babel/
 coverage/
 database_reports/
 website/build/
 website/transpiled-babel/
+website/common/transpiled-babel/
 dist/
+dist-client/
 
 # Not linted
 migrations/*

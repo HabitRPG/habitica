@@ -82,7 +82,7 @@
     "sortPets": "Organizar por número de mascotes",
     "sortJoined": "Ordenar por data de entrada no grupo",
     "sortName": "Ordenar por nome do avatar",
-    "sortBackgrounds": "Ordenar por plano de fundo",
+    "sortBackgrounds": "Ordenar por cenário",
     "sortHabitrpgJoined": "Ordenar por data de entrada no Habitica",
     "sortHabitrpgLastLoggedIn": "Ordenar por último login do usuário",
     "ascendingSort": "Ordenar crescentemente",
@@ -200,5 +200,10 @@
     "onlyGroupTasksCanBeAssigned": "Apenas tarefas de grupo podem ser designadas",
     "newChatMessagePlainNotification": "Nova mensagem em <%= groupName %> de <%= authorName %>. Clique aqui para abrir a página do chat!",
     "newChatMessageTitle": "Nova mensagem em <%= groupName %>",
+    "exportInbox": "Exportar Mensagens",
+    "exportInboxPopoverTitle": "Exportar suas mensagens como HTML",
+    "exportInboxPopoverBody": "Para leitura em navegadores, melhor usar HTML. Para um formato que será lido por outros programas, utilize Dados > Exportar Dados",
+    "to": "Para:",
+    "from": "De:",
     "desktopNotificationsText": "Nós precisamos de sua autorização para habilitar as notificações na área de trabalho para novas mensagens no chat do grupo! Siga as instruções do seu navegador para habilitá-las. <br><br>Você irá receber estas notificações apenas quando estiver com o Habitica aberto. Se você não gostar delas, poderá desativar nas configurações do seu navegador.<br><br>Esta caixa de texto irá fechar automaticamente quando uma decisão for tomada."
 }

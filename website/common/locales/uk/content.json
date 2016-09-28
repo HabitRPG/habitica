@@ -146,6 +146,7 @@
     "hatchingPotionPeppermint": "Peppermint",
     "hatchingPotionFloral": "Floral",
     "hatchingPotionThunderstorm": "Thunderstorm",
+    "hatchingPotionGhost": "Ghost",
     "hatchingPotionNotes": "Вилийте це на яйце і з нього вилупиться <%= potText(locale) %> улюбленець.",
     "premiumPotionAddlNotes": "Не можна використати на квестових яйцях улюбленців",
     "foodMeat": "М'ясо",

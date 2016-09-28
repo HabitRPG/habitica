@@ -131,9 +131,12 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
           .panel-heading
             span=env.t('registration')
           .panel-body
-            div(ng-if='user.auth.facebook.id')
-              button.btn.btn-primary(disabled='disabled', ng-if='!user.auth.local.username')=env.t('registeredWithFb')
-              button.btn.btn-danger(ng-click='http("delete", "/api/v3/user/auth/social/facebook", null, "detachedFacebook")', ng-if='user.auth.local.username')=env.t('detachFacebook')
+            div
+              ul.list-inline
+                li(ng-repeat='network in SOCIAL_AUTH_NETWORKS')
+                  button.btn.btn-primary(ng-if='!user.auth[network.key].id', ng-click='socialLogin(network.key, user)')=env.t('registerWithSocial', {network: '{{network.name}}'})
+                  button.btn.btn-primary(disabled='disabled', ng-if='!hasBackupAuthOption(user, network.key) && user.auth[network.key].id')=env.t('registeredWithSocial', {network: '{{network.name}}'})
+                  button.btn.btn-danger(ng-click='deleteSocialAuth(network.key)', ng-if='hasBackupAuthOption(user, network.key) && user.auth[network.key].id')=env.t('detachSocial', {network: '{{network.name}}'})
               hr
               div(ng-if='!user.auth.local.username')
                 p=env.t('addLocalAuth')

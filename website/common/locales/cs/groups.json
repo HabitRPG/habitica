@@ -141,7 +141,7 @@
     "inviteNewUsers": "Pozvi nové uživatele",
     "sendInvitations": "Pošli pozvánky",
     "invitationsSent": "Pozvánky odeslány!",
-    "invitationSent": "Invitation sent!",
+    "invitationSent": "Pozvánka odeslána!",
     "inviteAlertInfo2": "Nebo sdílej tento link (kopírovat/vložit):",
     "sendGiftHeading": "Poslat dárek <%= name %>",
     "sendGiftGemsBalance": "Z <%= number %> Drahokamů",
@@ -200,5 +200,10 @@
     "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
     "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
     "newChatMessageTitle": "New message in <%= groupName %>",
+    "exportInbox": "Export Messages",
+    "exportInboxPopoverTitle": "Export your messages as HTML",
+    "exportInboxPopoverBody": "HTML allows easy reading of messages in a browser. For a machine-readable format, use Data > Export Data",
+    "to": "To:",
+    "from": "From:",
     "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made."
 }

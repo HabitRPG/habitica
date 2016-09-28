@@ -160,7 +160,7 @@ describe('Challenges Controller', function() {
 
       it('filters challenges to a single group when group id filter is set', inject(function($controller) {
         scope.search = { };
-        scope.groups = {
+        scope.groupsFilter = {
           0: specHelper.newGroup({_id: 'group-one'}),
           1: specHelper.newGroup({_id: 'group-two'}),
           2: specHelper.newGroup({_id: 'group-three'})
@@ -175,7 +175,7 @@ describe('Challenges Controller', function() {
     describe('selectAll', function() {
       it('sets all groups in seach.group to true', function() {
         scope.search = { };
-        scope.groups = {
+        scope.groupsFilter = {
           0: specHelper.newGroup({_id: 'group-one'}),
           1: specHelper.newGroup({_id: 'group-two'}),
           2: specHelper.newGroup({_id: 'group-three'})
@@ -193,7 +193,7 @@ describe('Challenges Controller', function() {
     describe('selectNone', function() {
       it('sets all groups in seach.group to false', function() {
         scope.search = { };
-        scope.groups = {
+        scope.groupsFilter = {
           0: specHelper.newGroup({_id: 'group-one'}),
           1: specHelper.newGroup({_id: 'group-two'}),
           2: specHelper.newGroup({_id: 'group-three'})

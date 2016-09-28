@@ -12,9 +12,5 @@ module.exports = function updateWebhook (user, req) {
   user.preferences.webhooks[req.params.id].url = req.body.url;
   user.preferences.webhooks[req.params.id].enabled = req.body.enabled;
 
-  if (req.v2 === true) {
-    return user.preferences.webhooks;
-  } else {
-    return [user.preferences.webhooks[req.params.id]];
-  }
+  return [user.preferences.webhooks[req.params.id]];
 };

@@ -11,6 +11,7 @@ import {
 } from '../../helpers/common.helper';
 
 describe('shared.ops.purchase', () => {
+  const SEASONAL_FOOD = 'Candy_Base';
   let user;
   let goldPoints = 40;
   let gemsBought = 40;
@@ -166,7 +167,7 @@ describe('shared.ops.purchase', () => {
 
     it('purchases food', () => {
       let type = 'food';
-      let key = 'Meat';
+      let key = SEASONAL_FOOD;
 
       purchase(user, {params: {type, key}});
 

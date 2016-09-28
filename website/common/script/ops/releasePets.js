@@ -31,12 +31,8 @@ module.exports = function releasePets (user, req = {}, analytics) {
     });
   }
 
-  if (req.v2 === true) {
-    return user;
-  } else {
-    return [
-      user.items.pets,
-      i18n.t('petsReleased'),
-    ];
-  }
+  return [
+    user.items.pets,
+    i18n.t('petsReleased'),
+  ];
 };

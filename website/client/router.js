@@ -1,15 +1,15 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Hello from './components/Hello';
-import Sub from './components/Sub';
+import Home from './components/home';
+import Page from './components/page';
 
 Vue.use(VueRouter);
 
 export default new VueRouter({
   mode: 'history',
-  base: __dirname,
+  base: process.env.NODE_ENV === 'production' ? '/new-app' : __dirname, // eslint-disable-line no-process-env
   routes: [
-    { path: '/', component: Hello },
-    { path: '/sub', component: Sub },
+    { path: '/', component: Home },
+    { path: '/page', component: Page },
   ],
 });

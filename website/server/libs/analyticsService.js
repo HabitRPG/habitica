@@ -89,6 +89,10 @@ let _formatUserData = (user) => {
     properties.ABtest = user._ABtest;
   }
 
+  if (user.registeredThrough) {
+    properties.registeredPlatform = user.registeredThrough;
+  }
+
   return properties;
 };
 
@@ -144,7 +148,7 @@ let _formatDataForAmplitude = (data) => {
   let itemName = _lookUpItemName(data.itemKey);
 
   if (itemName) {
-    event_properties.itemName = itemName;
+    ampData.event_properties.itemName = itemName;
   }
   return ampData;
 };

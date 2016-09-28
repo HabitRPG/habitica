@@ -1,8 +1,6 @@
 import i18n from '../i18n';
 import content from '../content/index';
 import _ from 'lodash';
-import splitWhitespace from '../libs/splitWhitespace';
-import pickDeep from '../libs/pickDeep';
 import {
   BadRequest,
   NotAuthorized,
@@ -45,12 +43,8 @@ module.exports = function buyMysterySet (user, req = {}, analytics) {
   user.purchased.plan.consecutive.trinkets--;
 
 
-  if (req.v2 === true) {
-    return pickDeep(user, splitWhitespace('items purchased.plan.consecutive'));
-  } else {
-    return [
-      { items: user.items, purchasedPlanConsecutive: user.purchased.plan.consecutive },
-      i18n.t('hourglassPurchaseSet', req.language),
-    ];
-  }
+  return [
+    { items: user.items, purchasedPlanConsecutive: user.purchased.plan.consecutive },
+    i18n.t('hourglassPurchaseSet', req.language),
+  ];
 };

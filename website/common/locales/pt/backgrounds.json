@@ -1,12 +1,12 @@
 {
-    "backgrounds": "Planos de fundo",
-    "backgrounds062014": "Conjunto 1: Lançado em Junho de 2014",
+    "backgrounds": "Fundos",
+    "backgrounds062014": "CONJUNTO 1: Lançado em Junho de 2014",
     "backgroundBeachText": "Praia",
     "backgroundBeachNotes": "Descanse em uma praia quentinha.",
     "backgroundFairyRingText": "Anel das Fadas",
     "backgroundFairyRingNotes": "Dance em um anel de fadas.",
     "backgroundForestText": "Floresta",
-    "backgroundForestNotes": "Passeie por uma floresta de verão.",
+    "backgroundForestNotes": "Passeie por uma floresta no verão.",
     "backgrounds072014": "Conjunto 2: Lançado em Julho de 2014",
     "backgroundCoralReefText": "Recife de Corais",
     "backgroundCoralReefNotes": "Nade em um recife de corais.",
@@ -195,5 +195,12 @@
     "backgroundFarmhouseText": "Quinta",
     "backgroundFarmhouseNotes": "Diz olá aos animais no caminho para a Quinta",
     "backgroundOrchardText": "Pomar",
-    "backgroundOrchardNotes": "Colher fruta madura num Pomar"
+    "backgroundOrchardNotes": "Colher fruta madura num Pomar",
+    "backgrounds102016": "SET 29: Released October 2016",
+    "backgroundSpiderWebText": "Spider Web",
+    "backgroundSpiderWebNotes": "Get snagged in a Spider Web.",
+    "backgroundStrangeSewersText": "Strange Sewers",
+    "backgroundStrangeSewersNotes": "Slither through the Strange Sewers.",
+    "backgroundRainyCityText": "Rainy City",
+    "backgroundRainyCityNotes": "Splash through a Rainy City."
 }

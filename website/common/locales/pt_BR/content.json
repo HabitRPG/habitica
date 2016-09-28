@@ -146,6 +146,7 @@
     "hatchingPotionPeppermint": "Hortelã",
     "hatchingPotionFloral": "Floral",
     "hatchingPotionThunderstorm": "Tempestade",
+    "hatchingPotionGhost": "Fantasma",
     "hatchingPotionNotes": "Use-a em um ovo, e ele chocará como um mascote <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Não utilizável em ovos de mascote de missões.",
     "foodMeat": "Carne",

@@ -10,7 +10,6 @@ import {
   BadRequest,
   NotFound,
 } from '../../libs/errors';
-import Bluebird from 'bluebird';
 import * as passwordUtils from '../../libs/password';
 import logger from '../../libs/logger';
 import { model as User } from '../../models/user';
@@ -20,6 +19,7 @@ import { sendTxn as sendTxnEmail } from '../../libs/email';
 import { decrypt } from '../../libs/encryption';
 import { send as sendEmail } from '../../libs/email';
 import pusher from '../../libs/pusher';
+import common from '../../../common';
 
 let api = {};
 
@@ -50,6 +50,18 @@ async function _handleGroupInvitation (user, invite) {
   }
 }
 
+function hasBackupAuth (user, networkToRemove) {
+  if (user.auth.local.username) {
+    return true;
+  }
+
+  let hasAlternateNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find((network) => {
+    return network.key !== networkToRemove && user.auth[network.key].id;
+  });
+
+  return hasAlternateNetwork;
+}
+
 /**
  * @api {post} /api/v3/user/auth/local/register Register
  * @apiDescription Register a new user with email, username and password or attach local auth to a social user
@@ -69,7 +81,7 @@ api.registerLocal = {
   middlewares: [authWithHeaders(true)],
   url: '/user/auth/local/register',
   async handler (req, res) {
-    let fbUser = res.locals.user; // If adding local auth to social user
+    let existingUser = res.locals.user; // If adding local auth to social user
 
     req.checkBody({
       email: {
@@ -121,10 +133,15 @@ api.registerLocal = {
       },
     };
 
-    if (fbUser) {
-      if (!fbUser.auth.facebook.id) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
-      fbUser.auth.local = newUser.auth.local;
-      newUser = fbUser;
+    if (existingUser) {
+      let hasSocialAuth = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(network => {
+        if (existingUser.auth.hasOwnProperty(network.key)) {
+          return existingUser.auth[network.key].id;
+        }
+      });
+      if (!hasSocialAuth) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
+      existingUser.auth.local = newUser.auth.local;
+      newUser = existingUser;
     } else {
       newUser = new User(newUser);
       newUser.registeredThrough = req.headers['x-client']; // Not saved, used to create the correct tasks based on the device used
@@ -137,7 +154,7 @@ api.registerLocal = {
 
     let savedUser = await newUser.save();
 
-    if (savedUser.auth.facebook.id) {
+    if (existingUser) {
       res.respond(200, savedUser.toJSON().auth.local); // We convert to toJSON to hide private fields
     } else {
       res.respond(201, savedUser);
@@ -148,13 +165,14 @@ api.registerLocal = {
       .remove({email: savedUser.auth.local.email})
       .then(() => sendTxnEmail(savedUser, 'welcome'));
 
-    if (!savedUser.auth.facebook.id) {
+    if (!existingUser) {
       res.analytics.track('register', {
         category: 'acquisition',
         type: 'local',
         gaLabel: 'local',
         uuid: savedUser._id,
         headers: req.headers,
+        user: savedUser,
       });
     }
 
@@ -227,9 +245,9 @@ api.loginLocal = {
   },
 };
 
-function _passportFbProfile (accessToken) {
-  return new Bluebird((resolve, reject) => {
-    passport._strategies.facebook.userProfile(accessToken, (err, profile) => {
+function _passportProfile (network, accessToken) {
+  return new Promise((resolve, reject) => {
+    passport._strategies[network].userProfile(accessToken, (err, profile) => {
       if (err) {
         reject(err);
       } else {
@@ -242,14 +260,19 @@ function _passportFbProfile (accessToken) {
 // Called as a callback by Facebook (or other social providers). Internal route
 api.loginSocial = {
   method: 'POST',
+  middlewares: [authWithHeaders(true)],
   url: '/user/auth/social', // this isn't the most appropriate url but must be the same as v2
   async handler (req, res) {
+    let existingUser = res.locals.user;
     let accessToken = req.body.authResponse.access_token;
     let network = req.body.network;
 
-    if (network !== 'facebook') throw new NotAuthorized(res.t('onlyFbSupported'));
+    let isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(supportedNetwork => {
+      return supportedNetwork.key === network;
+    });
+    if (!isSupportedNetwork) throw new BadRequest(res.t('unsupportedNetwork'));
 
-    let profile = await _passportFbProfile(accessToken);
+    let profile = await _passportProfile(network, accessToken);
 
     let user = await User.findOne({
       [`auth.${network}.id`]: profile.id,
@@ -259,36 +282,47 @@ api.loginSocial = {
     if (user) {
       _loginRes(user, ...arguments);
     } else { // Create new user
-      user = new User({
+      user = {
         auth: {
           [network]: profile,
         },
         preferences: {
           language: req.language,
         },
-      });
-      user.registeredThrough = req.headers['x-client'];
+      };
+      if (existingUser) {
+        existingUser.auth[network] = user.auth[network];
+        user = existingUser;
+      } else {
+        user = new User(user);
+        user.registeredThrough = req.headers['x-client']; // Not saved, used to create the correct tasks based on the device used
+      }
 
       let savedUser = await user.save();
 
-      user.newUser = true;
+      if (!existingUser) {
+        user.newUser = true;
+      }
       _loginRes(user, ...arguments);
 
       // Clean previous email preferences
-      if (savedUser.auth[network].emails && savedUser.auth.facebook.emails[0] && savedUser.auth[network].emails[0].value) {
+      if (savedUser.auth[network].emails && savedUser.auth[network].emails[0] && savedUser.auth[network].emails[0].value) {
         EmailUnsubscription
         .remove({email: savedUser.auth[network].emails[0].value.toLowerCase()})
         .exec()
         .then(() => sendTxnEmail(savedUser, 'welcome')); // eslint-disable-line max-nested-callbacks
       }
 
-      res.analytics.track('register', {
-        category: 'acquisition',
-        type: network,
-        gaLabel: network,
-        uuid: savedUser._id,
-        headers: req.headers,
-      });
+      if (!existingUser) {
+        res.analytics.track('register', {
+          category: 'acquisition',
+          type: network,
+          gaLabel: network,
+          uuid: savedUser._id,
+          headers: req.headers,
+          user: savedUser,
+        });
+      }
 
       return null;
     }
@@ -574,11 +608,15 @@ api.deleteSocial = {
   async handler (req, res) {
     let user = res.locals.user;
     let network = req.params.network;
-
-    if (network !== 'facebook') throw new NotAuthorized(res.t('onlyFbSupported'));
-    if (!user.auth.local.username) throw new NotAuthorized(res.t('cantDetachFb'));
-
-    await User.update({_id: user._id}, {$unset: {'auth.facebook': 1}}).exec();
+    let isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(supportedNetwork => {
+      return supportedNetwork.key === network;
+    });
+    if (!isSupportedNetwork) throw new BadRequest(res.t('unsupportedNetwork'));
+    if (!hasBackupAuth(user, network)) throw new NotAuthorized(res.t('cantDetachSocial'));
+    let unset = {
+      [`auth.${network}`]: 1,
+    };
+    await User.update({_id: user._id}, {$unset: unset}).exec();
 
     res.respond(200, {});
   },

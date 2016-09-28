@@ -1,18 +1,18 @@
 /* Comment out for holiday events */
-.npc_ian {
-  background: url("/website/assets/sprites/npc_ian.gif") no-repeat;
+/* .npc_ian {
+  background: url("/npc_ian.gif") no-repeat;
   width: 78px;
   height: 135px;
-}
+} */
 
 .quest_burnout {
-  background: url("/website/assets/sprites/quest_burnout.gif") no-repeat;
+  background: url("/quest_burnout.gif") no-repeat;
   width: 219px;
   height: 249px;
 }
 
 .quest_bewilder {
-  background: url("/website/assets/sprites/quest_bewilder.gif") no-repeat;
+  background: url("/quest_bewilder.gif") no-repeat;
   width: 219px;
   height: 219px;
 }

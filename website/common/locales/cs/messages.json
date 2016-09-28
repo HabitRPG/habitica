@@ -29,7 +29,7 @@
     "messageFoundQuest": "Našel jsi výpravu \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Tohle vybavení jsi si koupil už v minulosti, ale momentálně ho nevlastníš. Můžeš si ho koupit znovu ve sloupečku odměnu na stránce s úkoly.",
     "messageAlreadyOwnGear": "Tento předmět už máš. Vybav se jím na stránce s Vybavením.",
-    "messageHealthAlreadyMax": "You already have maximum health.",
+    "messageHealthAlreadyMax": "Už teď máš plné zdraví.",
     "armoireEquipment": "<%= image %> V almaře jsi našel kus vzácného vybavení ve Zbrojnici: <%= dropText %>! Skvělé!",
     "armoireFood": "<%= image %> Prohledáváš almaru a nacházíš <%= dropText %>. Co to tu dělá?",
     "armoireExp": "Zápasíš s Almarou a získáváš zkušenost. To jsi jí to nandal!",
@@ -53,5 +53,5 @@
     "messageGroupChatAdminClearFlagCount": "Pouze admin může smazat počet označení!",
     "messageUserOperationProtected": "cesta `<%= operation %>` nebyla uložena, protože je chráněná.",
     "messageUserOperationNotFound": "<%= operation %> operace nebyla nalezena",
-    "messageNotificationNotFound": "Notification not found."
+    "messageNotificationNotFound": "Oznámení nenalezeno."
 }

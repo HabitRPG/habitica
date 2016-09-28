@@ -5,10 +5,10 @@ var staticAssetsDirectory = './website/static/.'; // The folder where static fil
 module.exports = {
   build: {
     env: require('./prod.env'),
-    index: path.resolve(__dirname, '../../dist/index.html'),
-    assetsRoot: path.resolve(__dirname, '../../dist'),
+    index: path.resolve(__dirname, '../../dist-client/index.html'),
+    assetsRoot: path.resolve(__dirname, '../../dist-client'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: '/new-app',
     staticAssetsDirectory: staticAssetsDirectory,
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
@@ -24,7 +24,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     staticAssetsDirectory: staticAssetsDirectory,
-    proxyTable: {},
+    proxyTable: {
+      // proxy all requests starting with /api/v3 to localhost:3000
+      '/api/v3': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+    },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)

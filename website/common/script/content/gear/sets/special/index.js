@@ -128,6 +128,9 @@ let armor = {
     notes: t('armorSpecialFallRogueNotes', { per: 15 }),
     value: 90,
     per: 15,
+    canBuy: () => {
+      return true;
+    },
   },
   fallWarrior: {
     event: EVENTS.fall,
@@ -136,6 +139,9 @@ let armor = {
     notes: t('armorSpecialFallWarriorNotes', { con: 9 }),
     value: 90,
     con: 9,
+    canBuy: () => {
+      return true;
+    },
   },
   fallMage: {
     event: EVENTS.fall,
@@ -144,6 +150,9 @@ let armor = {
     notes: t('armorSpecialFallMageNotes', { int: 9 }),
     value: 90,
     int: 9,
+    canBuy: () => {
+      return true;
+    },
   },
   fallHealer: {
     event: EVENTS.fall,
@@ -152,6 +161,9 @@ let armor = {
     notes: t('armorSpecialFallHealerNotes', { con: 15 }),
     value: 90,
     con: 15,
+    canBuy: () => {
+      return true;
+    },
   },
   winter2015Rogue: {
     event: EVENTS.winter2015,
@@ -262,6 +274,9 @@ let armor = {
     notes: t('armorSpecialFall2015RogueNotes', { per: 15 }),
     value: 90,
     per: 15,
+    canBuy: () => {
+      return true;
+    },
   },
   fall2015Warrior: {
     event: EVENTS.fall2015,
@@ -270,6 +285,9 @@ let armor = {
     notes: t('armorSpecialFall2015WarriorNotes', { con: 9 }),
     value: 90,
     con: 9,
+    canBuy: () => {
+      return true;
+    },
   },
   fall2015Mage: {
     event: EVENTS.fall2015,
@@ -278,6 +296,9 @@ let armor = {
     notes: t('armorSpecialFall2015MageNotes', { int: 9 }),
     value: 90,
     int: 9,
+    canBuy: () => {
+      return true;
+    },
   },
   fall2015Healer: {
     event: EVENTS.fall2015,
@@ -286,6 +307,9 @@ let armor = {
     notes: t('armorSpecialFall2015HealerNotes', { con: 15 }),
     value: 90,
     con: 15,
+    canBuy: () => {
+      return true;
+    },
   },
   gaymerx: {
     event: EVENTS.gaymerx,
@@ -392,6 +416,38 @@ let armor = {
     specialClass: 'healer',
     text: t('armorSpecialSummer2016HealerText'),
     notes: t('armorSpecialSummer2016HealerNotes', { con: 15 }),
+    value: 90,
+    con: 15,
+  },
+  fall2016Rogue: {
+    event: EVENTS.fall2016,
+    specialClass: 'rogue',
+    text: t('armorSpecialFall2016RogueText'),
+    notes: t('armorSpecialFall2016RogueNotes', { per: 15 }),
+    value: 90,
+    per: 15,
+  },
+  fall2016Warrior: {
+    event: EVENTS.fall2016,
+    specialClass: 'warrior',
+    text: t('armorSpecialFall2016WarriorText'),
+    notes: t('armorSpecialFall2016WarriorNotes', { con: 9 }),
+    value: 90,
+    con: 9,
+  },
+  fall2016Mage: {
+    event: EVENTS.fall2016,
+    specialClass: 'wizard',
+    text: t('armorSpecialFall2016MageText'),
+    notes: t('armorSpecialFall2016MageNotes', { int: 9 }),
+    value: 90,
+    int: 9,
+  },
+  fall2016Healer: {
+    event: EVENTS.fall2016,
+    specialClass: 'healer',
+    text: t('armorSpecialFall2016HealerText'),
+    notes: t('armorSpecialFall2016HealerNotes', { con: 15 }),
     value: 90,
     con: 15,
   },
@@ -641,6 +697,9 @@ let head = {
     notes: t('headSpecialFallRogueNotes', { per: 9 }),
     value: 60,
     per: 9,
+    canBuy: () => {
+      return true;
+    },
   },
   fallWarrior: {
     event: EVENTS.fall,
@@ -649,6 +708,9 @@ let head = {
     notes: t('headSpecialFallWarriorNotes', { str: 9 }),
     value: 60,
     str: 9,
+    canBuy: () => {
+      return true;
+    },
   },
   fallMage: {
     event: EVENTS.fall,
@@ -657,6 +719,9 @@ let head = {
     notes: t('headSpecialFallMageNotes', { per: 7 }),
     value: 60,
     per: 7,
+    canBuy: () => {
+      return true;
+    },
   },
   fallHealer: {
     event: EVENTS.fall,
@@ -665,6 +730,9 @@ let head = {
     notes: t('headSpecialFallHealerNotes', { int: 7 }),
     value: 60,
     int: 7,
+    canBuy: () => {
+      return true;
+    },
   },
   winter2015Rogue: {
     event: EVENTS.winter2015,
@@ -775,6 +843,9 @@ let head = {
     notes: t('headSpecialFall2015RogueNotes', { per: 9 }),
     value: 60,
     per: 9,
+    canBuy: () => {
+      return true;
+    },
   },
   fall2015Warrior: {
     event: EVENTS.fall2015,
@@ -783,6 +854,9 @@ let head = {
     notes: t('headSpecialFall2015WarriorNotes', { str: 9 }),
     value: 60,
     str: 9,
+    canBuy: () => {
+      return true;
+    },
   },
   fall2015Mage: {
     event: EVENTS.fall2015,
@@ -791,6 +865,9 @@ let head = {
     notes: t('headSpecialFall2015MageNotes', { per: 7 }),
     value: 60,
     per: 7,
+    canBuy: () => {
+      return true;
+    },
   },
   fall2015Healer: {
     event: EVENTS.fall2015,
@@ -799,6 +876,9 @@ let head = {
     notes: t('headSpecialFall2015HealerNotes', { int: 7 }),
     value: 60,
     int: 7,
+    canBuy: () => {
+      return true;
+    },
   },
   gaymerx: {
     event: EVENTS.gaymerx,
@@ -905,6 +985,38 @@ let head = {
     specialClass: 'healer',
     text: t('headSpecialSummer2016HealerText'),
     notes: t('headSpecialSummer2016HealerNotes', { int: 7 }),
+    value: 60,
+    int: 7,
+  },
+  fall2016Rogue: {
+    event: EVENTS.fall2016,
+    specialClass: 'rogue',
+    text: t('headSpecialFall2016RogueText'),
+    notes: t('headSpecialFall2016RogueNotes', { per: 9 }),
+    value: 60,
+    per: 9,
+  },
+  fall2016Warrior: {
+    event: EVENTS.fall2016,
+    specialClass: 'warrior',
+    text: t('headSpecialFall2016WarriorText'),
+    notes: t('headSpecialFall2016WarriorNotes', { str: 9 }),
+    value: 60,
+    str: 9,
+  },
+  fall2016Mage: {
+    event: EVENTS.fall2016,
+    specialClass: 'wizard',
+    text: t('headSpecialFall2016MageText'),
+    notes: t('headSpecialFall2016MageNotes', { per: 7 }),
+    value: 60,
+    per: 7,
+  },
+  fall2016Healer: {
+    event: EVENTS.fall2016,
+    specialClass: 'healer',
+    text: t('headSpecialFall2016HealerText'),
+    notes: t('headSpecialFall2016HealerNotes', { int: 7 }),
     value: 60,
     int: 7,
   },
@@ -1175,6 +1287,9 @@ let shield = {
     notes: t('shieldSpecialFallRogueNotes', { str: 8 }),
     value: 80,
     str: 8,
+    canBuy: () => {
+      return true;
+    },
   },
   fallWarrior: {
     event: EVENTS.fall,
@@ -1183,6 +1298,9 @@ let shield = {
     notes: t('shieldSpecialFallWarriorNotes', { con: 7 }),
     value: 70,
     con: 7,
+    canBuy: () => {
+      return true;
+    },
   },
   fallHealer: {
     event: EVENTS.fall,
@@ -1191,6 +1309,9 @@ let shield = {
     notes: t('shieldSpecialFallHealerNotes', { con: 9 }),
     value: 70,
     con: 9,
+    canBuy: () => {
+      return true;
+    },
   },
   winter2015Rogue: {
     event: EVENTS.winter2015,
@@ -1271,6 +1392,9 @@ let shield = {
     notes: t('shieldSpecialFall2015RogueNotes', { str: 8 }),
     value: 80,
     str: 8,
+    canBuy: () => {
+      return true;
+    },
   },
   fall2015Warrior: {
     event: EVENTS.fall2015,
@@ -1279,6 +1403,9 @@ let shield = {
     notes: t('shieldSpecialFall2015WarriorNotes', { con: 7 }),
     value: 70,
     con: 7,
+    canBuy: () => {
+      return true;
+    },
   },
   fall2015Healer: {
     event: EVENTS.fall2015,
@@ -1287,6 +1414,9 @@ let shield = {
     notes: t('shieldSpecialFall2015HealerNotes', { con: 9 }),
     value: 70,
     con: 9,
+    canBuy: () => {
+      return true;
+    },
   },
   winter2016Rogue: {
     event: EVENTS.winter2016,
@@ -1357,6 +1487,30 @@ let shield = {
     specialClass: 'healer',
     text: t('shieldSpecialSummer2016HealerText'),
     notes: t('shieldSpecialSummer2016HealerNotes', { con: 9 }),
+    value: 70,
+    con: 9,
+  },
+  fall2016Rogue: {
+    event: EVENTS.fall2016,
+    specialClass: 'rogue',
+    text: t('shieldSpecialFall2016RogueText'),
+    notes: t('shieldSpecialFall2016RogueNotes', { str: 8 }),
+    value: 80,
+    str: 8,
+  },
+  fall2016Warrior: {
+    event: EVENTS.fall2016,
+    specialClass: 'warrior',
+    text: t('shieldSpecialFall2016WarriorText'),
+    notes: t('shieldSpecialFall2016WarriorNotes', { con: 7 }),
+    value: 70,
+    con: 7,
+  },
+  fall2016Healer: {
+    event: EVENTS.fall2016,
+    specialClass: 'healer',
+    text: t('shieldSpecialFall2016HealerText'),
+    notes: t('shieldSpecialFall2016HealerNotes', { con: 9 }),
     value: 70,
     con: 9,
   },
@@ -1485,6 +1639,9 @@ let weapon = {
     notes: t('weaponSpecialFallRogueNotes', { str: 8 }),
     value: 80,
     str: 8,
+    canBuy: () => {
+      return true;
+    },
   },
   fallWarrior: {
     event: EVENTS.fall,
@@ -1493,6 +1650,9 @@ let weapon = {
     notes: t('weaponSpecialFallWarriorNotes', { str: 15 }),
     value: 90,
     str: 15,
+    canBuy: () => {
+      return true;
+    },
   },
   fallMage: {
     event: EVENTS.fall,
@@ -1503,6 +1663,9 @@ let weapon = {
     value: 160,
     int: 15,
     per: 7,
+    canBuy: () => {
+      return true;
+    },
   },
   fallHealer: {
     event: EVENTS.fall,
@@ -1511,6 +1674,9 @@ let weapon = {
     notes: t('weaponSpecialFallHealerNotes', { int: 9 }),
     value: 90,
     int: 9,
+    canBuy: () => {
+      return true;
+    },
   },
   winter2015Rogue: {
     event: EVENTS.winter2015,
@@ -1621,6 +1787,9 @@ let weapon = {
     notes: t('weaponSpecialFall2015RogueNotes', { str: 8 }),
     value: 80,
     str: 8,
+    canBuy: () => {
+      return true;
+    },
   },
   fall2015Warrior: {
     event: EVENTS.fall2015,
@@ -1629,6 +1798,9 @@ let weapon = {
     notes: t('weaponSpecialFall2015WarriorNotes', { str: 15 }),
     value: 90,
     str: 15,
+    canBuy: () => {
+      return true;
+    },
   },
   fall2015Mage: {
     event: EVENTS.fall2015,
@@ -1639,6 +1811,9 @@ let weapon = {
     value: 160,
     int: 15,
     per: 7,
+    canBuy: () => {
+      return true;
+    },
   },
   fall2015Healer: {
     event: EVENTS.fall2015,
@@ -1647,6 +1822,9 @@ let weapon = {
     notes: t('weaponSpecialFall2015HealerNotes', { int: 9 }),
     value: 90,
     int: 9,
+    canBuy: () => {
+      return true;
+    },
   },
   winter2016Rogue: {
     event: EVENTS.winter2016,
@@ -1747,6 +1925,40 @@ let weapon = {
     specialClass: 'healer',
     text: t('weaponSpecialSummer2016HealerText'),
     notes: t('weaponSpecialSummer2016HealerNotes', { int: 9 }),
+    value: 90,
+    int: 9,
+  },
+  fall2016Rogue: {
+    event: EVENTS.fall2016,
+    specialClass: 'rogue',
+    text: t('weaponSpecialFall2016RogueText'),
+    notes: t('weaponSpecialFall2016RogueNotes', { str: 8 }),
+    value: 80,
+    str: 8,
+  },
+  fall2016Warrior: {
+    event: EVENTS.fall2016,
+    specialClass: 'warrior',
+    text: t('weaponSpecialFall2016WarriorText'),
+    notes: t('weaponSpecialFall2016WarriorNotes', { str: 15 }),
+    value: 90,
+    str: 15,
+  },
+  fall2016Mage: {
+    event: EVENTS.fall2016,
+    specialClass: 'wizard',
+    twoHanded: true,
+    text: t('weaponSpecialFall2016MageText'),
+    notes: t('weaponSpecialFall2016MageNotes', { int: 15, per: 7 }),
+    value: 160,
+    int: 15,
+    per: 7,
+  },
+  fall2016Healer: {
+    event: EVENTS.fall2016,
+    specialClass: 'healer',
+    text: t('weaponSpecialFall2016HealerText'),
+    notes: t('weaponSpecialFall2016HealerNotes', { int: 9 }),
     value: 90,
     int: 9,
   },

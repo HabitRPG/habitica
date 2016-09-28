@@ -33,12 +33,8 @@ module.exports = function hatch (user, req = {}) {
   user.items.eggs[egg]--;
   user.items.hatchingPotions[hatchingPotion]--;
 
-  if (req.v2 === true) {
-    return user.items;
-  } else {
-    return [
-      user.items,
-      i18n.t('messageHatched', req.language),
-    ];
-  }
+  return [
+    user.items,
+    i18n.t('messageHatched', req.language),
+  ];
 };

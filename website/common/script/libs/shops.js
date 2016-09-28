@@ -214,6 +214,14 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
 // };
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
   let availableSets = {
+    fallHealer: i18n.t('mummyMedicSet', language),
+    fall2015Healer: i18n.t('potionerSet', language),
+    fallMage: i18n.t('witchyWizardSet', language),
+    fall2015Mage: i18n.t('stitchWitchSet', language),
+    fallRogue: i18n.t('vampireSmiterSet', language),
+    fall2015Rogue: i18n.t('battleRogueSet', language),
+    fallWarrior: i18n.t('monsterOfScienceSet', language),
+    fall2015Warrior: i18n.t('scarecrowWarriorSet', language),
   };
 
   let categories = [];
@@ -237,7 +245,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
           key: gear.key,
           text: gear.text(language),
           notes: gear.notes(language),
-          value: 1,
+          value: gear.twoHanded ? 2 : 1,
           type: gear.type,
           specialClass: gear.specialClass,
           locked: false,
