@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import storeInjector from 'inject?-vue!client/store';
+import { mapState, mapGetters, mapActions } from 'client/store';
 
 describe('Store', () => {
   let injectedStore;
@@ -53,6 +54,67 @@ describe('Store', () => {
 
     it('throws an error is the action doesn\'t exists', () => {
       expect(() => injectedStore.dispatched('wrong')).to.throw;
+    });
+  });
+
+  describe('helpers', () => {
+    it('mapState', (done) => {
+      new Vue({ // eslint-disable-line no-new
+        data: {
+          title: 'internal',
+        },
+        computed: {
+          ...mapState(['name']),
+          ...mapState({
+            nameComputed (state, getters) {
+              return `${this.title} ${getters.computedName} ${state.name}`;
+            },
+          }),
+        },
+        created () {
+          expect(this.name).to.equal('test');
+          expect(this.nameComputed).to.equal('internal test computed! test');
+          done();
+        },
+      });
+    });
+
+    it('mapGetters', (done) => {
+      new Vue({ // eslint-disable-line no-new
+        data: {
+          title: 'internal',
+        },
+        computed: {
+          ...mapGetters(['computedName']),
+          ...mapGetters({
+            nameComputedTwice: 'computedName',
+          }),
+        },
+        created () {
+          expect(this.computedName).to.equal('test computed!');
+          expect(this.nameComputedTwice).to.equal('test computed!');
+          done();
+        },
+      });
+    });
+
+    it('mapActions', (done) => {
+      new Vue({ // eslint-disable-line no-new
+        data: {
+          title: 'internal',
+        },
+        methods: {
+          ...mapActions(['getName']),
+          ...mapActions({
+            getNameRenamed: 'getName',
+          }),
+        },
+        created () {
+          expect(this.getName('123')).to.deep.equal(['test', '123']);
+          expect(this.getNameRenamed('123')).to.deep.equal(['test', '123']);
+          done();
+        },
+      });
     });
   });
 });

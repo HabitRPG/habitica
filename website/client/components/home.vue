@@ -6,6 +6,8 @@ div
 </template>
 
 <script>
+import { mapState, mapGetters } from '../store';
+
 export default {
   data () {
     return {
@@ -13,12 +15,10 @@ export default {
     };
   },
   computed: {
-    tasksCount () {
-      return this.$store.state.tasks.length;
-    },
-    profileName () {
-      return this.$store.getters.profileName;
-    },
+    ...mapState({
+      tasksCount: (state) => state.tasks.length,
+    }),
+    ...mapGetters(['profileName']),
   },
 };
 </script>

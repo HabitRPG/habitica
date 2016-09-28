@@ -61,6 +61,13 @@ _vm = new Vue({
 
 export default store;
 
+// Export map{State|Getters|Actions} helpers directly from Vuex since they're compatible
+export {
+  mapState,
+  mapGetters,
+  mapActions,
+} from 'vuex';
+
 // Inject the store into all components as this.$store
 Vue.mixin({
   beforeCreate () {

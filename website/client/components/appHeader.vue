@@ -9,12 +9,10 @@
 </template>
 
 <script>
+import { mapState } from '../store';
+
 export default {
-  computed: {
-    title () {
-      return this.$store.state.title;
-    },
-  },
+  computed: mapState(['title']),
 };
 </script>
 
