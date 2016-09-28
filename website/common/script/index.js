@@ -23,10 +23,12 @@ import {
   MAX_STAT_POINTS,
   TAVERN_ID,
   LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
+  SUPPORTED_SOCIAL_NETWORKS,
 } from './constants';
 
 api.constants = {
   LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
+  SUPPORTED_SOCIAL_NETWORKS,
 };
 // TODO Move these under api.constants
 api.maxLevel = MAX_LEVEL;

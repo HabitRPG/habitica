@@ -1,12 +1,16 @@
 'use strict';
 
 describe('Auth Controller', function() {
-  var scope, ctrl, user, $httpBackend, $window, $modal;
+  var scope, ctrl, user, $httpBackend, $window, $modal, alert, Auth;
 
   beforeEach(function(){
     module(function($provide) {
+      Auth = {
+        runAuth: sandbox.spy(),
+      };
       $provide.value('Analytics', analyticsMock);
       $provide.value('Chat', { seenMessage: function() {} });
+      $provide.value('Auth', Auth);
     });
 
     inject(function(_$httpBackend_, $rootScope, $controller, _$modal_) {
@@ -17,27 +21,27 @@ describe('Auth Controller', function() {
       $window = { location: { href: ""}, alert: sandbox.spy() };
       $modal = _$modal_;
       user = { user: {}, authenticate: sandbox.spy() };
+      alert = { authErrorAlert: sandbox.spy() };
 
-      ctrl = $controller('AuthCtrl', {$scope: scope, $window: $window, User: user});
+      ctrl = $controller('AuthCtrl', {$scope: scope, $window: $window, User: user, Alert: alert});
     })
   });
 
   describe('logging in', function() {
-
     it('should log in users with correct uname / pass', function() {
       $httpBackend.expectPOST('/api/v3/user/auth/local/login').respond({data: {id: 'abc', apiToken: 'abc'}});
       scope.auth();
       $httpBackend.flush();
-      expect(user.authenticate).to.be.calledOnce;
-      expect($window.alert).to.not.be.called;
+      expect(Auth.runAuth).to.be.calledOnce;
+      expect(alert.authErrorAlert).to.not.be.called;
     });
 
     it('should not log in users with incorrect uname / pass', function() {
       $httpBackend.expectPOST('/api/v3/user/auth/local/login').respond(404, '');
       scope.auth();
       $httpBackend.flush();
-      expect(user.authenticate).to.not.be.called;
-      expect($window.alert).to.be.calledOnce;
+      expect(Auth.runAuth).to.not.be.called;
+      expect(alert.authErrorAlert).to.be.calledOnce;
     });
   });
 
