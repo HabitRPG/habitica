@@ -163,7 +163,9 @@ api.registerLocal = {
     // Clean previous email preferences and send welcome email
     EmailUnsubscription
       .remove({email: savedUser.auth.local.email})
-      .then(() => sendTxnEmail(savedUser, 'welcome'));
+      .then(() => {
+        if (!existingUser) sendTxnEmail(savedUser, 'welcome');
+      });
 
     if (!existingUser) {
       res.analytics.track('register', {
@@ -310,7 +312,9 @@ api.loginSocial = {
         EmailUnsubscription
         .remove({email: savedUser.auth[network].emails[0].value.toLowerCase()})
         .exec()
-        .then(() => sendTxnEmail(savedUser, 'welcome')); // eslint-disable-line max-nested-callbacks
+        .then(() => {
+          if (!existingUser) sendTxnEmail(savedUser, 'welcome');
+        }); // eslint-disable-line max-nested-callbacks
       }
 
       if (!existingUser) {
