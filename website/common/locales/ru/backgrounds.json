@@ -195,5 +195,12 @@
     "backgroundFarmhouseText": "Ферма",
     "backgroundFarmhouseNotes": "Поздоровайтесь с животными по пути к Ферме.",
     "backgroundOrchardText": "Фруктовый сад",
-    "backgroundOrchardNotes": "Сорвите спелый плод во Фруктовом саду."
+    "backgroundOrchardNotes": "Сорвите спелый плод во Фруктовом саду.",
+    "backgrounds102016": "SET 29: Released October 2016",
+    "backgroundSpiderWebText": "Spider Web",
+    "backgroundSpiderWebNotes": "Get snagged in a Spider Web.",
+    "backgroundStrangeSewersText": "Strange Sewers",
+    "backgroundStrangeSewersNotes": "Slither through the Strange Sewers.",
+    "backgroundRainyCityText": "Rainy City",
+    "backgroundRainyCityNotes": "Splash through a Rainy City."
 }

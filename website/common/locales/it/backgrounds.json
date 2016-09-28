@@ -195,5 +195,12 @@
     "backgroundFarmhouseText": "Fattoria",
     "backgroundFarmhouseNotes": "Saluta gli animali mentre vai verso la Fattoria.",
     "backgroundOrchardText": "Frutteto",
-    "backgroundOrchardNotes": "Raccogli i frutti maturi in un frutteto."
+    "backgroundOrchardNotes": "Raccogli i frutti maturi in un frutteto.",
+    "backgrounds102016": "SET 29: Released October 2016",
+    "backgroundSpiderWebText": "Spider Web",
+    "backgroundSpiderWebNotes": "Get snagged in a Spider Web.",
+    "backgroundStrangeSewersText": "Strange Sewers",
+    "backgroundStrangeSewersNotes": "Slither through the Strange Sewers.",
+    "backgroundRainyCityText": "Rainy City",
+    "backgroundRainyCityNotes": "Splash through a Rainy City."
 }

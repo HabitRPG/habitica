@@ -195,5 +195,12 @@
     "backgroundFarmhouseText": "Casa de granja",
     "backgroundFarmhouseNotes": "Saluda a los animales de camino a la casa de la granja.",
     "backgroundOrchardText": "Huerto de árboles frutales",
-    "backgroundOrchardNotes": "Coge fruta madura en el huerto."
+    "backgroundOrchardNotes": "Coge fruta madura en el huerto.",
+    "backgrounds102016": "SET 29: Released October 2016",
+    "backgroundSpiderWebText": "Spider Web",
+    "backgroundSpiderWebNotes": "Get snagged in a Spider Web.",
+    "backgroundStrangeSewersText": "Strange Sewers",
+    "backgroundStrangeSewersNotes": "Slither through the Strange Sewers.",
+    "backgroundRainyCityText": "Rainy City",
+    "backgroundRainyCityNotes": "Splash through a Rainy City."
 }
