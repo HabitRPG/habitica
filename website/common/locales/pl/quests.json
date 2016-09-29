@@ -26,6 +26,8 @@
     "pending": "Oczekujące",
     "questStart": "W momencie, gdy wszyscy członkowie zaakceptują lub odrzucą misję, ta rozpoczyna się. Tylko ci, którzy kliknęli 'zaakceptuj' będą mogli brać udział w misji i otrzymają nagrodę. Jeśli któryś ze członków zbyt długo zwleka z wyborem (być może jest nieaktywny?) właściciel misji może rozpocząć ją bez tej osoby, klikając 'Rozpocznij'. Właściciel misji może też zakończyć misję klikając \"Zakończ\", a zwój misji zostanie mu zwrócony.",
     "questStartBroken": "Kiedy wszyscy członkowie zaakceptują lub odrzucą, misja rozpocznie się... Tylko ci, którzy \"zaakceptowali\", będą mogli uczestniczyć w misji i otrzymać nagrodę... Jeżeli czas oczekiwania na uczestników będzie zbyt długi (nieaktywni?), właściciel misji może rozpocząć bez nich, klikając \"Rozpocznij\"... Właściciel misji może również anulować misję i odzyskać zwój misji, klikając \"Anuluj\"...",
+    "questCollection": "+<%= val %> quest item(s) found",
+    "questDamage": "+<%= val %> damage to boss",
     "begin": "Rozpocznij",
     "bossHP": "Zdrowie Bossa",
     "bossStrength": "Siła bossa",

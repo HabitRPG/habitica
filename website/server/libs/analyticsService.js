@@ -89,6 +89,10 @@ let _formatUserData = (user) => {
     properties.ABtest = user._ABtest;
   }
 
+  if (user.registeredThrough) {
+    properties.registeredPlatform = user.registeredThrough;
+  }
+
   return properties;
 };
 

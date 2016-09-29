@@ -1,6 +1,6 @@
 {
   "tipTitle": "Совет #<%= tipNumber %>",
-  "tip1": "Проверьте задачи на ходу с помощью мобильных приложений Habitica.",
+  "tip1": "Отмечайте задачи на ходу с помощью мобильных приложений Habitica.",
   "tip2": "Достигните 100 уровня, чтобы бесплатно получить Шар Возрождения и начать новое приключение!",
   "tip3": "Используйте emoji, чтобы быстро различать задачи.",
   "tip4": "Используйте символ # перед названием задания, чтобы сделать его очень большим!",
@@ -13,8 +13,8 @@
   "tip11": "Если вам нравится наряжать своего персонажа, посмотрите Карнавальный Костюм Гильдии.",
   "tip12": "Join the “Challenge... Accepted” Guild for regularly scheduled random challenges.",
   "tip13": "Having more than four Party members increases accountability!",
-  "tip14": "You can add headers or inspirational quotes to your list as Habits with no (+/-).",
-  "tip15": "Add checklists to your To-Dos to increase your rewards!",
+  "tip14": "Вы можете добавить заголовки или вдохновляющие цитаты как привычки без (+/-).",
+  "tip15": "Добавляйте списки в задачи для увеличения награды!",
   "tip16": "Check out the Data tab for valuable insights on your progress.",
   "tip17": "Используйте теги, чтобы лучше ориентироваться в длинном списке задач!",
   "tip18": "Только положительные или отрицательные привычки со временем \"меркнут\" и снова становятся желтыми.",

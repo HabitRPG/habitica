@@ -11,6 +11,7 @@
     "unsubChallenge": "Nieprawidłowy link do wyzwania – to zadanie było częścią wyzwania, ale wypisałeś się z niego. Co zrobić z porzuconym zadaniem?",
     "challengeWinner": "Jest zwycięzcą następujących wyzwań",
     "challenges": "Wyzwania",
+    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Challenges</a>",
     "noChallenges": "Nie ma jeszcze żadnych wyzwań, udaj się do",
     "toCreate": "żeby stworzyć wyzwanie.",
     "selectWinner": "Wybierz zwycięzcę i zakończ wyzwanie:",

@@ -162,7 +162,7 @@
     "commGuideLink01description": "гильдия для новичков и любых вопросов!",
     "commGuideLink02": "Гильдия Укромного Уголка",
     "commGuideLink02description": "Гильдия, в которой обсуждаются долгие и/или деликатные темы.",
-    "commGuideLink03": "Wiki",
+    "commGuideLink03": "<a href='http://habitica.wikia.com/wiki/Habitica_Wiki' target='_blank'>The Wiki</a>",
     "commGuideLink03description": "самая большая коллекция информации о Habitica.",
     "commGuideLink04": "GitHub",
     "commGuideLink04description": "для сообщений об ошибках или помощи с кодом программ!",

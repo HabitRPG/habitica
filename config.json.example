@@ -7,6 +7,8 @@
     "FACEBOOK_ANALYTICS":"1234567890123456",
     "FACEBOOK_KEY":"123456789012345",
     "FACEBOOK_SECRET":"aaaabbbbccccddddeeeeffff00001111",
+    "GOOGLE_CLIENT_ID":"123456789012345",
+    "GOOGLE_CLIENT_SECRET":"aaaabbbbccccddddeeeeffff00001111",
     "NODE_DB_URI":"mongodb://localhost/habitrpg",
     "TEST_DB_URI":"mongodb://localhost/habitrpg_test",
     "NODE_ENV":"development",

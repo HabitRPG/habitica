@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Borttagning slutförd",
-    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
+    "lotOfToDos": "Dina 30 senast slutförda att-göra visas här. Du kan se äldre slutförda att-göra på Data > Data Display Tool eller Data > Data export > Användardata.",
     "deleteToDosExplanation": "Om du klickar på knappen nedan, kommer alla dina Att-Göra uppgifter, och arkiverade Att-Göra uppgifter att bli permanent raderade. Exportera dem först om du vill behålla datan.",
     "addmultiple": "Lägg till fler",
     "addsingle": "Lägg till en",

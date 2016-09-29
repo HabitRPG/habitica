@@ -17,7 +17,7 @@ var baseConfig = {
     extensions: ['', '.js', '.vue'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
-      src: path.resolve(__dirname, '../website/client'),
+      client: path.resolve(__dirname, '../website/client'),
       assets: path.resolve(__dirname, '../website/client/assets'),
       components: path.resolve(__dirname, '../website/client/components'),
     },
@@ -86,6 +86,7 @@ var baseConfig = {
 if (!IS_PROD) {
   baseConfig.eslint = {
     formatter: require('eslint-friendly-formatter'),
+    emitWarning: true,
   };
 }
 module.exports = baseConfig;

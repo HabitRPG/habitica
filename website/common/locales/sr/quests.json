@@ -26,6 +26,8 @@
     "pending": "Bez odgovora",
     "questStart": "Misija počinje kad svi članovi odgovore. Samo oni koji su prihvatili poziv moći će da učestvuju u misiji i dobiju predmete. Ako pozvani članovi ne odgovore posle dužeg perioda (ili su neaktivni), vlasnik misije može da je pokrene klikom na „Polazak“. Vlasnik misije može i da je otkaže, a u tom slučaju svitak s misijom biće mu vraćen.",
     "questStartBroken": "Once all members have either accepted or rejected, the quest begins... Only those that clicked \"accept\" will be able to participate in the quest and receive the drops... If members are pending too long (inactive?), the quest owner can start the quest without them by clicking \"Begin\"... The quest owner can also cancel the quest and regain the quest scroll by clicking \"Cancel\"...",
+    "questCollection": "+<%= val %> quest item(s) found",
+    "questDamage": "+<%= val %> damage to boss",
     "begin": "Polazak",
     "bossHP": "Zdravlje bosa",
     "bossStrength": "Snaga Bosa",

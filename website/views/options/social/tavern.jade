@@ -39,13 +39,13 @@
                 a(target='_blank', href='https://vimeo.com/57654086')=env.t('tutorial')
             tr
               td
-                a(target='_blank', href='http://habitica.wikia.com/wiki/FAQ')=env.t('FAQ')
+                a(target='_blank', href='https://habitica.com/static/FAQ')=env.t('FAQ')
             tr
               td
-                a(target='_blank', href='http://habitica.wikia.com/wiki/Glossary')=env.t('glossary')
+                !=env.t('glossary')
             tr
               td
-                a(target='_blank', href='http://habitica.wikia.com/')=env.t('wiki')
+                !=env.t('wikiLink')
             tr
               td
                 a(target='_blank', href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html')=env.t('dataTool')
@@ -57,7 +57,7 @@
                 a(target='_blank', href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')= ' ' + env.t('requestAF')
             tr
               td
-                a(target='_blank', href='http://habitica.wikia.com/wiki/Special:Forum')=env.t('community')
+                !=env.t('community')
             tr
               td
                 a(target='_blank', href='https://habitica.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a')=env.t('askQuestionNewbiesGuild')
@@ -71,12 +71,10 @@
             |<a href='/#/options/groups/hall'>
             =env.t('visitHeroes')
             |</a> <br />
-            |<a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>
-            =env.t('conLearn')
-            |</a> <br />
-            |<a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>
-            =env.t('conLearnHow')
-            |</a>
+            !=env.t('conLearn')
+            br
+            a(href=env.t('conLearnURL'), target='_blank')
+              =env.t('conLearnHow')
           table.table.table-striped.panel-tiers
             tr
               td

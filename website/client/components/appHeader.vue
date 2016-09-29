@@ -1,14 +1,18 @@
 <template lang="pug">
-h1 {{ title }}
+#app-header
+  h1 {{title}}
+  ul
+    li
+      router-link(to='/') Home
+    li
+      router-link(to='/page') Another Page
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from '../store';
 
 export default {
-  computed: mapState([
-    'title',
-  ]),
+  computed: mapState(['title']),
 };
 </script>
 
