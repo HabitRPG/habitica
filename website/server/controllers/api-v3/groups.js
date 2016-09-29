@@ -675,28 +675,33 @@ api.inviteToGroup = {
 
     let uuidsIsArray = Array.isArray(uuids);
     let emailsIsArray = Array.isArray(emails);
+    let emptyEmails = emailsIsArray && emails.length < 1;
+    let emptyUuids = uuidsIsArray && uuids.length < 1;
+
 
     if (!uuids && !emails) {
       throw new BadRequest(res.t('canOnlyInviteEmailUuid'));
+    } else if (uuids && !uuidsIsArray) {
+      throw new BadRequest(res.t('uuidsMustBeAnArray'));
+    } else if (emails && !emailsIsArray) {
+      throw new BadRequest(res.t('emailsMustBeAnArray'));
+    } else if (!emails && emptyUuids) {
+      throw new BadRequest(res.t('inviteMissingUuid'));
+    } else if (!uuids && emptyEmails) {
+      throw new BadRequest(res.t('inviteMissingEmail'));
+    } else if (emptyEmails && emptyUuids) {
+      throw new BadRequest(res.t('inviteMustNotBeEmpty'));
     }
 
     let results = [];
     let totalInvites = 0;
 
     if (uuids) {
-      if (!uuidsIsArray) {
-        throw new BadRequest(res.t('uuidsMustBeAnArray'));
-      } else {
-        totalInvites += uuids.length;
-      }
+      totalInvites += uuids.length;
     }
 
     if (emails) {
-      if (!emailsIsArray) {
-        throw new BadRequest(res.t('emailsMustBeAnArray'));
-      } else {
-        totalInvites += emails.length;
-      }
+      totalInvites += emails.length;
     }
 
     if (totalInvites > INVITES_LIMIT) {
