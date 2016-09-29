@@ -11,6 +11,7 @@
     "unsubChallenge": "Разорвана связь с испытанием: это задание было частью испытания, которое вы покинули. Что делать с заданиями, входившими в это испытание?",
     "challengeWinner": "Победитель следующих испытаний",
     "challenges": "Испытания",
+    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Challenges</a>",
     "noChallenges": "Пока нет доступных испытаний, посетите",
     "toCreate": "для создания нового.",
     "selectWinner": "Выбрать победителя и закрыть испытание:",

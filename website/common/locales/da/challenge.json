@@ -11,6 +11,7 @@
     "unsubChallenge": "Defekt udfordringslink: denne opgave var en del af en udfordring, som du ikke længere abonnerer på. Hvad vil du gøre med de gruppeløse opgaver?",
     "challengeWinner": "Blev vinderen i de følgende udfordringer",
     "challenges": "Udfordringer",
+    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Challenges</a>",
     "noChallenges": "Ingen udfordringer endnu, besøg",
     "toCreate": "for at oprette en.",
     "selectWinner": "Vælg en vinder og luk udfordringen:",

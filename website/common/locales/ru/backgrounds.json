@@ -196,11 +196,11 @@
     "backgroundFarmhouseNotes": "Поздоровайтесь с животными по пути к Ферме.",
     "backgroundOrchardText": "Фруктовый сад",
     "backgroundOrchardNotes": "Сорвите спелый плод во Фруктовом саду.",
-    "backgrounds102016": "SET 29: Released October 2016",
-    "backgroundSpiderWebText": "Spider Web",
-    "backgroundSpiderWebNotes": "Get snagged in a Spider Web.",
-    "backgroundStrangeSewersText": "Strange Sewers",
-    "backgroundStrangeSewersNotes": "Slither through the Strange Sewers.",
-    "backgroundRainyCityText": "Rainy City",
-    "backgroundRainyCityNotes": "Splash through a Rainy City."
+    "backgrounds102016": "Набор 29: Выпущен в октябре 2016",
+    "backgroundSpiderWebText": "Паучья сеть",
+    "backgroundSpiderWebNotes": "Не запутайся в паучьей сети",
+    "backgroundStrangeSewersText": "Странные стоки",
+    "backgroundStrangeSewersNotes": "Пройди сквозь Странные стоки",
+    "backgroundRainyCityText": "Дождливый город",
+    "backgroundRainyCityNotes": "Пройди по лужам Дождливого города"
 }
