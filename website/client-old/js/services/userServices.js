@@ -254,7 +254,7 @@ angular.module('habitrpg')
               Notification.crit(critBonus);
             }
 
-            if (quest && user.party.quest) {
+            if (quest && user.party.quest && user.party.quest.key) {
               var userQuest = Content.quests[user.party.quest.key];
               if (quest.progressDelta && userQuest.boss) {
                 Notification.quest('questDamage', quest.progressDelta.toFixed(1));
