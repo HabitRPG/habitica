@@ -30,12 +30,9 @@
 
             "bower_components/jquery-ui/ui/minified/jquery.ui.core.min.js",
             "bower_components/jquery-ui/ui/minified/jquery.ui.widget.min.js",
-            "bower_components/jquery-ui/ui/minified/jquery.ui.menu.min.js",
             "bower_components/jquery-ui/ui/minified/jquery.ui.mouse.min.js",
             "bower_components/jquery-ui/ui/minified/jquery.ui.sortable.min.js",
-            "bower_components/jquery-ui/ui/minified/jquery.ui.autocomplete.min.js",
             "bower_components/smart-app-banner/smart-app-banner.js",
-            "bower_components/taggle/src/taggle.js",
 
             "js/habitrpg-shared.js",
 
@@ -107,13 +104,7 @@
             "js/controllers/sortableInventoryCtrl.js",
             "js/controllers/tavernCtrl.js",
             "js/controllers/tasksCtrl.js",
-            "js/controllers/userCtrl.js",
-
-            "js/components/groupTasks/groupTasksController.js",
-            "js/components/groupTasks/groupTasksDirective.js",
-            "js/components/groupTaskActions/groupTaskActionsController.js",
-            "js/components/groupTaskActions/groupTaskActionsDirective.js",
-            "js/components/groupMembersAutocomplete/groupMembersAutocompleteDirective.js"
+            "js/controllers/userCtrl.js"
         ],
         "css": [
             "bower_components/bootstrap/dist/css/bootstrap.css",
@@ -124,10 +115,7 @@
             "bower_components/pnotify/jquery.pnotify.default.icons.css",
             "css/habitrpg-shared.css",
             "bower_components/bootstrap-tour/build/css/bootstrap-tour.css",
-            "fontello/css/fontelico.css",
-            "bower_components/jquery-ui/themes/base/minified/jquery.ui.autocomplete.min.css",
-            "bower_components/jquery-ui/themes/base/minified/jquery.ui.menu.min.css",
-            "bower_components/jquery-ui/themes/ui-lightness/jquery-ui.min.css"
+            "fontello/css/fontelico.css"
         ]
     },
     "static": {
