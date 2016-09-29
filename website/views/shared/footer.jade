@@ -29,7 +29,7 @@ footer.footer(ng-controller='FooterCtrl')
           li
             a(target='_blank', href='http://blog.habitrpg.com/')=env.t('tumblr')
           li
-            a(href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations', target='_blank')=env.t('companyExtensions')
+            !=env.t('companyExtensions')
           li
             a(href='/static/faq/')=env.t('FAQ')
           li
@@ -52,9 +52,9 @@ footer.footer(ng-controller='FooterCtrl')
           li
             a(target='_blank', href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')=env.t('communityFeature')
           li
-            a(href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations', target='_blank')=env.t('communityExtensions')
+            !=env.t('communityExtensions')
           li
-            a(target='_blank', href='http://habitica.wikia.com/wiki/Special:Forum')=env.t('communityForum')
+            !=env.t('communityForum')
           li
             a(target='_blank', href='http://www.kickstarter.com/projects/lefnire/habitrpg-mobile')=env.t('communityKickstarter')
           li
