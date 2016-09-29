@@ -517,6 +517,7 @@ function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
       break;
     }
   }
+  updates = _.omit(update, _.isEmpty);
   return updates;
 }
 
@@ -552,7 +553,6 @@ schema.methods.finishQuest = async function finishQuest (quest) {
   _.each(_.filter(quest.drop.items, 'onlyOwner'), (item) => {
     _.merge(questOwnerUpdates, _getUserUpdateForQuestReward(item, quest.drop.items));
   });
-  questOwnerUpdates = _.omit(questOwnerUpdates, _.isEmpty);
 
   let q = this._id === TAVERN_ID ? {} : {_id: {$in: this.getParticipatingQuestMembers()}};
   this.quest = {};
