@@ -26,6 +26,8 @@
     "pending": "In attesa",
     "questStart": "Una volta che ogni membro ha accettato o rifiutato, la missione inizia. Solo chi ha selezionato \"Accetta\" potrà partecipare e ricevere le ricompense. Se dei membri rimangono in attesa per troppo tempo (forse perché inattivi?) il Capomissione può iniziare la missione senza di loro selezionando \"Inizia\". Può anche annullare la missione e riottenere la Pergamena selezionando \"Annulla\".",
     "questStartBroken": "Una volta che ogni membro ha accettato o rifiutato, la missione inizia... Solo chi ha selezionato \"Accetta\" potrà partecipare e ricevere le ricompense... Se dei membri rimangono in attesa per troppo tempo (forse perché inattivi?) il Capomissione può iniziare la missione senza di loro selezionando \"Inizia\"... Può anche annullare la missione e riottenere la Pergamena selezionando \"Annulla\"...",
+    "questCollection": "+<%= val %> quest item(s) found",
+    "questDamage": "+<%= val %> damage to boss",
     "begin": "Inizia",
     "bossHP": "Salute del Boss",
     "bossStrength": "Forza del Boss",

@@ -200,10 +200,10 @@
     "onlyGroupTasksCanBeAssigned": "Enkel groepstaken kunnen toegewezen worden.",
     "newChatMessagePlainNotification": "Nieuw bericht in <%= groupName %> door <%= authorName %>. Klik hier om de chat pagina te openen!",
     "newChatMessageTitle": "Nieuw bericht in <%= groupName %>",
-    "exportInbox": "Export Messages",
-    "exportInboxPopoverTitle": "Export your messages as HTML",
+    "exportInbox": "Exporteer berichten",
+    "exportInboxPopoverTitle": "Exporteer je berichten als HTML",
     "exportInboxPopoverBody": "HTML allows easy reading of messages in a browser. For a machine-readable format, use Data > Export Data",
-    "to": "To:",
-    "from": "From:",
+    "to": "Naar:",
+    "from": "Van:",
     "desktopNotificationsText": "We hebben je toestemming nodig om bureaubladnotificaties te gebruiken voor nieuwe berichten in de groepschat! Volg de instructies van je browser om ze in te schakelen.<br><br>Je zult deze notificaties alleen ontvangen wanneer je Habitica geopend hebt. Als je besluit dat je ze niet fijn vind, kunnen ze worden uitgeschakeld in de instellingen van je browser.<br><br>Dit scherm zal automatisch sluiten wanneer je een keuze hebt gemaakt."
 }

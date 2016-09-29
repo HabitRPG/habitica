@@ -63,7 +63,7 @@
     "hurray": "Hurá!",
     "noChallengeOwner": "bez majitele",
     "noChallengeOwnerPopover": "Tato Výzva nemá majitele, jelikož uživatel, který ji vytvořil, si smazal účet.",
-    "challengeMemberNotFound": "Uživatel nenalezen mezi členy výzvy",
+    "challengeMemberNotFound": "Uživatel nenalezen mezi členy skupiny.",
     "onlyGroupLeaderChal": "Pouze vůdce družiny může začít výzvy",
     "tavChalsMinPrize": "Cena za výzvu v krčmě musí být alespoň 1 drahokam.",
     "cantAfford": "Nemůžete zadat tuto odměnu. Kupte si více drahokamů nebo snižte odměnu.",

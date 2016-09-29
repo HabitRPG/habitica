@@ -53,9 +53,11 @@ habitrpg
       };
 
       $scope.reportAbuse = function(reporter, message, groupId) {
-        message.flags[reporter._id] = true;
         Chat.flagChatMessage(groupId, message.id)
           .then(function(data){
+            var res = data.data.data;
+            message.flags = res.flags;
+            message.flagCount = res.flagCount;
             Notification.text(window.env.t('abuseReported'));
             $scope.$close();
           });

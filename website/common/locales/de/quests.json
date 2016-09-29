@@ -26,6 +26,8 @@
     "pending": "Ausstehend",
     "questStart": "Sobald alle Mitglieder die Einladung entweder angenommen oder abgelehnt haben beginnt die Quest. Nur diejenigen, die die Einladung \"angenommen\" haben können an der Quest teilnehmen und die Belohnungen kassieren. Wenn Mitglieder zu lange überlegen (inaktiv?), kannst Du die Quest ohne sie starten indem Du auf \"Beginnen\" klickst. Der Quest-Besitzer kann die Quest auch abbrechen und die Questrolle zurückerhalten indem er \"Abbrechen\" klickt.",
     "questStartBroken": "Sobald alle Mitglieder die Einladung entweder angenommen oder abgelehnt haben beginnt die Quest … Nur diejenigen, die die Einladung \"angenommen\" haben können an der Quest teilnehmen und die Belohnungen kassieren … Wenn Mitglieder zu lange überlegen (inaktiv?), kann der Quest-Besitzer die Quest ohne sie starten indem er auf \"Beginnen\" klickt … Der Quest-Besitzer kann die Quest auch abbrechen und die Questschriftrolle zurückerhalten indem er auf \"Abbrechen\" klickt ...",
+    "questCollection": "+<%= val %> Quest Gegenstände gefunden",
+    "questDamage": "+<%= val %> Schaden gegen den Boss",
     "begin": "Beginnen",
     "bossHP": "Boss-Lebenspunkte",
     "bossStrength": "Boss-Stärke",

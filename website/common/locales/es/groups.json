@@ -200,9 +200,9 @@
     "onlyGroupTasksCanBeAssigned": "Sólo pueden ser asignadas tareas del grupo.",
     "newChatMessagePlainNotification": "Nuevo mensaje en <%= groupName %> de <%= authorName %>. ¡Haz click aquí para abrir la pagina de chat!",
     "newChatMessageTitle": "Nuevo mensaje en <%= groupName %>",
-    "exportInbox": "Export Messages",
-    "exportInboxPopoverTitle": "Export your messages as HTML",
-    "exportInboxPopoverBody": "HTML allows easy reading of messages in a browser. For a machine-readable format, use Data > Export Data",
+    "exportInbox": "Exportar Mensajes",
+    "exportInboxPopoverTitle": "Exportar tus mensajes como HTML",
+    "exportInboxPopoverBody": "HTML te permite leer mensajes fácilmente en un navegador . Para un formato legible por máquinas, usa Datos > Exportar Datos",
     "to": "To:",
     "from": "From:",
     "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made."

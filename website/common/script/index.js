@@ -23,10 +23,12 @@ import {
   MAX_STAT_POINTS,
   TAVERN_ID,
   LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
+  SUPPORTED_SOCIAL_NETWORKS,
 } from './constants';
 
 api.constants = {
   LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
+  SUPPORTED_SOCIAL_NETWORKS,
 };
 // TODO Move these under api.constants
 api.maxLevel = MAX_LEVEL;
@@ -94,12 +96,14 @@ api.shops = shops;
 import achievements from './libs/achievements';
 api.achievements = achievements;
 
+import randomVal from './libs/randomVal';
+api.randomVal = randomVal;
+
 import autoAllocate from './fns/autoAllocate';
 import crit from './fns/crit';
 import handleTwoHanded from './fns/handleTwoHanded';
 import predictableRandom from './fns/predictableRandom';
 import randomDrop from './fns/randomDrop';
-import randomVal from './fns/randomVal';
 import resetGear from './fns/resetGear';
 import ultimateGear from './fns/ultimateGear';
 import updateStats from './fns/updateStats';
@@ -110,7 +114,6 @@ api.fns = {
   handleTwoHanded,
   predictableRandom,
   randomDrop,
-  randomVal,
   resetGear,
   ultimateGear,
   updateStats,
@@ -301,7 +304,6 @@ api.wrap = function wrapUser (user, main = true) {
     handleTwoHanded: _.partial(importedFns.handleTwoHanded, user),
     predictableRandom: _.partial(importedFns.predictableRandom, user),
     crit: _.partial(importedFns.crit, user),
-    randomVal: _.partial(importedFns.randomVal, user),
     randomDrop: _.partial(importedFns.randomDrop, user),
     autoAllocate: _.partial(importedFns.autoAllocate, user),
     updateStats: _.partial(importedFns.updateStats, user),

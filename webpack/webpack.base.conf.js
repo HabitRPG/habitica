@@ -86,6 +86,7 @@ var baseConfig = {
 if (!IS_PROD) {
   baseConfig.eslint = {
     formatter: require('eslint-friendly-formatter'),
+    emitWarning: true,
   };
 }
 module.exports = baseConfig;
