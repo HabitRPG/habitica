@@ -193,6 +193,7 @@ describe('Analytics Service', function () {
           todos: 1,
           rewards: 1
         };
+        expectedProperties.balance = 12;
 
         beforeEach(function() {
           user._id = 'unique-user-id';
@@ -207,6 +208,7 @@ describe('Analytics Service', function () {
           user.dailys = [{_id: 'daily'}];
           user.todos = [{_id: 'todo'}];
           user.rewards = [{_id: 'reward'}];
+          user.balance = 12;
 
           analytics.updateUser(properties);
           clock.tick();
@@ -240,7 +242,8 @@ describe('Analytics Service', function () {
             dailys: 1,
             habits: 1,
             rewards: 1
-          }
+          },
+          balance: 12
         };
 
         beforeEach(function() {
@@ -258,6 +261,7 @@ describe('Analytics Service', function () {
           user.dailys = [{_id: 'daily'}];
           user.todos = [{_id: 'todo'}];
           user.rewards = [{_id: 'reward'}];
+          user.balance = 12;
 
           analytics.updateUser();
           clock.tick();
