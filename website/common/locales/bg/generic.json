@@ -3,7 +3,7 @@
     "stringNotFound": "Текстът „<%= string %>“ не е намерен.",
     "titleIndex": "Хабитика | Животът Ви, превърнат в ролева игра",
     "habitica": "Хабитика",
-    "habiticaLink": "<a href='http://habitica.wikia.com/wiki/Habitica' target='_blank'>Habitica</a>",
+    "habiticaLink": "<a href='http://habitica.wikia.com/wiki/Habitica' target='_blank'>Хабитика</a>",
     "titleTasks": "Задачи",
     "titleAvatar": "Герой",
     "titleBackgrounds": "Фонови изображения",

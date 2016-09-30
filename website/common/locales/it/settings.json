@@ -102,7 +102,7 @@
     "usernameOrEmail": "Nome di login o email",
     "email": "Email",
     "registerWithSocial": "Register with <%= network %>",
-    "registeredWithSocial": "Registered with <%= network %>",
+    "registeredWithSocial": "Registrato con <%= network %>",
     "loginNameDescription1": "Questo è ciò che usi per accedere ad Habitica. Vai in",
     "loginNameDescription2": "Utente->Profilo",
     "loginNameDescription3": "per cambiare il nome che appare nel tuo avatar e nei messaggi della chat.",
