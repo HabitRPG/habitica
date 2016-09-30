@@ -1,6 +1,6 @@
 {
   "name": "habitica",
-  "version": "3.44.0",
+  "version": "3.44.4",
   "dependencies": {
     "@slack/client": {
       "version": "3.6.0",
@@ -533,6 +533,11 @@
       "from": "babel-plugin-syntax-async-functions@>=6.8.0 <7.0.0",
       "resolved": "https://registry.npmjs.org/babel-plugin-syntax-async-functions/-/babel-plugin-syntax-async-functions-6.13.0.tgz"
     },
+    "babel-plugin-syntax-object-rest-spread": {
+      "version": "6.13.0",
+      "from": "babel-plugin-syntax-object-rest-spread@>=6.8.0 <7.0.0",
+      "resolved": "https://registry.npmjs.org/babel-plugin-syntax-object-rest-spread/-/babel-plugin-syntax-object-rest-spread-6.13.0.tgz"
+    },
     "babel-plugin-transform-async-to-module-method": {
       "version": "6.8.0",
       "from": "babel-plugin-transform-async-to-module-method@>=6.8.0 <7.0.0",
@@ -654,6 +659,11 @@
       "version": "6.11.0",
       "from": "babel-plugin-transform-es2015-unicode-regex@>=6.3.13 <7.0.0",
       "resolved": "https://registry.npmjs.org/babel-plugin-transform-es2015-unicode-regex/-/babel-plugin-transform-es2015-unicode-regex-6.11.0.tgz"
+    },
+    "babel-plugin-transform-object-rest-spread": {
+      "version": "6.16.0",
+      "from": "babel-plugin-transform-object-rest-spread@>=6.16.0 <7.0.0",
+      "resolved": "https://registry.npmjs.org/babel-plugin-transform-object-rest-spread/-/babel-plugin-transform-object-rest-spread-6.16.0.tgz"
     },
     "babel-plugin-transform-regenerator": {
       "version": "6.14.0",
@@ -5193,6 +5203,11 @@
       "resolved": "https://registry.npmjs.org/jpegtran-bin/-/jpegtran-bin-3.1.0.tgz",
       "optional": true
     },
+    "jquery": {
+      "version": "3.1.1",
+      "from": "jquery@*",
+      "resolved": "https://registry.npmjs.org/jquery/-/jquery-3.1.1.tgz"
+    },
     "js-base64": {
       "version": "2.1.9",
       "from": "js-base64@>=2.1.9 <3.0.0",
@@ -5378,6 +5393,36 @@
       "version": "1.0.0",
       "from": "lcid@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/lcid/-/lcid-1.0.0.tgz"
+    },
+    "less": {
+      "version": "2.7.1",
+      "from": "less@>=2.7.1 <3.0.0",
+      "resolved": "https://registry.npmjs.org/less/-/less-2.7.1.tgz",
+      "dependencies": {
+        "asap": {
+          "version": "2.0.5",
+          "from": "asap@>=2.0.3 <2.1.0",
+          "resolved": "https://registry.npmjs.org/asap/-/asap-2.0.5.tgz",
+          "optional": true
+        },
+        "image-size": {
+          "version": "0.5.0",
+          "from": "image-size@>=0.5.0 <0.6.0",
+          "resolved": "https://registry.npmjs.org/image-size/-/image-size-0.5.0.tgz",
+          "optional": true
+        },
+        "promise": {
+          "version": "7.1.1",
+          "from": "promise@>=7.1.1 <8.0.0",
+          "resolved": "https://registry.npmjs.org/promise/-/promise-7.1.1.tgz",
+          "optional": true
+        }
+      }
+    },
+    "less-loader": {
+      "version": "2.2.3",
+      "from": "less-loader@>=2.2.3 <3.0.0",
+      "resolved": "https://registry.npmjs.org/less-loader/-/less-loader-2.2.3.tgz"
     },
     "lexical-scope": {
       "version": "1.2.0",
@@ -6931,6 +6976,11 @@
       "from": "passport-facebook@2.0.0",
       "resolved": "https://registry.npmjs.org/passport-facebook/-/passport-facebook-2.0.0.tgz"
     },
+    "passport-google-oauth20": {
+      "version": "1.0.0",
+      "from": "passport-google-oauth20@1.0.0",
+      "resolved": "https://registry.npmjs.org/passport-google-oauth20/-/passport-google-oauth20-1.0.0.tgz"
+    },
     "passport-oauth2": {
       "version": "1.3.0",
       "from": "passport-oauth2@>=1.0.0 <2.0.0",
@@ -8016,6 +8066,11 @@
           "resolved": "https://registry.npmjs.org/commander/-/commander-2.8.1.tgz"
         }
       }
+    },
+    "semantic-ui-less": {
+      "version": "2.2.4",
+      "from": "semantic-ui-less@>=2.2.4 <2.3.0",
+      "resolved": "https://registry.npmjs.org/semantic-ui-less/-/semantic-ui-less-2.2.4.tgz"
     },
     "semver": {
       "version": "5.0.3",
@@ -9443,16 +9498,6 @@
       "version": "1.0.0",
       "from": "vue-template-es2015-compiler@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.0.0.tgz"
-    },
-    "vuex": {
-      "version": "2.0.0-rc.5",
-      "from": "vuex@>=2.0.0-rc.5 <3.0.0",
-      "resolved": "https://registry.npmjs.org/vuex/-/vuex-2.0.0-rc.5.tgz"
-    },
-    "vuex-router-sync": {
-      "version": "3.0.0",
-      "from": "vuex-router-sync@>=3.0.0 <4.0.0",
-      "resolved": "https://registry.npmjs.org/vuex-router-sync/-/vuex-router-sync-3.0.0.tgz"
     },
     "w3counter": {
       "version": "2.0.1",

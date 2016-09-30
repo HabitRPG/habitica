@@ -5,7 +5,7 @@ import fs from 'fs';
 // Code taken from https://www.artembutusov.com/webpack-semantic-ui/
 
 // Relative to node_modules/semantic-ui-less
-const SEMANTIC_THEME_PATH = '../../website/client/assets/semantic-ui/theme.config';
+const SEMANTIC_THEME_PATH = '../../website/client/assets/less/semantic-ui/theme.config';
 
 // fix well known bug with default distribution
 function fixFontPath (filename) {

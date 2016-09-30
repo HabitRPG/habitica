@@ -3,15 +3,13 @@
 require('babel-polyfill');
 
 import Vue from 'vue';
-import VuexRouterSync from 'vuex-router-sync';
 import VueResource from 'vue-resource';
-import AppComponent from './components/app';
+import AppComponent from './app';
 import router from './router';
-import store from './vuex/store';
-
-Vue.use(VueResource);
+import store from './store';
 
 // TODO just for the beginning
+Vue.use(VueResource);
 
 let authSettings = localStorage.getItem('habit-mobile-settings');
 
@@ -21,12 +19,8 @@ if (authSettings) {
   Vue.http.headers.common['x-api-key'] = authSettings.auth.apiToken;
 }
 
-// Sync Vuex and Router
-VuexRouterSync.sync(store, router);
-
-const app =  new Vue({ // eslint-disable-line no-new
+const app = new Vue({
   router,
-  store,
   render: h => h(AppComponent),
   mounted () { // Remove the loading screen when the app is mounted
     let loadingScreen = document.getElementById('loading-screen');
@@ -34,21 +28,23 @@ const app =  new Vue({ // eslint-disable-line no-new
   },
 });
 
-// Setup listener for title that is outside Vue's scope
+// Setup listener for title
 store.watch(state => state.title, (title) => {
   document.title = title;
 });
 
-// Mount the app when the user is loaded
-let userWatcher = store.watch(state => state.user, (user) => {
-  if (user && user._id) {
-    userWatcher(); // remove the watcher
+// Mount the app when user and tasks are loaded
+let userDataWatcher = store.watch(state => [state.user, state.tasks], ([user, tasks]) => {
+  if (user && user._id && tasks && tasks.length) {
+    userDataWatcher(); // remove the watcher
     app.$mount('#app');
   }
 });
 
-// Load the user
-store.dispatch('fetchUser')
-  .catch(() => {
-    alert('Impossible to fetch user. Copy into localStorage a valid habit-mobile-settings object.');
-  });
+// Load the user and the user tasks
+Promise.all([
+  store.dispatch('fetchUser'),
+  store.dispatch('fetchUserTasks'),
+]).catch(() => {
+  alert('Impossible to fetch user. Copy into localStorage a valid habit-mobile-settings object.');
+});

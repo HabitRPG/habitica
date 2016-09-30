@@ -162,7 +162,7 @@
     "commGuideLink01description": "新しいユーザーが質問をするためのギルド！",
     "commGuideLink02": "バックコーナーギルド",
     "commGuideLink02description": "長い議論や機密な話をするためのギルド。",
-    "commGuideLink03": "Wiki",
+    "commGuideLink03": "<a href='http://habitica.wikia.com/wiki/Habitica_Wiki' target='_blank'>The Wiki</a>",
     "commGuideLink03description": "Habiticaに関しての情報が最も多い。",
     "commGuideLink04": "GitHub",
     "commGuideLink04description": "バグレポート、またはコードプログラムを支援！",

@@ -63,6 +63,9 @@ angular.module('habitrpg')
 
       // When the user correctly enters the party channel
       partyChannel.bind('pusher:subscription_succeeded', function(pusherMembers) {
+        // Sync the user if we're reconnecting
+        if (reconnecting) $rootScope.User.sync();
+
         // Wait for the party to be loaded
         Groups.party(reconnecting).then(function (party) {
           // If we just reconnected after some inactivity, sync the party

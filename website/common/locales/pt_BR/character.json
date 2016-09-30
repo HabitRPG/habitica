@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Por favor tenha em mente que o seu Nome de Exibição, foto de perfil e seu Sobre devem estar de acordo com as <a href='https://habitica.com/static/community-guidelines' target='_blank'>Diretrizes da Comunidade/a> (por exemplo, sem profanidade, tópicos adultos, insultos etc). Se você tem alguma dúvida se algo é ou não apropriado, sinta-se a vontade para mandar email pra <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Por favor tenha em mente que o seu Nome de Exibição, foto de perfil e seu Sobre devem estar de acordo com as <a href='https://habitica.com/static/community-guidelines' target='_blank'>Diretrizes da Comunidade</a> (ou seja, sem profanidade, tópicos adultos, insultos etc). Se você tem alguma dúvida se algo é ou não apropriado, sinta-se à vontade para mandar um e-mail para <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "profile": "Perfil",
     "avatar": "Personalizar Avatar",
     "other": "Outros",
@@ -12,7 +12,7 @@
     "imageUrl": "URL da Imagem",
     "inventory": "Inventário",
     "social": "Social",
-    "lvl": "Nv",
+    "lvl": "Lvl",
     "buffed": "Buffado",
     "bodyBody": "Corpo",
     "bodySize": "Tamanho",
