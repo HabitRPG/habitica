@@ -186,6 +186,8 @@
     "keepOrRemove": "req.query.keep precisa ser \"keep\" ou \"remove\"",
     "canOnlyInviteEmailUuid": "Só pode convidar usando uuids ou e-mails.",
     "inviteMissingEmail": "Faltando o endereço de e-mail no convite.",
+    "inviteMissingUuid": "Missing user id in invite",
+    "inviteMustNotBeEmpty": "Invite must not be empty.",
     "partyMustbePrivate": "Grupos precisam ser privados.",
     "userAlreadyInGroup": "Usuário já está nesse grupo.",
     "cannotInviteSelfToGroup": "Você não pode se convidar para um grupo.",

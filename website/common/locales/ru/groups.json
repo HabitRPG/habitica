@@ -186,6 +186,8 @@
     "keepOrRemove": "req.query.keep должен быть либо \"keep\" или \"remove\"",
     "canOnlyInviteEmailUuid": "Можно приглашать только с помощью UUID, или электронные почьтой.",
     "inviteMissingEmail": "В приглашении отсутствует адрес электронной почты.",
+    "inviteMissingUuid": "Missing user id in invite",
+    "inviteMustNotBeEmpty": "Invite must not be empty.",
     "partyMustbePrivate": "Команды должны быть приватными",
     "userAlreadyInGroup": "Пользоватеь уже состоит в этой группе.",
     "cannotInviteSelfToGroup": "Вы не можете приглосить себя в группу.",

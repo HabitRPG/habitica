@@ -186,6 +186,8 @@
     "keepOrRemove": "req.query.keep は、\"keep\" か \"remove\" でなくてはなりません。",
     "canOnlyInviteEmailUuid": "招待のあて先は、UUID かメールアドレスのみ対応しています。",
     "inviteMissingEmail": "招待を送るメールアドレスがありません。",
+    "inviteMissingUuid": "Missing user id in invite",
+    "inviteMustNotBeEmpty": "Invite must not be empty.",
     "partyMustbePrivate": "パーティーは、プライベートです。",
     "userAlreadyInGroup": "ユーザーは、すでにグループにいます。",
     "cannotInviteSelfToGroup": "自分自身をグループに招待することはできません。",

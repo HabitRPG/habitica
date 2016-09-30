@@ -186,6 +186,8 @@
     "keepOrRemove": "req.query.keep doit être soit \"keep\" soit \"remove\"",
     "canOnlyInviteEmailUuid": "Vous ne pouvez inviter qu'avec des UUIDs ou des courriels.",
     "inviteMissingEmail": "L'adresse courriel est manquante dans l'invitation.",
+    "inviteMissingUuid": "Missing user id in invite",
+    "inviteMustNotBeEmpty": "Invite must not be empty.",
     "partyMustbePrivate": "Les équipes doivent être privées",
     "userAlreadyInGroup": "Utilisateur déjà dans cette équipe.",
     "cannotInviteSelfToGroup": "Vous ne pouvez vous inviter vous-même dans un groupe.",

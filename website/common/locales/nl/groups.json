@@ -186,6 +186,8 @@
     "keepOrRemove": "req.query.keep moet of \"keep\" of \"remove\" zijn",
     "canOnlyInviteEmailUuid": "Kan alleen uitnodigen via uuids of e-mails.",
     "inviteMissingEmail": "Ontbrekende e-mailadressen in uitnodiging.",
+    "inviteMissingUuid": "Missing user id in invite",
+    "inviteMustNotBeEmpty": "Invite must not be empty.",
     "partyMustbePrivate": "Groepen moeten privé zijn",
     "userAlreadyInGroup": "Gebruiker zit al in die groep.",
     "cannotInviteSelfToGroup": "Je kunt jezelf niet in een groep uitnodigen.",

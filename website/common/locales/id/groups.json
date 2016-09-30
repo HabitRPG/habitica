@@ -186,6 +186,8 @@
     "keepOrRemove": "req.query.keep harus merupakan salah satu dari \"keep\" atau \"remove\"",
     "canOnlyInviteEmailUuid": "Hanya dapat mengundang menggunakan uuids atau email.",
     "inviteMissingEmail": "Alamat email hilang dalam undangan.",
+    "inviteMissingUuid": "Missing user id in invite",
+    "inviteMustNotBeEmpty": "Invite must not be empty.",
     "partyMustbePrivate": "Kelompok harus privat",
     "userAlreadyInGroup": "Pengguna telah berada dalam grup tersebut.",
     "cannotInviteSelfToGroup": "Kamu tidak bisa mengundang dirimu sendiri ke dalam grup.",
