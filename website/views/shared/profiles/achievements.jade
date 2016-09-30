@@ -1,11 +1,10 @@
 mixin simpleAchiev(achiev)
-  div(popover-title='{{achiev.title}}',
-    data-popover-html='{{achiev.text}}',
-    popover-trigger='mouseenter',
-    popover-placement='{{achievPopoverPlacement}}',
-    popover-append-to-body='{{achievAppendToBody}}')&attributes(attributes)
+  div(ng-init='earnedClass = achiev.earned ? "" : "muted"')&attributes(attributes)
+    button.pet-button(popover-trigger='mouseenter',
+      data-popover-html='<div class="{{earnedClass}}">{{achiev.title}}<hr>{{achiev.text}}</div>',
+      popover-placement='{{achievPopoverPlacement}}',
+      popover-append-to-body='{{achievAppendToBody}}')
 
-    button.pet-button
       .achievement(ng-class='achiev.icon + "2x"', ng-if='achiev.earned')
         .counter.badge.badge-info.stack-count(ng-if='(achiev.optionalCount)')
           {{::achiev.optionalCount}}
