@@ -32,8 +32,6 @@ let Users;
 
 connectToDb(DB_URI).then((db) => {
   Users = db.collection('users');
-
-  return Promise.resolve();
 })
 .then(findUsersWithWebhooks)
 .then(correctWebhooks)
@@ -44,9 +42,9 @@ connectToDb(DB_URI).then((db) => {
 
 function reportError (err) {
   logger.error('Uh oh, an error occurred');
+  logger.error(err);
   closeDb();
   timer.stop();
-  throw err;
 }
 
 // Cached ids of users that need updating
