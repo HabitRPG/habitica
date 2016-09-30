@@ -9,10 +9,10 @@ module.exports = function(grunt) {
 
     karma: {
       unit: {
-        configFile: 'karma.conf.js'
+        configFile: 'test/client-old/spec/karma.conf.js'
       },
       continuous: {
-        configFile: 'karma.conf.js',
+        configFile: 'test/client-old/spec/karma.conf.js',
         singleRun: true,
         autoWatch: false
       }
@@ -28,11 +28,11 @@ module.exports = function(grunt) {
           report: 'gzip'
         },
         files:{
-          "common/dist/sprites/habitrpg-shared.css": [
-            "common/dist/sprites/spritesmith*.css",
-            "common/css/backer.css",
-            "common/css/Mounts.css",
-            "common/css/index.css"
+          "website/client-old/css/habitrpg-shared.css": [
+            "website/assets/sprites/dist/spritesmith*.css",
+            "website/assets/sprites/css/backer.css",
+            "website/assets/sprites/css/Mounts.css",
+            "website/assets/sprites/css/index.css"
           ]
         }
       }
@@ -43,11 +43,11 @@ module.exports = function(grunt) {
         options: {
           compress: false, // AFTER
           'include css': true,
-          paths: ['website/client']
+          paths: ['website/client-old']
         },
         files: {
-          'website/build/app.css': ['website/client/css/index.styl'],
-          'website/build/static.css': ['website/client/css/static.styl']
+          'website/build/app.css': ['website/client-old/css/index.styl'],
+          'website/build/static.css': ['website/client-old/css/static.styl']
         }
       }
     },
@@ -55,13 +55,13 @@ module.exports = function(grunt) {
     copy: {
       build: {
         files: [
-          {expand: true, cwd: 'website/client/', src: 'favicon.ico', dest: 'website/build/'},
-          {expand: true, cwd: 'website/client/', src: 'favicon_192x192.png', dest: 'website/build/'},
-          {expand: true, cwd: '', src: 'common/dist/sprites/spritesmith*.png', dest: 'website/build/'},
-          {expand: true, cwd: '', src: 'common/img/sprites/backer-only/*.gif', dest: 'website/build/'},
-          {expand: true, cwd: '', src: 'common/img/sprites/npc_ian.gif', dest: 'website/build/'},
-          {expand: true, cwd: '', src: 'common/img/sprites/quest_*.gif', dest: 'website/build/'},
-          {expand: true, cwd: 'website/client/', src: 'bower_components/bootstrap/dist/fonts/*', dest: 'website/build/'}
+          {expand: true, cwd: 'website/client-old/', src: 'favicon.ico', dest: 'website/build/'},
+          {expand: true, cwd: 'website/client-old/', src: 'favicon_192x192.png', dest: 'website/build/'},
+          {expand: true, cwd: 'website/assets/sprites/dist/', src: 'spritesmith*.png', dest: 'website/build/'},
+          {expand: true, cwd: 'website/assets/sprites/', src: 'backer-only/*.gif', dest: 'website/build/'},
+          {expand: true, cwd: 'website/assets/sprites/', src: 'npc_ian.gif', dest: 'website/build/'},
+          {expand: true, cwd: 'website/assets/sprites/', src: 'quest_*.gif', dest: 'website/build/'},
+          {expand: true, cwd: 'website/client-old/', src: 'bower_components/bootstrap/dist/fonts/*', dest: 'website/build/'}
         ]
       }
     },
@@ -77,10 +77,8 @@ module.exports = function(grunt) {
           'website/build/*.css',
           'website/build/favicon.ico',
           'website/build/favicon_192x192.png',
-          'website/build/common/dist/sprites/*.png',
-          'website/build/common/img/sprites/backer-only/*.gif',
-          'website/build/common/img/sprites/npc_ian.gif',
-          'website/build/common/img/sprites/quest_*.gif',
+          'website/build/*.png',
+          'website/build/*.gif',
           'website/build/bower_components/bootstrap/dist/fonts/*'
         ],
         dest: 'website/build/*.css'
@@ -88,9 +86,9 @@ module.exports = function(grunt) {
     }
   });
 
-  //Load build files from client/manifest.json
-  grunt.registerTask('loadManifestFiles', 'Load all build files from client/manifest.json', function(){
-    var files = grunt.file.readJSON('./website/client/manifest.json');
+  //Load build files from client-old/manifest.json
+  grunt.registerTask('loadManifestFiles', 'Load all build files from client-old/manifest.json', function(){
+    var files = grunt.file.readJSON('./website/client-old/manifest.json');
     var uglify = {};
     var cssmin = {};
 
@@ -101,7 +99,7 @@ module.exports = function(grunt) {
       _.each(files[key].js, function(val){
         var path = "./";
         if( val.indexOf('common/') == -1)
-          path = './website/client/';
+          path = './website/client-old/';
         js.push(path + val);
       });
 
@@ -110,7 +108,7 @@ module.exports = function(grunt) {
       _.each(files[key].css, function(val){
         var path = "./";
         if( val.indexOf('common/') == -1) {
-          path = (val == 'app.css' || val == 'static.css') ?  './website/build/' : './website/client/';
+          path = (val == 'app.css' || val == 'static.css') ?  './website/build/' : './website/client-old/';
         }
         css.push(path + val)
       });
@@ -122,7 +120,7 @@ module.exports = function(grunt) {
 
     grunt.config.set('cssmin.build.files', cssmin);
     // Rewrite urls to relative path
-    grunt.config.set('cssmin.build.options', {'target': 'website/client/css/whatever-css.css'});
+    grunt.config.set('cssmin.build.options', {'target': 'website/client-old/css/whatever-css.css'});
   });
 
   // Register tasks.
@@ -133,7 +131,7 @@ module.exports = function(grunt) {
   grunt.registerTask('test:prepare:translations', function() {
     var i18n  = require('./website/server/libs/i18n'),
         fs    = require('fs');
-    fs.writeFileSync('test/spec/mocks/translations.js',
+    fs.writeFileSync('test/client-old/spec/mocks/translations.js',
       "if(!window.env) window.env = {};\n" +
       "window.env.translations = " + JSON.stringify(i18n.translations['en']) + ';');
   });
@@ -146,6 +144,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-hashres');
-  grunt.loadNpmTasks('grunt-karma');
+  if (process.env.NODE_ENV !== 'production') grunt.loadNpmTasks('grunt-karma');
 
 };

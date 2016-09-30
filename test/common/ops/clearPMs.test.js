@@ -1,4 +1,4 @@
-import clearPMs from '../../../common/script/ops/clearPMs';
+import clearPMs from '../../../website/common/script/ops/clearPMs';
 import {
   generateUser,
 } from '../../helpers/common.helper';

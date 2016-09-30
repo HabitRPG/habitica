@@ -11,6 +11,10 @@ describe('analyticsService', () => {
     sandbox.stub(Visitor.prototype, 'transaction');
   });
 
+  afterEach(() => {
+    sandbox.restore();
+  });
+
   describe('#track', () => {
     let eventType, data;
 
@@ -273,6 +277,7 @@ describe('analyticsService', () => {
           dailys: [{_id: 'daily'}],
           todos: [{_id: 'todo'}],
           rewards: [{_id: 'reward'}],
+          balance: 12,
         };
 
         data.user = user;
@@ -296,6 +301,7 @@ describe('analyticsService', () => {
                 },
                 contributorLevel: 1,
                 subscription: 'foo-plan',
+                balance: 12,
               },
             });
           });

@@ -1,7 +1,7 @@
 import moment from 'moment';
 import Bluebird from 'bluebird';
 import { model as User } from '../models/user';
-import common from '../../../common/';
+import common from '../../common/';
 import { preenUserHistory } from '../libs/preening';
 import _ from 'lodash';
 import nconf from 'nconf';
@@ -118,7 +118,7 @@ export function cron (options = {}) {
   // User is only allowed a certain number of drops a day. This resets the count.
   if (user.items.lastDrop.count > 0) user.items.lastDrop.count = 0;
 
-  // "Perfect Day" achievement for perfect-days
+  // "Perfect Day" achievement for perfect days
   let perfect = true;
 
   if (user.isSubscribed()) {
@@ -155,6 +155,7 @@ export function cron (options = {}) {
   // For incomplete Dailys, add value (further incentive), deduct health, keep records for later decreasing the nightly mana gain
   let dailyChecked = 0; // how many dailies were checked?
   let dailyDueUnchecked = 0; // how many dailies were un-checked?
+  let atLeastOneDailyDue = false; // were any dailies due?
   if (!user.party.quest.progress.down) user.party.quest.progress.down = 0;
 
   tasksByType.dailys.forEach((task) => {
@@ -165,6 +166,10 @@ export function cron (options = {}) {
 
     if (completed) {
       dailyChecked += 1;
+      if (!atLeastOneDailyDue) { // only bother checking until the first thing is found
+        let thatDay = moment(now).subtract({days: daysMissed});
+        atLeastOneDailyDue = shouldDo(thatDay.toDate(), task, user.preferences);
+      }
     } else {
       // dailys repeat, so need to calculate how many they've missed according to their own schedule
       scheduleMisses = 0;
@@ -173,6 +178,7 @@ export function cron (options = {}) {
         let thatDay = moment(now).subtract({days: i + 1});
 
         if (shouldDo(thatDay.toDate(), task, user.preferences)) {
+          atLeastOneDailyDue = true;
           scheduleMisses++;
           if (user.stats.buffs.stealth) {
             user.stats.buffs.stealth--;
@@ -256,7 +262,7 @@ export function cron (options = {}) {
   // TODO also do while resting in the inn. Note that later we'll be allowing the value/color of tasks to change while sleeping (https://github.com/HabitRPG/habitrpg/issues/5232), so the code in performSleepTasks() might be best merged back into here for that. Perhaps wait until then to do preen history for sleeping users.
   preenUserHistory(user, tasksByType, user.preferences.timezoneOffset);
 
-  if (perfect) {
+  if (perfect && atLeastOneDailyDue) {
     user.achievements.perfect++;
     let lvlDiv2 = Math.ceil(common.capByLevel(user.stats.lvl) / 2);
     user.stats.buffs = {

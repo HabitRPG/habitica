@@ -1,0 +1,13 @@
+mixin basicRow(label, value)
+  tr&attributes(attributes)
+    td
+      strong=env.t(label)
+      | : #{value}
+
+mixin statList(calculatedStat, popover, text, useOneTimeBinding)
+  - var binding = useOneTimeBinding ? "::" : ""
+  li(ng-if=binding + '#{calculatedStat} > 0')
+    span.hint(popover-title=env.t('#{popover}'), popover-trigger='mouseenter',
+      popover-placement='top', popover=env.t('#{popover}Text'))
+      =env.t(text)
+    =': {{' + binding + calculatedStat + '}}'

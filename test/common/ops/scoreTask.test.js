@@ -1,4 +1,4 @@
-import scoreTask from '../../../common/script/ops/scoreTask';
+import scoreTask from '../../../website/common/script/ops/scoreTask';
 import {
   generateUser,
   generateDaily,
@@ -6,11 +6,11 @@ import {
   generateTodo,
   generateReward,
 } from '../../helpers/common.helper';
-import common from '../../../common';
-import i18n from '../../../common/script/i18n';
+import common from '../../../website/common';
+import i18n from '../../../website/common/script/i18n';
 import {
   NotAuthorized,
-} from '../../../common/script/libs/errors';
+} from '../../../website/common/script/libs/errors';
 
 let EPSILON = 0.0001; // negligible distance between datapoints
 
@@ -140,6 +140,21 @@ describe('shared.ops.scoreTask', () => {
       // before and after are the same user
       expect(ref.beforeUser._id).to.exist;
       expect(ref.beforeUser._id).to.eql(ref.afterUser._id);
+    });
+
+    it('and increments quest progress', () => {
+      expect(ref.afterUser.party.quest.progress.up).to.eql(0);
+      ref.afterUser.party.quest.key = 'gryphon';
+
+      scoreTask({ user: ref.afterUser, task: habit, direction: 'up', cron: false });
+      let firstTaskDelta = ref.afterUser.party.quest.progress.up;
+      expect(firstTaskDelta).to.be.greaterThan(0);
+      expect(ref.afterUser._tmp.quest.progressDelta).to.eql(firstTaskDelta);
+
+      scoreTask({ user: ref.afterUser, task: habit, direction: 'up', cron: false });
+      let secondTaskDelta = ref.afterUser.party.quest.progress.up - firstTaskDelta;
+      expect(secondTaskDelta).to.be.greaterThan(0);
+      expect(ref.afterUser._tmp.quest.progressDelta).to.eql(secondTaskDelta);
     });
 
     context('habits', () => {

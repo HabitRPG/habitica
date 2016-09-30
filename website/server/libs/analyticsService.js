@@ -8,7 +8,7 @@ import {
   each,
   omit,
 } from 'lodash';
-import { content as Content } from '../../../common';
+import { content as Content } from '../../common';
 
 const AMPLIUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
 const GA_TOKEN = nconf.get('GA_ID');
@@ -66,6 +66,8 @@ let _formatUserData = (user) => {
     properties.Mana = Math.floor(user.stats.mp);
   }
 
+  properties.balance = user.balance;
+
   properties.tutorialComplete = user.flags && user.flags.tour && user.flags.tour.intro === -2;
 
   if (user.habits && user.dailys && user.todos && user.rewards) {
@@ -83,6 +85,14 @@ let _formatUserData = (user) => {
 
   if (user.purchased && user.purchased.plan.planId) {
     properties.subscription = user.purchased.plan.planId;
+  }
+
+  if (user._ABtest) {
+    properties.ABtest = user._ABtest;
+  }
+
+  if (user.registeredThrough) {
+    properties.registeredPlatform = user.registeredThrough;
   }
 
   return properties;
@@ -140,7 +150,7 @@ let _formatDataForAmplitude = (data) => {
   let itemName = _lookUpItemName(data.itemKey);
 
   if (itemName) {
-    event_properties.itemName = itemName;
+    ampData.event_properties.itemName = itemName;
   }
   return ampData;
 };

@@ -1,5 +1,5 @@
 import { authWithHeaders } from '../../middlewares/auth';
-import common from '../../../../common';
+import common from '../../../common';
 import {
   NotFound,
   BadRequest,
@@ -304,10 +304,36 @@ const partyMembersFields = 'profile.name stats achievements items.special';
  * @apiName UserCast
  * @apiGroup User
  *
- * @apiParam {String} spellId The skill to cast
+ * @apiParam {String=fireball, mpHeal, earth, frost, smash, defensiveStance, valorousPresence, intimidate, pickPocket, backStab, toolsOfTrade, stealth, heal, protectAura, brightness, healAll} spellId The skill to cast.
  * @apiParam {UUID} targetId Optional query parameter, the id of the target when casting a skill on a party member or a task
  *
  * @apiSuccess data Will return the modified targets. For party members only the necessary fields will be populated. The user is always returned.
+ *
+ * @apiExample Skill Key to Name Mapping
+ * Mage
+ * fireball: "Burst of Flames"
+ * mpHeal: "Ethereal Surge"
+ * earth: "Earthquake"
+ * frost: "Chilling Frost"
+ *
+ * Warrior
+ * smash: "Brutal Smash"
+ * defensiveStance: "Defensive Stance"
+ * valorousPresence: "Valorous Presence"
+ * intimidate: "Intimidating Gaze"
+ *
+ * Rogue
+ * pickPocket: "Pickpocket"
+ * backStab: "Backstab"
+ * toolsOfTrade: "Tools of the Trade"
+ * stealth: "Stealth"
+ *
+ * Healer
+ * heal: "Healing Light"
+ * protectAura: "Protective Aura"
+ * brightness: "Searing Brightness"
+ * healAll: "Blessing"
+ *
  */
 api.castSpell = {
   method: 'POST',
@@ -511,7 +537,7 @@ api.allocateNow = {
   url: '/user/allocate-now',
   async handler (req, res) {
     let user = res.locals.user;
-    let allocateNowRes = common.ops.allocateNow(user, req);
+    let allocateNowRes = common.ops.allocateNow(user);
     await user.save();
     res.respond(200, ...allocateNowRes);
   },
@@ -1145,7 +1171,7 @@ api.markPmsRead = {
   url: '/user/mark-pms-read',
   async handler (req, res) {
     let user = res.locals.user;
-    let markPmsResponse = common.ops.markPmsRead(user, req);
+    let markPmsResponse = common.ops.markPmsRead(user);
     await user.save();
     res.respond(200, markPmsResponse);
   },
@@ -1212,7 +1238,7 @@ api.userReset = {
       ],
     }).select('_id type challenge').exec();
 
-    let resetRes = common.ops.reset(user, tasks, req);
+    let resetRes = common.ops.reset(user, tasks);
 
     await Bluebird.all([
       Tasks.Task.remove({_id: {$in: resetRes[0].tasksToRemove}, userId: user._id}),

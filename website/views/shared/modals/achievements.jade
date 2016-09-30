@@ -19,7 +19,7 @@ mixin achievementAvatar(badge,margin)
       .col-xs-4(style='padding:0')
         .herobox(style='padding:0; width:0; height:7em; margin:auto #{margin}em')
           .character-sprites(style='width:0')
-            +generatedAvatar
+            +generatedAvatar({sleep: false})
       .col-xs-4(style='padding:0')
         div(class='achievement-#{badge}2x' style='margin: 2em auto')
 
@@ -112,7 +112,7 @@ script(id='modals/achievements/contributor.html', type='text/ng-template')
       h3(style='margin-bottom:0')=env.t('modalContribAchievement')
       +achievementAvatar('boot',0)
       !=env.t('contribModal', {name: "{{user.profile.name}}", level: "{{user.contributor.level}}"}) + ' '
-      a(href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank')=env.t('contribLink')
+      a(href=env.t('conRewardsURL') target='_blank')=env.t('contribLink')
       br
       button.btn.btn-primary(style='margin-top:1em' ng-click='$close()')=env.t('huzzah')
     +achievementFooter

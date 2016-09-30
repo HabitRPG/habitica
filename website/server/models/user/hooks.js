@@ -1,4 +1,4 @@
-import shared from '../../../../common';
+import shared from '../../../common';
 import _ from 'lodash';
 import moment from 'moment';
 import * as Tasks from '../task';
@@ -10,7 +10,7 @@ import schema from './schema';
 schema.plugin(baseModel, {
   // noSet is not used as updating uses a whitelist and creating only accepts specific params (password, email, username, ...)
   noSet: [],
-  private: ['auth.local.hashed_password', 'auth.local.salt', '_cronSignature'],
+  private: ['auth.local.hashed_password', 'auth.local.salt', '_cronSignature', '_ABtest'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
     delete plainObj.filters;
@@ -73,9 +73,17 @@ function _populateDefaultTasks (user, taskTypes) {
     });
 }
 
-function _populateDefaultsForNewUser (user) {
+function _setUpNewUser (user) {
   let taskTypes;
   let iterableFlags = user.flags.toObject();
+
+  // A/B Test 2016-09-26: Start with Armoire Enabled?
+  if (Math.random() < 0.5) {
+    user.flags.armoireEnabled = true;
+    user._ABtest = '20160926-armoireEnabled';
+  } else {
+    user._ABtest = '20160926-armoireDisabled';
+  }
 
   if (user.registeredThrough === 'habitica-web' || user.registeredThrough === 'habitica-android') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
@@ -95,14 +103,29 @@ function _populateDefaultsForNewUser (user) {
   return _populateDefaultTasks(user, taskTypes);
 }
 
+function _getFacebookName (fb) {
+  if (!fb) {
+    return;
+  }
+  let possibleName = fb.displayName || fb.name || fb.username;
+
+  if (possibleName) {
+    return possibleName;
+  }
+
+  if (fb.first_name && fb.last_name) {
+    return `${fb.first_name} ${fb.last_name}`;
+  }
+}
+
 function _setProfileName (user) {
-  let fb = user.auth.facebook;
+  let google = user.auth.google;
 
   let localUsername = user.auth.local && user.auth.local.username;
-  let facebookUsername = fb && (fb.displayName || fb.name || fb.username || `${fb.first_name && fb.first_name} ${fb.last_name}`);
+  let googleUsername = google && google.displayName;
   let anonymous = 'Anonymous';
 
-  return localUsername || facebookUsername || anonymous;
+  return localUsername || _getFacebookName(user.auth.facebook) || googleUsername || anonymous;
 }
 
 schema.pre('save', true, function preSaveUser (next, done) {
@@ -158,7 +181,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
 
   // Populate new users with default content
   if (this.isNew) {
-    _populateDefaultsForNewUser(this)
+    _setUpNewUser(this)
       .then(() => done())
       .catch(done);
   } else {

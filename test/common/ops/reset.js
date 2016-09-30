@@ -1,5 +1,5 @@
-import reset from '../../../common/script/ops/reset';
-import i18n from '../../../common/script/i18n';
+import reset from '../../../website/common/script/ops/reset';
+import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
   generateDaily,

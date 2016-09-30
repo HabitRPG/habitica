@@ -1,16 +1,17 @@
-import purchase from '../../../common/script/ops/purchase';
-import planGemLimits from '../../../common/script/libs/planGemLimits';
+import purchase from '../../../website/common/script/ops/purchase';
+import planGemLimits from '../../../website/common/script/libs/planGemLimits';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
-} from '../../../common/script/libs/errors';
-import i18n from '../../../common/script/i18n';
+} from '../../../website/common/script/libs/errors';
+import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';
 
 describe('shared.ops.purchase', () => {
+  const SEASONAL_FOOD = 'Candy_Base';
   let user;
   let goldPoints = 40;
   let gemsBought = 40;
@@ -166,7 +167,7 @@ describe('shared.ops.purchase', () => {
 
     it('purchases food', () => {
       let type = 'food';
-      let key = 'Meat';
+      let key = SEASONAL_FOOD;
 
       purchase(user, {params: {type, key}});
 

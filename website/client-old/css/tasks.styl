@@ -1,0 +1,711 @@
+@require "./variables/screen-size.styl"
+
+// 1. Set up color classes
+// ========================
+
+// Color variables are defined in "./global-colors.styl"
+
+// array of keywords and their associated color vars
+$stages = (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good $good) (better $better) (best $best)
+
+// for each color stage, generate a named class w/ the appropriate color
+for $stage in $stages
+  .task-column:not(.rewards)
+    .color-{$stage[0]}:not(.completed)
+      background-color: $stage[1]
+      border: 1px solid shade($stage[1],10%)
+      .priority-multiplier, .task-attributes, .repeat-days, .repeat-frequency
+        li
+          hrpg-button-color-mixin($stage[1])
+          button
+            &.active
+              box-shadow: inset 0 0 0 1px darken($stage[1],40%) !important
+              background-color: darken($stage[1],5%) !important
+            &:focus
+              border: 1px solid darken($stage[1],30%)
+              outline: 0
+      .plusminus
+        .task-checker
+          label:after
+            border: 1px solid darken($stage[1], 30%) !important
+          input[type=checkbox]:checked + label:after
+            //border: 1px solid darken($stage[1], 50%) !important
+            box-shadow: inset 0 0 0 1px darken($stage[1],40%) !important
+            background-color: darken($stage[1],5%) !important
+      .save-close, .task-checklist-edit li
+        hrpg-button-color-mixin(darken($stage[1],5%))
+        button
+          &:focus
+            border: 1px solid darken($stage[1],30%)
+            outline: 0
+      .task-actions
+        background-color: darken($stage[1], 30%)
+      .action-yesno label,
+      .task-action-btn,
+      .task-actions a
+        background-color: darken($stage[1], 30%)
+        &:hover, &:focus
+          background-color: darken($stage[1], 40%)
+      input[type=checkbox].task-input:focus + label, input.habit:focus + a
+        background-color: darken($stage[1], 40%)
+      .task-actions a:nth-of-type(2)
+        border-top: 1px solid darken($stage[1],50%) // If there are two habit buttons (+ -), add a border to separate them
+      .task-options
+        background-color: $stage[1]
+      .option-group:not(.task-checklist)
+        border-bottom: 1px solid darken($stage[1], 15%)
+      .option-content
+        border-color: darken($stage[1], 16.18%) !important
+        &:hover
+          border-color: darken($stage[1], 32.8%) !important
+        &:focus
+          border-color: darken($stage[1], 61.8%) !important
+          outline: none;
+
+// completed has to be outside the loop to override the color class
+.completed
+  color: darken($completed,30%)
+  background-color: $completed
+  border: 1px solid shade($completed,10%)
+  .task-text
+    .habitica-emoji
+      opacity: .39
+  .priority-multiplier, .task-attributes, .repeat-days, .repeat-frequency
+    li
+      hrpg-button-color-mixin($completed)
+      button
+        &.active
+          box-shadow: inset 0 0 0 1px darken($completed,40%) !important
+          background-color: darken($completed,5%) !important
+        &:focus
+          border: 1px solid darken($completed,30%)
+          outline: 0
+  .plusminus
+    .task-checker
+      label:after
+        border: 1px solid darken($completed, 30%) !important
+      input[type=checkbox]:checked + label:after
+        box-shadow: inset 0 0 0 1px darken($completed,40%) !important
+        background-color: darken($completed,5%) !important
+  .save-close, .task-checklist-edit li
+    hrpg-button-color-mixin(darken($completed,5%))
+    button
+      &:focus
+        border: 1px solid darken($completed,30%)
+        outline: 0
+  .action-yesno label,
+  .task-action-btn
+    background-color: darken($completed, 30%)
+    &:hover, &:focus
+      background-color: darken($completed, 40%)
+  input[type=checkbox]:focus + label
+    background-color: darken($completed, 40%)
+  .task-options
+    background-color: $completed
+  .option-group:not(.task-checklist)
+    border-bottom: 1px solid darken($completed, 15%)
+  .option-content
+    border-color: darken($completed, 16.18%) !important
+    &:hover
+      border-color: darken($completed, 32.8%) !important
+    &:focus
+      border-color: darken($completed, 61.8%) !important
+      outline: 0;
+
+.reward, .reward-item
+  background-color: white
+  border: 1px solid $completed !important
+
+// 2. Columns & Tasks
+// ===================
+
+.tasks-lists
+
+  .row
+    margin-left: -5px
+    margin-right: -5px
+
+    .col-md-3
+      padding-left: 10px // Override Bootstrap 15px padding
+      padding-right: 10px // Override Bootstrap 15px padding
+      margin-bottom: 15px
+
+// main columns
+// ------------
+.task-column
+  padding: 1.5em
+  background: $color-tasks
+  border: 1px solid darken($color-tasks,16.18%)
+  font-family: 'Lato', sans-serif
+
+  &:after
+    clear: both;
+    display: block;
+    content: "";
+
+  h2
+    color: darken($color-tasks,61.8%)
+
+  .task-column_title
+    margin: 0 0 0.5em
+    padding: 0
+    font-weight: 300
+
+  .option-box .glyphicon
+    font-size: 1.5em
+    vertical-align: middle
+
+.task-column.preview
+  padding: 0
+  background: transparent
+  border: 0;
+
+  .task:hover
+    cursor: auto
+
+// "Add new task" form
+// -----------------
+.task-add
+  position: relative
+  margin-top: 1.5em
+  @extend $hrpg-button-with-input
+  hrpg-button-color-mixin($color-options-submenu)
+  input, button
+    height: 2.618em
+  input, textarea
+    width: 80%
+  textarea
+    float: none
+    resize: vertical
+    border-radius: 4px 0 0 4px
+    + button
+      position: absolute
+      top: 0
+      bottom: 0
+      right: 0
+      height: 100%
+  button
+    width: 20%
+    span
+      font-size: 0.8em
+  .help-block a
+    border: 0
+    float: right
+    font-size: 0.85em
+
+// message in Dailies column when Resting in Inn
+// ------------------------
+.dailiesRestingInInn
+  clear: both
+  button
+    margin-top 10px
+
+// an individual task entry
+// ------------------------
+.task
+  list-style: none
+  clear: both
+  padding: 0
+  min-height: 3em
+  margin-bottom: 0.75em
+  // box-shadow: inset 0 0 1px rgba(0,0,0,0.5)
+  position: relative
+  &:hover
+    cursor: move
+  :last-child
+    margin-bottom: 0
+
+  label
+    font-weight: 400
+
+  input[type="text"], input[type="number"], textarea.option-content
+    border: 1px solid #aaa
+    border-radius: 0.382em
+    padding-left: 0.618em
+    -webkit-appearance: none
+    -moz-appearance: none
+    appearance: none
+    box-shadow: none //remove red glow in Firefox
+
+// task content
+.task-text
+  display: block
+  padding: 0.75em 0 0.75em 3.75em
+  line-height: 1.4
+  word-wrap: break-word
+
+  markdown > ul > li // Otherwise, + gets turned into a bullet and gets masked by buttons
+    margin-left:20px
+
+// when a task is being dragged
+.task.ui-sortable-helper
+  box-shadow: 0 0 3px rgba(0,0,0,0.15), 0 0 5px rgba(0,0,0,0.1)
+  transform: scale(1.05)
+  outline: 1px solid rgba(0,0,0,0.2)
+
+// primary task commands
+// ----------------------
+.task-controls
+  display: inline-block
+  float: left
+  margin-left: -0.5em
+  margin-right: 0.5em
+
+.task-controls.task-primary
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 0
+  float: none
+  margin: 0
+
+// plus/minus commands
+.task-action-btn
+  display: inline-block
+  width: 2.12765em
+  height: 2.12765em
+  padding: 0
+  font-size: 1.41em
+  line-height: 2.12765
+  text-align: center
+  color: #222
+  vertical-align: top
+  border-right: 1px solid rgba(0,0,0,0.25)
+  &:last-child
+    border: 0
+  &:hover, &:focus
+    color: #222
+    text-decoration: none
+
+// checkbox
+.task-checker input[type=checkbox], .task-checker input[type=checkbox]:focus
+  position: absolute
+  margin: 0
+  padding: 0
+  height: 10px
+  opacity: 0
+  width: 10px
+
+.task-checker label
+  display: inline-block
+  width: 3em
+  height: 100%
+  margin: 0
+  vertical-align: top
+  cursor: pointer
+
+// plus/minus checkbox
+.plusminus
+  text-align: center
+  .task-checker
+    font-size: 1.5em // 1.41em
+    @extend $hrpg-button
+    margin-bottom: 0.5em
+    &:first-of-type
+      margin-right: 0.5em
+    label:after
+      width: 2em
+      line-height: 1.5
+    label[for$="plus"]:after
+      content: '＋'
+    label[for$="minus"]:after
+      content: '−'
+
+// yes/no checkbox
+.action-yesno
+  position: relative
+  // uncompleted icon
+  label:after, label:before
+    content: ''
+    display: block
+    height: 1.714285714em
+    width: 1.714285714em
+    font-size: 1.75em
+    line-height: 1.714285714em
+    text-align: center
+    color: black
+    opacity: 0.2
+
+  label:after
+    height 10px
+    width 10px
+    margin 15px auto
+    border 1px solid #222
+  label:before
+    position: absolute
+    left: 0
+  // hint at completed icon
+  label:hover:before,
+  label:focus:before
+    content: ''
+  input[type=checkbox]:focus + label
+    opacity: 1 !important
+    border: none
+  label:hover:after
+    content: "\E013"
+    font-family: "Glyphicons Halflings"
+    border: none
+    margin: 0
+    line-height: 1.714285714em
+    height: 1.714285714em
+    width: 1.714285714em
+    text-align: center
+    opacity: 0.5 !important
+  label:active:after
+    opacity: 0.75 !important
+
+  // completed icon
+  input[type=checkbox]:checked + label:after
+    content: "\E013"
+    font-family: "Glyphicons Halflings"
+    border: none
+    margin: 0
+    line-height: 1.714285714em
+    height: 1.714285714em
+    width: 1.714285714em
+    text-align: center
+    opacity: 0.75
+
+
+// secondary task commands
+// -----------------------
+.task-meta-controls
+  float: right
+  margin: 0.75em 0.5em 0 0.5em
+  height: 1em
+  opacity: 0.25
+
+  a
+    text-decoration: none
+
+  // improve alignment of task icons
+  .glyphicon-signal
+    margin-left: 0.25em
+  .glyphicon-remove, .glyphicon-ok, a.badge
+    margin-right: 0.25em
+  .glyphicon-tags
+    margin-left: 0.1em
+    margin-right: 0.4em
+  a.badge
+    position: relative; top:-2px
+
+.task:hover .task-meta-controls
+  opacity: 1
+
+.popover
+  line-height: 1.5
+
+  // prevent box-shadow from being clipped/overlapped
+  margin-bottom: 10px
+  margin-right: 5px
+
+// task editing
+// ------------
+form
+  margin-bottom: 0 // stupid bootstrap override
+
+.task textarea.form-control
+  position: relative
+  z-index: 50
+
+[class$="-options"]
+  padding: 1em 1em 0
+  color: #333
+  position: relative
+  //background-color:
+
+  .option-group
+    //border-bottom: 1px solid rgba(0,0,0,0.1)
+    padding: 0 0 1em
+    margin-bottom: 1em
+    margin-top: 1em
+
+  button.advanced-options-toggle
+    display: block;
+    width: 100%;
+    background: none;
+  .option-title
+    font-size: 1em
+    margin: 0.5em 0 0.5em
+    line-height: 1.0
+    border: 0
+    padding: 0
+    //color: #333
+    //font-style: italic
+    font-weight: bold
+    text-align: center
+    &.mega
+      cursor: pointer
+      //font-style: normal
+      &:after
+        font-family: "Glyphicons Halflings"
+        font-size: 0.75em
+        content: "\E114"
+        padding-left: 0.75em
+      &.active:after
+        content: "\E113"
+    //&:not(.mega):after
+      //content: ':'
+
+  .option-content
+    height: 2.5em
+    width: 100%
+    margin: 0 0 1em
+    padding: 0 0 0 0.5em
+
+  textarea.option-content
+    height: 5em
+    padding-top: 0.25em
+    resize: none
+    margin-bottom: 0
+
+.option-short
+  .option-content
+    width: 4em
+    display: inline-block
+  .input-suffix
+    vertical-align: 20%
+    padding-left: 0.25em
+
+.option-medium
+  .option-content
+    width: 6em
+    display: inline-block
+  .input-suffix
+    vertical-align: 20%
+    padding-left: 0.25em
+
+// button-group
+.task-controls.tile-group
+  display: block
+  text-align: center
+  margin: 0
+
+  &.task-attributes
+    text-align: left
+
+.task-action-btn.tile
+  border: 0
+  font-size: 1.15em
+  font-weight: 300
+  outline: 1px solid rgba(0,0,0,0.2)
+  outline-offset: -1px
+  margin: 0 0 0 3px
+  font-family: 'Lato', sans-serif
+  text-align: inherit
+  opacity: 0.5
+  width: auto
+  padding: 0 0.5em
+  &.active
+    opacity: 1
+
+.tile.solid
+  opacity: 1
+.tile.spacious
+  margin: 0.75em 0
+  font-size: 1.25em
+  opacity: 1
+.tile.bright
+  background-color: lighten($best, 20%)
+  &:hover, &:focus
+    background-color: lighten($best, 40%)
+.tile.flush
+  margin-left: 0
+  border: 1px solid rgba(0,0,0,0.2)
+  outline: 0
+  line-height: 2em
+  border-radius: 4px
+  display: inline-flex
+  align-items: center // vertically align text
+  .Gems
+    margin-top: 0px
+
+.task-options
+  .task-action-btn.tile
+    margin: 3px
+
+  form
+    padding-bottom: 1em
+  .priority-multiplier, .task-attributes, .repeat-days, .repeat-frequency
+    text-align: center
+    li
+      @extend $hrpg-button
+      margin-bottom: 1em
+      margin-right: 0.75em
+      display: inline-block
+      &:last-of-type
+        margin-right: 0
+  .repeat-days
+    padding-bottom: 1em
+    li
+      button
+        min-width: 2.5em
+  .save-close
+    text-align: center
+    @extend $hrpg-button
+
+// Dailies
+.dailies
+  .repeat-weekly
+    padding-bottom: 1em
+
+// Habits – task button styles (+ -)
+.habits
+  .task-actions
+    width: 3em
+    height: 100%
+
+    a
+      display: block
+      width: 100%
+      height: 100%
+      position: relative
+      font-size: 0.8em
+
+      span
+        position: absolute
+        margin: auto
+        display: block
+        height: 1em
+        width: 1em
+        top: 0
+        left: 0
+        bottom: 0
+        right: 0
+
+      &:hover, &:focus
+        color: #222
+        text-decoration: none
+
+  .habit-wide
+    // When there are two buttons...
+    min-height: 4.5em
+    .task-actions
+      a
+        height: 50%
+
+  .habit-narrow
+    // When there are no buttons...
+    .task-actions
+      display: none
+    .task-text
+      padding-left: 1em
+
+// todos ui
+// --------
+
+// Checklists
+// --------
+.task-checklist-edit
+  > ul
+    text-align: center
+    li
+      @extend $hrpg-button
+      button
+        margin-top: 0.5em
+        span
+          margin-right: 0.5em
+  > .checklist-form
+    li
+      @extend $hrpg-button-with-input
+      @extend $clearfix
+    input
+      width: 70%
+
+      /* Add interaction cues on hover and focus */
+      &:hover,&:focus
+        background-color: #FFD
+        transition: background-color 0.5s
+
+    .checklist-icon
+      opacity:0.25
+      text-align: center
+      line-height: 1.5
+      float: left
+      padding: 0.25em 0.5em
+
+    li
+      margin-bottom: 1em
+      &:hover .checklist-icon
+        opacity:1
+
+// Task filters
+// --------
+.task-filter
+  margin: 1.5em 0 1em 0
+  hrpg-button-bar-mixin($color-tasks)
+  @extend $hrpg-button-bar
+  width: 100%
+  li
+    @extend $hrpg-button-master
+    hrpg-button-color-mixin($color-tasks)
+    width: 33.333%
+    text-align: center
+    &:nth-child(3n + 1):nth-last-child(2),
+    &:nth-child(3n + 1):nth-last-child(2) + li
+      width: 50%;
+    a
+      width: 100%
+      height: 100%
+.rewards
+  .task
+    min-height: 3.07em  // Temp fix for slight misalignment of btn-buy
+  .task-filter
+    li:nth-child(3n + 1):nth-last-child(2)
+      width: 33.333%
+    li:nth-child(3n + 1):nth-last-child(2) + li
+      width: 66.666%
+  .btn-buy
+    word-wrap: break-word
+    padding-left: 0.2em
+    text-align: left
+    border:none
+
+    &.disabled
+      // bootstrap .btn.disabled styles
+      pointer-events: none
+      cursor: not-allowed
+      -webkit-box-shadow: none
+      box-shadow: none
+      opacity: .65
+
+    span
+      position: relative
+      left: -2px
+      &:only-child
+        position: static
+        padding-left: 0.75em
+
+    &.highValue  // If reward value exceeds three digits, drop the number below the coin icon
+      padding: 0.3em
+      text-align: center
+      span
+        display: block
+        margin: auto
+    .shop_gold + .reward-cost
+      line-height: 1
+      top: -0.1em
+
+// Hide interativity if task is locked (i.e. is a challenge reward)
+.locked-task
+  .action-yesno label:hover:after
+    height: 10px
+    width: 10px
+    margin: 15px auto
+    border: 1px solid #222
+    opacity: 0.2 !important
+  .action-yesno label:focus,
+  .action-yesno label:hover
+    background-color: #ffcf42 !important
+  .task-actions a,
+  .task-checker label,
+  .task-text
+    cursor: initial
+  .task-actions a:hover
+    background-color:inherit !important
+  .task-checker label:hover:after
+    content: ''
+
+// Add padding to exp-chart
+.exp-chart
+  padding-bottom: 10px

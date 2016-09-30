@@ -1,4 +1,4 @@
-import i18n from '../../common/script/i18n';
+import i18n from '../../website/common/script/i18n';
 i18n.translations = require('../../website/server/libs/i18n').translations;
 
 const STRING_ERROR_MSG = 'Error processing the string. Please see Help > Report a Bug.';

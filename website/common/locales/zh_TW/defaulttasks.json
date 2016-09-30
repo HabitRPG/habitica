@@ -1,0 +1,19 @@
+{
+    "defaultHabit1Text": "高效率的作業 (點選鉛筆圖案進行編輯)",
+    "defaultHabit1Notes": "好習慣 （例子）：+吃蔬菜  +15分鐘的高效率作業",
+    "defaultHabit2Text": "吃零食 (點選鉛筆圖案進行編輯)",
+    "defaultHabit2Notes": "壞習慣 （例子）：- 抽菸  - 拖延",
+    "defaultHabit3Text": "爬樓梯/ 搭電梯 (點選鉛筆圖案進行編輯)",
+    "defaultHabit3Notes": "一些好或壞的習慣：+/- 搭電梯或走樓梯 ;  +/- 喝水或喝汽水",
+    "defaultTodoNotes": "你可以完成這個事項，編輯它或刪除它。",
+    "defaultTodo1Text": "加入 Habitica ( 完成我！)",
+    "defaultReward1Text": "休息15分鐘",
+    "defaultReward1Notes": "自定獎勵可以是任何形式。有些人除非花金幣購買，才可以看喜歡的電視節目。",
+    "defaultTag1": "Work",
+    "defaultTag2": "Exercise",
+    "defaultTag3": "Health + Wellness",
+    "defaultTag4": "School",
+    "defaultTag5": "Teams",
+    "defaultTag6": "Chores",
+    "defaultTag7": "Creativity"
+}

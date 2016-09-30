@@ -2,7 +2,6 @@ import { authWithHeaders } from '../../middlewares/auth';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
 import {
-  INVITES_LIMIT,
   model as Group,
   basicFields as basicGroupFields,
 } from '../../models/group';
@@ -19,7 +18,7 @@ import {
 import { removeFromArray } from '../../libs/collectionManipulators';
 import { sendTxn as sendTxnEmail } from '../../libs/email';
 import { encrypt } from '../../libs/encryption';
-import sendPushNotification from '../../libs/pushNotifications';
+import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import pusher from '../../libs/pusher';
 
 let api = {};
@@ -607,6 +606,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
   let userToContact = await User.findOne({$or: [
     {'auth.local.email': invite.email},
     {'auth.facebook.emails.value': invite.email},
+    {'auth.google.emails.value': invite.email},
   ]})
   .select({_id: true, 'preferences.emailNotifications': true})
   .exec();
@@ -641,18 +641,45 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
 }
 
 /**
- * @api {post} /api/v3/groups/:groupId/invite Invite users to a group using their UUIDs or email addresses
- * @apiVersion 3.0.0
+ * @api {post} /api/v3/groups/:groupId/invite Invite users to a group
  * @apiName InviteToGroup
  * @apiGroup Group
+ * @apiDescription You can provide both `emails` and `uuids`, or just one. You must provide at least one.
  *
  * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiParam {Array} emails Body parameter - An array of emails addresses to invite (optional)
- * @apiParam {Array} uuids Body parameter - An array of uuids to invite (optional)
- * @apiParam {String} inviter Body parameter - The inviters' name (optional)
+ * @apiParam {Array} [emails] Body parameter - An array of emails addresses to invite
+ * @apiParam {Array} [uuids] Body parameter - An array of uuids to invite
+ *
+ * @apiParamExample {json} Emails
+ *   {
+ *     "emails": ["user-1@example.com", "user-2@exmaple.com"]
+ *   }
+ * @apiParamExample {json} User Ids
+ *   {
+ *     "uuids": ["user-id-of-existing-user", "user-id-of-another-existing-user"]
+ *   }
+ * @apiParamExample {json} User Ids and Emails
+ *   {
+ *     "emails": ["user-1@example.com", "user-2@exmaple.com"],
+ *     "uuids": ["user-id-of-existing-user", "user-id-of-another-existing-user"],
+ *   }
  *
  * @apiSuccess {Array} data The invites
+ * @apiSuccess {Object} data[0] If the invitation was a user id, you'll receive back an object. You'll recieve one Object for each succesful user id invite.
+ * @apiSuccess {String} data[1] If the invitation was an email, you'll receive back the email. You'll recieve one String for each successful email invite.
+ *
+ * @apiSuccessExample {json} Successful Response
+ *   {
+ *     data: [
+ *       { id: 'the-id-of-the-invited-user', name: 'The group name', inviter: 'your-user-id' },
+ *       "user@example.com"
+ *     ]
+ *   }
+ *
+ * @apiError GroupNotFound The group could not be found
+ * @apiError InvalidInvitationParams An error relating to the data sent in `emails` and/or `uuids`
+ * @apiError TooManyInvites A max of 100 invites (combined emails and user ids) can be sent out at a time
  */
 api.inviteToGroup = {
   method: 'POST',
@@ -672,35 +699,9 @@ api.inviteToGroup = {
     let uuids = req.body.uuids;
     let emails = req.body.emails;
 
-    let uuidsIsArray = Array.isArray(uuids);
-    let emailsIsArray = Array.isArray(emails);
-
-    if (!uuids && !emails) {
-      throw new BadRequest(res.t('canOnlyInviteEmailUuid'));
-    }
+    Group.validateInvitations(uuids, emails, res);
 
     let results = [];
-    let totalInvites = 0;
-
-    if (uuids) {
-      if (!uuidsIsArray) {
-        throw new BadRequest(res.t('uuidsMustBeAnArray'));
-      } else {
-        totalInvites += uuids.length;
-      }
-    }
-
-    if (emails) {
-      if (!emailsIsArray) {
-        throw new BadRequest(res.t('emailsMustBeAnArray'));
-      } else {
-        totalInvites += emails.length;
-      }
-    }
-
-    if (totalInvites > INVITES_LIMIT) {
-      throw new BadRequest(res.t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}));
-    }
 
     if (uuids) {
       let uuidInvites = uuids.map((uuid) => _inviteByUUID(uuid, group, user, req, res));

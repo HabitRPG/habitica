@@ -16,7 +16,7 @@ import {
   sendTxn as sendTxnEmail,
 } from '../../libs/email';
 import Bluebird from 'bluebird';
-import sendPushNotification from '../../libs/pushNotifications';
+import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 
 let api = {};
 

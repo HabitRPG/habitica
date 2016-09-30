@@ -4,14 +4,15 @@ mixin petList(eggSource, potionSource)
       li.customize-menu
         menu
           each potion in potionSource
-            - pet = egg.key+"-"+potion.key
-            div(popover-trigger='mouseenter', popover=env.t('petName', {potion: potion.text(env.language.code), egg: egg.text(env.language.code)}), popover-placement='bottom')
-              button(class="pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0', ng-class='{active: user.items.currentPet == "#{pet}", selectableInventory: #{!egg.noMount} && selectedFood && !user.items.mounts["#{pet}"]}', ng-click='choosePet("#{egg.key}", "#{potion.key}")')
-                .progress(ng-show='!user.items.mounts["#{pet}"]')
-                  .progress-bar.progress-bar-success(ng-style='{width: user.items.pets["#{pet}"]/.5 + "%"}')
-              button(class="pet-button pet-not-owned", ng-if='!user.items.pets["#{pet}"] && (#{potion.canBuy()} || user.items.hatchingPotions["#{potion.key}"])')
+            - var petKey = egg.key+"-"+potion.key
+            - var pet = env.Content.petInfo[petKey]
+            div(popover-trigger='mouseenter', popover=pet.text(), popover-placement='bottom')
+              button(class="pet-button Pet-#{petKey}", ng-if='user.items.pets["#{petKey}"]>0', ng-class='{active: user.items.currentPet == "#{petKey}", selectableInventory: #{!egg.noMount} && selectedFood && !user.items.mounts["#{petKey}"]}', ng-click='choosePet("#{egg.key}", "#{potion.key}")')
+                .progress(ng-show='!user.items.mounts["#{petKey}"]')
+                  .progress-bar.progress-bar-success(ng-style='{width: user.items.pets["#{petKey}"]/.5 + "%"}')
+              button(class="pet-button pet-not-owned", ng-if='!user.items.pets["#{petKey}"] && (#{potion.canBuy()} || user.items.hatchingPotions["#{potion.key}"])')
                 .PixelPaw
-              button(class="pet-evolved pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]<0')
+              button(class="pet-evolved pet-button Pet-#{petKey}", ng-if='user.items.pets["#{petKey}"]<0')
 
 .container-fluid
   .stable.row: .col-xs-12
@@ -32,14 +33,15 @@ mixin petList(eggSource, potionSource)
         li.customize-menu(ng-if="::shouldShowPremiumPetRow('#{potion.key}')")
           menu
             each egg in env.Content.dropEggs
-              - pet = egg.key+"-"+potion.key
-              div(popover-trigger='mouseenter', popover=env.t('petName', {potion: potion.text(env.language.code), egg: egg.text(env.language.code)}), popover-placement='bottom')
-                button(class="pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0', ng-class='{active: user.items.currentPet == "#{pet}", selectableInventory: #{!egg.noMount} && selectedFood && !user.items.mounts["#{pet}"]}', ng-click='choosePet("#{egg.key}", "#{potion.key}")')
-                  .progress(ng-show='!user.items.mounts["#{pet}"]')
-                    .progress-bar.progress-bar-success(ng-style='{width: user.items.pets["#{pet}"]/.5 + "%"}')
-                button(class="pet-button pet-not-owned", ng-if='!user.items.pets["#{pet}"] && (#{potion.canBuy()} || user.items.hatchingPotions["#{potion.key}"])')
+              - var petKey = egg.key+"-"+potion.key
+              - var pet = env.Content.petInfo[petKey]
+              div(popover-trigger='mouseenter', popover=pet.text(), popover-placement='bottom')
+                button(class="pet-button Pet-#{petKey}", ng-if='user.items.pets["#{petKey}"]>0', ng-class='{active: user.items.currentPet == "#{petKey}", selectableInventory: #{!egg.noMount} && selectedFood && !user.items.mounts["#{petKey}"]}', ng-click='choosePet("#{egg.key}", "#{potion.key}")')
+                  .progress(ng-show='!user.items.mounts["#{petKey}"]')
+                    .progress-bar.progress-bar-success(ng-style='{width: user.items.pets["#{petKey}"]/.5 + "%"}')
+                button(class="pet-button pet-not-owned", ng-if='!user.items.pets["#{petKey}"] && (#{potion.canBuy()} || user.items.hatchingPotions["#{potion.key}"])')
                   .PixelPaw
-                button(class="pet-evolved pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]<0')
+                button(class="pet-evolved pet-button Pet-#{petKey}", ng-if='user.items.pets["#{petKey}"]<0')
   .row: .col-md-12
     h4=env.t('questPets')
     +petList(env.Content.questEggs,env.Content.dropHatchingPotions)
@@ -51,7 +53,7 @@ mixin petList(eggSource, potionSource)
         each t,k in env.Content.specialPets
           - var egg = k.split('-')[0], pot = k.split('-')[1]
           button(ng-if='user.items.pets["#{egg}-#{pot}"]', class="pet-button Pet-#{egg}-#{pot}", ng-class='{active: user.items.currentPet == "#{egg}-#{pot}"}', ng-click='choosePet("#{egg}", "#{pot}")', popover=env.t(t), popover-trigger='mouseenter', popover-placement='bottom')
-        a(target='_blank', href='http://habitica.wikia.com/wiki/Contributing_to_Habitica')
+        a(target='_blank', href=env.t('conLearnURL'))
           button(ng-if='!user.items.pets["Dragon-Hydra"]', class="pet-button pet-not-owned", popover-trigger='mouseenter', popover-placement='right', popover=env.t('rarePetPop1'), popover-title=env.t('rarePetPop2'))
             .PixelPaw-Gold
 

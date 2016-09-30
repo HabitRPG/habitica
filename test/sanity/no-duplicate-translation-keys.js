@@ -3,11 +3,11 @@
 let glob = require('glob').sync;
 
 describe('Locales files', () => {
-  it.skip('do not contain duplicates of any keys', () => {
-    let translationFiles = glob('./common/locales/en/*.json');
+  it('do not contain duplicates of any keys', () => {
+    let translationFiles = glob('./website/common/locales/en/*.json');
 
     if (translationFiles.length === 0) {
-      throw new Error('Could not find any files in ./common/locales/en/*.json');
+      throw new Error('Could not find any files in ./website/common/locales/en/*.json');
     }
 
     let keys = {};

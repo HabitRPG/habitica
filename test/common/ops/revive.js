@@ -1,12 +1,12 @@
-import revive from '../../../common/script/ops/revive';
-import i18n from '../../../common/script/i18n';
+import revive from '../../../website/common/script/ops/revive';
+import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';
 import {
   NotAuthorized,
-} from '../../../common/script/libs/errors';
-import content from '../../../common/script/content/index';
+} from '../../../website/common/script/libs/errors';
+import content from '../../../website/common/script/content/index';
 
 describe('shared.ops.revive', () => {
   let user;
@@ -53,6 +53,8 @@ describe('shared.ops.revive', () => {
     expect(user.stats.str).to.equal(1);
   });
 
+  it('TODO: test actual ways stats are affected');
+
   it('removes a random item from user gear owned', () => {
     let weaponKey = 'weapon_warrior_0';
     user.items.gear.owned[weaponKey] = true;
@@ -63,7 +65,17 @@ describe('shared.ops.revive', () => {
     expect(user.items.gear.owned[weaponKey]).to.be.false;
   });
 
-  it('removes a random item from user gear equipped', () => {
+  it('does not remove 0 value items');
+
+  it('allows removing warrior sword (0 value item)');
+
+  it('does not remove items of a different class');
+
+  it('removes "special" items');
+
+  it('removes "armoire" items');
+
+  it('dequips lost item from user if user had it equipped', () => {
     let weaponKey = 'weapon_warrior_0';
     let itemToLose = content.gear.flat[weaponKey];
 
@@ -76,7 +88,7 @@ describe('shared.ops.revive', () => {
     expect(user.items.gear.equipped[itemToLose.type]).to.equal(`${itemToLose.type}_base_0`);
   });
 
-  it('removes a random item from user gear costume', () => {
+  it('dequips lost item from user costume if user was using it in costume', () => {
     let weaponKey = 'weapon_warrior_0';
     let itemToLose = content.gear.flat[weaponKey];
 

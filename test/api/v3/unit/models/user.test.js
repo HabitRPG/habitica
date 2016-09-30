@@ -1,5 +1,5 @@
 import { model as User } from '../../../../../website/server/models/user';
-import common from '../../../../../common';
+import common from '../../../../../website/common';
 
 describe('User Model', () => {
   it('keeps user._tmp when calling .toJSON', () => {

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
 import baseModel from '../libs/baseModel';
-import shared from '../../../common';
+import shared from '../../common';
 import {v4 as uuid} from 'uuid';
 import _ from 'lodash';
 import { BadRequest } from '../libs/errors';

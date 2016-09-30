@@ -29,9 +29,11 @@ footer.footer(ng-controller='FooterCtrl')
           li
             a(target='_blank', href='http://blog.habitrpg.com/')=env.t('tumblr')
           li
-            a(href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations', target='_blank')=env.t('companyExtensions')
+            !=env.t('companyExtensions')
           li
             a(href='/static/faq/')=env.t('FAQ')
+          li
+            a(href='/static/old-news')=env.t('oldNews')
           li
             a(href='/static/privacy')=env.t('companyPrivacy')
           li
@@ -46,13 +48,13 @@ footer.footer(ng-controller='FooterCtrl')
           li
             a(target='_blank', href='/static/community-guidelines')=env.t('communityGuidelines')
           li
-            a(target='_blank', href='https://habitica.com/#/options/groups/guilds/a29da26b-37de-4a71-b0c6-48e72a900dac')=env.t('communityBug')
+            a(target='_blank', href='/#/options/groups/guilds/a29da26b-37de-4a71-b0c6-48e72a900dac')=env.t('communityBug')
           li
             a(target='_blank', href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')=env.t('communityFeature')
           li
-            a(href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations', target='_blank')=env.t('communityExtensions')
+            !=env.t('communityExtensions')
           li
-            a(target='_blank', href='http://habitica.wikia.com/wiki/Special:Forum')=env.t('communityForum')
+            !=env.t('communityForum')
           li
             a(target='_blank', href='http://www.kickstarter.com/projects/lefnire/habitrpg-mobile')=env.t('communityKickstarter')
           li

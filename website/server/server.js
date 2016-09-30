@@ -2,7 +2,6 @@ import nconf from 'nconf';
 import logger from './libs/logger';
 import express from 'express';
 import http from 'http';
-import attachMiddlewares from './middlewares/index';
 import Bluebird from 'bluebird';
 
 global.Promise = Bluebird;
@@ -13,7 +12,10 @@ const app = express();
 app.set('port', nconf.get('PORT'));
 
 // Setup translations
+// Must come before attach middlwares so Mongoose validations can use translations
 import './libs/i18n';
+
+import attachMiddlewares from './middlewares/index';
 
 // Load config files
 import './libs/setupMongoose';

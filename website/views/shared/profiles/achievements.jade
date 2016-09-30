@@ -17,7 +17,7 @@ div(ng-if='::profile.backer.npc')
     span.label.label-npc
       | {{::profile.backer.npc}}
       =env.t('npc')
-  small=env.t('npcText')
+  small=env.t('npcAchievementText')
   hr
 
 div(ng-if='::profile.contributor.level || user._id == profile._id')
@@ -29,7 +29,8 @@ div(ng-if='::profile.contributor.level || user._id == profile._id')
     small
       =env.t('contribText')
       |&nbsp;
-      +aLink('http://habitica.wikia.com/wiki/Contributing_to_Habitica', env.t('readMore'))
+      a(href=env.t('conLearnURL'), target='_blank')
+        =env.t('readMore')
       | .
   hr
 
