@@ -69,9 +69,8 @@ describe('Post /groups/:groupId/invite', () => {
       });
     });
 
-    it('returns an error when uuids is empty and emails is undefined', async () => {
+    it('returns an error when uuids is empty and emails is not passed', async () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
-        emails: undefined,
         uuids: [],
       }))
       .to.eventually.be.rejected.and.eql({
@@ -176,10 +175,9 @@ describe('Post /groups/:groupId/invite', () => {
       });
     });
 
-    it('returns an error when emails is empty and uuids is undefined', async () => {
+    it('returns an error when emails is empty and uuids is not passed', async () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         emails: [],
-        uuids: undefined,
       }))
       .to.eventually.be.rejected.and.eql({
         code: 400,

@@ -1,6 +1,7 @@
 import { sleep } from '../../../../helpers/api-unit.helper';
 import { model as Group } from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
+import { BadRequest } from '../../../../../website/server/libs/errors';
 import { quests as questScrolls } from '../../../../../website/common/script/content';
 import * as email from '../../../../../website/server/libs/email';
 import validator from 'validator';
@@ -431,6 +432,122 @@ describe('Group Model', () => {
           expect(updatedParticipatingMember.stats.exp).to.be.greaterThan(0);
           expect(updatedParticipatingMember.stats.gp).to.be.greaterThan(0);
         });
+      });
+    });
+
+    describe('validateInvitations', () => {
+      let res;
+
+      beforeEach(() => {
+        res = {
+          t: sandbox.spy(),
+        };
+      });
+
+      it('throws an error if no uuids or emails are passed in', (done) => {
+        try {
+          Group.validateInvitations(null, null, res);
+        } catch (err) {
+          expect(err).to.be.an.instanceof(BadRequest);
+          expect(res.t).to.be.calledOnce;
+          expect(res.t).to.be.calledWith('canOnlyInviteEmailUuid');
+          done();
+        }
+      });
+
+      it('throws an error if only uuids are passed in, but they are not an array', (done) => {
+        try {
+          Group.validateInvitations({ uuid: 'user-id'}, null, res);
+        } catch (err) {
+          expect(err).to.be.an.instanceof(BadRequest);
+          expect(res.t).to.be.calledOnce;
+          expect(res.t).to.be.calledWith('uuidsMustBeAnArray');
+          done();
+        }
+      });
+
+      it('throws an error if only emails are passed in, but they are not an array', (done) => {
+        try {
+          Group.validateInvitations(null, { emails: 'user@example.com'}, res);
+        } catch (err) {
+          expect(err).to.be.an.instanceof(BadRequest);
+          expect(res.t).to.be.calledOnce;
+          expect(res.t).to.be.calledWith('emailsMustBeAnArray');
+          done();
+        }
+      });
+
+      it('throws an error if emails are not passed in, and uuid array is empty', (done) => {
+        try {
+          Group.validateInvitations([], null, res);
+        } catch (err) {
+          expect(err).to.be.an.instanceof(BadRequest);
+          expect(res.t).to.be.calledOnce;
+          expect(res.t).to.be.calledWith('inviteMissingUuid');
+          done();
+        }
+      });
+
+      it('throws an error if uuids are not passed in, and email array is empty', (done) => {
+        try {
+          Group.validateInvitations(null, [], res);
+        } catch (err) {
+          expect(err).to.be.an.instanceof(BadRequest);
+          expect(res.t).to.be.calledOnce;
+          expect(res.t).to.be.calledWith('inviteMissingEmail');
+          done();
+        }
+      });
+
+      it('throws an error if uuids and emails are passed in as empty arrays', (done) => {
+        try {
+          Group.validateInvitations([], [], res);
+        } catch (err) {
+          expect(err).to.be.an.instanceof(BadRequest);
+          expect(res.t).to.be.calledOnce;
+          expect(res.t).to.be.calledWith('inviteMustNotBeEmpty');
+          done();
+        }
+      });
+
+      it('does not throw an error if only user ids are passed in', () => {
+        expect(function () {
+          Group.validateInvitations(['user-id', 'user-id2'], null, res);
+        }).to.not.throw();
+
+        expect(res.t).to.not.be.called;
+      });
+
+      it('does not throw an error if only emails are passed in', () => {
+        expect(function () {
+          Group.validateInvitations(null, ['user1@example.com', 'user2@example.com'], res);
+        }).to.not.throw();
+
+        expect(res.t).to.not.be.called;
+      });
+
+      it('does not throw an error if both uuids and emails are passed in', () => {
+        expect(function () {
+          Group.validateInvitations(['user-id', 'user-id2'], ['user1@example.com', 'user2@example.com'], res);
+        }).to.not.throw();
+
+        expect(res.t).to.not.be.called;
+      });
+
+      it('does not throw an error if uuids are passed in and emails are an empty array', () => {
+        expect(function () {
+          Group.validateInvitations(['user-id', 'user-id2'], [], res);
+        }).to.not.throw();
+
+        expect(res.t).to.not.be.called;
+      });
+
+      it('does not throw an error if emails are passed in and uuids are an empty array', () => {
+        expect(function () {
+          Group.validateInvitations([], ['user1@example.com', 'user2@example.com'], res);
+        }).to.not.throw();
+
+        expect(res.t).to.not.be.called;
       });
     });
   });

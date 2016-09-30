@@ -265,6 +265,41 @@ schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
   return toJSON;
 };
 
+/**
+ * Checks inivtation uuids and emails for possible errors.
+ *
+ * @param  uuids  An array of user ids
+ * @param  emails  An array of emails
+ * @param  res  Express res object for use with translations
+ * @throws BadRequest An error describing the issue with the invitations
+ */
+schema.statics.validateInvitations = function getInvitationError (uuids, emails, res) {
+  let uuidsIsArray = Array.isArray(uuids);
+  let emailsIsArray = Array.isArray(emails);
+  let emptyEmails = emailsIsArray && emails.length < 1;
+  let emptyUuids = uuidsIsArray && uuids.length < 1;
+
+  let errorString;
+
+  if (!uuids && !emails) {
+    errorString = 'canOnlyInviteEmailUuid';
+  } else if (uuids && !uuidsIsArray) {
+    errorString = 'uuidsMustBeAnArray';
+  } else if (emails && !emailsIsArray) {
+    errorString = 'emailsMustBeAnArray';
+  } else if (!emails && emptyUuids) {
+    errorString = 'inviteMissingUuid';
+  } else if (!uuids && emptyEmails) {
+    errorString = 'inviteMissingEmail';
+  } else if (emptyEmails && emptyUuids) {
+    errorString = 'inviteMustNotBeEmpty';
+  }
+
+  if (errorString) {
+    throw new BadRequest(res.t(errorString));
+  }
+};
+
 schema.methods.getParticipatingQuestMembers = function getParticipatingQuestMembers () {
   return Object.keys(this.quest.members).filter(member => this.quest.members[member]);
 };
