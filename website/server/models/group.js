@@ -298,6 +298,20 @@ schema.statics.validateInvitations = function getInvitationError (uuids, emails,
   if (errorString) {
     throw new BadRequest(res.t(errorString));
   }
+
+  let totalInvites = 0;
+
+  if (uuids) {
+    totalInvites += uuids.length;
+  }
+
+  if (emails) {
+    totalInvites += emails.length;
+  }
+
+  if (totalInvites > INVITES_LIMIT) {
+    throw new BadRequest(res.t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}));
+  }
 };
 
 schema.methods.getParticipatingQuestMembers = function getParticipatingQuestMembers () {

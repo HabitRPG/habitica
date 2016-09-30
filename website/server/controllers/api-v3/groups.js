@@ -2,7 +2,6 @@ import { authWithHeaders } from '../../middlewares/auth';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
 import {
-  INVITES_LIMIT,
   model as Group,
   basicFields as basicGroupFields,
 } from '../../models/group';
@@ -676,19 +675,6 @@ api.inviteToGroup = {
     Group.validateInvitations(uuids, emails, res);
 
     let results = [];
-    let totalInvites = 0;
-
-    if (uuids) {
-      totalInvites += uuids.length;
-    }
-
-    if (emails) {
-      totalInvites += emails.length;
-    }
-
-    if (totalInvites > INVITES_LIMIT) {
-      throw new BadRequest(res.t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}));
-    }
 
     if (uuids) {
       let uuidInvites = uuids.map((uuid) => _inviteByUUID(uuid, group, user, req, res));

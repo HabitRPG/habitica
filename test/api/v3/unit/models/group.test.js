@@ -1,5 +1,5 @@
 import { sleep } from '../../../../helpers/api-unit.helper';
-import { model as Group } from '../../../../../website/server/models/group';
+import { model as Group, INVITES_LIMIT } from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
 import { BadRequest } from '../../../../../website/server/libs/errors';
 import { quests as questScrolls } from '../../../../../website/common/script/content';
@@ -509,6 +509,42 @@ describe('Group Model', () => {
           done();
         }
       });
+
+      it('throws an error if total invites exceed max invite constant', (done) => {
+        let uuids = [];
+        let emails = [];
+
+        for (let i = 0; i < INVITES_LIMIT / 2; i++) {
+          uuids.push(`user-id-${i}`);
+          emails.push(`user-${i}@example.com`);
+        }
+
+        uuids.push('one-more-uuid'); // to put it over the limit
+
+        try {
+          Group.validateInvitations(uuids, emails, res);
+        } catch (err) {
+          expect(err).to.be.an.instanceof(BadRequest);
+          expect(res.t).to.be.calledOnce;
+          expect(res.t).to.be.calledWith('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT });
+          done();
+        }
+      });
+
+      it('does not throw error if number of invites matches max invite limit', () => {
+        let uuids = [];
+        let emails = [];
+
+        for (let i = 0; i < INVITES_LIMIT / 2; i++) {
+          uuids.push(`user-id-${i}`);
+          emails.push(`user-${i}@example.com`);
+        }
+
+        expect(function () {
+          Group.validateInvitations(uuids, emails, res);
+        }).to.not.throw();
+      });
+
 
       it('does not throw an error if only user ids are passed in', () => {
         expect(function () {
