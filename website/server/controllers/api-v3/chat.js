@@ -270,6 +270,7 @@ api.flagChat = {
     ]);
 
     slack.sendFlagNotification({
+      authorEmail,
       flagger: user,
       group,
       message,
