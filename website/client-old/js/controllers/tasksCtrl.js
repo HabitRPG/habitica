@@ -116,7 +116,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.cancelTaskEdit = Tasks.cancelTaskEdit;
 
     $scope.removeTask = function(task) {
-      Tasks.removeTask(task);
+      if (!Tasks.removeTask(task)) return;
       User.deleteTask({params:{id: task._id, taskType: task.type}})
     };
 
@@ -180,9 +180,9 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       */
      $scope.addChecklist = Tasks.addChecklist;
 
-     $scope.addChecklistItem = Tasks.addChecklistItem;
+     $scope.addChecklistItem = Tasks.addChecklistItemToUI;
 
-     $scope.removeChecklistItem = Tasks.removeChecklistItem;
+     $scope.removeChecklistItem = Tasks.removeChecklistItemFromUI;
 
      $scope.swapChecklistItems = Tasks.swapChecklistItems;
 

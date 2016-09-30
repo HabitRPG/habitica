@@ -30,8 +30,11 @@ angular.module('habitrpg')
     };
 
     function removeTask (task) {
-      if (!confirm(window.env.t('sureDelete', {taskType: window.env.t(task.type), taskText: task.text}))) return;
+      if (!confirm(window.env.t('sureDelete', {taskType: window.env.t(task.type), taskText: task.text}))) {
+        return false;
+      };
       task._edit = undefined;
+      return true;
     }
 
     function saveTask (task, stayOpen, isSaveAndClose) {
@@ -281,7 +284,7 @@ angular.module('habitrpg')
       focusChecklist(task._edit,0);
     }
 
-    function addChecklistItem(task, $event, $index) {
+    function addChecklistItemToUI(task, $event, $index) {
       if (task._edit.checklist[$index].text) {
         if ($index === task._edit.checklist.length - 1) {
           task._edit.checklist.push({ completed: false, text: '' });
@@ -292,7 +295,7 @@ angular.module('habitrpg')
       }
     }
 
-     function removeChecklistItem(task, $event, $index, force) {
+     function removeChecklistItemFromUI(task, $event, $index, force) {
       // Remove item if clicked on trash icon
       if (force) {
         task._edit.checklist.splice($index, 1);
@@ -358,8 +361,8 @@ angular.module('habitrpg')
       unAssignTask: unAssignTask,
 
       addChecklist: addChecklist,
-      addChecklistItem: addChecklistItem,
-      removeChecklistItem: removeChecklistItem,
+      addChecklistItemToUI: addChecklistItemToUI,
+      removeChecklistItemFromUI: removeChecklistItemFromUI,
       swapChecklistItems: swapChecklistItems,
       navigateChecklist: navigateChecklist,
       checklistCompletion: checklistCompletion,

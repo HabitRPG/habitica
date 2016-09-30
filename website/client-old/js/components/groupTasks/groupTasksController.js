@@ -18,7 +18,7 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
     };
 
     $scope.removeTask = function(task, group) {
-      Tasks.removeTask(task);
+      if (!Tasks.removeTask(task)) return;
       //We only pass to the api if the group exists, otherwise, the tasks only exist on the client
       if (group._id) Tasks.deleteTask(task._id);
       var index = group[task.type + 's'].indexOf(task);
@@ -61,9 +61,9 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
       */
      $scope.addChecklist = Tasks.addChecklist;
 
-     $scope.addChecklistItem = Tasks.addChecklistItem;
+     $scope.addChecklistItem = Tasks.addChecklistItemToUI;
 
-     $scope.removeChecklistItem = Tasks.removeChecklistItem;
+     $scope.removeChecklistItem = Tasks.removeChecklistItemFromUI;
 
      $scope.swapChecklistItems = Tasks.swapChecklistItems;
 
