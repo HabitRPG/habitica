@@ -1,7 +1,4 @@
 import randomVal from '../../../website/common/script/libs/randomVal';
-import {
-  generateUser,
-} from '../../helpers/common.helper';
 
 describe('randomVal', () => {
   let obj;
@@ -32,19 +29,14 @@ describe('randomVal', () => {
     expect(Math.random).to.be.calledOnce;
   });
 
-  it('can pass in a custom random function that takes in the user and a seed argument', () => {
-    let user = generateUser();
-    let randomSpy = sandbox.stub().returns(0.3);
+  it('can pass in a predictable random value', () => {
     sandbox.spy(Math, 'random');
 
     let result = randomVal(obj, {
-      user,
-      seed: 100,
-      predictableRandom: randomSpy,
+      predictableRandom: 0.3,
     });
 
     expect(Math.random).to.not.be.called;
-    expect(randomSpy).to.be.calledOnce;
     expect(result).to.equal(2);
   });
 
