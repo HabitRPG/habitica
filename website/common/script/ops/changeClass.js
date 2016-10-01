@@ -17,24 +17,6 @@ module.exports = function changeClass (user, req = {}, analytics) {
     user.flags.classSelected = true;
 
     _.each(['weapon', 'armor', 'shield', 'head'], (type) => {
-      let foundKey = false;
-      _.findLast(user.items.gear.owned, (val, key) => {
-        if (key.indexOf(`${type}_${klass}`) !== -1 && val === true) {
-          foundKey = key;
-          return true;
-        }
-      });
-
-      if (!foundKey) {
-        if (type === 'weapon') {
-          foundKey = `weapon_${klass}_0`;
-        } else if (type === 'shield' && klass === 'rogue') {
-          foundKey = 'shield_rogue_0';
-        } else {
-          foundKey = `${type}_base_0`;
-        }
-      }
-
       if (type === 'weapon' || (type === 'shield' && klass === 'rogue')) { // eslint-disable-line no-extra-parens
         user.items.gear.owned[`${type}_${klass}_0`] = true;
       }
