@@ -72,6 +72,8 @@ function findUsersWithWebhooks () {
         };
 
         return webhook;
+      }).sort((a, b) => {
+        return a.sort - b.sort;
       });
 
       return {
