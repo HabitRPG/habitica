@@ -71,6 +71,7 @@ export let taskScoredWebhook = new WebhookSender({
     };
 
     let dataToSend = {
+      type: 'scored',
       direction,
       delta,
       task,

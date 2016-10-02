@@ -255,6 +255,7 @@ describe('webhooks', () => {
       expect(request.post).to.be.calledOnce;
       expect(request.post).to.be.calledWithMatch({
         body: {
+          type: 'scored',
           user: {
             _id: 'user-id',
             _tmp: {foo: 'bar'},
