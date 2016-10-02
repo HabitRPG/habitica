@@ -36,7 +36,7 @@ api.getUser = {
     // Remove apiToken from response TODO make it private at the user level? returned in signup/login
     delete userToJSON.apiToken;
 
-    user.addComputedStatsToJSONObj(userToJSON);
+    user.addComputedStatsToJSONObj(userToJSON.stats);
     return res.respond(200, userToJSON);
   },
 };
@@ -920,76 +920,6 @@ api.userOpenMysteryItem = {
     res.respond(200, ...openMysteryItemRes);
   },
 };
-
-/**
-* @api {post} /api/v3/user/webhook Create a new webhook - BETA
-* @apiVersion 3.0.0
-* @apiName UserAddWebhook
-* @apiGroup User
-*
-* @apiParam {String} url Body parameter - The webhook's URL
-* @apiParam {Boolean} enabled Body parameter - If the webhook should be enabled
-*
-* @apiSuccess {Object} data The created webhook
-*/
-api.addWebhook = {
-  method: 'POST',
-  middlewares: [authWithHeaders()],
-  url: '/user/webhook',
-  async handler (req, res) {
-    let user = res.locals.user;
-    let addWebhookRes = common.ops.addWebhook(user, req);
-    await user.save();
-    res.respond(200, ...addWebhookRes);
-  },
-};
-
-/**
-* @api {put} /api/v3/user/webhook/:id Edit a webhook - BETA
-* @apiVersion 3.0.0
-* @apiName UserUpdateWebhook
-* @apiGroup User
-*
-* @apiParam {UUID} id The id of the webhook to update
-* @apiParam {String} url Body parameter - The webhook's URL
-* @apiParam {Boolean} enabled Body parameter - If the webhook should be enabled
-*
-* @apiSuccess {Object} data The updated webhook
-*/
-api.updateWebhook = {
-  method: 'PUT',
-  middlewares: [authWithHeaders()],
-  url: '/user/webhook/:id',
-  async handler (req, res) {
-    let user = res.locals.user;
-    let updateWebhookRes = common.ops.updateWebhook(user, req);
-    await user.save();
-    res.respond(200, ...updateWebhookRes);
-  },
-};
-
-/**
-* @api {delete} /api/v3/user/webhook/:id Delete a webhook - BETA
-* @apiVersion 3.0.0
-* @apiName UserDeleteWebhook
-* @apiGroup User
-*
-* @apiParam {UUID} id The id of the webhook to delete
-*
-* @apiSuccess {Object} data The user webhooks
-*/
-api.deleteWebhook = {
-  method: 'DELETE',
-  middlewares: [authWithHeaders()],
-  url: '/user/webhook/:id',
-  async handler (req, res) {
-    let user = res.locals.user;
-    let deleteWebhookRes = common.ops.deleteWebhook(user, req);
-    await user.save();
-    res.respond(200, ...deleteWebhookRes);
-  },
-};
-
 
 /* @api {post} /api/v3/user/release-pets Release pets
 * @apiVersion 3.0.0

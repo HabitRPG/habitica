@@ -1,5 +1,8 @@
 import { authWithHeaders } from '../../middlewares/auth';
-import { sendTaskWebhook } from '../../libs/webhook';
+import {
+  taskActivityWebhook,
+  taskScoredWebhook,
+} from '../../libs/webhook';
 import { removeFromArray } from '../../libs/collectionManipulators';
 import * as Tasks from '../../models/task';
 import { model as Challenge } from '../../models/challenge';
@@ -37,7 +40,15 @@ api.createUserTasks = {
   async handler (req, res) {
     let user = res.locals.user;
     let tasks = await createTasks(req, res, {user});
+
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
+
+    tasks.forEach((task) => {
+      taskActivityWebhook.send(user.webhooks, {
+        type: 'created',
+        task,
+      });
+    });
   },
 };
 
@@ -245,34 +256,17 @@ api.updateTask = {
     }
 
     res.respond(200, savedTask);
-    if (challenge) challenge.updateTask(savedTask);
+
+    if (challenge) {
+      challenge.updateTask(savedTask);
+    } else {
+      taskActivityWebhook.send(user.webhooks, {
+        type: 'updated',
+        task: savedTask,
+      });
+    }
   },
 };
-
-function _generateWebhookTaskData (task, direction, delta, stats, user) {
-  let extendedStats = _.extend(stats, {
-    toNextLevel: common.tnl(user.stats.lvl),
-    maxHealth: common.maxHealth,
-    maxMP: common.statsComputed(user).maxMP,
-  });
-
-  let userData = {
-    _id: user._id,
-    _tmp: user._tmp,
-    stats: extendedStats,
-  };
-
-  let taskData = {
-    details: task,
-    direction,
-    delta,
-  };
-
-  return {
-    task: taskData,
-    user: userData,
-  };
-}
 
 /**
  * @api {post} /api/v3/tasks/:taskId/score/:direction Score a task
@@ -335,7 +329,12 @@ api.scoreTask = {
     let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
     res.respond(200, resJsonData);
 
-    sendTaskWebhook(user.preferences.webhooks, _generateWebhookTaskData(task, direction, delta, userStats, user));
+    taskScoredWebhook.send(user.webhooks, {
+      task,
+      direction,
+      delta,
+      user,
+    });
 
     if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
       // Wrapping everything in a try/catch block because if an error occurs using `await` it MUST NOT bubble up because the request has already been handled
@@ -869,7 +868,15 @@ api.deleteTask = {
     }
 
     res.respond(200, {});
-    if (challenge) challenge.removeTask(task);
+
+    if (challenge) {
+      challenge.removeTask(task);
+    } else {
+      taskActivityWebhook.send(user.webhooks, {
+        type: 'deleted',
+        task,
+      });
+    }
   },
 };
 
