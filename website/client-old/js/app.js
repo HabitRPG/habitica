@@ -177,15 +177,16 @@ window.habitrpg = angular.module('habitrpg',
                   .then(function (response) {
                     $scope.group.challenges = response.data.data;
                   });
-                return Tasks.getGroupTasks($scope.group._id);
+                //@TODO: Add this back when group tasks go live
+                // return Tasks.getGroupTasks($scope.group._id);
               })
-              .then(function (response) {
-                var tasks = response.data.data;
-                tasks.forEach(function (element, index, array) {
-                  if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
-                  $scope.group[element.type + 's'].push(element);
-                })
-              });
+              // .then(function (response) {
+              //   var tasks = response.data.data;
+              //   tasks.forEach(function (element, index, array) {
+              //     if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
+              //     $scope.group[element.type + 's'].push(element);
+              //   })
+              // });
           }]
         })
 
