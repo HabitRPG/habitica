@@ -6,7 +6,7 @@
  * Reason: Webhooks have been moved from
  * being an object on preferences.webhooks
  * to being an array on webhooks. In addition
- * they support a type and options
+ * they support a type and options and label
 * ***************************************/
 
 global.Promise = require('bluebird');
@@ -21,11 +21,11 @@ const timer = new Timer();
 const MIGRATION_NAME = '20160806_add_missing_webhook_type.js';
 
 // const DB_URI = 'mongodb://username:password@dsXXXXXX-a0.mlab.com:XXXXX,dsXXXXXX-a1.mlab.com:XXXXX/habitica?replicaSet=rs-dsXXXXXX';
-const DB_URI = 'mongodb://localhost/prod-copy-4';
+const DB_URI = 'mongodb://localhost/prod-copy-1';
 
 const LOGGEDIN_DATE_RANGE = {
-  $gte: new Date("2014-01-01T00:00:00.000Z"),
-  $lte: new Date("2014-06-01T00:00:00.000Z"),
+  $gte: new Date("2016-09-30T00:00:00.000Z"),
+  // $lte: new Date("2016-09-25T00:00:00.000Z"),
 };
 
 let Users;
@@ -48,7 +48,7 @@ function reportError (err) {
 }
 
 // Cached ids of users that need updating
-const USER_IDS = require('../ids.json');
+const USER_IDS = require('../../ids_of_webhooks_to_update.json');
 
 function findUsersWithWebhooks () {
   logger.warn('Fetching users with webhooks...');
@@ -56,13 +56,14 @@ function findUsersWithWebhooks () {
   return Users.find({'_id': {$in: USER_IDS}}, ['preferences.webhooks']).toArray().then((docs) => {
   // return Users.find({'preferences.webhooks': {$ne: {} }}, ['preferences.webhooks']).toArray().then((docs) => {
   // TODO: Run this after the initial migration to catch any webhooks that may have been aded since the prod backup download
-  // return Users.find({'preferences.webhooks': {$ne: {} }, 'auth.timestamps.loggedin': {$gte: new Date("2016-08-04T00:00:00.000Z")}}, ['preferences.webhooks']).toArray().then((docs) => {
+  // return Users.find({'preferences.webhooks': {$ne: {} }, 'auth.timestamps.loggedin': LOGGEDIN_DATE_RANGE}, ['preferences.webhooks']).toArray().then((docs) => {
     let updates = docs.map((user) => {
       let oldWebhooks = user.preferences.webhooks;
       let webhooks = Object.keys(oldWebhooks).map((id) => {
         let webhook = oldWebhooks[id]
 
         webhook.type = 'taskActivity';
+        webhook.label = '';
         webhook.options = {
           created: false,
           updated: false,
