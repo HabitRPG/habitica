@@ -31,6 +31,7 @@ export let schema = new Schema({
   label: {
     type: String,
     required: false,
+    default: '',
   },
   url: {
     type: String,
