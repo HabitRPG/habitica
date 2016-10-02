@@ -568,7 +568,7 @@ angular.module('habitrpg')
             method: 'DELETE',
             url: '/api/v3/user/webhook/' + webhook.id,
           }).then(function () {
-            user.webhooks.splice(index);
+            user.webhooks.splice(index, index + 1);
           });
         },
 
