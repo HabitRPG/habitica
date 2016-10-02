@@ -78,7 +78,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       previousTaskHistory = task.history[0];
 
       expect(task.history).to.have.lengthOf(1);
-      expect(task.value).to.equal(1);
+      expect(task.value).to.equal(1.5);
     });
 
     it('should update the history', async () => {
