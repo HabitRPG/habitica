@@ -22,7 +22,7 @@ function _getTaskValue (taskValue) {
 
 // Calculates the next task.value based on direction
 // Uses a capped inverse log y=.95^x, y>= -5
-function _calculateDelta (task, direction, cron) {
+function _calculateDelta (user, task, direction, cron) {
   // Min/max on task redness
   let currVal = _getTaskValue(task.value);
   let nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
@@ -39,6 +39,13 @@ function _calculateDelta (task, direction, cron) {
       nextDelta *= 1 + _.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
     }
   }
+
+  // ===== CRITICAL HITS =====
+  // allow critical hit only when checking off a task, not when unchecking it:
+  let _crit = direction === 'up' ? crit(user) : 1;
+  // if there was a crit, alert the user via notification
+  if (_crit > 1) user._tmp.crit = _crit;
+  nextDelta *= _crit;
 
   return nextDelta;
 }
@@ -103,23 +110,17 @@ function _subtractPoints (user, task, stats, delta) {
 }
 
 function _addPoints (user, task, stats, direction, delta) {
-  // ===== CRITICAL HITS =====
-  // allow critical hit only when checking off a task, not when unchecking it:
-  let _crit = delta > 0 ? crit(user) : 1;
-  // if there was a crit, alert the user via notification
-  if (_crit > 1) user._tmp.crit = _crit;
-
   // Exp Modifier
   // ===== Intelligence =====
   // TODO Increases Experience gain by .2% per point.
   let intBonus = 1 + user._statsComputed.int * 0.025;
-  stats.exp += Math.round(delta * intBonus * task.priority * _crit * 6);
+  stats.exp += Math.round(delta * intBonus * task.priority * 6);
 
   // GP modifier
   // ===== PERCEPTION =====
   // TODO Increases Gold gained from tasks by .3% per point.
   let perBonus = 1 + user._statsComputed.per * 0.02;
-  let gpMod = delta * task.priority * _crit * perBonus;
+  let gpMod = delta * task.priority * perBonus;
 
   if (task.streak) {
     let currStreak = direction === 'down' ? task.streak - 1 : task.streak;
@@ -141,7 +142,7 @@ function _changeTaskValue (user, task, direction, times, cron) {
   // If multiple days have passed, multiply times days missed
   _.times(times, () => {
     // Each iteration calculate the nextDelta, which is then accumulated in the total delta.
-    let nextDelta = !cron && direction === 'down' ? _calculateReverseDelta(task, direction) : _calculateDelta(task, direction, cron);
+    let nextDelta = !cron && direction === 'down' ? _calculateReverseDelta(task, direction) : _calculateDelta(user, task, direction, cron);
 
     if (task.type !== 'reward') {
       if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased' && !(task.type === 'todo' && direction === 'down')) {
@@ -210,7 +211,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
       if (!user.stats.buffs.streaks) task.streak = 0;
     } else {
       delta += _changeTaskValue(user, task, direction, times, cron);
-      if (direction === 'down') delta = _calculateDelta(task, direction, cron); // recalculate delta for unchecking so the gp and exp come out correctly
+      if (direction === 'down') delta = _calculateDelta(user, task, direction, cron); // recalculate delta for unchecking so the gp and exp come out correctly
       _addPoints(user, task, stats, direction, delta); // obviously for delta>0, but also a trick to undo accidental checkboxes
       _gainMP(user, _.max([1, 0.01 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
 
@@ -242,7 +243,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
       }
 
       delta += _changeTaskValue(user, task, direction, times, cron);
-      if (direction === 'down') delta = _calculateDelta(task, direction, cron); // recalculate delta for unchecking so the gp and exp come out correctly
+      if (direction === 'down') delta = _calculateDelta(user, task, direction, cron); // recalculate delta for unchecking so the gp and exp come out correctly
       _addPoints(user, task, stats, direction, delta);
 
       // MP++ per checklist item in ToDo, bonus per CLI
