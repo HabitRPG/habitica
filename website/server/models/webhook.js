@@ -28,6 +28,10 @@ export let schema = new Schema({
     enum: ['taskActivity', 'groupChatReceived'],
     default: 'taskActivity',
   },
+  label: {
+    type: String,
+    required: false,
+  },
   url: {
     type: String,
     required: true,

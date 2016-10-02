@@ -63,6 +63,14 @@ describe('POST /user/webhook', () => {
     expect(webhook.enabled).to.be.true;
   });
 
+  it('can pass a label', async () => {
+    body.label = 'Custom Label';
+
+    let webhook = await user.post('/user/webhook', body);
+
+    expect(webhook.label).to.equal('Custom Label');
+  });
+
   it('defaults type to taskActivity', async () => {
     delete body.type;
 

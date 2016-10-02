@@ -12,6 +12,7 @@ describe('PUT /user/webhook/:id', () => {
 
     webhookToUpdate = await user.post('/user/webhook', {
       url: 'http://some-url.com',
+      label: 'Original Label',
       enabled: true,
       type: 'taskActivity',
       options: { created: true, scored: true },
@@ -43,16 +44,18 @@ describe('PUT /user/webhook/:id', () => {
   it('updates a webhook', async () => {
     let url = 'http://a-new-url.com';
     let type = 'groupChatReceived';
+    let label = 'New Label';
     let options = { groupId: generateUUID() };
 
-    await user.put(`/user/webhook/${webhookToUpdate.id}`, {url, type, options});
+    await user.put(`/user/webhook/${webhookToUpdate.id}`, {url, type, options, label});
 
     await user.sync();
 
     let webhook = user.webhooks.find(hook => webhookToUpdate.id === hook.id);
 
-    expect(webhook.url).to.eql(url);
-    expect(webhook.type).to.eql(type);
+    expect(webhook.url).to.equal(url);
+    expect(webhook.label).to.equal(label);
+    expect(webhook.type).to.equal(type);
     expect(webhook.options).to.eql(options);
   });
 
