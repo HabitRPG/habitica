@@ -437,6 +437,7 @@ api.addChecklistItem = {
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
+    let group;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
 
@@ -449,7 +450,7 @@ api.addChecklistItem = {
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.group.id && !task.userId) {
-      let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+      group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
@@ -531,6 +532,7 @@ api.updateChecklistItem = {
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
+    let group;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
@@ -544,7 +546,7 @@ api.updateChecklistItem = {
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.group.id && !task.userId) {
-      let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+      group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
@@ -588,6 +590,7 @@ api.removeChecklistItem = {
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
+    let group;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
@@ -601,10 +604,9 @@ api.removeChecklistItem = {
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.group.id && !task.userId) {
-      let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+      group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-      await group.removeTask(task);
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
@@ -873,6 +875,7 @@ api.deleteTask = {
       let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      await group.removeTask(task);
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
