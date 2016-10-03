@@ -90,13 +90,16 @@ export let schema = new Schema({
     todos: [{type: String, ref: 'Task'}],
     rewards: [{type: String, ref: 'Task'}],
   },
+  purchased: {
+    active: {type: Boolean, default: false},
+  },
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder'],
+  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased'],
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
