@@ -24,6 +24,15 @@ function revealMysteryItems (user) {
   });
 }
 
+function _roundDateDiff (earlyDate, lateDate) {
+  if (!earlyDate || !lateDate || moment(lateDate).isBefore(earlyDate)) return 0;
+
+  earlyDate = moment(earlyDate).format('YYYYMMDD');
+  lateDate = moment(lateDate).format('YYYYMMDD');
+
+  return moment(lateDate).diff(earlyDate, 'months', true);
+}
+
 api.createSubscription = async function createSubscription (data) {
   let recipient = data.gift ? data.gift.member : data.user;
   let plan = recipient.purchased.plan;
@@ -44,14 +53,15 @@ api.createSubscription = async function createSubscription (data) {
 
     if (!plan.customerId) plan.customerId = 'Gift'; // don't override existing customer, but all sub need a customerId
   } else {
+    if (!plan.dateTerminated) plan.dateTerminated = new Date();
+
     _(plan).merge({ // override with these values
       planId: block.key,
       customerId: data.customerId,
       dateUpdated: new Date(),
       gemsBought: 0,
       paymentMethod: data.paymentMethod,
-      extraMonths: Number(plan.extraMonths) +
-        Number(plan.dateTerminated ? moment(plan.dateTerminated).diff(new Date(), 'months', true) : 0),
+      extraMonths: Number(plan.extraMonths) + _roundDateDiff(new Date(), plan.dateTerminated),
       dateTerminated: null,
       // Specify a lastBillingDate just for Amazon Payments
       // Resetted every time the subscription restarts
