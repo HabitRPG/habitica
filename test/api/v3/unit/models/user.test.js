@@ -40,7 +40,7 @@ describe('User Model', () => {
     expect(userToJSON.stats.maxHealth).to.not.exist;
     expect(userToJSON.stats.toNextLevel).to.not.exist;
 
-    user.addComputedStatsToJSONObj(userToJSON);
+    user.addComputedStatsToJSONObj(userToJSON.stats);
 
     expect(userToJSON.stats.maxMP).to.exist;
     expect(userToJSON.stats.maxHealth).to.equal(common.maxHealth);

@@ -7,7 +7,7 @@ let api = {};
 
 const IS_PROD = nconf.get('IS_PROD');
 const TOTAL_USER_COUNT = '1,500,000';
-const LOADING_SCREEN_TIPS = 32;
+const LOADING_SCREEN_TIPS = 33;
 const IS_NEW_CLIENT_ENABLED = nconf.get('NEW_CLIENT_ENABLED') === 'true';
 
 api.getFrontPage = {
