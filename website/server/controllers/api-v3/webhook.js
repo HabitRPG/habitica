@@ -6,6 +6,23 @@ import { NotFound, BadRequest } from '../../libs/errors';
 let api = {};
 
 /**
+ * @apiDefine Webhook Webhook
+ * Webhooks fire when a particular action is performed, such as updating a task, or sending a message in a group.
+ *
+ * Your user's configured webhooks are stored as an `Array` on the user object under the `webhooks` property.
+ */
+
+/**
+ * @apiDefine WebhookNotFound
+ * @apiError (404) {NotFound} WebhookNotFound The specified Webhook could not be found.
+ */
+
+/**
+ * @apiDefine WebhookBodyInvalid
+ * @apiError (400) {BadRequest} WebhookBodyInvalid A body parameter passed in the request did not pass validation.
+ */
+
+/**
 * @api {post} /api/v3/user/webhook Create a new webhook - BETA
 * @apiName AddWebhook
 * @apiGroup Webhook
@@ -52,13 +69,7 @@ let api = {};
 * @apiSuccess {String} data.type The type of the webhook
 * @apiSuccess {Object} data.options The options for the webhook (See examples)
 *
-* @apiError InvalidUUID The `id` was not a valid `UUID`
-* @apiError IdTaken The `id` is already being used by another webhook
-* @apiError InvalidEnable The `enable` param was not a `Boolean` value
-* @apiError InvalidUrl The `url` param was not valid url
-* @apiError InvalidWebhookType The `type` param was not a supported Webhook type
-* @apiError GroupIdIsNotUUID The `options.groupId` param is not a valid UUID for `groupChatReceived` webhook type
-* @apiError TaskActivityOptionNotBoolean The `options` provided for the `taskActivity` webhook were not of `Boolean` value
+* @apiUse WebhookBodyInvalid
 */
 api.addWebhook = {
   method: 'POST',
@@ -68,9 +79,7 @@ api.addWebhook = {
     let user = res.locals.user;
     let webhook = new Webhook(req.body);
 
-    let existingWebhook = user.webhooks.find((wh) => {
-      return wh.id === webhook.id;
-    });
+    let existingWebhook = user.webhooks.find(hook => hook.id === webhook.id);
 
     if (existingWebhook) {
       throw new BadRequest(res.t('webhookIdAlreadyTaken', { id: webhook.id }));
@@ -118,12 +127,8 @@ api.addWebhook = {
 * @apiSuccess {String} data.type The type of the webhook
 * @apiSuccess {Object} data.options The options for the webhook (See webhook add examples)
 *
-* @apiError WebhookDoesNotExist A webhook with that `id` does not exist
-* @apiError InvalidEnable The `enable` param was not a `Boolean` value
-* @apiError InvalidUrl The `url` param was not valid url
-* @apiError InvalidWebhookType The `type` param was not a supported Webhook type
-* @apiError GroupIdIsNotUUID The `options.groupId` param is not a valid UUID for `groupChatReceived` webhook type
-* @apiError TaskActivityOptionNotBoolean The `options` provided for the `taskActivity` webhook were not of `Boolean` value
+* @apiUse WebhookNotFound
+* @apiUse WebhookBodyInvalid
 *
 */
 api.updateWebhook = {
@@ -175,7 +180,7 @@ api.updateWebhook = {
 * @apiParam {UUID} id The id of the webhook to delete
 *
 * @apiSuccess {Array} data The remaining webhooks for the user
-* @apiError WebhookDoesNotExist A webhook with that `id` does not exist
+* @apiUse WebhookNotFound
 */
 api.deleteWebhook = {
   method: 'DELETE',
