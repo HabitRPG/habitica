@@ -99,7 +99,7 @@ export let schema = new Schema({
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder'],
+  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased'],
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)

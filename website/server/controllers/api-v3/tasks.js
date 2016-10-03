@@ -259,6 +259,8 @@ api.updateTask = {
 
     if (challenge) {
       challenge.updateTask(savedTask);
+    } else if (group && task.group.id && task.group.assignedUsers.length > 0) {
+      await group.updateTask(savedTask);
     } else {
       taskActivityWebhook.send(user.webhooks, {
         type: 'updated',
@@ -450,7 +452,6 @@ api.addChecklistItem = {
       let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-      await group.removeTask(task);
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
@@ -466,6 +467,9 @@ api.addChecklistItem = {
 
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
+    if (group && task.group.id && task.group.assignedUsers.length > 0) {
+      await group.updateTask(savedTask);
+    }
   },
 };
 
@@ -560,6 +564,9 @@ api.updateChecklistItem = {
 
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
+    if (group && task.group.id && task.group.assignedUsers.length > 0) {
+      await group.updateTask(savedTask);
+    }
   },
 };
 
@@ -597,6 +604,7 @@ api.removeChecklistItem = {
       let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      await group.removeTask(task);
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
@@ -612,6 +620,9 @@ api.removeChecklistItem = {
     let savedTask = await task.save();
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
+    if (group && task.group.id && task.group.assignedUsers.length > 0) {
+      await group.updateTask(savedTask);
+    }
   },
 };
 
@@ -862,7 +873,6 @@ api.deleteTask = {
       let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-      await group.removeTask(task);
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
