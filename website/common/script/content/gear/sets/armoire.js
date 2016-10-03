@@ -166,6 +166,14 @@ let armor = {
     set: 'vermilionArcher',
     canOwn: ownsItem('armor_armoire_vermilionArcherArmor'),
   },
+  ogreArmor: {
+    text: t('armorArmoireOgreArmorText'),
+    notes: t('armorArmoireOgreArmorNotes', { con: 15 }),
+    value: 100,
+    con: 15,
+    set: 'ogre',
+    canOwn: ownsItem('armor_armoire_ogreArmor'),
+  },
 };
 
 let eyewear = {
@@ -411,6 +419,15 @@ let head = {
     per: 12,
     set: 'vermilionArcher',
     canOwn: ownsItem('head_armoire_vermilionArcherHelm'),
+  },
+  ogreMask: {
+    text: t('headArmoireOgreMaskText'),
+    notes: t('headArmoireOgreMaskNotes', { attrs: 7 }),
+    value: 100,
+    con: 7,
+    str: 7,
+    set: 'ogre',
+    canOwn: ownsItem('head_armoire_ogreMask'),
   },
 };
 
@@ -658,6 +675,14 @@ let weapon = {
     twoHanded: true,
     set: 'vermilionArcher',
     canOwn: ownsItem('weapon_armoire_vermilionArcherBow'),
+  },
+  ogreClub: {
+    text: t('weaponArmoireOgreClubText'),
+    notes: t('weaponArmoireOgreClubNotes', { str: 15 }),
+    value: 100,
+    str: 15,
+    set: 'ogre',
+    canOwn: ownsItem('weapon_armoire_ogreClub'),
   },
 };
 

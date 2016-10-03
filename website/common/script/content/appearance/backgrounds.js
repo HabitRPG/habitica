@@ -395,6 +395,20 @@ let backgrounds = {
       notes: t('backgroundOrchardNotes'),
     },
   },
+  backgrounds102016: {
+    rainy_city: {
+      text: t('backgroundRainyCityText'),
+      notes: t('backgroundRainyCityNotes'),
+    },
+    spider_web: {
+      text: t('backgroundSpiderWebText'),
+      notes: t('backgroundSpiderWebNotes'),
+    },
+    strange_sewers: {
+      text: t('backgroundStrangeSewersText'),
+      notes: t('backgroundStrangeSewersNotes'),
+    },
+  },
 };
 /* eslint-enable quote-props */
 
