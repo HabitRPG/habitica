@@ -1,7 +1,7 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import { model as Webhook } from '../../models/webhook';
 import { removeFromArray } from '../../libs/collectionManipulators';
-import { NotFound } from '../../libs/errors';
+import { NotFound, BadRequest } from '../../libs/errors';
 
 let api = {};
 
@@ -53,6 +53,7 @@ let api = {};
 * @apiSuccess {Object} data.options The options for the webhook (See examples)
 *
 * @apiError InvalidUUID The `id` was not a valid `UUID`
+* @apiError IdTaken The `id` is already being used by another webhook
 * @apiError InvalidEnable The `enable` param was not a `Boolean` value
 * @apiError InvalidUrl The `url` param was not valid url
 * @apiError InvalidWebhookType The `type` param was not a supported Webhook type
@@ -66,6 +67,14 @@ api.addWebhook = {
   async handler (req, res) {
     let user = res.locals.user;
     let webhook = new Webhook(req.body);
+
+    let existingWebhook = user.webhooks.find((wh) => {
+      return wh.id === webhook.id;
+    });
+
+    if (existingWebhook) {
+      throw new BadRequest(res.t('webhookIdAlreadyTaken', { id: webhook.id }));
+    }
 
     webhook.formatOptions(res);
 

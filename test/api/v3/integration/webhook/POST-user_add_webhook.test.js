@@ -100,6 +100,16 @@ describe('POST /user/webhook', () => {
     expect(webhook.url).to.eql(body.url);
   });
 
+  it('cannot use an id of a webhook that already exists', async () => {
+    await user.post('/user/webhook', body);
+
+    await expect(user.post('/user/webhook', body)).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('webhookIdAlreadyTaken', { id: body.id }),
+    });
+  });
+
   it('defaults taskActivity options', async () => {
     body.type = 'taskActivity';
 
