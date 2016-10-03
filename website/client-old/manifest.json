@@ -107,7 +107,15 @@
             "js/controllers/sortableInventoryCtrl.js",
             "js/controllers/tavernCtrl.js",
             "js/controllers/tasksCtrl.js",
-            "js/controllers/userCtrl.js"
+            "js/controllers/userCtrl.js",
+
+            "js/components/groupTasks/groupTasksController.js",
+            "js/components/groupTasks/groupTasksDirective.js",
+            "js/components/groupTaskActions/groupTaskActionsController.js",
+            "js/components/groupTaskActions/groupTaskActionsDirective.js",
+            "js/components/groupMembersAutocomplete/groupMembersAutocompleteDirective.js",
+            "js/components/groupTaskMetaActions/groupTaskMetaActionsDirective.js",
+            "js/components/groupTaskMetaActions/groupTaskMetaActionsController.js"
         ],
         "css": [
             "bower_components/bootstrap/dist/css/bootstrap.css",
@@ -118,7 +126,10 @@
             "bower_components/pnotify/jquery.pnotify.default.icons.css",
             "css/habitrpg-shared.css",
             "bower_components/bootstrap-tour/build/css/bootstrap-tour.css",
-            "fontello/css/fontelico.css"
+            "fontello/css/fontelico.css",
+            "bower_components/jquery-ui/themes/base/minified/jquery.ui.autocomplete.min.css",
+            "bower_components/jquery-ui/themes/base/minified/jquery.ui.menu.min.css",
+            "bower_components/jquery-ui/themes/ui-lightness/jquery-ui.min.css"
         ]
     },
     "static": {
