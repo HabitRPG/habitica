@@ -13,7 +13,6 @@ let api = {};
 /**
  * @api {get} /api/v3/coupons Get coupons
  * @apiDescription Sudo users only
- * @apiVersion 3.0.0
  * @apiName GetCoupons
  * @apiGroup Coupon
  *
@@ -42,7 +41,6 @@ api.getCoupons = {
 /**
  * @api {post} /api/v3/coupons/generate/:event Generate coupons for an event
  * @apiDescription Sudo users only
- * @apiVersion 3.0.0
  * @apiName GenerateCoupons
  * @apiGroup Coupon
  *
@@ -69,7 +67,6 @@ api.generateCoupons = {
 
 /**
  * @api {post} /api/v3/coupons/enter/:code Enter coupon code
- * @apiVersion 3.0.0
  * @apiName EnterCouponCode
  * @apiGroup Coupon
  *
@@ -96,7 +93,6 @@ api.enterCouponCode = {
 
 /**
  * @api {post} /api/v3/coupons/validate/:code Validate a coupon code
- * @apiVersion 3.0.0
  * @apiName ValidateCoupon
  * @apiGroup Coupon
  *

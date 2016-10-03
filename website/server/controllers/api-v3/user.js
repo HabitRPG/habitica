@@ -19,7 +19,6 @@ let api = {};
 
 /**
  * @api {get} /api/v3/user Get the authenticated user's profile
- * @apiVersion 3.0.0
  * @apiName UserGet
  * @apiGroup User
  *
@@ -43,7 +42,6 @@ api.getUser = {
 
 /**
  * @api {get} /api/v3/user/inventory/buy Get the gear items available for purchase for the current user
- * @apiVersion 3.0.0
  * @apiName UserGetBuyList
  * @apiGroup User
  *
@@ -140,7 +138,6 @@ let checkPreferencePurchase = (user, path, item) => {
 /**
  * @api {put} /api/v3/user Update the user
  * @apiDescription Example body: {'stats.hp':50, 'preferences.background': 'beach'}
- * @apiVersion 3.0.0
  * @apiName UserUpdate
  * @apiGroup User
  *
@@ -174,7 +171,6 @@ api.updateUser = {
 
 /**
  * @api {delete} /api/v3/user Delete an authenticated user's account
- * @apiVersion 3.0.0
  * @apiName UserDelete
  * @apiGroup User
  *
@@ -235,7 +231,6 @@ function _cleanChecklist (task) {
 
 /**
  * @api {get} /api/v3/user/anonymized Get anonymized user data
- * @apiVersion 3.0.0
  * @apiName UserGetAnonymized
  * @apiGroup User
  *
@@ -300,7 +295,6 @@ const partyMembersFields = 'profile.name stats achievements items.special';
 
 /**
  * @api {post} /api/v3/user/class/cast/:spellId Cast a skill (spell) on a target
- * @apiVersion 3.0.0
  * @apiName UserCast
  * @apiGroup User
  *
@@ -482,7 +476,6 @@ api.castSpell = {
 
 /**
  * @api {post} /api/v3/user/sleep Make the user start / stop sleeping (resting in the Inn)
- * @apiVersion 3.0.0
  * @apiName UserSleep
  * @apiGroup User
  *
@@ -502,7 +495,6 @@ api.sleep = {
 
 /**
  * @api {post} /api/v3/user/allocate Allocate an attribute point
- * @apiVersion 3.0.0
  * @apiName UserAllocate
  * @apiGroup User
  *
@@ -525,7 +517,6 @@ api.allocate = {
 /**
  * @api {post} /api/v3/user/allocate-now Allocate all attribute points
  * @apiDescription Uses the user's chosen automatic allocation method, or if none, assigns all to STR.
- * @apiVersion 3.0.0
  * @apiName UserAllocateNow
  * @apiGroup User
  *
@@ -546,7 +537,6 @@ api.allocateNow = {
 /**
  * @api {post} /user/buy/:key Buy gear, armoire or potion
  * @apiDescription Under the hood uses UserBuyGear, UserBuyPotion and UserBuyArmoire
- * @apiVersion 3.0.0
  * @apiName UserBuy
  * @apiGroup User
  *
@@ -566,7 +556,6 @@ api.buy = {
 
 /**
  * @api {post} /user/buy-gear/:key Buy a piece of gear
- * @apiVersion 3.0.0
  * @apiName UserBuyGear
  * @apiGroup User
  *
@@ -592,7 +581,6 @@ api.buyGear = {
 
 /**
  * @api {post} /user/buy-armoire Buy an armoire item
- * @apiVersion 3.0.0
  * @apiName UserBuyArmoire
  * @apiGroup User
  *
@@ -615,7 +603,6 @@ api.buyArmoire = {
 
 /**
  * @api {post} /user/buy-health-potion Buy a health potion
- * @apiVersion 3.0.0
  * @apiName UserBuyPotion
  * @apiGroup User
  *
@@ -636,7 +623,6 @@ api.buyHealthPotion = {
 
 /**
  * @api {post} /user/buy-mystery-set/:key Buy a mystery set
- * @apiVersion 3.0.0
  * @apiName UserBuyMysterySet
  * @apiGroup User
  *
@@ -660,7 +646,6 @@ api.buyMysterySet = {
 
 /**
  * @api {post} /api/v3/user/buy-quest/:key Buy a quest with gold
- * @apiVersion 3.0.0
  * @apiName UserBuyQuest
  * @apiGroup User
  *
@@ -684,7 +669,6 @@ api.buyQuest = {
 /**
  * @api {post} /api/v3/user/buy-special-spell/:key Buy special "spell" item
  * @apiDescription Includes gift cards (e.g., birthday card), and avatar Transformation Items and their antidotes (e.g., Snowball item and Salt reward).
- * @apiVersion 3.0.0
  * @apiName UserBuySpecialSpell
  * @apiGroup User
  *
@@ -708,7 +692,6 @@ api.buySpecialSpell = {
 
 /**
  * @api {post} /api/v3/user/hatch/:egg/:hatchingPotion Hatch a pet
- * @apiVersion 3.0.0
  * @apiName UserHatch
  * @apiGroup User
  *
@@ -732,7 +715,6 @@ api.hatch = {
 
 /**
  * @api {post} /api/v3/user/equip/:type/:key Equip an item
- * @apiVersion 3.0.0
  * @apiName UserEquip
  * @apiGroup User
  *
@@ -756,7 +738,6 @@ api.equip = {
 
 /**
  * @api {post} /api/v3/user/feed/:pet/:food Feed a pet
- * @apiVersion 3.0.0
  * @apiName UserFeed
  * @apiGroup User
  *
@@ -781,7 +762,6 @@ api.feed = {
 /**
 * @api {post} /api/v3/user/change-class Change class
 * @apiDescription User must be at least level 10. If ?class is defined and user.flags.classSelected is false it'll change the class. If user.preferences.disableClasses it'll enable classes, otherwise it sets user.flags.classSelected to false (costs 3 gems)
-* @apiVersion 3.0.0
 * @apiName UserChangeClass
 * @apiGroup User
 *
@@ -806,7 +786,6 @@ api.changeClass = {
 
 /**
 * @api {post} /api/v3/user/disable-classes Disable classes
-* @apiVersion 3.0.0
 * @apiName UserDisableClasses
 * @apiGroup User
 *
@@ -828,7 +807,6 @@ api.disableClasses = {
 
 /**
 * @api {post} /api/v3/user/purchase/:type/:key Purchase Gem or Gem-purchasable item
-* @apiVersion 3.0.0
 * @apiName UserPurchase
 * @apiGroup User
 *
@@ -853,7 +831,6 @@ api.purchase = {
 
 /**
 * @api {post} /api/v3/user/purchase-hourglass/:type/:key Purchase Hourglass-purchasable item
-* @apiVersion 3.0.0
 * @apiName UserPurchaseHourglass
 * @apiGroup User
 *
@@ -878,7 +855,6 @@ api.userPurchaseHourglass = {
 
 /**
 * @api {post} /api/v3/user/read-card/:cardType Read a card
-* @apiVersion 3.0.0
 * @apiName UserReadCard
 * @apiGroup User
 *
@@ -902,7 +878,6 @@ api.readCard = {
 
 /**
 * @api {post} /api/v3/user/open-mystery-item Open the Mystery Item box
-* @apiVersion 3.0.0
 * @apiName UserOpenMysteryItem
 * @apiGroup User
 *
@@ -922,7 +897,6 @@ api.userOpenMysteryItem = {
 };
 
 /* @api {post} /api/v3/user/release-pets Release pets
-* @apiVersion 3.0.0
 * @apiName UserReleasePets
 * @apiGroup User
 *
@@ -943,7 +917,6 @@ api.userReleasePets = {
 
 /**
 * @api {post} /api/v3/user/release-both Release pets and mounts and grants Triad Bingo
-* @apiVersion 3.0.0
 * @apiName UserReleaseBoth
 * @apiGroup User
 
@@ -966,7 +939,6 @@ api.userReleaseBoth = {
 
 /**
 * @api {post} /api/v3/user/release-mounts Release mounts
-* @apiVersion 3.0.0
 * @apiName UserReleaseMounts
 * @apiGroup User
 *
@@ -987,7 +959,6 @@ api.userReleaseMounts = {
 
 /**
 * @api {post} /api/v3/user/sell/:type/:key Sell a gold-sellable item owned by the user
-* @apiVersion 3.0.0
 * @apiName UserSell
 * @apiGroup User
 *
@@ -1012,7 +983,6 @@ api.userSell = {
 
 /**
 * @api {post} /api/v3/user/unlock Unlock item or set of items by purchase
-* @apiVersion 3.0.0
 * @apiName UserUnlock
 * @apiGroup User
 *
@@ -1037,7 +1007,6 @@ api.userUnlock = {
 
 /**
 * @api {post} /api/v3/user/revive Revive user from death
-* @apiVersion 3.0.0
 * @apiName UserRevive
 * @apiGroup User
 *
@@ -1058,7 +1027,6 @@ api.userRevive = {
 
 /**
 * @api {post} /api/v3/user/rebirth Use Orb of Rebirth on user
-* @apiVersion 3.0.0
 * @apiName UserRebirth
 * @apiGroup User
 *
@@ -1095,7 +1063,6 @@ api.userRebirth = {
 
 /**
  * @api {post} /api/v3/user/block/:uuid Block / unblock a user from sending you a PM
- * @apiVersion 3.0.0
  * @apiName BlockUser
  * @apiGroup User
  *
@@ -1117,7 +1084,6 @@ api.blockUser = {
 
 /**
  * @api {delete} /api/v3/user/messages/:id Delete a message
- * @apiVersion 3.0.0
  * @apiName deleteMessage
  * @apiGroup User
  *
@@ -1139,7 +1105,6 @@ api.deleteMessage = {
 
 /**
  * @api {delete} /api/v3/user/messages Delete all messages
- * @apiVersion 3.0.0
  * @apiName clearMessages
  * @apiGroup User
  *
@@ -1159,7 +1124,6 @@ api.clearMessages = {
 
 /**
  * @api {post} /api/v3/user/mark-pms-read Marks Private Messages as read
- * @apiVersion 3.0.0
  * @apiName markPmsRead
  * @apiGroup User
  *
@@ -1179,7 +1143,6 @@ api.markPmsRead = {
 
 /**
 * @api {post} /api/v3/user/reroll Reroll a user using the Fortify Potion
-* @apiVersion 3.0.0
 * @apiName UserReroll
 * @apiGroup User
 *
@@ -1215,7 +1178,6 @@ api.userReroll = {
 
 /**
 * @api {post} /api/v3/user/reset Reset user
-* @apiVersion 3.0.0
 * @apiName UserReset
 * @apiGroup User
 *
@@ -1251,7 +1213,6 @@ api.userReset = {
 
 /**
 * @api {post} /api/v3/user/custom-day-start Set preferences.dayStart for user
-* @apiVersion 3.0.0
 * @apiName setCustomDayStart
 * @apiGroup User
 *

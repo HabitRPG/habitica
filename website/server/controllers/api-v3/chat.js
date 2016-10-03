@@ -37,7 +37,6 @@ async function getAuthorEmailFromMessage (message) {
 
 /**
  * @api {get} /api/v3/groups/:groupId/chat Get chat messages from a group
- * @apiVersion 3.0.0
  * @apiName GetChat
  * @apiGroup Chat
  *
@@ -66,7 +65,6 @@ api.getChat = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
- * @apiVersion 3.0.0
  * @apiName PostChat
  * @apiGroup Chat
  *
@@ -131,7 +129,6 @@ api.postChat = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/chat/:chatId/like Like a group chat message
- * @apiVersion 3.0.0
  * @apiName LikeChat
  * @apiGroup Chat
  *
@@ -364,7 +361,6 @@ api.clearChatFlags = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/chat/seen Mark all messages as read for a group
- * @apiVersion 3.0.0
  * @apiName SeenChat
  * @apiGroup Chat
  *
@@ -399,7 +395,6 @@ api.seenChat = {
 
 /**
  * @api {delete} /api/v3/groups/:groupId/chat/:chatId Delete chat message from a group
- * @apiVersion 3.0.0
  * @apiName DeleteChat
  * @apiGroup Chat
  *

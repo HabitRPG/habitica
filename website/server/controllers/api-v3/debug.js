@@ -9,7 +9,6 @@ let api = {};
 /**
  * @api {post} /api/v3/debug/add-ten-gems Add ten gems to the current user
  * @apiDescription Only available in development mode.
- * @apiVersion 3.0.0
  * @apiName AddTenGems
  * @apiGroup Development
  *
@@ -33,7 +32,6 @@ api.addTenGems = {
 /**
  * @api {post} /api/v3/debug/add-hourglass Add Hourglass to the current user
  * @apiDescription Only available in development mode.
- * @apiVersion 3.0.0
  * @apiName AddHourglass
  * @apiGroup Development
  *
@@ -57,7 +55,6 @@ api.addHourglass = {
 /**
  * @api {post} /api/v3/debug/set-cron Set lastCron for user
  * @apiDescription Only available in development mode.
- * @apiVersion 3.0.0
  * @apiName setCron
  * @apiGroup Development
  *
@@ -82,7 +79,6 @@ api.setCron = {
 /**
  * @api {post} /api/v3/debug/make-admin Sets contributor.admin to true
  * @apiDescription Only available in development mode.
- * @apiVersion 3.0.0
  * @apiName setCron
  * @apiGroup Development
  *
@@ -106,7 +102,6 @@ api.makeAdmin = {
 /**
  * @api {post} /api/v3/debug/modify-inventory Manipulate user's inventory
  * @apiDescription Only available in development mode.
- * @apiVersion 3.0.0
  * @apiName modifyInventory
  * @apiGroup Development
  *
@@ -147,7 +142,6 @@ api.modifyInventory = {
 /**
  * @api {post} /api/v3/debug/quest-progress Artificially accelerate quest progress
  * @apiDescription Only available in development mode.
- * @apiVersion 3.0.0
  * @apiName questProgress
  * @apiGroup Development
  *

@@ -11,7 +11,6 @@ let api = {};
 
 /**
  * @api {post} /api/v3/tags Create a new tag
- * @apiVersion 3.0.0
  * @apiName CreateTag
  * @apiGroup Tag
  *
@@ -35,7 +34,6 @@ api.createTag = {
 
 /**
  * @api {get} /api/v3/tags Get a user's tags
- * @apiVersion 3.0.0
  * @apiName GetTags
  * @apiGroup Tag
  *
@@ -53,7 +51,6 @@ api.getTags = {
 
 /**
  * @api {get} /api/v3/tags/:tagId Get a tag given its id
- * @apiVersion 3.0.0
  * @apiName GetTag
  * @apiGroup Tag
  *
@@ -81,7 +78,6 @@ api.getTag = {
 
 /**
  * @api {put} /api/v3/tag/:tagId Update a tag
- * @apiVersion 3.0.0
  * @apiName UpdateTag
  * @apiGroup Tag
  *
@@ -115,7 +111,6 @@ api.updateTag = {
 
 /**
  * @api {post} /api/v3/reorder-tags Reorder a tag
- * @apiVersion 3.0.0
  * @apiName ReorderTags
  * @apiGroup Tag
  *
@@ -150,7 +145,6 @@ api.reorderTags = {
 
 /**
  * @api {delete} /api/v3/tag/:tagId Delete a user tag given its id
- * @apiVersion 3.0.0
  * @apiName DeleteTag
  * @apiGroup Tag
  *

@@ -30,7 +30,6 @@ let api = {};
 
 /**
  * @api {post} /api/v3/groups/:groupId/quests/invite Invite users to a quest
- * @apiVersion 3.0.0
  * @apiName InviteToQuest
  * @apiGroup Group
  *
@@ -142,7 +141,6 @@ api.inviteToQuest = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/quests/accept Accept a pending quest
- * @apiVersion 3.0.0
  * @apiName AcceptQuest
  * @apiGroup Group
  *
@@ -199,7 +197,6 @@ api.acceptQuest = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/quests/reject Reject a quest
- * @apiVersion 3.0.0
  * @apiName RejectQuest
  * @apiGroup Group
  *
@@ -257,7 +254,6 @@ api.rejectQuest = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/quests/force-start Force-start a pending quest
- * @apiVersion 3.0.0
  * @apiName ForceQuestStart
  * @apiGroup Group
  *
@@ -310,7 +306,6 @@ api.forceStart = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/quests/cancel Cancel a quest that is not active
- * @apiVersion 3.0.0
  * @apiName CancelQuest
  * @apiGroup Group
  *
@@ -359,7 +354,6 @@ api.cancelQuest = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/quests/abort Abort the current quest
- * @apiVersion 3.0.0
  * @apiName AbortQuest
  * @apiGroup Group
  *
@@ -412,7 +406,6 @@ api.abortQuest = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/quests/leave Leave the active quest
- * @apiVersion 3.0.0
  * @apiName LeaveQuest
  * @apiGroup Group
  *

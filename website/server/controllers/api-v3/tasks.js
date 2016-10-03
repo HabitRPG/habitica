@@ -27,7 +27,6 @@ let requiredGroupFields = '_id leader tasksOrder name';
 /**
  * @api {post} /api/v3/tasks/user Create a new task belonging to the user
  * @apiDescription Can be passed an object to create a single task or an array of objects to create multiple tasks.
- * @apiVersion 3.0.0
  * @apiName CreateUserTasks
  * @apiGroup Task
  *
@@ -55,7 +54,6 @@ api.createUserTasks = {
 /**
  * @api {post} /api/v3/tasks/challenge/:challengeId Create a new task belonging to a challenge
  * @apiDescription Can be passed an object to create a single task or an array of objects to create multiple tasks.
- * @apiVersion 3.0.0
  * @apiName CreateChallengeTasks
  * @apiGroup Task
  *
@@ -93,7 +91,6 @@ api.createChallengeTasks = {
 
 /**
  * @api {get} /api/v3/tasks/user Get a user's tasks
- * @apiVersion 3.0.0
  * @apiName GetUserTasks
  * @apiGroup Task
  *
@@ -122,7 +119,6 @@ api.getUserTasks = {
 
 /**
  * @api {get} /api/v3/tasks/challenge/:challengeId Get a challenge's tasks
- * @apiVersion 3.0.0
  * @apiName GetChallengeTasks
  * @apiGroup Task
  *
@@ -158,7 +154,6 @@ api.getChallengeTasks = {
 
 /**
  * @api {get} /api/v3/tasks/:taskId Get a task
- * @apiVersion 3.0.0
  * @apiName GetTask
  * @apiGroup Task
  *
@@ -192,7 +187,6 @@ api.getTask = {
 
 /**
  * @api {put} /api/v3/tasks/:taskId Update a task
- * @apiVersion 3.0.0
  * @apiName UpdateTask
  * @apiGroup Task
  *
@@ -272,7 +266,6 @@ api.updateTask = {
 
 /**
  * @api {post} /api/v3/tasks/:taskId/score/:direction Score a task
- * @apiVersion 3.0.0
  * @apiName ScoreTask
  * @apiGroup Task
  *
@@ -369,7 +362,6 @@ api.scoreTask = {
 /**
  * @api {post} /api/v3/tasks/:taskId/move/to/:position Move a task to a new position
  * @apiDescription Note: completed To-Dos are not sortable, do not appear in user.tasksOrder.todos, and are ordered by date of completion.
- * @apiVersion 3.0.0
  * @apiName MoveTask
  * @apiGroup Task
  *
@@ -422,7 +414,6 @@ api.moveTask = {
 
 /**
  * @api {post} /api/v3/tasks/:taskId/checklist Add an item to the task's checklist
- * @apiVersion 3.0.0
  * @apiName AddChecklistItem
  * @apiGroup Task
  *
@@ -476,7 +467,6 @@ api.addChecklistItem = {
 
 /**
  * @api {post} /api/v3/tasks/:taskId/checklist/:itemId/score Score a checklist item
- * @apiVersion 3.0.0
  * @apiName ScoreChecklistItem
  * @apiGroup Task
  *
@@ -516,7 +506,6 @@ api.scoreCheckListItem = {
 
 /**
  * @api {put} /api/v3/tasks/:taskId/checklist/:itemId Update a checklist item
- * @apiVersion 3.0.0
  * @apiName UpdateChecklistItem
  * @apiGroup Task
  *
@@ -574,7 +563,6 @@ api.updateChecklistItem = {
 
 /**
  * @api {delete} /api/v3/tasks/:taskId/checklist/:itemId Remove a checklist item
- * @apiVersion 3.0.0
  * @apiName RemoveChecklistItem
  * @apiGroup Task
  *
@@ -630,7 +618,6 @@ api.removeChecklistItem = {
 
 /**
  * @api {post} /api/v3/tasks/:taskId/tags/:tagId Add a tag to a task
- * @apiVersion 3.0.0
  * @apiName AddTagToTask
  * @apiGroup Task
  *
@@ -671,7 +658,6 @@ api.addTagToTask = {
 
 /**
  * @api {delete} /api/v3/tasks/:taskId/tags/:tagId Remove a tag from a task
- * @apiVersion 3.0.0
  * @apiName RemoveTagFromTask
  * @apiGroup Task
  *
@@ -708,7 +694,6 @@ api.removeTagFromTask = {
 
 /**
  * @api {post} /api/v3/tasks/unlink-all/:challengeId Unlink all tasks from a challenge
- * @apiVersion 3.0.0
  * @apiName UnlinkAllTasks
  * @apiGroup Task
  *
@@ -770,7 +755,6 @@ api.unlinkAllTasks = {
 
 /**
  * @api {post} /api/v3/tasks/unlink-one/:taskId Unlink a challenge task
- * @apiVersion 3.0.0
  * @apiName UnlinkOneTask
  * @apiGroup Task
  *
@@ -818,7 +802,6 @@ api.unlinkOneTask = {
 
 /**
  * @api {post} /api/v3/tasks/clearCompletedTodos Delete user's completed todos
- * @apiVersion 3.0.0
  * @apiName ClearCompletedTodos
  * @apiGroup Task
  *
@@ -849,7 +832,6 @@ api.clearCompletedTodos = {
 
 /**
  * @api {delete} /api/v3/tasks/:taskId Delete a task given its id
- * @apiVersion 3.0.0
  * @apiName DeleteTask
  * @apiGroup Task
  *

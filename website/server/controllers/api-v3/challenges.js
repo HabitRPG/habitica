@@ -22,7 +22,6 @@ let api = {};
 
 /**
  * @api {post} /api/v3/challenges Create a new challenge
- * @apiVersion 3.0.0
  * @apiName CreateChallenge
  * @apiGroup Challenge
  *
@@ -112,7 +111,6 @@ api.createChallenge = {
 
 /**
  * @api {post} /api/v3/challenges/:challengeId/join Join a challenge
- * @apiVersion 3.0.0
  * @apiName JoinChallenge
  * @apiGroup Challenge
  * @apiParam {UUID} challengeId The challenge _id
@@ -159,7 +157,6 @@ api.joinChallenge = {
 
 /**
  * @api {post} /api/v3/challenges/:challengeId/leave Leave a challenge
- * @apiVersion 3.0.0
  * @apiName LeaveChallenge
  * @apiGroup Challenge
  * @apiParam {UUID} challengeId The challenge _id
@@ -197,7 +194,6 @@ api.leaveChallenge = {
 
 /**
  * @api {get} /api/v3/challenges/user Get challenges for a user
- * @apiVersion 3.0.0
  * @apiName GetUserChallenges
  * @apiGroup Challenge
  *
@@ -242,7 +238,6 @@ api.getUserChallenges = {
 /**
  * @api {get} /api/v3/challenges/group/:groupId Get challenges for a group
  * @apiDescription Get challenges that the user is a member, public challenges and the ones from the user's groups.
- * @apiVersion 3.0.0
  * @apiName GetGroupChallenges
  * @apiGroup Challenge
  *
@@ -285,7 +280,6 @@ api.getGroupChallenges = {
 
 /**
  * @api {get} /api/v3/challenges/:challengeId Get a challenge given its id
- * @apiVersion 3.0.0
  * @apiName GetChallenge
  * @apiGroup Challenge
  *
@@ -328,7 +322,6 @@ api.getChallenge = {
 
 /**
  * @api {get} /api/v3/challenges/:challengeId/export/csv Export a challenge in CSV
- * @apiVersion 3.0.0
  * @apiName ExportChallengeCsv
  * @apiGroup Challenge
  *
@@ -401,7 +394,6 @@ api.exportChallengeCsv = {
 
 /**
  * @api {put} /api/v3/challenges/:challengeId Update a challenge
- * @apiVersion 3.0.0
  * @apiName UpdateChallenge
  * @apiGroup Challenge
  *
@@ -447,7 +439,6 @@ api.updateChallenge = {
 
 /**
  * @api {delete} /api/v3/challenges/:challengeId Delete a challenge
- * @apiVersion 3.0.0
  * @apiName DeleteChallenge
  * @apiGroup Challenge
  *
@@ -479,7 +470,6 @@ api.deleteChallenge = {
 
 /**
  * @api {post} /api/v3/challenges/:challengeId/selectWinner/:winnerId Select winner for challenge
- * @apiVersion 3.0.0
  * @apiName SelectChallengeWinner
  * @apiGroup Challenge
  *

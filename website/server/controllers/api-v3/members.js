@@ -22,7 +22,6 @@ let api = {};
 
 /**
  * @api {get} /api/v3/members/:memberId Get a member profile
- * @apiVersion 3.0.0
  * @apiName GetMember
  * @apiGroup Member
  *
@@ -156,7 +155,6 @@ function _getMembersForItem (type) {
 /**
  * @api {get} /api/v3/groups/:groupId/members Get members for a group
  * @apiDescription With a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
- * @apiVersion 3.0.0
  * @apiName GetMembersForGroup
  * @apiGroup Member
  *
@@ -176,7 +174,6 @@ api.getMembersForGroup = {
 /**
  * @api {get} /api/v3/groups/:groupId/invites Get invites for a group
  * @apiDescription With a limit of 30 member per request. To get all invites run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
- * @apiVersion 3.0.0
  * @apiName GetInvitesForGroup
  * @apiGroup Member
  *
@@ -199,7 +196,6 @@ api.getInvitesForGroup = {
  * BETA You can also use ?includeAllMembers=true. This option is currently in BETA and may be removed in future.
  * Its use is discouraged and its performaces are not optimized especially for large challenges.
  *
- * @apiVersion 3.0.0
  * @apiName GetMembersForChallenge
  * @apiGroup Member
  *
@@ -218,7 +214,6 @@ api.getMembersForChallenge = {
 
 /**
  * @api {get} /api/v3/challenges/:challengeId/members/:memberId Get a challenge member progress
- * @apiVersion 3.0.0
  * @apiName GetChallengeMemberProgress
  * @apiGroup Member
  *
@@ -271,7 +266,6 @@ api.getChallengeMemberProgress = {
 
 /**
  * @api {posts} /api/v3/members/send-private-message Send a private message to a member
- * @apiVersion 3.0.0
  * @apiName SendPrivateMessage
  * @apiGroup Member
  *
@@ -332,7 +326,6 @@ api.sendPrivateMessage = {
 
 /**
  * @api {posts} /api/v3/members/transfer-gems Send a gem gift to a member
- * @apiVersion 3.0.0
  * @apiName TransferGems
  * @apiGroup Member
  *

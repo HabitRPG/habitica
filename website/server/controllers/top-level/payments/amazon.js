@@ -19,7 +19,6 @@ let api = {};
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {post} /amazon/verifyAccessToken Amazon Payments: verify access token
- * @apiVersion 3.0.0
  * @apiName AmazonVerifyAccessToken
  * @apiGroup Payments
  *
@@ -42,7 +41,6 @@ api.verifyAccessToken = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {post} /amazon/createOrderReferenceId Amazon Payments: create order reference id
- * @apiVersion 3.0.0
  * @apiName AmazonCreateOrderReferenceId
  * @apiGroup Payments
  *
@@ -72,7 +70,6 @@ api.createOrderReferenceId = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {post} /amazon/checkout Amazon Payments: checkout
- * @apiVersion 3.0.0
  * @apiName AmazonCheckout
  * @apiGroup Payments
  *
@@ -153,7 +150,6 @@ api.checkout = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {post} /amazon/subscribe Amazon Payments: subscribe
- * @apiVersion 3.0.0
  * @apiName AmazonSubscribe
  * @apiGroup Payments
  *
@@ -226,7 +222,6 @@ api.subscribe = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {get} /amazon/subscribe/cancel Amazon Payments: subscribe cancel
- * @apiVersion 3.0.0
  * @apiName AmazonSubscribe
  * @apiGroup Payments
  **/

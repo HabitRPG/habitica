@@ -25,7 +25,6 @@ let api = {};
 
 /**
  * @api {post} /api/v3/groups Create group
- * @apiVersion 3.0.0
  * @apiName CreateGroup
  * @apiGroup Group
  *
@@ -88,7 +87,6 @@ api.createGroup = {
 
 /**
  * @api {get} /api/v3/groups Get groups for a user
- * @apiVersion 3.0.0
  * @apiName GetGroups
  * @apiGroup Group
  *
@@ -119,7 +117,6 @@ api.getGroups = {
 
 /**
  * @api {get} /api/v3/groups/:groupId Get group
- * @apiVersion 3.0.0
  * @apiName GetGroup
  * @apiGroup Group
  *
@@ -157,7 +154,6 @@ api.getGroup = {
 
 /**
  * @api {put} /api/v3/groups/:groupId Update group
- * @apiVersion 3.0.0
  * @apiName UpdateGroup
  * @apiGroup Group
  *
@@ -201,7 +197,6 @@ api.updateGroup = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/join Join a group
- * @apiVersion 3.0.0
  * @apiName JoinGroup
  * @apiGroup Group
  *
@@ -315,7 +310,6 @@ api.joinGroup = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/reject Reject a group invitation
- * @apiVersion 3.0.0
  * @apiName RejectGroupInvite
  * @apiGroup Group
  *
@@ -360,7 +354,6 @@ api.rejectGroupInvite = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/leave Leave a group
- * @apiVersion 3.0.0
  * @apiName LeaveGroup
  * @apiGroup Group
  *
@@ -419,7 +412,6 @@ function _sendMessageToRemoved (group, removedUser, message) {
 
 /**
  * @api {post} /api/v3/groups/:groupId/removeMember/:memberId Remove a member from a group
- * @apiVersion 3.0.0
  * @apiName RemoveGroupMember
  * @apiGroup Group
  *
