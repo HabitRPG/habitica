@@ -26,17 +26,12 @@ describe('POST group /tasks/:taskId/checklist/', () => {
       text: 'Daily with checklist',
     });
 
-<<<<<<< HEAD
     await user.post(`/tasks/${task._id}/checklist`, {
-=======
-    let savedTask = await user.post(`/tasks/${task._id}/checklist`, {
->>>>>>> Added group task checklist support
       text: 'Checklist Item 1',
       ignored: false,
       _id: 123,
     });
 
-<<<<<<< HEAD
     let updatedTasks = await user.get(`/tasks/group/${guild._id}`);
     let updatedTask = updatedTasks[0];
 
@@ -46,14 +41,6 @@ describe('POST group /tasks/:taskId/checklist/', () => {
     expect(updatedTask.checklist[0].id).to.be.a('string');
     expect(updatedTask.checklist[0].id).to.not.equal('123');
     expect(updatedTask.checklist[0].ignored).to.be.an('undefined');
-=======
-    expect(savedTask.checklist.length).to.equal(1);
-    expect(savedTask.checklist[0].text).to.equal('Checklist Item 1');
-    expect(savedTask.checklist[0].completed).to.equal(false);
-    expect(savedTask.checklist[0].id).to.be.a('string');
-    expect(savedTask.checklist[0].id).to.not.equal('123');
-    expect(savedTask.checklist[0].ignored).to.be.an('undefined');
->>>>>>> Added group task checklist support
   });
 
   it('does not add a checklist to habits', async () => {
