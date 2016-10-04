@@ -21,6 +21,21 @@ import { encrypt } from '../../libs/encryption';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import pusher from '../../libs/pusher';
 
+/**
+ * @apiDefine GroupNotFound
+ * @apiError (404) {NotFound} GroupNotFound The specified group could not be found.
+ */
+
+/**
+ * @apiDefine PartyNotFound
+ * @apiError (404) {NotFound} PartyNotFound The user's party could not be found.
+ */
+
+/**
+ * @apiDefine GroupLeader Group Leader
+ * The group leader can use this route.
+ */
+
 let api = {};
 
 /**
@@ -123,6 +138,8 @@ api.getGroups = {
  * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Object} data The group object
+ *
+ * @apiUse GroupNotFound
  */
 api.getGroup = {
   method: 'GET',
@@ -160,6 +177,10 @@ api.getGroup = {
  * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Object} data The updated group
+ *
+ * @apiUse GroupNotFound
+ *
+ * @apiPermission GroupLeader
  */
 api.updateGroup = {
   method: 'PUT',
@@ -203,6 +224,8 @@ api.updateGroup = {
  * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Object} data The joined group
+ *
+ * @apiUse GroupNotFound
  */
 api.joinGroup = {
   method: 'POST',
@@ -361,6 +384,8 @@ api.rejectGroupInvite = {
  * @apiParam {String="remove-all","keep-all"} keep Query parameter - Whether to keep or not challenges' tasks. Defaults to keep-all
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiUse GroupNotFound
  */
 api.leaveGroup = {
   method: 'POST',
@@ -420,6 +445,10 @@ function _sendMessageToRemoved (group, removedUser, message) {
  * @apiParam {String} message Query parameter - The message to send to the removed members
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiPermission GroupLeader
+ *
+ * @apiUse GroupNotFound
  */
 api.removeGroupMember = {
   method: 'POST',
@@ -669,7 +698,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  *     ]
  *   }
  *
- * @apiError GroupNotFound The group could not be found
+ * @apiUse GroupNotFound
  * @apiError InvalidInvitationParams An error relating to the data sent in `emails` and/or `uuids`
  * @apiError TooManyInvites A max of 100 invites (combined emails and user ids) can be sent out at a time
  */

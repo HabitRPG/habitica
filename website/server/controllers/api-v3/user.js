@@ -15,6 +15,11 @@ import Bluebird from 'bluebird';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/password';
 
+/**
+ * @apiDefine UserNotFound
+ * @apiError (404) {NotFound} UserNotFound The specified user could not be found.
+ */
+
 let api = {};
 
 /**
@@ -327,6 +332,10 @@ const partyMembersFields = 'profile.name stats achievements items.special';
  * protectAura: "Protective Aura"
  * brightness: "Searing Brightness"
  * healAll: "Blessing"
+ *
+ * @apiUse TaskNotFound
+ * @apiUse PartyNotFound
+ * @apiUse UserNotFound
  *
  */
 api.castSpell = {
@@ -760,18 +769,18 @@ api.feed = {
 };
 
 /**
-* @api {post} /api/v3/user/change-class Change class
-* @apiDescription User must be at least level 10. If ?class is defined and user.flags.classSelected is false it'll change the class. If user.preferences.disableClasses it'll enable classes, otherwise it sets user.flags.classSelected to false (costs 3 gems)
-* @apiName UserChangeClass
-* @apiGroup User
-*
-* @apiParam {String} class Query parameter - ?class={warrior|rogue|wizard|healer}
-*
-* @apiSuccess {Object} data.flags user.flags
-* @apiSuccess {Object} data.stats user.stats
-* @apiSuccess {Object} data.preferences user.preferences
-* @apiSuccess {Object} data.items user.items
-*/
+ * @api {post} /api/v3/user/change-class Change class
+ * @apiDescription User must be at least level 10. If ?class is defined and user.flags.classSelected is false it'll change the class. If user.preferences.disableClasses it'll enable classes, otherwise it sets user.flags.classSelected to false (costs 3 gems)
+ * @apiName UserChangeClass
+ * @apiGroup User
+ *
+ * @apiParam {String} class Query parameter - ?class={warrior|rogue|wizard|healer}
+ *
+ * @apiSuccess {Object} data.flags user.flags
+ * @apiSuccess {Object} data.stats user.stats
+ * @apiSuccess {Object} data.preferences user.preferences
+ * @apiSuccess {Object} data.items user.items
+ */
 api.changeClass = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -785,14 +794,14 @@ api.changeClass = {
 };
 
 /**
-* @api {post} /api/v3/user/disable-classes Disable classes
-* @apiName UserDisableClasses
-* @apiGroup User
-*
-* @apiSuccess {Object} data.flags user.flags
-* @apiSuccess {Object} data.stats user.stats
-* @apiSuccess {Object} data.preferences user.preferences
-*/
+ * @api {post} /api/v3/user/disable-classes Disable classes
+ * @apiName UserDisableClasses
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data.flags user.flags
+ * @apiSuccess {Object} data.stats user.stats
+ * @apiSuccess {Object} data.preferences user.preferences
+ */
 api.disableClasses = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -806,17 +815,17 @@ api.disableClasses = {
 };
 
 /**
-* @api {post} /api/v3/user/purchase/:type/:key Purchase Gem or Gem-purchasable item
-* @apiName UserPurchase
-* @apiGroup User
-*
-* @apiParam {String} type Type of item to purchase. Must be one of: gems, eggs, hatchingPotions, food, quests, or gear
-* @apiParam {String} key Item's key (use "gem" for purchasing gems)
-*
-* @apiSuccess {Object} data.items user.items
-* @apiSuccess {Number} data.balance user.balance
-* @apiSuccess {String} message Success message
-*/
+ * @api {post} /api/v3/user/purchase/:type/:key Purchase Gem or Gem-purchasable item
+ * @apiName UserPurchase
+ * @apiGroup User
+ *
+ * @apiParam {String} type Type of item to purchase. Must be one of: gems, eggs, hatchingPotions, food, quests, or gear
+ * @apiParam {String} key Item's key (use "gem" for purchasing gems)
+ *
+ * @apiSuccess {Object} data.items user.items
+ * @apiSuccess {Number} data.balance user.balance
+ * @apiSuccess {String} message Success message
+ */
 api.purchase = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -830,17 +839,17 @@ api.purchase = {
 };
 
 /**
-* @api {post} /api/v3/user/purchase-hourglass/:type/:key Purchase Hourglass-purchasable item
-* @apiName UserPurchaseHourglass
-* @apiGroup User
-*
-* @apiParam {String} type The type of item to purchase (pets or mounts)
-* @apiParam {String} key Ex: {MantisShrimp-Base}. The key for the mount/pet
-*
-* @apiSuccess {Object} data.items user.items
-* @apiSuccess {Object} data.purchasedPlanConsecutive user.purchased.plan.consecutive
-* @apiSuccess {String} message Success message
-*/
+ * @api {post} /api/v3/user/purchase-hourglass/:type/:key Purchase Hourglass-purchasable item
+ * @apiName UserPurchaseHourglass
+ * @apiGroup User
+ *
+ * @apiParam {String} type The type of item to purchase (pets or mounts)
+ * @apiParam {String} key Ex: {MantisShrimp-Base}. The key for the mount/pet
+ *
+ * @apiSuccess {Object} data.items user.items
+ * @apiSuccess {Object} data.purchasedPlanConsecutive user.purchased.plan.consecutive
+ * @apiSuccess {String} message Success message
+ */
 api.userPurchaseHourglass = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -854,16 +863,16 @@ api.userPurchaseHourglass = {
 };
 
 /**
-* @api {post} /api/v3/user/read-card/:cardType Read a card
-* @apiName UserReadCard
-* @apiGroup User
-*
-* @apiParam {String} cardType Type of card to read
-*
-* @apiSuccess {Object} data.specialItems user.items.special
-* @apiSuccess {Boolean} data.cardReceived user.flags.cardReceived
-* @apiSuccess {String} message Success message
-*/
+ * @api {post} /api/v3/user/read-card/:cardType Read a card
+ * @apiName UserReadCard
+ * @apiGroup User
+ *
+ * @apiParam {String} cardType Type of card to read
+ *
+ * @apiSuccess {Object} data.specialItems user.items.special
+ * @apiSuccess {Boolean} data.cardReceived user.flags.cardReceived
+ * @apiSuccess {String} message Success message
+ */
 api.readCard = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -877,13 +886,13 @@ api.readCard = {
 };
 
 /**
-* @api {post} /api/v3/user/open-mystery-item Open the Mystery Item box
-* @apiName UserOpenMysteryItem
-* @apiGroup User
-*
-* @apiSuccess {Object} data The item obtained
-* @apiSuccess {String} message Success message
-*/
+ * @api {post} /api/v3/user/open-mystery-item Open the Mystery Item box
+ * @apiName UserOpenMysteryItem
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data The item obtained
+ * @apiSuccess {String} message Success message
+ */
 api.userOpenMysteryItem = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -897,12 +906,12 @@ api.userOpenMysteryItem = {
 };
 
 /* @api {post} /api/v3/user/release-pets Release pets
-* @apiName UserReleasePets
-* @apiGroup User
-*
-* @apiSuccess {Object} data.items `user.items.pets`
-* @apiSuccess {String} message Success message
-*/
+ * @apiName UserReleasePets
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data.items `user.items.pets`
+ * @apiSuccess {String} message Success message
+ */
 api.userReleasePets = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -916,15 +925,15 @@ api.userReleasePets = {
 };
 
 /**
-* @api {post} /api/v3/user/release-both Release pets and mounts and grants Triad Bingo
-* @apiName UserReleaseBoth
-* @apiGroup User
+ * @api {post} /api/v3/user/release-both Release pets and mounts and grants Triad Bingo
+ * @apiName UserReleaseBoth
+ * @apiGroup User
 
-* @apiSuccess {Object} data.achievements
-* @apiSuccess {Object} data.items
-* @apiSuccess {Number} data.balance
-* @apiSuccess {String} message Success message
-*/
+ * @apiSuccess {Object} data.achievements
+ * @apiSuccess {Object} data.items
+ * @apiSuccess {Number} data.balance
+ * @apiSuccess {String} message Success message
+ */
 api.userReleaseBoth = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -938,13 +947,13 @@ api.userReleaseBoth = {
 };
 
 /**
-* @api {post} /api/v3/user/release-mounts Release mounts
-* @apiName UserReleaseMounts
-* @apiGroup User
-*
-* @apiSuccess {Object} data user.items.mounts
-* @apiSuccess {String} message Success message
-*/
+ * @api {post} /api/v3/user/release-mounts Release mounts
+ * @apiName UserReleaseMounts
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data user.items.mounts
+ * @apiSuccess {String} message Success message
+ */
 api.userReleaseMounts = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -958,17 +967,17 @@ api.userReleaseMounts = {
 };
 
 /**
-* @api {post} /api/v3/user/sell/:type/:key Sell a gold-sellable item owned by the user
-* @apiName UserSell
-* @apiGroup User
-*
-* @apiParam {String} type The type of item to sell. Must be one of: eggs, hatchingPotions, or food
-* @apiParam {String} key The key of the item
-*
-* @apiSuccess {Object} data.stats
-* @apiSuccess {Object} data.items
-* @apiSuccess {String} message Success message
-*/
+ * @api {post} /api/v3/user/sell/:type/:key Sell a gold-sellable item owned by the user
+ * @apiName UserSell
+ * @apiGroup User
+ *
+ * @apiParam {String} type The type of item to sell. Must be one of: eggs, hatchingPotions, or food
+ * @apiParam {String} key The key of the item
+ *
+ * @apiSuccess {Object} data.stats
+ * @apiSuccess {Object} data.items
+ * @apiSuccess {String} message Success message
+ */
 api.userSell = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -982,17 +991,17 @@ api.userSell = {
 };
 
 /**
-* @api {post} /api/v3/user/unlock Unlock item or set of items by purchase
-* @apiName UserUnlock
-* @apiGroup User
-*
-* @apiParam {String} path Query parameter. The path to unlock
-*
-* @apiSuccess {Object} data.purchased
-* @apiSuccess {Object} data.items
-* @apiSuccess {Object} data.preferences
-* @apiSuccess {String} message
-*/
+ * @api {post} /api/v3/user/unlock Unlock item or set of items by purchase
+ * @apiName UserUnlock
+ * @apiGroup User
+ *
+ * @apiParam {String} path Query parameter. The path to unlock
+ *
+ * @apiSuccess {Object} data.purchased
+ * @apiSuccess {Object} data.items
+ * @apiSuccess {Object} data.preferences
+ * @apiSuccess {String} message
+ */
 api.userUnlock = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -1006,13 +1015,13 @@ api.userUnlock = {
 };
 
 /**
-* @api {post} /api/v3/user/revive Revive user from death
-* @apiName UserRevive
-* @apiGroup User
-*
-* @apiSuccess {Object} data user.items
-* @apiSuccess {String} message Success message
-*/
+ * @api {post} /api/v3/user/revive Revive user from death
+ * @apiName UserRevive
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data user.items
+ * @apiSuccess {String} message Success message
+ */
 api.userRevive = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -1026,14 +1035,14 @@ api.userRevive = {
 };
 
 /**
-* @api {post} /api/v3/user/rebirth Use Orb of Rebirth on user
-* @apiName UserRebirth
-* @apiGroup User
-*
-* @apiSuccess {Object} data.user
-* @apiSuccess {Array} data.tasks User's modified tasks (no rewards)
-* @apiSuccess {String} message Success message
-*/
+ * @api {post} /api/v3/user/rebirth Use Orb of Rebirth on user
+ * @apiName UserRebirth
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data.user
+ * @apiSuccess {Array} data.tasks User's modified tasks (no rewards)
+ * @apiSuccess {String} message Success message
+ */
 api.userRebirth = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -1069,7 +1078,7 @@ api.userRebirth = {
  * @apiParam {UUID} uuid The uuid of the user to block / unblock
  *
  * @apiSuccess {Array} data user.inbox.blocks
-**/
+ */
 api.blockUser = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -1090,7 +1099,7 @@ api.blockUser = {
  * @apiParam {UUID} id The id of the message to delete
  *
  * @apiSuccess {Object} data user.inbox.messages
-**/
+ */
 api.deleteMessage = {
   method: 'DELETE',
   middlewares: [authWithHeaders()],
@@ -1109,7 +1118,7 @@ api.deleteMessage = {
  * @apiGroup User
  *
  * @apiSuccess {Object} data user.inbox.messages
-**/
+ */
 api.clearMessages = {
   method: 'DELETE',
   middlewares: [authWithHeaders()],
@@ -1128,7 +1137,7 @@ api.clearMessages = {
  * @apiGroup User
  *
  * @apiSuccess {Object} data user.inbox.messages
-**/
+ */
 api.markPmsRead = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -1142,14 +1151,14 @@ api.markPmsRead = {
 };
 
 /**
-* @api {post} /api/v3/user/reroll Reroll a user using the Fortify Potion
-* @apiName UserReroll
-* @apiGroup User
-*
-* @apiSuccess {Object} data.user
-* @apiSuccess {Object} data.tasks User's modified tasks (no rewards)
-* @apiSuccess {Object} message Success message
-*/
+ * @api {post} /api/v3/user/reroll Reroll a user using the Fortify Potion
+ * @apiName UserReroll
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data.user
+ * @apiSuccess {Object} data.tasks User's modified tasks (no rewards)
+ * @apiSuccess {Object} message Success message
+ */
 api.userReroll = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -1177,14 +1186,14 @@ api.userReroll = {
 };
 
 /**
-* @api {post} /api/v3/user/reset Reset user
-* @apiName UserReset
-* @apiGroup User
-*
-* @apiSuccess {Object} data.user
-* @apiSuccess {Object} data.tasksToRemove IDs of removed tasks
-* @apiSuccess {String} message Success message
-*/
+ * @api {post} /api/v3/user/reset Reset user
+ * @apiName UserReset
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data.user
+ * @apiSuccess {Object} data.tasksToRemove IDs of removed tasks
+ * @apiSuccess {String} message Success message
+ */
 api.userReset = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -1212,12 +1221,12 @@ api.userReset = {
 };
 
 /**
-* @api {post} /api/v3/user/custom-day-start Set preferences.dayStart for user
-* @apiName setCustomDayStart
-* @apiGroup User
-*
-* @apiSuccess {Object} data An empty Object
-*/
+ * @api {post} /api/v3/user/custom-day-start Set preferences.dayStart for user
+ * @apiName setCustomDayStart
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data An empty Object
+ */
 api.setCustomDayStart = {
   method: 'POST',
   middlewares: [authWithHeaders()],

@@ -17,6 +17,8 @@ let api = {};
  * @apiParam {String} code Query parameter - An unsubscription code
  *
  * @apiSuccess {String} An html success message
+ *
+ * @apiUse UserNotFound
  */
 api.unsubscribe = {
   method: 'GET',

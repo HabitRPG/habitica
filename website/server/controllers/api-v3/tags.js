@@ -7,6 +7,11 @@ import {
 import _ from 'lodash';
 import { removeFromArray } from '../../libs/collectionManipulators';
 
+/**
+ * @apiDefine TagNotFound
+ * @apiError (404) {NotFound} TagNotFound The specified tag could not be found.
+ */
+
 let api = {};
 
 /**
@@ -57,6 +62,8 @@ api.getTags = {
  * @apiParam {UUID} tagId The tag _id
  *
  * @apiSuccess {Object} data The tag object
+ *
+ * @apiUse TagNotFound
  */
 api.getTag = {
   method: 'GET',
@@ -84,6 +91,8 @@ api.getTag = {
  * @apiParam {UUID} tagId The tag _id
  *
  * @apiSuccess {Object} data The updated tag
+ *
+ * @apiUse TagNotFound
  */
 api.updateTag = {
   method: 'PUT',
@@ -118,6 +127,8 @@ api.updateTag = {
  * @apiParam {Number} to Position the tag is moving to
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiUse TagNotFound
  */
 api.reorderTags = {
   method: 'POST',
@@ -151,6 +162,8 @@ api.reorderTags = {
  * @apiParam {UUID} tagId The tag _id
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiUse TagNotFound
  */
 api.deleteTag = {
   method: 'DELETE',

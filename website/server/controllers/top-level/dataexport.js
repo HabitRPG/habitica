@@ -146,6 +146,8 @@ api.exportUserDataXml = {
  * @apiDescription NOTE: Part of the private API that may change at any time.
  *
  * @apiSuccess {String} An html page
+ *
+ * @apiUse UserNotFound
  */
 api.exportUserAvatarHtml = {
   method: 'GET',

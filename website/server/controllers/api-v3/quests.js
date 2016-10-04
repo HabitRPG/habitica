@@ -26,17 +26,30 @@ function canStartQuestAutomatically (group)  {
   return _.every(group.quest.members, _.isBoolean);
 }
 
+/**
+ * @apiDefine QuestNotFound
+ * @apiError (404) {NotFound} QuestNotFound The specified quest could not be found.
+ */
+
+/**
+ * @apiDefine QuestLeader Quest Leader
+ * The quest leader can use this route.
+ */
+
 let api = {};
 
 /**
  * @api {post} /api/v3/groups/:groupId/quests/invite Invite users to a quest
  * @apiName InviteToQuest
- * @apiGroup Group
+ * @apiGroup Quest
  *
  * @apiParam {String} groupId The group _id (or 'party')
  * @apiParam {String} questKey
  *
  * @apiSuccess {Object} data Quest object
+ *
+ * @apiUse GroupNotFound
+ * @apiUse QuestNotFound
  */
 api.inviteToQuest = {
   method: 'POST',
@@ -142,11 +155,14 @@ api.inviteToQuest = {
 /**
  * @api {post} /api/v3/groups/:groupId/quests/accept Accept a pending quest
  * @apiName AcceptQuest
- * @apiGroup Group
+ * @apiGroup Quest
  *
  * @apiParam {String} groupId The group _id (or 'party')
  *
  * @apiSuccess {Object} data Quest Object
+ *
+ * @apiUse GroupNotFound
+ * @apiUse QuestNotFound
  */
 api.acceptQuest = {
   method: 'POST',
@@ -198,11 +214,14 @@ api.acceptQuest = {
 /**
  * @api {post} /api/v3/groups/:groupId/quests/reject Reject a quest
  * @apiName RejectQuest
- * @apiGroup Group
+ * @apiGroup Quest
  *
  * @apiParam {String} groupId The group _id (or 'party')
  *
  * @apiSuccess {Object} data Quest Object
+ *
+ * @apiUse GroupNotFound
+ * @apiUse QuestNotFound
  */
 api.rejectQuest = {
   method: 'POST',
@@ -255,11 +274,17 @@ api.rejectQuest = {
 /**
  * @api {post} /api/v3/groups/:groupId/quests/force-start Force-start a pending quest
  * @apiName ForceQuestStart
- * @apiGroup Group
+ * @apiGroup Quest
  *
  * @apiParam {String} groupId The group _id (or 'party')
  *
  * @apiSuccess {Object} data Quest Object
+ *
+ * @apiPermission QuestLeader
+ * @apiPermission GroupLeader
+ *
+ * @apiUse GroupNotFound
+ * @apiUse QuestNotFound
  */
 api.forceStart = {
   method: 'POST',
@@ -307,11 +332,17 @@ api.forceStart = {
 /**
  * @api {post} /api/v3/groups/:groupId/quests/cancel Cancel a quest that is not active
  * @apiName CancelQuest
- * @apiGroup Group
+ * @apiGroup Quest
  *
  * @apiParam {String} groupId The group _id (or 'party')
  *
  * @apiSuccess {Object} data Quest Object
+ *
+ * @apiPermission QuestLeader
+ * @apiPermission GroupLeader
+ *
+ * @apiUse GroupNotFound
+ * @apiUse QuestNotFound
  */
 api.cancelQuest = {
   method: 'POST',
@@ -355,11 +386,17 @@ api.cancelQuest = {
 /**
  * @api {post} /api/v3/groups/:groupId/quests/abort Abort the current quest
  * @apiName AbortQuest
- * @apiGroup Group
+ * @apiGroup Quest
  *
  * @apiParam {String} groupId The group _id (or 'party')
  *
  * @apiSuccess {Object} data Quest Object
+ *
+ * @apiPermission QuestLeader
+ * @apiPermission GroupLeader
+ *
+ * @apiUse GroupNotFound
+ * @apiUse QuestNotFound
  */
 api.abortQuest = {
   method: 'POST',
@@ -407,11 +444,14 @@ api.abortQuest = {
 /**
  * @api {post} /api/v3/groups/:groupId/quests/leave Leave the active quest
  * @apiName LeaveQuest
- * @apiGroup Group
+ * @apiGroup Quest
  *
  * @apiParam {String} groupId The group _id (or 'party')
  *
  * @apiSuccess {Object} data Quest Object
+ *
+ * @apiUse GroupNotFound
+ * @apiUse QuestNotFound
  */
 api.leaveQuest = {
   method: 'POST',

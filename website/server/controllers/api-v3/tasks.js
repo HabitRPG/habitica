@@ -21,6 +21,16 @@ import Bluebird from 'bluebird';
 import _ from 'lodash';
 import logger from '../../libs/logger';
 
+/**
+ * @apiDefine TaskNotFound
+ * @apiError (404) {NotFound} TaskNotFound The specified task could not be found.
+ */
+
+/**
+ * @apiDefine ChecklistNotFound
+ * @apiError (404) {NotFound} ChecklistNotFound The specified checklist item could not be found.
+ */
+
 let api = {};
 let requiredGroupFields = '_id leader tasksOrder name';
 
@@ -60,6 +70,8 @@ api.createUserTasks = {
  * @apiParam {UUID} challengeId The id of the challenge the new task(s) will belong to
  *
  * @apiSuccess data An object if a single task was created, otherwise an array of tasks
+ *
+ * @apiUse ChallengeNotFound
  */
 api.createChallengeTasks = {
   method: 'POST',
@@ -126,6 +138,8 @@ api.getUserTasks = {
  * @apiParam {string="habits","dailys","todos","rewards"} type Optional query parameter to return just a type of tasks
  *
  * @apiSuccess {Array} data An array of tasks
+ *
+ * @apiUse ChallengeNotFound
  */
 api.getChallengeTasks = {
   method: 'GET',
@@ -160,6 +174,8 @@ api.getChallengeTasks = {
  * @apiParam {String} taskId The task _id or alias
  *
  * @apiSuccess {Object} data The task object
+ *
+ * @apiUse TaskNotFound
  */
 api.getTask = {
   method: 'GET',
@@ -193,6 +209,9 @@ api.getTask = {
  * @apiParam {String} taskId The task _id or alias
  *
  * @apiSuccess {Object} data The updated task
+ *
+ * @apiUse TaskNotFound
+ * @apiUse ChallengeNotFound
  */
 api.updateTask = {
   method: 'PUT',
@@ -275,6 +294,8 @@ api.updateTask = {
  * @apiSuccess {Object} data._tmp If an item was dropped it'll be returned in te _tmp object
  * @apiSuccess {Number} data.delta The delta
  * @apiSuccess {Object} data The user stats
+ *
+ * @apiUse TaskNotFound
  */
 api.scoreTask = {
   method: 'POST',
@@ -369,6 +390,8 @@ api.scoreTask = {
  * @apiParam {Number} position Query parameter - Where to move the task (-1 means push to bottom). First position is 0
  *
  * @apiSuccess {Array} data The new tasks order (user.tasksOrder.{task.type}s)
+ *
+ * @apiUse TaskNotFound
  */
 api.moveTask = {
   method: 'POST',
@@ -420,6 +443,9 @@ api.moveTask = {
  * @apiParam {String} taskId The task _id or alias
  *
  * @apiSuccess {Object} data The updated task
+ *
+ * @apiUse TaskNotFound
+ * @apiUse ChallengeNotFound
  */
 api.addChecklistItem = {
   method: 'POST',
@@ -474,6 +500,9 @@ api.addChecklistItem = {
  * @apiParam {UUID} itemId The checklist item _id
  *
  * @apiSuccess {Object} data The updated task
+ *
+ * @apiUse TaskNotFound
+ * @apiUse ChecklistNotFound
  */
 api.scoreCheckListItem = {
   method: 'POST',
@@ -513,6 +542,10 @@ api.scoreCheckListItem = {
  * @apiParam {UUID} itemId The checklist item _id
  *
  * @apiSuccess {Object} data The updated task
+ *
+ * @apiUse TaskNotFound
+ * @apiUse ChecklistNotFound
+ * @apiUse ChallengeNotFound
  */
 api.updateChecklistItem = {
   method: 'PUT',
@@ -570,6 +603,10 @@ api.updateChecklistItem = {
  * @apiParam {UUID} itemId The checklist item _id
  *
  * @apiSuccess {Object} data The updated task
+ *
+ * @apiUse TaskNotFound
+ * @apiUse ChallengeNotFound
+ * @apiUse ChecklistNotFound
  */
 api.removeChecklistItem = {
   method: 'DELETE',
@@ -625,6 +662,8 @@ api.removeChecklistItem = {
  * @apiParam {UUID} tagId The tag id
  *
  * @apiSuccess {Object} data The updated task
+ *
+ * @apiUse TaskNotFound
  */
 api.addTagToTask = {
   method: 'POST',
@@ -665,6 +704,9 @@ api.addTagToTask = {
  * @apiParam {UUID} tagId The tag id
  *
  * @apiSuccess {Object} data The updated task
+ *
+ * @apiUse TaskNotFound
+ * @apiUse TagNotFound
  */
 api.removeTagFromTask = {
   method: 'DELETE',
@@ -762,6 +804,8 @@ api.unlinkAllTasks = {
  * @apiParam {String} keep Query parameter - keep or remove
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiUse TaskNotFound
  */
 api.unlinkOneTask = {
   method: 'POST',
@@ -838,6 +882,9 @@ api.clearCompletedTodos = {
  * @apiParam {String} taskId The task _id or alias
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiUse TaskNotFound
+ * @apiUse ChallengeNotFound
  */
 api.deleteTask = {
   method: 'DELETE',

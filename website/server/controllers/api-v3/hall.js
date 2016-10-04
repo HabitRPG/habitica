@@ -6,6 +6,11 @@ import {
 } from '../../libs/errors';
 import _ from 'lodash';
 
+/**
+ * @apiDefine Admin Moderators
+ * Contributors of tier 8 or higher can use this route.
+ */
+
 let api = {};
 
 /**
@@ -78,11 +83,14 @@ const heroAdminFields = 'contributor balance profile.name purchased items auth f
 
 /**
  * @api {get} /api/v3/hall/heroes/:heroId Get any user ("hero") given the UUID
- * @apiDescription Must be an admin to make this request.
  * @apiName GetHero
  * @apiGroup Hall
  *
  * @apiSuccess {Object} data The user object
+ *
+ * @apiPermission Admin
+ *
+ * @apiUse UserNotFound
  */
 api.getHero = {
   method: 'GET',
@@ -120,6 +128,10 @@ const gemsPerTier = {1: 3, 2: 3, 3: 3, 4: 4, 5: 4, 6: 4, 7: 4, 8: 0, 9: 0};
  * @apiGroup Hall
  *
  * @apiSuccess {Object} data The updated user object
+ *
+ * @apiPermission Admin
+ *
+ * @apiUse UserNotFound
  */
 api.updateHero = {
   method: 'PUT',

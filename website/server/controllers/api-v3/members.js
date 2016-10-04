@@ -28,6 +28,8 @@ let api = {};
  * @apiParam {UUID} memberId The member's id
  *
  * @apiSuccess {Object} data The member object
+ *
+ * @apiUse UserNotFound
  */
 api.getMember = {
   method: 'GET',
@@ -163,6 +165,8 @@ function _getMembersForItem (type) {
  * @apiParam {boolean} includeAllPublicFields Query parameter available only when fetching a party. If === `true` then all public fields for members will be returned (like when making a request for a single member)
  *
  * @apiSuccess {array} data An array of members, sorted by _id
+ * @apiUse ChallengeNotFound
+ * @apiUse GroupNotFound
  */
 api.getMembersForGroup = {
   method: 'GET',
@@ -181,6 +185,9 @@ api.getMembersForGroup = {
  * @apiParam {UUID} lastId Query parameter to specify the last invite returned in a previous request to this route and get the next batch of results
  *
  * @apiSuccess {array} data An array of invites, sorted by _id
+ *
+ * @apiUse ChallengeNotFound
+ * @apiUse GroupNotFound
  */
 api.getInvitesForGroup = {
   method: 'GET',
@@ -204,6 +211,9 @@ api.getInvitesForGroup = {
  * @apiParam {String} includeAllMembers BETA Query parameter - If 'true' all challenge members are returned
 
  * @apiSuccess {array} data An array of members, sorted by _id
+ *
+ * @apiUse ChallengeNotFound
+ * @apiUse GroupNotFound
  */
 api.getMembersForChallenge = {
   method: 'GET',
@@ -221,6 +231,9 @@ api.getMembersForChallenge = {
  * @apiParam {UUID} member The member _id
  *
  * @apiSuccess {Object} data Return an object with member _id, profile.name and a tasks object with the challenge tasks for the member
+ *
+ * @apiUse ChallengeNotFound
+ * @apiUse UserNotFound
  */
 api.getChallengeMemberProgress = {
   method: 'GET',
@@ -273,6 +286,8 @@ api.getChallengeMemberProgress = {
  * @apiParam {UUID} toUserId Body parameter - The user to contact
  *
  * @apiSuccess {Object} data An empty Object
+ *
+ * @apiUse UserNotFound
  */
 api.sendPrivateMessage = {
   method: 'POST',
@@ -334,6 +349,8 @@ api.sendPrivateMessage = {
  * @apiParam {Integer} gemAmount Body parameter The number of gems to send
  *
  * @apiSuccess {Object} data An empty Object
+ *
+ * @apiUse UserNotFound
  */
 api.transferGems = {
   method: 'POST',

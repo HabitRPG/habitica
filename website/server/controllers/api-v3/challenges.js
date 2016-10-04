@@ -21,11 +21,18 @@ import csvStringify from '../../libs/csvStringify';
 let api = {};
 
 /**
+ * @apiDefine ChallengeNotFound
+ * @apiError (404) {NotFound} ChallengeNotFound The specified challenge could not be found.
+ */
+
+/**
  * @api {post} /api/v3/challenges Create a new challenge
  * @apiName CreateChallenge
  * @apiGroup Challenge
  *
  * @apiSuccess {Object} data The newly created challenge
+ *
+ * @apiUse GroupNotFound
  */
 api.createChallenge = {
   method: 'POST',
@@ -116,6 +123,8 @@ api.createChallenge = {
  * @apiParam {UUID} challengeId The challenge _id
  *
  * @apiSuccess {Object} data The challenge the user joined
+ *
+ * @apiUse ChallengeNotFound
  */
 api.joinChallenge = {
   method: 'POST',
@@ -162,6 +171,8 @@ api.joinChallenge = {
  * @apiParam {UUID} challengeId The challenge _id
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiUse ChallengeNotFound
  */
 api.leaveChallenge = {
   method: 'POST',
@@ -244,6 +255,8 @@ api.getUserChallenges = {
  * @apiParam {UUID} groupId The group _id
  *
  * @apiSuccess {Array} data An array of challenges sorted with official challenges first, followed by the challenges in order from newest to oldest
+ *
+ * @apiUse GroupNotFound
  */
 api.getGroupChallenges = {
   method: 'GET',
@@ -286,6 +299,8 @@ api.getGroupChallenges = {
  * @apiParam {UUID} challengeId The challenge _id
  *
  * @apiSuccess {Object} data The challenge object
+ *
+ * @apiUse ChallengeNotFound
  */
 api.getChallenge = {
   method: 'GET',
@@ -328,6 +343,8 @@ api.getChallenge = {
  * @apiParam {UUID} challengeId The challenge _id
  *
  * @apiSuccess {String} challenge A csv file
+ *
+ * @apiUse ChallengeNotFound
  */
 api.exportChallengeCsv = {
   method: 'GET',
@@ -400,6 +417,8 @@ api.exportChallengeCsv = {
  * @apiParam {UUID} challengeId The challenge _id
  *
  * @apiSuccess {Object} data The updated challenge
+ *
+ * @apiUse ChallengeNotFound
  */
 api.updateChallenge = {
   method: 'PUT',
@@ -445,6 +464,8 @@ api.updateChallenge = {
  * @apiParam {UUID} challengeId The _id for the challenge to delete
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiUse ChallengeNotFound
  */
 api.deleteChallenge = {
   method: 'DELETE',
@@ -477,6 +498,8 @@ api.deleteChallenge = {
  * @apiParam {UUID} winnerId The _id of the winning user
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiUse ChallengeNotFound
  */
 api.selectChallengeWinner = {
   method: 'POST',

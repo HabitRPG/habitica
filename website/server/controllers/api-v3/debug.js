@@ -4,13 +4,23 @@ import { BadRequest } from '../../libs/errors';
 import { content } from '../../../common';
 import _ from 'lodash';
 
+/**
+ * @apiDefine Development Development
+ * These routes only exist while Habitica is in development mode. (Such as running a local instance on your computer)
+ */
+
+/**
+ * @apiDefine Developers Local Development
+ * This route only exists when developing Habitica in non-production environment.
+ */
+
 let api = {};
 
 /**
  * @api {post} /api/v3/debug/add-ten-gems Add ten gems to the current user
- * @apiDescription Only available in development mode.
  * @apiName AddTenGems
  * @apiGroup Development
+ * @apiPermission Developers
  *
  * @apiSuccess {Object} data An empty Object
  */
@@ -31,9 +41,9 @@ api.addTenGems = {
 
 /**
  * @api {post} /api/v3/debug/add-hourglass Add Hourglass to the current user
- * @apiDescription Only available in development mode.
  * @apiName AddHourglass
  * @apiGroup Development
+ * @apiPermission Developers
  *
  * @apiSuccess {Object} data An empty Object
  */
@@ -54,9 +64,9 @@ api.addHourglass = {
 
 /**
  * @api {post} /api/v3/debug/set-cron Set lastCron for user
- * @apiDescription Only available in development mode.
  * @apiName setCron
  * @apiGroup Development
+ * @apiPermission Developers
  *
  * @apiSuccess {Object} data An empty Object
  */
@@ -78,9 +88,9 @@ api.setCron = {
 
 /**
  * @api {post} /api/v3/debug/make-admin Sets contributor.admin to true
- * @apiDescription Only available in development mode.
  * @apiName setCron
  * @apiGroup Development
+ * @apiPermission Developers
  *
  * @apiSuccess {Object} data An empty Object
  */
@@ -101,9 +111,9 @@ api.makeAdmin = {
 
 /**
  * @api {post} /api/v3/debug/modify-inventory Manipulate user's inventory
- * @apiDescription Only available in development mode.
  * @apiName modifyInventory
  * @apiGroup Development
+ * @apiPermission Developers
  *
  * @apiSuccess {Object} data An empty Object
  */
@@ -141,9 +151,9 @@ api.modifyInventory = {
 
 /**
  * @api {post} /api/v3/debug/quest-progress Artificially accelerate quest progress
- * @apiDescription Only available in development mode.
  * @apiName questProgress
  * @apiGroup Development
+ * @apiPermission Developers
  *
  * @apiSuccess {Object} data An empty Object
  */
