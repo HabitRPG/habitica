@@ -46,6 +46,7 @@
     "chat": "Chat",
     "sendChat": "Send Chat",
     "toolTipMsg": "Fetch Recent Messages",
+    "sendChatToolTip": "You can send a chat from the keyboard by tabbing to the 'Send Chat' button and pressing Enter or by pressing Control (Command on a Mac) + Enter.",
     "syncPartyAndChat": "Sync Party and Chat",
     "guildBankPop1": "Guild Bank",
     "guildBankPop2": "Gems which your guild leader can use for challenge prizes.",

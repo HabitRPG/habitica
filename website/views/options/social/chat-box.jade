@@ -15,7 +15,7 @@ form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postCha
           span.username.label.label-default(ng-class=':: userLevelStyle(msg)') {{::msg.user}}
   .chat-controls.clearfix
     .chat-buttons
-      input.btn(type='submit', value=env.t('sendChat'), ng-disabled='_sending')
+      input.btn(type='submit', value=env.t('sendChat'), ng-disabled='_sending', tooltip=env.t('sendChatToolTip'))
       button.btn(type="button", ng-click='sync(group)', ng-disabled='_sending') {{group.type === 'party' ? env.t('syncPartyAndChat') : env.t('toolTipMsg')}}
     include ../../shared/formatting-help
   .chat-controls.clearfix
