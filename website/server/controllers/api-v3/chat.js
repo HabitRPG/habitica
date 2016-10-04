@@ -101,7 +101,7 @@ api.postChat = {
     let group = await Group.getGroup({user, groupId});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
-    if (group.type !== 'party' && user.flags.chatRevoked) {
+    if (group.privacy !== 'private' && user.flags.chatRevoked) {
       throw new NotFound('Your chat privileges have been revoked.');
     }
 
