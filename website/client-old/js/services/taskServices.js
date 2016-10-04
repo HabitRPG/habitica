@@ -106,21 +106,6 @@ angular.module('habitrpg')
       });
     };
 
-    function getGroupTasks (groupId) {
-      return $http({
-        method: 'GET',
-        url: '/api/v3/tasks/group/' + groupId,
-      });
-    };
-
-    function createGroupTasks (groupId, taskDetails) {
-      return $http({
-        method: 'POST',
-        url: '/api/v3/tasks/group/' + groupId,
-        data: taskDetails,
-      });
-    };
-
     function getTask (taskId) {
       return $http({
         method: 'GET',
