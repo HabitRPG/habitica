@@ -48,7 +48,6 @@ function grantEndOfTheMonthPerks (user, now) {
   let plan = user.purchased.plan;
 
   if (moment(plan.dateUpdated).format('MMYYYY') !== moment().format('MMYYYY')) {
-    plan.gemsBought = 0; // reset gem-cap
     plan.dateUpdated = now;
     // For every month, inc their "consecutive months" counter. Give perks based on consecutive blocks
     // If they already got perks for those blocks (eg, 6mo subscription, subscription gifts, etc) - then dec the offset until it hits 0
@@ -121,6 +120,10 @@ export function cron (options = {}) {
   // "Perfect Day" achievement for perfect days
   let perfect = true;
 
+  // Reset Gold-to-Gems cap if it's the start of the month
+  if (user.purchased && user.purchased.plan && moment(user.purchased.plan.dateUpdated).format('MMYYYY') !== moment().format('MMYYYY')) {
+    user.purchased.plan.gemsBought = 0;
+  }
   if (user.isSubscribed()) {
     grantEndOfTheMonthPerks(user, now);
     if (!CRON_SAFE_MODE) removeTerminatedSubscription(user);
