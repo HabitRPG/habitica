@@ -66,9 +66,68 @@ async function saveContentToDisk (language, content) {
  * @apiName ContentGet
  * @apiGroup Content
  *
- * @apiParam {String} language Query parameter, the  language code used for the items' strings. Defaulting to english
+ * @apiParam {String} language Query parameter, the  language code used for the items' strings. (Default: en)
+ * 
+ * @apiParamExample {JSON} Example Languages
+ * {
+ *   "American English": "en",
+ *   "British English": "en_GB",
+ *   "Spanish": "es",
+ *   "German": "de",
+ *   "French": "fr",
+ *   ...
+ * }
+ *
+ * @apiExample {curl} American Engish
+ * curl https://habitica.com/api/v3/content
+ *
+ * @apiExample {curl} Other Languages
+ * curl https://habitica.com/api/v3/content?language=[language]
+ *
  *
  * @apiSuccess {Object} data All the content available on Habitica
+ *
+ * @apiSuccessExample {JSON} Returned Data
+ * {
+ *   "data": {
+ *     "mystery": {},
+ *     "itemList": {},
+ *     "gear": {},
+ *     "spells": {},
+ *     "potion": {},
+ *     "armoire": {},
+ *     "classes": [],
+ *     "gearTypes": [],
+ *     "cardTypes": {},
+ *     "special": {},
+ *     "dropEggs": {},
+ *     "questEggs": {},
+ *     "eggs": {},
+ *     "timeTravelStable": {},
+ *     "dropHatchingPotions": {},
+ *     "premiumHatchingPotions": {},
+ *     "hatchingPotions": {},
+ *     "pets": {},
+ *     "premiumPets": {},
+ *     "questPets": {},
+ *     "specialPets": {},
+ *     "petInfo": {},
+ *     "mounts": {},
+ *     "questMounts": {},
+ *     "premiumMounts": {},
+ *     "specialMounts": {},
+ *     "mountInfo": {},
+ *     "food": {},
+ *     "userCanOwnQuestCategories": [],
+ *     "quests": {},
+ *     "questsByLevel": [],
+ *     "appearances": {},
+ *     "backgrounds": {},
+ *     "subscriptionBlocks": {},
+ *     "userDefaults": {},
+ *     "faq": {}
+ *   }
+ * }
  */
 api.getContent = {
   method: 'GET',
