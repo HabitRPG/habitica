@@ -62,7 +62,7 @@ describe('cron', () => {
   describe('end of the month perks', () => {
     beforeEach(() => {
       user.purchased.plan.customerId = 'subscribedId';
-      user.purchased.plan.dateUpdated = moment('012013', 'MMYYYY');
+      user.purchased.plan.dateUpdated = moment().subtract(1, 'months').format('YYYY-MM');
     });
 
     it('resets plan.gemsBought on a new month', () => {
@@ -72,9 +72,9 @@ describe('cron', () => {
     });
 
     it('resets plan.dateUpdated on a new month', () => {
-      let currentMonth = moment().format('MMYYYY');
+      let currentMonth = moment().format('YYYY-MM');
       cron({user, tasksByType, daysMissed, analytics});
-      expect(moment(user.purchased.plan.dateUpdated).format('MMYYYY')).to.equal(currentMonth);
+      expect(moment(user.purchased.plan.dateUpdated).format('YYYY-MM')).to.equal(currentMonth);
     });
 
     it('increments plan.consecutive.count', () => {

@@ -46,23 +46,27 @@ let CLEAR_BUFFS = {
 
 function grantEndOfTheMonthPerks (user, now) {
   let plan = user.purchased.plan;
+  let subscriptionEndDate = moment(plan.dateTerminated).isBefore() ? moment(plan.dateTerminated).format('YYYY-MM') : moment(now).format('YYYY-MM');
+  let dateUpdatedMoment = moment(plan.dateUpdated).format('YYYY-MM');
+  let elapsedMonths = moment(subscriptionEndDate).diff(dateUpdatedMoment, 'months');
 
-  if (moment(plan.dateUpdated).format('MMYYYY') !== moment().format('MMYYYY')) {
+  if (elapsedMonths > 0) {
     plan.dateUpdated = now;
     // For every month, inc their "consecutive months" counter. Give perks based on consecutive blocks
     // If they already got perks for those blocks (eg, 6mo subscription, subscription gifts, etc) - then dec the offset until it hits 0
-    // TODO use month diff instead of ++ / --? see https://github.com/HabitRPG/habitrpg/issues/4317
     _.defaults(plan.consecutive, {count: 0, offset: 0, trinkets: 0, gemCapExtra: 0});
 
-    plan.consecutive.count++;
+    for (let i = 0; i < elapsedMonths; i++) {
+      plan.consecutive.count++;
 
-    if (plan.consecutive.offset > 1) {
-      plan.consecutive.offset--;
-    } else if (plan.consecutive.count % 3 === 0) { // every 3 months
-      if (plan.consecutive.offset === 1) plan.consecutive.offset--;
-      plan.consecutive.trinkets++;
-      plan.consecutive.gemCapExtra += 5;
-      if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25; // cap it at 50 (hard 25 limit + extra 25)
+      if (plan.consecutive.offset > 1) {
+        plan.consecutive.offset--;
+      } else if (plan.consecutive.count % 3 === 0) { // every 3 months
+        if (plan.consecutive.offset === 1) plan.consecutive.offset--;
+        plan.consecutive.trinkets++;
+        plan.consecutive.gemCapExtra += 5;
+        if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25; // cap it at 50 (hard 25 limit + extra 25)
+      }
     }
   }
 }
