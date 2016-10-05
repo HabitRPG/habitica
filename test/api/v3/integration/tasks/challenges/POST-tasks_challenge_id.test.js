@@ -72,8 +72,8 @@ describe('POST /tasks/challenge/:challengeId', () => {
       down: true,
       notes: 1976,
     })).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
+      code: 403,
+      error: 'Forbidden',
       message: t('onlyChalLeaderEditTasks'),
     });
   });

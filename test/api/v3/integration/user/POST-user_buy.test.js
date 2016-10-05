@@ -51,8 +51,8 @@ describe('POST /user/buy/:key', () => {
 
     await expect(user.post('/user/buy/potion'))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('messageHealthAlreadyMax'),
       });
   });

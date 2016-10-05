@@ -40,8 +40,8 @@ describe('PUT /challenges/:challengeId', () => {
   it('should only allow the leader or an admin to update the challenge', async () => {
     await expect(member.put(`/challenges/${challenge._id}`))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('onlyLeaderUpdateChal'),
       });
   });

@@ -8,7 +8,7 @@ import { model as Group } from '../../models/group';
 import { model as Challenge } from '../../models/challenge';
 import {
   NotFound,
-  NotAuthorized,
+  Forbidden,
 } from '../../libs/errors';
 import * as Tasks from '../../models/task';
 import {
@@ -311,7 +311,7 @@ api.sendPrivateMessage = {
     let userOptedOutOfMessaging = receiver.inbox.optOut;
 
     if (userBlockedSender || userIsBlockBySender || userOptedOutOfMessaging) {
-      throw new NotAuthorized(res.t('notAuthorizedToSendMessageToThisUser'));
+      throw new Forbidden(res.t('notAuthorizedToSendMessageToThisUser'));
     }
 
     await sender.sendMessage(receiver, message);
@@ -369,14 +369,14 @@ api.transferGems = {
     if (!receiver) throw new NotFound(res.t('userNotFound'));
 
     if (receiver._id === sender._id) {
-      throw new NotAuthorized(res.t('cannotSendGemsToYourself'));
+      throw new Forbidden(res.t('cannotSendGemsToYourself'));
     }
 
     let gemAmount = req.body.gemAmount;
     let amount = gemAmount / 4;
 
     if (amount <= 0 || sender.balance < amount) {
-      throw new NotAuthorized(res.t('badAmountOfGemsToSend'));
+      throw new Forbidden(res.t('badAmountOfGemsToSend'));
     }
 
     receiver.balance += amount;

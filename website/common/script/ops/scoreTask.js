@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import {
-  NotAuthorized,
+  Forbidden,
 } from '../libs/errors';
 import i18n from '../i18n';
 import updateStats from '../fns/updateStats';
@@ -184,7 +184,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
   user._tmp = {};
 
   // If they're trying to purchase a too-expensive reward, don't allow them to do that.
-  if (task.value > user.stats.gp && task.type === 'reward') throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
+  if (task.value > user.stats.gp && task.type === 'reward') throw new Forbidden(i18n.t('messageNotEnoughGold', req.language));
 
   if (task.type === 'habit') {
     delta += _changeTaskValue(user, task, direction, times, cron);

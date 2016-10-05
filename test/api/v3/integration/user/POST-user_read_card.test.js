@@ -14,8 +14,8 @@ describe('POST /user/read-card/:cardType', () => {
   it('returns an error when unknown cardType is provded', async () => {
     await expect(user.post('/user/read-card/randomCardType'))
       .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('cardTypeNotAllowed'),
       });
   });

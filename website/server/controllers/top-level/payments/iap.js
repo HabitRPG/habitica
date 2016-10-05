@@ -5,7 +5,7 @@ import {
 import iap from '../../../libs/inAppPurchases';
 import payments from '../../../libs/payments';
 import {
-  NotAuthorized,
+  Forbidden,
 } from '../../../libs/errors';
 import { model as IapPurchaseReceipt } from '../../../models/iapPurchaseReceipt';
 import logger from '../../../libs/logger';
@@ -38,7 +38,7 @@ api.iapAndroidVerify = {
     let googleRes = await iap.validate(iap.GOOGLE, testObj);
 
     let isValidated = iap.isValidated(googleRes);
-    if (!isValidated) throw new NotAuthorized('INVALID_RECEIPT');
+    if (!isValidated) throw new Forbidden('INVALID_RECEIPT');
 
     let receiptObj = JSON.parse(testObj.data); // passed as a string
     let token = receiptObj.token || receiptObj.purchaseToken;
@@ -46,7 +46,7 @@ api.iapAndroidVerify = {
     let existingReceipt = await IapPurchaseReceipt.findOne({
       _id: token,
     }).exec();
-    if (existingReceipt) throw new NotAuthorized('RECEIPT_ALREADY_USED');
+    if (existingReceipt) throw new Forbidden('RECEIPT_ALREADY_USED');
 
     await IapPurchaseReceipt.create({
       _id: token,

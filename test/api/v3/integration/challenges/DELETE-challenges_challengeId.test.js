@@ -53,8 +53,8 @@ describe('DELETE /challenges/:challengeId', () => {
       let user = await generateUser();
 
       await expect(user.del(`/challenges/${challenge._id}`)).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('onlyLeaderDeleteChal'),
       });
     });

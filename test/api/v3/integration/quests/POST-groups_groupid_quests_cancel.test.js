@@ -55,8 +55,8 @@ describe('POST /groups/:groupId/quests/cancel', () => {
 
       await expect(guildLeader.post(`/groups/${guild._id}/quests/cancel`))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('guildQuestsNotSupported'),
       });
     });
@@ -75,8 +75,8 @@ describe('POST /groups/:groupId/quests/cancel', () => {
 
       await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/cancel`))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('onlyLeaderCancelQuest'),
       });
     });
@@ -89,8 +89,8 @@ describe('POST /groups/:groupId/quests/cancel', () => {
 
       await expect(leader.post(`/groups/${questingGroup._id}/quests/cancel`))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('cantCancelActiveQuest'),
       });
     });

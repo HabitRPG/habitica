@@ -13,7 +13,7 @@ import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import {
   NotFound,
   BadRequest,
-  NotAuthorized,
+  Forbidden,
 } from '../../libs/errors';
 import { removeFromArray } from '../../libs/collectionManipulators';
 import { sendTxn as sendTxnEmail } from '../../libs/email';
@@ -55,15 +55,15 @@ api.createGroup = {
     group.leader = user._id;
 
     if (group.type === 'guild') {
-      if (user.balance < 1) throw new NotAuthorized(res.t('messageInsufficientGems'));
+      if (user.balance < 1) throw new Forbidden(res.t('messageInsufficientGems'));
 
       group.balance = 1;
 
       user.balance--;
       user.guilds.push(group._id);
     } else {
-      if (group.privacy !== 'private') throw new NotAuthorized(res.t('partyMustbePrivate'));
-      if (user.party._id) throw new NotAuthorized(res.t('messageGroupAlreadyInParty'));
+      if (group.privacy !== 'private') throw new Forbidden(res.t('partyMustbePrivate'));
+      if (user.party._id) throw new Forbidden(res.t('messageGroupAlreadyInParty'));
 
       user.party._id = group._id;
     }
@@ -197,7 +197,7 @@ api.updateGroup = {
     let group = await Group.getGroup({user, groupId: req.params.groupId});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+    if (group.leader !== user._id) throw new Forbidden(res.t('messageGroupOnlyLeaderCanUpdate'));
 
     _.assign(group, _.merge(group.toObject(), Group.sanitizeUpdate(req.body)));
 
@@ -281,11 +281,11 @@ api.joinGroup = {
 
     if (isUserInvited && group.type === 'guild') {
       if (user.guilds.indexOf(group._id) !== -1) { // if user is already a member (party is checked previously)
-        throw new NotAuthorized(res.t('userAlreadyInGroup'));
+        throw new Forbidden(res.t('userAlreadyInGroup'));
       }
       user.guilds.push(group._id); // Add group to user's guilds
     }
-    if (!isUserInvited) throw new NotAuthorized(res.t('messageGroupRequiresInvite'));
+    if (!isUserInvited) throw new Forbidden(res.t('messageGroupRequiresInvite'));
 
     if (group.memberCount === 0) group.leader = user._id; // If new user is only member -> set as leader
 
@@ -367,7 +367,7 @@ api.rejectGroupInvite = {
       }
     }
 
-    if (!isUserInvited) throw new NotAuthorized(res.t('messageGroupRequiresInvite'));
+    if (!isUserInvited) throw new Forbidden(res.t('messageGroupRequiresInvite'));
 
     await user.save();
 
@@ -410,11 +410,11 @@ api.leaveGroup = {
     // During quests, checke wheter user can leave
     if (group.type === 'party') {
       if (group.quest && group.quest.leader === user._id) {
-        throw new NotAuthorized(res.t('questLeaderCannotLeaveGroup'));
+        throw new Forbidden(res.t('questLeaderCannotLeaveGroup'));
       }
 
       if (group.quest && group.quest.active && group.quest.members && group.quest.members[user._id]) {
-        throw new NotAuthorized(res.t('cannotLeaveWhileActiveQuest'));
+        throw new Forbidden(res.t('cannotLeaveWhileActiveQuest'));
       }
     }
 
@@ -468,8 +468,8 @@ api.removeGroupMember = {
 
     let uuid = req.params.memberId;
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
-    if (user._id === uuid) throw new NotAuthorized(res.t('memberCannotRemoveYourself'));
+    if (group.leader !== user._id) throw new Forbidden(res.t('onlyLeaderCanRemoveMember'));
+    if (user._id === uuid) throw new Forbidden(res.t('memberCannotRemoveYourself'));
 
     let member = await User.findOne({_id: uuid}).exec();
 
@@ -550,27 +550,27 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
   if (!userToInvite) {
     throw new NotFound(res.t('userWithIDNotFound', {userId: uuid}));
   } else if (inviter._id === userToInvite._id) {
-    throw new BadRequest(res.t('cannotInviteSelfToGroup'));
+    throw new Forbidden(res.t('cannotInviteSelfToGroup'));
   }
 
   if (group.type === 'guild') {
     if (_.contains(userToInvite.guilds, group._id)) {
-      throw new NotAuthorized(res.t('userAlreadyInGroup'));
+      throw new Forbidden(res.t('userAlreadyInGroup'));
     }
     if (_.find(userToInvite.invitations.guilds, {id: group._id})) {
-      throw new NotAuthorized(res.t('userAlreadyInvitedToGroup'));
+      throw new Forbidden(res.t('userAlreadyInvitedToGroup'));
     }
     userToInvite.invitations.guilds.push({id: group._id, name: group.name, inviter: inviter._id});
   } else if (group.type === 'party') {
     if (userToInvite.invitations.party.id) {
-      throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
+      throw new Forbidden(res.t('userAlreadyPendingInvitation'));
     }
 
     if (userToInvite.party._id) {
       let userParty = await Group.getGroup({user: userToInvite, groupId: 'party', fields: 'memberCount'});
 
       // Allow user to be invited to a new party when they're partying solo
-      if (userParty && userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty'));
+      if (userParty && userParty.memberCount !== 1) throw new Forbidden(res.t('userAlreadyInAParty'));
     }
 
     userToInvite.invitations.party = {id: group._id, name: group.name, inviter: inviter._id};
@@ -677,9 +677,9 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  *     "emails": ["user-1@example.com", "user-2@exmaple.com"]
  *   }
  * @apiParamExample {json} User Ids
- *   {
- *     "uuids": ["user-id-of-existing-user", "user-id-of-another-existing-user"]
- *   }
+ * {
+ *   "uuids": ["user-id-of-existing-user", "user-id-of-another-existing-user"]
+ * }
  * @apiParamExample {json} User Ids and Emails
  *   {
  *     "emails": ["user-1@example.com", "user-2@exmaple.com"],

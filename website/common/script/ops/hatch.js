@@ -3,7 +3,7 @@ import i18n from '../i18n';
 import _ from 'lodash';
 import {
   BadRequest,
-  NotAuthorized,
+  Forbidden,
   NotFound,
 } from '../libs/errors';
 
@@ -26,7 +26,7 @@ module.exports = function hatch (user, req = {}) {
   let pet = `${egg}-${hatchingPotion}`;
 
   if (user.items.pets[pet] && user.items.pets[pet] > 0) {
-    throw new NotAuthorized(i18n.t('messageAlreadyPet', req.language));
+    throw new Forbidden(i18n.t('messageAlreadyPet', req.language));
   }
 
   user.items.pets[pet] = 5;

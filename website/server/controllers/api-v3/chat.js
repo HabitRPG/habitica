@@ -3,7 +3,7 @@ import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import {
   NotFound,
-  NotAuthorized,
+  Forbidden,
 } from '../../libs/errors';
 import _ from 'lodash';
 import { removeFromArray } from '../../libs/collectionManipulators';
@@ -325,7 +325,7 @@ api.clearChatFlags = {
     if (validationErrors) throw validationErrors;
 
     if (!user.contributor.admin) {
-      throw new NotAuthorized(res.t('messageGroupChatAdminClearFlagCount'));
+      throw new Forbidden(res.t('messageGroupChatAdminClearFlagCount'));
     }
 
     let group = await Group.getGroup({
@@ -444,7 +444,7 @@ api.deleteChat = {
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
 
     if (user._id !== message.uuid && !user.contributor.admin) {
-      throw new NotAuthorized(res.t('onlyCreatorOrAdminCanDeleteChat'));
+      throw new Forbidden(res.t('onlyCreatorOrAdminCanDeleteChat'));
     }
 
     let lastClientMsg = req.query.previousMsg;

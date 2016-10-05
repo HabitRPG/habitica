@@ -54,8 +54,8 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
       _id: 123, // ignored
     }))
     .to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
+      code: 403,
+      error: 'Forbidden',
       message: t('onlyChalLeaderEditTasks'),
     });
   });

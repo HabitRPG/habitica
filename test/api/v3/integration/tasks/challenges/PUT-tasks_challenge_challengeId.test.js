@@ -49,8 +49,8 @@ describe('PUT /tasks/:id', () => {
         down: false,
         notes: 'some new notes',
       })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('onlyChalLeaderEditTasks'),
       });
     });

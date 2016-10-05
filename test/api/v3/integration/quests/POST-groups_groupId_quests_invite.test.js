@@ -56,8 +56,8 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
       let alternateGroup = group;
 
       await expect(leader.post(`/groups/${alternateGroup._id}/quests/invite/${PET_QUEST}`)).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('guildQuestsNotSupported'),
       });
     });
@@ -74,8 +74,8 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
 
     it('does not issue invites for a quest the user does not own', async () => {
       await expect(leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`)).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('questNotOwned'),
       });
     });
@@ -90,8 +90,8 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
       await leader.update(leaderUpdate);
 
       await expect(leader.post(`/groups/${questingGroup._id}/quests/invite/${LEVELED_QUEST}`)).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('questLevelTooHigh', {level: LEVELED_QUEST_REQ}),
       });
     });
@@ -105,8 +105,8 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
       await questingGroup.update({ 'quest.key': QUEST_IN_PROGRESS });
 
       await expect(leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`)).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('questAlreadyUnderway'),
       });
     });

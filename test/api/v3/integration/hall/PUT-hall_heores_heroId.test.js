@@ -17,8 +17,8 @@ describe('PUT /heroes/:heroId', () => {
     let nonAdmin = await generateUser();
 
     await expect(nonAdmin.put(`/hall/heroes/${user._id}`)).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
+      code: 403,
+      error: 'Forbidden',
       message: t('noAdminAccess'),
     });
   });

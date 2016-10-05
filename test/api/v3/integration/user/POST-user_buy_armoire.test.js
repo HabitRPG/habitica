@@ -21,8 +21,8 @@ describe('POST /user/buy-armoire', () => {
 
     await expect(user.post('/user/buy-armoire'))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('messageNotEnoughGold'),
       });
   });

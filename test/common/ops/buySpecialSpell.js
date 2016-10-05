@@ -2,7 +2,7 @@ import buySpecialSpell from '../../../website/common/script/ops/buySpecialSpell'
 import {
   BadRequest,
   NotFound,
-  NotAuthorized,
+  Forbidden,
 } from '../../../website/common/script/libs/errors';
 import i18n from '../../../website/common/script/i18n';
 import {
@@ -50,7 +50,7 @@ describe('shared.ops.buySpecialSpell', () => {
         },
       });
     } catch (err) {
-      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err).to.be.an.instanceof(Forbidden);
       expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
       done();
     }

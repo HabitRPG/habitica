@@ -31,8 +31,8 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
     it('returns error when non-admin attempts to clear flags', async () => {
       return expect(nonAdmin.post(`/groups/${groupWithChat._id}/chat/${message.id}/clearflags`))
         .to.eventually.be.rejected.and.eql({
-          code: 401,
-          error: 'NotAuthorized',
+          code: 403,
+          error: 'Forbidden',
           message: t('messageGroupChatAdminClearFlagCount'),
         });
     });

@@ -5,7 +5,7 @@ import { model as Group } from '../../../models/group';
 import { model as User } from '../../../models/user';
 import {
   NotFound,
-  NotAuthorized,
+  Forbidden,
 } from '../../../libs/errors';
 import {
   createTasks,
@@ -42,7 +42,7 @@ api.createGroupTasks = {
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: requiredGroupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (group.leader !== user._id) throw new Forbidden(res.t('onlyGroupLeaderCanEditTasks'));
 
     let tasks = await createTasks(req, res, {user, group});
 
@@ -116,13 +116,13 @@ api.assignTask = {
     }
 
     if (!task.group.id) {
-      throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
+      throw new Forbidden(res.t('onlyGroupTasksCanBeAssigned'));
     }
 
     let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (group.leader !== user._id) throw new Forbidden(res.t('onlyGroupLeaderCanEditTasks'));
 
     await group.syncTask(task, assignedUser);
 
@@ -164,13 +164,13 @@ api.unassignTask = {
     }
 
     if (!task.group.id) {
-      throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
+      throw new Forbidden(res.t('onlyGroupTasksCanBeAssigned'));
     }
 
     let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (group.leader !== user._id) throw new Forbidden(res.t('onlyGroupLeaderCanEditTasks'));
 
     await group.unlinkTask(task, assignedUser);
 

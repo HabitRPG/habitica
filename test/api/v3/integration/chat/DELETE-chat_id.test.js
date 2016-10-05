@@ -36,8 +36,8 @@ describe('DELETE /groups/:groupId/chat/:chatId', () => {
 
     it('returns an error when user does not have permission to delete', async () => {
       await expect(userThatDidNotCreateChat.del(`/groups/${groupWithChat._id}/chat/${message.id}`)).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('onlyCreatorOrAdminCanDeleteChat'),
       });
     });

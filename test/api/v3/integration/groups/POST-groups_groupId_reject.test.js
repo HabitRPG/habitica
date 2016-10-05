@@ -26,8 +26,8 @@ describe('POST /group/:groupId/reject-invite', () => {
       let userWithoutInvite = await generateUser();
 
       await expect(userWithoutInvite.post(`/groups/${publicGuild._id}/reject-invite`)).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('messageGroupRequiresInvite'),
       });
     });
@@ -62,8 +62,8 @@ describe('POST /group/:groupId/reject-invite', () => {
       let userWithoutInvite = await generateUser();
 
       await expect(userWithoutInvite.post(`/groups/${guild._id}/reject-invite`)).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('messageGroupRequiresInvite'),
       });
     });
@@ -98,8 +98,8 @@ describe('POST /group/:groupId/reject-invite', () => {
       let userWithoutInvite = await generateUser();
 
       await expect(userWithoutInvite.post(`/groups/${party._id}/reject-invite`)).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('messageGroupRequiresInvite'),
       });
     });

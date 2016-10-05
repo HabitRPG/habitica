@@ -32,11 +32,29 @@ export class BadRequest extends CustomError {
   }
 }
 
+export class Forbidden extends CustomError {
+  constructor (customMessage) {
+    super();
+    this.name = this.constructor.name;
+    this.httpCode = 403;
+    this.message = customMessage || 'Forbidden.';
+  }
+}
+
 export class NotFound extends CustomError {
   constructor (customMessage) {
     super();
     this.name = this.constructor.name;
     this.httpCode = 404;
     this.message = customMessage || 'Not found.';
+  }
+}
+
+export class UnprocessableEntity extends CustomError {
+  constructor (customMessage) {
+    super();
+    this.name = this.constructor.name;
+    this.httpCode = 422;
+    this.message = customMessage || 'Unprocessable Entity.';
   }
 }

@@ -17,8 +17,8 @@ describe('GET /coupons/', () => {
   it('returns an error if user has no sudo permission', async () => {
     await user.get('/user'); // needed so the request after this will authenticate with the correct cookie session
     await expect(user.get('/coupons')).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
+      code: 403,
+      error: 'Forbidden',
       message: t('noSudoAccess'),
     });
   });

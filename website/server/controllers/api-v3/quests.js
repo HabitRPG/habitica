@@ -8,7 +8,7 @@ import {
 import { model as User } from '../../models/user';
 import {
   NotFound,
-  NotAuthorized,
+  Forbidden,
   BadRequest,
 } from '../../libs/errors';
 import {
@@ -68,11 +68,11 @@ api.inviteToQuest = {
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest'});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
-    if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
+    if (group.type !== 'party') throw new Forbidden(res.t('guildQuestsNotSupported'));
     if (!quest) throw new NotFound(res.t('questNotFound', { key: questKey }));
-    if (!user.items.quests[questKey]) throw new NotAuthorized(res.t('questNotOwned'));
-    if (user.stats.lvl < quest.lvl) throw new NotAuthorized(res.t('questLevelTooHigh', { level: quest.lvl }));
-    if (group.quest.key) throw new NotAuthorized(res.t('questAlreadyUnderway'));
+    if (!user.items.quests[questKey]) throw new Forbidden(res.t('questNotOwned'));
+    if (user.stats.lvl < quest.lvl) throw new Forbidden(res.t('questLevelTooHigh', { level: quest.lvl }));
+    if (group.quest.key) throw new Forbidden(res.t('questAlreadyUnderway'));
 
     let members = await User.find({
       'party._id': group._id,
@@ -182,9 +182,9 @@ api.acceptQuest = {
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest'});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
-    if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
+    if (group.type !== 'party') throw new Forbidden(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInviteNotFound'));
-    if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyUnderway'));
+    if (group.quest.active) throw new Forbidden(res.t('questAlreadyUnderway'));
     if (group.quest.members[user._id]) throw new BadRequest(res.t('questAlreadyAccepted'));
 
     group.markModified('quest');
@@ -241,9 +241,9 @@ api.rejectQuest = {
 
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
-    if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
+    if (group.type !== 'party') throw new Forbidden(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
-    if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyUnderway'));
+    if (group.quest.active) throw new Forbidden(res.t('questAlreadyUnderway'));
     if (group.quest.members[user._id]) throw new BadRequest(res.t('questAlreadyAccepted'));
     if (group.quest.members[user._id] === false) throw new BadRequest(res.t('questAlreadyRejected'));
 
@@ -301,10 +301,10 @@ api.forceStart = {
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest leader'});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
-    if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
+    if (group.type !== 'party') throw new Forbidden(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questNotPending'));
-    if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyUnderway'));
-    if (!(user._id === group.quest.leader || user._id === group.leader)) throw new NotAuthorized(res.t('questOrGroupLeaderOnlyStartQuest'));
+    if (group.quest.active) throw new Forbidden(res.t('questAlreadyUnderway'));
+    if (!(user._id === group.quest.leader || user._id === group.leader)) throw new Forbidden(res.t('questOrGroupLeaderOnlyStartQuest'));
 
     group.markModified('quest');
 
@@ -362,10 +362,10 @@ api.cancelQuest = {
 
     let group = await Group.getGroup({user, groupId, fields: 'type leader quest'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
-    if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
+    if (group.type !== 'party') throw new Forbidden(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
-    if (user._id !== group.leader && group.quest.leader !== user._id) throw new NotAuthorized(res.t('onlyLeaderCancelQuest'));
-    if (group.quest.active) throw new NotAuthorized(res.t('cantCancelActiveQuest'));
+    if (user._id !== group.leader && group.quest.leader !== user._id) throw new Forbidden(res.t('onlyLeaderCancelQuest'));
+    if (group.quest.active) throw new Forbidden(res.t('cantCancelActiveQuest'));
 
     group.quest = Group.cleanGroupQuest();
     group.markModified('quest');
@@ -414,9 +414,9 @@ api.abortQuest = {
 
     let group = await Group.getGroup({user, groupId, fields: 'type quest leader'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
-    if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
+    if (group.type !== 'party') throw new Forbidden(res.t('guildQuestsNotSupported'));
     if (!group.quest.active) throw new NotFound(res.t('noActiveQuestToAbort'));
-    if (user._id !== group.leader && user._id !== group.quest.leader) throw new NotAuthorized(res.t('onlyLeaderAbortQuest'));
+    if (user._id !== group.leader && user._id !== group.quest.leader) throw new Forbidden(res.t('onlyLeaderAbortQuest'));
 
     let memberUpdates = User.update({
       'party._id': groupId,
@@ -469,10 +469,10 @@ api.leaveQuest = {
     let group = await Group.getGroup({user, groupId, fields: 'type quest'});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
-    if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
+    if (group.type !== 'party') throw new Forbidden(res.t('guildQuestsNotSupported'));
     if (!group.quest.active) throw new NotFound(res.t('noActiveQuestToLeave'));
-    if (group.quest.leader === user._id) throw new NotAuthorized(res.t('questLeaderCannotLeaveQuest'));
-    if (!group.quest.members[user._id]) throw new NotAuthorized(res.t('notPartOfQuest'));
+    if (group.quest.leader === user._id) throw new Forbidden(res.t('questLeaderCannotLeaveQuest'));
+    if (!group.quest.members[user._id]) throw new Forbidden(res.t('notPartOfQuest'));
 
     group.quest.members[user._id] = false;
     group.markModified('quest.members');

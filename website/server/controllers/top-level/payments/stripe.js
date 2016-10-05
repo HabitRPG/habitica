@@ -2,7 +2,7 @@ import stripeModule from 'stripe';
 import shared from '../../../../common';
 import {
   BadRequest,
-  NotAuthorized,
+  Forbidden,
 } from '../../../libs/errors';
 import { model as Coupon } from '../../../models/coupon';
 import payments from '../../../libs/payments';
@@ -127,7 +127,7 @@ api.subscribeEdit = {
     let user = res.locals.user;
     let customerId = user.purchased.plan.customerId;
 
-    if (!customerId) throw new NotAuthorized(res.t('missingSubscription'));
+    if (!customerId) throw new Forbidden(res.t('missingSubscription'));
     if (!token) throw new BadRequest('Missing req.body.id');
 
     let subscriptions = await stripe.customers.listSubscriptions(customerId);
@@ -150,7 +150,7 @@ api.subscribeCancel = {
   middlewares: [authWithUrl],
   async handler (req, res) {
     let user = res.locals.user;
-    if (!user.purchased.plan.customerId) throw new NotAuthorized(res.t('missingSubscription'));
+    if (!user.purchased.plan.customerId) throw new Forbidden(res.t('missingSubscription'));
 
     let customer = await stripe.customers.retrieve(user.purchased.plan.customerId);
     await stripe.customers.del(user.purchased.plan.customerId);

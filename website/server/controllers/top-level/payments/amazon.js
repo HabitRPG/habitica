@@ -1,6 +1,6 @@
 import {
   BadRequest,
-  NotAuthorized,
+  Forbidden,
 } from '../../../libs/errors';
 import amzLib from '../../../libs/amazonPayments';
 import {
@@ -171,7 +171,7 @@ api.subscribe = {
     if (sub.discount) { // apply discount
       if (!coupon) throw new BadRequest(res.t('couponCodeRequired'));
       let result = await Coupon.findOne({_id: cc.validate(coupon), event: sub.key});
-      if (!result) throw new NotAuthorized(res.t('invalidCoupon'));
+      if (!result) throw new Forbidden(res.t('invalidCoupon'));
     }
 
     await amzLib.setBillingAgreementDetails({
@@ -233,7 +233,7 @@ api.subscribeCancel = {
     let user = res.locals.user;
     let billingAgreementId = user.purchased.plan.customerId;
 
-    if (!billingAgreementId) throw new NotAuthorized(res.t('missingSubscription'));
+    if (!billingAgreementId) throw new Forbidden(res.t('missingSubscription'));
 
     await amzLib.closeBillingAgreement({
       AmazonBillingAgreementId: billingAgreementId,

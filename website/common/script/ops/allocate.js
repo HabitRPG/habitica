@@ -4,7 +4,7 @@ import {
 } from '../constants';
 import {
   BadRequest,
-  NotAuthorized,
+  Forbidden,
 } from '../libs/errors';
 import i18n from '../i18n';
 
@@ -22,7 +22,7 @@ module.exports = function allocate (user, req = {}) {
       user.stats.mp++;
     }
   } else {
-    throw new NotAuthorized(i18n.t('notEnoughAttrPoints', req.language));
+    throw new Forbidden(i18n.t('notEnoughAttrPoints', req.language));
   }
 
   return [

@@ -4,7 +4,7 @@ import _ from 'lodash';
 import splitWhitespace from '../libs/splitWhitespace';
 import {
   NotFound,
-  NotAuthorized,
+  Forbidden,
   BadRequest,
 } from '../libs/errors';
 
@@ -23,7 +23,7 @@ module.exports = function sell (user, req = {}) {
   }
 
   if (ACCEPTEDTYPES.indexOf(type) === -1) {
-    throw new NotAuthorized(i18n.t('typeNotSellable', {acceptedTypes: ACCEPTEDTYPES.join(', ')}, req.language));
+    throw new Forbidden(i18n.t('typeNotSellable', {acceptedTypes: ACCEPTEDTYPES.join(', ')}, req.language));
   }
 
   if (!user.items[type][key]) {

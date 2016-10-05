@@ -40,8 +40,8 @@ describe('POST /coupons/enter/:code', () => {
     await user.post(`/coupons/enter/${coupon._id}`); // use coupon
 
     await expect(user.post(`/coupons/enter/${coupon._id}`)).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
+      code: 403,
+      error: 'Forbidden',
       message: t('couponUsed'),
     });
   });

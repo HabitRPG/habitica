@@ -1,6 +1,6 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import {
-  NotAuthorized,
+  Forbidden,
   NotFound,
 } from '../../libs/errors';
 
@@ -39,7 +39,7 @@ api.addPushDevice = {
     };
 
     if (pushDevices.find(device => device.regId === item.regId)) {
-      throw new NotAuthorized(res.t('pushDeviceAlreadyAdded'));
+      throw new Forbidden(res.t('pushDeviceAlreadyAdded'));
     }
 
     pushDevices.push(item);

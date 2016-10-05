@@ -19,8 +19,8 @@ describe('POST /user/purchase/:type/:key', () => {
   it('returns an error when key is not provided', async () => {
     await expect(user.post('/user/purchase/gems/gem'))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('mustSubscribeToPurchaseGems'),
       });
   });

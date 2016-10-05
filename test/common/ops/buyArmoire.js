@@ -7,7 +7,7 @@ import count from '../../../website/common/script/count';
 import buyArmoire from '../../../website/common/script/ops/buyArmoire';
 import content from '../../../website/common/script/content/index';
 import {
-  NotAuthorized,
+  Forbidden,
 } from '../../../website/common/script/libs/errors';
 import i18n from '../../../website/common/script/i18n';
 
@@ -57,7 +57,7 @@ describe('shared.ops.buyArmoire', () => {
       try {
         buyArmoire(user);
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
         expect(user.items.gear.owned).to.eql({
           weapon_warrior_0: true,
@@ -74,7 +74,7 @@ describe('shared.ops.buyArmoire', () => {
       try {
         buyArmoire(user);
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.equal(i18n.t('cannotBuyItem'));
         expect(user.items.gear.owned).to.eql({
           weapon_warrior_0: true,

@@ -4,7 +4,7 @@ import {
   generateUser,
 } from '../../helpers/common.helper';
 import {
-  NotAuthorized,
+  Forbidden,
 } from '../../../website/common/script/libs/errors';
 import content from '../../../website/common/script/content/index';
 
@@ -22,7 +22,7 @@ describe('shared.ops.revive', () => {
     try {
       revive(user);
     } catch (err) {
-      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err).to.be.an.instanceof(Forbidden);
       expect(err.message).to.equal(i18n.t('cannotRevive'));
       done();
     }

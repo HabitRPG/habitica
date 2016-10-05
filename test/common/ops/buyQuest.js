@@ -3,7 +3,7 @@ import {
 } from '../../helpers/common.helper';
 import buyQuest from '../../../website/common/script/ops/buyQuest';
 import {
-  NotAuthorized,
+  Forbidden,
   NotFound,
 } from '../../../website/common/script/libs/errors';
 import i18n from '../../../website/common/script/i18n';
@@ -37,7 +37,7 @@ describe('shared.ops.buyQuest', () => {
         },
       });
     } catch (err) {
-      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err).to.be.an.instanceof(Forbidden);
       expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(1);
@@ -71,7 +71,7 @@ describe('shared.ops.buyQuest', () => {
         },
       });
     } catch (err) {
-      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err).to.be.an.instanceof(Forbidden);
       expect(err.message).to.equal(i18n.t('questNotGoldPurchasable', {key: 'kraken'}));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(9999);

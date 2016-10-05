@@ -33,8 +33,8 @@ describe('PUT /user/auth/update-username', async () => {
         username: existingUsername,
         password,
       })).to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
+        code: 403,
+        error: 'Forbidden',
         message: t('usernameTaken'),
       });
     });

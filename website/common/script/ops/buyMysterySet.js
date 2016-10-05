@@ -3,7 +3,7 @@ import content from '../content/index';
 import _ from 'lodash';
 import {
   BadRequest,
-  NotAuthorized,
+  Forbidden,
   NotFound,
 } from '../libs/errors';
 
@@ -12,7 +12,7 @@ module.exports = function buyMysterySet (user, req = {}, analytics) {
   if (!key) throw new BadRequest(i18n.t('missingKeyParam', req.language));
 
   if (!(user.purchased.plan.consecutive.trinkets > 0)) {
-    throw new NotAuthorized(i18n.t('notEnoughHourglasses', req.language));
+    throw new Forbidden(i18n.t('notEnoughHourglasses', req.language));
   }
 
   let ref = content.timeTravelerStore(user.items.gear.owned);

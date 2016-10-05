@@ -19,8 +19,8 @@ describe('POST /user/release-both', () => {
   it('returns an error when user balance is too low and user does not have triadBingo', async () => {
     await expect(user.post('/user/release-both'))
       .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('notEnoughGems'),
       });
   });

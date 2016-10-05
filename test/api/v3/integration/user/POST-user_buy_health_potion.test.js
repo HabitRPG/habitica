@@ -20,8 +20,8 @@ describe('POST /user/buy-health-potion', () => {
   it('returns an error if user does not have enough gold', async () => {
     await expect(user.post('/user/buy-health-potion'))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('messageNotEnoughGold'),
       });
   });

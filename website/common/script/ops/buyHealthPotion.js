@@ -1,22 +1,22 @@
 import content from '../content/index';
 import i18n from '../i18n';
 import {
-  NotAuthorized,
+  Forbidden,
 } from '../libs/errors';
 
 module.exports = function buyHealthPotion (user, req = {}, analytics) {
   let item = content.potion;
 
   if (user.stats.gp < item.value) {
-    throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
+    throw new Forbidden(i18n.t('messageNotEnoughGold', req.language));
   }
 
   if (item.canOwn && !item.canOwn(user)) {
-    throw new NotAuthorized(i18n.t('cannotBuyItem', req.language));
+    throw new Forbidden(i18n.t('cannotBuyItem', req.language));
   }
 
   if (user.stats.hp >= 50) {
-    throw new NotAuthorized(i18n.t('messageHealthAlreadyMax', req.language));
+    throw new Forbidden(i18n.t('messageHealthAlreadyMax', req.language));
   }
 
   user.stats.hp += 15;

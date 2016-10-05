@@ -5,7 +5,7 @@ import {
 } from '../../helpers/common.helper';
 import buyMysterySet from '../../../website/common/script/ops/buyMysterySet';
 import {
-  NotAuthorized,
+  Forbidden,
   NotFound,
 } from '../../../website/common/script/libs/errors';
 import i18n from '../../../website/common/script/i18n';
@@ -31,7 +31,7 @@ describe('shared.ops.buyMysterySet', () => {
         try {
           buyMysterySet(user, {params: {key: '201501'}});
         } catch (err) {
-          expect(err).to.be.an.instanceof(NotAuthorized);
+          expect(err).to.be.an.instanceof(Forbidden);
           expect(err.message).to.eql(i18n.t('notEnoughHourglasses'));
           expect(user.items.gear.owned).to.have.property('weapon_warrior_0', true);
           done();

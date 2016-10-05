@@ -15,8 +15,8 @@ describe('POST /user/revive', () => {
   it('returns an error when user is not dead', async () => {
     await expect(user.post('/user/revive'))
       .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('cannotRevive'),
       });
   });
