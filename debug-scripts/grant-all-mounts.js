@@ -12,10 +12,10 @@ if (!userId) {
   return;
 }
 
-let dropMounts = require('../common').content.mounts;
-let questMounts = require('../common').content.questMounts;
-let specialMounts = require('../common').content.specialMounts;
-let premiumMounts = require('../common').content.premiumPets; // premium mounts isn't exposed on the content object
+let dropMounts = require('../website/common').content.mounts;
+let questMounts = require('../website/common').content.questMounts;
+let specialMounts = require('../website/common').content.specialMounts;
+let premiumMounts = require('../website/common').content.premiumPets; // premium mounts isn't exposed on the content object
 
 let userMounts = {};
 
