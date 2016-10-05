@@ -28,8 +28,8 @@ describe('PUT /group', () => {
     await expect(nonLeader.put(`/groups/${groupToUpdate._id}`, {
       name: groupUpdatedName,
     })).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
+      code: 403,
+      error: 'Forbidden',
       message: t('messageGroupOnlyLeaderCanUpdate'),
     });
   });

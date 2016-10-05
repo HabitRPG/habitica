@@ -38,8 +38,8 @@ describe('Post /groups/:groupId/invite', () => {
         uuids: [inviter._id],
       }))
       .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
+        code: 403,
+        error: 'Forbidden',
         message: t('cannotInviteSelfToGroup'),
       });
     });
@@ -278,8 +278,8 @@ describe('Post /groups/:groupId/invite', () => {
         uuids: [userToInivite._id],
       }))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('userAlreadyInvitedToGroup'),
       });
     });
@@ -295,8 +295,8 @@ describe('Post /groups/:groupId/invite', () => {
         uuids: [userToInvite._id],
       }))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('userAlreadyInGroup'),
       });
     });
@@ -322,8 +322,8 @@ describe('Post /groups/:groupId/invite', () => {
         uuids: [userToInvite._id],
       }))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('userAlreadyPendingInvitation'),
       });
     });
@@ -341,8 +341,8 @@ describe('Post /groups/:groupId/invite', () => {
         uuids: [userToInvite._id],
       }))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('userAlreadyInAParty'),
       });
     });

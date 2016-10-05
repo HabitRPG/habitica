@@ -9,7 +9,7 @@ import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
 import {
   NotFound,
-  NotAuthorized,
+  Forbidden,
   BadRequest,
 } from '../../libs/errors';
 import {
@@ -90,7 +90,7 @@ api.createChallengeTasks = {
 
     // If the challenge does not exist, or if it exists but user is not the leader -> throw error
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-    if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+    if (challenge.leader !== user._id) throw new Forbidden(res.t('onlyChalLeaderEditTasks'));
 
     let tasks = await createTasks(req, res, {user, challenge});
 
@@ -236,11 +236,11 @@ api.updateTask = {
       //  @TODO: Abstract this access snippet
       group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      if (group.leader !== user._id) throw new Forbidden(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+      if (challenge.leader !== user._id) throw new Forbidden(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
@@ -469,11 +469,11 @@ api.addChecklistItem = {
     } else if (task.group.id && !task.userId) {
       group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      if (group.leader !== user._id) throw new Forbidden(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+      if (challenge.leader !== user._id) throw new Forbidden(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
@@ -570,11 +570,11 @@ api.updateChecklistItem = {
     } else if (task.group.id && !task.userId) {
       group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      if (group.leader !== user._id) throw new Forbidden(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+      if (challenge.leader !== user._id) throw new Forbidden(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
@@ -631,11 +631,11 @@ api.removeChecklistItem = {
     } else if (task.group.id && !task.userId) {
       group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      if (group.leader !== user._id) throw new Forbidden(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+      if (challenge.leader !== user._id) throw new Forbidden(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
@@ -903,16 +903,16 @@ api.deleteTask = {
       //  @TODO: Abstract this access snippet
       let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      if (group.leader !== user._id) throw new Forbidden(res.t('onlyGroupLeaderCanEditTasks'));
       await group.removeTask(task);
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+      if (challenge.leader !== user._id) throw new Forbidden(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.userId && task.challenge.id && !task.challenge.broken) {
-      throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));
+      throw new Forbidden(res.t('cantDeleteChallengeTasks'));
     }
 
     if (task.type !== 'todo' || !task.completed) {

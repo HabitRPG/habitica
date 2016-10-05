@@ -12,7 +12,7 @@ import {
 } from '../../models/user';
 import {
   NotFound,
-  NotAuthorized,
+  Forbidden,
 } from '../../libs/errors';
 import * as Tasks from '../../models/task';
 import Bluebird from 'bluebird';
@@ -51,14 +51,14 @@ api.createChallenge = {
 
     let group = await Group.getGroup({user, groupId, fields: '-chat', mustBeMember: true});
     if (!group) throw new NotFound(res.t('groupNotFound'));
-    if (!group.isMember(user)) throw new NotAuthorized(res.t('mustBeGroupMember'));
+    if (!group.isMember(user)) throw new Forbidden(res.t('mustBeGroupMember'));
 
     if (group.leaderOnly && group.leaderOnly.challenges && group.leader !== user._id) {
-      throw new NotAuthorized(res.t('onlyGroupLeaderChal'));
+      throw new Forbidden(res.t('onlyGroupLeaderChal'));
     }
 
     if (group._id === TAVERN_ID && prize < 1) {
-      throw new NotAuthorized(res.t('tavChalsMinPrize'));
+      throw new Forbidden(res.t('tavChalsMinPrize'));
     }
 
     if (prize > 0) {
@@ -66,7 +66,7 @@ api.createChallenge = {
       let prizeCost = prize / 4;
 
       if (prizeCost > user.balance + groupBalance) {
-        throw new NotAuthorized(res.t('cantAfford'));
+        throw new Forbidden(res.t('cantAfford'));
       }
 
       if (groupBalance >= prizeCost) {
@@ -140,7 +140,7 @@ api.joinChallenge = {
 
     let challenge = await Challenge.findOne({ _id: req.params.challengeId });
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-    if (challenge.isMember(user)) throw new NotAuthorized(res.t('userAlreadyInChallenge'));
+    if (challenge.isMember(user)) throw new Forbidden(res.t('userAlreadyInChallenge'));
 
     let group = await Group.getGroup({user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true});
     if (!group || !challenge.hasAccess(user, group)) throw new NotFound(res.t('challengeNotFound'));
@@ -193,7 +193,7 @@ api.leaveChallenge = {
     let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy'});
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
-    if (!challenge.isMember(user)) throw new NotAuthorized(res.t('challengeMemberNotFound'));
+    if (!challenge.isMember(user)) throw new Forbidden(res.t('challengeMemberNotFound'));
 
     challenge.memberCount -= 1;
 
@@ -438,7 +438,7 @@ api.updateChallenge = {
 
     let group = await Group.getGroup({user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true});
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
-    if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderUpdateChal'));
+    if (!challenge.canModify(user)) throw new Forbidden(res.t('onlyLeaderUpdateChal'));
 
     _.merge(challenge, Challenge.sanitizeUpdate(req.body));
 
@@ -481,7 +481,7 @@ api.deleteChallenge = {
 
     let challenge = await Challenge.findOne({_id: req.params.challengeId}).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-    if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
+    if (!challenge.canModify(user)) throw new Forbidden(res.t('onlyLeaderDeleteChal'));
 
     // Close channel in background, some ops are run in the background without `await`ing
     await challenge.closeChal({broken: 'CHALLENGE_DELETED'});
@@ -516,7 +516,7 @@ api.selectChallengeWinner = {
 
     let challenge = await Challenge.findOne({_id: req.params.challengeId}).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-    if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
+    if (!challenge.canModify(user)) throw new Forbidden(res.t('onlyLeaderDeleteChal'));
 
     let winner = await User.findOne({_id: req.params.winnerId}).exec();
     if (!winner || winner.challenges.indexOf(challenge._id) === -1) throw new NotFound(res.t('winnerNotFound', {userId: req.params.winnerId}));

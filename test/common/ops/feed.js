@@ -2,7 +2,7 @@ import feed from '../../../website/common/script/ops/feed';
 import content from '../../../website/common/script/content';
 import {
   BadRequest,
-  NotAuthorized,
+  Forbidden,
   NotFound,
 } from '../../../website/common/script/libs/errors';
 import i18n from '../../../website/common/script/i18n';
@@ -75,7 +75,7 @@ describe('shared.ops.feed', () => {
       try {
         feed(user, {params: {pet: 'Wolf-Veteran', food: 'Meat'}});
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.equal(i18n.t('messageCannotFeedPet'));
         done();
       }
@@ -88,7 +88,7 @@ describe('shared.ops.feed', () => {
       try {
         feed(user, {params: {pet: 'Wolf-Base', food: 'Meat'}});
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.equal(i18n.t('messageAlreadyMount'));
         done();
       }

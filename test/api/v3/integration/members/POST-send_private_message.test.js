@@ -49,8 +49,8 @@ describe('POST /members/send-private-message', () => {
       message: messageToSend,
       toUserId: receiver._id,
     })).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
+      code: 403,
+      error: 'Forbidden',
       message: t('notAuthorizedToSendMessageToThisUser'),
     });
   });
@@ -63,8 +63,8 @@ describe('POST /members/send-private-message', () => {
       message: messageToSend,
       toUserId: receiver._id,
     })).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
+      code: 403,
+      error: 'Forbidden',
       message: t('notAuthorizedToSendMessageToThisUser'),
     });
   });
@@ -76,8 +76,8 @@ describe('POST /members/send-private-message', () => {
       message: messageToSend,
       toUserId: receiver._id,
     })).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
+      code: 403,
+      error: 'Forbidden',
       message: t('notAuthorizedToSendMessageToThisUser'),
     });
   });

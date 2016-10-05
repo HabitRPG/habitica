@@ -4,7 +4,7 @@ import {
 } from '../../helpers/common.helper';
 import buyHealthPotion from '../../../website/common/script/ops/buyHealthPotion';
 import {
-  NotAuthorized,
+  Forbidden,
 } from '../../../website/common/script/libs/errors';
 import i18n from '../../../website/common/script/i18n';
 
@@ -53,7 +53,7 @@ describe('shared.ops.buyHealthPotion', () => {
       try {
         buyHealthPotion(user);
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
         expect(user.stats.hp).to.eql(45);
         expect(user.stats.gp).to.eql(5);
@@ -68,7 +68,7 @@ describe('shared.ops.buyHealthPotion', () => {
       try {
         buyHealthPotion(user);
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.equal(i18n.t('messageHealthAlreadyMax'));
         expect(user.stats.hp).to.eql(50);
         expect(user.stats.gp).to.eql(40);

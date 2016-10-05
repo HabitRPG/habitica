@@ -27,8 +27,8 @@ describe('DELETE social registration', () => {
         'auth.local': { ok: true },
       });
       await expect(user.del('/user/auth/social/facebook')).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('cantDetachSocial'),
       });
     });
@@ -65,8 +65,8 @@ describe('DELETE social registration', () => {
         'auth.local': { ok: true },
       });
       await expect(user.del('/user/auth/social/google')).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('cantDetachSocial'),
       });
     });

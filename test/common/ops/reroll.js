@@ -6,7 +6,7 @@ import {
   generateReward,
 } from '../../helpers/common.helper';
 import {
-  NotAuthorized,
+  Forbidden,
 } from '../../../website/common/script/libs/errors';
 
 describe('shared.ops.reroll', () => {
@@ -25,7 +25,7 @@ describe('shared.ops.reroll', () => {
     try {
       reroll(user);
     } catch (err) {
-      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err).to.be.an.instanceof(Forbidden);
       expect(err.message).to.equal(i18n.t('notEnoughGems'));
       done();
     }

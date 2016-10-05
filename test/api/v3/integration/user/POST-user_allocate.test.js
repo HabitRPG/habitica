@@ -24,8 +24,8 @@ describe('POST /user/allocate', () => {
   it('returns an error if the user doesn\'t have attribute points', async () => {
     await expect(user.post('/user/allocate'))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('notEnoughAttrPoints'),
       });
   });

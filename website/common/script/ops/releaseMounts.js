@@ -1,14 +1,14 @@
 import content from '../content/index';
 import i18n from '../i18n';
 import {
-  NotAuthorized,
+  Forbidden,
 } from '../libs/errors';
 
 module.exports = function releaseMounts (user, req = {}, analytics) {
   let mount;
 
   if (user.balance < 1) {
-    throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
+    throw new Forbidden(i18n.t('notEnoughGems', req.language));
   }
 
   user.balance -= 1;

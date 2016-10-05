@@ -1,6 +1,6 @@
 import t from './translation';
 import _ from 'lodash';
-import { NotAuthorized } from '../libs/errors';
+import { Forbidden } from '../libs/errors';
 /*
   ---------------------------------------------------------------
   Spells
@@ -263,7 +263,7 @@ spells.special = {
     target: 'user',
     notes: t('spellSpecialSnowballAuraNotes'),
     cast (user, target, req) {
-      if (!user.items.special.snowball) throw new NotAuthorized(t('spellNotOwned')(req.language));
+      if (!user.items.special.snowball) throw new Forbidden(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = true;
       target.stats.buffs.spookySparkles = false;
       target.stats.buffs.shinySeed = false;
@@ -293,7 +293,7 @@ spells.special = {
     target: 'user',
     notes: t('spellSpecialSpookySparklesNotes'),
     cast (user, target, req) {
-      if (!user.items.special.spookySparkles) throw new NotAuthorized(t('spellNotOwned')(req.language));
+      if (!user.items.special.spookySparkles) throw new Forbidden(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
       target.stats.buffs.spookySparkles = true;
       target.stats.buffs.shinySeed = false;
@@ -323,7 +323,7 @@ spells.special = {
     target: 'user',
     notes: t('spellSpecialShinySeedNotes'),
     cast (user, target, req) {
-      if (!user.items.special.shinySeed) throw new NotAuthorized(t('spellNotOwned')(req.language));
+      if (!user.items.special.shinySeed) throw new Forbidden(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
       target.stats.buffs.spookySparkles = false;
       target.stats.buffs.shinySeed = true;
@@ -353,7 +353,7 @@ spells.special = {
     target: 'user',
     notes: t('spellSpecialSeafoamNotes'),
     cast (user, target, req) {
-      if (!user.items.special.seafoam) throw new NotAuthorized(t('spellNotOwned')(req.language));
+      if (!user.items.special.seafoam) throw new Forbidden(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
       target.stats.buffs.spookySparkles = false;
       target.stats.buffs.shinySeed = false;

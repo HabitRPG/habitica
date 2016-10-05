@@ -35,8 +35,8 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
 
       expect(nonMember.post(`/groups/${guild._id}/removeMember/${member._id}`))
         .to.eventually.be.rejected.and.eql({
-          code: 401,
-          type: 'NotAuthorized',
+          code: 403,
+          type: 'Forbidden',
           message: t('onlyLeaderCanRemoveMember'),
         });
     });
@@ -44,8 +44,8 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
     it('returns an error when user is a non-leader member of a group', async () => {
       expect(member2.post(`/groups/${guild._id}/removeMember/${member._id}`))
         .to.eventually.be.rejected.and.eql({
-          code: 401,
-          type: 'NotAuthorized',
+          code: 403,
+          type: 'Forbidden',
           message: t('onlyLeaderCanRemoveMember'),
         });
     });

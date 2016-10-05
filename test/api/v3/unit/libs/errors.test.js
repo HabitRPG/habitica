@@ -2,6 +2,8 @@
 import {
   CustomError,
   NotAuthorized,
+  Forbidden,
+  UnprocessableEntity,
   BadRequest,
   InternalServerError,
   NotFound,
@@ -39,6 +41,32 @@ describe('Custom Errors', () => {
       let notAuthorizedError = new NotAuthorized('Custom Error Message');
 
       expect(notAuthorizedError.message).to.eql('Custom Error Message');
+    });
+  });
+
+  describe('Forbidden', () => {
+    it('is an instance of CustomError', () => {
+      let forbiddenError = new Forbidden();
+
+      expect(forbiddenError).to.be.an.instanceOf(CustomError);
+    });
+
+    it('it returns an http code of 403', () => {
+      let forbiddenError = new Forbidden();
+
+      expect(forbiddenError.httpCode).to.eql(403);
+    });
+
+    it('returns a default message', () => {
+      let forbiddenError = new Forbidden();
+
+      expect(forbiddenError.message).to.eql('Forbidden.');
+    });
+
+    it('allows a custom message', () => {
+      let forbiddenError = new Forbidden('Custom Error Message');
+
+      expect(forbiddenError.message).to.eql('Custom Error Message');
     });
   });
 
@@ -91,6 +119,32 @@ describe('Custom Errors', () => {
       let badRequestError = new BadRequest('Custom Error Message');
 
       expect(badRequestError.message).to.eql('Custom Error Message');
+    });
+  });
+
+  describe('UnprocessableEntity', () => {
+    it('is an instance of CustomError', () => {
+      let unprocessibleEntityError = new UnprocessableEntity();
+
+      expect(unprocessibleEntityError).to.be.an.instanceOf(CustomError);
+    });
+
+    it('it returns an http code of 422', () => {
+      let unprocessibleEntityError = new UnprocessableEntity();
+
+      expect(unprocessibleEntityError.httpCode).to.eql(422);
+    });
+
+    it('returns a default message', () => {
+      let unprocessibleEntityError = new UnprocessableEntity();
+
+      expect(unprocessibleEntityError.message).to.eql('Unprocessable Entity.');
+    });
+
+    it('allows a custom message', () => {
+      let unprocessibleEntityError = new UnprocessableEntity('Custom Error Message');
+
+      expect(unprocessibleEntityError.message).to.eql('Custom Error Message');
     });
   });
 

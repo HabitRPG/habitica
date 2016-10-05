@@ -53,8 +53,8 @@ describe('POST /members/transfer-gems', () => {
       gemAmount,
       toUserId: userToSendMessage._id,
     })).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
+      code: 403,
+      error: 'Forbidden',
       message: t('cannotSendGemsToYourself'),
     });
   });
@@ -88,8 +88,8 @@ describe('POST /members/transfer-gems', () => {
       gemAmount: -5,
       toUserId: receiver._id,
     })).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
+      code: 403,
+      error: 'Forbidden',
       message: t('badAmountOfGemsToSend'),
     });
   });
@@ -100,8 +100,8 @@ describe('POST /members/transfer-gems', () => {
       gemAmount: gemAmount + 4,
       toUserId: receiver._id,
     })).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
+      code: 403,
+      error: 'Forbidden',
       message: t('badAmountOfGemsToSend'),
     });
   });

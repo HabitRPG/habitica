@@ -13,8 +13,8 @@ describe('payments - stripe - #subscribeEdit', () => {
 
   it('verifies credentials', async () => {
     await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
+      code: 403,
+      error: 'Forbidden',
       message: t('missingSubscription'),
     });
   });

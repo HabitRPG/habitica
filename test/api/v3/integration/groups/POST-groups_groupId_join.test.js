@@ -47,8 +47,8 @@ describe('POST /group/:groupId/join', () => {
     it('returns an error is user was already a member', async () => {
       await joiningUser.post(`/groups/${publicGuild._id}/join`);
       await expect(joiningUser.post(`/groups/${publicGuild._id}/join`)).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('userAlreadyInGroup'),
       });
     });
@@ -92,8 +92,8 @@ describe('POST /group/:groupId/join', () => {
       let userWithoutInvite = await generateUser();
 
       await expect(userWithoutInvite.post(`/groups/${guild._id}/join`)).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('messageGroupRequiresInvite'),
       });
     });
@@ -159,8 +159,8 @@ describe('POST /group/:groupId/join', () => {
       let userWithoutInvite = await generateUser();
 
       await expect(userWithoutInvite.post(`/groups/${party._id}/join`)).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('messageGroupRequiresInvite'),
       });
     });

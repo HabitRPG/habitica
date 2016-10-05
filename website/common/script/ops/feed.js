@@ -3,7 +3,7 @@ import i18n from '../i18n';
 import _ from 'lodash';
 import {
   BadRequest,
-  NotAuthorized,
+  Forbidden,
   NotFound,
 } from '../libs/errors';
 
@@ -48,11 +48,11 @@ module.exports = function feed (user, req = {}) {
   }
 
   if (pet.type === 'special') {
-    throw new NotAuthorized(i18n.t('messageCannotFeedPet', req.language));
+    throw new Forbidden(i18n.t('messageCannotFeedPet', req.language));
   }
 
   if (user.items.mounts[pet.key]) {
-    throw new NotAuthorized(i18n.t('messageAlreadyMount', req.language));
+    throw new Forbidden(i18n.t('messageAlreadyMount', req.language));
   }
 
   let message;

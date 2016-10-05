@@ -1,7 +1,7 @@
 import hourglassPurchase from '../../../website/common/script/ops/hourglassPurchase';
 import {
   BadRequest,
-  NotAuthorized,
+  Forbidden,
 } from '../../../website/common/script/libs/errors';
 import i18n from '../../../website/common/script/i18n';
 import content from '../../../website/common/script/content/index';
@@ -41,7 +41,7 @@ describe('user.ops.hourglassPurchase', () => {
       try {
         hourglassPurchase(user, {params: {type: 'notAType', key: 'MantisShrimp-Base'}});
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.eql(i18n.t('typeNotAllowedHourglass', {allowedTypes: _.keys(content.timeTravelStable).toString()}));
         done();
       }
@@ -51,7 +51,7 @@ describe('user.ops.hourglassPurchase', () => {
       try {
         hourglassPurchase(user, {params: {type: 'pets', key: 'MantisShrimp-Base'}});
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.eql(i18n.t('notEnoughHourglasses'));
         done();
       }
@@ -61,7 +61,7 @@ describe('user.ops.hourglassPurchase', () => {
       try {
         hourglassPurchase(user, {params: {type: 'mounts', key: 'MantisShrimp-Base'}});
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.eql(i18n.t('notEnoughHourglasses'));
         done();
       }
@@ -73,7 +73,7 @@ describe('user.ops.hourglassPurchase', () => {
       try {
         hourglassPurchase(user, {params: {type: 'pets', key: 'Wolf-Veteran'}});
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.eql(i18n.t('notAllowedHourglass'));
         done();
       }
@@ -85,7 +85,7 @@ describe('user.ops.hourglassPurchase', () => {
       try {
         hourglassPurchase(user, {params: {type: 'mounts', key: 'Orca-Base'}});
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.eql(i18n.t('notAllowedHourglass'));
         done();
       }
@@ -100,7 +100,7 @@ describe('user.ops.hourglassPurchase', () => {
       try {
         hourglassPurchase(user, {params: {type: 'pets', key: 'MantisShrimp-Base'}});
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.eql(i18n.t('petsAlreadyOwned'));
         done();
       }
@@ -115,7 +115,7 @@ describe('user.ops.hourglassPurchase', () => {
       try {
         hourglassPurchase(user, {params: {type: 'mounts', key: 'MantisShrimp-Base'}});
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.eql(i18n.t('mountsAlreadyOwned'));
         done();
       }

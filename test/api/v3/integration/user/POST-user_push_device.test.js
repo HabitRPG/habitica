@@ -43,8 +43,8 @@ describe('POST /user/push-devices', () => {
     await user.post('/user/push-devices', {type, regId});
     await expect(user.post('/user/push-devices', {type, regId}))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('pushDeviceAlreadyAdded'),
       });
   });

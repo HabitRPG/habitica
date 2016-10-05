@@ -56,8 +56,8 @@ describe('POST /groups/:groupId/quests/accept', () => {
 
       await expect(guildLeader.post(`/groups/${guild._id}/quests/accept`))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('guildQuestsNotSupported'),
       });
     });
@@ -97,8 +97,8 @@ describe('POST /groups/:groupId/quests/accept', () => {
 
       await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('questAlreadyUnderway'),
       });
     });

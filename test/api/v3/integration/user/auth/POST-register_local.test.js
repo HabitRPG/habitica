@@ -200,8 +200,8 @@ describe('POST /user/auth/local/register', () => {
         password,
         confirmPassword: password,
       })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('onlySocialAttachLocal'),
       });
     });
@@ -244,8 +244,8 @@ describe('POST /user/auth/local/register', () => {
         password,
         confirmPassword: password,
       })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('usernameTaken'),
       });
     });
@@ -260,8 +260,8 @@ describe('POST /user/auth/local/register', () => {
         password,
         confirmPassword: password,
       })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('emailTaken'),
       });
     });

@@ -40,8 +40,8 @@ describe('POST /user/class/cast/:spellId', () => {
     await user.update({'stats.class': 'rogue'});
     await expect(user.post('/user/class/cast/backStab'))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('notEnoughMana'),
       });
   });
@@ -49,8 +49,8 @@ describe('POST /user/class/cast/:spellId', () => {
   it('returns an error if spell.value > user.gold', async () => {
     await expect(user.post('/user/class/cast/birthday'))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('messageNotEnoughGold'),
       });
   });
@@ -59,8 +59,8 @@ describe('POST /user/class/cast/:spellId', () => {
     await user.update({'stats.mp': 200, 'stats.class': 'wizard'});
     await expect(user.post('/user/class/cast/earth'))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('spellLevelTooHigh', {level: 13}),
       });
   });
@@ -68,8 +68,8 @@ describe('POST /user/class/cast/:spellId', () => {
   it('returns an error if user doesn\'t own the spell', async () => {
     await expect(user.post('/user/class/cast/snowball'))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('spellNotOwned'),
       });
   });

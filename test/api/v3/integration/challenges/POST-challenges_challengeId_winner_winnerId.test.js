@@ -70,8 +70,8 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
 
     it('returns an error when user doesn\'t have permissions to select winner', async () => {
       await expect(winningUser.post(`/challenges/${challenge._id}/selectWinner/${winningUser._id}`)).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('onlyLeaderDeleteChal'),
       });
     });

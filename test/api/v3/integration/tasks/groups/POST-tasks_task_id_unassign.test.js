@@ -58,8 +58,8 @@ describe('POST /tasks/:taskId/unassign/:memberId', () => {
 
     await expect(user.post(`/tasks/${nonGroupTask._id}/unassign/${member._id}`))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('onlyGroupTasksCanBeAssigned'),
       });
   });
@@ -78,8 +78,8 @@ describe('POST /tasks/:taskId/unassign/:memberId', () => {
   it('returns error when non leader tries to create a task', async () => {
     await expect(member.post(`/tasks/${task._id}/unassign/${member._id}`))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('onlyGroupLeaderCanEditTasks'),
       });
   });

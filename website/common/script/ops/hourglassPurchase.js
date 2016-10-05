@@ -3,7 +3,7 @@ import i18n from '../i18n';
 import _ from 'lodash';
 import {
   BadRequest,
-  NotAuthorized,
+  Forbidden,
 } from '../libs/errors';
 
 module.exports = function purchaseHourglass (user, req = {}, analytics) {
@@ -14,19 +14,19 @@ module.exports = function purchaseHourglass (user, req = {}, analytics) {
   if (!type) throw new BadRequest(i18n.t('missingTypeParam', req.language));
 
   if (!content.timeTravelStable[type]) {
-    throw new NotAuthorized(i18n.t('typeNotAllowedHourglass', {allowedTypes: _.keys(content.timeTravelStable).toString()}, req.language));
+    throw new Forbidden(i18n.t('typeNotAllowedHourglass', {allowedTypes: _.keys(content.timeTravelStable).toString()}, req.language));
   }
 
   if (!_.contains(_.keys(content.timeTravelStable[type]), key)) {
-    throw new NotAuthorized(i18n.t('notAllowedHourglass', req.language));
+    throw new Forbidden(i18n.t('notAllowedHourglass', req.language));
   }
 
   if (user.items[type][key]) {
-    throw new NotAuthorized(i18n.t(`${type}AlreadyOwned`, req.language));
+    throw new Forbidden(i18n.t(`${type}AlreadyOwned`, req.language));
   }
 
   if (user.purchased.plan.consecutive.trinkets <= 0) {
-    throw new NotAuthorized(i18n.t('notEnoughHourglasses', req.language));
+    throw new Forbidden(i18n.t('notEnoughHourglasses', req.language));
   }
 
   user.purchased.plan.consecutive.trinkets--;

@@ -6,7 +6,7 @@ import {
 } from '../../../../helpers/api-unit.helper';
 import i18n from '../../../../../website/common/script/i18n';
 import { ensureAdmin, ensureSudo } from '../../../../../website/server/middlewares/ensureAccessRight';
-import { NotAuthorized } from '../../../../../website/server/libs/errors';
+import { Forbidden } from '../../../../../website/server/libs/errors';
 
 describe('ensure access middlewares', () => {
   let res, req, next;
@@ -18,12 +18,12 @@ describe('ensure access middlewares', () => {
   });
 
   context('ensure admin', () => {
-    it('returns not authorized when user is not an admin', () => {
+    it('returns forbidden when user is not an admin', () => {
       res.locals = {user: {contributor: {admin: false}}};
 
       ensureAdmin(req, res, next);
 
-      expect(next).to.be.calledWith(new NotAuthorized(i18n.t('noAdminAccess')));
+      expect(next).to.be.calledWith(new Forbidden(i18n.t('noAdminAccess')));
     });
 
     it('passes when user is an admin', () => {
@@ -37,12 +37,12 @@ describe('ensure access middlewares', () => {
   });
 
   context('ensure sudo', () => {
-    it('returns not authorized when user is not a sudo user', () => {
+    it('returns forbidden when user is not a sudo user', () => {
       res.locals = {user: {contributor: {sudo: false}}};
 
       ensureSudo(req, res, next);
 
-      expect(next).to.be.calledWith(new NotAuthorized(i18n.t('noSudoAccess')));
+      expect(next).to.be.calledWith(new Forbidden(i18n.t('noSudoAccess')));
     });
 
     it('passes when user is a sudo user', () => {

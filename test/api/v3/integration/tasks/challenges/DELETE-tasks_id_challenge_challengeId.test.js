@@ -38,8 +38,8 @@ describe('DELETE /tasks/:id', () => {
     let anotherUser = await generateUser();
 
     await expect(anotherUser.del(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
+      code: 403,
+      error: 'Forbidden',
       message: t('onlyChalLeaderEditTasks'),
     });
   });
@@ -77,8 +77,8 @@ describe('DELETE /tasks/:id', () => {
     it('returns error when user attempts to delete an active challenge task', async () => {
       await expect(anotherUser.del(`/tasks/${anotherUsersNewChallengeTaskID}`))
         .to.eventually.be.rejected.and.eql({
-          code: 401,
-          error: 'NotAuthorized',
+          code: 403,
+          error: 'Forbidden',
           message: t('cantDeleteChallengeTasks'),
         });
     });

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import i18n from '../i18n';
 import {
   BadRequest,
-  NotAuthorized,
+  Forbidden,
 } from '../libs/errors';
 import content from '../content/index';
 
@@ -14,7 +14,7 @@ module.exports = function readCard (user, req = {}) {
   }
 
   if (_.keys(content.cardTypes).indexOf(cardType) === -1) {
-    throw new NotAuthorized(i18n.t('cardTypeNotAllowed', req.language));
+    throw new Forbidden(i18n.t('cardTypeNotAllowed', req.language));
   }
 
   user.items.special[`${cardType}Received`].shift();

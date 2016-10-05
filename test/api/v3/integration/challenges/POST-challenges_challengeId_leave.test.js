@@ -70,8 +70,8 @@ describe('POST /challenges/:challengeId/leave', () => {
 
     it('returns an error when user isn\'t a member of the challenge', async () => {
       await expect(notInChallengeUser.post(`/challenges/${challenge._id}/leave`)).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('challengeMemberNotFound'),
       });
     });

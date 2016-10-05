@@ -2,14 +2,14 @@ import content from '../content/index';
 import i18n from '../i18n';
 import _ from 'lodash';
 import {
-  NotAuthorized,
+  Forbidden,
 } from '../libs/errors';
 import randomVal from '../libs/randomVal';
 import predictableRandom from '../fns/predictableRandom';
 
 module.exports = function revive (user, req = {}, analytics) {
   if (user.stats.hp > 0) {
-    throw new NotAuthorized(i18n.t('cannotRevive', req.language));
+    throw new Forbidden(i18n.t('cannotRevive', req.language));
   }
 
   _.merge(user.stats, {

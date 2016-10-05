@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { capByLevel } from '../statHelpers';
 import { MAX_LEVEL } from '../constants';
 import {
-  NotAuthorized,
+  Forbidden,
 } from '../libs/errors';
 import equip from './equip';
 
@@ -11,7 +11,7 @@ const USERSTATSLIST = ['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'];
 
 module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
   if (user.balance < 1.5 && user.stats.lvl < MAX_LEVEL) {
-    throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
+    throw new Forbidden(i18n.t('notEnoughGems', req.language));
   }
 
   let analyticsData = {

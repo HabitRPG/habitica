@@ -56,8 +56,8 @@ describe('POST /group', () => {
           type: 'guild',
         })
       ).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('messageInsufficientGems'),
       });
     });
@@ -207,8 +207,8 @@ describe('POST /group', () => {
       });
 
       await expect(user.post('/groups')).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('messageGroupAlreadyInParty'),
       });
     });
@@ -219,8 +219,8 @@ describe('POST /group', () => {
         type: partyType,
         privacy: 'public',
       })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('partyMustbePrivate'),
       });
     });

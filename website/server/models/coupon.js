@@ -7,7 +7,7 @@ import couponCode from 'coupon-code';
 import baseModel from '../libs/baseModel';
 import {
   BadRequest,
-  NotAuthorized,
+  Forbidden,
 } from '../libs/errors';
 
 export let schema = new mongoose.Schema({
@@ -35,7 +35,7 @@ schema.statics.generate = async function generateCoupons (event, count = 1) {
 schema.statics.apply = async function applyCoupon (user, req, code) {
   let coupon = await this.findById(couponCode.validate(code)).exec();
   if (!coupon) throw new BadRequest(shared.i18n.t('invalidCoupon', req.language));
-  if (coupon.user) throw new NotAuthorized(shared.i18n.t('couponUsed', req.language));
+  if (coupon.user) throw new Forbidden(shared.i18n.t('couponUsed', req.language));
 
   if (coupon.event === 'wondercon') {
     user.items.gear.owned.eyewear_special_wondercon_red = true;

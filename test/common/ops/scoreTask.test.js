@@ -9,7 +9,7 @@ import {
 import common from '../../../website/common';
 import i18n from '../../../website/common/script/i18n';
 import {
-  NotAuthorized,
+  Forbidden,
 } from '../../../website/common/script/libs/errors';
 
 let EPSILON = 0.0001; // negligible distance between datapoints
@@ -66,7 +66,7 @@ describe('shared.ops.scoreTask', () => {
     try {
       scoreTask({ user: ref.afterUser, task: reward });
     } catch (err) {
-      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err).to.be.an.instanceof(Forbidden);
       expect(err.message).to.eql(i18n.t('messageNotEnoughGold'));
       done();
     }

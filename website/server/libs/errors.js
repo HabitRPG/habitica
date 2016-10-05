@@ -29,6 +29,19 @@ export const NotAuthorized = common.errors.NotAuthorized;
 export const BadRequest = common.errors.BadRequest;
 
 /**
+ * @apiDefine Forbidden
+ * @apiError Forbidden The user did not have access to the requested resource.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 403 Not Found
+ *     {
+ *       "error": "Forbidden",
+ *       "message": "Forbidden."
+ *     }
+ */
+export const Forbidden = common.errors.Forbidden;
+
+/**
  * @apiDefine NotFound
  * @apiError NotFound The requested resource was not found.
  *
@@ -40,6 +53,19 @@ export const BadRequest = common.errors.BadRequest;
  *     }
  */
 export const NotFound = common.errors.NotFound;
+
+/**
+ * @apiDefine UnprocessableEntity
+ * @apiError UnprocessableEntity The syntax of the request was correct, but it could not be processed.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 422 Not Found
+ *     {
+ *       "error": "UnprocessableEntity",
+ *       "message": "Unprocessable Entity."
+ *     }
+ */
+export const UnprocessableEntity = common.errors.UnprocessableEntity;
 
 /**
  * @apiDefine InternalServerError

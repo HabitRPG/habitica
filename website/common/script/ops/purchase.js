@@ -5,7 +5,7 @@ import splitWhitespace from '../libs/splitWhitespace';
 import planGemLimits from '../libs/planGemLimits';
 import {
   NotFound,
-  NotAuthorized,
+  Forbidden,
   BadRequest,
 } from '../libs/errors';
 
@@ -29,15 +29,15 @@ module.exports = function purchase (user, req = {}, analytics) {
     convCap += user.purchased.plan.consecutive.gemCapExtra;
 
     if (!user.purchased || !user.purchased.plan || !user.purchased.plan.customerId) {
-      throw new NotAuthorized(i18n.t('mustSubscribeToPurchaseGems', req.language));
+      throw new Forbidden(i18n.t('mustSubscribeToPurchaseGems', req.language));
     }
 
     if (user.stats.gp < convRate) {
-      throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
+      throw new Forbidden(i18n.t('messageNotEnoughGold', req.language));
     }
 
     if (user.purchased.plan.gemsBought >= convCap) {
-      throw new NotAuthorized(i18n.t('reachedGoldToGemCap', {convCap}, req.language));
+      throw new Forbidden(i18n.t('reachedGoldToGemCap', {convCap}, req.language));
     }
 
     user.balance += 0.25;
@@ -74,7 +74,7 @@ module.exports = function purchase (user, req = {}, analytics) {
     }
 
     if (user.items.gear.owned[key]) {
-      throw new NotAuthorized(i18n.t('alreadyHave', req.language));
+      throw new Forbidden(i18n.t('alreadyHave', req.language));
     }
 
     price = (item.twoHanded || item.gearSet === 'animal' ? 2 : 1) / 4;
@@ -89,11 +89,11 @@ module.exports = function purchase (user, req = {}, analytics) {
   }
 
   if (!item.canBuy(user)) {
-    throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));
+    throw new Forbidden(i18n.t('messageNotAvailable', req.language));
   }
 
   if (!user.balance || user.balance < price) {
-    throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
+    throw new Forbidden(i18n.t('notEnoughGems', req.language));
   }
 
   user.balance -= price;

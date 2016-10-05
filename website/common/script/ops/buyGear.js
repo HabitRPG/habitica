@@ -4,7 +4,7 @@ import _ from 'lodash';
 import splitWhitespace from '../libs/splitWhitespace';
 import {
   BadRequest,
-  NotAuthorized,
+  Forbidden,
   NotFound,
 } from '../libs/errors';
 import handleTwoHanded from '../fns/handleTwoHanded';
@@ -19,17 +19,17 @@ module.exports = function buyGear (user, req = {}, analytics) {
   if (!item) throw new NotFound(i18n.t('itemNotFound', {key}, req.language));
 
   if (user.stats.gp < item.value) {
-    throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
+    throw new Forbidden(i18n.t('messageNotEnoughGold', req.language));
   }
 
   if (item.canOwn && !item.canOwn(user)) {
-    throw new NotAuthorized(i18n.t('cannotBuyItem', req.language));
+    throw new Forbidden(i18n.t('cannotBuyItem', req.language));
   }
 
   let message;
 
   if (user.items.gear.owned[item.key]) {
-    throw new NotAuthorized(i18n.t('equipmentAlreadyOwned', req.language));
+    throw new Forbidden(i18n.t('equipmentAlreadyOwned', req.language));
   }
 
   if (user.preferences.autoEquip) {

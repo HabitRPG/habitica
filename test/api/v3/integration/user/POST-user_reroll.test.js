@@ -15,8 +15,8 @@ describe('POST /user/reroll', () => {
   it('returns an error when user balance is too low', async () => {
     await expect(user.post('/user/reroll'))
       .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('notEnoughGems'),
       });
   });

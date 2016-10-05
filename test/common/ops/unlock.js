@@ -4,7 +4,7 @@ import {
   generateUser,
 } from '../../helpers/common.helper';
 import {
-  NotAuthorized,
+  Forbidden,
   BadRequest,
 } from '../../../website/common/script/libs/errors';
 
@@ -37,7 +37,7 @@ describe('shared.ops.unlock', () => {
     try {
       unlock(user, {query: {path: unlockPath}});
     } catch (err) {
-      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err).to.be.an.instanceof(Forbidden);
       expect(err.message).to.equal(i18n.t('notEnoughGems'));
       done();
     }
@@ -48,7 +48,7 @@ describe('shared.ops.unlock', () => {
       unlock(user, {query: {path: unlockPath}});
       unlock(user, {query: {path: unlockPath}});
     } catch (err) {
-      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err).to.be.an.instanceof(Forbidden);
       expect(err.message).to.equal(i18n.t('alreadyUnlocked'));
       done();
     }
@@ -60,7 +60,7 @@ describe('shared.ops.unlock', () => {
       unlock(user, {query: {path: unlockPath}});
       unlock(user, {query: {path: unlockPath}});
     } catch (err) {
-      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err).to.be.an.instanceof(Forbidden);
       expect(err.message).to.equal(i18n.t('alreadyUnlocked'));
       done();
     }

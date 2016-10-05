@@ -35,8 +35,8 @@ describe('POST /challenges', () => {
       group: 'habitrpg',
       prize: 0,
     })).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
+      code: 403,
+      error: 'Forbidden',
       message: t('tavChalsMinPrize'),
     });
   });
@@ -54,8 +54,8 @@ describe('POST /challenges', () => {
       group: group._id,
       prize: 4,
     })).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
+      code: 403,
+      error: 'Forbidden',
       message: t('mustBeGroupMember'),
     });
   });
@@ -88,8 +88,8 @@ describe('POST /challenges', () => {
       await expect(groupMember.post('/challenges', {
         group: group._id,
       })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('onlyGroupLeaderChal'),
       });
     });
@@ -98,8 +98,8 @@ describe('POST /challenges', () => {
       await expect(groupMember.post('/challenges', {
         group: group._id,
       })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('onlyGroupLeaderChal'),
       });
     });
@@ -146,8 +146,8 @@ describe('POST /challenges', () => {
         shortName: 'TC Label',
         prize: 20,
       })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('cantAfford'),
       });
     });

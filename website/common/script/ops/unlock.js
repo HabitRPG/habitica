@@ -2,7 +2,7 @@ import i18n from '../i18n';
 import _ from 'lodash';
 import splitWhitespace from '../libs/splitWhitespace';
 import {
-  NotAuthorized,
+  Forbidden,
   BadRequest,
 } from '../libs/errors';
 import setWith from 'lodash.setwith'; // Not available in lodash 3
@@ -44,18 +44,18 @@ module.exports = function unlock (user, req = {}, analytics) {
     });
 
     if (alreadyOwnedItems === setPaths.length) {
-      throw new NotAuthorized(i18n.t('alreadyUnlocked', req.language));
+      throw new Forbidden(i18n.t('alreadyUnlocked', req.language));
     // TODO write math formula to check if buying the full set is cheaper than the items individually
     // (item cost * number of remaining items) < setCost`
     } /* else if (alreadyOwnedItems > 0) {
-      throw new NotAuthorized(i18n.t('alreadyUnlockedPart', req.language));
+      throw new Forbidden(i18n.t('alreadyUnlockedPart', req.language));
     } */
   } else {
     alreadyOwns = _.get(user, `purchased.${path}`) === true;
   }
 
   if ((!user.balance || user.balance < cost) && !alreadyOwns) {
-    throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
+    throw new Forbidden(i18n.t('notEnoughGems', req.language));
   }
 
   if (isFullSet) {

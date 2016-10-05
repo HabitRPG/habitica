@@ -7,7 +7,7 @@ import {
 import buyGear from '../../../website/common/script/ops/buyGear';
 import shared from '../../../website/common/script';
 import {
-  NotAuthorized,
+  Forbidden,
 } from '../../../website/common/script/libs/errors';
 import i18n from '../../../website/common/script/i18n';
 
@@ -90,7 +90,7 @@ describe('shared.ops.buyGear', () => {
       try {
         buyGear(user, {params: {key: 'armor_warrior_1'}});
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.equal(i18n.t('equipmentAlreadyOwned'));
         done();
       }
@@ -132,7 +132,7 @@ describe('shared.ops.buyGear', () => {
       try {
         buyGear(user, {params: {key: 'armor_warrior_1'}});
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
         expect(user.items.gear.owned).to.not.have.property('armor_warrior_1');
         done();

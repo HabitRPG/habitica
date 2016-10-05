@@ -55,8 +55,8 @@ describe('POST /tasks/group/:groupid', () => {
       down: true,
       notes: 1976,
     })).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
+      code: 403,
+      error: 'Forbidden',
       message: t('onlyGroupLeaderCanEditTasks'),
     });
   });

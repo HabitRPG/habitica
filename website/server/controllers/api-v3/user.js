@@ -2,8 +2,9 @@ import { authWithHeaders } from '../../middlewares/auth';
 import common from '../../../common';
 import {
   NotFound,
-  BadRequest,
   NotAuthorized,
+  BadRequest,
+  Forbidden,
 } from '../../libs/errors';
 import * as Tasks from '../../models/task';
 import {
@@ -159,13 +160,13 @@ api.updateUser = {
       let purchasable = requiresPurchase[key];
 
       if (purchasable && !checkPreferencePurchase(user, purchasable, val)) {
-        throw new NotAuthorized(res.t('mustPurchaseToSet', { val, key }));
+        throw new Forbidden(res.t('mustPurchaseToSet', { val, key }));
       }
 
       if (acceptablePUTPaths[key]) {
         _.set(user, key, val);
       } else {
-        throw new NotAuthorized(res.t('messageUserOperationProtected', { operation: key }));
+        throw new Forbidden(res.t('messageUserOperationProtected', { operation: key }));
       }
     });
 
@@ -357,9 +358,9 @@ api.castSpell = {
     let spell = common.content.spells[klass][spellId];
 
     if (!spell) throw new NotFound(res.t('spellNotFound', {spellId}));
-    if (spell.mana > user.stats.mp) throw new NotAuthorized(res.t('notEnoughMana'));
-    if (spell.value > user.stats.gp && !spell.previousPurchase) throw new NotAuthorized(res.t('messageNotEnoughGold'));
-    if (spell.lvl > user.stats.lvl) throw new NotAuthorized(res.t('spellLevelTooHigh', {level: spell.lvl}));
+    if (spell.mana > user.stats.mp) throw new Forbidden(res.t('notEnoughMana'));
+    if (spell.value > user.stats.gp && !spell.previousPurchase) throw new Forbidden(res.t('messageNotEnoughGold'));
+    if (spell.lvl > user.stats.lvl) throw new Forbidden(res.t('spellLevelTooHigh', {level: spell.lvl}));
 
     let targetType = spell.target;
 

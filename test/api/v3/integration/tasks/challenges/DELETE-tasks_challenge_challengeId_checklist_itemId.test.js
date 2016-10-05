@@ -53,8 +53,8 @@ describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
 
     await expect(anotherUser.del(`/tasks/${task._id}/checklist/${savedTask.checklist[0].id}`))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('onlyChalLeaderEditTasks'),
       });
   });

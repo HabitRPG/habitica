@@ -17,7 +17,7 @@ import {
 } from '../../../middlewares/auth';
 import {
   BadRequest,
-  NotAuthorized,
+  Forbidden,
 } from '../../../libs/errors';
 
 const BASE_URL = nconf.get('BASE_URL');
@@ -160,7 +160,7 @@ api.subscribe = {
     if (sub.discount) {
       if (!req.query.coupon) throw new BadRequest(res.t('couponCodeRequired'));
       let coupon = await Coupon.findOne({_id: cc.validate(req.query.coupon), event: sub.key});
-      if (!coupon) throw new NotAuthorized(res.t('invalidCoupon'));
+      if (!coupon) throw new Forbidden(res.t('invalidCoupon'));
     }
 
     let billingPlanTitle = `Habitica Subscription ($${sub.price} every ${sub.months} months, recurring)`;
@@ -224,7 +224,7 @@ api.subscribeCancel = {
   async handler (req, res) {
     let user = res.locals.user;
     let customerId = user.purchased.plan.customerId;
-    if (!user.purchased.plan.customerId) throw new NotAuthorized(res.t('missingSubscription'));
+    if (!user.purchased.plan.customerId) throw new Forbidden(res.t('missingSubscription'));
 
     let customer = await paypalBillingAgreementGet(customerId);
 

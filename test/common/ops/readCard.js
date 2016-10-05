@@ -5,7 +5,7 @@ import {
 } from '../../helpers/common.helper';
 import {
   BadRequest,
-  NotAuthorized,
+  Forbidden,
 } from '../../../website/common/script/libs/errors';
 
 describe('shared.ops.readCard', () => {
@@ -32,7 +32,7 @@ describe('shared.ops.readCard', () => {
     try {
       readCard(user, {params: {cardType: 'randomCardType'}});
     } catch (err) {
-      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err).to.be.an.instanceof(Forbidden);
       expect(err.message).to.equal(i18n.t('cardTypeNotAllowed'));
       done();
     }

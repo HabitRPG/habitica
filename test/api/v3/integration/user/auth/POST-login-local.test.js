@@ -36,8 +36,8 @@ describe('POST /user/auth/local/login', () => {
       username: user.auth.local.username,
       password,
     })).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
+      code: 403,
+      error: 'Forbidden',
       message: t('accountSuspended', { userId: user._id }),
     });
   });

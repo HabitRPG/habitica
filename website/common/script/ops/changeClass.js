@@ -3,7 +3,7 @@ import _ from 'lodash';
 import splitWhitespace from '../libs/splitWhitespace';
 import { capByLevel } from '../statHelpers';
 import {
-  NotAuthorized,
+  Forbidden,
 } from '../libs/errors';
 
 module.exports = function changeClass (user, req = {}, analytics) {
@@ -11,7 +11,7 @@ module.exports = function changeClass (user, req = {}, analytics) {
 
   // user.flags.classSelected is set to false after the user paid the 3 gems
   if (user.stats.lvl < 10) {
-    throw new NotAuthorized(i18n.t('lvl10ChangeClass', req.language));
+    throw new Forbidden(i18n.t('lvl10ChangeClass', req.language));
   } else if (!user.flags.classSelected && (klass === 'warrior' || klass === 'rogue' || klass === 'wizard' || klass === 'healer')) {
     user.stats.class = klass;
     user.flags.classSelected = true;
@@ -57,7 +57,7 @@ module.exports = function changeClass (user, req = {}, analytics) {
       user.preferences.disableClasses = false;
       user.preferences.autoAllocate = false;
     } else {
-      if (user.balance < 0.75) throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
+      if (user.balance < 0.75) throw new Forbidden(i18n.t('notEnoughGems', req.language));
       user.balance -= 0.75;
     }
 

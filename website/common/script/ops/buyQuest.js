@@ -2,7 +2,7 @@ import i18n from '../i18n';
 import content from '../content/index';
 import {
   BadRequest,
-  NotAuthorized,
+  Forbidden,
   NotFound,
 } from '../libs/errors';
 import _ from 'lodash';
@@ -16,10 +16,10 @@ module.exports = function buyQuest (user, req = {}, analytics) {
   if (!item) throw new NotFound(i18n.t('questNotFound', {key}, req.language));
 
   if (!(item.category === 'gold' && item.goldValue)) {
-    throw new NotAuthorized(i18n.t('questNotGoldPurchasable', {key}, req.language));
+    throw new Forbidden(i18n.t('questNotGoldPurchasable', {key}, req.language));
   }
   if (user.stats.gp < item.goldValue) {
-    throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
+    throw new Forbidden(i18n.t('messageNotEnoughGold', req.language));
   }
 
   user.items.quests[item.key] = user.items.quests[item.key] || 0;

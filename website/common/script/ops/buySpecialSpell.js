@@ -4,7 +4,7 @@ import _ from 'lodash';
 import splitWhitespace from '../libs/splitWhitespace';
 import {
   BadRequest,
-  NotAuthorized,
+  Forbidden,
   NotFound,
 } from '../libs/errors';
 
@@ -16,7 +16,7 @@ module.exports = function buySpecialSpell (user, req = {}) {
   if (!item) throw new NotFound(i18n.t('spellNotFound', {spellId: key}, req.language));
 
   if (user.stats.gp < item.value) {
-    throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
+    throw new Forbidden(i18n.t('messageNotEnoughGold', req.language));
   }
   user.stats.gp -= item.value;
 

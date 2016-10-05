@@ -1,7 +1,7 @@
 import hatch from '../../../website/common/script/ops/hatch';
 import {
   BadRequest,
-  NotAuthorized,
+  Forbidden,
   NotFound,
 } from '../../../website/common/script/libs/errors';
 import i18n from '../../../website/common/script/i18n';
@@ -68,7 +68,7 @@ describe('shared.ops.hatch', () => {
         try {
           hatch(user, {params: {egg: 'Wolf', hatchingPotion: 'Base'}});
         } catch (err) {
-          expect(err).to.be.an.instanceof(NotAuthorized);
+          expect(err).to.be.an.instanceof(Forbidden);
           expect(err.message).to.equal(i18n.t('messageAlreadyPet'));
           expect(user.items.pets).to.eql({'Wolf-Base': 10});
           expect(user.items.eggs).to.eql({Wolf: 1});

@@ -45,8 +45,8 @@ describe('PUT /user', () => {
         let errorText = t('messageUserOperationProtected', { operation: Object.keys(data)[0] });
 
         await expect(user.put('/user', data)).to.eventually.be.rejected.and.eql({
-          code: 401,
-          error: 'NotAuthorized',
+          code: 403,
+          error: 'Forbidden',
           message: errorText,
         });
       });
@@ -67,8 +67,8 @@ describe('PUT /user', () => {
         let errorText = t('messageUserOperationProtected', { operation: Object.keys(data)[0] });
 
         await expect(user.put('/user', data)).to.eventually.be.rejected.and.eql({
-          code: 401,
-          error: 'NotAuthorized',
+          code: 403,
+          error: 'Forbidden',
           message: errorText,
         });
       });
@@ -108,8 +108,8 @@ describe('PUT /user', () => {
       await expect(user.put('/user', {
         'preferences.size': 'round',
       })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('mustPurchaseToSet', { val: 'round', key: 'preferences.size' }),
       });
     });
@@ -158,8 +158,8 @@ describe('PUT /user', () => {
 
       it(`returns an error if user tries to update ${type} with ${type} the user does not own`, async () => {
         await expect(user.put('/user', update)).to.eventually.be.rejected.and.eql({
-          code: 401,
-          error: 'NotAuthorized',
+          code: 403,
+          error: 'Forbidden',
           message: t('mustPurchaseToSet', {val: item, key: `preferences.${type}`}),
         });
       });

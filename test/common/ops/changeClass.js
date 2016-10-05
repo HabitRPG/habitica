@@ -1,6 +1,6 @@
 import changeClass from '../../../website/common/script/ops/changeClass';
 import {
-  NotAuthorized,
+  Forbidden,
 } from '../../../website/common/script/libs/errors';
 import i18n from '../../../website/common/script/i18n';
 import {
@@ -21,7 +21,7 @@ describe('shared.ops.changeClass', () => {
     try {
       changeClass(user, {query: {class: 'rogue'}});
     } catch (err) {
-      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err).to.be.an.instanceof(Forbidden);
       expect(err.message).to.equal(i18n.t('lvl10ChangeClass'));
       done();
     }
@@ -36,7 +36,7 @@ describe('shared.ops.changeClass', () => {
       try {
         changeClass(user, {query: {class: 'rogue'}});
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.equal(i18n.t('notEnoughGems'));
         done();
       }
@@ -103,7 +103,7 @@ describe('shared.ops.changeClass', () => {
         try {
           changeClass(user);
         } catch (err) {
-          expect(err).to.be.an.instanceof(NotAuthorized);
+          expect(err).to.be.an.instanceof(Forbidden);
           expect(err.message).to.equal(i18n.t('notEnoughGems'));
           done();
         }

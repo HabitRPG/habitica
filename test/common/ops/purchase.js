@@ -2,7 +2,7 @@ import purchase from '../../../website/common/script/ops/purchase';
 import planGemLimits from '../../../website/common/script/libs/planGemLimits';
 import {
   BadRequest,
-  NotAuthorized,
+  Forbidden,
   NotFound,
 } from '../../../website/common/script/libs/errors';
 import i18n from '../../../website/common/script/i18n';
@@ -45,7 +45,7 @@ describe('shared.ops.purchase', () => {
       try {
         purchase(user, {params: {type: 'gems', key: 'gem'}});
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.equal(i18n.t('mustSubscribeToPurchaseGems'));
         done();
       }
@@ -57,7 +57,7 @@ describe('shared.ops.purchase', () => {
       try {
         purchase(user, {params: {type: 'gems', key: 'gem'}});
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
         done();
       }
@@ -70,7 +70,7 @@ describe('shared.ops.purchase', () => {
       try {
         purchase(user, {params: {type: 'gems', key: 'gem'}});
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.equal(i18n.t('reachedGoldToGemCap', {convCap: planGemLimits.convCap}));
         done();
       }
@@ -92,7 +92,7 @@ describe('shared.ops.purchase', () => {
       try {
         purchase(user, {params: {type: 'gear', key: 'shield_rogue_1'}});
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.equal(i18n.t('alreadyHave'));
         done();
       }
@@ -112,7 +112,7 @@ describe('shared.ops.purchase', () => {
       try {
         purchase(user, {params: {type: 'gear', key: 'eyewear_mystery_301405'}});
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.equal(i18n.t('messageNotAvailable'));
         done();
       }
@@ -122,7 +122,7 @@ describe('shared.ops.purchase', () => {
       try {
         purchase(user, {params: {type: 'gear', key: 'headAccessory_special_wolfEars'}});
       } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err).to.be.an.instanceof(Forbidden);
         expect(err.message).to.equal(i18n.t('notEnoughGems'));
         done();
       }

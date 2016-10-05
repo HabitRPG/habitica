@@ -4,7 +4,7 @@ import {
   generateUser,
 } from '../../helpers/common.helper';
 import {
-  NotAuthorized,
+  Forbidden,
   BadRequest,
   NotFound,
 } from '../../../website/common/script/libs/errors';
@@ -47,7 +47,7 @@ describe('shared.ops.sell', () => {
     try {
       sell(user, {params: { type: nonSellableType, key } });
     } catch (err) {
-      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err).to.be.an.instanceof(Forbidden);
       expect(err.message).to.equal(i18n.t('typeNotSellable', {acceptedTypes: acceptedTypes.join(', ')}));
       done();
     }

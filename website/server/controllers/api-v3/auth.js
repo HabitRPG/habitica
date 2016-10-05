@@ -6,6 +6,7 @@ import {
   authWithHeaders,
 } from '../../middlewares/auth';
 import {
+  Forbidden,
   NotAuthorized,
   BadRequest,
   NotFound,
@@ -110,9 +111,9 @@ api.registerLocal = {
     ]}, {'auth.local': 1}).exec();
 
     if (user) {
-      if (email === user.auth.local.email) throw new NotAuthorized(res.t('emailTaken'));
+      if (email === user.auth.local.email) throw new Forbidden(res.t('emailTaken'));
       // Check that the lowercase username isn't already used
-      if (lowerCaseUsername === user.auth.local.lowerCaseUsername) throw new NotAuthorized(res.t('usernameTaken'));
+      if (lowerCaseUsername === user.auth.local.lowerCaseUsername) throw new Forbidden(res.t('usernameTaken'));
     }
 
     let salt = passwordUtils.makeSalt();
@@ -138,7 +139,7 @@ api.registerLocal = {
           return existingUser.auth[network.key].id;
         }
       });
-      if (!hasSocialAuth) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
+      if (!hasSocialAuth) throw new Forbidden(res.t('onlySocialAttachLocal'));
       existingUser.auth.local = newUser.auth.local;
       newUser = existingUser;
     } else {
@@ -182,7 +183,7 @@ api.registerLocal = {
 };
 
 function _loginRes (user, req, res) {
-  if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {userId: user._id}));
+  if (user.auth.blocked) throw new Forbidden(res.t('accountSuspended', {userId: user._id}));
   return res.respond(200, {id: user._id, apiToken: user.apiToken, newUser: user.newUser || false});
 }
 
@@ -436,7 +437,7 @@ api.updateUsername = {
     if (oldPassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
 
     let count = await User.count({ 'auth.local.lowerCaseUsername': req.body.username.toLowerCase() });
-    if (count > 0) throw new BadRequest(res.t('usernameTaken'));
+    if (count > 0) throw new Forbidden(res.t('usernameTaken'));
 
     // save username
     user.auth.local.lowerCaseUsername = req.body.username.toLowerCase();
@@ -608,7 +609,7 @@ api.deleteSocial = {
       return supportedNetwork.key === network;
     });
     if (!isSupportedNetwork) throw new BadRequest(res.t('unsupportedNetwork'));
-    if (!hasBackupAuth(user, network)) throw new NotAuthorized(res.t('cantDetachSocial'));
+    if (!hasBackupAuth(user, network)) throw new Forbidden(res.t('cantDetachSocial'));
     let unset = {
       [`auth.${network}`]: 1,
     };

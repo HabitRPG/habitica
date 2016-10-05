@@ -84,8 +84,8 @@ describe('POST /challenges/:challengeId/join', () => {
       await authorizedUser.post(`/challenges/${challenge._id}/join`);
 
       await expect(authorizedUser.post(`/challenges/${challenge._id}/join`)).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 403,
+        error: 'Forbidden',
         message: t('userAlreadyInChallenge'),
       });
     });
