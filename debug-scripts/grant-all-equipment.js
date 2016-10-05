@@ -13,7 +13,7 @@ if (!userId) {
   return;
 }
 
-let gearFlat = require('../common').content.gear.flat;
+let gearFlat = require('../website/common').content.gear.flat;
 
 let userGear = {};
 

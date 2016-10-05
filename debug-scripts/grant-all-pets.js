@@ -12,10 +12,10 @@ if (!userId) {
   return;
 }
 
-let dropPets = require('../common').content.pets;
-let questPets = require('../common').content.questPets;
-let specialPets = require('../common').content.specialPets;
-let premiumPets = require('../common').content.premiumPets;
+let dropPets = require('../website/common').content.pets;
+let questPets = require('../website/common').content.questPets;
+let specialPets = require('../website/common').content.specialPets;
+let premiumPets = require('../website/common').content.premiumPets;
 
 let userPets = {};
 
