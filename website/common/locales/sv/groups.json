@@ -111,7 +111,7 @@
     "toUserIDRequired": "Ett användar-ID krävs",
     "gemAmountRequired": "Ett antal juveler krävs",
     "notAuthorizedToSendMessageToThisUser": "Meddelandet till denna användare kunde inte skickas.",
-    "privateMessageGiftIntro": "Hej där, @<%= receiverName %>. @<%= senderName %> har skickat dig",
+    "privateMessageGiftIntro": "Hej där, <%= receiverName %>. <%= senderName %> har skickat dig",
     "privateMessageGiftGemsMessage": "<%= gemAmount %> juveler!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> månaders prenumeration!",
     "cannotSendGemsToYourself": "Cannot send gems to yourself. Try a subscription instead.",

@@ -111,7 +111,7 @@
     "toUserIDRequired": "ユーザー ID が必要です。",
     "gemAmountRequired": "ジェムが必要です。",
     "notAuthorizedToSendMessageToThisUser": "このユーザーへのメッセージは送れません。",
-    "privateMessageGiftIntro": "こんにちは、@<%= receiverName %>。@<%= senderName %> からあなたに",
+    "privateMessageGiftIntro": "こんにちは、<%= receiverName %>。<%= senderName %> からあなたに",
     "privateMessageGiftGemsMessage": "<%= gemAmount %> ジェムが届きました!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> カ月分の寄付（有料利用）が届きました!",
     "cannotSendGemsToYourself": "自分自身にジェムを送ることは出来ません。代わりの寄付を再試行してください。",

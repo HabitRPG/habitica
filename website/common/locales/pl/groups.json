@@ -111,7 +111,7 @@
     "toUserIDRequired": "Wymagane ID Użytkownika",
     "gemAmountRequired": "Wymagana liczba klejnotów",
     "notAuthorizedToSendMessageToThisUser": "Nie można wysłać wiadomości do tego użytkownika.",
-    "privateMessageGiftIntro": "Hej @<%= receiverName %>, @<%= senderName %> wysłał Tobie",
+    "privateMessageGiftIntro": "Hej <%= receiverName %>, <%= senderName %> wysłał Tobie",
     "privateMessageGiftGemsMessage": "<%= gemAmount %> klejnotów!",
     "privateMessageGiftSubscriptionMessage": "Miesięcy abonamentu: <%= numberOfMonths %>!",
     "cannotSendGemsToYourself": "Nie możesz wysłać sobie klejnotów. Zamiast tego wypróbuj subskrypcję.",

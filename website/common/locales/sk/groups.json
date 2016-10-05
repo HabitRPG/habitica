@@ -111,7 +111,7 @@
     "toUserIDRequired": "Je vyžadované používateľovo ID",
     "gemAmountRequired": "Je vyžadovaný počet drahokamov",
     "notAuthorizedToSendMessageToThisUser": "Nemôžeš poslať správu tomuto používateľovi.",
-    "privateMessageGiftIntro": "Ahoj @<%= receiverName %>, @<%= senderName %> ti poslal",
+    "privateMessageGiftIntro": "Ahoj <%= receiverName %>, <%= senderName %> ti poslal",
     "privateMessageGiftGemsMessage": "tento počet drahokamov: <%= gemAmount %>!",
     "privateMessageGiftSubscriptionMessage": "tento počet mesiacov: <%= numberOfMonths %> odberu!",
     "cannotSendGemsToYourself": "Nemôžeš poslať sám sebe drahokamy. Skús miesto toho odber.",

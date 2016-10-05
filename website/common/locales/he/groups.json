@@ -111,7 +111,7 @@
     "toUserIDRequired": "נדרש מספר הזהות של המשתמשים",
     "gemAmountRequired": "נדרש למלא את מספר אבני החן",
     "notAuthorizedToSendMessageToThisUser": "לא ניתן לשלוח הודעה אל המשתמש/ת",
-    "privateMessageGiftIntro": "שלום @<%= receiverName %>, המשתמש/ת @<%= senderName %> שלח/ה לך",
+    "privateMessageGiftIntro": "שלום <%= receiverName %>, המשתמש/ת <%= senderName %> שלח/ה לך",
     "privateMessageGiftGemsMessage": "<%= gemAmount %> אבני חן!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> חודשים של רישום כמנויים!",
     "cannotSendGemsToYourself": "לא ניתן לשלוח אבני חן אל עצמך. יש לנסות רישום כמנוי במקום.",

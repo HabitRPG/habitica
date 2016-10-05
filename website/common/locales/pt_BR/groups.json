@@ -111,7 +111,7 @@
     "toUserIDRequired": "Um ID de usuário é necessário",
     "gemAmountRequired": "Um número de gemas é necessário",
     "notAuthorizedToSendMessageToThisUser": "Não é possível enviar mensagem para esse usuário.",
-    "privateMessageGiftIntro": "Olá @<%= receiverName %>, @<%= senderName %> te enviou",
+    "privateMessageGiftIntro": "Olá <%= receiverName %>, <%= senderName %> te enviou",
     "privateMessageGiftGemsMessage": "<%= gemAmount %> gemas!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> meses de assinatura!",
     "cannotSendGemsToYourself": "Não é possível enviar gemas para você mesmo. Tente uma assinatura.",

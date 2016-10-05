@@ -111,7 +111,7 @@
     "toUserIDRequired": "ID Pengguna dibutuhkan.",
     "gemAmountRequired": "Sejumlah permata dibutuhkan",
     "notAuthorizedToSendMessageToThisUser": "Tidak dapat mengirim pesan pada pengguna ini.",
-    "privateMessageGiftIntro": "Halo @<%= receiverName %>, @<%= senderName %> telah mengirimkanmu",
+    "privateMessageGiftIntro": "Halo <%= receiverName %>, <%= senderName %> telah mengirimkanmu",
     "privateMessageGiftGemsMessage": "<%= gemAmount %> permata!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> bulan berlangganan!",
     "cannotSendGemsToYourself": "Tidak dapat mengirimkan permata kepada dirimu sendiri. Cobalah berlangganan.",
