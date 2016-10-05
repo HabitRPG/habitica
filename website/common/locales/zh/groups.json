@@ -111,7 +111,7 @@
     "toUserIDRequired": "需要用户ID",
     "gemAmountRequired": "需要指明宝石数量",
     "notAuthorizedToSendMessageToThisUser": "无法向该用户发送消息",
-    "privateMessageGiftIntro": "<%= receiverName %> 您好！<%= senderName %> 给了您",
+    "privateMessageGiftIntro": "@<%= receiverName %> 您好！@<%= senderName %> 给了您",
     "privateMessageGiftGemsMessage": "<%= gemAmount %> 宝石！",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> 个月的捐助！",
     "cannotSendGemsToYourself": "无法向自己发送宝石。使用捐助功能试试看",

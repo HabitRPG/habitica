@@ -111,7 +111,7 @@
     "toUserIDRequired": "Een gebruikers-ID is vereist.",
     "gemAmountRequired": "Een hoeveelheid edelstenen is vereist.",
     "notAuthorizedToSendMessageToThisUser": "Kan geen bericht versturen naar deze gebruiker.",
-    "privateMessageGiftIntro": "Hallo <%= receiverName %>, <%= senderName %> heeft je gezonden",
+    "privateMessageGiftIntro": "Hallo @<%= receiverName %>, @<%= senderName %> heeft je gezonden",
     "privateMessageGiftGemsMessage": "<%= gemAmount %> edelstenen!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> maanden abonnementkrediet.",
     "cannotSendGemsToYourself": "Je kunt geen edelstenen naar jezelf sturen. Probeer in plaats daarvan een abonnement. ",

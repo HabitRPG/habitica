@@ -111,7 +111,7 @@
     "toUserIDRequired": "A User ID is required",
     "gemAmountRequired": "A number of gems is required",
     "notAuthorizedToSendMessageToThisUser": "Can't send message to this user.",
-    "privateMessageGiftIntro": "Hello <%= receiverName %>, <%= senderName %> has sent you",
+    "privateMessageGiftIntro": "Hello @<%= receiverName %>, @<%= senderName %> has sent you",
     "privateMessageGiftGemsMessage": "<%= gemAmount %> gems!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> months of subscription!",
     "cannotSendGemsToYourself": "Cannot send gems to yourself. Try a subscription instead.",

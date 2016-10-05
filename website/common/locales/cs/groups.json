@@ -111,7 +111,7 @@
     "toUserIDRequired": "Je požadováno ID uživatele",
     "gemAmountRequired": "Je požadován určitý počet drahokamů",
     "notAuthorizedToSendMessageToThisUser": "Nelze posílat zprávy tomuto uživateli.",
-    "privateMessageGiftIntro": "Dobrý den, <%= receiverName %>, <%= senderName %> vám poslal",
+    "privateMessageGiftIntro": "Dobrý den, @<%= receiverName %>, @<%= senderName %> vám poslal",
     "privateMessageGiftGemsMessage": "<%= gemAmount %> drahokamů!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> měsíců předplatného!",
     "cannotSendGemsToYourself": "Nemůžete sám sobě poslat drahokamy. Raději zkuste předplatné.",
