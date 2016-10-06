@@ -11,15 +11,15 @@
   // .well=env.t('seasonalShopRebirth')
 
   li.customize-menu.inventory-gear
-    // menu.pets-menu(label=env.t('seasonalItems'))
+    menu.pets-menu(label=env.t('seasonalItems'))
       div
-        button.customize-option(class='inventory_special_seafoam',
-          popover='{{::Content.spells.special.seafoam.notes()}}',
-          popover-title='{{::Content.spells.special.seafoam.text()}}',
+        button.customize-option(class='inventory_special_spookySparkles',
+          popover='{{::Content.spells.special.spookySparkles.notes()}}',
+          popover-title='{{::Content.spells.special.spookySparkles.text()}}',
           popover-trigger='mouseenter', popover-placement='right',
           popover-append-to-body='true',
-          ng-click='purchase("special", Content.spells.special.seafoam)')
-        p {{::Content.spells.special.seafoam.value}}
+          ng-click='purchase("special", Content.spells.special.spookySparkles)')
+        p {{::Content.spells.special.spookySparkles.value}}
           span(class='shop_gold')
     menu.pets-menu(label='{{category.text}}', ng-repeat='category in seasonalShopCategories')
       div(ng-repeat='item in category.items', ng-if='!user.items.gear.owned[item.key]')
