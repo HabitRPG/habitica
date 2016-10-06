@@ -67,7 +67,7 @@ async function saveContentToDisk (language, content) {
  * @apiGroup Content
  *
  * @apiParam {String} language Query parameter, the  language code used for the items' strings. (Default: en)
- * 
+ *
  * @apiParamExample {JSON} Example Languages
  * {
  *   "American English": "en",
