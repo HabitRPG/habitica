@@ -17,7 +17,6 @@ let api = {};
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {post} /iap/android/verify Android Verify IAP
- * @apiVersion 3.0.0
  * @apiName IapAndroidVerify
  * @apiGroup Payments
  **/
@@ -71,7 +70,6 @@ api.iapAndroidVerify = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {post} /iap/ios/verify iOS Verify IAP
- * @apiVersion 3.0.0
  * @apiName IapiOSVerify
  * @apiGroup Payments
  **/

@@ -147,7 +147,20 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                 h3.popover-title {{group.leader.profile.name}}
                 .popover-content
                   markdown(text='group._editing ? groupCopy.leaderMessage : group.leaderMessage')
-      div(ng-controller='ChatCtrl')
+                  
+      ul.options-menu(ng-init="groupPane = 'chat'", ng-show="group.purchased.active")
+        li
+          a(ng-click="groupPane = 'chat'")
+            | Chat
+        li
+          a(ng-click="groupPane = 'tasks'")
+            | Tasks
+            
+    
+      .tab-content
+        .tab-pane.active
+                  
+      div(ng-controller='ChatCtrl', ng-show="groupPane == 'chat'")
         .alert.alert-info.alert-sm(ng-if='group.memberCount > Shared.constants.LARGE_GROUP_COUNT_MESSAGE_CUTOFF')=env.t('largeGroupNote')
         h3=env.t('chat')
         include ./chat-box
@@ -155,3 +168,5 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
         +chatMessages()
         h4(ng-if='group.chat.length < 1 && group.type === "party"')=env.t('partyChatEmpty')
         h4(ng-if='group.chat.length < 1 && group.type === "guild"')=env.t('guildChatEmpty')
+    
+     group-tasks(ng-show="groupPane == 'tasks'")

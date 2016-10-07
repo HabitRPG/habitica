@@ -17,6 +17,11 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
   return { email, canSend: true };
 });
 
+/**
+ * @apiDefine MessageNotFound
+ * @apiError (404) {NotFound} MessageNotFound The specified message could not be found.
+ */
+
 let api = {};
 
 async function getAuthorEmailFromMessage (message) {
@@ -37,13 +42,14 @@ async function getAuthorEmailFromMessage (message) {
 
 /**
  * @api {get} /api/v3/groups/:groupId/chat Get chat messages from a group
- * @apiVersion 3.0.0
  * @apiName GetChat
  * @apiGroup Chat
  *
  * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Array} data An array of chat messages
+ *
+ * @apiUse GroupNotFound
  */
 api.getChat = {
   method: 'GET',
@@ -66,7 +72,6 @@ api.getChat = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
- * @apiVersion 3.0.0
  * @apiName PostChat
  * @apiGroup Chat
  *
@@ -75,6 +80,8 @@ api.getChat = {
  * @apiParam {UUID} previousMsg Query parameter - The previous chat message which will force a return of the full group chat
  *
  * @apiSuccess data An array of chat messages if a new message was posted after previousMsg, otherwise the posted message
+ *
+ * @apiUse GroupNotFound
  */
 api.postChat = {
   method: 'POST',
@@ -94,7 +101,7 @@ api.postChat = {
     let group = await Group.getGroup({user, groupId});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
-    if (group.type !== 'party' && user.flags.chatRevoked) {
+    if (group.privacy !== 'private' && user.flags.chatRevoked) {
       throw new NotFound('Your chat privileges have been revoked.');
     }
 
@@ -131,7 +138,6 @@ api.postChat = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/chat/:chatId/like Like a group chat message
- * @apiVersion 3.0.0
  * @apiName LikeChat
  * @apiGroup Chat
  *
@@ -139,6 +145,9 @@ api.postChat = {
  * @apiParam {UUID} chatId The chat message _id
  *
  * @apiSuccess {Object} data The liked chat message
+ *
+ * @apiUse GroupNotFound
+ * @apiUse MessageNotFound
  */
 api.likeChat = {
   method: 'POST',
@@ -159,6 +168,7 @@ api.likeChat = {
 
     let message = _.find(group.chat, {id: req.params.chatId});
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
+    // TODO correct this error type
     if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatLikeOwnMessage'));
 
     let update = {$set: {}};
@@ -195,8 +205,8 @@ api.likeChat = {
  * @apiSuccess {UUID} data.uuid The user id of the author of the message
  * @apiSuccess {String} data.user The username of the author of the message
  *
- * @apiError GroupNotFound Group could not be found or you don't have access
- * @apiError ChatNotFound Chat message with specified id could not be found
+ * @apiUse GroupNotFound
+ * @apiUse MessageNotFound
  * @apiError FlagOwnMessage Chat messages cannot be flagged by the author of the message
  * @apiError AlreadyFlagged Chat messages cannot be flagged more than once by a user
  */
@@ -228,6 +238,7 @@ api.flagChat = {
 
     // Log user ids that have flagged the message
     if (!message.flags) message.flags = {};
+    // TODO fix error type
     if (message.flags[user._id] && !user.contributor.admin) throw new NotFound(res.t('messageGroupChatFlagAlreadyReported'));
     message.flags[user._id] = true;
     update.$set[`chat.$.flags.${user._id}`] = true;
@@ -285,7 +296,7 @@ api.flagChat = {
 /**
  * @api {post} /api/v3/groups/:groupId/chat/:chatId/clearflags Clear flags
  * @apiDescription Resets the flag count on a chat message. Retains the id of the user's that have flagged the message. (Only visible to moderators)
- * @apiPermission Moderators
+ * @apiPermission Admin
  * @apiName ClearFlags
  * @apiGroup Chat
  *
@@ -294,9 +305,9 @@ api.flagChat = {
  *
  * @apiSuccess {Object} data An empty object
  *
+ * @apiUse GroupNotFound
+ * @apiUse MessageNotFound
  * @apiError MustBeAdmin Must be a moderator to use this route
- * @apiError GroupNotFound Group could not be found or you don't have access
- * @apiError ChatNotFound Chat message with specified id could not be found
  */
 api.clearChatFlags = {
   method: 'Post',
@@ -364,7 +375,6 @@ api.clearChatFlags = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/chat/seen Mark all messages as read for a group
- * @apiVersion 3.0.0
  * @apiName SeenChat
  * @apiGroup Chat
  *
@@ -399,7 +409,6 @@ api.seenChat = {
 
 /**
  * @api {delete} /api/v3/groups/:groupId/chat/:chatId Delete chat message from a group
- * @apiVersion 3.0.0
  * @apiName DeleteChat
  * @apiGroup Chat
  *
@@ -409,6 +418,9 @@ api.seenChat = {
  *
  * @apiSuccess data The updated chat array or an empty object if no message was posted after previousMsg
  * @apiSuccess {Object} data An empty object when the previous message was deleted
+ *
+ * @apiUse GroupNotFound
+ * @apiUse MessageNotFound
  */
 api.deleteChat = {
   method: 'DELETE',

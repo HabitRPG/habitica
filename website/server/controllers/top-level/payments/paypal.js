@@ -50,7 +50,6 @@ let api = {};
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {get} /paypal/checkout Paypal: checkout
- * @apiVersion 3.0.0
  * @apiName PaypalCheckout
  * @apiGroup Payments
  **/
@@ -108,7 +107,6 @@ api.checkout = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {get} /paypal/checkout/success Paypal: checkout success
- * @apiVersion 3.0.0
  * @apiName PaypalCheckoutSuccess
  * @apiGroup Payments
  **/
@@ -149,7 +147,6 @@ api.checkoutSuccess = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {get} /paypal/subscribe Paypal: subscribe
- * @apiVersion 3.0.0
  * @apiName PaypalSubscribe
  * @apiGroup Payments
  **/
@@ -189,7 +186,6 @@ api.subscribe = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {get} /paypal/subscribe/success Paypal: subscribe success
- * @apiVersion 3.0.0
  * @apiName PaypalSubscribeSuccess
  * @apiGroup Payments
  **/
@@ -218,7 +214,6 @@ api.subscribeSuccess = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {get} /paypal/subscribe/cancel Paypal: subscribe cancel
- * @apiVersion 3.0.0
  * @apiName PaypalSubscribeCancel
  * @apiGroup Payments
  **/
@@ -255,7 +250,6 @@ api.subscribeCancel = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {post} /paypal/ipn Paypal IPN
- * @apiVersion 3.0.0
  * @apiName PaypalIpn
  * @apiGroup Payments
  **/

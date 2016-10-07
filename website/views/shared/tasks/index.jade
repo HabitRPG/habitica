@@ -6,7 +6,7 @@ include ./task_view/mixins
 script(id='templates/habitrpg-tasks.html', type="text/ng-template")
   .tasks-lists.container-fluid
     .row
-      .col-md-3.col-sm-6(ng-repeat='list in lists', ng-class='::{ "rewards-module": list.type==="reward", "new-row-md": list.type==="todo" }')
+      .col-md-3.col-sm-6(ng-repeat='list in lists', ng-class='::{ "rewards-module": list.type==="reward", "new-row-md": list.type==="todo", "col-md-2": obj.type }')
         .task-column(class='{{::list.type}}s')
 
           include ./task_view/graph

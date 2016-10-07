@@ -65,7 +65,6 @@ function hasBackupAuth (user, networkToRemove) {
 /**
  * @api {post} /api/v3/user/auth/local/register Register
  * @apiDescription Register a new user with email, username and password or attach local auth to a social user
- * @apiVersion 3.0.0
  * @apiName UserRegisterLocal
  * @apiGroup User
  *
@@ -190,7 +189,6 @@ function _loginRes (user, req, res) {
 /**
  * @api {post} /api/v3/user/auth/local/login Login
  * @apiDescription Login a user with email / username and password
- * @apiVersion 3.0.0
  * @apiName UserLoginLocal
  * @apiGroup User
  *
@@ -337,7 +335,6 @@ api.loginSocial = {
  * @apiIgnore Private route
  * @api {post} /api/v3/user/auth/pusher Pusher.com authentication
  * @apiDescription Authentication for Pusher.com private and presence channels
- * @apiVersion 3.0.0
  * @apiName UserAuthPusher
  * @apiGroup User
  *
@@ -406,7 +403,6 @@ api.pusherAuth = {
 /**
  * @api {put} /api/v3/user/auth/update-username Update username
  * @apiDescription Update the username of a local user
- * @apiVersion 3.0.0
  * @apiName UpdateUsername
  * @apiGroup User
  *
@@ -454,7 +450,6 @@ api.updateUsername = {
 /**
  * @api {put} /api/v3/user/auth/update-password
  * @apiDescription Update the password of a local user
- * @apiVersion 3.0.0
  * @apiName UpdatePassword
  * @apiGroup User
  *
@@ -505,7 +500,6 @@ api.updatePassword = {
 /**
  * @api {post} /api/v3/user/reset-password Reset password
  * @apiDescription Reset the user password
- * @apiVersion 3.0.0
  * @apiName ResetPassword
  * @apiGroup User
  *
@@ -560,7 +554,6 @@ api.resetPassword = {
 /**
  * @api {put} /api/v3/user/auth/update-email Update email
  * @apiDescription Change the user email address
- * @apiVersion 3.0.0
  * @apiName UpdateEmail
  * @apiGroup User
  *
@@ -599,7 +592,6 @@ api.updateEmail = {
 /**
  * @api {delete} /api/v3/user/auth/social/:network Delete social authentication method
  * @apiDescription Remove a social authentication method (only facebook supported) from a user profile. The user must have local authentication enabled
- * @apiVersion 3.0.0
  * @apiName UserDeleteSocial
  * @apiGroup User
  *

@@ -6,7 +6,6 @@ let api = {};
 /**
  * @apiIgnore
  * @api {get} /api/v3/shops/market get the available items for the market
- * @apiVersion 3.0.0
  * @apiName GetMarketItems
  * @apiGroup Shops
  *
@@ -35,7 +34,6 @@ api.getMarketItems = {
 /**
  * @apiIgnore
  * @api {get} /api/v3/shops/quests get the available items for the quests shop
- * @apiVersion 3.0.0
  * @apiName GetQuestShopItems
  * @apiGroup Shops
  *
@@ -64,7 +62,6 @@ api.getQuestShopItems = {
 /**
  * @apiIgnore
  * @api {get} /api/v3/shops/time-travelers get the available items for the time travelers shop
- * @apiVersion 3.0.0
  * @apiName GetTimeTravelersShopItems
  * @apiGroup Shops
  *
@@ -94,7 +91,6 @@ api.getTimeTravelerShopItems = {
 /**
  * @apiIgnore
  * @api {get} /api/v3/shops/seasonal get the available items for the seasonal shop
- * @apiVersion 3.0.0
  * @apiName GetSeasonalShopItems
  * @apiGroup Shops
  *
