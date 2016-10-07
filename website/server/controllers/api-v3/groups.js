@@ -681,10 +681,10 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  *
  * @apiParamExample {json} Emails
  * {
- *    "emails": [
- *      {"email": "user-1@example.com"},
- *      {"name": "User2", "email": "user-2@example.com"}
- *    ]
+ *   "emails": [
+ *     {"email": "user-1@example.com"},
+ *     {"name": "User2", "email": "user-2@example.com"}
+ *   ]
  * }
  * @apiParamExample {json} User Ids
  *   {
@@ -717,25 +717,32 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  *       { id: 'the-id-of-the-invited-user', name: 'The group name', inviter: 'your-user-id' }
  *     ]
  * }
+ * @apiSuccessExample {json} Successful Response with User Ids and Emails
+ * {
+ *     "data": [
+ *       "user-1@example.com",
+ *       { id: 'the-id-of-the-invited-user', name: 'The group name', inviter: 'your-user-id' },
+ *       "user-2@exmaple.com"
+ *     ]
+ * }
  *
  * @apiUse GroupBodyInvalid
+ *
+ * @apiError (400) {BadRequest} NoEmailProvided An email address was not provided in the `emails` body
+ * param `Array`.
+ * @apiError (400) {BadRequest} UuidOrEmailOnly The `emails` and `uuids` params were both missing and/or a
+ * key other than `emails` or `uuids` was provided in the body param.
+ * @apiError (400) {BadRequest} CannotInviteSelf User id or email of invitee matches that of the inviter.
+ * @apiError (400) {BadRequest} MustBeArray The `uuids` or `emails` body param was not an array.
+ * @apiError (400) {BadRequest} TooManyInvites A max of 100 invites (combined emails and user ids) can
+ * be sent out at a time.
+ *
+ * @apiError (401) {NotAuthorized} UserAlreadyInvited The user has already been invited to the group.
+ * @apiError (401) {NotAuthorized} UserAlreadyInGroup The user is already a member of the group.
+ *
  * @apiUse GroupNotFound
  * @apiUse UserNotFound
- * @apiError (400) {BadRequest} NoEmailProvided An email address was not provided in the `emails` body param
  * @apiUse PartyNotFound
- * @apiError (400) {BadRequest} UuidOrEmailOnly The `emails` and `uuids` params
- * were both missing and/or a key other than `emails` or `uuids` was provided in
- * the body param.
- * @apiError (400) {BadRequest} CannotInviteSelf User id or email of invitee matches that
- * of inviter.
- * @apiError (401) {NotAuthorized} UserAlreadyInvited The user has already been
- * invited to the group.
- * @apiError (401) {NotAuthorized} UserAlreadyInGroup The user is already a member
- * of the group.
- * @apiError (400) {BadRequest} MustBeArray The `uuids` or `emails` body param is
- * not an array.
- * match a valid user.
- * @apiError (400) {BadRequest} TooManyInvites A max of 100 invites (combined emails and user ids) can be sent out at a time
  */
 api.inviteToGroup = {
   method: 'POST',
