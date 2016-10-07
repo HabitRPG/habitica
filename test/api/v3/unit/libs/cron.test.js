@@ -62,7 +62,7 @@ describe('cron', () => {
   describe('end of the month perks', () => {
     beforeEach(() => {
       user.purchased.plan.customerId = 'subscribedId';
-      user.purchased.plan.dateUpdated = moment().subtract(1, 'months').format('YYYY-MM');
+      user.purchased.plan.dateUpdated = moment().subtract(1, 'months').toDate();
     });
 
     it('resets plan.gemsBought on a new month', () => {
@@ -83,6 +83,13 @@ describe('cron', () => {
       expect(user.purchased.plan.consecutive.count).to.equal(1);
     });
 
+    it('increments plan.consecutive.count by more than 1 if user skipped months between logins', () => {
+      user.purchased.plan.dateUpdated = moment().subtract(2, 'months').toDate();
+      user.purchased.plan.consecutive.count = 0;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.count).to.equal(2);
+    });
+
     it('decrements plan.consecutive.offset when offset is greater than 0', () => {
       user.purchased.plan.consecutive.offset = 2;
       cron({user, tasksByType, daysMissed, analytics});
@@ -97,12 +104,34 @@ describe('cron', () => {
       expect(user.purchased.plan.consecutive.offset).to.equal(0);
     });
 
+    it('increments plan.consecutive.trinkets multiple times if user has been absent with continuous subscription', () => {
+      user.purchased.plan.dateUpdated = moment().subtract(6, 'months').toDate();
+      user.purchased.plan.consecutive.count = 5;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.trinkets).to.equal(2);
+    });
+
+    it('does not award unearned plan.consecutive.trinkets if subscription ended during an absence', () => {
+      user.purchased.plan.dateUpdated = moment().subtract(6, 'months').toDate();
+      user.purchased.plan.dateTerminated = moment().subtract(3, 'months').toDate();
+      user.purchased.plan.consecutive.count = 5;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.trinkets).to.equal(1);
+    });
+
     it('increments plan.consecutive.gemCapExtra when user has reached a month that is a multiple of 3', () => {
       user.purchased.plan.consecutive.count = 5;
       user.purchased.plan.consecutive.offset = 1;
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(5);
       expect(user.purchased.plan.consecutive.offset).to.equal(0);
+    });
+
+    it('increments plan.consecutive.gemCapExtra multiple times if user has been absent with continuous subscription', () => {
+      user.purchased.plan.dateUpdated = moment().subtract(6, 'months').toDate();
+      user.purchased.plan.consecutive.count = 5;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(10);
     });
 
     it('does not increment plan.consecutive.gemCapExtra when user has reached the gemCap limit', () => {
@@ -118,7 +147,7 @@ describe('cron', () => {
       expect(user.purchased.plan.customerId).to.exist;
     });
 
-    it('does reset plan stats until we are after the last day of the cancelled month', () => {
+    it('does reset plan stats if we are after the last day of the cancelled month', () => {
       user.purchased.plan.dateTerminated = moment(new Date()).subtract({days: 1});
       user.purchased.plan.consecutive.gemCapExtra = 20;
       user.purchased.plan.consecutive.count = 5;
@@ -134,10 +163,14 @@ describe('cron', () => {
   });
 
   describe('end of the month perks when user is not subscribed', () => {
-    it('does not reset plan.gemsBought on a new month', () => {
+    beforeEach(() => {
+      user.purchased.plan.dateUpdated = moment().subtract(1, 'months').toDate();
+    });
+
+    it('resets plan.gemsBought on a new month', () => {
       user.purchased.plan.gemsBought = 10;
       cron({user, tasksByType, daysMissed, analytics});
-      expect(user.purchased.plan.gemsBought).to.equal(10);
+      expect(user.purchased.plan.gemsBought).to.equal(0);
     });
 
     it('does not reset plan.dateUpdated on a new month', () => {

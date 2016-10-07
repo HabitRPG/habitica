@@ -8,6 +8,7 @@ import nconf from 'nconf';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
+const YEAR_MONTH_FORMAT = 'YYYY-MM';
 const shouldDo = common.shouldDo;
 const scoreTask = common.ops.scoreTask;
 // const maxPMs = 200;
@@ -46,8 +47,8 @@ let CLEAR_BUFFS = {
 
 function grantEndOfTheMonthPerks (user, now) {
   let plan = user.purchased.plan;
-  let subscriptionEndDate = moment(plan.dateTerminated).isBefore() ? moment(plan.dateTerminated).format('YYYY-MM') : moment(now).format('YYYY-MM');
-  let dateUpdatedMoment = moment(plan.dateUpdated).format('YYYY-MM');
+  let subscriptionEndDate = moment(plan.dateTerminated).isBefore() ? moment(plan.dateTerminated).format(YEAR_MONTH_FORMAT) : moment(now).format(YEAR_MONTH_FORMAT);
+  let dateUpdatedMoment = moment(plan.dateUpdated).format(YEAR_MONTH_FORMAT);
   let elapsedMonths = moment(subscriptionEndDate).diff(dateUpdatedMoment, 'months');
 
   if (elapsedMonths > 0) {
@@ -125,7 +126,7 @@ export function cron (options = {}) {
   let perfect = true;
 
   // Reset Gold-to-Gems cap if it's the start of the month
-  if (user.purchased && user.purchased.plan && moment(user.purchased.plan.dateUpdated).format('MMYYYY') !== moment().format('MMYYYY')) {
+  if (user.purchased && user.purchased.plan && moment(user.purchased.plan.dateUpdated).format(YEAR_MONTH_FORMAT) !== moment().format(YEAR_MONTH_FORMAT)) {
     user.purchased.plan.gemsBought = 0;
   }
   if (user.isSubscribed()) {
