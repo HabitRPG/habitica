@@ -24,17 +24,24 @@ function revealMysteryItems (user) {
   });
 }
 
+function _dateDiff (earlyDate, lateDate) {
+  if (!earlyDate || !lateDate || moment(lateDate).isBefore(earlyDate)) return 0;
+
+  return moment(lateDate).diff(earlyDate, 'months', true);
+}
+
 api.createSubscription = async function createSubscription (data) {
   let recipient = data.gift ? data.gift.member : data.user;
   let plan = recipient.purchased.plan;
   let block = shared.content.subscriptionBlocks[data.gift ? data.gift.subscription.key : data.sub.key];
   let months = Number(block.months);
+  let today = new Date();
 
   if (data.gift) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
       plan.extraMonths += months;
     } else {
-      if (!plan.dateUpdated) plan.dateUpdated = new Date();
+      if (!plan.dateUpdated) plan.dateUpdated = today;
       if (moment(plan.dateTerminated).isAfter()) {
         plan.dateTerminated = moment(plan.dateTerminated).add({months}).toDate();
       } else {
@@ -44,20 +51,21 @@ api.createSubscription = async function createSubscription (data) {
 
     if (!plan.customerId) plan.customerId = 'Gift'; // don't override existing customer, but all sub need a customerId
   } else {
+    if (!plan.dateTerminated) plan.dateTerminated = today;
+
     _(plan).merge({ // override with these values
       planId: block.key,
       customerId: data.customerId,
-      dateUpdated: new Date(),
-      gemsBought: 0,
+      dateUpdated: today,
       paymentMethod: data.paymentMethod,
-      extraMonths: Number(plan.extraMonths) +
-        Number(plan.dateTerminated ? moment(plan.dateTerminated).diff(new Date(), 'months', true) : 0),
+      extraMonths: Number(plan.extraMonths) + _dateDiff(today, plan.dateTerminated),
       dateTerminated: null,
       // Specify a lastBillingDate just for Amazon Payments
       // Resetted every time the subscription restarts
-      lastBillingDate: data.paymentMethod === 'Amazon Payments' ? new Date() : undefined,
+      lastBillingDate: data.paymentMethod === 'Amazon Payments' ? today : undefined,
     }).defaults({ // allow non-override if a plan was previously used
-      dateCreated: new Date(),
+      gemsBought: 0,
+      dateCreated: today,
       mysteryItems: [],
     }).value();
   }
@@ -129,7 +137,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
   let plan = data.user.purchased.plan;
   let now = moment();
   let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days') : 30;
-  let extraDays = Math.ceil(30 * plan.extraMonths);
+  let extraDays = Math.ceil(30.5 * plan.extraMonths);
   let nowStr = `${now.format('MM')}/${moment(plan.dateUpdated).format('DD')}/${now.format('YYYY')}`;
   let nowStrFormat = 'MM/DD/YYYY';
 

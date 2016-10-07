@@ -46,24 +46,27 @@ let CLEAR_BUFFS = {
 
 function grantEndOfTheMonthPerks (user, now) {
   let plan = user.purchased.plan;
+  let subscriptionEndDate = moment(plan.dateTerminated).isBefore() ? moment(plan.dateTerminated).startOf('month') : moment(now).startOf('month');
+  let dateUpdatedMoment = moment(plan.dateUpdated).startOf('month');
+  let elapsedMonths = moment(subscriptionEndDate).diff(dateUpdatedMoment, 'months');
 
-  if (moment(plan.dateUpdated).format('MMYYYY') !== moment().format('MMYYYY')) {
-    plan.gemsBought = 0; // reset gem-cap
+  if (elapsedMonths > 0) {
     plan.dateUpdated = now;
     // For every month, inc their "consecutive months" counter. Give perks based on consecutive blocks
     // If they already got perks for those blocks (eg, 6mo subscription, subscription gifts, etc) - then dec the offset until it hits 0
-    // TODO use month diff instead of ++ / --? see https://github.com/HabitRPG/habitrpg/issues/4317
     _.defaults(plan.consecutive, {count: 0, offset: 0, trinkets: 0, gemCapExtra: 0});
 
-    plan.consecutive.count++;
+    for (let i = 0; i < elapsedMonths; i++) {
+      plan.consecutive.count++;
 
-    if (plan.consecutive.offset > 1) {
-      plan.consecutive.offset--;
-    } else if (plan.consecutive.count % 3 === 0) { // every 3 months
-      if (plan.consecutive.offset === 1) plan.consecutive.offset--;
-      plan.consecutive.trinkets++;
-      plan.consecutive.gemCapExtra += 5;
-      if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25; // cap it at 50 (hard 25 limit + extra 25)
+      if (plan.consecutive.offset > 1) {
+        plan.consecutive.offset--;
+      } else if (plan.consecutive.count % 3 === 0) { // every 3 months
+        if (plan.consecutive.offset === 1) plan.consecutive.offset--;
+        plan.consecutive.trinkets++;
+        plan.consecutive.gemCapExtra += 5;
+        if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25; // cap it at 50 (hard 25 limit + extra 25)
+      }
     }
   }
 }
@@ -121,6 +124,10 @@ export function cron (options = {}) {
   // "Perfect Day" achievement for perfect days
   let perfect = true;
 
+  // Reset Gold-to-Gems cap if it's the start of the month
+  if (user.purchased && user.purchased.plan && moment(user.purchased.plan.dateUpdated).startOf('month') !== moment().startOf('month')) {
+    user.purchased.plan.gemsBought = 0;
+  }
   if (user.isSubscribed()) {
     grantEndOfTheMonthPerks(user, now);
     if (!CRON_SAFE_MODE) removeTerminatedSubscription(user);
