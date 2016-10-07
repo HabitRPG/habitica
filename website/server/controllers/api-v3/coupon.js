@@ -40,7 +40,7 @@ let api = {};
  * ...
  *
  * @apiUse authError
- * 
+ *
  */
 api.getCoupons = {
   method: 'GET',
