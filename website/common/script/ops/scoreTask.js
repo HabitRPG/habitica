@@ -103,11 +103,8 @@ function _subtractPoints (user, task, stats, delta) {
 }
 
 function _addPoints (user, task, stats, direction, delta) {
-  // ===== CRITICAL HITS =====
-  // allow critical hit only when checking off a task, not when unchecking it:
-  let _crit = delta > 0 ? crit(user) : 1;
-  // if there was a crit, alert the user via notification
-  if (_crit > 1) user._tmp.crit = _crit;
+  // Check for a critical hit from _changeTaskValue()
+  let _crit = user._tmp.crit || 1;
 
   // Exp Modifier
   // ===== Intelligence =====
@@ -138,6 +135,12 @@ function _addPoints (user, task, stats, direction, delta) {
 function _changeTaskValue (user, task, direction, times, cron) {
   let addToDelta = 0;
 
+  // ===== CRITICAL HITS =====
+  // allow critical hit only when checking off a task, not when unchecking it:
+  let _crit = direction === 'up' ? crit(user) : 1;
+  // if there was a crit, alert the user via notification
+  if (_crit > 1) user._tmp.crit = _crit;
+
   // If multiple days have passed, multiply times days missed
   _.times(times, () => {
     // Each iteration calculate the nextDelta, which is then accumulated in the total delta.
@@ -153,9 +156,9 @@ function _changeTaskValue (user, task, direction, times, cron) {
         let prevProgress = user.party.quest.progress.up;
 
         if (task.type === 'todo' || task.type === 'daily') {
-          user.party.quest.progress.up += nextDelta * (1 + user._statsComputed.str / 200);
+          user.party.quest.progress.up += nextDelta * _crit * (1 + user._statsComputed.str / 200);
         } else if (task.type === 'habit') {
-          user.party.quest.progress.up += nextDelta * (0.5 + user._statsComputed.str / 400);
+          user.party.quest.progress.up += nextDelta * _crit * (0.5 + user._statsComputed.str / 400);
         }
 
         if (!user._tmp.quest) user._tmp.quest = {};
