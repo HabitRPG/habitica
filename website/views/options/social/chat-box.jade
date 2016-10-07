@@ -8,14 +8,14 @@ div.chat-form.guidelines-not-accepted(ng-if='!user.flags.communityGuidelinesAcce
 
 form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postChat(group,message.content)')
   div(ng-controller='AutocompleteCtrl')
-    textarea.form-control(rows=4, ui-keydown='{"meta-enter":"postChat(group,message.content)"}', ui-keypress='{13:"postChat(group,message.content)"}', ng-model='message.content', updateinterval='250', flag='@', at-user, auto-complete placeholder="{{group._id == TAVERN_ID ? env.t('tavernCommunityGuidelinesPlaceholder') : ''}}", ng-disabled='_sending == true')
+    textarea.form-control(rows=4, ui-keydown='{"meta-enter":"postChat(group,message.content)"}', ng-model='message.content', updateinterval='250', flag='@', at-user, auto-complete placeholder="{{group._id == TAVERN_ID ? env.t('tavernCommunityGuidelinesPlaceholder') : ''}}", ng-disabled='_sending == true')
     span.user-list
       ul.list-at-user(ng-show="query")
         li(ng-repeat='msg in response | filter:filterUser | limitTo: 5', ng-click='performCompletion(msg)')
           span.username.label.label-default(ng-class=':: userLevelStyle(msg)') {{::msg.user}}
   .chat-controls.clearfix
     .chat-buttons
-      input.btn(type='submit', value=env.t('sendChat'), ng-disabled='_sending')
+      input.btn(type='submit', value=env.t('sendChat'), ng-disabled='_sending', tooltip=env.t('sendChatToolTip'))
       button.btn(type="button", ng-click='sync(group)', ng-disabled='_sending') {{group.type === 'party' ? env.t('syncPartyAndChat') : env.t('toolTipMsg')}}
     include ../../shared/formatting-help
   .chat-controls.clearfix
