@@ -10,21 +10,3 @@ For an introduction to the technologies used and how the software is organized, 
 To set up a local install of Habitica for development and testing, see [Setting up Habitica Locally](http://habitica.wikia.com/wiki/Setting_up_Habitica_Locally), which contains instructions for Windows, *nix / Mac OS, and Vagrant.
 
 Then read [Guidance for Blacksmiths](http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths) for additional instructions and useful tips.
-
-## Debug Scripts
-
-In the `./debug-scripts/` folder, there are a few files. Here's a sample:
-
-```bash
-grant-all-equipment.js
-grant-all-mounts.js
-grant-all-pets.js
-```
-
-You can run them by doing:
-
-```bash
-node debug-scripts/name-of-script.js
-```
-
-If there are more arguments required to make the script work, it will print out the usage and an explanation of what the script does.

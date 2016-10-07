@@ -26,6 +26,8 @@
     "pending": "Pending",
     "questStart": "Once all members have either accepted or rejected, th' adventure begins. Only them that clicked \"accept\" gunna be able to participate in th' adventure 'n receive th' loot. If members be pendin' too long (inactive?), th' adventure owner can start th' adventure without them by clickin' \"Begin\". th' adventure owner can also cancel th' adventure 'n regain th' adventure scroll by clickin' \"Cancel\".",
     "questStartBroken": "Once all yer mates have accepted or rejected, th' quest begins... Only those that clicked \"accept\" will be able to participate in th' quest an' receive th' drops... If yer mates are pending too long (inactive?), the quest owner c'n start th' quest wit'out 'em by clickin' \"Begin\"... The quest owner c'n also cancel th' quest an' regain the' quest scroll by clickin' \"Cancel\"...",
+    "questCollection": "+<%= val %> quest item(s) found",
+    "questDamage": "+<%= val %> damage to boss",
     "begin": "Embark",
     "bossHP": "Boss Health",
     "bossStrength": "Strength",

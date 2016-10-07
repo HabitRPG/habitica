@@ -4,6 +4,7 @@ import _ from 'lodash';
 import validator from 'validator';
 import { schema as TagSchema } from '../tag';
 import { schema as PushDeviceSchema } from '../pushDevice';
+import { schema as WebhookSchema } from '../webhook';
 import {
   schema as UserNotificationSchema,
 } from '../userNotification';
@@ -22,6 +23,9 @@ let schema = new Schema({
   auth: {
     blocked: Boolean,
     facebook: {type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
+    google: {type: Schema.Types.Mixed, default: () => {
       return {};
     }},
     local: {
@@ -408,7 +412,7 @@ let schema = new Schema({
     skin: {type: String, default: '915533'},
     shirt: {type: String, default: 'blue'},
     timezoneOffset: {type: Number, default: 0},
-    sound: {type: String, default: 'off', enum: ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme']},
+    sound: {type: String, default: 'rosstavoTheme', enum: ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme']},
     chair: {type: String, default: 'none'},
     timezoneOffsetAtLastCron: Number,
     language: String,
@@ -536,6 +540,7 @@ let schema = new Schema({
   }},
   pushDevices: [PushDeviceSchema],
   _ABtest: {type: String},
+  webhooks: [WebhookSchema],
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

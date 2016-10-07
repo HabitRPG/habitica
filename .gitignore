@@ -14,7 +14,6 @@ npm-debug.log*
 lib
 website/client-old/bower_components
 website/client-old/new-stuff.html
-website/build
 newrelic_agent.log
 .bower-tmp
 .bower-registry

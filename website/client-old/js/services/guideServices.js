@@ -52,7 +52,7 @@ function($rootScope, User, $timeout, $state, Analytics) {
         {
           state: 'tasks',
           element: "h2.task-column_title.reward-title",
-          content: window.env.t('tourRewardsBrief'),
+          content: User.user.flags.armoireEnabled ? window.env.t('tourRewardsArmoire') : window.env.t('tourRewardsBrief'),
           placement: "left",
           proceed: window.env.t('tourRewardsProceed'),
           gold: 4,
@@ -82,11 +82,11 @@ function($rootScope, User, $timeout, $state, Analytics) {
         }, {
           element: ".meter.mana",
           title: window.env.t('spells'),
-          content: window.env.t('spellsText') + " <a target='_blank' href='http://habitica.wikia.com/wiki/Todos'>" + window.env.t('toDo') + "</a>."
+          content: window.env.t('spellsText')
         }, {
           orphan: true,
           title: window.env.t('readMore'),
-          content: window.env.t('moreClass') + " <a href='http://habitica.wikia.com/wiki/Class_System' target='_blank'>Wikia</a>.",
+          content: window.env.t('moreClass'),
           final: true
         }
       ]

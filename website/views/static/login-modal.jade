@@ -26,14 +26,11 @@ script(id='modals/login.html', type='text/ng-template')
     button.close(type='button', ng-click='$close()') ×
     h4.modal-title=env.t('loginAndReg')
   .modal-body(ng-controller='AuthCtrl')
-    a.zocial.facebook(alt=env.t('loginFacebookAlt'), ng-click='socialLogin("facebook")')=env.t('loginFacebookAlt')
-    //-ul.list-inline
+    ul.list-inline
       li
-        a.zocial.icon.facebook(alt=env.t('loginFacebookAlt'), ng-click='socialLogin("facebook")')
+        a.zocial.facebook(alt=env.t('loginFacebookAlt'), ng-click='socialLogin("facebook")')=env.t('loginFacebookAlt')
       li
-        a.zocial.icon.googleplus(alt="Google", ng-click='socialLogin("google")') Google+
-      li
-        a.zocial.icon.twitter(alt="Twitter", ng-click='socialLogin("twitter")') Twitter
+        a.zocial.google(alt="Google", ng-click='socialLogin("google")')=env.t('loginGoogleAlt')
     hr
     tabset(justified='true')
       tab(heading=env.t('login'))

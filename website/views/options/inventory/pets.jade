@@ -53,7 +53,7 @@ mixin petList(eggSource, potionSource)
         each t,k in env.Content.specialPets
           - var egg = k.split('-')[0], pot = k.split('-')[1]
           button(ng-if='user.items.pets["#{egg}-#{pot}"]', class="pet-button Pet-#{egg}-#{pot}", ng-class='{active: user.items.currentPet == "#{egg}-#{pot}"}', ng-click='choosePet("#{egg}", "#{pot}")', popover=env.t(t), popover-trigger='mouseenter', popover-placement='bottom')
-        a(target='_blank', href='http://habitica.wikia.com/wiki/Contributing_to_Habitica')
+        a(target='_blank', href=env.t('conLearnURL'))
           button(ng-if='!user.items.pets["Dragon-Hydra"]', class="pet-button pet-not-owned", popover-trigger='mouseenter', popover-placement='right', popover=env.t('rarePetPop1'), popover-title=env.t('rarePetPop2'))
             .PixelPaw-Gold
 

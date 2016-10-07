@@ -26,6 +26,8 @@
     "pending": "Afventer",
     "questStart": "Når alle medlemmer har enten accepteret eller afvist vil questen begynde. Kun dem, der har klikket \"acceptér\" vil kunne deltage i questen og modtage præmierne. Hvis medlemmer afventer for længe (måske er de inaktive?) kan quest-lederen starte questen uden dem ved at klikke \"Begynd\". Quest-lederen kan også afbryde questen og få quest-skriftrullen tilbage ved at klikke \"Afbryd\"",
     "questStartBroken": "Når alle medlemmer har enten accepteret eller afvist vil questen begynde... Kun dem, der har klikket \"acceptér\" vil kunne deltage i questen og modtage præmierne. Hvis medlemmer afventer for længe (måske er de inaktive?) kan quest-lederen starte questen uden dem ved at klikke \"Begynd\"... Quest-lederen kan også afbryde questen og få quest-skriftrullen tilbage ved at klikke \"Afbryd\"...",
+    "questCollection": "+<%= val %> quest item(s) found",
+    "questDamage": "+<%= val %> damage to boss",
     "begin": "Begynd",
     "bossHP": "Boss Liv",
     "bossStrength": "Boss-styrke",

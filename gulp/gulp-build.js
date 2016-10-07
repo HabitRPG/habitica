@@ -25,7 +25,7 @@ gulp.task('build:common', () => {
 
 gulp.task('build:server', ['build:src', 'build:common']);
 
-gulp.task('build:dev', ['browserify', 'prepare:staticNewStuff'], (done) => {
+gulp.task('build:dev', ['browserify', 'prepare:staticNewStuff', 'semantic-ui'], (done) => {
   gulp.start('grunt-build:dev', done);
 });
 
@@ -33,7 +33,7 @@ gulp.task('build:dev:watch', ['build:dev'], () => {
   gulp.watch(['website/client-old/**/*.styl', 'website/common/script/*']);
 });
 
-gulp.task('build:prod', ['browserify', 'build:server', 'prepare:staticNewStuff'], (done) => {
+gulp.task('build:prod', ['browserify', 'build:server', 'prepare:staticNewStuff', 'semantic-ui'], (done) => {
   runSequence(
     'grunt-build:prod',
     'apidoc',

@@ -26,6 +26,8 @@
     "pending": "Не розглянуто",
     "questStart": "Як тільки всі учасники погодяться або відмовляться, квест починається. Тільки ті, хто натиснув „прийняти“ зможуть взяти участь у квесті і отримати винагороду. Якщо участники очікують надто довго (неактивні?), власник квесту може почати його без них, натиснувши „Почати“. Власник квесту, також може скасувати його і отримати квестовий сувій, натиснувши „Скасувати“.",
     "questStartBroken": "Once all members have either accepted or rejected, the quest begins... Only those that clicked \"accept\" will be able to participate in the quest and receive the drops... If members are pending too long (inactive?), the quest owner can start the quest without them by clicking \"Begin\"... The quest owner can also cancel the quest and regain the quest scroll by clicking \"Cancel\"...",
+    "questCollection": "+<%= val %> quest item(s) found",
+    "questDamage": "+<%= val %> damage to boss",
     "begin": "Почати",
     "bossHP": "Здоров'я боса",
     "bossStrength": "Сила Боса",

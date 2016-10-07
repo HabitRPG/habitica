@@ -2,7 +2,6 @@ import { authWithHeaders } from '../../middlewares/auth';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
 import {
-  INVITES_LIMIT,
   model as Group,
   basicFields as basicGroupFields,
 } from '../../models/group';
@@ -22,11 +21,25 @@ import { encrypt } from '../../libs/encryption';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import pusher from '../../libs/pusher';
 
+/**
+ * @apiDefine GroupNotFound
+ * @apiError (404) {NotFound} GroupNotFound The specified group could not be found.
+ */
+
+/**
+ * @apiDefine PartyNotFound
+ * @apiError (404) {NotFound} PartyNotFound The user's party could not be found.
+ */
+
+/**
+ * @apiDefine GroupLeader Group Leader
+ * The group leader can use this route.
+ */
+
 let api = {};
 
 /**
  * @api {post} /api/v3/groups Create group
- * @apiVersion 3.0.0
  * @apiName CreateGroup
  * @apiGroup Group
  *
@@ -89,7 +102,6 @@ api.createGroup = {
 
 /**
  * @api {get} /api/v3/groups Get groups for a user
- * @apiVersion 3.0.0
  * @apiName GetGroups
  * @apiGroup Group
  *
@@ -120,13 +132,14 @@ api.getGroups = {
 
 /**
  * @api {get} /api/v3/groups/:groupId Get group
- * @apiVersion 3.0.0
  * @apiName GetGroup
  * @apiGroup Group
  *
  * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Object} data The group object
+ *
+ * @apiUse GroupNotFound
  */
 api.getGroup = {
   method: 'GET',
@@ -158,13 +171,16 @@ api.getGroup = {
 
 /**
  * @api {put} /api/v3/groups/:groupId Update group
- * @apiVersion 3.0.0
  * @apiName UpdateGroup
  * @apiGroup Group
  *
  * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Object} data The updated group
+ *
+ * @apiUse GroupNotFound
+ *
+ * @apiPermission GroupLeader
  */
 api.updateGroup = {
   method: 'PUT',
@@ -202,13 +218,14 @@ api.updateGroup = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/join Join a group
- * @apiVersion 3.0.0
  * @apiName JoinGroup
  * @apiGroup Group
  *
  * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Object} data The joined group
+ *
+ * @apiUse GroupNotFound
  */
 api.joinGroup = {
   method: 'POST',
@@ -316,7 +333,6 @@ api.joinGroup = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/reject Reject a group invitation
- * @apiVersion 3.0.0
  * @apiName RejectGroupInvite
  * @apiGroup Group
  *
@@ -361,7 +377,6 @@ api.rejectGroupInvite = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/leave Leave a group
- * @apiVersion 3.0.0
  * @apiName LeaveGroup
  * @apiGroup Group
  *
@@ -369,6 +384,8 @@ api.rejectGroupInvite = {
  * @apiParam {String="remove-all","keep-all"} keep Query parameter - Whether to keep or not challenges' tasks. Defaults to keep-all
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiUse GroupNotFound
  */
 api.leaveGroup = {
   method: 'POST',
@@ -420,7 +437,6 @@ function _sendMessageToRemoved (group, removedUser, message) {
 
 /**
  * @api {post} /api/v3/groups/:groupId/removeMember/:memberId Remove a member from a group
- * @apiVersion 3.0.0
  * @apiName RemoveGroupMember
  * @apiGroup Group
  *
@@ -429,6 +445,10 @@ function _sendMessageToRemoved (group, removedUser, message) {
  * @apiParam {String} message Query parameter - The message to send to the removed members
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiPermission GroupLeader
+ *
+ * @apiUse GroupNotFound
  */
 api.removeGroupMember = {
   method: 'POST',
@@ -607,6 +627,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
   let userToContact = await User.findOne({$or: [
     {'auth.local.email': invite.email},
     {'auth.facebook.emails.value': invite.email},
+    {'auth.google.emails.value': invite.email},
   ]})
   .select({_id: true, 'preferences.emailNotifications': true})
   .exec();
@@ -641,18 +662,45 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
 }
 
 /**
- * @api {post} /api/v3/groups/:groupId/invite Invite users to a group using their UUIDs or email addresses
- * @apiVersion 3.0.0
+ * @api {post} /api/v3/groups/:groupId/invite Invite users to a group
  * @apiName InviteToGroup
  * @apiGroup Group
+ * @apiDescription You can provide both `emails` and `uuids`, or just one. You must provide at least one.
  *
  * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiParam {Array} emails Body parameter - An array of emails addresses to invite (optional)
- * @apiParam {Array} uuids Body parameter - An array of uuids to invite (optional)
- * @apiParam {String} inviter Body parameter - The inviters' name (optional)
+ * @apiParam {Array} [emails] Body parameter - An array of emails addresses to invite
+ * @apiParam {Array} [uuids] Body parameter - An array of uuids to invite
+ *
+ * @apiParamExample {json} Emails
+ *   {
+ *     "emails": ["user-1@example.com", "user-2@exmaple.com"]
+ *   }
+ * @apiParamExample {json} User Ids
+ *   {
+ *     "uuids": ["user-id-of-existing-user", "user-id-of-another-existing-user"]
+ *   }
+ * @apiParamExample {json} User Ids and Emails
+ *   {
+ *     "emails": ["user-1@example.com", "user-2@exmaple.com"],
+ *     "uuids": ["user-id-of-existing-user", "user-id-of-another-existing-user"],
+ *   }
  *
  * @apiSuccess {Array} data The invites
+ * @apiSuccess {Object} data[0] If the invitation was a user id, you'll receive back an object. You'll recieve one Object for each succesful user id invite.
+ * @apiSuccess {String} data[1] If the invitation was an email, you'll receive back the email. You'll recieve one String for each successful email invite.
+ *
+ * @apiSuccessExample {json} Successful Response
+ *   {
+ *     data: [
+ *       { id: 'the-id-of-the-invited-user', name: 'The group name', inviter: 'your-user-id' },
+ *       "user@example.com"
+ *     ]
+ *   }
+ *
+ * @apiUse GroupNotFound
+ * @apiError InvalidInvitationParams An error relating to the data sent in `emails` and/or `uuids`
+ * @apiError TooManyInvites A max of 100 invites (combined emails and user ids) can be sent out at a time
  */
 api.inviteToGroup = {
   method: 'POST',
@@ -672,35 +720,9 @@ api.inviteToGroup = {
     let uuids = req.body.uuids;
     let emails = req.body.emails;
 
-    let uuidsIsArray = Array.isArray(uuids);
-    let emailsIsArray = Array.isArray(emails);
-
-    if (!uuids && !emails) {
-      throw new BadRequest(res.t('canOnlyInviteEmailUuid'));
-    }
+    Group.validateInvitations(uuids, emails, res);
 
     let results = [];
-    let totalInvites = 0;
-
-    if (uuids) {
-      if (!uuidsIsArray) {
-        throw new BadRequest(res.t('uuidsMustBeAnArray'));
-      } else {
-        totalInvites += uuids.length;
-      }
-    }
-
-    if (emails) {
-      if (!emailsIsArray) {
-        throw new BadRequest(res.t('emailsMustBeAnArray'));
-      } else {
-        totalInvites += emails.length;
-      }
-    }
-
-    if (totalInvites > INVITES_LIMIT) {
-      throw new BadRequest(res.t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}));
-    }
 
     if (uuids) {
       let uuidInvites = uuids.map((uuid) => _inviteByUUID(uuid, group, user, req, res));

@@ -27,7 +27,6 @@ let api = {};
 /**
  * @api {get} /export/history.csv Export user tasks history in CSV format
  * @apiDescription History is only available for habits and dailies so todos and rewards won't be included. NOTE: Part of the private API that may change at any time.
- * @apiVersion 3.0.0
  * @apiName ExportUserHistory
  * @apiGroup DataExport
  *
@@ -94,7 +93,6 @@ async function _getUserDataForExport (user) {
 
 /**
  * @api {get} /export/userdata.json Export user data in JSON format
- * @apiVersion 3.0.0
  * @apiName ExportUserDataJson
  * @apiGroup DataExport
  * @apiDescription NOTE: Part of the private API that may change at any time.
@@ -120,7 +118,6 @@ api.exportUserDataJson = {
 
 /**
  * @api {get} /export/userdata.xml Export user data in XML format
- * @apiVersion 3.0.0
  * @apiName ExportUserDataXml
  * @apiGroup DataExport
  * @apiDescription NOTE: Part of the private API that may change at any time.
@@ -144,12 +141,13 @@ api.exportUserDataXml = {
 
 /**
  * @api {get} /export/avatar-:uuid.html Render a user avatar as an HTML page
- * @apiVersion 3.0.0
  * @apiName ExportUserAvatarHtml
  * @apiGroup DataExport
  * @apiDescription NOTE: Part of the private API that may change at any time.
  *
  * @apiSuccess {String} An html page
+ *
+ * @apiUse UserNotFound
  */
 api.exportUserAvatarHtml = {
   method: 'GET',
@@ -177,7 +175,6 @@ api.exportUserAvatarHtml = {
 
 /**
  * @api {get} /export/avatar-:uuid.png Render a user avatar as a PNG file
- * @apiVersion 3.0.0
  * @apiName ExportUserAvatarPng
  * @apiGroup DataExport
  * @apiDescription NOTE: Part of the private API that may change at any time.

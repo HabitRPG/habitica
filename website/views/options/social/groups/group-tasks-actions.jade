@@ -1,0 +1,4 @@
+script(type='text/ng-template', id='partials/groups.tasks.actions.html')
+  div(ng-if="group.leader._id === user._id", class="col-md-12")
+    strong=env.t('assignTask')
+    group-members-autocomplete(ng-model="assignedMembers")

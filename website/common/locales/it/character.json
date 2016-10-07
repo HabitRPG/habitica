@@ -48,7 +48,7 @@
     "equipment": "Equipaggiamento",
     "equipmentBonus": "Equipaggiamento",
     "equipmentBonusText": "Attributi bonus forniti dall'equipaggiamento di battaglia che indossi. Vedi la scheda Equipaggiamento (sotto Inventario) per scegliere il tuo equipaggiamento di battaglia.",
-    "classBonusText": "Your class (Warrior, if you haven't unlocked or selected another class) uses its own equipment more effectively than gear from other classes. Equipped gear from your current class gets a 50% boost to the attribute bonus it grants.",
+    "classBonusText": "La tua classe (Guerriero, se non ne hai sbloccata o scelta un'altra) sfrutta il suo equipaggiamento più efficientemente di quello delle altre classi. Gli oggetti equipaggiati adatti alla tua classe incrementano del 50% il bonus che danno all'attributo di base.",
     "classEquipBonus": "Bonus classe",
     "battleGear": "Assetto di battaglia",
     "battleGearText": "Questo è l'equipaggiamento che indossi in battaglia, esso modifica alcuni valori quando interagisci con le tue attività.",

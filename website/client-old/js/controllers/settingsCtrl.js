@@ -2,13 +2,16 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('SettingsCtrl',
-  ['$scope', 'User', '$rootScope', '$http', 'ApiUrl', 'Guide', '$location', '$timeout', 'Content', 'Notification', 'Shared', '$compile',
-  function($scope, User, $rootScope, $http, ApiUrl, Guide, $location, $timeout, Content, Notification, Shared, $compile) {
+  ['$scope', 'User', '$rootScope', '$http', 'ApiUrl', 'Guide', '$location', '$timeout', 'Content', 'Notification', 'Shared', 'Social', '$compile',
+  function($scope, User, $rootScope, $http, ApiUrl, Guide, $location, $timeout, Content, Notification, Shared, Social, $compile) {
     var RELEASE_ANIMAL_TYPES = {
       pets: 'releasePets',
       mounts: 'releaseMounts',
       both: 'releaseBoth',
     };
+
+    var SOCIAL_AUTH_NETWORKS = Shared.constants.SUPPORTED_SOCIAL_NETWORKS;
+    $scope.SOCIAL_AUTH_NETWORKS = SOCIAL_AUTH_NETWORKS;
 
     // FIXME we have this re-declared everywhere, figure which is the canonical version and delete the rest
 //    $scope.auth = function (id, token) {
@@ -243,20 +246,26 @@ habitrpg.controller('SettingsCtrl',
 
     // ---- Webhooks ------
     $scope._newWebhook = {url:''};
-    $scope.$watch('user.preferences.webhooks',function(webhooks){
-      $scope.hasWebhooks = _.size(webhooks);
-    })
     $scope.addWebhook = function(url) {
-      User.addWebhook({body:{url:url, enabled:true}});
+      User.addWebhook({
+        id: Shared.uuid(),
+        type: 'taskActivity',
+        options: {
+          created: false,
+          updated: false,
+          deleted: false,
+          scored: true
+        },
+        url: url,
+        enabled: true
+      });
       $scope._newWebhook.url = '';
     }
-    $scope.saveWebhook = function(id,webhook) {
+    $scope.saveWebhook = function(webhook) {
       delete webhook._editing;
-      User.updateWebhook({params:{id:id}, body:webhook});
+      User.updateWebhook(webhook);
     }
-    $scope.deleteWebhook = function(id) {
-      User.deleteWebhook({params:{id:id}});
-    }
+    $scope.deleteWebhook = User.deleteWebhook;
 
     $scope.applyCoupon = function(coupon){
       $http.post(ApiUrl.get() + '/api/v3/coupons/validate/'+coupon)
@@ -286,6 +295,40 @@ habitrpg.controller('SettingsCtrl',
       var numberOfHourglasses = Content.subscriptionBlocks[subscription.key].months / 3;
       return Math.floor(numberOfHourglasses);
     };
+
+    $scope.hasBackupAuthOption = function(user, checkedNetworkKey) {
+      if (user.auth.local.username) {
+        return true;
+      }
+      return _.find(SOCIAL_AUTH_NETWORKS, function (network) {
+        if (network.key !== checkedNetworkKey) {
+          if (user.auth.hasOwnProperty(network.key)) {
+            return user.auth[network.key].id;
+          }
+        }
+      });
+    };
+
+    $scope.hasSocialAuth = function (user) {
+      return _.find(SOCIAL_AUTH_NETWORKS, function (network) {
+        if (user.auth.hasOwnProperty(network.key)) {
+          return user.auth[network.key].id;
+        }
+      });
+    };
+
+    $scope.deleteSocialAuth = function (networkKey) {
+      var network = _.find(SOCIAL_AUTH_NETWORKS, function (network) {
+        return network.key === networkKey;
+      });
+
+      $http.delete(ApiUrl.get() + "/api/v3/user/auth/social/"+networkKey).success(function(){
+        Notification.text(env.t("detachedSocial", {network: network.name}));
+        User.sync();
+      });
+    };
+
+    $scope.socialLogin = Social.socialLogin;
 
     function _calculateNextCron() {
       $scope.dayStart;

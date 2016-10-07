@@ -9,7 +9,6 @@ let api = {};
 /**
  * @apiIgnore Not yet part of the public API
  * @api {post} /api/v3/notifications/:notificationId/read Mark one notification as read
- * @apiVersion 3.0.0
  * @apiName ReadNotification
  * @apiGroup Notification
  *

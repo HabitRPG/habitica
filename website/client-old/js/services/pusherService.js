@@ -7,38 +7,16 @@ angular.module('habitrpg')
     var IS_PUSHER_ENABLED = window.env['PUSHER:ENABLED'] === 'true';
 
     var partyId;
+    var partyChannel;
     var onActivityEvent;
 
     var api = {
       pusher: undefined,
       socketId: undefined, // when defined the user is connected
     };
-    var tabIdKey = 'habitica-active-tab-v1';
-    var tabId = Shared.uuid();
-
-    var localStorageDateInterval;
-
-    function onDisconnect () {
-      localStorage.removeItem(tabIdKey);
-      localStorage.removeItem(tabIdKey + '-time');
-      if (localStorageDateInterval) clearInterval(localStorageDateInterval);
-    }
 
     function connectToPusher (partyId, reconnecting) {
       console.log('Connecting to Pusher.');
-
-      // Limit 1 tab connected per user
-      localStorage.setItem(tabIdKey, tabId);
-      localStorage.setItem(tabIdKey + '-time', Date.now());
-
-      // Every 10 seconds log the current time to localstorage, so if for some reason
-      // localStorage.tabIdKey get stuck, the next time the user reconnect and
-      // the last logged date has been long ago
-      localStorageDateInterval = setInterval(function () {
-        localStorage.setItem(tabIdKey + '-time', Date.now());
-      }, 10000);
-
-      window.onbeforeunload = onDisconnect;
 
       api.pusher = new Pusher(window.env['PUSHER:KEY'], {
         encrypted: true,
@@ -76,7 +54,7 @@ angular.module('habitrpg')
       });
 
       var partyChannelName = 'presence-group-' + partyId;
-      var partyChannel = api.pusher.subscribe(partyChannelName);
+      partyChannel = api.pusher.subscribe(partyChannelName);
 
       // When an error occurs while joining the channel
       partyChannel.bind('pusher:subscription_error', function(status) {
@@ -85,6 +63,9 @@ angular.module('habitrpg')
 
       // When the user correctly enters the party channel
       partyChannel.bind('pusher:subscription_succeeded', function(pusherMembers) {
+        // Sync the user if we're reconnecting
+        if (reconnecting) $rootScope.User.sync();
+
         // Wait for the party to be loaded
         Groups.party(reconnecting).then(function (party) {
           // If we just reconnected after some inactivity, sync the party
@@ -153,12 +134,15 @@ angular.module('habitrpg')
           Groups.data.party.chat.splice(200);
 
           // If a system message comes in, sync the party as quest status may have changed
+          // Sync once every 5 seconds, not more often
           if (chatData.uuid === 'system') {
-            $rootScope.User.sync();
-            Groups.party(true).then(function (syncedParty) {
-              // Assign and not replace so that all the references get the modifications
-              _.assign($rootScope.party, syncedParty);
-            });
+            _.throttle(function () {
+              $rootScope.User.sync();
+              Groups.party(true).then(function (syncedParty) {
+                // Assign and not replace so that all the references get the modifications
+                _.assign($rootScope.party, syncedParty);
+              });
+            }, 5000);
           }
 
           var docHasFocus = document.hasFocus();
@@ -202,19 +186,13 @@ angular.module('habitrpg')
 
     function disconnectPusher () {
       console.log('Disconnecting from Pusher for inactivity.');
+      partyChannel.unbind();
+      api.pusher.connection.unbind();
       api.pusher.disconnect();
-      window.onbeforeunload = null; // TODO use addEventListener
-      // onDisconnect();
 
       var awaitActivity = function() {
         $(document).off('mousemove keydown mousedown touchstart', awaitActivity);
-        var lastSavedDate = localStorage.getItem(tabIdKey + '-time') || 0;
-
-        if (!localStorage.getItem(tabIdKey) || localStorage.getItem(tabIdKey) === tabId || ((Date.now() - lastSavedDate) > 30000)) {
-          connectToPusher(partyId, true);
-        } else {
-          console.log('Cannot connect 2 tabs to Pusher.');
-        }
+        connectToPusher(partyId, true);
       };
 
       $(document).on('mousemove keydown mousedown touchstart', awaitActivity);
@@ -230,32 +208,10 @@ angular.module('habitrpg')
       var user = $rootScope.user;
 
       // Connect the user to Pusher and to the party's chat channel
-      partyId = user && $rootScope.user.party && $rootScope.user.party._id;
+      partyId = user && user.party && user.party._id;
       if (!partyId) return;
 
-      // See if another tab is already connected to Pusher (or if it got stuck: last saved date more than 30 sec ago)
-      var lastSavedDate = localStorage.getItem(tabIdKey + '-time') || 0;
-
-      if (!localStorage.getItem(tabIdKey) || ((Date.now() - lastSavedDate) > 30000)) {
-        connectToPusher(partyId);
-      } else {
-        console.log('Cannot connect 2 tabs to Pusher.');
-      }
-
-      // when a tab is closed, connect the next one
-      // wait between 100 and 500ms to avoid two tabs connecting at the same time
-      window.addEventListener('storage', function(e) {
-        if (e.key === tabIdKey && e.newValue === null) {
-          setTimeout(function () {
-            var lastSavedDate = localStorage.getItem(tabIdKey + '-time') || 0;
-            if (!localStorage.getItem(tabIdKey) || ((Date.now() - lastSavedDate) > 30000)) {
-              connectToPusher(partyId, true);
-            } else {
-              console.log('Cannot connect 2 tabs to Pusher.');
-            }
-          }, Math.floor(Math.random() * 501) + 100);
-        }
-      });
+      connectToPusher(partyId);
     });
 
     return api;

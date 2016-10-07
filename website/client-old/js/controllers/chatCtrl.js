@@ -91,7 +91,7 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
     $scope.flagChatMessage = function(groupId,message) {
       if(!message.flags) message.flags = {};
 
-      if (message.flags[User.user._id]) {
+      if (!User.user.contributor.admin && message.flags[User.user._id]) {
         Notification.text(window.env.t('abuseAlreadyReported'));
       } else {
         $scope.abuseObject = message;

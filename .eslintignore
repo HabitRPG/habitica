@@ -10,7 +10,6 @@ dist-client/
 # Not linted
 migrations/*
 website/client-old/
-debug-scripts/*
 scripts/*
 test/server_side/**/*
 test/client-old/spec/**/*
@@ -23,4 +22,6 @@ Gruntfile.js
 gulpfile.js
 gulp
 webpack
-test/client
+test/client/e2e
+test/client/unit/index.js
+test/client/unit/karma.conf.js

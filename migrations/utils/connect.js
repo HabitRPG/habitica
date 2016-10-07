@@ -25,7 +25,7 @@ function connectToDb (dbUri) {
 function closeDb () {
   if (db) db.close();
 
-  logger.success('CLosed connection to the database');
+  logger.success('Closed connection to the database');
   return Promise.resolve();
 }
 

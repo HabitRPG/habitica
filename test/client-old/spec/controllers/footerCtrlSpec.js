@@ -13,7 +13,7 @@ describe('Footer Controller', function() {
       user: user
     };
     scope = $rootScope.$new();
-    $controller('FooterCtrl', {$scope: scope, User: User});
+    $controller('FooterCtrl', {$scope: scope, User: User, Social: {}});
   }));
 
   context('Debug mode', function() {

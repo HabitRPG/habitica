@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Usuń zakończone",
-    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
+    "lotOfToDos": "Ostatnie 30 skończonych Zadań jest widoczne tutaj. Możesz zobaczyć starsze skończone Zadania w Dane > Narzędzie wyświetlania danych lub Dane > Eksport danych > Dane użytkownika.",
     "deleteToDosExplanation": "Klikając tu, nieodwołalnie usuniesz wszystkie zakończone i zarchiwizowane Do-Zrobienia. Jeśli chcesz wciąż mieć do nich dostęp, wyeksportuj je.",
     "addmultiple": "Dodaj kilka",
     "addsingle": "Dodaj pojedyncze",

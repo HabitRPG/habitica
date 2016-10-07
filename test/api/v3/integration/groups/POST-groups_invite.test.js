@@ -57,11 +57,27 @@ describe('Post /groups/:groupId/invite', () => {
       });
     });
 
-    it('returns empty when uuids is empty', async () => {
+    it('returns an error when uuids and emails are empty', async () => {
+      await expect(inviter.post(`/groups/${group._id}/invite`, {
+        emails: [],
+        uuids: [],
+      }))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('inviteMustNotBeEmpty'),
+      });
+    });
+
+    it('returns an error when uuids is empty and emails is not passed', async () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         uuids: [],
       }))
-      .to.eventually.be.empty;
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('inviteMissingUuid'),
+      });
     });
 
     it('returns an error when there are more than INVITES_LIMIT uuids', async () => {
@@ -159,11 +175,15 @@ describe('Post /groups/:groupId/invite', () => {
       });
     });
 
-    it('returns empty when emails is an empty array', async () => {
+    it('returns an error when emails is empty and uuids is not passed', async () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         emails: [],
       }))
-      .to.eventually.be.empty;
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('inviteMissingEmail'),
+      });
     });
 
     it('returns an error when there are more than INVITES_LIMIT emails', async () => {

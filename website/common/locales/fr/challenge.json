@@ -11,6 +11,7 @@
     "unsubChallenge": "Lien de défi cassé : cette tâche faisait partie d'un défi mais vous vous en êtes désinscrit•e. Que faire des tâches orphelines ?",
     "challengeWinner": "A remporté les défis suivants",
     "challenges": "Défis",
+    "challengesLink": "<a href='http://fr.habitica.wikia.com/wiki/Défis' target='_blank'>Défis</a>",
     "noChallenges": "Pas encore de défi, visitez",
     "toCreate": "pour en créer un.",
     "selectWinner": "Désigner un vainqueur et clore le défi :",
