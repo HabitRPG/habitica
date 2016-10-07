@@ -24,11 +24,8 @@ function revealMysteryItems (user) {
   });
 }
 
-function _roundDateDiff (earlyDate, lateDate) {
+function _dateDiff (earlyDate, lateDate) {
   if (!earlyDate || !lateDate || moment(lateDate).isBefore(earlyDate)) return 0;
-
-  earlyDate = moment(earlyDate).format('YYYYMMDD');
-  lateDate = moment(lateDate).format('YYYYMMDD');
 
   return moment(lateDate).diff(earlyDate, 'months', true);
 }
@@ -61,7 +58,7 @@ api.createSubscription = async function createSubscription (data) {
       customerId: data.customerId,
       dateUpdated: today,
       paymentMethod: data.paymentMethod,
-      extraMonths: Number(plan.extraMonths) + _roundDateDiff(today, plan.dateTerminated),
+      extraMonths: Number(plan.extraMonths) + _dateDiff(today, plan.dateTerminated),
       dateTerminated: null,
       // Specify a lastBillingDate just for Amazon Payments
       // Resetted every time the subscription restarts

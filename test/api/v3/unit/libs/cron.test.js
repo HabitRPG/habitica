@@ -72,9 +72,9 @@ describe('cron', () => {
     });
 
     it('resets plan.dateUpdated on a new month', () => {
-      let currentMonth = moment().format('YYYY-MM');
+      let currentMonth = moment().startOf('month');
       cron({user, tasksByType, daysMissed, analytics});
-      expect(moment(user.purchased.plan.dateUpdated).format('YYYY-MM')).to.equal(currentMonth);
+      expect(moment(user.purchased.plan.dateUpdated).startOf('month').isSame(currentMonth)).to.eql(true);
     });
 
     it('increments plan.consecutive.count', () => {
