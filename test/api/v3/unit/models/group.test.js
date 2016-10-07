@@ -1,5 +1,10 @@
 import { sleep } from '../../../../helpers/api-unit.helper';
-import { model as Group } from '../../../../../website/server/models/group';
+import {
+  SPAM_MESSAGE_LIMIT,
+  SPAM_CONTRIBUTOR_LEVEL,
+  SPAM_WINDOW_LENGTH,
+  model as Group,
+} from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
 import { quests as questScrolls } from '../../../../../website/common/script/content';
 import * as email from '../../../../../website/server/libs/email';
@@ -449,6 +454,83 @@ describe('Group Model', () => {
           participatingMember._id,
           questLeader._id,
         ]);
+      });
+    });
+
+    describe('#checkChatSpam', () => {
+      let testMessage, testUser, testTime;
+      let testUserID = '1';
+      beforeEach(async () => {
+        testTime = Date.now();
+        testMessage = {
+          text: 'test message',
+          uuid: testUserID,
+          timestamp: testTime,
+        };
+        testUser = {
+          _id: testUserID,
+        };
+      });
+
+      it('high enough contributor returns false', async () => {
+        let highContributor = testUser;
+        highContributor.contributor = {
+          level: SPAM_CONTRIBUTOR_LEVEL,
+        };
+
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
+          party.chat.push(testMessage);
+        }
+
+        expect(party.checkChatSpam(highContributor)).to.eql(false);
+      });
+
+      it('chat with no messages returns false', async () => {
+        expect(party.chat.length).to.eql(0);
+        expect(party.checkChatSpam(testUser)).to.eql(false);
+      });
+
+      it('user has not reached limit but another one has returns false', async () => {
+        let otherUserID = '2';
+        let otherUserMessage = testMessage;
+        otherUserMessage.uuid = otherUserID;
+
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
+          party.chat.push(otherUserMessage);
+        }
+
+        expect(party.checkChatSpam(testUser)).to.eql(false);
+      });
+
+      it('user messages is less than the limit returns false', async () => {
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT - 1; i++) {
+          party.chat.push(testMessage);
+        }
+
+        expect(party.checkChatSpam(testUser)).to.eql(false);
+      });
+
+      it('user has reached the message limit outside of window returns false', async () => {
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT - 1; i++) {
+          party.chat.push(testMessage);
+        }
+
+        let oldMessage = {
+          text: 'test message',
+          uuid: testUserID,
+          timestamp: testTime - SPAM_WINDOW_LENGTH - 1,
+        };
+        party.chat.push(oldMessage);
+
+        expect(party.checkChatSpam(testUser)).to.eql(false);
+      });
+
+      it('user has posted too many messages in limit returns true', async () => {
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
+          party.chat.push(testMessage);
+        }
+
+        expect(party.checkChatSpam(testUser)).to.eql(true);
       });
     });
 

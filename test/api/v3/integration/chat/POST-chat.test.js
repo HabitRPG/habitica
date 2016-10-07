@@ -2,6 +2,10 @@ import {
   createAndPopulateGroup,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
+import {
+  SPAM_MESSAGE_LIMIT,
+  SPAM_CONTRIBUTOR_LEVEL,
+} from '../../../../../website/server/models/group';
 
 describe('POST /chat', () => {
   let user, groupWithChat, member, additionalMember;
@@ -81,8 +85,8 @@ describe('POST /chat', () => {
   });
 
   it('Returns an error when the user has been posting too many messages', async () => {
-    // Post 4 messages which is the limit for spam
-    for (let i = 0; i < 4; i++) {
+    // Post as many messages are needed to reach the spam limit
+    for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
       let result = await additionalMember.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage }); // eslint-disable-line babel/no-await-in-loop
       expect(result.message.id).to.exist;
     }
@@ -95,10 +99,10 @@ describe('POST /chat', () => {
   });
 
   it('contributor should not receive spam alert', async () => {
-    let userSocialite = await member.update({'contributor.level': 4, 'flags.chatRevoked': false});
+    let userSocialite = await member.update({'contributor.level': SPAM_CONTRIBUTOR_LEVEL, 'flags.chatRevoked': false});
 
-    // Post 5 messages which is 1 more than the limit for spam
-    for (let i = 0; i < 5; i++) {
+    // Post 1 more message than the spam limit to ensure they do not reach the limit
+    for (let i = 0; i < SPAM_MESSAGE_LIMIT + 1; i++) {
       let result = await userSocialite.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage }); // eslint-disable-line babel/no-await-in-loop
       expect(result.message.id).to.exist;
     }

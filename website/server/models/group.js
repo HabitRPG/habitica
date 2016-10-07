@@ -41,9 +41,9 @@ const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 #    WINDOW_LENGTH - The window length for spam protection in milliseconds
 #    CONTRIBUTOR_LEVEL - Anyone at or above this level is exempt
 */
-const SPAM_MESSAGE_LIMIT = 4;
-const SPAM_WINDOW_LENGTH = 5000; // 5 seconds
-const SPAM_CONTRIBUTOR_LEVEL = 4;
+export const SPAM_MESSAGE_LIMIT = 2;
+export const SPAM_WINDOW_LENGTH = 60000; // 1 minute
+export const SPAM_CONTRIBUTOR_LEVEL = 4;
 
 export let schema = new Schema({
   name: {type: String, required: true},
@@ -917,20 +917,22 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
 
 // Returns true if the user has reached the spam message limit
 schema.methods.checkChatSpam = function groupCheckChatSpam (user) {
+  if (user.contributor && user.contributor.level >= SPAM_CONTRIBUTOR_LEVEL) {
+    return false;
+  }
+
   let group = this;
-  if (!(user.contributor.level >= SPAM_CONTRIBUTOR_LEVEL)) {
-    let currentTime = Number(new Date());
-    let userMessages = 0;
-    for (let i = 0; i < group.chat.length; i++) {
-      let message = group.chat[i];
-      if (message.uuid === user._id && currentTime - message.timestamp <= SPAM_WINDOW_LENGTH) {
-        userMessages++;
-        if (userMessages >= SPAM_MESSAGE_LIMIT) {
-          return true;
-        }
-      } else if (currentTime - message.timestamp > SPAM_WINDOW_LENGTH) {
-        break;
+  let currentTime = Date.now();
+  let userMessages = 0;
+  for (let i = 0; i < group.chat.length; i++) {
+    let message = group.chat[i];
+    if (message.uuid === user._id && currentTime - message.timestamp <= SPAM_WINDOW_LENGTH) {
+      userMessages++;
+      if (userMessages >= SPAM_MESSAGE_LIMIT) {
+        return true;
       }
+    } else if (currentTime - message.timestamp > SPAM_WINDOW_LENGTH) {
+      break;
     }
   }
 
