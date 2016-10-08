@@ -316,7 +316,13 @@ api.scoreTask = {
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
     if (task.requiresApproval && !task.approved) {
-      throw new NotAuthorized(res.t('taskRequiresApproval'));
+      if (task.approvalRequested) {
+        throw new NotAuthorized(res.t('taskRequiresApproval'));
+      }
+      task.approvalRequested = true;
+      task.approvalRequestedDate = new Date();
+      await task.save();
+      return res.respond(200, {message: res.t('taskRequiresApproval'), task});
     }
 
     let wasCompleted = task.completed;

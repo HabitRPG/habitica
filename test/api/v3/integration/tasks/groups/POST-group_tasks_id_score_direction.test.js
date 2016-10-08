@@ -37,6 +37,20 @@ describe('POST /tasks/:id/score/:direction', () => {
     let memberTasks = await member.get('/tasks/user');
     let syncedTask = find(memberTasks, findAssignedTask);
 
+    let response = await member.post(`/tasks/${syncedTask._id}/score/up`);
+    let updatedTask = await member.get(`/tasks/${syncedTask._id}`);
+
+    expect(response.message).to.equal(t('taskRequiresApproval'));
+    expect(updatedTask.approvalRequested).to.equal(true);
+    expect(updatedTask.approvalRequestedDate).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
+  });
+
+  it('errors when approval has already been requested', async () => {
+    let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, findAssignedTask);
+
+    await member.post(`/tasks/${syncedTask._id}/score/up`);
+
     await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
       .to.eventually.be.rejected.and.eql({
         code: 401,
