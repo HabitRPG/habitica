@@ -74,7 +74,7 @@ export let TaskSchema = new Schema({
   requiresApproval: {type: Boolean, default: false},
   approved: {type: Boolean, default: false},
   approvedDate: {type: Date},
-  approvingUser: [{type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']}],
+  approvingUser: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']},
   approvalRequested: {type: Boolean, default: false},
   approvalRequestedDate: {type: Date},
 

@@ -59,5 +59,7 @@ describe('POST /tasks/:id/approve/:userId', () => {
     let syncedTask = find(memberTasks, findAssignedTask);
 
     expect(syncedTask.approved).to.be.true;
+    expect(syncedTask.approvingUser).to.equal(user._id);
+    expect(syncedTask.approvedDate).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
   });
 });

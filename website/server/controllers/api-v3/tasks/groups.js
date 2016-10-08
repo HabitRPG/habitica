@@ -219,6 +219,8 @@ api.approveTask = {
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
+    task.approvedDate = new Date();
+    task.approvingUser = user._id;
     task.approved = true;
     await task.save();
 
