@@ -50,7 +50,6 @@ describe('POST /tasks/:id/approve/:userId', () => {
       });
   });
 
-
   it('approves an assigned user', async () => {
     await user.post(`/tasks/${task._id}/assign/${member._id}`);
     await user.post(`/tasks/${task._id}/approve/${member._id}`);

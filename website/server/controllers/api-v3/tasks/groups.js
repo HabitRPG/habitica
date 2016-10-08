@@ -233,5 +233,43 @@ api.approveTask = {
   },
 };
 
+/**
+ * @api {get} /api/v3/approvals/group/:groupId Get a group's approvals
+ * @apiVersion 3.0.0
+ * @apiName GetGroupApprovals
+ * @apiGroup Task
+ * @apiIgnore
+ *
+ * @apiParam {UUID} groupId The id of the group from which to retrieve the approvals
+ *
+ * @apiSuccess {Array} data An array of tasks
+ */
+api.getGroupApprovals = {
+  method: 'GET',
+  url: '/approvals/group/:groupId',
+  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  async handler (req, res) {
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let user = res.locals.user;
+    let groupId = req.params.groupId;
+
+    let group = await Group.getGroup({user, groupId, fields: requiredGroupFields});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+
+    let approvals = await Tasks.Task.find({
+      'group.id': groupId,
+      approved: false,
+      approvalRequested: true,
+    }).exec();
+
+    res.respond(200, approvals);
+  },
+};
 
 module.exports = api;

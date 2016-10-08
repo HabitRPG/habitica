@@ -1,0 +1,55 @@
+import {
+  createAndPopulateGroup,
+  translate as t,
+} from '../../../../../helpers/api-integration/v3';
+import { v4 as generateUUID } from 'uuid';
+import { find } from 'lodash';
+
+describe('GET /approvals/group/:groupId', () => {
+  let user, guild, member, task, syncedTask;
+
+  function findAssignedTask (memberTask) {
+    return memberTask.group.id === guild._id;
+  }
+
+  beforeEach(async () => {
+    let {group, members, groupLeader} = await createAndPopulateGroup({
+      groupDetails: {
+        name: 'Test Guild',
+        type: 'guild',
+      },
+      members: 1,
+    });
+
+    guild = group;
+    user = groupLeader;
+    member = members[0];
+
+    task = await user.post(`/tasks/group/${guild._id}`, {
+      text: 'test todo',
+      type: 'todo',
+      requiresApproval: true,
+    });
+
+    await user.post(`/tasks/${task._id}/assign/${member._id}`);
+
+    let memberTasks = await member.get('/tasks/user');
+    syncedTask = find(memberTasks, findAssignedTask);
+    await member.post(`/tasks/${syncedTask._id}/score/up`);
+  });
+
+  it('errors when user is not the group leader', async () => {
+    await expect(member.get(`/approvals/group/${guild._id}`))
+      .to.eventually.be.rejected.and.to.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('onlyGroupLeaderCanEditTasks'),
+      });
+  });
+
+  it('gets a list of task that need approval', async () => {
+    let apporovals = await user.get(`/approvals/group/${guild._id}`);
+
+    expect(apporovals[0]._id).to.equal(syncedTask._id);
+  });
+});
