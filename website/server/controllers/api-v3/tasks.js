@@ -7,6 +7,7 @@ import { removeFromArray } from '../../libs/collectionManipulators';
 import * as Tasks from '../../models/task';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
+import { model as User } from '../../models/user';
 import {
   NotFound,
   NotAuthorized,
@@ -319,10 +320,22 @@ api.scoreTask = {
       if (task.approvalRequested) {
         throw new NotAuthorized(res.t('taskRequiresApproval'));
       }
+
       task.approvalRequested = true;
       task.approvalRequestedDate = new Date();
-      await task.save();
-      return res.respond(200, {message: res.t('taskRequiresApproval'), task});
+
+      let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+      let groupLeader = await User.findById(group.leader); //Use this method so we can get access to notifications
+      groupLeader.addNotification('GROUP', {
+        message: res.t('userHasRequestedTaskApproval', {
+          user: user.auth.local.username,
+          taskName: task.text,
+        }),
+      });
+
+      await Bluebird.all([groupLeader.save(), task.save()]);
+
+      return res.respond(200, {message: res.t('taskApprovalHasBeenRequested'), task});
     }
 
     let wasCompleted = task.completed;

@@ -1,5 +1,6 @@
 import { authWithHeaders } from '../../../middlewares/auth';
 import ensureDevelpmentMode from '../../../middlewares/ensureDevelpmentMode';
+import Bluebird from 'bluebird';
 import * as Tasks from '../../../models/task';
 import { model as Group } from '../../../models/group';
 import { model as User } from '../../../models/user';
@@ -203,6 +204,7 @@ api.approveTask = {
 
     let user = res.locals.user;
     let assignedUserId = req.params.userId;
+    let assignedUser = await User.findById(assignedUserId);
 
     let taskId = req.params.taskId;
     let task = await Tasks.Task.findOne({
@@ -222,7 +224,10 @@ api.approveTask = {
     task.approvedDate = new Date();
     task.approvingUser = user._id;
     task.approved = true;
-    await task.save();
+
+    assignedUser.addNotification('GROUP', {message: res.t('yourTaskHasBeenApproved')});
+
+    await Bluebird.all([assignedUser.save(), task.save()]);
 
     res.respond(200, task);
   },

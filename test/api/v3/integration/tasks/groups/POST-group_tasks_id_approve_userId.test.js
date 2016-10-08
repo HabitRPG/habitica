@@ -58,6 +58,12 @@ describe('POST /tasks/:id/approve/:userId', () => {
     let memberTasks = await member.get('/tasks/user');
     let syncedTask = find(memberTasks, findAssignedTask);
 
+    await member.sync();
+
+    expect(member.notifications.length).to.equal(1);
+    expect(member.notifications[0].type).to.equal('GROUP');
+    expect(member.notifications[0].data.message).to.equal(t('yourTaskHasBeenApproved'));
+
     expect(syncedTask.approved).to.be.true;
     expect(syncedTask.approvingUser).to.equal(user._id);
     expect(syncedTask.approvedDate).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type

@@ -12,6 +12,7 @@ const NOTIFICATION_TYPES = [
   'REBIRTH_ACHIEVEMENT',
   'NEW_CONTRIBUTOR_LEVEL',
   'CRON',
+  'GROUP',
 ];
 
 const Schema = mongoose.Schema;

@@ -40,7 +40,16 @@ describe('POST /tasks/:id/score/:direction', () => {
     let response = await member.post(`/tasks/${syncedTask._id}/score/up`);
     let updatedTask = await member.get(`/tasks/${syncedTask._id}`);
 
-    expect(response.message).to.equal(t('taskRequiresApproval'));
+    await user.sync();
+
+    expect(user.notifications.length).to.equal(1);
+    expect(user.notifications[0].type).to.equal('GROUP');
+    expect(user.notifications[0].data.message).to.equal(t('userHasRequestedTaskApproval', {
+      user: member.auth.local.username,
+      taskName: updatedTask.text,
+    }));
+
+    expect(response.message).to.equal(t('taskApprovalHasBeenRequested'));
     expect(updatedTask.approvalRequested).to.equal(true);
     expect(updatedTask.approvalRequestedDate).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
   });
