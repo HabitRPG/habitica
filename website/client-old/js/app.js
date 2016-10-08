@@ -178,15 +178,15 @@ window.habitrpg = angular.module('habitrpg',
                     $scope.group.challenges = response.data.data;
                   });
                 //@TODO: Add this back when group tasks go live
-                return Tasks.getGroupTasks($scope.group._id);
+                // return Tasks.getGroupTasks($scope.group._id);
               })
-              .then(function (response) {
-                var tasks = response.data.data;
-                tasks.forEach(function (element, index, array) {
-                  if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
-                  $scope.group[element.type + 's'].push(element);
-                })
-              });
+              // .then(function (response) {
+              //   var tasks = response.data.data;
+              //   tasks.forEach(function (element, index, array) {
+              //     if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
+              //     $scope.group[element.type + 's'].push(element);
+              //   })
+              // });
           }]
         })
 
