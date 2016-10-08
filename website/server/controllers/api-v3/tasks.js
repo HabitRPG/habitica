@@ -325,7 +325,7 @@ api.scoreTask = {
       task.approvalRequestedDate = new Date();
 
       let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
-      let groupLeader = await User.findById(group.leader); //Use this method so we can get access to notifications
+      let groupLeader = await User.findById(group.leader); // Use this method so we can get access to notifications
       groupLeader.addNotification('GROUP', {
         message: res.t('userHasRequestedTaskApproval', {
           user: user.auth.local.username,

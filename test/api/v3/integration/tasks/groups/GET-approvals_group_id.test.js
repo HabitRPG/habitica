@@ -2,7 +2,6 @@ import {
   createAndPopulateGroup,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 import { find } from 'lodash';
 
 describe('GET /approvals/group/:groupId', () => {
