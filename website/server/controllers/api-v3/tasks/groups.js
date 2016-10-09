@@ -122,7 +122,7 @@ api.assignTask = {
     let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (group.leader !== user._id && user._id !== assignedUserId) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     await group.syncTask(task, assignedUser);
 
