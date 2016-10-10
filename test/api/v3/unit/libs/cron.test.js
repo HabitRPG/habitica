@@ -71,8 +71,8 @@ describe('cron', () => {
       expect(user.purchased.plan.gemsBought).to.equal(0);
     });
 
-    it('does not reset plans.gemsBought within the month', () => {
-      let clock = sinon.useFakeTimers(Number(moment().startOf('month').add(2, 'days').toDate()));
+    it('does not reset plan.gemsBought within the month', () => {
+      let clock = sinon.useFakeTimers(moment().startOf('month').add(2, 'days').unix());
       user.purchased.plan.dateUpdated = moment().startOf('month').toDate();
 
       user.purchased.plan.gemsBought = 10;
@@ -184,8 +184,8 @@ describe('cron', () => {
       expect(user.purchased.plan.gemsBought).to.equal(0);
     });
 
-    it('does not reset plans.gemsBought within the month', () => {
-      let clock = sinon.useFakeTimers(Number(moment().startOf('month').add(2, 'days').toDate()));
+    it('does not reset plan.gemsBought within the month', () => {
+      let clock = sinon.useFakeTimers(moment().startOf('month').add(2, 'days').unix());
       user.purchased.plan.dateUpdated = moment().startOf('month').toDate();
 
       user.purchased.plan.gemsBought = 10;
