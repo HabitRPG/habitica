@@ -71,6 +71,17 @@ describe('cron', () => {
       expect(user.purchased.plan.gemsBought).to.equal(0);
     });
 
+    it('does not reset plans.gemsBought within the month', () => {
+      let clock = sinon.useFakeTimers(Number(moment().startOf('month').add(2, 'days').toDate()));
+      user.purchased.plan.dateUpdated = moment().startOf('month').toDate();
+
+      user.purchased.plan.gemsBought = 10;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.gemsBought).to.equal(10);
+
+      clock.restore();
+    });
+
     it('resets plan.dateUpdated on a new month', () => {
       let currentMonth = moment().startOf('month');
       cron({user, tasksByType, daysMissed, analytics});
@@ -171,6 +182,17 @@ describe('cron', () => {
       user.purchased.plan.gemsBought = 10;
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.purchased.plan.gemsBought).to.equal(0);
+    });
+
+    it('does not reset plans.gemsBought within the month', () => {
+      let clock = sinon.useFakeTimers(Number(moment().startOf('month').add(2, 'days').toDate()));
+      user.purchased.plan.dateUpdated = moment().startOf('month').toDate();
+
+      user.purchased.plan.gemsBought = 10;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.gemsBought).to.equal(10);
+
+      clock.restore();
     });
 
     it('does not reset plan.dateUpdated on a new month', () => {

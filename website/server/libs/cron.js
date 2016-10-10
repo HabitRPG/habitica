@@ -125,7 +125,7 @@ export function cron (options = {}) {
   let perfect = true;
 
   // Reset Gold-to-Gems cap if it's the start of the month
-  if (user.purchased && user.purchased.plan && moment(user.purchased.plan.dateUpdated).startOf('month') !== moment().startOf('month')) {
+  if (user.purchased && user.purchased.plan && !moment(user.purchased.plan.dateUpdated).startOf('month').isSame(moment().startOf('month'))) {
     user.purchased.plan.gemsBought = 0;
   }
   if (user.isSubscribed()) {
