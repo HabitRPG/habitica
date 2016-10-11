@@ -2432,6 +2432,38 @@ api.quests = {
       unlock: t('questCowUnlockText'),
     },
   },
+  beetle: {
+    text: t('questBeetleText'),
+    notes: t('questBeetleNotes'),
+    completion: t('questBeetleCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questBeetleBoss'),
+      hp: 500,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Beetle',
+          text: t('questBeetleDropBeetleEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Beetle',
+          text: t('questBeetleDropBeetleEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Beetle',
+          text: t('questBeetleDropBeetleEgg'),
+        },
+      ],
+      gp: 37,
+      exp: 275,
+      unlock: t('questBeetleUnlockText'),
+    },
+  },
 };
 
 _.each(api.quests, function(v, key) {
