@@ -12,7 +12,11 @@ module.exports = function releaseMounts (user, req = {}, analytics) {
   }
 
   user.balance -= 1;
-  user.items.currentMount = '';
+
+  // Only remove current mount if it is Gen 1
+  if (Object.keys(content.pets).indexOf(user.items.currentMount) > -1) {
+    user.items.currentMount = '';
+  }
 
   for (mount in content.pets) {
     user.items.mounts[mount] = null;

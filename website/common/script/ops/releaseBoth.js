@@ -29,8 +29,14 @@ module.exports = function releaseBoth (user, req = {}, analytics) {
     user.balance -= 1.5;
   }
 
-  user.items.currentMount = '';
-  user.items.currentPet = '';
+  // Only remove current mount if it is Gen 1
+  if (Object.keys(content.pets).indexOf(user.items.currentMount) > -1) {
+    user.items.currentMount = '';
+  }
+  // Only remove current pet if it is Gen 1
+  if (Object.keys(content.pets).indexOf(user.items.currentPet) > -1) {
+    user.items.currentPet = '';
+  }
 
   for (animal in content.pets) {
     if (user.items.pets[animal] === -1) {
