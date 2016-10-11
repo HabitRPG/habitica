@@ -30,6 +30,10 @@ let api = {};
  */
 
 /**
+ * @apiDefine pathParam Path Parameters
+ */
+
+/**
  * @api {get} /export/history.csv Export user tasks history in CSV format
  * @apiDescription History is only available for habits and dailies so todos and rewards won't be included. NOTE: Part of the private API that may change at any time.
  * @apiName ExportUserHistory
@@ -152,7 +156,7 @@ api.exportUserDataJson = {
  * @apiGroup DataExport
  * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {String} data A xml file
+ * @apiSuccess {String} data A xml file. See /export/userdata.json for structure info.
  */
 api.exportUserDataXml = {
   method: 'GET',
@@ -175,7 +179,9 @@ api.exportUserDataXml = {
  * @apiGroup DataExport
  * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {String} An html page
+ * @apiParam (pathParam) {string} uuid The User ID of the user
+ *
+ * @apiSuccess {String} data An html page
  *
  * @apiUse UserNotFound
  */
@@ -209,7 +215,9 @@ api.exportUserAvatarHtml = {
  * @apiGroup DataExport
  * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {String} A png file
+ * @apiParam (pathParam) {string} uuid The User ID of the user
+ *
+ * @apiSuccess {String} image A png file
  */
 api.exportUserAvatarPng = {
   method: 'GET',
