@@ -78,7 +78,7 @@ api.iapAndroidVerify = {
       user,
       paymentMethod: 'IAP GooglePlay',
       amount,
-      headers: req.headers
+      headers: req.headers,
     });
 
     res.respond(200, googleRes);
@@ -154,12 +154,13 @@ api.iapiOSVerify = {
           correctReceipt = false;
           break;
         }
-        await payments.buyGems({
+
+        await payments.buyGems({ // eslint-disable-line babel/no-await-in-loop
           user,
           paymentMethod: 'IAP AppleStore',
           amount,
-          headers: req.headers
-        }); // eslint-disable-line babel/no-await-in-loop
+          headers: req.headers,
+        });
       }
 
       if (!correctReceipt) throw new Error('INVALID_ITEM_PURCHASED');
