@@ -1,9 +1,11 @@
 <!-- Entry point component for the entire app -->
 
 <template lang="pug">
-#app.ui.fluid.container
+#app
   app-header
-  router-view.view
+  .ui.grid.fluid
+    .row
+      router-view
 </template>
 
 <script>
@@ -19,4 +21,8 @@ export default {
 <style lang="less">
 // Load CSS that doesn't belong to any specific component
 @import './assets/less/index';
+
+#app-body {
+  margin-top: 3em;
+}
 </style>

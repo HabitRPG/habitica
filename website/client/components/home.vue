@@ -1,5 +1,5 @@
 <template lang="pug">
-div
+.sixteen.wide.column
   p {{ msg }}
   p Welcome back {{profileName}}!
   p You have {{tasksCount}} tasks!

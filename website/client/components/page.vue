@@ -1,5 +1,6 @@
 <template lang="pug">
-p {{ msg }}
+.sixteen.wide.column
+  p {{ msg }}
 </template>
 
 <script>

@@ -2,6 +2,9 @@
 // and babel-runtime doesn't affect external libraries
 require('babel-polyfill');
 
+// Expose jQuery and $ on the global namespace
+require('expose?jQuery!expose?$!jquery');
+
 import Vue from 'vue';
 import VueResource from 'vue-resource';
 import AppComponent from './app';

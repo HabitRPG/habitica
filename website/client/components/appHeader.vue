@@ -1,11 +1,38 @@
 <template lang="pug">
-#app-header
-  h1 {{title}}
-  ul
-    li
-      router-link(to='/') Home
-    li
-      router-link(to='/page') Another Page
+#app-header.ui.top.fixed.menu
+  .header.item Habitica
+  router-link.item(to='/') Tasks
+  // .simple makes it possible to have a dropdown without JS
+  .ui.simple.dropdown.item
+    | Inventory
+    .menu
+      router-link.item(to='/') Inventory
+      router-link.item(to='/') Stable
+      router-link.item(to='/') Equipment
+  router-link.item(to='/market') Market
+  .ui.simple.dropdown.item
+    | Social
+    .menu
+      router-link.item(to='/') Tavern
+      router-link.item(to='/') Inbox
+      router-link.item(to='/') Challenges
+      router-link.item(to='/') Party
+      router-link.item(to='/') Guilds
+  .ui.simple.dropdown.item
+    | Help
+    .menu
+      router-link.item(to='/') Faq
+      router-link.item(to='/') Report a bug
+      router-link.item(to='/') Request a feature
+  .ui.simple.dropdown.item
+    | User
+    .menu
+      router-link.item(to='/') Avatar
+      router-link.item(to='/') Stats
+      router-link.item(to='/') Achievements
+      .divider
+      router-link.item(to='/') Settings
+      router-link.item(to='/') Logout
 </template>
 
 <script>
@@ -15,10 +42,3 @@ export default {
   computed: mapState(['title']),
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1 {
-  color: #42b983;
-}
-</style>
