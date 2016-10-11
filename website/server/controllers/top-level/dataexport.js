@@ -25,12 +25,23 @@ const BASE_URL = nconf.get('BASE_URL');
 let api = {};
 
 /**
+ * @apiDefine authError
+ * @apiError NotAuthorized There was an error in authorizing the User ID / API Token pair. Check the <code>message</code> for more information.
+ */
+
+/**
  * @api {get} /export/history.csv Export user tasks history in CSV format
  * @apiDescription History is only available for habits and dailies so todos and rewards won't be included. NOTE: Part of the private API that may change at any time.
  * @apiName ExportUserHistory
  * @apiGroup DataExport
  *
- * @apiSuccess {String} A csv file
+ * @apiSuccess {String} returns A csv file
+ *
+ * @apiSuccessExample {csv} Example
+ * Task Name,Task ID,Task Type,Date,Value
+ * ...
+ *
+ * @apiUse authError
  */
 api.exportUserHistory = {
   method: 'GET',
@@ -97,7 +108,26 @@ async function _getUserDataForExport (user) {
  * @apiGroup DataExport
  * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {String} A json file
+ * @apiSuccess {object} _id
+ * @apiSuccess {object} apiToken
+ * @apiSuccess {object} _v
+ * @apiSuccess {object} lastCron
+ * @apiSuccess {object} auth
+ * @apiSuccess {object} profile
+ * @apiSuccess {object} tasks
+ * @apiSuccess {object} tasksOrder
+ * @apiSuccess {object} history
+ * @apiSuccess {object} tags
+ * @apiSuccess {object} items
+ * @apiSuccess {object} stats
+ * @apiSuccess {object} preferences
+ * @apiSuccess {object} flags
+ * @apiSuccess {object} party
+ * @apiSuccess {object} guilds
+ * @apiSuccess {object} challenges
+ * @apiSuccess {object} newMessages
+ *
+ * @apiUse authError
  */
 api.exportUserDataJson = {
   method: 'GET',
@@ -122,7 +152,7 @@ api.exportUserDataJson = {
  * @apiGroup DataExport
  * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {String} A xml file
+ * @apiSuccess {String} data A xml file
  */
 api.exportUserDataXml = {
   method: 'GET',
