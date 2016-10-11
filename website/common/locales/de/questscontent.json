@@ -347,5 +347,11 @@
     "questCowCompletion": "Du pflegst Deine guten Gewohnheiten solange, bis die Kuh wieder ihre ursprüngliche Gestalt annimmt. Die Kuh sieht Dich mit ihren schönen, braunen Augen an und schubst drei Eier zu Dir herüber.<br><br>@fuzzytrees lacht und überreicht Dir die Eier, \"Vielleicht sind die Babykühe darin immernoch muhtiert. Aber ich vertraue darauf, dass Du Deine guten Gewohnheiten beibehältst, wenn Du sie großziehst!\"",
     "questCowBoss": "Muhtanten-Kuh",
     "questCowDropCowEgg": "Kuh (Ei)",
-    "questCowUnlockText": "Ermöglicht den Kauf von Kuheiern auf dem Marktplatz"
+    "questCowUnlockText": "Ermöglicht den Kauf von Kuheiern auf dem Marktplatz",
+    "questBeetleText": "The CRITICAL BUG",
+    "questBeetleNotes": "Something in the domain of Habitica has gone awry. The Blacksmiths' forges have extinguished, and strange errors are appearing everywhere. With an ominous tremor, an insidious foe worms from the earth... a CRITICAL BUG! You brace yourself as it infects the land, and glitches begin to overtake the Habiticans around you. @starsystemic yells, \"We need to help the Blacksmiths get this Bug under control!\" It looks like you'll have to make this programmer's pest your top priority.",
+    "questBeetleCompletion": "With a final attack, you crush the CRITICAL BUG. @starsystemic and the Blacksmiths rush up to you, overjoyed. \"I can't thank you enough for smashing that bug! Here, take these.\" You are presented with three shiny beetle eggs. Hopefully these little bugs will grow up to help Habitica, not hurt it.",
+    "questBeetleBoss": "CRITICAL BUG",
+    "questBeetleDropBeetleEgg": "Beetle (Egg)",
+    "questBeetleUnlockText": "Unlocks purchasable Beetle eggs in the Market"
 }

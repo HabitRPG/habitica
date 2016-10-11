@@ -347,5 +347,11 @@
     "questCowCompletion": "Je melkt je goede gewoontes voor wat ze waard zijn tot de koe haar oorspronkelijke vorm aanneemt. De koe kijkt naar je met haar mooie bruine ogen en duwt drie eieren naar jullie .<br><br>@fuzzytrees lacht en geeft je de eieren, \"Misschien is het nog steeds gemoeteerd als er baby koetjes in deze eieren zitten. Maar ik vertrouw erop dat jij je aan je goede gewoontes houdt wanneer je ze opvoedt!\" ",
     "questCowBoss": "Moetante Koe",
     "questCowDropCowEgg": "Koe (Ei)",
-    "questCowUnlockText": "Speelt het kopen van Koe eieren vrij op de Markt"
+    "questCowUnlockText": "Speelt het kopen van Koe eieren vrij op de Markt",
+    "questBeetleText": "The CRITICAL BUG",
+    "questBeetleNotes": "Something in the domain of Habitica has gone awry. The Blacksmiths' forges have extinguished, and strange errors are appearing everywhere. With an ominous tremor, an insidious foe worms from the earth... a CRITICAL BUG! You brace yourself as it infects the land, and glitches begin to overtake the Habiticans around you. @starsystemic yells, \"We need to help the Blacksmiths get this Bug under control!\" It looks like you'll have to make this programmer's pest your top priority.",
+    "questBeetleCompletion": "With a final attack, you crush the CRITICAL BUG. @starsystemic and the Blacksmiths rush up to you, overjoyed. \"I can't thank you enough for smashing that bug! Here, take these.\" You are presented with three shiny beetle eggs. Hopefully these little bugs will grow up to help Habitica, not hurt it.",
+    "questBeetleBoss": "CRITICAL BUG",
+    "questBeetleDropBeetleEgg": "Beetle (Egg)",
+    "questBeetleUnlockText": "Unlocks purchasable Beetle eggs in the Market"
 }

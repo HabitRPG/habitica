@@ -46,6 +46,7 @@
     "chat": "Chat",
     "sendChat": "Send Chat",
     "toolTipMsg": "Fetch Recent Messages",
+    "sendChatToolTip": "You can send a chat from the keyboard by tabbing to the 'Send Chat' button and pressing Enter or by pressing Control (Command on a Mac) + Enter.",
     "syncPartyAndChat": "Sync Party and Chat",
     "guildBankPop1": "Guild Bank",
     "guildBankPop2": "Gems which your guild leader can use for challenge prizes.",
@@ -186,7 +187,7 @@
     "keepOrRemove": "req.query.keep must be either \"keep\" or \"remove\"",
     "canOnlyInviteEmailUuid": "Can only invite using UUIDs or emails.",
     "inviteMissingEmail": "Missing email address in invite.",
-    "inviteMissingUuid": "Missing user id in invite",
+    "inviteMissingUuid": "Missing user ID in invite",
     "inviteMustNotBeEmpty": "Invite must not be empty.",
     "partyMustbePrivate": "Parties must be private.",
     "userAlreadyInGroup": "User already in that group.",
@@ -200,7 +201,7 @@
     "emailsMustBeAnArray": "Email address invites must be an array.",
     "canOnlyInviteMaxInvites": "You can only invite \"<%= maxInvites %>\" at a time.",
     "onlyCreatorOrAdminCanDeleteChat": "Not authorised to delete this message!",
-    "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
+    "onlyGroupLeaderCanEditTasks": "Not authorised to manage tasks!",
     "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
     "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
     "newChatMessageTitle": "New message in <%= groupName %>",
@@ -209,5 +210,9 @@
     "exportInboxPopoverBody": "HTML allows easy reading of messages in a browser. For a machine-readable format, use Data > Export Data",
     "to": "To:",
     "from": "From:",
-    "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made."
+    "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made.",
+    "confirmAddTag": "Do you really want to add \"<%= tag %>\"?",
+    "confirmRemoveTag": "Do you really want to remove \"<%= tag %>\"?",
+    "assignTask": "Assign Task",
+    "claim": "Claim"
 }

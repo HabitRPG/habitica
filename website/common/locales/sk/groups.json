@@ -46,6 +46,7 @@
     "chat": "Chat",
     "sendChat": "Odoslať",
     "toolTipMsg": "Načítať posledné správy",
+    "sendChatToolTip": "You can send a chat from the keyboard by tabbing to the 'Send Chat' button and pressing Enter or by pressing Control (Command on a Mac) + Enter.",
     "syncPartyAndChat": "Synchr. družinu a chat",
     "guildBankPop1": "Cechová truhlica",
     "guildBankPop2": "Drahokamy, ktoré môže vodca cechu použiť ako odmenu vo výzvach.",
@@ -209,5 +210,9 @@
     "exportInboxPopoverBody": "HTML povoľuje jednoduché čítanie správ v prehliadači. Pre strojovo prečítatelný formát použi Dáta > Export dát",
     "to": "Pre:",
     "from": "Od:",
-    "desktopNotificationsText": "Potrebujeme tvoje povolenie, aby sme zapli upozornenia na pozadí pre nové správy v chate družiny! Nasleduj inštrukcie tvojho prehliadača, aby si ich zapol. <br><br>Tieto správy dostaneš len vtedy, keď je Habitica otvorená. Keď sa rozhodneš, že ich nechceš, môžeš ich zablokovať v nastaveniach tvojho prehliadača. <br><br>Táto správa sa automaticky vypne, keď si vyberieš jednu z možností."
+    "desktopNotificationsText": "Potrebujeme tvoje povolenie, aby sme zapli upozornenia na pozadí pre nové správy v chate družiny! Nasleduj inštrukcie tvojho prehliadača, aby si ich zapol. <br><br>Tieto správy dostaneš len vtedy, keď je Habitica otvorená. Keď sa rozhodneš, že ich nechceš, môžeš ich zablokovať v nastaveniach tvojho prehliadača. <br><br>Táto správa sa automaticky vypne, keď si vyberieš jednu z možností.",
+    "confirmAddTag": "Do you really want to add \"<%= tag %>\"?",
+    "confirmRemoveTag": "Do you really want to remove \"<%= tag %>\"?",
+    "assignTask": "Assign Task",
+    "claim": "Claim"
 }

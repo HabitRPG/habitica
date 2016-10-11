@@ -52,8 +52,8 @@
     "spellSpecialSandNotes": "Verwijder de effecten van Zeeschuim.",
     "spellNotFound": "Vaardigheid \"<%= spellId %>\" niet gevonden.",
     "partyNotFound": "Groep niet gevonden",
-    "targetIdUUID": "\"targetId\" moet een geldige User ID zijn.",
+    "targetIdUUID": "\"targetId\" moet een geldige gebruikers-ID zijn.",
     "challengeTasksNoCast": "Het uitspreken van een vaardigheid op uitdagingstaken is niet toegestaan.",
     "spellNotOwned": "Je bezit deze vaardigheid niet.",
-    "spellLevelTooHigh": "Je moet niveau <%= level %> zijn om deze vaardigheid te kunnen gebruiken."
+    "spellLevelTooHigh": "Je moet niveau <%= level %> zijn om deze vaardigheid te gebruiken."
 }

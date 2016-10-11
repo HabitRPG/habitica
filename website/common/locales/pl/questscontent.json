@@ -309,10 +309,10 @@
     "questBewilderBossRageMarket": "Be-Wilder używa CIOSU OPĘTANIA!\n\nO nie! Pomimo naszych najlepszych starań zostaliśmy rozproszenie przez czarujące iluzje Be-Wildera'a i zapomnieliśmy ukończyć niektórych Codziennych. Wydając chichoczący okrzyk, lśniący ptak uderza skrzydłami  tworząc mgłę wokłół Kupca Aleksa. Gdy mgła opadła, został opętany! \"Macie trochę darmowych próbek!\" krzyczy wesoło i zaczyna ciskać eksplodującymi jajami i eliksirami w uciekających Habitan. Niezbyt korzystne z punktu widzenia sprzedarzy.\n\nSzybko! Skupmy się na naszych Codziennych aby pokonać tego potwora zanim opęta kogoś jeszcze.",
     "questBewilderBossRageStables": "Be-Wilder używa CIOSU OPĘTANIA\n\nAhh!!! Raz jaszcze Be-Wilder zaślepił nas i zaniedbaliśmy swoje Codzienne, teraz zaatakował Matt'a Władcę Chowańców! W mglistym wirze Matt transformuje się w przerażającą skrzydlatą bestie i wszystkie  chowańce i wierzchowce wyją ponuro w stajni. Szybko, skup się na swoich zadaniach by przezwyciężyć to podłe roztargnienie!",
     "questBewilderBossRageBailey": "Be-Wilder używa CIOSU OPĘTANIA\n\nUwaga! Bailey - miejski herold w trakcie ogłasznia wieści został opętany przez Be-Wilder'a! Wydaje z siebie złowrogi, nieartykułowany skrzek gdy wznosi się w powietrze.  Czy dowiemy się co się dzieje?\n\nNie poddawaj się... jeszcze trochę, a pokonamy tego natrętnego ptaka raz na zawsze!",
-    "questFalconText": "The Birds of Preycrastination",
+    "questFalconText": "Ptaki Pro-KRA-stynacji",
     "questFalconNotes": "Mt. Habitica is being overshadowed by a looming mountain of To-Dos. It used to be a place to picnic and enjoy a sense of accomplishment, until the neglected tasks grew out of control. Now it's home to fearsome Birds of Preycrastination, foul creatures which stop Habiticans from completing their tasks!<br><br>\"It's too hard!\" they caw at @JonArinbjorn and @Onheiron. \"It'll take too long to do right now! It won't make any difference if you wait until tomorrow! Why don't you do something fun instead?\"<br><br>No more, you vow. You will climb your personal mountain of To-Dos and defeat the Birds of Preycrastination!",
     "questFalconCompletion": "Having finally triumphed over the Birds of Preycrastination, you settle down to enjoy the view and your well-earned rest.<br><br>\"Wow!\" says @Trogdorina. \"You won!\"<br><br>@Squish adds, \"Here, take these eggs I found as a reward.\"",
-    "questFalconBoss": "Birds of Preycrastination",
+    "questFalconBoss": "Ptaki Pro-KRA-stynacji",
     "questFalconDropFalconEgg": "Sokół (jajo)",
     "questFalconUnlockText": "Odblokowuje dostęp do kupna jaj sokoła na Targu.",
     "questTreelingText": "The Tangle Tree",
@@ -347,5 +347,11 @@
     "questCowCompletion": "You milk your good habits for all they are worth until the cow reverts to its original form. The cow looks over at you with her pretty brown eyes and nudges over three eggs.<br><br>@fuzzytrees laughs and hands you the eggs, \"Maybe it still is mootated if there are baby cows in these eggs. But I trust you to stick to your good habits when you raise them!\"",
     "questCowBoss": "Zmuutowana krowa",
     "questCowDropCowEgg": "Krowa (jajo)",
-    "questCowUnlockText": "Odblokowuje dostęp do kupna krowich jaj na Targu"
+    "questCowUnlockText": "Odblokowuje dostęp do kupna krowich jaj na Targu",
+    "questBeetleText": "The CRITICAL BUG",
+    "questBeetleNotes": "Something in the domain of Habitica has gone awry. The Blacksmiths' forges have extinguished, and strange errors are appearing everywhere. With an ominous tremor, an insidious foe worms from the earth... a CRITICAL BUG! You brace yourself as it infects the land, and glitches begin to overtake the Habiticans around you. @starsystemic yells, \"We need to help the Blacksmiths get this Bug under control!\" It looks like you'll have to make this programmer's pest your top priority.",
+    "questBeetleCompletion": "With a final attack, you crush the CRITICAL BUG. @starsystemic and the Blacksmiths rush up to you, overjoyed. \"I can't thank you enough for smashing that bug! Here, take these.\" You are presented with three shiny beetle eggs. Hopefully these little bugs will grow up to help Habitica, not hurt it.",
+    "questBeetleBoss": "CRITICAL BUG",
+    "questBeetleDropBeetleEgg": "Beetle (Egg)",
+    "questBeetleUnlockText": "Unlocks purchasable Beetle eggs in the Market"
 }

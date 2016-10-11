@@ -244,7 +244,7 @@
     "missingUsername": "Nom d'utilisateur manquant.",
     "missingPassword": "Mot de passe manquant.",
     "missingNewPassword": "Nouveau mot de passe manquant.",
-    "invalidEmailDomain": "Vous ne pouvez pas vous enregistrer avec un adresse e-mail appartenant aux domaines suivants: %= domains %>",
+    "invalidEmailDomain": "Vous ne pouvez pas vous enregistrer avec une adresse e-mail appartenant aux domaines suivants: %= domains %>",
     "wrongPassword": "Mauvais mot de passe.",
     "notAnEmail": "Adresse courriel invalide.",
     "emailTaken": "Adresse courriel déjà utilisée par un utilisateur.",

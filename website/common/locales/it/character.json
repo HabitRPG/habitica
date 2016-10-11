@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Ricorda che il tuo nome pubblico, la tua foto profilo e la tua descrizione personale devono rispettare le <a href='https://habitica.com/static/community-guidelines' target='_blank'>linee guida della Community</a> (ad esempio sono vietate profanità, argomenti per adulti, insulti, ecc.). Se vuoi sapere se ciò che hai scritto è appropriato, non esitare a inviare una e-mail a <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "profile": "Profilo",
     "avatar": "Personalizza Avatar",
     "other": "Altro",
@@ -146,9 +146,9 @@
     "youCastTarget": "Hai lanciato l'incantesimo <%= spell %> su <%= target %>.",
     "youCastParty": "Hai lanciato l'incantesimo <%= spell %> per la squadra.",
     "critBonus": "Colpo critico! Bonus:",
-    "displayNameDescription1": "Questo è ciò che appare nei messaggi che scrivi nella Taverna, nelle gilde e nella chat di squadra, insieme al tuo avatar. Vai in",
+    "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. To change it, click the Edit button above. If instead you want to change your login name, go to",
     "displayNameDescription2": "Impostazioni->Sito",
-    "displayNameDescription3": "nella sezione Registrazione per modificare il nome con cui accedi al sito..",
+    "displayNameDescription3": "and look in the Registration section.",
     "unequipBattleGear": "Rimuovi equipaggiamento di battaglia",
     "unequipCostume": "Rimuovi costume",
     "unequipPetMountBackground": "Rimuovi animale, cavalcatura, sfondo",
