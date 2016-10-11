@@ -418,6 +418,7 @@ schema.methods.startQuest = async function startQuest (user) {
   let userIsParticipating = this.quest.members[user._id];
   let quest = questScrolls[this.quest.key];
   let collected = {};
+  let group = this;
   if (quest.collect) {
     collected = _.transform(quest.collect, (result, n, itemToCollect) => {
       result[itemToCollect] = 0;
@@ -520,6 +521,7 @@ schema.methods.startQuest = async function startQuest (user) {
         });
     });
   });
+  group.sendChat(`Your quest, ${quest.text('en')}, has started.`);
 };
 
 schema.statics.cleanQuestProgress = _cleanQuestProgress;
