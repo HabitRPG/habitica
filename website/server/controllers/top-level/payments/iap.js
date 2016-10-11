@@ -72,7 +72,7 @@ api.iapAndroidVerify = {
         break;
     }
 
-    if (amount) throw new Error('INVALID_ITEM_PURCHASED');
+    if (!amount) throw new Error('INVALID_ITEM_PURCHASED');
 
     await payments.buyGems({
       user,
@@ -150,7 +150,7 @@ api.iapiOSVerify = {
             amount = 21;
             break;
         }
-        if (amount) {
+        if (!amount) {
           correctReceipt = false;
           break;
         }
