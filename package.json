@@ -203,7 +203,6 @@
     "sinon": "^1.17.2",
     "sinon-chai": "^2.8.0",
     "superagent-defaults": "^0.1.13",
-    "vinyl-source-stream": "^1.0.0",
     "vinyl-transform": "^1.0.0",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.6.0"
