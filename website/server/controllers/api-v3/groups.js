@@ -672,12 +672,12 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  * @apiGroup Group
  * @apiDescription You can provide both `emails` and `uuids`, or just one. You must provide at least one.
  *
- * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiParam {Object[]} [emails] Body parameter - An array of objects, each representing one email address to invite
- * @apiParam {String} emails.email The email address of the user being invited.
- * @apiParam {String} [emails.name] The name of the user being invited.
- * @apiParam {Array} [uuids] Body parameter - An array of uuids to invite
+ * @apiParam (Body) {Object[]} [emails] An array of objects, each representing one email address to invite
+ * @apiParam (Body) {String} emails.email The email address of the user being invited.
+ * @apiParam (Body) {String} [emails.name] The name of the user being invited.
+ * @apiParam (Body) {Array} [uuids] An array of uuids to invite
  *
  * @apiParamExample {json} Emails
  * {
@@ -706,24 +706,24 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  * @apiSuccessExample {json} Successful Response with Emails
  * {
  *   "data": [
- *       "user-1@example.com",
- *       "user-2@exmaple.com"
+ *      "user-1@example.com",
+ *      "user-2@exmaple.com"
  *   ]
  * }
  *
  * @apiSuccessExample {json} Successful Response with User Id
  * {
- *     "data": [
- *       { id: 'the-id-of-the-invited-user', name: 'The group name', inviter: 'your-user-id' }
- *     ]
+ *   "data": [
+ *     { id: 'the-id-of-the-invited-user', name: 'The group name', inviter: 'your-user-id' }
+ *   ]
  * }
  * @apiSuccessExample {json} Successful Response with User Ids and Emails
  * {
- *     "data": [
- *       "user-1@example.com",
- *       { id: 'the-id-of-the-invited-user', name: 'The group name', inviter: 'your-user-id' },
- *       "user-2@exmaple.com"
- *     ]
+ *   "data": [
+ *     "user-1@example.com",
+ *     { id: 'the-id-of-the-invited-user', name: 'The group name', inviter: 'your-user-id' },
+ *     "user-2@exmaple.com"
+ *   ]
  * }
  *
  * @apiUse GroupBodyInvalid
