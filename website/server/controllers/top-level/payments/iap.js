@@ -60,7 +60,7 @@ api.iapAndroidVerify = {
       case 'com.habitrpg.android.habitica.iap.4gems':
         amount = 1;
         break;
-      case 'com.habitrpg.android.habitica.iap.20gems':
+      case 'com.habitrpg.android.habitica.iap.20.gems':
       case 'com.habitrpg.android.habitica.iap.21gems':
         amount = 5.25;
         break;
