@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import pickBy from 'lodash.pickby'; // Not available in lodash 3
 import content from '../content/index';
 import i18n from '../i18n';
 
@@ -224,6 +225,10 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     fall2015Warrior: i18n.t('scarecrowWarriorSet', language),
   };
 
+  let availableSpells = [
+    'spookySparkles',
+  ];
+
   let categories = [];
 
   let flatGearArray = _.toArray(content.gear.flat);
@@ -256,6 +261,33 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
       if (category.items.length > 0) {
         categories.push(category);
       }
+    }
+  }
+
+  if (availableSpells.length > 0) {
+    let spells = pickBy(content.spells.special, (spell, key) => {
+      return _.indexOf(availableSpells, key) !== -1;
+    });
+
+    if (_.keys(spells).length > 0) {
+      let category = {
+        identifier: 'spells',
+        text: i18n.t('seasonalItems', language),
+      }
+
+      category.items = _.map(spells, (spell, key) => {
+        return {
+          key,
+          text: spell.text(language),
+          notes: spell.notes(language),
+          value: spell.value,
+          currency: 'gold',
+          locked: false,
+          purchaseType: 'spells',
+        };
+      });
+
+      categories.push(category);
     }
   }
 
