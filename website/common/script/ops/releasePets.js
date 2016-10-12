@@ -11,8 +11,10 @@ module.exports = function releasePets (user, req = {}, analytics) {
 
   user.balance -= 1;
 
-  // Only remove current pet if it is Gen 1
-  if (Object.keys(content.pets).indexOf(user.items.currentPet) > -1) {
+  // Only remove current pet if it is Gen 1 (dropped)
+  let petInfo = content.petInfo[user.items.currentPet];
+
+  if (petInfo && petInfo.type === 'drop') {
     user.items.currentPet = '';
   }
 
