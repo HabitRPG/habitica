@@ -5,8 +5,6 @@ import {
 } from '../libs/errors';
 
 module.exports = function releaseMounts (user, req = {}, analytics) {
-  let mount;
-
   if (user.balance < 1) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
@@ -18,7 +16,7 @@ module.exports = function releaseMounts (user, req = {}, analytics) {
     user.items.currentMount = '';
   }
 
-  for (mount in content.pets) {
+  for (let mount in content.pets) {
     user.items.mounts[mount] = null;
   }
 
