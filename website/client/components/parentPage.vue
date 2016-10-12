@@ -1,8 +1,8 @@
 <template lang="pug">
 .row
   .sixteen.wide.column
-    h2 Page
-    p {{ $route.path }}
+    h2 Parent Page
+    router-view.row
 </template>
 
 <script>

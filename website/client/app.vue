@@ -4,8 +4,7 @@
 #app
   app-header
   .ui.grid.fluid
-    .row
-      router-view
+    router-view
 </template>
 
 <script>
