@@ -239,7 +239,7 @@ api.subscribeCancel = {
       AmazonBillingAgreementId: billingAgreementId,
     });
 
-    if (details.BillingAgreementDetails.BillingAgreementStatus.status !== 'Closed') {
+    if (details.BillingAgreementDetails.BillingAgreementStatus.State !== 'Closed') {
       await amzLib.closeBillingAgreement({
         AmazonBillingAgreementId: billingAgreementId,
       });
