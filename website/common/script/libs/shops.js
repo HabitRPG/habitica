@@ -264,31 +264,29 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     }
   }
 
-  if (availableSpells.length > 0) {
-    let spells = pickBy(content.spells.special, (spell, key) => {
-      return _.indexOf(availableSpells, key) !== -1;
+  let spells = pickBy(content.spells.special, (spell, key) => {
+    return _.indexOf(availableSpells, key) !== -1;
+  });
+
+  if (_.keys(spells).length > 0) {
+    let category = {
+      identifier: 'spells',
+      text: i18n.t('seasonalItems', language),
+    }
+
+    category.items = _.map(spells, (spell, key) => {
+      return {
+        key,
+        text: spell.text(language),
+        notes: spell.notes(language),
+        value: spell.value,
+        currency: 'gold',
+        locked: false,
+        purchaseType: 'spells',
+      };
     });
 
-    if (_.keys(spells).length > 0) {
-      let category = {
-        identifier: 'spells',
-        text: i18n.t('seasonalItems', language),
-      }
-
-      category.items = _.map(spells, (spell, key) => {
-        return {
-          key,
-          text: spell.text(language),
-          notes: spell.notes(language),
-          value: spell.value,
-          currency: 'gold',
-          locked: false,
-          purchaseType: 'spells',
-        };
-      });
-
-      categories.push(category);
-    }
+    categories.push(category);
   }
 
   return categories;
