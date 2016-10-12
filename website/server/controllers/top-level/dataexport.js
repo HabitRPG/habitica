@@ -30,7 +30,13 @@ let api = {};
  * @apiName ExportUserHistory
  * @apiGroup DataExport
  *
- * @apiSuccess {String} A csv file
+ * @apiSuccess {csv} returns A csv file
+ *
+ * @apiSuccessExample {csv} Example
+ * Task Name,Task ID,Task Type,Date,Value
+ * Be Awesome,e826ddfa-dc2e-445f-a06c-64d3881982ea,habit,2016-06-02 13:26:05,1
+ * Be Awesome,e826ddfa-dc2e-445f-a06c-64d3881982ea,habit,2016-06-03 05:06:55,1.026657310999762
+ * ...
  */
 api.exportUserHistory = {
   method: 'GET',
@@ -97,7 +103,7 @@ async function _getUserDataForExport (user) {
  * @apiGroup DataExport
  * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {String} A json file
+ * @apiSuccess {JSON} returns A JSON file of the user object. See <code><a href='#api-User-UserGet'>GET /user</a></code>.
  */
 api.exportUserDataJson = {
   method: 'GET',
@@ -122,7 +128,7 @@ api.exportUserDataJson = {
  * @apiGroup DataExport
  * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {String} A xml file
+ * @apiSuccess {XML} returns An xml file of the user object. See <code><a href='#api-User-UserGet'>GET /user</a></code>.
  */
 api.exportUserDataXml = {
   method: 'GET',
@@ -145,7 +151,9 @@ api.exportUserDataXml = {
  * @apiGroup DataExport
  * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {String} An html page
+ * @apiParam (Path) {String} uuid The User ID of the user
+ *
+ * @apiSuccess {HTML} returns An html page rendering the user's avatar.
  *
  * @apiUse UserNotFound
  */
@@ -179,7 +187,9 @@ api.exportUserAvatarHtml = {
  * @apiGroup DataExport
  * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {String} A png file
+ * @apiParam (Path) {String} uuid The User ID of the user
+ *
+ * @apiSuccess {PNG} returns A png file of the user's avatar.
  */
 api.exportUserAvatarPng = {
   method: 'GET',
@@ -247,7 +257,7 @@ api.exportUserAvatarPng = {
  * @apiGroup DataExport
  * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {String} An html page
+ * @apiSuccess {HTML} returns An html page of the user's private messages.
  */
 api.exportUserPrivateMessages = {
   method: 'GET',
