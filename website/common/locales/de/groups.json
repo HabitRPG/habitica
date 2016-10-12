@@ -46,7 +46,7 @@
     "chat": "Chat",
     "sendChat": "Nachricht senden",
     "toolTipMsg": "Nachrichten abholen",
-    "sendChatToolTip": "You can send a chat from the keyboard by tabbing to the 'Send Chat' button and pressing Enter or by pressing Control (Command on a Mac) + Enter.",
+    "sendChatToolTip": "Du kannst eine Nachricht mit der Tastatur senden, indem Du mit Tab zum Senden-Knopf wechselst und Enter drückst, oder durch Drücken von Strg (Cmd auf einem Mac) + Enter.",
     "syncPartyAndChat": "Synchronisiere Gruppe und Chat",
     "guildBankPop1": "Gildenbank",
     "guildBankPop2": "Edelsteine, die Dein Gildenleiter als Preise für Wettbewerbe verwenden kann.",
@@ -211,8 +211,8 @@
     "to": "An:",
     "from": "Von:",
     "desktopNotificationsText": "Wir benötigen Deine Erlaubnis, um die Desktop-Benachrichtigungen für neue Nachrichten im Gruppen-Chat zu aktivieren! Folge den Anweisungen Deines Browsers um sie anzuschalten.<br><br>Du wirst diese Benachrichtigungen nur erhalten, solange Habitica geöffnet ist. Wenn Dir diese nicht gefallen sollten, können sie in Deinen Browser-Einstellungen deaktiviert werden.<br><br>Dieser Hinweis wird automatisch geschlossen, sobald eine Entscheidung getroffen wurde.",
-    "confirmAddTag": "Do you really want to add \"<%= tag %>\"?",
-    "confirmRemoveTag": "Do you really want to remove \"<%= tag %>\"?",
-    "assignTask": "Assign Task",
+    "confirmAddTag": "Willst Du \"<%= tag %>\" wirklich hinzufügen?",
+    "confirmRemoveTag": "Willst Du \"<%= tag %>\" wirklich entfernen?",
+    "assignTask": "Aufgabe zuweisen",
     "claim": "Claim"
 }

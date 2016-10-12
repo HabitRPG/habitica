@@ -348,10 +348,10 @@
     "questCowBoss": "Moetante Koe",
     "questCowDropCowEgg": "Koe (Ei)",
     "questCowUnlockText": "Speelt het kopen van Koe eieren vrij op de Markt",
-    "questBeetleText": "The CRITICAL BUG",
-    "questBeetleNotes": "Something in the domain of Habitica has gone awry. The Blacksmiths' forges have extinguished, and strange errors are appearing everywhere. With an ominous tremor, an insidious foe worms from the earth... a CRITICAL BUG! You brace yourself as it infects the land, and glitches begin to overtake the Habiticans around you. @starsystemic yells, \"We need to help the Blacksmiths get this Bug under control!\" It looks like you'll have to make this programmer's pest your top priority.",
-    "questBeetleCompletion": "With a final attack, you crush the CRITICAL BUG. @starsystemic and the Blacksmiths rush up to you, overjoyed. \"I can't thank you enough for smashing that bug! Here, take these.\" You are presented with three shiny beetle eggs. Hopefully these little bugs will grow up to help Habitica, not hurt it.",
-    "questBeetleBoss": "CRITICAL BUG",
-    "questBeetleDropBeetleEgg": "Beetle (Egg)",
-    "questBeetleUnlockText": "Unlocks purchasable Beetle eggs in the Market"
+    "questBeetleText": "De KRITIEKE KEVER",
+    "questBeetleNotes": "Iets in het gebied van Habitica is scheef gegaan. De Hoefsmeden hun smederijen zijn gedoofd en vreemde fouten verschijnen overal. Met een onheilspellende trilling, wurmt een arglistige vijand vanuit de aarde... een KRITIEKE KEVER! Je zet je schrap terwijl het het land infecteert en verstoringen de Habiticanen rondom je overnemen. @starsystemic roept, \"We moeten de Hoefsmeden helpen om deze Kever onder controle te houden!\" Het lijkt erop dat je deze pest voor programmeurs je hoogste prioriteit moet maken.",
+    "questBeetleCompletion": "Met een beslissende aanval verpletter je de KRITIEKE KEVER. @starsystemic en de Hoefsmeden rennen dolblij op je af. \"Ik kan je niet genoeg bedanken voor het pletten van die kever! Hier, neem deze.\" Je krijgt drie glimmende kever eieren. Hopelijk groeien deze kleine kevers op om Habitica te helpen, niet om het kwaad te doen.",
+    "questBeetleBoss": "KRITIEKE KEVER",
+    "questBeetleDropBeetleEgg": "Kever (Ei)",
+    "questBeetleUnlockText": "Speelt het kopen van Kever eieren vrij op de Markt"
 }
