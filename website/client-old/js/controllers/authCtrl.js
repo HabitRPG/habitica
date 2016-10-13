@@ -11,6 +11,7 @@ angular.module('habitrpg')
 
       $scope.logout = function() {
         localStorage.clear();
+        window.document.cookie.split(";").forEach(function(c) { window.document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
         $window.location.href = '/logout';
       };
 
