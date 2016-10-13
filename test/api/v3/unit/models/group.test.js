@@ -1,7 +1,7 @@
 import { sleep } from '../../../../helpers/api-unit.helper';
 import {
   SPAM_MESSAGE_LIMIT,
-  SPAM_CONTRIBUTOR_LEVEL,
+  SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
   SPAM_WINDOW_LENGTH,
   INVITES_LIMIT,
   model as Group,
@@ -617,6 +617,7 @@ describe('Group Model', () => {
       let testMessage, testUser, testTime;
       let testUserID = '1';
       beforeEach(async () => {
+        party._id = TAVERN_ID;
         testTime = Date.now();
         testMessage = {
           text: 'test message',
@@ -628,10 +629,16 @@ describe('Group Model', () => {
         };
       });
 
+      it('group that is not the tavern returns false', async () => {
+        party._id = '2';
+
+        expect(party.checkChatSpam(testUser)).to.eql(false);
+      });
+
       it('high enough contributor returns false', async () => {
         let highContributor = testUser;
         highContributor.contributor = {
-          level: SPAM_CONTRIBUTOR_LEVEL,
+          level: SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
         };
 
         for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {

@@ -6,7 +6,8 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 import {
   SPAM_MESSAGE_LIMIT,
-  SPAM_CONTRIBUTOR_LEVEL,
+  SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
+  TAVERN_ID
 } from '../../../../../website/server/models/group';
 import { v4 as generateUUID } from 'uuid';
 
@@ -164,11 +165,11 @@ describe('POST /chat', () => {
   it('Returns an error when the user has been posting too many messages', async () => {
     // Post as many messages are needed to reach the spam limit
     for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
-      let result = await additionalMember.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage }); // eslint-disable-line babel/no-await-in-loop
+      let result = await additionalMember.post(`/groups/${TAVERN_ID}/chat`, { message: testMessage }); // eslint-disable-line babel/no-await-in-loop
       expect(result.message.id).to.exist;
     }
 
-    await expect(additionalMember.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage })).to.eventually.be.rejected.and.eql({
+    await expect(additionalMember.post(`/groups/${TAVERN_ID}/chat`, { message: testMessage })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
       message: t('messageGroupChatSpam'),
@@ -176,11 +177,11 @@ describe('POST /chat', () => {
   });
 
   it('contributor should not receive spam alert', async () => {
-    let userSocialite = await member.update({'contributor.level': SPAM_CONTRIBUTOR_LEVEL, 'flags.chatRevoked': false});
+    let userSocialite = await member.update({'contributor.level': SPAM_MIN_EXEMPT_CONTRIB_LEVEL, 'flags.chatRevoked': false});
 
     // Post 1 more message than the spam limit to ensure they do not reach the limit
     for (let i = 0; i < SPAM_MESSAGE_LIMIT + 1; i++) {
-      let result = await userSocialite.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage }); // eslint-disable-line babel/no-await-in-loop
+      let result = await userSocialite.post(`/groups/${TAVERN_ID}/chat`, { message: testMessage }); // eslint-disable-line babel/no-await-in-loop
       expect(result.message.id).to.exist;
     }
   });

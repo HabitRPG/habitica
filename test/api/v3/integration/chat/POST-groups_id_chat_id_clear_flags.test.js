@@ -5,7 +5,7 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 import {
-  SPAM_CONTRIBUTOR_LEVEL,
+  SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
 } from '../../../../../website/server/models/group';
 
 describe('POST /groups/:id/chat/:id/clearflags', () => {
@@ -112,7 +112,6 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
     let message2, message3, message4;
 
     before(async () => {
-      author = await author.update({'contributor.level': SPAM_CONTRIBUTOR_LEVEL});
       message2 = await author.post(`/groups/${groupWithChat._id}/chat`, { message: 'Some message 2' });
       message2 = message2.message;
       await admin.post(`/groups/${groupWithChat._id}/chat/${message2.id}/flag`);

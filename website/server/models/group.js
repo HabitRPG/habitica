@@ -44,7 +44,7 @@ const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 */
 export const SPAM_MESSAGE_LIMIT = 2;
 export const SPAM_WINDOW_LENGTH = 60000; // 1 minute
-export const SPAM_CONTRIBUTOR_LEVEL = 4;
+export const SPAM_MIN_EXEMPT_CONTRIB_LEVEL = 4;
 
 export let schema = new Schema({
   name: {type: String, required: true},
@@ -997,15 +997,14 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
 
 // Returns true if the user has reached the spam message limit
 schema.methods.checkChatSpam = function groupCheckChatSpam (user) {
-  if (user.contributor && user.contributor.level >= SPAM_CONTRIBUTOR_LEVEL) {
+  if (this._id !== TAVERN_ID || (user.contributor && user.contributor.level >= SPAM_MIN_EXEMPT_CONTRIB_LEVEL)) {
     return false;
   }
 
-  let group = this;
   let currentTime = Date.now();
   let userMessages = 0;
-  for (let i = 0; i < group.chat.length; i++) {
-    let message = group.chat[i];
+  for (let i = 0; i < this.chat.length; i++) {
+    let message = this.chat[i];
     if (message.uuid === user._id && currentTime - message.timestamp <= SPAM_WINDOW_LENGTH) {
       userMessages++;
       if (userMessages >= SPAM_MESSAGE_LIMIT) {
