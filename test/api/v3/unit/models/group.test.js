@@ -360,13 +360,14 @@ describe('Group Model', () => {
           party.quest.active = false;
 
           await party.startQuest(questLeader);
+          Group.prototype.sendChat.reset();
           await party.save();
 
           await Group.processQuestProgress(participatingMember, progress);
 
           party = await Group.findOne({_id: party._id});
 
-          expect(Group.prototype.sendChat).to.be.calledTwice;
+          expect(Group.prototype.sendChat).to.be.calledOnce;
           expect(Group.prototype.sendChat).to.be.calledWithMatch(/`Participating Member found/);
           expect(Group.prototype.sendChat).to.be.calledWithMatch(/0 Blue Fins/);
           expect(Group.prototype.sendChat).to.be.calledWithMatch(/0 Fire Coral/);
@@ -378,13 +379,14 @@ describe('Group Model', () => {
           party.quest.active = false;
 
           await party.startQuest(questLeader);
+          Group.prototype.sendChat.reset();
           await party.save();
 
           await Group.processQuestProgress(participatingMember, progress);
 
           party = await Group.findOne({_id: party._id});
 
-          expect(Group.prototype.sendChat).to.be.calledTwice;
+          expect(Group.prototype.sendChat).to.be.calledOnce;
           expect(Group.prototype.sendChat).to.be.calledWithMatch(/`Participating Member found/);
           expect(Group.prototype.sendChat).to.be.calledWithMatch(/\d* (Tracks|Broken Twigs)/);
         });
