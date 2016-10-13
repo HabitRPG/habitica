@@ -109,7 +109,7 @@ async function _getUserDataForExport (user) {
  * @apiName ExportUserDataJson
  * @apiGroup DataExport
  *
- * @apiSuccess {JSON} File A JSON file of the user object and tasks. See `[GET /user](#api-User-UserGet)` and `[GET /tasks/user](#api-Task-GetUserTasks)`.
+ * @apiSuccess {JSON} File A JSON file of the user object and tasks.
  */
 api.exportUserDataJson = {
   method: 'GET',
@@ -133,7 +133,7 @@ api.exportUserDataJson = {
  * @apiName ExportUserDataXml
  * @apiGroup DataExport
  *
- * @apiSuccess {XML} File An xml file of the user object. See `[GET /user](#api-User-UserGet)` and `[GET /tasks/user](#api-Task-GetUserTasks)`.
+ * @apiSuccess {XML} File An xml file of the user object.
  */
 api.exportUserDataXml = {
   method: 'GET',
