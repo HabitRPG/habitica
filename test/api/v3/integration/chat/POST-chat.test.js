@@ -7,7 +7,7 @@ import {
 import {
   SPAM_MESSAGE_LIMIT,
   SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
-  TAVERN_ID
+  TAVERN_ID,
 } from '../../../../../website/server/models/group';
 import { v4 as generateUUID } from 'uuid';
 

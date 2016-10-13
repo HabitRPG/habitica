@@ -997,7 +997,7 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
 
 // Returns true if the user has reached the spam message limit
 schema.methods.checkChatSpam = function groupCheckChatSpam (user) {
-  if (this._id !== TAVERN_ID || (user.contributor && user.contributor.level >= SPAM_MIN_EXEMPT_CONTRIB_LEVEL)) {
+  if (this._id !== TAVERN_ID || user.contributor && user.contributor.level >= SPAM_MIN_EXEMPT_CONTRIB_LEVEL) {
     return false;
   }
 
