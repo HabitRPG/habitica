@@ -20,6 +20,12 @@ habitrpg
         }
       });
 
+    $scope.keyDownListener = function (e) {
+      if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+        $scope.sendPrivateMessage($scope.profile._id, $scope._message);
+      }
+    };
+
       $scope.sendPrivateMessage = function(uuid, message){
         if (!message) return;
 

@@ -8,7 +8,7 @@ div.chat-form.guidelines-not-accepted(ng-if='!user.flags.communityGuidelinesAcce
 
 form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postChat(group,message.content)')
   div(ng-controller='AutocompleteCtrl')
-    textarea.form-control(rows=4, ui-keydown='{"meta-enter":"postChat(group,message.content)"}', ng-model='message.content', updateinterval='250', flag='@', at-user, auto-complete placeholder="{{group._id == TAVERN_ID ? env.t('tavernCommunityGuidelinesPlaceholder') : ''}}", ng-disabled='_sending == true')
+    textarea.form-control(rows=4, ng-keydown='keyDownListener($event)', ng-model='message.content', updateinterval='250', flag='@', at-user, auto-complete placeholder="{{group._id == TAVERN_ID ? env.t('tavernCommunityGuidelinesPlaceholder') : ''}}", ng-disabled='_sending == true')
     span.user-list
       ul.list-at-user(ng-show="query")
         li(ng-repeat='msg in response | filter:filterUser | limitTo: 5', ng-click='performCompletion(msg)')
