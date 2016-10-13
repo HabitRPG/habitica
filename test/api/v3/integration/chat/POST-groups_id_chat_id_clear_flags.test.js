@@ -4,9 +4,6 @@ import {
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
-import {
-  SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
-} from '../../../../../website/server/models/group';
 
 describe('POST /groups/:id/chat/:id/clearflags', () => {
   let groupWithChat, message, author, nonAdmin, admin;
