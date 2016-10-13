@@ -209,12 +209,12 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
   return categories;
 };
 
-// To switch seasons/available inventory, edit the availableSets object to whatever should be sold.
-// let availableSets = {
+// To switch seasons/available inventory, edit the AVAILABLE_SETS object to whatever should be sold.
+// let AVAILABLE_SETS = {
 //   setKey: i18n.t('setTranslationString', language),
 // };
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
-  let availableSets = {
+  const AVAILABLE_SETS = {
     fallHealer: i18n.t('mummyMedicSet', language),
     fall2015Healer: i18n.t('potionerSet', language),
     fallMage: i18n.t('witchyWizardSet', language),
@@ -225,7 +225,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     fall2015Warrior: i18n.t('scarecrowWarriorSet', language),
   };
 
-  let availableSpells = [
+  const AVAILABLE_SPELLS = [
     'spookySparkles',
   ];
 
@@ -234,7 +234,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   let flatGearArray = _.toArray(content.gear.flat);
 
   let spells = pickBy(content.spells.special, (spell, key) => {
-    return _.indexOf(availableSpells, key) !== -1;
+    return _.indexOf(AVAILABLE_SPELLS, key) !== -1;
   });
 
   if (_.keys(spells).length > 0) {
@@ -259,11 +259,11 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     categories.push(category);
   }
 
-  for (let key in availableSets) {
-    if (availableSets.hasOwnProperty(key)) {
+  for (let key in AVAILABLE_SETS) {
+    if (AVAILABLE_SETS.hasOwnProperty(key)) {
       let category = {
         identifier: key,
-        text: availableSets[key],
+        text: AVAILABLE_SETS[key],
       };
 
       category.items = _(flatGearArray).filter((gear) => {
