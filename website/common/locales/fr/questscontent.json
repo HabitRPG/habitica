@@ -348,10 +348,10 @@
     "questCowBoss": "Vache Meuhtante",
     "questCowDropCowEgg": "Vache (Œuf)",
     "questCowUnlockText": "Déverrouille l'achat d'œufs de vache au Marché",
-    "questBeetleText": "The CRITICAL BUG",
-    "questBeetleNotes": "Something in the domain of Habitica has gone awry. The Blacksmiths' forges have extinguished, and strange errors are appearing everywhere. With an ominous tremor, an insidious foe worms from the earth... a CRITICAL BUG! You brace yourself as it infects the land, and glitches begin to overtake the Habiticans around you. @starsystemic yells, \"We need to help the Blacksmiths get this Bug under control!\" It looks like you'll have to make this programmer's pest your top priority.",
-    "questBeetleCompletion": "With a final attack, you crush the CRITICAL BUG. @starsystemic and the Blacksmiths rush up to you, overjoyed. \"I can't thank you enough for smashing that bug! Here, take these.\" You are presented with three shiny beetle eggs. Hopefully these little bugs will grow up to help Habitica, not hurt it.",
-    "questBeetleBoss": "CRITICAL BUG",
-    "questBeetleDropBeetleEgg": "Beetle (Egg)",
-    "questBeetleUnlockText": "Unlocks purchasable Beetle eggs in the Market"
+    "questBeetleText": "Le BOGUE CRITIQUE",
+    "questBeetleNotes": "Quelque chose est allé de travers dans le domaine d'Habitca. Les forges des Forgerons se sont éteintes, et des erreurs étranges apparaissent partout. Avec un tremblement sinistre, un ennemi insidieux rampe en sortant de la terre... un BOGUE CRITIQUE! Vous vous fortifiez alors qu'il infecte la terre, et des glitches commencent à s'emparer des Habiticans autours de vous. @starsystemic crie, \"Nous devons aider les Forgerons à contrôler ce Bogue!\" Il semblerait que vous allez devoir faire de cet animal nuisible aux programmeurs votre première priorité.",
+    "questBeetleCompletion": "Avec votre attaque finale, vous écrasez le BOGUE CRITIQUE. @starsystemic et les Forgerons se précipite vers vous, fous de joie. \"Je ne peux vous remerciez assez pour avoir écrabouillé cet insecte! Voilà, prenez ceux-ci.\" On vous présente trois œufs brillants de scarabée. Heureusement ces petits insectes vont grandir pour aider Habitica, et pas lui faire du mal.",
+    "questBeetleBoss": "BOGUE CRITIQUE",
+    "questBeetleDropBeetleEgg": "Scarabée (Œuf)",
+    "questBeetleUnlockText": "Débloque un œuf de scarabée achetable dans le Marché"
 }

@@ -348,10 +348,10 @@
     "questCowBoss": "Zmuutowana krowa",
     "questCowDropCowEgg": "Krowa (jajo)",
     "questCowUnlockText": "Odblokowuje dostęp do kupna krowich jaj na Targu",
-    "questBeetleText": "The CRITICAL BUG",
-    "questBeetleNotes": "Something in the domain of Habitica has gone awry. The Blacksmiths' forges have extinguished, and strange errors are appearing everywhere. With an ominous tremor, an insidious foe worms from the earth... a CRITICAL BUG! You brace yourself as it infects the land, and glitches begin to overtake the Habiticans around you. @starsystemic yells, \"We need to help the Blacksmiths get this Bug under control!\" It looks like you'll have to make this programmer's pest your top priority.",
-    "questBeetleCompletion": "With a final attack, you crush the CRITICAL BUG. @starsystemic and the Blacksmiths rush up to you, overjoyed. \"I can't thank you enough for smashing that bug! Here, take these.\" You are presented with three shiny beetle eggs. Hopefully these little bugs will grow up to help Habitica, not hurt it.",
-    "questBeetleBoss": "CRITICAL BUG",
-    "questBeetleDropBeetleEgg": "Beetle (Egg)",
-    "questBeetleUnlockText": "Unlocks purchasable Beetle eggs in the Market"
+    "questBeetleText": "Krytyczna pluskwa",
+    "questBeetleNotes": "W obrębie Habitica coś poszło nie tak. Kowalskie kuźnie przestały działać, a przedziwne błędy zaczęły pojawiać się wszędzie. Ze złowieszczym drżeniem z ziemi wyłania się podstępny przeciwnik... KRYTYCZNA PLUSKWA! Przygotuj się na usterki, które spowoduje przy obejmowaniu władzy. @starsystemic krzyczy \"Musimy pomóc kowalom zapanować nad tą pluskwą!\" Wygląda na to, że musisz nadać temu programistycznemu szkodnikowi najwyższy priorytet.",
+    "questBeetleCompletion": "Ostatecznym ciosem miażdżysz krytyczną pluskwę. @starsystemic i kowale podbiegają uradowani. \"Brak mi słów z wdzięczności! Proszę, weź je.\" Zostajesz obdarowany trzema lśniącymi żuczymi jajami. Miejmy nadzieję, że te małe żuczki urosną, by pomagać Habitica, a nie ją psuć.",
+    "questBeetleBoss": "Krytyczna pluskwa",
+    "questBeetleDropBeetleEgg": "Żuk (jajo)",
+    "questBeetleUnlockText": "Odblokowuje dostęp do kupna żuczych jaj na Targu"
 }

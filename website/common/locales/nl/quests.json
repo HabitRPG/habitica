@@ -89,7 +89,7 @@
     "questNotFound": "Queeste \\\"<%= key %>\\\" niet gevonden.",
     "questNotOwned": "Je bezit deze queesterol niet.",
     "questNotGoldPurchasable": "Deze queeste \\\"<%= key %>\\\" is niet met goud verkrijgbaar.",
-    "questLevelTooHigh": "Je moet level <%= level %> zijn om deze queeste te beginnen.",
+    "questLevelTooHigh": "Je moet niveau <%= level %> zijn om deze queeste te beginnen.",
     "questAlreadyUnderway": "Jouw groep is al op een queeste. Probeer opnieuw wanneer deze queeste is beëindigd.",
     "questAlreadyAccepted": "Je hebt de queesteuitnodiging al geaccepteerd.",
     "noActiveQuestToLeave": "Geen actieve queeste om te verlaten",
