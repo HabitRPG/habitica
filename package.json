@@ -70,6 +70,7 @@
     "less-loader": "^2.2.3",
     "lodash": "^3.10.1",
     "lodash.setwith": "^4.2.0",
+    "lodash.pickby": "^4.2.0",
     "merge-stream": "^1.0.0",
     "method-override": "^2.3.5",
     "moment": "^2.13.0",

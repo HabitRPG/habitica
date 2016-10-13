@@ -832,7 +832,7 @@ api.purchase = {
   url: '/user/purchase/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let purchaseRes = common.ops.purchase(user, req, res.analytics);
+    let purchaseRes = req.params.type === 'spells' ? common.ops.buySpecialSpell(user, req) : common.ops.purchase(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseRes);
   },
