@@ -11,16 +11,6 @@
   // .well=env.t('seasonalShopRebirth')
 
   li.customize-menu.inventory-gear
-    menu.pets-menu(label=env.t('seasonalItems'))
-      div
-        button.customize-option(class='inventory_special_spookySparkles',
-          popover='{{::Content.spells.special.spookySparkles.notes()}}',
-          popover-title='{{::Content.spells.special.spookySparkles.text()}}',
-          popover-trigger='mouseenter', popover-placement='right',
-          popover-append-to-body='true',
-          ng-click='purchase("special", Content.spells.special.spookySparkles)')
-        p {{::Content.spells.special.spookySparkles.value}}
-          span(class='shop_gold')
     menu.pets-menu(label='{{category.text}}', ng-repeat='category in seasonalShopCategories')
       div(ng-repeat='item in category.items', ng-if='!user.items.gear.owned[item.key]')
         button.customize-option(class='shop_{{item.key}}',
@@ -29,5 +19,5 @@
           popover-append-to-body='true',
           ng-click='purchase(item.type,item)')
         div
-          | {{((item.specialClass == "wizard") && (item.type == "weapon")) + 1}}&nbsp;
-          span.Pet_Currency_Gem1x.inline-gems
+          | {{item.value}}
+          span(ng-class="{ 'shop_gold': item.currency === 'gold', 'Pet_Currency_Gem1x inline-gems': item.currency === 'gems'}")
