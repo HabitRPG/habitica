@@ -241,7 +241,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     let category = {
       identifier: 'spells',
       text: i18n.t('seasonalItems', language),
-    }
+    };
 
     category.items = _.map(spells, (spell, key) => {
       return {
