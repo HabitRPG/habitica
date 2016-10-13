@@ -13,7 +13,7 @@ habitrpg.controller("HallHeroesCtrl", ['$scope', '$rootScope', 'User', 'Notifica
       });
 
     function _getFormattedItemReference (pathPrefix, keys, values) {
-      let finishedString = '\n'.concat('path: ', pathPrefix, ', ', 'value: {', values, '}\n');
+      var finishedString = '\n'.concat('path: ', pathPrefix, ', ', 'value: {', values, '}\n');
 
       _.each(keys, (key) => {
         finishedString = finishedString.concat('\t', pathPrefix, '.', key, '\n');
@@ -22,17 +22,17 @@ habitrpg.controller("HallHeroesCtrl", ['$scope', '$rootScope', 'User', 'Notifica
     }
 
     function getAllItemPaths () {
-      let content = Content;
+      var content = Content;
 
-      let quests = _getFormattedItemReference('items.quests', _.keys(content.quests), 'Numeric Quantity');
-      let mounts = _getFormattedItemReference('items.mounts', _.keys(content.mountInfo), 'Boolean');
-      let food = _getFormattedItemReference('items.food', _.keys(content.food), 'Numeric Quantity');
-      let eggs = _getFormattedItemReference('items.eggs', _.keys(content.eggs), 'Numeric Quantity');
-      let hatchingPotions = _getFormattedItemReference('items.hatchingPotions', _.keys(content.hatchingPotions), 'Numeric Quantity');
-      let pets = _getFormattedItemReference('items.pets', _.keys(content.petInfo), '-1: Owns Mount, 0: Not Owned, 1-49: Progress to mount');
-      let special = _getFormattedItemReference('items.special', _.keys(content.special), 'Numeric Quantity');
+      var quests = _getFormattedItemReference('items.quests', _.keys(content.quests), 'Numeric Quantity');
+      var mounts = _getFormattedItemReference('items.mounts', _.keys(content.mountInfo), 'Boolean');
+      var food = _getFormattedItemReference('items.food', _.keys(content.food), 'Numeric Quantity');
+      var eggs = _getFormattedItemReference('items.eggs', _.keys(content.eggs), 'Numeric Quantity');
+      var hatchingPotions = _getFormattedItemReference('items.hatchingPotions', _.keys(content.hatchingPotions), 'Numeric Quantity');
+      var pets = _getFormattedItemReference('items.pets', _.keys(content.petInfo), '-1: Owns Mount, 0: Not Owned, 1-49: Progress to mount');
+      var special = _getFormattedItemReference('items.special', _.keys(content.special), 'Numeric Quantity');
 
-      let mystery = _.flatten(_.keys(content.mystery).map((mysterySetKey) => {
+      var mystery = _.flatten(_.keys(content.mystery).map((mysterySetKey) => {
         return content.mystery[mysterySetKey];
       })).map((mysteryItem) => {
         return mysteryItem.items.map((item) => {
@@ -40,13 +40,13 @@ habitrpg.controller("HallHeroesCtrl", ['$scope', '$rootScope', 'User', 'Notifica
         });
       });
 
-      let gear = _getFormattedItemReference('items.gear.owned', _.union(_.keys(content.gear.flat), _.flatten(mystery)), 'Boolean');
+      var gear = _getFormattedItemReference('items.gear.owned', _.union(_.keys(content.gear.flat), _.flatten(mystery)), 'Boolean');
 
-      let equippedGear = '\nEquipped Gear:\n\titems.gear.{equipped/costume}.{head/headAccessory/eyewear/armor/body/back/shield/weapon}.{gearKey}\n';
-      let equippedPet = '\nEquipped Pet:\n\titems.currentPet.{petKey}\n';
-      let equippedMount = '\nEquipped Mount:\n\titems.currentMount.{mountKey}\n';
+      var equippedGear = '\nEquipped Gear:\n\titems.gear.{equipped/costume}.{head/headAccessory/eyewear/armor/body/back/shield/weapon}.{gearKey}\n';
+      var equippedPet = '\nEquipped Pet:\n\titems.currentPet.{petKey}\n';
+      var equippedMount = '\nEquipped Mount:\n\titems.currentMount.{mountKey}\n';
 
-      let data = quests.concat(mounts, food, eggs, hatchingPotions, pets, special, gear, equippedGear, equippedPet, equippedMount);
+      var data = quests.concat(mounts, food, eggs, hatchingPotions, pets, special, gear, equippedGear, equippedPet, equippedMount);
 
       return data;
     }
