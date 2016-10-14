@@ -15,32 +15,21 @@ habitrpg.controller("HallHeroesCtrl", ['$scope', '$rootScope', 'User', 'Notifica
     function _getFormattedItemReference (pathPrefix, keys, values) {
       var finishedString = '\n'.concat('path: ', pathPrefix, ', ', 'value: {', values, '}\n');
 
-      _.each(keys, (key) => {
+      _.each(keys, function (key) {
         finishedString = finishedString.concat('\t', pathPrefix, '.', key, '\n');
       });
       return finishedString;
     }
 
     function getAllItemPaths () {
-      var content = Content;
-
-      var quests = _getFormattedItemReference('items.quests', _.keys(content.quests), 'Numeric Quantity');
-      var mounts = _getFormattedItemReference('items.mounts', _.keys(content.mountInfo), 'Boolean');
-      var food = _getFormattedItemReference('items.food', _.keys(content.food), 'Numeric Quantity');
-      var eggs = _getFormattedItemReference('items.eggs', _.keys(content.eggs), 'Numeric Quantity');
-      var hatchingPotions = _getFormattedItemReference('items.hatchingPotions', _.keys(content.hatchingPotions), 'Numeric Quantity');
-      var pets = _getFormattedItemReference('items.pets', _.keys(content.petInfo), '-1: Owns Mount, 0: Not Owned, 1-49: Progress to mount');
-      var special = _getFormattedItemReference('items.special', _.keys(content.special), 'Numeric Quantity');
-
-      var mystery = _.flatten(_.keys(content.mystery).map((mysterySetKey) => {
-        return content.mystery[mysterySetKey];
-      })).map((mysteryItem) => {
-        return mysteryItem.items.map((item) => {
-          return item.key;
-        });
-      });
-
-      var gear = _getFormattedItemReference('items.gear.owned', _.union(_.keys(content.gear.flat), _.flatten(mystery)), 'Boolean');
+      var quests = _getFormattedItemReference('items.quests', _.keys(Content.quests), 'Numeric Quantity');
+      var mounts = _getFormattedItemReference('items.mounts', _.keys(Content.mountInfo), 'Boolean');
+      var food = _getFormattedItemReference('items.food', _.keys(Content.food), 'Numeric Quantity');
+      var eggs = _getFormattedItemReference('items.eggs', _.keys(Content.eggs), 'Numeric Quantity');
+      var hatchingPotions = _getFormattedItemReference('items.hatchingPotions', _.keys(Content.hatchingPotions), 'Numeric Quantity');
+      var pets = _getFormattedItemReference('items.pets', _.keys(Content.petInfo), '-1: Owns Mount, 0: Not Owned, 1-49: Progress to mount');
+      var special = _getFormattedItemReference('items.special', _.keys(Content.special), 'Numeric Quantity');
+      var gear = _getFormattedItemReference('items.gear.owned', _.keys(Content.gear.flat), 'Boolean');
 
       var equippedGear = '\nEquipped Gear:\n\titems.gear.{equipped/costume}.{head/headAccessory/eyewear/armor/body/back/shield/weapon}.{gearKey}\n';
       var equippedPet = '\nEquipped Pet:\n\titems.currentPet.{petKey}\n';

@@ -56,7 +56,7 @@ script(type='text/ng-template', id='partials/options.social.hall.heroes.html')
             small.muted Enter the <strong>item value</strong>. E.g., <code>5</code> or <code>false</code> or <code>head_warrior_3</code>. All values are listed in the All Item Paths section below.
             accordion
               accordion-group(heading='All Item Paths')
-                pre{{allItemPaths}}
+                pre {{::allItemPaths}}
               accordion-group(heading='Current Items')
                 pre {{::toJson(hero.items,true)}}
         accordion-group(heading='Auth')
