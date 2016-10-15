@@ -7,6 +7,7 @@ import {
 import moment from 'moment';
 import { sendNotification as sendPushNotification } from './pushNotifications';
 import shared from '../../common' ;
+import { model as Group } from '../models/group';
 
 let api = {};
 
@@ -36,6 +37,14 @@ api.createSubscription = async function createSubscription (data) {
   let block = shared.content.subscriptionBlocks[data.gift ? data.gift.subscription.key : data.sub.key];
   let months = Number(block.months);
   let today = new Date();
+  let group;
+
+  //If we are buying a group subscription
+  if (data.groupId) {
+    group = await Group.findById(data.groupId).exec();
+    recipient = group;
+    plan = recipient.purchased.plan;
+  }
 
   if (data.gift) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
@@ -85,17 +94,17 @@ api.createSubscription = async function createSubscription (data) {
     txnEmail(data.user, 'subscription-begins');
   }
 
-  analytics.trackPurchase({
-    uuid: data.user._id,
-    itemPurchased: 'Subscription',
-    sku: `${data.paymentMethod.toLowerCase()}-subscription`,
-    purchaseType: 'subscribe',
-    paymentMethod: data.paymentMethod,
-    quantity: 1,
-    gift: Boolean(data.gift),
-    purchaseValue: block.price,
-    headers: data.headers,
-  });
+  // analytics.trackPurchase({
+  //   uuid: data.user._id,
+  //   itemPurchased: 'Subscription',
+  //   sku: `${data.paymentMethod.toLowerCase()}-subscription`,
+  //   purchaseType: 'subscribe',
+  //   paymentMethod: data.paymentMethod,
+  //   quantity: 1,
+  //   gift: Boolean(data.gift),
+  //   purchaseValue: block.price,
+  //   headers: data.headers,
+  // });
 
   data.user.purchased.txnCount++;
 
@@ -128,7 +137,12 @@ api.createSubscription = async function createSubscription (data) {
     }
   }
 
-  await data.user.save();
+  if (group) {
+    await group.save();
+  } else {
+    await data.user.save();
+  }
+  console.log(group);
   if (data.gift) await data.gift.member.save();
 };
 

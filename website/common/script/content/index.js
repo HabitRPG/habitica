@@ -2628,7 +2628,11 @@ api.subscriptionBlocks = {
   basic_12mo: {
     months: 12,
     price: 48
-  }
+  },
+  group_monthly: {
+    months: 1,
+    price: 5
+  },
 };
 
 _.each(api.subscriptionBlocks, function(b, k) {

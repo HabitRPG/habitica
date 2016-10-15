@@ -562,5 +562,23 @@ describe('payments/index', () => {
         expect(notifications.sendNotification).to.be.calledOnce;
       });
     });
+
+    context('Purchasing a subscription for self', () => {
+      it.only('creates a subscription', async () => {
+        // expect(user.purchased.plan.planId).to.not.exist;
+        //
+        // await api.createSubscription(data);
+        //
+        // expect(user.purchased.plan.planId).to.eql('basic_3mo');
+        // expect(user.purchased.plan.customerId).to.eql('customer-id');
+        // expect(user.purchased.plan.dateUpdated).to.exist;
+        // expect(user.purchased.plan.gemsBought).to.eql(0);
+        // expect(user.purchased.plan.paymentMethod).to.eql('Payment Method');
+        // expect(user.purchased.plan.extraMonths).to.eql(0);
+        // expect(user.purchased.plan.dateTerminated).to.eql(null);
+        // expect(user.purchased.plan.lastBillingDate).to.not.exist;
+        // expect(user.purchased.plan.dateCreated).to.exist;
+      });
+    });
   });
 });

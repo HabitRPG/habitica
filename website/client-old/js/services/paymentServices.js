@@ -12,15 +12,21 @@ function($rootScope, User, $http, Content) {
   };
 
   Payments.showStripe = function(data) {
-    var sub =
-      data.subscription ? data.subscription
-        : data.gift && data.gift.type=='subscription' ? data.gift.subscription.key
-        : false;
+    var sub = false;
+
+    if (data.subscription) {
+      sub = data.subscription;
+    } else if (data.gift && data.gift.type=='subscription') {
+      sub = data.gift.subscription.key;
+    }
+
     sub = sub && Content.subscriptionBlocks[sub];
+
     var amount = // 500 = $5
       sub ? sub.price*100
         : data.gift && data.gift.type=='gems' ? data.gift.gems.amount/4*100
         : 500;
+
     StripeCheckout.open({
       key: window.env.STRIPE_PUB_KEY,
       address: false,
@@ -34,8 +40,9 @@ function($rootScope, User, $http, Content) {
         if (data.gift) url += '&gift=' + Payments.encodeGift(data.uuid, data.gift);
         if (data.subscription) url += '&sub='+sub.key;
         if (data.coupon) url += '&coupon='+data.coupon;
+        if (data.groupId) url += '&groupId=' + data.groupId;
         $http.post(url, res).success(function() {
-          window.location.reload(true);
+          // window.location.reload(true);
         }).error(function(res) {
           alert(res.message);
         });

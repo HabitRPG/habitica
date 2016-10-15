@@ -41,6 +41,7 @@ api.checkout = {
     let user = res.locals.user;
     let gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
     let sub = req.query.sub ? shared.content.subscriptionBlocks[req.query.sub] : false;
+    let groupId = req.query.groupId;
     let coupon;
     let response;
 
@@ -84,6 +85,7 @@ api.checkout = {
         paymentMethod: 'Stripe',
         sub,
         headers: req.headers,
+        groupId,
       });
     } else {
       let method = 'buyGems';
