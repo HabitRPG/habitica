@@ -8,6 +8,7 @@ import { model as Coupon } from '../../../models/coupon';
 import payments from '../../../libs/payments';
 import nconf from 'nconf';
 import { model as User } from '../../../models/user';
+import { model as Group } from '../../../models/group';
 import cc from 'coupon-code';
 import {
   authWithHeaders,
@@ -126,8 +127,15 @@ api.subscribeEdit = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let token = req.body.id;
+    let groupId = req.body.groupId;
     let user = res.locals.user;
     let customerId = user.purchased.plan.customerId;
+
+    //If we are buying a group subscription
+    if (groupId) {
+      let group = await Group.findById(groupId).exec();
+      customerId = group.purchased.plan.customerId;
+    }
 
     if (!customerId) throw new NotAuthorized(res.t('missingSubscription'));
     if (!token) throw new BadRequest('Missing req.body.id');

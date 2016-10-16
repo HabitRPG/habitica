@@ -50,7 +50,12 @@ function($rootScope, User, $http, Content) {
     });
   }
 
-  Payments.showStripeEdit = function(){
+  Payments.showStripeEdit = function(config) {
+    var groupId;
+    if (config.groupId) {
+      groupId = config.groupId;
+    }
+
     StripeCheckout.open({
       key: window.env.STRIPE_PUB_KEY,
       address: false,
@@ -58,6 +63,7 @@ function($rootScope, User, $http, Content) {
       description: window.env.t('subUpdateDescription'),
       panelLabel: window.env.t('subUpdateCard'),
       token: function(data) {
+        data.groupId = groupId;
         var url = '/stripe/subscribe/edit';
         $http.post(url, data).success(function() {
           window.location.reload(true);

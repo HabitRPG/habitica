@@ -94,17 +94,17 @@ api.createSubscription = async function createSubscription (data) {
     txnEmail(data.user, 'subscription-begins');
   }
 
-  // analytics.trackPurchase({
-  //   uuid: data.user._id,
-  //   itemPurchased: 'Subscription',
-  //   sku: `${data.paymentMethod.toLowerCase()}-subscription`,
-  //   purchaseType: 'subscribe',
-  //   paymentMethod: data.paymentMethod,
-  //   quantity: 1,
-  //   gift: Boolean(data.gift),
-  //   purchaseValue: block.price,
-  //   headers: data.headers,
-  // });
+  analytics.trackPurchase({
+    uuid: data.user._id,
+    itemPurchased: 'Subscription',
+    sku: `${data.paymentMethod.toLowerCase()}-subscription`,
+    purchaseType: 'subscribe',
+    paymentMethod: data.paymentMethod,
+    quantity: 1,
+    gift: Boolean(data.gift),
+    purchaseValue: block.price,
+    headers: data.headers,
+  });
 
   data.user.purchased.txnCount++;
 
@@ -142,7 +142,7 @@ api.createSubscription = async function createSubscription (data) {
   } else {
     await data.user.save();
   }
-  console.log(group);
+
   if (data.gift) await data.gift.member.save();
 };
 

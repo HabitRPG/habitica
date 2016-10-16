@@ -195,10 +195,10 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
               button.pull-right.btn.btn-small(type='button',ng-click='applyCoupon(_subscription.coupon)')= env.t("apply")
 
         div(ng-if='group.purchased.plan.customerId')
-          .btn.btn-primary(ng-if='!group.purchased.plan.dateTerminated && group.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit()')=env.t('subUpdateCard')
+          .btn.btn-primary(ng-if='!group.purchased.plan.dateTerminated && group.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit({groupId: group.id})')=env.t('subUpdateCard')
           .btn.btn-sm.btn-danger(ng-if='!user.purchased.plan.dateTerminated', ng-click='Payments.cancelSubscription()')=env.t('cancelSub')
 
-      .container-fluid.slight-vertical-padding(ng-if='!user.purchased.plan.customerId || (user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')
+      .container-fluid.slight-vertical-padding(ng-if='!group.purchased.plan.customerId || (group.purchased.plan.customerId && group.purchased.plan.dateTerminated)')
         small.muted=env.t('subscribeUsing')
         .row.text-center
           .col-xs-4
