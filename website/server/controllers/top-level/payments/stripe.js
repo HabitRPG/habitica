@@ -160,13 +160,28 @@ api.subscribeCancel = {
   middlewares: [authWithUrl],
   async handler (req, res) {
     let user = res.locals.user;
-    if (!user.purchased.plan.customerId) throw new NotAuthorized(res.t('missingSubscription'));
+    let groupId = req.query.groupId;
+    let customerId = user.purchased.plan.customerId;
 
-    let customer = await stripe.customers.retrieve(user.purchased.plan.customerId);
-    await stripe.customers.del(user.purchased.plan.customerId);
+    if (groupId) {
+      let group = await Group.findById(groupId).exec();
+      customerId = group.purchased.plan.customerId;
+    }
+
+    if (!customerId) throw new NotAuthorized(res.t('missingSubscription'));
+
+    let customer = await stripe.customers.retrieve(customerId);
+
+    let subscription = customer.subscription;
+    if (!subscription) {
+      subscription = customer.subscriptions.data[0];
+    }
+
+    await stripe.customers.del(customerId);
     await payments.cancelSubscription({
       user,
-      nextBill: customer.subscription.current_period_end * 1000, // timestamp in seconds
+      groupId,
+      nextBill: subscription.current_period_end * 1000, // timestamp in seconds
       paymentMethod: 'Stripe',
     });
 

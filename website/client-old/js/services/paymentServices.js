@@ -265,20 +265,33 @@ function($rootScope, User, $http, Content) {
     }
   }
 
-  Payments.cancelSubscription = function(){
+  Payments.cancelSubscription = function(config) {
     if (!confirm(window.env.t('sureCancelSub'))) return;
-    var paymentMethod = User.user.purchased.plan.paymentMethod;
 
-    if(paymentMethod === 'Amazon Payments'){
+    var group;
+    if (config.group) {
+      group = config.group;
+    }
+
+    var paymentMethod = User.user.purchased.plan.paymentMethod;
+    if (group) {
+      var paymentMethod = group.purchased.plan.paymentMethod;
+    }
+
+    if (paymentMethod === 'Amazon Payments') {
       paymentMethod = 'amazon';
-    }else{
+    } else {
       paymentMethod = paymentMethod.toLowerCase();
     }
 
-    window.location.href = '/' + paymentMethod + '/subscribe/cancel?_id=' + User.user._id + '&apiToken=' + User.settings.auth.apiToken;
+    var cancelUrl = '/' + paymentMethod + '/subscribe/cancel?_id=' + User.user._id + '&apiToken=' + User.settings.auth.apiToken;
+    if (group) {
+      cancelUrl += '&groupId=' + group._id;
+    }
+    window.location.href = cancelUrl;
   }
 
-  Payments.encodeGift = function(uuid, gift){
+  Payments.encodeGift = function(uuid, gift) {
     gift.uuid = uuid;
     var encodedString = JSON.stringify(gift);
     return encodeURIComponent(encodedString);

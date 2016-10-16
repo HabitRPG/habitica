@@ -157,26 +157,26 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             | Tasks
       
       .col-md-12
-        table.table.alert.alert-info(ng-if='user.purchased.plan.customerId')
-          tr(ng-if='user.purchased.plan.dateTerminated'): td.alert.alert-warning
+        table.table.alert.alert-info(ng-if='group.purchased.plan.customerId')
+          tr(ng-if='group.purchased.plan.dateTerminated'): td.alert.alert-warning
             span.noninteractive-button.btn-danger=env.t('canceledSubscription')
             i.glyphicon.glyphicon-time
-            |  #{env.t('subCanceled')} <strong>{{moment(user.purchased.plan.dateTerminated).format('MM/DD/YYYY')}}</strong>
-          tr(ng-if='!user.purchased.plan.dateTerminated'): td
+            |  #{env.t('subCanceled')} <strong>{{moment(group.purchased.plan.dateTerminated).format('MM/DD/YYYY')}}</strong>
+          tr(ng-if='!group.purchased.plan.dateTerminated'): td
             h4=env.t('subscribed')
-            p(ng-if='user.purchased.plan.planId')=env.t('purchasedPlanId', {price: '{{Content.subscriptionBlocks[user.purchased.plan.planId].price}}', months: '{{Content.subscriptionBlocks[user.purchased.plan.planId].months}}', plan: '{{user.purchased.plan.paymentMethod}}'})
-          tr(ng-if='user.purchased.plan.extraMonths'): td
+            p(ng-if='group.purchased.plan.planId')=env.t('purchasedPlanId', {price: '{{Content.subscriptionBlocks[group.purchased.plan.planId].price}}', months: '{{Content.subscriptionBlocks[group.purchased.plan.planId].months}}', plan: '{{group.purchased.plan.paymentMethod}}'})
+          tr(ng-if='group.purchased.plan.extraMonths'): td
             span.glyphicon.glyphicon-credit-card
-            | &nbsp;#{env.t('purchasedPlanExtraMonths', {months: '{{user.purchased.plan.extraMonths | number:2}}'})}
-          tr(ng-if='user.purchased.plan.consecutive.count || user.purchased.plan.consecutive.offset'): td
+            | &nbsp;#{env.t('purchasedPlanExtraMonths', {months: '{{group.purchased.plan.extraMonths | number:2}}'})}
+          tr(ng-if='group.purchased.plan.consecutive.count || group.purchased.plan.consecutive.offset'): td
             span.glyphicon.glyphicon-forward
             | &nbsp;#{env.t('consecutiveSubscription')}
             ul.list-unstyled
-              li #{env.t('consecutiveMonths')} {{user.purchased.plan.consecutive.count + user.purchased.plan.consecutive.offset}}
-              li #{env.t('gemCapExtra')} {{user.purchased.plan.consecutive.gemCapExtra}}
-              li #{env.t('mysticHourglasses')} {{user.purchased.plan.consecutive.trinkets}}
-        div(ng-if='!user.purchased.plan.customerId || (user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')
-          h4(ng-if='(user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')= env.t("resubscribe")
+              li #{env.t('consecutiveMonths')} {{group.purchased.plan.consecutive.count + group.purchased.plan.consecutive.offset}}
+              li #{env.t('gemCapExtra')} {{group.purchased.plan.consecutive.gemCapExtra}}
+              li #{env.t('mysticHourglasses')} {{group.purchased.plan.consecutive.trinkets}}
+        div(ng-if='!group.purchased.plan.customerId || (group.purchased.plan.customerId && group.purchased.plan.dateTerminated)')
+          h4(ng-if='(group.purchased.plan.customerId && group.purchased.plan.dateTerminated)')= env.t("resubscribe")
           .form-group.reduce-top-margin
             .radio(ng-repeat='block in Content.subscriptionBlocks | toArray | omit: "discount==true" | orderBy:"months"')
               label
@@ -196,7 +196,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
 
         div(ng-if='group.purchased.plan.customerId')
           .btn.btn-primary(ng-if='!group.purchased.plan.dateTerminated && group.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit({groupId: group.id})')=env.t('subUpdateCard')
-          .btn.btn-sm.btn-danger(ng-if='!user.purchased.plan.dateTerminated', ng-click='Payments.cancelSubscription()')=env.t('cancelSub')
+          .btn.btn-sm.btn-danger(ng-if='!group.purchased.plan.dateTerminated', ng-click='Payments.cancelSubscription({group: group})')=env.t('cancelSub')
 
       .container-fluid.slight-vertical-padding(ng-if='!group.purchased.plan.customerId || (group.purchased.plan.customerId && group.purchased.plan.dateTerminated)')
         small.muted=env.t('subscribeUsing')

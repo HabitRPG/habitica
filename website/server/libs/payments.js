@@ -149,6 +149,14 @@ api.createSubscription = async function createSubscription (data) {
 // Sets their subscription to be cancelled later
 api.cancelSubscription = async function cancelSubscription (data) {
   let plan = data.user.purchased.plan;
+  let group;
+
+  //If we are buying a group subscription
+  if (data.groupId) {
+    group = await Group.findById(data.groupId).exec();
+    plan = group.purchased.plan;
+  }
+
   let now = moment();
   let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days') : 30;
   let extraDays = Math.ceil(30.5 * plan.extraMonths);
@@ -163,7 +171,11 @@ api.cancelSubscription = async function cancelSubscription (data) {
 
   plan.extraMonths = 0; // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
 
-  await data.user.save();
+  if (group) {
+    await group.save();
+  } else {
+    await data.user.save();
+  }
 
   txnEmail(data.user, 'cancel-subscription');
 
