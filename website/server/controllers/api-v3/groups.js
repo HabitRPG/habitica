@@ -185,7 +185,7 @@ api.getGroup = {
  *
  * @apiUse GroupNotFound
  *
- * @apiPermission GroupLeader
+ * @apiPermission GroupLeader, Admin
  */
 api.updateGroup = {
   method: 'PUT',
@@ -198,11 +198,13 @@ api.updateGroup = {
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
+    let optionalMembership = user.contributor.admin ? true : false;
+    let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership});
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+    if (group.leader !== user._id && group.type === 'party') throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+    else if (group.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
 
     _.assign(group, _.merge(group.toObject(), Group.sanitizeUpdate(req.body)));
 
@@ -245,7 +247,7 @@ api.joinGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-     // Works even if the user is not yet a member of the group
+    // Works even if the user is not yet a member of the group
     let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership: true}); // Do not fetch chat and work even if the user is not yet a member of the group
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
@@ -451,7 +453,7 @@ function _sendMessageToRemoved (group, removedUser, message) {
  *
  * @apiSuccess {Object} data An empty object
  *
- * @apiPermission GroupLeader
+ * @apiPermission GroupLeader, Admin
  *
  * @apiUse GroupNotFound
  */
@@ -468,12 +470,18 @@ api.removeGroupMember = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat'}); // Do not fetch chat
+    let optionalMembership = user.contributor.admin ? true : false;
+    let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership, fields: '-chat'}); // Do not fetch chat
+
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let uuid = req.params.memberId;
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
+    if (group.leader !== user._id && group.type === 'party') throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
+    if (group.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
+
+    if (group.leader === uuid && user.contributor.admin) throw new NotAuthorized(res.t('cannotRemoveCurrentLeader'));
+
     if (user._id === uuid) throw new NotAuthorized(res.t('memberCannotRemoveYourself'));
 
     let member = await User.findOne({_id: uuid}).exec();
@@ -630,12 +638,12 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
   if (!invite.email) throw new BadRequest(res.t('inviteMissingEmail'));
 
   let userToContact = await User.findOne({$or: [
-    {'auth.local.email': invite.email},
-    {'auth.facebook.emails.value': invite.email},
-    {'auth.google.emails.value': invite.email},
-  ]})
-  .select({_id: true, 'preferences.emailNotifications': true})
-  .exec();
+      {'auth.local.email': invite.email},
+      {'auth.facebook.emails.value': invite.email},
+      {'auth.google.emails.value': invite.email},
+    ]})
+    .select({_id: true, 'preferences.emailNotifications': true})
+    .exec();
 
   if (userToContact) {
     userReturnInfo = await _inviteByUUID(userToContact._id, group, inviter, req, res);
