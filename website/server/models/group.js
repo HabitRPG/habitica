@@ -349,7 +349,7 @@ schema.methods.isMember = function isGroupMember (user) {
   }
 };
 
-export function chatDefaults (msg, user, participants) {
+export function chatDefaults (msg, user) {
   let message = {
     id: shared.uuid(),
     text: msg,
@@ -370,23 +370,12 @@ export function chatDefaults (msg, user, participants) {
     message.uuid = 'system';
   }
 
-  if (participants) {
-    let infoStr = 'participants: ';
-    for (let i = 0; i < participants.length; i++) {
-      if (i === participants.length - 1) {
-        infoStr += `${participants[i]}`;
-      } else {
-        infoStr += `${participants[i]} ,`;
-      }
-    }
-    message._info = infoStr;
-  }
-
   return message;
 }
 
-schema.methods.sendChat = function sendChat (message, user, participants) {
-  let newMessage = chatDefaults(message, user, participants);
+schema.methods.sendChat = function sendChat (message, user, metaData) {
+  let newMessage = chatDefaults(message, user);
+  newMessage._meta = metaData;
 
   this.chat.unshift(newMessage);
   this.chat.splice(200);
@@ -532,7 +521,9 @@ schema.methods.startQuest = async function startQuest (user) {
         });
     });
   });
-  this.sendChat(`Your quest, ${quest.text('en')}, has started.`, null, this.getParticipatingQuestMembers());
+  this.sendChat(`Your quest, ${quest.text('en')}, has started.`, null, {
+    participatingMembers: this.getParticipatingQuestMembers().join(', '),
+  });
 };
 
 schema.statics.cleanQuestProgress = _cleanQuestProgress;
