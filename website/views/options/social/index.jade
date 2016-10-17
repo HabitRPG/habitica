@@ -6,6 +6,7 @@ include ./hall
 include ./quests/index
 include ./chat-message
 include ./party
+include ./groups/group-tasks
 
 script(type='text/ng-template', id='partials/options.social.inbox.html')
   .options-blurbmenu
@@ -16,6 +17,11 @@ script(type='text/ng-template', id='partials/options.social.inbox.html')
       .col-md-12
         .form-inline
           a.btn.btn-xs.btn-danger(ng-click='deleteAllMessages()')=env.t('clearAll')
+          | &nbsp; &nbsp; &nbsp;
+          a.btn.btn-xs.btn-default(href='/export/inbox.html', popover=env.t('exportInboxPopoverBody'),
+                popover-title=env.t('exportInboxPopoverTitle'),
+                popover-trigger='mouseenter', popover-placement='right',
+                popover-append-to-body='true')=env.t('exportInbox')
           | &nbsp; &nbsp; &nbsp;
           .checkbox
             label

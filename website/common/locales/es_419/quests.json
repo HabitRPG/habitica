@@ -26,6 +26,8 @@
     "pending": "Pendiente",
     "questStart": "La misión comienza cuando todos los miembros hayan aceptado o rechazado la invitación. Sólo aquellos que hayan hecho clic en \"aceptar\" podrán participar en la misión y recibir los botines. Si los participantes tardan demasiado (o están inactivos) el organizador de la misión puede comenzarla sin ellos haciendo clic en \"Iniciar\". El organizador también puede cancelar la misión y recuperar el pergamino de misión haciendo clic en \"Cancelar\".",
     "questStartBroken": "La misión comienza cuando todos los miembros hayan aceptado o rechazado la invitación... Sólo aquellos que hayan hecho clic en \"aceptar\" podrán participar en la misión y recibir los botines... Si los participantes tardan demasiado (o están inactivos) el organizador de la misión puede comenzarla sin ellos haciendo clic en \"Iniciar\"... El organizador también puede cancelar la misión y recuperar el pergamino de misión haciendo clic en \"Cancelar\"...",
+    "questCollection": "+<%= val %> quest item(s) found",
+    "questDamage": "+<%= val %> damage to boss",
     "begin": "Iniciar",
     "bossHP": "Salud del Jefe",
     "bossStrength": "Fuerza del Jefe",

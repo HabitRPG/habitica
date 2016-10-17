@@ -26,6 +26,8 @@
     "pending": "Nerozhodnuto",
     "questStart": "Výprava začíná jakmile všichni členové výzvu přijmou či odmítnou. Pouze ti, kteří klikli na \"Přijmout\" se mohou výpravy zúčastnit a obdrží ceny. Pokud to některým uživatelům trvá příliš dlouho (nejsou aktivní?), majitel výpravy může začít bez nich kliknutím na \"Začít\". Majitel výpravy začal také může výpravu přerušit a získat tak zpět svitek výpravy kliknutím na \"Zrušit\".",
     "questStartBroken": "Výprava začíná jakmile všichni členové výzvu přijmou či odmítnou... Pouze ti, kteří klikli na \"Přijmout\" se mohou výpravy zúčastnit a obdrží ceny... Pokud to některým uživatelům trvá příliš dlouho (nejsou aktivní?), majitel výpravy může začít bez nich kliknutím na \"Začít\"... Majitel výpravy začal také může výpravu přerušit a získat tak zpět svitek výpravy kliknutím na \"Zrušit\"...",
+    "questCollection": "+<%= val %> quest item(s) found",
+    "questDamage": "+<%= val %> damage to boss",
     "begin": "Začít",
     "bossHP": "Zdraví příšery",
     "bossStrength": "Síla příšery",

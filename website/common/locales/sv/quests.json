@@ -26,6 +26,8 @@
     "pending": "Inte svarat än",
     "questStart": "Så fort alla medlemmar har antingen accepterat eller nekat, börjar uppdraget. Endast de som klickat \"acceptera\" kommer kunna delta i uppdraget och få belöningarna. Om medlemmar inte svarar på länge (de kanske är inaktiva?), så kan uppdragsägaren vlja att börja uppdraget utan dem genom att klicka \"Starta\". Uppdragsägaren kan också avbryta uppdraget och återfå uppdragsskriftsrullen genom att klicka \"Avbryt\".",
     "questStartBroken": "Så fort alla medlemmar har antingen accepterat eller nekat, börjar uppdraget... Endast de som klickat \"acceptera\" kommer kunna delta i uppdraget och få belöningarna... Om medlemmar inte svarar på länge (de kanske är inaktiva?), så kan uppdragsägaren vlja att börja uppdraget utan dem genom att klicka \"Starta\"... Uppdragsägaren kan också avbryta uppdraget och återfå uppdragsskriftsrullen genom att klicka \"Avbryt\"...",
+    "questCollection": "+<%= val %> quest item(s) found",
+    "questDamage": "+<%= val %> damage to boss",
     "begin": "Starta",
     "bossHP": "Bossens Hälsa",
     "bossStrength": "Bossstyrka",

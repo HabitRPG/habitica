@@ -14,7 +14,6 @@ npm-debug.log*
 lib
 website/client-old/bower_components
 website/client-old/new-stuff.html
-website/build
 newrelic_agent.log
 .bower-tmp
 .bower-registry
@@ -33,6 +32,7 @@ coverage
 coverage.html
 common/dist/scripts/*
 dist
+dist-client
 test/client/unit/coverage
 test/client/e2e/reports
 test/client-old/spec/mocks/translations.js

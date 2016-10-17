@@ -68,7 +68,7 @@ nav.toolbar(ng-controller='MenuCtrl')
               li
                 a(target='_blank' href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')=env.t('requestAF')
               li
-                a(target='_blank' href='http://habitica.wikia.com/wiki/Contributing_to_Habitica')=env.t('contributeToHRPG')
+                a(target='_blank' href=env.t('conLearnURL'))=env.t('contributeToHRPG')
               li
                 a(target='_blank' href=env.t('HabiticaWikiFrontPage'))=env.t('HabiticaWiki')
           ul.toolbar-controls
@@ -171,7 +171,7 @@ nav.toolbar(ng-controller='MenuCtrl')
             li
               a(target='_blank' href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')=env.t('requestAF')
             li
-              a(target='_blank' href='http://habitica.wikia.com/wiki/Contributing_to_Habitica')=env.t('contributeToHRPG')
+              a(target='_blank' href=env.t('conLearnURL'))=env.t('contributeToHRPG')
             li
               a(target='_blank' href=env.t('HabiticaWikiFrontPage'))=env.t('HabiticaWiki')
     ul.toolbar-subscribe(ng-if='!user.purchased.plan.customerId')
@@ -265,8 +265,6 @@ nav.toolbar(ng-controller='MenuCtrl')
             ul.toolbar-submenu
               li
                 a(href='https://habitica.com/static/faq', target='_blank')=env.t('FAQ')
-              li
-                a(href='https://vimeo.com/57654086', target='_blank')=env.t('tutorials')
           ul.toolbar-controls
             li.toolbar-controls-button
               a(data-close-menu)=env.t('close')

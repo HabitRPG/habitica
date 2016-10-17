@@ -11,6 +11,7 @@
     "unsubChallenge": "Link do Desafio Quebrado: essa tarefa era parte de um desafio, mas você se desinscreveu do desafio. O que fazer com as tarefas órfãs?",
     "challengeWinner": "Vencedor dos seguintes desafios",
     "challenges": "Desafios",
+    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Challenges</a>",
     "noChallenges": "Nenhum desafio ainda, visite",
     "toCreate": "para criar um.",
     "selectWinner": "Selecione um vencedor e termine o desafio:",

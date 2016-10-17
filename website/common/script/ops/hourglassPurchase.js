@@ -5,7 +5,6 @@ import {
   BadRequest,
   NotAuthorized,
 } from '../libs/errors';
-import splitWhitespace from '../libs/splitWhitespace';
 
 module.exports = function purchaseHourglass (user, req = {}, analytics) {
   let key = _.get(req, 'params.key');
@@ -51,12 +50,8 @@ module.exports = function purchaseHourglass (user, req = {}, analytics) {
     });
   }
 
-  if (req.v2 === true) {
-    return _.pick(user, splitWhitespace('items purchased.plan.consecutive'));
-  } else {
-    return [
-      { items: user.items, purchasedPlanConsecutive: user.purchased.plan.consecutive },
-      i18n.t('hourglassPurchase', req.language),
-    ];
-  }
+  return [
+    { items: user.items, purchasedPlanConsecutive: user.purchased.plan.consecutive },
+    i18n.t('hourglassPurchase', req.language),
+  ];
 };

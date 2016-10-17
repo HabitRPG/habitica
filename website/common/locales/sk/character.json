@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:admin@habitica.com' target='blank'>admin@habitica.com</a>!",
+    "communityGuidelinesWarning": "Prosím, pamätaj si, že tvoje zobrazované meno, profilová fotka a informácie o tebe musia splňovať <a href='https://habitica.com/static/community-guidelines' target='_blank'>Komunitné pravidlá</a> (napr. žiadne vulgarizmy, témy len pre dospelých, urážky a pod.). Ak máš nejaké otázky ohľadom toho, či je niečo vhodné alebo nevhodné, napíš na <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "profile": "Profil",
     "avatar": "Prispôsobiť avatara",
     "other": "Ostatné",
@@ -48,6 +48,7 @@
     "equipment": "Výstroj",
     "equipmentBonus": "Výstroj",
     "equipmentBonusText": "Bonusy k vlastnostiam, ktoré ti poskytuje bojová výzbroj. Ak ju chceš zmeniť, nájdeš ju v záložke \"výstroj\" v inventári.",
+    "classBonusText": "Tvoje povolanie (ak nemáš odomknuté alebo zvolené iné povolanie, si bojovník) používa vlastný výstroj efektívnejšie než výstroj iných povolaní. Výstroj tvojho aktuálneho povolania vylepší vlastnosť, ktorú poskytuje ešte o 50 %. ",
     "classEquipBonus": "Bonus za povolanie",
     "battleGear": "Bojová výzbroj",
     "battleGearText": "Toto je výzbroj, ktorú nosíš do boja; ovplyvňuje čísla pri interakcii s úlohami.",
@@ -82,8 +83,8 @@
     "allocateInt": "Body pridelené do Inteligencie:",
     "allocateIntPop": "Pridať bod do inteligencie",
     "noMoreAllocate": "Teraz, keď si dosiahol level 100, nezískaš žiadne ďaľšie body vlastností. Môžeš pokračovať v levelovaní, alebo začať nové dobrodružstvo na úrovni 1 pomocou použitia <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orbu znovuzrodenia</a>, ktorý je teraz dostupný zdarma na trhu.",
-    "stats": "Stats",
-    "achievs": "Achievements",
+    "stats": "Štatistiky",
+    "achievs": "Odznaky",
     "strength": "Sila",
     "strengthText": "Sila zvyšuje šancu náhodných \"kritických zásahov\" a tým aj možnosť získať z nich viac zlata, skúseností a predmetov. Taktiež pomáha zasadiť silnejšiu ranu boss monštrám.",
     "constitution": "Odolnosť",
@@ -145,9 +146,9 @@
     "youCastTarget": "Na <%= target %> si zoslal <%= spell %> .",
     "youCastParty": "Na družinu si zoslal <%= spell %>.",
     "critBonus": "Kritický zásah! Bonus:",
-    "displayNameDescription1": "Toto sa objaví v správach, ktoré zverejníte v hostinci, cechu alebo družine, spolu s tým, čo je zobrazené na tvojom avatarovi. Choď na",
+    "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. To change it, click the Edit button above. If instead you want to change your login name, go to",
     "displayNameDescription2": "Nastavenia->Stránka",
-    "displayNameDescription3": "a na zmenu prihlasovacieho mena sa presuňte sa nadol k sekcii Registrácia",
+    "displayNameDescription3": "and look in the Registration section.",
     "unequipBattleGear": "Odlož bojovú výstroj",
     "unequipCostume": "Odlož kostým",
     "unequipPetMountBackground": "Odlož zvieratko, tátoša, pozadie",
@@ -167,5 +168,5 @@
     "quickAllocationLevelPopover": "S každým levelom získaš jeden bod, ktorý môžeš priradiť do vlastnosti podľa svojho výberu. Môžeš tak robiť ručne alebo nechať hru, aby rozhodla za teba, použitím možnosti \"automatické pridelenie\", ktorú môžeš nájsť v časti Užívateľ -> Štatistiky.",
     "invalidAttribute": "\"<%= attr %>\" nie je platná vlastnosť.",
     "notEnoughAttrPoints": "Nemáš dosť bodov vlastností.",
-    "gearNotOwned": "You do not own this item."
+    "gearNotOwned": "Nevlastníš tento predmet."
 }

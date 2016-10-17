@@ -22,6 +22,13 @@ habitrpg
 
       $scope.costume = Costume;
 
+      $scope.keyDownListener = function (e) {
+        if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+          $scope.sendPrivateMessage($scope.profile._id, $scope._message);
+        }
+      };
+
+
       $scope.sendPrivateMessage = function(uuid, message){
         if (!message) return;
 
@@ -51,9 +58,11 @@ habitrpg
       };
 
       $scope.reportAbuse = function(reporter, message, groupId) {
-        message.flags[reporter._id] = true;
         Chat.flagChatMessage(groupId, message.id)
           .then(function(data){
+            var res = data.data.data;
+            message.flags = res.flags;
+            message.flagCount = res.flagCount;
             Notification.text(window.env.t('abuseReported'));
             $scope.$close();
           });

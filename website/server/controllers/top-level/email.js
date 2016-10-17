@@ -8,9 +8,8 @@ import {
 let api = {};
 
 /**
- * @api {get} /api/v3/email/unsubscribe Unsubscribe an email or user from email notifications
+ * @api {get} /email/unsubscribe Unsubscribe an email or user from email notifications
  * @apiDescription Does not require authentication
- * @apiVersion 3.0.0
  * @apiName UnsubscribeEmail
  * @apiGroup Unsubscribe
  * @apiDescription This is a GET method so that you can put the unsubscribe link in emails.
@@ -18,6 +17,8 @@ let api = {};
  * @apiParam {String} code Query parameter - An unsubscription code
  *
  * @apiSuccess {String} An html success message
+ *
+ * @apiUse UserNotFound
  */
 api.unsubscribe = {
   method: 'GET',

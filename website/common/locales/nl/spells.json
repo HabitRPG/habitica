@@ -7,7 +7,7 @@
     "spellWizardEarthNotes": "Je mentale aura doet de grond trillen. Je groep krijgt een bonus op intelligentie! (Gebaseerd op oorspronkelijke Intelligentie zonder bonussen.)",
     "spellWizardFrostText": "IJskoude Vorst",
     "spellWizardFrostNotes": "IJs bevriest je taken. Je series van Dagelijkse Taken worden niet op nul gezet aan het einde van de dag!  (Eén keer de spreuk uitvoeren beïnvloedt alle series Dagelijkse Taken.)",
-    "spellWizardFrostAlreadyCast": "Je hebt deze spreuk vandaag al gebruikt. Je series zijn bevroren en het is niet nodig om dit nog eens te gebruiken.",
+    "spellWizardFrostAlreadyCast": "Je hebt deze spreuk vandaag al gebruikt. Je series zijn bevroren, het is niet nodig om hem nog eens te gebruiken.",
     "spellWarriorSmashText": "Wrede Slag",
     "spellWarriorSmashNotes": "Je slaat een taak met al je kracht. Hij wordt blauwer/minder rood en je doet extra schade aan eindbazen. (Gebaseerd op Kracht)",
     "spellWarriorDefensiveStanceText": "Defensieve Houding",
@@ -25,7 +25,7 @@
     "spellRogueStealthText": "Heimelijkheid",
     "spellRogueStealthNotes": "Je schuilt in de schaduw en bent onzichtbaar. Sommige onafgemaakte Dagelijkse Taken zullen je deze nacht niet kunnen vinden en hun roodheid en steries zullen niet veranderen. (Spreek meerdere keren uit om meer Dagelijkse Taken te beïnvloeden.)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Aantal dagelijkse taken vermeden: <%= number %>.",
-    "spellRogueStealthMaxedOut": "Je hebt al je dagelijkse taken al vermeden; het is niet nodig om deze spreuk weer te gebruiken. ",
+    "spellRogueStealthMaxedOut": "Je hebt al je dagelijkse taken al vermeden; het is niet nodig deze spreuk nogmaals te gebruiken. ",
     "spellHealerHealText": "Helend Licht",
     "spellHealerHealNotes": "Licht bedekt je lichaam en heelt je wonden. Je krijgt er gezondheidspunten bij. (Gebaseerd op Lichaam en Intelligentie.)",
     "spellHealerBrightnessText": "Schroeiende Helderheid",
@@ -38,7 +38,7 @@
     "spellSpecialSnowballAuraNotes": "Gooi een sneeuwbal naar een groepslid! Wat kan er nou misgaan? Duurt tot een nieuwe dag aanbreekt voor dit groepslid.",
     "spellSpecialSaltText": "Zout",
     "spellSpecialSaltNotes": "Iemand heeft een sneeuwbal naar je gegooid. Ha ha, heel grappig. Help me nu die sneeuw van me af te krijgen!",
-    "spellSpecialSpookySparklesText": "Spookachtige Glitters",
+    "spellSpecialSpookySparklesText": "Spookachtige Spetters",
     "spellSpecialSpookySparklesNotes": "Verander een vriend in een zwevende deken met ogen!",
     "spellSpecialOpaquePotionText": "Ondoorzichtig toverdrankje",
     "spellSpecialOpaquePotionNotes": "Verwijder het effect van Spookachtige Glitters.",
@@ -52,8 +52,8 @@
     "spellSpecialSandNotes": "Verwijder de effecten van Zeeschuim.",
     "spellNotFound": "Vaardigheid \"<%= spellId %>\" niet gevonden.",
     "partyNotFound": "Groep niet gevonden",
-    "targetIdUUID": "\"targetId\" moet een geldige User ID zijn.",
+    "targetIdUUID": "\"targetId\" moet een geldige gebruikers-ID zijn.",
     "challengeTasksNoCast": "Het uitspreken van een vaardigheid op uitdagingstaken is niet toegestaan.",
     "spellNotOwned": "Je bezit deze vaardigheid niet.",
-    "spellLevelTooHigh": "Je moet niveau <%= level %> zijn om deze vaardigheid te kunnen gebruiken."
+    "spellLevelTooHigh": "Je moet niveau <%= level %> zijn om deze vaardigheid te gebruiken."
 }

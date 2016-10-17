@@ -116,7 +116,7 @@ spells.warrior = {
       user.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 40, 200));
     },
   },
-  valorousPresence: { // Valorous Prescence
+  valorousPresence: { // Valorous Presence
     text: t('spellWarriorValorousPresenceText'),
     mana: 20,
     lvl: 13,

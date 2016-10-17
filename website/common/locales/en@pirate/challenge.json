@@ -11,6 +11,7 @@
     "unsubChallenge": "Broken Challenge Link: Ye task was part o' a challenge, but ye've unsubscribed from t' challenge. What to do wit' t' orphan tasks?",
     "challengeWinner": "Was t' victor in t' followin' challenges",
     "challenges": "Challenges",
+    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Challenges</a>",
     "noChallenges": "No challenges yet, visit",
     "toCreate": "t' create one.",
     "selectWinner": "Select a winner an' close th' challenge:",

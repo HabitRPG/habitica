@@ -21,7 +21,6 @@ let api = {};
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {post} /stripe/checkout Stripe checkout
- * @apiVersion 3.0.0
  * @apiName StripeCheckout
  * @apiGroup Payments
  *
@@ -112,7 +111,6 @@ api.checkout = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {post} /stripe/subscribe/edit Edit Stripe subscription
- * @apiVersion 3.0.0
  * @apiName StripeSubscribeEdit
  * @apiGroup Payments
  *
@@ -143,7 +141,6 @@ api.subscribeEdit = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {get} /stripe/subscribe/cancel Cancel Stripe subscription
- * @apiVersion 3.0.0
  * @apiName StripeSubscribeCancel
  * @apiGroup Payments
  **/

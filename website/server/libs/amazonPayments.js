@@ -25,6 +25,7 @@ let setOrderReferenceDetails = Bluebird.promisify(amzPayment.offAmazonPayments.s
 let confirmOrderReference = Bluebird.promisify(amzPayment.offAmazonPayments.confirmOrderReference, {context: amzPayment.offAmazonPayments});
 let closeOrderReference = Bluebird.promisify(amzPayment.offAmazonPayments.closeOrderReference, {context: amzPayment.offAmazonPayments});
 let setBillingAgreementDetails = Bluebird.promisify(amzPayment.offAmazonPayments.setBillingAgreementDetails, {context: amzPayment.offAmazonPayments});
+let getBillingAgreementDetails = Bluebird.promisify(amzPayment.offAmazonPayments.getBillingAgreementDetails, {context: amzPayment.offAmazonPayments});
 let confirmBillingAgreement = Bluebird.promisify(amzPayment.offAmazonPayments.confirmBillingAgreement, {context: amzPayment.offAmazonPayments});
 let closeBillingAgreement = Bluebird.promisify(amzPayment.offAmazonPayments.closeBillingAgreement, {context: amzPayment.offAmazonPayments});
 
@@ -56,6 +57,7 @@ module.exports = {
   closeOrderReference,
   confirmBillingAgreement,
   setBillingAgreementDetails,
+  getBillingAgreementDetails,
   closeBillingAgreement,
   authorizeOnBillingAgreement,
   authorize,

@@ -74,7 +74,7 @@
     "clearTags": "Vyčistit",
     "hideTags": "Schovat",
     "showTags": "Ukázat",
-    "toRequired": "You must supply a to value",
+    "toRequired": "You must supply a \"to\" property",
     "startDate": "Datum začátku",
     "startDateHelpTitle": "Kdy by měl tento úkol začít?",
     "startDateHelp": "Nastav datum, ve kterém začne úkol platit. Nebude muset být splněn dříve.",

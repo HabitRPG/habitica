@@ -4,7 +4,8 @@ import _ from 'lodash';
 import {
   NotAuthorized,
 } from '../libs/errors';
-import randomVal from '../fns/randomVal';
+import randomVal from '../libs/randomVal';
+import predictableRandom from '../fns/predictableRandom';
 
 module.exports = function revive (user, req = {}, analytics) {
   if (user.stats.hp > 0) {
@@ -21,12 +22,14 @@ module.exports = function revive (user, req = {}, analytics) {
     user.stats.lvl--;
   }
 
-  let lostStat = randomVal(user, _.reduce(['str', 'con', 'per', 'int'], function findRandomStat (m, k) {
+  let lostStat = randomVal(_.reduce(['str', 'con', 'per', 'int'], function findRandomStat (m, k) {
     if (user.stats[k]) {
       m[k] = k;
     }
     return m;
-  }, {}));
+  }, {}), {
+    predictableRandom: predictableRandom(user),
+  });
 
   if (lostStat) {
     user.stats[lostStat]--;
@@ -68,7 +71,9 @@ module.exports = function revive (user, req = {}, analytics) {
     }
   });
 
-  let lostItem = randomVal(user, losableItems);
+  let lostItem = randomVal(losableItems, {
+    predictableRandom: predictableRandom(user),
+  });
 
   let message = '';
   let item = content.gear.flat[lostItem];
@@ -97,12 +102,8 @@ module.exports = function revive (user, req = {}, analytics) {
     });
   }
 
-  if (req.v2 === true) {
-    return user;
-  } else {
-    return [
-      user.items,
-      message,
-    ];
-  }
+  return [
+    user.items,
+    message,
+  ];
 };

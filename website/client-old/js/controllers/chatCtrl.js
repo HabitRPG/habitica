@@ -60,6 +60,12 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
         });
     }
 
+    $scope.keyDownListener = function (e) {
+      if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+        $scope.postChat($scope.group, $scope.message.content);
+      }
+    };
+
     $scope.deleteChatMessage = function(group, message){
       if(message.uuid === User.user.id || (User.user.backer && User.user.contributor.admin)){
         var previousMsg = (group.chat && group.chat[0]) ? group.chat[0].id : false;
@@ -91,7 +97,7 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
     $scope.flagChatMessage = function(groupId,message) {
       if(!message.flags) message.flags = {};
 
-      if (message.flags[User.user._id]) {
+      if (!User.user.contributor.admin && message.flags[User.user._id]) {
         Notification.text(window.env.t('abuseAlreadyReported'));
       } else {
         $scope.abuseObject = message;

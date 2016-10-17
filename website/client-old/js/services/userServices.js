@@ -247,11 +247,22 @@ angular.module('habitrpg')
             var tmp = res.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
             var crit = tmp.crit;
             var drop = tmp.drop;
+            var quest = tmp.quest;
 
             if (crit) {
               var critBonus = crit * 100 - 100;
               Notification.crit(critBonus);
             }
+
+            if (quest && user.party.quest && user.party.quest.key) {
+              var userQuest = Content.quests[user.party.quest.key];
+              if (quest.progressDelta && userQuest.boss) {
+                Notification.quest('questDamage', quest.progressDelta.toFixed(1));
+              } else if (quest.collection && userQuest.collect) {
+                Notification.quest('questCollection', quest.collection);
+              }
+            }
+
             if (drop) {
               var text, notes, type;
               $rootScope.playSound('Item_Drop');
@@ -532,15 +543,33 @@ angular.module('habitrpg')
         },
 
         addWebhook: function (data) {
-          callOpsFunctionAndRequest('addWebhook', 'webhook', "POST", '', data);
+          return $http({
+            method: 'POST',
+            url: '/api/v3/user/webhook',
+            data: data,
+          }).then(function (response) {
+            var webhook = response.data.data;
+            user.webhooks.push(webhook);
+          });
         },
 
-        updateWebhook: function (data) {
-          callOpsFunctionAndRequest('updateWebhook', 'webhook', "PUT", data.params.id, data);
+        updateWebhook: function (webhook, index) {
+          return $http({
+            method: 'PUT',
+            url: '/api/v3/user/webhook/' + webhook.id,
+            data: webhook,
+          }).then(function (response) {
+            user.webhooks[index] = response.data.data;
+          });
         },
 
-        deleteWebhook: function (data) {
-          callOpsFunctionAndRequest('deleteWebhook', 'webhook', "DELETE", data.params.id, data);
+        deleteWebhook: function (webhook, index) {
+          return $http({
+            method: 'DELETE',
+            url: '/api/v3/user/webhook/' + webhook.id,
+          }).then(function () {
+            user.webhooks.splice(index, index + 1);
+          });
         },
 
         sleep: function () {

@@ -53,7 +53,7 @@
     "beastMountMasterName": "驯兽师和坐骑大师",
     "triadBingoName": "三全大师称号",
     "triadBingoText": "发现所有90只宠物，所有90只坐骑，和再次发现90只宠物 (你怎么做到的！ )",
-    "triadBingoText2": "并释放所有仓库共<%= count %>次",
+    "triadBingoText2": "并释放所有仓库物品共<%= count %>次",
     "triadBingoAchievement": "由于找到了所有宠物，驯养了所有坐骑和再次找到了所有宠物，你获得了“三全大师”成就！",
     "dropsEnabled": "启用了物品掉落功能！",
     "itemDrop": "你获得一件物品！",

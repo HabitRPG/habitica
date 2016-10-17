@@ -3,42 +3,43 @@ var config = require('./config');
 var utils = require('./utils');
 var projectRoot = path.resolve(__dirname, '../');
 
-module.exports = {
+var IS_PROD = process.env.NODE_ENV === 'production';
+var baseConfig = {
   entry: {
     app: './website/client/main.js',
   },
   output: {
     path: config.build.assetsRoot,
-    publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
+    publicPath: IS_PROD ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
     filename: '[name].js',
   },
   resolve: {
     extensions: ['', '.js', '.vue'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
-      'src': path.resolve(__dirname, '../website/client'),
-      'assets': path.resolve(__dirname, '../website/client/assets'),
-      'components': path.resolve(__dirname, '../website/client/components'),
+      client: path.resolve(__dirname, '../website/client'),
+      assets: path.resolve(__dirname, '../website/client/assets'),
+      components: path.resolve(__dirname, '../website/client/components'),
     },
   },
   resolveLoader: {
     fallback: [path.join(__dirname, '../node_modules')],
   },
   module: {
-    preLoaders: [
+    preLoaders: !IS_PROD ? [
       {
         test: /\.vue$/,
         loader: 'eslint',
         include: projectRoot,
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.js$/,
         loader: 'eslint',
         include: projectRoot,
-        exclude: /node_modules/
-      }
-    ],
+        exclude: /node_modules/,
+      },
+    ] : [],
     loaders: [
       {
         test: /\.vue$/,
@@ -72,9 +73,6 @@ module.exports = {
       },
     ],
   },
-  eslint: {
-    formatter: require('eslint-friendly-formatter'),
-  },
   vue: {
     loaders: utils.cssLoaders(),
     postcss: [
@@ -84,3 +82,11 @@ module.exports = {
     ],
   },
 };
+
+if (!IS_PROD) {
+  baseConfig.eslint = {
+    formatter: require('eslint-friendly-formatter'),
+    emitWarning: true,
+  };
+}
+module.exports = baseConfig;

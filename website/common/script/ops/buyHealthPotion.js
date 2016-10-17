@@ -42,12 +42,8 @@ module.exports = function buyHealthPotion (user, req = {}, analytics) {
     });
   }
 
-  if (req.v2 === true) {
-    return user.stats;
-  } else {
-    return [
-      user.stats,
-      message,
-    ];
-  }
+  return [
+    user.stats,
+    message,
+  ];
 };

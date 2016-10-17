@@ -13,6 +13,7 @@ import nconf from 'nconf';
 import got from 'got';
 import Bluebird from 'bluebird';
 import locals from '../../middlewares/locals';
+import md from 'habitica-markdown';
 import {
   S3,
 } from '../../libs/aws';
@@ -24,13 +25,25 @@ const BASE_URL = nconf.get('BASE_URL');
 let api = {};
 
 /**
+ * @apiDefine DataExport Data Export
+ * These routes allow you to download backups of your data.
+ *
+ * **Note:** They are intented to be used on the website only and as such are part of the private API and may change at any time.
+ */
+
+/**
  * @api {get} /export/history.csv Export user tasks history in CSV format
- * @apiDescription History is only available for habits and dailies so todos and rewards won't be included. NOTE: Part of the private API that may change at any time.
- * @apiVersion 3.0.0
+ * @apiDescription History is only available for habits and dailies so todos and rewards won't be included. Can only be used on [https://habitica.com](https://habitica.com).
  * @apiName ExportUserHistory
  * @apiGroup DataExport
  *
- * @apiSuccess {String} A csv file
+ * @apiSuccess {CSV} File A csv file of your task history.
+ *
+ * @apiSuccessExample {csv} history.csv
+ * Task Name,Task ID,Task Type,Date,Value
+ * Be Awesome,e826ddfa-dc2e-445f-a06c-64d3881982ea,habit,2016-06-02 13:26:05,1
+ * Be Awesome,e826ddfa-dc2e-445f-a06c-64d3881982ea,habit,2016-06-03 05:06:55,1.026657310999762
+ * ...
  */
 api.exportUserHistory = {
   method: 'GET',
@@ -93,12 +106,10 @@ async function _getUserDataForExport (user) {
 
 /**
  * @api {get} /export/userdata.json Export user data in JSON format
- * @apiVersion 3.0.0
  * @apiName ExportUserDataJson
  * @apiGroup DataExport
- * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {String} A json file
+ * @apiSuccess {JSON} File A JSON file of the user object and tasks.
  */
 api.exportUserDataJson = {
   method: 'GET',
@@ -119,12 +130,10 @@ api.exportUserDataJson = {
 
 /**
  * @api {get} /export/userdata.xml Export user data in XML format
- * @apiVersion 3.0.0
  * @apiName ExportUserDataXml
  * @apiGroup DataExport
- * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {String} A xml file
+ * @apiSuccess {XML} File An xml file of the user object.
  */
 api.exportUserDataXml = {
   method: 'GET',
@@ -143,12 +152,14 @@ api.exportUserDataXml = {
 
 /**
  * @api {get} /export/avatar-:uuid.html Render a user avatar as an HTML page
- * @apiVersion 3.0.0
  * @apiName ExportUserAvatarHtml
  * @apiGroup DataExport
- * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {String} An html page
+ * @apiParam (Path) {String} uuid The User ID of the user
+ *
+ * @apiSuccess {HTML} File An html page rendering the user's avatar.
+ *
+ * @apiUse UserNotFound
  */
 api.exportUserAvatarHtml = {
   method: 'GET',
@@ -176,12 +187,12 @@ api.exportUserAvatarHtml = {
 
 /**
  * @api {get} /export/avatar-:uuid.png Render a user avatar as a PNG file
- * @apiVersion 3.0.0
  * @apiName ExportUserAvatarPng
  * @apiGroup DataExport
- * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {String} A png file
+ * @apiParam (Path) {String} uuid The User ID of the user
+ *
+ * @apiSuccess {PNG} File A png file of the user's avatar.
  */
 api.exportUserAvatarPng = {
   method: 'GET',
@@ -240,6 +251,60 @@ api.exportUserAvatarPng = {
     });
 
     res.redirect(s3res.Location);
+  },
+};
+
+/**
+ * @api {get} /export/inbox.html Export user private messages as HTML document
+ * @apiName ExportUserPrivateMessages
+ * @apiGroup DataExport
+ *
+ * @apiSuccess {HTML} File An html page of the user's private messages.
+ */
+api.exportUserPrivateMessages = {
+  method: 'GET',
+  url: '/export/inbox.html',
+  middlewares: [authWithSession],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    const timezoneOffset = user.preferences.timezoneOffset;
+    const dateFormat = user.preferences.dateFormat.toUpperCase();
+    const TO = res.t('to');
+    const FROM = res.t('from');
+
+    let inbox = Object.keys(user.inbox.messages).map(key => user.inbox.messages[key]);
+
+    inbox = _.sortBy(inbox, function sortBy (num) {
+      return num.sort * -1;
+    });
+
+    let messages = '<!DOCTYPE html><html><head></head><body>';
+
+    inbox.forEach((message, index) => {
+      let recipientLabel = message.sent ? TO : FROM;
+      let messageUser = message.user;
+      let timestamp = moment.utc(message.timestamp).zone(timezoneOffset).format(`${dateFormat} HH:mm:ss`);
+      let text = md.render(message.text);
+      index = `(${index + 1}/${inbox.length})`;
+      messages += `
+      <p>
+        ${recipientLabel} <strong>${messageUser}</strong> ${timestamp}
+        ${index}
+        <br />
+        ${text}
+      </p>
+      <hr />`;
+    });
+
+    messages += '</body></html>';
+
+    res.set({
+      'Content-Type': 'text/html',
+      'Content-disposition': 'attachment; filename=inbox.html',
+    });
+
+    res.status(200).send(messages);
   },
 };
 

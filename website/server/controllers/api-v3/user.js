@@ -15,11 +15,15 @@ import Bluebird from 'bluebird';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/password';
 
+/**
+ * @apiDefine UserNotFound
+ * @apiError (404) {NotFound} UserNotFound The specified user could not be found.
+ */
+
 let api = {};
 
 /**
  * @api {get} /api/v3/user Get the authenticated user's profile
- * @apiVersion 3.0.0
  * @apiName UserGet
  * @apiGroup User
  *
@@ -36,14 +40,13 @@ api.getUser = {
     // Remove apiToken from response TODO make it private at the user level? returned in signup/login
     delete userToJSON.apiToken;
 
-    user.addComputedStatsToJSONObj(userToJSON);
+    user.addComputedStatsToJSONObj(userToJSON.stats);
     return res.respond(200, userToJSON);
   },
 };
 
 /**
  * @api {get} /api/v3/user/inventory/buy Get the gear items available for purchase for the current user
- * @apiVersion 3.0.0
  * @apiName UserGetBuyList
  * @apiGroup User
  *
@@ -140,7 +143,6 @@ let checkPreferencePurchase = (user, path, item) => {
 /**
  * @api {put} /api/v3/user Update the user
  * @apiDescription Example body: {'stats.hp':50, 'preferences.background': 'beach'}
- * @apiVersion 3.0.0
  * @apiName UserUpdate
  * @apiGroup User
  *
@@ -174,7 +176,6 @@ api.updateUser = {
 
 /**
  * @api {delete} /api/v3/user Delete an authenticated user's account
- * @apiVersion 3.0.0
  * @apiName UserDelete
  * @apiGroup User
  *
@@ -235,7 +236,6 @@ function _cleanChecklist (task) {
 
 /**
  * @api {get} /api/v3/user/anonymized Get anonymized user data
- * @apiVersion 3.0.0
  * @apiName UserGetAnonymized
  * @apiGroup User
  *
@@ -300,14 +300,43 @@ const partyMembersFields = 'profile.name stats achievements items.special';
 
 /**
  * @api {post} /api/v3/user/class/cast/:spellId Cast a skill (spell) on a target
- * @apiVersion 3.0.0
  * @apiName UserCast
  * @apiGroup User
  *
- * @apiParam {String} spellId The skill to cast
+ * @apiParam {String=fireball, mpHeal, earth, frost, smash, defensiveStance, valorousPresence, intimidate, pickPocket, backStab, toolsOfTrade, stealth, heal, protectAura, brightness, healAll} spellId The skill to cast.
  * @apiParam {UUID} targetId Optional query parameter, the id of the target when casting a skill on a party member or a task
  *
  * @apiSuccess data Will return the modified targets. For party members only the necessary fields will be populated. The user is always returned.
+ *
+ * @apiExample Skill Key to Name Mapping
+ * Mage
+ * fireball: "Burst of Flames"
+ * mpHeal: "Ethereal Surge"
+ * earth: "Earthquake"
+ * frost: "Chilling Frost"
+ *
+ * Warrior
+ * smash: "Brutal Smash"
+ * defensiveStance: "Defensive Stance"
+ * valorousPresence: "Valorous Presence"
+ * intimidate: "Intimidating Gaze"
+ *
+ * Rogue
+ * pickPocket: "Pickpocket"
+ * backStab: "Backstab"
+ * toolsOfTrade: "Tools of the Trade"
+ * stealth: "Stealth"
+ *
+ * Healer
+ * heal: "Healing Light"
+ * protectAura: "Protective Aura"
+ * brightness: "Searing Brightness"
+ * healAll: "Blessing"
+ *
+ * @apiUse TaskNotFound
+ * @apiUse PartyNotFound
+ * @apiUse UserNotFound
+ *
  */
 api.castSpell = {
   method: 'POST',
@@ -456,7 +485,6 @@ api.castSpell = {
 
 /**
  * @api {post} /api/v3/user/sleep Make the user start / stop sleeping (resting in the Inn)
- * @apiVersion 3.0.0
  * @apiName UserSleep
  * @apiGroup User
  *
@@ -476,7 +504,6 @@ api.sleep = {
 
 /**
  * @api {post} /api/v3/user/allocate Allocate an attribute point
- * @apiVersion 3.0.0
  * @apiName UserAllocate
  * @apiGroup User
  *
@@ -499,7 +526,6 @@ api.allocate = {
 /**
  * @api {post} /api/v3/user/allocate-now Allocate all attribute points
  * @apiDescription Uses the user's chosen automatic allocation method, or if none, assigns all to STR.
- * @apiVersion 3.0.0
  * @apiName UserAllocateNow
  * @apiGroup User
  *
@@ -511,7 +537,7 @@ api.allocateNow = {
   url: '/user/allocate-now',
   async handler (req, res) {
     let user = res.locals.user;
-    let allocateNowRes = common.ops.allocateNow(user, req);
+    let allocateNowRes = common.ops.allocateNow(user);
     await user.save();
     res.respond(200, ...allocateNowRes);
   },
@@ -520,7 +546,6 @@ api.allocateNow = {
 /**
  * @api {post} /user/buy/:key Buy gear, armoire or potion
  * @apiDescription Under the hood uses UserBuyGear, UserBuyPotion and UserBuyArmoire
- * @apiVersion 3.0.0
  * @apiName UserBuy
  * @apiGroup User
  *
@@ -540,7 +565,6 @@ api.buy = {
 
 /**
  * @api {post} /user/buy-gear/:key Buy a piece of gear
- * @apiVersion 3.0.0
  * @apiName UserBuyGear
  * @apiGroup User
  *
@@ -566,7 +590,6 @@ api.buyGear = {
 
 /**
  * @api {post} /user/buy-armoire Buy an armoire item
- * @apiVersion 3.0.0
  * @apiName UserBuyArmoire
  * @apiGroup User
  *
@@ -589,7 +612,6 @@ api.buyArmoire = {
 
 /**
  * @api {post} /user/buy-health-potion Buy a health potion
- * @apiVersion 3.0.0
  * @apiName UserBuyPotion
  * @apiGroup User
  *
@@ -610,7 +632,6 @@ api.buyHealthPotion = {
 
 /**
  * @api {post} /user/buy-mystery-set/:key Buy a mystery set
- * @apiVersion 3.0.0
  * @apiName UserBuyMysterySet
  * @apiGroup User
  *
@@ -634,7 +655,6 @@ api.buyMysterySet = {
 
 /**
  * @api {post} /api/v3/user/buy-quest/:key Buy a quest with gold
- * @apiVersion 3.0.0
  * @apiName UserBuyQuest
  * @apiGroup User
  *
@@ -658,7 +678,6 @@ api.buyQuest = {
 /**
  * @api {post} /api/v3/user/buy-special-spell/:key Buy special "spell" item
  * @apiDescription Includes gift cards (e.g., birthday card), and avatar Transformation Items and their antidotes (e.g., Snowball item and Salt reward).
- * @apiVersion 3.0.0
  * @apiName UserBuySpecialSpell
  * @apiGroup User
  *
@@ -682,7 +701,6 @@ api.buySpecialSpell = {
 
 /**
  * @api {post} /api/v3/user/hatch/:egg/:hatchingPotion Hatch a pet
- * @apiVersion 3.0.0
  * @apiName UserHatch
  * @apiGroup User
  *
@@ -706,7 +724,6 @@ api.hatch = {
 
 /**
  * @api {post} /api/v3/user/equip/:type/:key Equip an item
- * @apiVersion 3.0.0
  * @apiName UserEquip
  * @apiGroup User
  *
@@ -730,7 +747,6 @@ api.equip = {
 
 /**
  * @api {post} /api/v3/user/feed/:pet/:food Feed a pet
- * @apiVersion 3.0.0
  * @apiName UserFeed
  * @apiGroup User
  *
@@ -753,19 +769,18 @@ api.feed = {
 };
 
 /**
-* @api {post} /api/v3/user/change-class Change class
-* @apiDescription User must be at least level 10. If ?class is defined and user.flags.classSelected is false it'll change the class. If user.preferences.disableClasses it'll enable classes, otherwise it sets user.flags.classSelected to false (costs 3 gems)
-* @apiVersion 3.0.0
-* @apiName UserChangeClass
-* @apiGroup User
-*
-* @apiParam {String} class Query parameter - ?class={warrior|rogue|wizard|healer}
-*
-* @apiSuccess {Object} data.flags user.flags
-* @apiSuccess {Object} data.stats user.stats
-* @apiSuccess {Object} data.preferences user.preferences
-* @apiSuccess {Object} data.items user.items
-*/
+ * @api {post} /api/v3/user/change-class Change class
+ * @apiDescription User must be at least level 10. If ?class is defined and user.flags.classSelected is false it'll change the class. If user.preferences.disableClasses it'll enable classes, otherwise it sets user.flags.classSelected to false (costs 3 gems)
+ * @apiName UserChangeClass
+ * @apiGroup User
+ *
+ * @apiParam {String} class Query parameter - ?class={warrior|rogue|wizard|healer}
+ *
+ * @apiSuccess {Object} data.flags user.flags
+ * @apiSuccess {Object} data.stats user.stats
+ * @apiSuccess {Object} data.preferences user.preferences
+ * @apiSuccess {Object} data.items user.items
+ */
 api.changeClass = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -779,15 +794,14 @@ api.changeClass = {
 };
 
 /**
-* @api {post} /api/v3/user/disable-classes Disable classes
-* @apiVersion 3.0.0
-* @apiName UserDisableClasses
-* @apiGroup User
-*
-* @apiSuccess {Object} data.flags user.flags
-* @apiSuccess {Object} data.stats user.stats
-* @apiSuccess {Object} data.preferences user.preferences
-*/
+ * @api {post} /api/v3/user/disable-classes Disable classes
+ * @apiName UserDisableClasses
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data.flags user.flags
+ * @apiSuccess {Object} data.stats user.stats
+ * @apiSuccess {Object} data.preferences user.preferences
+ */
 api.disableClasses = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -801,43 +815,41 @@ api.disableClasses = {
 };
 
 /**
-* @api {post} /api/v3/user/purchase/:type/:key Purchase Gem or Gem-purchasable item
-* @apiVersion 3.0.0
-* @apiName UserPurchase
-* @apiGroup User
-*
-* @apiParam {String} type Type of item to purchase. Must be one of: gems, eggs, hatchingPotions, food, quests, or gear
-* @apiParam {String} key Item's key (use "gem" for purchasing gems)
-*
-* @apiSuccess {Object} data.items user.items
-* @apiSuccess {Number} data.balance user.balance
-* @apiSuccess {String} message Success message
-*/
+ * @api {post} /api/v3/user/purchase/:type/:key Purchase Gem or Gem-purchasable item
+ * @apiName UserPurchase
+ * @apiGroup User
+ *
+ * @apiParam {String} type Type of item to purchase. Must be one of: gems, eggs, hatchingPotions, food, quests, or gear
+ * @apiParam {String} key Item's key (use "gem" for purchasing gems)
+ *
+ * @apiSuccess {Object} data.items user.items
+ * @apiSuccess {Number} data.balance user.balance
+ * @apiSuccess {String} message Success message
+ */
 api.purchase = {
   method: 'POST',
   middlewares: [authWithHeaders()],
   url: '/user/purchase/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let purchaseRes = common.ops.purchase(user, req, res.analytics);
+    let purchaseRes = req.params.type === 'spells' ? common.ops.buySpecialSpell(user, req) : common.ops.purchase(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseRes);
   },
 };
 
 /**
-* @api {post} /api/v3/user/purchase-hourglass/:type/:key Purchase Hourglass-purchasable item
-* @apiVersion 3.0.0
-* @apiName UserPurchaseHourglass
-* @apiGroup User
-*
-* @apiParam {String} type The type of item to purchase (pets or mounts)
-* @apiParam {String} key Ex: {MantisShrimp-Base}. The key for the mount/pet
-*
-* @apiSuccess {Object} data.items user.items
-* @apiSuccess {Object} data.purchasedPlanConsecutive user.purchased.plan.consecutive
-* @apiSuccess {String} message Success message
-*/
+ * @api {post} /api/v3/user/purchase-hourglass/:type/:key Purchase Hourglass-purchasable item
+ * @apiName UserPurchaseHourglass
+ * @apiGroup User
+ *
+ * @apiParam {String} type The type of item to purchase (pets or mounts)
+ * @apiParam {String} key Ex: {MantisShrimp-Base}. The key for the mount/pet
+ *
+ * @apiSuccess {Object} data.items user.items
+ * @apiSuccess {Object} data.purchasedPlanConsecutive user.purchased.plan.consecutive
+ * @apiSuccess {String} message Success message
+ */
 api.userPurchaseHourglass = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -851,17 +863,16 @@ api.userPurchaseHourglass = {
 };
 
 /**
-* @api {post} /api/v3/user/read-card/:cardType Read a card
-* @apiVersion 3.0.0
-* @apiName UserReadCard
-* @apiGroup User
-*
-* @apiParam {String} cardType Type of card to read
-*
-* @apiSuccess {Object} data.specialItems user.items.special
-* @apiSuccess {Boolean} data.cardReceived user.flags.cardReceived
-* @apiSuccess {String} message Success message
-*/
+ * @api {post} /api/v3/user/read-card/:cardType Read a card
+ * @apiName UserReadCard
+ * @apiGroup User
+ *
+ * @apiParam {String} cardType Type of card to read
+ *
+ * @apiSuccess {Object} data.specialItems user.items.special
+ * @apiSuccess {Boolean} data.cardReceived user.flags.cardReceived
+ * @apiSuccess {String} message Success message
+ */
 api.readCard = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -875,14 +886,13 @@ api.readCard = {
 };
 
 /**
-* @api {post} /api/v3/user/open-mystery-item Open the Mystery Item box
-* @apiVersion 3.0.0
-* @apiName UserOpenMysteryItem
-* @apiGroup User
-*
-* @apiSuccess {Object} data The item obtained
-* @apiSuccess {String} message Success message
-*/
+ * @api {post} /api/v3/user/open-mystery-item Open the Mystery Item box
+ * @apiName UserOpenMysteryItem
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data The item obtained
+ * @apiSuccess {String} message Success message
+ */
 api.userOpenMysteryItem = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -895,84 +905,13 @@ api.userOpenMysteryItem = {
   },
 };
 
-/**
-* @api {post} /api/v3/user/webhook Create a new webhook - BETA
-* @apiVersion 3.0.0
-* @apiName UserAddWebhook
-* @apiGroup User
-*
-* @apiParam {String} url Body parameter - The webhook's URL
-* @apiParam {Boolean} enabled Body parameter - If the webhook should be enabled
-*
-* @apiSuccess {Object} data The created webhook
-*/
-api.addWebhook = {
-  method: 'POST',
-  middlewares: [authWithHeaders()],
-  url: '/user/webhook',
-  async handler (req, res) {
-    let user = res.locals.user;
-    let addWebhookRes = common.ops.addWebhook(user, req);
-    await user.save();
-    res.respond(200, ...addWebhookRes);
-  },
-};
-
-/**
-* @api {put} /api/v3/user/webhook/:id Edit a webhook - BETA
-* @apiVersion 3.0.0
-* @apiName UserUpdateWebhook
-* @apiGroup User
-*
-* @apiParam {UUID} id The id of the webhook to update
-* @apiParam {String} url Body parameter - The webhook's URL
-* @apiParam {Boolean} enabled Body parameter - If the webhook should be enabled
-*
-* @apiSuccess {Object} data The updated webhook
-*/
-api.updateWebhook = {
-  method: 'PUT',
-  middlewares: [authWithHeaders()],
-  url: '/user/webhook/:id',
-  async handler (req, res) {
-    let user = res.locals.user;
-    let updateWebhookRes = common.ops.updateWebhook(user, req);
-    await user.save();
-    res.respond(200, ...updateWebhookRes);
-  },
-};
-
-/**
-* @api {delete} /api/v3/user/webhook/:id Delete a webhook - BETA
-* @apiVersion 3.0.0
-* @apiName UserDeleteWebhook
-* @apiGroup User
-*
-* @apiParam {UUID} id The id of the webhook to delete
-*
-* @apiSuccess {Object} data The user webhooks
-*/
-api.deleteWebhook = {
-  method: 'DELETE',
-  middlewares: [authWithHeaders()],
-  url: '/user/webhook/:id',
-  async handler (req, res) {
-    let user = res.locals.user;
-    let deleteWebhookRes = common.ops.deleteWebhook(user, req);
-    await user.save();
-    res.respond(200, ...deleteWebhookRes);
-  },
-};
-
-
 /* @api {post} /api/v3/user/release-pets Release pets
-* @apiVersion 3.0.0
-* @apiName UserReleasePets
-* @apiGroup User
-*
-* @apiSuccess {Object} data.items `user.items.pets`
-* @apiSuccess {String} message Success message
-*/
+ * @apiName UserReleasePets
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data.items `user.items.pets`
+ * @apiSuccess {String} message Success message
+ */
 api.userReleasePets = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -986,16 +925,15 @@ api.userReleasePets = {
 };
 
 /**
-* @api {post} /api/v3/user/release-both Release pets and mounts and grants Triad Bingo
-* @apiVersion 3.0.0
-* @apiName UserReleaseBoth
-* @apiGroup User
+ * @api {post} /api/v3/user/release-both Release pets and mounts and grants Triad Bingo
+ * @apiName UserReleaseBoth
+ * @apiGroup User
 
-* @apiSuccess {Object} data.achievements
-* @apiSuccess {Object} data.items
-* @apiSuccess {Number} data.balance
-* @apiSuccess {String} message Success message
-*/
+ * @apiSuccess {Object} data.achievements
+ * @apiSuccess {Object} data.items
+ * @apiSuccess {Number} data.balance
+ * @apiSuccess {String} message Success message
+ */
 api.userReleaseBoth = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -1009,14 +947,13 @@ api.userReleaseBoth = {
 };
 
 /**
-* @api {post} /api/v3/user/release-mounts Release mounts
-* @apiVersion 3.0.0
-* @apiName UserReleaseMounts
-* @apiGroup User
-*
-* @apiSuccess {Object} data user.items.mounts
-* @apiSuccess {String} message Success message
-*/
+ * @api {post} /api/v3/user/release-mounts Release mounts
+ * @apiName UserReleaseMounts
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data user.items.mounts
+ * @apiSuccess {String} message Success message
+ */
 api.userReleaseMounts = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -1030,18 +967,17 @@ api.userReleaseMounts = {
 };
 
 /**
-* @api {post} /api/v3/user/sell/:type/:key Sell a gold-sellable item owned by the user
-* @apiVersion 3.0.0
-* @apiName UserSell
-* @apiGroup User
-*
-* @apiParam {String} type The type of item to sell. Must be one of: eggs, hatchingPotions, or food
-* @apiParam {String} key The key of the item
-*
-* @apiSuccess {Object} data.stats
-* @apiSuccess {Object} data.items
-* @apiSuccess {String} message Success message
-*/
+ * @api {post} /api/v3/user/sell/:type/:key Sell a gold-sellable item owned by the user
+ * @apiName UserSell
+ * @apiGroup User
+ *
+ * @apiParam {String} type The type of item to sell. Must be one of: eggs, hatchingPotions, or food
+ * @apiParam {String} key The key of the item
+ *
+ * @apiSuccess {Object} data.stats
+ * @apiSuccess {Object} data.items
+ * @apiSuccess {String} message Success message
+ */
 api.userSell = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -1055,18 +991,17 @@ api.userSell = {
 };
 
 /**
-* @api {post} /api/v3/user/unlock Unlock item or set of items by purchase
-* @apiVersion 3.0.0
-* @apiName UserUnlock
-* @apiGroup User
-*
-* @apiParam {String} path Query parameter. The path to unlock
-*
-* @apiSuccess {Object} data.purchased
-* @apiSuccess {Object} data.items
-* @apiSuccess {Object} data.preferences
-* @apiSuccess {String} message
-*/
+ * @api {post} /api/v3/user/unlock Unlock item or set of items by purchase
+ * @apiName UserUnlock
+ * @apiGroup User
+ *
+ * @apiParam {String} path Query parameter. The path to unlock
+ *
+ * @apiSuccess {Object} data.purchased
+ * @apiSuccess {Object} data.items
+ * @apiSuccess {Object} data.preferences
+ * @apiSuccess {String} message
+ */
 api.userUnlock = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -1080,14 +1015,13 @@ api.userUnlock = {
 };
 
 /**
-* @api {post} /api/v3/user/revive Revive user from death
-* @apiVersion 3.0.0
-* @apiName UserRevive
-* @apiGroup User
-*
-* @apiSuccess {Object} data user.items
-* @apiSuccess {String} message Success message
-*/
+ * @api {post} /api/v3/user/revive Revive user from death
+ * @apiName UserRevive
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data user.items
+ * @apiSuccess {String} message Success message
+ */
 api.userRevive = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -1101,15 +1035,14 @@ api.userRevive = {
 };
 
 /**
-* @api {post} /api/v3/user/rebirth Use Orb of Rebirth on user
-* @apiVersion 3.0.0
-* @apiName UserRebirth
-* @apiGroup User
-*
-* @apiSuccess {Object} data.user
-* @apiSuccess {Array} data.tasks User's modified tasks (no rewards)
-* @apiSuccess {String} message Success message
-*/
+ * @api {post} /api/v3/user/rebirth Use Orb of Rebirth on user
+ * @apiName UserRebirth
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data.user
+ * @apiSuccess {Array} data.tasks User's modified tasks (no rewards)
+ * @apiSuccess {String} message Success message
+ */
 api.userRebirth = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -1139,14 +1072,13 @@ api.userRebirth = {
 
 /**
  * @api {post} /api/v3/user/block/:uuid Block / unblock a user from sending you a PM
- * @apiVersion 3.0.0
  * @apiName BlockUser
  * @apiGroup User
  *
  * @apiParam {UUID} uuid The uuid of the user to block / unblock
  *
  * @apiSuccess {Array} data user.inbox.blocks
-**/
+ */
 api.blockUser = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -1161,14 +1093,13 @@ api.blockUser = {
 
 /**
  * @api {delete} /api/v3/user/messages/:id Delete a message
- * @apiVersion 3.0.0
  * @apiName deleteMessage
  * @apiGroup User
  *
  * @apiParam {UUID} id The id of the message to delete
  *
  * @apiSuccess {Object} data user.inbox.messages
-**/
+ */
 api.deleteMessage = {
   method: 'DELETE',
   middlewares: [authWithHeaders()],
@@ -1183,12 +1114,11 @@ api.deleteMessage = {
 
 /**
  * @api {delete} /api/v3/user/messages Delete all messages
- * @apiVersion 3.0.0
  * @apiName clearMessages
  * @apiGroup User
  *
  * @apiSuccess {Object} data user.inbox.messages
-**/
+ */
 api.clearMessages = {
   method: 'DELETE',
   middlewares: [authWithHeaders()],
@@ -1203,34 +1133,32 @@ api.clearMessages = {
 
 /**
  * @api {post} /api/v3/user/mark-pms-read Marks Private Messages as read
- * @apiVersion 3.0.0
  * @apiName markPmsRead
  * @apiGroup User
  *
  * @apiSuccess {Object} data user.inbox.messages
-**/
+ */
 api.markPmsRead = {
   method: 'POST',
   middlewares: [authWithHeaders()],
   url: '/user/mark-pms-read',
   async handler (req, res) {
     let user = res.locals.user;
-    let markPmsResponse = common.ops.markPmsRead(user, req);
+    let markPmsResponse = common.ops.markPmsRead(user);
     await user.save();
     res.respond(200, markPmsResponse);
   },
 };
 
 /**
-* @api {post} /api/v3/user/reroll Reroll a user using the Fortify Potion
-* @apiVersion 3.0.0
-* @apiName UserReroll
-* @apiGroup User
-*
-* @apiSuccess {Object} data.user
-* @apiSuccess {Object} data.tasks User's modified tasks (no rewards)
-* @apiSuccess {Object} message Success message
-*/
+ * @api {post} /api/v3/user/reroll Reroll a user using the Fortify Potion
+ * @apiName UserReroll
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data.user
+ * @apiSuccess {Object} data.tasks User's modified tasks (no rewards)
+ * @apiSuccess {Object} message Success message
+ */
 api.userReroll = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -1258,15 +1186,14 @@ api.userReroll = {
 };
 
 /**
-* @api {post} /api/v3/user/reset Reset user
-* @apiVersion 3.0.0
-* @apiName UserReset
-* @apiGroup User
-*
-* @apiSuccess {Object} data.user
-* @apiSuccess {Object} data.tasksToRemove IDs of removed tasks
-* @apiSuccess {String} message Success message
-*/
+ * @api {post} /api/v3/user/reset Reset user
+ * @apiName UserReset
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data.user
+ * @apiSuccess {Object} data.tasksToRemove IDs of removed tasks
+ * @apiSuccess {String} message Success message
+ */
 api.userReset = {
   method: 'POST',
   middlewares: [authWithHeaders()],
@@ -1282,7 +1209,7 @@ api.userReset = {
       ],
     }).select('_id type challenge').exec();
 
-    let resetRes = common.ops.reset(user, tasks, req);
+    let resetRes = common.ops.reset(user, tasks);
 
     await Bluebird.all([
       Tasks.Task.remove({_id: {$in: resetRes[0].tasksToRemove}, userId: user._id}),
@@ -1294,13 +1221,12 @@ api.userReset = {
 };
 
 /**
-* @api {post} /api/v3/user/custom-day-start Set preferences.dayStart for user
-* @apiVersion 3.0.0
-* @apiName setCustomDayStart
-* @apiGroup User
-*
-* @apiSuccess {Object} data An empty Object
-*/
+ * @api {post} /api/v3/user/custom-day-start Set preferences.dayStart for user
+ * @apiName setCustomDayStart
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data An empty Object
+ */
 api.setCustomDayStart = {
   method: 'POST',
   middlewares: [authWithHeaders()],

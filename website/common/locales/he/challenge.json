@@ -11,6 +11,7 @@
     "unsubChallenge": "קישור אתגר שבור: המשימה הזו הייתה חלק מאתגר, אבל בחרתם לפרוש ממנו. מה תרצו לעשות עם המשימות היתומות?",
     "challengeWinner": "ניצחו באתגרים הבאים",
     "challenges": "אתגרים",
+    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>אתגרים</a>",
     "noChallenges": "עדיין אין לכם אתגרים, בקרו ב",
     "toCreate": "כדי ליצור אחד.",
     "selectWinner": "בחרו מנצח כדי לסגור את האתגר:",

@@ -175,32 +175,6 @@ gulp.task('test:content:safe', ['test:prepare:build'], (cb) => {
   pipe(runner);
 });
 
-gulp.task('test:server_side', ['test:prepare:build'], (cb) => {
-  let runner = exec(
-    testBin(SERVER_SIDE_TEST_COMMAND),
-    (err, stdout, stderr) => {
-      cb(err);
-    }
-  );
-  pipe(runner);
-});
-
-gulp.task('test:server_side:safe', ['test:prepare:build'], (cb) => {
-  let runner = exec(
-    testBin(SERVER_SIDE_TEST_COMMAND),
-    (err, stdout, stderr) => {
-      testResults.push({
-        suite: 'Server Side Specs',
-        pass: testCount(stdout, /(\d+) passing/),
-        fail: testCount(stdout, /(\d+) failing/),
-        pend: testCount(stdout, /(\d+) pending/),
-      });
-      cb();
-    }
-  );
-  pipe(runner);
-});
-
 gulp.task('test:karma', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin(KARMA_TEST_COMMAND),

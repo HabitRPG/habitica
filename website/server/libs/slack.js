@@ -17,6 +17,7 @@ try {
 }
 
 function sendFlagNotification ({
+  authorEmail,
   flagger,
   group,
   message,
@@ -40,7 +41,7 @@ function sendFlagNotification ({
   if (!message.user && message.uuid === 'system') {
     authorName = 'System Message';
   } else {
-    authorName = `${message.user} - ${message.uuid}`;
+    authorName = `${message.user} - ${authorEmail} - ${message.uuid}`;
   }
 
   flagSlack.send({

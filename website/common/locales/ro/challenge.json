@@ -11,6 +11,7 @@
     "unsubChallenge": "Legătură stricată către provocare: acest țel a făcut parte dintr-o provocare, dar te-ai dezabonat de la provocare. Ce vrei să faci cu țelurile rămase?",
     "challengeWinner": "A câștigat următoarele provocări:",
     "challenges": "Provocări",
+    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Challenges</a>",
     "noChallenges": "Nico provocare încă, vizitează",
     "toCreate": "pentru a crea una.",
     "selectWinner": "Alege un câștigător și închide provocarea:",

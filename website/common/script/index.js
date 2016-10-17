@@ -23,10 +23,12 @@ import {
   MAX_STAT_POINTS,
   TAVERN_ID,
   LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
+  SUPPORTED_SOCIAL_NETWORKS,
 } from './constants';
 
 api.constants = {
   LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
+  SUPPORTED_SOCIAL_NETWORKS,
 };
 // TODO Move these under api.constants
 api.maxLevel = MAX_LEVEL;
@@ -42,12 +44,6 @@ api.diminishingReturns = statHelpers.diminishingReturns;
 
 import splitWhitespace from './libs/splitWhitespace';
 api.$w = splitWhitespace;
-
-import dotSet from './libs/dotSet';
-api.dotSet = dotSet;
-
-import dotGet from './libs/dotGet';
-api.dotGet = dotGet;
 
 import refPush from './libs/refPush';
 api.refPush = refPush;
@@ -97,12 +93,14 @@ api.statsComputed = statsComputed;
 import shops from './libs/shops';
 api.shops = shops;
 
+import randomVal from './libs/randomVal';
+api.randomVal = randomVal;
+
 import autoAllocate from './fns/autoAllocate';
 import crit from './fns/crit';
 import handleTwoHanded from './fns/handleTwoHanded';
 import predictableRandom from './fns/predictableRandom';
 import randomDrop from './fns/randomDrop';
-import randomVal from './fns/randomVal';
 import resetGear from './fns/resetGear';
 import ultimateGear from './fns/ultimateGear';
 import updateStats from './fns/updateStats';
@@ -113,7 +111,6 @@ api.fns = {
   handleTwoHanded,
   predictableRandom,
   randomDrop,
-  randomVal,
   resetGear,
   ultimateGear,
   updateStats,
@@ -139,9 +136,6 @@ import purchase from './ops/purchase';
 import purchaseHourglass from './ops/hourglassPurchase';
 import readCard from './ops/readCard';
 import openMysteryItem from './ops/openMysteryItem';
-import addWebhook from './ops/addWebhook';
-import updateWebhook from './ops/updateWebhook';
-import deleteWebhook from './ops/deleteWebhook';
 import releasePets from './ops/releasePets';
 import releaseBoth from './ops/releaseBoth';
 import releaseMounts from './ops/releaseMounts';
@@ -178,9 +172,6 @@ api.ops = {
   purchaseHourglass,
   readCard,
   openMysteryItem,
-  addWebhook,
-  updateWebhook,
-  deleteWebhook,
   releasePets,
   releaseBoth,
   releaseMounts,
@@ -253,7 +244,6 @@ api.wrap = function wrapUser (user, main = true) {
 
   if (main) {
     user.ops = {
-      update: _.partial(importedOps.update, user),
       sleep: _.partial(importedOps.sleep, user),
       revive: _.partial(importedOps.revive, user),
       reset: _.partial(importedOps.reset, user),
@@ -266,13 +256,8 @@ api.wrap = function wrapUser (user, main = true) {
       addTask: _.partial(importedOps.addTask, user),
       addTag: _.partial(importedOps.addTag, user),
       sortTag: _.partial(importedOps.sortTag, user),
-      getTags: _.partial(importedOps.getTags, user),
-      getTag: _.partial(importedOps.getTag, user),
       updateTag: _.partial(importedOps.updateTag, user),
       deleteTag: _.partial(importedOps.deleteTag, user),
-      addWebhook: _.partial(importedOps.addWebhook, user),
-      updateWebhook: _.partial(importedOps.updateWebhook, user),
-      deleteWebhook: _.partial(importedOps.deleteWebhook, user),
       clearPMs: _.partial(importedOps.clearPMs, user),
       deletePM: _.partial(importedOps.deletePM, user),
       blockUser: _.partial(importedOps.blockUser, user),
@@ -307,15 +292,11 @@ api.wrap = function wrapUser (user, main = true) {
     handleTwoHanded: _.partial(importedFns.handleTwoHanded, user),
     predictableRandom: _.partial(importedFns.predictableRandom, user),
     crit: _.partial(importedFns.crit, user),
-    randomVal: _.partial(importedFns.randomVal, user),
-    dotSet: _.partial(importedFns.dotSet, user),
-    dotGet: _.partial(importedFns.dotGet, user),
     randomDrop: _.partial(importedFns.randomDrop, user),
     autoAllocate: _.partial(importedFns.autoAllocate, user),
     updateStats: _.partial(importedFns.updateStats, user),
     statsComputed: _.partial(statsComputed, user),
     ultimateGear: _.partial(importedFns.ultimateGear, user),
-    nullify: _.partial(importedFns.nullify, user),
   };
 
   Object.defineProperty(user, '_statsComputed', {

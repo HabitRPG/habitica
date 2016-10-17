@@ -347,5 +347,11 @@
     "questCowCompletion": "Você ordenha seus bons hábitos em tudo que consegue, até que a vaca volta à sua forma original. A vaca olha para você com seus bonitos olhos castanhos e deixa três ovos.<br><br>@fuzzytrees ri e te dá os ovos, \"Talvez ainda esteja muutante se houverem bebês vaca nesses ovos. Mas eu confio em você para manter seus bons hábitos ao criar estes ovos!\"",
     "questCowBoss": "Vaca Muutante",
     "questCowDropCowEgg": "Vaca (Ovo)",
-    "questCowUnlockText": "Desbloqueia ovos de Vaca para compra no Mercado"
+    "questCowUnlockText": "Desbloqueia ovos de Vaca para compra no Mercado",
+    "questBeetleText": "O Bug CRÍTICO ",
+    "questBeetleNotes": "Alguma coisa no domínio de Habitica deu errado. As forjas dos Ferreiros se apagaram e estranhos erros estão aparecendo em toda parte. Com um tremor ameaçador, um traiçoeiro inimigo sai da terra... um BUG CRÍTICO! Você se prepara enquanto ele infecta o terreno e glitches começam a atingir os Habiticianos ao teu redor, @starsystemic grita \"Nós temos que ajudar os Ferreiros à controlar esse Bug!\" Parece que você terá de fazer dessa praga da programação sua maior prioridade.",
+    "questBeetleCompletion": "Com o golpe final, você esmaga o Bug CRÍTICO. @starsystemic e os Ferreiros correm ao teu encontro, muito felizes \"Eu não posso agradecer o bastante por esmagar esse bug! Aqui fique com isso.\" Você é presenteado com três ovos brilhantes de besouro. Espero que esses pequenos bugs cresçam e ajudem Habitica, não feri-lá.",
+    "questBeetleBoss": "Bug CRÍTICO ",
+    "questBeetleDropBeetleEgg": "Besouro (Ovo)",
+    "questBeetleUnlockText": "Desbloqueia ovos de Besouro para compra no Mercado"
 }

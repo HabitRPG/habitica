@@ -19,7 +19,6 @@ let api = {};
 /**
  * @api {post} /api/v3/tasks/group/:groupId Create a new task belonging to a group
  * @apiDescription Can be passed an object to create a single task or an array of objects to create multiple tasks.
- * @apiVersion 3.0.0
  * @apiName CreateGroupTasks
  * @apiGroup Task
  * @apiIgnore
@@ -53,7 +52,6 @@ api.createGroupTasks = {
 
 /**
  * @api {get} /api/v3/tasks/group/:groupId Get a group's tasks
- * @apiVersion 3.0.0
  * @apiName GetGroupTasks
  * @apiGroup Task
  * @apiIgnore
@@ -87,7 +85,6 @@ api.getGroupTasks = {
 /**
  * @api {post} /api/v3/tasks/:taskId/assign/:assignedUserId Assign a group task to a user
  * @apiDescription Assigns a user to a group task
- * @apiVersion 3.0.0
  * @apiName AssignTask
  * @apiGroup Task
  *
@@ -125,7 +122,7 @@ api.assignTask = {
     let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (group.leader !== user._id && user._id !== assignedUserId) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     await group.syncTask(task, assignedUser);
 
@@ -136,7 +133,6 @@ api.assignTask = {
 /**
  * @api {post} /api/v3/tasks/:taskId/unassign/:assignedUserId Unassign a user from a task
  * @apiDescription Unassigns a user to from a group task
- * @apiVersion 3.0.0
  * @apiName UnassignTask
  * @apiGroup Task
  *

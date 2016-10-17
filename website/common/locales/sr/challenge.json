@@ -11,6 +11,7 @@
     "unsubChallenge": "Link za izazov je nevažeći: Ovaj zadatak  bio je deo izazova, ali ste Vi prestali da pratite izazov. Šta želite da uradite sa zadacima iz ovog izazova?",
     "challengeWinner": "Pobednik u sledećim izazovima",
     "challenges": "Izazovi",
+    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Challenges</a>",
     "noChallenges": "Nema izazova, posetite",
     "toCreate": "da biste napravili izazov.",
     "selectWinner": "Odaberite pobednika i završite izazov:",
