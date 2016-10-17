@@ -46,7 +46,7 @@
     "chat": "チャット",
     "sendChat": "チャット送信",
     "toolTipMsg": "最新のメッセージを取得する",
-    "sendChatToolTip": "You can send a chat from the keyboard by tabbing to the 'Send Chat' button and pressing Enter or by pressing Control (Command on a Mac) + Enter.",
+    "sendChatToolTip": "チャットでは、キーボードで Tab を押して「チャット送信」ボタン上で Enter を押す、もしくは Ctrl (Mac では Command ) + Enter でチャットを送信できます。",
     "syncPartyAndChat": "パーティーとチャットを同期する",
     "guildBankPop1": "ギルド口座",
     "guildBankPop2": "ギルドリーダーがチャレンジの賞金として使えるジェム。",
@@ -211,8 +211,8 @@
     "to": "→ ",
     "from": "← ",
     "desktopNotificationsText": "パーティーチャットの新しいメッセージをデスクトップ通知するため、あなたの認証が必要です!　ブラウザに表示される案内にそって、許可をお願いします。<br><br>通知されるのは、Habitica を開いている間だけです。もしお気に召さなければ、ブラウザの設定で無効に設定することもできます。<br><br>このメッセージボックスは、決定がなされた後、自動的に閉じます。",
-    "confirmAddTag": "Do you really want to add \"<%= tag %>\"?",
-    "confirmRemoveTag": "Do you really want to remove \"<%= tag %>\"?",
-    "assignTask": "Assign Task",
-    "claim": "Claim"
+    "confirmAddTag": "「<%= tag %>」を追加します。よろしいですか?",
+    "confirmRemoveTag": "「<%= tag %>」を削除します。よろしいですか?",
+    "assignTask": "タスクを割り当てる",
+    "claim": "受け取る"
 }

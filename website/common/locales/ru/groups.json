@@ -46,7 +46,7 @@
     "chat": "Чат",
     "sendChat": "Написать в чат",
     "toolTipMsg": "Получить последние сообщения",
-    "sendChatToolTip": "You can send a chat from the keyboard by tabbing to the 'Send Chat' button and pressing Enter or by pressing Control (Command on a Mac) + Enter.",
+    "sendChatToolTip": "Вы можете отправить сообщение в чат с клавиатуры, переключившись Tab на \"Отправить в чат\" и нажав Enter, либо используя комбинацию Control (Command на Маке) + Enter.",
     "syncPartyAndChat": "Синхронизировать команду и чат",
     "guildBankPop1": "Банк гильдии",
     "guildBankPop2": "Самоцветы, которые глава гильдии может использовать как приз за испытания.",
@@ -213,6 +213,6 @@
     "desktopNotificationsText": "Требуется ваше согласие на включение уведомлений на рабочем столе о новых сообщениях в командном чате! Выполните инструкции вашего браузера и включите их.<br><br>Вы будете получать уведомления только тогда, когда у вас открыта Habitica. Если вы решили отключить их, сделайте это в настройках браузера.<br><br>Это окно закроется автоматически после принятия решения.",
     "confirmAddTag": "Вы точно хотите добавить \"<%= tag %>\"?",
     "confirmRemoveTag": "Вы точно хотите удалить \"<%= tag %>\"?",
-    "assignTask": "Assign Task",
-    "claim": "Claim"
+    "assignTask": "Назначить задачу",
+    "claim": "Заявить"
 }

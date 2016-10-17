@@ -46,7 +46,7 @@
     "chat": "Discussion",
     "sendChat": "Envoyer un Message",
     "toolTipMsg": "Récupérer les Messages Récents",
-    "sendChatToolTip": "Vous pouvez envoyer un message depuis votre clavier en tabulant vers le bouton 'Envoyer un Message' et en tapant sur la touche Entrée ou en tapant sur la touche Contrôle (Commande sur Max) + Entrée.",
+    "sendChatToolTip": "Vous pouvez envoyer un message depuis votre clavier en tabulant vers le bouton 'Envoyer un Message' et en tapant sur la touche Entrée ou en tapant sur la touche Contrôle (Commande sur un Mac) + Entrée.",
     "syncPartyAndChat": "Synchroniser l'équipe et les discussions",
     "guildBankPop1": "Banque de la Guilde",
     "guildBankPop2": "Gemmes que votre maître de guilde peut utiliser en tant que récompenses de challenge.",
@@ -214,5 +214,5 @@
     "confirmAddTag": "Voulez-vous vraiment ajouter \"<%= tag %>\"?",
     "confirmRemoveTag": "Voulez-vous vraiment supprimer \"<%= tag %>\"?",
     "assignTask": "Assigner la tâche",
-    "claim": "Claim"
+    "claim": "Réclamer"
 }
