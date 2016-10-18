@@ -178,6 +178,7 @@ api.subscribe = {
     let billingAgreement = await paypalBillingAgreementCreate(billingAgreementAttributes);
 
     req.session.paypalBlock = req.query.sub;
+    req.session.groupId = req.query.groupId;
     let link = _.find(billingAgreement.links, { rel: 'approval_url' }).href;
     res.redirect(link);
   },
@@ -196,11 +197,15 @@ api.subscribeSuccess = {
   async handler (req, res) {
     let user = res.locals.user;
     let block = shared.content.subscriptionBlocks[req.session.paypalBlock];
+    let groupId = req.session.groupId;
+
     delete req.session.paypalBlock;
+    delete req.session.groupId;
 
     let result = await paypalBillingAgreementExecute(req.query.token, {});
     await payments.createSubscription({
       user,
+      groupId,
       customerId: result.id,
       paymentMethod: 'Paypal',
       sub: block,
