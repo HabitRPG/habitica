@@ -279,6 +279,12 @@ api.ipn = {
       let user = await User.findOne({ 'purchased.plan.customerId': req.body.recurring_payment_id });
       if (user) {
         await payments.cancelSubscription({ user, paymentMethod: 'Paypal' });
+        return;
+      }
+
+      let group = await Group.findOne({ 'purchased.plan.customerId': req.body.recurring_payment_id });
+      if (group) {
+        await payments.cancelSubscription({ group, paymentMethod: 'Paypal' });
       }
     }
   },
