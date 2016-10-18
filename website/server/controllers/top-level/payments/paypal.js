@@ -11,6 +11,7 @@ import cc from 'coupon-code';
 import Bluebird from 'bluebird';
 import { model as Coupon } from '../../../models/coupon';
 import { model as User } from '../../../models/user';
+import { model as Group } from '../../../models/group';
 import {
   authWithUrl,
   authWithSession,
@@ -228,7 +229,14 @@ api.subscribeCancel = {
   middlewares: [authWithUrl],
   async handler (req, res) {
     let user = res.locals.user;
+    let groupId = req.query.groupId;
+
     let customerId = user.purchased.plan.customerId;
+    if (groupId) {
+      let group = await Group.findById(groupId).exec();
+      customerId = group.purchased.plan.customerId;
+    }
+
     if (!user.purchased.plan.customerId) throw new NotAuthorized(res.t('missingSubscription'));
 
     let customer = await paypalBillingAgreementGet(customerId);
@@ -241,6 +249,7 @@ api.subscribeCancel = {
     await paypalBillingAgreementCancel(customerId, { note: res.t('cancelingSubscription') });
     await payments.cancelSubscription({
       user,
+      groupId,
       paymentMethod: 'Paypal',
       nextBill: nextBillingDate,
     });
