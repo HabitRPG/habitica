@@ -12,6 +12,7 @@ import payments from '../../../libs/payments';
 import moment from 'moment';
 import { model as Coupon } from '../../../models/coupon';
 import { model as User } from '../../../models/user';
+import { model as Group } from '../../../models/group';
 import cc from 'coupon-code';
 
 let api = {};
@@ -237,7 +238,18 @@ api.subscribeCancel = {
   middlewares: [authWithUrl],
   async handler (req, res) {
     let user = res.locals.user;
+    let groupId = req.query.groupId;
+
     let billingAgreementId = user.purchased.plan.customerId;
+    let planId = user.purchased.plan.planId;
+    let lastBillingDate = user.purchased.plan.lastBillingDate;
+    if (groupId) {
+      let group = await Group.findById(groupId).exec();
+      billingAgreementId = group.purchased.plan.customerId;
+      planId = group.purchased.plan.planId;
+      lastBillingDate = group.purchased.plan.lastBillingDate;
+    }
+
 
     if (!billingAgreementId) throw new NotAuthorized(res.t('missingSubscription'));
 
@@ -251,12 +263,13 @@ api.subscribeCancel = {
       });
     }
 
-    let subscriptionBlock = shared.content.subscriptionBlocks[user.purchased.plan.planId];
+    let subscriptionBlock = shared.content.subscriptionBlocks[planId];
     let subscriptionLength = subscriptionBlock.months * 30;
 
     await payments.cancelSubscription({
       user,
-      nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
+      groupId,
+      nextBill: moment(lastBillingDate).add({ days: subscriptionLength }),
       paymentMethod: 'Amazon Payments',
       headers: req.headers,
     });
