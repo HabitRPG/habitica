@@ -78,6 +78,24 @@ describe('shared.ops.releaseBoth', () => {
     expect(user.items.currentMount).to.be.empty;
   });
 
+  it('leaves quest pets and mounts equipped', () => {
+    let questAnimal = 'Gryphon-Base';
+    user.items.currentMount = questAnimal;
+    user.items.currentPet = questAnimal;
+    user.items.pets[questAnimal] = 5;
+    user.items.mounts[questAnimal] = true;
+    releaseBoth(user);
+
+    expect(user.items.currentMount).to.equal(questAnimal);
+    expect(user.items.currentPet).to.equal(questAnimal);
+  });
+
+  it('removes currentMount', () => {
+    releaseBoth(user);
+
+    expect(user.items.currentMount).to.be.empty;
+  });
+
   it('decreases user\'s balance', () => {
     releaseBoth(user);
 

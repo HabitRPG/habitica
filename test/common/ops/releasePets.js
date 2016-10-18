@@ -43,6 +43,15 @@ describe('shared.ops.releasePets', () => {
     expect(user.items.currentPet).to.be.empty;
   });
 
+  it('leaves quest pets equipped', () => {
+    let questAnimal = 'Gryphon-Base';
+    user.items.currentPet = questAnimal;
+    user.items.pets[questAnimal] = 5;
+    releasePets(user);
+
+    expect(user.items.currentPet).to.equal(questAnimal);
+  });
+
   it('decreases user\'s balance', () => {
     releasePets(user);
 

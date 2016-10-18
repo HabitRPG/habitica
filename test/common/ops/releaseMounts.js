@@ -43,6 +43,15 @@ describe('shared.ops.releaseMounts', () => {
     expect(user.items.currentMount).to.be.empty;
   });
 
+  it('leaves quest mounts equipped', () => {
+    let questAnimal = 'Gryphon-Base';
+    user.items.currentMount = questAnimal;
+    user.items.mounts[questAnimal] = true;
+    releaseMounts(user);
+
+    expect(user.items.currentMount).to.equal(questAnimal);
+  });
+
   it('increases mountMasterCount achievement', () => {
     releaseMounts(user);
 
