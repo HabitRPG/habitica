@@ -214,5 +214,5 @@
     "confirmAddTag": "Willst Du \"<%= tag %>\" wirklich hinzufügen?",
     "confirmRemoveTag": "Willst Du \"<%= tag %>\" wirklich entfernen?",
     "assignTask": "Aufgabe zuweisen",
-    "claim": "Claim"
+    "claim": "Anspruch"
 }
