@@ -98,8 +98,14 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
       expect(_.findIndex(invitedUserWithoutInvite.invitations.guilds, { id: guild._id })).eql(-1);
     });
 
-
-  });
+    it('does not allow an admin to remove a leader', async () => {
+      expect(adminUser.post(`/groups/${guild._id}/removeMember/${leader._id}`))
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          text: t('cannotRemoveCurrentLeader'),
+        });
+      });
+    });
 
   context('Party', () => {
     let party;
