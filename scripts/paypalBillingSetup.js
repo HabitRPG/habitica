@@ -7,7 +7,8 @@ var path = require('path');
 var nconf = require('nconf');
 var _ = require('lodash');
 var paypal = require('paypal-rest-sdk');
-var blocks = require('../../../../common').content.subscriptionBlocks;
+var common = require('../website/common');
+// var blocks = require('../website/common').content.subscriptionBlocks;
 var live = nconf.get('PAYPAL:mode')=='live';
 
 nconf.argv().env().file('user', path.join(path.resolve(__dirname, '../../../config.json')));

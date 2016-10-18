@@ -98,18 +98,22 @@ function($rootScope, User, $http, Content) {
   };
 
   // Needs to be called everytime the modal/router is accessed
-  Payments.amazonPayments.init = function(data){
+  Payments.amazonPayments.init = function(data) {
     if(!isAmazonReady) return;
     if(data.type !== 'single' && data.type !== 'subscription') return;
 
-    if(data.gift){
+    if (data.gift) {
       if(data.gift.gems && data.gift.gems.amount && data.gift.gems.amount <= 0) return;
       data.gift.uuid = data.giftedTo;
     }
 
-    if(data.subscription){
+    if (data.subscription) {
       Payments.amazonPayments.subscription = data.subscription;
       Payments.amazonPayments.coupon = data.coupon;
+    }
+
+    if (data.groupId) {
+      Payments.amazonPayments.groupId = data.groupId;
     }
 
     Payments.amazonPayments.gift = data.gift;
@@ -133,10 +137,10 @@ function($rootScope, User, $http, Content) {
         onSignIn: function(contract){
           Payments.amazonPayments.billingAgreementId = contract.getAmazonBillingAgreementId();
 
-          if(Payments.amazonPayments.type === 'subscription'){
+          if (Payments.amazonPayments.type === 'subscription') {
             Payments.amazonPayments.loggedIn = true;
             Payments.amazonPayments.initWidgets();
-          }else{
+          } else {
             var url = '/amazon/createOrderReferenceId'
             $http.post(url, {
               billingAgreementId: Payments.amazonPayments.billingAgreementId
@@ -150,11 +154,11 @@ function($rootScope, User, $http, Content) {
           }
         },
 
-        authorization: function(){
+        authorization: function() {
           amazon.Login.authorize({
             scope: 'payments:widget',
             popup: true
-          }, function(response){
+          }, function(response) {
             if(response.error) return alert(response.error);
 
             var url = '/amazon/verifyAccessToken'
@@ -182,7 +186,7 @@ function($rootScope, User, $http, Content) {
     }
   }
 
-  Payments.amazonPayments.initWidgets = function(){
+  Payments.amazonPayments.initWidgets = function() {
     var walletParams = {
       sellerId: window.env.AMAZON_PAYMENTS.SELLER_ID,
       design: {
@@ -190,7 +194,7 @@ function($rootScope, User, $http, Content) {
       },
 
       onPaymentSelect: function() {
-        $rootScope.$apply(function(){
+        $rootScope.$apply(function() {
           Payments.amazonPayments.paymentSelected = true;
         });
       },
@@ -198,11 +202,11 @@ function($rootScope, User, $http, Content) {
       onError: amazonOnError
     }
 
-    if(Payments.amazonPayments.type === 'subscription'){
+    if (Payments.amazonPayments.type === 'subscription') {
       walletParams.agreementType = 'BillingAgreement';
       console.log(Payments.amazonPayments.billingAgreementId);
       walletParams.billingAgreementId = Payments.amazonPayments.billingAgreementId;
-      walletParams.onReady = function(billingAgreement){
+      walletParams.onReady = function(billingAgreement) {
         Payments.amazonPayments.billingAgreementId = billingAgreement.getAmazonBillingAgreementId();
 
         new OffAmazonPayments.Widgets.Consent({
@@ -228,14 +232,14 @@ function($rootScope, User, $http, Content) {
           onError: amazonOnError
         }).bind('AmazonPayRecurring');
       }
-    }else{
+    } else {
       walletParams.amazonOrderReferenceId = Payments.amazonPayments.orderReferenceId;
     }
 
     new OffAmazonPayments.Widgets.Wallet(walletParams).bind('AmazonPayWallet');
   }
 
-  Payments.amazonPayments.checkout = function(){
+  Payments.amazonPayments.checkout = function() {
     if(Payments.amazonPayments.type === 'single'){
       var url = '/amazon/checkout';
       $http.post(url, {
@@ -248,13 +252,14 @@ function($rootScope, User, $http, Content) {
         alert(res.message);
         Payments.amazonPayments.reset();
       });
-    }else if(Payments.amazonPayments.type === 'subscription'){
+    } else if(Payments.amazonPayments.type === 'subscription') {
       var url = '/amazon/subscribe';
 
       $http.post(url, {
         billingAgreementId: Payments.amazonPayments.billingAgreementId,
         subscription: Payments.amazonPayments.subscription,
-        coupon: Payments.amazonPayments.coupon
+        coupon: Payments.amazonPayments.coupon,
+        groupId: Payments.amazonPayments.groupId,
       }).success(function(){
         Payments.amazonPayments.reset();
         window.location.reload(true);

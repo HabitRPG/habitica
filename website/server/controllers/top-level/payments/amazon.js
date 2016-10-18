@@ -33,7 +33,11 @@ api.verifyAccessToken = {
 
     if (!accessToken) throw new BadRequest('Missing req.body.access_token');
 
-    await amzLib.getTokenInfo(accessToken);
+    // try {
+      await amzLib.getTokenInfo(accessToken)
+    // } catch(err) {
+    //   console.log(err);
+    // };
     res.respond(200, {});
   },
 };
@@ -164,6 +168,7 @@ api.subscribe = {
     let sub = req.body.subscription ? shared.content.subscriptionBlocks[req.body.subscription] : false;
     let coupon = req.body.coupon;
     let user = res.locals.user;
+    let groupId = req.body.groupId;
 
     if (!sub) throw new BadRequest(res.t('missingSubscriptionCode'));
     if (!billingAgreementId) throw new BadRequest('Missing req.body.billingAgreementId');
@@ -213,6 +218,7 @@ api.subscribe = {
       paymentMethod: 'Amazon Payments',
       sub,
       headers: req.headers,
+      groupId,
     });
 
     res.respond(200);
