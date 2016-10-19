@@ -42,7 +42,7 @@ function($rootScope, User, $http, Content) {
         if (data.coupon) url += '&coupon='+data.coupon;
         if (data.groupId) url += '&groupId=' + data.groupId;
         $http.post(url, res).success(function() {
-          // window.location.reload(true);
+          window.location.reload(true);
         }).error(function(res) {
           alert(res.message);
         });
