@@ -127,7 +127,7 @@ api.getGroups = {
     if (validationErrors) throw validationErrors;
 
     let types = req.query.type.split(',');
-    let groupFields = basicGroupFields.concat(' description memberCount balance');
+    let groupFields = basicGroupFields.concat(' description memberCount balance purchased');
     let sort = '-memberCount';
 
     let results = await Group.getGroups({user, types, groupFields, sort});
