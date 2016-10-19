@@ -11,17 +11,18 @@ import couponCode from 'coupon-code';
 let api = {};
 
 /**
- * @apiDefine sudo access only
- */
-
-/**
- * @apiDefine authError
- * @apiError NotAuthorized There was an error in authorizing the User ID / API Token pair. Check the <code>message</code> for more information.
+ * @apiDefine Sudo Sudo Users
+ * Moderators with all access permissions.
  */
 
 /**
  * @apiDefine vaildationError
  * @apiError validationErrors The parameters were not validated correctly.
+ */
+
+/**
+ * @apiDefine couponValidError
+ * @apiError (404) {validationError} The coupon specified is not valid.
  */
 
 /**
@@ -130,8 +131,6 @@ api.enterCouponCode = {
  *
  * @apiSuccess {Boolean} data.valid True or False
  *
- * @apiUse authError
- * @apiUse validationError
  */
 api.validateCoupon = {
   method: 'POST',
