@@ -35,7 +35,7 @@
     "cwait": "^1.0.0",
     "domain-middleware": "~0.1.0",
     "estraverse": "^4.1.1",
-    "express": "~4.13.3",
+    "express": "~4.14.0",
     "express-csv": "~0.6.0",
     "express-validator": "^2.18.0",
     "extract-text-webpack-plugin": "^1.0.1",
