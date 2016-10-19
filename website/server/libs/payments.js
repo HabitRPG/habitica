@@ -39,7 +39,7 @@ api.createSubscription = async function createSubscription (data) {
   let today = new Date();
   let group;
 
-  //If we are buying a group subscription
+  //  If we are buying a group subscription
   if (data.groupId) {
     group = await Group.findById(data.groupId).exec();
     recipient = group;
@@ -151,7 +151,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
   let plan = data.user.purchased.plan;
   let group;
 
-  //If we are buying a group subscription
+  //  If we are buying a group subscription
   if (data.groupId) {
     group = await Group.findById(data.groupId).exec();
     plan = group.purchased.plan;

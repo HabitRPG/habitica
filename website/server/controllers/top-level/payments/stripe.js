@@ -131,7 +131,7 @@ api.subscribeEdit = {
     let user = res.locals.user;
     let customerId = user.purchased.plan.customerId;
 
-    //If we are buying a group subscription
+    //  If we are buying a group subscription
     if (groupId) {
       let group = await Group.findById(groupId).exec();
       customerId = group.purchased.plan.customerId;

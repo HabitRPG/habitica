@@ -34,11 +34,8 @@ api.verifyAccessToken = {
 
     if (!accessToken) throw new BadRequest('Missing req.body.access_token');
 
-    // try {
-      await amzLib.getTokenInfo(accessToken)
-    // } catch(err) {
-    //   console.log(err);
-    // };
+    await amzLib.getTokenInfo(accessToken);
+
     res.respond(200, {});
   },
 };

@@ -564,7 +564,7 @@ describe('payments/index', () => {
     });
 
     context('Purchasing a subscription for self', () => {
-      it.only('creates a subscription', async () => {
+      it('creates a subscription', async () => {
         // expect(user.purchased.plan.planId).to.not.exist;
         //
         // await api.createSubscription(data);
