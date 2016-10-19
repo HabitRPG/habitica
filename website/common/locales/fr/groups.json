@@ -201,7 +201,7 @@
     "emailsMustBeAnArray": "Les emails des invitations doivent être un tableau.",
     "canOnlyInviteMaxInvites": "Vous ne pouvez envoyer que \"<%= maxInvites %>\" invitations à la fois",
     "onlyCreatorOrAdminCanDeleteChat": "Vous n'êtes pas autorisé à supprimer ce message !",
-    "onlyGroupLeaderCanEditTasks": "Pas d'autorisation pour gérer les tâches",
+    "onlyGroupLeaderCanEditTasks": "Vous n'êtes pas autorisé à gérer les tâches!",
     "onlyGroupTasksCanBeAssigned": "Seules les tâches de groupe peuvent être assignées",
     "newChatMessagePlainNotification": "Nouveau message de <%= authorName %> dans <%= groupName %>. Cliquez ici pour ouvrir la page de discussion !",
     "newChatMessageTitle": "Nouveau message dans <%= groupName %>",
