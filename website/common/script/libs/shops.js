@@ -131,7 +131,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
           boss: quest.boss,
           collect: quest.collect,
           lvl: quest.lvl,
-          class: locked ? `inventory_quest_scroll_${quest.key}_locked` : `inventory_quest_scroll_${quest.key}`,
+          class: locked ? `inventory_quest_scroll_locked inventory_quest_scroll_${quest.key}_locked` : `inventory_quest_scroll inventory_quest_scroll_${quest.key}`,
           purchaseType: 'quests',
         };
       }).value();
