@@ -46,6 +46,7 @@
     "chat": "Chat",
     "sendChat": "Enviar Chat",
     "toolTipMsg": "Recuperar Mensajes Recientes",
+    "sendChatToolTip": "You can send a chat from the keyboard by tabbing to the 'Send Chat' button and pressing Enter or by pressing Control (Command on a Mac) + Enter.",
     "syncPartyAndChat": "Sincronizar grupo y chat",
     "guildBankPop1": "Banco del Gremio",
     "guildBankPop2": "Gemas que el líder de su gremio puede usar como premios de los desafíos.",
@@ -209,5 +210,9 @@
     "exportInboxPopoverBody": "HTML te permite leer mensajes fácilmente en un navegador . Para un formato legible por máquinas, usa Datos > Exportar Datos",
     "to": "To:",
     "from": "From:",
-    "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made."
+    "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made.",
+    "confirmAddTag": "Do you really want to add \"<%= tag %>\"?",
+    "confirmRemoveTag": "Do you really want to remove \"<%= tag %>\"?",
+    "assignTask": "Assign Task",
+    "claim": "Claim"
 }

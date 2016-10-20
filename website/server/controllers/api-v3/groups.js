@@ -22,6 +22,11 @@ import { sendNotification as sendPushNotification } from '../../libs/pushNotific
 import pusher from '../../libs/pusher';
 
 /**
+ * @apiDefine GroupBodyInvalid
+ * @apiError (400) {BadRequest} GroupBodyInvalid A parameter in the group body was invalid.
+ */
+
+/**
  * @apiDefine GroupNotFound
  * @apiError (404) {NotFound} GroupNotFound The specified group could not be found.
  */
@@ -375,6 +380,13 @@ api.rejectGroupInvite = {
   },
 };
 
+function _removeMessagesFromMember (member, groupId) {
+  if (member.newMessages[groupId]) {
+    delete member.newMessages[groupId];
+    member.markModified('newMessages');
+  }
+}
+
 /**
  * @api {post} /api/v3/groups/:groupId/leave Leave a group
  * @apiName LeaveGroup
@@ -393,7 +405,6 @@ api.leaveGroup = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
-
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
     // When removing the user from challenges, should we keep the tasks?
     req.checkQuery('keep', res.t('keepOrRemoveAll')).optional().isIn(['keep-all', 'remove-all']);
@@ -407,7 +418,7 @@ api.leaveGroup = {
       throw new NotFound(res.t('groupNotFound'));
     }
 
-    // During quests, checke wheter user can leave
+    // During quests, check if user can leave
     if (group.type === 'party') {
       if (group.quest && group.quest.leader === user._id) {
         throw new NotAuthorized(res.t('questLeaderCannotLeaveGroup'));
@@ -419,6 +430,11 @@ api.leaveGroup = {
     }
 
     await group.leave(user, req.query.keep);
+
+    _removeMessagesFromMember(user, group._id);
+
+    await user.save();
+
     res.respond(200, {});
   },
 };
@@ -513,10 +529,7 @@ api.removeGroupMember = {
         member.party._id = undefined; // TODO remove quest information too? Use group.leave()?
       }
 
-      if (member.newMessages[group._id]) {
-        member.newMessages[group._id] = undefined;
-        member.markModified('newMessages');
-      }
+      _removeMessagesFromMember(member, group._id);
 
       if (group.quest && group.quest.active && group.quest.leader === member._id) {
         member.items.quests[group.quest.key] += 1;
@@ -667,40 +680,77 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  * @apiGroup Group
  * @apiDescription You can provide both `emails` and `uuids`, or just one. You must provide at least one.
  *
- * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiParam {Array} [emails] Body parameter - An array of emails addresses to invite
- * @apiParam {Array} [uuids] Body parameter - An array of uuids to invite
+ * @apiParam (Body) {Object[]} [emails] An array of objects, each representing one email address to invite
+ * @apiParam (Body) {String} emails.email The email address of the user being invited.
+ * @apiParam (Body) {String} [emails.name] The name of the user being invited.
+ * @apiParam (Body) {Array} [uuids] An array of uuids to invite
  *
  * @apiParamExample {json} Emails
- *   {
- *     "emails": ["user-1@example.com", "user-2@exmaple.com"]
- *   }
+ * {
+ *   "emails": [
+ *     {"email": "user-1@example.com"},
+ *     {"name": "User2", "email": "user-2@example.com"}
+ *   ]
+ * }
  * @apiParamExample {json} User Ids
  *   {
  *     "uuids": ["user-id-of-existing-user", "user-id-of-another-existing-user"]
  *   }
  * @apiParamExample {json} User Ids and Emails
- *   {
- *     "emails": ["user-1@example.com", "user-2@exmaple.com"],
- *     "uuids": ["user-id-of-existing-user", "user-id-of-another-existing-user"],
- *   }
+ * {
+ *   "emails": [
+ *       {"email": "user-1@example.com"},
+ *       {"email": "user-2@example.com"}
+ *   ],
+ *   "uuids": ["user-id-of-existing-user"]
+ * }
  *
  * @apiSuccess {Array} data The invites
  * @apiSuccess {Object} data[0] If the invitation was a user id, you'll receive back an object. You'll recieve one Object for each succesful user id invite.
  * @apiSuccess {String} data[1] If the invitation was an email, you'll receive back the email. You'll recieve one String for each successful email invite.
  *
- * @apiSuccessExample {json} Successful Response
- *   {
- *     data: [
- *       { id: 'the-id-of-the-invited-user', name: 'The group name', inviter: 'your-user-id' },
- *       "user@example.com"
- *     ]
- *   }
+ * @apiSuccessExample {json} Successful Response with Emails
+ * {
+ *   "data": [
+ *      "user-1@example.com",
+ *      "user-2@exmaple.com"
+ *   ]
+ * }
+ *
+ * @apiSuccessExample {json} Successful Response with User Id
+ * {
+ *   "data": [
+ *     { id: 'the-id-of-the-invited-user', name: 'The group name', inviter: 'your-user-id' }
+ *   ]
+ * }
+ * @apiSuccessExample {json} Successful Response with User Ids and Emails
+ * {
+ *   "data": [
+ *     "user-1@example.com",
+ *     { id: 'the-id-of-the-invited-user', name: 'The group name', inviter: 'your-user-id' },
+ *     "user-2@exmaple.com"
+ *   ]
+ * }
+ *
+ * @apiUse GroupBodyInvalid
+ *
+ * @apiError (400) {BadRequest} NoEmailProvided An email address was not provided in the `emails` body
+ * param `Array`.
+ * @apiError (400) {BadRequest} UuidOrEmailOnly The `emails` and `uuids` params were both missing and/or a
+ * key other than `emails` or `uuids` was provided in the body param.
+ * @apiError (400) {BadRequest} CannotInviteSelf User id or email of invitee matches that of the inviter.
+ * @apiError (400) {BadRequest} MustBeArray The `uuids` or `emails` body param was not an array.
+ * @apiError (400) {BadRequest} TooManyInvites A max of 100 invites (combined emails and user ids) can
+ * be sent out at a time.
+ *
+ * @apiError (401) {NotAuthorized} UserAlreadyInvited The user has already been invited to the group.
+ * @apiError (401) {NotAuthorized} UserAlreadyInGroup The user is already a member of the group.
  *
  * @apiUse GroupNotFound
- * @apiError InvalidInvitationParams An error relating to the data sent in `emails` and/or `uuids`
- * @apiError TooManyInvites A max of 100 invites (combined emails and user ids) can be sent out at a time
+ * @apiUse UserNotFound
+ * @apiUse PartyNotFound
  */
 api.inviteToGroup = {
   method: 'POST',

@@ -84,7 +84,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                 a.media-body
                   span(ng-click='clickMember(member._id, true)')
                       | {{member.profile.name}}
-                    span(ng-if='group.type === "party"')
+                  span(ng-click='clickMember(member._id, true)' ng-if='group.type === "party"')
                       |  (#[strong {{member.stats.hp.toFixed(1)}}] #{env.t('hp')}) {{member.id === user.id ? ' ' + env.t('you') : ''}}
                 .pull-right(ng-if='group.type === "party"')
                   span.text-success {{member.online ? '&#9679 ' + env.t('online') : ''}}
@@ -147,7 +147,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                 h3.popover-title {{group.leader.profile.name}}
                 .popover-content
                   markdown(text='group._editing ? groupCopy.leaderMessage : group.leaderMessage')
-                  
+
       ul.options-menu(ng-init="groupPane = 'chat'", ng-show="group.purchased.active")
         li
           a(ng-click="groupPane = 'chat'")
@@ -155,11 +155,11 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
         li
           a(ng-click="groupPane = 'tasks'")
             | Tasks
-            
-    
+
+
       .tab-content
         .tab-pane.active
-                  
+
       div(ng-controller='ChatCtrl', ng-show="groupPane == 'chat'")
         .alert.alert-info.alert-sm(ng-if='group.memberCount > Shared.constants.LARGE_GROUP_COUNT_MESSAGE_CUTOFF')=env.t('largeGroupNote')
         h3=env.t('chat')
@@ -168,5 +168,5 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
         +chatMessages()
         h4(ng-if='group.chat.length < 1 && group.type === "party"')=env.t('partyChatEmpty')
         h4(ng-if='group.chat.length < 1 && group.type === "guild"')=env.t('guildChatEmpty')
-    
+
      group-tasks(ng-show="groupPane == 'tasks'")

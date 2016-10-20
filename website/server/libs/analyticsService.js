@@ -163,7 +163,7 @@ let _sendDataToAmplitude = (eventType, data) => {
   return new Bluebird((resolve, reject) => {
     amplitude.track(amplitudeData)
       .then(resolve)
-      .catch(reject);
+      .catch(() => reject('Error while sending data to Amplitude.'));
   });
 };
 

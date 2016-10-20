@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Bitte denke daran, dass Dein angezeigter Name, Dein Profilbild und Dein Profiltext die <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community-Richtlinien</a> einhalten müssen (das heißt keine Fluchwörter, keine sexuellen Themen, keine Beleidigungen, usw.). Wenn Du Fragen hast, ob etwas angebracht ist oder nicht, schreib einfach eine E-Mail an <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Bitte denke daran, dass Du mit Deinem angezeigter Name, Deinem Profilbild und Deinem Profiltext die <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community-Richtlinien</a> einhalten musst (das heißt keine Schimpfwörter, keine sexuellen Themen, keine Beleidigungen, usw.). Wenn Du Fragen hast, ob etwas angebracht ist oder nicht, schreibe einfach eine E-Mail an <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "profile": "Profil",
     "avatar": "Avatar anpassen",
     "other": "Anderes",
@@ -146,9 +146,9 @@
     "youCastTarget": "Du wendest <%= spell %> auf <%= target %> an.",
     "youCastParty": "Du wendest <%= spell %> auf Deine Gruppe an.",
     "critBonus": "Kritischer Treffer! Bonus:",
-    "displayNameDescription1": "Dies hier erscheint bei Nachrichten, die Du im Gasthaus, in Gilden und im Gruppenchat postest, sowie bei Deinem Avatar. Gehe zu",
+    "displayNameDescription1": "Das erscheint, in Nachrichten, die Du im Gasthaus verschickst, sowie im Gruppenchat, und auch auf Deinem Avatar. Um es anzupassen, verwende den Bearbeiten-Knopf oben. Wenn Du stattdessen Deinen Anmeldenamen ändern willst, gehe zu",
     "displayNameDescription2": "Einstellungen->Seite",
-    "displayNameDescription3": "und scrolle nach unten zum Registrations-Abschnitt, um Deinen Anmeldenamen zu ändern.",
+    "displayNameDescription3": "und vergleiche auch den Abschnitt Registrierung.",
     "unequipBattleGear": "Kampfausrüstung ablegen",
     "unequipCostume": "Kostüm ablegen",
     "unequipPetMountBackground": "Haustier, Reittier & Hintergrund zurücksetzen",

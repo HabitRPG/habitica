@@ -1,17 +1,17 @@
 {
   "tipTitle": "Dica #<%= tipNumber %>",
-  "tip1": "Marque tarefas em qualquer lugar com os aplicativos móveis do Habitica.",
+  "tip1": "Marque suas tarefas completas de qualquer lugar com os aplicativos móveis do Habitica.",
   "tip2": "Atinja o nível 100 para desbloquear o Orbe do Renascimento de graça e começar uma nova aventura!",
   "tip3": "Use emojis para diferenciar rapidamente suas tarefas.",
-  "tip4": "Use o sinal # antes do nome da tarefa para ampliá-lo!",
-  "tip5": "É melhor lançar buffs de manhã para eles durarem mais.",
-  "tip6": "De vez em quando reavalie suas tarefas para ter certeza de que estão atualizadas!",
-  "tip7": "Alguns cenários se encaixam perfeitamente se os membros do grupo usarem o mesmo cenário. Ex.: Lago da Montanha, Pagodes e Colinas.",
+  "tip4": "Use o símbolo # antes do nome de uma tarefa para deixá-lo bem grande!",
+  "tip5": "É melhor lançar buffs de manhã, para eles durarem mais.",
+  "tip6": "Reavalie periodicamente suas tarefas para ter certeza de que estão atualizadas!",
+  "tip7": "Alguns cenários se conectam perfeitamente se os membros do grupo estiverem usando o mesmo. Ex.: Lago da Montanha, Pagodes e Colinas.",
   "tip8": "Envie uma mensagem privada para alguém clicando no envelope ao lado do nome da pessoa no chat!",
   "tip9": "Visite a Guilda \"Brasil\" para aconselhamento de como começar uma Guilda.",
   "tip10": "Você pode ganhar gemas competindo em Desafios. Novos desafios são adicionados todos os dias!",
-  "tip11": "Se você gostar de vestir seu avatar, verifique a Guilda \"Costume Carnival\".",
-  "tip12": "Entre na Guilda \"Challenge... Accepted\" para encontrar tanto desafios programados quanto desafiantes.",
+  "tip11": "Se você gostar de vestir seu avatar, visite a Guilda \"Costume Carnival\".",
+  "tip12": "Entre na Guilda \"Challenge... Accepted\" para encontrar desafios aleatórios sempre.",
   "tip13": "Ter mais de quatro membros no grupo aumenta a responsabilidade!",
   "tip14": "Você pode adicionar cabeçalhos ou frases inspiradoras na sua lista como Hábitos sem (+/-).",
   "tip15": "Adicione listas aos seus Afazeres para aumentar suas recompensas!",
@@ -31,5 +31,6 @@
   "tip29": "Complete todas as suas Diárias para ganhar o Buff Dia Perfeito, que aumenta seus atributos!",
   "tip30": "Você também pode convidar pessoas para Guildas e não somente para Grupos.",
   "tip31": "Confira listas pré-feitas na Guilda \"Library of Shared Lists\" para exemplos de tarefas.",
-  "tip32": "Muito do código do Habitica, arte e escrita é feito por colaboradores voluntários! Qualquer pessoa pode ajudar."
+  "tip32": "Muito do código do Habitica, arte e escrita é feito por colaboradores voluntários! Qualquer pessoa pode ajudar.",
+  "tip33": "Dê uma olhada na guilda The Bulletin Board para novidades sobre guildas, desafios e outros eventos criados por jogadores - e anuncie os teus lá!"
 }

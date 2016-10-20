@@ -60,7 +60,7 @@
     "classGearText": "First: don't panic! Your old gear is in your inventory, and you're now wearing the apprentice equipment of your new class. Wearing your class's gear grants you a 50% bonus to stats. However, feel free to switch back to your old gear.",
     "classStats": "These are your class's stats; they affect the game-play. Each time you level up, you get one point to allocate to a particular stat. Hover over each stat for more information.",
     "autoAllocate": "Auto Allocate",
-    "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Strength', you'll gain Strength automatically.",
+    "autoAllocateText": "If 'automatic allocation' is checked, your avatar gains stats automatically based on your tasks' attributes, which you can find in <strong>TASK > Edit > Advanced > Attributes</strong>. E.g. if you hit the gym often, and your 'Gym' Daily is set to 'Strength', you'll gain Strength automatically.",
     "spells": "Spells",
     "spellsText": "You can now unlock class-specific spells. You'll see your first at level 11. Your mana replenishes 10 points per day, plus 1 point per completed <a target='_blank' href='http://habitica.wikia.com/wiki/Todos'>To-Do</a>.",
     "toDo": "To-Do",

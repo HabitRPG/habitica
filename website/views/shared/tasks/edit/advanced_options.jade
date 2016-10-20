@@ -11,7 +11,7 @@ div(ng-if='::task.type!="reward"')
 
   fieldset.option-group.advanced-option(ng-show="task._edit._advanced")
     group-tasks-actions(ng-if="obj.type == 'guild'", task='task', group='obj')
-  
+
   div(ng-show='task._edit._advanced')
     div(ng-if='::task.type == "daily"')
       .form-group

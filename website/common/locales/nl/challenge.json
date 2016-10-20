@@ -11,7 +11,7 @@
     "unsubChallenge": "Gebroken link naar Uitdaging: deze taak was onderdeel van een uitdaging, maar jij hebt je teruggetrokken uit de uitdaging. Wat wil je doen met de verweesde taken?",
     "challengeWinner": "Heeft de volgende uitdagingen gewonnen",
     "challenges": "Uitdagingen",
-    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Challenges</a>",
+    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Uitdagingen</a>",
     "noChallenges": "Nog geen uitdagingen, ga naar",
     "toCreate": "om er een aan te maken.",
     "selectWinner": "Kies een winnaar en sluit de uitdaging af:",

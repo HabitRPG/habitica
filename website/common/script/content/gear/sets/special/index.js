@@ -20,6 +20,13 @@ let armor = {
     value: 130,
     canOwn: ownsItem('armor_special_finnedOceanicArmor'),
   },
+  pyromancersRobes: {
+    text: t('armorSpecialPyromancersRobesText'),
+    notes: t('armorSpecialPyromancersRobesNotes', { con: 15 }),
+    con: 15,
+    value: 130,
+    canOwn: ownsItem('armor_special_pyromancersRobes'),
+  },
   yeti: {
     event: EVENTS.winter,
     specialClass: 'warrior',
@@ -587,6 +594,13 @@ let head = {
     per: 15,
     value: 130,
     canOwn: ownsItem('head_special_fireCoralCirclet'),
+  },
+  pyromancersTurban: {
+    text: t('headSpecialPyromancersTurbanText'),
+    notes: t('headSpecialPyromancersTurbanNotes', { str: 15 }),
+    str: 15,
+    value: 130,
+    canOwn: ownsItem('head_special_pyromancersTurban'),
   },
   nye: {
     event: EVENTS.winter2016,
@@ -1529,6 +1543,15 @@ let weapon = {
     int: 15,
     value: 130,
     canOwn: ownsItem('weapon_special_tridentOfCrashingTides'),
+  },
+  taskwoodsLantern: {
+    text: t('weaponSpecialTaskwoodsLanternText'),
+    notes: t('weaponSpecialTaskwoodsLanternNotes', { attrs: 15 }),
+    twoHanded: true,
+    per: 15,
+    int: 15,
+    value: 130,
+    canOwn: ownsItem('weapon_special_taskwoodsLantern'),
   },
   yeti: {
     event: EVENTS.winter,

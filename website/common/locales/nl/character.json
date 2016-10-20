@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Onthoud dat je weergegeven Naam, profielfoto en blurb overeen moeten komen met de <a href='https://habitica.com/static/community-guidelines' target='_blank'>Gemeenschapsrichtlijnen</a> (bijv. geen grof taalgebruik, geen volwassen onderwerpen, geen beledigingen, etc.). Als je vragen hebt over of iets geschikt is of niet, voel je dan vrij om een e-mail te sturen naar <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "profile": "Profiel",
     "avatar": "Avatar aanpassen",
     "other": "Overige",
@@ -146,9 +146,9 @@
     "youCastTarget": "Je hebt <%= spell %> uitgesproken over <%= target %>.",
     "youCastParty": "Je hebt <%= spell %> uitgesproken over de groep.",
     "critBonus": "Voltreffer! Bonus:",
-    "displayNameDescription1": "Dit is te zien in berichten die je plaatst in de herberg, gildes en de groepschat, en op je avatar. Ga naar",
+    "displayNameDescription1": "Dit is wat je ziet in de berichten die je plaatst in de herberg, gildes en de groepschat, naast wat er op je avatar wordt weergegeven. Om het te wijzigen klik je op de knop Wijzigen. Als je in plaats daarvan je inlognaam wil veranderen, ga dan naar",
     "displayNameDescription2": "Instellingen->Site",
-    "displayNameDescription3": "en scroll naar beneden naar Registratie om je inlognaam te veranderen.",
+    "displayNameDescription3": "en kijk in het registratiegedeelte.",
     "unequipBattleGear": "Gevechtsuitrusting uittrekken",
     "unequipCostume": "Kostuum uittrekken",
     "unequipPetMountBackground": "Huisdier, rijdier en achtergrond uitschakelen",

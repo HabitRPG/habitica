@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Zmaž hotové",
-    "lotOfToDos": "Tvojich naposledy splnených 30 úloh je ukázaných tu. Staršie splnené úlohy si môžeš pozrieť: Data > Data Display Tool alebo Dáta > Export dát > Používateľské dáta",
+    "lotOfToDos": "Tvojich naposledy splnených 30 úloh je ukázaných tu. Staršie splnené úlohy si môžeš pozrieť: Dáta > Nástroj na zobrazenie dát alebo Dáta > Export dát > Používateľské dáta.",
     "deleteToDosExplanation": "Ak klikneš na tlačítko nižšie, všetky tvoje dokončené a archivované úlohy sa nenávratne zmažú. Ak si chceš uchovať históriu, najskôr použi export.",
     "addmultiple": "Pridať viaceré",
     "addsingle": "Pridať jeden",
@@ -117,12 +117,12 @@
     "rewardHelp3": "Špeciálny výstroj sa objaví tu počas Podujatí.",
     "rewardHelp4": "Neboj sa vlastných odmien! Pozri si <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>zopár ich ukážok</a>.",
     "clickForHelp": "Klikni pre pomoc",
-    "taskIdRequired": "\"taskId\" must be a valid UUID.",
-    "taskAliasAlreadyUsed": "Task alias already used on another task.",
+    "taskIdRequired": "\"taskId\" musí byť platné UUID.",
+    "taskAliasAlreadyUsed": "Alias úloha už je použitá na inej úlohe. ",
     "taskNotFound": "Úloha nebola nájdená.",
-    "invalidTaskType": "Task type must be one of \"habit\", \"daily\", \"todo\", \"reward\".",
+    "invalidTaskType": "Typ úlohy musí byť jeden z \"habit\", \"daily\", \"todo\", \"reward\".",
     "cantDeleteChallengeTasks": "Úloha, ktorá je súčasťou výzvy, nemôže byť vymazaná.",
-    "checklistOnlyDailyTodo": "Checklists are supported only on dailies and todos",
+    "checklistOnlyDailyTodo": "Kontrolný zoznam je podporovaný len na denných úlohách a úlohách",
     "checklistItemNotFound": "Žiadny zoznamový predmet nebol nájdený s daným id.",
     "itemIdRequired": "\"itemId\" musí mať platné UUID.",
     "tagNotFound": "No tag item was found with given id.",
@@ -131,8 +131,8 @@
     "cantMoveCompletedTodo": "Hotový to-do sa nedá presunúť.",
     "directionUpDown": "\"direction\" is required and must be 'up' or 'down'.",
     "alreadyTagged": "Úloha už má tento štítok.",
-    "strengthExample": "Relating to exercise and activity",
+    "strengthExample": "Týka sa cvičenia a aktivity",
     "intelligenceExample": "Relating to academic or mentally challenging pursuits",
-    "perceptionExample": "Relating to work or financial tasks",
-    "constitutionExample": "Relating to health, wellness, and social interaction"
+    "perceptionExample": "Týka sa práce a finančných úloh",
+    "constitutionExample": "Týka sa zdravia, wellnessu a sociálnej interakcie"
 }

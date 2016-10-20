@@ -2432,6 +2432,147 @@ api.quests = {
       unlock: t('questCowUnlockText'),
     },
   },
+  beetle: {
+    text: t('questBeetleText'),
+    notes: t('questBeetleNotes'),
+    completion: t('questBeetleCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questBeetleBoss'),
+      hp: 500,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Beetle',
+          text: t('questBeetleDropBeetleEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Beetle',
+          text: t('questBeetleDropBeetleEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Beetle',
+          text: t('questBeetleDropBeetleEgg'),
+        },
+      ],
+      gp: 37,
+      exp: 275,
+      unlock: t('questBeetleUnlockText'),
+    },
+  },
+  taskwoodsTerror1: {
+    text: t('questTaskwoodsTerror1Text'),
+    notes: t('questTaskwoodsTerror1Notes'),
+    completion: t('questTaskwoodsTerror1Completion'),
+    value: 4,
+    goldValue: 200,
+    category: 'gold',
+    boss: {
+      name: t('questTaskwoodsTerror1Boss'),
+      hp: 500,
+      rage: {
+        title: t("questTaskwoodsTerror1RageTitle"),
+        description: t("questTaskwoodsTerror1RageDescription"),
+        value: 50,
+        healing: .3,
+        effect: t('questTaskwoodsTerror1RageEffect')
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Skeleton',
+          text: t('questTaskwoodsTerror1DropSkeletonPotion')
+        }, {
+          type: 'hatchingPotions',
+          key: 'Red',
+          text: t('questTaskwoodsTerror1DropRedPotion')
+        }, {
+          type: 'gear',
+          key: "head_special_pyromancersTurban",
+          text: t('questTaskwoodsTerror1DropHeadgear')
+        }
+      ],
+      gp: 0,
+      exp: 500
+    }
+  },
+  taskwoodsTerror2: {
+    text: t('questTaskwoodsTerror2Text'),
+    notes: t('questTaskwoodsTerror2Notes'),
+    completion: t('questTaskwoodsTerror2Completion'),
+    previous: 'taskwoodsTerror1',
+    value: 4,
+    goldValue: 300,
+    category: 'gold',
+    collect: {
+      pixie: {
+        text: t('questTaskwoodsTerror2CollectPixies'),
+        count: 25
+      },
+      brownie: {
+        text: t('questTaskwoodsTerror2CollectBrownies'),
+        count: 15
+      },
+      dryad: {
+        text: t('questTaskwoodsTerror2CollectDryads'),
+        count: 10
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'gear',
+          key: "armor_special_pyromancersRobes",
+          text: t('questTaskwoodsTerror2DropArmor')
+        }
+      ],
+      gp: 0,
+      exp: 75
+    }
+  },
+  taskwoodsTerror3: {
+    text: t('questTaskwoodsTerror3Text'),
+    notes: t('questTaskwoodsTerror3Notes'),
+    completion: t('questTaskwoodsTerror3Completion'),
+    previous: 'taskwoodsTerror2',
+    value: 4,
+    goldValue: 400,
+    category: 'gold',
+    boss: {
+      name: t('questTaskwoodsTerror3Boss'),
+      hp: 1000,
+      str: 2
+    },
+    drop: {
+      items: [
+        {
+          type: 'food',
+          key: 'Strawberry',
+          text: t('questTaskwoodsTerror3DropStrawberry')
+        }, {
+          type: 'food',
+          key: 'Strawberry',
+          text: t('questTaskwoodsTerror3DropStrawberry')
+        }, {
+          type: 'food',
+          key: 'Strawberry',
+          text: t('questTaskwoodsTerror3DropStrawberry')
+        }, {
+          type: 'gear',
+          key: "weapon_special_taskwoodsLantern",
+          text: t('questTaskwoodsTerror3DropWeapon')
+        },
+      ],
+      gp: 0,
+      exp: 650
+    }
+  },
 };
 
 _.each(api.quests, function(v, key) {

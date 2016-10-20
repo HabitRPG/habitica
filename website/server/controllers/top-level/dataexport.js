@@ -25,12 +25,25 @@ const BASE_URL = nconf.get('BASE_URL');
 let api = {};
 
 /**
+ * @apiDefine DataExport Data Export
+ * These routes allow you to download backups of your data.
+ *
+ * **Note:** They are intented to be used on the website only and as such are part of the private API and may change at any time.
+ */
+
+/**
  * @api {get} /export/history.csv Export user tasks history in CSV format
- * @apiDescription History is only available for habits and dailies so todos and rewards won't be included. NOTE: Part of the private API that may change at any time.
+ * @apiDescription History is only available for habits and dailies so todos and rewards won't be included. Can only be used on [https://habitica.com](https://habitica.com).
  * @apiName ExportUserHistory
  * @apiGroup DataExport
  *
- * @apiSuccess {String} A csv file
+ * @apiSuccess {CSV} File A csv file of your task history.
+ *
+ * @apiSuccessExample {csv} history.csv
+ * Task Name,Task ID,Task Type,Date,Value
+ * Be Awesome,e826ddfa-dc2e-445f-a06c-64d3881982ea,habit,2016-06-02 13:26:05,1
+ * Be Awesome,e826ddfa-dc2e-445f-a06c-64d3881982ea,habit,2016-06-03 05:06:55,1.026657310999762
+ * ...
  */
 api.exportUserHistory = {
   method: 'GET',
@@ -95,9 +108,8 @@ async function _getUserDataForExport (user) {
  * @api {get} /export/userdata.json Export user data in JSON format
  * @apiName ExportUserDataJson
  * @apiGroup DataExport
- * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {String} A json file
+ * @apiSuccess {JSON} File A JSON file of the user object and tasks.
  */
 api.exportUserDataJson = {
   method: 'GET',
@@ -120,9 +132,8 @@ api.exportUserDataJson = {
  * @api {get} /export/userdata.xml Export user data in XML format
  * @apiName ExportUserDataXml
  * @apiGroup DataExport
- * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {String} A xml file
+ * @apiSuccess {XML} File An xml file of the user object.
  */
 api.exportUserDataXml = {
   method: 'GET',
@@ -143,9 +154,10 @@ api.exportUserDataXml = {
  * @api {get} /export/avatar-:uuid.html Render a user avatar as an HTML page
  * @apiName ExportUserAvatarHtml
  * @apiGroup DataExport
- * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {String} An html page
+ * @apiParam (Path) {String} uuid The User ID of the user
+ *
+ * @apiSuccess {HTML} File An html page rendering the user's avatar.
  *
  * @apiUse UserNotFound
  */
@@ -177,9 +189,10 @@ api.exportUserAvatarHtml = {
  * @api {get} /export/avatar-:uuid.png Render a user avatar as a PNG file
  * @apiName ExportUserAvatarPng
  * @apiGroup DataExport
- * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {String} A png file
+ * @apiParam (Path) {String} uuid The User ID of the user
+ *
+ * @apiSuccess {PNG} File A png file of the user's avatar.
  */
 api.exportUserAvatarPng = {
   method: 'GET',
@@ -245,9 +258,8 @@ api.exportUserAvatarPng = {
  * @api {get} /export/inbox.html Export user private messages as HTML document
  * @apiName ExportUserPrivateMessages
  * @apiGroup DataExport
- * @apiDescription NOTE: Part of the private API that may change at any time.
  *
- * @apiSuccess {String} An html page
+ * @apiSuccess {HTML} File An html page of the user's private messages.
  */
 api.exportUserPrivateMessages = {
   method: 'GET',

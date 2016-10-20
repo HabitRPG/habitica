@@ -11,7 +11,7 @@
     "unsubChallenge": "Trasig utmaningslänk: den här uppgiften var en del av en utmaning, men du har slutat följa utmaningen. Vad vill du göra med de kvarblivna uppgifterna?",
     "challengeWinner": "Var vinnaren av de följande utmaningarna",
     "challenges": "Utmaningar",
-    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Challenges</a>",
+    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Utmaningar</a>",
     "noChallenges": "Inga utmaningar ännu, gå till",
     "toCreate": "för att skapa en.",
     "selectWinner": "Välj en vinnare och avsluta utmaningen:",

@@ -80,6 +80,24 @@ describe('payments/index', () => {
         expect(recipient.purchased.plan.extraMonths).to.eql(3);
       });
 
+      it('does not set negative extraMonths if plan has past dateTerminated date', async () => {
+        let dateTerminated = moment().subtract(2, 'months').toDate();
+        recipient.purchased.plan.dateTerminated = dateTerminated;
+
+        await api.createSubscription(data);
+
+        expect(recipient.purchased.plan.extraMonths).to.eql(0);
+      });
+
+      it('does not reset Gold-to-Gems cap on an existing subscription', async () => {
+        recipient.purchased.plan = plan;
+        recipient.purchased.plan.gemsBought = 12;
+
+        await api.createSubscription(data);
+
+        expect(recipient.purchased.plan.gemsBought).to.eql(12);
+      });
+
       it('adds to date terminated for an existing plan with a future terminated date', async () => {
         let dateTerminated = moment().add(1, 'months').toDate();
         recipient.purchased.plan = plan;
@@ -210,6 +228,25 @@ describe('payments/index', () => {
         expect(user.purchased.plan.extraMonths).to.within(1.9, 2);
       });
 
+      it('does not set negative extraMonths if plan has past dateTerminated date', async () => {
+        user.purchased.plan = plan;
+        user.purchased.plan.dateTerminated = moment(new Date()).subtract(2, 'months');
+        expect(user.purchased.plan.extraMonths).to.eql(0);
+
+        await api.createSubscription(data);
+
+        expect(user.purchased.plan.extraMonths).to.eql(0);
+      });
+
+      it('does not reset Gold-to-Gems cap on additional subscription', async () => {
+        user.purchased.plan = plan;
+        user.purchased.plan.gemsBought = 10;
+
+        await api.createSubscription(data);
+
+        expect(user.purchased.plan.gemsBought).to.eql(10);
+      });
+
       it('sets lastBillingDate if payment method is "Amazon Payments"', async () => {
         data.paymentMethod = 'Amazon Payments';
 
@@ -218,7 +255,7 @@ describe('payments/index', () => {
         expect(user.purchased.plan.lastBillingDate).to.exist;
       });
 
-      it('increases the user\'s transcation count', async () => {
+      it('increases the user\'s transaction count', async () => {
         expect(user.purchased.txnCount).to.eql(0);
 
         await api.createSubscription(data);

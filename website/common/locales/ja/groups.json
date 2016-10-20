@@ -46,6 +46,7 @@
     "chat": "チャット",
     "sendChat": "チャット送信",
     "toolTipMsg": "最新のメッセージを取得する",
+    "sendChatToolTip": "チャットでは、キーボードで Tab を押して「チャット送信」ボタン上で Enter を押す、もしくは Ctrl (Mac では Command ) + Enter でチャットを送信できます。",
     "syncPartyAndChat": "パーティーとチャットを同期する",
     "guildBankPop1": "ギルド口座",
     "guildBankPop2": "ギルドリーダーがチャレンジの賞金として使えるジェム。",
@@ -185,9 +186,9 @@
     "keepOrRemoveAll": "req.query.keep は、\"keep-all\" か \"remove-all\" でなくてはなりません。",
     "keepOrRemove": "req.query.keep は、\"keep\" か \"remove\" でなくてはなりません。",
     "canOnlyInviteEmailUuid": "招待のあて先は、UUID かメールアドレスのみ対応しています。",
-    "inviteMissingEmail": "招待を送るメールアドレスがありません。",
-    "inviteMissingUuid": "Missing user id in invite",
-    "inviteMustNotBeEmpty": "Invite must not be empty.",
+    "inviteMissingEmail": "招待の送り先メールアドレスが見つかりません。",
+    "inviteMissingUuid": "招待の送り先ユーザーIDが見つかりません",
+    "inviteMustNotBeEmpty": "招待は空のままでは受け付けません。",
     "partyMustbePrivate": "パーティーは、プライベートです。",
     "userAlreadyInGroup": "ユーザーは、すでにグループにいます。",
     "cannotInviteSelfToGroup": "自分自身をグループに招待することはできません。",
@@ -209,5 +210,9 @@
     "exportInboxPopoverBody": "HTML は、ブラウザで簡単に読むことができます。システム形式には、データ > データをエクスポート から出力してください。",
     "to": "→ ",
     "from": "← ",
-    "desktopNotificationsText": "パーティーチャットの新しいメッセージをデスクトップに通知するため、あなたの認証を必要とします!　ブラウザに表示される案内にそって、許可をお願いします。<br><br>通知されるのは、Habitica を開いている間だけです。もしお気に召さなければ、ブラウザの設定で無効に設定することもできます。<br><br>このメッセージボックスは、決定がなされた後、自動的に閉じます。"
+    "desktopNotificationsText": "パーティーチャットの新しいメッセージをデスクトップ通知するため、あなたの認証が必要です!　ブラウザに表示される案内にそって、許可をお願いします。<br><br>通知されるのは、Habitica を開いている間だけです。もしお気に召さなければ、ブラウザの設定で無効に設定することもできます。<br><br>このメッセージボックスは、決定がなされた後、自動的に閉じます。",
+    "confirmAddTag": "「<%= tag %>」を追加します。よろしいですか?",
+    "confirmRemoveTag": "「<%= tag %>」を削除します。よろしいですか?",
+    "assignTask": "タスクを割り当てる",
+    "claim": "受け取る"
 }

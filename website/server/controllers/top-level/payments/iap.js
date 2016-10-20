@@ -54,10 +54,30 @@ api.iapAndroidVerify = {
       userId: user._id,
     });
 
+    let amount;
+
+    switch (receiptObj.productId) {
+      case 'com.habitrpg.android.habitica.iap.4gems':
+        amount = 1;
+        break;
+      case 'com.habitrpg.android.habitica.iap.20.gems':
+      case 'com.habitrpg.android.habitica.iap.21gems':
+        amount = 5.25;
+        break;
+      case 'com.habitrpg.android.habitica.iap.42gems':
+        amount = 10.5;
+        break;
+      case 'com.habitrpg.android.habitica.iap.84gems':
+        amount = 21;
+        break;
+    }
+
+    if (!amount) throw new Error('INVALID_ITEM_PURCHASED');
+
     await payments.buyGems({
       user,
       paymentMethod: 'IAP GooglePlay',
-      amount: 5.25,
+      amount,
       headers: req.headers,
     });
 
@@ -114,23 +134,33 @@ api.iapiOSVerify = {
           throw new Error('RECEIPT_ALREADY_USED');
         }
 
+        let amount;
         switch (purchaseData.productId) {
           case 'com.habitrpg.ios.Habitica.4gems':
-            await payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 1, headers: req.headers}); // eslint-disable-line babel/no-await-in-loop
-            break;
-          case 'com.habitrpg.ios.Habitica.8gems':
-            await payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 2, headers: req.headers}); // eslint-disable-line babel/no-await-in-loop
+            amount = 1;
             break;
           case 'com.habitrpg.ios.Habitica.20gems':
           case 'com.habitrpg.ios.Habitica.21gems':
-            await payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 5.25, headers: req.headers}); // eslint-disable-line babel/no-await-in-loop
+            amount = 5.25;
             break;
           case 'com.habitrpg.ios.Habitica.42gems':
-            await payments.buyGems({user, paymentMethod: 'IAP AppleStore', amount: 10.5, headers: req.headers}); // eslint-disable-line babel/no-await-in-loop
+            amount = 10.5;
             break;
-          default:
-            correctReceipt = false;
+          case 'com.habitrpg.ios.Habitica.84gems':
+            amount = 21;
+            break;
         }
+        if (!amount) {
+          correctReceipt = false;
+          break;
+        }
+
+        await payments.buyGems({ // eslint-disable-line babel/no-await-in-loop
+          user,
+          paymentMethod: 'IAP AppleStore',
+          amount,
+          headers: req.headers,
+        });
       }
 
       if (!correctReceipt) throw new Error('INVALID_ITEM_PURCHASED');

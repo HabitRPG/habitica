@@ -74,7 +74,7 @@
     "clearTags": "נקה",
     "hideTags": "הסתר",
     "showTags": "הראה",
-    "toRequired": "You must supply a \"to\" property",
+    "toRequired": "חובה לספק תכונת \"אל\".",
     "startDate": "תאריך התחלה",
     "startDateHelpTitle": "מתי כדאי שמשימה תתחיל?",
     "startDateHelp": "קבעו תאריך שבו משימה זו נכנסת לתוקף. משימה זו לא תחול בימים מוקדמים יותר.",

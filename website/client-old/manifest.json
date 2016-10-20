@@ -30,9 +30,12 @@
 
             "bower_components/jquery-ui/ui/minified/jquery.ui.core.min.js",
             "bower_components/jquery-ui/ui/minified/jquery.ui.widget.min.js",
+            "bower_components/jquery-ui/ui/minified/jquery.ui.menu.min.js",
             "bower_components/jquery-ui/ui/minified/jquery.ui.mouse.min.js",
             "bower_components/jquery-ui/ui/minified/jquery.ui.sortable.min.js",
+            "bower_components/jquery-ui/ui/minified/jquery.ui.autocomplete.min.js",
             "bower_components/smart-app-banner/smart-app-banner.js",
+            "bower_components/taggle/src/taggle.js",
 
             "js/habitrpg-shared.js",
 

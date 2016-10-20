@@ -46,6 +46,7 @@
     "chat": "Conversas",
     "sendChat": "Enviar Mensagem",
     "toolTipMsg": "Buscar Mensagens Recentes",
+    "sendChatToolTip": "You can send a chat from the keyboard by tabbing to the 'Send Chat' button and pressing Enter or by pressing Control (Command on a Mac) + Enter.",
     "syncPartyAndChat": "Sincronizar Equipe e Chat",
     "guildBankPop1": "Banco da Guilda",
     "guildBankPop2": "Gemas que o líder da guilda pode usar para prêmios de desafios.",
@@ -209,5 +210,9 @@
     "exportInboxPopoverBody": "HTML permite uma leitura fácil de mensagens num navegador. Para um formato legível para uma máquina, use Dados> Exportar Dados",
     "to": "Para:",
     "from": "De:",
-    "desktopNotificationsText": "Precisamos de sua permissão para ativar as notificações na área de trabalho para novas mensagens do bate-papo da equipa ! Siga as instruções do seu navegador para ativá-las.<br><br>Você receberá essas notificações somente enquanto você tiver Habitica aberto. Se você decidir que não gosta delas, podem ser desativadas nas configurações do seu navegador.<br><br>Esta caixa irá fechar automaticamente quando uma decisão é tomada."
+    "desktopNotificationsText": "Precisamos de sua permissão para ativar as notificações na área de trabalho para novas mensagens do bate-papo da equipa ! Siga as instruções do seu navegador para ativá-las.<br><br>Você receberá essas notificações somente enquanto você tiver Habitica aberto. Se você decidir que não gosta delas, podem ser desativadas nas configurações do seu navegador.<br><br>Esta caixa irá fechar automaticamente quando uma decisão é tomada.",
+    "confirmAddTag": "Do you really want to add \"<%= tag %>\"?",
+    "confirmRemoveTag": "Do you really want to remove \"<%= tag %>\"?",
+    "assignTask": "Assign Task",
+    "claim": "Claim"
 }

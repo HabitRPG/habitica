@@ -235,9 +235,15 @@ api.subscribeCancel = {
 
     if (!billingAgreementId) throw new NotAuthorized(res.t('missingSubscription'));
 
-    await amzLib.closeBillingAgreement({
+    let details = await amzLib.getBillingAgreementDetails({
       AmazonBillingAgreementId: billingAgreementId,
     });
+
+    if (details.BillingAgreementDetails.BillingAgreementStatus.State !== 'Closed') {
+      await amzLib.closeBillingAgreement({
+        AmazonBillingAgreementId: billingAgreementId,
+      });
+    }
 
     let subscriptionBlock = shared.content.subscriptionBlocks[user.purchased.plan.planId];
     let subscriptionLength = subscriptionBlock.months * 30;

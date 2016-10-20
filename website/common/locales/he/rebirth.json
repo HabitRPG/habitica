@@ -20,7 +20,7 @@
     "rebirthText": "התחילו <%= rebirths %> הרפתקאות חדשות",
     "rebirthOrb": "השתמשו בכדור הלידה מחדש כדי להתחיל מהתחלה אחרי דרגה",
     "rebirthOrb100": "השתמשו בכדור הלידה מחדש כדי להתחיל מחדש לאחר הגעה לדרגה 100 או יותר",
-    "rebirthPop": "Begin a new character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history.",
+    "rebirthPop": "התחילו דמות חדשה בדרגה 1 כשאתם משמרים הישגים, חפצי אספנות, ציוד, והיסטוריית משימות.",
     "rebirthName": "כדור הלידה מחדש",
     "reborn": "היוולדו מחדש. דרגה מירבית: <%= reLevel %>",
     "confirmReborn": "האם אתם בטוחים?",

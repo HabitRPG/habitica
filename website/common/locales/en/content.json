@@ -183,6 +183,10 @@
   "questEggCowMountText": "Cow",
   "questEggCowAdjective": "a mooing",
 
+  "questEggBeetleText": "Beetle",
+  "questEggBeetleMountText": "Beetle",
+  "questEggBeetleAdjective": "an unbeatable",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
