@@ -11,12 +11,37 @@ import couponCode from 'coupon-code';
 let api = {};
 
 /**
+ * @apiDefine Sudo Sudo Users
+ * Moderators with all access permissions.
+ */
+
+/**
+ * @apiDefine vaildationError
+ * @apiError validationErrors The parameters were not validated correctly.
+ */
+
+/**
+ * @apiDefine couponValidError
+ * @apiError (404) {validationError} The coupon specified is not valid.
+ */
+
+/**
  * @api {get} /api/v3/coupons Get coupons
- * @apiDescription Sudo users only
  * @apiName GetCoupons
  * @apiGroup Coupon
+ * @apiPermission sudo
+ *
+ * @apiExample {curl} Example
+ * curl https://habitica.com/api/v3/coupons -s -X GET --compressed -H "Content-Type:application/json" -H "x-api-user: [userID]" -H "x-api-key: [APIkey]"
  *
  * @apiSuccess {String} Coupons in CSV format
+ *
+ * @apiSuccessExample {String}
+ * code,event,date,user
+ * ...
+ *
+ * @apiUse authError
+ *
  */
 api.getCoupons = {
   method: 'GET',
@@ -40,14 +65,17 @@ api.getCoupons = {
 
 /**
  * @api {post} /api/v3/coupons/generate/:event Generate coupons for an event
- * @apiDescription Sudo users only
  * @apiName GenerateCoupons
  * @apiGroup Coupon
+ * @apiPermission sudo
  *
  * @apiParam {String} event The event for which the coupon should be generated
  * @apiParam {Number} count Query parameter to specify the number of coupon codes to generate
  *
  * @apiSuccess {Array} data Generated coupons
+ *
+ * @apiUse authError
+ * @apiUse validationError
  */
 api.generateCoupons = {
   method: 'POST',
@@ -73,6 +101,9 @@ api.generateCoupons = {
  * @apiParam {String} code The coupon code to apply
  *
  * @apiSuccess {Object} data User object
+ *
+ * @apiUse authError
+ * @apiUse validationError
  */
 api.enterCouponCode = {
   method: 'POST',
@@ -96,7 +127,10 @@ api.enterCouponCode = {
  * @apiName ValidateCoupon
  * @apiGroup Coupon
  *
- * @apiSuccess {Boolean} data.valid True or false
+ * @apiParam {String} code The coupon code to validate
+ *
+ * @apiSuccess {Boolean} data.valid True or False
+ *
  */
 api.validateCoupon = {
   method: 'POST',
