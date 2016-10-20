@@ -87,6 +87,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
     let partyLeader;
     let partyInvitedUser;
     let partyMember;
+    let removedMember;
 
     beforeEach(async () => {
       let { group, groupLeader, invitees, members } = await createAndPopulateGroup({
@@ -96,13 +97,14 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
           privacy: 'private',
         },
         invites: 1,
-        members: 1,
+        members: 2,
       });
 
       party = group;
       partyLeader = groupLeader;
       partyInvitedUser = invitees[0];
       partyMember = members[0];
+      removedMember = members[1];
     });
 
     it('can remove other members', async () => {
@@ -127,6 +129,18 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
       let invitedUserWithoutInvite = await partyInvitedUser.get('/user');
 
       expect(invitedUserWithoutInvite.invitations.party).to.be.empty;
+    });
+
+    it('removes new messages from a member who is removed', async () => {
+      await partyLeader.post(`/groups/${party._id}/chat`, { message: 'Some message' });
+      await removedMember.sync();
+
+      expect(removedMember.newMessages[party._id]).to.not.be.empty;
+
+      await partyLeader.post(`/groups/${party._id}/removeMember/${removedMember._id}`);
+      await removedMember.sync();
+
+      expect(removedMember.newMessages[party._id]).to.be.empty;
     });
 
     it('removes user from quest when removing user from party after quest starts', async () => {

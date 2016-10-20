@@ -46,7 +46,7 @@
     "chat": "Discussion",
     "sendChat": "Envoyer un Message",
     "toolTipMsg": "Récupérer les Messages Récents",
-    "sendChatToolTip": "You can send a chat from the keyboard by tabbing to the 'Send Chat' button and pressing Enter or by pressing Control (Command on a Mac) + Enter.",
+    "sendChatToolTip": "Vous pouvez envoyer un message depuis votre clavier en tabulant vers le bouton 'Envoyer un Message' et en tapant sur la touche Entrée ou en tapant sur la touche Contrôle (Commande sur un Mac) + Entrée.",
     "syncPartyAndChat": "Synchroniser l'équipe et les discussions",
     "guildBankPop1": "Banque de la Guilde",
     "guildBankPop2": "Gemmes que votre maître de guilde peut utiliser en tant que récompenses de challenge.",
@@ -201,7 +201,7 @@
     "emailsMustBeAnArray": "Les emails des invitations doivent être un tableau.",
     "canOnlyInviteMaxInvites": "Vous ne pouvez envoyer que \"<%= maxInvites %>\" invitations à la fois",
     "onlyCreatorOrAdminCanDeleteChat": "Vous n'êtes pas autorisé à supprimer ce message !",
-    "onlyGroupLeaderCanEditTasks": "Pas d'autorisation pour gérer les tâches",
+    "onlyGroupLeaderCanEditTasks": "Vous n'êtes pas autorisé à gérer les tâches!",
     "onlyGroupTasksCanBeAssigned": "Seules les tâches de groupe peuvent être assignées",
     "newChatMessagePlainNotification": "Nouveau message de <%= authorName %> dans <%= groupName %>. Cliquez ici pour ouvrir la page de discussion !",
     "newChatMessageTitle": "Nouveau message dans <%= groupName %>",
@@ -211,8 +211,8 @@
     "to": "À : ",
     "from": "De : ",
     "desktopNotificationsText": "Nous avons besoin de votre autorisation pour activer les notifications sur le bureau pour les nouveaux messages dans la discussion de l'équipe. Suivez les instructions de votre navigateur pour les activer.<br><br>Vous ne recevrez ces notifications que lorsque Habitica est ouvert. Si vous décidez que vous ne les appréciez pas, elles peuvent être désactivées dans les paramètres de votre navigateur.<br><br>Cette fenêtre se fermera automatiquement lorsqu'une décision aura été prise.",
-    "confirmAddTag": "Do you really want to add \"<%= tag %>\"?",
-    "confirmRemoveTag": "Do you really want to remove \"<%= tag %>\"?",
-    "assignTask": "Assign Task",
-    "claim": "Claim"
+    "confirmAddTag": "Voulez-vous vraiment ajouter \"<%= tag %>\"?",
+    "confirmRemoveTag": "Voulez-vous vraiment supprimer \"<%= tag %>\"?",
+    "assignTask": "Assigner la tâche",
+    "claim": "Réclamer"
 }

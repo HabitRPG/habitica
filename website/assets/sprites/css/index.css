@@ -36,8 +36,13 @@
   background-color: #727272;
 }
 
-/* FIXME figure out how to handle customize menu!! */
-/*.customize-menu .f_head_0       {width: 60px; height: 60px; background-position: -1917px -9px;}*/
+/* FIXME figure out how to handle customize menu!!
+.customize-menu .f_head_0 {
+  width: 60px;
+  height: 60px;
+  background-position: -1917px -9px;
+}
+*/
 
 .achievement {
   float:left;
@@ -51,7 +56,8 @@
   padding-right: 0.5em;
 }
 
-[class*="Mount_Head_"], [class*="Mount_Body_"]{
+[class*="Mount_Head_"],
+[class*="Mount_Body_"] {
   margin-top:18px; /* Sprite accommodates 105x123 box */
 }
 
