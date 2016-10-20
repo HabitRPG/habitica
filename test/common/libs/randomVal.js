@@ -21,14 +21,6 @@ describe('randomVal', () => {
     expect(result).to.be.oneOf([1, 2, 3, 4]);
   });
 
-  it('uses Math.random to determine the property', () => {
-    sandbox.spy(Math, 'random');
-
-    randomVal(obj);
-
-    expect(Math.random).to.be.calledOnce;
-  });
-
   it('can pass in a predictable random value', () => {
     sandbox.spy(Math, 'random');
 
