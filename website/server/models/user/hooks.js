@@ -79,10 +79,9 @@ function _setUpNewUser (user) {
 
   // A/B Test 2016-09-26: Start with Armoire Enabled?
   if (Math.random() < 0.5) {
-    user.flags.armoireEnabled = true;
-    user._ABtest = '20160926-armoireEnabled';
+    user._ABtest = '20161024-delayDailyDamage';
   } else {
-    user._ABtest = '20160926-armoireDisabled';
+    user._ABtest = '20161024-immediateDailyDamage';
   }
 
   if (user.registeredThrough === 'habitica-web' || user.registeredThrough === 'habitica-android') {
