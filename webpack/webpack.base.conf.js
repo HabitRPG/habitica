@@ -2,6 +2,7 @@ var path = require('path');
 var config = require('./config');
 var utils = require('./utils');
 var projectRoot = path.resolve(__dirname, '../');
+var webpack = require('webpack');
 
 var IS_PROD = process.env.NODE_ENV === 'production';
 var baseConfig = {
@@ -26,6 +27,12 @@ var baseConfig = {
   resolveLoader: {
     fallback: [path.join(__dirname, '../node_modules')],
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+    }),
+  ],
   module: {
     preLoaders: !IS_PROD ? [
       {

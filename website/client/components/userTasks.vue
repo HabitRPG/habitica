@@ -3,10 +3,10 @@
   .sixteen.wide.column
       p Welcome back {{profileName}}!
       p You have {{tasksCount}} tasks!
-  .four.wide.column(v-for='taskType in tasksTypes')
+  .four.wide.column(v-for="taskType in tasksTypes")
     h3 {{taskType}}s ()
     ul
-      li(v-for='task in tasks', v-if='task.type === taskType', :key='task.id')
+      li(v-for="task in tasks", v-if="task.type === taskType", :key="task.id")
         span {{task.text}}
 </template>
 
