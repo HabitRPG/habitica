@@ -1,6 +1,7 @@
 import {
   BadRequest,
   NotAuthorized,
+  NotFound,
 } from '../../../libs/errors';
 import amzLib from '../../../libs/amazonPayments';
 import {
@@ -12,7 +13,10 @@ import payments from '../../../libs/payments';
 import moment from 'moment';
 import { model as Coupon } from '../../../models/coupon';
 import { model as User } from '../../../models/user';
-import { model as Group } from '../../../models/group';
+import {
+  model as Group,
+  basicFields as basicGroupFields,
+} from '../../../models/group';
 import cc from 'coupon-code';
 
 let api = {};
@@ -242,7 +246,17 @@ api.subscribeCancel = {
     let lastBillingDate = user.purchased.plan.lastBillingDate;
 
     if (groupId) {
-      let group = await Group.findById(groupId).exec();
+      let groupFields = basicGroupFields.concat(' purchased');
+      let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+
+      if (!group) {
+        throw new NotFound(res.t('groupNotFound'));
+      }
+
+      if (!group.leader === user._id) {
+        throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
+      }
+
       billingAgreementId = group.purchased.plan.customerId;
       planId = group.purchased.plan.planId;
       lastBillingDate = group.purchased.plan.lastBillingDate;

@@ -11,7 +11,10 @@ import cc from 'coupon-code';
 import Bluebird from 'bluebird';
 import { model as Coupon } from '../../../models/coupon';
 import { model as User } from '../../../models/user';
-import { model as Group } from '../../../models/group';
+import {
+  model as Group,
+  basicFields as basicGroupFields,
+} from '../../../models/group';
 import {
   authWithUrl,
   authWithSession,
@@ -19,6 +22,7 @@ import {
 import {
   BadRequest,
   NotAuthorized,
+  NotFound,
 } from '../../../libs/errors';
 
 const BASE_URL = nconf.get('BASE_URL');
@@ -233,7 +237,16 @@ api.subscribeCancel = {
 
     let customerId = user.purchased.plan.customerId;
     if (groupId) {
-      let group = await Group.findById(groupId).exec();
+      let groupFields = basicGroupFields.concat(' purchased');
+      let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+
+      if (!group) {
+        throw new NotFound(res.t('groupNotFound'));
+      }
+
+      if (!group.leader === user._id) {
+        throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
+      }
       customerId = group.purchased.plan.customerId;
     }
 
@@ -282,9 +295,10 @@ api.ipn = {
         return;
       }
 
-      let group = await Group.findOne({ 'purchased.plan.customerId': req.body.recurring_payment_id });
+      let groupFields = basicGroupFields.concat(' purchased');
+      let group = await Group.findOne({ 'purchased.plan.customerId': req.body.recurring_payment_id }).select(groupFields).exec();
       if (group) {
-        await payments.cancelSubscription({ group, paymentMethod: 'Paypal' });
+        await payments.cancelSubscription({ groupId: group._id, paymentMethod: 'Paypal' });
       }
     }
   },

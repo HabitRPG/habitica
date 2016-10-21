@@ -7,7 +7,14 @@ import {
 import moment from 'moment';
 import { sendNotification as sendPushNotification } from './pushNotifications';
 import shared from '../../common' ;
-import { model as Group } from '../models/group';
+import {
+  model as Group,
+  basicFields as basicGroupFields,
+} from '../models/group';
+import {
+  NotAuthorized,
+  NotFound,
+} from './libs/errors';
 
 let api = {};
 
@@ -41,7 +48,16 @@ api.createSubscription = async function createSubscription (data) {
 
   //  If we are buying a group subscription
   if (data.groupId) {
-    group = await Group.findById(data.groupId).exec();
+    let groupFields = basicGroupFields.concat(' purchased');
+    group = await Group.getGroup({user: data.user, groupId: data.groupId, populateLeader: false, groupFields});
+
+    if (!group) {
+      throw new NotFound(shared.i18n.t('groupNotFound'));
+    }
+
+    if (!group.leader === data.user._id) {
+      throw new NotAuthorized(shared.i18n.t('onlyGroupLeaderCanManageSubscription'));
+    }
     recipient = group;
     plan = recipient.purchased.plan;
   }

@@ -3,12 +3,16 @@ import shared from '../../../../common';
 import {
   BadRequest,
   NotAuthorized,
+  NotFound,
 } from '../../../libs/errors';
 import { model as Coupon } from '../../../models/coupon';
 import payments from '../../../libs/payments';
 import nconf from 'nconf';
 import { model as User } from '../../../models/user';
-import { model as Group } from '../../../models/group';
+import {
+  model as Group,
+  basicFields as basicGroupFields,
+} from '../../../models/group';
 import cc from 'coupon-code';
 import {
   authWithHeaders,
@@ -133,7 +137,16 @@ api.subscribeEdit = {
 
     //  If we are buying a group subscription
     if (groupId) {
-      let group = await Group.findById(groupId).exec();
+      let groupFields = basicGroupFields.concat(' purchased');
+      let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+
+      if (!group) {
+        throw new NotFound(res.t('groupNotFound'));
+      }
+
+      if (!group.leader === user._id) {
+        throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
+      }
       customerId = group.purchased.plan.customerId;
     }
 
@@ -164,7 +177,16 @@ api.subscribeCancel = {
     let customerId = user.purchased.plan.customerId;
 
     if (groupId) {
-      let group = await Group.findById(groupId).exec();
+      let groupFields = basicGroupFields.concat(' purchased');
+      let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+
+      if (!group) {
+        throw new NotFound(res.t('groupNotFound'));
+      }
+
+      if (!group.leader === user._id) {
+        throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
+      }
       customerId = group.purchased.plan.customerId;
     }
 
