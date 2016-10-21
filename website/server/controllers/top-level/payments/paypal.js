@@ -67,6 +67,9 @@ api.checkout = {
       if (gift.type === 'gems') {
         amount = Number(gift.gems.amount / 4).toFixed(2);
         description = `${description} (Gift)`;
+        if (amount <= 0) {
+          throw new BadRequest(res.t('badAmountOfGemsToPurchase'));
+        }
       } else {
         amount = Number(shared.content.subscriptionBlocks[gift.subscription.key].price).toFixed(2);
         description = 'mo. Habitica Subscription (Gift)';
