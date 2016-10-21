@@ -12,7 +12,7 @@ function($rootScope, User, $http, Content, Notification) {
   };
 
   Payments.checkGemAmount = function(data) {
-    if(data.gift.type === "gems" && data.gift.gems.amount <= 0) {
+    if(data.gift.type === "gems" && !data.gift.gems.amount || data.gift.gems.amount === 0) {
       Notification.error(window.env.t('badAmountOfGemsToPurchase'), true);
       return false;
     }
