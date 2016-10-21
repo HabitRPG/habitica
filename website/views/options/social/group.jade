@@ -147,17 +147,14 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                 h3.popover-title {{group.leader.profile.name}}
                 .popover-content
                   markdown(text='group._editing ? groupCopy.leaderMessage : group.leaderMessage')
-
+                  
       ul.options-menu(ng-init="groupPane = 'chat'")
         li
-          a(ng-click="groupPane = 'chat'")
-            | Chat
+          a(ng-click="groupPane = 'chat'")=env.t('chat')
         li
-          a(ng-click="groupPane = 'tasks'", ng-if='group.purchased.plan.customerId')
-            | Tasks
+          a(ng-click="groupPane = 'tasks'", ng-if='group.purchased.active')=env.t('tasks')
         li
-          a(ng-click="groupPane = 'subscription'")
-            | Subscription
+          a(ng-click="groupPane = 'subscription'", ng-show='group.leader._id === user._id')=env.t('subscription')
     
       .tab-content
         .tab-pane.active

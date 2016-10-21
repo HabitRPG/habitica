@@ -127,7 +127,7 @@ api.getGroups = {
     if (validationErrors) throw validationErrors;
 
     let types = req.query.type.split(',');
-    let groupFields = basicGroupFields.concat(' description memberCount balance purchased');
+    let groupFields = basicGroupFields.concat(' description memberCount balance');
     let sort = '-memberCount';
 
     let results = await Group.getGroups({user, types, groupFields, sort});
@@ -166,6 +166,12 @@ api.getGroup = {
     }
 
     group = Group.toJSONCleanChat(group, user);
+
+    if (group.purchased.plan.customerId) group.purchased.active = true;
+    if (group.leader !== user._id) {
+      delete group.purchased.plan;
+    }
+
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     let leader = await User.findById(group.leader).select(nameFields).exec();
     if (leader) group.leader = leader.toJSON({minimize: true});
