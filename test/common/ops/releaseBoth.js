@@ -1,4 +1,5 @@
 import releaseBoth from '../../../website/common/script/ops/releaseBoth';
+import content from '../../../website/common/script/content/index';
 import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
@@ -65,35 +66,39 @@ describe('shared.ops.releaseBoth', () => {
     expect(user.items.mounts[animal]).to.equal(null);
   });
 
-  it('removes currentPet', () => {
+  it('removes drop currentPet', () => {
+    let petInfo = content.petInfo[user.items.currentPet];
+    expect(petInfo.type).to.equal('drop');
     releaseBoth(user);
 
     expect(user.items.currentMount).to.be.empty;
     expect(user.items.currentPet).to.be.empty;
   });
 
-  it('removes currentMount', () => {
+  it('removes drop currentMount', () => {
+    let mountInfo = content.mountInfo[user.items.currentMount];
+    expect(mountInfo.type).to.equal('drop');
     releaseBoth(user);
 
     expect(user.items.currentMount).to.be.empty;
   });
 
-  it('leaves quest pets and mounts equipped', () => {
+  it('leaves non-drop pets and mounts equipped', () => {
     let questAnimal = 'Gryphon-Base';
     user.items.currentMount = questAnimal;
     user.items.currentPet = questAnimal;
     user.items.pets[questAnimal] = 5;
     user.items.mounts[questAnimal] = true;
+
+    let petInfo = content.petInfo[user.items.currentPet];
+    expect(petInfo.type).to.not.equal('drop');
+    let mountInfo = content.mountInfo[user.items.currentMount];
+    expect(mountInfo.type).to.not.equal('drop');
+
     releaseBoth(user);
 
     expect(user.items.currentMount).to.equal(questAnimal);
     expect(user.items.currentPet).to.equal(questAnimal);
-  });
-
-  it('removes currentMount', () => {
-    releaseBoth(user);
-
-    expect(user.items.currentMount).to.be.empty;
   });
 
   it('decreases user\'s balance', () => {
