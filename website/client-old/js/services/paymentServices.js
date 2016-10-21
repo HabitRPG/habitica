@@ -280,7 +280,7 @@ function($rootScope, User, $http, Content) {
 
     var paymentMethod = User.user.purchased.plan.paymentMethod;
     if (group) {
-      var paymentMethod = group.purchased.plan.paymentMethod;
+      paymentMethod = group.purchased.plan.paymentMethod;
     }
 
     if (paymentMethod === 'Amazon Payments') {

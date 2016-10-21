@@ -240,6 +240,7 @@ api.subscribeCancel = {
     let billingAgreementId = user.purchased.plan.customerId;
     let planId = user.purchased.plan.planId;
     let lastBillingDate = user.purchased.plan.lastBillingDate;
+
     if (groupId) {
       let group = await Group.findById(groupId).exec();
       billingAgreementId = group.purchased.plan.customerId;
