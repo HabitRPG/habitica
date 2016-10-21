@@ -14,7 +14,7 @@ import {
 import {
   NotAuthorized,
   NotFound,
-} from './libs/errors';
+} from './errors';
 
 let api = {};
 
