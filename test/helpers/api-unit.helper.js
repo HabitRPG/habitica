@@ -8,6 +8,9 @@ import mongo from './mongo'; // eslint-disable-line
 import moment from 'moment';
 import i18n from '../../website/common/script/i18n';
 import * as Tasks from '../../website/server/models/task';
+import {connectToServer} from './server';
+
+connectToServer();
 
 afterEach((done) => {
   sandbox.restore();
