@@ -96,7 +96,7 @@ script(type='text/ng-template', id='modals/send-gift.html')
     - var fromBal = "gift.type=='gems' && gift.gems.fromBalance"
     button.btn.btn-primary(ng-show=fromBal, ng-click='sendGift(profile._id)')=env.t("send")
     a.btn.btn-primary(ng-hide=fromBal, ng-click='Payments.showStripe({gift:gift, uuid:profile._id})')=env.t('card')
-    a.btn.btn-warning(ng-hide=fromBal, href='/paypal/checkout?_id={{::user._id}}&apiToken={{::User.settings.auth.apiToken}}&gift={{Payments.encodeGift(profile._id, gift)}}') PayPal
+    a.btn.btn-warning(ng-hide=fromBal, ng-click='Payments.payPalPayment({gift: gift, giftedTo: profile._id})') PayPal
     .btn.btn-success(ng-hide=fromBal, ng-click="Payments.amazonPayments.init({type: 'single', gift: gift, giftedTo: profile._id})") Amazon Payments
     button.btn.btn-default(ng-click='$close()')=env.t('cancel')
 
