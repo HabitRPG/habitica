@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg').factory('Payments',
-['$rootScope', 'User', '$http', 'Content',
-function($rootScope, User, $http, Content) {
+['$rootScope', 'User', '$http', 'Content', 'Notification',
+function($rootScope, User, $http, Content, Notification) {
   var Payments = {};
   var isAmazonReady = false;
 
@@ -11,7 +11,16 @@ function($rootScope, User, $http, Content) {
     amazon.Login.setClientId(window.env.AMAZON_PAYMENTS.CLIENT_ID);
   };
 
+  Payments.checkGemAmount = function(data) {
+    if(data.gift.type === "gems" && data.gift.gems.amount <= 0) {
+      Notification.error(window.env.t('badAmountOfGemsToPurchase'), true);
+      return false;
+    }
+    return true;
+  }
+
   Payments.showStripe = function(data) {
+    if(!Payments.checkGemAmount(data)) return;
     var sub =
       data.subscription ? data.subscription
         : data.gift && data.gift.type=='subscription' ? data.gift.subscription.key
@@ -21,6 +30,7 @@ function($rootScope, User, $http, Content) {
       sub ? sub.price*100
         : data.gift && data.gift.type=='gems' ? data.gift.gems.amount/4*100
         : 500;
+
     StripeCheckout.open({
       key: window.env.STRIPE_PUB_KEY,
       address: false,
@@ -87,10 +97,10 @@ function($rootScope, User, $http, Content) {
   // Needs to be called everytime the modal/router is accessed
   Payments.amazonPayments.init = function(data){
     if(!isAmazonReady) return;
+    if(!Payments.checkGemAmount(data)) return;
     if(data.type !== 'single' && data.type !== 'subscription') return;
 
     if(data.gift){
-      if(data.gift.gems && data.gift.gems.amount && data.gift.gems.amount <= 0) return;
       data.gift.uuid = data.giftedTo;
     }
 
@@ -263,6 +273,14 @@ function($rootScope, User, $http, Content) {
     }
 
     window.location.href = '/' + paymentMethod + '/subscribe/cancel?_id=' + User.user._id + '&apiToken=' + User.settings.auth.apiToken;
+  }
+
+  Payments.payPalPayment = function(data){
+    if(!Payments.checkGemAmount(data)) return;
+
+    var gift = Payments.encodeGift(data.giftedTo, data.gift);
+    var url = '/paypal/checkout?_id=' + User.user._id + '&apiToken=' + User.settings.auth.apiToken + '&gift=' + gift;
+    $http.get(url);
   }
 
   Payments.encodeGift = function(uuid, gift){
