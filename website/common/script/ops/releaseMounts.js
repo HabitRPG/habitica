@@ -11,7 +11,6 @@ module.exports = function releaseMounts (user, req = {}, analytics) {
 
   user.balance -= 1;
 
-  // Only remove current mount if it is Gen 1 (dropped)
   let mountInfo = content.mountInfo[user.items.currentMount];
 
   if (mountInfo && mountInfo.type === 'drop') {

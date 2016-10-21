@@ -29,13 +29,12 @@ module.exports = function releaseBoth (user, req = {}, analytics) {
     user.balance -= 1.5;
   }
 
-  // Only remove current mount if it is Gen 1 (dropped)
   let mountInfo = content.mountInfo[user.items.currentMount];
 
   if (mountInfo && mountInfo.type === 'drop') {
     user.items.currentMount = '';
   }
-  // Only remove current pet if it is Gen 1 (dropped)
+
   let petInfo = content.petInfo[user.items.currentPet];
 
   if (petInfo && petInfo.type === 'drop') {
