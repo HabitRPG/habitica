@@ -117,6 +117,7 @@
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> months of subscription! ",
     "cannotSendGemsToYourself": "Cannot send gems to yourself. Try a subscription instead.",
     "badAmountOfGemsToSend": "Amount must be within 1 and your current number of gems.",
+    "badAmountOfGemsToPurchase": "Amount must be at least 1.",
     "abuseFlag": "Report violation of Community Guidelines",
     "abuseFlagModalHeading": "Report <%= name %> for violation?",
     "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religous oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
