@@ -25,7 +25,7 @@ function getFullArmoire () {
   return fullArmoire;
 }
 
-describe('shared.ops.buyArmoire', () => {
+xdescribe('shared.ops.buyArmoire', () => {
   let user;
   let YIELD_EQUIPMENT = 0.5;
   let YIELD_FOOD = 0.7;
