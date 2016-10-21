@@ -16,3 +16,5 @@ module.exports = function randomVal (obj, options = {}) {
 
   return array[randomIndex];
 };
+
+module.exports.trueRandom = trueRandom;

@@ -5,6 +5,7 @@ import {
 } from '../../helpers/common.helper';
 import count from '../../../website/common/script/count';
 import buyArmoire from '../../../website/common/script/ops/buyArmoire';
+import randomVal from '../../../website/common/script/libs/randomVal';
 import content from '../../../website/common/script/content/index';
 import {
   NotAuthorized,
@@ -25,7 +26,7 @@ function getFullArmoire () {
   return fullArmoire;
 }
 
-xdescribe('shared.ops.buyArmoire', () => {
+describe('shared.ops.buyArmoire', () => {
   let user;
   let YIELD_EQUIPMENT = 0.5;
   let YIELD_FOOD = 0.7;
@@ -43,11 +44,11 @@ xdescribe('shared.ops.buyArmoire', () => {
     user.stats.exp = 0;
     user.items.food = {};
 
-    sandbox.stub(Math, 'random');
+    sandbox.stub(randomVal, 'trueRandom');
   });
 
   afterEach(() => {
-    Math.random.restore();
+    randomVal.trueRandom.restore();
   });
 
   context('failure conditions', () => {
@@ -89,7 +90,7 @@ xdescribe('shared.ops.buyArmoire', () => {
   context('non-gear awards', () => {
     it('gives Experience', () => {
       let previousExp = user.stats.exp;
-      Math.random.returns(YIELD_EXP);
+      randomVal.trueRandom.returns(YIELD_EXP);
 
       buyArmoire(user);
 
@@ -102,7 +103,7 @@ xdescribe('shared.ops.buyArmoire', () => {
     it('gives food', () => {
       let previousExp = user.stats.exp;
 
-      Math.random.returns(YIELD_FOOD);
+      randomVal.trueRandom.returns(YIELD_FOOD);
 
       buyArmoire(user);
 
@@ -113,7 +114,7 @@ xdescribe('shared.ops.buyArmoire', () => {
     });
 
     it('does not give equipment if all equipment has been found', () => {
-      Math.random.returns(YIELD_EQUIPMENT);
+      randomVal.trueRandom.returns(YIELD_EQUIPMENT);
       user.items.gear.owned = getFullArmoire();
       user.stats.gp = 150;
 
@@ -131,7 +132,7 @@ xdescribe('shared.ops.buyArmoire', () => {
   context('gear awards', () => {
     it('always drops equipment the first time', () => {
       delete user.flags.armoireOpened;
-      Math.random.returns(YIELD_EXP);
+      randomVal.trueRandom.returns(YIELD_EXP);
 
       expect(_.size(user.items.gear.owned)).to.equal(1);
 
@@ -148,7 +149,7 @@ xdescribe('shared.ops.buyArmoire', () => {
     });
 
     it('gives more equipment', () => {
-      Math.random.returns(YIELD_EQUIPMENT);
+      randomVal.trueRandom.returns(YIELD_EQUIPMENT);
       user.items.gear.owned = {
         weapon_warrior_0: true,
         head_armoire_hornedIronHelm: true,
