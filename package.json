@@ -129,6 +129,7 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue .",
     "test": "npm run lint && gulp test && npm run client:unit",
+    "test:build": "gulp test:prepare:build",
     "test:api-v3": "gulp test:api-v3",
     "test:api-v3:unit": "gulp test:api-v3:unit",
     "test:api-v3:integration": "gulp test:api-v3:integration",
