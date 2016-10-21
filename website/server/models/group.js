@@ -375,7 +375,9 @@ export function chatDefaults (msg, user) {
 
 schema.methods.sendChat = function sendChat (message, user, metaData) {
   let newMessage = chatDefaults(message, user);
-  newMessage._meta = metaData;
+  if (metaData) {
+    newMessage._meta = metaData;
+  }
 
   this.chat.unshift(newMessage);
   this.chat.splice(200);

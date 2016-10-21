@@ -231,5 +231,18 @@ describe('POST /groups/:groupId/quests/force-start', () => {
       expect(questingGroup.quest.members[partyMembers[0]._id]).to.exist;
       expect(questingGroup.quest.members[leader._id]).to.exist;
     });
+
+    it('allows group leader to force start quest and verifies chat', async () => {
+      let questLeader = partyMembers[0];
+      await questLeader.update({[`items.quests.${PET_QUEST}`]: 1});
+      await questLeader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+
+      await leader.post(`/groups/${questingGroup._id}/quests/force-start`);
+
+      await questingGroup.sync();
+
+      expect(questingGroup.chat[0].text).to.exist;
+      expect(questingGroup.chat[0]._meta).to.exist;
+    });
   });
 });
