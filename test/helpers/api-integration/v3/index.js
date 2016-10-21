@@ -1,8 +1,4 @@
 /* eslint-disable no-use-before-define */
-import {connectToServer} from './server';
-
-connectToServer();
-
 // Import requester function, set it up for v3, export it
 import { requester } from '../requester';
 requester.setApiVersion('v3');
