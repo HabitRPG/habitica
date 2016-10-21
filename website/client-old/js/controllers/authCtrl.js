@@ -15,7 +15,7 @@ angular.module('habitrpg')
         // Adapted from http://www.quirksmode.org/js/cookies.html
         var cookies = document.cookie.split(';');
         for (var i = 0; i < cookies.length; i++) {
-          var cookieName = cookies[i].match(/([^=]+)(?=\=)/)[0];
+          var cookieName = cookies[i].match(/([^=]+)(?=\=)/);
           document.cookie = cookieName + '= ; expires=Thu Jan 1 00:00:00 1970 GMT; path=/';
         }
 
