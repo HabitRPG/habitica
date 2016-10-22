@@ -29,14 +29,6 @@ describe('POST /coupons/generate/:event', () => {
     });
   });
 
-  it('returns an error if event is missing', async () => {
-    await expect(user.post('/coupons/generate')).to.eventually.be.rejected.and.eql({
-      code: 404,
-      error: 'NotFound',
-      message: 'Not found.',
-    });
-  });
-
   it('returns an error if event is invalid', async () => {
     await expect(user.post('/coupons/generate/notValid?count=1')).to.eventually.be.rejected.and.eql({
       code: 400,

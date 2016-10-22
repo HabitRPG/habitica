@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "3.48.0",
+  "version": "3.49.0",
   "main": "./website/server/index.js",
   "dependencies": {
     "@slack/client": "3.6.0",
@@ -35,7 +35,7 @@
     "cwait": "^1.0.0",
     "domain-middleware": "~0.1.0",
     "estraverse": "^4.1.1",
-    "express": "~4.13.3",
+    "express": "~4.14.0",
     "express-csv": "~0.6.0",
     "express-validator": "^2.18.0",
     "extract-text-webpack-plugin": "^1.0.1",
@@ -95,7 +95,7 @@
     "pug": "^2.0.0-beta6",
     "push-notify": "habitrpg/push-notify#v1.2.0",
     "pusher": "^1.3.0",
-    "request": "~2.72.0",
+    "request": "~2.74.0",
     "rimraf": "^2.4.3",
     "run-sequence": "^1.1.4",
     "s3-upload-stream": "^1.0.6",
