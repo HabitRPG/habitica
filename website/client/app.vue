@@ -20,8 +20,6 @@ export default {
 };
 </script>
 
-<style lang="less">
-// Load CSS that doesn't belong to any specific component
-@import '../client-old/css/habitrpg-shared.css';
-@import './assets/less/index';
-</style>
+<!-- Load CSS that doesn't belong to any specific component -->
+<style src="assets/css/index.css"></style>
+<style src="assets/less/index.less" lang="less"></style>

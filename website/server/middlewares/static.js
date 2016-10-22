@@ -18,7 +18,7 @@ module.exports = function staticMiddleware (expressApp) {
   // TODO move all static files to a single location (one for public and one for build)
   expressApp.use(express.static(BUILD_DIR, { maxAge: MAX_AGE }));
   // TODO figure out better way to set up sprites assets
-  expressApp.use(express.static(`${ASSETS_DIR}/sprites/dist`, { maxAge: MAX_AGE }));
+  expressApp.use('/static/sprites', express.static(`${ASSETS_DIR}/sprites/dist`, { maxAge: MAX_AGE }));
   // so we have access to the gif sprites
   expressApp.use(express.static(`${ASSETS_DIR}/sprites/backer-only/`, { maxAge: MAX_AGE }));
   expressApp.use(express.static(`${ASSETS_DIR}/sprites/`, { maxAge: MAX_AGE }));

@@ -87,6 +87,9 @@ var baseConfig = {
       require('autoprefixer')({
         browsers: ['last 2 versions'],
       }),
+      require('postcss-easy-import')({
+        glob: true,
+      }),
     ],
   },
 };
