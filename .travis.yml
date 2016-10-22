@@ -14,9 +14,9 @@ script: npm run $TEST
 env:
   matrix:
     - TEST="lint"
+    - TEST="test:api-v3" REQUIRES_SERVER=true
     - TEST="test:sanity"
     - TEST="test:content"
     - TEST="test:common"
     - TEST="test:karma"
     - TEST="client:unit"
-    - TEST="test:api-v3" REQUIRES_SERVER=true
