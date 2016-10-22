@@ -73,7 +73,8 @@ gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
 });
 
 gulp.task('test:prepare:build', ['build'], (cb) => {
-  exec(testBin('grunt build:test'), cb);
+  cb();
+  // exec(testBin('grunt build:test'), cb);
 });
 
 gulp.task('test:prepare:webdriver', (cb) => {
