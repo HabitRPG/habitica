@@ -51,6 +51,10 @@ export async function createTasks (req, res, options = {}) {
     let taskType = taskData.type;
     let newTask = new Tasks[taskType](Tasks.Task.sanitize(taskData));
 
+    if (taskData.requiresApproval) {
+      newTask.group.requiresApproval = true;
+    }
+
     if (challenge) {
       newTask.challenge.id = challenge.id;
     } else if (group) {

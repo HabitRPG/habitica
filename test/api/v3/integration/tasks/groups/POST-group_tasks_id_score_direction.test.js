@@ -50,8 +50,8 @@ describe('POST /tasks/:id/score/:direction', () => {
     }));
 
     expect(response.message).to.equal(t('taskApprovalHasBeenRequested'));
-    expect(updatedTask.approvalRequested).to.equal(true);
-    expect(updatedTask.approvalRequestedDate).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
+    expect(updatedTask.group.approvalRequested).to.equal(true);
+    expect(updatedTask.group.approvalRequestedDate).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
   });
 
   it('errors when approval has already been requested', async () => {

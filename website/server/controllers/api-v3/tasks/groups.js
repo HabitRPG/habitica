@@ -221,9 +221,9 @@ api.approveTask = {
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
-    task.approvedDate = new Date();
-    task.approvingUser = user._id;
-    task.approved = true;
+    task.group.approvedDate = new Date();
+    task.group.approvingUser = user._id;
+    task.group.approved = true;
 
     assignedUser.addNotification('GROUP', {message: res.t('yourTaskHasBeenApproved')});
 
@@ -264,8 +264,8 @@ api.getGroupApprovals = {
 
     let approvals = await Tasks.Task.find({
       'group.id': groupId,
-      approved: false,
-      approvalRequested: true,
+      'group.approved': false,
+      'group.approvalRequested': true,
     }).exec();
 
     res.respond(200, approvals);

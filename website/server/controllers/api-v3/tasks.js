@@ -316,13 +316,13 @@ api.scoreTask = {
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
-    if (task.requiresApproval && !task.approved) {
-      if (task.approvalRequested) {
+    if (task.group.requiresApproval && !task.group.approved) {
+      if (task.group.approvalRequested) {
         throw new NotAuthorized(res.t('taskRequiresApproval'));
       }
 
-      task.approvalRequested = true;
-      task.approvalRequestedDate = new Date();
+      task.group.approvalRequested = true;
+      task.group.approvalRequestedDate = new Date();
 
       let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       let groupLeader = await User.findById(group.leader); // Use this method so we can get access to notifications
