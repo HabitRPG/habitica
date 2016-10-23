@@ -16,7 +16,9 @@ angular.module('habitrpg')
         var cookies = document.cookie.split(';');
         for (var i = 0; i < cookies.length; i++) {
           var cookieName = cookies[i].match(/([^=]+)(?=\=)/);
-          document.cookie = cookieName + '= ; expires=Thu Jan 1 00:00:00 1970 GMT; path=/';
+          if(cookieName != null){
+            document.cookie = cookieName[0] + '= ; expires=Thu Jan 1 00:00:00 1970 GMT; path=/';
+          }
         }
 
         $window.location.href = '/logout';
