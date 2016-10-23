@@ -112,6 +112,41 @@ describe('Groups Controller', function() {
     });
   });
 
+  describe('isAbleToEditGroup', () => {
+    var guild;
+
+    beforeEach(() => {
+      user.contributor = {};
+      guild = specHelper.newGroup({
+        _id: 'unique-guild-id',
+        type: 'guild',
+        members: ['not-user-id'],
+        $save: sandbox.spy(),
+      });
+    });
+
+    it('returns true if user is an admin', () => {
+      guild.leader = 'not-user-id';
+      user.contributor.admin = true;
+      expect(scope.isAbleToEditGroup(guild)).to.be.ok;
+    });
+
+    it('returns true if user is group leader', () => {
+      guild.leader = {_id: user._id}
+      expect(scope.isAbleToEditGroup(guild)).to.be.ok;
+    });
+
+    it('returns false is user is not a leader or admin', () => {
+      expect(scope.isAbleToEditGroup(guild)).to.not.be.ok;
+    });
+
+    it('returns false is user is an admin but group is a party', () => {
+      guild.type = 'party';
+      user.contributor.admin = true;
+      expect(scope.isAbleToEditGroup(guild)).to.not.be.ok;
+    });
+  });
+
   describe('editGroup', () => {
     var guild;
 
