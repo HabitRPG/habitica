@@ -21,11 +21,12 @@ export let schema = new mongoose.Schema({
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
+  _id: false,
 });
 
 schema.plugin(baseModel, {
   noSet: ['_id'],
-  timestamps: true,
+  timestamps: false,
 });
 
 export let model = mongoose.model('SubscriptionPlan', schema);
