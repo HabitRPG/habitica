@@ -614,25 +614,41 @@ describe('Group Model', () => {
     });
 
     describe('#checkChatSpam', () => {
-      let testMessage, testUser, testTime;
+      let testMessage, testUser, testTime, tavern;
       let testUserID = '1';
       beforeEach(async () => {
-        party._id = TAVERN_ID;
         testTime = Date.now();
-        testMessage = {
-          text: 'test message',
-          uuid: testUserID,
-          timestamp: testTime,
-        };
+
+        tavern = new Group({
+          name: 'test tavern',
+          type: 'guild',
+          privacy: 'public',
+        });
+        tavern._id = TAVERN_ID;
+
         testUser = {
           _id: testUserID,
         };
       });
 
-      it('group that is not the tavern returns false', async () => {
-        party._id = '2';
+      function generateTestMessage (overrides = {}) {
+        return Object.assign({}, {
+            text: 'test message',
+            uuid: testUserID,
+            timestamp: testTime,
+        }, overrides);
+      }
 
+      it('group that is not the tavern returns false, while tavern returns true', async () => {
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
+          party.chat.push(generateTestMessage());
+        }
         expect(party.checkChatSpam(testUser)).to.eql(false);
+
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
+          tavern.chat.push(generateTestMessage());
+        }
+        expect(tavern.checkChatSpam(testUser)).to.eql(true);
       });
 
       it('high enough contributor returns false', async () => {
@@ -642,58 +658,51 @@ describe('Group Model', () => {
         };
 
         for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
-          party.chat.push(testMessage);
+          tavern.chat.push(generateTestMessage());
         }
 
-        expect(party.checkChatSpam(highContributor)).to.eql(false);
+        expect(tavern.checkChatSpam(highContributor)).to.eql(false);
       });
 
       it('chat with no messages returns false', async () => {
-        expect(party.chat.length).to.eql(0);
-        expect(party.checkChatSpam(testUser)).to.eql(false);
+        expect(tavern.chat.length).to.eql(0);
+        expect(tavern.checkChatSpam(testUser)).to.eql(false);
       });
 
       it('user has not reached limit but another one has returns false', async () => {
         let otherUserID = '2';
-        let otherUserMessage = testMessage;
-        otherUserMessage.uuid = otherUserID;
 
         for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
-          party.chat.push(otherUserMessage);
+          tavern.chat.push(generateTestMessage({uuid: otherUserID}));
         }
 
-        expect(party.checkChatSpam(testUser)).to.eql(false);
+        expect(tavern.checkChatSpam(testUser)).to.eql(false);
       });
 
       it('user messages is less than the limit returns false', async () => {
         for (let i = 0; i < SPAM_MESSAGE_LIMIT - 1; i++) {
-          party.chat.push(testMessage);
+          tavern.chat.push(generateTestMessage());
         }
 
-        expect(party.checkChatSpam(testUser)).to.eql(false);
+        expect(tavern.checkChatSpam(testUser)).to.eql(false);
       });
 
       it('user has reached the message limit outside of window returns false', async () => {
         for (let i = 0; i < SPAM_MESSAGE_LIMIT - 1; i++) {
-          party.chat.push(testMessage);
+          tavern.chat.push(generateTestMessage());
         }
+        let earlierTimestamp = testTime - SPAM_WINDOW_LENGTH - 1;
+        tavern.chat.push(generateTestMessage({timestamp: earlierTimestamp}));
 
-        let oldMessage = {
-          text: 'test message',
-          uuid: testUserID,
-          timestamp: testTime - SPAM_WINDOW_LENGTH - 1,
-        };
-        party.chat.push(oldMessage);
-
-        expect(party.checkChatSpam(testUser)).to.eql(false);
+        expect(tavern.checkChatSpam(testUser)).to.eql(false);
       });
 
       it('user has posted too many messages in limit returns true', async () => {
         for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
-          party.chat.push(testMessage);
+          tavern.chat.push(generateTestMessage());
         }
 
-        expect(party.checkChatSpam(testUser)).to.eql(true);
+        expect(tavern.checkChatSpam(testUser)).to.eql(true);
       });
     });
 
