@@ -198,7 +198,7 @@ api.updateGroup = {
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
-    let optionalMembership = Boolean(user.contributor.admin)
+    let optionalMembership = Boolean(user.contributor.admin);
     let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
