@@ -29,7 +29,7 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
   let drop;
   let message;
 
-  let armoireResult = Math.random();
+  let armoireResult = randomVal.trueRandom();
   let eligibleEquipment = _.filter(content.gear.flat, (eligible) => {
     return eligible.klass === 'armoire' && !user.items.gear.owned[eligible.key];
   });
@@ -79,7 +79,7 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
       dropText: drop.text(req.language),
     };
   } else {
-    let armoireExp = Math.floor(Math.random() * 40 + 10);
+    let armoireExp = Math.floor(randomVal.trueRandom() * 40 + 10);
     user.stats.exp += armoireExp;
     message = i18n.t('armoireExp', req.language);
     armoireResp = {
