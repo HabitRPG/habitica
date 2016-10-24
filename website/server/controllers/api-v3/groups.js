@@ -198,7 +198,7 @@ api.updateGroup = {
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
-    let optionalMembership = user.contributor.admin ? true : false;
+    let optionalMembership = Boolean(user.contributor.admin)
     let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
@@ -480,7 +480,7 @@ api.removeGroupMember = {
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
-    let optionalMembership = user.contributor.admin;
+    let optionalMembership = Boolean(user.contributor.admin);
     let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership, fields: '-chat'}); // Do not fetch chat
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
