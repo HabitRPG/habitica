@@ -32,6 +32,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       return ~(memberIds.indexOf(userid));
     };
 
+    $scope.isAbleToEditGroup = function (group) {
+      if (group.leader._id === User.user._id) return true;
+      if (User.user.contributor.admin && group.type === "guild") return true;
+      return false;
+    };
+
     $scope.isMember = function (user, group) {
       return ~(group.members.indexOf(user._id));
     };
