@@ -6,6 +6,11 @@ let api = {};
  * @apiGroup Status
  *
  * @apiSuccess {String} data.status 'up' if everything is ok
+ *
+ * @apiSuccessExample {JSON}
+ * {
+ *   'status': 'up',
+ * }
  */
 api.getStatus = {
   method: 'GET',
