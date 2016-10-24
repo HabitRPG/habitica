@@ -13,11 +13,12 @@ angular.module('habitrpg')
         localStorage.clear();
 
         // Adapted from http://www.quirksmode.org/js/cookies.html
+        // Removes all cookies that do not have the HttpOnly flag set
         var cookies = document.cookie.split(';');
         for (var i = 0; i < cookies.length; i++) {
-          var cookieName = cookies[i].match(/([^=]+)(?=\=)/);
-          if(cookieName != null){
-            document.cookie = cookieName[0] + '= ; expires=Thu Jan 1 00:00:00 1970 GMT; path=/';
+          var cookieNameArray = cookies[i].match(/([^=]+)(?=\=)/);
+          if(cookieNameArray != null){
+            document.cookie = cookieNameArray[0] + '= ; expires=Thu Jan 1 00:00:00 1970 GMT; path=/';
           }
         }
 
