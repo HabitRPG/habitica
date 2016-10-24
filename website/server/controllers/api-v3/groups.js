@@ -480,8 +480,7 @@ api.removeGroupMember = {
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
-
-    let optionalMembership = user.contributor.admin ? true : false;
+    let optionalMembership = user.contributor.admin;
     let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership, fields: '-chat'}); // Do not fetch chat
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
@@ -649,7 +648,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
       {'auth.local.email': invite.email},
       {'auth.facebook.emails.value': invite.email},
       {'auth.google.emails.value': invite.email},
-    ]})
+  ]})
     .select({_id: true, 'preferences.emailNotifications': true})
     .exec();
 
