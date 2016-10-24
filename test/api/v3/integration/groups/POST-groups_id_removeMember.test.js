@@ -104,8 +104,8 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
           code: 401,
           text: t('cannotRemoveCurrentLeader'),
         });
-      });
     });
+  });
 
   context('Party', () => {
     let party;
