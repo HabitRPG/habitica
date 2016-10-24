@@ -7,7 +7,7 @@ let api = {};
  *
  * @apiSuccess {String} data.status 'up' if everything is ok
  *
- * @apiSuccessExample {JSON}
+ * @apiSuccessExample {JSON} Server is Up
  * {
  *   'status': 'up',
  * }
