@@ -94,6 +94,7 @@ function _gainMP (user, val) {
 // ===== CONSTITUTION =====
 // TODO Decreases HP loss from bad habits / missed dailies by 0.5% per point.
 function _subtractPoints (user, task, stats, delta) {
+  if (task.type === 'daily' && !user.flags.dailyDamageEnabled) return stats.hp;
   let conBonus = 1 - user._statsComputed.con / 250;
   if (conBonus < 0.1) conBonus = 0.1;
 

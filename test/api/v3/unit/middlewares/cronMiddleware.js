@@ -39,6 +39,7 @@ describe('cron middleware', () => {
         mp: 10,
         maxMP: 100,
       };
+      savedUser.flags.dailyDamageEnabled = true;
 
       res.locals.user = savedUser;
       res.analytics = analyticsService;

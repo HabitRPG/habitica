@@ -39,6 +39,7 @@ describe('shared.fns.ultimateGear', () => {
   });
 
   it('does not set armoirEnabled when gear is not owned', () => {
+    user.flags.armoireEnabled = false;
     let items = {
       gear: {
         owned: {

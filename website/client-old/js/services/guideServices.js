@@ -34,7 +34,7 @@ function($rootScope, User, $timeout, $state, Analytics) {
         {
           state: 'tasks',
           element: ".task-column.dailys",
-          content: window.env.t('tourDailiesBrief'),
+          content: User.user._ABtest === '20161024-delayDailyDamage' ? window.env.t('tourDailiesDelayed') : window.env.t('tourDailiesBrief'),
           placement: "top",
           proceed: window.env.t('tourDailiesProceed'),
           gold: 4,
