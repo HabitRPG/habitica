@@ -60,7 +60,7 @@ describe('POST /tasks/:id/approve/:userId', () => {
     await member.sync();
 
     expect(member.notifications.length).to.equal(1);
-    expect(member.notifications[0].type).to.equal('GROUP');
+    expect(member.notifications[0].type).to.equal('GROUP_TASK_APPROVAL');
     expect(member.notifications[0].data.message).to.equal(t('yourTaskHasBeenApproved'));
 
     expect(syncedTask.group.approved).to.be.true;

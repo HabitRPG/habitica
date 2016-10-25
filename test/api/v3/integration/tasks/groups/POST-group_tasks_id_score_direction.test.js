@@ -43,7 +43,7 @@ describe('POST /tasks/:id/score/:direction', () => {
     await user.sync();
 
     expect(user.notifications.length).to.equal(1);
-    expect(user.notifications[0].type).to.equal('GROUP');
+    expect(user.notifications[0].type).to.equal('GROUP_TASK_APPROVAL');
     expect(user.notifications[0].data.message).to.equal(t('userHasRequestedTaskApproval', {
       user: member.auth.local.username,
       taskName: updatedTask.text,

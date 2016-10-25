@@ -47,8 +47,7 @@ describe('GET /approvals/group/:groupId', () => {
   });
 
   it('gets a list of task that need approval', async () => {
-    let apporovals = await user.get(`/approvals/group/${guild._id}`);
-
-    expect(apporovals[0]._id).to.equal(syncedTask._id);
+    let approvals = await user.get(`/approvals/group/${guild._id}`);
+    expect(approvals[0]._id).to.equal(syncedTask._id);
   });
 });
