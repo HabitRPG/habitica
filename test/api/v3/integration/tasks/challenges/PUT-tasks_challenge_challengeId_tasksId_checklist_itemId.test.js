@@ -8,11 +8,13 @@ import { v4 as generateUUID } from 'uuid';
 
 describe('PUT /tasks/:taskId/checklist/:itemId', () => {
   let user;
+  let moderator;
   let guild;
   let challenge;
 
   before(async () => {
     user = await generateUser();
+    moderator = await generateUser({ 'contributor.admin': true });
     guild = await generateGroup(user);
     challenge = await generateChallenge(user, guild);
   });
@@ -82,6 +84,29 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
     expect(savedTask.checklist[0].completed).to.equal(true);
     expect(savedTask.checklist[0].id).to.not.equal('123');
   });
+  // TODO
+  it('moderator updates a checklist item on dailies', async () => {
+    let task = await user.post(`/tasks/challenge/${challenge._id}`, {
+      type: 'daily',
+      text: 'Daily with checklist',
+    });
+
+    let savedTask = await user.post(`/tasks/${task._id}/checklist`, {
+      text: 'Checklist Item 1',
+      completed: false,
+    });
+
+    savedTask = await moderator.put(`/tasks/${task._id}/checklist/${savedTask.checklist[0].id}`, {
+      text: 'updated',
+      completed: true,
+      _id: 123, // ignored
+    });
+
+    expect(savedTask.checklist.length).to.equal(1);
+    expect(savedTask.checklist[0].text).to.equal('updated');
+    expect(savedTask.checklist[0].completed).to.equal(true);
+    expect(savedTask.checklist[0].id).to.not.equal('123');
+  });
 
   it('updates a checklist item on todos', async () => {
     let task = await user.post(`/tasks/challenge/${challenge._id}`, {
@@ -95,6 +120,29 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
     });
 
     savedTask = await user.put(`/tasks/${task._id}/checklist/${savedTask.checklist[0].id}`, {
+      text: 'updated',
+      completed: true,
+      _id: 123, // ignored
+    });
+
+    expect(savedTask.checklist.length).to.equal(1);
+    expect(savedTask.checklist[0].text).to.equal('updated');
+    expect(savedTask.checklist[0].completed).to.equal(true);
+    expect(savedTask.checklist[0].id).to.not.equal('123');
+  });
+
+  it('moderator updates a checklist item on todos', async () => {
+    let task = await user.post(`/tasks/challenge/${challenge._id}`, {
+      type: 'todo',
+      text: 'Todo with checklist',
+    });
+
+    let savedTask = await user.post(`/tasks/${task._id}/checklist`, {
+      text: 'Checklist Item 1',
+      completed: false,
+    });
+
+    savedTask = await moderator.put(`/tasks/${task._id}/checklist/${savedTask.checklist[0].id}`, {
       text: 'updated',
       completed: true,
       _id: 123, // ignored
