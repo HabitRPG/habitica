@@ -476,6 +476,20 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
   return newMessage;
 };
 
+schema.methods.checkForSlur = function checkForSlur (message, user) {
+  // Get list of slurs. What format should this be read in? List?
+  slurList = ["kicking puppies",  "mean things"];
+
+  // Replace all punctuation with spaces to make for an easier search
+  noPunctMessage = message.text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g," ");
+  
+  // Check for any slurs in the message
+  for (i=0; i<slurList.length(); i++){
+    tmp = message.text.search(" " + slurList[i] + " "); // Don't match partial words
+    if (tmp > -1) user.muteUser(message);
+  }
+};
+
 schema.methods.startQuest = async function startQuest (user) {
   // not using i18n strings because these errors are meant for devs who forgot to pass some parameters
   if (this.type !== 'party') throw new InternalServerError('Must be a party to use this method');
