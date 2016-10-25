@@ -17,6 +17,10 @@ import stripePayments from '../../libs/stripePayments';
 import paypalPayments from '../../libs/paypalPayments';
 import schema from './schema';
 
+const SLUR_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
+  return { email, canSend: true };
+});
+
 schema.methods.isSubscribed = function isSubscribed () {
   let now = new Date();
   let plan = this.purchased.plan;
@@ -109,6 +113,7 @@ schema.methods.addComputedStatsToJSONObj = function addComputedStatsToUserJSONOb
   return statsObject;
 };
 
+
 // @TODO: There is currently a three way relation between the user, payment methods and the payment helper
 // This creates some odd Dependency Injection issues. To counter that, we use the user as the third layer
 // To negotiate between the payment providers and the payment helper (which probably has too many responsiblities)
@@ -130,12 +135,42 @@ schema.methods.cancelSubscription = async function cancelSubscription () {
 // Mute a user and notify the moderators
 schema.methods.muteUser = async function muteUser (message, groupId) {
 
-// Mute the user
-schema.methods.muteUser = async function muteUser () {
 
-  let user = this;
+// Mute a user and notify the moderators
+schema.methods.muteUser = async function muteUser (message) {
+  let user = message.user;
+  let groupId = message.groupID; // Does message have group ID?
+    
+  user.chatRevoked = true;
 
-  user.flags.chatRevoked = true;
-  await user.save();
+  let group = await Group.getGroup({
+    user,
+    groupId,
+    optionalMembership: user.contributor.admin,
+  });
+
+  let authorEmail = getUserInfo(user, ['email']).email;
+  let groupUrl = getGroupUrl(group);
+    
+  sendTxn(SLUR_REPORT_EMAILS, 'slur-report-to-mods', [
+      {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
+      {name: 'MESSAGE_TEXT', content: message.text},
+
+      {name: 'AUTHOR_USERNAME', content: message.user},
+      {name: 'AUTHOR_UUID', content: message.uuid},
+      {name: 'AUTHOR_EMAIL', content: authorEmail},
+      {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
+
+      {name: 'GROUP_NAME', content: group.name},
+      {name: 'GROUP_TYPE', content: group.type},
+      {name: 'GROUP_ID', content: group._id},
+      {name: 'GROUP_URL', content: groupUrl},
+    ]);
+
+    slack.sendSlurNotification({
+      authorEmail,
+      group,
+      message,
+    });
+    
 };
-
