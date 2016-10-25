@@ -235,7 +235,7 @@ api.subscribeCancel = {
     let user = res.locals.user;
     let groupId = req.query.groupId;
 
-    let customerId = user.purchased.plan.customerId;
+    let customerId;
     if (groupId) {
       let groupFields = basicGroupFields.concat(' purchased');
       let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
@@ -248,9 +248,11 @@ api.subscribeCancel = {
         throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
       }
       customerId = group.purchased.plan.customerId;
+    } else {
+      customerId = user.purchased.plan.customerId;
     }
 
-    if (!user.purchased.plan.customerId) throw new NotAuthorized(res.t('missingSubscription'));
+    if (!customerId) throw new NotAuthorized(res.t('missingSubscription'));
 
     let customer = await paypalBillingAgreementGet(customerId);
 

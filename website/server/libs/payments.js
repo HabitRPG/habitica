@@ -40,10 +40,10 @@ function _dateDiff (earlyDate, lateDate) {
 
 api.createSubscription = async function createSubscription (data) {
   let recipient = data.gift ? data.gift.member : data.user;
-  let plan = recipient.purchased.plan;
   let block = shared.content.subscriptionBlocks[data.gift ? data.gift.subscription.key : data.sub.key];
   let months = Number(block.months);
   let today = new Date();
+  let plan;
   let group;
 
   //  If we are buying a group subscription
@@ -59,8 +59,9 @@ api.createSubscription = async function createSubscription (data) {
       throw new NotAuthorized(shared.i18n.t('onlyGroupLeaderCanManageSubscription'));
     }
     recipient = group;
-    plan = recipient.purchased.plan;
   }
+
+  plan = recipient.purchased.plan;
 
   if (data.gift) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
@@ -164,7 +165,7 @@ api.createSubscription = async function createSubscription (data) {
 
 // Sets their subscription to be cancelled later
 api.cancelSubscription = async function cancelSubscription (data) {
-  let plan = data.user.purchased.plan;
+  let plan;
   let group;
 
   //  If we are buying a group subscription
@@ -180,6 +181,8 @@ api.cancelSubscription = async function cancelSubscription (data) {
       throw new NotAuthorized(shared.i18n.t('onlyGroupLeaderCanManageSubscription'));
     }
     plan = group.purchased.plan;
+  } else {
+    plan = data.user.purchased.plan;
   }
 
   let now = moment();

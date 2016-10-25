@@ -94,7 +94,6 @@ export let schema = new Schema({
     rewards: [{type: String, ref: 'Task'}],
   },
   purchased: {
-    active: {type: Boolean, default: false},
     plan: {type: SubscriptionPlanSchema, default: () => {
       return {};
     }},

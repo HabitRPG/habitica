@@ -241,9 +241,9 @@ api.subscribeCancel = {
     let user = res.locals.user;
     let groupId = req.query.groupId;
 
-    let billingAgreementId = user.purchased.plan.customerId;
-    let planId = user.purchased.plan.planId;
-    let lastBillingDate = user.purchased.plan.lastBillingDate;
+    let billingAgreementId;
+    let planId;
+    let lastBillingDate;
 
     if (groupId) {
       let groupFields = basicGroupFields.concat(' purchased');
@@ -260,8 +260,11 @@ api.subscribeCancel = {
       billingAgreementId = group.purchased.plan.customerId;
       planId = group.purchased.plan.planId;
       lastBillingDate = group.purchased.plan.lastBillingDate;
+    } else {
+      billingAgreementId = user.purchased.plan.customerId;
+      planId = user.purchased.plan.planId;
+      lastBillingDate = user.purchased.plan.lastBillingDate;
     }
-
 
     if (!billingAgreementId) throw new NotAuthorized(res.t('missingSubscription'));
 

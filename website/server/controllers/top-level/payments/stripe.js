@@ -133,7 +133,7 @@ api.subscribeEdit = {
     let token = req.body.id;
     let groupId = req.body.groupId;
     let user = res.locals.user;
-    let customerId = user.purchased.plan.customerId;
+    let customerId;
 
     //  If we are buying a group subscription
     if (groupId) {
@@ -148,6 +148,8 @@ api.subscribeEdit = {
         throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
       }
       customerId = group.purchased.plan.customerId;
+    } else {
+      customerId = user.purchased.plan.customerId;
     }
 
     if (!customerId) throw new NotAuthorized(res.t('missingSubscription'));
@@ -174,7 +176,7 @@ api.subscribeCancel = {
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.query.groupId;
-    let customerId = user.purchased.plan.customerId;
+    let customerId;
 
     if (groupId) {
       let groupFields = basicGroupFields.concat(' purchased');
@@ -188,6 +190,8 @@ api.subscribeCancel = {
         throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
       }
       customerId = group.purchased.plan.customerId;
+    } else {
+      customerId = user.purchased.plan.customerId;
     }
 
     if (!customerId) throw new NotAuthorized(res.t('missingSubscription'));
