@@ -430,6 +430,9 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
     newMessage._meta = metaData;
   }
 
+  // Check for slurs before posting
+  this.checkForSlur(message, user)
+    
   this.chat.unshift(newMessage);
 
   const MAX_CHAT_COUNT = 200;
@@ -471,6 +474,20 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
   }
 
   return newMessage;
+};
+
+schema.methods.checkForSlur = function checkForSlur (message, user) {
+  // Get list of slurs. What format should this be read in? List?
+  slurList = ["kicking puppies",  "mean things"];
+
+  // Replace all punctuation with spaces to make for an easier search
+  noPunctMessage = message.text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g," ");
+  
+  // Check for any slurs in the message
+  for (i=0; i<slurList.length(); i++){
+    tmp = message.text.search(" " + slurList[i] + " "); // Don't match partial words
+    if (tmp > -1) user.muteUser(message);
+  }
 };
 
 schema.methods.startQuest = async function startQuest (user) {
