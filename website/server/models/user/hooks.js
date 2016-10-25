@@ -10,7 +10,7 @@ import schema from './schema';
 schema.plugin(baseModel, {
   // noSet is not used as updating uses a whitelist and creating only accepts specific params (password, email, username, ...)
   noSet: [],
-  private: ['auth.local.hashed_password', 'auth.local.salt', '_cronSignature', '_ABtest'],
+  private: ['auth.local.hashed_password', 'auth.local.salt', '_cronSignature'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
     delete plainObj.filters;
@@ -77,8 +77,9 @@ function _setUpNewUser (user) {
   let taskTypes;
   let iterableFlags = user.flags.toObject();
 
-  // A/B Test 2016-09-26: Start with Armoire Enabled?
+  // A/B Test 2016-10-24: Delay damage from Dailies until Level 4?
   if (Math.random() < 0.5) {
+    user.flags.dailyDamageEnabled = false;
     user._ABtest = '20161024-delayDailyDamage';
   } else {
     user._ABtest = '20161024-immediateDailyDamage';

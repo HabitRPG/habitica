@@ -4,7 +4,7 @@
     "titleIndex": "Habitica | Your Life The Role Playing Game",
     "habitica": "Habitica",
     "habiticaLink": "<a href='http://habitica.wikia.com/wiki/Habitica' target='_blank'>Habitica</a>",
-    
+
     "titleTasks": "Tasks",
     "titleAvatar": "Avatar",
     "titleBackgrounds": "Backgrounds",
@@ -190,5 +190,9 @@
     "you": "(you)",
     "enableDesktopNotifications": "Enable Desktop Notifications",
     "online": "online",
-    "onlineCount": "<%= count %> online"
+    "onlineCount": "<%= count %> online",
+    "dailyDamageEnabled": "Unfinished Dailies Now Do Damage",
+    "dailyDamageExplanation1": "From here onward, if you don't complete an active Daily before the next day begins, you will lose Health!",
+    "dailyDamageExplanation2": "Stay safe by getting all your Daily tasks done on time.",
+    "dailyDamageExplanation3": "If it's not possible to complete your Dailies, consider deactivating them using <a href='http://habitica.wikia.com/wiki/Dailies#Preventing_Undue_Damage' target='_blank'>one of the methods described here</a>!"
 }

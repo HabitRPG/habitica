@@ -1,0 +1,13 @@
+script(type='text/ng-template', id='modals/dailyDamageEnabled.html')
+  .modal-header
+    h4=env.t('dailyDamageEnabled')
+  .modal-body
+    p
+      figure
+        .npc_justin
+      ul
+        li!=env.t('dailyDamageExplanation1')
+        li!=env.t('dailyDamageExplanation2')
+        li!=env.t('dailyDamageExplanation3')
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('ok')

@@ -34,6 +34,7 @@ describe('cron', () => {
       },
     });
 
+    user.flags.dailyDamageEnabled = true;
     user._statsComputed = {
       mp: 10,
     };

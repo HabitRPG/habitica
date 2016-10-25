@@ -67,6 +67,10 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
       user.items.eggs.Wolf = 1;
     }
   }
+  if (!user.flags.dailyDamageEnabled && user.stats.lvl >= 4) {
+    user.flags.dailyDamageEnabled = true;
+    user.addNotification('DAILY_DAMAGE_ENABLED');
+  }
   _.each({
     vice1: 30,
     atom1: 15,

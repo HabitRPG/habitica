@@ -123,6 +123,9 @@ habitrpg.controller('NotificationCtrl',
               if (notification.data.mp) Notification.mp(notification.data.mp);
             }
             break;
+          case 'DAILY_DAMAGE_ENABLED':
+            $rootScope.openModal('dailyDamageEnabled');
+            break;
           default:
             markAsRead = false; // If the notification is not implemented, skip it
             break;
