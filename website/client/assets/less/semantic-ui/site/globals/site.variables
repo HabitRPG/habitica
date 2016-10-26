@@ -1,2 +1,5 @@
 // Disable google fonts
-@importGoogleFonts: false;
+// @importGoogleFonts: false;
+
+@fontName           : 'Roboto';
+@googleFontName     : @fontName;
