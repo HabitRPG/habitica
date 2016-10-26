@@ -614,7 +614,7 @@ describe('Group Model', () => {
     });
 
     describe('#checkChatSpam', () => {
-      let testMessage, testUser, testTime, tavern;
+      let testUser, testTime, tavern;
       let testUserID = '1';
       beforeEach(async () => {
         testTime = Date.now();
@@ -633,9 +633,9 @@ describe('Group Model', () => {
 
       function generateTestMessage (overrides = {}) {
         return Object.assign({}, {
-            text: 'test message',
-            uuid: testUserID,
-            timestamp: testTime,
+          text: 'test message',
+          uuid: testUserID,
+          timestamp: testTime,
         }, overrides);
       }
 
