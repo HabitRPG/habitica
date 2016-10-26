@@ -57,7 +57,7 @@ export async function createTasks (req, res, options = {}) {
     } else if (group) {
       newTask.group.id = group._id;
       if (taskData.requiresApproval) {
-        newTask.group.requiresApproval = true;
+        newTask.group.approval.required = true;
       }
     } else {
       newTask.userId = user._id;

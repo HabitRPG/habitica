@@ -938,7 +938,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
     if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
   }
 
-  matchingTask.group.requiresApproval = taskToSync.group.requiresApproval;
+  matchingTask.group.approval.required = taskToSync.group.approval.required;
 
   if (!matchingTask.notes) matchingTask.notes = taskToSync.notes; // don't override the notes, but provide it if not provided
   if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id); // add tag if missing

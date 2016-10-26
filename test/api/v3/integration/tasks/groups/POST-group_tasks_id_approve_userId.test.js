@@ -63,8 +63,8 @@ describe('POST /tasks/:id/approve/:userId', () => {
     expect(member.notifications[0].type).to.equal('GROUP_TASK_APPROVAL');
     expect(member.notifications[0].data.message).to.equal(t('yourTaskHasBeenApproved'));
 
-    expect(syncedTask.group.approved).to.be.true;
-    expect(syncedTask.group.approvingUser).to.equal(user._id);
-    expect(syncedTask.group.approvedDate).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
+    expect(syncedTask.group.approval.approved).to.be.true;
+    expect(syncedTask.group.approval.approvingUser).to.equal(user._id);
+    expect(syncedTask.group.approval.dateApproved).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
   });
 });

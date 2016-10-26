@@ -69,12 +69,14 @@ export let TaskSchema = new Schema({
     broken: {type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED']},
     assignedUsers: [{type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']}],
     taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']},
-    requiresApproval: {type: Boolean, default: false},
-    approved: {type: Boolean, default: false},
-    approvedDate: {type: Date},
-    approvingUser: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']},
-    approvalRequested: {type: Boolean, default: false},
-    approvalRequestedDate: {type: Date},
+    approval: {
+      required: {type: Boolean, default: false},
+      approved: {type: Boolean, default: false},
+      dateApproved: {type: Date},
+      approvingUser: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']},
+      requested: {type: Boolean, default: false},
+      requestedDate: {type: Date},
+    },
   },
 
   reminders: [{
