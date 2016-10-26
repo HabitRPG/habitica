@@ -11,6 +11,17 @@ angular.module('habitrpg')
 
       $scope.logout = function() {
         localStorage.clear();
+
+        // Adapted from http://www.quirksmode.org/js/cookies.html
+        // Removes all cookies that do not have the HttpOnly flag set
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookieNameArray = cookies[i].match(/([^=]+)(?=\=)/);
+          if(cookieNameArray != null){
+            document.cookie = cookieNameArray[0] + '= ; expires=Thu Jan 1 00:00:00 1970 GMT; path=/';
+          }
+        }
+
         $window.location.href = '/logout';
       };
 

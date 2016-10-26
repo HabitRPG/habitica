@@ -232,7 +232,7 @@ let schema = new Schema({
     communityGuidelinesAccepted: {type: Boolean, default: false},
     cronCount: {type: Number, default: 0},
     welcomed: {type: Boolean, default: false},
-    armoireEnabled: {type: Boolean, default: false},
+    armoireEnabled: {type: Boolean, default: true},
     armoireOpened: {type: Boolean, default: false},
     armoireEmpty: {type: Boolean, default: false},
     cardReceived: {type: Boolean, default: false},
