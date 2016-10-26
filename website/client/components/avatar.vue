@@ -52,7 +52,6 @@
 .avatar {
   max-width: 140px;
   max-height: 147px;
-  border: 1px solid;
 }
 
 .character-sprites {

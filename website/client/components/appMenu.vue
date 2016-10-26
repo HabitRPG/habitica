@@ -24,19 +24,42 @@
       router-link.item(to="/") Faq
       router-link.item(to="/") Report a bug
       router-link.item(to="/") Request a feature
-  .ui.simple.dropdown
-    router-link.item(to="/user/avatar") User
-    .menu
-      router-link.item(to="/user/avatar") Avatar
-      router-link.item(to="/user/stats") Stats
-      router-link.item(to="/user/achievements") Achievements
-      .divider
-      router-link.item(to="/user/settings") Settings
-      .divider
-      router-link.item(to="/") Logout
+  .right.menu
+    .item
+      i.icon.diamond
+      | {{userGems}}
+    .item
+      i.icon.money
+      | {{Math.floor(user.stats.gp * 100) / 100}}
+    a.item
+      i.icon.alarm
+    .ui.simple.dropdown
+      router-link.item(to="/user/avatar")
+        i.icon.user
+      .menu
+        router-link.item(to="/user/avatar") Avatar
+        router-link.item(to="/user/stats") Stats
+        router-link.item(to="/user/achievements") Achievements
+        .divider
+        router-link.item(to="/user/settings") Settings
+        .divider
+        router-link.item(to="/") Logout
 </template>
 
+<style>
+.ui.menu .right.menu .ui.simple.dropdown > .item::before {
+    right: auto;
+    left: 0;
+}
+</style>
+
 <script>
+import { mapState, mapGetters } from '../store';
+
 export default {
+  computed: {
+    ...mapGetters(['userGems']),
+    ...mapState(['user']),
+  },
 };
 </script>

@@ -1,7 +1,6 @@
 <template lang="pug">
 .row
   .sixteen.wide.column
-      p Welcome back {{profileName}}!
       p You have {{tasksCount}} tasks!
   .four.wide.column(v-for="taskType in tasksTypes")
     h3 {{taskType}}s ()
@@ -11,7 +10,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from '../store';
+import { mapState } from '../store';
 
 export default {
   data () {
@@ -24,7 +23,6 @@ export default {
     ...mapState({
       tasksCount: (state) => state.tasks.length,
     }),
-    ...mapGetters(['profileName']),
   },
 };
 </script>
