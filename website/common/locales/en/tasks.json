@@ -134,5 +134,12 @@
     "strengthExample": "Relating to exercise and activity",
     "intelligenceExample": "Relating to academic or mentally challenging pursuits",
     "perceptionExample": "Relating to work or financial tasks",
-    "constitutionExample": "Relating to health, wellness, and social interaction"
+    "constitutionExample": "Relating to health, wellness, and social interaction",
+    "counterPeriod": "Counter Resets Every",
+    "counterPeriodDay": "Day",
+    "counterPeriodWeek": "Week",
+    "counterPeriodMonth": "Month",
+    "habitCounter": "Counter",
+    "habitCounterUp": "Positive Counter",
+    "habitCounterDown": "Negative Counter"
 }
