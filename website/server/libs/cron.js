@@ -248,19 +248,37 @@ export function cron (options = {}) {
   let resetWeekly = false;
   let resetMonthly = false;
   for (let i = 0; i <= daysMissed; i++) {
-    if (resetWeekly == true && resetMonthly == true) { break; }
-    let thatDay = moment(now).subtract({days: i}).toDate();    
-    if (thatDay.getDay() == 1) { resetWeekly = true; }
-    if (thatDay.getDate() == 1) { resetMonthly = true; }
+    if (resetWeekly === true && resetMonthly === true) {
+      break;
+    }
+    let thatDay = moment(now).subtract({days: i}).toDate();
+    if (thatDay.getDay() === 1) {
+      resetWeekly = true;
+    }
+    if (thatDay.getDate() === 1) {
+      resetMonthly = true;
+    }
   }
 
-  tasksByType.habits.forEach((task) => { 
+  tasksByType.habits.forEach((task) => {
     // reset counters if appropriate
-    if (task.frequency == 'daily' || (task.frequency == 'weekly' && resetWeekly == true) || (task.frequency == 'monthly' && resetMonthly == true)) {
+
+    // this enormously clunky thing brought to you by lint
+    let reset = false;
+    if (task.frequency === 'daily') {
+      reset = true;
+    }
+    if (task.frequency === 'weekly' && resetWeekly === true) {
+      reset = true;
+    }
+    if (task.frequency === 'monthly' && resetMonthly === true) {
+      reset = true;
+    }
+    if (reset === true) {
       task.counterUp = 0;
-      task.counterDown = 0;      
-    } 
-    
+      task.counterDown = 0;
+    }
+
     // slowly reset 'onlies' value to 0
     // move singleton Habits towards yellow.
     if (task.up === false || task.down === false) {

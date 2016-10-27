@@ -171,7 +171,7 @@ function _changeTaskValue (user, task, direction, times, cron) {
 }
 
 // Doesn't yet handle multiple days missed
-function _updateCounter(task, direction, times) {
+function _updateCounter (task, direction, times) {
   if (direction === 'up') {
     task.counterUp += times;
   } else {
@@ -212,9 +212,12 @@ module.exports = function scoreTask (options = {}, req = {}) {
       date: Number(new Date()),
       value: task.value,
     });
-	
+
     _updateCounter(task, direction, times);
-		
+<<<<<<< upstream/develop
+
+=======
+>>>>>>> HEAD~4
   } else if (task.type === 'daily') {
     if (cron) {
       delta += _changeTaskValue(user, task, direction, times, cron);
