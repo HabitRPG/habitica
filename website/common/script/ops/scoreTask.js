@@ -170,7 +170,6 @@ function _changeTaskValue (user, task, direction, times, cron) {
   return addToDelta;
 }
 
-// Doesn't yet handle multiple days missed
 function _updateCounter (task, direction, times) {
   if (direction === 'up') {
     task.counterUp += times;
