@@ -103,7 +103,6 @@ function _subtractPoints (user, task, stats, delta) {
 }
 
 function _addPoints (user, task, stats, direction, delta) {
-  // Check for a critical hit from _changeTaskValue()
   let _crit = user._tmp.crit || 1;
 
   // Exp Modifier
