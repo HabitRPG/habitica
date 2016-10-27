@@ -387,8 +387,8 @@ api.transferGems = {
     let message = res.t('privateMessageGiftIntro', {
       receiverName: receiver.profile.name,
       senderName: sender.profile.name,
-    });
-    message += res.t('privateMessageGiftGemsMessage', {gemAmount});
+    }, receiver.preferences.language);
+    message += res.t('privateMessageGiftGemsMessage', {gemAmount}, receiver.preferences.language);
     message =  `\`${message}\` `;
 
     if (req.body.message) {
