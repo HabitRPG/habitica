@@ -237,8 +237,43 @@ export function cron (options = {}) {
     }
   });
 
-  // move singleton Habits towards yellow.
-  tasksByType.habits.forEach((task) => { // slowly reset 'onlies' value to 0
+  // check if we've passed a day on which we should reset the habit counters, including today
+  let resetWeekly = false;
+  let resetMonthly = false;
+  for (let i = 0; i <= daysMissed; i++) {
+    if (resetWeekly === true && resetMonthly === true) {
+      break;
+    }
+    let thatDay = moment(now).subtract({days: i}).toDate();
+    if (thatDay.getDay() === 1) {
+      resetWeekly = true;
+    }
+    if (thatDay.getDate() === 1) {
+      resetMonthly = true;
+    }
+  }
+
+  tasksByType.habits.forEach((task) => {
+    // reset counters if appropriate
+
+    // this enormously clunky thing brought to you by lint
+    let reset = false;
+    if (task.frequency === 'daily') {
+      reset = true;
+    }
+    if (task.frequency === 'weekly' && resetWeekly === true) {
+      reset = true;
+    }
+    if (task.frequency === 'monthly' && resetMonthly === true) {
+      reset = true;
+    }
+    if (reset === true) {
+      task.counterUp = 0;
+      task.counterDown = 0;
+    }
+
+    // slowly reset 'onlies' value to 0
+    // move singleton Habits towards yellow.
     if (task.up === false || task.down === false) {
       task.value = Math.abs(task.value) < 0.1 ? 0 : task.value = task.value / 2;
     }
