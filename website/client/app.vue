@@ -13,6 +13,7 @@ import AppMenu from './components/appMenu';
 import AppHeader from './components/appHeader';
 
 export default {
+  name: 'app',
   components: {
     AppMenu,
     AppHeader,

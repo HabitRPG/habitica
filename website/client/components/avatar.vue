@@ -67,6 +67,7 @@
 
 <script>
 export default {
+  name: 'avatar',
   props: {
     user: {
       type: Object,

@@ -21,7 +21,8 @@
 <style>
 #app-header {
   padding-bottom: 0;
-  border-bottom: 1px solid black;
+  padding-top: 31px;
+  background: #36205d;
 }
 
 #header-avatar {
@@ -51,6 +52,7 @@ import Avatar from './avatar';
 import { mapState } from '../store';
 
 export default {
+  name: 'header',
   components: {
     Avatar,
   },
