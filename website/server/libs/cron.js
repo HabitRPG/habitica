@@ -95,6 +95,9 @@ function removeTerminatedSubscription (user) {
 function performSleepTasks (user, tasksByType, now) {
   user.stats.buffs = _.cloneDeep(CLEAR_BUFFS);
 
+  user.loginIncentives++;
+  user.addNotification('LOGIN_INCENTIVE', {});
+
   tasksByType.dailys.forEach((daily) => {
     let completed = daily.completed;
     let thatDay = moment(now).subtract({days: 1});
@@ -341,6 +344,10 @@ export function cron (options = {}) {
     progressDown: _progress.down,
     headers: options.headers,
   });
+
+  // Login Incentives
+  user.loginIncentives++;
+  user.addNotification('LOGIN_INCENTIVE', {});
 
   return _progress;
 }
