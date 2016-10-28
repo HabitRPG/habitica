@@ -260,11 +260,9 @@ export function cron (options = {}) {
     let reset = false;
     if (task.frequency === 'daily') {
       reset = true;
-    }
-    if (task.frequency === 'weekly' && resetWeekly === true) {
+    } else if (task.frequency === 'weekly' && resetWeekly === true) {
       reset = true;
-    }
-    if (task.frequency === 'monthly' && resetMonthly === true) {
+    } else if (task.frequency === 'monthly' && resetMonthly === true) {
       reset = true;
     }
     if (reset === true) {
