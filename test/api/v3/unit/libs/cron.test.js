@@ -468,52 +468,59 @@ describe('cron', () => {
       expect(tasksByType.habits[0].value).to.equal(1);
     });
 
-    it('should reset a daily habit counter each day', () => {
-      tasksByType.habits[0].counterUp = 1;
-      tasksByType.habits[0].counterDown = 1;
+    describe('counters', () => {
+      let notStartOfWeekOrMonth = moment("2016-10-28").unix(); // a Friday
+      let fakeClock = sinon.useFakeTimers(notStartOfWeekOrMonth);
 
-      cron({user, tasksByType, daysMissed, analytics});
+      it('should reset a daily habit counter each day', () => {
+        tasksByType.habits[0].counterUp = 1;
+        tasksByType.habits[0].counterDown = 1;
 
-      expect(tasksByType.habits[0].counterUp).to.equal(0);
-      expect(tasksByType.habits[0].counterDown).to.equal(0);
-    });
+        cron({user, tasksByType, daysMissed, analytics});
 
-    it('should reset a weekly habit counter each Monday', () => {
-      tasksByType.habits[0].frequency = 'weekly';
-      tasksByType.habits[0].counterUp = 1;
-      tasksByType.habits[0].counterDown = 1;
+        expect(tasksByType.habits[0].counterUp).to.equal(0);
+        expect(tasksByType.habits[0].counterDown).to.equal(0);
+      });
 
-      // should not reset (unless we're testing on Monday?)
-      cron({user, tasksByType, daysMissed, analytics});
+      it('should reset a weekly habit counter each Monday', () => {
+        tasksByType.habits[0].frequency = 'weekly';
+        tasksByType.habits[0].counterUp = 1;
+        tasksByType.habits[0].counterDown = 1;
 
-      expect(tasksByType.habits[0].counterUp).to.equal(1);
-      expect(tasksByType.habits[0].counterDown).to.equal(1);
 
-      // should reset
-      daysMissed = 8;
-      cron({user, tasksByType, daysMissed, analytics});
+        // should not reset 
+        cron({user, tasksByType, daysMissed, analytics});
 
-      expect(tasksByType.habits[0].counterUp).to.equal(0);
-      expect(tasksByType.habits[0].counterDown).to.equal(0);
-    });
+        expect(tasksByType.habits[0].counterUp).to.equal(1);
+        expect(tasksByType.habits[0].counterDown).to.equal(1);
 
-    it('should reset a monthly habit counter the first day of each month', () => {
-      tasksByType.habits[0].frequency = 'monthly';
-      tasksByType.habits[0].counterUp = 1;
-      tasksByType.habits[0].counterDown = 1;
+        // should reset
+        daysMissed = 8;
+        cron({user, tasksByType, daysMissed, analytics});
 
-      // should not reset (unless we're testing on the first day of the month?)
-      cron({user, tasksByType, daysMissed, analytics});
+        expect(tasksByType.habits[0].counterUp).to.equal(0);
+        expect(tasksByType.habits[0].counterDown).to.equal(0);
+      });
 
-      expect(tasksByType.habits[0].counterUp).to.equal(1);
-      expect(tasksByType.habits[0].counterDown).to.equal(1);
+      it('should reset a monthly habit counter the first day of each month', () => {
+        tasksByType.habits[0].frequency = 'monthly';
+        tasksByType.habits[0].counterUp = 1;
+        tasksByType.habits[0].counterDown = 1;
 
-      // should reset
-      daysMissed = 32;
-      cron({user, tasksByType, daysMissed, analytics});
+        // should not reset
+        cron({user, tasksByType, daysMissed, analytics});
 
-      expect(tasksByType.habits[0].counterUp).to.equal(0);
-      expect(tasksByType.habits[0].counterDown).to.equal(0);
+        expect(tasksByType.habits[0].counterUp).to.equal(1);
+        expect(tasksByType.habits[0].counterDown).to.equal(1);
+
+        // should reset
+        daysMissed = 32;
+        cron({user, tasksByType, daysMissed, analytics});
+
+        expect(tasksByType.habits[0].counterUp).to.equal(0);
+        expect(tasksByType.habits[0].counterDown).to.equal(0);
+      });
+      fakeClock.restore();
     });
   });
 
