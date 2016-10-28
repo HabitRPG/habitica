@@ -656,7 +656,7 @@ describe('cron', () => {
 
       cron({user, tasksByType, daysMissed, analytics});
 
-      expect(user.notifications.length).to.equal(1);
+      expect(user.notifications.length).to.be.greaterThan(0);
       expect(user.notifications[0].type).to.equal('CRON');
       expect(user.notifications[0].data).to.eql({
         hp: user.stats.hp - hpBefore,
@@ -675,13 +675,14 @@ describe('cron', () => {
 
       cron({user, tasksByType, daysMissed, analytics});
 
-      expect(user.notifications.length).to.equal(1);
+      expect(user.notifications.length).to.be.greaterThan(0);
       expect(user.notifications[0].type).to.equal('CRON');
       expect(user.notifications[0].data).to.eql({
         hp: user.stats.hp - hpBefore1,
         mp: user.stats.mp - mpBefore1,
       });
 
+      let notifsBefore2 = user.notifications.length;
       let hpBefore2 = user.stats.hp;
       let mpBefore2 = user.stats.mp;
 
@@ -689,12 +690,14 @@ describe('cron', () => {
 
       cron({user, tasksByType, daysMissed, analytics});
 
-      expect(user.notifications.length).to.equal(1);
-      expect(user.notifications[0].type).to.equal('CRON');
-      expect(user.notifications[0].data).to.eql({
+      expect(user.notifications.length - notifsBefore2).to.equal(1);
+      expect(user.notifications[0].type).to.not.equal('CRON');
+      expect(user.notifications[1].type).to.equal('CRON');
+      expect(user.notifications[1].data).to.eql({
         hp: user.stats.hp - hpBefore2 - (hpBefore2 - hpBefore1),
         mp: user.stats.mp - mpBefore2 - (mpBefore2 - mpBefore1),
       });
+      expect(user.notifications[2].type).to.not.equal('CRON');
     });
   });
 
@@ -745,6 +748,34 @@ describe('cron', () => {
       cron({user, tasksByType, daysMissed, analytics});
 
       expect(user.inbox.messages[messageId]).to.not.exist;
+    });
+  });
+
+  describe('login incentives', () => {
+    it('increments incentive counter each cron', () => {
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(1);
+      user.lastCron = moment(new Date()).subtract({days: 1});
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(2);
+    });
+
+    it('pushes a notification of the day\'s incentive each cron', () => {
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.notifications.length).to.be.greaterThan(1);
+      expect(user.notifications[1].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('increments loginIncentives by 1 even if days are skipped in between', () => {
+      daysMissed = 3;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(1);
+    });
+
+    it('increments loginIncentives by 1 even if user has Dailies paused', () => {
+      user.preferences.sleep = true;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(1);
     });
   });
 });
