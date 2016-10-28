@@ -159,7 +159,7 @@ describe('shared.ops.scoreTask', () => {
       scoreTask({ user: normalUser, task: normalTask, direction: 'up', cron: false });
       let normalTaskDelta = normalUser.party.quest.progress.up;
 
-      sinon.stub(crit);
+      sinon.stub(crit).returns(2);
       scoreTask({ user: critUser, task: critTask, direction: 'up', cron: false });
       let critTaskDelta = critUser.party.quest.progress.up;
       crit.restore()
