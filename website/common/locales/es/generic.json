@@ -3,7 +3,7 @@
     "stringNotFound": "No se encontró la cadena '<%= string %>'.",
     "titleIndex": "Habitica | El juego de rol de tu vida",
     "habitica": "Habitica",
-    "habiticaLink": "<a href='http://habitica.wikia.com/wiki/Habitica' target='_blank'>Habitica</a>",
+    "habiticaLink": "<a href='http://es.habitica.wikia.com/wiki/Habitica_Wiki' target='_blank'>Habitica</a>",
     "titleTasks": "Tareas",
     "titleAvatar": "Personaje",
     "titleBackgrounds": "Fondos",
