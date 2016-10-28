@@ -469,7 +469,7 @@ describe('cron', () => {
     });
 
     describe('counters', () => {
-      let notStartOfWeekOrMonth = moment("2016-10-28").unix(); // a Friday
+      let notStartOfWeekOrMonth = moment('2016-10-28').unix(); // a Friday
       let fakeClock = sinon.useFakeTimers(notStartOfWeekOrMonth);
 
       it('should reset a daily habit counter each day', () => {
@@ -486,7 +486,6 @@ describe('cron', () => {
         tasksByType.habits[0].frequency = 'weekly';
         tasksByType.habits[0].counterUp = 1;
         tasksByType.habits[0].counterDown = 1;
-
 
         // should not reset 
         cron({user, tasksByType, daysMissed, analytics});
