@@ -412,11 +412,11 @@ describe('cron', () => {
 
       expect(tasksByType.habits[0].value).to.equal(1);
     });
-    
+
     describe('counters', () => {
-      let notStartOfWeekOrMonth = moment("2016-10-28").unix(); // a Friday
+      let notStartOfWeekOrMonth = moment('2016-10-28').unix(); // a Friday
       let fakeClock = sinon.useFakeTimers(notStartOfWeekOrMonth);
-      
+
       it('should reset a daily habit counter each day', () => {
         tasksByType.habits[0].counterUp = 1;
         tasksByType.habits[0].counterDown = 1;
@@ -432,8 +432,7 @@ describe('cron', () => {
         tasksByType.habits[0].counterUp = 1;
         tasksByType.habits[0].counterDown = 1;
 
-
-        // should not reset 
+        // should not reset
         cron({user, tasksByType, daysMissed, analytics});
 
         expect(tasksByType.habits[0].counterUp).to.equal(1);
