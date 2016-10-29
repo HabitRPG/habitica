@@ -167,7 +167,6 @@ api.getGroup = {
 
     group = Group.toJSONCleanChat(group, user);
 
-    if (group.purchased.plan.customerId) group.purchased.active = true;
     if (group.leader !== user._id) {
       delete group.purchased.plan;
     }
