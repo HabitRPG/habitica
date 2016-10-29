@@ -210,3 +210,6 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
             .panel-body(ng-class='{collapse: !$stateParams.cid == challenge._id}')
               .accordion-inner(ng-if='$stateParams.cid == challenge._id')
                 div(ui-view)
+
+  .container-fluid
+    .alert.alert-danger(ng-if='challengeNotFound')=env.t('challengeNotFound')
