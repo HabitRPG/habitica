@@ -2,48 +2,86 @@
 #app-header.row
   avatar#header-avatar(:user="$store.state.user")
   .eight.wide.column
-    strong {{user.profile.name}}
-    p Lvl {{user.stats.lvl}}
+    span.character-name {{user.profile.name}}
+    span.character-level Lvl {{user.stats.lvl}}
     .progress-container
+      img.icon(src="~assets/header/png/health@3x.png")
       .ui.progress.yellow
         .bar(:style="{width: `${user.stats.exp / 200 * 100}%`}")
       span {{user.stats.exp}} / 200
     .progress-container
+      img.icon(src="~assets/header/png/experience@3x.png")
       .ui.progress.error
         .bar(:style="{width: `${user.stats.hp / 50 * 100}%`}")
       span {{user.stats.hp.toFixed()}} / 50
     .progress-container(ng-if="user.flags.classSelected && !user.preferences.disableClasses")
+      img.icon(src="~assets/header/png/magic@3x.png")
       .ui.progress.blue
         .bar(:style="{width: `${user.stats.mp / 62 * 100}%`}")
       span {{user.stats.mp.toFixed()}} / {{62}}
 </template>
 
-<style>
+<style scoped>
 #app-header {
-  padding-bottom: 0;
-  padding-top: 31px;
+  padding: 0px 0px 0px 20px;
+  margin-top: 31.5px;
   background: #36205d;
+  margin-left: 1rem;
+  height: 192px;
+  color: #d5c8ff;
+}
+
+.character-name {
+  display: block;
+  font-size: 16px;
+  margin-top: 32px;
+  line-height: 1.5;
+  color: #fff;
+  font-weight: bold;
+}
+
+.character-level {
+  display: block;
+  font-size: 12px;
+  margin-top: 4px;
+  margin-bottom: 20px;
+  line-height: 1;
 }
 
 #header-avatar {
-  margin-left: 1rem;
+  margin-top: 24px;
+  box-shadow: 0 2px 4px 0 rgba(53, 32, 93, 0.4);
 }
 
 .progress-container {
   display: flex;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
 .progress-container > span {
-  margin-left: 1rem;
-  float: right;
-  line-height: 1.75em;
-  vertical-align: middle;
+  font-size: 12px;
+  margin-left: 10px;
+  line-height: 1em;
+}
+
+.progress-container > .icon {
+  width: 12px;
+  height: 12px;
+  margin-right: 10px;
 }
 
 .progress-container > .ui.progress {
-  flex-grow: 1;
-  height: 1.75em;
-  margin-bottom: 0.5em;
+  width: 203px;
+  margin: 0px;
+  border-radius: 0px;
+  height: 12px;
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+.progress-container > .ui.progress > .bar {
+  border-radius: 0px;
+  height: 12px;
 }
 </style>
 

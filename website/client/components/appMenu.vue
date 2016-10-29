@@ -6,7 +6,7 @@
   router-link.item(to="/", exact) Tasks
   // .simple makes it possible to have a dropdown without JS
   .ui.simple.dropdown
-    router-link.item(to="/inventory") Inventory
+    router-link.item(to="/inventory", :class="{'router-link-active': $route.path.startsWith('/inventory')}") Inventory
     .menu
       router-link.item(to="/inventory") Inventory
       router-link.item(to="/inventory/stable") Stable
@@ -29,14 +29,15 @@
   .right.menu
     .item.with-img
       img(src="~assets/header/png/gem@3x.png")
-      | {{userGems}}
-    .item.with-img
+      span {{userGems}}
+    .item.with-img.gp-icon
       img(src="~assets/header/png/gold@3x.png")
-      | {{Math.floor(user.stats.gp * 100) / 100}}
+      span {{Math.floor(user.stats.gp * 100) / 100}}
     a.item.with-img
       img(src="~assets/header/png/notifications@3x.png")
     .ui.simple.dropdown.pointing
       router-link.item.with-img(to="/user/avatar")
+        // TODO icons should be white when active
         img(src="~assets/header/png/user@3x.png")
       .menu
         .item.small-avatar-container
@@ -60,7 +61,7 @@
 }
 
 #app-menu {
-  background-color: #432874;
+  background: #432874 url(~assets/header/png/bits.png) right no-repeat;
   border-bottom: 0px;
 }
 
@@ -81,14 +82,22 @@
 
 #app-menu .item:not(.header) img {
   vertical-align: middle;
-  margin-right: 10px;
   width: 32px;
   height: 32px;
 }
 
 #app-menu .right.menu .item.with-img {
   padding-left: 0px;
-  padding-right: 10px;
+  padding-right: 0px;
+  margin-right: 20px;
+}
+
+#app-menu .right.menu .item.with-img.gp-icon {
+  margin-right: 40px;
+}
+
+#app-menu .right.menu .item.with-img img + span {
+  margin-left: 10px;
 }
 
 #app-menu > .item, #app-menu > .right.menu > .item, #app-menu .dropdown > .item {
@@ -103,16 +112,20 @@
   width: 0px;
 }
 
-#app-menu > .item:hover, #app-menu > .dropdown:hover {
+#app-menu > .item:not(.header):hover, #app-menu > .dropdown:hover {
   background-color: #6133b4;
 }
 
-#app-menu > .item.router-link-active {
+#app-menu > .item.router-link-active, #app-menu > .dropdown > .item.router-link-active {
   box-shadow: 0px -4px 0px #6133b4 inset;
 }
 
 #app-menu > .dropdown > .menu {
   border: none;
+}
+
+#app-menu > .dropdown > .menu > .item:last-child {
+  border-radius: 0px 0px 4px 4px !important;
 }
 
 #app-menu > .dropdown .menu > .item {
@@ -127,20 +140,46 @@
   background: #4f2a93 !important; /* to override Semantic UI's !important */
 }
 
+#app-menu .ui.pointing.dropdown > .item {
+  margin-right: 32px;
+}
+
 #app-menu .ui.pointing.dropdown .menu .item {
-  padding: 24px 0;
-  color: #616162;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  color: #616162 !important;
+}
+
+#app-menu .ui.pointing.dropdown .menu .item {
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  color: #616162 !important;
+}
+
+#app-menu .ui.pointing.dropdown .menu .item:nth-child(3) {
+  padding-bottom: 8px !important;
+}
+
+#app-menu .ui.pointing.dropdown .menu .item:nth-child(4) {
+  padding-top: 8px !important;
 }
 
 #app-menu .ui.pointing.dropdown .menu {
   width: 200px;
   margin-right: 20px;
+  margin-top: 0px;
 }
 
 #app-menu .ui.pointing.dropdown .menu .item:hover {
-  padding: 24px 0;
   background: #fff !important;
   color: #6133b4 !important;
+}
+
+#app-menu .ui.pointing.dropdown > .menu::after {
+  top: -0.50em;
+  left: 85.3%;
+  width: 1em;
+  height: 1em;
 }
 
 #app-menu .ui.pointing.dropdown .divider {
@@ -181,15 +220,6 @@
   background: black;
   margin-right: 10.5px;
 }
-
-#app-menu .ui.pointing.dropdown > .menu::after {
-  top: -0.50em;
-  right: 38px !important;
-  margin: 0em 0em 0em -0.50em;
-  width: 1em;
-  height: 1em;
-}
-
 </style>
 
 <script>

@@ -6,7 +6,7 @@
   // buffs
   // user level and username, rebirth icon, ...
 
-  .character-sprites
+  .character-sprites(:style="{width: width >= 90 ? '90px' : width + 'px', height: height >= 90 ? '90px' : height + 'px'}")
     template(v-if="!avatarOnly" v-once)
       // Mount
       span(v-if="user.items.currentMount", :class="'Mount_Body_' + user.items.currentMount")
@@ -55,8 +55,6 @@
 }
 
 .character-sprites {
-  width: 90px;
-  height: 90px;
   margin: 0 auto;
 }
 
@@ -82,12 +80,12 @@ export default {
       required: false,
     },
     width: {
-      type: String,
-      default: '140px',
+      type: Number,
+      default: 140,
     },
     height: {
-      type: String,
-      default: '147px',
+      type: Number,
+      default: 147,
     },
   },
   computed: {
