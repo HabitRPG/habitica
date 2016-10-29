@@ -165,6 +165,7 @@ describe('shared.ops.scoreTask', () => {
       expect(critUser.stats.hp).to.eql(normalUser.stats.hp);
       expect(critUser.stats.gp).to.be.greaterThan(normalUser.stats.gp);
       expect(critUser.stats.mp).to.be.greaterThan(normalUser.stats.mp);
+      expect(critUser.stats.exp).to.be.greaterThan(normalUser.stats.exp);
       expect(critTask.value).to.eql(normalTask.value);
       expect(critTaskDelta).to.be.greaterThan(normalTaskDelta);
     });
