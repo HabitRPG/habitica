@@ -1,7 +1,5 @@
-import sinon from 'sinon'; // eslint-disable-line no-shadow
-
 import scoreTask from '../../../website/common/script/ops/scoreTask';
-import _changeTaskValue from '../../../website/common/script/ops/scoreTask';
+
 import {
   generateUser,
   generateDaily,
@@ -159,11 +157,11 @@ describe('shared.ops.scoreTask', () => {
       scoreTask({ user: normalUser, task: normalTask, direction: 'up', cron: false });
       let normalTaskDelta = normalUser.party.quest.progress.up;
 
-      sinon.stub(crit).returns(2);
+      sandbox.stub(crit, 'crit').returns(1.5);
       scoreTask({ user: critUser, task: critTask, direction: 'up', cron: false });
       let critTaskDelta = critUser.party.quest.progress.up;
-      crit.restore()
-      
+      crit.crit.restore();
+
       expect(critUser.stats.hp).to.eql(normalUser.stats.hp);
       expect(critUser.stats.gp).to.be.greaterThan(normalUser.stats.gp);
       expect(critUser.stats.mp).to.be.greaterThan(normalUser.stats.mp);

@@ -136,7 +136,7 @@ function _changeTaskValue (user, task, direction, times, cron) {
 
   // ===== CRITICAL HITS =====
   // allow critical hit only when checking off a task, not when unchecking it:
-  let _crit = direction === 'up' ? crit(user) : 1;
+  let _crit = direction === 'up' ? crit.crit(user) : 1;
   // if there was a crit, alert the user via notification
   if (_crit > 1) user._tmp.crit = _crit;
 
