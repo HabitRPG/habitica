@@ -13,7 +13,7 @@
       router-link.item(to="/inventory/equipment") Equipment
   router-link.item(to="/market") Market
   .ui.simple.dropdown
-    router-link.item(to="/social/tavern") Social
+    router-link.item(to="/social/tavern", :class="{'router-link-active': $route.path.startsWith('/social')}") Social
     .menu
       router-link.item(to="/social/tavern") Tavern
       router-link.item(to="/social/inbox") Inbox
@@ -21,7 +21,7 @@
       router-link.item(to="/social/party") Party
       router-link.item(to="/social/guilds") Guilds
   .ui.simple.dropdown
-    router-link.item(to="/help") Help
+    router-link.item(to="/help", :class="{'router-link-active': $route.path.startsWith('/help')}") Help
     .menu
       router-link.item(to="/help/faq") Faq
       router-link.item(to="/help/report-bug") Report a bug
