@@ -5,6 +5,7 @@ import {
   chatDefaults,
   TAVERN_ID,
 } from '../group';
+import { model as Group } from '../group';
 import { defaults } from 'lodash';
 import { model as UserNotification } from '../userNotification';
 import schema from './schema';
@@ -12,6 +13,7 @@ import payments from '../../libs/payments';
 import amazonPayments from '../../libs/amazonPayments';
 import stripePayments from '../../libs/stripePayments';
 import paypalPayments from '../../libs/paypalPayments';
+
 
 schema.methods.isSubscribed = function isSubscribed () {
   let now = new Date();
@@ -122,4 +124,46 @@ schema.methods.cancelSubscription = async function cancelSubscription () {
   }
 
   return await payments.cancelSubscription({user: this});
+
+// Mute a user and notify the moderators
+schema.methods.muteUser = async function muteUser (message, groupId) {
+  let user = this;
+
+  // I need a way to make this permanent
+  user.chatRevoked = true;
+
+  let group = await Group.getGroup({
+    user,
+    groupId,
+    optionalMembership: user.contributor.admin,
+  });
+
+  let authorEmail = user.auth.local.email;
+  // let groupUrl = getGroupUrl(group);
+  // console.log(user)
+
+  // console.log(user.chatRevoked)
+  // console.log(message)
+    
+  // sendTxn(SLUR_REPORT_EMAILS, 'slur-report-to-mods', [
+  //     {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
+  //     {name: 'MESSAGE_TEXT', content: message.text},
+
+  //     {name: 'AUTHOR_USERNAME', content: message.user},
+  //     {name: 'AUTHOR_UUID', content: message.uuid},
+  //     {name: 'AUTHOR_EMAIL', content: authorEmail},
+  //     {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
+
+  //     {name: 'GROUP_NAME', content: group.name},
+  //     {name: 'GROUP_TYPE', content: group.type},
+  //     {name: 'GROUP_ID', content: group._id},
+  //     {name: 'GROUP_URL', content: groupUrl},
+  //   ]);
+
+  //   slack.sendSlurNotification({
+  //     authorEmail,
+  //     group,
+  //     message,
+    // });
+
 };
