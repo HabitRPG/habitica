@@ -158,43 +158,32 @@ api.postChat = {
 
     let group = await Group.getGroup({user, groupId});
 
-    // Check message for banned slurs
+    //////////////////////////////////////////////////////////////
+    // Initial code to check for slurs and revoke chat priviliges  
+
+    // Move to a checkForSlurs function?
+      
+    // Temporary list of fake slurs. Somehow this needs to be loaded in or passed
+    let slurList = ["kicking puppies",  "mean things"];
+
+    // Replace all punctuation with spaces to make for an easier search. Also add spaces before and after
+    // the test message (so we can search for slurs surrounded by spaces, preventing partial word matches)
+    // This is not an elegant way to do this, I'm sure
     let message = req.body.message;
-    if (textContainsBannedWords(message, bannedSlurs)) {
-      user.flags.chatRevoked = true;
-      await user.save();
-
-      // Email the mods
-      let authorEmail = user.auth.local.email;
-      let groupUrl = getGroupUrl(group);
-
-      let report =  [
-        {name: 'MESSAGE_TIME', content: (new Date()).toString()},
-        {name: 'MESSAGE_TEXT', content: message},
-
-        {name: 'AUTHOR_USERNAME', content: user.profile.name},
-        {name: 'AUTHOR_UUID', content: user._id},
-        {name: 'AUTHOR_EMAIL', content: authorEmail},
-        {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
-
-        {name: 'GROUP_NAME', content: group.name},
-        {name: 'GROUP_TYPE', content: group.type},
-        {name: 'GROUP_ID', content: group._id},
-        {name: 'GROUP_URL', content: groupUrl},
-      ];
-
-      sendTxn(FLAG_REPORT_EMAILS, 'slur-report-to-mods', report);
-
-      // Slack the mods
-      slack.sendSlurNotification({
-        authorEmail,
-        user,
-        group,
-        message,
-      });
-
-      throw new BadRequest('Your message contained inapropriate language, and your chat privileges have been revoked.');
+    let noPunctMessage = " " + message.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g," ") + " ";
+    console.log(noPunctMessage)
+  
+    // Check for any slurs in the message
+    for (let i=0; i<slurList.length; i++){
+      let tmp = noPunctMessage.search(" " + slurList[i] + " "); // Don't match partial words
+      if (tmp > -1) {
+        // Need a way to make revoking chat permanent
+        user.muteUser(message, groupId);
+        throw new NotFound('Your message contained inapropriate language, and your chat privileges have been revoked.');
+	}
     }
+    // End of new slur checking code
+    ////////////////////////////////////////////////////////////////
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.privacy !== 'private' && user.flags.chatRevoked) {
