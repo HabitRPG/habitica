@@ -4,6 +4,9 @@ import {
   publicFields as memberFields,
   nameFields,
 } from '../../models/user';
+import {
+  KNOWN_INTERACTIONS,
+} from '../../models/user/methods';
 import { model as Group } from '../../models/group';
 import { model as Challenge } from '../../models/challenge';
 import {
@@ -270,7 +273,7 @@ api.getChallengeMemberProgress = {
 };
 
 /**
- * @api {get} /api/v3/members/:toUserId/objections-to/:interaction Get the message of any errors that would occur if the given interaction was attempted
+ * @api {get} /api/v3/members/:toUserId/objections-to/:interaction Get the message of any errors that would occur if the given interaction was attempted - BETA
  * @apiVersion 3.0.0
  * @apiName GetObjectionsToInteraction
  * @apiGroup Member
@@ -286,7 +289,7 @@ api.getObjectionsToInteraction = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();
-    req.checkParams('interaction', res.t('interactionRequired')).notEmpty();
+    req.checkParams('interaction', res.t('interactionRequired')).notEmpty().isIn(KNOWN_INTERACTIONS);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -295,14 +298,8 @@ api.getObjectionsToInteraction = {
     let receiver = await User.findById(req.params.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userWithIDNotFound', {userId: req.params.toUserId}));
 
-    let response;
-
-    try {
-      response = sender.getObjectionsToInteraction(req.params.interaction, receiver);
-    } catch (e) {
-      // Rethrow, so that the message gets passed to the client
-      throw new NotFound(e.message);
-    }
+    let interaction = req.params.interaction;
+    let response = sender.getObjectionsToInteraction(interaction, receiver);
 
     res.respond(200, response.map(res.t));
   },
