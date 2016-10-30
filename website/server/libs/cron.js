@@ -270,7 +270,7 @@ export function cron (options = {}) {
       task.counterDown = 0;
     }
 
-    // slowly reset 'onlies' value to 0
+    // slowly reset value to 0 for "onlies" (Habits with + or - but not both)
     // move singleton Habits towards yellow.
     if (task.up === false || task.down === false) {
       task.value = Math.abs(task.value) < 0.1 ? 0 : task.value = task.value / 2;
