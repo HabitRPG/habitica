@@ -165,17 +165,17 @@ api.getGroup = {
       throw new NotFound(res.t('groupNotFound'));
     }
 
-    group = Group.toJSONCleanChat(group, user);
+    let groupJson = Group.toJSONCleanChat(group, user);
 
-    if (group.leader !== user._id) {
-      delete group.purchased.plan;
+    if (groupJson.leader === user._id) {
+      groupJson.purchased.plan = group.purchased.plan.toObject()
     }
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    let leader = await User.findById(group.leader).select(nameFields).exec();
-    if (leader) group.leader = leader.toJSON({minimize: true});
+    let leader = await User.findById(groupJson.leader).select(nameFields).exec();
+    if (leader) groupJson.leader = leader.toJSON({minimize: true});
 
-    res.respond(200, group);
+    res.respond(200, groupJson);
   },
 };
 

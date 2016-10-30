@@ -105,6 +105,10 @@ export let schema = new Schema({
 
 schema.plugin(baseModel, {
   noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased'],
+  private: ['purchased.plan'],
+  toJSONTransform (plainObj, originalDoc) {
+    if (plainObj.purchased) plainObj.purchased.active = originalDoc.purchased.plan && originalDoc.purchased.plan.customerId;
+  },
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
@@ -270,9 +274,6 @@ schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
       return chatMsg.flagCount >= 2;
     });
   }
-
-  toJSON.purchased.active = false;
-  if (group.purchased.plan && group.purchased.plan.customerId) toJSON.purchased.active = true;
 
   return toJSON;
 };
