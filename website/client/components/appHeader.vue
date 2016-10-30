@@ -6,25 +6,25 @@
     span.character-level Lvl {{user.stats.lvl}}
     .progress-container
       img.icon(src="~assets/header/png/health@3x.png")
-      .ui.progress.yellow
-        .bar(:style="{width: `${user.stats.exp / 200 * 100}%`}")
-      span {{user.stats.exp}} / 200
+      .ui.progress
+        .health.bar(:style="{width: `${user.stats.hp / 50 * 100}%`}")
+      span {{user.stats.hp.toFixed()}} / 50
     .progress-container
       img.icon(src="~assets/header/png/experience@3x.png")
-      .ui.progress.error
-        .bar(:style="{width: `${user.stats.hp / 50 * 100}%`}")
-      span {{user.stats.hp.toFixed()}} / 50
+      .ui.progress
+        .experience.bar(:style="{width: `${user.stats.exp / 200 * 100}%`}")
+      span {{user.stats.exp}} / 200
     .progress-container(ng-if="user.flags.classSelected && !user.preferences.disableClasses")
       img.icon(src="~assets/header/png/magic@3x.png")
-      .ui.progress.blue
-        .bar(:style="{width: `${user.stats.mp / 62 * 100}%`}")
+      .ui.progress
+        .mana.bar(:style="{width: `${user.stats.mp / 62 * 100}%`}")
       span {{user.stats.mp.toFixed()}} / {{62}}
 </template>
 
 <style scoped>
 #app-header {
   padding: 0px 0px 0px 20px;
-  margin-top: 31.5px;
+  margin-top: 56px;
   background: #36205d;
   margin-left: 1rem;
   height: 192px;
@@ -82,6 +82,18 @@
 .progress-container > .ui.progress > .bar {
   border-radius: 0px;
   height: 12px;
+}
+
+.health.bar {
+  background-color: #f74e52;
+}
+
+.experience.bar {
+  background-color: #ffb445;
+}
+
+.mana.bar {
+  background-color: #50b5e9;
 }
 </style>
 

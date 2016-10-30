@@ -24,3 +24,13 @@ export default {
 <!-- Load CSS that doesn't belong to any specific component -->
 <style src="assets/css/index.css"></style>
 <style src="assets/less/index.less" lang="less"></style>
+
+<style scoped>
+.ui.fixed.menu + .ui.grid {
+  padding-top: 0px;
+}
+
+.ui.grid {
+  margin-top: 0px;
+}
+</style>
