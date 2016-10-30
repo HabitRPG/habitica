@@ -38,14 +38,13 @@ describe('GET /members/:toUserId/objections-to/:interaction', () => {
     await expect(
       user.get(`/members/${receiver._id}/objections-to/hug-a-whole-forest-of-trees`)
     ).to.eventually.be.rejected.and.eql({
-      code: 404,
-      error: 'NotFound',
-      message: 'Unknown kind of interaction: "hug-a-whole-forest-of-trees", expected one of send-private-message, transfer-gems',
-      // FIXME: Very fragile message, not sure what to do here
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
     });
   });
 
-  it('returns nothing if there are no objections', async () => {
+  it('returns an empty array if there are no objections', async () => {
     let receiver = await generateUser();
 
     await expect(
