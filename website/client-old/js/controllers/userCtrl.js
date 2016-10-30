@@ -21,16 +21,17 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
     }
 
     $scope.changeClass = function(klass){
-      if (!klass) {
-        if (!confirm(window.env.t('sureReset')))
-          return;
-        return User.changeClass({});
-      }
-
       User.changeClass({query:{class:klass}});
-      $scope.selectedClass = undefined;
       Shared.updateStore(User.user);
-      Guide.goto('classes', 0,true);
+      Guide.goto('classes', 0, true);
+    }
+
+    $scope.enableClasses = function(){
+      return User.changeClass({});
+    }
+
+    $scope.payForNewClass = function(){
+      if (confirm(window.env.t('sureReset'))) return User.changeClass({});
     }
 
     $scope.save = function(){

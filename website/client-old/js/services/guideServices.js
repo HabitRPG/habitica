@@ -251,6 +251,10 @@ function($rootScope, User, $timeout, $state, Analytics) {
 
   var goto = function(chapter, page, force) {
     if (chapter == 'intro' && User.user.flags.welcomed != true) User.set({'flags.welcomed': true});
+    if (chapter == 'classes') {
+      if (User.user.flags.shownClassIntro != true) User.set({'flags.shownClassIntro': true});
+      else return;
+    }
     if (page === -1) page = 0;
     var curr = User.user.flags.tour[chapter];
     if (page != curr+1 && !force) return;
