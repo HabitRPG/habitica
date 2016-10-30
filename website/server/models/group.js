@@ -272,7 +272,7 @@ schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
   }
 
   toJSON.purchased.active = false;
-  if (group.purchased.plan.customerId) toJSON.purchased.active = true;
+  if (group.purchased.plan && group.purchased.plan.customerId) toJSON.purchased.active = true;
 
   return toJSON;
 };
