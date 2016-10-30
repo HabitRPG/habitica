@@ -168,7 +168,7 @@ api.getGroup = {
     let groupJson = Group.toJSONCleanChat(group, user);
 
     if (groupJson.leader === user._id) {
-      groupJson.purchased.plan = group.purchased.plan.toObject()
+      groupJson.purchased.plan = group.purchased.plan.toObject();
     }
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833

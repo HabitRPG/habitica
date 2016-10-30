@@ -45,6 +45,9 @@ api.createSubscription = async function createSubscription (data) {
   let today = new Date();
   let plan;
   let group;
+  let groupId;
+  let itemPurchased = 'Subscription';
+  let purchaseType = 'subscribe';
 
   //  If we are buying a group subscription
   if (data.groupId) {
@@ -58,7 +61,11 @@ api.createSubscription = async function createSubscription (data) {
     if (!group.leader === data.user._id) {
       throw new NotAuthorized(shared.i18n.t('onlyGroupLeaderCanManageSubscription'));
     }
+
     recipient = group;
+    itemPurchased = 'Group-Subscription';
+    purchaseType = 'group-subscribe';
+    groupId = group._id;
   }
 
   plan = recipient.purchased.plan;
@@ -105,7 +112,9 @@ api.createSubscription = async function createSubscription (data) {
     plan.consecutive.trinkets += perks;
   }
 
-  revealMysteryItems(recipient);
+  if (recipient !== group) {
+    revealMysteryItems(recipient);
+  }
 
   if (!data.gift) {
     txnEmail(data.user, 'subscription-begins');
@@ -113,9 +122,10 @@ api.createSubscription = async function createSubscription (data) {
 
   analytics.trackPurchase({
     uuid: data.user._id,
-    itemPurchased: 'Subscription',
+    groupId,
+    itemPurchased,
     sku: `${data.paymentMethod.toLowerCase()}-subscription`,
-    purchaseType: 'subscribe',
+    purchaseType,
     paymentMethod: data.paymentMethod,
     quantity: 1,
     gift: Boolean(data.gift),
@@ -123,7 +133,7 @@ api.createSubscription = async function createSubscription (data) {
     headers: data.headers,
   });
 
-  data.user.purchased.txnCount++;
+  if (!group) data.user.purchased.txnCount++;
 
   if (data.gift) {
     let message = `\`Hello ${data.gift.member.profile.name}, ${data.user.profile.name} has sent you ${shared.content.subscriptionBlocks[data.gift.subscription.key].months} months of subscription!\``;
@@ -167,6 +177,8 @@ api.createSubscription = async function createSubscription (data) {
 api.cancelSubscription = async function cancelSubscription (data) {
   let plan;
   let group;
+  let cancelType = 'unsubscribe';
+  let groupId;
 
   //  If we are buying a group subscription
   if (data.groupId) {
@@ -207,8 +219,14 @@ api.cancelSubscription = async function cancelSubscription (data) {
 
   txnEmail(data.user, 'cancel-subscription');
 
-  analytics.track('unsubscribe', {
+  if (group) {
+    cancelType = 'group-unsubscribe';
+    groupId = group._id;
+  }
+
+  analytics.track(cancelType, {
     uuid: data.user._id,
+    groupId,
     gaCategory: 'commerce',
     gaLabel: data.paymentMethod,
     paymentMethod: data.paymentMethod,

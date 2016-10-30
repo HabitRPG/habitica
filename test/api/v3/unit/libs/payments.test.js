@@ -198,6 +198,7 @@ describe('payments/index', () => {
         expect(analytics.trackPurchase).to.be.calledOnce;
         expect(analytics.trackPurchase).to.be.calledWith({
           uuid: user._id,
+          groupId: undefined,
           itemPurchased: 'Subscription',
           sku: 'payment method-subscription',
           purchaseType: 'subscribe',
@@ -288,6 +289,7 @@ describe('payments/index', () => {
         expect(analytics.trackPurchase).to.be.calledOnce;
         expect(analytics.trackPurchase).to.be.calledWith({
           uuid: user._id,
+          groupId: undefined,
           itemPurchased: 'Subscription',
           sku: 'payment method-subscription',
           purchaseType: 'subscribe',
