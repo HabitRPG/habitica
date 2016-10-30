@@ -181,7 +181,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
       .border-right(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')
         include ../shared/profiles/stats_col1
       div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')
-        button.btn.btn-default(ng-if='user.preferences.disableClasses', ng-click='User.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
+        button.btn.btn-default(ng-if='user.preferences.disableClasses', ng-click='enableClasses()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
         hr(ng-if='user.preferences.disableClasses')
         include ../shared/profiles/stats_col2
       .col-md-4.border-left.allocate-stats(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
@@ -189,7 +189,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
         h4
           =env.t('class') + ': '
           span {{ {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer")}[user.stats.class] }}&nbsp;
-          a.btn.btn-danger.btn-xs(ng-click='changeClass(null)')=env.t('changeClass')
+          a.btn.btn-danger.btn-xs(ng-click='payForNewClass()')=env.t('changeClass')
           small.cost 3 <span class="Pet_Currency_Gem1x inline-gems"/>
         table.table.table-striped
           tr

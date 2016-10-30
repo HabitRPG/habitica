@@ -233,6 +233,7 @@ let schema = new Schema({
     armoireEmpty: {type: Boolean, default: false},
     cardReceived: {type: Boolean, default: false},
     warnedLowHealth: {type: Boolean, default: false},
+    shownClassIntro: {type: Boolean, defalut: false},
   },
 
   history: {

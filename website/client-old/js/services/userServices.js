@@ -213,7 +213,7 @@ angular.module('habitrpg')
         },
 
         changeClass: function (data) {
-          callOpsFunctionAndRequest('changeClass', 'change-class', "POST",'', data);
+          callOpsFunctionAndRequest('changeClass', 'change-class', "POST", '', data);
         },
 
         disableClasses: function () {
