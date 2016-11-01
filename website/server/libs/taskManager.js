@@ -31,6 +31,7 @@ async function _validateTaskAlias (tasks, res) {
  * @param  options.user  The user that these tasks belong to
  * @param  options.challenge  The challenge that these tasks belong to
  * @param  options.group  The group that these tasks belong to
+ * @param  options.requiresApproval  A boolean stating if the task will require approval
  * @return The created tasks
  */
 export async function createTasks (req, res, options = {}) {
@@ -55,6 +56,9 @@ export async function createTasks (req, res, options = {}) {
       newTask.challenge.id = challenge.id;
     } else if (group) {
       newTask.group.id = group._id;
+      if (taskData.requiresApproval) {
+        newTask.group.approval.required = true;
+      }
     } else {
       newTask.userId = user._id;
     }
