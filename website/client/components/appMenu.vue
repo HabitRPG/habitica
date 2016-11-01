@@ -40,11 +40,9 @@
         // TODO icons should be white when active
         img(src="~assets/header/png/user@3x.png")
       .menu
-        .item.small-avatar-container
-          .small-avatar
-          .small-avatar-links
-            strong {{user.profile.name}}
-            a Edit avatar
+        .item.user-edit-avatar
+          strong {{user.profile.name}}
+          a Edit avatar
         .divider
         router-link.item(to="/user/stats") Stats
         router-link.item(to="/user/achievements") Achievements
@@ -186,39 +184,17 @@
   margin: 0px;
 }
 
-#app-menu .small-avatar-container {
-  display: flex;
-}
-
-#app-menu .small-avatar-links {
-  display: flex;
-  flex-direction: column;
-}
-
-#app-menu .small-avatar-links strong, #app-menu .small-avatar-links strong:hover {
+#app-menu .user-edit-avatar strong, #app-menu .user-edit-avatar strong:hover {
   color: #313131;
-}
-
-#app-menu .small-avatar-container strong {
   margin-top: -3px;
   flex-grow: 1;
+  display: block;
 }
 
-#app-menu .small-avatar-container a {
+#app-menu .user-edit-avatar a, #app-menu .user-edit-avatar a:hover {
   font-size: 13px;
   line-height: 1.23;
   color: #6133b4;
-}
-
-#app-menu .small-avatar-container a:hover {
-  color: #6133b4;
-}
-
-#app-menu .small-avatar {
-  width: 34.5px;
-  height: 34.5px;
-  background: black;
-  margin-right: 10.5px;
 }
 </style>
 
@@ -227,9 +203,6 @@ import { mapState, mapGetters } from '../store';
 import Avatar from './avatar';
 
 export default {
-  components: {
-    Avatar, // todo
-  },
   computed: {
     ...mapGetters(['userGems']),
     ...mapState(['user']),
