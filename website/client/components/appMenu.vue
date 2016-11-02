@@ -52,12 +52,7 @@
         router-link.item(to="/logout") Logout
 </template>
 
-<style>
-.ui.menu .right.menu .ui.simple.dropdown > .item::before {
-  right: auto;
-  left: 0;
-}
-
+<style scoped>
 #app-menu {
   background: #432874 url(~assets/header/png/bits.png) right no-repeat;
   border-bottom: 0px;
@@ -96,6 +91,11 @@
 
 #app-menu .right.menu .item.with-img img + span {
   margin-left: 10px;
+}
+
+.ui.menu .right.menu .ui.simple.dropdown > .item::before {
+  right: auto;
+  left: 0;
 }
 
 #app-menu > .item, #app-menu > .right.menu > .item, #app-menu .dropdown > .item {
@@ -200,7 +200,6 @@
 
 <script>
 import { mapState, mapGetters } from '../store';
-import Avatar from './avatar';
 
 export default {
   computed: {

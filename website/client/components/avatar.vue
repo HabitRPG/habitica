@@ -6,7 +6,7 @@
   // buffs
   // user level and username, rebirth icon, ...
 
-  .character-sprites(:style="{width: width >= 90 ? '90px' : width + 'px', height: height >= 90 ? '90px' : height + 'px'}")
+  .character-sprites
     template(v-if="!avatarOnly" v-once)
       // Mount
       span(v-if="user.items.currentMount", :class="'Mount_Body_' + user.items.currentMount")
@@ -48,7 +48,7 @@
       span.current-pet(v-if="user.items.currentPet" class="'Pet-' + user.items.currentPet")
 </template>
 
-<style>
+<style scoped>
 .avatar {
   max-width: 140px;
   max-height: 147px;
