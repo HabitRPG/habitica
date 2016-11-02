@@ -52,7 +52,7 @@ function($rootScope, User, $http, Content) {
 
   Payments.showStripeEdit = function(config) {
     var groupId;
-    if (config.groupId) {
+    if (config && config.groupId) {
       groupId = config.groupId;
     }
 
@@ -274,7 +274,7 @@ function($rootScope, User, $http, Content) {
     if (!confirm(window.env.t('sureCancelSub'))) return;
 
     var group;
-    if (config.group) {
+    if (config && config.group) {
       group = config.group;
     }
 
