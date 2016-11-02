@@ -202,5 +202,12 @@
     "backgroundStrangeSewersText": "奇怪的下水道",
     "backgroundStrangeSewersNotes": "滑行通过奇怪的下水道",
     "backgroundRainyCityText": "雨中城市",
-    "backgroundRainyCityNotes": "在下雨的城市中飞跑着前进。"
+    "backgroundRainyCityNotes": "在下雨的城市中飞跑着前进。",
+    "backgrounds112016": "SET 30: Released November 2016",
+    "backgroundMidnightCloudsText": "Midnight Clouds",
+    "backgroundMidnightCloudsNotes": "Fly through the Midnight Clouds.",
+    "backgroundStormyRooftopsText": "Stormy Rooftops",
+    "backgroundStormyRooftopsNotes": "Creep across Stormy Rooftops.",
+    "backgroundWindyAutumnText": "Windy Autumn",
+    "backgroundWindyAutumnNotes": "Chase leaves during a Windy Autumn."
 }

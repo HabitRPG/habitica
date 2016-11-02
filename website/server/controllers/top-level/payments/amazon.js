@@ -1,6 +1,7 @@
 import {
   BadRequest,
   NotAuthorized,
+  NotFound,
 } from '../../../libs/errors';
 import amzLib from '../../../libs/amazonPayments';
 import {
@@ -12,6 +13,10 @@ import payments from '../../../libs/payments';
 import moment from 'moment';
 import { model as Coupon } from '../../../models/coupon';
 import { model as User } from '../../../models/user';
+import {
+  model as Group,
+  basicFields as basicGroupFields,
+} from '../../../models/group';
 import cc from 'coupon-code';
 
 let api = {};
@@ -34,6 +39,7 @@ api.verifyAccessToken = {
     if (!accessToken) throw new BadRequest('Missing req.body.access_token');
 
     await amzLib.getTokenInfo(accessToken);
+
     res.respond(200, {});
   },
 };
@@ -164,6 +170,7 @@ api.subscribe = {
     let sub = req.body.subscription ? shared.content.subscriptionBlocks[req.body.subscription] : false;
     let coupon = req.body.coupon;
     let user = res.locals.user;
+    let groupId = req.body.groupId;
 
     if (!sub) throw new BadRequest(res.t('missingSubscriptionCode'));
     if (!billingAgreementId) throw new BadRequest('Missing req.body.billingAgreementId');
@@ -213,6 +220,7 @@ api.subscribe = {
       paymentMethod: 'Amazon Payments',
       sub,
       headers: req.headers,
+      groupId,
     });
 
     res.respond(200);
@@ -231,7 +239,32 @@ api.subscribeCancel = {
   middlewares: [authWithUrl],
   async handler (req, res) {
     let user = res.locals.user;
-    let billingAgreementId = user.purchased.plan.customerId;
+    let groupId = req.query.groupId;
+
+    let billingAgreementId;
+    let planId;
+    let lastBillingDate;
+
+    if (groupId) {
+      let groupFields = basicGroupFields.concat(' purchased');
+      let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+
+      if (!group) {
+        throw new NotFound(res.t('groupNotFound'));
+      }
+
+      if (!group.leader === user._id) {
+        throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
+      }
+
+      billingAgreementId = group.purchased.plan.customerId;
+      planId = group.purchased.plan.planId;
+      lastBillingDate = group.purchased.plan.lastBillingDate;
+    } else {
+      billingAgreementId = user.purchased.plan.customerId;
+      planId = user.purchased.plan.planId;
+      lastBillingDate = user.purchased.plan.lastBillingDate;
+    }
 
     if (!billingAgreementId) throw new NotAuthorized(res.t('missingSubscription'));
 
@@ -245,12 +278,13 @@ api.subscribeCancel = {
       });
     }
 
-    let subscriptionBlock = shared.content.subscriptionBlocks[user.purchased.plan.planId];
+    let subscriptionBlock = shared.content.subscriptionBlocks[planId];
     let subscriptionLength = subscriptionBlock.months * 30;
 
     await payments.cancelSubscription({
       user,
-      nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
+      groupId,
+      nextBill: moment(lastBillingDate).add({ days: subscriptionLength }),
       paymentMethod: 'Amazon Payments',
       headers: req.headers,
     });

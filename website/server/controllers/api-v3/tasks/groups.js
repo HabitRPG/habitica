@@ -1,5 +1,6 @@
 import { authWithHeaders } from '../../../middlewares/auth';
 import ensureDevelpmentMode from '../../../middlewares/ensureDevelpmentMode';
+import Bluebird from 'bluebird';
 import * as Tasks from '../../../models/task';
 import { model as Group } from '../../../models/group';
 import { model as User } from '../../../models/user';
@@ -175,6 +176,99 @@ api.unassignTask = {
     await group.unlinkTask(task, assignedUser);
 
     res.respond(200, task);
+  },
+};
+
+/**
+ * @api {post} /api/v3/tasks/:taskId/approve/:userId Approve a user's task
+ * @apiDescription Approves a user assigned to a group task
+ * @apiVersion 3.0.0
+ * @apiName ApproveTask
+ * @apiGroup Task
+ *
+ * @apiParam {UUID} taskId The id of the task that is the original group task
+ * @apiParam {UUID} userId The id of the user that will be approved
+ *
+ * @apiSuccess task The approved task
+ */
+api.approveTask = {
+  method: 'POST',
+  url: '/tasks/:taskId/approve/:userId',
+  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  async handler (req, res) {
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('userId', res.t('userIdRequired')).notEmpty().isUUID();
+
+    let reqValidationErrors = req.validationErrors();
+    if (reqValidationErrors) throw reqValidationErrors;
+
+    let user = res.locals.user;
+    let assignedUserId = req.params.userId;
+    let assignedUser = await User.findById(assignedUserId);
+
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findOne({
+      'group.taskId': taskId,
+      userId: assignedUserId,
+    });
+
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    }
+
+    let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+
+    task.group.approval.dateApproved = new Date();
+    task.group.approval.approvingUser = user._id;
+    task.group.approval.approved = true;
+
+    assignedUser.addNotification('GROUP_TASK_APPROVAL', {message: res.t('yourTaskHasBeenApproved')});
+
+    await Bluebird.all([assignedUser.save(), task.save()]);
+
+    res.respond(200, task);
+  },
+};
+
+/**
+ * @api {get} /api/v3/approvals/group/:groupId Get a group's approvals
+ * @apiVersion 3.0.0
+ * @apiName GetGroupApprovals
+ * @apiGroup Task
+ * @apiIgnore
+ *
+ * @apiParam {UUID} groupId The id of the group from which to retrieve the approvals
+ *
+ * @apiSuccess {Array} data An array of tasks
+ */
+api.getGroupApprovals = {
+  method: 'GET',
+  url: '/approvals/group/:groupId',
+  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  async handler (req, res) {
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let user = res.locals.user;
+    let groupId = req.params.groupId;
+
+    let group = await Group.getGroup({user, groupId, fields: requiredGroupFields});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+
+    let approvals = await Tasks.Task.find({
+      'group.id': groupId,
+      'group.approval.approved': false,
+      'group.approval.requested': true,
+    }, 'userId group').exec();
+
+    res.respond(200, approvals);
   },
 };
 

@@ -8,6 +8,9 @@ import { schema as WebhookSchema } from '../webhook';
 import {
   schema as UserNotificationSchema,
 } from '../userNotification';
+import {
+  schema as SubscriptionPlanSchema,
+} from '../subscriptionPlan';
 
 const Schema = mongoose.Schema;
 
@@ -144,24 +147,9 @@ let schema = new Schema({
     }},
     txnCount: {type: Number, default: 0},
     mobileChat: Boolean,
-    plan: {
-      planId: String,
-      paymentMethod: String, // enum: ['Paypal','Stripe', 'Gift', 'Amazon Payments', '']}
-      customerId: String, // Billing Agreement Id in case of Amazon Payments
-      dateCreated: Date,
-      dateTerminated: Date,
-      dateUpdated: Date,
-      extraMonths: {type: Number, default: 0},
-      gemsBought: {type: Number, default: 0},
-      mysteryItems: {type: Array, default: () => []},
-      lastBillingDate: Date, // Used only for Amazon Payments to keep track of billing date
-      consecutive: {
-        count: {type: Number, default: 0},
-        offset: {type: Number, default: 0}, // when gifted subs, offset++ for each month. offset-- each new-month (cron). count doesn't ++ until offset==0
-        gemCapExtra: {type: Number, default: 0},
-        trinkets: {type: Number, default: 0},
-      },
-    },
+    plan: {type: SubscriptionPlanSchema, default: () => {
+      return {};
+    }},
   },
 
   flags: {
@@ -232,7 +220,7 @@ let schema = new Schema({
     communityGuidelinesAccepted: {type: Boolean, default: false},
     cronCount: {type: Number, default: 0},
     welcomed: {type: Boolean, default: false},
-    armoireEnabled: {type: Boolean, default: false},
+    armoireEnabled: {type: Boolean, default: true},
     armoireOpened: {type: Boolean, default: false},
     armoireEmpty: {type: Boolean, default: false},
     cardReceived: {type: Boolean, default: false},

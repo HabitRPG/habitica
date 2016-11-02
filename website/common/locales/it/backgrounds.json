@@ -198,9 +198,16 @@
     "backgroundOrchardNotes": "Raccogli i frutti maturi in un frutteto.",
     "backgrounds102016": "SERIE 29: Ottobre 2016",
     "backgroundSpiderWebText": "Ragnatela",
-    "backgroundSpiderWebNotes": "Rimani impigliato in una Ragnatela.",
+    "backgroundSpiderWebNotes": "Rimani impigliato in una ragnatela.",
     "backgroundStrangeSewersText": "Strane Fogne",
-    "backgroundStrangeSewersNotes": "Scivoli lungo le Strane Fogne.",
+    "backgroundStrangeSewersNotes": "Scivola attraverso le Strane Fogne.",
     "backgroundRainyCityText": "Città Piovosa",
-    "backgroundRainyCityNotes": "Schizzi attraverso una Città Piovosa."
+    "backgroundRainyCityNotes": "Salta nelle pozzanghere della Città Piovosa.",
+    "backgrounds112016": "SET 30: Released November 2016",
+    "backgroundMidnightCloudsText": "Midnight Clouds",
+    "backgroundMidnightCloudsNotes": "Fly through the Midnight Clouds.",
+    "backgroundStormyRooftopsText": "Stormy Rooftops",
+    "backgroundStormyRooftopsNotes": "Creep across Stormy Rooftops.",
+    "backgroundWindyAutumnText": "Windy Autumn",
+    "backgroundWindyAutumnNotes": "Chase leaves during a Windy Autumn."
 }
