@@ -127,5 +127,6 @@ describe('POST /groups/:groupId/quests/abort', () => {
     });
     expect(Group.prototype.sendChat).to.be.calledOnce;
     expect(Group.prototype.sendChat).to.be.calledWithMatch(/aborted the party quest Wail of the Whale.`/);
+    Group.prototype.sendChat.restore();
   });
 });
