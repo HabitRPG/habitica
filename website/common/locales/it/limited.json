@@ -24,6 +24,7 @@
     "gildedTurkey": "Tacchino Dorato",
     "polarBearPup": "Cucciolo di Orso Polare",
     "jackolantern": "Zucca di Halloween",
+    "ghostJackolantern": "Ghost Jack-O-Lantern",
     "seasonalShop": "Negozio Stagionale",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Maga Stagionale<%= linkEnd %>",

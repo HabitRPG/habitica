@@ -24,6 +24,7 @@
     "gildedTurkey": "Gilded Turkey",
     "polarBearPup": "Біле ведмежа",
     "jackolantern": "Джек-ліхтар",
+    "ghostJackolantern": "Ghost Jack-O-Lantern",
     "seasonalShop": "Сезонна крамниця",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Seasonal Sorceress<%= linkEnd %>",

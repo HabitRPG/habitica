@@ -24,6 +24,7 @@
     "gildedTurkey": "Aranyozott pulyka",
     "polarBearPup": "Jegesmedvebocs",
     "jackolantern": "Töklámpás",
+    "ghostJackolantern": "Ghost Jack-O-Lantern",
     "seasonalShop": "Szezonális Bolt",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Szezonális Varázslónő<%= linkEnd %>",

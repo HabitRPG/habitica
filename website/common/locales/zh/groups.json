@@ -214,5 +214,8 @@
     "confirmAddTag": "你真的想添加\"<%= tag %>\"标签吗？",
     "confirmRemoveTag": "你真的想要移除“<%= tag %>”标签吗？",
     "assignTask": "分配任务",
-    "claim": "索赔"
+    "claim": "索赔",
+    "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
+    "yourTaskHasBeenApproved": "Your task has been approved",
+    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>"
 }

@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Vă rugăm să țineți cont de faptul că Numele Afișat, fotografia de profil, și descrierea scurtă trebuie sa fie in acord cu <a href='https://habitica.com/static/community-guidelines' target='_blank'>Regulile Comunității</a> (ex.: fără profanare, fără subiecte interzise minorilor, fără insulte etc.) Dacă aveți întrebări legate de cât de potrivit este conținutul pe care doriți să îl utilizați, vă invităm să contactați <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "profile": "Profil",
     "avatar": "Personalizează Avatarul",
     "other": "Altele",
@@ -83,8 +83,8 @@
     "allocateInt": "Puncte atribuite la INT:",
     "allocateIntPop": "Adaugă un punct la Inteligență",
     "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Attribute Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
-    "stats": "Stats",
-    "achievs": "Achievements",
+    "stats": "Status",
+    "achievs": "Realizari",
     "strength": "Forță",
     "strengthText": "Forța crește șansele unor \"lovituri critice\" și le îmbunătățește șansele de câștig în Obiecte, Aur și Experiență. De asemenea ajută la rănirea monștrilor speciali.",
     "constitution": "Constituție",
@@ -168,5 +168,5 @@
     "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats.",
     "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
     "notEnoughAttrPoints": "You don't have enough attribute points.",
-    "gearNotOwned": "You do not own this item."
+    "gearNotOwned": "Nu detii acest obiect."
 }

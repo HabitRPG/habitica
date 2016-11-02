@@ -24,6 +24,7 @@
     "gildedTurkey": "Золотая индейка",
     "polarBearPup": "Детеныш белого медведя",
     "jackolantern": "Тыквенная лампа",
+    "ghostJackolantern": "Ghost Jack-O-Lantern",
     "seasonalShop": "Сезонная лавка",
     "seasonalShopClosedTitle": "<%= linkStart %>Лесли<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Сезонная Чародейка<%= linkEnd %>",

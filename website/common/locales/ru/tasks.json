@@ -134,5 +134,7 @@
     "strengthExample": "Относится к физическим упражнениям и активности",
     "intelligenceExample": "Относится к академическим или умственно сложным занятиям",
     "perceptionExample": "Относится к работе и финансовым заданиям",
-    "constitutionExample": "Относится к здоровью, благополучию и социальным взаимодействиям."
+    "constitutionExample": "Относится к здоровью, благополучию и социальным взаимодействиям.",
+    "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
+    "taskApprovalHasBeenRequested": "Approval has been requested"
 }

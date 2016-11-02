@@ -214,5 +214,8 @@
     "confirmAddTag": "Weet je zeker dat je \"<%= tag %>\" wilt toevoegen?",
     "confirmRemoveTag": "Weet je zeker dat je \"<%= tag %>\" wilt verwijderen?",
     "assignTask": "Taak toewijzen",
-    "claim": "Opeisen"
+    "claim": "Opeisen",
+    "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
+    "yourTaskHasBeenApproved": "Your task has been approved",
+    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>"
 }

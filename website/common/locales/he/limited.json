@@ -24,6 +24,7 @@
     "gildedTurkey": "הודו מוזהב",
     "polarBearPup": "דובון קוטב",
     "jackolantern": "ג'ק-או-לנטרן",
+    "ghostJackolantern": "Ghost Jack-O-Lantern",
     "seasonalShop": "חנות עונתית",
     "seasonalShopClosedTitle": "<%= linkStart %>לסלי<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>מכשפה עונתית<%= linkEnd %>",
