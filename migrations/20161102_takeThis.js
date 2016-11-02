@@ -8,7 +8,7 @@ var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
 
 var mongo = require('mongoskin');
 
-var connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
+var connectionString = 'mongodb://sabrecat:ELI54WzIwlNWCiQ@ds013393-a1.mlab.com:13393/habitica?auto_reconnect=true';
 
 var dbUsers = mongo.db(connectionString).collection('users');
 
