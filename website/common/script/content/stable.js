@@ -68,6 +68,7 @@ let specialPets = {
   'MagicalBee-Base': 'magicalBee',
   'Lion-Veteran': 'veteranLion',
   'Gryphon-RoyalPurple': 'royalPurpleGryphon',
+  'JackOLantern-Ghost': 'ghostJackolantern',
 };
 
 let specialMounts = {

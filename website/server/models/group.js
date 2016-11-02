@@ -23,6 +23,9 @@ import pusher from '../libs/pusher';
 import {
   syncableAttrs,
 } from '../libs/taskManager';
+import {
+  schema as SubscriptionPlanSchema,
+} from './subscriptionPlan';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -91,7 +94,9 @@ export let schema = new Schema({
     rewards: [{type: String, ref: 'Task'}],
   },
   purchased: {
-    active: {type: Boolean, default: false},
+    plan: {type: SubscriptionPlanSchema, default: () => {
+      return {};
+    }},
   },
 }, {
   strict: true,
@@ -100,6 +105,10 @@ export let schema = new Schema({
 
 schema.plugin(baseModel, {
   noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased'],
+  private: ['purchased.plan'],
+  toJSONTransform (plainObj, originalDoc) {
+    if (plainObj.purchased) plainObj.purchased.active = originalDoc.purchased.plan && originalDoc.purchased.plan.customerId;
+  },
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
@@ -937,6 +946,8 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
     let orderList = user.tasksOrder[`${taskToSync.type}s`];
     if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
   }
+
+  matchingTask.group.approval.required = taskToSync.group.approval.required;
 
   if (!matchingTask.notes) matchingTask.notes = taskToSync.notes; // don't override the notes, but provide it if not provided
   if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id); // add tag if missing

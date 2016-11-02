@@ -7,6 +7,14 @@ import {
 import moment from 'moment';
 import { sendNotification as sendPushNotification } from './pushNotifications';
 import shared from '../../common' ;
+import {
+  model as Group,
+  basicFields as basicGroupFields,
+} from '../models/group';
+import {
+  NotAuthorized,
+  NotFound,
+} from './errors';
 
 let api = {};
 
@@ -32,10 +40,35 @@ function _dateDiff (earlyDate, lateDate) {
 
 api.createSubscription = async function createSubscription (data) {
   let recipient = data.gift ? data.gift.member : data.user;
-  let plan = recipient.purchased.plan;
   let block = shared.content.subscriptionBlocks[data.gift ? data.gift.subscription.key : data.sub.key];
   let months = Number(block.months);
   let today = new Date();
+  let plan;
+  let group;
+  let groupId;
+  let itemPurchased = 'Subscription';
+  let purchaseType = 'subscribe';
+
+  //  If we are buying a group subscription
+  if (data.groupId) {
+    let groupFields = basicGroupFields.concat(' purchased');
+    group = await Group.getGroup({user: data.user, groupId: data.groupId, populateLeader: false, groupFields});
+
+    if (!group) {
+      throw new NotFound(shared.i18n.t('groupNotFound'));
+    }
+
+    if (!group.leader === data.user._id) {
+      throw new NotAuthorized(shared.i18n.t('onlyGroupLeaderCanManageSubscription'));
+    }
+
+    recipient = group;
+    itemPurchased = 'Group-Subscription';
+    purchaseType = 'group-subscribe';
+    groupId = group._id;
+  }
+
+  plan = recipient.purchased.plan;
 
   if (data.gift) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
@@ -79,7 +112,9 @@ api.createSubscription = async function createSubscription (data) {
     plan.consecutive.trinkets += perks;
   }
 
-  revealMysteryItems(recipient);
+  if (recipient !== group) {
+    revealMysteryItems(recipient);
+  }
 
   if (!data.gift) {
     txnEmail(data.user, 'subscription-begins');
@@ -87,9 +122,10 @@ api.createSubscription = async function createSubscription (data) {
 
   analytics.trackPurchase({
     uuid: data.user._id,
-    itemPurchased: 'Subscription',
+    groupId,
+    itemPurchased,
     sku: `${data.paymentMethod.toLowerCase()}-subscription`,
-    purchaseType: 'subscribe',
+    purchaseType,
     paymentMethod: data.paymentMethod,
     quantity: 1,
     gift: Boolean(data.gift),
@@ -97,7 +133,7 @@ api.createSubscription = async function createSubscription (data) {
     headers: data.headers,
   });
 
-  data.user.purchased.txnCount++;
+  if (!group) data.user.purchased.txnCount++;
 
   if (data.gift) {
     let message = `\`Hello ${data.gift.member.profile.name}, ${data.user.profile.name} has sent you ${shared.content.subscriptionBlocks[data.gift.subscription.key].months} months of subscription!\``;
@@ -128,13 +164,39 @@ api.createSubscription = async function createSubscription (data) {
     }
   }
 
-  await data.user.save();
+  if (group) {
+    await group.save();
+  } else {
+    await data.user.save();
+  }
+
   if (data.gift) await data.gift.member.save();
 };
 
 // Sets their subscription to be cancelled later
 api.cancelSubscription = async function cancelSubscription (data) {
-  let plan = data.user.purchased.plan;
+  let plan;
+  let group;
+  let cancelType = 'unsubscribe';
+  let groupId;
+
+  //  If we are buying a group subscription
+  if (data.groupId) {
+    let groupFields = basicGroupFields.concat(' purchased');
+    group = await Group.getGroup({user: data.user, groupId: data.groupId, populateLeader: false, groupFields});
+
+    if (!group) {
+      throw new NotFound(shared.i18n.t('groupNotFound'));
+    }
+
+    if (!group.leader === data.user._id) {
+      throw new NotAuthorized(shared.i18n.t('onlyGroupLeaderCanManageSubscription'));
+    }
+    plan = group.purchased.plan;
+  } else {
+    plan = data.user.purchased.plan;
+  }
+
   let now = moment();
   let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days') : 30;
   let extraDays = Math.ceil(30.5 * plan.extraMonths);
@@ -149,12 +211,22 @@ api.cancelSubscription = async function cancelSubscription (data) {
 
   plan.extraMonths = 0; // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
 
-  await data.user.save();
+  if (group) {
+    await group.save();
+  } else {
+    await data.user.save();
+  }
 
   txnEmail(data.user, 'cancel-subscription');
 
-  analytics.track('unsubscribe', {
+  if (group) {
+    cancelType = 'group-unsubscribe';
+    groupId = group._id;
+  }
+
+  analytics.track(cancelType, {
     uuid: data.user._id,
+    groupId,
     gaCategory: 'commerce',
     gaLabel: data.paymentMethod,
     paymentMethod: data.paymentMethod,
