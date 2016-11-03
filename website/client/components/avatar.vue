@@ -45,21 +45,29 @@
       // Mount Head
       span(v-if="user.items.currentMount", :class="'Mount_Head_' + user.items.currentMount")
       // Pet
-      span.current-pet(v-if="user.items.currentPet" class="'Pet-' + user.items.currentPet")
+      span.current-pet(v-if="user.items.currentPet", :class="'Pet-' + user.items.currentPet")
 </template>
 
 <style scoped>
 .avatar {
   max-width: 140px;
   max-height: 147px;
+  image-rendering: pixelated;
 }
 
 .character-sprites {
   margin: 0 auto;
+  width: 90px;
+  height: 90px;
 }
 
 .character-sprites span {
   position: absolute;
+}
+
+.current-pet {
+  bottom: 21px;
+  left: 20px;
 }
 </style>
 
@@ -74,10 +82,6 @@ export default {
     avatarOnly: {
       type: Boolean,
       default: false,
-    },
-    closedEyes: { // old sleep option
-      type: Boolean,
-      required: false,
     },
     width: {
       type: Number,
@@ -118,13 +122,8 @@ export default {
     },
     skinClass () {
       let baseClass = `skin_${this.user.preferences.skin}`;
-      let closedEyes = this.closedEyes;
 
-      if (typeof closedEyes === 'boolean') { // if option is passed
-        return `${baseClass}${closedEyes ? '_sleep' : ''}`;
-      } else { // otherwise respect user.prefereces.sleep
-        return `${baseClass}${this.user.preferences.sleep ? '_sleep' : ''}`;
-      }
+      return `${baseClass}${this.user.preferences.sleep ? '_sleep' : ''}`;
     },
     costumeClass () {
       return this.user.preferences.costume ? 'costume' : 'equipped';
