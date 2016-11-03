@@ -189,7 +189,6 @@ nav.toolbar(ng-controller='MenuCtrl')
           h4=env.t('notifications')
           div
             ul.toolbar-notifs-notifs
-              {{hasNoNotifications()}}
               li.toolbar-notifs-no-messages(ng-if='hasNoNotifications()')=env.t('noNotifications')
               li(ng-if='user.purchased.plan.mysteryItems.length')
                 a(ng-click='$state.go("options.inventory.drops"); ', data-close-menu)
@@ -219,12 +218,11 @@ nav.toolbar(ng-controller='MenuCtrl')
                   span {{v.name}}
                 a(ng-click='clearMessages(k)', popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
                   span.glyphicon.glyphicon-remove-circle
-              {{user.notifications}}
-              li(ng-repeat='notification in user.notifications')
-                {{notification}}
-                a(ui-sref='options.social.party', data-close-menu)
+              li(ng-repeat='notification in user.groupNotifications')
+                a(ng-click='viewGroupApprovalNotification(notification, $index)', data-close-menu)
                   span.glyphicon.glyphicon-user
-                  span=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
+                  span
+                    | {{notification.data.message}}
 
           ul.toolbar-controls
             li.toolbar-controls-button

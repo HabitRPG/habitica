@@ -123,6 +123,11 @@ habitrpg.controller('NotificationCtrl',
               if (notification.data.mp) Notification.mp(notification.data.mp);
             }
             break;
+          case 'GROUP_TASK_APPROVAL':
+            if (!User.user.groupNotifications) User.user.groupNotifications = [];
+            User.user.groupNotifications.push(notification);
+            markAsRead = false;
+            break;
           default:
             markAsRead = false; // If the notification is not implemented, skip it
             break;

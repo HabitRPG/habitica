@@ -3,5 +3,5 @@ script(type='text/ng-template', id='partials/groups.tasks.approvals.html')
     .panel.panel-default
       .panel-heading
         | {{approval.text}} for user: {{approval.userId.profile.name}}
-        a.btn.btn-sm.btn-success(ng-click="approve(approval.group.taskId, approval.userId)") Approve
+        a.btn.btn-sm.btn-success(ng-click="approve(approval.group.taskId, approval.userId._id)") Approve
       .panel-body

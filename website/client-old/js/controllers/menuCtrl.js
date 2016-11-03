@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg')
-  .controller('MenuCtrl', ['$scope', '$rootScope', '$http', 'Chat', 'Content', 'User',
-    function($scope, $rootScope, $http, Chat, Content, User) {
+  .controller('MenuCtrl', ['$scope', '$rootScope', '$http', 'Chat', 'Content', 'User', '$state',
+    function($scope, $rootScope, $http, Chat, Content, User, $state) {
 
       $scope.logout = function() {
         localStorage.clear();
@@ -21,8 +21,8 @@ angular.module('habitrpg')
           return unallocatedValue;
         } else if (!(_.isEmpty(user.newMessages))) {
           return messageValue;
-        } else if (!_.isEmpty(user.notifications)) {
-          return false;
+        } else if (!_.isEmpty(user.groupNotifications)) {
+          return invitationValue;
         } else {
           return noneValue;
         }
@@ -104,7 +104,14 @@ angular.module('habitrpg')
       };
 
       $scope.hasNoNotifications = function() {
-        return selectNotificationValue(false, false, false, false, false, true);
-      }
+        return selectNotificationValue(false, false, false, false, false, true, false);
+      };
+
+      $scope.viewGroupApprovalNotification = function (notification, $index) {
+        // User.readNotification(notification.id);
+        User.user.groupNotifications.splice($index, 1);
+        console.log(User.user.groupNotifications.slice(0, $index), $index)
+        $state.go("options.social.guilds.detail", {gid: notification.data.groupId});
+      };
     }
 ]);

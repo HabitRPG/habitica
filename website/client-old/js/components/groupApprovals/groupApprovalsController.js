@@ -11,7 +11,7 @@ habitrpg.controller('GroupApprovalsCtrl', ['$scope', 'Tasks',
       if (!confirm("Are you sure you want to approve this?")) return;
       Tasks.approve(taskId, userId)
         .then(function (response) {
-          $scope.approvals = $scope.approvals.splice(0, $index);
+          $scope.approvals.splice($index, 1);
         });
     };
 
