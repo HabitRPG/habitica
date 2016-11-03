@@ -33,10 +33,10 @@
     .item.with-img.gp-icon
       img(src="~assets/header/png/gold@3x.png")
       span {{Math.floor(user.stats.gp * 100) / 100}}
-    a.item.with-img
+    a.item.with-img.notifications-dropdown
       img(src="~assets/header/png/notifications@3x.png")
     .ui.simple.dropdown.pointing
-      router-link.item.with-img(to="/user/avatar")
+      router-link.item.with-img.user-dropdown(to="/user/avatar")
         // TODO icons should be white when active
         img(src="~assets/header/png/user@3x.png")
       .menu
@@ -52,37 +52,50 @@
         router-link.item(to="/logout") Logout
 </template>
 
-<style scoped>
+<style lang="less">
 #app-menu {
   background: #432874 url(~assets/header/png/bits.png) right no-repeat;
   border-bottom: 0px;
-}
+  
+  .item {
+    font-size: 16px !important;
+    line-height: 1.5;
 
-#app-menu .item {
-  font-size: 16px !important;
-  line-height: 1.5;
-}
+    &.header {
+      width: 256px;
+      padding-left: 20px;
 
-#app-menu .header.item {
-  width: 256px;
-  padding-left: 20px;
-}
-
-#app-menu .header.item img {
-  width: 128px;
-  height: 28px;
+      img {
+        width: 128px;
+        height: 28px;
+      }
+    }
+  }
 }
 
 #app-menu .item:not(.header) img {
   vertical-align: middle;
   width: 32px;
   height: 32px;
+  margin: 0 auto;
 }
 
 #app-menu .right.menu .item.with-img {
   padding-left: 0px;
   padding-right: 0px;
   margin-right: 20px;
+}
+
+#app-menu .right.menu .item.with-img.user-dropdown, #app-menu .right.menu .item.with-img.notifications-dropdown{
+  width: 56px;
+}
+
+#app-menu .right.menu .item.with-img.user-dropdown, #app-menu .right.menu .item.with-img.notifications-dropdown {
+  width: 56px;
+}
+
+#app-menu .right.menu .item.with-img.notifications-dropdown {
+  margin-right: 0px;
 }
 
 #app-menu .right.menu .item.with-img.gp-icon {
@@ -120,6 +133,7 @@
 
 #app-menu > .dropdown > .menu {
   border: none;
+  background-color:rgba(0, 0, 0, 0.5); // transparent
 }
 
 #app-menu > .dropdown > .menu > .item:last-child {
@@ -136,10 +150,6 @@
 
 #app-menu > .dropdown .menu > .item:hover {
   background: #4f2a93 !important; /* to override Semantic UI's !important */
-}
-
-#app-menu .ui.pointing.dropdown > .item {
-  margin-right: 32px;
 }
 
 #app-menu .ui.pointing.dropdown .menu .item {

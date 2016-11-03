@@ -7,18 +7,18 @@
     .progress-container
       img.icon(src="~assets/header/png/health@3x.png")
       .ui.progress
-        .health.bar(:style="{width: `${user.stats.hp / 50 * 100}%`}")
-      span {{user.stats.hp.toFixed()}} / 50
+        .health.bar(:style="{width: `${percent(user.stats.hp, maxHealth)}%`}")
+      span {{user.stats.hp | round}} / {{maxHealth}}
     .progress-container
       img.icon(src="~assets/header/png/experience@3x.png")
       .ui.progress
-        .experience.bar(:style="{width: `${user.stats.exp / 200 * 100}%`}")
-      span {{user.stats.exp}} / 200
+        .experience.bar(:style="{width: `${percent(user.stats.exp, toNextLevel)}%`}")
+      span {{user.stats.exp | round}} / {{toNextLevel}}
     .progress-container(ng-if="user.flags.classSelected && !user.preferences.disableClasses")
       img.icon(src="~assets/header/png/magic@3x.png")
       .ui.progress
-        .mana.bar(:style="{width: `${user.stats.mp / 62 * 100}%`}")
-      span {{user.stats.mp.toFixed()}} / {{62}}
+        .mana.bar(:style="{width: `${percent(user.stats.mp, maxMP)}%`}")
+      span {{user.stats.mp | round}} / {{maxMP}}
 </template>
 
 <style scoped>
@@ -82,6 +82,7 @@
 .progress-container > .ui.progress > .bar {
   border-radius: 0px;
   height: 12px;
+  min-width: 0px;
 }
 
 .health.bar {
@@ -100,14 +101,40 @@
 <script>
 import Avatar from './avatar';
 import { mapState } from '../store';
+import {
+  maxHealth,
+  statsComputed,
+  percent,
+  tnl,
+} from '../../common/script';
 
 export default {
   name: 'header',
   components: {
     Avatar,
   },
+  filters: {
+    percent,
+    round (val) {
+      return Math.round(val * 100) / 100;
+    },
+  },
+  methods: {
+    percent,
+  },
+  data () {
+    return {
+      maxHealth,
+    };
+  },
   computed: {
     ...mapState(['user']),
+    maxMP () {
+      return statsComputed(this.user).maxMP;
+    },
+    toNextLevel () { // Exp to next level
+      return tnl(this.user.stats.lvl);
+    },
   },
 };
 </script>
