@@ -4,7 +4,7 @@ habitrpg.controller('GroupApprovalsCtrl', ['$scope', 'Tasks',
 
     Tasks.getGroupApprovals($scope.group._id)
       .then(function (response) {
-        $scope.approvals = response.data.data;console.log($scope.approvals)
+        $scope.approvals = response.data.data;
       });
 
     $scope.approve = function (taskId, userId, $index) {

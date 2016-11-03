@@ -339,7 +339,7 @@ api.scoreTask = {
 
       await Bluebird.all([groupLeader.save(), task.save()]);
 
-      return res.respond(200, {message: res.t('taskApprovalHasBeenRequested'), task});
+      throw new NotAuthorized(res.t('taskApprovalHasBeenRequested'));
     }
 
     let wasCompleted = task.completed;

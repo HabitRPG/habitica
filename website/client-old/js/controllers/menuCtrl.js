@@ -11,7 +11,6 @@ angular.module('habitrpg')
 
       function selectNotificationValue(mysteryValue, invitationValue, cardValue, unallocatedValue, messageValue, noneValue) {
         var user = $scope.user;
-console.log(User.user.notifications)
         if (user.purchased && user.purchased.plan && user.purchased.plan.mysteryItems && user.purchased.plan.mysteryItems.length) {
           return mysteryValue;
         } else if ((user.invitations.party && user.invitations.party.id) || (user.invitations.guilds && user.invitations.guilds.length > 0)) {
@@ -22,8 +21,7 @@ console.log(User.user.notifications)
           return unallocatedValue;
         } else if (!(_.isEmpty(user.newMessages))) {
           return messageValue;
-        } else if (!_.isEmpty(User.user.notifications)) {
-          $scope.user = User.user;
+        } else if (!_.isEmpty(user.notifications)) {
           return false;
         } else {
           return noneValue;
@@ -106,7 +104,7 @@ console.log(User.user.notifications)
       };
 
       $scope.hasNoNotifications = function() {
-        //return selectNotificationValue(false, false, false, false, false, true);
+        return selectNotificationValue(false, false, false, false, false, true);
       }
     }
 ]);
