@@ -106,6 +106,13 @@ angular.module('habitrpg')
       });
     };
 
+    function getGroupApprovals (groupId) {
+      return $http({
+        method: 'GET',
+        url: '/api/v3/approvals/group/' + groupId,
+      });
+    };
+
     function getTask (taskId) {
       return $http({
         method: 'GET',
@@ -367,5 +374,7 @@ angular.module('habitrpg')
       navigateChecklist: navigateChecklist,
       checklistCompletion: checklistCompletion,
       collapseChecklist: collapseChecklist,
+
+      getGroupApprovals: getGroupApprovals,
     };
   }]);

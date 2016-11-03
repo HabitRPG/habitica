@@ -116,7 +116,8 @@
             "js/components/groupMembersAutocomplete/groupMembersAutocompleteDirective.js",
             "js/components/groupTaskMetaActions/groupTaskMetaActionsDirective.js",
             "js/components/groupTaskMetaActions/groupTaskMetaActionsController.js",
-            "js/components/groupApprovals/groupApprovalsDirective.js"
+            "js/components/groupApprovals/groupApprovalsDirective.js",
+            "js/components/groupApprovals/groupApprovalsController.js"
         ],
         "css": [
             "bower_components/bootstrap/dist/css/bootstrap.css",

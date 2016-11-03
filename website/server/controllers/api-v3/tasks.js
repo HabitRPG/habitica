@@ -263,6 +263,10 @@ api.updateTask = {
     // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
     // see https://github.com/Automattic/mongoose/issues/2749
 
+    if (sanitizedObj.requiresApproval) {
+      task.group.approval.required = true;
+    }
+
     let savedTask = await task.save();
 
     if (group && task.group.id && task.group.assignedUsers.length > 0) {

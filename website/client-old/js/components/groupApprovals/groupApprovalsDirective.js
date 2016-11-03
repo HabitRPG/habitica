@@ -15,7 +15,7 @@
         group: '=',
       },
       templateUrl: 'partials/groups.tasks.approvals.html',
-      // controller: 'GroupApprovalsCtrl',
+      controller: 'GroupApprovalsCtrl',
     };
   }
 }());
