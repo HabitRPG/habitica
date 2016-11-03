@@ -6,18 +6,18 @@
     span.character-level Lvl {{user.stats.lvl}}
     .progress-container
       img.icon(src="~assets/header/png/health@3x.png")
-      .ui.progress
-        .health.bar(:style="{width: `${percent(user.stats.hp, maxHealth)}%`}")
+      .ui.progress.red
+        .bar(:style="{width: `${percent(user.stats.hp, maxHealth)}%`}")
       span {{user.stats.hp | round}} / {{maxHealth}}
     .progress-container
       img.icon(src="~assets/header/png/experience@3x.png")
-      .ui.progress
-        .experience.bar(:style="{width: `${percent(user.stats.exp, toNextLevel)}%`}")
+      .ui.progress.yellow
+        .bar(:style="{width: `${percent(user.stats.exp, toNextLevel)}%`}")
       span {{user.stats.exp | round}} / {{toNextLevel}}
     .progress-container(ng-if="user.flags.classSelected && !user.preferences.disableClasses")
       img.icon(src="~assets/header/png/magic@3x.png")
-      .ui.progress
-        .mana.bar(:style="{width: `${percent(user.stats.mp, maxMP)}%`}")
+      .ui.progress.blue
+        .bar(:style="{width: `${percent(user.stats.mp, maxMP)}%`}")
       span {{user.stats.mp | round}} / {{maxMP}}
 </template>
 
@@ -83,18 +83,6 @@
   border-radius: 0px;
   height: 12px;
   min-width: 0px;
-}
-
-.health.bar {
-  background-color: #f74e52;
-}
-
-.experience.bar {
-  background-color: #ffb445;
-}
-
-.mana.bar {
-  background-color: #50b5e9;
 }
 </style>
 
