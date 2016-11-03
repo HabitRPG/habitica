@@ -134,5 +134,7 @@
     "strengthExample": "運動やスポーツ関連",
     "intelligenceExample": "学習やマインド改善関連",
     "perceptionExample": "仕事や家計関連",
-    "constitutionExample": "健康や治療、社会的な活動に関連"
+    "constitutionExample": "健康や治療、社会的な活動に関連",
+    "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
+    "taskApprovalHasBeenRequested": "Approval has been requested"
 }

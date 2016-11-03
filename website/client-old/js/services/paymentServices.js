@@ -12,15 +12,21 @@ function($rootScope, User, $http, Content) {
   };
 
   Payments.showStripe = function(data) {
-    var sub =
-      data.subscription ? data.subscription
-        : data.gift && data.gift.type=='subscription' ? data.gift.subscription.key
-        : false;
+    var sub = false;
+
+    if (data.subscription) {
+      sub = data.subscription;
+    } else if (data.gift && data.gift.type=='subscription') {
+      sub = data.gift.subscription.key;
+    }
+
     sub = sub && Content.subscriptionBlocks[sub];
+
     var amount = // 500 = $5
       sub ? sub.price*100
         : data.gift && data.gift.type=='gems' ? data.gift.gems.amount/4*100
         : 500;
+
     StripeCheckout.open({
       key: window.env.STRIPE_PUB_KEY,
       address: false,
@@ -34,6 +40,7 @@ function($rootScope, User, $http, Content) {
         if (data.gift) url += '&gift=' + Payments.encodeGift(data.uuid, data.gift);
         if (data.subscription) url += '&sub='+sub.key;
         if (data.coupon) url += '&coupon='+data.coupon;
+        if (data.groupId) url += '&groupId=' + data.groupId;
         $http.post(url, res).success(function() {
           window.location.reload(true);
         }).error(function(res) {
@@ -43,7 +50,12 @@ function($rootScope, User, $http, Content) {
     });
   }
 
-  Payments.showStripeEdit = function(){
+  Payments.showStripeEdit = function(config) {
+    var groupId;
+    if (config && config.groupId) {
+      groupId = config.groupId;
+    }
+
     StripeCheckout.open({
       key: window.env.STRIPE_PUB_KEY,
       address: false,
@@ -51,6 +63,7 @@ function($rootScope, User, $http, Content) {
       description: window.env.t('subUpdateDescription'),
       panelLabel: window.env.t('subUpdateCard'),
       token: function(data) {
+        data.groupId = groupId;
         var url = '/stripe/subscribe/edit';
         $http.post(url, data).success(function() {
           window.location.reload(true);
@@ -85,18 +98,22 @@ function($rootScope, User, $http, Content) {
   };
 
   // Needs to be called everytime the modal/router is accessed
-  Payments.amazonPayments.init = function(data){
+  Payments.amazonPayments.init = function(data) {
     if(!isAmazonReady) return;
     if(data.type !== 'single' && data.type !== 'subscription') return;
 
-    if(data.gift){
+    if (data.gift) {
       if(data.gift.gems && data.gift.gems.amount && data.gift.gems.amount <= 0) return;
       data.gift.uuid = data.giftedTo;
     }
 
-    if(data.subscription){
+    if (data.subscription) {
       Payments.amazonPayments.subscription = data.subscription;
       Payments.amazonPayments.coupon = data.coupon;
+    }
+
+    if (data.groupId) {
+      Payments.amazonPayments.groupId = data.groupId;
     }
 
     Payments.amazonPayments.gift = data.gift;
@@ -120,10 +137,10 @@ function($rootScope, User, $http, Content) {
         onSignIn: function(contract){
           Payments.amazonPayments.billingAgreementId = contract.getAmazonBillingAgreementId();
 
-          if(Payments.amazonPayments.type === 'subscription'){
+          if (Payments.amazonPayments.type === 'subscription') {
             Payments.amazonPayments.loggedIn = true;
             Payments.amazonPayments.initWidgets();
-          }else{
+          } else {
             var url = '/amazon/createOrderReferenceId'
             $http.post(url, {
               billingAgreementId: Payments.amazonPayments.billingAgreementId
@@ -137,11 +154,11 @@ function($rootScope, User, $http, Content) {
           }
         },
 
-        authorization: function(){
+        authorization: function() {
           amazon.Login.authorize({
             scope: 'payments:widget',
             popup: true
-          }, function(response){
+          }, function(response) {
             if(response.error) return alert(response.error);
 
             var url = '/amazon/verifyAccessToken'
@@ -169,7 +186,7 @@ function($rootScope, User, $http, Content) {
     }
   }
 
-  Payments.amazonPayments.initWidgets = function(){
+  Payments.amazonPayments.initWidgets = function() {
     var walletParams = {
       sellerId: window.env.AMAZON_PAYMENTS.SELLER_ID,
       design: {
@@ -177,7 +194,7 @@ function($rootScope, User, $http, Content) {
       },
 
       onPaymentSelect: function() {
-        $rootScope.$apply(function(){
+        $rootScope.$apply(function() {
           Payments.amazonPayments.paymentSelected = true;
         });
       },
@@ -185,11 +202,11 @@ function($rootScope, User, $http, Content) {
       onError: amazonOnError
     }
 
-    if(Payments.amazonPayments.type === 'subscription'){
+    if (Payments.amazonPayments.type === 'subscription') {
       walletParams.agreementType = 'BillingAgreement';
       console.log(Payments.amazonPayments.billingAgreementId);
       walletParams.billingAgreementId = Payments.amazonPayments.billingAgreementId;
-      walletParams.onReady = function(billingAgreement){
+      walletParams.onReady = function(billingAgreement) {
         Payments.amazonPayments.billingAgreementId = billingAgreement.getAmazonBillingAgreementId();
 
         new OffAmazonPayments.Widgets.Consent({
@@ -215,14 +232,14 @@ function($rootScope, User, $http, Content) {
           onError: amazonOnError
         }).bind('AmazonPayRecurring');
       }
-    }else{
+    } else {
       walletParams.amazonOrderReferenceId = Payments.amazonPayments.orderReferenceId;
     }
 
     new OffAmazonPayments.Widgets.Wallet(walletParams).bind('AmazonPayWallet');
   }
 
-  Payments.amazonPayments.checkout = function(){
+  Payments.amazonPayments.checkout = function() {
     if(Payments.amazonPayments.type === 'single'){
       var url = '/amazon/checkout';
       $http.post(url, {
@@ -235,13 +252,14 @@ function($rootScope, User, $http, Content) {
         alert(res.message);
         Payments.amazonPayments.reset();
       });
-    }else if(Payments.amazonPayments.type === 'subscription'){
+    } else if(Payments.amazonPayments.type === 'subscription') {
       var url = '/amazon/subscribe';
 
       $http.post(url, {
         billingAgreementId: Payments.amazonPayments.billingAgreementId,
         subscription: Payments.amazonPayments.subscription,
-        coupon: Payments.amazonPayments.coupon
+        coupon: Payments.amazonPayments.coupon,
+        groupId: Payments.amazonPayments.groupId,
       }).success(function(){
         Payments.amazonPayments.reset();
         window.location.reload(true);
@@ -252,20 +270,33 @@ function($rootScope, User, $http, Content) {
     }
   }
 
-  Payments.cancelSubscription = function(){
+  Payments.cancelSubscription = function(config) {
     if (!confirm(window.env.t('sureCancelSub'))) return;
-    var paymentMethod = User.user.purchased.plan.paymentMethod;
 
-    if(paymentMethod === 'Amazon Payments'){
+    var group;
+    if (config && config.group) {
+      group = config.group;
+    }
+
+    var paymentMethod = User.user.purchased.plan.paymentMethod;
+    if (group) {
+      paymentMethod = group.purchased.plan.paymentMethod;
+    }
+
+    if (paymentMethod === 'Amazon Payments') {
       paymentMethod = 'amazon';
-    }else{
+    } else {
       paymentMethod = paymentMethod.toLowerCase();
     }
 
-    window.location.href = '/' + paymentMethod + '/subscribe/cancel?_id=' + User.user._id + '&apiToken=' + User.settings.auth.apiToken;
+    var cancelUrl = '/' + paymentMethod + '/subscribe/cancel?_id=' + User.user._id + '&apiToken=' + User.settings.auth.apiToken;
+    if (group) {
+      cancelUrl += '&groupId=' + group._id;
+    }
+    window.location.href = cancelUrl;
   }
 
-  Payments.encodeGift = function(uuid, gift){
+  Payments.encodeGift = function(uuid, gift) {
     gift.uuid = uuid;
     var encodedString = JSON.stringify(gift);
     return encodeURIComponent(encodedString);

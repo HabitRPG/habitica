@@ -20,3 +20,7 @@ gulp.task('apidoc', ['apidoc:clean'], (done) => {
     done();
   }
 });
+
+gulp.task('apidoc:watch', ['apidoc'], () => {
+  return gulp.watch(APIDOC_SRC_PATH + '/**/*.js', ['apidoc']);
+});

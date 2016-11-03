@@ -10,7 +10,6 @@ dist-client/
 # Not linted
 migrations/*
 website/client-old/
-debug-scripts/*
 scripts/*
 test/server_side/**/*
 test/client-old/spec/**/*

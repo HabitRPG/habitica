@@ -9,6 +9,7 @@ import { model as Challenge} from './challenge';
 import * as Tasks from './task';
 import validator from 'validator';
 import { removeFromArray } from '../libs/collectionManipulators';
+import { groupChatReceivedWebhook } from '../libs/webhook';
 import {
   InternalServerError,
   BadRequest,
@@ -22,6 +23,9 @@ import pusher from '../libs/pusher';
 import {
   syncableAttrs,
 } from '../libs/taskManager';
+import {
+  schema as SubscriptionPlanSchema,
+} from './subscriptionPlan';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -89,13 +93,22 @@ export let schema = new Schema({
     todos: [{type: String, ref: 'Task'}],
     rewards: [{type: String, ref: 'Task'}],
   },
+  purchased: {
+    plan: {type: SubscriptionPlanSchema, default: () => {
+      return {};
+    }},
+  },
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder'],
+  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased'],
+  private: ['purchased.plan'],
+  toJSONTransform (plainObj, originalDoc) {
+    if (plainObj.purchased) plainObj.purchased.active = originalDoc.purchased.plan && originalDoc.purchased.plan.customerId;
+  },
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
@@ -263,6 +276,55 @@ schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
   }
 
   return toJSON;
+};
+
+/**
+ * Checks inivtation uuids and emails for possible errors.
+ *
+ * @param  uuids  An array of user ids
+ * @param  emails  An array of emails
+ * @param  res  Express res object for use with translations
+ * @throws BadRequest An error describing the issue with the invitations
+ */
+schema.statics.validateInvitations = function getInvitationError (uuids, emails, res) {
+  let uuidsIsArray = Array.isArray(uuids);
+  let emailsIsArray = Array.isArray(emails);
+  let emptyEmails = emailsIsArray && emails.length < 1;
+  let emptyUuids = uuidsIsArray && uuids.length < 1;
+
+  let errorString;
+
+  if (!uuids && !emails) {
+    errorString = 'canOnlyInviteEmailUuid';
+  } else if (uuids && !uuidsIsArray) {
+    errorString = 'uuidsMustBeAnArray';
+  } else if (emails && !emailsIsArray) {
+    errorString = 'emailsMustBeAnArray';
+  } else if (!emails && emptyUuids) {
+    errorString = 'inviteMissingUuid';
+  } else if (!uuids && emptyEmails) {
+    errorString = 'inviteMissingEmail';
+  } else if (emptyEmails && emptyUuids) {
+    errorString = 'inviteMustNotBeEmpty';
+  }
+
+  if (errorString) {
+    throw new BadRequest(res.t(errorString));
+  }
+
+  let totalInvites = 0;
+
+  if (uuids) {
+    totalInvites += uuids.length;
+  }
+
+  if (emails) {
+    totalInvites += emails.length;
+  }
+
+  if (totalInvites > INVITES_LIMIT) {
+    throw new BadRequest(res.t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}));
+  }
 };
 
 schema.methods.getParticipatingQuestMembers = function getParticipatingQuestMembers () {
@@ -469,6 +531,33 @@ schema.methods.startQuest = async function startQuest (user) {
           message: `${shared.i18n.t('questStarted')}: ${quest.text()}`,
           identifier: 'questStarted',
         });
+    });
+  });
+};
+
+schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWebhooks (chat) {
+  let query = {
+    webhooks: {
+      $elemMatch: {
+        type: 'groupChatReceived',
+        'options.groupId': this._id,
+      },
+    },
+  };
+
+  if (this.type === 'party') {
+    query['party._id'] = this._id;
+  } else {
+    query.guilds = this._id;
+  }
+
+  User.find(query).select({webhooks: 1}).lean().then((users) => {
+    users.forEach((user) => {
+      let { webhooks } = user;
+      groupChatReceivedWebhook.send(webhooks, {
+        group: this,
+        chat,
+      });
     });
   });
 };
@@ -857,6 +946,8 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
     let orderList = user.tasksOrder[`${taskToSync.type}s`];
     if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
   }
+
+  matchingTask.group.approval.required = taskToSync.group.approval.required;
 
   if (!matchingTask.notes) matchingTask.notes = taskToSync.notes; // don't override the notes, but provide it if not provided
   if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id); // add tag if missing

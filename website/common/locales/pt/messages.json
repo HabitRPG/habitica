@@ -1,5 +1,5 @@
 {
-    "messageLostItem": "Seu <%= itemText %> quebrou.",
+    "messageLostItem": "O seu <%= itemText %> quebrou.",
     "messageTaskNotFound": "Tarefa não encontrada.",
     "messageDuplicateTaskID": "Uma tarefa com essa ID já existe.",
     "messageTagNotFound": "Etiqueta não encontrada.",
@@ -48,7 +48,7 @@
     "messageGroupCannotRemoveSelf": "Você não pode se remover!",
     "messageGroupChatBlankMessage": "Você não pode mandar uma mensagem em branco",
     "messageGroupChatLikeOwnMessage": "Não é possível curtir a própria mensagem. Não seja 'aquela' pessoa.",
-    "messageGroupChatFlagAlreadyReported": "Você já reportou essa mensagem.",
+    "messageGroupChatFlagAlreadyReported": "Já reportou esta mensagem.",
     "messageGroupChatNotFound": "Mensagem não encontrada!",
     "messageGroupChatAdminClearFlagCount": "Somente um administrador pode remover o contador de bandeira!",
     "messageUserOperationProtected": "caminho `<%= operation %>` não foi salvo, já que é um caminho protegido.",

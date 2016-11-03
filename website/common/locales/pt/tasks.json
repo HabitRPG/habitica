@@ -1,6 +1,6 @@
 {
-    "clearCompleted": "Deletar Completos",
-    "lotOfToDos": "Suas 30 mais recentes tarefas estão sendo mostradas aqui. Você pode ver as tarefas completadas mais velhas > Dados Ferramenta de Visualização ou Dados > Exportar Dados > Dados de Usuário.",
+    "clearCompleted": "Eliminar Concluídos",
+    "lotOfToDos": "Os seus 30 Afazeres mais recentes são mostrados aqui. Pode ver os afazeres concluídos mais antigos de Dados > Ferramenta de Exibição de Dados ou Dados > Exportar Dados > Dados do Utilizador.",
     "deleteToDosExplanation": "Se você clicar no botão abaixo, todos os seus Afazeres completos e arquivados serão apagados permanentemente. Exporte-os primeiro se quiser manter um registro deles.",
     "addmultiple": "Adicionar Múltiplos",
     "addsingle": "Adicionar Único",
@@ -134,5 +134,7 @@
     "strengthExample": "Relacionado a exercício e atividade",
     "intelligenceExample": "Relacionado a atividades acadêmicas ou mentalmente desafiadoras",
     "perceptionExample": "Relacionado a trabalho ou tarefas financeiras",
-    "constitutionExample": "Relacionado a saúde, bem estar e interação social"
+    "constitutionExample": "Relacionado a saúde, bem estar e interação social",
+    "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
+    "taskApprovalHasBeenRequested": "Approval has been requested"
 }

@@ -24,6 +24,7 @@
     "gildedTurkey": "Gilded Turkey",
     "polarBearPup": "Polar Bear Cub",
     "jackolantern": "Jack-O-Lantern",
+    "ghostJackolantern": "Ghost Jack-O-Lantern",
     "seasonalShop": "Seasonal Shop",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Seasonal Sorceress<%= linkEnd %>",

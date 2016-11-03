@@ -24,6 +24,7 @@
     "gildedTurkey": "Dinde dorée",
     "polarBearPup": "Ourson polaire",
     "jackolantern": "Citrouille d'Halloween",
+    "ghostJackolantern": "Ghost Jack-O-Lantern",
     "seasonalShop": "Boutique Saisonnière",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Sorcière Saisonnière<%= linkEnd %>",

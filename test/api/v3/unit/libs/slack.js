@@ -8,27 +8,33 @@ import nconf from 'nconf';
 
 describe('slack', () => {
   describe('sendFlagNotification', () => {
-    let flagger, group, message;
+    let data;
 
     beforeEach(() => {
       sandbox.stub(IncomingWebhook.prototype, 'send');
-      flagger = {
-        id: 'flagger-id',
-        profile: {
-          name: 'flagger',
+      data = {
+        authorEmail: 'author@example.com',
+        flagger: {
+          id: 'flagger-id',
+          profile: {
+            name: 'flagger',
+          },
+          preferences: {
+            language: 'flagger-lang',
+          },
         },
-      };
-      group = {
-        id: 'group-id',
-        privacy: 'private',
-        name: 'Some group',
-        type: 'guild',
-      };
-      message = {
-        id: 'chat-id',
-        user: 'Author',
-        uuid: 'author-id',
-        text: 'some text',
+        group: {
+          id: 'group-id',
+          privacy: 'private',
+          name: 'Some group',
+          type: 'guild',
+        },
+        message: {
+          id: 'chat-id',
+          user: 'Author',
+          uuid: 'author-id',
+          text: 'some text',
+        },
       };
     });
 
@@ -37,19 +43,15 @@ describe('slack', () => {
     });
 
     it('sends a slack webhook', () => {
-      slack.sendFlagNotification({
-        flagger,
-        group,
-        message,
-      });
+      slack.sendFlagNotification(data);
 
       expect(IncomingWebhook.prototype.send).to.be.calledOnce;
       expect(IncomingWebhook.prototype.send).to.be.calledWith({
-        text: 'flagger (flagger-id) flagged a message',
+        text: 'flagger (flagger-id) flagged a message (language: flagger-lang)',
         attachments: [{
           fallback: 'Flag Message',
           color: 'danger',
-          author_name: 'Author - author-id',
+          author_name: 'Author - author@example.com - author-id',
           title: 'Flag in Some group - (private guild)',
           title_link: undefined,
           text: 'some text',
@@ -62,13 +64,9 @@ describe('slack', () => {
     });
 
     it('includes a title link if guild is public', () => {
-      group.privacy = 'public';
+      data.group.privacy = 'public';
 
-      slack.sendFlagNotification({
-        flagger,
-        group,
-        message,
-      });
+      slack.sendFlagNotification(data);
 
       expect(IncomingWebhook.prototype.send).to.be.calledWithMatch({
         attachments: [sandbox.match({
@@ -79,15 +77,11 @@ describe('slack', () => {
     });
 
     it('links to tavern', () => {
-      group.privacy = 'public';
-      group.name = 'Tavern';
-      group.id = TAVERN_ID;
+      data.group.privacy = 'public';
+      data.group.name = 'Tavern';
+      data.group.id = TAVERN_ID;
 
-      slack.sendFlagNotification({
-        flagger,
-        group,
-        message,
-      });
+      slack.sendFlagNotification(data);
 
       expect(IncomingWebhook.prototype.send).to.be.calledWithMatch({
         attachments: [sandbox.match({
@@ -98,14 +92,10 @@ describe('slack', () => {
     });
 
     it('provides name for system message', () => {
-      message.uuid = 'system';
-      delete message.user;
+      data.message.uuid = 'system';
+      delete data.message.user;
 
-      slack.sendFlagNotification({
-        flagger,
-        group,
-        message,
-      });
+      slack.sendFlagNotification(data);
 
       expect(IncomingWebhook.prototype.send).to.be.calledWithMatch({
         attachments: [sandbox.match({
@@ -121,11 +111,7 @@ describe('slack', () => {
 
       expect(logger.error).to.be.calledOnce;
 
-      reRequiredSlack.sendFlagNotification({
-        flagger,
-        group,
-        message,
-      });
+      reRequiredSlack.sendFlagNotification(data);
 
       expect(IncomingWebhook.prototype.send).to.not.be.called;
     });

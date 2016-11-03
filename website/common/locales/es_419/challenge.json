@@ -11,7 +11,7 @@
     "unsubChallenge": "Enlace al Desafío roto: esta tarea era parte de un Desafío, pero te has dado de baja del mismo. ¿Qué hacemos con las tareas huérfanas?",
     "challengeWinner": "Fue el ganador en los siguientes desafíos",
     "challenges": "Desafíos",
-    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Challenges</a>",
+    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Desafíos</a>",
     "noChallenges": "Ningún desafío todavía, visita",
     "toCreate": "para crear uno.",
     "selectWinner": "Seleccionar un ganador y cerrar el desafío:",
