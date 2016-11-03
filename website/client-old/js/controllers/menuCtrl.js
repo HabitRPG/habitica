@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg')
-  .controller('MenuCtrl', ['$scope', '$rootScope', '$http', 'Chat', 'Content',
-    function($scope, $rootScope, $http, Chat, Content) {
+  .controller('MenuCtrl', ['$scope', '$rootScope', '$http', 'Chat', 'Content', 'User',
+    function($scope, $rootScope, $http, Chat, Content, User) {
 
       $scope.logout = function() {
         localStorage.clear();
@@ -11,6 +11,7 @@ angular.module('habitrpg')
 
       function selectNotificationValue(mysteryValue, invitationValue, cardValue, unallocatedValue, messageValue, noneValue) {
         var user = $scope.user;
+console.log(User.user.notifications)
         if (user.purchased && user.purchased.plan && user.purchased.plan.mysteryItems && user.purchased.plan.mysteryItems.length) {
           return mysteryValue;
         } else if ((user.invitations.party && user.invitations.party.id) || (user.invitations.guilds && user.invitations.guilds.length > 0)) {
@@ -21,6 +22,9 @@ angular.module('habitrpg')
           return unallocatedValue;
         } else if (!(_.isEmpty(user.newMessages))) {
           return messageValue;
+        } else if (!_.isEmpty(User.user.notifications)) {
+          $scope.user = User.user;
+          return false;
         } else {
           return noneValue;
         }
@@ -102,7 +106,7 @@ angular.module('habitrpg')
       };
 
       $scope.hasNoNotifications = function() {
-        return selectNotificationValue(false, false, false, false, false, true);
+        //return selectNotificationValue(false, false, false, false, false, true);
       }
     }
 ]);

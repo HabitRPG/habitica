@@ -113,6 +113,13 @@ angular.module('habitrpg')
       });
     };
 
+    function approve (taskId, userId) {
+      return $http({
+        method: 'POST',
+        url: '/api/v3/tasks/' + taskId + '/approve/' + userId,
+      });
+    };
+
     function getTask (taskId) {
       return $http({
         method: 'GET',
@@ -376,5 +383,6 @@ angular.module('habitrpg')
       collapseChecklist: collapseChecklist,
 
       getGroupApprovals: getGroupApprovals,
+      approve: approve,
     };
   }]);

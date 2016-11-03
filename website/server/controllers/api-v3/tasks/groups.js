@@ -266,7 +266,9 @@ api.getGroupApprovals = {
       'group.id': groupId,
       'group.approval.approved': false,
       'group.approval.requested': true,
-    }, 'userId group').exec();
+    }, 'userId group text')
+    .populate('userId', 'profile')
+    .exec();
 
     res.respond(200, approvals);
   },
