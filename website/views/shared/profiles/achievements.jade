@@ -1,5 +1,8 @@
 mixin simpleAchiev(achiev)
-  div(ng-init='earnedClass = achiev.earned ? "" : "muted"')&attributes(attributes)
+  div(ng-init='earnedClass = achiev.earned ? "" : "muted"', 
+      data-popover-html='<div class="{{earnedClass}}">{{achiev.title}}<hr>{{achiev.text}}</div>',
+      popover-placement='top',
+      popover-append-to-body='{{achievAppendToBody}}')&attributes(attributes)
     button.pet-button(popover-trigger='mouseenter',
       data-popover-html='<div class="{{earnedClass}}">{{achiev.title}}<hr>{{achiev.text}}</div>',
       popover-placement='{{achievPopoverPlacement}}',

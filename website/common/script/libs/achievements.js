@@ -126,9 +126,9 @@ function _addPlural (result, user, data) {
 
   let titleKey;
   let textKey;
-  // If value === 0, use singular versions of strings.
-  // If value !== 0, use plural versions of strings.
-  if (value === 0) {
+  // If value === 1, use singular versions of strings.
+  // If value !== 1, use plural versions of strings.
+  if (value === 1) {
     titleKey = thisContent.singularTitleKey;
     textKey = thisContent.singularTextKey;
   } else {
