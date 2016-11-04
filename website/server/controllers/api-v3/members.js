@@ -314,7 +314,7 @@ api.sendPrivateMessage = {
       throw new NotAuthorized(res.t('notAuthorizedToSendMessageToThisUser'));
     }
 
-    await sender.sendMessage(receiver, message);
+    await sender.sendMessage(receiver, { receiverMsg: message });
 
     if (receiver.preferences.emailNotifications.newPM !== false) {
       sendTxnEmail(receiver, 'new-pm', [
@@ -385,9 +385,9 @@ api.transferGems = {
     await Bluebird.all(promises);
 
     // generate the message in both languages, so both users can understand it
-    let receiversLang = receiver.preferences.language;
-    let sendersLang = sender.preferences.language;
-    let [receiversMessage, sendersMessage] = [receiversLang, sendersLang].map((lang) => {
+    let receiverLang = receiver.preferences.language;
+    let senderLang = sender.preferences.language;
+    let [receiverMsg, senderMsg] = [receiverLang, senderLang].map((lang) => {
       let messageContent = res.t('privateMessageGiftIntro', {
         receiverName: receiver.profile.name,
         senderName: sender.profile.name,
@@ -401,7 +401,10 @@ api.transferGems = {
       return messageContent;
     });
 
-    await sender.sendMessage(receiver, receiversMessage, sendersMessage);
+    await sender.sendMessage(receiver, {
+      senderMsg,
+      receiverMsg,
+    });
 
     let byUsername = getUserInfo(sender, ['name']).name;
 

@@ -173,9 +173,10 @@ describe('payments/index', () => {
 
       it('sends a private message about the gift', async () => {
         await api.createSubscription(data);
+        let msg = '\`Hello recipient, sender has sent you 3 months of subscription!\`';
 
         expect(user.sendMessage).to.be.calledOnce;
-        expect(user.sendMessage).to.be.calledWith(recipient, '\`Hello recipient, sender has sent you 3 months of subscription!\`');
+        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg });
       });
 
       it('sends an email about the gift', async () => {
@@ -689,8 +690,9 @@ describe('payments/index', () => {
 
       it('sends a message from purchaser to recipient', async () => {
         await api.buyGems(data);
+        let msg = '\`Hello recipient, sender has sent you 4 gems!\`';
 
-        expect(user.sendMessage).to.be.calledWith(recipient, '\`Hello recipient, sender has sent you 4 gems!\`');
+        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg });
       });
 
       it('sends a push notification if user did not gift to self', async () => {

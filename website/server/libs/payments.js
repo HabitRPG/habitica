@@ -139,7 +139,7 @@ api.createSubscription = async function createSubscription (data) {
     let message = `\`Hello ${data.gift.member.profile.name}, ${data.user.profile.name} has sent you ${shared.content.subscriptionBlocks[data.gift.subscription.key].months} months of subscription!\``;
     if (data.gift.message) message += ` ${data.gift.message}`;
 
-    data.user.sendMessage(data.gift.member, message);
+    data.user.sendMessage(data.gift.member, { receiverMsg: message });
 
     let byUserName = getUserInfo(data.user, ['name']).name;
 
@@ -261,7 +261,7 @@ api.buyGems = async function buyGems (data) {
 
     let message = `\`Hello ${data.gift.member.profile.name}, ${data.user.profile.name} has sent you ${gemAmount} gems!\``;
     if (data.gift.message) message += ` ${data.gift.message}`;
-    data.user.sendMessage(data.gift.member, message);
+    data.user.sendMessage(data.gift.member, { receiverMsg: message });
 
     if (data.gift.member.preferences.emailNotifications.giftedGems !== false) {
       txnEmail(data.gift.member, 'gifted-gems', [

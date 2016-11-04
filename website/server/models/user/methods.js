@@ -20,16 +20,16 @@ schema.methods.getGroups = function getUserGroups () {
   return userGroups;
 };
 
-schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, translatedMessage, message) {
+schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, options) {
   let sender = this;
-  message = typeof message !== 'undefined' ? message : translatedMessage;
+  let senderMsg = options.senderMsg || options.receiverMsg;
 
-  common.refPush(userToReceiveMessage.inbox.messages, chatDefaults(translatedMessage, sender));
+  common.refPush(userToReceiveMessage.inbox.messages, chatDefaults(options.receiverMsg, sender));
   userToReceiveMessage.inbox.newMessages++;
   userToReceiveMessage._v++;
   userToReceiveMessage.markModified('inbox.messages');
 
-  common.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(message, userToReceiveMessage)));
+  common.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(senderMsg, userToReceiveMessage)));
   sender.markModified('inbox.messages');
 
   let promises = [userToReceiveMessage.save(), sender.save()];
