@@ -144,7 +144,9 @@ describe('Stats Service', function() {
         "weapon" : "weapon_special_1",
         "shield" : "shield_special_1",
         "head" : "head_special_1",
-        "armor" : "armor_special_1"
+        "armor" : "armor_special_1",
+        "back" : "back_special_takeThis",
+        "body" : "body_special_takeThis",
       };
 
       var strStat = statCalc.equipmentStatBonus('str', equippedGear);
@@ -152,10 +154,10 @@ describe('Stats Service', function() {
       var intStat = statCalc.equipmentStatBonus('int', equippedGear);
       var perStat = statCalc.equipmentStatBonus('per', equippedGear);
 
-      expect(strStat).to.eql(24);
-      expect(conStat).to.eql(24);
-      expect(intStat).to.eql(24);
-      expect(perStat).to.eql(24);
+      expect(strStat).to.eql(26);
+      expect(conStat).to.eql(26);
+      expect(intStat).to.eql(26);
+      expect(perStat).to.eql(26);
     });
   });
 

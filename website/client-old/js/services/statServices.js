@@ -39,16 +39,10 @@
       var gear = Content.gear.flat;
       var total = 0;
 
-      var equipmentTypes = ['weapon', 'armor', 'head', 'shield'];
-
-      _(equipmentTypes).each(function(type) {
-        var equippedItem = equipped[type];
-        if(gear[equippedItem]) {
-          var equipmentStat = gear[equippedItem][stat];
-
-          total += equipmentStat;
-        }
-      }).value();
+      _.each(equipped, function(equippedItem) {
+        var equipmentStat = gear[equippedItem][stat];
+        total += equipmentStat;
+      });
 
       return total;
     }
