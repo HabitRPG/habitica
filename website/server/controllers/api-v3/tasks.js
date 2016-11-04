@@ -335,6 +335,7 @@ api.scoreTask = {
           user: user.profile.name,
           taskName: task.text,
         }),
+        groupId: group._id,
       });
 
       await Bluebird.all([groupLeader.save(), task.save()]);
