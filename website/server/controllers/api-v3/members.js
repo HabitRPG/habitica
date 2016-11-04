@@ -384,18 +384,24 @@ api.transferGems = {
     let promises = [receiver.save(), sender.save()];
     await Bluebird.all(promises);
 
-    let message = res.t('privateMessageGiftIntro', {
-      receiverName: receiver.profile.name,
-      senderName: sender.profile.name,
-    }, receiver.preferences.language);
-    message += res.t('privateMessageGiftGemsMessage', {gemAmount}, receiver.preferences.language);
-    message =  `\`${message}\` `;
+    // generate the message in both languages, so both users can understand it
+    let receiversLang = receiver.preferences.language;
+    let sendersLang = sender.preferences.language;
+    let [receiversMessage, sendersMessage] = [receiversLang, sendersLang].map((lang) => {
+      let messageContent = res.t('privateMessageGiftIntro', {
+        receiverName: receiver.profile.name,
+        senderName: sender.profile.name,
+      }, lang);
+      messageContent += res.t('privateMessageGiftGemsMessage', {gemAmount}, lang);
+      messageContent = `\`${messageContent}\` `;
 
-    if (req.body.message) {
-      message += req.body.message;
-    }
+      if (req.body.message) {
+        messageContent += req.body.message;
+      }
+      return messageContent;
+    });
 
-    await sender.sendMessage(receiver, message);
+    await sender.sendMessage(receiver, receiversMessage, sendersMessage);
 
     let byUsername = getUserInfo(sender, ['name']).name;
 
