@@ -61,11 +61,12 @@ api.getMember = {
 
 /**
  * @api {get} /api/v3/members/:memberId/achievements Get member achievements object
- * @apiVersion 3.0.0
  * @apiName GetMemberAchievements
  * @apiGroup Member
- *
- * @apiParam {UUID} memberId The member's id
+ * @apiDescription Get a list of achievements of the requested member, grouped by basic / seasonal / special.
+ * 
+ * 
+ * @apiParam (Path) {UUID} memberId The member's id
  *
  * @apiSuccess {Object} data The achievements object
  *
@@ -82,9 +83,34 @@ api.getMember = {
  * @apiSuccess {Number} data.*.achievements.index The unique index assigned to the achievement (only for sorting purposes)
  * @apiSuccess {Anything} data.*.achievements.value The value related to the achievement (if applicable)
  * @apiSuccess {Number} data.*.achievements.optionalCount The count related to the achievement (if applicable)
+
+ * @apiSuccessExample {json} Successful Response
+ * {
+ *   "achievements": {
+ *     "streak": {
+ *       "title": "0 Streak Achievements",
+ *       "text": "Has performed 0 21-day streaks on Dailies",
+ *       "icon": "achievement-thermometer",
+ *       "earned": false,
+ *       "value": 0,
+ *       "index": 0,
+ *       "optionalCount": 0
+ *     },
+ *     "perfect": {
+ *       "title": "5 Perfect Days",
+ *       "text": "Completed all active Dailies on 5 days. With this achievement you get a +level/2 buff to all attributes for the next day. Levels greater than 100 don't have any additional effects on buffs.",
+ *       "icon": "achievement-perfect",
+ *       "earned": true,
+ *       "value": 5,
+ *       "index": 1,
+ *       "optionalCount": 5
+ *     }
+ *   }
+ * }
  *
- * @apiError MemberIdRequired The `id` param is required and must be a valid `UUID`
- * @apiError UserWithIdNotFound The `id` param did not belong to an existing member
+ * @apiError (400) {BadRequest} MemberIdRequired The `id` param is required and must be a valid `UUID`
+ * @apiError (404) {NotFound} UserWithIdNotFound The `id` param did not belong to an existing member
+ * 
  */
 api.getMemberAchievements = {
   method: 'GET',
