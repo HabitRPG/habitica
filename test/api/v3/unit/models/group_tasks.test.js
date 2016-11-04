@@ -107,6 +107,7 @@ describe('Group Task Methods', () => {
 
         let updatedTaskName = 'Update Task name';
         task.text = updatedTaskName;
+        task.group.approval.required = true;
 
         await guild.updateTask(task);
 
@@ -121,10 +122,12 @@ describe('Group Task Methods', () => {
         expect(task.group.assignedUsers).to.contain(leader._id);
         expect(syncedTask).to.exist;
         expect(syncedTask.text).to.equal(task.text);
+        expect(syncedTask.group.approval.required).to.equal(true);
 
         expect(task.group.assignedUsers).to.contain(newMember._id);
         expect(syncedMemberTask).to.exist;
         expect(syncedMemberTask.text).to.equal(task.text);
+        expect(syncedMemberTask.group.approval.required).to.equal(true);
       });
 
       it('removes an assigned task and unlinks assignees', async () => {
