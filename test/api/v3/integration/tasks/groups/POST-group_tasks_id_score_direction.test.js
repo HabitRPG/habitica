@@ -40,7 +40,7 @@ describe('POST /tasks/:id/score/:direction', () => {
     await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
       .to.eventually.be.rejected.and.to.eql({
         code: 401,
-        error: "NotAuthorized",
+        error: 'NotAuthorized',
         message: t('taskApprovalHasBeenRequested'),
       });
     let updatedTask = await member.get(`/tasks/${syncedTask._id}`);
@@ -66,7 +66,7 @@ describe('POST /tasks/:id/score/:direction', () => {
     await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
       .to.eventually.be.rejected.and.to.eql({
         code: 401,
-        error: "NotAuthorized",
+        error: 'NotAuthorized',
         message: t('taskApprovalHasBeenRequested'),
       });
 

@@ -37,7 +37,7 @@ describe('GET /approvals/group/:groupId', () => {
     await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
       .to.eventually.be.rejected.and.to.eql({
         code: 401,
-        error: "NotAuthorized",
+        error: 'NotAuthorized',
         message: t('taskApprovalHasBeenRequested'),
       });
   });
