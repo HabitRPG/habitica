@@ -37,7 +37,12 @@ describe('POST /tasks/:id/score/:direction', () => {
     let memberTasks = await member.get('/tasks/user');
     let syncedTask = find(memberTasks, findAssignedTask);
 
-    let response = await member.post(`/tasks/${syncedTask._id}/score/up`);
+    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
+      .to.eventually.be.rejected.and.to.eql({
+        code: 401,
+        error: "NotAuthorized",
+        message: t('taskApprovalHasBeenRequested'),
+      });
     let updatedTask = await member.get(`/tasks/${syncedTask._id}`);
 
     await user.sync();
@@ -48,8 +53,8 @@ describe('POST /tasks/:id/score/:direction', () => {
       user: member.auth.local.username,
       taskName: updatedTask.text,
     }));
+    expect(user.notifications[0].data.groupId).to.equal(guild._id);
 
-    expect(response.message).to.equal(t('taskApprovalHasBeenRequested'));
     expect(updatedTask.group.approval.requested).to.equal(true);
     expect(updatedTask.group.approval.requestedDate).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
   });
@@ -58,7 +63,12 @@ describe('POST /tasks/:id/score/:direction', () => {
     let memberTasks = await member.get('/tasks/user');
     let syncedTask = find(memberTasks, findAssignedTask);
 
-    await member.post(`/tasks/${syncedTask._id}/score/up`);
+    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
+      .to.eventually.be.rejected.and.to.eql({
+        code: 401,
+        error: "NotAuthorized",
+        message: t('taskApprovalHasBeenRequested'),
+      });
 
     await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
       .to.eventually.be.rejected.and.eql({

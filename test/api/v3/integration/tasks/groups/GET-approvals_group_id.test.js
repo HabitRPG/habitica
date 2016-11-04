@@ -34,7 +34,12 @@ describe('GET /approvals/group/:groupId', () => {
 
     let memberTasks = await member.get('/tasks/user');
     syncedTask = find(memberTasks, findAssignedTask);
-    await member.post(`/tasks/${syncedTask._id}/score/up`);
+    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
+      .to.eventually.be.rejected.and.to.eql({
+        code: 401,
+        error: "NotAuthorized",
+        message: t('taskApprovalHasBeenRequested'),
+      });
   });
 
   it('errors when user is not the group leader', async () => {
