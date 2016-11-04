@@ -28,7 +28,7 @@ let allModels = ['user', 'tag', 'challenge', 'group'].concat(tasksModels);
  *   }
  * }
  *
- * @apiError (BadRequest) modelNotFound The model specified was not found
+ * @apiError (400) {badRequest} modelNotFound The model specified was not found
  */
 api.getModelPaths = {
   method: 'GET',
