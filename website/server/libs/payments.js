@@ -136,12 +136,17 @@ api.createSubscription = async function createSubscription (data) {
   if (!group) data.user.purchased.txnCount++;
 
   if (data.gift) {
-    let message = `\`Hello ${data.gift.member.profile.name}, ${data.user.profile.name} has sent you ${shared.content.subscriptionBlocks[data.gift.subscription.key].months} months of subscription!\``;
+    let byUserName = getUserInfo(data.user, ['name']).name;
+
+    let message = shared.i18n.t('giftedSubscriptionFull', {
+      username: data.gift.member.profile.name,
+      sender: byUserName, // data.user.profile.name
+      monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
+    });
+    message = `\`${message}\``;
     if (data.gift.message) message += ` ${data.gift.message}`;
 
     data.user.sendMessage(data.gift.member, { receiverMsg: message });
-
-    let byUserName = getUserInfo(data.user, ['name']).name;
 
     if (data.gift.member.preferences.emailNotifications.giftedSubscription !== false) {
       txnEmail(data.gift.member, 'gifted-subscription', [
@@ -259,7 +264,13 @@ api.buyGems = async function buyGems (data) {
     let byUsername = getUserInfo(data.user, ['name']).name;
     let gemAmount = data.gift.gems.amount || 20;
 
-    let message = `\`Hello ${data.gift.member.profile.name}, ${data.user.profile.name} has sent you ${gemAmount} gems!\``;
+    let message = shared.i18n.t('giftedGemsFull', {
+      username: data.gift.member.profile.name,
+      sender: byUsername, // data.user.profile.name
+      gemAmount: gemAmount,
+    });
+    message = `\`${message}\``;
+
     if (data.gift.message) message += ` ${data.gift.message}`;
     data.user.sendMessage(data.gift.member, { receiverMsg: message });
 
