@@ -64,8 +64,7 @@ api.getMember = {
  * @apiName GetMemberAchievements
  * @apiGroup Member
  * @apiDescription Get a list of achievements of the requested member, grouped by basic / seasonal / special.
- * 
- * 
+ *
  * @apiParam (Path) {UUID} memberId The member's id
  *
  * @apiSuccess {Object} data The achievements object
@@ -83,7 +82,7 @@ api.getMember = {
  * @apiSuccess {Number} data.*.achievements.index The unique index assigned to the achievement (only for sorting purposes)
  * @apiSuccess {Anything} data.*.achievements.value The value related to the achievement (if applicable)
  * @apiSuccess {Number} data.*.achievements.optionalCount The count related to the achievement (if applicable)
-
+ *
  * @apiSuccessExample {json} Successful Response
  * {
  *   "achievements": {
@@ -110,7 +109,6 @@ api.getMember = {
  *
  * @apiError (400) {BadRequest} MemberIdRequired The `id` param is required and must be a valid `UUID`
  * @apiError (404) {NotFound} UserWithIdNotFound The `id` param did not belong to an existing member
- * 
  */
 api.getMemberAchievements = {
   method: 'GET',
