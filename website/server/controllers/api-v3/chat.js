@@ -171,8 +171,7 @@ api.postChat = {
     // This is not an elegant way to do this, I'm sure
     let message = req.body.message;
     let noPunctMessage = " " + message.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g," ") + " ";
-    console.log(noPunctMessage)
-  
+
     // Check for any slurs in the message
     for (let i=0; i<slurList.length; i++){
       let tmp = noPunctMessage.search(" " + slurList[i] + " "); // Don't match partial words
