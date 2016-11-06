@@ -18,7 +18,7 @@ describe('shared.ops.blockUser', () => {
 
   it('validates uuid', (done) => {
     try {
-      blockUser(user, { params: { uuid: 1 } });
+      blockUser(user, { params: { uuid: '1' } });
     } catch (error) {
       expect(error.message).to.eql(i18n.t('invalidUUID'));
       done();
