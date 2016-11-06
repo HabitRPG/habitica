@@ -140,8 +140,8 @@ schema.methods.muteUser = async function muteUser (message, groupId) {
 schema.methods.muteUser = async function muteUser (message, groupId) {
   let user = this;
 
-  // I need a way to make this permanent
-  user.chatRevoked = true;
+  user.flags.chatRevoked = true;
+  await user.save()
 
   let group = await Group.getGroup({
     user,
