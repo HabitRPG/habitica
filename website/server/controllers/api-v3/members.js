@@ -85,24 +85,55 @@ api.getMember = {
  *
  * @apiSuccessExample {json} Successful Response
  * {
- *   "achievements": {
- *     "streak": {
- *       "title": "0 Streak Achievements",
- *       "text": "Has performed 0 21-day streaks on Dailies",
- *       "icon": "achievement-thermometer",
- *       "earned": false,
- *       "value": 0,
- *       "index": 0,
- *       "optionalCount": 0
- *     },
- *     "perfect": {
- *       "title": "5 Perfect Days",
- *       "text": "Completed all active Dailies on 5 days. With this achievement you get a +level/2 buff to all attributes for the next day. Levels greater than 100 don't have any additional effects on buffs.",
- *       "icon": "achievement-perfect",
- *       "earned": true,
- *       "value": 5,
- *       "index": 1,
- *       "optionalCount": 5
+ *   basic: {
+ *     label: "Basic",
+ *     achievements: {
+ *       streak: {
+ *         title: "0 Streak Achievements",
+ *         text: "Has performed 0 21-day streaks on Dailies",
+ *         icon: "achievement-thermometer",
+ *         earned: false,
+ *         value: 0,
+ *         index: 60,
+ *         optionalCount: 0
+ *       },
+ *       perfect: {
+ *         title: "5 Perfect Days",
+ *         text: "Completed all active Dailies on 5 days. With this achievement you get a +level/2 buff to all attributes for the next day. Levels greater than 100 don't have any additional effects on buffs.",
+ *         icon: "achievement-perfect",
+ *         earned: true,
+ *         value: 5,
+ *         index: 61,
+ *         optionalCount: 5
+ *       }
+ *     }
+ *   },
+ *   seasonal: {
+ *     label: "Seasonal",
+ *     achievements: {
+ *       habiticaDays: {
+ *         title: "Habitica Naming Day",
+ *         text: "Celebrated 0 Naming Days! Thanks for being a fantastic user.",
+ *         icon: "achievement-habiticaDay",
+ *         earned: false,
+ *         value: 0,
+ *         index: 72,
+ *         optionalCount: 0
+ *       }
+ *     }
+ *   },
+ *   special: {
+ *     label: "Special",
+ *     achievements: {
+ *       habitSurveys: {
+ *         title: "Helped Habitica Grow",
+ *         text: "Helped Habitica grow on 0 occasions, either by filling out a survey or helping with a major testing effort. Thank you!",
+ *         icon: "achievement-tree",
+ *         earned: false,
+ *         value: 0,
+ *         index: 88,
+ *         optionalCount: 0
+ *       }
  *     }
  *   }
  * }
