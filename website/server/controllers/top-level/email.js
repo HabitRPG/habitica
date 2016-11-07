@@ -14,10 +14,11 @@ let api = {};
  * @apiGroup Unsubscribe
  * @apiDescription This is a GET method so that you can put the unsubscribe link in emails.
  *
- * @apiParam {String} code Query parameter - An unsubscription code
+ * @apiParam (Query) {String} code Query parameter - An unsubscription code
  *
  * @apiSuccess {String} An html success message
  *
+ * @apiError (400) {BadRequest} missingUnsubscriptionCode The unsubscription code is missing
  * @apiUse UserNotFound
  */
 api.unsubscribe = {
