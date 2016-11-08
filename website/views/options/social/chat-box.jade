@@ -7,6 +7,10 @@ div.chat-form.guidelines-not-accepted(ng-if='!user.flags.communityGuidelinesAcce
       button(type="button", ng-click='sync(group)') {{group.type === 'party' ? env.t('syncPartyAndChat') : env.t('toolTipMsg')}}
 
 form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postChat(group,message.content)')
+  .alert.alert-danger(ng-show="errorMessage")
+    strong
+    | {{errorMessage}}
+
   div(ng-controller='AutocompleteCtrl')
     textarea.form-control(rows=4, ng-keydown='keyDownListener($event)', ng-model='message.content', updateinterval='250', flag='@', at-user, auto-complete placeholder="{{group._id == TAVERN_ID ? env.t('tavernCommunityGuidelinesPlaceholder') : ''}}", ng-disabled='_sending == true')
     span.user-list
@@ -24,4 +28,3 @@ form.chat-form(ng-if='user.flags.communityGuidelinesAccepted' ng-submit='postCha
         label
           input(type='checkbox', ng-model='user.preferences.reverseChatOrder', ng-change='set({"preferences.reverseChatOrder": user.preferences.reverseChatOrder?true: false})')
           span=env.t('reverseChatOrder')
-

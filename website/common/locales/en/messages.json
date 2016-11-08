@@ -60,5 +60,7 @@
   "messageUserOperationProtected": "path `<%= operation %>` was not saved, as it's a protected path.",
   "messageUserOperationNotFound": "<%= operation %> operation not found",
   "messageNotificationNotFound": "Notification not found.",
-  "notificationsRequired": "Notification ids are required."
+
+  "notificationsRequired": "Notification ids are required.",
+  "bannedWordUsed": "You can not use banned words in chat."
 }
