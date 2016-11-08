@@ -17,6 +17,10 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
   return { email, canSend: true };
 });
 
+const BANNED_WORDS = {
+  shit: 'Shit',
+};
+
 /**
  * @apiDefine MessageNotFound
  * @apiError (404) {NotFound} MessageNotFound The specified message could not be found.
@@ -70,6 +74,20 @@ api.getChat = {
   },
 };
 
+function matchExact (r, str) {
+  let match = str.match(r);
+  return match !== null && str === match[0];
+}
+
+function textContainsBannedWords (message) {
+  for (let word in BANNED_WORDS) {
+    let regEx = `(^|\s)${word.toLowerCase()}(?=\s|$)`;
+    if (matchExact(regEx, message.toLowerCase())) return true;
+  }
+
+  return false;
+}
+
 /**
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
  * @apiName PostChat
@@ -103,6 +121,10 @@ api.postChat = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.privacy !== 'private' && user.flags.chatRevoked) {
       throw new NotFound('Your chat privileges have been revoked.');
+    }
+
+    if (group.privacy !== 'private' && textContainsBannedWords(req.body.message)) {
+      throw new NotAuthorized(res.t('bannedWordUsed'));
     }
 
     let lastClientMsg = req.query.previousMsg;

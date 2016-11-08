@@ -9,6 +9,7 @@ import { v4 as generateUUID } from 'uuid';
 describe('POST /chat', () => {
   let user, groupWithChat, userWithChatRevoked, member;
   let testMessage = 'Test Message';
+  let testBannedWordMessage = 'shit';
 
   before(async () => {
     let { group, groupLeader, members } = await createAndPopulateGroup({
@@ -49,6 +50,29 @@ describe('POST /chat', () => {
       error: 'NotFound',
       message: 'Your chat privileges have been revoked.',
     });
+  });
+
+  it('returns an error when chat message contains a banned word ', async () => {
+    await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testBannedWordMessage})).to.eventually.be.rejected.and.eql({
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('bannedWordUsed'),
+    });
+  });
+
+  it('does not error when sending a chat message contains a banned word to a private group', async () => {
+    let { group, members } = await createAndPopulateGroup({
+      groupDetails: {
+        name: 'Party',
+        type: 'party',
+        privacy: 'private',
+      },
+      members: 1,
+    });
+
+    let message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage});
+
+    expect(message.message.id).to.exist;
   });
 
   it('does not error when sending a message to a private guild with a user with revoked chat', async () => {

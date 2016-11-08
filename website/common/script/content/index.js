@@ -28,13 +28,13 @@ import loginIncentives from './loginIncentives';
 import bannedWords from './banned-words';
 
 
+
 api.mystery = mysterySets;
 
 api.itemList = ITEM_LIST;
 
 api.gear = gear;
 api.spells = spells;
-api.bannedWords = bannedWords;
 
 /*
    Time Traveler Store, mystery sets need their items mapped in

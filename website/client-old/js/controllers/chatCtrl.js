@@ -4,7 +4,6 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
     function($scope, Groups, Chat, User, $http, ApiUrl, Notification, Members, $rootScope, Analytics, Shared) {
     $scope.message = {content:''};
     $scope._sending = false;
-    $scope.errorMessage = '';
 
     $scope.isUserMentioned = function(user, message) {
       if(message.hasOwnProperty("highlight"))
@@ -26,33 +25,8 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
 
     var bannedWords = _.values(Shared.content.bannedWords);
 
-    function matchExact(r, str) {
-       var match = str.match(r);
-       return match != null && str == match[0];
-    }
-
-    function textContainsBannedWords(message) {
-      var Exception = {};
-      try {
-        bannedWords.forEach(function(word) {
-          var regEx = '(^|\s)' + word.toLowerCase() + '(?=\s|$)';
-          if (matchExact(regEx, message.toLowerCase())) throw Exception;
-        });
-      } catch (e) {
-        if (e !== Exception) throw e;
-        return true;
-      }
-
-      return false;
-    }
-
     $scope.postChat = function(group, message) {
       if (_.isEmpty(message) || $scope._sending) return;
-
-      if (group.privacy !== 'private' && textContainsBannedWords(message)) {
-        $scope.errorMessage = env.t('bannedWordUsed');
-        return;
-      }
 
       $scope._sending = true;
 
