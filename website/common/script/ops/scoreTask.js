@@ -213,10 +213,6 @@ module.exports = function scoreTask (options = {}, req = {}) {
     });
 
     _updateCounter(task, direction, times);
-<<<<<<< upstream/develop
-
-=======
->>>>>>> HEAD~4
   } else if (task.type === 'daily') {
     if (cron) {
       delta += _changeTaskValue(user, task, direction, times, cron);

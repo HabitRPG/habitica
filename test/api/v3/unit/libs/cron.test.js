@@ -487,7 +487,7 @@ describe('cron', () => {
         tasksByType.habits[0].counterUp = 1;
         tasksByType.habits[0].counterDown = 1;
 
-        // should not reset 
+        // should not reset
         cron({user, tasksByType, daysMissed, analytics});
 
         expect(tasksByType.habits[0].counterUp).to.equal(1);
