@@ -469,8 +469,16 @@ describe('cron', () => {
     });
 
     describe('counters', () => {
-      let notStartOfWeekOrMonth = moment('2016-10-28').unix(); // a Friday
-      let fakeClock = sinon.useFakeTimers(notStartOfWeekOrMonth);
+      let notStartOfWeekOrMonth = new Date(2016, 9, 28).getTime(); // a Friday
+      let clock;
+
+      beforeEach(() => {
+        // Replace system clocks so we can get predictable results
+        clock = sinon.useFakeTimers(notStartOfWeekOrMonth);
+      });
+      afterEach(() => {
+        return clock.restore();
+      });
 
       it('should reset a daily habit counter each day', () => {
         tasksByType.habits[0].counterUp = 1;
@@ -519,7 +527,6 @@ describe('cron', () => {
         expect(tasksByType.habits[0].counterUp).to.equal(0);
         expect(tasksByType.habits[0].counterDown).to.equal(0);
       });
-      fakeClock.restore();
     });
   });
 
