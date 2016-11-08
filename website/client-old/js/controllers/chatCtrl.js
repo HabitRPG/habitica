@@ -1,7 +1,7 @@
 'use strict';
 
-habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'ApiUrl', 'Notification', 'Members', '$rootScope', 'Analytics', 'Shared',
-    function($scope, Groups, Chat, User, $http, ApiUrl, Notification, Members, $rootScope, Analytics, Shared) {
+habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'ApiUrl', 'Notification', 'Members', '$rootScope', 'Analytics',
+    function($scope, Groups, Chat, User, $http, ApiUrl, Notification, Members, $rootScope, Analytics) {
     $scope.message = {content:''};
     $scope._sending = false;
 
@@ -23,11 +23,8 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
       return message.highlight;
     }
 
-    var bannedWords = _.values(Shared.content.bannedWords);
-
     $scope.postChat = function(group, message) {
       if (_.isEmpty(message) || $scope._sending) return;
-
       $scope._sending = true;
 
       var previousMsg = false;
