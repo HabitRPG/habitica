@@ -213,6 +213,9 @@ let dailyTodoSchema = () => {
 export let HabitSchema = new Schema(_.defaults({
   up: {type: Boolean, default: true},
   down: {type: Boolean, default: true},
+  counterUp: {type: Number, default: 0},
+  counterDown: {type: Number, default: 0},
+  frequency: {type: String, default: 'daily', enum: ['daily', 'weekly', 'monthly']},
 }, habitDailySchema()), subDiscriminatorOptions);
 export let habit = Task.discriminator('habit', HabitSchema);
 
