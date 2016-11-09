@@ -417,8 +417,8 @@ api.transferGems = {
     if (receiver.preferences.pushNotifications.giftedGems !== false) {
       sendPushNotification(receiver,
         {
-          title: res.t('giftedGems'),
-          message: res.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}),
+          title: res.t('giftedGems', receiverLang),
+          message: res.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}, receiverLang),
           identifier: 'giftedGems',
           payload: {replyTo: sender._id},
         });
