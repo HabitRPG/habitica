@@ -299,8 +299,8 @@ api.buyGems = async function buyGems (data) {
         sendPushNotification(
           data.gift.member,
           {
-            title: shared.i18n.t('giftedGems'),
-            message: shared.i18n.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}),
+            title: shared.i18n.t('giftedGems', languages[1]),
+            message: shared.i18n.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}, languages[1]),
             identifier: 'giftedGems',
           }
         );
