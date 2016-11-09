@@ -264,15 +264,28 @@ api.buyGems = async function buyGems (data) {
     let byUsername = getUserInfo(data.user, ['name']).name;
     let gemAmount = data.gift.gems.amount || 20;
 
-    let message = shared.i18n.t('giftedGemsFull', {
+    // generate the message in both languages, so both users can understand it
+    let languages = [data.user.preferences.language, data.gift.member.preferences.language];
+    let senderMsg = shared.i18n.t('giftedGemsFull', {
       username: data.gift.member.profile.name,
-      sender: byUsername, // data.user.profile.name
-      gemAmount: gemAmount,
-    });
-    message = `\`${message}\``;
+      sender: byUsername,
+      gemAmount,
+    }, languages[0]);
+    senderMsg = `\`${senderMsg}\``;
 
-    if (data.gift.message) message += ` ${data.gift.message}`;
-    data.user.sendMessage(data.gift.member, { receiverMsg: message });
+    let receiverMsg = shared.i18n.t('giftedGemsFull', {
+      username: data.gift.member.profile.name,
+      sender: byUsername,
+      gemAmount,
+    }, languages[1]);
+    receiverMsg = `\`${receiverMsg}\``;
+
+    if (data.gift.message) {
+      receiverMsg += ` ${data.gift.message}`;
+      senderMsg += ` ${data.gift.message}`;
+    }
+
+    data.user.sendMessage(data.gift.member, { receiverMsg, senderMsg });
 
     if (data.gift.member.preferences.emailNotifications.giftedGems !== false) {
       txnEmail(data.gift.member, 'gifted-gems', [
