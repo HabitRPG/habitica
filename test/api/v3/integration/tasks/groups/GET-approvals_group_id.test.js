@@ -38,7 +38,7 @@ describe('GET /approvals/group/:groupId', () => {
     try {
       await member.post(`/tasks/${syncedTask._id}/score/up`);
     } catch (e) {
-
+      // eslint-disable-next-line no-empty
     }
   });
 
