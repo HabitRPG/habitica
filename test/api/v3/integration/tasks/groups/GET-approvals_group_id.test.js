@@ -34,6 +34,7 @@ describe('GET /approvals/group/:groupId', () => {
 
     let memberTasks = await member.get('/tasks/user');
     syncedTask = find(memberTasks, findAssignedTask);
+
     try {
       await member.post(`/tasks/${syncedTask._id}/score/up`);
     } catch (e) {
