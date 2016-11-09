@@ -220,5 +220,6 @@
     "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>",
     "confirmTaskApproval": "Are you sure you want to approve this task?",
     "approve": "Approve",
-    "approvalTitle": "<%= text %> for user: <%= userName %>"
+    "approvalTitle": "<%= text %> for user: <%= userName %>",
+    "confirmTaskApproval": "Are you sure you want to approve this task?"
 }
