@@ -8,7 +8,7 @@ habitrpg.controller('GroupApprovalsCtrl', ['$scope', 'Tasks',
       });
 
     $scope.approve = function (taskId, userId, $index) {
-      if (!confirm("Are you sure you want to approve this?")) return;
+      if (!confirm(env.t('confirmTaskApproval'))) return;
       Tasks.approve(taskId, userId)
         .then(function (response) {
           $scope.approvals.splice($index, 1);

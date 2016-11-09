@@ -4,7 +4,7 @@ import {
 } from '../../../../../helpers/api-integration/v3';
 import { find } from 'lodash';
 
-describe.only('GET /approvals/group/:groupId', () => {
+describe('GET /approvals/group/:groupId', () => {
   let user, guild, member, task, syncedTask;
 
   function findAssignedTask (memberTask) {
