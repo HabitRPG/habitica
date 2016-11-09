@@ -172,8 +172,8 @@ api.createSubscription = async function createSubscription (data) {
       if (data.gift.member.preferences.pushNotifications.giftedSubscription !== false) {
         sendPushNotification(data.gift.member,
           {
-            title: shared.i18n.t('giftedSubscription'),
-            message: shared.i18n.t('giftedSubscriptionInfo', {months, name: byUserName}),
+            title: shared.i18n.t('giftedSubscription', languages[1]),
+            message: shared.i18n.t('giftedSubscriptionInfo', {months, name: byUserName}, languages[1]),
             identifier: 'giftedSubscription',
             payload: {replyTo: data.user._id},
           }
