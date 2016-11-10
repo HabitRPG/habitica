@@ -4,6 +4,7 @@ import analytics from '../../../../../website/server/libs/analyticsService';
 import notifications from '../../../../../website/server/libs/pushNotifications';
 import { model as User } from '../../../../../website/server/models/user';
 import { model as Group } from '../../../../../website/server/models/group';
+import stripeModule from 'stripe';
 import moment from 'moment';
 import {
   generateGroup,
@@ -11,6 +12,8 @@ import {
 
 describe('payments/index', () => {
   let user, group, data, plan;
+
+  let stripe = stripeModule('test');
 
   beforeEach(async () => {
     user = new User();
@@ -28,7 +31,11 @@ describe('payments/index', () => {
     sandbox.stub(user, 'sendMessage');
     sandbox.stub(analytics, 'trackPurchase');
     sandbox.stub(analytics, 'track');
-    sandbox.stub(notifications, 'sendNotification');
+    sandbox.stub(notifications, 'sendNotification')
+    var StripeObjectStub = sinon.stub(Stripe, 'Stripe', function() {
+      return stripe;
+    });
+    sandbox.stub(stripe.subscriptions, 'update');
 
     data = {
       user,
@@ -697,6 +704,23 @@ describe('payments/index', () => {
         await api.buyGems(data);
         expect(notifications.sendNotification).to.be.calledOnce;
       });
+    });
+  });
+
+  describe.only('#upgradeGroupPlan', () => {
+    it('updates a group plan quantity', async () => {
+      data.groupId = group._id;
+
+      await api.createSubscription(data);
+
+      let updatedGroup = await Group.findById(group._id).exec();
+      expect(updatedGroup.purchased.plan.quantity).to.eql(3);
+
+      updatedGroup.memberCount += 1;
+      await updatedGroup.save();
+
+      await api.updateGroupPlan(updatedGroup);
+      expect(updatedGroup.purchased.plan.quantity).to.eql(4);
     });
   });
 });
