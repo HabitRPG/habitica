@@ -15,4 +15,7 @@ habitrpg.controller('GroupApprovalsCtrl', ['$scope', 'Tasks',
         });
     };
 
+    $scope.approvalTitle = function (approval) {
+      return env.t('approvalTitle', {text: approval.text, userName: approval.userId.profile.name});
+    };
   }]);

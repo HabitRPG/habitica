@@ -2,6 +2,5 @@ script(type='text/ng-template', id='partials/groups.tasks.approvals.html')
   .panel-group(ng-repeat="approval in approvals")
     .panel.panel-default
       .panel-heading
-        | {{approval.text}} for user: {{approval.userId.profile.name}}
-        a.btn.btn-sm.btn-success(ng-click="approve(approval.group.taskId, approval.userId._id)") Approve
-      .panel-body
+        span {{approvalTitle(approval)}}
+        a.btn.btn-sm.btn-success.pull-right(ng-click="approve(approval.group.taskId, approval.userId._id)")=env.t('approve')

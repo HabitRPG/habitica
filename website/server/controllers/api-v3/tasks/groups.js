@@ -225,7 +225,7 @@ api.approveTask = {
     task.group.approval.approvingUser = user._id;
     task.group.approval.approved = true;
 
-    assignedUser.addNotification('GROUP_TASK_APPROVAL', {
+    assignedUser.addNotification('GROUP_TASK_APPROVED', {
       message: res.t('yourTaskHasBeenApproved'),
       groupId: group._id,
     });
