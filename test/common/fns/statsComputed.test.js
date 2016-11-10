@@ -26,7 +26,7 @@ describe('common.fns.statsComputed', () => {
     expect(result.maxMP).to.eql(30);
   });
 
-  it('calculates calculates stat bonuses for equipment', () => {
+  it('calculates stat bonuses for equipment', () => {
     user.items.gear.equipped.weapon = 'weapon_rogue_1';
     let result = statsComputed(user);
 
@@ -34,7 +34,7 @@ describe('common.fns.statsComputed', () => {
     expect(result.gearBonus.str).to.eql(2);
   });
 
-  it('calculates calculates stat bonuses for class', () => {
+  it('calculates stat bonuses for class', () => {
     user.items.gear.equipped.weapon = 'weapon_warrior_1';
     let result = statsComputed(user);
 
@@ -43,7 +43,7 @@ describe('common.fns.statsComputed', () => {
     expect(result.classBonus.str).to.eql(1.5);
   });
 
-  it('calculates calculates stat bonuses for level', () => {
+  it('calculates stat bonuses for level', () => {
     user.stats.lvl = 25;
     let result = statsComputed(user);
 
@@ -75,7 +75,7 @@ describe('common.fns.statsComputed', () => {
     expect(result.buff.str).to.eql(150);
   });
 
-  it('calculate mp from intelligent', () => {
+  it('calculates mp from intelligence', () => {
     user.stats.int = 150;
     user.stats.buffs.int = 50;
     let result = statsComputed(user);
@@ -83,7 +83,7 @@ describe('common.fns.statsComputed', () => {
     expect(result.maxMP).to.eql(430);
   });
 
-  it('calculates calculates stat bonuses for back equipment', () => {
+  it('calculates stat bonuses for back equipment', () => {
     user.items.gear.equipped.back = 'back_special_takeThis';
     let result = statsComputed(user);
 
