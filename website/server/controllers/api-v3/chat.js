@@ -2,6 +2,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import {
+  BadRequest,
   NotFound,
   NotAuthorized,
 } from '../../libs/errors';
@@ -122,7 +123,7 @@ api.postChat = {
     }
 
     if (group.privacy !== 'private' && textContainsBannedWords(req.body.message)) {
-      throw new NotAuthorized(res.t('bannedWordUsed'));
+      throw new BadRequest(res.t('bannedWordUsed'));
     }
 
     let lastClientMsg = req.query.previousMsg;
