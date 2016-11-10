@@ -2,27 +2,55 @@ import _ from 'lodash';
 import content from '../content/index';
 import * as statHelpers from '../statHelpers';
 
-module.exports = function statsComputed (user) {
-  let paths = ['stats', 'stats.buffs', 'items.gear.equipped.weapon', 'items.gear.equipped.armor',
-               'items.gear.equipped.head', 'items.gear.equipped.shield'];
-  let computed = _.reduce(['per', 'con', 'str', 'int'], (m, stat) => {
-    m[stat] = _.reduce(paths, (m2, path) => {
-      let val = _.get(user, path);
-      let item = content.gear.flat[val];
-      if (!item) item = {};
-      if (!item[stat]) {
-        item[stat] = 0;
-      } else {
-        item[stat] = Number(item[stat]);
-      }
-      let thisMultiplier = item.klass === user.stats.class || item.specialClass === user.stats.class ? 1.5 : 1;
-      let thisReturn = path.indexOf('items.gear') !== -1 ? item[stat] * thisMultiplier : Number(val[stat]);
-      return m2 + thisReturn || 0;
-    }, 0);
-    m[stat] += Math.floor(statHelpers.capByLevel(user.stats.lvl) / 2);
-    return m;
-  }, {});
+function equipmentStatBonusComputed (stat, user) {
+  let gear = content.gear.flat;
+  let gearBonus = 0;
+  let classBonus = 0;
 
-  computed.maxMP = computed.int * 2 + 30;
-  return computed;
+  // toObject is required here due to lodash values not working well with mongoose doc objects.
+  // if toObject doesn't exist, we're on the client side and can assume the object is already plain JSON
+  // see http://stackoverflow.com/questions/25767334/underscore-js-keys-and-omit-not-working-as-expected
+  let equipped = user.items.gear.equipped;
+  let equippedKeys = !equipped.toObject ? _.values(equipped) : _.values(equipped.toObject());
+
+  _.each(equippedKeys, (equippedItem) => {
+    let equipmentStat = gear[equippedItem][stat];
+    let classBonusMultiplier = gear[equippedItem].klass === user.stats.class ||
+      gear[equippedItem].specialClass === user.stats.class ? 0.5 : 0;
+    gearBonus += equipmentStat;
+    classBonus += equipmentStat * classBonusMultiplier;
+  });
+
+  return {
+    gearBonus,
+    classBonus,
+  };
+}
+
+module.exports = function statsComputed (user) {
+  let statBreakdown = {
+    gearBonus: {},
+    classBonus: {},
+    baseStat: {},
+    buff: {},
+    levelBonus: {},
+  };
+  _.each(['per', 'con', 'str', 'int'], (stat) => {
+    let baseStat = _.get(user, 'stats')[stat];
+    let buff = _.get(user, 'stats.buffs')[stat];
+    let equipmentBonus = equipmentStatBonusComputed(stat, user);
+
+    statBreakdown[stat] = equipmentBonus.gearBonus + equipmentBonus.classBonus + baseStat + buff;
+    statBreakdown[stat] += Math.floor(statHelpers.capByLevel(user.stats.lvl) / 2);
+
+    statBreakdown.levelBonus[stat] = Math.floor(statHelpers.capByLevel(user.stats.lvl) / 2);
+    statBreakdown.gearBonus[stat] = equipmentBonus.gearBonus;
+    statBreakdown.classBonus[stat] = equipmentBonus.classBonus;
+    statBreakdown.baseStat[stat] = baseStat;
+    statBreakdown.buff[stat] = buff;
+  });
+
+  statBreakdown.maxMP = statBreakdown.int * 2 + 30;
+
+  return statBreakdown;
 };
