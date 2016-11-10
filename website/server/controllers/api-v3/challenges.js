@@ -21,18 +21,143 @@ import csvStringify from '../../libs/csvStringify';
 let api = {};
 
 /**
+ * @apiDefine ChallengeLeader Challenge Leader
+ * The leader of the challenge can use this route.
+ */
+
+/**
  * @apiDefine ChallengeNotFound
  * @apiError (404) {NotFound} ChallengeNotFound The specified challenge could not be found.
  */
 
 /**
+ * @apiDefine SuccessfulChallengeRequest
+ * @apiSuccess {UUID} challenge.group._id The group id.
+ * @apiSuccess {String} challenge.group.type Group type: `Guild` or `Party`.
+ * @apiSuccess {String} challenge.group.privacy Group privacy: `Public` or `Private`.
+ * @apiSuccess {String} challenge.name Full name of challenge.
+ * @apiSuccess {String} challenge.shortName Short name of challenge.
+ * @apiSuccess {Object} challenge.leader User details of challenge leader.
+ * @apiSuccess {UUID} challenge.leader._id User id of challenge leader.
+ * @apiSuccess {Object} challenge.leader.profile Profile information of leader.
+ * @apiSuccess {Object} challenge.leader.profile.name Username of leader.
+ * @apiSuccess {String} challenge.updatedAt Timestamp of last update.
+ * @apiSuccess {String} challenge.createdAt Timestamp of challenge creation.
+ * @apiSuccess {UUID} challenge.id Id number of newly created challenge.
+ * @apiSuccess {UUID} challenge._id Same as `challenge.id`.
+ * @apiSuccess {String} challenge.prize Number of gems offered as prize to winner.
+ * @apiSuccess {String} challenge.memberCount Number users participating in challenge.
+ * @apiSuccess {Object} challenge.tasksOrder Object representing associated tasks and rewards.
+ * @apiSuccess {Array} challenge.tasksOrder.rewards Array of `reward` objects associated with challenge.
+ * @apiSuccess {Array} challenge.tasksOrder.todos Array of `todo` objects associated with challenge.
+ * @apiSuccess {Array} challenge.tasksOrder.dailys Array of `dailys` objects associated with challenge.
+ * @apiSuccess {Array} challenge.tasksOrder.habits Array of `habits` objects associated with challenge.
+ * @apiSuccess {Boolean} challenge.official Boolean indicating if this is an official Habitica challenge.
+ *
+ */
+
+/**
+ * @apiDefine ChallengeSuccessExample
+ * @apiSuccessExample {json} Sucessfull response with single challenge
+ {
+   "data": {
+     "group": {
+      "_id": "group-id-associated-with-challenge",
+      "name": "MyGroup",
+      "type": "guild",
+      "privacy": "public"
+     },
+     "name": "Long Detailed Name of Challenge",
+     "shortName": "my challenge",
+     "leader": {
+       "_id": "user-id-of-challenge-creator",
+       "profile": {
+         "name": "MyUserName"
+       }
+     },
+     "updatedAt": "timestamp,
+     "createdAt": "timestamp",
+     "_id": "challenge-id",
+     "prize": 0,
+     "memberCount": 1,
+     "tasksOrder": {
+       "rewards": [
+         "uuid-of-challenge-reward"
+       ],
+       "todos": [
+         "uuid-of-challenge-todo"
+       ],
+       "dailys": [
+         "uuid-of-challenge-daily"
+       ],
+       "habits": [
+         "uuid-of-challenge-habit"
+       ]
+     },
+     "official": false,
+     "id": "challenge-id"
+   }
+ }
+*/
+
+/**
+ * @apiDefine ChallengeArrayExample
+ * @apiSuccessExample {json} Sucessfull response with array of challenges
+ {
+   "data": [{
+     "group": {
+       "_id": "group-id-associated-with-challenge",
+       "name": "MyGroup",
+       "type": "guild",
+       "privacy": "public"
+     },
+     "name": "Long Detailed Name of Challenge",
+     "shortName": "my challenge",
+     "leader": {
+       "_id": "user-id-of-challenge-creator",
+       "profile": {
+         "name": "MyUserName"
+       }
+     },
+     "updatedAt": "timestamp,
+     "createdAt": "timestamp",
+     "_id": "challenge-id",
+     "prize": 0,
+     "memberCount": 1,
+     "tasksOrder": {
+       "rewards": [],
+       "todos": [],
+       "dailys": [],
+       "habits": []
+     },
+     "official": false,
+     "id": "challenge-id"
+   }]
+ }
+*/
+
+/**
  * @api {post} /api/v3/challenges Create a new challenge
  * @apiName CreateChallenge
  * @apiGroup Challenge
+ * @apiDescription Creates a challenge. Cannot create associated tasks with this route. See <a href="#api-Task-CreateChallengeTasks">CreateChallengeTasks</a>.
  *
- * @apiSuccess {Object} data The newly created challenge
+ * @apiParam (Body) {Object} challenge An object representing the challenge to be created
+ * @apiParam (Body) {UUID} challenge.groupId The id of the group to which the challenge belongs.
+ * @apiParam (Body) {String} challenge.name The full name of the challenge.
+ * @apiParam (Body) {String} challenge.shortName A shortened name for the challenge, to be used as a tag.
+ * @apiParam (Body) {Number} [challenge.prize=0] Number of gems offered as a prize to challenge winner. Default is 0.
+ *
+ * @apiSuccess {Object} challenge The newly created challenge.
+ * @apiUse SuccessfulChallengeRequest
+ *
+ * @apiUse ChallengeSuccessExample
+ *
+ * @apiError (401) {NotAuthorized} CantAffordPrize User does not have enough gems to offer this prize.
+ * @apiError (400) {BadRequest} ChallengeValidationFailed Invalid or missing parameter in challenge body.
  *
  * @apiUse GroupNotFound
+ * @apiUse UserNotFound
  */
 api.createChallenge = {
   method: 'POST',
@@ -120,11 +245,15 @@ api.createChallenge = {
  * @api {post} /api/v3/challenges/:challengeId/join Join a challenge
  * @apiName JoinChallenge
  * @apiGroup Challenge
- * @apiParam {UUID} challengeId The challenge _id
+ * @apiParam (Path) {UUID} challengeId The challenge _id
  *
- * @apiSuccess {Object} data The challenge the user joined
+ * @apiSuccess {Object} challenge The challenge the user joined
+ * @apiUse SuccessfulChallengeRequest
  *
  * @apiUse ChallengeNotFound
+ * @apiUse UserNotFound
+ *
+ * @apiUse ChallengeSuccessExample
  */
 api.joinChallenge = {
   method: 'POST',
@@ -168,11 +297,12 @@ api.joinChallenge = {
  * @api {post} /api/v3/challenges/:challengeId/leave Leave a challenge
  * @apiName LeaveChallenge
  * @apiGroup Challenge
- * @apiParam {UUID} challengeId The challenge _id
+ * @apiParam (Path) {UUID} challengeId The challenge _id
  *
  * @apiSuccess {Object} data An empty object
  *
  * @apiUse ChallengeNotFound
+ * @apiUse UserNotFound
  */
 api.leaveChallenge = {
   method: 'POST',
@@ -204,11 +334,18 @@ api.leaveChallenge = {
 };
 
 /**
- * @api {get} /api/v3/challenges/user Get challenges for a user
+ * @api {get} /api/v3/challenges/user Get challenges for a user.
  * @apiName GetUserChallenges
  * @apiGroup Challenge
+ * @apiDescription Get challenges the user has access to. Includes public challenges, challenges belonging to the user's group, and challenges the user has already joined.
  *
- * @apiSuccess {Array} data An array of challenges sorted with official challenges first, followed by the challenges in order from newest to oldest
+ * @apiSuccess {Object[]} challenges An array of challenges sorted with official challenges first, followed by the challenges in order from newest to oldest
+ *
+ * @apiUse SuccessfulChallengeRequest
+ *
+ * @apiUse ChallengeArrayExample
+ *
+ * @apiUse UserNotFound
  */
 api.getUserChallenges = {
   method: 'GET',
@@ -248,14 +385,17 @@ api.getUserChallenges = {
 
 /**
  * @api {get} /api/v3/challenges/group/:groupId Get challenges for a group
- * @apiDescription Get challenges that the user is a member, public challenges and the ones from the user's groups.
+ * @apiDescription Get challenges belonging to the given group.
  * @apiName GetGroupChallenges
  * @apiGroup Challenge
  *
- * @apiParam {UUID} groupId The group _id
+ * @apiParam (Path) {UUID} groupId The group _id
  *
  * @apiSuccess {Array} data An array of challenges sorted with official challenges first, followed by the challenges in order from newest to oldest
  *
+ * @apiUse SuccessfulChallengeRequest
+ * @apiUse ChallengeArrayExample
+ * @apiUse UserNotFound
  * @apiUse GroupNotFound
  */
 api.getGroupChallenges = {
@@ -296,9 +436,11 @@ api.getGroupChallenges = {
  * @apiName GetChallenge
  * @apiGroup Challenge
  *
- * @apiParam {UUID} challengeId The challenge _id
+ * @apiParam (Path) {UUID} challengeId The challenge _id
  *
  * @apiSuccess {Object} data The challenge object
+ * @apiUse SuccessfulChallengeRequest
+*  @apiUse ChallengeSuccessExample
  *
  * @apiUse ChallengeNotFound
  */
@@ -340,7 +482,7 @@ api.getChallenge = {
  * @apiName ExportChallengeCsv
  * @apiGroup Challenge
  *
- * @apiParam {UUID} challengeId The challenge _id
+ * @apiParam (Path) {UUID} challengeId The challenge _id
  *
  * @apiSuccess {String} challenge A csv file
  *
@@ -410,15 +552,25 @@ api.exportChallengeCsv = {
 };
 
 /**
- * @api {put} /api/v3/challenges/:challengeId Update a challenge
+ * @api {put} /api/v3/challenges/:challengeId Update the name, description, or leader of a challenge.
+ *
  * @apiName UpdateChallenge
  * @apiGroup Challenge
  *
- * @apiParam {UUID} challengeId The challenge _id
+ * @apiParam (Path) {UUID} challengeId The challenge _id
+ * @apiParam (Body) {String} [challenge.name] The new full name of the challenge.
+ * @apiParam (Body) {String} [challenge.description] The new challenge description.
+ * @apiParam (Body) {String} [challenge.leader] The UUID of the new challenge leader.
  *
  * @apiSuccess {Object} data The updated challenge
+ * @apiPermission ChallengeLeader
+ *
+ * @apiUse ChallengeSuccessExample
  *
  * @apiUse ChallengeNotFound
+ *
+ * @apiError (401) {NotAuthorized} MustBeChallengeLeader Only challenge leader
+ * can update the challenge.
  */
 api.updateChallenge = {
   method: 'PUT',
@@ -461,7 +613,7 @@ api.updateChallenge = {
  * @apiName DeleteChallenge
  * @apiGroup Challenge
  *
- * @apiParam {UUID} challengeId The _id for the challenge to delete
+ * @apiParam (Path) {UUID} challengeId The _id for the challenge to delete
  *
  * @apiSuccess {Object} data An empty object
  *
@@ -494,8 +646,8 @@ api.deleteChallenge = {
  * @apiName SelectChallengeWinner
  * @apiGroup Challenge
  *
- * @apiParam {UUID} challengeId The _id for the challenge to close with a winner
- * @apiParam {UUID} winnerId The _id of the winning user
+ * @apiParam (Path) {UUID} challengeId The _id for the challenge to close with a winner
+ * @apiParam (Path) {UUID} winnerId The _id of the winning user
  *
  * @apiSuccess {Object} data An empty object
  *
