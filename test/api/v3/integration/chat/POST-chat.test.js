@@ -60,7 +60,7 @@ describe('POST /chat', () => {
     });
   });
 
-  it('does not error when sending a chat message contains a banned word to a private group', async () => {
+  it('does not error when sending a chat message containing a banned word to a private group', async () => {
     let { group, members } = await createAndPopulateGroup({
       groupDetails: {
         name: 'Party',

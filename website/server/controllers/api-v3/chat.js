@@ -12,14 +12,11 @@ import slack from '../../libs/slack';
 import pusher from '../../libs/pusher';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
+import bannedWords from '../../../common/bannedWords';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
 });
-
-const BANNED_WORDS = {
-  shit: 'Shit',
-};
 
 /**
  * @apiDefine MessageNotFound
@@ -80,7 +77,8 @@ function matchExact (r, str) {
 }
 
 function textContainsBannedWords (message) {
-  for (let word in BANNED_WORDS) {
+  for (let i = 0; i < bannedWords.length; i += 1) {
+    let word = bannedWords[i];
     let regEx = `(^|\s)${word.toLowerCase()}(?=\s|$)`;
     if (matchExact(regEx, message.toLowerCase())) return true;
   }

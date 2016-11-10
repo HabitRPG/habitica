@@ -62,5 +62,6 @@
   "messageNotificationNotFound": "Notification not found.",
 
   "notificationsRequired": "Notification ids are required.",
-  "bannedWordUsed": "You can not use banned words in chat."
+
+  "bannedWordUsed": "You cannot use banned words in public chat areas."
 }
