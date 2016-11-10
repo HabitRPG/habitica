@@ -9,7 +9,7 @@ import { v4 as generateUUID } from 'uuid';
 describe('POST /chat', () => {
   let user, groupWithChat, userWithChatRevoked, member;
   let testMessage = 'Test Message';
-  let testBannedWordMessage = 'shit';
+  let testBannedWordMessage = 'punk';
 
   before(async () => {
     let { group, groupLeader, members } = await createAndPopulateGroup({
