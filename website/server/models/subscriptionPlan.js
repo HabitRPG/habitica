@@ -3,6 +3,8 @@ import baseModel from '../libs/baseModel';
 
 export let schema = new mongoose.Schema({
   planId: String,
+  subscriptionId: String,
+  quantity: {type: Number, default: 1},
   paymentMethod: String, // enum: ['Paypal','Stripe', 'Gift', 'Amazon Payments', '']}
   customerId: String, // Billing Agreement Id in case of Amazon Payments
   dateCreated: Date,

@@ -16,6 +16,11 @@ import {
   NotFound,
 } from './errors';
 import slack from './slack';
+import nconf from 'nconf';
+import stripeModule from 'stripe';
+
+const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
+
 
 let api = {};
 
@@ -66,7 +71,8 @@ api.createSubscription = async function createSubscription (data) {
     recipient = group;
     itemPurchased = 'Group-Subscription';
     purchaseType = 'group-subscribe';
-    groupId = group._id;
+    groupId = group._id
+    recipient.purchased.plan.quantity = 3;
   }
 
   plan = recipient.purchased.plan;
@@ -103,6 +109,10 @@ api.createSubscription = async function createSubscription (data) {
       dateCreated: today,
       mysteryItems: [],
     }).value();
+
+    if (data.subscriptionId) {
+      plan.subscriptionId = data.subscriptionId;
+    }
   }
 
   // Block sub perks
@@ -206,6 +216,18 @@ api.createSubscription = async function createSubscription (data) {
     paymentMethod: data.paymentMethod,
     months,
   });
+};
+
+api.updateGroupPlan = async function updateGroupPlan (group) {
+  await stripe.subscriptions.update(
+    group.purchased.plan.subscriptionId,
+    {
+      plan: 'group_monthly_single_user',
+      quantity: group.memberCount + 3 - 1,
+    }
+  );
+
+  group.purchased.plan.quantity = group.memberCount + 3 - 1;
 };
 
 // Sets their subscription to be cancelled later
