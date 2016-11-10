@@ -98,7 +98,7 @@
     "noActiveQuestToAbort": "Er is geen actieve queeste om te stoppen.",
     "onlyLeaderAbortQuest": "Enkel de groeps- of queesteleider kan de queeste stoppen.",
     "questAlreadyRejected": "Je hebt de queesteuitnodiging al geweigerd.",
-    "cantCancelActiveQuest": "Je kunt de actieve queeste niet annuleren, gebruik de stopfunctie.",
+    "cantCancelActiveQuest": "Je kunt een actieve queeste niet annuleren, gebruik de stopfunctie.",
     "onlyLeaderCancelQuest": "Enkel de groeps- of queesteleider kan de queeste annuleren.",
     "questNotPending": "Er is geen queeste om te starten.",
     "questOrGroupLeaderOnlyStartQuest": "Alleen de queesteleider of groepsleider kan de queeste forceren om te starten."

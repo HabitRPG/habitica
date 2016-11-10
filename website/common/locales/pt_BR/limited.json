@@ -24,6 +24,7 @@
     "gildedTurkey": "Peru Dourado",
     "polarBearPup": "Urso Polar Filhote",
     "jackolantern": "O miserável Jack da Lanterna",
+    "ghostJackolantern": "Ghost Jack-O-Lantern",
     "seasonalShop": "Loja Sazonal",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Feiticeira Sazonal<%= linkEnd %>",

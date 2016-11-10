@@ -213,7 +213,7 @@ angular.module('habitrpg')
     function inviteOrStartParty (group) {
       Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Invite Friends'});
 
-      if (group.type === "party" || $location.$$path === "/options/groups/party") {
+      if (group && group.type === "party" || $location.$$path === "/options/groups/party") {
        group.type = 'party';
 
        $rootScope.openModal('invite-party', {

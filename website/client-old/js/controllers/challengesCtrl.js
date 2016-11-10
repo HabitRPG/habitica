@@ -493,6 +493,8 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
           .then(function (response) {
             var challenge = response.data.data;
             $scope.challenges = [challenge];
+          }).catch(function(err) {
+            $scope.challengeErrorMsg = err.data.message;
           });
       } else {
         Challenges.getUserChallenges()

@@ -36,7 +36,7 @@
     "foodText": "voedsel",
     "food": "Voedsel en zadels",
     "noFood": "Je hebt geen voedsel of zadels.",
-    "dropsExplanation": "Verkrijg deze voorwerpen sneller met edelstenen als je niet wilt wachten tot je ze vindt als je een taak afrondt. <a href=\"http://habitica.wikia.com/wiki/Drops\">Leer meer over het vondstensysteem.</a>",
+    "dropsExplanation": "Verkrijg deze voorwerpen sneller met edelstenen als je niet wilt wachten tot je ze vindt als je een taak afrondt. <a href=\"http://nl.habitica.wikia.com/wiki/Drops\">Leer meer over het vondstensysteem.</a>",
     "premiumPotionNoDropExplanation": "Magische uitbroeddranken kunnen niet worden gebruikt op eieren die je ontvangen hebt door queesten. De enige manier om magische uitbroeddranken te krijgen is door ze hier beneden te kopen; je krijgt ze niet door willekeurige vondsten.",
     "beastMasterProgress": "Voortgang tot dierenmeester",
     "stableBeastMasterProgress": "Voortgang tot dierenmeester: <%= number %> huisdieren gevonden.",

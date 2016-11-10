@@ -134,5 +134,7 @@
     "strengthExample": "Alles was mit Sport oder sonstigen Aktivitäten zu tun hat.",
     "intelligenceExample": "Alles was mit Schule zu tun hat oder sonst Deinen Kopf anstrengt",
     "perceptionExample": "Alles was mit Arbeit oder Finanzen zu tun hat",
-    "constitutionExample": "Alles was mit Gesundheit, Wohlbefinden und sozialen Kontakten zu tun hat."
+    "constitutionExample": "Alles was mit Gesundheit, Wohlbefinden und sozialen Kontakten zu tun hat.",
+    "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
+    "taskApprovalHasBeenRequested": "Approval has been requested"
 }

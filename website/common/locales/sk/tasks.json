@@ -134,5 +134,7 @@
     "strengthExample": "Týka sa cvičenia a aktivity",
     "intelligenceExample": "Relating to academic or mentally challenging pursuits",
     "perceptionExample": "Týka sa práce a finančných úloh",
-    "constitutionExample": "Týka sa zdravia, wellnessu a sociálnej interakcie"
+    "constitutionExample": "Týka sa zdravia, wellnessu a sociálnej interakcie",
+    "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
+    "taskApprovalHasBeenRequested": "Approval has been requested"
 }

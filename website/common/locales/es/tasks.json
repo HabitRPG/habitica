@@ -134,5 +134,7 @@
     "strengthExample": "Relacionadas con el deporte y la actividad física",
     "intelligenceExample": "Relacionadas con metas académicas o que supongan un reto mental",
     "perceptionExample": "Relacionadas con el trabajo o el dinero",
-    "constitutionExample": "Relacionadas con la salud, el bienestar y la vida social"
+    "constitutionExample": "Relacionadas con la salud, el bienestar y la vida social",
+    "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
+    "taskApprovalHasBeenRequested": "Approval has been requested"
 }

@@ -24,6 +24,7 @@
     "gildedTurkey": "金黄色的火鸡",
     "polarBearPup": "北极熊崽",
     "jackolantern": "杰克南瓜灯",
+    "ghostJackolantern": "Ghost Jack-O-Lantern",
     "seasonalShop": "季度商店",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>季节魔女<%= linkEnd %>",

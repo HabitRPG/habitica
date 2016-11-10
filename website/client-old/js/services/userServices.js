@@ -448,16 +448,7 @@ angular.module('habitrpg')
         },
 
         buySpecialSpell: function (data) {
-          $window.habitrpgShared.ops['buySpecialSpell'](user, data);
-          var key = data.params.key;
-
-          $http({
-            method: "POST",
-            url: '/api/v3/user/' + 'buy-special-spell/' + key,
-          })
-          .then(function (response) {
-            Notification.text(response.data.message);
-          })
+          callOpsFunctionAndRequest('buySpecialSpell', 'buy-special-spell', "POST", data.params.key, data);
         },
 
         buyMysterySet: function (data) {

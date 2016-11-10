@@ -214,5 +214,8 @@
     "confirmAddTag": "Do you really want to add \"<%= tag %>\"?",
     "confirmRemoveTag": "Do you really want to remove \"<%= tag %>\"?",
     "assignTask": "Assign Task",
-    "claim": "Claim"
+    "claim": "Claim",
+    "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
+    "yourTaskHasBeenApproved": "Your task has been approved",
+    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>"
 }

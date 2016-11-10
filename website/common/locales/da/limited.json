@@ -24,6 +24,7 @@
     "gildedTurkey": "Forgyldt kalkun",
     "polarBearPup": "Isbjørneunge",
     "jackolantern": "Græskarlygte",
+    "ghostJackolantern": "Ghost Jack-O-Lantern",
     "seasonalShop": "Sæson-marked",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Sæson-heksen<%= linkEnd %>",
