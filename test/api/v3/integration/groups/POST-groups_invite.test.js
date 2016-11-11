@@ -97,6 +97,19 @@ describe('Post /groups/:groupId/invite', () => {
       });
     });
 
+    it('returns error when to receiver has blocked the inviter', async () => {
+      let receiver = await generateUser({'inbox.blocks': [inviter._id]});
+
+      await expect(inviter.post(`/groups/${group._id}/invite`, {
+        uuids: [receiver._id],
+      }))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('notAuthorizedToSendMessageToThisUser'),
+      });
+    });
+
     it('invites a user to a group by uuid', async () => {
       let userToInvite = await generateUser();
 

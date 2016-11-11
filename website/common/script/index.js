@@ -96,6 +96,9 @@ api.shops = shops;
 import randomVal from './libs/randomVal';
 api.randomVal = randomVal;
 
+import userBlockPresent from './libs/userBlockPresent';
+api.userBlockPresent = userBlockPresent;
+
 import autoAllocate from './fns/autoAllocate';
 import crit from './fns/crit';
 import handleTwoHanded from './fns/handleTwoHanded';
