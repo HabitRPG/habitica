@@ -17,8 +17,8 @@
     "questGryphonDropGryphonEgg": "Grifo (Ovo)",
     "questGryphonUnlockText": "Desbloqueia ovos de Grifo para compra no Mercado",
     "questHedgehogText": "O Monstrouriço",
-    "questHedgehogNotes": "Ouriços são um grupo engraçado de animais. Eles são alguns dos mascotes mais carinhosos que um Habiticano(a) pode ter. Mas diz a lenda que, se você os der leite após a meia noite, eles ficam bastante irritados. E cinquenta vezes seu tamanho. E <strong>Inventrix</strong> acabou de fazer isso. Ooopa.",
-    "questHedgehogCompletion": "Sue grupo conseguiu acalmar a ouriço! Depois de diminuir ao tamanho normal, ela manca até seus ovos. Ela volta rangendo e empurrando alguns de seus ovos para seu grupo.  Esperamos que esses ouriços prefiram leite!",
+    "questHedgehogNotes": "Ouriços são um grupo engraçado de animais. Eles são alguns dos mascotes mais carinhosos que um Habiticano(a) pode ter. Mas diz a lenda que, se você alimentá-los com leite após a meia noite, eles crescem bastante irritados. E cinquenta vezes seu tamanho. E <strong>Inventrix</strong> acabou de fazer isso. Ooopa.",
+    "questHedgehogCompletion": "Seu grupo conseguiu acalmar a ouriço com sucesso! Depois de encolher para o tamanho normal, ela manca até seus ovos. Ela volta rangendo e empurrando alguns de seus ovos para seu grupo.  Esperamos que esses ouriços gostem de um leite melhor!",
     "questHedgehogBoss": "Monstrouriço",
     "questHedgehogDropHedgehogEgg": "Ouriço (Ovo)",
     "questHedgehogUnlockText": "Desbloqueia ovos de Ouriço para compra no Mercado",
@@ -93,7 +93,7 @@
     "questGoldenknight1DropGoldenknight2Quest": "A Cavaleira Dourada, Parte 2: Cavaleira Dourada (Pergaminho)",
     "questGoldenknight2Text": "A Cavaleira Dourada, Parte 2: Cavaleira Dourada",
     "questGoldenknight2Notes": "Armado(a) com centenas de testemunhos de habiticanos, você finalmente confronta a Cavaleira Dourada. Você começa a recitar as reclamações de habiticanos para ela, uma a uma. \"E @Pfeffernusse diz que a sua constante fanfarrona-\" A Cavaleira levanta sua mão para te silenciar e zomba, \"Por favor, essas pessoas estão meramente com inveja do meu sucesso. Ao invés de reclamar, elas deveriam simplesmente se esforçar tanto quanto eu! Talvez eu deva mostrar-lhes o poder que vocês podem alcançar através de uma diligência como a minha!\" Ela levanta sua maça e se prepara para te atacar!",
-    "questGoldenknight2Boss": "Cavaleira Dourada",
+    "questGoldenknight2Boss": "Cavaleiro de Ouro",
     "questGoldenknight2DropGoldenknight3Quest": "A Cavaleira Dourada, Parte 3: O Cavaleiro de Ferro (Pergaminho)",
     "questGoldenknight3Text": "A Cavaleira Dourada, Parte 3: O Cavaleiro de Ferro",
     "questGoldenknight3Notes": "@Jon Arinbjorn grita para conseguir sua atenção. Após a sua batalha, uma nova figura apareceu. Um cavaleiro coberto por ferro escurecido lentamente se aproxima de você com espada em mãos. A Cavaleira Dourada grita para a figura \"Pai, não!\", mas o cavaleiro não mostra sinais de parar. Ela se vira para você e diz \"Me desculpe, eu fui uma tola, com uma cabeça grande demais para ver quão cruel eu tenho sido. Mas meu pai é mais cruel do que eu jamais poderia ser. Se ele não for parado, ele nos destruirá a todos. Aqui, use minha maça e pare o Cavaleiro de Ferro!\"",
@@ -376,5 +376,11 @@
     "questTaskwoodsTerror3Completion": "Após uma longa batalha, você consegue acertar um golpe bem mirado na lanterna que Jacko carrega e o cristal dentro dela despedaça. Jacko num estalo volta a si e cai em brilhantes lágrimas. \"Oh, minha linda floresta! O que eu fiz?!\" ele lamenta. Suas lágrimas apagam as chamas restantes, a macieira e os arbustos estão salvos.<br><br>Depois de você ajudá-lo a acalmar, ele explica, \"Encontrei essa charmosa moça chamada Tzina e ela me deu esse brilhante cristal como presente. À pedido dela, eu o coloquei na minha lanterna... mas esta é a última coisa que me lembro.\" Ele vira pra você com um sorriso dourado. \"Talvez você deva ficar com ela enquanto eu ajudo os pomares selvagens a crescer.\"",
     "questTaskwoodsTerror3Boss": "Jacko da Lanterna",
     "questTaskwoodsTerror3DropStrawberry": "Morango (Comida)",
-    "questTaskwoodsTerror3DropWeapon": "Lanterna de Matarefa (Arma de Duas-mãos)"
+    "questTaskwoodsTerror3DropWeapon": "Lanterna de Matarefa (Arma de Duas-mãos)",
+    "questFerretText": "The Nefarious Ferret",
+    "questFerretNotes": "Walking through Habit City, you see an unhappy crowd surrounding a red-robed Ferret.<br><br>\"That productivity potion you sold me is useless!\" @Beffymaroo complains. \"I watched three hours of TV last night instead of doing my chores!\"<br><br>\"Yeah!\" shouts @Pandah. \"And today I spent an hour rearranging my books instead of reading them!\"<br><br>The Nefarious Ferret spreads his hands innocently. \"That's more TV watching and book organizing than you'd normally get done, isnt it?\"<br><br>The crowd erupts in anger.<br><br>\"No refunds!\" crows the Nefarious Ferret. He fires a bolt of magic into the crowd, preparing to escape in the smoke.<br><br>\"Please, Habitican!\" @Faye says, grabbing your arm. \"Defeat the ferret and make him refund his dishonest earnings!\"",
+    "questFerretCompletion": "You defeat the soft-furred swindler and @UncommonCriminal gives the crowd their refunds. There's even a little gold left over for you. Plus, it looks like the Nefarious Ferret dropped some eggs in his hurry to get away!",
+    "questFerretBoss": "Nefarious Ferret",
+    "questFerretDropFerretEgg": "Ferret (Egg)",
+    "questFerretUnlockText": "Unlocks purchasable Ferret eggs in the Market"
 }

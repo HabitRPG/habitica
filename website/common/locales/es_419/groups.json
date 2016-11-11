@@ -144,7 +144,7 @@
     "inviteNewUsers": "Invitar a usuarios nuevos",
     "sendInvitations": "Enviar invitaciones",
     "invitationsSent": "¡Invitaciones enviadas!",
-    "invitationSent": "Invitation sent!",
+    "invitationSent": "¡Invitación enviada!",
     "inviteAlertInfo2": "O comparte este link (copia/pega):",
     "sendGiftHeading": "Enviar regalo a <%= name %>",
     "sendGiftGemsBalance": "De <%= number %> Gemas",

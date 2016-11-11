@@ -75,7 +75,7 @@
     "weaponSpecialCriticalText": "Critico Martello Distruggi-Bug",
     "weaponSpecialCriticalNotes": "Questo campione ha annientato un pericoloso nemico su Github, dove molti guerrieri sono caduti. Adornato con le ossa del Bug, questo martello garantisce poderosi colpi critici. Aumenta la Forza e la Percezione di <%= attrs %>.",
     "weaponSpecialTakeThisText": "Spada Take This",
-    "weaponSpecialTakeThisNotes": "Questa spada è stata aconquistata partecipando ad una sfida sponsorizzata  da Take This. Complimenti! Aumenta tutti gli attributi di <%= attrs %>.",
+    "weaponSpecialTakeThisNotes": "Questa spada è stata ottenuta partecipando ad una sfida sponsorizzata da Take This. Complimenti! Aumenta tutti gli attributi di <%= attrs %>.",
     "weaponSpecialTridentOfCrashingTidesText": "Tridente delle Maree Fragorose",
     "weaponSpecialTridentOfCrashingTidesNotes": "Conferisce l'abilità di comandare i pesci, e inoltre colpisce con forza le tue attività. Aumenta l'Intelligenza di <%= int %>.",
     "weaponSpecialTaskwoodsLanternText": "Taskwoods Lantern",

@@ -260,7 +260,7 @@
     "invalidCredentials": "Não há uma conta que usa essas credenciais.",
     "accountSuspended": "Conta em suspensão, por favor entre em contato com leslie@habitica.com com seu ID de Usuário \"<%= userId %>\" para ajuda.",
     "unsupportedNetwork": "Esta rede social não é suportada atualmente.",
-    "cantDetachSocial": "A conta precisa ter ao menos um método de autenticação; não é possível desconectar este método.",
+    "cantDetachSocial": "A conta não possui outro método de autenticação; não é possível desconectar este método de autenticação.",
     "onlySocialAttachLocal": "Autenticação local só pode ser adicionada a uma conta social.",
     "invalidReqParams": "Parâmetros de requerimento inválidos.",
     "memberIdRequired": "\"member\" precisa ser um UUID válido.",

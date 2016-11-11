@@ -216,6 +216,6 @@
     "assignTask": "分配任务",
     "claim": "索赔",
     "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
-    "yourTaskHasBeenApproved": "Your task has been approved",
+    "yourTaskHasBeenApproved": "你的任务已请求",
     "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>"
 }

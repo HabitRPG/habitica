@@ -155,7 +155,7 @@
     "invalidUrl": "URL invalide",
     "invalidEnabled": "le paramètre \"enabled\" doit être un booléen.",
     "invalidWebhookId": "le paramètre \"id\" doit être un UUID valide.",
-    "missingWebhookId": "L'id du webhook est requis.",
+    "missingWebhookId": "L'id du webhook est requise.",
     "invalidWebhookType": "\"<%= type %>\" n'est pas une valeur valide pour le paramètre \"type\".",
     "webhookBooleanOption": "\"<%= option %>\" doit être une valeur booléenne.",
     "webhookIdAlreadyTaken": "Un webhook avec l'id <%= id %> existe déjà.",

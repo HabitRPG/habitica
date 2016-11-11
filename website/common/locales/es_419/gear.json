@@ -175,7 +175,7 @@
     "weaponSpecialFall2016MageText": "Orbe siniestra",
     "weaponSpecialFall2016MageNotes": "Don't ask this orb to tell your future... Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2016 Autumn Gear.",
     "weaponSpecialFall2016HealerText": "Serpiente venenosa",
-    "weaponSpecialFall2016HealerNotes": "One bite harms, and another bite heals. Increases Intelligence by <%= int %>. Limited Edition 2016 Autumn Gear.",
+    "weaponSpecialFall2016HealerNotes": "Una mordida daña y otra cura. Incrementa la Inteligencia por <%= int %>. Equipamiento de Edición Limitada de Otoño 2016.",
     "weaponMystery201411Text": "Horqueta de Banquete",
     "weaponMystery201411Notes": "Atraviesa a tus enemigos o ataca tu comida favorita - ¡esta horqueta versátil lo hace todo! No otorga ningún beneficio. Artículo de Suscriptor de Noviembre 2014.",
     "weaponMystery201502Text": "Reluciente Báculo Alado del Amor y También de la Verdad",

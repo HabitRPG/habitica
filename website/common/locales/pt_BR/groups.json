@@ -215,7 +215,7 @@
     "confirmRemoveTag": "Você quer mesmo remover \"<%= tag %>\"?",
     "assignTask": "Atribuir Tarefa",
     "claim": "Reivindicar",
-    "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
-    "yourTaskHasBeenApproved": "Your task has been approved",
-    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>"
+    "onlyGroupLeaderCanManageSubscription": "Apenas o líder do grupo pode gerenciar a assinatura do grupo",
+    "yourTaskHasBeenApproved": "Sua tarefa foi aprovada",
+    "userHasRequestedTaskApproval": "<%= user %> solicitou a aprovação da tarefa <%= taskName %>"
 }
