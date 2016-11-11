@@ -1,4 +1,4 @@
-{
+﻿{
     "languageName": "English",
     "stringNotFound": "String '<%= string %>' not found.",
     "titleIndex": "Habitica | Your Life The Role Playing Game",
@@ -122,7 +122,7 @@
     "audioTheme_luneFoxTheme": "LuneFox's Theme",
     "audioTheme_rosstavoTheme": "Rosstavo's Theme",
     "audioTheme_dewinTheme": "Dewin's Theme",
-	"audioTheme_airuTheme": "Airu's Theme",
+    "audioTheme_airuTheme": "Airu's Theme",
     "askQuestion": "Ask a Question",
     "reportBug": "Report a Bug",
     "HabiticaWiki": "The Habitica Wiki",
