@@ -74,6 +74,11 @@ habitrpg.controller('NotificationCtrl',
     // Avoid showing the same notiication more than once
     var lastShownNotifications = [];
 
+    function trasnferGroupNotification(notification) {
+      if (!User.user.groupNotifications) User.user.groupNotifications = [];
+      User.user.groupNotifications.push(notification);
+    }
+
     function handleUserNotifications (after) {
       if (!after || after.length === 0) return;
 
@@ -122,6 +127,14 @@ habitrpg.controller('NotificationCtrl',
               if (notification.data.hp) Notification.hp(notification.data.hp, 'hp');
               if (notification.data.mp) Notification.mp(notification.data.mp);
             }
+            break;
+          case 'GROUP_TASK_APPROVAL':
+            trasnferGroupNotification(notification);
+            markAsRead = false;
+            break;
+          case 'GROUP_TASK_APPROVED':
+            trasnferGroupNotification(notification);
+            markAsRead = false;
             break;
           default:
             markAsRead = false; // If the notification is not implemented, skip it

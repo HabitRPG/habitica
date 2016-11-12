@@ -893,6 +893,8 @@ schema.methods.updateTask = async function updateTask (taskToSync) {
     updateCmd.$set[key] = syncableAttributes[key];
   }
 
+  updateCmd.$set['group.approval.required'] = taskToSync.group.approval.required;
+
   let taskSchema = Tasks[taskToSync.type];
   // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
   await taskSchema.update({

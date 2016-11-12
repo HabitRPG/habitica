@@ -218,6 +218,11 @@ nav.toolbar(ng-controller='MenuCtrl')
                   span {{v.name}}
                 a(ng-click='clearMessages(k)', popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
                   span.glyphicon.glyphicon-remove-circle
+              li(ng-repeat='notification in user.groupNotifications')
+                a(ng-click='viewGroupApprovalNotification(notification, $index)', data-close-menu)
+                  span(class="{{::groupApprovalNotificationIcon(notification)}}")
+                  span
+                    | {{notification.data.message}}
 
           ul.toolbar-controls
             li.toolbar-controls-button
