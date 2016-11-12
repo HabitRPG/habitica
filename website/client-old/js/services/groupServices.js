@@ -69,12 +69,13 @@ angular.module('habitrpg')
       });
     };
 
-    Group.leave = function(gid, keep) {
+    Group.leave = function(gid, keep, keepChallenges) {
       return $http({
         method: "POST",
         url: groupApiURLPrefix + '/' + gid + '/leave',
         data: {
           keep: keep,
+          keepChallenges: keepChallenges,
         }
       });
     };

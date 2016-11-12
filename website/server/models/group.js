@@ -833,14 +833,14 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
   }
 };
 
-schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
+schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepChallenges = 'leave-challenges') {
   let group = this;
   let update = {
     $inc: {memberCount: -1},
   };
 
-  // only remove user from challenges if it's set to remove-all
-  if (keep === 'remove-all') {
+  // only remove user from challenges if it's set to leave-challenges
+  if (keepChallenges === 'leave-challenges') {
     let challenges = await Challenge.find({
       _id: {$in: user.challenges},
       group: group._id,
