@@ -24,6 +24,7 @@
     "gildedTurkey": "Vergoldeter Truthahn",
     "polarBearPup": "Eisbärenjunges",
     "jackolantern": "Halloweenkürbis",
+    "ghostJackolantern": "Geister-Halloweenkürbis",
     "seasonalShop": "Jahreszeitenmarkt",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Saisonzauberin<%= linkEnd %>",

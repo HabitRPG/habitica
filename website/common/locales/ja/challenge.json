@@ -11,6 +11,7 @@
     "unsubChallenge": "チャレンジのリンク切れ：このタスクはもともとチャレンジの一部でしたが、あなたがチャレンジ登録を取り消しました。残されたタスクはどうしますか？",
     "challengeWinner": "が以下のチャレンジで優勝しました。",
     "challenges": "チャレンジ",
+    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>チャレンジ</a>",
     "noChallenges": "まだチャレンジ登録はしていません。",
     "toCreate": "でチャレンジを作成可能",
     "selectWinner": "優勝者を選び、チャレンジを終了する",

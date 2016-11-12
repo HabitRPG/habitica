@@ -65,6 +65,19 @@ describe('POST /groups/:groupId/leave', () => {
         expect(groupToLeave.leader).to.equal(member._id);
       });
 
+      it('removes new messages for that group from user', async () => {
+        await member.post(`/groups/${groupToLeave._id}/chat`, { message: 'Some message' });
+
+        await leader.sync();
+
+        expect(leader.newMessages[groupToLeave._id]).to.not.be.empty;
+
+        await leader.post(`/groups/${groupToLeave._id}/leave`);
+        await leader.sync();
+
+        expect(leader.newMessages[groupToLeave._id]).to.be.empty;
+      });
+
       context('With challenges', () => {
         let challenge;
 
@@ -122,6 +135,8 @@ describe('POST /groups/:groupId/leave', () => {
         privateGuild = group;
         leader = groupLeader;
         invitedUser = invitees[0];
+
+        await leader.post(`/groups/${group._id}/chat`, { message: 'Some message' });
       });
 
       it('removes a group when the last member leaves', async () => {

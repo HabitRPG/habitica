@@ -17,6 +17,7 @@ try {
 }
 
 function sendFlagNotification ({
+  authorEmail,
   flagger,
   group,
   message,
@@ -27,7 +28,7 @@ function sendFlagNotification ({
   let titleLink;
   let authorName;
   let title = `Flag in ${group.name}`;
-  let text = `${flagger.profile.name} (${flagger.id}) flagged a message`;
+  let text = `${flagger.profile.name} (${flagger.id}) flagged a message (language: ${flagger.preferences.language})`;
 
   if (group.id === TAVERN_ID) {
     titleLink = `${BASE_URL}/#/options/groups/tavern`;
@@ -40,7 +41,7 @@ function sendFlagNotification ({
   if (!message.user && message.uuid === 'system') {
     authorName = 'System Message';
   } else {
-    authorName = `${message.user} - ${message.uuid}`;
+    authorName = `${message.user} - ${authorEmail} - ${message.uuid}`;
   }
 
   flagSlack.send({

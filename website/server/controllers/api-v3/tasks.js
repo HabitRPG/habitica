@@ -1,9 +1,13 @@
 import { authWithHeaders } from '../../middlewares/auth';
-import { sendTaskWebhook } from '../../libs/webhook';
+import {
+  taskActivityWebhook,
+  taskScoredWebhook,
+} from '../../libs/webhook';
 import { removeFromArray } from '../../libs/collectionManipulators';
 import * as Tasks from '../../models/task';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
+import { model as User } from '../../models/user';
 import {
   NotFound,
   NotAuthorized,
@@ -18,13 +22,22 @@ import Bluebird from 'bluebird';
 import _ from 'lodash';
 import logger from '../../libs/logger';
 
+/**
+ * @apiDefine TaskNotFound
+ * @apiError (404) {NotFound} TaskNotFound The specified task could not be found.
+ */
+
+/**
+ * @apiDefine ChecklistNotFound
+ * @apiError (404) {NotFound} ChecklistNotFound The specified checklist item could not be found.
+ */
+
 let api = {};
 let requiredGroupFields = '_id leader tasksOrder name';
 
 /**
  * @api {post} /api/v3/tasks/user Create a new task belonging to the user
  * @apiDescription Can be passed an object to create a single task or an array of objects to create multiple tasks.
- * @apiVersion 3.0.0
  * @apiName CreateUserTasks
  * @apiGroup Task
  *
@@ -37,20 +50,29 @@ api.createUserTasks = {
   async handler (req, res) {
     let user = res.locals.user;
     let tasks = await createTasks(req, res, {user});
+
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
+
+    tasks.forEach((task) => {
+      taskActivityWebhook.send(user.webhooks, {
+        type: 'created',
+        task,
+      });
+    });
   },
 };
 
 /**
  * @api {post} /api/v3/tasks/challenge/:challengeId Create a new task belonging to a challenge
  * @apiDescription Can be passed an object to create a single task or an array of objects to create multiple tasks.
- * @apiVersion 3.0.0
  * @apiName CreateChallengeTasks
  * @apiGroup Task
  *
  * @apiParam {UUID} challengeId The id of the challenge the new task(s) will belong to
  *
  * @apiSuccess data An object if a single task was created, otherwise an array of tasks
+ *
+ * @apiUse ChallengeNotFound
  */
 api.createChallengeTasks = {
   method: 'POST',
@@ -82,7 +104,6 @@ api.createChallengeTasks = {
 
 /**
  * @api {get} /api/v3/tasks/user Get a user's tasks
- * @apiVersion 3.0.0
  * @apiName GetUserTasks
  * @apiGroup Task
  *
@@ -111,7 +132,6 @@ api.getUserTasks = {
 
 /**
  * @api {get} /api/v3/tasks/challenge/:challengeId Get a challenge's tasks
- * @apiVersion 3.0.0
  * @apiName GetChallengeTasks
  * @apiGroup Task
  *
@@ -119,6 +139,8 @@ api.getUserTasks = {
  * @apiParam {string="habits","dailys","todos","rewards"} type Optional query parameter to return just a type of tasks
  *
  * @apiSuccess {Array} data An array of tasks
+ *
+ * @apiUse ChallengeNotFound
  */
 api.getChallengeTasks = {
   method: 'GET',
@@ -147,13 +169,14 @@ api.getChallengeTasks = {
 
 /**
  * @api {get} /api/v3/tasks/:taskId Get a task
- * @apiVersion 3.0.0
  * @apiName GetTask
  * @apiGroup Task
  *
  * @apiParam {String} taskId The task _id or alias
  *
  * @apiSuccess {Object} data The task object
+ *
+ * @apiUse TaskNotFound
  */
 api.getTask = {
   method: 'GET',
@@ -181,13 +204,15 @@ api.getTask = {
 
 /**
  * @api {put} /api/v3/tasks/:taskId Update a task
- * @apiVersion 3.0.0
  * @apiName UpdateTask
  * @apiGroup Task
  *
  * @apiParam {String} taskId The task _id or alias
  *
  * @apiSuccess {Object} data The updated task
+ *
+ * @apiUse TaskNotFound
+ * @apiUse ChallengeNotFound
  */
 api.updateTask = {
   method: 'PUT',
@@ -245,38 +270,22 @@ api.updateTask = {
     }
 
     res.respond(200, savedTask);
-    if (challenge) challenge.updateTask(savedTask);
+
+    if (challenge) {
+      challenge.updateTask(savedTask);
+    } else if (group && task.group.id && task.group.assignedUsers.length > 0) {
+      await group.updateTask(savedTask);
+    } else {
+      taskActivityWebhook.send(user.webhooks, {
+        type: 'updated',
+        task: savedTask,
+      });
+    }
   },
 };
 
-function _generateWebhookTaskData (task, direction, delta, stats, user) {
-  let extendedStats = _.extend(stats, {
-    toNextLevel: common.tnl(user.stats.lvl),
-    maxHealth: common.maxHealth,
-    maxMP: common.statsComputed(user).maxMP,
-  });
-
-  let userData = {
-    _id: user._id,
-    _tmp: user._tmp,
-    stats: extendedStats,
-  };
-
-  let taskData = {
-    details: task,
-    direction,
-    delta,
-  };
-
-  return {
-    task: taskData,
-    user: userData,
-  };
-}
-
 /**
  * @api {post} /api/v3/tasks/:taskId/score/:direction Score a task
- * @apiVersion 3.0.0
  * @apiName ScoreTask
  * @apiGroup Task
  *
@@ -286,6 +295,8 @@ function _generateWebhookTaskData (task, direction, delta, stats, user) {
  * @apiSuccess {Object} data._tmp If an item was dropped it'll be returned in te _tmp object
  * @apiSuccess {Number} data.delta The delta
  * @apiSuccess {Object} data The user stats
+ *
+ * @apiUse TaskNotFound
  */
 api.scoreTask = {
   method: 'POST',
@@ -304,6 +315,28 @@ api.scoreTask = {
     let direction = req.params.direction;
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
+
+    if (task.group.approval.required && !task.group.approval.approved) {
+      if (task.group.approval.requested) {
+        throw new NotAuthorized(res.t('taskRequiresApproval'));
+      }
+
+      task.group.approval.requested = true;
+      task.group.approval.requestedDate = new Date();
+
+      let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+      let groupLeader = await User.findById(group.leader); // Use this method so we can get access to notifications
+      groupLeader.addNotification('GROUP_TASK_APPROVAL', {
+        message: res.t('userHasRequestedTaskApproval', {
+          user: user.profile.name,
+          taskName: task.text,
+        }),
+      });
+
+      await Bluebird.all([groupLeader.save(), task.save()]);
+
+      return res.respond(200, {message: res.t('taskApprovalHasBeenRequested'), task});
+    }
 
     let wasCompleted = task.completed;
 
@@ -335,7 +368,12 @@ api.scoreTask = {
     let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
     res.respond(200, resJsonData);
 
-    sendTaskWebhook(user.preferences.webhooks, _generateWebhookTaskData(task, direction, delta, userStats, user));
+    taskScoredWebhook.send(user.webhooks, {
+      task,
+      direction,
+      delta,
+      user,
+    });
 
     if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
       // Wrapping everything in a try/catch block because if an error occurs using `await` it MUST NOT bubble up because the request has already been handled
@@ -368,7 +406,6 @@ api.scoreTask = {
 /**
  * @api {post} /api/v3/tasks/:taskId/move/to/:position Move a task to a new position
  * @apiDescription Note: completed To-Dos are not sortable, do not appear in user.tasksOrder.todos, and are ordered by date of completion.
- * @apiVersion 3.0.0
  * @apiName MoveTask
  * @apiGroup Task
  *
@@ -376,6 +413,8 @@ api.scoreTask = {
  * @apiParam {Number} position Query parameter - Where to move the task (-1 means push to bottom). First position is 0
  *
  * @apiSuccess {Array} data The new tasks order (user.tasksOrder.{task.type}s)
+ *
+ * @apiUse TaskNotFound
  */
 api.moveTask = {
   method: 'POST',
@@ -421,13 +460,15 @@ api.moveTask = {
 
 /**
  * @api {post} /api/v3/tasks/:taskId/checklist Add an item to the task's checklist
- * @apiVersion 3.0.0
  * @apiName AddChecklistItem
  * @apiGroup Task
  *
  * @apiParam {String} taskId The task _id or alias
  *
  * @apiSuccess {Object} data The updated task
+ *
+ * @apiUse TaskNotFound
+ * @apiUse ChallengeNotFound
  */
 api.addChecklistItem = {
   method: 'POST',
@@ -436,6 +477,7 @@ api.addChecklistItem = {
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
+    let group;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
 
@@ -447,6 +489,10 @@ api.addChecklistItem = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
+    } else if (task.group.id && !task.userId) {
+      group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
@@ -462,12 +508,14 @@ api.addChecklistItem = {
 
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
+    if (group && task.group.id && task.group.assignedUsers.length > 0) {
+      await group.updateTask(savedTask);
+    }
   },
 };
 
 /**
  * @api {post} /api/v3/tasks/:taskId/checklist/:itemId/score Score a checklist item
- * @apiVersion 3.0.0
  * @apiName ScoreChecklistItem
  * @apiGroup Task
  *
@@ -475,6 +523,9 @@ api.addChecklistItem = {
  * @apiParam {UUID} itemId The checklist item _id
  *
  * @apiSuccess {Object} data The updated task
+ *
+ * @apiUse TaskNotFound
+ * @apiUse ChecklistNotFound
  */
 api.scoreCheckListItem = {
   method: 'POST',
@@ -507,7 +558,6 @@ api.scoreCheckListItem = {
 
 /**
  * @api {put} /api/v3/tasks/:taskId/checklist/:itemId Update a checklist item
- * @apiVersion 3.0.0
  * @apiName UpdateChecklistItem
  * @apiGroup Task
  *
@@ -515,6 +565,10 @@ api.scoreCheckListItem = {
  * @apiParam {UUID} itemId The checklist item _id
  *
  * @apiSuccess {Object} data The updated task
+ *
+ * @apiUse TaskNotFound
+ * @apiUse ChecklistNotFound
+ * @apiUse ChallengeNotFound
  */
 api.updateChecklistItem = {
   method: 'PUT',
@@ -523,6 +577,7 @@ api.updateChecklistItem = {
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
+    let group;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
@@ -535,6 +590,10 @@ api.updateChecklistItem = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
+    } else if (task.group.id && !task.userId) {
+      group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
@@ -552,12 +611,14 @@ api.updateChecklistItem = {
 
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
+    if (group && task.group.id && task.group.assignedUsers.length > 0) {
+      await group.updateTask(savedTask);
+    }
   },
 };
 
 /**
  * @api {delete} /api/v3/tasks/:taskId/checklist/:itemId Remove a checklist item
- * @apiVersion 3.0.0
  * @apiName RemoveChecklistItem
  * @apiGroup Task
  *
@@ -565,6 +626,10 @@ api.updateChecklistItem = {
  * @apiParam {UUID} itemId The checklist item _id
  *
  * @apiSuccess {Object} data The updated task
+ *
+ * @apiUse TaskNotFound
+ * @apiUse ChallengeNotFound
+ * @apiUse ChecklistNotFound
  */
 api.removeChecklistItem = {
   method: 'DELETE',
@@ -573,6 +638,7 @@ api.removeChecklistItem = {
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
+    let group;
 
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
@@ -585,6 +651,10 @@ api.removeChecklistItem = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
+    } else if (task.group.id && !task.userId) {
+      group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
@@ -600,12 +670,14 @@ api.removeChecklistItem = {
     let savedTask = await task.save();
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
+    if (group && task.group.id && task.group.assignedUsers.length > 0) {
+      await group.updateTask(savedTask);
+    }
   },
 };
 
 /**
  * @api {post} /api/v3/tasks/:taskId/tags/:tagId Add a tag to a task
- * @apiVersion 3.0.0
  * @apiName AddTagToTask
  * @apiGroup Task
  *
@@ -613,6 +685,8 @@ api.removeChecklistItem = {
  * @apiParam {UUID} tagId The tag id
  *
  * @apiSuccess {Object} data The updated task
+ *
+ * @apiUse TaskNotFound
  */
 api.addTagToTask = {
   method: 'POST',
@@ -646,7 +720,6 @@ api.addTagToTask = {
 
 /**
  * @api {delete} /api/v3/tasks/:taskId/tags/:tagId Remove a tag from a task
- * @apiVersion 3.0.0
  * @apiName RemoveTagFromTask
  * @apiGroup Task
  *
@@ -654,6 +727,9 @@ api.addTagToTask = {
  * @apiParam {UUID} tagId The tag id
  *
  * @apiSuccess {Object} data The updated task
+ *
+ * @apiUse TaskNotFound
+ * @apiUse TagNotFound
  */
 api.removeTagFromTask = {
   method: 'DELETE',
@@ -683,7 +759,6 @@ api.removeTagFromTask = {
 
 /**
  * @api {post} /api/v3/tasks/unlink-all/:challengeId Unlink all tasks from a challenge
- * @apiVersion 3.0.0
  * @apiName UnlinkAllTasks
  * @apiGroup Task
  *
@@ -745,7 +820,6 @@ api.unlinkAllTasks = {
 
 /**
  * @api {post} /api/v3/tasks/unlink-one/:taskId Unlink a challenge task
- * @apiVersion 3.0.0
  * @apiName UnlinkOneTask
  * @apiGroup Task
  *
@@ -753,6 +827,8 @@ api.unlinkAllTasks = {
  * @apiParam {String} keep Query parameter - keep or remove
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiUse TaskNotFound
  */
 api.unlinkOneTask = {
   method: 'POST',
@@ -793,7 +869,6 @@ api.unlinkOneTask = {
 
 /**
  * @api {post} /api/v3/tasks/clearCompletedTodos Delete user's completed todos
- * @apiVersion 3.0.0
  * @apiName ClearCompletedTodos
  * @apiGroup Task
  *
@@ -824,13 +899,15 @@ api.clearCompletedTodos = {
 
 /**
  * @api {delete} /api/v3/tasks/:taskId Delete a task given its id
- * @apiVersion 3.0.0
  * @apiName DeleteTask
  * @apiGroup Task
  *
  * @apiParam {String} taskId The task _id or alias
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiUse TaskNotFound
+ * @apiUse ChallengeNotFound
  */
 api.deleteTask = {
   method: 'DELETE',
@@ -869,7 +946,15 @@ api.deleteTask = {
     }
 
     res.respond(200, {});
-    if (challenge) challenge.removeTask(task);
+
+    if (challenge) {
+      challenge.removeTask(task);
+    } else {
+      taskActivityWebhook.send(user.webhooks, {
+        type: 'deleted',
+        task,
+      });
+    }
   },
 };
 

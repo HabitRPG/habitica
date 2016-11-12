@@ -163,96 +163,104 @@ api.premiumMounts = stable.premiumMounts;
 api.specialMounts = stable.specialMounts;
 api.mountInfo = stable.mountInfo;
 
+// For seasonal events, change these booleans:
+let canBuyNormalFood = true;
+let canDropNormalFood = true;
+let canBuyCandyFood = false;
+let canDropCandyFood = false;
+let canBuyCakeFood = false;
+let canDropCakeFood = false;
+
 api.food = {
   Meat: {
     text: t('foodMeat'),
     target: 'Base',
     article: '',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   Milk: {
     text: t('foodMilk'),
     target: 'White',
     article: '',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   Potatoe: {
     text: t('foodPotatoe'),
     target: 'Desert',
     article: 'a ',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   Strawberry: {
     text: t('foodStrawberry'),
     target: 'Red',
     article: 'a ',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   Chocolate: {
     text: t('foodChocolate'),
     target: 'Shade',
     article: '',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   Fish: {
     text: t('foodFish'),
     target: 'Skeleton',
     article: 'a ',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   RottenMeat: {
     text: t('foodRottenMeat'),
     target: 'Zombie',
     article: '',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   CottonCandyPink: {
     text: t('foodCottonCandyPink'),
     target: 'CottonCandyPink',
     article: '',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   CottonCandyBlue: {
     text: t('foodCottonCandyBlue'),
     target: 'CottonCandyBlue',
     article: '',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   Honey: {
     text: t('foodHoney'),
     target: 'Golden',
     article: '',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   Saddle: {
     canBuy: (function() {
@@ -266,141 +274,181 @@ api.food = {
     text: t('foodCakeSkeleton'),
     target: 'Skeleton',
     article: '',
+    canBuy: (function() {
+      return canBuyCakeFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Cake_Base: {
     text: t('foodCakeBase'),
     target: 'Base',
     article: '',
+    canBuy: (function() {
+      return canBuyCakeFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Cake_CottonCandyBlue: {
     text: t('foodCakeCottonCandyBlue'),
     target: 'CottonCandyBlue',
     article: '',
+    canBuy: (function() {
+      return canBuyCandyFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Cake_CottonCandyPink: {
     text: t('foodCakeCottonCandyPink'),
     target: 'CottonCandyPink',
     article: '',
+    canBuy: (function() {
+      return canBuyCakeFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Cake_Shade: {
     text: t('foodCakeShade'),
     target: 'Shade',
     article: '',
+    canBuy: (function() {
+      return canBuyCakeFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Cake_White: {
     text: t('foodCakeWhite'),
     target: 'White',
     article: '',
+    canBuy: (function() {
+      return canBuyCakeFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Cake_Golden: {
     text: t('foodCakeGolden'),
     target: 'Golden',
     article: '',
+    canBuy: (function() {
+      return canBuyCakeFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Cake_Zombie: {
     text: t('foodCakeZombie'),
     target: 'Zombie',
     article: '',
+    canBuy: (function() {
+      return canBuyCakeFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Cake_Desert: {
     text: t('foodCakeDesert'),
     target: 'Desert',
     article: '',
+    canBuy: (function() {
+      return canBuyCakeFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Cake_Red: {
     text: t('foodCakeRed'),
     target: 'Red',
     article: '',
+    canBuy: (function() {
+      return canBuyCakeFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Candy_Skeleton: {
     text: t('foodCandySkeleton'),
     target: 'Skeleton',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   },
   Candy_Base: {
     text: t('foodCandyBase'),
     target: 'Base',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   },
   Candy_CottonCandyBlue: {
     text: t('foodCandyCottonCandyBlue'),
     target: 'CottonCandyBlue',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   },
   Candy_CottonCandyPink: {
     text: t('foodCandyCottonCandyPink'),
     target: 'CottonCandyPink',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   },
   Candy_Shade: {
     text: t('foodCandyShade'),
     target: 'Shade',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   },
   Candy_White: {
     text: t('foodCandyWhite'),
     target: 'White',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   },
   Candy_Golden: {
     text: t('foodCandyGolden'),
     target: 'Golden',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   },
   Candy_Zombie: {
     text: t('foodCandyZombie'),
     target: 'Zombie',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   },
   Candy_Desert: {
     text: t('foodCandyDesert'),
     target: 'Desert',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   },
   Candy_Red: {
     text: t('foodCandyRed'),
     target: 'Red',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   }
 };
 
@@ -2432,6 +2480,147 @@ api.quests = {
       unlock: t('questCowUnlockText'),
     },
   },
+  beetle: {
+    text: t('questBeetleText'),
+    notes: t('questBeetleNotes'),
+    completion: t('questBeetleCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questBeetleBoss'),
+      hp: 500,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Beetle',
+          text: t('questBeetleDropBeetleEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Beetle',
+          text: t('questBeetleDropBeetleEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Beetle',
+          text: t('questBeetleDropBeetleEgg'),
+        },
+      ],
+      gp: 37,
+      exp: 275,
+      unlock: t('questBeetleUnlockText'),
+    },
+  },
+  taskwoodsTerror1: {
+    text: t('questTaskwoodsTerror1Text'),
+    notes: t('questTaskwoodsTerror1Notes'),
+    completion: t('questTaskwoodsTerror1Completion'),
+    value: 4,
+    goldValue: 200,
+    category: 'gold',
+    boss: {
+      name: t('questTaskwoodsTerror1Boss'),
+      hp: 500,
+      rage: {
+        title: t("questTaskwoodsTerror1RageTitle"),
+        description: t("questTaskwoodsTerror1RageDescription"),
+        value: 50,
+        healing: .3,
+        effect: t('questTaskwoodsTerror1RageEffect')
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Skeleton',
+          text: t('questTaskwoodsTerror1DropSkeletonPotion')
+        }, {
+          type: 'hatchingPotions',
+          key: 'Red',
+          text: t('questTaskwoodsTerror1DropRedPotion')
+        }, {
+          type: 'gear',
+          key: "head_special_pyromancersTurban",
+          text: t('questTaskwoodsTerror1DropHeadgear')
+        }
+      ],
+      gp: 0,
+      exp: 500
+    }
+  },
+  taskwoodsTerror2: {
+    text: t('questTaskwoodsTerror2Text'),
+    notes: t('questTaskwoodsTerror2Notes'),
+    completion: t('questTaskwoodsTerror2Completion'),
+    previous: 'taskwoodsTerror1',
+    value: 4,
+    goldValue: 300,
+    category: 'gold',
+    collect: {
+      pixie: {
+        text: t('questTaskwoodsTerror2CollectPixies'),
+        count: 25
+      },
+      brownie: {
+        text: t('questTaskwoodsTerror2CollectBrownies'),
+        count: 15
+      },
+      dryad: {
+        text: t('questTaskwoodsTerror2CollectDryads'),
+        count: 10
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'gear',
+          key: "armor_special_pyromancersRobes",
+          text: t('questTaskwoodsTerror2DropArmor')
+        }
+      ],
+      gp: 0,
+      exp: 75
+    }
+  },
+  taskwoodsTerror3: {
+    text: t('questTaskwoodsTerror3Text'),
+    notes: t('questTaskwoodsTerror3Notes'),
+    completion: t('questTaskwoodsTerror3Completion'),
+    previous: 'taskwoodsTerror2',
+    value: 4,
+    goldValue: 400,
+    category: 'gold',
+    boss: {
+      name: t('questTaskwoodsTerror3Boss'),
+      hp: 1000,
+      str: 2
+    },
+    drop: {
+      items: [
+        {
+          type: 'food',
+          key: 'Strawberry',
+          text: t('questTaskwoodsTerror3DropStrawberry')
+        }, {
+          type: 'food',
+          key: 'Strawberry',
+          text: t('questTaskwoodsTerror3DropStrawberry')
+        }, {
+          type: 'food',
+          key: 'Strawberry',
+          text: t('questTaskwoodsTerror3DropStrawberry')
+        }, {
+          type: 'gear',
+          key: "weapon_special_taskwoodsLantern",
+          text: t('questTaskwoodsTerror3DropWeapon')
+        },
+      ],
+      gp: 0,
+      exp: 650
+    }
+  },
 };
 
 _.each(api.quests, function(v, key) {
@@ -2487,7 +2676,15 @@ api.subscriptionBlocks = {
   basic_12mo: {
     months: 12,
     price: 48
-  }
+  },
+  group_monthly: {
+    months: 1,
+    price: 5
+  },
+  group_yearly: {
+    months: 1,
+    price: 48,
+  },
 };
 
 _.each(api.subscriptionBlocks, function(b, k) {

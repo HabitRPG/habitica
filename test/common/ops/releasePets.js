@@ -1,4 +1,5 @@
 import releasePets from '../../../website/common/script/ops/releasePets';
+import content from '../../../website/common/script/content/index';
 import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
@@ -37,10 +38,24 @@ describe('shared.ops.releasePets', () => {
     expect(user.items.pets[animal]).to.equal(0);
   });
 
-  it('removes currentPet', () => {
+  it('removes drop currentPet', () => {
+    let petInfo = content.petInfo[user.items.currentPet];
+    expect(petInfo.type).to.equal('drop');
     releasePets(user);
 
     expect(user.items.currentPet).to.be.empty;
+  });
+
+  it('leaves non-drop pets equipped', () => {
+    let questAnimal = 'Gryphon-Base';
+    user.items.currentPet = questAnimal;
+    user.items.pets[questAnimal] = 5;
+
+    let petInfo = content.petInfo[user.items.currentPet];
+    expect(petInfo.type).to.not.equal('drop');
+    releasePets(user);
+
+    expect(user.items.currentPet).to.equal(questAnimal);
   });
 
   it('decreases user\'s balance', () => {

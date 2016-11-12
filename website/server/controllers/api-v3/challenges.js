@@ -21,12 +21,18 @@ import csvStringify from '../../libs/csvStringify';
 let api = {};
 
 /**
+ * @apiDefine ChallengeNotFound
+ * @apiError (404) {NotFound} ChallengeNotFound The specified challenge could not be found.
+ */
+
+/**
  * @api {post} /api/v3/challenges Create a new challenge
- * @apiVersion 3.0.0
  * @apiName CreateChallenge
  * @apiGroup Challenge
  *
  * @apiSuccess {Object} data The newly created challenge
+ *
+ * @apiUse GroupNotFound
  */
 api.createChallenge = {
   method: 'POST',
@@ -112,12 +118,13 @@ api.createChallenge = {
 
 /**
  * @api {post} /api/v3/challenges/:challengeId/join Join a challenge
- * @apiVersion 3.0.0
  * @apiName JoinChallenge
  * @apiGroup Challenge
  * @apiParam {UUID} challengeId The challenge _id
  *
  * @apiSuccess {Object} data The challenge the user joined
+ *
+ * @apiUse ChallengeNotFound
  */
 api.joinChallenge = {
   method: 'POST',
@@ -159,12 +166,13 @@ api.joinChallenge = {
 
 /**
  * @api {post} /api/v3/challenges/:challengeId/leave Leave a challenge
- * @apiVersion 3.0.0
  * @apiName LeaveChallenge
  * @apiGroup Challenge
  * @apiParam {UUID} challengeId The challenge _id
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiUse ChallengeNotFound
  */
 api.leaveChallenge = {
   method: 'POST',
@@ -195,7 +203,6 @@ api.leaveChallenge = {
 
 /**
  * @api {get} /api/v3/challenges/user Get challenges for a user
- * @apiVersion 3.0.0
  * @apiName GetUserChallenges
  * @apiGroup Challenge
  *
@@ -240,13 +247,14 @@ api.getUserChallenges = {
 /**
  * @api {get} /api/v3/challenges/group/:groupId Get challenges for a group
  * @apiDescription Get challenges that the user is a member, public challenges and the ones from the user's groups.
- * @apiVersion 3.0.0
  * @apiName GetGroupChallenges
  * @apiGroup Challenge
  *
  * @apiParam {UUID} groupId The group _id
  *
  * @apiSuccess {Array} data An array of challenges sorted with official challenges first, followed by the challenges in order from newest to oldest
+ *
+ * @apiUse GroupNotFound
  */
 api.getGroupChallenges = {
   method: 'GET',
@@ -283,13 +291,14 @@ api.getGroupChallenges = {
 
 /**
  * @api {get} /api/v3/challenges/:challengeId Get a challenge given its id
- * @apiVersion 3.0.0
  * @apiName GetChallenge
  * @apiGroup Challenge
  *
  * @apiParam {UUID} challengeId The challenge _id
  *
  * @apiSuccess {Object} data The challenge object
+ *
+ * @apiUse ChallengeNotFound
  */
 api.getChallenge = {
   method: 'GET',
@@ -326,13 +335,14 @@ api.getChallenge = {
 
 /**
  * @api {get} /api/v3/challenges/:challengeId/export/csv Export a challenge in CSV
- * @apiVersion 3.0.0
  * @apiName ExportChallengeCsv
  * @apiGroup Challenge
  *
  * @apiParam {UUID} challengeId The challenge _id
  *
  * @apiSuccess {String} challenge A csv file
+ *
+ * @apiUse ChallengeNotFound
  */
 api.exportChallengeCsv = {
   method: 'GET',
@@ -399,13 +409,14 @@ api.exportChallengeCsv = {
 
 /**
  * @api {put} /api/v3/challenges/:challengeId Update a challenge
- * @apiVersion 3.0.0
  * @apiName UpdateChallenge
  * @apiGroup Challenge
  *
  * @apiParam {UUID} challengeId The challenge _id
  *
  * @apiSuccess {Object} data The updated challenge
+ *
+ * @apiUse ChallengeNotFound
  */
 api.updateChallenge = {
   method: 'PUT',
@@ -445,13 +456,14 @@ api.updateChallenge = {
 
 /**
  * @api {delete} /api/v3/challenges/:challengeId Delete a challenge
- * @apiVersion 3.0.0
  * @apiName DeleteChallenge
  * @apiGroup Challenge
  *
  * @apiParam {UUID} challengeId The _id for the challenge to delete
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiUse ChallengeNotFound
  */
 api.deleteChallenge = {
   method: 'DELETE',
@@ -477,7 +489,6 @@ api.deleteChallenge = {
 
 /**
  * @api {post} /api/v3/challenges/:challengeId/selectWinner/:winnerId Select winner for challenge
- * @apiVersion 3.0.0
  * @apiName SelectChallengeWinner
  * @apiGroup Challenge
  *
@@ -485,6 +496,8 @@ api.deleteChallenge = {
  * @apiParam {UUID} winnerId The _id of the winning user
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiUse ChallengeNotFound
  */
 api.selectChallengeWinner = {
   method: 'POST',

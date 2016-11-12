@@ -24,6 +24,7 @@
     "gildedTurkey": "Kalkun Emas",
     "polarBearPup": "Anak Beruang Kutub",
     "jackolantern": "Jack-O-Lantern",
+    "ghostJackolantern": "Ghost Jack-O-Lantern",
     "seasonalShop": "Toko musiman",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Penyihir Musiman<%= linkEnd %>",

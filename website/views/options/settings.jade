@@ -131,9 +131,12 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
           .panel-heading
             span=env.t('registration')
           .panel-body
-            div(ng-if='user.auth.facebook.id')
-              button.btn.btn-primary(disabled='disabled', ng-if='!user.auth.local.username')=env.t('registeredWithFb')
-              button.btn.btn-danger(ng-click='http("delete", "/api/v3/user/auth/social/facebook", null, "detachedFacebook")', ng-if='user.auth.local.username')=env.t('detachFacebook')
+            div
+              ul.list-inline
+                li(ng-repeat='network in SOCIAL_AUTH_NETWORKS')
+                  button.btn.btn-primary(ng-if='!user.auth[network.key].id', ng-click='socialLogin(network.key, user)')=env.t('registerWithSocial', {network: '{{network.name}}'})
+                  button.btn.btn-primary(disabled='disabled', ng-if='!hasBackupAuthOption(user, network.key) && user.auth[network.key].id')=env.t('registeredWithSocial', {network: '{{network.name}}'})
+                  button.btn.btn-danger(ng-click='deleteSocialAuth(network.key)', ng-if='hasBackupAuthOption(user, network.key) && user.auth[network.key].id')=env.t('detachSocial', {network: '{{network.name}}'})
               hr
               div(ng-if='!user.auth.local.username')
                 p=env.t('addLocalAuth')
@@ -255,20 +258,20 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
 
         h2=env.t('webhooks')
         table.table.table-striped
-          thead(ng-if='hasWebhooks')
+          thead(ng-if='user.webhooks.length')
             tr
               th=env.t('enabled')
               th=env.t('webhookURL')
               th
           tbody
-            tr(ng-repeat="webhook in user.preferences.webhooks | toArray:true | orderBy:'sort'")
+            tr(ng-repeat="webhook in user.webhooks track by $index")
               td
-                input(type='checkbox', ng-model='webhook.enabled', ng-change='saveWebhook(webhook.$key,webhook)')
+                input(type='checkbox', ng-model='webhook.enabled', ng-change='saveWebhook(webhook, $index)')
               td
-                input.form-control(type='url', ng-model='webhook.url', ng-change='webhook._editing=true', ui-keyup="{13:'saveWebhook(webhook.$key,webhook)'}")
+                input.form-control(type='url', ng-model='webhook.url', ng-change='webhook._editing=true', ui-keyup="{13:'saveWebhook(webhook, $index)'}")
               td
                 span.pull-left(ng-show='webhook._editing') *
-                a.checklist-icons(ng-click='deleteWebhook(webhook.$key)')
+                a.checklist-icons(ng-click='deleteWebhook(webhook, $index)')
                   span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
             tr
               td(colspan=2)

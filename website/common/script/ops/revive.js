@@ -5,9 +5,7 @@ import {
   NotAuthorized,
 } from '../libs/errors';
 import randomVal from '../libs/randomVal';
-
-// TODO this is only used on the server
-// move out of common?
+import predictableRandom from '../fns/predictableRandom';
 
 module.exports = function revive (user, req = {}, analytics) {
   if (user.stats.hp > 0) {
@@ -29,7 +27,9 @@ module.exports = function revive (user, req = {}, analytics) {
       m[k] = k;
     }
     return m;
-  }, {}));
+  }, {}), {
+    predictableRandom: predictableRandom(user),
+  });
 
   if (lostStat) {
     user.stats[lostStat]--;
@@ -71,7 +71,9 @@ module.exports = function revive (user, req = {}, analytics) {
     }
   });
 
-  let lostItem = randomVal(losableItems);
+  let lostItem = randomVal(losableItems, {
+    predictableRandom: predictableRandom(user),
+  });
 
   let message = '';
   let item = content.gear.flat[lostItem];

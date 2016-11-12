@@ -4,6 +4,7 @@ import { TAVERN_ID } from '../models/group';
 import { encrypt } from './encryption';
 import request from 'request';
 import logger from './logger';
+import common from '../../common';
 
 const IS_PROD = nconf.get('IS_PROD');
 const EMAIL_SERVER = {
@@ -47,8 +48,12 @@ export function getUserInfo (user, fields = []) {
   if (fields.indexOf('email') !== -1) {
     if (user.auth.local && user.auth.local.email) {
       info.email = user.auth.local.email;
-    } else if (user.auth.facebook && user.auth.facebook.emails && user.auth.facebook.emails[0] && user.auth.facebook.emails[0].value) {
-      info.email = user.auth.facebook.emails[0].value;
+    } else {
+      common.constants.SUPPORTED_SOCIAL_NETWORKS.forEach(network => {
+        if (user.auth[network.key] && user.auth[network.key].emails && user.auth[network.key].emails[0] && user.auth[network.key].emails[0].value) {
+          info.email = user.auth[network.key].emails[0].value;
+        }
+      });
     }
   }
 

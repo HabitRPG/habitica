@@ -43,12 +43,14 @@ schema.methods.addNotification = function addUserNotification (type, data = {}) 
 };
 
 // Add stats.toNextLevel, stats.maxMP and stats.maxHealth
-// to a JSONified User object
-schema.methods.addComputedStatsToJSONObj = function addComputedStatsToUserJSONObj (obj) {
+// to a JSONified User stats object
+schema.methods.addComputedStatsToJSONObj = function addComputedStatsToUserJSONObj (statsObject) {
   // NOTE: if an item is manually added to user.stats then
   // common/fns/predictableRandom must be tweaked so the new item is not considered.
   // Otherwise the client will have it while the server won't and the results will be different.
-  obj.stats.toNextLevel = common.tnl(this.stats.lvl);
-  obj.stats.maxHealth = common.maxHealth;
-  obj.stats.maxMP = common.statsComputed(this).maxMP;
+  statsObject.toNextLevel = common.tnl(this.stats.lvl);
+  statsObject.maxHealth = common.maxHealth;
+  statsObject.maxMP = common.statsComputed(this).maxMP;
+
+  return statsObject;
 };

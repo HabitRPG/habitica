@@ -162,7 +162,7 @@
     "commGuideLink01description": "גילדה עבור שחקנים חדשים, בה ניתן לשאול שאלות!",
     "commGuideLink02": "גילדת הפינה האחורית",
     "commGuideLink02description": "גילדה לדיונים ארוכים או דיון בנושאים רגישים.",
-    "commGuideLink03": "עמוד הוויקי",
+    "commGuideLink03": "<a href='http://habitica.wikia.com/wiki/Habitica_Wiki' target='_blank'>The Wiki</a>",
     "commGuideLink03description": "אוסף המידע הגדול ביותר אודות האביטיקה.",
     "commGuideLink04": "GitHub",
     "commGuideLink04description": "הנועד לדיווח על באגים או עזרה בתיכנות קוד.",

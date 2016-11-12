@@ -13,6 +13,8 @@
 
   // Icons only available if you own the tasks (aka, hidden from challenge stats)
   span(ng-if='!obj._locked')
+    group-task-meta-actions(ng-if="obj.type == 'guild'", task='task', group='obj')
+    
     a(ng-click='pushTask(task,$index,"top")', tooltip=env.t('pushTaskToTop'), ng-class="{'push-down': ctrlPressed}")
       span(ng-hide="ctrlPressed").glyphicon.glyphicon-open
       span(ng-show="ctrlPressed").glyphicon.glyphicon-save

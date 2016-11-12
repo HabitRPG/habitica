@@ -24,6 +24,7 @@
     "gildedTurkey": "金ピカのシチメンチョウ",
     "polarBearPup": "シロクマの子",
     "jackolantern": "ジャック･オ･ランタン",
+    "ghostJackolantern": "Ghost Jack-O-Lantern",
     "seasonalShop": "季節の店",
     "seasonalShopClosedTitle": "<%= linkStart %>レズリー<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>季節の魔女<%= linkEnd %>",

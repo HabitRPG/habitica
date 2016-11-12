@@ -395,6 +395,34 @@ let backgrounds = {
       notes: t('backgroundOrchardNotes'),
     },
   },
+  backgrounds102016: {
+    rainy_city: {
+      text: t('backgroundRainyCityText'),
+      notes: t('backgroundRainyCityNotes'),
+    },
+    spider_web: {
+      text: t('backgroundSpiderWebText'),
+      notes: t('backgroundSpiderWebNotes'),
+    },
+    strange_sewers: {
+      text: t('backgroundStrangeSewersText'),
+      notes: t('backgroundStrangeSewersNotes'),
+    },
+  },
+  backgrounds112016: {
+    midnight_clouds: {
+      text: t('backgroundMidnightCloudsText'),
+      notes: t('backgroundMidnightCloudsNotes'),
+    },
+    stormy_rooftops: {
+      text: t('backgroundStormyRooftopsText'),
+      notes: t('backgroundStormyRooftopsNotes'),
+    },
+    windy_autumn: {
+      text: t('backgroundWindyAutumnText'),
+      notes: t('backgroundWindyAutumnNotes'),
+    },
+  },
 };
 /* eslint-enable quote-props */
 

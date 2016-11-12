@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import pickBy from 'lodash.pickby'; // Not available in lodash 3
 import content from '../content/index';
 import i18n from '../i18n';
 
@@ -130,7 +131,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
           boss: quest.boss,
           collect: quest.collect,
           lvl: quest.lvl,
-          class: locked ? `inventory_quest_scroll_${quest.key}_locked` : `inventory_quest_scroll_${quest.key}`,
+          class: locked ? `inventory_quest_scroll_locked inventory_quest_scroll_${quest.key}_locked` : `inventory_quest_scroll inventory_quest_scroll_${quest.key}`,
           purchaseType: 'quests',
         };
       }).value();
@@ -208,31 +209,52 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
   return categories;
 };
 
-// To switch seasons/available inventory, edit the availableSets object to whatever should be sold.
-// let availableSets = {
+// To switch seasons/available inventory, edit the AVAILABLE_SETS object to whatever should be sold.
+// let AVAILABLE_SETS = {
 //   setKey: i18n.t('setTranslationString', language),
 // };
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
-  let availableSets = {
-    fallHealer: i18n.t('mummyMedicSet', language),
-    fall2015Healer: i18n.t('potionerSet', language),
-    fallMage: i18n.t('witchyWizardSet', language),
-    fall2015Mage: i18n.t('stitchWitchSet', language),
-    fallRogue: i18n.t('vampireSmiterSet', language),
-    fall2015Rogue: i18n.t('battleRogueSet', language),
-    fallWarrior: i18n.t('monsterOfScienceSet', language),
-    fall2015Warrior: i18n.t('scarecrowWarriorSet', language),
+  const AVAILABLE_SETS = {
   };
+
+  const AVAILABLE_SPELLS = [
+  ];
 
   let categories = [];
 
   let flatGearArray = _.toArray(content.gear.flat);
 
-  for (let key in availableSets) {
-    if (availableSets.hasOwnProperty(key)) {
+  let spells = pickBy(content.spells.special, (spell, key) => {
+    return _.indexOf(AVAILABLE_SPELLS, key) !== -1;
+  });
+
+  if (_.keys(spells).length > 0) {
+    let category = {
+      identifier: 'spells',
+      text: i18n.t('seasonalItems', language),
+    };
+
+    category.items = _.map(spells, (spell, key) => {
+      return {
+        key,
+        text: spell.text(language),
+        notes: spell.notes(language),
+        value: spell.value,
+        type: 'special',
+        currency: 'gold',
+        locked: false,
+        purchaseType: 'spells',
+      };
+    });
+
+    categories.push(category);
+  }
+
+  for (let key in AVAILABLE_SETS) {
+    if (AVAILABLE_SETS.hasOwnProperty(key)) {
       let category = {
         identifier: key,
-        text: availableSets[key],
+        text: AVAILABLE_SETS[key],
       };
 
       category.items = _(flatGearArray).filter((gear) => {

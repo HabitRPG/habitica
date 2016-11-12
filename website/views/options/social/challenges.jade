@@ -149,7 +149,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                     ng-model='newChallenge.shortName', placeholder=env.t('challengeTag'), required
                     ng-disabled='insufficientGemsForTavernChallenge()')
                   |&nbsp;
-                  a.hint.vertical-20(target='_blank', href='http://habitica.wikia.com/wiki/Tags',
+                  a.hint.vertical-20(target='_blank', href=env.t('moreInfoTagsURL'),
                     popover=env.t('challengeTagPop'), popover-trigger='mouseenter', popover-placement='right')
                     =env.t('moreInfo')
 
@@ -210,3 +210,6 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
             .panel-body(ng-class='{collapse: !$stateParams.cid == challenge._id}')
               .accordion-inner(ng-if='$stateParams.cid == challenge._id')
                 div(ui-view)
+
+  .container-fluid
+    .alert.alert-danger(ng-if='challengeErrorMsg') {{challengeErrorMsg}}

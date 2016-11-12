@@ -29,8 +29,17 @@ module.exports = function releaseBoth (user, req = {}, analytics) {
     user.balance -= 1.5;
   }
 
-  user.items.currentMount = '';
-  user.items.currentPet = '';
+  let mountInfo = content.mountInfo[user.items.currentMount];
+
+  if (mountInfo && mountInfo.type === 'drop') {
+    user.items.currentMount = '';
+  }
+
+  let petInfo = content.petInfo[user.items.currentPet];
+
+  if (petInfo && petInfo.type === 'drop') {
+    user.items.currentPet = '';
+  }
 
   for (animal in content.pets) {
     if (user.items.pets[animal] === -1) {
