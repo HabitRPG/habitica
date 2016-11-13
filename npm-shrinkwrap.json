@@ -8741,43 +8741,67 @@
       "version": "2.2.11",
       "from": "mongodb@2.2.11",
       "resolved": "https://registry.npmjs.org/mongodb/-/mongodb-2.2.11.tgz",
+      "dev": true,
       "dependencies": {
         "es6-promise": {
           "version": "3.2.1",
           "from": "es6-promise@3.2.1",
-          "resolved": "https://registry.npmjs.org/es6-promise/-/es6-promise-3.2.1.tgz"
+          "resolved": "https://registry.npmjs.org/es6-promise/-/es6-promise-3.2.1.tgz",
+          "dev": true
         },
         "readable-stream": {
           "version": "2.1.5",
           "from": "readable-stream@2.1.5",
-          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.1.5.tgz"
+          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.1.5.tgz",
+          "dev": true
         }
       }
     },
     "mongodb-core": {
       "version": "2.0.13",
       "from": "mongodb-core@2.0.13",
-      "resolved": "https://registry.npmjs.org/mongodb-core/-/mongodb-core-2.0.13.tgz"
+      "resolved": "https://registry.npmjs.org/mongodb-core/-/mongodb-core-2.0.13.tgz",
+      "dev": true
     },
     "mongoose": {
-      "version": "4.6.7",
-      "from": "mongoose@>=4.4.16 <5.0.0",
-      "resolved": "https://registry.npmjs.org/mongoose/-/mongoose-4.6.7.tgz",
+      "version": "4.6.4",
+      "from": "mongoose@4.6.4",
+      "resolved": "https://registry.npmjs.org/mongoose/-/mongoose-4.6.4.tgz",
       "dependencies": {
         "async": {
-          "version": "2.1.2",
-          "from": "async@2.1.2",
-          "resolved": "https://registry.npmjs.org/async/-/async-2.1.2.tgz"
+          "version": "2.0.1",
+          "from": "async@2.0.1",
+          "resolved": "https://registry.npmjs.org/async/-/async-2.0.1.tgz"
+        },
+        "es6-promise": {
+          "version": "3.2.1",
+          "from": "es6-promise@3.2.1",
+          "resolved": "https://registry.npmjs.org/es6-promise/-/es6-promise-3.2.1.tgz"
         },
         "lodash": {
           "version": "4.16.6",
           "from": "lodash@>=4.14.0 <5.0.0",
           "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.16.6.tgz"
         },
+        "mongodb": {
+          "version": "2.2.10",
+          "from": "mongodb@2.2.10",
+          "resolved": "https://registry.npmjs.org/mongodb/-/mongodb-2.2.10.tgz"
+        },
+        "mongodb-core": {
+          "version": "2.0.12",
+          "from": "mongodb-core@2.0.12",
+          "resolved": "https://registry.npmjs.org/mongodb-core/-/mongodb-core-2.0.12.tgz"
+        },
         "ms": {
           "version": "0.7.1",
           "from": "ms@0.7.1",
           "resolved": "https://registry.npmjs.org/ms/-/ms-0.7.1.tgz"
+        },
+        "readable-stream": {
+          "version": "2.1.5",
+          "from": "readable-stream@2.1.5",
+          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.1.5.tgz"
         }
       }
     },
