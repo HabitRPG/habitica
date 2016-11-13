@@ -74,7 +74,7 @@
     "merge-stream": "^1.0.0",
     "method-override": "^2.3.5",
     "moment": "^2.13.0",
-    "mongoose": "4.6.4",
+    "mongoose": "^4.4.16",
     "mongoose-id-autoinc": "~2013.7.14-4",
     "morgan": "^1.7.0",
     "nconf": "~0.8.2",
