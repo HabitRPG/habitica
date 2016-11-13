@@ -163,23 +163,26 @@ api.postChat = {
 
     // Move to a checkForSlurs function?
       
-    // Temporary list of fake slurs. Somehow this needs to be loaded in or passed
-    let slurList = ["kicking puppies",  "mean things"];
+      
+    if (group.privacy !== 'private') {
+      // Temporary list of fake slurs. Somehow this needs to be loaded in or passed
+      let slurList = ["kicking puppies",  "mean things"];
 
-    // Replace all punctuation with spaces to make for an easier search. Also add spaces before and after
-    // the test message (so we can search for slurs surrounded by spaces, preventing partial word matches)
-    // This is not an elegant way to do this, I'm sure
-    let message = req.body.message;
-    let noPunctMessage = " " + message.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g," ") + " ";
+      // Replace all punctuation with spaces to make for an easier search. Also add spaces before and after
+      // the test message (so we can search for slurs surrounded by spaces, preventing partial word matches)
+      // This is not an elegant way to do this, I'm sure
+      let message = req.body.message;
+      let noPunctMessage = " " + message.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g," ") + " ";
 
-    // Check for any slurs in the message
-    for (let i=0; i<slurList.length; i++){
-      let tmp = noPunctMessage.search(" " + slurList[i] + " "); // Don't match partial words
-      if (tmp > -1) {
-        // Need a way to make revoking chat permanent
-        user.muteUser(message, groupId);
-        throw new NotFound('Your message contained inapropriate language, and your chat privileges have been revoked.');
+      // Check for any slurs in the message
+      for (let i=0; i<slurList.length; i++){
+        let tmp = noPunctMessage.search(" " + slurList[i] + " "); // Don't match partial words
+        if (tmp > -1) {
+          // Need a way to make revoking chat permanent
+          user.muteUser(message, groupId);
+          throw new NotFound('Your message contained inapropriate language, and your chat privileges have been revoked.');
 	}
+      }
     }
     // End of new slur checking code
     ////////////////////////////////////////////////////////////////
