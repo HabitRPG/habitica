@@ -116,7 +116,6 @@ function _getMembersForItem (type) {
 
         if (req.query.includeAllPublicFields === 'true') {
           fields = memberFields;
-          console.log(fields);
           addComputedStats = true;
         }
       }
@@ -137,7 +136,6 @@ function _getMembersForItem (type) {
       limit = 0; // no limit
     }
 
-    console.log(fields);
     let members = await User
       .find(query)
       .sort({_id: 1})
