@@ -11,10 +11,10 @@ describe('payments - amazon - #createOrderReferenceId', () => {
   });
 
   it('verifies billingAgreementId', async () => {
-    await expect(user.post(endpoint).to.eventually.be.rejected.and.eql({
+    await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: 'Missing req.body.billingAgreementId',
-    }));
+    });
   });
 });

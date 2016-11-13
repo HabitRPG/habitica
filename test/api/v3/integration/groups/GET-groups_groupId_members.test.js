@@ -6,7 +6,7 @@ import {
 import { v4 as generateUUID } from 'uuid';
 import common from '../../../../../website/common';
 
-describe('GET /groups/:groupId/members', () => {
+describe.only('GET /groups/:groupId/members', () => {
   let user;
 
   beforeEach(async () => {
