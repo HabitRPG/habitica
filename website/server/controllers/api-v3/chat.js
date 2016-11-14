@@ -161,15 +161,12 @@ api.postChat = {
     let group = await Group.getGroup({user, groupId});
 
     //////////////////////////////////////////////////////////////
-    // Initial code to check for slurs and revoke chat priviliges  
-      
-    if (group.privacy !== 'private') {	
-      let message = req.body.message;
-      if (ContainsBannedWords(message, bannedSlurs)) {
+    // Initial code to check for slurs and revoke chat priviliges  	
+    let message = req.body.message;
+    if (ContainsBannedWords(message, bannedSlurs)) {
 
-        user.muteUser(message, groupId);
-        throw new NotFound('Your message contained inapropriate language, and your chat privileges have been revoked.');
-	}
+      user.muteUser(message, groupId);
+      throw new NotFound('Your message contained inapropriate language, and your chat privileges have been revoked.');
     }
   
     // End of new slur checking code
