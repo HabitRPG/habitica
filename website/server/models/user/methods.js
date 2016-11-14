@@ -16,7 +16,6 @@ import payments from '../../libs/payments';
 import amazonPayments from '../../libs/amazonPayments';
 import stripePayments from '../../libs/stripePayments';
 import paypalPayments from '../../libs/paypalPayments';
-import schema from './schema';
 
 const SLUR_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
@@ -171,10 +170,11 @@ schema.methods.muteUser = async function muteUser (message, groupId) {
     
   sendTxn(SLUR_REPORT_EMAILS, 'slur-report-to-mods', report);
 
-    // slack.sendSlurNotification({
-    //   authorEmail,
-    //   group,
-    //   message,
-    // });
+  slack.sendSlurNotification({
+    authorEmail,
+    user,
+    group,
+    message,
+  });
 
 };
