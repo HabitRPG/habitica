@@ -74,13 +74,13 @@ api.getChat = {
 
 function matchExact (r, str) {
   let match = str.match(r);
-  return match !== null && str === match[0];
+  return match !== null && match[0] !== null;
 }
 
 function textContainsBannedWords (message) {
   for (let i = 0; i < bannedWords.length; i += 1) {
     let word = bannedWords[i];
-    let regEx = `(^|\s)${word.toLowerCase()}(?=\s|$)`;
+    let regEx = new RegExp(`\\b${word.toLowerCase()}\\b`);
     if (matchExact(regEx, message.toLowerCase())) return true;
   }
 
