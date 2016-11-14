@@ -4,6 +4,7 @@ import beard from './beard.js';
 import color from './color.js';
 import flower from './flower.js';
 import mustache from './mustache.js';
+import topHair from './top-hair.js';
 
 module.exports = {
   color,
@@ -12,4 +13,5 @@ module.exports = {
   flower,
   beard,
   mustache,
+  topHair,
 };

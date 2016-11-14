@@ -109,7 +109,7 @@ mixin customizeProfile(mobile)
             // Bangs
             menu(label=env.t('hairBangs'))
               button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.bangs":0})', ng-class='{selectableInventory: user.preferences.hair.bangs == 0}')
-              each num in [1,2,3]
+              each num in [1,2,3,4]
                 button(class='hair_bangs_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.bangs":#{num}})', ng-class='{selectableInventory: user.preferences.hair.bangs == "#{num}"}')
 
             // Base hairstyles (free)
@@ -133,6 +133,14 @@ mixin customizeProfile(mobile)
                   button.btn.btn-xs(ng-click='#{unlockPath("hair.base", styles)}')!= env.t('unlockSet', {cost: 5}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
               each num in styles
                 button(class='hair_base_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.base["#{num}"], selectableInventory: user.preferences.hair.base == "#{num}"}', ng-click='unlock("hair.base.#{num}")')
+            menu(label=env.t('hairSet3'))
+              - var styles = [1,2,3,4,5,6]
+              span(ng-hide='#{showPath("user.purchased.hair.topHair", styles, "&&")}')
+                +gemCost(2)
+                  button.btn.btn-xs(ng-click='#{unlockPath("hair.topHair", styles)}')!= env.t('unlockSet', {cost: 5}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+              button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.topHair":0})', ng-class='{selectableInventory: user.preferences.hair.topHair == 0}')
+              each num in styles
+                button(class='hair_topHair_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.topHair["#{num}"], selectableInventory: user.preferences.hair.topHair == "#{num}"}', ng-click='unlock("hair.topHair.#{num}")')
 
           li.customize-menu
             menu(label=env.t('bodyFacialHair'))

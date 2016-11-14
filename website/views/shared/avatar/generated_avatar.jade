@@ -19,7 +19,7 @@ mixin generatedAvatar(options)
   +costumeSetting('back', {suffix: " + '_collar'"})
   +costumeSetting('body')
   span.head_0
-  - var hairTypes = ['base', 'bangs', 'mustache', 'beard']
+  - var hairTypes = ['base', 'bangs', 'topHair', 'mustache', 'beard']
   each type in hairTypes
     span(class='hair_#{type}_{{profile.preferences.hair.#{type}}}_{{profile.preferences.hair.color}}')
   +costumeSetting('eyewear')

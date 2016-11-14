@@ -395,6 +395,7 @@ let schema = new Schema({
       beard: {type: Number, default: 0},
       mustache: {type: Number, default: 0},
       flower: {type: Number, default: 1},
+      topHair: {type: Number, default: 0},
     },
     hideHeader: {type: Boolean, default: false},
     skin: {type: String, default: '915533'},
