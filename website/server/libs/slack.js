@@ -137,5 +137,5 @@ function sendSlurNotification ({
 }
 
 module.exports = {
-  sendFlagNotification, sendSlurNotification
+  sendFlagNotification, sendSlurNotification,
 };

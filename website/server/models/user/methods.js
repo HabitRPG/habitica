@@ -160,9 +160,8 @@ schema.methods.muteUser = async function muteUser (message, groupId) {
     {name: 'GROUP_TYPE', content: group.type},
     {name: 'GROUP_ID', content: group._id},
     {name: 'GROUP_URL', content: groupUrl},
-  ]
-    // console.log(report)
-    
+  ];
+
   sendTxn(SLUR_REPORT_EMAILS, 'slur-report-to-mods', report);
 
   slack.sendSlurNotification({
@@ -171,5 +170,4 @@ schema.methods.muteUser = async function muteUser (message, groupId) {
     group,
     message,
   });
-
 };
