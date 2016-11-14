@@ -207,7 +207,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
     if (cron) {
       delta += _changeTaskValue(user, task, direction, times, cron);
       _subtractPoints(user, task, stats, delta);
-      if (!user.stats.buffs.streaks) task.streak = 0;
+      if (!user.stats.buffs.streaks || Boolean(task.challenge)) task.streak = 0;
     } else {
       delta += _changeTaskValue(user, task, direction, times, cron);
       if (direction === 'down') delta = _calculateDelta(task, direction, cron); // recalculate delta for unchecking so the gp and exp come out correctly
