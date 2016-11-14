@@ -1,3 +1,3 @@
-let bannedSlurs = ['mean things', 'kicking puppies', 'dummy']
+let bannedSlurs = ['mean things', 'kicking puppies', 'dummy'];
 
 module.exports = bannedSlurs;
