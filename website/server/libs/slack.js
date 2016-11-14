@@ -93,3 +93,49 @@ module.exports = {
   sendFlagNotification,
   sendSubscriptionNotification,
 };
+
+function sendSlurNotification ({
+  authorEmail,
+  author,
+  group,
+  message,
+}) {
+  if (!SLACK_FLAGGING_URL) {
+    return;
+  }
+  let titleLink;
+  let authorName;
+  let title = `Slur in ${group.name}`;
+  let text = `${author}.profile.name (${author}.id) tried to post a slur`;
+
+  if (group.id === TAVERN_ID) {
+    titleLink = `${BASE_URL}/#/options/groups/tavern`;
+  } else if (group.privacy === 'public') {
+    titleLink = `${BASE_URL}/#/options/groups/guilds/${group.id}`;
+  } else {
+    title += ` - (${group.privacy} ${group.type})`;
+  }
+
+  authorName = `${author}.profile.name - ${authorEmail}`;
+
+  flagSlack.send({
+    text,
+    attachments: [{
+      fallback: 'Slur Message',
+      color: 'danger',
+      author_name: authorName,
+      title,
+      title_link: titleLink,
+      text: message,
+      // What to replace the footer with?
+      // footer: `<${SLACK_FLAGGING_FOOTER_LINK}?groupId=${group.id}&chatId=${message.id}|Flag this message>`,
+      mrkdwn_in: [
+        'text',
+      ],
+    }],
+  });
+}
+
+module.exports = {
+  sendFlagNotification, sendSlurNotification
+};

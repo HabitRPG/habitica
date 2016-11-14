@@ -10,18 +10,16 @@ import { model as Group } from '../group';
 import { getGroupUrl, sendTxn } from '../../libs/email';
 import { defaults } from 'lodash';
 import { model as UserNotification } from '../userNotification';
+import slack from '../../libs/slack';
 import schema from './schema';
 import payments from '../../libs/payments';
 import amazonPayments from '../../libs/amazonPayments';
 import stripePayments from '../../libs/stripePayments';
 import paypalPayments from '../../libs/paypalPayments';
 
-<<<<<<< HEAD
-=======
 const SLUR_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
 });
->>>>>>> Created report to be sent to moderators via email
 
 schema.methods.isSubscribed = function isSubscribed () {
   let now = new Date();
@@ -167,10 +165,11 @@ schema.methods.muteUser = async function muteUser (message, groupId) {
     
   sendTxn(SLUR_REPORT_EMAILS, 'slur-report-to-mods', report);
 
-    // slack.sendSlurNotification({
-    //   authorEmail,
-    //   group,
-    //   message,
-    // });
+  slack.sendSlurNotification({
+    authorEmail,
+    user,
+    group,
+    message,
+  });
 
 };
