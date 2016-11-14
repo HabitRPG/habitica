@@ -1,3 +1,3 @@
-let bannedSlurs = ['TEST_PLACEHOLDER_SLUR_WORD_HERE'];
+let bannedSlurs = ['mean things', 'kicking puppies', 'dummy']
 
 module.exports = bannedSlurs;

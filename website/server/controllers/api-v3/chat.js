@@ -67,8 +67,9 @@ function ContainsBannedWords (message, wordList) {
     if (tmp > -1) {
       return true;
     }
-  return false;
+  
   }
+  return false;
 }
 
 /**
@@ -162,12 +163,9 @@ api.postChat = {
     //////////////////////////////////////////////////////////////
     // Initial code to check for slurs and revoke chat priviliges  
       
-    if (group.privacy !== 'private') {
-      // Temporary list of fake slurs. Somehow this needs to be loaded in or passed
-      let slurList = ["kicking puppies",  "mean things"];
-	
+    if (group.privacy !== 'private') {	
       let message = req.body.message;
-      if (ContainsBannedWords(message, slurList)) {
+      if (ContainsBannedWords(message, bannedSlurs)) {
 
         user.muteUser(message, groupId);
         throw new NotFound('Your message contained inapropriate language, and your chat privileges have been revoked.');
