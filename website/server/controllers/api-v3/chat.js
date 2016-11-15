@@ -54,24 +54,18 @@ async function getAuthorEmailFromMessage (message) {
   }
 }
 
-function containsBannedWords (message, wordList) {
-  // Replace all punctuation with spaces to make for an easier search. Also add spaces before and after
-  // the test message (so we can search for slurs surrounded by spaces, preventing partial word matches)
-  // This is not an elegant way to do this, I'm sure
-  let noPunctMessage = ' ';
-  noPunctMessage += message.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ' ');
-  noPunctMessage += ' ';
+function matchExact (r, str) {
+  let match = str.match(r);
+  return match !== null && match[0] !== null;
+}
 
-  // Check for any slurs in the message
-  for (let i = 0; i < wordList.length; i++) {
-    let searchString = ' ';
-    searchString += wordList[i];
-    searchString += ' ';
-    let tmp = noPunctMessage.search(searchString); // Don't match partial words
-    if (tmp > -1) {
-      return true;
-    }
+function textContainsBannedWords (message, bannedWordList) {
+  for (let i = 0; i < bannedWordList.length; i += 1) {
+    let word = bannedWordList[i];
+    let regEx = new RegExp(`\\b${word.toLowerCase()}\\b`);
+    if (matchExact(regEx, message.toLowerCase())) return true;
   }
+
   return false;
 }
 
@@ -165,7 +159,7 @@ api.postChat = {
 
     // Check message for banned slurs
     let message = req.body.message;
-    if (containsBannedWords(message, bannedSlurs)) {
+    if (textContainsBannedWords(message, bannedSlurs)) {
       user.muteUser(message, groupId);
       throw new NotFound('Your message contained inapropriate language, and your chat privileges have been revoked.');
     }
