@@ -148,4 +148,6 @@ function cssVarMap (sprite) {
   }
   if (~sprite.name.indexOf('shirt'))
     sprite.custom.px.offset_y = `-${ sprite.y + 30 }px`; // even more for shirts
+  if (~sprite.name.indexOf('topHair'))
+    sprite.custom.px.offset_y = `-${ sprite.y }px`; // don't crop updos
 }
