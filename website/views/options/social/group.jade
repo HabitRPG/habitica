@@ -151,10 +151,10 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
       ul.options-menu(ng-init="groupPane = 'chat'")
         li
           a(ng-click="groupPane = 'chat'")=env.t('chat')
-        li
-          a(ng-click="groupPane = 'tasks'", ng-show='group.purchased.active')=env.t('tasks')
-        li
-          a(ng-click="groupPane = 'approvals'", ng-show='group.purchased.active && group.leader._id === user._id')=env.t('approvals')
+        li(ng-show='group.purchased.active')
+          a(ng-click="groupPane = 'tasks'")=env.t('tasks')
+        li(ng-show='group.purchased.active && group.leader._id === user._id')
+          a(ng-click="groupPane = 'approvals'")=env.t('approvals')
         li
           a(ng-click="groupPane = 'subscription'", ng-show='group.leader._id === user._id')=env.t('subscription')
     
@@ -206,8 +206,8 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
            .col-xs-4
              a.purchase.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon, groupId: group.id})', ng-disabled='!_subscription.key')= env.t('card')
            .col-xs-4
-             a.purchase(href='/paypal/subscribe?_id={{user._id}}&apiToken={{User.settings.auth.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}&groupId={{group.id}}', ng-disabled='!_subscription.key')
-               img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png',alt=env.t('paypal'))
-           .col-xs-4
              a.purchase(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon, groupId: group.id})")
                img(src='https://payments.amazon.com/gp/cba/button',alt=env.t('amazonPayments'))
+          //-  .col-xs-4
+          //-    a.purchase(href='/paypal/subscribe?_id={{user._id}}&apiToken={{User.settings.auth.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}&groupId={{group.id}}', ng-disabled='!_subscription.key')
+          //-      img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png',alt=env.t('paypal'))
