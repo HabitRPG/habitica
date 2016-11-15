@@ -32,11 +32,7 @@ describe('payments/index', () => {
     sandbox.stub(user, 'sendMessage');
     sandbox.stub(analytics, 'trackPurchase');
     sandbox.stub(analytics, 'track');
-    sandbox.stub(notifications, 'sendNotification')
-    var StripeObjectStub = sinon.stub(Stripe, 'Stripe', function() {
-      return stripe;
-    });
-    sandbox.stub(stripe.subscriptions, 'update');
+    sandbox.stub(notifications, 'sendNotification');
 
     data = {
       user,
@@ -740,10 +736,21 @@ describe('payments/index', () => {
     });
   });
 
-  describe.only('#upgradeGroupPlan', () => {
-    it('updates a group plan quantity', async () => {
-      data.groupId = group._id;
+  describe('#upgradeGroupPlan', () => {
+    let spy;
 
+    beforeEach(function () {
+      spy = sinon.stub(stripe.subscriptions, 'update');
+      spy.returnsPromise().resolves([]);
+      data.groupId = group._id;
+    });
+
+    afterEach(function () {
+      sinon.restore(stripe.subscriptions.update);
+    });
+
+    it('updates a group plan quantity', async () => {
+      data.paymentMethod = 'Stripe';
       await api.createSubscription(data);
 
       let updatedGroup = await Group.findById(group._id).exec();
@@ -752,8 +759,25 @@ describe('payments/index', () => {
       updatedGroup.memberCount += 1;
       await updatedGroup.save();
 
-      await api.updateGroupPlan(updatedGroup);
+      await api.updateGroupPlan(updatedGroup, stripe);
+
+      expect(spy.calledOnce).to.be.true;
       expect(updatedGroup.purchased.plan.quantity).to.eql(4);
+    });
+
+    it('does not update a group plan quantity that has a payment method other than stripe', async () => {
+      await api.createSubscription(data);
+
+      let updatedGroup = await Group.findById(group._id).exec();
+      expect(updatedGroup.purchased.plan.quantity).to.eql(3);
+
+      updatedGroup.memberCount += 1;
+      await updatedGroup.save();
+
+      await api.updateGroupPlan(updatedGroup, stripe);
+
+      expect(spy.calledOnce).to.be.false;
+      expect(updatedGroup.purchased.plan.quantity).to.eql(3);
     });
   });
 });

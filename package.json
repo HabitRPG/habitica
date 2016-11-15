@@ -207,6 +207,7 @@
     "selenium-server": "2.53.0",
     "sinon": "^1.17.2",
     "sinon-chai": "^2.8.0",
+    "sinon-stub-promise": "^4.0.0",
     "superagent-defaults": "^0.1.13",
     "vinyl-transform": "^1.0.0",
     "webpack-dev-middleware": "^1.4.0",
