@@ -114,7 +114,7 @@
     "giftedGems": "Drágakövek ajándékozva",
     "giftedGemsInfo": "<%= name %> gifted you <%= amount %> Gems",
     "giftedSubscription": "Előfizetés ajándékozva",
-    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> Subscription",
+    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> month subscription",
     "invitedParty": "Meghívva egy csapatba",
     "invitedGuild": "Meghívva egy céhbe",
     "importantAnnouncements": "A fiókod inaktív",

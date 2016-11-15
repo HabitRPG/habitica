@@ -136,5 +136,7 @@
     "perceptionExample": "Relativo al lavoro o a operazioni finanziare",
     "constitutionExample": "Relativo alla salute, al benessere e all'interazione sociale",
     "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
-    "taskApprovalHasBeenRequested": "Approval has been requested"
+    "taskApprovalHasBeenRequested": "Approval has been requested",
+    "approvals": "Approvals",
+    "approvalRequired": "Approval Required"
 }

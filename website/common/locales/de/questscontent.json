@@ -377,10 +377,10 @@
     "questTaskwoodsTerror3Boss": "Jacko aus der Laterne",
     "questTaskwoodsTerror3DropStrawberry": "Erdbeere (Futter)",
     "questTaskwoodsTerror3DropWeapon": "Laterne des Aufgabenwaldes (Zweihändige Waffe)",
-    "questFerretText": "The Nefarious Ferret",
+    "questFerretText": "Das ruchlose Frettchen",
     "questFerretNotes": "Walking through Habit City, you see an unhappy crowd surrounding a red-robed Ferret.<br><br>\"That productivity potion you sold me is useless!\" @Beffymaroo complains. \"I watched three hours of TV last night instead of doing my chores!\"<br><br>\"Yeah!\" shouts @Pandah. \"And today I spent an hour rearranging my books instead of reading them!\"<br><br>The Nefarious Ferret spreads his hands innocently. \"That's more TV watching and book organizing than you'd normally get done, isnt it?\"<br><br>The crowd erupts in anger.<br><br>\"No refunds!\" crows the Nefarious Ferret. He fires a bolt of magic into the crowd, preparing to escape in the smoke.<br><br>\"Please, Habitican!\" @Faye says, grabbing your arm. \"Defeat the ferret and make him refund his dishonest earnings!\"",
     "questFerretCompletion": "You defeat the soft-furred swindler and @UncommonCriminal gives the crowd their refunds. There's even a little gold left over for you. Plus, it looks like the Nefarious Ferret dropped some eggs in his hurry to get away!",
     "questFerretBoss": "Nefarious Ferret",
-    "questFerretDropFerretEgg": "Ferret (Egg)",
-    "questFerretUnlockText": "Unlocks purchasable Ferret eggs in the Market"
+    "questFerretDropFerretEgg": "Frettchen (Ei)",
+    "questFerretUnlockText": "Ermöglicht den Kauf von Frettcheneiern auf dem Marktplatz"
 }

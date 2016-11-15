@@ -217,5 +217,8 @@
     "claim": "Anspruch",
     "onlyGroupLeaderCanManageSubscription": "Nur der Gruppen-Leiter kann Gruppen-Registrierungen verwalten",
     "yourTaskHasBeenApproved": "Deine Aufgabe wurde akzeptiert",
-    "userHasRequestedTaskApproval": "<%= user %> hat eine Anfrage zur prüfung von <%= taskName %> gestellt."
+    "userHasRequestedTaskApproval": "<%= user %> hat eine Anfrage zur prüfung von <%= taskName %> gestellt.",
+    "confirmTaskApproval": "Are you sure you want to approve this task?",
+    "approve": "Approve",
+    "approvalTitle": "<%= text %> for user: <%= userName %>"
 }

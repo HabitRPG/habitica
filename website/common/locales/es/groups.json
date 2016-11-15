@@ -217,5 +217,8 @@
     "claim": "Reclama",
     "onlyGroupLeaderCanManageSubscription": "Solo el lider de grupo puede manejar las subscripciones de grupo",
     "yourTaskHasBeenApproved": "Tu tarea ha sido aprobada",
-    "userHasRequestedTaskApproval": "<%= user %> ha pedido una tarea de aprobacion por <%= taskName %>"
+    "userHasRequestedTaskApproval": "<%= user %> ha pedido una tarea de aprobacion por <%= taskName %>",
+    "confirmTaskApproval": "Are you sure you want to approve this task?",
+    "approve": "Approve",
+    "approvalTitle": "<%= text %> for user: <%= userName %>"
 }

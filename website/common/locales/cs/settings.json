@@ -114,7 +114,7 @@
     "giftedGems": "Darované drahokamy",
     "giftedGemsInfo": "<%= name %> ti daroval <%= amount %> Drahokamů",
     "giftedSubscription": "Darované předplatné",
-    "giftedSubscriptionInfo": "<%= name %> ti daroval <%= months %> měsíců předplatného",
+    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> month subscription",
     "invitedParty": "Pozván do Družiny",
     "invitedGuild": "Pozván do Cechu",
     "importantAnnouncements": "Tvůj účet není aktivní",

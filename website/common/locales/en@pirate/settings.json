@@ -114,7 +114,7 @@
     "giftedGems": "Gifted Sapphires",
     "giftedGemsInfo": "<%= name %> gifted ye <%= amount %> Sapphires",
     "giftedSubscription": "Gifted Subscription",
-    "giftedSubscriptionInfo": "<%= name %> gifted ye a <%= months %> Subscription",
+    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> month subscription",
     "invitedParty": "Invited T' Crew",
     "invitedGuild": "Invited T' Alliance",
     "importantAnnouncements": "Yer account be inactive",

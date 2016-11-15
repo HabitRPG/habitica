@@ -114,7 +114,7 @@
     "giftedGems": "Geschonken edelstenen",
     "giftedGemsInfo": "<%= name %> heeft je <%= amount %> edelstenen cadeau gedaan",
     "giftedSubscription": "Geschonken abonnement",
-    "giftedSubscriptionInfo": "<%= name %> heeft je een <%= months %>-maand(en)abonnement cadeau gedaan",
+    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> month subscription",
     "invitedParty": "Uitgenodigd voor groep",
     "invitedGuild": "Uitgenodigd voor gilde",
     "importantAnnouncements": "Je account is inactief",

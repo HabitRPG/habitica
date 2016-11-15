@@ -217,5 +217,8 @@
     "claim": "Заявить",
     "onlyGroupLeaderCanManageSubscription": "Только лидер группы может управлять общей подпиской",
     "yourTaskHasBeenApproved": "Ваша задача одобрена",
-    "userHasRequestedTaskApproval": "<%= user %> просит одобрить задачу <%= taskName %>"
+    "userHasRequestedTaskApproval": "<%= user %> просит одобрить задачу <%= taskName %>",
+    "confirmTaskApproval": "Are you sure you want to approve this task?",
+    "approve": "Approve",
+    "approvalTitle": "<%= text %> for user: <%= userName %>"
 }
