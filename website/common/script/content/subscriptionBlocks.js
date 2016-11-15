@@ -1,35 +1,35 @@
 import _ from 'lodash';
 
 let subscriptionBlocks = {
-  basic_earned: {
+  basic_earned: { // eslint-disable-line camelcase
     months: 1,
-    price: 5
+    price: 5,
   },
-  basic_3mo: {
+  basic_3mo: { // eslint-disable-line camelcase
     months: 3,
-    price: 15
+    price: 15,
   },
-  basic_6mo: {
+  basic_6mo: { // eslint-disable-line camelcase
     months: 6,
-    price: 30
+    price: 30,
   },
-  google_6mo: {
+  google_6mo: { // eslint-disable-line camelcase
     months: 6,
     price: 24,
     discount: true,
-    original: 30
+    original: 30,
   },
-  basic_12mo: {
+  basic_12mo: { // eslint-disable-line camelcase
     months: 12,
-    price: 48
+    price: 48,
   },
-  group_monthly: {
+  group_monthly: { // eslint-disable-line camelcase
     months: 1,
     price: 8,
   },
 };
 
-_.each(subscriptionBlocks, function(b, k) {
+_.each(subscriptionBlocks, function createKeys (b, k) {
   return b.key = k;
 });
 
