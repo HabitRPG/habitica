@@ -22,6 +22,7 @@ import gear from './gear';
 import appearances from './appearance';
 import backgrounds from './appearance/backgrounds.js'
 import spells from './spells';
+import subscriptionBlocks from './subscriptionBlocks';
 import faq from './faq';
 import timeTravelers from './time-travelers';
 
@@ -33,6 +34,7 @@ api.itemList = ITEM_LIST;
 
 api.gear = gear;
 api.spells = spells;
+api.subscriptionBlocks = subscriptionBlocks;
 
 api.mystery = timeTravelers.mystery;
 api.timeTravelerStore = timeTravelers.timeTravelerStore;
@@ -2807,35 +2809,6 @@ api.questsByLevel = _.sortBy(api.quests, function(quest) {
 api.appearances = appearances;
 
 api.backgrounds = backgrounds;
-
-api.subscriptionBlocks = {
-  basic_earned: {
-    months: 1,
-    price: 5
-  },
-  basic_3mo: {
-    months: 3,
-    price: 15
-  },
-  basic_6mo: {
-    months: 6,
-    price: 30
-  },
-  google_6mo: {
-    months: 6,
-    price: 24,
-    discount: true,
-    original: 30
-  },
-  basic_12mo: {
-    months: 12,
-    price: 48
-  },
-};
-
-_.each(api.subscriptionBlocks, function(b, k) {
-  return b.key = k;
-});
 
 api.userDefaults = {
   habits: [
