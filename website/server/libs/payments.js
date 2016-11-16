@@ -52,6 +52,7 @@ api.createSubscription = async function createSubscription (data) {
   let groupId;
   let itemPurchased = 'Subscription';
   let purchaseType = 'subscribe';
+  let emailType = 'subscription-begins';
 
   //  If we are buying a group subscription
   if (data.groupId) {
@@ -69,6 +70,7 @@ api.createSubscription = async function createSubscription (data) {
     recipient = group;
     itemPurchased = 'Group-Subscription';
     purchaseType = 'group-subscribe';
+    emailType = 'group-subscription-begins';
     groupId = group._id;
     recipient.purchased.plan.quantity = 3;
   }
@@ -126,7 +128,7 @@ api.createSubscription = async function createSubscription (data) {
   }
 
   if (!data.gift) {
-    txnEmail(data.user, 'subscription-begins');
+    txnEmail(data.user, emailType);
   }
 
   analytics.trackPurchase({
@@ -203,6 +205,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
   let group;
   let cancelType = 'unsubscribe';
   let groupId;
+  let emailType = 'cancel-subscription';
 
   //  If we are buying a group subscription
   if (data.groupId) {
@@ -217,6 +220,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
       throw new NotAuthorized(shared.i18n.t('onlyGroupLeaderCanManageSubscription'));
     }
     plan = group.purchased.plan;
+    emailType = 'group-cancel-subscription';
   } else {
     plan = data.user.purchased.plan;
   }
@@ -241,7 +245,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
     await data.user.save();
   }
 
-  txnEmail(data.user, 'cancel-subscription');
+  txnEmail(data.user, emailType);
 
   if (group) {
     cancelType = 'group-unsubscribe';
