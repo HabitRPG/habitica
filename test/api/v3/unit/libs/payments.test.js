@@ -618,7 +618,7 @@ describe('payments/index', () => {
         await api.cancelSubscription(data);
 
         expect(sender.sendTxn).to.be.calledOnce;
-        expect(sender.sendTxn).to.be.calledWith(user, 'cancel-subscription');
+        expect(sender.sendTxn).to.be.calledWith(user, 'group-cancel-subscription');
       });
     });
   });
