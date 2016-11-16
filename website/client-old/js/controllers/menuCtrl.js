@@ -29,7 +29,7 @@ angular.module('habitrpg')
           } else if (groupNotificationTypes.indexOf('GROUP_TASK_APPROVED') !== -1) {
             return groupApproved;
           }
-          return noneValue;s
+          return noneValue;
         } else {
           return noneValue;
         }
