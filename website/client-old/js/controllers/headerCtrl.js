@@ -53,7 +53,7 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
                 break
               default:
                 // party date joined
-                return true;
+                return member.profile.name;
           }
         }
       )
