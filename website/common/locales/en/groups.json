@@ -223,5 +223,12 @@
     "confirmTaskApproval": "Are you sure you want to approve this task?",
     "approve": "Approve",
     "approvalTitle": "<%= text %> for user: <%= userName %>",
-    "confirmTaskApproval": "Are you sure you want to approve this task?"
+    "confirmTaskApproval": "Are you sure you want to approve this task?",
+    "groupSubscriptionPrice": "$8/Month + $3/User/Month",
+    "assignTasksBenifitTitle": "Assign Tasks",
+    "assignTasksBenifitDescription": "Create tasks for your group and assign them to members",
+    "claimTasksBenifitTitle": "Claim Tasks",
+    "assignTasksBenifitDescription": "Allow members to claim group tasks",
+    "approveTasksBenifitTitle": "Approve Tasks",
+    "approveTasksBenifitDescription": "Assign tasks that need approval and manage approvals requested by your members"
 }

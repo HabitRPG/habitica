@@ -5,19 +5,16 @@ div(ng-show="groupPane == 'subscription'")
       h3= env.t('benefits')
       ul
         li
-          span.hint(popover="Create tasks for your group and assign them to members", popover-trigger='mouseenter', popover-placement='right')
-            | Assign Tasks
+          span.hint(popover=env.t('assignTasksBenifitDescription'), popover-trigger='mouseenter', popover-placement='right')=env.t('assignTasksBenifitTitle')
         li
-          span.hint(popover="Allow members to claim group tasks", popover-trigger='mouseenter', popover-placement='right') 
-            | Claim Tasks
+          span.hint(popover=env.t('claimTasksBenifitTitle'), popover-trigger='mouseenter', popover-placement='right')=env.t('claimTasksBenifitTitle')
         li
-          span.hint(popover="Assign tasks that need approval and manage approvals requested by your members", popover-trigger='mouseenter', popover-placement='right')
-            | Approve Tasks
+          span.hint(popover=env.t('approveTasksBenifitDescription'), popover-trigger='mouseenter', popover-placement='right')=env.t('approveTasksBenifitTitle')
         li
           span.hint(popover=env.t('supportDevsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('supportDevs')
     .col-md-6
-      h3= env.t('price')
-      div $8/Month + $3/User/Month
+      h3=env.t('price')
+      div=env.t('groupSubscriptionPrice')
   
   .col-md-12
     br
