@@ -114,7 +114,7 @@
     "giftedGems": "禮物用寶石",
     "giftedGemsInfo": "<%= name %> gifted you <%= amount %> Gems",
     "giftedSubscription": "禮物用訂閱",
-    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> Subscription",
+    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> month subscription",
     "invitedParty": "邀請至隊伍",
     "invitedGuild": "受邀至公會",
     "importantAnnouncements": "你的帳號已停用",

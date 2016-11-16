@@ -114,7 +114,7 @@
     "giftedGems": "Skänkta juveler",
     "giftedGemsInfo": "<%= name %> gifted you <%= amount %> Gems",
     "giftedSubscription": "Skänkt prenumeration",
-    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> Subscription",
+    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> month subscription",
     "invitedParty": "Inbjuden till sällskap",
     "invitedGuild": "Inbjuden till gille",
     "importantAnnouncements": "Ditt konto är inaktivt",

@@ -114,7 +114,7 @@
     "giftedGems": "Подарък — диаманти",
     "giftedGemsInfo": "<%= name %> Ви подари <%= amount %> диамант(а)",
     "giftedSubscription": "Подарък — абонамент",
-    "giftedSubscriptionInfo": "<%= name %> Ви подари абонамент за <%= months %> месец(а)",
+    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> month subscription",
     "invitedParty": "Покана в група",
     "invitedGuild": "Покана в гилдия",
     "importantAnnouncements": "Профилът Ви бездейства",

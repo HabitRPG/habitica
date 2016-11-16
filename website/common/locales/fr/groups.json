@@ -215,7 +215,10 @@
     "confirmRemoveTag": "Voulez-vous vraiment supprimer \"<%= tag %>\"?",
     "assignTask": "Assigner la tâche",
     "claim": "Réclamer",
-    "onlyGroupLeaderCanManageSubscription": "Seul le responsable du groupe peut gérer les souscriptions du groupe.",
+    "onlyGroupLeaderCanManageSubscription": "Seul le responsable du groupe peut gérer l'abonnement du groupe.",
     "yourTaskHasBeenApproved": "Votre tâche a été approuvée",
-    "userHasRequestedTaskApproval": "<%= user %> a demandé une approbation pour la tâche <%= taskName %>"
+    "userHasRequestedTaskApproval": "<%= user %> a demandé une approbation pour la tâche <%= taskName %>",
+    "confirmTaskApproval": "Are you sure you want to approve this task?",
+    "approve": "Approve",
+    "approvalTitle": "<%= text %> for user: <%= userName %>"
 }

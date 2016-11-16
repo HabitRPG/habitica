@@ -377,10 +377,10 @@
     "questTaskwoodsTerror3Boss": "Джек-Светильник",
     "questTaskwoodsTerror3DropStrawberry": "Земляника (Еда)",
     "questTaskwoodsTerror3DropWeapon": "Фонарь Трудобора (двуручное оружие)",
-    "questFerretText": "The Nefarious Ferret",
-    "questFerretNotes": "Walking through Habit City, you see an unhappy crowd surrounding a red-robed Ferret.<br><br>\"That productivity potion you sold me is useless!\" @Beffymaroo complains. \"I watched three hours of TV last night instead of doing my chores!\"<br><br>\"Yeah!\" shouts @Pandah. \"And today I spent an hour rearranging my books instead of reading them!\"<br><br>The Nefarious Ferret spreads his hands innocently. \"That's more TV watching and book organizing than you'd normally get done, isnt it?\"<br><br>The crowd erupts in anger.<br><br>\"No refunds!\" crows the Nefarious Ferret. He fires a bolt of magic into the crowd, preparing to escape in the smoke.<br><br>\"Please, Habitican!\" @Faye says, grabbing your arm. \"Defeat the ferret and make him refund his dishonest earnings!\"",
-    "questFerretCompletion": "You defeat the soft-furred swindler and @UncommonCriminal gives the crowd their refunds. There's even a little gold left over for you. Plus, it looks like the Nefarious Ferret dropped some eggs in his hurry to get away!",
-    "questFerretBoss": "Nefarious Ferret",
-    "questFerretDropFerretEgg": "Ferret (Egg)",
-    "questFerretUnlockText": "Unlocks purchasable Ferret eggs in the Market"
+    "questFerretText": "Бесчестный хорек",
+    "questFerretNotes": "Гуляя по Хабит-Сити, вы натыкаетесь на гудящую толпу вокруг Хорька в красном.<br><br>\"Зелье продуктивности, что ты продал, бесполезное!\" Жалуется @Beffymaroo. \"Я вместо домашних дел  три часа смотрел телевизор!\"<br><br>\"Да!\", кричит @Pandah. \"И я сегодня час переставлял книги - вместо того, чтобы читать их!\"<br><br>Бесчестный Хорек разводит руками. \"Но вы же смотрели  телек и перебирали книги больше обычного, ведь так?\"<br><br>Собравшиеся сердятся.<br><br>\"Никаких возвратов!\", заявляет Нечестивый Хорек. Он выбрасывает магический разряд в толпу и готовится скрыться в облаке дыма.<br><br>\"Хабитнацы, умоляю!\", говорит @Faye, хватая вашу руку. \"Остановите хорька и приведите к ответу, пусть вернет нечестно нажитое!\"",
+    "questFerretCompletion": "Мошенник с мягкой шкуркой побежден и @UncommonCriminal возвращает людям их деньги. Осталось даже немного для вас.  Вдобавок, Нечестивый Хорек в спешке обронил несколько яиц!",
+    "questFerretBoss": "Бесчестный хорек",
+    "questFerretDropFerretEgg": "Хорек (яйцо)",
+    "questFerretUnlockText": "Позволяет покупать на рынке хорька в яйце"
 }

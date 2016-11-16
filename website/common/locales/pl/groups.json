@@ -217,5 +217,8 @@
     "claim": "Zadeklaruj",
     "onlyGroupLeaderCanManageSubscription": "Tylko przywódca grupy może zarządzać subskrypcjami grupy.",
     "yourTaskHasBeenApproved": "Twoje zadanie zostało zatwierdzone",
-    "userHasRequestedTaskApproval": "<%= user %> poprosił o zatwierdzenie zadania <%= taskName %>"
+    "userHasRequestedTaskApproval": "<%= user %> poprosił o zatwierdzenie zadania <%= taskName %>",
+    "confirmTaskApproval": "Are you sure you want to approve this task?",
+    "approve": "Approve",
+    "approvalTitle": "<%= text %> for user: <%= userName %>"
 }

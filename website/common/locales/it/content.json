@@ -1,8 +1,8 @@
 {
     "potionText": "Pozione di Salute",
     "potionNotes": "Ripristina 15 punti Salute (utilizzo immediato)",
-    "armoireText": "Scrigno incantato",
-    "armoireNotesFull": "Apri lo Scrigno Incantato per ricevere casualmente equipaggiamento speciale, esperienza o cibo! Oggetti rimanenti:",
+    "armoireText": "Scrigno Incantato",
+    "armoireNotesFull": "Apri lo Scrigno Incantato per ricevere casualmente equipaggiamento speciale, esperienza o cibo! Oggetti rimanenti: ",
     "armoireLastItem": "Hai trovato l'ultimo oggetto raro disponibile nello Scrigno Incantato.",
     "armoireNotesEmpty": "Nello Scrigno Incantato compariranno nuovi oggetti la prima settimana di ogni mese. Fino ad allora, continua a cliccare sullo Scrigno per ottenere esperienza e cibo!",
     "dropEggWolfText": "Lupo",

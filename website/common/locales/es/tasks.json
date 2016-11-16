@@ -136,5 +136,7 @@
     "perceptionExample": "Relacionadas con el trabajo o el dinero",
     "constitutionExample": "Relacionadas con la salud, el bienestar y la vida social",
     "taskRequiresApproval": "La tarea debe ser aprobada antes de que la completes. La aprobación ya ha sido pedida.",
-    "taskApprovalHasBeenRequested": "La aprobacion ha sido enviada"
+    "taskApprovalHasBeenRequested": "La aprobacion ha sido enviada",
+    "approvals": "Approvals",
+    "approvalRequired": "Approval Required"
 }

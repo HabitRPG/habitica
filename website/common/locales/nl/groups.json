@@ -217,5 +217,8 @@
     "claim": "Opeisen",
     "onlyGroupLeaderCanManageSubscription": "Alleen de groepsleider kan het groepsabonnement beheren",
     "yourTaskHasBeenApproved": "Je taak is goedgekeurd",
-    "userHasRequestedTaskApproval": "<%= user %> heeft om goedkeuring gevraagd voor <%= taskName %>"
+    "userHasRequestedTaskApproval": "<%= user %> heeft om goedkeuring gevraagd voor <%= taskName %>",
+    "confirmTaskApproval": "Are you sure you want to approve this task?",
+    "approve": "Approve",
+    "approvalTitle": "<%= text %> for user: <%= userName %>"
 }

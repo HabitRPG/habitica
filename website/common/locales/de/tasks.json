@@ -136,5 +136,7 @@
     "perceptionExample": "Alles was mit Arbeit oder Finanzen zu tun hat",
     "constitutionExample": "Alles was mit Gesundheit, Wohlbefinden und sozialen Kontakten zu tun hat.",
     "taskRequiresApproval": "Diese Aufgabe muss genehmigt werden, bevor du sie abschließen kannst. Eine Genehmigung wurde bereits angefragt.",
-    "taskApprovalHasBeenRequested": "Die Genehmigung wurde angefragt."
+    "taskApprovalHasBeenRequested": "Die Genehmigung wurde angefragt.",
+    "approvals": "Approvals",
+    "approvalRequired": "Approval Required"
 }

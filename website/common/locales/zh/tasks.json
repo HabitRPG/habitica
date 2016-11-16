@@ -136,5 +136,7 @@
     "perceptionExample": "相关于工作或财务任务",
     "constitutionExample": "与健康，福利和社交相关的活动",
     "taskRequiresApproval": "这项任务必须在你能完成它之前得到批准。已请求批准",
-    "taskApprovalHasBeenRequested": "请求已被批准"
+    "taskApprovalHasBeenRequested": "请求已被批准",
+    "approvals": "Approvals",
+    "approvalRequired": "Approval Required"
 }
