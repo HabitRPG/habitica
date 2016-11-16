@@ -1,31 +1,33 @@
+/* eslint-disable camelcase */
 import _ from 'lodash';
 
 let subscriptionBlocks = {
-  basic_earned: { // eslint-disable-line camelcase
+  basic_earned: {
     months: 1,
     price: 5,
   },
-  basic_3mo: { // eslint-disable-line camelcase
+  basic_3mo: {
     months: 3,
     price: 15,
   },
-  basic_6mo: { // eslint-disable-line camelcase
+  basic_6mo: {
     months: 6,
     price: 30,
   },
-  google_6mo: { // eslint-disable-line camelcase
+  google_6mo: {
     months: 6,
     price: 24,
     discount: true,
     original: 30,
   },
-  basic_12mo: { // eslint-disable-line camelcase
+  basic_12mo: {
     months: 12,
     price: 48,
   },
-  group_monthly: { // eslint-disable-line camelcase
+  group_monthly: {
     months: 1,
-    price: 8,
+    price: 9,
+    quantity: 3, // Default quantity for Stripe - The same has having 3 user subscriptions
   },
 };
 

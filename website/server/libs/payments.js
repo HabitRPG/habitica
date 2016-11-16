@@ -220,15 +220,16 @@ api.createSubscription = async function createSubscription (data) {
   });
 };
 
-api.updateGroupPlan = async function updateGroupPlan (group, stripeInc) {
+api.updateStripeGroupPlan = async function updateStripeGroupPlan (group, stripeInc) {
   if (group.purchased.plan.paymentMethod !== 'Stripe') return;
   let stripeApi = stripeInc || stripe;
+  let plan = shared.content.subscriptionBlocks;
 
   await stripeApi.subscriptions.update(
     group.purchased.plan.subscriptionId,
     {
-      plan: 'group_monthly_single_user',
-      quantity: group.memberCount + 3 - 1,
+      plan: plan.key,
+      quantity: group.memberCount + plan.quantity - 1,
     }
   );
 

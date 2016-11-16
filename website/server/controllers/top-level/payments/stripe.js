@@ -68,8 +68,7 @@ api.checkout = {
       };
 
       if (groupId) {
-        customerObject.plan = 'group_monthly_single_user';
-        customerObject.quantity = 3;
+        customerObject.quantity = sub.quantity;
       }
 
       response = await stripe.customers.create(customerObject);

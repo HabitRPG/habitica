@@ -759,7 +759,7 @@ describe('payments/index', () => {
       updatedGroup.memberCount += 1;
       await updatedGroup.save();
 
-      await api.updateGroupPlan(updatedGroup, stripe);
+      await api.updateStripeGroupPlan(updatedGroup, stripe);
 
       expect(spy.calledOnce).to.be.true;
       expect(updatedGroup.purchased.plan.quantity).to.eql(4);
@@ -774,7 +774,7 @@ describe('payments/index', () => {
       updatedGroup.memberCount += 1;
       await updatedGroup.save();
 
-      await api.updateGroupPlan(updatedGroup, stripe);
+      await api.updateStripeGroupPlan(updatedGroup, stripe);
 
       expect(spy.calledOnce).to.be.false;
       expect(updatedGroup.purchased.plan.quantity).to.eql(3);
