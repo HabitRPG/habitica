@@ -249,6 +249,11 @@ let quests = {
     adjective: t('questEggBeetleAdjective'),
     canBuy: hasQuestAchievementFunction('beetle'),
   },
+  Ferret: {
+    text: t('questEggFerretText'),
+    adjective: t('questEggFerretAdjective'),
+    canBuy: hasQuestAchievementFunction('ferret'),
+  },
 };
 
 applyEggDefaults(drops, {

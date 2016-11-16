@@ -2621,6 +2621,38 @@ api.quests = {
       exp: 650
     }
   },
+  ferret: {
+    text: t('questFerretText'),
+    notes: t('questFerretNotes'),
+    completion: t('questFerretCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questFerretBoss'),
+      hp: 400,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Ferret',
+          text: t('questFerretDropFerretEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Ferret',
+          text: t('questFerretDropFerretEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Ferret',
+          text: t('questFerretDropFerretEgg'),
+        },
+      ],
+      gp: 31,
+      exp: 200,
+      unlock: t('questFerretUnlockText'),
+    },
+  },
 };
 
 _.each(api.quests, function(v, key) {
