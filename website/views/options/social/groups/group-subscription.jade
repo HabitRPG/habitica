@@ -1,8 +1,8 @@
 //TODO: This can be a directive and the group/user can be an object passed via attribute
 div(ng-show="groupPane == 'subscription'")
   .col-md-12
-    h3= env.t('benefits')
-    div
+    .col-md-6
+      h3= env.t('benefits')
       ul
         li
           span.hint(popover="Create tasks for your group and assign them to members", popover-trigger='mouseenter', popover-placement='right')
@@ -15,7 +15,12 @@ div(ng-show="groupPane == 'subscription'")
             | Approve Tasks
         li
           span.hint(popover=env.t('supportDevsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('supportDevs')
-    
+    .col-md-6
+      h3= env.t('price')
+      div $8/Month + $3/User/Month
+  
+  .col-md-12
+    br
     table.table.alert.alert-info(ng-if='group.purchased.plan.customerId')
       tr(ng-if='group.purchased.plan.dateTerminated'): td.alert.alert-warning
         span.noninteractive-button.btn-danger=env.t('canceledSubscription')
