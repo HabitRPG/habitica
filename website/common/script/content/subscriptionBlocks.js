@@ -25,6 +25,7 @@ let subscriptionBlocks = {
     price: 48,
   },
   group_monthly: {
+    type: 'group',
     months: 1,
     price: 9,
     quantity: 3, // Default quantity for Stripe - The same has having 3 user subscriptions
