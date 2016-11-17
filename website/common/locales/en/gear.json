@@ -308,6 +308,8 @@
   "armorSpecialFinnedOceanicArmorNotes": "Although delicate, this armor makes your skin as harmful to the touch as a fire coral. Increases Strength by <%= str %>.",
   "armorSpecialPyromancersRobesText": "Pyromancer's Robes",
   "armorSpecialPyromancersRobesNotes": "These elegant robes bestow each strike and spell with a burst of ethereal fire. Increases Constitution by <%= con %>.",
+  "armorSpecialBardRobesText": "Pyromancer's Robes",
+  "armorSpecialBardRobesNotes": "These elegant robes bestow each strike and spell with a burst of ethereal fire. Increases Constitution by <%= con %>.",
 
   "armorSpecialYetiText": "Yeti-Tamer Robe",
   "armorSpecialYetiNotes": "Fuzzy and fierce. Increases Constitution by <%= con %>. Limited Edition 2013-2014 Winter Gear.",
@@ -584,6 +586,8 @@
   "headSpecialFireCoralCircletNotes": "This circlet, designed by Habitica's greatest alchemists, allows you to breathe water and dive for treasure! Increases Perception by <%= per %>.",
   "headSpecialPyromancersTurbanText": "Pyromancer's Turban",
   "headSpecialPyromancersTurbanNotes": "This magical turban will help you breathe even in the thickest smoke! Plus it's extremely cozy! Increases Strength by <%= str %>.",
+  "headSpecialBardHatText": "Pyromancer's Turban",
+  "headSpecialBardHatNotes": "This magical turban will help you breathe even in the thickest smoke! Plus it's extremely cozy! Increases Strength by <%= str %>.",
 
   "headSpecialNyeText": "Absurd Party Hat",
   "headSpecialNyeNotes": "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
