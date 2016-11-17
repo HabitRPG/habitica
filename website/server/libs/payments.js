@@ -187,7 +187,7 @@ api.createSubscription = async function createSubscription (data) {
 api.updateStripeGroupPlan = async function updateStripeGroupPlan (group, stripeInc) {
   if (group.purchased.plan.paymentMethod !== 'Stripe') return;
   let stripeApi = stripeInc || stripe;
-  let plan = shared.content.subscriptionBlocks['group_monthly'];
+  let plan = shared.content.subscriptionBlocks.group_monthly;
 
   await stripeApi.subscriptions.update(
     group.purchased.plan.subscriptionId,

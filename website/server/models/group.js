@@ -13,6 +13,7 @@ import { groupChatReceivedWebhook } from '../libs/webhook';
 import {
   InternalServerError,
   BadRequest,
+  NotAuthorized,
 } from '../libs/errors';
 import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email';
@@ -867,6 +868,10 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
 
   // If user is the last one in group and group is private, delete it
   if (group.memberCount <= 1 && group.privacy === 'private') {
+    let plan = group.purchased.plan;
+    if (plan && plan.customerId && !plan.dateTerminated) {
+      throw new NotAuthorized(shared.i18n.t('cannotDeleteActiveAccount'));
+    }
     promises.push(group.remove());
   } else { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
     if (group.leader === user._id) {
