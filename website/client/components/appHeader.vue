@@ -89,12 +89,11 @@
 <script>
 import Avatar from './avatar';
 import { mapState } from '../store';
-import {
-  maxHealth,
-  statsComputed,
-  percent,
-  tnl,
-} from '../../common/script';
+
+import { toNextLevel } from '../../common/script/statHelpers';
+import { MAX_HEALTH as maxHealth } from '../../common/script/constants';
+import statsComputed from '../../common/script/libs/statsComputed';
+import percent from '../../common/script/libs/percent';
 
 export default {
   name: 'header',
@@ -121,7 +120,7 @@ export default {
       return statsComputed(this.user).maxMP;
     },
     toNextLevel () { // Exp to next level
-      return tnl(this.user.stats.lvl);
+      return toNextLevel(this.user.stats.lvl);
     },
   },
 };
