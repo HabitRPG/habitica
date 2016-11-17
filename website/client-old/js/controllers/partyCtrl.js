@@ -18,6 +18,11 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       var partyMessageNumber = Math.floor(Math.random() * PARTY_LOADING_MESSAGES) + 1;
       $scope.partyLoadingMessage = window.env.t('partyLoading' + partyMessageNumber);
 
+      $rootScope.$on('partySynced', function (group) {
+        _.assign($rootScope.party, group);
+        $scope.group = $rootScope.party;
+      });
+
       function handlePartyResponse (group) {
         // Assign and not replace so that all the references get the modifications
         _.assign($rootScope.party, group);

@@ -14,6 +14,7 @@ habitrpg.controller('NotificationCtrl',
       if (after == before) return;
       if (User.user.stats.lvl == 0) return;
       Notification.hp(after - before, 'hp');
+      $rootScope.$broadcast('syncPartyRequest'); // Sync party to update members
       if (after < 0) $rootScope.playSound('Minus_Habit');
     });
 

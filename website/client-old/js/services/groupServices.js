@@ -107,6 +107,10 @@ angular.module('habitrpg')
       });
     };
 
+    $rootScope.$on('syncPartyRequest', function () {
+      party(true);
+    });
+
     //On page load, multiple controller request the party.
     //So, we cache the promise until the first result is returned
     var _cachedPartyPromise;
@@ -135,6 +139,7 @@ angular.module('habitrpg')
               })
               .then(function (response) {
                 data.party.challenges = response.data.data;
+                $rootScope.$broadcast('partySynced', data.party);
                 _cachedPartyPromise.resolve(data.party);
               });
           }, function (response) {
