@@ -52,10 +52,6 @@ module.exports = function unlock (user, req = {}, analytics) {
     } */
   } else {
     alreadyOwns = _.get(user, `purchased.${path}`) === true;
-
-    if (!alreadyOwns && path.indexOf('hair.base') !== -1) {
-      alreadyOwns = _.includes(['0', '1', '3'], path.split('.').pop());
-    }
   }
 
   if ((!user.balance || user.balance < cost) && !alreadyOwns) {
@@ -83,12 +79,6 @@ module.exports = function unlock (user, req = {}, analytics) {
 
       // Using Object so path[1] won't create an array but an object {path: {1: value}}
       setWith(user, `preferences.${key}`, value, Object);
-      if (path.indexOf('hair.base') !== -1) {
-        _.set(user, 'preferences.hair.topHair', 0);
-      }
-      if (path.indexOf('hair.topHair') !== -1) {
-        _.set(user, 'preferences.hair.base', 0);
-      }
     } else {
       // Using Object so path[1] won't create an array but an object {path: {1: value}}
       setWith(user, `purchased.${path}`, true, Object);

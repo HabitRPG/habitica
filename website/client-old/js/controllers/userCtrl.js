@@ -66,10 +66,8 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
         if (confirm(window.env.t('purchaseFor',{cost:cost*4})) !== true) return;
         if (User.user.balance < cost) return $rootScope.openModal('buyGems');
       } else if (!_.get(User.user, 'purchased.' + path)) {
-        if (path.indexOf('hair.base') === -1 || !_.includes(['0', '1', '3'], path.split('.').pop())) {
-          if (confirm(window.env.t('purchaseFor',{cost:cost*4})) !== true) return;
-          if (User.user.balance < cost) return $rootScope.openModal('buyGems');
-        }
+        if (confirm(window.env.t('purchaseFor',{cost:cost*4})) !== true) return;
+        if (User.user.balance < cost) return $rootScope.openModal('buyGems');
       }
       User.unlock({query:{path:path}})
     }

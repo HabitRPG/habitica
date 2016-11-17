@@ -114,9 +114,9 @@ mixin customizeProfile(mobile)
 
             // Base hairstyles (free)
             menu(label=env.t('hairBase'))
-              button(class='head_0 customize-option', type='button', ng-click='unlock("hair.base.0")', ng-class='{selectableInventory: user.preferences.hair.base === 0 && user.preferences.hair.topHair === 0}')
+              button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.base":0})', ng-class='{selectableInventory: user.preferences.hair.base == 0}')
               each num in [1,3]
-                button(class='hair_base_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-click='unlock("hair.base.#{num}")', ng-class='{selectableInventory: user.preferences.hair.base == "#{num}"}')
+                button(class='hair_base_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":#{num}})', ng-class='{selectableInventory: user.preferences.hair.base == "#{num}"}')
 
             // Purchasable hairstyles
             menu(label=env.t('hairSet1'))
@@ -134,12 +134,12 @@ mixin customizeProfile(mobile)
               each num in styles
                 button(class='hair_base_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.base["#{num}"], selectableInventory: user.preferences.hair.base == "#{num}"}', ng-click='unlock("hair.base.#{num}")')
             menu(label=env.t('hairSet3'))
-              - var styles = [1,2,3,4,5,6]
-              span(ng-hide='#{showPath("user.purchased.hair.topHair", styles, "&&")}')
+              - var styles = [15,16,17,18,19,20]
+              span(ng-hide='#{showPath("user.purchased.hair.base", styles, "&&")}')
                 +gemCost(2)
-                  button.btn.btn-xs(ng-click='#{unlockPath("hair.topHair", styles)}')!= env.t('unlockSet', {cost: 5}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+                  button.btn.btn-xs(ng-click='#{unlockPath("hair.base", styles)}')!= env.t('unlockSet', {cost: 5}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
               each num in styles
-                button(class='hair_topHair_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.topHair["#{num}"], selectableInventory: user.preferences.hair.topHair == "#{num}"}', ng-click='unlock("hair.topHair.#{num}")')
+                button(class='hair_base_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.base["#{num}"], selectableInventory: user.preferences.hair.base == "#{num}"}', ng-click='unlock("hair.base.#{num}")')
 
           li.customize-menu
             menu(label=env.t('bodyFacialHair'))
