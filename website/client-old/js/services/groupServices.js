@@ -143,7 +143,6 @@ angular.module('habitrpg')
               })
               .then(function (response) {
                 data.party.challenges = response.data.data;
-                $rootScope.$broadcast('partySynced', data.party);
                 _cachedPartyPromise.resolve(data.party);
               });
           }, function (response) {
