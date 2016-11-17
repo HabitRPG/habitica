@@ -2653,6 +2653,115 @@ api.quests = {
       unlock: t('questFerretUnlockText'),
     },
   },
+  moon1: {
+    text: t('questMoon1Text'),
+    notes: t('questMoon1Notes'),
+    completion: t('questMoon1Completion'),
+    value: 4,
+    goldValue: 200,
+    category: 'gold',
+    boss: {
+      name: t('questMoon1Boss'),
+      hp: 500,
+      rage: {
+        title: t("questMoon1RageTitle"),
+        description: t("questMoon1RageDescription"),
+        value: 50,
+        healing: .3,
+        effect: t('questMoon1RageEffect')
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Skeleton',
+          text: t('questMoon1DropSkeletonPotion')
+        }, {
+          type: 'hatchingPotions',
+          key: 'Red',
+          text: t('questMoon1DropRedPotion')
+        }, {
+          type: 'gear',
+          key: "head_special_pyromancersTurban",
+          text: t('questMoon1DropHeadgear')
+        }
+      ],
+      gp: 0,
+      exp: 500
+    }
+  },
+  moon2: {
+    text: t('questMoon2Text'),
+    notes: t('questMoon2Notes'),
+    completion: t('questMoon2Completion'),
+    previous: 'moon1',
+    value: 4,
+    goldValue: 300,
+    category: 'gold',
+    collect: {
+      pixie: {
+        text: t('questMoon2CollectPixies'),
+        count: 25
+      },
+      brownie: {
+        text: t('questMoon2CollectBrownies'),
+        count: 15
+      },
+      dryad: {
+        text: t('questMoon2CollectDryads'),
+        count: 10
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'gear',
+          key: "armor_special_pyromancersRobes",
+          text: t('questMoon2DropArmor')
+        }
+      ],
+      gp: 0,
+      exp: 75
+    }
+  },
+  moon3: {
+    text: t('questMoon3Text'),
+    notes: t('questMoon3Notes'),
+    completion: t('questMoon3Completion'),
+    previous: 'moon2',
+    value: 4,
+    goldValue: 400,
+    category: 'gold',
+    boss: {
+      name: t('questMoon3Boss'),
+      hp: 1000,
+      str: 2
+    },
+    drop: {
+      items: [
+        {
+          type: 'food',
+          key: 'Strawberry',
+          text: t('questMoon3DropStrawberry')
+        }, {
+          type: 'food',
+          key: 'Strawberry',
+          text: t('questMoon3DropStrawberry')
+        }, {
+          type: 'food',
+          key: 'Strawberry',
+          text: t('questMoon3DropStrawberry')
+        }, {
+          type: 'gear',
+          key: "weapon_special_taskwoodsLantern",
+          text: t('questMoon3DropWeapon')
+        },
+      ],
+      gp: 0,
+      exp: 650
+    }
+  },
 };
 
 _.each(api.quests, function(v, key) {

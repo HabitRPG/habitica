@@ -423,6 +423,28 @@ let backgrounds = {
       notes: t('backgroundWindyAutumnNotes'),
     },
   },
+  incentiveBackgrounds: {
+    blue: {
+      text: t('backgroundBlueText'),
+      notes: t('backgroundBlueNotes'),
+    },
+    green: {
+      text: t('backgroundGreenText'),
+      notes: t('backgroundGreenNotes'),
+    },
+    purple: {
+      text: t('backgroundPurpleText'),
+      notes: t('backgroundPurpleNotes'),
+    },
+    red: {
+      text: t('backgroundRedText'),
+      notes: t('backgroundRedNotes'),
+    },
+    yellow: {
+      text: t('backgroundYellowText'),
+      notes: t('backgroundYellowNotes'),
+    },
+  },
 };
 /* eslint-enable quote-props */
 
