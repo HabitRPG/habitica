@@ -111,7 +111,7 @@ angular.module('habitrpg')
       if (options.type === 'user_update') {
         var index = _.findIndex(data.party.members, function(user) { return user._id === options.user._id; });
         var memberToUpdate = data.party.members[index];
-        _.assign(memberToUpdate, User.user);
+        _.assign(memberToUpdate, _.pick(User.user, _.keys(memberToUpdate)));
       }
     });
 
