@@ -197,7 +197,7 @@ api.updateStripeGroupPlan = async function updateStripeGroupPlan (group, stripeI
     }
   );
 
-  group.purchased.plan.quantity = group.memberCount + 3 - 1;
+  group.purchased.plan.quantity = group.memberCount + plan.quantity - 1;
 };
 
 // Sets their subscription to be cancelled later

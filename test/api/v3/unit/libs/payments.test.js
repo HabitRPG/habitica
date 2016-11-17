@@ -710,6 +710,7 @@ describe('payments/index', () => {
       spy = sinon.stub(stripe.subscriptions, 'update');
       spy.returnsPromise().resolves([]);
       data.groupId = group._id;
+      data.sub.quantity = 3;
     });
 
     afterEach(function () {
