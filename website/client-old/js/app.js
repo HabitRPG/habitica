@@ -230,6 +230,7 @@ window.habitrpg = angular.module('habitrpg',
           title: env.t('titleChallenges'),
           controller: ['$scope', 'Challenges', '$stateParams', 'Tasks',
             function ($scope, Challenges, $stateParams, Tasks) {
+              $scope.challenge_edit = true;
               Challenges.getChallenge($stateParams.cid)
                 .then(function (response) {
                   $scope.obj = $scope.challenge = response.data.data;
