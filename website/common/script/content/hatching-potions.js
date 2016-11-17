@@ -82,6 +82,7 @@ let premium = {
   Purple: {
     value: 2,
     text: t('hatchingPotionPurple'),
+    limited: true,
   },
 };
 
