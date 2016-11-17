@@ -113,6 +113,52 @@ function performSleepTasks (user, tasksByType, now) {
   });
 }
 
+function awardLoginIncentives (user) {
+  switch (user.loginIncentives) {
+    case 1:
+      user.items.gear.owned.armor_special_bardRobes = true;
+      break;
+    case 2:
+      user.purchased.background.incentiveBackgrounds = true;
+      break;
+    case 4:
+      user.items.hatchingPotions.Purple = 1;
+      break;
+    case 7:
+      user.items.quests.moon1 = 1;
+      break;
+    case 10:
+      user.items.hatchingPotions.Purple = 1;
+      break;
+    case 14:
+      user.balance = 4;
+      break;
+    case 18:
+      user.items.gear.owned.armor_special_bardHat = true;
+      break;
+    case 22:
+      user.items.quests.moon2 = 1;
+      break;
+    case 26:
+      user.items.hatchingPotions.Purple = 1;
+      break;
+    case 31:
+      user.balance = 8;
+      break;
+    case 37:
+      user.items.quests.moon3 = 1;
+      break;
+    case 43:
+      user.items.hatchingPotions.Purple = 1;
+      break;
+    case 50:
+      user.items.food.Saddle = 1;
+      break;
+  }
+
+  user.addNotification('LOGIN_INCENTIVE', {});
+};
+
 // Perform various beginning-of-day reset actions.
 export function cron (options = {}) {
   let {user, tasksByType, analytics, now = new Date(), daysMissed, timezoneOffsetFromUserPrefs} = options;
@@ -347,7 +393,7 @@ export function cron (options = {}) {
 
   // Login Incentives
   user.loginIncentives++;
-  user.addNotification('LOGIN_INCENTIVE', {});
+  awardLoginIncentives(user);
 
   return _progress;
 }
