@@ -27,6 +27,13 @@ let armor = {
     value: 130,
     canOwn: ownsItem('armor_special_pyromancersRobes'),
   },
+  bardRobes: {
+    text: t('armorSpecialBardRobesText'),
+    notes: t('armorSpecialBardRobesNotes', { con: 15 }),
+    con: 15,
+    value: 130,
+    canOwn: ownsItem('armor_special_bardRobes'),
+  },
   yeti: {
     event: EVENTS.winter,
     specialClass: 'warrior',
@@ -577,6 +584,13 @@ let head = {
     str: 15,
     value: 130,
     canOwn: ownsItem('head_special_pyromancersTurban'),
+  },
+  bardHat: {
+    text: t('headSpecialBardHatText'),
+    notes: t('headSpecialBardHatNotes', { str: 15 }),
+    str: 15,
+    value: 130,
+    canOwn: ownsItem('head_special_bardHat'),
   },
   nye: {
     event: EVENTS.winter2016,
