@@ -72,7 +72,7 @@ api.createSubscription = async function createSubscription (data) {
     purchaseType = 'group-subscribe';
     emailType = 'group-subscription-begins';
     groupId = group._id;
-    recipient.purchased.plan.quantity = 3;
+    recipient.purchased.plan.quantity = data.sub.quantity;
   }
 
   plan = recipient.purchased.plan;
@@ -187,7 +187,7 @@ api.createSubscription = async function createSubscription (data) {
 api.updateStripeGroupPlan = async function updateStripeGroupPlan (group, stripeInc) {
   if (group.purchased.plan.paymentMethod !== 'Stripe') return;
   let stripeApi = stripeInc || stripe;
-  let plan = shared.content.subscriptionBlocks;
+  let plan = shared.content.subscriptionBlocks['group_monthly'];
 
   await stripeApi.subscriptions.update(
     group.purchased.plan.subscriptionId,

@@ -28,7 +28,7 @@ let subscriptionBlocks = {
     type: 'group',
     months: 1,
     price: 9,
-    quantity: 3, // Default quantity for Stripe - The same has having 3 user subscriptions
+    quantity: 3, // Default quantity for Stripe - The same as having 3 user subscriptions
   },
 };
 
