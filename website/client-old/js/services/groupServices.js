@@ -107,8 +107,12 @@ angular.module('habitrpg')
       });
     };
 
-    $rootScope.$on('syncPartyRequest', function () {
-      party(true);
+    $rootScope.$on('syncPartyRequest', function (event, options) {
+      if (options.type === 'user_update') {
+        var index = _.findIndex(data.party.members, function(user) { return user._id === options.user._id; });
+        var memberToUpdate = data.party.members[index];
+        _.assign(memberToUpdate, User.user);
+      }
     });
 
     //On page load, multiple controller request the party.
