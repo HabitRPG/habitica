@@ -135,6 +135,8 @@
     "intelligenceExample": "Relatif aux activités académiques et mentales",
     "perceptionExample": "Relatif au tâches professionnelles ou financières",
     "constitutionExample": "Relatif à la santé, au bien-être et aux interactions sociales",
-    "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
-    "taskApprovalHasBeenRequested": "Approval has been requested"
+    "taskRequiresApproval": "Cette tâche nécessite une approbation avant de pouvoir être complétée. Une approbation a déjà été demandée.",
+    "taskApprovalHasBeenRequested": "Une approbation a été demandée",
+    "approvals": "Approvals",
+    "approvalRequired": "Approval Required"
 }

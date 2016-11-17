@@ -2,7 +2,7 @@
     "tavern": "Värdshus Chatt",
     "innCheckOut": "Checka ur Värdshuset",
     "innCheckIn": "Vila på Värdshuset",
-    "innText": "You're resting in the Inn! While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day. Be warned: If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies unless they are also in the Inn! Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn.",
+    "innText": "Du vilar i Värdshuset! Under tiden kommer dina Dagliga Utmaningar inte att skada dig vid dagens slut, men de kommer ändå att förnyas varje dag. Varning: Om du deltar i ett bossuppdrag kommer Bossen fortfarande att skada dig för dina sällskapsmedlemmars missade Dagliga Utmaningar om inte de också vilar på Värdshuset! Dessutom kommer din egen skada på Bossen (eller föremål som hittats) inte att appliceras förrän du lämnar Värdshuset.",
     "innTextBroken": "You're resting in the Inn, I guess... While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day...  If you are participating in a Boss Quest, the Boss will still damage you for your party mates' missed Dailies... unless they are also in the Inn... Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn... so tired...",
     "lfgPosts": "Sällskap Sökes-inlägg",
     "tutorial": "Handledning",
@@ -217,5 +217,8 @@
     "claim": "Claim",
     "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
     "yourTaskHasBeenApproved": "Your task has been approved",
-    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>"
+    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>",
+    "confirmTaskApproval": "Are you sure you want to approve this task?",
+    "approve": "Approve",
+    "approvalTitle": "<%= text %> for user: <%= userName %>"
 }

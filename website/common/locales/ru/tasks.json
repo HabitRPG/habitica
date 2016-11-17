@@ -135,6 +135,8 @@
     "intelligenceExample": "Относится к академическим или умственно сложным занятиям",
     "perceptionExample": "Относится к работе и финансовым заданиям",
     "constitutionExample": "Относится к здоровью, благополучию и социальным взаимодействиям.",
-    "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
-    "taskApprovalHasBeenRequested": "Approval has been requested"
+    "taskRequiresApproval": "Перед тем как выполнять эту задачу, она должна быть одобрена. Одобрение уже запрошено.",
+    "taskApprovalHasBeenRequested": "Одобрение запрошено",
+    "approvals": "Approvals",
+    "approvalRequired": "Approval Required"
 }

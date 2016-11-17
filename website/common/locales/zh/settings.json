@@ -114,7 +114,7 @@
     "giftedGems": "自然宝石",
     "giftedGemsInfo": "<%= name %> 送给你 <%= amount %> 个宝石",
     "giftedSubscription": "捐助有礼",
-    "giftedSubscriptionInfo": "<%= name %> 送给你 <%= months %> 个月的捐助",
+    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> month subscription",
     "invitedParty": "队伍邀请",
     "invitedGuild": "公会邀请",
     "importantAnnouncements": "你的账号处于失效状态",

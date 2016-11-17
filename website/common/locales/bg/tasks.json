@@ -135,6 +135,8 @@
     "intelligenceExample": "Отнася се за академични или умствено предизвикателни цели",
     "perceptionExample": "Отнася се за работа и финансови задачи",
     "constitutionExample": "Отнася се за здраве, добро състояние на тялото и духа и социални контакти",
-    "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
-    "taskApprovalHasBeenRequested": "Approval has been requested"
+    "taskRequiresApproval": "Тази задача трябва да бъде одобрена, преди да я изпълните. Одобрението вече беше поискано.",
+    "taskApprovalHasBeenRequested": "Одобрението беше поискано.",
+    "approvals": "Approvals",
+    "approvalRequired": "Approval Required"
 }

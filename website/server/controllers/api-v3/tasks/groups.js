@@ -225,7 +225,10 @@ api.approveTask = {
     task.group.approval.approvingUser = user._id;
     task.group.approval.approved = true;
 
-    assignedUser.addNotification('GROUP_TASK_APPROVAL', {message: res.t('yourTaskHasBeenApproved')});
+    assignedUser.addNotification('GROUP_TASK_APPROVED', {
+      message: res.t('yourTaskHasBeenApproved'),
+      groupId: group._id,
+    });
 
     await Bluebird.all([assignedUser.save(), task.save()]);
 
@@ -266,7 +269,9 @@ api.getGroupApprovals = {
       'group.id': groupId,
       'group.approval.approved': false,
       'group.approval.requested': true,
-    }, 'userId group').exec();
+    }, 'userId group text')
+    .populate('userId', 'profile')
+    .exec();
 
     res.respond(200, approvals);
   },

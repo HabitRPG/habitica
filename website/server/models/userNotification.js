@@ -13,6 +13,7 @@ const NOTIFICATION_TYPES = [
   'NEW_CONTRIBUTOR_LEVEL',
   'CRON',
   'GROUP_TASK_APPROVAL',
+  'GROUP_TASK_APPROVED',
 ];
 
 const Schema = mongoose.Schema;

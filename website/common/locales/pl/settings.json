@@ -114,7 +114,7 @@
     "giftedGems": "Podarowane klejnoty",
     "giftedGemsInfo": "<%= name %> podarował Ci <%= amount %> Klejnotów",
     "giftedSubscription": "Podarowane abonamenty",
-    "giftedSubscriptionInfo": "<%= name %> podarował Ci <%= months %> - miesięczny Abonament",
+    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> month subscription",
     "invitedParty": "Zaproszony do Drużyny",
     "invitedGuild": "Zaproszony do Gildii",
     "importantAnnouncements": "Twoje konto jest nieaktywne",

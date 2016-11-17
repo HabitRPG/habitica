@@ -247,7 +247,7 @@ api.getUserChallenges = {
 };
 
 /**
- * @api {get} /api/v3/challenges/group/:groupId Get challenges for a group
+ * @api {get} /api/v3/challenges/groups/:groupId Get challenges for a group
  * @apiDescription Get challenges that the user is a member, public challenges and the ones from the user's groups.
  * @apiName GetGroupChallenges
  * @apiGroup Challenge

@@ -215,7 +215,10 @@
     "confirmRemoveTag": "Наистина ли искате да премахнете „<%= tag %>“?",
     "assignTask": "Задаване на задача",
     "claim": "Вземане",
-    "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
-    "yourTaskHasBeenApproved": "Your task has been approved",
-    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>"
+    "onlyGroupLeaderCanManageSubscription": "Само водачът на групата може да управлява абонамента ѝ.",
+    "yourTaskHasBeenApproved": "Задачата Ви беше одобрена.",
+    "userHasRequestedTaskApproval": "<%= user %> помоли следната задача да бъде одобрена: <%= taskName %>",
+    "confirmTaskApproval": "Are you sure you want to approve this task?",
+    "approve": "Approve",
+    "approvalTitle": "<%= text %> for user: <%= userName %>"
 }

@@ -114,7 +114,7 @@
     "giftedGems": "Ti vengono regalate delle Gemme",
     "giftedGemsInfo": "<%= name %> ti ha regalato <%= amount %> Gemme",
     "giftedSubscription": "Ti viene regalato un abbonamento",
-    "giftedSubscriptionInfo": "<%= name %> ti ha regalato un abbonamento <%= months %>",
+    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> month subscription",
     "invitedParty": "Ricevuto invito a unirti ad una squadra",
     "invitedGuild": "Ricevuto invito da una Gilda",
     "importantAnnouncements": "Il tuo account è inattivo",

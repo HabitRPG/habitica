@@ -3,14 +3,16 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
     $scope.toggleBulk = Tasks.toggleBulk;
     $scope.cancelTaskEdit = Tasks.cancelTaskEdit;
 
-    function addTask (listDef, task) {
-      var task = Shared.taskDefaults({text: task, type: listDef.type});
-      //If the group has not been created, we bulk add tasks on save
-      var group = $scope.obj;
-      if (group._id) Tasks.createGroupTasks(group._id, task);
-      if (!group[task.type + 's']) group[task.type + 's'] = [];
-      group[task.type + 's'].unshift(task);
-      delete listDef.newTask;
+    function addTask (listDef, taskTexts) {
+      taskTexts.forEach(function (taskText) {
+        var task = Shared.taskDefaults({text: taskText, type: listDef.type});
+
+        //If the group has not been created, we bulk add tasks on save
+        var group = $scope.obj;
+        if (group._id) Tasks.createGroupTasks(group._id, task);
+        if (!group[task.type + 's']) group[task.type + 's'] = [];
+        group[task.type + 's'].unshift(task);
+      });
     };
 
     $scope.addTask = function(listDef) {

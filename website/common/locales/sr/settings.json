@@ -114,7 +114,7 @@
     "giftedGems": "Poklonjeni dragulji",
     "giftedGemsInfo": "<%= name %> gifted you <%= amount %> Gems",
     "giftedSubscription": "Poklonjena pretplata",
-    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> Subscription",
+    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> month subscription",
     "invitedParty": "Poziv u družinu",
     "invitedGuild": "Poziv u udruženje",
     "importantAnnouncements": "Your account is inactive",

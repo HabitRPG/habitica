@@ -895,7 +895,7 @@
     "backSpecialWonderconBlackNotes": "Gewebt aus Schatten und Geflüster. Gewährt keinen Attributbonus. Special Edition Convention-Gegenstand.",
     "backSpecialTakeThisText": "Take This-Flügel",
     "backSpecialTakeThisNotes": "Diese Flügel wurden durch die Teilnahme an einem von Take This gesponsorten Wettbewerb verdient. Gratulation! Erhöht alle Attribute um <%= attrs %>.",
-    "body": "Körperschmuck",
+    "body": "Körperaccessoire",
     "bodyBase0Text": "Kein Kleidungsschmuck",
     "bodyBase0Notes": "Kein Kleidungsschmuck.",
     "bodySpecialWonderconRedText": "Rubinkragen",
