@@ -22,7 +22,6 @@ let api = {};
  * @apiDescription Can be passed an object to create a single task or an array of objects to create multiple tasks.
  * @apiName CreateGroupTasks
  * @apiGroup Task
- * @apiIgnore
  *
  * @apiParam {UUID} groupId The id of the group the new task(s) will belong to
  *
@@ -31,7 +30,7 @@ let api = {};
 api.createGroupTasks = {
   method: 'POST',
   url: '/tasks/group/:groupId',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
 
@@ -55,7 +54,6 @@ api.createGroupTasks = {
  * @api {get} /api/v3/tasks/group/:groupId Get a group's tasks
  * @apiName GetGroupTasks
  * @apiGroup Task
- * @apiIgnore
  *
  * @apiParam {UUID} groupId The id of the group from which to retrieve the tasks
  * @apiParam {string="habits","dailys","todos","rewards"} type Optional query parameter to return just a type of tasks
@@ -65,7 +63,7 @@ api.createGroupTasks = {
 api.getGroupTasks = {
   method: 'GET',
   url: '/tasks/group/:groupId',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
     req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
@@ -97,7 +95,7 @@ api.getGroupTasks = {
 api.assignTask = {
   method: 'POST',
   url: '/tasks/:taskId/assign/:assignedUserId',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('assignedUserId', res.t('userIdRequired')).notEmpty().isUUID();
@@ -145,7 +143,7 @@ api.assignTask = {
 api.unassignTask = {
   method: 'POST',
   url: '/tasks/:taskId/unassign/:assignedUserId',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('assignedUserId', res.t('userIdRequired')).notEmpty().isUUID();
@@ -194,7 +192,7 @@ api.unassignTask = {
 api.approveTask = {
   method: 'POST',
   url: '/tasks/:taskId/approve/:userId',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('userId', res.t('userIdRequired')).notEmpty().isUUID();
@@ -241,7 +239,6 @@ api.approveTask = {
  * @apiVersion 3.0.0
  * @apiName GetGroupApprovals
  * @apiGroup Task
- * @apiIgnore
  *
  * @apiParam {UUID} groupId The id of the group from which to retrieve the approvals
  *
@@ -250,7 +247,7 @@ api.approveTask = {
 api.getGroupApprovals = {
   method: 'GET',
   url: '/approvals/group/:groupId',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
 
