@@ -1,5 +1,4 @@
 import { authWithHeaders } from '../../../middlewares/auth';
-import ensureDevelpmentMode from '../../../middlewares/ensureDevelpmentMode';
 import Bluebird from 'bluebird';
 import * as Tasks from '../../../models/task';
 import { model as Group } from '../../../models/group';

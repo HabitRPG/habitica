@@ -13,6 +13,7 @@ import { groupChatReceivedWebhook } from '../libs/webhook';
 import {
   InternalServerError,
   BadRequest,
+  NotAuthorized,
 } from '../libs/errors';
 import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email';
@@ -898,6 +899,20 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     if (members.length === 0) {
       promises.push(group.remove());
       return await Bluebird.all(promises);
+    }
+    let plan = group.purchased.plan;
+    if (plan && plan.customerId && !plan.dateTerminated) {
+      throw new NotAuthorized(shared.i18n.t('cannotDeleteActiveAccount'));
+    }
+    promises.push(group.remove());
+  } else { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
+    if (group.leader === user._id) {
+      let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
+      query._id = {$ne: user._id};
+      let seniorMember = await User.findOne(query).select('_id').exec();
+
+      // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
+      if (seniorMember) update.$set = {leader: seniorMember._id};
     }
   }
   // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
