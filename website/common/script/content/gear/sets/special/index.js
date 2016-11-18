@@ -1501,6 +1501,15 @@ let weapon = {
     value: 130,
     canOwn: ownsItem('weapon_special_taskwoodsLantern'),
   },
+  bardInstrument: {
+    text: t('weaponSpecialBardInstrumentText'),
+    notes: t('weaponSpecialBardInstrumentNotes', { attrs: 15 }),
+    twoHanded: true,
+    per: 15,
+    int: 15,
+    value: 130,
+    canOwn: ownsItem('weapon_special_bardInstrument'),
+  },
   yeti: {
     event: EVENTS.winter,
     specialClass: 'warrior',

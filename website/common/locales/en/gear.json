@@ -87,6 +87,8 @@
   "weaponSpecialTridentOfCrashingTidesNotes": "Gives you the ability to command fish, and also deliver some mighty stabs to your tasks. Increases Intelligence by <%= int %>.",
   "weaponSpecialTaskwoodsLanternText": "Taskwoods Lantern",
   "weaponSpecialTaskwoodsLanternNotes": "Given at the dawn of time to the guardian ghost of the Taskwood Orchards, this lantern can illuminate the deepest darkness and weave powerful spells. Increases Perception and Intelligence by <%= attrs %> each.",
+  "weaponSpecialBardInstrumentText": "Taskwoods Lantern",
+  "weaponSpecialBardInstrumentNotes": "Given at the dawn of time to the guardian ghost of the Taskwood Orchards, this lantern can illuminate the deepest darkness and weave powerful spells. Increases Perception and Intelligence by <%= attrs %> each.",
 
   "weaponSpecialYetiText": "Yeti-Tamer Spear",
   "weaponSpecialYetiNotes": "This spear allows its user to command any yeti. Increases Strength by <%= str %>. Limited Edition 2013-2014 Winter Gear.",
