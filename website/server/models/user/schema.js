@@ -236,8 +236,7 @@ let schema = new Schema({
     armoireOpened: {type: Boolean, default: false},
     armoireEmpty: {type: Boolean, default: false},
     cardReceived: {type: Boolean, default: false},
-    warnedLowHealth: {type: Boolean, default: false},
-    shownClassIntro: {type: Boolean, defalut: false},
+    warnedLowHealth: {type: Boolean, default: false}
   },
 
   history: {
@@ -371,7 +370,8 @@ let schema = new Schema({
     // Schema is (id, name, inviter)
     // TODO one way to fix is http://mongoosejs.com/docs/guide.html#_id
     guilds: {type: Array, default: () => []},
-    // Using a Mixed type because otherwise user.invitations.party = {} // to reset invitation, causes validation to fail TODO
+    // Using a Mixed type because otherwise user.invitations.party = {}
+    // to reset invitation, causes validation to fail TODO
     // schema is the same as for guild invitations (id, name, inviter)
     party: {type: Schema.Types.Mixed, default: () => {
       return {};
