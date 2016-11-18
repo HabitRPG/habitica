@@ -793,11 +793,27 @@ describe('cron', () => {
       expect(user.notifications[1].type).to.eql('LOGIN_INCENTIVE');
     });
 
+    it('awards user Bard Hat if login incentive is 3', () => {
+      user.loginIncentives = 2;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(3);
+      expect(user.items.gear.owned.armor_special_bardHat).to.eql(true);
+      expect(user.notifications[1].type).to.eql('LOGIN_INCENTIVE');
+    });
+
     it('awards user Purple Hatching Potion if login incentive is 4', () => {
       user.loginIncentives = 3;
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.loginIncentives).to.eql(4);
       expect(user.items.hatchingPotions.Purple).to.eql(1);
+      expect(user.notifications[1].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('awards user 5 gems if login incentive is 5', () => {
+      user.loginIncentives = 4;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(5);
+      expect(user.balance).to.eql(4 * 5);
       expect(user.notifications[1].type).to.eql('LOGIN_INCENTIVE');
     });
 
@@ -817,19 +833,19 @@ describe('cron', () => {
       expect(user.notifications[1].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user a gem if login incentive is 14', () => {
+    it('awards user 3 gems if login incentive is 14', () => {
       user.loginIncentives = 13;
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.loginIncentives).to.eql(14);
-      expect(user.balance).to.eql(4);
+      expect(user.balance).to.eql(4 * 3);
       expect(user.notifications[1].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user a bard hat if login incentive is 18', () => {
+    it('awards user a bard instrument if login incentive is 18', () => {
       user.loginIncentives = 17;
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.loginIncentives).to.eql(18);
-      expect(user.items.gear.owned.armor_special_bardHat).to.eql(true);
+      expect(user.items.gear.owned.armor_special_bardInstrument).to.eql(true);
       expect(user.notifications[1].type).to.eql('LOGIN_INCENTIVE');
     });
 
@@ -849,26 +865,34 @@ describe('cron', () => {
       expect(user.notifications[1].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user 2 gems if login incentive is 31', () => {
-      user.loginIncentives = 30;
+    it('awards user 3 gems if login incentive is 30', () => {
+      user.loginIncentives = 29;
       cron({user, tasksByType, daysMissed, analytics});
-      expect(user.loginIncentives).to.eql(31);
-      expect(user.balance).to.eql(8);
+      expect(user.loginIncentives).to.eql(30);
+      expect(user.balance).to.eql(4 * 3);
       expect(user.notifications[1].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user the third moon quest if login incentive is 37', () => {
-      user.loginIncentives = 36;
+    it('awards user a purple hatching potion if login incentive is 35', () => {
+      user.loginIncentives = 34;
       cron({user, tasksByType, daysMissed, analytics});
-      expect(user.loginIncentives).to.eql(37);
+      expect(user.loginIncentives).to.eql(35);
+      expect(user.items.hatchingPotions.Purple).to.eql(1);
+      expect(user.notifications[1].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('awards user the third moon quest if login incentive is 40', () => {
+      user.loginIncentives = 39;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(40);
       expect(user.items.quests.moon3).to.eql(1);
       expect(user.notifications[1].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user a purple hatching potion if login incentive is 43', () => {
-      user.loginIncentives = 42;
+    it('awards user a purple hatching potion if login incentive is 45', () => {
+      user.loginIncentives = 44;
       cron({user, tasksByType, daysMissed, analytics});
-      expect(user.loginIncentives).to.eql(43);
+      expect(user.loginIncentives).to.eql(45);
       expect(user.items.hatchingPotions.Purple).to.eql(1);
       expect(user.notifications[1].type).to.eql('LOGIN_INCENTIVE');
     });

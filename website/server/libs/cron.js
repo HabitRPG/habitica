@@ -116,13 +116,19 @@ function performSleepTasks (user, tasksByType, now) {
 function awardLoginIncentives (user) {
   switch (user.loginIncentives) {
     case 1:
-      user.items.gear.owned.armor_special_bardRobes = true;
+      user.items.gear.owned.armor_special_bardRobes = true; // eslint-disable-line camelcase
       break;
     case 2:
       user.purchased.background.incentiveBackgrounds = true;
       break;
+    case 3:
+      user.items.gear.owned.armor_special_bardHat = true; // eslint-disable-line camelcase
+      break;
     case 4:
       user.items.hatchingPotions.Purple = 1;
+      break;
+    case 5:
+      user.balance = 4 * 5;
       break;
     case 7:
       user.items.quests.moon1 = 1;
@@ -131,10 +137,10 @@ function awardLoginIncentives (user) {
       user.items.hatchingPotions.Purple = 1;
       break;
     case 14:
-      user.balance = 4;
+      user.balance = 4 * 3;
       break;
     case 18:
-      user.items.gear.owned.armor_special_bardHat = true;
+      user.items.gear.owned.armor_special_bardInstrument = true; // eslint-disable-line camelcase
       break;
     case 22:
       user.items.quests.moon2 = 1;
@@ -142,22 +148,26 @@ function awardLoginIncentives (user) {
     case 26:
       user.items.hatchingPotions.Purple = 1;
       break;
-    case 31:
-      user.balance = 8;
+    case 30:
+      user.balance = 4 * 3;
       break;
-    case 37:
+    case 35:
+      user.items.hatchingPotions.Purple = 1;
+      break;
+    case 40:
       user.items.quests.moon3 = 1;
       break;
-    case 43:
+    case 45:
       user.items.hatchingPotions.Purple = 1;
       break;
     case 50:
       user.items.food.Saddle = 1;
+      user.balance = 4 * 5;
       break;
   }
 
   user.addNotification('LOGIN_INCENTIVE', {});
-};
+}
 
 // Perform various beginning-of-day reset actions.
 export function cron (options = {}) {
