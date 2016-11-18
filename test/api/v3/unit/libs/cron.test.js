@@ -751,7 +751,7 @@ describe('cron', () => {
     });
   });
 
-  describe('login incentives', () => {
+  describe.only('login incentives', () => {
     it('increments incentive counter each cron', () => {
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.loginIncentives).to.eql(1);
@@ -797,7 +797,7 @@ describe('cron', () => {
       user.loginIncentives = 2;
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.loginIncentives).to.eql(3);
-      expect(user.items.gear.owned.armor_special_bardHat).to.eql(true);
+      expect(user.items.gear.owned.head_special_bardHat).to.eql(true);
       expect(user.notifications[1].type).to.eql('LOGIN_INCENTIVE');
     });
 
@@ -845,7 +845,7 @@ describe('cron', () => {
       user.loginIncentives = 17;
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.loginIncentives).to.eql(18);
-      expect(user.items.gear.owned.armor_special_bardInstrument).to.eql(true);
+      expect(user.items.gear.owned.weapon_special_bardInstrument).to.eql(true);
       expect(user.notifications[1].type).to.eql('LOGIN_INCENTIVE');
     });
 

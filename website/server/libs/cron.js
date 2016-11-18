@@ -114,6 +114,8 @@ function performSleepTasks (user, tasksByType, now) {
 }
 
 function awardLoginIncentives (user) {
+  let notificationData = {};
+
   switch (user.loginIncentives) {
     case 1:
       user.items.gear.owned.armor_special_bardRobes = true; // eslint-disable-line camelcase
@@ -122,7 +124,8 @@ function awardLoginIncentives (user) {
       user.purchased.background.incentiveBackgrounds = true;
       break;
     case 3:
-      user.items.gear.owned.armor_special_bardHat = true; // eslint-disable-line camelcase
+      user.items.gear.owned.head_special_bardHat = true; // eslint-disable-line camelcase
+      notificationData.reward = common.content.gear.flat.head_special_bardHat;
       break;
     case 4:
       user.items.hatchingPotions.Purple = 1;
@@ -140,7 +143,8 @@ function awardLoginIncentives (user) {
       user.balance = 4 * 3;
       break;
     case 18:
-      user.items.gear.owned.armor_special_bardInstrument = true; // eslint-disable-line camelcase
+      user.items.gear.owned.weapon_special_bardInstrument = true; // eslint-disable-line camelcase
+      notificationData.reward = common.content.gear.flat.head_special_bardHat
       break;
     case 22:
       user.items.quests.moon2 = 1;
@@ -166,7 +170,9 @@ function awardLoginIncentives (user) {
       break;
   }
 
-  user.addNotification('LOGIN_INCENTIVE', {});
+  notificationData.message = "You have recieved an award!";
+  notificationData.nextRewardAt = 20;
+  user.addNotification('LOGIN_INCENTIVE', notificationData);
 }
 
 // Perform various beginning-of-day reset actions.

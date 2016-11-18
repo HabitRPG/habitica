@@ -1,0 +1,10 @@
+script(id='modals/login-incentives.html', type='text/ng-template')
+  .modal-header
+    h4 Congratulations! Thanks for loging in for: {{user.loginIncentives}} days!
+  .modal-body
+    div
+      button.customize-option(class='shop_{{::reward.key}}')
+  .modal-footer
+    small.pull-left
+      | Current Login Incentive Count {{user.loginIncentives}}
+    button.btn.btn-default(ng-click='$close()')=env.t('ok')
