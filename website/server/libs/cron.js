@@ -113,6 +113,25 @@ function performSleepTasks (user, tasksByType, now) {
   });
 }
 
+function trackCronAnalytics(analytics, user, _progress, options) {
+  if (!_progress) _progress = {down: 0, up: 0, collectedItems: 0};
+
+  analytics.track('Cron', {
+    category: 'behavior',
+    gaLabel: 'Cron Count',
+    gaValue: user.flags.cronCount,
+    uuid: user._id,
+    user,
+    resting: user.preferences.sleep,
+    cronCount: user.flags.cronCount,
+    progressUp: _.min([_progress.up, 900]),
+    progressDown: _progress.down,
+    headers: options.headers,
+    loginIncentives: user.loginIncentives,
+  });
+}
+
+
 function awardLoginIncentives (user) {
   let notificationData = {};
 
@@ -198,10 +217,15 @@ export function cron (options = {}) {
     if (!CRON_SAFE_MODE) removeTerminatedSubscription(user);
   }
 
+  // Login Incentives
+  user.loginIncentives++;
+  awardLoginIncentives(user);
+
   // User is resting at the inn.
   // On cron, buffs are cleared and all dailies are reset without performing damage
   if (user.preferences.sleep === true) {
     performSleepTasks(user, tasksByType, now);
+    trackCronAnalytics(analytics, user, _progress, options);
     return;
   }
 
@@ -394,22 +418,7 @@ export function cron (options = {}) {
 
   // Analytics
   user.flags.cronCount++;
-  analytics.track('Cron', { // TODO also do while resting in the inn. https://github.com/HabitRPG/habitrpg/issues/7161#issuecomment-218214191
-    category: 'behavior',
-    gaLabel: 'Cron Count',
-    gaValue: user.flags.cronCount,
-    uuid: user._id,
-    user,
-    resting: user.preferences.sleep,
-    cronCount: user.flags.cronCount,
-    progressUp: _.min([_progress.up, 900]),
-    progressDown: _progress.down,
-    headers: options.headers,
-  });
-
-  // Login Incentives
-  user.loginIncentives++;
-  awardLoginIncentives(user);
+  trackCronAnalytics(analytics, user, _progress, options);
 
   return _progress;
 }

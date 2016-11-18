@@ -8,6 +8,7 @@ import { model as User } from '../../../../../website/server/models/user';
 import * as Tasks from '../../../../../website/server/models/task';
 import { clone } from 'lodash';
 import common from '../../../../../website/common';
+import analytics from '../../../../../website/server/libs/analyticsService';
 
 // const scoreTask = common.ops.scoreTask;
 
@@ -17,9 +18,6 @@ describe('cron', () => {
   let user;
   let tasksByType = {habits: [], dailys: [], todos: [], rewards: []};
   let daysMissed = 0;
-  let analytics = {
-    track: sinon.spy(),
-  };
 
   beforeEach(() => {
     user = new User({
@@ -34,9 +32,15 @@ describe('cron', () => {
       },
     });
 
+    sinon.spy(analytics, 'track');
+
     user._statsComputed = {
       mp: 10,
     };
+  });
+
+  afterEach(() => {
+    analytics.track.restore();
   });
 
   it('updates user.preferences.timezoneOffsetAtLastCron', () => {
@@ -57,6 +61,11 @@ describe('cron', () => {
     let cronCountBefore = user.flags.cronCount;
     cron({user, tasksByType, daysMissed, analytics});
     expect(user.flags.cronCount).to.be.greaterThan(cronCountBefore);
+  });
+
+  it('calls analytics', () => {
+    cron({user, tasksByType, daysMissed, analytics});
+    expect(analytics.track.callCount).to.equal(1);
   });
 
   describe('end of the month perks', () => {
@@ -255,6 +264,11 @@ describe('cron', () => {
   describe('user is sleeping', () => {
     beforeEach(() => {
       user.preferences.sleep = true;
+    });
+
+    it('calls analytics', () => {
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(analytics.track.callCount).to.equal(1);
     });
 
     it('clears user buffs', () => {
@@ -751,7 +765,7 @@ describe('cron', () => {
     });
   });
 
-  describe.only('login incentives', () => {
+  describe('login incentives', () => {
     it('increments incentive counter each cron', () => {
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.loginIncentives).to.eql(1);
