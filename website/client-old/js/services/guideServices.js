@@ -64,11 +64,15 @@ function($rootScope, User, $timeout, $state, Analytics) {
     classes: [
       [
         {
+          orphan: true,
+          content: window.env.t('classGearText'),
+          final: true,
           state: 'options.inventory.equipment',
           element: '.equipment-tab',
           title: window.env.t('classGear'),
-          content: window.env.t('classGearText')
-        }, {
+          hideNavigation: true
+        }
+        /*, {
           state: 'options.profile.stats',
           element: ".allocate-stats",
           title: window.env.t('stats'),
@@ -88,7 +92,7 @@ function($rootScope, User, $timeout, $state, Analytics) {
           title: window.env.t('readMore'),
           content: window.env.t('moreClass') + " <a href='http://habitica.wikia.com/wiki/Class_System' target='_blank'>Wikia</a>.",
           final: true
-        }
+        }*/
       ]
     ],
     stats: [[
@@ -251,10 +255,7 @@ function($rootScope, User, $timeout, $state, Analytics) {
 
   var goto = function(chapter, page, force) {
     if (chapter == 'intro' && User.user.flags.welcomed != true) User.set({'flags.welcomed': true});
-    if (chapter == 'classes') {
-      if (User.user.flags.shownClassIntro != true) User.set({'flags.shownClassIntro': true});
-      else return;
-    }
+    if (chapter == 'classes' && User.user.flags.tour.classes === -2) return;
     if (page === -1) page = 0;
     var curr = User.user.flags.tour[chapter];
     if (page != curr+1 && !force) return;
