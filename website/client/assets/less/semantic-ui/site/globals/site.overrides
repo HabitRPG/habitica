@@ -1,0 +1,19 @@
+// Add classes for colored text and backgrounds
+// See https://github.com/Semantic-Org/Semantic-UI/issues/1885#issuecomment-226047499
+@colors: blue, green, orange, pink, purple, red, teal, yellow, black, grey, white;
+
+/* .text {
+  .-(@i: length(@colors)) when (@i > 0) {
+      @c: extract(@colors, @i);
+      &.@{c} { color: @@c }
+      .-((@i - 1));
+  }.-;
+}
+
+.background {
+  .-(@i: length(@colors)) when (@i > 0) {
+      @c: extract(@colors, @i);
+      &.@{c} { background-color: @@c }
+      .-((@i - 1));
+  }.-;
+} */
