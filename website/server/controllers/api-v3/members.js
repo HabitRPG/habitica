@@ -10,7 +10,7 @@ import {
   NotFound,
   NotAuthorized,
 } from '../../libs/errors';
-import common from '../../../common';
+import userBlockPresent from '../../libs/userBlockPresent';
 import * as Tasks from '../../models/task';
 import {
   getUserInfo,
@@ -309,7 +309,7 @@ api.sendPrivateMessage = {
 
     let userOptedOutOfMessaging = receiver.inbox.optOut;
 
-    let userBlock = common.userBlockPresent(sender, receiver);
+    let userBlock = userBlockPresent(sender, receiver);
 
     if (userBlock || userOptedOutOfMessaging) {
       throw new NotAuthorized(res.t('notAuthorizedToSendMessageToThisUser'));

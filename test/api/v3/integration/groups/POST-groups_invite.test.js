@@ -97,7 +97,7 @@ describe('Post /groups/:groupId/invite', () => {
       });
     });
 
-    it('returns error when to receiver has blocked the inviter', async () => {
+    it('returns an error when the receiver has blocked the inviter', async () => {
       let receiver = await generateUser({'inbox.blocks': [inviter._id]});
 
       await expect(inviter.post(`/groups/${group._id}/invite`, {

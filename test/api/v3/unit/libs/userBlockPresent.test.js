@@ -1,9 +1,9 @@
-import blockUser from '../../../website/common/script/ops/blockUser';
-import { userBlockPresent } from '../../../website/common';
+import blockUser from '../../../../../website/common/script/ops/blockUser';
+import userBlockPresent from '../../../../../website/server/libs/userBlockPresent';
 
 import {
   generateUser,
-} from '../../helpers/common.helper';
+} from '../../../../helpers/common.helper';
 
 describe('userBlockPresent', () => {
   let user1, user2;
