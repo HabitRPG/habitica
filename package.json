@@ -29,7 +29,7 @@
     "compression": "^1.6.1",
     "connect-ratelimit": "0.0.7",
     "cookie-session": "^1.2.0",
-    "coupon-code": "^0.4.3",
+    "coupon-code": "^0.4.5",
     "css-loader": "^0.23.1",
     "csv-stringify": "^1.0.2",
     "cwait": "^1.0.0",
