@@ -95,9 +95,6 @@ function removeTerminatedSubscription (user) {
 function performSleepTasks (user, tasksByType, now) {
   user.stats.buffs = _.cloneDeep(CLEAR_BUFFS);
 
-  user.loginIncentives++;
-  user.addNotification('LOGIN_INCENTIVE', {});
-
   tasksByType.dailys.forEach((daily) => {
     let completed = daily.completed;
     let thatDay = moment(now).subtract({days: 1});
@@ -113,9 +110,7 @@ function performSleepTasks (user, tasksByType, now) {
   });
 }
 
-function trackCronAnalytics(analytics, user, _progress, options) {
-  if (!_progress) _progress = {down: 0, up: 0, collectedItems: 0};
-
+function trackCronAnalytics (analytics, user, _progress, options) {
   analytics.track('Cron', {
     category: 'behavior',
     gaLabel: 'Cron Count',
@@ -147,49 +142,58 @@ function awardLoginIncentives (user) {
       notificationData.reward = common.content.gear.flat.head_special_bardHat;
       break;
     case 4:
+      if (!user.items.hatchingPotions.Purple) user.items.hatchingPotions.Purple = 0;
       user.items.hatchingPotions.Purple = 1;
       break;
     case 5:
-      user.balance = 4 * 5;
+      user.balance += 4 * 5;
       break;
     case 7:
-      user.items.quests.moon1 = 1;
+      if (!user.items.quests.moon1) user.items.quests.moon1 = 0;
+      user.items.quests.moon1 += 1;
       break;
     case 10:
-      user.items.hatchingPotions.Purple = 1;
+      if (!user.items.hatchingPotions.Purple) user.items.hatchingPotions.Purple = 0;
+      user.items.hatchingPotions.Purple += 1;
       break;
     case 14:
-      user.balance = 4 * 3;
+      user.balance += 4 * 3;
       break;
     case 18:
       user.items.gear.owned.weapon_special_bardInstrument = true; // eslint-disable-line camelcase
-      notificationData.reward = common.content.gear.flat.head_special_bardHat
+      notificationData.reward = common.content.gear.flat.head_special_bardHat;
       break;
     case 22:
-      user.items.quests.moon2 = 1;
+      if (!user.items.quests.moon2) user.items.quests.moon2 = 0;
+      user.items.quests.moon2 += 1;
       break;
     case 26:
-      user.items.hatchingPotions.Purple = 1;
+      if (!user.items.hatchingPotions.Purple) user.items.hatchingPotions.Purple = 0;
+      user.items.hatchingPotions.Purple += 1;
       break;
     case 30:
-      user.balance = 4 * 3;
+      user.balance += 4 * 3;
       break;
     case 35:
-      user.items.hatchingPotions.Purple = 1;
+      if (!user.items.hatchingPotions.Purple) user.items.hatchingPotions.Purple = 0;
+      user.items.hatchingPotions.Purple += 1;
       break;
     case 40:
-      user.items.quests.moon3 = 1;
+      if (!user.items.quests.moon3) user.items.quests.moon3 = 0;
+      user.items.quests.moon3 += 1;
       break;
     case 45:
-      user.items.hatchingPotions.Purple = 1;
+      if (!user.items.hatchingPotions.Purple) user.items.hatchingPotions.Purple = 0;
+      user.items.hatchingPotions.Purple += 1;
       break;
     case 50:
-      user.items.food.Saddle = 1;
-      user.balance = 4 * 5;
+      if (!user.items.food.Saddle) user.items.food.Saddle = 0;
+      user.items.food.Saddle += 1;
+      user.balance += 4 * 5;
       break;
   }
 
-  notificationData.message = "You have recieved an award!";
+  notificationData.message = 'You have recieved an award!';
   notificationData.nextRewardAt = 20;
   user.addNotification('LOGIN_INCENTIVE', notificationData);
 }
@@ -197,6 +201,7 @@ function awardLoginIncentives (user) {
 // Perform various beginning-of-day reset actions.
 export function cron (options = {}) {
   let {user, tasksByType, analytics, now = new Date(), daysMissed, timezoneOffsetFromUserPrefs} = options;
+  let _progress = {down: 0, up: 0, collectedItems: 0};
 
   // Record pre-cron values of HP and MP to show notifications later
   let beforeCronStats = _.pick(user.stats, ['hp', 'mp']);
@@ -381,7 +386,7 @@ export function cron (options = {}) {
 
   // After all is said and done, progress up user's effect on quest, return those values & reset the user's
   let progress = user.party.quest.progress;
-  let _progress = _.cloneDeep(progress);
+  _progress = _.cloneDeep(progress);
   _.merge(progress, {down: 0, up: 0, collectedItems: 0});
 
   // Send notification for changes in HP and MP
