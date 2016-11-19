@@ -7,5 +7,7 @@
   "countLeft": "<%= count %> left",
   "incentivesDescription": "When it comes to building habits, consistency is key. Each day you check-in you get closer to a prize.",
   "totalCheckins": "<%= count %> check-ins",
-  "checkinEarned": "You have earned today's check-in counter!"
+  "checkinEarned": "You have earned today's check-in counter!",
+  "totalCheckinsTitle": "Total Checkins",
+  "checkinProgressTitle": "Progress until next"
 }
