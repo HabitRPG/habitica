@@ -10,6 +10,7 @@ const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 const shouldDo = common.shouldDo;
 const scoreTask = common.ops.scoreTask;
+const i18n = common.i18n;
 // const maxPMs = 200;
 
 export async function recoverCron (status, locals) {
@@ -210,7 +211,7 @@ function awardLoginIncentives (user) {
       break;
   }
 
-  notificationData.message = 'You have earned today\'s check-in counter!';
+  notificationData.message = i18n.t('checkinEarned');
   user.addNotification('LOGIN_INCENTIVE', notificationData);
 }
 

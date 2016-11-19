@@ -1,7 +1,7 @@
 script(id='modals/login-incentives-reward-unlocked.html', type='text/ng-template')
   .modal-header.text-center
     h2 {{data.message}}
-    h3 You have unlocked {{data.reward.text}}
+    h3 {{env.t('unlockedReward', {reward: data.reward.text})}}
   .modal-body
     .row
       div.text-center.col-md-4
@@ -12,11 +12,11 @@ script(id='modals/login-incentives-reward-unlocked.html', type='text/ng-template
         button.customize-option(class='shop_{{::reward.key}}')
     .row
       .col-md-6.col-md-offset-3.text-center
-        p You have earned a {{data.reward.text}} as a reward for your devotion to improving your life.
+        p {{env.t('earnedRewardForDevotion', {reward: data.reward.text})}}
       .col-md-12.text-center
-        p Your next prize will unlock in {{data.nextRewardAt - user.loginIncentives}} more check-ins!
+        p {{env.t('nextRewardUnlocksIn', {numberOfCheckinsLeft: data.nextRewardAt - user.loginIncentives})}}
   .modal-footer
-    a.btn.btn-primary.col-md-6.col-md-offset-3(ng-click='$close()') Awesome!
+    a.btn.btn-primary.col-md-6.col-md-offset-3(ng-click='$close()')=env.t('awesome')
     row
       .col-xs-3
         a.twitter-share-button(href='https://twitter.com/intent/tweet?text=#{tweet}&via=habitica&url=#{env.BASE_URL}/social/level-up&count=none')=env.t('tweet')

@@ -4,17 +4,17 @@ script(id='modals/login-incentives.html', type='text/ng-template')
   .modal-body
     .row
       div.text-center.col-md-4
-        h3 {{user.loginIncentives}} total points
+        h3 {{env.t('totalCount', {count: user.loginIncentives})}}
       div.text-center.col-md-4
         button.customize-option(class='shop_{{::reward.key}}')
       div.text-center.col-md-4
-        h3 {{data.nextRewardAt - user.loginIncentives}} more points left
+        h3 {{env.t('totalCount', {count: data.nextRewardAt - user.loginIncentives})}}
     .row
       .col-md-6.col-md-offset-3.text-center
-        p When it comes to building habits, consistency is key. Each day you check-in you get closer to a prize.
+        p=env.t('incentivesDescription')
       .col-md-12.text-center
-        p You have {{user.loginIncentives}} check-in points.
+        p {{env.t('totalCheckins', {count: user.loginIncentives})}}
       .col-md-12.text-center
-        p Your next prize will unlock in {{data.nextRewardAt - user.loginIncentives}} more check-ins!
+        p {{env.t('nextRewardUnlocksIn', {numberOfCheckinsLeft: data.nextRewardAt - user.loginIncentives})}}
   .modal-footer
-    a.btn.btn-primary.col-md-6.col-md-offset-3(ng-click='$close()') Awesome!
+    a.btn.btn-primary.col-md-6.col-md-offset-3(ng-click='$close()')=env.t('awesome')
