@@ -142,11 +142,18 @@ habitrpg.controller('NotificationCtrl',
             break;
           case 'LOGIN_INCENTIVE':
             var modalScope = $rootScope.$new();
-            modalScope.reward = notification.data.reward;
+            modalScope.data = notification.data;
             modalScope.user = User.user;
+
+            var modalKey = 'login-incentives';
+            if (notification.data.reward) {
+              modalKey = 'login-incentives-reward-unlocked';
+            }
+
             $rootScope.openModal('login-incentives', {
               scope: modalScope
             });
+            markAsRead = false;
             break;
           default:
             markAsRead = false; // If the notification is not implemented, skip it

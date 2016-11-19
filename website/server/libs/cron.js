@@ -126,65 +126,80 @@ function trackCronAnalytics (analytics, user, _progress, options) {
   });
 }
 
-
 function awardLoginIncentives (user) {
   let notificationData = {};
 
   switch (user.loginIncentives) {
     case 1:
       user.items.gear.owned.armor_special_bardRobes = true; // eslint-disable-line camelcase
+      notificationData.reward = common.content.gear.flat.armor_special_bardRobes
+      notificationData.nextRewardAt = 2;
       break;
     case 2:
       user.purchased.background.incentiveBackgrounds = true;
+      notificationData.nextRewardAt = 3;
       break;
     case 3:
       user.items.gear.owned.head_special_bardHat = true; // eslint-disable-line camelcase
       notificationData.reward = common.content.gear.flat.head_special_bardHat;
+      notificationData.nextRewardAt = 4;
       break;
     case 4:
       if (!user.items.hatchingPotions.Purple) user.items.hatchingPotions.Purple = 0;
       user.items.hatchingPotions.Purple = 1;
+      notificationData.nextRewardAt = 5;
       break;
     case 5:
       user.balance += 4 * 5;
+      notificationData.nextRewardAt = 7;
       break;
     case 7:
       if (!user.items.quests.moon1) user.items.quests.moon1 = 0;
       user.items.quests.moon1 += 1;
+      notificationData.nextRewardAt = 10;
       break;
     case 10:
       if (!user.items.hatchingPotions.Purple) user.items.hatchingPotions.Purple = 0;
       user.items.hatchingPotions.Purple += 1;
+      notificationData.nextRewardAt = 14;
       break;
     case 14:
       user.balance += 4 * 3;
+      notificationData.nextRewardAt = 18;
       break;
     case 18:
       user.items.gear.owned.weapon_special_bardInstrument = true; // eslint-disable-line camelcase
       notificationData.reward = common.content.gear.flat.head_special_bardHat;
+      notificationData.nextRewardAt = 22;
       break;
     case 22:
       if (!user.items.quests.moon2) user.items.quests.moon2 = 0;
       user.items.quests.moon2 += 1;
+      notificationData.nextRewardAt = 26;
       break;
     case 26:
       if (!user.items.hatchingPotions.Purple) user.items.hatchingPotions.Purple = 0;
       user.items.hatchingPotions.Purple += 1;
+      notificationData.nextRewardAt = 30;
       break;
     case 30:
       user.balance += 4 * 3;
+      notificationData.nextRewardAt = 35;
       break;
     case 35:
       if (!user.items.hatchingPotions.Purple) user.items.hatchingPotions.Purple = 0;
       user.items.hatchingPotions.Purple += 1;
+      notificationData.nextRewardAt = 40;
       break;
     case 40:
       if (!user.items.quests.moon3) user.items.quests.moon3 = 0;
       user.items.quests.moon3 += 1;
+      notificationData.nextRewardAt = 45;
       break;
     case 45:
       if (!user.items.hatchingPotions.Purple) user.items.hatchingPotions.Purple = 0;
       user.items.hatchingPotions.Purple += 1;
+      notificationData.nextRewardAt = 50;
       break;
     case 50:
       if (!user.items.food.Saddle) user.items.food.Saddle = 0;
@@ -193,8 +208,7 @@ function awardLoginIncentives (user) {
       break;
   }
 
-  notificationData.message = 'You have recieved an award!';
-  notificationData.nextRewardAt = 20;
+  notificationData.message = 'You have earned today\'s check-in counter!';
   user.addNotification('LOGIN_INCENTIVE', notificationData);
 }
 
