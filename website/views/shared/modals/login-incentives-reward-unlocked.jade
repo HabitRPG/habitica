@@ -1,0 +1,26 @@
+script(id='modals/login-incentives-reward-unlocked.html', type='text/ng-template')
+  .modal-header.text-center
+    h2 {{data.message}}
+    h3 You have unlocked {{data.reward.text}}
+  .modal-body
+    .row
+      div.text-center.col-md-4
+        img
+      div.text-center.col-md-4
+        img
+      div.text-center.col-md-4
+        button.customize-option(class='shop_{{::reward.key}}')
+    .row
+      .col-md-6.col-md-offset-3.text-center
+        p You have earned a {{data.reward.text}} as a reward for your devotion to improving your life.
+      .col-md-12.text-center
+        p Your next prize will unlock in {{data.nextRewardAt - user.loginIncentives}} more check-ins!
+  .modal-footer
+    a.btn.btn-primary.col-md-6.col-md-offset-3(ng-click='$close()') Awesome!
+    row
+      .col-xs-3
+        a.twitter-share-button(href='https://twitter.com/intent/tweet?text=#{tweet}&via=habitica&url=#{env.BASE_URL}/social/level-up&count=none')=env.t('tweet')
+      .col-xs-4(style='margin-left:.8em')
+        .fb-share-button(data-href='#{env.BASE_URL}/social/level-up', data-layout='button')
+      .col-xs-4(style='margin-left:.8em')
+        a.tumblr-share-button(data-href='#{env.BASE_URL}/social/level-up', data-notes='none')

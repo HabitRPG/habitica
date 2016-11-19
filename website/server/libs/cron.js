@@ -126,6 +126,8 @@ function trackCronAnalytics (analytics, user, _progress, options) {
   });
 }
 
+let loginIncentives = {};
+
 function awardLoginIncentives (user) {
   let notificationData = {};
 

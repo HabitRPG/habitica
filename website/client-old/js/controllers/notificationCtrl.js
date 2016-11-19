@@ -150,7 +150,7 @@ habitrpg.controller('NotificationCtrl',
               modalKey = 'login-incentives-reward-unlocked';
             }
 
-            $rootScope.openModal('login-incentives', {
+            $rootScope.openModal(modalKey, {
               scope: modalScope
             });
             markAsRead = false;
