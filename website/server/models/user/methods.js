@@ -141,7 +141,7 @@ schema.methods.muteUser = async function muteUser (message, groupId) {
   let user = this;
 
   user.flags.chatRevoked = true;
-  // await user.save()
+  await user.save();
 
   let group = await Group.getGroup({
     user,
