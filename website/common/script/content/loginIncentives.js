@@ -32,7 +32,7 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     5: {
-      rewardKey: 'balance',
+      rewardKey: 'Pet_Currency_Gem2x Gems',
       reward: api.balance,
       assignReward: function assignReward (user) {
         user.balance += 4 * 5;
@@ -55,7 +55,7 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     14: {
-      rewardKey: 'balance',
+      rewardKey: 'Pet_Currency_Gem2x Gems',
       reward: '',
       assignReward: function assignReward (user) {
         user.balance += 4 * 3;
@@ -85,7 +85,7 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     30: {
-      rewardKey: 'balance',
+      rewardKey: 'Pet_Currency_Gem2x Gems',
       reward: '',
       assignReward: function assignReward (user) {
         user.balance += 4 * 3;

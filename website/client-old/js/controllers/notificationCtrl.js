@@ -143,6 +143,8 @@ habitrpg.controller('NotificationCtrl',
           case 'LOGIN_INCENTIVE':
             var modalScope = $rootScope.$new();
             modalScope.data = notification.data;
+            var nextRewardKey = Shared.content.loginIncentives[User.user.loginIncentives].nextRewardAt;
+            modalScope.nextReward = Shared.content.loginIncentives[nextRewardKey];
             modalScope.user = User.user;
 
             var modalKey = 'login-incentives';
