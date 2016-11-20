@@ -24,7 +24,7 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     4: {
-      rewardKey: 'Purple',
+      rewardKey: 'Pet_HatchingPotion_Purple',
       reward: api.hatchingPotions.Purple,
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.Purple) user.items.hatchingPotions.Purple = 0;

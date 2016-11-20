@@ -135,6 +135,7 @@ function awardLoginIncentives (user) {
   if (loginIncentive.rewardKey) {
     loginIncentive.assignReward(user);
     notificationData.reward = loginIncentive.reward;
+    notificationData.rewardKey = loginIncentive.rewardKey;
   }
 
   notificationData.nextRewardAt = loginIncentives[user.loginIncentives].nextRewardAt;

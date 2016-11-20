@@ -1162,51 +1162,57 @@
   width: 48px;
   height: 51px;
 }
-.Pet_HatchingPotion_Red {
+.Pet_HatchingPotion_Purple {
   background-image: url(/static/sprites/spritesmith-main-15.png);
   background-position: -1230px -600px;
   width: 48px;
   height: 51px;
 }
-.Pet_HatchingPotion_RoyalPurple {
+.Pet_HatchingPotion_Red {
   background-image: url(/static/sprites/spritesmith-main-15.png);
   background-position: -1230px -1068px;
   width: 48px;
   height: 51px;
 }
-.Pet_HatchingPotion_Shade {
+.Pet_HatchingPotion_RoyalPurple {
   background-image: url(/static/sprites/spritesmith-main-15.png);
   background-position: -1230px -1120px;
   width: 48px;
   height: 51px;
 }
-.Pet_HatchingPotion_Skeleton {
+.Pet_HatchingPotion_Shade {
   background-image: url(/static/sprites/spritesmith-main-15.png);
   background-position: 0px -1200px;
   width: 48px;
   height: 51px;
 }
-.Pet_HatchingPotion_Spooky {
+.Pet_HatchingPotion_Skeleton {
   background-image: url(/static/sprites/spritesmith-main-15.png);
   background-position: -49px -1200px;
   width: 48px;
   height: 51px;
 }
-.Pet_HatchingPotion_Thunderstorm {
+.Pet_HatchingPotion_Spooky {
   background-image: url(/static/sprites/spritesmith-main-15.png);
   background-position: -98px -1200px;
   width: 48px;
   height: 51px;
 }
-.Pet_HatchingPotion_White {
+.Pet_HatchingPotion_Thunderstorm {
   background-image: url(/static/sprites/spritesmith-main-15.png);
   background-position: -147px -1200px;
   width: 48px;
   height: 51px;
 }
-.Pet_HatchingPotion_Zombie {
+.Pet_HatchingPotion_White {
   background-image: url(/static/sprites/spritesmith-main-15.png);
   background-position: -196px -1200px;
+  width: 48px;
+  height: 51px;
+}
+.Pet_HatchingPotion_Zombie {
+  background-image: url(/static/sprites/spritesmith-main-15.png);
+  background-position: -245px -1200px;
   width: 48px;
   height: 51px;
 }
