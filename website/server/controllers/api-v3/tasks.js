@@ -7,6 +7,7 @@ import { removeFromArray } from '../../libs/collectionManipulators';
 import * as Tasks from '../../models/task';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
+import { model as User } from '../../models/user';
 import {
   NotFound,
   NotAuthorized,
@@ -262,6 +263,10 @@ api.updateTask = {
     // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
     // see https://github.com/Automattic/mongoose/issues/2749
 
+    if (sanitizedObj.requiresApproval) {
+      task.group.approval.required = true;
+    }
+
     let savedTask = await task.save();
 
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
@@ -314,6 +319,29 @@ api.scoreTask = {
     let direction = req.params.direction;
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
+
+    if (task.group.approval.required && !task.group.approval.approved) {
+      if (task.group.approval.requested) {
+        throw new NotAuthorized(res.t('taskRequiresApproval'));
+      }
+
+      task.group.approval.requested = true;
+      task.group.approval.requestedDate = new Date();
+
+      let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+      let groupLeader = await User.findById(group.leader); // Use this method so we can get access to notifications
+      groupLeader.addNotification('GROUP_TASK_APPROVAL', {
+        message: res.t('userHasRequestedTaskApproval', {
+          user: user.profile.name,
+          taskName: task.text,
+        }),
+        groupId: group._id,
+      });
+
+      await Bluebird.all([groupLeader.save(), task.save()]);
+
+      throw new NotAuthorized(res.t('taskApprovalHasBeenRequested'));
+    }
 
     let wasCompleted = task.completed;
 

@@ -1,2 +1,13 @@
 // Disable google fonts
 @importGoogleFonts: false;
+
+// Set font
+@globalFont: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+@pageFont: @globalFont;
+@headerFont: @globalFont;
+
+// Define custom colors
+@red            : #f74e52;
+@yellow         : #ffb445;
+@blue           : #50b5e9;

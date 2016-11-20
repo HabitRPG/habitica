@@ -214,5 +214,11 @@
     "confirmAddTag": "「<%= tag %>」を追加します。よろしいですか?",
     "confirmRemoveTag": "「<%= tag %>」を削除します。よろしいですか?",
     "assignTask": "タスクを割り当てる",
-    "claim": "受け取る"
+    "claim": "受け取る",
+    "onlyGroupLeaderCanManageSubscription": "グループの登録管理は、グループリーダーだけが行います",
+    "yourTaskHasBeenApproved": "タスクが承認されました",
+    "userHasRequestedTaskApproval": "<%= user %> が <%= taskName %> のタスク承認をもとめています",
+    "confirmTaskApproval": "Are you sure you want to approve this task?",
+    "approve": "Approve",
+    "approvalTitle": "<%= text %> for user: <%= userName %>"
 }

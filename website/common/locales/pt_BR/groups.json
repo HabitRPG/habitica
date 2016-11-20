@@ -214,5 +214,11 @@
     "confirmAddTag": "Você quer mesmo adicionar  \"<%= tag %>\"?",
     "confirmRemoveTag": "Você quer mesmo remover \"<%= tag %>\"?",
     "assignTask": "Atribuir Tarefa",
-    "claim": "Reivindicar"
+    "claim": "Reivindicar",
+    "onlyGroupLeaderCanManageSubscription": "Apenas o líder do grupo pode gerenciar a assinatura do grupo",
+    "yourTaskHasBeenApproved": "Sua tarefa foi aprovada",
+    "userHasRequestedTaskApproval": "<%= user %> solicitou a aprovação da tarefa <%= taskName %>",
+    "confirmTaskApproval": "Are you sure you want to approve this task?",
+    "approve": "Approve",
+    "approvalTitle": "<%= text %> for user: <%= userName %>"
 }

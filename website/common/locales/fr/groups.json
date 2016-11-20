@@ -187,8 +187,8 @@
     "keepOrRemove": "req.query.keep doit être soit \"keep\" soit \"remove\"",
     "canOnlyInviteEmailUuid": "Vous ne pouvez inviter qu'avec des UUIDs ou des courriels.",
     "inviteMissingEmail": "L'adresse courriel est manquante dans l'invitation.",
-    "inviteMissingUuid": "L'ID d'utilisateur est manquant dans l'invitation.",
-    "inviteMustNotBeEmpty": "L'invitation ne peut pas être vide.",
+    "inviteMissingUuid": "L'ID d'utilisateur est manquante dans l'invitation.",
+    "inviteMustNotBeEmpty": "L'invitation ne doit pas être vide.",
     "partyMustbePrivate": "Les équipes doivent être privées",
     "userAlreadyInGroup": "Utilisateur déjà dans cette équipe.",
     "cannotInviteSelfToGroup": "Vous ne pouvez vous inviter vous-même dans un groupe.",
@@ -201,7 +201,7 @@
     "emailsMustBeAnArray": "Les emails des invitations doivent être un tableau.",
     "canOnlyInviteMaxInvites": "Vous ne pouvez envoyer que \"<%= maxInvites %>\" invitations à la fois",
     "onlyCreatorOrAdminCanDeleteChat": "Vous n'êtes pas autorisé à supprimer ce message !",
-    "onlyGroupLeaderCanEditTasks": "Vous n'êtes pas autorisé à gérer les tâches!",
+    "onlyGroupLeaderCanEditTasks": "Pas d'autorisation pour gérer les tâches !",
     "onlyGroupTasksCanBeAssigned": "Seules les tâches de groupe peuvent être assignées",
     "newChatMessagePlainNotification": "Nouveau message de <%= authorName %> dans <%= groupName %>. Cliquez ici pour ouvrir la page de discussion !",
     "newChatMessageTitle": "Nouveau message dans <%= groupName %>",
@@ -214,5 +214,11 @@
     "confirmAddTag": "Voulez-vous vraiment ajouter \"<%= tag %>\"?",
     "confirmRemoveTag": "Voulez-vous vraiment supprimer \"<%= tag %>\"?",
     "assignTask": "Assigner la tâche",
-    "claim": "Réclamer"
+    "claim": "Réclamer",
+    "onlyGroupLeaderCanManageSubscription": "Seul le responsable du groupe peut gérer l'abonnement du groupe.",
+    "yourTaskHasBeenApproved": "Votre tâche a été approuvée",
+    "userHasRequestedTaskApproval": "<%= user %> a demandé une approbation pour la tâche <%= taskName %>",
+    "confirmTaskApproval": "Are you sure you want to approve this task?",
+    "approve": "Approve",
+    "approvalTitle": "<%= text %> for user: <%= userName %>"
 }

@@ -114,7 +114,7 @@
     "giftedGems": "贈られたジェム",
     "giftedGemsInfo": "<%= name %> さんが <%= amount %> ジェムプレゼント",
     "giftedSubscription": "贈られた寄付(有料利用)",
-    "giftedSubscriptionInfo": "<%= name %> さんから <%= months %> カ月分の寄付（有料利用権）",
+    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> month subscription",
     "invitedParty": "パーティへ招待されました",
     "invitedGuild": "ギルドへ招待されました",
     "importantAnnouncements": "アカウントが活動的でない",

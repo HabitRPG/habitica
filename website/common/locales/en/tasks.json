@@ -134,5 +134,9 @@
     "strengthExample": "Relating to exercise and activity",
     "intelligenceExample": "Relating to academic or mentally challenging pursuits",
     "perceptionExample": "Relating to work or financial tasks",
-    "constitutionExample": "Relating to health, wellness, and social interaction"
+    "constitutionExample": "Relating to health, wellness, and social interaction",
+    "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
+    "taskApprovalHasBeenRequested": "Approval has been requested",
+    "approvals": "Approvals",
+    "approvalRequired": "Approval Required"
 }

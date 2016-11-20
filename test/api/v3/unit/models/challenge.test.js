@@ -6,32 +6,36 @@ import common from '../../../../../website/common/';
 import { each, find } from 'lodash';
 
 describe('Challenge Model', () => {
-  let guild, leader, challenge, task, tasksToTest;
+  let guild, leader, challenge, task;
+  let tasksToTest = {
+    habit: {
+      text: 'test habit',
+      type: 'habit',
+      up: false,
+      down: true,
+      notes: 'test notes',
+    },
+    todo: {
+      text: 'test todo',
+      type: 'todo',
+      notes: 'test notes',
+    },
+    daily: {
+      text: 'test daily',
+      type: 'daily',
+      frequency: 'daily',
+      everyX: 5,
+      startDate: new Date(),
+      notes: 'test notes',
+    },
+    reward: {
+      text: 'test reward',
+      type: 'reward',
+      notes: 'test notes',
+    },
+  };
 
   beforeEach(async () => {
-    tasksToTest = {
-      habit: {
-        text: 'test habit',
-        type: 'habit',
-        up: false,
-        down: true,
-      },
-      todo: {
-        text: 'test todo',
-        type: 'todo',
-      },
-      daily: {
-        text: 'test daily',
-        type: 'daily',
-        frequency: 'daily',
-        everyX: 5,
-        startDate: new Date(),
-      },
-      reward: {
-        text: 'test reward',
-        type: 'reward',
-      },
-    };
     guild = new Group({
       name: 'test party',
       type: 'guild',
@@ -77,6 +81,7 @@ describe('Challenge Model', () => {
         });
 
         expect(syncedTask).to.exist;
+        expect(syncedTask.notes).to.eql(task.notes);
       });
 
       it('syncs a challenge to a user', async () => {
@@ -96,8 +101,8 @@ describe('Challenge Model', () => {
         });
 
         expect(updatedNewMember.challenges).to.contain(challenge._id);
-        expect(updatedNewMember.tags[3].id).to.equal(challenge._id);
-        expect(updatedNewMember.tags[3].name).to.equal(challenge.shortName);
+        expect(updatedNewMember.tags[7].id).to.equal(challenge._id);
+        expect(updatedNewMember.tags[7].name).to.equal(challenge.shortName);
         expect(syncedTask).to.exist;
       });
 

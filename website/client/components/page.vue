@@ -1,13 +1,11 @@
 <template lang="pug">
-p {{ msg }}
+.row
+  .sixteen.wide.column
+    h2 Page
+    p {{ $route.path }}
 </template>
 
 <script>
 export default {
-  data () {
-    return {
-      msg: 'You\'re on Another Page!',
-    };
-  },
 };
 </script>

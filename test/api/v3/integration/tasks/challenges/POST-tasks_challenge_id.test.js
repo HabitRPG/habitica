@@ -5,11 +5,16 @@ import {
   translate as t,
 } from '../../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
+import { find } from 'lodash';
 
 describe('POST /tasks/challenge/:challengeId', () => {
   let user;
   let guild;
   let challenge;
+
+  function findUserChallengeTask (memberTask) {
+    return memberTask.challenge.id === challenge._id;
+  }
 
   beforeEach(async () => {
     user = await generateUser({balance: 1});
@@ -88,6 +93,9 @@ describe('POST /tasks/challenge/:challengeId', () => {
     });
     let challengeWithTask = await user.get(`/challenges/${challenge._id}`);
 
+    let memberTasks = await user.get('/tasks/user');
+    let userChallengeTask = find(memberTasks, findUserChallengeTask);
+
     expect(challengeWithTask.tasksOrder.habits.indexOf(task._id)).to.be.above(-1);
     expect(task.challenge.id).to.equal(challenge._id);
     expect(task.text).to.eql('test habit');
@@ -95,6 +103,8 @@ describe('POST /tasks/challenge/:challengeId', () => {
     expect(task.type).to.eql('habit');
     expect(task.up).to.eql(false);
     expect(task.down).to.eql(true);
+
+    expect(userChallengeTask.notes).to.eql(task.notes);
   });
 
   it('creates a todo', async () => {
@@ -105,11 +115,16 @@ describe('POST /tasks/challenge/:challengeId', () => {
     });
     let challengeWithTask = await user.get(`/challenges/${challenge._id}`);
 
+    let memberTasks = await user.get('/tasks/user');
+    let userChallengeTask = find(memberTasks, findUserChallengeTask);
+
     expect(challengeWithTask.tasksOrder.todos.indexOf(task._id)).to.be.above(-1);
     expect(task.challenge.id).to.equal(challenge._id);
     expect(task.text).to.eql('test todo');
     expect(task.notes).to.eql('1976');
     expect(task.type).to.eql('todo');
+
+    expect(userChallengeTask.notes).to.eql(task.notes);
   });
 
   it('creates a daily', async () => {
@@ -124,6 +139,9 @@ describe('POST /tasks/challenge/:challengeId', () => {
     });
     let challengeWithTask = await user.get(`/challenges/${challenge._id}`);
 
+    let memberTasks = await user.get('/tasks/user');
+    let userChallengeTask = find(memberTasks, findUserChallengeTask);
+
     expect(challengeWithTask.tasksOrder.dailys.indexOf(task._id)).to.be.above(-1);
     expect(task.challenge.id).to.equal(challenge._id);
     expect(task.text).to.eql('test daily');
@@ -132,5 +150,7 @@ describe('POST /tasks/challenge/:challengeId', () => {
     expect(task.frequency).to.eql('daily');
     expect(task.everyX).to.eql(5);
     expect(new Date(task.startDate)).to.eql(now);
+
+    expect(userChallengeTask.notes).to.eql(task.notes);
   });
 });

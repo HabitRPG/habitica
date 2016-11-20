@@ -28,7 +28,7 @@ function sendFlagNotification ({
   let titleLink;
   let authorName;
   let title = `Flag in ${group.name}`;
-  let text = `${flagger.profile.name} (${flagger.id}) flagged a message`;
+  let text = `${flagger.profile.name} (${flagger.id}) flagged a message (language: ${flagger.preferences.language})`;
 
   if (group.id === TAVERN_ID) {
     titleLink = `${BASE_URL}/#/options/groups/tavern`;

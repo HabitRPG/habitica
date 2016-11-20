@@ -47,7 +47,7 @@
     "sendChat": "Enviar Chat",
     "toolTipMsg": "Recuperar mensajes recientes",
     "sendChatToolTip": "You can send a chat from the keyboard by tabbing to the 'Send Chat' button and pressing Enter or by pressing Control (Command on a Mac) + Enter.",
-    "syncPartyAndChat": "Sync Party and Chat",
+    "syncPartyAndChat": "Sincronizar Equipo y Chat.",
     "guildBankPop1": "Banco del gremio",
     "guildBankPop2": "Gemas que el líder del gremio puede usar como premios en desafíos.",
     "guildGems": "Gemas del gremio",
@@ -144,7 +144,7 @@
     "inviteNewUsers": "Invitar a usuarios nuevos",
     "sendInvitations": "Enviar invitaciones",
     "invitationsSent": "¡Invitaciones enviadas!",
-    "invitationSent": "Invitation sent!",
+    "invitationSent": "¡Invitación enviada!",
     "inviteAlertInfo2": "O comparte este link (copia/pega):",
     "sendGiftHeading": "Enviar regalo a <%= name %>",
     "sendGiftGemsBalance": "De <%= number %> Gemas",
@@ -214,5 +214,11 @@
     "confirmAddTag": "Do you really want to add \"<%= tag %>\"?",
     "confirmRemoveTag": "Do you really want to remove \"<%= tag %>\"?",
     "assignTask": "Assign Task",
-    "claim": "Claim"
+    "claim": "Claim",
+    "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
+    "yourTaskHasBeenApproved": "Your task has been approved",
+    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>",
+    "confirmTaskApproval": "Are you sure you want to approve this task?",
+    "approve": "Approve",
+    "approvalTitle": "<%= text %> for user: <%= userName %>"
 }

@@ -100,7 +100,7 @@ mixin customizeProfile(mobile)
                 button(type='button', ng-if='user.purchased.hair.color.#{color}', class='customize-option hair hair_bangs_1_#{color}', ng-click='unlock("hair.color.#{color}")', ng-class='{selectableInventory: user.preferences.hair.color == "#{color}"}')
           +buyPref('hair.color', ['rainbow','yellow','green','purple','blue','TRUred'], 'rainbowColors')
           +buyPref('hair.color', ['pblue2','pgreen2','porange2','ppink2','ppurple2','pyellow2'], 'shimmerColors', 'disabled')
-          +buyPref('hair.color', ['candycorn','ghostwhite','halloween','midnight','pumpkin','zombie'], 'hauntedColors')
+          +buyPref('hair.color', ['candycorn','ghostwhite','halloween','midnight','pumpkin','zombie'], 'hauntedColors', 'disabled')
           +buyPref('hair.color', ['aurora','festive','hollygreen','peppermint','snowy','winterstar'], 'winteryColors', 'disabled')
 
           li.customize-menu
@@ -109,7 +109,7 @@ mixin customizeProfile(mobile)
             // Bangs
             menu(label=env.t('hairBangs'))
               button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.bangs":0})', ng-class='{selectableInventory: user.preferences.hair.bangs == 0}')
-              each num in [1,2,3]
+              each num in [1,2,3,4]
                 button(class='hair_bangs_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.bangs":#{num}})', ng-class='{selectableInventory: user.preferences.hair.bangs == "#{num}"}')
 
             // Base hairstyles (free)
@@ -128,6 +128,13 @@ mixin customizeProfile(mobile)
                 button(class='hair_base_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.base["#{num}"], selectableInventory: user.preferences.hair.base == "#{num}"}', ng-click='unlock("hair.base.#{num}")')
             menu(label=env.t('hairSet2'))
               - var styles = [9,10,11,12,13,14]
+              span(ng-hide='#{showPath("user.purchased.hair.base", styles, "&&")}')
+                +gemCost(2)
+                  button.btn.btn-xs(ng-click='#{unlockPath("hair.base", styles)}')!= env.t('unlockSet', {cost: 5}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
+              each num in styles
+                button(class='hair_base_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-class='{locked: !user.purchased.hair.base["#{num}"], selectableInventory: user.preferences.hair.base == "#{num}"}', ng-click='unlock("hair.base.#{num}")')
+            menu(label=env.t('hairSet3'))
+              - var styles = [15,16,17,18,19,20]
               span(ng-hide='#{showPath("user.purchased.hair.base", styles, "&&")}')
                 +gemCost(2)
                   button.btn.btn-xs(ng-click='#{unlockPath("hair.base", styles)}')!= env.t('unlockSet', {cost: 5}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
@@ -168,7 +175,7 @@ mixin customizeProfile(mobile)
           // Seasonal event skins. Note that Spooky Skins are a legacy set and should always be disabled for purchase
           +buyPref('skin', ['pastelPink','pastelOrange','pastelYellow','pastelGreen','pastelBlue','pastelPurple','pastelRainbowChevron','pastelRainbowDiagonal'], 'pastelSkins', 'disabled')
           +buyPref('skin', ['monster','pumpkin','skeleton','zombie','ghost','shadow'], 'spookySkins', 'disabled')
-          +buyPref('skin', ['candycorn','ogre','pumpkin2','reptile','shadow2','skeleton2','transparent','zombie2'], 'supernaturalSkins')
+          +buyPref('skin', ['candycorn','ogre','pumpkin2','reptile','shadow2','skeleton2','transparent','zombie2'], 'supernaturalSkins', 'disabled')
           +buyPref('skin', ['clownfish','deepocean','merblue','mergold','mergreen','merruby','shark','tropicalwater'], 'splashySkins', 'disabled')
 
 

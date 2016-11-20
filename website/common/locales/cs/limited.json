@@ -24,6 +24,7 @@
     "gildedTurkey": "Pozlacený krocan",
     "polarBearPup": "Lední medvídě",
     "jackolantern": "Jack-O-Lantern",
+    "ghostJackolantern": "Ghost Jack-O-Lantern",
     "seasonalShop": "Sezónní obchod",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Sezónní mudrci<%= linkEnd %>",

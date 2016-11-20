@@ -143,8 +143,8 @@
     "backgrounds022016": "Conjunto 21: Lançado em Fevereiro de 2016",
     "backgroundBambooForestText": "Floresta de Bambu",
     "backgroundBambooForestNotes": "Passeie pela Floresta de Bambu",
-    "backgroundCozyLibraryText": "Biblioteca Aconchegante",
-    "backgroundCozyLibraryNotes": "Leia na Biblioteca Aconchegante",
+    "backgroundCozyLibraryText": "Biblioteca Confortável",
+    "backgroundCozyLibraryNotes": "Leia na Biblioteca Confortável.",
     "backgroundGrandStaircaseText": "Grande Escadaria",
     "backgroundGrandStaircaseNotes": "Descer pela Grande Escadaria",
     "backgrounds032016": "Conjunto 22: Lançado em Março de 2016",
@@ -202,5 +202,12 @@
     "backgroundStrangeSewersText": "Esgotos Estranhos.",
     "backgroundStrangeSewersNotes": "Escorregue pelos Esgotos Estranhos.",
     "backgroundRainyCityText": "Cidade Chuvosa",
-    "backgroundRainyCityNotes": "Mergulhe pela Cidade Chuvosa."
+    "backgroundRainyCityNotes": "Mergulhe pela Cidade Chuvosa.",
+    "backgrounds112016": "Conjunto 30: Lançado em Novembro de 2016",
+    "backgroundMidnightCloudsText": "Nuvens da Meia-noite",
+    "backgroundMidnightCloudsNotes": "Voe através das Nuvens da Meia-noite",
+    "backgroundStormyRooftopsText": "Terraços Tempestuosos",
+    "backgroundStormyRooftopsNotes": "Rasteje através de Terraços Tempestuosos",
+    "backgroundWindyAutumnText": "Outono Ventoso",
+    "backgroundWindyAutumnNotes": "Persiga folhas durante um Outono Ventoso"
 }

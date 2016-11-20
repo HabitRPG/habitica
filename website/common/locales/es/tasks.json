@@ -74,7 +74,7 @@
     "clearTags": "Limpiar",
     "hideTags": "Ocultar",
     "showTags": "Mostrar",
-    "toRequired": "You must supply a \"to\" property",
+    "toRequired": "Debes proporcionar \"para\"",
     "startDate": "Fecha de Inicio",
     "startDateHelpTitle": "¿Cuándo debería empezar esta tarea?",
     "startDateHelp": "Fija la fecha para la que esta tarea toma efecto. No se acabará el plazo en días anteriores.",
@@ -115,7 +115,7 @@
     "rewardHelp1": "El equipamiento que compras para tu personaje se guarda en <%= linkStart %>Inventario > Equipamiento<%= linkEnd %>.",
     "rewardHelp2": "El Equipamiento afecta a tus Estadísticas (<%= linkStart %>Usuario > Estadísticas<%= linkEnd %>).",
     "rewardHelp3": "El equipamiento especial aparecerá aquí durante los Eventos Mundiales.",
-    "rewardHelp4": "</a>",
+    "rewardHelp4": "¡No tengas miedo de establecer Recompensas personalizadas!  Encuentra <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>algunos ejemplos aquí</a>.",
     "clickForHelp": "Haz click para obtener ayuda",
     "taskIdRequired": "\"taskId\" debe ser un UUID válido.",
     "taskAliasAlreadyUsed": "Este alias esta usado por otra tarea.",
@@ -134,5 +134,9 @@
     "strengthExample": "Relacionadas con el deporte y la actividad física",
     "intelligenceExample": "Relacionadas con metas académicas o que supongan un reto mental",
     "perceptionExample": "Relacionadas con el trabajo o el dinero",
-    "constitutionExample": "Relacionadas con la salud, el bienestar y la vida social"
+    "constitutionExample": "Relacionadas con la salud, el bienestar y la vida social",
+    "taskRequiresApproval": "La tarea debe ser aprobada antes de que la completes. La aprobación ya ha sido pedida.",
+    "taskApprovalHasBeenRequested": "La aprobacion ha sido enviada",
+    "approvals": "Approvals",
+    "approvalRequired": "Approval Required"
 }
