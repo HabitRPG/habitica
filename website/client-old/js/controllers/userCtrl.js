@@ -96,7 +96,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       var currentLoginDay = Content.loginIncentives[$scope.profile.loginIncentives];
       var previousRewardDay = currentLoginDay.prevRewardKey;
       var nextRewardAt = currentLoginDay.nextRewardAt;
-      return (nextRewardAt - previousRewardDay)/$scope.profile.loginIncentives * 100;
+      return ($scope.profile.loginIncentives - previousRewardDay)/(nextRewardAt - previousRewardDay) * 100;
     };
   }
 ]);
