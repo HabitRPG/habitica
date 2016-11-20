@@ -148,7 +148,7 @@ habitrpg.controller('NotificationCtrl',
             modalScope.user = User.user;
 
             var modalKey = 'login-incentives';
-            if (notification.data.reward) {
+            if (notification.data.rewardKey) {
               modalKey = 'login-incentives-reward-unlocked';
             }
 

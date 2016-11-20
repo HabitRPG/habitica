@@ -62,8 +62,8 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     18: {
-      rewardKey: 'head_special_bardHat',
-      reward: api.gear.flat.head_special_bardHat,
+      rewardKey: 'weapon_special_bardInstrument',
+      reward: api.gear.flat.weapon_special_bardInstrument,
       assignReward: function assignReward (user) {
         user.items.gear.owned.weapon_special_bardInstrument = true; // eslint-disable-line camelcase
       },
