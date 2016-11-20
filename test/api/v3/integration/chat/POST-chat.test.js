@@ -10,7 +10,7 @@ describe('POST /chat', () => {
   let user, groupWithChat, userWithChatRevoked, member;
   let testMessage = 'Test Message';
   let testBannedWordMessage = 'TEST_PLACEHOLDER_SWEAR_WORD_HERE';
-  let testSlurMessage = 'message with TEST_PLACEHOLDER_SLUR_WORD_HERE';
+  let testSlurMessage = 'message with mean things';
 
   before(async () => {
     let { group, groupLeader, members } = await createAndPopulateGroup({
@@ -197,7 +197,7 @@ describe('POST /chat', () => {
     expect(message.message.id).to.exist;
   });
 
-  it('errors and revokes privileges when chat message contains a banned slur', async () => {
+  it('returns an error when chat message contains a banned slur', async () => {
     await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testSlurMessage})).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
@@ -205,9 +205,6 @@ describe('POST /chat', () => {
     });
 
     expect(user.flags.chatRevoked).to.be.true;
-
-    user.flags.chatRevoked = false;
-    await user.save();
   });
 
   it('does not allow slurs in private gropus', async () => {
@@ -224,11 +221,6 @@ describe('POST /chat', () => {
       error: 'BadRequest',
       message: 'Your message contained inapropriate language, and your chat privileges have been revoked.',
     });
-
-    expect(user.flags.chatRevoked).to.be.true;
-
-    user.flags.chatRevoked = false;
-    await user.save();
   });
 
   it('creates a chat', async () => {
