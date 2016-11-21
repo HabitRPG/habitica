@@ -159,7 +159,9 @@ api.subscribeEdit = {
         throw new NotFound(res.t('groupNotFound'));
       }
 
-      if (!group.leader === user._id) {
+      let allowedManagers = [group.leader, group.purchased.plan.owner];
+
+      if (allowedManagers.indexOf(data.user._id) === -1) {
         throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
       }
       customerId = group.purchased.plan.customerId;
