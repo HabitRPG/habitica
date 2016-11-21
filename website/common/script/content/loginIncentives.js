@@ -3,125 +3,141 @@ import _ from 'lodash';
 module.exports = function getLoginIncentives (api) {
   let loginIncentives = {
     1: {
-      rewardKey: 'armor_special_bardRobes',
-      reward: api.gear.flat.armor_special_bardRobes,
+      rewardKey: ['armor_special_bardRobes'],
+      reward: [api.gear.flat.armor_special_bardRobes],
       assignReward: function assignReward (user) {
         user.items.gear.owned.armor_special_bardRobes = true; // eslint-disable-line camelcase
       },
     },
     2: {
-      rewardKey: 'incentiveBackgrounds',
-      reward: api.backgrounds.incentiveBackgrounds,
+      rewardKey: ['incentiveBackgrounds'],
+      reward: [api.backgrounds.incentiveBackgrounds],
       assignReward: function assignReward (user) {
         user.purchased.background.incentiveBackgrounds = true;
       },
     },
     3: {
-      rewardKey: 'head_special_bardHat',
-      reward: api.gear.flat.head_special_bardHat,
+      rewardKey: ['head_special_bardHat'],
+      reward: [api.gear.flat.head_special_bardHat],
       assignReward: function assignReward (user) {
         user.items.gear.owned.head_special_bardHat = true; // eslint-disable-line camelcase
       },
     },
     4: {
-      rewardKey: 'Pet_HatchingPotion_Purple',
-      reward: api.hatchingPotions.Purple,
+      rewardKey: ['Pet_HatchingPotion_RoyalPurple'],
+      reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
-        if (!user.items.hatchingPotions.Purple) user.items.hatchingPotions.Purple = 0;
-        user.items.hatchingPotions.Purple += 1;
+        if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
+        user.items.hatchingPotions.RoyalPurple += 1;
       },
     },
     5: {
-      rewardKey: 'Pet_Currency_Gem2x Gems',
-      reward: api.balance,
+      rewardKey: ['Pet_Food_Chocolate', 'Pet_Food_Meat', 'Pet_Food_CottonCandyPink'],
+      reward: [api.food.Chocolate, api.food.Meat, api.food.CottonCandyPink],
       assignReward: function assignReward (user) {
-        user.balance += 4 * 5;
+        if (!user.items.food.Chocolate) user.items.food.Chocolate = 0;
+        user.items.food.Chocolate += 1;
+        if (!user.items.food.Meat) user.items.food.Meat = 0;
+        user.items.food.Meat += 1;
+        if (!user.items.food.CottonCandyPink) user.items.food.CottonCandyPink = 0;
+        user.items.food.CottonCandyPink += 1;
       },
     },
     7: {
-      rewardKey: 'moon1',
-      reward: api.quests.moon1,
+      rewardKey: ['moon1'],
+      reward: [api.quests.moon1],
       assignReward: function assignReward (user) {
         if (!user.items.quests.moon1) user.items.quests.moon1 = 0;
         user.items.quests.moon1 += 1;
       },
     },
     10: {
-      rewardKey: 'Purple',
-      reward: api.hatchingPotions.Purple,
+      rewardKey: ['RoyalPurple'],
+      reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
-        if (!user.items.hatchingPotions.Purple) user.items.hatchingPotions.Purple = 0;
-        user.items.hatchingPotions.Purple += 1;
+        if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
+        user.items.hatchingPotions.RoyalPurple += 1;
       },
     },
     14: {
-      rewardKey: 'Pet_Currency_Gem2x Gems',
-      reward: '',
+      rewardKey: ['Pet_Food_Strawberry', 'Pet_Food_Patatoe', 'Pet_Food_CottonCandyBlue'],
+      reward: [api.food.Strawberry, api.food.Patatoe, api.food.CottonCandyBlue],
       assignReward: function assignReward (user) {
-        user.balance += 4 * 3;
+        if (!user.items.food.Strawberry) user.items.food.Strawberry = 0;
+        user.items.food.Strawberry += 1;
+        if (!user.items.food.Patatoe) user.items.food.Patatoe = 0;
+        user.items.food.Patatoe += 1;
+        if (!user.items.food.CottonCandyBlue) user.items.food.CottonCandyBlue = 0;
+        user.items.food.CottonCandyBlue += 1;
       },
     },
     18: {
-      rewardKey: 'weapon_special_bardInstrument',
-      reward: api.gear.flat.weapon_special_bardInstrument,
+      rewardKey: ['weapon_special_bardInstrument'],
+      reward: [api.gear.flat.weapon_special_bardInstrument],
       assignReward: function assignReward (user) {
         user.items.gear.owned.weapon_special_bardInstrument = true; // eslint-disable-line camelcase
       },
     },
     22: {
-      rewardKey: 'moon2',
-      reward: api.quests.moon2,
+      rewardKey: ['moon2'],
+      reward: [api.quests.moon2],
       assignReward: function assignReward (user) {
         if (!user.items.quests.moon2) user.items.quests.moon2 = 0;
         user.items.quests.moon2 += 1;
       },
     },
     26: {
-      rewardKey: 'Purple',
-      reward: api.hatchingPotions.Purple,
+      rewardKey: ['RoyalPurple'],
+      reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
-        if (!user.items.hatchingPotions.Purple) user.items.hatchingPotions.Purple = 0;
-        user.items.hatchingPotions.Purple += 1;
+        if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
+        user.items.hatchingPotions.RoyalPurple += 1;
       },
     },
     30: {
-      rewardKey: 'Pet_Currency_Gem2x Gems',
-      reward: '',
+      rewardKey: ['Pet_Food_Fish', 'Pet_Food_Milk', 'Pet_Food_RottenMeat', 'Pet_Food_Honey'],
+      reward: [api.food.Fish, api.food.Milk, api.food.RottenMeat, api.food.Honey],
       assignReward: function assignReward (user) {
-        user.balance += 4 * 3;
+        if (!user.items.food.Fish) user.items.food.Fish = 0;
+        user.items.food.Fish += 1;
+        if (!user.items.food.Milk) user.items.food.Milk = 0;
+        user.items.food.Milk += 1;
+        if (!user.items.food.RottenMeat) user.items.food.RottenMeat = 0;
+        user.items.food.RottenMeat += 1;
+        if (!user.items.food.Honey) user.items.food.Honey = 0;
+        user.items.food.Honey += 1;
       },
     },
     35: {
-      rewardKey: 'Purple',
-      reward: api.hatchingPotions.Purple,
+      rewardKey: ['RoyalPurple'],
+      reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
-        if (!user.items.hatchingPotions.Purple) user.items.hatchingPotions.Purple = 0;
-        user.items.hatchingPotions.Purple += 1;
+        if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
+        user.items.hatchingPotions.RoyalPurple += 1;
       },
     },
     40: {
-      rewardKey: 'moon3',
-      reward: api.quests.moon3,
+      rewardKey: ['moon3'],
+      reward: [api.quests.moon3],
       assignReward: function assignReward (user) {
         if (!user.items.quests.moon3) user.items.quests.moon3 = 0;
         user.items.quests.moon3 += 1;
       },
     },
     45: {
-      rewardKey: 'Purple',
-      reward: api.hatchingPotions.Purple,
+      rewardKey: ['RoyalPurple'],
+      reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
-        if (!user.items.hatchingPotions.Purple) user.items.hatchingPotions.Purple = 0;
-        user.items.hatchingPotions.Purple += 1;
+        if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
+        user.items.hatchingPotions.RoyalPurple += 1;
       },
     },
     50: {
-      rewardKey: 'Saddle',
-      reward: api.food.Saddle,
+      rewardKey: ['Saddle'],
+      reward: [api.food.Saddle],
       assignReward: function assignReward (user) {
         if (!user.items.food.Saddle) user.items.food.Saddle = 0;
         user.items.food.Saddle += 1;
-        user.balance += 4 * 5;
       },
     },
   };
