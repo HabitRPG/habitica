@@ -103,6 +103,7 @@ api.createSubscription = async function createSubscription (data) {
       // Specify a lastBillingDate just for Amazon Payments
       // Resetted every time the subscription restarts
       lastBillingDate: data.paymentMethod === 'Amazon Payments' ? today : undefined,
+      owner: data.user._id,
     }).defaults({ // allow non-override if a plan was previously used
       gemsBought: 0,
       dateCreated: today,
@@ -217,7 +218,9 @@ api.cancelSubscription = async function cancelSubscription (data) {
       throw new NotFound(shared.i18n.t('groupNotFound'));
     }
 
-    if (!group.leader === data.user._id) {
+    let allowedManagers = [group.leader, group.purchased.plan.owner];
+
+    if (allowedManagers.indexOf(data.user._id) === -1) {
       throw new NotAuthorized(shared.i18n.t('onlyGroupLeaderCanManageSubscription'));
     }
     plan = group.purchased.plan;

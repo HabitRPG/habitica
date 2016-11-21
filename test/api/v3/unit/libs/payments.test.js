@@ -9,6 +9,7 @@ import moment from 'moment';
 import {
   generateGroup,
 } from '../../../../helpers/api-unit.helper.js';
+import i18n from '../../../../../website/common/script/i18n';
 
 describe('payments/index', () => {
   let user, group, data, plan;
@@ -619,6 +620,39 @@ describe('payments/index', () => {
 
         expect(sender.sendTxn).to.be.calledOnce;
         expect(sender.sendTxn).to.be.calledWith(user, 'group-cancel-subscription');
+      });
+
+      it('prevents non group leader from manging subscription', async () => {
+        let groupMember = new User();
+        data.user = groupMember;
+        data.groupId = group._id;
+
+        await expect(api.cancelSubscription(data))
+          .eventually.be.rejected.and.to.eql({
+            httpCode: 401,
+            message: i18n.t('onlyGroupLeaderCanManageSubscription'),
+            name: 'NotAuthorized',
+          });
+      });
+
+      it('allows old group leader to cancel if they created the subscription', async () => {
+        data.groupId = group._id;
+        data.sub = {
+          key: 'group_monthly',
+        };
+        data.paymentMethod = 'Payment Method';
+        await api.createSubscription(data);
+
+        let updatedGroup = await Group.findById(group._id).exec();
+        let newLeader = new User();
+        updatedGroup.leader = newLeader._id;
+        await updatedGroup.save();
+
+        await api.cancelSubscription(data);
+
+        updatedGroup = await Group.findById(group._id).exec();
+
+        expect(updatedGroup.purchased.plan.dateTerminated).to.exist;
       });
     });
   });
