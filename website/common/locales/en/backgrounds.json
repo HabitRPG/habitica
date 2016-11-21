@@ -1,5 +1,7 @@
 {
   "backgrounds": "Backgrounds",
+  "background": "Background",
+  "noBackground": "No Background Selected",
 
   "backgrounds062014": "SET 1: Released June 2014",
   "backgroundBeachText":"Beach",

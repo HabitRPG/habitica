@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$http', '$state', 'Guide', 'Shared', 'Content', 'Stats', 'Social',
-  function($rootScope, $scope, $location, User, $http, $state, Guide, Shared, Content, Stats, Social) {
+habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$http', '$state', 'Guide', 'Shared', 'Content', 'Stats', 'Social', 'Costume',
+  function($rootScope, $scope, $location, User, $http, $state, Guide, Shared, Content, Stats, Social, Costume) {
     $scope.profile = User.user;
 
     $scope.statCalc = Stats;
@@ -15,6 +15,8 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
     $scope.$watch('_editing.profile', function(value){
       if(value === true) $scope.editingProfile = angular.copy(User.user.profile);
     });
+    
+    $scope.costume = Costume;
 
     $scope.allocate = function(stat){
       User.allocate({query:{stat:stat}});
