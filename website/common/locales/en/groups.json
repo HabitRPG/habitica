@@ -228,5 +228,6 @@
     "claimTasksBenifitTitle": "Claim Tasks",
     "assignTasksBenifitDescription": "Allow members to claim group tasks",
     "approveTasksBenifitTitle": "Approve Tasks",
-    "approveTasksBenifitDescription": "Assign tasks that need approval and manage approvals requested by your members"
+    "approveTasksBenifitDescription": "Assign tasks that need approval and manage approvals requested by your members",
+    "cannotDeleteActiveGroup": "You cannot remove a group with an active subscription"
 }

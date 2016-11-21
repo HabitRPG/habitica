@@ -649,7 +649,7 @@ describe('Group Model', () => {
           .to.eventually.be.rejected.and.to.eql({
             name: 'NotAuthorized',
             httpCode: 401,
-            message: shared.i18n.t('cannotDeleteActiveAccount'),
+            message: shared.i18n.t('cannotDeleteActiveGroup'),
           });
 
         party = await Group.findOne({_id: party._id});
