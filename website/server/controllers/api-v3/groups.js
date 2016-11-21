@@ -463,7 +463,7 @@ api.leaveGroup = {
 
     await group.leave(user, req.query.keep);
 
-    if (group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
+    if (group.purchased.plan && group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
 
     _removeMessagesFromMember(user, group._id);
 
