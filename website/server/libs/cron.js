@@ -129,7 +129,7 @@ function trackCronAnalytics (analytics, user, _progress, options) {
 }
 
 function awardLoginIncentives (user) {
-  if (user.loginIncentives >= 50) return;
+  if (user.loginIncentives > 50) return;
   let notificationData = {};
   notificationData.message = i18n.t('checkinEarned');
 
