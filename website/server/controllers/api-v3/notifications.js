@@ -65,7 +65,7 @@ api.readNotification = {
     if (validationErrors) throw validationErrors;
 
     let notifications = req.body.notificationIds;
-    for (var notification of notifications) {
+    for (let notification of notifications) {
       let index = _.findIndex(user.notifications, {
         id: notification,
       });
