@@ -52,7 +52,7 @@ api.readNotification = {
  *
  * @apiSuccess {Object} data user.notifications
  */
-api.readNotification = {
+api.readNotifications = {
   method: 'POST',
   url: '/notifications',
   middlewares: [authWithHeaders()],

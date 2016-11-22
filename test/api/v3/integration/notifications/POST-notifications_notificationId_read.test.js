@@ -4,7 +4,7 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
-describe('POST /notifications/:notificationId/read', () => {
+describe.only('POST /notifications/:notificationId/read', () => {
   let user;
 
   before(async () => {
