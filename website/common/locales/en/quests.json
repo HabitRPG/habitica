@@ -102,5 +102,7 @@
     "onlyLeaderCancelQuest": "Only the group or quest leader can cancel the quest.",
     "questInvitationDoesNotExist": "No quest invitation has been sent out yet.",
     "questNotPending": "There is no quest to start.",
-    "questOrGroupLeaderOnlyStartQuest": "Only the quest leader or group leader can force start the quest"
+    "questOrGroupLeaderOnlyStartQuest": "Only the quest leader or group leader can force start the quest",
+    "createAccountReward": "You received this quest as a reward for creating your Habitica account!",
+    "loginReward": "Awarded after <%= count %> daily check-ins"
 }

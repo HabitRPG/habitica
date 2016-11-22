@@ -79,9 +79,9 @@ let premium = {
     limited: true,
     _season: 'fall',
   },
-  Purple: {
+  RoyalPurple: {
     value: 2,
-    text: t('hatchingPotionPurple'),
+    text: t('hatchingPotionRoyalPurple'),
     limited: true,
   },
 };
