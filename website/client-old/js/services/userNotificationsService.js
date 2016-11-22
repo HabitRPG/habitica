@@ -21,7 +21,7 @@ angular.module('habitrpg')
 
       return $http({
         method: 'POST',
-        url: 'api/v3/notifications/',
+        url: 'api/v3/notifications/read',
         data: {notificationIds: notificationIds},
       });
     };

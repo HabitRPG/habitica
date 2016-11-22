@@ -54,7 +54,7 @@ api.readNotification = {
  */
 api.readNotifications = {
   method: 'POST',
-  url: '/notifications',
+  url: '/notifications/read',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
