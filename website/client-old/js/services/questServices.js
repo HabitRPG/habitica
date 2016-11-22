@@ -21,20 +21,6 @@ angular.module('habitrpg')
         return 'No quest with that key found';
       }
 
-      if (quest.unlockCondition && quest.unlockCondition.condition === 'create account') {
-        alert(window.env.t('createAccountQuest'));
-        return 'unlockByNewAccount';
-      }
-
-      if (quest.unlockCondition && quest.unlockCondition.condition === 'login incentive') {
-        if (user.loginIncentives > quest.unlockCondition.incentiveThreshold) {
-          alert(window.env.t('loginIncentiveQuestObtained', {count: quest.unlockCondition.incentiveThreshold}));
-        } else {
-          alert(window.env.t('loginIncentiveQuest', {count: quest.unlockCondition.incentiveThreshold}));
-        }
-        return 'unlockByCheckin';
-      }
-
       if (quest.previous && (!user.achievements.quests || (user.achievements.quests && !user.achievements.quests[quest.previous]))){
         alert(window.env.t('unlockByQuesting', {title: Content.quests[quest.previous].text()}));
         return 'unlockByQuesting';
@@ -63,6 +49,20 @@ angular.module('habitrpg')
           if (!confirm(window.env.t('mustInviteFriend'))) return reject('Did not want to invite friends');
           Groups.inviteOrStartParty(party)
           return reject('Invite or start party');
+        }
+
+        if (item.unlockCondition && item.unlockCondition.condition === 'create account') {
+          alert(window.env.t('createAccountQuest'));
+          return reject('Awarded to new accounts');
+        }
+
+        if (item.unlockCondition && item.unlockCondition.condition === 'login incentive') {
+          if (user.loginIncentives > item.unlockCondition.incentiveThreshold) {
+            alert(window.env.t('loginIncentiveQuestObtained', {count: item.unlockCondition.incentiveThreshold}));
+          } else {
+            alert(window.env.t('loginIncentiveQuest', {count: item.unlockCondition.incentiveThreshold}));
+          }
+          return reject('Login incentive item');
         }
 
         resolve(item);
