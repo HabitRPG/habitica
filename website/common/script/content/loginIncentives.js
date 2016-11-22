@@ -52,7 +52,7 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     10: {
-      rewardKey: ['RoyalPurple'],
+      rewardKey: ['Pet_HatchingPotion_Purple'],
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
@@ -87,7 +87,7 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     26: {
-      rewardKey: ['RoyalPurple'],
+      rewardKey: ['Pet_HatchingPotion_Purple'],
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
@@ -109,7 +109,7 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     35: {
-      rewardKey: ['RoyalPurple'],
+      rewardKey: ['Pet_HatchingPotion_Purple'],
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
@@ -125,7 +125,7 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     45: {
-      rewardKey: ['RoyalPurple'],
+      rewardKey: ['Pet_HatchingPotion_Purple'],
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
@@ -133,7 +133,7 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     50: {
-      rewardKey: ['Saddle'],
+      rewardKey: ['Pet_Food_Saddle'],
       reward: [api.food.Saddle],
       assignReward: function assignReward (user) {
         if (!user.items.food.Saddle) user.items.food.Saddle = 0;

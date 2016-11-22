@@ -129,6 +129,7 @@ function trackCronAnalytics (analytics, user, _progress, options) {
 }
 
 function awardLoginIncentives (user) {
+  if (user.loginIncentives >= 50) return;
   let notificationData = {};
   notificationData.message = i18n.t('checkinEarned');
 
@@ -137,7 +138,7 @@ function awardLoginIncentives (user) {
   if (loginIncentive.rewardKey) {
     loginIncentive.assignReward(user);
     notificationData.reward = loginIncentive.reward;
-    // notificationData.rewardText = loginIncentive.reward[0].text();
+    notificationData.rewardText = loginIncentive.reward[0].text();
     notificationData.rewardKey = loginIncentive.rewardKey;
     notificationData.message = i18n.t('unlockedCheckInReward');
   }
