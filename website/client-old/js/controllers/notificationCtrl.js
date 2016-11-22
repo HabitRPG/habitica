@@ -1,8 +1,8 @@
 'use strict';
 
 habitrpg.controller('NotificationCtrl',
-  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement',
-  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement) {
+  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement', 'Social',
+  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement, Social) {
 
     $rootScope.$watch('user.stats.hp', function (after, before) {
       if (after <= 0){
@@ -146,6 +146,7 @@ habitrpg.controller('NotificationCtrl',
             var nextRewardKey = Shared.content.loginIncentives[User.user.loginIncentives].nextRewardAt;
             modalScope.nextReward = Shared.content.loginIncentives[nextRewardKey];
             modalScope.user = User.user;
+            modalScope.loadWidgets = Social.loadWidgets;
 
             var modalKey = 'login-incentives';
             if (notification.data.rewardKey) {
@@ -155,7 +156,7 @@ habitrpg.controller('NotificationCtrl',
             $rootScope.openModal(modalKey, {
               scope: modalScope
             });
-            markAsRead = false;
+
             break;
           default:
             markAsRead = false; // If the notification is not implemented, skip it

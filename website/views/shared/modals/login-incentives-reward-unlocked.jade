@@ -1,7 +1,7 @@
 script(id='modals/login-incentives-reward-unlocked.html', type='text/ng-template')
   .modal-header.text-center
     h2 {{data.message}}
-    h3 {{env.t('unlockedReward', {reward: data.reward.text})}}
+    h3 {{env.t('unlockedReward', {reward: data.rewardText})}}
   .modal-body
     .row
       div.text-center.col-md-4(ng-controller='UserCtrl')
@@ -9,17 +9,19 @@ script(id='modals/login-incentives-reward-unlocked.html', type='text/ng-template
           .character-sprites
             +generatedAvatar()
       div.text-center.col-md-4
-        img
+        div.inventory_present_11(style="margin: 0 auto;margin-top: 3.5rem;")
       div.text-center.col-md-4
-        span(class="{{nextReward.rewardKey}}")
+        div(class="{{data.rewardKey[0]}}")
     .row
       .col-md-6.col-md-offset-3.text-center
-        p {{env.t('earnedRewardForDevotion', {reward: data.reward.text})}}
+        p {{env.t('earnedRewardForDevotion', {reward: data.rewardText})}}
       .col-md-12.text-center
         p {{env.t('nextRewardUnlocksIn', {numberOfCheckinsLeft: data.nextRewardAt - user.loginIncentives})}}
   .modal-footer
-    a.btn.btn-primary.col-md-6.col-md-offset-3(ng-click='$close()')=env.t('awesome')
-    row
+    .row
+      a.btn.btn-primary.col-md-6.col-md-offset-3(ng-click='$close()')=env.t('awesome')
+    br
+    .row(ng-init="loadWidgets()")
       .col-xs-3
         a.twitter-share-button(href='https://twitter.com/intent/tweet?text=#{tweet}&via=habitica&url=#{env.BASE_URL}/social/level-up&count=none')=env.t('tweet')
       .col-xs-4(style='margin-left:.8em')

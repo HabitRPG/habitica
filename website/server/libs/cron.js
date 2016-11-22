@@ -130,17 +130,19 @@ function trackCronAnalytics (analytics, user, _progress, options) {
 
 function awardLoginIncentives (user) {
   let notificationData = {};
+  notificationData.message = i18n.t('checkinEarned');
 
   let loginIncentive = loginIncentives[user.loginIncentives];
+
   if (loginIncentive.rewardKey) {
     loginIncentive.assignReward(user);
     notificationData.reward = loginIncentive.reward;
+    notificationData.rewardText = loginIncentive.reward[0].text();
     notificationData.rewardKey = loginIncentive.rewardKey;
+    notificationData.message = i18n.t('unlockedCheckInReward');
   }
 
   notificationData.nextRewardAt = loginIncentives[user.loginIncentives].nextRewardAt;
-
-  notificationData.message = i18n.t('checkinEarned');
   user.addNotification('LOGIN_INCENTIVE', notificationData);
 }
 
