@@ -2681,6 +2681,7 @@ api.quests = {
     category: 'unlockable',
     unlockCondition: {
       condition: 'login incentive',
+      incentiveThreshold: 7,
       text: t('loginReward', {count: 7})
     },
     collect: {
@@ -2710,6 +2711,7 @@ api.quests = {
     category: 'unlockable',
     unlockCondition: {
       condition: 'login incentive',
+      incentiveThreshold: 22,
       text: t('loginReward', {count: 22})
     },
     boss: {
@@ -2738,6 +2740,7 @@ api.quests = {
     category: 'unlockable',
     unlockCondition: {
       condition: 'login incentive',
+      incentiveThreshold: 40,
       text: t('loginReward', {count: 40})
     },
     boss: {
