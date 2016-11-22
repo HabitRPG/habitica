@@ -454,7 +454,7 @@
   "questMoon1Notes": "Habiticans have been distracted from their tasks by something strange: twisted shards of stone are appearing across the land. Worried, @Starsystemic the Seer summons you to her tower. She says, \"I've been reading alarming omens about these shards, which have been blighting the land and driving hardworking Habiticans to distraction. I can track the source, but first I'll need to examine the shards. Can you bring some to me?\"",
   "questMoon1Completion": "@Starststemic disappears into her tower to examine the shards you gathered. \"This may be more complicated than we feared,\" says @Beffymaroo, her trusted assistant. \"It will take us some time to discover the cause. Keep checking in every day, and when we know more, we'll send you the next quest scroll.\"",
   "questMoon1CollectShards": "Lunar Shards",
-  "questMoon1DropHelm": "Lunar Warrior Helm (Headgear)",
+  "questMoon1DropHeadgear": "Lunar Warrior Helm (Headgear)",
 
   "questMoon2Text": "Lunar Battle, Part 2: Stop the Overshadowing Stress",
   "questMoon2Notes": "After studying the shards, @Starsystemic the Seer has some bad news. \"An ancient monster is approaching Habitica, and it is causing terrible stress to befall the citizens. I can draw the shadow out of people's hearts and into this tower, where it will take physical form, but you’ll need to defeat it before it breaks loose and spreads again.\" You nod, and she starts to chant. Dancing shadows fill the room, pressing tightly together. The cold wind swirls, the darkness deepens. The Overshadowing Stress rises from the floor, grins like a nightmare made real... and strikes!",

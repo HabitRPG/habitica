@@ -2685,7 +2685,7 @@ api.quests = {
     },
     collect: {
       shard: {
-        text: t('questMoon2CollectShards'),
+        text: t('questMoon1CollectShards'),
         count: 20
       },
     },

@@ -103,6 +103,6 @@
     "questInvitationDoesNotExist": "No quest invitation has been sent out yet.",
     "questNotPending": "There is no quest to start.",
     "questOrGroupLeaderOnlyStartQuest": "Only the quest leader or group leader can force start the quest",
-    "createAccountReward": "You received this quest as a reward for creating your Habitica account!",
-    "loginReward": "Awarded after <%= count %> daily check-ins"
+    "createAccountReward": "Create Account",
+    "loginReward": "<%= count %> Check-ins"
 }
