@@ -104,5 +104,8 @@
     "questNotPending": "There is no quest to start.",
     "questOrGroupLeaderOnlyStartQuest": "Only the quest leader or group leader can force start the quest",
     "createAccountReward": "Create Account",
-    "loginReward": "<%= count %> Check-ins"
+    "loginIncentiveQuest": "To earn this quest, check in to Habitica on <%= count %> different days!",
+    "loginIncentiveQuestObtained": "You earned this quest by checking in to Habitica on <%= count %> different days!",
+    "loginReward": "<%= count %> Check-ins",
+    "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too."
 }
