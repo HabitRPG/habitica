@@ -23,8 +23,9 @@ script(id='modals/login-incentives-reward-unlocked.html', type='text/ng-template
     br
     .row(ng-init="loadWidgets()")
       .col-xs-3
-        a.twitter-share-button(href='https://twitter.com/intent/tweet?text=#{tweet}&via=habitica&url=#{env.BASE_URL}/social/level-up&count=none')=env.t('tweet')
+        - var tweet = "I have kept consitent with my new goals and have been rewarded!"
+        a.twitter-share-button(href='https://twitter.com/intent/tweet?text=#{tweet}&via=habitica&url=#{env.BASE_URL}/login-incentive-unlocked&count=none')=env.t('tweet')
       .col-xs-4(style='margin-left:.8em')
-        .fb-share-button(data-href='#{env.BASE_URL}/social/level-up', data-layout='button')
+        .fb-share-button(data-href='#{env.BASE_URL}/social/login-incentive-unlocked', data-layout='button')
       .col-xs-4(style='margin-left:.8em')
-        a.tumblr-share-button(data-href='#{env.BASE_URL}/social/level-up', data-notes='none')
+        a.tumblr-share-button(data-href='#{env.BASE_URL}/social/login-incentive-unlocked', data-notes='none')
