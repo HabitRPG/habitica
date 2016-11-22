@@ -13,6 +13,11 @@ angular.module('habitrpg')
       });
 
     function lockQuest(quest,ignoreLevel) {
+      if (!ignoreLevel){
+        if (quest.lvl && user.stats.lvl < quest.lvl) return true;
+      }
+      if (user.achievements.quests) return (quest.previous && !user.achievements.quests[quest.previous]);
+
       return quest.locked;
     }
 
