@@ -74,16 +74,29 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       User.unlock({query:{path:path}})
     }
 
-    $scope.ownsSet = function(type,_set) {
-      return !_.find(_set,function(v,k){
+    $scope.ownsSet = function(type, _set) {
+      return !_.find(_set,function(v,k) {
         return !User.user.purchased[type][k];
       });
-    }
-    $scope.setKeys = function(type,_set){
-      return _.map(_set, function(v,k){
+    };
+
+    $scope.setKeys = function(type, _set) {
+      return _.map(_set, function(v,k) {
         return type+'.'+k;
       }).join(',');
-    }
+    };
 
+    $scope.getProgressDisplay = function () {
+      var currentLoginDay = Content.loginIncentives[$scope.profile.loginIncentives];
+      var nextRewardAt = currentLoginDay.nextRewardAt;
+      return ' ' + $scope.profile.loginIncentives + '/' + nextRewardAt;
+    };
+
+    $scope.incentivesProgress = function () {
+      var currentLoginDay = Content.loginIncentives[$scope.profile.loginIncentives];
+      var previousRewardDay = currentLoginDay.prevRewardKey;
+      var nextRewardAt = currentLoginDay.nextRewardAt;
+      return ($scope.profile.loginIncentives - previousRewardDay)/(nextRewardAt - previousRewardDay) * 100;
+    };
   }
 ]);

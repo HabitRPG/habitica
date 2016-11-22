@@ -23,6 +23,7 @@ import appearances from './appearance';
 import backgrounds from './appearance/backgrounds.js'
 import spells from './spells';
 import faq from './faq';
+import loginIncentives from './loginIncentives';
 
 api.mystery = mysterySets;
 
@@ -2884,3 +2885,5 @@ api.userDefaults = {
 };
 
 api.faq = faq;
+
+api.loginIncentives = loginIncentives(api);

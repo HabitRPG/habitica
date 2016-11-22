@@ -1,0 +1,23 @@
+script(id='modals/login-incentives.html', type='text/ng-template')
+  .modal-header.text-center
+    h2 {{data.message}}
+  .modal-body
+    .row
+      div.text-center.col-md-4
+        h2 {{env.t('totalCount', {count: user.loginIncentives})}}
+      div.text-center.col-md-4(ng-controller='UserCtrl')
+        figure.herobox.text-center(style="margin-left:-4em;")
+          .character-sprites
+            +generatedAvatar()
+      div.text-center.col-md-4
+        div(class="{{nextReward.rewardKey[0]}}", style="margin: 0 auto;margin-top: 2.5rem;")
+        h3 {{env.t('countLeft', {count: data.nextRewardAt - user.loginIncentives})}}
+    .row
+      .col-md-6.col-md-offset-3.text-center
+        p=env.t('incentivesDescription')
+      .col-md-12.text-center
+        p {{env.t('totalCheckins', {count: user.loginIncentives})}}
+      .col-md-12.text-center(ng-show="user.loginIncentives < 50")
+        p {{env.t('nextRewardUnlocksIn', {numberOfCheckinsLeft: data.nextRewardAt - user.loginIncentives})}}
+  .modal-footer
+    a.btn.btn-primary.col-md-6.col-md-offset-3(ng-click='$close()')=env.t('awesome')

@@ -1,0 +1,31 @@
+script(id='modals/login-incentives-reward-unlocked.html', type='text/ng-template')
+  .modal-header.text-center
+    h2 {{data.message}}
+    h3 {{env.t('unlockedReward', {reward: data.rewardText})}}
+  .modal-body
+    .row
+      div.text-center.col-md-4(ng-controller='UserCtrl')
+        figure.herobox.text-center(style="margin-left:-4em;")
+          .character-sprites
+            +generatedAvatar()
+      div.text-center.col-md-4
+        div.inventory_present_11(style="margin: 0 auto;margin-top: 3.5rem;")
+      div.text-center.col-md-4
+        div(class="{{data.rewardKey[0]}}", style="margin: 0 auto;margin-top: 2.5rem;")
+    .row
+      .col-md-6.col-md-offset-3.text-center
+        p {{env.t('earnedRewardForDevotion', {reward: data.rewardText})}}
+      .col-md-12.text-center
+        p {{env.t('nextRewardUnlocksIn', {numberOfCheckinsLeft: data.nextRewardAt - user.loginIncentives})}}
+  .modal-footer
+    .row
+      a.btn.btn-primary.col-md-6.col-md-offset-3(ng-click='$close()')=env.t('awesome')
+    br
+    .row(ng-init="loadWidgets()")
+      .col-xs-3
+        - var tweet = "I have kept consitent with my new goals and have been rewarded!"
+        a.twitter-share-button(href='https://twitter.com/intent/tweet?text=#{tweet}&via=habitica&url=#{env.BASE_URL}/login-incentive-unlocked&count=none')=env.t('tweet')
+      .col-xs-4(style='margin-left:.8em')
+        .fb-share-button(data-href='#{env.BASE_URL}/social/login-incentive-unlocked', data-layout='button')
+      .col-xs-4(style='margin-left:.8em')
+        a.tumblr-share-button(data-href='#{env.BASE_URL}/social/login-incentive-unlocked', data-notes='none')

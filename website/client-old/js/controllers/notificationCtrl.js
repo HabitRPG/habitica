@@ -1,8 +1,8 @@
 'use strict';
 
 habitrpg.controller('NotificationCtrl',
-  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement',
-  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement) {
+  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement', 'Social',
+  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement, Social) {
 
     $rootScope.$watch('user.stats.hp', function (after, before) {
       if (after <= 0){
@@ -86,6 +86,7 @@ habitrpg.controller('NotificationCtrl',
     function handleUserNotifications (after) {
       if (!after || after.length === 0) return;
 
+      var notificationsToRead = [];
       after.forEach(function (notification) {
         if (lastShownNotifications.indexOf(notification.id) !== -1) {
           return;
@@ -140,14 +141,33 @@ habitrpg.controller('NotificationCtrl',
             trasnferGroupNotification(notification);
             markAsRead = false;
             break;
+          case 'LOGIN_INCENTIVE':
+            var modalScope = $rootScope.$new();
+            modalScope.data = notification.data;
+            var nextRewardKey = Shared.content.loginIncentives[User.user.loginIncentives].nextRewardAt;
+            modalScope.nextReward = Shared.content.loginIncentives[nextRewardKey];
+            modalScope.user = User.user;
+            modalScope.loadWidgets = Social.loadWidgets;
+
+            var modalKey = 'login-incentives';
+            if (notification.data.rewardKey) {
+              modalKey = 'login-incentives-reward-unlocked';
+            }
+
+            $rootScope.openModal(modalKey, {
+              scope: modalScope
+            });
+
+            break;
           default:
             markAsRead = false; // If the notification is not implemented, skip it
             break;
         }
 
-        if (markAsRead) User.readNotification(notification.id);
+        if (markAsRead) notificationsToRead.push(notification.id);
       });
 
+      User.readNotifications(notificationsToRead);
       User.user.notifications = []; // reset the notifications
     }
 

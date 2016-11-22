@@ -269,6 +269,16 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
           =env.t('none')
           | &nbsp;-
         //{{profile.profile.blurb | linky:'_blank'}}
+    .row
+      .col-md-6
+        h4=env.t('totalCheckinsTitle')
+        span {{env.t('totalCheckins', {count: user.loginIncentives})}}
+      .col-md-6
+        h4=env.t('checkinProgressTitle')
+          | {{::getProgressDisplay()}}
+        .progress
+          .progress-bar(role='progressbar', aria-valuenow='{{::incentivesProgress()}}', aria-valuemin='0', aria-valuemax='100', style='width: {{::incentivesProgress()}}%;')
+            span.sr-only {{::incentivesProgress()}}% Complete
 
       form.col-md-4(ng-show='_editing.profile', ng-submit='save()')
         .alert.alert-info.alert-sm
