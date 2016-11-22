@@ -2653,42 +2653,52 @@ api.quests = {
       unlock: t('questFerretUnlockText'),
     },
   },
+  dustbunnies: {
+    text: t('questDustBunniesText'),
+    notes: t('questDustBunniesNotes'),
+    completion: t('questDustBunniesCompletion'),
+    value: 4,
+    category: 'unlockable',
+    unlockCondition: {
+      condition: 'create account',
+      text: t('createAccountReward')
+    },
+    boss: {
+      name: t('questDustBunniesBoss'),
+      hp: 100,
+      str: 0.5
+    },
+    drop: {
+      gp: 8,
+      exp: 42
+    }
+  },
   moon1: {
     text: t('questMoon1Text'),
     notes: t('questMoon1Notes'),
     completion: t('questMoon1Completion'),
     value: 4,
-    goldValue: 200,
-    category: 'gold',
-    boss: {
-      name: t('questMoon1Boss'),
-      hp: 500,
-      rage: {
-        title: t("questMoon1RageTitle"),
-        description: t("questMoon1RageDescription"),
-        value: 50,
-        healing: .3,
-        effect: t('questMoon1RageEffect')
-      }
+    category: 'unlockable',
+    unlockCondition: {
+      condition: 'login incentive',
+      text: t('loginReward', {count: 7})
+    },
+    collect: {
+      shard: {
+        text: t('questMoon2CollectShards'),
+        count: 20
+      },
     },
     drop: {
       items: [
         {
-          type: 'hatchingPotions',
-          key: 'Skeleton',
-          text: t('questMoon1DropSkeletonPotion')
-        }, {
-          type: 'hatchingPotions',
-          key: 'Red',
-          text: t('questMoon1DropRedPotion')
-        }, {
           type: 'gear',
-          key: "head_special_pyromancersTurban",
+          key: "head_special_lunarWarriorHelm",
           text: t('questMoon1DropHeadgear')
-        }
+        },
       ],
-      gp: 0,
-      exp: 500
+      gp: 7,
+      exp: 50
     }
   },
   moon2: {
@@ -2697,32 +2707,26 @@ api.quests = {
     completion: t('questMoon2Completion'),
     previous: 'moon1',
     value: 4,
-    goldValue: 300,
-    category: 'gold',
-    collect: {
-      pixie: {
-        text: t('questMoon2CollectPixies'),
-        count: 25
-      },
-      brownie: {
-        text: t('questMoon2CollectBrownies'),
-        count: 15
-      },
-      dryad: {
-        text: t('questMoon2CollectDryads'),
-        count: 10
-      },
+    category: 'unlockable',
+    unlockCondition: {
+      condition: 'login incentive',
+      text: t('loginReward', {count: 22})
+    },
+    boss: {
+      name: t('questMoon2Boss'),
+      hp: 100,
+      str: 1.5
     },
     drop: {
       items: [
         {
           type: 'gear',
-          key: "armor_special_pyromancersRobes",
+          key: "armor_special_lunarWarriorArmor",
           text: t('questMoon2DropArmor')
         }
       ],
-      gp: 0,
-      exp: 75
+      gp: 37,
+      exp: 275
     }
   },
   moon3: {
@@ -2731,8 +2735,11 @@ api.quests = {
     completion: t('questMoon3Completion'),
     previous: 'moon2',
     value: 4,
-    goldValue: 400,
-    category: 'gold',
+    category: 'unlockable',
+    unlockCondition: {
+      condition: 'login incentive',
+      text: t('loginReward', {count: 40})
+    },
     boss: {
       name: t('questMoon3Boss'),
       hp: 1000,
@@ -2741,24 +2748,12 @@ api.quests = {
     drop: {
       items: [
         {
-          type: 'food',
-          key: 'Strawberry',
-          text: t('questMoon3DropStrawberry')
-        }, {
-          type: 'food',
-          key: 'Strawberry',
-          text: t('questMoon3DropStrawberry')
-        }, {
-          type: 'food',
-          key: 'Strawberry',
-          text: t('questMoon3DropStrawberry')
-        }, {
           type: 'gear',
-          key: "weapon_special_taskwoodsLantern",
+          key: "weapon_special_lunarScythe",
           text: t('questMoon3DropWeapon')
         },
       ],
-      gp: 0,
+      gp: 67,
       exp: 650
     }
   },
