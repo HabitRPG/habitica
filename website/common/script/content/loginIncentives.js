@@ -44,7 +44,7 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     7: {
-      rewardKey: ['moon1'],
+      rewardKey: ['inventory_quest_scroll_moon1'],
       reward: [api.quests.moon1],
       assignReward: function assignReward (user) {
         if (!user.items.quests.moon1) user.items.quests.moon1 = 0;
@@ -79,7 +79,7 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     22: {
-      rewardKey: ['moon2'],
+      rewardKey: ['inventory_quest_scroll_moon2'],
       reward: [api.quests.moon2],
       assignReward: function assignReward (user) {
         if (!user.items.quests.moon2) user.items.quests.moon2 = 0;
@@ -117,7 +117,7 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     40: {
-      rewardKey: ['moon3'],
+      rewardKey: ['inventory_quest_scroll_moon3'],
       reward: [api.quests.moon3],
       assignReward: function assignReward (user) {
         if (!user.items.quests.moon3) user.items.quests.moon3 = 0;
