@@ -86,6 +86,7 @@ habitrpg.controller('NotificationCtrl',
     function handleUserNotifications (after) {
       if (!after || after.length === 0) return;
 
+      var notificationsToRead = [];
       after.forEach(function (notification) {
         if (lastShownNotifications.indexOf(notification.id) !== -1) {
           return;
@@ -163,9 +164,10 @@ habitrpg.controller('NotificationCtrl',
             break;
         }
 
-        if (markAsRead) User.readNotification(notification.id);
+        if (markAsRead) notificationsToRead.push(notification.id);
       });
 
+      User.readNotifications(notificationsToRead);
       User.user.notifications = []; // reset the notifications
     }
 

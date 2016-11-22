@@ -116,7 +116,7 @@ angular.module('habitrpg')
       };
 
       $scope.viewGroupApprovalNotification = function (notification, $index) {
-        User.readNotification(notification.id);
+        User.readNotifications([notification.id]);
         User.user.groupNotifications.splice($index, 1);
         $state.go("options.social.guilds.detail", {gid: notification.data.groupId});
       };
