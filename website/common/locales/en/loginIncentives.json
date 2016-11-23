@@ -1,5 +1,5 @@
 {
-  "unlockedReward": "You have recieved <%= reward %>",
+  "unlockedReward": "You have received <%= reward %>",
   "earnedRewardForDevotion": "You have earned a <%= reward %> for being committed to improving your life.",
   "nextRewardUnlocksIn": "Your next prize will unlock in <%= numberOfCheckinsLeft %> more check-ins!",
   "awesome": "Awesome!",

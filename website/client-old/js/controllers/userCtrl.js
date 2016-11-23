@@ -51,6 +51,8 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       User.set({'flags.warnedLowHealth':true});
     }
 
+    $scope.backgroundShopSets = Shared.shops.getBackgroundShopSets();
+
     /**
      * For gem-unlockable preferences, (a) if owned, select preference (b) else, purchase
      * @param path: User.preferences <-> User.purchased maps like User.preferences.skin=abc <-> User.purchased.skin.abc.
@@ -62,7 +64,6 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
         ~path.indexOf('background.') ?
           (fullSet ? 3.75 : 1.75) : // (Backgrounds) 15G per set, 7G per individual
           (fullSet ? 1.25 : 0.5); // (Hair, skin, etc) 5G per set, 2G per individual
-
 
       if (fullSet) {
         if (confirm(window.env.t('purchaseFor',{cost:cost*4})) !== true) return;
@@ -76,12 +77,14 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
 
     $scope.ownsSet = function(type, _set) {
       return !_.find(_set,function(v,k) {
+        if (type === 'background') k = v.key;
         return !User.user.purchased[type][k];
       });
     };
 
     $scope.setKeys = function(type, _set) {
       return _.map(_set, function(v,k) {
+        if (type === 'background') k = v.key;
         return type+'.'+k;
       }).join(',');
     };

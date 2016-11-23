@@ -287,10 +287,10 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   return categories;
 };
 
-shops.getBackgroundShopSets = function getBackgroundShopSets (user, language) {
+shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
   let sets = [];
 
-  _.each(content.backgrounds, (group, key) => {
+  _.eachRight(content.backgrounds, (group, key) => {
     let set = {
       identifier: key,
       text: i18n.t(key, language),
@@ -303,9 +303,7 @@ shops.getBackgroundShopSets = function getBackgroundShopSets (user, language) {
           text: background.text(language),
           notes: background.notes(language),
           value: background.price,
-          currency: 'gems',
-          locked: false,
-          class: '',
+          currency: background.currency || 'gems',
           purchaseType: 'backgrounds',
         };
       }).value();
