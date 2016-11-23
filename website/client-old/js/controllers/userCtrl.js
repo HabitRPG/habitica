@@ -15,7 +15,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
     $scope.$watch('_editing.profile', function(value){
       if(value === true) $scope.editingProfile = angular.copy(User.user.profile);
     });
-    
+
     $scope.costume = Costume;
 
     $scope.allocate = function(stat){
@@ -89,7 +89,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
     $scope.getProgressDisplay = function () {
       var currentLoginDay = Content.loginIncentives[$scope.profile.loginIncentives];
       var nextRewardAt = currentLoginDay.nextRewardAt;
-      return ' ' + $scope.profile.loginIncentives + '/' + nextRewardAt;
+      return ' ' + ($scope.profile.loginIncentives - currentLoginDay.prevRewardKey) + '/' + (nextRewardAt - currentLoginDay.prevRewardKey);
     };
 
     $scope.incentivesProgress = function () {
