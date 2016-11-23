@@ -138,7 +138,15 @@ function awardLoginIncentives (user) {
   if (loginIncentive.rewardKey) {
     loginIncentive.assignReward(user);
     notificationData.reward = loginIncentive.reward;
-    if (loginIncentive.reward[0].text) notificationData.rewardText = loginIncentive.reward[0].text(user.preferences.language);
+
+    if (loginIncentive.reward[0].text) {
+      notificationData.rewardText = loginIncentive.reward[0].text(user.preferences.language);
+      // @TODO: Abstract this logic and share it across the server and client
+      if (notificationData.reward[0].key === 'RoyalPurple') {
+        notificationData.rewardText = i18n.t('potion', {potionType: notificationData.rewardText}, user.preferences.language);
+      }
+    }
+
     notificationData.rewardKey = loginIncentive.rewardKey;
     notificationData.message = i18n.t('unlockedCheckInReward', user.preferences.language);
   }
