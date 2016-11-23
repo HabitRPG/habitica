@@ -1,6 +1,6 @@
 {
   "unlockedReward": "You have unlocked <%= reward %>",
-  "earnedRewardForDevotion": "You have earned a <%= reward %> as a reward for your devotion to improving your life.",
+  "earnedRewardForDevotion": "You have earned a <%= reward %> for being committed to improving your life.",
   "nextRewardUnlocksIn": "Your next prize will unlock in <%= numberOfCheckinsLeft %> more check-ins!",
   "awesome": "Awesome!",
   "totalCount": "<%= count %> total count",
