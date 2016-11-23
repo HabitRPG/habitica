@@ -8942,9 +8942,9 @@
       "resolved": "https://registry.npmjs.org/mongodb-core/-/mongodb-core-2.0.13.tgz"
     },
     "mongoose": {
-      "version": "4.7.0",
-      "from": "mongoose@4.7.0",
-      "resolved": "https://registry.npmjs.org/mongoose/-/mongoose-4.7.0.tgz",
+      "version": "4.6.6",
+      "from": "mongoose@4.6.6",
+      "resolved": "https://registry.npmjs.org/mongoose/-/mongoose-4.6.6.tgz",
       "dependencies": {
         "async": {
           "version": "2.1.2",
