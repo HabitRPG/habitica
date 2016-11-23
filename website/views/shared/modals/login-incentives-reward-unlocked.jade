@@ -16,7 +16,7 @@ script(id='modals/login-incentives-reward-unlocked.html', type='text/ng-template
     .row(style="font-size: 1.5rem;")
       .col-md-8.col-md-offset-2.text-center
         p {{env.t('earnedRewardForDevotion', {reward: data.rewardText})}}
-      .col-md-12.text-center
+      .col-md-12.text-center(ng-show="user.loginIncentives < 50")
         h4 {{env.t('nextRewardUnlocksIn', {numberOfCheckinsLeft: data.nextRewardAt - user.loginIncentives})}}
   .modal-footer
     .row
