@@ -138,15 +138,23 @@ function awardLoginIncentives (user) {
   if (loginIncentive.rewardKey) {
     loginIncentive.assignReward(user);
     notificationData.reward = loginIncentive.reward;
+    notificationData.rewardText = '';
 
     // @TODO: Abstract this logic and share it across the server and client
-    if (loginIncentive.reward[0].text) {
-      notificationData.rewardText = loginIncentive.reward[0].text(user.preferences.language);
-      if (notificationData.reward[0].key === 'RoyalPurple') {
-        notificationData.rewardText = i18n.t('potion', {potionType: notificationData.rewardText}, user.preferences.language);
+    let count = 0;
+    for (let reward of loginIncentive.reward) {
+      if (reward.text) {
+        notificationData.rewardText += reward.text(user.preferences.language);
+        if (reward.key === 'RoyalPurple') {
+          notificationData.rewardText = i18n.t('potion', {potionType: notificationData.rewardText}, user.preferences.language);
+        }
+      } else if (loginIncentive.rewardKey[0] === 'background_blue') {
+        notificationData.rewardText = i18n.t('incentiveBackgrounds');
       }
-    } else if (loginIncentive.rewardKey[0] === 'background_blue') {
-      notificationData.rewardText = i18n.t('incentiveBackgrounds');
+
+      if (loginIncentive.reward.length > 0 && count < loginIncentive.reward.length - 1) notificationData.rewardText += ', ';
+
+      count += 1;
     }
 
     notificationData.rewardKey = loginIncentive.rewardKey;

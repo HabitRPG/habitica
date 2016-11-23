@@ -60,13 +60,13 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     14: {
-      rewardKey: ['Pet_Food_Strawberry', 'Pet_Food_Patatoe', 'Pet_Food_CottonCandyBlue'],
-      reward: [api.food.Strawberry, api.food.Patatoe, api.food.CottonCandyBlue],
+      rewardKey: ['Pet_Food_Strawberry', 'Pet_Food_Potatoe', 'Pet_Food_CottonCandyBlue'],
+      reward: [api.food.Strawberry, api.food.Potatoe, api.food.CottonCandyBlue],
       assignReward: function assignReward (user) {
         if (!user.items.food.Strawberry) user.items.food.Strawberry = 0;
         user.items.food.Strawberry += 1;
-        if (!user.items.food.Patatoe) user.items.food.Patatoe = 0;
-        user.items.food.Patatoe += 1;
+        if (!user.items.food.Potatoe) user.items.food.Potatoe = 0;
+        user.items.food.Potatoe += 1;
         if (!user.items.food.CottonCandyBlue) user.items.food.CottonCandyBlue = 0;
         user.items.food.CottonCandyBlue += 1;
       },

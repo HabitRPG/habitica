@@ -857,7 +857,7 @@ describe('cron', () => {
       expect(user.loginIncentives).to.eql(14);
 
       expect(user.items.food.Strawberry).to.eql(1);
-      expect(user.items.food.Patatoe).to.eql(1);
+      expect(user.items.food.Potatoe).to.eql(1);
       expect(user.items.food.CottonCandyBlue).to.eql(1);
 
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');

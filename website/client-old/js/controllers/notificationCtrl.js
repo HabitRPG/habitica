@@ -157,7 +157,7 @@ habitrpg.controller('NotificationCtrl',
             $rootScope.openModal(modalKey, {
               scope: modalScope
             });
-
+            markAsRead = false;
             break;
           default:
             markAsRead = false; // If the notification is not implemented, skip it
