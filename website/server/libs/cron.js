@@ -139,12 +139,14 @@ function awardLoginIncentives (user) {
     loginIncentive.assignReward(user);
     notificationData.reward = loginIncentive.reward;
 
+    // @TODO: Abstract this logic and share it across the server and client
     if (loginIncentive.reward[0].text) {
       notificationData.rewardText = loginIncentive.reward[0].text(user.preferences.language);
-      // @TODO: Abstract this logic and share it across the server and client
       if (notificationData.reward[0].key === 'RoyalPurple') {
         notificationData.rewardText = i18n.t('potion', {potionType: notificationData.rewardText}, user.preferences.language);
       }
+    } else if (loginIncentive.rewardKey[0] === 'background_blue') {
+      notificationData.rewardText = i18n.t('incentiveBackgrounds');
     }
 
     notificationData.rewardKey = loginIncentive.rewardKey;
