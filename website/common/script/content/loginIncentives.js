@@ -18,6 +18,7 @@ module.exports = function getLoginIncentives (api) {
         user.purchased.background.purple = true;
         user.purchased.background.red = true;
         user.purchased.background.yellow = true;
+        user.markModified('purchased.background');
       },
     },
     3: {
