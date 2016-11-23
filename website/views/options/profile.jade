@@ -305,7 +305,8 @@ mixin backgrounds(mobile)
         - var k = bgsKeys[i], bgs = env.Content.backgrounds[k];
         li.customize-menu
           menu(label=env.t(k))
-            span(ng-hide="ownsSet('background',#{JSON.stringify(bgs)})")
+            div(ng-if="'#{k}' === 'incentiveBackgrounds'")=env.t('incentiveBackgroundsUnlockedWithCheckins')
+            span(ng-hide="ownsSet('background',#{JSON.stringify(bgs)}) || '#{k}' === 'incentiveBackgrounds'")
               +gemCost(7)
                 button.btn.btn-xs(ng-click="unlock(setKeys('background',#{JSON.stringify(bgs)}))")!= env.t('unlockSet',{cost:15}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
             each bg,k in bgs

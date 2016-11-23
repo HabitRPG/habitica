@@ -10,5 +10,6 @@
   "checkinEarned": "Your Check-In Counter went up!",
   "unlockedCheckInReward": "You unlocked a Check-In Prize!",
   "totalCheckinsTitle": "Total Checkins",
-  "checkinProgressTitle": "Progress until next"
+  "checkinProgressTitle": "Progress until next",
+  "incentiveBackgroundsUnlockedWithCheckins": "These backgrounds will unlock with Daily Check-Ins."
 }
