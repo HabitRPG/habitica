@@ -509,9 +509,9 @@
       "resolved": "https://registry.npmjs.org/autoprefixer/-/autoprefixer-6.5.3.tgz"
     },
     "aws-sdk": {
-      "version": "2.7.3",
-      "from": "aws-sdk@>=2.0.25 <3.0.0",
-      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.7.3.tgz",
+      "version": "2.7.7",
+      "from": "aws-sdk@2.7.7",
+      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.7.7.tgz",
       "dependencies": {
         "lodash": {
           "version": "3.5.0",
@@ -653,9 +653,9 @@
       "resolved": "https://registry.npmjs.org/babel-helpers/-/babel-helpers-6.16.0.tgz"
     },
     "babel-loader": {
-      "version": "6.2.7",
-      "from": "babel-loader@>=6.0.0 <7.0.0",
-      "resolved": "https://registry.npmjs.org/babel-loader/-/babel-loader-6.2.7.tgz"
+      "version": "6.2.8",
+      "from": "babel-loader@6.2.8",
+      "resolved": "https://registry.npmjs.org/babel-loader/-/babel-loader-6.2.8.tgz"
     },
     "babel-messages": {
       "version": "6.8.0",
@@ -2286,9 +2286,9 @@
       "resolved": "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.2.tgz"
     },
     "coupon-code": {
-      "version": "0.4.4",
-      "from": "coupon-code@>=0.4.3 <0.5.0",
-      "resolved": "https://registry.npmjs.org/coupon-code/-/coupon-code-0.4.4.tgz"
+      "version": "0.4.5",
+      "from": "coupon-code@0.4.5",
+      "resolved": "https://registry.npmjs.org/coupon-code/-/coupon-code-0.4.5.tgz"
     },
     "coveralls": {
       "version": "2.11.15",
@@ -3585,9 +3585,9 @@
       "dev": true
     },
     "eslint-plugin-html": {
-      "version": "1.6.0",
-      "from": "eslint-plugin-html@>=1.3.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/eslint-plugin-html/-/eslint-plugin-html-1.6.0.tgz",
+      "version": "1.7.0",
+      "from": "eslint-plugin-html@1.7.0",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-html/-/eslint-plugin-html-1.7.0.tgz",
       "dev": true,
       "dependencies": {
         "domhandler": {
@@ -5754,9 +5754,9 @@
       "resolved": "https://registry.npmjs.org/gulp-rename/-/gulp-rename-1.2.2.tgz"
     },
     "gulp-sourcemaps": {
-      "version": "1.9.0",
-      "from": "gulp-sourcemaps@>=1.6.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/gulp-sourcemaps/-/gulp-sourcemaps-1.9.0.tgz",
+      "version": "1.9.1",
+      "from": "gulp-sourcemaps@1.9.1",
+      "resolved": "https://registry.npmjs.org/gulp-sourcemaps/-/gulp-sourcemaps-1.9.1.tgz",
       "dependencies": {
         "acorn": {
           "version": "4.0.3",
@@ -8685,19 +8685,14 @@
       "resolved": "https://registry.npmjs.org/merge-stream/-/merge-stream-1.0.0.tgz"
     },
     "method-override": {
-      "version": "2.3.6",
-      "from": "method-override@>=2.3.5 <3.0.0",
-      "resolved": "https://registry.npmjs.org/method-override/-/method-override-2.3.6.tgz",
+      "version": "2.3.7",
+      "from": "method-override@2.3.7",
+      "resolved": "https://registry.npmjs.org/method-override/-/method-override-2.3.7.tgz",
       "dependencies": {
         "debug": {
-          "version": "2.2.0",
-          "from": "debug@>=2.2.0 <2.3.0",
-          "resolved": "https://registry.npmjs.org/debug/-/debug-2.2.0.tgz"
-        },
-        "ms": {
-          "version": "0.7.1",
-          "from": "ms@0.7.1",
-          "resolved": "https://registry.npmjs.org/ms/-/ms-0.7.1.tgz"
+          "version": "2.3.3",
+          "from": "debug@2.3.3",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-2.3.3.tgz"
         }
       }
     },
@@ -8920,9 +8915,9 @@
       "resolved": "https://registry.npmjs.org/module-deps/-/module-deps-4.0.8.tgz"
     },
     "moment": {
-      "version": "2.16.0",
-      "from": "moment@>=2.13.0 <3.0.0",
-      "resolved": "https://registry.npmjs.org/moment/-/moment-2.16.0.tgz"
+      "version": "2.17.0",
+      "from": "moment@2.17.0",
+      "resolved": "https://registry.npmjs.org/moment/-/moment-2.17.0.tgz"
     },
     "mongodb": {
       "version": "2.2.11",
@@ -8947,9 +8942,9 @@
       "resolved": "https://registry.npmjs.org/mongodb-core/-/mongodb-core-2.0.13.tgz"
     },
     "mongoose": {
-      "version": "4.6.6",
-      "from": "mongoose@4.6.6",
-      "resolved": "https://registry.npmjs.org/mongoose/-/mongoose-4.6.6.tgz",
+      "version": "4.7.0",
+      "from": "mongoose@4.7.0",
+      "resolved": "https://registry.npmjs.org/mongoose/-/mongoose-4.7.0.tgz",
       "dependencies": {
         "async": {
           "version": "2.1.2",
@@ -12065,9 +12060,9 @@
       "resolved": "https://registry.npmjs.org/strip-url-auth/-/strip-url-auth-1.0.1.tgz"
     },
     "stripe": {
-      "version": "4.12.0",
-      "from": "stripe@>=4.2.0 <5.0.0",
-      "resolved": "https://registry.npmjs.org/stripe/-/stripe-4.12.0.tgz",
+      "version": "4.13.0",
+      "from": "stripe@4.13.0",
+      "resolved": "https://registry.npmjs.org/stripe/-/stripe-4.13.0.tgz",
       "dependencies": {
         "bluebird": {
           "version": "2.11.0",
@@ -13088,9 +13083,9 @@
       "resolved": "https://registry.npmjs.org/void-elements/-/void-elements-2.0.1.tgz"
     },
     "vue": {
-      "version": "2.0.7",
-      "from": "vue@>=2.0.0-rc.6 <3.0.0",
-      "resolved": "https://registry.npmjs.org/vue/-/vue-2.0.7.tgz"
+      "version": "2.1.0",
+      "from": "vue@2.1.0",
+      "resolved": "https://registry.npmjs.org/vue/-/vue-2.1.0.tgz"
     },
     "vue-hot-reload-api": {
       "version": "1.3.3",
@@ -13098,9 +13093,9 @@
       "resolved": "https://registry.npmjs.org/vue-hot-reload-api/-/vue-hot-reload-api-1.3.3.tgz"
     },
     "vue-loader": {
-      "version": "9.9.5",
-      "from": "vue-loader@>=9.4.0 <10.0.0",
-      "resolved": "https://registry.npmjs.org/vue-loader/-/vue-loader-9.9.5.tgz",
+      "version": "10.0.0",
+      "from": "vue-loader@10.0.0",
+      "resolved": "https://registry.npmjs.org/vue-loader/-/vue-loader-10.0.0.tgz",
       "dependencies": {
         "lru-cache": {
           "version": "4.0.1",
@@ -13120,9 +13115,9 @@
       "resolved": "https://registry.npmjs.org/vue-resource/-/vue-resource-1.0.3.tgz"
     },
     "vue-router": {
-      "version": "2.0.2",
-      "from": "vue-router@>=2.0.0-rc.5 <3.0.0",
-      "resolved": "https://registry.npmjs.org/vue-router/-/vue-router-2.0.2.tgz"
+      "version": "2.0.3",
+      "from": "vue-router@2.0.3",
+      "resolved": "https://registry.npmjs.org/vue-router/-/vue-router-2.0.3.tgz"
     },
     "vue-style-loader": {
       "version": "1.0.0",
@@ -13130,14 +13125,14 @@
       "resolved": "https://registry.npmjs.org/vue-style-loader/-/vue-style-loader-1.0.0.tgz"
     },
     "vue-template-compiler": {
-      "version": "2.0.7",
-      "from": "vue-template-compiler@>=2.0.5 <3.0.0",
-      "resolved": "https://registry.npmjs.org/vue-template-compiler/-/vue-template-compiler-2.0.7.tgz"
+      "version": "2.1.0",
+      "from": "vue-template-compiler@latest",
+      "resolved": "https://registry.npmjs.org/vue-template-compiler/-/vue-template-compiler-2.1.0.tgz"
     },
     "vue-template-es2015-compiler": {
-      "version": "1.2.4",
+      "version": "1.3.0",
       "from": "vue-template-es2015-compiler@>=1.2.2 <2.0.0",
-      "resolved": "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.2.4.tgz"
+      "resolved": "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.3.0.tgz"
     },
     "w3counter": {
       "version": "3.0.1",
