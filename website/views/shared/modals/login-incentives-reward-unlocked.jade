@@ -13,11 +13,11 @@ script(id='modals/login-incentives-reward-unlocked.html', type='text/ng-template
       div.text-center.col-md-4
         div(ng-if="data.rewardKey.length === 1" class="{{data.rewardKey[0]}}", style="margin: 0 auto;margin-top: 2.5rem;")
         div(ng-repeat="reward in data.rewardKey", ng-if="data.rewardKey.length > 1" class="{{reward}}", style="float: left;margin-top: 2.5rem;")
-    .row
-      .col-md-6.col-md-offset-3.text-center
+    .row(style="font-size: 1.5rem;")
+      .col-md-8.col-md-offset-2.text-center
         p {{env.t('earnedRewardForDevotion', {reward: data.rewardText})}}
       .col-md-12.text-center
-        p {{env.t('nextRewardUnlocksIn', {numberOfCheckinsLeft: data.nextRewardAt - user.loginIncentives})}}
+        h4 {{env.t('nextRewardUnlocksIn', {numberOfCheckinsLeft: data.nextRewardAt - user.loginIncentives})}}
   .modal-footer
     .row
       a.btn.btn-primary.col-md-6.col-md-offset-3(ng-click='$close()')=env.t('awesome')

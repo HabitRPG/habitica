@@ -3,23 +3,21 @@ script(id='modals/login-incentives.html', type='text/ng-template')
     h2 {{data.message}}
   .modal-body
     .row
-      div.text-center.col-md-4
-        h2 {{env.t('totalCount', {count: user.loginIncentives})}}
-      div.text-center.col-md-4(ng-controller='UserCtrl')
+      div.text-center.col-md-4.col-md-offset-2(ng-controller='UserCtrl')
         figure.herobox.text-center(style="margin-left:-4em;")
           .character-sprites
             +generatedAvatar()
       div.text-center.col-md-4
         .row
-          div(ng-if="nextReward.rewardKey.length === 1" class="{{nextReward.rewardKey[0]}}", style="margin: 0 auto;margin-top: 2.5rem;")
-          div(ng-repeat="reward in nextReward.rewardKey", ng-if="nextReward.rewardKey.length > 1" class="{{reward}}", style="float: left;margin-top: 2.5rem;")
+          div(ng-if="nextReward.rewardKey.length === 1" class="{{nextReward.rewardKey[0]}}", style="margin: 0 auto;")
+          div(ng-repeat="reward in nextReward.rewardKey", ng-if="nextReward.rewardKey.length > 1" class="{{reward}}", style="float: left;")
         .row
-          h3 {{env.t('countLeft', {count: data.nextRewardAt - user.loginIncentives})}}
-    .row
-      .col-md-6.col-md-offset-3.text-center
+          h4 {{env.t('countLeft', {count: data.nextRewardAt - user.loginIncentives})}}
+    .row(style="font-size: 1.5rem;")
+      .col-md-8.col-md-offset-2.text-center
         p=env.t('incentivesDescription')
       .col-md-12.text-center
-        p {{env.t('totalCheckins', {count: user.loginIncentives})}}
+        h3 {{env.t('totalCheckins', {count: user.loginIncentives})}}
       .col-md-12.text-center(ng-show="user.loginIncentives < 50")
         p {{env.t('nextRewardUnlocksIn', {numberOfCheckinsLeft: data.nextRewardAt - user.loginIncentives})}}
   .modal-footer
