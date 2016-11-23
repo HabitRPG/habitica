@@ -799,11 +799,15 @@ describe('cron', () => {
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user incentiveBackgrounds if login incentive is 2', () => {
+    it('awards user incentive backgrounds if login incentive is 2', () => {
       user.loginIncentives = 1;
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.loginIncentives).to.eql(2);
-      expect(user.purchased.background.incentiveBackgrounds).to.eql(true);
+      expect(user.purchased.background.blue).to.eql(true);
+      expect(user.purchased.background.green).to.eql(true);
+      expect(user.purchased.background.purple).to.eql(true);
+      expect(user.purchased.background.red).to.eql(true);
+      expect(user.purchased.background.yellow).to.eql(true);
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
     });
 

@@ -13,7 +13,11 @@ module.exports = function getLoginIncentives (api) {
       rewardKey: ['background_blue'],
       reward: [api.backgrounds.incentiveBackgrounds],
       assignReward: function assignReward (user) {
-        user.purchased.background.incentiveBackgrounds = true;
+        user.purchased.background.blue = true;
+        user.purchased.background.green = true;
+        user.purchased.background.purple = true;
+        user.purchased.background.red = true;
+        user.purchased.background.yellow = true;
       },
     },
     3: {
