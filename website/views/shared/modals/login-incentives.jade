@@ -16,9 +16,7 @@ script(id='modals/login-incentives.html', type='text/ng-template')
     .row(style="font-size: 1.5rem;")
       .col-md-8.col-md-offset-2.text-center
         p=env.t('incentivesDescription')
-      .col-md-12.text-center
-        h3 {{env.t('totalCheckins', {count: user.loginIncentives})}}
       .col-md-12.text-center(ng-show="user.loginIncentives < 50")
-        p {{env.t('nextRewardUnlocksIn', {numberOfCheckinsLeft: data.nextRewardAt - user.loginIncentives})}}
+        h3 {{env.t('nextRewardUnlocksIn', {numberOfCheckinsLeft: data.nextRewardAt - user.loginIncentives})}}
   .modal-footer
     a.btn.btn-primary.col-md-6.col-md-offset-3(ng-click='$close()')=env.t('awesome')
