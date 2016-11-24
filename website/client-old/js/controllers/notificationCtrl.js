@@ -201,8 +201,27 @@ habitrpg.controller('NotificationCtrl',
       Notification.text(error);
     });
 
+    function showLoginIncentive() {
+      var rewardData = {
+        reward: [Shared.content.quests.dustbunnies],
+        rewardKey: ['inventory_quest_scroll_dustbunnies'],
+        rewardText: Shared.content.quests.dustbunnies.text(),
+        message: window.env.t('checkinEarned'),
+        nextRewardAt: 1,
+      };
+      Notification.showLoginIncentive(User.user, rewardData, Social.loadWidgets);
+    }
+
     // Show new-stuff modal on load
-    if (User.user.flags.newStuff)
-      $rootScope.openModal('newStuff', {size:'lg'});
+    if (User.user.flags.newStuff) {
+      var modalScope = $rootScope.$new();
+      modalScope.showLoginIncentive = showLoginIncentive;
+
+      $rootScope.openModal('newStuff', {
+        size:'lg',
+        scope: modalScope,
+      });
+    }
+
   }
 ]);
