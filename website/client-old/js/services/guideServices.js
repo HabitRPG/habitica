@@ -210,15 +210,17 @@ function($rootScope, User, $timeout, $state, Analytics, Notification, Shared, So
         }
 
         if (step.final) { // -2 indicates complete
-          // Manually show bunny scroll reward
-          var rewardData = {
-            reward: [Shared.content.quests.dustbunnies],
-            rewardKey: ['inventory_quest_scroll_dustbunnies'],
-            rewardText: Shared.content.quests.dustbunnies.text(),
-            message: window.env.t('checkinEarned'),
-            nextRewardAt: 1,
-          };
-          Notification.showLoginIncentive(User.user, rewardData, Social.loadWidgets);
+          if (k === 'intro') {
+            // Manually show bunny scroll reward
+            var rewardData = {
+              reward: [Shared.content.quests.dustbunnies],
+              rewardKey: ['inventory_quest_scroll_dustbunnies'],
+              rewardText: Shared.content.quests.dustbunnies.text(),
+              message: window.env.t('checkinEarned'),
+              nextRewardAt: 1,
+            };
+            Notification.showLoginIncentive(User.user, rewardData, Social.loadWidgets);
+          }
           //Mark tour complete
           ups['flags.tour.'+k] = -2;
           Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'tutorial','eventLabel':k+'-web','eventValue':i+1,'complete':true})

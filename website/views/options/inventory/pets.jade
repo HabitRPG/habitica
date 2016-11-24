@@ -26,7 +26,7 @@ mixin petList(eggSource, potionSource)
         h4 {{:: env.t('stableBeastMasterProgress', { number: beastMasterProgress }) }}
   .row: .col-md-12
     +petList(env.Content.dropEggs,env.Content.dropHatchingPotions)
-  .row(ng-if="::shouldShowPremiumPetSection()"): .col-md-12
+  .row: .col-md-12
     h4=env.t('magicPets')
     menu.pets(type='list')
       each potion in env.Content.premiumHatchingPotions
