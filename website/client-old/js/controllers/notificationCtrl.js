@@ -142,22 +142,7 @@ habitrpg.controller('NotificationCtrl',
             markAsRead = false;
             break;
           case 'LOGIN_INCENTIVE':
-            var modalScope = $rootScope.$new();
-            modalScope.data = notification.data;
-            var nextRewardKey = Shared.content.loginIncentives[User.user.loginIncentives].nextRewardAt;
-            modalScope.nextReward = Shared.content.loginIncentives[nextRewardKey];
-            modalScope.user = User.user;
-            modalScope.loadWidgets = Social.loadWidgets;
-
-            var modalKey = 'login-incentives';
-            if (notification.data.rewardKey) {
-              modalKey = 'login-incentives-reward-unlocked';
-            }
-
-            $rootScope.openModal(modalKey, {
-              scope: modalScope
-            });
-
+            Notification.showLoginIncentive(User.user, notification.data, Social.loadWidgets);
             break;
           default:
             markAsRead = false; // If the notification is not implemented, skip it
