@@ -2661,7 +2661,7 @@ api.quests = {
     value: 4,
     category: 'unlockable',
     unlockCondition: {
-      condition: 'create account',
+      condition: 'party invite',
       text: t('createAccountReward')
     },
     boss: {
@@ -2681,7 +2681,7 @@ api.quests = {
     value: 4,
     category: 'unlockable',
     unlockCondition: {
-      condition: 'login incentive',
+      condition: 'party invite',
       incentiveThreshold: 7,
       text: t('loginReward', {count: 7})
     },
@@ -2711,7 +2711,7 @@ api.quests = {
     value: 4,
     category: 'unlockable',
     unlockCondition: {
-      condition: 'login incentive',
+      condition: 'party invite',
       incentiveThreshold: 22,
       text: t('loginReward', {count: 22})
     },
@@ -2740,7 +2740,7 @@ api.quests = {
     value: 4,
     category: 'unlockable',
     unlockCondition: {
-      condition: 'login incentive',
+      condition: 'party invite',
       incentiveThreshold: 40,
       text: t('loginReward', {count: 40})
     },

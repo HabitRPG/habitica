@@ -7,7 +7,7 @@ let shops = {};
 
 function lockQuest (quest, user) {
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
-  if (quest.unlockCondition && quest.unlockCondition.condition === 'login incentive') {
+  if (quest.unlockCondition && (quest.key === 'moon1' || quest.key === 'moon2' || quest.key === 'moon3')) {
     return user.loginIncentives < quest.unlockCondition.incentiveThreshold;
   }
   if (user.achievements.quests) return quest.previous && !user.achievements.quests[quest.previous];

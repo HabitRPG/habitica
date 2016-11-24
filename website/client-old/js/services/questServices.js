@@ -35,10 +35,6 @@ angular.module('habitrpg')
         alert(window.env.t('mustLvlQuest', {level: quest.lvl}))
         return 'mustLvlQuest';
       }
-
-      if (quest.unlockCondition && quest.unlockCondition.condition === 'create account') {
-
-      }
     }
 
     function buyQuest(quest) {
@@ -50,24 +46,24 @@ angular.module('habitrpg')
           return reject(preventQuestModal);
         }
 
-        if (item.unlockCondition && item.unlockCondition.condition === 'party invite') {
-          if (!confirm(window.env.t('mustInviteFriend'))) return reject('Did not want to invite friends');
-          Groups.inviteOrStartParty(party)
-          return reject('Invite or start party');
-        }
-
-        if (item.unlockCondition && item.unlockCondition.condition === 'create account') {
+        if (item.unlockCondition && quest === 'dustbunnies') {
           alert(window.env.t('createAccountQuest'));
           return reject('Awarded to new accounts');
         }
 
-        if (item.unlockCondition && item.unlockCondition.condition === 'login incentive') {
+        if (item.unlockCondition && (quest === 'moon1' || quest === 'moon2' || quest === 'moon3')) {
           if (user.loginIncentives > item.unlockCondition.incentiveThreshold) {
             alert(window.env.t('loginIncentiveQuestObtained', {count: item.unlockCondition.incentiveThreshold}));
           } else {
             alert(window.env.t('loginIncentiveQuest', {count: item.unlockCondition.incentiveThreshold}));
           }
           return reject('Login incentive item');
+        }
+
+        if (item.unlockCondition && item.unlockCondition.condition === 'party invite') {
+          if (!confirm(window.env.t('mustInviteFriend'))) return reject('Did not want to invite friends');
+          Groups.inviteOrStartParty(party)
+          return reject('Invite or start party');
         }
 
         resolve(item);
