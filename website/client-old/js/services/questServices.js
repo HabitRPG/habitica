@@ -17,7 +17,8 @@ angular.module('habitrpg')
         if (quest.lvl && user.stats.lvl < quest.lvl) return true;
       }
       if (user.achievements.quests) return (quest.previous && !user.achievements.quests[quest.previous]);
-      return (quest.previous);
+
+      return quest.locked;
     }
 
     function _preventQuestModal(quest) {
@@ -34,6 +35,10 @@ angular.module('habitrpg')
         alert(window.env.t('mustLvlQuest', {level: quest.lvl}))
         return 'mustLvlQuest';
       }
+
+      if (quest.unlockCondition && quest.unlockCondition.condition === 'create account') {
+
+      }
     }
 
     function buyQuest(quest) {
@@ -49,6 +54,20 @@ angular.module('habitrpg')
           if (!confirm(window.env.t('mustInviteFriend'))) return reject('Did not want to invite friends');
           Groups.inviteOrStartParty(party)
           return reject('Invite or start party');
+        }
+
+        if (item.unlockCondition && item.unlockCondition.condition === 'create account') {
+          alert(window.env.t('createAccountQuest'));
+          return reject('Awarded to new accounts');
+        }
+
+        if (item.unlockCondition && item.unlockCondition.condition === 'login incentive') {
+          if (user.loginIncentives > item.unlockCondition.incentiveThreshold) {
+            alert(window.env.t('loginIncentiveQuestObtained', {count: item.unlockCondition.incentiveThreshold}));
+          } else {
+            alert(window.env.t('loginIncentiveQuest', {count: item.unlockCondition.incentiveThreshold}));
+          }
+          return reject('Login incentive item');
         }
 
         resolve(item);

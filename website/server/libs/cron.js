@@ -10,6 +10,8 @@ const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 const shouldDo = common.shouldDo;
 const scoreTask = common.ops.scoreTask;
+const i18n = common.i18n;
+const loginIncentives = common.content.loginIncentives;
 // const maxPMs = 200;
 
 export async function recoverCron (status, locals) {
@@ -110,9 +112,63 @@ function performSleepTasks (user, tasksByType, now) {
   });
 }
 
+function trackCronAnalytics (analytics, user, _progress, options) {
+  analytics.track('Cron', {
+    category: 'behavior',
+    gaLabel: 'Cron Count',
+    gaValue: user.flags.cronCount,
+    uuid: user._id,
+    user,
+    resting: user.preferences.sleep,
+    cronCount: user.flags.cronCount,
+    progressUp: _.min([_progress.up, 900]),
+    progressDown: _progress.down,
+    headers: options.headers,
+    loginIncentives: user.loginIncentives,
+  });
+}
+
+function awardLoginIncentives (user) {
+  if (user.loginIncentives > 50) return;
+  let notificationData = {};
+  notificationData.message = i18n.t('checkinEarned', user.preferences.language);
+
+  let loginIncentive = loginIncentives[user.loginIncentives];
+
+  if (loginIncentive.rewardKey) {
+    loginIncentive.assignReward(user);
+    notificationData.reward = loginIncentive.reward;
+    notificationData.rewardText = '';
+
+    // @TODO: Abstract this logic and share it across the server and client
+    let count = 0;
+    for (let reward of loginIncentive.reward) {
+      if (reward.text) {
+        notificationData.rewardText += reward.text(user.preferences.language);
+        if (reward.key === 'RoyalPurple') {
+          notificationData.rewardText = i18n.t('potion', {potionType: notificationData.rewardText}, user.preferences.language);
+        }
+      } else if (loginIncentive.rewardKey[0] === 'background_blue') {
+        notificationData.rewardText = i18n.t('incentiveBackgrounds');
+      }
+
+      if (loginIncentive.reward.length > 0 && count < loginIncentive.reward.length - 1) notificationData.rewardText += ', ';
+
+      count += 1;
+    }
+
+    notificationData.rewardKey = loginIncentive.rewardKey;
+    notificationData.message = i18n.t('unlockedCheckInReward', user.preferences.language);
+  }
+
+  notificationData.nextRewardAt = loginIncentives[user.loginIncentives].nextRewardAt;
+  user.addNotification('LOGIN_INCENTIVE', notificationData);
+}
+
 // Perform various beginning-of-day reset actions.
 export function cron (options = {}) {
   let {user, tasksByType, analytics, now = new Date(), daysMissed, timezoneOffsetFromUserPrefs} = options;
+  let _progress = {down: 0, up: 0, collectedItems: 0};
 
   // Record pre-cron values of HP and MP to show notifications later
   let beforeCronStats = _.pick(user.stats, ['hp', 'mp']);
@@ -133,10 +189,15 @@ export function cron (options = {}) {
     if (!CRON_SAFE_MODE) removeTerminatedSubscription(user);
   }
 
+  // Login Incentives
+  user.loginIncentives++;
+  awardLoginIncentives(user);
+
   // User is resting at the inn.
   // On cron, buffs are cleared and all dailies are reset without performing damage
   if (user.preferences.sleep === true) {
     performSleepTasks(user, tasksByType, now);
+    trackCronAnalytics(analytics, user, _progress, options);
     return;
   }
 
@@ -292,7 +353,7 @@ export function cron (options = {}) {
 
   // After all is said and done, progress up user's effect on quest, return those values & reset the user's
   let progress = user.party.quest.progress;
-  let _progress = _.cloneDeep(progress);
+  _progress = _.cloneDeep(progress);
   _.merge(progress, {down: 0, up: 0, collectedItems: 0});
 
   // Send notification for changes in HP and MP
@@ -329,18 +390,7 @@ export function cron (options = {}) {
 
   // Analytics
   user.flags.cronCount++;
-  analytics.track('Cron', { // TODO also do while resting in the inn. https://github.com/HabitRPG/habitrpg/issues/7161#issuecomment-218214191
-    category: 'behavior',
-    gaLabel: 'Cron Count',
-    gaValue: user.flags.cronCount,
-    uuid: user._id,
-    user,
-    resting: user.preferences.sleep,
-    cronCount: user.flags.cronCount,
-    progressUp: _.min([_progress.up, 900]),
-    progressDown: _progress.down,
-    headers: options.headers,
-  });
+  trackCronAnalytics(analytics, user, _progress, options);
 
   return _progress;
 }

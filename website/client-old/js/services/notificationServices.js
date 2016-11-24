@@ -3,7 +3,7 @@
  Set up "+1 Exp", "Level Up", etc notifications
  */
 angular.module("habitrpg").factory("Notification",
-['$filter', function($filter) {
+['$filter', 'Shared', '$rootScope', function($filter, Shared, $rootScope) {
 
   /**
    Show "+ 5 {gold_coin} 3 {silver_coin}"
@@ -139,6 +139,28 @@ angular.module("habitrpg").factory("Notification",
     });
   }
 
+  // Login incentive
+  // @TODO: Document reward data param
+  // @TODO: loadWidgets is a circular dependency but we should not inject it this way
+  function showLoginIncentive (user, rewardData, loadWidgets) {
+    var modalScope = $rootScope.$new();
+    modalScope.data = rewardData;
+    var nextRewardKey = Shared.content.loginIncentives[user.loginIncentives].nextRewardAt;
+    modalScope.nextReward = Shared.content.loginIncentives[nextRewardKey];
+    modalScope.user = user;
+    // modalScope.loadWidgets = Social.loadWidgets;
+    modalScope.loadWidgets = loadWidgets;
+
+    var modalKey = 'login-incentives';
+    if (rewardData.rewardKey) {
+      modalKey = 'login-incentives-reward-unlocked';
+    }
+
+    $rootScope.openModal(modalKey, {
+      scope: modalScope
+    });
+  }
+
   return {
     coins: coins,
     crit: crit,
@@ -152,6 +174,7 @@ angular.module("habitrpg").factory("Notification",
     mp: mp,
     streak: streak,
     text: text,
-    quest: quest
+    quest: quest,
+    showLoginIncentive: showLoginIncentive,
   };
 }]);

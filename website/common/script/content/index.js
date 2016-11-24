@@ -23,6 +23,7 @@ import appearances from './appearance';
 import backgrounds from './appearance/backgrounds.js'
 import spells from './spells';
 import faq from './faq';
+import loginIncentives from './loginIncentives';
 
 api.mystery = mysterySets;
 
@@ -2653,6 +2654,113 @@ api.quests = {
       unlock: t('questFerretUnlockText'),
     },
   },
+  dustbunnies: {
+    text: t('questDustBunniesText'),
+    notes: t('questDustBunniesNotes'),
+    completion: t('questDustBunniesCompletion'),
+    value: 4,
+    category: 'unlockable',
+    unlockCondition: {
+      condition: 'create account',
+      text: t('createAccountReward')
+    },
+    boss: {
+      name: t('questDustBunniesBoss'),
+      hp: 100,
+      str: 0.5
+    },
+    drop: {
+      gp: 8,
+      exp: 42
+    }
+  },
+  moon1: {
+    text: t('questMoon1Text'),
+    notes: t('questMoon1Notes'),
+    completion: t('questMoon1Completion'),
+    value: 4,
+    category: 'unlockable',
+    unlockCondition: {
+      condition: 'login incentive',
+      incentiveThreshold: 7,
+      text: t('loginReward', {count: 7})
+    },
+    collect: {
+      shard: {
+        text: t('questMoon1CollectShards'),
+        count: 20
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'gear',
+          key: "head_special_lunarWarriorHelm",
+          text: t('questMoon1DropHeadgear')
+        },
+      ],
+      gp: 7,
+      exp: 50
+    }
+  },
+  moon2: {
+    text: t('questMoon2Text'),
+    notes: t('questMoon2Notes'),
+    completion: t('questMoon2Completion'),
+    previous: 'moon1',
+    value: 4,
+    category: 'unlockable',
+    unlockCondition: {
+      condition: 'login incentive',
+      incentiveThreshold: 22,
+      text: t('loginReward', {count: 22})
+    },
+    boss: {
+      name: t('questMoon2Boss'),
+      hp: 100,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'gear',
+          key: "armor_special_lunarWarriorArmor",
+          text: t('questMoon2DropArmor')
+        }
+      ],
+      gp: 37,
+      exp: 275
+    }
+  },
+  moon3: {
+    text: t('questMoon3Text'),
+    notes: t('questMoon3Notes'),
+    completion: t('questMoon3Completion'),
+    previous: 'moon2',
+    value: 4,
+    category: 'unlockable',
+    unlockCondition: {
+      condition: 'login incentive',
+      incentiveThreshold: 40,
+      text: t('loginReward', {count: 40})
+    },
+    boss: {
+      name: t('questMoon3Boss'),
+      hp: 1000,
+      str: 2
+    },
+    drop: {
+      items: [
+        {
+          type: 'gear',
+          key: "weapon_special_lunarScythe",
+          text: t('questMoon3DropWeapon')
+        },
+      ],
+      gp: 67,
+      exp: 650
+    }
+  },
 };
 
 _.each(api.quests, function(v, key) {
@@ -2777,3 +2885,5 @@ api.userDefaults = {
 };
 
 api.faq = faq;
+
+api.loginIncentives = loginIncentives(api);

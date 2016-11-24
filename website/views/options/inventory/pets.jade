@@ -26,7 +26,7 @@ mixin petList(eggSource, potionSource)
         h4 {{:: env.t('stableBeastMasterProgress', { number: beastMasterProgress }) }}
   .row: .col-md-12
     +petList(env.Content.dropEggs,env.Content.dropHatchingPotions)
-  .row(ng-if="::shouldShowPremiumPetSection()"): .col-md-12
+  .row: .col-md-12
     h4=env.t('magicPets')
     menu.pets(type='list')
       each potion in env.Content.premiumHatchingPotions
@@ -39,7 +39,7 @@ mixin petList(eggSource, potionSource)
                 button(class="pet-button Pet-#{petKey}", ng-if='user.items.pets["#{petKey}"]>0', ng-class='{active: user.items.currentPet == "#{petKey}", selectableInventory: #{!egg.noMount} && selectedFood && !user.items.mounts["#{petKey}"]}', ng-click='choosePet("#{egg.key}", "#{potion.key}")')
                   .progress(ng-show='!user.items.mounts["#{petKey}"]')
                     .progress-bar.progress-bar-success(ng-style='{width: user.items.pets["#{petKey}"]/.5 + "%"}')
-                button(class="pet-button pet-not-owned", ng-if='!user.items.pets["#{petKey}"] && (#{potion.canBuy()} || user.items.hatchingPotions["#{potion.key}"])')
+                button(class="pet-button pet-not-owned", ng-if='!user.items.pets["#{petKey}"] && (#{potion.canBuy()} || user.items.hatchingPotions["#{potion.key}"]) || "#{potion.key}" === "RoyalPurple"')
                   .PixelPaw
                 button(class="pet-evolved pet-button Pet-#{petKey}", ng-if='user.items.pets["#{petKey}"]<0')
   .row: .col-md-12

@@ -360,6 +360,9 @@ habitrpg.controller("InventoryCtrl",
       if (!premiumPotion) {
         return false;
       }
+      if (premiumPotion.key === 'RoyalPurple') {
+        return true;
+      }
       if (user.items.hatchingPotions[premiumPotion.key] > 0) {
         return true;
       }

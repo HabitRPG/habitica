@@ -7,6 +7,9 @@ let shops = {};
 
 function lockQuest (quest, user) {
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
+  if (quest.unlockCondition && quest.unlockCondition.condition === 'login incentive') {
+    return user.loginIncentives < quest.unlockCondition.incentiveThreshold;
+  }
   if (user.achievements.quests) return quest.previous && !user.achievements.quests[quest.previous];
   return quest.previous;
 }
@@ -282,6 +285,33 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   }
 
   return categories;
+};
+
+shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
+  let sets = [];
+
+  _.eachRight(content.backgrounds, (group, key) => {
+    let set = {
+      identifier: key,
+      text: i18n.t(key, language),
+    };
+
+    set.items = _(group)
+      .map((background, bgKey) => {
+        return {
+          key: bgKey,
+          text: background.text(language),
+          notes: background.notes(language),
+          value: background.price,
+          currency: background.currency || 'gems',
+          purchaseType: 'backgrounds',
+        };
+      }).value();
+
+    sets.push(set);
+  });
+
+  return sets;
 };
 
 module.exports = shops;
