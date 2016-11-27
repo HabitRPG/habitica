@@ -197,7 +197,7 @@ describe('POST /chat', () => {
     expect(message.message.id).to.exist;
   });
 
-  it('returns an error when chat message contains a banned slur', async () => {
+  it('errors and revokes privileges when chat message contains a banned slur', async () => {
     await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testSlurMessage})).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
@@ -221,6 +221,8 @@ describe('POST /chat', () => {
       error: 'BadRequest',
       message: 'Your message contained inapropriate language, and your chat privileges have been revoked.',
     });
+
+    expect(user.flags.chatRevoked).to.be.true;
   });
 
   it('creates a chat', async () => {
