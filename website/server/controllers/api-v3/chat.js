@@ -161,7 +161,36 @@ api.postChat = {
     // Check message for banned slurs
     let message = req.body.message;
     if (textContainsBannedWords(message, bannedSlurs)) {
-      user.muteUser(message, groupId);
+      user.muteUser();
+			// Email the mods
+      let authorEmail = user.auth.local.email;
+      let groupUrl = getGroupUrl(group);
+
+      let report =  [
+        {name: 'MESSAGE_TIME', content: (new Date()).toString()},
+        {name: 'MESSAGE_TEXT', content: message},
+
+        {name: 'AUTHOR_USERNAME', content: user.profile.name},
+        {name: 'AUTHOR_UUID', content: user._id},
+        {name: 'AUTHOR_EMAIL', content: authorEmail},
+        {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
+
+        {name: 'GROUP_NAME', content: group.name},
+        {name: 'GROUP_TYPE', content: group.type},
+        {name: 'GROUP_ID', content: group._id},
+        {name: 'GROUP_URL', content: groupUrl},
+      ];
+
+      sendTxn(FLAG_REPORT_EMAILS, 'slur-report-to-mods', report);
+
+      // Slack the mods
+      slack.sendSlurNotification({
+        authorEmail,
+        user,
+        group,
+        message,
+      });
+
       throw new NotFound('Your message contained inapropriate language, and your chat privileges have been revoked.');
     }
 

@@ -1,13 +1,12 @@
 import moment from 'moment';
 import common from '../../../common';
-import nconf from 'nconf';
+
 import Bluebird from 'bluebird';
 import {
   chatDefaults,
   TAVERN_ID,
 } from '../group';
-import { model as Group } from '../group';
-import { getGroupUrl, sendTxn } from '../../libs/email';
+
 import { defaults } from 'lodash';
 import { model as UserNotification } from '../userNotification';
 import slack from '../../libs/slack';
@@ -16,10 +15,6 @@ import payments from '../../libs/payments';
 import amazonPayments from '../../libs/amazonPayments';
 import stripePayments from '../../libs/stripePayments';
 import paypalPayments from '../../libs/paypalPayments';
-
-const SLUR_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
-  return { email, canSend: true };
-});
 
 schema.methods.isSubscribed = function isSubscribed () {
   let now = new Date();
@@ -113,7 +108,6 @@ schema.methods.addComputedStatsToJSONObj = function addComputedStatsToUserJSONOb
   return statsObject;
 };
 
-
 // @TODO: There is currently a three way relation between the user, payment methods and the payment helper
 // This creates some odd Dependency Injection issues. To counter that, we use the user as the third layer
 // To negotiate between the payment providers and the payment helper (which probably has too many responsiblities)
@@ -132,47 +126,10 @@ schema.methods.cancelSubscription = async function cancelSubscription () {
 
   return await payments.cancelSubscription({user: this});
 
-// Mute a user and notify the moderators
-schema.methods.muteUser = async function muteUser (message, groupId) {
-
-
-// Mute a user and notify the moderators
-schema.methods.muteUser = async function muteUser (message, groupId) {
+// Mute the user
+schema.methods.muteUser = async function muteUser () {
   let user = this;
 
   user.flags.chatRevoked = true;
   await user.save();
-
-  let group = await Group.getGroup({
-    user,
-    groupId,
-    optionalMembership: user.contributor.admin,
-  });
-
-  let authorEmail = user.auth.local.email;
-  let groupUrl = getGroupUrl(group);
-
-  let report =  [
-    {name: 'MESSAGE_TIME', content: (new Date()).toString()},
-    {name: 'MESSAGE_TEXT', content: message},
-
-    {name: 'AUTHOR_USERNAME', content: user.profile.name},
-    {name: 'AUTHOR_UUID', content: user._id},
-    {name: 'AUTHOR_EMAIL', content: authorEmail},
-    {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
-
-    {name: 'GROUP_NAME', content: group.name},
-    {name: 'GROUP_TYPE', content: group.type},
-    {name: 'GROUP_ID', content: group._id},
-    {name: 'GROUP_URL', content: groupUrl},
-  ];
-
-  sendTxn(SLUR_REPORT_EMAILS, 'slur-report-to-mods', report);
-
-  slack.sendSlurNotification({
-    authorEmail,
-    user,
-    group,
-    message,
-  });
 };
