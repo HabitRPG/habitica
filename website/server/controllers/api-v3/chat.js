@@ -5,6 +5,7 @@ import {
   BadRequest,
   NotFound,
   NotAuthorized,
+  BadRequest,
 } from '../../libs/errors';
 import _ from 'lodash';
 import { removeFromArray } from '../../libs/collectionManipulators';
@@ -190,7 +191,7 @@ api.postChat = {
         message,
       });
 
-      throw new NotFound('Your message contained inapropriate language, and your chat privileges have been revoked.');
+      throw new BadRequest('Your message contained inapropriate language, and your chat privileges have been revoked.');
     }
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
