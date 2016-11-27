@@ -204,6 +204,9 @@ describe('POST /chat', () => {
       message: 'Your message contained inapropriate language, and your chat privileges have been revoked.',
     });
     expect(user.flags.chatRevoked).to.be.true;
+
+    user.flags.chatRevoked = false;
+    await user.save();
   });
 
   it('does not allow slurs in private gropus', async () => {
@@ -222,6 +225,9 @@ describe('POST /chat', () => {
     });
 
     expect(user.flags.chatRevoked).to.be.true;
+
+    user.flags.chatRevoked = false;
+    await user.save();
   });
 
   it('creates a chat', async () => {
