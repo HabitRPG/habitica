@@ -78,8 +78,6 @@ function _setUpNewUser (user) {
   let iterableFlags = user.flags.toObject();
 
   user._ABtest = '';
-  user.items.pets['Turkey-Base'] = 1;
-  user.migration = '20161122_turkey_ladder.js';
   user.items.quests.dustbunnies = 1;
 
   if (user.registeredThrough === 'habitica-web' || user.registeredThrough === 'habitica-android') {
