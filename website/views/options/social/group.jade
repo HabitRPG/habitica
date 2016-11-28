@@ -1,3 +1,5 @@
+include ./groups/group-subscription
+
 a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter', popover-title=env.t('guildBankPop1'), popover=env.t('guildBankPop2'), popover-placement='left')
   // <span class="task-action-btn tile flush bright add-gems-btn">＋</span>
   span.task-action-btn.tile.flush.neutral
@@ -174,6 +176,5 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
       
       group-approvals(ng-show="groupPane == 'approvals'", ng-if="group.leader._id === user._id", group="group")
       
-      
-      include ./groups/group-subscription
+      +groupSubscription
       
