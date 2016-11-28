@@ -25,9 +25,6 @@ import spells from './spells';
 import faq from './faq';
 
 import loginIncentives from './loginIncentives';
-import bannedWords from './banned-words';
-
-
 
 api.mystery = mysterySets;
 
