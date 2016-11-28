@@ -101,5 +101,10 @@
     "cantCancelActiveQuest": "你不能取消一个正进行的探索任务，请放弃任务。",
     "onlyLeaderCancelQuest": "仅有小组长或任务发起者能取消一个任务。",
     "questNotPending": "现在没有开始的探索任务。",
-    "questOrGroupLeaderOnlyStartQuest": "仅有小组长或任务发起者能强制开始一个任务"
+    "questOrGroupLeaderOnlyStartQuest": "仅有小组长或任务发起者能强制开始一个任务",
+    "createAccountReward": "创建账户",
+    "loginIncentiveQuest": "想得到这个探索任务？你还需要在Habitica历练 <%= count %> 天才有资格哦！",
+    "loginIncentiveQuestObtained": "因为有了在Habitica历练 <%= count %> 天的经验，你可以去挑战这个探索任务啦！！",
+    "loginReward": "<%= count %> 次签到",
+    "createAccountQuest": "当你加人Habitica的时候，你会收到这个任务！如果你的朋友加入，他们也会得到一个。"
 }

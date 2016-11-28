@@ -1,5 +1,9 @@
 {
     "backgrounds": "Фонови изображения",
+    "background": "Фоново изображение",
+    "backgroundShop": "Магазин за фонови изображения",
+    "backgroundShopText": "Магазин за фонови изображения",
+    "noBackground": "Няма избрано фоново изображение",
     "backgrounds062014": "КОМПЛЕКТ 1: юни 2014 г.",
     "backgroundBeachText": "Плаж",
     "backgroundBeachNotes": "Отпуснете се на топъл плаж.",
@@ -209,5 +213,16 @@
     "backgroundStormyRooftopsText": "Буреносни покриви",
     "backgroundStormyRooftopsNotes": "Промъквайте се върху буреносни покриви.",
     "backgroundWindyAutumnText": "Ветровита есен",
-    "backgroundWindyAutumnNotes": "Гонете листа през ветровита есен."
+    "backgroundWindyAutumnNotes": "Гонете листа през ветровита есен.",
+    "incentiveBackgrounds": "Комплект едноцветни фонове",
+    "backgroundBlueText": "Синьо",
+    "backgroundBlueNotes": "Обикновен син фон.",
+    "backgroundGreenText": "Зелено",
+    "backgroundGreenNotes": "Обикновен зелен фон.",
+    "backgroundPurpleText": "Лилаво",
+    "backgroundPurpleNotes": "Обикновен лилав фон.",
+    "backgroundRedText": "Червено",
+    "backgroundRedNotes": "Обикновен червен фон.",
+    "backgroundYellowText": "Жълто",
+    "backgroundYellowNotes": "Приятен жълт фон."
 }

@@ -101,5 +101,10 @@
     "cantCancelActiveQuest": "進行中のクエストをキャンセルすることはできませんので、中断してください。",
     "onlyLeaderCancelQuest": "グループ リーダーまたはクエストのリーダーだけが、クエストをキャンセルできます。",
     "questNotPending": "開始するクエストがありません。",
-    "questOrGroupLeaderOnlyStartQuest": "グループ リーダーまたはクエストのリーダーだけが、クエストを強制的に開始できます。"
+    "questOrGroupLeaderOnlyStartQuest": "グループ リーダーまたはクエストのリーダーだけが、クエストを強制的に開始できます。",
+    "createAccountReward": "アカウント製作時に入手",
+    "loginIncentiveQuest": "このクエストを入手するには、<%= count %>日のログインが必要です！",
+    "loginIncentiveQuestObtained": "<%= count %>日のログインによりこのクエストを手に入れました！",
+    "loginReward": "<%= count %>日のログイン",
+    "createAccountQuest": "このクエストはHabiticaに参加した時に配布されます！もしあなたの友達が参加すれば、彼らも同じように受け取るでしょう。"
 }

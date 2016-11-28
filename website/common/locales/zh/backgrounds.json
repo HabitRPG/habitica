@@ -1,5 +1,9 @@
 {
     "backgrounds": "背景",
+    "background": "背景",
+    "backgroundShop": "背景商店",
+    "backgroundShopText": "背景商店",
+    "noBackground": "没有选择背景",
     "backgrounds062014": "第一组：2014年6月推出",
     "backgroundBeachText": "沙滩",
     "backgroundBeachNotes": "懒洋洋的躺在温暖的沙滩上",
@@ -209,5 +213,16 @@
     "backgroundStormyRooftopsText": "暴风屋顶",
     "backgroundStormyRooftopsNotes": "从暴风屋顶上慢慢爬过",
     "backgroundWindyAutumnText": "刮风的秋天",
-    "backgroundWindyAutumnNotes": "在刮风的秋天中追赶落叶"
+    "backgroundWindyAutumnNotes": "在刮风的秋天中追赶落叶",
+    "incentiveBackgrounds": "简约背景套装",
+    "backgroundBlueText": "蓝色",
+    "backgroundBlueNotes": "基础蓝色背景",
+    "backgroundGreenText": "绿色",
+    "backgroundGreenNotes": "非凡的绿色背景",
+    "backgroundPurpleText": "紫色",
+    "backgroundPurpleNotes": "惬意的紫色背景",
+    "backgroundRedText": "红色",
+    "backgroundRedNotes": "有趣的红色背景",
+    "backgroundYellowText": "黄色",
+    "backgroundYellowNotes": "美味的黄色背景"
 }

@@ -153,6 +153,7 @@
     "hatchingPotionFloral": "Növény",
     "hatchingPotionThunderstorm": "Thunderstorm",
     "hatchingPotionGhost": "Ghost",
+    "hatchingPotionRoyalPurple": "Royal Purple",
     "hatchingPotionNotes": "Öntsd ezt egy tojásra, és egy <%= potText(locale) %> háziállat fog belőle kikelni.",
     "premiumPotionAddlNotes": "Nem használható küldetésben szerzett tojásokhoz.",
     "foodMeat": "Hús",

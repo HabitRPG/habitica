@@ -1,5 +1,9 @@
 {
     "backgrounds": "Bakgrunder",
+    "background": "Background",
+    "backgroundShop": "Background Shop",
+    "backgroundShopText": "Background Shop",
+    "noBackground": "No Background Selected",
     "backgrounds062014": "SET 1: Släpptes Juni 2014",
     "backgroundBeachText": "Strand",
     "backgroundBeachNotes": "Strosa runt på en varm strand.",
@@ -209,5 +213,16 @@
     "backgroundStormyRooftopsText": "Stormiga Hustak",
     "backgroundStormyRooftopsNotes": "Smyg över Stormiga Hustak",
     "backgroundWindyAutumnText": "Blåsig Höst",
-    "backgroundWindyAutumnNotes": "Jaga löv under en Blåsig Höst"
+    "backgroundWindyAutumnNotes": "Jaga löv under en Blåsig Höst",
+    "incentiveBackgrounds": "Plain Background Set",
+    "backgroundBlueText": "Blue",
+    "backgroundBlueNotes": "A basic blue backdrop.",
+    "backgroundGreenText": "Green",
+    "backgroundGreenNotes": "A great green backdrop.",
+    "backgroundPurpleText": "Purple",
+    "backgroundPurpleNotes": "A pleasant purple backdrop.",
+    "backgroundRedText": "Red",
+    "backgroundRedNotes": "A rad red backdrop.",
+    "backgroundYellowText": "Yellow",
+    "backgroundYellowNotes": "A yummy yellow backdrop."
 }

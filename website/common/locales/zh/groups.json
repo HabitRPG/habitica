@@ -83,7 +83,6 @@
     "sortLevel": "以等级排序",
     "sortRandom": "乱序",
     "sortPets": "按宠物数量排序",
-    "sortJoined": "以加入队伍日期排序",
     "sortName": "以角色名称排序",
     "sortBackgrounds": "以背景排序",
     "sortHabitrpgJoined": "按加入HobitRPG的日期排序",
@@ -218,7 +217,7 @@
     "onlyGroupLeaderCanManageSubscription": "只有组长可以修改小组的简介",
     "yourTaskHasBeenApproved": "你的任务已请求",
     "userHasRequestedTaskApproval": "<%= user %> 请求接受任务 <%= taskName %>",
-    "confirmTaskApproval": "Are you sure you want to approve this task?",
-    "approve": "Approve",
-    "approvalTitle": "<%= text %> for user: <%= userName %>"
+    "confirmTaskApproval": "你确定你同意这个任务吗？",
+    "approve": "许可",
+    "approvalTitle": "<%= text %> 对用户: <%= userName %>"
 }

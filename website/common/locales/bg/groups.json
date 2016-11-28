@@ -83,7 +83,6 @@
     "sortLevel": "Подреждане по ниво",
     "sortRandom": "Произволно подреждане",
     "sortPets": "Подреждане по брой любимци",
-    "sortJoined": "Подреждане по дата на присъединяване към групата",
     "sortName": "Подреждане по име на героя",
     "sortBackgrounds": "Подреждане по фоново изображение",
     "sortHabitrpgJoined": "Подреждане по дата на присъединяване към Хабитика",
@@ -218,7 +217,7 @@
     "onlyGroupLeaderCanManageSubscription": "Само водачът на групата може да управлява абонамента ѝ.",
     "yourTaskHasBeenApproved": "Задачата Ви беше одобрена.",
     "userHasRequestedTaskApproval": "<%= user %> помоли следната задача да бъде одобрена: <%= taskName %>",
-    "confirmTaskApproval": "Are you sure you want to approve this task?",
-    "approve": "Approve",
-    "approvalTitle": "<%= text %> for user: <%= userName %>"
+    "confirmTaskApproval": "Наистина ли искате да одобрите тази задача?",
+    "approve": "Одобряване",
+    "approvalTitle": "<%= text %> за: <%= userName %>"
 }

@@ -83,7 +83,6 @@
     "sortLevel": "Ordenar por nível",
     "sortRandom": "Organizar aleatoriamente",
     "sortPets": "Organizar por número de mascotes",
-    "sortJoined": "Ordenar por data de entrada no grupo",
     "sortName": "Ordenar por nome do avatar",
     "sortBackgrounds": "Ordenar por cenário",
     "sortHabitrpgJoined": "Ordenar por data de entrada no Habitica",
@@ -218,7 +217,7 @@
     "onlyGroupLeaderCanManageSubscription": "Apenas o líder do grupo pode gerenciar a assinatura do grupo",
     "yourTaskHasBeenApproved": "Sua tarefa foi aprovada",
     "userHasRequestedTaskApproval": "<%= user %> solicitou a aprovação da tarefa <%= taskName %>",
-    "confirmTaskApproval": "Are you sure you want to approve this task?",
-    "approve": "Approve",
-    "approvalTitle": "<%= text %> for user: <%= userName %>"
+    "confirmTaskApproval": "Você tem certeza de que deseja aprovar esta tarefa?",
+    "approve": "Aprovar",
+    "approvalTitle": "<%= text %> para o usuário: <%= userName %>"
 }
