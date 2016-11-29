@@ -131,7 +131,7 @@ function trackCronAnalytics (analytics, user, _progress, options) {
 function awardLoginIncentives (user) {
   if (user.loginIncentives > 50) return;
 
-  //  Remove old noitification if it exists
+  //  Remove old notifications if they exists
   user.notifications
     .toObject()
     .find((notif, index) => {

@@ -704,14 +704,14 @@ describe('cron', () => {
 
       cron({user, tasksByType, daysMissed, analytics});
 
-      expect(user.notifications.length - notifsBefore2).to.equal(1);
-      expect(user.notifications[1].type).to.not.equal('CRON');
-      expect(user.notifications[2].type).to.equal('CRON');
-      expect(user.notifications[2].data).to.eql({
+      expect(user.notifications.length - notifsBefore2).to.equal(0);
+      expect(user.notifications[0].type).to.not.equal('CRON');
+      expect(user.notifications[1].type).to.equal('CRON');
+      expect(user.notifications[1].data).to.eql({
         hp: user.stats.hp - hpBefore2 - (hpBefore2 - hpBefore1),
         mp: user.stats.mp - mpBefore2 - (mpBefore2 - mpBefore1),
       });
-      expect(user.notifications[1].type).to.not.equal('CRON');
+      expect(user.notifications[0].type).to.not.equal('CRON');
     });
   });
 
@@ -785,9 +785,7 @@ describe('cron', () => {
       cron({user, tasksByType, daysMissed, analytics});
       cron({user, tasksByType, daysMissed, analytics});
 
-      let filteredNotifications = filter(user.notifications, function filterNotifications (notification) {
-        return notification.type === 'LOGIN_INCENTIVE';
-      });
+      let filteredNotifications = user.notifications.filter(n => n.type === 'LOGIN_INCENTIVE');
 
       expect(filteredNotifications.length).to.equal(1);
     });
