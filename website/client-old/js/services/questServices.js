@@ -104,6 +104,8 @@ angular.module('habitrpg')
             Groups.data.party = party;
             $state.go('options.social.party');
             resolve();
+          }).then(function() {
+            $state.reload();
           });
       });
     }
