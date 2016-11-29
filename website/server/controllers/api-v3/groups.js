@@ -284,6 +284,7 @@ api.joinGroup = {
 
       if (hasInvitation) {
         isUserInvited = true;
+        inviter = hasInvitation.inviter;
       } else {
         isUserInvited = group.privacy === 'private' ? false : true;
       }
@@ -302,6 +303,15 @@ api.joinGroup = {
     group.memberCount += 1;
 
     let promises = [group.save(), user.save()];
+
+    if (inviter) {
+      let data = {
+        groupName: group.name,
+        username: user.auth.local.username,
+      };
+      promises.push(User.update({_id: inviter},
+        {$push: {notifications: {type: 'GROUP_INVITE_ACCEPTED', data}}}).exec());
+    }
 
     if (group.type === 'party' && inviter) {
       promises.push(User.update({_id: inviter}, {$inc: {'items.quests.basilist': 1}}).exec()); // Reward inviter

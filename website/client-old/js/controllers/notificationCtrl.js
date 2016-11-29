@@ -144,6 +144,9 @@ habitrpg.controller('NotificationCtrl',
           case 'LOGIN_INCENTIVE':
             Notification.showLoginIncentive(User.user, notification.data, Social.loadWidgets);
             break;
+          case 'GROUP_INVITE_ACCEPTED':
+            Notification.text(env.t('acceptedInvitation', notification.data));
+            break;
           default:
             markAsRead = false; // If the notification is not implemented, skip it
             break;
