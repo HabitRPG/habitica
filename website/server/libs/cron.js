@@ -130,6 +130,14 @@ function trackCronAnalytics (analytics, user, _progress, options) {
 
 function awardLoginIncentives (user) {
   if (user.loginIncentives > 50) return;
+
+  //Remove old noitification if it exists
+  user.notifications
+    .toObject()
+    .find((notif, index) => {
+      if (notif.type === 'LOGIN_INCENTIVE') user.notifications.splice(index, 1);
+    });
+
   let notificationData = {};
   notificationData.message = i18n.t('checkinEarned', user.preferences.language);
 

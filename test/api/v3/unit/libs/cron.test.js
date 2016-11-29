@@ -6,7 +6,7 @@ import requireAgain from 'require-again';
 import { recoverCron, cron } from '../../../../../website/server/libs/cron';
 import { model as User } from '../../../../../website/server/models/user';
 import * as Tasks from '../../../../../website/server/models/task';
-import { clone } from 'lodash';
+import { clone, filter } from 'lodash';
 import common from '../../../../../website/common';
 import analytics from '../../../../../website/server/libs/analyticsService';
 
@@ -778,6 +778,18 @@ describe('cron', () => {
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.notifications.length).to.be.greaterThan(1);
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('replaces previous notifications', () => {
+      cron({user, tasksByType, daysMissed, analytics});
+      cron({user, tasksByType, daysMissed, analytics});
+      cron({user, tasksByType, daysMissed, analytics});
+
+      let filteredNotifications = filter(user.notifications, function filterNotifications (notification) {
+         return notification.type === 'LOGIN_INCENTIVE';
+      });
+
+      expect(filteredNotifications.length).to.equal(1);
     });
 
     it('increments loginIncentives by 1 even if days are skipped in between', () => {
