@@ -786,7 +786,7 @@ describe('cron', () => {
       cron({user, tasksByType, daysMissed, analytics});
 
       let filteredNotifications = filter(user.notifications, function filterNotifications (notification) {
-         return notification.type === 'LOGIN_INCENTIVE';
+        return notification.type === 'LOGIN_INCENTIVE';
       });
 
       expect(filteredNotifications.length).to.equal(1);
