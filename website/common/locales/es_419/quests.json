@@ -101,5 +101,10 @@
     "cantCancelActiveQuest": "No puedes cancelar una misión activa, usa la función abortar.",
     "onlyLeaderCancelQuest": "Solo el lider del grupo o misión puede cancelar la misión.",
     "questNotPending": "No hay misión activa para empezar.",
-    "questOrGroupLeaderOnlyStartQuest": "Solo el lider del grupo o misión puede forzar el inicio de la misión."
+    "questOrGroupLeaderOnlyStartQuest": "Solo el lider del grupo o misión puede forzar el inicio de la misión.",
+    "createAccountReward": "Create Account",
+    "loginIncentiveQuest": "To earn this quest, check in to Habitica on <%= count %> different days!",
+    "loginIncentiveQuestObtained": "You earned this quest by checking in to Habitica on <%= count %> different days!",
+    "loginReward": "<%= count %> Check-ins",
+    "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too."
 }

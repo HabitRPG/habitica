@@ -1,5 +1,9 @@
 {
     "backgrounds": "Cenários",
+    "background": "Cenário",
+    "backgroundShop": "Loja de cenários",
+    "backgroundShopText": "Loja de cenários",
+    "noBackground": "Nenhum cenário selecionado",
     "backgrounds062014": "Conjunto 1: Lançado em Junho de 2014",
     "backgroundBeachText": "Praia",
     "backgroundBeachNotes": "Descanse em uma praia quentinha.",
@@ -209,5 +213,16 @@
     "backgroundStormyRooftopsText": "Telhados Tempestuósos",
     "backgroundStormyRooftopsNotes": "Se esgueirar pelos Telhados Tempestuosos.",
     "backgroundWindyAutumnText": "Outono Ventoso",
-    "backgroundWindyAutumnNotes": "Catar folhas durante um Outono ventoso."
+    "backgroundWindyAutumnNotes": "Catar folhas durante um Outono ventoso.",
+    "incentiveBackgrounds": "Cenário básico selecionado",
+    "backgroundBlueText": "Azul",
+    "backgroundBlueNotes": "Um cenário azul atrevido",
+    "backgroundGreenText": "Verde",
+    "backgroundGreenNotes": "Um cenário verde vibrante",
+    "backgroundPurpleText": "Roxo",
+    "backgroundPurpleNotes": "Um cenário roxo radiante",
+    "backgroundRedText": "Vermelho",
+    "backgroundRedNotes": "Um cenário vermelhor vigoroso",
+    "backgroundYellowText": "Amarelo",
+    "backgroundYellowNotes": "Um cenário amarelo alegre"
 }

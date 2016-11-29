@@ -95,6 +95,10 @@ let _formatUserData = (user) => {
     properties.registeredPlatform = user.registeredThrough;
   }
 
+  if (user.loginIncentives) {
+    properties.loginIncentives = user.loginIncentives;
+  }
+
   return properties;
 };
 

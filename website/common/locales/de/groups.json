@@ -83,7 +83,6 @@
     "sortLevel": "Nach Level sortieren",
     "sortRandom": "Zufällig sortieren",
     "sortPets": "Nach Anzahl der Haustiere sortieren",
-    "sortJoined": "Nach Beitrittsdatum sortieren",
     "sortName": "Nach Avatarname sortieren",
     "sortBackgrounds": "Nach Hintergrund sortieren",
     "sortHabitrpgJoined": "Sortieren nach Habitica-Beitrittsdatum",
@@ -217,5 +216,8 @@
     "claim": "Anspruch",
     "onlyGroupLeaderCanManageSubscription": "Nur der Gruppen-Leiter kann Gruppen-Registrierungen verwalten",
     "yourTaskHasBeenApproved": "Deine Aufgabe wurde akzeptiert",
-    "userHasRequestedTaskApproval": "<%= user %> hat eine Anfrage zur prüfung von <%= taskName %> gestellt."
+    "userHasRequestedTaskApproval": "<%= user %> hat eine Anfrage zur prüfung von <%= taskName %> gestellt.",
+    "confirmTaskApproval": "Bist Du Dir sicher, dass Du dieser Aufgabe zustimmen möchtest?",
+    "approve": "Zustimmen",
+    "approvalTitle": "<%= text %> für Benutzer: <%= userName %>"
 }

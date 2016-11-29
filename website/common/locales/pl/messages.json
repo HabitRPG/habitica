@@ -53,5 +53,6 @@
     "messageGroupChatAdminClearFlagCount": "Tylko administrator może wyczyścić licznik flag!",
     "messageUserOperationProtected": "Ścieżka `<%= operation %>` nie została zapisana, gdyż jest chronniona przed zapisem.",
     "messageUserOperationNotFound": "Operacja <%= operation %> nie znaleziona",
-    "messageNotificationNotFound": "Nie znaleziono powiadomienia."
+    "messageNotificationNotFound": "Nie znaleziono powiadomienia.",
+    "notificationsRequired": "Wymagane są identyfikatowy powiadomienia"
 }

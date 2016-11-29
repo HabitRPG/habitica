@@ -2,6 +2,7 @@ var path = require('path');
 var config = require('./config');
 var utils = require('./utils');
 var projectRoot = path.resolve(__dirname, '../');
+var webpack = require('webpack');
 
 var IS_PROD = process.env.NODE_ENV === 'production';
 var baseConfig = {
@@ -17,6 +18,7 @@ var baseConfig = {
     extensions: ['', '.js', '.vue'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
+      jquery: 'jquery/src/jquery',
       client: path.resolve(__dirname, '../website/client'),
       assets: path.resolve(__dirname, '../website/client/assets'),
       components: path.resolve(__dirname, '../website/client/components'),
@@ -25,6 +27,12 @@ var baseConfig = {
   resolveLoader: {
     fallback: [path.join(__dirname, '../node_modules')],
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+    }),
+  ],
   module: {
     preLoaders: !IS_PROD ? [
       {
@@ -78,6 +86,9 @@ var baseConfig = {
     postcss: [
       require('autoprefixer')({
         browsers: ['last 2 versions'],
+      }),
+      require('postcss-easy-import')({
+        glob: true,
       }),
     ],
   },

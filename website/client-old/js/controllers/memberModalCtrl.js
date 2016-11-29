@@ -1,8 +1,8 @@
 "use strict";
 
 habitrpg
-  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification', 'Groups', 'Chat', '$controller', 'Stats',
-    function($scope, $rootScope, Members, Shared, $http, Notification, Groups, Chat, $controller, Stats) {
+  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification', 'Groups', 'Chat', '$controller', 'Stats', 'Costume',
+    function($scope, $rootScope, Members, Shared, $http, Notification, Groups, Chat, $controller, Stats, Costume) {
 
       $controller('RootCtrl', {$scope: $scope});
       $rootScope.appLoaded = true;
@@ -20,11 +20,14 @@ habitrpg
         }
       });
 
-    $scope.keyDownListener = function (e) {
-      if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-        $scope.sendPrivateMessage($scope.profile._id, $scope._message);
-      }
-    };
+      $scope.costume = Costume;
+
+      $scope.keyDownListener = function (e) {
+        if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+          $scope.sendPrivateMessage($scope.profile._id, $scope._message);
+        }
+      };
+
 
       $scope.sendPrivateMessage = function(uuid, message){
         if (!message) return;

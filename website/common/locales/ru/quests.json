@@ -42,9 +42,9 @@
     "bossDmg2Broken": "Только участники будут сражаться с боссом и разделят квестовые трофеи.",
     "tavernBossInfo": "Завершайте Ежедневные Задания и Задачи и отмечайте положительные Привычки, чтобы нанести урон Мировому Боссу! Незавершённые Ежедневные Задания заполнят Шкалу Изнуряющего Удара. Когда Шкала Изнуряющего Удара заполнена, Мировой Босс нанесёт атаку неигровому персонажу. Мировой Босс никак и никогда не нанесёт урона вашему личному персонажу или вашему аккаунту. Задание будет засчитано только активным аккаунтам, которые не отдыхают в Гостинице.",
     "tavernBossInfoBroken": "Завершайте Ежедневные Задания и отмечайте положительные Привычки, чтобы нанести урон Мировому Боссу... Незавершённые Ежедневные Задания заполнят Шкалу Изнуряющего Удара... Когда Шкала Изнуряющего Удара заполнена, Мировой Босс нанесёт атаку неигровому персонажу... Мировой Босс никак и никогда не нанесёт урона вашему личному персонажу или вашему аккаунту... Задание будет засчитанно только активным аккаунтам, которые не отдыхают в Гостинице...",
-    "bossColl1": "To collect items, do your positive tasks. Quest items drop just like normal items; you can monitor your quest item drops by hovering over the quest progress icon.",
+    "bossColl1": "Чтобы собирать предметы, выполняйте положительные задания. Квестовые предметы падают точно так же, как обычные; вы можете отслеживать выпавшие квестовые предметы, наведя на иконку прогресса квеста.",
     "bossColl2": "Только участники могут собрать предметы и разделять квестовые трофеи.",
-    "bossColl1Broken": "To collect items, do your positive tasks... Quest items drop just like normal items; you can monitor your quest item drops by hovering over the quest progress icon...",
+    "bossColl1Broken": "Чтобы собирать предметы, выполняйте положительные задания... Квестовые предметы падают точно так же, как обычные; вы можете отслеживать выпавшие квестовые предметы, наведя на иконку прогресса квеста...",
     "bossColl2Broken": "Только участники могут собирать предметы и разделять квестовые трофеи.",
     "abort": "Прервать",
     "leaveQuest": "Покинуть квест",
@@ -101,5 +101,10 @@
     "cantCancelActiveQuest": "Вы не можете отменить активный квест, используйте функциональность прерывания.",
     "onlyLeaderCancelQuest": "Только группа или лидер квеста может отменить квест.",
     "questNotPending": "Нет квестов для начала.",
-    "questOrGroupLeaderOnlyStartQuest": "Только лидер квеста или лидер группы может принудительно начать квест."
+    "questOrGroupLeaderOnlyStartQuest": "Только лидер квеста или лидер группы может принудительно начать квест.",
+    "createAccountReward": "Создать учетную запись",
+    "loginIncentiveQuest": "To earn this quest, check in to Habitica on <%= count %> different days!",
+    "loginIncentiveQuestObtained": "You earned this quest by checking in to Habitica on <%= count %> different days!",
+    "loginReward": "<%= count %> Check-ins",
+    "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too."
 }

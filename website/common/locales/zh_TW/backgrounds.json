@@ -1,5 +1,9 @@
 {
     "backgrounds": "背景",
+    "background": "背景",
+    "backgroundShop": "背景商店",
+    "backgroundShopText": "背景商店",
+    "noBackground": "沒有選擇背景",
     "backgrounds062014": "第 1 組：2014 年 6 月推出",
     "backgroundBeachText": "海灘",
     "backgroundBeachNotes": "徜徉在溫暖的海灘上。",
@@ -209,5 +213,16 @@
     "backgroundStormyRooftopsText": "Stormy Rooftops",
     "backgroundStormyRooftopsNotes": "Creep across Stormy Rooftops.",
     "backgroundWindyAutumnText": "Windy Autumn",
-    "backgroundWindyAutumnNotes": "Chase leaves during a Windy Autumn."
+    "backgroundWindyAutumnNotes": "Chase leaves during a Windy Autumn.",
+    "incentiveBackgrounds": "Plain Background Set",
+    "backgroundBlueText": "Blue",
+    "backgroundBlueNotes": "A basic blue backdrop.",
+    "backgroundGreenText": "Green",
+    "backgroundGreenNotes": "A great green backdrop.",
+    "backgroundPurpleText": "Purple",
+    "backgroundPurpleNotes": "A pleasant purple backdrop.",
+    "backgroundRedText": "Red",
+    "backgroundRedNotes": "A rad red backdrop.",
+    "backgroundYellowText": "Yellow",
+    "backgroundYellowNotes": "A yummy yellow backdrop."
 }

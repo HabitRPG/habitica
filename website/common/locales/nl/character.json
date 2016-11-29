@@ -30,6 +30,7 @@
     "hairBase": "Basis",
     "hairSet1": "Kapselset 1",
     "hairSet2": "Kapselverzameling 2",
+    "hairSet3": "Kapselverzameling 3",
     "bodyFacialHair": "Gezichtsbeharing",
     "beard": "Baard",
     "mustache": "Snor",
@@ -165,7 +166,7 @@
     "int": "INT",
     "showQuickAllocation": "Toon verdeling eigenschapspunten",
     "hideQuickAllocation": "Verberg verdeling eigenschapspunten",
-    "quickAllocationLevelPopover": "Met ieder level verdien je een punt om toe te wijzen aan een eigenschap van jouw keuze. Je kunt dit eigenhandig doen of het spel voor je laten bepalen door een van de automatische toewijzingsopties te kiezen in Gebruiker -> Statistieken gebruiker.",
+    "quickAllocationLevelPopover": "Met ieder niveau verdien je een punt om toe te wijzen aan een eigenschap van jouw keuze. Je kunt dit eigenhandig doen of het spel voor je laten bepalen door een van de automatische toewijzingsopties te kiezen in Gebruiker -> Statistieken gebruiker.",
     "invalidAttribute": "\"<%= attr %>\" is geen geldige eigenschap.",
     "notEnoughAttrPoints": "Je hebt niet genoeg eigenschapspunten.",
     "gearNotOwned": "Je bezit dit voorwerp niet."

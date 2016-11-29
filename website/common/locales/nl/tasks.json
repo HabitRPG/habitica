@@ -136,5 +136,7 @@
     "perceptionExample": "Gerelateerd aan werk of financiële taken",
     "constitutionExample": "Gerelateerd aan gezondheid, welzijn, en sociale interactie",
     "taskRequiresApproval": "Deze taak moet worden goedgekeurd voordat je hem kunt voltooien. Er is al goedkeuring gevraagd",
-    "taskApprovalHasBeenRequested": "Er is goedkeuring gevraagd"
+    "taskApprovalHasBeenRequested": "Er is goedkeuring gevraagd",
+    "approvals": "Goedkeuringen",
+    "approvalRequired": "Goedkeuring vereist"
 }

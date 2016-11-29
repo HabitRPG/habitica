@@ -83,7 +83,6 @@
     "sortLevel": "Sort by level",
     "sortRandom": "Sortează aleator",
     "sortPets": "Sortează după numărul de companioni",
-    "sortJoined": "Sort by date joined the party",
     "sortName": "Sort by avatar name",
     "sortBackgrounds": "Sort by background",
     "sortHabitrpgJoined": "Sort by Habitica date joined",
@@ -217,5 +216,8 @@
     "claim": "Claim",
     "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
     "yourTaskHasBeenApproved": "Your task has been approved",
-    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>"
+    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>",
+    "confirmTaskApproval": "Are you sure you want to approve this task?",
+    "approve": "Approve",
+    "approvalTitle": "<%= text %> for user: <%= userName %>"
 }

@@ -114,7 +114,7 @@
     "giftedGems": "Gemas Regaladas",
     "giftedGemsInfo": "<%= name %> te ha regalado <%= amount %> Gemas",
     "giftedSubscription": "Suscripción Regalada",
-    "giftedSubscriptionInfo": "<%= name %> te ha regalado <%= months %> de Subscripción.",
+    "giftedSubscriptionInfo": "<%= name %> te ha regalado una suscripción de <%= months %> meses",
     "invitedParty": "Invitado al Grupo",
     "invitedGuild": "Invitado al Gremio",
     "importantAnnouncements": "Tu cuenta está inactiva",

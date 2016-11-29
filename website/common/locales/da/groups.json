@@ -83,7 +83,6 @@
     "sortLevel": "Sortér efter niveau",
     "sortRandom": "Sortér tilfældigt",
     "sortPets": "Sortér efter antal kæledyr",
-    "sortJoined": "Sortér efter gruppeindmeldelsesdato",
     "sortName": "Sortér efter avatar-navn",
     "sortBackgrounds": "Sortér efter baggrund",
     "sortHabitrpgJoined": "Sortér efter Habitica indmeldelsesdato",
@@ -217,5 +216,8 @@
     "claim": "Claim",
     "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
     "yourTaskHasBeenApproved": "Your task has been approved",
-    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>"
+    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>",
+    "confirmTaskApproval": "Are you sure you want to approve this task?",
+    "approve": "Approve",
+    "approvalTitle": "<%= text %> for user: <%= userName %>"
 }

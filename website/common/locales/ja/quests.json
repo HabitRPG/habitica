@@ -42,9 +42,9 @@
     "bossDmg2Broken": "参加者だけがボスと戦い、クエストの賞品を分け合うことができる...",
     "tavernBossInfo": "日課やTo-Doを完了したり、いい習慣を行うたびに、ワールドボスにダメージを与えます!　日課をサボると「消耗の一撃」バーがたまっていきます。「消耗の一撃」バーがいっぱいになると、ワールドボスはNPCを攻撃します。ワールドボスは一人ひとりのプレーヤーやアカウントを攻撃することはありません。宿で休んでいるメンバーを除いた活動中のアカウントのタスクだけが、ボスへのとして計算されます。",
     "tavernBossInfoBroken": "日課やTo-Do、いい習慣を行うたびにワールドボスにダメージを与える...日課をサボると「消耗の一撃」バーがたまっていく...「消耗の一撃」バーがいっぱいになると、ワールドボスはNPCを攻撃する...ワールドボスは一人ひとりのプレーヤーやアカウントを攻撃することはない...宿で休んでいるメンバーを除いた活動中のアカウントのタスクのみ計算される...",
-    "bossColl1": "To collect items, do your positive tasks. Quest items drop just like normal items; you can monitor your quest item drops by hovering over the quest progress icon.",
+    "bossColl1": "アイテムを集めるには、前向きのタスクを実行します。クエスト アイテムは通常のアイテムと同様に手に入ります。進行中クエストのアイコン上にマウスカーソルを動かすと、手に入れたクエストアイテムを確認できます。",
     "bossColl2": "参加者だけがアイテムを集めることができ、クエストの賞品を分け合うことができる...",
-    "bossColl1Broken": "To collect items, do your positive tasks... Quest items drop just like normal items; you can monitor your quest item drops by hovering over the quest progress icon...",
+    "bossColl1Broken": "アイテムを集めるには、前向きのタスクを実行することだ…。クエスト アイテムは通常のアイテムと同様に手に入る。進行中クエストのアイコン上にマウスカーソルを動かすと、手に入れたクエストアイテムを確認できる…",
     "bossColl2Broken": "参加者だけがアイテムを集めることができ、クエストの賞品を分け合うことができる...",
     "abort": "中断する",
     "leaveQuest": "クエストから抜ける",
@@ -101,5 +101,10 @@
     "cantCancelActiveQuest": "進行中のクエストをキャンセルすることはできませんので、中断してください。",
     "onlyLeaderCancelQuest": "グループ リーダーまたはクエストのリーダーだけが、クエストをキャンセルできます。",
     "questNotPending": "開始するクエストがありません。",
-    "questOrGroupLeaderOnlyStartQuest": "グループ リーダーまたはクエストのリーダーだけが、クエストを強制的に開始できます。"
+    "questOrGroupLeaderOnlyStartQuest": "グループ リーダーまたはクエストのリーダーだけが、クエストを強制的に開始できます。",
+    "createAccountReward": "アカウント製作時に入手",
+    "loginIncentiveQuest": "このクエストを入手するには、<%= count %>日のログインが必要です！",
+    "loginIncentiveQuestObtained": "<%= count %>日のログインによりこのクエストを手に入れました！",
+    "loginReward": "<%= count %>日のログイン",
+    "createAccountQuest": "このクエストはHabiticaに参加した時に配布されます！もしあなたの友達が参加すれば、彼らも同じように受け取るでしょう。"
 }

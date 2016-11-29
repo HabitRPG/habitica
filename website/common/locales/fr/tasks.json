@@ -136,5 +136,7 @@
     "perceptionExample": "Relatif au tâches professionnelles ou financières",
     "constitutionExample": "Relatif à la santé, au bien-être et aux interactions sociales",
     "taskRequiresApproval": "Cette tâche nécessite une approbation avant de pouvoir être complétée. Une approbation a déjà été demandée.",
-    "taskApprovalHasBeenRequested": "Une approbation a été demandée"
+    "taskApprovalHasBeenRequested": "Une approbation a été demandée",
+    "approvals": "Approbations",
+    "approvalRequired": "Approbation Requise"
 }

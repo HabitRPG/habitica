@@ -120,6 +120,7 @@
     "audioTheme_luneFoxTheme": "LuneFoxs tema",
     "audioTheme_rosstavoTheme": "Rosstavo's Tema",
     "audioTheme_dewinTheme": "Derwin's tema",
+    "audioTheme_airuTheme": "Airu's Theme",
     "askQuestion": "Ställ en fråga",
     "reportBug": "Rapportera ett fel",
     "HabiticaWiki": "Habitica Wikin",
@@ -185,7 +186,7 @@
     "wonChallengeShare": "Jag van en utmaning i HabitRPG!",
     "achievementShare": "Jag har klarat av en ny bedrift i HabitRPG!",
     "orderBy": "Sortera enligt <%= item %>",
-    "you": "(you)",
+    "you": "(du)",
     "enableDesktopNotifications": "Enable Desktop Notifications",
     "online": "online",
     "onlineCount": "<%= count %> online"

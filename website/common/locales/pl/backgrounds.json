@@ -1,5 +1,9 @@
 {
     "backgrounds": "Tła",
+    "background": "Tło",
+    "backgroundShop": "Sklep z tłami",
+    "backgroundShopText": "Sklep z tłami",
+    "noBackground": "Nie wybrano tła",
     "backgrounds062014": "ZESTAW 1: Opublikowany w czerwcu 2014",
     "backgroundBeachText": "Plaża",
     "backgroundBeachNotes": "Wypoczywaj na ciepłej plaży.",
@@ -209,5 +213,16 @@
     "backgroundStormyRooftopsText": "Burzowe dachy",
     "backgroundStormyRooftopsNotes": "Skradać się przez Burzowe Dachy",
     "backgroundWindyAutumnText": "Wietrzna jesień",
-    "backgroundWindyAutumnNotes": "Poscig podczas wietrznej jesieni"
+    "backgroundWindyAutumnNotes": "Poscig podczas wietrznej jesieni",
+    "incentiveBackgrounds": "Prosty zestaw tła",
+    "backgroundBlueText": "Błękitny",
+    "backgroundBlueNotes": "Podstawowy błękitny horyzont",
+    "backgroundGreenText": "Zielony",
+    "backgroundGreenNotes": "Podstawowy zielony horyzont",
+    "backgroundPurpleText": "Purpurowy",
+    "backgroundPurpleNotes": "Miły purpurowy horyzont",
+    "backgroundRedText": "Czerwony",
+    "backgroundRedNotes": "Awangardowy czerwony horyzont",
+    "backgroundYellowText": "Żółty",
+    "backgroundYellowNotes": "Pyszny żółty horyzont"
 }

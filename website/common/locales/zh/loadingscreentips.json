@@ -1,5 +1,5 @@
 {
-  "tipTitle": "提示# <%= tipNumber %>",
+  "tipTitle": "小提示# <%= tipNumber %>",
   "tip1": "用Habitica移动应用打卡任务。",
   "tip2": "到达100级免费解锁重生球，能够开始一段新的冒险！",
   "tip3": "使用表情符号快速区分你的任务。",

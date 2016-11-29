@@ -1,5 +1,9 @@
 {
     "backgrounds": "Фон",
+    "background": "Фон",
+    "backgroundShop": "Лавка фонов",
+    "backgroundShopText": "Лавка фонов",
+    "noBackground": "Фон не выбран",
     "backgrounds062014": "Набор 1: Выпущен в июне 2014",
     "backgroundBeachText": "Пляж",
     "backgroundBeachNotes": "Расслабьтесь на теплом пляже.",
@@ -209,5 +213,16 @@
     "backgroundStormyRooftopsText": "Крыши, открытые всем ветрам",
     "backgroundStormyRooftopsNotes": "Преодолейте путь по Крышам, открытым всем ветрам",
     "backgroundWindyAutumnText": "Ветренная Осень ",
-    "backgroundWindyAutumnNotes": "Ветреная Осень — время гоняться за листьями."
+    "backgroundWindyAutumnNotes": "Ветреная Осень — время гоняться за листьями.",
+    "incentiveBackgrounds": "Набор простых фонов",
+    "backgroundBlueText": "Синий",
+    "backgroundBlueNotes": "Простой синий фон",
+    "backgroundGreenText": "Зеленый",
+    "backgroundGreenNotes": "Замечательный зеленый фон",
+    "backgroundPurpleText": "Фиолетовый",
+    "backgroundPurpleNotes": "Славный фиолетовый фон",
+    "backgroundRedText": "Красный",
+    "backgroundRedNotes": "Милый красный фон",
+    "backgroundYellowText": "Желтый",
+    "backgroundYellowNotes": "Аппетитный желтый фон"
 }

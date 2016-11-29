@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+    <title>45D3A740-CE56-4F37-90D2-5871CB868045</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Navigation" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Navigation---Desktop-HD" transform="translate(-1200.000000, -12.000000)">
+            <g id="Navigation">
+                <g id="Gold" transform="translate(1200.000000, 12.000000)">
+                    <g id="-g-Gold" transform="translate(1.000000, 1.000000)">
+                        <circle id="Oval" fill="#FFB445" cx="15" cy="15" r="14"></circle>
+                        <path d="M5.1,24.9 C-0.4,19.4 -0.4,10.6 5.1,5.1 C10.6,-0.4 19.4,-0.4 24.9,5.1" id="Shape" fill="#FFFFFF" opacity="0.3"></path>
+                        <circle id="Oval" fill="#BF8734" cx="15" cy="15" r="12"></circle>
+                        <circle id="Oval" fill="#FFB445" cx="15" cy="15" r="10"></circle>
+                        <path d="M7.9,22.1 C4,18.2 4,11.8 7.9,7.9 C11.8,4 18.1,4 22,7.9" id="Shape" fill="#FFFFFF" opacity="0.3"></path>
+                        <polygon id="Shape" fill="#BF8734" points="17 10 17 14 13 14 13 10 11 10 11 20 13 20 13 16 17 16 17 20 19 20 19 10"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
