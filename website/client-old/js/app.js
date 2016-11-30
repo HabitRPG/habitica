@@ -164,29 +164,33 @@ window.habitrpg = angular.module('habitrpg',
             Groups.Group.get($stateParams.gid)
               .then(function (response) {
                 $scope.obj = $scope.group = response.data.data;
-                Chat.markChatSeen($scope.group._id);
-                Members.getGroupMembers($scope.group._id)
-                  .then(function (response) {
-                    $scope.group.members = response.data.data;
-                  });
-                Members.getGroupInvites($scope.group._id)
-                  .then(function (response) {
-                    $scope.group.invites = response.data.data;
-                  });
-                Challenges.getGroupChallenges($scope.group._id)
-                  .then(function (response) {
-                    $scope.group.challenges = response.data.data;
-                  });
-
-                Tasks.getGroupTasks($scope.group._id)
-                  .then(function (response) {
-                    var tasks = response.data.data;
-                    tasks.forEach(function (element, index, array) {
-                      if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
-                      $scope.group[element.type + 's'].push(element);
-                    })
-                  });
+                return Chat.markChatSeen($scope.group._id);
               })
+              .then (function () {
+                return Members.getGroupMembers($scope.group._id);
+              })
+              .then(function (response) {
+                $scope.group.members = response.data.data;
+
+                return Members.getGroupInvites($scope.group._id);
+              })
+              .then(function (response) {
+                $scope.group.invites = response.data.data;
+
+                return Challenges.getGroupChallenges($scope.group._id);
+              })
+              .then(function (response) {
+                $scope.group.challenges = response.data.data;
+
+                return Tasks.getGroupTasks($scope.group._id);
+              })
+              .then(function (response) {
+                var tasks = response.data.data;
+                tasks.forEach(function (element, index, array) {
+                  if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
+                  $scope.group[element.type + 's'].push(element);
+                })
+              });
           }]
         })
 
