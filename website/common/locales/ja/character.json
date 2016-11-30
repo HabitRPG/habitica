@@ -83,7 +83,7 @@
     "allocatePerPop": "知覚にポイントを加える",
     "allocateInt": "知能のポイント：",
     "allocateIntPop": "知能にポイントを加える",
-    "noMoreAllocate": "レベル100に到達したので、これ以上能力値が増えません。レベルアップを続けることもできますし、マーケットで無料で手に入る<a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>「生まれかわりのオーブ」</a>をつかって、レベル1 から新しい冒険を始めることもできます。",
+    "noMoreAllocate": "レベル100に到達したので、これ以上能力値が増えません。レベルアップを続けることもできますし、マーケットで無料で手に入る<a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>「転生のオーブ」</a>をつかって、レベル1 から新しい冒険を始めることもできます。",
     "stats": "データ",
     "achievs": "実績",
     "strength": "力",

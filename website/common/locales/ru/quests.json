@@ -103,8 +103,8 @@
     "questNotPending": "Нет квестов для начала.",
     "questOrGroupLeaderOnlyStartQuest": "Только лидер квеста или лидер группы может принудительно начать квест.",
     "createAccountReward": "Создать учетную запись",
-    "loginIncentiveQuest": "To earn this quest, check in to Habitica on <%= count %> different days!",
-    "loginIncentiveQuestObtained": "You earned this quest by checking in to Habitica on <%= count %> different days!",
-    "loginReward": "<%= count %> Check-ins",
-    "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too."
+    "loginIncentiveQuest": "Чтобы заработать этот квест, пожалуйста, заходите на Habitica еще <%= count %> разных дней!",
+    "loginIncentiveQuestObtained": "Вы заслужили этот квест, заходя на Habitica <%= count %> разных дней!",
+    "loginReward": "<%= count %> Отметок",
+    "createAccountQuest": "Вы получили этот квест, когда вы присоединились к Habitica! Если ваш друг присоединяется, они так-же получит это квест."
 }

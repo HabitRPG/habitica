@@ -106,5 +106,5 @@
     "loginIncentiveQuest": "Um diese Quest zu erhalten, musst Du Dich an <%= count %> unterschiedlichen Tagen anmelden!",
     "loginIncentiveQuestObtained": "Du hast diese Quest erhalten, indem Du Dich an <%= count %> unterschiedlichen Tagen angemeldet hast!",
     "loginReward": "<%= count %> Anmeldungen",
-    "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too."
+    "createAccountQuest": "Du hast diese Quest beim Beitreten zu Habitica erhalten! Wenn einer Deiner Freunde beitritt, erhält er ebenfalls eine."
 }

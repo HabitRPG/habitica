@@ -2,7 +2,7 @@
     "backgrounds": "Achtergronden",
     "background": "Achtergrond",
     "backgroundShop": "Achtergrondenwinkel",
-    "backgroundShopText": "Achtergrondenwinke",
+    "backgroundShopText": "Achtergrondenwinkel",
     "noBackground": "Geen achtergrond geselecteerd",
     "backgrounds062014": "SET 1: Uitgebracht in juni 2014",
     "backgroundBeachText": "Strand",
@@ -220,9 +220,9 @@
     "backgroundGreenText": "Groen",
     "backgroundGreenNotes": "Een geweldig groen decor.",
     "backgroundPurpleText": "Paars",
-    "backgroundPurpleNotes": "Een aangenaam paars decor.",
+    "backgroundPurpleNotes": "Een plezant paars decor.",
     "backgroundRedText": "Rood",
-    "backgroundRedNotes": "Een tof rood decor.",
+    "backgroundRedNotes": "Een radicaal rood decor.",
     "backgroundYellowText": "Geel",
-    "backgroundYellowNotes": "Een lekker geel decor."
+    "backgroundYellowNotes": "Een gezellig geel decor."
 }

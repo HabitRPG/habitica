@@ -649,7 +649,7 @@
     "headSpecialFall2016MageText": "Capuche de Malice",
     "headSpecialFall2016MageNotes": "Dissimulez vos complots sous cette capuche sombre. Augmente la perception de <%=per %> points. Équipement en édition limitée de l'automne 2016. ",
     "headSpecialFall2016HealerText": "Couronne de Méduse",
-    "headSpecialFall2016HealerNotes": "Malheur à toute personne qui osera vous regarder dans les yeux... Augmente l'intelligence de <%=int %> points. Équipement en édition limitée de l'automne 2016. ",
+    "headSpecialFall2016HealerNotes": "Malheur à toute personne qui osera vous regarder dans les yeux... Augmente l'intelligence de <%= int %> points. Équipement en édition limitée de l'automne 2016. ",
     "headSpecialGaymerxText": "Heaume de Guerrier Arc-en-Ciel",
     "headSpecialGaymerxNotes": "En l'honneur de la conférence GaymerX, cet casque spécial est décoré avec un motif arc-en-ciel aussi radieux que coloré ! GaymerX est une convention célébrant les LGBTQ et les jeux, et est ouverte à tous.",
     "headMystery201402Text": "Heaume Ailé",
