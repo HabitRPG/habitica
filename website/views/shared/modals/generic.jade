@@ -1,0 +1,7 @@
+script(type='text/ng-template', id='modals/generic.html')
+  .modal-header
+    h4 {{env.t(data.headerText, data.headerData)}}
+  .modal-body
+    p {{env.t(data.bodyText, data.bodyData)}}
+  .modal-footer
+    .btn.btn-default.pull-right(ng-click='$close()')=env.t('close')

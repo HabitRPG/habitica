@@ -306,8 +306,12 @@ api.joinGroup = {
 
     if (inviter) {
       let data = {
-        groupName: group.name,
-        username: user.auth.local.username,
+        headerText: 'acceptedInvitationHeader',
+        bodyText: 'acceptedInvitation',
+        bodyData: {
+          groupName: group.name,
+          username: user.auth.local.username,
+        },
       };
       promises.push(User.update({_id: inviter},
         {$push: {notifications: {type: 'GROUP_INVITE_ACCEPTED', data}}}).exec());
