@@ -116,3 +116,13 @@ script(type='text/ng-template', id='modals/user-id.html')
       {{::user._id}}
   .modal-footer
     .btn.btn-default.pull-right(ng-click='$close()')=env.t('close')
+
+script(type='text/ng-template', id='modals/invitation-accepted.html')
+  .modal-header
+    h4=env.t('acceptedInvitationHeader')
+  .modal-body
+    p
+      {{env.t('acceptedInvitation', data)}}
+  .modal-footer
+    .btn.btn-default.pull-right(ng-click='$close()')=env.t('close')
+

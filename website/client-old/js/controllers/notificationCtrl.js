@@ -145,7 +145,9 @@ habitrpg.controller('NotificationCtrl',
             Notification.showLoginIncentive(User.user, notification.data, Social.loadWidgets);
             break;
           case 'GROUP_INVITE_ACCEPTED':
-            Notification.text(env.t('acceptedInvitation', notification.data));
+            var modalScope = $rootScope.$new();
+            modalScope.data = notification.data;
+            $rootScope.openModal('invitation-accepted', {scope: modalScope});
             break;
           default:
             markAsRead = false; // If the notification is not implemented, skip it
