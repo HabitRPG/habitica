@@ -20,6 +20,7 @@ import { sendTxn as sendTxnEmail } from '../../libs/email';
 import { encrypt } from '../../libs/encryption';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import pusher from '../../libs/pusher';
+import common from '../../../common';
 
 /**
  * @apiDefine GroupBodyInvalid
@@ -305,16 +306,15 @@ api.joinGroup = {
     let promises = [group.save(), user.save()];
 
     if (inviter) {
+      inviter = await User.findById(inviter).select('notifications preferences.language').exec();
+
       let data = {
-        headerText: 'acceptedInvitationHeader',
-        bodyText: 'acceptedInvitation',
-        bodyData: {
-          groupName: group.name,
-          username: user.auth.local.username,
-        },
+        headerText: common.i18n.t('invitationAcceptedHeader', inviter.preferences.language),
+        bodyText: common.i18n.t('invitationAcceptedBody', {groupName: group.name, username: user.auth.local.username},
+          inviter.preferences.language),
       };
-      promises.push(User.update({_id: inviter},
-        {$push: {notifications: {type: 'GROUP_INVITE_ACCEPTED', data}}}).exec());
+      inviter.addNotification('GROUP_INVITE_ACCEPTED', data);
+      promises.push(inviter.save());
     }
 
     if (group.type === 'party' && inviter) {
