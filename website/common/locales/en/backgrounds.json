@@ -255,5 +255,13 @@
   "backgroundRedText": "Red",
   "backgroundRedNotes": "A rad red backdrop.",
   "backgroundYellowText": "Yellow",
-  "backgroundYellowNotes": "A yummy yellow backdrop."
+  "backgroundYellowNotes": "A yummy yellow backdrop.",
+
+  "backgrounds122016": "SET 31: Released December 2016",
+  "backgroundShimmeringIcePrismText": "Shimmering Ice Prisms",
+  "backgroundShimmeringIcePrismNotes": "Dance through the Shimmering Ice Prisms.",
+  "backgroundWinterFireworksText": "Winter Fireworks",
+  "backgroundWinterFireworksNotes": "Set off Winter Fireworks.",
+  "backgroundWinterStorefrontText": "Winter Shop",
+  "backgroundWinterStorefrontNotes": "Purchase presents from a Winter Shop."
 }

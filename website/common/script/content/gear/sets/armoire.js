@@ -192,6 +192,14 @@ let armor = {
     set: 'redHairbow',
     canOwn: ownsItem('armor_armoire_redPartyDress'),
   },
+  woodElfArmor: {
+    text: t('armorArmoireWoodElfArmorText'),
+    notes: t('armorArmoireWoodElfArmorNotes', { per: 12 }),
+    value: 100,
+    per: 12,
+    set: 'woodElf',
+    canOwn: ownsItem('armor_armoire_woodElfArmor'),
+  },
 };
 
 let eyewear = {
@@ -456,6 +464,14 @@ let head = {
     set: 'blueArcher',
     canOwn: ownsItem('head_armoire_ironBlueArcherHelm'),
   },
+  woodElfHelm: {
+    text: t('headArmoireWoodElfHelmText'),
+    notes: t('headArmoireWoodElfHelmNotes', { con: 12 }),
+    value: 100,
+    con: 12,
+    set: 'woodElf',
+    canOwn: ownsItem('head_armoire_woodElfHelm'),
+  },
 };
 
 let shield = {
@@ -711,6 +727,14 @@ let weapon = {
     str: 15,
     set: 'ogre',
     canOwn: ownsItem('weapon_armoire_ogreClub'),
+  },
+  woodElfStaff: {
+    text: t('weaponArmoireWoodElfStaffText'),
+    notes: t('weaponArmoireWoodElfStaffNotes', { int: 12 }),
+    value: 100,
+    int: 12,
+    set: 'woodElf',
+    canOwn: ownsItem('weapon_armoire_woodElfStaff'),
   },
 };
 
