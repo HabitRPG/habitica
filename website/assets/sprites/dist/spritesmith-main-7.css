@@ -1,432 +1,498 @@
+.weapon_special_taskwoodsLantern {
+  background-image: url(/static/sprites/spritesmith-main-7.png);
+  background-position: -1537px -622px;
+  width: 90px;
+  height: 90px;
+}
+.weapon_special_tridentOfCrashingTides {
+  background-image: url(/static/sprites/spritesmith-main-7.png);
+  background-position: -947px -1520px;
+  width: 90px;
+  height: 90px;
+}
+.weapon_warrior_0 {
+  background-image: url(/static/sprites/spritesmith-main-7.png);
+  background-position: -1038px -1520px;
+  width: 90px;
+  height: 90px;
+}
+.weapon_warrior_1 {
+  background-image: url(/static/sprites/spritesmith-main-7.png);
+  background-position: -1374px -1299px;
+  width: 90px;
+  height: 90px;
+}
+.weapon_warrior_2 {
+  background-image: url(/static/sprites/spritesmith-main-7.png);
+  background-position: -583px -1520px;
+  width: 90px;
+  height: 90px;
+}
+.weapon_warrior_3 {
+  background-image: url(/static/sprites/spritesmith-main-7.png);
+  background-position: -674px -1520px;
+  width: 90px;
+  height: 90px;
+}
+.weapon_warrior_4 {
+  background-image: url(/static/sprites/spritesmith-main-7.png);
+  background-position: -1402px -1520px;
+  width: 90px;
+  height: 90px;
+}
+.weapon_warrior_5 {
+  background-image: url(/static/sprites/spritesmith-main-7.png);
+  background-position: -765px -1520px;
+  width: 90px;
+  height: 90px;
+}
+.weapon_warrior_6 {
+  background-image: url(/static/sprites/spritesmith-main-7.png);
+  background-position: -856px -1520px;
+  width: 90px;
+  height: 90px;
+}
+.weapon_wizard_0 {
+  background-image: url(/static/sprites/spritesmith-main-7.png);
+  background-position: -1129px -1520px;
+  width: 90px;
+  height: 90px;
+}
+.weapon_wizard_1 {
+  background-image: url(/static/sprites/spritesmith-main-7.png);
+  background-position: -1537px -713px;
+  width: 90px;
+  height: 90px;
+}
 .weapon_wizard_2 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -392px -1619px;
+  background-position: -1537px -895px;
   width: 90px;
   height: 90px;
 }
 .weapon_wizard_3 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -119px -1619px;
+  background-position: -1537px -986px;
   width: 90px;
   height: 90px;
 }
 .weapon_wizard_4 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -483px -1619px;
+  background-position: -1537px -1168px;
   width: 90px;
   height: 90px;
 }
 .weapon_wizard_5 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -847px -1619px;
+  background-position: -1537px -1259px;
   width: 90px;
   height: 90px;
 }
 .weapon_wizard_6 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -301px -1619px;
+  background-position: -1537px -1350px;
   width: 90px;
   height: 90px;
 }
 .GrimReaper {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1150px -1619px;
+  background-position: -1812px -1374px;
   width: 57px;
   height: 66px;
 }
 .Pet_Currency_Gem {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1751px -572px;
+  background-position: -1831px -1068px;
   width: 45px;
   height: 39px;
 }
 .Pet_Currency_Gem1x {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1782px -776px;
+  background-position: -1863px -266px;
   width: 15px;
   height: 13px;
 }
 .Pet_Currency_Gem2x {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1751px -776px;
+  background-position: -1863px -239px;
   width: 30px;
   height: 26px;
 }
 .PixelPaw-Gold {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1376px -1619px;
+  background-position: -1584px -1520px;
   width: 51px;
   height: 51px;
 }
 .PixelPaw {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1428px -1619px;
+  background-position: -1848px -913px;
   width: 51px;
   height: 51px;
 }
 .PixelPaw002 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1324px -1619px;
+  background-position: -1848px -861px;
   width: 51px;
   height: 51px;
 }
 .avatar_floral_healer {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -668px -1480px;
+  background-position: -1712px -1374px;
   width: 99px;
   height: 99px;
 }
 .avatar_floral_rogue {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -968px -1480px;
+  background-position: -1712px -1474px;
   width: 99px;
   height: 99px;
 }
 .avatar_floral_warrior {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -768px -1480px;
+  background-position: -1537px -422px;
   width: 99px;
   height: 99px;
 }
 .avatar_floral_wizard {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -868px -1480px;
+  background-position: -1537px -522px;
   width: 99px;
   height: 99px;
 }
 .empty_bottles {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1068px -1520px;
+  background-position: -1812px -1474px;
   width: 64px;
   height: 54px;
 }
 .ghost {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -574px -1619px;
+  background-position: -1220px -1520px;
   width: 90px;
   height: 90px;
 }
 .inventory_present {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1751px -364px;
+  background-position: -98px -1664px;
   width: 48px;
   height: 51px;
 }
 .inventory_present_01 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1751px -208px;
+  background-position: -686px -1664px;
   width: 48px;
   height: 51px;
 }
 .inventory_present_02 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1751px -156px;
+  background-position: -637px -1664px;
   width: 48px;
   height: 51px;
 }
 .inventory_present_03 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1751px -104px;
+  background-position: -588px -1664px;
   width: 48px;
   height: 51px;
 }
 .inventory_present_04 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1751px -52px;
+  background-position: -539px -1664px;
   width: 48px;
   height: 51px;
 }
 .inventory_present_05 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1751px 0px;
+  background-position: -490px -1664px;
   width: 48px;
   height: 51px;
 }
 .inventory_present_06 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1676px -1619px;
+  background-position: -441px -1664px;
   width: 48px;
   height: 51px;
 }
 .inventory_present_07 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1627px -1619px;
+  background-position: -392px -1664px;
   width: 48px;
   height: 51px;
 }
 .inventory_present_08 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1578px -1619px;
+  background-position: -343px -1664px;
   width: 48px;
   height: 51px;
 }
 .inventory_present_09 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1751px -520px;
+  background-position: -294px -1664px;
   width: 48px;
   height: 51px;
 }
 .inventory_present_10 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1751px -468px;
+  background-position: -245px -1664px;
   width: 48px;
   height: 51px;
 }
 .inventory_present_11 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1751px -416px;
+  background-position: -196px -1664px;
   width: 48px;
   height: 51px;
 }
 .inventory_present_12 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1751px -260px;
+  background-position: -147px -1664px;
   width: 48px;
   height: 51px;
 }
 .inventory_quest_scroll {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1480px -1619px;
+  background-position: -1636px -1520px;
   width: 48px;
   height: 51px;
 }
 .inventory_quest_scroll_locked {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1529px -1619px;
+  background-position: 0px -1664px;
   width: 48px;
   height: 51px;
 }
 .inventory_special_birthday {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1655px -1520px;
+  background-position: -1637px -522px;
   width: 57px;
   height: 54px;
 }
 .inventory_special_fortify {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1597px -1520px;
+  background-position: -1628px -804px;
   width: 57px;
   height: 54px;
 }
 .inventory_special_greeting {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1539px -1520px;
+  background-position: -1628px -1168px;
   width: 57px;
   height: 54px;
 }
 .inventory_special_nye {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1481px -1520px;
+  background-position: -1628px -895px;
   width: 57px;
   height: 54px;
 }
 .inventory_special_opaquePotion {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1751px -612px;
+  background-position: -1833px -1190px;
   width: 40px;
   height: 40px;
 }
 .inventory_special_seafoam {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1365px -1520px;
+  background-position: -1628px -1077px;
   width: 57px;
   height: 54px;
 }
 .inventory_special_shinySeed {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1249px -1520px;
+  background-position: -1628px -1259px;
   width: 57px;
   height: 54px;
 }
 .inventory_special_snowball {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1191px -1520px;
+  background-position: -1465px -1299px;
   width: 57px;
   height: 54px;
 }
 .inventory_special_spookySparkles {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1133px -1520px;
+  background-position: -1628px -622px;
   width: 57px;
   height: 54px;
 }
 .inventory_special_thankyou {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1208px -1619px;
+  background-position: -1628px -713px;
   width: 57px;
   height: 54px;
 }
 .inventory_special_trinket {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1751px -312px;
+  background-position: -49px -1664px;
   width: 48px;
   height: 51px;
 }
 .inventory_special_valentine {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1266px -1619px;
+  background-position: -1637px -422px;
   width: 57px;
   height: 54px;
 }
 .knockout {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1320px -1064px;
+  background-position: -1712px -1574px;
   width: 120px;
   height: 47px;
 }
 .pet_key {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1423px -1520px;
+  background-position: -1628px -986px;
   width: 57px;
   height: 54px;
 }
 .rebirth_orb {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1307px -1520px;
+  background-position: -1628px -1350px;
   width: 57px;
   height: 54px;
 }
 .seafoam_star {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -938px -1619px;
+  background-position: -1493px -1520px;
   width: 90px;
   height: 90px;
 }
 .shop_armoire {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1751px -653px;
+  background-position: -1833px -1574px;
   width: 40px;
   height: 40px;
 }
 .snowman {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -756px -1619px;
+  background-position: -1311px -1520px;
   width: 90px;
   height: 90px;
 }
 .zzz {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1751px -735px;
+  background-position: -1812px -1529px;
   width: 40px;
   height: 40px;
 }
 .zzz_light {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1751px -694px;
+  background-position: -1853px -1529px;
   width: 40px;
   height: 40px;
 }
 .npc_alex {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1272px -1299px;
+  background-position: -1712px -722px;
   width: 162px;
   height: 138px;
 }
 .npc_aprilFool {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -462px -1480px;
+  background-position: -1712px -1117px;
   width: 120px;
   height: 120px;
 }
 .npc_bailey {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1089px -1619px;
+  background-position: -1833px -1117px;
   width: 60px;
   height: 72px;
 }
 .npc_daniel {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -326px -1480px;
+  background-position: -1712px -861px;
   width: 135px;
   height: 123px;
 }
 .npc_ian {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1435px -1299px;
+  background-position: -1712px -1238px;
   width: 75px;
   height: 135px;
 }
 .npc_justin {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -583px -1480px;
+  background-position: -1788px -1238px;
   width: 84px;
   height: 120px;
 }
 .npc_justin_head {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1712px -175px;
+  background-position: -1863px -142px;
   width: 36px;
   height: 96px;
 }
 .npc_matt {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1537px -1168px;
+  background-position: -1178px -1299px;
   width: 195px;
   height: 138px;
 }
 .npc_sabe {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -665px -1619px;
+  background-position: -1537px -804px;
   width: 90px;
   height: 90px;
 }
 .npc_timetravelers {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1537px -890px;
+  background-position: -387px -1480px;
   width: 195px;
   height: 138px;
 }
 .npc_timetravelers_active {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1537px -1029px;
+  background-position: -191px -1480px;
   width: 195px;
   height: 138px;
 }
 .npc_tyler {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -210px -1619px;
+  background-position: -1537px -1077px;
   width: 90px;
   height: 90px;
 }
 .npc_vicky {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1029px -1619px;
+  background-position: -1831px -985px;
   width: 59px;
   height: 82px;
 }
 .seasonalshop_closed {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: 0px -1480px;
+  background-position: -1712px -444px;
   width: 162px;
   height: 138px;
 }
 .seasonalshop_open {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -163px -1480px;
+  background-position: -1712px -583px;
   width: 162px;
   height: 138px;
 }
 .quest_TEMPLATE_FOR_MISSING_IMAGE {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1068px -1480px;
+  background-position: -583px -1480px;
   width: 221px;
   height: 39px;
 }
 .quest_armadillo {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1100px -660px;
+  background-position: -440px 0px;
   width: 219px;
   height: 219px;
 }
 .quest_atom1 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -719px -1299px;
+  background-position: -468px -1299px;
   width: 250px;
   height: 150px;
 }
 .quest_atom2 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1537px -751px;
+  background-position: -970px -1299px;
   width: 207px;
   height: 138px;
 }
@@ -438,13 +504,13 @@
 }
 .quest_axolotl {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -440px 0px;
+  background-position: -880px 0px;
   width: 219px;
   height: 219px;
 }
 .quest_basilist {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1537px -1307px;
+  background-position: -1712px 0px;
   width: 189px;
   height: 141px;
 }
@@ -462,19 +528,19 @@
 }
 .quest_cheetah {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: 0px -232px;
+  background-position: -220px -892px;
   width: 219px;
   height: 219px;
 }
 .quest_cow {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1537px -175px;
+  background-position: -1537px 0px;
   width: 174px;
   height: 213px;
 }
 .quest_dilatory {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -660px 0px;
+  background-position: -220px -232px;
   width: 219px;
   height: 219px;
 }
@@ -486,55 +552,55 @@
 }
 .quest_dilatoryDistress2 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -970px -1299px;
+  background-position: -1712px -142px;
   width: 150px;
   height: 150px;
 }
 .quest_dilatoryDistress3 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -660px -220px;
+  background-position: 0px -452px;
   width: 219px;
   height: 219px;
 }
 .quest_dilatory_derby {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -440px -232px;
+  background-position: 0px -232px;
   width: 219px;
   height: 219px;
 }
 .quest_dustbunnies {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: 0px -452px;
+  background-position: -440px -452px;
   width: 219px;
   height: 219px;
 }
 .quest_egg {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1512px -1480px;
-  width: 221px;
-  height: 39px;
+  background-position: -1537px -214px;
+  width: 165px;
+  height: 207px;
 }
 .quest_evilsanta {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: 0px -1619px;
+  background-position: -1712px -985px;
   width: 118px;
   height: 131px;
 }
 .quest_evilsanta2 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -880px 0px;
+  background-position: -660px -672px;
   width: 219px;
   height: 219px;
 }
 .quest_falcon {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -880px -220px;
+  background-position: -1100px 0px;
   width: 219px;
   height: 219px;
 }
 .quest_ferret {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: 0px -672px;
+  background-position: -1100px -220px;
   width: 219px;
   height: 219px;
 }
@@ -546,15 +612,15 @@
 }
 .quest_ghost_stag {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -440px -672px;
+  background-position: -1100px -440px;
   width: 219px;
   height: 219px;
 }
 .quest_goldenknight1 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1290px -1480px;
-  width: 221px;
-  height: 39px;
+  background-position: 0px -892px;
+  width: 219px;
+  height: 219px;
 }
 .quest_goldenknight2 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
@@ -570,13 +636,13 @@
 }
 .quest_gryphon {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1094px -1112px;
+  background-position: -443px -1112px;
   width: 216px;
   height: 177px;
 }
 .quest_harpy {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -220px -892px;
+  background-position: -1100px -660px;
   width: 219px;
   height: 219px;
 }
@@ -588,55 +654,55 @@
 }
 .quest_horse {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -440px -892px;
+  background-position: -220px 0px;
   width: 219px;
   height: 219px;
 }
 .quest_kraken {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -660px -1112px;
+  background-position: -877px -1112px;
   width: 216px;
   height: 177px;
 }
 .quest_monkey {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: 0px -892px;
+  background-position: -880px -672px;
   width: 219px;
   height: 219px;
 }
 .quest_moon1 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1320px 0px;
+  background-position: -1320px -217px;
   width: 216px;
   height: 216px;
 }
 .quest_moon2 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1100px -440px;
+  background-position: -440px -672px;
   width: 219px;
   height: 219px;
 }
 .quest_moon3 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1100px -220px;
+  background-position: -220px -672px;
   width: 219px;
   height: 219px;
 }
 .quest_moonstone1 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1100px 0px;
+  background-position: 0px -672px;
   width: 219px;
   height: 219px;
 }
 .quest_moonstone2 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -880px -672px;
+  background-position: -880px -440px;
   width: 219px;
   height: 219px;
 }
 .quest_moonstone3 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -660px -672px;
+  background-position: -880px -220px;
   width: 219px;
   height: 219px;
 }
@@ -648,19 +714,19 @@
 }
 .quest_owl {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -220px -672px;
+  background-position: -660px -452px;
   width: 219px;
   height: 219px;
 }
 .quest_penguin {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1537px -567px;
+  background-position: 0px -1480px;
   width: 190px;
   height: 183px;
 }
 .quest_rat {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -880px -440px;
+  background-position: -220px -452px;
   width: 219px;
   height: 219px;
 }
@@ -672,25 +738,25 @@
 }
 .quest_rooster {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1537px 0px;
+  background-position: -1311px -1112px;
   width: 213px;
   height: 174px;
 }
 .quest_sabretooth {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -660px -452px;
+  background-position: -660px -220px;
   width: 219px;
   height: 219px;
 }
 .quest_sheep {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -440px -452px;
+  background-position: -660px 0px;
   width: 219px;
   height: 219px;
 }
 .quest_slime {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -220px -452px;
+  background-position: -440px -232px;
   width: 219px;
   height: 219px;
 }
@@ -702,55 +768,37 @@
 }
 .quest_snake {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1311px -1112px;
+  background-position: -660px -1112px;
   width: 216px;
   height: 177px;
 }
 .quest_spider {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -468px -1299px;
+  background-position: -719px -1299px;
   width: 250px;
   height: 150px;
 }
 .quest_taskwoodsTerror1 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1121px -1299px;
+  background-position: -1712px -293px;
   width: 150px;
   height: 150px;
 }
 .quest_taskwoodsTerror2 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1320px -217px;
+  background-position: -1320px 0px;
   width: 216px;
   height: 216px;
 }
 .quest_taskwoodsTerror3 {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -220px -232px;
+  background-position: -440px -892px;
   width: 219px;
   height: 219px;
 }
 .quest_treeling {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -443px -1112px;
+  background-position: -1094px -1112px;
   width: 216px;
   height: 177px;
-}
-.quest_trex {
-  background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1537px -389px;
-  width: 204px;
-  height: 177px;
-}
-.quest_trex_undead {
-  background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -877px -1112px;
-  width: 216px;
-  height: 177px;
-}
-.quest_turtle {
-  background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -220px 0px;
-  width: 219px;
-  height: 219px;
 }
