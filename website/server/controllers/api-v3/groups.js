@@ -306,19 +306,28 @@ api.joinGroup = {
     let promises = [group.save(), user.save()];
 
     if (inviter) {
-      inviter = await User.findById(inviter).select('notifications preferences.language').exec();
+      inviter = await User.findById(inviter).select('notifications preferences.language items.quests.basilist').exec();
 
       let data = {
         headerText: common.i18n.t('invitationAcceptedHeader', inviter.preferences.language),
-        bodyText: common.i18n.t('invitationAcceptedBody', {groupName: group.name, username: user.auth.local.username},
-          inviter.preferences.language),
+        bodyText: common.i18n.t('invitationAcceptedBody', {
+          groupName: group.name,
+          username: user.auth.local.username,
+        }, inviter.preferences.language),
       };
       inviter.addNotification('GROUP_INVITE_ACCEPTED', data);
+
+      // Reward Inviter
+      if (group.type === 'party') {
+        if (!inviter.items.quests.basilist) {
+          inviter.items.quests.basilist = 0;
+        }
+        inviter.items.quests.basilist++;
+      }
       promises.push(inviter.save());
     }
 
     if (group.type === 'party' && inviter) {
-      promises.push(User.update({_id: inviter}, {$inc: {'items.quests.basilist': 1}}).exec()); // Reward inviter
       if (group.memberCount > 1) {
         promises.push(User.update({$or: [{'party._id': group._id}, {_id: user._id}], 'achievements.partyUp': {$ne: true}}, {$set: {'achievements.partyUp': true}}, {multi: true}).exec());
       }
