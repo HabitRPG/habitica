@@ -145,7 +145,14 @@ habitrpg.controller('NotificationCtrl',
             Notification.showLoginIncentive(User.user, notification.data, Social.loadWidgets);
             break;
           default:
-            markAsRead = false; // If the notification is not implemented, skip it
+            if (notification.data.headerText && notification.data.bodyText) {
+              var modalScope = $rootScope.$new();
+              modalScope.data = notification.data;
+              $rootScope.openModal('generic', {scope: modalScope});
+            }
+            else {
+              markAsRead = false; // If the notification is not implemented, skip it
+            }
             break;
         }
 
