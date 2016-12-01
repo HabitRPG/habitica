@@ -137,6 +137,6 @@
     "constitutionExample": "Относится к здоровью, благополучию и социальным взаимодействиям.",
     "taskRequiresApproval": "Перед тем как выполнять эту задачу, она должна быть одобрена. Одобрение уже запрошено.",
     "taskApprovalHasBeenRequested": "Одобрение запрошено",
-    "approvals": "Approvals",
-    "approvalRequired": "Approval Required"
+    "approvals": "Одобрения",
+    "approvalRequired": "Требуется одобрение"
 }

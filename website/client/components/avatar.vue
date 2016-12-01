@@ -1,11 +1,5 @@
 <template lang="pug">
 .avatar(:style="{width, height, paddingTop}", :class="backgroundClass")
-  // TODO
-  // addthis
-  // cast spell (on click)
-  // buffs
-  // user level and username, rebirth icon, ...
-
   .character-sprites
     template(v-if="!avatarOnly" v-once)
       // Mount

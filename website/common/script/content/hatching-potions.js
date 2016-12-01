@@ -79,6 +79,11 @@ let premium = {
     limited: true,
     _season: 'fall',
   },
+  RoyalPurple: {
+    value: 2,
+    text: t('hatchingPotionRoyalPurple'),
+    limited: true,
+  },
 };
 
 each(drops, (pot, key) => {

@@ -14,6 +14,7 @@ const NOTIFICATION_TYPES = [
   'CRON',
   'GROUP_TASK_APPROVAL',
   'GROUP_TASK_APPROVED',
+  'LOGIN_INCENTIVE',
 ];
 
 const Schema = mongoose.Schema;

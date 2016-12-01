@@ -83,7 +83,6 @@
     "sortLevel": "レベルで並べ替え",
     "sortRandom": "ランダムで並べ替え",
     "sortPets": "ペット数で並べ替え",
-    "sortJoined": "パーティの入団日順で並べ替え",
     "sortName": "アバターの名前順で並べ替え",
     "sortBackgrounds": "バックグラウンドで並べ替え",
     "sortHabitrpgJoined": "Habiticaの登録日順に並べ替え",
@@ -218,7 +217,7 @@
     "onlyGroupLeaderCanManageSubscription": "グループの登録管理は、グループリーダーだけが行います",
     "yourTaskHasBeenApproved": "タスクが承認されました",
     "userHasRequestedTaskApproval": "<%= user %> が <%= taskName %> のタスク承認をもとめています",
-    "confirmTaskApproval": "Are you sure you want to approve this task?",
-    "approve": "Approve",
-    "approvalTitle": "<%= text %> for user: <%= userName %>"
+    "confirmTaskApproval": "このタスクを承認します。よろしいですか?",
+    "approve": "承認",
+    "approvalTitle": "<%= userName %> への <%= text %>"
 }

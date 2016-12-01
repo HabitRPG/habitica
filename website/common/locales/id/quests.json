@@ -101,5 +101,10 @@
     "cantCancelActiveQuest": "Anda tidak dapat membatalkan misi yang aktif, gunakan fungsi pembatalan.",
     "onlyLeaderCancelQuest": "Hanya ketua kelompok atau pemilik gulungan misi yang dapat membatalkan misi.",
     "questNotPending": "Tidak ada misi untuk dimulai",
-    "questOrGroupLeaderOnlyStartQuest": "Hanya pemimpin misi atau pemimpin kelompok dapat memaksa memulai misi"
+    "questOrGroupLeaderOnlyStartQuest": "Hanya pemimpin misi atau pemimpin kelompok dapat memaksa memulai misi",
+    "createAccountReward": "Create Account",
+    "loginIncentiveQuest": "To earn this quest, check in to Habitica on <%= count %> different days!",
+    "loginIncentiveQuestObtained": "You earned this quest by checking in to Habitica on <%= count %> different days!",
+    "loginReward": "<%= count %> Check-ins",
+    "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too."
 }

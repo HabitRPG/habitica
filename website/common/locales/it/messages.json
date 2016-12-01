@@ -19,8 +19,8 @@
     "messageAlreadyPet": "Possiedi già quell'animale. Prova un'altra combinazione!",
     "messageHatched": "Il tuo uovo si è schiuso! Vai alla Scuderia per equipaggiarlo.",
     "messageNotEnoughGold": "Non hai abbastanza Oro",
-    "messageTwoHandedEquip": "Brandire<%= twoHandedText %>  richiede due mani, perciò<%= offHandedText %>è stato disequipaggiato",
-    "messageTwoHandedUnequip": "Brandire<%= twoHandedText %> richiede due mani, perciò è stato disequipaggiato quando tu ti sei armato con <%= offHandedText %>.",
+    "messageTwoHandedEquip": "Brandire <%= twoHandedText %> richiede due mani, perciò <%= offHandedText %> è stato disequipaggiato.",
+    "messageTwoHandedUnequip": "Brandire <%= twoHandedText %> richiede due mani, perciò è stato disequipaggiato per poterti armare con <%= offHandedText %>.",
     "messageDropFood": "Hai trovato <%= dropText %>! <%= dropNotes %>",
     "messageDropEgg": "Hai trovato un uovo di <%= dropText %>! <%= dropNotes %>",
     "messageDropPotion": "Hai trovato una Pozione di Schiusura <%= dropText %>! <%= dropNotes %>",
@@ -42,7 +42,7 @@
     "messageAuthMustBeLoggedIn": "Devi aver eseguito l'accesso.",
     "messageAuthMustIncludeTokens": "Devi includere un token e un UID (ID utente) nella tua richiesta.",
     "messageGroupNotFound": "Gruppo inesistente o a cui non puoi accedere.",
-    "messageGroupAlreadyInParty": "Già in una squadra, prova a ricaricare la pagina",
+    "messageGroupAlreadyInParty": "Già in una squadra, prova a ricaricare la pagina.",
     "messageGroupOnlyLeaderCanUpdate": "Solo il leader del gruppo può aggiornare il gruppo!",
     "messageGroupRequiresInvite": "Non puoi unirti ad un gruppo se non sei stato invitato.",
     "messageGroupCannotRemoveSelf": "Non puoi rimuovere te stesso!",
@@ -53,5 +53,6 @@
     "messageGroupChatAdminClearFlagCount": "Solo un amministratore può azzerare il conteggio flag!",
     "messageUserOperationProtected": "Il percorso `<%= operation %>` non è stato salvato, perchè è un percorso protetto.",
     "messageUserOperationNotFound": "Operazione <%= operation %> non trovata",
-    "messageNotificationNotFound": "Notifica non trovata."
+    "messageNotificationNotFound": "Notifica non trovata.",
+    "notificationsRequired": "Sono necessari gli id delle notifiche."
 }

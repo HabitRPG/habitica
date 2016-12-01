@@ -35,7 +35,7 @@
     "collect": "Samla",
     "collected": "Samlade",
     "collectionItems": "<%= number %> <%= items %>",
-    "itemsToCollect": "Items to Collect",
+    "itemsToCollect": "Föremål att samla ",
     "bossDmg1": "Each completed Daily and To-Do and each positive Habit hurts the boss. Hurt it more with redder tasks or Brutal Smash and Burst of Flames. The boss will deal damage to every quest participant for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your Dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossDmg2": "Bara deltagare kommer strida mot bossen och dela på uppdragsbytet.",
     "bossDmg1Broken": "Each completed Daily and To-Do and each positive Habit hurts the boss... Hurt it more with redder tasks or Brutal Smash and Burst of Flames... The boss will deal damage to every quest participant for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your Dailies... <strong>All damage to and from a boss is tallied on cron (your day roll-over)...</strong>",
@@ -101,5 +101,10 @@
     "cantCancelActiveQuest": "You can not cancel an active quest, use the abort functionality.",
     "onlyLeaderCancelQuest": "Only the group or quest leader can cancel the quest.",
     "questNotPending": "There is no quest to start.",
-    "questOrGroupLeaderOnlyStartQuest": "Only the quest leader or group leader can force start the quest"
+    "questOrGroupLeaderOnlyStartQuest": "Only the quest leader or group leader can force start the quest",
+    "createAccountReward": "Create Account",
+    "loginIncentiveQuest": "To earn this quest, check in to Habitica on <%= count %> different days!",
+    "loginIncentiveQuestObtained": "You earned this quest by checking in to Habitica on <%= count %> different days!",
+    "loginReward": "<%= count %> Check-ins",
+    "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too."
 }

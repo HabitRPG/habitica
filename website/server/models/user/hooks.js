@@ -78,6 +78,7 @@ function _setUpNewUser (user) {
   let iterableFlags = user.flags.toObject();
 
   user._ABtest = '';
+  user.items.quests.dustbunnies = 1;
 
   if (user.registeredThrough === 'habitica-web' || user.registeredThrough === 'habitica-android') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];

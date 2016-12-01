@@ -1,5 +1,9 @@
 {
     "backgrounds": "Sfondi",
+    "background": "Background",
+    "backgroundShop": "Background Shop",
+    "backgroundShopText": "Background Shop",
+    "noBackground": "Nessuno sfondo selezionato",
     "backgrounds062014": "SERIE 1: Giugno 2014",
     "backgroundBeachText": "Spiaggia",
     "backgroundBeachNotes": "Rilassati su una calda spiaggia.",
@@ -209,5 +213,16 @@
     "backgroundStormyRooftopsText": "Tetti Tempestosi",
     "backgroundStormyRooftopsNotes": "Salta tra i Tetti Tempestosi.",
     "backgroundWindyAutumnText": "Autunno ventoso",
-    "backgroundWindyAutumnNotes": "Insegui le foglie autunnali."
+    "backgroundWindyAutumnNotes": "Insegui le foglie autunnali.",
+    "incentiveBackgrounds": "Plain Background Set",
+    "backgroundBlueText": "Blue",
+    "backgroundBlueNotes": "A basic blue backdrop.",
+    "backgroundGreenText": "Green",
+    "backgroundGreenNotes": "A great green backdrop.",
+    "backgroundPurpleText": "Purple",
+    "backgroundPurpleNotes": "A pleasant purple backdrop.",
+    "backgroundRedText": "Red",
+    "backgroundRedNotes": "A rad red backdrop.",
+    "backgroundYellowText": "Yellow",
+    "backgroundYellowNotes": "A yummy yellow backdrop."
 }

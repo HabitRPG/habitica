@@ -101,5 +101,10 @@
     "cantCancelActiveQuest": "Vous ne pouvez pas annuler une quête active, utilisez la fonction interrompre à la place.",
     "onlyLeaderCancelQuest": "Seul le responsable du groupe ou de la quête peut annuler la quête.",
     "questNotPending": "Il n'y a aucune quête à commencer.",
-    "questOrGroupLeaderOnlyStartQuest": "Seul le responsable du groupe ou de la quête peut forcer le début de la quête"
+    "questOrGroupLeaderOnlyStartQuest": "Seul le responsable du groupe ou de la quête peut forcer le début de la quête",
+    "createAccountReward": "Créer un compte",
+    "loginIncentiveQuest": "Pour remporter cette quête, connectez-vous sur Habitica <%= count %> jours différents.",
+    "loginIncentiveQuestObtained": "Vous avez gagné cette quête pour avoir fait une connexion sur Habitica <%= count %> jours différents !",
+    "loginReward": "<%= count %> connexions",
+    "createAccountQuest": "Vous avez reçu cette quête en rejoignant Habitica. Si des amis vous rejoignent, ils l'auront aussi."
 }

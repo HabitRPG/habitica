@@ -101,5 +101,10 @@
     "cantCancelActiveQuest": "Вы не можете отменить активный квест, используйте функциональность прерывания.",
     "onlyLeaderCancelQuest": "Только группа или лидер квеста может отменить квест.",
     "questNotPending": "Нет квестов для начала.",
-    "questOrGroupLeaderOnlyStartQuest": "Только лидер квеста или лидер группы может принудительно начать квест."
+    "questOrGroupLeaderOnlyStartQuest": "Только лидер квеста или лидер группы может принудительно начать квест.",
+    "createAccountReward": "Создать учетную запись",
+    "loginIncentiveQuest": "Чтобы заработать этот квест, пожалуйста, заходите на Habitica еще <%= count %> разных дней!",
+    "loginIncentiveQuestObtained": "Вы заслужили этот квест, заходя на Habitica <%= count %> разных дней!",
+    "loginReward": "<%= count %> Отметок",
+    "createAccountQuest": "Вы получили этот квест, когда вы присоединились к Habitica! Если ваш друг присоединяется, они так-же получит это квест."
 }
