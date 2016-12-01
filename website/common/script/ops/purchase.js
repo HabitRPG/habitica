@@ -113,7 +113,7 @@ module.exports = function purchase (user, req = {}, analytics) {
       itemKey: key,
       itemType: 'Market',
       acquireMethod: 'Gems',
-      gemCost: item.value,
+      gemCost: price * 4,
       category: 'behavior',
       headers: req.headers,
     });

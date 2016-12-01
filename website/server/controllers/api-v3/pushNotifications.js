@@ -9,7 +9,6 @@ let api = {};
 /**
  * @apiIgnore
  * @api {post} /api/v3/user/push-devices Add a push device to a user
- * @apiVersion 3.0.0
  * @apiName UserAddPushDevice
  * @apiGroup User
  *
@@ -54,7 +53,6 @@ api.addPushDevice = {
 /**
  * @apiIgnore
  * @api {delete} /api/v3/user/push-devices remove a push device from a user
- * @apiVersion 3.0.0
  * @apiName UserRemovePushDevice
  * @apiGroup User
  *

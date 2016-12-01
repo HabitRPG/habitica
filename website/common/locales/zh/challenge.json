@@ -11,7 +11,7 @@
     "unsubChallenge": "无效的挑战链接：这项任务本来是一个挑战的一部分，可是你取消了该挑战。你想怎么处置这项任务？",
     "challengeWinner": "赢得了以下挑战",
     "challenges": "挑战",
-    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Challenges</a>",
+    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>挑战</a>",
     "noChallenges": "还没有挑战，在",
     "toCreate": "这里建立一个。",
     "selectWinner": "选择一位赢家然后结束挑战：",

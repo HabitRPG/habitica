@@ -136,9 +136,6 @@ import purchase from './ops/purchase';
 import purchaseHourglass from './ops/hourglassPurchase';
 import readCard from './ops/readCard';
 import openMysteryItem from './ops/openMysteryItem';
-import addWebhook from './ops/addWebhook';
-import updateWebhook from './ops/updateWebhook';
-import deleteWebhook from './ops/deleteWebhook';
 import releasePets from './ops/releasePets';
 import releaseBoth from './ops/releaseBoth';
 import releaseMounts from './ops/releaseMounts';
@@ -175,9 +172,6 @@ api.ops = {
   purchaseHourglass,
   readCard,
   openMysteryItem,
-  addWebhook,
-  updateWebhook,
-  deleteWebhook,
   releasePets,
   releaseBoth,
   releaseMounts,
@@ -264,9 +258,6 @@ api.wrap = function wrapUser (user, main = true) {
       sortTag: _.partial(importedOps.sortTag, user),
       updateTag: _.partial(importedOps.updateTag, user),
       deleteTag: _.partial(importedOps.deleteTag, user),
-      addWebhook: _.partial(importedOps.addWebhook, user),
-      updateWebhook: _.partial(importedOps.updateWebhook, user),
-      deleteWebhook: _.partial(importedOps.deleteWebhook, user),
       clearPMs: _.partial(importedOps.clearPMs, user),
       deletePM: _.partial(importedOps.deletePM, user),
       blockUser: _.partial(importedOps.blockUser, user),

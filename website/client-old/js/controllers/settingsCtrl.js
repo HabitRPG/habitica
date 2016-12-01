@@ -246,20 +246,26 @@ habitrpg.controller('SettingsCtrl',
 
     // ---- Webhooks ------
     $scope._newWebhook = {url:''};
-    $scope.$watch('user.preferences.webhooks',function(webhooks){
-      $scope.hasWebhooks = _.size(webhooks);
-    })
     $scope.addWebhook = function(url) {
-      User.addWebhook({body:{url:url, enabled:true}});
+      User.addWebhook({
+        id: Shared.uuid(),
+        type: 'taskActivity',
+        options: {
+          created: false,
+          updated: false,
+          deleted: false,
+          scored: true
+        },
+        url: url,
+        enabled: true
+      });
       $scope._newWebhook.url = '';
     }
-    $scope.saveWebhook = function(id,webhook) {
+    $scope.saveWebhook = function(webhook) {
       delete webhook._editing;
-      User.updateWebhook({params:{id:id}, body:webhook});
+      User.updateWebhook(webhook);
     }
-    $scope.deleteWebhook = function(id) {
-      User.deleteWebhook({params:{id:id}});
-    }
+    $scope.deleteWebhook = User.deleteWebhook;
 
     $scope.applyCoupon = function(coupon){
       $http.post(ApiUrl.get() + '/api/v3/coupons/validate/'+coupon)

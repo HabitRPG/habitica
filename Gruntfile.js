@@ -57,7 +57,7 @@ module.exports = function(grunt) {
         files: [
           {expand: true, cwd: 'website/client-old/', src: 'favicon.ico', dest: 'website/build/'},
           {expand: true, cwd: 'website/client-old/', src: 'favicon_192x192.png', dest: 'website/build/'},
-          {expand: true, cwd: 'website/assets/sprites/dist/', src: 'spritesmith*.png', dest: 'website/build/'},
+          {expand: true, cwd: 'website/assets/sprites/dist/', src: 'spritesmith*.png', dest: 'website/build/static/sprites'},
           {expand: true, cwd: 'website/assets/sprites/', src: 'backer-only/*.gif', dest: 'website/build/'},
           {expand: true, cwd: 'website/assets/sprites/', src: 'npc_ian.gif', dest: 'website/build/'},
           {expand: true, cwd: 'website/assets/sprites/', src: 'quest_*.gif', dest: 'website/build/'},
@@ -78,6 +78,7 @@ module.exports = function(grunt) {
           'website/build/favicon.ico',
           'website/build/favicon_192x192.png',
           'website/build/*.png',
+          'website/build/static/sprites/*.png',
           'website/build/*.gif',
           'website/build/bower_components/bootstrap/dist/fonts/*'
         ],
@@ -126,15 +127,7 @@ module.exports = function(grunt) {
   // Register tasks.
   grunt.registerTask('build:prod', ['loadManifestFiles', 'clean:build', 'uglify', 'stylus', 'cssmin', 'copy:build', 'hashres']);
   grunt.registerTask('build:dev', ['cssmin', 'stylus']);
-  grunt.registerTask('build:test', ['test:prepare:translations', 'build:dev']);
-
-  grunt.registerTask('test:prepare:translations', function() {
-    var i18n  = require('./website/server/libs/i18n'),
-        fs    = require('fs');
-    fs.writeFileSync('test/client-old/spec/mocks/translations.js',
-      "if(!window.env) window.env = {};\n" +
-      "window.env.translations = " + JSON.stringify(i18n.translations['en']) + ';');
-  });
+  grunt.registerTask('build:test', ['build:dev']);
 
   // Load tasks
   grunt.loadNpmTasks('grunt-contrib-uglify');

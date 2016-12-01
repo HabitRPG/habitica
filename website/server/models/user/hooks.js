@@ -77,13 +77,8 @@ function _setUpNewUser (user) {
   let taskTypes;
   let iterableFlags = user.flags.toObject();
 
-  // A/B Test 2016-09-26: Start with Armoire Enabled?
-  if (Math.random() < 0.5) {
-    user.flags.armoireEnabled = true;
-    user._ABtest = '20160926-armoireEnabled';
-  } else {
-    user._ABtest = '20160926-armoireDisabled';
-  }
+  user._ABtest = '';
+  user.items.quests.dustbunnies = 1;
 
   if (user.registeredThrough === 'habitica-web' || user.registeredThrough === 'habitica-android') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];

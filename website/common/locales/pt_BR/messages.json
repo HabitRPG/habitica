@@ -53,5 +53,6 @@
     "messageGroupChatAdminClearFlagCount": "Somente um administrador pode remover o contador de denúncias!",
     "messageUserOperationProtected": "caminho `<%= operation %>` não foi salvo, já que é um caminho protegido.",
     "messageUserOperationNotFound": "<%= operation %> operação não encontrada",
-    "messageNotificationNotFound": "Notificação não encontrada."
+    "messageNotificationNotFound": "Notificação não encontrada.",
+    "notificationsRequired": "Os IDs de notificação são obrigatórios."
 }

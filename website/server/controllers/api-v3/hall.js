@@ -6,12 +6,16 @@ import {
 } from '../../libs/errors';
 import _ from 'lodash';
 
+/**
+ * @apiDefine Admin Moderators
+ * Contributors of tier 8 or higher can use this route.
+ */
+
 let api = {};
 
 /**
  * @api {get} /api/v3/hall/patrons Get all patrons
  * @apiDescription Only the first 50 patrons are returned. More can be accessed passing ?page=n
- * @apiVersion 3.0.0
  * @apiName GetPatrons
  * @apiGroup Hall
  *
@@ -49,7 +53,6 @@ api.getPatrons = {
 
 /**
  * @api {get} /api/v3/hall/heroes Get all Heroes
- * @apiVersion 3.0.0
  * @apiName GetHeroes
  * @apiGroup Hall
  *
@@ -80,12 +83,14 @@ const heroAdminFields = 'contributor balance profile.name purchased items auth f
 
 /**
  * @api {get} /api/v3/hall/heroes/:heroId Get any user ("hero") given the UUID
- * @apiDescription Must be an admin to make this request.
- * @apiVersion 3.0.0
  * @apiName GetHero
  * @apiGroup Hall
  *
  * @apiSuccess {Object} data The user object
+ *
+ * @apiPermission Admin
+ *
+ * @apiUse UserNotFound
  */
 api.getHero = {
   method: 'GET',
@@ -119,11 +124,14 @@ const gemsPerTier = {1: 3, 2: 3, 3: 3, 4: 4, 5: 4, 6: 4, 7: 4, 8: 0, 9: 0};
 /**
  * @api {put} /api/v3/hall/heroes/:heroId Update any user ("hero")
  * @apiDescription Must be an admin to make this request.
- * @apiVersion 3.0.0
  * @apiName UpdateHero
  * @apiGroup Hall
  *
  * @apiSuccess {Object} data The updated user object
+ *
+ * @apiPermission Admin
+ *
+ * @apiUse UserNotFound
  */
 api.updateHero = {
   method: 'PUT',

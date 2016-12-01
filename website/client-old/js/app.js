@@ -159,11 +159,11 @@ window.habitrpg = angular.module('habitrpg',
           url: '/:gid',
           templateUrl: 'partials/options.social.guilds.detail.html',
           title: env.t('titleGuilds'),
-          controller: ['$scope', 'Groups', 'Chat', '$stateParams', 'Members', 'Challenges',
-          function($scope, Groups, Chat, $stateParams, Members, Challenges){
+          controller: ['$scope', 'Groups', 'Chat', '$stateParams', 'Members', 'Challenges', 'Tasks',
+          function($scope, Groups, Chat, $stateParams, Members, Challenges, Tasks) {
             Groups.Group.get($stateParams.gid)
               .then(function (response) {
-                $scope.group = response.data.data;
+                $scope.obj = $scope.group = response.data.data;
                 Chat.markChatSeen($scope.group._id);
                 Members.getGroupMembers($scope.group._id)
                   .then(function (response) {
@@ -177,7 +177,16 @@ window.habitrpg = angular.module('habitrpg',
                   .then(function (response) {
                     $scope.group.challenges = response.data.data;
                   });
-              });
+                //@TODO: Add this back when group tasks go live
+                // Tasks.getGroupTasks($scope.group._id);
+                //   .then(function (response) {
+                //     var tasks = response.data.data;
+                //     tasks.forEach(function (element, index, array) {
+                //       if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
+                //       $scope.group[element.type + 's'].push(element);
+                //     })
+                //   });
+              })
           }]
         })
 

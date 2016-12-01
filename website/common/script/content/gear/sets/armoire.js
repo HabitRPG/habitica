@@ -166,6 +166,40 @@ let armor = {
     set: 'vermilionArcher',
     canOwn: ownsItem('armor_armoire_vermilionArcherArmor'),
   },
+  ogreArmor: {
+    text: t('armorArmoireOgreArmorText'),
+    notes: t('armorArmoireOgreArmorNotes', { con: 15 }),
+    value: 100,
+    con: 15,
+    set: 'ogre',
+    canOwn: ownsItem('armor_armoire_ogreArmor'),
+  },
+  ironBlueArcherArmor: {
+    text: t('armorArmoireIronBlueArcherArmorText'),
+    notes: t('armorArmoireIronBlueArcherArmorNotes', { str: 12 }),
+    value: 100,
+    str: 12,
+    set: 'blueArcher',
+    canOwn: ownsItem('armor_armoire_ironBlueArcherArmor'),
+  },
+  redPartyDress: {
+    text: t('armorArmoireRedPartyDressText'),
+    notes: t('armorArmoireRedPartyDressNotes', { attrs: 7 }),
+    value: 100,
+    str: 7,
+    con: 7,
+    int: 7,
+    set: 'redHairbow',
+    canOwn: ownsItem('armor_armoire_redPartyDress'),
+  },
+  woodElfArmor: {
+    text: t('armorArmoireWoodElfArmorText'),
+    notes: t('armorArmoireWoodElfArmorNotes', { per: 12 }),
+    value: 100,
+    per: 12,
+    set: 'woodElf',
+    canOwn: ownsItem('armor_armoire_woodElfArmor'),
+  },
 };
 
 let eyewear = {
@@ -195,6 +229,7 @@ let head = {
     str: 5,
     int: 5,
     con: 5,
+    set: 'redHairbow',
     canOwn: ownsItem('head_armoire_redHairbow'),
   },
   violetFloppyHat: {
@@ -412,6 +447,31 @@ let head = {
     set: 'vermilionArcher',
     canOwn: ownsItem('head_armoire_vermilionArcherHelm'),
   },
+  ogreMask: {
+    text: t('headArmoireOgreMaskText'),
+    notes: t('headArmoireOgreMaskNotes', { attrs: 7 }),
+    value: 100,
+    con: 7,
+    str: 7,
+    set: 'ogre',
+    canOwn: ownsItem('head_armoire_ogreMask'),
+  },
+  ironBlueArcherHelm: {
+    text: t('headArmoireIronBlueArcherHelmText'),
+    notes: t('headArmoireIronBlueArcherHelmNotes', { con: 9 }),
+    value: 100,
+    con: 9,
+    set: 'blueArcher',
+    canOwn: ownsItem('head_armoire_ironBlueArcherHelm'),
+  },
+  woodElfHelm: {
+    text: t('headArmoireWoodElfHelmText'),
+    notes: t('headArmoireWoodElfHelmNotes', { con: 12 }),
+    value: 100,
+    con: 12,
+    set: 'woodElf',
+    canOwn: ownsItem('head_armoire_woodElfHelm'),
+  },
 };
 
 let shield = {
@@ -582,6 +642,7 @@ let weapon = {
     con: 8,
     str: 7,
     twoHanded: true,
+    set: 'blueArcher',
     canOwn: ownsItem('weapon_armoire_blueLongbow'),
   },
   glowingSpear: {
@@ -658,6 +719,22 @@ let weapon = {
     twoHanded: true,
     set: 'vermilionArcher',
     canOwn: ownsItem('weapon_armoire_vermilionArcherBow'),
+  },
+  ogreClub: {
+    text: t('weaponArmoireOgreClubText'),
+    notes: t('weaponArmoireOgreClubNotes', { str: 15 }),
+    value: 100,
+    str: 15,
+    set: 'ogre',
+    canOwn: ownsItem('weapon_armoire_ogreClub'),
+  },
+  woodElfStaff: {
+    text: t('weaponArmoireWoodElfStaffText'),
+    notes: t('weaponArmoireWoodElfStaffNotes', { int: 12 }),
+    value: 100,
+    int: 12,
+    set: 'woodElf',
+    canOwn: ownsItem('weapon_armoire_woodElfStaff'),
   },
 };
 

@@ -395,6 +395,75 @@ let backgrounds = {
       notes: t('backgroundOrchardNotes'),
     },
   },
+  backgrounds102016: {
+    rainy_city: {
+      text: t('backgroundRainyCityText'),
+      notes: t('backgroundRainyCityNotes'),
+    },
+    spider_web: {
+      text: t('backgroundSpiderWebText'),
+      notes: t('backgroundSpiderWebNotes'),
+    },
+    strange_sewers: {
+      text: t('backgroundStrangeSewersText'),
+      notes: t('backgroundStrangeSewersNotes'),
+    },
+  },
+  backgrounds112016: {
+    midnight_clouds: {
+      text: t('backgroundMidnightCloudsText'),
+      notes: t('backgroundMidnightCloudsNotes'),
+    },
+    stormy_rooftops: {
+      text: t('backgroundStormyRooftopsText'),
+      notes: t('backgroundStormyRooftopsNotes'),
+    },
+    windy_autumn: {
+      text: t('backgroundWindyAutumnText'),
+      notes: t('backgroundWindyAutumnNotes'),
+    },
+  },
+  backgrounds122016: {
+    shimmering_ice_prism: {
+      text: t('backgroundShimmeringIcePrismText'),
+      notes: t('backgroundShimmeringIcePrismNotes'),
+    },
+    winter_fireworks: {
+      text: t('backgroundWinterFireworksText'),
+      notes: t('backgroundWinterFireworksNotes'),
+    },
+    winter_storefront: {
+      text: t('backgroundWinterStorefrontText'),
+      notes: t('backgroundWinterStorefrontNotes'),
+    },
+  },
+  incentiveBackgrounds: {
+    blue: {
+      text: t('backgroundBlueText'),
+      notes: t('backgroundBlueNotes'),
+      currency: 'loginIncentive',
+    },
+    green: {
+      text: t('backgroundGreenText'),
+      notes: t('backgroundGreenNotes'),
+      currency: 'loginIncentive',
+    },
+    purple: {
+      text: t('backgroundPurpleText'),
+      notes: t('backgroundPurpleNotes'),
+      currency: 'loginIncentive',
+    },
+    red: {
+      text: t('backgroundRedText'),
+      notes: t('backgroundRedNotes'),
+      currency: 'loginIncentive',
+    },
+    yellow: {
+      text: t('backgroundYellowText'),
+      notes: t('backgroundYellowNotes'),
+      currency: 'loginIncentive',
+    },
+  },
 };
 /* eslint-enable quote-props */
 

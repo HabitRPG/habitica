@@ -12,9 +12,6 @@ import addTag from './addTag';
 import sortTag from './sortTag';
 import updateTag from './updateTag';
 import deleteTag from './deleteTag';
-import addWebhook from './addWebhook';
-import updateWebhook from './updateWebhook';
-import deleteWebhook from './deleteWebhook';
 import clearPMs from './clearPMs';
 import deletePM from './deletePM';
 import blockUser from './blockUser';
@@ -58,9 +55,6 @@ module.exports = {
   sortTag,
   updateTag,
   deleteTag,
-  addWebhook,
-  updateWebhook,
-  deleteWebhook,
   clearPMs,
   deletePM,
   blockUser,

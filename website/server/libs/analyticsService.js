@@ -66,6 +66,8 @@ let _formatUserData = (user) => {
     properties.Mana = Math.floor(user.stats.mp);
   }
 
+  properties.balance = user.balance;
+
   properties.tutorialComplete = user.flags && user.flags.tour && user.flags.tour.intro === -2;
 
   if (user.habits && user.dailys && user.todos && user.rewards) {
@@ -91,6 +93,10 @@ let _formatUserData = (user) => {
 
   if (user.registeredThrough) {
     properties.registeredPlatform = user.registeredThrough;
+  }
+
+  if (user.loginIncentives) {
+    properties.loginIncentives = user.loginIncentives;
   }
 
   return properties;
@@ -161,7 +167,7 @@ let _sendDataToAmplitude = (eventType, data) => {
   return new Bluebird((resolve, reject) => {
     amplitude.track(amplitudeData)
       .then(resolve)
-      .catch(reject);
+      .catch(() => reject('Error while sending data to Amplitude.'));
   });
 };
 

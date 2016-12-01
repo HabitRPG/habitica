@@ -1,6 +1,6 @@
 {
     "npc": "PNJ",
-    "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
+    "npcAchievementText": "¡Respaldó el proyecto de Kickstarter al nivel máximo!",
     "mattBoch": "Matt Boch",
     "mattShall": "¿Te traigo tu corcel, <%= name %>? Cuando hayas alimentado lo suficiente a una mascota de modo que se transforme en una montura, aparecerá aquí. ¡Haz clic en una montura para ensillarla!",
     "mattBochText1": "¡Bienvenido al Establo! Soy Matt, el maestro de las bestias. A partir del nivel 3 puedes obtener mascotas utilizando huevos y pociones. Cuando una mascota eclosione en el Mercado, ¡aparecerá aqui! Haz clic en la imagen de una mascota para añadirla a tu avatar. Alimenta a tus mascotas con la comida que encuentres después del nivel 3, y se convertirán en monturas robustas.",

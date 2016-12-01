@@ -10,14 +10,16 @@ let api = {};
 /**
  * @api {get} /email/unsubscribe Unsubscribe an email or user from email notifications
  * @apiDescription Does not require authentication
- * @apiVersion 3.0.0
  * @apiName UnsubscribeEmail
  * @apiGroup Unsubscribe
- * @apiDescription This is a GET method so that you can put the unsubscribe link in emails.
+ * @apiDescription This is a GET method included in official emails from Habitica that will unsubscribe the user from emails.
  *
- * @apiParam {String} code Query parameter - An unsubscription code
+ * @apiParam (Query) {String} code An unsubscription code
  *
- * @apiSuccess {String} An html success message
+ * @apiSuccess {String} Webpage An html success message
+ *
+ * @apiError (400) {BadRequest} missingUnsubscriptionCode The unsubscription code is missing.
+ * @apiUse UserNotFound
  */
 api.unsubscribe = {
   method: 'GET',

@@ -74,12 +74,23 @@ describe('POST /tasks/:taskId', () => {
   });
 
   it('returns error when non leader tries to create a task', async () => {
-    await expect(member.post(`/tasks/${task._id}/assign/${member._id}`))
+    await expect(member2.post(`/tasks/${task._id}/assign/${member._id}`))
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
         message: t('onlyGroupLeaderCanEditTasks'),
       });
+  });
+
+  it('allows user to assign themselves', async () => {
+    await member.post(`/tasks/${task._id}/assign/${member._id}`);
+
+    let groupTask = await user.get(`/tasks/group/${guild._id}`);
+    let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, findAssignedTask);
+
+    expect(groupTask[0].group.assignedUsers).to.contain(member._id);
+    expect(syncedTask).to.exist;
   });
 
   it('assigns a task to a user', async () => {

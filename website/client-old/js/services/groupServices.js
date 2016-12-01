@@ -107,6 +107,14 @@ angular.module('habitrpg')
       });
     };
 
+    $rootScope.$on('syncPartyRequest', function (event, options) {
+      if (options.type === 'user_update') {
+        var index = _.findIndex(data.party.members, function(user) { return user._id === options.user._id; });
+        var memberToUpdate = data.party.members[index];
+        _.assign(memberToUpdate, _.pick(User.user, _.keys(memberToUpdate)));
+      }
+    });
+
     //On page load, multiple controller request the party.
     //So, we cache the promise until the first result is returned
     var _cachedPartyPromise;
@@ -213,7 +221,7 @@ angular.module('habitrpg')
     function inviteOrStartParty (group) {
       Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Invite Friends'});
 
-      if (group.type === "party" || $location.$$path === "/options/groups/party") {
+      if (group && group.type === "party" || $location.$$path === "/options/groups/party") {
        group.type = 'party';
 
        $rootScope.openModal('invite-party', {

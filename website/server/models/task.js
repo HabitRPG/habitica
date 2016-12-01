@@ -69,6 +69,14 @@ export let TaskSchema = new Schema({
     broken: {type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED']},
     assignedUsers: [{type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']}],
     taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']},
+    approval: {
+      required: {type: Boolean, default: false},
+      approved: {type: Boolean, default: false},
+      dateApproved: {type: Date},
+      approvingUser: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']},
+      requested: {type: Boolean, default: false},
+      requestedDate: {type: Date},
+    },
   },
 
   reminders: [{
@@ -119,7 +127,7 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (identifier,
 TaskSchema.statics.sanitizeUserChallengeTask = function sanitizeUserChallengeTask (taskObj) {
   let initialSanitization = this.sanitize(taskObj);
 
-  return _.pick(initialSanitization, ['streak', 'checklist', 'attribute', 'reminders', 'tags', 'notes']);
+  return _.pick(initialSanitization, ['streak', 'checklist', 'attribute', 'reminders', 'tags', 'notes', 'collapseChecklist', 'alias']);
 };
 
 // Sanitize checklist objects (disallowing id)
