@@ -606,7 +606,7 @@ function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
       break;
     }
   }
-  updates = _.omit(update, _.isEmpty);
+  updates = _.omit(updates, _.isEmpty);
   return updates;
 }
 
@@ -633,10 +633,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     _.merge(updates, _getUserUpdateForQuestReward(item, quest.drop.items));
   });
 
-  let questOwnerUpdates = {
-    $inc: {},
-    $set: {},
-  };
+  let questOwnerUpdates = {};
   let questLeader = this.quest.leader;
 
   _.each(_.filter(quest.drop.items, 'onlyOwner'), (item) => {
