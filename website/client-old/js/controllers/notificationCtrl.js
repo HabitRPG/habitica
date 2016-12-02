@@ -144,6 +144,9 @@ habitrpg.controller('NotificationCtrl',
           case 'LOGIN_INCENTIVE':
             Notification.showLoginIncentive(User.user, notification.data, Social.loadWidgets);
             break;
+          case 'BOSS_DAMAGE':
+            Notification.bossDamage(notification.data.damageTaken);
+            break;
           default:
             if (notification.data.headerText && notification.data.bodyText) {
               var modalScope = $rootScope.$new();

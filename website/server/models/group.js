@@ -664,12 +664,26 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
     }
   }
 
+  let promises = [];
+
   // Everyone takes damage
-  await User.update({
-    _id: {$in: this.getParticipatingQuestMembers()},
-  }, {
-    $inc: {'stats.hp': down},
-  }, {multi: true}).exec();
+  if (down !== 0) {
+    let members = await User.find({
+      _id: {$in: this.getParticipatingQuestMembers()},
+    }).select('notifications stats.hp');
+
+    _.each(members, (member) => {
+      member.stats.hp += down;
+      let bossNotification = _.find(member.notifications, {type: 'BOSS_DAMAGE'});
+      if (bossNotification) {
+        bossNotification.data.damageTaken += down;
+        bossNotification.markModified('data.damageTaken');
+      } else {
+        member.addNotification('BOSS_DAMAGE', {damageTaken: down});
+      }
+      promises.push(member.save());
+    });
+  }
   // Apply changes the currently cronning user locally so we don't have to reload it to get the updated state
   // TODO how to mark not modified? https://github.com/Automattic/mongoose/pull/1167
   // must be notModified or otherwise could overwrite future changes: if the user is saved it'll save
@@ -681,10 +695,11 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
     group.sendChat(`\`You defeated ${quest.boss.name('en')}! Questing party members receive the rewards of victory.\``);
 
     // Participants: Grant rewards & achievements, finish quest
-    await group.finishQuest(shared.content.quests[group.quest.key]);
+    promises.push(group.finishQuest(shared.content.quests[group.quest.key]));
   }
 
-  return await group.save();
+  promises.push(group.save());
+  return await Bluebird.all(promises);
 };
 
 schema.methods._processCollectionQuest = async function processCollectionQuest (options) {

@@ -36,6 +36,7 @@
     "collected": "Collected",
     "collectionItems": "<%= number %> <%= items %>",
     "itemsToCollect": "Items to Collect",
+    "bossDamageDone": "Boss Damage: - <%= val %> Health",
     "bossDmg1": "Each completed Daily and To-Do and each positive Habit hurts the boss. Hurt it more with redder tasks or Brutal Smash and Burst of Flames. The boss will deal damage to every quest participant for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your Dailies! <strong>All damage to and from a boss is tallied on cron (your day roll-over).</strong>",
     "bossDmg2": "Only participants will fight the boss and share in the quest loot.",
     "bossDmg1Broken": "Each completed Daily and To-Do and each positive Habit hurts the boss... Hurt it more with redder tasks or Brutal Smash and Burst of Flames... The boss will deal damage to every quest participant for every Daily you've missed (multiplied by the boss's Strength) in addition to your regular damage, so keep your party healthy by completing your Dailies... <strong>All damage to and from a boss is tallied on cron (your day roll-over)...</strong>",
