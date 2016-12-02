@@ -34,6 +34,12 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
               if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
               $scope.group[element.type + 's'].push(element);
             })
+
+            // Reverse the list so the latest tasks are on top
+            group['habits'] = group['habits'].reverse();
+            group['dailys'] = group['dailys'].reverse();
+            group['todos'] = group['todos'].reverse();
+            group['rewards'] = group['rewards'].reverse();
           });
 
       });
