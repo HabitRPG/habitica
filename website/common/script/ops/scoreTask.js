@@ -179,6 +179,8 @@ module.exports = function scoreTask (options = {}, req = {}) {
     exp: user.stats.exp,
   };
 
+  if (task.group.approval.required && !task.group.approval.approved) return;
+
   // This is for setting one-time temporary flags, such as streakBonus or itemDropped. Useful for notifying
   // the API consumer, then cleared afterwards
   user._tmp = {};
