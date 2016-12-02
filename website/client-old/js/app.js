@@ -194,7 +194,6 @@ window.habitrpg = angular.module('habitrpg',
 
                 $scope.group.approvals = [];
                 if (User.user._id === $scope.group.leader._id) {
-                  console.log("FSD");
                   return Tasks.getGroupApprovals($scope.group._id);
                 }
               })
