@@ -306,7 +306,7 @@ api.joinGroup = {
     let promises = [group.save(), user.save()];
 
     if (inviter) {
-      inviter = await User.findById(inviter).select('notifications preferences.language items.quests.basilist').exec();
+      inviter = await User.findById(inviter).exec();
 
       let data = {
         headerText: common.i18n.t('invitationAcceptedHeader', inviter.preferences.language),
