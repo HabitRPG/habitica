@@ -13,6 +13,7 @@ export let schema = new Schema({
   },
   name: {type: String, required: true},
   challenge: {type: String},
+  group: {type: String},
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

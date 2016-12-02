@@ -2,7 +2,7 @@ import { model as Challenge } from '../../../../../website/server/models/challen
 import { model as Group } from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
 import * as Tasks from '../../../../../website/server/models/task';
-import { each, find } from 'lodash';
+import { each, find, findIndex } from 'lodash';
 
 describe('Group Task Methods', () => {
   let guild, leader, challenge, task;
@@ -71,6 +71,18 @@ describe('Group Task Methods', () => {
       });
 
       it('syncs an assigned task to a user', async () => {
+        await guild.syncTask(task, leader);
+
+        let updatedLeader = await User.findOne({_id: leader._id});
+        let tagIndex = findIndex(updatedLeader.tags, {id: guild._id});
+        let newTag = updatedLeader.tags[tagIndex];
+
+        expect(newTag.id).to.equal(guild._id);
+        expect(newTag.name).to.equal(guild.name);
+        expect(newTag.group).to.equal(guild._id);
+      });
+
+      it('create tags for a user when task is synced', async () => {
         await guild.syncTask(task, leader);
 
         let updatedLeader = await User.findOne({_id: leader._id});
