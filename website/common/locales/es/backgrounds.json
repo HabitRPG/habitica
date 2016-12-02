@@ -1,5 +1,9 @@
 {
     "backgrounds": "Fondos",
+    "background": "Fondo",
+    "backgroundShop": "Tienda de fondos",
+    "backgroundShopText": "Tienda de fondos",
+    "noBackground": "Ningún fondo seleccionado",
     "backgrounds062014": "1.ª serie: junio del 2014",
     "backgroundBeachText": "Playa",
     "backgroundBeachNotes": "Relájate en una cálida playa.",
@@ -209,5 +213,16 @@
     "backgroundStormyRooftopsText": "Tempestuoso Techo",
     "backgroundStormyRooftopsNotes": "Deslízate a través del Tempestuoso Techo.",
     "backgroundWindyAutumnText": "Otoño Ventoso",
-    "backgroundWindyAutumnNotes": "Caza las hojas durante el Otoño Ventoso."
+    "backgroundWindyAutumnNotes": "Caza las hojas durante el Otoño Ventoso.",
+    "incentiveBackgrounds": "Conjunto de fondos lisos",
+    "backgroundBlueText": "Azul",
+    "backgroundBlueNotes": "Un fondo básico azul.",
+    "backgroundGreenText": "Verde",
+    "backgroundGreenNotes": "Un fantástico fondo verde.",
+    "backgroundPurpleText": "Morado",
+    "backgroundPurpleNotes": "Un agradable fondo morado.",
+    "backgroundRedText": "Rojo",
+    "backgroundRedNotes": "Un fondo rojo radiante.",
+    "backgroundYellowText": "Amarillo",
+    "backgroundYellowNotes": "Un agradable fondo amarillo."
 }

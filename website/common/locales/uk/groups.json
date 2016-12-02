@@ -83,7 +83,6 @@
     "sortLevel": "Упорядкувати за рівнем",
     "sortRandom": "Сортувати навмання",
     "sortPets": "Упорядкувати за числом улюбленців",
-    "sortJoined": "Упорядкувати за датою приєднання до гурту",
     "sortName": "Упорядкувати за ім'ям аватара",
     "sortBackgrounds": "Упорядкувати за фоном",
     "sortHabitrpgJoined": "Sort by Habitica date joined",
@@ -217,5 +216,8 @@
     "claim": "Claim",
     "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
     "yourTaskHasBeenApproved": "Your task has been approved",
-    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>"
+    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>",
+    "confirmTaskApproval": "Are you sure you want to approve this task?",
+    "approve": "Approve",
+    "approvalTitle": "<%= text %> for user: <%= userName %>"
 }

@@ -2,11 +2,13 @@ div(ng-if='user.flags.dropsEnabled')
   h4(class=mobile?'item item-divider':'')=env.t('pets')
 
   table.table.table-striped
+    +basicRow('activePet', '{{::costume.formatAnimal(profile.items.currentPet, \'pet\')}}')(ng-if='profile.items.currentPet')
     +basicRow('petsFound','{{::statCalc.totalCount(profile.items.pets)}}')
     +basicRow('beastMasterProgress','{{::statCalc.beastMasterProgress(profile.items.pets)}}')
 
   h4(class=mobile?'item item-divider':'')=env.t('mounts')
 
   table.table.table-striped
+    +basicRow('activeMount', '{{::costume.formatAnimal(profile.items.currentMount, \'mount\')}}')(ng-if='profile.items.currentMount')
     +basicRow('mountsTamed','{{::statCalc.totalCount(profile.items.mounts)}}')
     +basicRow('mountMasterProgress','{{::statCalc.mountMasterProgress(profile.items.mounts)}}')

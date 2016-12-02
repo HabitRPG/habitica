@@ -3,7 +3,7 @@
     "innCheckOut": "离开客栈",
     "innCheckIn": "在客栈休息",
     "innText": "你正在客栈中休息！当你在客栈中时，你没完成的日常任务不会在一天结束时对你造成伤害，但是它们仍然会每天刷新。注意：如果你正在参与一个Boss战任务，你仍然会因为队友未完成的每日任务受到boss的伤害！同样，你对Boss的伤害(或者收集的道具)在你离开客栈之前不会结算。",
-    "innTextBroken": "你正在客栈中休息，我想是的……入住客栈以后，你的每日任务不会在每天结束时因为没完成而减少你的生命值，但它们仍然会每天刷新……如果你正在一场BOSS战中，BOSS仍然会因为你所在队伍中的队友没完成每日任务而伤害到你……除非你的队友也在客栈中休息。同样，你对BOSS的伤害(或是收集的道具)在从客栈离开前页不会起效……唉好累啊……",
+    "innTextBroken": "我想……你正在客栈中休息。入住客栈以后，你的每日任务不会在每天结束时因为没完成而减少你的生命值，但它们仍然会每天刷新。但如果你正在一场BOSS战中，BOSS仍然会因为你所在队伍中的队友没完成每日任务而攻击到你，除非你的队友也在客栈中休息。同样，你对BOSS的伤害(或是收集的道具)在从客栈离开前页不会结算。唉好累啊……",
     "lfgPosts": "寻找小组 (队伍招募) 帖",
     "tutorial": "教学",
     "glossary": "<a target='_blank' href='http://habitica.wikia.com/wiki/Glossary'>Glossary</a>",
@@ -83,7 +83,6 @@
     "sortLevel": "以等级排序",
     "sortRandom": "乱序",
     "sortPets": "按宠物数量排序",
-    "sortJoined": "以加入队伍日期排序",
     "sortName": "以角色名称排序",
     "sortBackgrounds": "以背景排序",
     "sortHabitrpgJoined": "按加入HobitRPG的日期排序",
@@ -215,7 +214,10 @@
     "confirmRemoveTag": "你真的想要移除“<%= tag %>”标签吗？",
     "assignTask": "分配任务",
     "claim": "索赔",
-    "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
-    "yourTaskHasBeenApproved": "Your task has been approved",
-    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>"
+    "onlyGroupLeaderCanManageSubscription": "只有组长可以修改小组的简介",
+    "yourTaskHasBeenApproved": "你的任务已请求",
+    "userHasRequestedTaskApproval": "<%= user %> 请求接受任务 <%= taskName %>",
+    "confirmTaskApproval": "你确定你同意这个任务吗？",
+    "approve": "许可",
+    "approvalTitle": "<%= text %> 对用户: <%= userName %>"
 }

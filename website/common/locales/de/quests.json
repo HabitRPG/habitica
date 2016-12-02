@@ -42,9 +42,9 @@
     "bossDmg2Broken": "Nur Teilnehmer kämpfen gegen den Boss und erhalten ihren Anteil an der Beute ...",
     "tavernBossInfo": "Erledige tägliche Aufgaben und To-Dos und punkte mit guten Gewohnheiten, um dem Weltboss zu schaden! Unerledigte tägliche Aufgaben füllen die Erschöpfungsschlagleiste. Wenn sie voll ist, greift der Weltboss einen NPC an.\n\nEin Weltboss wird niemals einzelnen Spielern oder Accounts auf irgendeine Weise schaden. Nur die Aufgaben aktiver Accounts, welche sich nicht im Gasthaus erholen, werden aufsummiert.",
     "tavernBossInfoBroken": "Erledige tägliche Aufgaben und To-Dos und punkte mit guten Gewohnheiten, um dem Weltboss zu schaden ... Unerledigte tägliche Aufgaben füllen die Erschöpfungsschlagleiste ... Wenn sie voll ist, greift der Weltboss einen NPC an ... Ein Weltboss wird niemals einzelnen Spielern oder Accounts auf irgendeine Weise schaden ... Nur die Aufgaben aktiver Accounts, welche sich nicht im Gasthaus erholen, werden aufsummiert ...",
-    "bossColl1": "Um Gegenstände zu sammeln musst Du Deine Aufgaben erfüllen. Questgegenstände sind genauso wie normale Gegenstände zu finden, aber Du kannst das Ergebnis erst zum Tageswechsel sehen. Dann wird alles, was jeder Teilnehmer gefunden hat zusammengerechnet und dem Quest zugerechnet.",
+    "bossColl1": "Erledige Deine positiven Aufgaben, um Gegenstände zu sammeln. Quest-Gegenstände erhältst Du so wie normale Gegenstände; du kannst Deine Quest-Gegenstände betrachten, indem Du mit der Maus über den Quest-Fortschritt fährst.",
     "bossColl2": "Nur Teilnehmer können Gegenstände sammeln und erhalten ihren Anteil an der Beute.",
-    "bossColl1Broken": "Um Gegenstände zu sammeln müssen positive Aufgaben erledigt werden ... Quest-Gegenstände erhält man genau wie normale Gegenstände; jedoch kannst Du erst am nächsten Tag sehen wie viele Du gesammelt hast, da erst dann alle zusammengezählt und dem Quest-Fortschritt hinzugefügt werden ...",
+    "bossColl1Broken": "Erledige Deine positiven Aufgaben, um Gegenstände zu sammeln. Quest-Gegenstände erhältst Du so wie normale Gegenstände; du kannst Deine Quest-Gegenstände betrachten, indem Du mit der Maus über den Quest-Fortschritt fährst.",
     "bossColl2Broken": "Nur Teilnehmer können Gegenstände sammeln und erhalten ihren Anteil an der Beute ...",
     "abort": "Abbrechen",
     "leaveQuest": "Quest verlassen",
@@ -101,5 +101,10 @@
     "cantCancelActiveQuest": "Du kannst eine aktive Quest nicht zurückziehen, verwende die Funktion Abbrechen.",
     "onlyLeaderCancelQuest": "Nur der Gruppen- oder Quest-Leiter kann die Quest abbrechen.",
     "questNotPending": "Es ist keine Quest zum Start vorhanden.",
-    "questOrGroupLeaderOnlyStartQuest": "Nur der Quest- oder Gruppen-Leiter kann den Quest-Start erzwingen"
+    "questOrGroupLeaderOnlyStartQuest": "Nur der Quest- oder Gruppen-Leiter kann den Quest-Start erzwingen",
+    "createAccountReward": "Account erstellen",
+    "loginIncentiveQuest": "Um diese Quest zu erhalten, musst Du Dich an <%= count %> unterschiedlichen Tagen anmelden!",
+    "loginIncentiveQuestObtained": "Du hast diese Quest erhalten, indem Du Dich an <%= count %> unterschiedlichen Tagen angemeldet hast!",
+    "loginReward": "<%= count %> Anmeldungen",
+    "createAccountQuest": "Du hast diese Quest beim Beitreten zu Habitica erhalten! Wenn einer Deiner Freunde beitritt, erhält er ebenfalls eine."
 }

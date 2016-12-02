@@ -114,7 +114,7 @@
     "giftedGems": "אבני חן שזכיתם בהן",
     "giftedGemsInfo": "קיבלתם <%= amount %> אבני-חן כמתנה מ<%= name %>",
     "giftedSubscription": "מנוי שניתן במתנה",
-    "giftedSubscriptionInfo": "קיבלתם <%= months %> מנוי כמתנה מ<%= name %>",
+    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> month subscription",
     "invitedParty": "הוזמנת לחבורה",
     "invitedGuild": "הוזמנת לגילדה",
     "importantAnnouncements": "החשבון שלך אינו פעיל",

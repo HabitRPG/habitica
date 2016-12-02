@@ -1,5 +1,9 @@
 {
     "backgrounds": "Ambiente",
+    "background": "Hintergrund",
+    "backgroundShop": "Hintergrund-Shop",
+    "backgroundShopText": "Hintergrund-Shop",
+    "noBackground": "Kein Hintergrund ausgewählt",
     "backgrounds062014": "Set 1: Veröffentlicht im Juni 2014",
     "backgroundBeachText": "Strand",
     "backgroundBeachNotes": "Sonne Dich an einem warmen Strand.",
@@ -209,5 +213,16 @@
     "backgroundStormyRooftopsText": "Stürmische Hausdächer",
     "backgroundStormyRooftopsNotes": "Schleiche durch stürmische Hausdächer.",
     "backgroundWindyAutumnText": "Windiger Herbst",
-    "backgroundWindyAutumnNotes": "Jage Laub im windigen Herbst."
+    "backgroundWindyAutumnNotes": "Jage Laub im windigen Herbst.",
+    "incentiveBackgrounds": "Einfache Hintergründe-Set",
+    "backgroundBlueText": "Blau",
+    "backgroundBlueNotes": "Ein schlichter blauer Hintergrund.",
+    "backgroundGreenText": "Grün",
+    "backgroundGreenNotes": "Ein toller grüner Hintergrund.",
+    "backgroundPurpleText": "Lila",
+    "backgroundPurpleNotes": "Ein angenehmer lilaner Hintergrund.",
+    "backgroundRedText": "Rot",
+    "backgroundRedNotes": "Ein klasse roter Hintergrund.",
+    "backgroundYellowText": "Gelb",
+    "backgroundYellowNotes": "EIn leckerer gelber Hintergrund."
 }

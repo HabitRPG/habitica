@@ -3,17 +3,14 @@ var authorName = 'Sabe'; // in case script author needs to know when their ...
 var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
 
 /*
- * Remove flag stating that the Enchanted Armoire is empty, for when new equipment is added
+ * set the newStuff flag in all user accounts so they see a Bailey message
  */
 
-var dbserver = 'localhost:27017'; // FOR TEST DATABASE
-// var dbserver = 'username:password@ds031379-a0.mongolab.com:31379'; // FOR PRODUCTION DATABASE
-var dbname = 'habitrpg';
-
 var mongo = require('mongoskin');
-var _ = require('lodash');
 
-var dbUsers = mongo.db(dbserver + '/' + dbname + '?auto_reconnect').collection('users');
+var connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
+
+var dbUsers = mongo.db(connectionString).collection('users');
 
 // specify a query to limit the affected users (empty for all users):
 var query = {
@@ -22,7 +19,6 @@ var query = {
 
 // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
 var fields = {
-  'flags.armoireEmpty':1
 };
 
 console.warn('Updating users...');
@@ -32,12 +28,13 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
   if (err) { return exiting(1, 'ERROR! ' + err); }
   if (!user) {
     console.warn('All appropriate users found and modified.');
-    return displayData();
+    setTimeout(displayData, 300000);
+    return;
   }
   count++;
 
   // specify user data to change:
-  var set = {'migration':migrationName, 'flags.armoireEmpty':false};
+  var set = {'flags.armoireEmpty':false};
 
   dbUsers.update({_id:user._id}, {$set:set});
 

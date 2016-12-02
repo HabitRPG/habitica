@@ -27,6 +27,7 @@ export let schema = new mongoose.Schema({
 schema.plugin(baseModel, {
   noSet: ['_id'],
   timestamps: false,
+  _id: false,
 });
 
 export let model = mongoose.model('SubscriptionPlan', schema);

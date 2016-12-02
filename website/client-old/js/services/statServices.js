@@ -21,6 +21,38 @@
       return display;
     }
 
+    function classBonus(user, stat) {
+      var computedStats = (user.fns && user.fns.statsComputed) ? user.fns.statsComputed() : null;
+
+      if(computedStats) {
+        var bonus = computedStats[stat]
+          - user.stats.buffs[stat]
+          - levelBonus(user.stats.lvl)
+          - equipmentStatBonus(stat, user.items.gear.equipped)
+          - user.stats[stat];
+
+        return bonus;
+      }
+    }
+
+    function equipmentStatBonus(stat, equipped) {
+      var gear = Content.gear.flat;
+      var total = 0;
+
+      var equipmentTypes = ['weapon', 'armor', 'head', 'shield', 'back', 'body'];
+
+      _(equipmentTypes).each(function(type) {
+        var equippedItem = equipped[type];
+        if(gear[equippedItem]) {
+          var equipmentStat = gear[equippedItem][stat];
+
+          total += equipmentStat;
+        }
+      }).value();
+
+      return total;
+    }
+
     function expDisplay(user) {
       var exp = Math.floor(user.stats.exp);
       var toNextLevel = Shared.tnl(user.stats.lvl);

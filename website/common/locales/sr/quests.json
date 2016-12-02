@@ -42,9 +42,9 @@
     "bossDmg2Broken": "Only participants will fight the boss and share in the quest loot...",
     "tavernBossInfo": "Complete Dailies and To-Dos and score positive Habits to damage the World Boss! Incomplete Dailies fill the Rage Bar. When the Rage bar is full, the World Boss will attack an NPC. A World Boss will never damage individual players or accounts in any way. Only active accounts not resting in the Inn will have their tasks tallied.",
     "tavernBossInfoBroken": "Complete Dailies and To-Dos and score positive Habits to damage the World Boss... Incomplete Dailies fill the Exhaust Strike Bar... When the Exhaust Strike bar is full, the World Boss will attack an NPC... A World Boss will never damage individual players or accounts in any way... Only active accounts not resting in the Inn will have their tasks tallied...",
-    "bossColl1": "Da biste dobili predmete, radite pozitivne zadatke.Na misiji predmeti padaju na isti način kao i inače, ali nećete moći da ih vidite do sledećeg dana, kad će svi nađeni predmeti biti sakupljeni na gomilu.",
+    "bossColl1": "To collect items, do your positive tasks. Quest items drop just like normal items; you can monitor your quest item drops by hovering over the quest progress icon.",
     "bossColl2": "Samo učesnici mogu da preuzmu predmete i dobiju deo plena.",
-    "bossColl1Broken": "To collect items, do your positive tasks... Quest items drop just like normal items; however, you won't see the drops until the next day, then everything you've found will be tallied up and contributed to the pile...",
+    "bossColl1Broken": "To collect items, do your positive tasks... Quest items drop just like normal items; you can monitor your quest item drops by hovering over the quest progress icon...",
     "bossColl2Broken": "Only participants can collect items and share in the quest loot...",
     "abort": "Prekinuti",
     "leaveQuest": "Leave Quest",
@@ -101,5 +101,10 @@
     "cantCancelActiveQuest": "You can not cancel an active quest, use the abort functionality.",
     "onlyLeaderCancelQuest": "Only the group or quest leader can cancel the quest.",
     "questNotPending": "There is no quest to start.",
-    "questOrGroupLeaderOnlyStartQuest": "Only the quest leader or group leader can force start the quest"
+    "questOrGroupLeaderOnlyStartQuest": "Only the quest leader or group leader can force start the quest",
+    "createAccountReward": "Create Account",
+    "loginIncentiveQuest": "To earn this quest, check in to Habitica on <%= count %> different days!",
+    "loginIncentiveQuestObtained": "You earned this quest by checking in to Habitica on <%= count %> different days!",
+    "loginReward": "<%= count %> Check-ins",
+    "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too."
 }

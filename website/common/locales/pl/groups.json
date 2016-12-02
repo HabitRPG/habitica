@@ -83,7 +83,6 @@
     "sortLevel": "Sortuj wg poziomu",
     "sortRandom": "Sortuj losowo",
     "sortPets": "Sortuj wg. liczby chowańców",
-    "sortJoined": "Sortuj wg daty dołączenia do drużynu",
     "sortName": "Sortuj wg nazwy awatara",
     "sortBackgrounds": "Sortuj wg tła",
     "sortHabitrpgJoined": "Sortuj wg daty dołączenia do Habitica",
@@ -215,7 +214,10 @@
     "confirmRemoveTag": "Czy naprawdę chcesz usunąć \"<%= tag %>\"?",
     "assignTask": "Przydziel zadanie",
     "claim": "Zadeklaruj",
-    "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
-    "yourTaskHasBeenApproved": "Your task has been approved",
-    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>"
+    "onlyGroupLeaderCanManageSubscription": "Tylko przywódca grupy może zarządzać subskrypcjami grupy.",
+    "yourTaskHasBeenApproved": "Twoje zadanie zostało zatwierdzone",
+    "userHasRequestedTaskApproval": "<%= user %> poprosił o zatwierdzenie zadania <%= taskName %>",
+    "confirmTaskApproval": "Czy na pewno chcesz zatwierdzić to zadanie?",
+    "approve": "Zatwierdź",
+    "approvalTitle": "<%= text %> dla użytkownika: <%= userName %>"
 }

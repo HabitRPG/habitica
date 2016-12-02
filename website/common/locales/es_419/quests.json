@@ -42,9 +42,9 @@
     "bossDmg2Broken": "Sólo los participantes lucharán contra el Jefe y compartirán el botín de la misión...",
     "tavernBossInfo": "¡Completa Diarias y Pendientes y marca Hábitos positivos para dañar al Jefe Global! Las Diarias incompletas llenan la Barra de Ira. Cuando esta barra se llene, el Jefe Global atacará a un PNJ. Un Jefe Global nunca dañará a jugadores o cuentas individuales de ninguna forma. Sólo las cuentas activas que no estén descansando en la Posada tendrán sus tareas bajo conteo.",
     "tavernBossInfoBroken": "Completa Diarias y Pendientes y marca Hábitos positivos para dañar al Jefe Global... Las Diarias incompletas llenan la barra de Ataque Consumidor... Cuando esta barra se llene, el Jefe Global atacará a un PNJ... Un Jefe Global nunca dañará a jugadores o cuentas individuales de ninguna forma... Sólo las cuentas activas que no estén descansando en la Posada tendrán sus tareas bajo conteo...",
-    "bossColl1": "Para recolectar artículos, haz tus tareas positivas. Los objetos de misiones caen como los objetos normales; sin embargo no verás estos artículos hasta el próximo día, cuando todo lo que encontraste será sumado y aportado al montón.",
+    "bossColl1": "To collect items, do your positive tasks. Quest items drop just like normal items; you can monitor your quest item drops by hovering over the quest progress icon.",
     "bossColl2": "Sólo los participantes pueden recolectar objetos y compartir el botín de la misión.",
-    "bossColl1Broken": "Para recolectar artículos, haz tus tareas positivas... Los objetos de misiones caen como los objetos normales; sin embargo no verás estos artículos hasta el próximo día, cuando todo lo que encontraste será sumado y aportado al montón...",
+    "bossColl1Broken": "To collect items, do your positive tasks... Quest items drop just like normal items; you can monitor your quest item drops by hovering over the quest progress icon...",
     "bossColl2Broken": "Sólo los participantes pueden recolectar objetos y compartir el botín de la misión...",
     "abort": "Abortar",
     "leaveQuest": "Abandonar Misión",
@@ -101,5 +101,10 @@
     "cantCancelActiveQuest": "No puedes cancelar una misión activa, usa la función abortar.",
     "onlyLeaderCancelQuest": "Solo el lider del grupo o misión puede cancelar la misión.",
     "questNotPending": "No hay misión activa para empezar.",
-    "questOrGroupLeaderOnlyStartQuest": "Solo el lider del grupo o misión puede forzar el inicio de la misión."
+    "questOrGroupLeaderOnlyStartQuest": "Solo el lider del grupo o misión puede forzar el inicio de la misión.",
+    "createAccountReward": "Create Account",
+    "loginIncentiveQuest": "To earn this quest, check in to Habitica on <%= count %> different days!",
+    "loginIncentiveQuestObtained": "You earned this quest by checking in to Habitica on <%= count %> different days!",
+    "loginReward": "<%= count %> Check-ins",
+    "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too."
 }

@@ -147,14 +147,16 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                 h3.popover-title {{group.leader.profile.name}}
                 .popover-content
                   markdown(text='group._editing ? groupCopy.leaderMessage : group.leaderMessage')
-                  
-      ul.options-menu(ng-init="groupPane = 'chat'", style="display:none;")
-        //- li
-        //-   a(ng-click="groupPane = 'chat'")=env.t('chat')
-        //- li
-        //-   a(ng-click="groupPane = 'tasks'", ng-if='group.purchased.active')=env.t('tasks')
-        //- li
-        //-   a(ng-click="groupPane = 'subscription'", ng-show='group.leader._id === user._id')=env.t('subscription')
+
+      ul.options-menu(ng-init="groupPane = 'chat'", ng-hide="true")
+      //-   li
+      //-     a(ng-click="groupPane = 'chat'")=env.t('chat')
+      //-   li
+      //-     a(ng-click="groupPane = 'tasks'", ng-show='group.purchased.active')=env.t('tasks')
+      //-   li
+      //-     a(ng-click="groupPane = 'approvals'", ng-show='group.purchased.active && group.leader._id === user._id')=env.t('approvals')
+      //-   li
+      //-     a(ng-click="groupPane = 'subscription'", ng-show='group.leader._id === user._id')=env.t('subscription')
     
       .tab-content
         .tab-pane.active
@@ -169,6 +171,8 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
         h4(ng-if='group.chat.length < 1 && group.type === "guild"')=env.t('guildChatEmpty')
   
       group-tasks(ng-show="groupPane == 'tasks'")
+      
+      group-approvals(ng-show="groupPane == 'approvals'", ng-if="group.leader._id === user._id", group="group")
       
       //TODO: This can be a directive and the group/user can be an object passed via attribute
       div(ng-show="groupPane == 'subscription'")

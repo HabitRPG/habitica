@@ -114,7 +114,7 @@
     "giftedGems": "Permata hadiah",
     "giftedGemsInfo": "<%= name %> memberikanmu <%= amount %> Gem",
     "giftedSubscription": "Langganan Berhadiah",
-    "giftedSubscriptionInfo": "<%= name %> memberikanmu <%= months %> bulan langganan",
+    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> month subscription",
     "invitedParty": "Diundang ke dalam kelompok",
     "invitedGuild": "Diundang ke dalam Perkumpulan",
     "importantAnnouncements": "Akun anda tidak aktif",

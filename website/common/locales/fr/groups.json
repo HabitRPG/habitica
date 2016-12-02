@@ -83,7 +83,6 @@
     "sortLevel": "Classer par niveau",
     "sortRandom": "Classer aléatoirement",
     "sortPets": "Classer par nombre de familiers",
-    "sortJoined": "Classer par date d'arrivée dans l'équipe",
     "sortName": "Classer par nom d'avatar",
     "sortBackgrounds": "Classer par arrière-plan",
     "sortHabitrpgJoined": "Trier en fonction de la date d'inscription à Habitica",
@@ -187,7 +186,7 @@
     "keepOrRemove": "req.query.keep doit être soit \"keep\" soit \"remove\"",
     "canOnlyInviteEmailUuid": "Vous ne pouvez inviter qu'avec des UUIDs ou des courriels.",
     "inviteMissingEmail": "L'adresse courriel est manquante dans l'invitation.",
-    "inviteMissingUuid": "L'ID d'utilisateur est manquant dans l'invitation.",
+    "inviteMissingUuid": "L'ID d'utilisateur est manquante dans l'invitation.",
     "inviteMustNotBeEmpty": "L'invitation ne doit pas être vide.",
     "partyMustbePrivate": "Les équipes doivent être privées",
     "userAlreadyInGroup": "Utilisateur déjà dans cette équipe.",
@@ -215,7 +214,10 @@
     "confirmRemoveTag": "Voulez-vous vraiment supprimer \"<%= tag %>\"?",
     "assignTask": "Assigner la tâche",
     "claim": "Réclamer",
-    "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
-    "yourTaskHasBeenApproved": "Your task has been approved",
-    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>"
+    "onlyGroupLeaderCanManageSubscription": "Seul le responsable du groupe peut gérer l'abonnement du groupe.",
+    "yourTaskHasBeenApproved": "Votre tâche a été approuvée",
+    "userHasRequestedTaskApproval": "<%= user %> a demandé une approbation pour la tâche <%= taskName %>",
+    "confirmTaskApproval": "Êtes-vous sur de vouloir approuver cette tâche ?",
+    "approve": "Approuver",
+    "approvalTitle": "<%= text %> pour l'utilisateur: <%= userName %>"
 }

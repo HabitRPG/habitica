@@ -83,7 +83,6 @@
     "sortLevel": "Сортировать по уровню",
     "sortRandom": "В случайном порядке",
     "sortPets": "Сортировать по количеству питомцев",
-    "sortJoined": "Сортировать по дате присоединения к команде",
     "sortName": "Сортировать по имени",
     "sortBackgrounds": "Сортировать по фону",
     "sortHabitrpgJoined": "Сортировать по дате присоединения к Habitica",
@@ -215,7 +214,10 @@
     "confirmRemoveTag": "Вы точно хотите удалить \"<%= tag %>\"?",
     "assignTask": "Назначить задачу",
     "claim": "Заявить",
-    "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
-    "yourTaskHasBeenApproved": "Your task has been approved",
-    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>"
+    "onlyGroupLeaderCanManageSubscription": "Только лидер группы может управлять общей подпиской",
+    "yourTaskHasBeenApproved": "Ваша задача одобрена",
+    "userHasRequestedTaskApproval": "<%= user %> просит одобрить задачу <%= taskName %>",
+    "confirmTaskApproval": "Вы точно хотите одобрить эту задачу?",
+    "approve": "Одобрить",
+    "approvalTitle": "<%= text %> для: <%= userName %>"
 }
