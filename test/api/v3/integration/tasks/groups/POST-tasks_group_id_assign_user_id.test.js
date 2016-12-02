@@ -82,7 +82,7 @@ describe('POST /tasks/:taskId', () => {
       });
   });
 
-  it('allows user to assign themselves', async () => {
+  it('allows user to assign themselves (claim)', async () => {
     await member.post(`/tasks/${task._id}/assign/${member._id}`);
 
     let groupTask = await user.get(`/tasks/group/${guild._id}`);
@@ -91,6 +91,14 @@ describe('POST /tasks/:taskId', () => {
 
     expect(groupTask[0].group.assignedUsers).to.contain(member._id);
     expect(syncedTask).to.exist;
+  });
+
+  it('sends a message to the group when a user claims a task', async () => {
+    await member.post(`/tasks/${task._id}/assign/${member._id}`);
+
+    let updateGroup = await user.get(`/groups/${guild._id}`);
+
+    expect(updateGroup.chat[0].text).to.equal(t('userIsClamingTask', {username: member.profile.name, task: task.text}));
   });
 
   it('assigns a task to a user', async () => {

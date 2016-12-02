@@ -35,8 +35,6 @@
     "leave": "Leave",
     "invitedTo": "Invited to <%= name %>",
     "invitedToNewParty": "You were invited to join a party! Do you want to leave this party and join <%= partyName %>?",
-    "invitationAcceptedHeader": "Your Invitation has been Accepted",
-    "invitationAcceptedBody": "<%= username %> accepted your invitation to <%= groupName %>!",
     "joinNewParty": "Join New Party",
     "declineInvitation": "Decline Invitation",
     "partyLoading1": "Your party is being summoned. Please wait...",
@@ -113,7 +111,9 @@
     "toUserIDRequired": "A User ID is required",
     "gemAmountRequired": "A number of gems is required",
     "notAuthorizedToSendMessageToThisUser": "Can't send message to this user.",
-    "privateMessageGiftGemsMessage": "Hello <%= receiverName %>, <%= senderName %> has sent you <%= gemAmount %> gems!",
+    "privateMessageGiftIntro": "Hello <%= receiverName %>, <%= senderName %> has sent you ",
+    "privateMessageGiftGemsMessage": "<%= gemAmount %> gems!",
+    "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> months of subscription! ",
     "cannotSendGemsToYourself": "Cannot send gems to yourself. Try a subscription instead.",
     "badAmountOfGemsToSend": "Amount must be within 1 and your current number of gems.",
     "abuseFlag": "Report violation of Community Guidelines",
@@ -170,8 +170,8 @@
     "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them.",
     "partyUpName": "Party Up",
     "partyOnName": "Party On",
-    "partyUpText": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
-    "partyOnText": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!",
+    "partyUpAchievement": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
+    "partyOnAchievement": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!",
     "largeGroupNote": "Note: This Guild is now too large to support notifications! Be sure to check back every day to see new messages.",
     "groupIdRequired": "\"groupId\" must be a valid UUID",
     "groupNotFound": "Group not found or you don't have access.",
@@ -232,5 +232,6 @@
     "groupTasksTitle": "Group Tasks List",
     "approvalsTitle": "Tasks Awaiting Approval",
     "upgradeTitle": "Upgrade",
-    "blankApprovalsDescription": "When your group completes tasks that need your approval, they’ll appear here! Adjust approval requirement settings under task editing."
+    "blankApprovalsDescription": "When your group completes tasks that need your approval, they’ll appear here! Adjust approval requirement settings under task editing.",
+    "userIsClamingTask": "<%= username %> has claimed <%= task %>"
 }
