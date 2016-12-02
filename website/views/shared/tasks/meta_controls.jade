@@ -3,6 +3,13 @@
   // Due Date
   span(ng-if='task.type=="todo" && task.date')
     span(ng-class='{"label label-danger":(moment(task.date).isBefore(_today, "days") && !task.completed)}') {{task.date | date:(user.preferences.dateFormat.indexOf('yyyy') == 0 ? user.preferences.dateFormat.substr(5) : user.preferences.dateFormat.substr(0,5))}}
+  
+  // Approval requested
+  | &nbsp;
+  span(ng-show='task.group.approval.requested && !task.group.approval.approved')
+    span(tooltip=env.t('approvalRequested'))
+      span=env.t('approvalRequested')
+      | &nbsp;
 
   // Streak
   | &nbsp;
