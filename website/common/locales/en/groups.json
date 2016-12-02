@@ -35,8 +35,6 @@
     "leave": "Leave",
     "invitedTo": "Invited to <%= name %>",
     "invitedToNewParty": "You were invited to join a party! Do you want to leave this party and join <%= partyName %>?",
-    "invitationAcceptedHeader": "Your Invitation has been Accepted",
-    "invitationAcceptedBody": "<%= username %> accepted your invitation to <%= groupName %>!",
     "joinNewParty": "Join New Party",
     "declineInvitation": "Decline Invitation",
     "partyLoading1": "Your party is being summoned. Please wait...",
@@ -234,5 +232,6 @@
     "groupTasksTitle": "Group Tasks List",
     "approvalsTitle": "Tasks Awaiting Approval",
     "upgradeTitle": "Upgrade",
-    "blankApprovalsDescription": "When your group completes tasks that need your approval, they’ll appear here! Adjust approval requirement settings under task editing."
+    "blankApprovalsDescription": "When your group completes tasks that need your approval, they’ll appear here! Adjust approval requirement settings under task editing.",
+    "userIsClamingTask": "<%= username %> has claimed <%= task %>"
 }

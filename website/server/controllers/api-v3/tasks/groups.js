@@ -117,12 +117,22 @@ api.assignTask = {
       throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
     }
 
-    let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+    let groupFields = requiredGroupFields + ' chat';
+    let group = await Group.getGroup({user, groupId: task.group.id, fields: groupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leader !== user._id && user._id !== assignedUserId) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
-    await group.syncTask(task, assignedUser);
+    // User is claiming the task
+    if (user._id === assignedUserId) {
+      let message = res.t('userIsClamingTask', {username: user.profile.name, task: task.text});
+      group.sendChat(message, user);
+    }
+
+    let promises = [];
+    promises.push(group.syncTask(task, assignedUser));
+    promises.push(group.save());
+    await Bluebird.all(promises)
 
     res.respond(200, task);
   },
