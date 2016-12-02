@@ -974,11 +974,13 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
     if (userTags[i].name !== group.name) {
       // update the name - it's been changed since
       userTags[i].name = group.name;
+      userTags[i].group = group._id;
     }
   } else {
     userTags.push({
       id: group._id,
       name: group.name,
+      group: group._id,
     });
   }
 
