@@ -104,7 +104,7 @@ angular.module('habitrpg')
             Groups.data.party = party;
             $state.go('options.social.party');
             resolve();
-            if ($state.current.name == "options.social.party") {
+            if ($state.current.name === "options.social.party") {
               $state.reload();
             }
           });
