@@ -577,6 +577,25 @@ schema.statics.cleanGroupQuest = function cleanGroupQuest () {
   };
 };
 
+async function _updateUserWithRetries (userId, updates) {
+  let data = {
+    saved: false,
+    retries: 0,
+  };
+  while (!data.saved && data.retries < 5) {
+    await User.update({_id: userId}, updates).exec((err, raw) => { // eslint-disable-line babel/no-await-in-loop
+      if (!err) {
+        data.saved = true;
+        data.response = raw;
+      } else {
+        data.response = err;
+      }
+      data.retries++;
+    });
+  }
+  return data.response;
+}
+
 // Participants: Grant rewards & achievements, finish quest.
 // Changes the group object update members
 schema.methods.finishQuest = async function finishQuest (quest) {
@@ -623,45 +642,20 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     }
   });
 
-  let participants = this._id === TAVERN_ID ? {} : this.getParticipatingQuestMembers();
+  let participants = this.getParticipatingQuestMembers();
   this.quest = {};
   this.markModified('quest');
 
   if (this._id === TAVERN_ID) {
-    return await User.update(participants, updates, {multi: true}).exec();
+    return await User.update({}, updates, {multi: true}).exec();
   }
 
   let promises = [];
-  let failedUsers = [];
   _.each(participants, userId => {
-    promises.push(User.update({_id: userId}, updates).exec(err => {
-      if (err) {
-        failedUsers.push(userId);
-      }
-    }));
+    promises.push(_updateUserWithRetries(userId, updates));
   });
 
-  await Bluebird.all(promises);
-  // by this every user should have had a save attempted and any failed update
-  // operations would've populated the failedUsers array
-
-  // Retry any failed users for up to thirty seconds. This loop simply tries to spread the load out
-  // across retries to eliminate failures due to inermittent timeouts and load issues.
-  // The time limit built into this loop prevents it from getting stuck infinitely.
-  let startTime = new Date();
-  while (failedUsers.length > 0) {
-    let userId = failedUsers[0];
-    await User.update({_id: userId}, updates).exec((err) => { // eslint-disable-line babel/no-await-in-loop
-      if (!err) {
-        _.pull(failedUsers, userId);
-      }
-    });
-
-    // kill the loop after 30 seconds
-    if (new Date() - startTime > 30000) {
-      break;
-    }
-  }
+  return Bluebird.all(promises);
 };
 
 function _isOnQuest (user, progress, group) {
