@@ -623,11 +623,45 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     }
   });
 
-  let q = this._id === TAVERN_ID ? {} : {_id: {$in: this.getParticipatingQuestMembers()}};
+  let participants = this._id === TAVERN_ID ? {} : this.getParticipatingQuestMembers();
   this.quest = {};
   this.markModified('quest');
 
-  return await User.update(q, updates, {multi: true}).exec();
+  if (this._id === TAVERN_ID) {
+    return await User.update(participants, updates, {multi: true}).exec();
+  }
+
+  let promises = [];
+  let failedUsers = [];
+  _.each(participants, userId => {
+    promises.push(User.update({_id: userId}, updates).exec(err => {
+      if (err) {
+        failedUsers.push(userId);
+      }
+    }));
+  });
+
+  await Bluebird.all(promises);
+  // by this every user should have had a save attempted and any failed update
+  // operations would've populated the failedUsers array
+
+  // Retry any failed users for up to thirty seconds. This loop simply tries to spread the load out
+  // across retries to eliminate failures due to inermittent timeouts and load issues.
+  // The time limit built into this loop prevents it from getting stuck infinitely.
+  let startTime = new Date();
+  while (failedUsers.length > 0) {
+    let userId = failedUsers[0];
+    await User.update({_id: userId}, updates).exec((err) => { // eslint-disable-line babel/no-await-in-loop
+      if (!err) {
+        _.pull(failedUsers, userId);
+      }
+    });
+
+    // kill the loop after 30 seconds
+    if (new Date() - startTime > 30000) {
+      break;
+    }
+  }
 };
 
 function _isOnQuest (user, progress, group) {

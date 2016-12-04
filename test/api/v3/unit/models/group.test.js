@@ -1173,11 +1173,12 @@ describe('Group Model', () => {
         it('updates participating members with rewards', async () => {
           await party.finishQuest(quest);
 
-          expect(User.update).to.be.calledOnce;
+          expect(User.update).to.be.calledTwice;
           expect(User.update).to.be.calledWithMatch({
-            _id: {
-              $in: [questLeader._id, participatingMember._id],
-            },
+            _id: questLeader._id,
+          });
+          expect(User.update).to.be.calledWithMatch({
+            _id: participatingMember._id,
           });
         });
 
