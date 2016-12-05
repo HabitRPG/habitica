@@ -38,6 +38,7 @@ const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = shared.constants.LARGE_GROUP_COUNT_MESS
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
+const MAX_UPDATE_RETRIES = 5;
 
 export let schema = new Schema({
   name: {type: String, required: true},
@@ -577,23 +578,16 @@ schema.statics.cleanGroupQuest = function cleanGroupQuest () {
   };
 };
 
-async function _updateUserWithRetries (userId, updates) {
-  let data = {
-    saved: false,
-    retries: 0,
-  };
-  while (!data.saved && data.retries < 5) {
-    await User.update({_id: userId}, updates).exec((err, raw) => { // eslint-disable-line babel/no-await-in-loop
-      if (!err) {
-        data.saved = true;
-        data.response = raw;
-      } else {
-        data.response = err;
-      }
-      data.retries++;
-    });
-  }
-  return data.response;
+async function _updateUserWithRetries (userId, updates, numTry = 1) {
+  return User.update({_id: userId}, updates).exec((err, raw) => {
+    if (!err) {
+      return raw;
+    } else if (numTry < MAX_UPDATE_RETRIES) {
+      return _updateUserWithRetries(userId, updates, ++numTry);
+    } else {
+      return err;
+    }
+  });
 }
 
 // Participants: Grant rewards & achievements, finish quest.
@@ -650,9 +644,8 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     return await User.update({}, updates, {multi: true}).exec();
   }
 
-  let promises = [];
-  _.each(participants, userId => {
-    promises.push(_updateUserWithRetries(userId, updates));
+  let promises = _.map(participants, userId => {
+    return _updateUserWithRetries(userId, updates);
   });
 
   return Bluebird.all(promises);

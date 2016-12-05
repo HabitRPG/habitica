@@ -1061,8 +1061,45 @@ describe('Group Model', () => {
           [nonParticipatingMember._id]: false,
           [undecidedMember._id]: null,
         };
+      });
 
-        sandbox.spy(User, 'update');
+      describe('user update retry failures', () => {
+        let successfulMock = {
+          exec: (callback) => {
+            callback(null, 'sucess');
+          },
+        };
+        let failedMock = {
+          exec: (callback) => {
+            callback('error', null);
+          },
+        };
+
+        it('doesn\'t retry successful operations', async () => {
+          sandbox.stub(User, 'update').returns(successfulMock);
+
+          await party.finishQuest(quest);
+
+          expect(User.update).to.be.calledTwice;
+        });
+
+        it('stops retrying when a successful update has occurred', async () => {
+          let updateStub = sandbox.stub(User, 'update');
+          updateStub.onCall(0).returns(failedMock);
+          updateStub.returns(successfulMock);
+
+          await party.finishQuest(quest);
+
+          expect(User.update).to.be.calledThrice;
+        });
+
+        it('retries failed updates at most five times per user', async () => {
+          sandbox.stub(User, 'update').returns(failedMock);
+
+          await party.finishQuest(quest);
+
+          expect(User.update.callCount).to.eql(10);
+        });
       });
 
       it('gives out achievements', async () => {
@@ -1171,6 +1208,7 @@ describe('Group Model', () => {
 
       context('Party quests', () => {
         it('updates participating members with rewards', async () => {
+          sandbox.spy(User, 'update');
           await party.finishQuest(quest);
 
           expect(User.update).to.be.calledTwice;
@@ -1205,6 +1243,7 @@ describe('Group Model', () => {
         });
 
         it('updates all users with rewards', async () => {
+          sandbox.spy(User, 'update');
           await party.finishQuest(tavernQuest);
 
           expect(User.update).to.be.calledOnce;
