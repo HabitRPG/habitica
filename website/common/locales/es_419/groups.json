@@ -35,6 +35,8 @@
     "leave": "Salir",
     "invitedTo": "Invitado a <%= name %>",
     "invitedToNewParty": "¡Te han invitado a unirte a un nuevo equipo! ¿Quieres abandonar el equipo en el que estás actualmente y unirte a <%= partyName %>?",
+    "invitationAcceptedHeader": "Your Invitation has been Accepted",
+    "invitationAcceptedBody": "<%= username %> accepted your invitation to <%= groupName %>!",
     "joinNewParty": "Unirte al nuevo Equipo",
     "declineInvitation": "Rechazar invitación",
     "partyLoading1": "Tu equipo está siendo invocado. Por favor espere...",

@@ -176,7 +176,7 @@
     "streakAchievement": "你得到一个连击成就!",
     "firstStreakAchievement": "21天连击",
     "streakAchievementCount": "<%= streaks %> 21天连击",
-    "twentyOneDays": "你连21天完成了你的日常任务！",
+    "twentyOneDays": "你连续21天完成了你的每日任务！",
     "dontBreakStreak": "太厉害了，不要停！",
     "dontStop": "加油！别停！",
     "levelUpShare": "通过养成好习惯，我在Habitica升级了！",

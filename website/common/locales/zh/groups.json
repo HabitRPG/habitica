@@ -35,6 +35,8 @@
     "leave": "离开",
     "invitedTo": "已给<%= name %>发送邀请",
     "invitedToNewParty": "你被邀请加入一个队伍！你想退出当前队伍转而加入<%= partyName %>吗？",
+    "invitationAcceptedHeader": "Your Invitation has been Accepted",
+    "invitationAcceptedBody": "<%= username %> accepted your invitation to <%= groupName %>!",
     "joinNewParty": "加入新队伍",
     "declineInvitation": "拒绝邀请",
     "partyLoading1": "你的队伍正在被召唤中。请等待...",

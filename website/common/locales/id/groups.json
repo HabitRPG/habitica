@@ -35,6 +35,8 @@
     "leave": "Tinggalkan",
     "invitedTo": "Diundang ke <%= name %>",
     "invitedToNewParty": "Kamu diundang untuk mengikuti sebuah kelompok! Apakah kamu ingin meninggalkan kelompok ini dan bergabung ke <%= partyName %>?",
+    "invitationAcceptedHeader": "Your Invitation has been Accepted",
+    "invitationAcceptedBody": "<%= username %> accepted your invitation to <%= groupName %>!",
     "joinNewParty": "Bergabung ke Kelompok Baru",
     "declineInvitation": "Tolak Undangan",
     "partyLoading1": "Your party is being summoned. Please wait...",

@@ -35,6 +35,8 @@
     "leave": "Выйти",
     "invitedTo": "Получено приглашение в <%= name %>",
     "invitedToNewParty": "Вас пригласили в команду! Вы хотите покинуть эту команду и вступить в <%= partyName %>?",
+    "invitationAcceptedHeader": "Your Invitation has been Accepted",
+    "invitationAcceptedBody": "<%= username %> accepted your invitation to <%= groupName %>!",
     "joinNewParty": "Вступить в новую команду",
     "declineInvitation": "Отклонить приглашение",
     "partyLoading1": "Ваша команда призывается. Пожалуйста, подождите...",

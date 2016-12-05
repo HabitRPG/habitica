@@ -224,5 +224,12 @@
     "backgroundRedText": "红色",
     "backgroundRedNotes": "有趣的红色背景",
     "backgroundYellowText": "黄色",
-    "backgroundYellowNotes": "美味的黄色背景"
+    "backgroundYellowNotes": "美味的黄色背景",
+    "backgrounds122016": "SET 31: Released December 2016",
+    "backgroundShimmeringIcePrismText": "Shimmering Ice Prisms",
+    "backgroundShimmeringIcePrismNotes": "Dance through the Shimmering Ice Prisms.",
+    "backgroundWinterFireworksText": "Winter Fireworks",
+    "backgroundWinterFireworksNotes": "Set off Winter Fireworks.",
+    "backgroundWinterStorefrontText": "Winter Shop",
+    "backgroundWinterStorefrontNotes": "Purchase presents from a Winter Shop."
 }

@@ -35,6 +35,8 @@
     "leave": "Lämna",
     "invitedTo": "Inbjuden till <%= name %>",
     "invitedToNewParty": "Du har blivit inbjuden till ett sällskap! Vill du överge ditt nuvarande sällskap och gå med i <%= partyName %>?",
+    "invitationAcceptedHeader": "Your Invitation has been Accepted",
+    "invitationAcceptedBody": "<%= username %> accepted your invitation to <%= groupName %>!",
     "joinNewParty": "Gå med i ett nytt sällskap",
     "declineInvitation": "Avböj Inbjudan",
     "partyLoading1": "Your party is being summoned. Please wait...",

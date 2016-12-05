@@ -35,6 +35,8 @@
     "leave": "Verlassen",
     "invitedTo": "Du wurdest zu <%= name %> eingeladen.",
     "invitedToNewParty": "Du wurdest zu einer Gruppe eingeladen! Möchtest Du diese Gruppe verlassen und stattdessen <%= partyName %> beitreten?",
+    "invitationAcceptedHeader": "Your Invitation has been Accepted",
+    "invitationAcceptedBody": "<%= username %> accepted your invitation to <%= groupName %>!",
     "joinNewParty": "Neuer Gruppe beitreten",
     "declineInvitation": "Einladung ablehnen",
     "partyLoading1": "Deine Gruppe wird zusammengetrommelt. Bitte warten...",

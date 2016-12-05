@@ -35,6 +35,8 @@
     "leave": "Odejít",
     "invitedTo": "Pozván do <%= name %>",
     "invitedToNewParty": "Byl jsi pozván do družiny! Chceš opustit svou současnou družinu a přidat se k družině <%= partyName %>?",
+    "invitationAcceptedHeader": "Your Invitation has been Accepted",
+    "invitationAcceptedBody": "<%= username %> accepted your invitation to <%= groupName %>!",
     "joinNewParty": "Přidej se k nové družině",
     "declineInvitation": "Odmítni pozvání",
     "partyLoading1": "Vaše parta je povolán. Prosím, čekejte...",

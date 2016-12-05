@@ -35,6 +35,8 @@
     "leave": "Напускане",
     "invitedTo": "Вие сте поканен(а) в <%= name %>",
     "invitedToNewParty": "Вие получихте покана за присъединяване към група! Искате ли да напуснете сегашната си група и да се присъедините към <%= partyName %>?",
+    "invitationAcceptedHeader": "Your Invitation has been Accepted",
+    "invitationAcceptedBody": "<%= username %> accepted your invitation to <%= groupName %>!",
     "joinNewParty": "Присъединяване към новата група",
     "declineInvitation": "Отказване на поканата",
     "partyLoading1": "Групата Ви се призовава. Моля, почакайте…",

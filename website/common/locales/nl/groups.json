@@ -35,6 +35,8 @@
     "leave": "Verlaten",
     "invitedTo": "Uitgenodigd voor <%= name %>",
     "invitedToNewParty": "Je bent uitgenodigd om je bij een groep aan te sluiten! Wil je deze groep verlaten en lid worden van <%= partyName %>?",
+    "invitationAcceptedHeader": "Your Invitation has been Accepted",
+    "invitationAcceptedBody": "<%= username %> accepted your invitation to <%= groupName %>!",
     "joinNewParty": "Aansluiten bij nieuwe groep",
     "declineInvitation": "Uitnodiging weigeren",
     "partyLoading1": "Je groep wordt opgeroepen. Even geduld alsjeblieft...",

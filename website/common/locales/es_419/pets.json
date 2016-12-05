@@ -1,7 +1,7 @@
 {
     "pets": "Mascotas",
-    "activePet": "Active Pet",
-    "noActivePet": "No Active Pet",
+    "activePet": "Mascota Activa",
+    "noActivePet": "Sin Mascota Activa",
     "petsFound": "Mascotas encontradas",
     "magicPets": "Mascotas de Poción Mágica",
     "rarePets": "Mascotas raras",
