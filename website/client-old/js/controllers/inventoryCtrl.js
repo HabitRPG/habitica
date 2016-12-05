@@ -85,6 +85,42 @@ habitrpg.controller("InventoryCtrl",
       })
     }, true);
 
+    var equipmentSearch = function(equipment, term) {
+      if (!equipment) return;
+      if (!angular.isString(term) || term.length == 0) {
+        return equipment;
+      }
+      termMatcher = new RegExp(term, 'i');
+
+      var result = [];
+      for (var i = 0; i < equipment.length; i++) {
+        if (termMatcher.test(equipment[i].text())) {
+          result.push(equipment[i]);
+        }
+      }
+      return result;
+    };
+
+    $scope.$watchGroup(['gearByClass', 'gearByType', 'user.equipmentQuery'], function(updatedVals) {
+      var gearByClass = updatedVals[0];
+      var gearByType = updatedVals[1];
+      var equipmentQuery = updatedVals[2];
+      $scope.filteredGearByClass = {};
+      $scope.filteredGearByType = {};
+      angular.forEach(gearByClass, function(value, key) {
+        var searchResult = equipmentSearch(value, equipmentQuery);
+        if (searchResult.length > 0) {
+          $scope.filteredGearByClass[key] = searchResult;
+        }
+      });
+      angular.forEach(gearByType, function(value, key) {
+        var searchResult = equipmentSearch(value, equipmentQuery);
+        if (searchResult.length > 0) {
+          $scope.filteredGearByType[key] = searchResult;
+        }
+      });
+    });
+
     $scope.chooseEgg = function(egg){
       if ($scope.selectedEgg && $scope.selectedEgg.key == egg) {
         return $scope.selectedEgg = null; // clicked same egg, unselect
@@ -417,6 +453,15 @@ habitrpg.controller("InventoryCtrl",
       var userClass = user.stats.class;
 
       return item.klass === userClass || item.specialClass === userClass;
+    }
+  }
+]);
+
+habitrpg.controller("InventorySearchCtrl",
+  ['$scope', 'User',
+  function($scope, User) {
+    $scope.updateEquipmentQuery = function() {
+      User.user.equipmentQuery = $scope.equipmentQuery;
     }
   }
 ]);
