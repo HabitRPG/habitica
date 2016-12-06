@@ -945,7 +945,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
  *
  * @return The created tasks
  */
-schema.methods.updateTask = async function updateTask (taskToSync, checklistSync) {
+schema.methods.updateTask = async function updateTask (taskToSync, checklistSync, checkListRemoveId) {
   let group = this;
 
   let updateCmd = {$set: {}};
@@ -981,11 +981,20 @@ schema.methods.updateTask = async function updateTask (taskToSync, checklistSync
     taskToSync.checklist.forEach(function syncCheckList(checklistItem) {
       let i = _.findIndex(task.checklist, {linkId: checklistItem.id});
       if (i === -1) {
-        task.checklist.push(checklistItem);
+        var newCheckList = {completed: false};
+        newCheckList.linkId = checklistItem.id;
+        newCheckList.text = checklistItem.text;
+        task.checklist.push(newCheckList);
       } else {
         task.checklist[i].text = checklistItem.text;
       }
     });
+
+    //  Remove checklist
+    if (checkListRemoveId) {
+      let index = _.findIndex(task.checklist, {linkId: checkListRemoveId});
+      if (index !== -1) task.checklist.splice(index, 1);
+    }
 
     promises.push(task.save());
   });

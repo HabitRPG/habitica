@@ -95,7 +95,10 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
 
      $scope.addChecklistItem = Tasks.addChecklistItemToUI;
 
-     $scope.removeChecklistItem = Tasks.removeChecklistItemFromUI;
+     $scope.removeChecklistItem = function (task, $event, $index, force) {
+       if (task.checklist[$index].id) Tasks.removeChecklistItem (task._id, task.checklist[$index].id);
+       Tasks.removeChecklistItemFromUI(task, $event, $index, force);
+     };
 
      $scope.swapChecklistItems = Tasks.swapChecklistItems;
 

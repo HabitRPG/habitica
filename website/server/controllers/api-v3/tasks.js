@@ -676,7 +676,7 @@ api.removeChecklistItem = {
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
-      await group.updateTask(savedTask);
+      await group.updateTask(savedTask, true, req.params.itemId);
     }
   },
 };
