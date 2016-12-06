@@ -44,7 +44,7 @@ describe('POST /chat', () => {
       });
   });
 
-  it.only('Returns an error when an message containing only newlines is provided', async () => {
+  it('Returns an error when an message containing only newlines is provided', async () => {
     await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: '\n\n'}))
       .to.eventually.be.rejected.and.eql({
         code: 400,
