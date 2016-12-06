@@ -44,6 +44,15 @@ describe('POST /chat', () => {
       });
   });
 
+  it.only('Returns an error when an message containing only newlines is provided', async () => {
+    await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: '\n\n'}))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
+      });
+  });
+
   it('Returns an error when group is not found', async () => {
     await expect(user.post('/groups/invalidID/chat', { message: testMessage})).to.eventually.be.rejected.and.eql({
       code: 404,
