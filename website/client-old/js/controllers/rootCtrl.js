@@ -18,6 +18,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         $timeout(function () {
           if (window.env.IS_MOBILE || User.user.preferences.stickyHeader === false) return;
           $('.header-wrap').sticky({topSpacing:0});
+          $(window).resize(function() {$('.header-wrap').sticky('update');});
         });
 
         // Remove listener
