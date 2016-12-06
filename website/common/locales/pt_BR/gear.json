@@ -551,7 +551,7 @@
     "headSpecialBardHatText": "Bardic Cap",
     "headSpecialBardHatNotes": "Stick a feather in your cap and call it \"productivity\"! Increases Intelligence by <%= int %>.",
     "headSpecialLunarWarriorHelmText": "Elmo de Guerreiro Lunar",
-    "headSpecialLunarWarriorHelmNotes": "O poder da lua te fortalecerá na batalha! Aumenta a Força e Inteligência em <% = attrs%> cada.",
+    "headSpecialLunarWarriorHelmNotes": "O poder da lua te fortalecerá na batalha! Aumenta a Força e Inteligência em <%= attrs%> cada.",
     "headSpecialNyeText": "Chapéu Festivo Absurdo",
     "headSpecialNyeNotes": "Você recebeu um Chapéu Festivo Absurdo! Use-o com orgulho enquanto comemora o Ano Novo! Não confere benefícios.",
     "headSpecialYetiText": "Elmo de Domador de Ieti",
