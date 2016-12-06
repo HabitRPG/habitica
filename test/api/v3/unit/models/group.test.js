@@ -1065,13 +1065,13 @@ describe('Group Model', () => {
 
       describe('user update retry failures', () => {
         let successfulMock = {
-          exec: (callback) => {
-            callback(null, 'sucess');
+          exec: () => {
+            return Promise.resolve({raw: 'sucess'});
           },
         };
         let failedMock = {
-          exec: (callback) => {
-            callback('error', null);
+          exec: () => {
+            return Promise.reject('err');
           },
         };
 

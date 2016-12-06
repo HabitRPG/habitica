@@ -579,15 +579,16 @@ schema.statics.cleanGroupQuest = function cleanGroupQuest () {
 };
 
 async function _updateUserWithRetries (userId, updates, numTry = 1) {
-  return User.update({_id: userId}, updates).exec((err, raw) => {
-    if (!err) {
+  return await User.update({_id: userId}, updates).exec()
+    .then((raw) => {
       return raw;
-    } else if (numTry < MAX_UPDATE_RETRIES) {
-      return _updateUserWithRetries(userId, updates, ++numTry);
-    } else {
-      return err;
-    }
-  });
+    }, (err) => {
+      if (numTry < MAX_UPDATE_RETRIES) {
+        return _updateUserWithRetries(userId, updates, ++numTry);
+      } else {
+        return err;
+      }
+    });
 }
 
 // Participants: Grant rewards & achievements, finish quest.
@@ -636,7 +637,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     }
   });
 
-  let participants = this.getParticipatingQuestMembers();
+  let participants = this._id === TAVERN_ID ? {} : this.getParticipatingQuestMembers();
   this.quest = {};
   this.markModified('quest');
 
@@ -644,7 +645,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     return await User.update({}, updates, {multi: true}).exec();
   }
 
-  let promises = _.map(participants, userId => {
+  let promises = participants.map(userId => {
     return _updateUserWithRetries(userId, updates);
   });
 
