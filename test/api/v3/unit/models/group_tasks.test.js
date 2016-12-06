@@ -206,6 +206,37 @@ describe('Group Task Methods', () => {
         expect(syncedMemberTask.checklist[0].text).to.equal(updateCheckListText);
       });
 
+      it('removes a checklist item in assigned task to all users when flag is passed with checklist id', async () => {
+        let newMember = new User({
+          guilds: [guild._id],
+        });
+        await newMember.save();
+
+        await guild.syncTask(task, leader);
+        await guild.syncTask(task, newMember);
+
+        let updatedTaskName = 'Update Task name';
+        task.text = updatedTaskName;
+        task.group.approval.required = true;
+
+        if (task.type !== 'daily' && task.type !== 'todo') return;
+
+        await guild.updateTask(task, true, task.checklist[0].id);
+
+        let updatedLeader = await User.findOne({_id: leader._id});
+        let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
+        let syncedTask = find(updatedLeadersTasks, findLinkedTask);
+
+        let updatedMember = await User.findOne({_id: newMember._id});
+        let updatedMemberTasks = await Tasks.Task.find({_id: { $in: updatedMember.tasksOrder[`${taskType}s`]}});
+        let syncedMemberTask = find(updatedMemberTasks, findLinkedTask);
+
+        if (task.type !== 'daily' && task.type !== 'todo') return;
+
+        expect(syncedTask.checklist.length).to.equal(0);
+        expect(syncedMemberTask.checklist.length).to.equal(0);
+      });
+
       it('removes an assigned task and unlinks assignees', async () => {
         await guild.syncTask(task, leader);
         await guild.removeTask(task);
