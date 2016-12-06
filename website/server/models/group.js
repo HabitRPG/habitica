@@ -929,11 +929,11 @@ schema.methods.updateTask = async function updateTask (taskToSync, checklistSync
   let tasks = await Tasks.Task.find(findQuery).exec();
   let promises = [];
 
-  tasks.forEach(function syncCheckListsToTask(task) {
-    taskToSync.checklist.forEach(function syncCheckList(checklistItem) {
+  tasks.forEach(function syncCheckListsToTask (task) {
+    taskToSync.checklist.forEach(function syncCheckList (checklistItem) {
       let i = _.findIndex(task.checklist, {linkId: checklistItem.id});
       if (i === -1) {
-        var newCheckList = {completed: false};
+        let newCheckList = {completed: false};
         newCheckList.linkId = checklistItem.id;
         newCheckList.text = checklistItem.text;
         task.checklist.push(newCheckList);
@@ -1005,8 +1005,8 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
 
   //  sync checklist
   if (taskToSync.checklist) {
-    taskToSync.checklist.forEach(function (element) {
-      var newCheckList = {completed: false};
+    taskToSync.checklist.forEach(function syncCheckList (element) {
+      let newCheckList = {completed: false};
       newCheckList.linkId = element.id;
       newCheckList.text = element.text;
       matchingTask.checklist.push(newCheckList);
