@@ -68,6 +68,12 @@ describe('Group Task Methods', () => {
         task = new Tasks[`${taskType}`](Tasks.Task.sanitize(taskValue));
         task.group.id = guild._id;
         await task.save();
+        if (task.checklist) {
+          task.checklist.push({
+            text: 'Checklist Item 1',
+            completed: false,
+          });
+        }
       });
 
       it('syncs an assigned task to a user', async () => {
@@ -106,6 +112,19 @@ describe('Group Task Methods', () => {
         expect(task.group.assignedUsers).to.contain(leader._id);
         expect(syncedTask).to.exist;
         expect(syncedTask.text).to.equal(task.text);
+      });
+
+      it.only('syncs checklist items to an assigned user', async () => {
+        await guild.syncTask(task, leader);
+
+        let updatedLeader = await User.findOne({_id: leader._id});
+        let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
+        let syncedTask = find(updatedLeadersTasks, findLinkedTask);
+
+        if (task.type !== 'daily' && task.type !== 'todo') return;
+
+        expect(syncedTask.checklist.length).to.equal(task.checklist.length);
+        expect(syncedTask.checklist[0].text).to.equal(task.checklist[0].text);
       });
 
       it('syncs updated info for assigned task to all users', async () => {
