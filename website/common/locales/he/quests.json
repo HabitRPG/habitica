@@ -101,5 +101,10 @@
     "cantCancelActiveQuest": "אתם לא יכולים להפסיק הרפתקה שכבר החלה, השתמשו באפשרות הביטול.",
     "onlyLeaderCancelQuest": "רק מנהיגי החבורה או מובילי ההרפתקה יכולים לבטל אותה.",
     "questNotPending": "אין הרפתקאות זמינות.",
-    "questOrGroupLeaderOnlyStartQuest": "רק מנהיג החבורה או מי שהזמין להרפתקה יכולים להכריח את כולם לצאת לדרך."
+    "questOrGroupLeaderOnlyStartQuest": "רק מנהיג החבורה או מי שהזמין להרפתקה יכולים להכריח את כולם לצאת לדרך.",
+    "createAccountReward": "Create Account",
+    "loginIncentiveQuest": "To earn this quest, check in to Habitica on <%= count %> different days!",
+    "loginIncentiveQuestObtained": "You earned this quest by checking in to Habitica on <%= count %> different days!",
+    "loginReward": "<%= count %> Check-ins",
+    "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too."
 }

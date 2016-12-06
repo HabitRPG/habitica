@@ -74,7 +74,7 @@
     "clearTags": "Deseleziona",
     "hideTags": "Nascondi",
     "showTags": "Mostra",
-    "toRequired": "You must supply a \"to\" property",
+    "toRequired": "Devi fornire una proprietà \"to\"",
     "startDate": "Data di inizio",
     "startDateHelpTitle": "Quando dovrebbe cominciare questa attività?",
     "startDateHelp": "Imposta la data in cui l'attività sarà \"attiva\". Non sarà necessario completarla prima di quel giorno.",
@@ -135,8 +135,8 @@
     "intelligenceExample": "Relativo agli scopi accademici o mentalmente complessi",
     "perceptionExample": "Relativo al lavoro o a operazioni finanziare",
     "constitutionExample": "Relativo alla salute, al benessere e all'interazione sociale",
-    "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
-    "taskApprovalHasBeenRequested": "Approval has been requested",
-    "approvals": "Approvals",
-    "approvalRequired": "Approval Required"
+    "taskRequiresApproval": "Questa attività deve essere approvata prima che tu la possa completare. L'approvazione è già stata richiesta.",
+    "taskApprovalHasBeenRequested": "Un'approvazione è stata richiesta.",
+    "approvals": "Approvazioni",
+    "approvalRequired": "Approvazione richiesta"
 }

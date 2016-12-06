@@ -35,6 +35,8 @@
     "leave": "Verlassen",
     "invitedTo": "Du wurdest zu <%= name %> eingeladen.",
     "invitedToNewParty": "Du wurdest zu einer Gruppe eingeladen! Möchtest Du diese Gruppe verlassen und stattdessen <%= partyName %> beitreten?",
+    "invitationAcceptedHeader": "Deine Einladung wurde angenommen.",
+    "invitationAcceptedBody": "<%= username %> hat Deine Einladung zu <%= groupName %> angenommen!",
     "joinNewParty": "Neuer Gruppe beitreten",
     "declineInvitation": "Einladung ablehnen",
     "partyLoading1": "Deine Gruppe wird zusammengetrommelt. Bitte warten...",
@@ -83,7 +85,6 @@
     "sortLevel": "Nach Level sortieren",
     "sortRandom": "Zufällig sortieren",
     "sortPets": "Nach Anzahl der Haustiere sortieren",
-    "sortJoined": "Nach Beitrittsdatum sortieren",
     "sortName": "Nach Avatarname sortieren",
     "sortBackgrounds": "Nach Hintergrund sortieren",
     "sortHabitrpgJoined": "Sortieren nach Habitica-Beitrittsdatum",
@@ -218,7 +219,7 @@
     "onlyGroupLeaderCanManageSubscription": "Nur der Gruppen-Leiter kann Gruppen-Registrierungen verwalten",
     "yourTaskHasBeenApproved": "Deine Aufgabe wurde akzeptiert",
     "userHasRequestedTaskApproval": "<%= user %> hat eine Anfrage zur prüfung von <%= taskName %> gestellt.",
-    "confirmTaskApproval": "Are you sure you want to approve this task?",
-    "approve": "Approve",
-    "approvalTitle": "<%= text %> for user: <%= userName %>"
+    "confirmTaskApproval": "Bist Du Dir sicher, dass Du dieser Aufgabe zustimmen möchtest?",
+    "approve": "Zustimmen",
+    "approvalTitle": "<%= text %> für Benutzer: <%= userName %>"
 }

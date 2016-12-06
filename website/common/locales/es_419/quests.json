@@ -51,7 +51,7 @@
     "sureLeave": "¿Estás seguro de que quieres abandonar la misión activa? Todo tu progreso en la misión se perderá.",
     "questOwner": "Organizador de la Misión",
     "questTaskDamage": "+ <%= damage %> pending damage to boss",
-    "questTaskCollection": "<%= items %> items collected today",
+    "questTaskCollection": "<%= items %> artículos coleccionados hoy.",
     "questOwnerNotInPendingQuest": "El organizador ha abandonado la misión y ya no puede iniciarla. Se recomienda cancelarla ahora. El organizador se quedará con el pergamino de misión.",
     "questOwnerNotInRunningQuest": "El organizador ha abandonado la misión. Si necesitas abortar la misión, puedes hacerlo. También puedes dejarla activa y todos los participantes restantes recibirán las recompensas al concluir la misión.",
     "questOwnerNotInPendingQuestParty": "El organizador ha dejado el equipo y ya no puede comenzar la misión. Se recomienda cancelarla ahora. El pergamino de misión será regresado al organizador.",
@@ -101,5 +101,10 @@
     "cantCancelActiveQuest": "No puedes cancelar una misión activa, usa la función abortar.",
     "onlyLeaderCancelQuest": "Solo el lider del grupo o misión puede cancelar la misión.",
     "questNotPending": "No hay misión activa para empezar.",
-    "questOrGroupLeaderOnlyStartQuest": "Solo el lider del grupo o misión puede forzar el inicio de la misión."
+    "questOrGroupLeaderOnlyStartQuest": "Solo el lider del grupo o misión puede forzar el inicio de la misión.",
+    "createAccountReward": "Create Account",
+    "loginIncentiveQuest": "To earn this quest, check in to Habitica on <%= count %> different days!",
+    "loginIncentiveQuestObtained": "You earned this quest by checking in to Habitica on <%= count %> different days!",
+    "loginReward": "<%= count %> Check-ins",
+    "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too."
 }

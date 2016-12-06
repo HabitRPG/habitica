@@ -153,6 +153,7 @@
     "hatchingPotionFloral": "Bebloemde",
     "hatchingPotionThunderstorm": "Donderstorm",
     "hatchingPotionGhost": "Spook",
+    "hatchingPotionRoyalPurple": "Koninklijk paars",
     "hatchingPotionNotes": "Giet dit over een ei, en er zal een <%= potText(locale) %> dierlijke metgezel uitkomen.",
     "premiumPotionAddlNotes": "Niet te gebruiken op eieren van queeste-huisdieren.",
     "foodMeat": "Vlees",

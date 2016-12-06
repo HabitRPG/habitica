@@ -39,7 +39,7 @@
       var gear = Content.gear.flat;
       var total = 0;
 
-      var equipmentTypes = ['weapon', 'armor', 'head', 'shield'];
+      var equipmentTypes = ['weapon', 'armor', 'head', 'shield', 'back', 'body'];
 
       _(equipmentTypes).each(function(type) {
         var equippedItem = equipped[type];

@@ -78,6 +78,7 @@ function _setUpNewUser (user) {
   let iterableFlags = user.flags.toObject();
 
   user._ABtest = '';
+  user.items.quests.dustbunnies = 1;
 
   if (user.registeredThrough === 'habitica-web' || user.registeredThrough === 'habitica-android') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
@@ -117,7 +118,7 @@ function _setProfileName (user) {
 
   let localUsername = user.auth.local && user.auth.local.username;
   let googleUsername = google && google.displayName;
-  let anonymous = 'Anonymous';
+  let anonymous = 'profile name not found';
 
   return localUsername || _getFacebookName(user.auth.facebook) || googleUsername || anonymous;
 }

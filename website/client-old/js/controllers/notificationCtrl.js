@@ -1,8 +1,8 @@
 'use strict';
 
 habitrpg.controller('NotificationCtrl',
-  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement',
-  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement) {
+  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement', 'Social',
+  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement, Social) {
 
     $rootScope.$watch('user.stats.hp', function (after, before) {
       if (after <= 0){
@@ -14,6 +14,10 @@ habitrpg.controller('NotificationCtrl',
       if (after == before) return;
       if (User.user.stats.lvl == 0) return;
       Notification.hp(after - before, 'hp');
+      $rootScope.$broadcast('syncPartyRequest', {
+        type: 'user_update',
+        user: User.user,
+      }); // Sync party to update members
       if (after < 0) $rootScope.playSound('Minus_Habit');
     });
 
@@ -82,6 +86,7 @@ habitrpg.controller('NotificationCtrl',
     function handleUserNotifications (after) {
       if (!after || after.length === 0) return;
 
+      var notificationsToRead = [];
       after.forEach(function (notification) {
         if (lastShownNotifications.indexOf(notification.id) !== -1) {
           return;
@@ -136,14 +141,25 @@ habitrpg.controller('NotificationCtrl',
             trasnferGroupNotification(notification);
             markAsRead = false;
             break;
+          case 'LOGIN_INCENTIVE':
+            Notification.showLoginIncentive(User.user, notification.data, Social.loadWidgets);
+            break;
           default:
-            markAsRead = false; // If the notification is not implemented, skip it
+            if (notification.data.headerText && notification.data.bodyText) {
+              var modalScope = $rootScope.$new();
+              modalScope.data = notification.data;
+              $rootScope.openModal('generic', {scope: modalScope});
+            }
+            else {
+              markAsRead = false; // If the notification is not implemented, skip it
+            }
             break;
         }
 
-        if (markAsRead) User.readNotification(notification.id);
+        if (markAsRead) notificationsToRead.push(notification.id);
       });
 
+      User.readNotifications(notificationsToRead);
       User.user.notifications = []; // reset the notifications
     }
 

@@ -35,6 +35,8 @@
     "leave": "Quitter",
     "invitedTo": "Invité·e à rejoindre <%= name %>",
     "invitedToNewParty": "Vous avez été invité·e à rejoindre une équipe ! Voulez-vous quitter cette équipe et rejoindre <%= partyName %> ?",
+    "invitationAcceptedHeader": "Your Invitation has been Accepted",
+    "invitationAcceptedBody": "<%= username %> accepted your invitation to <%= groupName %>!",
     "joinNewParty": "Rejoindre la nouvelle équipe",
     "declineInvitation": "Décliner l'Invitation",
     "partyLoading1": "Votre équipe a été convoquée. Veuillez patienter...",
@@ -83,7 +85,6 @@
     "sortLevel": "Classer par niveau",
     "sortRandom": "Classer aléatoirement",
     "sortPets": "Classer par nombre de familiers",
-    "sortJoined": "Classer par date d'arrivée dans l'équipe",
     "sortName": "Classer par nom d'avatar",
     "sortBackgrounds": "Classer par arrière-plan",
     "sortHabitrpgJoined": "Trier en fonction de la date d'inscription à Habitica",
@@ -218,7 +219,7 @@
     "onlyGroupLeaderCanManageSubscription": "Seul le responsable du groupe peut gérer l'abonnement du groupe.",
     "yourTaskHasBeenApproved": "Votre tâche a été approuvée",
     "userHasRequestedTaskApproval": "<%= user %> a demandé une approbation pour la tâche <%= taskName %>",
-    "confirmTaskApproval": "Are you sure you want to approve this task?",
-    "approve": "Approve",
-    "approvalTitle": "<%= text %> for user: <%= userName %>"
+    "confirmTaskApproval": "Êtes-vous sur de vouloir approuver cette tâche ?",
+    "approve": "Approuver",
+    "approvalTitle": "<%= text %> pour l'utilisateur: <%= userName %>"
 }

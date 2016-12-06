@@ -109,7 +109,7 @@
     "emailNotifications": "E-postnotiser",
     "wonChallenge": "Du vann en utmaning!",
     "newPM": "Mottagit privatmeddelande",
-    "newPMInfo": "New Message from <%= name %>: <%= message %>",
+    "newPMInfo": "Nytt meddelande från <%=name&>:<%message&>",
     "sentGems": "Skickade juveler!",
     "giftedGems": "Skänkta juveler",
     "giftedGemsInfo": "<%= name %> gifted you <%= amount %> Gems",
