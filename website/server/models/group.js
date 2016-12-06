@@ -1007,6 +1007,16 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
 
   matchingTask.group.approval.required = taskToSync.group.approval.required;
 
+  //  sync checklist
+  if (taskToSync.checklist) {
+    taskToSync.checklist.forEach(function (element) {
+      var newCheckList = {completed: false};
+      newCheckList.linkId = element.id;
+      newCheckList.text = element.text;
+      matchingTask.checklist.push(newCheckList);
+    });
+  }
+
   if (!matchingTask.notes) matchingTask.notes = taskToSync.notes; // don't override the notes, but provide it if not provided
   if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id); // add tag if missing
 
