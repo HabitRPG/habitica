@@ -117,7 +117,7 @@ api.assignTask = {
       throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
     }
 
-    let groupFields = requiredGroupFields + ' chat';
+    let groupFields = `${requiredGroupFields} chat`;
     let group = await Group.getGroup({user, groupId: task.group.id, fields: groupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
@@ -132,7 +132,7 @@ api.assignTask = {
     let promises = [];
     promises.push(group.syncTask(task, assignedUser));
     promises.push(group.save());
-    await Bluebird.all(promises)
+    await Bluebird.all(promises);
 
     res.respond(200, task);
   },
