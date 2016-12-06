@@ -270,7 +270,7 @@ api.updateTask = {
     let savedTask = await task.save();
 
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
-      await group.updateTask(savedTask);
+      await group.updateTask(savedTask, true);
     }
 
     res.respond(200, savedTask);
