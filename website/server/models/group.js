@@ -937,7 +937,15 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   return await Bluebird.all(promises);
 };
 
-schema.methods.updateTask = async function updateTask (taskToSync) {
+/**
+ * Updates all linked tasks for a group task
+ *
+ * @param  taskToSync  The group task that will be synced
+ * @param  checklistSync  A boolean to determine if checklists should be synced as well
+ *
+ * @return The created tasks
+ */
+schema.methods.updateTask = async function updateTask (taskToSync, checklistSync) {
   let group = this;
 
   let updateCmd = {$set: {}};
@@ -956,6 +964,33 @@ schema.methods.updateTask = async function updateTask (taskToSync) {
     'group.id': group.id,
     'group.taskId': taskToSync._id,
   }, updateCmd, {multi: true}).exec();
+
+
+  if (!checklistSync || !taskToSync.checklist) return;
+
+  let findQuery = {
+    userId: {$exists: true},
+    'group.id': group.id,
+    'group.taskId': taskToSync._id,
+  };
+
+  let tasks = await Tasks.Task.find(findQuery).exec();
+  let promises = [];
+
+  tasks.forEach(function syncCheckListsToTask(task) {
+    taskToSync.checklist.forEach(function syncCheckList(checklistItem) {
+      let i = _.findIndex(task.checklist, {linkId: checklistItem.id});
+      if (i === -1) {
+        task.checklist.push(checklistItem);
+      } else {
+        task.checklist[i].text = checklistItem.text;
+      }
+    });
+
+    promises.push(task.save());
+  });
+
+  await Bluebird.all(promises);
 };
 
 schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
