@@ -4,13 +4,17 @@ import analytics from '../../../../../website/server/libs/analyticsService';
 import notifications from '../../../../../website/server/libs/pushNotifications';
 import { model as User } from '../../../../../website/server/models/user';
 import { model as Group } from '../../../../../website/server/models/group';
+import stripeModule from 'stripe';
 import moment from 'moment';
 import {
   generateGroup,
 } from '../../../../helpers/api-unit.helper.js';
+import i18n from '../../../../../website/common/script/i18n';
 
 describe('payments/index', () => {
   let user, group, data, plan;
+
+  let stripe = stripeModule('test');
 
   beforeEach(async () => {
     user = new User();
@@ -615,7 +619,40 @@ describe('payments/index', () => {
         await api.cancelSubscription(data);
 
         expect(sender.sendTxn).to.be.calledOnce;
-        expect(sender.sendTxn).to.be.calledWith(user, 'cancel-subscription');
+        expect(sender.sendTxn).to.be.calledWith(user, 'group-cancel-subscription');
+      });
+
+      it('prevents non group leader from manging subscription', async () => {
+        let groupMember = new User();
+        data.user = groupMember;
+        data.groupId = group._id;
+
+        await expect(api.cancelSubscription(data))
+          .eventually.be.rejected.and.to.eql({
+            httpCode: 401,
+            message: i18n.t('onlyGroupLeaderCanManageSubscription'),
+            name: 'NotAuthorized',
+          });
+      });
+
+      it('allows old group leader to cancel if they created the subscription', async () => {
+        data.groupId = group._id;
+        data.sub = {
+          key: 'group_monthly',
+        };
+        data.paymentMethod = 'Payment Method';
+        await api.createSubscription(data);
+
+        let updatedGroup = await Group.findById(group._id).exec();
+        let newLeader = new User();
+        updatedGroup.leader = newLeader._id;
+        await updatedGroup.save();
+
+        await api.cancelSubscription(data);
+
+        updatedGroup = await Group.findById(group._id).exec();
+
+        expect(updatedGroup.purchased.plan.dateTerminated).to.exist;
       });
     });
   });
@@ -697,6 +734,52 @@ describe('payments/index', () => {
         await api.buyGems(data);
         expect(notifications.sendNotification).to.be.calledOnce;
       });
+    });
+  });
+
+  describe('#upgradeGroupPlan', () => {
+    let spy;
+
+    beforeEach(function () {
+      spy = sinon.stub(stripe.subscriptions, 'update');
+      spy.returnsPromise().resolves([]);
+      data.groupId = group._id;
+      data.sub.quantity = 3;
+    });
+
+    afterEach(function () {
+      sinon.restore(stripe.subscriptions.update);
+    });
+
+    it('updates a group plan quantity', async () => {
+      data.paymentMethod = 'Stripe';
+      await api.createSubscription(data);
+
+      let updatedGroup = await Group.findById(group._id).exec();
+      expect(updatedGroup.purchased.plan.quantity).to.eql(3);
+
+      updatedGroup.memberCount += 1;
+      await updatedGroup.save();
+
+      await api.updateStripeGroupPlan(updatedGroup, stripe);
+
+      expect(spy.calledOnce).to.be.true;
+      expect(updatedGroup.purchased.plan.quantity).to.eql(4);
+    });
+
+    it('does not update a group plan quantity that has a payment method other than stripe', async () => {
+      await api.createSubscription(data);
+
+      let updatedGroup = await Group.findById(group._id).exec();
+      expect(updatedGroup.purchased.plan.quantity).to.eql(3);
+
+      updatedGroup.memberCount += 1;
+      await updatedGroup.save();
+
+      await api.updateStripeGroupPlan(updatedGroup, stripe);
+
+      expect(spy.calledOnce).to.be.false;
+      expect(updatedGroup.purchased.plan.quantity).to.eql(3);
     });
   });
 });

@@ -254,6 +254,8 @@ api.updateTask = {
 
     if (!challenge && task.userId && task.challenge && task.challenge.id) {
       sanitizedObj = Tasks.Task.sanitizeUserChallengeTask(updatedTaskObj);
+    } else if (!group && task.userId && task.group && task.group.id) {
+      sanitizedObj = Tasks.Task.sanitizeUserChallengeTask(updatedTaskObj);
     } else {
       sanitizedObj = Tasks.Task.sanitize(updatedTaskObj);
     }
@@ -270,7 +272,7 @@ api.updateTask = {
     let savedTask = await task.save();
 
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
-      await group.updateTask(savedTask);
+      await group.updateTask(savedTask, true);
     }
 
     res.respond(200, savedTask);
@@ -676,7 +678,7 @@ api.removeChecklistItem = {
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
-      await group.updateTask(savedTask);
+      await group.updateTask(savedTask, true, req.params.itemId);
     }
   },
 };

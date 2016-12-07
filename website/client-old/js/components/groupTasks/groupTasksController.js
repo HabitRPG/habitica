@@ -10,8 +10,38 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
         //If the group has not been created, we bulk add tasks on save
         var group = $scope.obj;
         if (group._id) Tasks.createGroupTasks(group._id, task);
+
+        // Set up default group info on task. @TODO: Move this to Tasks.createGroupTasks
+        task.group = {
+          id: group._id,
+          approval: {required: false, approved: false, requested: false},
+          assignedUsers: [],
+        };
+
         if (!group[task.type + 's']) group[task.type + 's'] = [];
         group[task.type + 's'].unshift(task);
+
+        // @TODO: We need to get the task information from createGroupTasks rather than resyncing
+        group['habits'] = [];
+        group['dailys'] = [];
+        group['todos'] = [];
+        group['rewards'] = [];
+
+        Tasks.getGroupTasks($scope.group._id)
+          .then(function (response) {
+            var tasks = response.data.data;
+            tasks.forEach(function (element, index, array) {
+              if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
+              $scope.group[element.type + 's'].push(element);
+            })
+
+            // Reverse the list so the latest tasks are on top
+            group['habits'] = group['habits'].reverse();
+            group['dailys'] = group['dailys'].reverse();
+            group['todos'] = group['todos'].reverse();
+            group['rewards'] = group['rewards'].reverse();
+          });
+
       });
     };
 
@@ -65,7 +95,10 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
 
      $scope.addChecklistItem = Tasks.addChecklistItemToUI;
 
-     $scope.removeChecklistItem = Tasks.removeChecklistItemFromUI;
+     $scope.removeChecklistItem = function (task, $event, $index, force) {
+       if (task.checklist[$index].id) Tasks.removeChecklistItem (task._id, task.checklist[$index].id);
+       Tasks.removeChecklistItemFromUI(task, $event, $index, force);
+     };
 
      $scope.swapChecklistItems = Tasks.swapChecklistItems;
 

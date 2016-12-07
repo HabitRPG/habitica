@@ -15,6 +15,10 @@ import {
   NotAuthorized,
   NotFound,
 } from './errors';
+import nconf from 'nconf';
+import stripeModule from 'stripe';
+
+const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
 
 let api = {};
 
@@ -48,6 +52,7 @@ api.createSubscription = async function createSubscription (data) {
   let groupId;
   let itemPurchased = 'Subscription';
   let purchaseType = 'subscribe';
+  let emailType = 'subscription-begins';
 
   //  If we are buying a group subscription
   if (data.groupId) {
@@ -65,7 +70,9 @@ api.createSubscription = async function createSubscription (data) {
     recipient = group;
     itemPurchased = 'Group-Subscription';
     purchaseType = 'group-subscribe';
+    emailType = 'group-subscription-begins';
     groupId = group._id;
+    recipient.purchased.plan.quantity = data.sub.quantity;
   }
 
   plan = recipient.purchased.plan;
@@ -96,11 +103,16 @@ api.createSubscription = async function createSubscription (data) {
       // Specify a lastBillingDate just for Amazon Payments
       // Resetted every time the subscription restarts
       lastBillingDate: data.paymentMethod === 'Amazon Payments' ? today : undefined,
+      owner: data.user._id,
     }).defaults({ // allow non-override if a plan was previously used
       gemsBought: 0,
       dateCreated: today,
       mysteryItems: [],
     }).value();
+
+    if (data.subscriptionId) {
+      plan.subscriptionId = data.subscriptionId;
+    }
   }
 
   // Block sub perks
@@ -117,7 +129,7 @@ api.createSubscription = async function createSubscription (data) {
   }
 
   if (!data.gift) {
-    txnEmail(data.user, 'subscription-begins');
+    txnEmail(data.user, emailType);
   }
 
   analytics.trackPurchase({
@@ -173,12 +185,29 @@ api.createSubscription = async function createSubscription (data) {
   if (data.gift) await data.gift.member.save();
 };
 
+api.updateStripeGroupPlan = async function updateStripeGroupPlan (group, stripeInc) {
+  if (group.purchased.plan.paymentMethod !== 'Stripe') return;
+  let stripeApi = stripeInc || stripe;
+  let plan = shared.content.subscriptionBlocks.group_monthly;
+
+  await stripeApi.subscriptions.update(
+    group.purchased.plan.subscriptionId,
+    {
+      plan: plan.key,
+      quantity: group.memberCount + plan.quantity - 1,
+    }
+  );
+
+  group.purchased.plan.quantity = group.memberCount + plan.quantity - 1;
+};
+
 // Sets their subscription to be cancelled later
 api.cancelSubscription = async function cancelSubscription (data) {
   let plan;
   let group;
   let cancelType = 'unsubscribe';
   let groupId;
+  let emailType = 'cancel-subscription';
 
   //  If we are buying a group subscription
   if (data.groupId) {
@@ -189,10 +218,13 @@ api.cancelSubscription = async function cancelSubscription (data) {
       throw new NotFound(shared.i18n.t('groupNotFound'));
     }
 
-    if (!group.leader === data.user._id) {
+    let allowedManagers = [group.leader, group.purchased.plan.owner];
+
+    if (allowedManagers.indexOf(data.user._id) === -1) {
       throw new NotAuthorized(shared.i18n.t('onlyGroupLeaderCanManageSubscription'));
     }
     plan = group.purchased.plan;
+    emailType = 'group-cancel-subscription';
   } else {
     plan = data.user.purchased.plan;
   }
@@ -217,7 +249,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
     await data.user.save();
   }
 
-  txnEmail(data.user, 'cancel-subscription');
+  txnEmail(data.user, emailType);
 
   if (group) {
     cancelType = 'group-unsubscribe';

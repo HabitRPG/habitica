@@ -49,6 +49,7 @@ api.checkout = {
     let groupId = req.query.groupId;
     let coupon;
     let response;
+    let subscriptionId;
 
     if (!token) throw new BadRequest('Missing req.body.id');
 
@@ -59,12 +60,20 @@ api.checkout = {
         if (!coupon) throw new BadRequest(res.t('invalidCoupon'));
       }
 
-      response = await stripe.customers.create({
+      let customerObject = {
         email: req.body.email,
         metadata: { uuid: user._id },
         card: token,
         plan: sub.key,
-      });
+      };
+
+      if (groupId) {
+        customerObject.quantity = sub.quantity;
+      }
+
+      response = await stripe.customers.create(customerObject);
+
+      if (groupId) subscriptionId = response.subscriptions.data[0].id;
     } else {
       let amount = 500; // $5
 
@@ -91,6 +100,7 @@ api.checkout = {
         sub,
         headers: req.headers,
         groupId,
+        subscriptionId,
       });
     } else {
       let method = 'buyGems';
@@ -144,7 +154,9 @@ api.subscribeEdit = {
         throw new NotFound(res.t('groupNotFound'));
       }
 
-      if (!group.leader === user._id) {
+      let allowedManagers = [group.leader, group.purchased.plan.owner];
+
+      if (allowedManagers.indexOf(user._id) === -1) {
         throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
       }
       customerId = group.purchased.plan.customerId;

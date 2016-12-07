@@ -1,13 +1,16 @@
 import { sleep } from '../../../../helpers/api-unit.helper';
 import { model as Group, INVITES_LIMIT } from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
-import { BadRequest } from '../../../../../website/server/libs/errors';
+import {
+  BadRequest,
+ } from '../../../../../website/server/libs/errors';
 import { quests as questScrolls } from '../../../../../website/common/script/content';
 import { groupChatReceivedWebhook } from '../../../../../website/server/libs/webhook';
 import * as email from '../../../../../website/server/libs/email';
 import validator from 'validator';
 import { TAVERN_ID } from '../../../../../website/common/script/';
 import { v4 as generateUUID } from 'uuid';
+import shared from '../../../../../website/common';
 
 describe('Group Model', () => {
   let party, questLeader, participatingMember, nonParticipatingMember, undecidedMember;
@@ -635,6 +638,22 @@ describe('Group Model', () => {
 
         party = await Group.findOne({_id: party._id});
         expect(party).to.not.exist;
+      });
+
+      it('does not delete a private group when the last member leaves and a subscription is active', async () => {
+        party.memberCount = 1;
+        party.purchased.plan.customerId = '110002222333';
+
+        await expect(party.leave(participatingMember))
+          .to.eventually.be.rejected.and.to.eql({
+            name: 'NotAuthorized',
+            httpCode: 401,
+            message: shared.i18n.t('cannotDeleteActiveGroup'),
+          });
+
+        party = await Group.findOne({_id: party._id});
+        expect(party).to.exist;
+        expect(party.memberCount).to.eql(1);
       });
 
       it('does not delete a public group when the last member leaves', async () => {

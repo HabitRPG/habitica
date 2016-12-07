@@ -13,6 +13,7 @@ import { groupChatReceivedWebhook } from '../libs/webhook';
 import {
   InternalServerError,
   BadRequest,
+  NotAuthorized,
 } from '../libs/errors';
 import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email';
@@ -839,6 +840,11 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     $inc: {memberCount: -1},
   };
 
+  let plan = group.purchased.plan;
+  if (group.memberCount <= 1 && group.privacy === 'private' && plan && plan.customerId && !plan.dateTerminated) {
+    throw new NotAuthorized(shared.i18n.t('cannotDeleteActiveGroup'));
+  }
+
   let challenges = await Challenge.find({
     _id: {$in: user.challenges},
     group: group._id,
@@ -883,7 +889,15 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   return await Bluebird.all(promises);
 };
 
-schema.methods.updateTask = async function updateTask (taskToSync) {
+/**
+ * Updates all linked tasks for a group task
+ *
+ * @param  taskToSync  The group task that will be synced
+ * @param  checklistSync  A boolean to determine if checklists should be synced as well
+ *
+ * @return The created tasks
+ */
+schema.methods.updateTask = async function updateTask (taskToSync, checklistSync, checkListRemoveId) {
   let group = this;
 
   let updateCmd = {$set: {}};
@@ -902,6 +916,42 @@ schema.methods.updateTask = async function updateTask (taskToSync) {
     'group.id': group.id,
     'group.taskId': taskToSync._id,
   }, updateCmd, {multi: true}).exec();
+
+
+  if (!checklistSync || !taskToSync.checklist) return;
+
+  let findQuery = {
+    userId: {$exists: true},
+    'group.id': group.id,
+    'group.taskId': taskToSync._id,
+  };
+
+  let tasks = await Tasks.Task.find(findQuery).exec();
+  let promises = [];
+
+  tasks.forEach(function syncCheckListsToTask (task) {
+    taskToSync.checklist.forEach(function syncCheckList (checklistItem) {
+      let i = _.findIndex(task.checklist, {linkId: checklistItem.id});
+      if (i === -1) {
+        let newCheckList = {completed: false};
+        newCheckList.linkId = checklistItem.id;
+        newCheckList.text = checklistItem.text;
+        task.checklist.push(newCheckList);
+      } else {
+        task.checklist[i].text = checklistItem.text;
+      }
+    });
+
+    //  Remove checklist
+    if (checkListRemoveId) {
+      let index = _.findIndex(task.checklist, {linkId: checkListRemoveId});
+      if (index !== -1) task.checklist.splice(index, 1);
+    }
+
+    promises.push(task.save());
+  });
+
+  await Bluebird.all(promises);
 };
 
 schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
@@ -920,11 +970,13 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
     if (userTags[i].name !== group.name) {
       // update the name - it's been changed since
       userTags[i].name = group.name;
+      userTags[i].group = group._id;
     }
   } else {
     userTags.push({
       id: group._id,
       name: group.name,
+      group: group._id,
     });
   }
 
@@ -950,6 +1002,16 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   }
 
   matchingTask.group.approval.required = taskToSync.group.approval.required;
+
+  //  sync checklist
+  if (taskToSync.checklist) {
+    taskToSync.checklist.forEach(function syncCheckList (element) {
+      let newCheckList = {completed: false};
+      newCheckList.linkId = element.id;
+      newCheckList.text = element.text;
+      matchingTask.checklist.push(newCheckList);
+    });
+  }
 
   if (!matchingTask.notes) matchingTask.notes = taskToSync.notes; // don't override the notes, but provide it if not provided
   if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id); // add tag if missing

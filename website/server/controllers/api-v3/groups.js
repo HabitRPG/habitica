@@ -21,6 +21,8 @@ import { encrypt } from '../../libs/encryption';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import pusher from '../../libs/pusher';
 import common from '../../../common';
+import payments from '../../libs/payments';
+
 
 /**
  * @apiDefine GroupBodyInvalid
@@ -303,6 +305,8 @@ api.joinGroup = {
 
     group.memberCount += 1;
 
+    if (group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
+
     let promises = [group.save(), user.save()];
 
     if (inviter) {
@@ -459,6 +463,8 @@ api.leaveGroup = {
 
     await group.leave(user, req.query.keep);
 
+    if (group.purchased.plan && group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
+
     _removeMessagesFromMember(user, group._id);
 
     await user.save();
@@ -534,6 +540,7 @@ api.removeGroupMember = {
 
     if (isInGroup) {
       group.memberCount -= 1;
+      if (group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
 
       if (group.quest && group.quest.leader === member._id) {
         group.quest.key = undefined;
