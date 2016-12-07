@@ -16,6 +16,7 @@ const NOTIFICATION_TYPES = [
   'GROUP_TASK_APPROVED',
   'LOGIN_INCENTIVE',
   'GROUP_INVITE_ACCEPTED',
+  'SCORED_TASK',
 ];
 
 const Schema = mongoose.Schema;
