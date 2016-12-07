@@ -245,17 +245,23 @@ angular.module('habitrpg')
       });
     };
 
-    function editTask(task, user) {
+    function editTask(task, user, taskStatus, scope) {
       task._editing = true;
       task._tags = !user.preferences.tagsCollapsed;
       task._advanced = !user.preferences.advancedCollapsed;
       task._edit = angular.copy(task);
       if($rootScope.charts[task._id]) $rootScope.charts[task.id] = false;
+
+      var modalScope = scope;
+      modalScope.task = task;
+      modalScope.taskStatus = taskStatus;
+      $rootScope.openModal('task-edit', {scope: modalScope, backdrop: 'static'});
     }
 
     function cancelTaskEdit(task) {
       task._edit = undefined;
       task._editing = false;
+      $close()
     };
 
     function cloneTask(task) {

@@ -32,7 +32,7 @@
       |{{checklistCompletion(task.checklist)}}/{{task.checklist.length}}
     span.glyphicon.glyphicon-tags(tooltip='{{Shared.appliedTags(user.tags, task.tags)}}', ng-hide='Shared.noTags(task.tags)')
     // edit
-    a(ng-hide='task._editing', ng-click='editTask(task, user)', tooltip=env.t('edit'))
+    a(ng-hide='task._editing', ng-click='editTask(task, user, taskStatus)', tooltip=env.t('edit'))
       | &nbsp;
       span.glyphicon.glyphicon-pencil(ng-hide='task._editing')
     | &nbsp;

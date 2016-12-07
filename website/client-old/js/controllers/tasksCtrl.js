@@ -51,7 +51,9 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     $scope.toggleBulk = Tasks.toggleBulk;
 
-    $scope.editTask = Tasks.editTask;
+    $scope.editTask = function (task, user, taskStatus) {
+      Tasks.editTask(task, user, taskStatus, $scope);
+    };
 
     $scope.canEdit = function(task) {
       // can't edit challenge tasks

@@ -8,59 +8,66 @@
 // array of keywords and their associated color vars
 $stages = (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good $good) (better $better) (best $best)
 
+taskContainerStyles($stage)
+  background-color: $stage[1]
+  border: 1px solid shade($stage[1],10%)
+  .priority-multiplier, .task-attributes, .repeat-days, .repeat-frequency
+    li
+      hrpg-button-color-mixin($stage[1])
+      button
+        &.active
+          box-shadow: inset 0 0 0 1px darken($stage[1],40%) !important
+          background-color: darken($stage[1],5%) !important
+        &:focus
+          border: 1px solid darken($stage[1],30%)
+          outline: 0
+  .plusminus
+    .task-checker
+      label:after
+        border: 1px solid darken($stage[1], 30%) !important
+      input[type=checkbox]:checked + label:after
+        //border: 1px solid darken($stage[1], 50%) !important
+        box-shadow: inset 0 0 0 1px darken($stage[1],40%) !important
+        background-color: darken($stage[1],5%) !important
+  .save-close, .task-checklist-edit li
+    hrpg-button-color-mixin(darken($stage[1],5%))
+    button
+      &:focus
+        border: 1px solid darken($stage[1],30%)
+        outline: 0
+  .task-actions
+    background-color: darken($stage[1], 30%)
+  .action-yesno label,
+  .task-action-btn,
+  .task-actions a
+    background-color: darken($stage[1], 30%)
+    &:hover, &:focus
+      background-color: darken($stage[1], 40%)
+  input[type=checkbox].task-input:focus + label, input.habit:focus + a
+    background-color: darken($stage[1], 40%)
+  .task-actions a:nth-of-type(2)
+    border-top: 1px solid darken($stage[1],50%) // If there are two habit buttons (+ -), add a border to separate them
+  .task-options
+    background-color: $stage[1]
+  .option-group:not(.task-checklist)
+    border-bottom: 1px solid darken($stage[1], 15%)
+  .option-content
+    border-color: darken($stage[1], 16.18%) !important
+    &:hover
+      border-color: darken($stage[1], 32.8%) !important
+    &:focus
+      border-color: darken($stage[1], 61.8%) !important
+      outline: none;
+
+
 // for each color stage, generate a named class w/ the appropriate color
 for $stage in $stages
   .task-column:not(.rewards)
     .color-{$stage[0]}:not(.completed)
-      background-color: $stage[1]
-      border: 1px solid shade($stage[1],10%)
-      .priority-multiplier, .task-attributes, .repeat-days, .repeat-frequency
-        li
-          hrpg-button-color-mixin($stage[1])
-          button
-            &.active
-              box-shadow: inset 0 0 0 1px darken($stage[1],40%) !important
-              background-color: darken($stage[1],5%) !important
-            &:focus
-              border: 1px solid darken($stage[1],30%)
-              outline: 0
-      .plusminus
-        .task-checker
-          label:after
-            border: 1px solid darken($stage[1], 30%) !important
-          input[type=checkbox]:checked + label:after
-            //border: 1px solid darken($stage[1], 50%) !important
-            box-shadow: inset 0 0 0 1px darken($stage[1],40%) !important
-            background-color: darken($stage[1],5%) !important
-      .save-close, .task-checklist-edit li
-        hrpg-button-color-mixin(darken($stage[1],5%))
-        button
-          &:focus
-            border: 1px solid darken($stage[1],30%)
-            outline: 0
-      .task-actions
-        background-color: darken($stage[1], 30%)
-      .action-yesno label,
-      .task-action-btn,
-      .task-actions a
-        background-color: darken($stage[1], 30%)
-        &:hover, &:focus
-          background-color: darken($stage[1], 40%)
-      input[type=checkbox].task-input:focus + label, input.habit:focus + a
-        background-color: darken($stage[1], 40%)
-      .task-actions a:nth-of-type(2)
-        border-top: 1px solid darken($stage[1],50%) // If there are two habit buttons (+ -), add a border to separate them
-      .task-options
-        background-color: $stage[1]
-      .option-group:not(.task-checklist)
-        border-bottom: 1px solid darken($stage[1], 15%)
-      .option-content
-        border-color: darken($stage[1], 16.18%) !important
-        &:hover
-          border-color: darken($stage[1], 32.8%) !important
-        &:focus
-          border-color: darken($stage[1], 61.8%) !important
-          outline: none;
+      taskContainerStyles($stage)
+
+  .task-modal, .color-{$stage[0]}:not(.completed)
+    taskContainerStyles($stage)
 
 // completed has to be outside the loop to override the color class
 .completed

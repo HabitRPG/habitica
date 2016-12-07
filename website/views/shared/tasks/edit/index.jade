@@ -49,4 +49,4 @@ div(ng-if='task._editing')
       include ./advanced_options
 
       .save-close
-        button(type='submit')=env.t('saveAndClose')
+        button(type='submit', ng-click='$close()')=env.t('saveAndClose')
