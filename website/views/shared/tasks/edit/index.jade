@@ -50,3 +50,10 @@ div(ng-if='task._editing')
 
       .save-close
         button(type='submit', ng-click='saveTask(task,false,true); $close()')=env.t('saveAndClose')
+      
+      br
+      br
+      
+      .save-close
+        button(ng-click='cancelTaskEdit(task); $close()')=env.t('cancel')
+        

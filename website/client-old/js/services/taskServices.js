@@ -261,7 +261,6 @@ angular.module('habitrpg')
     function cancelTaskEdit(task) {
       task._edit = undefined;
       task._editing = false;
-      $close()
     };
 
     function cloneTask(task) {
