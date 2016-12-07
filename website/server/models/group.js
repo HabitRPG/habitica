@@ -582,7 +582,7 @@ async function _updateUserWithRetries (userId, updates, numTry = 1) {
   return await User.update({_id: userId}, updates).exec()
     .then((raw) => {
       return raw;
-    }, (err) => {
+    }).catch((err) => {
       if (numTry < MAX_UPDATE_RETRIES) {
         return _updateUserWithRetries(userId, updates, ++numTry);
       } else {
