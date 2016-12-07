@@ -61,7 +61,11 @@ mixin petList(eggSource, potionSource)
     p(ng-show='foodCount < 1')=env.t('noFood')
     menu.inventory-list(type='list', ng-if='foodCount > 0')
       li.customize-menu
-        menu.pets-menu(label=env.t('food'))
+        label Food and Saddles
+        p
+          | Not sure what to feed your pet? 
+          a(href='http://habitica.wikia.com/wiki/Food_Preferences' target='_blank' rel='noopener noreferrer') Click here
+        menu.pets-menu
           div(ng-repeat='(food,points) in ownedItems(user.items.food)')
             button.customize-option(popover-append-to-body='true', popover='{{:: Content.food[food].notes()}}', popover-title='{{:: Content.food[food].text()}}', popover-trigger='mouseenter', popover-placement='top', ng-click='chooseFood(food)', ng-class='{selectableInventory: selectedFood == Content.food[food]}', class='Pet_Food_{{::food}}')
               .badge.badge-info.stack-count {{points}}
