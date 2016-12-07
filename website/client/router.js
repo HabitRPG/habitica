@@ -26,7 +26,7 @@ export default new VueRouter({
       component: ParentPage,
       children: [
         {path: 'tavern', component: Page},
-        {path: 'inbox', component: Page},
+        {path: 'inbox', component: InboxPage},
         {path: 'challenges', component: Page},
         {path: 'party', component: Page},
         {path: 'guilds', component: Page},
