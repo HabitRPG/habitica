@@ -7,6 +7,7 @@ import VueResource from 'vue-resource';
 import AppComponent from './app';
 import router from './router';
 import store from './store';
+import './filters/registerGlobals';
 
 // TODO just for the beginning
 Vue.use(VueResource);

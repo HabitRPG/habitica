@@ -32,7 +32,7 @@
       span {{userGems}}
     .item.with-img.gp-icon
       img(src="~assets/header/png/gold@3x.png")
-      span {{Math.floor(user.stats.gp * 100) / 100}}
+      span {{user.stats.gp | floor}}
     a.item.with-img.notifications-dropdown
       img(src="~assets/header/png/notifications@3x.png")
     .ui.simple.dropdown.pointing
