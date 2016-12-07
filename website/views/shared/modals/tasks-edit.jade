@@ -1,5 +1,5 @@
 script(type='text/ng-template', id='modals/task-edit.html')
-  .modal-content.task-modal(style='min-width:28em', class='{{taskStatus}}')
+  .modal-content.task-modal(style='min-width:28em', class='{{taskStatus}}', id="task-{{task._id}}")
     .modal-body.text-center(style='padding-bottom:0')
       include ../tasks/edit/index
     .modal-footer(style='margin-top:0')

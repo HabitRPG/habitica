@@ -295,7 +295,7 @@ angular.module('habitrpg')
 
     function focusChecklist(task, index) {
       window.setTimeout(function(){
-        $('#task-'+task._id+' .checklist-form input[type="text"]')[index].focus();
+        $('#task-' + task._id + ' .checklist-form input[type="text"]')[index].focus();
       });
     }
 

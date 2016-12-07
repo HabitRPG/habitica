@@ -1,7 +1,10 @@
 habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', function ($scope, Shared, Tasks, User) {
-    $scope.editTask = Tasks.editTask;
     $scope.toggleBulk = Tasks.toggleBulk;
     $scope.cancelTaskEdit = Tasks.cancelTaskEdit;
+
+    $scope.editTask = function (task, user, taskStatus) {
+      Tasks.editTask(task, user, taskStatus, $scope);
+    };
 
     function addTask (listDef, taskTexts) {
       taskTexts.forEach(function (taskText) {

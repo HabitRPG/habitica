@@ -33,7 +33,7 @@ div(ng-if='task._editing')
 
     include ./checklist
 
-    form(ng-submit='saveTask(task,false,true)')
+    form
       include ./text_notes
 
       include ./habits/plus_minus
@@ -49,4 +49,4 @@ div(ng-if='task._editing')
       include ./advanced_options
 
       .save-close
-        button(type='submit', ng-click='$close()')=env.t('saveAndClose')
+        button(type='submit', ng-click='saveTask(task,false,true); $close()')=env.t('saveAndClose')
