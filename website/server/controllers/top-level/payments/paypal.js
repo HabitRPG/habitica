@@ -145,6 +145,10 @@ api.checkoutSuccess = {
 
     await paypalPaymentExecute(paymentId, { payer_id: customerId });
     await payments[method](data);
+    if (gift && gift.type === 'subscription' && gift.member._id !== data.user._id) {
+      gift.member = data.user;
+      await payments.createSubscription(data);
+    }
     res.redirect('/');
   },
 };
