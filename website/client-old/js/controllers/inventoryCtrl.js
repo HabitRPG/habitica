@@ -8,6 +8,7 @@ habitrpg.controller("InventoryCtrl",
 
     $scope.selectedEgg = null; // {index: 1, name: "Tiger", value: 5}
     $scope.selectedPotion = null; // {index: 5, name: "Red", value: 3}
+    $scope.equipmentFilterQuery = {'query': ''};
 
     _updateDropAnimalCount(user.items);
 
@@ -85,7 +86,7 @@ habitrpg.controller("InventoryCtrl",
       })
     }, true);
 
-    var equipmentSearch = function(equipment, term) {
+    $scope.equipmentSearch = function(equipment, term) {
       if (!equipment) return;
       if (!angular.isString(term) || term.length == 0) {
         return equipment;
@@ -101,25 +102,33 @@ habitrpg.controller("InventoryCtrl",
       return result;
     };
 
-    $scope.$watchGroup(['gearByClass', 'gearByType', 'user.equipmentQuery'], function(updatedVals) {
-      var gearByClass = updatedVals[0];
-      var gearByType = updatedVals[1];
-      var equipmentQuery = updatedVals[2];
+    $scope.updateEquipment = function(gearByClass, gearByType, equipmentQuery) {
       $scope.filteredGearByClass = {};
       $scope.filteredGearByType = {};
-      angular.forEach(gearByClass, function(value, key) {
-        var searchResult = equipmentSearch(value, equipmentQuery);
+      _.forEach(gearByClass, function(value, key) {
+        var searchResult = $scope.equipmentSearch(value, equipmentQuery);
         if (searchResult.length > 0) {
           $scope.filteredGearByClass[key] = searchResult;
         }
       });
-      angular.forEach(gearByType, function(value, key) {
-        var searchResult = equipmentSearch(value, equipmentQuery);
+      _.forEach(gearByType, function(value, key) {
+        var searchResult = $scope.equipmentSearch(value, equipmentQuery);
         if (searchResult.length > 0) {
           $scope.filteredGearByType[key] = searchResult;
         }
       });
-    });
+    }
+
+    $scope.$watch(function(){
+        return ['gearByClass', 'gearByType', 'equipmentFilterQuery'].map(angular.bind($scope, $scope.$eval));
+      }, function(updatedVals) {
+        var gearByClass = updatedVals[0];
+        var gearByType = updatedVals[1];
+        var equipmentFilterQuery = updatedVals[2];
+        $scope.updateEquipment(gearByClass, gearByType, equipmentFilterQuery.query);
+      }, true);
+
+    $scope.updateEquipment($scope.gearByClass, $scope.gearByType, $scope.equipmentFilterQuery.query);
 
     $scope.chooseEgg = function(egg){
       if ($scope.selectedEgg && $scope.selectedEgg.key == egg) {
@@ -456,12 +465,12 @@ habitrpg.controller("InventoryCtrl",
     }
   }
 ]);
-
 habitrpg.controller("InventorySearchCtrl",
-  ['$scope', 'User',
-  function($scope, User) {
+  ['$scope',
+  function($scope) {
+    $scope.equipmentFilterQuery.query = '';
     $scope.updateEquipmentQuery = function() {
-      User.user.equipmentQuery = $scope.equipmentQuery;
+      $scope.equipmentFilterQuery.query = $scope.equipmentQuery;
     }
   }
 ]);

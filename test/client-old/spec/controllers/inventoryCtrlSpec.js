@@ -450,4 +450,84 @@ describe('Inventory Controller', function() {
       expect(scope.hasAllTimeTravelerItemsOfType('mounts')).to.eql(true);
     }));
   });
+
+  describe('Gear search filter', function() {
+    var wrap = function(text) {
+      return {'text': function() {return text;}};
+    }
+
+    var toText = function(list) {
+      return _.map(list, function(ele) { return ele.text(); });
+    }
+
+    var gearByClass, gearByType;
+
+    beforeEach(function() {
+      scope.$digest();
+      gearByClass = {'raw': [wrap('kale'), wrap('sashimi')],
+                     'cooked': [wrap('chicken'), wrap('potato')]};
+
+      gearByType = {'veg': [wrap('kale'), wrap('potato')],
+                    'not': [wrap('chicken'), wrap('sashimi')]};
+      scope.gearByClass = gearByClass;
+      scope.gearByType = gearByType;
+      scope.equipmentFilterQuery.query = 'a';
+    });
+
+    it('filters nothing if equipmentQuery is nothing', function() {
+      scope.equipmentFilterQuery.query = '';
+      scope.$digest();
+      expect(toText(scope.filteredGearByClass['raw'])).to.eql(['kale', 'sashimi']);
+      expect(toText(scope.filteredGearByClass['cooked'])).to.eql(['chicken', 'potato']);
+      expect(toText(scope.filteredGearByType['veg'])).to.eql(['kale', 'potato']);
+      expect(toText(scope.filteredGearByType['not'])).to.eql(['chicken', 'sashimi']);
+    });
+
+    it('filters out gear if class gear changes', function() {
+      scope.$digest();
+      expect(toText(scope.filteredGearByClass['raw'])).to.eql(['kale', 'sashimi']);
+      expect(toText(scope.filteredGearByClass['cooked'])).to.eql(['potato']);
+
+      scope.gearByClass['raw'].push(wrap('zucchini'));
+      scope.gearByClass['cooked'].push(wrap('pizza'));
+      scope.$digest();
+      expect(toText(scope.filteredGearByClass['raw'])).to.eql(['kale', 'sashimi']);
+      expect(toText(scope.filteredGearByClass['cooked'])).to.eql(['potato', 'pizza']);
+    });
+
+    it('filters out gear if typed gear changes', function() {
+      scope.$digest();
+      expect(toText(scope.filteredGearByType['veg'])).to.eql(['kale', 'potato']);
+      expect(toText(scope.filteredGearByType['not'])).to.eql(['sashimi']);
+
+      scope.gearByType['veg'].push(wrap('zucchini'));
+      scope.gearByType['not'].push(wrap('pizza'));
+
+      scope.$digest();
+      expect(toText(scope.filteredGearByType['veg'])).to.eql(['kale', 'potato']);
+      expect(toText(scope.filteredGearByType['not'])).to.eql(['sashimi', 'pizza']);
+    });
+
+    it('filters out gear if filter query changes', function() {
+      scope.equipmentFilterQuery.query = 'c';
+      scope.$digest();
+
+      expect(toText(scope.filteredGearByClass['raw'])).to.eql([]);
+      expect(toText(scope.filteredGearByClass['cooked'])).to.eql(['chicken']);
+      expect(toText(scope.filteredGearByType['veg'])).to.eql([]);
+      expect(toText(scope.filteredGearByType['not'])).to.eql(['chicken']);
+    });
+
+    it('returns the right filtered gear', function() {
+      var equipment = [wrap('spicy tuna'), wrap('dragon'), wrap('rainbow'), wrap('caterpillar')];
+      expect(toText(scope.equipmentSearch(equipment, 'ra'))).to.eql(['dragon', 'rainbow']);
+    });
+
+    it('returns the right filtered gear if the source gear has unicode', function() {
+      // blue hat, red hat, red shield
+      var equipment = [wrap('藍色軟帽'), wrap('紅色軟帽'), wrap('紅色盾牌')];
+      // searching for 'red' gives red hat, red shield
+      expect(toText(scope.equipmentSearch(equipment, '紅色'))).to.eql(['紅色軟帽', '紅色盾牌']);
+    });
+  });
 });
