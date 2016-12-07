@@ -3,6 +3,8 @@ import VueRouter from 'vue-router';
 import UserTasks from './components/userTasks';
 import ParentPage from './components/parentPage';
 import Page from './components/page';
+import InboxPage from './components/InboxPage';
+
 
 Vue.use(VueRouter);
 

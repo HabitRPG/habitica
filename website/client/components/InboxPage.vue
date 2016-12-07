@@ -1,22 +1,22 @@
 <template lang="pug">
 .row
   .sixteen.wide.column
-    h2 Page
+    h2 Inbox
     p {{ $route.path }}
-    <ul id="example-1">
-      <li v-for="item in messages">
-        {{ item.message }}
-      </li>
-    </ul>
+    ul#example-1
+      li(v-for="item in messages")
+        | {{ item.message }}
 </template>
 
 <script>
 export default {
-  data: {
-    messages: [
-      { message: 'Foo' },
-      { message: 'Bar' }
-    ]
+  data() {
+    return {
+      messages: [
+        { message: 'Foo' },
+        { message: 'Bar' },
+      ],
+    }
   }
 };
 </script>
