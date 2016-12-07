@@ -6,12 +6,15 @@ import nconf from 'nconf';
 
 const SLACK_FLAGGING_URL = nconf.get('SLACK:FLAGGING_URL');
 const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK:FLAGGING_FOOTER_LINK');
+const SLACK_SUBSCRIPTIONS_URL = nconf.get('SLACK:SUBSCRIPTIONS_URL');
 const BASE_URL = nconf.get('BASE_URL');
 
 let flagSlack;
+let subscriptionSlack;
 
 try {
   flagSlack = new IncomingWebhook(SLACK_FLAGGING_URL);
+  subscriptionSlack = new IncomingWebhook(SLACK_SUBSCRIPTIONS_URL);
 } catch (err) {
   logger.error(err);
 }
