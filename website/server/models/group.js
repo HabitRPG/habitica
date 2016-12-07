@@ -586,7 +586,7 @@ async function _updateUserWithRetries (userId, updates, numTry = 1) {
       if (numTry < MAX_UPDATE_RETRIES) {
         return _updateUserWithRetries(userId, updates, ++numTry);
       } else {
-        return err;
+        throw err;
       }
     });
 }

@@ -1071,7 +1071,7 @@ describe('Group Model', () => {
         };
         let failedMock = {
           exec: () => {
-            return Promise.reject('err');
+            return Promise.reject(new Error('error'));
           },
         };
 
@@ -1096,7 +1096,7 @@ describe('Group Model', () => {
         it('retries failed updates at most five times per user', async () => {
           sandbox.stub(User, 'update').returns(failedMock);
 
-          await party.finishQuest(quest);
+          await expect(party.finishQuest(quest)).to.eventually.be.rejected;
 
           expect(User.update.callCount).to.eql(10);
         });
