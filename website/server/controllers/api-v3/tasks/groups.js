@@ -11,6 +11,7 @@ import {
   createTasks,
   getTasks,
 } from '../../../libs/taskManager';
+import common from '../../../../common';
 
 let requiredGroupFields = '_id leader tasksOrder name';
 let types = Tasks.tasksTypes.map(type => `${type}s`);
@@ -233,8 +234,13 @@ api.approveTask = {
     task.group.approval.approved = true;
 
     assignedUser.addNotification('GROUP_TASK_APPROVED', {
-      message: res.t('yourTaskHasBeenApproved'),
+      message: res.t('yourTaskHasBeenApproved', {taskText: task.text}),
       groupId: group._id,
+    });
+
+    assignedUser.addNotification('SCORED_TASK', {
+      message: res.t('yourTaskHasBeenApproved', {taskText: task.text}),
+      scoreTask: task,
     });
 
     await Bluebird.all([assignedUser.save(), task.save()]);
