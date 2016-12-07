@@ -941,11 +941,11 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
  * Updates all linked tasks for a group task
  *
  * @param  taskToSync  The group task that will be synced
- * @param  checklistSync  A boolean to determine if checklists should be synced as well
+ * @param  options.newCheckListItem  The new checklist item that needs to be synced to all assigned users
  *
  * @return The created tasks
  */
-schema.methods.updateTask = async function updateTask (taskToSync, checklistSync, checkListRemoveId) {
+schema.methods.updateTask = async function updateTask (taskToSync, options = {}) {
   let group = this;
 
   let updateCmd = {$set: {}};
@@ -958,15 +958,21 @@ schema.methods.updateTask = async function updateTask (taskToSync, checklistSync
   updateCmd.$set['group.approval.required'] = taskToSync.group.approval.required;
 
   let taskSchema = Tasks[taskToSync.type];
-  // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
-  await taskSchema.update({
+
+  let updateQuery = {
     userId: {$exists: true},
     'group.id': group.id,
     'group.taskId': taskToSync._id,
-  }, updateCmd, {multi: true}).exec();
+  };
 
+  if (options.newCheckListItem) {
+    updateCmd.$push = { "checklist": options.newCheckListItem };
+  }
 
-  if (!checklistSync || !taskToSync.checklist) return;
+  // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
+  await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
+
+  return;
 
   let findQuery = {
     userId: {$exists: true},
