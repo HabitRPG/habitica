@@ -15,6 +15,7 @@ import {
   NotAuthorized,
   NotFound,
 } from './errors';
+import slack from './slack';
 
 let api = {};
 
@@ -171,6 +172,21 @@ api.createSubscription = async function createSubscription (data) {
   }
 
   if (data.gift) await data.gift.member.save();
+
+  slack.sendSubscriptionNotification({
+    buyer: {
+      id: data.user._id,
+      name: data.user.profile.name,
+      email: getUserInfo(data.user, ['email']).email,
+    },
+    recipient: data.gift ? {
+      id: data.gift.member._id,
+      name: data.gift.member.profile.name,
+      email: getUserInfo(data.gift.member, ['email']).email,
+    } : {},
+    paymentMethod: data.paymentMethod,
+    months,
+  });
 };
 
 // Sets their subscription to be cancelled later

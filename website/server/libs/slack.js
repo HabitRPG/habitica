@@ -64,6 +64,31 @@ function sendFlagNotification ({
   });
 }
 
+function sendSubscriptionNotification ({
+  buyer,
+  recipient,
+  paymentMethod,
+  months,
+}) {
+  if (!SLACK_SUBSCRIPTIONS_URL) {
+    return;
+  }
+  let text;
+  let timestamp = new Date();
+  if (!recipient.id) {
+    text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month recurring subscription using ${paymentMethod} on ${timestamp}`;
+  } else if (recipient.id === buyer.id) {
+    text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month gift subscription for ${recipient.name} ${recipient.id} ${recipient.email} using ${paymentMethod} on ${timestamp}`;
+  } else {
+    text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month gift subscription for ${recipient.name} ${recipient.id} ${recipient.email} and got a promo using ${paymentMethod} on ${timestamp}`;
+  }
+
+  subscriptionSlack.send({
+    text,
+  });
+}
+
 module.exports = {
   sendFlagNotification,
+  sendSubscriptionNotification,
 };

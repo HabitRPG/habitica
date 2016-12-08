@@ -139,7 +139,7 @@ api.checkoutSuccess = {
         method = 'createSubscription';
       }
 
-      data.paymentMethod = 'Gift';
+      data.paymentMethod = 'PayPal';
       data.gift = gift;
     }
 
