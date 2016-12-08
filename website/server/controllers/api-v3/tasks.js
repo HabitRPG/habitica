@@ -245,7 +245,7 @@ api.updateTask = {
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
-
+    let oldCheckList = task.checklist;
     // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
     let [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
 
@@ -272,7 +272,15 @@ api.updateTask = {
     let savedTask = await task.save();
 
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
-      await group.updateTask(savedTask, true);
+      let options = {};
+
+      let updateCheckListItems = _.remove(sanitizedObj.checklist, function(checklist) {
+        let indexOld = _.findIndex(oldCheckList,  function(o) { return o.id === checklist.id});
+        if (indexOld !== -1) return checklist.text !== oldCheckList[indexOld].text;
+        return false; // Only return changes. Adding and remove are handled differently
+      });
+
+      await group.updateTask(savedTask, {updateCheckListItems});
     }
 
     res.respond(200, savedTask);
@@ -510,13 +518,14 @@ api.addChecklistItem = {
 
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-    task.checklist.push(Tasks.Task.sanitizeChecklist(req.body));
+    let newCheckListItem = Tasks.Task.sanitizeChecklist(req.body);
+    task.checklist.push();
     let savedTask = await task.save();
 
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
-      await group.updateTask(savedTask);
+      await group.updateTask(savedTask, {newCheckListItem});
     }
   },
 };
@@ -678,7 +687,7 @@ api.removeChecklistItem = {
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
-      await group.updateTask(savedTask, true, req.params.itemId);
+      await group.updateTask(savedTask, {removedCheckListItemId: req.params.itemId});
     }
   },
 };
