@@ -974,43 +974,23 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
     updateCmd.$pull = { checklist: {linkId: options.removedCheckListItem.id} };
   }
 
-  // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
-  await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
-
-  return;
-
-  let findQuery = {
-    userId: {$exists: true},
-    'group.id': group.id,
-    'group.taskId': taskToSync._id,
-  };
-
-  let tasks = await Tasks.Task.find(findQuery).exec();
-  let promises = [];
-
-  tasks.forEach(function syncCheckListsToTask (task) {
-    taskToSync.checklist.forEach(function syncCheckList (checklistItem) {
-      let i = _.findIndex(task.checklist, {linkId: checklistItem.id});
-      if (i === -1) {
-        let newCheckList = {completed: false};
-        newCheckList.linkId = checklistItem.id;
-        newCheckList.text = checklistItem.text;
-        task.checklist.push(newCheckList);
-      } else {
-        task.checklist[i].text = checklistItem.text;
-      }
+  if (options.updateCheckListItems) {
+    let checkListIdsToRemove = options.updateCheckListItems.map(function (updateCheckListItem) {
+      return updateCheckListItem.id;
     });
 
-    //  Remove checklist
-    if (checkListRemoveId) {
-      let index = _.findIndex(task.checklist, {linkId: checkListRemoveId});
-      if (index !== -1) task.checklist.splice(index, 1);
-    }
+    updateCmd.$pull = { checklist: {linkId: {$in: checkListIdsToRemove} } };
+    await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
 
-    promises.push(task.save());
-  });
+    delete updateCmd.$pull;
+    updateCmd.$push = { checklist: { $each: options.updateCheckListItems } };
+    await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
 
-  await Bluebird.all(promises);
+    return;
+  }
+
+  // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
+  await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
 };
 
 schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {

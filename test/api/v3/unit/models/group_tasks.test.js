@@ -127,7 +127,7 @@ describe('Group Task Methods', () => {
         expect(syncedTask.checklist[0].text).to.equal(task.checklist[0].text);
       });
 
-      describe.only('syncs updated info', async() => {
+      describe('syncs updated info', async() => {
         let newMember;
 
         beforeEach(async () => {
@@ -197,12 +197,11 @@ describe('Group Task Methods', () => {
           if (task.type !== 'daily' && task.type !== 'todo') return;
 
           let updateCheckListText = 'Updated checklist item';
-          task.group.approval.required = true;
           if (task.checklist) {
             task.checklist[0].text = updateCheckListText;
           }
 
-          await guild.updateTask(task, true);
+          await guild.updateTask(task, {updateCheckListItems: [task.checklist[0]]});
 
           let updatedLeader = await User.findOne({_id: leader._id});
           let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
@@ -218,7 +217,7 @@ describe('Group Task Methods', () => {
           expect(syncedMemberTask.checklist[0].text).to.equal(updateCheckListText);
         });
 
-        it.only('removes a checklist item in assigned task to all users when flag is passed with checklist id', async () => {
+        it('removes a checklist item in assigned task to all users when flag is passed with checklist id', async () => {
           if (task.type !== 'daily' && task.type !== 'todo') return;
 
           await guild.updateTask(task, {removedCheckListItem: task.checklist[0]});
