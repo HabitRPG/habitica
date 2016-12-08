@@ -47,3 +47,4 @@
       label.checkbox(ng-repeat='item in task.checklist')
         input(type='checkbox', ng-model='item.completed', ng-change='completeChecklistItem(task)')
         markdown(text='item.text', target='_blank')
+        | {{item}}

@@ -967,33 +967,34 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
   };
 
   if (options.newCheckListItem) {
-    updateCmd.$push = { checklist: options.newCheckListItem };
+    let newCheckList = {completed: false};
+    newCheckList.linkId = options.newCheckListItem.id;
+    newCheckList.text = options.newCheckListItem.text;
+    updateCmd.$push = { checklist: newCheckList };
   }
 
   if (options.removedCheckListItemId) {
-    updateCmd.$pull = { checklist: {linkId: options.removedCheckListItemId} };
+    updateCmd.$pull = { checklist: {linkId: {$in: [options.removedCheckListItemId]} } }
   }
 
   if (options.updateCheckListItems && options.updateCheckListItems.length > 0) {
     let checkListIdsToRemove = [];
-    let checkListIdsToAdd = [];
+    let checkListItemsToAdd = [];
 
     options.updateCheckListItems.forEach(function (updateCheckListItem) {
       checkListIdsToRemove.push(updateCheckListItem.id);
       let newCheckList = {completed: false};
       newCheckList.linkId = updateCheckListItem.id;
       newCheckList.text = updateCheckListItem.text;
-      checkListIdsToAdd.push(newCheckList);
+      checkListItemsToAdd.push(newCheckList);
     });
 
-    updateCmd.$pull = { checklist: {linkId: {$in: checkListIdsToRemove} } };console.log(updateCmd.$pull.checklist.linkId, checkListIdsToRemove)
-    await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec().then(function (res, err) {
-      console.log(res, err)
-    });
+    updateCmd.$pull = { checklist: {linkId: {$in: checkListIdsToRemove} } };
+    await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
 
     delete updateCmd.$pull;
-    updateCmd.$push = { checklist: { $each: options.updateCheckListItems } };
-    // await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
+    updateCmd.$push = { checklist: { $each: checkListItemsToAdd } };
+    await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
 
     return;
   }

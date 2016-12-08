@@ -519,8 +519,10 @@ api.addChecklistItem = {
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
     let newCheckListItem = Tasks.Task.sanitizeChecklist(req.body);
-    task.checklist.push();
+    task.checklist.push(newCheckListItem);
     let savedTask = await task.save();
+
+    newCheckListItem.id = savedTask.checklist[savedTask.checklist.length - 1].id;
 
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);

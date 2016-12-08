@@ -96,10 +96,21 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
       */
      $scope.addChecklist = Tasks.addChecklist;
 
-     $scope.addChecklistItem = Tasks.addChecklistItemToUI;
+     $scope.addChecklistItem = function addChecklistItemToUI(task, $event, $index) {
+       if (task._edit.checklist[$index].justAdded) return;
+       task._edit.checklist[$index].justAdded = true;
+       if (!task._edit.checklist[$index].id) {
+         Tasks.addChecklistItem (task._id, task._edit.checklist[$index])
+          .then(function (response) {
+            task._edit.checklist[$index] = response.data.data.checklist[$index];
+          })
+       }
+       Tasks.addChecklistItemToUI(task, $event, $index);
+     };
 
      $scope.removeChecklistItem = function (task, $event, $index, force) {
-       if (task.checklist[$index].id) Tasks.removeChecklistItem (task._id, task.checklist[$index].id);
+       if (!task._edit.checklist[$index].id) return;
+       Tasks.removeChecklistItem (task._id, task._edit.checklist[$index].id);
        Tasks.removeChecklistItemFromUI(task, $event, $index, force);
      };
 
