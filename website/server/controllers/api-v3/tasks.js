@@ -272,10 +272,10 @@ api.updateTask = {
     let savedTask = await task.save();
 
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
-      let options = {};
-
-      let updateCheckListItems = _.remove(sanitizedObj.checklist, function(checklist) {
-        let indexOld = _.findIndex(oldCheckList,  function(o) { return o.id === checklist.id});
+      let updateCheckListItems = _.remove(sanitizedObj.checklist, function getCheckListsToUpdate (checklist) {
+        let indexOld = _.findIndex(oldCheckList,  function findIndex (check) {
+          return check.id === checklist.id;
+        });
         if (indexOld !== -1) return checklist.text !== oldCheckList[indexOld].text;
         return false; // Only return changes. Adding and remove are handled differently
       });

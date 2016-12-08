@@ -11,7 +11,6 @@ import {
   createTasks,
   getTasks,
 } from '../../../libs/taskManager';
-import common from '../../../../common';
 
 let requiredGroupFields = '_id leader tasksOrder name';
 let types = Tasks.tasksTypes.map(type => `${type}s`);

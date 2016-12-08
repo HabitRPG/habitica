@@ -138,7 +138,6 @@ describe('Group Task Methods', () => {
 
           await guild.syncTask(task, leader);
           await guild.syncTask(task, newMember);
-
         });
 
         it('syncs updated info for assigned task to all users', async () => {

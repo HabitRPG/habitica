@@ -974,14 +974,14 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
   }
 
   if (options.removedCheckListItemId) {
-    updateCmd.$pull = { checklist: {linkId: {$in: [options.removedCheckListItemId]} } }
+    updateCmd.$pull = { checklist: {linkId: {$in: [options.removedCheckListItemId]} } };
   }
 
   if (options.updateCheckListItems && options.updateCheckListItems.length > 0) {
     let checkListIdsToRemove = [];
     let checkListItemsToAdd = [];
 
-    options.updateCheckListItems.forEach(function (updateCheckListItem) {
+    options.updateCheckListItems.forEach(function gatherChecklists (updateCheckListItem) {
       checkListIdsToRemove.push(updateCheckListItem.id);
       let newCheckList = {completed: false};
       newCheckList.linkId = updateCheckListItem.id;
