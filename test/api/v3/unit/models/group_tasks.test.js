@@ -221,11 +221,7 @@ describe('Group Task Methods', () => {
         it.only('removes a checklist item in assigned task to all users when flag is passed with checklist id', async () => {
           if (task.type !== 'daily' && task.type !== 'todo') return;
 
-          let updatedTaskName = 'Update Task name';
-          task.text = updatedTaskName;
-          task.group.approval.required = true;
-
-          await guild.updateTask(task, true, task.checklist[0].id);
+          await guild.updateTask(task, {removedCheckListItem: task.checklist[0]});
 
           let updatedLeader = await User.findOne({_id: leader._id});
           let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});

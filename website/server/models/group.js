@@ -942,6 +942,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
  *
  * @param  taskToSync  The group task that will be synced
  * @param  options.newCheckListItem  The new checklist item that needs to be synced to all assigned users
+ * @param  options.removedCheckListItem  The removed checklist item that needs to be removed from all assigned users
  *
  * @return The created tasks
  */
@@ -966,7 +967,11 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
   };
 
   if (options.newCheckListItem) {
-    updateCmd.$push = { "checklist": options.newCheckListItem };
+    updateCmd.$push = { checklist: options.newCheckListItem };
+  }
+
+  if (options.removedCheckListItem) {
+    updateCmd.$pull = { checklist: {linkId: options.removedCheckListItem.id} };
   }
 
   // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
