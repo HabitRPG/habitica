@@ -1,4 +1,4 @@
-import { userGems } from 'client/store/getters';
+import { gems as userGems } from 'client/store/getters/user';
 
 describe('userGems getter', () => {
   it('returns the user\'s gems', () => {

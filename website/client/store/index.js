@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import state from './state';
 import actions from './actions';
-import * as getters from './getters';
-import { get } from 'lodash';
+import getters from './getters';
 
 // Central application store for Habitica
 // Heavily inspired to Vuex (https://github.com/vuejs/vuex) with a very
@@ -22,7 +21,7 @@ const store = {
   // Actions should be called using store.dispatch(ACTION_NAME, ...ARGS)
   // They get passed the store instance and any additional argument passed to dispatch()
   dispatch (type, ...args) {
-    let action = get(actions, type);
+    let action = actions[type];
 
     if (!action) throw new Error(`Action "${type}" not found.`);
     return action(store, ...args);
@@ -60,7 +59,7 @@ export {
   mapState,
   mapGetters,
   mapActions,
-} from './helpers';
+} from './helpers/public';
 
 // Setup internal Vue instance to make state and getters reactive
 _vm = new Vue({

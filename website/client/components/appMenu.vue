@@ -213,7 +213,9 @@ import { mapState, mapGetters } from '../store';
 
 export default {
   computed: {
-    ...mapGetters(['userGems']),
+    ...mapGetters({
+      userGems: 'user:gems',
+    }),
     ...mapState(['user']),
   },
 };
