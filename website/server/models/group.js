@@ -38,6 +38,7 @@ const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = shared.constants.LARGE_GROUP_COUNT_MESS
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
+const MAX_UPDATE_RETRIES = 5;
 
 export let schema = new Schema({
   name: {type: String, required: true},
@@ -577,6 +578,19 @@ schema.statics.cleanGroupQuest = function cleanGroupQuest () {
   };
 };
 
+async function _updateUserWithRetries (userId, updates, numTry = 1) {
+  return await User.update({_id: userId}, updates).exec()
+    .then((raw) => {
+      return raw;
+    }).catch((err) => {
+      if (numTry < MAX_UPDATE_RETRIES) {
+        return _updateUserWithRetries(userId, updates, ++numTry);
+      } else {
+        throw err;
+      }
+    });
+}
+
 // Participants: Grant rewards & achievements, finish quest.
 // Changes the group object update members
 schema.methods.finishQuest = async function finishQuest (quest) {
@@ -623,11 +637,19 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     }
   });
 
-  let q = this._id === TAVERN_ID ? {} : {_id: {$in: this.getParticipatingQuestMembers()}};
+  let participants = this._id === TAVERN_ID ? {} : this.getParticipatingQuestMembers();
   this.quest = {};
   this.markModified('quest');
 
-  return await User.update(q, updates, {multi: true}).exec();
+  if (this._id === TAVERN_ID) {
+    return await User.update({}, updates, {multi: true}).exec();
+  }
+
+  let promises = participants.map(userId => {
+    return _updateUserWithRetries(userId, updates);
+  });
+
+  return Bluebird.all(promises);
 };
 
 function _isOnQuest (user, progress, group) {

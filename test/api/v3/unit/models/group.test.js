@@ -1061,8 +1061,45 @@ describe('Group Model', () => {
           [nonParticipatingMember._id]: false,
           [undecidedMember._id]: null,
         };
+      });
 
-        sandbox.spy(User, 'update');
+      describe('user update retry failures', () => {
+        let successfulMock = {
+          exec: () => {
+            return Promise.resolve({raw: 'sucess'});
+          },
+        };
+        let failedMock = {
+          exec: () => {
+            return Promise.reject(new Error('error'));
+          },
+        };
+
+        it('doesn\'t retry successful operations', async () => {
+          sandbox.stub(User, 'update').returns(successfulMock);
+
+          await party.finishQuest(quest);
+
+          expect(User.update).to.be.calledTwice;
+        });
+
+        it('stops retrying when a successful update has occurred', async () => {
+          let updateStub = sandbox.stub(User, 'update');
+          updateStub.onCall(0).returns(failedMock);
+          updateStub.returns(successfulMock);
+
+          await party.finishQuest(quest);
+
+          expect(User.update).to.be.calledThrice;
+        });
+
+        it('retries failed updates at most five times per user', async () => {
+          sandbox.stub(User, 'update').returns(failedMock);
+
+          await expect(party.finishQuest(quest)).to.eventually.be.rejected;
+
+          expect(User.update.callCount).to.eql(10);
+        });
       });
 
       it('gives out achievements', async () => {
@@ -1171,13 +1208,15 @@ describe('Group Model', () => {
 
       context('Party quests', () => {
         it('updates participating members with rewards', async () => {
+          sandbox.spy(User, 'update');
           await party.finishQuest(quest);
 
-          expect(User.update).to.be.calledOnce;
+          expect(User.update).to.be.calledTwice;
           expect(User.update).to.be.calledWithMatch({
-            _id: {
-              $in: [questLeader._id, participatingMember._id],
-            },
+            _id: questLeader._id,
+          });
+          expect(User.update).to.be.calledWithMatch({
+            _id: participatingMember._id,
           });
         });
 
@@ -1204,6 +1243,7 @@ describe('Group Model', () => {
         });
 
         it('updates all users with rewards', async () => {
+          sandbox.spy(User, 'update');
           await party.finishQuest(tavernQuest);
 
           expect(User.update).to.be.calledOnce;
