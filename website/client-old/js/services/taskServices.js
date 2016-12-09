@@ -248,7 +248,6 @@ angular.module('habitrpg')
     function editTask(task, user, taskStatus, scopeInc) {
       var modalScope = $rootScope.$new();
       modalScope.task = task;
-
       modalScope.task._editing = true;
       modalScope.task._tags = !user.preferences.tagsCollapsed;
       modalScope.task._advanced = !user.preferences.advancedCollapsed;
@@ -266,6 +265,7 @@ angular.module('habitrpg')
         modalScope.checklistCompletion = scopeInc.checklistCompletion;
         modalScope.canEdit = scopeInc.canEdit;
       }
+      modalScope.cancelTaskEdit = cancelTaskEdit;
 
       $rootScope.openModal('task-edit', {scope: modalScope, backdrop: 'static'});
     }

@@ -227,9 +227,10 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      ------------------------
      */
 
-    $scope.shouldShow = function(task, list, prefs){
+    $scope.shouldShow = function(task, list, prefs) {
       if (task._editing) // never hide a task while being edited
         return true;
+
       var shouldDo = task.type == 'daily' ? habitrpgShared.shouldDo(new Date, task, prefs) : true;
       switch (list.view) {
         case "yellowred":  // Habits

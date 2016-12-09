@@ -1,7 +1,7 @@
 li(id='task-{{::task._id}}',
   ng-repeat='task in obj[list.type+"s"] | filterByTaskInfo: obj.filterQuery | conditionalOrderBy: list.view=="dated":"date"',
   ng-init='taskStatus = Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)'
-  class='task {{taskStatus}}',
+  class='task {{Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main)}}',
   ng-class='{"cast-target":spell && (list.type != "reward"), "locked-task":obj._locked === true}',
   ng-click='spell && (list.type != "reward") && castEnd(task, "task", $event)',
   ng-show='shouldShow(task, list, user.preferences)',
