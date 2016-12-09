@@ -60,7 +60,7 @@ describe('User Model', () => {
       expect(userToJSON.notifications[0].data).to.eql({});
     });
 
-    it('can add notifications using update', async() => {
+    it('can add notifications without data using update', async() => {
       let user = new User();
       await user.save();
 
