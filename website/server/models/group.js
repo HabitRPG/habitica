@@ -857,9 +857,7 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
 
 schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   let group = this;
-  let update = {
-    $inc: {memberCount: -1},
-  };
+  let update = {};
 
   let challenges = await Challenge.find({
     _id: {$in: user.challenges},
@@ -889,18 +887,30 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
 
   // If user is the last one in group and group is private, delete it
   if (group.memberCount <= 1 && group.privacy === 'private') {
-    promises.push(group.remove());
-  } else { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
-    if (group.leader === user._id) {
-      let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
-      query._id = {$ne: user._id};
-      let seniorMember = await User.findOne(query).select('_id').exec();
-
-      // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
-      if (seniorMember) update.$set = {leader: seniorMember._id};
+    // double check the member count is correct so we don't accidentally delete a group that still has users in it
+    let members;
+    if (group.type === 'guild') {
+      members = await User.find({guilds: group._id}).select('_id').exec();
+    } else {
+      members = await User.find({'party._id': group._id}).select('_id').exec();
     }
-    promises.push(group.update(update).exec());
+    _.remove(members, {_id: user._id});
+    if (members.length === 0) {
+      promises.push(group.remove());
+      return await Bluebird.all(promises);
+    }
   }
+  // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
+  update.$inc = {memberCount: -1};
+  if (group.leader === user._id) {
+    let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
+    query._id = {$ne: user._id};
+    let seniorMember = await User.findOne(query).select('_id').exec();
+
+    // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
+    if (seniorMember) update.$set = {leader: seniorMember._id};
+  }
+  promises.push(group.update(update).exec());
 
   return await Bluebird.all(promises);
 };

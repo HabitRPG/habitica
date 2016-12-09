@@ -628,23 +628,88 @@ describe('Group Model', () => {
         });
       });
 
-      it('deletes a private group when the last member leaves', async () => {
-        party.memberCount = 1;
-
+      it('deletes a private party when the last member leaves', async () => {
         await party.leave(participatingMember);
+        await party.leave(questLeader);
+        await party.leave(nonParticipatingMember);
+        await party.leave(undecidedMember);
 
         party = await Group.findOne({_id: party._id});
         expect(party).to.not.exist;
       });
 
       it('does not delete a public group when the last member leaves', async () => {
-        party.memberCount = 1;
         party.privacy = 'public';
+
+        await party.leave(participatingMember);
+        await party.leave(questLeader);
+        await party.leave(nonParticipatingMember);
+        await party.leave(undecidedMember);
+
+        party = await Group.findOne({_id: party._id});
+        expect(party).to.exist;
+      });
+
+      it('does not delete a private party when the member count reaches zero if there are still members', async () => {
+        party.memberCount = 1;
 
         await party.leave(participatingMember);
 
         party = await Group.findOne({_id: party._id});
         expect(party).to.exist;
+      });
+
+      it('deletes a private guild when the last member leaves', async () => {
+        let guild = new Group({
+          name: 'test guild',
+          type: 'guild',
+          memberCount: 1,
+        });
+
+        let leader = new User({
+          guilds: [guild._id],
+        });
+
+        guild.leader = leader._id;
+
+        await Promise.all([
+          guild.save(),
+          leader.save(),
+        ]);
+
+        await guild.leave(leader);
+
+        guild = await Group.findOne({_id: guild._id});
+        expect(guild).to.not.exist;
+      });
+
+      it('does not delete a private guild when the member count reaches zero if there are still members', async () => {
+        let guild = new Group({
+          name: 'test guild',
+          type: 'guild',
+          memberCount: 1,
+        });
+
+        let leader = new User({
+          guilds: [guild._id],
+        });
+
+        let member = new User({
+          guilds: [guild._id],
+        });
+
+        guild.leader = leader._id;
+
+        await Promise.all([
+          guild.save(),
+          leader.save(),
+          member.save(),
+        ]);
+
+        await guild.leave(member);
+
+        guild = await Group.findOne({_id: guild._id});
+        expect(guild).to.exist;
       });
     });
 
