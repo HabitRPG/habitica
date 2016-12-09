@@ -80,6 +80,7 @@ api.createSubscription = async function createSubscription (data) {
         plan.dateTerminated = moment(plan.dateTerminated).add({months}).toDate();
       } else {
         plan.dateTerminated = moment().add({months}).toDate();
+        plan.dateCreated = today;
       }
     }
 
