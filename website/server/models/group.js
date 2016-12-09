@@ -868,9 +868,9 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     // double check the member count is correct so we don't accidentally delete a group that still has users in it
     let members;
     if (group.type === 'guild') {
-      members = await User.find({guilds: group._id}, '_id');
+      members = await User.find({guilds: group._id}).select('_id').exec();
     } else {
-      members = await User.find({'party._id': group._id}, '_id');
+      members = await User.find({'party._id': group._id}).select('_id').exec();
     }
     _.remove(members, {_id: user._id});
     if (members.length === 0) {
