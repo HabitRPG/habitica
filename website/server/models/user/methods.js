@@ -42,6 +42,15 @@ schema.methods.addNotification = function addUserNotification (type, data = {}) 
   });
 };
 
+schema.methods.addNotificationUpdate = async function addUserNotificationUpdate (type, data = {}) {
+  let newNotification = {
+    type,
+    data,
+  };
+  this.notifications.push(newNotification);
+  await this.update({$push: {notifications: newNotification}}).exec();
+};
+
 // Add stats.toNextLevel, stats.maxMP and stats.maxHealth
 // to a JSONified User stats object
 schema.methods.addComputedStatsToJSONObj = function addComputedStatsToUserJSONObj (statsObject) {

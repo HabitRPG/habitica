@@ -48,7 +48,7 @@ describe('User Model', () => {
   });
 
   context('notifications', () => {
-    it('can add notifications with data', () => {
+    it('can add notifications without data', () => {
       let user = new User();
 
       user.addNotification('CRON');
@@ -60,10 +60,40 @@ describe('User Model', () => {
       expect(userToJSON.notifications[0].data).to.eql({});
     });
 
-    it('can add notifications without data', () => {
+    it('can add notifications using update', async() => {
+      let user = new User();
+      await user.save();
+
+      await user.addNotificationUpdate('CRON');
+
+      user = await User.findOne({_id: user._id}).exec();
+
+      let userToJSON = user.toJSON();
+      expect(user.notifications.length).to.equal(1);
+      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
+      expect(userToJSON.notifications[0].type).to.equal('CRON');
+      expect(userToJSON.notifications[0].data).to.eql({});
+    });
+
+    it('can add notifications with data', () => {
       let user = new User();
 
       user.addNotification('CRON', {field: 1});
+
+      let userToJSON = user.toJSON();
+      expect(user.notifications.length).to.equal(1);
+      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
+      expect(userToJSON.notifications[0].type).to.equal('CRON');
+      expect(userToJSON.notifications[0].data).to.eql({field: 1});
+    });
+
+    it('can add notifications with data using update', async() => {
+      let user = new User();
+      await user.save();
+
+      await user.addNotificationUpdate('CRON', {field: 1});
+
+      user = await User.findOne({_id: user._id}).exec();
 
       let userToJSON = user.toJSON();
       expect(user.notifications.length).to.equal(1);
