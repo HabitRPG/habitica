@@ -264,6 +264,7 @@ angular.module('habitrpg')
         modalScope.navigateChecklist = scopeInc.navigateChecklist;
         modalScope.checklistCompletion = scopeInc.checklistCompletion;
         modalScope.canEdit = scopeInc.canEdit;
+        modalScope.obj = scopeInc.obj;
       }
       modalScope.cancelTaskEdit = cancelTaskEdit;
 
