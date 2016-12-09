@@ -35,6 +35,8 @@
     "leave": "Leave",
     "invitedTo": "Invited to <%= name %>",
     "invitedToNewParty": "You were invited to join a party! Do you want to leave this party and join <%= partyName %>?",
+    "invitationAcceptedHeader": "Your Invitation has been Accepted",
+    "invitationAcceptedBody": "<%= username %> accepted your invitation to <%= groupName %>!",
     "joinNewParty": "Join New Party",
     "declineInvitation": "Decline Invitation",
     "partyLoading1": "Your party is being summoned. Please wait...",
