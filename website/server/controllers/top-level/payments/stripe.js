@@ -105,10 +105,15 @@ api.checkout = {
         let member = await User.findById(gift.uuid);
         gift.member = member;
         if (gift.type === 'subscription') method = 'createSubscription';
-        data.paymentMethod = 'Gift';
+        data.paymentMethod = 'Stripe';
       }
 
       await payments[method](data);
+
+      if (gift && gift.type === 'subscription' && gift.member._id !== user._id) {
+        gift.member = user;
+        await payments.createSubscription(data);
+      }
     }
 
     res.respond(200, {});

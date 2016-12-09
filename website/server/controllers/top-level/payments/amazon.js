@@ -144,10 +144,15 @@ api.checkout = {
       if (gift.type === 'subscription') method = 'createSubscription';
       gift.member = await User.findById(gift ? gift.uuid : undefined);
       data.gift = gift;
-      data.paymentMethod = 'Gift';
+      data.paymentMethod = 'Amazon';
     }
 
     await payments[method](data);
+
+    if (gift && gift.type === 'subscription' && gift.member._id !== user._id) {
+      gift.member = user;
+      await payments.createSubscription(data);
+    }
 
     res.respond(200);
   },
