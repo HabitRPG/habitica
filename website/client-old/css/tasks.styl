@@ -66,8 +66,9 @@ for $stage in $stages
     .color-{$stage[0]}:not(.completed)
       taskContainerStyles($stage)
 
-  .task-modal, .color-{$stage[0]}:not(.completed)
-    taskContainerStyles($stage)
+  .task-modal
+      &.color-{$stage[0]}:not(.completed)
+        taskContainerStyles($stage)
 
 // completed has to be outside the loop to override the color class
 .completed
