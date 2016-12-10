@@ -5,7 +5,7 @@ import {
   TAVERN_ID,
 } from '../group';
 import { defaults } from 'lodash';
-
+import { model as UserNotification } from '../userNotification';
 import schema from './schema';
 
 schema.methods.isSubscribed = function isSubscribed () {
@@ -35,6 +35,13 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, m
   await Bluebird.all(promises);
 };
 
+/**
+ * Creates a notification and based on the input parameters and adds it to the local user notifications array.
+ * This does not save the notification to the database or interact with the database in any way.
+ *
+ * @param  type  The type of notification to add to the user. Possible values are defined in the UserNotificaiton Schema
+ * @param  data  The data to add to the notification
+ */
 schema.methods.addNotification = function addUserNotification (type, data = {}) {
   this.notifications.push({
     type,
@@ -42,13 +49,22 @@ schema.methods.addNotification = function addUserNotification (type, data = {}) 
   });
 };
 
-schema.methods.addNotificationUpdate = async function addUserNotificationUpdate (type, data = {}) {
-  let newNotification = {
-    type,
-    data,
-  };
-  this.notifications.push(newNotification);
-  await this.update({$push: {notifications: newNotification}}).exec();
+/**
+ * Creates a notification based on the type and data input parameters and saves that new notification
+ * to the database directly using an update statement. The local copy of these users are not updated by
+ * this operation.
+ *
+ * @param  userIds An array containing the ids of the users to add this notification to
+ * @param  type  The type of notification to add to the user. Possible values are defined in the UserNotificaiton Schema
+ * @param  data  The data to add to the notification
+ */
+schema.statics.addUserNotificationUpdate = async function addUserNotificationUpdate (userIds, type, data = {}) {
+  let newNotification = new UserNotification({type, data});
+  let promises = [];
+  userIds.forEach(userId => {
+    promises.push(this.update({_id: userId}, {$push: {notifications: newNotification}}).exec());
+  });
+  await Bluebird.all(promises);
 };
 
 // Add stats.toNextLevel, stats.maxMP and stats.maxHealth

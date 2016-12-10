@@ -1,5 +1,6 @@
 import { model as User } from '../../../../../website/server/models/user';
 import common from '../../../../../website/common';
+import Bluebird from 'bluebird';
 
 describe('User Model', () => {
   it('keeps user._tmp when calling .toJSON', () => {
@@ -60,15 +61,24 @@ describe('User Model', () => {
       expect(userToJSON.notifications[0].data).to.eql({});
     });
 
-    it('can add notifications without data using update', async() => {
+    it('adds notifications without data for all given users via static method', async() => {
       let user = new User();
-      await user.save();
+      let otherUser = new User();
+      await Bluebird.all([user.save(), otherUser.save()]);
 
-      await user.addNotificationUpdate('CRON');
+      await User.addUserNotificationUpdate([user._id, otherUser._id], 'CRON');
 
       user = await User.findOne({_id: user._id}).exec();
 
       let userToJSON = user.toJSON();
+      expect(user.notifications.length).to.equal(1);
+      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
+      expect(userToJSON.notifications[0].type).to.equal('CRON');
+      expect(userToJSON.notifications[0].data).to.eql({});
+
+      user = await User.findOne({_id: otherUser._id}).exec();
+
+      userToJSON = user.toJSON();
       expect(user.notifications.length).to.equal(1);
       expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
       expect(userToJSON.notifications[0].type).to.equal('CRON');
@@ -87,15 +97,24 @@ describe('User Model', () => {
       expect(userToJSON.notifications[0].data).to.eql({field: 1});
     });
 
-    it('can add notifications with data using update', async() => {
+    it('adds notifications with data for all given users via static method', async() => {
       let user = new User();
-      await user.save();
+      let otherUser = new User();
+      await Bluebird.all([user.save(), otherUser.save()]);
 
-      await user.addNotificationUpdate('CRON', {field: 1});
+      await User.addUserNotificationUpdate([user._id, otherUser._id], 'CRON', {field: 1});
 
       user = await User.findOne({_id: user._id}).exec();
 
       let userToJSON = user.toJSON();
+      expect(user.notifications.length).to.equal(1);
+      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
+      expect(userToJSON.notifications[0].type).to.equal('CRON');
+      expect(userToJSON.notifications[0].data).to.eql({field: 1});
+
+      user = await User.findOne({_id: otherUser._id}).exec();
+
+      userToJSON = user.toJSON();
       expect(user.notifications.length).to.equal(1);
       expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
       expect(userToJSON.notifications[0].type).to.equal('CRON');
