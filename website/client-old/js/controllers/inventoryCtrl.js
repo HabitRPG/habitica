@@ -8,7 +8,7 @@ habitrpg.controller("InventoryCtrl",
 
     $scope.selectedEgg = null; // {index: 1, name: "Tiger", value: 5}
     $scope.selectedPotion = null; // {index: 5, name: "Red", value: 3}
-    $scope.equipmentFilterQuery = {'query': ''};
+    $scope.equipmentQuery = {'query': ''};
 
     _updateDropAnimalCount(user.items);
 
@@ -120,15 +120,15 @@ habitrpg.controller("InventoryCtrl",
     }
 
     $scope.$watch(function(){
-        return ['gearByClass', 'gearByType', 'equipmentFilterQuery'].map(angular.bind($scope, $scope.$eval));
+        return ['gearByClass', 'gearByType', 'equipmentQuery'].map(angular.bind($scope, $scope.$eval));
       }, function(updatedVals) {
         var gearByClass = updatedVals[0];
         var gearByType = updatedVals[1];
-        var equipmentFilterQuery = updatedVals[2];
-        $scope.updateEquipment(gearByClass, gearByType, equipmentFilterQuery.query);
+        var equipmentQuery = updatedVals[2];
+        $scope.updateEquipment(gearByClass, gearByType, equipmentQuery.query);
       }, true);
 
-    $scope.updateEquipment($scope.gearByClass, $scope.gearByType, $scope.equipmentFilterQuery.query);
+    $scope.updateEquipment($scope.gearByClass, $scope.gearByType, $scope.equipmentQuery.query);
 
     $scope.chooseEgg = function(egg){
       if ($scope.selectedEgg && $scope.selectedEgg.key == egg) {
@@ -462,15 +462,6 @@ habitrpg.controller("InventoryCtrl",
       var userClass = user.stats.class;
 
       return item.klass === userClass || item.specialClass === userClass;
-    }
-  }
-]);
-habitrpg.controller("InventorySearchCtrl",
-  ['$scope',
-  function($scope) {
-    $scope.equipmentFilterQuery.query = '';
-    $scope.updateEquipmentQuery = function() {
-      $scope.equipmentFilterQuery.query = $scope.equipmentQuery;
     }
   }
 ]);

@@ -471,11 +471,11 @@ describe('Inventory Controller', function() {
                     'not': [wrap('chicken'), wrap('sashimi')]};
       scope.gearByClass = gearByClass;
       scope.gearByType = gearByType;
-      scope.equipmentFilterQuery.query = 'a';
+      scope.equipmentQuery.query = 'a';
     });
 
     it('filters nothing if equipmentQuery is nothing', function() {
-      scope.equipmentFilterQuery.query = '';
+      scope.equipmentQuery.query = '';
       scope.$digest();
       expect(toText(scope.filteredGearByClass['raw'])).to.eql(['kale', 'sashimi']);
       expect(toText(scope.filteredGearByClass['cooked'])).to.eql(['chicken', 'potato']);
@@ -509,7 +509,7 @@ describe('Inventory Controller', function() {
     });
 
     it('filters out gear if filter query changes', function() {
-      scope.equipmentFilterQuery.query = 'c';
+      scope.equipmentQuery.query = 'c';
       scope.$digest();
 
       expect(toText(scope.filteredGearByClass['raw'])).to.eql([]);

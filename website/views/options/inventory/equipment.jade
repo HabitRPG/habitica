@@ -43,10 +43,10 @@ mixin equipmentList(equipmentType)
 .container-fluid
   .row
     .col-md-6
-      .input-group.equipment-search(ng-controller="InventorySearchCtrl")
+      .input-group.equipment-search
         .input-group-addon
           .glyphicon.glyphicon-search
-        input.form-control(type='text', placeholder=env.t('search'), ng-model='equipmentQuery', ng-change='updateEquipmentQuery()', ng-model-options='{ debounce: 250 }')
+        input.form-control(type='text', placeholder=env.t('search'), ng-model='equipmentQuery.query', ng-model-options='{ debounce: 250 }')
   .row
     .col-md-6.border-right(ng-controller="SortableInventoryController")
       h3.equipment-title.hint(popover-trigger='mouseenter',
