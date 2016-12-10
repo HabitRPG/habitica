@@ -1,10 +1,19 @@
 {
-  "name": "HabitRPG",
-  "version": "0.1.1",
-  "homepage": "https://github.com/lefnire/habitrpg",
-  "authors": [
-    "Tyler Renelle <tylerrenelle@gmail.com>"
+  "name": "habitica",
+  "description": "A habit tracker app which treats your goals like a Role Playing Game.",
+  "homepage": "https://habitica.com/",
+  "license": [
+    "GPL-3.0",
+    "https://raw.githubusercontent.com/HabitRPG/habitica/master/LICENSE"
   ],
+  "authors": [
+    { "name": "Sabe Jones", "email": "sabe@habitica.com" },
+    { "name": "Tyler Renelle", "email": "tylerrenelle@gmail.com" }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HabitRPG/habitica.git"
+  },
   "private": true,
   "ignore": [
     "**/.*",
