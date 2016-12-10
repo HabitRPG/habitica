@@ -58,7 +58,7 @@ schema.methods.addNotification = function addUserNotification (type, data = {}) 
  * @param  type  The type of notification to add to the user. Possible values are defined in the UserNotificaiton Schema
  * @param  data  The data to add to the notification
  */
-schema.statics.addUserNotificationUpdate = async function addUserNotificationUpdate (userIds, type, data = {}) {
+schema.statics.pushNotification = async function pushNotification (userIds, type, data = {}) {
   let newNotification = new UserNotification({type, data});
   let promises = [];
   userIds.forEach(userId => {

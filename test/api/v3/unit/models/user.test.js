@@ -66,7 +66,7 @@ describe('User Model', () => {
       let otherUser = new User();
       await Bluebird.all([user.save(), otherUser.save()]);
 
-      await User.addUserNotificationUpdate([user._id, otherUser._id], 'CRON');
+      await User.pushNotification([user._id, otherUser._id], 'CRON');
 
       user = await User.findOne({_id: user._id}).exec();
 
@@ -102,7 +102,7 @@ describe('User Model', () => {
       let otherUser = new User();
       await Bluebird.all([user.save(), otherUser.save()]);
 
-      await User.addUserNotificationUpdate([user._id, otherUser._id], 'CRON', {field: 1});
+      await User.pushNotification([user._id, otherUser._id], 'CRON', {field: 1});
 
       user = await User.findOne({_id: user._id}).exec();
 
