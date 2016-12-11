@@ -145,6 +145,14 @@ describe('payments/index', () => {
         expect(recipient.purchased.plan.dateUpdated).to.exist;
       });
 
+      it('sets plan.dateCreated if it did not previously exist', async () => {
+        expect(recipient.purchased.plan.dateCreated).to.not.exist;
+
+        await api.createSubscription(data);
+
+        expect(recipient.purchased.plan.dateCreated).to.exist;
+      });
+
       it('does not change plan.customerId if it already exists', async () => {
         recipient.purchased.plan = plan;
         data.customerId = 'purchaserCustomerId';

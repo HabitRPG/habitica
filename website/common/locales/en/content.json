@@ -191,6 +191,10 @@
   "questEggFerretMountText": "Ferret",
   "questEggFerretAdjective": "a furry",
 
+  "questEggSlothText": "Sloth",
+  "questEggSlothMountText": "Sloth",
+  "questEggSlothAdjective": "a speedy",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",

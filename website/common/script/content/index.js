@@ -2753,13 +2753,45 @@ api.quests = {
       items: [
         {
           type: 'gear',
-          key: "weapon_special_lunarScythe",
+          key: 'weapon_special_lunarScythe',
           text: t('questMoon3DropWeapon')
         },
       ],
       gp: 67,
       exp: 650
     }
+  },
+  sloth: {
+    text: t('questSlothText'),
+    notes: t('questSlothNotes'),
+    completion: t('questSlothCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questSlothBoss'),
+      hp: 400,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Sloth',
+          text: t('questSlothDropSlothEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Sloth',
+          text: t('questSlothDropSlothEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Sloth',
+          text: t('questSlothDropSlothEgg'),
+        },
+      ],
+      gp: 31,
+      exp: 200,
+      unlock: t('questSlothUnlockText'),
+    },
   },
 };
 

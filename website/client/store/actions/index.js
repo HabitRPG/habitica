@@ -1,25 +1,13 @@
-import Vue from 'vue';
+import { flattenAndNamespace } from '../helpers/internals';
+import * as tasks from './tasks';
+import * as user from './user';
 
-export function setTitle (store, title) {
-  store.state.title = title;
-}
+// Actions should be named as 'actionName' and can be accessed as 'namespace.actionName'
+// Example: fetch in user.js -> 'user.fetch'
 
-export function fetchUser (store) {
-  let promise = Vue.http.get('/api/v3/user');
+const actions = flattenAndNamespace({
+  user,
+  tasks,
+});
 
-  promise.then((response) => {
-    store.state.user = response.body.data;
-  });
-
-  return promise;
-}
-
-export function fetchUserTasks (store) {
-  let promise = Vue.http.get('/api/v3/tasks/user');
-
-  promise.then((response) => {
-    store.state.tasks = response.body.data;
-  });
-
-  return promise;
-}
+export default actions;

@@ -79,6 +79,7 @@
     },
     "SLACK": {
         "FLAGGING_URL": "https://hooks.slack.com/services/id/id/id",
-        "FLAGGING_FOOTER_LINK": "https://habitrpg.github.io/flag-o-rama/"
+        "FLAGGING_FOOTER_LINK": "https://habitrpg.github.io/flag-o-rama/",
+        "SUBSCRIPTIONS_URL": "https://hooks.slack.com/services/id/id/id"
     }
 }

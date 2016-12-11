@@ -7,6 +7,7 @@ import VueResource from 'vue-resource';
 import AppComponent from './app';
 import router from './router';
 import store from './store';
+import './filters/registerGlobals';
 
 // TODO just for the beginning
 Vue.use(VueResource);
@@ -43,8 +44,8 @@ let userDataWatcher = store.watch(state => [state.user, state.tasks], ([user, ta
 
 // Load the user and the user tasks
 Promise.all([
-  store.dispatch('fetchUser'),
-  store.dispatch('fetchUserTasks'),
+  store.dispatch('user.fetch'),
+  store.dispatch('tasks.fetchUserTasks'),
 ]).catch(() => {
   alert('Impossible to fetch user. Copy into localStorage a valid habit-mobile-settings object.');
 });

@@ -100,12 +100,6 @@ export default {
   components: {
     Avatar,
   },
-  filters: {
-    percent,
-    round (val) {
-      return Math.round(val * 100) / 100;
-    },
-  },
   methods: {
     percent,
   },
