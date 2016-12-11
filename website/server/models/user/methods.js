@@ -36,7 +36,7 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, m
 };
 
 /**
- * Creates a notification and based on the input parameters and adds it to the local user notifications array.
+ * Creates a notification based on the input parameters and adds it to the local user notifications array.
  * This does not save the notification to the database or interact with the database in any way.
  *
  * @param  type  The type of notification to add to the user. Possible values are defined in the UserNotificaiton Schema
@@ -52,7 +52,8 @@ schema.methods.addNotification = function addUserNotification (type, data = {}) 
 /**
  * Creates a notification based on the type and data input parameters and saves that new notification
  * to the database directly using an update statement. The local copy of these users are not updated by
- * this operation.
+ * this operation. Use this function when you want to add a notification to a user(s), but do not have
+ * the user document(s) opened.
  *
  * @param  userIds An array containing the ids of the users to add this notification to
  * @param  type  The type of notification to add to the user. Possible values are defined in the UserNotificaiton Schema
