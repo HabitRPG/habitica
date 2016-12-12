@@ -1,24 +1,38 @@
 <template lang="pug">
-.row
-  .sixteen.wide.column
-    h2 Inbox
-    p {{ $route.path }}
-    ul#example-1
-      li(v-for="item in messages")
-        router-link(to="/social/inbox/conversation/foo")
-          | /user/foo
-          | {{ item.message }}
+.ui.internally.celled.grid
+  .row
+    .sixteen.wide.colum
+      h2.ui.dividing.header Inbox
+      .ui.middle.aligned.selection.list
+        .item(v-for="conversation in conversations")
+          img.ui.avatar.image(src='http://semantic-ui.com/images/avatar/small/daniel.jpg')
+          .content
+            .header
+              router-link(:to="{ name: 'conversation', params: { id: conversation.fromUserId } }")
+                | {{ conversation.from }}
 
 </template>
 
 <script>
 export default {
   data () {
+    // @TODO: Abstract to Store
+    let messages = [
+      {
+        from: 'Paglias',
+        fromUserId: 1234,
+        to: 'TheHollidayInn',
+        message: 'I love the Gang of Four',
+      },
+    ];
+
+    let conversations = {};
+    for (let message of messages) {
+      if (!conversations[message.fromUserId]) conversations[message.fromUserId] = message;
+    }
+
     return {
-      messages: [
-        { message: 'Foo' },
-        { message: 'Bar' },
-      ],
+      conversations,
     };
   },
 };

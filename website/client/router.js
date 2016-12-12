@@ -34,6 +34,7 @@ export default new VueRouter({
           component: InboxPage,
         },
         {
+          name: 'conversation',
           path: 'inbox/conversation/:id',
           component: InboxConversationPage,
         },
