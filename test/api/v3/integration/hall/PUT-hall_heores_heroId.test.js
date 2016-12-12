@@ -40,13 +40,14 @@ describe('PUT /heroes/:heroId', () => {
     });
   });
 
-  it('updates contributor level, balance, ads, blocked', async () => {
+  it('change contributor level, balance, ads', async () => {
     let hero = await generateUser();
+    let prevSleepState = hero.preferences.sleep;
+    let prevBlockState = hero.auth.blocked;
     let heroRes = await user.put(`/hall/heroes/${hero._id}`, {
       balance: 3,
       contributor: {level: 1},
       purchased: {ads: true},
-      auth: {blocked: true},
     });
 
     // test response
@@ -61,16 +62,45 @@ describe('PUT /heroes/:heroId', () => {
     expect(heroRes.balance).to.equal(3 + 0.75); // 3+0.75 for first contrib level
     expect(heroRes.contributor.level).to.equal(1);
     expect(heroRes.purchased.ads).to.equal(true);
-    expect(heroRes.auth.blocked).to.equal(true);
     // test hero values
     await hero.sync();
     expect(hero.balance).to.equal(3 + 0.75); // 3+0.75 for first contrib level
     expect(hero.contributor.level).to.equal(1);
     expect(hero.purchased.ads).to.equal(true);
-    expect(hero.auth.blocked).to.equal(true);
-    expect(hero.preferences.sleep).to.equal(true);
+    expect(hero.auth.blocked).to.equal(prevBlockState);
+    expect(hero.preferences.sleep).to.equal(prevSleepState);
     expect(hero.notifications.length).to.equal(1);
     expect(hero.notifications[0].type).to.equal('NEW_CONTRIBUTOR_LEVEL');
+  });
+
+  it('block a user', async () => {
+    let hero = await generateUser();
+    let heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+      auth: {blocked: true},
+      preferences: {sleep: true},
+    });
+
+    // test response values
+    expect(heroRes.auth.blocked).to.equal(true);
+    // test hero values
+    await hero.sync();
+    expect(hero.auth.blocked).to.equal(true);
+    expect(hero.preferences.sleep).to.equal(true);
+  });
+
+  it('unblock a user', async () => {
+    let hero = await generateUser();
+    let prevSleepState = hero.preferences.sleep;
+    let heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+      auth: {blocked: false},
+    });
+
+    // test response values
+    expect(heroRes.auth.blocked).to.equal(false);
+    // test hero values
+    await hero.sync();
+    expect(hero.auth.blocked).to.equal(false);
+    expect(hero.preferences.sleep).to.equal(prevSleepState);
   });
 
   it('updates chatRevoked flag', async () => {
