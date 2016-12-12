@@ -3,6 +3,9 @@ import VueRouter from 'vue-router';
 import UserTasks from './components/userTasks';
 import ParentPage from './components/parentPage';
 import Page from './components/page';
+
+// Social
+import SocialPage from './components/SocialPage';
 import InboxPage from './components/InboxPage';
 import InboxConversationPage from './components/Inbox/InboxConversationPage';
 
@@ -26,10 +29,11 @@ export default new VueRouter({
     { path: '/market', component: Page },
     {
       path: '/social',
-      component: ParentPage,
+      component: SocialPage,
       children: [
-        {path: 'tavern', component: Page},
+        { name: 'tavern', path: 'tavern', component: Page },
         {
+          name: 'inbox',
           path: 'inbox',
           component: InboxPage,
         },
