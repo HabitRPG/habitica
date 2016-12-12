@@ -4,6 +4,7 @@ import UserTasks from './components/userTasks';
 import ParentPage from './components/parentPage';
 import Page from './components/page';
 import InboxPage from './components/InboxPage';
+import InboxConversationPage from './components/Inbox/InboxConversationPage';
 
 
 Vue.use(VueRouter);
@@ -28,7 +29,14 @@ export default new VueRouter({
       component: ParentPage,
       children: [
         {path: 'tavern', component: Page},
-        {path: 'inbox', component: InboxPage},
+        {
+          path: 'inbox',
+          component: InboxPage,
+        },
+        {
+          path: 'inbox/conversation/:id',
+          component: InboxConversationPage,
+        },
         {path: 'challenges', component: Page},
         {path: 'party', component: Page},
         {path: 'guilds', component: Page},
