@@ -61,30 +61,6 @@ describe('User Model', () => {
       expect(userToJSON.notifications[0].data).to.eql({});
     });
 
-    it('adds notifications without data for all given users via static method', async() => {
-      let user = new User();
-      let otherUser = new User();
-      await Bluebird.all([user.save(), otherUser.save()]);
-
-      await User.pushNotification([user._id, otherUser._id], 'CRON');
-
-      user = await User.findOne({_id: user._id}).exec();
-
-      let userToJSON = user.toJSON();
-      expect(user.notifications.length).to.equal(1);
-      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
-      expect(userToJSON.notifications[0].type).to.equal('CRON');
-      expect(userToJSON.notifications[0].data).to.eql({});
-
-      user = await User.findOne({_id: otherUser._id}).exec();
-
-      userToJSON = user.toJSON();
-      expect(user.notifications.length).to.equal(1);
-      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
-      expect(userToJSON.notifications[0].type).to.equal('CRON');
-      expect(userToJSON.notifications[0].data).to.eql({});
-    });
-
     it('can add notifications with data', () => {
       let user = new User();
 
@@ -97,28 +73,76 @@ describe('User Model', () => {
       expect(userToJSON.notifications[0].data).to.eql({field: 1});
     });
 
-    it('adds notifications with data for all given users via static method', async() => {
-      let user = new User();
-      let otherUser = new User();
-      await Bluebird.all([user.save(), otherUser.save()]);
+    context('static push method', () => {
+      it('adds notifications for a single member via static method', async() => {
+        let user = new User();
+        await user.save();
 
-      await User.pushNotification([user._id, otherUser._id], 'CRON', {field: 1});
+        await User.pushNotification(user._id, 'CRON');
 
-      user = await User.findOne({_id: user._id}).exec();
+        user = await User.findOne({_id: user._id}).exec();
 
-      let userToJSON = user.toJSON();
-      expect(user.notifications.length).to.equal(1);
-      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
-      expect(userToJSON.notifications[0].type).to.equal('CRON');
-      expect(userToJSON.notifications[0].data).to.eql({field: 1});
+        let userToJSON = user.toJSON();
+        expect(user.notifications.length).to.equal(1);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
+        expect(userToJSON.notifications[0].type).to.equal('CRON');
+        expect(userToJSON.notifications[0].data).to.eql({});
+      });
 
-      user = await User.findOne({_id: otherUser._id}).exec();
+      it('validates notifications via static method', async() => {
+        let user = new User();
+        await user.save();
 
-      userToJSON = user.toJSON();
-      expect(user.notifications.length).to.equal(1);
-      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
-      expect(userToJSON.notifications[0].type).to.equal('CRON');
-      expect(userToJSON.notifications[0].data).to.eql({field: 1});
+        expect(User.pushNotification(user._id, 'BAD_TYPE')).to.eventually.be.rejected;
+      });
+
+      it('adds notifications without data for all given users via static method', async() => {
+        let user = new User();
+        let otherUser = new User();
+        await Bluebird.all([user.save(), otherUser.save()]);
+
+        await User.pushNotification([user._id, otherUser._id], 'CRON');
+
+        user = await User.findOne({_id: user._id}).exec();
+
+        let userToJSON = user.toJSON();
+        expect(user.notifications.length).to.equal(1);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
+        expect(userToJSON.notifications[0].type).to.equal('CRON');
+        expect(userToJSON.notifications[0].data).to.eql({});
+
+        user = await User.findOne({_id: otherUser._id}).exec();
+
+        userToJSON = user.toJSON();
+        expect(user.notifications.length).to.equal(1);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
+        expect(userToJSON.notifications[0].type).to.equal('CRON');
+        expect(userToJSON.notifications[0].data).to.eql({});
+      });
+
+      it('adds notifications with data for all given users via static method', async() => {
+        let user = new User();
+        let otherUser = new User();
+        await Bluebird.all([user.save(), otherUser.save()]);
+
+        await User.pushNotification([user._id, otherUser._id], 'CRON', {field: 1});
+
+        user = await User.findOne({_id: user._id}).exec();
+
+        let userToJSON = user.toJSON();
+        expect(user.notifications.length).to.equal(1);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
+        expect(userToJSON.notifications[0].type).to.equal('CRON');
+        expect(userToJSON.notifications[0].data).to.eql({field: 1});
+
+        user = await User.findOne({_id: otherUser._id}).exec();
+
+        userToJSON = user.toJSON();
+        expect(user.notifications.length).to.equal(1);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
+        expect(userToJSON.notifications[0].type).to.equal('CRON');
+        expect(userToJSON.notifications[0].data).to.eql({field: 1});
+      });
     });
   });
 });

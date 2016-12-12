@@ -61,11 +61,11 @@ schema.methods.addNotification = function addUserNotification (type, data = {}) 
  */
 schema.statics.pushNotification = async function pushNotification (userIds, type, data = {}) {
   let newNotification = new UserNotification({type, data});
-  let promises = [];
-  userIds.forEach(userId => {
-    promises.push(this.update({_id: userId}, {$push: {notifications: newNotification}}).exec());
-  });
-  await Bluebird.all(promises);
+  let validationResult = newNotification.validateSync();
+  if (validationResult) {
+    throw validationResult;
+  }
+  await this.update({_id: {$in: userIds}}, {$push: {notifications: newNotification}}, {multi: true}).exec();
 };
 
 // Add stats.toNextLevel, stats.maxMP and stats.maxHealth
