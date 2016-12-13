@@ -114,7 +114,7 @@
     "giftedGems": "Ædelstensgave",
     "giftedGemsInfo": "<%= name %> gifted you <%= amount %> Gems",
     "giftedSubscription": "Abonnementsgave",
-    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> Subscription",
+    "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> month subscription",
     "invitedParty": "Gruppeinvitation",
     "invitedGuild": "Klaninvitation",
     "importantAnnouncements": "Din konto er inaktiv",

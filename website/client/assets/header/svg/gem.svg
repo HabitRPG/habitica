@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+    <title>9830DCF8-FFC1-4ABB-BD3F-11C30C41F8FE</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Navigation" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Navigation---Desktop-HD" transform="translate(-1119.000000, -12.000000)">
+            <g id="Navigation">
+                <g id="Gem" transform="translate(1119.000000, 12.000000)">
+                    <g id="-g-Gem" transform="translate(1.000000, 5.000000)">
+                        <polygon id="Shape" fill="#46A7D9" points="8 8 15 23 22 8"></polygon>
+                        <polygon id="Shape" fill="#A9DCF6" points="22 8 15 23 30 8"></polygon>
+                        <polygon id="Shape" fill="#2995CD" points="0 8 15 23 8 8"></polygon>
+                        <polygon id="Shape" fill="#50B5E9" points="4 0 8 8 0 8"></polygon>
+                        <polygon id="Shape" fill="#50B5E9" points="26 0 30 8 22 8"></polygon>
+                        <polygon id="Shape" fill="#50B5E9" points="15 0 22 8 8 8"></polygon>
+                        <polygon id="Shape" fill="#2995CD" points="8 8 4 0 15 0"></polygon>
+                        <polygon id="Shape" fill="#2995CD" points="22 8 26 0 15 0"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

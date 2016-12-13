@@ -24,7 +24,7 @@
     "gildedTurkey": "Pavo dorado",
     "polarBearPup": "Cachorro de Oso Polar",
     "jackolantern": "Calabaza de Halloween",
-    "ghostJackolantern": "Ghost Jack-O-Lantern",
+    "ghostJackolantern": "Fantasma de Jack-O-Lantern",
     "seasonalShop": "Tienda de temporada",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Hechicera Estacional<%= linkEnd %>",

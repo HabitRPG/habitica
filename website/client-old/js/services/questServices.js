@@ -17,7 +17,8 @@ angular.module('habitrpg')
         if (quest.lvl && user.stats.lvl < quest.lvl) return true;
       }
       if (user.achievements.quests) return (quest.previous && !user.achievements.quests[quest.previous]);
-      return (quest.previous);
+
+      return quest.locked;
     }
 
     function _preventQuestModal(quest) {
@@ -43,6 +44,20 @@ angular.module('habitrpg')
         var preventQuestModal = _preventQuestModal(item);
         if (preventQuestModal) {
           return reject(preventQuestModal);
+        }
+
+        if (item.unlockCondition && quest === 'dustbunnies') {
+          alert(window.env.t('createAccountQuest'));
+          return reject('Awarded to new accounts');
+        }
+
+        if (item.unlockCondition && (quest === 'moon1' || quest === 'moon2' || quest === 'moon3')) {
+          if (user.loginIncentives > item.unlockCondition.incentiveThreshold) {
+            alert(window.env.t('loginIncentiveQuestObtained', {count: item.unlockCondition.incentiveThreshold}));
+          } else {
+            alert(window.env.t('loginIncentiveQuest', {count: item.unlockCondition.incentiveThreshold}));
+          }
+          return reject('Login incentive item');
         }
 
         if (item.unlockCondition && item.unlockCondition.condition === 'party invite') {
@@ -104,6 +119,9 @@ angular.module('habitrpg')
             Groups.data.party = party;
             $state.go('options.social.party');
             resolve();
+            if ($state.current.name === "options.social.party") {
+              $state.reload();
+            }
           });
       });
     }

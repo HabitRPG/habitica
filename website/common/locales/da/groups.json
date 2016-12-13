@@ -35,6 +35,8 @@
     "leave": "Forlad",
     "invitedTo": "Inviteret til <%= name %>",
     "invitedToNewParty": "Du blev inviteret til en gruppe! Vil du forlade denne gruppe og slutte dig til <%= partyName %>?",
+    "invitationAcceptedHeader": "Your Invitation has been Accepted",
+    "invitationAcceptedBody": "<%= username %> accepted your invitation to <%= groupName %>!",
     "joinNewParty": "Slut dig til ny Gruppe",
     "declineInvitation": "Afslå Invitation",
     "partyLoading1": "Your party is being summoned. Please wait...",
@@ -83,7 +85,6 @@
     "sortLevel": "Sortér efter niveau",
     "sortRandom": "Sortér tilfældigt",
     "sortPets": "Sortér efter antal kæledyr",
-    "sortJoined": "Sortér efter gruppeindmeldelsesdato",
     "sortName": "Sortér efter avatar-navn",
     "sortBackgrounds": "Sortér efter baggrund",
     "sortHabitrpgJoined": "Sortér efter Habitica indmeldelsesdato",
@@ -217,5 +218,8 @@
     "claim": "Claim",
     "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
     "yourTaskHasBeenApproved": "Your task has been approved",
-    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>"
+    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>",
+    "confirmTaskApproval": "Are you sure you want to approve this task?",
+    "approve": "Approve",
+    "approvalTitle": "<%= text %> for user: <%= userName %>"
 }

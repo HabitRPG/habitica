@@ -23,7 +23,7 @@
     "taskAlias": "Tarefa Alíbi",
     "taskAliasPopover": "O pseudônimo dessa tarefa pode ser usado ao integrar com terceiros. Apenas hífens, subtraços, letras e números são permitidos. O pseudônimo precisa ser único entre todas as suas tarefas.",
     "taskAliasPlaceholder": "sua-tarefa-alíbi-aqui",
-    "taskAliasPopoverWarning": "ATENÇÃO: Trocar esse valor irá romper qualquer integração com programa de terceiros que esteja utilizando a tarefa alíbi",
+    "taskAliasPopoverWarning": "AVISO: trocar este valor irá quebrar quaisquer integrações de terceiros que utilizem o pseudónimo de tarefa.",
     "difficulty": "Dificuldade",
     "difficultyHelpTitle": "Quão difícil é essa tarefa?",
     "difficultyHelpContent": "Quanto mais difícil é uma tarefa, mais Experiência e Ouro dará quando você a completa... mas lhe causará mais dano se for uma Tarefa Diária ou Hábito Ruim.",
@@ -135,6 +135,8 @@
     "intelligenceExample": "Relacionado a atividades acadêmicas ou mentalmente desafiadoras",
     "perceptionExample": "Relacionado a trabalho ou tarefas financeiras",
     "constitutionExample": "Relacionado a saúde, bem estar e interação social",
-    "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
-    "taskApprovalHasBeenRequested": "Approval has been requested"
+    "taskRequiresApproval": "Esta tarefa deve ser aprovada antes de a completar. A aprovação já foi solicitada.",
+    "taskApprovalHasBeenRequested": "A aprovação já foi solicitada",
+    "approvals": "Aprovações",
+    "approvalRequired": "Necessária Aprovação"
 }

@@ -35,6 +35,8 @@
     "leave": "Напускане",
     "invitedTo": "Вие сте поканен(а) в <%= name %>",
     "invitedToNewParty": "Вие получихте покана за присъединяване към група! Искате ли да напуснете сегашната си група и да се присъедините към <%= partyName %>?",
+    "invitationAcceptedHeader": "Поканата Ви беше приета",
+    "invitationAcceptedBody": "<%= username %> прие поканата Ви да се присъедини към <%= groupName %>!",
     "joinNewParty": "Присъединяване към новата група",
     "declineInvitation": "Отказване на поканата",
     "partyLoading1": "Групата Ви се призовава. Моля, почакайте…",
@@ -83,7 +85,6 @@
     "sortLevel": "Подреждане по ниво",
     "sortRandom": "Произволно подреждане",
     "sortPets": "Подреждане по брой любимци",
-    "sortJoined": "Подреждане по дата на присъединяване към групата",
     "sortName": "Подреждане по име на героя",
     "sortBackgrounds": "Подреждане по фоново изображение",
     "sortHabitrpgJoined": "Подреждане по дата на присъединяване към Хабитика",
@@ -215,7 +216,10 @@
     "confirmRemoveTag": "Наистина ли искате да премахнете „<%= tag %>“?",
     "assignTask": "Задаване на задача",
     "claim": "Вземане",
-    "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
-    "yourTaskHasBeenApproved": "Your task has been approved",
-    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>"
+    "onlyGroupLeaderCanManageSubscription": "Само водачът на групата може да управлява абонамента ѝ.",
+    "yourTaskHasBeenApproved": "Задачата Ви беше одобрена.",
+    "userHasRequestedTaskApproval": "<%= user %> помоли следната задача да бъде одобрена: <%= taskName %>",
+    "confirmTaskApproval": "Наистина ли искате да одобрите тази задача?",
+    "approve": "Одобряване",
+    "approvalTitle": "<%= text %> за: <%= userName %>"
 }

@@ -42,9 +42,9 @@
     "bossDmg2Broken": "只有參與者會跟魔王戰鬥，並共享任務獎勵。",
     "tavernBossInfo": "Complete Dailies and To-Dos and score positive Habits to damage the World Boss! Incomplete Dailies fill the Rage Bar. When the Rage bar is full, the World Boss will attack an NPC. A World Boss will never damage individual players or accounts in any way. Only active accounts not resting in the Inn will have their tasks tallied.",
     "tavernBossInfoBroken": "想要攻擊世界Boss，你必須完成每日任務、待辦事項和正面的習慣...未完成的任務將增加廢氣攻擊值...當廢氣攻擊值被填滿，世界Boss就會對 NPC發動攻擊...世界Boss永遠不會對玩家或是玩家帳號造成傷害...不過若是在旅館休息的帳號就會被排除在世界Boss任務之外囉...",
-    "bossColl1": "要撿到物品，你必須完成你的「正向」任務。任務物品會像普通物品一樣掉落；但要在隔天才看到。你撿到的物品會被計算並累積到戰利品堆當中。",
+    "bossColl1": "To collect items, do your positive tasks. Quest items drop just like normal items; you can monitor your quest item drops by hovering over the quest progress icon.",
     "bossColl2": "只有參與者會跟魔王戰鬥，並共享任務獎勵。",
-    "bossColl1Broken": "要撿到物品，你必須完成你的「正向」任務...任務獎勵品會像普通物品一樣掉落；但要在隔天你才能看到，你撿到的物品會被計算並累積到戰利品堆當中。",
+    "bossColl1Broken": "To collect items, do your positive tasks... Quest items drop just like normal items; you can monitor your quest item drops by hovering over the quest progress icon...",
     "bossColl2Broken": "只有參與者會跟魔王戰鬥，並共享任務獎勵...",
     "abort": "放棄",
     "leaveQuest": "退出任務",
@@ -101,5 +101,10 @@
     "cantCancelActiveQuest": "You can not cancel an active quest, use the abort functionality.",
     "onlyLeaderCancelQuest": "Only the group or quest leader can cancel the quest.",
     "questNotPending": "There is no quest to start.",
-    "questOrGroupLeaderOnlyStartQuest": "Only the quest leader or group leader can force start the quest"
+    "questOrGroupLeaderOnlyStartQuest": "Only the quest leader or group leader can force start the quest",
+    "createAccountReward": "Create Account",
+    "loginIncentiveQuest": "To earn this quest, check in to Habitica on <%= count %> different days!",
+    "loginIncentiveQuestObtained": "You earned this quest by checking in to Habitica on <%= count %> different days!",
+    "loginReward": "<%= count %> Check-ins",
+    "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too."
 }

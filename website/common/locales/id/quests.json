@@ -42,9 +42,9 @@
     "bossDmg2Broken": "Hanya partisipan yang akan melawan monster dan membagi pendapatan...",
     "tavernBossInfo": "Lengkapi Tugas Harian dan Tugas serta lakukan Kebiasaan positif untuk melukai Musuh Dunia! Tugas Harian yang tidak dikerjakan akan mengisi Tingkat Kemarahan. Ketika tingkat Kemarahan penuh, Musuh Dunia akan menyerang NPC. Musuh Dunia tidak akan pernah melukai pemain secara individual atau akun dengan cara apapun. hanya akun aktif yang tidak beristirahat dalam Penginapan yang tugasnya akan dihitung.",
     "tavernBossInfoBroken": "Lengkapi Tugas Harian, Tugas, dan Kebiasaan Baik untuk melukai Musuh Dunia... Tugas Harian yang tidak dilakukan akan mengisi Tingkat Serangan Kelelahan... Ketika Tingkat Serangan Kelelahan telah penuh, Musuh Dunia akan menyerang NPC... Musuh Dunia tidak akan menyerang pemain secara individu atau akun dengan cara apapun... Hanya akun yang aktif yang tidak beristirahat dalam Penginapan yang tugasnya dihitung.,,",
-    "bossColl1": "Untuk mengumpulkan benda, lakukan tugas. Barang yang harus dikumpulkan dalam Sayembara jatuh seperti hadiah biasa; akan tetapi, kamu baru akan mendapatkannya saat pergantian hari, semua yang kamu temukan akan digabung dengan yang ditemukan teman-temanmu.",
+    "bossColl1": "To collect items, do your positive tasks. Quest items drop just like normal items; you can monitor your quest item drops by hovering over the quest progress icon.",
     "bossColl2": "Hanya partisipan yang dapat mengumpulkan benda dan membagi barang jarahan.",
-    "bossColl1Broken": "Untuk mengumpulkan benda, lakukan tugas... Barang yang harus dikumpulkan dalam Sayembara jatuh seperti hadiah biasa; akan tetapi, kamu baru akan mendapatkannya saat pergantian hari, semua yang kamu temukan akan digabung dengan yang ditemukan teman-temanmu...",
+    "bossColl1Broken": "To collect items, do your positive tasks... Quest items drop just like normal items; you can monitor your quest item drops by hovering over the quest progress icon...",
     "bossColl2Broken": "Hanya partisipan yang dapat mengumpulan benda dan membagi barang jarahan...",
     "abort": "Batalkan",
     "leaveQuest": "Tinggalkan Sayembara",
@@ -101,5 +101,10 @@
     "cantCancelActiveQuest": "Anda tidak dapat membatalkan misi yang aktif, gunakan fungsi pembatalan.",
     "onlyLeaderCancelQuest": "Hanya ketua kelompok atau pemilik gulungan misi yang dapat membatalkan misi.",
     "questNotPending": "Tidak ada misi untuk dimulai",
-    "questOrGroupLeaderOnlyStartQuest": "Hanya pemimpin misi atau pemimpin kelompok dapat memaksa memulai misi"
+    "questOrGroupLeaderOnlyStartQuest": "Hanya pemimpin misi atau pemimpin kelompok dapat memaksa memulai misi",
+    "createAccountReward": "Create Account",
+    "loginIncentiveQuest": "To earn this quest, check in to Habitica on <%= count %> different days!",
+    "loginIncentiveQuestObtained": "You earned this quest by checking in to Habitica on <%= count %> different days!",
+    "loginReward": "<%= count %> Check-ins",
+    "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too."
 }

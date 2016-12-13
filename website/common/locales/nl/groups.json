@@ -35,6 +35,8 @@
     "leave": "Verlaten",
     "invitedTo": "Uitgenodigd voor <%= name %>",
     "invitedToNewParty": "Je bent uitgenodigd om je bij een groep aan te sluiten! Wil je deze groep verlaten en lid worden van <%= partyName %>?",
+    "invitationAcceptedHeader": "Je uitnodiging is geaccepteerd",
+    "invitationAcceptedBody": "<%= username %> heeft je uitnodiging voor <%= groupName %> geaccepteerd!",
     "joinNewParty": "Aansluiten bij nieuwe groep",
     "declineInvitation": "Uitnodiging weigeren",
     "partyLoading1": "Je groep wordt opgeroepen. Even geduld alsjeblieft...",
@@ -83,7 +85,6 @@
     "sortLevel": "Sorteer op niveau",
     "sortRandom": "Sorteer willekeurig",
     "sortPets": "Sorteer op aantal huisdieren",
-    "sortJoined": "Sorteer op wanneer ze lid geworden zijn van de groep",
     "sortName": "Sorteer op avatarnaam",
     "sortBackgrounds": "Sorteer op achtergrond",
     "sortHabitrpgJoined": "Sorteer op aanmeldingsdatum Habitica",
@@ -215,7 +216,10 @@
     "confirmRemoveTag": "Weet je zeker dat je \"<%= tag %>\" wilt verwijderen?",
     "assignTask": "Taak toewijzen",
     "claim": "Opeisen",
-    "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
-    "yourTaskHasBeenApproved": "Your task has been approved",
-    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>"
+    "onlyGroupLeaderCanManageSubscription": "Alleen de groepsleider kan het groepsabonnement beheren",
+    "yourTaskHasBeenApproved": "Je taak is goedgekeurd",
+    "userHasRequestedTaskApproval": "<%= user %> heeft om goedkeuring gevraagd voor <%= taskName %>",
+    "confirmTaskApproval": "Weet je zeker dat je deze taak wil goedkeuren?",
+    "approve": "Goedkeuren",
+    "approvalTitle": "<%= text %> voor gebruiker: <%= userName %>"
 }

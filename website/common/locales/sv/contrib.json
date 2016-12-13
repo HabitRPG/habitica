@@ -32,7 +32,7 @@
     "contribTitle": "Medarbetare-titel (t.ex. \"Smed\")",
     "contribLevel": "Medarbetarnivå",
     "contribHallText": "1-7 för normala medhjälpare, 8 för moderatorer, 9 för personal. Detta bestämmer även vilka föremål, husdjur samt riddjur som finns tillgängliga. Bestämmer även färg på namntagg. Nivåerna 8 och 9 blir automatiskt givna admin status.",
-    "hallContributors": "Hall of Contributors",
+    "hallContributors": "Medarbetarnas Hall",
     "hallPatrons": "Beskyddarnas Hall",
     "rewardUser": "Belöna Användare",
     "UUID": "Användar-ID",

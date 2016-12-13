@@ -35,6 +35,8 @@
     "leave": "やめる",
     "invitedTo": "<%= name %>に招待されました",
     "invitedToNewParty": "パーティーの仲間として招待されました!　こちらのパーティーを辞めて、<%= partyName %> のパーティーに参加しますか?",
+    "invitationAcceptedHeader": "Your Invitation has been Accepted",
+    "invitationAcceptedBody": "<%= username %> accepted your invitation to <%= groupName %>!",
     "joinNewParty": "新しいパーティーに参加する",
     "declineInvitation": "招待を断る",
     "partyLoading1": "パーティーを召喚しています。お待ちください…",
@@ -83,7 +85,6 @@
     "sortLevel": "レベルで並べ替え",
     "sortRandom": "ランダムで並べ替え",
     "sortPets": "ペット数で並べ替え",
-    "sortJoined": "パーティの入団日順で並べ替え",
     "sortName": "アバターの名前順で並べ替え",
     "sortBackgrounds": "バックグラウンドで並べ替え",
     "sortHabitrpgJoined": "Habiticaの登録日順に並べ替え",
@@ -215,7 +216,10 @@
     "confirmRemoveTag": "「<%= tag %>」を削除します。よろしいですか?",
     "assignTask": "タスクを割り当てる",
     "claim": "受け取る",
-    "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
-    "yourTaskHasBeenApproved": "Your task has been approved",
-    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>"
+    "onlyGroupLeaderCanManageSubscription": "グループの登録管理は、グループリーダーだけが行います",
+    "yourTaskHasBeenApproved": "タスクが承認されました",
+    "userHasRequestedTaskApproval": "<%= user %> が <%= taskName %> のタスク承認をもとめています",
+    "confirmTaskApproval": "このタスクを承認します。よろしいですか?",
+    "approve": "承認",
+    "approvalTitle": "<%= userName %> への <%= text %>"
 }

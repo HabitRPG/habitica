@@ -25,6 +25,7 @@ import appearances from './appearance';
 import backgrounds from './appearance/backgrounds.js'
 import spells from './spells';
 import faq from './faq';
+import loginIncentives from './loginIncentives';
 
 api.achievements = achievements;
 
@@ -167,96 +168,104 @@ api.premiumMounts = stable.premiumMounts;
 api.specialMounts = stable.specialMounts;
 api.mountInfo = stable.mountInfo;
 
+// For seasonal events, change these booleans:
+let canBuyNormalFood = true;
+let canDropNormalFood = true;
+let canBuyCandyFood = false;
+let canDropCandyFood = false;
+let canBuyCakeFood = false;
+let canDropCakeFood = false;
+
 api.food = {
   Meat: {
     text: t('foodMeat'),
     target: 'Base',
     article: '',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   Milk: {
     text: t('foodMilk'),
     target: 'White',
     article: '',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   Potatoe: {
     text: t('foodPotatoe'),
     target: 'Desert',
     article: 'a ',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   Strawberry: {
     text: t('foodStrawberry'),
     target: 'Red',
     article: 'a ',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   Chocolate: {
     text: t('foodChocolate'),
     target: 'Shade',
     article: '',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   Fish: {
     text: t('foodFish'),
     target: 'Skeleton',
     article: 'a ',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   RottenMeat: {
     text: t('foodRottenMeat'),
     target: 'Zombie',
     article: '',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   CottonCandyPink: {
     text: t('foodCottonCandyPink'),
     target: 'CottonCandyPink',
     article: '',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   CottonCandyBlue: {
     text: t('foodCottonCandyBlue'),
     target: 'CottonCandyBlue',
     article: '',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   Honey: {
     text: t('foodHoney'),
     target: 'Golden',
     article: '',
     canBuy: (function() {
-      return false;
+      return canBuyNormalFood;
     }),
-    canDrop: false,
+    canDrop: canDropNormalFood,
   },
   Saddle: {
     canBuy: (function() {
@@ -270,141 +279,181 @@ api.food = {
     text: t('foodCakeSkeleton'),
     target: 'Skeleton',
     article: '',
+    canBuy: (function() {
+      return canBuyCakeFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Cake_Base: {
     text: t('foodCakeBase'),
     target: 'Base',
     article: '',
+    canBuy: (function() {
+      return canBuyCakeFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Cake_CottonCandyBlue: {
     text: t('foodCakeCottonCandyBlue'),
     target: 'CottonCandyBlue',
     article: '',
+    canBuy: (function() {
+      return canBuyCandyFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Cake_CottonCandyPink: {
     text: t('foodCakeCottonCandyPink'),
     target: 'CottonCandyPink',
     article: '',
+    canBuy: (function() {
+      return canBuyCakeFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Cake_Shade: {
     text: t('foodCakeShade'),
     target: 'Shade',
     article: '',
+    canBuy: (function() {
+      return canBuyCakeFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Cake_White: {
     text: t('foodCakeWhite'),
     target: 'White',
     article: '',
+    canBuy: (function() {
+      return canBuyCakeFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Cake_Golden: {
     text: t('foodCakeGolden'),
     target: 'Golden',
     article: '',
+    canBuy: (function() {
+      return canBuyCakeFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Cake_Zombie: {
     text: t('foodCakeZombie'),
     target: 'Zombie',
     article: '',
+    canBuy: (function() {
+      return canBuyCakeFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Cake_Desert: {
     text: t('foodCakeDesert'),
     target: 'Desert',
     article: '',
+    canBuy: (function() {
+      return canBuyCakeFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Cake_Red: {
     text: t('foodCakeRed'),
     target: 'Red',
     article: '',
+    canBuy: (function() {
+      return canBuyCakeFood;
+    }),
+    canDrop: canDropCakeFood,
   },
   Candy_Skeleton: {
     text: t('foodCandySkeleton'),
     target: 'Skeleton',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   },
   Candy_Base: {
     text: t('foodCandyBase'),
     target: 'Base',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   },
   Candy_CottonCandyBlue: {
     text: t('foodCandyCottonCandyBlue'),
     target: 'CottonCandyBlue',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   },
   Candy_CottonCandyPink: {
     text: t('foodCandyCottonCandyPink'),
     target: 'CottonCandyPink',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   },
   Candy_Shade: {
     text: t('foodCandyShade'),
     target: 'Shade',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   },
   Candy_White: {
     text: t('foodCandyWhite'),
     target: 'White',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   },
   Candy_Golden: {
     text: t('foodCandyGolden'),
     target: 'Golden',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   },
   Candy_Zombie: {
     text: t('foodCandyZombie'),
     target: 'Zombie',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   },
   Candy_Desert: {
     text: t('foodCandyDesert'),
     target: 'Desert',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   },
   Candy_Red: {
     text: t('foodCandyRed'),
     target: 'Red',
     article: '',
     canBuy: (function() {
-      return true;
+      return canBuyCandyFood;
     }),
-    canDrop: true,
+    canDrop: canDropCandyFood,
   }
 };
 
@@ -2577,6 +2626,177 @@ api.quests = {
       exp: 650
     }
   },
+  ferret: {
+    text: t('questFerretText'),
+    notes: t('questFerretNotes'),
+    completion: t('questFerretCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questFerretBoss'),
+      hp: 400,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Ferret',
+          text: t('questFerretDropFerretEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Ferret',
+          text: t('questFerretDropFerretEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Ferret',
+          text: t('questFerretDropFerretEgg'),
+        },
+      ],
+      gp: 31,
+      exp: 200,
+      unlock: t('questFerretUnlockText'),
+    },
+  },
+  dustbunnies: {
+    text: t('questDustBunniesText'),
+    notes: t('questDustBunniesNotes'),
+    completion: t('questDustBunniesCompletion'),
+    value: 4,
+    category: 'unlockable',
+    unlockCondition: {
+      condition: 'party invite',
+      text: t('createAccountReward')
+    },
+    boss: {
+      name: t('questDustBunniesBoss'),
+      hp: 100,
+      str: 0.5
+    },
+    drop: {
+      gp: 8,
+      exp: 42
+    }
+  },
+  moon1: {
+    text: t('questMoon1Text'),
+    notes: t('questMoon1Notes'),
+    completion: t('questMoon1Completion'),
+    value: 4,
+    category: 'unlockable',
+    unlockCondition: {
+      condition: 'party invite',
+      incentiveThreshold: 7,
+      text: t('loginReward', {count: 7})
+    },
+    collect: {
+      shard: {
+        text: t('questMoon1CollectShards'),
+        count: 20
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'gear',
+          key: "head_special_lunarWarriorHelm",
+          text: t('questMoon1DropHeadgear')
+        },
+      ],
+      gp: 7,
+      exp: 50
+    }
+  },
+  moon2: {
+    text: t('questMoon2Text'),
+    notes: t('questMoon2Notes'),
+    completion: t('questMoon2Completion'),
+    previous: 'moon1',
+    value: 4,
+    category: 'unlockable',
+    unlockCondition: {
+      condition: 'party invite',
+      incentiveThreshold: 22,
+      text: t('loginReward', {count: 22})
+    },
+    boss: {
+      name: t('questMoon2Boss'),
+      hp: 100,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'gear',
+          key: "armor_special_lunarWarriorArmor",
+          text: t('questMoon2DropArmor')
+        }
+      ],
+      gp: 37,
+      exp: 275
+    }
+  },
+  moon3: {
+    text: t('questMoon3Text'),
+    notes: t('questMoon3Notes'),
+    completion: t('questMoon3Completion'),
+    previous: 'moon2',
+    value: 4,
+    category: 'unlockable',
+    unlockCondition: {
+      condition: 'party invite',
+      incentiveThreshold: 40,
+      text: t('loginReward', {count: 40})
+    },
+    boss: {
+      name: t('questMoon3Boss'),
+      hp: 1000,
+      str: 2
+    },
+    drop: {
+      items: [
+        {
+          type: 'gear',
+          key: 'weapon_special_lunarScythe',
+          text: t('questMoon3DropWeapon')
+        },
+      ],
+      gp: 67,
+      exp: 650
+    }
+  },
+  sloth: {
+    text: t('questSlothText'),
+    notes: t('questSlothNotes'),
+    completion: t('questSlothCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questSlothBoss'),
+      hp: 400,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Sloth',
+          text: t('questSlothDropSlothEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Sloth',
+          text: t('questSlothDropSlothEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Sloth',
+          text: t('questSlothDropSlothEgg'),
+        },
+      ],
+      gp: 31,
+      exp: 200,
+      unlock: t('questSlothUnlockText'),
+    },
+  },
 };
 
 _.each(api.quests, function(v, key) {
@@ -2632,14 +2852,6 @@ api.subscriptionBlocks = {
   basic_12mo: {
     months: 12,
     price: 48
-  },
-  group_monthly: {
-    months: 1,
-    price: 5
-  },
-  group_yearly: {
-    months: 1,
-    price: 48,
   },
 };
 
@@ -2709,3 +2921,5 @@ api.userDefaults = {
 };
 
 api.faq = faq;
+
+api.loginIncentives = loginIncentives(api);

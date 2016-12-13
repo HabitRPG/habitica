@@ -628,23 +628,88 @@ describe('Group Model', () => {
         });
       });
 
-      it('deletes a private group when the last member leaves', async () => {
-        party.memberCount = 1;
-
+      it('deletes a private party when the last member leaves', async () => {
         await party.leave(participatingMember);
+        await party.leave(questLeader);
+        await party.leave(nonParticipatingMember);
+        await party.leave(undecidedMember);
 
         party = await Group.findOne({_id: party._id});
         expect(party).to.not.exist;
       });
 
       it('does not delete a public group when the last member leaves', async () => {
-        party.memberCount = 1;
         party.privacy = 'public';
+
+        await party.leave(participatingMember);
+        await party.leave(questLeader);
+        await party.leave(nonParticipatingMember);
+        await party.leave(undecidedMember);
+
+        party = await Group.findOne({_id: party._id});
+        expect(party).to.exist;
+      });
+
+      it('does not delete a private party when the member count reaches zero if there are still members', async () => {
+        party.memberCount = 1;
 
         await party.leave(participatingMember);
 
         party = await Group.findOne({_id: party._id});
         expect(party).to.exist;
+      });
+
+      it('deletes a private guild when the last member leaves', async () => {
+        let guild = new Group({
+          name: 'test guild',
+          type: 'guild',
+          memberCount: 1,
+        });
+
+        let leader = new User({
+          guilds: [guild._id],
+        });
+
+        guild.leader = leader._id;
+
+        await Promise.all([
+          guild.save(),
+          leader.save(),
+        ]);
+
+        await guild.leave(leader);
+
+        guild = await Group.findOne({_id: guild._id});
+        expect(guild).to.not.exist;
+      });
+
+      it('does not delete a private guild when the member count reaches zero if there are still members', async () => {
+        let guild = new Group({
+          name: 'test guild',
+          type: 'guild',
+          memberCount: 1,
+        });
+
+        let leader = new User({
+          guilds: [guild._id],
+        });
+
+        let member = new User({
+          guilds: [guild._id],
+        });
+
+        guild.leader = leader._id;
+
+        await Promise.all([
+          guild.save(),
+          leader.save(),
+          member.save(),
+        ]);
+
+        await guild.leave(member);
+
+        guild = await Group.findOne({_id: guild._id});
+        expect(guild).to.exist;
       });
     });
 
@@ -1061,8 +1126,45 @@ describe('Group Model', () => {
           [nonParticipatingMember._id]: false,
           [undecidedMember._id]: null,
         };
+      });
 
-        sandbox.spy(User, 'update');
+      describe('user update retry failures', () => {
+        let successfulMock = {
+          exec: () => {
+            return Promise.resolve({raw: 'sucess'});
+          },
+        };
+        let failedMock = {
+          exec: () => {
+            return Promise.reject(new Error('error'));
+          },
+        };
+
+        it('doesn\'t retry successful operations', async () => {
+          sandbox.stub(User, 'update').returns(successfulMock);
+
+          await party.finishQuest(quest);
+
+          expect(User.update).to.be.calledTwice;
+        });
+
+        it('stops retrying when a successful update has occurred', async () => {
+          let updateStub = sandbox.stub(User, 'update');
+          updateStub.onCall(0).returns(failedMock);
+          updateStub.returns(successfulMock);
+
+          await party.finishQuest(quest);
+
+          expect(User.update).to.be.calledThrice;
+        });
+
+        it('retries failed updates at most five times per user', async () => {
+          sandbox.stub(User, 'update').returns(failedMock);
+
+          await expect(party.finishQuest(quest)).to.eventually.be.rejected;
+
+          expect(User.update.callCount).to.eql(10);
+        });
       });
 
       it('gives out achievements', async () => {
@@ -1171,13 +1273,15 @@ describe('Group Model', () => {
 
       context('Party quests', () => {
         it('updates participating members with rewards', async () => {
+          sandbox.spy(User, 'update');
           await party.finishQuest(quest);
 
-          expect(User.update).to.be.calledOnce;
+          expect(User.update).to.be.calledTwice;
           expect(User.update).to.be.calledWithMatch({
-            _id: {
-              $in: [questLeader._id, participatingMember._id],
-            },
+            _id: questLeader._id,
+          });
+          expect(User.update).to.be.calledWithMatch({
+            _id: participatingMember._id,
           });
         });
 
@@ -1204,6 +1308,7 @@ describe('Group Model', () => {
         });
 
         it('updates all users with rewards', async () => {
+          sandbox.spy(User, 'update');
           await party.finishQuest(tavernQuest);
 
           expect(User.update).to.be.calledOnce;

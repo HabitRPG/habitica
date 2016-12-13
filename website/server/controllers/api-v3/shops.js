@@ -9,7 +9,7 @@ let api = {};
  * @apiName GetMarketItems
  * @apiGroup Shops
  *
- * @apiSuccess {Object} data List of push devices
+ * @apiSuccess {Object} data List of available items
  * @apiSuccess {string} message Success message
  */
 api.getMarketItems = {
@@ -37,7 +37,7 @@ api.getMarketItems = {
  * @apiName GetQuestShopItems
  * @apiGroup Shops
  *
- * @apiSuccess {Object} data List of push devices
+ * @apiSuccess {Object} data List of available quests
  * @apiSuccess {string} message Success message
  */
 api.getQuestShopItems = {
@@ -65,7 +65,7 @@ api.getQuestShopItems = {
  * @apiName GetTimeTravelersShopItems
  * @apiGroup Shops
  *
- * @apiSuccess {Object} data List of push devices
+ * @apiSuccess {Object} data List of available items
  * @apiSuccess {string} message Success message
  */
 api.getTimeTravelerShopItems = {
@@ -94,7 +94,7 @@ api.getTimeTravelerShopItems = {
  * @apiName GetSeasonalShopItems
  * @apiGroup Shops
  *
- * @apiSuccess {Object} data List of push devices
+ * @apiSuccess {Object} data List of available items
  * @apiSuccess {string} message Success message
  */
 api.getSeasonalShopItems = {
@@ -107,9 +107,37 @@ api.getSeasonalShopItems = {
     let resObject = {
       identifier: 'seasonalShop',
       text: res.t('seasonalShop'),
-      notes: res.t('seasonalShopFallText'),
-      imageName: 'seasonalshop_open',
+      notes: res.t('seasonalShopClosedText'),
+      imageName: 'seasonalshop_closed',
       categories: shops.getSeasonalShopCategories(user, req.language),
+    };
+
+    res.respond(200, resObject);
+  },
+};
+
+/**
+ * @apiIgnore
+ * @api {get} /api/v3/shops/backgrounds get the available items for the backgrounds shop
+ * @apiName GetBackgroundsShopItems
+ * @apiGroup Shops
+ *
+ * @apiSuccess {Object} data List of available backgrounds
+ * @apiSuccess {string} message Success message
+ */
+api.getBackgroundShopItems = {
+  method: 'GET',
+  url: '/shops/backgrounds',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    let resObject = {
+      identifier: 'backgroundShop',
+      text: res.t('backgroundShop'),
+      notes: res.t('backgroundShopText'),
+      imageName: 'background_shop',
+      sets: shops.getBackgroundShopSets(user, req.language),
     };
 
     res.respond(200, resObject);

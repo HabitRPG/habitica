@@ -20,7 +20,7 @@
     "rebirthText": "Började <%= rebirths %> Nytt/Nya Äventyr",
     "rebirthOrb": "Använde en Pånyttfödelsesfär för att börja om efter att ha nått Level",
     "rebirthOrb100": "Använde en Pånyttfödelsesfär för att börja om efter att ha nått Level 100 eller högre",
-    "rebirthPop": "Begin a new character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history.",
+    "rebirthPop": "Börja med en ny karaktär på level 1 men behåll bedrifter, saker, utrustning och uppgifter med historik.",
     "rebirthName": "Pånyttfödelsesfär",
     "reborn": "Pånyttfödd, max level <%= reLevel %>",
     "confirmReborn": "Är du säker?",

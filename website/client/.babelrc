@@ -1,5 +1,8 @@
 {
   "presets": ["es2015"],
-  "plugins": ["transform-object-rest-spread"],
-  "comments": false
+  "plugins": [
+    "transform-object-rest-spread",
+    "syntax-async-functions",
+    "transform-regenerator",
+  ],
 }

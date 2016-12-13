@@ -54,9 +54,6 @@ let premium = {
     text: t('hatchingPotionSpooky'),
     limited: true,
     _season: 'fall',
-    canBuy () {
-      return true;
-    },
   },
   Peppermint: {
     value: 2,
@@ -81,9 +78,11 @@ let premium = {
     text: t('hatchingPotionGhost'),
     limited: true,
     _season: 'fall',
-    canBuy () {
-      return true;
-    },
+  },
+  RoyalPurple: {
+    value: 2,
+    text: t('hatchingPotionRoyalPurple'),
+    limited: true,
   },
 };
 

@@ -75,7 +75,7 @@
     "onlyLeaderUpdateChal": "Bara utmaningsledaren kan uppdatera utmaningen.",
     "winnerNotFound": "Vinnare med id \"<%= userId %>\" hittades inte eller deltog inte i utmaningen.",
     "noCompletedTodosChallenge": "\"includeCompletedTodos\" stöds inte när uppgifter till en utmaning hämtas.",
-    "userTasksNoChallengeId": "When \"tasksOwner\" is \"user\" \"challengeId\" can't be passed.",
+    "userTasksNoChallengeId": "När \"tasksOwner\" är \"user\" kan inte \"challengeId\" användas.",
     "onlyChalLeaderEditTasks": "Uppgifter som tillhör en utmaning kan bara redigeras av ledaren.",
     "userAlreadyInChallenge": "Användaren deltar redan i den här utmaningen.",
     "cantOnlyUnlinkChalTask": "Bara brutna utmaningars uppgifter kan avlänkas.",

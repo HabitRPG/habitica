@@ -35,6 +35,8 @@
     "leave": "Tinggalkan",
     "invitedTo": "Diundang ke <%= name %>",
     "invitedToNewParty": "Kamu diundang untuk mengikuti sebuah kelompok! Apakah kamu ingin meninggalkan kelompok ini dan bergabung ke <%= partyName %>?",
+    "invitationAcceptedHeader": "Your Invitation has been Accepted",
+    "invitationAcceptedBody": "<%= username %> accepted your invitation to <%= groupName %>!",
     "joinNewParty": "Bergabung ke Kelompok Baru",
     "declineInvitation": "Tolak Undangan",
     "partyLoading1": "Your party is being summoned. Please wait...",
@@ -83,7 +85,6 @@
     "sortLevel": "Urutkan berdasarkan level",
     "sortRandom": "Urutkan secara acak",
     "sortPets": "Urutkan berdasarkan jumlah Pets",
-    "sortJoined": "Urutkan berdasarkan tanggal bergabung",
     "sortName": "Urutkan berdasarkan nama",
     "sortBackgrounds": "Urutkan berdasarkan background",
     "sortHabitrpgJoined": "Urutkan berdasarkan tanggal mendaftar Habitica",
@@ -217,5 +218,8 @@
     "claim": "Claim",
     "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
     "yourTaskHasBeenApproved": "Your task has been approved",
-    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>"
+    "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>",
+    "confirmTaskApproval": "Are you sure you want to approve this task?",
+    "approve": "Approve",
+    "approvalTitle": "<%= text %> for user: <%= userName %>"
 }

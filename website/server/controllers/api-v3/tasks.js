@@ -263,6 +263,10 @@ api.updateTask = {
     // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
     // see https://github.com/Automattic/mongoose/issues/2749
 
+    if (sanitizedObj.requiresApproval) {
+      task.group.approval.required = true;
+    }
+
     let savedTask = await task.save();
 
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
@@ -331,11 +335,12 @@ api.scoreTask = {
           user: user.profile.name,
           taskName: task.text,
         }),
+        groupId: group._id,
       });
 
       await Bluebird.all([groupLeader.save(), task.save()]);
 
-      return res.respond(200, {message: res.t('taskApprovalHasBeenRequested'), task});
+      throw new NotAuthorized(res.t('taskApprovalHasBeenRequested'));
     }
 
     let wasCompleted = task.completed;

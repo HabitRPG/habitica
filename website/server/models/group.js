@@ -38,6 +38,7 @@ const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = shared.constants.LARGE_GROUP_COUNT_MESS
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
+const MAX_UPDATE_RETRIES = 5;
 
 export let schema = new Schema({
   name: {type: String, required: true},
@@ -577,6 +578,19 @@ schema.statics.cleanGroupQuest = function cleanGroupQuest () {
   };
 };
 
+async function _updateUserWithRetries (userId, updates, numTry = 1) {
+  return await User.update({_id: userId}, updates).exec()
+    .then((raw) => {
+      return raw;
+    }).catch((err) => {
+      if (numTry < MAX_UPDATE_RETRIES) {
+        return _updateUserWithRetries(userId, updates, ++numTry);
+      } else {
+        throw err;
+      }
+    });
+}
+
 // Participants: Grant rewards & achievements, finish quest.
 // Changes the group object update members
 schema.methods.finishQuest = async function finishQuest (quest) {
@@ -623,11 +637,19 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     }
   });
 
-  let q = this._id === TAVERN_ID ? {} : {_id: {$in: this.getParticipatingQuestMembers()}};
+  let participants = this._id === TAVERN_ID ? {} : this.getParticipatingQuestMembers();
   this.quest = {};
   this.markModified('quest');
 
-  return await User.update(q, updates, {multi: true}).exec();
+  if (this._id === TAVERN_ID) {
+    return await User.update({}, updates, {multi: true}).exec();
+  }
+
+  let promises = participants.map(userId => {
+    return _updateUserWithRetries(userId, updates);
+  });
+
+  return Bluebird.all(promises);
 };
 
 function _isOnQuest (user, progress, group) {
@@ -835,9 +857,7 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
 
 schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   let group = this;
-  let update = {
-    $inc: {memberCount: -1},
-  };
+  let update = {};
 
   let challenges = await Challenge.find({
     _id: {$in: user.challenges},
@@ -867,18 +887,30 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
 
   // If user is the last one in group and group is private, delete it
   if (group.memberCount <= 1 && group.privacy === 'private') {
-    promises.push(group.remove());
-  } else { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
-    if (group.leader === user._id) {
-      let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
-      query._id = {$ne: user._id};
-      let seniorMember = await User.findOne(query).select('_id').exec();
-
-      // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
-      if (seniorMember) update.$set = {leader: seniorMember._id};
+    // double check the member count is correct so we don't accidentally delete a group that still has users in it
+    let members;
+    if (group.type === 'guild') {
+      members = await User.find({guilds: group._id}).select('_id').exec();
+    } else {
+      members = await User.find({'party._id': group._id}).select('_id').exec();
     }
-    promises.push(group.update(update).exec());
+    _.remove(members, {_id: user._id});
+    if (members.length === 0) {
+      promises.push(group.remove());
+      return await Bluebird.all(promises);
+    }
   }
+  // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
+  update.$inc = {memberCount: -1};
+  if (group.leader === user._id) {
+    let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
+    query._id = {$ne: user._id};
+    let seniorMember = await User.findOne(query).select('_id').exec();
+
+    // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
+    if (seniorMember) update.$set = {leader: seniorMember._id};
+  }
+  promises.push(group.update(update).exec());
 
   return await Bluebird.all(promises);
 };
@@ -892,6 +924,8 @@ schema.methods.updateTask = async function updateTask (taskToSync) {
   for (let key in syncableAttributes) {
     updateCmd.$set[key] = syncableAttributes[key];
   }
+
+  updateCmd.$set['group.approval.required'] = taskToSync.group.approval.required;
 
   let taskSchema = Tasks[taskToSync.type];
   // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks

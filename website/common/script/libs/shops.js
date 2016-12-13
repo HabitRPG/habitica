@@ -7,6 +7,9 @@ let shops = {};
 
 function lockQuest (quest, user) {
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
+  if (quest.unlockCondition && (quest.key === 'moon1' || quest.key === 'moon2' || quest.key === 'moon3')) {
+    return user.loginIncentives < quest.unlockCondition.incentiveThreshold;
+  }
   if (user.achievements.quests) return quest.previous && !user.achievements.quests[quest.previous];
   return quest.previous;
 }
@@ -215,18 +218,9 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
 // };
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
   const AVAILABLE_SETS = {
-    fallHealer: i18n.t('mummyMedicSet', language),
-    fall2015Healer: i18n.t('potionerSet', language),
-    fallMage: i18n.t('witchyWizardSet', language),
-    fall2015Mage: i18n.t('stitchWitchSet', language),
-    fallRogue: i18n.t('vampireSmiterSet', language),
-    fall2015Rogue: i18n.t('battleRogueSet', language),
-    fallWarrior: i18n.t('monsterOfScienceSet', language),
-    fall2015Warrior: i18n.t('scarecrowWarriorSet', language),
   };
 
   const AVAILABLE_SPELLS = [
-    'spookySparkles',
   ];
 
   let categories = [];
@@ -291,6 +285,33 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   }
 
   return categories;
+};
+
+shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
+  let sets = [];
+
+  _.eachRight(content.backgrounds, (group, key) => {
+    let set = {
+      identifier: key,
+      text: i18n.t(key, language),
+    };
+
+    set.items = _(group)
+      .map((background, bgKey) => {
+        return {
+          key: bgKey,
+          text: background.text(language),
+          notes: background.notes(language),
+          value: background.price,
+          currency: background.currency || 'gems',
+          purchaseType: 'backgrounds',
+        };
+      }).value();
+
+    sets.push(set);
+  });
+
+  return sets;
 };
 
 module.exports = shops;

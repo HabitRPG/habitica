@@ -114,7 +114,7 @@
     "giftedGems": "Подаренные самоцветы",
     "giftedGemsInfo": "<%= name %> подарил(а) вам <%= amount %> единиц самоцветов",
     "giftedSubscription": "Подписка в подарок",
-    "giftedSubscriptionInfo": "<%= name %> подарил(а) вам <%= months %> месяцев подписки",
+    "giftedSubscriptionInfo": "<%= name %> дарит вам <%= months %> месяцев подписки",
     "invitedParty": "Приглашен в команду",
     "invitedGuild": "Приглашен в гильдию",
     "importantAnnouncements": "Ваш аккаунт не активен",

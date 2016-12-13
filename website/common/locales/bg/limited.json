@@ -24,7 +24,7 @@
     "gildedTurkey": "Позлатена пуйка",
     "polarBearPup": "Полярно мече",
     "jackolantern": "Тиквен фенер",
-    "ghostJackolantern": "Ghost Jack-O-Lantern",
+    "ghostJackolantern": "Призрачен тиквен фенер",
     "seasonalShop": "Сезонен магазин",
     "seasonalShopClosedTitle": "<%= linkStart %>Лесли<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Сезонна Магьосница<%= linkEnd %>",
