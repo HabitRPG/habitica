@@ -468,9 +468,10 @@ api.leaveGroup = {
 };
 
 // Send an email to the removed user with an optional message from the leader
-function _sendMessageToRemoved (group, removedUser, message) {
+function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
   if (removedUser.preferences.emailNotifications.kickedGroup !== false) {
-    sendTxnEmail(removedUser, `kicked-from-${group.type}`, [
+    let subject = isInGroup ? `kicked-from-${group.type}` : `${group.type}-invite-rescinded`;
+    sendTxnEmail(removedUser, subject, [
       {name: 'GROUP_NAME', content: group.name},
       {name: 'MESSAGE', content: message},
       {name: 'GUILDS_LINK', content: '/#/options/groups/guilds/public'},
@@ -575,7 +576,7 @@ api.removeGroupMember = {
     }
 
     let message = req.query.message;
-    if (message) _sendMessageToRemoved(group, member, message);
+    _sendMessageToRemoved(group, member, message, isInGroup);
 
     await Bluebird.all([
       member.save(),
