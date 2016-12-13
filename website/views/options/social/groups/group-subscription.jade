@@ -5,9 +5,9 @@ mixin groupSubscription()
       .col-md-12
         h2.text-center=env.t('groupBenefitsTitle')
         .row
-          .col-md-6.col-md-offset-3=env.t('groupBenefitsDescription')
+          .col-md-4.col-md-offset-4=env.t('groupBenefitsDescription')
         .row
-          .col-md-6.col-md-offset-3(style="padding-right:5rem; padding-left:5rem;")
+          .col-md-4.col-md-offset-4(style="padding-right:5rem; padding-left:5rem;")
             ul
               li
                 span=env.t('groupBenefitOne')
@@ -48,9 +48,9 @@ mixin groupSubscription()
 
             .container-fluid.slight-vertical-padding(ng-if='!group.purchased.plan.customerId || (group.purchased.plan.customerId && group.purchased.plan.dateTerminated)', ng-init="_subscription.key='group_monthly'")
               .row.text-center
-                .col-md-3.col-md-offset-1
+                .col-md-3.col-md-offset-2
                   a.purchase.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon, groupId: group.id})', ng-disabled='!_subscription.key')= env.t('card')
-                .col.md-4
+                .col-md-4
                   a.purchase(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon, groupId: group.id})")
                     img(src='https://payments.amazon.com/gp/cba/button',alt=env.t('amazonPayments'))
                //-  .col-xs-4
