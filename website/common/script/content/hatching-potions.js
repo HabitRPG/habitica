@@ -118,10 +118,7 @@ each(premium, (pot, key) => {
     premium: true,
     limited: false,
     canBuy () {
-      if (pot._season === 'winter') {
-        return true;
-      }
-      return false;
+      return pot._season === 'winter';
     },
   });
 });
