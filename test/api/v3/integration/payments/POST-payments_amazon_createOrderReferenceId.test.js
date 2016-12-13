@@ -10,13 +10,11 @@ describe('payments - amazon - #createOrderReferenceId', () => {
     user = await generateUser();
   });
 
-  it('verifies billingAgreementId', async (done) => {
-    try {
-      await user.post(endpoint);
-    } catch (e) {
-      // Parameter AWSAccessKeyId cannot be empty.
-      expect(e.error).to.eql('BadRequest');
-      done();
-    }
+  it('verifies billingAgreementId', async () => {
+    await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: 'Missing req.body.billingAgreementId',
+    });
   });
 });

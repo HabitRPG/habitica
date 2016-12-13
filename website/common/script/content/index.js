@@ -12,6 +12,8 @@ import {
 
 let api = module.exports;
 
+import achievements from './achievements';
+
 import mysterySets from './mystery-sets';
 
 import eggs from './eggs';
@@ -24,6 +26,8 @@ import backgrounds from './appearance/backgrounds.js'
 import spells from './spells';
 import faq from './faq';
 import loginIncentives from './loginIncentives';
+
+api.achievements = achievements;
 
 api.mystery = mysterySets;
 

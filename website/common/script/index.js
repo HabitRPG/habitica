@@ -93,6 +93,9 @@ api.statsComputed = statsComputed;
 import shops from './libs/shops';
 api.shops = shops;
 
+import achievements from './libs/achievements';
+api.achievements = achievements;
+
 import randomVal from './libs/randomVal';
 api.randomVal = randomVal;
 
