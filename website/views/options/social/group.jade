@@ -8,174 +8,174 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
     =' ' + env.t('guildGems')
 
 .container-fluid
-  .row
-    .col-md-4
-
-      // ------ Bosses -------
-      +boss(false, false)
-
-      // ------ Information -------
-      .panel.panel-default
-        .panel-heading(bindonce='group')
-          h3.panel-title
-            span {{group.name}}
-            span.group-leave-join(ng-if='group')
-              a.btn.btn-sm.btn-danger.pull-right(ng-if="isMemberOfGroup(User.user._id, group)", ng-hide='group._editing', ng-click='clickLeave(group, $event)')
-                span.glyphicon.glyphicon-ban-circle
-                =env.t('leave')
-              a.btn.btn-success.pull-right(ng-if='!isMemberOfGroup(User.user._id, group)', ng-click='join(group)')=env.t('join')
-            span(ng-if='group.leader._id == user.id')
-              button.btn.btn-sm.btn-primary.pull-right(ng-click='cancelEdit(group)', ng-hide='!group._editing')=env.t('cancel')
-              button.btn.btn-sm.btn-primary.pull-right(ng-click='saveEdit(group)', ng-show='group._editing')=env.t('save')
-              button.btn.btn-sm.btn-default.pull-right(ng-click='editGroup(group)', ng-hide='group._editing')=env.t('editGroup')
-
-        .panel-body
-          form(ng-show='group._editing')
-            .form-group
-              label=env.t('groupName')
-              input.form-control(type='text', ng-model='groupCopy.name', placeholder=env.t('groupName'))
-            .form-group
-              label=env.t('description')
-              textarea.form-control(rows=6, ng-model='groupCopy.description')
-              include ../../shared/formatting-help
-            .form-group
-              label=env.t('logoUrl')
-              input.form-control(type='url', placeholder=env.t('logoUrl'), ng-model='groupCopy.logo')
-            .form-group
-              .checkbox
-                label
-                  input(type='checkbox', ng-model='groupCopy.leaderOnly.challenges')
-                  =env.t('leaderOnlyChallenges')
-
-            h4=env.t('assignLeader')
-            select#group-leader-selection(ng-model='groupCopy._newLeader', ng-options='member.profile.name for member in group.members')
-
-          div(ng-show='!group._editing')
-            img.img-rendering-auto.pull-right(ng-show='group.logo', ng-src='{{group.logo}}')
-            markdown(text='group.description')
-          br
-          p=env.t('groupLeader')
-            |:
-            a.badge.badge-info(ng-click='clickMember(group.leader._id, true)')
-              | {{group.leader.profile.name}}
-
-      .text-center(ng-if='group.type === "party"')
-        .row.row-margin: .col-sm-6.col-sm-offset-3
-          button.btn.btn-success.btn-block(
-            ng-if='!group.quest.key',
-            ng-click='clickStartQuest();'
-          )=env.t('startAQuest')
-
-      // ------ Members -------
-      .panel.panel-default
-        .panel-heading
-          h3.panel-title
-            =env.t('members')
-            span(ng-if='group.type=="party" && (group.onlineUsers || group.onlineUsers == 0)')= ' (' + env.t('onlineCount', {count: "{{group.onlineUsers}}"}) + ')'
-            button.pull-right.btn.btn-primary(ng-click="openInviteModal(group)")=env.t("inviteFriends")
-
-        .panel-body.modal-fixed-height
-          h4(ng-show='::group.memberCount === 1 && group.type === "party"')=env.t('partyEmpty')
-          table.table.table-striped(ng-show='::group.memberCount > 1 || group.type !== "party"' bindonce='group')
-            tr(ng-repeat='member in group.members track by member._id')
-              td.media
-                // allow leaders to ban members
-                .pull-left(ng-show='group.leader._id == user.id && member._id != user._id')
-                  a.media-object(ng-click='removeMember(group, member, true)')
-                    span.glyphicon.glyphicon-ban-circle(tooltip=env.t('banTip'))
-                a.media-body
-                  span(ng-click='clickMember(member._id, true)')
-                      | {{member.profile.name}}
-                  span(ng-click='clickMember(member._id, true)' ng-if='group.type === "party"')
-                      |  (#[strong {{member.stats.hp.toFixed(1)}}] #{env.t('hp')}) {{member.id === user.id ? ' ' + env.t('you') : ''}}
-                .pull-right(ng-if='group.type === "party"')
-                  span.text-success {{member.online ? '&#9679 ' + env.t('online') : ''}}
-            tr(ng-if='::group.memberCount > group.members.length')
-              td
-                span.badge {{group.memberCount - group.members.length}}
-                = ' ' + env.t('moreMembers')
-          h4(ng-show='group.invites.length > 0')=env.t('invited')
-          table.table.table-striped
-            tr(ng-repeat='invite in group.invites')
-              td.media
-                // allow leaders to ban members
-                .pull-left(ng-show='group.leader._id == user.id')
-                  a.media-object(ng-click='removeMember(group, invite, false)')
-                    span.glyphicon.glyphicon-ban-circle(tooltip=env.t('banTip'))
-                a.media-body
-                  span(ng-click='clickMember(invite._id, true)')
-                    | {{invite.profile.name}}
-
-      .panel.panel-default(ng-if='::group.type=="party" && group.memberCount > 1')
-        .panel-heading
-          h3.panel-title=env.t('partyList')
-        .panel-body
-          .form-group
-            select.form-control#partyOrder(
-              ng-model='user.party.order',
-              ng-controller='ChatCtrl',
-              ng-options='k as v for (k , v) in partyOrderChoices',
-              ng-change='set({"party.order": user.party.order})'
-            )
-            | &nbsp;
-            select.form-control#partyOrderAscending(
-              ng-model='user.party.orderAscending',
-              ng-controller='ChatCtrl',
-              ng-options='k as v for (k , v) in partyOrderAscendingChoices',
-              ng-change='set({"party.orderAscending": user.party.orderAscending})'
-            )
-
-      include ./challenge-box
-
-      div(ng-if="group")
-        a.btn.btn-success(ng-if=':: !isMemberOfGroup(User.user._id, group)', ng-click='join(group)')=env.t('join')
-
-      .slight-vertical-padding
-        small.muted=env.t('groupID')
-        | : {{group._id}}
-      .slight-vertical-padding(ng-if='group.type === "party" && group.memberCount === 1')
-        small.muted=env.t('userId')
-        | : {{user._id}}
-
-    .col-md-8
-      div
-        textarea.form-control(ng-show='group._editing', rows=6, placeholder=env.t('leaderMsg'), ng-model='groupCopy.leaderMessage')
-      .slight-vertical-padding
-        table(ng-show='group.leaderMessage')
-          tr
-            td
-              .popover.static-popover.fade.right.in.wide-popover
-                .arrow
-                h3.popover-title {{group.leader.profile.name}}
-                .popover-content
-                  markdown(text='group._editing ? groupCopy.leaderMessage : group.leaderMessage')
-
-      ul.options-menu(ng-init="groupPane = 'chat'")
-        li
-          a(ng-click="groupPane = 'chat'")=env.t('chat')
-        li(ng-show='group.purchased.active')
-          a(ng-click="groupPane = 'tasks'")=env.t('groupTasksTitle')
-        li(ng-show='group.purchased.active && group.leader._id === user._id')
-          a(ng-click="groupPane = 'approvals'")=env.t('approvalsTitle')
-        li
-          a(ng-click="groupPane = 'subscription'", ng-show='group.leader._id === user._id && group.purchased.plan.customerId')=env.t('subscription')
-          a(ng-click="groupPane = 'subscription'", ng-show='group.leader._id === user._id && !group.purchased.plan.customerId')=env.t('upgradeTitle')
+  ul.options-menu(ng-init="groupPane = 'chat'")
+    li
+      a(ng-click="groupPane = 'chat'")=env.t('groupHomeTitle')
+    li(ng-show='group.purchased.active')
+      a(ng-click="groupPane = 'tasks'")=env.t('groupTasksTitle')
+    li(ng-show='group.purchased.active && group.leader._id === user._id')
+      a(ng-click="groupPane = 'approvals'")=env.t('approvalsTitle')
+    li
+      a(ng-click="groupPane = 'subscription'", ng-show='group.leader._id === user._id && group.purchased.plan.customerId')=env.t('subscription')
+      a(ng-click="groupPane = 'subscription'", ng-show='group.leader._id === user._id && !group.purchased.plan.customerId')=env.t('upgradeTitle')
     
-      .tab-content
-        .tab-pane.active
+  .tab-content
+    .tab-pane.active
+        
+    .row(ng-show="groupPane == 'chat'")
+      .col-md-4
 
-      div(ng-controller='ChatCtrl', ng-show="groupPane == 'chat'")
-        .alert.alert-info.alert-sm(ng-if='group.memberCount > Shared.constants.LARGE_GROUP_COUNT_MESSAGE_CUTOFF')=env.t('largeGroupNote')
-        h3=env.t('chat')
-        include ./chat-box
+        // ------ Bosses -------
+        +boss(false, false)
 
-        +chatMessages()
-        h4(ng-if='group.chat.length < 1 && group.type === "party"')=env.t('partyChatEmpty')
-        h4(ng-if='group.chat.length < 1 && group.type === "guild"')=env.t('guildChatEmpty')
-  
-      group-tasks(ng-show="groupPane == 'tasks'")
-      
-      group-approvals(ng-show="groupPane == 'approvals'", ng-if="group.leader._id === user._id", group="group")
-      
-      +groupSubscription
-      
+        // ------ Information -------
+        .panel.panel-default
+          .panel-heading(bindonce='group')
+            h3.panel-title
+              span {{group.name}}
+              span.group-leave-join(ng-if='group')
+                a.btn.btn-sm.btn-danger.pull-right(ng-if="isMemberOfGroup(User.user._id, group)", ng-hide='group._editing', ng-click='clickLeave(group, $event)')
+                  span.glyphicon.glyphicon-ban-circle
+                  =env.t('leave')
+                a.btn.btn-success.pull-right(ng-if='!isMemberOfGroup(User.user._id, group)', ng-click='join(group)')=env.t('join')
+              span(ng-if='group.leader._id == user.id')
+                button.btn.btn-sm.btn-primary.pull-right(ng-click='cancelEdit(group)', ng-hide='!group._editing')=env.t('cancel')
+                button.btn.btn-sm.btn-primary.pull-right(ng-click='saveEdit(group)', ng-show='group._editing')=env.t('save')
+                button.btn.btn-sm.btn-default.pull-right(ng-click='editGroup(group)', ng-hide='group._editing')=env.t('editGroup')
+
+          .panel-body
+            form(ng-show='group._editing')
+              .form-group
+                label=env.t('groupName')
+                input.form-control(type='text', ng-model='groupCopy.name', placeholder=env.t('groupName'))
+              .form-group
+                label=env.t('description')
+                textarea.form-control(rows=6, ng-model='groupCopy.description')
+                include ../../shared/formatting-help
+              .form-group
+                label=env.t('logoUrl')
+                input.form-control(type='url', placeholder=env.t('logoUrl'), ng-model='groupCopy.logo')
+              .form-group
+                .checkbox
+                  label
+                    input(type='checkbox', ng-model='groupCopy.leaderOnly.challenges')
+                    =env.t('leaderOnlyChallenges')
+
+              h4=env.t('assignLeader')
+              select#group-leader-selection(ng-model='groupCopy._newLeader', ng-options='member.profile.name for member in group.members')
+
+            div(ng-show='!group._editing')
+              img.img-rendering-auto.pull-right(ng-show='group.logo', ng-src='{{group.logo}}')
+              markdown(text='group.description')
+            br
+            p=env.t('groupLeader')
+              |:
+              a.badge.badge-info(ng-click='clickMember(group.leader._id, true)')
+                | {{group.leader.profile.name}}
+
+        .text-center(ng-if='group.type === "party"')
+          .row.row-margin: .col-sm-6.col-sm-offset-3
+            button.btn.btn-success.btn-block(
+              ng-if='!group.quest.key',
+              ng-click='clickStartQuest();'
+            )=env.t('startAQuest')
+
+        // ------ Members -------
+        .panel.panel-default
+          .panel-heading
+            h3.panel-title
+              =env.t('members')
+              span(ng-if='group.type=="party" && (group.onlineUsers || group.onlineUsers == 0)')= ' (' + env.t('onlineCount', {count: "{{group.onlineUsers}}"}) + ')'
+              button.pull-right.btn.btn-primary(ng-click="openInviteModal(group)")=env.t("inviteFriends")
+
+          .panel-body.modal-fixed-height
+            h4(ng-show='::group.memberCount === 1 && group.type === "party"')=env.t('partyEmpty')
+            table.table.table-striped(ng-show='::group.memberCount > 1 || group.type !== "party"' bindonce='group')
+              tr(ng-repeat='member in group.members track by member._id')
+                td.media
+                  // allow leaders to ban members
+                  .pull-left(ng-show='group.leader._id == user.id && member._id != user._id')
+                    a.media-object(ng-click='removeMember(group, member, true)')
+                      span.glyphicon.glyphicon-ban-circle(tooltip=env.t('banTip'))
+                  a.media-body
+                    span(ng-click='clickMember(member._id, true)')
+                        | {{member.profile.name}}
+                    span(ng-click='clickMember(member._id, true)' ng-if='group.type === "party"')
+                        |  (#[strong {{member.stats.hp.toFixed(1)}}] #{env.t('hp')}) {{member.id === user.id ? ' ' + env.t('you') : ''}}
+                  .pull-right(ng-if='group.type === "party"')
+                    span.text-success {{member.online ? '&#9679 ' + env.t('online') : ''}}
+              tr(ng-if='::group.memberCount > group.members.length')
+                td
+                  span.badge {{group.memberCount - group.members.length}}
+                  = ' ' + env.t('moreMembers')
+            h4(ng-show='group.invites.length > 0')=env.t('invited')
+            table.table.table-striped
+              tr(ng-repeat='invite in group.invites')
+                td.media
+                  // allow leaders to ban members
+                  .pull-left(ng-show='group.leader._id == user.id')
+                    a.media-object(ng-click='removeMember(group, invite, false)')
+                      span.glyphicon.glyphicon-ban-circle(tooltip=env.t('banTip'))
+                  a.media-body
+                    span(ng-click='clickMember(invite._id, true)')
+                      | {{invite.profile.name}}
+
+        .panel.panel-default(ng-if='::group.type=="party" && group.memberCount > 1')
+          .panel-heading
+            h3.panel-title=env.t('partyList')
+          .panel-body
+            .form-group
+              select.form-control#partyOrder(
+                ng-model='user.party.order',
+                ng-controller='ChatCtrl',
+                ng-options='k as v for (k , v) in partyOrderChoices',
+                ng-change='set({"party.order": user.party.order})'
+              )
+              | &nbsp;
+              select.form-control#partyOrderAscending(
+                ng-model='user.party.orderAscending',
+                ng-controller='ChatCtrl',
+                ng-options='k as v for (k , v) in partyOrderAscendingChoices',
+                ng-change='set({"party.orderAscending": user.party.orderAscending})'
+              )
+
+        include ./challenge-box
+
+        div(ng-if="group")
+          a.btn.btn-success(ng-if=':: !isMemberOfGroup(User.user._id, group)', ng-click='join(group)')=env.t('join')
+
+        .slight-vertical-padding
+          small.muted=env.t('groupID')
+          | : {{group._id}}
+        .slight-vertical-padding(ng-if='group.type === "party" && group.memberCount === 1')
+          small.muted=env.t('userId')
+          | : {{user._id}}
+
+      .col-md-8
+        div
+          textarea.form-control(ng-show='group._editing', rows=6, placeholder=env.t('leaderMsg'), ng-model='groupCopy.leaderMessage')
+        .slight-vertical-padding
+          table(ng-show='group.leaderMessage')
+            tr
+              td
+                .popover.static-popover.fade.right.in.wide-popover
+                  .arrow
+                  h3.popover-title {{group.leader.profile.name}}
+                  .popover-content
+                    markdown(text='group._editing ? groupCopy.leaderMessage : group.leaderMessage')
+
+        div(ng-controller='ChatCtrl')
+          .alert.alert-info.alert-sm(ng-if='group.memberCount > Shared.constants.LARGE_GROUP_COUNT_MESSAGE_CUTOFF')=env.t('largeGroupNote')
+          h3=env.t('chat')
+          include ./chat-box
+
+          +chatMessages()
+          h4(ng-if='group.chat.length < 1 && group.type === "party"')=env.t('partyChatEmpty')
+          h4(ng-if='group.chat.length < 1 && group.type === "guild"')=env.t('guildChatEmpty')
+    
+  group-tasks(ng-show="groupPane == 'tasks'")
+
+  group-approvals(ng-show="groupPane == 'approvals'", ng-if="group.leader._id === user._id", group="group")
+
+  +groupSubscription
+        
