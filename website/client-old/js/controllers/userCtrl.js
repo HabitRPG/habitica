@@ -107,5 +107,6 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
 
     $scope.achievements = Shared.achievements.getAchievementsForProfile($scope.profile);
     $scope.achievPopoverPlacement = 'right';
-    $scope.achievAppendToBody = 'true'; // append-to-body breaks popovers in modal windows  }
+    $scope.achievAppendToBody = 'true'; // append-to-body breaks popovers in modal windows  
+  }
 ]);
