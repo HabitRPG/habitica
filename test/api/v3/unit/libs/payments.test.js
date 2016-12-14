@@ -5,6 +5,7 @@ import notifications from '../../../../../website/server/libs/pushNotifications'
 import { model as User } from '../../../../../website/server/models/user';
 import { model as Group } from '../../../../../website/server/models/group';
 import moment from 'moment';
+import { translate as t } from '../../../../helpers/api-v3-integration.helper';
 import {
   generateGroup,
 } from '../../../../helpers/api-unit.helper.js';
@@ -698,6 +699,28 @@ describe('payments/index', () => {
       it('sends a push notification if user did not gift to self', async () => {
         await api.buyGems(data);
         expect(notifications.sendNotification).to.be.calledOnce;
+      });
+
+      it('sends gem donation message in each participant\'s language', async () => {
+        await recipient.update({
+          'preferences.language': 'es',
+        });
+        await user.update({
+          'preferences.language': 'cs',
+        });
+        await api.buyGems(data);
+
+        let [recipientsMessageContent, sendersMessageContent] = ['es', 'cs'].map((lang) => {
+          let messageContent = t('giftedGemsFull', {
+            username: recipient.profile.name,
+            sender: user.profile.name,
+            gemAmount: data.gift.gems.amount,
+          }, lang);
+
+          return `\`${messageContent}\``;
+        });
+
+        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: recipientsMessageContent, senderMsg: sendersMessageContent });
       });
     });
   });
