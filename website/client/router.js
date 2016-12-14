@@ -35,12 +35,15 @@ export default new VueRouter({
         {
           name: 'inbox',
           path: 'inbox',
-          component: InboxPage,
-        },
-        {
-          name: 'conversation',
-          path: 'inbox/conversation/:id',
-          component: InboxConversationPage,
+          component: ParentPage,
+          children: [
+            {path: '', component: InboxPage},
+            {
+              name: 'conversation',
+              path: 'conversation/:id',
+              component: InboxConversationPage,
+            },
+          ],
         },
         {path: 'challenges', component: Page},
         {path: 'party', component: Page},

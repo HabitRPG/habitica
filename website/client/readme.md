@@ -1,6 +1,6 @@
 #Running
  - Open a terminal and type `npm run client:dev`
- - Open a second termina and type `npm start`
+ - Open a second terminal and type `npm start`
 
 #Preparation Reading
 - Vue 2 (https://vuejs.org)
