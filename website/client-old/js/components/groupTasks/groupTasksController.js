@@ -24,15 +24,18 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
         if (!group[task.type + 's']) group[task.type + 's'] = [];
         group[task.type + 's'].unshift(task);
 
-        // @TODO: We need to get the task information from createGroupTasks rather than resyncing
-        group['habits'] = [];
-        group['dailys'] = [];
-        group['todos'] = [];
-        group['rewards'] = [];
-
         Tasks.getGroupTasks($scope.group._id)
           .then(function (response) {
             var tasks = response.data.data;
+
+            if (tasks.length === 0) return;
+
+            // @TODO: We need to get the task information from createGroupTasks rather than resyncing
+            group['habits'] = [];
+            group['dailys'] = [];
+            group['todos'] = [];
+            group['rewards'] = [];
+
             tasks.forEach(function (element, index, array) {
               if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
               $scope.group[element.type + 's'].push(element);
