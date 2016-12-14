@@ -4,24 +4,38 @@ mixin groupSubscription()
     .col-md-12
       .col-md-12
         h2.text-center=env.t('groupBenefitsTitle')
+        .row(style="font-size: 2rem;")
+          .col-md-6.col-md-offset-3=env.t('groupBenefitsDescription')
         .row
-          .col-md-4.col-md-offset-4=env.t('groupBenefitsDescription')
-        .row
-          .col-md-4.col-md-offset-4(style="padding-right:5rem; padding-left:5rem;")
-            ul
-              li
-                span=env.t('groupBenefitOne')
-              li
-                span=env.t('groupBenefitTwo')
-              li
-                span=env.t('groupBenefitThree')
-              li
-                span=env.t('groupBenefitFour')
-              li
-                span=env.t('groupBenefitFive')
+          .col-md-5.col-md-offset-4
+              div
+                h3 
+                  span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
+                  =env.t('groupBenefitOneTitle')
+                span=env.t('groupBenefitOneDescription')
+              div
+                h3 
+                  span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
+                  =env.t('groupBenefitTwoTitle')
+                span=env.t('groupBenefitTwoDescription')
+              div
+                h3 
+                  span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
+                  =env.t('groupBenefitThreeTitle')
+                span=env.t('groupBenefitThreeDescription')
+              div
+                h3 
+                  span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
+                  =env.t('groupBenefitFourTitle')
+                span=env.t('groupBenefitFourDescription')
+              div
+                h3 
+                  span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
+                  =env.t('groupBenefitFiveTitle')
+                span=env.t('groupBenefitFiveDescription')
 
         .row
-          .col-md-7.col-md-offset-3
+          .col-md-12
             br
             table.table.alert.alert-info(ng-if='group.purchased.plan.customerId')
               tr(ng-if='group.purchased.plan.dateTerminated'): td.alert.alert-warning
@@ -29,7 +43,7 @@ mixin groupSubscription()
                 i.glyphicon.glyphicon-time
                 |  #{env.t('subCanceled')} <strong>{{moment(group.purchased.plan.dateTerminated).format('MM/DD/YYYY')}}</strong>
               tr(ng-if='!group.purchased.plan.dateTerminated'): td
-                h4=env.t('subscribed')
+                h3=env.t('subscribed')
                 p(ng-if='group.purchased.plan.planId')=env.t('purchasedPlanId', {price: '{{Content.subscriptionBlocks[group.purchased.plan.planId].price}}', months: '{{Content.subscriptionBlocks[group.purchased.plan.planId].months}}', plan: '{{group.purchased.plan.paymentMethod}}'})
               tr(ng-if='group.purchased.plan.extraMonths'): td
                 span.glyphicon.glyphicon-credit-card
@@ -45,17 +59,20 @@ mixin groupSubscription()
             div(ng-if='group.purchased.plan.customerId')
               .btn.btn-primary(ng-if='!group.purchased.plan.dateTerminated && group.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit({groupId: group.id})')=env.t('subUpdateCard')
               .btn.btn-sm.btn-danger(ng-if='!group.purchased.plan.dateTerminated', ng-click='Payments.cancelSubscription({group: group})')=env.t('cancelSub')
-
-            .container-fluid.slight-vertical-padding(ng-if='!group.purchased.plan.customerId || (group.purchased.plan.customerId && group.purchased.plan.dateTerminated)', ng-init="_subscription.key='group_monthly'")
-              .row.text-center
-                .col-md-3.col-md-offset-2
-                  a.purchase.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon, groupId: group.id})', ng-disabled='!_subscription.key')= env.t('card')
-                .col-md-4
-                  a.purchase(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon, groupId: group.id})")
-                    img(src='https://payments.amazon.com/gp/cba/button',alt=env.t('amazonPayments'))
-               //-  .col-xs-4
-               //-    a.purchase(href='/paypal/subscribe?_id={{user._id}}&apiToken={{User.settings.auth.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}&groupId={{group.id}}', ng-disabled='!_subscription.key')
-               //-      img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png',alt=env.t('paypal'))
-          .row
-            .col-md-6.col-md-offset-3
-              .text-center=env.t('groupSubscriptionPrice')
+        
+        .row
+          .col-md-12(ng-if='!group.purchased.plan.customerId || (group.purchased.plan.customerId && group.purchased.plan.dateTerminated)', ng-init="_subscription.key='group_monthly'")
+            .row.text-center
+              h3 Upgrade My Group
+              div
+                a.purchase.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon, groupId: group.id})', ng-disabled='!_subscription.key')= env.t('card')
+                a.purchase(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon, groupId: group.id})")
+                  img(src='https://payments.amazon.com/gp/cba/button',alt=env.t('amazonPayments'))
+             //-  .col-xs-4
+             //-    a.purchase(href='/paypal/subscribe?_id={{user._id}}&apiToken={{User.settings.auth.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}&groupId={{group.id}}', ng-disabled='!_subscription.key')
+             //-      img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png',alt=env.t('paypal'))
+        
+        .row
+          .col-md-6.col-md-offset-3
+            br
+            .text-center=env.t('groupSubscriptionPrice')
