@@ -384,11 +384,11 @@ api.transferGems = {
     let promises = [receiver.save(), sender.save()];
     await Bluebird.all(promises);
 
-    let message = res.t('privateMessageGiftIntro', {
+    let message = res.t('privateMessageGiftGemsMessage', {
       receiverName: receiver.profile.name,
       senderName: sender.profile.name,
+      gemAmount: gemAmount
     });
-    message += res.t('privateMessageGiftGemsMessage', {gemAmount});
     message =  `\`${message}\` `;
 
     if (req.body.message) {
