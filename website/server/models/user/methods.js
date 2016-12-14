@@ -20,6 +20,16 @@ schema.methods.getGroups = function getUserGroups () {
   return userGroups;
 };
 
+
+/**
+ * Sends a message to a user. Archives a copy in sender's inbox.
+ *
+ * @param  userToReceiveMessage  The receiver
+ * @param  options
+ * @param  options.receiverMsg   The message to send to the receiver
+ * @param  options.senderMsg     The message to archive instead of receiverMsg
+ * @return N/A
+ */
 schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, options) {
   let sender = this;
   let senderMsg = options.senderMsg || options.receiverMsg;
