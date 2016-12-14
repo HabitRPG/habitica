@@ -114,7 +114,7 @@
     "gemAmountRequired": "A number of gems is required",
     "notAuthorizedToSendMessageToThisUser": "Can't send message to this user.",
     "privateMessageGiftGemsMessage": "Hello <%= receiverName %>, <%= senderName %> has sent you <%= gemAmount %> gems!",
-    "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> months of subscription! ",
+    "privateMessageGiftSubscriptionMessage": "Hello <%= receiverName %>, <%= senderName %> has sent you <%= numberOfMonths %> months of subscription!",
     "cannotSendGemsToYourself": "Cannot send gems to yourself. Try a subscription instead.",
     "badAmountOfGemsToSend": "Amount must be within 1 and your current number of gems.",
     "abuseFlag": "Report violation of Community Guidelines",

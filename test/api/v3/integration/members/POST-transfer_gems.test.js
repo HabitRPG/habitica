@@ -124,11 +124,11 @@ describe('POST /members/transfer-gems', () => {
       return inboxMessage.uuid === receiver._id;
     });
 
-    let messageSentContent = t('privateMessageGiftIntro', {
+    let messageSentContent = t('privateMessageGiftGemsMessage', {
       receiverName: receiver.profile.name,
       senderName: userToSendMessage.profile.name,
+      gemAmount: gemAmount
     });
-    messageSentContent += t('privateMessageGiftGemsMessage', {gemAmount});
     messageSentContent =  `\`${messageSentContent}\` `;
     messageSentContent += message;
 
@@ -158,11 +158,11 @@ describe('POST /members/transfer-gems', () => {
       return inboxMessage.uuid === receiver._id;
     });
 
-    let messageSentContent = t('privateMessageGiftIntro', {
+    let messageSentContent = t('privateMessageGiftGemsMessage', {
       receiverName: receiver.profile.name,
       senderName: userToSendMessage.profile.name,
+      gemAmount: gemAmount
     });
-    messageSentContent += t('privateMessageGiftGemsMessage', {gemAmount});
     messageSentContent =  `\`${messageSentContent}\` `;
 
     expect(sendersMessageInReceiversInbox).to.exist;
