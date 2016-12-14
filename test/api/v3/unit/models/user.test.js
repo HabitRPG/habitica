@@ -55,7 +55,7 @@ describe('User Model', () => {
 
       let userToJSON = user.toJSON();
       expect(user.notifications.length).to.equal(1);
-      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
+      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt', 'updatedAt']);
       expect(userToJSON.notifications[0].type).to.equal('CRON');
       expect(userToJSON.notifications[0].data).to.eql({});
     });
@@ -67,7 +67,7 @@ describe('User Model', () => {
 
       let userToJSON = user.toJSON();
       expect(user.notifications.length).to.equal(1);
-      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
+      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt', 'updatedAt']);
       expect(userToJSON.notifications[0].type).to.equal('CRON');
       expect(userToJSON.notifications[0].data).to.eql({field: 1});
     });
