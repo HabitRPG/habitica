@@ -1,13 +1,17 @@
 <template lang="pug">
-.ui
-  .ui.secondary.menu
-    a.item
-      router-link(:to="{ name: 'tavern' }")
-        | Tavern
-    a.item
-      router-link(:to="{ name: 'inbox' }")
-        | Inbox
-  router-view
+.row
+
+  .sixteen.wide.column
+    .ui.secondary.menu
+      a.item
+        router-link(:to="{ name: 'tavern' }")
+          | Tavern
+      a.item
+        router-link(:to="{ name: 'inbox' }")
+          | Inbox
+
+  .sixteen.wide.column
+    router-view
 </template>
 
 <script>

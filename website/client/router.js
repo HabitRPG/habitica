@@ -6,7 +6,8 @@ import Page from './components/page';
 
 // Social
 import SocialPage from './components/SocialPage';
-import InboxPage from './components/InboxPage';
+import TavernPage from './components/Social/TavernPage';
+import InboxPage from './components/Inbox/InboxPage';
 import InboxConversationPage from './components/Inbox/InboxConversationPage';
 
 
@@ -31,7 +32,7 @@ export default new VueRouter({
       path: '/social',
       component: SocialPage,
       children: [
-        { name: 'tavern', path: 'tavern', component: Page },
+        { name: 'tavern', path: 'tavern', component: TavernPage },
         {
           name: 'inbox',
           path: 'inbox',
