@@ -1,6 +1,7 @@
 div(ng-if='task._editing')
   .task-options
-
+    h2 {{task._edit.text}}
+  
     // Broken Challenge
     .well(ng-if='task.challenge.broken')
       div(ng-if='task.challenge.broken=="TASK_DELETED" || task.challenge.broken=="CHALLENGE_TASK_NOT_FOUND"')
