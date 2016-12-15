@@ -38,8 +38,7 @@ export let schema = new Schema({
 
 schema.plugin(baseModel, {
   noSet: ['_id', 'id'],
-  timestamps: true,
-  private: ['updatedAt'],
+  // timestamps: true, // Temporarily removed to debug a possible bug
   _id: false, // use id instead of _id
 });
 
