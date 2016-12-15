@@ -62,9 +62,6 @@ habitrpg.controller("InventoryCtrl",
         }
 
         var item = Content.gear.flat[key];
-        if (!item) {
-          console.log(key);
-        }
 
         var bonusMultiplier = 1;
         if (_isClassItem(item)) {
