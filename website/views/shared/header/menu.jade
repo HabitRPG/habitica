@@ -37,7 +37,7 @@ nav.toolbar(ng-controller='MenuCtrl')
               li
                 a(ui-sref='options.social.hall.heroes')=env.t('hall')
               li
-                a(ui-sref='options.social.groupPlans')=env.t('groupPlans')
+                a(ui-sref='options.social.groupPlans')=env.t('groupPlansTitle')
             ul.toolbar-submenu
               li
                 a(ui-sref='options.inventory.drops')=env.t('market')
@@ -122,6 +122,8 @@ nav.toolbar(ng-controller='MenuCtrl')
               a(ui-sref='options.social.challenges')=env.t('challenges')
             li
               a(ui-sref='options.social.hall.heroes')=env.t('hall')
+            li
+              a(ui-sref='options.social.groupPlans')=env.t('groupPlansTitle')
       li.toolbar-button-dropdown
         a(ui-sref='options.inventory.drops', data-close-menu)
           span=env.t('inventory')

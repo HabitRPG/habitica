@@ -3,7 +3,7 @@ mixin groupSubscription()
   div(ng-show="groupPanel == 'subscription'")
     .col-md-12
       .col-md-12
-        div(ng-hide="$state.params.upgrade")
+        div(ng-hide="upgrade")
           +groupPlansBenefits
 
         .row
