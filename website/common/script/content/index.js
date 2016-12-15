@@ -14,8 +14,6 @@ let api = module.exports;
 
 import achievements from './achievements';
 
-import mysterySets from './mystery-sets';
-
 import eggs from './eggs';
 import hatchingPotions from './hatching-potions';
 import stable from './stable';
@@ -25,39 +23,19 @@ import appearances from './appearance';
 import backgrounds from './appearance/backgrounds.js'
 import spells from './spells';
 import faq from './faq';
+import timeTravelers from './time-travelers';
+
 import loginIncentives from './loginIncentives';
 
 api.achievements = achievements;
-
-api.mystery = mysterySets;
 
 api.itemList = ITEM_LIST;
 
 api.gear = gear;
 api.spells = spells;
 
-/*
-   Time Traveler Store, mystery sets need their items mapped in
-   */
-
-_.each(api.mystery, function(v, k) {
-  return v.items = _.where(api.gear.flat, {
-    mystery: k
-  });
-});
-
-api.timeTravelerStore = function(owned) {
-  var ownedKeys;
-  ownedKeys = _.keys((typeof owned.toObject === "function" ? owned.toObject() : void 0) || owned);
-  return _.reduce(api.mystery, function(m, v, k) {
-    if (k === 'wondercon' || ~ownedKeys.indexOf(v.items[0].key)) {
-      return m;
-    }
-    m[k] = v;
-    return m;
-  }, {});
-};
-
+api.mystery = timeTravelers.mystery;
+api.timeTravelerStore = timeTravelers.timeTravelerStore;
 
 /*
    ---------------------------------------------------------------

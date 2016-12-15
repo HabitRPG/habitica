@@ -180,7 +180,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
     }
   }
 
-  let sets = content.timeTravelerStore(user.items.gear.owned);
+  let sets = content.timeTravelerStore(user);
   for (let setKey in  sets) {
     if (sets.hasOwnProperty(setKey)) {
       let set = sets[setKey];

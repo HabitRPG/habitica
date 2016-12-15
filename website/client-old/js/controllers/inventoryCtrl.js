@@ -371,9 +371,16 @@ habitrpg.controller("InventoryCtrl",
         $scope.hasAllTimeTravelerItemsOfType('mounts'));
     };
 
+    $scope.shouldShowTimeTravelerItem = function(category, item) {
+      if (category.identifier === 'pets' || category.identifier === 'mounts') {
+        return !user.items[category.identifier][item.key];
+      }
+      return !user.items.gear.owned[item.key] && user.purchased.plan.mysteryItems.indexOf(item.key) === -1;
+    };
+
     $scope.hasAllTimeTravelerItemsOfType = function(type) {
       if (type === 'mystery') {
-        var itemsLeftInTimeTravelerStore = Content.timeTravelerStore(user.items.gear.owned);
+        var itemsLeftInTimeTravelerStore = Content.timeTravelerStore(user);
         var keys = Object.keys(itemsLeftInTimeTravelerStore);
 
         return keys.length === 0;
