@@ -61,6 +61,9 @@ habitrpg.controller("InventoryCtrl",
         }
 
         var item = Content.gear.flat[key];
+        if (!item) {
+          console.log(key);
+        }
 
         var bonusMultiplier = 1;
         if (_isClassItem(item)) {
@@ -324,6 +327,13 @@ habitrpg.controller("InventoryCtrl",
       return ($scope.hasAllTimeTravelerItemsOfType('mystery') &&
         $scope.hasAllTimeTravelerItemsOfType('pets') &&
         $scope.hasAllTimeTravelerItemsOfType('mounts'));
+    };
+
+    $scope.shouldShowTimeTravelerItem = function(category, item) {
+      if (category.identifier === 'pets' || category.identifier === 'mounts') {
+        return !user.items[category.identifier][item.key];
+      }
+      return !user.items.gear.owned[item.key] && user.purchased.plan.mysteryItems.indexOf(item.key) === -1;
     };
 
     $scope.hasAllTimeTravelerItemsOfType = function(type) {

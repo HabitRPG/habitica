@@ -21,7 +21,7 @@
     .col-md-12
       li.customize-menu.inventory-gear
         menu.pets-menu(label='{{::category.text}}', ng-repeat='category in timeTravelersCategories')
-          div(ng-repeat='item in category.items', ng-if='category.identifier === "pets" || category.identifier === "mounts" ? !user.items[category.identifier][item.key] : (!user.items.gear.owned[item.key] && user.purchased.plan.mysteryItems.indexOf(item.key) == -1)')
+          div(ng-repeat='item in category.items', ng-if='shouldShowTimeTravelerItem(category, item)')
             button.customize-option(class='{{item.class ? item.class : "shop_"+item.key}}',
               popover='{{item.notes}}', popover-title='{{item.text}}',
               popover-trigger='mouseenter', popover-placement='right',

@@ -12,8 +12,6 @@ import {
 
 let api = module.exports;
 
-import mysterySets from './mystery-sets';
-
 import eggs from './eggs';
 import hatchingPotions from './hatching-potions';
 import stable from './stable';
@@ -23,39 +21,15 @@ import appearances from './appearance';
 import backgrounds from './appearance/backgrounds.js'
 import spells from './spells';
 import faq from './faq';
-
-api.mystery = mysterySets;
+import timeTravelers from './time-travelers';
 
 api.itemList = ITEM_LIST;
 
 api.gear = gear;
 api.spells = spells;
 
-/*
-   Time Traveler Store, mystery sets need their items mapped in
-   */
-
-_.each(api.mystery, function(v, k) {
-  return v.items = _.where(api.gear.flat, {
-    mystery: k
-  });
-});
-
-api.timeTravelerStore = function(user) {
-  var ownedKeys;
-  var owned = user.items.gear.owned;
-  var unopenedGifts = user.purchased.plan.mysteryItems;
-  ownedKeys = _.keys((typeof owned.toObject === "function" ? owned.toObject() : void 0) || owned);
-  ownedKeys = _.union(ownedKeys, unopenedGifts);
-  return _.reduce(api.mystery, function(m, v, k) {
-    if (k === 'wondercon' || ~ownedKeys.indexOf(v.items[0].key)) {
-      return m;
-    }
-    m[k] = v;
-    return m;
-  }, {});
-};
-
+api.mystery = timeTravelers.mystery;
+api.timeTravelerStore = timeTravelers.timeTravelerStore;
 
 /*
    ---------------------------------------------------------------
@@ -86,7 +60,6 @@ api.armoire = {
     return _.contains(u.achievements.ultimateGearSets, true);
   })
 };
-
 
 /*
    ---------------------------------------------------------------
