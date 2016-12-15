@@ -1,38 +1,10 @@
 //TODO: This can be a directive and the group/user can be an object passed via attribute
 mixin groupSubscription()
-  div(ng-show="groupPane == 'subscription'")
+  div(ng-show="groupPanel == 'subscription'")
     .col-md-12
       .col-md-12
-        h2.text-center=env.t('groupBenefitsTitle')
-        .row(style="font-size: 2rem;")
-          .col-md-6.col-md-offset-3=env.t('groupBenefitsDescription')
-        .row
-          .col-md-5.col-md-offset-4
-              div
-                h3 
-                  span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
-                  =env.t('groupBenefitOneTitle')
-                span=env.t('groupBenefitOneDescription')
-              div
-                h3 
-                  span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
-                  =env.t('groupBenefitTwoTitle')
-                span=env.t('groupBenefitTwoDescription')
-              div
-                h3 
-                  span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
-                  =env.t('groupBenefitThreeTitle')
-                span=env.t('groupBenefitThreeDescription')
-              div
-                h3 
-                  span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
-                  =env.t('groupBenefitFourTitle')
-                span=env.t('groupBenefitFourDescription')
-              div
-                h3 
-                  span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
-                  =env.t('groupBenefitFiveTitle')
-                span=env.t('groupBenefitFiveDescription')
+        div(ng-hide="$state.params.upgrade")
+          +groupPlansBenefits
 
         .row
           .col-md-12

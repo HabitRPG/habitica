@@ -1,0 +1,8 @@
+script(type='text/ng-template', id='partials/options.social.groupPlans.html')
+  +groupPlansBenefits
+  
+  br
+  br
+  .row
+    .col-sm-6.col-sm-offset-3
+      a.btn.btn-primary.btn-lg.btn-block(ui-sref='options.social.guilds.create.upgrade({upgrade: true})')=env.t('createAGroup')

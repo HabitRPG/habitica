@@ -239,6 +239,7 @@
     "groupBenefitFourDescription": "Need to verify that a task really did get done before that user gets their rewards? Just adjust the approval settings for added control.",
     "groupBenefitFiveTitle": "Chat privately with your group",
     "groupBenefitFiveDescription": "Stay in the loop about important decisions in our easy-to-use chatroom!",
+    "createAGroup": "Create A Group",
 
     "cannotDeleteActiveGroup": "You cannot remove a group with an active subscription",
     "groupTasksTitle": "Group Tasks List",

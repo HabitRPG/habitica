@@ -1,4 +1,5 @@
 include ./groups/group-subscription
+include ./groups/group-plans-benefits
 
 a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter', popover-title=env.t('guildBankPop1'), popover=env.t('guildBankPop2'), popover-placement='left')
   // <span class="task-action-btn tile flush bright add-gems-btn">＋</span>
@@ -8,21 +9,21 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
     =' ' + env.t('guildGems')
 
 .container-fluid
-  ul.options-menu(ng-init="groupPane = 'chat'")
+  ul.options-menu
     li
-      a(ng-click="groupPane = 'chat'")=env.t('groupHomeTitle')
+      a(ng-click="groupPanell = 'chat'")=env.t('groupHomeTitle')
     li(ng-show='group.purchased.active')
-      a(ng-click="groupPane = 'tasks'")=env.t('groupTasksTitle')
+      a(ng-click="groupPanel = 'tasks'")=env.t('groupTasksTitle')
     li(ng-show='group.purchased.active && group.leader._id === user._id')
-      a(ng-click="groupPane = 'approvals'")=env.t('approvalsTitle')
+      a(ng-click="groupPanel = 'approvals'")=env.t('approvalsTitle')
     li
-      a(ng-click="groupPane = 'subscription'", ng-show='group.leader._id === user._id && group.purchased.plan.customerId')=env.t('subscription')
-      a(ng-click="groupPane = 'subscription'", ng-show='group.leader._id === user._id && !group.purchased.plan.customerId')=env.t('upgradeTitle')
+      a(ng-click="groupPanel = 'subscription'", ng-show='group.leader._id === user._id && group.purchased.plan.customerId')=env.t('subscription')
+      a(ng-click="groupPanel = 'subscription'", ng-show='group.leader._id === user._id && !group.purchased.plan.customerId')=env.t('upgradeTitle')
     
   .tab-content
     .tab-pane.active
         
-    .row(ng-show="groupPane == 'chat'")
+    .row(ng-show="groupPanel == 'chat'")
       .col-md-4
 
         // ------ Bosses -------
@@ -173,9 +174,9 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
           h4(ng-if='group.chat.length < 1 && group.type === "party"')=env.t('partyChatEmpty')
           h4(ng-if='group.chat.length < 1 && group.type === "guild"')=env.t('guildChatEmpty')
     
-  group-tasks(ng-show="groupPane == 'tasks'")
+  group-tasks(ng-show="groupPanel == 'tasks'")
 
-  group-approvals(ng-show="groupPane == 'approvals'", ng-if="group.leader._id === user._id", group="group")
+  group-approvals(ng-show="groupPanel == 'approvals'", ng-if="group.leader._id === user._id", group="group")
 
   +groupSubscription
         

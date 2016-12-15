@@ -139,6 +139,13 @@ window.habitrpg = angular.module('habitrpg',
           title: env.t('titlePatrons')
         })
 
+        .state('options.social.groupPlans', {
+          url: '/group-plans',
+          templateUrl: "partials/options.social.groupPlans.html",
+          // controller: 'HallHeroesCtrl',
+          title: env.t('groupPlans')
+        })
+
         .state('options.social.guilds', {
           url: '/guilds',
           templateUrl: "partials/options.social.guilds.html",
@@ -155,8 +162,15 @@ window.habitrpg = angular.module('habitrpg',
           templateUrl: "partials/options.social.guilds.create.html",
           title: env.t('titleGuilds')
         })
+
+        .state('options.social.guilds.create.upgrade', {
+          url: '/create/:upgrade',
+          templateUrl: "partials/options.social.guilds.create.html",
+          title: env.t('titleGuilds')
+        })
+
         .state('options.social.guilds.detail', {
-          url: '/:gid',
+          url: '/:gid?upgrade',
           templateUrl: 'partials/options.social.guilds.detail.html',
           title: env.t('titleGuilds'),
           controller: ['$scope', 'Groups', 'Chat', '$stateParams', 'Members', 'Challenges', 'Tasks', 'User',
