@@ -92,5 +92,7 @@
     "petsReleased": "宠物发布。",
     "mountsAndPetsReleased": "坐骑和宠物发布",
     "mountsReleased": "坐骑发布",
-    "gemsEach": "每颗宝石"
+    "gemsEach": "每颗宝石",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

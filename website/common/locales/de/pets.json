@@ -92,5 +92,7 @@
     "petsReleased": "Haustiere freigelassen.",
     "mountsAndPetsReleased": "Reit- und Haustiere freigelassen",
     "mountsReleased": "Reittiere freigelassen",
-    "gemsEach": "Edelsteine jeweils"
+    "gemsEach": "Edelsteine jeweils",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

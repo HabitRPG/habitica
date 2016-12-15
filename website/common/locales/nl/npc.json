@@ -1,5 +1,6 @@
 {
     "npc": "NPC",
+    "npcAchievementName": "<%= key %> NPC",
     "npcAchievementText": "Heeft het Kickstarter project op het hoogste niveau gesteund!",
     "mattBoch": "Matt Boch",
     "mattShall": "Zal ik je je ros brengen, <%= name %>? Als je een huisdier genoeg voedsel hebt gevoerd om het in een rijdier te veranderen, zal het hier verschijnen. Klik op een rijdier om het te zadelen!",

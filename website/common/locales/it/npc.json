@@ -1,5 +1,6 @@
 {
     "npc": "NPC",
+    "npcAchievementName": "<%= key %> NPC",
     "npcAchievementText": "Ha supportato il progetto Kickstarter al massimo livello!",
     "mattBoch": "Matt Boch",
     "mattShall": "Devo portarti il tuo destriero, <%= name %>? Una volta che avrai dato abbastanza cibo al tuo animale da trasformarlo in una cavalcatura, apparirà qui. Fai click su una cavalcatura per montare in sella!",

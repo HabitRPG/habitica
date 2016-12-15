@@ -1,5 +1,6 @@
 {
     "npc": "NPC",
+    "npcAchievementName": "<%= key %> NPC",
     "npcAchievementText": "Apoiou o projeto no Kickstarter no nível máximo!",
     "mattBoch": "Matt Boch",
     "mattShall": "Devo trazer seu corcel, <%= name %>? Uma vez que você alimentou o seu mascote o suficiente para torná-lo uma montaria, ele aparecerá aqui. Clique em uma montaria para montá-la.",
@@ -83,7 +84,7 @@
     "tourChallengesPage": "Desafios são listas de tarefas temáticas criadas por usuários! Participar de um Desafio adicionará tarefas à sua conta. Compita contra outros usuários para ganhar prêmios em gemas!",
     "tourMarketPage": "A partir do nível 3, você pode encontrar ovos e poções de eclosão aleatoriamente quando você completa tarefas. Eles aparecerão aqui - use-os para chocar mascotes! Você também pode comprar items do Mercado.",
     "tourHallPage": "Bem-vindo(a) ao Salão dos Heróis, onde os colaboradores do código aberto do Habitica são honrados. Seja através de programação, arte, música, escrita ou apenas prestatividade, eles receberam Gemas, equipamentos exclusivos e títulos prestigiosos. Você também pode contribuir para o Habitica!",
-    "tourPetsPage": "This is the Stable! After reaching level 3, you will gather pet eggs and hatching potions as you complete tasks. When you hatch a pet in the Market, it will appear here! Click a pet's image to add it to your avatar. Feed them with the food you find after level 3, and they'll grow into powerful mounts.",
+    "tourPetsPage": "Este é o Estábulo! Após alcançar o nível 3, você encontrará ovos de mascotes e poções de eclosão conforme completar tarefas. Quando você eclodir um ovo de mascote no Mercado, ele vai aparecer aqui! Clique na imagem de um mascote para adicioná-la a seu avatar. Alimente-os com a comida que encontrar após o nível 3 e eles se tornarão montarias poderosas.",
     "tourMountsPage": "Depois que você alimentar um mascote o suficiente para transformá-lo em uma montaria, ele aparecerá aqui. (Mascotes, montarias e comida estão disponíveis depois do nível 3.) Clique em uma montaria para subir nela!",
     "tourEquipmentPage": "É aqui que seu Equipamento fica guardado! Seu Equipamento de Batalha afeta seus atributos. Se você quiser usar um Equipamento no seu avatar sem alterar seus atributos, clique em \"Usar Traje\".",
     "equipmentAlreadyOwned": "Você já possui esse equipamento",

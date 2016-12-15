@@ -1,5 +1,6 @@
 {
     "npc": "NPC",
+    "npcAchievementName": "<%= key %> NPC",
     "npcAchievementText": "Wsparł projekt na Kickstarterze na maksymalnym poziomie!",
     "mattBoch": "Matt Boch",
     "mattShall": "Mam przyprowadzić wierzchowca, <%= name %>? Gdy nakarmisz chowańca wystarczającą ilością jedzenia, by zamienił się w wierzchowca, pojawi się tutaj. Kliknij wierzchowca, by go osiodłać!",
@@ -83,7 +84,7 @@
     "tourChallengesPage": "Wyzwania są tematycznymi listami zadań utworzonymi przez użytkowników! Dołączenie do wyzwania spowoduje dodanie jego zadań do Twojego konta. Rywalizuj z innymi i wygrywaj klejnoty!",
     "tourMarketPage": "Od poziomu 3, jaja i eliksiry wyklucia zdobywasz losowo po ukończeniu zadań. Pojawiają się one tutaj - użyj ich, a wyklują się chowańce! Możesz także kupować przedmioty na Targu.",
     "tourHallPage": "Witaj w Galerii Bohaterów, gdzie honorujemy wolontariuszy pracujących na rzecz Habitiki. Współtworzyli kod, obrazy, muzykę, pisali teksty albo byli po prostu pomocni, za co otrzymali klejnoty, wyjątkowe wyposażenie i prestiżowe tytuły. Ty także możesz dać Habitice coś od siebie!",
-    "tourPetsPage": "This is the Stable! After reaching level 3, you will gather pet eggs and hatching potions as you complete tasks. When you hatch a pet in the Market, it will appear here! Click a pet's image to add it to your avatar. Feed them with the food you find after level 3, and they'll grow into powerful mounts.",
+    "tourPetsPage": "To jest Stajnia. Po osiągnięciu poziomu 3, wykonując zadania będziesz zbierać jaja i eliksiry do wykluwania chowańców. Jeśli wyklujesz chowańca w Sklepie, pojawi się on tutaj! Naciśnij na zdjęcie chowańca, aby pojawił się w Twoim awatarze! Karm chowańce jedzeniem zdobywanym od poziomu 3, aby wyrosły z nich potężne wierzchowce.",
     "tourMountsPage": "Kiedy ofiarujesz chowańcowi wystarczającą ilość karmy, by zmienił się w wierzchowca, pojawi się tutaj. (Chowańce, wierzchowce i karmę odblokowuje uzyskanie poziomu 3.) Kliknij na wierzchowcu, aby go osiodłać!",
     "tourEquipmentPage": "Tutaj znajduje się Twoje wyposażenie! Twój rynsztunek wpływa na statystyki. Jeśli chcesz, by Twój awatar posiadał inny rynsztunek bez zmiany statystyk, kliknij \"Dostosuj strój\".",
     "equipmentAlreadyOwned": "Już posiadasz tę część ekwipunku.",

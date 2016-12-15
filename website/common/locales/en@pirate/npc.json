@@ -1,5 +1,6 @@
 {
     "npc": "NPC",
+    "npcAchievementName": "<%= key %> NPC",
     "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
     "mattBoch": "Matt Boch",
     "mattShall": "Shall I bring ye yer steed, <%= name %>? Once ye've fed a pet enough food t' turn it into a mount, it will appear here. Click a mount t' saddle up!",

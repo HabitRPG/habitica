@@ -92,5 +92,7 @@
     "petsReleased": "Huisdieren vrijgelaten.",
     "mountsAndPetsReleased": "Rijdieren en huisdieren vrijgelaten",
     "mountsReleased": "Rijdieren vrijgelaten",
-    "gemsEach": "edelstenen elk"
+    "gemsEach": "edelstenen elk",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

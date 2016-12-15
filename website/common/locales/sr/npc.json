@@ -1,5 +1,6 @@
 {
     "npc": "NPC",
+    "npcAchievementName": "<%= key %> NPC",
     "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
     "mattBoch": "Met Bok",
     "mattShall": "Želite li da jašete, <%= name %>? Zveri kojima date dovoljno hrane će odrasti i pojaviće se ovde. Odaberite zver, i spremni ste.",
