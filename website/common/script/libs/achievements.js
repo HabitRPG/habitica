@@ -97,7 +97,7 @@ function _addSimpleWithMasterCount (result, user, data) {
     key: data.path,
     value,
     optionalCount: value,
-    earned: Boolean(value),
+    earned: user.achievements[data.path],
   });
 }
 

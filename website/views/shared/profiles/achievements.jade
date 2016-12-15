@@ -1,6 +1,6 @@
 mixin simpleAchiev(achiev)
   - var popoverHtml = '<div class="{{earnedClass}}">{{achiev.title}}<hr>{{achiev.text}}</div>';
-  div(ng-init='earnedClass = achiev.earned ? "" : "muted"', 
+  div(ng-init='earnedClass = achiev.earned ? "" : "muted"',
       data-popover-html='#{popoverHtml}',
       popover-placement='{{achievPopoverPlacement}}',
       popover-append-to-body='{{achievAppendToBody}}')&attributes(attributes)
