@@ -10,8 +10,7 @@ mixin simpleAchiev(achiev)
       popover-append-to-body='{{achievAppendToBody}}')
 
       .achievement(ng-class='achiev.icon + "2x"', ng-if='achiev.earned')
-        .counter.badge.badge-info.stack-count(ng-if='(achiev.optionalCount)')
-          {{::achiev.optionalCount}}
+        .counter.badge.badge-info.stack-count(ng-if='(achiev.optionalCount)') {{::achiev.optionalCount}}
       .achievement(class='achievement-unearned2x', ng-if='!(achiev.earned)')
 
 
