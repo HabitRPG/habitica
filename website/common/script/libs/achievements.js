@@ -212,6 +212,7 @@ function _getBasicAchievements (user, language) {
     text: rebirthText,
     icon: 'achievement-sun',
     earned: Boolean(user.achievements.rebirths),
+    optionalCount: user.achievements.rebirths,
   });
 
   return result;
