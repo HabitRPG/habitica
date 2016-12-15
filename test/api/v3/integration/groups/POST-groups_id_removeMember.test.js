@@ -4,9 +4,6 @@ import {
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 import * as email from '../../../../../website/server/libs/email';
-import { model as User } from '../../../../../website/server/models/user';
-
-
 
 describe('POST /groups/:groupId/removeMember/:memberId', () => {
   let leader;
