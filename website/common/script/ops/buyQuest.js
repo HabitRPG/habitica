@@ -38,14 +38,10 @@ module.exports = function buyQuest (user, req = {}, analytics) {
     });
   }
 
-  if (req.v2 === true) {
-    return user.items.quests;
-  } else {
-    return [
-      user.items.quests,
-      i18n.t('messageBought', {
-        itemText: item.text(req.language),
-      }, req.language),
-    ];
-  }
+  return [
+    user.items.quests,
+    i18n.t('messageBought', {
+      itemText: item.text(req.language),
+    }, req.language),
+  ];
 };

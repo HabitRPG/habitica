@@ -74,7 +74,7 @@
     "clearTags": "Borrar",
     "hideTags": "Ocultar",
     "showTags": "Mostrar",
-    "toRequired": "Debes entregar un valor",
+    "toRequired": "You must supply a \"to\" property",
     "startDate": "Día de inicio",
     "startDateHelpTitle": "¿Cuándo debería comenzar esta tarea?",
     "startDateHelp": "Ajusta la fecha en la que esta tarea comenzará a tener efecto. No estará prevista para días anteriores.",
@@ -134,5 +134,9 @@
     "strengthExample": "Relacionado al ejercicio y actividad.",
     "intelligenceExample": "Relacionado a los objetivos academicos o mentalmente desafiantes.",
     "perceptionExample": "Relacionado a trabajo o tareas economicas.",
-    "constitutionExample": "Relacionado a la salud, el bienestar y la interacción social."
+    "constitutionExample": "Relacionado a la salud, el bienestar y la interacción social.",
+    "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
+    "taskApprovalHasBeenRequested": "Approval has been requested",
+    "approvals": "Approvals",
+    "approvalRequired": "Approval Required"
 }

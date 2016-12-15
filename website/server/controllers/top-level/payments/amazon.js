@@ -1,6 +1,7 @@
 import {
   BadRequest,
   NotAuthorized,
+  NotFound,
 } from '../../../libs/errors';
 import amzLib from '../../../libs/amazonPayments';
 import {
@@ -12,6 +13,10 @@ import payments from '../../../libs/payments';
 import moment from 'moment';
 import { model as Coupon } from '../../../models/coupon';
 import { model as User } from '../../../models/user';
+import {
+  model as Group,
+  basicFields as basicGroupFields,
+} from '../../../models/group';
 import cc from 'coupon-code';
 
 let api = {};
@@ -19,7 +24,6 @@ let api = {};
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {post} /amazon/verifyAccessToken Amazon Payments: verify access token
- * @apiVersion 3.0.0
  * @apiName AmazonVerifyAccessToken
  * @apiGroup Payments
  *
@@ -35,6 +39,7 @@ api.verifyAccessToken = {
     if (!accessToken) throw new BadRequest('Missing req.body.access_token');
 
     await amzLib.getTokenInfo(accessToken);
+
     res.respond(200, {});
   },
 };
@@ -42,7 +47,6 @@ api.verifyAccessToken = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {post} /amazon/createOrderReferenceId Amazon Payments: create order reference id
- * @apiVersion 3.0.0
  * @apiName AmazonCreateOrderReferenceId
  * @apiGroup Payments
  *
@@ -72,7 +76,6 @@ api.createOrderReferenceId = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {post} /amazon/checkout Amazon Payments: checkout
- * @apiVersion 3.0.0
  * @apiName AmazonCheckout
  * @apiGroup Payments
  *
@@ -141,10 +144,15 @@ api.checkout = {
       if (gift.type === 'subscription') method = 'createSubscription';
       gift.member = await User.findById(gift ? gift.uuid : undefined);
       data.gift = gift;
-      data.paymentMethod = 'Gift';
+      data.paymentMethod = 'Amazon Payments (Gift)';
     }
 
     await payments[method](data);
+
+    if (gift && gift.type === 'subscription' && gift.member._id !== user._id) {
+      gift.member = user;
+      await payments.createSubscription(data);
+    }
 
     res.respond(200);
   },
@@ -153,7 +161,6 @@ api.checkout = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {post} /amazon/subscribe Amazon Payments: subscribe
- * @apiVersion 3.0.0
  * @apiName AmazonSubscribe
  * @apiGroup Payments
  *
@@ -168,6 +175,7 @@ api.subscribe = {
     let sub = req.body.subscription ? shared.content.subscriptionBlocks[req.body.subscription] : false;
     let coupon = req.body.coupon;
     let user = res.locals.user;
+    let groupId = req.body.groupId;
 
     if (!sub) throw new BadRequest(res.t('missingSubscriptionCode'));
     if (!billingAgreementId) throw new BadRequest('Missing req.body.billingAgreementId');
@@ -217,6 +225,7 @@ api.subscribe = {
       paymentMethod: 'Amazon Payments',
       sub,
       headers: req.headers,
+      groupId,
     });
 
     res.respond(200);
@@ -226,7 +235,6 @@ api.subscribe = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {get} /amazon/subscribe/cancel Amazon Payments: subscribe cancel
- * @apiVersion 3.0.0
  * @apiName AmazonSubscribe
  * @apiGroup Payments
  **/
@@ -236,20 +244,52 @@ api.subscribeCancel = {
   middlewares: [authWithUrl],
   async handler (req, res) {
     let user = res.locals.user;
-    let billingAgreementId = user.purchased.plan.customerId;
+    let groupId = req.query.groupId;
+
+    let billingAgreementId;
+    let planId;
+    let lastBillingDate;
+
+    if (groupId) {
+      let groupFields = basicGroupFields.concat(' purchased');
+      let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+
+      if (!group) {
+        throw new NotFound(res.t('groupNotFound'));
+      }
+
+      if (!group.leader === user._id) {
+        throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
+      }
+
+      billingAgreementId = group.purchased.plan.customerId;
+      planId = group.purchased.plan.planId;
+      lastBillingDate = group.purchased.plan.lastBillingDate;
+    } else {
+      billingAgreementId = user.purchased.plan.customerId;
+      planId = user.purchased.plan.planId;
+      lastBillingDate = user.purchased.plan.lastBillingDate;
+    }
 
     if (!billingAgreementId) throw new NotAuthorized(res.t('missingSubscription'));
 
-    await amzLib.closeBillingAgreement({
+    let details = await amzLib.getBillingAgreementDetails({
       AmazonBillingAgreementId: billingAgreementId,
     });
 
-    let subscriptionBlock = shared.content.subscriptionBlocks[user.purchased.plan.planId];
+    if (details.BillingAgreementDetails.BillingAgreementStatus.State !== 'Closed') {
+      await amzLib.closeBillingAgreement({
+        AmazonBillingAgreementId: billingAgreementId,
+      });
+    }
+
+    let subscriptionBlock = shared.content.subscriptionBlocks[planId];
     let subscriptionLength = subscriptionBlock.months * 30;
 
     await payments.cancelSubscription({
       user,
-      nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
+      groupId,
+      nextBill: moment(lastBillingDate).add({ days: subscriptionLength }),
       paymentMethod: 'Amazon Payments',
       headers: req.headers,
     });

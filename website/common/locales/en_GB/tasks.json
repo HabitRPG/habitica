@@ -74,7 +74,7 @@
     "clearTags": "Clear",
     "hideTags": "Hide",
     "showTags": "Show",
-    "toRequired": "You must supply a to value",
+    "toRequired": "You must supply a \"to\" property.",
     "startDate": "Start Date",
     "startDateHelpTitle": "When should this task start?",
     "startDateHelp": "Set the date for which this task takes effect. Will not be due on earlier days.",
@@ -134,5 +134,9 @@
     "strengthExample": "Relating to exercise and activity",
     "intelligenceExample": "Relating to academic or mentally challenging pursuits",
     "perceptionExample": "Relating to work or financial tasks",
-    "constitutionExample": "Relating to health, wellness, and social interaction"
+    "constitutionExample": "Relating to health, wellness, and social interaction",
+    "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
+    "taskApprovalHasBeenRequested": "Approval has been requested",
+    "approvals": "Approvals",
+    "approvalRequired": "Approval Required"
 }

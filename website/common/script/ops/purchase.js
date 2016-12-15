@@ -113,17 +113,13 @@ module.exports = function purchase (user, req = {}, analytics) {
       itemKey: key,
       itemType: 'Market',
       acquireMethod: 'Gems',
-      gemCost: item.value,
+      gemCost: price * 4,
       category: 'behavior',
       headers: req.headers,
     });
   }
 
-  if (req.v2 === true) {
-    return _.pick(user, splitWhitespace('items balance'));
-  } else {
-    return [
-      _.pick(user, splitWhitespace('items balance')),
-    ];
-  }
+  return [
+    _.pick(user, splitWhitespace('items balance')),
+  ];
 };

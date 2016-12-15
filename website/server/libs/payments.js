@@ -7,6 +7,15 @@ import {
 import moment from 'moment';
 import { sendNotification as sendPushNotification } from './pushNotifications';
 import shared from '../../common' ;
+import {
+  model as Group,
+  basicFields as basicGroupFields,
+} from '../models/group';
+import {
+  NotAuthorized,
+  NotFound,
+} from './errors';
+import slack from './slack';
 
 let api = {};
 
@@ -24,40 +33,74 @@ function revealMysteryItems (user) {
   });
 }
 
+function _dateDiff (earlyDate, lateDate) {
+  if (!earlyDate || !lateDate || moment(lateDate).isBefore(earlyDate)) return 0;
+
+  return moment(lateDate).diff(earlyDate, 'months', true);
+}
+
 api.createSubscription = async function createSubscription (data) {
   let recipient = data.gift ? data.gift.member : data.user;
-  let plan = recipient.purchased.plan;
   let block = shared.content.subscriptionBlocks[data.gift ? data.gift.subscription.key : data.sub.key];
   let months = Number(block.months);
+  let today = new Date();
+  let plan;
+  let group;
+  let groupId;
+  let itemPurchased = 'Subscription';
+  let purchaseType = 'subscribe';
+
+  //  If we are buying a group subscription
+  if (data.groupId) {
+    let groupFields = basicGroupFields.concat(' purchased');
+    group = await Group.getGroup({user: data.user, groupId: data.groupId, populateLeader: false, groupFields});
+
+    if (!group) {
+      throw new NotFound(shared.i18n.t('groupNotFound'));
+    }
+
+    if (!group.leader === data.user._id) {
+      throw new NotAuthorized(shared.i18n.t('onlyGroupLeaderCanManageSubscription'));
+    }
+
+    recipient = group;
+    itemPurchased = 'Group-Subscription';
+    purchaseType = 'group-subscribe';
+    groupId = group._id;
+  }
+
+  plan = recipient.purchased.plan;
 
   if (data.gift) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
       plan.extraMonths += months;
     } else {
-      if (!plan.dateUpdated) plan.dateUpdated = new Date();
+      if (!plan.dateUpdated) plan.dateUpdated = today;
       if (moment(plan.dateTerminated).isAfter()) {
         plan.dateTerminated = moment(plan.dateTerminated).add({months}).toDate();
       } else {
         plan.dateTerminated = moment().add({months}).toDate();
+        plan.dateCreated = today;
       }
     }
 
     if (!plan.customerId) plan.customerId = 'Gift'; // don't override existing customer, but all sub need a customerId
   } else {
+    if (!plan.dateTerminated) plan.dateTerminated = today;
+
     _(plan).merge({ // override with these values
       planId: block.key,
       customerId: data.customerId,
-      dateUpdated: new Date(),
-      gemsBought: 0,
+      dateUpdated: today,
       paymentMethod: data.paymentMethod,
-      extraMonths: Number(plan.extraMonths) +
-        Number(plan.dateTerminated ? moment(plan.dateTerminated).diff(new Date(), 'months', true) : 0),
+      extraMonths: Number(plan.extraMonths) + _dateDiff(today, plan.dateTerminated),
       dateTerminated: null,
       // Specify a lastBillingDate just for Amazon Payments
       // Resetted every time the subscription restarts
-      lastBillingDate: data.paymentMethod === 'Amazon Payments' ? new Date() : undefined,
+      lastBillingDate: data.paymentMethod === 'Amazon Payments' ? today : undefined,
     }).defaults({ // allow non-override if a plan was previously used
-      dateCreated: new Date(),
+      gemsBought: 0,
+      dateCreated: today,
       mysteryItems: [],
     }).value();
   }
@@ -71,7 +114,9 @@ api.createSubscription = async function createSubscription (data) {
     plan.consecutive.trinkets += perks;
   }
 
-  revealMysteryItems(recipient);
+  if (recipient !== group) {
+    revealMysteryItems(recipient);
+  }
 
   if (!data.gift) {
     txnEmail(data.user, 'subscription-begins');
@@ -79,9 +124,10 @@ api.createSubscription = async function createSubscription (data) {
 
   analytics.trackPurchase({
     uuid: data.user._id,
-    itemPurchased: 'Subscription',
+    groupId,
+    itemPurchased,
     sku: `${data.paymentMethod.toLowerCase()}-subscription`,
-    purchaseType: 'subscribe',
+    purchaseType,
     paymentMethod: data.paymentMethod,
     quantity: 1,
     gift: Boolean(data.gift),
@@ -89,7 +135,7 @@ api.createSubscription = async function createSubscription (data) {
     headers: data.headers,
   });
 
-  data.user.purchased.txnCount++;
+  if (!group) data.user.purchased.txnCount++;
 
   if (data.gift) {
     let message = `\`Hello ${data.gift.member.profile.name}, ${data.user.profile.name} has sent you ${shared.content.subscriptionBlocks[data.gift.subscription.key].months} months of subscription!\``;
@@ -120,16 +166,57 @@ api.createSubscription = async function createSubscription (data) {
     }
   }
 
-  await data.user.save();
+  if (group) {
+    await group.save();
+  } else {
+    await data.user.save();
+  }
+
   if (data.gift) await data.gift.member.save();
+
+  slack.sendSubscriptionNotification({
+    buyer: {
+      id: data.user._id,
+      name: data.user.profile.name,
+      email: getUserInfo(data.user, ['email']).email,
+    },
+    recipient: data.gift ? {
+      id: data.gift.member._id,
+      name: data.gift.member.profile.name,
+      email: getUserInfo(data.gift.member, ['email']).email,
+    } : {},
+    paymentMethod: data.paymentMethod,
+    months,
+  });
 };
 
 // Sets their subscription to be cancelled later
 api.cancelSubscription = async function cancelSubscription (data) {
-  let plan = data.user.purchased.plan;
+  let plan;
+  let group;
+  let cancelType = 'unsubscribe';
+  let groupId;
+
+  //  If we are buying a group subscription
+  if (data.groupId) {
+    let groupFields = basicGroupFields.concat(' purchased');
+    group = await Group.getGroup({user: data.user, groupId: data.groupId, populateLeader: false, groupFields});
+
+    if (!group) {
+      throw new NotFound(shared.i18n.t('groupNotFound'));
+    }
+
+    if (!group.leader === data.user._id) {
+      throw new NotAuthorized(shared.i18n.t('onlyGroupLeaderCanManageSubscription'));
+    }
+    plan = group.purchased.plan;
+  } else {
+    plan = data.user.purchased.plan;
+  }
+
   let now = moment();
   let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days') : 30;
-  let extraDays = Math.ceil(30 * plan.extraMonths);
+  let extraDays = Math.ceil(30.5 * plan.extraMonths);
   let nowStr = `${now.format('MM')}/${moment(plan.dateUpdated).format('DD')}/${now.format('YYYY')}`;
   let nowStrFormat = 'MM/DD/YYYY';
 
@@ -141,12 +228,22 @@ api.cancelSubscription = async function cancelSubscription (data) {
 
   plan.extraMonths = 0; // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
 
-  await data.user.save();
+  if (group) {
+    await group.save();
+  } else {
+    await data.user.save();
+  }
 
   txnEmail(data.user, 'cancel-subscription');
 
-  analytics.track('unsubscribe', {
+  if (group) {
+    cancelType = 'group-unsubscribe';
+    groupId = group._id;
+  }
+
+  analytics.track(cancelType, {
     uuid: data.user._id,
+    groupId,
     gaCategory: 'commerce',
     gaLabel: data.paymentMethod,
     paymentMethod: data.paymentMethod,

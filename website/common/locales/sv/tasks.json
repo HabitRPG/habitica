@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Borttagning slutförd",
-    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
+    "lotOfToDos": "Dina 30 senast slutförda att-göra visas här. Du kan se äldre slutförda att-göra på Data > Data Display Tool eller Data > Data export > Användardata.",
     "deleteToDosExplanation": "Om du klickar på knappen nedan, kommer alla dina Att-Göra uppgifter, och arkiverade Att-Göra uppgifter att bli permanent raderade. Exportera dem först om du vill behålla datan.",
     "addmultiple": "Lägg till fler",
     "addsingle": "Lägg till en",
@@ -20,10 +20,10 @@
     "extraNotes": "Extra Anteckningar",
     "direction/Actions": "Riktning/Handling",
     "advancedOptions": "Avancerade Alternativ",
-    "taskAlias": "Task Alias",
+    "taskAlias": "Alias Uppgift",
     "taskAliasPopover": "This task alias can be used when integrating with 3rd party integrations. Only dashes, underscores, and alphanumeric characters are supported. The task alias must be unique among all your tasks.",
     "taskAliasPlaceholder": "your-task-alias-here",
-    "taskAliasPopoverWarning": "WARNING: Changing this value will break any 3rd party integrations that rely on the task alias.",
+    "taskAliasPopoverWarning": "VARNING: Ändringar av detta värde kommer bryta eventuella tredjepartsintegrationer som använder uppgiftens alias.",
     "difficulty": "Svårighetsgrad",
     "difficultyHelpTitle": "Hur svår är den här uppgiften?",
     "difficultyHelpContent": "Ju svårare en uppgift är desto mer Erfarenhet och Guld ger den när du klarar den... men skadar dig också mer om det är en missad Daglig uppgift eller Dålig vana!",
@@ -74,7 +74,7 @@
     "clearTags": "Återställ",
     "hideTags": "Förminska",
     "showTags": "Visa",
-    "toRequired": "You must supply a to value",
+    "toRequired": "You must supply a \"to\" property",
     "startDate": "Startdatum",
     "startDateHelpTitle": "När Borde Detta Uppdraget Börja?",
     "startDateHelp": "Ställ in det datum för vilket den här uppgiften börjar. Kommer inte infalla på föreliggande dagar.",
@@ -134,5 +134,9 @@
     "strengthExample": "Relating to exercise and activity",
     "intelligenceExample": "Relating to academic or mentally challenging pursuits",
     "perceptionExample": "Relating to work or financial tasks",
-    "constitutionExample": "Relating to health, wellness, and social interaction"
+    "constitutionExample": "Relating to health, wellness, and social interaction",
+    "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
+    "taskApprovalHasBeenRequested": "Approval has been requested",
+    "approvals": "Approvals",
+    "approvalRequired": "Approval Required"
 }

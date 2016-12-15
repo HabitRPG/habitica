@@ -11,6 +11,7 @@
     "unsubChallenge": "Хибний запит випробування: це завдання було частиною випробування, однак Ви відписалися від цього випробування. Що робити із полишеними завданнями?",
     "challengeWinner": "Подолав такі випробування",
     "challenges": "Випробування",
+    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Challenges</a>",
     "noChallenges": "Ще немає випробувань, відвідайте",
     "toCreate": "аби створити одне.",
     "selectWinner": "Обрати переможця та закрити випробування:",

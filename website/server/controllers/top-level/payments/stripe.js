@@ -3,11 +3,16 @@ import shared from '../../../../common';
 import {
   BadRequest,
   NotAuthorized,
+  NotFound,
 } from '../../../libs/errors';
 import { model as Coupon } from '../../../models/coupon';
 import payments from '../../../libs/payments';
 import nconf from 'nconf';
 import { model as User } from '../../../models/user';
+import {
+  model as Group,
+  basicFields as basicGroupFields,
+} from '../../../models/group';
 import cc from 'coupon-code';
 import {
   authWithHeaders,
@@ -21,7 +26,6 @@ let api = {};
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {post} /stripe/checkout Stripe checkout
- * @apiVersion 3.0.0
  * @apiName StripeCheckout
  * @apiGroup Payments
  *
@@ -42,6 +46,7 @@ api.checkout = {
     let user = res.locals.user;
     let gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
     let sub = req.query.sub ? shared.content.subscriptionBlocks[req.query.sub] : false;
+    let groupId = req.query.groupId;
     let coupon;
     let response;
 
@@ -85,6 +90,7 @@ api.checkout = {
         paymentMethod: 'Stripe',
         sub,
         headers: req.headers,
+        groupId,
       });
     } else {
       let method = 'buyGems';
@@ -99,10 +105,15 @@ api.checkout = {
         let member = await User.findById(gift.uuid);
         gift.member = member;
         if (gift.type === 'subscription') method = 'createSubscription';
-        data.paymentMethod = 'Gift';
+        data.paymentMethod = 'Stripe (Gift)';
       }
 
       await payments[method](data);
+
+      if (gift && gift.type === 'subscription' && gift.member._id !== user._id) {
+        gift.member = user;
+        await payments.createSubscription(data);
+      }
     }
 
     res.respond(200, {});
@@ -112,7 +123,6 @@ api.checkout = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {post} /stripe/subscribe/edit Edit Stripe subscription
- * @apiVersion 3.0.0
  * @apiName StripeSubscribeEdit
  * @apiGroup Payments
  *
@@ -126,8 +136,26 @@ api.subscribeEdit = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let token = req.body.id;
+    let groupId = req.body.groupId;
     let user = res.locals.user;
-    let customerId = user.purchased.plan.customerId;
+    let customerId;
+
+    //  If we are buying a group subscription
+    if (groupId) {
+      let groupFields = basicGroupFields.concat(' purchased');
+      let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+
+      if (!group) {
+        throw new NotFound(res.t('groupNotFound'));
+      }
+
+      if (!group.leader === user._id) {
+        throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
+      }
+      customerId = group.purchased.plan.customerId;
+    } else {
+      customerId = user.purchased.plan.customerId;
+    }
 
     if (!customerId) throw new NotAuthorized(res.t('missingSubscription'));
     if (!token) throw new BadRequest('Missing req.body.id');
@@ -143,7 +171,6 @@ api.subscribeEdit = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {get} /stripe/subscribe/cancel Cancel Stripe subscription
- * @apiVersion 3.0.0
  * @apiName StripeSubscribeCancel
  * @apiGroup Payments
  **/
@@ -153,13 +180,39 @@ api.subscribeCancel = {
   middlewares: [authWithUrl],
   async handler (req, res) {
     let user = res.locals.user;
-    if (!user.purchased.plan.customerId) throw new NotAuthorized(res.t('missingSubscription'));
+    let groupId = req.query.groupId;
+    let customerId;
 
-    let customer = await stripe.customers.retrieve(user.purchased.plan.customerId);
-    await stripe.customers.del(user.purchased.plan.customerId);
+    if (groupId) {
+      let groupFields = basicGroupFields.concat(' purchased');
+      let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+
+      if (!group) {
+        throw new NotFound(res.t('groupNotFound'));
+      }
+
+      if (!group.leader === user._id) {
+        throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
+      }
+      customerId = group.purchased.plan.customerId;
+    } else {
+      customerId = user.purchased.plan.customerId;
+    }
+
+    if (!customerId) throw new NotAuthorized(res.t('missingSubscription'));
+
+    let customer = await stripe.customers.retrieve(customerId);
+
+    let subscription = customer.subscription;
+    if (!subscription) {
+      subscription = customer.subscriptions.data[0];
+    }
+
+    await stripe.customers.del(customerId);
     await payments.cancelSubscription({
       user,
-      nextBill: customer.subscription.current_period_end * 1000, // timestamp in seconds
+      groupId,
+      nextBill: subscription.current_period_end * 1000, // timestamp in seconds
       paymentMethod: 'Stripe',
     });
 

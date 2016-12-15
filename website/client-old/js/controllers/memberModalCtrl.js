@@ -1,8 +1,8 @@
 "use strict";
 
 habitrpg
-  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification', 'Groups', 'Chat', '$controller', 'Stats',
-    function($scope, $rootScope, Members, Shared, $http, Notification, Groups, Chat, $controller, Stats) {
+  .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification', 'Groups', 'Chat', '$controller', 'Stats', 'Costume',
+    function($scope, $rootScope, Members, Shared, $http, Notification, Groups, Chat, $controller, Stats, Costume) {
 
       $controller('RootCtrl', {$scope: $scope});
       $rootScope.appLoaded = true;
@@ -17,8 +17,21 @@ habitrpg
       $scope.$watch( function() { return Members.selectedMember; }, function (member) {
         if(member) {
           $scope.profile = member;
+
+          $scope.achievements = Shared.achievements.getAchievementsForProfile($scope.profile);
+          $scope.achievPopoverPlacement = 'left';
+          $scope.achievAppendToBody = 'false'; // append-to-body breaks popovers in modal windows
         }
       });
+
+      $scope.costume = Costume;
+
+      $scope.keyDownListener = function (e) {
+        if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+          $scope.sendPrivateMessage($scope.profile._id, $scope._message);
+        }
+      };
+
 
       $scope.sendPrivateMessage = function(uuid, message){
         if (!message) return;
@@ -49,9 +62,11 @@ habitrpg
       };
 
       $scope.reportAbuse = function(reporter, message, groupId) {
-        message.flags[reporter._id] = true;
         Chat.flagChatMessage(groupId, message.id)
           .then(function(data){
+            var res = data.data.data;
+            message.flags = res.flags;
+            message.flagCount = res.flagCount;
             Notification.text(window.env.t('abuseReported'));
             $scope.$close();
           });

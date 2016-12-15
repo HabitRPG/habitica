@@ -3,7 +3,7 @@
  Set up "+1 Exp", "Level Up", etc notifications
  */
 angular.module("habitrpg").factory("Notification",
-['$filter', function($filter) {
+['$filter', 'Shared', '$rootScope', function($filter, Shared, $rootScope) {
 
   /**
    Show "+ 5 {gold_coin} 3 {silver_coin}"
@@ -56,6 +56,10 @@ angular.module("habitrpg").factory("Notification",
     _notify(val, 'drop', dropClass);
   }
 
+  function quest(type, val) {
+    _notify(window.env.t(type, { val: val }), 'success');
+  }
+
   function exp(val) {
     if (val < -50) return; // don't show when they level up (resetting their exp)
     _notify(_sign(val) + " " + _round(val) + " " + window.env.t('experience'), 'xp', 'glyphicon glyphicon-star');
@@ -90,7 +94,7 @@ angular.module("habitrpg").factory("Notification",
   }
 
   function streak(val) {
-    _notify(window.env.t('streakName') + ': ' + val, 'streak', 'glyphicon glyphicon-repeat');
+    _notify(window.env.t('streaks') + ': ' + val, 'streak', 'glyphicon glyphicon-repeat');
   }
 
   function text(val, onClick){
@@ -135,6 +139,28 @@ angular.module("habitrpg").factory("Notification",
     });
   }
 
+  // Login incentive
+  // @TODO: Document reward data param
+  // @TODO: loadWidgets is a circular dependency but we should not inject it this way
+  function showLoginIncentive (user, rewardData, loadWidgets) {
+    var modalScope = $rootScope.$new();
+    modalScope.data = rewardData;
+    var nextRewardKey = Shared.content.loginIncentives[user.loginIncentives].nextRewardAt;
+    modalScope.nextReward = Shared.content.loginIncentives[nextRewardKey];
+    modalScope.user = user;
+    // modalScope.loadWidgets = Social.loadWidgets;
+    modalScope.loadWidgets = loadWidgets;
+
+    var modalKey = 'login-incentives';
+    if (rewardData.rewardKey) {
+      modalKey = 'login-incentives-reward-unlocked';
+    }
+
+    $rootScope.openModal(modalKey, {
+      scope: modalScope
+    });
+  }
+
   return {
     coins: coins,
     crit: crit,
@@ -147,6 +173,8 @@ angular.module("habitrpg").factory("Notification",
     markdown: markdown,
     mp: mp,
     streak: streak,
-    text: text
+    text: text,
+    quest: quest,
+    showLoginIncentive: showLoginIncentive,
   };
 }]);

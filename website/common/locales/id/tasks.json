@@ -74,7 +74,7 @@
     "clearTags": "Hapus",
     "hideTags": "Sembunyikan",
     "showTags": "Perlihatkan",
-    "toRequired": "Kamu harus menyediakan nilai",
+    "toRequired": "You must supply a \"to\" property",
     "startDate": "Tanggal Mulai",
     "startDateHelpTitle": "Kapan tugas ini dimulai?",
     "startDateHelp": "Tentukan tanggal di mana tugas ini memiliki efek. Tidak akan bisa menentukan tenggat waktu pada hari yang telah lewat.",
@@ -134,5 +134,9 @@
     "strengthExample": "Berhubungan dengan latihan dan aktivitas",
     "intelligenceExample": "Berhubungan dengan akademik atau pekerjaan yang menantang otak",
     "perceptionExample": "Berhubungan dengan pekerjaan dan tugas finansial",
-    "constitutionExample": "Berhubungan dengan kesehatan dan interaksi sosial"
+    "constitutionExample": "Berhubungan dengan kesehatan dan interaksi sosial",
+    "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
+    "taskApprovalHasBeenRequested": "Approval has been requested",
+    "approvals": "Approvals",
+    "approvalRequired": "Approval Required"
 }

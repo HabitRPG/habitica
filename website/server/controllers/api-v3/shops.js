@@ -6,11 +6,10 @@ let api = {};
 /**
  * @apiIgnore
  * @api {get} /api/v3/shops/market get the available items for the market
- * @apiVersion 3.0.0
  * @apiName GetMarketItems
  * @apiGroup Shops
  *
- * @apiSuccess {Object} data List of push devices
+ * @apiSuccess {Object} data List of available items
  * @apiSuccess {string} message Success message
  */
 api.getMarketItems = {
@@ -35,11 +34,10 @@ api.getMarketItems = {
 /**
  * @apiIgnore
  * @api {get} /api/v3/shops/quests get the available items for the quests shop
- * @apiVersion 3.0.0
  * @apiName GetQuestShopItems
  * @apiGroup Shops
  *
- * @apiSuccess {Object} data List of push devices
+ * @apiSuccess {Object} data List of available quests
  * @apiSuccess {string} message Success message
  */
 api.getQuestShopItems = {
@@ -64,11 +62,10 @@ api.getQuestShopItems = {
 /**
  * @apiIgnore
  * @api {get} /api/v3/shops/time-travelers get the available items for the time travelers shop
- * @apiVersion 3.0.0
  * @apiName GetTimeTravelersShopItems
  * @apiGroup Shops
  *
- * @apiSuccess {Object} data List of push devices
+ * @apiSuccess {Object} data List of available items
  * @apiSuccess {string} message Success message
  */
 api.getTimeTravelerShopItems = {
@@ -94,11 +91,10 @@ api.getTimeTravelerShopItems = {
 /**
  * @apiIgnore
  * @api {get} /api/v3/shops/seasonal get the available items for the seasonal shop
- * @apiVersion 3.0.0
  * @apiName GetSeasonalShopItems
  * @apiGroup Shops
  *
- * @apiSuccess {Object} data List of push devices
+ * @apiSuccess {Object} data List of available items
  * @apiSuccess {string} message Success message
  */
 api.getSeasonalShopItems = {
@@ -114,6 +110,34 @@ api.getSeasonalShopItems = {
       notes: res.t('seasonalShopClosedText'),
       imageName: 'seasonalshop_closed',
       categories: shops.getSeasonalShopCategories(user, req.language),
+    };
+
+    res.respond(200, resObject);
+  },
+};
+
+/**
+ * @apiIgnore
+ * @api {get} /api/v3/shops/backgrounds get the available items for the backgrounds shop
+ * @apiName GetBackgroundsShopItems
+ * @apiGroup Shops
+ *
+ * @apiSuccess {Object} data List of available backgrounds
+ * @apiSuccess {string} message Success message
+ */
+api.getBackgroundShopItems = {
+  method: 'GET',
+  url: '/shops/backgrounds',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    let resObject = {
+      identifier: 'backgroundShop',
+      text: res.t('backgroundShop'),
+      notes: res.t('backgroundShopText'),
+      imageName: 'background_shop',
+      sets: shops.getBackgroundShopSets(user, req.language),
     };
 
     res.respond(200, resObject);

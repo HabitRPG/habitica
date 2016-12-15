@@ -8,6 +8,7 @@ habitrpg.controller("InventoryCtrl",
 
     $scope.selectedEgg = null; // {index: 1, name: "Tiger", value: 5}
     $scope.selectedPotion = null; // {index: 5, name: "Red", value: 3}
+    $scope.equipmentQuery = {'query': ''};
 
     _updateDropAnimalCount(user.items);
 
@@ -87,6 +88,50 @@ habitrpg.controller("InventoryCtrl",
         $scope.gearByType[item.type].push(item);
       })
     }, true);
+
+    $scope.equipmentSearch = function(equipment, term) {
+      if (!equipment) return;
+      if (!angular.isString(term) || term.length == 0) {
+        return equipment;
+      }
+      termMatcher = new RegExp(term, 'i');
+
+      var result = [];
+      for (var i = 0; i < equipment.length; i++) {
+        if (termMatcher.test(equipment[i].text())) {
+          result.push(equipment[i]);
+        }
+      }
+      return result;
+    };
+
+    $scope.updateEquipment = function(gearByClass, gearByType, equipmentQuery) {
+      $scope.filteredGearByClass = {};
+      $scope.filteredGearByType = {};
+      _.forEach(gearByClass, function(value, key) {
+        var searchResult = $scope.equipmentSearch(value, equipmentQuery);
+        if (searchResult.length > 0) {
+          $scope.filteredGearByClass[key] = searchResult;
+        }
+      });
+      _.forEach(gearByType, function(value, key) {
+        var searchResult = $scope.equipmentSearch(value, equipmentQuery);
+        if (searchResult.length > 0) {
+          $scope.filteredGearByType[key] = searchResult;
+        }
+      });
+    }
+
+    $scope.$watch(function(){
+        return ['gearByClass', 'gearByType', 'equipmentQuery'].map(angular.bind($scope, $scope.$eval));
+      }, function(updatedVals) {
+        var gearByClass = updatedVals[0];
+        var gearByType = updatedVals[1];
+        var equipmentQuery = updatedVals[2];
+        $scope.updateEquipment(gearByClass, gearByType, equipmentQuery.query);
+      }, true);
+
+    $scope.updateEquipment($scope.gearByClass, $scope.gearByType, $scope.equipmentQuery.query);
 
     $scope.chooseEgg = function(egg){
       if ($scope.selectedEgg && $scope.selectedEgg.key == egg) {
@@ -369,6 +414,9 @@ habitrpg.controller("InventoryCtrl",
 
       if (!premiumPotion) {
         return false;
+      }
+      if (premiumPotion.key === 'RoyalPurple') {
+        return true;
       }
       if (user.items.hatchingPotions[premiumPotion.key] > 0) {
         return true;

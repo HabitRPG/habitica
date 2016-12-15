@@ -131,9 +131,12 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
           .panel-heading
             span=env.t('registration')
           .panel-body
-            div(ng-if='user.auth.facebook.id')
-              button.btn.btn-primary(disabled='disabled', ng-if='!user.auth.local.username')=env.t('registeredWithFb')
-              button.btn.btn-danger(ng-click='http("delete", "/api/v3/user/auth/social/facebook", null, "detachedFacebook")', ng-if='user.auth.local.username')=env.t('detachFacebook')
+            div
+              ul.list-inline
+                li(ng-repeat='network in SOCIAL_AUTH_NETWORKS')
+                  button.btn.btn-primary(ng-if='!user.auth[network.key].id', ng-click='socialLogin(network.key, user)')=env.t('registerWithSocial', {network: '{{network.name}}'})
+                  button.btn.btn-primary(disabled='disabled', ng-if='!hasBackupAuthOption(user, network.key) && user.auth[network.key].id')=env.t('registeredWithSocial', {network: '{{network.name}}'})
+                  button.btn.btn-danger(ng-click='deleteSocialAuth(network.key)', ng-if='hasBackupAuthOption(user, network.key) && user.auth[network.key].id')=env.t('detachSocial', {network: '{{network.name}}'})
               hr
               div(ng-if='!user.auth.local.username')
                 p=env.t('addLocalAuth')
@@ -255,20 +258,20 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
 
         h2=env.t('webhooks')
         table.table.table-striped
-          thead(ng-if='hasWebhooks')
+          thead(ng-if='user.webhooks.length')
             tr
               th=env.t('enabled')
               th=env.t('webhookURL')
               th
           tbody
-            tr(ng-repeat="webhook in user.preferences.webhooks | toArray:true | orderBy:'sort'")
+            tr(ng-repeat="webhook in user.webhooks track by $index")
               td
-                input(type='checkbox', ng-model='webhook.enabled', ng-change='saveWebhook(webhook.$key,webhook)')
+                input(type='checkbox', ng-model='webhook.enabled', ng-change='saveWebhook(webhook, $index)')
               td
-                input.form-control(type='url', ng-model='webhook.url', ng-change='webhook._editing=true', ui-keyup="{13:'saveWebhook(webhook.$key,webhook)'}")
+                input.form-control(type='url', ng-model='webhook.url', ng-change='webhook._editing=true', ui-keyup="{13:'saveWebhook(webhook, $index)'}")
               td
                 span.pull-left(ng-show='webhook._editing') *
-                a.checklist-icons(ng-click='deleteWebhook(webhook.$key)')
+                a.checklist-icons(ng-click='deleteWebhook(webhook, $index)')
                   span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
             tr
               td(colspan=2)
@@ -371,6 +374,18 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
     .row
       .col-md-6
         +subPerks()
+        
+        .container-fluid.slight-vertical-padding(ng-if='!user.purchased.plan.customerId || (user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')
+          h4=env.t('subscribeUsing')
+          .row.text-center
+            .col-xs-12.col-md-3
+              a.purchase.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon})', ng-disabled='!_subscription.key')= env.t('card')
+            .col-xs-12.col-md-3
+              a.purchase(href='/paypal/subscribe?_id={{user._id}}&apiToken={{User.settings.auth.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}', ng-disabled='!_subscription.key')
+                img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png',alt=env.t('paypal'))
+            .col-xs-12.col-md-3
+              a.purchase(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon})")
+                img(src='https://payments.amazon.com/gp/cba/button',alt=env.t('amazonPayments'))
 
       .col-md-6
         table.table.alert.alert-info(ng-if='user.purchased.plan.customerId')
@@ -413,15 +428,3 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template')
         div(ng-if='user.purchased.plan.customerId')
           .btn.btn-primary(ng-if='!user.purchased.plan.dateTerminated && user.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit()')=env.t('subUpdateCard')
           .btn.btn-sm.btn-danger(ng-if='!user.purchased.plan.dateTerminated', ng-click='Payments.cancelSubscription()')=env.t('cancelSub')
-
-      .container-fluid.slight-vertical-padding(ng-if='!user.purchased.plan.customerId || (user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')
-        small.muted=env.t('subscribeUsing')
-        .row.text-center
-          .col-xs-4
-            a.purchase.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon})', ng-disabled='!_subscription.key')= env.t('card')
-          .col-xs-4
-            a.purchase(href='/paypal/subscribe?_id={{user._id}}&apiToken={{User.settings.auth.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}', ng-disabled='!_subscription.key')
-              img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png',alt=env.t('paypal'))
-          .col-xs-4
-            a.purchase(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon})")
-              img(src='https://payments.amazon.com/gp/cba/button',alt=env.t('amazonPayments'))

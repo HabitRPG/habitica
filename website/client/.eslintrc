@@ -5,6 +5,8 @@
   ],
   "plugins": [
     "html"
-  ]
+  ],
+  "globals": {
+    "$": true,
+  }
 }
-

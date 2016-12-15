@@ -9,7 +9,6 @@ let api = {};
 /**
  * @apiIgnore Not yet part of the public API
  * @api {post} /api/v3/notifications/:notificationId/read Mark one notification as read
- * @apiVersion 3.0.0
  * @apiName ReadNotification
  * @apiGroup Notification
  *
@@ -38,6 +37,46 @@ api.readNotification = {
     }
 
     user.notifications.splice(index, 1);
+    await user.save();
+
+    res.respond(200, user.notifications);
+  },
+};
+
+/**
+ * @apiIgnore Not yet part of the public API
+ * @api {post} /api/v3/notifications Mark notifications as read
+ * @apiName ReadNotifications
+ * @apiGroup Notification
+ *
+ *
+ * @apiSuccess {Object} data user.notifications
+ */
+api.readNotifications = {
+  method: 'POST',
+  url: '/notifications/read',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    req.checkBody('notificationIds', res.t('notificationsRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let notifications = req.body.notificationIds;
+    for (let notification of notifications) {
+      let index = _.findIndex(user.notifications, {
+        id: notification,
+      });
+
+      if (index === -1) {
+        throw new NotFound(res.t('messageNotificationNotFound'));
+      }
+
+      user.notifications.splice(index, 1);
+    }
+
     await user.save();
 
     res.respond(200, user.notifications);

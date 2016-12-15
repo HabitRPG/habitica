@@ -6,8 +6,13 @@ import splitWhitespace from '../libs/splitWhitespace';
 import {
   NotAuthorized,
 } from '../libs/errors';
-import predictableRandom from '../fns/predictableRandom';
-import randomVal from '../fns/randomVal';
+import randomVal from '../libs/randomVal';
+
+// TODO this is only used on the server
+// move out of common?
+
+const YIELD_EQUIPMENT_THRESHOLD = 0.6;
+const YIELD_FOOD_THRESHOLD = 0.8;
 
 module.exports = function buyArmoire (user, req = {}, analytics) {
   let item = content.armoire;
@@ -21,19 +26,18 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
   }
 
   let armoireResp;
-  let armoireResult;
-  let eligibleEquipment;
   let drop;
   let message;
 
-  armoireResult = predictableRandom(user, user.stats.gp);
-  eligibleEquipment = _.filter(content.gear.flat, (eligible) => {
+  let armoireResult = randomVal.trueRandom();
+  let eligibleEquipment = _.filter(content.gear.flat, (eligible) => {
     return eligible.klass === 'armoire' && !user.items.gear.owned[eligible.key];
   });
+  let armoireHasEquipment = !_.isEmpty(eligibleEquipment);
 
-  if (!_.isEmpty(eligibleEquipment) && (armoireResult < 0.6 || !user.flags.armoireOpened)) {
+  if (armoireHasEquipment && (armoireResult < YIELD_EQUIPMENT_THRESHOLD || !user.flags.armoireOpened)) {
     eligibleEquipment.sort();
-    drop = randomVal(user, eligibleEquipment);
+    drop = randomVal(eligibleEquipment);
 
     if (user.items.gear.owned[drop.key]) {
       throw new NotAuthorized(i18n.t('equipmentAlradyOwned', req.language));
@@ -55,10 +59,11 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
       dropKey: drop.key,
       dropText: drop.text(req.language),
     };
-  } else if ((!_.isEmpty(eligibleEquipment) && armoireResult < 0.8) || armoireResult < 0.5) { // eslint-disable-line no-extra-parens
-    drop = randomVal(user, _.where(content.food, {
+  } else if ((armoireHasEquipment && armoireResult < YIELD_FOOD_THRESHOLD) || armoireResult < 0.5) { // eslint-disable-line no-extra-parens
+    drop = randomVal(_.where(content.food, {
       canDrop: true,
     }));
+
     user.items.food[drop.key] = user.items.food[drop.key] || 0;
     user.items.food[drop.key] += 1;
 
@@ -74,7 +79,7 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
       dropText: drop.text(req.language),
     };
   } else {
-    let armoireExp = Math.floor(predictableRandom(user, user.stats.exp) * 40 + 10);
+    let armoireExp = Math.floor(randomVal.trueRandom() * 40 + 10);
     user.stats.exp += armoireExp;
     message = i18n.t('armoireExp', req.language);
     armoireResp = {
@@ -105,12 +110,8 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
   let resData = _.pick(user, splitWhitespace('items flags'));
   if (armoireResp) resData.armoire = armoireResp;
 
-  if (req.v2 === true) {
-    return resData;
-  } else {
-    return [
-      resData,
-      message,
-    ];
-  }
+  return [
+    resData,
+    message,
+  ];
 };

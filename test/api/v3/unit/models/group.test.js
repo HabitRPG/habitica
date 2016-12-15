@@ -1,10 +1,13 @@
 import { sleep } from '../../../../helpers/api-unit.helper';
-import { model as Group } from '../../../../../website/server/models/group';
+import { model as Group, INVITES_LIMIT } from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
+import { BadRequest } from '../../../../../website/server/libs/errors';
 import { quests as questScrolls } from '../../../../../website/common/script/content';
+import { groupChatReceivedWebhook } from '../../../../../website/server/libs/webhook';
 import * as email from '../../../../../website/server/libs/email';
 import validator from 'validator';
 import { TAVERN_ID } from '../../../../../website/common/script/';
+import { v4 as generateUUID } from 'uuid';
 
 describe('Group Model', () => {
   let party, questLeader, participatingMember, nonParticipatingMember, undecidedMember;
@@ -433,6 +436,158 @@ describe('Group Model', () => {
         });
       });
     });
+
+    describe('validateInvitations', () => {
+      let res;
+
+      beforeEach(() => {
+        res = {
+          t: sandbox.spy(),
+        };
+      });
+
+      it('throws an error if no uuids or emails are passed in', (done) => {
+        try {
+          Group.validateInvitations(null, null, res);
+        } catch (err) {
+          expect(err).to.be.an.instanceof(BadRequest);
+          expect(res.t).to.be.calledOnce;
+          expect(res.t).to.be.calledWith('canOnlyInviteEmailUuid');
+          done();
+        }
+      });
+
+      it('throws an error if only uuids are passed in, but they are not an array', (done) => {
+        try {
+          Group.validateInvitations({ uuid: 'user-id'}, null, res);
+        } catch (err) {
+          expect(err).to.be.an.instanceof(BadRequest);
+          expect(res.t).to.be.calledOnce;
+          expect(res.t).to.be.calledWith('uuidsMustBeAnArray');
+          done();
+        }
+      });
+
+      it('throws an error if only emails are passed in, but they are not an array', (done) => {
+        try {
+          Group.validateInvitations(null, { emails: 'user@example.com'}, res);
+        } catch (err) {
+          expect(err).to.be.an.instanceof(BadRequest);
+          expect(res.t).to.be.calledOnce;
+          expect(res.t).to.be.calledWith('emailsMustBeAnArray');
+          done();
+        }
+      });
+
+      it('throws an error if emails are not passed in, and uuid array is empty', (done) => {
+        try {
+          Group.validateInvitations([], null, res);
+        } catch (err) {
+          expect(err).to.be.an.instanceof(BadRequest);
+          expect(res.t).to.be.calledOnce;
+          expect(res.t).to.be.calledWith('inviteMissingUuid');
+          done();
+        }
+      });
+
+      it('throws an error if uuids are not passed in, and email array is empty', (done) => {
+        try {
+          Group.validateInvitations(null, [], res);
+        } catch (err) {
+          expect(err).to.be.an.instanceof(BadRequest);
+          expect(res.t).to.be.calledOnce;
+          expect(res.t).to.be.calledWith('inviteMissingEmail');
+          done();
+        }
+      });
+
+      it('throws an error if uuids and emails are passed in as empty arrays', (done) => {
+        try {
+          Group.validateInvitations([], [], res);
+        } catch (err) {
+          expect(err).to.be.an.instanceof(BadRequest);
+          expect(res.t).to.be.calledOnce;
+          expect(res.t).to.be.calledWith('inviteMustNotBeEmpty');
+          done();
+        }
+      });
+
+      it('throws an error if total invites exceed max invite constant', (done) => {
+        let uuids = [];
+        let emails = [];
+
+        for (let i = 0; i < INVITES_LIMIT / 2; i++) {
+          uuids.push(`user-id-${i}`);
+          emails.push(`user-${i}@example.com`);
+        }
+
+        uuids.push('one-more-uuid'); // to put it over the limit
+
+        try {
+          Group.validateInvitations(uuids, emails, res);
+        } catch (err) {
+          expect(err).to.be.an.instanceof(BadRequest);
+          expect(res.t).to.be.calledOnce;
+          expect(res.t).to.be.calledWith('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT });
+          done();
+        }
+      });
+
+      it('does not throw error if number of invites matches max invite limit', () => {
+        let uuids = [];
+        let emails = [];
+
+        for (let i = 0; i < INVITES_LIMIT / 2; i++) {
+          uuids.push(`user-id-${i}`);
+          emails.push(`user-${i}@example.com`);
+        }
+
+        expect(function () {
+          Group.validateInvitations(uuids, emails, res);
+        }).to.not.throw();
+      });
+
+
+      it('does not throw an error if only user ids are passed in', () => {
+        expect(function () {
+          Group.validateInvitations(['user-id', 'user-id2'], null, res);
+        }).to.not.throw();
+
+        expect(res.t).to.not.be.called;
+      });
+
+      it('does not throw an error if only emails are passed in', () => {
+        expect(function () {
+          Group.validateInvitations(null, ['user1@example.com', 'user2@example.com'], res);
+        }).to.not.throw();
+
+        expect(res.t).to.not.be.called;
+      });
+
+      it('does not throw an error if both uuids and emails are passed in', () => {
+        expect(function () {
+          Group.validateInvitations(['user-id', 'user-id2'], ['user1@example.com', 'user2@example.com'], res);
+        }).to.not.throw();
+
+        expect(res.t).to.not.be.called;
+      });
+
+      it('does not throw an error if uuids are passed in and emails are an empty array', () => {
+        expect(function () {
+          Group.validateInvitations(['user-id', 'user-id2'], [], res);
+        }).to.not.throw();
+
+        expect(res.t).to.not.be.called;
+      });
+
+      it('does not throw an error if emails are passed in and uuids are an empty array', () => {
+        expect(function () {
+          Group.validateInvitations([], ['user1@example.com', 'user2@example.com'], res);
+        }).to.not.throw();
+
+        expect(res.t).to.not.be.called;
+      });
+    });
   });
 
   context('Instance Methods', () => {
@@ -473,23 +628,88 @@ describe('Group Model', () => {
         });
       });
 
-      it('deletes a private group when the last member leaves', async () => {
-        party.memberCount = 1;
-
+      it('deletes a private party when the last member leaves', async () => {
         await party.leave(participatingMember);
+        await party.leave(questLeader);
+        await party.leave(nonParticipatingMember);
+        await party.leave(undecidedMember);
 
         party = await Group.findOne({_id: party._id});
         expect(party).to.not.exist;
       });
 
       it('does not delete a public group when the last member leaves', async () => {
-        party.memberCount = 1;
         party.privacy = 'public';
+
+        await party.leave(participatingMember);
+        await party.leave(questLeader);
+        await party.leave(nonParticipatingMember);
+        await party.leave(undecidedMember);
+
+        party = await Group.findOne({_id: party._id});
+        expect(party).to.exist;
+      });
+
+      it('does not delete a private party when the member count reaches zero if there are still members', async () => {
+        party.memberCount = 1;
 
         await party.leave(participatingMember);
 
         party = await Group.findOne({_id: party._id});
         expect(party).to.exist;
+      });
+
+      it('deletes a private guild when the last member leaves', async () => {
+        let guild = new Group({
+          name: 'test guild',
+          type: 'guild',
+          memberCount: 1,
+        });
+
+        let leader = new User({
+          guilds: [guild._id],
+        });
+
+        guild.leader = leader._id;
+
+        await Promise.all([
+          guild.save(),
+          leader.save(),
+        ]);
+
+        await guild.leave(leader);
+
+        guild = await Group.findOne({_id: guild._id});
+        expect(guild).to.not.exist;
+      });
+
+      it('does not delete a private guild when the member count reaches zero if there are still members', async () => {
+        let guild = new Group({
+          name: 'test guild',
+          type: 'guild',
+          memberCount: 1,
+        });
+
+        let leader = new User({
+          guilds: [guild._id],
+        });
+
+        let member = new User({
+          guilds: [guild._id],
+        });
+
+        guild.leader = leader._id;
+
+        await Promise.all([
+          guild.save(),
+          leader.save(),
+          member.save(),
+        ]);
+
+        await guild.leave(member);
+
+        guild = await Group.findOne({_id: guild._id});
+        expect(guild).to.exist;
       });
     });
 
@@ -906,8 +1126,45 @@ describe('Group Model', () => {
           [nonParticipatingMember._id]: false,
           [undecidedMember._id]: null,
         };
+      });
 
-        sandbox.spy(User, 'update');
+      describe('user update retry failures', () => {
+        let successfulMock = {
+          exec: () => {
+            return Promise.resolve({raw: 'sucess'});
+          },
+        };
+        let failedMock = {
+          exec: () => {
+            return Promise.reject(new Error('error'));
+          },
+        };
+
+        it('doesn\'t retry successful operations', async () => {
+          sandbox.stub(User, 'update').returns(successfulMock);
+
+          await party.finishQuest(quest);
+
+          expect(User.update).to.be.calledTwice;
+        });
+
+        it('stops retrying when a successful update has occurred', async () => {
+          let updateStub = sandbox.stub(User, 'update');
+          updateStub.onCall(0).returns(failedMock);
+          updateStub.returns(successfulMock);
+
+          await party.finishQuest(quest);
+
+          expect(User.update).to.be.calledThrice;
+        });
+
+        it('retries failed updates at most five times per user', async () => {
+          sandbox.stub(User, 'update').returns(failedMock);
+
+          await expect(party.finishQuest(quest)).to.eventually.be.rejected;
+
+          expect(User.update.callCount).to.eql(10);
+        });
       });
 
       it('gives out achievements', async () => {
@@ -1016,13 +1273,15 @@ describe('Group Model', () => {
 
       context('Party quests', () => {
         it('updates participating members with rewards', async () => {
+          sandbox.spy(User, 'update');
           await party.finishQuest(quest);
 
-          expect(User.update).to.be.calledOnce;
+          expect(User.update).to.be.calledTwice;
           expect(User.update).to.be.calledWithMatch({
-            _id: {
-              $in: [questLeader._id, participatingMember._id],
-            },
+            _id: questLeader._id,
+          });
+          expect(User.update).to.be.calledWithMatch({
+            _id: participatingMember._id,
           });
         });
 
@@ -1049,6 +1308,7 @@ describe('Group Model', () => {
         });
 
         it('updates all users with rewards', async () => {
+          sandbox.spy(User, 'update');
           await party.finishQuest(tavernQuest);
 
           expect(User.update).to.be.calledOnce;
@@ -1062,6 +1322,164 @@ describe('Group Model', () => {
 
           expect(updatedLeader.party.quest.completed).to.eql(tavernQuest.key);
         });
+      });
+    });
+
+    describe('sendGroupChatReceivedWebhooks', () => {
+      beforeEach(() => {
+        sandbox.stub(groupChatReceivedWebhook, 'send');
+      });
+
+      it('looks for users in specified guild with webhooks', () => {
+        sandbox.spy(User, 'find');
+
+        let guild = new Group({
+          type: 'guild',
+        });
+
+        guild.sendGroupChatReceivedWebhooks({});
+
+        expect(User.find).to.be.calledWith({
+          webhooks: {
+            $elemMatch: {
+              type: 'groupChatReceived',
+              'options.groupId': guild._id,
+            },
+          },
+          guilds: guild._id,
+        });
+      });
+
+      it('looks for users in specified party with webhooks', () => {
+        sandbox.spy(User, 'find');
+
+        party.sendGroupChatReceivedWebhooks({});
+
+        expect(User.find).to.be.calledWith({
+          webhooks: {
+            $elemMatch: {
+              type: 'groupChatReceived',
+              'options.groupId': party._id,
+            },
+          },
+          'party._id': party._id,
+        });
+      });
+
+      it('sends webhooks for users with webhooks', async () => {
+        let guild = new Group({
+          name: 'some guild',
+          type: 'guild',
+        });
+
+        let chat = {message: 'text'};
+        let memberWithWebhook = new User({
+          guilds: [guild._id],
+          webhooks: [{
+            type: 'groupChatReceived',
+            url: 'http://someurl.com',
+            options: {
+              groupId: guild._id,
+            },
+          }],
+        });
+        let memberWithoutWebhook = new User({
+          guilds: [guild._id],
+        });
+        let nonMemberWithWebhooks = new User({
+          webhooks: [{
+            type: 'groupChatReceived',
+            url: 'http://a-different-url.com',
+            options: {
+              groupId: generateUUID(),
+            },
+          }],
+        });
+
+        await Promise.all([
+          memberWithWebhook.save(),
+          memberWithoutWebhook.save(),
+          nonMemberWithWebhooks.save(),
+        ]);
+
+        guild.leader = memberWithWebhook._id;
+
+        await guild.save();
+
+        guild.sendGroupChatReceivedWebhooks(chat);
+
+        await sleep();
+
+        expect(groupChatReceivedWebhook.send).to.be.calledOnce;
+
+        let args = groupChatReceivedWebhook.send.args[0];
+        let webhooks = args[0];
+        let options = args[1];
+
+        expect(webhooks).to.have.a.lengthOf(1);
+        expect(webhooks[0].id).to.eql(memberWithWebhook.webhooks[0].id);
+        expect(options.group).to.eql(guild);
+        expect(options.chat).to.eql(chat);
+      });
+
+      it('sends webhooks for each user with webhooks in group', async () => {
+        let guild = new Group({
+          name: 'some guild',
+          type: 'guild',
+        });
+
+        let chat = {message: 'text'};
+        let memberWithWebhook = new User({
+          guilds: [guild._id],
+          webhooks: [{
+            type: 'groupChatReceived',
+            url: 'http://someurl.com',
+            options: {
+              groupId: guild._id,
+            },
+          }],
+        });
+        let memberWithWebhook2 = new User({
+          guilds: [guild._id],
+          webhooks: [{
+            type: 'groupChatReceived',
+            url: 'http://another-member.com',
+            options: {
+              groupId: guild._id,
+            },
+          }],
+        });
+        let memberWithWebhook3 = new User({
+          guilds: [guild._id],
+          webhooks: [{
+            type: 'groupChatReceived',
+            url: 'http://a-third-member.com',
+            options: {
+              groupId: guild._id,
+            },
+          }],
+        });
+
+        await Promise.all([
+          memberWithWebhook.save(),
+          memberWithWebhook2.save(),
+          memberWithWebhook3.save(),
+        ]);
+
+        guild.leader = memberWithWebhook._id;
+
+        await guild.save();
+
+        guild.sendGroupChatReceivedWebhooks(chat);
+
+        await sleep();
+
+        expect(groupChatReceivedWebhook.send).to.be.calledThrice;
+
+        let args = groupChatReceivedWebhook.send.args;
+        expect(args.find(arg => arg[0][0].id === memberWithWebhook.webhooks[0].id)).to.be.exist;
+        expect(args.find(arg => arg[0][0].id === memberWithWebhook2.webhooks[0].id)).to.be.exist;
+        expect(args.find(arg => arg[0][0].id === memberWithWebhook3.webhooks[0].id)).to.be.exist;
       });
     });
   });

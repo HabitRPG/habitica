@@ -84,7 +84,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                 a.media-body
                   span(ng-click='clickMember(member._id, true)')
                       | {{member.profile.name}}
-                    span(ng-if='group.type === "party"')
+                  span(ng-click='clickMember(member._id, true)' ng-if='group.type === "party"')
                       |  (#[strong {{member.stats.hp.toFixed(1)}}] #{env.t('hp')}) {{member.id === user.id ? ' ' + env.t('you') : ''}}
                 .pull-right(ng-if='group.type === "party"')
                   span.text-success {{member.online ? '&#9679 ' + env.t('online') : ''}}
@@ -147,7 +147,21 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                 h3.popover-title {{group.leader.profile.name}}
                 .popover-content
                   markdown(text='group._editing ? groupCopy.leaderMessage : group.leaderMessage')
-      div(ng-controller='ChatCtrl')
+
+      ul.options-menu(ng-init="groupPane = 'chat'", ng-hide="true")
+      //-   li
+      //-     a(ng-click="groupPane = 'chat'")=env.t('chat')
+      //-   li
+      //-     a(ng-click="groupPane = 'tasks'", ng-show='group.purchased.active')=env.t('tasks')
+      //-   li
+      //-     a(ng-click="groupPane = 'approvals'", ng-show='group.purchased.active && group.leader._id === user._id')=env.t('approvals')
+      //-   li
+      //-     a(ng-click="groupPane = 'subscription'", ng-show='group.leader._id === user._id')=env.t('subscription')
+    
+      .tab-content
+        .tab-pane.active
+
+      div(ng-controller='ChatCtrl', ng-show="groupPane == 'chat'")
         .alert.alert-info.alert-sm(ng-if='group.memberCount > Shared.constants.LARGE_GROUP_COUNT_MESSAGE_CUTOFF')=env.t('largeGroupNote')
         h3=env.t('chat')
         include ./chat-box
@@ -155,3 +169,45 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
         +chatMessages()
         h4(ng-if='group.chat.length < 1 && group.type === "party"')=env.t('partyChatEmpty')
         h4(ng-if='group.chat.length < 1 && group.type === "guild"')=env.t('guildChatEmpty')
+  
+      group-tasks(ng-show="groupPane == 'tasks'")
+      
+      group-approvals(ng-show="groupPane == 'approvals'", ng-if="group.leader._id === user._id", group="group")
+      
+      //TODO: This can be a directive and the group/user can be an object passed via attribute
+      div(ng-show="groupPane == 'subscription'")
+       .col-md-12
+         table.table.alert.alert-info(ng-if='group.purchased.plan.customerId')
+           tr(ng-if='group.purchased.plan.dateTerminated'): td.alert.alert-warning
+             span.noninteractive-button.btn-danger=env.t('canceledSubscription')
+             i.glyphicon.glyphicon-time
+             |  #{env.t('subCanceled')} <strong>{{moment(group.purchased.plan.dateTerminated).format('MM/DD/YYYY')}}</strong>
+           tr(ng-if='!group.purchased.plan.dateTerminated'): td
+             h4=env.t('subscribed')
+             p(ng-if='group.purchased.plan.planId')=env.t('purchasedPlanId', {price: '{{Content.subscriptionBlocks[group.purchased.plan.planId].price}}', months: '{{Content.subscriptionBlocks[group.purchased.plan.planId].months}}', plan: '{{group.purchased.plan.paymentMethod}}'})
+           tr(ng-if='group.purchased.plan.extraMonths'): td
+             span.glyphicon.glyphicon-credit-card
+             | &nbsp;#{env.t('purchasedPlanExtraMonths', {months: '{{group.purchased.plan.extraMonths | number:2}}'})}
+           tr(ng-if='group.purchased.plan.consecutive.count || group.purchased.plan.consecutive.offset'): td
+             span.glyphicon.glyphicon-forward
+             | &nbsp;#{env.t('consecutiveSubscription')}
+             ul.list-unstyled
+               li #{env.t('consecutiveMonths')} {{group.purchased.plan.consecutive.count + group.purchased.plan.consecutive.offset}}
+               li #{env.t('gemCapExtra')} {{group.purchased.plan.consecutive.gemCapExtra}}
+               li #{env.t('mysticHourglasses')} {{group.purchased.plan.consecutive.trinkets}}
+
+         div(ng-if='group.purchased.plan.customerId')
+           .btn.btn-primary(ng-if='!group.purchased.plan.dateTerminated && group.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit({groupId: group.id})')=env.t('subUpdateCard')
+           .btn.btn-sm.btn-danger(ng-if='!group.purchased.plan.dateTerminated', ng-click='Payments.cancelSubscription({group: group})')=env.t('cancelSub')
+
+       .container-fluid.slight-vertical-padding(ng-if='!group.purchased.plan.customerId || (group.purchased.plan.customerId && group.purchased.plan.dateTerminated)', ng-init="_subscription.key='group_monthly'")
+         small.muted=env.t('subscribeUsing')
+         .row.text-center
+           .col-xs-4
+             a.purchase.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon, groupId: group.id})', ng-disabled='!_subscription.key')= env.t('card')
+           .col-xs-4
+             a.purchase(href='/paypal/subscribe?_id={{user._id}}&apiToken={{User.settings.auth.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}&groupId={{group.id}}', ng-disabled='!_subscription.key')
+               img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png',alt=env.t('paypal'))
+           .col-xs-4
+             a.purchase(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon, groupId: group.id})")
+               img(src='https://payments.amazon.com/gp/cba/button',alt=env.t('amazonPayments'))

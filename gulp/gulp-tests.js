@@ -13,6 +13,9 @@ import Bluebird                   from 'bluebird';
 import runSequence                from 'run-sequence';
 import os                         from 'os';
 import nconf                      from 'nconf';
+import fs from 'fs';
+
+const i18n = require('../website/server/libs/i18n');
 
 // TODO rewrite
 
@@ -72,9 +75,16 @@ gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
   }
 });
 
-gulp.task('test:prepare:build', ['build'], (cb) => {
-  exec(testBin('grunt build:test'), cb);
+gulp.task('test:prepare:translations', (cb) => {
+  fs.writeFile(
+    'test/client-old/spec/mocks/translations.js',
+     `if(!window.env) window.env = {};
+window.env.translations = ${JSON.stringify(i18n.translations['en'])};`, cb);
+
 });
+
+gulp.task('test:prepare:build', ['build', 'test:prepare:translations']);
+// exec(testBin('grunt build:test'), cb);
 
 gulp.task('test:prepare:webdriver', (cb) => {
   exec('npm run test:prepare:webdriver', cb);
@@ -165,32 +175,6 @@ gulp.task('test:content:safe', ['test:prepare:build'], (cb) => {
     (err, stdout, stderr) => {
       testResults.push({
         suite: 'Content Specs\t',
-        pass: testCount(stdout, /(\d+) passing/),
-        fail: testCount(stdout, /(\d+) failing/),
-        pend: testCount(stdout, /(\d+) pending/),
-      });
-      cb();
-    }
-  );
-  pipe(runner);
-});
-
-gulp.task('test:server_side', ['test:prepare:build'], (cb) => {
-  let runner = exec(
-    testBin(SERVER_SIDE_TEST_COMMAND),
-    (err, stdout, stderr) => {
-      cb(err);
-    }
-  );
-  pipe(runner);
-});
-
-gulp.task('test:server_side:safe', ['test:prepare:build'], (cb) => {
-  let runner = exec(
-    testBin(SERVER_SIDE_TEST_COMMAND),
-    (err, stdout, stderr) => {
-      testResults.push({
-        suite: 'Server Side Specs',
         pass: testCount(stdout, /(\d+) passing/),
         fail: testCount(stdout, /(\d+) failing/),
         pend: testCount(stdout, /(\d+) pending/),
@@ -296,7 +280,7 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
 
 gulp.task('test:api-v3:unit', (done) => {
   let runner = exec(
-    testBin('mocha test/api/v3/unit --recursive'),
+    testBin('mocha test/api/v3/unit --recursive --require ./test/helpers/start-server'),
     (err, stdout, stderr) => {
       if (err) {
         process.exit(1);
@@ -314,7 +298,7 @@ gulp.task('test:api-v3:unit:watch', () => {
 
 gulp.task('test:api-v3:integration', (done) => {
   let runner = exec(
-    testBin('mocha test/api/v3/integration --recursive'),
+    testBin('mocha test/api/v3/integration --recursive --require ./test/helpers/start-server'),
     {maxBuffer: 500 * 1024},
     (err, stdout, stderr) => {
       if (err) {
@@ -334,7 +318,7 @@ gulp.task('test:api-v3:integration:watch', () => {
 
 gulp.task('test:api-v3:integration:separate-server', (done) => {
   let runner = exec(
-    testBin('mocha test/api/v3/integration --recursive', 'LOAD_SERVER=0'),
+    testBin('mocha test/api/v3/integration --recursive --require ./test/helpers/start-server', 'LOAD_SERVER=0'),
     {maxBuffer: 500 * 1024},
     (err, stdout, stderr) => done(err)
   );

@@ -28,12 +28,8 @@ module.exports = function openMysteryItem (user, req = {}, analytics) {
     });
   }
 
-  if (req.v2 === true) {
-    return user.items.gear.owned;
-  } else {
-    return [
-      item,
-      i18n.t('mysteryItemOpened', req.language),
-    ];
-  }
+  return [
+    item,
+    i18n.t('mysteryItemOpened', req.language),
+  ];
 };

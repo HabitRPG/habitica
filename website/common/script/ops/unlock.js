@@ -54,6 +54,10 @@ module.exports = function unlock (user, req = {}, analytics) {
     alreadyOwns = _.get(user, `purchased.${path}`) === true;
   }
 
+  if (isBackground && !alreadyOwns && (path.indexOf('.blue') !== -1 || path.indexOf('.green') !== -1 || path.indexOf('.red') !== -1 || path.indexOf('.purple') !== -1 || path.indexOf('.yellow') !== -1)) {
+    throw new BadRequest(i18n.t('incentiveBackgroundsUnlockedWithCheckins'));
+  }
+
   if ((!user.balance || user.balance < cost) && !alreadyOwns) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
@@ -111,9 +115,5 @@ module.exports = function unlock (user, req = {}, analytics) {
 
   if (!alreadyOwns) response.push(i18n.t('unlocked', req.language));
 
-  if (req.v2 === true) {
-    return response[0];
-  } else {
-    return response;
-  }
+  return response;
 };

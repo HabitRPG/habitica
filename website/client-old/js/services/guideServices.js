@@ -5,8 +5,8 @@
  */
 
 angular.module('habitrpg').factory('Guide',
-['$rootScope', 'User', '$timeout', '$state', 'Analytics',
-function($rootScope, User, $timeout, $state, Analytics) {
+['$rootScope', 'User', '$timeout', '$state', 'Analytics', 'Notification', 'Shared', 'Social',
+function($rootScope, User, $timeout, $state, Analytics, Notification, Shared, Social) {
 
   var chapters = {
     intro: [
@@ -52,7 +52,7 @@ function($rootScope, User, $timeout, $state, Analytics) {
         {
           state: 'tasks',
           element: "h2.task-column_title.reward-title",
-          content: window.env.t('tourRewardsBrief'),
+          content: User.user.flags.armoireEnabled ? window.env.t('tourRewardsArmoire') : window.env.t('tourRewardsBrief'),
           placement: "left",
           proceed: window.env.t('tourRewardsProceed'),
           gold: 4,
@@ -82,11 +82,11 @@ function($rootScope, User, $timeout, $state, Analytics) {
         }, {
           element: ".meter.mana",
           title: window.env.t('spells'),
-          content: window.env.t('spellsText') + " <a target='_blank' href='http://habitica.wikia.com/wiki/Todos'>" + window.env.t('toDo') + "</a>."
+          content: window.env.t('spellsText')
         }, {
           orphan: true,
           title: window.env.t('readMore'),
-          content: window.env.t('moreClass') + " <a href='http://habitica.wikia.com/wiki/Class_System' target='_blank'>Wikia</a>.",
+          content: window.env.t('moreClass'),
           final: true
         }
       ]
@@ -202,12 +202,26 @@ function($rootScope, User, $timeout, $state, Analytics) {
         if (lastKnownStep === -2) {
           return;
         }
+
         if (i > lastKnownStep) {
           if (step.gold) ups['stats.gp'] = User.user.stats.gp + step.gold;
           if (step.experience) ups['stats.exp'] = User.user.stats.exp + step.experience;
           ups['flags.tour.'+k] = i;
         }
+
         if (step.final) { // -2 indicates complete
+          if (k === 'intro') {
+            // Manually show bunny scroll reward
+            var rewardData = {
+              reward: [Shared.content.quests.dustbunnies],
+              rewardKey: ['inventory_quest_scroll_dustbunnies'],
+              rewardText: Shared.content.quests.dustbunnies.text(),
+              message: window.env.t('checkinEarned'),
+              nextRewardAt: 1,
+            };
+            Notification.showLoginIncentive(User.user, rewardData, Social.loadWidgets);
+          }
+          //Mark tour complete
           ups['flags.tour.'+k] = -2;
           Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'tutorial','eventLabel':k+'-web','eventValue':i+1,'complete':true})
         }
@@ -259,9 +273,11 @@ function($rootScope, User, $timeout, $state, Analytics) {
     _.times(page, function(p){
       opts.steps  = opts.steps.concat(chapters[chapter][p]);
     })
+
     var end = opts.steps.length;
     opts.steps = opts.steps.concat(chapters[chapter][page]);
     chap._removeState('end');
+
     if (chap._inited) {
       chap.goTo(end);
     } else {

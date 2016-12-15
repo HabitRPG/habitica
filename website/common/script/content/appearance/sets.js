@@ -4,6 +4,7 @@ import prefill from './prefill.js';
 module.exports = prefill({
   baseHair1: {setPrice: 5, text: t('hairSet1')},
   baseHair2: {setPrice: 5, text: t('hairSet2')},
+  baseHair3: {setPrice: 5, text: t('hairSet3')},
   facialHair: {setPrice: 5, text: t('bodyFacialHair')},
   specialShirts: {setPrice: 5, text: t('specialShirts')},
   winterHairColors: {setPrice: 5, availableUntil: '2016-01-01'},

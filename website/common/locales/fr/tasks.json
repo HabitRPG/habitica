@@ -74,7 +74,7 @@
     "clearTags": "Nettoyer",
     "hideTags": "Masquer",
     "showTags": "Afficher",
-    "toRequired": "Vous devez indiquer une valeur",
+    "toRequired": "Vous devez indiquer une valeur \"to\"",
     "startDate": "Date de début",
     "startDateHelpTitle": "Quand cette tâche devrait-elle démarrer ?",
     "startDateHelp": "Définissez la date à laquelle cette tâche prendra effet. Elle ne sera pas active avant cette date.",
@@ -134,5 +134,9 @@
     "strengthExample": "Relatif aux exercices et activités physiques",
     "intelligenceExample": "Relatif aux activités académiques et mentales",
     "perceptionExample": "Relatif au tâches professionnelles ou financières",
-    "constitutionExample": "Relatif à la santé, au bien-être et aux interactions sociales"
+    "constitutionExample": "Relatif à la santé, au bien-être et aux interactions sociales",
+    "taskRequiresApproval": "Cette tâche nécessite une approbation avant de pouvoir être complétée. Une approbation a déjà été demandée.",
+    "taskApprovalHasBeenRequested": "Une approbation a été demandée",
+    "approvals": "Approbations",
+    "approvalRequired": "Approbation Requise"
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+    <title>03D27E53-B4F4-4600-B8F0-7C6348593CE5</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Header" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Header---Desktop-HD" transform="translate(-180.000000, -148.000000)">
+            <g id="Header" transform="translate(0.000000, 56.000000)">
+                <g id="Health" transform="translate(180.000000, 92.000000)">
+                    <g id="-g-Health">
+                        <polygon id="Shape" fill="#F74E52" points="0 1.5 2.5 0 6 1.9 9.5 0 12 1.5 12 6 9.5 9.5 6 12 2.5 9.5 0 6"></polygon>
+                        <polygon id="Shape" fill="#FF6165" points="3.2 8.8 1 5.7 1 2.05 2.5 1.15 6 3.05 9.5 1.15 11 2.05 11 5.7 8.8 8.8 6 10.75"></polygon>
+                        <polygon id="Shape" fill="#FFFFFF" opacity="0.5" points="6 7.25 8.8 8.8 6 10.75"></polygon>
+                        <polygon id="Shape" fill="#B52428" opacity="0.35" points="6 7.25 3.2 8.8 6 10.75"></polygon>
+                        <polygon id="Shape" fill="#FFFFFF" opacity="0.25" points="3.2 8.8 1 5.7 6 7.25"></polygon>
+                        <polygon id="Shape" fill="#B52428" opacity="0.5" points="8.8 8.8 11 5.7 6 7.25"></polygon>
+                        <polygon id="Shape" fill="#B52428" opacity="0.35" points="6 7.25 9.5 1.15 11 2.05 11 5.7"></polygon>
+                        <polygon id="Shape" fill="#B52428" opacity="0.5" points="6 7.25 2.5 1.15 1 2.05 1 5.7"></polygon>
+                        <polygon id="Shape" fill="#FFFFFF" opacity="0.5" points="6 7.25 2.5 1.15 6 3.05"></polygon>
+                        <polygon id="Shape" fill="#FFFFFF" opacity="0.25" points="6 7.25 9.5 1.15 6 3.05"></polygon>
+                        <polygon id="Shape" fill="#FFFFFF" opacity="0.5" points="4.3 7.7 2.5 5.2 2.5 2.9 2.55 2.9 6 4.75 9.45 2.9 9.5 2.9 9.5 5.2 7.7 7.7 6 8.95"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

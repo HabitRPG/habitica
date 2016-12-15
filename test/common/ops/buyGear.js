@@ -29,12 +29,12 @@ describe('shared.ops.buyGear', () => {
       stats: { gp: 200 },
     });
 
-    sinon.stub(shared.fns, 'randomVal');
+    sinon.stub(shared, 'randomVal');
     sinon.stub(shared.fns, 'predictableRandom');
   });
 
   afterEach(() => {
-    shared.fns.randomVal.restore();
+    shared.randomVal.restore();
     shared.fns.predictableRandom.restore();
   });
 

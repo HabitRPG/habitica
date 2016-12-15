@@ -6,17 +6,21 @@ import nconf from 'nconf';
 
 const SLACK_FLAGGING_URL = nconf.get('SLACK:FLAGGING_URL');
 const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK:FLAGGING_FOOTER_LINK');
+const SLACK_SUBSCRIPTIONS_URL = nconf.get('SLACK:SUBSCRIPTIONS_URL');
 const BASE_URL = nconf.get('BASE_URL');
 
 let flagSlack;
+let subscriptionSlack;
 
 try {
   flagSlack = new IncomingWebhook(SLACK_FLAGGING_URL);
+  subscriptionSlack = new IncomingWebhook(SLACK_SUBSCRIPTIONS_URL);
 } catch (err) {
   logger.error(err);
 }
 
 function sendFlagNotification ({
+  authorEmail,
   flagger,
   group,
   message,
@@ -27,7 +31,7 @@ function sendFlagNotification ({
   let titleLink;
   let authorName;
   let title = `Flag in ${group.name}`;
-  let text = `${flagger.profile.name} (${flagger.id}) flagged a message`;
+  let text = `${flagger.profile.name} (${flagger.id}) flagged a message (language: ${flagger.preferences.language})`;
 
   if (group.id === TAVERN_ID) {
     titleLink = `${BASE_URL}/#/options/groups/tavern`;
@@ -40,7 +44,7 @@ function sendFlagNotification ({
   if (!message.user && message.uuid === 'system') {
     authorName = 'System Message';
   } else {
-    authorName = `${message.user} - ${message.uuid}`;
+    authorName = `${message.user} - ${authorEmail} - ${message.uuid}`;
   }
 
   flagSlack.send({
@@ -60,6 +64,31 @@ function sendFlagNotification ({
   });
 }
 
+function sendSubscriptionNotification ({
+  buyer,
+  recipient,
+  paymentMethod,
+  months,
+}) {
+  if (!SLACK_SUBSCRIPTIONS_URL) {
+    return;
+  }
+  let text;
+  let timestamp = new Date();
+  if (!recipient.id) {
+    text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month recurring subscription using ${paymentMethod} on ${timestamp}`;
+  } else if (recipient.id === buyer.id) {
+    text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month gift subscription for ${recipient.name} ${recipient.id} ${recipient.email} using ${paymentMethod} on ${timestamp}`;
+  } else {
+    text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month gift subscription for ${recipient.name} ${recipient.id} ${recipient.email} and got a promo using ${paymentMethod} on ${timestamp}`;
+  }
+
+  subscriptionSlack.send({
+    text,
+  });
+}
+
 module.exports = {
   sendFlagNotification,
+  sendSubscriptionNotification,
 };

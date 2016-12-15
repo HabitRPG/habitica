@@ -11,6 +11,7 @@
     "unsubChallenge": "Enlace al desafío interrumpido: esta tarea formaba parte de un desafío, pero ya no participas en él. ¿Qué hacemos con las tareas del desafío?",
     "challengeWinner": "Ha ganado los siguientes desafíos",
     "challenges": "Desafíos",
+    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Desafíos</a>",
     "noChallenges": "Ningún desafío todavía, visita",
     "toCreate": "para crear uno.",
     "selectWinner": "Seleccionar un ganador y cerrar el desafío:",

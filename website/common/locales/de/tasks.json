@@ -74,7 +74,7 @@
     "clearTags": "Aufräumen",
     "hideTags": "Verbergen",
     "showTags": "Anzeigen",
-    "toRequired": "Du musst einen gültigen Endwert eingeben",
+    "toRequired": "Du musst die \"to\"-Eigenschaft angeben",
     "startDate": "Starttermin",
     "startDateHelpTitle": "Wann soll diese Aufgabe beginnen?",
     "startDateHelp": "Setze das Datum fest, ab dem diese Aufgabe in Kraft tritt. Davor wird sie nicht fällig werden.",
@@ -90,7 +90,7 @@
     "fortifyName": "Verstärkungstrank",
     "fortifyPop": "Setzt alle Aufgaben auf den Anfangswert (gelb) zurück und füllt Deine Lebenspunkte wieder auf.",
     "fortify": "Verstärken",
-    "fortifyText": "Stärken setzt alle Deine Aufgaben außer Wettbewerbs-Aufgaben auf einen neutralen Status (gelb) zurück, wie wenn Du sie gerade erstellt hättest, und füllt Deine Lebenspunkte wieder ganz auf. Das ist toll wenn all die roten Aufgaben Dir das Leben zu schwer machen, oder all die blauen Aufgaben das Spiel zu einfach erscheinen lassen. Wenn ein Neuanfang gerade den größten Motivationsschub darstellt, gib ein paar Edelsteine aus und gönn' Dir eine Atempause!",
+    "fortifyText": "Stärken setzt alle Deine Aufgaben außer Wettbewerbs-Aufgaben auf einen neutralen Status (gelb) zurück, so als ob Du sie gerade erstellt hättest, und füllt Deine Lebenspunkte wieder ganz auf. Das ist toll wenn all die roten Aufgaben Dir das Leben zu schwer machen, oder all die blauen Aufgaben das Spiel zu einfach erscheinen lassen. Wenn ein Neuanfang gerade den größten Motivationsschub darstellt, gib ein paar Edelsteine aus und gönn' Dir eine Atempause!",
     "confirmFortify": "Bist Du sicher?",
     "fortifyComplete": "Verstärkung abgeschlossen!",
     "sureDelete": "Willst Du <%= taskType %> mit dem Text \"<%= taskText %>\" wirklich löschen?",
@@ -124,7 +124,7 @@
     "cantDeleteChallengeTasks": "Eine Aufgabe, die zu einem Wettbewerb gehört, kann nicht gelöscht werden.",
     "checklistOnlyDailyTodo": "Checklisten werden nur in täglichen Aufgaben und To-Dos unterstützt.",
     "checklistItemNotFound": "Es wurde kein Checklisten-Eintrag mit dieser ID gefunden.",
-    "itemIdRequired": "\"idemId\" muss eine gültige UUID sein.",
+    "itemIdRequired": "\"itemId\" muss eine gültige UUID sein.",
     "tagNotFound": "Kein Tag mit dieser ID gefunden.",
     "tagIdRequired": "\"tagId\" muss eine gültige UUID sein, passend zu einem dem Benutzer zugeordneten Tag.",
     "positionRequired": "\"position\" wird benötigt und muss eine Zahl sein.",
@@ -134,5 +134,9 @@
     "strengthExample": "Alles was mit Sport oder sonstigen Aktivitäten zu tun hat.",
     "intelligenceExample": "Alles was mit Schule zu tun hat oder sonst Deinen Kopf anstrengt",
     "perceptionExample": "Alles was mit Arbeit oder Finanzen zu tun hat",
-    "constitutionExample": "Alles was mit Gesundheit, Wohlbefinden und sozialen Kontakten zu tun hat."
+    "constitutionExample": "Alles was mit Gesundheit, Wohlbefinden und sozialen Kontakten zu tun hat.",
+    "taskRequiresApproval": "Diese Aufgabe muss genehmigt werden, bevor du sie abschließen kannst. Eine Genehmigung wurde bereits angefragt.",
+    "taskApprovalHasBeenRequested": "Die Genehmigung wurde angefragt.",
+    "approvals": "Zustimmungen",
+    "approvalRequired": "Zustimmung benötigt"
 }

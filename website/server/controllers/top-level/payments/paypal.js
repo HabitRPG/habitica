@@ -12,12 +12,17 @@ import Bluebird from 'bluebird';
 import { model as Coupon } from '../../../models/coupon';
 import { model as User } from '../../../models/user';
 import {
+  model as Group,
+  basicFields as basicGroupFields,
+} from '../../../models/group';
+import {
   authWithUrl,
   authWithSession,
 } from '../../../middlewares/auth';
 import {
   BadRequest,
   NotAuthorized,
+  NotFound,
 } from '../../../libs/errors';
 
 const BASE_URL = nconf.get('BASE_URL');
@@ -50,7 +55,6 @@ let api = {};
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {get} /paypal/checkout Paypal: checkout
- * @apiVersion 3.0.0
  * @apiName PaypalCheckout
  * @apiGroup Payments
  **/
@@ -108,7 +112,6 @@ api.checkout = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {get} /paypal/checkout/success Paypal: checkout success
- * @apiVersion 3.0.0
  * @apiName PaypalCheckoutSuccess
  * @apiGroup Payments
  **/
@@ -136,12 +139,16 @@ api.checkoutSuccess = {
         method = 'createSubscription';
       }
 
-      data.paymentMethod = 'Gift';
+      data.paymentMethod = 'PayPal (Gift)';
       data.gift = gift;
     }
 
     await paypalPaymentExecute(paymentId, { payer_id: customerId });
     await payments[method](data);
+    if (gift && gift.type === 'subscription' && gift.member._id !== data.user._id) {
+      gift.member = data.user;
+      await payments.createSubscription(data);
+    }
     res.redirect('/');
   },
 };
@@ -149,7 +156,6 @@ api.checkoutSuccess = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {get} /paypal/subscribe Paypal: subscribe
- * @apiVersion 3.0.0
  * @apiName PaypalSubscribe
  * @apiGroup Payments
  **/
@@ -181,6 +187,7 @@ api.subscribe = {
     let billingAgreement = await paypalBillingAgreementCreate(billingAgreementAttributes);
 
     req.session.paypalBlock = req.query.sub;
+    req.session.groupId = req.query.groupId;
     let link = _.find(billingAgreement.links, { rel: 'approval_url' }).href;
     res.redirect(link);
   },
@@ -189,7 +196,6 @@ api.subscribe = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {get} /paypal/subscribe/success Paypal: subscribe success
- * @apiVersion 3.0.0
  * @apiName PaypalSubscribeSuccess
  * @apiGroup Payments
  **/
@@ -200,11 +206,15 @@ api.subscribeSuccess = {
   async handler (req, res) {
     let user = res.locals.user;
     let block = shared.content.subscriptionBlocks[req.session.paypalBlock];
+    let groupId = req.session.groupId;
+
     delete req.session.paypalBlock;
+    delete req.session.groupId;
 
     let result = await paypalBillingAgreementExecute(req.query.token, {});
     await payments.createSubscription({
       user,
+      groupId,
       customerId: result.id,
       paymentMethod: 'Paypal',
       sub: block,
@@ -218,7 +228,6 @@ api.subscribeSuccess = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {get} /paypal/subscribe/cancel Paypal: subscribe cancel
- * @apiVersion 3.0.0
  * @apiName PaypalSubscribeCancel
  * @apiGroup Payments
  **/
@@ -228,8 +237,26 @@ api.subscribeCancel = {
   middlewares: [authWithUrl],
   async handler (req, res) {
     let user = res.locals.user;
-    let customerId = user.purchased.plan.customerId;
-    if (!user.purchased.plan.customerId) throw new NotAuthorized(res.t('missingSubscription'));
+    let groupId = req.query.groupId;
+
+    let customerId;
+    if (groupId) {
+      let groupFields = basicGroupFields.concat(' purchased');
+      let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+
+      if (!group) {
+        throw new NotFound(res.t('groupNotFound'));
+      }
+
+      if (!group.leader === user._id) {
+        throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
+      }
+      customerId = group.purchased.plan.customerId;
+    } else {
+      customerId = user.purchased.plan.customerId;
+    }
+
+    if (!customerId) throw new NotAuthorized(res.t('missingSubscription'));
 
     let customer = await paypalBillingAgreementGet(customerId);
 
@@ -241,6 +268,7 @@ api.subscribeCancel = {
     await paypalBillingAgreementCancel(customerId, { note: res.t('cancelingSubscription') });
     await payments.cancelSubscription({
       user,
+      groupId,
       paymentMethod: 'Paypal',
       nextBill: nextBillingDate,
     });
@@ -255,7 +283,6 @@ api.subscribeCancel = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {post} /paypal/ipn Paypal IPN
- * @apiVersion 3.0.0
  * @apiName PaypalIpn
  * @apiGroup Payments
  **/
@@ -271,6 +298,13 @@ api.ipn = {
       let user = await User.findOne({ 'purchased.plan.customerId': req.body.recurring_payment_id });
       if (user) {
         await payments.cancelSubscription({ user, paymentMethod: 'Paypal' });
+        return;
+      }
+
+      let groupFields = basicGroupFields.concat(' purchased');
+      let group = await Group.findOne({ 'purchased.plan.customerId': req.body.recurring_payment_id }).select(groupFields).exec();
+      if (group) {
+        await payments.cancelSubscription({ groupId: group._id, paymentMethod: 'Paypal' });
       }
     }
   },
