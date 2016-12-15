@@ -187,7 +187,7 @@ function _getBasicAchievements (user, language) {
   _addUltimateGear(result, user, {path: 'healer', language});
   _addUltimateGear(result, user, {path: 'rogue', language});
   _addUltimateGear(result, user, {path: 'warrior', language});
-  _addUltimateGear(result, user, {path: 'mage', altpath: 'wizard', language});
+  _addUltimateGear(result, user, {path: 'mage', altPath: 'wizard', language});
 
   let rebirthTitle;
   let rebirthText;
