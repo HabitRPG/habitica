@@ -231,7 +231,9 @@ function _getSeasonalAchievements (user, language) {
 
   let questAchievements = ['dilatory', 'stressbeast', 'burnout', 'bewilder'];
   questAchievements.forEach(path => {
-    _addQuest(result, user, {path, language});
+    if (user.achievements.quests[path]) {
+      _addQuest(result, user, {path, language});
+    }
   });
 
   _addPlural(result, user, {path: 'costumeContests', language});

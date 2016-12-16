@@ -156,13 +156,12 @@ describe('achievements', () => {
       });
     });
 
-    it('quest achievements exist with counts', () => {
+    it('quest achievements do not exist', () => {
       let quests = ['dilatory', 'stressbeast', 'burnout', 'bewilder'];
       quests.forEach((quest) => {
         let questAchiev = seasonalAchievs[`${quest}Quest`];
 
-        expect(questAchiev).to.exist;
-        expect(questAchiev.optionalCount).to.be.undefined;
+        expect(questAchiev).to.not.exist;
       });
     });
 
@@ -225,6 +224,24 @@ describe('achievements', () => {
     it('originalUser achievement is hidden if unachieved', () => {
       let originalUser = specialAchievs.originalUser;
       expect(originalUser).to.not.exist;
+    });
+  });
+
+  describe('earned seasonal achievements', () => {
+    let user = generateUser();
+    let quests = ['dilatory', 'stressbeast', 'burnout', 'bewilder'];
+    quests.forEach((quest) => {
+      user.achievements.quests[quest] = 1;
+    });
+    let seasonalAchievs = shared.achievements.getAchievementsForProfile(user).seasonal.achievements;
+
+    it('quest achievements exist', () => {
+      quests.forEach((quest) => {
+        let questAchiev = seasonalAchievs[`${quest}Quest`];
+
+        expect(questAchiev).to.exist;
+        expect(questAchiev.optionalCount).to.be.undefined;
+      });
     });
   });
 
