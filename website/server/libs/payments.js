@@ -138,12 +138,30 @@ api.createSubscription = async function createSubscription (data) {
   if (!group) data.user.purchased.txnCount++;
 
   if (data.gift) {
-    let message = `\`Hello ${data.gift.member.profile.name}, ${data.user.profile.name} has sent you ${shared.content.subscriptionBlocks[data.gift.subscription.key].months} months of subscription!\``;
-    if (data.gift.message) message += ` ${data.gift.message}`;
-
-    data.user.sendMessage(data.gift.member, message);
-
     let byUserName = getUserInfo(data.user, ['name']).name;
+
+    // generate the message in both languages, so both users can understand it
+    let languages = [data.user.preferences.language, data.gift.member.preferences.language];
+    let senderMsg = shared.i18n.t('giftedSubscriptionFull', {
+      username: data.gift.member.profile.name,
+      sender: byUserName,
+      monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
+    }, languages[0]);
+    senderMsg = `\`${senderMsg}\``;
+
+    let receiverMsg = shared.i18n.t('giftedSubscriptionFull', {
+      username: data.gift.member.profile.name,
+      sender: byUserName,
+      monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
+    }, languages[1]);
+    receiverMsg = `\`${receiverMsg}\``;
+
+    if (data.gift.message) {
+      receiverMsg += ` ${data.gift.message}`;
+      senderMsg += ` ${data.gift.message}`;
+    }
+
+    data.user.sendMessage(data.gift.member, { receiverMsg, senderMsg });
 
     if (data.gift.member.preferences.emailNotifications.giftedSubscription !== false) {
       txnEmail(data.gift.member, 'gifted-subscription', [
@@ -156,8 +174,8 @@ api.createSubscription = async function createSubscription (data) {
       if (data.gift.member.preferences.pushNotifications.giftedSubscription !== false) {
         sendPushNotification(data.gift.member,
           {
-            title: shared.i18n.t('giftedSubscription'),
-            message: shared.i18n.t('giftedSubscriptionInfo', {months, name: byUserName}),
+            title: shared.i18n.t('giftedSubscription', languages[1]),
+            message: shared.i18n.t('giftedSubscriptionInfo', {months, name: byUserName}, languages[1]),
             identifier: 'giftedSubscription',
             payload: {replyTo: data.user._id},
           }
@@ -276,9 +294,28 @@ api.buyGems = async function buyGems (data) {
     let byUsername = getUserInfo(data.user, ['name']).name;
     let gemAmount = data.gift.gems.amount || 20;
 
-    let message = `\`Hello ${data.gift.member.profile.name}, ${data.user.profile.name} has sent you ${gemAmount} gems!\``;
-    if (data.gift.message) message += ` ${data.gift.message}`;
-    data.user.sendMessage(data.gift.member, message);
+    // generate the message in both languages, so both users can understand it
+    let languages = [data.user.preferences.language, data.gift.member.preferences.language];
+    let senderMsg = shared.i18n.t('giftedGemsFull', {
+      username: data.gift.member.profile.name,
+      sender: byUsername,
+      gemAmount,
+    }, languages[0]);
+    senderMsg = `\`${senderMsg}\``;
+
+    let receiverMsg = shared.i18n.t('giftedGemsFull', {
+      username: data.gift.member.profile.name,
+      sender: byUsername,
+      gemAmount,
+    }, languages[1]);
+    receiverMsg = `\`${receiverMsg}\``;
+
+    if (data.gift.message) {
+      receiverMsg += ` ${data.gift.message}`;
+      senderMsg += ` ${data.gift.message}`;
+    }
+
+    data.user.sendMessage(data.gift.member, { receiverMsg, senderMsg });
 
     if (data.gift.member.preferences.emailNotifications.giftedGems !== false) {
       txnEmail(data.gift.member, 'gifted-gems', [
@@ -292,8 +329,8 @@ api.buyGems = async function buyGems (data) {
         sendPushNotification(
           data.gift.member,
           {
-            title: shared.i18n.t('giftedGems'),
-            message: shared.i18n.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}),
+            title: shared.i18n.t('giftedGems', languages[1]),
+            message: shared.i18n.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}, languages[1]),
             identifier: 'giftedGems',
           }
         );

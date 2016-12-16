@@ -422,7 +422,7 @@ api.sendPrivateMessage = {
       throw new NotAuthorized(res.t('notAuthorizedToSendMessageToThisUser'));
     }
 
-    await sender.sendMessage(receiver, message);
+    await sender.sendMessage(receiver, { receiverMsg: message });
 
     if (receiver.preferences.emailNotifications.newPM !== false) {
       sendTxnEmail(receiver, 'new-pm', [
@@ -492,18 +492,27 @@ api.transferGems = {
     let promises = [receiver.save(), sender.save()];
     await Bluebird.all(promises);
 
-    let message = res.t('privateMessageGiftIntro', {
-      receiverName: receiver.profile.name,
-      senderName: sender.profile.name,
+    // generate the message in both languages, so both users can understand it
+    let receiverLang = receiver.preferences.language;
+    let senderLang = sender.preferences.language;
+    let [receiverMsg, senderMsg] = [receiverLang, senderLang].map((lang) => {
+      let messageContent = res.t('privateMessageGiftIntro', {
+        receiverName: receiver.profile.name,
+        senderName: sender.profile.name,
+      }, lang);
+      messageContent += res.t('privateMessageGiftGemsMessage', {gemAmount}, lang);
+      messageContent = `\`${messageContent}\` `;
+
+      if (req.body.message) {
+        messageContent += req.body.message;
+      }
+      return messageContent;
     });
-    message += res.t('privateMessageGiftGemsMessage', {gemAmount});
-    message =  `\`${message}\` `;
 
-    if (req.body.message) {
-      message += req.body.message;
-    }
-
-    await sender.sendMessage(receiver, message);
+    await sender.sendMessage(receiver, {
+      senderMsg,
+      receiverMsg,
+    });
 
     let byUsername = getUserInfo(sender, ['name']).name;
 
@@ -516,8 +525,8 @@ api.transferGems = {
     if (receiver.preferences.pushNotifications.giftedGems !== false) {
       sendPushNotification(receiver,
         {
-          title: res.t('giftedGems'),
-          message: res.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}),
+          title: res.t('giftedGems', receiverLang),
+          message: res.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}, receiverLang),
           identifier: 'giftedGems',
           payload: {replyTo: sender._id},
         });
