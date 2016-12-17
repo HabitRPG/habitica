@@ -246,6 +246,6 @@
     "approvalsTitle": "Tasks Awaiting Approval",
     "upgradeTitle": "Upgrade",
     "blankApprovalsDescription": "When your group completes tasks that need your approval, they’ll appear here! Adjust approval requirement settings under task editing.",
-    "userIsClamingTask": "<%= username %> has claimed <%= task %>",
+    "userIsClamingTask": "<%= username %> has claimed \"<%= task %>\"",
     "approvalRequested": "Approval Requested"
 }
