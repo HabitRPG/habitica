@@ -235,6 +235,11 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   const AVAILABLE_SPELLS = [
   ];
 
+  const AVAILABLE_QUESTS = [
+    'evilsanta',
+    'evilsanta2',
+  ];
+
   let categories = [];
 
   let flatGearArray = _.toArray(content.gear.flat);
@@ -259,6 +264,36 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
         currency: 'gold',
         locked: false,
         purchaseType: 'spells',
+      };
+    });
+
+    categories.push(category);
+  }
+
+  let quests = pickBy(content.quests, (quest, key) => {
+    return _.indexOf(AVAILABLE_QUESTS, key) !== -1;
+  });
+
+  if (_.keys(quests).length > 0) {
+    let category = {
+      identifier: 'quests',
+      text: i18n.t('quests', language),
+    };
+
+    category.items = _.map(quests, (quest, key) => {
+      return {
+        key,
+        text: quest.text(language),
+        notes: quest.notes(language),
+        value: quest.value,
+        type: 'quests',
+        currency: 'gems',
+        locked: false,
+        drop: quest.drop,
+        boss: quest.boss,
+        collect: quest.collect,
+        class: `inventory_quest_scroll_${key}`,
+        purchaseType: 'quests',
       };
     });
 
