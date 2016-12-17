@@ -92,5 +92,7 @@
     "petsReleased": "Familiers libérés.",
     "mountsAndPetsReleased": "Montures et familiers libérés",
     "mountsReleased": "Montures libérées",
-    "gemsEach": "gemmes chacun"
+    "gemsEach": "gemmes chacun",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

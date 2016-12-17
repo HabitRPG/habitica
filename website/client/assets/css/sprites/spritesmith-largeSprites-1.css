@@ -1,0 +1,30 @@
+.scene_coding {
+  background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
+  background-position: -247px -181px;
+  width: 150px;
+  height: 150px;
+}
+.scene_phone_peek {
+  background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
+  background-position: 0px -347px;
+  width: 150px;
+  height: 150px;
+}
+.welcome_basic_avatars {
+  background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
+  background-position: -271px 0px;
+  width: 246px;
+  height: 165px;
+}
+.welcome_promo_party {
+  background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
+  background-position: 0px 0px;
+  width: 270px;
+  height: 180px;
+}
+.welcome_sample_tasks {
+  background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
+  background-position: 0px -181px;
+  width: 246px;
+  height: 165px;
+}

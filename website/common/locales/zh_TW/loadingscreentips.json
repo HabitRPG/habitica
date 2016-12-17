@@ -1,6 +1,6 @@
 {
   "tipTitle": "Tip #<%= tipNumber %>",
-  "tip1": "Check tasks on the go with the Habitica mobile apps.",
+  "tip1": "使用Habitica行動Apps來隨時檢查任務。",
   "tip2": "Reach level 100 to unlock the Orb of Rebirth for free and start a new adventure!",
   "tip3": "Use emoji to quickly differentiate between your tasks.",
   "tip4": "Use the # sign before a task name to make it really big!",
@@ -30,7 +30,7 @@
   "tip28": "Set a Custom Day Start under Settings > Site to control when your day restarts.",
   "tip29": "Complete all your Dailies to get a Perfect Day Buff that increases your stats!",
   "tip30": "You can invite people to Guilds, not just Parties.",
-  "tip31": "Check out the pre-made lists in the Library of Shared Lists Guild for example tasks.",
+  "tip31": "Check out the pre-made lists in the Library of Tasks and Challenges Guild for example tasks.",
   "tip32": "Lots of Habitica’s code, art, and writing is made by volunteer contributors! Anyone can help.",
   "tip33": "Check out The Bulletin Board guild for news about guilds, challenges, and other player-created events - and announce your own there!"
 }

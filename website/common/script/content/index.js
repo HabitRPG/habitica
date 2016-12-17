@@ -12,7 +12,7 @@ import {
 
 let api = module.exports;
 
-import mysterySets from './mystery-sets';
+import achievements from './achievements';
 
 import eggs from './eggs';
 import hatchingPotions from './hatching-potions';
@@ -23,37 +23,19 @@ import appearances from './appearance';
 import backgrounds from './appearance/backgrounds.js'
 import spells from './spells';
 import faq from './faq';
+import timeTravelers from './time-travelers';
+
 import loginIncentives from './loginIncentives';
 
-api.mystery = mysterySets;
+api.achievements = achievements;
 
 api.itemList = ITEM_LIST;
 
 api.gear = gear;
 api.spells = spells;
 
-/*
-   Time Traveler Store, mystery sets need their items mapped in
-   */
-
-_.each(api.mystery, function(v, k) {
-  return v.items = _.where(api.gear.flat, {
-    mystery: k
-  });
-});
-
-api.timeTravelerStore = function(owned) {
-  var ownedKeys;
-  ownedKeys = _.keys((typeof owned.toObject === "function" ? owned.toObject() : void 0) || owned);
-  return _.reduce(api.mystery, function(m, v, k) {
-    if (k === 'wondercon' || ~ownedKeys.indexOf(v.items[0].key)) {
-      return m;
-    }
-    m[k] = v;
-    return m;
-  }, {});
-};
-
+api.mystery = timeTravelers.mystery;
+api.timeTravelerStore = timeTravelers.timeTravelerStore;
 
 /*
    ---------------------------------------------------------------
@@ -716,7 +698,7 @@ api.quests = {
   },
   evilsanta: {
     canBuy: (function() {
-      return false;
+      return true;
     }),
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
@@ -742,7 +724,7 @@ api.quests = {
   },
   evilsanta2: {
     canBuy: (function() {
-      return false;
+      return true;
     }),
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),
@@ -2753,13 +2735,45 @@ api.quests = {
       items: [
         {
           type: 'gear',
-          key: "weapon_special_lunarScythe",
+          key: 'weapon_special_lunarScythe',
           text: t('questMoon3DropWeapon')
         },
       ],
       gp: 67,
       exp: 650
     }
+  },
+  sloth: {
+    text: t('questSlothText'),
+    notes: t('questSlothNotes'),
+    completion: t('questSlothCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questSlothBoss'),
+      hp: 400,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Sloth',
+          text: t('questSlothDropSlothEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Sloth',
+          text: t('questSlothDropSlothEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Sloth',
+          text: t('questSlothDropSlothEgg'),
+        },
+      ],
+      gp: 31,
+      exp: 200,
+      unlock: t('questSlothUnlockText'),
+    },
   },
 };
 

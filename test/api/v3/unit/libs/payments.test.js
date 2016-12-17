@@ -5,6 +5,7 @@ import notifications from '../../../../../website/server/libs/pushNotifications'
 import { model as User } from '../../../../../website/server/models/user';
 import { model as Group } from '../../../../../website/server/models/group';
 import moment from 'moment';
+import { translate as t } from '../../../../helpers/api-v3-integration.helper';
 import {
   generateGroup,
 } from '../../../../helpers/api-unit.helper.js';
@@ -145,6 +146,14 @@ describe('payments/index', () => {
         expect(recipient.purchased.plan.dateUpdated).to.exist;
       });
 
+      it('sets plan.dateCreated if it did not previously exist', async () => {
+        expect(recipient.purchased.plan.dateCreated).to.not.exist;
+
+        await api.createSubscription(data);
+
+        expect(recipient.purchased.plan.dateCreated).to.exist;
+      });
+
       it('does not change plan.customerId if it already exists', async () => {
         recipient.purchased.plan = plan;
         data.customerId = 'purchaserCustomerId';
@@ -173,9 +182,10 @@ describe('payments/index', () => {
 
       it('sends a private message about the gift', async () => {
         await api.createSubscription(data);
+        let msg = '\`Hello recipient, sender has sent you 3 months of subscription!\`';
 
         expect(user.sendMessage).to.be.calledOnce;
-        expect(user.sendMessage).to.be.calledWith(recipient, '\`Hello recipient, sender has sent you 3 months of subscription!\`');
+        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg, senderMsg: msg });
       });
 
       it('sends an email about the gift', async () => {
@@ -689,13 +699,36 @@ describe('payments/index', () => {
 
       it('sends a message from purchaser to recipient', async () => {
         await api.buyGems(data);
+        let msg = '\`Hello recipient, sender has sent you 4 gems!\`';
 
-        expect(user.sendMessage).to.be.calledWith(recipient, '\`Hello recipient, sender has sent you 4 gems!\`');
+        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg, senderMsg: msg });
       });
 
       it('sends a push notification if user did not gift to self', async () => {
         await api.buyGems(data);
         expect(notifications.sendNotification).to.be.calledOnce;
+      });
+
+      it('sends gem donation message in each participant\'s language', async () => {
+        await recipient.update({
+          'preferences.language': 'es',
+        });
+        await user.update({
+          'preferences.language': 'cs',
+        });
+        await api.buyGems(data);
+
+        let [recipientsMessageContent, sendersMessageContent] = ['es', 'cs'].map((lang) => {
+          let messageContent = t('giftedGemsFull', {
+            username: recipient.profile.name,
+            sender: user.profile.name,
+            gemAmount: data.gift.gems.amount,
+          }, lang);
+
+          return `\`${messageContent}\``;
+        });
+
+        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: recipientsMessageContent, senderMsg: sendersMessageContent });
       });
     });
   });

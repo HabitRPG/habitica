@@ -17,6 +17,7 @@ import {
 } from '../../libs/email';
 import Bluebird from 'bluebird';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
+import { achievements } from '../../../../website/common/';
 
 let api = {};
 
@@ -55,6 +56,113 @@ api.getMember = {
     member.addComputedStatsToJSONObj(memberToJSON.stats);
 
     res.respond(200, memberToJSON);
+  },
+};
+
+/**
+ * @api {get} /api/v3/members/:memberId/achievements Get member achievements object
+ * @apiName GetMemberAchievements
+ * @apiGroup Member
+ * @apiDescription Get a list of achievements of the requested member, grouped by basic / seasonal / special.
+ *
+ * @apiParam (Path) {UUID} memberId The member's id
+ *
+ * @apiSuccess {Object} data The achievements object
+ *
+ * @apiSuccess {Object} data.basic The basic achievements object
+ * @apiSuccess {Object} data.seasonal The seasonal achievements object
+ * @apiSuccess {Object} data.special The special achievements object
+ *
+ * @apiSuccess {String} data.*.label The label for that category
+ * @apiSuccess {Object} data.*.achievements The achievements in that category
+ *
+ * @apiSuccess {String} data.*.achievements.title The localized title string
+ * @apiSuccess {String} data.*.achievements.text The localized description string
+ * @apiSuccess {Boolean} data.*.achievements.earned Whether the user has earned the achievement
+ * @apiSuccess {Number} data.*.achievements.index The unique index assigned to the achievement (only for sorting purposes)
+ * @apiSuccess {Anything} data.*.achievements.value The value related to the achievement (if applicable)
+ * @apiSuccess {Number} data.*.achievements.optionalCount The count related to the achievement (if applicable)
+ *
+ * @apiSuccessExample {json} Successful Response
+ * {
+ *   basic: {
+ *     label: "Basic",
+ *     achievements: {
+ *       streak: {
+ *         title: "0 Streak Achievements",
+ *         text: "Has performed 0 21-day streaks on Dailies",
+ *         icon: "achievement-thermometer",
+ *         earned: false,
+ *         value: 0,
+ *         index: 60,
+ *         optionalCount: 0
+ *       },
+ *       perfect: {
+ *         title: "5 Perfect Days",
+ *         text: "Completed all active Dailies on 5 days. With this achievement you get a +level/2 buff to all attributes for the next day. Levels greater than 100 don't have any additional effects on buffs.",
+ *         icon: "achievement-perfect",
+ *         earned: true,
+ *         value: 5,
+ *         index: 61,
+ *         optionalCount: 5
+ *       }
+ *     }
+ *   },
+ *   seasonal: {
+ *     label: "Seasonal",
+ *     achievements: {
+ *       habiticaDays: {
+ *         title: "Habitica Naming Day",
+ *         text: "Celebrated 0 Naming Days! Thanks for being a fantastic user.",
+ *         icon: "achievement-habiticaDay",
+ *         earned: false,
+ *         value: 0,
+ *         index: 72,
+ *         optionalCount: 0
+ *       }
+ *     }
+ *   },
+ *   special: {
+ *     label: "Special",
+ *     achievements: {
+ *       habitSurveys: {
+ *         title: "Helped Habitica Grow",
+ *         text: "Helped Habitica grow on 0 occasions, either by filling out a survey or helping with a major testing effort. Thank you!",
+ *         icon: "achievement-tree",
+ *         earned: false,
+ *         value: 0,
+ *         index: 88,
+ *         optionalCount: 0
+ *       }
+ *     }
+ *   }
+ * }
+ *
+ * @apiError (400) {BadRequest} MemberIdRequired The `id` param is required and must be a valid `UUID`
+ * @apiError (404) {NotFound} UserWithIdNotFound The `id` param did not belong to an existing member
+ */
+api.getMemberAchievements = {
+  method: 'GET',
+  url: '/members/:memberId/achievements',
+  middlewares: [],
+  async handler (req, res) {
+    req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let memberId = req.params.memberId;
+
+    let member = await User
+      .findById(memberId)
+      .select(memberFields)
+      .exec();
+
+    if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
+
+    let achievsObject = achievements.getAchievementsForProfile(member, req.language);
+
+    res.respond(200, achievsObject);
   },
 };
 
@@ -314,7 +422,7 @@ api.sendPrivateMessage = {
       throw new NotAuthorized(res.t('notAuthorizedToSendMessageToThisUser'));
     }
 
-    await sender.sendMessage(receiver, message);
+    await sender.sendMessage(receiver, { receiverMsg: message });
 
     if (receiver.preferences.emailNotifications.newPM !== false) {
       sendTxnEmail(receiver, 'new-pm', [
@@ -384,18 +492,31 @@ api.transferGems = {
     let promises = [receiver.save(), sender.save()];
     await Bluebird.all(promises);
 
-    let message = res.t('privateMessageGiftGemsMessage', {
-      receiverName: receiver.profile.name,
-      senderName: sender.profile.name,
-      gemAmount: gemAmount
+<<<<<<< HEAD
+
+=======
+    // generate the message in both languages, so both users can understand it
+    let receiverLang = receiver.preferences.language;
+    let senderLang = sender.preferences.language;
+    let [receiverMsg, senderMsg] = [receiverLang, senderLang].map((lang) => {
+      let messageContent = res.t('privateMessageGiftIntro', {
+        receiverName: receiver.profile.name,
+        senderName: sender.profile.name,
+      }, lang);
+      messageContent += res.t('privateMessageGiftGemsMessage', {gemAmount}, lang);
+      messageContent = `\`${messageContent}\` `;
+
+      if (req.body.message) {
+        messageContent += req.body.message;
+      }
+      return messageContent;
     });
-    message =  `\`${message}\` `;
+>>>>>>> upstream/develop
 
-    if (req.body.message) {
-      message += req.body.message;
-    }
-
-    await sender.sendMessage(receiver, message);
+    await sender.sendMessage(receiver, {
+      senderMsg,
+      receiverMsg,
+    });
 
     let byUsername = getUserInfo(sender, ['name']).name;
 
@@ -408,8 +529,8 @@ api.transferGems = {
     if (receiver.preferences.pushNotifications.giftedGems !== false) {
       sendPushNotification(receiver,
         {
-          title: res.t('giftedGems'),
-          message: res.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}),
+          title: res.t('giftedGems', receiverLang),
+          message: res.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}, receiverLang),
           identifier: 'giftedGems',
           payload: {replyTo: sender._id},
         });

@@ -1,5 +1,6 @@
 {
     "npc": "NPC",
+    "npcAchievementName": "<%= key %> NPC",
     "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
     "mattBoch": "Matt Boch",
     "mattShall": "Shall I bring you your steed, <%= name %>? Once you've fed a pet enough food to turn it into a mount, it will appear here. Click a mount to saddle up!",
@@ -83,7 +84,7 @@
     "tourChallengesPage": "Challenges are themed task lists created by users! Joining a Challenge will add its tasks to your account. Compete against other users to win Gem prizes!",
     "tourMarketPage": "Starting at Level 3, eggs and hatching potions drop randomly when you complete tasks. They appear here—use them to hatch pets! You can also buy items from the Market.",
     "tourHallPage": "Welcome to the Hall of Heroes, where open-source contributors to Habitica are honoured. Whether through code, art, music, writing, or even just helpfulness, they have earned Gems, exclusive equipment, and prestigious titles. You can contribute to Habitica, too!",
-    "tourPetsPage": "This is the Stable! After level 3, you can hatch pets using eggs and potions. When you hatch a pet in the Market, it will appear here! Click a pet's image to add it to your avatar. Feed them with the food you find after level 3, and they'll grow into powerful mounts.",
+    "tourPetsPage": "This is the Stable! After reaching level 3, you will gather pet eggs and hatching potions as you complete tasks. When you hatch a pet in the Market, it will appear here! Click a pet's image to add it to your avatar. Feed them with the food you find after level 3, and they'll grow into powerful mounts.",
     "tourMountsPage": "Once you've fed a pet enough food to turn it into a mount, it will appear here. (Pets, mounts, and food are available after level 3.) Click a mount to saddle up!",
     "tourEquipmentPage": "This is where your Equipment is stored! Your Battle Gear affects your stats. If you want to show different Equipment on your avatar without changing your stats, click \"Enable Costume.\"",
     "equipmentAlreadyOwned": "You already own that piece of equipment",

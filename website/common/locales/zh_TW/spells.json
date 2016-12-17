@@ -51,7 +51,7 @@
     "spellSpecialSandText": "沙子",
     "spellSpecialSandNotes": "取消水藍的效果。",
     "spellNotFound": "Skill \"<%= spellId %>\" not found.",
-    "partyNotFound": "Party not found",
+    "partyNotFound": "找不到隊伍。",
     "targetIdUUID": "\"targetId\" must be a valid User ID.",
     "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
     "spellNotOwned": "You don't own this skill.",

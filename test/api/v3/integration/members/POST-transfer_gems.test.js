@@ -4,6 +4,14 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
+function findMessage (messages, receiverId) {
+  let message = _.find(messages, (inboxMessage) => {
+    return inboxMessage.uuid === receiverId;
+  });
+
+  return message;
+}
+
 describe('POST /members/transfer-gems', () => {
   let userToSendMessage;
   let receiver;
@@ -116,13 +124,8 @@ describe('POST /members/transfer-gems', () => {
     let updatedReceiver = await receiver.get('/user');
     let updatedSender = await userToSendMessage.get('/user');
 
-    let sendersMessageInReceiversInbox = _.find(updatedReceiver.inbox.messages, (inboxMessage) => {
-      return inboxMessage.uuid === userToSendMessage._id;
-    });
-
-    let sendersMessageInSendersInbox = _.find(updatedSender.inbox.messages, (inboxMessage) => {
-      return inboxMessage.uuid === receiver._id;
-    });
+    let sendersMessageInReceiversInbox = findMessage(updatedReceiver.inbox.messages, userToSendMessage._id);
+    let sendersMessageInSendersInbox = findMessage(updatedSender.inbox.messages, receiver._id);
 
     let messageSentContent = t('privateMessageGiftGemsMessage', {
       receiverName: receiver.profile.name,
@@ -150,13 +153,8 @@ describe('POST /members/transfer-gems', () => {
     let updatedReceiver = await receiver.get('/user');
     let updatedSender = await userToSendMessage.get('/user');
 
-    let sendersMessageInReceiversInbox = _.find(updatedReceiver.inbox.messages, (inboxMessage) => {
-      return inboxMessage.uuid === userToSendMessage._id;
-    });
-
-    let sendersMessageInSendersInbox = _.find(updatedSender.inbox.messages, (inboxMessage) => {
-      return inboxMessage.uuid === receiver._id;
-    });
+    let sendersMessageInReceiversInbox = findMessage(updatedReceiver.inbox.messages, userToSendMessage._id);
+    let sendersMessageInSendersInbox = findMessage(updatedSender.inbox.messages, receiver._id);
 
     let messageSentContent = t('privateMessageGiftGemsMessage', {
       receiverName: receiver.profile.name,
@@ -171,6 +169,42 @@ describe('POST /members/transfer-gems', () => {
 
     expect(sendersMessageInSendersInbox).to.exist;
     expect(sendersMessageInSendersInbox.text).to.equal(messageSentContent);
+    expect(updatedSender.balance).to.equal(0);
+  });
+
+  it('sends transfer gems message in each participant\'s language', async () => {
+    await receiver.update({
+      'preferences.language': 'es',
+    });
+    await userToSendMessage.update({
+      'preferences.language': 'cs',
+    });
+    await userToSendMessage.post('/members/transfer-gems', {
+      gemAmount,
+      toUserId: receiver._id,
+    });
+
+    let updatedReceiver = await receiver.get('/user');
+    let updatedSender = await userToSendMessage.get('/user');
+
+    let sendersMessageInReceiversInbox = findMessage(updatedReceiver.inbox.messages, userToSendMessage._id);
+    let sendersMessageInSendersInbox = findMessage(updatedSender.inbox.messages, receiver._id);
+
+    let [receieversMessageContent, sendersMessageContent] = ['es', 'cs'].map((lang) => {
+      let messageContent = t('privateMessageGiftIntro', {
+        receiverName: receiver.profile.name,
+        senderName: userToSendMessage.profile.name,
+      }, lang);
+      messageContent += t('privateMessageGiftGemsMessage', {gemAmount}, lang);
+
+      return `\`${messageContent}\` `;
+    });
+
+    expect(sendersMessageInReceiversInbox).to.exist;
+    expect(sendersMessageInReceiversInbox.text).to.equal(receieversMessageContent);
+
+    expect(sendersMessageInSendersInbox).to.exist;
+    expect(sendersMessageInSendersInbox.text).to.equal(sendersMessageContent);
     expect(updatedSender.balance).to.equal(0);
   });
 });

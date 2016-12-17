@@ -139,12 +139,16 @@ api.checkoutSuccess = {
         method = 'createSubscription';
       }
 
-      data.paymentMethod = 'Gift';
+      data.paymentMethod = 'PayPal (Gift)';
       data.gift = gift;
     }
 
     await paypalPaymentExecute(paymentId, { payer_id: customerId });
     await payments[method](data);
+    if (gift && gift.type === 'subscription' && gift.member._id !== data.user._id) {
+      gift.member = data.user;
+      await payments.createSubscription(data);
+    }
     res.redirect('/');
   },
 };

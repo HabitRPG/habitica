@@ -399,7 +399,13 @@
     "questMoon2DropArmor": "Mondkriegerrüstung (Rüstung)",
     "questMoon3Text": "Mondkampf, Teil 3: Der Monströse Mond",
     "questMoon3Notes": "Ihr erhaltet @Starsystemics dringende Schriftrolle um Punkt Mitternacht und galoppiert zu Ihrem Turm. \"Das Monster nutzt den Vollmond um in unsere Sphäre zu gelangen,\" erklärt sie. \"Sollte es Erfolg haben, wird die Schockwelle des Stresses überwältigend sein!\"<br><br>Zu Eurem Schrecken könnt Ihr erkennen, dass das Ungeheuer tatsächlich den Mond zu seiner Manifestation verwendet. Ein glühendes Auge öffnet sich auf dessen felsigen Oberfläche, und eine lange Zunge rollt sich aus einem klaffenden, fängenbesetzen Maul. Ihr werdet ihm nicht erlauben sich vollständig zu manifestieren!",
-    "questMoon3Completion": "The emerging monster bursts into shadow, and the moon turns silver as the danger passes. The dragons start singing again, and the stars sparkle with a soothing light. @Starsystemic the Seer bends down and picks up a lunar shard. It shines silver in her hand, before changing into a magnificent crystal scythe.",
+    "questMoon3Completion": "Die eindringenden Monster zerbersten in Schatten und der Mond wird silbern als die Gefahr vorbei ist. Die Drachen beginnen wieder zu singen und die Sterne funkeln in erleichtertem Licht. @Starsystemic die Seherin bückt sich und hebt einen Mondsplitter auf. Er scheint silbern in ihrer Hand, bevor er sich in eine prachtvolle Kristallsense verwandelt.",
     "questMoon3Boss": "Monströser Mond",
-    "questMoon3DropWeapon": "Mondsense (Zweihändige Waffe)"
+    "questMoon3DropWeapon": "Mondsense (Zweihändige Waffe)",
+    "questSlothText": "The Somnolent Sloth",
+    "questSlothNotes": "As you and your party venture through the Somnolent Snowforest, you're relieved to see a glimmering of green among the white snowdrifts... until an enormous sloth emerges from the frosty trees! Green emeralds shimmer hypnotically on its back.<br><br>\"Hello, adventurers... why don't you take it slow? You've been walking for a while... so why not... stop? Just lie down, and rest...\"<br><br>You feel your eyelids grow heavy, and you realize: It's the Somnolent Sloth! According to @JaizakAripaik, it got its name from the emeralds on its back which are rumored to... send people to... sleep...<br><br>You shake yourself awake, fighting drowsiness. In the nick of time, @awakebyjava and @PainterProphet begin to shout spells, forcing your party awake. \"Now's our chance!\" @Kiwibot yells.",
+    "questSlothCompletion": "You did it! As you defeat the Somnolent Sloth, its emeralds break off. \"Thank you for freeing me of my curse,\" says the sloth. \"I can finally sleep well, without those heavy emeralds on my back. Have these eggs as thanks, and you can have the emeralds too.\" The sloth gives you three sloth eggs and heads off for warmer climates.",
+    "questSlothBoss": "Somnolent Sloth",
+    "questSlothDropSlothEgg": "Sloth (Egg)",
+    "questSlothUnlockText": "Unlocks purchasable Sloth eggs in the Market"
 }
