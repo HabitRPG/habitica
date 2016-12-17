@@ -206,8 +206,7 @@ describe('POST /chat', () => {
 
     expect(user.flags.chatRevoked).to.be.true;
 
-    user.flags.chatRevoked = false;
-    await user.save();
+    await user.update({'flags.chatRevoked': false});
   });
 
   it('does not allow slurs in private gropus', async () => {
@@ -227,8 +226,7 @@ describe('POST /chat', () => {
 
     expect(user.flags.chatRevoked).to.be.true;
 
-    user.flags.chatRevoked = false;
-    await user.save();
+    await user.update({'flags.chatRevoked': false});
   });
 
   it('creates a chat', async () => {
