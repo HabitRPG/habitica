@@ -138,3 +138,4 @@ schema.methods.muteUser = async function muteUser () {
   user.flags.chatRevoked = true;
   await user.save();
 };
+
