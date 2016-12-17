@@ -1,5 +1,5 @@
 fieldset.option-group(ng-if='!$state.includes("options.social.challenges")')
   p.option-title.mega(ng-class='{active: task._tags}', ng-click='task._tags = !task._tags', tooltip=env.t('expandCollapse'))=env.t('tags')
-  label.checkbox(ng-repeat='tag in user.tags', ng-if='task._tags')
+  label.checkbox(ng-repeat='tag in user.tags', ng-if='task._tags', style='text-align: left;')
     input(type='checkbox', ng-checked="task.tags.indexOf(tag.id) !== -1", ng-click="updateTaskTags(tag.id, task)")
     markdown(text='tag.name')
