@@ -12,19 +12,22 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
 
         //If the group has not been created, we bulk add tasks on save
         var group = $scope.obj;
-        if (group._id) Tasks.createGroupTasks(group._id, task);
+        if (!group._id) return;
 
-        // Set up default group info on task. @TODO: Move this to Tasks.createGroupTasks
-        task.group = {
-          id: group._id,
-          approval: {required: false, approved: false, requested: false},
-          assignedUsers: [],
-        };
+        Tasks.createGroupTasks(group._id, task)
+          .then(function () {
+            // Set up default group info on task. @TODO: Move this to Tasks.createGroupTasks
+            task.group = {
+              id: group._id,
+              approval: {required: false, approved: false, requested: false},
+              assignedUsers: [],
+            };
 
-        if (!group[task.type + 's']) group[task.type + 's'] = [];
-        group[task.type + 's'].unshift(task);
+            if (!group[task.type + 's']) group[task.type + 's'] = [];
+            group[task.type + 's'].unshift(task);
 
-        Tasks.getGroupTasks($scope.group._id)
+            return Tasks.getGroupTasks($scope.group._id);
+          })
           .then(function (response) {
             var tasks = response.data.data;
 
@@ -47,7 +50,6 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
             group['todos'] = group['todos'].reverse();
             group['rewards'] = group['rewards'].reverse();
           });
-
       });
     };
 
