@@ -30,7 +30,7 @@
     "hairBase": "髮尾",
     "hairSet1": "髮型 1",
     "hairSet2": "髮型 2",
-    "hairSet3": "Hairstyle Set 3",
+    "hairSet3": "髮型 3",
     "bodyFacialHair": "鬍鬚",
     "beard": "落腮鬍",
     "mustache": "八字鬍",
@@ -167,7 +167,7 @@
     "showQuickAllocation": "開啟分配狀態",
     "hideQuickAllocation": "關閉分配狀態",
     "quickAllocationLevelPopover": "每升一級你都能得到一點並分配到你想要的屬性。你可以手動分配，或讓系統在使用者->屬性下幫你自動完成。",
-    "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
-    "notEnoughAttrPoints": "You don't have enough attribute points.",
+    "invalidAttribute": "\"<%= attr %>\" 並不是有效的屬性。",
+    "notEnoughAttrPoints": "你沒有足夠的屬性點數。",
     "gearNotOwned": "你不擁有這項物品。"
 }
