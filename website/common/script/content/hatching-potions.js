@@ -3,6 +3,9 @@ import {
   defaults,
   each,
 } from 'lodash';
+import {
+  EVENTS
+} from './constants'
 import t from './translation';
 
 let drops = {
@@ -107,6 +110,17 @@ each(drops, (pot, key) => {
   });
 });
 
+let eventsList = [];
+each(EVENTS, (event, key) => {
+  let today = new Date().toISOString();
+  if (event.start < today && today < event.end) {
+    eventsList.push(key);
+    if (event.includedEventGear) {
+      eventsList = eventsList.concat(event.includedEventGear);
+    }
+  }
+});
+
 each(premium, (pot, key) => {
   defaults(pot, {
     key,
@@ -118,7 +132,8 @@ each(premium, (pot, key) => {
     premium: true,
     limited: false,
     canBuy () {
-      return pot._season === 'winter';
+      console.log(eventsList, pot._season);
+      return eventsList.indexOf(pot._season) > -1;
     },
   });
 });

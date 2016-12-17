@@ -76,6 +76,29 @@ api.armoire = {
 
 api.classes = CLASSES;
 
+/*
+ ---------------------------------------------------------------
+ Events
+ ---------------------------------------------------------------
+ */
+
+api.events = EVENTS;
+
+api.getActiveEvent = function getActiveEvent() {
+  let nextEvent;
+  let today = new Date().toISOString();
+  for (let eventKey in common.content.events) {
+    let event = common.content.events[eventKey];
+    if (event.end < today || event.start > today) {
+      continue;
+    }
+    if (nextEvent == undefined || event.end > nextEvent.end) {
+      event.key = eventKey;
+      nextEvent = event;
+    }
+  }
+  return nextEvent;
+};
 
 /*
    ---------------------------------------------------------------

@@ -8,6 +8,27 @@ import takeThisGear from './special-takeThis';
 import wonderconGear from './special-wondercon';
 import t from '../../../translation';
 
+function canBuyForEvent(eventKey, recursive=true) {
+  let today = new Date().toISOString();
+  let event = EVENTS[eventKey];
+  if (event.start < today && today < event.end) {
+    //The event itself is currently active
+    return true;
+  } else if (recursive) {
+    //In the first iteration we also check for included gear
+    for (let innerEventKey in EVENTS) {
+      let innerEvent = EVENTS[innerEventKey];
+      if (innerEvent.includedEventGear && innerEvent.includedEventGear.indexOf(eventKey) > -1) {
+        //don't futher iterate over the includedEventGear to avoid infinite recursion
+        if (canBuyForEvent(innerEventKey, false)) {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+}
+
 let armor = {
   0: backerGear.armorSpecial0,
   1: contributorGear.armorSpecial1,
@@ -50,7 +71,7 @@ let armor = {
     con: 9,
     value: 90,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter');
     },
   },
   ski: {
@@ -61,7 +82,7 @@ let armor = {
     per: 15,
     value: 90,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter');
     },
   },
   candycane: {
@@ -72,7 +93,7 @@ let armor = {
     int: 9,
     value: 90,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter');
     },
   },
   snowflake: {
@@ -83,7 +104,7 @@ let armor = {
     con: 15,
     value: 90,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter');
     },
   },
   birthday: {
@@ -195,7 +216,7 @@ let armor = {
     value: 90,
     per: 15,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2015');
     },
   },
   winter2015Warrior: {
@@ -206,7 +227,7 @@ let armor = {
     value: 90,
     con: 9,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2015');
     },
   },
   winter2015Mage: {
@@ -217,7 +238,7 @@ let armor = {
     value: 90,
     int: 9,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2015');
     },
   },
   winter2015Healer: {
@@ -228,7 +249,7 @@ let armor = {
     value: 90,
     con: 15,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2015');
     },
   },
   birthday2015: {
@@ -347,7 +368,7 @@ let armor = {
     value: 90,
     per: 15,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2016');
     },
   },
   winter2016Warrior: {
@@ -358,7 +379,7 @@ let armor = {
     value: 90,
     con: 9,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2016');
     },
   },
   winter2016Mage: {
@@ -369,7 +390,7 @@ let armor = {
     value: 90,
     int: 9,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2016');
     },
   },
   winter2016Healer: {
@@ -380,7 +401,7 @@ let armor = {
     value: 90,
     con: 15,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2016');
     },
   },
   birthday2016: {
@@ -690,7 +711,7 @@ let head = {
     str: 9,
     value: 60,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter');
     },
   },
   ski: {
@@ -701,7 +722,7 @@ let head = {
     per: 9,
     value: 60,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter');
     },
   },
   candycane: {
@@ -712,7 +733,7 @@ let head = {
     per: 7,
     value: 60,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter');
     },
   },
   snowflake: {
@@ -723,7 +744,7 @@ let head = {
     int: 7,
     value: 60,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter');
     },
   },
   springRogue: {
@@ -841,7 +862,7 @@ let head = {
     value: 60,
     str: 9,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2015');
     },
   },
   winter2015Mage: {
@@ -852,7 +873,7 @@ let head = {
     value: 60,
     per: 7,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2015');
     },
   },
   winter2015Healer: {
@@ -863,7 +884,7 @@ let head = {
     value: 60,
     int: 7,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2015');
     },
   },
   nye2014: {
@@ -982,7 +1003,7 @@ let head = {
     value: 60,
     per: 9,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2016');
     },
   },
   winter2016Warrior: {
@@ -993,7 +1014,7 @@ let head = {
     value: 60,
     str: 9,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2016');
     },
   },
   winter2016Mage: {
@@ -1004,7 +1025,7 @@ let head = {
     value: 60,
     per: 7,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2016');
     },
   },
   winter2016Healer: {
@@ -1015,7 +1036,7 @@ let head = {
     value: 60,
     int: 7,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2016');
     },
   },
   nye2015: {
@@ -1348,7 +1369,7 @@ let shield = {
     con: 7,
     value: 70,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter');
     },
   },
   ski: {
@@ -1359,7 +1380,7 @@ let shield = {
     str: 8,
     value: 90,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter');
     },
   },
   snowflake: {
@@ -1370,7 +1391,7 @@ let shield = {
     con: 9,
     value: 70,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter');
     },
   },
   springRogue: {
@@ -1453,7 +1474,7 @@ let shield = {
     value: 80,
     str: 8,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2015');
     },
   },
   winter2015Warrior: {
@@ -1464,7 +1485,7 @@ let shield = {
     value: 70,
     con: 7,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2015');
     },
   },
   winter2015Healer: {
@@ -1475,7 +1496,7 @@ let shield = {
     value: 70,
     con: 9,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2015');
     },
   },
   spring2015Rogue: {
@@ -1558,7 +1579,7 @@ let shield = {
     value: 80,
     str: 8,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2016');
     },
   },
   winter2016Warrior: {
@@ -1569,7 +1590,7 @@ let shield = {
     value: 70,
     con: 7,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2016');
     },
   },
   winter2016Healer: {
@@ -1580,7 +1601,7 @@ let shield = {
     value: 70,
     con: 9,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2016');
     },
   },
   spring2016Rogue: {
@@ -1730,7 +1751,7 @@ let weapon = {
     str: 15,
     value: 90,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter');
     },
   },
   ski: {
@@ -1741,7 +1762,7 @@ let weapon = {
     str: 8,
     value: 90,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter');
     },
   },
   candycane: {
@@ -1754,7 +1775,7 @@ let weapon = {
     per: 7,
     value: 160,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter');
     },
   },
   snowflake: {
@@ -1765,7 +1786,7 @@ let weapon = {
     int: 9,
     value: 90,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter');
     },
   },
   springRogue: {
@@ -1878,7 +1899,7 @@ let weapon = {
     value: 80,
     str: 8,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2015');
     },
   },
   winter2015Warrior: {
@@ -1889,7 +1910,7 @@ let weapon = {
     value: 90,
     str: 15,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2015');
     },
   },
   winter2015Mage: {
@@ -1902,7 +1923,7 @@ let weapon = {
     int: 15,
     per: 7,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2015');
     },
   },
   winter2015Healer: {
@@ -1913,7 +1934,7 @@ let weapon = {
     value: 90,
     int: 9,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2015');
     },
   },
   spring2015Rogue: {
@@ -2026,7 +2047,7 @@ let weapon = {
     value: 80,
     str: 8,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2016');
     },
   },
   winter2016Warrior: {
@@ -2037,7 +2058,7 @@ let weapon = {
     value: 90,
     str: 15,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2016');
     },
   },
   winter2016Mage: {
@@ -2050,7 +2071,7 @@ let weapon = {
     int: 15,
     per: 7,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2016');
     },
   },
   winter2016Healer: {
@@ -2061,7 +2082,7 @@ let weapon = {
     value: 90,
     int: 9,
     canBuy: () => {
-      return true;
+      return canBuyForEvent('winter2016');
     },
   },
   spring2016Rogue: {
