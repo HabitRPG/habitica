@@ -11,7 +11,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
 .container-fluid
   ul.options-menu
     li
-      a(ng-click="groupPanell = 'chat'")=env.t('groupHomeTitle')
+      a(ng-click="groupPanel = 'chat'")=env.t('groupHomeTitle')
     li(ng-show='group.purchased.active')
       a(ng-click="groupPanel = 'tasks'")=env.t('groupTasksTitle')
     li(ng-show='group.purchased.active && group.leader._id === user._id')
@@ -22,7 +22,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
     
   .tab-content
     .tab-pane.active
-        
+
     .row(ng-show="groupPanel == 'chat'")
       .col-md-4
 
