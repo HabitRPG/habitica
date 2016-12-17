@@ -8,6 +8,7 @@ include ./chat-message
 include ./party
 include ./groups/group-tasks
 include ./groups/group-plans
+include ./groups/create-group
 
 script(type='text/ng-template', id='partials/options.social.inbox.html')
   .options-blurbmenu
@@ -66,7 +67,7 @@ script(type='text/ng-template', id='partials/options.social.guilds.detail.html')
 
 script(type='text/ng-template', id='partials/options.social.guilds.create.html')
   div.col-xs-12
-    include ./create-group
+    +groupCreateForm
 
 script(type='text/ng-template', id='partials/options.social.guilds.html')
   ul.options-submenu
@@ -106,6 +107,9 @@ script(type='text/ng-template', id='partials/options.social.html')
     li(ng-class="{ active: $state.includes('options.social.hall') }")
       a(ui-sref='options.social.hall.heroes')
         =env.t('hall')
+    li(ng-class="{ active: $state.includes('options.social.groupPlans') }")
+      a(ui-sref='options.social.groupPlans')
+        =env.t('groupPlansTitle')
 
   .tab-content
     .tab-pane.active

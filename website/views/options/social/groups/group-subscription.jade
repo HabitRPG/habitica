@@ -1,9 +1,9 @@
-//TODO: This can be a directive and the group/user can be an object passed via attribute
+//  @TODO: This can be a directive and the group/user can be an object passed via attribute
 mixin groupSubscription()
   div(ng-show="groupPanel == 'subscription'")
     .col-md-12
       .col-md-12
-        div(ng-hide="upgrade || group.purchased.plan.customerId")
+        div(ng-hide="group.purchased.plan.customerId")
           +groupPlansBenefits
 
         .row

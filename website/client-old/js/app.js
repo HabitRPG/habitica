@@ -142,6 +142,7 @@ window.habitrpg = angular.module('habitrpg',
         .state('options.social.groupPlans', {
           url: '/group-plans',
           templateUrl: "partials/options.social.groupPlans.html",
+          controller: 'GroupPlansCtrl',
           title: env.t('groupPlansTitle')
         })
 
@@ -162,24 +163,14 @@ window.habitrpg = angular.module('habitrpg',
           title: env.t('titleGuilds')
         })
 
-        .state('options.social.guilds.create.upgrade', {
-          url: '/create/:upgrade',
-          templateUrl: "partials/options.social.guilds.create.html",
-          title: env.t('titleGuilds')
-        })
-
         .state('options.social.guilds.detail', {
-          url: '/:gid?upgrade',
+          url: '/:gid',
           templateUrl: 'partials/options.social.guilds.detail.html',
           title: env.t('titleGuilds'),
           controller: ['$scope', 'Groups', 'Chat', '$stateParams', 'Members', 'Challenges', 'Tasks', 'User', '$location',
           function($scope, Groups, Chat, $stateParams, Members, Challenges, Tasks, User, $location) {
             $scope.groupPanel = 'chat';
             $scope.upgrade = false;
-            if ($stateParams.upgrade) {
-              $scope.groupPanel = 'subscription';
-              $scope.upgrade = true;
-            }
 
             // @TODO: Move this to service or single http request
             Groups.Group.get($stateParams.gid)
