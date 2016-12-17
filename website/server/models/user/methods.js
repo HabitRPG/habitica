@@ -125,11 +125,4 @@ schema.methods.cancelSubscription = async function cancelSubscription () {
   }
 
   return await payments.cancelSubscription({user: this});
-
-// Mute the user
-schema.methods.muteUser = async function muteUser () {
-  let user = this;
-
-  user.flags.chatRevoked = true;
-  await user.save();
 };

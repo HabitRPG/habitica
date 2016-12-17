@@ -161,8 +161,9 @@ api.postChat = {
     // Check message for banned slurs
     let message = req.body.message;
     if (textContainsBannedWords(message, bannedSlurs)) {
-      user.muteUser();
-			// Email the mods
+      await user.update({'flags.chatRevoked': true});
+
+      // Email the mods
       let authorEmail = user.auth.local.email;
       let groupUrl = getGroupUrl(group);
 
