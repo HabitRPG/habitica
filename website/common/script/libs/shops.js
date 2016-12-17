@@ -218,6 +218,18 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
 // };
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
   const AVAILABLE_SETS = {
+    yeti: i18n.t('yetiSet', language),
+    ski: i18n.t('skiSet', language),
+    candycane: i18n.t('candycaneSet', language),
+    snowflake: i18n.t('snowflakeSet', language),
+    winter2015Healer: i18n.t('soothingSkaterSet', language),
+    winter2015Mage: i18n.t('northMageSet', language),
+    winter2015Rogue: i18n.t('icicleDrakeSet', language),
+    winter2015Warrior: i18n.t('gingerbreadSet', language),
+    winter2016Healer: i18n.t('festiveFairySet', language),
+    winter2016Mage: i18n.t('snowboardingSet', language),
+    winter2016Rogue: i18n.t('cocoaSet', language),
+    winter2016Warrior: i18n.t('snowDaySet', language),
   };
 
   const AVAILABLE_SPELLS = [
