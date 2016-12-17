@@ -496,11 +496,11 @@ api.transferGems = {
     let receiverLang = receiver.preferences.language;
     let senderLang = sender.preferences.language;
     let [receiverMsg, senderMsg] = [receiverLang, senderLang].map((lang) => {
-      let messageContent = res.t('privateMessageGiftIntro'.trim(), {
+      let messageContent = res.t('privateMessageGiftGemsMessage', {
         receiverName: receiver.profile.name,
         senderName: sender.profile.name,
+        gemAmount: gemAmount
       }, lang);
-      messageContent += res.t(' ' + 'privateMessageGiftGemsMessage'.trim(), {gemAmount}, lang);
       messageContent = `\`${messageContent}\` `;
 
       if (req.body.message) {
