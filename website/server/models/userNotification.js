@@ -25,6 +25,7 @@ export let schema = new Schema({
     type: String,
     default: uuid,
     validate: [validator.isUUID, 'Invalid uuid.'],
+    required: true,
   },
   type: {type: String, required: true, enum: NOTIFICATION_TYPES},
   data: {type: Schema.Types.Mixed, default: () => {

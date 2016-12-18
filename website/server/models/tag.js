@@ -10,6 +10,7 @@ export let schema = new Schema({
     type: String,
     default: uuid,
     validate: [validator.isUUID, 'Invalid uuid.'],
+    required: true,
   },
   name: {type: String, required: true},
   challenge: {type: String},
