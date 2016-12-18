@@ -26,7 +26,7 @@ RUN rm -rf /var/lib/apt/lists/*
 
 # Install global packages
 RUN npm install -g npm@4
-RUN npm install -g gulp grunt-cli bower
+RUN npm install -g gulp grunt-cli bower mocha
 
 # Clone Habitica repo and install dependencies
 WORKDIR /habitrpg
