@@ -92,6 +92,22 @@ async function getWorldBoss() {
   return quest;
 }
 
+function getMarketInfo() {
+  let premiumHatchingPotions = _(common.content.hatchingPotions)
+    .values()
+    .filter(hp => hp.limited && hp.canBuy())
+    .map(premiumHatchingPotion => {
+      return {
+        key: premiumHatchingPotion.key,
+        type: 'hatchingPotions',
+      };
+    }).value();
+
+    return {
+      specialItems: premiumHatchingPotions
+    }
+}
+
 /**
  * @api {get} /api/v3/world-state Get the state for the game world
  * @apiDescription Does not require authentication.
@@ -124,6 +140,7 @@ api.getWorldState = {
       worldState = {};
       worldState.event = getNextEvent();
       worldState.worldboss = await getWorldBoss();
+      worldState.market = getMarketInfo();
       worldState = JSON.stringify(worldState);
     }
 
