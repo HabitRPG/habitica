@@ -1,6 +1,6 @@
 .container-fluid
   .stable.row: .col-xs-12
-    div(class="#{env.worldDmg.seasonalShop ? 'seasonalshop_broken' : 'seasonalshop_open'}").pull-left-sm.col-centered
+    div(class="{{getFullNpcName('seasonalshop', env.worldDmg.seasonalShop)}}").pull-left-sm.col-centered
     .popover.static-popover.fade.right.in.pull-left-sm.col-centered
       .arrow.hidden-xs
       h3.popover-title!=env.t('seasonalShopTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})

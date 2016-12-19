@@ -1,7 +1,8 @@
 .container-fluid
   .stable.row: .col-xs-12
     - var hasTrinkets = 'user.purchased.plan.consecutive.trinkets > 0'
-    .pull-left-sm.col-centered(ng-class='#{hasTrinkets} ? "npc_timetravelers_active" : "npc_timetravelers"')
+    .pull-left-sm.col-centered(ng-if='(#{hasTrinkets})' class="{{getFullNpcName('npc_timetravelers_active', false)}}")
+    .pull-left-sm.col-centered(ng-if='!(#{hasTrinkets})' class='npc_timetravelers')
     .popover.static-popover.fade.right.in.pull-left-sm.col-centered
       .arrow.hidden-xs
       h3.popover-title(ng-if='#{hasTrinkets}')=env.t('timeTravelersTitle')
