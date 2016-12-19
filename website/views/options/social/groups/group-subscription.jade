@@ -16,7 +16,7 @@ mixin groupSubscription()
                 |  #{env.t('subCanceled')} <strong>{{moment(group.purchased.plan.dateTerminated).format('MM/DD/YYYY')}}</strong>
               tr(ng-if='!group.purchased.plan.dateTerminated'): td
                 h3=env.t('subscribed')
-                p(ng-if='group.purchased.plan.planId')=env.t('purchasedPlanId', {price: '{{Content.subscriptionBlocks[group.purchased.plan.planId].price}}', months: '{{Content.subscriptionBlocks[group.purchased.plan.planId].months}}', plan: '{{group.purchased.plan.paymentMethod}}'})
+                p(ng-if='group.purchased.plan.planId')=env.t('groupSubscriptionPrice')
               tr(ng-if='group.purchased.plan.extraMonths'): td
                 span.glyphicon.glyphicon-credit-card
                 | &nbsp;#{env.t('purchasedPlanExtraMonths', {months: '{{group.purchased.plan.extraMonths | number:2}}'})}
