@@ -200,7 +200,7 @@ window.habitrpg = angular.module('habitrpg',
                 var tasks = response.data.data;
                 tasks.forEach(function (element, index, array) {
                   if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
-                  $scope.group[element.type + 's'].push(element);
+                  $scope.group[element.type + 's'].unshift(element);
                 });
 
                 $scope.group.approvals = [];
