@@ -38,13 +38,8 @@ angular.module('habitrpg')
       $scope.upgradeGroup = function (paymentType) {
         if (!confirm(window.env.t('confirmGuild'))) return;
 
-        Groups.Group.create($scope.newGroup)
-          .then(function (response) {
-            var group = response.data.data;
-            var subscriptionKey = 'group_monthly'; // @TODO: Get from content API?
-            if (paymentType === $scope.PAYMENTS.STRIPE) Payments.showStripe({subscription: subscriptionKey, coupon: null, groupId: group.id});
-            if (paymentType === $scope.PAYMENTS.AMAZON) Payments.amazonPayments.init({type: 'subscription', subscription: subscriptionKey, coupon: null, groupId: group.id});
-            // $rootScope.hardRedirect('/#/options/groups/guilds/' + createdGroup._id + '?upgrade=true');
-          });
+        var subscriptionKey = 'group_monthly'; // @TODO: Get from content API?
+        if (paymentType === $scope.PAYMENTS.STRIPE) Payments.showStripe({subscription: subscriptionKey, coupon: null, groupToCreate: $scope.newGroup});
+        if (paymentType === $scope.PAYMENTS.AMAZON) Payments.amazonPayments.init({type: 'subscription', subscription: subscriptionKey, coupon: null, groupToCreate: $scope.newGroup});
       };
     }]);

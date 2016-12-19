@@ -37,12 +37,23 @@ function($rootScope, User, $http, Content) {
       panelLabel: sub ? window.env.t('subscribe') : window.env.t('checkout'),
       token: function(res) {
         var url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
+
+        if (data.groupToCreate) {
+          url = '/api/v3/groups/create-plan?a=a';
+          res.groupToCreate = data.groupToCreate;
+          res.paymentType = 'Stripe';
+        }
+
         if (data.gift) url += '&gift=' + Payments.encodeGift(data.uuid, data.gift);
         if (data.subscription) url += '&sub='+sub.key;
         if (data.coupon) url += '&coupon='+data.coupon;
         if (data.groupId) url += '&groupId=' + data.groupId;
-        $http.post(url, res).success(function() {
-          window.location.reload(true);
+        $http.post(url, res).success(function(response) {
+          if (response && response.data && response.data.groupId) {
+            $rootScope.hardRedirect('/#/options/groups/guilds/' + response.data.groupId);
+          } else {
+            window.location.reload(true);
+          }
         }).error(function(res) {
           alert(res.message);
         });
@@ -114,6 +125,10 @@ function($rootScope, User, $http, Content) {
 
     if (data.groupId) {
       Payments.amazonPayments.groupId = data.groupId;
+    }
+
+    if (data.groupToCreate) {
+      Payments.amazonPayments.groupToCreate = data.groupToCreate;
     }
 
     Payments.amazonPayments.gift = data.gift;
@@ -255,14 +270,24 @@ function($rootScope, User, $http, Content) {
     } else if(Payments.amazonPayments.type === 'subscription') {
       var url = '/amazon/subscribe';
 
+      if (Payments.amazonPayments.groupToCreate) {
+        url = '/api/v3/groups/create-plan';
+      }
+
       $http.post(url, {
         billingAgreementId: Payments.amazonPayments.billingAgreementId,
         subscription: Payments.amazonPayments.subscription,
         coupon: Payments.amazonPayments.coupon,
         groupId: Payments.amazonPayments.groupId,
-      }).success(function(){
+        groupToCreate: Payments.amazonPayments.groupToCreate,
+        paymentType: 'Amazon',
+      }).success(function(response) {
         Payments.amazonPayments.reset();
-        window.location.reload(true);
+        if (response && response.data && response.data.groupId) {
+          $rootScope.hardRedirect('/#/options/groups/guilds/' + response.data.groupId);
+        } else {
+          window.location.reload(true);
+        }
       }).error(function(res){
         alert(res.message);
         Payments.amazonPayments.reset();

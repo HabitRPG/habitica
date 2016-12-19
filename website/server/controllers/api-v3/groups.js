@@ -108,6 +108,196 @@ api.createGroup = {
   },
 };
 
+import shared from '../../../common';
+import amzLib from '../../libs/amazonPayments';
+import stripeModule from 'stripe';
+import nconf from 'nconf';
+const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
+
+/**
+ * @api {post} /api/v3/groups/create-plan Create a Group and then redirect to the correct payment
+ * @apiName CreateGroupPlan
+ * @apiGroup Group
+ *
+ * @apiSuccess {Object} data The created group
+ */
+api.createGroupPlan = {
+  method: 'POST',
+  url: '/groups/create-plan',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let group = new Group(Group.sanitize(req.body.groupToCreate));
+
+    // @TODO Confirm payment type
+
+    // @TODO: Change message
+    if (group.privacy !== 'private') throw new NotAuthorized(res.t('partyMustbePrivate'));
+    group.leader = user._id;
+    user.guilds.push(group._id);
+
+    let results = await Bluebird.all([user.save(), group.save()]);
+    let savedGroup = results[1];
+
+    // Analytics
+    let analyticsObject = {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      owner: true,
+      groupType: savedGroup.type,
+      privacy: savedGroup.privacy,
+      headers: req.headers,
+    };
+
+    if (savedGroup.privacy === 'public') {
+      analyticsObject.groupName = savedGroup.name;
+    }
+
+    res.analytics.track('join group', analyticsObject);
+
+    if (req.body.paymentType === 'Stripe') {
+      let token = req.body.id;
+      let user = res.locals.user;
+      let gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
+      let sub = req.query.sub ? shared.content.subscriptionBlocks[req.query.sub] : false;
+      let groupId = savedGroup._id;
+      let coupon;
+      let response;
+      let subscriptionId;
+
+      if (!token) throw new BadRequest('Missing req.body.id');
+
+      if (sub) {
+        if (sub.discount) {
+          if (!req.query.coupon) throw new BadRequest(res.t('couponCodeRequired'));
+          coupon = await Coupon.findOne({_id: cc.validate(req.query.coupon), event: sub.key});
+          if (!coupon) throw new BadRequest(res.t('invalidCoupon'));
+        }
+
+        let customerObject = {
+          email: req.body.email,
+          metadata: { uuid: user._id },
+          card: token,
+          plan: sub.key,
+        };
+
+        if (groupId) {
+          customerObject.quantity = sub.quantity;
+        }
+
+        response = await stripe.customers.create(customerObject);
+
+        if (groupId) subscriptionId = response.subscriptions.data[0].id;
+      } else {
+        let amount = 500; // $5
+
+        if (gift) {
+          if (gift.type === 'subscription') {
+            amount = `${shared.content.subscriptionBlocks[gift.subscription.key].price * 100}`;
+          } else {
+            amount = `${gift.gems.amount / 4 * 100}`;
+          }
+        }
+
+        response = await stripe.charges.create({
+          amount,
+          currency: 'usd',
+          card: token,
+        });
+      }
+
+      if (sub) {
+        await payments.createSubscription({
+          user,
+          customerId: response.id,
+          paymentMethod: 'Stripe',
+          sub,
+          headers: req.headers,
+          groupId,
+          subscriptionId,
+        });
+      } else {
+        let method = 'buyGems';
+        let data = {
+          user,
+          customerId: response.id,
+          paymentMethod: 'Stripe',
+          gift,
+        };
+
+        if (gift) {
+          let member = await User.findById(gift.uuid);
+          gift.member = member;
+          if (gift.type === 'subscription') method = 'createSubscription';
+          data.paymentMethod = 'Gift';
+        }
+
+        await payments[method](data);
+      }
+    } else if (req.body.paymentType === 'Amazon') {
+      let billingAgreementId = req.body.billingAgreementId;
+      let sub = req.body.subscription ? shared.content.subscriptionBlocks[req.body.subscription] : false;
+      let coupon = req.body.coupon;
+      let user = res.locals.user;
+      let groupId = savedGroup._id;
+
+      if (!sub) throw new BadRequest(res.t('missingSubscriptionCode'));
+      if (!billingAgreementId) throw new BadRequest('Missing req.body.billingAgreementId');
+
+      if (sub.discount) { // apply discount
+        if (!coupon) throw new BadRequest(res.t('couponCodeRequired'));
+        let result = await Coupon.findOne({_id: cc.validate(coupon), event: sub.key});
+        if (!result) throw new NotAuthorized(res.t('invalidCoupon'));
+      }
+
+      await amzLib.setBillingAgreementDetails({
+        AmazonBillingAgreementId: billingAgreementId,
+        BillingAgreementAttributes: {
+          SellerNote: 'Habitica Subscription',
+          SellerBillingAgreementAttributes: {
+            SellerBillingAgreementId: shared.uuid(),
+            StoreName: 'Habitica',
+            CustomInformation: 'Habitica Subscription',
+          },
+        },
+      });
+
+      await amzLib.confirmBillingAgreement({
+        AmazonBillingAgreementId: billingAgreementId,
+      });
+
+      await amzLib.authorizeOnBillingAgreement({
+        AmazonBillingAgreementId: billingAgreementId,
+        AuthorizationReferenceId: shared.uuid().substring(0, 32),
+        AuthorizationAmount: {
+          CurrencyCode: 'USD',
+          Amount: sub.price,
+        },
+        SellerAuthorizationNote: 'Habitica Subscription Payment',
+        TransactionTimeout: 0,
+        CaptureNow: true,
+        SellerNote: 'Habitica Subscription Payment',
+        SellerOrderAttributes: {
+          SellerOrderId: shared.uuid(),
+          StoreName: 'Habitica',
+        },
+      });
+
+      await payments.createSubscription({
+        user,
+        customerId: billingAgreementId,
+        paymentMethod: 'Amazon Payments',
+        sub,
+        headers: req.headers,
+        groupId,
+      });
+    }
+
+    res.respond(201, {groupId: savedGroup._id}); // do not remove chat flags data as we've just created the group
+  },
+};
+
 /**
  * @api {get} /api/v3/groups Get groups for a user
  * @apiName GetGroups
