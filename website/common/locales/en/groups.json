@@ -251,5 +251,6 @@
     "approvalRequested": "Approval Requested",
     "refreshApprovals": "Refresh Approvals",
     "refreshGroupTasks": "Refresh Group Tasks",
-    "claimedBy": "\n\nClaimed by: <%= claimingUsers %>"
+    "claimedBy": "\n\nClaimed by: <%= claimingUsers %>",
+    "cantDeleteAssignedGroupTasks": "Can't delete group tasks that are assigned to you."
 }
