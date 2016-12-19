@@ -11,4 +11,13 @@ habitrpg.controller('GroupApprovalsCtrl', ['$scope', 'Tasks',
     $scope.approvalTitle = function (approval) {
       return env.t('approvalTitle', {text: approval.text, userName: approval.userId.profile.name});
     };
+
+    $scope.refreshApprovals = function () {
+      $scope.loading = true;
+      Tasks.getGroupApprovals($scope.group._id)
+      .then(function (response) {
+        if (response) $scope.group.approvals = response.data.data;
+        $scope.loading = false;
+      });
+    };
   }]);

@@ -1,4 +1,41 @@
 habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', function ($scope, Shared, Tasks, User) {
+    function handleGetGroupTasks (response) {
+      var group = $scope.obj;
+
+      var tasks = response.data.data;
+
+      if (tasks.length === 0) return;
+
+      // @TODO: We need to get the task information from createGroupTasks rather than resyncing
+      group['habits'] = [];
+      group['dailys'] = [];
+      group['todos'] = [];
+      group['rewards'] = [];
+
+      tasks.forEach(function (element, index, array) {
+        if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
+        $scope.group[element.type + 's'].push(element);
+      })
+
+      // Reverse the list so the latest tasks are on top
+      group['habits'] = group['habits'].reverse();
+      group['dailys'] = group['dailys'].reverse();
+      group['todos'] = group['todos'].reverse();
+      group['rewards'] = group['rewards'].reverse();
+
+      $scope.loading = false;
+    };
+
+    $scope.refreshTasks = function () {
+      $scope.loading = true;
+      Tasks.getGroupTasks($scope.group._id)
+        .then(handleGetGroupTasks);
+    };
+
+    /*
+     * Task Edit functions
+     */
+
     $scope.toggleBulk = Tasks.toggleBulk;
     $scope.cancelTaskEdit = Tasks.cancelTaskEdit;
 
@@ -28,28 +65,7 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
 
             return Tasks.getGroupTasks($scope.group._id);
           })
-          .then(function (response) {
-            var tasks = response.data.data;
-
-            if (tasks.length === 0) return;
-
-            // @TODO: We need to get the task information from createGroupTasks rather than resyncing
-            group['habits'] = [];
-            group['dailys'] = [];
-            group['todos'] = [];
-            group['rewards'] = [];
-
-            tasks.forEach(function (element, index, array) {
-              if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
-              $scope.group[element.type + 's'].push(element);
-            })
-
-            // Reverse the list so the latest tasks are on top
-            group['habits'] = group['habits'].reverse();
-            group['dailys'] = group['dailys'].reverse();
-            group['todos'] = group['todos'].reverse();
-            group['rewards'] = group['rewards'].reverse();
-          });
+          .then(handleGetGroupTasks);
       });
     };
 

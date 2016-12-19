@@ -1,5 +1,11 @@
 script(type='text/ng-template', id='partials/groups.tasks.approvals.html')
+  .row(style="margin-bottom: 2rem;")
+    .col-md-12
+      button.btn.btn-primary(ng-click='refreshApprovals()', ng-hide="loading")=env.t('refreshApprovals')
+      button.btn.btn-primary(ng-disabled="true", ng-show="loading")=env.t('loading')
+  
   .well(ng-show="group.approvals.length === 0")=env.t('blankApprovalsDescription')
+  
   .panel-group(ng-repeat="approval in group.approvals")
     .panel.panel-default
       .panel-heading
