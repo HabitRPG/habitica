@@ -76,8 +76,21 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
     };
 
     $scope.saveTask = function(task, stayOpen, isSaveAndClose) {
-      Tasks.saveTask (task, stayOpen, isSaveAndClose);
-      Tasks.updateTask(task._id, task);
+      // Check if we have a lingering checklist that the enter button did not trigger on
+      var lastIndex = task._edit.checklist.length - 1;
+      var lastCheckListItem = task._edit.checklist[lastIndex];
+      if (!lastCheckListItem.id && lastCheckListItem.text) {
+        Tasks.addChecklistItem(task._id, lastCheckListItem)
+          .then(function (response) {
+            task._edit.checklist[lastIndex] = response.data.data.checklist[lastIndex];
+            task.checklist[lastIndex] = response.data.data.checklist[lastIndex];
+            Tasks.saveTask(task, stayOpen, isSaveAndClose);
+            Tasks.updateTask(task._id, task);
+          });
+      } else {
+        Tasks.saveTask (task, stayOpen, isSaveAndClose);
+        Tasks.updateTask(task._id, task);
+      }
     };
 
     $scope.shouldShow = function(task, list, prefs){
