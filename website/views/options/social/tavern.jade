@@ -7,7 +7,7 @@
       table
         tr
           td
-            div(class="#{env.worldDmg.tavern ? 'npc_daniel_broken' : 'npc_daniel'}")
+            div(class="{{getFullNpcName('npc_daniel', env.worldDmg.tavern)}}")
           td
             .popover.static-popover.fade.right.in
               .arrow

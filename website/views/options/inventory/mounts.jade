@@ -15,7 +15,7 @@ mixin mountList(eggSource, potionSource)
 
 .container-fluid
   .stable.row: .col-xs-12
-    .pull-left-sm.col-centered(class="#{env.worldDmg.stables ? 'npc_matt_broken' : 'npc_matt'}")
+    .pull-left-sm.col-centered(class="{{getFullNpcName('npc_matt', env.worldDmg.stables)}}")
     .popover.static-popover.fade.right.in.pull-left-sm.col-centered
       .arrow.hidden-xs
       h3.popover-title

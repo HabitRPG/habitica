@@ -82,7 +82,7 @@
     .col-md-6.border-left
       h2=env.t('market')
       .npc_alex_container
-        .pull-left-sm.col-centered(class="#{env.worldDmg.market ? 'npc_alex_broken' : 'npc_alex'}")
+        .pull-left-sm.col-centered(class="{{getFullNpcName('npc_alex', env.worldDmg.alex)}}")
         .popover.static-popover.fade.right.in.pull-left-sm
           .arrow.hidden-xs
           h3.popover-title

@@ -132,7 +132,6 @@ each(premium, (pot, key) => {
     premium: true,
     limited: false,
     canBuy () {
-      console.log(eventsList, pot._season);
       return eventsList.indexOf(pot._season) > -1;
     },
   });

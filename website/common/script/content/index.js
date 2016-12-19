@@ -472,6 +472,27 @@ _.each(api.food, function(food, key) {
 
 api.userCanOwnQuestCategories = USER_CAN_OWN_QUEST_CATEGORIES;
 
+function canBuyForEvent(eventKey, recursive=true) {
+  let today = new Date().toISOString();
+  let event = EVENTS[eventKey];
+  if (event.start < today && today < event.end) {
+    //The event itself is currently active
+    return true;
+  } else if (recursive) {
+    //In the first iteration we also check for included gear
+    for (let innerEventKey in EVENTS) {
+      let innerEvent = EVENTS[innerEventKey];
+      if (innerEvent.includedEventGear && innerEvent.includedEventGear.indexOf(eventKey) > -1) {
+        //don't futher iterate over the includedEventGear to avoid infinite recursion
+        if (canBuyForEvent(innerEventKey, false)) {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+}
+
 api.quests = {
   dilatory: {
     text: t("questDilatoryText"),
@@ -721,7 +742,7 @@ api.quests = {
   },
   evilsanta: {
     canBuy: (function() {
-      return true;
+      return canBuyForEvent('winter');
     }),
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
@@ -747,7 +768,7 @@ api.quests = {
   },
   evilsanta2: {
     canBuy: (function() {
-      return true;
+      return canBuyForEvent('winter');
     }),
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),

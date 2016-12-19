@@ -14,7 +14,8 @@ export const CLASSES = [
 export const EVENTS = {
   winter:     {
     start: '2013-12-31',
-    end: '2014-02-01'
+    end: '2014-02-01',
+    npcSuffix: '_winter',
   },
   birthday:   {
     start: '2016-01-29',
@@ -34,7 +35,9 @@ export const EVENTS = {
   },
   winter2015: {
     start: '2014-12-21',
-    end: '2015-02-02'
+    end: '2015-02-02',
+    npcSuffix: '_winter',
+    includedEventGear: ['winter']
   },
   spring2015: {
     start: '2015-03-20',
@@ -54,7 +57,9 @@ export const EVENTS = {
   },
   winter2016: {
     start: '2015-12-18',
-    end: '2016-02-02'
+    end: '2016-02-02',
+    npcSuffix: '_winter',
+    includedEventGear: ['winter', 'winter2015']
   },
   spring2016: {
     start: '2016-03-18',
@@ -71,6 +76,7 @@ export const EVENTS = {
   winter2017: {
     start: '2016-12-16',
     end: '2017-02-02',
+    npcSuffix: '_winter',
     includedEventGear: ['winter', 'winter2015', 'winter2016']
   },
 };

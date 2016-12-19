@@ -4,7 +4,7 @@ include ../../shared/mixins
   .row
     .col-md-6
       .clearfix
-        div(class="#{env.worldDmg.quests ? 'npc_ian_broken' : 'npc_ian'}").pull-left-sm.col-centered
+        div(class="{{getFullNpcName('npc_ian', env.worldDmg.quests)}}").pull-left-sm.col-centered
         .popover.static-popover.fade.right.in.pull-left-sm.col-centered
           .arrow.hidden-xs
           h3.popover-title=env.t('ian')
