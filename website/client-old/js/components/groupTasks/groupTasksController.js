@@ -130,4 +130,10 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
        //@TODO: Currently the api save of the task is separate, so whenever we need to save the task we need to call the respective api
        Tasks.updateTask(task._id, task);
      };
+
+    $scope.checkGroupAccess = function (group) {
+      if (!group || !group.leader) return true;     
+      if (User.user._id !== group.leader._id) return false;
+      return true;
+    };
   }]);

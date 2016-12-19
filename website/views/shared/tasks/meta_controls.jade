@@ -31,18 +31,21 @@
     a.badge(ng-if='task.checklist[0]', ng-class='{"badge-success":checklistCompletion(task.checklist) == task.checklist.length}', ng-click='collapseChecklist(task)', tooltip=env.t('expandCollapse'))
       |{{checklistCompletion(task.checklist)}}/{{task.checklist.length}}
     span.glyphicon.glyphicon-tags(tooltip='{{Shared.appliedTags(user.tags, task.tags)}}', ng-hide='Shared.noTags(task.tags)')
+    
     // edit
-    a(ng-hide='task._editing', ng-click='editTask(task, user, Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main))', tooltip=env.t('edit'))
+    a(ng-hide='task._editing || !checkGroupAccess(obj)', ng-click='editTask(task, user, Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main))', tooltip=env.t('edit'))
       | &nbsp;
       span.glyphicon.glyphicon-pencil(ng-hide='task._editing')
     | &nbsp;
     a(ng-hide='!task._editing', ng-click='cancelTaskEdit(task)', tooltip=env.t('cancel'))
       span.glyphicon.glyphicon-remove(ng-hide='!task._editing')
       | &nbsp;
+      
     // save
     a(ng-hide='!task._editing', ng-click='saveTask(task)', tooltip=env.t('save'))
       span.glyphicon.glyphicon-ok(ng-hide='!task._editing')
     | &nbsp;
+    
     //challenges
     span(ng-if='task.challenge.id')
       span(ng-if='task.challenge.broken')
@@ -51,8 +54,9 @@
       span(ng-if='!task.challenge.broken')
         span.glyphicon.glyphicon-bullhorn(tooltip=env.t('challenge'))
         | &nbsp;
+        
     // delete
-    a(ng-if='!task.challenge.id || obj.leader._id === User.user._id', ng-click='removeTask(task, obj)', tooltip=env.t('delete'))
+    a(ng-if='!task.challenge.id || obj.leader._id === User.user._id', ng-hide="!checkGroupAccess(obj)" ng-click='removeTask(task, obj)', tooltip=env.t('delete'))
       span.glyphicon.glyphicon-trash
       | &nbsp;
 
