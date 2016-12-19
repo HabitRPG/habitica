@@ -36,6 +36,7 @@
             tags: currentTags,
             allowedTags: allowedTags,
             allowDuplicates: false,
+            placeholder: window.env.t('assignFieldPlaceholder'),
             onBeforeTagAdd: function(event, tag) {
               return confirm(window.env.t('confirmAddTag', {tag: tag}));
             },
