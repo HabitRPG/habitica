@@ -132,7 +132,7 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
      };
 
     $scope.checkGroupAccess = function (group) {
-      if (!group || !group.leader) return true;     
+      if (!group || !group.leader) return true;
       if (User.user._id !== group.leader._id) return false;
       return true;
     };
