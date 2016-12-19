@@ -79,7 +79,7 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
       // Check if we have a lingering checklist that the enter button did not trigger on
       var lastIndex = task._edit.checklist.length - 1;
       var lastCheckListItem = task._edit.checklist[lastIndex];
-      if (!lastCheckListItem.id && lastCheckListItem.text) {
+      if (lastCheckListItem && !lastCheckListItem.id && lastCheckListItem.text) {
         Tasks.addChecklistItem(task._id, lastCheckListItem)
           .then(function (response) {
             task._edit.checklist[lastIndex] = response.data.data.checklist[lastIndex];
@@ -159,4 +159,28 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
       if (User.user._id !== group.leader._id) return false;
       return true;
     };
+
+    /*
+     * Task Details
+     */
+      $scope.taskPopover = function (task) {
+        if (task.popoverOpen) return '';
+
+        var content = task.notes;
+
+        if ($scope.group) {
+          var memberIdToProfileNameMap = _.object(_.map($scope.group.members, function(item) {
+             return [item.id, item.profile.name]
+          }));
+
+          var claimingUsers = [];
+          task.group.assignedUsers.forEach(function (userId) {
+            claimingUsers.push(memberIdToProfileNameMap[userId]);
+          })
+
+          if (claimingUsers.length > 0) content += window.env.t('claimedBy', {claimingUsers: claimingUsers.join(', ')});
+        }
+
+        return content;
+      };
   }]);

@@ -331,4 +331,13 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
       return notes;
     };
+
+    /*
+     * Task Details
+     */
+      $scope.taskPopover = function (task) {
+        if (task.popoverOpen) return '';
+        var content = task.notes;
+        return content;
+      };
   }]);

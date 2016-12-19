@@ -317,6 +317,15 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     $scope.toggleBulk = Tasks.toggleBulk;
 
     /*
+     * Task Details
+     */
+      $scope.taskPopover = function (task) {
+        if (task.popoverOpen) return '';
+        var content = task.notes;
+        return content;
+      };
+
+    /*
     --------------------------
      Subscription
     --------------------------

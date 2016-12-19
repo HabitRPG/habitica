@@ -250,5 +250,6 @@
     "userIsClamingTask": "<%= username %> has claimed \"<%= task %>\"",
     "approvalRequested": "Approval Requested",
     "refreshApprovals": "Refresh Approvals",
-    "refreshGroupTasks": "Refresh Group Tasks"
+    "refreshGroupTasks": "Refresh Group Tasks",
+    "claimedBy": "\n\nClaimed by: <%= claimingUsers %>"
 }

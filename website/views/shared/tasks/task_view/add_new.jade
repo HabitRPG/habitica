@@ -1,4 +1,4 @@
-form.task-add(name='new{{list.type}}form', ng-hide='obj._locked || !checkGroupAccess(obj)', ng-submit='addTask(list, obj)', novalidate)
+form.task-add(name='new{{list.type}}form', ng-hide='obj._locked || (checkGroupAccess && !checkGroupAccess(obj))', ng-submit='addTask(list, obj)', novalidate)
   textarea(rows='6', focus-element='list.bulk && list.focus', ng-model='list.newTask', placeholder='{{list.placeHolderBulk}}', ng-if='list.bulk', ui-keydown='{"meta-enter ctrl-enter":"addTask(list, obj)"}', required)
   input(type='text', focus-element='!list.bulk && list.focus', ng-model='list.newTask', placeholder='{{list.placeHolder}}', ng-if='!list.bulk', required)
   button(type='submit', ng-disabled='new{{list.type}}form.$invalid')

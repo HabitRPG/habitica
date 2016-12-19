@@ -5,7 +5,7 @@ li(id='task-{{::task._id}}',
   ng-click='spell && (list.type != "reward") && castEnd(task, "task", $event)',
   ng-show='shouldShow(task, list, user.preferences)',
   popover-trigger='mouseenter', popover-placement="top", popover-append-to-body='{{::modal ? "false":"true"}}',
-  data-popover-html="{{task.popoverOpen ? '' : task.notes | markdown}}")
+  data-popover-html="{{::taskPopover(task) | markdown}}")
 
   ng-form(name='taskForm')
     include ./meta_controls
