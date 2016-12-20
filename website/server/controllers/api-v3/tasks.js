@@ -954,7 +954,7 @@ api.deleteTask = {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.userId && task.challenge.id && !task.challenge.broken) {
       throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));
-    } else if (task.group && task.group.assignedUsers.indexOf(user._id) !== -1) {
+    } else if (task.group._id && task.group.assignedUsers.indexOf(user._id) !== -1) {
       throw new NotAuthorized(res.t('cantDeleteAssignedGroupTasks'));
     }
 

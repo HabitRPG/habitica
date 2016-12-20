@@ -185,7 +185,16 @@ api.createGroupPlan = {
       ]);
     }
 
-    res.respond(201, {groupId: savedGroup._id}); // do not remove chat flags data as we've just created the group
+    // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
+    // await Q.ninvoke(savedGroup, 'populate', ['leader', nameFields]); // doc.populate doesn't return a promise
+    let response = savedGroup.toJSON();
+    // the leader is the authenticated user
+    response.leader = {
+      _id: user._id,
+      profile: {name: user.profile.name},
+    };
+
+    res.respond(201, response); // do not remove chat flags data as we've just created the group
   },
 };
 
