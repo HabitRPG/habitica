@@ -51,6 +51,8 @@ api.checkout = {
     let response;
     let subscriptionId;
 
+    // @TODO: Update this to use payments.payWithStripe
+
     if (!token) throw new BadRequest('Missing req.body.id');
 
     if (sub) {
