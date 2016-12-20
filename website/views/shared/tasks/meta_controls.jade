@@ -33,7 +33,7 @@
     span.glyphicon.glyphicon-tags(tooltip='{{Shared.appliedTags(user.tags, task.tags)}}', ng-hide='Shared.noTags(task.tags)')
     
     // edit
-    a(ng-hide='task._editing || !checkGroupAccess(obj)', ng-click='editTask(task, user, Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main))', tooltip=env.t('edit'))
+    a(ng-hide='task._editing || (checkGroupAccess && !checkGroupAccess(obj))', ng-click='editTask(task, user, Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main))', tooltip=env.t('edit'))
       | &nbsp;
       span.glyphicon.glyphicon-pencil(ng-hide='task._editing')
     | &nbsp;
@@ -56,7 +56,7 @@
         | &nbsp;
         
     // delete
-    a(ng-if='!task.challenge.id || obj.leader._id === User.user._id', ng-hide="!checkGroupAccess(obj)" ng-click='removeTask(task, obj)', tooltip=env.t('delete'))
+    a(ng-if='!task.challenge.id || obj.leader._id === User.user._id', ng-hide="(checkGroupAccess && !checkGroupAccess(obj))" ng-click='removeTask(task, obj)', tooltip=env.t('delete'))
       span.glyphicon.glyphicon-trash
       | &nbsp;
 
