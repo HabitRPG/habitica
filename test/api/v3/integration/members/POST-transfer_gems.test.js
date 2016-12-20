@@ -127,11 +127,11 @@ describe('POST /members/transfer-gems', () => {
     let sendersMessageInReceiversInbox = findMessage(updatedReceiver.inbox.messages, userToSendMessage._id);
     let sendersMessageInSendersInbox = findMessage(updatedSender.inbox.messages, receiver._id);
 
-    let messageSentContent = t('privateMessageGiftIntro', {
+    let messageSentContent = t('privateMessageGiftGemsMessage', {
       receiverName: receiver.profile.name,
       senderName: userToSendMessage.profile.name,
+      gemAmount,
     });
-    messageSentContent += t('privateMessageGiftGemsMessage', {gemAmount});
     messageSentContent =  `\`${messageSentContent}\` `;
     messageSentContent += message;
 
@@ -156,11 +156,11 @@ describe('POST /members/transfer-gems', () => {
     let sendersMessageInReceiversInbox = findMessage(updatedReceiver.inbox.messages, userToSendMessage._id);
     let sendersMessageInSendersInbox = findMessage(updatedSender.inbox.messages, receiver._id);
 
-    let messageSentContent = t('privateMessageGiftIntro', {
+    let messageSentContent = t('privateMessageGiftGemsMessage', {
       receiverName: receiver.profile.name,
       senderName: userToSendMessage.profile.name,
+      gemAmount,
     });
-    messageSentContent += t('privateMessageGiftGemsMessage', {gemAmount});
     messageSentContent =  `\`${messageSentContent}\` `;
 
     expect(sendersMessageInReceiversInbox).to.exist;
@@ -191,11 +191,11 @@ describe('POST /members/transfer-gems', () => {
     let sendersMessageInSendersInbox = findMessage(updatedSender.inbox.messages, receiver._id);
 
     let [receieversMessageContent, sendersMessageContent] = ['es', 'cs'].map((lang) => {
-      let messageContent = t('privateMessageGiftIntro', {
+      let messageContent = t('privateMessageGiftGemsMessage', {
         receiverName: receiver.profile.name,
         senderName: userToSendMessage.profile.name,
+        gemAmount,
       }, lang);
-      messageContent += t('privateMessageGiftGemsMessage', {gemAmount}, lang);
 
       return `\`${messageContent}\` `;
     });
