@@ -815,4 +815,57 @@ describe('payments/index', () => {
       expect(updatedGroup.purchased.plan.quantity).to.eql(3);
     });
   });
+
+  describe.only('payWithStripe', () => {
+    let spy;
+    let stripeCreateCustomerSpy;
+    let createSubSpy;
+
+    beforeEach(function () {
+      spy = sinon.stub(stripe.subscriptions, 'update');
+      spy.returnsPromise().resolves
+
+      stripeCreateCustomerSpy = sinon.stub(stripe.customers, 'create');
+      let stripCustomerResponse = {
+        subscriptions: {
+          data: [{id: 'test-id'}],
+        },
+      }
+      stripeCreateCustomerSpy.returnsPromise().resolves(stripCustomerResponse);
+
+      createSubSpy = sinon.stub(api, 'createSubscription');
+      createSubSpy.returnsPromise().resolves({});
+
+      data.groupId = group._id;
+      data.sub.quantity = 3;
+    });
+
+    afterEach(function () {
+      sinon.restore(stripe.subscriptions.update);
+      stripe.customers.create.restore();
+      api.createSubscription.restore();
+    });
+
+    it('subscribes with stripe', async () => {
+      let token = "test-token";
+      let gift = undefined;
+      let sub = data.sub;
+      let groupId = group._id;
+      let email = 'test@test.com';
+      let headers = {};
+
+      await api.payWithStripe([
+        token,
+        user,
+        gift,
+        sub,
+        groupId,
+        email,
+        headers,
+      ], stripe);
+
+      expect(stripeCreateCustomerSpy.calledOnce).to.be.true;
+      expect(createSubSpy.calledOnce).to.be.true;
+    });
+  });
 });

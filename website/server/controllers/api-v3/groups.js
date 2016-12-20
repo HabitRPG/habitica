@@ -109,10 +109,11 @@ api.createGroup = {
 };
 
 import shared from '../../../common';
-import amzLib from '../../libs/amazonPayments';
 import stripeModule from 'stripe';
 import nconf from 'nconf';
 const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
+import amzLib from '../../libs/amazonPayments';
+
 
 /**
  * @api {post} /api/v3/groups/create-plan Create a Group and then redirect to the correct payment
@@ -129,7 +130,10 @@ api.createGroupPlan = {
     let user = res.locals.user;
     let group = new Group(Group.sanitize(req.body.groupToCreate));
 
-    // @TODO Confirm payment type
+    req.checkBody('paymentType', res.t('paymentTypeRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
 
     // @TODO: Change message
     if (group.privacy !== 'private') throw new NotAuthorized(res.t('partyMustbePrivate'));
@@ -149,11 +153,6 @@ api.createGroupPlan = {
       privacy: savedGroup.privacy,
       headers: req.headers,
     };
-
-    if (savedGroup.privacy === 'public') {
-      analyticsObject.groupName = savedGroup.name;
-    }
-
     res.analytics.track('join group', analyticsObject);
 
     if (req.body.paymentType === 'Stripe') {
@@ -162,79 +161,17 @@ api.createGroupPlan = {
       let gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
       let sub = req.query.sub ? shared.content.subscriptionBlocks[req.query.sub] : false;
       let groupId = savedGroup._id;
-      let coupon;
-      let response;
-      let subscriptionId;
+      let email = req.body.email;
+      let headers = req.headers;
 
-      if (!token) throw new BadRequest('Missing req.body.id');
-
-      if (sub) {
-        if (sub.discount) {
-          if (!req.query.coupon) throw new BadRequest(res.t('couponCodeRequired'));
-          coupon = await Coupon.findOne({_id: cc.validate(req.query.coupon), event: sub.key});
-          if (!coupon) throw new BadRequest(res.t('invalidCoupon'));
-        }
-
-        let customerObject = {
-          email: req.body.email,
-          metadata: { uuid: user._id },
-          card: token,
-          plan: sub.key,
-        };
-
-        if (groupId) {
-          customerObject.quantity = sub.quantity;
-        }
-
-        response = await stripe.customers.create(customerObject);
-
-        if (groupId) subscriptionId = response.subscriptions.data[0].id;
-      } else {
-        let amount = 500; // $5
-
-        if (gift) {
-          if (gift.type === 'subscription') {
-            amount = `${shared.content.subscriptionBlocks[gift.subscription.key].price * 100}`;
-          } else {
-            amount = `${gift.gems.amount / 4 * 100}`;
-          }
-        }
-
-        response = await stripe.charges.create({
-          amount,
-          currency: 'usd',
-          card: token,
-        });
-      }
-
-      if (sub) {
-        await payments.createSubscription({
-          user,
-          customerId: response.id,
-          paymentMethod: 'Stripe',
-          sub,
-          headers: req.headers,
-          groupId,
-          subscriptionId,
-        });
-      } else {
-        let method = 'buyGems';
-        let data = {
-          user,
-          customerId: response.id,
-          paymentMethod: 'Stripe',
-          gift,
-        };
-
-        if (gift) {
-          let member = await User.findById(gift.uuid);
-          gift.member = member;
-          if (gift.type === 'subscription') method = 'createSubscription';
-          data.paymentMethod = 'Gift';
-        }
-
-        await payments[method](data);
-      }
+      await payments.payWithStripe([
+        token,
+        user,
+        gift,
+        sub,
+        groupId,
+        email,
+      ]);
     } else if (req.body.paymentType === 'Amazon') {
       let billingAgreementId = req.body.billingAgreementId;
       let sub = req.body.subscription ? shared.content.subscriptionBlocks[req.body.subscription] : false;
