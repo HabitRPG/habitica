@@ -151,12 +151,12 @@ api.createGroupPlan = {
 
     if (req.body.paymentType === 'Stripe') {
       let token = req.body.id;
-      let user = res.locals.user;
       let gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
       let sub = req.query.sub ? shared.content.subscriptionBlocks[req.query.sub] : false;
       let groupId = savedGroup._id;
       let email = req.body.email;
       let headers = req.headers;
+      let coupon = req.query.coupon;
 
       await payments.payWithStripe([
         token,
@@ -166,12 +166,12 @@ api.createGroupPlan = {
         groupId,
         email,
         headers,
+        coupon,
       ]);
     } else if (req.body.paymentType === 'Amazon') {
       let billingAgreementId = req.body.billingAgreementId;
       let sub = req.body.subscription ? shared.content.subscriptionBlocks[req.body.subscription] : false;
       let coupon = req.body.coupon;
-      let user = res.locals.user;
       let groupId = savedGroup._id;
       let headers = req.headers;
 

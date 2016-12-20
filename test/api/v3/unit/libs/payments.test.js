@@ -824,14 +824,14 @@ describe('payments/index', () => {
 
     beforeEach(function () {
       spy = sinon.stub(stripe.subscriptions, 'update');
-      spy.returnsPromise().resolves
+      spy.returnsPromise().resolves;
 
       stripeCreateCustomerSpy = sinon.stub(stripe.customers, 'create');
       let stripCustomerResponse = {
         subscriptions: {
           data: [{id: 'test-id'}],
         },
-      }
+      };
       stripeCreateCustomerSpy.returnsPromise().resolves(stripCustomerResponse);
 
       createSubSpy = sinon.stub(api, 'createSubscription');
@@ -848,12 +848,13 @@ describe('payments/index', () => {
     });
 
     it('subscribes with stripe', async () => {
-      let token = "test-token";
-      let gift = undefined;
+      let token = 'test-token';
+      let gift;
       let sub = data.sub;
       let groupId = group._id;
       let email = 'test@test.com';
       let headers = {};
+      let coupon;
 
       await api.payWithStripe([
         token,
@@ -863,6 +864,7 @@ describe('payments/index', () => {
         groupId,
         email,
         headers,
+        coupon,
       ], stripe);
 
       expect(stripeCreateCustomerSpy.calledOnce).to.be.true;
@@ -900,7 +902,7 @@ describe('payments/index', () => {
     it('subscribes with stripe', async () => {
       let billingAgreementId = 'billingAgreementId';
       let sub = data.sub;
-      let coupon = undefined;
+      let coupon;
       let groupId = group._id;
       let headers = {};
 

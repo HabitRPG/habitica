@@ -893,11 +893,6 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
 
   // If user is the last one in group and group is private, delete it
   if (group.memberCount <= 1 && group.privacy === 'private') {
-    let plan = group.purchased.plan;
-    if (plan && plan.customerId && !plan.dateTerminated) {
-      throw new NotAuthorized(shared.i18n.t('cannotDeleteActiveAccount'));
-    }
-    
     // double check the member count is correct so we don't accidentally delete a group that still has users in it
     let members;
     if (group.type === 'guild') {
@@ -912,15 +907,13 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     }
 
     promises.push(group.remove());
-  } else { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
-    if (group.leader === user._id) {
-      let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
-      query._id = {$ne: user._id};
-      let seniorMember = await User.findOne(query).select('_id').exec();
+  } else if (group.leader === user._id) { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
+    let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
+    query._id = {$ne: user._id};
+    let seniorMember = await User.findOne(query).select('_id').exec();
 
-      // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
-      if (seniorMember) update.$set = {leader: seniorMember._id};
-    }
+    // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
+    if (seniorMember) update.$set = {leader: seniorMember._id};
   }
   // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
   update.$inc = {memberCount: -1};

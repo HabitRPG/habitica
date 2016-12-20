@@ -11,6 +11,8 @@ import {
   model as Group,
   basicFields as basicGroupFields,
 } from '../models/group';
+import { model as Coupon } from '../models/coupon';
+import { model as User } from '../models/user';
 import {
   NotAuthorized,
   NotFound,
@@ -19,6 +21,10 @@ import slack from './slack';
 import nconf from 'nconf';
 import stripeModule from 'stripe';
 import amzLib from './amazonPayments';
+import {
+  BadRequest,
+} from './errors';
+import cc from 'coupon-code';
 
 const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
 
@@ -399,8 +405,8 @@ api.payWithStripe = async function payWithStripe (options, stripeInc) {
     groupId,
     email,
     headers,
+    coupon,
   ] = options;
-  let coupon;
   let response;
   let subscriptionId;
   // @TODO: We need to mock this, but curently we don't have correct Dependency Injection
@@ -412,9 +418,9 @@ api.payWithStripe = async function payWithStripe (options, stripeInc) {
 
   if (sub) {
     if (sub.discount) {
-      if (!req.query.coupon) throw new BadRequest(res.t('couponCodeRequired'));
-      coupon = await Coupon.findOne({_id: cc.validate(req.query.coupon), event: sub.key});
-      if (!coupon) throw new BadRequest(res.t('invalidCoupon'));
+      if (!coupon) throw new BadRequest(shared.i18n.t('couponCodeRequired'));
+      coupon = await Coupon.findOne({_id: cc.validate(coupon), event: sub.key}).exec();
+      if (!coupon) throw new BadRequest(shared.i18n.t('invalidCoupon'));
     }
 
     let customerObject = {
@@ -469,7 +475,7 @@ api.payWithStripe = async function payWithStripe (options, stripeInc) {
     };
 
     if (gift) {
-      let member = await User.findById(gift.uuid);
+      let member = await User.findById(gift.uuid).exec();
       gift.member = member;
       if (gift.type === 'subscription') method = 'createSubscription';
       data.paymentMethod = 'Gift';
@@ -501,13 +507,13 @@ api.subscribeWithAmazon = async function subscribeWithAmazon (options) {
     headers,
   ] = options;
 
-  if (!sub) throw new BadRequest(res.t('missingSubscriptionCode'));
+  if (!sub) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
   if (!billingAgreementId) throw new BadRequest('Missing req.body.billingAgreementId');
 
   if (sub.discount) { // apply discount
-    if (!coupon) throw new BadRequest(res.t('couponCodeRequired'));
-    let result = await Coupon.findOne({_id: cc.validate(coupon), event: sub.key});
-    if (!result) throw new NotAuthorized(res.t('invalidCoupon'));
+    if (!coupon) throw new BadRequest(shared.i18n.t('couponCodeRequired'));
+    let result = await Coupon.findOne({_id: cc.validate(coupon), event: sub.key}).exec();
+    if (!result) throw new NotAuthorized(shared.i18n.t('invalidCoupon'));
   }
 
   await amzLib.setBillingAgreementDetails({
