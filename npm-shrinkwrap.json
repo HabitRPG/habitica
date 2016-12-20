@@ -3590,9 +3590,9 @@
       }
     },
     "eslint-config-habitrpg": {
-      "version": "2.0.1",
-      "from": "eslint-config-habitrpg@2.0.1",
-      "resolved": "https://registry.npmjs.org/eslint-config-habitrpg/-/eslint-config-habitrpg-2.0.1.tgz",
+      "version": "2.0.2",
+      "from": "eslint-config-habitrpg@2.0.2",
+      "resolved": "https://registry.npmjs.org/eslint-config-habitrpg/-/eslint-config-habitrpg-2.0.2.tgz",
       "dev": true
     },
     "eslint-friendly-formatter": {
