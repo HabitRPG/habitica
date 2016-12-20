@@ -81,7 +81,7 @@ describe('Task Model', () => {
         user = new User();
         await user.save();
 
-        taskWithAlias = new Tasks.todo({ // eslint-disable-line babel/new-cap
+        taskWithAlias = new Tasks.todo({ // eslint-disable-line new-cap
           text: 'some text',
           alias: 'short-name',
           userId: user.id,

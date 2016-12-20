@@ -1038,7 +1038,7 @@ if (!nconf.get('IS_TEST')) {
   model.count({_id: TAVERN_ID}, (err, ct) => {
     if (err) throw err;
     if (ct > 0) return;
-    new model({ // eslint-disable-line babel/new-cap
+    new model({ // eslint-disable-line new-cap
       _id: TAVERN_ID,
       leader: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0', // Siena Leslie
       name: 'Tavern',
