@@ -12,9 +12,9 @@ import { mods } from '../models/user';
 // To avoid stringifying more data then we need,
 // items from `env` used on the client will have to be specified in this array
 const CLIENT_VARS = ['language', 'isStaticPage', 'availableLanguages', 'translations',
-                  'FACEBOOK_KEY', 'GOOGLE_CLIENT_ID', 'FACEBOOK_ANALYTICS', 'NODE_ENV', 'BASE_URL', 'GA_ID',
-                  'AMAZON_PAYMENTS', 'STRIPE_PUB_KEY', 'AMPLITUDE_KEY',
-                  'worldDmg', 'mods', 'IS_MOBILE', 'PUSHER:KEY', 'PUSHER:ENABLED'];
+                     'FACEBOOK_KEY', 'GOOGLE_CLIENT_ID', 'FACEBOOK_ANALYTICS', 'NODE_ENV', 'BASE_URL', 'GA_ID',
+                     'AMAZON_PAYMENTS', 'STRIPE_PUB_KEY', 'AMPLITUDE_KEY',
+                     'worldDmg', 'mods', 'IS_MOBILE', 'PUSHER:KEY', 'PUSHER:ENABLED'];
 
 let env = {
   getManifestFiles,

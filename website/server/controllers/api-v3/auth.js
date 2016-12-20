@@ -534,14 +534,16 @@ api.resetPassword = {
         from: 'Habitica <admin@habitica.com>',
         to: email,
         subject: res.t('passwordResetEmailSubject'),
-        text: res.t('passwordResetEmailText', { username: user.auth.local.username,
-                                                newPassword,
-                                                baseUrl: nconf.get('BASE_URL'),
-                                              }),
-        html: res.t('passwordResetEmailHtml', { username: user.auth.local.username,
-                                                newPassword,
-                                                baseUrl: nconf.get('BASE_URL'),
-                                              }),
+        text: res.t('passwordResetEmailText', {
+          username: user.auth.local.username,
+          newPassword,
+          baseUrl: nconf.get('BASE_URL'),
+        }),
+        html: res.t('passwordResetEmailHtml', {
+          username: user.auth.local.username,
+          newPassword,
+          baseUrl: nconf.get('BASE_URL'),
+        }),
       });
 
       await user.save();
