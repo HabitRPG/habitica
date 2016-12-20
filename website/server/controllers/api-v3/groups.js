@@ -22,6 +22,7 @@ import { sendNotification as sendPushNotification } from '../../libs/pushNotific
 import pusher from '../../libs/pusher';
 import common from '../../../common';
 import payments from '../../libs/payments';
+import shared from '../../../common';
 
 
 /**
@@ -108,13 +109,6 @@ api.createGroup = {
   },
 };
 
-import shared from '../../../common';
-import stripeModule from 'stripe';
-import nconf from 'nconf';
-const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
-import amzLib from '../../libs/amazonPayments';
-
-
 /**
  * @api {post} /api/v3/groups/create-plan Create a Group and then redirect to the correct payment
  * @apiName CreateGroupPlan
@@ -171,6 +165,7 @@ api.createGroupPlan = {
         sub,
         groupId,
         email,
+        headers,
       ]);
     } else if (req.body.paymentType === 'Amazon') {
       let billingAgreementId = req.body.billingAgreementId;
@@ -178,57 +173,16 @@ api.createGroupPlan = {
       let coupon = req.body.coupon;
       let user = res.locals.user;
       let groupId = savedGroup._id;
+      let headers = req.headers;
 
-      if (!sub) throw new BadRequest(res.t('missingSubscriptionCode'));
-      if (!billingAgreementId) throw new BadRequest('Missing req.body.billingAgreementId');
-
-      if (sub.discount) { // apply discount
-        if (!coupon) throw new BadRequest(res.t('couponCodeRequired'));
-        let result = await Coupon.findOne({_id: cc.validate(coupon), event: sub.key});
-        if (!result) throw new NotAuthorized(res.t('invalidCoupon'));
-      }
-
-      await amzLib.setBillingAgreementDetails({
-        AmazonBillingAgreementId: billingAgreementId,
-        BillingAgreementAttributes: {
-          SellerNote: 'Habitica Subscription',
-          SellerBillingAgreementAttributes: {
-            SellerBillingAgreementId: shared.uuid(),
-            StoreName: 'Habitica',
-            CustomInformation: 'Habitica Subscription',
-          },
-        },
-      });
-
-      await amzLib.confirmBillingAgreement({
-        AmazonBillingAgreementId: billingAgreementId,
-      });
-
-      await amzLib.authorizeOnBillingAgreement({
-        AmazonBillingAgreementId: billingAgreementId,
-        AuthorizationReferenceId: shared.uuid().substring(0, 32),
-        AuthorizationAmount: {
-          CurrencyCode: 'USD',
-          Amount: sub.price,
-        },
-        SellerAuthorizationNote: 'Habitica Subscription Payment',
-        TransactionTimeout: 0,
-        CaptureNow: true,
-        SellerNote: 'Habitica Subscription Payment',
-        SellerOrderAttributes: {
-          SellerOrderId: shared.uuid(),
-          StoreName: 'Habitica',
-        },
-      });
-
-      await payments.createSubscription({
-        user,
-        customerId: billingAgreementId,
-        paymentMethod: 'Amazon Payments',
+      await payments.subscribeWithAmazon([
+        billingAgreementId,
         sub,
-        headers: req.headers,
+        coupon,
+        user,
         groupId,
-      });
+        headers,
+      ]);
     }
 
     res.respond(201, {groupId: savedGroup._id}); // do not remove chat flags data as we've just created the group
