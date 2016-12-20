@@ -905,8 +905,6 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
       promises.push(group.remove());
       return await Bluebird.all(promises);
     }
-
-    promises.push(group.remove());
   } else if (group.leader === user._id) { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
     let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
     query._id = {$ne: user._id};
