@@ -36,8 +36,6 @@ angular.module('habitrpg')
       };
 
       $scope.upgradeGroup = function (paymentType) {
-        if (!confirm(window.env.t('confirmGuildPlanCreation'))) return;
-
         var subscriptionKey = 'group_monthly'; // @TODO: Get from content API?
         if (paymentType === $scope.PAYMENTS.STRIPE) Payments.showStripe({subscription: subscriptionKey, coupon: null, groupToCreate: $scope.newGroup});
         if (paymentType === $scope.PAYMENTS.AMAZON) Payments.amazonPayments.init({type: 'subscription', subscription: subscriptionKey, coupon: null, groupToCreate: $scope.newGroup});

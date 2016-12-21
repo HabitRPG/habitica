@@ -49,8 +49,8 @@ function($rootScope, User, $http, Content) {
         if (data.coupon) url += '&coupon='+data.coupon;
         if (data.groupId) url += '&groupId=' + data.groupId;
         $http.post(url, res).success(function(response) {
-          if (response && response.data && response.data.groupId) {
-            $rootScope.hardRedirect('/#/options/groups/guilds/' + response.data.group._id);
+          if (response && response.data && response.data._id) {
+            $rootScope.hardRedirect('/#/options/groups/guilds/' + response.data._id);
           } else {
             window.location.reload(true);
           }
@@ -283,8 +283,8 @@ function($rootScope, User, $http, Content) {
         paymentType: 'Amazon',
       }).success(function(response) {
         Payments.amazonPayments.reset();
-        if (response && response.data && response.data.groupId) {
-          $rootScope.hardRedirect('/#/options/groups/guilds/' + response.data.group._id);
+        if (response && response.data && response.data._id) {
+          $rootScope.hardRedirect('/#/options/groups/guilds/' + response.data._id);
         } else {
           window.location.reload(true);
         }

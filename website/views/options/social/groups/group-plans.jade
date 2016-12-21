@@ -33,3 +33,8 @@ script(type='text/ng-template', id='partials/options.social.groupPlans.html')
      //-  .col-xs-4
      //-    a.purchase(href='/paypal/subscribe?_id={{user._id}}&apiToken={{User.settings.auth.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}&groupId={{group.id}}', ng-disabled='!_subscription.key')
      //-      img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png',alt=env.t('paypal'))
+
+    .row
+      .col-md-6.col-md-offset-3
+        br
+        .text-center=env.t('groupSubscriptionPrice')
