@@ -353,7 +353,8 @@ describe('analyticsService', () => {
         purchaseType: 'checkout',
         gift: false,
         quantity: 1,
-        headers: {'x-client': 'habitica-web',
+        headers: {
+          'x-client': 'habitica-web',
           'user-agent': '',
         },
       };

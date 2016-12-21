@@ -4,13 +4,19 @@ import analytics from '../../../../../website/server/libs/analyticsService';
 import notifications from '../../../../../website/server/libs/pushNotifications';
 import { model as User } from '../../../../../website/server/models/user';
 import { model as Group } from '../../../../../website/server/models/group';
+import stripeModule from 'stripe';
 import moment from 'moment';
+import { translate as t } from '../../../../helpers/api-v3-integration.helper';
 import {
   generateGroup,
 } from '../../../../helpers/api-unit.helper.js';
+import i18n from '../../../../../website/common/script/i18n';
+import amzLib from '../../../../../website/server/libs/amazonPayments';
 
 describe('payments/index', () => {
   let user, group, data, plan;
+
+  let stripe = stripeModule('test');
 
   beforeEach(async () => {
     user = new User();
@@ -145,6 +151,14 @@ describe('payments/index', () => {
         expect(recipient.purchased.plan.dateUpdated).to.exist;
       });
 
+      it('sets plan.dateCreated if it did not previously exist', async () => {
+        expect(recipient.purchased.plan.dateCreated).to.not.exist;
+
+        await api.createSubscription(data);
+
+        expect(recipient.purchased.plan.dateCreated).to.exist;
+      });
+
       it('does not change plan.customerId if it already exists', async () => {
         recipient.purchased.plan = plan;
         data.customerId = 'purchaserCustomerId';
@@ -173,9 +187,10 @@ describe('payments/index', () => {
 
       it('sends a private message about the gift', async () => {
         await api.createSubscription(data);
+        let msg = '\`Hello recipient, sender has sent you 3 months of subscription!\`';
 
         expect(user.sendMessage).to.be.calledOnce;
-        expect(user.sendMessage).to.be.calledWith(recipient, '\`Hello recipient, sender has sent you 3 months of subscription!\`');
+        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg, senderMsg: msg });
       });
 
       it('sends an email about the gift', async () => {
@@ -615,7 +630,40 @@ describe('payments/index', () => {
         await api.cancelSubscription(data);
 
         expect(sender.sendTxn).to.be.calledOnce;
-        expect(sender.sendTxn).to.be.calledWith(user, 'cancel-subscription');
+        expect(sender.sendTxn).to.be.calledWith(user, 'group-cancel-subscription');
+      });
+
+      it('prevents non group leader from manging subscription', async () => {
+        let groupMember = new User();
+        data.user = groupMember;
+        data.groupId = group._id;
+
+        await expect(api.cancelSubscription(data))
+          .eventually.be.rejected.and.to.eql({
+            httpCode: 401,
+            message: i18n.t('onlyGroupLeaderCanManageSubscription'),
+            name: 'NotAuthorized',
+          });
+      });
+
+      it('allows old group leader to cancel if they created the subscription', async () => {
+        data.groupId = group._id;
+        data.sub = {
+          key: 'group_monthly',
+        };
+        data.paymentMethod = 'Payment Method';
+        await api.createSubscription(data);
+
+        let updatedGroup = await Group.findById(group._id).exec();
+        let newLeader = new User();
+        updatedGroup.leader = newLeader._id;
+        await updatedGroup.save();
+
+        await api.cancelSubscription(data);
+
+        updatedGroup = await Group.findById(group._id).exec();
+
+        expect(updatedGroup.purchased.plan.dateTerminated).to.exist;
       });
     });
   });
@@ -689,14 +737,189 @@ describe('payments/index', () => {
 
       it('sends a message from purchaser to recipient', async () => {
         await api.buyGems(data);
+        let msg = '\`Hello recipient, sender has sent you 4 gems!\`';
 
-        expect(user.sendMessage).to.be.calledWith(recipient, '\`Hello recipient, sender has sent you 4 gems!\`');
+        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg, senderMsg: msg });
       });
 
       it('sends a push notification if user did not gift to self', async () => {
         await api.buyGems(data);
         expect(notifications.sendNotification).to.be.calledOnce;
       });
+
+      it('sends gem donation message in each participant\'s language', async () => {
+        await recipient.update({
+          'preferences.language': 'es',
+        });
+        await user.update({
+          'preferences.language': 'cs',
+        });
+        await api.buyGems(data);
+
+        let [recipientsMessageContent, sendersMessageContent] = ['es', 'cs'].map((lang) => {
+          let messageContent = t('giftedGemsFull', {
+            username: recipient.profile.name,
+            sender: user.profile.name,
+            gemAmount: data.gift.gems.amount,
+          }, lang);
+
+          return `\`${messageContent}\``;
+        });
+
+        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: recipientsMessageContent, senderMsg: sendersMessageContent });
+      });
+    });
+  });
+
+  describe('#upgradeGroupPlan', () => {
+    let spy;
+
+    beforeEach(function () {
+      spy = sinon.stub(stripe.subscriptions, 'update');
+      spy.returnsPromise().resolves([]);
+      data.groupId = group._id;
+      data.sub.quantity = 3;
+    });
+
+    afterEach(function () {
+      sinon.restore(stripe.subscriptions.update);
+    });
+
+    it('updates a group plan quantity', async () => {
+      data.paymentMethod = 'Stripe';
+      await api.createSubscription(data);
+
+      let updatedGroup = await Group.findById(group._id).exec();
+      expect(updatedGroup.purchased.plan.quantity).to.eql(3);
+
+      updatedGroup.memberCount += 1;
+      await updatedGroup.save();
+
+      await api.updateStripeGroupPlan(updatedGroup, stripe);
+
+      expect(spy.calledOnce).to.be.true;
+      expect(updatedGroup.purchased.plan.quantity).to.eql(4);
+    });
+
+    it('does not update a group plan quantity that has a payment method other than stripe', async () => {
+      await api.createSubscription(data);
+
+      let updatedGroup = await Group.findById(group._id).exec();
+      expect(updatedGroup.purchased.plan.quantity).to.eql(3);
+
+      updatedGroup.memberCount += 1;
+      await updatedGroup.save();
+
+      await api.updateStripeGroupPlan(updatedGroup, stripe);
+
+      expect(spy.calledOnce).to.be.false;
+      expect(updatedGroup.purchased.plan.quantity).to.eql(3);
+    });
+  });
+
+  describe('payWithStripe', () => {
+    let spy;
+    let stripeCreateCustomerSpy;
+    let createSubSpy;
+
+    beforeEach(function () {
+      spy = sinon.stub(stripe.subscriptions, 'update');
+      spy.returnsPromise().resolves;
+
+      stripeCreateCustomerSpy = sinon.stub(stripe.customers, 'create');
+      let stripCustomerResponse = {
+        subscriptions: {
+          data: [{id: 'test-id'}],
+        },
+      };
+      stripeCreateCustomerSpy.returnsPromise().resolves(stripCustomerResponse);
+
+      createSubSpy = sinon.stub(api, 'createSubscription');
+      createSubSpy.returnsPromise().resolves({});
+
+      data.groupId = group._id;
+      data.sub.quantity = 3;
+    });
+
+    afterEach(function () {
+      sinon.restore(stripe.subscriptions.update);
+      stripe.customers.create.restore();
+      api.createSubscription.restore();
+    });
+
+    it('subscribes with stripe', async () => {
+      let token = 'test-token';
+      let gift;
+      let sub = data.sub;
+      let groupId = group._id;
+      let email = 'test@test.com';
+      let headers = {};
+      let coupon;
+
+      await api.payWithStripe([
+        token,
+        user,
+        gift,
+        sub,
+        groupId,
+        email,
+        headers,
+        coupon,
+      ], stripe);
+
+      expect(stripeCreateCustomerSpy.calledOnce).to.be.true;
+      expect(createSubSpy.calledOnce).to.be.true;
+    });
+  });
+
+  describe('subscribeWithAmazon', () => {
+    let amazonSetBillingAgreementDetailsSpy;
+    let amazonConfirmBillingAgreementSpy;
+    let amazongAuthorizeOnBillingAgreementSpy;
+    let createSubSpy;
+
+    beforeEach(function () {
+      amazonSetBillingAgreementDetailsSpy = sinon.stub(amzLib, 'setBillingAgreementDetails');
+      amazonSetBillingAgreementDetailsSpy.returnsPromise().resolves({});
+
+      amazonConfirmBillingAgreementSpy = sinon.stub(amzLib, 'confirmBillingAgreement');
+      amazonConfirmBillingAgreementSpy.returnsPromise().resolves({});
+
+      amazongAuthorizeOnBillingAgreementSpy = sinon.stub(amzLib, 'authorizeOnBillingAgreement');
+      amazongAuthorizeOnBillingAgreementSpy.returnsPromise().resolves({});
+
+      createSubSpy = sinon.stub(api, 'createSubscription');
+      createSubSpy.returnsPromise().resolves({});
+    });
+
+    afterEach(function () {
+      amzLib.setBillingAgreementDetails.restore();
+      amzLib.confirmBillingAgreement.restore();
+      amzLib.authorizeOnBillingAgreement.restore();
+      api.createSubscription.restore();
+    });
+
+    it('subscribes with stripe', async () => {
+      let billingAgreementId = 'billingAgreementId';
+      let sub = data.sub;
+      let coupon;
+      let groupId = group._id;
+      let headers = {};
+
+      await api.subscribeWithAmazon([
+        billingAgreementId,
+        sub,
+        coupon,
+        sub,
+        user,
+        groupId,
+        headers,
+      ]);
+
+      expect(amazonSetBillingAgreementDetailsSpy.calledOnce).to.be.true;
+      expect(amazonConfirmBillingAgreementSpy.calledOnce).to.be.true;
+      expect(amazongAuthorizeOnBillingAgreementSpy.calledOnce).to.be.true;
+      expect(createSubSpy.calledOnce).to.be.true;
     });
   });
 });

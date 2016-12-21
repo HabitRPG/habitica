@@ -300,7 +300,7 @@ describe('cron', () => {
         startDate: new Date(),
       };
 
-      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line babel/new-cap
+      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
       tasksByType.dailys.push(task);
       tasksByType.dailys[0].completed = true;
 
@@ -321,7 +321,7 @@ describe('cron', () => {
         value: 0,
       };
 
-      let task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line babel/new-cap
+      let task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line new-cap
       tasksByType.todos.push(task);
     });
 
@@ -347,7 +347,7 @@ describe('cron', () => {
         type: 'daily',
       };
 
-      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line babel/new-cap
+      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
       tasksByType.dailys = [];
       tasksByType.dailys.push(task);
 
@@ -449,7 +449,7 @@ describe('cron', () => {
         type: 'habit',
       };
 
-      let task = new Tasks.habit(Tasks.Task.sanitize(habit)); // eslint-disable-line babel/new-cap
+      let task = new Tasks.habit(Tasks.Task.sanitize(habit)); // eslint-disable-line new-cap
       tasksByType.habits = [];
       tasksByType.habits.push(task);
     });
@@ -490,7 +490,7 @@ describe('cron', () => {
         type: 'daily',
       };
 
-      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line babel/new-cap
+      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
       tasksByType.dailys = [];
       tasksByType.dailys.push(task);
 
@@ -633,7 +633,7 @@ describe('cron', () => {
         type: 'daily',
       };
 
-      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line babel/new-cap
+      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
       tasksByType.dailys = [];
       tasksByType.dailys.push(task);
 

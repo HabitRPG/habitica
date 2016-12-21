@@ -92,5 +92,7 @@
     "petsReleased": "Zvieratká vypustené.",
     "mountsAndPetsReleased": "Tátoše a zvieratká vypustené",
     "mountsReleased": "Tátoše vypustené",
-    "gemsEach": "drahokamy za každý"
+    "gemsEach": "drahokamy za každý",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

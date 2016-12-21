@@ -166,7 +166,7 @@ describe('Challenge Model', () => {
 
   context('type specific updates', () => {
     it('updates habit specific field to challenge and challenge members', async () => {
-      task = new Tasks.habit(Tasks.Task.sanitize(tasksToTest.habit)); // eslint-disable-line babel/new-cap
+      task = new Tasks.habit(Tasks.Task.sanitize(tasksToTest.habit)); // eslint-disable-line new-cap
       task.challenge.id = challenge._id;
       await task.save();
 
@@ -185,7 +185,7 @@ describe('Challenge Model', () => {
     });
 
     it('updates todo specific field to challenge and challenge members', async () => {
-      task = new Tasks.todo(Tasks.Task.sanitize(tasksToTest.todo)); // eslint-disable-line babel/new-cap
+      task = new Tasks.todo(Tasks.Task.sanitize(tasksToTest.todo)); // eslint-disable-line new-cap
       task.challenge.id = challenge._id;
       await task.save();
 
@@ -201,7 +201,7 @@ describe('Challenge Model', () => {
     });
 
     it('does not update checklists on the user task', async () => {
-      task = new Tasks.todo(Tasks.Task.sanitize(tasksToTest.todo)); // eslint-disable-line babel/new-cap
+      task = new Tasks.todo(Tasks.Task.sanitize(tasksToTest.todo)); // eslint-disable-line new-cap
       task.challenge.id = challenge._id;
       await task.save();
 
@@ -219,7 +219,7 @@ describe('Challenge Model', () => {
     });
 
     it('updates daily specific field to challenge and challenge members', async () => {
-      task = new Tasks.daily(Tasks.Task.sanitize(tasksToTest.daily)); // eslint-disable-line babel/new-cap
+      task = new Tasks.daily(Tasks.Task.sanitize(tasksToTest.daily)); // eslint-disable-line new-cap
       task.challenge.id = challenge._id;
       await task.save();
 

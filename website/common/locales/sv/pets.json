@@ -92,5 +92,7 @@
     "petsReleased": "Husdjuren släpptes.",
     "mountsAndPetsReleased": "Riddjur och husdjur släpptes",
     "mountsReleased": "Riddjuren släpptes",
-    "gemsEach": "juveler vardera"
+    "gemsEach": "juveler vardera",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

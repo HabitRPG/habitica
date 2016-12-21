@@ -134,7 +134,7 @@ function awardLoginIncentives (user) {
   //  Remove old notifications if they exists
   user.notifications
     .toObject()
-    .find((notif, index) => {
+    .forEach((notif, index) => {
       if (notif.type === 'LOGIN_INCENTIVE') user.notifications.splice(index, 1);
     });
 

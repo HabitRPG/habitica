@@ -1,5 +1,6 @@
 {
     "npc": "NPC",
+    "npcAchievementName": "<%= key %> NPC",
     "npcAchievementText": "Ha supportato il progetto Kickstarter al massimo livello!",
     "mattBoch": "Matt Boch",
     "mattShall": "Devo portarti il tuo destriero, <%= name %>? Una volta che avrai dato abbastanza cibo al tuo animale da trasformarlo in una cavalcatura, apparirà qui. Fai click su una cavalcatura per montare in sella!",
@@ -83,7 +84,7 @@
     "tourChallengesPage": "Le Sfide sono liste di attività a tema create dagli utenti! Partecipando a una Sfida, la lista delle sue attività verrà aggiunta al tuo account. Competi con altri utenti per vincere dei premi in Gemme!",
     "tourMarketPage": "A partire dal livello 3, potrai ricevere dei \"drop\" casuali di uova e pozioni di schiusura quando completi le tue attività. Appariranno qui - usale per far nascere degli animali! Puoi anche comprare degli oggetti nel Mercato.",
     "tourHallPage": "Benvenuto nel Salone degli Eroi, dove viene reso onore agli aiutanti open-source di Habitica. Che sia attraverso codice, arte, musica, testi o anche semplice disponibilità, hanno guadagnato Gemme, equipaggiamento esclusivo e titoli prestigiosi. Anche tu puoi contribuire ad Habitica!",
-    "tourPetsPage": "Questa è la Scuderia! Dopo il livello 3, puoi far nascere degli animali utilizzando uova e pozioni. Quando fai schiudere un uovo nel Mercato, apparirà qui! Fai click sull'immagine di un animale per aggiungerlo al tuo avatar. Dagli da mangiare il cibo che troverai dopo il livello 3, e crescerà fino a diventare una potente cavalcatura.",
+    "tourPetsPage": "This is the Stable! After reaching level 3, you will gather pet eggs and hatching potions as you complete tasks. When you hatch a pet in the Market, it will appear here! Click a pet's image to add it to your avatar. Feed them with the food you find after level 3, and they'll grow into powerful mounts.",
     "tourMountsPage": "Una volta che avrai dato abbastanza cibo al tuo animale da trasformarlo in una cavalcatura, apparirà qui. (Animali, cavalcature e cibo sono disponibili dopo il livello 3.) Fai click su una cavalcatura per montare in sella!",
     "tourEquipmentPage": "Qui è dove il tuo Equipaggiamento è immagazzinato! Il tuo Equipaggiamento da battaglia influenza le tue statistiche. Se desideri mostrare un Equipaggiamento diverso sul tuo avatar senza modificare le tue statistiche, clicca \"Abilita Costume.\"",
     "equipmentAlreadyOwned": "Possiedi già quel pezzo di equipaggiamento",

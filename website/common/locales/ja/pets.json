@@ -92,5 +92,7 @@
     "petsReleased": "ペットを放しました。",
     "mountsAndPetsReleased": "乗騎とペットを放しました。",
     "mountsReleased": "乗騎を放しました。",
-    "gemsEach": "ジェム(毎)"
+    "gemsEach": "ジェム(毎)",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

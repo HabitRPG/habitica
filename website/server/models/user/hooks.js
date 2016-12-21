@@ -118,7 +118,7 @@ function _setProfileName (user) {
 
   let localUsername = user.auth.local && user.auth.local.username;
   let googleUsername = google && google.displayName;
-  let anonymous = 'Anonymous';
+  let anonymous = 'profile name not found';
 
   return localUsername || _getFacebookName(user.auth.facebook) || googleUsername || anonymous;
 }

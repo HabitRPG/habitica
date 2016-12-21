@@ -401,5 +401,11 @@
     "questMoon3Notes": "Je krijgt @Starsystemic's dringende rol bij middernacht en galoppeert naar haar toren. \"Het monster gebruikt de volle maan om naar ons rijk over te steken,\" zegt ze. \"Als het erin slaagt, wordt de schokgolf van stress overweldigend!\"<br><br>Naar jouw ontzetting zie je dat het monster inderdaad de maan gebruikt om te manifesteren. Een gloeiend oog opent op het steenachtige oppervlakte en een lange tong rolt van een gapende, getande mond. Je zal het niet volledig laten opkomen!",
     "questMoon3Completion": "Het opdoemende monster barst uiteen tot schaduw en de maan kleurt zilver terwijl het gevaar verdwijnt. De draken beginnen weer te zingen en de sterren sprankelen met een zacht licht. @Starsystemic de ziener buigt zich en pakt een maanscherf van de grond. Het schijnt zilver in haar handen voordat het veranderd in een magnifieke kristallen zeis.",
     "questMoon3Boss": "Monsterlijke maan",
-    "questMoon3DropWeapon": "Maanzeis (Tweehandig wapen)"
+    "questMoon3DropWeapon": "Maanzeis (Tweehandig wapen)",
+    "questSlothText": "The Somnolent Sloth",
+    "questSlothNotes": "As you and your party venture through the Somnolent Snowforest, you're relieved to see a glimmering of green among the white snowdrifts... until an enormous sloth emerges from the frosty trees! Green emeralds shimmer hypnotically on its back.<br><br>\"Hello, adventurers... why don't you take it slow? You've been walking for a while... so why not... stop? Just lie down, and rest...\"<br><br>You feel your eyelids grow heavy, and you realize: It's the Somnolent Sloth! According to @JaizakAripaik, it got its name from the emeralds on its back which are rumored to... send people to... sleep...<br><br>You shake yourself awake, fighting drowsiness. In the nick of time, @awakebyjava and @PainterProphet begin to shout spells, forcing your party awake. \"Now's our chance!\" @Kiwibot yells.",
+    "questSlothCompletion": "You did it! As you defeat the Somnolent Sloth, its emeralds break off. \"Thank you for freeing me of my curse,\" says the sloth. \"I can finally sleep well, without those heavy emeralds on my back. Have these eggs as thanks, and you can have the emeralds too.\" The sloth gives you three sloth eggs and heads off for warmer climates.",
+    "questSlothBoss": "Somnolent Sloth",
+    "questSlothDropSlothEgg": "Sloth (Egg)",
+    "questSlothUnlockText": "Unlocks purchasable Sloth eggs in the Market"
 }

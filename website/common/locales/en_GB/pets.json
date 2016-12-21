@@ -92,5 +92,7 @@
     "petsReleased": "Pets released.",
     "mountsAndPetsReleased": "Mounts and pets released",
     "mountsReleased": "Mounts released",
-    "gemsEach": "gems each"
+    "gemsEach": "gems each",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

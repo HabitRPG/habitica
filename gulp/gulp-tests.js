@@ -318,7 +318,7 @@ gulp.task('test:api-v3:integration:watch', () => {
 
 gulp.task('test:api-v3:integration:separate-server', (done) => {
   let runner = exec(
-    testBin('mocha test/api/v3/integration --recursive', 'LOAD_SERVER=0'),
+    testBin('mocha test/api/v3/integration --recursive --require ./test/helpers/start-server', 'LOAD_SERVER=0'),
     {maxBuffer: 500 * 1024},
     (err, stdout, stderr) => done(err)
   );

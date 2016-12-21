@@ -92,7 +92,7 @@
     "usernameSuccess": "Nome utente modificato con successo",
     "emailSuccess": "Email cambiata con successo",
     "detachSocial": "De-register <%= network %>",
-    "detachedSocial": "Successfully removed <%= network %> authentication from your account",
+    "detachedSocial": "<%= network %>  è stato scollegato dal tuo account con successo",
     "addedLocalAuth": "Autenticazione locale aggiunta con successo",
     "data": "Dati utente",
     "exportData": "Esporta dati",
