@@ -12,7 +12,7 @@ describe('GET /tasks/user', () => {
   it('returns all user\'s tasks', async () => {
     let createdTasks = await user.post('/tasks/user', [{text: 'test habit', type: 'habit'}, {text: 'test todo', type: 'todo'}]);
     let tasks = await user.get('/tasks/user');
-    expect(tasks.length).to.equal(createdTasks.length + 1); // + 1 because 1 is a default task
+    expect(tasks.length).to.equal(createdTasks.length);
   });
 
   it('returns only a type of user\'s tasks if req.query.type is specified', async () => {

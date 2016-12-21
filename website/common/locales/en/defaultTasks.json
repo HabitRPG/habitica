@@ -11,6 +11,20 @@
   "defaultTodoNotes": "You can either complete this To-Do, edit it, or remove it.",
 
   "defaultTodo1Text": "Join Habitica (Check me off!)",
+  "defaultTodo1Notes": "You can either complete this To-Do, edit it, or remove it.",
+
+  "defaultTodo2Text": "Learn About Habitica",
+  "defaultTodo2Notes": "Overview of New Users:\n\n💻 only: ☰(Menu - Top Bar) > Help\n\nFAQ:\n\n📱: ☰ > Help & FAQ\n\n💻 : ☰ > Help > FAQ",
+  "defaultTodo2Checklist1": "Read the Overview of New Users (Website only)",
+  "defaultTodo2Checklist2": "Read the FAQ",
+
+  "defaultTodo3Text": "Join the Newbies Guild",
+  "defaultTodo3Notes": "☰ > Social > Guilds\n\nThis is the best place to ask questions!",
+
+  "defaultTodo4Text": "Introduce Yourself to the Tavern",
+  "defaultTodo4Notes": "☰ > Social > Tavern Chat",
+  "defaultTodo4Checklist1": "Read the Community Guidelines",
+  "defaultTodo4Checklist2": "Post a fun fact about yourself, like a habit you want to improve or your favorite hobby!",
 
   "defaultReward1Text": "15 minute break",
   "defaultReward1Notes": "Custom rewards can come in many forms. Some people will hold off watching their favorite show unless they have the gold to pay for it.",

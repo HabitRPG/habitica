@@ -71,6 +71,7 @@ describe('POST /user/buy/:key', () => {
       eyewear_special_redTopFrame: true,
       eyewear_special_whiteTopFrame: true,
       eyewear_special_yellowTopFrame: true,
+      weapon_warrior_0: true,
     });
   });
 });

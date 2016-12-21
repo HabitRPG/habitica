@@ -43,6 +43,15 @@ describe('DELETE /user', () => {
   });
 
   it('deletes the user\'s tasks', async () => {
+    // generates a few habits (because generateUser scrubs all tasks)
+    await user.post('/tasks/user', [
+      {type: 'habit', text: 'habit1'},
+      {type: 'habit', text: 'habit2'},
+      {type: 'habit', text: 'habit3'},
+      {type: 'todo', text: 'todo1'},
+    ]);
+    await user.sync();
+
     // gets the user's tasks ids
     let ids = [];
     each(user.tasksOrder, (idsForOrder) => {
