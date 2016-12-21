@@ -320,6 +320,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     */
 
     $scope.join = function (challenge) {
+      challenge._joiningInProgress = true;
       Challenges.joinChallenge(challenge._id)
         .then(function (response) {
           User.user.challenges.push(challenge._id);
@@ -329,6 +330,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         .then(function (response) {
           var tasks = response.data.data;
           User.syncUserTasks(tasks);
+          challenge._joiningInProgress = false;
         });
     }
 
