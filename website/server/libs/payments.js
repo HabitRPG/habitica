@@ -397,7 +397,7 @@ api.buyGems = async function buyGems (data) {
  * @return undefined
  */
 api.payWithStripe = async function payWithStripe (options, stripeInc) {
-  let [
+  let {
     token,
     user,
     gift,
@@ -406,7 +406,7 @@ api.payWithStripe = async function payWithStripe (options, stripeInc) {
     email,
     headers,
     coupon,
-  ] = options;
+  } = options;
   let response;
   let subscriptionId;
   // @TODO: We need to mock this, but curently we don't have correct Dependency Injection
@@ -498,14 +498,14 @@ api.payWithStripe = async function payWithStripe (options, stripeInc) {
  * @return undefined
  */
 api.subscribeWithAmazon = async function subscribeWithAmazon (options) {
-  let [
+  let {
     billingAgreementId,
     sub,
     coupon,
     user,
     groupId,
     headers,
-  ] = options;
+  } = options;
 
   if (!sub) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
   if (!billingAgreementId) throw new BadRequest('Missing req.body.billingAgreementId');

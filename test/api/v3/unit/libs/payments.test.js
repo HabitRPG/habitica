@@ -856,7 +856,7 @@ describe('payments/index', () => {
       let headers = {};
       let coupon;
 
-      await api.payWithStripe([
+      await api.payWithStripe({
         token,
         user,
         gift,
@@ -865,7 +865,7 @@ describe('payments/index', () => {
         email,
         headers,
         coupon,
-      ], stripe);
+      }, stripe);
 
       expect(stripeCreateCustomerSpy.calledOnce).to.be.true;
       expect(createSubSpy.calledOnce).to.be.true;
@@ -899,22 +899,21 @@ describe('payments/index', () => {
       api.createSubscription.restore();
     });
 
-    it('subscribes with stripe', async () => {
+    it('subscribes with amazon', async () => {
       let billingAgreementId = 'billingAgreementId';
       let sub = data.sub;
       let coupon;
       let groupId = group._id;
       let headers = {};
 
-      await api.subscribeWithAmazon([
+      await api.subscribeWithAmazon({
         billingAgreementId,
         sub,
         coupon,
-        sub,
         user,
         groupId,
         headers,
-      ]);
+      });
 
       expect(amazonSetBillingAgreementDetailsSpy.calledOnce).to.be.true;
       expect(amazonConfirmBillingAgreementSpy.calledOnce).to.be.true;
