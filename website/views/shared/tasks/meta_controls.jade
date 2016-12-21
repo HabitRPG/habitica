@@ -45,7 +45,7 @@
         span.glyphicon.glyphicon-bullhorn(tooltip=env.t('challenge'))
         | &nbsp;
     // delete
-    a(ng-if='!task.challenge.id || obj.leader._id === User.user._id', ng-click='removeTask(task, obj)', tooltip=env.t('delete'))
+    a(ng-if='!task.challenge.id || obj.leader._id === User.user._id || user.contributor.admin', ng-click='removeTask(task, obj)', tooltip=env.t('delete'))
       span.glyphicon.glyphicon-trash
       | &nbsp;
 

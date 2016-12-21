@@ -8,11 +8,13 @@ import { v4 as generateUUID } from 'uuid';
 
 describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
   let user;
+  let moderator;
   let guild;
   let challenge;
 
   before(async () => {
     user = await generateUser();
+    moderator = await generateUser({ 'contributor.admin': true });
     guild = await generateGroup(user);
     challenge = await generateChallenge(user, guild);
   });
@@ -73,6 +75,20 @@ describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
     expect(savedTask.checklist.length).to.equal(0);
   });
 
+  it('allows a moderator to delete a checklist item from a daily', async () => {
+    let task = await user.post(`/tasks/challenge/${challenge._id}`, {
+      type: 'daily',
+      text: 'Daily with checklist',
+    });
+
+    let savedTask = await user.post(`/tasks/${task._id}/checklist`, {text: 'Checklist Item 1', completed: false});
+
+    await moderator.del(`/tasks/${task._id}/checklist/${savedTask.checklist[0].id}`);
+    savedTask = await user.get(`/tasks/${task._id}`);
+
+    expect(savedTask.checklist.length).to.equal(0);
+  });
+
   it('deletes a checklist item from a todo', async () => {
     let task = await user.post(`/tasks/challenge/${challenge._id}`, {
       type: 'todo',
@@ -82,6 +98,20 @@ describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
     let savedTask = await user.post(`/tasks/${task._id}/checklist`, {text: 'Checklist Item 1', completed: false});
 
     await user.del(`/tasks/${task._id}/checklist/${savedTask.checklist[0].id}`);
+    savedTask = await user.get(`/tasks/${task._id}`);
+
+    expect(savedTask.checklist.length).to.equal(0);
+  });
+
+  it('allow a moderator to delete a checklist item from a todo', async () => {
+    let task = await user.post(`/tasks/challenge/${challenge._id}`, {
+      type: 'todo',
+      text: 'Todo with checklist',
+    });
+
+    let savedTask = await user.post(`/tasks/${task._id}/checklist`, {text: 'Checklist Item 1', completed: false});
+
+    await moderator.del(`/tasks/${task._id}/checklist/${savedTask.checklist[0].id}`);
     savedTask = await user.get(`/tasks/${task._id}`);
 
     expect(savedTask.checklist.length).to.equal(0);
