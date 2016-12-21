@@ -78,7 +78,7 @@ function _setUpNewUser (user) {
   let iterableFlags = user.flags.toObject();
 
   user._ABtest = '';
-  if (Math.random() < .5) {
+  if (Math.random() < 0.5) {
     user._ABtests.checkInModals = '20161221_noCheckInPreviews'; // no 'preview' check-in modals
   } else {
     user._ABtests.checkInModals = '20161221_showCheckInPreviews'; // show 'preview' check-in modals
