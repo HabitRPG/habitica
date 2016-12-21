@@ -130,6 +130,8 @@ function trackCronAnalytics (analytics, user, _progress, options) {
 
 function awardLoginIncentives (user) {
   if (user.loginIncentives > 50) return;
+  // A/B test 2016-12-21: Should we deliver notifications for upcoming incentives on days when users don't receive rewards?
+  if (!loginIncentives[user.loginIncentives].rewardKey && user._ABtests && user._ABtests.checkInModals === '20161221_noCheckInPreviews') return;
 
   //  Remove old notifications if they exists
   user.notifications

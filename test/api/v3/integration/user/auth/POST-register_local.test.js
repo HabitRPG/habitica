@@ -66,6 +66,7 @@ describe('POST /user/auth/local/register', () => {
       });
 
       await expect(getProperty('users', user._id, '_ABtest')).to.eventually.be.a('string');
+      await expect(getProperty('users', user._id, '_ABtests')).to.eventually.be.a('object');
     });
 
     it('requires password and confirmPassword to match', async () => {
