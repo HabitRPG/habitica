@@ -225,7 +225,7 @@
     "approve": "Approve",
     "approvalTitle": "<%= text %> for user: <%= userName %>",
     "confirmTaskApproval": "Do you want to reward <%= username %> for completing this task?",
-    "groupSubscriptionPrice": "$9/Month + $3/User/Month",
+    "groupSubscriptionPrice": "$9 every month + $3 a month for every additional group member",
 
     "groupBenefitsTitle": "How a group plan can help you",
     "groupBenefitsDescription": "We’ve just launched the beta version of our group plans! Upgrading to a group plan unlocks some unique features to optimize the social side of Habitica.",
