@@ -91,6 +91,8 @@ api.checkout = {
     let orderReferenceId = req.body.orderReferenceId;
     let amount = 5;
 
+    // @TODO: Make thise use payment.subscribeWithAmazon
+
     if (!orderReferenceId) throw new BadRequest('Missing req.body.orderReferenceId');
 
     if (gift) {

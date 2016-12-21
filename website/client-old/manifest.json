@@ -109,6 +109,7 @@
             "js/controllers/tavernCtrl.js",
             "js/controllers/tasksCtrl.js",
             "js/controllers/userCtrl.js",
+            "js/controllers/groupPlansCtrl.js",
 
             "js/components/groupTasks/groupTasksController.js",
             "js/components/groupTasks/groupTasksDirective.js",

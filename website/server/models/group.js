@@ -13,6 +13,7 @@ import { groupChatReceivedWebhook } from '../libs/webhook';
 import {
   InternalServerError,
   BadRequest,
+  NotAuthorized,
 } from '../libs/errors';
 import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email';
@@ -859,6 +860,11 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   let group = this;
   let update = {};
 
+  let plan = group.purchased.plan;
+  if (group.memberCount <= 1 && group.privacy === 'private' && plan && plan.customerId && !plan.dateTerminated) {
+    throw new NotAuthorized(shared.i18n.t('cannotDeleteActiveGroup'));
+  }
+
   let challenges = await Challenge.find({
     _id: {$in: user.challenges},
     group: group._id,
@@ -899,6 +905,13 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
       promises.push(group.remove());
       return await Bluebird.all(promises);
     }
+  } else if (group.leader === user._id) { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
+    let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
+    query._id = {$ne: user._id};
+    let seniorMember = await User.findOne(query).select('_id').exec();
+
+    // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
+    if (seniorMember) update.$set = {leader: seniorMember._id};
   }
   // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
   update.$inc = {memberCount: -1};
@@ -915,7 +928,16 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   return await Bluebird.all(promises);
 };
 
-schema.methods.updateTask = async function updateTask (taskToSync) {
+/**
+ * Updates all linked tasks for a group task
+ *
+ * @param  taskToSync  The group task that will be synced
+ * @param  options.newCheckListItem  The new checklist item that needs to be synced to all assigned users
+ * @param  options.removedCheckListItem  The removed checklist item that needs to be removed from all assigned users
+ *
+ * @return The created tasks
+ */
+schema.methods.updateTask = async function updateTask (taskToSync, options = {}) {
   let group = this;
 
   let updateCmd = {$set: {}};
@@ -926,14 +948,51 @@ schema.methods.updateTask = async function updateTask (taskToSync) {
   }
 
   updateCmd.$set['group.approval.required'] = taskToSync.group.approval.required;
+  updateCmd.$set['group.assignedUsers'] = taskToSync.group.assignedUsers;
 
   let taskSchema = Tasks[taskToSync.type];
-  // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
-  await taskSchema.update({
+
+  let updateQuery = {
     userId: {$exists: true},
     'group.id': group.id,
     'group.taskId': taskToSync._id,
-  }, updateCmd, {multi: true}).exec();
+  };
+
+  if (options.newCheckListItem) {
+    let newCheckList = {completed: false};
+    newCheckList.linkId = options.newCheckListItem.id;
+    newCheckList.text = options.newCheckListItem.text;
+    updateCmd.$push = { checklist: newCheckList };
+  }
+
+  if (options.removedCheckListItemId) {
+    updateCmd.$pull = { checklist: {linkId: {$in: [options.removedCheckListItemId]} } };
+  }
+
+  if (options.updateCheckListItems && options.updateCheckListItems.length > 0) {
+    let checkListIdsToRemove = [];
+    let checkListItemsToAdd = [];
+
+    options.updateCheckListItems.forEach(function gatherChecklists (updateCheckListItem) {
+      checkListIdsToRemove.push(updateCheckListItem.id);
+      let newCheckList = {completed: false};
+      newCheckList.linkId = updateCheckListItem.id;
+      newCheckList.text = updateCheckListItem.text;
+      checkListItemsToAdd.push(newCheckList);
+    });
+
+    updateCmd.$pull = { checklist: {linkId: {$in: checkListIdsToRemove} } };
+    await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
+
+    delete updateCmd.$pull;
+    updateCmd.$push = { checklist: { $each: checkListItemsToAdd } };
+    await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
+
+    return;
+  }
+
+  // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
+  await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
 };
 
 schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
@@ -952,11 +1011,13 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
     if (userTags[i].name !== group.name) {
       // update the name - it's been changed since
       userTags[i].name = group.name;
+      userTags[i].group = group._id;
     }
   } else {
     userTags.push({
       id: group._id,
       name: group.name,
+      group: group._id,
     });
   }
 
@@ -982,6 +1043,17 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   }
 
   matchingTask.group.approval.required = taskToSync.group.approval.required;
+  matchingTask.group.assignedUsers = taskToSync.group.assignedUsers;
+
+  //  sync checklist
+  if (taskToSync.checklist) {
+    taskToSync.checklist.forEach(function syncCheckList (element) {
+      let newCheckList = {completed: false};
+      newCheckList.linkId = element.id;
+      newCheckList.text = element.text;
+      matchingTask.checklist.push(newCheckList);
+    });
+  }
 
   if (!matchingTask.notes) matchingTask.notes = taskToSync.notes; // don't override the notes, but provide it if not provided
   if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id); // add tag if missing

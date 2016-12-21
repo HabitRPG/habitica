@@ -69,4 +69,16 @@ describe('DELETE /tasks/:id', () => {
     expect(syncedTask.group.broken).to.equal('TASK_DELETED');
     expect(member2SyncedTask.group.broken).to.equal('TASK_DELETED');
   });
+
+  it('prevents a user from deleting a task they are assigned to', async () => {
+    let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, findAssignedTask);
+
+    await expect(member.del(`/tasks/${syncedTask._id}`))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('cantDeleteAssignedGroupTasks'),
+      });
+  });
 });

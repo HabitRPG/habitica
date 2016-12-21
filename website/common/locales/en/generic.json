@@ -4,7 +4,7 @@
     "titleIndex": "Habitica | Your Life The Role Playing Game",
     "habitica": "Habitica",
     "habiticaLink": "<a href='http://habitica.wikia.com/wiki/Habitica' target='_blank'>Habitica</a>",
-    
+
     "titleTasks": "Tasks",
     "titleAvatar": "Avatar",
     "titleBackgrounds": "Backgrounds",
@@ -53,6 +53,7 @@
     "help": "Help",
     "user": "User",
     "market": "Market",
+    "groupPlansTitle": "Group Plans",
     "subscriberItem": "Mystery Item",
     "newSubscriberItem": "New Mystery Item",
     "subscriberItemText": "Each month, subscribers will receive a mystery item. This is usually released about one week before the end of the month. See the wiki's 'Mystery Item' page for more information.",
@@ -194,5 +195,7 @@
     "you": "(you)",
     "enableDesktopNotifications": "Enable Desktop Notifications",
     "online": "online",
-    "onlineCount": "<%= count %> online"
+    "onlineCount": "<%= count %> online",
+    "loading": "Loading...",
+    "userIdRequired": "User ID is required"
 }

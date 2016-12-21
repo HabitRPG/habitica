@@ -10,6 +10,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.type = 'party';
       $scope.text = window.env.t('party');
       $scope.group = {loadingParty: true};
+      $scope.groupPanel = 'chat';
 
       $scope.inviteOrStartParty = Groups.inviteOrStartParty;
       $scope.loadWidgets = Social.loadWidgets;

@@ -27,12 +27,17 @@
           }));
 
           var currentTags = [];
-          _.each(scope.task.group.assignedUsers, function(userId) { currentTags.push(memberIdToProfileNameMap[userId]) })
+          _.each(scope.task.group.assignedUsers, function(userId) { currentTags.push(memberIdToProfileNameMap[userId]) });
+
+          var allowedTags = [];
+          _.each(scope.task.group.members, function(userId) { currentTags.push(memberIdToProfileNameMap[userId]) });
 
           var taggle = new Taggle('taggle', {
             tags: currentTags,
-            allowedTags: currentTags,
+            allowedTags: allowedTags,
             allowDuplicates: false,
+            preserveCase: true,
+            placeholder: window.env.t('assignFieldPlaceholder'),
             onBeforeTagAdd: function(event, tag) {
               return confirm(window.env.t('confirmAddTag', {tag: tag}));
             },
