@@ -130,6 +130,7 @@ function trackCronAnalytics (analytics, user, _progress, options) {
 
 function awardLoginIncentives (user) {
   if (user.loginIncentives > 50) return;
+  if (!loginIncentives[user.loginIncentives].rewardKey && user._ABtests && user._ABtests.checkInModals === '20161221_noCheckInPreviews') return;
 
   //  Remove old notifications if they exists
   user.notifications
