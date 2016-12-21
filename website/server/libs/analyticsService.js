@@ -7,6 +7,7 @@ import useragent from 'useragent';
 import {
   each,
   omit,
+  toArray,
 } from 'lodash';
 import { content as Content } from '../../common';
 
@@ -89,6 +90,9 @@ let _formatUserData = (user) => {
 
   if (user._ABtest) {
     properties.ABtest = user._ABtest;
+  }
+  if (user._ABtests) {
+    properties.ABtests = toArray(user._ABtests);
   }
 
   if (user.registeredThrough) {

@@ -10,7 +10,7 @@ import schema from './schema';
 schema.plugin(baseModel, {
   // noSet is not used as updating uses a whitelist and creating only accepts specific params (password, email, username, ...)
   noSet: [],
-  private: ['auth.local.hashed_password', 'auth.local.salt', '_cronSignature', '_ABtest'],
+  private: ['auth.local.hashed_password', 'auth.local.salt', '_cronSignature', '_ABtest', '_ABtests'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
     delete plainObj.filters;
@@ -78,6 +78,11 @@ function _setUpNewUser (user) {
   let iterableFlags = user.flags.toObject();
 
   user._ABtest = '';
+  if (Math.random() < .5) {
+    user._ABtests.checkInModals = '20161221_noCheckInPreviews'; // no 'preview' check-in modals
+  } else {
+    user._ABtests.checkInModals = '20161221_showCheckInPreviews'; // show 'preview' check-in modals
+  }
   user.items.quests.dustbunnies = 1;
 
   if (user.registeredThrough === 'habitica-web' || user.registeredThrough === 'habitica-android') {

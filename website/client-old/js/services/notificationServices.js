@@ -156,6 +156,7 @@ angular.module("habitrpg").factory("Notification",
       modalKey = 'login-incentives-reward-unlocked';
     }
 
+    if (modalKey === 'login-incentives' && user._ABtests && user._ABtests.checkInModals === '20161221_noCheckInPreviews') return;
     $rootScope.openModal(modalKey, {
       scope: modalScope
     });

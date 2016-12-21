@@ -527,7 +527,10 @@ let schema = new Schema({
     return {};
   }},
   pushDevices: [PushDeviceSchema],
-  _ABtest: {type: String},
+  _ABtest: {type: String}, // deprecated. Superseded by _ABtests
+  _ABtests: {type: Schema.Types.Mixed, default: () => {
+      return {};
+  }},
   webhooks: [WebhookSchema],
   loginIncentives: {type: Number, default: 0},
 }, {
