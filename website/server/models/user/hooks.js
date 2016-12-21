@@ -78,6 +78,7 @@ function _setUpNewUser (user) {
   let iterableFlags = user.flags.toObject();
 
   user._ABtest = '';
+  // A/B test 2016-12-21: Should we deliver notifications for upcoming incentives on days when users don't receive rewards?
   if (Math.random() < 0.5) {
     user._ABtests.checkInModals = '20161221_noCheckInPreviews'; // no 'preview' check-in modals
   } else {
