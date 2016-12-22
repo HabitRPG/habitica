@@ -158,7 +158,7 @@ api.createGroupPlan = {
       let headers = req.headers;
       let coupon = req.query.coupon;
 
-      await payments.payWithStripe([
+      await payments.payWithStripe({
         token,
         user,
         gift,
@@ -167,7 +167,7 @@ api.createGroupPlan = {
         email,
         headers,
         coupon,
-      ]);
+      });
     } else if (req.body.paymentType === 'Amazon') {
       let billingAgreementId = req.body.billingAgreementId;
       let sub = req.body.subscription ? shared.content.subscriptionBlocks[req.body.subscription] : false;
@@ -175,14 +175,14 @@ api.createGroupPlan = {
       let groupId = savedGroup._id;
       let headers = req.headers;
 
-      await payments.subscribeWithAmazon([
+      await payments.subscribeWithAmazon({
         billingAgreementId,
         sub,
         coupon,
         user,
         groupId,
         headers,
-      ]);
+      });
     }
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
