@@ -266,6 +266,8 @@ angular.module('habitrpg')
         modalScope.canEdit = scopeInc.canEdit;
         modalScope.updateTaskTags = scopeInc.updateTaskTags;
         modalScope.obj = scopeInc.obj;
+        modalScope.unlink = scopeInc.unlink;
+        modalScope.removeTask = scopeInc.removeTask;
       }
       modalScope.cancelTaskEdit = cancelTaskEdit;
 

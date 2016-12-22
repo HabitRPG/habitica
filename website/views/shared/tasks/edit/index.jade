@@ -7,30 +7,30 @@ div(ng-if='task._editing')
       div(ng-if='task.challenge.broken=="TASK_DELETED" || task.challenge.broken=="CHALLENGE_TASK_NOT_FOUND"')
         p=env.t('brokenTask')
         p
-          a(ng-click='unlink(task, "keep")')=env.t('keepIt')
+          a(ng-click='unlink(task, "keep"); $close()')=env.t('keepIt')
           | &nbsp;&nbsp;
-          a(ng-click="removeTask(task, obj)")=env.t('removeIt')
+          a(ng-click="removeTask(task, obj); $close()")=env.t('removeIt')
       div(ng-if='task.challenge.broken=="CHALLENGE_DELETED"')
         p
           |&nbsp;
           =env.t('brokenChallenge')
         p
-          a(ng-click='unlink(task, "keep-all")')=env.t('keepThem')
+          a(ng-click='unlink(task, "keep-all"); $close()')=env.t('keepThem')
           | &nbsp;|&nbsp;
-          a(ng-click='unlink(task, "remove-all")')=env.t('removeThem')
+          a(ng-click='unlink(task, "remove-all"); $close()')=env.t('removeThem')
       div(ng-if='task.challenge.broken=="CHALLENGE_CLOSED"')
         p
           !=env.t('challengeCompleted', {user: "{{task.challenge.winner}}"})
         p
-          a(ng-click='unlink(task, "keep-all")')=env.t('keepThem')
+          a(ng-click='unlink(task, "keep-all"); $close()')=env.t('keepThem')
           | &nbsp;|&nbsp;
-          a(ng-click='unlink(task, "remove-all")')=env.t('removeThem')
+          a(ng-click='unlink(task, "remove-all"); $close()')=env.t('removeThem')
       //div(ng-if='task.challenge.broken=="UNSUBSCRIBED"')
         p=env.t('unsubChallenge')
         p
-          a(ng-click="unlink(task, 'keep-all')")=env.t('keepThem')
+          a(ng-click="unlink(task, 'keep-all'); $close()")=env.t('keepThem')
           | &nbsp;|&nbsp;
-          a(ng-click="unlink(task, 'remove-all')")=env.t('removeThem')
+          a(ng-click="unlink(task, 'remove-all'); $close()")=env.t('removeThem')
 
     include ./checklist
 
