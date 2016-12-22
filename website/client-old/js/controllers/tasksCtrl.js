@@ -42,6 +42,11 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       User.addTask({
         body: tasks,
       });
+
+      if (User.user.preferences.newTaskEdit) {
+        var taskToEdit = tasks[tasks.length -1];
+        $scope.editTask(taskToEdit, User.user, Shared.taskClasses(taskToEdit, User.user.filters, User.user.preferences.dayStart, User.user.lastCron, listDef.showCompleted, main));
+      }
     }
 
     $scope.addTask = function(listDef) {
