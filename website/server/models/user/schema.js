@@ -440,6 +440,7 @@ let schema = new Schema({
       // importantAnnouncements are in fact the recapture emails
       importantAnnouncements: {type: Boolean, default: true},
       weeklyRecaps: {type: Boolean, default: true},
+      onboarding: {type: Boolean, default: true},
     },
     pushNotifications: {
       unsubscribeFromAll: {type: Boolean, default: false},

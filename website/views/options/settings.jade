@@ -334,7 +334,8 @@ script(id='partials/options.settings.notifications.html', type="text/ng-template
                   span=env.t("push")
               -var unsubscribeFromAllEmails = 'user.preferences.emailNotifications.unsubscribeFromAll'
               -var unsubscribeFromAllPush = 'user.preferences.pushNotifications.unsubscribeFromAll'
-              each notification in ['newPM', 'wonChallenge', 'giftedGems', 'giftedSubscription', 'invitedParty', 'invitedGuild', 'kickedGroup', 'questStarted', 'invitedQuest', 'importantAnnouncements', 'weeklyRecaps']
+              each notification in ['newPM', 'wonChallenge', 'giftedGems', 'giftedSubscription', 'invitedParty', 'invitedGuild', 'kickedGroup', 'questStarted', 'invitedQuest', 'importantAnnouncements', 'weeklyRecaps',
+                'onboarding']
                 tr
                   td
                     span=env.t(notification)
