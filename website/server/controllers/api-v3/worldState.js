@@ -77,35 +77,35 @@ function getNextEvent() {
       nextEvent = event;
     }
   }
+  nextEvent.specialItems = getSpecialItems();
   return nextEvent;
 }
 
 async function getWorldBoss() {
   let tavern = await Group
     .findById(tavernId)
-    .select('quest.progress quest.key')
+    .select('quest.progress quest.key quest.active')
     .exec();
   let quest;
   if (tavern) {
-    quest = tavern.quest;
+    console.log(tavern.quest, tavern.quest.active);
+    if (tavern.quest.active) {
+      quest = tavern.quest;
+    }
   }
   return quest;
 }
 
-function getMarketInfo() {
-  let premiumHatchingPotions = _(common.content.hatchingPotions)
-    .values()
-    .filter(hp => hp.limited && hp.canBuy())
-    .map(premiumHatchingPotion => {
-      return {
-        key: premiumHatchingPotion.key,
-        type: 'hatchingPotions',
-      };
-    }).value();
-
-    return {
-      specialItems: premiumHatchingPotions
-    }
+function getSpecialItems() {
+  return _(common.content.hatchingPotions)
+      .values()
+      .filter(hp => hp.limited && hp.canBuy())
+      .map(premiumHatchingPotion => {
+        return {
+          key: premiumHatchingPotion.key,
+          type: 'hatchingPotions',
+        };
+      }).value();
 }
 
 /**
@@ -140,7 +140,6 @@ api.getWorldState = {
       worldState = {};
       worldState.event = getNextEvent();
       worldState.worldboss = await getWorldBoss();
-      worldState.market = getMarketInfo();
       worldState = JSON.stringify(worldState);
     }
 
