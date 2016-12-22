@@ -1269,6 +1269,16 @@ describe('Group Model', () => {
           expect(updatedLeader.items.quests.vice3).to.eql(1);
         });
 
+        it('awards non quest leader rewards to quest leader', async () => {
+          let gearQuest = questScrolls.vice3;
+
+          await party.finishQuest(gearQuest);
+
+          let updatedLeader = await User.findById(questLeader._id);
+
+          expect(updatedLeader.items.gear.owned.weapon_special_2).to.eql(true);
+        });
+
         it('doesn\'t award quest owner rewards to all participants', async () => {
           let questAwardQuest = questScrolls.vice2;
 

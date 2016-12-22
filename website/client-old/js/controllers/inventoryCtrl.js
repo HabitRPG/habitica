@@ -444,6 +444,10 @@ habitrpg.controller("InventoryCtrl",
       });
     };
 
+    $scope.getQuestOwnerRewards = function(quest) {
+      return _.filter(quest.drop.items, 'onlyOwner');
+    };
+
     function findPet (fn) {
       var pets = Object.keys(user.items.pets);
       return pets.find(function (petKey) {

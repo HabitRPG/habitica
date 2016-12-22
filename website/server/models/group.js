@@ -654,7 +654,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
   _.each(_.filter(quest.drop.items, 'onlyOwner'), (item) => {
     _.merge(questOwnerUpdates, _getUserUpdateForQuestReward(item, quest.drop.items));
   });
-  _.merge(questOwnerupdates, updates);
+  _.merge(questOwnerUpdates, updates);
 
   let participants = this._id === TAVERN_ID ? {} : this.getParticipatingQuestMembers();
   this.quest = {};
@@ -665,7 +665,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
   }
 
   let promises = participants.map(userId => {
-    if (userId === questLeader && !_.isEmpty(questOwnerUpdates)) {
+    if (userId === questLeader) {
       return _updateUserWithRetries(userId, questOwnerUpdates);
     } else {
       return _updateUserWithRetries(userId, updates);
