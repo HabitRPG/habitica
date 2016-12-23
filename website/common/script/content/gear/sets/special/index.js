@@ -8,18 +8,18 @@ import takeThisGear from './special-takeThis';
 import wonderconGear from './special-wondercon';
 import t from '../../../translation';
 
-function canBuyForEvent(eventKey, recursive=true) {
+function canBuyForEvent (eventKey, recursive = true) {
   let today = new Date().toISOString();
-  let event = EVENTS[eventKey];
-  if (event.start < today && today < event.end) {
-    //The event itself is currently active
+  let eventData = EVENTS[eventKey];
+  if (eventData.start < today && today < eventData.end) {
+    // The event itself is currently active
     return true;
   } else if (recursive) {
-    //In the first iteration we also check for included gear
+    // In the first iteration we also check for included gear
     for (let innerEventKey in EVENTS) {
       let innerEvent = EVENTS[innerEventKey];
       if (innerEvent.includedEventGear && innerEvent.includedEventGear.indexOf(eventKey) > -1) {
-        //don't futher iterate over the includedEventGear to avoid infinite recursion
+        // don't further iterate over the includedEventGear to avoid infinite recursion
         if (canBuyForEvent(innerEventKey, false)) {
           return true;
         }

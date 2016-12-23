@@ -19,65 +19,65 @@ export const EVENTS = {
   },
   birthday:   {
     start: '2016-01-29',
-    end: '2016-02-02'
+    end: '2016-02-02',
   },
   spring:     {
     start: '2014-03-21',
-    end: '2014-05-01'
+    end: '2014-05-01',
   },
   summer:     {
     start: '2014-06-20',
-    end: '2014-08-01'
+    end: '2014-08-01',
   },
   fall:       {
     start: '2014-09-21',
-    end: '2014-11-01'
+    end: '2014-11-01',
   },
   winter2015: {
     start: '2014-12-21',
     end: '2015-02-02',
     npcSuffix: '_winter',
-    includedEventGear: ['winter']
+    includedEventGear: ['winter'],
   },
   spring2015: {
     start: '2015-03-20',
-    end: '2015-05-02'
+    end: '2015-05-02',
   },
   summer2015: {
     start: '2015-06-20',
-    end: '2015-08-02'
+    end: '2015-08-02',
   },
   fall2015:   {
     start: '2015-09-21',
-    end: '2015-11-01'
+    end: '2015-11-01',
   },
   gaymerx:    {
     start: '2016-09-29',
-    end: '2016-10-03'
+    end: '2016-10-03',
   },
   winter2016: {
     start: '2015-12-18',
     end: '2016-02-02',
     npcSuffix: '_winter',
-    includedEventGear: ['winter', 'winter2015']
+    includedEventGear: ['winter', 'winter2015'],
   },
   spring2016: {
     start: '2016-03-18',
-    end: '2016-05-02'
+    end: '2016-05-02',
   },
   summer2016: {
     start: '2016-06-21',
-    end: '2016-08-02'
+    end: '2016-08-02',
   },
   fall2016:   {
     start: '2016-09-20',
-    end: '2016-11-02'
+    end: '2016-11-02',
   },
   winter2017: {
     start: '2016-12-16',
     end: '2017-02-02',
     npcSuffix: '_winter',
-    includedEventGear: ['winter', 'winter2015', 'winter2016']
+    includedEventGear: ['winter', 'winter2015', 'winter2016'],
   },
 };
 

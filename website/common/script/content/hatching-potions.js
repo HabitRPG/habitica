@@ -4,8 +4,8 @@ import {
   each,
 } from 'lodash';
 import {
-  EVENTS
-} from './constants'
+  EVENTS,
+} from './constants';
 import t from './translation';
 
 let drops = {
@@ -111,12 +111,12 @@ each(drops, (pot, key) => {
 });
 
 let eventsList = [];
-each(EVENTS, (event, key) => {
+each(EVENTS, (eventData, key) => {
   let today = new Date().toISOString();
-  if (event.start < today && today < event.end) {
+  if (eventData.start < today && today < eventData.end) {
     eventsList.push(key);
-    if (event.includedEventGear) {
-      eventsList = eventsList.concat(event.includedEventGear);
+    if (eventData.includedEventGear) {
+      eventsList = eventsList.concat(eventData.includedEventGear);
     }
   }
 });

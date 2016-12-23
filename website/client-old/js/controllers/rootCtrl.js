@@ -281,9 +281,9 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         return name+'_broken';
       }
       var npcSuffix = '';
-      for (let eventKey in Content.events) {
-        let event = Content.events[eventKey];
-        let today = new Date().toISOString();
+      for (var eventKey in Content.events) {
+        var event = Content.events[eventKey];
+        var today = new Date().toISOString();
         if (event.start < today && today < event.end) {
           if (event.npcSuffix) {
             npcSuffix = event.npcSuffix;

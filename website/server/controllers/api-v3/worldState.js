@@ -7,7 +7,7 @@ import path from 'path';
 import logger from '../../libs/logger';
 import {
   model as Group,
-  TAVERN_ID as tavernId
+  TAVERN_ID as tavernId,
 } from '../../models/group';
 
 // Transform fs methods that accept callbacks in ones that return promises
@@ -19,13 +19,6 @@ const fs = {
 };
 
 let api = {};
-
-function walkContent (obj, lang) {
-  _.each(obj, (item, key, source) => {
-    if (_.isPlainObject(item) || _.isArray(item)) return walkContent(item, lang);
-    if (_.isFunction(item) && item.i18nLangFunc) source[key] = item(lang);
-  });
-}
 
 // After the getContent route is called the first time for a certain language
 // the response is saved on disk and subsequentially served directly from there to reduce computation.
@@ -64,31 +57,41 @@ async function saveWorldStateToDisk (language, content) {
   }
 }
 
-function getNextEvent() {
+function getSpecialItems () {
+  return _(common.content.hatchingPotions)
+    .values()
+    .filter(hp => hp.limited && hp.canBuy())
+    .map(premiumHatchingPotion => {
+      return {
+        key: premiumHatchingPotion.key,
+        type: 'hatchingPotions',
+      };
+    }).value();
+}
+
+function getNextEvent () {
   let nextEvent;
   let today = new Date().toISOString();
   for (let eventKey in common.content.events) {
     let event = common.content.events[eventKey];
-    if (event.end < today) {
-      continue;
-    }
-    if (nextEvent == undefined || event.end > nextEvent.end) {
-      event.key = eventKey;
-      nextEvent = event;
+    if (event.end > today) {
+      if (nextEvent === undefined || event.end > nextEvent.end) {
+        event.key = eventKey;
+        nextEvent = event;
+      }
     }
   }
   nextEvent.specialItems = getSpecialItems();
   return nextEvent;
 }
 
-async function getWorldBoss() {
+async function getWorldBoss () {
   let tavern = await Group
     .findById(tavernId)
     .select('quest.progress quest.key quest.active')
     .exec();
   let quest;
   if (tavern) {
-    console.log(tavern.quest, tavern.quest.active);
     if (tavern.quest.active) {
       quest = tavern.quest;
     }
@@ -96,17 +99,6 @@ async function getWorldBoss() {
   return quest;
 }
 
-function getSpecialItems() {
-  return _(common.content.hatchingPotions)
-      .values()
-      .filter(hp => hp.limited && hp.canBuy())
-      .map(premiumHatchingPotion => {
-        return {
-          key: premiumHatchingPotion.key,
-          type: 'hatchingPotions',
-        };
-      }).value();
-}
 
 /**
  * @api {get} /api/v3/world-state Get the state for the game world
