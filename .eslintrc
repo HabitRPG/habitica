@@ -4,7 +4,7 @@
     "node": true,
   },
   "extends": [
-    "habitrpg/esnext",
-    "habitrpg"
+    "habitrpg",
+    "habitrpg/esnext"
   ],
 }
