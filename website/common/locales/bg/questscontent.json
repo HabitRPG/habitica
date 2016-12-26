@@ -402,10 +402,10 @@
     "questMoon3Completion": "Издигащото се чудовище се пръсва като сянка, а луната отново става сребърна, след като заплахата отминава. Драконите започват отново да пеят, а звездите блещукат с успокояваща светлина. @Starsystemic Гледачката се навежда и взема един лунен чиреп. Той проблясва като сребро в ръката ѝ, преди да се превърне във великолепна кристална коса.",
     "questMoon3Boss": "Чудовищната Луна",
     "questMoon3DropWeapon": "Лунна коса (оръжие за две ръце)",
-    "questSlothText": "The Somnolent Sloth",
-    "questSlothNotes": "As you and your party venture through the Somnolent Snowforest, you're relieved to see a glimmering of green among the white snowdrifts... until an enormous sloth emerges from the frosty trees! Green emeralds shimmer hypnotically on its back.<br><br>\"Hello, adventurers... why don't you take it slow? You've been walking for a while... so why not... stop? Just lie down, and rest...\"<br><br>You feel your eyelids grow heavy, and you realize: It's the Somnolent Sloth! According to @JaizakAripaik, it got its name from the emeralds on its back which are rumored to... send people to... sleep...<br><br>You shake yourself awake, fighting drowsiness. In the nick of time, @awakebyjava and @PainterProphet begin to shout spells, forcing your party awake. \"Now's our chance!\" @Kiwibot yells.",
-    "questSlothCompletion": "You did it! As you defeat the Somnolent Sloth, its emeralds break off. \"Thank you for freeing me of my curse,\" says the sloth. \"I can finally sleep well, without those heavy emeralds on my back. Have these eggs as thanks, and you can have the emeralds too.\" The sloth gives you three sloth eggs and heads off for warmer climates.",
-    "questSlothBoss": "Somnolent Sloth",
-    "questSlothDropSlothEgg": "Sloth (Egg)",
-    "questSlothUnlockText": "Unlocks purchasable Sloth eggs in the Market"
+    "questSlothText": "Сънливият ленивец",
+    "questSlothNotes": "Докато ти и групата ти пътувате през Сънливата снежна гора, с облекчение забелязвате малко зеленина сред преспите… докато не виждате огромен ленивец да се измъква от замръзналите дървета! Зелени изумруди проблясват хипнотично по гърба му.<br><br>„Здравейте, приключенци… защо не си починете малко? Ходите от доста време… така че защо не… поспрете? Просто си полегнете и си починете…“<br><br>Усещаш как клепачите ти натежават и осъзнаваш, че това е Сънливият ленивец! Според @JaizakAripaik, той е получил името си заради изумрудите по гърба си, които според слуховете… приспиват хората…<br><br>Отърсваш се и се разсънваш, борейки се със съня. Изведнъж @awakebyjava и @PainterProphet започват да крещят заклинания, разбуждайки цялата група. „Сега е шансът ни“ — изкрещява @Kiwibot.",
+    "questSlothCompletion": "Вие успяхте! Когато побеждавате Сънливия ленивец изумрудите падат от гърба му. „Благодаря, че ме освободихте от проклятието.“ — казва ленивецът — „Най-после ще мога да спя добре, без тези тежки изумруди на гърба ми. Вземете тези яйца като благодарност, както и изумрудите.“ Ленивецът ти дава три яйца на ленивец и се тръгва да търси по-топли места.",
+    "questSlothBoss": "Сънливият ленивец",
+    "questSlothDropSlothEgg": "Ленивец (яйце)",
+    "questSlothUnlockText": "Отключва възможността за купуване на яйца на ленивец от пазара."
 }

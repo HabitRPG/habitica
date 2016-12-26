@@ -36,7 +36,7 @@
     "magicHatchingPotions": "Magische Schlüpftränke",
     "hatchingPotion": "Schlüpftrank",
     "noHatchingPotions": "Du hast im Moment keine Schlüpftränke.",
-    "inventoryText": "Klicke ein Ei um die anwendbaren Tränke grün hervorgehoben zu sehen und klicke auf einen hervorgehobenen Trank um Dein Haustier auszubrüten. Falls kein Trank hervorgehoben wird, klicke auf das Ei um es abzuwählen und klicke diesmal zuerst auf den Trank um die Eier hervorzuheben. Du kannst überflüssige Gegenstände auch an Alexander der Händler verkaufen.",
+    "inventoryText": "Klicke auf ein Ei um die anwendbaren Tränke grün hervorgehoben zu sehen und klicke auf einen hervorgehobenen Trank um Dein Haustier auszubrüten. Falls kein Trank hervorgehoben wird, klicke auf das Ei um es abzuwählen und klicke diesmal zuerst auf den Trank um die Eier hervorzuheben. Du kannst überflüssige Gegenstände auch an Alexander der Händler verkaufen.",
     "foodText": "Futter",
     "food": "Futter und magische Sättel",
     "noFood": "Du hast im Moment weder Futter noch magische Sättel.",
@@ -93,6 +93,6 @@
     "mountsAndPetsReleased": "Reit- und Haustiere freigelassen",
     "mountsReleased": "Reittiere freigelassen",
     "gemsEach": "Edelsteine jeweils",
-    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiText": "Was isst mein Haustier gern?",
     "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

@@ -51,6 +51,7 @@
     "help": "Aide",
     "user": "Utilisateur",
     "market": "Marché",
+    "groupPlansTitle": "Group Plans",
     "subscriberItem": "Objet mystère",
     "newSubscriberItem": "Nouvel Objet Mystère",
     "subscriberItemText": "Les abonné·e·s recevront chaque mois un objet mystère. Celui-ci est généralement dévoilé environ une semaine avant la fin du mois. Consultez la page \"Objet Mystère\" du wiki pour avoir plus d'information.",
@@ -192,5 +193,7 @@
     "you": "(vous)",
     "enableDesktopNotifications": "Activer les notifications sur le bureau",
     "online": "en ligne",
-    "onlineCount": "<%= count %> en ligne"
+    "onlineCount": "<%= count %> en ligne",
+    "loading": "Loading...",
+    "userIdRequired": "User ID is required"
 }

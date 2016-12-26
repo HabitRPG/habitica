@@ -51,6 +51,7 @@
     "help": "Nápověda",
     "user": "Uživatel",
     "market": "Trh",
+    "groupPlansTitle": "Group Plans",
     "subscriberItem": "Záhadný předmět",
     "newSubscriberItem": "Nový záhadný předmět",
     "subscriberItemText": "Předplatitelé obdrží každý měsíc záhadný předmět. Ten je zpravidla představen týden před koncem měsíce. Pro více informací mrkni na stránku 'Mystery Item' na wiki.",
@@ -192,5 +193,7 @@
     "you": "(ty)",
     "enableDesktopNotifications": "Povolit upozornění na ploše",
     "online": "online",
-    "onlineCount": "<%= count %> online"
+    "onlineCount": "<%= count %> online",
+    "loading": "Loading...",
+    "userIdRequired": "User ID is required"
 }

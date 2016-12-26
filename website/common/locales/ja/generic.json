@@ -42,15 +42,16 @@
     "unorderedListMarkdown": "+ 1 つ目のアイテム\n+ 2 つ目のアイテム\n+ 3 つ目のアイテム",
     "code": "`コード`",
     "achievements": "実績",
-    "basicAchievs": "Basic Achievements",
-    "seasonalAchievs": "Seasonal Achievements",
-    "specialAchievs": "Special Achievements",
+    "basicAchievs": "基本の実績",
+    "seasonalAchievs": "季節限定の実績",
+    "specialAchievs": "特別な実績",
     "modalAchievement": "実績を解除!",
     "special": "スペシャル",
     "site": "サイト",
     "help": "ヘルプ",
     "user": "ユーザー",
     "market": "市場",
+    "groupPlansTitle": "Group Plans",
     "subscriberItem": "ミステリー アイテム",
     "newSubscriberItem": "新しいミステリー アイテム",
     "subscriberItemText": "毎月、寄付会員にはミステリー アイテムが贈られます。通常、月の終わりの1週間前ごろにお届けします。詳しくはWiki の「ミステリー アイテム」のページをご覧ください。",
@@ -192,5 +193,7 @@
     "you": "( あなた )",
     "enableDesktopNotifications": "デスクトップ通知を有効にする",
     "online": "オンライン",
-    "onlineCount": "<%= count %> 人がオンライン"
+    "onlineCount": "<%= count %> 人がオンライン",
+    "loading": "Loading...",
+    "userIdRequired": "User ID is required"
 }

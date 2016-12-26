@@ -51,6 +51,7 @@
     "help": "Pomoc",
     "user": "Používateľ",
     "market": "Trh",
+    "groupPlansTitle": "Group Plans",
     "subscriberItem": "Záhadný predmet",
     "newSubscriberItem": "Nový tajomný predmet",
     "subscriberItemText": "Predplatitelia dostanú každý mesiac záhadný predmet. Obvykle sa dostáva vždy týždeň pred koncom mesiaca. Pozri článok na wiki s názvom ,,Mystery item\" pre viac informácii.",
@@ -192,5 +193,7 @@
     "you": "(ty)",
     "enableDesktopNotifications": "Povolené upozornenia na ploche",
     "online": "online",
-    "onlineCount": "<%= count %> online"
+    "onlineCount": "<%= count %> online",
+    "loading": "Loading...",
+    "userIdRequired": "User ID is required"
 }

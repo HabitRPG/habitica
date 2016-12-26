@@ -85,7 +85,7 @@
     "leveledUpReceivedQuest": "你达到了 <strong>第 <%= level %> 级</strong> ，并且收到了一个任务卷轴！",
     "questInvitationDoesNotExist": "还没有发出任何探索任务邀请。",
     "questInviteNotFound": "找不到探索任务邀请。",
-    "guildQuestsNotSupported": "工会不能被邀请参加探索任务。",
+    "guildQuestsNotSupported": "公会不能被邀请参加探索任务。",
     "questNotFound": "找不到探索任务\"<%= key %>\"。",
     "questNotOwned": "你还没拥有那个探索任务卷轴。",
     "questNotGoldPurchasable": "探索任务\"<%= key %>\"不能用金币购买。",

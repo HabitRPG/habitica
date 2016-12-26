@@ -51,6 +51,7 @@
     "help": "Pomoć",
     "user": "Korisnik",
     "market": "Pijaca",
+    "groupPlansTitle": "Group Plans",
     "subscriberItem": "Tajanstveni predmet",
     "newSubscriberItem": "Novi tajanstveni predmet",
     "subscriberItemText": "Each month, subscribers will receive a mystery item. This is usually released about one week before the end of the month. See the wiki's 'Mystery Item' page for more information.",
@@ -192,5 +193,7 @@
     "you": "(you)",
     "enableDesktopNotifications": "Enable Desktop Notifications",
     "online": "online",
-    "onlineCount": "<%= count %> online"
+    "onlineCount": "<%= count %> online",
+    "loading": "Loading...",
+    "userIdRequired": "User ID is required"
 }

@@ -51,6 +51,7 @@
     "help": "Ayuda",
     "user": "Usuario",
     "market": "Mercado",
+    "groupPlansTitle": "Group Plans",
     "subscriberItem": "Objeto misterioso",
     "newSubscriberItem": "Nuevo objeto misterioso",
     "subscriberItemText": "Cada mes, los suscriptores reciben un objeto misterioso, que se suele publicar una semana antes de cada fin de mes, aproximadamente. Para más información, consulta la página de la wiki sobre los objetos misteriosos.",
@@ -192,5 +193,7 @@
     "you": "(tu)",
     "enableDesktopNotifications": "Permitir Notificaciones de Escritorio",
     "online": "en línea",
-    "onlineCount": "<%= count %> en línea"
+    "onlineCount": "<%= count %> en línea",
+    "loading": "Loading...",
+    "userIdRequired": "User ID is required"
 }

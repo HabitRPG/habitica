@@ -106,5 +106,5 @@
     "loginIncentiveQuest": "Om deze queeste te verdienen moet je op <%= count %> verschillende dagen inchecken op Habitica!",
     "loginIncentiveQuestObtained": "Je hebt deze queeste verdiend door in te checken op Habitica op <%= count %> verschillende dagen!",
     "loginReward": "<%= count %> check-ins",
-    "createAccountQuest": "Je hebt deze queeste verdiend toen je je aanmeldde voor Habitica! Als een vriend zich ook aanmeldt krijgen zij er ook een."
+    "createAccountQuest": "Je hebt deze queeste verdiend toen je je aanmeldde voor Habitica! Als een van je vrienden zich aanmeldt krijgt deze er ook een."
 }

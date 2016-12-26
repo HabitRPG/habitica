@@ -51,6 +51,7 @@
     "help": "帮助",
     "user": "玩家",
     "market": "市场",
+    "groupPlansTitle": "Group Plans",
     "subscriberItem": "神秘物品",
     "newSubscriberItem": "新的神秘物品",
     "subscriberItemText": "每月，定期捐款者会收到一个神秘物品。这物品一般是在月底前一个月推出。Wiki里的‘神秘物品’网址将有更多信息。",
@@ -96,7 +97,7 @@
     "habiticaDayPluralText": "庆祝第 <%= count %> 次命名日! 谢谢你始终陪伴我们！",
     "achievementDilatory": "拖延的救世者",
     "achievementDilatoryText": "2014年夏季世界事件中协助打败了恐怖的拖延巨龙！",
-    "costumeContest": "妆扮比赛",
+    "costumeContest": "装扮比赛",
     "costumeContestText": "参加了万圣节服装大赛。在<a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>Habitica blog</a>查看更多参赛作品！",
     "costumeContestTextPlural": "参与第 <%= count %> 次 Habitoween 杯万圣节时装大赛。点击 <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'> 在 Habitica 博客</a>上以查看完整信息。",
     "memberSince": "- 加入于",
@@ -192,5 +193,7 @@
     "you": "（自己）",
     "enableDesktopNotifications": "开启桌面通知",
     "online": "在线",
-    "onlineCount": "<%= count %> 人在线"
+    "onlineCount": "<%= count %> 人在线",
+    "loading": "Loading...",
+    "userIdRequired": "User ID is required"
 }
