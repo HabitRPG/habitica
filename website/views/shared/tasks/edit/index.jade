@@ -1,7 +1,14 @@
 div(ng-if='task._editing')
   .task-options
-    h2 {{task._edit.text}}
-  
+    .save-close
+      button(type='submit', ng-click='saveTask(task,false,true); $close()')=env.t('saveAndClose')
+    .save-close
+      button(ng-click='cancelTaskEdit(task); $close()')=env.t('cancel')
+
+    br
+
+    h2#task-edit-title {{task._edit.text}}
+
     // Broken Challenge
     .well(ng-if='task.challenge.broken')
       div(ng-if='task.challenge.broken=="TASK_DELETED" || task.challenge.broken=="CHALLENGE_TASK_NOT_FOUND"')
@@ -51,10 +58,5 @@ div(ng-if='task._editing')
 
       .save-close
         button(type='submit', ng-click='saveTask(task,false,true); $close()')=env.t('saveAndClose')
-      
-      br
-      br
-      
       .save-close
         button(ng-click='cancelTaskEdit(task); $close()')=env.t('cancel')
-        
