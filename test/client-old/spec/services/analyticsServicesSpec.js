@@ -194,6 +194,7 @@ describe('Analytics Service', function () {
           rewards: 1
         };
         expectedProperties.balance = 12;
+        expectedProperties.balanceGemAmount = 3;
 
         beforeEach(function() {
           user._id = 'unique-user-id';
@@ -243,7 +244,8 @@ describe('Analytics Service', function () {
             habits: 1,
             rewards: 1
           },
-          balance: 12
+          balance: 12,
+          balanceGemAmount: 3
         };
 
         beforeEach(function() {
