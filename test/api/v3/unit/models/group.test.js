@@ -1259,14 +1259,34 @@ describe('Group Model', () => {
           expect(updatedParticipatingMember.items.hatchingPotions.Shade).to.eql(2);
         });
 
-        it('awards quests', async () => {
+        it('awards quest scrolls to owner', async () => {
+          let questAwardQuest = questScrolls.vice2;
+
+          await party.finishQuest(questAwardQuest);
+
+          let updatedLeader = await User.findById(questLeader._id);
+
+          expect(updatedLeader.items.quests.vice3).to.eql(1);
+        });
+
+        it('awards non quest leader rewards to quest leader', async () => {
+          let gearQuest = questScrolls.vice3;
+
+          await party.finishQuest(gearQuest);
+
+          let updatedLeader = await User.findById(questLeader._id);
+
+          expect(updatedLeader.items.gear.owned.weapon_special_2).to.eql(true);
+        });
+
+        it('doesn\'t award quest owner rewards to all participants', async () => {
           let questAwardQuest = questScrolls.vice2;
 
           await party.finishQuest(questAwardQuest);
 
           let updatedParticipatingMember = await User.findById(participatingMember._id);
 
-          expect(updatedParticipatingMember.items.quests.vice3).to.eql(1);
+          expect(updatedParticipatingMember.items.quests.vice3).to.not.exist;
         });
 
         it('awards pets', async () => {
