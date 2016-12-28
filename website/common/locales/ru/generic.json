@@ -51,7 +51,7 @@
     "help": "Помощь",
     "user": "Пользователь",
     "market": "Рынок",
-    "groupPlansTitle": "Group Plans",
+    "groupPlansTitle": "Групповые тарифы",
     "subscriberItem": "Таинственный предмет",
     "newSubscriberItem": "Новый таинственный предмет",
     "subscriberItemText": "Каждый месяц подписчики получают таинственный предмет. Обычно это происходит за неделю до конца месяца. Читайте статью \"Таинственный предмет\" на вики для подробной информации.",
@@ -194,6 +194,6 @@
     "enableDesktopNotifications": "Включить уведомления на рабочем столе",
     "online": "в сети",
     "onlineCount": "<%= count %> в сети",
-    "loading": "Loading...",
-    "userIdRequired": "User ID is required"
+    "loading": "Загрузка...",
+    "userIdRequired": "Tребуется ID пользователя"
 }

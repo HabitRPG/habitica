@@ -51,7 +51,7 @@
     "help": "帮助",
     "user": "玩家",
     "market": "市场",
-    "groupPlansTitle": "Group Plans",
+    "groupPlansTitle": "团队套餐",
     "subscriberItem": "神秘物品",
     "newSubscriberItem": "新的神秘物品",
     "subscriberItemText": "每月，定期捐款者会收到一个神秘物品。这物品一般是在月底前一个月推出。Wiki里的‘神秘物品’网址将有更多信息。",
@@ -194,6 +194,6 @@
     "enableDesktopNotifications": "开启桌面通知",
     "online": "在线",
     "onlineCount": "<%= count %> 人在线",
-    "loading": "Loading...",
-    "userIdRequired": "User ID is required"
+    "loading": "加载中……",
+    "userIdRequired": "需要用户ID"
 }

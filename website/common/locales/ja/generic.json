@@ -179,7 +179,7 @@
     "birthdayCardAchievementText": "たくさんの幸せがめぐっています。<%= count %>通の誕生日カードをやりとりしました。",
     "streakAchievement": "連続実行 の実績を解除しました!",
     "firstStreakAchievement": "21日連続実行",
-    "streakAchievementCount": "<%= streaks %> 21日連続実行",
+    "streakAchievementCount": "<%= streaks %> 回の21日連続実行",
     "twentyOneDays": "日課を21日連続で実行しました!",
     "dontBreakStreak": "いい仕事してますね。連続実行を止めないで。",
     "dontStop": "つづけよう!",

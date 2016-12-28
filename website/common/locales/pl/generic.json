@@ -51,7 +51,7 @@
     "help": "Pomoc",
     "user": "Użytkownik",
     "market": "Targ",
-    "groupPlansTitle": "Group Plans",
+    "groupPlansTitle": "Plany grupowe",
     "subscriberItem": "Tajemniczy przedmiot",
     "newSubscriberItem": "Nowy tajemniczy przedmiot",
     "subscriberItemText": "W każdym miesiącu  abonenci otrzymają tajemniczy przedmiot. Zazwyczaj jest on wydawany około tygodnia przed końcem miesiąca. Aby uzyskać więcej informacji, zobacz stronę \"Mystery Item\" w wiki.",
@@ -194,6 +194,6 @@
     "enableDesktopNotifications": "Włącz powiadomienia",
     "online": "online",
     "onlineCount": "<%= count %> online",
-    "loading": "Loading...",
-    "userIdRequired": "User ID is required"
+    "loading": "Ładowanie...",
+    "userIdRequired": "Wymagane ID użytkownika"
 }

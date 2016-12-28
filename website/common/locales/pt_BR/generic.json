@@ -51,7 +51,7 @@
     "help": "Ajuda",
     "user": "Usuário",
     "market": "Mercado",
-    "groupPlansTitle": "Group Plans",
+    "groupPlansTitle": "Planos do Grupo",
     "subscriberItem": "Item Misterioso",
     "newSubscriberItem": "Novo Item Misterioso",
     "subscriberItemText": "A cada mês, assinantes receberão um item misterioso. Ele normalmente é liberado cerca de uma semana antes do final do mês. Veja a página \"Item Misterioso\" da wiki para mais informações.",
@@ -194,6 +194,6 @@
     "enableDesktopNotifications": "Habilitar notificações na Área de Trabalho",
     "online": "online",
     "onlineCount": "<%= count %> online",
-    "loading": "Loading...",
-    "userIdRequired": "User ID is required"
+    "loading": "Carregando...",
+    "userIdRequired": "ID de Usuário é necessária"
 }
