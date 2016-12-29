@@ -81,4 +81,20 @@ describe('DELETE /tasks/:id', () => {
         message: t('cantDeleteAssignedGroupTasks'),
       });
   });
+
+  it('allows a user to delete a broken task', async () => {
+    let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, findAssignedTask);
+
+    await user.del(`/tasks/${task._id}`);
+
+    await member.del(`/tasks/${syncedTask._id}`);
+
+    await expect(member.get(`/tasks/${syncedTask._id}`))
+      .to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: 'Task not found.',
+      });
+  });
 });
