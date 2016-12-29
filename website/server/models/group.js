@@ -887,6 +887,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     throw new NotAuthorized(shared.i18n.t('cannotDeleteActiveGroup'));
   }
 
+  // Unlink user challenge tasks
   let challenges = await Challenge.find({
     _id: {$in: user.challenges},
     group: group._id,
@@ -896,6 +897,17 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     return chal.unlinkTasks(user, keep);
   });
   await Bluebird.all(challengesToRemoveUserFrom);
+
+  // Unlink group tasks)
+  let assignedTasks = await Tasks.Task.find({
+    'group.id': group._id,
+    userId: {$exists: false},
+    'group.assignedUsers': user._id,
+  });
+  let assignedTasksToRemoveUserFrom = assignedTasks.map(task => {
+    return this.unlinkTask(task, user, keep);
+  });
+  await Bluebird.all(assignedTasksToRemoveUserFrom);
 
   let promises = [];
 

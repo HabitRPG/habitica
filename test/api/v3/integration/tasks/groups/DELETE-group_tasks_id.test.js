@@ -97,4 +97,20 @@ describe('DELETE /tasks/:id', () => {
         message: 'Task not found.',
       });
   });
+
+  it('allows a user to delete a task after leaving a group', async () => {
+    let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, findAssignedTask);
+
+    await member.post(`/groups/${guild._id}/leave`);
+
+    await member.del(`/tasks/${syncedTask._id}`);
+
+    await expect(member.get(`/tasks/${syncedTask._id}`))
+      .to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: 'Task not found.',
+      });
+  });
 });
