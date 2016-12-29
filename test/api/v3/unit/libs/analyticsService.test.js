@@ -303,7 +303,7 @@ describe('analyticsService', () => {
                 contributorLevel: 1,
                 subscription: 'foo-plan',
                 balance: 12,
-                balanceGemAmount: 3,
+                balanceGemAmount: 48,
                 loginIncentives: 1,
               },
             });
