@@ -1,7 +1,7 @@
 {
   "habiticaBackSoon": "別擔心。Habitica一會兒就回來！",
   "importantMaintenance": "We are doing important maintenance that we estimate will last until 10pm Pacific Time (5am UTC).",
-  "maintenance": "Maintenance",
+  "maintenance": "維修",
   "maintenanceMoreInfo": "Want more information about the maintenance? <%= linkStart %>Check out our info page<%= linkEnd %>.",
   "noDamageKeepStreaks": "你不會受到傷害或失去連擊！",
   "thanksForPatience": "感謝你的耐心！",

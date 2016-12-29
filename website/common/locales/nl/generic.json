@@ -51,6 +51,7 @@
     "help": "Help",
     "user": "Gebruiker",
     "market": "Markt",
+    "groupPlansTitle": "Group Plans",
     "subscriberItem": "Verrassingsartikel",
     "newSubscriberItem": "Nieuw verrassingsartikel",
     "subscriberItemText": "Elke maand ontvangen abonnees een verrassingsvoorwerp. Dit voorwerp wordt meestal in de laatste week van de maand uitgebracht. Zie de wikipagina 'Mystery Item' voor meer informatie.",
@@ -192,5 +193,7 @@
     "you": "(jij)",
     "enableDesktopNotifications": "Zet bureaublad notificaties aan",
     "online": "online",
-    "onlineCount": "<%= count %> online"
+    "onlineCount": "<%= count %> online",
+    "loading": "Loading...",
+    "userIdRequired": "User ID is required"
 }

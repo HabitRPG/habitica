@@ -51,6 +51,7 @@
     "help": "Hilfe",
     "user": "Benutzer",
     "market": "Marktplatz",
+    "groupPlansTitle": "Group Plans",
     "subscriberItem": "Überraschungsgegenstand",
     "newSubscriberItem": "Neuer Überraschungsgegenstand",
     "subscriberItemText": "Abonnenten bekommen jeden Monat einen Überraschungsgegenstand. Dieser wird üblicherweise ungefähr eine Woche vor Monatsende herausgegeben. Schaue auf der 'Überraschungsgegenstand'-Seite des Wikis für mehr Informationen nach.",
@@ -192,5 +193,7 @@
     "you": "(Du)",
     "enableDesktopNotifications": "Desktop-Benachrichtigungen aktivieren",
     "online": "online",
-    "onlineCount": "<%= count %> online"
+    "onlineCount": "<%= count %> online",
+    "loading": "Loading...",
+    "userIdRequired": "User ID is required"
 }

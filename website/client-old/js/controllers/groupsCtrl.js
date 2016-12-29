@@ -1,7 +1,7 @@
 "use strict";
 
 habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '$http', '$q', 'User', 'Members', '$state', 'Notification',
-  function($scope, $rootScope, Shared, Groups, $http, $q, User, Members, $state, Notification) {    
+  function($scope, $rootScope, Shared, Groups, $http, $q, User, Members, $state, Notification) {
     $scope.isMemberOfPendingQuest = function (userid, group) {
       if (!group.quest || !group.quest.members) return false;
       if (group.quest.active) return false; // quest is started, not pending
@@ -125,12 +125,16 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         return console.log('Invalid group type.')
       }
 
+      var sendInviteText = window.env.t('sendInvitations');
+      if(group.purchased.plan.customerId) sendInviteText += window.env.t('groupAdditionalUserCost');
+      group.sendInviteText = sendInviteText;
+
       $rootScope.openModal('invite-' + group.type, {
         controller:'InviteToGroupCtrl',
         resolve: {
           injectedGroup: function(){
             return group;
-          }
+          },
         }
       });
     };

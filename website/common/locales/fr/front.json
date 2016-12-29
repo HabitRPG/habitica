@@ -260,7 +260,7 @@
     "invalidLoginCredentialsLong": "\nHoulà ! Votre nom d'utilisateur ou votre mot de passe est incorrect.\n- Assurez-vous que votre nom d'utilisateur ou votre courriel est écrit correctement.\n- Vous vous êtes peut-être enregistré avec Facebook, et pas votre courriel. Vérifiez en essayant de vous connecter avec Facebook.\n- Si vous avez oublié votre mot de passe, cliquez sur « Mot de passe oublié ».",
     "invalidCredentials": "Aucun compte n'utilise cet identifiant.",
     "accountSuspended": "Votre compte a été suspendu, veuillez contacter leslie@habitica.com en indiquant votre ID d'utilisateur \"<%= userId %>\" pour obtenir de l'aide.",
-    "unsupportedNetwork": "Ce réseau n'est actuellement pas supporté.",
+    "unsupportedNetwork": "Ce réseau n'est actuellement pas pris en charge.",
     "cantDetachSocial": "Votre compte n'a pas d'autres méthodes d'authentification; vous ne pouvez pas détacher cette méthode d'authentification.",
     "onlySocialAttachLocal": "L'authentification locale ne peut être ajoutée que sur un compte social.",
     "invalidReqParams": "Paramètres de la requête invalides.",

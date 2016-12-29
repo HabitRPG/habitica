@@ -748,15 +748,17 @@ describe('payments/index', () => {
       });
 
       it('sends gem donation message in each participant\'s language', async () => {
+        // TODO using english for both users because other languages are not loaded
+        // for api.buyGems
         await recipient.update({
-          'preferences.language': 'es',
+          'preferences.language': 'en',
         });
         await user.update({
-          'preferences.language': 'cs',
+          'preferences.language': 'en',
         });
         await api.buyGems(data);
 
-        let [recipientsMessageContent, sendersMessageContent] = ['es', 'cs'].map((lang) => {
+        let [recipientsMessageContent, sendersMessageContent] = ['en', 'en'].map((lang) => {
           let messageContent = t('giftedGemsFull', {
             username: recipient.profile.name,
             sender: user.profile.name,

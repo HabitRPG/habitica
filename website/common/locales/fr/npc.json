@@ -1,6 +1,6 @@
 {
     "npc": "PNJ",
-    "npcAchievementName": "<%= key %> NPC",
+    "npcAchievementName": "<%= key %> PNJ",
     "npcAchievementText": "A soutenu le projet Kickstarter à son niveau maximum!",
     "mattBoch": "Matt Boch",
     "mattShall": "Dois-je préparer votre coursier, <%= name %> ? Lorsque vous avez assez nourri un animal pour qu'il devienne une fière monture, il apparaît ici. Cliquez sur une monture pour monter en selle !",

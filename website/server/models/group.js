@@ -579,6 +579,39 @@ schema.statics.cleanGroupQuest = function cleanGroupQuest () {
   };
 };
 
+function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
+  let updates = {
+    $set: {},
+    $inc: {},
+  };
+  let dropK = itemToAward.key;
+
+  switch (itemToAward.type) {
+    case 'gear': {
+      // TODO This means they can lose their new gear on death, is that what we want?
+      updates.$set[`items.gear.owned.${dropK}`] = true;
+      break;
+    }
+    case 'eggs':
+    case 'food':
+    case 'hatchingPotions':
+    case 'quests': {
+      updates.$inc[`items.${itemToAward.type}.${dropK}`] = _.where(allAwardedItems, {type: itemToAward.type, key: itemToAward.key}).length;
+      break;
+    }
+    case 'pets': {
+      updates.$set[`items.pets.${dropK}`] = 5;
+      break;
+    }
+    case 'mounts': {
+      updates.$set[`items.mounts.${dropK}`] = true;
+      break;
+    }
+  }
+  updates = _.omit(updates, _.isEmpty);
+  return updates;
+}
+
 async function _updateUserWithRetries (userId, updates, numTry = 1) {
   return await User.update({_id: userId}, updates).exec()
     .then((raw) => {
@@ -611,32 +644,17 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     updates.$set['party.quest'] = _cleanQuestProgress({completed: questK}); // clear quest progress
   }
 
-  _.each(quest.drop.items, (item) => {
-    let dropK = item.key;
-
-    switch (item.type) {
-      case 'gear': {
-        // TODO This means they can lose their new gear on death, is that what we want?
-        updates.$set[`items.gear.owned.${dropK}`] = true;
-        break;
-      }
-      case 'eggs':
-      case 'food':
-      case 'hatchingPotions':
-      case 'quests': {
-        updates.$inc[`items.${item.type}.${dropK}`] = _.where(quest.drop.items, {type: item.type, key: item.key}).length;
-        break;
-      }
-      case 'pets': {
-        updates.$set[`items.pets.${dropK}`] = 5;
-        break;
-      }
-      case 'mounts': {
-        updates.$set[`items.mounts.${dropK}`] = true;
-        break;
-      }
-    }
+  _.each(_.reject(quest.drop.items, 'onlyOwner'), (item) => {
+    _.merge(updates, _getUserUpdateForQuestReward(item, quest.drop.items));
   });
+
+  let questOwnerUpdates = {};
+  let questLeader = this.quest.leader;
+
+  _.each(_.filter(quest.drop.items, 'onlyOwner'), (item) => {
+    _.merge(questOwnerUpdates, _getUserUpdateForQuestReward(item, quest.drop.items));
+  });
+  _.merge(questOwnerUpdates, updates);
 
   let participants = this._id === TAVERN_ID ? {} : this.getParticipatingQuestMembers();
   this.quest = {};
@@ -647,7 +665,11 @@ schema.methods.finishQuest = async function finishQuest (quest) {
   }
 
   let promises = participants.map(userId => {
-    return _updateUserWithRetries(userId, updates);
+    if (userId === questLeader) {
+      return _updateUserWithRetries(userId, questOwnerUpdates);
+    } else {
+      return _updateUserWithRetries(userId, updates);
+    }
   });
 
   return Bluebird.all(promises);

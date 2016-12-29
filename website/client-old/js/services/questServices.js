@@ -83,16 +83,25 @@ angular.module('habitrpg')
         }
       }
       text += '---\n\n';
-      text += '**' + window.env.t('rewards') + ':**\n\n';
-      if(quest.drop.items) {
-        for (var item in quest.drop.items) {
-          text += quest.drop.items[item].text() + '\n\n';
-        }
+      text += '**' + window.env.t('rewardsAllParticipants') + ':**\n\n';
+      var participantRewards = _.reject(quest.drop.items, 'onlyOwner');
+      if(participantRewards.length > 0) {
+        _.each(participantRewards, function(item) {
+          text += item.text() + '\n\n';
+        });
       }
       if(quest.drop.exp)
         text += quest.drop.exp + ' ' + window.env.t('experience') + '\n\n';
       if(quest.drop.gp)
         text += quest.drop.gp + ' ' + window.env.t('gold') + '\n\n';
+
+      var ownerRewards = _.filter(quest.drop.items, 'onlyOwner');
+      if(ownerRewards.length > 0) {
+        text += '**' + window.env.t('rewardsQuestOwner') + ':**\n\n';
+        _.each(ownerRewards, function(item){
+          text += item.text() + '\n\n';
+        });
+      }
 
       return text;
     }
@@ -140,7 +149,7 @@ angular.module('habitrpg')
             var quest = response.data.quest;
             if (!quest) quest = response.data.data;
             resolve(quest);
-          });;
+          });
       });
     }
 

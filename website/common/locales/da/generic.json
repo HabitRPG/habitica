@@ -51,6 +51,7 @@
     "help": "Hjælp",
     "user": "Bruger",
     "market": "Marked",
+    "groupPlansTitle": "Group Plans",
     "subscriberItem": "Mystisk Vare",
     "newSubscriberItem": "Ny Mystisk Vare",
     "subscriberItemText": "Hver måned får abonnenter en mystisk genstand. Denne bliver normalt frigivet ca. en uge før slutningen af måneden. Se 'Mystery Item' siden på Wikien for mere information.",
@@ -192,5 +193,7 @@
     "you": "(you)",
     "enableDesktopNotifications": "Enable Desktop Notifications",
     "online": "online",
-    "onlineCount": "<%= count %> online"
+    "onlineCount": "<%= count %> online",
+    "loading": "Loading...",
+    "userIdRequired": "User ID is required"
 }

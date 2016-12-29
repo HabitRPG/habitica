@@ -10,6 +10,11 @@
     "questDetails": "Информация о квесте",
     "invitations": "Приглашения",
     "completed": "Завершено!",
+    "rewardsAllParticipants": "Rewards for all Quest Participants",
+    "rewardsQuestOwner": "Additional Rewards for Quest Owner",
+    "questOwnerReceived": "The Quest Owner Has Also Received",
+    "youWillReceive": "You Will Receive",
+    "questOwnerWillReceive": "The Quest Owner Will Also Receive",
     "youReceived": "Вы получили",
     "dropQuestCongrats": "Поздравляем с получением этого свитка квеста! Вы можете пригласить команду для начала квеста прямо сейчас или вернуться к нему позже в любое время через раздел Инвентарь > Квесты.",
     "questSend": "Нажатие кнопки «Пригласить» отправит приглашения всем членам команды. Когда все члены команды ответят на него (согласием или отказом), квест начнется. Текущий статус можно посмотреть во вкладке Общение > Команда",
@@ -105,6 +110,6 @@
     "createAccountReward": "Создать учетную запись",
     "loginIncentiveQuest": "Чтобы заработать этот квест, пожалуйста, заходите на Habitica еще <%= count %> разных дней!",
     "loginIncentiveQuestObtained": "Вы заслужили этот квест, заходя на Habitica <%= count %> разных дней!",
-    "loginReward": "<%= count %> Отметок",
+    "loginReward": "<%= count %> Посещений",
     "createAccountQuest": "Вы получили этот квест, когда вы присоединились к Habitica! Если ваш друг присоединяется, они так-же получит это квест."
 }
