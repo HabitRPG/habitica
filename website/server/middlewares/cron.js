@@ -137,6 +137,7 @@ async function cronAsync (req, res) {
 
     // Clear old completed todos - 30 days for free users, 90 for subscribers
     // Do not delete challenges completed todos TODO unless the task is broken?
+    // Do not delete group completed todos
     Tasks.Task.remove({
       userId: user._id,
       type: 'todo',
@@ -145,6 +146,7 @@ async function cronAsync (req, res) {
         $lt: moment(now).subtract(user.isSubscribed() ? 90 : 30, 'days').toDate(),
       },
       'challenge.id': {$exists: false},
+      'group.id': {$exists: false},
     }).exec();
 
     res.locals.wasModified = true; // TODO remove after v2 is retired

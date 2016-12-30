@@ -92,5 +92,7 @@
     "petsReleased": "חיות המחמד שוחררו.",
     "mountsAndPetsReleased": "חיות המחמד וחיות הרכיבה שוחררו",
     "mountsReleased": "חיות הרכיבה שוחררו",
-    "gemsEach": "אבני חן לכל אחד"
+    "gemsEach": "אבני חן לכל אחד",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

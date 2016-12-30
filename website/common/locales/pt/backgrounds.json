@@ -1,9 +1,9 @@
 {
     "backgrounds": "Fundos",
-    "background": "Background",
-    "backgroundShop": "Background Shop",
-    "backgroundShopText": "Background Shop",
-    "noBackground": "No Background Selected",
+    "background": "Plano de fundo",
+    "backgroundShop": "Loja de Planos de fundo",
+    "backgroundShopText": "Loja de Planos de Fundo",
+    "noBackground": "Nenhum Plano de fundo selecionado",
     "backgrounds062014": "CONJUNTO 1: Lançado em Junho de 2014",
     "backgroundBeachText": "Praia",
     "backgroundBeachNotes": "Descanse numa praia quentinha.",
@@ -224,5 +224,12 @@
     "backgroundRedText": "Red",
     "backgroundRedNotes": "A rad red backdrop.",
     "backgroundYellowText": "Yellow",
-    "backgroundYellowNotes": "A yummy yellow backdrop."
+    "backgroundYellowNotes": "A yummy yellow backdrop.",
+    "backgrounds122016": "SET 31: Released December 2016",
+    "backgroundShimmeringIcePrismText": "Shimmering Ice Prisms",
+    "backgroundShimmeringIcePrismNotes": "Dance through the Shimmering Ice Prisms.",
+    "backgroundWinterFireworksText": "Winter Fireworks",
+    "backgroundWinterFireworksNotes": "Set off Winter Fireworks.",
+    "backgroundWinterStorefrontText": "Winter Shop",
+    "backgroundWinterStorefrontNotes": "Purchase presents from a Winter Shop."
 }

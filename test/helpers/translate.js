@@ -7,8 +7,8 @@ const STRING_DOES_NOT_EXIST_MSG = /^String '.*' not found.$/;
 // Use this to verify error messages returned by the server
 // That way, if the translated string changes, the test
 // will not break. NOTE: it checks against errors with string as well.
-export function translate (key, variables) {
-  let translatedString = i18n.t(key, variables);
+export function translate (key, variables, language) {
+  let translatedString = i18n.t(key, variables, language);
 
   expect(translatedString).to.not.be.empty;
   expect(translatedString).to.not.eql(STRING_ERROR_MSG);

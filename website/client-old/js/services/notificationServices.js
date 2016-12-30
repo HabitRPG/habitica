@@ -101,7 +101,7 @@ angular.module("habitrpg").factory("Notification",
   }
 
   function streak(val) {
-    _notify(window.env.t('streakName') + ': ' + val, 'streak', 'glyphicon glyphicon-repeat');
+    _notify(window.env.t('streaks') + ': ' + val, 'streak', 'glyphicon glyphicon-repeat');
   }
 
   function text(val, onClick){

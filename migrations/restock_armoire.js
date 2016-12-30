@@ -3,7 +3,7 @@ var authorName = 'Sabe'; // in case script author needs to know when their ...
 var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
 
 /*
- * set the newStuff flag in all user accounts so they see a Bailey message
+ * Remove flag stating that the Enchanted Armoire is empty, for when new equipment is added
  */
 
 var mongo = require('mongoskin');
@@ -34,7 +34,7 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
   count++;
 
   // specify user data to change:
-  var set = {'flags.armoireEmpty':false};
+  var set = {'migration':migrationName, 'flags.armoireEmpty':false};
 
   dbUsers.update({_id:user._id}, {$set:set});
 

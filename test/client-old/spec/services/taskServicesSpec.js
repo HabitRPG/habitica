@@ -16,6 +16,8 @@ describe('Tasks Service', function() {
       rootScope.charts = {};
       tasks = Tasks;
     });
+
+    rootScope.openModal = function () {};
   });
 
   it('calls get user tasks endpoint', function() {
@@ -151,7 +153,6 @@ describe('Tasks Service', function() {
   });
 
   describe('editTask', function() {
-
     var task;
 
     beforeEach(function(){

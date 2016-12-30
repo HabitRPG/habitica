@@ -139,6 +139,13 @@ window.habitrpg = angular.module('habitrpg',
           title: env.t('titlePatrons')
         })
 
+        .state('options.social.groupPlans', {
+          url: '/group-plans',
+          templateUrl: "partials/options.social.groupPlans.html",
+          controller: 'GroupPlansCtrl',
+          title: env.t('groupPlansTitle')
+        })
+
         .state('options.social.guilds', {
           url: '/guilds',
           templateUrl: "partials/options.social.guilds.html",
@@ -155,38 +162,55 @@ window.habitrpg = angular.module('habitrpg',
           templateUrl: "partials/options.social.guilds.create.html",
           title: env.t('titleGuilds')
         })
+
         .state('options.social.guilds.detail', {
           url: '/:gid',
           templateUrl: 'partials/options.social.guilds.detail.html',
           title: env.t('titleGuilds'),
-          controller: ['$scope', 'Groups', 'Chat', '$stateParams', 'Members', 'Challenges', 'Tasks',
-          function($scope, Groups, Chat, $stateParams, Members, Challenges, Tasks) {
+          controller: ['$scope', 'Groups', 'Chat', '$stateParams', 'Members', 'Challenges', 'Tasks', 'User', '$location',
+          function($scope, Groups, Chat, $stateParams, Members, Challenges, Tasks, User, $location) {
+            $scope.groupPanel = 'chat';
+            $scope.upgrade = false;
+
+            // @TODO: Move this to service or single http request
             Groups.Group.get($stateParams.gid)
               .then(function (response) {
                 $scope.obj = $scope.group = response.data.data;
-                Chat.markChatSeen($scope.group._id);
-                Members.getGroupMembers($scope.group._id)
-                  .then(function (response) {
-                    $scope.group.members = response.data.data;
-                  });
-                Members.getGroupInvites($scope.group._id)
-                  .then(function (response) {
-                    $scope.group.invites = response.data.data;
-                  });
-                Challenges.getGroupChallenges($scope.group._id)
-                  .then(function (response) {
-                    $scope.group.challenges = response.data.data;
-                  });
-                //@TODO: Add this back when group tasks go live
-                // Tasks.getGroupTasks($scope.group._id);
-                //   .then(function (response) {
-                //     var tasks = response.data.data;
-                //     tasks.forEach(function (element, index, array) {
-                //       if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
-                //       $scope.group[element.type + 's'].push(element);
-                //     })
-                //   });
+                return Chat.markChatSeen($scope.group._id);
               })
+              .then (function () {
+                return Members.getGroupMembers($scope.group._id);
+              })
+              .then(function (response) {
+                $scope.group.members = response.data.data;
+
+                return Members.getGroupInvites($scope.group._id);
+              })
+              .then(function (response) {
+                $scope.group.invites = response.data.data;
+
+                return Challenges.getGroupChallenges($scope.group._id);
+              })
+              .then(function (response) {
+                $scope.group.challenges = response.data.data;
+
+                return Tasks.getGroupTasks($scope.group._id);
+              })
+              .then(function (response) {
+                var tasks = response.data.data;
+                tasks.forEach(function (element, index, array) {
+                  if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
+                  $scope.group[element.type + 's'].unshift(element);
+                });
+
+                $scope.group.approvals = [];
+                if (User.user._id === $scope.group.leader._id) {
+                  return Tasks.getGroupApprovals($scope.group._id);
+                }
+              })
+              .then(function (response) {
+                if (response) $scope.group.approvals = response.data.data;
+              });
           }]
         })
 

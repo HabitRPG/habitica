@@ -1,0 +1,9 @@
+div
+  // This is a very strange icon to use. revisit
+  .achievement.achievement-karaoke(ng-if='::profile.achievements.challenges.length')
+  div(ng-class='::{muted: !profile.achievements.challenges.length}')
+    h5=env.t('challengeWinner')
+    table.table.table-striped
+      tr(ng-repeat='chal in profile.achievements.challenges track by $index')
+        td: markdown(text='::chal')
+  hr

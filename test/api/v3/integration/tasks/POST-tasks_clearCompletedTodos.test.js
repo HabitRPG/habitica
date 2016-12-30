@@ -29,7 +29,7 @@ describe('POST /tasks/clearCompletedTodos', () => {
 
     for (let task of tasks) {
       if (['todo 2', 'todo 3', 'todo 6'].indexOf(task.text) !== -1) {
-        await user.post(`/tasks/${task._id}/score/up`); // eslint-disable-line babel/no-await-in-loop
+        await user.post(`/tasks/${task._id}/score/up`); // eslint-disable-line no-await-in-loop
       }
     }
 

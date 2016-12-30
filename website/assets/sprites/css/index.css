@@ -1,9 +1,9 @@
 /* Comment out for holiday events */
-.npc_ian {
+/* .npc_ian {
   background: url("/npc_ian.gif") no-repeat;
   width: 78px;
   height: 135px;
-}
+} */
 
 .quest_burnout {
   background: url("/quest_burnout.gif") no-repeat;
@@ -48,6 +48,11 @@
   float:left;
   clear:right;
   margin-right: 10px;
+}
+
+.achievement .counter {
+  bottom: 0;
+  right: 10px;
 }
 
 .multi-achievement {

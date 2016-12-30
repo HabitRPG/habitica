@@ -34,7 +34,10 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       return User.user.challenges.indexOf(challenge._id) !== -1;
     }
 
-    $scope.editTask = Tasks.editTask;
+    $scope.editTask = function (task, user, taskStatus) {
+      Tasks.editTask(task, user, taskStatus, $scope);
+    };
+
     $scope.cancelTaskEdit = Tasks.cancelTaskEdit;
 
     $scope.canEdit = function(task) {
@@ -314,12 +317,22 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     $scope.toggleBulk = Tasks.toggleBulk;
 
     /*
+     * Task Details
+     */
+      $scope.taskPopover = function (task) {
+        if (task.popoverOpen) return '';
+        var content = task.notes;
+        return content;
+      };
+
+    /*
     --------------------------
      Subscription
     --------------------------
     */
 
     $scope.join = function (challenge) {
+      challenge._joiningInProgress = true;
       Challenges.joinChallenge(challenge._id)
         .then(function (response) {
           User.user.challenges.push(challenge._id);
@@ -329,6 +342,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         .then(function (response) {
           var tasks = response.data.data;
           User.syncUserTasks(tasks);
+          challenge._joiningInProgress = false;
         });
     }
 
