@@ -19,3 +19,13 @@
         div
           | {{item.value}}
           span(ng-class="{ 'shop_gold': item.currency === 'gold', 'Pet_Currency_Gem1x inline-gems': item.currency === 'gems'}")
+      div(ng-if='category.identifier === "spells"')
+        button.customize-option(class='inventory_special_nye',
+        popover='{{::Content.spells.special.nye.notes()}}',
+        popover-title='{{::Content.spells.special.nye.text()}}',
+        popover-trigger='mouseenter', popover-placement='right',
+        popover-append-to-body='true',
+        ng-click='castStart(Content.spells.special.nye)')
+        p
+          | {{Content.spells.special.nye.value}}
+          span(class='shop_gold')

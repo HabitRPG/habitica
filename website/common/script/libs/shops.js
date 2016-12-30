@@ -236,10 +236,6 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     'snowball',
   ];
 
-  const AVAILABLE_CARDS = [
-    'nye',
-  ];
-
   const AVAILABLE_QUESTS = [
     'evilsanta',
     'evilsanta2',
@@ -253,11 +249,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     return _.indexOf(AVAILABLE_SPELLS, key) !== -1;
   });
 
-  let cards = pickBy(content.cardTypes, (card, key) => {
-    return _.indexOf(AVAILABLE_CARDS, key) !== -1;
-  });
-
-  if (_.keys(spells).length > 0 || _.keys(cards).length > 0) {
+  if (_.keys(spells).length > 0) {
     let category = {
       identifier: 'spells',
       text: i18n.t('seasonalItems', language),
@@ -275,19 +267,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
         purchaseType: 'spells',
         class: `inventory_special_${key}`,
       };
-    }).concat(_.map(cards, (card, key) => {
-      return {
-        key,
-        text: content.spells.special[key].text(language),
-        notes: content.spells.special[key].notes(language),
-        value: content.spells.special[key].value,
-        type: 'card',
-        currency: 'gold',
-        locked: false,
-        purchaseType: 'spells',
-        class: `inventory_special_${key}`,
-      };
-    }));
+    });
 
     categories.push(category);
   }
