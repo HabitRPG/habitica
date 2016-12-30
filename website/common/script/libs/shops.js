@@ -233,6 +233,11 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   };
 
   const AVAILABLE_SPELLS = [
+    'snowball',
+  ];
+
+  const AVAILABLE_CARDS = [
+    'nye',
   ];
 
   const AVAILABLE_QUESTS = [
@@ -248,7 +253,11 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     return _.indexOf(AVAILABLE_SPELLS, key) !== -1;
   });
 
-  if (_.keys(spells).length > 0) {
+  let cards = pickBy(content.cardTypes, (card, key) => {
+    return _.indexOf(AVAILABLE_CARDS, key) !== -1;
+  });
+
+  if (_.keys(spells).length > 0 || _.keys(cards).length > 0) {
     let category = {
       identifier: 'spells',
       text: i18n.t('seasonalItems', language),
@@ -264,8 +273,21 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
         currency: 'gold',
         locked: false,
         purchaseType: 'spells',
+        class: `inventory_special_${key}`,
       };
-    });
+    }).concat(_.map(cards, (card, key) => {
+      return {
+        key,
+        text: content.spells.special[key].text(language),
+        notes: content.spells.special[key].notes(language),
+        value: content.spells.special[key].value,
+        type: 'card',
+        currency: 'gold',
+        locked: false,
+        purchaseType: 'spells',
+        class: `inventory_special_${key}`,
+      };
+    }));
 
     categories.push(category);
   }
@@ -323,6 +345,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
           locked: false,
           currency: 'gems',
           purchaseType: 'gear',
+          class: `shop_${gear.key}`,
         };
       }).value();
       if (category.items.length > 0) {

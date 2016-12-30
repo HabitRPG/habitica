@@ -739,6 +739,8 @@
   "headSpecialFall2016HealerText": "Medusa's Crown",
   "headSpecialFall2016HealerNotes": "Woe to anyone who looks you in the eyes... Increases Intelligence by <%= int %>. Limited Edition 2016 Autumn Gear.",
 
+  "headSpecialNye2016Text": "Whimsical Party Hat",
+  "headSpecialNye2016Notes": "You've received a Whimsical Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
   "headSpecialWinter2017RogueText": "Frosty Helm",
   "headSpecialWinter2017RogueNotes": "Fashioned from ice crystals, this helm will help you move unnoticed through wintry landscapes. Increases Perception by <%= per %>. Limited Edition 2016-2017 Winter Gear.",
   "headSpecialWinter2017WarriorText": "Hockey Helm",
