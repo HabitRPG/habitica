@@ -51,6 +51,7 @@
     "help": "幫助",
     "user": "玩家",
     "market": "市場",
+    "groupPlansTitle": "Group Plans",
     "subscriberItem": "神秘物品",
     "newSubscriberItem": "新的神秘物品",
     "subscriberItemText": "每個月，訂閱者會收到一個神秘物品。一般會在月底前一個星期公佈。詳情請看 Habitica 維基「神秘物品」頁面 。",
@@ -192,5 +193,7 @@
     "you": "(you)",
     "enableDesktopNotifications": "Enable Desktop Notifications",
     "online": "online",
-    "onlineCount": "<%= count %> online"
+    "onlineCount": "<%= count %> online",
+    "loading": "Loading...",
+    "userIdRequired": "User ID is required"
 }

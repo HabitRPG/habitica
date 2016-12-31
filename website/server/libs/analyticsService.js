@@ -68,6 +68,7 @@ let _formatUserData = (user) => {
   }
 
   properties.balance = user.balance;
+  properties.balanceGemAmount = properties.balance * 4;
 
   properties.tutorialComplete = user.flags && user.flags.tour && user.flags.tour.intro === -2;
 

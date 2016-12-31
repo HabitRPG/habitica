@@ -51,6 +51,7 @@
     "help": "Ayuda",
     "user": "Usuario",
     "market": "Mercado",
+    "groupPlansTitle": "Group Plans",
     "subscriberItem": "Artículo Misterioso",
     "newSubscriberItem": "Nuevo Artículo Misterioso",
     "subscriberItemText": "Cada mes, los suscriptores recibirán un artículo misterioso. Esto sucede usualmente una semana antes de fin de mes. Ve la página de la wiki \"Artículo Misterioso\" para más información.",
@@ -192,5 +193,7 @@
     "you": "(you)",
     "enableDesktopNotifications": "Enable Desktop Notifications",
     "online": "online",
-    "onlineCount": "<%= count %> online"
+    "onlineCount": "<%= count %> online",
+    "loading": "Loading...",
+    "userIdRequired": "User ID is required"
 }

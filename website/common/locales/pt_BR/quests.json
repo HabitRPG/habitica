@@ -10,6 +10,11 @@
     "questDetails": "Detalhes da Missão",
     "invitations": "Convites",
     "completed": "Completo!",
+    "rewardsAllParticipants": "Rewards for all Quest Participants",
+    "rewardsQuestOwner": "Additional Rewards for Quest Owner",
+    "questOwnerReceived": "The Quest Owner Has Also Received",
+    "youWillReceive": "You Will Receive",
+    "questOwnerWillReceive": "The Quest Owner Will Also Receive",
     "youReceived": "Você Recebeu",
     "dropQuestCongrats": "Parabéns, você ganhou um pergaminho de missão! Você pode convidar seu grupo para começar a missão agora mesmo, ou voltar a qualquer momento em Inventário > Missões.",
     "questSend": "Clicar em \"Convidar\" enviará um convite para os membros do seu grupo. Quando todos membros aceitarem ou rejeitarem, a missão começará. Veja o estado da missão em Social > Grupo.",
@@ -103,8 +108,8 @@
     "questNotPending": "Não há missão para iniciar.",
     "questOrGroupLeaderOnlyStartQuest": "Somente o líder da missão ou do grupo podem forçar o início da missão.",
     "createAccountReward": "Criar Conta",
-    "loginIncentiveQuest": "Para adquirir essa quest, verifique no Habitica em <% = count%> dias diferentes!",
-    "loginIncentiveQuestObtained": "Você ganhou essa missão visitando o Habitica em <% = count%> dias diferentes!",
+    "loginIncentiveQuest": "Para adquirir essa quest, verifique no Habitica em <%= count %> dias diferentes!",
+    "loginIncentiveQuestObtained": "Você ganhou essa missão visitando o Habitica em <%= count %> dias diferentes!",
     "loginReward": "<%= count %> Check-ins",
     "createAccountQuest": "Você recebeu esta missão quando se juntou ao Habitica! Se um amigo se juntar, ele também terá um."
 }

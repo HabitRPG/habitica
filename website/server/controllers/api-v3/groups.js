@@ -893,6 +893,8 @@ api.inviteToGroup = {
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
+    if (group.purchased && group.purchased.plan.customerId && user._id !== group.leader) throw new NotAuthorized(res.t('onlyGroupLeaderCanInviteToGroupPlan'));
+
     let uuids = req.body.uuids;
     let emails = req.body.emails;
 

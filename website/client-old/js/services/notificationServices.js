@@ -78,6 +78,13 @@ angular.module("habitrpg").factory("Notification",
     _notify(_sign(val) + " " + _round(val) + " " + window.env.t('health'), 'hp', 'glyphicon glyphicon-heart');
   }
 
+  function bossDamage(val) {
+    var data = {
+      val: _round(val),
+    };
+    _notify(window.env.t('bossDamageDone', data), 'hp', 'glyphicon glyphicon-heart');
+  }
+
   function lvl(){
     _notify(window.env.t('levelUp'), 'lvl', 'glyphicon glyphicon-chevron-up');
   }
@@ -176,5 +183,6 @@ angular.module("habitrpg").factory("Notification",
     text: text,
     quest: quest,
     showLoginIncentive: showLoginIncentive,
+    bossDamage: bossDamage,
   };
 }]);

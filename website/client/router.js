@@ -4,6 +4,13 @@ import UserTasks from './components/userTasks';
 import ParentPage from './components/parentPage';
 import Page from './components/page';
 
+// Social
+import SocialPage from './components/SocialPage';
+import TavernPage from './components/Social/TavernPage';
+import InboxPage from './components/Inbox/InboxPage';
+import InboxConversationPage from './components/Inbox/InboxConversationPage';
+
+
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -23,10 +30,22 @@ export default new VueRouter({
     { path: '/market', component: Page },
     {
       path: '/social',
-      component: ParentPage,
+      component: SocialPage,
       children: [
-        {path: 'tavern', component: Page},
-        {path: 'inbox', component: Page},
+        { name: 'tavern', path: 'tavern', component: TavernPage },
+        {
+          name: 'inbox',
+          path: 'inbox',
+          component: ParentPage,
+          children: [
+            {path: '', component: InboxPage},
+            {
+              name: 'conversation',
+              path: 'conversation/:id',
+              component: InboxConversationPage,
+            },
+          ],
+        },
         {path: 'challenges', component: Page},
         {path: 'party', component: Page},
         {path: 'guilds', component: Page},

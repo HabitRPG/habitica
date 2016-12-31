@@ -51,6 +51,7 @@
     "help": "Súgó",
     "user": "Felhasználó",
     "market": "Piac",
+    "groupPlansTitle": "Group Plans",
     "subscriberItem": "Rejtélyes tárgy",
     "newSubscriberItem": "Új rejtélyes tárgy",
     "subscriberItemText": "Minden hónapban az előfizetők kapnak egy rejtélyes tárgyat. Ezt általában egy héttel a hónap vége előtt hozzuk nyilvánosságra. A Wiki 'Rejtélyes Tárgyak' oldalán találhatsz több információt.",
@@ -192,5 +193,7 @@
     "you": "(you)",
     "enableDesktopNotifications": "Enable Desktop Notifications",
     "online": "online",
-    "onlineCount": "<%= count %> online"
+    "onlineCount": "<%= count %> online",
+    "loading": "Loading...",
+    "userIdRequired": "User ID is required"
 }

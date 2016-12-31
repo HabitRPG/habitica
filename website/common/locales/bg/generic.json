@@ -51,6 +51,7 @@
     "help": "Помощ",
     "user": "Потребител",
     "market": "Пазар",
+    "groupPlansTitle": "Group Plans",
     "subscriberItem": "Тайнствен предмет",
     "newSubscriberItem": "Нов тайнствен предмет",
     "subscriberItemText": "Всеки месец абонатите получават тайнствен предмет. Обикновено това става около една седмица преди края на месеца. За повече информация, прегледайте страницата в уикито с името „Mystery Item“ (Тайнствен предмет).",
@@ -192,5 +193,7 @@
     "you": "(Вие)",
     "enableDesktopNotifications": "Включване на известията на работния плот",
     "online": "на линия",
-    "onlineCount": "<%= count %> на линия"
+    "onlineCount": "<%= count %> на линия",
+    "loading": "Loading...",
+    "userIdRequired": "User ID is required"
 }

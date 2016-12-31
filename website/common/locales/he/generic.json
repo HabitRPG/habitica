@@ -51,6 +51,7 @@
     "help": "עזרה",
     "user": "משתמש",
     "market": "שוק",
+    "groupPlansTitle": "Group Plans",
     "subscriberItem": "חפץ מסתורי",
     "newSubscriberItem": "חפץ מסתורי חדש",
     "subscriberItemText": "בכל חודש, מנויים יקבלו חפץ מיסתורי. הוא בדרך כלל משתחרר כשבוע לפני סוף החודש. ראו בוויקי את הדף 'Mystery Item' למידע נוסף.",
@@ -192,5 +193,7 @@
     "you": "(אתם)",
     "enableDesktopNotifications": "אפשרו התראות מחשב-שולחני",
     "online": "online",
-    "onlineCount": "<%= count %> online"
+    "onlineCount": "<%= count %> online",
+    "loading": "Loading...",
+    "userIdRequired": "User ID is required"
 }

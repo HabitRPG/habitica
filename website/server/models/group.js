@@ -579,6 +579,39 @@ schema.statics.cleanGroupQuest = function cleanGroupQuest () {
   };
 };
 
+function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
+  let updates = {
+    $set: {},
+    $inc: {},
+  };
+  let dropK = itemToAward.key;
+
+  switch (itemToAward.type) {
+    case 'gear': {
+      // TODO This means they can lose their new gear on death, is that what we want?
+      updates.$set[`items.gear.owned.${dropK}`] = true;
+      break;
+    }
+    case 'eggs':
+    case 'food':
+    case 'hatchingPotions':
+    case 'quests': {
+      updates.$inc[`items.${itemToAward.type}.${dropK}`] = _.where(allAwardedItems, {type: itemToAward.type, key: itemToAward.key}).length;
+      break;
+    }
+    case 'pets': {
+      updates.$set[`items.pets.${dropK}`] = 5;
+      break;
+    }
+    case 'mounts': {
+      updates.$set[`items.mounts.${dropK}`] = true;
+      break;
+    }
+  }
+  updates = _.omit(updates, _.isEmpty);
+  return updates;
+}
+
 async function _updateUserWithRetries (userId, updates, numTry = 1) {
   return await User.update({_id: userId}, updates).exec()
     .then((raw) => {
@@ -611,32 +644,17 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     updates.$set['party.quest'] = _cleanQuestProgress({completed: questK}); // clear quest progress
   }
 
-  _.each(quest.drop.items, (item) => {
-    let dropK = item.key;
-
-    switch (item.type) {
-      case 'gear': {
-        // TODO This means they can lose their new gear on death, is that what we want?
-        updates.$set[`items.gear.owned.${dropK}`] = true;
-        break;
-      }
-      case 'eggs':
-      case 'food':
-      case 'hatchingPotions':
-      case 'quests': {
-        updates.$inc[`items.${item.type}.${dropK}`] = _.where(quest.drop.items, {type: item.type, key: item.key}).length;
-        break;
-      }
-      case 'pets': {
-        updates.$set[`items.pets.${dropK}`] = 5;
-        break;
-      }
-      case 'mounts': {
-        updates.$set[`items.mounts.${dropK}`] = true;
-        break;
-      }
-    }
+  _.each(_.reject(quest.drop.items, 'onlyOwner'), (item) => {
+    _.merge(updates, _getUserUpdateForQuestReward(item, quest.drop.items));
   });
+
+  let questOwnerUpdates = {};
+  let questLeader = this.quest.leader;
+
+  _.each(_.filter(quest.drop.items, 'onlyOwner'), (item) => {
+    _.merge(questOwnerUpdates, _getUserUpdateForQuestReward(item, quest.drop.items));
+  });
+  _.merge(questOwnerUpdates, updates);
 
   let participants = this._id === TAVERN_ID ? {} : this.getParticipatingQuestMembers();
   this.quest = {};
@@ -647,7 +665,11 @@ schema.methods.finishQuest = async function finishQuest (quest) {
   }
 
   let promises = participants.map(userId => {
-    return _updateUserWithRetries(userId, updates);
+    if (userId === questLeader) {
+      return _updateUserWithRetries(userId, questOwnerUpdates);
+    } else {
+      return _updateUserWithRetries(userId, updates);
+    }
   });
 
   return Bluebird.all(promises);
@@ -687,12 +709,26 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
     }
   }
 
+  let promises = [];
+
   // Everyone takes damage
-  await User.update({
-    _id: {$in: this.getParticipatingQuestMembers()},
-  }, {
-    $inc: {'stats.hp': down},
-  }, {multi: true}).exec();
+  if (down !== 0) {
+    let members = await User.find({
+      _id: {$in: this.getParticipatingQuestMembers()},
+    }).select('notifications stats.hp');
+
+    _.each(members, (member) => {
+      member.stats.hp += down;
+      let bossNotification = _.find(member.notifications, {type: 'BOSS_DAMAGE'});
+      if (bossNotification) {
+        bossNotification.data.damageTaken += down;
+        bossNotification.markModified('data.damageTaken');
+      } else {
+        member.addNotification('BOSS_DAMAGE', {damageTaken: down});
+      }
+      promises.push(member.save());
+    });
+  }
   // Apply changes the currently cronning user locally so we don't have to reload it to get the updated state
   // TODO how to mark not modified? https://github.com/Automattic/mongoose/pull/1167
   // must be notModified or otherwise could overwrite future changes: if the user is saved it'll save
@@ -704,10 +740,11 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
     group.sendChat(`\`You defeated ${quest.boss.name('en')}! Questing party members receive the rewards of victory.\``);
 
     // Participants: Grant rewards & achievements, finish quest
-    await group.finishQuest(shared.content.quests[group.quest.key]);
+    promises.push(group.finishQuest(shared.content.quests[group.quest.key]));
   }
 
-  return await group.save();
+  promises.push(group.save());
+  return await Bluebird.all(promises);
 };
 
 schema.methods._processCollectionQuest = async function processCollectionQuest (options) {
@@ -865,6 +902,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     throw new NotAuthorized(shared.i18n.t('cannotDeleteActiveGroup'));
   }
 
+  // Unlink user challenge tasks
   let challenges = await Challenge.find({
     _id: {$in: user.challenges},
     group: group._id,
@@ -874,6 +912,17 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     return chal.unlinkTasks(user, keep);
   });
   await Bluebird.all(challengesToRemoveUserFrom);
+
+  // Unlink group tasks)
+  let assignedTasks = await Tasks.Task.find({
+    'group.id': group._id,
+    userId: {$exists: false},
+    'group.assignedUsers': user._id,
+  });
+  let assignedTasksToRemoveUserFrom = assignedTasks.map(task => {
+    return this.unlinkTask(task, user, keep);
+  });
+  await Bluebird.all(assignedTasksToRemoveUserFrom);
 
   let promises = [];
 

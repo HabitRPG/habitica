@@ -156,7 +156,7 @@
     "hatchingPotionFloral": "Floral",
     "hatchingPotionThunderstorm": "Orage",
     "hatchingPotionGhost": "Fantôme",
-    "hatchingPotionRoyalPurple": "Pourpre royale",
+    "hatchingPotionRoyalPurple": "Pourpre Royal",
     "hatchingPotionHolly": "Houx",
     "hatchingPotionNotes": "Versez-la sur un œuf et il en sortira un familier <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "N'est pas utilisable sur les œufs de quête.",

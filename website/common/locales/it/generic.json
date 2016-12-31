@@ -51,6 +51,7 @@
     "help": "Aiuto",
     "user": "Utente",
     "market": "Mercato",
+    "groupPlansTitle": "Group Plans",
     "subscriberItem": "Oggetto misterioso",
     "newSubscriberItem": "Nuovo oggetto misterioso!",
     "subscriberItemText": "Ogni mese, gli abbonati ricevono un oggetto misterioso. Questo oggetto in genere viene rivelato circa una settimana prima della fine del mese. Leggi la pagina 'Mystery Item' della wiki per maggiori informazioni.",
@@ -175,7 +176,7 @@
     "birthdayCardNotes": "Invia una cartolina di compleanno a un compagno di squadra.",
     "birthday0": "Tanti auguri a te!",
     "birthdayCardAchievementTitle": "Superbonus Compleanno",
-    "birthdayCardAchievementText": "Many happy returns! Sent or received <%= count %> birthday cards.",
+    "birthdayCardAchievementText": "Cento di questi giorni! Hai inviato o ricevuto <%= count %> auguri di compleanno.",
     "streakAchievement": "Hai ottenuto una Medaglia Serie!",
     "firstStreakAchievement": "Serie di 21 giorni",
     "streakAchievementCount": "<%= streaks %> serie di 21 giorni",
@@ -192,5 +193,7 @@
     "you": "(tu)",
     "enableDesktopNotifications": "Abilita notifiche desktop",
     "online": "online",
-    "onlineCount": "<%= count %> online"
+    "onlineCount": "<%= count %> online",
+    "loading": "Loading...",
+    "userIdRequired": "User ID is required"
 }

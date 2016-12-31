@@ -677,10 +677,11 @@ let head = {
     canOwn: ownsItem('head_special_lunarWarriorHelm'),
   },
   nye: {
-    event: EVENTS.winter2016,
+    event: EVENTS.nye,
     text: t('headSpecialNyeText'),
     notes: t('headSpecialNyeNotes'),
     value: 0,
+    canOwn: ownsItem('head_special_nye'),
   },
   yeti: {
     event: EVENTS.winter,
@@ -1151,6 +1152,12 @@ let head = {
     notes: t('headSpecialWinter2017HealerNotes', { int: 7 }),
     value: 60,
     int: 7,
+  },
+  nye2016: {
+    text: t('headSpecialNye2016Text'),
+    notes: t('headSpecialNye2016Notes'),
+    value: 0,
+    canOwn: ownsItem('head_special_nye2016'),
   },
 };
 
