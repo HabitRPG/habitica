@@ -219,37 +219,6 @@ describe('Group Model', () => {
           expect(updatedUndecidedMember.stats.hp).to.eql(50);
         });
 
-        it('doesn\'t notify the user when the boss damage is 0', async () => {
-          progress.down = 0;
-          await Group.processQuestProgress(participatingMember, progress);
-
-          let updatedLeader = await User.findById(questLeader._id);
-
-          expect(updatedLeader.stats.hp).to.eql(50);
-          expect(updatedLeader.notifications.length).to.eql(0);
-        });
-
-        it('notifies user of boss damage', async () => {
-          await Group.processQuestProgress(participatingMember, progress);
-
-          let updatedLeader = await User.findById(questLeader._id);
-
-          expect(updatedLeader.stats.hp).to.eql(42.5);
-          expect(updatedLeader.notifications[0].type).to.eql('BOSS_DAMAGE');
-          expect(updatedLeader.notifications[0].data).to.eql({damageTaken: -7.5});
-        });
-
-        it('combines boss damage notifications across multiple updates', async () => {
-          await Group.processQuestProgress(participatingMember, progress);
-          await Group.processQuestProgress(participatingMember, progress);
-
-          let updatedLeader = await User.findById(participatingMember._id);
-
-          expect(updatedLeader.stats.hp).to.eql(35);
-          expect(updatedLeader.notifications[0].type).to.eql('BOSS_DAMAGE');
-          expect(updatedLeader.notifications[0].data).to.eql({damageTaken: -15});
-        });
-
         it('applies damage only to participating members of party even under buggy conditions', async () => {
           // stops unfair damage from mbugs like https://github.com/HabitRPG/habitrpg/issues/7653
           party.quest.members = {
