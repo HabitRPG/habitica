@@ -24,8 +24,8 @@ db.users.find().forEach(function(user){
         if (task.value > 21.27) {
             task.value = 21.27;
         }
-        else if (task.value < -47.27) {
-            task.value = -47.27;
+        else if (task.value < -21.27) {
+            task.value = -21.27;
         }
     });
 
