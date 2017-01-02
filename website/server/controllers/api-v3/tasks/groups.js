@@ -4,6 +4,7 @@ import * as Tasks from '../../../models/task';
 import { model as Group } from '../../../models/group';
 import { model as User } from '../../../models/user';
 import {
+  BadRequest,
   NotFound,
   NotAuthorized,
 } from '../../../libs/errors';
@@ -98,7 +99,7 @@ api.groupMoveTask = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
-    req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric()
+    req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
 
     let reqValidationErrors = req.validationErrors();
     if (reqValidationErrors) throw reqValidationErrors;

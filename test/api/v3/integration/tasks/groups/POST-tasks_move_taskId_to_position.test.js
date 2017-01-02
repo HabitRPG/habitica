@@ -1,9 +1,7 @@
 import {
   generateUser,
   generateGroup,
-  translate as t,
-} from '../../../../../helpers/api-v3-integration.helper';;
-import { v4 as generateUUID } from 'uuid';
+} from '../../../../../helpers/api-v3-integration.helper';
 
 describe('POST group-tasks/:taskId/move/to/:position', () => {
   let user, guild;
