@@ -81,6 +81,72 @@ api.getGroupTasks = {
 };
 
 /**
+ * @api {post} /api/v3/group/:groupId/tasks/:taskId/move/to/:position Move a group task to a specified position
+ * @apiDescription Moves a group task to a specified position
+ * @apiVersion 3.0.0
+ * @apiName GroupMoveTask
+ * @apiGroup Task
+ *
+ * @apiParam {String} taskId The task _id
+ * @apiParam {Number} position Query parameter - Where to move the task (-1 means push to bottom). First position is 0
+ *
+ * @apiSuccess {Array} data The new tasks order (group.tasksOrder.{task.type}s)
+ */
+api.groupMoveTask = {
+  method: 'POST',
+  url: '/group-tasks/:taskId/move/to/:position',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric()
+
+    let reqValidationErrors = req.validationErrors();
+    if (reqValidationErrors) throw reqValidationErrors;
+
+    let user = res.locals.user;
+
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findOne({
+      _id: taskId,
+    });
+
+    let to = Number(req.params.position);
+
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    }
+
+    if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
+
+    let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+
+    let order = group.tasksOrder[`${task.type}s`];
+    let currentIndex = order.indexOf(task._id);
+
+    // If for some reason the task isn't ordered (should never happen), push it in the new position
+    // if the task is moved to a non existing position
+    // or if the task is moved to position -1 (push to bottom)
+    // -> push task at end of list
+    if (!order[to] && to !== -1) {
+      order.push(task._id);
+    } else {
+      if (currentIndex !== -1) order.splice(currentIndex, 1);
+      if (to === -1) {
+        order.push(task._id);
+      } else {
+        order.splice(to, 0, task._id);
+      }
+    }
+
+    await group.save();
+    res.respond(200, order);
+  },
+};
+
+/**
  * @api {post} /api/v3/tasks/:taskId/assign/:assignedUserId Assign a group task to a user
  * @apiDescription Assigns a user to a group task
  * @apiName AssignTask
