@@ -134,7 +134,7 @@ function _setProfileName (user) {
 schema.pre('validate', function preValidateUser (next) {
   // Populate new user with profile name, not running in pre('save') because the field
   // is required and validation fails if it doesn't exists like for new users
-  if (this.isNew) {
+  if (this.isNew && !this.profile.name) {
     this.profile.name = _setProfileName(this);
   }
 
