@@ -138,10 +138,6 @@ schema.pre('save', true, function preSaveUser (next, done) {
     this.preferences.dayStart = 0;
   }
 
-  if (this.isNew || this.profile.name === '') {
-    this.profile.name = _setProfileName(this);
-  }
-
   // Determines if Beast Master should be awarded
   let beastMasterProgress = shared.count.beastMasterProgress(this.items.pets);
 
@@ -182,8 +178,10 @@ schema.pre('save', true, function preSaveUser (next, done) {
   if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;
   this._v++;
 
-  // Populate new users with default content
+  // Populate new users with default content and profile name
   if (this.isNew) {
+    this.profile.name = _setProfileName(this);
+
     _setUpNewUser(this)
       .then(() => done())
       .catch(done);
