@@ -131,6 +131,16 @@ function _setProfileName (user) {
   return localUsername || _getFacebookName(user.auth.facebook) || googleUsername || anonymous;
 }
 
+schema.pre('validate', function preValidateUser (next) {
+  // Populate new user with profile name, not running in pre('save') because the field
+  // is required and validation fails if it doesn't exists like for new users
+  if (this.isNew) {
+    this.profile.name = _setProfileName(this);
+  }
+
+  next();
+});
+
 schema.pre('save', true, function preSaveUser (next, done) {
   next();
 
@@ -178,10 +188,8 @@ schema.pre('save', true, function preSaveUser (next, done) {
   if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;
   this._v++;
 
-  // Populate new users with default content and profile name
+  // Populate new users with default content
   if (this.isNew) {
-    this.profile.name = _setProfileName(this);
-
     _setUpNewUser(this)
       .then(() => done())
       .catch(done);
