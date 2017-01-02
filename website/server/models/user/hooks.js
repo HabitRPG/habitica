@@ -131,15 +131,21 @@ function _setProfileName (user) {
   return localUsername || _getFacebookName(user.auth.facebook) || googleUsername || anonymous;
 }
 
+schema.pre('validate', function preValidateUser (next) {
+  // Populate new user with profile name, not running in pre('save') because the field
+  // is required and validation fails if it doesn't exists like for new users
+  if (this.isNew && !this.profile.name) {
+    this.profile.name = _setProfileName(this);
+  }
+
+  next();
+});
+
 schema.pre('save', true, function preSaveUser (next, done) {
   next();
 
   if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
     this.preferences.dayStart = 0;
-  }
-
-  if (!this.profile.name) {
-    this.profile.name = _setProfileName(this);
   }
 
   // Determines if Beast Master should be awarded
