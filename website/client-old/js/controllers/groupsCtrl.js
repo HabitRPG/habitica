@@ -126,7 +126,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       }
 
       var sendInviteText = window.env.t('sendInvitations');
-      if(group.purchased.plan.customerId) sendInviteText += window.env.t('groupAdditionalUserCost');
+      if(group.purchased && group.purchased.plan && group.purchased.plan.customerId) sendInviteText += window.env.t('groupAdditionalUserCost');
       group.sendInviteText = sendInviteText;
 
       $rootScope.openModal('invite-' + group.type, {
