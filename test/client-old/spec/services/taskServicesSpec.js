@@ -83,6 +83,14 @@ describe('Tasks Service', function() {
     $httpBackend.flush();
   });
 
+  it('calls group move task endpoint', function() {
+    var taskId = 1;
+    var position = 0;
+    $httpBackend.expectPOST('/api/v3/group-tasks/' + taskId + '/move/to/' + position).respond({});
+    tasks.moveGroupTask(taskId, position);
+    $httpBackend.flush();
+  });
+
   it('calls add check list item endpoint', function() {
     var taskId = 1;
     $httpBackend.expectPOST(apiV3Prefix + '/' + taskId + '/checklist').respond({});
