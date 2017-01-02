@@ -172,8 +172,8 @@
     "requestAcceptGuidelines": "Se você quiser postar mensagens na Taverna ou em qualquer chat de grupo ou guilda, por favor leia nossas <%= linkStart %>Diretrizes de Comunidade<%= linkEnd %> e então clique no botão abaixo para indicar que você as aceita.",
     "partyUpName": "Agrupou-se",
     "partyOnName": "Agrupamento",
-    "partyUpAchievement": "Entrou em um Grupo com outra pessoa! Divirtam-se batalhando contra monstros e ajudando um ao outro.",
-    "partyOnAchievement": "Entrou em um grupo com pelo menos 4 pessoas! Divirta-se aumentando a sua produtividade com seus amigos para derrotar seus inimigos!",
+    "partyUpText": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
+    "partyOnText": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!",
     "largeGroupNote": "Nota: Essa Guilda agora está grande demais para suportar notificações! Tenha certeza de verificar todo dia para ver novas mensagens.",
     "groupIdRequired": "\"groupId\" precisa ser um UUID válido.",
     "groupNotFound": "Grupo não encontrado ou ao qual você não tem acesso.",
@@ -224,6 +224,7 @@
     "approvalTitle": "<%= text %> para o usuário: <%= userName %>",
     "confirmTaskApproval": "Você quer recompensar <%= username %> por completar essa tarefa?",
     "groupSubscriptionPrice": "$9 todo mês + $3 por mês pra cada membro adicional no grupo",
+    "groupAdditionalUserCost": "+$3.00/month/user",
     "groupBenefitsTitle": "Como um plano de grupo pode te ajudar",
     "groupBenefitsDescription": "We've just launched the beta version of our group plans! Upgrading to a group plan unlocks some unique features to optimize the social side of Habitica.",
     "groupBenefitOneTitle": "Crie uma lista de tarefas compartilhada",
@@ -249,5 +250,6 @@
     "refreshGroupTasks": "Atualiza Tarefas de Grupo",
     "claimedBy": "Requerida por: <%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "Não pode apagar tarefas de grupo que estão atribuídas a você.",
-    "confirmGuildPlanCreation": "Criar esse grupo?"
+    "confirmGuildPlanCreation": "Criar esse grupo?",
+    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription."
 }

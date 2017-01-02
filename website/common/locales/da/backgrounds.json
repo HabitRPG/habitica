@@ -1,9 +1,9 @@
 {
     "backgrounds": "Baggrunde",
-    "background": "Background",
-    "backgroundShop": "Background Shop",
+    "background": "Baggrund",
+    "backgroundShop": "Baggrund-marked",
     "backgroundShopText": "Background Shop",
-    "noBackground": "No Background Selected",
+    "noBackground": "Ingen baggrund valgt",
     "backgrounds062014": "SÆT 1: Udgivet Juni 2014",
     "backgroundBeachText": "Strand",
     "backgroundBeachNotes": "Slæng dig på en varm strand.",
@@ -231,5 +231,12 @@
     "backgroundWinterFireworksText": "Winter Fireworks",
     "backgroundWinterFireworksNotes": "Set off Winter Fireworks.",
     "backgroundWinterStorefrontText": "Winter Shop",
-    "backgroundWinterStorefrontNotes": "Purchase presents from a Winter Shop."
+    "backgroundWinterStorefrontNotes": "Purchase presents from a Winter Shop.",
+    "backgrounds012017": "SET 32: Released January 2017",
+    "backgroundBlizzardText": "Blizzard",
+    "backgroundBlizzardNotes": "Brave a fierce Blizzard.",
+    "backgroundSparklingSnowflakeText": "Sparkling Snowflake",
+    "backgroundSparklingSnowflakeNotes": "Glide on a Sparkling Snowflake.",
+    "backgroundStoikalmVolcanoesText": "Stoïkalm Volcanoes",
+    "backgroundStoikalmVolcanoesNotes": "Explore the Stoïkalm Volcanoes."
 }
