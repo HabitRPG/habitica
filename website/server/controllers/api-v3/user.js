@@ -394,6 +394,8 @@ api.castSpell = {
         $or: [ // exclude challenge tasks
           {'challenge.id': {$exists: false}},
           {'challenge.broken': {$exists: true}},
+          {'group.id': {$exists: false}},
+          {'group.broken': {$exists: true}},
         ],
       }).exec();
 
@@ -1055,6 +1057,8 @@ api.userRebirth = {
       $or: [ // exclude challenge tasks
         {'challenge.id': {$exists: false}},
         {'challenge.broken': {$exists: true}},
+        {'group.id': {$exists: false}},
+        {'group.broken': {$exists: true}},
       ],
     }).exec();
 
@@ -1171,6 +1175,8 @@ api.userReroll = {
       $or: [ // exclude challenge tasks
         {'challenge.id': {$exists: false}},
         {'challenge.broken': {$exists: true}},
+        {'group.id': {$exists: false}},
+        {'group.broken': {$exists: true}},
       ],
     };
     let tasks = await Tasks.Task.find(query).exec();
@@ -1206,6 +1212,8 @@ api.userReset = {
       $or: [ // exclude challenge tasks
         {'challenge.id': {$exists: false}},
         {'challenge.broken': {$exists: true}},
+        {'group.id': {$exists: false}},
+        {'group.broken': {$exists: true}},
       ],
     }).select('_id type challenge').exec();
 
