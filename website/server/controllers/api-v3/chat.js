@@ -93,6 +93,7 @@ api.postChat = {
     let chatUpdated;
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.sanitize('message').trim();
     req.checkBody('message', res.t('messageGroupChatBlankMessage')).notEmpty();
 
     let validationErrors = req.validationErrors();
