@@ -1,6 +1,18 @@
-.promo_winteryhair {
+.promo_winter_fireworks {
+  background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
+  background-position: -151px -401px;
+  width: 138px;
+  height: 147px;
+}
+.promo_winterclasses2015 {
   background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
   background-position: -452px -262px;
+  width: 325px;
+  height: 110px;
+}
+.promo_winteryhair {
+  background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
+  background-position: -778px -262px;
   width: 152px;
   height: 75px;
 }
@@ -12,7 +24,7 @@
 }
 .npc_viirus {
   background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
-  background-position: -151px -401px;
+  background-position: -290px -401px;
   width: 108px;
   height: 90px;
 }
@@ -36,7 +48,7 @@
 }
 .welcome_basic_avatars {
   background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
-  background-position: -452px -96px;
+  background-position: -699px -96px;
   width: 246px;
   height: 165px;
 }
@@ -48,7 +60,7 @@
 }
 .welcome_sample_tasks {
   background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
-  background-position: -699px -96px;
+  background-position: -452px -96px;
   width: 246px;
   height: 165px;
 }

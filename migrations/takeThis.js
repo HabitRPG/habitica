@@ -1,4 +1,4 @@
-var migrationName = '20161201_takeThis.js';
+var migrationName = '20170103_takeThis.js'; // Update per month
 var authorName = 'Sabe'; // in case script author needs to know when their ...
 var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
 
@@ -38,7 +38,9 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
   // specify user data to change:
   var set = {};
 
-  if (typeof user.items.gear.owned.body_special_takeThis !== 'undefined') {
+  if (typeof user.items.gear.owned.back_special_takeThis !== 'undefined') {
+    set = {'migration':migrationName};
+  { else if (typeof user.items.gear.owned.body_special_takeThis !== 'undefined') {
     set = {'migration':migrationName, 'items.gear.owned.back_special_takeThis':false};
   } else if (typeof user.items.gear.owned.head_special_takeThis !== 'undefined') {
     set = {'migration':migrationName, 'items.gear.owned.body_special_takeThis':false};
