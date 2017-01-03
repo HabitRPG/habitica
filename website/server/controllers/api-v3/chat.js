@@ -207,7 +207,6 @@ api.likeChat = {
  *
  * @apiUse GroupNotFound
  * @apiUse MessageNotFound
- * @apiError (404) {NotFound} FlagOwnMessage Chat messages cannot be flagged by the author of the message
  * @apiError (404) {NotFound} AlreadyFlagged Chat messages cannot be flagged more than once by a user
  */
 api.flagChat = {
@@ -412,7 +411,7 @@ api.seenChat = {
  * @apiName DeleteChat
  * @apiGroup Chat
  *
- * @apiParam (Query) {String} previousMsg The last message fetched by the client so that the whole chat will be returned only if new messages have been posted in the meantime
+ * @apiParam (Query) {UUID} previousMsg The last message fetched by the client so that the whole chat will be returned only if new messages have been posted in the meantime
  * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam (Path) {UUID} chatId The chat message id
  *
