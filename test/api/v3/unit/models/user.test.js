@@ -73,7 +73,7 @@ describe('User Model', () => {
       expect(userToJSON.notifications[0].data).to.eql({field: 1});
     });
 
-    context.only('static push method', () => {
+    context('static push method', () => {
       it('adds notifications for a single member via static method', async() => {
         let user = new User();
         await user.save();
