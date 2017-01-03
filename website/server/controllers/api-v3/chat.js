@@ -207,7 +207,7 @@ api.likeChat = {
  *
  * @apiUse GroupNotFound
  * @apiUse MessageNotFound
- * @apiError (404) FlagOwnMessage Chat messages cannot be flagged by the author of the message
+ * @apiError (404) {NotFound} FlagOwnMessage Chat messages cannot be flagged by the author of the message
  * @apiError (404) {NotFound} AlreadyFlagged Chat messages cannot be flagged more than once by a user
  */
 api.flagChat = {
