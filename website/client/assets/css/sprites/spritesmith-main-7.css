@@ -696,9 +696,9 @@
 }
 .npc_bailey {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1622px -1153px;
+  background-position: -1637px -1274px;
   width: 54px;
-  height: 93px;
+  height: 78px;
 }
 .npc_daniel {
   background-image: url(/static/sprites/spritesmith-main-7.png);
@@ -756,7 +756,7 @@
 }
 .npc_vicky {
   background-image: url(/static/sprites/spritesmith-main-7.png);
-  background-position: -1637px -1274px;
+  background-position: -1622px -1153px;
   width: 59px;
   height: 82px;
 }
