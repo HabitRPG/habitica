@@ -73,7 +73,7 @@ describe('User Model', () => {
       expect(userToJSON.notifications[0].data).to.eql({field: 1});
     });
 
-    context('static push method', () => {
+    context.only('static push method', () => {
       it('adds notifications for a single member via static method', async() => {
         let user = new User();
         await user.save();
@@ -84,7 +84,7 @@ describe('User Model', () => {
 
         let userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
-        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type']);
         expect(userToJSON.notifications[0].type).to.equal('CRON');
         expect(userToJSON.notifications[0].data).to.eql({});
       });
@@ -107,7 +107,7 @@ describe('User Model', () => {
 
         let userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
-        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type']);
         expect(userToJSON.notifications[0].type).to.equal('CRON');
         expect(userToJSON.notifications[0].data).to.eql({});
 
@@ -115,7 +115,7 @@ describe('User Model', () => {
 
         userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
-        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type']);
         expect(userToJSON.notifications[0].type).to.equal('CRON');
         expect(userToJSON.notifications[0].data).to.eql({});
       });
@@ -131,7 +131,7 @@ describe('User Model', () => {
 
         let userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
-        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type']);
         expect(userToJSON.notifications[0].type).to.equal('CRON');
         expect(userToJSON.notifications[0].data).to.eql({field: 1});
 
@@ -139,7 +139,7 @@ describe('User Model', () => {
 
         userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
-        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'createdAt']);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type']);
         expect(userToJSON.notifications[0].type).to.equal('CRON');
         expect(userToJSON.notifications[0].data).to.eql({field: 1});
       });
