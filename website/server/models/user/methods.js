@@ -55,17 +55,17 @@ schema.methods.addNotification = function addUserNotification (type, data = {}) 
  * this operation. Use this function when you want to add a notification to a user(s), but do not have
  * the user document(s) opened.
  *
- * @param  userIds An array containing the ids of the users to add this notification to
+ * @param  query A Mongoose query defining the users to add the notification to.
  * @param  type  The type of notification to add to the user. Possible values are defined in the UserNotificaiton Schema
  * @param  data  The data to add to the notification
  */
-schema.statics.pushNotification = async function pushNotification (userIds, type, data = {}) {
+schema.statics.pushNotification = async function pushNotification (query, type, data = {}) {
   let newNotification = new UserNotification({type, data});
   let validationResult = newNotification.validateSync();
   if (validationResult) {
     throw validationResult;
   }
-  await this.update({_id: {$in: userIds}}, {$push: {notifications: newNotification}}, {multi: true}).exec();
+  await this.update(query, {$push: {notifications: newNotification}}, {multi: true}).exec();
 };
 
 // Add stats.toNextLevel, stats.maxMP and stats.maxHealth

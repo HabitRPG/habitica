@@ -78,7 +78,7 @@ describe('User Model', () => {
         let user = new User();
         await user.save();
 
-        await User.pushNotification(user._id, 'CRON');
+        await User.pushNotification({_id: user._id}, 'CRON');
 
         user = await User.findOne({_id: user._id}).exec();
 
@@ -93,7 +93,7 @@ describe('User Model', () => {
         let user = new User();
         await user.save();
 
-        expect(User.pushNotification(user._id, 'BAD_TYPE')).to.eventually.be.rejected;
+        expect(User.pushNotification({_id: user._id}, 'BAD_TYPE')).to.eventually.be.rejected;
       });
 
       it('adds notifications without data for all given users via static method', async() => {
@@ -101,7 +101,7 @@ describe('User Model', () => {
         let otherUser = new User();
         await Bluebird.all([user.save(), otherUser.save()]);
 
-        await User.pushNotification([user._id, otherUser._id], 'CRON');
+        await User.pushNotification({_id: {$in: [user._id, otherUser._id]}}, 'CRON');
 
         user = await User.findOne({_id: user._id}).exec();
 
@@ -125,7 +125,7 @@ describe('User Model', () => {
         let otherUser = new User();
         await Bluebird.all([user.save(), otherUser.save()]);
 
-        await User.pushNotification([user._id, otherUser._id], 'CRON', {field: 1});
+        await User.pushNotification({_id: {$in: [user._id, otherUser._id]}}, 'CRON', {field: 1});
 
         user = await User.findOne({_id: user._id}).exec();
 
