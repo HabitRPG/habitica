@@ -226,10 +226,17 @@
     "backgroundYellowText": "Geel",
     "backgroundYellowNotes": "Een gezellig geel decor.",
     "backgrounds122016": "SET 31: Uitgebracht in december 2016",
-    "backgroundShimmeringIcePrismText": "Glinsterende Ijs Prisma's",
-    "backgroundShimmeringIcePrismNotes": "Dans door de glinsterende ijs prisma's.",
+    "backgroundShimmeringIcePrismText": "Glinsterende IJsprisma's",
+    "backgroundShimmeringIcePrismNotes": "Dans door de glinsterende ijsprisma's.",
     "backgroundWinterFireworksText": "Wintervuurwerk",
-    "backgroundWinterFireworksNotes": "Steek het wintervuurwerk aan.",
+    "backgroundWinterFireworksNotes": "Ontsteek het Wintervuurwerk.",
     "backgroundWinterStorefrontText": "Winterwinkel",
-    "backgroundWinterStorefrontNotes": "Koop cadeaus in een Winterwinkel."
+    "backgroundWinterStorefrontNotes": "Koop cadeaus in een Winterwinkel.",
+    "backgrounds012017": "SET 32: Released January 2017",
+    "backgroundBlizzardText": "Blizzard",
+    "backgroundBlizzardNotes": "Brave a fierce Blizzard.",
+    "backgroundSparklingSnowflakeText": "Sparkling Snowflake",
+    "backgroundSparklingSnowflakeNotes": "Glide on a Sparkling Snowflake.",
+    "backgroundStoikalmVolcanoesText": "Stoïkalm Volcanoes",
+    "backgroundStoikalmVolcanoesNotes": "Explore the Stoïkalm Volcanoes."
 }

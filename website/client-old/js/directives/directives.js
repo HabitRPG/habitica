@@ -71,7 +71,8 @@ habitrpg.directive('questRewards', ['$rootScope', function($rootScope){
     restrict: 'AE',
     templateUrl: 'partials/options.social.party.quest-rewards.html',
     link: function(scope, element, attrs){
-      scope.header = attrs.header || 'Rewards';
+      scope.headerParticipant = attrs.headerParticipant || env.t('rewardsAllParticipants');
+      scope.headerQuestOwner = attrs.headerQuestOwner || env.t('rewardsQuestOwner');
       scope.quest = $rootScope.Content.quests[attrs.key];
     }
   }

@@ -92,5 +92,7 @@
     "petsReleased": "Kæledyr sluppet fri.",
     "mountsAndPetsReleased": "Ride- og kæledyr sluppet fri",
     "mountsReleased": "Ridedyr sluppet fri",
-    "gemsEach": "ædelsten hver"
+    "gemsEach": "ædelsten hver",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

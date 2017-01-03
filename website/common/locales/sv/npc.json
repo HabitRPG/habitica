@@ -1,5 +1,6 @@
 {
     "npc": "NPC",
+    "npcAchievementName": "<%= key %> NPC",
     "npcAchievementText": "Stödde Kickstarter-projektet på högsta nivån!",
     "mattBoch": "Matt Boch",
     "mattShall": "Ska jag hämta ditt riddjur,  <%= name %>? Så snart du har matat ett husdjur tillräckligt för att förvandla det till ett riddjur, visas det här. Klicka på ett riddjur för att rida på det!",

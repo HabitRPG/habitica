@@ -1,10 +1,10 @@
 {
-  "tipTitle": "Tip #<%= tipNumber %>",
+  "tipTitle": "Pont #<%= tipNumber %>",
   "tip1": "Check tasks on the go with the Habitica mobile apps.",
   "tip2": "Reach level 100 to unlock the Orb of Rebirth for free and start a new adventure!",
-  "tip3": "Use emoji to quickly differentiate between your tasks.",
+  "tip3": "Folosiți emoji pentru a diferenția rapid țelurile. ",
   "tip4": "Use the # sign before a task name to make it really big!",
-  "tip5": "It’s best to cast buffs in the morning so they last longer.",
+  "tip5": "Este recomandat să activați sporurile de dimineață, pentru a le face să dureze mai mult. ",
   "tip6": "Occasionally re-evaluate your tasks to make sure they’re up-to-date!",
   "tip7": "Some backgrounds connect perfectly if party members use the same background. Ex: Mountain Lake, Pagodas, and Rolling Hills.",
   "tip8": "Send a PM to someone by clicking the envelope near their name in chat!",

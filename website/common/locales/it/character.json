@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Ricorda che il tuo nome pubblico, la tua foto profilo e la tua descrizione personale devono rispettare le <a href='https://habitica.com/static/community-guidelines' target='_blank'>linee guida della Community</a> (ad esempio sono vietate profanità, argomenti per adulti, insulti, ecc.). Se vuoi sapere se ciò che hai scritto è appropriato, non esitare a inviare una e-mail a <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Ricorda che il tuo nome pubblico, la tua foto profilo e la tua descrizione personale devono rispettare le <a href='https://habitica.com/static/community-guidelines' target='_blank'>linee guida della community</a> (ad esempio sono vietate parolacce, argomenti per adulti, insulti, ecc.). Se vuoi sapere se ciò che hai scritto è appropriato, non esitare a inviare un'e-mail a <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "profile": "Profilo",
     "avatar": "Personalizza Avatar",
     "other": "Altro",
@@ -62,8 +62,8 @@
     "gearAchievement": "Hai ottenuto la medaglia \"Armato fino ai denti\" per aver potenziato al massimo livello l'equipaggiamento per una Classe! Hai completato questi set:",
     "moreGearAchievements": "Per sbloccare più medaglie \"Armato fino ai denti\", cambia classe nella tua <a href='/#/options/profile/stats' target='_blank'>pagina statistiche</a> e compra l'equipaggiamento per la tua nuova classe!",
     "armoireUnlocked": "Per altro equipaggiamento, prova lo <strong>Scrigno Incantato!</strong> Clicca sulla Ricompensa \"Scrigno Incantato\" per avere la possibilità di ricevere casualmente dell'equipaggiamento speciale! Potrebbe anche darti Esperienza o cibo.",
-    "ultimGearName": "Armato fino ai denti",
-    "ultimGearText": "Ha potenziato al massimo armi e armatura per le seguenti classi:",
+    "ultimGearName": "Armato fino ai denti - <%= ultClass %>",
+    "ultimGearText": "Ha potenziato al massimo armi e armatura per la classe <%= ultClass %>.",
     "level": "Livello",
     "levelUp": "Livello aumentato!",
     "gainedLevel": "Nuovo livello!",

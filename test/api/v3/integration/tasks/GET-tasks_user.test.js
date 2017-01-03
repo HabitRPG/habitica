@@ -115,7 +115,7 @@ describe('GET /tasks/user', () => {
     for (let i = 0; i < numberOfTodos; i++) {
       let id = todos[i]._id;
 
-      await user.post(`/tasks/${id}/score/up`); // eslint-disable-line babel/no-await-in-loop
+      await user.post(`/tasks/${id}/score/up`); // eslint-disable-line no-await-in-loop
     }
     await user.sync();
 

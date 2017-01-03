@@ -245,7 +245,7 @@ api.updateTask = {
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
-
+    let oldCheckList = task.checklist;
     // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
     let [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
 
@@ -253,6 +253,8 @@ api.updateTask = {
     let sanitizedObj;
 
     if (!challenge && task.userId && task.challenge && task.challenge.id) {
+      sanitizedObj = Tasks.Task.sanitizeUserChallengeTask(updatedTaskObj);
+    } else if (!group && task.userId && task.group && task.group.id) {
       sanitizedObj = Tasks.Task.sanitizeUserChallengeTask(updatedTaskObj);
     } else {
       sanitizedObj = Tasks.Task.sanitize(updatedTaskObj);
@@ -270,7 +272,15 @@ api.updateTask = {
     let savedTask = await task.save();
 
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
-      await group.updateTask(savedTask);
+      let updateCheckListItems = _.remove(sanitizedObj.checklist, function getCheckListsToUpdate (checklist) {
+        let indexOld = _.findIndex(oldCheckList,  function findIndex (check) {
+          return check.id === checklist.id;
+        });
+        if (indexOld !== -1) return checklist.text !== oldCheckList[indexOld].text;
+        return false; // Only return changes. Adding and remove are handled differently
+      });
+
+      await group.updateTask(savedTask, {updateCheckListItems});
     }
 
     res.respond(200, savedTask);
@@ -508,13 +518,16 @@ api.addChecklistItem = {
 
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-    task.checklist.push(Tasks.Task.sanitizeChecklist(req.body));
+    let newCheckListItem = Tasks.Task.sanitizeChecklist(req.body);
+    task.checklist.push(newCheckListItem);
     let savedTask = await task.save();
+
+    newCheckListItem.id = savedTask.checklist[savedTask.checklist.length - 1].id;
 
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
-      await group.updateTask(savedTask);
+      await group.updateTask(savedTask, {newCheckListItem});
     }
   },
 };
@@ -676,7 +689,7 @@ api.removeChecklistItem = {
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
-      await group.updateTask(savedTask);
+      await group.updateTask(savedTask, {removedCheckListItemId: req.params.itemId});
     }
   },
 };
@@ -941,6 +954,8 @@ api.deleteTask = {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.userId && task.challenge.id && !task.challenge.broken) {
       throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));
+    } else if (task.group.id && task.group.assignedUsers.indexOf(user._id) !== -1 && !task.group.broken) {
+      throw new NotAuthorized(res.t('cantDeleteAssignedGroupTasks'));
     }
 
     if (task.type !== 'todo' || !task.completed) {

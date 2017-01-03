@@ -104,5 +104,9 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       var nextRewardAt = currentLoginDay.nextRewardAt;
       return ($scope.profile.loginIncentives - previousRewardDay)/(nextRewardAt - previousRewardDay) * 100;
     };
+
+    $scope.achievements = Shared.achievements.getAchievementsForProfile($scope.profile);
+    $scope.achievPopoverPlacement = 'right';
+    $scope.achievAppendToBody = 'true'; // append-to-body breaks popovers in modal windows  
   }
 ]);

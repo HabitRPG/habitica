@@ -62,6 +62,7 @@ mixin petList(eggSource, potionSource)
     menu.inventory-list(type='list', ng-if='foodCount > 0')
       li.customize-menu
         menu.pets-menu(label=env.t('food'))
+          a(href=env.t('foodWikiUrl'), target='_blank')=env.t('foodWikiText')
           div(ng-repeat='(food,points) in ownedItems(user.items.food)')
             button.customize-option(popover-append-to-body='true', popover='{{:: Content.food[food].notes()}}', popover-title='{{:: Content.food[food].text()}}', popover-trigger='mouseenter', popover-placement='top', ng-click='chooseFood(food)', ng-class='{selectableInventory: selectedFood == Content.food[food]}', class='Pet_Food_{{::food}}')
               .badge.badge-info.stack-count {{points}}

@@ -13,6 +13,7 @@ import { groupChatReceivedWebhook } from '../libs/webhook';
 import {
   InternalServerError,
   BadRequest,
+  NotAuthorized,
 } from '../libs/errors';
 import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email';
@@ -578,6 +579,39 @@ schema.statics.cleanGroupQuest = function cleanGroupQuest () {
   };
 };
 
+function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
+  let updates = {
+    $set: {},
+    $inc: {},
+  };
+  let dropK = itemToAward.key;
+
+  switch (itemToAward.type) {
+    case 'gear': {
+      // TODO This means they can lose their new gear on death, is that what we want?
+      updates.$set[`items.gear.owned.${dropK}`] = true;
+      break;
+    }
+    case 'eggs':
+    case 'food':
+    case 'hatchingPotions':
+    case 'quests': {
+      updates.$inc[`items.${itemToAward.type}.${dropK}`] = _.where(allAwardedItems, {type: itemToAward.type, key: itemToAward.key}).length;
+      break;
+    }
+    case 'pets': {
+      updates.$set[`items.pets.${dropK}`] = 5;
+      break;
+    }
+    case 'mounts': {
+      updates.$set[`items.mounts.${dropK}`] = true;
+      break;
+    }
+  }
+  updates = _.omit(updates, _.isEmpty);
+  return updates;
+}
+
 async function _updateUserWithRetries (userId, updates, numTry = 1) {
   return await User.update({_id: userId}, updates).exec()
     .then((raw) => {
@@ -610,32 +644,17 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     updates.$set['party.quest'] = _cleanQuestProgress({completed: questK}); // clear quest progress
   }
 
-  _.each(quest.drop.items, (item) => {
-    let dropK = item.key;
-
-    switch (item.type) {
-      case 'gear': {
-        // TODO This means they can lose their new gear on death, is that what we want?
-        updates.$set[`items.gear.owned.${dropK}`] = true;
-        break;
-      }
-      case 'eggs':
-      case 'food':
-      case 'hatchingPotions':
-      case 'quests': {
-        updates.$inc[`items.${item.type}.${dropK}`] = _.where(quest.drop.items, {type: item.type, key: item.key}).length;
-        break;
-      }
-      case 'pets': {
-        updates.$set[`items.pets.${dropK}`] = 5;
-        break;
-      }
-      case 'mounts': {
-        updates.$set[`items.mounts.${dropK}`] = true;
-        break;
-      }
-    }
+  _.each(_.reject(quest.drop.items, 'onlyOwner'), (item) => {
+    _.merge(updates, _getUserUpdateForQuestReward(item, quest.drop.items));
   });
+
+  let questOwnerUpdates = {};
+  let questLeader = this.quest.leader;
+
+  _.each(_.filter(quest.drop.items, 'onlyOwner'), (item) => {
+    _.merge(questOwnerUpdates, _getUserUpdateForQuestReward(item, quest.drop.items));
+  });
+  _.merge(questOwnerUpdates, updates);
 
   let participants = this._id === TAVERN_ID ? {} : this.getParticipatingQuestMembers();
   this.quest = {};
@@ -646,7 +665,11 @@ schema.methods.finishQuest = async function finishQuest (quest) {
   }
 
   let promises = participants.map(userId => {
-    return _updateUserWithRetries(userId, updates);
+    if (userId === questLeader) {
+      return _updateUserWithRetries(userId, questOwnerUpdates);
+    } else {
+      return _updateUserWithRetries(userId, updates);
+    }
   });
 
   return Bluebird.all(promises);
@@ -859,6 +882,12 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   let group = this;
   let update = {};
 
+  let plan = group.purchased.plan;
+  if (group.memberCount <= 1 && group.privacy === 'private' && plan && plan.customerId && !plan.dateTerminated) {
+    throw new NotAuthorized(shared.i18n.t('cannotDeleteActiveGroup'));
+  }
+
+  // Unlink user challenge tasks
   let challenges = await Challenge.find({
     _id: {$in: user.challenges},
     group: group._id,
@@ -868,6 +897,17 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     return chal.unlinkTasks(user, keep);
   });
   await Bluebird.all(challengesToRemoveUserFrom);
+
+  // Unlink group tasks)
+  let assignedTasks = await Tasks.Task.find({
+    'group.id': group._id,
+    userId: {$exists: false},
+    'group.assignedUsers': user._id,
+  });
+  let assignedTasksToRemoveUserFrom = assignedTasks.map(task => {
+    return this.unlinkTask(task, user, keep);
+  });
+  await Bluebird.all(assignedTasksToRemoveUserFrom);
 
   let promises = [];
 
@@ -899,6 +939,13 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
       promises.push(group.remove());
       return await Bluebird.all(promises);
     }
+  } else if (group.leader === user._id) { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
+    let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
+    query._id = {$ne: user._id};
+    let seniorMember = await User.findOne(query).select('_id').exec();
+
+    // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
+    if (seniorMember) update.$set = {leader: seniorMember._id};
   }
   // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
   update.$inc = {memberCount: -1};
@@ -915,7 +962,16 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   return await Bluebird.all(promises);
 };
 
-schema.methods.updateTask = async function updateTask (taskToSync) {
+/**
+ * Updates all linked tasks for a group task
+ *
+ * @param  taskToSync  The group task that will be synced
+ * @param  options.newCheckListItem  The new checklist item that needs to be synced to all assigned users
+ * @param  options.removedCheckListItem  The removed checklist item that needs to be removed from all assigned users
+ *
+ * @return The created tasks
+ */
+schema.methods.updateTask = async function updateTask (taskToSync, options = {}) {
   let group = this;
 
   let updateCmd = {$set: {}};
@@ -926,14 +982,51 @@ schema.methods.updateTask = async function updateTask (taskToSync) {
   }
 
   updateCmd.$set['group.approval.required'] = taskToSync.group.approval.required;
+  updateCmd.$set['group.assignedUsers'] = taskToSync.group.assignedUsers;
 
   let taskSchema = Tasks[taskToSync.type];
-  // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
-  await taskSchema.update({
+
+  let updateQuery = {
     userId: {$exists: true},
     'group.id': group.id,
     'group.taskId': taskToSync._id,
-  }, updateCmd, {multi: true}).exec();
+  };
+
+  if (options.newCheckListItem) {
+    let newCheckList = {completed: false};
+    newCheckList.linkId = options.newCheckListItem.id;
+    newCheckList.text = options.newCheckListItem.text;
+    updateCmd.$push = { checklist: newCheckList };
+  }
+
+  if (options.removedCheckListItemId) {
+    updateCmd.$pull = { checklist: {linkId: {$in: [options.removedCheckListItemId]} } };
+  }
+
+  if (options.updateCheckListItems && options.updateCheckListItems.length > 0) {
+    let checkListIdsToRemove = [];
+    let checkListItemsToAdd = [];
+
+    options.updateCheckListItems.forEach(function gatherChecklists (updateCheckListItem) {
+      checkListIdsToRemove.push(updateCheckListItem.id);
+      let newCheckList = {completed: false};
+      newCheckList.linkId = updateCheckListItem.id;
+      newCheckList.text = updateCheckListItem.text;
+      checkListItemsToAdd.push(newCheckList);
+    });
+
+    updateCmd.$pull = { checklist: {linkId: {$in: checkListIdsToRemove} } };
+    await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
+
+    delete updateCmd.$pull;
+    updateCmd.$push = { checklist: { $each: checkListItemsToAdd } };
+    await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
+
+    return;
+  }
+
+  // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
+  await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
 };
 
 schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
@@ -952,11 +1045,13 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
     if (userTags[i].name !== group.name) {
       // update the name - it's been changed since
       userTags[i].name = group.name;
+      userTags[i].group = group._id;
     }
   } else {
     userTags.push({
       id: group._id,
       name: group.name,
+      group: group._id,
     });
   }
 
@@ -982,6 +1077,17 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   }
 
   matchingTask.group.approval.required = taskToSync.group.approval.required;
+  matchingTask.group.assignedUsers = taskToSync.group.assignedUsers;
+
+  //  sync checklist
+  if (taskToSync.checklist) {
+    taskToSync.checklist.forEach(function syncCheckList (element) {
+      let newCheckList = {completed: false};
+      newCheckList.linkId = element.id;
+      newCheckList.text = element.text;
+      matchingTask.checklist.push(newCheckList);
+    });
+  }
 
   if (!matchingTask.notes) matchingTask.notes = taskToSync.notes; // don't override the notes, but provide it if not provided
   if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id); // add tag if missing
@@ -1038,7 +1144,7 @@ if (!nconf.get('IS_TEST')) {
   model.count({_id: TAVERN_ID}, (err, ct) => {
     if (err) throw err;
     if (ct > 0) return;
-    new model({ // eslint-disable-line babel/new-cap
+    new model({ // eslint-disable-line new-cap
       _id: TAVERN_ID,
       leader: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0', // Siena Leslie
       name: 'Tavern',

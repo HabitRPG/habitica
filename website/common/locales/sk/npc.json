@@ -1,5 +1,6 @@
 {
     "npc": "NPC",
+    "npcAchievementName": "<%= key %> NPC",
     "npcAchievementText": "Backed the Kickstarter project at the maximum level!",
     "mattBoch": "Matúš Boch",
     "mattShall": "Smiem ti priviesť tvojho tátoša, <%= name %>? Raz ako vykŕmiš svoje zvieratko dosť na to, aby sa z neho stal tátoš, objaví sa tu. Klikni na toho, ktorého chceš osedlať!",

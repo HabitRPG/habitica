@@ -92,5 +92,7 @@
     "petsReleased": "Peliharaan dilepaskan.",
     "mountsAndPetsReleased": "Tunggangan dan Peliharaan dilepaskan",
     "mountsReleased": "Tunggangan dilepaskan",
-    "gemsEach": "permata setiap satuan"
+    "gemsEach": "permata setiap satuan",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

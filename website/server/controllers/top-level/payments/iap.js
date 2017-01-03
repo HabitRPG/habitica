@@ -120,12 +120,12 @@ api.iapiOSVerify = {
         let purchaseData = purchaseDataList[index];
         let token = purchaseData.transactionId;
 
-        let existingReceipt = await IapPurchaseReceipt.findOne({ // eslint-disable-line babel/no-await-in-loop
+        let existingReceipt = await IapPurchaseReceipt.findOne({ // eslint-disable-line no-await-in-loop
           _id: token,
         }).exec();
 
         if (!existingReceipt) {
-          await IapPurchaseReceipt.create({ // eslint-disable-line babel/no-await-in-loop
+          await IapPurchaseReceipt.create({ // eslint-disable-line no-await-in-loop
             _id: token,
             consumed: true,
             userId: user._id,
@@ -155,7 +155,7 @@ api.iapiOSVerify = {
           break;
         }
 
-        await payments.buyGems({ // eslint-disable-line babel/no-await-in-loop
+        await payments.buyGems({ // eslint-disable-line no-await-in-loop
           user,
           paymentMethod: 'IAP AppleStore',
           amount,

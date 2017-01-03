@@ -1,9 +1,9 @@
-var migrationName = '20161201_takeThis.js';
+var migrationName = '20161230_nye_hats.js';
 var authorName = 'Sabe'; // in case script author needs to know when their ...
 var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
 
 /*
- * Award Take This ladder items to participants in this month's challenge
+ * Yearly New Year's party hat award
  */
 
 var mongo = require('mongoskin');
@@ -15,12 +15,12 @@ var dbUsers = mongo.db(connectionString).collection('users');
 // specify a query to limit the affected users (empty for all users):
 var query = {
   'migration':{$ne:migrationName},
-  'challenges':{$in:['ff674aba-a114-4a6f-8ebc-1de27ffb646e']}
+  'auth.timestamps.loggedin':{$gt:new Date('2016-11-30')} // Remove after first run
 };
 
 // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
 var fields = {
-  'items.gear.owned': 1
+  'items.gear.owned': 1,
 };
 
 console.warn('Updating users...');
@@ -38,18 +38,14 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
   // specify user data to change:
   var set = {};
 
-  if (typeof user.items.gear.owned.body_special_takeThis !== 'undefined') {
-    set = {'migration':migrationName, 'items.gear.owned.back_special_takeThis':false};
-  } else if (typeof user.items.gear.owned.head_special_takeThis !== 'undefined') {
-    set = {'migration':migrationName, 'items.gear.owned.body_special_takeThis':false};
-  } else if (typeof user.items.gear.owned.armor_special_takeThis !== 'undefined') {
-    set = {'migration':migrationName, 'items.gear.owned.head_special_takeThis':false};
-  } else if (typeof user.items.gear.owned.weapon_special_takeThis !== 'undefined') {
-    set = {'migration':migrationName, 'items.gear.owned.armor_special_takeThis':false};
-  } else if (typeof user.items.gear.owned.shield_special_takeThis !== 'undefined') {
-    set = {'migration':migrationName, 'items.gear.owned.weapon_special_takeThis':false};
+  if (typeof user.items.gear.owned.head_special_nye2015 !== 'undefined') {
+    set = {'migration':migrationName, 'items.gear.owned.head_special_nye2016':false};
+  } else if (typeof user.items.gear.owned.head_special_nye2014 !== 'undefined') {
+    set = {'migration':migrationName, 'items.gear.owned.head_special_nye2015':false};
+  } else if (typeof user.items.gear.owned.head_special_nye !== 'undefined') {
+    set = {'migration':migrationName, 'items.gear.owned.head_special_nye2014':false};
   } else {
-    set = {'migration':migrationName, 'items.gear.owned.shield_special_takeThis':false};
+    set = {'migration':migrationName, 'items.gear.owned.head_special_nye':false};
   }
 
   dbUsers.update({_id:user._id}, {$set:set});
@@ -74,5 +70,4 @@ function exiting(code, msg) {
   }
   process.exit(code);
 }
-
 

@@ -300,6 +300,26 @@ describe('Post /groups/:groupId/invite', () => {
         message: t('userAlreadyInGroup'),
       });
     });
+
+    // @TODO: Add this after we are able to mock the group plan route
+    xit('returns an error when a non-leader invites to a group plan', async () => {
+      let userToInvite = await generateUser();
+
+      let nonGroupLeader = await generateUser();
+      await inviter.post(`/groups/${group._id}/invite`, {
+        uuids: [nonGroupLeader._id],
+      });
+      await nonGroupLeader.post(`/groups/${group._id}/join`);
+
+      await expect(nonGroupLeader.post(`/groups/${group._id}/invite`, {
+        uuids: [userToInvite._id],
+      }))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('onlyGroupLeaderCanInviteToGroupPlan'),
+      });
+    });
   });
 
   describe('party invites', () => {

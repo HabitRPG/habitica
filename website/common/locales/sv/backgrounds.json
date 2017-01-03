@@ -225,11 +225,18 @@
     "backgroundRedNotes": "En rolig röd bakgrund",
     "backgroundYellowText": "Gul",
     "backgroundYellowNotes": "En gullig gul bakgrund.",
-    "backgrounds122016": "SET 31: Released December 2016",
+    "backgrounds122016": "SET 31: Släpptes december 2016",
     "backgroundShimmeringIcePrismText": "Shimmering Ice Prisms",
     "backgroundShimmeringIcePrismNotes": "Dance through the Shimmering Ice Prisms.",
-    "backgroundWinterFireworksText": "Winter Fireworks",
+    "backgroundWinterFireworksText": "Vinterfyrverkerier",
     "backgroundWinterFireworksNotes": "Set off Winter Fireworks.",
-    "backgroundWinterStorefrontText": "Winter Shop",
-    "backgroundWinterStorefrontNotes": "Purchase presents from a Winter Shop."
+    "backgroundWinterStorefrontText": "Vinterbutik",
+    "backgroundWinterStorefrontNotes": "Köp gåvor från en vinterbutik.",
+    "backgrounds012017": "SET 32: Released January 2017",
+    "backgroundBlizzardText": "Blizzard",
+    "backgroundBlizzardNotes": "Brave a fierce Blizzard.",
+    "backgroundSparklingSnowflakeText": "Sparkling Snowflake",
+    "backgroundSparklingSnowflakeNotes": "Glide on a Sparkling Snowflake.",
+    "backgroundStoikalmVolcanoesText": "Stoïkalm Volcanoes",
+    "backgroundStoikalmVolcanoesNotes": "Explore the Stoïkalm Volcanoes."
 }

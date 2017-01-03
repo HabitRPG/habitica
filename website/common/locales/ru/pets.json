@@ -92,5 +92,7 @@
     "petsReleased": "Питомцы освобождены.",
     "mountsAndPetsReleased": "Скакуны и питомцы освобождены.",
     "mountsReleased": "Скакуны освобождены.",
-    "gemsEach": "самоцветов за каждый"
+    "gemsEach": "самоцветов за каждый",
+    "foodWikiText": "Что любит есть мой питомец?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

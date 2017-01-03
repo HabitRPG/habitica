@@ -10,7 +10,7 @@ import schema from './schema';
 schema.plugin(baseModel, {
   // noSet is not used as updating uses a whitelist and creating only accepts specific params (password, email, username, ...)
   noSet: [],
-  private: ['auth.local.hashed_password', 'auth.local.salt', '_cronSignature', '_ABtest'],
+  private: ['auth.local.hashed_password', 'auth.local.salt', '_cronSignature', '_ABtest', '_ABtests'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
     delete plainObj.filters;
@@ -78,6 +78,12 @@ function _setUpNewUser (user) {
   let iterableFlags = user.flags.toObject();
 
   user._ABtest = '';
+  // A/B test 2016-12-21: Should we deliver notifications for upcoming incentives on days when users don't receive rewards?
+  if (Math.random() < 0.5) {
+    user._ABtests.checkInModals = '20161221_noCheckInPreviews'; // no 'preview' check-in modals
+  } else {
+    user._ABtests.checkInModals = '20161221_showCheckInPreviews'; // show 'preview' check-in modals
+  }
   user.items.quests.dustbunnies = 1;
 
   if (user.registeredThrough === 'habitica-web' || user.registeredThrough === 'habitica-android') {
@@ -123,15 +129,21 @@ function _setProfileName (user) {
   return localUsername || _getFacebookName(user.auth.facebook) || googleUsername || anonymous;
 }
 
+schema.pre('validate', function preValidateUser (next) {
+  // Populate new user with profile name, not running in pre('save') because the field
+  // is required and validation fails if it doesn't exists like for new users
+  if (this.isNew && !this.profile.name) {
+    this.profile.name = _setProfileName(this);
+  }
+
+  next();
+});
+
 schema.pre('save', true, function preSaveUser (next, done) {
   next();
 
   if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
     this.preferences.dayStart = 0;
-  }
-
-  if (!this.profile.name) {
-    this.profile.name = _setProfileName(this);
   }
 
   // Determines if Beast Master should be awarded

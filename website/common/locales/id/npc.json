@@ -1,5 +1,6 @@
 {
     "npc": "NPC",
+    "npcAchievementName": "<%= key %> NPC",
     "npcAchievementText": "Mendukung proyek Kickstarter pada level maksimal!",
     "mattBoch": "Matt Boch",
     "mattShall": "Apakah kamu ingin saya membawa tungganganmu, <%= name %>? Ketika kamu memberi banyak makan pada peliharaan, mereka akan tumbuh cukup besar untuk ditunggangi. Silahkan pilih hewan yang ingin ditunggangi!",

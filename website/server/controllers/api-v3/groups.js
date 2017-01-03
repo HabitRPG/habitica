@@ -21,6 +21,9 @@ import { encrypt } from '../../libs/encryption';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import pusher from '../../libs/pusher';
 import common from '../../../common';
+import payments from '../../libs/payments';
+import shared from '../../../common';
+
 
 /**
  * @apiDefine GroupBodyInvalid
@@ -101,6 +104,95 @@ api.createGroup = {
     }
 
     res.analytics.track('join group', analyticsObject);
+
+    res.respond(201, response); // do not remove chat flags data as we've just created the group
+  },
+};
+
+/**
+ * @api {post} /api/v3/groups/create-plan Create a Group and then redirect to the correct payment
+ * @apiName CreateGroupPlan
+ * @apiGroup Group
+ *
+ * @apiSuccess {Object} data The created group
+ */
+api.createGroupPlan = {
+  method: 'POST',
+  url: '/groups/create-plan',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let group = new Group(Group.sanitize(req.body.groupToCreate));
+
+    req.checkBody('paymentType', res.t('paymentTypeRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    // @TODO: Change message
+    if (group.privacy !== 'private') throw new NotAuthorized(res.t('partyMustbePrivate'));
+    group.leader = user._id;
+    user.guilds.push(group._id);
+
+    let results = await Bluebird.all([user.save(), group.save()]);
+    let savedGroup = results[1];
+
+    // Analytics
+    let analyticsObject = {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      owner: true,
+      groupType: savedGroup.type,
+      privacy: savedGroup.privacy,
+      headers: req.headers,
+    };
+    res.analytics.track('join group', analyticsObject);
+
+    if (req.body.paymentType === 'Stripe') {
+      let token = req.body.id;
+      let gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
+      let sub = req.query.sub ? shared.content.subscriptionBlocks[req.query.sub] : false;
+      let groupId = savedGroup._id;
+      let email = req.body.email;
+      let headers = req.headers;
+      let coupon = req.query.coupon;
+
+      await payments.payWithStripe({
+        token,
+        user,
+        gift,
+        sub,
+        groupId,
+        email,
+        headers,
+        coupon,
+      });
+    } else if (req.body.paymentType === 'Amazon') {
+      let billingAgreementId = req.body.billingAgreementId;
+      let sub = req.body.subscription ? shared.content.subscriptionBlocks[req.body.subscription] : false;
+      let coupon = req.body.coupon;
+      let groupId = savedGroup._id;
+      let headers = req.headers;
+
+      await payments.subscribeWithAmazon({
+        billingAgreementId,
+        sub,
+        coupon,
+        user,
+        groupId,
+        headers,
+      });
+    }
+
+    // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
+    // await Q.ninvoke(savedGroup, 'populate', ['leader', nameFields]); // doc.populate doesn't return a promise
+    let response = savedGroup.toJSON();
+    // the leader is the authenticated user
+    response.leader = {
+      _id: user._id,
+      profile: {name: user.profile.name},
+    };
 
     res.respond(201, response); // do not remove chat flags data as we've just created the group
   },
@@ -303,6 +395,8 @@ api.joinGroup = {
 
     group.memberCount += 1;
 
+    if (group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
+
     let promises = [group.save(), user.save()];
 
     if (inviter) {
@@ -459,6 +553,8 @@ api.leaveGroup = {
 
     await group.leave(user, req.query.keep);
 
+    if (group.purchased.plan && group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
+
     _removeMessagesFromMember(user, group._id);
 
     await user.save();
@@ -468,9 +564,10 @@ api.leaveGroup = {
 };
 
 // Send an email to the removed user with an optional message from the leader
-function _sendMessageToRemoved (group, removedUser, message) {
+function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
   if (removedUser.preferences.emailNotifications.kickedGroup !== false) {
-    sendTxnEmail(removedUser, `kicked-from-${group.type}`, [
+    let subject = isInGroup ? `kicked-from-${group.type}` : `${group.type}-invite-rescinded`;
+    sendTxnEmail(removedUser, subject, [
       {name: 'GROUP_NAME', content: group.name},
       {name: 'MESSAGE', content: message},
       {name: 'GUILDS_LINK', content: '/#/options/groups/guilds/public'},
@@ -534,6 +631,7 @@ api.removeGroupMember = {
 
     if (isInGroup) {
       group.memberCount -= 1;
+      if (group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
 
       if (group.quest && group.quest.leader === member._id) {
         group.quest.key = undefined;
@@ -575,7 +673,7 @@ api.removeGroupMember = {
     }
 
     let message = req.query.message;
-    if (message) _sendMessageToRemoved(group, member, message);
+    _sendMessageToRemoved(group, member, message, isInGroup);
 
     await Bluebird.all([
       member.save(),
@@ -794,6 +892,8 @@ api.inviteToGroup = {
 
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (group.purchased && group.purchased.plan.customerId && user._id !== group.leader) throw new NotAuthorized(res.t('onlyGroupLeaderCanInviteToGroupPlan'));
 
     let uuids = req.body.uuids;
     let emails = req.body.emails;

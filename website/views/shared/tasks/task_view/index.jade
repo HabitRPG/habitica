@@ -27,7 +27,7 @@
       span.reward-cost {{task.value}}
 
   // Daily & Todos
-  span.task-checker.action-yesno(ng-if='::task.type=="daily" || task.type=="todo"')
+  span.task-checker.action-yesno(ng-if='::task.type=="daily" || task.type=="todo"', ng-class='{"group-yesno": !!obj.leader}')
     input.task-input.visuallyhidden.focusable(id='box-{{::obj._id}}_{{::task._id}}', type='checkbox',
       ng-model='task.completed', ng-if='$state.includes("tasks")',
       ng-change='changeCheck(task)'

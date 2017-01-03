@@ -98,7 +98,6 @@ describe('response middleware', () => {
         {
           type: notification.type,
           id: notification.id,
-          createdAt: notification.createdAt,
           data: {},
         },
       ],
