@@ -77,7 +77,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       if (task._editing) {
         $scope.saveTask(task);
       } else {
-        $scope.editTask(task, User.user);
+        $scope.editTask(task, User.user, Shared.taskClasses(task, [], User.user.preferences.dayStart));
       }
     }
 
