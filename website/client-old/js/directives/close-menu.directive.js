@@ -11,7 +11,7 @@
       restrict: 'A',
       link: function($scope, element, attrs) {
         element.on('click', function(event) {
-          if ($scope.$parent._expandedMenu) {
+          if ($scope.$parent && $scope.$parent._expandedMenu) {
             $scope.$parent._expandedMenu.menu = null;
           }
           if ($scope._expandedMenu) {
