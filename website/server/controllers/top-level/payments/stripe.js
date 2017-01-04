@@ -58,7 +58,7 @@ api.checkout = {
     if (sub) {
       if (sub.discount) {
         if (!req.query.coupon) throw new BadRequest(res.t('couponCodeRequired'));
-        coupon = await Coupon.findOne({_id: cc.validate(req.query.coupon), event: sub.key});
+        coupon = await Coupon.findOne({_id: cc.validate(req.query.coupon), event: sub.key}).exec();
         if (!coupon) throw new BadRequest(res.t('invalidCoupon'));
       }
 
@@ -114,7 +114,7 @@ api.checkout = {
       };
 
       if (gift) {
-        let member = await User.findById(gift.uuid);
+        let member = await User.findById(gift.uuid).exec();
         gift.member = member;
         if (gift.type === 'subscription') method = 'createSubscription';
         data.paymentMethod = 'Stripe (Gift)';
