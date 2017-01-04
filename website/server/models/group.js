@@ -461,7 +461,7 @@ schema.methods.startQuest = async function startQuest (user) {
   let partyId = this._id;
   let questMembers = this.quest.members;
   await Bluebird.map(Object.keys(this.quest.members), async (memberId) => {
-    let member = await User.findOne({_id: memberId, 'party._id': partyId}).select('_id').lean();
+    let member = await User.findOne({_id: memberId, 'party._id': partyId}).select('_id').lean().exec();
 
     if (!member) {
       delete questMembers[memberId];
@@ -553,7 +553,7 @@ schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWeb
     query.guilds = this._id;
   }
 
-  User.find(query).select({webhooks: 1}).lean().then((users) => {
+  User.find(query).select({webhooks: 1}).lean().exec().then((users) => {
     users.forEach((user) => {
       let { webhooks } = user;
       groupChatReceivedWebhook.send(webhooks, {
@@ -797,7 +797,7 @@ schema.statics.processQuestProgress = async function processQuestProgress (user,
   });
 };
 
-// to set a boss: `db.groups.update({_id:TAVERN_ID},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}})`
+// to set a boss: `db.groups.update({_id:TAVERN_ID},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}}).exec()`
 // we export an empty object that is then populated with the query-returned data
 export let tavernQuest = {};
 let tavernQ = {_id: TAVERN_ID, 'quest.key': {$ne: null}};
@@ -891,7 +891,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   let challenges = await Challenge.find({
     _id: {$in: user.challenges},
     group: group._id,
-  });
+  }).exec();
 
   let challengesToRemoveUserFrom = challenges.map(chal => {
     return chal.unlinkTasks(user, keep);
@@ -903,7 +903,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     'group.id': group._id,
     userId: {$exists: false},
     'group.assignedUsers': user._id,
-  });
+  }).exec();
   let assignedTasksToRemoveUserFrom = assignedTasks.map(task => {
     return this.unlinkTask(task, user, keep);
   });

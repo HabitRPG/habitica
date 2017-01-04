@@ -31,7 +31,7 @@ async function getAuthorEmailFromMessage (message) {
     return 'system';
   }
 
-  let author = await User.findOne({_id: authorId}, {auth: 1});
+  let author = await User.findOne({_id: authorId}, {auth: 1}).exec();
 
   if (author) {
     return getUserInfo(author, ['email']).email;
@@ -182,7 +182,7 @@ api.likeChat = {
     await Group.update(
       {_id: group._id, 'chat.id': message.id},
       update
-    );
+    ).exec();
     res.respond(200, message); // TODO what if the message is flagged and shouldn't be returned?
   },
 };
@@ -257,7 +257,7 @@ api.flagChat = {
     await Group.update(
       {_id: group._id, 'chat.id': message.id},
       update
-    );
+    ).exec();
 
     let reporterEmailContent = getUserInfo(user, ['email']).email;
     let authorEmail = await getAuthorEmailFromMessage(message);
@@ -344,7 +344,7 @@ api.clearChatFlags = {
     await Group.update(
       {_id: group._id, 'chat.id': message.id},
       {$set: {'chat.$.flagCount': message.flagCount}}
-    );
+    ).exec();
 
     let adminEmailContent = getUserInfo(user, ['email']).email;
     let authorEmail = getAuthorEmailFromMessage(message);
@@ -454,7 +454,7 @@ api.deleteChat = {
     await Group.update(
       {_id: group._id},
       {$pull: {chat: {id: chatId}}}
-    );
+    ).exec();
 
     if (chatUpdated) {
       let chatRes = Group.toJSONCleanChat(group, user).chat;
