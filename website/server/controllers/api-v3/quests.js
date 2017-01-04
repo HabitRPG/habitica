@@ -77,7 +77,8 @@ api.inviteToQuest = {
     let members = await User.find({
       'party._id': group._id,
       _id: {$ne: user._id},
-    }).select('auth.facebook auth.local preferences.emailNotifications profile.name pushDevices')
+    })
+    .select('auth.facebook auth.local preferences.emailNotifications profile.name pushDevices')
     .exec();
 
     group.markModified('quest');
@@ -376,7 +377,7 @@ api.cancelQuest = {
         {'party._id': groupId},
         {$set: {'party.quest': Group.cleanQuestProgress()}},
         {multi: true}
-      ),
+      ).exec(),
     ]);
 
     res.respond(200, savedGroup.quest);

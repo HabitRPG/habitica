@@ -157,9 +157,17 @@ api.getChallengeTasks = {
     let user = res.locals.user;
     let challengeId = req.params.challengeId;
 
-    let challenge = await Challenge.findOne({_id: challengeId}).select('group leader tasksOrder').exec();
+    let challenge = await Challenge.findOne({
+      _id: challengeId,
+    }).select('group leader tasksOrder').exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-    let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true});
+
+    let group = await Group.getGroup({
+      user,
+      groupId: challenge.group,
+      fields: '_id type privacy',
+      optionalMembership: true,
+    });
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     let tasks = await getTasks(req, res, {user, challenge});
@@ -339,7 +347,8 @@ api.scoreTask = {
       task.group.approval.requestedDate = new Date();
 
       let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
-      let groupLeader = await User.findById(group.leader); // Use this method so we can get access to notifications
+      let groupLeader = await User.findById(group.leader).exec(); // Use this method so we can get access to notifications
+
       groupLeader.addNotification('GROUP_TASK_APPROVAL', {
         message: res.t('userHasRequestedTaskApproval', {
           user: user.profile.name,
