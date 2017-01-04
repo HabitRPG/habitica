@@ -93,13 +93,13 @@ async function _getUserDataForExport (user) {
     userId: user._id,
   }).exec();
 
-  tasks = _.chain(tasks)
+  _.chain(tasks)
     .map(task => task.toJSON())
     .groupBy(task => task.type)
     .each((tasksPerType, taskType) => {
       userData.tasks[`${taskType}s`] = tasksPerType;
     })
-    .value();
+    .value(); // to force evaluation
 
   return userData;
 }

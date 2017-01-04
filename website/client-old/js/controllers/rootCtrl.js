@@ -18,6 +18,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
         $timeout(function () {
           if (window.env.IS_MOBILE || User.user.preferences.stickyHeader === false) return;
           $('.header-wrap').sticky({topSpacing:0});
+          $(window).resize(function() {$('.header-wrap').sticky('update');});
         });
 
         // Remove listener
@@ -287,7 +288,8 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     }
 
     $rootScope.purchase = function(type, item){
-      if (type == 'special') return User.buySpecialSpell({params:{key:item.key}});
+      if (type === 'special') return User.buySpecialSpell({params:{key:item.key}});
+      if (type === 'card') return $scope.castStart(Content.spells.special[item.key]);
 
       var gems = user.balance * 4;
       var price = item.value;

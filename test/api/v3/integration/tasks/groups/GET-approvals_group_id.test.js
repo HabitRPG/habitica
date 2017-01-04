@@ -34,7 +34,12 @@ describe('GET /approvals/group/:groupId', () => {
 
     let memberTasks = await member.get('/tasks/user');
     syncedTask = find(memberTasks, findAssignedTask);
-    await member.post(`/tasks/${syncedTask._id}/score/up`);
+
+    try {
+      await member.post(`/tasks/${syncedTask._id}/score/up`);
+    } catch (e) {
+      // eslint-disable-next-line no-empty
+    }
   });
 
   it('errors when user is not the group leader', async () => {

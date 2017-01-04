@@ -1,5 +1,6 @@
 {
     "npc": "PNJ",
+    "npcAchievementName": "<%= key %> PNJ",
     "npcAchievementText": "A soutenu le projet Kickstarter à son niveau maximum!",
     "mattBoch": "Matt Boch",
     "mattShall": "Dois-je préparer votre coursier, <%= name %> ? Lorsque vous avez assez nourri un animal pour qu'il devienne une fière monture, il apparaît ici. Cliquez sur une monture pour monter en selle !",
@@ -83,7 +84,7 @@
     "tourChallengesPage": "Les Défis sont des listes de tâches à thème créées par des membres ! Rejoindre un Défi ajoutera ses tâches à votre compte. Rivalisez avec d'autres membres pour gagner des Gemmes !",
     "tourMarketPage": "A partir du niveau 3, des œufs et des potions d'éclosion apparaîtront au hasard comme butin lorsque vous réaliserez vos tâches. Ils apparaissent ici - utilisez-les pour faire éclore des Familiers ! Vous pouvez aussi acheter des objets au Marché.",
     "tourHallPage": "Bienvenue au Panthéon des Héros, où les contributeurs et contributrices open-source d'Habitica sont honorés. Que ce soit par le code, les illustrations, la musique, l'écriture ou simplement par leur obligeance, ils ont gagné des Gemmes, de l'équipement exclusif et des titres prestigieux. Vous pouvez vous aussi contribuer à Habitica !",
-    "tourPetsPage": "Voici l'Écurie ! Après avoir passé le niveau 3, vous pouvez faire éclore vos familiers grâce à vos œufs et potions. Lorsque vous faites éclore un animal au Marché, il apparaît ici ! Cliquez sur l'image d'un animal pour le faire rejoindre votre avatar. Donnez à vos familiers la nourriture que vous trouvez dès la fin du niveau 3, et ils deviendront de puissantes montures.",
+    "tourPetsPage": "Bienvenue à l'Écurie ! Je suis Matt, le Maître des Bêtes. Après avoir passé le niveau 3, vous pourrez collecter des œufs de familiers et des potions d'éclosion en accomplissant vos tâches. Lorsque vous faites éclore un œuf de familier au Marché, il apparaît ici ! Cliquez sur l'image d'un animal pour le faire rejoindre votre avatar. Donnez à vos familiers la nourriture que vous trouvez dès la fin du niveau 3, et ils deviendront de puissantes montures.",
     "tourMountsPage": "Lorsque vous avez assez nourri un animal pour qu'il devienne une fière monture, il apparaîtra ici. (les familiers, les montures et la nourriture sont accessibles à la fin du niveau 3.) Cliquez sur une monture pour monter en selle !",
     "tourEquipmentPage": "C'est ici que vous rangez votre Équipement ! Votre Tenue de Combat influe sur vos stats. Si vous voulez que votre avatar arbore un équipement différent sans changer vos stats, cochez \"Utiliser un Costume\".",
     "equipmentAlreadyOwned": "Vous avez déjà acheté cette pièce d'équipement.",

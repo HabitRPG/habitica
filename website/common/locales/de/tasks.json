@@ -78,12 +78,13 @@
     "startDate": "Starttermin",
     "startDateHelpTitle": "Wann soll diese Aufgabe beginnen?",
     "startDateHelp": "Setze das Datum fest, ab dem diese Aufgabe in Kraft tritt. Davor wird sie nicht fällig werden.",
-    "streakName": "Strähnenerfolg(e)",
-    "streakText": "Hat <%= streaks %> 21-Tage-Strähnen von täglichen Aufgaben erreicht",
+    "streaks": "Strähnenerfolge",
+    "streakName": "<%= count %> Strähnenerfolg(e)",
+    "streakText": "Hat <%= count %> 21-Tage-Strähnen täglicher Aufgaben erreicht",
     "streakSingular": "Perfektionist",
     "streakSingularText": "Hat eine 21-tägige Strähne bei einer täglichen Aufgabe erreicht",
-    "perfectName": "Perfekte Tage",
-    "perfectText": "Du hast alle täglichen Aufgaben an <%= perfects %> Tagen erfüllt. Mit diesem Erfolg erhältst Du eine Level/2 Stärkung aller Attribute für den nächsten Tag. Alle Level über 100 haben keine zusätzliche Auswirkung auf die Attribute.",
+    "perfectName": "<%= count %> perfekte Tage",
+    "perfectText": "Hat alle fälligen täglichen Aufgaben an <%= count %> Tagen erfüllt. Mit diesem Erfolg erhältst Du eine +Level/2 Stärkung aller Attribute für den nächsten Tag. Level über 100 haben keinen zusätzlichen Einfluss auf die Stärkung.",
     "perfectSingular": "Perfekt(e) Tag(e)",
     "perfectSingularText": "Du hast alle täglichen Aufgaben an einem Tag erfüllt. Mit diesem Erfolg erhältst Du eine Level/2 Stärkung aller Attribute für den nächsten Tag. Alle Level über 100 haben keine zusätzliche Auswirkung auf die Attribute.",
     "streakerAchievement": "Du hast den Erfolg \"Perfektionist\" erlangt! Die 21-Tages-Marke ist ein Meilenstein für das Bilden von Gewohnheiten. Du erhältst diesen Erfolg alle 21 Tage neu (gestapelt), auch für dieselbe tägliche Aufgabe.",
@@ -135,6 +136,8 @@
     "intelligenceExample": "Alles was mit Schule zu tun hat oder sonst Deinen Kopf anstrengt",
     "perceptionExample": "Alles was mit Arbeit oder Finanzen zu tun hat",
     "constitutionExample": "Alles was mit Gesundheit, Wohlbefinden und sozialen Kontakten zu tun hat.",
-    "taskRequiresApproval": "Diese Aufgabe muss genehmigt werden, bevor du sie abschließen kannst. Eine Genehmigung wurde bereits angefragt.",
-    "taskApprovalHasBeenRequested": "Die Genehmigung wurde angefragt."
+    "taskRequiresApproval": "Dieser Aufgabe muss zugestimmt werden, bevor du sie abschließen kannst. Eine Zustimmung wurde bereits angefragt.",
+    "taskApprovalHasBeenRequested": "Die Zustimmung wurde angefragt.",
+    "approvals": "Zustimmungen",
+    "approvalRequired": "Zustimmung benötigt"
 }

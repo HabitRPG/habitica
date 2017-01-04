@@ -137,7 +137,7 @@ script(id='modals/achievements/partyUp.html', type='text/ng-template')
     .modal-body.text-center
       h3(style='margin-bottom:0')=env.t('modalAchievement')
       +achievementAvatar('partyUp',0)
-      p=env.t('partyUpAchievement')
+      p=env.t('partyUpText')
       br
       button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
     +achievementFooter
@@ -148,7 +148,7 @@ script(id='modals/achievements/partyOn.html', type='text/ng-template')
     .modal-body.text-center
       h3(style='margin-bottom:0')=env.t('modalAchievement')
       +achievementAvatar('partyOn',0)
-      p=env.t('partyOnAchievement')
+      p=env.t('partyOnText')
       br
       button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
     +achievementFooter

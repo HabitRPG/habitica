@@ -1,10 +1,14 @@
 {
     "pets": "Zveri",
+    "activePet": "Active Pet",
+    "noActivePet": "No Active Pet",
     "petsFound": "Zveri nađeno",
     "magicPets": "ljubimci magičnih napitaka",
     "rarePets": "Retke zveri",
     "questPets": "Zveri iz misija",
     "mounts": "Zveri za jahanje",
+    "activeMount": "Active Mount",
+    "noActiveMount": "No Active Mount",
     "mountsTamed": "Zveri za jahanje",
     "questMounts": "Zveri za jahanje iz misija",
     "magicMounts": "Magic Potion Mounts",
@@ -88,5 +92,7 @@
     "petsReleased": "Ljubimci oslobođeni.",
     "mountsAndPetsReleased": "Životinje za jahanje i ljubimci su oslobođeni.",
     "mountsReleased": "Mounts released",
-    "gemsEach": "dragulja"
+    "gemsEach": "dragulja",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

@@ -1,9 +1,12 @@
 {
   "extends": [
     "habitrpg/browser",
-    "habitrpg/babel"
+    "habitrpg/esnext"
   ],
   "plugins": [
     "html"
-  ]
+  ],
+  "globals": {
+    "$": true,
+  }
 }

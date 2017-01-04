@@ -29,9 +29,9 @@ api.getFrontPage = {
 };
 
 let staticPages = ['front', 'privacy', 'terms', 'features',
-            'videos', 'contact', 'plans', 'new-stuff', 'community-guidelines',
-            'old-news', 'press-kit', 'faq', 'overview', 'apps',
-            'clear-browser-data', 'merch', 'maintenance-info'];
+                   'videos', 'contact', 'plans', 'new-stuff', 'community-guidelines',
+                   'old-news', 'press-kit', 'faq', 'overview', 'apps',
+                   'clear-browser-data', 'merch', 'maintenance-info'];
 
 _.each(staticPages, (name) => {
   api[`get${name}Page`] = {

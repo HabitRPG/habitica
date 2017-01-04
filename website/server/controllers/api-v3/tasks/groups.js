@@ -1,5 +1,4 @@
 import { authWithHeaders } from '../../../middlewares/auth';
-import ensureDevelpmentMode from '../../../middlewares/ensureDevelpmentMode';
 import Bluebird from 'bluebird';
 import * as Tasks from '../../../models/task';
 import { model as Group } from '../../../models/group';
@@ -22,7 +21,6 @@ let api = {};
  * @apiDescription Can be passed an object to create a single task or an array of objects to create multiple tasks.
  * @apiName CreateGroupTasks
  * @apiGroup Task
- * @apiIgnore
  *
  * @apiParam {UUID} groupId The id of the group the new task(s) will belong to
  *
@@ -31,7 +29,7 @@ let api = {};
 api.createGroupTasks = {
   method: 'POST',
   url: '/tasks/group/:groupId',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
 
@@ -55,7 +53,6 @@ api.createGroupTasks = {
  * @api {get} /api/v3/tasks/group/:groupId Get a group's tasks
  * @apiName GetGroupTasks
  * @apiGroup Task
- * @apiIgnore
  *
  * @apiParam {UUID} groupId The id of the group from which to retrieve the tasks
  * @apiParam {string="habits","dailys","todos","rewards"} type Optional query parameter to return just a type of tasks
@@ -65,7 +62,7 @@ api.createGroupTasks = {
 api.getGroupTasks = {
   method: 'GET',
   url: '/tasks/group/:groupId',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
     req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
@@ -97,7 +94,7 @@ api.getGroupTasks = {
 api.assignTask = {
   method: 'POST',
   url: '/tasks/:taskId/assign/:assignedUserId',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('assignedUserId', res.t('userIdRequired')).notEmpty().isUUID();
@@ -120,12 +117,22 @@ api.assignTask = {
       throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
     }
 
-    let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+    let groupFields = `${requiredGroupFields} chat`;
+    let group = await Group.getGroup({user, groupId: task.group.id, fields: groupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leader !== user._id && user._id !== assignedUserId) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
-    await group.syncTask(task, assignedUser);
+    // User is claiming the task
+    if (user._id === assignedUserId) {
+      let message = res.t('userIsClamingTask', {username: user.profile.name, task: task.text});
+      group.sendChat(message, user);
+    }
+
+    let promises = [];
+    promises.push(group.syncTask(task, assignedUser));
+    promises.push(group.save());
+    await Bluebird.all(promises);
 
     res.respond(200, task);
   },
@@ -145,7 +152,7 @@ api.assignTask = {
 api.unassignTask = {
   method: 'POST',
   url: '/tasks/:taskId/unassign/:assignedUserId',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('assignedUserId', res.t('userIdRequired')).notEmpty().isUUID();
@@ -194,7 +201,7 @@ api.unassignTask = {
 api.approveTask = {
   method: 'POST',
   url: '/tasks/:taskId/approve/:userId',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('userId', res.t('userIdRequired')).notEmpty().isUUID();
@@ -225,7 +232,15 @@ api.approveTask = {
     task.group.approval.approvingUser = user._id;
     task.group.approval.approved = true;
 
-    assignedUser.addNotification('GROUP_TASK_APPROVAL', {message: res.t('yourTaskHasBeenApproved')});
+    assignedUser.addNotification('GROUP_TASK_APPROVED', {
+      message: res.t('yourTaskHasBeenApproved', {taskText: task.text}),
+      groupId: group._id,
+    });
+
+    assignedUser.addNotification('SCORED_TASK', {
+      message: res.t('yourTaskHasBeenApproved', {taskText: task.text}),
+      scoreTask: task,
+    });
 
     await Bluebird.all([assignedUser.save(), task.save()]);
 
@@ -238,7 +253,6 @@ api.approveTask = {
  * @apiVersion 3.0.0
  * @apiName GetGroupApprovals
  * @apiGroup Task
- * @apiIgnore
  *
  * @apiParam {UUID} groupId The id of the group from which to retrieve the approvals
  *
@@ -247,7 +261,7 @@ api.approveTask = {
 api.getGroupApprovals = {
   method: 'GET',
   url: '/approvals/group/:groupId',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
 
@@ -266,7 +280,9 @@ api.getGroupApprovals = {
       'group.id': groupId,
       'group.approval.approved': false,
       'group.approval.requested': true,
-    }, 'userId group').exec();
+    }, 'userId group text')
+    .populate('userId', 'profile')
+    .exec();
 
     res.respond(200, approvals);
   },

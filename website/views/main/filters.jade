@@ -34,8 +34,9 @@
               button(type='button', ng-click='User.deleteTag({params:{id:tag.id}})')
                 span.glyphicon.glyphicon-trash
         ul(ng-if='!_editing', hrpg-sort-tags)
-          li.filters-tags(ng-class='{active: user.filters[tag.id], challenge: tag.challenge}', ng-repeat='tag in user.tags', bindonce='user.tags')
+          li.filters-tags(ng-class='{active: user.filters[tag.id], challenge: showChallengeClass(tag)}', ng-repeat='tag in user.tags', bindonce='user.tags')
             a(ng-click='toggleFilter(tag)')
               span.glyphicon.glyphicon-bullhorn(ng-if="::tag.challenge")
               markdown(text='tag.name')
+                | {{tag}}
               // <li class="{#unless activeFilters(users[_userId].filters)}hidden{/}">

@@ -10,6 +10,11 @@
     "questDetails": "Quest-detaljer",
     "invitations": "Invitationer",
     "completed": "Færdig!",
+    "rewardsAllParticipants": "Rewards for all Quest Participants",
+    "rewardsQuestOwner": "Additional Rewards for Quest Owner",
+    "questOwnerReceived": "The Quest Owner Has Also Received",
+    "youWillReceive": "You Will Receive",
+    "questOwnerWillReceive": "The Quest Owner Will Also Receive",
     "youReceived": "Du har modtaget",
     "dropQuestCongrats": "Tillykke med denne quest-skriftrulle! Du kan invitere venner for at starte questen nu, eller vende tilbage til den når som helst i Inventar > Quests.",
     "questSend": "Ved at klikke \"Invitér\" sender du en invitation til alle gruppemedlemmer. Når alle medlemmer har accepteret eller afvist vil questen begynde. Se status under Social > Gruppe.",
@@ -101,5 +106,10 @@
     "cantCancelActiveQuest": "You can not cancel an active quest, use the abort functionality.",
     "onlyLeaderCancelQuest": "Only the group or quest leader can cancel the quest.",
     "questNotPending": "There is no quest to start.",
-    "questOrGroupLeaderOnlyStartQuest": "Only the quest leader or group leader can force start the quest"
+    "questOrGroupLeaderOnlyStartQuest": "Only the quest leader or group leader can force start the quest",
+    "createAccountReward": "Create Account",
+    "loginIncentiveQuest": "To earn this quest, check in to Habitica on <%= count %> different days!",
+    "loginIncentiveQuestObtained": "You earned this quest by checking in to Habitica on <%= count %> different days!",
+    "loginReward": "<%= count %> Check-ins",
+    "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too."
 }

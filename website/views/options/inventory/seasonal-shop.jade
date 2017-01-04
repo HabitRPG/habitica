@@ -1,17 +1,17 @@
 .container-fluid
   .stable.row: .col-xs-12
-    div(class="#{env.worldDmg.seasonalShop ? 'seasonalshop_broken' : 'seasonalshop_closed'}").pull-left-sm.col-centered
+    div(class="#{env.worldDmg.seasonalShop ? 'seasonalshop_broken' : 'seasonalshop_open'}").pull-left-sm.col-centered
     .popover.static-popover.fade.right.in.pull-left-sm.col-centered
       .arrow.hidden-xs
       h3.popover-title!=env.t('seasonalShopTitle', {linkStart:"<a href='http://blog.habitrpg.com/who' target='_blank'>", linkEnd: "</a>"})
       .popover-content
-        p(ng-if='!env.worldDmg.seasonalShop')!=env.t('seasonalShopClosedText')
-        p(ng-if='env.worldDmg.seasonalShop')!=env.t('seasonalShopClosedText')
+        p(ng-if='!env.worldDmg.seasonalShop')!=env.t('seasonalShopWinterText')
+        p(ng-if='env.worldDmg.seasonalShop')!=env.t('seasonalShopWinterText')
 
   li.customize-menu.inventory-gear
     menu.pets-menu(label='{{category.text}}', ng-repeat='category in seasonalShopCategories')
       div(ng-repeat='item in category.items', ng-if='!user.items.gear.owned[item.key]')
-        button.customize-option(class='shop_{{item.key}}',
+        button.customize-option(class='{{item.class}}',
           popover='{{item.notes}}', popover-title='{{item.text}}',
           popover-trigger='mouseenter', popover-placement='right',
           popover-append-to-body='true',
@@ -19,3 +19,13 @@
         div
           | {{item.value}}
           span(ng-class="{ 'shop_gold': item.currency === 'gold', 'Pet_Currency_Gem1x inline-gems': item.currency === 'gems'}")
+      // div(ng-if='category.identifier === "spells"')
+        button.customize-option(class='inventory_special_nye',
+        popover='{{::Content.spells.special.nye.notes()}}',
+        popover-title='{{::Content.spells.special.nye.text()}}',
+        popover-trigger='mouseenter', popover-placement='right',
+        popover-append-to-body='true',
+        ng-click='castStart(Content.spells.special.nye)')
+        p
+          | {{Content.spells.special.nye.value}}
+          span(class='shop_gold')

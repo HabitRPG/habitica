@@ -20,15 +20,26 @@ schema.methods.getGroups = function getUserGroups () {
   return userGroups;
 };
 
-schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, message) {
-  let sender = this;
 
-  common.refPush(userToReceiveMessage.inbox.messages, chatDefaults(message, sender));
+/**
+ * Sends a message to a user. Archives a copy in sender's inbox.
+ *
+ * @param  userToReceiveMessage  The receiver
+ * @param  options
+ * @param  options.receiverMsg   The message to send to the receiver
+ * @param  options.senderMsg     The message to archive instead of receiverMsg
+ * @return N/A
+ */
+schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, options) {
+  let sender = this;
+  let senderMsg = options.senderMsg || options.receiverMsg;
+
+  common.refPush(userToReceiveMessage.inbox.messages, chatDefaults(options.receiverMsg, sender));
   userToReceiveMessage.inbox.newMessages++;
   userToReceiveMessage._v++;
   userToReceiveMessage.markModified('inbox.messages');
 
-  common.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(message, userToReceiveMessage)));
+  common.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(senderMsg, userToReceiveMessage)));
   sender.markModified('inbox.messages');
 
   let promises = [userToReceiveMessage.save(), sender.save()];

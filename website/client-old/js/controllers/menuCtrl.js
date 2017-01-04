@@ -1,16 +1,17 @@
 'use strict';
 
 angular.module('habitrpg')
-  .controller('MenuCtrl', ['$scope', '$rootScope', '$http', 'Chat', 'Content',
-    function($scope, $rootScope, $http, Chat, Content) {
+  .controller('MenuCtrl', ['$scope', '$rootScope', '$http', 'Chat', 'Content', 'User', '$state',
+    function($scope, $rootScope, $http, Chat, Content, User, $state) {
 
       $scope.logout = function() {
         localStorage.clear();
         window.location.href = '/logout';
       };
 
-      function selectNotificationValue(mysteryValue, invitationValue, cardValue, unallocatedValue, messageValue, noneValue) {
+      function selectNotificationValue(mysteryValue, invitationValue, cardValue, unallocatedValue, messageValue, noneValue, groupApprovalRequested, groupApproved) {
         var user = $scope.user;
+
         if (user.purchased && user.purchased.plan && user.purchased.plan.mysteryItems && user.purchased.plan.mysteryItems.length) {
           return mysteryValue;
         } else if ((user.invitations.party && user.invitations.party.id) || (user.invitations.guilds && user.invitations.guilds.length > 0)) {
@@ -21,6 +22,14 @@ angular.module('habitrpg')
           return unallocatedValue;
         } else if (!(_.isEmpty(user.newMessages))) {
           return messageValue;
+        } else if (!_.isEmpty(user.groupNotifications)) {
+          var groupNotificationTypes = _.pluck(user.groupNotifications, 'type');
+          if (groupNotificationTypes.indexOf('GROUP_TASK_APPROVAL') !== -1) {
+            return groupApprovalRequested;
+          } else if (groupNotificationTypes.indexOf('GROUP_TASK_APPROVED') !== -1) {
+            return groupApproved;
+          }
+          return noneValue;
         } else {
           return noneValue;
         }
@@ -97,12 +106,28 @@ angular.module('habitrpg')
           'glyphicon-envelope',
           'glyphicon-plus-sign',
           'glyphicon-comment',
-          'glyphicon-comment inactive'
+          'glyphicon-comment inactive',
+          'glyphicon-question-sign',
+          'glyphicon glyphicon-ok-sign'
         );
       };
 
       $scope.hasNoNotifications = function() {
-        return selectNotificationValue(false, false, false, false, false, true);
-      }
+        return selectNotificationValue(false, false, false, false, false, true, false);
+      };
+
+      $scope.viewGroupApprovalNotification = function (notification, $index) {
+        User.readNotification(notification.id);
+        User.user.groupNotifications.splice($index, 1);
+        $state.go("options.social.guilds.detail", {gid: notification.data.groupId});
+      };
+
+      $scope.groupApprovalNotificationIcon = function (notification) {
+        if (notification.type === 'GROUP_TASK_APPROVAL') {
+          return 'glyphicon glyphicon-question-sign';
+        } else if (notification.type === 'GROUP_TASK_APPROVED') {
+          return 'glyphicon glyphicon-ok-sign';
+        }
+      };
     }
 ]);

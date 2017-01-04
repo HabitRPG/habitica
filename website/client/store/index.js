@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import state from './state';
-import * as actions from './actions';
-import * as getters from './getters';
+import actions from './actions';
+import getters from './getters';
 
 // Central application store for Habitica
 // Heavily inspired to Vuex (https://github.com/vuejs/vuex) with a very
@@ -53,19 +53,19 @@ Object.keys(getters).forEach(key => {
   });
 });
 
-// Setup internal Vue instance to make state and getters reactive
-_vm = new Vue({
-  data: { state },
-  computed: _computed,
-});
-
 export default store;
 
 export {
   mapState,
   mapGetters,
   mapActions,
-} from './helpers';
+} from './helpers/public';
+
+// Setup internal Vue instance to make state and getters reactive
+_vm = new Vue({
+  data: { state },
+  computed: _computed,
+});
 
 // Inject the store into all components as this.$store
 Vue.mixin({

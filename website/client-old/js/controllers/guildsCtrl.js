@@ -34,7 +34,7 @@ habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$r
           Groups.Group.create(group)
             .then(function (response) {
               var createdGroup = response.data.data;
-              $rootScope.hardRedirect('/#/options/groups/guilds/' + createdGroup._id);
+              $rootScope.hardRedirect('/#/options/groups/guilds/' + createdGroup._id + '?upgrade=true');
             });
         }
       }

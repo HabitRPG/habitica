@@ -74,7 +74,7 @@
     "onlyLeaderDeleteChal": "Pouze vůdce výzvy ji může smazat.",
     "onlyLeaderUpdateChal": "Pouze vůdce výzvy ji může aktualizovat.",
     "winnerNotFound": "Vítěz s id „<%= userId %>\" nenalezen, nebo se neúčastnil výzvy.",
-    "noCompletedTodosChallenge": "\"includeCompletedTodos\" is not supported when fetching challenge tasks.",
+    "noCompletedTodosChallenge": "\"includeCompletedTodos\" není podporováno při načítání úkolů z výzev",
     "userTasksNoChallengeId": "Pokud \"tasksOwner\" je \"user\" \"challengeId\" nemůže být předána.",
     "onlyChalLeaderEditTasks": "Úkoly náležící výzvě mohou být změněny pouze vůdcem.",
     "userAlreadyInChallenge": "Uživatel se již účastní výzvy.",

@@ -10,6 +10,11 @@
     "questDetails": "Detail Misi",
     "invitations": "Undangan",
     "completed": "Selesai!",
+    "rewardsAllParticipants": "Rewards for all Quest Participants",
+    "rewardsQuestOwner": "Additional Rewards for Quest Owner",
+    "questOwnerReceived": "The Quest Owner Has Also Received",
+    "youWillReceive": "You Will Receive",
+    "questOwnerWillReceive": "The Quest Owner Will Also Receive",
     "youReceived": "Kamu mendapatkan",
     "dropQuestCongrats": "Selamat kamu memperoleh gulungan misi ini! Kamu bisa mengundang kelompokmu untuk memulai misi ini sekarang, atau nanti kamu dapat mengaksesnya lagi di menu Inventori > Misi.",
     "questSend": "Klik \"Undang\" akan mengirimkan undangan ke anggota kelompokmu. Ketika semua anggota sudah menyetujui atau menolak, misi akan dimulai. Lihat status di menu Sosial > Kelompok.",
@@ -101,5 +106,10 @@
     "cantCancelActiveQuest": "Anda tidak dapat membatalkan misi yang aktif, gunakan fungsi pembatalan.",
     "onlyLeaderCancelQuest": "Hanya ketua kelompok atau pemilik gulungan misi yang dapat membatalkan misi.",
     "questNotPending": "Tidak ada misi untuk dimulai",
-    "questOrGroupLeaderOnlyStartQuest": "Hanya pemimpin misi atau pemimpin kelompok dapat memaksa memulai misi"
+    "questOrGroupLeaderOnlyStartQuest": "Hanya pemimpin misi atau pemimpin kelompok dapat memaksa memulai misi",
+    "createAccountReward": "Create Account",
+    "loginIncentiveQuest": "To earn this quest, check in to Habitica on <%= count %> different days!",
+    "loginIncentiveQuestObtained": "You earned this quest by checking in to Habitica on <%= count %> different days!",
+    "loginReward": "<%= count %> Check-ins",
+    "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too."
 }

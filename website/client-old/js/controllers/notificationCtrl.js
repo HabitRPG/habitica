@@ -1,8 +1,8 @@
 'use strict';
 
 habitrpg.controller('NotificationCtrl',
-  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement',
-  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement) {
+  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement', 'Social', 'Tasks',
+  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement, Social, Tasks) {
 
     $rootScope.$watch('user.stats.hp', function (after, before) {
       if (after <= 0){
@@ -14,6 +14,10 @@ habitrpg.controller('NotificationCtrl',
       if (after == before) return;
       if (User.user.stats.lvl == 0) return;
       Notification.hp(after - before, 'hp');
+      $rootScope.$broadcast('syncPartyRequest', {
+        type: 'user_update',
+        user: User.user,
+      }); // Sync party to update members
       if (after < 0) $rootScope.playSound('Minus_Habit');
     });
 
@@ -74,8 +78,16 @@ habitrpg.controller('NotificationCtrl',
     // Avoid showing the same notiication more than once
     var lastShownNotifications = [];
 
+    function trasnferGroupNotification(notification) {
+      if (!User.user.groupNotifications) User.user.groupNotifications = [];
+      User.user.groupNotifications.push(notification);
+    }
+
     function handleUserNotifications (after) {
       if (!after || after.length === 0) return;
+
+      var notificationsToRead = [];
+      var scoreTaskNotification;
 
       after.forEach(function (notification) {
         if (lastShownNotifications.indexOf(notification.id) !== -1) {
@@ -123,13 +135,45 @@ habitrpg.controller('NotificationCtrl',
               if (notification.data.mp) Notification.mp(notification.data.mp);
             }
             break;
+          case 'GROUP_TASK_APPROVAL':
+            trasnferGroupNotification(notification);
+            markAsRead = false;
+            break;
+          case 'GROUP_TASK_APPROVED':
+            trasnferGroupNotification(notification);
+            markAsRead = false;
+            break;
+          case 'SCORED_TASK':
+            scoreTaskNotification = notification;
+            break;
+          case 'LOGIN_INCENTIVE':
+            Notification.showLoginIncentive(User.user, notification.data, Social.loadWidgets);
+            break;
           default:
-            markAsRead = false; // If the notification is not implemented, skip it
+            if (notification.data.headerText && notification.data.bodyText) {
+              var modalScope = $rootScope.$new();
+              modalScope.data = notification.data;
+              $rootScope.openModal('generic', {scope: modalScope});
+            }
+            else {
+              markAsRead = false; // If the notification is not implemented, skip it
+            }
             break;
         }
 
-        if (markAsRead) User.readNotification(notification.id);
+        if (markAsRead) notificationsToRead.push(notification.id);
       });
+
+      var userReadNotifsPromise = User.readNotifications(notificationsToRead);
+
+      if (userReadNotifsPromise) {
+        userReadNotifsPromise.then(function () {
+          if (scoreTaskNotification) {
+            Notification.markdown(scoreTaskNotification.data.message);
+            User.score({params:{task: scoreTaskNotification.data.scoreTask, direction: "up"}});
+          }
+        });
+      }
 
       User.user.notifications = []; // reset the notifications
     }

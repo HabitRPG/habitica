@@ -17,4 +17,10 @@ module.exports = prefill({
   12: {price: 2, set: sets.baseHair2},
   13: {price: 2, set: sets.baseHair2},
   14: {price: 2, set: sets.baseHair2},
+  15: {price: 2, set: sets.baseHair3},
+  16: {price: 2, set: sets.baseHair3},
+  17: {price: 2, set: sets.baseHair3},
+  18: {price: 2, set: sets.baseHair3},
+  19: {price: 2, set: sets.baseHair3},
+  20: {price: 2, set: sets.baseHair3},
 });
