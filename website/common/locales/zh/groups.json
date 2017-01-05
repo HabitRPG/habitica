@@ -172,8 +172,8 @@
     "requestAcceptGuidelines": "如果你想在酒馆里，或是队伍和公会里张贴信息，请先阅读<%= linkStart %>社区指南<%= linkEnd %>并点击下面按钮，表示您接受其中的条款。 ",
     "partyUpName": "举行派对",
     "partyOnName": "欢乐派对",
-    "partyUpText": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
-    "partyOnText": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!",
+    "partyUpText": "和另一个人一起加入队伍！愉快的打怪并互相支持吧！玩的愉快嗷~！",
+    "partyOnText": "加入了一个至少有四人的队伍！享受你增强的责任感，和伙伴们并肩作战，打倒敌人吧！",
     "largeGroupNote": "注意：这个公会现在太大，以至于不能支持通知！保证每日查阅记录来查看新消息。",
     "groupIdRequired": "\"groupId\"必须是一个有效的UUID",
     "groupNotFound": "没有找到这个小组，或者你没有权限。",
@@ -224,7 +224,7 @@
     "approvalTitle": "<%= text %> 对用户: <%= userName %>",
     "confirmTaskApproval": "你要把击败任务的奖励，给予这位勇士——<%= username %>吗？",
     "groupSubscriptionPrice": "每月9美元+每个额外组员每月3美元",
-    "groupAdditionalUserCost": "+$3.00/month/user",
+    "groupAdditionalUserCost": "每个用户每月加$3.00",
     "groupBenefitsTitle": "团队套餐能帮你干什么呢？",
     "groupBenefitsDescription": "我们刚刚把小组计划完成了！升级解锁它，并获得使Habitica大陆社交更有效率的特色功能吧！",
     "groupBenefitOneTitle": "创造一个分享的任务清单",
@@ -251,5 +251,5 @@
     "claimedBy": "提出者：<%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "不能删除被分配的小组任务。",
     "confirmGuildPlanCreation": "创建这个团队？",
-    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription."
+    "onlyGroupLeaderCanInviteToGroupPlan": "只有组长可以邀请用户加入捐献小组"
 }

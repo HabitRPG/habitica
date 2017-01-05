@@ -172,8 +172,8 @@
     "requestAcceptGuidelines": "Si quieres publicar mensajes en la Taberna o en el chat de algún grupo o gremio, lee primero las <%= linkStart %>Normas de la Comunidad<%= linkEnd %> y, a continuación, haz clic en el botón de abajo para indicar que las aceptas.",
     "partyUpName": "¡Ese grupo!",
     "partyOnName": "¡Toma grupo!",
-    "partyUpText": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
-    "partyOnText": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!",
+    "partyUpText": "¡Se unió a un grupo con otra persona! Pasadlo bien luchando contra monstruos y ayudándoos mutuamente.",
+    "partyOnText": "¡Se unió a un grupo de al menos cuatro personas! Disfrutad de una mayor responsabilidad al juntaros para vencer a vuestros enemigos.",
     "largeGroupNote": "Atención: ¡Este Gremio es ahora muy grande para sustentar notificaciones! Asegúrate de revisarlo cada día para ver los mensajes nuevos.",
     "groupIdRequired": "\"groupId\" debe ser un UUID válido",
     "groupNotFound": "El grupo no se encuentra o no tienes acceso a él.",
@@ -224,7 +224,7 @@
     "approvalTitle": "<%= text %> para el usuario: <%= userName %>",
     "confirmTaskApproval": "¿Quieres recompensar a <%= username %> por completar esta tarea?",
     "groupSubscriptionPrice": "9$ cada mes + 3$ mensuales por cada miembro adicional del grupo",
-    "groupAdditionalUserCost": "+$3.00/month/user",
+    "groupAdditionalUserCost": "+3,00$/mes/usuario",
     "groupBenefitsTitle": "Cómo puede ayudarte un plan para grupos",
     "groupBenefitsDescription": "¡Hemos lanzado la versión beta de nuestros planes para grupos! Actualizar a un plan para grupos desbloquea características únicas que optimizan la faceta social de Habitica.",
     "groupBenefitOneTitle": "Crea listas de tareas compartidas",
@@ -251,5 +251,5 @@
     "claimedBy": "Reclamada por: <%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "No puedes borrar tareas de grupo que tienes asignadas.",
     "confirmGuildPlanCreation": "¿Crear este grupo?",
-    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription."
+    "onlyGroupLeaderCanInviteToGroupPlan": "Sólo el líder del grupo puede invitar usuarios a un grupo con una suscripción activa."
 }

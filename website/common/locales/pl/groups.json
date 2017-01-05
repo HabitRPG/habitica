@@ -172,8 +172,8 @@
     "requestAcceptGuidelines": "Jeżeli chcesz pisać w Gospodzie lub drużynie, czy też jakimkolwiek czacie gildii, proszę, przeczytaj najpierw <%= linkStart %>Wytyczne Społeczności<%= linkEnd %>, a następnie kliknij poniższy przycisk, aby potwierdzić, że je akceptujesz.",
     "partyUpName": "Razem raźniej",
     "partyOnName": "Jeden za wszystkich, wszyscy za jednego",
-    "partyUpText": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
-    "partyOnText": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!",
+    "partyUpText": "Dołączyłeś do drużyny z inną osobą! Bawcie się dobrze walcząc z potworami i wspierając się wzajemnie.",
+    "partyOnText": "Dołączyłeś do drużyny z przynajmniej czwórką osób! Ciesz się zwiększoną odpowiedzialnością, jednocząc się ze znajomymi by zwyciężyć waszych wrogów!",
     "largeGroupNote": "Notatka: Ta Gildia jest zbyt duża by obsługiwała powiadomienia! Zaglądaj tu codziennie by zobaczyć nowe wiadomości.",
     "groupIdRequired": "\"groupId\" musi być prawidłowym UUID",
     "groupNotFound": "Nie znaleziono grupy lub nie posiadasz dostępu.",
@@ -224,7 +224,7 @@
     "approvalTitle": "<%= text %> dla użytkownika: <%= userName %>",
     "confirmTaskApproval": "Czy  chcesz nagrodzić użytkownika  <%= username %> za wykonanie tego zadania?",
     "groupSubscriptionPrice": "9$ miesięcznie + 3$ miesięcznie za każdego dodatkowego członka grupy",
-    "groupAdditionalUserCost": "+$3.00/month/user",
+    "groupAdditionalUserCost": "+$3.00 USD miesięcznie za użytkownika",
     "groupBenefitsTitle": "Jak plan grupowy może wam pomóc",
     "groupBenefitsDescription": "Właśnie uruchomiliśmy wersję beta naszych planów grupowych! Rozszerzenie do planu grupowego odblokowuje kilka unikalnych możliwości, które optymalizują społecznościową stronę Habitici.",
     "groupBenefitOneTitle": "Stwórz udostępnioną listę zadań",
@@ -251,5 +251,5 @@
     "claimedBy": "Zgłosili się: <%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "Nie możesz usunąć zadań grupy, które są przypisane do ciebie.",
     "confirmGuildPlanCreation": "Stworzyć tę grupę?",
-    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription."
+    "onlyGroupLeaderCanInviteToGroupPlan": "Tylko przywódca grupy może zapraszać użytkowników do grupy z abonamentem."
 }

@@ -172,8 +172,8 @@
     "requestAcceptGuidelines": "Ако искате да публикувате съобщения в кръчмата или в някоя група или гилдия, моля, първо прочетете нашите <%= linkStart %>Обществени правила<%= linkEnd %> и след това щракнете бутона по-долу, за да отбележите, че ги приемате.",
     "partyUpName": "Купонът започва",
     "partyOnName": "Купонът продължава",
-    "partyUpText": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
-    "partyOnText": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!",
+    "partyUpText": "Присъединил(а) се към група с още един човек! Забавлявайте се, докато се биете заедно с чудовища и се подкрепяте взаимно.",
+    "partyOnText": "Присъединил(а) се към група с поне четири човека! Радвайте се на допълнителната отговорност, докато се съюзявате с приятелите си, за да побеждавате враговете си!",
     "largeGroupNote": "Забележка: тази гилдия вече е твърде голяма, за да поддържа известяване! Ще трябва да проверявате всеки ден за нови съобщения.",
     "groupIdRequired": "„groupId“ трябва да бъде правилно форматиран идентификатор UUID",
     "groupNotFound": "Групата не е намерена или нямате достъп.",
@@ -224,7 +224,7 @@
     "approvalTitle": "<%= text %> за: <%= userName %>",
     "confirmTaskApproval": "Искате ли да наградите <%= username %> за завършването на тази задача?",
     "groupSubscriptionPrice": "9 $ месечно + 3 $ на месец за всеки допълнителен член на групата",
-    "groupAdditionalUserCost": "+$3.00/month/user",
+    "groupAdditionalUserCost": "+3,00$ на месец за потребител",
     "groupBenefitsTitle": "Как може да Ви помогне груповият план",
     "groupBenefitsDescription": "Вече е достъпна бета-версията на груповите ни планове! Надграждането до групов план отключва някои уникални функционалности, които оптимизират социалната страна на Хабитика.",
     "groupBenefitOneTitle": "Създайте споделен списък от задачи",
@@ -251,5 +251,5 @@
     "claimedBy": "Поета от: <%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "Не можете да изтриете груповите задачи, които са Ви разпределени.",
     "confirmGuildPlanCreation": "Създаване на тази група?",
-    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription."
+    "onlyGroupLeaderCanInviteToGroupPlan": "Само водачът на групата може да кани хора в група с абонамент."
 }

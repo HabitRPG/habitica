@@ -172,8 +172,8 @@
     "requestAcceptGuidelines": "Si vous souhaitez envoyer des messages dans la Taverne ou dans le chat d'une équipe ou d'une guilde, veuillez d'abord s'il vous plait lire nos <%= linkStart %>Règles de Vie en Communauté<%= linkEnd %> et cliquez sur le bouton ci-dessous pour indiquer que vous les acceptez.",
     "partyUpName": "Une joyeuse équipe",
     "partyOnName": "Une équipe festive",
-    "partyUpText": "Joined a Party with another person! Have fun battling monsters and supporting each other.",
-    "partyOnText": "Joined a Party with at least four people! Enjoy your increased accountability as you unite with your friends to vanquish your foes!",
+    "partyUpText": "A rejoint une Équipe avec quelqu'un d'autre ! Amusez-vous à affronter des monstres et à vous encourager.",
+    "partyOnText": "A rejoint une Équipe d'au moins quatre personnes ! Profitez de votre sens accru des responsabilités, tandis que vous et vos amis vous unissez pour vaincre vos adversaires !",
     "largeGroupNote": "Remarque : cette guilde est désormais trop grande pour soutenir les notifications ! Assurez-vous de revenir tous les jours pour consulter les nouveaux messages.",
     "groupIdRequired": "\"groupId\" doit être un UUID valide",
     "groupNotFound": "Groupe introuvable ou vous n'y avez pas accès.",
@@ -224,7 +224,7 @@
     "approvalTitle": "<%= text %> pour l'utilisateur: <%= userName %>",
     "confirmTaskApproval": "Voulez-vous récompenser <%= username %> pour avoir rempli cette tâche ?",
     "groupSubscriptionPrice": "9$ chaque mois + 3$ par mois pour chaque membre de groupe supplémentaire",
-    "groupAdditionalUserCost": "+$3.00/month/user",
+    "groupAdditionalUserCost": "+3,00$/mois/utilisateur",
     "groupBenefitsTitle": "Comment une offre de groupe peut vous aider",
     "groupBenefitsDescription": "Nous venons de lancer la version beta de nos offres de groupe ! Se mettre à niveau débloque des fonctionnalités uniques qui optimisent les possibilités sociales de Habitica.",
     "groupBenefitOneTitle": "Créez une liste de tâches partagées",
@@ -251,5 +251,5 @@
     "claimedBy": "Revendiqué par : <%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "Vous ne pouvez pas supprimer les tâches de groupe qui vous ont été assignées.",
     "confirmGuildPlanCreation": "Créer ce groupe ?",
-    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription."
+    "onlyGroupLeaderCanInviteToGroupPlan": "Seul le chef de groupe peut inviter des utilisateurs dans un groupe avec abonnement."
 }
