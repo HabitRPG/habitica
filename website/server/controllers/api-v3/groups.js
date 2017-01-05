@@ -308,7 +308,8 @@ api.updateGroup = {
     let response = Group.toJSONCleanChat(savedGroup, user);
     // If the leader changed fetch new data, otherwise use authenticated user
     if (response.leader !== user._id) {
-      response.leader = (await User.findById(response.leader).select(nameFields).exec()).toJSON({minimize: true});
+      let rawLeader = await User.findById(response.leader).select(nameFields).exec();
+      response.leader = rawLeader.toJSON({minimize: true});
     } else {
       response.leader = {
         _id: user._id,
@@ -423,10 +424,16 @@ api.joinGroup = {
 
     if (group.type === 'party' && inviter) {
       if (group.memberCount > 1) {
-        promises.push(User.update({$or: [{'party._id': group._id}, {_id: user._id}], 'achievements.partyUp': {$ne: true}}, {$set: {'achievements.partyUp': true}}, {multi: true}).exec());
+        promises.push(User.update({
+          $or: [{'party._id': group._id}, {_id: user._id}],
+          'achievements.partyUp': {$ne: true},
+        }, {$set: {'achievements.partyUp': true}}, {multi: true}).exec());
       }
       if (group.memberCount > 3) {
-        promises.push(User.update({$or: [{'party._id': group._id}, {_id: user._id}], 'achievements.partyOn': {$ne: true}}, {$set: {'achievements.partyOn': true}}, {multi: true}).exec());
+        promises.push(User.update({
+          $or: [{'party._id': group._id}, {_id: user._id}],
+          'achievements.partyOn': {$ne: true},
+        }, {$set: {'achievements.partyOn': true}}, {multi: true}).exec());
       }
     }
 

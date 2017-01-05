@@ -144,7 +144,7 @@ api.checkout = {
 
     if (gift) {
       if (gift.type === 'subscription') method = 'createSubscription';
-      gift.member = await User.findById(gift ? gift.uuid : undefined);
+      gift.member = await User.findById(gift ? gift.uuid : undefined).exec();
       data.gift = gift;
       data.paymentMethod = 'Amazon Payments (Gift)';
     }
@@ -184,7 +184,7 @@ api.subscribe = {
 
     if (sub.discount) { // apply discount
       if (!coupon) throw new BadRequest(res.t('couponCodeRequired'));
-      let result = await Coupon.findOne({_id: cc.validate(coupon), event: sub.key});
+      let result = await Coupon.findOne({_id: cc.validate(coupon), event: sub.key}).exec();
       if (!result) throw new NotAuthorized(res.t('invalidCoupon'));
     }
 

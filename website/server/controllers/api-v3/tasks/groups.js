@@ -104,7 +104,7 @@ api.assignTask = {
 
     let user = res.locals.user;
     let assignedUserId = req.params.assignedUserId;
-    let assignedUser = await User.findById(assignedUserId);
+    let assignedUser = await User.findById(assignedUserId).exec();
 
     let taskId = req.params.taskId;
     let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
@@ -162,7 +162,7 @@ api.unassignTask = {
 
     let user = res.locals.user;
     let assignedUserId = req.params.assignedUserId;
-    let assignedUser = await User.findById(assignedUserId);
+    let assignedUser = await User.findById(assignedUserId).exec();
 
     let taskId = req.params.taskId;
     let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
@@ -211,13 +211,13 @@ api.approveTask = {
 
     let user = res.locals.user;
     let assignedUserId = req.params.userId;
-    let assignedUser = await User.findById(assignedUserId);
+    let assignedUser = await User.findById(assignedUserId).exec();
 
     let taskId = req.params.taskId;
     let task = await Tasks.Task.findOne({
       'group.taskId': taskId,
       userId: assignedUserId,
-    });
+    }).exec();
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
