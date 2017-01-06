@@ -6,78 +6,100 @@ var authorUuid = ''; //... own data is done
  * Check if users have empty profile data in new database and update it with old database info
  */
 
-var mongo = require('mongoskin');
+var monk = require('monk');
 var connectionString = ''; // FOR TEST DATABASE
-var dbUsers = mongo.db(connectionString).collection('users');
+var dbUsers = monk(connectionString).get('users', { castIds: false });
 
+var monk2 = require('monk');
 var oldDbConnectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
-var olDbUsers = mongo.db(oldDbConnectionString).collection('users');
+var olDbUsers = monk2(oldDbConnectionString).get('users', { castIds: false });
 
-// specify a query to limit the affected users (empty for all users):
-var query = {
-  'profile.name': 'profile name not found',
-};
+function processUsers(lastId)
+{
+  // specify a query to limit the affected users (empty for all users):
+  var query = {
+    // 'profile.name': 'profile name not found',
+    'profile.blurb': null,
+    // 'auth.timestamps.loggedin': {$gt: new Date('11/30/2016')},
+  };
 
-// specify fields we are interested in to limit retrieved data (empty if we're not reading data):
-var fields = {
-  'profile': 1,
-};
+  if (lastId) {
+    query._id = {
+      $gt: lastId
+    }
+  }
 
-var options = {
-  batchSize: 250,
-  // limit: 250,
-  // sort: {'auth.timestamps.created': -1}
-};
+  dbUsers.find(query, {
+    sort: {_id: 1},
+    limit: 250,
+    fields: ['_id', 'profile', 'auth.timestamps.loggedin'] // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
+  })
+  .then(updateUsers)
+  .catch(function (err) {
+    console.log(err);
+    return exiting(1, 'ERROR! ' + err);
+  });
+}
 
 var progressCount = 1000;
 var count = 0;
-dbUsers.findEach(query, fields, options, function(err, user) {
-  if (err) { return exiting(1, 'ERROR! ' + err); }
-  if (!user) {
+
+function updateUsers (users) {
+  if (!users || users.length === 0) {
     console.warn('All appropriate users found and modified.');
     setTimeout(displayData, 300000);
     return;
   }
+
+  var userPaymentPromises = users.map(updateUser);
+  var lastUser = users[users.length - 1];
+
+  return Promise.all(userPaymentPromises)
+  .then(function () {
+    processUsers(lastUser._id);
+  });
+}
+
+function updateUser (user) {
   count++;
 
   if (!user.profile.name || user.profile.name === 'profile name not found' || !user.profile.imageUrl || !user.profile.blurb) {
-    // console.log("Update this user", user);
-    olDbUsers.findOne({_id: user._id}, function (err, oldUserData) {
-      if (err || !oldUserData) return;
+    return olDbUsers.findOne({_id: user._id}, '_id profile')
+      .then((oldUserData) => {
+        if (!oldUserData) return;
+        // specify user data to change:
+        var set = {};
 
-      // specify user data to change:
-      var set = {};
+        if (oldUserData.profile.name === 'profile name not found') return;
 
-      var userNeedsProfileName = !user.profile.name || user.profile.name === 'profile name not found';
-      if (userNeedsProfileName && oldUserData.profile.name) {
-        set['profile.name'] = oldUserData.profile.name;
-      }
+        var userNeedsProfileName = !user.profile.name || user.profile.name === 'profile name not found';
+        if (userNeedsProfileName && oldUserData.profile.name) {
+          set['profile.name'] = oldUserData.profile.name;
+        }
 
-      if (!user.profile.imageUrl && oldUserData.profile.imageUrl) {
-        set['profile.imageUrl'] = oldUserData.profile.imageUrl;
-      }
+        if (!user.profile.imageUrl && oldUserData.profile.imageUrl) {
+          set['profile.imageUrl'] = oldUserData.profile.imageUrl;
+        }
 
-      if (!user.profile.blurb && oldUserData.profile.blurb) {
-        set['profile.blurb'] = oldUserData.profile.blurb;
-      }
+        if (!user.profile.blurb && oldUserData.profile.blurb) {
+          set['profile.blurb'] = oldUserData.profile.blurb;
+        }
 
-      if (Object.keys(set).length !== 0 && set.constructor === Object) {
-        console.log(set)
-        dbUsers.update({_id:user._id}, {$set:set});
-      }
-    });
+        if (Object.keys(set).length !== 0 && set.constructor === Object) {
+          console.log(set)
+          return dbUsers.update({_id: user._id}, {$set:set});
+        }
+      });
   }
 
-  if (count%progressCount == 0) console.warn(count + ' ' + user._id);
+  if (count % progressCount == 0) console.warn(count + ' ' + user._id);
   if (user._id == authorUuid) console.warn(authorName + ' processed');
-});
-
+}
 
 function displayData() {
   console.warn('\n' + count + ' users processed\n');
   return exiting(0);
 }
-
 
 function exiting(code, msg) {
   code = code || 0; // 0 = success
@@ -88,3 +110,6 @@ function exiting(code, msg) {
   }
   process.exit(code);
 }
+
+
+processUsers()

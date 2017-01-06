@@ -79,6 +79,7 @@
     "moment": "^2.13.0",
     "mongoose": "^4.7.1",
     "mongoose-id-autoinc": "~2013.7.14-4",
+    "monk": "^3.1.3",
     "morgan": "^1.7.0",
     "nconf": "~0.8.2",
     "newrelic": "^1.27.2",
