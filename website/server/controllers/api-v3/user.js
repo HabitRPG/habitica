@@ -372,6 +372,7 @@ api.castSpell = {
       }).exec();
       if (!task) throw new NotFound(res.t('taskNotFound'));
       if (task.challenge.id) throw new BadRequest(res.t('challengeTasksNoCast'));
+      if (task.group.id) throw new BadRequest(res.t('groupTasksNoCast'));
 
       spell.cast(user, task, req);
 
@@ -1215,7 +1216,7 @@ api.userReset = {
         {'group.id': {$exists: false}},
         {'group.broken': {$exists: true}},
       ],
-    }).select('_id type challenge').exec();
+    }).select('_id type challenge group').exec();
 
     let resetRes = common.ops.reset(user, tasks);
 
