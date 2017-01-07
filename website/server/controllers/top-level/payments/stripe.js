@@ -121,11 +121,6 @@ api.checkout = {
       }
 
       await payments[method](data);
-
-      if (gift && gift.type === 'subscription' && gift.member._id !== user._id) {
-        gift.member = user;
-        await payments.createSubscription(data);
-      }
     }
 
     res.respond(200, {});
