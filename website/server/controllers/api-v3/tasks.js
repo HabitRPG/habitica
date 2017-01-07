@@ -917,6 +917,8 @@ api.clearCompletedTodos = {
       $or: [
         {'challenge.id': {$exists: false}},
         {'challenge.broken': {$exists: true}},
+        {'group.id': {$exists: false}},
+        {'group.broken': {$exists: true}},
       ],
     }).exec();
 
