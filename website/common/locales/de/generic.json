@@ -100,7 +100,7 @@
     "costumeContest": "Kostümwettbewerbsteilnehmer",
     "costumeContestText": "Hat am Habitoween-Kostümwettbewerb teilgenommen. Schau einige Einträge <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>im Habitica-Blog</a> an!",
     "costumeContestTextPlural": "Hat an <%= count %> Habitoween-Kostümwettbewerben teilgenommen. Schau einige Einträge <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>im Habitica-Blog</a> an!",
-    "memberSince": "- Teilnehmer seit",
+    "memberSince": "- Mitglied seit",
     "lastLoggedIn": "- Zuletzt eingeloggt",
     "notPorted": "Dieses Feature wurde noch nicht von der ursprünglichen Seite portiert.",
     "buyThis": "Kaufe <%= text %> mit <%= price %> Deiner <%= gems %> Edelsteinen?",

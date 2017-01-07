@@ -23,7 +23,7 @@
     "contribName": "Mitwirkender",
     "contribText": "Hat zu Habitica beigetragen (Code, Design, Pixelkunst, Rechtsrat, Dokumentationen, usw.). Willst Du dieses Abzeichen auch haben? <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Erfahre mehr.</a>",
     "readMore": "Lies mehr",
-    "kickstartName": "Kickstarter-Träger - Level $<%= tier %>",
+    "kickstartName": "Kickstarter-Unterstützer - $<%= key %> Rang",
     "kickstartText": "Hat das Kickstarter-Projekt mitfinanziert",
     "helped": "Hat Habitica geholfen zu wachsen",
     "helpedText1": "Hat Habitica geholfen zu wachsen durch Teilnahme an",
