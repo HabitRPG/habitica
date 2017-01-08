@@ -272,13 +272,9 @@ angular.module('habitrpg')
       modalScope.cancelTaskEdit = cancelTaskEdit;
 
       $rootScope.openModal('task-edit', {scope: modalScope })
-        .result.catch(() => {
+        .result.catch(function() {
           cancelTaskEdit(task);
         });
-
-      // modal.result.catch(function() {
-      //   cancelTaskEdit(task);
-      // });
     }
 
     function cancelTaskEdit(task) {
