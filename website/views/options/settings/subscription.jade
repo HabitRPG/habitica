@@ -1,12 +1,23 @@
 script(id='partials/options.settings.subscription.html',type='text/ng-template', ng-init="groupPane = 'subscription'")
   //-h2=env.t('individualSub')
   //- +groupSubscription
-  
   .container-fluid(ng-init='_subscription={key:"basic_earned"}')
     h3= env.t('benefits')
     .row
       .col-md-6
         +subPerks()
+
+    h3= env.t('giftSubscription')
+    .row
+      .col-md-6
+        ol
+          li
+            span= env.t('giftSubscriptionText1')
+          li
+            span= env.t('giftSubscriptionText2')
+          li
+            span= env.t('giftSubscriptionText3')
+        h4= env.t('giftSubscriptionText4')
 
       .col-md-6
         table.table.alert.alert-info(ng-if='user.purchased.plan.customerId')
