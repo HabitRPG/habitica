@@ -46,7 +46,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
           }
           Chat.markChatSeen($scope.group._id)
           .then (function () {
-            return Members.getGroupMembers($scope.group._id);
+            return Members.getGroupMembers($scope.group._id, true);
           })
           .then(function (response) {
             $scope.group.members = response.data.data;
