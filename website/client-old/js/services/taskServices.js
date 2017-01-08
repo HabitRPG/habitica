@@ -275,10 +275,6 @@ angular.module('habitrpg')
         .result.catch(() => {
           cancelTaskEdit(task);
         });
-
-      // modal.result.catch(function() {
-      //   cancelTaskEdit(task);
-      // });
     }
 
     function cancelTaskEdit(task) {
