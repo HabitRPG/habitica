@@ -3,6 +3,13 @@
   // Due Date
   span(ng-if='task.type=="todo" && task.date')
     span(ng-class='{"label label-danger":(moment(task.date).isBefore(_today, "days") && !task.completed)}') {{task.date | date:(user.preferences.dateFormat.indexOf('yyyy') == 0 ? user.preferences.dateFormat.substr(5) : user.preferences.dateFormat.substr(0,5))}}
+  
+  // Approval requested
+  | &nbsp;
+  span(ng-show='task.group.approval.requested && !task.group.approval.approved')
+    span(tooltip=env.t('approvalRequested'))
+      span=env.t('approvalRequested')
+      | &nbsp;
 
   // Streak
   | &nbsp;
@@ -13,7 +20,7 @@
 
   // Icons only available if you own the tasks (aka, hidden from challenge stats)
   span(ng-if='!obj._locked')
-    group-task-meta-actions(ng-if="obj.type == 'guild'", task='task', group='obj')
+    group-task-meta-actions(ng-if="!obj.auth && obj.purchased && obj.purchased.active", task='task', group='obj')
     
     a(ng-click='pushTask(task,$index,"top")', tooltip=env.t('pushTaskToTop'), ng-class="{'push-down': ctrlPressed}")
       span(ng-hide="ctrlPressed").glyphicon.glyphicon-open
@@ -24,28 +31,33 @@
     a.badge(ng-if='task.checklist[0]', ng-class='{"badge-success":checklistCompletion(task.checklist) == task.checklist.length}', ng-click='collapseChecklist(task)', tooltip=env.t('expandCollapse'))
       |{{checklistCompletion(task.checklist)}}/{{task.checklist.length}}
     span.glyphicon.glyphicon-tags(tooltip='{{Shared.appliedTags(user.tags, task.tags)}}', ng-hide='Shared.noTags(task.tags)')
+    
     // edit
-    a(ng-hide='task._editing', ng-click='editTask(task, user)', tooltip=env.t('edit'))
+    a(ng-hide='task._editing || (checkGroupAccess && !checkGroupAccess(obj))', ng-click='editTask(task, user, Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main))', tooltip=env.t('edit'))
       | &nbsp;
       span.glyphicon.glyphicon-pencil(ng-hide='task._editing')
     | &nbsp;
+
     a(ng-hide='!task._editing', ng-click='cancelTaskEdit(task)', tooltip=env.t('cancel'))
       span.glyphicon.glyphicon-remove(ng-hide='!task._editing')
       | &nbsp;
+      
     // save
     a(ng-hide='!task._editing', ng-click='saveTask(task)', tooltip=env.t('save'))
       span.glyphicon.glyphicon-ok(ng-hide='!task._editing')
     | &nbsp;
+  
     //challenges
     span(ng-if='task.challenge.id')
       span(ng-if='task.challenge.broken')
-        a.glyphicon.glyphicon-bullhorn(style='background-color:red;', ng-click='task._editing = true', tooltip=env.t('brokenChaLink') tooltip-placement='right')
+        a.glyphicon.glyphicon-bullhorn(style='background-color:red;', ng-click='editTask(task, user, Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main))', tooltip=env.t('brokenChaLink') tooltip-placement='right')
         | &nbsp;
       span(ng-if='!task.challenge.broken')
         span.glyphicon.glyphicon-bullhorn(tooltip=env.t('challenge'))
         | &nbsp;
+        
     // delete
-    a(ng-if='!task.challenge.id || obj.leader._id === User.user._id', ng-click='removeTask(task, obj)', tooltip=env.t('delete'))
+    a(ng-if='!task.challenge.id || (obj.leader && obj.leader.id === user._id)', ng-hide="(checkGroupAccess && !checkGroupAccess(obj))" ng-click='removeTask(task, obj)', tooltip=env.t('delete'))
       span.glyphicon.glyphicon-trash
       | &nbsp;
 

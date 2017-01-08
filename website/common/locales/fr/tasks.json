@@ -78,12 +78,13 @@
     "startDate": "Date de début",
     "startDateHelpTitle": "Quand cette tâche devrait-elle démarrer ?",
     "startDateHelp": "Définissez la date à laquelle cette tâche prendra effet. Elle ne sera pas active avant cette date.",
-    "streakName": "Combos réussis",
-    "streakText": "A réussi <%= streaks %> combos de 21 jours dans ses tâches Quotidiennes",
+    "streaks": "Combos réussis",
+    "streakName": "<%= count %> Combos réussis",
+    "streakText": "A réussi <%= count %> fois un combo de 21 jours pour une tâche Quotidienne.",
     "streakSingular": "Combo",
     "streakSingularText": "A réussi un combo de 21 jours pour une tâche Quotidienne.",
-    "perfectName": "Jours Parfaits",
-    "perfectText": "A terminé toutes les tâches Quotidiennes pendant <%= perfects %> jours. Avec ce succès, vous gagnez un bonus de +niveau/2 points pour tous les attributs le jour suivant. Les niveaux supérieurs à 100 n'ont pas d'effet supplémentaire.",
+    "perfectName": "<%= count %> Jours Parfaits",
+    "perfectText": "A réalisé toutes ses tâches Quotidiennes actives pendant <%= count %> jours. Avec ce succès, vous gagnez un bonus de +niveau/2 points pour tous les attributs le jour suivant. Les niveaux supérieurs à 100 n'ont pas d'effet supplémentaire.",
     "perfectSingular": "Jour Parfait",
     "perfectSingularText": "A terminé toutes les tâches Quotidiennes d'une journée. Avec ce succès, vous gagnez un bonus de +niveau/2 points pour tous les attributs le jour suivant. Les niveaux supérieurs à 100 n'ont pas d'effet supplémentaire.",
     "streakerAchievement": "Vous avez débloqué le succès \"Combo\" ! Le cap des 21 jours est une étape importante dans la mise en place des habitudes. Vous gagnerez un point sur ce succès pour chaque 21 jours supplémentaires, sur cette Quotidienne ou une autre !",
@@ -137,6 +138,6 @@
     "constitutionExample": "Relatif à la santé, au bien-être et aux interactions sociales",
     "taskRequiresApproval": "Cette tâche nécessite une approbation avant de pouvoir être complétée. Une approbation a déjà été demandée.",
     "taskApprovalHasBeenRequested": "Une approbation a été demandée",
-    "approvals": "Approvals",
-    "approvalRequired": "Approval Required"
+    "approvals": "Approbations",
+    "approvalRequired": "Approbation Requise"
 }

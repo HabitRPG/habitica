@@ -1,10 +1,14 @@
 {
     "pets": "Любимци",
+    "activePet": "Текущ любимец",
+    "noActivePet": "Няма текущ любимец",
     "petsFound": "Намерени любимци",
     "magicPets": "Любимци от магически отвари",
     "rarePets": "Редки любимци",
     "questPets": "Любимци от мисии",
     "mounts": "Превози",
+    "activeMount": "Текущ превоз",
+    "noActiveMount": "Няма текущ превоз",
     "mountsTamed": "Опитомени превози",
     "questMounts": "Превози от мисии",
     "magicMounts": "Превози от магически отвари",
@@ -88,5 +92,7 @@
     "petsReleased": "Любимците бяха освободени.",
     "mountsAndPetsReleased": "Превозите и любимците бяха освободени",
     "mountsReleased": "Превозите бяха освободени",
-    "gemsEach": "диаманта всеки"
+    "gemsEach": "диаманта всеки",
+    "foodWikiText": "Какво обича да яде любимецът ми?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

@@ -86,7 +86,7 @@ export function generateTodo (user) {
     completed: false,
   };
 
-  let task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line babel/new-cap
+  let task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line new-cap
   task.userId = user._id;
   task.save();
 
@@ -101,7 +101,7 @@ export function generateDaily (user) {
     completed: false,
   };
 
-  let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line babel/new-cap
+  let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
   task.userId = user._id;
   task.save();
 

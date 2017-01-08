@@ -1,10 +1,14 @@
 {
     "pets": "Chowańce",
+    "activePet": "Aktywne zwierzątko",
+    "noActivePet": "Brak aktywnego zwierzątka",
     "petsFound": "Znalezione chowańce",
     "magicPets": "Magiczne chowańce",
     "rarePets": "Rzadkie chowańce",
     "questPets": "Chowańce z Misji",
     "mounts": "Wierzchowce",
+    "activeMount": "Aktywny wierzchowiec",
+    "noActiveMount": "Brak aktywnego wierzchowca",
     "mountsTamed": "Oswojonych wierzchowców",
     "questMounts": "Wierzchowce z Misji",
     "magicMounts": "Magiczne wierzchowce",
@@ -88,5 +92,7 @@
     "petsReleased": "Chowańce uwolnione.",
     "mountsAndPetsReleased": "Wierzchowce i chowańce uwolnione.",
     "mountsReleased": "Wierzchowce uwolnione.",
-    "gemsEach": "klejnotów każdy"
+    "gemsEach": "klejnotów każdy",
+    "foodWikiText": "Co lubi jeść mój chowaniec?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

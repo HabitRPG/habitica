@@ -1,10 +1,14 @@
 {
     "pets": "Háziállatok",
+    "activePet": "Active Pet",
+    "noActivePet": "No Active Pet",
     "petsFound": "Megtalált háziállat",
     "magicPets": "Háziállat Varázsfőzet",
     "rarePets": "Ritka háziállatok",
     "questPets": "Küldetés háziállatok",
     "mounts": "Hátasok",
+    "activeMount": "Active Mount",
+    "noActiveMount": "No Active Mount",
     "mountsTamed": "Megszelídített hátas",
     "questMounts": "Küldetés hátasok",
     "magicMounts": "Hátas Varázsfőzet",
@@ -88,5 +92,7 @@
     "petsReleased": "Háziállatok elengedve.",
     "mountsAndPetsReleased": "Hátasok és háziállatok elengedve",
     "mountsReleased": "Hátasok elengedve",
-    "gemsEach": "drágakő egyenként"
+    "gemsEach": "drágakő egyenként",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

@@ -9,5 +9,5 @@
 
 // Define custom colors
 @red            : #f74e52;
-@yellow         : #ffb445;
-@blue           : #50b5e9;
+@yellow         : #ffbe5d;
+@blue           : #46a7d9;

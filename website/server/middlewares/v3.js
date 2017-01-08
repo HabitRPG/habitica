@@ -18,12 +18,12 @@ v3app.use(expressValidator());
 v3app.use(analytics);
 v3app.use(setupBody);
 
-const topLevelRouter = express.Router(); // eslint-disable-line babel/new-cap
+const topLevelRouter = express.Router(); // eslint-disable-line new-cap
 
 routes.walkControllers(topLevelRouter, TOP_LEVEL_CONTROLLERS_PATH);
 v3app.use('/', topLevelRouter);
 
-const v3Router = express.Router(); // eslint-disable-line babel/new-cap
+const v3Router = express.Router(); // eslint-disable-line new-cap
 routes.walkControllers(v3Router, API_CONTROLLERS_PATH);
 v3app.use('/api/v3', v3Router);
 

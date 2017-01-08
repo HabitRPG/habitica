@@ -8,6 +8,7 @@ habitrpg.controller("InventoryCtrl",
 
     $scope.selectedEgg = null; // {index: 1, name: "Tiger", value: 5}
     $scope.selectedPotion = null; // {index: 5, name: "Red", value: 3}
+    $scope.equipmentQuery = {'query': ''};
 
     _updateDropAnimalCount(user.items);
 
@@ -84,6 +85,50 @@ habitrpg.controller("InventoryCtrl",
         $scope.gearByType[item.type].push(item);
       })
     }, true);
+
+    $scope.equipmentSearch = function(equipment, term) {
+      if (!equipment) return;
+      if (!angular.isString(term) || term.length == 0) {
+        return equipment;
+      }
+      termMatcher = new RegExp(term, 'i');
+
+      var result = [];
+      for (var i = 0; i < equipment.length; i++) {
+        if (termMatcher.test(equipment[i].text())) {
+          result.push(equipment[i]);
+        }
+      }
+      return result;
+    };
+
+    $scope.updateEquipment = function(gearByClass, gearByType, equipmentQuery) {
+      $scope.filteredGearByClass = {};
+      $scope.filteredGearByType = {};
+      _.forEach(gearByClass, function(value, key) {
+        var searchResult = $scope.equipmentSearch(value, equipmentQuery);
+        if (searchResult.length > 0) {
+          $scope.filteredGearByClass[key] = searchResult;
+        }
+      });
+      _.forEach(gearByType, function(value, key) {
+        var searchResult = $scope.equipmentSearch(value, equipmentQuery);
+        if (searchResult.length > 0) {
+          $scope.filteredGearByType[key] = searchResult;
+        }
+      });
+    }
+
+    $scope.$watch(function(){
+        return ['gearByClass', 'gearByType', 'equipmentQuery'].map(angular.bind($scope, $scope.$eval));
+      }, function(updatedVals) {
+        var gearByClass = updatedVals[0];
+        var gearByType = updatedVals[1];
+        var equipmentQuery = updatedVals[2];
+        $scope.updateEquipment(gearByClass, gearByType, equipmentQuery.query);
+      }, true);
+
+    $scope.updateEquipment($scope.gearByClass, $scope.gearByType, $scope.equipmentQuery.query);
 
     $scope.chooseEgg = function(egg){
       if ($scope.selectedEgg && $scope.selectedEgg.key == egg) {
@@ -326,9 +371,16 @@ habitrpg.controller("InventoryCtrl",
         $scope.hasAllTimeTravelerItemsOfType('mounts'));
     };
 
+    $scope.shouldShowTimeTravelerItem = function(category, item) {
+      if (category.identifier === 'pets' || category.identifier === 'mounts') {
+        return !user.items[category.identifier][item.key];
+      }
+      return !user.items.gear.owned[item.key] && user.purchased.plan.mysteryItems.indexOf(item.key) === -1;
+    };
+
     $scope.hasAllTimeTravelerItemsOfType = function(type) {
       if (type === 'mystery') {
-        var itemsLeftInTimeTravelerStore = Content.timeTravelerStore(user.items.gear.owned);
+        var itemsLeftInTimeTravelerStore = Content.timeTravelerStore(user);
         var keys = Object.keys(itemsLeftInTimeTravelerStore);
 
         return keys.length === 0;
@@ -360,6 +412,9 @@ habitrpg.controller("InventoryCtrl",
       if (!premiumPotion) {
         return false;
       }
+      if (premiumPotion.key === 'RoyalPurple') {
+        return true;
+      }
       if (user.items.hatchingPotions[premiumPotion.key] > 0) {
         return true;
       }
@@ -387,6 +442,10 @@ habitrpg.controller("InventoryCtrl",
       return findPet(function (pet) {
         return pet.potion === potion;
       });
+    };
+
+    $scope.getQuestOwnerRewards = function(quest) {
+      return _.filter(quest.drop.items, 'onlyOwner');
     };
 
     function findPet (fn) {

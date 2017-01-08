@@ -59,9 +59,11 @@ describe('POST /tasks/:id/approve/:userId', () => {
 
     await member.sync();
 
-    expect(member.notifications.length).to.equal(1);
+    expect(member.notifications.length).to.equal(2);
     expect(member.notifications[0].type).to.equal('GROUP_TASK_APPROVED');
-    expect(member.notifications[0].data.message).to.equal(t('yourTaskHasBeenApproved'));
+    expect(member.notifications[0].data.message).to.equal(t('yourTaskHasBeenApproved', {taskText: task.text}));
+    expect(member.notifications[1].type).to.equal('SCORED_TASK');
+    expect(member.notifications[1].data.message).to.equal(t('yourTaskHasBeenApproved', {taskText: task.text}));
 
     expect(syncedTask.group.approval.approved).to.be.true;
     expect(syncedTask.group.approval.approvingUser).to.equal(user._id);

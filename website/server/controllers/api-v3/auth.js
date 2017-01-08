@@ -525,7 +525,7 @@ api.resetPassword = {
     let newPassword =  passwordUtils.makeSalt(); // use a salt as the new password too (they'll change it later)
     let hashedPassword = passwordUtils.encrypt(newPassword, salt);
 
-    let user = await User.findOne({ 'auth.local.email': email });
+    let user = await User.findOne({ 'auth.local.email': email }).exec();
 
     if (user) {
       user.auth.local.salt = salt;
@@ -534,14 +534,16 @@ api.resetPassword = {
         from: 'Habitica <admin@habitica.com>',
         to: email,
         subject: res.t('passwordResetEmailSubject'),
-        text: res.t('passwordResetEmailText', { username: user.auth.local.username,
-                                                newPassword,
-                                                baseUrl: nconf.get('BASE_URL'),
-                                              }),
-        html: res.t('passwordResetEmailHtml', { username: user.auth.local.username,
-                                                newPassword,
-                                                baseUrl: nconf.get('BASE_URL'),
-                                              }),
+        text: res.t('passwordResetEmailText', {
+          username: user.auth.local.username,
+          newPassword,
+          baseUrl: nconf.get('BASE_URL'),
+        }),
+        html: res.t('passwordResetEmailHtml', {
+          username: user.auth.local.username,
+          newPassword,
+          baseUrl: nconf.get('BASE_URL'),
+        }),
       });
 
       await user.save();
@@ -576,7 +578,10 @@ api.updateEmail = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let emailAlreadyInUse = await User.findOne({'auth.local.email': req.body.newEmail}).select({_id: 1}).lean().exec();
+    let emailAlreadyInUse = await User.findOne({
+      'auth.local.email': req.body.newEmail,
+    }).select({_id: 1}).lean().exec();
+
     if (emailAlreadyInUse) throw new NotAuthorized(res.t('cannotFulfillReq'));
 
     let candidatePassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);

@@ -328,6 +328,10 @@ angular.module('habitrpg')
           UserNotifications.readNotification(notificationId);
         },
 
+        readNotifications: function (notificationIds) {
+          return UserNotifications.readNotifications(notificationIds);
+        },
+
         addTag: function(data) {
           user.ops.addTag(data);
           Tags.createTag(data.body);

@@ -10,6 +10,11 @@
     "questDetails": "Details van de queeste",
     "invitations": "Uitnodigingen",
     "completed": "voltooid!",
+    "rewardsAllParticipants": "Beloningen voor alle queeste deelnemers",
+    "rewardsQuestOwner": "Extra beloningen voor eigenaar van de queeste",
+    "questOwnerReceived": "De eigenaar van de queeste kreeg ook",
+    "youWillReceive": "Je zult ontvangen",
+    "questOwnerWillReceive": "De eigenaar van de queeste ontvangt ook",
     "youReceived": "Je hebt ontvangen",
     "dropQuestCongrats": "Gefeliciteerd, je hebt een queeste-perkamentrol gevonden! Je kunt je groep uitnodigen om er direct mee te beginnen, of er later alsnog mee starten via Boedel > Queesten.",
     "questSend": "Op \"Uitnodigen\" klikken stuurt een uitnodiging naar de groepsleden. Wanneer alle leden hebben geaccepteerd of geweigerd, begint de queeste. Zie de status onder Sociaal > Groep.",
@@ -101,5 +106,10 @@
     "cantCancelActiveQuest": "Je kunt een actieve queeste niet annuleren, gebruik de stopfunctie.",
     "onlyLeaderCancelQuest": "Enkel de groeps- of queesteleider kan de queeste annuleren.",
     "questNotPending": "Er is geen queeste om te starten.",
-    "questOrGroupLeaderOnlyStartQuest": "Alleen de queesteleider of groepsleider kan de queeste forceren om te starten."
+    "questOrGroupLeaderOnlyStartQuest": "Alleen de queesteleider of groepsleider kan de queeste forceren om te starten.",
+    "createAccountReward": "Account aanmaken",
+    "loginIncentiveQuest": "Om deze queeste te verdienen moet je op <%= count %> verschillende dagen inchecken op Habitica!",
+    "loginIncentiveQuestObtained": "Je hebt deze queeste verdiend door in te checken op Habitica op <%= count %> verschillende dagen!",
+    "loginReward": "<%= count %> check-ins",
+    "createAccountQuest": "Je hebt deze queeste verdiend toen je je aanmeldde voor Habitica! Als een van je vrienden zich aanmeldt krijgt deze er ook een."
 }

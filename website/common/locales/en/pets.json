@@ -1,10 +1,14 @@
 {
     "pets": "Pets",
+    "activePet": "Active Pet",
+    "noActivePet": "No Active Pet",
     "petsFound": "Pets Found",
     "magicPets": "Magic Potion Pets",
     "rarePets": "Rare Pets",
     "questPets": "Quest Pets",
     "mounts": "Mounts",
+    "activeMount": "Active Mount",
+    "noActiveMount": "No Active Mount",
     "mountsTamed": "Mounts Tamed",
     "questMounts": "Quest Mounts",
     "magicMounts": "Magic Potion Mounts",
@@ -88,5 +92,7 @@
     "petsReleased": "Pets released.",
     "mountsAndPetsReleased": "Mounts and pets released",
     "mountsReleased": "Mounts released",
-    "gemsEach": "gems each"
+    "gemsEach": "gems each",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

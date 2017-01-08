@@ -79,6 +79,17 @@ let premium = {
     limited: true,
     _season: 'fall',
   },
+  RoyalPurple: {
+    value: 2,
+    text: t('hatchingPotionRoyalPurple'),
+    limited: true,
+  },
+  Holly: {
+    value: 2,
+    text: t('hatchingPotionHolly'),
+    limited: true,
+    _season: 'winter',
+  },
 };
 
 each(drops, (pot, key) => {
@@ -107,7 +118,7 @@ each(premium, (pot, key) => {
     premium: true,
     limited: false,
     canBuy () {
-      return false;
+      return pot._season === 'winter';
     },
   });
 });

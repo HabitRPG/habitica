@@ -217,6 +217,7 @@ let schema = new Schema({
     lastWeeklyRecap: {type: Date, default: Date.now},
     // Used to enable weekly recap emails as users login
     lastWeeklyRecapDiscriminator: Boolean,
+    onboardingEmailsPhase: String, // Keep track of the latest onboarding email sent
     communityGuidelinesAccepted: {type: Boolean, default: false},
     cronCount: {type: Number, default: 0},
     welcomed: {type: Boolean, default: false},
@@ -440,6 +441,7 @@ let schema = new Schema({
       // importantAnnouncements are in fact the recapture emails
       importantAnnouncements: {type: Boolean, default: true},
       weeklyRecaps: {type: Boolean, default: true},
+      onboarding: {type: Boolean, default: true},
     },
     pushNotifications: {
       unsubscribeFromAll: {type: Boolean, default: false},
@@ -470,7 +472,11 @@ let schema = new Schema({
   profile: {
     blurb: String,
     imageUrl: String,
-    name: String,
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
   },
   stats: {
     hp: {type: Number, default: shared.maxHealth},
@@ -527,8 +533,12 @@ let schema = new Schema({
     return {};
   }},
   pushDevices: [PushDeviceSchema],
-  _ABtest: {type: String},
+  _ABtest: {type: String}, // deprecated. Superseded by _ABtests
+  _ABtests: {type: Schema.Types.Mixed, default: () => {
+    return {};
+  }},
   webhooks: [WebhookSchema],
+  loginIncentives: {type: Number, default: 0},
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

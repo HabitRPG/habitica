@@ -131,12 +131,16 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         return console.log('Invalid group type.')
       }
 
+      var sendInviteText = window.env.t('sendInvitations');
+      if(group.purchased && group.purchased.plan && group.purchased.plan.customerId) sendInviteText += window.env.t('groupAdditionalUserCost');
+      group.sendInviteText = sendInviteText;
+
       $rootScope.openModal('invite-' + group.type, {
         controller:'InviteToGroupCtrl',
         resolve: {
           injectedGroup: function(){
             return group;
-          }
+          },
         }
       });
     };

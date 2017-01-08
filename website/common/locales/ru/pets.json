@@ -1,10 +1,14 @@
 {
     "pets": "Питомцы",
+    "activePet": "Активный питомец",
+    "noActivePet": "Нет активного питомца",
     "petsFound": "Питомцев найдено",
     "magicPets": "Питомцы из волшебного эликсира",
     "rarePets": "Редкие питомцы",
     "questPets": "Квестовые питомцы",
     "mounts": "Скакуны",
+    "activeMount": "Активный скакун",
+    "noActiveMount": "Нет активного скакуна",
     "mountsTamed": "­Пойманных скакунов",
     "questMounts": "Квестовые скакуны",
     "magicMounts": "Скакуны из волшебного эликсира",
@@ -88,5 +92,7 @@
     "petsReleased": "Питомцы освобождены.",
     "mountsAndPetsReleased": "Скакуны и питомцы освобождены.",
     "mountsReleased": "Скакуны освобождены.",
-    "gemsEach": "самоцветов за каждый"
+    "gemsEach": "самоцветов за каждый",
+    "foodWikiText": "Что любит есть мой питомец?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

@@ -10,9 +10,11 @@ export let schema = new Schema({
     type: String,
     default: uuid,
     validate: [validator.isUUID, 'Invalid uuid.'],
+    required: true,
   },
   name: {type: String, required: true},
   challenge: {type: String},
+  group: {type: String},
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

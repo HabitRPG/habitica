@@ -10,6 +10,11 @@
     "questDetails": "פרטי הרפתקה",
     "invitations": "הזמנות",
     "completed": "הושלם!",
+    "rewardsAllParticipants": "Rewards for all Quest Participants",
+    "rewardsQuestOwner": "Additional Rewards for Quest Owner",
+    "questOwnerReceived": "The Quest Owner Has Also Received",
+    "youWillReceive": "You Will Receive",
+    "questOwnerWillReceive": "The Quest Owner Will Also Receive",
     "youReceived": "קיבלתם",
     "dropQuestCongrats": "ברכות על זכייה במגילת ההרפתקה הזו! תוכלו להזמין את החבורה שלכם כדי להתחיל את ההרפתקה עכשיו, או לחזור אליה בכל זמן במלאי הציוד שלכם > הרפתקאות.",
     "questSend": "לחיצה על ״הזמן״ לתשלח הזמנות לחבורה שלכם. כשכל החברים יקבלו או ידחו את ההזמנה, ההרפתקה תתחיל. ראו את מצב ההזמנה תחת ״חברתי״ > ״חבורה״.",
@@ -101,5 +106,10 @@
     "cantCancelActiveQuest": "אתם לא יכולים להפסיק הרפתקה שכבר החלה, השתמשו באפשרות הביטול.",
     "onlyLeaderCancelQuest": "רק מנהיגי החבורה או מובילי ההרפתקה יכולים לבטל אותה.",
     "questNotPending": "אין הרפתקאות זמינות.",
-    "questOrGroupLeaderOnlyStartQuest": "רק מנהיג החבורה או מי שהזמין להרפתקה יכולים להכריח את כולם לצאת לדרך."
+    "questOrGroupLeaderOnlyStartQuest": "רק מנהיג החבורה או מי שהזמין להרפתקה יכולים להכריח את כולם לצאת לדרך.",
+    "createAccountReward": "Create Account",
+    "loginIncentiveQuest": "To earn this quest, check in to Habitica on <%= count %> different days!",
+    "loginIncentiveQuestObtained": "You earned this quest by checking in to Habitica on <%= count %> different days!",
+    "loginReward": "<%= count %> Check-ins",
+    "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too."
 }
