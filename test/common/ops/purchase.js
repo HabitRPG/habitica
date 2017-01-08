@@ -153,7 +153,7 @@ describe('shared.ops.purchase', () => {
       expect(message).to.equal(i18n.t('plusOneGem', 'de'));
       expect(user.balance).to.equal(userGemAmount + 0.5);
       expect(user.purchased.plan.gemsBought).to.equal(2);
-      expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate*2);
+      expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate * 2);
     });
 
     it('purchases eggs', () => {
