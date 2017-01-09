@@ -547,7 +547,7 @@ api.allocateNow = {
 };
 
 /**
- * @api {post} /user/buy/:key Buy gear, armoire or potion
+ * @api {post} /api/v3/user/buy/:key Buy gear, armoire or potion
  * @apiDescription Under the hood uses UserBuyGear, UserBuyPotion and UserBuyArmoire
  * @apiName UserBuy
  * @apiGroup User
@@ -567,7 +567,7 @@ api.buy = {
 };
 
 /**
- * @api {post} /user/buy-gear/:key Buy a piece of gear
+ * @api {post} /api/v3/user/buy-gear/:key Buy a piece of gear
  * @apiName UserBuyGear
  * @apiGroup User
  *
@@ -592,7 +592,7 @@ api.buyGear = {
 };
 
 /**
- * @api {post} /user/buy-armoire Buy an armoire item
+ * @api {post} /api/v3/user/buy-armoire Buy an armoire item
  * @apiName UserBuyArmoire
  * @apiGroup User
  *
@@ -614,7 +614,7 @@ api.buyArmoire = {
 };
 
 /**
- * @api {post} /user/buy-health-potion Buy a health potion
+ * @api {post} /api/v3/user/buy-health-potion Buy a health potion
  * @apiName UserBuyPotion
  * @apiGroup User
  *
@@ -634,7 +634,7 @@ api.buyHealthPotion = {
 };
 
 /**
- * @api {post} /user/buy-mystery-set/:key Buy a mystery set
+ * @api {post} /api/v3/user/buy-mystery-set/:key Buy a mystery set
  * @apiName UserBuyMysterySet
  * @apiGroup User
  *
