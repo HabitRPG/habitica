@@ -14,7 +14,7 @@ describe('GET /models/:model/paths', () => {
     await expect(user.get('/models/1234/paths')).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
-      message: t('modelNotFound'),
+      message: t('invalidReqParams'),
     });
   });
 
