@@ -3,8 +3,15 @@ habitrpg.controller('GroupTaskActionsCtrl', ['$scope', 'Shared', 'Tasks', 'User'
     $scope.assignedMembers = [];
     $scope.user = User.user;
 
+    // We must use a separate field here, because task.group is private. So, instead, we send this tmp field to alter the approval.
+    $scope.task._edit.requiresApproval = false;
+    if ($scope.task.group.approval.required) {
+      $scope.task._edit.requiresApproval = $scope.task.group.approval.required;
+    }
+
     $scope.toggleTaskRequiresApproval = function () {
       $scope.task._edit.group.approval.required = !$scope.task._edit.group.approval.required;
+      $scope.task._edit.requiresApproval = $scope.task._edit.group.approval.required;
     }
 
     $scope.$on('addedGroupMember', function(evt, userId) {
