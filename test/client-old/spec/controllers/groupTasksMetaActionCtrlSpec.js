@@ -1,4 +1,4 @@
-describe.only('Group Tasks Meta Actions Controller', () => {
+describe('Group Task Actions Controller', () => {
   let scope, user, userSerivce;
 
   beforeEach(() => {
