@@ -3,9 +3,8 @@ habitrpg.controller('GroupTaskActionsCtrl', ['$scope', 'Shared', 'Tasks', 'User'
     $scope.assignedMembers = [];
     $scope.user = User.user;
 
-    $scope.task._edit.requiresApproval = false;
-    if ($scope.task.group.approval.required && $scope.task._edit) {
-      $scope.task._edit.requiresApproval = $scope.task.group.approval.required;
+    $scope.toggleTaskRequiresApproval = function () {
+      $scope.task._edit.group.approval.required = !$scope.task._edit.group.approval.required;
     }
 
     $scope.$on('addedGroupMember', function(evt, userId) {
