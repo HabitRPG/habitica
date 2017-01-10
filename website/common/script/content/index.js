@@ -2785,6 +2785,38 @@ api.quests = {
       unlock: t('questSlothUnlockText'),
     },
   },
+  triceratops: {
+    text: t('questTriceratopsText'),
+    notes: t('questTriceratopsNotes'),
+    completion: t('questTriceratopsCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questTriceratopsBoss'),
+      hp: 1200,
+      str: 2.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Triceratops',
+          text: t('questTriceratopsDropTriceratopsEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Triceratops',
+          text: t('questTriceratopsDropTriceratopsEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Triceratops',
+          text: t('questTriceratopsDropTriceratopsEgg'),
+        },
+      ],
+      gp: 80,
+      exp: 800,
+      unlock: t('questTriceratopsUnlockText'),
+    },
+  },
 };
 
 _.each(api.quests, function(v, key) {
