@@ -17,7 +17,14 @@ describe('Tasks Service', function() {
       tasks = Tasks;
     });
 
-    rootScope.openModal = function () {};
+    rootScope.openModal = function() {
+      return {
+        result: {
+          then: function() {},
+          catch: function() {},
+        },
+      };
+    };
   });
 
   it('calls get user tasks endpoint', function() {
