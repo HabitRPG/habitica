@@ -392,7 +392,18 @@ schema.methods.sendChat = function sendChat (message, user) {
   let newMessage = chatDefaults(message, user);
 
   this.chat.unshift(newMessage);
-  this.chat.splice(200);
+
+  const MAX_CHAT_COUNT = 200;
+  const MAX_SUBBED_GROUP_CHAT_COUNT = 400;
+
+  let maxCount = MAX_CHAT_COUNT;
+
+  let plan = this.purchased.plan;
+  if (plan && plan.customerId && !plan.dateTerminated) {
+    maxCount = MAX_SUBBED_GROUP_CHAT_COUNT;
+  }
+
+  this.chat.splice(maxCount);
 
   // do not send notifications for guilds with more than 5000 users and for the tavern
   if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF) {
