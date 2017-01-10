@@ -259,6 +259,11 @@ let quests = {
     adjective: t('questEggSlothAdjective'),
     canBuy: hasQuestAchievementFunction('sloth'),
   },
+  Triceratops: {
+    text: t('questEggTriceratopsText'),
+    adjective: t('questEggTriceratopsAdjective'),
+    canBuy: hasQuestAchievementFunction('triceratops'),
+  },
 };
 
 applyEggDefaults(drops, {
