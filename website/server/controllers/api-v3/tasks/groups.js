@@ -11,6 +11,7 @@ import {
 import {
   createTasks,
   getTasks,
+  moveTask,
 } from '../../../libs/taskManager';
 
 let requiredGroupFields = '_id leader tasksOrder name';
@@ -109,7 +110,7 @@ api.groupMoveTask = {
     let taskId = req.params.taskId;
     let task = await Tasks.Task.findOne({
       _id: taskId,
-    });
+    }).exec();
 
     let to = Number(req.params.position);
 
@@ -125,22 +126,8 @@ api.groupMoveTask = {
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     let order = group.tasksOrder[`${task.type}s`];
-    let currentIndex = order.indexOf(task._id);
 
-    // If for some reason the task isn't ordered (should never happen), push it in the new position
-    // if the task is moved to a non existing position
-    // or if the task is moved to position -1 (push to bottom)
-    // -> push task at end of list
-    if (!order[to] && to !== -1) {
-      order.push(task._id);
-    } else {
-      if (currentIndex !== -1) order.splice(currentIndex, 1);
-      if (to === -1) {
-        order.push(task._id);
-      } else {
-        order.splice(to, 0, task._id);
-      }
-    }
+    moveTask(order, task._id, to);
 
     await group.save();
     res.respond(200, order);
