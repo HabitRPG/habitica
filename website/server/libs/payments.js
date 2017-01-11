@@ -44,6 +44,58 @@ function _dateDiff (earlyDate, lateDate) {
   return moment(lateDate).diff(earlyDate, 'months', true);
 }
 
+/**
+ * Add a subscription to members of a group
+ *
+ * @param  group  The Group Model that is subscribed to a group plan
+ *
+ * @return undefined
+ */
+api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers(group) {
+  let members;
+  if (group.type === 'guild') {
+    members = await User.find({guilds: group._id}).select('_id purchased').exec();
+  } else {
+    members = await User.find({'party._id': group._id}).select('_id purchased').exec();
+  }
+
+  let data = {
+    user: {},
+    sub: {
+      key: 'group_plan_auto',
+    },
+    customerId: 'group-plan',
+    paymentMethod: 'Group Plan',
+    headers: {},
+  };
+
+  let plan = {
+    planId: 'group_plan_auto',
+    customerId: 'group-plan'
+    dateUpdated: new Date(),
+    gemsBought: 0,
+    paymentMethod: 'groupPlan',
+    extraMonths: 0,
+    dateTerminated: null,
+    lastBillingDate: null,
+    dateCreated: new Date(),
+    mysteryItems: [],
+    consecutive: {
+      trinkets: 0,
+      offset: 0,
+      gemCapExtra: 0,
+    },
+  };
+
+  let promises = members.map((member) => {
+    member.purchased.plan = plan;
+    data.user = member;
+    return this.createSubscription(data);
+  });
+
+  await Promise.all(promises);
+}
+
 api.createSubscription = async function createSubscription (data) {
   let recipient = data.gift ? data.gift.member : data.user;
   let block = shared.content.subscriptionBlocks[data.gift ? data.gift.subscription.key : data.sub.key];
@@ -75,6 +127,8 @@ api.createSubscription = async function createSubscription (data) {
     emailType = 'group-subscription-begins';
     groupId = group._id;
     recipient.purchased.plan.quantity = data.sub.quantity;
+
+    await this.addSubscriptionToGroupUsers(group);
   }
 
   plan = recipient.purchased.plan;

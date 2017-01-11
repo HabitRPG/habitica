@@ -364,6 +364,27 @@ describe('payments/index', () => {
         let updatedGroup = await Group.findById(group._id).exec();
         expect(updatedGroup.purchased.plan.extraMonths).to.eql(0);
       });
+
+      it('grants all members of a group a subscription', async () => {
+        user.guilds.push(group._id);
+        await user.save();
+        expect(group.purchased.plan.planId).to.not.exist;
+        data.groupId = group._id;
+
+        await api.createSubscription(data);
+
+        let updatedLeader = await User.findById(user._id).exec();
+
+        expect(updatedLeader.purchased.plan.planId).to.eql('group_plan_auto');
+        expect(updatedLeader.purchased.plan.customerId).to.eql('group-plan');
+        expect(updatedLeader.purchased.plan.dateUpdated).to.exist;
+        expect(updatedLeader.purchased.plan.gemsBought).to.eql(0);
+        expect(updatedLeader.purchased.plan.paymentMethod).to.eql('Group Plan');
+        expect(updatedLeader.purchased.plan.extraMonths).to.eql(0);
+        expect(updatedLeader.purchased.plan.dateTerminated).to.eql(null);
+        expect(updatedLeader.purchased.plan.lastBillingDate).to.not.exist;
+        expect(updatedLeader.purchased.plan.dateCreated).to.exist;
+      });
     });
 
     context('Block subscription perks', () => {
