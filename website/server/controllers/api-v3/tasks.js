@@ -16,6 +16,7 @@ import {
 import {
   createTasks,
   getTasks,
+  moveTask,
 } from '../../libs/taskManager';
 import common from '../../../common';
 import Bluebird from 'bluebird';
@@ -639,22 +640,8 @@ api.moveTask = {
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
     let order = user.tasksOrder[`${task.type}s`];
-    let currentIndex = order.indexOf(task._id);
 
-    // If for some reason the task isn't ordered (should never happen), push it in the new position
-    // if the task is moved to a non existing position
-    // or if the task is moved to position -1 (push to bottom)
-    // -> push task at end of list
-    if (!order[to] && to !== -1) {
-      order.push(task._id);
-    } else {
-      if (currentIndex !== -1) order.splice(currentIndex, 1);
-      if (to === -1) {
-        order.push(task._id);
-      } else {
-        order.splice(to, 0, task._id);
-      }
-    }
+    moveTask(order, task._id, to);
 
     await user.save();
     res.respond(200, order);

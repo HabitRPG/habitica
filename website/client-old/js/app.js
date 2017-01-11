@@ -198,10 +198,28 @@ window.habitrpg = angular.module('habitrpg',
               })
               .then(function (response) {
                 var tasks = response.data.data;
-                tasks.forEach(function (element, index, array) {
-                  if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
-                  $scope.group[element.type + 's'].unshift(element);
-                });
+
+                // @TODO: This task ordering logic should be astracted and user everywhere group or user tasks are loaded
+                var groupedTasks = _(tasks)
+                  .groupBy('type')
+                  .forEach(function (tasksOfType, type) {
+                    var order = $scope.group.tasksOrder[type + 's'];
+                    var orderedTasks = new Array(tasksOfType.length);
+                    var unorderedTasks = []; // what we want to add later
+
+                    tasksOfType.forEach(function (task, index) {
+                      var taskId = task._id;
+                      var i = order[index] === taskId ? index : order.indexOf(taskId);
+                      if (i === -1) {
+                        unorderedTasks.unshift(task); // unshift because we want to display new on top
+                      } else {
+                        orderedTasks[i] = task;
+                      }
+                    });
+
+                    // Remove empty values from the array and add any unordered task
+                    $scope.group[type + 's'] = _.compact(orderedTasks).concat(unorderedTasks);
+                  }).value();
 
                 $scope.group.approvals = [];
                 if (User.user._id === $scope.group.leader._id) {

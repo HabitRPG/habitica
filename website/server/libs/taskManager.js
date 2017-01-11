@@ -188,3 +188,32 @@ export function syncableAttrs (task) {
   if (t.type !== 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
 }
+
+/**
+ * Moves a task to a specified position.
+ *
+ * @param  order  The list of ordered tasks
+ * @param  taskId  The Task._id of the task to move
+ * @param  to A integer specifiying the index to move the task to
+ *
+ * @return Empty
+ */
+export function moveTask (order, taskId, to) {
+  let currentIndex = order.indexOf(taskId);
+
+  // If for some reason the task isn't ordered (should never happen), push it in the new position
+  // if the task is moved to a non existing position
+  // or if the task is moved to position -1 (push to bottom)
+  // -> push task at end of list
+  if (!order[to] && to !== -1) {
+    order.push(taskId);
+    return;
+  }
+
+  if (currentIndex !== -1) order.splice(currentIndex, 1);
+  if (to === -1) {
+    order.push(taskId);
+  } else {
+    order.splice(to, 0, taskId);
+  }
+}

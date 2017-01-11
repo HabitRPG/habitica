@@ -158,6 +158,13 @@ angular.module('habitrpg')
       });
     };
 
+    function moveGroupTask (taskId, position) {
+      return $http({
+        method: 'POST',
+        url: '/api/v3/group-tasks/' + taskId + '/move/to/' + position,
+      });
+    };
+
     function addChecklistItem (taskId, checkListItem) {
       return $http({
         method: 'POST',
@@ -408,5 +415,6 @@ angular.module('habitrpg')
 
       getGroupApprovals: getGroupApprovals,
       approve: approve,
+      moveGroupTask: moveGroupTask,
     };
   }]);
