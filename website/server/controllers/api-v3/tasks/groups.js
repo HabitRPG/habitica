@@ -4,12 +4,14 @@ import * as Tasks from '../../../models/task';
 import { model as Group } from '../../../models/group';
 import { model as User } from '../../../models/user';
 import {
+  BadRequest,
   NotFound,
   NotAuthorized,
 } from '../../../libs/errors';
 import {
   createTasks,
   getTasks,
+  moveTask,
 } from '../../../libs/taskManager';
 
 let requiredGroupFields = '_id leader tasksOrder name';
@@ -77,6 +79,58 @@ api.getGroupTasks = {
 
     let tasks = await getTasks(req, res, {user, group});
     res.respond(200, tasks);
+  },
+};
+
+/**
+ * @api {post} /api/v3/group/:groupId/tasks/:taskId/move/to/:position Move a group task to a specified position
+ * @apiDescription Moves a group task to a specified position
+ * @apiVersion 3.0.0
+ * @apiName GroupMoveTask
+ * @apiGroup Task
+ *
+ * @apiParam {String} taskId The task _id
+ * @apiParam {Number} position Query parameter - Where to move the task (-1 means push to bottom). First position is 0
+ *
+ * @apiSuccess {Array} data The new tasks order (group.tasksOrder.{task.type}s)
+ */
+api.groupMoveTask = {
+  method: 'POST',
+  url: '/group-tasks/:taskId/move/to/:position',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
+
+    let reqValidationErrors = req.validationErrors();
+    if (reqValidationErrors) throw reqValidationErrors;
+
+    let user = res.locals.user;
+
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findOne({
+      _id: taskId,
+    }).exec();
+
+    let to = Number(req.params.position);
+
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    }
+
+    if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
+
+    let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+
+    let order = group.tasksOrder[`${task.type}s`];
+
+    moveTask(order, task._id, to);
+
+    await group.save();
+    res.respond(200, order);
   },
 };
 
