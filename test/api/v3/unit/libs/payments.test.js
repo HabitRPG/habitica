@@ -12,7 +12,7 @@ import {
 } from '../../../../helpers/api-unit.helper.js';
 import i18n from '../../../../../website/common/script/i18n';
 
-describe('payments/index', () => {
+describe.only('payments/index', () => {
   let user, group, data, plan;
 
   let stripe = stripeModule('test');
@@ -817,6 +817,27 @@ describe('payments/index', () => {
 
         expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: recipientsMessageContent, senderMsg: sendersMessageContent });
       });
+    });
+  });
+
+  describe('addSubToGroupUser', () => {
+    it('adds a group subscription to a new user', async () => {
+      expect(group.purchased.plan.planId).to.not.exist;
+      data.groupId = group._id;
+
+      await api.addSubToGroupUser(user);
+
+      let updatedUser = await User.findById(user._id).exec();
+
+      expect(updatedUser.purchased.plan.planId).to.eql('group_plan_auto');
+      expect(updatedUser.purchased.plan.customerId).to.eql('group-plan');
+      expect(updatedUser.purchased.plan.dateUpdated).to.exist;
+      expect(updatedUser.purchased.plan.gemsBought).to.eql(0);
+      expect(updatedUser.purchased.plan.paymentMethod).to.eql('Group Plan');
+      expect(updatedUser.purchased.plan.extraMonths).to.eql(0);
+      expect(updatedUser.purchased.plan.dateTerminated).to.eql(null);
+      expect(updatedUser.purchased.plan.lastBillingDate).to.not.exist;
+      expect(updatedUser.purchased.plan.dateCreated).to.exist;
     });
   });
 

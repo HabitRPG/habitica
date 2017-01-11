@@ -398,7 +398,10 @@ api.joinGroup = {
 
     group.memberCount += 1;
 
-    if (group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
+    if (group.purchased.plan.customerId) {
+      await payments.addSubToGroupUser(user);
+      await payments.updateStripeGroupPlan(group);
+    }
 
     let promises = [group.save(), user.save()];
 

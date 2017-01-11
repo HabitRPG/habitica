@@ -59,6 +59,21 @@ api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers(gro
     members = await User.find({'party._id': group._id}).select('_id purchased').exec();
   }
 
+  let promises = members.map((member) => {
+    return this.addSubToGroupUser(member);
+  });
+
+  await Promise.all(promises);
+}
+
+/**
+ * Add a subscription to a new member of a group
+ *
+ * @param  member  The new member of the group
+ *
+ * @return undefined
+ */
+api.addSubToGroupUser = async function addSubToGroupUser(member) {
   let data = {
     user: {},
     sub: {
@@ -87,14 +102,11 @@ api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers(gro
     },
   };
 
-  let promises = members.map((member) => {
-    member.purchased.plan = plan;
-    data.user = member;
-    return this.createSubscription(data);
-  });
-
-  await Promise.all(promises);
+  member.purchased.plan = plan;
+  data.user = member;
+  await this.createSubscription(data);
 }
+
 
 /**
  * Cancels subscriptions of members of a group
