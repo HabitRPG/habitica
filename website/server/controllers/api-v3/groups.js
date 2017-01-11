@@ -643,7 +643,10 @@ api.removeGroupMember = {
 
     if (isInGroup) {
       group.memberCount -= 1;
-      if (group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
+      if (group.purchased.plan.customerId) {
+        await payments.updateStripeGroupPlan(group);
+        await payments.cancelSubscription({user: member});
+      }
 
       if (group.quest && group.quest.leader === member._id) {
         group.quest.key = undefined;

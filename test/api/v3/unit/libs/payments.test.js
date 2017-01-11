@@ -12,7 +12,7 @@ import {
 } from '../../../../helpers/api-unit.helper.js';
 import i18n from '../../../../../website/common/script/i18n';
 
-describe.only('payments/index', () => {
+describe('payments/index', () => {
   let user, group, data, plan;
 
   let stripe = stripeModule('test');

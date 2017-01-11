@@ -946,6 +946,10 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     update.$unset = {[`quest.members.${user._id}`]: 1};
   }
 
+  if (group.purchased.plan.customerId) {
+    promises.push(payments.cancelSubscription({user}));
+  }
+
   // If user is the last one in group and group is private, delete it
   if (group.memberCount <= 1 && group.privacy === 'private') {
     // double check the member count is correct so we don't accidentally delete a group that still has users in it
