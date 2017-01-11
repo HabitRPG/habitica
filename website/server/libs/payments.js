@@ -51,7 +51,7 @@ function _dateDiff (earlyDate, lateDate) {
  *
  * @return undefined
  */
-api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers(group) {
+api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers (group) {
   let members;
   if (group.type === 'guild') {
     members = await User.find({guilds: group._id}).select('_id purchased').exec();
@@ -64,7 +64,7 @@ api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers(gro
   });
 
   await Promise.all(promises);
-}
+};
 
 /**
  * Add a subscription to a new member of a group
@@ -73,7 +73,7 @@ api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers(gro
  *
  * @return undefined
  */
-api.addSubToGroupUser = async function addSubToGroupUser(member) {
+api.addSubToGroupUser = async function addSubToGroupUser (member) {
   let data = {
     user: {},
     sub: {
@@ -105,7 +105,7 @@ api.addSubToGroupUser = async function addSubToGroupUser(member) {
   member.purchased.plan = plan;
   data.user = member;
   await this.createSubscription(data);
-}
+};
 
 
 /**
@@ -115,7 +115,7 @@ api.addSubToGroupUser = async function addSubToGroupUser(member) {
  *
  * @return undefined
  */
-api.cancelGroupUsersSubscription = async function cancelGroupUsersSubscription(group) {
+api.cancelGroupUsersSubscription = async function cancelGroupUsersSubscription (group) {
   let members;
   if (group.type === 'guild') {
     members = await User.find({guilds: group._id}).select('_id purchased').exec();
@@ -131,7 +131,7 @@ api.cancelGroupUsersSubscription = async function cancelGroupUsersSubscription(g
   });
 
   await Promise.all(promises);
-}
+};
 
 api.createSubscription = async function createSubscription (data) {
   let recipient = data.gift ? data.gift.member : data.user;

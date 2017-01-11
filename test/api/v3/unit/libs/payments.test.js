@@ -703,7 +703,7 @@ describe('payments/index', () => {
         await user.save();
         expect(group.purchased.plan.planId).to.not.exist;
         data.groupId = group._id;
-        await api.createSubscription(data);data.groupId = group._id;
+        await api.createSubscription(data);
 
         await api.cancelSubscription(data);
 

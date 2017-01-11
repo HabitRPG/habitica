@@ -10,6 +10,7 @@ import { model as Challenge} from './challenge';
 import * as Tasks from './task';
 import validator from 'validator';
 import { removeFromArray } from '../libs/collectionManipulators';
+import payments from '../libs/payments';
 import { groupChatReceivedWebhook } from '../libs/webhook';
 import {
   InternalServerError,
