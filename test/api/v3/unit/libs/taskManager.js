@@ -2,6 +2,7 @@ import {
   createTasks,
   getTasks,
   syncableAttrs,
+  moveTask,
 } from '../../../../../website/server/libs/taskManager';
 import i18n from '../../../../../website/common/script/i18n';
 import {
@@ -168,5 +169,13 @@ describe('taskManager', () => {
     expect(syncableTask.streak).to.not.exist;
     expect(syncableTask.notes).to.not.exist;
     expect(syncableTask.updatedAt).to.not.exist;
+  });
+
+  it('moves tasks to a specified position', async() => {
+    let order = ['task-id-1', 'task-id-2'];
+
+    moveTask(order, 'task-id-2', 0);
+
+    expect(order).to.eql(['task-id-2', 'task-id-1']);
   });
 });
