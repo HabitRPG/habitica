@@ -1,6 +1,6 @@
 {
     "pets": "Huisdieren",
-    "activePet": "Atief huisdier",
+    "activePet": "Actief huisdier",
     "noActivePet": "Geen actief huisdier",
     "petsFound": "Huisdieren gevonden",
     "magicPets": "Huisdieren van een magische uitbroeddrank",
@@ -92,5 +92,7 @@
     "petsReleased": "Huisdieren vrijgelaten.",
     "mountsAndPetsReleased": "Rijdieren en huisdieren vrijgelaten",
     "mountsReleased": "Rijdieren vrijgelaten",
-    "gemsEach": "edelstenen elk"
+    "gemsEach": "edelstenen elk",
+    "foodWikiText": "Wat eet mijn huisdier graag?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

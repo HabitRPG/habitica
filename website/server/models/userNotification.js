@@ -15,6 +15,9 @@ const NOTIFICATION_TYPES = [
   'GROUP_TASK_APPROVAL',
   'GROUP_TASK_APPROVED',
   'LOGIN_INCENTIVE',
+  'GROUP_INVITE_ACCEPTED',
+  'SCORED_TASK',
+  'BOSS_DAMAGE', // Not used currently but kept to avoid validation errors
 ];
 
 const Schema = mongoose.Schema;
@@ -24,6 +27,7 @@ export let schema = new Schema({
     type: String,
     default: uuid,
     validate: [validator.isUUID, 'Invalid uuid.'],
+    required: true,
   },
   type: {type: String, required: true, enum: NOTIFICATION_TYPES},
   data: {type: Schema.Types.Mixed, default: () => {
@@ -37,8 +41,7 @@ export let schema = new Schema({
 
 schema.plugin(baseModel, {
   noSet: ['_id', 'id'],
-  timestamps: true,
-  private: ['updatedAt'],
+  // timestamps: true, // Temporarily removed to debug a possible bug
   _id: false, // use id instead of _id
 });
 

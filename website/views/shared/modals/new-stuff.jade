@@ -9,4 +9,4 @@ script(type='text/ng-template', id='modals/newStuff.html')
     div(ng-bind-html='latestBaileyMessage')
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('cool')
-    button.btn.btn-warning(ng-click='dismissAlert(); $close(); showLoginIncentive()')=env.t('dismissAlert')
+    button.btn.btn-warning(ng-click='dismissAlert(); $close()')=env.t('dismissAlert')

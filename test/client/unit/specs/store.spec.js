@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import storeInjector from 'inject?-vue!client/store';
 import { mapState, mapGetters, mapActions } from 'client/store';
+import { flattenAndNamespace } from 'client/store/helpers/internals';
 
 describe('Store', () => {
   let injectedStore;
@@ -14,11 +15,25 @@ describe('Store', () => {
         computedName ({ state }) {
           return `${state.name} computed!`;
         },
+        ...flattenAndNamespace({
+          nested: {
+            computedName ({ state }) {
+              return `${state.name} computed!`;
+            },
+          },
+        }),
       },
       './actions': {
         getName ({ state }, ...args) {
           return [state.name, ...args];
         },
+        ...flattenAndNamespace({
+          nested: {
+            getName ({ state }, ...args) {
+              return [state.name, ...args];
+            },
+          },
+        }),
       },
     }).default;
   });
@@ -41,15 +56,27 @@ describe('Store', () => {
     injectedStore.state.name = 'test updated';
   });
 
-  it('supports getters', () => {
-    expect(injectedStore.getters.computedName).to.equal('test computed!');
-    injectedStore.state.name = 'test updated';
-    expect(injectedStore.getters.computedName).to.equal('test updated computed!');
+  describe('getters', () => {
+    it('supports getters', () => {
+      expect(injectedStore.getters.computedName).to.equal('test computed!');
+      injectedStore.state.name = 'test updated';
+      expect(injectedStore.getters.computedName).to.equal('test updated computed!');
+    });
+
+    it('supports nested getters', () => {
+      expect(injectedStore.getters['nested:computedName']).to.equal('test computed!');
+      injectedStore.state.name = 'test updated';
+      expect(injectedStore.getters['nested:computedName']).to.equal('test updated computed!');
+    });
   });
 
   describe('actions', () => {
-    it('can be dispatched', () => {
+    it('can dispatch an action', () => {
       expect(injectedStore.dispatch('getName', 1, 2, 3)).to.deep.equal(['test', 1, 2, 3]);
+    });
+
+    it('can dispatch a nested action', () => {
+      expect(injectedStore.dispatch('nested:getName', 1, 2, 3)).to.deep.equal(['test', 1, 2, 3]);
     });
 
     it('throws an error is the action doesn\'t exists', () => {
@@ -115,6 +142,27 @@ describe('Store', () => {
           done();
         },
       });
+    });
+
+    it('flattenAndNamespace', () => {
+      let result = flattenAndNamespace({
+        nested: {
+          computed ({ state }, ...args) {
+            return [state.name, ...args];
+          },
+          getName ({ state }, ...args) {
+            return [state.name, ...args];
+          },
+        },
+        nested2: {
+          getName ({ state }, ...args) {
+            return [state.name, ...args];
+          },
+        },
+      });
+
+      expect(Object.keys(result).length).to.equal(3);
+      expect(Object.keys(result).sort()).to.deep.equal(['nested2:getName', 'nested:computed', 'nested:getName']);
     });
   });
 });

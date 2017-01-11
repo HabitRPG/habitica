@@ -92,5 +92,7 @@
     "petsReleased": "Háziállatok elengedve.",
     "mountsAndPetsReleased": "Hátasok és háziállatok elengedve",
     "mountsReleased": "Hátasok elengedve",
-    "gemsEach": "drágakő egyenként"
+    "gemsEach": "drágakő egyenként",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

@@ -54,5 +54,5 @@
     "messageUserOperationProtected": "путь `<%= operation %>` не был сохранён, это зарезервированный путь.",
     "messageUserOperationNotFound": "Операция <%= operation %> не найдена",
     "messageNotificationNotFound": "Уведомление не найдено.",
-    "notificationsRequired": "Notification ids are required."
+    "notificationsRequired": "Требуются идентификаторы уведомлений."
 }

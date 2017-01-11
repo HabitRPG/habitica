@@ -423,6 +423,34 @@ let backgrounds = {
       notes: t('backgroundWindyAutumnNotes'),
     },
   },
+  backgrounds122016: {
+    shimmering_ice_prism: {
+      text: t('backgroundShimmeringIcePrismText'),
+      notes: t('backgroundShimmeringIcePrismNotes'),
+    },
+    winter_fireworks: {
+      text: t('backgroundWinterFireworksText'),
+      notes: t('backgroundWinterFireworksNotes'),
+    },
+    winter_storefront: {
+      text: t('backgroundWinterStorefrontText'),
+      notes: t('backgroundWinterStorefrontNotes'),
+    },
+  },
+  backgrounds012017: {
+    blizzard: {
+      text: t('backgroundBlizzardText'),
+      notes: t('backgroundBlizzardNotes'),
+    },
+    sparkling_snowflake: {
+      text: t('backgroundSparklingSnowflakeText'),
+      notes: t('backgroundSparklingSnowflakeNotes'),
+    },
+    stoikalm_volcanoes: {
+      text: t('backgroundStoikalmVolcanoesText'),
+      notes: t('backgroundStoikalmVolcanoesNotes'),
+    },
+  },
   incentiveBackgrounds: {
     blue: {
       text: t('backgroundBlueText'),

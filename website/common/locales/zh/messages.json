@@ -54,5 +54,5 @@
     "messageUserOperationProtected": "路径 `<%= operation %>`因受到保护未保存。",
     "messageUserOperationNotFound": "<%= operation %> 无法找到此操作。",
     "messageNotificationNotFound": "找不到消息",
-    "notificationsRequired": "Notification ids are required."
+    "notificationsRequired": "需要Notification ids"
 }

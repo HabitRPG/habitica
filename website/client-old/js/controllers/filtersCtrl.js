@@ -45,4 +45,8 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'Shared',
       User.addTag({body:{name: $scope._newTag.name, id: Shared.uuid()}});
       $scope._newTag.name = '';
     };
+
+    $scope.showChallengeClass = function (tag) {
+      return tag.challenge || tag.group;
+    };
 }]);

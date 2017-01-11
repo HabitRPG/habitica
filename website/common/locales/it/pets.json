@@ -92,5 +92,7 @@
     "petsReleased": "Animali liberati.",
     "mountsAndPetsReleased": "Cavalcature e animali liberati",
     "mountsReleased": "Cavalcature liberate",
-    "gemsEach": "gemme ciascuno"
+    "gemsEach": "gemme ciascuno",
+    "foodWikiText": "Cosa piace mangiare al mio animale?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }
