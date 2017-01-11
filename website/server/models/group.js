@@ -399,7 +399,7 @@ schema.methods.sendChat = function sendChat (message, user) {
   let maxCount = MAX_CHAT_COUNT;
 
   let plan = this.purchased.plan;
-  if (plan && plan.customerId && !plan.dateTerminated) {
+  if (plan && plan.customerId && (!plan.dateTerminated || plan.dateTerminated < now)) {
     maxCount = MAX_SUBBED_GROUP_CHAT_COUNT;
   }
 
@@ -894,7 +894,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   let update = {};
 
   let plan = group.purchased.plan;
-  if (group.memberCount <= 1 && group.privacy === 'private' && plan && plan.customerId && !plan.dateTerminated) {
+  if (group.memberCount <= 1 && group.privacy === 'private' && plan && plan.customerId && (!plan.dateTerminated || plan.dateTerminated < now)) {
     throw new NotAuthorized(shared.i18n.t('cannotDeleteActiveGroup'));
   }
 
