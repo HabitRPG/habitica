@@ -685,6 +685,33 @@ describe('payments/index', () => {
 
         expect(updatedGroup.purchased.plan.dateTerminated).to.exist;
       });
+
+      it('cancels subscription from members', async () => {
+        data = {
+          user,
+          sub: {
+            key: 'basic_3mo',
+          },
+          customerId: 'customer-id',
+          paymentMethod: 'Payment Method',
+          headers: {
+            'x-client': 'habitica-web',
+            'user-agent': '',
+          },
+        };
+        user.guilds.push(group._id);
+        await user.save();
+        expect(group.purchased.plan.planId).to.not.exist;
+        data.groupId = group._id;
+        await api.createSubscription(data);data.groupId = group._id;
+
+        await api.cancelSubscription(data);
+
+        let now = new Date();
+        let updatedLeader = await User.findById(user._id).exec();
+        let daysTillTermination = moment(updatedLeader.purchased.plan.dateTerminated).diff(now, 'days');
+        expect(daysTillTermination).to.be.within(29, 30); // 1 month +/- 1 days
+      });
     });
   });
 

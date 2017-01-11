@@ -30,6 +30,12 @@ let subscriptionBlocks = {
     price: 9,
     quantity: 3, // Default quantity for Stripe - The same as having 3 user subscriptions
   },
+  group_plan_auto: {
+    type: 'group',
+    months: 0,
+    price: 0,
+    quantity: 1,
+  },
 };
 
 _.each(subscriptionBlocks, function createKeys (b, k) {

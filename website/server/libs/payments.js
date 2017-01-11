@@ -71,7 +71,7 @@ api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers(gro
 
   let plan = {
     planId: 'group_plan_auto',
-    customerId: 'group-plan'
+    customerId: 'group-plan',
     dateUpdated: new Date(),
     gemsBought: 0,
     paymentMethod: 'groupPlan',
@@ -91,6 +91,31 @@ api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers(gro
     member.purchased.plan = plan;
     data.user = member;
     return this.createSubscription(data);
+  });
+
+  await Promise.all(promises);
+}
+
+/**
+ * Cancels subscriptions of members of a group
+ *
+ * @param  group  The Group Model that is cancelling a group plan
+ *
+ * @return undefined
+ */
+api.cancelGroupUsersSubscription = async function cancelGroupUsersSubscription(group) {
+  let members;
+  if (group.type === 'guild') {
+    members = await User.find({guilds: group._id}).select('_id purchased').exec();
+  } else {
+    members = await User.find({'party._id': group._id}).select('_id purchased').exec();
+  }
+
+  let data = {};
+
+  let promises = members.map((member) => {
+    data.user = member;
+    return this.cancelSubscription(data);
   });
 
   await Promise.all(promises);
@@ -318,6 +343,8 @@ api.cancelSubscription = async function cancelSubscription (data) {
     }
     plan = group.purchased.plan;
     emailType = 'group-cancel-subscription';
+
+    await this.cancelGroupUsersSubscription(group);
   } else {
     plan = data.user.purchased.plan;
   }
