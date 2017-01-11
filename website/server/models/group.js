@@ -1149,7 +1149,7 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
 schema.methods.isSubscribed = function isSubscribed () {
   let now = new Date();
   let plan = this.purchased.plan;
-  return plan && plan.customerId && (!plan.dateTerminated || moment(plan.dateTerminated).isBefore(now));
+  return plan && plan.customerId && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
 };
 
 export let model = mongoose.model('Group', schema);
