@@ -385,6 +385,42 @@ describe('payments/index', () => {
         expect(updatedLeader.purchased.plan.lastBillingDate).to.not.exist;
         expect(updatedLeader.purchased.plan.dateCreated).to.exist;
       });
+
+      it('adds months to members with existing subscription', async () => {
+        let recipient = new User();
+        recipient.profile.name = 'recipient';
+        recipient.purchased.plan = plan;
+        recipient.guilds.push(group._id);
+        await recipient.save();
+        data.gift = {
+          member: recipient,
+          subscription: {
+            key: 'basic_3mo',
+            months: 3,
+          },
+        };
+        await api.createSubscription(data);
+
+        data.gift = undefined;
+
+        user.guilds.push(group._id);
+        await user.save();
+        data.groupId = group._id;
+
+        await api.createSubscription(data);
+
+        let updatedUser = await User.findById(recipient._id).exec();
+
+        expect(updatedUser.purchased.plan.planId).to.eql('group_plan_auto');
+        expect(updatedUser.purchased.plan.customerId).to.eql('group-plan');
+        expect(updatedUser.purchased.plan.dateUpdated).to.exist;
+        expect(updatedUser.purchased.plan.gemsBought).to.eql(0);
+        expect(updatedUser.purchased.plan.paymentMethod).to.eql('Group Plan');
+        expect(updatedUser.purchased.plan.extraMonths).to.eql(3); // @TODO: I believe this should also contain the fraction of days left in the current month
+        expect(updatedUser.purchased.plan.dateTerminated).to.eql(null);
+        expect(updatedUser.purchased.plan.lastBillingDate).to.not.exist;
+        expect(updatedUser.purchased.plan.dateCreated).to.exist;
+      });
     });
 
     context('Block subscription perks', () => {
