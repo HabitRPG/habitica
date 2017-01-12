@@ -11,18 +11,63 @@ import common from '../../../../../website/common';
 
 const i18n = common.i18n;
 
-describe.only('Amazon Payments', () => {
+describe('Amazon Payments', () => {
   describe('checkout', () => {
+    let user, orderReferenceId, headers;
     let setOrderReferenceDetailsSpy;
     let confirmOrderReferenceSpy;
     let authorizeSpy;
     let closeOrderReferenceSpy;
-    let nconfStub;
 
     let paymentBuyGemsStub;
     let paymentCreateSubscritionStub;
+    let commonUUIDStub;
+    let amount = 5;
+
+    function expectAmazonStubs(options = {}) {
+      let {orderReferenceId, amount} = options;
+
+      expect(setOrderReferenceDetailsSpy).to.be.calledOnce;
+      expect(setOrderReferenceDetailsSpy).to.be.calledWith({
+        AmazonOrderReferenceId: orderReferenceId,
+        OrderReferenceAttributes: {
+          OrderTotal: {
+            CurrencyCode: amzLib.constants.CURRENCY_CODE,
+            Amount: amount,
+          },
+          SellerNote: amzLib.constants.SELLER_NOTE,
+          SellerOrderAttributes: {
+            SellerOrderId: common.uuid(),
+            StoreName: amzLib.constants.STORE_NAME,
+          },
+        },
+      });
+
+      expect(confirmOrderReferenceSpy).to.be.calledOnce;
+      expect(confirmOrderReferenceSpy).to.be.calledWith({ AmazonOrderReferenceId: orderReferenceId });
+
+      expect(authorizeSpy).to.be.calledOnce;
+      expect(authorizeSpy).to.be.calledWith({
+        AmazonOrderReferenceId: orderReferenceId,
+        AuthorizationReferenceId: common.uuid().substring(0, 32),
+        AuthorizationAmount: {
+          CurrencyCode: amzLib.constants.CURRENCY_CODE,
+          Amount: amount,
+        },
+        SellerAuthorizationNote: amzLib.constants.SELLER_NOTE,
+        TransactionTimeout: 0,
+        CaptureNow: true,
+      });
+
+      expect(closeOrderReferenceSpy).to.be.calledOnce;
+      expect(closeOrderReferenceSpy).to.be.calledWith({ AmazonOrderReferenceId: orderReferenceId });
+    }
 
     beforeEach(function () {
+      user = new User();
+      headers = {};
+      orderReferenceId = 'orderReferenceId';
+
       setOrderReferenceDetailsSpy = sinon.stub(amzLib, 'setOrderReferenceDetails');
       setOrderReferenceDetailsSpy.returnsPromise().resolves({});
 
@@ -35,17 +80,13 @@ describe.only('Amazon Payments', () => {
       closeOrderReferenceSpy = sinon.stub(amzLib, 'closeOrderReference');
       closeOrderReferenceSpy.returnsPromise().resolves({});
 
-      nconfStub = sandbox.stub(nconf, 'get');
-      nconfStub.withArgs('AMAZON_PAYMENTS:SELLER_ID').returns('SELLER_ID');
-      nconfStub.withArgs('AMAZON_PAYMENTS:MWS_KEY').returns('MWS_KEY');
-      nconfStub.withArgs('AMAZON_PAYMENTS:MWS_SECRET').returns('MWS_SECRET');
-      nconfStub.withArgs('AMAZON_PAYMENTS:CLIENT_ID').returns('CLIENT_ID');
-
       paymentBuyGemsStub = sinon.stub(payments, 'buyGems');
       paymentBuyGemsStub.returnsPromise().resolves({});
 
       paymentCreateSubscritionStub = sinon.stub(payments, 'createSubscription');
       paymentCreateSubscritionStub.returnsPromise().resolves({});
+
+      commonUUIDStub = sinon.stub(common, 'uuid').returns('uuid-generated');
     });
 
     afterEach(function () {
@@ -53,46 +94,70 @@ describe.only('Amazon Payments', () => {
       amzLib.confirmOrderReference.restore();
       amzLib.authorize.restore();
       amzLib.closeOrderReference.restore();
-      nconf.get.restore();
       payments.buyGems.restore();
       payments.createSubscription.restore();
+      common.uuid.restore();
     });
 
     it('should purchase gems', async () => {
-      await amzLib.checkout();
-
-      // @TODO: Check all amazon stubs
+      await amzLib.checkout({user, orderReferenceId, headers});
 
       expect(paymentBuyGemsStub).to.be.calledOnce;
-
-      // @TODO: Add called with checks
+      expect(paymentBuyGemsStub).to.be.calledWith({
+        user,
+        paymentMethod: amzLib.constants.PAYMENT_METHOD_AMAZON,
+        headers,
+      });
+      expectAmazonStubs({orderReferenceId, amount});
     });
 
     it('should gift gems', async () => {
-      await amzLib.checkout();
+      let receivingUser = new User();
+      receivingUser.save();
+      let gift = {
+        type: 'gems',
+        gems: {
+          amount: 16,
+          uuid: receivingUser._id,
+        },
+      };
+      let amount = 16 / 4;
+      await amzLib.checkout({gift, user, orderReferenceId, headers});
 
-      // @TODO: Check all amazon stubs
-
+      gift.member = receivingUser;
       expect(paymentBuyGemsStub).to.be.calledOnce;
-
-      // @TODO: Add called with checks
+      expect(paymentBuyGemsStub).to.be.calledWith({
+        user,
+        paymentMethod: amzLib.constants.PAYMENT_METHOD_AMAZON_GIFT,
+        headers,
+        gift,
+      });
+      expectAmazonStubs({orderReferenceId, amount});
     });
 
     it('should gift a subscription', async () => {
+      let receivingUser = new User();
+      receivingUser.save();
       let gift = {
         type: 'subscription',
         subscription: {
           key: 'basic_3mo',
+          uuid: receivingUser._id,
         },
       };
+      let amount = common.content.subscriptionBlocks['basic_3mo'].price;
 
-      await amzLib.checkout({gift});
+      await amzLib.checkout({user, orderReferenceId, headers, gift});
 
-      // @TODO: Check all amazon stubs
-
+      gift.member = receivingUser;
       expect(paymentCreateSubscritionStub).to.be.calledOnce;
-
-      // @TODO: Add called with checks
+      expect(paymentCreateSubscritionStub).to.be.calledWith({
+        user,
+        paymentMethod: amzLib.constants.PAYMENT_METHOD_AMAZON_GIFT,
+        headers,
+        gift,
+      });
+      expectAmazonStubs({orderReferenceId, amount});
     });
   });
 
