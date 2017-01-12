@@ -54,6 +54,7 @@
     "partyNotFound": "Kelompok tidak ditemukan",
     "targetIdUUID": "\"targetId\" harsu merupakan ID Pengguna valid.",
     "challengeTasksNoCast": "Menggunakan kemampuan pada tantangan tidak diperbolehkan.",
+    "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "Anda tidak memiliki kemampuan ini.",
     "spellLevelTooHigh": "Kamu harus berada pada level <%= level %> untuk menggunakan kemampuan ini."
 }

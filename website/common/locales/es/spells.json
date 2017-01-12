@@ -54,6 +54,7 @@
     "partyNotFound": "Grupo no encontrado.",
     "targetIdUUID": "\"targetId\" debe ser un ID de Usuario válido.",
     "challengeTasksNoCast": "No se pueden lanzar hechizos sobre tareas de desafíos.",
+    "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "No posees esta habilidad.",
     "spellLevelTooHigh": "Debes ser nivel <%= level %> para usar esta habilidad."
 }

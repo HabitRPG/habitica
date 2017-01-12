@@ -54,6 +54,7 @@
     "partyNotFound": "Družina nebola nájdená",
     "targetIdUUID": "\"targetId\" musí byť platné používateľské ID.",
     "challengeTasksNoCast": "Zoslanie kúzla na úlohu z výzvy nie je povolené.",
+    "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "Nevlastníš toto kúzlo.",
     "spellLevelTooHigh": "Musíš byť level <%= level %>, aby si použil toto kúzlo."
 }

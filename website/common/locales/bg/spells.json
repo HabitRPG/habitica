@@ -54,6 +54,7 @@
     "partyNotFound": "Групата не е намерена",
     "targetIdUUID": "„targetId“ трябва да бъде правилен потребителски идентификатор.",
     "challengeTasksNoCast": "Използването на умения върху задачи от предизвикателства не е позволено.",
+    "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "Не притежавате това умение.",
     "spellLevelTooHigh": "Трябва да бъдете ниво <%= level %>, за да използвате това умение."
 }

@@ -212,7 +212,7 @@
     "to": "→ ",
     "from": "← ",
     "desktopNotificationsText": "パーティーチャットの新しいメッセージをデスクトップ通知するため、あなたの認証が必要です!　ブラウザに表示される案内にそって、許可をお願いします。<br><br>通知されるのは、Habitica を開いている間だけです。もしお気に召さなければ、ブラウザの設定で無効に設定することもできます。<br><br>このメッセージボックスは、決定がなされた後、自動的に閉じます。",
-    "confirmAddTag": "Do you want to assign this task to \"<%= tag %>\"?",
+    "confirmAddTag": "「<%= tag %>」を追加します。よろしいですか?",
     "confirmRemoveTag": "「<%= tag %>」を削除します。よろしいですか?",
     "groupHomeTitle": "Home",
     "assignTask": "タスクを割り当てる",

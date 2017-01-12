@@ -103,7 +103,7 @@
     "email": "Email",
     "registerWithSocial": "Registrati con <%= network %>",
     "registeredWithSocial": "Registrato con <%= network %>",
-    "loginNameDescription1": "This is what you use to login to Habitica. To change it, use the form below. If instead you want to change the name that appears on your avatar and in chat messages, go to",
+    "loginNameDescription1": "E' quello che utilizzi per collegarti a Habitca. Per cambiarlo, usa il modulo sottostante. Se invece vuoi modificare il nome che compare sul tuo avatar e in chat, vai in",
     "loginNameDescription2": "Utente->Profilo",
     "loginNameDescription3": "and click the Edit button.",
     "emailNotifications": "Notifiche via email",

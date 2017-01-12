@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Vymaž dokončené",
-    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
+    "lotOfToDos": "Zde vidíš svých posledních 30 splněných úkolů z Úkolníčku. Starší splněné úkoly můžeš najít v Data > Nástroj zobrazení dat nebo Data > Export dat > Data uživatele.",
     "deleteToDosExplanation": "Po kliknutí na toto tlačítko se permanentně smažou všechny tvé splněné a archivované úkoly. Chceš-li si o nich vést záznamy, nejdřív si je exportuj.",
     "addmultiple": "Přidat více",
     "addsingle": "Přidat jeden",

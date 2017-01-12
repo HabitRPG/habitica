@@ -37,7 +37,7 @@
     "bossHP": "Zdrowie Bossa",
     "bossStrength": "Siła bossa",
     "rage": "Furia",
-    "collect": "Zebrano",
+    "collect": "Zebrać",
     "collected": "Zebrano",
     "collectionItems": "<%= number %> <%= items %>",
     "itemsToCollect": "Przedmioty do zebrania",
@@ -108,7 +108,7 @@
     "questNotPending": "Brak zadania do rozpoczęcia.",
     "questOrGroupLeaderOnlyStartQuest": "Jedynie przywódca grupy lub misji może wymusić rozpoczęcie misji.",
     "createAccountReward": "Utwórz konto",
-    "loginIncentiveQuest": "By zdobyć to zadanie, odwiedź Habiticę przez <%= count => różnych dni!",
+    "loginIncentiveQuest": "By zdobyć to zadanie, odwiedź Habiticę przez <%= count %> różnych dni!",
     "loginIncentiveQuestObtained": "Zdobyłeś to zadanie dzięki wizytom przez <%= count %> różnych dni!",
     "loginReward": "<%= count %> Wizyt",
     "createAccountQuest": "Otrzymałeś tą misję, kiedy dołączyłeś do Habitiki. Jeżeli twój przyjaciel dołączy, również otrzyma misję."

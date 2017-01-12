@@ -182,7 +182,7 @@
     "localStorageTryFirst": "If you are experiencing problems with Habitica, click the button below to clear local storage and most cookies for this website (other websites will not be affected). You will need to log in again after doing this, so first be sure that you know your log-in details, which can be found at Settings -> <%= linkStart %>Site<%= linkEnd %>.",
     "localStorageTryNext": "Pokud problém přetrvává, prosíme <%= linkStart %>Nahlaš chybu<%= linkEnd %>, pokud jsi to ještě neudělal.",
     "localStorageClearing": "Čistím lokální úložiště",
-    "localStorageClearingExplanation": "Čistím lokální úložiště tvého prohlížeče od dat Habiticy. Budeš odhlášen a přesměrován na domovskou stránku. Prosím, čekej.",
+    "localStorageClearingExplanation": "Čistím lokální úložiště tvého prohlížeče od dat programu Habitica. Budeš odhlášen a přesměrován na domovskou stránku. Prosím, čekej.",
     "localStorageClear": "Vyčistit lokální úložiště",
     "localStorageClearExplanation": "Toto tlačítko vyčistí lokální úložiště, většinu cookies a odhlásí tě.",
     "tutorials": "Průvodci",

@@ -54,6 +54,7 @@
     "partyNotFound": "パーティが見つかりません。",
     "targetIdUUID": "\"targetId\" のUserIDが無効です。",
     "challengeTasksNoCast": "スキルはチャレンジのタスクには唱えられません。",
+    "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "あなたはこのスキルを習得していません。",
     "spellLevelTooHigh": "このスキルを使うにはレベル<%= level %>が必要です。"
 }
