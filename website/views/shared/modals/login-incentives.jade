@@ -11,12 +11,12 @@ script(id='modals/login-incentives.html', type='text/ng-template')
         .row
           div(ng-if="nextReward.rewardKey.length === 1" class="{{nextReward.rewardKey[0]}}", style="margin: 0 auto;")
           div(ng-repeat="reward in nextReward.rewardKey", ng-if="nextReward.rewardKey.length > 1" class="{{reward}}", style="float: left;")
-        .row
+        .row(ng-show="data.nextRewardAt")
           h4 {{env.t('countLeft', {count: data.nextRewardAt - user.loginIncentives})}}
     .row(style="font-size: 1.5rem;")
       .col-md-8.col-md-offset-2.text-center
         p=env.t('incentivesDescription')
-      .col-md-12.text-center(ng-show="user.loginIncentives < 50")
+      .col-md-12.text-center(ng-show="data.nextRewardAt")
         h3 {{env.t('nextRewardUnlocksIn', {numberOfCheckinsLeft: data.nextRewardAt - user.loginIncentives})}}
   .modal-footer
     a.btn.btn-primary.col-md-6.col-md-offset-3(ng-click='$close()')=env.t('awesome')

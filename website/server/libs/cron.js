@@ -171,7 +171,7 @@ function awardLoginIncentives (user) {
     notificationData.message = i18n.t('unlockedCheckInReward', user.preferences.language);
   }
 
-  notificationData.nextRewardAt = loginIncentives[user.loginIncentives].nextRewardAt;
+  notificationData.nextRewardAt = loginIncentives[user.loginIncentives].nextRewardAt || 0;
   user.addNotification('LOGIN_INCENTIVE', notificationData);
 }
 
