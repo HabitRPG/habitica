@@ -22,6 +22,7 @@ import { sendNotification as sendPushNotification } from '../../libs/pushNotific
 import pusher from '../../libs/pusher';
 import common from '../../../common';
 import payments from '../../libs/payments';
+import amzLib from '../../libs/amazonPayments';
 import shared from '../../../common';
 
 
@@ -175,7 +176,7 @@ api.createGroupPlan = {
       let groupId = savedGroup._id;
       let headers = req.headers;
 
-      await payments.subscribeWithAmazon({
+      await amzLib.subscribe({
         billingAgreementId,
         sub,
         coupon,

@@ -89,67 +89,10 @@ api.checkout = {
     let gift = req.body.gift;
     let user = res.locals.user;
     let orderReferenceId = req.body.orderReferenceId;
-    let amount = 5;
-
-    // @TODO: Make thise use payment.subscribeWithAmazon
 
     if (!orderReferenceId) throw new BadRequest('Missing req.body.orderReferenceId');
 
-    if (gift) {
-      if (gift.type === 'gems') {
-        amount = gift.gems.amount / 4;
-      } else if (gift.type === 'subscription') {
-        amount = shared.content.subscriptionBlocks[gift.subscription.key].price;
-      }
-    }
-
-    await amzLib.setOrderReferenceDetails({
-      AmazonOrderReferenceId: orderReferenceId,
-      OrderReferenceAttributes: {
-        OrderTotal: {
-          CurrencyCode: 'USD',
-          Amount: amount,
-        },
-        SellerNote: 'Habitica Payment',
-        SellerOrderAttributes: {
-          SellerOrderId: shared.uuid(),
-          StoreName: 'Habitica',
-        },
-      },
-    });
-
-    await amzLib.confirmOrderReference({ AmazonOrderReferenceId: orderReferenceId });
-
-    await amzLib.authorize({
-      AmazonOrderReferenceId: orderReferenceId,
-      AuthorizationReferenceId: shared.uuid().substring(0, 32),
-      AuthorizationAmount: {
-        CurrencyCode: 'USD',
-        Amount: amount,
-      },
-      SellerAuthorizationNote: 'Habitica Payment',
-      TransactionTimeout: 0,
-      CaptureNow: true,
-    });
-
-    await amzLib.closeOrderReference({ AmazonOrderReferenceId: orderReferenceId });
-
-    // execute payment
-    let method = 'buyGems';
-    let data = {
-      user,
-      paymentMethod: 'Amazon Payments',
-      headers: req.headers,
-    };
-
-    if (gift) {
-      if (gift.type === 'subscription') method = 'createSubscription';
-      gift.member = await User.findById(gift ? gift.uuid : undefined).exec();
-      data.gift = gift;
-      data.paymentMethod = 'Amazon Payments (Gift)';
-    }
-
-    await payments[method](data);
+    await amzLib.checkout({gift, user, orderReferenceId, headers: req.headers});
 
     res.respond(200);
   },
@@ -174,55 +117,13 @@ api.subscribe = {
     let user = res.locals.user;
     let groupId = req.body.groupId;
 
-    if (!sub) throw new BadRequest(res.t('missingSubscriptionCode'));
-    if (!billingAgreementId) throw new BadRequest('Missing req.body.billingAgreementId');
-
-    if (sub.discount) { // apply discount
-      if (!coupon) throw new BadRequest(res.t('couponCodeRequired'));
-      let result = await Coupon.findOne({_id: cc.validate(coupon), event: sub.key}).exec();
-      if (!result) throw new NotAuthorized(res.t('invalidCoupon'));
-    }
-
-    await amzLib.setBillingAgreementDetails({
-      AmazonBillingAgreementId: billingAgreementId,
-      BillingAgreementAttributes: {
-        SellerNote: 'Habitica Subscription',
-        SellerBillingAgreementAttributes: {
-          SellerBillingAgreementId: shared.uuid(),
-          StoreName: 'Habitica',
-          CustomInformation: 'Habitica Subscription',
-        },
-      },
-    });
-
-    await amzLib.confirmBillingAgreement({
-      AmazonBillingAgreementId: billingAgreementId,
-    });
-
-    await amzLib.authorizeOnBillingAgreement({
-      AmazonBillingAgreementId: billingAgreementId,
-      AuthorizationReferenceId: shared.uuid().substring(0, 32),
-      AuthorizationAmount: {
-        CurrencyCode: 'USD',
-        Amount: sub.price,
-      },
-      SellerAuthorizationNote: 'Habitica Subscription Payment',
-      TransactionTimeout: 0,
-      CaptureNow: true,
-      SellerNote: 'Habitica Subscription Payment',
-      SellerOrderAttributes: {
-        SellerOrderId: shared.uuid(),
-        StoreName: 'Habitica',
-      },
-    });
-
-    await payments.createSubscription({
-      user,
-      customerId: billingAgreementId,
-      paymentMethod: 'Amazon Payments',
+    payments.subscribeWithAmazon ({
+      billingAgreementId,
       sub,
-      headers: req.headers,
+      coupon,
+      user,
       groupId,
+      headers: request.headers,
     });
 
     res.respond(200);
@@ -243,53 +144,7 @@ api.subscribeCancel = {
     let user = res.locals.user;
     let groupId = req.query.groupId;
 
-    let billingAgreementId;
-    let planId;
-    let lastBillingDate;
-
-    if (groupId) {
-      let groupFields = basicGroupFields.concat(' purchased');
-      let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
-
-      if (!group) {
-        throw new NotFound(res.t('groupNotFound'));
-      }
-
-      if (!group.leader === user._id) {
-        throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
-      }
-
-      billingAgreementId = group.purchased.plan.customerId;
-      planId = group.purchased.plan.planId;
-      lastBillingDate = group.purchased.plan.lastBillingDate;
-    } else {
-      billingAgreementId = user.purchased.plan.customerId;
-      planId = user.purchased.plan.planId;
-      lastBillingDate = user.purchased.plan.lastBillingDate;
-    }
-
-    if (!billingAgreementId) throw new NotAuthorized(res.t('missingSubscription'));
-
-    let details = await amzLib.getBillingAgreementDetails({
-      AmazonBillingAgreementId: billingAgreementId,
-    });
-
-    if (details.BillingAgreementDetails.BillingAgreementStatus.State !== 'Closed') {
-      await amzLib.closeBillingAgreement({
-        AmazonBillingAgreementId: billingAgreementId,
-      });
-    }
-
-    let subscriptionBlock = shared.content.subscriptionBlocks[planId];
-    let subscriptionLength = subscriptionBlock.months * 30;
-
-    await payments.cancelSubscription({
-      user,
-      groupId,
-      nextBill: moment(lastBillingDate).add({ days: subscriptionLength }),
-      paymentMethod: 'Amazon Payments',
-      headers: req.headers,
-    });
+    await amzLib.cancelSubscription({user, groupId, headers: req.headers});
 
     if (req.query.noRedirect) {
       res.respond(200);

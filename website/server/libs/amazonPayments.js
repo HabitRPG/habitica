@@ -1,12 +1,20 @@
 import amazonPayments from 'amazon-payments';
 import nconf from 'nconf';
-import common from '../../common';
 import Bluebird from 'bluebird';
+import moment from 'moment';
+
+import common from '../../common';
 import {
   BadRequest,
+  NotAuthorized,
+  NotFound,
 } from './errors';
 import payments from './payments';
 import { model as User } from '../models/user';
+import {
+  model as Group,
+  basicFields as basicGroupFields,
+} from '../models/group';
 
 // TODO better handling of errors
 
@@ -26,6 +34,7 @@ let api = {};
 api.constants = {
   CURRENCY_CODE: 'USD',
   SELLER_NOTE: 'Habitica Payment',
+  SELLER_NOTE_SUBSCRIPTION: '',
   STORE_NAME: 'Habitica',
 
   GIFT_TYPE_GEMS: 'gems',
@@ -47,7 +56,7 @@ api.getBillingAgreementDetails = Bluebird.promisify(amzPayment.offAmazonPayments
 api.confirmBillingAgreement = Bluebird.promisify(amzPayment.offAmazonPayments.confirmBillingAgreement, {context: amzPayment.offAmazonPayments});
 api.closeBillingAgreement = Bluebird.promisify(amzPayment.offAmazonPayments.closeBillingAgreement, {context: amzPayment.offAmazonPayments});
 
-api.authorizeOnBillingAgreement = (inputSet) => {
+api.authorizeOnBillingAgreement = function authorizeOnBillingAgreement (inputSet) {
   return new Promise((resolve, reject) => {
     amzPayment.offAmazonPayments.authorizeOnBillingAgreement(inputSet, (err, response) => {
       if (err) return reject(err);
@@ -57,7 +66,7 @@ api.authorizeOnBillingAgreement = (inputSet) => {
   });
 };
 
-api.authorize = (inputSet) => {
+api.authorize = function authorize (inputSet) {
   return new Promise((resolve, reject) => {
     amzPayment.offAmazonPayments.authorize(inputSet, (err, response) => {
       if (err) return reject(err);
@@ -138,6 +147,142 @@ api.checkout = async function checkout (options = {}) {
   }
 
   await payments[method](data);
+};
+
+/**
+ * Cancel an Amazon Subscription
+ *
+ * @param  options
+ * @param  options.user  The user object who is canceling
+ * @param  options.groupId  The id of the group that is canceling
+ * @param  options.headers  The request headers
+ *
+ * @return undefined
+ */
+api.cancelSubscription = async function cancelSubscription (options = {}) {
+  let {user, groupId, headers} = options;
+
+  let billingAgreementId;
+  let planId;
+  let lastBillingDate;
+
+  if (groupId) {
+    let groupFields = basicGroupFields.concat(' purchased');
+    let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+
+    if (!group) {
+      throw new NotFound(i18n.t('groupNotFound'));
+    }
+
+    if (group.leader !== user._id) {
+      throw new NotAuthorized(i18n.t('onlyGroupLeaderCanManageSubscription'));
+    }
+
+    billingAgreementId = group.purchased.plan.customerId;
+    planId = group.purchased.plan.planId;
+    lastBillingDate = group.purchased.plan.lastBillingDate;
+  } else {
+    billingAgreementId = user.purchased.plan.customerId;
+    planId = user.purchased.plan.planId;
+    lastBillingDate = user.purchased.plan.lastBillingDate;
+  }
+
+  if (!billingAgreementId) throw new NotAuthorized(i18n.t('missingSubscription'));
+
+  let details = await this.getBillingAgreementDetails({
+    AmazonBillingAgreementId: billingAgreementId,
+  });
+
+  if (details.BillingAgreementDetails.BillingAgreementStatus.State !== 'Closed') {
+    await this.closeBillingAgreement({
+      AmazonBillingAgreementId: billingAgreementId,
+    });
+  }
+
+  let subscriptionBlock = common.content.subscriptionBlocks[planId];
+  let subscriptionLength = subscriptionBlock.months * 30;
+
+  await payments.cancelSubscription({
+    user,
+    groupId,
+    nextBill: moment(lastBillingDate).add({ days: subscriptionLength }),
+    paymentMethod: this.constants.PAYMENT_METHOD_AMAZON,
+    headers,
+  });
+};
+
+/**
+ * Allows for purchasing a user subscription or group subscription with Amazon
+ *
+ * @param  options
+ * @param  options.billingAgreementId  The Amazon billingAgreementId generated on the front end
+ * @param  options.user  The user object who is purchasing
+ * @param  options.sub  The subscription data to purchase
+ * @param  options.coupon  The coupon to discount the sub
+ * @param  options.groupId  The id of the group purchasing a subscription
+ * @param  options.headers  The request headers to store on analytics
+ * @return undefined
+ */
+api.subscribe = async function subscribe (options) {
+  let {
+    billingAgreementId,
+    sub,
+    coupon,
+    user,
+    groupId,
+    headers,
+  } = options;
+
+  if (!sub) throw new BadRequest(i18n.t('missingSubscriptionCode'));
+  if (!billingAgreementId) throw new BadRequest('Missing req.body.billingAgreementId');
+
+  if (sub.discount) { // apply discount
+    if (!coupon) throw new BadRequest(i18n.t('couponCodeRequired'));
+    let result = await Coupon.findOne({_id: cc.validate(coupon), event: sub.key}).exec();
+    if (!result) throw new NotAuthorized(i18n.t('invalidCoupon'));
+  }
+
+  await this.setBillingAgreementDetails({
+    AmazonBillingAgreementId: billingAgreementId,
+    BillingAgreementAttributes: {
+      SellerNote: 'Habitica Subscription',
+      SellerBillingAgreementAttributes: {
+        SellerBillingAgreementId: common.uuid(),
+        StoreName: 'Habitica',
+        CustomInformation: 'Habitica Subscription',
+      },
+    },
+  });
+
+  await this.confirmBillingAgreement({
+    AmazonBillingAgreementId: billingAgreementId,
+  });
+
+  await this.authorizeOnBillingAgreement({
+    AmazonBillingAgreementId: billingAgreementId,
+    AuthorizationReferenceId: common.uuid().substring(0, 32),
+    AuthorizationAmount: {
+      CurrencyCode: this.constants.CURRENCY_CODE,
+      Amount: sub.price,
+    },
+    SellerAuthorizationNote: 'Habitica Subscription Payment',
+    TransactionTimeout: 0,
+    CaptureNow: true,
+    SellerNote: 'Habitica Subscription Payment',
+    SellerOrderAttributes: {
+      SellerOrderId: common.uuid(),
+      StoreName: 'Habitica',
+    },
+  });
+
+  await payments.createSubscription({
+    user,
+    customerId: billingAgreementId,
+    paymentMethod: 'Amazon Payments',
+    sub,
+    headers,
+    groupId,
+  });
 };
 
 module.exports = api;
