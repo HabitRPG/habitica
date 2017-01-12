@@ -41,7 +41,103 @@ let requiredGroupFields = '_id leader tasksOrder name';
  * @apiName CreateUserTasks
  * @apiGroup Task
  *
+ * @apiParam (Body) {string} text The text to be displayed for the task
+ * @apiParam (Body) {string} type Task type, options are: "habit", "daily", "todo", "reward".
+ * @apiParam (Body) {string[]} [tags] Array of UUIDs of tags
+ * @apiParam (Body) {string} [alias] Alias to assign to task
+ * @apiParam (Body) {string} [attribute] User's attribute to use, options are: "str", "int", "per", "con"
+ * @apiParam (Body) {boolean} [collapseChecklist=false] Determines if a checklist will be displayed
+ * @apiParam (Body) {string} [notes] Extra notes 
+ * @apiParam (Body) {number} [priority=1] Difficulty, options are 0.1, 1, 1.5, 2; eqivalent of Trivial, Easy, Medium, Hard.
+ * @apiParam (Body) {string[]} [reminders] Array of reminder data including a UUID, startDate and time
+ * @apiParam (Body) {string} [reminders.id] UUID of the reminder
+ * @apiParam (Body) {string} [reminders.startDate] Date for reminder
+ * @apiParam (Body) {string} [reminders.time] Time for reminder
+ * @apiParam (Body) {string} [frequency=weekly] Value "weekly" enables "On days of the week", value "daily" enables "EveryX Days". Only valid for type "daily".
+ * @apiParam (Body) {string[]} [repeat=true] Array of booleans for days of the week, days that are true will be repeated upon. Only valid for type "daily". Any days not specified will be marked as true. Days are: su, m, t, w, th, f, s. Value of frequency must be "weekly"
+ * @apiParam (Body) {number} [everyX=1] Value of frequency must be "daily", the number of days until this daily task is available again.
+ * @apiParam (Body) {number} [streak=0] Number of days that the task has consecutively been checked off. Only valid for type "daily"
+ * @apiParam (Body) {date} [startDate] Date when the task will first become available. Only valid for type "daily"
+ * @apiParam (Body) {boolean} [up=true] Only valid for type "habit" If true, enables the "+" under "Directions/Action" for "Good habits"
+ * @apiParam (Body) {boolean} [down=true] Only valid for type "habit" If true, enables the "-" under "Directions/Action" for "Bad habits"
+ *
+ * @apiParamExample {json} Request-Example:
+ *     {
+ *       "id": 4711
+ *       "text":"Update Habitica API Documentation - Tasks", 
+ *       "type":"todo",
+ *       "alias":"hab-api-tasks",
+ *       "notes":"Update the tasks api on GitHub",
+ *       "tags":["ed427623-9a69-4aac-9852-13deb9c190c3"],
+ *       "priority":2
+ *     }
+ *
  * @apiSuccess data An object if a single task was created, otherwise an array of tasks
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *     {
+ *       "success": true,
+ *       "data": {
+ *         "userId": "b0413351-405f-416f-8787-947ec1c85199",
+ *         "alias": "hab-api-tasks",
+ *         "text": "Update Habitica API Documentation - Tasks",
+ *         "type": "todo",
+ *         "notes": "Update the tasks api on GitHub",
+ *         "tags": [
+ *           "ed427623-9a69-4aac-9852-13deb9c190c3"
+ *         ],
+ *         "value": 0,
+ *         "priority": 2,
+ *         "attribute": "str",
+ *         "challenge": {
+ *           
+ *         },
+ *         "group": {
+ *           "assignedUsers": [
+ *             
+ *           ],
+ *           "approval": {
+ *             "required": false,
+ *             "approved": false,
+ *             "requested": false
+ *           }
+ *         },
+ *         "reminders": [
+ *           
+ *         ],
+ *         "_id": "829d435b-edc4-498c-a30e-e52361a0f35a",
+ *         "createdAt": "2017-01-12T02:11:02.876Z",
+ *         "updatedAt": "2017-01-12T02:11:02.876Z",
+ *         "checklist": [
+ *           
+ *         ],
+ *         "collapseChecklist": false,
+ *         "completed": false,
+ *         "id": "829d435b-edc4-498c-a30e-e52361a0f35a"
+ *       },
+ *       "notifications": [
+ *         
+ *       ]
+ *     }
+ *
+ * @apiError (404) {NotFound} ChecklistNotFound The specified checklist item could not be found.
+ * @apiError (400) {BadRequest} MustBeType Task type must be one of "habit", "daily", "todo", "reward".
+ * @apiError (400) {BadRequest} Text-ValidationFailed Path 'text' is required.
+ * @apiError (400) {BadRequest} Alias-ValidationFailed Task short names can only contain alphanumeric characters, underscores and dashes.
+ * @apiError (400) {BadRequest} Value-ValidationFailed `x` is not a valid enum value for path `(body param)`.
+ *
+ * @apiErrorExample {json} Error-Response:
+ *     {
+ *       "success": false,
+ *       "error": "BadRequest",
+ *       "message": "todo validation failed",
+ *       "errors": [
+ *           {
+ *             "message": "Path `text` is required.",
+ *             "path": "text"
+ *           }
+ *         ]
+ *       }
  */
 api.createUserTasks = {
   method: 'POST',
