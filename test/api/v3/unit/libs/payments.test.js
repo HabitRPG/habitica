@@ -386,12 +386,29 @@ describe('payments/index', () => {
         expect(updatedLeader.purchased.plan.dateCreated).to.exist;
       });
 
-      it('adds months to members with existing subscription', async () => {
+      it('adds months to members with existing recurring subscription', async () => {
         let recipient = new User();
         recipient.profile.name = 'recipient';
         recipient.purchased.plan = plan;
         recipient.guilds.push(group._id);
         await recipient.save();
+
+        user.guilds.push(group._id);
+        await user.save();
+        data.groupId = group._id;
+
+        await api.createSubscription(data);
+
+        let updatedUser = await User.findById(recipient._id).exec();
+
+        expect(recipient.purchased.plan.extraMonths).to.within(1.9, 2);
+      });
+
+      it('adds months to members with existing gift subscription', async () => {
+        let recipient = new User();
+        recipient.profile.name = 'recipient';
+        recipient.purchased.plan = plan;
+        recipient.guilds.push(group._id);
         data.gift = {
           member: recipient,
           subscription: {
@@ -400,6 +417,7 @@ describe('payments/index', () => {
           },
         };
         await api.createSubscription(data);
+        await recipient.save();
 
         data.gift = undefined;
 

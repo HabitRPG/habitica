@@ -105,12 +105,38 @@ api.addSubToGroupUser = async function addSubToGroupUser (member) {
   let extraMonths = 0;
 
   if (member.isSubscribed()) {
-    extraMonths = member.purchased.plan.extraMonths;
+    plan = _.clone(member.purchased.plan.toObject());
+
+    let extraMonths = Number(plan.extraMonths);
+    if (plan.dateTerminated) extraMonths += _dateDiff(today, plan.dateTerminated);
+    let block = shared.content.subscriptionBlocks[plan.planId];
+    // let timeRemainingOnCurrentSubsciption = plan.nextBill ? moment(plan.nextBill).diff(new Date(), 'days') : 30;
+    // timeRemainingOnCurrentSubsciption = timeRemainingOnCurrentSubsciption / 30;
+    // extraMonths += timeRemainingOnCurrentSubsciption;
+
+    let today = new Date();
+
+    _(plan).merge({ // override with these values
+      planId: 'group_plan_auto',
+      customerId: 'group-plan',
+      dateUpdated: today,
+      paymentMethod: 'groupPlan',
+      extraMonths: extraMonths,
+      dateTerminated: null,
+      lastBillingDate: null,
+      owner: member._id,
+    }).defaults({ // allow non-override if a plan was previously used
+      gemsBought: 0,
+      dateCreated: today,
+      mysteryItems: [],
+    }).value();
+
+    // extraMonths = member.purchased.plan.extraMonths;
     await this.cancelSubscription({user: member});
   }
 
   member.purchased.plan = plan;
-  member.purchased.plan.extraMonths = extraMonths;
+  // member.purchased.plan.extraMonths = extraMonths;
   data.user = member;
   await this.createSubscription(data);
 };
