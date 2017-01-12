@@ -34,7 +34,8 @@ let api = {};
 api.constants = {
   CURRENCY_CODE: 'USD',
   SELLER_NOTE: 'Habitica Payment',
-  SELLER_NOTE_SUBSCRIPTION: '',
+  SELLER_NOTE_SUBSCRIPTION: 'Habitica Subscription',
+  SELLER_NOTE_ATHORIZATION_SUBSCRIPTION: 'Habitica Subscription Payment',
   STORE_NAME: 'Habitica',
 
   GIFT_TYPE_GEMS: 'gems',
@@ -245,11 +246,11 @@ api.subscribe = async function subscribe (options) {
   await this.setBillingAgreementDetails({
     AmazonBillingAgreementId: billingAgreementId,
     BillingAgreementAttributes: {
-      SellerNote: 'Habitica Subscription',
+      SellerNote: this.constants.SELLER_NOTE_SUBSCRIPTION,
       SellerBillingAgreementAttributes: {
         SellerBillingAgreementId: common.uuid(),
-        StoreName: 'Habitica',
-        CustomInformation: 'Habitica Subscription',
+        StoreName: this.constants.STORE_NAME,
+        CustomInformation: this.constants.SELLER_NOTE_SUBSCRIPTION,
       },
     },
   });
@@ -265,20 +266,20 @@ api.subscribe = async function subscribe (options) {
       CurrencyCode: this.constants.CURRENCY_CODE,
       Amount: sub.price,
     },
-    SellerAuthorizationNote: 'Habitica Subscription Payment',
+    SellerAuthorizationNote: this.constants.SELLER_NOTE_ATHORIZATION_SUBSCRIPTION,
     TransactionTimeout: 0,
     CaptureNow: true,
-    SellerNote: 'Habitica Subscription Payment',
+    SellerNote: this.constants.SELLER_NOTE_ATHORIZATION_SUBSCRIPTION,
     SellerOrderAttributes: {
       SellerOrderId: common.uuid(),
-      StoreName: 'Habitica',
+      StoreName: this.constants.STORE_NAME,
     },
   });
 
   await payments.createSubscription({
     user,
     customerId: billingAgreementId,
-    paymentMethod: 'Amazon Payments',
+    paymentMethod: this.constants.PAYMENT_METHOD_AMAZON,
     sub,
     headers,
     groupId,

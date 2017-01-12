@@ -161,12 +161,13 @@ describe('Amazon Payments', () => {
     });
   });
 
-  describe('subscribed', () => {
-    let user, group;
+  describe('subscribe', () => {
+    let user, group, amount, billingAgreementId, sub, coupon, groupId, headers;
     let amazonSetBillingAgreementDetailsSpy;
     let amazonConfirmBillingAgreementSpy;
     let amazongAuthorizeOnBillingAgreementSpy;
     let createSubSpy;
+    let commonUUIDStub;
 
     beforeEach(async () => {
       user = new User();
@@ -185,6 +186,15 @@ describe('Amazon Payments', () => {
       group.purchased.plan.planId = 'basic_3mo';
       await group.save();
 
+      amount = common.content.subscriptionBlocks['basic_3mo'].price;
+      billingAgreementId = 'billingAgreementId';
+      sub = {
+        key: 'basic_3mo',
+        price: amount,
+      };
+      groupId = group._id;
+      headers = {};
+
       amazonSetBillingAgreementDetailsSpy = sinon.stub(amzLib, 'setBillingAgreementDetails');
       amazonSetBillingAgreementDetailsSpy.returnsPromise().resolves({});
 
@@ -196,6 +206,8 @@ describe('Amazon Payments', () => {
 
       createSubSpy = sinon.stub(payments, 'createSubscription');
       createSubSpy.returnsPromise().resolves({});
+
+      commonUUIDStub = sinon.stub(common, 'uuid').returns('uuid-generated');
     });
 
     afterEach(function () {
@@ -203,17 +215,44 @@ describe('Amazon Payments', () => {
       amzLib.confirmBillingAgreement.restore();
       amzLib.authorizeOnBillingAgreement.restore();
       payments.createSubscription.restore();
+      common.uuid.restore();
     });
 
-    it('subscribes with amazon', async () => {
-      let billingAgreementId = 'billingAgreementId';
-      let sub = {
-        key: 'basic_3mo',
-      };
-      let coupon;
-      let groupId = group._id;
-      let headers = {};
+    it('should throw an error if we are missing a subscription', async () => {
+      await expect(amzLib.subscribe({
+        billingAgreementId,
+        coupon,
+        user,
+        groupId,
+        headers,
+      }))
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 400,
+        name: 'BadRequest',
+        message: i18n.t('missingSubscriptionCode'),
+      });
+    });
 
+    it('should throw an error if we are missing a billingAgreementId', async () => {
+      await expect(amzLib.subscribe({
+        sub,
+        coupon,
+        user,
+        groupId,
+        headers,
+      }))
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 400,
+        name: 'BadRequest',
+        message: 'Missing req.body.billingAgreementId',
+      });
+    });
+
+    it('should throw an error when coupon code is missing');
+    it('should throw an error when coupon code is invalid');
+    it('subscribes with amazon with a coupon');
+
+    it('subscribes with amazon', async () => {
       await amzLib.subscribe({
         billingAgreementId,
         sub,
@@ -223,10 +262,51 @@ describe('Amazon Payments', () => {
         headers,
       });
 
-      expect(amazonSetBillingAgreementDetailsSpy.calledOnce).to.be.true;
-      expect(amazonConfirmBillingAgreementSpy.calledOnce).to.be.true;
-      expect(amazongAuthorizeOnBillingAgreementSpy.calledOnce).to.be.true;
-      expect(createSubSpy.calledOnce).to.be.true;
+      expect(amazonSetBillingAgreementDetailsSpy).to.be.calledOnce;
+      expect(amazonSetBillingAgreementDetailsSpy).to.be.calledWith({
+        AmazonBillingAgreementId: billingAgreementId,
+        BillingAgreementAttributes: {
+          SellerNote: amzLib.constants.SELLER_NOTE_SUBSCRIPTION,
+          SellerBillingAgreementAttributes: {
+            SellerBillingAgreementId: common.uuid(),
+            StoreName: amzLib.constants.STORE_NAME,
+            CustomInformation: amzLib.constants.SELLER_NOTE_SUBSCRIPTION,
+          },
+        },
+      });
+
+      expect(amazonConfirmBillingAgreementSpy).to.be.calledOnce;
+      expect(amazonConfirmBillingAgreementSpy).to.be.calledWith({
+        AmazonBillingAgreementId: billingAgreementId,
+      })
+
+      expect(amazongAuthorizeOnBillingAgreementSpy).to.be.calledOnce;
+      expect(amazongAuthorizeOnBillingAgreementSpy).to.be.calledWith({
+        AmazonBillingAgreementId: billingAgreementId,
+        AuthorizationReferenceId: common.uuid().substring(0, 32),
+        AuthorizationAmount: {
+          CurrencyCode: amzLib.constants.CURRENCY_CODE,
+          Amount: amount,
+        },
+        SellerAuthorizationNote: amzLib.constants.SELLER_NOTE_ATHORIZATION_SUBSCRIPTION,
+        TransactionTimeout: 0,
+        CaptureNow: true,
+        SellerNote: amzLib.constants.SELLER_NOTE_ATHORIZATION_SUBSCRIPTION,
+        SellerOrderAttributes: {
+          SellerOrderId: common.uuid(),
+          StoreName: amzLib.constants.STORE_NAME,
+        },
+      });
+
+      expect(createSubSpy).to.be.calledOnce;
+      expect(createSubSpy).to.be.calledWith({
+        user,
+        customerId: billingAgreementId,
+        paymentMethod: amzLib.constants.PAYMENT_METHOD_AMAZON,
+        sub,
+        headers,
+        groupId,
+      });
     });
   });
 
