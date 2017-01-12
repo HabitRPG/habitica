@@ -54,6 +54,7 @@
     "partyNotFound": "Équipe non trouvée.",
     "targetIdUUID": "\"targetId\" doit être un nom d'utilisateur valide.",
     "challengeTasksNoCast": "Utiliser une compétence sur des tâches de défi est interdit.",
+    "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "Vous ne possédez pas cette compétence.",
     "spellLevelTooHigh": "Vous devez être au niveau <%= level %>  pour utiliser cette compétence."
 }

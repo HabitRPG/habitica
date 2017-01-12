@@ -54,6 +54,7 @@
     "partyNotFound": "Команда не найдена",
     "targetIdUUID": "\"targetId\" должен быть действительным ID пользователя.",
     "challengeTasksNoCast": "Нельзя использовать навык на задания испытания.",
+    "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "У вас нет этого навыка.",
     "spellLevelTooHigh": "Вы должны иметь уровень <%= level %> для использования этого навыка."
 }

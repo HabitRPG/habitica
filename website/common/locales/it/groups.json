@@ -221,7 +221,7 @@
     "yourTaskHasBeenApproved": "La tua attività \"<%= taskText %>\" è stata approvata",
     "userHasRequestedTaskApproval": "<%= user %> ha richiesto l'approvazione dell'attività per <%= taskName %>",
     "approve": "Approva",
-    "approvalTitle": "<%= text %> per l'user: <%= userName %>",
+    "approvalTitle": "<%= text %> per l'utente: <%= userName %>",
     "confirmTaskApproval": "Vuoi premiare <%= username %> per aver completato questa attività?",
     "groupSubscriptionPrice": "9$ al mese + 3$ al mese per ogni membro aggiuntivo",
     "groupAdditionalUserCost": "+$3.00/mese/utente",
