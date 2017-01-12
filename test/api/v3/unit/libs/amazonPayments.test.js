@@ -1,11 +1,9 @@
-import nconf from 'nconf';
 import moment from 'moment';
 
 import {
   generateGroup,
 } from '../../../../helpers/api-unit.helper.js';
 import { model as User } from '../../../../../website/server/models/user';
-import { model as Group } from '../../../../../website/server/models/group';
 import amzLib from '../../../../../website/server/libs/amazonPayments';
 import payments from '../../../../../website/server/libs/payments';
 import common from '../../../../../website/common';
@@ -13,6 +11,8 @@ import common from '../../../../../website/common';
 const i18n = common.i18n;
 
 describe('Amazon Payments', () => {
+  let subKey = 'basic_3mo';
+
   describe('checkout', () => {
     let user, orderReferenceId, headers;
     let setOrderReferenceDetailsSpy;
@@ -22,12 +22,9 @@ describe('Amazon Payments', () => {
 
     let paymentBuyGemsStub;
     let paymentCreateSubscritionStub;
-    let commonUUIDStub;
     let amount = 5;
 
-    function expectAmazonStubs(options = {}) {
-      let {orderReferenceId, amount} = options;
-
+    function expectAmazonStubs () {
       expect(setOrderReferenceDetailsSpy).to.be.calledOnce;
       expect(setOrderReferenceDetailsSpy).to.be.calledWith({
         AmazonOrderReferenceId: orderReferenceId,
@@ -87,7 +84,7 @@ describe('Amazon Payments', () => {
       paymentCreateSubscritionStub = sinon.stub(payments, 'createSubscription');
       paymentCreateSubscritionStub.returnsPromise().resolves({});
 
-      commonUUIDStub = sinon.stub(common, 'uuid').returns('uuid-generated');
+      sinon.stub(common, 'uuid').returns('uuid-generated');
     });
 
     afterEach(function () {
@@ -109,7 +106,7 @@ describe('Amazon Payments', () => {
         paymentMethod: amzLib.constants.PAYMENT_METHOD_AMAZON,
         headers,
       });
-      expectAmazonStubs({orderReferenceId, amount});
+      expectAmazonStubs();
     });
 
     it('should gift gems', async () => {
@@ -122,7 +119,7 @@ describe('Amazon Payments', () => {
           uuid: receivingUser._id,
         },
       };
-      let amount = 16 / 4;
+      amount = 16 / 4;
       await amzLib.checkout({gift, user, orderReferenceId, headers});
 
       gift.member = receivingUser;
@@ -133,7 +130,7 @@ describe('Amazon Payments', () => {
         headers,
         gift,
       });
-      expectAmazonStubs({orderReferenceId, amount});
+      expectAmazonStubs();
     });
 
     it('should gift a subscription', async () => {
@@ -142,11 +139,11 @@ describe('Amazon Payments', () => {
       let gift = {
         type: 'subscription',
         subscription: {
-          key: 'basic_3mo',
+          key: subKey,
           uuid: receivingUser._id,
         },
       };
-      let amount = common.content.subscriptionBlocks['basic_3mo'].price;
+      amount = common.content.subscriptionBlocks[subKey].price;
 
       await amzLib.checkout({user, orderReferenceId, headers, gift});
 
@@ -158,7 +155,7 @@ describe('Amazon Payments', () => {
         headers,
         gift,
       });
-      expectAmazonStubs({orderReferenceId, amount});
+      expectAmazonStubs();
     });
   });
 
@@ -168,13 +165,12 @@ describe('Amazon Payments', () => {
     let amazonConfirmBillingAgreementSpy;
     let amazongAuthorizeOnBillingAgreementSpy;
     let createSubSpy;
-    let commonUUIDStub;
 
     beforeEach(async () => {
       user = new User();
       user.profile.name = 'sender';
       user.purchased.plan.customerId = 'customer-id';
-      user.purchased.plan.planId = 'basic_3mo';
+      user.purchased.plan.planId = subKey;
       user.purchased.plan.lastBillingDate = new Date();
 
       group = generateGroup({
@@ -184,13 +180,13 @@ describe('Amazon Payments', () => {
         leader: user._id,
       });
       group.purchased.plan.customerId = 'customer-id';
-      group.purchased.plan.planId = 'basic_3mo';
+      group.purchased.plan.planId = subKey;
       await group.save();
 
-      amount = common.content.subscriptionBlocks['basic_3mo'].price;
+      amount = common.content.subscriptionBlocks[subKey].price;
       billingAgreementId = 'billingAgreementId';
       sub = {
-        key: 'basic_3mo',
+        key: subKey,
         price: amount,
       };
       groupId = group._id;
@@ -208,7 +204,7 @@ describe('Amazon Payments', () => {
       createSubSpy = sinon.stub(payments, 'createSubscription');
       createSubSpy.returnsPromise().resolves({});
 
-      commonUUIDStub = sinon.stub(common, 'uuid').returns('uuid-generated');
+      sinon.stub(common, 'uuid').returns('uuid-generated');
     });
 
     afterEach(function () {
@@ -279,7 +275,7 @@ describe('Amazon Payments', () => {
       expect(amazonConfirmBillingAgreementSpy).to.be.calledOnce;
       expect(amazonConfirmBillingAgreementSpy).to.be.calledWith({
         AmazonBillingAgreementId: billingAgreementId,
-      })
+      });
 
       expect(amazongAuthorizeOnBillingAgreementSpy).to.be.calledOnce;
       expect(amazongAuthorizeOnBillingAgreementSpy).to.be.calledWith({
@@ -316,7 +312,7 @@ describe('Amazon Payments', () => {
     let getBillingAgreementDetailsSpy;
     let paymentCancelSubscriptionSpy;
 
-    function expectAmazonStubs() {
+    function expectAmazonStubs () {
       expect(getBillingAgreementDetailsSpy).to.be.calledOnce;
       expect(getBillingAgreementDetailsSpy).to.be.calledWith({
         AmazonBillingAgreementId: billingAgreementId,
@@ -327,7 +323,7 @@ describe('Amazon Payments', () => {
       user = new User();
       user.profile.name = 'sender';
       user.purchased.plan.customerId = 'customer-id';
-      user.purchased.plan.planId = 'basic_3mo';
+      user.purchased.plan.planId = subKey;
       user.purchased.plan.lastBillingDate = new Date();
 
       group = generateGroup({
@@ -337,11 +333,11 @@ describe('Amazon Payments', () => {
         leader: user._id,
       });
       group.purchased.plan.customerId = 'customer-id';
-      group.purchased.plan.planId = 'basic_3mo';
+      group.purchased.plan.planId = subKey;
       group.purchased.plan.lastBillingDate = new Date();
       await group.save();
 
-      subscriptionBlock = common.content.subscriptionBlocks['basic_3mo'];
+      subscriptionBlock = common.content.subscriptionBlocks[subKey];
       subscriptionLength = subscriptionBlock.months * 30;
 
       headers = {};
@@ -374,7 +370,7 @@ describe('Amazon Payments', () => {
     });
 
     it('should cancel a user subscription', async () => {
-      billingAgreementId = user.purchased.plan.customerId
+      billingAgreementId = user.purchased.plan.customerId;
 
       await amzLib.cancelSubscription({user, headers});
 

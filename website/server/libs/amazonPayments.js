@@ -2,6 +2,7 @@ import amazonPayments from 'amazon-payments';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
 import moment from 'moment';
+import cc from 'coupon-code';
 
 import common from '../../common';
 import {
@@ -15,6 +16,7 @@ import {
   model as Group,
   basicFields as basicGroupFields,
 } from '../models/group';
+import { model as Coupon } from '../models/coupon';
 
 // TODO better handling of errors
 

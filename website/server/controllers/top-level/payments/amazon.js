@@ -1,7 +1,5 @@
 import {
   BadRequest,
-  NotAuthorized,
-  NotFound,
 } from '../../../libs/errors';
 import amzLib from '../../../libs/amazonPayments';
 import {
@@ -10,14 +8,7 @@ import {
 } from '../../../middlewares/auth';
 import shared from '../../../../common';
 import payments from '../../../libs/payments';
-import moment from 'moment';
-import { model as Coupon } from '../../../models/coupon';
-import { model as User } from '../../../models/user';
-import {
-  model as Group,
-  basicFields as basicGroupFields,
-} from '../../../models/group';
-import cc from 'coupon-code';
+
 
 let api = {};
 
@@ -117,13 +108,13 @@ api.subscribe = {
     let user = res.locals.user;
     let groupId = req.body.groupId;
 
-    payments.subscribeWithAmazon ({
+    payments.subscribeWithAmazon({
       billingAgreementId,
       sub,
       coupon,
       user,
       groupId,
-      headers: request.headers,
+      headers: req.headers,
     });
 
     res.respond(200);

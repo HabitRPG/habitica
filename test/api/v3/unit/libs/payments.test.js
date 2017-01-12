@@ -11,7 +11,6 @@ import {
   generateGroup,
 } from '../../../../helpers/api-unit.helper.js';
 import i18n from '../../../../../website/common/script/i18n';
-import amzLib from '../../../../../website/server/libs/amazonPayments';
 
 describe('payments/index', () => {
   let user, group, data, plan;

@@ -20,7 +20,6 @@ import {
 import slack from './slack';
 import nconf from 'nconf';
 import stripeModule from 'stripe';
-import amzLib from './amazonPayments';
 import {
   BadRequest,
 } from './errors';
