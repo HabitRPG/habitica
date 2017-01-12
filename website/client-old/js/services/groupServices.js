@@ -223,6 +223,7 @@ angular.module('habitrpg')
 
       if (group && group.type === "party" || $location.$$path === "/options/groups/party") {
        group.type = 'party';
+       group.sendInviteText = window.env.t('sendInvitations')
 
        $rootScope.openModal('invite-party', {
          controller:'InviteToGroupCtrl',
