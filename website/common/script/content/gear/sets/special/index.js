@@ -42,6 +42,13 @@ let armor = {
     value: 130,
     canOwn: ownsItem('armor_special_lunarWarriorArmor'),
   },
+  mammothRiderArmor: {
+    text: t('armorSpecialMammothRiderArmorText'),
+    notes: t('armorSpecialMammothRiderArmorNotes', { con: 15 }),
+    con: 15,
+    value: 130,
+    canOwn: ownsItem('armor_special_mammothRiderArmor'),
+  },
   yeti: {
     event: EVENTS.winter,
     specialClass: 'warrior',
@@ -675,6 +682,13 @@ let head = {
     str: 7,
     value: 130,
     canOwn: ownsItem('head_special_lunarWarriorHelm'),
+  },
+  mammothRiderHelm: {
+    text: t('headSpecialMammothRiderHelmText'),
+    notes: t('headSpecialMammothRiderHelmNotes', { per: 15 }),
+    per: 15,
+    value: 130,
+    canOwn: ownsItem('head_special_mammothRiderHelm'),
   },
   nye: {
     event: EVENTS.nye,
@@ -1347,6 +1361,13 @@ let shield = {
     value: 130,
     canOwn: ownsItem('shield_special_moonpearlShield'),
   },
+  mammothRiderHorn: {
+    text: t('shieldSpecialMammothRiderHornText'),
+    notes: t('shieldSpecialMammothRiderHornNotes', { str: 15 }),
+    str: 15,
+    value: 130,
+    canOwn: ownsItem('shield_special_mammothRiderHorn'),
+  },
   yeti: {
     event: EVENTS.winter,
     specialClass: 'warrior',
@@ -1728,6 +1749,14 @@ let weapon = {
     per: 7,
     value: 130,
     canOwn: ownsItem('weapon_special_lunarScythe'),
+  },
+  mammothRiderSpear: {
+    text: t('weaponSpecialMammothRiderSpearText'),
+    notes: t('weaponSpecialMammothRiderSpearNotes', { int: 15 }),
+    twoHanded: true,
+    int: 15,
+    value: 130,
+    canOwn: ownsItem('weapon_special_mammothRiderSpear'),
   },
   yeti: {
     event: EVENTS.winter,
