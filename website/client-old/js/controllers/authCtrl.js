@@ -5,24 +5,38 @@
  */
 
 angular.module('habitrpg')
-  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrl', '$modal', 'Alert', 'Analytics', 'Auth',
-    function($scope, $rootScope, User, $http, $location, $window, ApiUrl, $modal, Alert, Analytics, Auth) {
+  .controller("AuthCtrl", ['$scope', '$rootScope', 'User', '$http', '$location', '$window','ApiUrl', '$modal', 'Analytics',
+    function($scope, $rootScope, User, $http, $location, $window, ApiUrl, $modal, Analytics) {
       $scope.Analytics = Analytics;
 
       $scope.logout = function() {
         localStorage.clear();
-
-        // Adapted from http://www.quirksmode.org/js/cookies.html
-        // Removes all cookies that do not have the HttpOnly flag set
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-          var cookieNameArray = cookies[i].match(/([^=]+)(?=\=)/);
-          if(cookieNameArray != null){
-            document.cookie = cookieNameArray[0] + '= ; expires=Thu Jan 1 00:00:00 1970 GMT; path=/';
-          }
-        }
-
         $window.location.href = '/logout';
+      };
+
+      var runAuth = function(id, token) {
+        User.authenticate(id, token, function(err) {
+          if(!err) $scope.registrationInProgress = false;
+          Analytics.login();
+          Analytics.updateUser();
+          Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'login'});
+          $window.location.href = ('/' + window.location.hash);
+        });
+      };
+
+      function errorAlert(data, status, headers, config) {
+        $scope.registrationInProgress = false;
+        if (status === 0) {
+          $window.alert(window.env.t('noReachServer'));
+        } else if (status === 400 && data.errors && _.isArray(data.errors)) { // bad requests
+          data.errors.forEach(function (err) {
+            $window.alert(err.message);
+          }); 
+        } else if (!!data && !!data.error) {
+          $window.alert(data.message);
+        } else {
+          $window.alert(window.env.t('errorUpCase') + ' ' + status);
+        }
       };
 
       $scope.registrationInProgress = false;
@@ -47,12 +61,9 @@ angular.module('habitrpg')
         }
 
         $http.post(url, scope.registerVals).success(function(res, status, headers, config) {
-          Auth.runAuth(res.data._id, res.data.apiToken);
+          runAuth(res.data._id, res.data.apiToken);
           Analytics.register();
-        }).error(function(data, status, headers, config) {
-          $scope.registrationInProgress = false;
-          Alert.authErrorAlert(data, status, headers, config)
-        });
+        }).error(errorAlert);
       };
 
       $scope.auth = function() {
@@ -63,8 +74,8 @@ angular.module('habitrpg')
         //@TODO: Move all the $http methods to a service
         $http.post(ApiUrl.get() + "/api/v3/user/auth/local/login", data)
           .success(function(res, status, headers, config) {
-            Auth.runAuth(res.data.id, res.data.apiToken);
-          }).error(Alert.authErrorAlert);
+            runAuth(res.data.id, res.data.apiToken);
+          }).error(errorAlert);
       };
 
       $scope.playButtonClick = function() {
@@ -103,8 +114,8 @@ angular.module('habitrpg')
         hello(network).login({scope:'email'}).then(function(auth){
           $http.post(ApiUrl.get() + "/api/v3/user/auth/social", auth)
             .success(function(res, status, headers, config) {
-              Auth.runAuth(res.data.id, res.data.apiToken);
-            }).error(Alert.authErrorAlert);
+              runAuth(res.data.id, res.data.apiToken);
+            }).error(errorAlert);
         }, function( e ){
           alert("Signin error: " + e.message );
         });
