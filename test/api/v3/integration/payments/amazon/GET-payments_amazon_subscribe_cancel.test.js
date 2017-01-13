@@ -21,7 +21,7 @@ describe('payments : amazon #subscribeCancel', () => {
     });
   });
 
-  describe('sucess', () => {
+  describe('success', () => {
     beforeEach(async () => {
       amazonSubscribeCancelStub = sinon.stub(amzLib, 'cancelSubscription').returnsPromise().resolves({});
     });
@@ -55,7 +55,7 @@ describe('payments : amazon #subscribeCancel', () => {
       });
     });
 
-    it.only('cancels a group subscription', async () => {
+    it('cancels a group subscription', async () => {
       user = await generateUser({
         'profile.name': 'sender',
         'purchased.plan.customerId': 'customer-id',
