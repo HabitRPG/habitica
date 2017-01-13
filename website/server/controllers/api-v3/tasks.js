@@ -42,19 +42,17 @@ let requiredGroupFields = '_id leader tasksOrder name';
  * @apiGroup Task
  *
  * @apiParam (Body) {string} text The text to be displayed for the task
- * @apiParam (Body) {string} type Task type, options are: "habit", "daily", "todo", "reward".
+ * @apiParam (Body) {string="habit","daily","todo","reward"} type Task type, options are: "habit", "daily", "todo", "reward".
  * @apiParam (Body) {string[]} [tags] Array of UUIDs of tags
  * @apiParam (Body) {string} [alias] Alias to assign to task
- * @apiParam (Body) {string} [attribute] User's attribute to use, options are: "str", "int", "per", "con"
+ * @apiParam (Body) {string="str","int","per","con"} [attribute] User's attribute to use, options are: "str", "int", "per", "con"
  * @apiParam (Body) {boolean} [collapseChecklist=false] Determines if a checklist will be displayed
  * @apiParam (Body) {string} [notes] Extra notes 
- * @apiParam (Body) {number} [priority=1] Difficulty, options are 0.1, 1, 1.5, 2; eqivalent of Trivial, Easy, Medium, Hard.
- * @apiParam (Body) {string[]} [reminders] Array of reminder data including a UUID, startDate and time
- * @apiParam (Body) {string} [reminders.id] UUID of the reminder
- * @apiParam (Body) {string} [reminders.startDate] Date for reminder
- * @apiParam (Body) {string} [reminders.time] Time for reminder
- * @apiParam (Body) {string} [frequency=weekly] Value "weekly" enables "On days of the week", value "daily" enables "EveryX Days". Only valid for type "daily".
- * @apiParam (Body) {string[]} [repeat=true] Array of booleans for days of the week, days that are true will be repeated upon. Only valid for type "daily". Any days not specified will be marked as true. Days are: su, m, t, w, th, f, s. Value of frequency must be "weekly"
+ * @apiParam (Body) {string} [date] Due date to be shown in task list. Only valid for type "todo." 
+ * @apiParam (Body) {number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1, 1.5, 2; eqivalent of Trivial, Easy, Medium, Hard.
+ * @apiParam (Body) {string[]} [reminders] Array of reminders, each an object that must include: a UUID, startDate and time. For example {"id":"ed427623-9a69-4aac-9852-13deb9c190c3","startDate":"1/16/17","time":"1/16/17" }
+ * @apiParam (Body) {string="weekly","daily"} [frequency=weekly] Value "weekly" enables "On days of the week", value "daily" enables "EveryX Days". Only valid for type "daily".
+ * @apiParam (Body) {string} [repeat=true] List of objects for days of the week,  Days that are true will be repeated upon. Only valid for type "daily". Any days not specified will be marked as true. Days are: su, m, t, w, th, f, s. Value of frequency must be "weekly". For example, to skip repeats on Mon and Fri: "repeat":{"f":false,"m":false}
  * @apiParam (Body) {number} [everyX=1] Value of frequency must be "daily", the number of days until this daily task is available again.
  * @apiParam (Body) {number} [streak=0] Number of days that the task has consecutively been checked off. Only valid for type "daily"
  * @apiParam (Body) {date} [startDate] Date when the task will first become available. Only valid for type "daily"
