@@ -1,7 +1,7 @@
 import {
   generateUser,
   translate as t,
-} from '../../../../helpers/api-integration/v3';
+} from '../../../../../helpers/api-integration/v3';
 
 describe('payments - stripe - #subscribeEdit', () => {
   let endpoint = '/stripe/subscribe/edit';

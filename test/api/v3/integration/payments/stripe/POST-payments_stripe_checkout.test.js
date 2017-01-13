@@ -1,6 +1,6 @@
 import {
   generateUser,
-} from '../../../../helpers/api-integration/v3';
+} from '../../../../../helpers/api-integration/v3';
 
 describe('payments - stripe - #checkout', () => {
   let endpoint = '/stripe/checkout';
