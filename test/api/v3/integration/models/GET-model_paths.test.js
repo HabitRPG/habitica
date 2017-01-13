@@ -10,7 +10,7 @@ describe('GET /models/:model/paths', () => {
     user = await generateUser();
   });
 
-  it('returns an error when model is not accessible or doesn\'t exists', async () => {
+  it('returns an error when model is not accessible or doesn\'t exist', async () => {
     await expect(user.get('/models/1234/paths')).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
