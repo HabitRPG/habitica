@@ -85,7 +85,7 @@ api.checkout = async function checkout (options, stripeInc) {
       }
     }
 
-    response = await stripe.charges.create({
+    response = await stripeApi.charges.create({
       amount,
       currency: 'usd',
       card: token,

@@ -18,6 +18,139 @@ describe.only('Stripe Payments', () => {
   let stripe = stripeModule('test');
 
   describe('checkout', () => {
+    let stripeChargeStub, paymentBuyGemsStub, paymentCreateSubscritionStub;
+    let user, group, data, gift, sub, groupId, email, headers, coupon, customerIdResponse, subscriptionId, token;
+
+    beforeEach(() => {
+      user = new User();
+      user.profile.name = 'sender';
+      user.purchased.plan.customerId = 'customer-id';
+      user.purchased.plan.planId = subKey;
+      user.purchased.plan.lastBillingDate = new Date();
+
+      token = 'test-token';
+
+      customerIdResponse = 'example-customerIdResponse';
+      let stripCustomerResponse = {
+        id: customerIdResponse,
+      };
+      stripeChargeStub = sinon.stub(stripe.charges, 'create').returnsPromise().resolves(stripCustomerResponse);
+      paymentBuyGemsStub = sinon.stub(payments, 'buyGems').returnsPromise().resolves({});
+      paymentCreateSubscritionStub = sinon.stub(payments, 'createSubscription').returnsPromise().resolves({});
+    });
+
+    afterEach(() => {
+      stripe.charges.create.restore();
+      payments.buyGems.restore();
+      payments.createSubscription.restore();
+    });
+
+    it('should purchase gems', async () => {
+      await stripePayments.checkout({
+        token,
+        user,
+        gift,
+        groupId,
+        email,
+        headers,
+        coupon,
+      }, stripe);
+
+      expect(stripeChargeStub).to.be.calledOnce;
+      expect(stripeChargeStub).to.be.calledWith({
+        amount: 500,
+        currency: 'usd',
+        card: token,
+      });
+
+      expect(paymentBuyGemsStub).to.be.calledOnce;
+      expect(paymentBuyGemsStub).to.be.calledWith({
+        user,
+        customerId: customerIdResponse,
+        paymentMethod: 'Stripe',
+        gift,
+      });
+    });
+
+    it('should gift gems', async () => {
+      let receivingUser = new User();
+      receivingUser.save();
+      let gift = {
+        type: 'gems',
+        gems: {
+          amount: 16,
+          uuid: receivingUser._id,
+        },
+      };
+      let amount = 16 / 4;
+      await stripePayments.checkout({
+        token,
+        user,
+        gift,
+        groupId,
+        email,
+        headers,
+        coupon,
+      }, stripe);
+
+      gift.member = receivingUser;
+      expect(stripeChargeStub).to.be.calledOnce;
+      expect(stripeChargeStub).to.be.calledWith({
+        amount: "400",
+        currency: 'usd',
+        card: token,
+      });
+
+      expect(paymentBuyGemsStub).to.be.calledOnce;
+      expect(paymentBuyGemsStub).to.be.calledWith({
+        user,
+        customerId: customerIdResponse,
+        paymentMethod: 'Gift',
+        gift,
+      });
+    });
+
+    it('should gift a subscription', async () => {
+      let receivingUser = new User();
+      receivingUser.save();
+      let gift = {
+        type: 'subscription',
+        subscription: {
+          key: subKey,
+          uuid: receivingUser._id,
+        },
+      };
+      let amount = common.content.subscriptionBlocks[subKey].price;
+
+      await stripePayments.checkout({
+        token,
+        user,
+        gift,
+        groupId,
+        email,
+        headers,
+        coupon,
+      }, stripe);
+
+      gift.member = receivingUser;
+      expect(stripeChargeStub).to.be.calledOnce;
+      expect(stripeChargeStub).to.be.calledWith({
+        amount: "1500",
+        currency: 'usd',
+        card: token,
+      });
+
+      expect(paymentCreateSubscritionStub).to.be.calledOnce;
+      expect(paymentCreateSubscritionStub).to.be.calledWith({
+        user,
+        customerId: customerIdResponse,
+        paymentMethod: 'Gift',
+        gift,
+      });
+    });
+  });
+
+  describe('checkout with subscription', () => {
     let user, group, data, gift, sub, groupId, email, headers, coupon, customerIdResponse, subscriptionId, token;
     let spy;
     let stripeCreateCustomerSpy;
