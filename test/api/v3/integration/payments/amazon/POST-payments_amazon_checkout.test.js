@@ -56,17 +56,8 @@ describe('payments - amazon - #checkout', () => {
       expect(amazonCheckoutStub.args[0][0].user._id).to.eql(user._id);
       expect(amazonCheckoutStub.args[0][0].gift).to.eql(gift);
       expect(amazonCheckoutStub.args[0][0].orderReferenceId).to.eql(orderReferenceId);
-      expect(amazonCheckoutStub.args[0][0].headers).to.eql({
-        accept: 'application/json',
-        'accept-encoding': 'gzip, deflate',
-        connection: 'close',
-        host: 'localhost:3000',
-        'content-length': '137',
-        'content-type': 'application/json',
-        'user-agent': 'node-superagent/1.8.4',
-        'x-api-key': user.apiToken,
-        'x-api-user': user._id,
-      });
+      expect(amazonCheckoutStub.args[0][0].headers['x-api-key']).to.eql(user.apiToken);
+      expect(amazonCheckoutStub.args[0][0].headers['x-api-user']).to.eql(user._id);
     });
   });
 });

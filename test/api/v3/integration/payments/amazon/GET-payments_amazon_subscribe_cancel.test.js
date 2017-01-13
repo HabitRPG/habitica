@@ -43,16 +43,9 @@ describe('payments : amazon #subscribeCancel', () => {
 
       expect(amazonSubscribeCancelStub).to.be.calledOnce;
       expect(amazonSubscribeCancelStub.args[0][0].user._id).to.eql(user._id);
-      expect(amazonSubscribeCancelStub.args[0][0].groupId).to.eql(group._id);
-      expect(amazonSubscribeCancelStub.args[0][0].headers).to.eql({
-        accept: 'application/json',
-        'accept-encoding': 'gzip, deflate',
-        connection: 'close',
-        host: 'localhost:3000',
-        'user-agent': 'node-superagent/1.8.4',
-        'x-api-key': user.apiToken,
-        'x-api-user': user._id,
-      });
+      expect(amazonSubscribeCancelStub.args[0][0].groupId).to.eql(undefined);
+      expect(amazonSubscribeCancelStub.args[0][0].headers['x-api-key']).to.eql(user.apiToken);
+      expect(amazonSubscribeCancelStub.args[0][0].headers['x-api-user']).to.eql(user._id);
     });
 
     it('cancels a group subscription', async () => {
@@ -73,20 +66,13 @@ describe('payments : amazon #subscribeCancel', () => {
         'purchased.plan.lastBillingDate': new Date(),
       });
 
-      await user.get(`endpoint?groupId=${group._id}`);
+      await user.get(`${endpoint}?groupId=${group._id}`);
 
       expect(amazonSubscribeCancelStub).to.be.calledOnce;
       expect(amazonSubscribeCancelStub.args[0][0].user._id).to.eql(user._id);
       expect(amazonSubscribeCancelStub.args[0][0].groupId).to.eql(group._id);
-      expect(amazonSubscribeCancelStub.args[0][0].headers).to.eql({
-        accept: 'application/json',
-        'accept-encoding': 'gzip, deflate',
-        connection: 'close',
-        host: 'localhost:3000',
-        'user-agent': 'node-superagent/1.8.4',
-        'x-api-key': user.apiToken,
-        'x-api-user': user._id,
-      });
+      expect(amazonSubscribeCancelStub.args[0][0].headers['x-api-key']).to.eql(user.apiToken);
+      expect(amazonSubscribeCancelStub.args[0][0].headers['x-api-user']).to.eql(user._id);
     });
   });
 });
