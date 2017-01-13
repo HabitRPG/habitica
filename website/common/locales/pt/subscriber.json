@@ -4,7 +4,7 @@
     "subDescription": "Compre Gemas com ouro, ganhe itens misteriosos mensalmente, mantenha o histórico do progresso, dobre o limite de drop diário e ajude os desenvolvedores. Clique para mais informações.",
     "buyGemsGold": "Comprar Gemas com Ouro",
     "buyGemsGoldText": "Alexander, o Comerciante, venderá a você Gemas por <%= gemCost %> ouro cada gema. Suas entregas mensais são inicialmente limitadas a <%= gemLimit %> Gemas por mês, mas esse limite aumenta em 5 Gemas a cada três meses consecutivos de assinatura, até o máximo de 50 Gemas por mês!",
-    "mustSubscribeToPurchaseGems": "É necessário assinar para comprar gemas com ouro.",
+    "mustSubscribeToPurchaseGems": "Deve subscrever para comprar gemas com ouro.",
     "reachedGoldToGemCap": "You've reached the Gold=>Gem conversion cap <%= convCap %> for this month. We have this to prevent abuse / farming. The cap resets within the first three days of each month.",
     "retainHistory": "Guardar Itens adicionais no histórico",
     "retainHistoryText": "Deixa os Afazeres completos e o histórico de tarefas disponíveis por mais tempo.",

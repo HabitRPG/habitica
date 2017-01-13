@@ -54,7 +54,7 @@
     "partyNotFound": "Groep niet gevonden",
     "targetIdUUID": "\"targetId\" moet een geldige gebruikers-ID zijn.",
     "challengeTasksNoCast": "Het uitspreken van een vaardigheid op uitdagingstaken is niet toegestaan.",
-    "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
+    "groupTasksNoCast": "Je mag geen vaardigheden gebruiken op groepstaken.",
     "spellNotOwned": "Je bezit deze vaardigheid niet.",
     "spellLevelTooHigh": "Je moet niveau <%= level %> zijn om deze vaardigheid te gebruiken."
 }

@@ -407,5 +407,11 @@
     "questSlothCompletion": "Você fez isso! Como você derrota a Preguiça Sonolenta, suas esmeraldas quebraram. \"Obrigado por me libertar da minha maldição\", diz a preguiça. \"Eu posso finalmente dormir bem, sem essas esmeraldas pesadas nas minhas costas. Tenha estes ovos como agradecimentos, e você pode ter as esmeraldas também.\" A preguiça dá-lhe três ovos de preguiça e capacete para climas mais quentes.",
     "questSlothBoss": "Preguiça Sonolenta",
     "questSlothDropSlothEgg": "Preguiça (Ovo)",
-    "questSlothUnlockText": "Desbloqueia ovos de Preguiça para compra no Mercado"
+    "questSlothUnlockText": "Desbloqueia ovos de Preguiça para compra no Mercado",
+    "questTriceratopsText": "The Trampling Triceratops",
+    "questTriceratopsNotes": "The snow-capped Stoïkalm Volcanoes are always bustling with hikers and sight-seers. One tourist, @plumilla, calls over a crowd. \"Look! I enchanted the ground to glow so that we can play field games on it for our outdoor activity Dailies!\" Sure enough, the ground is swirling with glowing red patterns. Even some of the prehistoric pets from the area come over to play.<br><br>Suddenly, there's a loud snap -- a curious Triceratops has stepped on @plumilla's wand! It's engulfed in a burst of magic energy, and the ground starts shaking and growing hot. The Triceratops' eyes shine red, and it roars and begins to stampede!<br><br>\"That's not good,\" calls @McCoyly, pointing in the distance. Each magic-fueled stomp is causing the volcanoes to erupt, and the glowing ground is turning to lava beneath the dinosaur's feet! Quickly, you must hold off the Trampling Triceratops until someone can reverse the spell!",
+    "questTriceratopsCompletion": "With quick thinking, you herd the creature towards the soothing Stoïkalm Steppes so that @*~Seraphina~* and @PainterProphet can reverse the lava spell without distraction. The calming aura of the Steppes takes effect, and the Triceratops curls up as the volcanoes go dormant once more. @PainterProphet passes you some eggs that were rescued from the lava. \"Without you, we wouldn't have been able to concentrate to stop the eruptions. Give these pets a good home.\"",
+    "questTriceratopsBoss": "Trampling Triceratops",
+    "questTriceratopsDropTriceratopsEgg": "Triceratops (Egg)",
+    "questTriceratopsUnlockText": "Unlocks purchasable Triceratops eggs in the Market"
 }
