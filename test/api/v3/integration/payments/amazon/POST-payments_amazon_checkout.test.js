@@ -28,7 +28,7 @@ describe('payments - amazon - #checkout', () => {
       amzLib.checkout.restore();
     });
 
-    it('cancels a user subscription', async () => {
+    it('makes a purcahse with amazon checkout', async () => {
       user = await generateUser({
         'profile.name': 'sender',
         'purchased.plan.customerId': 'customer-id',
