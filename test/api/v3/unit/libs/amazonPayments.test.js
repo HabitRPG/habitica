@@ -1,16 +1,18 @@
 import moment from 'moment';
+import cc from 'coupon-code';
 
 import {
   generateGroup,
 } from '../../../../helpers/api-unit.helper.js';
 import { model as User } from '../../../../../website/server/models/user';
+import { model as Coupon } from '../../../../../website/server/models/coupon';
 import amzLib from '../../../../../website/server/libs/amazonPayments';
 import payments from '../../../../../website/server/libs/payments';
 import common from '../../../../../website/common';
 
 const i18n = common.i18n;
 
-describe('Amazon Payments', () => {
+describe.only('Amazon Payments', () => {
   let subKey = 'basic_3mo';
 
   describe('checkout', () => {
@@ -245,9 +247,83 @@ describe('Amazon Payments', () => {
       });
     });
 
-    it('should throw an error when coupon code is missing');
-    it('should throw an error when coupon code is invalid');
-    it('subscribes with amazon with a coupon');
+    it('should throw an error when coupon code is missing', async () => {
+      sub.discount = 40;
+
+      await expect(amzLib.subscribe({
+        billingAgreementId,
+        sub,
+        coupon,
+        user,
+        groupId,
+        headers,
+      }))
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 400,
+        name: 'BadRequest',
+        message: i18n.t('couponCodeRequired'),
+      });
+    });
+
+    it('should throw an error when coupon code is invalid', async () => {
+      sub.discount = 40;
+      sub.key = 'google_6mo';
+      coupon = 'example-coupon';
+
+      let couponModel = new Coupon();
+      couponModel.event = 'google_6mo';
+      let updatedCouponModel = await couponModel.save();
+
+      sinon.stub(cc, 'validate').returns('invalid');
+
+      await expect(amzLib.subscribe({
+        billingAgreementId,
+        sub,
+        coupon,
+        user,
+        groupId,
+        headers,
+      }))
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 401,
+        name: 'NotAuthorized',
+        message: i18n.t('invalidCoupon'),
+      });
+      cc.validate.restore();
+    });
+
+    it('subscribes with amazon with a coupon', async () => {
+      sub.discount = 40;
+      sub.key = 'google_6mo';
+      coupon = 'example-coupon';
+
+      let couponModel = new Coupon();
+      couponModel.event = 'google_6mo';
+      let updatedCouponModel = await couponModel.save();
+
+      sinon.stub(cc, 'validate').returns(updatedCouponModel._id);
+
+      await amzLib.subscribe({
+        billingAgreementId,
+        sub,
+        coupon,
+        user,
+        groupId,
+        headers,
+      });
+
+      expect(createSubSpy).to.be.calledOnce;
+      expect(createSubSpy).to.be.calledWith({
+        user,
+        customerId: billingAgreementId,
+        paymentMethod: amzLib.constants.PAYMENT_METHOD_AMAZON,
+        sub,
+        headers,
+        groupId,
+      });
+
+      cc.validate.restore();
+    });
 
     it('subscribes with amazon', async () => {
       await amzLib.subscribe({

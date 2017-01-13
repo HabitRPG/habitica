@@ -108,8 +108,6 @@ api.subscribe = {
     let user = res.locals.user;
     let groupId = req.body.groupId;
 
-    console.log(req.body)
-
     await amzLib.subscribe({
       billingAgreementId,
       sub,
