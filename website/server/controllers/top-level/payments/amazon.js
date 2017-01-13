@@ -7,8 +7,6 @@ import {
   authWithUrl,
 } from '../../../middlewares/auth';
 import shared from '../../../../common';
-import payments from '../../../libs/payments';
-
 
 let api = {};
 

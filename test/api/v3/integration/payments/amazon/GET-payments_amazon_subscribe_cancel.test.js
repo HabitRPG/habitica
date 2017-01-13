@@ -73,7 +73,7 @@ describe('payments : amazon #subscribeCancel', () => {
         'purchased.plan.lastBillingDate': new Date(),
       });
 
-      await user.get(endpoint + '?groupId=' + group._id);
+      await user.get(`endpoint?groupId=${group._id}`);
 
       expect(amazonSubscribeCancelStub).to.be.calledOnce;
       expect(amazonSubscribeCancelStub.args[0][0].user._id).to.eql(user._id);

@@ -12,7 +12,7 @@ import common from '../../../../../website/common';
 
 const i18n = common.i18n;
 
-describe.only('Amazon Payments', () => {
+describe('Amazon Payments', () => {
   let subKey = 'basic_3mo';
 
   describe('checkout', () => {
@@ -272,7 +272,7 @@ describe.only('Amazon Payments', () => {
 
       let couponModel = new Coupon();
       couponModel.event = 'google_6mo';
-      let updatedCouponModel = await couponModel.save();
+      await couponModel.save();
 
       sinon.stub(cc, 'validate').returns('invalid');
 
