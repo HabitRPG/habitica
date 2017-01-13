@@ -58,6 +58,7 @@ let requiredGroupFields = '_id leader tasksOrder name';
  * @apiParam (Body) {date} [startDate] Date when the task will first become available. Only valid for type "daily"
  * @apiParam (Body) {boolean} [up=true] Only valid for type "habit" If true, enables the "+" under "Directions/Action" for "Good habits"
  * @apiParam (Body) {boolean} [down=true] Only valid for type "habit" If true, enables the "-" under "Directions/Action" for "Bad habits"
+ * @apiParam (Body) {number} [value=0] Only valid for type "reward." The cost in gold of the reward
  *
  * @apiParamExample {json} Request-Example:
  *     {
