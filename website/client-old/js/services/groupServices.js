@@ -220,20 +220,25 @@ angular.module('habitrpg')
 
     function inviteOrStartParty (group) {
       Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Invite Friends'});
-
-      if (group && group.type === "party" || $location.$$path === "/options/groups/party") {
-       group.type = 'party';
-       group.sendInviteText = window.env.t('sendInvitations')
-
-       $rootScope.openModal('invite-party', {
-         controller:'InviteToGroupCtrl',
-         resolve: {
-           injectedGroup: function(){ return group; }
-         }
-       });
-      } else {
-       $location.path("/options/groups/party");
+      
+      var sendInviteText = window.env.t('sendInvitations');
+      if (group.type !== 'party' && group.type !== 'guild') {
+        $location.path("/options/groups/party");
+        return console.log('Invalid group type.')
       }
+
+      if(group.purchased && group.purchased.plan && group.purchased.plan.customerId) sendInviteText += window.env.t('groupAdditionalUserCost');
+
+      group.sendInviteText = sendInviteText;
+
+      $rootScope.openModal('invite-' + group.type, {
+        controller:'InviteToGroupCtrl',
+        resolve: {
+          injectedGroup: function() {
+            return group;
+          },
+        },
+      });
     }
 
     return {
