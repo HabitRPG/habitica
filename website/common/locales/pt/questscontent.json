@@ -3,7 +3,7 @@
     "questEvilSantaNotes": "Você escuta rugidos de agonia ao fundo dos Campos de Gelo. Você segue os rugidos - pontuados por um som de cacarejo - até uma clareira na floresta, onde você vê uma urso polar adulta. Ela se encontra enjaulada e acorrentada, lutando pela própria vida. Dançando em cima da jaula está um maldoso duende vestido com roupas que alguém não quis mais. Derrote o Noel Caçador e salve a fera!",
     "questEvilSantaCompletion": "Noel Caçador guincha de raiva, e salta noite adentro. A agradecida ursa, com rugidos e rosnados, tenta te contar algo. Você a leva de volta aos estábulos, onde Matt Boch o Mestre das Bestas escuta o que ela diz com uma expressão de horror. Ela tem um filhote! Ele fugiu para os campos de gelo quando a mamãe ursa foi capturada.",
     "questEvilSantaBoss": "Noel Caçador",
-    "questEvilSantaDropBearCubPolarMount": "Urso Polar (Montaria)",
+    "questEvilSantaDropBearCubPolarMount": "Urso Polar (Montada)",
     "questEvilSanta2Text": "Encontre a Filhote",
     "questEvilSanta2Notes": "Quando o Noel Caçador capturou a montaria de urso polar, seu filhote fugiu para os campos de gelo. Você ouve galhos quebrando e passos na neve pelo som cristalino da floresta. Pegadas! Você começa a correr para seguir a trilha. Encontre todas as pegadas e galhos quebrados, e encontre o filhote!",
     "questEvilSanta2Completion": "Encontrou o filhote! Ele irá fazer-lhe companhia para sempre.",
@@ -407,5 +407,11 @@
     "questSlothCompletion": "You did it! As you defeat the Somnolent Sloth, its emeralds break off. \"Thank you for freeing me of my curse,\" says the sloth. \"I can finally sleep well, without those heavy emeralds on my back. Have these eggs as thanks, and you can have the emeralds too.\" The sloth gives you three sloth eggs and heads off for warmer climates.",
     "questSlothBoss": "Somnolent Sloth",
     "questSlothDropSlothEgg": "Sloth (Egg)",
-    "questSlothUnlockText": "Unlocks purchasable Sloth eggs in the Market"
+    "questSlothUnlockText": "Unlocks purchasable Sloth eggs in the Market",
+    "questTriceratopsText": "The Trampling Triceratops",
+    "questTriceratopsNotes": "The snow-capped Stoïkalm Volcanoes are always bustling with hikers and sight-seers. One tourist, @plumilla, calls over a crowd. \"Look! I enchanted the ground to glow so that we can play field games on it for our outdoor activity Dailies!\" Sure enough, the ground is swirling with glowing red patterns. Even some of the prehistoric pets from the area come over to play.<br><br>Suddenly, there's a loud snap -- a curious Triceratops has stepped on @plumilla's wand! It's engulfed in a burst of magic energy, and the ground starts shaking and growing hot. The Triceratops' eyes shine red, and it roars and begins to stampede!<br><br>\"That's not good,\" calls @McCoyly, pointing in the distance. Each magic-fueled stomp is causing the volcanoes to erupt, and the glowing ground is turning to lava beneath the dinosaur's feet! Quickly, you must hold off the Trampling Triceratops until someone can reverse the spell!",
+    "questTriceratopsCompletion": "With quick thinking, you herd the creature towards the soothing Stoïkalm Steppes so that @*~Seraphina~* and @PainterProphet can reverse the lava spell without distraction. The calming aura of the Steppes takes effect, and the Triceratops curls up as the volcanoes go dormant once more. @PainterProphet passes you some eggs that were rescued from the lava. \"Without you, we wouldn't have been able to concentrate to stop the eruptions. Give these pets a good home.\"",
+    "questTriceratopsBoss": "Trampling Triceratops",
+    "questTriceratopsDropTriceratopsEgg": "Triceratops (Egg)",
+    "questTriceratopsUnlockText": "Unlocks purchasable Triceratops eggs in the Market"
 }

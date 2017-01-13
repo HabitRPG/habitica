@@ -18,7 +18,7 @@
     "rebirthAchievement100": "Hai iniziato una nuova avventura! Questa è la rinascita numero <%= number %> per te, il livello più alto che hai raggiunto è 100 o superiore. Per ottenere un'altra medaglia, inizia una nuova avventura quando avrai raggiunto almeno il livello 100!",
     "rebirthBegan": "Ha cominciato una nuova avventura",
     "rebirthText": "Ha cominciato <%= rebirths %> nuove avventure",
-    "rebirthOrb": "Used an Orb of Rebirth to start over after attaining Level <%= level %>.",
+    "rebirthOrb": "Ha utilizzato una Sfera della Rinascita per ricominciare dopo aver raggiunto il livello <%= level %>.",
     "rebirthOrb100": "Ha utilizzato una Sfera della Rinascita dopo il livello 100+ per ricominciare da capo.",
     "rebirthOrbNoLevel": "Ha utilizzato una Sfera della Rinascita per ricominciare da capo.",
     "rebirthPop": "Ricomincia con un nuovo personaggio al livello 1 mantenendo medaglie, oggetti, attività e cronologia.",
