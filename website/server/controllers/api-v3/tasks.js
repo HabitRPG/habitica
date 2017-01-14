@@ -163,7 +163,7 @@ api.createUserTasks = {
   },
 };
 
-/**   QZQZ TODO
+/** 
  * @api {post} /api/v3/tasks/challenge/:challengeId Create a new task belonging to a challenge
  * @apiDescription Can be passed an object to create a single task or an array of objects to create multiple tasks.
  * @apiName CreateChallengeTasks
@@ -774,7 +774,7 @@ api.scoreCheckListItem = {
  * @apiParam (body) {string} text The text that will replace the current checkitem text.
  *
  * @apiParamExample {json} Example body:
- * {"text":"Czech 101"}
+ * {"text":"Czech 1"}
  *
  * @apiSuccess {Object} data The updated task
  *
@@ -829,7 +829,7 @@ api.updateChecklistItem = {
 };
 
 /**
- * @api {delete} /api/v3/tasks/:taskId/checklist/:itemId Remove a checklist item
+ * @api {delete} /api/v3/tasks/:taskId/checklist/:itemId Delete a checklist item from a task
  * @apiName RemoveChecklistItem
  * @apiGroup Task
  *
@@ -837,6 +837,9 @@ api.updateChecklistItem = {
  * @apiParam {UUID} itemId The checklist item _id
  *
  * @apiSuccess {Object} data The updated task
+ *
+ * @apiSuccessExample {json} Example return:
+ * {"success":true,"data":{"_id":"84f02d6a-7b43-4818-a35c-d3336cec4880","userId":"b0413351-405f-416f-8787-947ec1c85199","text":"Test API Params","alias":"test-api-params","type":"todo","notes":"","tags":[],"value":-1,"priority":2,"attribute":"int","challenge":{"taskId":"4a29874c-0308-417b-a909-2a7d262b49f6","id":"f23c12f2-5830-4f15-9c36-e17fd729a812"},"group":{"assignedUsers":[],"approval":{"required":false,"approved":false,"requested":false}},"reminders":[],"createdAt":"2017-01-13T21:23:05.949Z","updatedAt":"2017-01-14T19:35:41.881Z","checklist":[],"collapseChecklist":false,"completed":false,"id":"84f02d6a-7b43-4818-a35c-d3336cec4880"},"notifications":[]}
  *
  * @apiUse TaskNotFound
  * @apiUse ChallengeNotFound
@@ -897,7 +900,12 @@ api.removeChecklistItem = {
  *
  * @apiSuccess {Object} data The updated task
  *
+ * @apiSuccessExample {json} Example return:
+ * {"success":true,"data":{"_id":"84f02d6a-7b43-4818-a35c-d3336cec4880","userId":"b0413351-405f-416f-8787-947ec1c85199","text":"Test API Params","alias":"test-api-params","type":"todo","notes":"","tags":["3d5d324d-a042-4d5f-872e-0553e228553e"],"value":-1,"priority":2,"attribute":"int","challenge":{"taskId":"4a29874c-0308-417b-a909-2a7d262b49f6","id":"f23c12f2-5830-4f15-9c36-e17fd729a812"},"group":{"assignedUsers":[],"approval":{"required":false,"approved":false,"requested":false}},"reminders":[],"createdAt":"2017-01-13T21:23:05.949Z","updatedAt":"2017-01-14T19:41:29.466Z","checklist":[],"collapseChecklist":false,"completed":false,"id":"84f02d6a-7b43-4818-a35c-d3336cec4880"},"notifications":[]}
+ *
  * @apiUse TaskNotFound
+ * @apiError (400) {BadRequest} Invalid-request-parameters "tagId" must be a valid UUID corresponding to a tag belonging to the user.
+ * @apiError (400) {BadRequest} TagExists The task is already tagged with given tag.
  */
 api.addTagToTask = {
   method: 'POST',
@@ -930,14 +938,20 @@ api.addTagToTask = {
 };
 
 /**
- * @api {delete} /api/v3/tasks/:taskId/tags/:tagId Remove a tag from a task
+ * @api {delete} /api/v3/tasks/:taskId/tags/:tagId Delete a tag from a task
  * @apiName RemoveTagFromTask
  * @apiGroup Task
  *
  * @apiParam {String} taskId The task _id or alias
  * @apiParam {UUID} tagId The tag id
  *
+ * @apiExample {curl} Example use:
+ * curl -X "DELETE" https://habitica.com/api/v3/tasks/test-api-params/tags/3d5d324d-a042-4d5f-872e-0553e228553e
+ *
  * @apiSuccess {Object} data The updated task
+ *
+ * @apiSuccessExample {json} Example return:
+ * {"success":true,"data":{"_id":"84f02d6a-7b43-4818-a35c-d3336cec4880","userId":"b0413351-405f-416f-8787-947ec1c85199","text":"Test API Params","alias":"test-api-params","type":"todo","notes":"","tags":[],"value":-1,"priority":2,"attribute":"int","challenge":{"taskId":"4a29874c-0308-417b-a909-2a7d262b49f6","id":"f23c12f2-5830-4f15-9c36-e17fd729a812"},"group":{"assignedUsers":[],"approval":{"required":false,"approved":false,"requested":false}},"reminders":[],"createdAt":"2017-01-13T21:23:05.949Z","updatedAt":"2017-01-14T20:02:18.206Z","checklist":[],"collapseChecklist":false,"completed":false,"id":"84f02d6a-7b43-4818-a35c-d3336cec4880"},"notifications":[]}
  *
  * @apiUse TaskNotFound
  * @apiUse TagNotFound
@@ -976,7 +990,16 @@ api.removeTagFromTask = {
  * @apiParam {UUID} challengeId The challenge _id
  * @apiParam {String} keep Query parameter - keep-all or remove-all
  *
+ * @apiExample {curl}
+ * curl -X "POST" https://habitica.com/api/v3/tasks/unlink-all/f23c12f2-5830-4f15-9c36-e17fd729a812?keep=remove-all
+ *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiSuccessExample {json} Example return:
+ * {"success":true,"data":{},"notifications":[]}
+ *
+ * @apiError (400) {BadRequest} Broken Only broken challenges tasks can be unlinked.
+ *
  */
 api.unlinkAllTasks = {
   method: 'POST',
@@ -1037,9 +1060,13 @@ api.unlinkAllTasks = {
  * @apiParam {String} taskId The task _id or alias
  * @apiParam {String} keep Query parameter - keep or remove
  *
+ * @apiExample {curl} Example call:
+ * curl -X "POST" https://habitica.com/api/v3/tasks/unlink-one/ee882e1d-ebd1-4716-88f2-4f9e47d947a8?keep=keep
+ *
  * @apiSuccess {Object} data An empty object
  *
  * @apiUse TaskNotFound
+ * @apiError (400) {BadRequest} Broken Only broken challenges tasks can be unlinked.
  */
 api.unlinkOneTask = {
   method: 'POST',
@@ -1083,7 +1110,13 @@ api.unlinkOneTask = {
  * @apiName ClearCompletedTodos
  * @apiGroup Task
  *
+ * @apiExample {curl} Example call:
+ * curl -X "POST" https://habitica.com/api/v3/tasks/ClearCompletedTodos
+ *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiSuccessExample {json} Example return:
+ * {"success":true,"data":{},"notifications":[]}
  */
 api.clearCompletedTodos = {
   method: 'POST',
@@ -1117,10 +1150,13 @@ api.clearCompletedTodos = {
  *
  * @apiParam {String} taskId The task _id or alias
  *
+ * @apiExample {json} Example call:
+ * curl -X "DELETE" https://habitica.com/api/v3/tasks/3d5d324d-a042-4d5f-872e-0553e228553e
+ *
  * @apiSuccess {Object} data An empty object
  *
  * @apiUse TaskNotFound
- * @apiUse ChallengeNotFound
+ * @apiError (400) {NotAuthorized} Challenge A task belonging to a challenge can't be deleted.
  */
 api.deleteTask = {
   method: 'DELETE',
