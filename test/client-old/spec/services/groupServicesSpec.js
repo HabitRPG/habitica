@@ -170,6 +170,7 @@ describe('groupServices', function() {
   });
 
   it('sets a "sendInviteText" property on a party to "Send Invitations"', function() {
+    var sendInviteText = window.env.t('sendInvitations');
     var party = {
       type: 'party',
       data: {
@@ -177,10 +178,11 @@ describe('groupServices', function() {
       },
     };
     groups.inviteOrStartParty(party);
-    expect(party.sendInviteText).to.eql('Send Invitations');
+    expect(party.sendInviteText).to.eql(sendInviteText);
   });
 
   it('sets a "sendInviteText" proptery on a guild to "Send Invitations +$3.00/month/user"', function() {
+    var sendInviteText = window.env.t('sendInvitations');
     var guild = {
       type: 'guild',
       data: {
@@ -192,8 +194,7 @@ describe('groupServices', function() {
         },
       },
     };
-
     groups.inviteOrStartParty(guild);
-    expect(guild.sendInviteText).to.eql('Send Invitations +$3.00/month/user');
+    expect(guild.sendInviteText).to.eql(sendInviteText + window.env.t('groupAdditionalUserCost'));
   });
 });
