@@ -16,6 +16,7 @@ Vue.use(VueRouter);
 export default new VueRouter({
   mode: 'history',
   base: process.env.NODE_ENV === 'production' ? '/new-app' : __dirname, // eslint-disable-line no-process-env
+  linkActiveClass: 'active',
   routes: [
     { path: '/', component: UserTasks },
     {
@@ -34,11 +35,14 @@ export default new VueRouter({
       children: [
         { name: 'tavern', path: 'tavern', component: TavernPage },
         {
-          name: 'inbox',
           path: 'inbox',
           component: ParentPage,
           children: [
-            {path: '', component: InboxPage},
+            {
+              name: 'inbox',
+              path: '',
+              component: InboxPage,
+            },
             {
               name: 'conversation',
               path: 'conversation/:id',

@@ -3,29 +3,29 @@
 #app-menu.ui.top.fixed.menu
   .header.item
     img(src="~assets/header/png/logo@3x.png")
-  router-link.item(to="/", exact) Tasks
+  router-link.item(to="/", exact) {{ $t('tasks') }}
   // .simple makes it possible to have a dropdown without JS
   .ui.simple.dropdown
-    router-link.item(to="/inventory", :class="{'router-link-active': $route.path.startsWith('/inventory')}") Inventory
+    router-link.item(to="/inventory", :class="{'active': $route.path.startsWith('/inventory')}") {{ $t('inventory') }}
     .menu
-      router-link.item(to="/inventory") Inventory
-      router-link.item(to="/inventory/stable") Stable
-      router-link.item(to="/inventory/equipment") Equipment
-  router-link.item(to="/market") Market
+      router-link.item(to="/inventory") {{ $t('inventory') }}
+      router-link.item(to="/inventory/stable") {{ $t('stable') }}
+      router-link.item(to="/inventory/equipment") {{ $t('equipment') }}
+  router-link.item(to="/market") {{ $t('market') }}
   .ui.simple.dropdown
-    router-link.item(to="/social/tavern", :class="{'router-link-active': $route.path.startsWith('/social')}") Social
+    router-link.item(to="/social/tavern", :class="{'active': $route.path.startsWith('/social')}") {{ $t('social') }}
     .menu
-      router-link.item(to="/social/tavern") Tavern
-      router-link.item(to="/social/inbox") Inbox
-      router-link.item(to="/social/challenges") Challenges
-      router-link.item(to="/social/party") Party
-      router-link.item(to="/social/guilds") Guilds
+      router-link.item(to="/social/tavern") {{ $t('tavern') }}
+      router-link.item(to="/social/inbox") {{ $t('inbox') }}
+      router-link.item(to="/social/challenges") {{ $t('challenges') }}
+      router-link.item(to="/social/party") {{ $t('party') }}
+      router-link.item(to="/social/guilds") {{ $t('guilds') }}
   .ui.simple.dropdown
-    router-link.item(to="/help", :class="{'router-link-active': $route.path.startsWith('/help')}") Help
+    router-link.item(to="/help", :class="{'active': $route.path.startsWith('/help')}") {{ $t('help') }}
     .menu
-      router-link.item(to="/help/faq") Faq
-      router-link.item(to="/help/report-bug") Report a bug
-      router-link.item(to="/help/request-feature") Request a feature
+      router-link.item(to="/help/faq") {{ $t('faq') }}
+      router-link.item(to="/help/report-bug") {{ $t('reportBug') }}
+      router-link.item(to="/help/request-feature") {{ $t('requestAF') }}
   .right.menu
     .item.with-img
       img(src="~assets/header/png/gem@3x.png")
@@ -106,7 +106,7 @@
   margin-left: 10px;
 }
 
-.ui.menu .right.menu .ui.simple.dropdown > .item::before {
+#app-menu .ui.menu .right.menu .ui.simple.dropdown > .item::before {
   right: auto;
   left: 0;
 }
@@ -127,13 +127,17 @@
   background-color: #6133b4;
 }
 
-#app-menu > .item.router-link-active, #app-menu > .dropdown > .item.router-link-active {
+#app-menu > .item.active, #app-menu > .dropdown > .item.active {
   box-shadow: 0px -4px 0px #6133b4 inset;
+}
+
+#app-menu > .dropdown > .item.active {
+  // font-weight: normal;
 }
 
 #app-menu > .dropdown > .menu {
   border: none;
-  background-color:rgba(0, 0, 0, 0.5); // transparent
+  background-color: rgba(0, 0, 0, 0.5); // transparent
 }
 
 #app-menu > .dropdown > .menu > .item:last-child {
@@ -146,6 +150,10 @@
   background: #6133b4 !important;
   color: #fff !important;
   padding: 6px 0px 6px 20px !important;
+}
+
+#app-menu > .dropdown .menu > .item.active {
+  font-weight: normal !important;
 }
 
 #app-menu > .dropdown .menu > .item:hover {

@@ -8,10 +8,14 @@ import AppComponent from './app';
 import router from './router';
 import store from './store';
 import './filters/registerGlobals';
+import i18n from './plugins/i18n';
+
+Vue.prototype.$t = () => 'tt';
+
+Vue.use(VueResource);
+Vue.use(i18n);
 
 // TODO just for the beginning
-Vue.use(VueResource);
-
 let authSettings = localStorage.getItem('habit-mobile-settings');
 
 if (authSettings) {
