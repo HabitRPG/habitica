@@ -19,6 +19,8 @@ var baseConfig = {
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
       jquery: 'jquery/src/jquery',
+      website: path.resolve(__dirname, '../website'),
+      common: path.resolve(__dirname, '../website/common'),
       client: path.resolve(__dirname, '../website/client'),
       assets: path.resolve(__dirname, '../website/client/assets'),
       components: path.resolve(__dirname, '../website/client/components'),
