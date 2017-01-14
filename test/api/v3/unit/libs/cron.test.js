@@ -978,10 +978,10 @@ describe('recoverCron', () => {
   it('throws an error if user cannot be found', () => {
     execStub.returns(Bluebird.resolve(null));
 
-    return recoverCron(status, locals).then( () => {
+    return recoverCron(status, locals).then(() => {
       // if there are no exceptions - failing
-      throw new Error("no exception when user cannot be found");
-    }).catch( (err) => {
+      throw new Error('no exception when user cannot be found');
+    }).catch((err) => {
       expect(err.message).to.eql(`User ${locals.user._id} not found while recovering.`);
     });
   });
@@ -990,7 +990,7 @@ describe('recoverCron', () => {
     execStub.returns(Bluebird.resolve({_cronSignature: 'RUNNING_CRON'}));
     execStub.onCall(4).returns(Bluebird.resolve({_cronSignature: 'NOT_RUNNING'}));
 
-    return recoverCron(status, locals).then( () => {
+    return recoverCron(status, locals).then(() => {
       expect(status.times).to.eql(4);
       expect(locals.user).to.eql({_cronSignature: 'NOT_RUNNING'});
     });
@@ -999,9 +999,9 @@ describe('recoverCron', () => {
   it('throws an error if recoverCron runs 5 times', () => {
     execStub.returns(Bluebird.resolve({_cronSignature: 'RUNNING_CRON'}));
 
-    return recoverCron(status, locals).then( () => {
-      throw new Error("no exception when recoverCron runs 5 times");
-    }).catch( (err) => {
+    return recoverCron(status, locals).then(() => {
+      throw new Error('no exception when recoverCron runs 5 times');
+    }).catch((err) => {
       expect(err.message).to.eql(`Impossible to recover from cron for user ${locals.user._id}.`);
       expect(status.times).to.eql(5);
     });
