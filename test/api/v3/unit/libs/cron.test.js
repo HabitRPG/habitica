@@ -979,7 +979,7 @@ describe('recoverCron', () => {
     execStub.returns(Bluebird.resolve(null));
 
     return recoverCron(status, locals).then( () => {
-      // if there are no exception - failing
+      // if there are no exceptions - failing
       throw new Error("no exception when user cannot be found");
     }).catch( (err) => {
       expect(err.message).to.eql(`User ${locals.user._id} not found while recovering.`);
