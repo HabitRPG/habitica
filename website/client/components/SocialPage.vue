@@ -1,13 +1,10 @@
 <template lang="pug">
 .row
-
   .sixteen.wide.column
     .ui.secondary.menu
-      a.item
-        router-link(:to="{ name: 'tavern' }")
+      router-link.item(to="/social/tavern")
           | Tavern
-      a.item
-        router-link(:to="{ name: 'inbox' }")
+      router-link.item(to="/social/inbox")
           | Inbox
 
   .sixteen.wide.column
