@@ -10,8 +10,6 @@ import store from './store';
 import './filters/registerGlobals';
 import i18n from './plugins/i18n';
 
-Vue.prototype.$t = () => 'tt';
-
 Vue.use(VueResource);
 Vue.use(i18n);
 
