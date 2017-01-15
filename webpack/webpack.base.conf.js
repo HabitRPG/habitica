@@ -1,11 +1,16 @@
-var path = require('path');
-var config = require('./config');
-var utils = require('./utils');
-var projectRoot = path.resolve(__dirname, '../');
-var webpack = require('webpack');
+/* eslint-disable no-process-env, no-console */
 
-var IS_PROD = process.env.NODE_ENV === 'production';
-var baseConfig = {
+const path = require('path');
+const config = require('./config');
+const utils = require('./utils');
+const projectRoot = path.resolve(__dirname, '../');
+const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
+const postcssEasyImport = require('postcss-easy-import');
+const IS_PROD = process.env.NODE_ENV === 'production';
+const eslintFriendlyFormatter = require('eslint-friendly-formatter');
+
+const baseConfig = {
   entry: {
     app: './website/client/main.js',
   },
@@ -86,10 +91,10 @@ var baseConfig = {
   vue: {
     loaders: utils.cssLoaders(),
     postcss: [
-      require('autoprefixer')({
+      autoprefixer({
         browsers: ['last 2 versions'],
       }),
-      require('postcss-easy-import')({
+      postcssEasyImport({
         glob: true,
       }),
     ],
@@ -98,7 +103,7 @@ var baseConfig = {
 
 if (!IS_PROD) {
   baseConfig.eslint = {
-    formatter: require('eslint-friendly-formatter'),
+    formatter: eslintFriendlyFormatter,
     emitWarning: true,
   };
 }
