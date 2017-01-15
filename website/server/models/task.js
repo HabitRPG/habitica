@@ -241,8 +241,7 @@ export let daily = Task.discriminator('daily', DailySchema);
 
 export let TodoSchema = new Schema(_.defaults({
   dateCompleted: Date,
-  // TODO we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to type: Date see http://stackoverflow.com/questions/1353684/detecting-an-invalid-date-date-instance-in-javascript
-  date: String, // due date for todos
+  date: Date, // due date for todos
 }, dailyTodoSchema()), subDiscriminatorOptions);
 export let todo = Task.discriminator('todo', TodoSchema);
 
