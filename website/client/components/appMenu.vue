@@ -3,29 +3,45 @@
 #app-menu.ui.top.fixed.menu
   .header.item
     img(src="~assets/header/png/logo@3x.png")
-  router-link.item(to="/", exact) {{ $t('tasks') }}
+  router-link.item(to="/", exact) 
+    span(v-once) {{ $t('tasks') }}
   // .simple makes it possible to have a dropdown without JS
   .ui.simple.dropdown
-    router-link.item(to="/inventory", :class="{'active': $route.path.startsWith('/inventory')}") {{ $t('inventory') }}
+    router-link.item(to="/inventory", :class="{'active': $route.path.startsWith('/inventory')}") 
+      span(v-once) {{ $t('inventory') }}
     .menu
-      router-link.item(to="/inventory") {{ $t('inventory') }}
-      router-link.item(to="/inventory/stable") {{ $t('stable') }}
-      router-link.item(to="/inventory/equipment") {{ $t('equipment') }}
-  router-link.item(to="/market") {{ $t('market') }}
+      router-link.item(to="/inventory") 
+        span(v-once) {{ $t('inventory') }}
+      router-link.item(to="/inventory/stable") 
+        span(v-once) {{ $t('stable') }}
+      router-link.item(to="/inventory/equipment") 
+        span(v-once) {{ $t('equipment') }}
+  router-link.item(to="/market") 
+    span(v-once) {{ $t('market') }}
   .ui.simple.dropdown
-    router-link.item(to="/social/tavern", :class="{'active': $route.path.startsWith('/social')}") {{ $t('social') }}
+    router-link.item(to="/social/tavern", :class="{'active': $route.path.startsWith('/social')}") 
+      span(v-once) {{ $t('social') }}
     .menu
-      router-link.item(to="/social/tavern") {{ $t('tavern') }}
-      router-link.item(to="/social/inbox") {{ $t('inbox') }}
-      router-link.item(to="/social/challenges") {{ $t('challenges') }}
-      router-link.item(to="/social/party") {{ $t('party') }}
-      router-link.item(to="/social/guilds") {{ $t('guilds') }}
+      router-link.item(to="/social/tavern") 
+        span(v-once) {{ $t('tavern') }}
+      router-link.item(to="/social/inbox") 
+        span(v-once) {{ $t('inbox') }}
+      router-link.item(to="/social/challenges") 
+        span(v-once) {{ $t('challenges') }}
+      router-link.item(to="/social/party") 
+        span(v-once) {{ $t('party') }}
+      router-link.item(to="/social/guilds") 
+        span(v-once) {{ $t('guilds') }}
   .ui.simple.dropdown
-    router-link.item(to="/help", :class="{'active': $route.path.startsWith('/help')}") {{ $t('help') }}
+    router-link.item(to="/help", :class="{'active': $route.path.startsWith('/help')}") 
+      span(v-once) {{ $t('help') }}
     .menu
-      router-link.item(to="/help/faq") {{ $t('faq') }}
-      router-link.item(to="/help/report-bug") {{ $t('reportBug') }}
-      router-link.item(to="/help/request-feature") {{ $t('requestAF') }}
+      router-link.item(to="/help/faq") 
+        span(v-once) {{ $t('faq') }}
+      router-link.item(to="/help/report-bug") 
+        span(v-once) {{ $t('reportBug') }}
+      router-link.item(to="/help/request-feature") 
+        span(v-once) {{ $t('requestAF') }}
   .right.menu
     .item.with-img
       img(src="~assets/header/png/gem@3x.png")
@@ -42,14 +58,18 @@
       .menu
         .item.user-edit-avatar
           strong {{user.profile.name}}
-          a Edit avatar
+          a(v-once) {{ $t('editAvatar') }}
         .divider
-        router-link.item(to="/user/stats") Stats
-        router-link.item(to="/user/achievements") Achievements
+        router-link.item(to="/user/stats") 
+          span(v-once) {{ $t('stats') }}
+        router-link.item(to="/user/achievements") 
+          span(v-once) {{ $t('achievements') }}
         .divider
-        router-link.item(to="/user/settings") Settings
+        router-link.item(to="/user/settings") 
+          span(v-once) {{ $t('settings') }}
         .divider
-        router-link.item(to="/logout") Logout
+        router-link.item(to="/logout") 
+          span(v-once) {{ $t('logout') }}
 </template>
 
 <style lang="less">
@@ -131,10 +151,6 @@
   box-shadow: 0px -4px 0px #6133b4 inset;
 }
 
-#app-menu > .dropdown > .item.active {
-  // font-weight: normal;
-}
-
 #app-menu > .dropdown > .menu {
   border: none;
   background-color: rgba(0, 0, 0, 0.5); // transparent
@@ -152,7 +168,7 @@
   padding: 6px 0px 6px 20px !important;
 }
 
-#app-menu > .dropdown .menu > .item.active {
+#app-menu .dropdown .menu .item.active {
   font-weight: normal !important;
 }
 
