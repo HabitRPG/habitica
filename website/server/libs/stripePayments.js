@@ -17,6 +17,7 @@ import {
 import shared from '../../common';
 
 const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
+const i18n = shared.i18n;
 
 let api = {};
 
@@ -122,34 +123,48 @@ api.checkout = async function checkout (options, stripeInc) {
   }
 };
 
-api.editSubscription = async function editSubscription (options) {
+/**
+ * Edits a subscription created by Stripe
+ *
+ * @param  options
+ * @param  options.token  The stripe token generated on the front end
+ * @param  options.user  The user object who is purchasing
+ * @param  options.groupId  The id of the group purchasing a subscription
+ *
+ * @return undefined
+ */
+api.editSubscription = async function editSubscription (options, stripeInc) {
   let {token, groupId, user} = options;
   let customerId;
+
+  // @TODO: We need to mock this, but curently we don't have correct Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
+  let stripeApi = stripe;
+  if (stripeInc) stripeApi = stripeInc;
 
   if (groupId) {
     let groupFields = basicGroupFields.concat(' purchased');
     let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
 
     if (!group) {
-      throw new NotFound(res.t('groupNotFound'));
+      throw new NotFound(i18n.t('groupNotFound'));
     }
 
     let allowedManagers = [group.leader, group.purchased.plan.owner];
 
     if (allowedManagers.indexOf(user._id) === -1) {
-      throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
+      throw new NotAuthorized(i18n.t('onlyGroupLeaderCanManageSubscription'));
     }
     customerId = group.purchased.plan.customerId;
   } else {
     customerId = user.purchased.plan.customerId;
   }
 
-  if (!customerId) throw new NotAuthorized(res.t('missingSubscription'));
+  if (!customerId) throw new NotAuthorized(i18n.t('missingSubscription'));
   if (!token) throw new BadRequest('Missing req.body.id');
 
-  let subscriptions = await stripe.customers.listSubscriptions(customerId);
+  let subscriptions = await stripeApi.customers.listSubscriptions(customerId); // @TODO: Handle Stripe Error response
   let subscriptionId = subscriptions.data[0].id;
-  await stripe.customers.updateSubscription(customerId, subscriptionId, { card: token });
+  await stripeApi.customers.updateSubscription(customerId, subscriptionId, { card: token });
 };
 
 api.cancelSubscription = async function cancelSubscription (options) {
