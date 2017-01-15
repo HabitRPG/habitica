@@ -52,8 +52,8 @@ let requiredGroupFields = '_id leader tasksOrder name';
  * @apiParam (Body) {string} [alias] Alias to assign to task
  * @apiParam (Body) {string="str","int","per","con"} [attribute] User's attribute to use, options are: "str", "int", "per", "con"
  * @apiParam (Body) {boolean} [collapseChecklist=false] Determines if a checklist will be displayed
- * @apiParam (Body) {string} [notes] Extra notes 
- * @apiParam (Body) {string} [date] Due date to be shown in task list. Only valid for type "todo." 
+ * @apiParam (Body) {string} [notes] Extra notes
+ * @apiParam (Body) {string} [date] Due date to be shown in task list. Only valid for type "todo."
  * @apiParam (Body) {number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1, 1.5, 2; eqivalent of Trivial, Easy, Medium, Hard.
  * @apiParam (Body) {string[]} [reminders] Array of reminders, each an object that must include: a UUID, startDate and time. For example {"id":"ed427623-9a69-4aac-9852-13deb9c190c3","startDate":"1/16/17","time":"1/16/17" }
  * @apiParam (Body) {string="weekly","daily"} [frequency=weekly] Value "weekly" enables "On days of the week", value "daily" enables "EveryX Days". Only valid for type "daily".
@@ -68,7 +68,7 @@ let requiredGroupFields = '_id leader tasksOrder name';
  * @apiParamExample {json} Request-Example:
  *     {
  *       "id": 4711
- *       "text":"Update Habitica API Documentation - Tasks", 
+ *       "text":"Update Habitica API Documentation - Tasks",
  *       "type":"todo",
  *       "alias":"hab-api-tasks",
  *       "notes":"Update the tasks api on GitHub",
@@ -94,11 +94,11 @@ let requiredGroupFields = '_id leader tasksOrder name';
  *         "priority": 2,
  *         "attribute": "str",
  *         "challenge": {
- *           
+ *
  *         },
  *         "group": {
  *           "assignedUsers": [
- *             
+ *
  *           ],
  *           "approval": {
  *             "required": false,
@@ -107,20 +107,20 @@ let requiredGroupFields = '_id leader tasksOrder name';
  *           }
  *         },
  *         "reminders": [
- *           
+ *
  *         ],
  *         "_id": "829d435b-edc4-498c-a30e-e52361a0f35a",
  *         "createdAt": "2017-01-12T02:11:02.876Z",
  *         "updatedAt": "2017-01-12T02:11:02.876Z",
  *         "checklist": [
- *           
+ *
  *         ],
  *         "collapseChecklist": false,
  *         "completed": false,
  *         "id": "829d435b-edc4-498c-a30e-e52361a0f35a"
  *       },
  *       "notifications": [
- *         
+ *
  *       ]
  *     }
  *
@@ -163,7 +163,7 @@ api.createUserTasks = {
   },
 };
 
-/** 
+/**
  * @api {post} /api/v3/tasks/challenge/:challengeId Create a new task belonging to a challenge
  * @apiDescription Can be passed an object to create a single task or an array of objects to create multiple tasks.
  * @apiName CreateChallengeTasks
@@ -176,8 +176,8 @@ api.createUserTasks = {
  * @apiParam (Body) {string} [alias] Alias to assign to task
  * @apiParam (Body) {string="str","int","per","con"} [attribute] User's attribute to use, options are: "str", "int", "per", "con"
  * @apiParam (Body) {boolean} [collapseChecklist=false] Determines if a checklist will be displayed
- * @apiParam (Body) {string} [notes] Extra notes 
- * @apiParam (Body) {string} [date] Due date to be shown in task list. Only valid for type "todo." 
+ * @apiParam (Body) {string} [notes] Extra notes
+ * @apiParam (Body) {string} [date] Due date to be shown in task list. Only valid for type "todo."
  * @apiParam (Body) {number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1, 1.5, 2; eqivalent of Trivial, Easy, Medium, Hard.
  * @apiParam (Body) {string[]} [reminders] Array of reminders, each an object that must include: a UUID, startDate and time. For example {"id":"ed427623-9a69-4aac-9852-13deb9c190c3","startDate":"1/16/17","time":"1/16/17" }
  * @apiParam (Body) {string="weekly","daily"} [frequency=weekly] Value "weekly" enables "On days of the week", value "daily" enables "EveryX Days". Only valid for type "daily".
@@ -369,8 +369,8 @@ api.getTask = {
  * @apiParam (Body) {string} [text] The text to be displayed for the task
  * @apiParam (Body) {string="str","int","per","con"} [attribute] User's attribute to use, options are: "str", "int", "per", "con"
  * @apiParam (Body) {boolean} [collapseChecklist=false] Determines if a checklist will be displayed
- * @apiParam (Body) {string} [notes] Extra notes 
- * @apiParam (Body) {string} [date] Due date to be shown in task list. Only valid for type "todo." 
+ * @apiParam (Body) {string} [notes] Extra notes
+ * @apiParam (Body) {string} [date] Due date to be shown in task list. Only valid for type "todo."
  * @apiParam (Body) {number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1, 1.5, 2; eqivalent of Trivial, Easy, Medium, Hard.
  * @apiParam (Body) {string[]} [reminders] Array of reminders, each an object that must include: a UUID, startDate and time.
  * @apiParam (Body) {string="weekly","daily"} [frequency=weekly] Value "weekly" enables "On days of the week", value "daily" enables "EveryX Days". Only valid for type "daily".
@@ -614,7 +614,7 @@ api.scoreTask = {
  *
  * @apiSuccess {Array} data The new tasks order for the specific type that the taskID belongs to.
  *
- * @apiSuccessExample {json} 
+ * @apiSuccessExample {json}
  * {"success":true,"data":["8d7e237a-b259-46ee-b431-33621256bb0b","2b774d70-ec8b-41c1-8967-eb6b13d962ba","f03d4a2b-9c36-4f33-9b5f-bae0aed23a49"],"notifications":[]}
  *
  * @apiUse TaskNotFound
@@ -671,7 +671,7 @@ api.moveTask = {
  * @apiParam (Body) {string} text The text of the checklist item
  *
  * @apiParamExample {json} Example body data:
- * {"text":"Do this subtask"} 
+ * {"text":"Do this subtask"}
  *
  * @apiSuccess {Object} data The updated task
  *
@@ -1216,5 +1216,3 @@ api.deleteTask = {
 };
 
 module.exports = api;
-
-
