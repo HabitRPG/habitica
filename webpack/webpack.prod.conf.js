@@ -8,7 +8,6 @@ const merge = require('webpack-merge');
 const baseWebpackConfig = require('./webpack.base.conf');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const env = process.env.NODE_ENV === 'testing' ?
   require('./config/test.env') :
   config.build.env;
@@ -85,6 +84,8 @@ const webpackConfig = merge(baseWebpackConfig, {
 });
 
 if (config.build.productionGzip) {
+  const CompressionWebpackPlugin = require('compression-webpack-plugin'); // eslint-disable-line global-require
+
   webpackConfig.plugins.push(
     new CompressionWebpackPlugin({
       asset: '[path].gz[query]',
