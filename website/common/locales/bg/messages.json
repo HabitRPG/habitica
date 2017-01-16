@@ -53,5 +53,6 @@
     "messageGroupChatAdminClearFlagCount": "Само администратор може да изчисти броя на докладванията!",
     "messageUserOperationProtected": "Пътят `<%= operation %>` не беше запазен, тъй като е защитен път.",
     "messageUserOperationNotFound": "Операцията „<%= operation %>“ не е намерена",
-    "messageNotificationNotFound": "Известието не е намерено."
+    "messageNotificationNotFound": "Известието не е намерено.",
+    "notificationsRequired": "Идентификаторите на известията са задължителни."
 }

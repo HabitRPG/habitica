@@ -7,6 +7,7 @@ import {
 } from '../../../../helpers/api-integration/v3';
 
 import { v4 as generateUUID } from 'uuid';
+import { find } from 'lodash';
 
 describe('POST /user/class/cast/:spellId', () => {
   let user;
@@ -117,6 +118,31 @@ describe('POST /user/class/cast/:spellId', () => {
         code: 400,
         error: 'BadRequest',
         message: t('challengeTasksNoCast'),
+      });
+  });
+
+  it('returns an error if a group task was targeted', async () => {
+    let {group, groupLeader} = await createAndPopulateGroup();
+
+    let groupTask = await groupLeader.post(`/tasks/group/${group._id}`, {
+      text: 'todo group',
+      type: 'todo',
+    });
+    await groupLeader.post(`/tasks/${groupTask._id}/assign/${groupLeader._id}`);
+    let memberTasks = await groupLeader.get('/tasks/user');
+    let syncedGroupTask = find(memberTasks, function findAssignedTask (memberTask) {
+      return memberTask.group.id === group._id;
+    });
+
+    await groupLeader.update({'stats.class': 'rogue', 'stats.lvl': 11});
+    await sleep(0.5);
+    await groupLeader.sync();
+
+    await expect(groupLeader.post(`/user/class/cast/pickPocket?targetId=${syncedGroupTask._id}`))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('groupTasksNoCast'),
       });
   });
 

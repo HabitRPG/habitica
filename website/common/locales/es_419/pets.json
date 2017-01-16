@@ -1,10 +1,14 @@
 {
     "pets": "Mascotas",
+    "activePet": "Mascota Activa",
+    "noActivePet": "Sin Mascota Activa",
     "petsFound": "Mascotas encontradas",
     "magicPets": "Mascotas de Poción Mágica",
     "rarePets": "Mascotas raras",
     "questPets": "Mascotas de misión",
     "mounts": "Monturas",
+    "activeMount": "Montura Activa",
+    "noActiveMount": "Sin Montura Activa",
     "mountsTamed": "Monturas domadas",
     "questMounts": "Monturas de misión",
     "magicMounts": "Monturas de Poción Mágica",
@@ -88,5 +92,7 @@
     "petsReleased": "Mascotas liberado.",
     "mountsAndPetsReleased": "Monturas y mascotas liberadas.",
     "mountsReleased": "Monturas liberadas",
-    "gemsEach": "gemas cada uno"
+    "gemsEach": "gemas cada uno",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

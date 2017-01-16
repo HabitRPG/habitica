@@ -1,10 +1,14 @@
 {
     "pets": "Peliharaan",
+    "activePet": "Active Pet",
+    "noActivePet": "No Active Pet",
     "petsFound": "Peliharaan yang telah ditemukan",
     "magicPets": "Peliharaan Ramuan Ajaib",
     "rarePets": "Peliharaan Langka",
     "questPets": "Peliharaan Misi",
     "mounts": "Tunggangan",
+    "activeMount": "Active Mount",
+    "noActiveMount": "No Active Mount",
     "mountsTamed": "Tunggangan yang telah dijinakkan",
     "questMounts": "Tunggangan hadiah Misi",
     "magicMounts": "Tunggangan Ramuan Ajaib",
@@ -88,5 +92,7 @@
     "petsReleased": "Peliharaan dilepaskan.",
     "mountsAndPetsReleased": "Tunggangan dan Peliharaan dilepaskan",
     "mountsReleased": "Tunggangan dilepaskan",
-    "gemsEach": "permata setiap satuan"
+    "gemsEach": "permata setiap satuan",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

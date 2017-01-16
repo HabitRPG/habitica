@@ -78,12 +78,13 @@
     "startDate": "Дата початку",
     "startDateHelpTitle": "Коли має починатися це завдання?",
     "startDateHelp": "Вкажіть дату, коли це завдання набуде чинності. До цієї дати воно буде не обов'язковим.",
-    "streakName": "Показати досягнення",
-    "streakText": "Удалося <%= streaks %> рази зробити 21-денні серії щоденних завдань",
+    "streaks": "Streak Achievements",
+    "streakName": "<%= count %> Streak Achievements",
+    "streakText": "Has performed <%= count %> 21-day streaks on Dailies",
     "streakSingular": "Серійник",
     "streakSingularText": "Виконав 21-денну серію щоденних завдань",
-    "perfectName": "Ідеальні дні",
-    "perfectText": "Кількість днів, коли було завершено всі активні щоденні задачі: <%= perfects %>. З цим досягненням ви отримуєте підсилювач +рівень/2 для всіх характеристик наступного дня. Рівні вище 100-го не отримують жодних додатокових бонусів до підсилювачів.",
+    "perfectName": "<%= count %> Perfect Days",
+    "perfectText": "Completed all active Dailies on <%= count %> days. With this achievement you get a +level/2 buff to all attributes for the next day. Levels greater than 100 don't have any additional effects on buffs.",
     "perfectSingular": "Ідеальний день",
     "perfectSingularText": "Усі активні щоденні задачі виконано. З цим досягненнім ви отримаєте підсилювач +рівень/2 для всіх характеристик наступного дня. Рівні вище 100-го не отримують жодних додатокових бонусів до підсилювачів.",
     "streakerAchievement": "Ви відкрили досягнення \"Серійник\" ! 21-денна позначка — це наріжний камінь для формування звички. Ви можете продовжувати отримувати це досягнення наступні 21 дні в цьому або іншому Щоденному завданні!",
@@ -136,5 +137,7 @@
     "perceptionExample": "Relating to work or financial tasks",
     "constitutionExample": "Relating to health, wellness, and social interaction",
     "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
-    "taskApprovalHasBeenRequested": "Approval has been requested"
+    "taskApprovalHasBeenRequested": "Approval has been requested",
+    "approvals": "Approvals",
+    "approvalRequired": "Approval Required"
 }

@@ -147,6 +147,15 @@ describe('shared.ops.purchase', () => {
       expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate);
     });
 
+    it('purchases gems with a different language than the default', () => {
+      let [, message] = purchase(user, {params: {type: 'gems', key: 'gem'}, language: 'de'});
+
+      expect(message).to.equal(i18n.t('plusOneGem', 'de'));
+      expect(user.balance).to.equal(userGemAmount + 0.5);
+      expect(user.purchased.plan.gemsBought).to.equal(2);
+      expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate * 2);
+    });
+
     it('purchases eggs', () => {
       let type = 'eggs';
       let key = 'Wolf';

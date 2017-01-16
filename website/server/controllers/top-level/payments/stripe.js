@@ -49,22 +49,33 @@ api.checkout = {
     let groupId = req.query.groupId;
     let coupon;
     let response;
+    let subscriptionId;
+
+    // @TODO: Update this to use payments.payWithStripe
 
     if (!token) throw new BadRequest('Missing req.body.id');
 
     if (sub) {
       if (sub.discount) {
         if (!req.query.coupon) throw new BadRequest(res.t('couponCodeRequired'));
-        coupon = await Coupon.findOne({_id: cc.validate(req.query.coupon), event: sub.key});
+        coupon = await Coupon.findOne({_id: cc.validate(req.query.coupon), event: sub.key}).exec();
         if (!coupon) throw new BadRequest(res.t('invalidCoupon'));
       }
 
-      response = await stripe.customers.create({
+      let customerObject = {
         email: req.body.email,
         metadata: { uuid: user._id },
         card: token,
         plan: sub.key,
-      });
+      };
+
+      if (groupId) {
+        customerObject.quantity = sub.quantity;
+      }
+
+      response = await stripe.customers.create(customerObject);
+
+      if (groupId) subscriptionId = response.subscriptions.data[0].id;
     } else {
       let amount = 500; // $5
 
@@ -91,6 +102,7 @@ api.checkout = {
         sub,
         headers: req.headers,
         groupId,
+        subscriptionId,
       });
     } else {
       let method = 'buyGems';
@@ -102,10 +114,10 @@ api.checkout = {
       };
 
       if (gift) {
-        let member = await User.findById(gift.uuid);
+        let member = await User.findById(gift.uuid).exec();
         gift.member = member;
         if (gift.type === 'subscription') method = 'createSubscription';
-        data.paymentMethod = 'Gift';
+        data.paymentMethod = 'Stripe (Gift)';
       }
 
       await payments[method](data);
@@ -144,7 +156,9 @@ api.subscribeEdit = {
         throw new NotFound(res.t('groupNotFound'));
       }
 
-      if (!group.leader === user._id) {
+      let allowedManagers = [group.leader, group.purchased.plan.owner];
+
+      if (allowedManagers.indexOf(user._id) === -1) {
         throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
       }
       customerId = group.purchased.plan.customerId;

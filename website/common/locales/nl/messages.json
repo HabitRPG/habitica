@@ -53,5 +53,6 @@
     "messageGroupChatAdminClearFlagCount": "Alleen een admin kan de flag-telling leegmaken!",
     "messageUserOperationProtected": "path `<%= operation %>`  is niet opgeslagen, omdat het een beschermd path is.",
     "messageUserOperationNotFound": "<%= operation %> operatie niet gevonden",
-    "messageNotificationNotFound": "Mededeling niet gevonden."
+    "messageNotificationNotFound": "Mededeling niet gevonden.",
+    "notificationsRequired": "Notificatie-id's zijn vereist."
 }

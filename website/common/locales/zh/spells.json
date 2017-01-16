@@ -38,10 +38,10 @@
     "spellSpecialSnowballAuraNotes": "向队友丢了一个雪球!会发生什么事情呢?所产生的效果会持续到第二天早上.",
     "spellSpecialSaltText": "盐",
     "spellSpecialSaltNotes": "有人向你扔了雪球。哈哈，很好玩。现在把这些雪从我身上弄下来！",
-    "spellSpecialSpookySparklesText": "幽灵般的闪光",
+    "spellSpecialSpookySparklesText": "惊悚闪光",
     "spellSpecialSpookySparklesNotes": "把一个好友变成长眼睛的魔毯！",
-    "spellSpecialOpaquePotionText": "晦暗的药水",
-    "spellSpecialOpaquePotionNotes": "取消鬼火的效果",
+    "spellSpecialOpaquePotionText": "混沌药水",
+    "spellSpecialOpaquePotionNotes": "净化鬼火的效果",
     "spellSpecialShinySeedText": "闪光种子",
     "spellSpecialShinySeedNotes": "把一个好友变成一朵笑笑花。",
     "spellSpecialPetalFreePotionText": "除花剂",
@@ -54,6 +54,7 @@
     "partyNotFound": "找不到队伍",
     "targetIdUUID": "\"targetId\" 必须是有效ID。",
     "challengeTasksNoCast": "不允许在挑战任务上使用技能。",
+    "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "你没有拥有这个技能。",
-    "spellLevelTooHigh": "你必须达到等级<%= level %>来运用这个技能。"
+    "spellLevelTooHigh": "等级<%= level %>才能使用这个技能。"
 }

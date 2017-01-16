@@ -53,5 +53,6 @@
     "messageGroupChatAdminClearFlagCount": "Seul un administrateur peut modifier ce compteur !",
     "messageUserOperationProtected": "chemin `<%= operation %>` n'a pas été sauvegardé car c'est un chemin protégé.",
     "messageUserOperationNotFound": "<%= operation %> opération introuvable",
-    "messageNotificationNotFound": "Notification non trouvée."
+    "messageNotificationNotFound": "Notification non trouvée.",
+    "notificationsRequired": "Les numéros d'identification (ID) de notification sont requis."
 }

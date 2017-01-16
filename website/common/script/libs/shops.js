@@ -7,6 +7,9 @@ let shops = {};
 
 function lockQuest (quest, user) {
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
+  if (quest.unlockCondition && (quest.key === 'moon1' || quest.key === 'moon2' || quest.key === 'moon3')) {
+    return user.loginIncentives < quest.unlockCondition.incentiveThreshold;
+  }
   if (user.achievements.quests) return quest.previous && !user.achievements.quests[quest.previous];
   return quest.previous;
 }
@@ -177,7 +180,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
     }
   }
 
-  let sets = content.timeTravelerStore(user.items.gear.owned);
+  let sets = content.timeTravelerStore(user);
   for (let setKey in  sets) {
     if (sets.hasOwnProperty(setKey)) {
       let set = sets[setKey];
@@ -215,9 +218,27 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
 // };
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
   const AVAILABLE_SETS = {
+    yeti: i18n.t('yetiSet', language),
+    ski: i18n.t('skiSet', language),
+    candycane: i18n.t('candycaneSet', language),
+    snowflake: i18n.t('snowflakeSet', language),
+    winter2015Healer: i18n.t('soothingSkaterSet', language),
+    winter2015Mage: i18n.t('northMageSet', language),
+    winter2015Rogue: i18n.t('icicleDrakeSet', language),
+    winter2015Warrior: i18n.t('gingerbreadSet', language),
+    winter2016Healer: i18n.t('festiveFairySet', language),
+    winter2016Mage: i18n.t('snowboardingSet', language),
+    winter2016Rogue: i18n.t('cocoaSet', language),
+    winter2016Warrior: i18n.t('snowDaySet', language),
   };
 
   const AVAILABLE_SPELLS = [
+    'snowball',
+  ];
+
+  const AVAILABLE_QUESTS = [
+    'evilsanta',
+    'evilsanta2',
   ];
 
   let categories = [];
@@ -244,6 +265,37 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
         currency: 'gold',
         locked: false,
         purchaseType: 'spells',
+        class: `inventory_special_${key}`,
+      };
+    });
+
+    categories.push(category);
+  }
+
+  let quests = pickBy(content.quests, (quest, key) => {
+    return _.indexOf(AVAILABLE_QUESTS, key) !== -1;
+  });
+
+  if (_.keys(quests).length > 0) {
+    let category = {
+      identifier: 'quests',
+      text: i18n.t('quests', language),
+    };
+
+    category.items = _.map(quests, (quest, key) => {
+      return {
+        key,
+        text: quest.text(language),
+        notes: quest.notes(language),
+        value: quest.value,
+        type: 'quests',
+        currency: 'gems',
+        locked: false,
+        drop: quest.drop,
+        boss: quest.boss,
+        collect: quest.collect,
+        class: `inventory_quest_scroll_${key}`,
+        purchaseType: 'quests',
       };
     });
 
@@ -273,6 +325,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
           locked: false,
           currency: 'gems',
           purchaseType: 'gear',
+          class: `shop_${gear.key}`,
         };
       }).value();
       if (category.items.length > 0) {
@@ -282,6 +335,33 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   }
 
   return categories;
+};
+
+shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
+  let sets = [];
+
+  _.eachRight(content.backgrounds, (group, key) => {
+    let set = {
+      identifier: key,
+      text: i18n.t(key, language),
+    };
+
+    set.items = _(group)
+      .map((background, bgKey) => {
+        return {
+          key: bgKey,
+          text: background.text(language),
+          notes: background.notes(language),
+          value: background.price,
+          currency: background.currency || 'gems',
+          purchaseType: 'backgrounds',
+        };
+      }).value();
+
+    sets.push(set);
+  });
+
+  return sets;
 };
 
 module.exports = shops;

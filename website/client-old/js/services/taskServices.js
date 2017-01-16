@@ -158,6 +158,13 @@ angular.module('habitrpg')
       });
     };
 
+    function moveGroupTask (taskId, position) {
+      return $http({
+        method: 'POST',
+        url: '/api/v3/group-tasks/' + taskId + '/move/to/' + position,
+      });
+    };
+
     function addChecklistItem (taskId, checkListItem) {
       return $http({
         method: 'POST',
@@ -245,12 +252,36 @@ angular.module('habitrpg')
       });
     };
 
-    function editTask(task, user) {
-      task._editing = true;
-      task._tags = !user.preferences.tagsCollapsed;
-      task._advanced = !user.preferences.advancedCollapsed;
-      task._edit = angular.copy(task);
+    function editTask(task, user, taskStatus, scopeInc) {
+      var modalScope = $rootScope.$new();
+      modalScope.task = task;
+      modalScope.task._editing = true;
+      modalScope.task._tags = !user.preferences.tagsCollapsed;
+      modalScope.task._advanced = !user.preferences.advancedCollapsed;
+      modalScope.task._edit = angular.copy(task);
       if($rootScope.charts[task._id]) $rootScope.charts[task.id] = false;
+
+      modalScope.taskStatus = taskStatus;
+      if (scopeInc) {
+        modalScope.saveTask = scopeInc.saveTask;
+        modalScope.addChecklist = scopeInc.addChecklist;
+        modalScope.addChecklistItem = scopeInc.addChecklistItem;
+        modalScope.removeChecklistItem = scopeInc.removeChecklistItem;
+        modalScope.swapChecklistItems = scopeInc.swapChecklistItems;
+        modalScope.navigateChecklist = scopeInc.navigateChecklist;
+        modalScope.checklistCompletion = scopeInc.checklistCompletion;
+        modalScope.canEdit = scopeInc.canEdit;
+        modalScope.updateTaskTags = scopeInc.updateTaskTags;
+        modalScope.obj = scopeInc.obj;
+        modalScope.unlink = scopeInc.unlink;
+        modalScope.removeTask = scopeInc.removeTask;
+      }
+      modalScope.cancelTaskEdit = cancelTaskEdit;
+
+      $rootScope.openModal('task-edit', {scope: modalScope })
+        .result.catch(function() {
+          cancelTaskEdit(task);
+        });
     }
 
     function cancelTaskEdit(task) {
@@ -289,7 +320,7 @@ angular.module('habitrpg')
 
     function focusChecklist(task, index) {
       window.setTimeout(function(){
-        $('#task-'+task._id+' .checklist-form input[type="text"]')[index].focus();
+        $('#task-' + task._id + ' .checklist-form input[type="text"]')[index].focus();
       });
     }
 
@@ -384,5 +415,6 @@ angular.module('habitrpg')
 
       getGroupApprovals: getGroupApprovals,
       approve: approve,
+      moveGroupTask: moveGroupTask,
     };
   }]);

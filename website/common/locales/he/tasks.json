@@ -78,12 +78,13 @@
     "startDate": "תאריך התחלה",
     "startDateHelpTitle": "מתי כדאי שמשימה תתחיל?",
     "startDateHelp": "קבעו תאריך שבו משימה זו נכנסת לתוקף. משימה זו לא תחול בימים מוקדמים יותר.",
-    "streakName": "הישגי רצף",
-    "streakText": "ביצעו <%= streaks %> רצפי מטלות לאורך 21 יום",
+    "streaks": "Streak Achievements",
+    "streakName": "<%= count %> Streak Achievements",
+    "streakText": "Has performed <%= count %> 21-day streaks on Dailies",
     "streakSingular": "מלכי הרצפים",
     "streakSingularText": "הגיעו לרצף של 21 יום במטלה יומית",
-    "perfectName": "ימים מושלמים",
-    "perfectText": "השלמתם את כל המטלות היומיות ב <%= perfects %> ימים. עם הישג זה אתם מקבלים תוסף +2/דרגה לכל התכונות ביום הבא. דרגות מעל 100 לא מקבלות תוספות נוספות.",
+    "perfectName": "<%= count %> Perfect Days",
+    "perfectText": "Completed all active Dailies on <%= count %> days. With this achievement you get a +level/2 buff to all attributes for the next day. Levels greater than 100 don't have any additional effects on buffs.",
     "perfectSingular": "יום מושלם",
     "perfectSingularText": "השלמתם את כל המטלות היומיות הפעילות ביום אחד. עם הישג זה אתם מקבלים תוסף של +2/דרגה לכל התכונות שלכם עבור היום הבא. דרגות מעל 100 לא מקבלות השפעה נוספת על התוסף.",
     "streakerAchievement": "השגתם את הישג ה\"רצף\"! 21-יום הם אבן דרך ביצירת הרגלים. ניתן להמשיך לצבור הישג זה עבור כל 21 יום בהרגל זה או כל אחד אחר!",
@@ -136,5 +137,7 @@
     "perceptionExample": "מתקשר לעבודה או משימות פיננסיות",
     "constitutionExample": "מתקשר לבריאות, איכות חיים, ואינטראקציות חברתיות",
     "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
-    "taskApprovalHasBeenRequested": "Approval has been requested"
+    "taskApprovalHasBeenRequested": "Approval has been requested",
+    "approvals": "Approvals",
+    "approvalRequired": "Approval Required"
 }

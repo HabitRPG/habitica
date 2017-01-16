@@ -36,6 +36,8 @@ nav.toolbar(ng-controller='MenuCtrl')
                 a(ui-sref='options.social.challenges')=env.t('challenges')
               li
                 a(ui-sref='options.social.hall.heroes')=env.t('hall')
+              li
+                a(ui-sref='options.social.groupPlans')=env.t('groupPlansTitle')
             ul.toolbar-submenu
               li
                 a(ui-sref='options.inventory.drops')=env.t('market')
@@ -120,6 +122,8 @@ nav.toolbar(ng-controller='MenuCtrl')
               a(ui-sref='options.social.challenges')=env.t('challenges')
             li
               a(ui-sref='options.social.hall.heroes')=env.t('hall')
+            li
+              a(ui-sref='options.social.groupPlans')=env.t('groupPlansTitle')
       li.toolbar-button-dropdown
         a(ui-sref='options.inventory.drops', data-close-menu)
           span=env.t('inventory')
@@ -235,7 +239,7 @@ nav.toolbar(ng-controller='MenuCtrl')
           div
             ul.toolbar-submenu
               // Using [{k,v}] instead of {k:v,k:v} to maintain order ('off' at top)
-              for theme in ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme']
+              for theme in ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme']
                 li
                   a(ng-class="{'bg-info':user.preferences.sound === '#{theme}'}", ng-click="set({'preferences.sound':'#{theme}'})")=env.t('audioTheme_'+theme)
           ul.toolbar-controls

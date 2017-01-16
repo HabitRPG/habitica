@@ -1,16 +1,17 @@
 import { authWithHeaders } from '../../../middlewares/auth';
-import ensureDevelpmentMode from '../../../middlewares/ensureDevelpmentMode';
 import Bluebird from 'bluebird';
 import * as Tasks from '../../../models/task';
 import { model as Group } from '../../../models/group';
 import { model as User } from '../../../models/user';
 import {
+  BadRequest,
   NotFound,
   NotAuthorized,
 } from '../../../libs/errors';
 import {
   createTasks,
   getTasks,
+  moveTask,
 } from '../../../libs/taskManager';
 
 let requiredGroupFields = '_id leader tasksOrder name';
@@ -22,7 +23,6 @@ let api = {};
  * @apiDescription Can be passed an object to create a single task or an array of objects to create multiple tasks.
  * @apiName CreateGroupTasks
  * @apiGroup Task
- * @apiIgnore
  *
  * @apiParam {UUID} groupId The id of the group the new task(s) will belong to
  *
@@ -31,7 +31,7 @@ let api = {};
 api.createGroupTasks = {
   method: 'POST',
   url: '/tasks/group/:groupId',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
 
@@ -55,7 +55,6 @@ api.createGroupTasks = {
  * @api {get} /api/v3/tasks/group/:groupId Get a group's tasks
  * @apiName GetGroupTasks
  * @apiGroup Task
- * @apiIgnore
  *
  * @apiParam {UUID} groupId The id of the group from which to retrieve the tasks
  * @apiParam {string="habits","dailys","todos","rewards"} type Optional query parameter to return just a type of tasks
@@ -65,7 +64,7 @@ api.createGroupTasks = {
 api.getGroupTasks = {
   method: 'GET',
   url: '/tasks/group/:groupId',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
     req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
@@ -84,6 +83,58 @@ api.getGroupTasks = {
 };
 
 /**
+ * @api {post} /api/v3/group/:groupId/tasks/:taskId/move/to/:position Move a group task to a specified position
+ * @apiDescription Moves a group task to a specified position
+ * @apiVersion 3.0.0
+ * @apiName GroupMoveTask
+ * @apiGroup Task
+ *
+ * @apiParam {String} taskId The task _id
+ * @apiParam {Number} position Query parameter - Where to move the task (-1 means push to bottom). First position is 0
+ *
+ * @apiSuccess {Array} data The new tasks order (group.tasksOrder.{task.type}s)
+ */
+api.groupMoveTask = {
+  method: 'POST',
+  url: '/group-tasks/:taskId/move/to/:position',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
+
+    let reqValidationErrors = req.validationErrors();
+    if (reqValidationErrors) throw reqValidationErrors;
+
+    let user = res.locals.user;
+
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findOne({
+      _id: taskId,
+    }).exec();
+
+    let to = Number(req.params.position);
+
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    }
+
+    if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
+
+    let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+
+    let order = group.tasksOrder[`${task.type}s`];
+
+    moveTask(order, task._id, to);
+
+    await group.save();
+    res.respond(200, order);
+  },
+};
+
+/**
  * @api {post} /api/v3/tasks/:taskId/assign/:assignedUserId Assign a group task to a user
  * @apiDescription Assigns a user to a group task
  * @apiName AssignTask
@@ -97,7 +148,7 @@ api.getGroupTasks = {
 api.assignTask = {
   method: 'POST',
   url: '/tasks/:taskId/assign/:assignedUserId',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('assignedUserId', res.t('userIdRequired')).notEmpty().isUUID();
@@ -107,7 +158,7 @@ api.assignTask = {
 
     let user = res.locals.user;
     let assignedUserId = req.params.assignedUserId;
-    let assignedUser = await User.findById(assignedUserId);
+    let assignedUser = await User.findById(assignedUserId).exec();
 
     let taskId = req.params.taskId;
     let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
@@ -120,12 +171,22 @@ api.assignTask = {
       throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
     }
 
-    let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+    let groupFields = `${requiredGroupFields} chat`;
+    let group = await Group.getGroup({user, groupId: task.group.id, fields: groupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leader !== user._id && user._id !== assignedUserId) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
-    await group.syncTask(task, assignedUser);
+    // User is claiming the task
+    if (user._id === assignedUserId) {
+      let message = res.t('userIsClamingTask', {username: user.profile.name, task: task.text});
+      group.sendChat(message);
+    }
+
+    let promises = [];
+    promises.push(group.syncTask(task, assignedUser));
+    promises.push(group.save());
+    await Bluebird.all(promises);
 
     res.respond(200, task);
   },
@@ -145,7 +206,7 @@ api.assignTask = {
 api.unassignTask = {
   method: 'POST',
   url: '/tasks/:taskId/unassign/:assignedUserId',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('assignedUserId', res.t('userIdRequired')).notEmpty().isUUID();
@@ -155,7 +216,7 @@ api.unassignTask = {
 
     let user = res.locals.user;
     let assignedUserId = req.params.assignedUserId;
-    let assignedUser = await User.findById(assignedUserId);
+    let assignedUser = await User.findById(assignedUserId).exec();
 
     let taskId = req.params.taskId;
     let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
@@ -194,7 +255,7 @@ api.unassignTask = {
 api.approveTask = {
   method: 'POST',
   url: '/tasks/:taskId/approve/:userId',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('userId', res.t('userIdRequired')).notEmpty().isUUID();
@@ -204,13 +265,13 @@ api.approveTask = {
 
     let user = res.locals.user;
     let assignedUserId = req.params.userId;
-    let assignedUser = await User.findById(assignedUserId);
+    let assignedUser = await User.findById(assignedUserId).exec();
 
     let taskId = req.params.taskId;
     let task = await Tasks.Task.findOne({
       'group.taskId': taskId,
       userId: assignedUserId,
-    });
+    }).exec();
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
@@ -226,8 +287,13 @@ api.approveTask = {
     task.group.approval.approved = true;
 
     assignedUser.addNotification('GROUP_TASK_APPROVED', {
-      message: res.t('yourTaskHasBeenApproved'),
+      message: res.t('yourTaskHasBeenApproved', {taskText: task.text}),
       groupId: group._id,
+    });
+
+    assignedUser.addNotification('SCORED_TASK', {
+      message: res.t('yourTaskHasBeenApproved', {taskText: task.text}),
+      scoreTask: task,
     });
 
     await Bluebird.all([assignedUser.save(), task.save()]);
@@ -241,7 +307,6 @@ api.approveTask = {
  * @apiVersion 3.0.0
  * @apiName GetGroupApprovals
  * @apiGroup Task
- * @apiIgnore
  *
  * @apiParam {UUID} groupId The id of the group from which to retrieve the approvals
  *
@@ -250,7 +315,7 @@ api.approveTask = {
 api.getGroupApprovals = {
   method: 'GET',
   url: '/approvals/group/:groupId',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
 

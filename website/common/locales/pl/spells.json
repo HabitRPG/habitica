@@ -54,6 +54,7 @@
     "partyNotFound": "Nie znaleziono drużyny.",
     "targetIdUUID": "\"targetId\" musi być prawidłowym ID użytkownika.",
     "challengeTasksNoCast": "Rzucanie czaru na zadanie z wyzwań nie jest dozwolone.",
+    "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "Nie posiadasz tej umiejętności.",
     "spellLevelTooHigh": "Ta umiejętność wymaga poziomu <%= level %>."
 }

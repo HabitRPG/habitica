@@ -29,9 +29,9 @@ api.getFrontPage = {
 };
 
 let staticPages = ['front', 'privacy', 'terms', 'features',
-            'videos', 'contact', 'plans', 'new-stuff', 'community-guidelines',
-            'old-news', 'press-kit', 'faq', 'overview', 'apps',
-            'clear-browser-data', 'merch', 'maintenance-info'];
+                   'videos', 'contact', 'plans', 'new-stuff', 'community-guidelines',
+                   'old-news', 'press-kit', 'faq', 'overview', 'apps',
+                   'clear-browser-data', 'merch', 'maintenance-info'];
 
 _.each(staticPages, (name) => {
   api[`get${name}Page`] = {
@@ -85,7 +85,7 @@ api.redirectExtensionsPage = {
   },
 };
 
-// All requests to /new_app (expect /new_app/static) should serve the new client in development
+// All requests to /new_app (except /new_app/static) should serve the new client in development
 if (IS_PROD && IS_NEW_CLIENT_ENABLED) {
   api.getNewClient = {
     method: 'GET',

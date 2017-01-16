@@ -32,6 +32,7 @@ describe('POST /user/auth/local/register', () => {
       expect(user._id).to.exist;
       expect(user.apiToken).to.exist;
       expect(user.auth.local.username).to.eql(username);
+      expect(user.profile.name).to.eql(username);
     });
 
     it('provides default tags and tasks', async () => {
@@ -66,6 +67,7 @@ describe('POST /user/auth/local/register', () => {
       });
 
       await expect(getProperty('users', user._id, '_ABtest')).to.eventually.be.a('string');
+      await expect(getProperty('users', user._id, '_ABtests')).to.eventually.be.a('object');
     });
 
     it('requires password and confirmPassword to match', async () => {

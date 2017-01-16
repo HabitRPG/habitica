@@ -1,8 +1,12 @@
 import mongoose from 'mongoose';
 import baseModel from '../libs/baseModel';
+import validator from 'validator';
 
 export let schema = new mongoose.Schema({
   planId: String,
+  subscriptionId: String,
+  owner: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']},
+  quantity: {type: Number, default: 1},
   paymentMethod: String, // enum: ['Paypal','Stripe', 'Gift', 'Amazon Payments', '']}
   customerId: String, // Billing Agreement Id in case of Amazon Payments
   dateCreated: Date,
@@ -27,6 +31,7 @@ export let schema = new mongoose.Schema({
 schema.plugin(baseModel, {
   noSet: ['_id'],
   timestamps: false,
+  _id: false,
 });
 
 export let model = mongoose.model('SubscriptionPlan', schema);

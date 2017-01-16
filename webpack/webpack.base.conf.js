@@ -1,10 +1,16 @@
-var path = require('path');
-var config = require('./config');
-var utils = require('./utils');
-var projectRoot = path.resolve(__dirname, '../');
+/* eslint-disable no-process-env, no-console */
 
-var IS_PROD = process.env.NODE_ENV === 'production';
-var baseConfig = {
+const path = require('path');
+const config = require('./config');
+const utils = require('./utils');
+const projectRoot = path.resolve(__dirname, '../');
+const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
+const postcssEasyImport = require('postcss-easy-import');
+const IS_PROD = process.env.NODE_ENV === 'production';
+const eslintFriendlyFormatter = require('eslint-friendly-formatter');
+
+const baseConfig = {
   entry: {
     app: './website/client/main.js',
   },
@@ -17,6 +23,9 @@ var baseConfig = {
     extensions: ['', '.js', '.vue'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
+      jquery: 'jquery/src/jquery',
+      website: path.resolve(__dirname, '../website'),
+      common: path.resolve(__dirname, '../website/common'),
       client: path.resolve(__dirname, '../website/client'),
       assets: path.resolve(__dirname, '../website/client/assets'),
       components: path.resolve(__dirname, '../website/client/components'),
@@ -25,6 +34,12 @@ var baseConfig = {
   resolveLoader: {
     fallback: [path.join(__dirname, '../node_modules')],
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+    }),
+  ],
   module: {
     preLoaders: !IS_PROD ? [
       {
@@ -76,8 +91,11 @@ var baseConfig = {
   vue: {
     loaders: utils.cssLoaders(),
     postcss: [
-      require('autoprefixer')({
+      autoprefixer({
         browsers: ['last 2 versions'],
+      }),
+      postcssEasyImport({
+        glob: true,
       }),
     ],
   },
@@ -85,7 +103,7 @@ var baseConfig = {
 
 if (!IS_PROD) {
   baseConfig.eslint = {
-    formatter: require('eslint-friendly-formatter'),
+    formatter: eslintFriendlyFormatter,
     emitWarning: true,
   };
 }
