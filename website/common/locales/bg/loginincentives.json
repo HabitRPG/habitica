@@ -1,0 +1,15 @@
+{
+  "unlockedReward": "Получихте <%= reward %>",
+  "earnedRewardForDevotion": "Чрез усърдието си в подобряването на собствения си живот, си заслужихте <%= reward %>.",
+  "nextRewardUnlocksIn": "Следващата Ви награда ще се отключи след <%= numberOfCheckinsLeft %> отчитания!",
+  "awesome": "Страхотно!",
+  "totalCount": "Общо: <%= count %>",
+  "countLeft": "Остават <%= count %> отчитания до следващата награда",
+  "incentivesDescription": "Когато става въпрос за изграждане на навици, ключът е в постоянството. Всеки ден, в който се отчетете, Ви доближава до наградата.",
+  "totalCheckins": "<%= count %> отчитания",
+  "checkinEarned": "Броячът на отчитанията Ви се увеличи!",
+  "unlockedCheckInReward": "Отключихте награда за отчитане!",
+  "totalCheckinsTitle": "Общ брой отчитания",
+  "checkinProgressTitle": "Напредък до следващата",
+  "incentiveBackgroundsUnlockedWithCheckins": "Тези фонови изображения се отключват чрез ежедневни отчитания."
+}

@@ -1,0 +1,15 @@
+{
+  "unlockedReward": "Você recebeu <%= reward %>",
+  "earnedRewardForDevotion": "Você recebeu uma <%= reward %> por ter se empenhado em melhorar sua vida.",
+  "nextRewardUnlocksIn": "Seu próximo prêmio será desbloqueado depois de <%= numberOfCheckinsLeft %> logins!",
+  "awesome": "Incrível!",
+  "totalCount": "<%= count %> total count",
+  "countLeft": "<%= count %> logins até a próxima recompensa",
+  "incentivesDescription": "When it comes to building habits, consistency is key. Each day you check-in you get closer to a prize.",
+  "totalCheckins": "<%= count %> Check-Ins",
+  "checkinEarned": "Your Check-In Counter went up!",
+  "unlockedCheckInReward": "You unlocked a Check-In Prize!",
+  "totalCheckinsTitle": "Total Check-Ins",
+  "checkinProgressTitle": "Progress until next",
+  "incentiveBackgroundsUnlockedWithCheckins": "These backgrounds will unlock with Daily Check-Ins."
+}
