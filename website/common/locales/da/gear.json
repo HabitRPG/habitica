@@ -3,7 +3,7 @@
     "equipmentType": "Type",
     "klass": "Klasse",
     "groupBy": "Grupper efter <%= type %>",
-    "classBonus": "(This item matches your class, so it gets an additional 1.5 stat multiplier.)",
+    "classBonus": "(Denne genstand matcher din klasse, så den ganger stats med 1,5.)",
     "weapon": "våben",
     "weaponCapitalized": "Våben",
     "weaponBase0Text": "Intet våben",

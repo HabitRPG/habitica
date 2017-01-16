@@ -4,7 +4,7 @@
     "subDescription": "Køb ædelsten for guld, få månedlige mystiske ting, behold din fremskridtshistorik, daglig drop-grænse fordoblet, støt udviklerne. Klik for mere info.",
     "buyGemsGold": "Køb Ædelsten med Guld",
     "buyGemsGoldText": "Købmanden Alexander vil sælge dig Ædelsten til en pris på <%= gemCost %> guld pr. ædelsten. Hans månedlige levering er til at starte med begrænset til <%= gemLimit %> Ædelsten pr. måned, men begrænsningen stiger med 5 Ædelsten hver tredje måned med fortsat abonnement, op til et maksimum på 50 Ædelsten pr. måned!",
-    "mustSubscribeToPurchaseGems": "Must subscribe to purchase gems with GP",
+    "mustSubscribeToPurchaseGems": "Skal abonnere for at kunne købe ædelsten med GP",
     "reachedGoldToGemCap": "You've reached the Gold=>Gem conversion cap <%= convCap %> for this month. We have this to prevent abuse / farming. The cap resets within the first three days of each month.",
     "retainHistory": "Behold yderligere historik",
     "retainHistoryText": "Gør dine færdiggjorte To-Dos og opgavehistorik tilgængelige i længere tid.",
