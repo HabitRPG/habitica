@@ -8,7 +8,6 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const postcssEasyImport = require('postcss-easy-import');
 const IS_PROD = process.env.NODE_ENV === 'production';
-const eslintFriendlyFormatter = require('eslint-friendly-formatter');
 
 const baseConfig = {
   entry: {
@@ -102,6 +101,8 @@ const baseConfig = {
 };
 
 if (!IS_PROD) {
+  const eslintFriendlyFormatter = require('eslint-friendly-formatter'); // eslint-disable-line global-require
+
   baseConfig.eslint = {
     formatter: eslintFriendlyFormatter,
     emitWarning: true,
