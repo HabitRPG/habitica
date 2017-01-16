@@ -1,4 +1,3 @@
-import moment from 'moment';
 import stripeModule from 'stripe';
 import cc from 'coupon-code';
 
@@ -19,7 +18,7 @@ describe('Stripe Payments', () => {
 
   describe('checkout', () => {
     let stripeChargeStub, paymentBuyGemsStub, paymentCreateSubscritionStub;
-    let user, group, data, gift, sub, groupId, email, headers, coupon, customerIdResponse, subscriptionId, token;
+    let user, gift, groupId, email, headers, coupon, customerIdResponse, token;
 
     beforeEach(() => {
       user = new User();
@@ -75,14 +74,14 @@ describe('Stripe Payments', () => {
     it('should gift gems', async () => {
       let receivingUser = new User();
       receivingUser.save();
-      let gift = {
+      gift = {
         type: 'gems',
         gems: {
           amount: 16,
           uuid: receivingUser._id,
         },
       };
-      let amount = 16 / 4;
+
       await stripePayments.checkout({
         token,
         user,
@@ -96,7 +95,7 @@ describe('Stripe Payments', () => {
       gift.member = receivingUser;
       expect(stripeChargeStub).to.be.calledOnce;
       expect(stripeChargeStub).to.be.calledWith({
-        amount: "400",
+        amount: '400',
         currency: 'usd',
         card: token,
       });
@@ -113,14 +112,13 @@ describe('Stripe Payments', () => {
     it('should gift a subscription', async () => {
       let receivingUser = new User();
       receivingUser.save();
-      let gift = {
+      gift = {
         type: 'subscription',
         subscription: {
           key: subKey,
           uuid: receivingUser._id,
         },
       };
-      let amount = common.content.subscriptionBlocks[subKey].price;
 
       await stripePayments.checkout({
         token,
@@ -135,7 +133,7 @@ describe('Stripe Payments', () => {
       gift.member = receivingUser;
       expect(stripeChargeStub).to.be.calledOnce;
       expect(stripeChargeStub).to.be.calledWith({
-        amount: "1500",
+        amount: '1500',
         currency: 'usd',
         card: token,
       });
@@ -325,7 +323,7 @@ describe('Stripe Payments', () => {
     });
 
     it('subscribes a user', async () => {
-      let sub = data.sub
+      sub = data.sub;
 
       await stripePayments.checkout({
         token,
@@ -359,13 +357,11 @@ describe('Stripe Payments', () => {
     });
 
     it('subscribes a group', async () => {
-      let token = 'test-token';
-      let gift;
-      let sub = data.sub;
-      let groupId = group._id;
-      let email = 'test@test.com';
-      let headers = {};
-      let coupon;
+      token = 'test-token';
+      sub = data.sub;
+      groupId = group._id;
+      email = 'test@test.com';
+      headers = {};
 
       await stripePayments.checkout({
         token,
@@ -488,7 +484,7 @@ describe('Stripe Payments', () => {
         subscriptionId = 'subId';
         stripeListSubscriptionStub = sinon.stub(stripe.customers, 'listSubscriptions')
           .returnsPromise().resolves({
-            data: [{id: subscriptionId}]
+            data: [{id: subscriptionId}],
           });
 
         stripeUpdateSubscriptionStub = sinon.stub(stripe.customers, 'updateSubscription').returnsPromise().resolves({});
@@ -612,7 +608,7 @@ describe('Stripe Payments', () => {
         stripeRetrieveStub = sinon.stub(stripe.customers, 'retrieve')
           .returnsPromise().resolves({
             subscriptions: {
-              data: [{id: subscriptionId, current_period_end: currentPeriodEndTimeStamp}],
+              data: [{id: subscriptionId, current_period_end: currentPeriodEndTimeStamp}], // eslint-disable-line camelcase
             },
           });
       });

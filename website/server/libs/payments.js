@@ -12,7 +12,6 @@ import {
   basicFields as basicGroupFields,
 } from '../models/group';
 import { model as Coupon } from '../models/coupon';
-import { model as User } from '../models/user';
 import {
   NotAuthorized,
   NotFound,
@@ -23,6 +22,10 @@ import {
   BadRequest,
 } from './errors';
 import cc from 'coupon-code';
+
+import stripeModule from 'stripe';
+const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
+
 
 let api = {};
 

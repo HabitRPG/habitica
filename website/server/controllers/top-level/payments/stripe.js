@@ -1,24 +1,8 @@
-import stripeModule from 'stripe';
-import nconf from 'nconf';
-
 import shared from '../../../../common';
-import {
-  BadRequest,
-  NotAuthorized,
-  NotFound,
-} from '../../../libs/errors';
-import { model as Coupon } from '../../../models/coupon';
-import { model as User } from '../../../models/user';
-import {
-  model as Group,
-  basicFields as basicGroupFields,
-} from '../../../models/group';
-import cc from 'coupon-code';
 import {
   authWithHeaders,
   authWithUrl,
 } from '../../../middlewares/auth';
-import payments from '../../../libs/payments';
 import stripePayments from '../../../libs/stripePayments';
 
 let api = {};

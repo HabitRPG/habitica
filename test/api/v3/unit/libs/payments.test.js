@@ -4,6 +4,7 @@ import analytics from '../../../../../website/server/libs/analyticsService';
 import notifications from '../../../../../website/server/libs/pushNotifications';
 import { model as User } from '../../../../../website/server/models/user';
 import { model as Group } from '../../../../../website/server/models/group';
+import stripeModule from 'stripe';
 import moment from 'moment';
 import { translate as t } from '../../../../helpers/api-v3-integration.helper';
 import {
@@ -13,6 +14,8 @@ import i18n from '../../../../../website/common/script/i18n';
 
 describe('payments/index', () => {
   let user, group, data, plan;
+
+  let stripe = stripeModule('test');
 
   beforeEach(async () => {
     user = new User();
