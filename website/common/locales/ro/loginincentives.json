@@ -1,0 +1,15 @@
+{
+  "unlockedReward": "Ai primit <%= reward %>",
+  "earnedRewardForDevotion": "You have earned a <%= reward %> for being committed to improving your life.",
+  "nextRewardUnlocksIn": "Următorul premiu va fi deblocat după încă  <%= numberOfCheckinsLeft %> check-inuri. ",
+  "awesome": "Mișto!",
+  "totalCount": "<%= count %> total count",
+  "countLeft": "Încă <%= count %> check-inuri până la următoarea răspată!",
+  "incentivesDescription": "Când vine vorba de formarea obiceiurilor, consistența este elementul cheie. Fiecare zi în care faceți check-in te va aduce mai aproape de un premiu. ",
+  "totalCheckins": "<%= count %> Check-Ins",
+  "checkinEarned": "Your Check-In Counter went up!",
+  "unlockedCheckInReward": "You unlocked a Check-In Prize!",
+  "totalCheckinsTitle": "Total Check-Ins",
+  "checkinProgressTitle": "Progress until next",
+  "incentiveBackgroundsUnlockedWithCheckins": "These backgrounds will unlock with Daily Check-Ins."
+}

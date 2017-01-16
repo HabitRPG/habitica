@@ -1,0 +1,15 @@
+{
+  "unlockedReward": "Du har modtaget <%= reward %>",
+  "earnedRewardForDevotion": "Du har modtaget <%= reward %> for at være engageret i at forbedre dit liv.",
+  "nextRewardUnlocksIn": "Din næste præmie vil åbne om <%= numberOfCheckinsLeft %> check-ins!",
+  "awesome": "Fedt!",
+  "totalCount": "<%= count %> total optælling",
+  "countLeft": "<%= count %> flere check-ins til næste belønning",
+  "incentivesDescription": "Når det kommer til at opbygge vaner er nøglen konsistens. Hver dag du tjekker in kommer du tættere på en præmie.",
+  "totalCheckins": "<%= count %> Check-ins",
+  "checkinEarned": "Din Check-in Tæller gik op!",
+  "unlockedCheckInReward": "Du har oplåst en Check-in Præmie!",
+  "totalCheckinsTitle": "Total Check-ins",
+  "checkinProgressTitle": "Fremskridt indtil næste",
+  "incentiveBackgroundsUnlockedWithCheckins": "Disse baggrunde vil låses op med Daglige Check-ins."
+}
