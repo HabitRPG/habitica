@@ -44,8 +44,6 @@ describe('payments - stripe - #subscribeCancel', () => {
       expect(stripeCancelSubscriptionStub).to.be.calledOnce;
       expect(stripeCancelSubscriptionStub.args[0][0].user._id).to.eql(user._id);
       expect(stripeCancelSubscriptionStub.args[0][0].groupId).to.eql(undefined);
-      expect(stripeCancelSubscriptionStub.args[0][0].headers['x-api-key']).to.eql(user.apiToken);
-      expect(stripeCancelSubscriptionStub.args[0][0].headers['x-api-user']).to.eql(user._id);
     });
 
     it('cancels a group subscription', async () => {
@@ -71,8 +69,6 @@ describe('payments - stripe - #subscribeCancel', () => {
       expect(stripeCancelSubscriptionStub).to.be.calledOnce;
       expect(stripeCancelSubscriptionStub.args[0][0].user._id).to.eql(user._id);
       expect(stripeCancelSubscriptionStub.args[0][0].groupId).to.eql(group._id);
-      expect(stripeCancelSubscriptionStub.args[0][0].headers['x-api-key']).to.eql(user.apiToken);
-      expect(stripeCancelSubscriptionStub.args[0][0].headers['x-api-user']).to.eql(user._id);
     });
   });
 });

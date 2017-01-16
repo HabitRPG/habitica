@@ -19,9 +19,7 @@ import {
   authWithUrl,
 } from '../../../middlewares/auth';
 import payments from '../../../libs/payments';
-import stripePayments from '../../../libs/payments';
-
-const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
+import stripePayments from '../../../libs/stripePayments';
 
 let api = {};
 
@@ -44,6 +42,7 @@ api.checkout = {
   url: '/stripe/checkout',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
+    // @TODO: These quer params need to be changed to body
     let token = req.body.id;
     let user = res.locals.user;
     let gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
@@ -96,7 +95,7 @@ api.subscribeCancel = {
     let user = res.locals.user;
     let groupId = req.query.groupId;
     let redirect = req.query.redirect;
-    console.log(stripePayments.cancelSubscription)
+
     await stripePayments.cancelSubscription({user, groupId});
 
     if (redirect === 'none') return res.respond(200, {});
