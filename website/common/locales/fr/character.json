@@ -64,7 +64,7 @@
     "moreGearAchievements": "Pour obtenir plus de badges \"Armé jusqu'aux dents\", changez de classe sur <a href='/#/options/profile/stats' target='_blank'>votre page Caractéristiques & Succès</a> et achetez peu à peu l'équipement de votre nouvelle classe !",
     "armoireUnlocked": "Pour plus d'équipement, regardez dans l'<strong>Armoire Enchantée !</strong>. Cliquez sur la récompense Armoire Enchantée pour une chance aléatoire d'obtenir une pièce d'équipement spéciale ! Cela peut aussi vous donner de l'expérience ou de la nourriture.",
     "ultimGearName": "Armé•e jusqu'aux dents - <%= ultClass %>",
-    "ultimGearText": "S'est équipé•e avec les meilleurs armes et les meilleures armures pour la classe <%= ultClass %>. ",
+    "ultimGearText": "S'est équipé•e avec les meilleures armes et les meilleures armures pour la classe <%= ultClass %>. ",
     "level": "Niveau",
     "levelUp": "Montée de niveau !",
     "gainedLevel": "Vous avez passé un niveau !",

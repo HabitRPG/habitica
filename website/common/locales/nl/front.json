@@ -266,5 +266,6 @@
     "invalidReqParams": "Ongeldige verzoeksparameters",
     "memberIdRequired": "\"member\" moet een geldige UUID zijn.",
     "heroIdRequired": "\"heroId\" moet een geldige UUID zijn.",
-    "cannotFulfillReq": "Aan je verzoek kan niet worden voldaan. Neem contact op met admin@habitica.com als deze fout zich blijft voordoen."
+    "cannotFulfillReq": "Aan je verzoek kan niet worden voldaan. Neem contact op met admin@habitica.com als deze fout zich blijft voordoen.",
+    "modelNotFound": "This model does not exist."
 }
