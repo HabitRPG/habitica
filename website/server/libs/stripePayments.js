@@ -167,36 +167,51 @@ api.editSubscription = async function editSubscription (options, stripeInc) {
   await stripeApi.customers.updateSubscription(customerId, subscriptionId, { card: token });
 };
 
-api.cancelSubscription = async function cancelSubscription (options) {
+/**
+ * Cancels a subscription created by Stripe
+ *
+ * @param  options
+ * @param  options.user  The user object who is purchasing
+ * @param  options.groupId  The id of the group purchasing a subscription
+ *
+ * @return undefined
+ */
+api.cancelSubscription = async function cancelSubscription (options, stripeInc) {
   let {groupId, user} = options;
   let customerId;
+
+  // @TODO: We need to mock this, but curently we don't have correct Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
+  let stripeApi = stripe;
+  if (stripeInc) stripeApi = stripeInc;
 
   if (groupId) {
     let groupFields = basicGroupFields.concat(' purchased');
     let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
 
     if (!group) {
-      throw new NotFound(res.t('groupNotFound'));
+      throw new NotFound(i18n.t('groupNotFound'));
     }
 
-    if (!group.leader === user._id) {
-      throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
+    let allowedManagers = [group.leader, group.purchased.plan.owner];
+
+    if (allowedManagers.indexOf(user._id) === -1) {
+      throw new NotAuthorized(i18n.t('onlyGroupLeaderCanManageSubscription'));
     }
     customerId = group.purchased.plan.customerId;
   } else {
     customerId = user.purchased.plan.customerId;
   }
 
-  if (!customerId) throw new NotAuthorized(res.t('missingSubscription'));
+  if (!customerId) throw new NotAuthorized(i18n.t('missingSubscription'));
 
-  let customer = await stripe.customers.retrieve(customerId);
+  let customer = await stripeApi.customers.retrieve(customerId);
 
   let subscription = customer.subscription;
   if (!subscription) {
     subscription = customer.subscriptions.data[0];
   }
 
-  await stripe.customers.del(customerId);
+  await stripeApi.customers.del(customerId);
   await payments.cancelSubscription({
     user,
     groupId,
