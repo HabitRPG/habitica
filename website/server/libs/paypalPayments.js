@@ -202,12 +202,14 @@ api.subscribeCancel = async function (options = {}) {
   });
 };
 
-api.ipn = async function ipn () {
-  await ipnVerifyAsync(req.body);
+api.ipn = async function ipn (options = {}) {
+  await this.ipnVerifyAsync(options);
 
-  if (req.body.txn_type !== 'recurring_payment_profile_cancel' && req.body.txn_type !== 'subscr_cancel') return;
+  let {txn_type, recurring_payment_id} = options;
 
-  let user = await User.findOne({ 'purchased.plan.customerId': req.body.recurring_payment_id }).exec();
+  if (['recurring_payment_profile_cancel', 'subscr_cancel'].indexOf(txn_type) === -1) return;
+  // @TODO: Should this request billing date?
+  let user = await User.findOne({ 'purchased.plan.customerId': recurring_payment_id }).exec();
   if (user) {
     await payments.cancelSubscription({ user, paymentMethod: 'Paypal' });
     return;
@@ -215,7 +217,7 @@ api.ipn = async function ipn () {
 
   let groupFields = basicGroupFields.concat(' purchased');
   let group = await Group
-    .findOne({ 'purchased.plan.customerId': req.body.recurring_payment_id })
+    .findOne({ 'purchased.plan.customerId': recurring_payment_id })
     .select(groupFields)
     .exec();
 

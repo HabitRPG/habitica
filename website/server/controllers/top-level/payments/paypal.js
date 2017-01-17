@@ -154,7 +154,7 @@ api.ipn = {
   async handler (req, res) {
     res.sendStatus(200);
 
-    await paypalPayments.ipn();
+    await paypalPayments.ipn(req.body);
   },
 };
 
