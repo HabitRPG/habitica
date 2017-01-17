@@ -163,7 +163,9 @@ api.subscribeSuccess = async function (options = {}) {
   });
 };
 
-api.subscribeCancel = async function () {
+api.subscribeCancel = async function (options = {}) {
+  let {groupId, user} = options;
+
   let customerId;
   if (groupId) {
     let groupFields = basicGroupFields.concat(' purchased');
@@ -173,7 +175,7 @@ api.subscribeCancel = async function () {
       throw new NotFound(i18n.t('groupNotFound'));
     }
 
-    if (!group.leader === user._id) {
+    if (group.leader !== user._id) {
       throw new NotAuthorized(i18n.t('onlyGroupLeaderCanManageSubscription'));
     }
     customerId = group.purchased.plan.customerId;
@@ -183,14 +185,15 @@ api.subscribeCancel = async function () {
 
   if (!customerId) throw new NotAuthorized(i18n.t('missingSubscription'));
 
-  let customer = await paypalBillingAgreementGet(customerId);
+  let customer = await this.paypalBillingAgreementGet(customerId);
 
+  // @TODO: Handle error response
   let nextBillingDate = customer.agreement_details.next_billing_date;
   if (customer.agreement_details.cycles_completed === '0') { // hasn't billed yet
     throw new BadRequest(i18n.t('planNotActive', { nextBillingDate }));
   }
 
-  await paypalBillingAgreementCancel(customerId, { note: i18n.t('cancelingSubscription') });
+  await this.paypalBillingAgreementCancel(customerId, { note: i18n.t('cancelingSubscription') });
   await payments.cancelSubscription({
     user,
     groupId,
