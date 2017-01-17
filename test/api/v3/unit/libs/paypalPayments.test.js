@@ -14,7 +14,7 @@ import common from '../../../../../website/common';
 const BASE_URL = nconf.get('BASE_URL');
 const i18n = common.i18n;
 
-describe.only('Paypal Payments', ()  => {
+describe('Paypal Payments', ()  => {
   let subKey = 'basic_3mo';
 
   describe('checkout', () => {
@@ -140,9 +140,9 @@ describe.only('Paypal Payments', ()  => {
       let receivingUser = new User();
       await receivingUser.save();
       let gift = {
-        type: 'subscription',
-        subscription: {
-          key: subKey,
+        type: 'gems',
+        gems: {
+          amount: 16,
           uuid: receivingUser._id,
         },
       };
