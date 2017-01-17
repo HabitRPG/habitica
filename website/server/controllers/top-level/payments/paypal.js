@@ -61,6 +61,9 @@ api.checkoutSuccess = {
   async handler (req, res) {
     let paymentId = req.query.paymentId;
     let customerId = req.query.PayerID;
+    let user = res.locals.user;
+    let gift = req.session.gift ? JSON.parse(req.session.gift) : undefined;
+    delete req.session.gift;
 
     await paypalPayments.checkoutSuccess();
 

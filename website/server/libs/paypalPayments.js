@@ -98,16 +98,15 @@ api.checkout = async function checkout (options = {}) {
   return link;
 }
 
-api.checkoutSuccess = async function checkoutSuccess () {
+api.checkoutSuccess = async function checkoutSuccess (options = {}) {
+  let {user, gift, paymentId, customerId} = options;
+
   let method = 'buyGems';
   let data = {
-    user: res.locals.user,
+    user,
     customerId,
     paymentMethod: 'Paypal',
   };
-
-  let gift = req.session.gift ? JSON.parse(req.session.gift) : undefined;
-  delete req.session.gift;
 
   if (gift) {
     gift.member = await User.findById(gift.uuid).exec();
@@ -119,7 +118,7 @@ api.checkoutSuccess = async function checkoutSuccess () {
     data.gift = gift;
   }
 
-  await paypalPaymentExecute(paymentId, { payer_id: customerId });
+  await this.paypalPaymentExecute(paymentId, { payer_id: customerId });
   await payments[method](data);
 };
 
