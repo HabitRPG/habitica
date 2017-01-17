@@ -1,10 +1,13 @@
 import nconf from 'nconf';
 
 import paypalPayments from '../../../../../website/server/libs/paypalPayments';
+import { model as User } from '../../../../../website/server/models/user';
 
 const BASE_URL = nconf.get('BASE_URL');
 
 describe.only('Paypal Payments', ()  => {
+  let subKey = 'basic_3mo';
+
   describe('checkout', () => {
     let paypalPaymentCreateStub;
     let approvalHerf;
@@ -55,7 +58,39 @@ describe.only('Paypal Payments', ()  => {
       expect(link).to.eql(approvalHerf);
     });
 
-    it('creates a link for gifting gems');
-    it('creates a link for giftin a subscription');
+    it('creates a link for gifting gems', async () => {
+      let receivingUser = new User();
+      let gift = {
+        type: 'gems',
+        gems: {
+          amount: 16,
+          uuid: receivingUser._id,
+        },
+      };
+
+      let link = await paypalPayments.checkout({gift});
+
+      expect(paypalPaymentCreateStub).to.be.calledOnce;
+      expect(paypalPaymentCreateStub).to.be.calledWith(getPaypalCreateOptions('Habitica Gems (Gift)', "4.00"));
+      expect(link).to.eql(approvalHerf);
+    });
+
+    it('creates a link for gifting a subscription', async () => {
+      let receivingUser = new User();
+      receivingUser.save();
+      let gift = {
+        type: 'subscription',
+        subscription: {
+          key: subKey,
+          uuid: receivingUser._id,
+        },
+      };
+
+      let link = await paypalPayments.checkout({gift});
+
+      expect(paypalPaymentCreateStub).to.be.calledOnce;
+      expect(paypalPaymentCreateStub).to.be.calledWith(getPaypalCreateOptions('mo. Habitica Subscription (Gift)', "15.00"));
+      expect(link).to.eql(approvalHerf);
+    });
   });
 });

@@ -40,7 +40,7 @@ paypal.configure({
 });
 
 // TODO better handling of errors
-
+// @TODO: Create constants
 
 let api = {};
 
