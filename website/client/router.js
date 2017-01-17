@@ -1,15 +1,23 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import UserTasks from './components/userTasks';
+
+import EmptyView from './components/emptyView';
+// TODO Dummy elements used as placeholder until real components are implemented
 import ParentPage from './components/parentPage';
 import Page from './components/page';
 
-// Social
-import SocialPage from './components/SocialPage';
-import TavernPage from './components/Social/TavernPage';
-import InboxPage from './components/Inbox/InboxPage';
-import InboxConversationPage from './components/Inbox/InboxConversationPage';
+// Tasks
+import UserTasks from './components/userTasks';
 
+// Inventory
+import InventoryContainer from './components/inventory/index';
+import StablePage from './components/inventory/stable';
+
+// Social
+import SocialContainer from './components/social/index';
+import TavernPage from './components/social/tavern';
+import InboxPage from './components/social/inbox/index';
+import InboxConversationPage from './components/social/inbox/conversationPage';
 
 Vue.use(VueRouter);
 
@@ -18,25 +26,25 @@ export default new VueRouter({
   base: process.env.NODE_ENV === 'production' ? '/new-app' : __dirname, // eslint-disable-line no-process-env
   linkActiveClass: 'active',
   routes: [
-    { path: '/', component: UserTasks },
+    { name: 'tasks', path: '/', component: UserTasks },
     {
       path: '/inventory',
-      component: ParentPage,
+      component: InventoryContainer,
       children: [
-        {path: '', component: Page},
-        {path: 'equipment', component: Page},
-        {path: 'stable', component: Page},
+        { name: 'inventory', path: '', component: Page },
+        { name: 'equipment', path: 'equipment', component: Page },
+        { name: 'stable', path: 'stable', component: StablePage },
       ],
     },
-    { path: '/market', component: Page },
+    { name: 'market', path: '/market', component: Page },
     {
       path: '/social',
-      component: SocialPage,
+      component: SocialContainer,
       children: [
         { name: 'tavern', path: 'tavern', component: TavernPage },
         {
           path: 'inbox',
-          component: ParentPage,
+          component: EmptyView,
           children: [
             {
               name: 'inbox',
@@ -50,19 +58,19 @@ export default new VueRouter({
             },
           ],
         },
-        {path: 'challenges', component: Page},
-        {path: 'party', component: Page},
-        {path: 'guilds', component: Page},
+        { name: 'challenges', path: 'challenges', component: Page },
+        { name: 'party', path: 'party', component: Page },
+        { name: 'guilds', path: 'guilds', component: Page },
       ],
     },
     {
       path: '/user',
       component: ParentPage,
       children: [
-        {path: 'avatar', component: Page},
-        {path: 'stats', component: Page},
-        {path: 'achievements', component: Page},
-        {path: 'settings', component: Page},
+        { name: 'avatar', path: 'avatar', component: Page },
+        { name: 'stats', path: 'stats', component: Page },
+        { name: 'achievements', path: 'achievements', component: Page },
+        { name: 'settings', path: 'settings', component: Page },
       ],
     },
   ],

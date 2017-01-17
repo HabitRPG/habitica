@@ -3,34 +3,34 @@
 #app-menu.ui.top.fixed.menu
   .header.item
     img(src="~assets/header/png/logo@3x.png")
-  router-link.item(to="/", exact) 
+  router-link.item(:to="{name: 'tasks'}", exact) 
     span(v-once) {{ $t('tasks') }}
   // .simple makes it possible to have a dropdown without JS
   .ui.simple.dropdown
-    router-link.item(to="/inventory", :class="{'active': $route.path.startsWith('/inventory')}") 
+    router-link.item(:to="{name: 'inventory'}", :class="{'active': $route.path.startsWith('/inventory')}") 
       span(v-once) {{ $t('inventory') }}
     .menu
-      router-link.item(to="/inventory") 
+      router-link.item(:to="{name: 'inventory'}") 
         span(v-once) {{ $t('inventory') }}
-      router-link.item(to="/inventory/stable") 
-        span(v-once) {{ $t('stable') }}
-      router-link.item(to="/inventory/equipment") 
+      router-link.item(:to="{name: 'equipment'}") 
         span(v-once) {{ $t('equipment') }}
-  router-link.item(to="/market") 
+      router-link.item(:to="{name: 'stable'}") 
+        span(v-once) {{ $t('stable') }}
+  router-link.item(:to="{name: 'market'}") 
     span(v-once) {{ $t('market') }}
   .ui.simple.dropdown
-    router-link.item(to="/social/tavern", :class="{'active': $route.path.startsWith('/social')}") 
+    router-link.item(:to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/social')}") 
       span(v-once) {{ $t('social') }}
     .menu
-      router-link.item(to="/social/tavern") 
+      router-link.item(:to="{name: 'tavern'}") 
         span(v-once) {{ $t('tavern') }}
-      router-link.item(to="/social/inbox") 
+      router-link.item(:to="{name: 'inbox'}") 
         span(v-once) {{ $t('inbox') }}
-      router-link.item(to="/social/challenges") 
+      router-link.item(:to="{name: 'challenges'}") 
         span(v-once) {{ $t('challenges') }}
-      router-link.item(to="/social/party") 
+      router-link.item(:to="{name: 'party'}") 
         span(v-once) {{ $t('party') }}
-      router-link.item(to="/social/guilds") 
+      router-link.item(:to="{name: 'guilds'}") 
         span(v-once) {{ $t('guilds') }}
   .ui.simple.dropdown
     router-link.item(to="/help", :class="{'active': $route.path.startsWith('/help')}") 
@@ -52,7 +52,7 @@
     a.item.with-img.notifications-dropdown
       img(src="~assets/header/png/notifications@3x.png")
     .ui.simple.dropdown.pointing
-      router-link.item.with-img.user-dropdown(to="/user/avatar")
+      router-link.item.with-img.user-dropdown(:to="{name: 'avatar'}")
         // TODO icons should be white when active
         img(src="~assets/header/png/user@3x.png")
       .menu
@@ -60,12 +60,12 @@
           strong {{user.profile.name}}
           a(v-once) {{ $t('editAvatar') }}
         .divider
-        router-link.item(to="/user/stats") 
+        router-link.item(:to="{name: 'stats'}") 
           span(v-once) {{ $t('stats') }}
-        router-link.item(to="/user/achievements") 
+        router-link.item(:to="{name: 'achievements'}") 
           span(v-once) {{ $t('achievements') }}
         .divider
-        router-link.item(to="/user/settings") 
+        router-link.item(:to="{name: 'settings'}") 
           span(v-once) {{ $t('settings') }}
         .divider
         router-link.item(to="/logout") 
