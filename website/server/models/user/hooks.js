@@ -59,6 +59,15 @@ function _populateDefaultTasks (user, taskTypes) {
         });
       }
 
+      if (taskDefaults.tags) {
+        newTask.checklist = _.map(taskDefaults.tags, (tag) => {
+          newTask = _.find(user.tags, (userTag) => {
+            return userTag.name === tag(user.preferences.language);
+          });
+          return newTask;
+        })
+      }
+
       return newTask.save();
     });
 
