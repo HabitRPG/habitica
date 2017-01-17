@@ -150,15 +150,16 @@ api.subscribe = async function subscribe (options = {}) {
   return link;
 };
 
-api.subscribeSuccess = async function () {
-  let result = await paypalBillingAgreementExecute(req.query.token, {});
+api.subscribeSuccess = async function (options = {}) {
+  let {user, groupId, block, headers, token} = options;
+  let result = await this.paypalBillingAgreementExecute(token, {});
   await payments.createSubscription({
     user,
     groupId,
     customerId: result.id,
     paymentMethod: 'Paypal',
     sub: block,
-    headers: req.headers,
+    headers,
   });
 };
 

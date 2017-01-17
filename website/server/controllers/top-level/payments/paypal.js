@@ -108,11 +108,12 @@ api.subscribeSuccess = {
     let user = res.locals.user;
     let block = shared.content.subscriptionBlocks[req.session.paypalBlock];
     let groupId = req.session.groupId;
+    let token = req.query.token;
 
     delete req.session.paypalBlock;
     delete req.session.groupId;
 
-    await paypalPayments.subscribeSuccess();
+    await paypalPayments.subscribeSuccess({user, block, groupId, token, headers: req.headers});
 
     res.redirect('/');
   },
