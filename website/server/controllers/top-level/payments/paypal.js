@@ -65,7 +65,7 @@ api.checkoutSuccess = {
     let gift = req.session.gift ? JSON.parse(req.session.gift) : undefined;
     delete req.session.gift;
 
-    await paypalPayments.checkoutSuccess();
+    await paypalPayments.checkoutSuccess({user, gift, paymentId, customerId});
 
     res.redirect('/');
   },
@@ -83,8 +83,12 @@ api.subscribe = {
   middlewares: [authWithUrl],
   async handler (req, res) {
     let sub = shared.content.subscriptionBlocks[req.query.sub];
+    let coupon = req.query.coupon;
 
-    let link = await paypalPayments.subscribe();
+    let link = await paypalPayments.subscribe({sub, coupon});
+
+    req.session.paypalBlock = req.query.sub;
+    req.session.groupId = req.query.groupId;
 
     res.redirect(link);
   },

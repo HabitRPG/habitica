@@ -25,6 +25,7 @@ import {
 
 
 const BASE_URL = nconf.get('BASE_URL');
+const i18n = shared.i18n;
 
 // This is the plan.id for paypal subscriptions. You have to set up billing plans via their REST sdk (they don't have
 // a web interface for billing-plan creation), see ./paypalBillingSetup.js for how. After the billing plan is created
@@ -122,11 +123,13 @@ api.checkoutSuccess = async function checkoutSuccess (options = {}) {
   await payments[method](data);
 };
 
-api.subscribe = async function subscribe () {
+api.subscribe = async function subscribe (options = {}) {
+  let {sub, coupon} = options;
+
   if (sub.discount) {
-    if (!req.query.coupon) throw new BadRequest(res.t('couponCodeRequired'));
-    let coupon = await Coupon.findOne({_id: cc.validate(req.query.coupon), event: sub.key}).exec();
-    if (!coupon) throw new NotAuthorized(res.t('invalidCoupon'));
+    if (!coupon) throw new BadRequest(i18n.t('couponCodeRequired'));
+    let couponResult = await Coupon.findOne({_id: cc.validate(coupon), event: sub.key}).exec();
+    if (!couponResult) throw new NotAuthorized(i18n.t('invalidCoupon'));
   }
 
   let billingPlanTitle = `Habitica Subscription ($${sub.price} every ${sub.months} months, recurring)`;
@@ -141,11 +144,10 @@ api.subscribe = async function subscribe () {
       payment_method: 'Paypal',
     },
   };
-  let billingAgreement = await paypalBillingAgreementCreate(billingAgreementAttributes);
+  let billingAgreement = await this.paypalBillingAgreementCreate(billingAgreementAttributes);
 
-  req.session.paypalBlock = req.query.sub;
-  req.session.groupId = req.query.groupId;
   let link = _.find(billingAgreement.links, { rel: 'approval_url' }).href;
+  return link;
 };
 
 api.subscribeSuccess = async function () {
@@ -167,27 +169,27 @@ api.subscribeCancel = async function () {
     let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
 
     if (!group) {
-      throw new NotFound(res.t('groupNotFound'));
+      throw new NotFound(i18n.t('groupNotFound'));
     }
 
     if (!group.leader === user._id) {
-      throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
+      throw new NotAuthorized(i18n.t('onlyGroupLeaderCanManageSubscription'));
     }
     customerId = group.purchased.plan.customerId;
   } else {
     customerId = user.purchased.plan.customerId;
   }
 
-  if (!customerId) throw new NotAuthorized(res.t('missingSubscription'));
+  if (!customerId) throw new NotAuthorized(i18n.t('missingSubscription'));
 
   let customer = await paypalBillingAgreementGet(customerId);
 
   let nextBillingDate = customer.agreement_details.next_billing_date;
   if (customer.agreement_details.cycles_completed === '0') { // hasn't billed yet
-    throw new BadRequest(res.t('planNotActive', { nextBillingDate }));
+    throw new BadRequest(i18n.t('planNotActive', { nextBillingDate }));
   }
 
-  await paypalBillingAgreementCancel(customerId, { note: res.t('cancelingSubscription') });
+  await paypalBillingAgreementCancel(customerId, { note: i18n.t('cancelingSubscription') });
   await payments.cancelSubscription({
     user,
     groupId,
