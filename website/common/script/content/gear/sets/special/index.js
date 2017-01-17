@@ -1753,7 +1753,6 @@ let weapon = {
   mammothRiderSpear: {
     text: t('weaponSpecialMammothRiderSpearText'),
     notes: t('weaponSpecialMammothRiderSpearNotes', { int: 15 }),
-    twoHanded: true,
     int: 15,
     value: 130,
     canOwn: ownsItem('weapon_special_mammothRiderSpear'),
