@@ -158,6 +158,10 @@ describe('POST /groups/:groupId/quests/accept', () => {
       await questingGroup.sync();
       expect(questingGroup.chat[0].text).to.exist;
       expect(questingGroup.chat[0]._meta).to.exist;
+      expect(questingGroup.chat[0]._meta).to.have.all.keys(['participatingMembers']);
+
+      let returnedGroup = await leader.get(`/groups/${questingGroup._id}`);
+      expect(returnedGroup.chat[0]._meta).to.be.undefined;
     });
   });
 });

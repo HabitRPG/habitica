@@ -275,7 +275,7 @@ schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
   if (!user.contributor.admin) {
     _.remove(toJSON.chat, chatMsg => {
       chatMsg.flags = {};
-      chatMsg._meta = undefined;
+      if (chatMsg._meta) chatMsg._meta = undefined;
       return chatMsg.flagCount >= 2;
     });
   }
