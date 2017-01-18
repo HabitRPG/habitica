@@ -45,6 +45,13 @@ function _populateDefaultTasks (user, taskTypes) {
     taskTypes.splice(tagsI, 1);
   }
 
+  function findTag (tagName) {
+    let tagID = _.find(user.tags, (userTag) => {
+      return userTag.name === tagName(user.preferences.language);
+    });
+    return tagID.id;
+  }
+
   _.each(taskTypes, (taskType) => {
     let tasksOfType = _.map(shared.content.userDefaults[`${taskType}s`], (taskDefaults) => {
       let newTask = new Tasks[taskType](taskDefaults);
@@ -60,12 +67,7 @@ function _populateDefaultTasks (user, taskTypes) {
       }
 
       if (taskDefaults.tags) {
-        newTask.checklist = _.map(taskDefaults.tags, (tag) => {
-          newTask = _.find(user.tags, (userTag) => {
-            return userTag.name === tag(user.preferences.language);
-          });
-          return newTask;
-        });
+        newTask.tags = _.map(taskDefaults.tags, findTag);
       }
 
       return newTask.save();
