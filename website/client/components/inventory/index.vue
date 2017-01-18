@@ -2,7 +2,7 @@
 .row
   .sixteen.wide.column
     .ui.secondary.menu
-      router-link.item(:to="{name: 'inventory'}")
+      router-link.item(:to="{name: 'inventory'}", exact)
         span(v-once) {{ $t('inventory') }}
       router-link.item(:to="{name: 'equipment'}")
         span(v-once) {{ $t('equipment') }}

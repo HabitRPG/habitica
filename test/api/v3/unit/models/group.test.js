@@ -170,14 +170,18 @@ describe('Group Model', () => {
       });
 
       context('Boss Quests', () => {
+        let sendChatStub;
+
         beforeEach(async () => {
           party.quest.key = 'whale';
 
           await party.startQuest(questLeader);
           await party.save();
 
-          sandbox.stub(Group.prototype, 'sendChat');
+          sendChatStub = sandbox.stub(Group.prototype, 'sendChat');
         });
+
+        afterEach(() => sendChatStub.restore());
 
         it('applies user\'s progress to quest boss hp', async () => {
           await Group.processQuestProgress(participatingMember, progress);
@@ -322,14 +326,18 @@ describe('Group Model', () => {
       });
 
       context('Collection Quests', () => {
+        let sendChatStub;
+
         beforeEach(async () => {
           party.quest.key = 'atom1';
 
           await party.startQuest(questLeader);
           await party.save();
 
-          sandbox.stub(Group.prototype, 'sendChat');
+          sendChatStub = sandbox.stub(Group.prototype, 'sendChat');
         });
+
+        afterEach(() => sendChatStub.restore());
 
         it('applies user\'s progress to found quest items', async () => {
           await Group.processQuestProgress(participatingMember, progress);
