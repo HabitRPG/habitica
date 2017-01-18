@@ -294,7 +294,7 @@ api.wrap = function wrapUser (user, main = true) {
   user.fns = {
     handleTwoHanded: _.partial(importedFns.handleTwoHanded, user),
     predictableRandom: _.partial(importedFns.predictableRandom, user),
-    crit: _.partial(importedFns.crit, user),
+    crit: _.partial(importedFns.crit.crit, user),
     randomDrop: _.partial(importedFns.randomDrop, user),
     autoAllocate: _.partial(importedFns.autoAllocate, user),
     updateStats: _.partial(importedFns.updateStats, user),
