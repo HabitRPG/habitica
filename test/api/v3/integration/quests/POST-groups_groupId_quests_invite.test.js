@@ -205,7 +205,7 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
       expect(group.chat[0]._meta).to.exist;
       expect(group.chat[0]._meta).to.have.all.keys(['participatingMembers']);
 
-      let returnedGroup = await leader.get(`/groups/${group._id}`);
+      let returnedGroup = await groupLeader.get(`/groups/${group._id}`);
       expect(returnedGroup.chat[0]._meta).to.be.undefined;
     });
   });
