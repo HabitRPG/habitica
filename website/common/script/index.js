@@ -7,6 +7,9 @@ let api = module.exports = {};
 import content from './content/index';
 api.content = content;
 
+// Freeze content object
+Object.freeze(content);
+
 import * as errors from './libs/errors';
 api.errors = errors;
 import i18n from './i18n';
