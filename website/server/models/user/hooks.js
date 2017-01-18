@@ -65,7 +65,7 @@ function _populateDefaultTasks (user, taskTypes) {
             return userTag.name === tag(user.preferences.language);
           });
           return newTask;
-        })
+        });
       }
 
       return newTask.save();
