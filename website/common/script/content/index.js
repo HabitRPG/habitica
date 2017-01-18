@@ -2858,21 +2858,33 @@ api.userDefaults = {
       value: 0,
       up: true,
       down: false,
-      attribute: 'per'
+      attribute: 'per',
+      tags: [
+        'defaultTag1',  // Work
+        'defaultTag4',  // School
+        'defaultTag6'   // Chores
+      ]
     }, {
       type: 'habit',
       text: t('defaultHabit2Text'),
       value: 0,
       up: false,
       down: true,
-      attribute: 'str'
+      attribute: 'str',
+      tags: [
+        'defaultTag3'   // Health + Wellness
+      ]
     }, {
       type: 'habit',
       text: t('defaultHabit3Text'),
       value: 0,
       up: true,
       down: true,
-      attribute: 'str'
+      attribute: 'str',
+      tags: [
+        'defaultTag2',  // Exercise
+        'defaultTag3'   // Health + Wellness
+      ]
     }
   ],
   dailys: [],
