@@ -11,5 +11,6 @@
   "unlockedCheckInReward": "Vous avez débloqué un prix de connexion !",
   "totalCheckinsTitle": "Nombre de connexions totales",
   "checkinProgressTitle": "Progrès jusqu'au prochain",
-  "incentiveBackgroundsUnlockedWithCheckins": "Ces arrière-plans se débloqueront avec les connexions quotidiennes."
+  "incentiveBackgroundsUnlockedWithCheckins": "Ces arrière-plans se débloqueront avec les connexions quotidiennes.",
+  "moreIncentivesComingSoon": "New check-in incentives will be added soon!"
 }

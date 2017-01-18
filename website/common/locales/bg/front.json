@@ -267,5 +267,5 @@
     "memberIdRequired": "„member“ трябва да бъде правилно форматиран идентификатор UUID.",
     "heroIdRequired": "„heroId“ трябва да бъде правилно форматиран идентификатор UUID.",
     "cannotFulfillReq": "Заявката Ви не може да бъде изпълнена. Пишете на admin@habitica.com , ако тази грешка продължи да се повтаря.",
-    "modelNotFound": "This model does not exist."
+    "modelNotFound": "Този модел не съществува."
 }

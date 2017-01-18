@@ -249,8 +249,8 @@
     "wrongPassword": "Falsches Passwort.",
     "notAnEmail": "Ungültige E-Mail-Adresse.",
     "emailTaken": "Diese E-Mail-Adresse wird bereits von einem Konto verwendet.",
-    "newEmailRequired": "Fehlender neue E-Mail-Adresse.",
-    "usernameTaken": "Benutzername schon vergeben.",
+    "newEmailRequired": "Fehlende neue E-Mail-Adresse.",
+    "usernameTaken": "Benutzername bereits vergeben.",
     "passwordConfirmationMatch": "Die Passwörter stimmen nicht überein.",
     "invalidLoginCredentials": "Falscher Benutzername und/oder E-Mail und/oder Passwort.",
     "passwordReset": "Wenn wir Deine E-Mail-Adresse kennen, wurde Dein Passwort-Wiederherstellungs-Link dorthin verschickt.",
@@ -267,5 +267,5 @@
     "memberIdRequired": "\"member\" muss eine gültige UUID sein.",
     "heroIdRequired": "\"herold\" muss eine gültige UUID sein.",
     "cannotFulfillReq": "Deine Anfrage kann nicht erfüllt werden. Schreibe eine E-Mail an admin@habitica.com, falls dieser Fehler weiterhin auftritt.",
-    "modelNotFound": "This model does not exist."
+    "modelNotFound": "Diese Vorlage existiert nicht."
 }
