@@ -522,7 +522,8 @@ function _removeMessagesFromMember (member, groupId) {
  * @apiGroup Group
  *
  * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {String="remove-all","keep-all"} keep Query parameter - Whether to keep or not challenges' tasks. Defaults to keep-all
+ * @apiParam (Query) {String="remove-all","keep-all"} keep=keep-all Whether or not to keep challenge tasks belonging to the group being left.
+ * @apiParam (Body) {String="remain-in-challenges","leave-challenges"} [keepChallenges=leave-challenges] Whether or not to remain in the challenges of the group being left.
  *
  * @apiSuccess {Object} data An empty object
  *
@@ -537,6 +538,7 @@ api.leaveGroup = {
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
     // When removing the user from challenges, should we keep the tasks?
     req.checkQuery('keep', res.t('keepOrRemoveAll')).optional().isIn(['keep-all', 'remove-all']);
+    req.checkBody('keepChallenges', res.t('remainOrLeaveChallenges')).optional().isIn(['remain-in-challenges', 'leave-challenges']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -558,7 +560,7 @@ api.leaveGroup = {
       }
     }
 
-    await group.leave(user, req.query.keep);
+    await group.leave(user, req.query.keep, req.body.keepChallenges);
 
     if (group.purchased.plan && group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
 

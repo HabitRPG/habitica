@@ -185,6 +185,7 @@
   "groupMemberNotFound": "User not found among group's members",
   "mustBeGroupMember": "Must be member of the group.",
   "keepOrRemoveAll": "req.query.keep must be either \"keep-all\" or \"remove-all\"",
+  "remainOrLeaveChallenges": "req.query.keep must be either \"remain-in-challenges\" or \"leave-challenges\"",
   "keepOrRemove": "req.query.keep must be either \"keep\" or \"remove\"",
   "canOnlyInviteEmailUuid": "Can only invite using uuids or emails.",
   "inviteMissingEmail": "Missing email address in invite.",

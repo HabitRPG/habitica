@@ -134,7 +134,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
           $scope.selectedGroup = undefined;
           $scope.popoverEl.popover('destroy');
         } else {
-          Groups.Group.leave($scope.selectedGroup._id, keep)
+          Groups.Group.leave($scope.selectedGroup._id, keep, 'remain-in-challenges')
             .then(function (response) {
               Analytics.updateUser({'partySize':null,'partyID':null});
               User.sync().then(function () {
@@ -197,7 +197,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
 
       $scope.leaveOldPartyAndJoinNewParty = function(newPartyId, newPartyName) {
         if (confirm('Are you sure you want to delete your party and join ' + newPartyName + '?')) {
-          Groups.Group.leave(Groups.data.party._id, false)
+          Groups.Group.leave(Groups.data.party._id, false, 'remain-in-challenges')
             .then(function() {
               $rootScope.party = $scope.group = {
                 loadingParty: true
