@@ -1,3 +1,4 @@
+import moment from 'moment';
 import mongoose from 'mongoose';
 import {
   model as User,
@@ -392,7 +393,17 @@ schema.methods.sendChat = function sendChat (message, user) {
   let newMessage = chatDefaults(message, user);
 
   this.chat.unshift(newMessage);
-  this.chat.splice(200);
+
+  const MAX_CHAT_COUNT = 200;
+  const MAX_SUBBED_GROUP_CHAT_COUNT = 400;
+
+  let maxCount = MAX_CHAT_COUNT;
+
+  if (this.isSubscribed()) {
+    maxCount = MAX_SUBBED_GROUP_CHAT_COUNT;
+  }
+
+  this.chat.splice(maxCount);
 
   // do not send notifications for guilds with more than 5000 users and for the tavern
   if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF) {
@@ -882,8 +893,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   let group = this;
   let update = {};
 
-  let plan = group.purchased.plan;
-  if (group.memberCount <= 1 && group.privacy === 'private' && plan && plan.customerId && !plan.dateTerminated) {
+  if (group.memberCount <= 1 && group.privacy === 'private' && group.isSubscribed()) {
     throw new NotAuthorized(shared.i18n.t('cannotDeleteActiveGroup'));
   }
 
@@ -1134,6 +1144,12 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
   }, {
     $set: {'group.broken': 'TASK_DELETED'},
   }, {multi: true}).exec();
+};
+
+schema.methods.isSubscribed = function isSubscribed () {
+  let now = new Date();
+  let plan = this.purchased.plan;
+  return plan && plan.customerId && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
 };
 
 export let model = mongoose.model('Group', schema);

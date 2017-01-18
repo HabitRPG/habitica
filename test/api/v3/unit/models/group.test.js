@@ -809,6 +809,20 @@ describe('Group Model', () => {
         expect(party.chat).to.have.a.lengthOf(200);
       });
 
+      it('cuts down chat to 400 messages when group is subcribed', () => {
+        party.purchased.plan.customerId = 'test-customer-id';
+
+        for (let i = 0; i < 420; i++) {
+          party.chat.push({ text: 'a message' });
+        }
+
+        expect(party.chat).to.have.a.lengthOf(420);
+
+        party.sendChat('message');
+
+        expect(party.chat).to.have.a.lengthOf(400);
+      });
+
       it('updates users about new messages in party', () => {
         party.sendChat('message');
 
