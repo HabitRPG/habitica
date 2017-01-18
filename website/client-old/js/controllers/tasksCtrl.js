@@ -109,6 +109,8 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       } else {
         $scope.score(task, "down");
       }
+
+      if (task.group && task.group.approval && task.group.approval.required && !task.group.approval.approved) task.completed = false;
     };
 
     $scope.saveTask = function(task, stayOpen, isSaveAndClose) {

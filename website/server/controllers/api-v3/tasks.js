@@ -530,7 +530,7 @@ api.scoreTask = {
         message: res.t('userHasRequestedTaskApproval', {
           user: user.profile.name,
           taskName: task.text,
-        }),
+        }, groupLeader.preferences.language),
         groupId: group._id,
       });
 
