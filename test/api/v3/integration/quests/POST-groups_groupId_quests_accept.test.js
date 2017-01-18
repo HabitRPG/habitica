@@ -148,5 +148,16 @@ describe('POST /groups/:groupId/quests/accept', () => {
       expect(rejectingMember.party.quest.key).to.not.exist;
       expect(rejectingMember.party.quest.completed).to.not.exist;
     });
+
+    it('begins the quest if accepting the last pending invite and verifies chat', async () => {
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+      // quest will start after everyone has accepted
+      await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
+
+      await questingGroup.sync();
+      expect(questingGroup.chat[0].text).to.exist;
+      expect(questingGroup.chat[0]._meta).to.exist;
+    });
   });
 });

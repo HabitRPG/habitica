@@ -65,7 +65,7 @@ api.inviteToQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest'});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest chat'});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
@@ -180,7 +180,7 @@ api.acceptQuest = {
     user.party.quest.RSVPNeeded = false;
     await user.save();
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest'});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest chat'});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
@@ -240,7 +240,7 @@ api.rejectQuest = {
     user.markModified('party.quest');
     await user.save();
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest'});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
@@ -299,7 +299,7 @@ api.forceStart = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest leader'});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest leader chat'});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
