@@ -188,5 +188,21 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
 
       expect(group.quest.active).to.eql(true);
     });
+
+    it('starts quest automatically if user is in a solo party and verifies chat', async () => {
+      let leaderDetails = { balance: 10 };
+      leaderDetails[`items.quests.${PET_QUEST}`] = 1;
+      let { group, groupLeader } = await createAndPopulateGroup({
+        groupDetails: { type: 'party', privacy: 'private' },
+        leaderDetails,
+      });
+
+      await groupLeader.post(`/groups/${group._id}/quests/invite/${PET_QUEST}`);
+
+      await group.sync();
+
+      expect(group.chat[0].text).to.exist;
+      expect(group.chat[0]._meta).to.exist;
+    });
   });
 });
