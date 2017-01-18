@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import nconf from 'nconf';
 import moment from 'moment';
 import cc from 'coupon-code';
@@ -80,7 +81,7 @@ describe('Paypal Payments', ()  => {
       let link = await paypalPayments.checkout({gift});
 
       expect(paypalPaymentCreateStub).to.be.calledOnce;
-      expect(paypalPaymentCreateStub).to.be.calledWith(getPaypalCreateOptions('Habitica Gems (Gift)', "4.00"));
+      expect(paypalPaymentCreateStub).to.be.calledWith(getPaypalCreateOptions('Habitica Gems (Gift)', '4.00'));
       expect(link).to.eql(approvalHerf);
     });
 
@@ -98,7 +99,7 @@ describe('Paypal Payments', ()  => {
       let link = await paypalPayments.checkout({gift});
 
       expect(paypalPaymentCreateStub).to.be.calledOnce;
-      expect(paypalPaymentCreateStub).to.be.calledWith(getPaypalCreateOptions('mo. Habitica Subscription (Gift)', "15.00"));
+      expect(paypalPaymentCreateStub).to.be.calledWith(getPaypalCreateOptions('mo. Habitica Subscription (Gift)', '15.00'));
       expect(link).to.eql(approvalHerf);
     });
   });
@@ -139,7 +140,7 @@ describe('Paypal Payments', ()  => {
     it('gifts gems', async () => {
       let receivingUser = new User();
       await receivingUser.save();
-      let gift = {
+      gift = {
         type: 'gems',
         gems: {
           amount: 16,
@@ -163,7 +164,7 @@ describe('Paypal Payments', ()  => {
     it('gifts subscription', async () => {
       let receivingUser = new User();
       await receivingUser.save();
-      let gift = {
+      gift = {
         type: 'subscription',
         subscription: {
           key: subKey,
@@ -356,7 +357,7 @@ describe('Paypal Payments', ()  => {
   });
 
   describe('subscribeCancel', () => {
-    let user, group, groupId, headers, customerId, groupCustomerId, subscriptionBlock, subscriptionLength, nextBillingDate;
+    let user, group, groupId, customerId, groupCustomerId, nextBillingDate;
     let paymentCancelSubscriptionSpy, paypalBillingAgreementCancelStub, paypalBillingAgreementGetStub;
 
     beforeEach(async () => {
@@ -380,17 +381,14 @@ describe('Paypal Payments', ()  => {
       group.purchased.plan.lastBillingDate = new Date();
       await group.save();
 
-      subscriptionBlock = common.content.subscriptionBlocks[subKey];
-      subscriptionLength = subscriptionBlock.months * 30;
-      headers = {};
       nextBillingDate = new Date();
 
       paypalBillingAgreementCancelStub = sinon.stub(paypalPayments, 'paypalBillingAgreementCancel').returnsPromise().resolves({});
       paypalBillingAgreementGetStub = sinon.stub(paypalPayments, 'paypalBillingAgreementGet')
         .returnsPromise().resolves({
-          'agreement_details': {
-            'next_billing_date': nextBillingDate,
-            'cycles_completed': 1,
+          agreement_details: {
+            next_billing_date: nextBillingDate,
+            cycles_completed: 1,
           },
         });
       paymentCancelSubscriptionSpy = sinon.stub(payments, 'cancelSubscription').returnsPromise().resolves({});

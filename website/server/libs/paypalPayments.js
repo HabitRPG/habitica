@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import nconf from 'nconf';
 import moment from 'moment';
 import _ from 'lodash';
@@ -13,10 +14,6 @@ import {
   model as Group,
   basicFields as basicGroupFields,
 } from '../models/group';
-import {
-  authWithUrl,
-  authWithSession,
-} from '../middlewares/auth';
 import {
   BadRequest,
   NotAuthorized,
@@ -97,7 +94,7 @@ api.checkout = async function checkout (options = {}) {
   let result = await this.paypalPaymentCreate(createPayment);
   let link = _.find(result.links, { rel: 'approval_url' }).href;
   return link;
-}
+};
 
 api.checkoutSuccess = async function checkoutSuccess (options = {}) {
   let {user, gift, paymentId, customerId} = options;
@@ -150,7 +147,7 @@ api.subscribe = async function subscribe (options = {}) {
   return link;
 };
 
-api.subscribeSuccess = async function (options = {}) {
+api.subscribeSuccess = async function subscribeSuccess (options = {}) {
   let {user, groupId, block, headers, token} = options;
   let result = await this.paypalBillingAgreementExecute(token, {});
   await payments.createSubscription({
@@ -163,7 +160,7 @@ api.subscribeSuccess = async function (options = {}) {
   });
 };
 
-api.subscribeCancel = async function (options = {}) {
+api.subscribeCancel = async function subscribeCancel (options = {}) {
   let {groupId, user} = options;
 
   let customerId;
@@ -202,7 +199,7 @@ api.subscribeCancel = async function (options = {}) {
   });
 };
 
-api.ipn = async function ipn (options = {}) {
+api.ipn = async function ipnApi (options = {}) {
   await this.ipnVerifyAsync(options);
 
   let {txn_type, recurring_payment_id} = options;

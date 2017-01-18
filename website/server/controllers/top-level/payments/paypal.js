@@ -1,29 +1,10 @@
 /* eslint-disable camelcase */
-
-import nconf from 'nconf';
-import moment from 'moment';
-import _ from 'lodash';
-import payments from '../../../libs/payments';
-import ipn from 'paypal-ipn';
-import paypal from 'paypal-rest-sdk';
+import paypalPayments from '../../../libs/paypalPayments';
 import shared from '../../../../common';
-import cc from 'coupon-code';
-import Bluebird from 'bluebird';
-import { model as Coupon } from '../../../models/coupon';
-import { model as User } from '../../../models/user';
-import {
-  model as Group,
-  basicFields as basicGroupFields,
-} from '../../../models/group';
 import {
   authWithUrl,
   authWithSession,
 } from '../../../middlewares/auth';
-import {
-  BadRequest,
-  NotAuthorized,
-  NotFound,
-} from '../../../libs/errors';
 
 
 let api = {};
