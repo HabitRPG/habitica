@@ -2860,9 +2860,9 @@ api.userDefaults = {
       down: false,
       attribute: 'per',
       tags: [
-        'defaultTag1',  // Work
-        'defaultTag4',  // School
-        'defaultTag6'   // Chores
+        t('defaultTag1'),  // Work
+        t('defaultTag4'),  // School
+        t('defaultTag6')   // Chores
       ]
     }, {
       type: 'habit',
@@ -2872,7 +2872,7 @@ api.userDefaults = {
       down: true,
       attribute: 'str',
       tags: [
-        'defaultTag3'   // Health + Wellness
+        t('defaultTag3')   // Health + Wellness
       ]
     }, {
       type: 'habit',
@@ -2882,8 +2882,8 @@ api.userDefaults = {
       down: true,
       attribute: 'str',
       tags: [
-        'defaultTag2',  // Exercise
-        'defaultTag3'   // Health + Wellness
+        t('defaultTag2'),  // Exercise
+        t('defaultTag3')   // Health + Wellness
       ]
     }
   ],
