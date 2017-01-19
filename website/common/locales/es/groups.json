@@ -244,7 +244,7 @@
     "approvalsTitle": "Tareas Pendientes de Aprobación",
     "upgradeTitle": "Actualizar",
     "blankApprovalsDescription": "Cuando el grupo completa tareas que necesitan de tu aprobación, aparecerán aquí. Ajusta los requisitos de aprobación en la edición de tareas.",
-    "userIsClamingTask": "<%= username %> ha reclamado \"<%= task %>\"",
+    "userIsClamingTask": "`<%= username %> has claimed \"<%= task %>\"`",
     "approvalRequested": "Aprobación Solicitada",
     "refreshApprovals": "Actualizar las Aprobaciones",
     "refreshGroupTasks": "Actualizar las Tareas del Grupo",

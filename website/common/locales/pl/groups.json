@@ -244,7 +244,7 @@
     "approvalsTitle": "Zadania czekające na aprobatę",
     "upgradeTitle": "Upgrade",
     "blankApprovalsDescription": "Kiedy twoja grupa ukończy zadania wymagające twojego zatwierdzenia, pojawią się one tutaj! Ustawienia zatwierdzania możesz dostosować w edycji zadań.",
-    "userIsClamingTask": "<%= username %> zgłosił udział w zadaniu \"<%= task %>\"",
+    "userIsClamingTask": "`<%= username %> has claimed \"<%= task %>\"`",
     "approvalRequested": "Wymagana aprobata",
     "refreshApprovals": "Odśwież aprobaty",
     "refreshGroupTasks": "Odśwież zadania grupy",
