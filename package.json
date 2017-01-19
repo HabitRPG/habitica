@@ -36,7 +36,6 @@
     "css-loader": "^0.23.1",
     "csv-stringify": "^1.0.2",
     "cwait": "^1.0.0",
-    "deep-freeze-strict": "^1.1.1",
     "domain-middleware": "~0.1.0",
     "estraverse": "^4.1.1",
     "express": "~4.14.0",

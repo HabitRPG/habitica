@@ -1,7 +1,4 @@
-// TODO using deep-freeze-strict instead of deep-freeze because the latter
-// does not work on phantomjs, may want to revisit as both are not supported
-// See https://github.com/substack/deep-freeze/pull/2
-import deepFreeze from 'deep-freeze-strict';
+import deepFreeze from '../libs/deepFreeze';
 import content from '../../common/script/content/index';
 
 const state = {

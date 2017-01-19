@@ -2875,16 +2875,6 @@
       "from": "deep-extend@>=0.2.5 <0.3.0",
       "resolved": "https://registry.npmjs.org/deep-extend/-/deep-extend-0.2.11.tgz"
     },
-    "deep-freeze": {
-      "version": "0.0.1",
-      "from": "deep-freeze@latest",
-      "resolved": "https://registry.npmjs.org/deep-freeze/-/deep-freeze-0.0.1.tgz"
-    },
-    "deep-freeze-strict": {
-      "version": "1.1.1",
-      "from": "deep-freeze-strict@latest",
-      "resolved": "https://registry.npmjs.org/deep-freeze-strict/-/deep-freeze-strict-1.1.1.tgz"
-    },
     "deep-is": {
       "version": "0.1.3",
       "from": "deep-is@>=0.1.3 <0.2.0",
