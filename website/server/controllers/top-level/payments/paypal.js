@@ -30,8 +30,10 @@ const BASE_URL = nconf.get('BASE_URL');
 // This is the plan.id for paypal subscriptions. You have to set up billing plans via their REST sdk (they don't have
 // a web interface for billing-plan creation), see ./paypalBillingSetup.js for how. After the billing plan is created
 // there, get it's plan.id and store it in config.json
+const mapSubscriptionBlocksToPaypalPlanId = {};
+
 _.each(shared.content.subscriptionBlocks, (block) => {
-  block.paypalKey = nconf.get(`PAYPAL:billing_plans:${block.key}`);
+  mapSubscriptionBlocksToPaypalPlanId[block] = nconf.get(`PAYPAL:billing_plans:${block.key}`);
 });
 
 paypal.configure({
@@ -160,7 +162,9 @@ api.subscribe = {
   url: '/paypal/subscribe',
   middlewares: [authWithUrl],
   async handler (req, res) {
-    let sub = shared.content.subscriptionBlocks[req.query.sub];
+    let subName = req.query.sub;
+    let sub = shared.content.subscriptionBlocks[subName];
+    let paypalPlanId = mapSubscriptionBlocksToPaypalPlanId[subName];
 
     if (sub.discount) {
       if (!req.query.coupon) throw new BadRequest(res.t('couponCodeRequired'));
@@ -174,7 +178,7 @@ api.subscribe = {
       description: billingPlanTitle,
       start_date: moment().add({ minutes: 5 }).format(),
       plan: {
-        id: sub.paypalKey,
+        id: paypalPlanId,
       },
       payer: {
         payment_method: 'Paypal',
