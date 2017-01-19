@@ -20,10 +20,14 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
 /**
  * @apiDefine MessageNotFound
  * @apiError (404) {NotFound} MessageNotFound The specified message could not be found.
- *
+ */
+
+/**
  * @apiDefine GroupIdRequired
  * @apiError (404) {badRequest} groupIdRequired A group ID is required
- *
+ */
+
+/**
  * @apiDefine ChatIdRequired
  * @apiError (404) {badRequest} chatIdRequired A chat ID is required
  */
