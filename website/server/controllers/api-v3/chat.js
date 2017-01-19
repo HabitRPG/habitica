@@ -20,6 +20,12 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
 /**
  * @apiDefine MessageNotFound
  * @apiError (404) {NotFound} MessageNotFound The specified message could not be found.
+ *
+ * @apiDefine GroupIdRequired
+ * @apiError (404) {badRequest} groupIdRequired A group ID is required
+ *
+ * @apiDefine ChatIdRequired
+ * @apiError (404) {badRequest} chatIdRequired A chat ID is required
  */
 
 let api = {};
@@ -44,12 +50,14 @@ async function getAuthorEmailFromMessage (message) {
  * @api {get} /api/v3/groups/:groupId/chat Get chat messages from a group
  * @apiName GetChat
  * @apiGroup Chat
+ * @apiDescription Fetches an array of messages from a group
  *
- * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiSuccess {Array} data An array of chat messages
+ * @apiSuccess {Array} data An array of <a href='https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js#L51' target='_blank'>chat messages</a>
  *
  * @apiUse GroupNotFound
+ * @apiUse GroupIdRequired
  */
 api.getChat = {
   method: 'GET',
@@ -74,14 +82,17 @@ api.getChat = {
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
  * @apiName PostChat
  * @apiGroup Chat
+ * @apiDescription Posts a chat message to a group
  *
- * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {String} message Body parameter - message The message to post
- * @apiParam {UUID} previousMsg Query parameter - The previous chat message which will force a return of the full group chat
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Body) {String} message Message The message to post
+ * @apiParam (Query) {UUID} previousMsg The previous chat message's UUID which will force a return of the full group chat
  *
- * @apiSuccess data An array of chat messages if a new message was posted after previousMsg, otherwise the posted message
+ * @apiSuccess data An array of <a href='https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js#L51' target='_blank'>chat messages</a> if a new message was posted after previousMsg, otherwise the posted message
  *
  * @apiUse GroupNotFound
+ * @apiUse GroupIdRequired
+ * @apiError (400) {NotFound} ChatPriviledgesRevoked Your chat privileges have been revoked
  */
 api.postChat = {
   method: 'POST',
@@ -141,14 +152,18 @@ api.postChat = {
  * @api {post} /api/v3/groups/:groupId/chat/:chatId/like Like a group chat message
  * @apiName LikeChat
  * @apiGroup Chat
+ * @apiDescription Likes a chat message from a group
  *
- * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {UUID} chatId The chat message _id
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} chatId The chat message _id
  *
- * @apiSuccess {Object} data The liked chat message
+ * @apiSuccess {Object} data The liked <a href='https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js#L51' target='_blank'>chat message</a>
  *
  * @apiUse GroupNotFound
  * @apiUse MessageNotFound
+ * @apiUse GroupIdRequired
+ * @apiUse ChatIdRequired
+ * @apiError (400) {NotFound} messageGroupChatLikeOwnMessage A user can't like their own message
  */
 api.likeChat = {
   method: 'POST',
@@ -193,8 +208,8 @@ api.likeChat = {
  * @apiName FlagChat
  * @apiGroup Chat
  *
- * @apiParam {UUID} groupId The group id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {UUID} chatId The chat message id
+ * @apiParam (Path) {UUID} groupId The group id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} chatId The chat message id
  *
  * @apiSuccess {Object} data The flagged chat message
  * @apiSuccess {UUID} data.id The id of the message
@@ -208,8 +223,10 @@ api.likeChat = {
  *
  * @apiUse GroupNotFound
  * @apiUse MessageNotFound
- * @apiError FlagOwnMessage Chat messages cannot be flagged by the author of the message
- * @apiError AlreadyFlagged Chat messages cannot be flagged more than once by a user
+ * @apiUse GroupIdRequired
+ * @apiUse ChatIdRequired
+ * @apiError (404) {NotFound} AlreadyFlagged Chat messages cannot be flagged more than once by a user
+ * @apiError (404) {NotFound} messageGroupChatFlagAlreadyReported The message has already been flagged
  */
 api.flagChat = {
   method: 'POST',
@@ -301,14 +318,16 @@ api.flagChat = {
  * @apiName ClearFlags
  * @apiGroup Chat
  *
- * @apiParam {UUID} groupId The group id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {UUID} chatId The chat message id
+ * @apiParam (Path) {UUID} groupId The group id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} chatId The chat message id
  *
  * @apiSuccess {Object} data An empty object
  *
  * @apiUse GroupNotFound
  * @apiUse MessageNotFound
- * @apiError MustBeAdmin Must be a moderator to use this route
+ * @apiUse GroupIdRequired
+ * @apiUse ChatIdRequired
+ * @apiError (404) {NotAuthorized} MustBeAdmin Must be a moderator to use this route
  */
 api.clearChatFlags = {
   method: 'Post',
@@ -379,9 +398,10 @@ api.clearChatFlags = {
  * @apiName SeenChat
  * @apiGroup Chat
  *
- * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Object} data An empty object
+ * @apiUse GroupIdRequired
  */
 api.seenChat = {
   method: 'POST',
@@ -412,16 +432,20 @@ api.seenChat = {
  * @api {delete} /api/v3/groups/:groupId/chat/:chatId Delete chat message from a group
  * @apiName DeleteChat
  * @apiGroup Chat
+ * @apiDescription Delete's a chat message from a group
  *
- * @apiParam {String} previousMsg Query parameter - The last message fetched by the client so that the whole chat will be returned only if new messages have been posted in the meantime
- * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {UUID} chatId The chat message id
+ * @apiParam (Query) {UUID} previousMsg The last message's ID fetched by the client so that the whole chat will be returned only if new messages have been posted in the meantime
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} chatId The chat message id
  *
  * @apiSuccess data The updated chat array or an empty object if no message was posted after previousMsg
  * @apiSuccess {Object} data An empty object when the previous message was deleted
  *
  * @apiUse GroupNotFound
  * @apiUse MessageNotFound
+ * @apiUse GroupIdRequired
+ * @apiUse ChatIdRequired
+ * @apiError (400) onlyCreatorOrAdminCanDeleteChat Only the creator of the message and admins can delete a chat message
  */
 api.deleteChat = {
   method: 'DELETE',
