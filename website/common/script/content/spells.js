@@ -219,7 +219,9 @@ spells.healer = {
     notes: t('spellHealerBrightnessNotes'),
     cast (user, tasks) {
       _.each(tasks, (task) => {
-        if (task.type !== 'reward') {
+        let isNotChallengeTask = !task.challenge || !task.challenge.id || task.challenge.broken;
+        let isNotGroupTask = !task.group || !task.group.id || task.group.broken;
+        if (task.type !== 'reward' && isNotChallengeTask && isNotGroupTask) {
           task.value += 4 * (user._statsComputed.int / (user._statsComputed.int + 40));
         }
       });
