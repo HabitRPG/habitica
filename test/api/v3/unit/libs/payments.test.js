@@ -11,7 +11,6 @@ import {
   generateGroup,
 } from '../../../../helpers/api-unit.helper.js';
 import i18n from '../../../../../website/common/script/i18n';
-import amzLib from '../../../../../website/server/libs/amazonPayments';
 
 describe('payments/index', () => {
   let user, group, data, plan;
@@ -870,56 +869,6 @@ describe('payments/index', () => {
       }, stripe);
 
       expect(stripeCreateCustomerSpy.calledOnce).to.be.true;
-      expect(createSubSpy.calledOnce).to.be.true;
-    });
-  });
-
-  describe('subscribeWithAmazon', () => {
-    let amazonSetBillingAgreementDetailsSpy;
-    let amazonConfirmBillingAgreementSpy;
-    let amazongAuthorizeOnBillingAgreementSpy;
-    let createSubSpy;
-
-    beforeEach(function () {
-      amazonSetBillingAgreementDetailsSpy = sinon.stub(amzLib, 'setBillingAgreementDetails');
-      amazonSetBillingAgreementDetailsSpy.returnsPromise().resolves({});
-
-      amazonConfirmBillingAgreementSpy = sinon.stub(amzLib, 'confirmBillingAgreement');
-      amazonConfirmBillingAgreementSpy.returnsPromise().resolves({});
-
-      amazongAuthorizeOnBillingAgreementSpy = sinon.stub(amzLib, 'authorizeOnBillingAgreement');
-      amazongAuthorizeOnBillingAgreementSpy.returnsPromise().resolves({});
-
-      createSubSpy = sinon.stub(api, 'createSubscription');
-      createSubSpy.returnsPromise().resolves({});
-    });
-
-    afterEach(function () {
-      amzLib.setBillingAgreementDetails.restore();
-      amzLib.confirmBillingAgreement.restore();
-      amzLib.authorizeOnBillingAgreement.restore();
-      api.createSubscription.restore();
-    });
-
-    it('subscribes with amazon', async () => {
-      let billingAgreementId = 'billingAgreementId';
-      let sub = data.sub;
-      let coupon;
-      let groupId = group._id;
-      let headers = {};
-
-      await api.subscribeWithAmazon({
-        billingAgreementId,
-        sub,
-        coupon,
-        user,
-        groupId,
-        headers,
-      });
-
-      expect(amazonSetBillingAgreementDetailsSpy.calledOnce).to.be.true;
-      expect(amazonConfirmBillingAgreementSpy.calledOnce).to.be.true;
-      expect(amazongAuthorizeOnBillingAgreementSpy.calledOnce).to.be.true;
       expect(createSubSpy.calledOnce).to.be.true;
     });
   });
