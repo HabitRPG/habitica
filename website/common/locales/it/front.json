@@ -181,7 +181,7 @@
     "tumblr": "Tumblr",
     "localStorageTryFirst": "If you are experiencing problems with Habitica, click the button below to clear local storage and most cookies for this website (other websites will not be affected). You will need to log in again after doing this, so first be sure that you know your log-in details, which can be found at Settings -> <%= linkStart %>Site<%= linkEnd %>.",
     "localStorageTryNext": "Se il problema persiste, per favore <%= linkStart %>segnalate un bug<%= linkEnd %> se non lo avete già fatto.",
-    "localStorageClearing": "Clearing Data",
+    "localStorageClearing": "Pulizia dati in corso",
     "localStorageClearingExplanation": "Habitica's stored data is being cleared from your browser. You will be logged out and redirected to the home page. Please wait.",
     "localStorageClear": "Clear Data",
     "localStorageClearExplanation": "Questo pulsante pulirà la memoria locale e la maggior parte dei cookie, poi ti disconnetterà.",
@@ -261,11 +261,11 @@
     "invalidCredentials": "Non c'è nessun account che usa quelle credenziali.",
     "accountSuspended": "L'account è stato sospeso. Ti preghiamo di contattare leslie@habitica.com indicando il tuo ID utente \"<%= userId %>\" per ricevere assistenza.",
     "unsupportedNetwork": "Questa rete non è ancora supportata.",
-    "cantDetachSocial": "Account lacks another authentication method; can't detach this authentication method.",
+    "cantDetachSocial": "All'account manca un altro metodo di autenticazione; impossibile rimuovere questo metodo di autenticazione.",
     "onlySocialAttachLocal": "L'autenticazione locale può essere aggiunta solo a un account social.",
     "invalidReqParams": "Parametri di richiesta non validi.",
     "memberIdRequired": "\"member\" deve essere un UUID valido.",
     "heroIdRequired": "\"herold\" deve essere un UUID valido.",
     "cannotFulfillReq": "La tua richiesta non può essere soddisfatta.  Scrivi una e-mail ad admin@habitica.com se l'errore persiste.",
-    "modelNotFound": "This model does not exist."
+    "modelNotFound": "Questo modello non esiste."
 }

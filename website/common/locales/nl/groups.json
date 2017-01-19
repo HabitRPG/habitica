@@ -244,7 +244,7 @@
     "approvalsTitle": "Taken wachtend op goedkeuring",
     "upgradeTitle": "Upgrade",
     "blankApprovalsDescription": "Wanneer je groep taken voltooid die je goedkeuring vereisen, verschijnen ze hier! Pas de vereisten voor goedkeuring aan onder taakbewerking.",
-    "userIsClamingTask": "<%= username %> heeft \"<%= task %>\" geclaimd.",
+    "userIsClamingTask": "`<%= username %> has claimed \"<%= task %>\"`",
     "approvalRequested": "Goedkeuring aangevraagd",
     "refreshApprovals": "Vernieuw goedkeuringen",
     "refreshGroupTasks": "Vernieuw groepstaken",
