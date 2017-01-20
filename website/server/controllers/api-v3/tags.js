@@ -80,7 +80,7 @@ api.getTags = {
  *
  * @apiSuccess {Object} data The tag object
  *
- * @apiSuccessExample {json} Example return"
+ * @apiSuccessExample {json} Example return:
  * {"success":true,"data":{"name":"practicetag","id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"},"notifications":[]}
  *
  * @apiUse TagNotFound
