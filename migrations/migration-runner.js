@@ -16,6 +16,6 @@ function setUpServer () {
 }
 setUpServer();
 
-.// Replace this with your migration
-var regiserComedUsers = require('./register-users-comed');
-regiserComedUsers();
+// Replace this with your migration
+var processUsers = require('./new_stuff');
+processUsers();
