@@ -1,6 +1,5 @@
 import _ from 'lodash';
-
-const MAX_INCENTIVES = 101;
+import MAX_INCENTIVES from './constants';
 
 module.exports = function getLoginIncentives (api) {
   let loginIncentives = {
@@ -229,7 +228,7 @@ module.exports = function getLoginIncentives (api) {
   // We could also, use a list, but then we would be cloning each of the rewards.
   // Create a new array if we want the loginIncentives to be immutable in the future
   let nextRewardKey;
-  _.range(MAX_INCENTIVES).reverse().forEach(function addNextRewardLink (index) {
+  _.range(MAX_INCENTIVES + 1).reverse().forEach(function addNextRewardLink (index) {
     if (loginIncentives[index] && loginIncentives[index].rewardKey) {
       loginIncentives[index].nextRewardAt = nextRewardKey;
       nextRewardKey = index;
@@ -243,7 +242,7 @@ module.exports = function getLoginIncentives (api) {
   });
 
   let prevRewardKey;
-  _.range(MAX_INCENTIVES).forEach(function addPrevRewardLink (index) {
+  _.range(MAX_INCENTIVES + 1).forEach(function addPrevRewardLink (index) {
     loginIncentives[index].prevRewardKey = prevRewardKey;
     if (loginIncentives[index].rewardKey) prevRewardKey = index;
   });

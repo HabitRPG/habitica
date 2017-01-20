@@ -8,7 +8,7 @@ import nconf from 'nconf';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
-const MAX_INCENTIVES = 100;
+const MAX_INCENTIVES = common.constants.MAX_INCENTIVES;
 const shouldDo = common.shouldDo;
 const scoreTask = common.ops.scoreTask;
 const i18n = common.i18n;
