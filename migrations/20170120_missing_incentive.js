@@ -74,7 +74,7 @@ function updateUser (user) {
         'rewardKey': [
           'Pet_HatchingPotion_Purple',
         ],
-        'rewardText': common.i18n.t('hatchingPotionRoyalPurple', language),
+        'rewardText': common.i18n.t('potion', {potionType: common.i18n.t('hatchingPotionRoyalPurple', language)}, language),
         'reward': [
           {
             'premium': true,
