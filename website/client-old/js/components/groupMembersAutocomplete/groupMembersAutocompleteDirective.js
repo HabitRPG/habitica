@@ -37,6 +37,7 @@
             allowedTags: allowedTags,
             allowDuplicates: false,
             preserveCase: true,
+            delimeter: '|',
             placeholder: window.env.t('assignFieldPlaceholder'),
             onBeforeTagAdd: function(event, tag) {
               return confirm(window.env.t('confirmAddTag', {tag: tag}));

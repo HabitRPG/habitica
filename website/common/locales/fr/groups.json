@@ -244,7 +244,7 @@
     "approvalsTitle": "Tâches en attente de validation",
     "upgradeTitle": "Mise à niveau",
     "blankApprovalsDescription": "Quand votre groupe remplit des tâches que vous devez valider, elles apparaîtront ici ! Ajustez les paramètres de validation des tâches dans leur menu \"Modifier\".",
-    "userIsClamingTask": "<%= username %> a revendiqué \"<%= task %>\"",
+    "userIsClamingTask": "`<%= username %> has claimed \"<%= task %>\"`",
     "approvalRequested": "Validation demandée",
     "refreshApprovals": "Actualiser les validations",
     "refreshGroupTasks": "Actualiser les tâches de groupe",

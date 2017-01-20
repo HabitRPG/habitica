@@ -244,7 +244,7 @@
     "approvalsTitle": "Aufgaben-Zustimmung erwartet",
     "upgradeTitle": "Upgrade",
     "blankApprovalsDescription": "Wenn deine Gruppe Aufgaben erledigt, die deine Zustimmung brauchen, erscheinen sie hier! Passe die Zustimmungs-Einstellungen in den Aufgaben an.",
-    "userIsClamingTask": "<%= username %> hat \"<%= task %>\" eingefordert",
+    "userIsClamingTask": "`<%= username %> has claimed \"<%= task %>\"`",
     "approvalRequested": "Zustimmung erbeten",
     "refreshApprovals": "Zustimmungen aktualisieren",
     "refreshGroupTasks": "Gruppen-Aufgaben aktualisieren",

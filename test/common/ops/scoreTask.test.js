@@ -1,4 +1,5 @@
 import scoreTask from '../../../website/common/script/ops/scoreTask';
+
 import {
   generateUser,
   generateDaily,
@@ -11,6 +12,7 @@ import i18n from '../../../website/common/script/i18n';
 import {
   NotAuthorized,
 } from '../../../website/common/script/libs/errors';
+import crit from '../../../website/common/script/fns/crit';
 
 let EPSILON = 0.0001; // negligible distance between datapoints
 
@@ -140,6 +142,32 @@ describe('shared.ops.scoreTask', () => {
       // before and after are the same user
       expect(ref.beforeUser._id).to.exist;
       expect(ref.beforeUser._id).to.eql(ref.afterUser._id);
+    });
+
+    it('critical hits', () => {
+      let normalUser = ref.beforeUser;
+      expect(normalUser.party.quest.progress.up).to.eql(0);
+      normalUser.party.quest.key = 'gryphon';
+      let critUser = ref.afterUser;
+      expect(critUser.party.quest.progress.up).to.eql(0);
+      critUser.party.quest.key = 'gryphon';
+      let normalTask = todo;
+      let critTask = freshTodo;
+
+      scoreTask({ user: normalUser, task: normalTask, direction: 'up', cron: false });
+      let normalTaskDelta = normalUser.party.quest.progress.up;
+
+      sandbox.stub(crit, 'crit').returns(1.5);
+      scoreTask({ user: critUser, task: critTask, direction: 'up', cron: false });
+      let critTaskDelta = critUser.party.quest.progress.up;
+      crit.crit.restore();
+
+      expect(critUser.stats.hp).to.eql(normalUser.stats.hp);
+      expect(critUser.stats.gp).to.be.greaterThan(normalUser.stats.gp);
+      expect(critUser.stats.mp).to.be.greaterThan(normalUser.stats.mp);
+      expect(critUser.stats.exp).to.be.greaterThan(normalUser.stats.exp);
+      expect(critTask.value).to.eql(normalTask.value);
+      expect(critTaskDelta).to.be.greaterThan(normalTaskDelta);
     });
 
     it('and increments quest progress', () => {

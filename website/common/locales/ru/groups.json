@@ -244,7 +244,7 @@
     "approvalsTitle": "Задачи, ожидающие подтверждения",
     "upgradeTitle": "Перейти",
     "blankApprovalsDescription": "Когда ваша группа выполнит задачи, требующие вашего подтверждения, они появятся здесь! Измените настройки подтверждения в редакторе задачи.",
-    "userIsClamingTask": "<%= username %> забрал себе задачу \"<%= task %>\"",
+    "userIsClamingTask": "`<%= username %> has claimed \"<%= task %>\"`",
     "approvalRequested": "Запрошено подтверждение",
     "refreshApprovals": "Обновить подтверждения",
     "refreshGroupTasks": "Обновить групповые задачи",
