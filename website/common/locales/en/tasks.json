@@ -103,7 +103,7 @@
     "habitHelp1": "Good Habits are things that you do often. They award Gold and Experience every time you click the <%= plusIcon %>.",
     "habitHelp2": "Bad Habits are things you want to avoid doing. They remove Health every time you click the <%= minusIcon %>.",
     "habitHelp3": "For inspiration, check out these <a href='http://habitica.wikia.com/wiki/Sample_Habits' target='_blank'>sample Habits</a>!",
-    "newbieGuild": "More questions? Ask in the <%= linkStart %>Habitica Help: Ask a Question guild<%= linkEnd %>!",
+    "newbieGuild": "More questions? Ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>!",
     "dailyHelp1": "Dailies repeat <%= emphasisStart %>every day<%= emphasisEnd %> that they are active. Click the <%= pencilIcon %> to change the days a Daily is active.",
     "dailyHelp2": "If you don't complete active Dailies, you lose Health when your day rolls over.",
     "dailyHelp3": "Dailies turn <%= emphasisStart %>redder<%= emphasisEnd %> when you miss them, and <%= emphasisStart %>bluer<%= emphasisEnd %> when you complete them. The redder the Daily, the more it will reward you... or hurt you.",
