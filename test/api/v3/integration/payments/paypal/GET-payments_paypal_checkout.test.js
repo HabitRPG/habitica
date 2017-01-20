@@ -12,14 +12,6 @@ describe('payments : paypal #checkout', () => {
     user = await generateUser();
   });
 
-  xit('verifies subscription', async () => {
-    await expect(user.get(endpoint)).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
-      message: t('missingSubscription'),
-    });
-  });
-
   describe('success', () => {
     let checkoutStub;
 
