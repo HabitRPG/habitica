@@ -80,4 +80,4 @@ function exiting(code, msg) {
   process.exit(code);
 }
 
-processUsers()
+module.exports = processUsers;
