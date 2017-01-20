@@ -81,5 +81,10 @@
         "FLAGGING_URL": "https://hooks.slack.com/services/id/id/id",
         "FLAGGING_FOOTER_LINK": "https://habitrpg.github.io/flag-o-rama/",
         "SUBSCRIPTIONS_URL": "https://hooks.slack.com/services/id/id/id"
+    },
+    "EMAILS" : {
+        "COMMUNITY_MANAGER_EMAIL" : "leslie@habitica.com",
+        "TECH_ASSISTANCE_EMAIL" : "admin@habitica.com",
+        "PRESS_ENQUIRY_EMAIL" : "leslie@habitica.com"
     }
 }

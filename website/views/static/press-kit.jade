@@ -18,7 +18,7 @@ block extraHead
 block content
   div.jumbotron
     h1= env.t('presskit')
-    p= env.t('presskitText')
+    p= env.t('presskitText', { pressEnquiryEmail : "PRESS_ENQUIRY_EMAIL@email" })
     p
       a.btn.btn-lg.btn-success(href='/presskit/presskit.zip') presskit.zip
 

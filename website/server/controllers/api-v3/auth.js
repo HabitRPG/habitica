@@ -182,7 +182,7 @@ api.registerLocal = {
 };
 
 function _loginRes (user, req, res) {
-  if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {userId: user._id}));
+  if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: nconf.get('COMMUNITY_MANAGER_EMAIL'), userId: user._id}));
   return res.respond(200, {id: user._id, apiToken: user.apiToken, newUser: user.newUser || false});
 }
 
@@ -582,7 +582,7 @@ api.updateEmail = {
       'auth.local.email': req.body.newEmail,
     }).select({_id: 1}).lean().exec();
 
-    if (emailAlreadyInUse) throw new NotAuthorized(res.t('cannotFulfillReq'));
+    if (emailAlreadyInUse) throw new NotAuthorized(res.t('cannotFulfillReq', { TECH_ASSISTANCE_EMAIL : 'TECH_ASSISTANCE_EMAIL@Email' }));
 
     let candidatePassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
     if (candidatePassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));

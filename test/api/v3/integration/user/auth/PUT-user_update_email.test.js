@@ -63,7 +63,7 @@ describe('PUT /user/auth/update-email', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('cannotFulfillReq'),
+        message: t('cannotFulfillReq', { techAssistanceEmail : 'TECH_ASSISTANCE_EMAIL@email' }),
       });
     });
   });
