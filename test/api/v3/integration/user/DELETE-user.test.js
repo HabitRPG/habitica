@@ -30,6 +30,20 @@ describe('DELETE /user', () => {
     });
   });
 
+  it('does not need a password if logged in through Facebook', async () => {
+    await user.auth.facebook.id.del('/user', {
+      user,
+    });
+    await expect(checkExistence('users', user._id)).to.eventually.eql(false);
+  });
+
+  it('does not need a password if logged in through Google', async () => {
+    await user.auth.google.id.del('/user', {
+      user,
+    });
+    await expect(checkExistence('users', user._id)).to.eventually.eql(false);
+  });
+
   it('returns an error if user has active subscription', async () => {
     let userWithSubscription = await generateUser({'purchased.plan.customerId': 'fake-customer-id'});
 
