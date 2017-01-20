@@ -194,7 +194,7 @@ api.deleteUser = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    if(user.auth.local.hashed_password) {
+    if(user.auth.local.hashed_password && user.auth.local.email) {
       req.checkBody({
         password: {
           notEmpty: {errorMessage: res.t('missingPassword')},
