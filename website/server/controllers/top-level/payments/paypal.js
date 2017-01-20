@@ -5,7 +5,13 @@ import {
   authWithUrl,
   authWithSession,
 } from '../../../middlewares/auth';
+import {
+  BadRequest,
+  // NotAuthorized,
+  // NotFound,
+} from '../../../libs/errors';
 
+const i18n = shared.i18n;
 
 let api = {};
 
@@ -45,6 +51,9 @@ api.checkoutSuccess = {
     let user = res.locals.user;
     let gift = req.session.gift ? JSON.parse(req.session.gift) : undefined;
     delete req.session.gift;
+
+    if (!paymentId) throw new BadRequest(i18n.t('missingPaymentId'));
+    if (!customerId) throw new BadRequest(i18n.t('missingCustomerId'));
 
     await paypalPayments.checkoutSuccess({user, gift, paymentId, customerId});
 

@@ -12,12 +12,22 @@ describe('payments : paypal #checkoutSuccess', () => {
     user = await generateUser();
   });
 
-  xit('verifies subscription', async () => {
-    await expect(user.get(endpoint)).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
-      message: t('missingSubscription'),
-    });
+  it('verifies paymentId', async () => {
+    await expect(user.get(endpoint))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('missingPaymentId'),
+      });
+  });
+
+  it('verifies customerId', async () => {
+    await expect(user.get(`${endpoint}?paymentId=test-paymentid`))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('missingCustomerId'),
+      });
   });
 
   describe('success', () => {
