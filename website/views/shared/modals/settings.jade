@@ -57,7 +57,7 @@ script(type='text/ng-template', id='modals/restore.html')
     button.btn.btn-default(ng-click='$close()')=env.t('discardChanges')
     button.btn.btn-primary(ng-click='restore(); $close();')=env.t('saveAndClose')
 
-script(type='text/ng-template', id='modals/delete.html')
+script(type='text/ng-template', id='modals/deletelocal.html')
   .modal-header
     h4=env.t('deleteAccount')
   .modal-body
@@ -66,6 +66,19 @@ script(type='text/ng-template', id='modals/delete.html')
     .row
       .col-md-6
         input.form-control(type='password', ng-model='_deleteAccount')
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('neverMind')
+    button.btn.btn-danger(ng-disabled='!_deleteAccount', ng-click='$close(); delete(_deleteAccount)')=env.t('deleteDo')
+
+script(type='text/ng-template', id='modals/deletesocial.html')
+  .modal-header
+    h4=env.t('deleteAccount')
+  .modal-body
+    p!=env.t('deleteSocialAccountText')
+    br
+    .row
+      .col-md-6
+        input.form-control(type='text', ng-model='_deleteAccount')
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('neverMind')
     button.btn.btn-danger(ng-disabled='!_deleteAccount', ng-click='$close(); delete(_deleteAccount)')=env.t('deleteDo')
