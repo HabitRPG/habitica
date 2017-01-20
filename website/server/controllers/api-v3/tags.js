@@ -12,6 +12,12 @@ import { removeFromArray } from '../../libs/collectionManipulators';
  * @apiError (404) {NotFound} TagNotFound The specified tag could not be found.
  */
 
+/**
+ * @apiDefine InvalidUUID
+ * @apiError (400) {BadRequest} InvalidRequestParameters "tagId" must be a valid UUID corresponding to a tag belonging to the user.
+ */
+
+
 let api = {};
 
 /**
@@ -78,6 +84,7 @@ api.getTags = {
  * {"success":true,"data":{"name":"practicetag","id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"},"notifications":[]}
  *
  * @apiUse TagNotFound
+ * @apiUSe InvalidUUID
  */
 api.getTag = {
   method: 'GET',
@@ -114,6 +121,7 @@ api.getTag = {
  * {"success":true,"data":{"name":"practice-tag","id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"},"notifications":[]}
  *
  * @apiUse TagNotFound
+ * @apiUSe InvalidUUID
  */
 api.updateTag = {
   method: 'PUT',
@@ -144,10 +152,16 @@ api.updateTag = {
  * @apiName ReorderTags
  * @apiGroup Tag
  *
- * @apiParam {UUID} tagId Id of the tag to move
- * @apiParam {Number} to Position the tag is moving to
+ * @apiParam (body) {UUID} tagId Id of the tag to move
+ * @apiParam (body) {Number} to Position the tag is moving to
+ *
+ * @apiParamExample {json} Example request:
+ * {"tagId":"c6855fae-ca15-48af-a88b-86d0c65ead47","to":0}
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiSuccessExample {json} Example return:
+ * {"success":true,"data":{},"notifications":[]}
  *
  * @apiUse TagNotFound
  */
@@ -188,6 +202,7 @@ api.reorderTags = {
  * {"success":true,"data":{},"notifications":[]}
  *
  * @apiUse TagNotFound
+ * @apiUSe InvalidUUID
  */
 api.deleteTag = {
   method: 'DELETE',
