@@ -4,7 +4,7 @@ import {
 } from '../../../../../helpers/api-integration/v3';
 import paypalPayments from '../../../../../../website/server/libs/paypalPayments';
 
-xdescribe('payments : paypal #subscribeSuccess', () => {
+describe('payments : paypal #subscribeSuccess', () => {
   let endpoint = '/paypal/subscribe/success';
   let user;
 
@@ -12,15 +12,15 @@ xdescribe('payments : paypal #subscribeSuccess', () => {
     user = await generateUser();
   });
 
-  xit('verifies credentials', async () => {
+  it('verifies Paypal Block', async () => {
     await expect(user.get(endpoint)).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
-      message: t('missingSubscription'),
+      code: 400,
+      error: 'BadRequest',
+      message: t('missingPaypalBlock'),
     });
   });
 
-  describe('success', () => {
+  xdescribe('success', () => {
     let subscribeSuccessStub;
 
     beforeEach(async () => {

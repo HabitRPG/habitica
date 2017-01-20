@@ -72,6 +72,8 @@ api.subscribe = {
   url: '/paypal/subscribe',
   middlewares: [authWithUrl],
   async handler (req, res) {
+    if (!req.query.sub) throw new BadRequest(i18n.t('missingSubKey'));
+
     let sub = shared.content.subscriptionBlocks[req.query.sub];
     let coupon = req.query.coupon;
 
@@ -96,6 +98,9 @@ api.subscribeSuccess = {
   middlewares: [authWithSession],
   async handler (req, res) {
     let user = res.locals.user;
+
+    if (!req.session.paypalBlock) throw new BadRequest(i18n.t('missingPaypalBlock'));
+
     let block = shared.content.subscriptionBlocks[req.session.paypalBlock];
     let groupId = req.session.groupId;
     let token = req.query.token;
