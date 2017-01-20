@@ -198,8 +198,9 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
           .panel-heading
             span=env.t('dangerZone')
           .panel-body
-            a.btn.btn-danger(ng-click='openModal("reset", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('resetAccPop'))= env.t('resetAccount')
-            a.btn.btn-danger(ng-click='openModal("deletesocial", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover=env.t('deleteAccPop'))= env.t('deleteAccount')
+            a.btn.btn-danger(ng-click='openModal("reset", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover=env.t('resetAccPop'))= env.t('resetAccount')
+            a.btn.btn-danger(ng-if='user.auth.local.email' ng-click='openModal("deletelocal", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover=env.t('deleteAccPop'))= env.t('deleteAccount')
+            a.btn.btn-danger(ng-if='!user.auth.local.email', ng-click='openModal("deletesocial", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover=env.t('deleteAccPop'))= env.t('deleteAccount')
 
 script(type='text/ng-template', id='partials/options.settings.promo.html')
   .container-fluid

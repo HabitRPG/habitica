@@ -191,19 +191,23 @@ api.deleteUser = {
     let user = res.locals.user;
     let plan = user.purchased.plan;
 
-    // req.checkBody({
-    //   password: {
-    //     notEmpty: {errorMessage: res.t('missingPassword')},
-    //   },
-    // });
-
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    // let oldPassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
-    // if (oldPassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
-    if(req.body.password !== 'DELETE'){
-      throw new NotAuthorized(res.t('incorrectDeletePhrase'))
+    if(user.auth.local.hashed_password) {
+      req.checkBody({
+        password: {
+          notEmpty: {errorMessage: res.t('missingPassword')},
+        },
+      });
+      let oldPassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
+      if (oldPassword !== user.auth.local.hashed_password) {
+        throw new NotAuthorized(res.t('wrongPassword'))
+      }
+    } else if (user.auth.facebook.id || user.auth.google.id) {
+      if(req.body.password !== 'DELETE') {
+        throw new NotAuthorized(res.t('incorrectDeletePhrase'))
+      }
     }
 
     if (plan && plan.customerId && !plan.dateTerminated) {
