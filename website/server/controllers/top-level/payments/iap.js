@@ -2,13 +2,17 @@ import {
   authWithHeaders,
   authWithUrl,
 } from '../../../middlewares/auth';
+import shared from '../../../../common';
 import iap from '../../../libs/inAppPurchases';
 import payments from '../../../libs/payments';
 import {
   NotAuthorized,
+  BadRequest,
 } from '../../../libs/errors';
 import { model as IapPurchaseReceipt } from '../../../models/iapPurchaseReceipt';
+import {model as User } from '../../../models/user';
 import logger from '../../../libs/logger';
+import moment from 'moment';
 
 let api = {};
 
@@ -82,6 +86,123 @@ api.iapAndroidVerify = {
     });
 
     res.respond(200, googleRes);
+  },
+};
+
+/**
+ * @apiIgnore Payments are considered part of the private API
+ * @api {post} /iap/android/subscription Android Subscribe
+ * @apiName IapAndroidSubscribe
+ * @apiGroup Payments
+ **/
+api.iapsubscriptionAndroid = {
+  method: 'POST',
+  url: '/iap/android/subscribe',
+  middlewares: [authWithUrl],
+  async handler (req, res) {
+    let subCode;
+    switch (req.body.sku) {
+      case 'com.habitrpg.android.habitica.subscription.1month':
+        subCode = 'basic_earned';
+        break;
+      case 'com.habitrpg.android.habitica.subscription.3month':
+        subCode = 'basic_3mo';
+        break;
+      case 'com.habitrpg.android.habitica.subscription.6month':
+        subCode = 'basic_6mo';
+        break;
+      case 'com.habitrpg.android.habitica.subscription.12month':
+        subCode = 'basic_12mo';
+        break;
+    }
+    let sub = subCode ? shared.content.subscriptionBlocks[subCode] : false;
+
+    if (!req.body.sku) throw new BadRequest(res.t('missingSubscriptionCode'));
+
+    let user = res.locals.user;
+    let iapBody = req.body;
+
+
+    await iap.setup();
+
+    let testObj = {
+      data: iapBody.transaction.receipt,
+      signature: iapBody.transaction.signature,
+    };
+
+    let receiptObj = JSON.parse(testObj.data); // passed as a string
+    let token = receiptObj.token || receiptObj.purchaseToken;
+
+    let existingUser = await User.findOne({
+      'payments.plan.customerId': token,
+    }).exec();
+    if (existingUser) throw new NotAuthorized('RECEIPT_ALREADY_USED');
+
+    let googleRes = await iap.validate(iap.GOOGLE, testObj);
+
+    let isValidated = iap.isValidated(googleRes);
+    if (!isValidated) throw new NotAuthorized('INVALID_RECEIPT');
+
+    await payments.createSubscription({
+      user,
+      customerId: token,
+      paymentMethod: 'Google',
+      sub,
+      headers: req.headers,
+      nextPaymentProcessing: moment.utc().add({days: 2}),
+      nextBillingDate: googleRes.expirationDate,
+      additionalData: testObj,
+    });
+
+    res.respond(200);
+  },
+};
+
+/**
+ * @apiIgnore Payments are considered part of the private API
+ * @api {get} /amazon/subscribe/cancel Amazon Payments: subscribe cancel
+ * @apiName AmazonSubscribe
+ * @apiGroup Payments
+ **/
+api.subscribeCancel = {
+  method: 'GET',
+  url: '/iap/android/subscribe/cancel',
+  middlewares: [authWithUrl],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    let data;
+
+    data = user.purchased.plan.additionalData;
+
+    if (!data) throw new NotAuthorized(res.t('missingSubscription'));
+
+    await iap.setup();
+
+    let googleRes = await iap.validate(iap.GOOGLE, data);
+
+    let isValidated = iap.isValidated(googleRes);
+    if (!isValidated) throw new NotAuthorized('INVALID_RECEIPT');
+
+    let purchases = iap.getPurchaseData(googleRes);
+    if (purchases.length === 0) throw new NotAuthorized('INVALID_RECEIPT');
+    let subscriptionData = purchases[0];
+
+    let dateTerminated = new Date(Number(subscriptionData.expirationDate));
+    if (dateTerminated > new Date()) throw new NotAuthorized('SUBSCRIPTION_STILL_VALID');
+
+    await payments.cancelSubscription({
+      user,
+      nextBill: dateTerminated,
+      paymentMethod: 'Google',
+      headers: req.headers,
+    });
+
+    if (req.query.noRedirect) {
+      res.respond(200);
+    } else {
+      res.redirect('/');
+    }
   },
 };
 

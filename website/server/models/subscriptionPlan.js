@@ -16,6 +16,9 @@ export let schema = new mongoose.Schema({
   gemsBought: {type: Number, default: 0},
   mysteryItems: {type: Array, default: () => []},
   lastBillingDate: Date, // Used only for Amazon Payments to keep track of billing date
+  additionalData: mongoose.Schema.Types.Mixed,
+  nextPaymentProcessing: Date, // indicates when the queue server should process this subscription again.
+  nextBillingDate: Date, // Next time google will bill this user.
   consecutive: {
     count: {type: Number, default: 0},
     offset: {type: Number, default: 0}, // when gifted subs, offset++ for each month. offset-- each new-month (cron). count doesn't ++ until offset==0
@@ -29,6 +32,7 @@ export let schema = new mongoose.Schema({
 });
 
 schema.plugin(baseModel, {
+  private: 'additionalData',
   noSet: ['_id'],
   timestamps: false,
   _id: false,

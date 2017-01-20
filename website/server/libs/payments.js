@@ -55,6 +55,7 @@ api.createSubscription = async function createSubscription (data) {
   let itemPurchased = 'Subscription';
   let purchaseType = 'subscribe';
   let emailType = 'subscription-begins';
+  let setLastBillingDate = data.setLastBillingDate ? data.setLastBillingDate : false;
 
   //  If we are buying a group subscription
   if (data.groupId) {
@@ -105,7 +106,10 @@ api.createSubscription = async function createSubscription (data) {
       dateTerminated: null,
       // Specify a lastBillingDate just for Amazon Payments
       // Resetted every time the subscription restarts
-      lastBillingDate: data.paymentMethod === 'Amazon Payments' ? today : undefined,
+      lastBillingDate: setLastBillingDate ? today : undefined,
+      nextPaymentProcessing: data.nextPaymentProcessing,
+      nextBillingDate: data.nextBillingDate,
+      additionalData: data.additionalData,
       owner: data.user._id,
     }).defaults({ // allow non-override if a plan was previously used
       gemsBought: 0,
