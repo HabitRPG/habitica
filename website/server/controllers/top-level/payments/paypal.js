@@ -7,8 +7,6 @@ import {
 } from '../../../middlewares/auth';
 import {
   BadRequest,
-  // NotAuthorized,
-  // NotFound,
 } from '../../../libs/errors';
 
 const i18n = shared.i18n;
