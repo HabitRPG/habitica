@@ -11,17 +11,12 @@ import {
   model as Group,
   basicFields as basicGroupFields,
 } from '../models/group';
-import { model as Coupon } from '../models/coupon';
 import {
   NotAuthorized,
   NotFound,
 } from './errors';
 import slack from './slack';
 import nconf from 'nconf';
-import {
-  BadRequest,
-} from './errors';
-import cc from 'coupon-code';
 
 import stripeModule from 'stripe';
 const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
