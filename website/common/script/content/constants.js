@@ -1,5 +1,4 @@
 /* eslint-disable key-spacing */
-export const MAX_INCENTIVES = 100;
 
 export const CLASSES = [
   'warrior',

@@ -5,10 +5,10 @@ import common from '../../common/';
 import { preenUserHistory } from '../libs/preening';
 import _ from 'lodash';
 import nconf from 'nconf';
-import { MAX_INCENTIVES } from '../../common/script/content/constants';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
+const MAX_INCENTIVES = common.constants.MAX_INCENTIVES;
 const shouldDo = common.shouldDo;
 const scoreTask = common.ops.scoreTask;
 const i18n = common.i18n;
