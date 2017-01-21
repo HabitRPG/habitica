@@ -187,6 +187,24 @@ describe.only('shouldDo', () => {
     });
   });
 
-  // context('Every X Months');
+  context('Every X Months', () => {
+    it('leaves daily inactive if not the correct week of the month on the day of the start date', () => {
+      day = moment();
+      dailyTask.everyX = 2;
+      dailyTask.frequency = 'monthly';
+      day = day.add(1, 'day').toDate();
+
+      expect(shouldDo(day, dailyTask, options)).to.equal(false);
+    });
+
+    it('activates Daily on matching day of month', () => {
+      day = moment();
+      dailyTask.everyX = 2;
+      dailyTask.frequency = 'monthly';
+      day = day.add(2, 'months').toDate();
+
+      expect(shouldDo(day, dailyTask, options)).to.equal(true);
+    });
+  });
   // context('Every X Years');
 });

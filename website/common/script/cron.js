@@ -120,7 +120,9 @@ export function shouldDo (day, dailyTask, options = {}) {
 
     let schedule = moment(dailyTask.startDate).recur();
 
-    if (dailyTask.weeksOfMonth) {
+    if (dailyTask.everyX > 1) {
+      schedule.every(dailyTask.everyX).months();
+    } else if (dailyTask.weeksOfMonth) {
       schedule = schedule.every(daysOfTheWeek).daysOfWeek()
                         .every(dailyTask.weeksOfMonth).weeksOfMonth();
     } else {
