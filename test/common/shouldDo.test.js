@@ -73,7 +73,7 @@ describe.only('shouldDo', () => {
     });
   });
 
-  context.only('Every X Weeks', () => {
+  context('Every X Weeks', () => {
     it('leaves daily inactive if it has not been the specified number of weeks', () => {
       dailyTask.everyX = 3;
       let tomorrow = moment().add(1, 'day').toDate();

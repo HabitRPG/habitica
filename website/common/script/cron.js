@@ -106,7 +106,12 @@ export function shouldDo (day, dailyTask, options = {}) {
     return false; // Daily starts in the future
   }
 
-  if (dailyTask.frequency === 'weekly') {
+  if (dailyTask.frequency === 'daily') {
+    if (!dailyTask.everyX) return false; // error condition
+    let schedule = moment(dailyTask.startDate).recur()
+      .every(dailyTask.everyX).days();
+    return schedule.matches(day);
+  } else if (dailyTask.frequency === 'weekly') {
     let daysOfTheWeek = [];
 
     if (dailyTask.repeat.su) daysOfTheWeek.push(0);
@@ -117,28 +122,29 @@ export function shouldDo (day, dailyTask, options = {}) {
     if (dailyTask.repeat.f) daysOfTheWeek.push(5);
     if (dailyTask.repeat.s) daysOfTheWeek.push(6);
 
-    console.log(day, daysOfTheWeek)
     let schedule = moment(dailyTask.startDate).recur()
       .every(dailyTask.everyX).weeks().every(daysOfTheWeek).daysOfWeek();
-      console.log(schedule.next(2, 'L'))
+      // console.log(schedule.next(2, 'L'))
     return schedule.matches(day);
   }
 
-  if (dailyTask.frequency === 'daily') { // "Every X Days"
-    if (!dailyTask.everyX) {
-      return false; // error condition
-    }
-    let daysSinceTaskStart = startOfDayWithCDSTime.startOf('day').diff(taskStartDate, 'days');
+  return false;
 
-    return daysSinceTaskStart % dailyTask.everyX === 0;
-  } else if (dailyTask.frequency === 'weekly') { // "On Certain Days of the Week"
-    if (!dailyTask.repeat) {
-      return false; // error condition
-    }
-    let dayOfWeekNum = startOfDayWithCDSTime.day(); // e.g., 0 for Sunday
-
-    return dailyTask.repeat[DAY_MAPPING[dayOfWeekNum]];
-  } else {
-    return false; // error condition - unexpected frequency string
-  }
+  // if (dailyTask.frequency === 'daily') { // "Every X Days"
+  //   if (!dailyTask.everyX) {
+  //     return false; // error condition
+  //   }
+  //   let daysSinceTaskStart = startOfDayWithCDSTime.startOf('day').diff(taskStartDate, 'days');
+  //
+  //   return daysSinceTaskStart % dailyTask.everyX === 0;
+  // } else if (dailyTask.frequency === 'weekly') { // "On Certain Days of the Week"
+  //   if (!dailyTask.repeat) {
+  //     return false; // error condition
+  //   }
+  //   let dayOfWeekNum = startOfDayWithCDSTime.day(); // e.g., 0 for Sunday
+  //
+  //   return dailyTask.repeat[DAY_MAPPING[dayOfWeekNum]];
+  // } else {
+  //   return false; // error condition - unexpected frequency string
+  // }
 }
