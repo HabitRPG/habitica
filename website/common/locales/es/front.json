@@ -267,5 +267,5 @@
     "memberIdRequired": "\"member\" debe ser una UUID válida. ",
     "heroIdRequired": "\"herold\" debe ser una UUID válida.",
     "cannotFulfillReq": "Tu petición no puede ser cumplida. Mánda un email a admin@habitica.com si el error persiste.",
-    "modelNotFound": "This model does not exist."
+    "modelNotFound": "Este modelo no existe."
 }
