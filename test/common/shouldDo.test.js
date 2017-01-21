@@ -68,6 +68,28 @@ describe.only('shouldDo', () => {
       }
     });
 
+    it('leaves Daily inactive if day of the week does not match and active on the day it matches', () => {
+      dailyTask.repeat = {
+        su: false,
+        s: false,
+        f: false,
+        th: true,
+        w: false,
+        t: false,
+        m: false,
+      };
+
+      for (let weekday of [0, 1, 2, 3, 4, 5, 6]) {
+        day = moment().add(1, 'weeks').day(weekday).toDate();
+
+        if (weekday === 4) {
+          expect(shouldDo(day, dailyTask, options)).to.equal(true);
+        } else {
+          expect(shouldDo(day, dailyTask, options)).to.equal(false);
+        }
+      }
+    });
+
     it('activates Daily on matching days of the week', () => {
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
     });

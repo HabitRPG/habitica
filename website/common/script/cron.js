@@ -18,6 +18,8 @@ export const DAY_MAPPING = {
   6: 's',
 };
 
+const DAY_MAPPING_STRING_TO_NUMBER = _.invert(DAY_MAPPING)
+
 /*
   Each time we perform date maths (cron, task-due-days, etc), we need to consider user preferences.
   Specifically {dayStart} (custom day start) and {timezoneOffset}. This function sanitizes / defaults those values.
@@ -93,18 +95,19 @@ export function shouldDo (day, dailyTask, options = {}) {
   if (dailyTask.type !== 'daily') {
     return false;
   }
-  let o = sanitizeOptions(options);
-  let startOfDayWithCDSTime = startOfDay(_.defaults({ now: day }, o));
 
-  // The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it.
-  // Therefore, we must also ignore the time portion of the user's day start (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
-  // NB: The user's day start date has already been converted to the PREVIOUS day's date if the time portion was before CDS.
-  let taskStartDate = moment(dailyTask.startDate).zone(o.timezoneOffset);
-
-  taskStartDate = moment(taskStartDate).startOf('day');
-  if (taskStartDate > startOfDayWithCDSTime.startOf('day')) {
-    return false; // Daily starts in the future
-  }
+  // let o = sanitizeOptions(options);
+  // let startOfDayWithCDSTime = startOfDay(_.defaults({ now: day }, o));
+  //
+  // // The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it.
+  // // Therefore, we must also ignore the time portion of the user's day start (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
+  // // NB: The user's day start date has already been converted to the PREVIOUS day's date if the time portion was before CDS.
+  // let taskStartDate = moment(dailyTask.startDate).zone(o.timezoneOffset);
+  //
+  // taskStartDate = moment(taskStartDate).startOf('day');
+  // if (taskStartDate > startOfDayWithCDSTime.startOf('day')) {
+  //   return false; // Daily starts in the future
+  // }
 
   if (dailyTask.frequency === 'daily') {
     if (!dailyTask.everyX) return false; // error condition
@@ -113,18 +116,18 @@ export function shouldDo (day, dailyTask, options = {}) {
     return schedule.matches(day);
   } else if (dailyTask.frequency === 'weekly') {
     let daysOfTheWeek = [];
+    for (let [repeatDay, active] of Object.entries(dailyTask.repeat)) {
+      if (active) daysOfTheWeek.push(parseInt(DAY_MAPPING_STRING_TO_NUMBER[repeatDay]))
+    }
 
-    if (dailyTask.repeat.su) daysOfTheWeek.push(0);
-    if (dailyTask.repeat.m) daysOfTheWeek.push(1);
-    if (dailyTask.repeat.t) daysOfTheWeek.push(2);
-    if (dailyTask.repeat.w) daysOfTheWeek.push(3);
-    if (dailyTask.repeat.th) daysOfTheWeek.push(4);
-    if (dailyTask.repeat.f) daysOfTheWeek.push(5);
-    if (dailyTask.repeat.s) daysOfTheWeek.push(6);
+    let schedule = moment(dailyTask.startDate).recur();
 
-    let schedule = moment(dailyTask.startDate).recur()
-      .every(dailyTask.everyX).weeks().every(daysOfTheWeek).daysOfWeek();
-      // console.log(schedule.next(2, 'L'))
+    if (dailyTask.everyX > 1) {
+      schedule = schedule.every(dailyTask.everyX).weeks();
+    }
+
+    schedule = schedule.every(daysOfTheWeek).daysOfWeek();
+      // console.log(schedule.next(8, 'L'))
     return schedule.matches(day);
   }
 
