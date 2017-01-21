@@ -43,7 +43,7 @@
     "icicleDrakeSet": "Icicle Drake (Rogue)",
     "soothingSkaterSet": "Soothing Skater (Healer)",
     "gingerbreadSet": "Gingerbread Warrior (Warrior)",
-    "snowDaySet": "Snow Day Warrior (Warrior)",
+    "snowDaySet": "酷寒戰士（戰士）",
     "snowboardingSet": "Snowboarding Sorcerer (Mage)",
     "festiveFairySet": "Festive Fairy (Healer)",
     "cocoaSet": "Cocoa Rogue (Rogue)",
@@ -53,7 +53,7 @@
     "nyeCardNotes": "寄送新年賀卡給隊伍成員。",
     "seasonalItems": "季節限定物品",
     "nyeCardAchievementTitle": "奧爾德熟人",
-    "nyeCardAchievementText": "Happy New Year! Sent or received <%= count %> New Year's cards.",
+    "nyeCardAchievementText": "新年快樂！（鞭炮～）接受或送出 <%= count %> 張新年賀卡。",
     "nye0": "新年快樂! 希望你能順利根除壞習慣。",
     "nye1": "新年快樂! 希望你能收到更多獎勵。",
     "nye2": "新年快樂! 希望你能完成更多完美日。",
@@ -84,8 +84,8 @@
     "stitchWitchSet": "Stitch Witch (Mage)",
     "potionerSet": "Potioner (Healer)",
     "battleRogueSet": "Bat-tle Rogue (Rogue)",
-    "fallEventAvailability": "Available for purchase until October 31.",
-    "winterEventAvailability": "Available for purchase until January 31.",
-    "springEventAvailability": "Available for purchase until May 31.",
-    "summerEventAvailability": "Available for purchase until August 31."
+    "fallEventAvailability": "只能在 12月31號前購買喔。",
+    "winterEventAvailability": "只能在 1月31號前購買喔。",
+    "springEventAvailability": "只能在 5月31號前購買喔。",
+    "summerEventAvailability": "只能在 8月31號前購買喔。"
 }

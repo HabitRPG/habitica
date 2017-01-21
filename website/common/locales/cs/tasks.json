@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Vymaž dokončené",
-    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
+    "lotOfToDos": "Zde vidíš svých posledních 30 splněných úkolů z Úkolníčku. Starší splněné úkoly můžeš najít v Data > Nástroj zobrazení dat nebo Data > Export dat > Data uživatele.",
     "deleteToDosExplanation": "Po kliknutí na toto tlačítko se permanentně smažou všechny tvé splněné a archivované úkoly. Chceš-li si o nich vést záznamy, nejdřív si je exportuj.",
     "addmultiple": "Přidat více",
     "addsingle": "Přidat jeden",
@@ -103,7 +103,7 @@
     "habitHelp1": "Dobré zvyky jsou věci, které děláš často. Získáš za ně Zlaťáky a Zkušenost pokaždé, když klikneš na <%= plusIcon %>.",
     "habitHelp2": "Zlozvyky jsou věci, kterých se chceš vyvarovat. Ubírají ti Zdraví pokaždé, když klikneš na <%= minusIcon %>.",
     "habitHelp3": "Pro inspiraci se můžeš podívat na tyhle <a href='http://habitica.wikia.com/wiki/Sample_Habits' target='_blank'>ukázkové Zvyky</a>!",
-    "newbieGuild": "Máš další otázky? Zeptej se v <%= linkStart %>Cechu pro nováčky<%= linkEnd %>!",
+    "newbieGuild": "More questions? Ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>!",
     "dailyHelp1": "Denní úkoly se opakují <%= emphasisStart %>každý den<%= emphasisEnd %>, ve kterém jsou aktivní. Klikni na <%= pencilIcon %> abys mohl změnit, ve které dny má být Denné úkol aktivní.",
     "dailyHelp2": "Pokud nesplníš své Denní úkoly do nastaveného konce dne, přijdeš o zdraví.",
     "dailyHelp3": "Dení úkoly budou stále <%= emphasisStart %>červenější<%= emphasisEnd %>, když je zmeškáš a <%= emphasisStart %>modřejší<%= emphasisEnd %>, když je budeš plnit. Čím červenější je Denní úkol, tím větší dostaneš odměnu za jeho splnění.... a taky tím vyšší bude újma, kterou ti způsobí.",

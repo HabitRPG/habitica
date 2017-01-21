@@ -99,6 +99,7 @@ describe('POST /tasks/:taskId', () => {
     let updateGroup = await user.get(`/groups/${guild._id}`);
 
     expect(updateGroup.chat[0].text).to.equal(t('userIsClamingTask', {username: member.profile.name, task: task.text}));
+    expect(updateGroup.chat[0].uuid).to.equal('system');
   });
 
   it('assigns a task to a user', async () => {

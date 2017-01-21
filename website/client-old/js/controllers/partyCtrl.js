@@ -1,7 +1,7 @@
 'use strict';
 
-habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social', 'Achievement',
-    function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social, Achievement) {
+habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social', 'Achievement', 'Members', 'Tasks',
+    function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social, Achievement, Members, Tasks) {
 
       var PARTY_LOADING_MESSAGES = 4;
 
@@ -22,7 +22,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       function handlePartyResponse (group) {
         // Assign and not replace so that all the references get the modifications
         _.assign($rootScope.party, group);
-        $scope.group = $rootScope.party;
+        $scope.obj = $scope.group = $rootScope.party;
         $scope.group.loadingParty = false;
         checkForNotifications();
         if ($state.is('options.social.party')) {
@@ -44,7 +44,40 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
               }
             }, 100);
           }
-          Chat.markChatSeen($scope.group._id);
+          Chat.markChatSeen($scope.group._id)
+          .then (function () {
+            return Members.getGroupMembers($scope.group._id, true);
+          })
+          .then(function (response) {
+            $scope.group.members = response.data.data;
+
+            return Members.getGroupInvites($scope.group._id);
+          })
+          .then(function (response) {
+            $scope.group.invites = response.data.data;
+
+            return Challenges.getGroupChallenges($scope.group._id);
+          })
+          .then(function (response) {
+            $scope.group.challenges = response.data.data;
+
+            return Tasks.getGroupTasks($scope.group._id);
+          })
+          .then(function (response) {
+            var tasks = response.data.data;
+            tasks.forEach(function (element, index, array) {
+              if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
+              $scope.group[element.type + 's'].unshift(element);
+            });
+
+            $scope.group.approvals = [];
+            if (User.user._id === $scope.group.leader._id) {
+              return Tasks.getGroupApprovals($scope.group._id);
+            }
+          })
+          .then(function (response) {
+            if (response) $scope.group.approvals = response.data.data;
+          });
         }
       }
 

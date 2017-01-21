@@ -1,18 +1,19 @@
 <template lang="pug">
 .row
-  .sixteen.wide.column
-      p You have {{tasksCount}} tasks!
   .four.wide.column(v-for="taskType in tasksTypes")
-    h3 {{taskType}}s ()
+    h3 {{taskType}}s
     ul
-      li(v-for="task in tasks", v-if="task.type === taskType", :key="task.id")
-        span {{task.text}}
+      task(v-for="task in tasks", v-if="task.type === taskType", :key="task.id", :task="task")
 </template>
 
 <script>
+import Task from './task';
 import { mapState } from '../store';
 
 export default {
+  components: {
+    Task,
+  },
   data () {
     return {
       tasksTypes: ['habit', 'daily', 'todo', 'reward'],
@@ -20,9 +21,6 @@ export default {
   },
   computed: {
     ...mapState(['tasks']),
-    ...mapState({
-      tasksCount: (state) => state.tasks.length,
-    }),
   },
 };
 </script>

@@ -1,0 +1,16 @@
+{
+  "unlockedReward": "Vous avez remporté <%= reward %>",
+  "earnedRewardForDevotion": "Votre persévérance à améliorer votre vie vous permet de remporter ceci : <%= reward %> .",
+  "nextRewardUnlocksIn": "Votre prochain prix se débloquera après <%= numberOfCheckinsLeft %> connexions supplémentaires !",
+  "awesome": "Génial !",
+  "totalCount": "<%= count %> au total",
+  "countLeft": "<%= count %> connexions supplémentaires jusqu'à la prochaine récompense",
+  "incentivesDescription": "Lorsqu'il s'agit de construire des habitudes, la constance est la clé. Chaque jour de connexion vous rapproche d'un prix.",
+  "totalCheckins": "<%= count %> connexions",
+  "checkinEarned": "Votre compteur de connexion a augmenté !",
+  "unlockedCheckInReward": "Vous avez débloqué un prix de connexion !",
+  "totalCheckinsTitle": "Nombre de connexions totales",
+  "checkinProgressTitle": "Progrès jusqu'au prochain",
+  "incentiveBackgroundsUnlockedWithCheckins": "Ces arrière-plans se débloqueront avec les connexions quotidiennes.",
+  "moreIncentivesComingSoon": "De nouvelles récompenses de connexion vont être ajoutées !"
+}

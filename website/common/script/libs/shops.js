@@ -233,6 +233,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   };
 
   const AVAILABLE_SPELLS = [
+    'snowball',
   ];
 
   const AVAILABLE_QUESTS = [
@@ -264,6 +265,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
         currency: 'gold',
         locked: false,
         purchaseType: 'spells',
+        class: `inventory_special_${key}`,
       };
     });
 
@@ -323,6 +325,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
           locked: false,
           currency: 'gems',
           purchaseType: 'gear',
+          class: `shop_${gear.key}`,
         };
       }).value();
       if (category.items.length > 0) {

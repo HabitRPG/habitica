@@ -3,29 +3,45 @@
 #app-menu.ui.top.fixed.menu
   .header.item
     img(src="~assets/header/png/logo@3x.png")
-  router-link.item(to="/", exact) Tasks
+  router-link.item(:to="{name: 'tasks'}", exact) 
+    span(v-once) {{ $t('tasks') }}
   // .simple makes it possible to have a dropdown without JS
   .ui.simple.dropdown
-    router-link.item(to="/inventory", :class="{'router-link-active': $route.path.startsWith('/inventory')}") Inventory
+    router-link.item(:to="{name: 'inventory'}", :class="{'active': $route.path.startsWith('/inventory')}") 
+      span(v-once) {{ $t('inventory') }}
     .menu
-      router-link.item(to="/inventory") Inventory
-      router-link.item(to="/inventory/stable") Stable
-      router-link.item(to="/inventory/equipment") Equipment
-  router-link.item(to="/market") Market
+      router-link.item(:to="{name: 'inventory'}") 
+        span(v-once) {{ $t('inventory') }}
+      router-link.item(:to="{name: 'equipment'}") 
+        span(v-once) {{ $t('equipment') }}
+      router-link.item(:to="{name: 'stable'}") 
+        span(v-once) {{ $t('stable') }}
+  router-link.item(:to="{name: 'market'}") 
+    span(v-once) {{ $t('market') }}
   .ui.simple.dropdown
-    router-link.item(to="/social/tavern", :class="{'router-link-active': $route.path.startsWith('/social')}") Social
+    router-link.item(:to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/social')}") 
+      span(v-once) {{ $t('social') }}
     .menu
-      router-link.item(to="/social/tavern") Tavern
-      router-link.item(to="/social/inbox") Inbox
-      router-link.item(to="/social/challenges") Challenges
-      router-link.item(to="/social/party") Party
-      router-link.item(to="/social/guilds") Guilds
+      router-link.item(:to="{name: 'tavern'}") 
+        span(v-once) {{ $t('tavern') }}
+      router-link.item(:to="{name: 'inbox'}") 
+        span(v-once) {{ $t('inbox') }}
+      router-link.item(:to="{name: 'challenges'}") 
+        span(v-once) {{ $t('challenges') }}
+      router-link.item(:to="{name: 'party'}") 
+        span(v-once) {{ $t('party') }}
+      router-link.item(:to="{name: 'guilds'}") 
+        span(v-once) {{ $t('guilds') }}
   .ui.simple.dropdown
-    router-link.item(to="/help", :class="{'router-link-active': $route.path.startsWith('/help')}") Help
+    router-link.item(to="/help", :class="{'active': $route.path.startsWith('/help')}") 
+      span(v-once) {{ $t('help') }}
     .menu
-      router-link.item(to="/help/faq") Faq
-      router-link.item(to="/help/report-bug") Report a bug
-      router-link.item(to="/help/request-feature") Request a feature
+      router-link.item(to="/help/faq") 
+        span(v-once) {{ $t('faq') }}
+      router-link.item(to="/help/report-bug") 
+        span(v-once) {{ $t('reportBug') }}
+      router-link.item(to="/help/request-feature") 
+        span(v-once) {{ $t('requestAF') }}
   .right.menu
     .item.with-img
       img(src="~assets/header/png/gem@3x.png")
@@ -36,20 +52,24 @@
     a.item.with-img.notifications-dropdown
       img(src="~assets/header/png/notifications@3x.png")
     .ui.simple.dropdown.pointing
-      router-link.item.with-img.user-dropdown(to="/user/avatar")
+      router-link.item.with-img.user-dropdown(:to="{name: 'avatar'}")
         // TODO icons should be white when active
         img(src="~assets/header/png/user@3x.png")
       .menu
         .item.user-edit-avatar
           strong {{user.profile.name}}
-          a Edit avatar
+          a(v-once) {{ $t('editAvatar') }}
         .divider
-        router-link.item(to="/user/stats") Stats
-        router-link.item(to="/user/achievements") Achievements
+        router-link.item(:to="{name: 'stats'}") 
+          span(v-once) {{ $t('stats') }}
+        router-link.item(:to="{name: 'achievements'}") 
+          span(v-once) {{ $t('achievements') }}
         .divider
-        router-link.item(to="/user/settings") Settings
+        router-link.item(:to="{name: 'settings'}") 
+          span(v-once) {{ $t('settings') }}
         .divider
-        router-link.item(to="/logout") Logout
+        router-link.item(to="/logout") 
+          span(v-once) {{ $t('logout') }}
 </template>
 
 <style lang="less">
@@ -106,7 +126,7 @@
   margin-left: 10px;
 }
 
-.ui.menu .right.menu .ui.simple.dropdown > .item::before {
+#app-menu .ui.menu .right.menu .ui.simple.dropdown > .item::before {
   right: auto;
   left: 0;
 }
@@ -127,13 +147,13 @@
   background-color: #6133b4;
 }
 
-#app-menu > .item.router-link-active, #app-menu > .dropdown > .item.router-link-active {
+#app-menu > .item.active, #app-menu > .dropdown > .item.active {
   box-shadow: 0px -4px 0px #6133b4 inset;
 }
 
 #app-menu > .dropdown > .menu {
   border: none;
-  background-color:rgba(0, 0, 0, 0.5); // transparent
+  background-color: rgba(0, 0, 0, 0.5); // transparent
 }
 
 #app-menu > .dropdown > .menu > .item:last-child {
@@ -146,6 +166,10 @@
   background: #6133b4 !important;
   color: #fff !important;
   padding: 6px 0px 6px 20px !important;
+}
+
+#app-menu .dropdown .menu .item.active {
+  font-weight: normal !important;
 }
 
 #app-menu > .dropdown .menu > .item:hover {

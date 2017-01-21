@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Slet Færdiggjorte",
-    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
+    "lotOfToDos": "Dine 30 senest afsluttede To-dos er vist her. Du kan se ældre afsluttede To-Dos i Data > Datavisningsværktøj eller Data > Dataeksport > Brugerdata",
     "deleteToDosExplanation": "Hvis du trykker på knappen nedenunder vil alle dine færdiggjorte To-Dos og arkiverede To-Dos permanent blive slettet. Eksporter dem først, hvis du vil beholde en optegnelse af dem.",
     "addmultiple": "Tilføj Flere",
     "addsingle": "Tilføj Én",
@@ -103,7 +103,7 @@
     "habitHelp1": "Gode Vaner er noget du ofte gør. De giver Guld og Erfaring hver gang du klikker på <%= plusIcon %>.",
     "habitHelp2": "Dårlige Vaner er noget du gerne vil undgå at gøre. De fjerner Liv hver gang du klikker på <%= minusIcon %>.",
     "habitHelp3": "For inspiration, se disse <a href='http://habitica.wikia.com/wiki/Sample_Habits' target='_blank'> eksempler på Vaner</a>!",
-    "newbieGuild": "Nogen spørgmål? Spørg inde i <%= linkStart %>Newbies Guild<%= linkEnd %>",
+    "newbieGuild": "More questions? Ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>!",
     "dailyHelp1": "Daglige gentages <%= emphasisStart %>hver dag<%= emphasisEnd %> de er aktive. Klik på <%= pencilIcon %> for at ændre hvilke dage en Daglig er aktiv.",
     "dailyHelp2": "Hvis du ikke færdiggør aktive Daglige, mister du Liv, når dagen er ovre.",
     "dailyHelp3": "De Daglige opgaver bliver gradvist <%= emphasisStart %>mere røde<%= emphasisEnd %>, når du springer dem over, og <%= emphasisStart %>mere blå<%= emphasisEnd %>, når du klarer dem. Desto mere røde den Daglige er, jo større belønning giver den... eller større skade.",

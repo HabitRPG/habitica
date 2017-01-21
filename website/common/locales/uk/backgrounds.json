@@ -1,9 +1,9 @@
 {
     "backgrounds": "Задні плани",
-    "background": "Background",
+    "background": "Тло",
     "backgroundShop": "Background Shop",
     "backgroundShopText": "Background Shop",
-    "noBackground": "No Background Selected",
+    "noBackground": "Тло не обрано",
     "backgrounds062014": "Набір 1: Випущений у червні 2014",
     "backgroundBeachText": "Пляж",
     "backgroundBeachNotes": "Побайдикуйте на теплому пляжі",
@@ -231,5 +231,12 @@
     "backgroundWinterFireworksText": "Winter Fireworks",
     "backgroundWinterFireworksNotes": "Set off Winter Fireworks.",
     "backgroundWinterStorefrontText": "Winter Shop",
-    "backgroundWinterStorefrontNotes": "Purchase presents from a Winter Shop."
+    "backgroundWinterStorefrontNotes": "Purchase presents from a Winter Shop.",
+    "backgrounds012017": "SET 32: Released January 2017",
+    "backgroundBlizzardText": "Blizzard",
+    "backgroundBlizzardNotes": "Brave a fierce Blizzard.",
+    "backgroundSparklingSnowflakeText": "Sparkling Snowflake",
+    "backgroundSparklingSnowflakeNotes": "Glide on a Sparkling Snowflake.",
+    "backgroundStoikalmVolcanoesText": "Stoïkalm Volcanoes",
+    "backgroundStoikalmVolcanoesNotes": "Explore the Stoïkalm Volcanoes."
 }

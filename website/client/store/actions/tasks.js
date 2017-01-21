@@ -1,6 +1,6 @@
-import Vue from 'vue';
+import axios from 'axios';
 
 export async function fetchUserTasks (store) {
-  let response = await Vue.http.get('/api/v3/tasks/user');
-  store.state.tasks = response.body.data;
+  let response = await axios.get('/api/v3/tasks/user');
+  store.state.tasks = response.data.data;
 }

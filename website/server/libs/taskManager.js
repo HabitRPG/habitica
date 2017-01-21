@@ -107,6 +107,8 @@ export async function getTasks (req, res, options = {}) {
   } = options;
 
   let query = {userId: user._id};
+  let limit;
+  let sort;
   let owner = group || challenge || user;
 
   if (challenge) {
@@ -122,18 +124,21 @@ export async function getTasks (req, res, options = {}) {
       query.completed = false; // Exclude completed todos
       query.type = 'todo';
     } else if (type === 'completedTodos' || type === '_allCompletedTodos') { // _allCompletedTodos is currently in BETA and is likely to be removed in future
-      let limit = 30;
+      limit = 30;
 
       if (type === '_allCompletedTodos') {
         limit = 0; // no limit
       }
-      query = Tasks.Task.find({
+
+      query = {
         userId: user._id,
         type: 'todo',
         completed: true,
-      }).limit(limit).sort({
+      };
+
+      sort = {
         dateCompleted: -1,
-      });
+      };
     } else {
       query.type = type.slice(0, -1); // removing the final "s"
     }
@@ -144,7 +149,11 @@ export async function getTasks (req, res, options = {}) {
     ];
   }
 
-  let tasks = await Tasks.Task.find(query).exec();
+  let mQuery = Tasks.Task.find(query);
+  if (limit) mQuery.limit(limit);
+  if (sort) mQuery.sort(sort);
+
+  let tasks = await mQuery.exec();
 
   // Order tasks based on tasksOrder
   if (type && type !== 'completedTodos' && type !== '_allCompletedTodos') {
@@ -178,4 +187,33 @@ export function syncableAttrs (task) {
   let omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt', 'group', 'checklist'];
   if (t.type !== 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
+}
+
+/**
+ * Moves a task to a specified position.
+ *
+ * @param  order  The list of ordered tasks
+ * @param  taskId  The Task._id of the task to move
+ * @param  to A integer specifiying the index to move the task to
+ *
+ * @return Empty
+ */
+export function moveTask (order, taskId, to) {
+  let currentIndex = order.indexOf(taskId);
+
+  // If for some reason the task isn't ordered (should never happen), push it in the new position
+  // if the task is moved to a non existing position
+  // or if the task is moved to position -1 (push to bottom)
+  // -> push task at end of list
+  if (!order[to] && to !== -1) {
+    order.push(taskId);
+    return;
+  }
+
+  if (currentIndex !== -1) order.splice(currentIndex, 1);
+  if (to === -1) {
+    order.push(taskId);
+  } else {
+    order.splice(to, 0, taskId);
+  }
 }

@@ -59,7 +59,7 @@
     "conLearnURL": "http://habitica.wikia.com/wiki/Contributing_to_Habitica",
     "conRewardsURL": "http://habitica.wikia.com/wiki/Contributor_Rewards",
     "surveysSingle": "Pomógł rozwinąć Habitica poprzez wypełnienie ankiet lub testowanie. Dziękujemy!",
-    "surveysMultiple": "Helped Habitica grow on <%= count %> occasions, either by filling out a survey or helping with a major testing effort. Thank you!",
+    "surveysMultiple": "Pomagał w rozwoju Habitici przy <%= count %> okazjach, czy to wypełniając ankiety, czy też wkładając dużo wysiłku w testowanie. Dziękujemy!",
     "currentSurvey": "Bieżąca ankieta.",
     "surveyWhen": "Odznaki zostaną przyznane wszystkim biorącym udział, gdy zgłoszenia zostaną przetworzone pod koniec marca.",
     "blurbInbox": "Tutaj trzymane są twoje prywatne wiadomości! Możesz wysłać komuś wiadomość klikając na ikonę koperty obok jego nazwy w Karczmie, Drużynie lub na czacie Gildii. Jeśli otrzymałeś nieodpowiednią wiadomość prywatną, powinieneś wysłać zrzut ekranu do Lemoness (<a href=\"mailto:leslie@habitica.com\">leslie@habitica.com</a>)",

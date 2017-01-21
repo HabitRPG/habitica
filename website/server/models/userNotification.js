@@ -17,6 +17,7 @@ const NOTIFICATION_TYPES = [
   'LOGIN_INCENTIVE',
   'GROUP_INVITE_ACCEPTED',
   'SCORED_TASK',
+  'BOSS_DAMAGE', // Not used currently but kept to avoid validation errors
 ];
 
 const Schema = mongoose.Schema;

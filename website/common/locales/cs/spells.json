@@ -54,6 +54,7 @@
     "partyNotFound": "Družina nenalezena",
     "targetIdUUID": "„cílovéId\" musí být platné ID uživatele. ",
     "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
+    "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "Nevlastníte tuto schopnost.",
     "spellLevelTooHigh": "Pro použití této schopnosti musíte být úroveň <%= level %>."
 }

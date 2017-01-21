@@ -266,5 +266,6 @@
     "invalidReqParams": "פרמטרי בקשה שגויים.",
     "memberIdRequired": "״משתמש״ חייב להיות מזהה משתמש תקין.",
     "heroIdRequired": "״heroId״ חייב להיות מזהה משתמש תקין.",
-    "cannotFulfillReq": "הבקשה שלכם לא יכולה להתמלא. שלחו מייל ל admin@habitica.com אם הבעיה נמשכת."
+    "cannotFulfillReq": "הבקשה שלכם לא יכולה להתמלא. שלחו מייל ל admin@habitica.com אם הבעיה נמשכת.",
+    "modelNotFound": "This model does not exist."
 }

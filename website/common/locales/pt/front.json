@@ -8,7 +8,7 @@
     "autumnesquirrelQuote": "Estou procrastinando menos nas tarefas e pagando minhas contas em dia.",
     "businessSample1": "Confirme 1 página de Inventário",
     "businessSample2": "20 minutos de Arquivamento",
-    "businessSample3": "Classificar e processar Caixa de Entrada",
+    "businessSample3": "Ordenar e Processar Caixa de Entrada",
     "businessSample4": "Prepare 1 documento para cliente",
     "businessSample5": "Ligue para clientes/Adie telefonemas",
     "businessText": "Use Habitica no seu trabalho",
@@ -266,5 +266,6 @@
     "invalidReqParams": "Parâmetros requeridos inválidos.",
     "memberIdRequired": "\"member\" precisa ser um UUID válido.",
     "heroIdRequired": "\"heroId\" precisa ser um UUID válido.",
-    "cannotFulfillReq": "Sua solicitação não pode ser atendida.  Envie um e-mail para admin@habitica.com se isto persistir."
+    "cannotFulfillReq": "Sua solicitação não pode ser atendida.  Envie um e-mail para admin@habitica.com se isto persistir.",
+    "modelNotFound": "This model does not exist."
 }

@@ -93,7 +93,7 @@
     "guildQuestsNotSupported": "公會不能邀請任務。",
     "questNotFound": "找不到任務 \"<%= key %>\"。",
     "questNotOwned": "你不擁有這件任務卷軸。",
-    "questNotGoldPurchasable": "Quest \"<%= key %>\" is not a Gold-purchasable quest.",
+    "questNotGoldPurchasable": "任務 \"<%= key %>\" 不是可用金幣購買的任務。",
     "questLevelTooHigh": "你必須達到等級 <%= level %> 才能開始這個任務。",
     "questAlreadyUnderway": "你的隊伍正在進行任務。請在任務結束後再試一次。",
     "questAlreadyAccepted": "You already accepted the quest invitation.",

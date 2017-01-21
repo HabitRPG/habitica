@@ -101,7 +101,7 @@ mixin customizeProfile(mobile)
           +buyPref('hair.color', ['rainbow','yellow','green','purple','blue','TRUred'], 'rainbowColors')
           +buyPref('hair.color', ['pblue2','pgreen2','porange2','ppink2','ppurple2','pyellow2'], 'shimmerColors', 'disabled')
           +buyPref('hair.color', ['candycorn','ghostwhite','halloween','midnight','pumpkin','zombie'], 'hauntedColors', 'disabled')
-          +buyPref('hair.color', ['aurora','festive','hollygreen','peppermint','snowy','winterstar'], 'winteryColors', 'disabled')
+          +buyPref('hair.color', ['aurora','festive','hollygreen','peppermint','snowy','winterstar'], 'winteryColors')
 
           li.customize-menu
             menu(label=env.t('bodyHair'))
@@ -177,6 +177,7 @@ mixin customizeProfile(mobile)
           +buyPref('skin', ['monster','pumpkin','skeleton','zombie','ghost','shadow'], 'spookySkins', 'disabled')
           +buyPref('skin', ['candycorn','ogre','pumpkin2','reptile','shadow2','skeleton2','transparent','zombie2'], 'supernaturalSkins', 'disabled')
           +buyPref('skin', ['clownfish','deepocean','merblue','mergold','mergreen','merruby','shark','tropicalwater'], 'splashySkins', 'disabled')
+          +buyPref('skin', ['aurora','dapper','festive','holly','polar','sugar','snowy','winterstar'], 'winterySkins')
 
 
 script(id='partials/options.profile.avatar.html', type='text/ng-template')
@@ -274,7 +275,7 @@ script(id='partials/options.profile.profile.html', type='text/ng-template')
         h4=env.t('totalCheckinsTitle')
         span {{env.t('totalCheckins', {count: user.loginIncentives})}}
       .col-md-6
-        h4=env.t('checkinProgressTitle')
+        h4
           | {{::getProgressDisplay()}}
         .progress
           .progress-bar(role='progressbar', aria-valuenow='{{::incentivesProgress()}}', aria-valuemin='0', aria-valuemax='100', style='width: {{::incentivesProgress()}}%;')

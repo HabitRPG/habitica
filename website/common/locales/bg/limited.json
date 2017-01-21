@@ -7,7 +7,7 @@
     "alarmingFriends": "Обезпокоителни приятели",
     "alarmingFriendsText": "Превърнат(а) в дух <%= count %> пъти от членовете на групата.",
     "agriculturalFriends": "Селскостопански приятели",
-    "agriculturalFriendsText": "Превърнат(а) в цвете <%= count %>пъти от членовете на групата.",
+    "agriculturalFriendsText": "Превърнат(а) в цвете <%= count %> пъти от членовете на групата.",
     "aquaticFriends": "Водни приятели",
     "aquaticFriendsText": "Изпръскан(а) <%= count %> пъти от членовете на групата.",
     "valentineCard": "Картичка за Св. Валентин",
