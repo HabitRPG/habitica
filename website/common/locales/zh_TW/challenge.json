@@ -76,8 +76,8 @@
     "winnerNotFound": "獲勝者中找不到ID為\"<%= userId %>\"的玩家或者不是該挑戰的一份子。",
     "noCompletedTodosChallenge": "\"includeCompletedTodos\" is not supported when fetching challenge tasks.",
     "userTasksNoChallengeId": "When \"tasksOwner\" is \"user\" \"challengeId\" can't be passed.",
-    "onlyChalLeaderEditTasks": "Tasks belonging to a challenge can only be edited by the leader.",
+    "onlyChalLeaderEditTasks": "挑戰裡的任務只有隊長才能編輯。",
     "userAlreadyInChallenge": "用戶已參加了這個挑戰",
-    "cantOnlyUnlinkChalTask": "Only broken challenges tasks can be unlinked.",
+    "cantOnlyUnlinkChalTask": "只有壞損的挑戰才可以被斷開連結。",
     "shortNameTooShort": "標籤名稱需要最少3個字"
 }

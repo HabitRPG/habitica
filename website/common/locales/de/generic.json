@@ -51,7 +51,7 @@
     "help": "Hilfe",
     "user": "Benutzer",
     "market": "Marktplatz",
-    "groupPlansTitle": "Group Plans",
+    "groupPlansTitle": "Gruppenpläne",
     "subscriberItem": "Überraschungsgegenstand",
     "newSubscriberItem": "Neuer Überraschungsgegenstand",
     "subscriberItemText": "Abonnenten bekommen jeden Monat einen Überraschungsgegenstand. Dieser wird üblicherweise ungefähr eine Woche vor Monatsende herausgegeben. Schaue auf der 'Überraschungsgegenstand'-Seite des Wikis für mehr Informationen nach.",
@@ -100,7 +100,7 @@
     "costumeContest": "Kostümwettbewerbsteilnehmer",
     "costumeContestText": "Hat am Habitoween-Kostümwettbewerb teilgenommen. Schau einige Einträge <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>im Habitica-Blog</a> an!",
     "costumeContestTextPlural": "Hat an <%= count %> Habitoween-Kostümwettbewerben teilgenommen. Schau einige Einträge <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>im Habitica-Blog</a> an!",
-    "memberSince": "- Teilnehmer seit",
+    "memberSince": "- Mitglied seit",
     "lastLoggedIn": "- Zuletzt eingeloggt",
     "notPorted": "Dieses Feature wurde noch nicht von der ursprünglichen Seite portiert.",
     "buyThis": "Kaufe <%= text %> mit <%= price %> Deiner <%= gems %> Edelsteinen?",
@@ -144,7 +144,7 @@
     "November": "November",
     "December": "Dezember",
     "dateFormat": "Datumsformat",
-    "achievementStressbeast": "Retter von Stoïkalm",
+    "achievementStressbeast": "Retter von Stoïstill",
     "achievementStressbeastText": "Hat geholfen während des Winter-Wunderland 2014 das Abscheuliche Stressbiest zu besiegen!",
     "achievementBurnout": "Retter der Blühenden Felder",
     "achievementBurnoutText": "Hat beim Herbstfest 2015 dabei geholfen, Burnout zu besiegen und die Geister der Erschöpfung wiederherzustellen!",
@@ -194,6 +194,6 @@
     "enableDesktopNotifications": "Desktop-Benachrichtigungen aktivieren",
     "online": "online",
     "onlineCount": "<%= count %> online",
-    "loading": "Loading...",
-    "userIdRequired": "User ID is required"
+    "loading": "Lade...",
+    "userIdRequired": "Benutzer-ID wird benötigt"
 }

@@ -16,6 +16,7 @@ import {
 import {
   createTasks,
   getTasks,
+  moveTask,
 } from '../../libs/taskManager';
 import common from '../../../common';
 import Bluebird from 'bluebird';
@@ -157,9 +158,17 @@ api.getChallengeTasks = {
     let user = res.locals.user;
     let challengeId = req.params.challengeId;
 
-    let challenge = await Challenge.findOne({_id: challengeId}).select('group leader tasksOrder').exec();
+    let challenge = await Challenge.findOne({
+      _id: challengeId,
+    }).select('group leader tasksOrder').exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-    let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true});
+
+    let group = await Group.getGroup({
+      user,
+      groupId: challenge.group,
+      fields: '_id type privacy',
+      optionalMembership: true,
+    });
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     let tasks = await getTasks(req, res, {user, challenge});
@@ -339,12 +348,13 @@ api.scoreTask = {
       task.group.approval.requestedDate = new Date();
 
       let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
-      let groupLeader = await User.findById(group.leader); // Use this method so we can get access to notifications
+      let groupLeader = await User.findById(group.leader).exec(); // Use this method so we can get access to notifications
+
       groupLeader.addNotification('GROUP_TASK_APPROVAL', {
         message: res.t('userHasRequestedTaskApproval', {
           user: user.profile.name,
           taskName: task.text,
-        }),
+        }, groupLeader.preferences.language),
         groupId: group._id,
       });
 
@@ -451,22 +461,8 @@ api.moveTask = {
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
     let order = user.tasksOrder[`${task.type}s`];
-    let currentIndex = order.indexOf(task._id);
 
-    // If for some reason the task isn't ordered (should never happen), push it in the new position
-    // if the task is moved to a non existing position
-    // or if the task is moved to position -1 (push to bottom)
-    // -> push task at end of list
-    if (!order[to] && to !== -1) {
-      order.push(task._id);
-    } else {
-      if (currentIndex !== -1) order.splice(currentIndex, 1);
-      if (to === -1) {
-        order.push(task._id);
-      } else {
-        order.splice(to, 0, task._id);
-      }
-    }
+    moveTask(order, task._id, to);
 
     await user.save();
     res.respond(200, order);
@@ -908,6 +904,8 @@ api.clearCompletedTodos = {
       $or: [
         {'challenge.id': {$exists: false}},
         {'challenge.broken': {$exists: true}},
+        {'group.id': {$exists: false}},
+        {'group.broken': {$exists: true}},
       ],
     }).exec();
 
@@ -954,7 +952,7 @@ api.deleteTask = {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.userId && task.challenge.id && !task.challenge.broken) {
       throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));
-    } else if (task.group.id && task.group.assignedUsers.indexOf(user._id) !== -1) {
+    } else if (task.group.id && task.group.assignedUsers.indexOf(user._id) !== -1 && !task.group.broken) {
       throw new NotAuthorized(res.t('cantDeleteAssignedGroupTasks'));
     }
 

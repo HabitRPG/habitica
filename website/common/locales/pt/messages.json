@@ -5,7 +5,7 @@
     "messageTagNotFound": "Etiqueta não encontrada.",
     "messagePetNotFound": ":mascote não encontrado em user.items.pets",
     "messageFoodNotFound": ":comida não encontrada em user.items.food",
-    "messageNotAvailable": "No momento este item não está disponível para compra.",
+    "messageNotAvailable": "De momento este item não está disponível para compra.",
     "messageCannotFeedPet": "Não é possível alimentar este mascote.",
     "messageAlreadyMount": "Já possui essa montada. Tente alimentar outro mascote.",
     "messageEvolve": "Você domou <%= egg %>, vamos dar um passeio.",

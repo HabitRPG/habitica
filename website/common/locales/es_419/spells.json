@@ -54,6 +54,7 @@
     "partyNotFound": "Equipo no encontrado",
     "targetIdUUID": "\"targetId\" debe ser un ID de usuario válido.",
     "challengeTasksNoCast": "Conjurar esta habilidad en tareas de desafío no está permitido.",
+    "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "No tienes esta habilidad.",
     "spellLevelTooHigh": "Debes ser nivel <%= level %> para utilizar esta habilidad."
 }

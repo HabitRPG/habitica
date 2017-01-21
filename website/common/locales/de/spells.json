@@ -10,9 +10,9 @@
     "spellWizardFrostAlreadyCast": "Du hast Deine Aufgaben heute schon verzaubert. Deine Strähnen sind eingefroren und es ist nicht nötig, diese Fähigkeit erneut zu benutzen.",
     "spellWarriorSmashText": "Gewaltschlag",
     "spellWarriorSmashNotes": "Du triffst eine Aufgabe mit aller Kraft. Sie wird blauer/weniger rot, und Du fügst Bossen extra Schaden zu! Klicke auf eine Aufgabe, um sie anzugreifen. (Basiert auf: STR)",
-    "spellWarriorDefensiveStanceText": "Verteidigungstellung",
+    "spellWarriorDefensiveStanceText": "Verteidigungshaltung",
     "spellWarriorDefensiveStanceNotes": "Du bereitest Dich auf den Ansturm Deiner Aufgaben vor. Du erhältst einen Ausdauerbonus! (Basiert auf: CON ohne Boni)",
-    "spellWarriorValorousPresenceText": "Tapferer Charakter",
+    "spellWarriorValorousPresenceText": "Tapfere Präsenz",
     "spellWarriorValorousPresenceNotes": "Deine Anwesenheit ermutigt Deine Gruppe. Deine ganze Gruppe erhält einen Stärkebonus (Basiert auf: STR ohne Boni)",
     "spellWarriorIntimidateText": "Einschüchternder Blick",
     "spellWarriorIntimidateNotes": "Dein Blick erfüllt die Herzen Deiner Feinde mit Angst. Deine ganze Gruppe erhält einen Ausdauerbonus! (Basiert auf: CON ohne Boni)",
@@ -54,6 +54,7 @@
     "partyNotFound": "Gruppe nicht gefunden",
     "targetIdUUID": "\"targetId\" muss eine gültige Benutzer-ID sein.",
     "challengeTasksNoCast": "Fähigkeiten auf Wettbewerbsaufgaben anzuwenden ist nicht erlaubt.",
+    "groupTasksNoCast": "Fähigkeiten auf Gruppenaufgaben anzuwenden ist nicht erlaubt.",
     "spellNotOwned": "Diese Fähigkeit besitzt Du nicht.",
     "spellLevelTooHigh": "Du musst Level <%= level %> sein, um diese Fähigkeit benutzen zu können."
 }

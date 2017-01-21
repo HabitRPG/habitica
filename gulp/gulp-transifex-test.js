@@ -84,8 +84,8 @@ gulp.task('transifex:malformedStrings', () => {
           let malformedString = `${lang} - ${file} - ${key} - ${translationString}`;
           stringsWithMalformedInterpolations.push(malformedString);
         } else if (englishOccurences.length !== translationOccurences.length && !malformedStringExceptions[key]) {
-          let missingInterploationString = `${lang} - ${file} - ${key} - ${translationString}`;
-          stringsWithIncorrectNumberOfInterpolations.push(missingInterploationString);
+          let missingInterpolationString = `${lang} - ${file} - ${key} - ${translationString}`;
+          stringsWithIncorrectNumberOfInterpolations.push(missingInterpolationString);
         }
       });
     });

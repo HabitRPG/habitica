@@ -22,6 +22,7 @@ import { sendNotification as sendPushNotification } from '../../libs/pushNotific
 import pusher from '../../libs/pusher';
 import common from '../../../common';
 import payments from '../../libs/payments';
+import amzLib from '../../libs/amazonPayments';
 import shared from '../../../common';
 
 
@@ -175,7 +176,7 @@ api.createGroupPlan = {
       let groupId = savedGroup._id;
       let headers = req.headers;
 
-      await payments.subscribeWithAmazon({
+      await amzLib.subscribe({
         billingAgreementId,
         sub,
         coupon,
@@ -308,7 +309,8 @@ api.updateGroup = {
     let response = Group.toJSONCleanChat(savedGroup, user);
     // If the leader changed fetch new data, otherwise use authenticated user
     if (response.leader !== user._id) {
-      response.leader = (await User.findById(response.leader).select(nameFields).exec()).toJSON({minimize: true});
+      let rawLeader = await User.findById(response.leader).select(nameFields).exec();
+      response.leader = rawLeader.toJSON({minimize: true});
     } else {
       response.leader = {
         _id: user._id,
@@ -423,10 +425,16 @@ api.joinGroup = {
 
     if (group.type === 'party' && inviter) {
       if (group.memberCount > 1) {
-        promises.push(User.update({$or: [{'party._id': group._id}, {_id: user._id}], 'achievements.partyUp': {$ne: true}}, {$set: {'achievements.partyUp': true}}, {multi: true}).exec());
+        promises.push(User.update({
+          $or: [{'party._id': group._id}, {_id: user._id}],
+          'achievements.partyUp': {$ne: true},
+        }, {$set: {'achievements.partyUp': true}}, {multi: true}).exec());
       }
       if (group.memberCount > 3) {
-        promises.push(User.update({$or: [{'party._id': group._id}, {_id: user._id}], 'achievements.partyOn': {$ne: true}}, {$set: {'achievements.partyOn': true}}, {multi: true}).exec());
+        promises.push(User.update({
+          $or: [{'party._id': group._id}, {_id: user._id}],
+          'achievements.partyOn': {$ne: true},
+        }, {$set: {'achievements.partyOn': true}}, {multi: true}).exec());
       }
     }
 
@@ -892,6 +900,8 @@ api.inviteToGroup = {
 
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (group.purchased && group.purchased.plan.customerId && user._id !== group.leader) throw new NotAuthorized(res.t('onlyGroupLeaderCanInviteToGroupPlan'));
 
     let uuids = req.body.uuids;
     let emails = req.body.emails;

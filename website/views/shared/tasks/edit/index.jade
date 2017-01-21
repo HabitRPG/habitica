@@ -7,7 +7,8 @@ div(ng-if='task._editing')
 
     br
 
-    h2#task-edit-title {{task._edit.text}}
+    h2#task-edit-title
+      markdown(text="task._edit.text")
 
     // Broken Challenge
     .well(ng-if='task.challenge.broken')

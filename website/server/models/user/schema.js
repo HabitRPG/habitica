@@ -472,7 +472,11 @@ let schema = new Schema({
   profile: {
     blurb: String,
     imageUrl: String,
-    name: String,
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
   },
   stats: {
     hp: {type: Number, default: shared.maxHealth},

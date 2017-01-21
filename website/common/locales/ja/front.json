@@ -266,5 +266,6 @@
     "invalidReqParams": "要求パラメータが不正です。",
     "memberIdRequired": "\"member\" の UUID が無効です。",
     "heroIdRequired": "\"heroId\" の UUID が無効です。",
-    "cannotFulfillReq": "操作に対する処理を完了できませんでした。エラーをくり返す場合は、admin@habitica.com にメールしてください。"
+    "cannotFulfillReq": "操作に対する処理を完了できませんでした。エラーをくり返す場合は、admin@habitica.com にメールしてください。",
+    "modelNotFound": "This model does not exist."
 }

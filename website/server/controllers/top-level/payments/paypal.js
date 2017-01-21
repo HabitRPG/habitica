@@ -134,7 +134,7 @@ api.checkoutSuccess = {
     delete req.session.gift;
 
     if (gift) {
-      gift.member = await User.findById(gift.uuid);
+      gift.member = await User.findById(gift.uuid).exec();
       if (gift.type === 'subscription') {
         method = 'createSubscription';
       }
@@ -145,10 +145,6 @@ api.checkoutSuccess = {
 
     await paypalPaymentExecute(paymentId, { payer_id: customerId });
     await payments[method](data);
-    if (gift && gift.type === 'subscription' && gift.member._id !== data.user._id) {
-      gift.member = data.user;
-      await payments.createSubscription(data);
-    }
     res.redirect('/');
   },
 };
@@ -168,7 +164,7 @@ api.subscribe = {
 
     if (sub.discount) {
       if (!req.query.coupon) throw new BadRequest(res.t('couponCodeRequired'));
-      let coupon = await Coupon.findOne({_id: cc.validate(req.query.coupon), event: sub.key});
+      let coupon = await Coupon.findOne({_id: cc.validate(req.query.coupon), event: sub.key}).exec();
       if (!coupon) throw new NotAuthorized(res.t('invalidCoupon'));
     }
 
@@ -295,14 +291,18 @@ api.ipn = {
     await ipnVerifyAsync(req.body);
 
     if (req.body.txn_type === 'recurring_payment_profile_cancel' || req.body.txn_type === 'subscr_cancel') {
-      let user = await User.findOne({ 'purchased.plan.customerId': req.body.recurring_payment_id });
+      let user = await User.findOne({ 'purchased.plan.customerId': req.body.recurring_payment_id }).exec();
       if (user) {
         await payments.cancelSubscription({ user, paymentMethod: 'Paypal' });
         return;
       }
 
       let groupFields = basicGroupFields.concat(' purchased');
-      let group = await Group.findOne({ 'purchased.plan.customerId': req.body.recurring_payment_id }).select(groupFields).exec();
+      let group = await Group
+        .findOne({ 'purchased.plan.customerId': req.body.recurring_payment_id })
+        .select(groupFields)
+        .exec();
+
       if (group) {
         await payments.cancelSubscription({ groupId: group._id, paymentMethod: 'Paypal' });
       }

@@ -176,7 +176,7 @@
     "birthdayCardNotes": "给一个队友发一张生日卡片。",
     "birthday0": "生日快乐！",
     "birthdayCardAchievementTitle": "生日幸运",
-    "birthdayCardAchievementText": "生日快乐! 寄出或收到了<%= cards %>张生日卡片。",
+    "birthdayCardAchievementText": "生日快乐! 寄出或收到了<%= count %>张生日卡片。",
     "streakAchievement": "你得到一个连击成就!",
     "firstStreakAchievement": "21天连击",
     "streakAchievementCount": "<%= streaks %> 21天连击",

@@ -2785,6 +2785,143 @@ api.quests = {
       unlock: t('questSlothUnlockText'),
     },
   },
+  triceratops: {
+    text: t('questTriceratopsText'),
+    notes: t('questTriceratopsNotes'),
+    completion: t('questTriceratopsCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questTriceratopsBoss'),
+      hp: 1200,
+      str: 2.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Triceratops',
+          text: t('questTriceratopsDropTriceratopsEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Triceratops',
+          text: t('questTriceratopsDropTriceratopsEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Triceratops',
+          text: t('questTriceratopsDropTriceratopsEgg'),
+        },
+      ],
+      gp: 80,
+      exp: 800,
+      unlock: t('questTriceratopsUnlockText'),
+    },
+  },
+  stoikalmCalamity1: {
+    text: t('questStoikalmCalamity1Text'),
+    notes: t('questStoikalmCalamity1Notes'),
+    completion: t('questStoikalmCalamity1Completion'),
+    value: 4,
+    goldValue: 200,
+    category: 'gold',
+    boss: {
+      name: t('questStoikalmCalamity1Boss'),
+      hp: 500,
+      rage: {
+        title: t("questStoikalmCalamity1RageTitle"),
+        description: t("questStoikalmCalamity1RageDescription"),
+        value: 50,
+        healing: .3,
+        effect: t('questStoikalmCalamity1RageEffect')
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Skeleton',
+          text: t('questStoikalmCalamity1DropSkeletonPotion')
+        }, {
+          type: 'hatchingPotions',
+          key: 'Desert',
+          text: t('questStoikalmCalamity1DropDesertPotion')
+        }, {
+          type: 'gear',
+          key: "armor_special_mammothRiderArmor",
+          text: t('questStoikalmCalamity1DropArmor')
+        }
+      ],
+      gp: 0,
+      exp: 500
+    }
+  },
+  stoikalmCalamity2: {
+    text: t('questStoikalmCalamity2Text'),
+    notes: t('questStoikalmCalamity2Notes'),
+    completion: t('questStoikalmCalamity2Completion'),
+    previous: 'stoikalmCalamity1',
+    value: 4,
+    goldValue: 300,
+    category: 'gold',
+    collect: {
+      icicleCoin: {
+        text: t('questStoikalmCalamity2CollectIcicleCoins'),
+        count: 40
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'gear',
+          key: "head_special_mammothRiderHelm",
+          text: t('questStoikalmCalamity2DropHeadgear')
+        }
+      ],
+      gp: 0,
+      exp: 75
+    }
+  },
+  stoikalmCalamity3: {
+    text: t('questStoikalmCalamity3Text'),
+    notes: t('questStoikalmCalamity3Notes'),
+    completion: t('questStoikalmCalamity3Completion'),
+    previous: 'stoikalmCalamity2',
+    value: 4,
+    goldValue: 400,
+    category: 'gold',
+    boss: {
+      name: t('questStoikalmCalamity3Boss'),
+      hp: 1000,
+      str: 2
+    },
+    drop: {
+      items: [
+        {
+          type: 'food',
+          key: 'CottonCandyBlue',
+          text: t('questStoikalmCalamity3DropBlueCottonCandy')
+        }, {
+          type: 'food',
+          key: 'CottonCandyBlue',
+          text: t('questStoikalmCalamity3DropBlueCottonCandy')
+        }, {
+          type: 'food',
+          key: 'CottonCandyBlue',
+          text: t('questStoikalmCalamity3DropBlueCottonCandy')
+        }, {
+          type: 'gear',
+          key: "weapon_special_mammothRiderSpear",
+          text: t('questStoikalmCalamity3DropWeapon')
+        }, {
+          type: 'gear',
+          key: "shield_special_mammothRiderHorn",
+          text: t('questStoikalmCalamity3DropShield')
+        },
+      ],
+      gp: 0,
+      exp: 650
+    }
+  },
 };
 
 _.each(api.quests, function(v, key) {

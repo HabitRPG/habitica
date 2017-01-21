@@ -21,7 +21,3 @@ test/content/**/*
 Gruntfile.js
 gulpfile.js
 gulp
-webpack
-test/client/e2e
-test/client/unit/index.js
-test/client/unit/karma.conf.js

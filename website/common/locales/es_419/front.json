@@ -266,5 +266,6 @@
     "invalidReqParams": "Parametros pedidos invalidos.",
     "memberIdRequired": "\"member\" debe ser un UUID valido.",
     "heroIdRequired": "\"heroid\" debe ser un UUID válido.",
-    "cannotFulfillReq": "Tu petición no puede ser llevada a cabo. Envia un correo electrónico a admin@habitica.com si este error continúa."
+    "cannotFulfillReq": "Tu petición no puede ser llevada a cabo. Envia un correo electrónico a admin@habitica.com si este error continúa.",
+    "modelNotFound": "This model does not exist."
 }
