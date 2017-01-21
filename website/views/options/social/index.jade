@@ -12,7 +12,7 @@ include ./groups/create-group
 
 script(type='text/ng-template', id='partials/options.social.inbox.html')
   .options-blurbmenu
-    small.muted!=env.t('blurbInbox', { hrefCommunityManagerEmail : 'COMMUNITY_MANAGER_EMAIL@email' })
+    small.muted!=env.t('blurbInbox', { hrefCommunityManagerEmail : '<a href="mailto:' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '">' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '</a>' })
 
   .container-fluid
     .row

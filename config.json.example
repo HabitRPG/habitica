@@ -83,8 +83,8 @@
         "SUBSCRIPTIONS_URL": "https://hooks.slack.com/services/id/id/id"
     },
     "EMAILS" : {
-        "COMMUNITY_MANAGER_EMAIL" : "leslie@habitica.com",
-        "TECH_ASSISTANCE_EMAIL" : "admin@habitica.com",
-        "PRESS_ENQUIRY_EMAIL" : "leslie@habitica.com"
+        "COMMUNITY_MANAGER_EMAIL" : "community@example.com",
+        "TECH_ASSISTANCE_EMAIL" : "tech@example.com",
+        "PRESS_ENQUIRY_EMAIL" : "press@example.com"
     }
 }

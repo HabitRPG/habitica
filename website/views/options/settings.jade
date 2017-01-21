@@ -233,7 +233,7 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
         pre.prettyprint {{user.id}}
         h6=env.t('APIToken')
         pre.prettyprint {{User.settings.auth.apiToken}}
-        small!=env.t('APITokenWarning', { hrefTechAssistanceEmail : '<a href="#">HREF_TECH_ASSISTANCE_EMAIL@email</a>' })
+        small!=env.t('APITokenWarning', { hrefTechAssistanceEmail : '<a href="mailto:' + env.EMAILS.TECH_ASSISTANCE_EMAIL + '">' + env.EMAILS.TECH_ASSISTANCE_EMAIL + '</a>' })
         br
         h3=env.t('thirdPartyApps')
         ul

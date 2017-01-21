@@ -27,7 +27,7 @@ export function authWithHeaders (optional = false) {
     .exec()
     .then((user) => {
       if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
-      if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: nconf.get('COMMUNITY_MANAGER_EMAIL'), userId: user._id}));
+      if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL'), userId: user._id}));
 
       res.locals.user = user;
 

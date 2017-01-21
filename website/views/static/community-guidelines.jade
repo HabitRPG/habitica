@@ -108,7 +108,7 @@ block content
             strong Megan
           li
             strong Daniel the Bard
-      p!=env.t('commGuidePara012', { hrefCommunityManagerEmail : 'COMMUNITY_MANAGER_EMAIL@email' })
+      p!=env.t('commGuidePara012', { hrefCommunityManagerEmail : '<a href="mailto:' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '">' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '</a>' })
       p=env.t('commGuidePara013')
       p=env.t('commGuidePara014')
         |&nbsp;
@@ -127,7 +127,7 @@ block content
           li!=env.t('commGuideList02E')
           li!=env.t('commGuideList02F')
           li!=env.t('commGuideList02G')
-          li!=env.t('commGuideList02H', { hrefCommunityManagerEmail : nconf.get('COMMUNITY_MANAGER_EMAIL') })
+          li!=env.t('commGuideList02H', { hrefCommunityManagerEmail : '<a href="mailto:' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '">' + env.EMAILS.COMMUNITY_MANAGER_EMAIL +'</a>' })
           li!=env.t('commGuideList02I')
         p!=env.t('commGuidePara019')
         p=env.t('commGuidePara020')
@@ -148,7 +148,7 @@ block content
         img.pull-right(src='/community-guidelines-images/publicGuilds.png', alt='')
         p!=env.t('commGuidePara029')
         p!=env.t('commGuidePara031')
-        p!=env.t('commGuidePara033', { hrefCommunityManagerEmail : 'COMMUNITY_MANAGER_EMAIL@email' })
+        p!=env.t('commGuidePara033', { hrefCommunityManagerEmail : '<a href="mailto:' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '">' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '</a>' })
         p!=env.t('commGuidePara035')
         p
           strong=env.t('commGuidePara037')
@@ -251,7 +251,7 @@ block content
         p=env.t('commGuidePara054')
         p=env.t('commGuidePara055')
         ul
-          li!=env.t('commGuideList06A', { hrefCommunityManagerEmail : 'COMMUNITY_MANAGER_EMAIL@email' })
+          li!=env.t('commGuideList06A', { hrefCommunityManagerEmail : '<a href="mailto:' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '">' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '</a>' })
           li=env.t('commGuideList06B')
           li=env.t('commGuideList06C')
           li=env.t('commGuideList06D')
@@ -322,7 +322,7 @@ block content
           li!=env.t('commGuideList13D')
 
       h2#final=env.t('commGuideHeadingFinal')
-      p!=env.t('commGuidePara067', { hrefCommunityManagerEmail : 'COMMUNITY_MANAGER_EMAIL@email' })
+      p!=env.t('commGuidePara067', { hrefCommunityManagerEmail : '<a href="mailto:' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '">' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '</a>' })
       p=env.t('commGuidePara068')
 
       h2#links=env.t('commGuideHeadingLinks')

@@ -1,8 +1,10 @@
 import {
   generateUser,
   requester,
-  translate as t,
+  translate as t
 } from '../../../../../helpers/api-integration/v3';
+
+import nconf from 'nconf'
 
 describe('POST /user/auth/local/login', () => {
   let api;
@@ -38,7 +40,7 @@ describe('POST /user/auth/local/login', () => {
     })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('accountSuspended', { communityManagerEmail: "COMMUNITY_MANAGER_EMAIL@email", userId: user._id }),
+      message: t('accountSuspended', { communityManagerEmail: nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL'), userId: user._id }),
     });
   });
 
