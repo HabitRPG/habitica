@@ -1,10 +1,10 @@
 import {
   generateUser,
   requester,
-  translate as t
+  translate as t,
 } from '../../../../../helpers/api-integration/v3';
 
-import nconf from 'nconf'
+import nconf from 'nconf';
 
 describe('POST /user/auth/local/login', () => {
   let api;

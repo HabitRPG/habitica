@@ -582,7 +582,7 @@ api.updateEmail = {
       'auth.local.email': req.body.newEmail,
     }).select({_id: 1}).lean().exec();
 
-    if (emailAlreadyInUse) throw new NotAuthorized(res.t('cannotFulfillReq', { techAssistanceEmail : nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL') }));
+    if (emailAlreadyInUse) throw new NotAuthorized(res.t('cannotFulfillReq', { techAssistanceEmail: nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL') }));
 
     let candidatePassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
     if (candidatePassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));

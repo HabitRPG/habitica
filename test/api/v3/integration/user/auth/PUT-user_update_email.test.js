@@ -1,9 +1,9 @@
 import {
   generateUser,
-  translate as t
+  translate as t,
 } from '../../../../../helpers/api-v3-integration.helper';
 
-import nconf from 'nconf'
+import nconf from 'nconf';
 
 const ENDPOINT = '/user/auth/update-email';
 
@@ -65,7 +65,7 @@ describe('PUT /user/auth/update-email', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('cannotFulfillReq', { techAssistanceEmail : nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL') }),
+        message: t('cannotFulfillReq', { techAssistanceEmail: nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL') }),
       });
     });
   });
