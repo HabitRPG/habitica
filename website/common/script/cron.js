@@ -6,6 +6,7 @@
  */
 import _ from 'lodash';
 import moment from 'moment';
+import 'moment-recur';
 
 export const DAY_MAPPING = {
   0: 'su',
@@ -104,6 +105,25 @@ export function shouldDo (day, dailyTask, options = {}) {
   if (taskStartDate > startOfDayWithCDSTime.startOf('day')) {
     return false; // Daily starts in the future
   }
+
+  if (dailyTask.frequency === 'weekly') {
+    let daysOfTheWeek = [];
+
+    if (dailyTask.repeat.su) daysOfTheWeek.push(0);
+    if (dailyTask.repeat.m) daysOfTheWeek.push(1);
+    if (dailyTask.repeat.t) daysOfTheWeek.push(2);
+    if (dailyTask.repeat.w) daysOfTheWeek.push(3);
+    if (dailyTask.repeat.th) daysOfTheWeek.push(4);
+    if (dailyTask.repeat.f) daysOfTheWeek.push(5);
+    if (dailyTask.repeat.s) daysOfTheWeek.push(6);
+
+    console.log(day, daysOfTheWeek)
+    let schedule = moment(dailyTask.startDate).recur()
+      .every(dailyTask.everyX).weeks().every(daysOfTheWeek).daysOfWeek();
+      console.log(schedule.next(2, 'L'))
+    return schedule.matches(day);
+  }
+
   if (dailyTask.frequency === 'daily') { // "Every X Days"
     if (!dailyTask.everyX) {
       return false; // error condition
