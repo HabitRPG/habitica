@@ -124,7 +124,69 @@ describe.only('shouldDo', () => {
       expect(shouldDo(threeWeeksFromToday, dailyTask, options)).to.equal(true);
     });
   });
-  // context('Monthly - Every Day of the month');
-  // context('Monthly - Every Day of the week');
+
+  context('Monthly - Every Day of the month', () => {
+    it('leaves daily inactive if not day of the month', () => {
+      dailyTask.everyX = 1;
+      dailyTask.frequency = 'monthly';
+      dailyTask.daysOfMonth = [15];
+      let tomorrow = moment().add(1, 'day').toDate();// @TODO: make sure this is not the 15
+
+      expect(shouldDo(tomorrow, dailyTask, options)).to.equal(false);
+    });
+
+    it('activates Daily on matching day of month', () => {
+      day = moment();
+      dailyTask.everyX = 1;
+      dailyTask.frequency = 'monthly';
+      dailyTask.daysOfMonth = [day.date()];
+      day = day.add(1, 'months').date(day.date()).toDate();
+
+      expect(shouldDo(day, dailyTask, options)).to.equal(true);
+    });
+  });
+
+  context('Monthly - Every Day of the week', () => {
+    it('leaves daily inactive if not the correct week of the month on the day of the start date', () => {
+      dailyTask.repeat = {
+        su: false,
+        s: false,
+        f: false,
+        th: true,
+        w: false,
+        t: false,
+        m: false,
+      };
+      day = moment();
+      dailyTask.everyX = 1;
+      dailyTask.frequency = 'monthly';
+      dailyTask.weeksOfMonth = [day.week()];
+      day = day.add(1, 'day').toDate();
+
+      expect(shouldDo(day, dailyTask, options)).to.equal(false);
+    });
+
+    it('activates Daily on matching day of month', () => {
+      dailyTask.repeat = {
+        su: false,
+        s: false,
+        f: false,
+        th: true,
+        w: false,
+        t: false,
+        m: false,
+      };
+
+      day = moment();
+      dailyTask.everyX = 1;
+      dailyTask.frequency = 'monthly';
+      dailyTask.weeksOfMonth = [day.week()];
+      day = day.add(1, 'months').weekday(4).toDate();
+
+      expect(shouldDo(day, dailyTask, options)).to.equal(true);
+    });
+  });
+
+  // context('Every X Months');
   // context('Every X Years');
 });
