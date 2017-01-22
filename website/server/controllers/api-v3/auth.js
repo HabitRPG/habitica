@@ -115,16 +115,15 @@ api.registerLocal = {
       if (lowerCaseUsername === user.auth.local.lowerCaseUsername) throw new NotAuthorized(res.t('usernameTaken'));
     }
 
-    let salt = passwordUtils.makeSalt();
-    let hashed_password = passwordUtils.encrypt(password, salt); // eslint-disable-line camelcase
+    let hashed_password = await passwordUtils.bcryptHash(password); // eslint-disable-line camelcase
     let newUser = {
       auth: {
         local: {
           username,
           lowerCaseUsername,
           email,
-          salt,
-          hashed_password, // eslint-disable-line camelcase
+          hashed_password, // eslint-disable-line camelcase,
+          passwordHashMethod: 'bcrypt',
         },
       },
       preferences: {
@@ -230,7 +229,24 @@ api.loginLocal = {
     }
 
     let user = await User.findOne(login, {auth: 1, apiToken: 1}).exec();
-    let isValidPassword = user && user.auth.local.hashed_password === passwordUtils.encrypt(req.body.password, user.auth.local.salt);
+
+    let isValidPassword;
+    let passwordHashMethod = user.auth.local.passwordHashMethod;
+    let passwordHash = user.auth.local.hashed_password;
+    let passwordSalt = user.auth.local.salt; // Only used for SHA1
+
+    if (!user) {
+      isValidPassword = false;
+    } else if (passwordHashMethod === 'bcrypt') {
+      isValidPassword = await passwordUtils.bcryptCompare(req.body.password, passwordHash);
+    } else if (passwordHashMethod === 'sha1') {
+      isValidPassword =
+        user &&
+        passwordHash === passwordUtils.sha1Encrypt(req.body.password, passwordSalt);
+    } else {
+      throw new Error('Invalid password hash method.');
+    }
+
     if (!isValidPassword) throw new NotAuthorized(res.t('invalidLoginCredentialsLong'));
 
     res.analytics.track('login', {

@@ -54,7 +54,13 @@ let schema = new Schema({
       // Store a lowercase version of username to check for duplicates
       lowerCaseUsername: String,
       hashed_password: String, // eslint-disable-line camelcase
-      salt: String,
+      // Legacy password are hashed with SHA1, new ones with bcrypt
+      passwordHashMethod: {
+        type: String,
+        enum: ['bcrypt', 'sha1'],
+        default: 'bcrypt',
+      },
+      salt: String, // Salt for SHA1 encrypted passwords, not stored for bcrypt
     },
     timestamps: {
       created: {type: Date, default: Date.now},
