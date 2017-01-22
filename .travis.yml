@@ -2,8 +2,6 @@ language: node_js
 node_js:
   - '6'
 sudo: false
-services:
-- mongodb
 addons:
   apt:
     sources:
