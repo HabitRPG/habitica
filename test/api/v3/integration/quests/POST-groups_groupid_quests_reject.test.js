@@ -180,5 +180,19 @@ describe('POST /groups/:groupId/quests/reject', () => {
       expect(rejectingMember.party.quest.key).to.not.exist;
       expect(rejectingMember.party.quest.completed).to.not.exist;
     });
+
+    it('starts the quest when the last user reject and verifies chat', async () => {
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+      await partyMembers[1].post(`/groups/${questingGroup._id}/quests/reject`);
+      await questingGroup.sync();
+
+      expect(questingGroup.chat[0].text).to.exist;
+      expect(questingGroup.chat[0]._meta).to.exist;
+      expect(questingGroup.chat[0]._meta).to.have.all.keys(['participatingMembers']);
+
+      let returnedGroup = await leader.get(`/groups/${questingGroup._id}`);
+      expect(returnedGroup.chat[0]._meta).to.be.undefined;
+    });
   });
 });

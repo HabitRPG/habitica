@@ -1,0 +1,16 @@
+{
+  "unlockedReward": "你已经收到了 <%= number %> ",
+  "earnedRewardForDevotion": "因为努力地改善自己的生活，你赢得了一个 <%= reward %> ！",
+  "nextRewardUnlocksIn": "再签到 <%= numberOfCheckinsLeft %> 天就能解锁下一个奖励~\\(≧▽≦)/~啦啦啦",
+  "awesome": "哟嚯！！",
+  "totalCount": "总共 <%= count %> 次",
+  "countLeft": "还需要<%= count %> 次签到才能得到下一个奖励哦~",
+  "incentivesDescription": "养成习惯时，坚持是关键！每次签到都离你努力争取的东西更近一些。",
+  "totalCheckins": "<%= count %>  次签到",
+  "checkinEarned": "你已经到柜台签到了！",
+  "unlockedCheckInReward": "你解锁了一个签到奖励！",
+  "totalCheckinsTitle": "总签到",
+  "checkinProgressTitle": "直到下一个进度",
+  "incentiveBackgroundsUnlockedWithCheckins": "这些背景将会通过每日签到解锁。",
+  "moreIncentivesComingSoon": "新的签到奖励将会被增加！"
+}

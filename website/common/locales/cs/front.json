@@ -266,5 +266,6 @@
     "invalidReqParams": "Neplatné parametry požadavku.",
     "memberIdRequired": "\"member\" musí být platné UUID.",
     "heroIdRequired": "\"heroId\" musí být platné UUID.",
-    "cannotFulfillReq": "Tvůj požadavek nemůže být splněn. Pokud chyba přetrvává, napiš e-mail na admin@habitica.com"
+    "cannotFulfillReq": "Tvůj požadavek nemůže být splněn. Pokud chyba přetrvává, napiš e-mail na admin@habitica.com",
+    "modelNotFound": "This model does not exist."
 }

@@ -1,0 +1,16 @@
+{
+  "unlockedReward": "你收到 <%= reward %>",
+  "earnedRewardForDevotion": "You have earned a <%= reward %> for being committed to improving your life.",
+  "nextRewardUnlocksIn": "你的下一個獎品將在 <%= numberOfCheckinsLeft %> 次簽到後解鎖！",
+  "awesome": "讚！",
+  "totalCount": "<%= count %> 總數",
+  "countLeft": "下一個獎勵還要 <%= count %> 次簽到。",
+  "incentivesDescription": "When it comes to building habits, consistency is key. Each day you check-in you get closer to a prize.",
+  "totalCheckins": "<%= count %> 簽到",
+  "checkinEarned": "Your Check-In Counter went up!",
+  "unlockedCheckInReward": "你解鎖了簽到獎勵！",
+  "totalCheckinsTitle": "簽到總數",
+  "checkinProgressTitle": "到下一次的進度",
+  "incentiveBackgroundsUnlockedWithCheckins": "These backgrounds will unlock with Daily Check-Ins.",
+  "moreIncentivesComingSoon": "New check-in incentives will be added soon!"
+}
