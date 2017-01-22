@@ -901,11 +901,19 @@ api.clearCompletedTodos = {
       userId: user._id,
       type: 'todo',
       completed: true,
-      $or: [
-        {'challenge.id': {$exists: false}},
-        {'challenge.broken': {$exists: true}},
-        {'group.id': {$exists: false}},
-        {'group.broken': {$exists: true}},
+      $and: [ // exclude challenge and group tasks
+        {
+          $or: [
+            {'challenge.id': {$exists: false}},
+            {'challenge.broken': {$exists: true}},
+          ],
+        },
+        {
+          $or: [
+            {'group.id': {$exists: false}},
+            {'group.broken': {$exists: true}},
+          ],
+        },
       ],
     }).exec();
 
