@@ -11,7 +11,7 @@ export function bcryptHash (passwordToHash) {
 
 // Check if a plain text password matches an hash
 export function bcryptCompare (passwordToCheck, hashedPassword) {
-  return bcrypt.hash(passwordToCheck, hashedPassword); // returns a promise
+  return bcrypt.compare(passwordToCheck, hashedPassword); // returns a promise
 }
 
 // Return the encrypted version of a password (using sha1) given a salt
