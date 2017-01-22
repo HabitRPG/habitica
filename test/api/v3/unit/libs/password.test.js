@@ -1,41 +1,43 @@
 import {
-  encrypt as encryptPassword,
-  makeSalt,
+  sha1Encrypt as sha1EncryptPassword,
+  sha1MakeSalt,
 } from '../../../../../website/server/libs/password';
 
 describe('Password Utilities', () => {
-  describe('Encrypt', () => {
-    it('always encrypt the same password to the same value when using the same salt', () => {
-      let textPassword = 'mySecretPassword';
-      let salt = makeSalt();
-      let encryptedPassword = encryptPassword(textPassword, salt);
+  describe('SHA1', () => {
+    describe('Encrypt', () => {
+      it('always encrypt the same password to the same value when using the same salt', () => {
+        let textPassword = 'mySecretPassword';
+        let salt = sha1MakeSalt();
+        let encryptedPassword = sha1EncryptPassword(textPassword, salt);
 
-      expect(encryptPassword(textPassword, salt)).to.eql(encryptedPassword);
+        expect(sha1EncryptPassword(textPassword, salt)).to.eql(encryptedPassword);
+      });
+
+      it('never encrypt the same password to the same value when using a different salt', () => {
+        let textPassword = 'mySecretPassword';
+        let aSalt = sha1MakeSalt();
+        let anotherSalt = sha1MakeSalt();
+        let anEncryptedPassword = sha1EncryptPassword(textPassword, aSalt);
+        let anotherEncryptedPassword = sha1EncryptPassword(textPassword, anotherSalt);
+
+        expect(anEncryptedPassword).not.to.eql(anotherEncryptedPassword);
+      });
     });
 
-    it('never encrypt the same password to the same value when using a different salt', () => {
-      let textPassword = 'mySecretPassword';
-      let aSalt = makeSalt();
-      let anotherSalt = makeSalt();
-      let anEncryptedPassword = encryptPassword(textPassword, aSalt);
-      let anotherEncryptedPassword = encryptPassword(textPassword, anotherSalt);
+    describe('Make Salt', () => {
+      it('creates a salt with length 10 by default', () => {
+        let salt = sha1MakeSalt();
 
-      expect(anEncryptedPassword).not.to.eql(anotherEncryptedPassword);
-    });
-  });
+        expect(salt.length).to.eql(10);
+      });
 
-  describe('Make Salt', () => {
-    it('creates a salt with length 10 by default', () => {
-      let salt = makeSalt();
+      it('can create a salt of any length', () => {
+        let length = 24;
+        let salt = sha1MakeSalt(length);
 
-      expect(salt.length).to.eql(10);
-    });
-
-    it('can create a salt of any length', () => {
-      let length = 24;
-      let salt = makeSalt(length);
-
-      expect(salt.length).to.eql(length);
+        expect(salt.length).to.eql(length);
+      });
     });
   });
 });
