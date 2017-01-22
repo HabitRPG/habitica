@@ -23,6 +23,7 @@ script: npm run $TEST
 env:
   global:
     - CXX=g++-4.8
+    - DISABLE_REQUEST_LOGGING=true
   matrix:
     - TEST="lint"
     - TEST="test:api-v3" REQUIRES_SERVER=true
