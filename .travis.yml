@@ -15,7 +15,6 @@ addons:
     - mongodb-org-server
     - g++-4.8
 before_install:
-  - $CXX --version
   - npm install -g npm@4
 before_script:
   - npm run test:build
