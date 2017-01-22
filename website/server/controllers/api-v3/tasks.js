@@ -896,7 +896,7 @@ api.clearCompletedTodos = {
     let user = res.locals.user;
 
     // Clear completed todos
-    // Do not delete challenges completed todos unless the task is broken
+    // Do not delete completed todos from challenges or groups, unless the task is broken
     await Tasks.Task.remove({
       userId: user._id,
       type: 'todo',
