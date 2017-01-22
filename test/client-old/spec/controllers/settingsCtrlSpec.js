@@ -291,9 +291,9 @@ describe('Settings Controller', function () {
     });
   });
 
-  context('coupons', function () {
-    describe('coupons', function () {
-      it('something about invalid coupons', function () {
+  context('Validating coupons', function () {
+    describe('#applyCoupon', function () {
+      it('displays an error when an invalid coupon is applied', function () {
         $httpBackend
           .whenPOST('/api/v3/coupons/validate/INVALID_COUPON?userV=undefined')
           .respond(200, {
@@ -313,7 +313,7 @@ describe('Settings Controller', function () {
         expect(Notification.error).to.be.calledWith(env.t('invalidCoupon'), true);
       });
 
-      it('valid coupons', function () {
+      it('displays an confirmation when a valid coupon is applied', function () {
         $httpBackend
           .whenPOST('/api/v3/coupons/validate/VALID_COUPON?userV=undefined')
           .respond(200, {
