@@ -1,6 +1,6 @@
 // Utilities for working with passwords
 import crypto from 'crypto';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 const BCRYPT_SALT_ROUNDS = 10;
 
