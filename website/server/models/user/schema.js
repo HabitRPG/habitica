@@ -58,7 +58,6 @@ let schema = new Schema({
       passwordHashMethod: {
         type: String,
         enum: ['bcrypt', 'sha1'],
-        default: 'bcrypt',
       },
       salt: String, // Salt for SHA1 encrypted passwords, not stored for bcrypt
     },

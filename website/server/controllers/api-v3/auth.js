@@ -221,6 +221,7 @@ api.loginLocal = {
 
     let login;
     let username = req.body.username;
+    let password = req.body.password;
 
     if (validator.isEmail(username)) {
       login = {'auth.local.email': username.toLowerCase()}; // Emails are stored lowercase
@@ -228,26 +229,24 @@ api.loginLocal = {
       login = {'auth.local.username': username};
     }
 
-    let user = await User.findOne(login, {auth: 1, apiToken: 1}).exec();
+    // load the entire user because we may have to save it to convert the password to bcrypt
+    let user = await User.findOne(login).exec();
 
     let isValidPassword;
-    let passwordHashMethod = user.auth.local.passwordHashMethod;
-    let passwordHash = user.auth.local.hashed_password;
-    let passwordSalt = user.auth.local.salt; // Only used for SHA1
 
     if (!user) {
       isValidPassword = false;
-    } else if (passwordHashMethod === 'bcrypt') {
-      isValidPassword = await passwordUtils.bcryptCompare(req.body.password, passwordHash);
-    } else if (passwordHashMethod === 'sha1') {
-      isValidPassword =
-        user &&
-        passwordHash === passwordUtils.sha1Encrypt(req.body.password, passwordSalt);
     } else {
-      throw new Error('Invalid password hash method.');
+      isValidPassword = await passwordUtils.compare(user, password);
     }
 
     if (!isValidPassword) throw new NotAuthorized(res.t('invalidLoginCredentialsLong'));
+
+    // convert the hashed password to bcrypt from sha1
+    if (user.auth.local.passwordHashMethod === 'sha1') {
+      await passwordUtils.convertToBcrypt(user, password);
+      await user.save();
+    }
 
     res.analytics.track('login', {
       category: 'behaviour',
