@@ -7,7 +7,7 @@ services:
 addons:
   apt:
     sources:
-    - mongodb-3.2-precise
+    - mongodb-upstart
     packages:
     - mongodb-org-server
 before_install:
@@ -15,6 +15,7 @@ before_install:
 before_script:
   - npm run test:build
   - cp config.json.example config.json
+  - if [ $REQUIRES_SERVER ]; then until nc -z localhost 27017; do echo Waiting for MongoDB; sleep 1; done; export DISPLAY=:99;
 after_script:
   - ./node_modules/.bin/lcov-result-merger 'coverage/**/*.info' | ./node_modules/coveralls/bin/coveralls.js
 script: npm run $TEST
