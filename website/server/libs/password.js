@@ -38,22 +38,18 @@ export function sha1MakeSalt (len = 10) {
 export async function compare (user, passwordToCheck) {
   if (!user || !passwordToCheck) throw new Error('user and passwordToCheck are required parameters.');
 
-  let isValidPassword;
-
   let passwordHashMethod = user.auth.local.passwordHashMethod;
   let passwordHash = user.auth.local.hashed_password;
   let passwordSalt = user.auth.local.salt; // Only used for SHA1
 
   if (passwordHashMethod === 'bcrypt') {
-    isValidPassword = await bcryptCompare(passwordToCheck, passwordHash);
+    return await bcryptCompare(passwordToCheck, passwordHash);
   // default to sha1 if the user has a salt but no passwordHashMethod
   } else if (passwordHashMethod === 'sha1' || !passwordHashMethod && passwordSalt) {
-    isValidPassword = passwordHash === sha1Encrypt(passwordToCheck, passwordSalt);
+    return passwordHash === sha1Encrypt(passwordToCheck, passwordSalt);
   } else {
     throw new Error('Invalid password hash method.');
   }
-
-  return isValidPassword;
 }
 
 // Convert an user to use bcrypt from sha1 for password hashing
