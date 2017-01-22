@@ -20,7 +20,7 @@ describe('DELETE /user', () => {
     user = await generateUser({balance: 10});
   });
 
-  it.only('returns an errors if password is wrong', async () => {
+  it('returns an errors if password is wrong', async () => {
     await expect(user.del('/user', {
       password: 'wrong-password',
     })).to.eventually.be.rejected.and.eql({
