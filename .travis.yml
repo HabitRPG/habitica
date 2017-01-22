@@ -5,19 +5,24 @@ sudo: false
 addons:
   apt:
     sources:
-    - mongodb-upstart
+      - mongodb-upstart
+      - ubuntu-toolchain-r-test
     packages:
-    - mongodb-org-server
+      - mongodb-org-server
+      - g++-4.8
 before_install:
+  - $CXX --version
   - npm install -g npm@4
 before_script:
   - npm run test:build
   - cp config.json.example config.json
-  - if [ $REQUIRES_SERVER ]; then until nc -z localhost 27017; do echo Waiting for MongoDB; sleep 1; done; export DISPLAY=:99;
+  - if [ $REQUIRES_SERVER ]; then until nc -z localhost 27017; do echo Waiting for MongoDB; sleep 1; done; export DISPLAY=:99; fi
 after_script:
   - ./node_modules/.bin/lcov-result-merger 'coverage/**/*.info' | ./node_modules/coveralls/bin/coveralls.js
 script: npm run $TEST
 env:
+  global:
+    - CXX=g++-4.8
   matrix:
     - TEST="lint"
     - TEST="test:api-v3" REQUIRES_SERVER=true

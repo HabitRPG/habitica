@@ -25,6 +25,7 @@
     "babel-register": "^6.6.0",
     "babel-runtime": "^6.11.6",
     "babelify": "^7.2.0",
+    "bcrypt": "^1.0.2",
     "bcryptjs": "^2.4.0",
     "bluebird": "^3.3.5",
     "body-parser": "^1.15.0",
