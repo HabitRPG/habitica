@@ -447,11 +447,17 @@ api.updateUsername = {
 
     if (!user.auth.local.username) throw new BadRequest(res.t('userHasNoLocalRegistration'));
 
-    let oldPassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
-    if (oldPassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
+    let password = req.body.password;
+    let isValidPassword = await passwordUtils.compare(user, password);
+    if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
 
     let count = await User.count({ 'auth.local.lowerCaseUsername': req.body.username.toLowerCase() });
     if (count > 0) throw new BadRequest(res.t('usernameTaken'));
+
+    // if password is using old sha1 encryption, change it
+    if (user.auth.local.passwordHashMethod === 'sha1') {
+      await passwordUtils.convertToBcrypt(user, password);
+    }
 
     // save username
     user.auth.local.lowerCaseUsername = req.body.username.toLowerCase();
@@ -501,12 +507,15 @@ api.updatePassword = {
       throw validationErrors;
     }
 
-    let oldPassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
-    if (oldPassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
+    let oldPassword = req.body.password;
+    let isValidPassword = await passwordUtils.compare(user, oldPassword);
+    if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
 
-    if (req.body.newPassword !== req.body.confirmPassword) throw new NotAuthorized(res.t('passwordConfirmationMatch'));
+    let newPassword = req.body.newPassword;
+    if (newPassword !== req.body.confirmPassword) throw new NotAuthorized(res.t('passwordConfirmationMatch'));
+    // set new password and make sure it's using bcrypt for hashing
+    await passwordUtils.convertToBcrypt(user, newPassword);
 
-    user.auth.local.hashed_password = passwordUtils.encrypt(req.body.newPassword, user.auth.local.salt); // eslint-disable-line camelcase
     await user.save();
     res.respond(200, {});
   },
@@ -536,15 +545,15 @@ api.resetPassword = {
     if (validationErrors) throw validationErrors;
 
     let email = req.body.email.toLowerCase();
-    let salt = passwordUtils.makeSalt();
-    let newPassword =  passwordUtils.makeSalt(); // use a salt as the new password too (they'll change it later)
-    let hashedPassword = passwordUtils.encrypt(newPassword, salt);
-
     let user = await User.findOne({ 'auth.local.email': email }).exec();
 
     if (user) {
-      user.auth.local.salt = salt;
-      user.auth.local.hashed_password = hashedPassword; // eslint-disable-line camelcase
+      // use a salt as the new password too (they'll change it later)
+      let newPassword =  passwordUtils.sha1MakeSalt();
+
+      // set new password and make sure it's using bcrypt for hashing
+      await passwordUtils.convertToBcrypt(user, newPassword);
+
       sendEmail({
         from: 'Habitica <admin@habitica.com>',
         to: email,
@@ -599,8 +608,14 @@ api.updateEmail = {
 
     if (emailAlreadyInUse) throw new NotAuthorized(res.t('cannotFulfillReq'));
 
-    let candidatePassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
-    if (candidatePassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
+    let password = req.body.password;
+    let isValidPassword = await passwordUtils.compare(user, password);
+    if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
+
+    // if password is using old sha1 encryption, change it
+    if (user.auth.local.passwordHashMethod === 'sha1') {
+      await passwordUtils.convertToBcrypt(user, password);
+    }
 
     user.auth.local.email = req.body.newEmail;
     await user.save();
