@@ -962,11 +962,6 @@
       "resolved": "https://registry.npmjs.org/bcrypt-pbkdf/-/bcrypt-pbkdf-1.0.0.tgz",
       "optional": true
     },
-    "bcryptjs": {
-      "version": "2.4.0",
-      "from": "bcryptjs@latest",
-      "resolved": "https://registry.npmjs.org/bcryptjs/-/bcryptjs-2.4.0.tgz"
-    },
     "beeper": {
       "version": "1.1.1",
       "from": "beeper@>=1.0.0 <2.0.0",
