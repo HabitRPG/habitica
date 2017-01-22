@@ -188,7 +188,7 @@ describe.only('shouldDo', () => {
   });
 
   context('Every X Months', () => {
-    it('leaves daily inactive if not the correct week of the month on the day of the start date', () => {
+    it('leaves daily inactive if not the correct month', () => {
       day = moment();
       dailyTask.everyX = 2;
       dailyTask.frequency = 'monthly';
@@ -197,7 +197,7 @@ describe.only('shouldDo', () => {
       expect(shouldDo(day, dailyTask, options)).to.equal(false);
     });
 
-    it('activates Daily on matching day of month', () => {
+    it('activates Daily on matching month', () => {
       day = moment();
       dailyTask.everyX = 2;
       dailyTask.frequency = 'monthly';
@@ -206,5 +206,24 @@ describe.only('shouldDo', () => {
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
     });
   });
-  // context('Every X Years');
+
+  context('Every X Years', () => {
+    it('leaves daily inactive if not the correct year', () => {
+      day = moment();
+      dailyTask.everyX = 2;
+      dailyTask.frequency = 'yearly';
+      day = day.add(1, 'day').toDate();
+
+      expect(shouldDo(day, dailyTask, options)).to.equal(false);
+    });
+
+    it('activates Daily on matching year', () => {
+      day = moment();
+      dailyTask.everyX = 2;
+      dailyTask.frequency = 'yearly';
+      day = day.add(2, 'years').toDate();
+
+      expect(shouldDo(day, dailyTask, options)).to.equal(true);
+    });
+  });
 });

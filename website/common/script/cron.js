@@ -130,6 +130,13 @@ export function shouldDo (day, dailyTask, options = {}) {
     }
 
     return schedule.matches(day);
+  } else if (dailyTask.frequency === 'yearly') {
+
+    let schedule = moment(dailyTask.startDate).recur();
+
+    schedule = schedule.every(dailyTask.everyX).years()
+
+    return schedule.matches(day);
   }
 
   return false;
