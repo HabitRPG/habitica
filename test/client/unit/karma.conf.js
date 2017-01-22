@@ -3,14 +3,15 @@
 // we are also using it with karma-webpack
 //   https://github.com/webpack/karma-webpack
 
-var path = require('path');
-var merge = require('webpack-merge');
-var baseConfig = require('../../../webpack/webpack.base.conf');
-var utils = require('../../../webpack/utils');
-var webpack = require('webpack');
-var projectRoot = path.resolve(__dirname, '../../../');
+const path = require('path');
+const merge = require('webpack-merge');
+const baseConfig = require('../../../webpack/webpack.base.conf');
+const utils = require('../../../webpack/utils');
+const webpack = require('webpack');
+const projectRoot = path.resolve(__dirname, '../../../');
+const testEnv = require('../../../webpack/config/test.env');
 
-var webpackConfig = merge(baseConfig, {
+const webpackConfig = merge(baseConfig, {
   // use inline sourcemap for karma-sourcemap-loader
   module: {
     loaders: utils.styleLoaders(),
@@ -23,7 +24,7 @@ var webpackConfig = merge(baseConfig, {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': require('../../../webpack/config/test.env'),
+      'process.env': testEnv,
     }),
   ],
 });
@@ -43,7 +44,7 @@ webpackConfig.module.preLoaders.unshift({
 });
 
 // only apply babel for test files when using isparta
-webpackConfig.module.loaders.some(function (loader, i) {
+webpackConfig.module.loaders.some((loader) => {
   if (loader.loader === 'babel') {
     loader.include = path.resolve(projectRoot, 'test/client/unit');
     return true;

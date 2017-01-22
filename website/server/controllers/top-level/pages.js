@@ -85,7 +85,7 @@ api.redirectExtensionsPage = {
   },
 };
 
-// All requests to /new_app (expect /new_app/static) should serve the new client in development
+// All requests to /new_app (except /new_app/static) should serve the new client in development
 if (IS_PROD && IS_NEW_CLIENT_ENABLED) {
   api.getNewClient = {
     method: 'GET',

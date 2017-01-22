@@ -142,7 +142,7 @@
     "questEggSlothAdjective": "um rápido",
     "questEggTriceratopsText": "Triceratops",
     "questEggTriceratopsMountText": "Triceratops",
-    "questEggTriceratopsAdjective": "a tricky",
+    "questEggTriceratopsAdjective": "uma astuta",
     "eggNotes": "Ache uma poção de eclosão para usar nesse ovo e ele irá chocar em um <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Básica",
     "hatchingPotionWhite": "Branca",

@@ -142,7 +142,7 @@
     "questEggSlothAdjective": "en hurtig",
     "questEggTriceratopsText": "Triceratops",
     "questEggTriceratopsMountText": "Triceratops",
-    "questEggTriceratopsAdjective": "a tricky",
+    "questEggTriceratopsAdjective": "en vanskelig",
     "eggNotes": "Find en udrugningseliksir til at hælde på dit æg, og det vil udklække  <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Almindelig",
     "hatchingPotionWhite": "Hvid",

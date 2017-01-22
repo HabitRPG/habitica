@@ -1,4 +1,4 @@
-div(ng-if='::task.type!="reward"')
+div(ng-if='(task.type !== "reward") || (!obj.auth && obj.purchased && obj.purchased.active)')
   button.advanced-options-toggle.option-title.mega(type='button',
     ng-class='{active: task._edit._advanced}',
     ng-click='task._edit._advanced = !task._edit._advanced', tooltip=env.t('expandCollapse'))

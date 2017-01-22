@@ -266,5 +266,6 @@
     "invalidReqParams": "Parameter permintaan salah.",
     "memberIdRequired": "\"member\" harus merupakan UUID yang valid.",
     "heroIdRequired": "\"heroId\" harus merupakan UUID yang valid.",
-    "cannotFulfillReq": "Permintaanmu tidak dapat dipenuhi. Kirim email ke admin@habitica.com jika error ini terus berlangsung."
+    "cannotFulfillReq": "Permintaanmu tidak dapat dipenuhi. Kirim email ke admin@habitica.com jika error ini terus berlangsung.",
+    "modelNotFound": "This model does not exist."
 }
