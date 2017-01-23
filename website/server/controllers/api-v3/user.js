@@ -204,10 +204,8 @@ api.deleteUser = {
       if (oldPassword !== user.auth.local.hashed_password) {
         throw new NotAuthorized(res.t('wrongPassword'))
       }
-    } else if (user.auth.facebook.id || user.auth.google.id) {
-      if(req.body.password !== 'DELETE') {
+    } else if ((user.auth.facebook.id || user.auth.google.id) && req.body.password !== 'DELETE') {
         throw new NotAuthorized(res.t('incorrectDeletePhrase'))
-      }
     }
 
     if (plan && plan.customerId && !plan.dateTerminated) {
