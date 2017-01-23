@@ -528,6 +528,27 @@ describe('payments/index', () => {
 
         expect(updatedUser.purchased.plan.extraMonths).to.within(2, 3);
       });
+
+      it('resets date terminated if user has old subscription', async () => {
+        let recipient = new User();
+        recipient.profile.name = 'recipient';
+        plan.key = 'basic_earned';
+        plan.paymentMethod = stripePayments.constants.PAYMENT_METHOD;
+        plan.dateTerminated = moment().subtract(1, 'days').toDate();
+        recipient.purchased.plan = plan;
+        recipient.guilds.push(group._id);
+        await recipient.save();
+
+        user.guilds.push(group._id);
+        await user.save();
+        data.groupId = group._id;
+
+        await api.createSubscription(data);
+
+        let updatedUser = await User.findById(recipient._id).exec();
+
+        expect(updatedUser.purchased.plan.dateTerminated).to.not.exist;
+      });
     });
 
     context('Block subscription perks', () => {
