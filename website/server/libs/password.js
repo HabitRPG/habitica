@@ -53,7 +53,9 @@ export async function compare (user, passwordToCheck) {
 }
 
 // Convert an user to use bcrypt from sha1 for password hashing
-// needs to save the user separately
+// needs to save the user separately.
+// NOTE: before calling this method it should be verified that the supplied plain text password
+// is indeed hashed with sha1 and is valid
 export async function convertToBcrypt (user, plainTextPassword) {
   if (!user || !plainTextPassword) throw new Error('user and plainTextPassword are required parameters.');
 
