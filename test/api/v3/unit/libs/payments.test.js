@@ -7,6 +7,7 @@ import analytics from '../../../../../website/server/libs/analyticsService';
 import notifications from '../../../../../website/server/libs/pushNotifications'
 import amzLib from '../../../../../website/server/libs/amazonPayments';
 import stripePayments from '../../../../../website/server/libs/stripePayments';
+import paypalPayments from '../../../../../website/server/libs/paypalPayments';
 import { model as User } from '../../../../../website/server/models/user';
 import { model as Group } from '../../../../../website/server/models/group';
 import { translate as t } from '../../../../helpers/api-v3-integration.helper';
@@ -461,7 +462,7 @@ describe('payments/index', () => {
         expect(updatedUser.purchased.plan.dateCreated).to.exist;
       });
 
-      it('adds months to members with existing recurring subscription', async () => {
+      it('adds months to members with existing recurring subscription (Stripe)', async () => {
         let subscriptionId = 'subId';
         let stripeDeleteCustomerStub = sinon.stub(stripe.customers, 'del').returnsPromise().resolves({});
 
@@ -493,6 +494,69 @@ describe('payments/index', () => {
 
         expect(updatedUser.purchased.plan.extraMonths).to.within(2, 3);
       });
+
+      it('adds months to members with existing recurring subscription (Amazon)', async () => {
+        let getBillingAgreementDetailsSpy = sinon.stub(amzLib, 'getBillingAgreementDetails')
+          .returnsPromise()
+          .resolves({
+            BillingAgreementDetails: {
+              BillingAgreementStatus: {State: 'Closed'},
+            },
+          });
+
+        let recipient = new User();
+        recipient.profile.name = 'recipient';
+        plan.planId = 'basic_earned';
+        plan.paymentMethod = paypalPayments.constants.PAYMENT_METHOD;
+        plan.lastBillingDate = moment().add(1, 'months');
+        recipient.purchased.plan = plan;
+        recipient.guilds.push(group._id);
+
+        await recipient.save();
+
+        user.guilds.push(group._id);
+        await user.save();
+        data.groupId = group._id;
+
+        await api.createSubscription(data);
+
+        let updatedUser = await User.findById(recipient._id).exec();
+
+        expect(updatedUser.purchased.plan.extraMonths).to.within(2, 3);
+      });
+
+      it('adds months to members with existing recurring subscription (Paypal)', async () => {
+        let paypalBillingAgreementCancelStub = sinon.stub(paypalPayments, 'paypalBillingAgreementCancel').returnsPromise().resolves({});
+        let paypalBillingAgreementGetStub = sinon.stub(paypalPayments, 'paypalBillingAgreementGet')
+          .returnsPromise().resolves({
+            agreement_details: {
+              next_billing_date: moment().add(3, 'months').toDate(),
+              cycles_completed: 1,
+            },
+          });
+
+        let recipient = new User();
+        recipient.profile.name = 'recipient';
+        plan.planId = 'basic_earned';
+        plan.paymentMethod = paypalPayments.constants.PAYMENT_METHOD;
+        recipient.purchased.plan = plan;
+        recipient.guilds.push(group._id);
+
+        await recipient.save();
+
+        user.guilds.push(group._id);
+        await user.save();
+        data.groupId = group._id;
+
+        await api.createSubscription(data);
+
+        let updatedUser = await User.findById(recipient._id).exec();
+
+        expect(updatedUser.purchased.plan.extraMonths).to.within(2, 3);
+      });
+
+      it('adds months to members with existing recurring subscription (Android)');
+      it('adds months to members with existing recurring subscription (iOs)');
 
       it('adds months to members who already cancelled but not yet terminated recurring subscription', async () => {
         let subscriptionId = 'subId';

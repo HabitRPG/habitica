@@ -11,6 +11,7 @@ import schema from './schema';
 import payments from '../../libs/payments'
 import amazonPayments from '../../libs/amazonPayments';
 import stripePayments from '../../libs/stripePayments';
+import paypalPayments from '../../libs/paypalPayments';
 
 schema.methods.isSubscribed = function isSubscribed () {
   let now = new Date();
@@ -105,6 +106,8 @@ schema.methods.cancelSubscription = async function cancelSubscription () {
     return await amazonPayments.cancelSubscription({user: this});
   } else if (plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
     return await stripePayments.cancelSubscription({user: this});
+  } else if (plan.paymentMethod === paypalPayments.constants.PAYMENT_METHOD) {
+    return await paypalPayments.subscribeCancel({user: this});
   }
 
   return await payments.cancelSubscription({user: this});
