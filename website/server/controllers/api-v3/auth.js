@@ -125,6 +125,7 @@ api.registerLocal = {
           email,
           salt,
           hashed_password, // eslint-disable-line camelcase
+          passwordHashMethod: 'sha1',
         },
       },
       preferences: {
