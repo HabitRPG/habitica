@@ -11,6 +11,7 @@ import {
   model as Group,
   basicFields as basicGroupFields,
 } from '../models/group';
+import { model as User } from '../models/user';
 import {
   NotAuthorized,
   NotFound,
@@ -110,10 +111,8 @@ api.addSubToGroupUser = async function addSubToGroupUser (member) {
     let extraMonths = Number(plan.extraMonths);
     if (plan.dateTerminated) extraMonths += _dateDiff(today, plan.dateTerminated);
     let block = shared.content.subscriptionBlocks[plan.planId];
-    // let timeRemainingOnCurrentSubsciption = plan.nextBill ? moment(plan.nextBill).diff(new Date(), 'days') : 30;
-    // timeRemainingOnCurrentSubsciption = timeRemainingOnCurrentSubsciption / 30;
-    // extraMonths += timeRemainingOnCurrentSubsciption;
 
+console.log(plan);
     let today = new Date();
 
     _(plan).merge({ // override with these values
@@ -131,7 +130,6 @@ api.addSubToGroupUser = async function addSubToGroupUser (member) {
       mysteryItems: [],
     }).value();
 
-    // extraMonths = member.purchased.plan.extraMonths;
     await this.cancelSubscription({user: member});
   }
 
