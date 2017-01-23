@@ -16,7 +16,7 @@ import {
 } from '../../../../helpers/api-unit.helper.js';
 import i18n from '../../../../../website/common/script/i18n';
 
-describe('payments/index', () => {
+describe.only('payments/index', () => {
   let user, group, data, plan;
 
   let stripe = stripeModule('test');
@@ -323,7 +323,27 @@ describe('payments/index', () => {
       });
     });
 
-    context('Purchasing a subscription for group', () => {
+    context.only('Purchasing a subscription for group', () => {
+      beforeEach(() => {
+        let subscriptionId = 'subId';
+        sinon.stub(stripe.customers, 'del').returnsPromise().resolves({});
+
+        let currentPeriodEndTimeStamp = moment().add(3, 'months').unix();
+        sinon.stub(stripe.customers, 'retrieve')
+          .returnsPromise().resolves({
+            subscriptions: {
+              data: [{id: subscriptionId, current_period_end: currentPeriodEndTimeStamp}], // eslint-disable-line camelcase
+            },
+          });
+
+        stripePayments.setStripeApi(stripe);
+      })
+
+      afterEach(() => {
+        stripe.customers.del.restore();
+        stripe.customers.retrieve.restore();
+      });
+
       it('creates a subscription', async () => {
         expect(group.purchased.plan.planId).to.not.exist;
         data.groupId = group._id;
@@ -395,6 +415,8 @@ describe('payments/index', () => {
         recipient.profile.name = 'recipient';
         recipient.purchased.plan = plan;
         recipient.guilds.push(group._id);
+        plan.planId = 'basic_earned';
+        plan.paymentMethod = 'paymentMethod';
         data.gift = {
           member: recipient,
           subscription: {
@@ -420,7 +442,7 @@ describe('payments/index', () => {
         expect(updatedUser.purchased.plan.dateUpdated).to.exist;
         expect(updatedUser.purchased.plan.gemsBought).to.eql(0);
         expect(updatedUser.purchased.plan.paymentMethod).to.eql('Group Plan');
-        expect(updatedUser.purchased.plan.extraMonths).to.eql(1);
+        expect(updatedUser.purchased.plan.extraMonths).to.within(2, 3);
         expect(updatedUser.purchased.plan.dateTerminated).to.eql(null);
         expect(updatedUser.purchased.plan.lastBillingDate).to.not.exist;
         expect(updatedUser.purchased.plan.dateCreated).to.exist;
@@ -456,26 +478,13 @@ describe('payments/index', () => {
         expect(updatedUser.purchased.plan.dateUpdated).to.exist;
         expect(updatedUser.purchased.plan.gemsBought).to.eql(0);
         expect(updatedUser.purchased.plan.paymentMethod).to.eql('Group Plan');
-        expect(updatedUser.purchased.plan.extraMonths).to.eql(3);
+        expect(updatedUser.purchased.plan.extraMonths).to.within(4, 5);
         expect(updatedUser.purchased.plan.dateTerminated).to.eql(null);
         expect(updatedUser.purchased.plan.lastBillingDate).to.not.exist;
         expect(updatedUser.purchased.plan.dateCreated).to.exist;
       });
 
       it('adds months to members with existing recurring subscription (Stripe)', async () => {
-        let subscriptionId = 'subId';
-        let stripeDeleteCustomerStub = sinon.stub(stripe.customers, 'del').returnsPromise().resolves({});
-
-        let currentPeriodEndTimeStamp = moment().add(3, 'months').unix();
-        let stripeRetrieveStub = sinon.stub(stripe.customers, 'retrieve')
-          .returnsPromise().resolves({
-            subscriptions: {
-              data: [{id: subscriptionId, current_period_end: currentPeriodEndTimeStamp}], // eslint-disable-line camelcase
-            },
-          });
-
-        stripePayments.setStripeApi(stripe);
-
         let recipient = new User();
         recipient.profile.name = 'recipient';
         plan.key = 'basic_earned';
@@ -507,8 +516,8 @@ describe('payments/index', () => {
         let recipient = new User();
         recipient.profile.name = 'recipient';
         plan.planId = 'basic_earned';
-        plan.paymentMethod = paypalPayments.constants.PAYMENT_METHOD;
-        plan.lastBillingDate = moment().add(1, 'months');
+        plan.paymentMethod = amzLib.constants.PAYMENT_METHOD_AMAZON;
+        plan.lastBillingDate = moment().add(3, 'months');
         recipient.purchased.plan = plan;
         recipient.guilds.push(group._id);
 
@@ -522,7 +531,7 @@ describe('payments/index', () => {
 
         let updatedUser = await User.findById(recipient._id).exec();
 
-        expect(updatedUser.purchased.plan.extraMonths).to.within(2, 3);
+        expect(updatedUser.purchased.plan.extraMonths).to.within(3, 4);
       });
 
       it('adds months to members with existing recurring subscription (Paypal)', async () => {
@@ -559,19 +568,6 @@ describe('payments/index', () => {
       it('adds months to members with existing recurring subscription (iOs)');
 
       it('adds months to members who already cancelled but not yet terminated recurring subscription', async () => {
-        let subscriptionId = 'subId';
-        let stripeDeleteCustomerStub = sinon.stub(stripe.customers, 'del').returnsPromise().resolves({});
-
-        let currentPeriodEndTimeStamp = moment().add(3, 'months').unix();
-        let stripeRetrieveStub = sinon.stub(stripe.customers, 'retrieve')
-          .returnsPromise().resolves({
-            subscriptions: {
-              data: [{id: subscriptionId, current_period_end: currentPeriodEndTimeStamp}], // eslint-disable-line camelcase
-            },
-          });
-
-        stripePayments.setStripeApi(stripe);
-
         let recipient = new User();
         recipient.profile.name = 'recipient';
         plan.key = 'basic_earned';
@@ -615,19 +611,6 @@ describe('payments/index', () => {
       });
 
       it('adds months to members with existing recurring subscription and includes existing extraMonths', async () => {
-        let subscriptionId = 'subId';
-        let stripeDeleteCustomerStub = sinon.stub(stripe.customers, 'del').returnsPromise().resolves({});
-
-        let currentPeriodEndTimeStamp = moment().add(3, 'months').unix();
-        let stripeRetrieveStub = sinon.stub(stripe.customers, 'retrieve')
-          .returnsPromise().resolves({
-            subscriptions: {
-              data: [{id: subscriptionId, current_period_end: currentPeriodEndTimeStamp}], // eslint-disable-line camelcase
-            },
-          });
-
-        stripePayments.setStripeApi(stripe);
-
         let recipient = new User();
         recipient.profile.name = 'recipient';
         plan.key = 'basic_earned';
@@ -649,19 +632,6 @@ describe('payments/index', () => {
       });
 
       it('adds months to members with existing recurring subscription and ignores existing negative extraMonths', async () => {
-        let subscriptionId = 'subId';
-        let stripeDeleteCustomerStub = sinon.stub(stripe.customers, 'del').returnsPromise().resolves({});
-
-        let currentPeriodEndTimeStamp = moment().add(3, 'months').unix();
-        let stripeRetrieveStub = sinon.stub(stripe.customers, 'retrieve')
-          .returnsPromise().resolves({
-            subscriptions: {
-              data: [{id: subscriptionId, current_period_end: currentPeriodEndTimeStamp}], // eslint-disable-line camelcase
-            },
-          });
-
-        stripePayments.setStripeApi(stripe);
-
         let recipient = new User();
         recipient.profile.name = 'recipient';
         plan.key = 'basic_earned';
@@ -738,6 +708,7 @@ describe('payments/index', () => {
 
         let updatedUser = await User.findById(recipient._id).exec();
         let firstDateCreated = updatedUser.purchased.plan.dateCreated;
+        let extraMonthsBeforeSecond = updatedUser.purchased.plan.extraMonths;
 
         let group2 = generateGroup({
           name: 'test group2',
@@ -759,7 +730,7 @@ describe('payments/index', () => {
         expect(updatedUser.purchased.plan.dateUpdated).to.exist;
         expect(updatedUser.purchased.plan.gemsBought).to.eql(0);
         expect(updatedUser.purchased.plan.paymentMethod).to.eql('Group Plan');
-        expect(updatedUser.purchased.plan.extraMonths).to.eql(0);
+        expect(updatedUser.purchased.plan.extraMonths).to.eql(extraMonthsBeforeSecond);
         expect(updatedUser.purchased.plan.dateTerminated).to.eql(null);
         expect(updatedUser.purchased.plan.lastBillingDate).to.not.exist;
         expect(updatedUser.purchased.plan.dateCreated).to.eql(firstDateCreated);
