@@ -107,7 +107,7 @@ api.addSubToGroupUser = async function addSubToGroupUser (member) {
 
   if (member.isSubscribed()) {
     await member.cancelSubscription();
-
+;
     let today = new Date();
     plan = _.clone(member.purchased.plan.toObject());
     let extraMonths = Number(plan.extraMonths);
@@ -392,6 +392,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
 
   let now = moment();
   let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days') : 30;
+  if (plan.extraMonths < 0) plan.extraMonths = 0;
   let extraDays = Math.ceil(30.5 * plan.extraMonths);
   let nowStr = `${now.format('MM')}/${moment(plan.dateUpdated).format('DD')}/${now.format('YYYY')}`;
   let nowStrFormat = 'MM/DD/YYYY';
