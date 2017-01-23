@@ -131,7 +131,7 @@ api.addSubToGroupUser = async function addSubToGroupUser (member) {
   }
 
   member.purchased.plan = plan;
-  // member.purchased.plan.extraMonths = extraMonths;
+
   data.user = member;
   await this.createSubscription(data);
 };

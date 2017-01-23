@@ -1,3 +1,4 @@
+import moment from 'moment';
 import common from '../../../common';
 import Bluebird from 'bluebird';
 import {
@@ -12,7 +13,9 @@ import amazonPayments from '../../libs/amazonPayments';
 import stripePayments from '../../libs/stripePayments';
 
 schema.methods.isSubscribed = function isSubscribed () {
-  return !!this.purchased.plan.customerId; // eslint-disable-line no-implicit-coercion
+  let now = new Date();
+  let plan = this.purchased.plan;
+  return plan && plan.customerId && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
 };
 
 // Get an array of groups ids the user is member of

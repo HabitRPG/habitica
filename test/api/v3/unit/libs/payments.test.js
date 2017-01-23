@@ -493,6 +493,41 @@ describe('payments/index', () => {
 
         expect(updatedUser.purchased.plan.extraMonths).to.within(2, 3);
       });
+
+      it('adds months to members who already cancelled but not yet terminated recurring subscription', async () => {
+        let subscriptionId = 'subId';
+        let stripeDeleteCustomerStub = sinon.stub(stripe.customers, 'del').returnsPromise().resolves({});
+
+        let currentPeriodEndTimeStamp = moment().add(3, 'months').unix();
+        let stripeRetrieveStub = sinon.stub(stripe.customers, 'retrieve')
+          .returnsPromise().resolves({
+            subscriptions: {
+              data: [{id: subscriptionId, current_period_end: currentPeriodEndTimeStamp}], // eslint-disable-line camelcase
+            },
+          });
+
+        stripePayments.setStripeApi(stripe);
+
+        let recipient = new User();
+        recipient.profile.name = 'recipient';
+        plan.key = 'basic_earned';
+        plan.paymentMethod = stripePayments.constants.PAYMENT_METHOD;
+        recipient.purchased.plan = plan;
+        recipient.guilds.push(group._id);
+        await recipient.save();
+
+        user.guilds.push(group._id);
+        await user.save();
+        data.groupId = group._id;
+
+        await recipient.cancelSubscription();
+
+        await api.createSubscription(data);
+
+        let updatedUser = await User.findById(recipient._id).exec();
+
+        expect(updatedUser.purchased.plan.extraMonths).to.within(2, 3);
+      });
     });
 
     context('Block subscription perks', () => {
