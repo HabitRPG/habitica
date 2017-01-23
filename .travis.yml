@@ -1,18 +1,17 @@
 language: node_js
 node_js:
   - '6'
-sudo: false
+sudo: required
 addons:
   apt:
     sources:
-      - mongodb-upstart
       - ubuntu-toolchain-r-test
     packages:
-      - mongodb-org-server
       - g++-4.8
 before_install:
   - $CXX --version
   - npm install -g npm@4
+  - if [ $REQUIRES_SERVER ]; then sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10; echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list; sudo apt-get update; sudo apt-get install mongodb-org-server; fi
 before_script:
   - npm run test:build
   - cp config.json.example config.json
