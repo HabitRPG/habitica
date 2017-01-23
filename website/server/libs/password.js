@@ -9,7 +9,7 @@ export function bcryptHash (passwordToHash) {
   return bcrypt.hash(passwordToHash, BCRYPT_SALT_ROUNDS); // returns a promise
 }
 
-// Check if a plain text password matches an hash
+// Check if a plain text password matches a hash
 export function bcryptCompare (passwordToCheck, hashedPassword) {
   return bcrypt.compare(passwordToCheck, hashedPassword); // returns a promise
 }
