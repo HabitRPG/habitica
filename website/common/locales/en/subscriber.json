@@ -154,5 +154,9 @@
     "noSudoAccess": "You don't have sudo access.",
     "couponCodeRequired": "The coupon code is required.",
     "eventRequired": "\"req.params.event\" is required.",
-    "countRequired": "\"req.query.count\" is required."
+    "countRequired": "\"req.query.count\" is required.",
+    "missingPaymentId": "Missing req.query.paymentId",
+    "missingCustomerId": "Missing req.query.customerId",
+    "missingPaypalBlock": "Missing req.session.paypalBlock",
+    "missingSubKey": "Missing req.query.sub"
 }
