@@ -55,7 +55,6 @@ api.createSubscription = async function createSubscription (data) {
   let itemPurchased = 'Subscription';
   let purchaseType = 'subscribe';
   let emailType = 'subscription-begins';
-  let setLastBillingDate = data.setLastBillingDate ? data.setLastBillingDate : false;
 
   //  If we are buying a group subscription
   if (data.groupId) {

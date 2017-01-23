@@ -171,8 +171,6 @@ api.iapCancelSubscriptionAndroid = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    let data;
-
     let data = user.purchased.plan.additionalData;
 
     if (!data) throw new NotAuthorized(res.t('missingSubscription'));
