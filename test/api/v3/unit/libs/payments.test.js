@@ -721,6 +721,49 @@ describe('payments/index', () => {
         expect(updatedUser.purchased.plan.consecutive.trinkets).to.equal(consecutive.trinkets);
         expect(updatedUser.purchased.plan.dateCreated).to.eql(planCreatedDate);
       });
+
+      it('does not modify a user with a group subscription when they join another group', async () => {
+        let recipient = new User();
+        recipient.profile.name = 'recipient';
+        plan.key = 'basic_earned';
+        recipient.purchased.plan = plan;
+        recipient.guilds.push(group._id);
+        await recipient.save();
+
+        user.guilds.push(group._id);
+        await user.save();
+        data.groupId = group._id;
+
+        await api.createSubscription(data);
+
+        let updatedUser = await User.findById(recipient._id).exec();
+        let firstDateCreated = updatedUser.purchased.plan.dateCreated;
+
+        let group2 = generateGroup({
+          name: 'test group2',
+          type: 'guild',
+          privacy: 'public',
+          leader: user._id,
+        });
+        data.groupId = group2._id;
+        await group2.save();
+        recipient.guilds.push(group2._id);
+        await recipient.save();
+
+        await api.createSubscription(data);
+
+        updatedUser = await User.findById(recipient._id).exec();
+
+        expect(updatedUser.purchased.plan.planId).to.eql('group_plan_auto');
+        expect(updatedUser.purchased.plan.customerId).to.eql('group-plan');
+        expect(updatedUser.purchased.plan.dateUpdated).to.exist;
+        expect(updatedUser.purchased.plan.gemsBought).to.eql(0);
+        expect(updatedUser.purchased.plan.paymentMethod).to.eql('Group Plan');
+        expect(updatedUser.purchased.plan.extraMonths).to.eql(0);
+        expect(updatedUser.purchased.plan.dateTerminated).to.eql(null);
+        expect(updatedUser.purchased.plan.lastBillingDate).to.not.exist;
+        expect(updatedUser.purchased.plan.dateCreated).to.eql(firstDateCreated);
+      });
     });
 
     context('Block subscription perks', () => {
