@@ -3,7 +3,6 @@ import nconf from 'nconf';
 import Bluebird from 'bluebird';
 import moment from 'moment';
 import cc from 'coupon-code';
-
 import common from '../../common';
 import {
   BadRequest,

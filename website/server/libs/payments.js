@@ -106,14 +106,13 @@ api.addSubToGroupUser = async function addSubToGroupUser (member) {
   let extraMonths = 0;
 
   if (member.isSubscribed()) {
-    plan = _.clone(member.purchased.plan.toObject());
+    await member.cancelSubscription();
 
+    let today = new Date();
+    plan = _.clone(member.purchased.plan.toObject());
     let extraMonths = Number(plan.extraMonths);
     if (plan.dateTerminated) extraMonths += _dateDiff(today, plan.dateTerminated);
     let block = shared.content.subscriptionBlocks[plan.planId];
-
-console.log(plan);
-    let today = new Date();
 
     _(plan).merge({ // override with these values
       planId: 'group_plan_auto',
@@ -129,8 +128,6 @@ console.log(plan);
       dateCreated: today,
       mysteryItems: [],
     }).value();
-
-    await this.cancelSubscription({user: member});
   }
 
   member.purchased.plan = plan;

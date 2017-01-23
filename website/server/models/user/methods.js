@@ -7,6 +7,9 @@ import {
 import { defaults } from 'lodash';
 import { model as UserNotification } from '../userNotification';
 import schema from './schema';
+import payments from '../../libs/payments'
+import amazonPayments from '../../libs/amazonPayments';
+import stripePayments from '../../libs/stripePayments';
 
 schema.methods.isSubscribed = function isSubscribed () {
   return !!this.purchased.plan.customerId; // eslint-disable-line no-implicit-coercion
@@ -90,4 +93,16 @@ schema.methods.addComputedStatsToJSONObj = function addComputedStatsToUserJSONOb
   statsObject.maxMP = common.statsComputed(this).maxMP;
 
   return statsObject;
+};
+
+schema.methods.cancelSubscription = async function cancelSubscription () {
+  let plan = this.purchased.plan;
+
+  if (plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD_AMAZON) {
+    return await amazonPayments.cancelSubscription({user: this});
+  } else if (plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
+    return await stripePayments.cancelSubscription({user: this});
+  }
+
+  return await payments.cancelSubscription({user: this});
 };

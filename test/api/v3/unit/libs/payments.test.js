@@ -1,11 +1,14 @@
+import moment from 'moment';
+import stripeModule from 'stripe';
+
 import * as sender from '../../../../../website/server/libs/email';
 import * as api from '../../../../../website/server/libs/payments';
 import analytics from '../../../../../website/server/libs/analyticsService';
-import notifications from '../../../../../website/server/libs/pushNotifications';
+import notifications from '../../../../../website/server/libs/pushNotifications'
+import amzLib from '../../../../../website/server/libs/amazonPayments';
+import stripePayments from '../../../../../website/server/libs/stripePayments';
 import { model as User } from '../../../../../website/server/models/user';
 import { model as Group } from '../../../../../website/server/models/group';
-import stripeModule from 'stripe';
-import moment from 'moment';
 import { translate as t } from '../../../../helpers/api-v3-integration.helper';
 import {
   generateGroup,
@@ -459,9 +462,23 @@ describe('payments/index', () => {
       });
 
       it('adds months to members with existing recurring subscription', async () => {
+        let subscriptionId = 'subId';
+        let stripeDeleteCustomerStub = sinon.stub(stripe.customers, 'del').returnsPromise().resolves({});
+
+        let currentPeriodEndTimeStamp = moment().add(3, 'months').unix();
+        let stripeRetrieveStub = sinon.stub(stripe.customers, 'retrieve')
+          .returnsPromise().resolves({
+            subscriptions: {
+              data: [{id: subscriptionId, current_period_end: currentPeriodEndTimeStamp}], // eslint-disable-line camelcase
+            },
+          });
+
+        stripePayments.setStripeApi(stripe);
+
         let recipient = new User();
         recipient.profile.name = 'recipient';
         plan.key = 'basic_earned';
+        plan.paymentMethod = stripePayments.constants.PAYMENT_METHOD;
         recipient.purchased.plan = plan;
         recipient.guilds.push(group._id);
         await recipient.save();
@@ -474,7 +491,7 @@ describe('payments/index', () => {
 
         let updatedUser = await User.findById(recipient._id).exec();
 
-        expect(recipient.purchased.plan.extraMonths).to.within(1.9, 2);
+        expect(updatedUser.purchased.plan.extraMonths).to.within(2, 3);
       });
     });
 
