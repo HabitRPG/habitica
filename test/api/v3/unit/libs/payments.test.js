@@ -618,11 +618,25 @@ describe('payments/index', () => {
         expect(updatedUser.purchased.plan.extraMonths).to.within(2, 3);
       });
 
-      it('does not override gemsBought field', async () => {
+      it('does not override gemsBought, mysteryItems, dateCreated, and consective fields', async () => {
+        let planCreatedDate = moment().toDate();
+        let mysteryItems = [{title: 'item'}];
+        let consecutive = {
+          trinkets: 3,
+          gemCapExtra: 20,
+          offset: 1,
+          count: 13,
+        };
+
         let recipient = new User();
         recipient.profile.name = 'recipient';
+
         plan.key = 'basic_earned';
         plan.gemsBought = 3;
+        plan.dateCreated = planCreatedDate;
+        plan.mysteryItems = mysteryItems;
+        plan.consecutive = consecutive;
+
         recipient.purchased.plan = plan;
         recipient.guilds.push(group._id);
         await recipient.save();
@@ -636,6 +650,12 @@ describe('payments/index', () => {
         let updatedUser = await User.findById(recipient._id).exec();
 
         expect(updatedUser.purchased.plan.gemsBought).to.equal(3);
+        expect(updatedUser.purchased.plan.mysteryItems.length).to.eql(1);
+        expect(updatedUser.purchased.plan.consecutive.count).to.equal(consecutive.count);
+        expect(updatedUser.purchased.plan.consecutive.offset).to.equal(consecutive.offset);
+        expect(updatedUser.purchased.plan.consecutive.gemCapExtra).to.equal(consecutive.gemCapExtra);
+        expect(updatedUser.purchased.plan.consecutive.trinkets).to.equal(consecutive.trinkets);
+        expect(updatedUser.purchased.plan.dateCreated).to.eql(planCreatedDate);
       });
     });
 
