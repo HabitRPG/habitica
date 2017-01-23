@@ -55,7 +55,6 @@ api.createSubscription = async function createSubscription (data) {
   let itemPurchased = 'Subscription';
   let purchaseType = 'subscribe';
   let emailType = 'subscription-begins';
-  let setLastBillingDate = data.setLastBillingDate ? data.setLastBillingDate : false;
 
   //  If we are buying a group subscription
   if (data.groupId) {
@@ -106,7 +105,7 @@ api.createSubscription = async function createSubscription (data) {
       dateTerminated: null,
       // Specify a lastBillingDate just for Amazon Payments
       // Resetted every time the subscription restarts
-      lastBillingDate: setLastBillingDate ? today : undefined,
+      lastBillingDate: data.paymentMethod === 'Amazon Payments' ? today : undefined,
       nextPaymentProcessing: data.nextPaymentProcessing,
       nextBillingDate: data.nextBillingDate,
       additionalData: data.additionalData,

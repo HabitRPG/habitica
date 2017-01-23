@@ -32,7 +32,7 @@ export let schema = new mongoose.Schema({
 });
 
 schema.plugin(baseModel, {
-  private: 'additionalData',
+  private: ['additionalData'],
   noSet: ['_id'],
   timestamps: false,
   _id: false,

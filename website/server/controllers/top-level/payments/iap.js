@@ -95,7 +95,7 @@ api.iapAndroidVerify = {
  * @apiName IapAndroidSubscribe
  * @apiGroup Payments
  **/
-api.iapsubscriptionAndroid = {
+api.iapSubscriptionAndroid = {
   method: 'POST',
   url: '/iap/android/subscribe',
   middlewares: [authWithUrl],
@@ -164,16 +164,14 @@ api.iapsubscriptionAndroid = {
  * @apiName AmazonSubscribe
  * @apiGroup Payments
  **/
-api.subscribeCancel = {
+api.iapCancelSubscriptionAndroid = {
   method: 'GET',
   url: '/iap/android/subscribe/cancel',
   middlewares: [authWithUrl],
   async handler (req, res) {
     let user = res.locals.user;
 
-    let data;
-
-    data = user.purchased.plan.additionalData;
+    let data = user.purchased.plan.additionalData;
 
     if (!data) throw new NotAuthorized(res.t('missingSubscription'));
 
