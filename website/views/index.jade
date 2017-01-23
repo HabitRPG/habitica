@@ -12,6 +12,8 @@ html(ng-app='habitrpg', ng-controller='RootCtrl', ng-class='{"applying-action":a
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     meta(name='apple-mobile-web-app-capable', content='yes')
     meta(name='mobile-web-app-capable', content='yes')
+    noscript
+      img(height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=#{env.FACEBOOK_ANALYTICS}&ev=PageView&noscript=1")
 
     != env.getManifestFiles("app", "css")
 
