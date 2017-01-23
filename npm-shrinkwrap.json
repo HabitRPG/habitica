@@ -98,9 +98,9 @@
       }
     },
     "ajv-keywords": {
-      "version": "1.5.0",
+      "version": "1.5.1",
       "from": "ajv-keywords@>=1.0.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/ajv-keywords/-/ajv-keywords-1.5.0.tgz",
+      "resolved": "https://registry.npmjs.org/ajv-keywords/-/ajv-keywords-1.5.1.tgz",
       "dev": true
     },
     "align-text": {
@@ -514,9 +514,9 @@
       "resolved": "https://registry.npmjs.org/atob/-/atob-1.1.3.tgz"
     },
     "autoprefixer": {
-      "version": "6.6.1",
+      "version": "6.7.0",
       "from": "autoprefixer@>=6.4.0 <7.0.0",
-      "resolved": "https://registry.npmjs.org/autoprefixer/-/autoprefixer-6.6.1.tgz"
+      "resolved": "https://registry.npmjs.org/autoprefixer/-/autoprefixer-6.7.0.tgz"
     },
     "aws-sdk": {
       "version": "2.7.27",
@@ -953,7 +953,7 @@
     },
     "bcrypt": {
       "version": "1.0.2",
-      "from": "bcrypt@latest",
+      "from": "bcrypt@>=1.0.2 <2.0.0",
       "resolved": "https://registry.npmjs.org/bcrypt/-/bcrypt-1.0.2.tgz"
     },
     "bcrypt-pbkdf": {
@@ -1600,9 +1600,9 @@
       "resolved": "https://registry.npmjs.org/browserify-zlib/-/browserify-zlib-0.1.4.tgz"
     },
     "browserslist": {
-      "version": "1.5.2",
-      "from": "browserslist@>=1.5.1 <1.6.0",
-      "resolved": "https://registry.npmjs.org/browserslist/-/browserslist-1.5.2.tgz"
+      "version": "1.6.0",
+      "from": "browserslist@>=1.6.0 <1.7.0",
+      "resolved": "https://registry.npmjs.org/browserslist/-/browserslist-1.6.0.tgz"
     },
     "bser": {
       "version": "1.0.2",
@@ -1659,16 +1659,9 @@
       "resolved": "https://registry.npmjs.org/buffers/-/buffers-0.1.1.tgz"
     },
     "buildmail": {
-      "version": "4.0.0",
-      "from": "buildmail@4.0.0",
-      "resolved": "https://registry.npmjs.org/buildmail/-/buildmail-4.0.0.tgz",
-      "dependencies": {
-        "punycode": {
-          "version": "2.1.0",
-          "from": "punycode@>=2.0.1 <3.0.0",
-          "resolved": "https://registry.npmjs.org/punycode/-/punycode-2.1.0.tgz"
-        }
-      }
+      "version": "4.0.1",
+      "from": "buildmail@4.0.1",
+      "resolved": "https://registry.npmjs.org/buildmail/-/buildmail-4.0.1.tgz"
     },
     "builtin-modules": {
       "version": "1.1.1",
@@ -1752,7 +1745,7 @@
     },
     "caniuse-db": {
       "version": "1.0.30000613",
-      "from": "caniuse-db@>=1.0.30000604 <2.0.0",
+      "from": "caniuse-db@>=1.0.30000613 <2.0.0",
       "resolved": "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.30000613.tgz"
     },
     "capture-stack-trace": {
@@ -3276,6 +3269,11 @@
       "from": "ejs@>=0.8.3 <0.9.0",
       "resolved": "https://registry.npmjs.org/ejs/-/ejs-0.8.8.tgz",
       "dev": true
+    },
+    "electron-to-chromium": {
+      "version": "1.2.0",
+      "from": "electron-to-chromium@>=1.2.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.2.0.tgz"
     },
     "elliptic": {
       "version": "6.3.2",
@@ -6096,9 +6094,9 @@
       "resolved": "https://registry.npmjs.org/hawk/-/hawk-3.1.3.tgz"
     },
     "he": {
-      "version": "1.1.0",
+      "version": "1.1.1",
       "from": "he@>=1.1.0 <1.2.0",
-      "resolved": "https://registry.npmjs.org/he/-/he-1.1.0.tgz"
+      "resolved": "https://registry.npmjs.org/he/-/he-1.1.1.tgz"
     },
     "hoek": {
       "version": "2.16.3",
@@ -8615,9 +8613,9 @@
       "resolved": "https://registry.npmjs.org/macaddress/-/macaddress-0.2.8.tgz"
     },
     "mailcomposer": {
-      "version": "4.0.0",
-      "from": "mailcomposer@4.0.0",
-      "resolved": "https://registry.npmjs.org/mailcomposer/-/mailcomposer-4.0.0.tgz"
+      "version": "4.0.1",
+      "from": "mailcomposer@4.0.1",
+      "resolved": "https://registry.npmjs.org/mailcomposer/-/mailcomposer-4.0.1.tgz"
     },
     "makeerror": {
       "version": "1.0.11",
@@ -9566,9 +9564,9 @@
       "resolved": "https://registry.npmjs.org/node-uuid/-/node-uuid-1.4.7.tgz"
     },
     "nodemailer": {
-      "version": "2.7.0",
+      "version": "2.7.2",
       "from": "nodemailer@>=2.3.2 <3.0.0",
-      "resolved": "https://registry.npmjs.org/nodemailer/-/nodemailer-2.7.0.tgz"
+      "resolved": "https://registry.npmjs.org/nodemailer/-/nodemailer-2.7.2.tgz"
     },
     "nodemailer-direct-transport": {
       "version": "3.3.2",
@@ -10392,7 +10390,7 @@
     },
     "postcss": {
       "version": "5.2.11",
-      "from": "postcss@>=5.2.8 <6.0.0",
+      "from": "postcss@>=5.2.11 <6.0.0",
       "resolved": "https://registry.npmjs.org/postcss/-/postcss-5.2.11.tgz",
       "dependencies": {
         "supports-color": {
@@ -10921,7 +10919,7 @@
     "push-notify": {
       "version": "1.2.0",
       "from": "habitrpg/push-notify#v1.2.0",
-      "resolved": "git://github.com/habitrpg/push-notify.git#6bc2b5fdb1bdc9649b9ec1964d79ca50187fc8a9",
+      "resolved": "git+https://github.com/habitrpg/push-notify.git#6bc2b5fdb1bdc9649b9ec1964d79ca50187fc8a9",
       "dependencies": {
         "lodash": {
           "version": "4.17.4",
@@ -11584,9 +11582,33 @@
       "resolved": "https://registry.npmjs.org/serve-favicon/-/serve-favicon-2.3.2.tgz"
     },
     "serve-static": {
-      "version": "1.11.1",
+      "version": "1.11.2",
       "from": "serve-static@>=1.11.1 <1.12.0",
-      "resolved": "https://registry.npmjs.org/serve-static/-/serve-static-1.11.1.tgz"
+      "resolved": "https://registry.npmjs.org/serve-static/-/serve-static-1.11.2.tgz",
+      "dependencies": {
+        "debug": {
+          "version": "2.2.0",
+          "from": "debug@>=2.2.0 <2.3.0",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-2.2.0.tgz",
+          "dependencies": {
+            "ms": {
+              "version": "0.7.1",
+              "from": "ms@0.7.1",
+              "resolved": "https://registry.npmjs.org/ms/-/ms-0.7.1.tgz"
+            }
+          }
+        },
+        "mime": {
+          "version": "1.3.4",
+          "from": "mime@1.3.4",
+          "resolved": "https://registry.npmjs.org/mime/-/mime-1.3.4.tgz"
+        },
+        "send": {
+          "version": "0.14.2",
+          "from": "send@0.14.2",
+          "resolved": "https://registry.npmjs.org/send/-/send-0.14.2.tgz"
+        }
+      }
     },
     "set-blocking": {
       "version": "2.0.0",
