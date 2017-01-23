@@ -617,6 +617,26 @@ describe('payments/index', () => {
 
         expect(updatedUser.purchased.plan.extraMonths).to.within(2, 3);
       });
+
+      it('does not override gemsBought field', async () => {
+        let recipient = new User();
+        recipient.profile.name = 'recipient';
+        plan.key = 'basic_earned';
+        plan.gemsBought = 3;
+        recipient.purchased.plan = plan;
+        recipient.guilds.push(group._id);
+        await recipient.save();
+
+        user.guilds.push(group._id);
+        await user.save();
+        data.groupId = group._id;
+
+        await api.createSubscription(data);
+
+        let updatedUser = await User.findById(recipient._id).exec();
+
+        expect(updatedUser.purchased.plan.gemsBought).to.equal(3);
+      });
     });
 
     context('Block subscription perks', () => {
