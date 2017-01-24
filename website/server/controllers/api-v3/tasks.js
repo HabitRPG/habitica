@@ -774,6 +774,7 @@ api.scoreCheckListItem = {
  *
  * @apiUse TaskNotFound
  * @apiUse ChecklistNotFound
+ * @apiUse ChallengeNotFound
  */
 api.updateChecklistItem = {
   method: 'PUT',
@@ -1159,6 +1160,9 @@ api.clearCompletedTodos = {
  *
  * @apiUse TaskNotFound
  * @apiError (400) {NotAuthorized} Challenge A task belonging to a challenge can't be deleted.
+ * @apiError (400) {NotAuthorized} Group Can't delete group tasks that are assigned to you
+ * @apiError (400) {NotAuthorized} ChallengeLeader Tasks belonging to a challenge can only be edited by the leader.
+ * @apiError (400) {NotAuthorized} GroupLeader Not authorized to manage tasks!
  */
 api.deleteTask = {
   method: 'DELETE',
