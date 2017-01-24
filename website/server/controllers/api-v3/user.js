@@ -257,6 +257,7 @@ api.getUserAnonymized = {
     if (user.auth) {
       delete user.auth.local;
       delete user.auth.facebook;
+      delete user.auth.google;
     }
     delete user.newMessages;
     delete user.profile;
