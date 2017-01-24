@@ -28,7 +28,7 @@ import {
 } from './language';
 
 const IS_PROD = nconf.get('IS_PROD');
-const DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING');
+const DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING') === 'true';
 const PUBLIC_DIR = path.join(__dirname, '/../../client-old');
 
 const SESSION_SECRET = nconf.get('SESSION_SECRET');

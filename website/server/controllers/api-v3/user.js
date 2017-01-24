@@ -200,8 +200,9 @@ api.deleteUser = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let oldPassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
-    if (oldPassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
+    let password = req.body.password;
+    let isValidPassword = await passwordUtils.compare(user, password);
+    if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
 
     if (plan && plan.customerId && !plan.dateTerminated) {
       throw new NotAuthorized(res.t('cannotDeleteActiveAccount'));
@@ -256,6 +257,7 @@ api.getUserAnonymized = {
     if (user.auth) {
       delete user.auth.local;
       delete user.auth.facebook;
+      delete user.auth.google;
     }
     delete user.newMessages;
     delete user.profile;
