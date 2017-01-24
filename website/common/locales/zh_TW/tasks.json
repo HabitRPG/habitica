@@ -1,6 +1,6 @@
 {
     "clearCompleted": "清除已完成任務",
-    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
+    "lotOfToDos": "你過去30天完成的代辦事項顯示在這裡。你可以在Data > Data Display Tool or Data > Export Data > User Data查看更早之前完成的代辦事項。",
     "deleteToDosExplanation": "如果你點選底下的按鈕，你所有已完成跟歸檔的待辦事項都將被永遠刪除。如果你想要留做紀錄，請先將它們匯出。",
     "addmultiple": "新增多項",
     "addsingle": "新增單項",
@@ -103,7 +103,7 @@
     "habitHelp1": "「好習慣」就是你每天都可以完成好幾次的正面事情。當你每次點擊 <%= plusIcon %>的時候，它會為你帶來金幣和經驗值哦。",
     "habitHelp2": "「壞習慣」就是你想要盡力避免去做的事。當你每次點擊<%= minusIcon %>的時候，壞習慣會折損你的生命值。",
     "habitHelp3": "想要獲得些任務靈感？你可以點擊 <a href='http://habitica.wikia.com/wiki/Sample_Habits' target='_blank'>範例參考</a>!",
-    "newbieGuild": "還有一肚子疑問？到這裏問問吧！<%= linkStart %>新手公會<%= linkEnd %>",
+    "newbieGuild": "More questions? Ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>!",
     "dailyHelp1": "每日任務重複 <%= emphasisStart %>每一天<%= emphasisEnd %>它們被設定好的日子。點擊 <%= pencilIcon %> 可以編輯一星期中的哪幾天開啟任務。",
     "dailyHelp2": "如果你沒有如期完成每日任務的話，你的生命值會在任務過期的時候受損。",
     "dailyHelp3": "每日任務會變成<%= emphasisStart %>更紅<%= emphasisEnd %>當你沒有完成的時候，它會變得<%= emphasisStart %>更藍<%= emphasisEnd %>當你完成的時候。越紅的任務越能夠獎勵你⋯⋯也更能造成生命值更多傷害哦。",

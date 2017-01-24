@@ -11,5 +11,6 @@
   "unlockedCheckInReward": "チェックインで賞がアンロックされました!",
   "totalCheckinsTitle": "総チェックイン",
   "checkinProgressTitle": "次までの道すじ",
-  "incentiveBackgroundsUnlockedWithCheckins": "毎日のチェックインでこの背景がアンロックされます。"
+  "incentiveBackgroundsUnlockedWithCheckins": "毎日のチェックインでこの背景がアンロックされます。",
+  "moreIncentivesComingSoon": "New check-in incentives will be added soon!"
 }

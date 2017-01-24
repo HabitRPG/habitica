@@ -54,7 +54,7 @@
     "partyNotFound": "Grupo não encontrado.",
     "targetIdUUID": "\"targetId\" precisa ser um ID de usuário válido.",
     "challengeTasksNoCast": "O uso de habilidades em tarefas de desafio não é permitido.",
-    "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
+    "groupTasksNoCast": "Não é permitido usar habilidades em tarefas de grupo.",
     "spellNotOwned": "Você não possui essa habilidade.",
     "spellLevelTooHigh": "Você precisa ser nível <%= level %> para usar essa habilidade."
 }

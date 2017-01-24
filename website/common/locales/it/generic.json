@@ -195,5 +195,5 @@
     "online": "online",
     "onlineCount": "<%= count %> online",
     "loading": "Caricamento...",
-    "userIdRequired": "User ID is required"
+    "userIdRequired": "L'ID Utente è richesto"
 }

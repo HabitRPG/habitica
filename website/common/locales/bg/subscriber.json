@@ -14,6 +14,11 @@
     "mysteryItemText": "Всеки месец ще получавате уникален козметичен предмет за героя си! Освен това, за всеки три месеца непрекъснат абонамент, Тайнствените пътешественици във времето ще Ви дават достъп до исторически (и футуристични!) козметични предмети.",
     "supportDevs": "Подкрепяте разработчиците",
     "supportDevsText": "Абонаментът Ви помага за поддръжката на Хабитика и осигурява средства за разработката на нови функционалности. Благодарим Ви за щедростта!",
+    "giftSubscription": "Искате ли да подарите някому абонамент?",
+    "giftSubscriptionText1": "Отворете профила му! Можете да направите това като щракнете героя му в заглавната част на групата, в която сте заедно, или като щракнете името му в чата.",
+    "giftSubscriptionText2": "Щракнете иконката на подарък в долната лява част на профила му.",
+    "giftSubscriptionText3": "Изберете „абонамент“ и въведете своята платежна информация.",
+    "giftSubscriptionText4": "Благодарим Ви за това, че подкрепяте Хабитика!",
     "monthUSD": "$ / месец",
     "organization": "Организация",
     "groupPlans": "Фирмени планове",
@@ -115,6 +120,7 @@
     "mysterySet201610": "Комплект на призрачния пламък",
     "mysterySet201611": "Комплект на рога на изобилието",
     "mysterySet201612": "Комплект на лешникотрошачката",
+    "mysterySet201701": "Time-Freezer Set",
     "mysterySet301404": "Стандартен изтънчен комплект",
     "mysterySet301405": "Комплект изтънчени принадлежности",
     "mysterySetwondercon": "Wondercon",
@@ -146,5 +152,9 @@
     "noSudoAccess": "Нямате достъп на супер потребител.",
     "couponCodeRequired": "Кодът от купона е задължителен.",
     "eventRequired": "„req.params.event“ е задължително.",
-    "countRequired": "„req.query.count“ е задължително."
+    "countRequired": "„req.query.count“ е задължително.",
+    "missingPaymentId": "Missing req.query.paymentId",
+    "missingCustomerId": "Missing req.query.customerId",
+    "missingPaypalBlock": "Missing req.session.paypalBlock",
+    "missingSubKey": "Missing req.query.sub"
 }

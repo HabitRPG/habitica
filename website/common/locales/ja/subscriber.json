@@ -14,6 +14,11 @@
     "mysteryItemText": "毎月、アバターを個性的にメークアップするアイテムが手に入ります!　さらに寄付の継続3カ月ごとに、謎のタイムトラベラーによって、歴史的(そして未来的!)なメークアップ アイテムへのアクセスが許されます。",
     "supportDevs": "開発者を支援する",
     "supportDevsText": "あなたの寄付が Habitica の繁栄を維持し、新機能開発の資金になります。あなたのご厚情に感謝します!",
+    "giftSubscription": "Want to gift a subscription to someone?",
+    "giftSubscriptionText1": "Open their profile! You can do this by clicking on their avatar in your party header or by clicking on their name in chat.",
+    "giftSubscriptionText2": "Click on the gift icon in the bottom left of their profile.",
+    "giftSubscriptionText3": "Select \"subscription\" and enter your payment information.",
+    "giftSubscriptionText4": "Thanks for supporting Habitica!",
     "monthUSD": "米ドル / 月",
     "organization": "組織",
     "groupPlans": "企業プラン",
@@ -115,6 +120,7 @@
     "mysterySet201610": "霊的な炎セット",
     "mysterySet201611": "豊穣の角セット",
     "mysterySet201612": "Nutcracker Set",
+    "mysterySet201701": "Time-Freezer Set",
     "mysterySet301404": "スチームパンク標準 セット",
     "mysterySet301405": "スチームパンク アクセサリー セット",
     "mysterySetwondercon": "Wondercon イベント",
@@ -146,5 +152,9 @@
     "noSudoAccess": "sudo アクセス権がありません。",
     "couponCodeRequired": "クーポン コードが必要です。",
     "eventRequired": "\"req.params.event\" が必要です。",
-    "countRequired": "\"req.query.count\" が必要です。"
+    "countRequired": "\"req.query.count\" が必要です。",
+    "missingPaymentId": "Missing req.query.paymentId",
+    "missingCustomerId": "Missing req.query.customerId",
+    "missingPaypalBlock": "Missing req.session.paypalBlock",
+    "missingSubKey": "Missing req.query.sub"
 }

@@ -103,7 +103,7 @@
     "habitHelp1": "Le buone abitudini sono quelle che completi spesso. Ti premiano con Oro ed Esperienza ogni volta che clicchi <%= plusIcon %>.",
     "habitHelp2": "Le cattive abitudini sono cose che vuoi evitare di fare. Ti fanno perdere Salute ogni volta che clicchi <%= minusIcon %>.",
     "habitHelp3": "Per farti ispirare, dai un'occhiata a questi <a href='http://habitica.wikia.com/wiki/Sample_Habits' target='_blank'>esempi di Habit</a>! (in inglese)",
-    "newbieGuild": "Hai altre domande? Chiedile nella <%= linkStart %>Gilda dei Newbies<%= linkEnd %>!",
+    "newbieGuild": "Hai altre domande? Chiedile nella gilda <%= linkStart %>Habitica Help<%= linkEnd %>!",
     "dailyHelp1": "Le Daily si ripetono <%= emphasisStart %>ogni giorno<%= emphasisEnd %> in cui sono attive. Clicca <%= pencilIcon %> per cambiare i giorni in cui sono attive.",
     "dailyHelp2": "Se non completi le Daily attive, perdi Salute quando la giornata finisce.",
     "dailyHelp3": "Le attività giornaliere diventano <%= emphasisStart %>rosso scuro<%= emphasisEnd %> quando non le porti a termine, e <%= emphasisStart %>blu scuro<%= emphasisEnd %> quando le completi. Più l'attività giornaliera è rossa, più questa ti premierà... o danneggerà.",

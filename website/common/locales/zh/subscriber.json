@@ -14,6 +14,11 @@
     "mysteryItemText": "每个月你将收到一件独特的角色饰品！另外，每次连续捐助达三个月，神秘的时间旅行者将授予你获得过去(和将来)的饰品的资格。",
     "supportDevs": "支持开发者",
     "supportDevsText": "您的捐助使Habitica不断茁壮成长，以研发更多的新功能。对于您的慷慨捐助，我们致上最诚挚的谢意！",
+    "giftSubscription": "想要赠送他人一个会员么？",
+    "giftSubscriptionText1": "要打开别人的个人资料，可以点击小组成员的头像，或者是在聊天界面中点击他们的名字。",
+    "giftSubscriptionText2": "点击他们资料界面右下角的“赠送”图标。",
+    "giftSubscriptionText3": "选择\"订阅\"来查看你的付款信息",
+    "giftSubscriptionText4": "感谢你对habitica的支持！",
     "monthUSD": "USD/每月",
     "organization": "组织",
     "groupPlans": "集团套餐",
@@ -115,6 +120,7 @@
     "mysterySet201610": "幽灵火焰套装",
     "mysterySet201611": "丰收套装",
     "mysterySet201612": "胡桃夹子套装",
+    "mysterySet201701": "Time-Freezer Set",
     "mysterySet301404": "蒸汽朋克标准套装",
     "mysterySet301405": "蒸汽朋克配饰套装",
     "mysterySetwondercon": "Wondercon漫展",
@@ -146,5 +152,9 @@
     "noSudoAccess": "您没有sudo权限",
     "couponCodeRequired": "请填写优惠劵代码",
     "eventRequired": "需要 \"req.params.event\"",
-    "countRequired": "需要 \"req.query.count\""
+    "countRequired": "需要 \"req.query.count\"",
+    "missingPaymentId": "Missing req.query.paymentId",
+    "missingCustomerId": "Missing req.query.customerId",
+    "missingPaypalBlock": "Missing req.session.paypalBlock",
+    "missingSubKey": "Missing req.query.sub"
 }

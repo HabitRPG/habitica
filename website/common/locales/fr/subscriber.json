@@ -14,6 +14,11 @@
     "mysteryItemText": "Chaque mois, vous recevrez un objet cosmétique unique pour votre avatar ! En plus, pour chaque période de trois mois consécutifs d'abonnement, les Mystérieux Voyageurs Temporels vous donneront accès aux objets cosmétiques historiques (et futurs !)",
     "supportDevs": "Soutenez les développeurs",
     "supportDevsText": "Votre abonnement aide à garder Habitica prospère et aide à financer le développement de nouvelles fonctionnalités. Merci de vie générosité !",
+    "giftSubscription": "Vous souhaitez offrir un abonnement à quelqu'un ?",
+    "giftSubscriptionText1": "Consultez leur profil ! Vous pouvez y accéder en cliquant sur leur avatar dans l'en-tête, ou en cliquant sur leur nom dans la discussion.",
+    "giftSubscriptionText2": "Cliquez sur l'icône \"cadeau\" tout en bas à gauche de leur profil.",
+    "giftSubscriptionText3": "Sélectionnez \"Abonnement\" et entrez vos informations de paiement.",
+    "giftSubscriptionText4": "Merci de soutenir Habitica !",
     "monthUSD": "USD / Mois",
     "organization": "Organisation",
     "groupPlans": "Offres d'Entreprise",
@@ -115,6 +120,7 @@
     "mysterySet201610": "Ensemble de la Flamme Spectrale",
     "mysterySet201611": "Ensemble de la Corne d'abondance",
     "mysterySet201612": "Ensemble Casse-noisettes",
+    "mysterySet201701": "Time-Freezer Set",
     "mysterySet301404": "Ensemble Steampunk de Base",
     "mysterySet301405": "Ensemble D'accessoire Steampunk",
     "mysterySetwondercon": "Wondercon",
@@ -146,5 +152,9 @@
     "noSudoAccess": "Vous n'avez pas d'accès sudo.",
     "couponCodeRequired": "Le code du coupon est requis.",
     "eventRequired": "\"req.params.event\" est requis.",
-    "countRequired": "\"req.query.count\" est requis."
+    "countRequired": "\"req.query.count\" est requis.",
+    "missingPaymentId": "Missing req.query.paymentId",
+    "missingCustomerId": "Missing req.query.customerId",
+    "missingPaypalBlock": "Missing req.session.paypalBlock",
+    "missingSubKey": "Missing req.query.sub"
 }
