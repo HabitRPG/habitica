@@ -12,7 +12,6 @@ import {
 } from 'lodash';
 import Bluebird from 'bluebird';
 import {
-  bcryptCompare,
   sha1MakeSalt,
   sha1Encrypt as sha1EncryptPassword,
 } from '../../../../../website/server/libs/password';
