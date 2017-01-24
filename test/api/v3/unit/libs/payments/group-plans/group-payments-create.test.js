@@ -475,5 +475,32 @@ describe('Purchasing a subscription for group', () => {
     expect(updatedUser.purchased.plan.dateCreated).to.eql(firstDateCreated);
   });
 
-  it('does not modify a user with an unlimited subscription');
+  it('does not modify a user with an unlimited subscription', async () => {
+    plan.key = 'basic_earned';
+    plan.customerId = api.constants.UNLIMITED_CUSTOMER_ID;
+
+    let recipient = new User();
+    recipient.profile.name = 'recipient';
+    recipient.purchased.plan = plan;
+    recipient.guilds.push(group._id);
+    await recipient.save();
+
+    user.guilds.push(group._id);
+    await user.save();
+    data.groupId = group._id;
+
+    await api.createSubscription(data);
+
+    let updatedUser = await User.findById(recipient._id).exec();
+
+    expect(updatedUser.purchased.plan.planId).to.eql('basic_3mo');
+    expect(updatedUser.purchased.plan.customerId).to.eql(api.constants.UNLIMITED_CUSTOMER_ID);
+    expect(updatedUser.purchased.plan.dateUpdated).to.exist;
+    expect(updatedUser.purchased.plan.gemsBought).to.eql(0);
+    expect(updatedUser.purchased.plan.paymentMethod).to.eql('paymentMethod');
+    expect(updatedUser.purchased.plan.extraMonths).to.eql(0);
+    expect(updatedUser.purchased.plan.dateTerminated).to.eql(null);
+    expect(updatedUser.purchased.plan.lastBillingDate).to.exist;
+    expect(updatedUser.purchased.plan.dateCreated).to.exist;
+  });
 });

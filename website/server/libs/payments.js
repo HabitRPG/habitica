@@ -107,9 +107,6 @@ api.addSubToGroupUser = async function addSubToGroupUser (member) {
 
   if (member.isSubscribed()) {
     if (member.purchased.plan.customerId === 'group-plan') return;
-
-    await member.cancelSubscription();
-
     let today = new Date();
     plan = _.clone(member.purchased.plan.toObject());
     let extraMonths = Number(plan.extraMonths);
