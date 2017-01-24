@@ -76,6 +76,7 @@ describe('PUT /user/auth/update-email', () => {
       let textPassword = 'mySecretPassword';
       let salt = sha1MakeSalt();
       let sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
+      let myNewEmail = 'my-new-random-email@example.net';
 
       await user.update({
         'auth.local.hashed_password': sha1HashedPassword,
@@ -89,12 +90,15 @@ describe('PUT /user/auth/update-email', () => {
       expect(user.auth.local.hashed_password).to.equal(sha1HashedPassword);
 
       // update email
-      await user.put(ENDPOINT, {
-        newEmail,
+      let response = await user.put(ENDPOINT, {
+        newEmail: myNewEmail,
         password: textPassword,
       });
+      expect(response).to.eql({ email: myNewEmail });
 
       await user.sync();
+
+      expect(user.auth.local.email).to.equal(myNewEmail);
       expect(user.auth.local.passwordHashMethod).to.equal('bcrypt');
       expect(user.auth.local.salt).to.be.undefined;
       expect(user.auth.local.hashed_password).not.to.equal(sha1HashedPassword);

@@ -30,6 +30,7 @@ describe('PUT /user/auth/update-username', async () => {
   });
 
   it('converts user with SHA1 encrypted password to bcrypt encryption', async () => {
+    let myNewUsername = 'my-new-username';
     let textPassword = 'mySecretPassword';
     let salt = sha1MakeSalt();
     let sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
@@ -46,12 +47,15 @@ describe('PUT /user/auth/update-username', async () => {
     expect(user.auth.local.hashed_password).to.equal(sha1HashedPassword);
 
     // update email
-    await user.put(ENDPOINT, {
-      username: newUsername,
+    let response = await user.put(ENDPOINT, {
+      username: myNewUsername,
       password: textPassword,
     });
+    expect(response).to.eql({ username: myNewUsername });
 
     await user.sync();
+
+    expect(user.auth.local.username).to.eql(myNewUsername);
     expect(user.auth.local.passwordHashMethod).to.equal('bcrypt');
     expect(user.auth.local.salt).to.be.undefined;
     expect(user.auth.local.hashed_password).not.to.equal(sha1HashedPassword);
