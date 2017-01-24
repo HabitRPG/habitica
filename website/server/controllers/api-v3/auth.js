@@ -456,7 +456,7 @@ api.updateUsername = {
 
     // if password is using old sha1 encryption, change it
     if (user.auth.local.passwordHashMethod === 'sha1') {
-      await passwordUtils.convertToBcrypt(user, password);
+      await passwordUtils.convertToBcrypt(user, password); // user is saved a few lines below
     }
 
     // save username
@@ -513,10 +513,11 @@ api.updatePassword = {
 
     let newPassword = req.body.newPassword;
     if (newPassword !== req.body.confirmPassword) throw new NotAuthorized(res.t('passwordConfirmationMatch'));
+
     // set new password and make sure it's using bcrypt for hashing
     await passwordUtils.convertToBcrypt(user, newPassword);
-
     await user.save();
+
     res.respond(200, {});
   },
 };
@@ -552,7 +553,7 @@ api.resetPassword = {
       let newPassword =  passwordUtils.sha1MakeSalt();
 
       // set new password and make sure it's using bcrypt for hashing
-      await passwordUtils.convertToBcrypt(user, newPassword);
+      await passwordUtils.convertToBcrypt(user, newPassword); // user is saved a few lines below
 
       sendEmail({
         from: 'Habitica <admin@habitica.com>',
