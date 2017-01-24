@@ -392,11 +392,19 @@ api.castSpell = {
     } else if (targetType === 'tasks') { // new target type in v3: when all the user's tasks are necessary
       let tasks = await Tasks.Task.find({
         userId: user._id,
-        $or: [ // exclude challenge tasks
-          {'challenge.id': {$exists: false}},
-          {'challenge.broken': {$exists: true}},
-          {'group.id': {$exists: false}},
-          {'group.broken': {$exists: true}},
+        $and: [ // exclude challenge and group tasks
+          {
+            $or: [
+              {'challenge.id': {$exists: false}},
+              {'challenge.broken': {$exists: true}},
+            ],
+          },
+          {
+            $or: [
+              {'group.id': {$exists: false}},
+              {'group.broken': {$exists: true}},
+            ],
+          },
         ],
       }).exec();
 
@@ -1055,11 +1063,19 @@ api.userRebirth = {
     let tasks = await Tasks.Task.find({
       userId: user._id,
       type: {$in: ['daily', 'habit', 'todo']},
-      $or: [ // exclude challenge tasks
-        {'challenge.id': {$exists: false}},
-        {'challenge.broken': {$exists: true}},
-        {'group.id': {$exists: false}},
-        {'group.broken': {$exists: true}},
+      $and: [ // exclude challenge and group tasks
+        {
+          $or: [
+            {'challenge.id': {$exists: false}},
+            {'challenge.broken': {$exists: true}},
+          ],
+        },
+        {
+          $or: [
+            {'group.id': {$exists: false}},
+            {'group.broken': {$exists: true}},
+          ],
+        },
       ],
     }).exec();
 
@@ -1173,11 +1189,19 @@ api.userReroll = {
     let query = {
       userId: user._id,
       type: {$in: ['daily', 'habit', 'todo']},
-      $or: [ // exclude challenge tasks
-        {'challenge.id': {$exists: false}},
-        {'challenge.broken': {$exists: true}},
-        {'group.id': {$exists: false}},
-        {'group.broken': {$exists: true}},
+      $and: [ // exclude challenge and group tasks
+        {
+          $or: [
+            {'challenge.id': {$exists: false}},
+            {'challenge.broken': {$exists: true}},
+          ],
+        },
+        {
+          $or: [
+            {'group.id': {$exists: false}},
+            {'group.broken': {$exists: true}},
+          ],
+        },
       ],
     };
     let tasks = await Tasks.Task.find(query).exec();
@@ -1210,11 +1234,19 @@ api.userReset = {
 
     let tasks = await Tasks.Task.find({
       userId: user._id,
-      $or: [ // exclude challenge tasks
-        {'challenge.id': {$exists: false}},
-        {'challenge.broken': {$exists: true}},
-        {'group.id': {$exists: false}},
-        {'group.broken': {$exists: true}},
+      $and: [ // exclude challenge and group tasks
+        {
+          $or: [
+            {'challenge.id': {$exists: false}},
+            {'challenge.broken': {$exists: true}},
+          ],
+        },
+        {
+          $or: [
+            {'group.id': {$exists: false}},
+            {'group.broken': {$exists: true}},
+          ],
+        },
       ],
     }).select('_id type challenge group').exec();
 
