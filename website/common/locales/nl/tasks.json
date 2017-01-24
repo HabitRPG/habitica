@@ -103,7 +103,7 @@
     "habitHelp1": "Goede gewoontes zijn dingen die je vaak doet. Ze belonen je met goud en ervaringspunten elke keer dat je op <%= plusIcon %> klikt.",
     "habitHelp2": "Slechte gewoontes zijn dingen die je wilt vermijden. Ze verlagen je gezondheidspunten elke keer dat je op <%= minusIcon %> klikt.",
     "habitHelp3": "Kijk voor inspiratie eens naar deze <a href='http://nl.habitica.wikia.com/wiki/Voorbeeldgewoontes' target='_blank'>voorbeeldgewoontes</a>!",
-    "newbieGuild": "More questions? Ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>!",
+    "newbieGuild": "Nog vragen? Stel ze in de <%= linkStart %>Newbies-gilde<%= linkEnd %>!",
     "dailyHelp1": "Dagelijkse taken herhalen zich <%= emphasisStart %>elke dag<%= emphasisEnd %> dat ze actief zijn. Klik op <%= pencilIcon %> om de dagen waarop een dagelijkse taak actief is te veranderen.",
     "dailyHelp2": "Als je je actieve Dagelijkse Taken niet voltooit verlies je aan het eind van de dag gezondheidspunten.",
     "dailyHelp3": "Dagelijkse Taken worden <%= emphasisStart %>roder<%= emphasisEnd %> als je ze mist en <%= emphasisStart %>blauwer<%= emphasisEnd %> als je ze voltooit. Des te roder de dagelijkse taak is, des te meer hij je beloont... of pijn doet.",

@@ -103,7 +103,7 @@
     "habitHelp1": "Jó szokások olyan dolgok, amiket gyakran csinálsz. Aranyat és tapasztalatot adnak minden alkalommal amikor a <%= plusIcon %>-ra kattintasz.",
     "habitHelp2": "Rossz szokások olyan dolgok, amiket el akarsz kerülni. Csökkentik az életerődet minden alkalommal, amikor a <%= minusIcon %>-ra kattintasz.",
     "habitHelp3": "Ihletért, nézd meg ezeket <a href='http://habitica.wikia.com/wiki/Sample_Habits' target='_blank'>a példa szokásokat</a>!",
-    "newbieGuild": "More questions? Ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>!",
+    "newbieGuild": "Van még kérdésed? Tedd fel a kérdésed a <%= linkStart %>Newbies Guild<%= linkEnd %> céhben!",
     "dailyHelp1": "A napi feladatok <%= emphasisStart %>minden nap<%= emphasisEnd %> ismétlődnek, amikor aktívak. Kattints a <%= pencilIcon %>-ra, hogy megváltoztasd, mely napokon esedékes a feladat.",
     "dailyHelp2": "Ha nem teljesíted az aktív napi feladataid, akkor életerőt vesztesz, amikor új nap kezdődik.",
     "dailyHelp3": "A napi feladatok<%= emphasisStart %>pirosabbá<%= emphasisEnd %> válnak, ha nem teljesíted őket, és <%= emphasisStart %>kékebbé<%= emphasisEnd %>, ha elvégzed őket. Minél pirosabb egy napi feladat, annál inkább megjutalmaz... vagy sebez.",

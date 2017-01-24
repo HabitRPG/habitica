@@ -103,7 +103,7 @@
     "habitHelp1": "Goda vanor är saker du gör ofta. De belönar dig med Guld och Erfarenhet varje gång du klickar på <%= plusIcon %>.",
     "habitHelp2": "Dåliga vanor är saker du vill undvika att göra. De sänker din hälsa varje gång du klickar på <%= minusIcon %>.",
     "habitHelp3": "För inspiration, kolla på dessa href='http://habitica.wikia.com/wiki/Sample_Habits' target='_blank'>exempel Uppgifter</a>!",
-    "newbieGuild": "More questions? Ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>!",
+    "newbieGuild": "Fler frågor? Ställ dom i <%= linkStart %>Newbies Guild<%= linkEnd %>!",
     "dailyHelp1": "Dagliga utmaningar upprepas <%= emphasisStart %>varje dag<%= emphasisEnd %> som de är aktiva. Klicka på <%= pencilIcon %> För att välja vilka dagar en daglig uppgift skall vara aktiv.",
     "dailyHelp2": "Om du inte gör klart dina aktiva Dagliga Utmaningar förlorar du Hälsa när dagen är slut.",
     "dailyHelp3": "Dagliga utmaningar blir <%= emphasisStart %>rödare<%= emphasisEnd %> när du missar dom och <%= emphasisStart %>blåare<%= emphasisEnd %> när du gör dem. Ju rödare en daglig utmaning är, desto mer kommer den belöna dig... eller skada dig.",

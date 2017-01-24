@@ -103,7 +103,7 @@
     "habitHelp1": "Bons Hábitos são coisas que você faz muitas vezes. Eles recompensam com Ouro e Experiência cada vez que você clica no botão <%= plusIcon %>.",
     "habitHelp2": "Maus Hábitos são coisas que você quer evitar fazer. Eles diminuem sua Saúde cada vez que você clica no botão <%= minusIcon %>.",
     "habitHelp3": "Para se inspirar, confira essas <a href='http://pt-br.habitica.wikia.com/wiki/Sample_Habits' target='_blank'>amostras de Hábitos</a>!",
-    "newbieGuild": "More questions? Ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>!",
+    "newbieGuild": "Mais dúvidas? Pergunte na <%= linkStart %>Guilda dos Novatos<%= linkEnd %>!",
     "dailyHelp1": "As Tarefas Diárias se repetem <%= emphasisStart %>todos os dias<%= emphasisEnd %>em que elas estão ativas. Clique em <%= pencilIcon %> para alterar os dias em que estarão ativas.",
     "dailyHelp2": "Se você não completar suas Tarefas Diárias ativas, você perde Saúde quando o dia termina.",
     "dailyHelp3": "Tarefas Diárias ficam <%= emphasisStart %>mais vermelhas<%= emphasisEnd %> quando você as perde, e <%= emphasisStart %>mais azuis<%= emphasisEnd %> quando você as conclui. Quanto mais a tarefa diária estiver vermelha, mais ela vai te recompensar... ou te machucar!",
