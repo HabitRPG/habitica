@@ -161,6 +161,26 @@ api.cancelGroupUsersSubscription = async function cancelGroupUsersSubscription (
   await Promise.all(promises);
 };
 
+api.cancelGroupSubscriptionForUser = async function cancelGroupSubscriptionForUser (user, groupIdLeaving) {
+  let userGuilds = _.clone(user.guilds);
+  userGuilds.push('party');
+
+  let index = userGuilds.indexOf(groupIdLeaving);
+  userGuilds.splice(userGuilds, 1);
+
+  let groupPlansQuery = {
+    type: {$in: ['guild', 'party']},
+    // privacy: 'private',
+    _id: {$in: userGuilds},
+    'purchased.plan.customerId': {$exists: true},
+  };
+
+  let groupFields = `${basicGroupFields} purchased`;
+  let userGroupPlans = await Group.find(groupPlansQuery).select(groupFields).exec();
+
+  if (userGroupPlans.length === 0) await this.cancelSubscription({user})
+};
+
 api.createSubscription = async function createSubscription (data) {
   let recipient = data.gift ? data.gift.member : data.user;
   let block = shared.content.subscriptionBlocks[data.gift ? data.gift.subscription.key : data.sub.key];
