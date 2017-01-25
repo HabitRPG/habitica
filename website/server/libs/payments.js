@@ -66,7 +66,7 @@ api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers (gr
   }
 
   let promises = members.map((member) => {
-    return this.addSubToGroupUser(member);
+    return this.addSubToGroupUser(member, group);
   });
 
   await Promise.all(promises);
@@ -79,7 +79,7 @@ api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers (gr
  *
  * @return undefined
  */
-api.addSubToGroupUser = async function addSubToGroupUser (member) {
+api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
   let customerIdsToIgnore = ['group-plan', this.constants.UNLIMITED_CUSTOMER_ID];
 
   let data = {
@@ -140,6 +140,12 @@ api.addSubToGroupUser = async function addSubToGroupUser (member) {
 
   data.user = member;
   await this.createSubscription(data);
+
+  let leader = await User.findById(group.leader).exec();
+  txnEmail(data.user, 'group-member-joining', [
+    {name: 'LEADER', content: leader.profile.name},
+    {name: 'GROUP_NAME', content: group.name},
+  ]);
 };
 
 
@@ -158,23 +164,20 @@ api.cancelGroupUsersSubscription = async function cancelGroupUsersSubscription (
     members = await User.find({'party._id': group._id}).select('_id guilds purchased').exec();
   }
 
-  let data = {};
-
   let promises = members.map((member) => {
-    data.user = member;
-    return this.cancelGroupSubscriptionForUser(member, group._id);
+    return this.cancelGroupSubscriptionForUser(member, group);
   });
 
   await Promise.all(promises);
 };
 
-api.cancelGroupSubscriptionForUser = async function cancelGroupSubscriptionForUser (user, groupIdLeaving) {
+api.cancelGroupSubscriptionForUser = async function cancelGroupSubscriptionForUser (user, group) {
   if (user.purchased.plan.customerId !== this.constants.GROUP_PLAN_CUSTOMER_ID) return;
 
   let userGuilds = _.clone(user.guilds);
   userGuilds.push('party');
 
-  let index = userGuilds.indexOf(groupIdLeaving);
+  let index = userGuilds.indexOf(group._id);
   userGuilds.splice(index, 1);
 
   let groupPlansQuery = {
@@ -187,7 +190,14 @@ api.cancelGroupSubscriptionForUser = async function cancelGroupSubscriptionForUs
   let groupFields = `${basicGroupFields} purchased`;
   let userGroupPlans = await Group.find(groupPlansQuery).select(groupFields).exec();
 
-  if (userGroupPlans.length === 0) await this.cancelSubscription({user});
+  if (userGroupPlans.length === 0)  {
+    let leader = await User.findById(group.leader).exec();
+    txnEmail(user, 'group-member-cancel', [
+      {name: 'LEADER', content: leader.profile.name},
+      {name: 'GROUP_NAME', content: group.name},
+    ]);
+    await this.cancelSubscription({user});
+  }
 };
 
 api.createSubscription = async function createSubscription (data) {
@@ -282,7 +292,8 @@ api.createSubscription = async function createSubscription (data) {
     revealMysteryItems(recipient);
   }
 
-  if (!data.gift) {
+  // @TODO: Create a factory pattern for use cases
+  if (!data.gift && data.customerId !== this.constants.GROUP_PLAN_CUSTOMER_ID) {
     txnEmail(data.user, emailType);
   }
 
@@ -395,6 +406,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
   let cancelType = 'unsubscribe';
   let groupId;
   let emailType = 'cancel-subscription';
+  let emailMergeData = [];
 
   //  If we are buying a group subscription
   if (data.groupId) {
@@ -412,12 +424,14 @@ api.cancelSubscription = async function cancelSubscription (data) {
     }
     plan = group.purchased.plan;
     emailType = 'group-cancel-subscription';
+    emailMergeData.push({name: 'GROUP_NAME', content: group.name});
 
     await this.cancelGroupUsersSubscription(group);
   } else {
     plan = data.user.purchased.plan;
   }
 
+  let customerId = plan.customerId;
   let now = moment();
   let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days') : 30;
   if (plan.extraMonths < 0) plan.extraMonths = 0;
@@ -439,7 +453,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
     await data.user.save();
   }
 
-  txnEmail(data.user, emailType);
+  if (customerId !== this.constants.GROUP_PLAN_CUSTOMER_ID) txnEmail(data.user, emailType, emailMergeData);
 
   if (group) {
     cancelType = 'group-unsubscribe';

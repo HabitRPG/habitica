@@ -948,7 +948,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   }
 
   if (group.purchased.plan.customerId) {
-    promises.push(payments.cancelGroupSubscriptionForUser(user, this._id));
+    promises.push(payments.cancelGroupSubscriptionForUser(user, this));
   }
 
   // If user is the last one in group and group is private, delete it

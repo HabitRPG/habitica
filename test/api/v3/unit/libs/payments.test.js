@@ -624,7 +624,7 @@ describe('payments/index', () => {
       expect(group.purchased.plan.planId).to.not.exist;
       data.groupId = group._id;
 
-      await api.addSubToGroupUser(user);
+      await api.addSubToGroupUser(user, group);
 
       let updatedUser = await User.findById(user._id).exec();
 

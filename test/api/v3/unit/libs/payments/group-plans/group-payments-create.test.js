@@ -1,6 +1,7 @@
 import moment from 'moment';
 import stripeModule from 'stripe';
 
+import * as sender from '../../../../../../../website/server/libs/email';
 import * as api from '../../../../../../../website/server/libs/payments';
 import amzLib from '../../../../../../../website/server/libs/amazonPayments';
 import stripePayments from '../../../../../../../website/server/libs/stripePayments';
@@ -71,11 +72,13 @@ describe('Purchasing a subscription for group', () => {
       });
 
     stripePayments.setStripeApi(stripe);
+    sandbox.stub(sender, 'sendTxn');
   });
 
   afterEach(() => {
     stripe.customers.del.restore();
     stripe.customers.retrieve.restore();
+    sender.sendTxn.restore();
   });
 
   it('creates a subscription', async () => {
@@ -95,6 +98,15 @@ describe('Purchasing a subscription for group', () => {
     expect(updatedGroup.purchased.plan.dateTerminated).to.eql(null);
     expect(updatedGroup.purchased.plan.lastBillingDate).to.not.exist;
     expect(updatedGroup.purchased.plan.dateCreated).to.exist;
+  });
+
+  it('sends an email', async () => {
+    expect(group.purchased.plan.planId).to.not.exist;
+    data.groupId = group._id;
+
+    await api.createSubscription(data);
+
+    expect(sender.sendTxn).to.be.calledWith(user, 'group-subscription-begins');
   });
 
   it('sets extraMonths if plan has dateTerminated date', async () => {
@@ -142,6 +154,25 @@ describe('Purchasing a subscription for group', () => {
     expect(updatedLeader.purchased.plan.dateTerminated).to.eql(null);
     expect(updatedLeader.purchased.plan.lastBillingDate).to.not.exist;
     expect(updatedLeader.purchased.plan.dateCreated).to.exist;
+  });
+
+  it('sends an email to members of group', async () => {
+    let recipient = new User();
+    recipient.profile.name = 'recipient';
+    recipient.guilds.push(group._id);
+    await recipient.save();
+
+    data.groupId = group._id;
+
+    await api.createSubscription(data);
+
+    expect(sender.sendTxn).to.be.calledTwice;
+    expect(sender.sendTxn.firstCall.args[0]._id).to.equal(recipient._id);
+    expect(sender.sendTxn.firstCall.args[1]).to.equal('group-member-joining');
+    expect(sender.sendTxn.firstCall.args[2]).to.eql([
+      {name: 'LEADER', content: user.profile.name},
+      {name: 'GROUP_NAME', content: group.name},
+    ]);
   });
 
   it('adds months to members with existing gift subscription', async () => {

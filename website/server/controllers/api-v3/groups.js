@@ -399,7 +399,7 @@ api.joinGroup = {
     group.memberCount += 1;
 
     if (group.purchased.plan.customerId) {
-      await payments.addSubToGroupUser(user);
+      await payments.addSubToGroupUser(user, group);
       await payments.updateStripeGroupPlan(group);
     }
 
@@ -645,7 +645,7 @@ api.removeGroupMember = {
       group.memberCount -= 1;
       if (group.purchased.plan.customerId) {
         await payments.updateStripeGroupPlan(group);
-        await payments.cancelGroupSubscriptionForUser(member, group._id);
+        await payments.cancelGroupSubscriptionForUser(member, group);
       }
 
       if (group.quest && group.quest.leader === member._id) {

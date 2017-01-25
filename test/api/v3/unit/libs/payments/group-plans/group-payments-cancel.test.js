@@ -131,7 +131,11 @@ describe('Canceling a subscription for group', () => {
     await api.cancelSubscription(data);
 
     expect(sender.sendTxn).to.be.calledOnce;
-    expect(sender.sendTxn).to.be.calledWith(user, 'group-cancel-subscription');
+    expect(sender.sendTxn.firstCall.args[0]._id).to.equal(user._id);
+    expect(sender.sendTxn.firstCall.args[1]).to.equal('group-cancel-subscription');
+    expect(sender.sendTxn.firstCall.args[2]).to.eql([
+      {name: 'GROUP_NAME', content: group.name},
+    ]);
   });
 
   it('prevents non group leader from manging subscription', async () => {
@@ -192,6 +196,26 @@ describe('Canceling a subscription for group', () => {
     let updatedLeader = await User.findById(user._id).exec();
     let daysTillTermination = moment(updatedLeader.purchased.plan.dateTerminated).diff(now, 'days');
     expect(daysTillTermination).to.be.within(29, 30); // 1 month +/- 1 days
+  });
+
+  it('sends an email to members of group', async () => {
+    let recipient = new User();
+    recipient.profile.name = 'recipient';
+    recipient.guilds.push(group._id);
+    await recipient.save();
+
+    data.groupId = group._id;
+
+    await api.createSubscription(data);
+    await api.cancelSubscription(data);
+
+    expect(sender.sendTxn).to.be.have.callCount(4);
+    expect(sender.sendTxn.thirdCall.args[0]._id).to.equal(recipient._id);
+    expect(sender.sendTxn.thirdCall.args[1]).to.equal('group-member-cancel');
+    expect(sender.sendTxn.thirdCall.args[2]).to.eql([
+      {name: 'LEADER', content: user.profile.name},
+      {name: 'GROUP_NAME', content: group.name},
+    ]);
   });
 
   it('does not cancel member subscriptions when member does not have a group plan sub (i.e. UNLIMITED_CUSTOMER_ID)', async () => {
