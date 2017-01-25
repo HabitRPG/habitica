@@ -120,7 +120,7 @@
     "mysterySet201610": "Ensemble de la Flamme Spectrale",
     "mysterySet201611": "Ensemble de la Corne d'abondance",
     "mysterySet201612": "Ensemble Casse-noisettes",
-    "mysterySet201701": "Time-Freezer Set",
+    "mysterySet201701": "Ensemble du geleur de temps",
     "mysterySet301404": "Ensemble Steampunk de Base",
     "mysterySet301405": "Ensemble D'accessoire Steampunk",
     "mysterySetwondercon": "Wondercon",
@@ -153,8 +153,8 @@
     "couponCodeRequired": "Le code du coupon est requis.",
     "eventRequired": "\"req.params.event\" est requis.",
     "countRequired": "\"req.query.count\" est requis.",
-    "missingPaymentId": "Missing req.query.paymentId",
-    "missingCustomerId": "Missing req.query.customerId",
-    "missingPaypalBlock": "Missing req.session.paypalBlock",
-    "missingSubKey": "Missing req.query.sub"
+    "missingPaymentId": "req.query.paymentId manquant",
+    "missingCustomerId": "req.query.customerId manquant",
+    "missingPaypalBlock": "req.session.paypalBlock manquant",
+    "missingSubKey": "req.query.sub manquant"
 }
