@@ -202,5 +202,49 @@ describe('Canceling a subscription for group', () => {
     expect(daysTillTermination).to.be.within(29, 30); // 1 month +/- 1 days
   });
 
-  it('does not cancel a user subscription if they are still in another active group plan');
+  it('does not cancel a user subscription if they are still in another active group plan', async () => {
+    let recipient = new User();
+    recipient.profile.name = 'recipient';
+    plan.key = 'basic_earned';
+    recipient.purchased.plan = plan;
+    recipient.guilds.push(group._id);
+    await recipient.save();
+
+    user.guilds.push(group._id);
+    await user.save();
+    data.groupId = group._id;
+
+    await api.createSubscription(data);
+
+    let updatedUser = await User.findById(recipient._id).exec();
+    let firstDateCreated = updatedUser.purchased.plan.dateCreated;
+    let extraMonthsBeforeSecond = updatedUser.purchased.plan.extraMonths;
+
+    let group2 = generateGroup({
+      name: 'test group2',
+      type: 'guild',
+      privacy: 'public',
+      leader: user._id,
+    });
+    data.groupId = group2._id;
+    await group2.save();
+    recipient.guilds.push(group2._id);
+    await recipient.save();
+
+    await api.createSubscription(data);
+
+    await api.cancelSubscription(data);
+
+    updatedUser = await User.findById(recipient._id).exec();
+
+    expect(updatedUser.purchased.plan.planId).to.eql('group_plan_auto');
+    expect(updatedUser.purchased.plan.customerId).to.eql('group-plan');
+    expect(updatedUser.purchased.plan.dateUpdated).to.exist;
+    expect(updatedUser.purchased.plan.gemsBought).to.eql(0);
+    expect(updatedUser.purchased.plan.paymentMethod).to.eql('Group Plan');
+    expect(updatedUser.purchased.plan.extraMonths).to.eql(extraMonthsBeforeSecond);
+    expect(updatedUser.purchased.plan.dateTerminated).to.eql(null);
+    expect(updatedUser.purchased.plan.lastBillingDate).to.not.exist;
+    expect(updatedUser.purchased.plan.dateCreated).to.eql(firstDateCreated);
+  });
 });
