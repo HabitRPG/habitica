@@ -1,16 +1,9 @@
 import moment from 'moment';
-import stripeModule from 'stripe';
 
 import * as sender from '../../../../../../../website/server/libs/email';
 import * as api from '../../../../../../../website/server/libs/payments';
-import analytics from '../../../../../../../website/server/libs/analyticsService';
-import notifications from '../../../../../../../website/server/libs/pushNotifications'
-import amzLib from '../../../../../../../website/server/libs/amazonPayments';
-import stripePayments from '../../../../../../../website/server/libs/stripePayments';
-import paypalPayments from '../../../../../../../website/server/libs/paypalPayments';
 import { model as User } from '../../../../../../../website/server/models/user';
 import { model as Group } from '../../../../../../../website/server/models/group';
-import { translate as t } from '../../../../../../helpers/api-v3-integration.helper';
 import {
   generateGroup,
 } from '../../../../../../helpers/api-unit.helper.js';
@@ -18,7 +11,6 @@ import i18n from '../../../../../../../website/common/script/i18n';
 
 describe('Canceling a subscription for group', () => {
   let plan, group, user, data;
-  let stripe = stripeModule('test');
 
   beforeEach(async () => {
     user = new User();
@@ -216,7 +208,6 @@ describe('Canceling a subscription for group', () => {
 
     await api.cancelSubscription(data);
 
-    let now = new Date();
     let updatedLeader = await User.findById(user._id).exec();
     expect(updatedLeader.purchased.plan.dateTerminated).to.not.exist;
   });

@@ -8,7 +8,7 @@ import {
 import { defaults } from 'lodash';
 import { model as UserNotification } from '../userNotification';
 import schema from './schema';
-import payments from '../../libs/payments'
+import payments from '../../libs/payments';
 import amazonPayments from '../../libs/amazonPayments';
 import stripePayments from '../../libs/stripePayments';
 import paypalPayments from '../../libs/paypalPayments';

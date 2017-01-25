@@ -38,7 +38,7 @@ api.constants = {
 };
 
 api.setStripeApi = function setStripeApi (stripeInc) {
- stripe = stripeInc;
+  stripe = stripeInc;
 };
 
 

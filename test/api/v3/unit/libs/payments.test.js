@@ -4,17 +4,13 @@ import stripeModule from 'stripe';
 import * as sender from '../../../../../website/server/libs/email';
 import * as api from '../../../../../website/server/libs/payments';
 import analytics from '../../../../../website/server/libs/analyticsService';
-import notifications from '../../../../../website/server/libs/pushNotifications'
-import amzLib from '../../../../../website/server/libs/amazonPayments';
-import stripePayments from '../../../../../website/server/libs/stripePayments';
-import paypalPayments from '../../../../../website/server/libs/paypalPayments';
+import notifications from '../../../../../website/server/libs/pushNotifications';
 import { model as User } from '../../../../../website/server/models/user';
 import { model as Group } from '../../../../../website/server/models/group';
 import { translate as t } from '../../../../helpers/api-v3-integration.helper';
 import {
   generateGroup,
 } from '../../../../helpers/api-unit.helper.js';
-import i18n from '../../../../../website/common/script/i18n';
 
 describe('payments/index', () => {
   let user, group, data, plan;

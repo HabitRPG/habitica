@@ -1,20 +1,15 @@
 import moment from 'moment';
 import stripeModule from 'stripe';
 
-import * as sender from '../../../../../../../website/server/libs/email';
 import * as api from '../../../../../../../website/server/libs/payments';
-import analytics from '../../../../../../../website/server/libs/analyticsService';
-import notifications from '../../../../../../../website/server/libs/pushNotifications'
 import amzLib from '../../../../../../../website/server/libs/amazonPayments';
 import stripePayments from '../../../../../../../website/server/libs/stripePayments';
 import paypalPayments from '../../../../../../../website/server/libs/paypalPayments';
 import { model as User } from '../../../../../../../website/server/models/user';
 import { model as Group } from '../../../../../../../website/server/models/group';
-import { translate as t } from '../../../../../../helpers/api-v3-integration.helper';
 import {
   generateGroup,
 } from '../../../../../../helpers/api-unit.helper.js';
-import i18n from '../../../../../../../website/common/script/i18n';
 
 describe('Purchasing a subscription for group', () => {
   let plan, group, user, data;
@@ -76,7 +71,7 @@ describe('Purchasing a subscription for group', () => {
       });
 
     stripePayments.setStripeApi(stripe);
-  })
+  });
 
   afterEach(() => {
     stripe.customers.del.restore();
@@ -244,7 +239,7 @@ describe('Purchasing a subscription for group', () => {
   });
 
   it('adds months to members with existing recurring subscription (Amazon)', async () => {
-    let getBillingAgreementDetailsSpy = sinon.stub(amzLib, 'getBillingAgreementDetails')
+    sinon.stub(amzLib, 'getBillingAgreementDetails')
       .returnsPromise()
       .resolves({
         BillingAgreementDetails: {
@@ -274,12 +269,12 @@ describe('Purchasing a subscription for group', () => {
   });
 
   it('adds months to members with existing recurring subscription (Paypal)', async () => {
-    let paypalBillingAgreementCancelStub = sinon.stub(paypalPayments, 'paypalBillingAgreementCancel').returnsPromise().resolves({});
-    let paypalBillingAgreementGetStub = sinon.stub(paypalPayments, 'paypalBillingAgreementGet')
+    sinon.stub(paypalPayments, 'paypalBillingAgreementCancel').returnsPromise().resolves({});
+    sinon.stub(paypalPayments, 'paypalBillingAgreementGet')
       .returnsPromise().resolves({
-        agreement_details: {
-          next_billing_date: moment().add(3, 'months').toDate(),
-          cycles_completed: 1,
+        agreement_details: { // eslint-disable-line camelcase
+          next_billing_date: moment().add(3, 'months').toDate(), // eslint-disable-line camelcase
+          cycles_completed: 1, // eslint-disable-line camelcase
         },
       });
 

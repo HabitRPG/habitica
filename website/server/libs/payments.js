@@ -26,7 +26,7 @@ const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
 let api = {};
 
 api.constants = {
-  UNLIMITED_CUSTOMER_ID: 'habitrpg', //Users with the customerId have an unlimted free subscription
+  UNLIMITED_CUSTOMER_ID: 'habitrpg', // Users with the customerId have an unlimted free subscription
   GROUP_PLAN_CUSTOMER_ID: 'group-plan',
 };
 
@@ -110,8 +110,6 @@ api.addSubToGroupUser = async function addSubToGroupUser (member) {
     },
   };
 
-  let extraMonths = 0;
-
   if (member.isSubscribed()) {
     if (customerIdsToIgnore.indexOf(member.purchased.plan.customerId) !== -1) return;
 
@@ -121,14 +119,13 @@ api.addSubToGroupUser = async function addSubToGroupUser (member) {
     plan = _.clone(member.purchased.plan.toObject());
     let extraMonths = Number(plan.extraMonths);
     if (plan.dateTerminated) extraMonths += _dateDiff(today, plan.dateTerminated);
-    let block = shared.content.subscriptionBlocks[plan.planId];
 
     _(plan).merge({ // override with these values
       planId: 'group_plan_auto',
       customerId: 'group-plan',
       dateUpdated: today,
       paymentMethod: 'groupPlan',
-      extraMonths: extraMonths,
+      extraMonths,
       dateTerminated: null,
       lastBillingDate: null,
       owner: member._id,
@@ -178,7 +175,7 @@ api.cancelGroupSubscriptionForUser = async function cancelGroupSubscriptionForUs
   userGuilds.push('party');
 
   let index = userGuilds.indexOf(groupIdLeaving);
-  userGuilds.splice(userGuilds, 1);
+  userGuilds.splice(index, 1);
 
   let groupPlansQuery = {
     type: {$in: ['guild', 'party']},
@@ -190,7 +187,7 @@ api.cancelGroupSubscriptionForUser = async function cancelGroupSubscriptionForUs
   let groupFields = `${basicGroupFields} purchased`;
   let userGroupPlans = await Group.find(groupPlansQuery).select(groupFields).exec();
 
-  if (userGroupPlans.length === 0) await this.cancelSubscription({user})
+  if (userGroupPlans.length === 0) await this.cancelSubscription({user});
 };
 
 api.createSubscription = async function createSubscription (data) {
