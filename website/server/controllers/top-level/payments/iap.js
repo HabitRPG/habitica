@@ -2,17 +2,14 @@ import {
   authWithHeaders,
   authWithUrl,
 } from '../../../middlewares/auth';
-import shared from '../../../../common';
 import iap from '../../../libs/inAppPurchases';
 import payments from '../../../libs/payments';
 import {
-  NotAuthorized,
   BadRequest,
 } from '../../../libs/errors';
 import { model as IapPurchaseReceipt } from '../../../models/iapPurchaseReceipt';
-import {model as User } from '../../../models/user';
 import logger from '../../../libs/logger';
-import moment from 'moment';
+import googlePayments from '../../../libs/googlePayments';
 
 let api = {};
 
@@ -32,58 +29,7 @@ api.iapAndroidVerify = {
     let user = res.locals.user;
     let iapBody = req.body;
 
-    await iap.setup();
-
-    let testObj = {
-      data: iapBody.transaction.receipt,
-      signature: iapBody.transaction.signature,
-    };
-
-    let googleRes = await iap.validate(iap.GOOGLE, testObj);
-
-    let isValidated = iap.isValidated(googleRes);
-    if (!isValidated) throw new NotAuthorized('INVALID_RECEIPT');
-
-    let receiptObj = JSON.parse(testObj.data); // passed as a string
-    let token = receiptObj.token || receiptObj.purchaseToken;
-
-    let existingReceipt = await IapPurchaseReceipt.findOne({
-      _id: token,
-    }).exec();
-    if (existingReceipt) throw new NotAuthorized('RECEIPT_ALREADY_USED');
-
-    await IapPurchaseReceipt.create({
-      _id: token,
-      consumed: true,
-      userId: user._id,
-    });
-
-    let amount;
-
-    switch (receiptObj.productId) {
-      case 'com.habitrpg.android.habitica.iap.4gems':
-        amount = 1;
-        break;
-      case 'com.habitrpg.android.habitica.iap.20.gems':
-      case 'com.habitrpg.android.habitica.iap.21gems':
-        amount = 5.25;
-        break;
-      case 'com.habitrpg.android.habitica.iap.42gems':
-        amount = 10.5;
-        break;
-      case 'com.habitrpg.android.habitica.iap.84gems':
-        amount = 21;
-        break;
-    }
-
-    if (!amount) throw new Error('INVALID_ITEM_PURCHASED');
-
-    await payments.buyGems({
-      user,
-      paymentMethod: 'IAP GooglePlay',
-      amount,
-      headers: req.headers,
-    });
+    let googleRes = await googlePayments.verifyGemPurchase(user, iapBody.transaction.receipt, iapBody.transaction.signature, req.headers);
 
     res.respond(200, googleRes);
   },
@@ -100,59 +46,11 @@ api.iapSubscriptionAndroid = {
   url: '/iap/android/subscribe',
   middlewares: [authWithUrl],
   async handler (req, res) {
-    let subCode;
-    switch (req.body.sku) {
-      case 'com.habitrpg.android.habitica.subscription.1month':
-        subCode = 'basic_earned';
-        break;
-      case 'com.habitrpg.android.habitica.subscription.3month':
-        subCode = 'basic_3mo';
-        break;
-      case 'com.habitrpg.android.habitica.subscription.6month':
-        subCode = 'basic_6mo';
-        break;
-      case 'com.habitrpg.android.habitica.subscription.12month':
-        subCode = 'basic_12mo';
-        break;
-    }
-    let sub = subCode ? shared.content.subscriptionBlocks[subCode] : false;
-
     if (!req.body.sku) throw new BadRequest(res.t('missingSubscriptionCode'));
-
     let user = res.locals.user;
     let iapBody = req.body;
 
-
-    await iap.setup();
-
-    let testObj = {
-      data: iapBody.transaction.receipt,
-      signature: iapBody.transaction.signature,
-    };
-
-    let receiptObj = JSON.parse(testObj.data); // passed as a string
-    let token = receiptObj.token || receiptObj.purchaseToken;
-
-    let existingUser = await User.findOne({
-      'payments.plan.customerId': token,
-    }).exec();
-    if (existingUser) throw new NotAuthorized('RECEIPT_ALREADY_USED');
-
-    let googleRes = await iap.validate(iap.GOOGLE, testObj);
-
-    let isValidated = iap.isValidated(googleRes);
-    if (!isValidated) throw new NotAuthorized('INVALID_RECEIPT');
-
-    await payments.createSubscription({
-      user,
-      customerId: token,
-      paymentMethod: 'Google',
-      sub,
-      headers: req.headers,
-      nextPaymentProcessing: moment.utc().add({days: 2}),
-      nextBillingDate: googleRes.expirationDate,
-      additionalData: testObj,
-    });
+    await googlePayments.subscribe(req.body.sku, user, iapBody.transaction.receipt, iapBody.transaction.signature, req.headers);
 
     res.respond(200);
   },
@@ -171,30 +69,7 @@ api.iapCancelSubscriptionAndroid = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    let data = user.purchased.plan.additionalData;
-
-    if (!data) throw new NotAuthorized(res.t('missingSubscription'));
-
-    await iap.setup();
-
-    let googleRes = await iap.validate(iap.GOOGLE, data);
-
-    let isValidated = iap.isValidated(googleRes);
-    if (!isValidated) throw new NotAuthorized('INVALID_RECEIPT');
-
-    let purchases = iap.getPurchaseData(googleRes);
-    if (purchases.length === 0) throw new NotAuthorized('INVALID_RECEIPT');
-    let subscriptionData = purchases[0];
-
-    let dateTerminated = new Date(Number(subscriptionData.expirationDate));
-    if (dateTerminated > new Date()) throw new NotAuthorized('SUBSCRIPTION_STILL_VALID');
-
-    await payments.cancelSubscription({
-      user,
-      nextBill: dateTerminated,
-      paymentMethod: 'Google',
-      headers: req.headers,
-    });
+    await googlePayments.cancelSubscribe(user, req.headers);
 
     if (req.query.noRedirect) {
       res.respond(200);
