@@ -202,6 +202,25 @@ describe('Canceling a subscription for group', () => {
     expect(daysTillTermination).to.be.within(29, 30); // 1 month +/- 1 days
   });
 
+  it('does not cancel member subscriptions when member does not have a group plan sub (i.e. UNLIMITED_CUSTOMER_ID)', async () => {
+    plan.key = 'basic_earned';
+    plan.customerId = api.constants.UNLIMITED_CUSTOMER_ID;
+
+    let recipient = new User();
+    recipient.profile.name = 'recipient';
+    recipient.purchased.plan = plan;
+    recipient.guilds.push(group._id);
+    await recipient.save();
+
+    data.groupId = group._id;
+
+    await api.cancelSubscription(data);
+
+    let now = new Date();
+    let updatedLeader = await User.findById(user._id).exec();
+    expect(updatedLeader.purchased.plan.dateTerminated).to.not.exist;
+  });
+
   it('does not cancel a user subscription if they are still in another active group plan', async () => {
     let recipient = new User();
     recipient.profile.name = 'recipient';
