@@ -2,7 +2,7 @@
     "PORT":3000,
     "ENABLE_CONSOLE_LOGS_IN_PROD":"false",
     "IP":"0.0.0.0",
-    "CORES":1,
+    "WEB_CONCURRENCY":1,
     "BASE_URL":"http://localhost:3000",
     "FACEBOOK_KEY":"123456789012345",
     "FACEBOOK_SECRET":"aaaabbbbccccddddeeeeffff00001111",
