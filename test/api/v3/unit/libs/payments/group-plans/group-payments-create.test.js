@@ -327,6 +327,8 @@ describe('Purchasing a subscription for group', () => {
     let updatedUser = await User.findById(recipient._id).exec();
 
     expect(updatedUser.purchased.plan.extraMonths).to.within(2, 3);
+    paypalPayments.paypalBillingAgreementGet.restore();
+    paypalPayments.paypalBillingAgreementCancel.restore();
   });
 
   it('adds months to members with existing recurring subscription (Android)');
