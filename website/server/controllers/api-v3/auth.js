@@ -16,9 +16,8 @@ import { model as User } from '../../models/user';
 import { model as Group } from '../../models/group';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../../libs/email';
-import { decrypt } from '../../libs/encryption';
+import { decrypt, encrypt } from '../../libs/encryption';
 import { send as sendEmail } from '../../libs/email';
-import { encrypt } from '../../libs/encryption';
 import pusher from '../../libs/pusher';
 import common from '../../../common';
 
@@ -554,7 +553,7 @@ api.resetPassword = {
     if (user) {
       // create an encrypted link to be used to reset the password
       const resetPasswordQueryString = JSON.stringify({
-        id: user._id,
+        userId: user._id,
         expiresAt: moment().add({ hours: 24 }),
       });
       let link = `${BASE_URL}/static/reset-password-set-new-one?code=${encrypt(resetPasswordQueryString)}`;

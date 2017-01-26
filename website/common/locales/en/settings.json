@@ -88,6 +88,7 @@
     "deleteDo": "Do it, delete my account!",
     "enterNumber": "Please enter a number between 0 and 24",
     "fillAll": "Please fill out all fields",
+    "passwordResetCodeRequired": "\"code\" query parameter must be a valid password reset code.",
     "passwordSuccess": "Password successfully changed",
     "usernameSuccess": "Login Name successfully changed",
     "emailSuccess": "Email successfully changed",
