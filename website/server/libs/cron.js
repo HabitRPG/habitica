@@ -75,24 +75,21 @@ function grantEndOfTheMonthPerks (user, now) {
 }
 
 function removeTerminatedSubscription (user) {
-  // If subscription's termination date has arrived
   let plan = user.purchased.plan;
 
-  if (plan.dateTerminated && moment(plan.dateTerminated).isBefore(new Date())) {
-    _.merge(plan, {
-      planId: null,
-      customerId: null,
-      paymentMethod: null,
-    });
+  _.merge(plan, {
+    planId: null,
+    customerId: null,
+    paymentMethod: null,
+  });
 
-    _.merge(plan.consecutive, {
-      count: 0,
-      offset: 0,
-      gemCapExtra: 0,
-    });
+  _.merge(plan.consecutive, {
+    count: 0,
+    offset: 0,
+    gemCapExtra: 0,
+  });
 
-    user.markModified('purchased.plan');
-  }
+  user.markModified('purchased.plan');
 }
 
 function performSleepTasks (user, tasksByType, now) {
@@ -195,10 +192,14 @@ export function cron (options = {}) {
   if (user.purchased && user.purchased.plan && !moment(user.purchased.plan.dateUpdated).startOf('month').isSame(moment().startOf('month'))) {
     user.purchased.plan.gemsBought = 0;
   }
+
   if (user.isSubscribed()) {
     grantEndOfTheMonthPerks(user, now);
-    if (!CRON_SAFE_MODE) removeTerminatedSubscription(user);
   }
+
+  let plan = user.purchased.plan;
+  let userHasTerminatedSubscription = plan.dateTerminated && moment(plan.dateTerminated).isBefore(new Date());
+  if (!CRON_SAFE_MODE && userHasTerminatedSubscription) removeTerminatedSubscription(user);
 
   // Login Incentives
   user.loginIncentives++;
