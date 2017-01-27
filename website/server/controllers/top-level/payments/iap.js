@@ -58,8 +58,8 @@ api.iapSubscriptionAndroid = {
 
 /**
  * @apiIgnore Payments are considered part of the private API
- * @api {get} /amazon/subscribe/cancel Amazon Payments: subscribe cancel
- * @apiName AmazonSubscribe
+ * @api {get} /iap/android/subscribe/cancel Google Payments: subscribe cancel
+ * @apiName IapAndroidSubscribeCancel
  * @apiGroup Payments
  **/
 api.iapCancelSubscriptionAndroid = {
