@@ -578,4 +578,34 @@ describe('Purchasing a subscription for group', () => {
     expect(updatedUser.purchased.plan.lastBillingDate).to.exist;
     expect(updatedUser.purchased.plan.dateCreated).to.exist;
   });
+
+  it('updates a user with a cancelled but active group subscription', async () => {
+    plan.key = 'basic_earned';
+    plan.customerId = api.constants.GROUP_PLAN_CUSTOMER_ID;
+    plan.dateTerminated = moment().add(1, 'months');
+
+    let recipient = new User();
+    recipient.profile.name = 'recipient';
+    recipient.purchased.plan = plan;
+    recipient.guilds.push(group._id);
+    await recipient.save();
+
+    user.guilds.push(group._id);
+    await user.save();
+    data.groupId = group._id;
+
+    await api.createSubscription(data);
+
+    let updatedUser = await User.findById(recipient._id).exec();
+
+    expect(updatedUser.purchased.plan.planId).to.eql('group_plan_auto');
+    expect(updatedUser.purchased.plan.customerId).to.eql(api.constants.GROUP_PLAN_CUSTOMER_ID);
+    expect(updatedUser.purchased.plan.dateUpdated).to.exist;
+    expect(updatedUser.purchased.plan.gemsBought).to.eql(0);
+    expect(updatedUser.purchased.plan.paymentMethod).to.eql('Group Plan');
+    expect(updatedUser.purchased.plan.extraMonths).to.within(0, 1);
+    expect(updatedUser.purchased.plan.dateTerminated).to.eql(null);
+    expect(updatedUser.purchased.plan.lastBillingDate).to.not.exist;
+    expect(updatedUser.purchased.plan.dateCreated).to.exist;
+  });
 });

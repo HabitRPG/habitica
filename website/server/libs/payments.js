@@ -80,7 +80,7 @@ api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers (gr
  * @return undefined
  */
 api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
-  let customerIdsToIgnore = ['group-plan', this.constants.UNLIMITED_CUSTOMER_ID];
+  let customerIdsToIgnore = [this.constants.GROUP_PLAN_CUSTOMER_ID, this.constants.UNLIMITED_CUSTOMER_ID];
 
   let data = {
     user: {},
@@ -111,7 +111,9 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
   };
 
   if (member.isSubscribed()) {
-    if (customerIdsToIgnore.indexOf(member.purchased.plan.customerId) !== -1) return;
+    let memberPlan = member.purchased.plan;
+    let customerHasCancelledGroupPlan = memberPlan.dateTerminated && memberPlan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID && moment().isBefore(memberPlan.dateTerminated);
+    if (customerIdsToIgnore.indexOf(memberPlan.customerId) !== -1 && !customerHasCancelledGroupPlan) return;
 
     await member.cancelSubscription();
 
