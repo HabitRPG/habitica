@@ -12,7 +12,7 @@
       "CLIENT_ID": "aaaabbbbccccddddeeeeffff00001111",
       "CLIENT_SECRET": "aaaabbbbccccddddeeeeffff00001111",
       "ACCESS_TOKEN":"aaaabbbbccccddddeeeeffff00001111",
-      "REFRESH_TOKEN":"aaaabbbbccccddddeeeeffff00001111",
+      "REFRESH_TOKEN":"aaaabbbbccccddddeeeeffff00001111"
     },
     "NODE_DB_URI":"mongodb://localhost/habitrpg",
     "TEST_DB_URI":"mongodb://localhost/habitrpg_test",
