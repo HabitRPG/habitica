@@ -1,5 +1,6 @@
 import { shouldDo, DAY_MAPPING } from '../../website/common/script/cron';
 import moment from 'moment';
+import 'moment-recur';
 
 describe('shouldDo', () => {
   let day, dailyTask;
@@ -169,7 +170,7 @@ describe('shouldDo', () => {
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
     });
 
-    it('leaves daily inactive if not day of the month with every x moth on date', () => {
+    it('leaves daily inactive if not on date of the x month', () => {
       dailyTask.everyX = 2;
       dailyTask.frequency = 'monthly';
       dailyTask.daysOfMonth = [15];
@@ -178,13 +179,12 @@ describe('shouldDo', () => {
       expect(shouldDo(tomorrow, dailyTask, options)).to.equal(false);
     });
 
-    it('activates Daily if on day of the month with every x moth on date', () => {
+    it('activates Daily if on date of the x month', () => {
       dailyTask.everyX = 2;
       dailyTask.frequency = 'monthly';
       dailyTask.daysOfMonth = [15];
-      let tomorrow = moment().add(2, 'months').add(1, 'day').toDate();
-
-      expect(shouldDo(tomorrow, dailyTask, options)).to.equal(true);
+      day = moment().add(2, 'months').date(15).toDate();
+      expect(shouldDo(day, dailyTask, options)).to.equal(true);
     });
   });
 
@@ -229,7 +229,7 @@ describe('shouldDo', () => {
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
     });
 
-    it.only('leaves daily inactive if not day of the month with every x month on weekday', () => {
+    it('leaves daily inactive if not day of the month with every x month on weekday', () => {
       dailyTask.repeat = {
         su: false,
         s: false,
@@ -250,7 +250,7 @@ describe('shouldDo', () => {
       expect(shouldDo(day, dailyTask, options)).to.equal(false);
     });
 
-    it.only('activates Daily if on day of the month with every x month on weekday', () => {
+    it('activates Daily if on nth weekday of the x month', () => {
       dailyTask.repeat = {
         su: false,
         s: false,
@@ -261,32 +261,15 @@ describe('shouldDo', () => {
         m: false,
       };
 
-      day = moment();
-      dailyTask.repeat[DAY_MAPPING[day.day()]] = true;
+      let today = moment('2017-01-27T00:00:00+00:00');
+      let week = today.monthWeek();
+      let dayOfWeek = today.day();
+      dailyTask.weeksOfMonth = [week];
+      dailyTask.repeat[DAY_MAPPING[dayOfWeek]] = true;
       dailyTask.everyX = 2;
       dailyTask.frequency = 'monthly';
-      dailyTask.weeksOfMonth = [day.week() - 1];
-      day = day.add(day.week(), 'weeks').toDate();
 
-      expect(shouldDo(day, dailyTask, options)).to.equal(true);
-    });
-  });
-
-  context('Every X Months', () => {
-    it('leaves daily inactive if not the correct month', () => {
-      day = moment();
-      dailyTask.everyX = 2;
-      dailyTask.frequency = 'monthly';
-      day = day.add(1, 'day').toDate();
-
-      expect(shouldDo(day, dailyTask, options)).to.equal(false);
-    });
-
-    it('activates Daily on matching month', () => {
-      day = moment();
-      dailyTask.everyX = 2;
-      dailyTask.frequency = 'monthly';
-      day = day.add(2, 'months').toDate();
+      day = moment('2017-03-24T00:00:00+00:00');
 
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
     });

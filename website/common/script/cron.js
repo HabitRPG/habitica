@@ -117,20 +117,18 @@ export function shouldDo (day, dailyTask, options = {}) {
 
     return schedule.matches(day);
   } else if (dailyTask.frequency === 'monthly') {
-    let matchEveryX = false;
     let schedule = moment(dailyTask.startDate).recur();
 
-    // let everyXScheudle = moment(dailyTask.startDate).recur();
-    // matchEveryX = everyXScheudle.every(dailyTask.everyX).months().matches(day);
-    console.log(matchEveryX)
+    let differenceInMonths = (moment(day).month() + 1) - (moment(dailyTask.startDate).month() + 1);
+    let matchEveryX = differenceInMonths % dailyTask.everyX === 0;
+
     if (dailyTask.weeksOfMonth) {
       schedule = schedule.every(daysOfTheWeek).daysOfWeek()
                         .every(dailyTask.weeksOfMonth).weeksOfMonthByDay();
-    } else {
+    } else if (dailyTask.daysOfMonth) {
       schedule = schedule.every(dailyTask.daysOfMonth).daysOfMonth();
     }
 
-    console.log(schedule.next(4, "L"))
     return schedule.matches(day) && matchEveryX;
   } else if (dailyTask.frequency === 'yearly') {
 
