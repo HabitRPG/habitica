@@ -18,7 +18,7 @@ export const DAY_MAPPING = {
   6: 's',
 };
 
-export const DAY_MAPPING_STRING_TO_NUMBER = _.invert(DAY_MAPPING)
+export const DAY_MAPPING_STRING_TO_NUMBER = _.invert(DAY_MAPPING);
 
 /*
   Each time we perform date maths (cron, task-due-days, etc), we need to consider user preferences.
@@ -91,14 +91,14 @@ export function daysSince (yesterday, options = {}) {
   Should the user do this task on this date, given the task's repeat options and user.preferences.dayStart?
  */
 
-export function shouldDo (day, dailyTask, options = {}) {
+export function shouldDo (day, dailyTask) {
   if (dailyTask.type !== 'daily') {
     return false;
   }
 
   let daysOfTheWeek = [];
   for (let [repeatDay, active] of Object.entries(dailyTask.repeat)) {
-    if (active) daysOfTheWeek.push(parseInt(DAY_MAPPING_STRING_TO_NUMBER[repeatDay]))
+    if (active) daysOfTheWeek.push(parseInt(DAY_MAPPING_STRING_TO_NUMBER[repeatDay], 10));
   }
 
   if (dailyTask.frequency === 'daily') {
@@ -119,7 +119,7 @@ export function shouldDo (day, dailyTask, options = {}) {
   } else if (dailyTask.frequency === 'monthly') {
     let schedule = moment(dailyTask.startDate).recur();
 
-    let differenceInMonths = (moment(day).month() + 1) - (moment(dailyTask.startDate).month() + 1);
+    let differenceInMonths = moment(day).month() + 1 - moment(dailyTask.startDate).month() + 1;
     let matchEveryX = differenceInMonths % dailyTask.everyX === 0;
 
     if (dailyTask.weeksOfMonth) {
@@ -131,10 +131,9 @@ export function shouldDo (day, dailyTask, options = {}) {
 
     return schedule.matches(day) && matchEveryX;
   } else if (dailyTask.frequency === 'yearly') {
-
     let schedule = moment(dailyTask.startDate).recur();
 
-    schedule = schedule.every(dailyTask.everyX).years()
+    schedule = schedule.every(dailyTask.everyX).years();
 
     return schedule.matches(day);
   }
