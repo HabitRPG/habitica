@@ -18,7 +18,7 @@ export const DAY_MAPPING = {
   6: 's',
 };
 
-const DAY_MAPPING_STRING_TO_NUMBER = _.invert(DAY_MAPPING)
+export const DAY_MAPPING_STRING_TO_NUMBER = _.invert(DAY_MAPPING)
 
 /*
   Each time we perform date maths (cron, task-due-days, etc), we need to consider user preferences.
@@ -114,17 +114,16 @@ export function shouldDo (day, dailyTask, options = {}) {
     }
 
     schedule = schedule.every(daysOfTheWeek).daysOfWeek();
-      // console.log(schedule.next(8, 'L'))
+
     return schedule.matches(day);
   } else if (dailyTask.frequency === 'monthly') {
-
     let schedule = moment(dailyTask.startDate).recur();
 
     if (dailyTask.everyX > 1) {
       schedule.every(dailyTask.everyX).months();
     } else if (dailyTask.weeksOfMonth) {
       schedule = schedule.every(daysOfTheWeek).daysOfWeek()
-                        .every(dailyTask.weeksOfMonth).weeksOfMonth();
+                        .every(dailyTask.weeksOfMonth).weeksOfMonthByDay();
     } else {
       schedule = schedule.every(dailyTask.daysOfMonth).daysOfMonth();
     }

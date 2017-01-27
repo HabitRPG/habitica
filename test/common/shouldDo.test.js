@@ -1,7 +1,7 @@
-import { shouldDo } from '../../website/common/script/cron';
+import { shouldDo, DAY_MAPPING } from '../../website/common/script/cron';
 import moment from 'moment';
 
-describe.only('shouldDo', () => {
+describe('shouldDo', () => {
   let day, dailyTask;
   let options = {};
 
@@ -166,22 +166,23 @@ describe.only('shouldDo', () => {
       expect(shouldDo(day, dailyTask, options)).to.equal(false);
     });
 
-    it('activates Daily on matching day of month', () => {
+    it('activates Daily if correct week of the month on the day of the start date', () => {
       dailyTask.repeat = {
         su: false,
         s: false,
         f: false,
-        th: true,
+        th: false,
         w: false,
         t: false,
         m: false,
       };
 
       day = moment();
+      dailyTask.repeat[DAY_MAPPING[day.day()]] = true;
       dailyTask.everyX = 1;
       dailyTask.frequency = 'monthly';
-      dailyTask.weeksOfMonth = [day.week()];
-      day = day.add(1, 'months').weekday(4).toDate();
+      dailyTask.weeksOfMonth = [day.week() - 1];
+      day = day.add(day.week(), 'weeks').toDate();
 
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
     });
