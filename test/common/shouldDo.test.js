@@ -103,9 +103,21 @@ describe('shouldDo', () => {
       expect(shouldDo(tomorrow, dailyTask, options)).to.equal(false);
     });
 
-    xit('leaves daily inactive it is not the correct day of the week', () => {
+    it('leaves daily inactive if on every (x) week on weekday it is incorrect weekday', () => {
+      dailyTask.repeat = {
+        su: false,
+        s: false,
+        f: false,
+        th: false,
+        w: false,
+        t: false,
+        m: false,
+      };
+
+      day = moment();
+      dailyTask.repeat[DAY_MAPPING[day.day()]] = true;
       dailyTask.everyX = 3;
-      let threeWeeksFromTodayPlusOne = moment().add(1, 'day').add(3, 'weeks').toDate();
+      let threeWeeksFromTodayPlusOne = day.add(1, 'day').add(3, 'weeks').toDate();
 
       expect(shouldDo(threeWeeksFromTodayPlusOne, dailyTask, options)).to.equal(false);
     });
@@ -117,9 +129,21 @@ describe('shouldDo', () => {
       expect(shouldDo(threeWeeksFromToday, dailyTask, options)).to.equal(true);
     });
 
-    xit('activates Daily on matching week and matching day', () => {
+    it('activates Daily on every (x) week on weekday', () => {
+      dailyTask.repeat = {
+        su: false,
+        s: false,
+        f: false,
+        th: false,
+        w: false,
+        t: false,
+        m: false,
+      };
+
+      day = moment();
+      dailyTask.repeat[DAY_MAPPING[day.day()]] = true;
       dailyTask.everyX = 3;
-      let threeWeeksFromToday = moment().add(3, 'weeks').toDate();
+      let threeWeeksFromToday = day.add(6, 'weeks').day(day.day()).toDate();
 
       expect(shouldDo(threeWeeksFromToday, dailyTask, options)).to.equal(true);
     });
