@@ -279,6 +279,29 @@ describe('analyticsService', () => {
           rewards: [{_id: 'reward'}],
           balance: 12,
           loginIncentives: 1,
+          background: {
+            blizzard: true,
+          },
+          shirt: {
+            horizon: true,
+          },
+          hair: {
+            base: {
+              1: true,
+            },
+            beard: {
+              3: true,
+            },
+            color: {
+              snowy: true,
+            },
+            mustache: {
+              2: true,
+            },
+          },
+          skin: {
+            snowy: true,
+          },
         };
 
         data.user = user;
@@ -305,6 +328,29 @@ describe('analyticsService', () => {
                 balance: 12,
                 balanceGemAmount: 48,
                 loginIncentives: 1,
+                background: {
+                  blizzard: true,
+                },
+                shirt: {
+                  horizon: true,
+                },
+                hair: {
+                  base: {
+                    1: true,
+                  },
+                  beard: {
+                    3: true,
+                  },
+                  color: {
+                    snowy: true,
+                  },
+                  mustache: {
+                    2: true,
+                  },
+                },
+                skin: {
+                  snowy: true,
+                },
               },
             });
           });
@@ -523,6 +569,29 @@ describe('analyticsService', () => {
           dailys: [{_id: 'daily'}],
           todos: [{_id: 'todo'}],
           rewards: [{_id: 'reward'}],
+          background: {
+            blizzard: true,
+          },
+          shirt: {
+            horizon: true,
+          },
+          hair: {
+            base: {
+              1: true,
+            },
+            beard: {
+              3: true,
+            },
+            color: {
+              snowy: true,
+            },
+            mustache: {
+              2: true,
+            },
+          },
+          skin: {
+            snowy: true,
+          },
         };
 
         data.user = user;
@@ -546,6 +615,29 @@ describe('analyticsService', () => {
                 },
                 contributorLevel: 1,
                 subscription: 'foo-plan',
+                background: {
+                  blizzard: true,
+                },
+                shirt: {
+                  horizon: true,
+                },
+                hair: {
+                  base: {
+                    1: true,
+                  },
+                  beard: {
+                    3: true,
+                  },
+                  color: {
+                    snowy: true,
+                  },
+                  mustache: {
+                    2: true,
+                  },
+                },
+                skin: {
+                  snowy: true,
+                },
               },
             });
           });

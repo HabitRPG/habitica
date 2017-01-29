@@ -26,22 +26,14 @@ describe('Analytics Service', function () {
     describe('register', function() {
 
       beforeEach(function() {
-        sandbox.stub(amplitude, 'setUserId');
-        sandbox.stub(window, 'ga');
+        sandbox.stub(window, 'fbq');
       });
 
-      it('sets up user with Amplitude', function() {
+      it('records a registration event on Facebook', function() {
         analytics.register();
         clock.tick();
-        expect(amplitude.setUserId).to.have.been.calledOnce;
-        expect(amplitude.setUserId).to.have.been.calledWith(user._id);
-      });
-
-      it('sets up user with Google Analytics', function() {
-        analytics.register();
-        clock.tick();
-        expect(ga).to.have.been.calledOnce;
-        expect(ga).to.have.been.calledWith('set', {userId: user._id});
+        expect(fbq).to.have.been.calledOnce;
+        expect(fbq).to.have.been.calledWith('track', 'CompleteRegistration');
       });
     });
 
@@ -74,6 +66,7 @@ describe('Analytics Service', function () {
       beforeEach(function() {
         sandbox.stub(amplitude, 'logEvent');
         sandbox.stub(window, 'ga');
+        sandbox.stub(window, 'fbq');
       });
 
       context('successful tracking', function() {
@@ -112,6 +105,15 @@ describe('Analytics Service', function () {
 
           expect(ga).to.have.been.calledOnce;
           expect(ga).to.have.been.calledWith('send', properties);
+        });
+
+        it('tracks a page view with Facebook', function() {
+          var properties = {'hitType':'pageview','eventCategory':'behavior','eventAction':'tasks'};
+          analytics.track(properties);
+          clock.tick();
+
+          expect(fbq).to.have.been.calledOnce;
+          expect(fbq).to.have.been.calledWith('track', 'PageView');
         });
       });
 
@@ -189,10 +191,33 @@ describe('Analytics Service', function () {
           habits: 1,
           dailys: 1,
           todos: 1,
-          rewards: 1
+          rewards: 1,
         };
         expectedProperties.balance = 12;
         expectedProperties.balanceGemAmount = 48;
+        expectedProperties.background = {
+          blizzard: true,
+        };
+        expectedProperties.shirt = {
+          horizon: true,
+        };
+        expectedProperties.hair = {
+          base: {
+            1: true,
+          },
+          beard: {
+            3: true,
+          },
+          color: {
+            snowy: true,
+          },
+          mustache: {
+            2: true,
+          },
+        };
+        expectedProperties.skin = {
+          snowy: true,
+        };
 
         beforeEach(function() {
           user._id = 'unique-user-id';
@@ -208,6 +233,29 @@ describe('Analytics Service', function () {
           user.todos = [{_id: 'todo'}];
           user.rewards = [{_id: 'reward'}];
           user.balance = 12;
+          user.background = {
+            blizzard: true,
+          };
+          user.shirt = {
+            horizon: true,
+          };
+          user.hair = {
+            base: {
+              1: true,
+            },
+            beard: {
+              3: true,
+            },
+            color: {
+              snowy: true,
+            },
+            mustache: {
+              2: true,
+            },
+          };
+          user.skin = {
+            snowy: true,
+          };
 
           analytics.updateUser(properties);
           clock.tick();
@@ -240,10 +288,33 @@ describe('Analytics Service', function () {
             todos: 1,
             dailys: 1,
             habits: 1,
-            rewards: 1
+            rewards: 1,
           },
           balance: 12,
-          balanceGemAmount: 48
+          balanceGemAmount: 48,
+          background: {
+            blizzard: true,
+          },
+          shirt: {
+            horizon: true,
+          },
+          hair: {
+            base: {
+              1: true,
+            },
+            beard: {
+              3: true,
+            },
+            color: {
+              snowy: true,
+            },
+            mustache: {
+              2: true,
+            },
+          },
+          skin: {
+            snowy: true,
+          },
         };
 
         beforeEach(function() {
@@ -262,6 +333,29 @@ describe('Analytics Service', function () {
           user.todos = [{_id: 'todo'}];
           user.rewards = [{_id: 'reward'}];
           user.balance = 12;
+          user.background = {
+            blizzard: true,
+          };
+          user.shirt = {
+            horizon: true,
+          };
+          user.hair = {
+            base: {
+              1: true,
+            },
+            beard: {
+              3: true,
+            },
+            color: {
+              snowy: true,
+            },
+            mustache: {
+              2: true,
+            },
+          };
+          user.skin = {
+            snowy: true,
+          };
 
           analytics.updateUser();
           clock.tick();
