@@ -193,6 +193,29 @@ describe('Analytics Service', function () {
         };
         expectedProperties.balance = 12;
         expectedProperties.balanceGemAmount = 48;
+        expectedProperties.background = {
+          blizzard: true,
+        };
+        expectedProperties.shirt = {
+          horizon: true,
+        };
+        expectedProperties.hair = {
+          base: {
+            1: true,
+          },
+          beard: {
+            3: true,
+          },
+          color: {
+            snowy: true,
+          },
+          mustache: {
+            2: true,
+          },
+        };
+        expectedProperties.skin = {
+          snowy: true,
+        };
 
         beforeEach(function() {
           user._id = 'unique-user-id';
@@ -208,6 +231,29 @@ describe('Analytics Service', function () {
           user.todos = [{_id: 'todo'}];
           user.rewards = [{_id: 'reward'}];
           user.balance = 12;
+          user.background = {
+            blizzard: true,
+          };
+          user.shirt = {
+            horizon: true,
+          };
+          user.hair = {
+            base: {
+              1: true,
+            },
+            beard: {
+              3: true,
+            },
+            color: {
+              snowy: true,
+            },
+            mustache: {
+              2: true,
+            },
+          };
+          user.skin = {
+            snowy: true,
+          };
 
           analytics.updateUser(properties);
           clock.tick();
@@ -243,7 +289,31 @@ describe('Analytics Service', function () {
             rewards: 1
           },
           balance: 12,
-          balanceGemAmount: 48
+            balanceGemAmount: 48,
+            background: {
+              blizzard: true,
+            },
+            shirt: {
+              horizon: true,
+            },
+            hair: {
+              base: {
+                1: true,
+              },
+              beard: {
+                3: true,
+              },
+              color: {
+                snowy: true,
+              },
+              mustache: {
+                2: true,
+              },
+            },
+            skin: {
+              snowy: true,
+            },
+          };
         };
 
         beforeEach(function() {
@@ -262,6 +332,29 @@ describe('Analytics Service', function () {
           user.todos = [{_id: 'todo'}];
           user.rewards = [{_id: 'reward'}];
           user.balance = 12;
+          user.background = {
+            blizzard: true,
+          };
+          user.shirt = {
+            horizon: true,
+          };
+          user.hair = {
+            base: {
+              1: true,
+            },
+            beard: {
+              3: true,
+            },
+            color: {
+              snowy: true,
+            },
+            mustache: {
+              2: true,
+            },
+          };
+          user.skin = {
+            snowy: true,
+          };
 
           analytics.updateUser();
           clock.tick();

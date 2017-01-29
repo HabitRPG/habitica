@@ -70,6 +70,11 @@ let _formatUserData = (user) => {
   properties.balance = user.balance;
   properties.balanceGemAmount = properties.balance * 4;
 
+  properties.background = user.background;
+  properties.shirt = user.shirt;
+  properties.hair = user.hair;
+  properties.skin = user.skin;
+
   properties.tutorialComplete = user.flags && user.flags.tour && user.flags.tour.intro === -2;
 
   if (user.habits && user.dailys && user.todos && user.rewards) {
