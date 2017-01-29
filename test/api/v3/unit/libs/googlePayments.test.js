@@ -70,7 +70,7 @@ describe('Google Payments', ()  => {
       expect(iapValidateStub).to.be.calledOnce;
       expect(iapValidateStub).to.be.calledWith(iap.GOOGLE, {
         data: receipt,
-        signature
+        signature,
       });
       expect(iapIsValidatedStub).to.be.calledOnce;
       expect(iapIsValidatedStub).to.be.calledWith({});
@@ -146,7 +146,7 @@ describe('Google Payments', ()  => {
       expect(iapValidateStub).to.be.calledOnce;
       expect(iapValidateStub).to.be.calledWith(iap.GOOGLE, {
         data: receipt,
-        signature
+        signature,
       });
       expect(iapIsValidatedStub).to.be.calledOnce;
       expect(iapIsValidatedStub).to.be.calledWith({});
@@ -248,11 +248,11 @@ describe('Google Payments', ()  => {
       expect(iapValidateStub).to.be.calledOnce;
       expect(iapValidateStub).to.be.calledWith(iap.GOOGLE, {
         data: receipt,
-        signature
+        signature,
       });
       expect(iapIsValidatedStub).to.be.calledOnce;
       expect(iapIsValidatedStub).to.be.calledWith({
-        expirationDate: expirationDate
+        expirationDate,
       });
       expect(iapGetPurchaseDataStub).to.be.calledOnce;
 
