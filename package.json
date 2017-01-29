@@ -79,6 +79,7 @@
     "merge-stream": "^1.0.0",
     "method-override": "^2.3.5",
     "moment": "^2.13.0",
+    "moment-recur": "^1.0.5",
     "mongoose": "^4.7.1",
     "mongoose-id-autoinc": "~2013.7.14-4",
     "morgan": "^1.7.0",
