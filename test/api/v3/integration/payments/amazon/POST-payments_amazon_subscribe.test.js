@@ -26,7 +26,7 @@ describe('payments - amazon - #subscribe', () => {
     let subscription = 'basic_3mo';
     let coupon;
 
-    beforeEach(async () => {
+    beforeEach(() => {
       subscribeWithAmazonStub = sinon.stub(amzLib, 'subscribe').returnsPromise().resolves({});
     });
 

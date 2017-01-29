@@ -120,6 +120,7 @@
     "mysterySet201610": "Spookachtige-vlamset",
     "mysterySet201611": "Cornucopiaset",
     "mysterySet201612": "Notenkraker set",
+    "mysterySet201701": "Tijdbevriezer set",
     "mysterySet301404": "Standaard Steampunkset",
     "mysterySet301405": "Opgesmukte Steampunkset",
     "mysterySetwondercon": "Wondercon",
@@ -151,5 +152,9 @@
     "noSudoAccess": "Je hebt geen sudo-toegang.",
     "couponCodeRequired": "De couponcode is vereist.",
     "eventRequired": "\"req.params.event\" is vereist.",
-    "countRequired": "\"req.query.count\" is vereist."
+    "countRequired": "\"req.query.count\" is vereist.",
+    "missingPaymentId": "Ontbrekend req.query.paymentId",
+    "missingCustomerId": "Ontbrekend req.query.customerId",
+    "missingPaypalBlock": "Ontbrekend req.session.paypalBlock",
+    "missingSubKey": "Ontbrekend req.query.sub"
 }

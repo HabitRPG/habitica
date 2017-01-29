@@ -120,6 +120,7 @@
     "mysterySet201610": "Zestaw Ogień Spektralny",
     "mysterySet201611": "Zestaw rogu obfitości",
     "mysterySet201612": "Zestaw Dziadka do Orzechów",
+    "mysterySet201701": "Zestaw zamrażający czas",
     "mysterySet301404": "Standardowy zestaw steampunkowy",
     "mysterySet301405": "Zestaw steampunkowych akcesoriów",
     "mysterySetwondercon": "Konwent Wspaniałości",
@@ -151,5 +152,9 @@
     "noSudoAccess": "Nie masz dostępu administratora.",
     "couponCodeRequired": "Kod promocyjny jest wymagany.",
     "eventRequired": "\"req.params.event\" jest wymagane.",
-    "countRequired": "\"req.params.event\" jest wymagane."
+    "countRequired": "\"req.params.event\" jest wymagane.",
+    "missingPaymentId": "Missing req.query.paymentId",
+    "missingCustomerId": "Missing req.query.customerId",
+    "missingPaypalBlock": "Missing req.session.paypalBlock",
+    "missingSubKey": "Missing req.query.sub"
 }

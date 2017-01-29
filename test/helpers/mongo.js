@@ -55,8 +55,8 @@ export async function resetHabiticaDB () {
               username: 'username',
               lowerCaseUsername: 'username',
               email: 'username@email.com',
-              salt: 'salt',
               hashed_password: 'hashed_password', // eslint-disable-line camelcase
+              passwordHashMethod: 'bcrypt',
             },
           },
         }, (insertErr) => {

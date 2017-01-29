@@ -49,6 +49,13 @@ let armor = {
     value: 130,
     canOwn: ownsItem('armor_special_mammothRiderArmor'),
   },
+  pageArmor: {
+    text: t('armorSpecialPageArmorText'),
+    notes: t('armorSpecialPageArmorNotes', { con: 16 }),
+    con: 16,
+    value: 0,
+    canOwn: ownsItem('armor_special_pageArmor'),
+  },
   yeti: {
     event: EVENTS.winter,
     specialClass: 'warrior',
@@ -689,6 +696,13 @@ let head = {
     per: 15,
     value: 130,
     canOwn: ownsItem('head_special_mammothRiderHelm'),
+  },
+  pageHelm: {
+    text: t('headSpecialPageHelmText'),
+    notes: t('headSpecialPageHelmNotes', { per: 16 }),
+    per: 16,
+    value: 0,
+    canOwn: ownsItem('head_special_pageHelm'),
   },
   nye: {
     event: EVENTS.nye,
@@ -1368,6 +1382,13 @@ let shield = {
     value: 130,
     canOwn: ownsItem('shield_special_mammothRiderHorn'),
   },
+  diamondStave: {
+    text: t('shieldSpecialDiamondStaveText'),
+    notes: t('shieldSpecialDiamondStaveNotes', { int: 16 }),
+    int: 16,
+    value: 0,
+    canOwn: ownsItem('shield_special_diamondStave'),
+  },
   yeti: {
     event: EVENTS.winter,
     specialClass: 'warrior',
@@ -1756,6 +1777,13 @@ let weapon = {
     int: 15,
     value: 130,
     canOwn: ownsItem('weapon_special_mammothRiderSpear'),
+  },
+  pageBanner: {
+    text: t('weaponSpecialPageBannerText'),
+    notes: t('weaponSpecialPageBannerNotes', { str: 16 }),
+    str: 16,
+    value: 0,
+    canOwn: ownsItem('weapon_special_pageBanner'),
   },
   yeti: {
     event: EVENTS.winter,
