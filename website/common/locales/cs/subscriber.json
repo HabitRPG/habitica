@@ -120,6 +120,7 @@
     "mysterySet201610": "Set plamene duchů",
     "mysterySet201611": "Set rohu hojnosti",
     "mysterySet201612": "Set louskáčka",
+    "mysterySet201701": "Time-Freezer Set",
     "mysterySet301404": "Standardní steampunkový set",
     "mysterySet301405": "Set steampunkových doplňků",
     "mysterySetwondercon": "Wondercon",
@@ -151,5 +152,9 @@
     "noSudoAccess": "Nemáte přístup sudo.",
     "couponCodeRequired": "Je požadován kód kupónu.",
     "eventRequired": "je požadováno „req.params.event\".",
-    "countRequired": "je požadováno „req.query.count\"."
+    "countRequired": "je požadováno „req.query.count\".",
+    "missingPaymentId": "Missing req.query.paymentId",
+    "missingCustomerId": "Missing req.query.customerId",
+    "missingPaypalBlock": "Missing req.session.paypalBlock",
+    "missingSubKey": "Missing req.query.sub"
 }

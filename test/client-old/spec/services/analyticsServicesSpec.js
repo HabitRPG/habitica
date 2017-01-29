@@ -26,14 +26,22 @@ describe('Analytics Service', function () {
     describe('register', function() {
 
       beforeEach(function() {
-        sandbox.stub(window, 'fbq');
+        sandbox.stub(amplitude, 'setUserId');
+        sandbox.stub(window, 'ga');
       });
 
-      it('records a registration event on Facebook', function() {
+      it('sets up user with Amplitude', function() {
         analytics.register();
         clock.tick();
-        expect(fbq).to.have.been.calledOnce;
-        expect(fbq).to.have.been.calledWith('track', 'CompleteRegistration');
+        expect(amplitude.setUserId).to.have.been.calledOnce;
+        expect(amplitude.setUserId).to.have.been.calledWith(user._id);
+      });
+
+      it('sets up user with Google Analytics', function() {
+        analytics.register();
+        clock.tick();
+        expect(ga).to.have.been.calledOnce;
+        expect(ga).to.have.been.calledWith('set', {userId: user._id});
       });
     });
 
@@ -66,7 +74,6 @@ describe('Analytics Service', function () {
       beforeEach(function() {
         sandbox.stub(amplitude, 'logEvent');
         sandbox.stub(window, 'ga');
-        sandbox.stub(window, 'fbq');
       });
 
       context('successful tracking', function() {
@@ -105,15 +112,6 @@ describe('Analytics Service', function () {
 
           expect(ga).to.have.been.calledOnce;
           expect(ga).to.have.been.calledWith('send', properties);
-        });
-
-        it('tracks a page view with Facebook', function() {
-          var properties = {'hitType':'pageview','eventCategory':'behavior','eventAction':'tasks'};
-          analytics.track(properties);
-          clock.tick();
-
-          expect(fbq).to.have.been.calledOnce;
-          expect(fbq).to.have.been.calledWith('track', 'PageView');
         });
       });
 

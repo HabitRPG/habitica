@@ -120,6 +120,7 @@
     "mysterySet201610": "Spektralflammen-Set",
     "mysterySet201611": "Füllhorn-Set",
     "mysterySet201612": "Nussknacker-Set",
+    "mysterySet201701": "Zeitanhalterset",
     "mysterySet301404": "Steampunk-Standard-Set",
     "mysterySet301405": "Steampunk-Zubehör-Set",
     "mysterySetwondercon": "Wondercon",
@@ -151,5 +152,9 @@
     "noSudoAccess": "Du hast keine sudo-Rechte.",
     "couponCodeRequired": "Gutscheincode erforderlich.",
     "eventRequired": "\"req.params.event\" erforderlich.",
-    "countRequired": "\"req.query.count\" erforderlich."
+    "countRequired": "\"req.query.count\" erforderlich.",
+    "missingPaymentId": "req.query.paymentId fehlt.",
+    "missingCustomerId": "req.query.customerId fehlt.",
+    "missingPaypalBlock": "req.session.paypalBlock fehlt.",
+    "missingSubKey": "req.query.sub fehlt."
 }

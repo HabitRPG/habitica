@@ -120,6 +120,7 @@
     "mysterySet201610": "Комплект на призрачния пламък",
     "mysterySet201611": "Комплект на рога на изобилието",
     "mysterySet201612": "Комплект на лешникотрошачката",
+    "mysterySet201701": "Комплект за спиране на времето",
     "mysterySet301404": "Стандартен изтънчен комплект",
     "mysterySet301405": "Комплект изтънчени принадлежности",
     "mysterySetwondercon": "Wondercon",
@@ -151,5 +152,9 @@
     "noSudoAccess": "Нямате достъп на супер потребител.",
     "couponCodeRequired": "Кодът от купона е задължителен.",
     "eventRequired": "„req.params.event“ е задължително.",
-    "countRequired": "„req.query.count“ е задължително."
+    "countRequired": "„req.query.count“ е задължително.",
+    "missingPaymentId": "Липсва „req.query.paymentId“",
+    "missingCustomerId": "Липсва „req.query.customerId“",
+    "missingPaypalBlock": "Липсва „req.session.paypalBlock“",
+    "missingSubKey": "Липсва „req.query.sub“"
 }

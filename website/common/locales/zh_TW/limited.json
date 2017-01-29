@@ -18,7 +18,7 @@
     "valentine2": "\"玫瑰是鮮紅的\n而這首詩是舊的\n我希望您能喜歡\n因為它價值千金。\"",
     "valentine3": "\"玫瑰是鮮紅的\n冰龍是深藍的\n沒有什麼寶藏能比得上\n與你共度的時光！\"",
     "valentineCardAchievementTitle": "崇拜的友情",
-    "valentineCardAchievementText": "Aww, you and your friend must really care about each other! Sent or received <%= count %> Valentine's Day cards.",
+    "valentineCardAchievementText": "哇，你和你的朋友很重視彼此呢！送出了<%= count %> 張情人節卡片。",
     "polarBear": "北極熊",
     "turkey": "火雞",
     "gildedTurkey": "Gilded Turkey",

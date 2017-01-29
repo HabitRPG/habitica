@@ -10,7 +10,7 @@
     "newTaskEditPop": "选择这个选项后，新任务会立刻展开以添加详细的备注和标签。",
     "dailyDueDefaultView": "每日任务默认选中“待办”项",
     "dailyDueDefaultViewPop": "选择这个选项后，每日任务会默认选中“待办”项而不是“全部”项",
-    "reverseChatOrder": "查看撤销订单中的聊天信息",
+    "reverseChatOrder": "倒序查看聊天记录",
     "startCollapsed": "默认收起标签列表",
     "startCollapsedPop": "选择这个选项后，展开编辑新任务的时候标签列表是隐藏的。",
     "startAdvCollapsed": "默认隐藏高级选项",

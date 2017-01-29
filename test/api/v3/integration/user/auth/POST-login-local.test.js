@@ -3,6 +3,11 @@ import {
   requester,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
+import {
+  bcryptCompare,
+  sha1MakeSalt,
+  sha1Encrypt as sha1EncryptPassword,
+} from '../../../../../../website/server/libs/password';
 
 import nconf from 'nconf';
 
@@ -73,5 +78,36 @@ describe('POST /user/auth/local/login', () => {
       error: 'BadRequest',
       message: t('invalidReqParams'),
     });
+  });
+
+  it('converts user with SHA1 encrypted password to bcrypt encryption', async () => {
+    let textPassword = 'mySecretPassword';
+    let salt = sha1MakeSalt();
+    let sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
+
+    await user.update({
+      'auth.local.hashed_password': sha1HashedPassword,
+      'auth.local.passwordHashMethod': 'sha1',
+      'auth.local.salt': salt,
+    });
+
+    await user.sync();
+    expect(user.auth.local.passwordHashMethod).to.equal('sha1');
+    expect(user.auth.local.salt).to.equal(salt);
+    expect(user.auth.local.hashed_password).to.equal(sha1HashedPassword);
+
+    // login
+    await api.post(endpoint, {
+      username: user.auth.local.email,
+      password: textPassword,
+    });
+
+    await user.sync();
+    expect(user.auth.local.passwordHashMethod).to.equal('bcrypt');
+    expect(user.auth.local.salt).to.be.undefined;
+    expect(user.auth.local.hashed_password).not.to.equal(sha1HashedPassword);
+
+    let isValidPassword = await bcryptCompare(textPassword, user.auth.local.hashed_password);
+    expect(isValidPassword).to.equal(true);
   });
 });
