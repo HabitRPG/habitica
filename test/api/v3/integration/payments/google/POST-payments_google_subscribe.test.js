@@ -37,12 +37,20 @@ describe('payments : google #subscribe', () => {
         balance: 2,
       });
 
-      await user.post(`${endpoint}`, {
-        sku: 'com.habitrpg.android.habitica.subscription.3month',
-        transaction: {receipt: '', signature: ''},
+      let sku = 'com.habitrpg.android.habitica.subscription.3month';
+
+      await user.post(endpoint, {
+        sku,
+        transaction: {receipt: 'receipt', signature: 'signature'},
       });
 
       expect(subscribeStub).to.be.calledOnce;
+      expect(subscribeStub.args[0][0]).to.eql(sku);
+      expect(subscribeStub.args[0][1]._id).to.eql(user._id);
+      expect(subscribeStub.args[0][2]).to.eql('receipt');
+      expect(subscribeStub.args[0][3]).to.eql('signature');
+      expect(subscribeStub.args[0][4]['x-api-key']).to.eql(user.apiToken);
+      expect(subscribeStub.args[0][4]['x-api-user']).to.eql(user._id);
     });
   });
 });

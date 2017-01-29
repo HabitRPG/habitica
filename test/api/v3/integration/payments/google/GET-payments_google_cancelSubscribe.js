@@ -29,9 +29,12 @@ describe('payments : google #cancelSubscribe', () => {
         balance: 2,
       });
 
-      await user.get(`${endpoint}`);
+      await user.get(endpoint);
 
       expect(cancelStub).to.be.calledOnce;
+      expect(cancelStub.args[0][0]._id).to.eql(user._id);
+      expect(cancelStub.args[0][1]['x-api-key']).to.eql(user.apiToken);
+      expect(cancelStub.args[0][1]['x-api-user']).to.eql(user._id);
     });
   });
 });

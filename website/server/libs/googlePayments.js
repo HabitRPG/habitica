@@ -11,8 +11,13 @@ import moment from 'moment';
 
 let api = {};
 
-// TODO missing tests
-
+api.constants = {
+  PAYMENT_METHOD_GOOGLE: 'Google',
+  RESPONSE_INVALID_RECEIPT: 'INVALID_RECEIPT',
+  RESPONSE_ALREADY_USED: 'RECEIPT_ALREADY_USED',
+  RESPONSE_INVALID_ITEM: 'INVALID_ITEM_PURCHASED',
+  RESPONSE_STILL_VALID: 'SUBSCRIPTION_STILL_VALID'
+};
 
 api.verifyGemPurchase = async function verifyGemPurchase (user, receipt, signature, headers) {
   await iap.setup();
@@ -25,7 +30,7 @@ api.verifyGemPurchase = async function verifyGemPurchase (user, receipt, signatu
   let googleRes = await iap.validate(iap.GOOGLE, testObj);
 
   let isValidated = iap.isValidated(googleRes);
-  if (!isValidated) throw new NotAuthorized('INVALID_RECEIPT');
+  if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
 
   let receiptObj = JSON.parse(testObj.data); // passed as a string
   let token = receiptObj.token || receiptObj.purchaseToken;
@@ -33,7 +38,7 @@ api.verifyGemPurchase = async function verifyGemPurchase (user, receipt, signatu
   let existingReceipt = await IapPurchaseReceipt.findOne({
     _id: token,
   }).exec();
-  if (existingReceipt) throw new NotAuthorized('RECEIPT_ALREADY_USED');
+  if (existingReceipt) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
 
   await IapPurchaseReceipt.create({
     _id: token,
@@ -59,11 +64,11 @@ api.verifyGemPurchase = async function verifyGemPurchase (user, receipt, signatu
       break;
   }
 
-  if (!amount) throw new NotAuthorized('INVALID_ITEM_PURCHASED');
+  if (!amount) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
 
   await payments.buyGems({
     user,
-    paymentMethod: 'IAP GooglePlay',
+    paymentMethod: this.constants.PAYMENT_METHOD_GOOGLE,
     amount,
     headers,
   });
@@ -89,7 +94,7 @@ api.subscribe = async function subscribe (sku, user, receipt, signature, headers
       break;
   }
   let sub = subCode ? shared.content.subscriptionBlocks[subCode] : false;
-  if (!sub) throw new NotAuthorized('INVALID_ITEM_PURCHASED');
+  if (!sub) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
 
   await iap.setup();
 
@@ -104,19 +109,19 @@ api.subscribe = async function subscribe (sku, user, receipt, signature, headers
   let existingUser = await User.findOne({
     'payments.plan.customerId': token,
   }).exec();
-  if (existingUser) throw new NotAuthorized('RECEIPT_ALREADY_USED');
+  if (existingUser) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
 
   let googleRes = await iap.validate(iap.GOOGLE, testObj);
 
   let isValidated = iap.isValidated(googleRes);
-  if (!isValidated) throw new NotAuthorized('INVALID_RECEIPT');
+  if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
 
   nextPaymentProcessing = nextPaymentProcessing ? nextPaymentProcessing : moment.utc().add({days: 2});
 
   await payments.createSubscription({
     user,
     customerId: token,
-    paymentMethod: 'Google',
+    paymentMethod: this.constants.PAYMENT_METHOD_GOOGLE,
     sub,
     headers,
     nextPaymentProcessing,
@@ -135,19 +140,19 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
   let googleRes = await iap.validate(iap.GOOGLE, data);
 
   let isValidated = iap.isValidated(googleRes);
-  if (!isValidated) throw new NotAuthorized('INVALID_RECEIPT');
+  if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
 
   let purchases = iap.getPurchaseData(googleRes);
-  if (purchases.length === 0) throw new NotAuthorized('INVALID_RECEIPT');
+  if (purchases.length === 0) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
   let subscriptionData = purchases[0];
 
   let dateTerminated = new Date(Number(subscriptionData.expirationDate));
-  if (dateTerminated > new Date()) throw new NotAuthorized('SUBSCRIPTION_STILL_VALID');
+  if (dateTerminated > new Date()) throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
 
   await payments.cancelSubscription({
     user,
     nextBill: dateTerminated,
-    paymentMethod: 'Google',
+    paymentMethod: this.constants.PAYMENT_METHOD_GOOGLE,
     headers,
   });
 };

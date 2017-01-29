@@ -59,7 +59,7 @@ api.iapSubscriptionAndroid = {
 /**
  * @apiIgnore Payments are considered part of the private API
  * @api {get} /iap/android/subscribe/cancel Google Payments: subscribe cancel
- * @apiName IapAndroidSubscribeCancel
+ * @apiName AndroidSubscribeCancel
  * @apiGroup Payments
  **/
 api.iapCancelSubscriptionAndroid = {

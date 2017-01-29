@@ -2,6 +2,7 @@
 import iapModule from '../../../../../website/server/libs/inAppPurchases';
 import payments from '../../../../../website/server/libs/payments';
 import googlePayments from '../../../../../website/server/libs/googlePayments';
+import iap from '../../../../../website/server/libs/inAppPurchases';
 import {model as User} from '../../../../../website/server/models/user';
 import common from '../../../../../website/common';
 import moment from 'moment';
@@ -47,7 +48,7 @@ describe('Google Payments', ()  => {
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
-          message: 'INVALID_RECEIPT',
+          message: googlePayments.constants.RESPONSE_INVALID_RECEIPT,
         });
     });
 
@@ -58,7 +59,7 @@ describe('Google Payments', ()  => {
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
-          message: 'INVALID_ITEM_PURCHASED',
+          message: googlePayments.constants.RESPONSE_INVALID_ITEM,
         });
     });
 
@@ -67,12 +68,17 @@ describe('Google Payments', ()  => {
 
       expect(iapSetupStub).to.be.calledOnce;
       expect(iapValidateStub).to.be.calledOnce;
+      expect(iapValidateStub).to.be.calledWith(iap.GOOGLE, {
+        data: receipt,
+        signature
+      });
       expect(iapIsValidatedStub).to.be.calledOnce;
+      expect(iapIsValidatedStub).to.be.calledWith({});
 
       expect(paymentBuyGemsStub).to.be.calledOnce;
       expect(paymentBuyGemsStub).to.be.calledWith({
         user,
-        paymentMethod: 'IAP GooglePlay',
+        paymentMethod: googlePayments.constants.PAYMENT_METHOD_GOOGLE,
         amount: 5.25,
         headers,
       });
@@ -118,7 +124,7 @@ describe('Google Payments', ()  => {
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
-          message: 'INVALID_RECEIPT',
+          message: googlePayments.constants.RESPONSE_INVALID_RECEIPT,
         });
     });
 
@@ -129,7 +135,7 @@ describe('Google Payments', ()  => {
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
-          message: 'INVALID_ITEM_PURCHASED',
+          message: googlePayments.constants.RESPONSE_INVALID_ITEM,
         });
     });
 
@@ -138,13 +144,18 @@ describe('Google Payments', ()  => {
 
       expect(iapSetupStub).to.be.calledOnce;
       expect(iapValidateStub).to.be.calledOnce;
+      expect(iapValidateStub).to.be.calledWith(iap.GOOGLE, {
+        data: receipt,
+        signature
+      });
       expect(iapIsValidatedStub).to.be.calledOnce;
+      expect(iapIsValidatedStub).to.be.calledWith({});
 
       expect(paymentsCreateSubscritionStub).to.be.calledOnce;
       expect(paymentsCreateSubscritionStub).to.be.calledWith({
         user,
         customerId: token,
-        paymentMethod: 'Google',
+        paymentMethod: googlePayments.constants.PAYMENT_METHOD_GOOGLE,
         sub,
         headers,
         additionalData: {data: receipt, signature},
@@ -180,7 +191,7 @@ describe('Google Payments', ()  => {
       user.profile.name = 'sender';
       user.purchased.plan.customerId = customerId;
       user.purchased.plan.planId = subKey;
-      user.purchased.plan.additionalData = {receipt, signature};
+      user.purchased.plan.additionalData = {data: receipt, signature};
 
       paymentCancelSubscriptionSpy = sinon.stub(payments, 'cancelSubscription').returnsPromise().resolves({});
     });
@@ -213,7 +224,7 @@ describe('Google Payments', ()  => {
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
-          message: 'SUBSCRIPTION_STILL_VALID',
+          message: googlePayments.constants.RESPONSE_STILL_VALID,
         });
     });
 
@@ -226,7 +237,7 @@ describe('Google Payments', ()  => {
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
-          message: 'INVALID_RECEIPT',
+          message: googlePayments.constants.RESPONSE_INVALID_RECEIPT,
         });
     });
 
@@ -235,13 +246,20 @@ describe('Google Payments', ()  => {
 
       expect(iapSetupStub).to.be.calledOnce;
       expect(iapValidateStub).to.be.calledOnce;
+      expect(iapValidateStub).to.be.calledWith(iap.GOOGLE, {
+        data: receipt,
+        signature
+      });
       expect(iapIsValidatedStub).to.be.calledOnce;
+      expect(iapIsValidatedStub).to.be.calledWith({
+        expirationDate: expirationDate
+      });
       expect(iapGetPurchaseDataStub).to.be.calledOnce;
 
       expect(paymentCancelSubscriptionSpy).to.be.calledOnce;
       expect(paymentCancelSubscriptionSpy).to.be.calledWith({
         user,
-        paymentMethod: 'Google',
+        paymentMethod: googlePayments.constants.PAYMENT_METHOD_GOOGLE,
         nextBill: expirationDate.toDate(),
         headers,
       });
