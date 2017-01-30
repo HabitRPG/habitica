@@ -54,6 +54,19 @@ describe('POST /user/auth/local/register', () => {
       expect(user.tasksOrder.habits).to.have.a.lengthOf(0);
     });
 
+    it('adds the correct tags to the correct tasks', async () => {
+      let username = generateRandomUserName();
+      let email = `${username}@example.com`;
+      let password = 'password';
+
+      let user = await api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+    })
+
     it('enrolls new users in an A/B test', async () => {
       let username = generateRandomUserName();
       let email = `${username}@example.com`;
