@@ -1,3 +1,9 @@
+.promo_winter_classes_2016 {
+  background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
+  background-position: -452px -373px;
+  width: 360px;
+  height: 90px;
+}
 .promo_winter_classes_2017 {
   background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
   background-position: 0px -220px;
@@ -6,7 +12,7 @@
 }
 .promo_winter_fireworks {
   background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
-  background-position: -754px -373px;
+  background-position: -754px -464px;
   width: 138px;
   height: 147px;
 }
@@ -42,7 +48,7 @@
 }
 .npc_viirus {
   background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
-  background-position: -452px -524px;
+  background-position: -813px -373px;
   width: 108px;
   height: 90px;
 }
@@ -54,13 +60,13 @@
 }
 .scene_coding {
   background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
-  background-position: -452px -373px;
+  background-position: -452px -464px;
   width: 150px;
   height: 150px;
 }
 .scene_phone_peek {
   background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
-  background-position: -603px -373px;
+  background-position: -603px -464px;
   width: 150px;
   height: 150px;
 }

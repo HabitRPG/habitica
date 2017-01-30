@@ -103,7 +103,7 @@
     "habitHelp1": "好习惯是你要坚持的。每次你按 <%= plusIcon %>他们都会给你黄金和经验奖励",
     "habitHelp2": "坏习惯是你要避免的。每次你按<%= minusIcon %>他们会扣除你的生命值。",
     "habitHelp3": "如果不知道怎么写的话，来看看这些<a href='http://habitica.wikia.com/wiki/Sample_Habits' target='_blank'>别人的习惯例子</a>！",
-    "newbieGuild": "More questions? Ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>!",
+    "newbieGuild": "还有更多的问题？去 <%= linkStart %>Habitica 帮助公会<%= linkEnd %>提问吧！",
     "dailyHelp1": "每日任务会 <%= emphasisStart %>每天<%= emphasisEnd %> 重新激活刷新。点击<%= pencilIcon %>改变每日任务的刷新周期。",
     "dailyHelp2": "如果你未完成每日任务，那么当天过后你会失去生命值。",
     "dailyHelp3": "一旦错过一个每日任务，它就会变<%= emphasisStart %>红<%= emphasisEnd %> , 而完成它们时则变得更 <%= emphasisStart %>蓝<%= emphasisEnd %> 。越是红色的每日任务，越能给你带来丰厚的奖赏……或者伤害。 ",

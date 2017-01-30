@@ -408,7 +408,7 @@ api.joinGroup = {
         headerText: common.i18n.t('invitationAcceptedHeader', inviter.preferences.language),
         bodyText: common.i18n.t('invitationAcceptedBody', {
           groupName: group.name,
-          username: user.auth.local.username,
+          username: user.profile.name,
         }, inviter.preferences.language),
       };
       inviter.addNotification('GROUP_INVITE_ACCEPTED', data);

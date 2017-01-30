@@ -120,6 +120,7 @@
     "mysterySet201610": "Ensemble de la Flamme Spectrale",
     "mysterySet201611": "Ensemble de la Corne d'abondance",
     "mysterySet201612": "Ensemble Casse-noisettes",
+    "mysterySet201701": "Ensemble du geleur de temps",
     "mysterySet301404": "Ensemble Steampunk de Base",
     "mysterySet301405": "Ensemble D'accessoire Steampunk",
     "mysterySetwondercon": "Wondercon",
@@ -151,5 +152,9 @@
     "noSudoAccess": "Vous n'avez pas d'accès sudo.",
     "couponCodeRequired": "Le code du coupon est requis.",
     "eventRequired": "\"req.params.event\" est requis.",
-    "countRequired": "\"req.query.count\" est requis."
+    "countRequired": "\"req.query.count\" est requis.",
+    "missingPaymentId": "req.query.paymentId manquant",
+    "missingCustomerId": "req.query.customerId manquant",
+    "missingPaypalBlock": "req.session.paypalBlock manquant",
+    "missingSubKey": "req.query.sub manquant"
 }

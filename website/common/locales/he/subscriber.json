@@ -120,6 +120,7 @@
     "mysterySet201610": "Spectral Flame Set",
     "mysterySet201611": "Cornucopia Set",
     "mysterySet201612": "Nutcracker Set",
+    "mysterySet201701": "Time-Freezer Set",
     "mysterySet301404": "סט סטימפאנק רגיל",
     "mysterySet301405": "סט סטימפאנק אקססוריז",
     "mysterySetwondercon": "וונדרקון",
@@ -151,5 +152,9 @@
     "noSudoAccess": "אין לכם גישת מפעיל מערכת.",
     "couponCodeRequired": "יש להשתמש בקופון.",
     "eventRequired": "נדרש למלא \"req.params.event\".",
-    "countRequired": "נדרש למלא \"req.query.count\"."
+    "countRequired": "נדרש למלא \"req.query.count\".",
+    "missingPaymentId": "Missing req.query.paymentId",
+    "missingCustomerId": "Missing req.query.customerId",
+    "missingPaypalBlock": "Missing req.session.paypalBlock",
+    "missingSubKey": "Missing req.query.sub"
 }

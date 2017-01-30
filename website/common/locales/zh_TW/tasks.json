@@ -1,6 +1,6 @@
 {
     "clearCompleted": "清除已完成任務",
-    "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
+    "lotOfToDos": "你過去30天完成的代辦事項顯示在這裡。你可以在Data > Data Display Tool or Data > Export Data > User Data查看更早之前完成的代辦事項。",
     "deleteToDosExplanation": "如果你點選底下的按鈕，你所有已完成跟歸檔的待辦事項都將被永遠刪除。如果你想要留做紀錄，請先將它們匯出。",
     "addmultiple": "新增多項",
     "addsingle": "新增單項",

@@ -69,7 +69,7 @@
     "displayLater": "Später anzeigen",
     "petNotOwned": "Du besitzt dieses Haustier nicht.",
     "earnedCompanion": "Durch all Deine Produktivität hast Du einen neuen Begleiter erhalten. Füttere ihn damit er wächst!",
-    "feedPet": "'Verfüttere <%= article %> <%= text %> an <%= name %>?",
+    "feedPet": "Verfüttere <%= article %><%= text %> an <%= name %>?",
     "useSaddle": "Einen magischen Sattel auf <%= pet %> anwenden?",
     "raisedPet": "Du hast einen <%= pet %> aufgezogen!",
     "earnedSteed": "Durch das Erfüllen Deiner Aufgaben hast Du ein treues Reittier verdient!",

@@ -103,7 +103,7 @@
     "habitHelp1": "Gute Gewohnheiten sind Aktivitäten, die Du oft machen sollst. Sie bringen Gold und Erfahrung jedes mal wenn Du auf <%= plusIcon %> klickst.",
     "habitHelp2": "Schlechte Gewohnheiten sind Aktivitäten, die Du vermeiden solltest. Sie ziehen Dir jedes mal Leben ab, wenn Du auf <%= minusIcon %> klickst.",
     "habitHelp3": "Schau Dir zur Inspiration diese <a href='http://habitica.wikia.com/wiki/Sample_Habits' target='_blank'>Gewohnheitsbeispiele</a> an!",
-    "newbieGuild": "More questions? Ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>!",
+    "newbieGuild": "Du hast weitere Fragen? Du kannst sie in der <%= linkStart %>Habitica-Help-Gilde<%= linkEnd %> loswerden!",
     "dailyHelp1": "Tägliche Aufgaben wiederholen sich an<%= emphasisStart %>allen Tagen<%= emphasisEnd %>, an denen sie aktiv sind. Klicke den <%= pencilIcon %>, um die Tage zu ändern, an denen eine tägliche Aufgabe aktiv ist.",
     "dailyHelp2": "Wenn Du aktive tägliche Aufgaben nicht beendest, verlierst Du am Ende des Tages Gesundheit.",
     "dailyHelp3": "Tägliche Aufgaben werden <%= emphasisStart %>röter<%= emphasisEnd %>, wenn Du sie verpasst, und <%= emphasisStart %>blauer<%= emphasisEnd %>, wenn Du sie erledigst. Je röter die tägliche Aufgabe ist, desto größer fällt Deine Belohnung aus ... oder Deine Bestrafung.",
