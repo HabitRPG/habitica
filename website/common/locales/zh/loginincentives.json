@@ -11,5 +11,6 @@
   "unlockedCheckInReward": "你解锁了一个签到奖励！",
   "totalCheckinsTitle": "总签到",
   "checkinProgressTitle": "直到下一个进度",
-  "incentiveBackgroundsUnlockedWithCheckins": "这些背景将会通过每日签到解锁。"
+  "incentiveBackgroundsUnlockedWithCheckins": "这些背景将会通过每日签到解锁。",
+  "moreIncentivesComingSoon": "新的签到奖励将会被增加！"
 }

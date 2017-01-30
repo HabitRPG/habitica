@@ -103,7 +103,7 @@
     "habitHelp1": "Dobre nawyki są czynnościami, które wykonujesz często. Dostajesz za to nagrody w postaci złota i punktów doświadczenia za każdym razem, gdy klikniesz <%= plusIcon %>.",
     "habitHelp2": "Złe nawyki są czynnościami, których należy unikać. Wysysają punkty zdrowia za każdym razem, gdy klikniesz <%= minusIcon %>.",
     "habitHelp3": "Dla inspiracji sprawdź te <a href='http://habitica.wikia.com/wiki/Sample_Habits' target='_blank'>przykładowe nawyki</a>!",
-    "newbieGuild": "Masz jeszcze jakieś pytania? Zadaj je w <%= linkStart %>Gildii Świeżaków (Newbies Guild)<%= linkEnd %>!",
+    "newbieGuild": "Masz pytania? Zadaj je w <%= linkStart %>Gildii POmocy Habitiki<%= linkEnd %>!",
     "dailyHelp1": "Zadania codzienne powtarzają się <%= emphasisStart %>każdego dnia<%= emphasisEnd %>, kiedy są aktywne. Kliknij na <%= pencilIcon %>, aby zmienić dni, w których zadanie codzienne jest aktywne.",
     "dailyHelp2": "Jeśli nie wypełnisz aktywnych zadań codziennych, utracisz pewną liczbę punktów zdrowia, gdy dzień dobiegnie końca.",
     "dailyHelp3": "Zadania codzienne <%= emphasisStart %>czerwienieją<%= emphasisEnd %> kiedy je opuszczasz, zaś <%= emphasisStart %>niebieścieją<%= emphasisEnd %> gdy je wypełniasz. Im intensywniejszy kolor ma zadanie codzienne, tym większa Twoja nagroda... albo Twoje obrażenia.",

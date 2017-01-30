@@ -26,7 +26,7 @@
           li Report a Problem
           li Request a Feature
           li Community Forum
-          li Ask a Question (Newbies Guild)
+          li Ask a Question (Habitica Help guild)
 
     .ui.card
       .content

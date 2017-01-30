@@ -14,6 +14,11 @@
     "mysteryItemText": "A cada mês você receberá um item cosmético único para o seu personagem! Além disso, para cada três meses de assinatura consecutiva, os Viajantes no Tempo Misteriosos te darão acesso a itens cosméticos do passado (e do futuro!).",
     "supportDevs": "Ajuda os programadores",
     "supportDevsText": "Sua assinatura ajuda a manter Habitica próspera e ajuda a financiar o desenvolvimento de novos recursos. Obrigado por sua generosidade!",
+    "giftSubscription": "Want to gift a subscription to someone?",
+    "giftSubscriptionText1": "Open their profile! You can do this by clicking on their avatar in your party header or by clicking on their name in chat.",
+    "giftSubscriptionText2": "Click on the gift icon in the bottom left of their profile.",
+    "giftSubscriptionText3": "Select \"subscription\" and enter your payment information.",
+    "giftSubscriptionText4": "Thanks for supporting Habitica!",
     "monthUSD": "USD / Mês",
     "organization": "Organização",
     "groupPlans": "Planos de Empresa",
@@ -115,6 +120,7 @@
     "mysterySet201610": "Conjunto \"Chama Espectral\"",
     "mysterySet201611": "Cornucopia Set",
     "mysterySet201612": "Nutcracker Set",
+    "mysterySet201701": "Time-Freezer Set",
     "mysterySet301404": "Conjunto \"Steampunk Padrão\"",
     "mysterySet301405": "Conjunto \"Acessórios Steampunk\"",
     "mysterySetwondercon": "WonderCon",
@@ -146,5 +152,9 @@
     "noSudoAccess": "Você não possui acesso de administrador.",
     "couponCodeRequired": "O código do cupom é requerido.",
     "eventRequired": "\"req.params.event\" é necessário.",
-    "countRequired": "\"req.query.count\" é necessário."
+    "countRequired": "\"req.query.count\" é necessário.",
+    "missingPaymentId": "Missing req.query.paymentId",
+    "missingCustomerId": "Missing req.query.customerId",
+    "missingPaypalBlock": "Missing req.session.paypalBlock",
+    "missingSubKey": "Missing req.query.sub"
 }

@@ -20,7 +20,7 @@
     "chores": "Домакинска работа",
     "clearBrowserData": "Изчистване на данните на браузъра",
     "communityBug": "Докладване на проблем",
-    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations' target='_blank'>Добавки и разширения</a>",
+    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Добавки и разширения</a>",
     "communityFacebook": "Фейсбук",
     "communityFeature": "Предлагане на функционалност",
     "communityForum": "<a target='_blank' href='http://habitica.wikia.com/wiki/Special:Forum'>Форум</a>",
@@ -267,5 +267,5 @@
     "memberIdRequired": "„member“ трябва да бъде правилно форматиран идентификатор UUID.",
     "heroIdRequired": "„heroId“ трябва да бъде правилно форматиран идентификатор UUID.",
     "cannotFulfillReq": "Заявката Ви не може да бъде изпълнена. Пишете на admin@habitica.com , ако тази грешка продължи да се повтаря.",
-    "modelNotFound": "This model does not exist."
+    "modelNotFound": "Този модел не съществува."
 }

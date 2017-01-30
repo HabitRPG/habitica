@@ -8,6 +8,7 @@ import nconf from 'nconf';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
+const MAX_INCENTIVES = common.constants.MAX_INCENTIVES;
 const shouldDo = common.shouldDo;
 const scoreTask = common.ops.scoreTask;
 const i18n = common.i18n;
@@ -129,7 +130,7 @@ function trackCronAnalytics (analytics, user, _progress, options) {
 }
 
 function awardLoginIncentives (user) {
-  if (user.loginIncentives > 50) return;
+  if (user.loginIncentives > MAX_INCENTIVES) return;
   // A/B test 2016-12-21: Should we deliver notifications for upcoming incentives on days when users don't receive rewards?
   if (!loginIncentives[user.loginIncentives].rewardKey && user._ABtests && user._ABtests.checkInModals === '20161221_noCheckInPreviews') return;
 

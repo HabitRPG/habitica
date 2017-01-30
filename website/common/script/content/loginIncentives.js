@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { MAX_INCENTIVES } from '../constants';
 
 module.exports = function getLoginIncentives (api) {
   let loginIncentives = {
@@ -145,13 +146,89 @@ module.exports = function getLoginIncentives (api) {
         user.items.food.Saddle += 1;
       },
     },
+    55: {
+      rewardKey: ['Pet_HatchingPotion_Purple'],
+      reward: [api.hatchingPotions.RoyalPurple],
+      assignReward: function assignReward (user) {
+        if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
+        user.items.hatchingPotions.RoyalPurple += 1;
+      },
+    },
+    60: {
+      rewardKey: ['slim_armor_special_pageArmor'],
+      reward: [api.gear.flat.armor_special_pageArmor],
+      assignReward: function assignReward (user) {
+        user.items.gear.owned.armor_special_pageArmor = true; // eslint-disable-line camelcase
+      },
+    },
+    65: {
+      rewardKey: ['Pet_HatchingPotion_Purple'],
+      reward: [api.hatchingPotions.RoyalPurple],
+      assignReward: function assignReward (user) {
+        if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
+        user.items.hatchingPotions.RoyalPurple += 1;
+      },
+    },
+    70: {
+      rewardKey: ['head_special_pageHelm'],
+      reward: [api.gear.flat.head_special_pageHelm],
+      assignReward: function assignReward (user) {
+        user.items.gear.owned.head_special_pageHelm = true; // eslint-disable-line camelcase
+      },
+    },
+    75: {
+      rewardKey: ['Pet_HatchingPotion_Purple'],
+      reward: [api.hatchingPotions.RoyalPurple],
+      assignReward: function assignReward (user) {
+        if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
+        user.items.hatchingPotions.RoyalPurple += 1;
+      },
+    },
+    80: {
+      rewardKey: ['weapon_special_pageBanner'],
+      reward: [api.gear.flat.weapon_special_pageBanner],
+      assignReward: function assignReward (user) {
+        user.items.gear.owned.weapon_special_pageBanner = true; // eslint-disable-line camelcase
+      },
+    },
+    85: {
+      rewardKey: ['Pet_HatchingPotion_Purple'],
+      reward: [api.hatchingPotions.RoyalPurple],
+      assignReward: function assignReward (user) {
+        if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
+        user.items.hatchingPotions.RoyalPurple += 1;
+      },
+    },
+    90: {
+      rewardKey: ['shield_special_diamondStave'],
+      reward: [api.gear.flat.shield_special_diamondStave],
+      assignReward: function assignReward (user) {
+        user.items.gear.owned.shield_special_diamondStave = true; // eslint-disable-line camelcase
+      },
+    },
+    95: {
+      rewardKey: ['Pet_HatchingPotion_Purple'],
+      reward: [api.hatchingPotions.RoyalPurple],
+      assignReward: function assignReward (user) {
+        if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
+        user.items.hatchingPotions.RoyalPurple += 1;
+      },
+    },
+    100: {
+      rewardKey: ['Pet_Food_Saddle'],
+      reward: [api.food.Saddle],
+      assignReward: function assignReward (user) {
+        if (!user.items.food.Saddle) user.items.food.Saddle = 0;
+        user.items.food.Saddle += 1;
+      },
+    },
   };
 
   // Add refence link to next reward and add filler days so we have a map to refernce the next reward from any day
   // We could also, use a list, but then we would be cloning each of the rewards.
   // Create a new array if we want the loginIncentives to be immutable in the future
   let nextRewardKey;
-  _.range(51).reverse().forEach(function addNextRewardLink (index) {
+  _.range(MAX_INCENTIVES + 1).reverse().forEach(function addNextRewardLink (index) {
     if (loginIncentives[index] && loginIncentives[index].rewardKey) {
       loginIncentives[index].nextRewardAt = nextRewardKey;
       nextRewardKey = index;
@@ -165,7 +242,7 @@ module.exports = function getLoginIncentives (api) {
   });
 
   let prevRewardKey;
-  _.range(51).forEach(function addPrevRewardLink (index) {
+  _.range(MAX_INCENTIVES + 1).forEach(function addPrevRewardLink (index) {
     loginIncentives[index].prevRewardKey = prevRewardKey;
     if (loginIncentives[index].rewardKey) prevRewardKey = index;
   });

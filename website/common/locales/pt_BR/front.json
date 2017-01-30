@@ -20,7 +20,7 @@
     "chores": "Afazeres",
     "clearBrowserData": "Limpar Dados do Navegador",
     "communityBug": "Reportar Bug",
-    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations' target='_blank'>Add-ons & Extensões</a>",
+    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Add-ons & Extensions</a>",
     "communityFacebook": "Facebook",
     "communityFeature": "Solicitar Funcionalidade",
     "communityForum": "<a target='_blank' href='http://habitica.wikia.com/wiki/Special:Forum'>Fórum</a>",
@@ -267,5 +267,5 @@
     "memberIdRequired": "\"member\" precisa ser um UUID válido.",
     "heroIdRequired": "\"heroId\" precisa ser um UUID válido.",
     "cannotFulfillReq": "Sua solicitação não pode ser cumprida. Mande um e-mail para admin@habitica.com se esse erro persistir.",
-    "modelNotFound": "This model does not exist."
+    "modelNotFound": "Este modelo não existe."
 }

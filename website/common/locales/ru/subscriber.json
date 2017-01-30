@@ -14,6 +14,11 @@
     "mysteryItemText": "За каждый месяц вы получите уникальное украшение для своего аватара. А за каждые 3 месяца непрерывной подписки Мистические Путешественники во Времени подарят вам историческое (или футуристическое) украшение.",
     "supportDevs": "Поддержка разработки",
     "supportDevsText": "Ваша подписка помогает стране Habitica развиваться и разрабатывать новые идеи. Спасибо за вашу щедрость!",
+    "giftSubscription": "Хотите подарить кому-то подписку?",
+    "giftSubscriptionText1": "Откройте профиль этого человека! Вы можете сделать это, нажав на его аватар в листе Вашей группы или нажав на его имя в чате.",
+    "giftSubscriptionText2": "Нажмите на иконку с подарком в левом нижнем углу его профиля.",
+    "giftSubscriptionText3": "Выберите \"подписка\"  и введите информацию о платеже.",
+    "giftSubscriptionText4": "Спасибо за поддержку Habitica!",
     "monthUSD": "долл. США в месяц",
     "organization": "Организация",
     "groupPlans": "Корпоративные планы",
@@ -115,6 +120,7 @@
     "mysterySet201610": "Набор спектрального пламени",
     "mysterySet201611": "Набор рога изобилия",
     "mysterySet201612": "Набор Щелкунчика",
+    "mysterySet201701": "Time-Freezer Set",
     "mysterySet301404": "Стандартный Стимпанковый набор",
     "mysterySet301405": "Набор аксессуаров в стиле Стимпанка",
     "mysterySetwondercon": "Вандер-Кон",
@@ -146,5 +152,9 @@
     "noSudoAccess": "У вас нет прав суперпользователя.",
     "couponCodeRequired": "Требуется код купона.",
     "eventRequired": "\"req.params.event\" обязателен.",
-    "countRequired": "\"req.query.count\" обязателен."
+    "countRequired": "\"req.query.count\" обязателен.",
+    "missingPaymentId": "Missing req.query.paymentId",
+    "missingCustomerId": "Missing req.query.customerId",
+    "missingPaypalBlock": "Missing req.session.paypalBlock",
+    "missingSubKey": "Missing req.query.sub"
 }

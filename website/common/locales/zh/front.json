@@ -20,7 +20,7 @@
     "chores": "杂项",
     "clearBrowserData": "清除浏览器数据",
     "communityBug": "提交Bug",
-    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations' target='_blank'>插件和拓展</a>",
+    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>插件和拓展</a>",
     "communityFacebook": "Facebook",
     "communityFeature": "请求新功能",
     "communityForum": "<a target='_blank' href='http://habitica.wikia.com/wiki/Special:Forum'>论坛</a>",
@@ -267,5 +267,5 @@
     "memberIdRequired": "\"member\"必须是一个有效的UUID。",
     "heroIdRequired": "\"heroId\"必须是一个有效的UUID",
     "cannotFulfillReq": "您的请求不能被满足。如果这个错误仍然存在请给admin@habitica.com发邮件。",
-    "modelNotFound": "This model does not exist."
+    "modelNotFound": "该模型不存在"
 }
