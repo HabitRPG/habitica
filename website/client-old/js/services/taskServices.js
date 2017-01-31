@@ -278,10 +278,98 @@ angular.module('habitrpg')
       }
       modalScope.cancelTaskEdit = cancelTaskEdit;
 
-      $rootScope.openModal('task-edit', {scope: modalScope })
-        .result.catch(function() {
-          cancelTaskEdit(task);
-        });
+      modalScope.task._edit.repeatsOn = 'dayOfMonth';
+      if (modalScope.task._edit.weeksOfMonth.length > 0) {
+        modalScope.task._edit.repeatsOn = 'dayOfWeek';
+      }
+
+      $rootScope.openModal('task-edit', {
+        scope: modalScope,
+        controller: function ($scope) {
+          $scope.$watch('task._edit', function (newValue, oldValue) {
+            $scope.summary = generateSummary(modalScope.task);
+
+            if ($scope.task._edit.repeatsOn == 'dayOfMonth') {
+              var date = moment().date();
+              $scope.task._edit.weeksOfMonth = [];
+              $scope.task._edit.dayOfMonth = [date]; // @TODO This can handle multiple dates later
+            } else if ($scope.task._edit.repeatsOn == 'dayOfWeek') {
+              var week = Math.ceil(moment().date() / 7) - 1;
+              var dayOfWeek = moment().day();
+              var shortDay = numberToShortDay[dayOfWeek];
+              $scope.task._edit.dayOfMonth = [];
+              $scope.task._edit.weeksOfMonth = [week]; // @TODO: This can handle multiple weeks
+              for (var key in $scope.task._edit.repeat) {
+                $scope.task._edit.repeat[key] = false;
+              }
+              $scope.task._edit.repeat[shortDay] = true;
+            }
+          }, true);
+        },
+      })
+      .result.catch(function() {
+        cancelTaskEdit(task);
+      });
+    }
+
+    /*
+     * Summary
+     */
+
+    var frequencyMap = {
+      'daily': 'days',
+      'weekly': 'weeks',
+      'monthly': 'months',
+      'yearly': 'years',
+    };
+
+    var shortDayToLongDayMap = {
+      'su': 'Sunday',
+      's': 'Saturday',
+      'f': 'Friday',
+      'th': 'Thursday',
+      'w': 'Wednesday',
+      't': 'Tuesday',
+      'm': 'Monday',
+    };
+
+    var numberToShortDay = {
+      0: 'su',
+      1: 'm',
+      2: 't',
+      3: 'w',
+      4: 'th',
+      5: 'f',
+      6: 's',
+    };
+
+    function generateSummary(task) {
+      var frequencyPlural = frequencyMap[task._edit.frequency];
+
+      var repeatDays = '';
+      for (var key in task._edit.repeat) {
+        if (task._edit.repeat[key]) {
+          repeatDays += shortDayToLongDayMap[key] + ', ';
+        }
+      }
+
+      var summary = 'Repeats ' + task._edit.frequency + ' every ' + task._edit.everyX + ' ' + frequencyPlural;
+
+      if (task._edit.frequency === 'weekly') summary += ' on ' + repeatDays;
+
+      if (task._edit.repeatsOn == 'dayOfMonth') {
+        var date = moment().date();
+        summary += ' on the ' + date;
+      } else if (task._edit.repeatsOn == 'dayOfWeek') {
+        var week = Math.ceil(moment().date() / 7) - 1;
+        var dayOfWeek = moment().day();
+        var shortDay = numberToShortDay[dayOfWeek];
+        var longDay = shortDayToLongDayMap[shortDay];
+
+        summary += ' on the ' + week + ' ' + longDay;
+      }
+
+      return summary;
     }
 
     function cancelTaskEdit(task) {
