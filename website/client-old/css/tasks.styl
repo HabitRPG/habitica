@@ -51,6 +51,8 @@ taskContainerStyles($stage)
     background-color: $stage[1]
   .option-group:not(.task-checklist)
     border-bottom: 1px solid darken($stage[1], 15%)
+  hr
+    border-bottom: 1px solid darken($stage[1], 15%)
   .option-content
     border-color: darken($stage[1], 16.18%) !important
     &:hover
@@ -727,3 +729,7 @@ form
 // Add padding to exp-chart
 .exp-chart
   padding-bottom: 10px
+
+.task-extra-notes
+  z-index: 10
+  position: relative
