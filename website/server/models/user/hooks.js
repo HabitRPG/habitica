@@ -85,6 +85,19 @@ function _setUpNewUser (user) {
     user._ABtests.checkInModals = '20161221_showCheckInPreviews'; // show 'preview' check-in modals
   }
   user.items.quests.dustbunnies = 1;
+  user.items.gear.owned.armor_special_birthday = false;
+  user.items.food = {
+    'Cake_Base': 1,
+    'Cake_CottonCandyBlue': 1,
+    'Cake_CottonCandyPink': 1,
+    'Cake_Desert': 1,
+    'Cake_Golden': 1,
+    'Cake_Red': 1,
+    'Cake_Shade': 1,
+    'Cake_Skeleton': 1,
+    'Cake_White': 1,
+    'Cake_Zombie': 1,
+  };
 
   if (user.registeredThrough === 'habitica-web' || user.registeredThrough === 'habitica-android') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
