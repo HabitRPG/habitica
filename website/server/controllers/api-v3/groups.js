@@ -400,7 +400,7 @@ api.joinGroup = {
 
     if (group.purchased.plan.customerId) {
       await payments.addSubToGroupUser(user, group);
-      await payments.updateStripeGroupPlan(group);
+      await this.updateGroupPlan();
     }
 
     let promises = [group.save(), user.save()];
@@ -565,7 +565,7 @@ api.leaveGroup = {
 
     await group.leave(user, req.query.keep);
 
-    if (group.purchased.plan && group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
+    if (group.purchased.plan && group.purchased.plan.customerId) await payments.updateGroupPlan(true);
 
     _removeMessagesFromMember(user, group._id);
 
@@ -644,7 +644,7 @@ api.removeGroupMember = {
     if (isInGroup) {
       group.memberCount -= 1;
       if (group.purchased.plan.customerId) {
-        await payments.updateStripeGroupPlan(group);
+        await payments.updateGroupPlan(true);
         await payments.cancelGroupSubscriptionForUser(member, group);
       }
 

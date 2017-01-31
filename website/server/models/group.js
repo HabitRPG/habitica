@@ -29,6 +29,8 @@ import {
 import {
   schema as SubscriptionPlanSchema,
 } from './subscriptionPlan';
+import amazonPayments from '../libs/amazonPayments';
+import stripePayments from '../libs/stripePayments';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -1166,6 +1168,14 @@ schema.methods.isSubscribed = function isSubscribed () {
   let now = new Date();
   let plan = this.purchased.plan;
   return plan && plan.customerId && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
+};
+
+schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {
+  if (group.purchased.plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
+    await stripePayments.chargeForAdditionalGroupMember(this);
+  } else if (group.purchased.plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD_AMAZON && !removingMember) {
+    await amazonPayments.chargeForAdditionalGroupMember(this);
+  }
 };
 
 export let model = mongoose.model('Group', schema);

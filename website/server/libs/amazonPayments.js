@@ -3,6 +3,8 @@ import nconf from 'nconf';
 import Bluebird from 'bluebird';
 import moment from 'moment';
 import cc from 'coupon-code';
+import uuid from 'uuid';
+
 import common from '../../common';
 import {
   BadRequest,
@@ -37,6 +39,7 @@ api.constants = {
   SELLER_NOTE: 'Habitica Payment',
   SELLER_NOTE_SUBSCRIPTION: 'Habitica Subscription',
   SELLER_NOTE_ATHORIZATION_SUBSCRIPTION: 'Habitica Subscription Payment',
+  SELLER_NOTE_GROUP_NEW_MEMBER: 'Habitica Group Plan New Member',
   STORE_NAME: 'Habitica',
 
   GIFT_TYPE_GEMS: 'gems',
@@ -285,6 +288,31 @@ api.subscribe = async function subscribe (options) {
     headers,
     groupId,
   });
+};
+
+
+api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMember (group) {
+  // @TODO: Can we get this from the content plan?
+  let priceForNewMember = 3;
+
+  // @TODO: Prorate?
+
+  return this.authorizeOnBillingAgreement({
+    AmazonBillingAgreementId: group.purchased.plan.customerId,
+    AuthorizationReferenceId: uuid.v4().substring(0, 32),
+    AuthorizationAmount: {
+      CurrencyCode: this.constants.CURRENCY_CODE,
+      Amount: priceForNewMember,
+    },
+    SellerAuthorizationNote: this.constants.SELLER_NOTE_GROUP_NEW_MEMBER,
+    TransactionTimeout: 0,
+    CaptureNow: true,
+    SellerNote: this.constants.SELLER_NOTE_GROUP_NEW_MEMBER,
+    SellerOrderAttributes: {
+      SellerOrderId: uuid.v4(),
+      StoreName: this.constants.STORE_NAME
+    }
+  })
 };
 
 module.exports = api;

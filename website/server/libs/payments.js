@@ -19,10 +19,6 @@ import {
 import slack from './slack';
 import nconf from 'nconf';
 
-import stripeModule from 'stripe';
-const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
-
-
 let api = {};
 
 api.constants = {
@@ -383,22 +379,6 @@ api.createSubscription = async function createSubscription (data) {
     paymentMethod: data.paymentMethod,
     months,
   });
-};
-
-api.updateStripeGroupPlan = async function updateStripeGroupPlan (group, stripeInc) {
-  if (group.purchased.plan.paymentMethod !== 'Stripe') return;
-  let stripeApi = stripeInc || stripe;
-  let plan = shared.content.subscriptionBlocks.group_monthly;
-
-  await stripeApi.subscriptions.update(
-    group.purchased.plan.subscriptionId,
-    {
-      plan: plan.key,
-      quantity: group.memberCount + plan.quantity - 1,
-    }
-  );
-
-  group.purchased.plan.quantity = group.memberCount + plan.quantity - 1;
 };
 
 // Sets their subscription to be cancelled later

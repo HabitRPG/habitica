@@ -241,4 +241,19 @@ api.cancelSubscription = async function cancelSubscription (options, stripeInc) 
   });
 };
 
+api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMember (group) {
+  let stripeApi = stripe;
+  let plan = shared.content.subscriptionBlocks.group_monthly;
+
+  await stripeApi.subscriptions.update(
+    group.purchased.plan.subscriptionId,
+    {
+      plan: plan.key,
+      quantity: group.memberCount + plan.quantity - 1,
+    }
+  );
+
+  group.purchased.plan.quantity = group.memberCount + plan.quantity - 1;
+};
+
 module.exports = api;
