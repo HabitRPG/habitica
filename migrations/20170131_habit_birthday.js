@@ -15,7 +15,7 @@ function processUsers(lastId) {
   // specify a query to limit the affected users (empty for all users):
   var query = {
     'migration':{$ne:migrationName},
-//    'auth.timestamps.loggedin':{$gt:new Date('2017-01-24')}, // remove after first run to cover remaining users
+    'auth.timestamps.loggedin':{$gt:new Date('2017-01-24')}, // remove after first run to cover remaining users
   };
 
   if (lastId) {
