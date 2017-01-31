@@ -242,7 +242,7 @@
   "groupBenefitFiveDescription": "Stay in the loop about important decisions in our easy-to-use chatroom!",
   "createAGroup": "Create a Group",
   "assignFieldPlaceholder": "Type a group member's profile name",
-  "cannotDeleteActiveGroup": "You cannot remove a group with an active subscription",
+  "cannotDeleteActiveGroup": "You cannot leave this group because it has an active group plan. Cancel the group plan first.",
   "groupTasksTitle": "Group Tasks List",
   "approvalsTitle": "Tasks Awaiting Approval",
   "upgradeTitle": "Upgrade",
