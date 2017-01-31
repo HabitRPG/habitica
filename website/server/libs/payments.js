@@ -186,7 +186,7 @@ api.cancelGroupSubscriptionForUser = async function cancelGroupSubscriptionForUs
     type: {$in: ['guild', 'party']},
     // privacy: 'private',
     _id: {$in: userGuilds},
-    'purchased.plan.customerId': {$exists: true},
+    'purchased.plan.dateTerminated': null,
   };
 
   let groupFields = `${basicGroupFields} purchased`;
