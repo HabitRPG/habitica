@@ -120,7 +120,7 @@
     "mysterySet201610": "Набор спектрального пламени",
     "mysterySet201611": "Набор рога изобилия",
     "mysterySet201612": "Набор Щелкунчика",
-    "mysterySet201701": "Time-Freezer Set",
+    "mysterySet201701": "Время-Замораживающий набор",
     "mysterySet301404": "Стандартный Стимпанковый набор",
     "mysterySet301405": "Набор аксессуаров в стиле Стимпанка",
     "mysterySetwondercon": "Вандер-Кон",
@@ -153,8 +153,8 @@
     "couponCodeRequired": "Требуется код купона.",
     "eventRequired": "\"req.params.event\" обязателен.",
     "countRequired": "\"req.query.count\" обязателен.",
-    "missingPaymentId": "Missing req.query.paymentId",
-    "missingCustomerId": "Missing req.query.customerId",
-    "missingPaypalBlock": "Missing req.session.paypalBlock",
-    "missingSubKey": "Missing req.query.sub"
+    "missingPaymentId": "Отсутствует req.query.paymentId",
+    "missingCustomerId": "Отсутствует req.query.customerId",
+    "missingPaypalBlock": "Отсутствует req.session.paypalBlock",
+    "missingSubKey": "Отсутствует req.query.sub"
 }

@@ -50,7 +50,7 @@
     "gamemaster": "Game Master (staf/moderator)",
     "backerTier": "Tingkat Pendukung",
     "balance": "Saldo",
-    "tierPop": "Klik label tingkat untuk selengkapnya.",
+    "tierPop": "Klik label tingkatan untuk detail lebih lanjut.",
     "playerTiers": "Tingkatan Pemain",
     "tier": "Tingkat",
     "visitHeroes": "Kunjungi Aula para Pahlawan (kontributor dan pendukung)",
@@ -59,12 +59,12 @@
     "conLearnURL": "http://habitica.wikia.com/wiki/Contributing_to_Habitica",
     "conRewardsURL": "http://habitica.wikia.com/wiki/Contributor_Rewards",
     "surveysSingle": "Membantu Habitica berkembang, baik dengan mengisi survey atau membantu dalam pengujian utama. Terima kasih!",
-    "surveysMultiple": "Membantu Habitica berkembang dalam <%= count %> kesempatan, baik dengan mengisi survey maupun membantu dalam pengujian besar. Terima kasih!",
+    "surveysMultiple": "Membantu Habitica berkembang sebanyak <%= count %> kali, baik dengan mengisi survey atau membantu dalam pengujian utama. Terima kasih!",
     "currentSurvey": "Kuisioner Sekarang",
-    "surveyWhen": "Lencana akan diberikan kepada semua peserta ketika survei telah diproses , pada akhir Maret",
-    "blurbInbox": "This is where your private messages are stored! You can send someone a message by clicking on the envelope icon next to their name in Tavern, Party, or Guild Chat. If you've received an inappropriate PM, you should email a screenshot of it to Lemoness (<a href=\"mailto:leslie@habitica.com\">leslie@habitica.com</a>)",
-    "blurbGuildsPage": "Perkumpulan adalah grup obrolan bertopik yang dibuat oleh pengguna, untuk pengguna. Telusuri daftar tema dan bergabunglah dengan perkumpulan yang menarik untukmu!",
+    "surveyWhen": "Lencana akan diberikan kepada semua peserta ketika survei telah diproses, pada akhir Maret.",
+    "blurbInbox": "Di sinilah pesan-pesan pribadimu disimpan! Kamu dapat mengirim pesan pada seseorang dengan klik pada ikon amplop di samping nama mereka di percakapan Kedai, Party, atau Guild. Jika kamu menerima pesan pribadi yang tidak pantas, kamu dapat mengirimkan screenshot pesan pada Lemoness (<a href=\"mailto:leslie@habitica.com\">leslie@habitica.com</a>)",
+    "blurbGuildsPage": "Guild adalah grup obrolan bertopik yang dibuat oleh pengguna, untuk pengguna. Telusuri daftar tema dan bergabunglah dengan guild yang menarik untukmu!",
     "blurbChallenges": "Tantangan dibuat oleh sesama pemain. Bergabung pada sebuah tantangan akan menambah tugas ke daftarmu, dan memenangkan tantangan akan memberikanmu lencana dan terkadang hadiah permata!",
-    "blurbHallPatrons": "Ini adalah Aula Patron, di mana kami memberi penghormatan pada petualang yang berani yang membantu Kickstarter awal Habitica. Kami berterimakasih kepada mereka untuk membantu kami menjaga Habitica tetap hidup!",
-    "blurbHallContributors": "Ini adalah Aula para Kontributor, di mana kontributor open-source Habitica dicantumkan. Baik melalui kode, seni, musik, tulisan, atau bahkan hanya pertolongan, mereka mendapatkan <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>permata, perlengkapan eksklusif </a>, dan <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>titel kebanggaan </a>. Kamu juga bisa berkontribusi pada Habitica juga! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Lihat Selengkapnya. </a>"
+    "blurbHallPatrons": "Ini adalah Aula para Pelindung, di mana kami memberi penghormatan pada petualang pemberani yang membantu Kickstarter awal Habitica. Kami berterima kasih kepada mereka yang membantu kami menjadikan Habitica kenyataan!",
+    "blurbHallContributors": "Ini adalah Aula para Kontributor, di mana kontributor open-source Habitica dicantumkan. Baik melalui kode, seni, musik, tulisan, atau bahkan hanya pertolongan kecil, mereka mendapatkan <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>permata, perlengkapan eksklusif </a>, dan <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>titel kebanggaan </a>. Kamu juga bisa berkontribusi pada Habitica! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Lihat Selengkapnya. </a>"
 }

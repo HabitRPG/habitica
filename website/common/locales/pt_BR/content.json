@@ -161,6 +161,7 @@
     "hatchingPotionGhost": "Fantasma",
     "hatchingPotionRoyalPurple": "Roxo Real",
     "hatchingPotionHolly": "Azevinho",
+    "hatchingPotionCupid": "Cupid",
     "hatchingPotionNotes": "Use-a em um ovo, e ele chocará como um mascote <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Não utilizável em ovos de mascote de missões.",
     "foodMeat": "Carne",
