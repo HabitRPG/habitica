@@ -149,12 +149,12 @@ api.specialMounts = stable.specialMounts;
 api.mountInfo = stable.mountInfo;
 
 // For seasonal events, change these booleans:
-let canBuyNormalFood = true;
-let canDropNormalFood = true;
+let canBuyNormalFood = false;
+let canDropNormalFood = false;
 let canBuyCandyFood = false;
 let canDropCandyFood = false;
-let canBuyCakeFood = false;
-let canDropCakeFood = false;
+let canBuyCakeFood = true;
+let canDropCakeFood = true;
 
 api.food = {
   Meat: {
