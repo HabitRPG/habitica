@@ -593,7 +593,7 @@ describe('Amazon Payments', () => {
       spy = sinon.stub(amzLib, 'authorizeOnBillingAgreement');
       spy.returnsPromise().resolves([]);
 
-      uuidString = 'uuid-v4'
+      uuidString = 'uuid-v4';
       sinon.stub(uuid, 'v4').returns(uuidString);
 
       data.groupId = group._id;
@@ -630,9 +630,9 @@ describe('Amazon Payments', () => {
         SellerNote: amzLib.constants.SELLER_NOTE_GROUP_NEW_MEMBER,
         SellerOrderAttributes: {
           SellerOrderId: uuidString,
-          StoreName: amzLib.constants.STORE_NAME
-        }
-      })
+          StoreName: amzLib.constants.STORE_NAME,
+        },
+      });
     });
   });
 });

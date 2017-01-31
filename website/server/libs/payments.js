@@ -17,7 +17,6 @@ import {
   NotFound,
 } from './errors';
 import slack from './slack';
-import nconf from 'nconf';
 
 let api = {};
 

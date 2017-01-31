@@ -1171,9 +1171,9 @@ schema.methods.isSubscribed = function isSubscribed () {
 };
 
 schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {
-  if (group.purchased.plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
+  if (this.purchased.plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
     await stripePayments.chargeForAdditionalGroupMember(this);
-  } else if (group.purchased.plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD_AMAZON && !removingMember) {
+  } else if (this.purchased.plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD_AMAZON && !removingMember) {
     await amazonPayments.chargeForAdditionalGroupMember(this);
   }
 };

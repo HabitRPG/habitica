@@ -310,9 +310,9 @@ api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMemb
     SellerNote: this.constants.SELLER_NOTE_GROUP_NEW_MEMBER,
     SellerOrderAttributes: {
       SellerOrderId: uuid.v4(),
-      StoreName: this.constants.STORE_NAME
-    }
-  })
+      StoreName: this.constants.STORE_NAME,
+    },
+  });
 };
 
 module.exports = api;
