@@ -51,7 +51,7 @@
     "help": "ヘルプ",
     "user": "ユーザー",
     "market": "市場",
-    "groupPlansTitle": "Group Plans",
+    "groupPlansTitle": "グループプラン",
     "subscriberItem": "ミステリー アイテム",
     "newSubscriberItem": "新しいミステリー アイテム",
     "subscriberItemText": "毎月、寄付会員にはミステリー アイテムが贈られます。通常、月の終わりの1週間前ごろにお届けします。詳しくはWiki の「ミステリー アイテム」のページをご覧ください。",
@@ -194,6 +194,6 @@
     "enableDesktopNotifications": "デスクトップ通知を有効にする",
     "online": "オンライン",
     "onlineCount": "<%= count %> 人がオンライン",
-    "loading": "Loading...",
+    "loading": "読み込み中...",
     "userIdRequired": "ユーザー ID が必要です。"
 }

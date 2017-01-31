@@ -161,6 +161,7 @@
     "hatchingPotionGhost": "Fantoma",
     "hatchingPotionRoyalPurple": "Royal Purple",
     "hatchingPotionHolly": "Holly",
+    "hatchingPotionCupid": "Cupid",
     "hatchingPotionNotes": "Toarnă aceasta pe un ou și va ecloza ca un companion <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Neutilizabil pe ouă de companioni obținute din expediții.",
     "foodMeat": "Carne",

@@ -161,6 +161,7 @@
     "hatchingPotionGhost": "Hantu",
     "hatchingPotionRoyalPurple": "Ungu Kerajaan",
     "hatchingPotionHolly": "Natal",
+    "hatchingPotionCupid": "Cupid",
     "hatchingPotionNotes": "Berikan ini pada sebuah telur, dan ia akan menetas menjadi binatang peliharaan <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Tidak dapat digunakan pada telur peliharaan sayembara",
     "foodMeat": "Daging",

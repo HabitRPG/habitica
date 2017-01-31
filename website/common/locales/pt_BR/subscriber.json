@@ -120,7 +120,7 @@
     "mysterySet201610": "Conjunto do Fogo Espectral",
     "mysterySet201611": "Conjunto de Cornucopia",
     "mysterySet201612": "Conjunto Quebra-Nozes",
-    "mysterySet201701": "Time-Freezer Set",
+    "mysterySet201701": "Conjunto Congela-Tempo",
     "mysterySet301404": "Conjunto \"Steampunk Padrão\"",
     "mysterySet301405": "Conjunto \"Acessórios Steampunk\"",
     "mysterySetwondercon": "WonderCon",
@@ -153,8 +153,8 @@
     "couponCodeRequired": "O código do cupom é requerido.",
     "eventRequired": "\"req.params.event\" é necessário.",
     "countRequired": "\"req.query.count\" é necessário.",
-    "missingPaymentId": "Missing req.query.paymentId",
-    "missingCustomerId": "Missing req.query.customerId",
-    "missingPaypalBlock": "Missing req.session.paypalBlock",
-    "missingSubKey": "Missing req.query.sub"
+    "missingPaymentId": "Faltando req.query.paymentId",
+    "missingCustomerId": "Faltando req.query.customerId",
+    "missingPaypalBlock": "Faltando req.session.paypalBlock",
+    "missingSubKey": "Faltando req.query.sub"
 }
