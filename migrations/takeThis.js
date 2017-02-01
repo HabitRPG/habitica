@@ -1,4 +1,4 @@
-var migrationName = '20170103_takeThis.js'; // Update per month
+var migrationName = '20170201_takeThis.js'; // Update per month
 var authorName = 'Sabe'; // in case script author needs to know when their ...
 var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
 
@@ -6,36 +6,59 @@ var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
  * Award Take This ladder items to participants in this month's challenge
  */
 
-var mongo = require('mongoskin');
-
+var monk = require('monk');
 var connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
+var dbUsers = monk(connectionString).get('users', { castIds: false });
 
-var dbUsers = mongo.db(connectionString).collection('users');
+function processUsers(lastId) {
+  // specify a query to limit the affected users (empty for all users):
+  var query = {
+    'migration':{$ne:migrationName},
+    'challenges':{$in:['b1d436b5-c784-42e3-9b07-7072479a6f8e']} // Update per month
+  };
 
-// specify a query to limit the affected users (empty for all users):
-var query = {
-  'migration':{$ne:migrationName},
-  'challenges':{$in:['ff674aba-a114-4a6f-8ebc-1de27ffb646e']}
-};
+  if (lastId) {
+    query._id = {
+      $gt: lastId
+    }
+  }
 
-// specify fields we are interested in to limit retrieved data (empty if we're not reading data):
-var fields = {
-  'items.gear.owned': 1
-};
+  dbUsers.find(query, {
+    sort: {_id: 1},
+    limit: 250,
+    fields: [
+      'items.gear.owned',
+    ] // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
+  })
+  .then(updateUsers)
+  .catch(function (err) {
+    console.log(err);
+    return exiting(1, 'ERROR! ' + err);
+  });
+}
 
-console.warn('Updating users...');
 var progressCount = 1000;
 var count = 0;
-dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
-  if (err) { return exiting(1, 'ERROR! ' + err); }
-  if (!user) {
+
+function updateUsers (users) {
+  if (!users || users.length === 0) {
     console.warn('All appropriate users found and modified.');
-    setTimeout(displayData, 300000);
+    displayData();
     return;
   }
+
+  var userPromises = users.map(updateUser);
+  var lastUser = users[users.length - 1];
+
+  return Promise.all(userPromises)
+  .then(function () {
+    processUsers(lastUser._id);
+  });
+}
+
+function updateUser (user) {
   count++;
 
-  // specify user data to change:
   var set = {};
 
   if (typeof user.items.gear.owned.back_special_takeThis !== 'undefined') {
@@ -54,18 +77,16 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
     set = {'migration':migrationName, 'items.gear.owned.shield_special_takeThis':false};
   }
 
-  dbUsers.update({_id:user._id}, {$set:set});
+  dbUsers.update({_id: user._id}, {$set:set});
 
-  if (count%progressCount == 0) console.warn(count + ' ' + user._id);
+  if (count % progressCount == 0) console.warn(count + ' ' + user._id);
   if (user._id == authorUuid) console.warn(authorName + ' processed');
-});
-
+}
 
 function displayData() {
   console.warn('\n' + count + ' users processed\n');
   return exiting(0);
 }
-
 
 function exiting(code, msg) {
   code = code || 0; // 0 = success
@@ -77,4 +98,4 @@ function exiting(code, msg) {
   process.exit(code);
 }
 
-
+module.exports = processUsers;
