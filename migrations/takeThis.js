@@ -63,7 +63,7 @@ function updateUser (user) {
 
   if (typeof user.items.gear.owned.back_special_takeThis !== 'undefined') {
     set = {'migration':migrationName};
-  { else if (typeof user.items.gear.owned.body_special_takeThis !== 'undefined') {
+  } else if (typeof user.items.gear.owned.body_special_takeThis !== 'undefined') {
     set = {'migration':migrationName, 'items.gear.owned.back_special_takeThis':false};
   } else if (typeof user.items.gear.owned.head_special_takeThis !== 'undefined') {
     set = {'migration':migrationName, 'items.gear.owned.body_special_takeThis':false};
