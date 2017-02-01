@@ -279,7 +279,7 @@ angular.module('habitrpg')
       modalScope.cancelTaskEdit = cancelTaskEdit;
 
       modalScope.task._edit.repeatsOn = 'dayOfMonth';
-      if (modalScope.task._edit.weeksOfMonth.length > 0) {
+      if (modalScope.task === 'daily' && modalScope.task._edit.weeksOfMonth.length > 0) {
         modalScope.task._edit.repeatsOn = 'dayOfWeek';
       }
 
@@ -287,7 +287,8 @@ angular.module('habitrpg')
         scope: modalScope,
         controller: function ($scope) {
           $scope.$watch('task._edit', function (newValue, oldValue) {
-            $scope.summary = generateSummary(modalScope.task);
+            if ($scope.task.type !== 'daily') return;
+            $scope.summary = generateSummary($scope.task);
 
             if ($scope.task._edit.repeatsOn == 'dayOfMonth') {
               var date = moment().date();
@@ -357,16 +358,16 @@ angular.module('habitrpg')
 
       if (task._edit.frequency === 'weekly') summary += ' on ' + repeatDays;
 
-      if (task._edit.repeatsOn == 'dayOfMonth') {
+      if (task._edit.frequency === 'monthly' && task._edit.repeatsOn == 'dayOfMonth') {
         var date = moment().date();
         summary += ' on the ' + date;
-      } else if (task._edit.repeatsOn == 'dayOfWeek') {
+      } else if (task._edit.frequency === 'monthly' && task._edit.repeatsOn == 'dayOfWeek') {
         var week = Math.ceil(moment().date() / 7) - 1;
         var dayOfWeek = moment().day();
         var shortDay = numberToShortDay[dayOfWeek];
         var longDay = shortDayToLongDayMap[shortDay];
 
-        summary += ' on the ' + week + ' ' + longDay;
+        summary += ' on the ' + (week + 1) + ' ' + longDay;
       }
 
       return summary;
