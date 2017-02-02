@@ -161,7 +161,7 @@
     "hatchingPotionGhost": "Призрачен цвят",
     "hatchingPotionRoyalPurple": "Царствено лилав цвят",
     "hatchingPotionHolly": "Свещен цвят",
-    "hatchingPotionCupid": "Cupid",
+    "hatchingPotionCupid": "Купидонов цвят",
     "hatchingPotionNotes": "Излейте това върху яйце и от него ще се излюпи любимец с(ъс) <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Не може да се използва върху яйца за любимци от мисии.",
     "foodMeat": "Месо",

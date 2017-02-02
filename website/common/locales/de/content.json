@@ -161,7 +161,7 @@
     "hatchingPotionGhost": "Gespenst",
     "hatchingPotionRoyalPurple": "Königlicher lila",
     "hatchingPotionHolly": "Stechpalme",
-    "hatchingPotionCupid": "Cupid",
+    "hatchingPotionCupid": "Amors",
     "hatchingPotionNotes": "Gieße ihn über ein Ei und es wird ein <%= potText(locale) %> Haustier daraus schlüpfen.",
     "premiumPotionAddlNotes": "Nicht auf Eier von Quest-Haustieren anwendbar.",
     "foodMeat": "Fleisch",

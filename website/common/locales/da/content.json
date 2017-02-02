@@ -161,7 +161,7 @@
     "hatchingPotionGhost": "Spøgelse",
     "hatchingPotionRoyalPurple": "Royal lilla",
     "hatchingPotionHolly": "kristtorn",
-    "hatchingPotionCupid": "Cupid",
+    "hatchingPotionCupid": "Amor",
     "hatchingPotionNotes": "Hæld på et æg, og det vil udklække til et <%= potText(locale) %> kæledyr.",
     "premiumPotionAddlNotes": "Kan ikke bruges på quest-æg.",
     "foodMeat": "Kød",
