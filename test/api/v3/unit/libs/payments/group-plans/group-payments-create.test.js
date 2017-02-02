@@ -603,7 +603,7 @@ describe('Purchasing a subscription for group', () => {
     expect(updatedUser.purchased.plan.dateUpdated).to.exist;
     expect(updatedUser.purchased.plan.gemsBought).to.eql(0);
     expect(updatedUser.purchased.plan.paymentMethod).to.eql('Group Plan');
-    expect(updatedUser.purchased.plan.extraMonths).to.within(0, 1);
+    expect(updatedUser.purchased.plan.extraMonths).to.within(0, 2);
     expect(updatedUser.purchased.plan.dateTerminated).to.eql(null);
     expect(updatedUser.purchased.plan.lastBillingDate).to.not.exist;
     expect(updatedUser.purchased.plan.dateCreated).to.exist;
