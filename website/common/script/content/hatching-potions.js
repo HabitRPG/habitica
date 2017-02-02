@@ -49,18 +49,18 @@ let drops = {
 };
 
 let premium = {
-	RoyalPurple: {
+  RoyalPurple: {
     value: 2,
     text: t('hatchingPotionRoyalPurple'),
     limited: true,
   },
-	Floral: {
+  Floral: {
     value: 2,
     text: t('hatchingPotionFloral'),
     limited: true,
     _season: 'spring',
   },
-   Thunderstorm: {
+  Thunderstorm: {
     value: 2,
     text: t('hatchingPotionThunderstorm'),
     limited: true,
@@ -78,7 +78,7 @@ let premium = {
     limited: true,
     _season: 'fall',
   },
-   Holly: {
+  Holly: {
     value: 2,
     text: t('hatchingPotionHolly'),
     limited: true,
