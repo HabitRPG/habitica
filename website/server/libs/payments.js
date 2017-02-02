@@ -15,6 +15,12 @@ import {
   NotAuthorized,
   NotFound,
 } from './errors';
+import slack from './slack';
+import nconf from 'nconf';
+
+import stripeModule from 'stripe';
+const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
+
 
 let api = {};
 
@@ -48,6 +54,7 @@ api.createSubscription = async function createSubscription (data) {
   let groupId;
   let itemPurchased = 'Subscription';
   let purchaseType = 'subscribe';
+  let emailType = 'subscription-begins';
 
   //  If we are buying a group subscription
   if (data.groupId) {
@@ -65,7 +72,9 @@ api.createSubscription = async function createSubscription (data) {
     recipient = group;
     itemPurchased = 'Group-Subscription';
     purchaseType = 'group-subscribe';
+    emailType = 'group-subscription-begins';
     groupId = group._id;
+    recipient.purchased.plan.quantity = data.sub.quantity;
   }
 
   plan = recipient.purchased.plan;
@@ -79,6 +88,7 @@ api.createSubscription = async function createSubscription (data) {
         plan.dateTerminated = moment(plan.dateTerminated).add({months}).toDate();
       } else {
         plan.dateTerminated = moment().add({months}).toDate();
+        plan.dateCreated = today;
       }
     }
 
@@ -96,11 +106,19 @@ api.createSubscription = async function createSubscription (data) {
       // Specify a lastBillingDate just for Amazon Payments
       // Resetted every time the subscription restarts
       lastBillingDate: data.paymentMethod === 'Amazon Payments' ? today : undefined,
+      nextPaymentProcessing: data.nextPaymentProcessing,
+      nextBillingDate: data.nextBillingDate,
+      additionalData: data.additionalData,
+      owner: data.user._id,
     }).defaults({ // allow non-override if a plan was previously used
       gemsBought: 0,
       dateCreated: today,
       mysteryItems: [],
     }).value();
+
+    if (data.subscriptionId) {
+      plan.subscriptionId = data.subscriptionId;
+    }
   }
 
   // Block sub perks
@@ -117,7 +135,7 @@ api.createSubscription = async function createSubscription (data) {
   }
 
   if (!data.gift) {
-    txnEmail(data.user, 'subscription-begins');
+    txnEmail(data.user, emailType);
   }
 
   analytics.trackPurchase({
@@ -136,12 +154,30 @@ api.createSubscription = async function createSubscription (data) {
   if (!group) data.user.purchased.txnCount++;
 
   if (data.gift) {
-    let message = `\`Hello ${data.gift.member.profile.name}, ${data.user.profile.name} has sent you ${shared.content.subscriptionBlocks[data.gift.subscription.key].months} months of subscription!\``;
-    if (data.gift.message) message += ` ${data.gift.message}`;
-
-    data.user.sendMessage(data.gift.member, message);
-
     let byUserName = getUserInfo(data.user, ['name']).name;
+
+    // generate the message in both languages, so both users can understand it
+    let languages = [data.user.preferences.language, data.gift.member.preferences.language];
+    let senderMsg = shared.i18n.t('giftedSubscriptionFull', {
+      username: data.gift.member.profile.name,
+      sender: byUserName,
+      monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
+    }, languages[0]);
+    senderMsg = `\`${senderMsg}\``;
+
+    let receiverMsg = shared.i18n.t('giftedSubscriptionFull', {
+      username: data.gift.member.profile.name,
+      sender: byUserName,
+      monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
+    }, languages[1]);
+    receiverMsg = `\`${receiverMsg}\``;
+
+    if (data.gift.message) {
+      receiverMsg += ` ${data.gift.message}`;
+      senderMsg += ` ${data.gift.message}`;
+    }
+
+    data.user.sendMessage(data.gift.member, { receiverMsg, senderMsg });
 
     if (data.gift.member.preferences.emailNotifications.giftedSubscription !== false) {
       txnEmail(data.gift.member, 'gifted-subscription', [
@@ -154,8 +190,8 @@ api.createSubscription = async function createSubscription (data) {
       if (data.gift.member.preferences.pushNotifications.giftedSubscription !== false) {
         sendPushNotification(data.gift.member,
           {
-            title: shared.i18n.t('giftedSubscription'),
-            message: shared.i18n.t('giftedSubscriptionInfo', {months, name: byUserName}),
+            title: shared.i18n.t('giftedSubscription', languages[1]),
+            message: shared.i18n.t('giftedSubscriptionInfo', {months, name: byUserName}, languages[1]),
             identifier: 'giftedSubscription',
             payload: {replyTo: data.user._id},
           }
@@ -171,6 +207,37 @@ api.createSubscription = async function createSubscription (data) {
   }
 
   if (data.gift) await data.gift.member.save();
+
+  slack.sendSubscriptionNotification({
+    buyer: {
+      id: data.user._id,
+      name: data.user.profile.name,
+      email: getUserInfo(data.user, ['email']).email,
+    },
+    recipient: data.gift ? {
+      id: data.gift.member._id,
+      name: data.gift.member.profile.name,
+      email: getUserInfo(data.gift.member, ['email']).email,
+    } : {},
+    paymentMethod: data.paymentMethod,
+    months,
+  });
+};
+
+api.updateStripeGroupPlan = async function updateStripeGroupPlan (group, stripeInc) {
+  if (group.purchased.plan.paymentMethod !== 'Stripe') return;
+  let stripeApi = stripeInc || stripe;
+  let plan = shared.content.subscriptionBlocks.group_monthly;
+
+  await stripeApi.subscriptions.update(
+    group.purchased.plan.subscriptionId,
+    {
+      plan: plan.key,
+      quantity: group.memberCount + plan.quantity - 1,
+    }
+  );
+
+  group.purchased.plan.quantity = group.memberCount + plan.quantity - 1;
 };
 
 // Sets their subscription to be cancelled later
@@ -179,6 +246,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
   let group;
   let cancelType = 'unsubscribe';
   let groupId;
+  let emailType = 'cancel-subscription';
 
   //  If we are buying a group subscription
   if (data.groupId) {
@@ -189,10 +257,13 @@ api.cancelSubscription = async function cancelSubscription (data) {
       throw new NotFound(shared.i18n.t('groupNotFound'));
     }
 
-    if (!group.leader === data.user._id) {
+    let allowedManagers = [group.leader, group.purchased.plan.owner];
+
+    if (allowedManagers.indexOf(data.user._id) === -1) {
       throw new NotAuthorized(shared.i18n.t('onlyGroupLeaderCanManageSubscription'));
     }
     plan = group.purchased.plan;
+    emailType = 'group-cancel-subscription';
   } else {
     plan = data.user.purchased.plan;
   }
@@ -217,7 +288,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
     await data.user.save();
   }
 
-  txnEmail(data.user, 'cancel-subscription');
+  txnEmail(data.user, emailType);
 
   if (group) {
     cancelType = 'group-unsubscribe';
@@ -259,9 +330,28 @@ api.buyGems = async function buyGems (data) {
     let byUsername = getUserInfo(data.user, ['name']).name;
     let gemAmount = data.gift.gems.amount || 20;
 
-    let message = `\`Hello ${data.gift.member.profile.name}, ${data.user.profile.name} has sent you ${gemAmount} gems!\``;
-    if (data.gift.message) message += ` ${data.gift.message}`;
-    data.user.sendMessage(data.gift.member, message);
+    // generate the message in both languages, so both users can understand it
+    let languages = [data.user.preferences.language, data.gift.member.preferences.language];
+    let senderMsg = shared.i18n.t('giftedGemsFull', {
+      username: data.gift.member.profile.name,
+      sender: byUsername,
+      gemAmount,
+    }, languages[0]);
+    senderMsg = `\`${senderMsg}\``;
+
+    let receiverMsg = shared.i18n.t('giftedGemsFull', {
+      username: data.gift.member.profile.name,
+      sender: byUsername,
+      gemAmount,
+    }, languages[1]);
+    receiverMsg = `\`${receiverMsg}\``;
+
+    if (data.gift.message) {
+      receiverMsg += ` ${data.gift.message}`;
+      senderMsg += ` ${data.gift.message}`;
+    }
+
+    data.user.sendMessage(data.gift.member, { receiverMsg, senderMsg });
 
     if (data.gift.member.preferences.emailNotifications.giftedGems !== false) {
       txnEmail(data.gift.member, 'gifted-gems', [
@@ -275,8 +365,8 @@ api.buyGems = async function buyGems (data) {
         sendPushNotification(
           data.gift.member,
           {
-            title: shared.i18n.t('giftedGems'),
-            message: shared.i18n.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}),
+            title: shared.i18n.t('giftedGems', languages[1]),
+            message: shared.i18n.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}, languages[1]),
             identifier: 'giftedGems',
           }
         );

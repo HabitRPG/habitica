@@ -7,6 +7,9 @@ let shops = {};
 
 function lockQuest (quest, user) {
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
+  if (quest.unlockCondition && (quest.key === 'moon1' || quest.key === 'moon2' || quest.key === 'moon3')) {
+    return user.loginIncentives < quest.unlockCondition.incentiveThreshold;
+  }
   if (user.achievements.quests) return quest.previous && !user.achievements.quests[quest.previous];
   return quest.previous;
 }
@@ -177,7 +180,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
     }
   }
 
-  let sets = content.timeTravelerStore(user.items.gear.owned);
+  let sets = content.timeTravelerStore(user);
   for (let setKey in  sets) {
     if (sets.hasOwnProperty(setKey)) {
       let set = sets[setKey];
@@ -220,6 +223,9 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   const AVAILABLE_SPELLS = [
   ];
 
+  const AVAILABLE_QUESTS = [
+  ];
+
   let categories = [];
 
   let flatGearArray = _.toArray(content.gear.flat);
@@ -244,6 +250,37 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
         currency: 'gold',
         locked: false,
         purchaseType: 'spells',
+        class: `inventory_special_${key}`,
+      };
+    });
+
+    categories.push(category);
+  }
+
+  let quests = pickBy(content.quests, (quest, key) => {
+    return _.indexOf(AVAILABLE_QUESTS, key) !== -1;
+  });
+
+  if (_.keys(quests).length > 0) {
+    let category = {
+      identifier: 'quests',
+      text: i18n.t('quests', language),
+    };
+
+    category.items = _.map(quests, (quest, key) => {
+      return {
+        key,
+        text: quest.text(language),
+        notes: quest.notes(language),
+        value: quest.value,
+        type: 'quests',
+        currency: 'gems',
+        locked: false,
+        drop: quest.drop,
+        boss: quest.boss,
+        collect: quest.collect,
+        class: `inventory_quest_scroll_${key}`,
+        purchaseType: 'quests',
       };
     });
 
@@ -273,6 +310,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
           locked: false,
           currency: 'gems',
           purchaseType: 'gear',
+          class: `shop_${gear.key}`,
         };
       }).value();
       if (category.items.length > 0) {
@@ -282,6 +320,33 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   }
 
   return categories;
+};
+
+shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
+  let sets = [];
+
+  _.eachRight(content.backgrounds, (group, key) => {
+    let set = {
+      identifier: key,
+      text: i18n.t(key, language),
+    };
+
+    set.items = _(group)
+      .map((background, bgKey) => {
+        return {
+          key: bgKey,
+          text: background.text(language),
+          notes: background.notes(language),
+          value: background.price,
+          currency: background.currency || 'gems',
+          purchaseType: 'backgrounds',
+        };
+      }).value();
+
+    sets.push(set);
+  });
+
+  return sets;
 };
 
 module.exports = shops;

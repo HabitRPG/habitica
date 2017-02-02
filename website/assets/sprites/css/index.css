@@ -50,6 +50,11 @@
   margin-right: 10px;
 }
 
+.achievement .counter {
+  bottom: 0;
+  right: 10px;
+}
+
 .multi-achievement {
   margin: auto;
   padding-left: 0.5em;

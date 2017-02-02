@@ -13,7 +13,7 @@ export const CLASSES = [
 
 export const EVENTS = {
   winter:     { start: '2013-12-31', end: '2014-02-01' },
-  birthday:   { start: '2016-01-29', end: '2016-02-02' },
+  birthday:   { start: '2017-01-31', end: '2017-02-02' },
   spring:     { start: '2014-03-21', end: '2014-05-01' },
   summer:     { start: '2014-06-20', end: '2014-08-01' },
   fall:       { start: '2014-09-21', end: '2014-11-01' },
@@ -26,6 +26,7 @@ export const EVENTS = {
   spring2016: { start: '2016-03-18', end: '2016-05-02' },
   summer2016: { start: '2016-06-21', end: '2016-08-02' },
   fall2016:   { start: '2016-09-20', end: '2016-11-02' },
+  winter2017: { start: '2016-12-16', end: '2017-02-02' },
 };
 
 export const GEAR_TYPES = [

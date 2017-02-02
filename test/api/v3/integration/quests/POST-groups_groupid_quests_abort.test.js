@@ -4,6 +4,7 @@ import {
   generateUser,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
+import { model as Group } from '../../../../../website/server/models/group';
 
 describe('POST /groups/:groupId/quests/abort', () => {
   let questingGroup;
@@ -89,6 +90,8 @@ describe('POST /groups/:groupId/quests/abort', () => {
     await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
     await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
 
+    let stub = sandbox.stub(Group.prototype, 'sendChat');
+
     let res = await leader.post(`/groups/${questingGroup._id}/quests/abort`);
     await Promise.all([
       leader.sync(),
@@ -123,5 +126,9 @@ describe('POST /groups/:groupId/quests/abort', () => {
       },
       members: {},
     });
+    expect(Group.prototype.sendChat).to.be.calledOnce;
+    expect(Group.prototype.sendChat).to.be.calledWithMatch(/aborted the party quest Wail of the Whale.`/);
+
+    stub.restore();
   });
 });

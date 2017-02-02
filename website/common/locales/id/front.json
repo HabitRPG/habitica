@@ -6,9 +6,9 @@
     "althaireQuote": "Ikut misi membuat saya termotivasi untuk melakukan semua tugas harian. Motivasi terbesar saya adalah untuk tidak mengecewakan anggota kelompok saya.",
     "andeeliaoQuote": "Produk yang hebat, baru saya mulai beberapa hari dan saya sudah merasakan manfaat produktivitas yang meningkat!",
     "autumnesquirrelQuote": "Saya jarang menunda pekerjaan lagi dan bisa membayar tagihan tepat waktu.",
-    "businessSample1": "Konfirmasi 1 halaman Inventori",
+    "businessSample1": "Inventarisasi 1 halaman",
     "businessSample2": "20 menit Pemberkasan",
-    "businessSample3": "Urutkan dan Proses Kotak Masuk",
+    "businessSample3": "Rapikan Kotak Masuk",
     "businessSample4": "Siapkan 1 Dokumen untuk Klien",
     "businessSample5": "Panggil Klien/Menunda Panggilan Telepon",
     "businessText": "Gunakan Habitica dalam bisnis anda",
@@ -20,7 +20,7 @@
     "chores": "Tugas Rumah",
     "clearBrowserData": "Hapus Data Peramban",
     "communityBug": "Laporkan Bug",
-    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations' target='_blank'>Tambahan & Ekstensi</a>",
+    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Add-ons & Extensions</a>",
     "communityFacebook": "Facebook",
     "communityFeature": "Ajukan Fitur",
     "communityForum": "<a target='_blank' href='http://habitica.wikia.com/wiki/Special:Forum'>Forum</a>",
@@ -127,6 +127,7 @@
     "motivate1": "Berikan dirimu motivasi untuk melakukan segalanya.",
     "motivate2": "Terorganisir. Termotivasi. Dapat Koin.",
     "oldNews": "Berita",
+    "newsArchive": "News archive on Wikia (multilingual)",
     "passConfirm": "Ulangi Kata sandi",
     "passMan": "Apabila Anda menggunakan manajer kata sandi (seperti 1Password) dan memiliki masalah dalam men-login, cobalah memasukkan nama pengguna dan kata sandi secara manual.",
     "password": "Kata sandi",
@@ -265,5 +266,6 @@
     "invalidReqParams": "Parameter permintaan salah.",
     "memberIdRequired": "\"member\" harus merupakan UUID yang valid.",
     "heroIdRequired": "\"heroId\" harus merupakan UUID yang valid.",
-    "cannotFulfillReq": "Permintaanmu tidak dapat dipenuhi. Kirim email ke admin@habitica.com jika error ini terus berlangsung."
+    "cannotFulfillReq": "Permintaanmu tidak dapat dipenuhi. Kirim email ke admin@habitica.com jika error ini terus berlangsung.",
+    "modelNotFound": "This model does not exist."
 }

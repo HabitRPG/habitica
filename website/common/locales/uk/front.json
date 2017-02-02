@@ -20,7 +20,7 @@
     "chores": "Робота по дому",
     "clearBrowserData": "Clear Browser Data",
     "communityBug": "Повідомити про баґ",
-    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations' target='_blank'>Add-ons & Extensions</a>",
+    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Add-ons & Extensions</a>",
     "communityFacebook": "Facebook",
     "communityFeature": "Активація особливості",
     "communityForum": "<a target='_blank' href='http://habitica.wikia.com/wiki/Special:Forum'>Forum</a>",
@@ -127,6 +127,7 @@
     "motivate1": "Motivate yourself to do anything.",
     "motivate2": "Get Organized. Get Motivated. Get Gold.",
     "oldNews": "News",
+    "newsArchive": "News archive on Wikia (multilingual)",
     "passConfirm": "Підтвердіть пароль",
     "passMan": "In case you are using a password manager (like 1Password) and have problems logging in, try typing your username and password manually.",
     "password": "Пароль",
@@ -265,5 +266,6 @@
     "invalidReqParams": "Invalid request parameters.",
     "memberIdRequired": "\"member\" must be a valid UUID.",
     "heroIdRequired": "\"heroId\" must be a valid UUID.",
-    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
+    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists.",
+    "modelNotFound": "This model does not exist."
 }

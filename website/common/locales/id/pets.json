@@ -1,10 +1,14 @@
 {
     "pets": "Peliharaan",
+    "activePet": "Peliharaan yang Dipilih",
+    "noActivePet": "Tidak ada Peliharaan yang Dipilih",
     "petsFound": "Peliharaan yang telah ditemukan",
     "magicPets": "Peliharaan Ramuan Ajaib",
     "rarePets": "Peliharaan Langka",
     "questPets": "Peliharaan Misi",
     "mounts": "Tunggangan",
+    "activeMount": "Tunggangan yang Dipilih",
+    "noActiveMount": "Tidak ada Tunggangan yang Dipilih",
     "mountsTamed": "Tunggangan yang telah dijinakkan",
     "questMounts": "Tunggangan hadiah Misi",
     "magicMounts": "Tunggangan Ramuan Ajaib",
@@ -23,7 +27,7 @@
     "magicalBee": "Lebah Ajaib",
     "rarePetPop1": "Klik pada tapak emas untuk mengetahui lebih lanjut bagaimana kamu bisa mendapatkan peliharaan langka ini dengan berkontribusi ke Habitica!",
     "rarePetPop2": "Bagaimana Cara Mendapat Peliharaan ini!",
-    "potion": "<%= potionType %> Ramuan",
+    "potion": "Ramuan <%= potionType %>",
     "egg": "Telur <%= eggType %> ",
     "eggs": "Telur",
     "eggSingular": "Telur",
@@ -88,5 +92,7 @@
     "petsReleased": "Peliharaan dilepaskan.",
     "mountsAndPetsReleased": "Tunggangan dan Peliharaan dilepaskan",
     "mountsReleased": "Tunggangan dilepaskan",
-    "gemsEach": "permata setiap satuan"
+    "gemsEach": "permata setiap satuan",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

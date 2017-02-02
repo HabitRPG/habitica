@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "Dievenkneepjes",
     "spellRogueToolsOfTradeNotes": "Je deelt je kennis met de groep. De Perceptie van je groep wordt versterkt! (Gebaseerd op oorspronkelijke Perceptie zonder bonussen.)",
     "spellRogueStealthText": "Heimelijkheid",
-    "spellRogueStealthNotes": "Je schuilt in de schaduw en bent onzichtbaar. Sommige onafgemaakte Dagelijkse Taken zullen je deze nacht niet kunnen vinden en hun roodheid en steries zullen niet veranderen. (Spreek meerdere keren uit om meer Dagelijkse Taken te beïnvloeden.)",
+    "spellRogueStealthNotes": "Je schuilt in de schaduw en bent onzichtbaar. Sommige onafgemaakte Dagelijkse Taken zullen je deze nacht niet kunnen vinden en hun roodheid en series zullen niet veranderen. (Spreek meerdere keren uit om meer Dagelijkse Taken te beïnvloeden.)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Aantal dagelijkse taken vermeden: <%= number %>.",
     "spellRogueStealthMaxedOut": "Je hebt al je dagelijkse taken al vermeden; het is niet nodig deze spreuk nogmaals te gebruiken. ",
     "spellHealerHealText": "Helend Licht",
@@ -54,6 +54,7 @@
     "partyNotFound": "Groep niet gevonden",
     "targetIdUUID": "\"targetId\" moet een geldige gebruikers-ID zijn.",
     "challengeTasksNoCast": "Het uitspreken van een vaardigheid op uitdagingstaken is niet toegestaan.",
+    "groupTasksNoCast": "Je mag geen vaardigheden gebruiken op groepstaken.",
     "spellNotOwned": "Je bezit deze vaardigheid niet.",
     "spellLevelTooHigh": "Je moet niveau <%= level %> zijn om deze vaardigheid te gebruiken."
 }

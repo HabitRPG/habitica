@@ -65,7 +65,7 @@ api.inviteToQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest'});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest chat'});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
@@ -77,7 +77,8 @@ api.inviteToQuest = {
     let members = await User.find({
       'party._id': group._id,
       _id: {$ne: user._id},
-    }).select('auth.facebook auth.local preferences.emailNotifications profile.name pushDevices')
+    })
+    .select('auth.facebook auth.local preferences.emailNotifications profile.name pushDevices')
     .exec();
 
     group.markModified('quest');
@@ -179,7 +180,7 @@ api.acceptQuest = {
     user.party.quest.RSVPNeeded = false;
     await user.save();
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest'});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest chat'});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
@@ -239,7 +240,7 @@ api.rejectQuest = {
     user.markModified('party.quest');
     await user.save();
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest'});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
@@ -298,7 +299,7 @@ api.forceStart = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest leader'});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest leader chat'});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
@@ -376,7 +377,7 @@ api.cancelQuest = {
         {'party._id': groupId},
         {$set: {'party.quest': Group.cleanQuestProgress()}},
         {multi: true}
-      ),
+      ).exec(),
     ]);
 
     res.respond(200, savedGroup.quest);
@@ -412,11 +413,15 @@ api.abortQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId, fields: 'type quest leader'});
+    let group = await Group.getGroup({user, groupId, fields: 'type quest leader chat'});
+
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.active) throw new NotFound(res.t('noActiveQuestToAbort'));
     if (user._id !== group.leader && user._id !== group.quest.leader) throw new NotAuthorized(res.t('onlyLeaderAbortQuest'));
+
+    let questName = questScrolls[group.quest.key].text('en');
+    group.sendChat(`\`${user.profile.name} aborted the party quest ${questName}.\``);
 
     let memberUpdates = User.update({
       'party._id': groupId,

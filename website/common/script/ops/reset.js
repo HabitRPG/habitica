@@ -9,7 +9,10 @@ module.exports = function reset (user, tasks = []) {
 
   let tasksToRemove = [];
   tasks.forEach(task => {
-    if (!task.challenge || !task.challenge.id || task.challenge.broken) {
+    let isNotChallengeTask = !task.challenge || !task.challenge.id || task.challenge.broken;
+    let isNotGroupTask =  !task.group || !task.group.id || task.group.broken;
+
+    if (isNotChallengeTask && isNotGroupTask) {
       tasksToRemove.push(task._id);
       let i = user.tasksOrder[`${task.type}s`].indexOf(task._id);
       if (i !== -1) user.tasksOrder[`${task.type}s`].splice(i, 1);

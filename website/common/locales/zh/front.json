@@ -20,7 +20,7 @@
     "chores": "杂项",
     "clearBrowserData": "清除浏览器数据",
     "communityBug": "提交Bug",
-    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations' target='_blank'>插件和拓展</a>",
+    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>插件和拓展</a>",
     "communityFacebook": "Facebook",
     "communityFeature": "请求新功能",
     "communityForum": "<a target='_blank' href='http://habitica.wikia.com/wiki/Special:Forum'>论坛</a>",
@@ -127,6 +127,7 @@
     "motivate1": "鼓励自己去做任何事情。",
     "motivate2": "培养条理，收获动力，赢取金币！",
     "oldNews": "新闻",
+    "newsArchive": "Wikia上的新闻档案（多语言）",
     "passConfirm": "确认密码",
     "passMan": "如果你在使用密码管理工具(类似1Password)并且在登陆上有问题，请尝试手动输入你的用户名和密码。",
     "password": "密码",
@@ -265,5 +266,6 @@
     "invalidReqParams": "无效的请求参数。",
     "memberIdRequired": "\"member\"必须是一个有效的UUID。",
     "heroIdRequired": "\"heroId\"必须是一个有效的UUID",
-    "cannotFulfillReq": "您的请求不能被满足。如果这个错误仍然存在请给admin@habitica.com发邮件。"
+    "cannotFulfillReq": "您的请求不能被满足。如果这个错误仍然存在请给admin@habitica.com发邮件。",
+    "modelNotFound": "该模型不存在"
 }

@@ -20,7 +20,7 @@
     "chores": "Karweitjes",
     "clearBrowserData": "Verwijder browsergegevens",
     "communityBug": "Fout melden",
-    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations' target='_blank'>Add-on's en extensies</a>",
+    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Toevoegingen & extensies</a>",
     "communityFacebook": "Facebook",
     "communityFeature": "Feature aanvragen",
     "communityForum": "<a target='_blank' href='http://habitica.wikia.com/wiki/Special:Forum'>Forum</a>",
@@ -127,6 +127,7 @@
     "motivate1": "Motiveer jezelf om te doen wat je maar wilt.",
     "motivate2": "Werk aan je organisatie, je motivatie, en je goudvoorraad!",
     "oldNews": "Nieuws",
+    "newsArchive": "Nieuwsarchief op Wikia (meertalig)",
     "passConfirm": "Wachtwoord bevestigen",
     "passMan": "Als je een wachtwoordmanager gebruikt (zoals 1Password) en problemen hebt met het inloggen, probeer dan je gebruikersnaam en wachtwoord handmatig in te typen.",
     "password": "Wachtwoord",
@@ -148,7 +149,7 @@
     "punishByline": "Stop met slechte gewoontes doordat je direct de gevolgen ondervindt van uitstelgedrag.",
     "punishHeading1": "Een dagelijkse taak gemist?",
     "punishHeading2": "Je gezondheid gaat achteruit!",
-    "questByline1": "Samen met je vrienden spelen zorgt ervoor dat je aansprakelijk blijft voor je taken.",
+    "questByline1": "Samen met je vrienden spelen zorgt ervoor dat je verantwoordelijk blijft voor je taken.",
     "questByline2": "Stuur elkaar uitdagingen om samen een doel te bereiken!",
     "questHeading1": "Vecht samen met je vrienden tegen monsters!",
     "questHeading2": "Als jij er met de pet naar gooit, raken zij allemaal gewond!",
@@ -265,5 +266,6 @@
     "invalidReqParams": "Ongeldige verzoeksparameters",
     "memberIdRequired": "\"member\" moet een geldige UUID zijn.",
     "heroIdRequired": "\"heroId\" moet een geldige UUID zijn.",
-    "cannotFulfillReq": "Aan je verzoek kan niet worden voldaan. Neem contact op met admin@habitica.com als deze fout zich blijft voordoen."
+    "cannotFulfillReq": "Aan je verzoek kan niet worden voldaan. Neem contact op met admin@habitica.com als deze fout zich blijft voordoen.",
+    "modelNotFound": "Dit model bestaat niet."
 }

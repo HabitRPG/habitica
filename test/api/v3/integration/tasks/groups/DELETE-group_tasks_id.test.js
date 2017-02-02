@@ -69,4 +69,48 @@ describe('DELETE /tasks/:id', () => {
     expect(syncedTask.group.broken).to.equal('TASK_DELETED');
     expect(member2SyncedTask.group.broken).to.equal('TASK_DELETED');
   });
+
+  it('prevents a user from deleting a task they are assigned to', async () => {
+    let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, findAssignedTask);
+
+    await expect(member.del(`/tasks/${syncedTask._id}`))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('cantDeleteAssignedGroupTasks'),
+      });
+  });
+
+  it('allows a user to delete a broken task', async () => {
+    let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, findAssignedTask);
+
+    await user.del(`/tasks/${task._id}`);
+
+    await member.del(`/tasks/${syncedTask._id}`);
+
+    await expect(member.get(`/tasks/${syncedTask._id}`))
+      .to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: 'Task not found.',
+      });
+  });
+
+  it('allows a user to delete a task after leaving a group', async () => {
+    let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, findAssignedTask);
+
+    await member.post(`/groups/${guild._id}/leave`);
+
+    await member.del(`/tasks/${syncedTask._id}`);
+
+    await expect(member.get(`/tasks/${syncedTask._id}`))
+      .to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: 'Task not found.',
+      });
+  });
 });

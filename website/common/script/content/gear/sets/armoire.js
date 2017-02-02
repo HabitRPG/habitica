@@ -192,6 +192,23 @@ let armor = {
     set: 'redHairbow',
     canOwn: ownsItem('armor_armoire_redPartyDress'),
   },
+  woodElfArmor: {
+    text: t('armorArmoireWoodElfArmorText'),
+    notes: t('armorArmoireWoodElfArmorNotes', { per: 12 }),
+    value: 100,
+    per: 12,
+    set: 'woodElf',
+    canOwn: ownsItem('armor_armoire_woodElfArmor'),
+  },
+  ramFleeceRobes: {
+    text: t('armorArmoireRamFleeceRobesText'),
+    notes: t('armorArmoireRamFleeceRobesNotes', { con: 9, str: 7 }),
+    value: 100,
+    con: 9,
+    str: 7,
+    set: 'ramBarbarian',
+    canOwn: ownsItem('armor_armoire_ramFleeceRobes'),
+  },
 };
 
 let eyewear = {
@@ -456,6 +473,23 @@ let head = {
     set: 'blueArcher',
     canOwn: ownsItem('head_armoire_ironBlueArcherHelm'),
   },
+  woodElfHelm: {
+    text: t('headArmoireWoodElfHelmText'),
+    notes: t('headArmoireWoodElfHelmNotes', { con: 12 }),
+    value: 100,
+    con: 12,
+    set: 'woodElf',
+    canOwn: ownsItem('head_armoire_woodElfHelm'),
+  },
+  ramHeaddress: {
+    text: t('headArmoireRamHeaddressText'),
+    notes: t('headArmoireRamHeaddressNotes', { con: 9, per: 7 }),
+    value: 100,
+    con: 9,
+    per: 7,
+    set: 'ramBarbarian',
+    canOwn: ownsItem('head_armoire_ramHeaddress'),
+  },
 };
 
 let shield = {
@@ -523,6 +557,15 @@ let shield = {
     str: 16,
     set: 'falconer',
     canOwn: ownsItem('shield_armoire_perchingFalcon'),
+  },
+  ramHornShield: {
+    text: t('shieldArmoireRamHornShieldText'),
+    notes: t('shieldArmoireRamHornShieldNotes', { attrs: 7 }),
+    value: 100,
+    str: 7,
+    con: 7,
+    set: 'ramBarbarian',
+    canOwn: ownsItem('shield_armoire_ramHornShield'),
   },
 };
 
@@ -711,6 +754,14 @@ let weapon = {
     str: 15,
     set: 'ogre',
     canOwn: ownsItem('weapon_armoire_ogreClub'),
+  },
+  woodElfStaff: {
+    text: t('weaponArmoireWoodElfStaffText'),
+    notes: t('weaponArmoireWoodElfStaffNotes', { int: 12 }),
+    value: 100,
+    int: 12,
+    set: 'woodElf',
+    canOwn: ownsItem('weapon_armoire_woodElfStaff'),
   },
 };
 

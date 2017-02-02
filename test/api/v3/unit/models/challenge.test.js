@@ -6,32 +6,36 @@ import common from '../../../../../website/common/';
 import { each, find } from 'lodash';
 
 describe('Challenge Model', () => {
-  let guild, leader, challenge, task, tasksToTest;
+  let guild, leader, challenge, task;
+  let tasksToTest = {
+    habit: {
+      text: 'test habit',
+      type: 'habit',
+      up: false,
+      down: true,
+      notes: 'test notes',
+    },
+    todo: {
+      text: 'test todo',
+      type: 'todo',
+      notes: 'test notes',
+    },
+    daily: {
+      text: 'test daily',
+      type: 'daily',
+      frequency: 'daily',
+      everyX: 5,
+      startDate: new Date(),
+      notes: 'test notes',
+    },
+    reward: {
+      text: 'test reward',
+      type: 'reward',
+      notes: 'test notes',
+    },
+  };
 
   beforeEach(async () => {
-    tasksToTest = {
-      habit: {
-        text: 'test habit',
-        type: 'habit',
-        up: false,
-        down: true,
-      },
-      todo: {
-        text: 'test todo',
-        type: 'todo',
-      },
-      daily: {
-        text: 'test daily',
-        type: 'daily',
-        frequency: 'daily',
-        everyX: 5,
-        startDate: new Date(),
-      },
-      reward: {
-        text: 'test reward',
-        type: 'reward',
-      },
-    };
     guild = new Group({
       name: 'test party',
       type: 'guild',
@@ -77,6 +81,7 @@ describe('Challenge Model', () => {
         });
 
         expect(syncedTask).to.exist;
+        expect(syncedTask.notes).to.eql(task.notes);
       });
 
       it('syncs a challenge to a user', async () => {
@@ -96,8 +101,8 @@ describe('Challenge Model', () => {
         });
 
         expect(updatedNewMember.challenges).to.contain(challenge._id);
-        expect(updatedNewMember.tags[3].id).to.equal(challenge._id);
-        expect(updatedNewMember.tags[3].name).to.equal(challenge.shortName);
+        expect(updatedNewMember.tags[7].id).to.equal(challenge._id);
+        expect(updatedNewMember.tags[7].name).to.equal(challenge.shortName);
         expect(syncedTask).to.exist;
       });
 
@@ -161,7 +166,7 @@ describe('Challenge Model', () => {
 
   context('type specific updates', () => {
     it('updates habit specific field to challenge and challenge members', async () => {
-      task = new Tasks.habit(Tasks.Task.sanitize(tasksToTest.habit)); // eslint-disable-line babel/new-cap
+      task = new Tasks.habit(Tasks.Task.sanitize(tasksToTest.habit)); // eslint-disable-line new-cap
       task.challenge.id = challenge._id;
       await task.save();
 
@@ -180,7 +185,7 @@ describe('Challenge Model', () => {
     });
 
     it('updates todo specific field to challenge and challenge members', async () => {
-      task = new Tasks.todo(Tasks.Task.sanitize(tasksToTest.todo)); // eslint-disable-line babel/new-cap
+      task = new Tasks.todo(Tasks.Task.sanitize(tasksToTest.todo)); // eslint-disable-line new-cap
       task.challenge.id = challenge._id;
       await task.save();
 
@@ -196,7 +201,7 @@ describe('Challenge Model', () => {
     });
 
     it('does not update checklists on the user task', async () => {
-      task = new Tasks.todo(Tasks.Task.sanitize(tasksToTest.todo)); // eslint-disable-line babel/new-cap
+      task = new Tasks.todo(Tasks.Task.sanitize(tasksToTest.todo)); // eslint-disable-line new-cap
       task.challenge.id = challenge._id;
       await task.save();
 
@@ -214,7 +219,7 @@ describe('Challenge Model', () => {
     });
 
     it('updates daily specific field to challenge and challenge members', async () => {
-      task = new Tasks.daily(Tasks.Task.sanitize(tasksToTest.daily)); // eslint-disable-line babel/new-cap
+      task = new Tasks.daily(Tasks.Task.sanitize(tasksToTest.daily)); // eslint-disable-line new-cap
       task.challenge.id = challenge._id;
       await task.save();
 

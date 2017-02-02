@@ -20,7 +20,7 @@
     "chores": "מטלות",
     "clearBrowserData": "נקה מידע מהדפדפן",
     "communityBug": "ספרו לנו על באג",
-    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations' target='_blank'>תוספים והרחבות</a>",
+    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Add-ons & Extensions</a>",
     "communityFacebook": "פייסבוק",
     "communityFeature": "בקשו יכולת חדשה",
     "communityForum": "<a target='_blank' href='http://habitica.wikia.com/wiki/Special:Forum'>פורום</a>",
@@ -127,6 +127,7 @@
     "motivate1": "בנה לעצמך מוטיבציה לעשות כל דבר שתרצה.",
     "motivate2": "תהפוך למאורגן. תבנה מוטיבציה. תשיג זהב.",
     "oldNews": "חדשות",
+    "newsArchive": "News archive on Wikia (multilingual)",
     "passConfirm": "אמתו סיסמה",
     "passMan": "במקרה שאתם משתמשים במנהל סיסמאות (כמו 1Password) ויש לכם בעיות להתחבר, נסו להקליד את שם המשתמש והסיסמה שלכם ידנית.",
     "password": "סיסמא",
@@ -265,5 +266,6 @@
     "invalidReqParams": "פרמטרי בקשה שגויים.",
     "memberIdRequired": "״משתמש״ חייב להיות מזהה משתמש תקין.",
     "heroIdRequired": "״heroId״ חייב להיות מזהה משתמש תקין.",
-    "cannotFulfillReq": "הבקשה שלכם לא יכולה להתמלא. שלחו מייל ל admin@habitica.com אם הבעיה נמשכת."
+    "cannotFulfillReq": "הבקשה שלכם לא יכולה להתמלא. שלחו מייל ל admin@habitica.com אם הבעיה נמשכת.",
+    "modelNotFound": "This model does not exist."
 }

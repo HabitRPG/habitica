@@ -18,8 +18,8 @@ script(type='text/ng-template', id='modals/invite-guild.html')
                i.glyphicon.glyphicon-plus
           tr
             td
-              .col-sm-4.col-sm-offset-8
-                button.btn.btn-primary.btn-block(type='submit')=env.t('sendInvitations')
+              .col-sm-6.col-sm-offset-6
+                button.btn.btn-primary.btn-block(type='submit') {{group.sendInviteText}}
     hr
     p.alert.alert-info=env.t('inviteByEmail')
     form.form-horizontal(ng-submit='inviteNewUsers("email")')
@@ -41,10 +41,10 @@ script(type='text/ng-template', id='modals/invite-guild.html')
           tr
             td.form-group(colspan=2)
               label.col-sm-1.control-label=env.t('byColon')
-              .col-sm-7
+              .col-sm-5
                 input.form-control(type='text', ng-model='inviter')
-              .col-sm-4
-                button.btn.btn-primary.btn-block(type='submit')=env.t('sendInvitations')
+              .col-sm-6
+                button.btn.btn-primary.btn-block(type='submit') {{group.sendInviteText}}
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('close')
 
@@ -75,10 +75,10 @@ script(type='text/ng-template', id='modals/invite-party.html')
               tr
                 td.form-group(colspan=2)
                   label.col-sm-1.control-label=env.t('byColon')
-                  .col-sm-7
+                  .col-sm-5
                     input.form-control(type='text', ng-model='inviter')
-                  .col-sm-4
-                    button.btn.btn-primary.btn-block(type='submit')=env.t('sendInvitations')
+                  .col-sm-6
+                    button.btn.btn-primary.btn-block(type='submit') {{group.sendInviteText}}
       tab(heading=env.t('inviteExistUser'))
         p.alert.alert-info!=env.t('inviteAlertInfo')
         form.form-horizontal(ng-submit='inviteNewUsers("uuid")')
@@ -96,8 +96,8 @@ script(type='text/ng-template', id='modals/invite-party.html')
                    i.glyphicon.glyphicon-plus
               tr
                 td
-                  .col-sm-4.col-sm-offset-8
-                    button.btn.btn-primary.btn-block(type='submit')=env.t('sendInvitations')
+                  .col-sm-6.col-sm-offset-6
+                    button.btn.btn-primary.btn-block(type='submit') {{group.sendInviteText}}
     .row
       .quest_basilist.pull-left
       p(style='margin:2em')=env.t('exclusiveQuestScroll')

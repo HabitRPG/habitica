@@ -20,7 +20,7 @@
     "chores": "Házimunka",
     "clearBrowserData": "Böngésző előzmények törlése",
     "communityBug": "Programhiba jelentése",
-    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations' target='_blank'>Kiegészítők és kiterjesztések</a>",
+    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Add-ons & Extensions</a>",
     "communityFacebook": "Facebook",
     "communityFeature": "Új funkció kérése",
     "communityForum": "<a target='_blank' href='http://habitica.wikia.com/wiki/Special:Forum'>Fórum</a>",
@@ -127,6 +127,7 @@
     "motivate1": "Motiváld magad, hogy bármit véghezvihess!",
     "motivate2": "Légy szervezett. Légy motivált. Szerezz aranyat.",
     "oldNews": "Hírek",
+    "newsArchive": "News archive on Wikia (multilingual)",
     "passConfirm": "Jelszó megerősítése",
     "passMan": "Abban az esetben, hogyha jelszó-megőrző programot használsz (mint a 1Password vagy LastPass) és problémáid akadnak a bejelentkezéssel, próbáld manuálisan bevinni a neved és a jelszavad.",
     "password": "Jelszó",
@@ -265,5 +266,6 @@
     "invalidReqParams": "Hibás kérés paraméterek.",
     "memberIdRequired": "\"tag\" valódi UUID-nek kell lennie.",
     "heroIdRequired": "\"hős azonosító\" valódi UUID-nek kell lennie.",
-    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists."
+    "cannotFulfillReq": "Your request cannot be fulfilled.  Email admin@habitica.com if this error persists.",
+    "modelNotFound": "This model does not exist."
 }

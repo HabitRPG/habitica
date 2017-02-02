@@ -21,7 +21,7 @@
     "messageNotEnoughGold": "ゴールドが不足しています",
     "messageTwoHandedEquip": "<%= twoHandedText %>は両手を使って振り回すので、<%= offHandedText %>を装備から外しました。",
     "messageTwoHandedUnequip": "<%= offHandedText %>を装備したので、両手を使って振り回す<%= twoHandedText %>を装備から外しました。",
-    "messageDropFood": "<%= dropArticle %><%= dropText %> を見つけました! <%= dropNotes %>",
+    "messageDropFood": "<%= dropText %> を見つけました! <%= dropNotes %>",
     "messageDropEgg": "<%= dropText %>のたまごを見つけました! <%= dropNotes %>",
     "messageDropPotion": "<%= dropText %>「たまごがえしの薬」を見つけました! <%= dropNotes %>",
     "messageDropQuest": "クエストを見つけました！",
@@ -31,7 +31,7 @@
     "messageAlreadyOwnGear": "このアイテムをすでに持っています。所持品のページに行って装備して下さい。",
     "messageHealthAlreadyMax": "体力はすでに最大です。",
     "armoireEquipment": "<%= image %>宝箱に貴重な装備を見つけました : <%= dropText %>! 素晴らしい!",
-    "armoireFood": "<%= image %>宝箱をあさって<%= dropArticle %><%= dropText %>を見つけました。何でこんな所に?",
+    "armoireFood": "<%= image %>宝箱をあさって<%= dropText %>を見つけました。何でこんな所に?",
     "armoireExp": "宝箱と格闘して、経験値を得ました。どうぞっ!",
     "messageInsufficientGems": "ジェムが足りません!",
     "messageAuthPasswordMustMatch": ":password と :confirmPassword が一致していません。",
@@ -53,5 +53,6 @@
     "messageGroupChatAdminClearFlagCount": "フラグ数をクリアーできるのは管理者だけです!",
     "messageUserOperationProtected": "「<%= operation %>」パスは、保護されたパスなので保存できません。",
     "messageUserOperationNotFound": "<%= operation %> の操作は見つかりません",
-    "messageNotificationNotFound": "通知はありません。"
+    "messageNotificationNotFound": "通知はありません。",
+    "notificationsRequired": "通知 ID が必要です。"
 }

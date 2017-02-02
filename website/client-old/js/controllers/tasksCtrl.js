@@ -42,6 +42,11 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       User.addTask({
         body: tasks,
       });
+
+      if (User.user.preferences.newTaskEdit) {
+        var taskToEdit = tasks[tasks.length -1];
+        $scope.editTask(taskToEdit, User.user, Shared.taskClasses(taskToEdit, User.user.filters, User.user.preferences.dayStart, User.user.lastCron, listDef.showCompleted, main));
+      }
     }
 
     $scope.addTask = function(listDef) {
@@ -51,11 +56,17 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     $scope.toggleBulk = Tasks.toggleBulk;
 
-    $scope.editTask = Tasks.editTask;
+    $scope.editTask = function (task, user, taskStatus) {
+      Tasks.editTask(task, user, taskStatus, $scope);
+    };
 
     $scope.canEdit = function(task) {
       // can't edit challenge tasks
-      return !task.challenge.id;
+      return !task.challenge.id && (!task.group || !task.group.id);
+    }
+
+    $scope.checkGroupAccess = function (group) {
+      return true;
     }
 
     $scope.doubleClickTask = function (obj, task) {
@@ -66,7 +77,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       if (task._editing) {
         $scope.saveTask(task);
       } else {
-        $scope.editTask(task, User.user);
+        $scope.editTask(task, User.user, Shared.taskClasses(task, [], User.user.preferences.dayStart));
       }
     }
 
@@ -98,6 +109,8 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       } else {
         $scope.score(task, "down");
       }
+
+      if (task.group && task.group.approval && task.group.approval.required && !task.group.approval.approved) task.completed = false;
     };
 
     $scope.saveTask = function(task, stayOpen, isSaveAndClose) {
@@ -225,9 +238,10 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      ------------------------
      */
 
-    $scope.shouldShow = function(task, list, prefs){
+    $scope.shouldShow = function(task, list, prefs) {
       if (task._editing) // never hide a task while being edited
         return true;
+
       var shouldDo = task.type == 'daily' ? habitrpgShared.shouldDo(new Date, task, prefs) : true;
       switch (list.view) {
         case "yellowred":  // Habits
@@ -324,4 +338,13 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
       return notes;
     };
+
+    /*
+     * Task Details
+     */
+      $scope.taskPopover = function (task) {
+        if (task.popoverOpen) return '';
+        var content = task.notes;
+        return content;
+      };
   }]);

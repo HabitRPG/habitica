@@ -57,7 +57,7 @@ module.exports = function purchase (user, req = {}, analytics) {
 
     return [
       _.pick(user, splitWhitespace('stats balance')),
-      i18n.t('plusOneGem'),
+      i18n.t('plusOneGem', req.language),
     ];
   }
 

@@ -8,6 +8,7 @@ import { model as User } from '../../../../../website/server/models/user';
 import * as Tasks from '../../../../../website/server/models/task';
 import { clone } from 'lodash';
 import common from '../../../../../website/common';
+import analytics from '../../../../../website/server/libs/analyticsService';
 
 // const scoreTask = common.ops.scoreTask;
 
@@ -17,9 +18,6 @@ describe('cron', () => {
   let user;
   let tasksByType = {habits: [], dailys: [], todos: [], rewards: []};
   let daysMissed = 0;
-  let analytics = {
-    track: sinon.spy(),
-  };
 
   beforeEach(() => {
     user = new User({
@@ -34,9 +32,15 @@ describe('cron', () => {
       },
     });
 
+    sinon.spy(analytics, 'track');
+
     user._statsComputed = {
       mp: 10,
     };
+  });
+
+  afterEach(() => {
+    analytics.track.restore();
   });
 
   it('updates user.preferences.timezoneOffsetAtLastCron', () => {
@@ -57,6 +61,11 @@ describe('cron', () => {
     let cronCountBefore = user.flags.cronCount;
     cron({user, tasksByType, daysMissed, analytics});
     expect(user.flags.cronCount).to.be.greaterThan(cronCountBefore);
+  });
+
+  it('calls analytics', () => {
+    cron({user, tasksByType, daysMissed, analytics});
+    expect(analytics.track.callCount).to.equal(1);
   });
 
   describe('end of the month perks', () => {
@@ -257,6 +266,11 @@ describe('cron', () => {
       user.preferences.sleep = true;
     });
 
+    it('calls analytics', () => {
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(analytics.track.callCount).to.equal(1);
+    });
+
     it('clears user buffs', () => {
       user.stats.buffs = {
         str: 1,
@@ -286,7 +300,7 @@ describe('cron', () => {
         startDate: new Date(),
       };
 
-      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line babel/new-cap
+      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
       tasksByType.dailys.push(task);
       tasksByType.dailys[0].completed = true;
 
@@ -307,7 +321,7 @@ describe('cron', () => {
         value: 0,
       };
 
-      let task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line babel/new-cap
+      let task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line new-cap
       tasksByType.todos.push(task);
     });
 
@@ -333,7 +347,7 @@ describe('cron', () => {
         type: 'daily',
       };
 
-      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line babel/new-cap
+      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
       tasksByType.dailys = [];
       tasksByType.dailys.push(task);
 
@@ -435,7 +449,7 @@ describe('cron', () => {
         type: 'habit',
       };
 
-      let task = new Tasks.habit(Tasks.Task.sanitize(habit)); // eslint-disable-line babel/new-cap
+      let task = new Tasks.habit(Tasks.Task.sanitize(habit)); // eslint-disable-line new-cap
       tasksByType.habits = [];
       tasksByType.habits.push(task);
     });
@@ -537,7 +551,7 @@ describe('cron', () => {
         type: 'daily',
       };
 
-      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line babel/new-cap
+      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
       tasksByType.dailys = [];
       tasksByType.dailys.push(task);
 
@@ -680,7 +694,7 @@ describe('cron', () => {
         type: 'daily',
       };
 
-      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line babel/new-cap
+      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
       tasksByType.dailys = [];
       tasksByType.dailys.push(task);
 
@@ -717,9 +731,9 @@ describe('cron', () => {
 
       cron({user, tasksByType, daysMissed, analytics});
 
-      expect(user.notifications.length).to.equal(1);
-      expect(user.notifications[0].type).to.equal('CRON');
-      expect(user.notifications[0].data).to.eql({
+      expect(user.notifications.length).to.be.greaterThan(0);
+      expect(user.notifications[1].type).to.equal('CRON');
+      expect(user.notifications[1].data).to.eql({
         hp: user.stats.hp - hpBefore,
         mp: user.stats.mp - mpBefore,
       });
@@ -736,13 +750,14 @@ describe('cron', () => {
 
       cron({user, tasksByType, daysMissed, analytics});
 
-      expect(user.notifications.length).to.equal(1);
-      expect(user.notifications[0].type).to.equal('CRON');
-      expect(user.notifications[0].data).to.eql({
+      expect(user.notifications.length).to.be.greaterThan(0);
+      expect(user.notifications[1].type).to.equal('CRON');
+      expect(user.notifications[1].data).to.eql({
         hp: user.stats.hp - hpBefore1,
         mp: user.stats.mp - mpBefore1,
       });
 
+      let notifsBefore2 = user.notifications.length;
       let hpBefore2 = user.stats.hp;
       let mpBefore2 = user.stats.mp;
 
@@ -750,12 +765,14 @@ describe('cron', () => {
 
       cron({user, tasksByType, daysMissed, analytics});
 
-      expect(user.notifications.length).to.equal(1);
-      expect(user.notifications[0].type).to.equal('CRON');
-      expect(user.notifications[0].data).to.eql({
+      expect(user.notifications.length - notifsBefore2).to.equal(0);
+      expect(user.notifications[0].type).to.not.equal('CRON');
+      expect(user.notifications[1].type).to.equal('CRON');
+      expect(user.notifications[1].data).to.eql({
         hp: user.stats.hp - hpBefore2 - (hpBefore2 - hpBefore1),
         mp: user.stats.mp - mpBefore2 - (mpBefore2 - mpBefore1),
       });
+      expect(user.notifications[0].type).to.not.equal('CRON');
     });
   });
 
@@ -808,6 +825,188 @@ describe('cron', () => {
       expect(user.inbox.messages[messageId]).to.not.exist;
     });
   });
+
+  describe('login incentives', () => {
+    it('increments incentive counter each cron', () => {
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(1);
+      user.lastCron = moment(new Date()).subtract({days: 1});
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(2);
+    });
+
+    it('pushes a notification of the day\'s incentive each cron', () => {
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.notifications.length).to.be.greaterThan(1);
+      expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('replaces previous notifications', () => {
+      cron({user, tasksByType, daysMissed, analytics});
+      cron({user, tasksByType, daysMissed, analytics});
+      cron({user, tasksByType, daysMissed, analytics});
+
+      let filteredNotifications = user.notifications.filter(n => n.type === 'LOGIN_INCENTIVE');
+
+      expect(filteredNotifications.length).to.equal(1);
+    });
+
+    it('increments loginIncentives by 1 even if days are skipped in between', () => {
+      daysMissed = 3;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(1);
+    });
+
+    it('increments loginIncentives by 1 even if user has Dailies paused', () => {
+      user.preferences.sleep = true;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(1);
+    });
+
+    it('awards user bard robes if login incentive is 1', () => {
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(1);
+      expect(user.items.gear.owned.armor_special_bardRobes).to.eql(true);
+      expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('awards user incentive backgrounds if login incentive is 2', () => {
+      user.loginIncentives = 1;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(2);
+      expect(user.purchased.background.blue).to.eql(true);
+      expect(user.purchased.background.green).to.eql(true);
+      expect(user.purchased.background.purple).to.eql(true);
+      expect(user.purchased.background.red).to.eql(true);
+      expect(user.purchased.background.yellow).to.eql(true);
+      expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('awards user Bard Hat if login incentive is 3', () => {
+      user.loginIncentives = 2;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(3);
+      expect(user.items.gear.owned.head_special_bardHat).to.eql(true);
+      expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('awards user RoyalPurple Hatching Potion if login incentive is 4', () => {
+      user.loginIncentives = 3;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(4);
+      expect(user.items.hatchingPotions.RoyalPurple).to.eql(1);
+      expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('awards user a Chocolate, Meat and Pink Contton Candy if login incentive is 5', () => {
+      user.loginIncentives = 4;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(5);
+
+      expect(user.items.food.Chocolate).to.eql(1);
+      expect(user.items.food.Meat).to.eql(1);
+      expect(user.items.food.CottonCandyPink).to.eql(1);
+
+      expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('awards user moon quest if login incentive is 7', () => {
+      user.loginIncentives = 6;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(7);
+      expect(user.items.quests.moon1).to.eql(1);
+      expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('awards user RoyalPurple Hatching Potion if login incentive is 10', () => {
+      user.loginIncentives = 9;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(10);
+      expect(user.items.hatchingPotions.RoyalPurple).to.eql(1);
+      expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('awards user a Strawberry, Patato and Blue Contton Candy if login incentive is 14', () => {
+      user.loginIncentives = 13;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(14);
+
+      expect(user.items.food.Strawberry).to.eql(1);
+      expect(user.items.food.Potatoe).to.eql(1);
+      expect(user.items.food.CottonCandyBlue).to.eql(1);
+
+      expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('awards user a bard instrument if login incentive is 18', () => {
+      user.loginIncentives = 17;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(18);
+      expect(user.items.gear.owned.weapon_special_bardInstrument).to.eql(true);
+      expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('awards user second moon quest if login incentive is 22', () => {
+      user.loginIncentives = 21;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(22);
+      expect(user.items.quests.moon2).to.eql(1);
+      expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('awards user a RoyalPurple hatching potion if login incentive is 26', () => {
+      user.loginIncentives = 25;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(26);
+      expect(user.items.hatchingPotions.RoyalPurple).to.eql(1);
+      expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('awards user Fish, Milk, Rotten Meat and Honey if login incentive is 30', () => {
+      user.loginIncentives = 29;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(30);
+
+      expect(user.items.food.Fish).to.eql(1);
+      expect(user.items.food.Milk).to.eql(1);
+      expect(user.items.food.RottenMeat).to.eql(1);
+      expect(user.items.food.Honey).to.eql(1);
+
+      expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('awards user a RoyalPurple hatching potion if login incentive is 35', () => {
+      user.loginIncentives = 34;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(35);
+      expect(user.items.hatchingPotions.RoyalPurple).to.eql(1);
+      expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('awards user the third moon quest if login incentive is 40', () => {
+      user.loginIncentives = 39;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(40);
+      expect(user.items.quests.moon3).to.eql(1);
+      expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('awards user a RoyalPurple hatching potion if login incentive is 45', () => {
+      user.loginIncentives = 44;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(45);
+      expect(user.items.hatchingPotions.RoyalPurple).to.eql(1);
+      expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
+    });
+
+    it('awards user a saddle if login incentive is 50', () => {
+      user.loginIncentives = 49;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.loginIncentives).to.eql(50);
+      expect(user.items.food.Saddle).to.eql(1);
+      expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
+    });
+  });
 });
 
 describe('recoverCron', () => {
@@ -837,19 +1036,18 @@ describe('recoverCron', () => {
     sandbox.restore();
   });
 
-  it('throws an error if user cannot be found', async (done) => {
+  it('throws an error if user cannot be found', async () => {
     execStub.returns(Bluebird.resolve(null));
 
     try {
       await recoverCron(status, locals);
+      throw new Error('no exception when user cannot be found');
     } catch (err) {
       expect(err.message).to.eql(`User ${locals.user._id} not found while recovering.`);
-
-      done();
     }
   });
 
-  it('increases status.times count and reruns up to 4 times', async (done) => {
+  it('increases status.times count and reruns up to 4 times', async () => {
     execStub.returns(Bluebird.resolve({_cronSignature: 'RUNNING_CRON'}));
     execStub.onCall(4).returns(Bluebird.resolve({_cronSignature: 'NOT_RUNNING'}));
 
@@ -857,20 +1055,17 @@ describe('recoverCron', () => {
 
     expect(status.times).to.eql(4);
     expect(locals.user).to.eql({_cronSignature: 'NOT_RUNNING'});
-
-    done();
   });
 
-  it('throws an error if recoverCron runs 5 times', async (done) => {
+  it('throws an error if recoverCron runs 5 times', async () => {
     execStub.returns(Bluebird.resolve({_cronSignature: 'RUNNING_CRON'}));
 
     try {
       await recoverCron(status, locals);
+      throw new Error('no exception when recoverCron runs 5 times');
     } catch (err) {
       expect(status.times).to.eql(5);
       expect(err.message).to.eql(`Impossible to recover from cron for user ${locals.user._id}.`);
-
-      done();
     }
   });
 });

@@ -7,7 +7,7 @@
     "spellWizardEarthNotes": "Dine mentale kræfter ryster jorden under jer. Hele din gruppe får et boost til Intelligens! (Baseret på: INT uden boost)",
     "spellWizardFrostText": "Isnende Frost",
     "spellWizardFrostNotes": "Is dækker dine opgaver. Dine Dagliges striber vil ikke blive nulstillet ved dagens afslutning. (Én fortryllelse påvirker alle striber.)",
-    "spellWizardFrostAlreadyCast": "You have already cast this today. Your streaks are frozen, and there's no need to cast this again.",
+    "spellWizardFrostAlreadyCast": "Du har allerede kastet denne i dag. Din stribe er frossen, og der er ingen grund til at kaste denne igen.",
     "spellWarriorSmashText": "Brutalt Slag",
     "spellWarriorSmashNotes": "Du rammer en enkelt opgave med et voldsomt slag. Opgaven bliver mere blå eller mindre rød, og du giver ekstra skade til Bosser! Klik på en opgave for at kaste. (Baseret på: STY)",
     "spellWarriorDefensiveStanceText": "Defensiv Stilling",
@@ -54,6 +54,7 @@
     "partyNotFound": "Party not found",
     "targetIdUUID": "\"targetId\" must be a valid User ID.",
     "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
+    "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "You don't own this skill.",
     "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
 }

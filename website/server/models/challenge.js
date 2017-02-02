@@ -79,8 +79,11 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
   challenge.shortName = challenge.shortName || challenge.name;
 
   // Add challenge to user.challenges
-  if (!_.contains(user.challenges, challenge._id)) user.challenges.push(challenge._id);
-
+  if (!_.contains(user.challenges, challenge._id)) {
+    // using concat because mongoose's protection against concurrent array modification isn't working as expected.
+    // see https://github.com/HabitRPG/habitrpg/pull/7787#issuecomment-232972394
+    user.challenges = user.challenges.concat([challenge._id]);
+  }
   // Sync tags
   let userTags = user.tags;
   let i = _.findIndex(userTags, {id: challenge._id});
@@ -157,6 +160,7 @@ async function _addTaskFn (challenge, tasks, memberId) {
     let userTask = new Tasks[chalTask.type](Tasks.Task.sanitize(syncableAttrs(chalTask)));
     userTask.challenge = {taskId: chalTask._id, id: challenge._id};
     userTask.userId = memberId;
+    userTask.notes = chalTask.notes; // We want to sync the notes when the task is first added to the challenge
 
     let tasksOrderList = updateTasksOrderQ.$push[`tasksOrder.${chalTask.type}s`];
     if (!tasksOrderList) {

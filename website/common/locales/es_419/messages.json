@@ -53,5 +53,6 @@
     "messageGroupChatAdminClearFlagCount": "¡Sólo un administrador puede borrar el número de denuncias!",
     "messageUserOperationProtected": "la ruta `<%= operation %>` no ha sido guardada, ya que es una ruta protegida.",
     "messageUserOperationNotFound": "<%= operation %> operación no encontrada",
-    "messageNotificationNotFound": "Notificación no encontrada."
+    "messageNotificationNotFound": "Notificación no encontrada.",
+    "notificationsRequired": "Notification ids are required."
 }

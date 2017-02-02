@@ -12,7 +12,7 @@ import {
 
 let api = module.exports;
 
-import mysterySets from './mystery-sets';
+import achievements from './achievements';
 
 import eggs from './eggs';
 import hatchingPotions from './hatching-potions';
@@ -22,37 +22,22 @@ import gear from './gear';
 import appearances from './appearance';
 import backgrounds from './appearance/backgrounds.js'
 import spells from './spells';
+import subscriptionBlocks from './subscriptionBlocks';
 import faq from './faq';
+import timeTravelers from './time-travelers';
 
-api.mystery = mysterySets;
+import loginIncentives from './loginIncentives';
+
+api.achievements = achievements;
 
 api.itemList = ITEM_LIST;
 
 api.gear = gear;
 api.spells = spells;
+api.subscriptionBlocks = subscriptionBlocks;
 
-/*
-   Time Traveler Store, mystery sets need their items mapped in
-   */
-
-_.each(api.mystery, function(v, k) {
-  return v.items = _.where(api.gear.flat, {
-    mystery: k
-  });
-});
-
-api.timeTravelerStore = function(owned) {
-  var ownedKeys;
-  ownedKeys = _.keys((typeof owned.toObject === "function" ? owned.toObject() : void 0) || owned);
-  return _.reduce(api.mystery, function(m, v, k) {
-    if (k === 'wondercon' || ~ownedKeys.indexOf(v.items[0].key)) {
-      return m;
-    }
-    m[k] = v;
-    return m;
-  }, {});
-};
-
+api.mystery = timeTravelers.mystery;
+api.timeTravelerStore = timeTravelers.timeTravelerStore;
 
 /*
    ---------------------------------------------------------------
@@ -293,7 +278,7 @@ api.food = {
     target: 'CottonCandyBlue',
     article: '',
     canBuy: (function() {
-      return canBuyCandyFood;
+      return canBuyCakeFood;
     }),
     canDrop: canDropCakeFood,
   },
@@ -715,7 +700,7 @@ api.quests = {
   },
   evilsanta: {
     canBuy: (function() {
-      return false;
+      return true;
     }),
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
@@ -741,7 +726,7 @@ api.quests = {
   },
   evilsanta2: {
     canBuy: (function() {
-      return false;
+      return true;
     }),
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),
@@ -882,7 +867,8 @@ api.quests = {
         {
           type: 'quests',
           key: "vice2",
-          text: t('questVice1DropVice2Quest')
+          text: t('questVice1DropVice2Quest'),
+          onlyOwner: true
         }
       ],
       gp: 20,
@@ -907,7 +893,8 @@ api.quests = {
         {
           type: 'quests',
           key: 'vice3',
-          text: t('questVice2DropVice3Quest')
+          text: t('questVice2DropVice3Quest'),
+          onlyOwner: true
         }
       ],
       gp: 20,
@@ -1131,7 +1118,8 @@ api.quests = {
         {
           type: 'quests',
           key: "atom2",
-          text: t('questAtom1Drop')
+          text: t('questAtom1Drop'),
+          onlyOwner: true
         }
       ],
       gp: 7,
@@ -1155,7 +1143,8 @@ api.quests = {
         {
           type: 'quests',
           key: "atom3",
-          text: t('questAtom2Drop')
+          text: t('questAtom2Drop'),
+          onlyOwner: true
         }
       ],
       gp: 20,
@@ -1308,7 +1297,8 @@ api.quests = {
         {
           type: 'quests',
           key: "moonstone2",
-          text: t('questMoonstone1DropMoonstone2Quest')
+          text: t('questMoonstone1DropMoonstone2Quest'),
+          onlyOwner: true
         }
       ],
       gp: 50,
@@ -1332,7 +1322,8 @@ api.quests = {
         {
           type: 'quests',
           key: 'moonstone3',
-          text: t('questMoonstone2DropMoonstone3Quest')
+          text: t('questMoonstone2DropMoonstone3Quest'),
+          onlyOwner: true
         }
       ],
       gp: 500,
@@ -1413,7 +1404,8 @@ api.quests = {
         {
           type: 'quests',
           key: "goldenknight2",
-          text: t('questGoldenknight1DropGoldenknight2Quest')
+          text: t('questGoldenknight1DropGoldenknight2Quest'),
+          onlyOwner: true
         }
       ],
       gp: 15,
@@ -1437,7 +1429,8 @@ api.quests = {
         {
           type: 'quests',
           key: 'goldenknight3',
-          text: t('questGoldenknight2DropGoldenknight3Quest')
+          text: t('questGoldenknight2DropGoldenknight3Quest'),
+          onlyOwner: true
         }
       ],
       gp: 75,
@@ -2621,6 +2614,314 @@ api.quests = {
       exp: 650
     }
   },
+  ferret: {
+    text: t('questFerretText'),
+    notes: t('questFerretNotes'),
+    completion: t('questFerretCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questFerretBoss'),
+      hp: 400,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Ferret',
+          text: t('questFerretDropFerretEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Ferret',
+          text: t('questFerretDropFerretEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Ferret',
+          text: t('questFerretDropFerretEgg'),
+        },
+      ],
+      gp: 31,
+      exp: 200,
+      unlock: t('questFerretUnlockText'),
+    },
+  },
+  dustbunnies: {
+    text: t('questDustBunniesText'),
+    notes: t('questDustBunniesNotes'),
+    completion: t('questDustBunniesCompletion'),
+    value: 4,
+    category: 'unlockable',
+    unlockCondition: {
+      condition: 'party invite',
+      text: t('createAccountReward')
+    },
+    boss: {
+      name: t('questDustBunniesBoss'),
+      hp: 100,
+      str: 0.5
+    },
+    drop: {
+      gp: 8,
+      exp: 42
+    }
+  },
+  moon1: {
+    text: t('questMoon1Text'),
+    notes: t('questMoon1Notes'),
+    completion: t('questMoon1Completion'),
+    value: 4,
+    category: 'unlockable',
+    unlockCondition: {
+      condition: 'party invite',
+      incentiveThreshold: 7,
+      text: t('loginReward', {count: 7})
+    },
+    collect: {
+      shard: {
+        text: t('questMoon1CollectShards'),
+        count: 20
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'gear',
+          key: "head_special_lunarWarriorHelm",
+          text: t('questMoon1DropHeadgear')
+        },
+      ],
+      gp: 7,
+      exp: 50
+    }
+  },
+  moon2: {
+    text: t('questMoon2Text'),
+    notes: t('questMoon2Notes'),
+    completion: t('questMoon2Completion'),
+    previous: 'moon1',
+    value: 4,
+    category: 'unlockable',
+    unlockCondition: {
+      condition: 'party invite',
+      incentiveThreshold: 22,
+      text: t('loginReward', {count: 22})
+    },
+    boss: {
+      name: t('questMoon2Boss'),
+      hp: 100,
+      str: 1.5
+    },
+    drop: {
+      items: [
+        {
+          type: 'gear',
+          key: "armor_special_lunarWarriorArmor",
+          text: t('questMoon2DropArmor')
+        }
+      ],
+      gp: 37,
+      exp: 275
+    }
+  },
+  moon3: {
+    text: t('questMoon3Text'),
+    notes: t('questMoon3Notes'),
+    completion: t('questMoon3Completion'),
+    previous: 'moon2',
+    value: 4,
+    category: 'unlockable',
+    unlockCondition: {
+      condition: 'party invite',
+      incentiveThreshold: 40,
+      text: t('loginReward', {count: 40})
+    },
+    boss: {
+      name: t('questMoon3Boss'),
+      hp: 1000,
+      str: 2
+    },
+    drop: {
+      items: [
+        {
+          type: 'gear',
+          key: 'weapon_special_lunarScythe',
+          text: t('questMoon3DropWeapon')
+        },
+      ],
+      gp: 67,
+      exp: 650
+    }
+  },
+  sloth: {
+    text: t('questSlothText'),
+    notes: t('questSlothNotes'),
+    completion: t('questSlothCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questSlothBoss'),
+      hp: 400,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Sloth',
+          text: t('questSlothDropSlothEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Sloth',
+          text: t('questSlothDropSlothEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Sloth',
+          text: t('questSlothDropSlothEgg'),
+        },
+      ],
+      gp: 31,
+      exp: 200,
+      unlock: t('questSlothUnlockText'),
+    },
+  },
+  triceratops: {
+    text: t('questTriceratopsText'),
+    notes: t('questTriceratopsNotes'),
+    completion: t('questTriceratopsCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questTriceratopsBoss'),
+      hp: 1200,
+      str: 2.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Triceratops',
+          text: t('questTriceratopsDropTriceratopsEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Triceratops',
+          text: t('questTriceratopsDropTriceratopsEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Triceratops',
+          text: t('questTriceratopsDropTriceratopsEgg'),
+        },
+      ],
+      gp: 80,
+      exp: 800,
+      unlock: t('questTriceratopsUnlockText'),
+    },
+  },
+  stoikalmCalamity1: {
+    text: t('questStoikalmCalamity1Text'),
+    notes: t('questStoikalmCalamity1Notes'),
+    completion: t('questStoikalmCalamity1Completion'),
+    value: 4,
+    goldValue: 200,
+    category: 'gold',
+    boss: {
+      name: t('questStoikalmCalamity1Boss'),
+      hp: 500,
+      rage: {
+        title: t("questStoikalmCalamity1RageTitle"),
+        description: t("questStoikalmCalamity1RageDescription"),
+        value: 50,
+        healing: .3,
+        effect: t('questStoikalmCalamity1RageEffect')
+      }
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Skeleton',
+          text: t('questStoikalmCalamity1DropSkeletonPotion')
+        }, {
+          type: 'hatchingPotions',
+          key: 'Desert',
+          text: t('questStoikalmCalamity1DropDesertPotion')
+        }, {
+          type: 'gear',
+          key: "armor_special_mammothRiderArmor",
+          text: t('questStoikalmCalamity1DropArmor')
+        }
+      ],
+      gp: 0,
+      exp: 500
+    }
+  },
+  stoikalmCalamity2: {
+    text: t('questStoikalmCalamity2Text'),
+    notes: t('questStoikalmCalamity2Notes'),
+    completion: t('questStoikalmCalamity2Completion'),
+    previous: 'stoikalmCalamity1',
+    value: 4,
+    goldValue: 300,
+    category: 'gold',
+    collect: {
+      icicleCoin: {
+        text: t('questStoikalmCalamity2CollectIcicleCoins'),
+        count: 40
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'gear',
+          key: "head_special_mammothRiderHelm",
+          text: t('questStoikalmCalamity2DropHeadgear')
+        }
+      ],
+      gp: 0,
+      exp: 75
+    }
+  },
+  stoikalmCalamity3: {
+    text: t('questStoikalmCalamity3Text'),
+    notes: t('questStoikalmCalamity3Notes'),
+    completion: t('questStoikalmCalamity3Completion'),
+    previous: 'stoikalmCalamity2',
+    value: 4,
+    goldValue: 400,
+    category: 'gold',
+    boss: {
+      name: t('questStoikalmCalamity3Boss'),
+      hp: 1000,
+      str: 2
+    },
+    drop: {
+      items: [
+        {
+          type: 'food',
+          key: 'CottonCandyBlue',
+          text: t('questStoikalmCalamity3DropBlueCottonCandy')
+        }, {
+          type: 'food',
+          key: 'CottonCandyBlue',
+          text: t('questStoikalmCalamity3DropBlueCottonCandy')
+        }, {
+          type: 'food',
+          key: 'CottonCandyBlue',
+          text: t('questStoikalmCalamity3DropBlueCottonCandy')
+        }, {
+          type: 'gear',
+          key: "weapon_special_mammothRiderSpear",
+          text: t('questStoikalmCalamity3DropWeapon')
+        }, {
+          type: 'gear',
+          key: "shield_special_mammothRiderHorn",
+          text: t('questStoikalmCalamity3DropShield')
+        },
+      ],
+      gp: 0,
+      exp: 650
+    }
+  },
 };
 
 _.each(api.quests, function(v, key) {
@@ -2653,43 +2954,6 @@ api.questsByLevel = _.sortBy(api.quests, function(quest) {
 api.appearances = appearances;
 
 api.backgrounds = backgrounds;
-
-api.subscriptionBlocks = {
-  basic_earned: {
-    months: 1,
-    price: 5
-  },
-  basic_3mo: {
-    months: 3,
-    price: 15
-  },
-  basic_6mo: {
-    months: 6,
-    price: 30
-  },
-  google_6mo: {
-    months: 6,
-    price: 24,
-    discount: true,
-    original: 30
-  },
-  basic_12mo: {
-    months: 12,
-    price: 48
-  },
-  group_monthly: {
-    months: 1,
-    price: 5
-  },
-  group_yearly: {
-    months: 1,
-    price: 48,
-  },
-};
-
-_.each(api.subscriptionBlocks, function(b, k) {
-  return b.key = k;
-});
 
 api.userDefaults = {
   habits: [
@@ -2753,3 +3017,5 @@ api.userDefaults = {
 };
 
 api.faq = faq;
+
+api.loginIncentives = loginIncentives(api);

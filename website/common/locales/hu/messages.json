@@ -53,5 +53,6 @@
     "messageGroupChatAdminClearFlagCount": "Csak egy adminisztrátor törölheti flag számlálót.",
     "messageUserOperationProtected": "'<%= operation %>' elérési út nem menthető, mivel ez védett.",
     "messageUserOperationNotFound": "<%= operation %> művelet nem található",
-    "messageNotificationNotFound": "Az értesítés nem található."
+    "messageNotificationNotFound": "Az értesítés nem található.",
+    "notificationsRequired": "Notification ids are required."
 }

@@ -1,10 +1,14 @@
 {
     "pets": "Kæledyr",
+    "activePet": "Aktive Kæledyr",
+    "noActivePet": "Intet aktivt Kæledyr",
     "petsFound": "Fundne kæledyr",
     "magicPets": "Magisk Eliksir-Kæledyr",
     "rarePets": "Sjældne kæledyr",
     "questPets": "Quest-kæledyr",
     "mounts": "Ridedyr",
+    "activeMount": "Aktive Ridedyr",
+    "noActiveMount": "Intet aktivt Ridedyr",
     "mountsTamed": "Ridedyr tæmmet",
     "questMounts": "Quest-ridedyr",
     "magicMounts": "Magisk Eliksir-Ridedyr",
@@ -88,5 +92,7 @@
     "petsReleased": "Kæledyr sluppet fri.",
     "mountsAndPetsReleased": "Ride- og kæledyr sluppet fri",
     "mountsReleased": "Ridedyr sluppet fri",
-    "gemsEach": "ædelsten hver"
+    "gemsEach": "ædelsten hver",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

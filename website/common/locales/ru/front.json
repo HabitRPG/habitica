@@ -20,7 +20,7 @@
     "chores": "Домашние дела",
     "clearBrowserData": "Очистить данные браузера",
     "communityBug": "Сообщить об ошибке",
-    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/App_and_Extension_Integrations' target='_blank'>Аддоны и расширения</a>",
+    "communityExtensions": "<a href='http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations'  target='_blank'>Персонализация</a>",
     "communityFacebook": "Facebook",
     "communityFeature": "Предложить новую функцию",
     "communityForum": "<a target='_blank' href='http://habitica.wikia.com/wiki/Special:Forum'>Форум</a>",
@@ -127,6 +127,7 @@
     "motivate1": "Мотивируйте себя на что угодно.",
     "motivate2": "Самоорганизация. Мотивация. Золото.",
     "oldNews": "Новости",
+    "newsArchive": "Архив новостей на вики (мультиязычный)",
     "passConfirm": "Подтвердить пароль",
     "passMan": "В случае, если вы используете менеджер паролей (например, 1Password) и у вас возникли проблемы при входе, попробуйте ввести имя пользователя и пароль вручную.",
     "password": "Пароль",
@@ -265,5 +266,6 @@
     "invalidReqParams": "Неверные параметры запроса.",
     "memberIdRequired": "\"member\" должен быть действительным UUID.",
     "heroIdRequired": "\"herold\" должен быть действительным UUID.",
-    "cannotFulfillReq": "Ваш запрос не может быть выполнен. Если ошибка будет повторяться, свяжитесь с администратором admin@habitica.com."
+    "cannotFulfillReq": "Ваш запрос не может быть выполнен. Если ошибка будет повторяться, свяжитесь с администратором admin@habitica.com.",
+    "modelNotFound": "Эта модель не существует."
 }

@@ -138,7 +138,7 @@ api.joinChallenge = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let challenge = await Challenge.findOne({ _id: req.params.challengeId });
+    let challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
     if (challenge.isMember(user)) throw new NotAuthorized(res.t('userAlreadyInChallenge'));
 
@@ -187,7 +187,7 @@ api.leaveChallenge = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let challenge = await Challenge.findOne({ _id: req.params.challengeId });
+    let challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
     let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy'});
@@ -247,7 +247,7 @@ api.getUserChallenges = {
 };
 
 /**
- * @api {get} /api/v3/challenges/group/:groupId Get challenges for a group
+ * @api {get} /api/v3/challenges/groups/:groupId Get challenges for a group
  * @apiDescription Get challenges that the user is a member, public challenges and the ones from the user's groups.
  * @apiName GetGroupChallenges
  * @apiGroup Challenge
@@ -282,9 +282,13 @@ api.getGroupChallenges = {
     let resChals = challenges.map(challenge => challenge.toJSON());
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     await Bluebird.all(resChals.map((chal, index) => {
-      return User.findById(chal.leader).select(nameFields).exec().then(populatedLeader => {
-        resChals[index].leader = populatedLeader ? populatedLeader.toJSON({minimize: true}) : null;
-      });
+      return User
+        .findById(chal.leader)
+        .select(nameFields)
+        .exec()
+        .then(populatedLeader => {
+          resChals[index].leader = populatedLeader ? populatedLeader.toJSON({minimize: true}) : null;
+        });
     }));
 
     res.respond(200, resChals);
@@ -315,10 +319,10 @@ api.getChallenge = {
     let user = res.locals.user;
     let challengeId = req.params.challengeId;
 
-    let challenge = await Challenge.findById(challengeId)
-      // Don't populate the group as we'll fetch it manually later
-      // .populate('leader', nameFields)
-      .exec();
+    // Don't populate the group as we'll fetch it manually later
+    // .populate('leader', nameFields)
+    let challenge = await Challenge.findById(challengeId).exec();
+
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
     // Fetching basic group data
@@ -374,8 +378,12 @@ api.exportChallengeCsv = {
         .lean() // so we don't involve mongoose
         .exec(),
 
-      Tasks.Task.find({'challenge.id': challengeId, userId: {$exists: true}})
-        .sort({userId: 1, text: 1}).select('userId type text value notes').lean().exec(),
+      Tasks.Task.find({
+        'challenge.id': challengeId,
+        userId: {$exists: true},
+      }).sort({userId: 1, text: 1})
+        .select('userId type text value notes')
+        .lean().exec(),
     ]);
 
     let resArray = members.map(member => [member._id, member.profile.name]);
