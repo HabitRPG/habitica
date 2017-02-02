@@ -107,7 +107,7 @@ api.subscribe = async function subscribe (sku, user, receipt, signature, headers
   let token = receiptObj.token || receiptObj.purchaseToken;
 
   let existingUser = await User.findOne({
-    'payments.plan.customerId': token,
+    'purchased.plan.customerId': token,
   }).exec();
   if (existingUser) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
 
