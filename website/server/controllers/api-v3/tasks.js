@@ -1153,20 +1153,7 @@ api.clearCompletedTodos = {
       userId: user._id,
       type: 'todo',
       completed: true,
-      $and: [ // exclude challenge and group tasks
-        {
-          $or: [
-            {'challenge.id': {$exists: false}},
-            {'challenge.broken': {$exists: true}},
-          ],
-        },
-        {
-          $or: [
-            {'group.id': {$exists: false}},
-            {'group.broken': {$exists: true}},
-          ],
-        },
-      ],
+      $and: Tasks.skipChallengeTasks,
     }).exec();
 
     res.respond(200, {});
