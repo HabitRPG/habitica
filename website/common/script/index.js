@@ -13,9 +13,10 @@ import i18n from './i18n';
 api.i18n = i18n;
 
 // TODO under api.libs.cron?
-import { shouldDo, daysSince } from './cron';
+import { shouldDo, daysSince, DAY_MAPPING } from './cron';
 api.shouldDo = shouldDo;
 api.daysSince = daysSince;
+api.DAY_MAPPING = DAY_MAPPING;
 
 import {
   MAX_HEALTH,
