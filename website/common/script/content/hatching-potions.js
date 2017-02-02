@@ -49,9 +49,32 @@ let drops = {
 };
 
 let premium = {
+	RoyalPurple: {
+    value: 2,
+    text: t('hatchingPotionRoyalPurple'),
+    limited: true,
+  },
+	Floral: {
+    value: 2,
+    text: t('hatchingPotionFloral'),
+    limited: true,
+    _season: 'spring',
+  },
+   Thunderstorm: {
+    value: 2,
+    text: t('hatchingPotionThunderstorm'),
+    limited: true,
+    _season: 'summer',
+  },
   Spooky: {
     value: 2,
     text: t('hatchingPotionSpooky'),
+    limited: true,
+    _season: 'fall',
+  },
+  Ghost: {
+    value: 2,
+    text: t('hatchingPotionGhost'),
     limited: true,
     _season: 'fall',
   },
@@ -60,29 +83,6 @@ let premium = {
     text: t('hatchingPotionPeppermint'),
     limited: true,
     _season: 'winter',
-  },
-  Floral: {
-    value: 2,
-    text: t('hatchingPotionFloral'),
-    limited: true,
-    _season: 'spring',
-  },
-  Thunderstorm: {
-    value: 2,
-    text: t('hatchingPotionThunderstorm'),
-    limited: true,
-    _season: 'summer',
-  },
-  Ghost: {
-    value: 2,
-    text: t('hatchingPotionGhost'),
-    limited: true,
-    _season: 'fall',
-  },
-  RoyalPurple: {
-    value: 2,
-    text: t('hatchingPotionRoyalPurple'),
-    limited: true,
   },
   Holly: {
     value: 2,
