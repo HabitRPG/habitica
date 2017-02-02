@@ -325,13 +325,13 @@ angular.module('habitrpg')
     };
 
     var shortDayToLongDayMap = {
-      'su': 'Sunday',
-      's': 'Saturday',
-      'f': 'Friday',
-      'th': 'Thursday',
-      'w': 'Wednesday',
-      't': 'Tuesday',
-      'm': 'Monday',
+      'su': moment().day(0).format('dddd'),
+      's': moment().day(6).format('dddd'),
+      'f': moment().day(5).format('dddd'),
+      'th': moment().day(4).format('dddd'),
+      'w': moment().day(3).format('dddd'),
+      't': moment().day(2).format('dddd'),
+      'm': moment().day(1).format('dddd'),
     };
 
     var numberToShortDay = {
