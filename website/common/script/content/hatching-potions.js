@@ -90,6 +90,12 @@ let premium = {
     limited: true,
     _season: 'winter',
   },
+  Cupid: {
+    value: 2,
+    text: t('hatchingPotionCupid'),
+    limited: true,
+    _season: 'valentines',
+  },
 };
 
 each(drops, (pot, key) => {
@@ -118,7 +124,7 @@ each(premium, (pot, key) => {
     premium: true,
     limited: false,
     canBuy () {
-      return false;
+      return pot._season === 'valentines';
     },
   });
 });
