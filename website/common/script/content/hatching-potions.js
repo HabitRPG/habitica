@@ -78,15 +78,15 @@ let premium = {
     limited: true,
     _season: 'fall',
   },
-  Peppermint: {
+   Holly: {
     value: 2,
-    text: t('hatchingPotionPeppermint'),
+    text: t('hatchingPotionHolly'),
     limited: true,
     _season: 'winter',
   },
-  Holly: {
+  Peppermint: {
     value: 2,
-    text: t('hatchingPotionHolly'),
+    text: t('hatchingPotionPeppermint'),
     limited: true,
     _season: 'winter',
   },
