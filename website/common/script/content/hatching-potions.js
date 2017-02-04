@@ -54,6 +54,12 @@ let premium = {
     text: t('hatchingPotionRoyalPurple'),
     limited: true,
   },
+  Cupid: {
+    value: 2,
+    text: t('hatchingPotionCupid'),
+    limited: true,
+    _season: 'valentines',
+  },
   Floral: {
     value: 2,
     text: t('hatchingPotionFloral'),
@@ -89,12 +95,6 @@ let premium = {
     text: t('hatchingPotionPeppermint'),
     limited: true,
     _season: 'winter',
-  },
-  Cupid: {
-    value: 2,
-    text: t('hatchingPotionCupid'),
-    limited: true,
-    _season: 'valentines',
   },
 };
 
