@@ -3,13 +3,14 @@ legend.option-title
     popover='{{env.t(task._edit.frequency + "RepeatHelpContent")}}')=env.t('repeatEvery')
 
 // If frequency is daily
-ng-form.form-group(name='everyX', ng-if='task._edit.frequency=="daily"')
+ng-form.form-group(name='everyX')
   .input-group
     input.form-control(type='number', ng-model='task._edit.everyX', min='0', ng-disabled='!canEdit(task)', required)
     span.input-group-addon {{task._edit.everyX == 1 ? env.t('day') : env.t('days')}}
 
 // If frequency is weekly
 .form-group(ng-if='task._edit.frequency=="weekly"')
+  legend.option-title=env.t('onDays')
   ul.repeat-days
     // note, does not use data-toggle="buttons-checkbox" - it would interfere with our own click binding
     mixin dayOfWeek(day, num)
