@@ -25,16 +25,6 @@ div(ng-if='(task.type !== "reward") || (!obj.auth && obj.purchased && obj.purcha
 
       hr
 
-      .form-group
-        legend.option-title=env.t('repeat')
-        select.form-control(ng-model='task._edit.frequency', ng-disabled='!canEdit(task)')
-          option(value='weekly')=env.t('repeatWeek')
-          option(value='daily')=env.t('repeatDays')
-
-      include ./dailies/repeat_options
-
-      hr
-
   fieldset.option-group.advanced-option(ng-show="task._edit._advanced")
 
     legend.option-title
