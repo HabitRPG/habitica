@@ -158,7 +158,8 @@ angular.module('habitrpg')
 
         var clientMessage = clientResponse[1];
 
-        if (clientMessage && opName !== "readCard") {
+        const opNamesWithoutNotification = ["readCard"];
+        if (clientMessage && opNamesWithoutNotification.indexOf(opName) === -1) {
           Notification.text(clientMessage);
         }
 
