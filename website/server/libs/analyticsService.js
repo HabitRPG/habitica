@@ -55,7 +55,40 @@ let _lookUpItemName = (itemKey) => {
   return itemName;
 };
 
+
 let _formatUserData = (user) => {
+  // filter out animal ears from owned items
+  function _filterAnimalEars (owned) {
+    var animalEarsRegEx = new RegExp('headAccessory_special_[a-z]+Ears', 'g');
+    return Object.keys(owned).reduce(function(animalEars, item) {
+      if (item.match(animalEarsRegEx)) {
+        animalEars.push(item);
+      }
+      return animalEars;
+    }, []);
+  }
+
+  // filter out gem-purchased backgrounds from backgrounds
+  function _filterBackgrounds (owned) {
+    // current free backgrounds
+    const free = ['blue', 'green', 'purple', 'red', 'yellow'];
+    return Object.keys(owned).reduce((purchased, background) => {
+      if (!free.includes(background)) {
+        purchased.push(background);
+      }
+      return purchased;
+    }, []);
+  }
+
+  // format hair purchases
+  function _formatHair (hair) {
+    const purchased = {};
+    Object.keys(hair).forEach((style) => {
+      purchased[style] = Object.keys(hair[style]);
+    });
+    return purchased;
+  }
+
   let properties = {};
 
   if (user.stats) {
@@ -69,6 +102,13 @@ let _formatUserData = (user) => {
 
   properties.balance = user.balance;
   properties.balanceGemAmount = properties.balance * 4;
+
+  // gem-purchased items
+  properties.animalEars = _filterAnimalEars(user.items.gear.owned);
+  properties.background = _filterBackgrounds(user.background);
+  properties.hair = _formatHair(user.hair);
+  properties.shirt = Object.keys(user.shirt);
+  properties.skin = Object.keys(user.skin);
 
   properties.tutorialComplete = user.flags && user.flags.tour && user.flags.tour.intro === -2;
 
