@@ -16,6 +16,7 @@
     "startAdvCollapsed": "Advanced Options in tasks start collapsed",
     "startAdvCollapsedPop": "With this option set, Advanced Options will be hidden when you first open a task for editing.",
     "dontShowAgain": "Don't show this again",
+    "suppressLoginIncentiveModal": "Don't show popup when checking in",
     "suppressLevelUpModal": "Don't show popup when gaining a level",
     "suppressHatchPetModal": "Don't show popup when hatching a pet",
     "suppressRaisePetModal": "Don't show popup when raising a pet into a mount",

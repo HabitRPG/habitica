@@ -21,6 +21,11 @@ script(id='modals/login-incentives-reward-unlocked.html', type='text/ng-template
   .modal-footer
     .row
       a.btn.btn-primary.col-md-6.col-md-offset-3(ng-click='$close()')=env.t('awesome')
+    .row
+      div.text-center.col-md-12
+        .checkbox
+          label(style='display:inline-block')=env.t('dontShowAgain')
+            input(type='checkbox', ng-model='user.preferences.suppressModals.loginIncentive', ng-change='set({"preferences.suppressModals.loginIncentive": user.preferences.suppressModals.loginIncentive?true: false})')
     br
     .row(ng-init="loadWidgets()")
       .col-xs-3
