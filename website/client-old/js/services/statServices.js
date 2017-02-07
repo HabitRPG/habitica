@@ -74,18 +74,6 @@
       return display;
     }
 
-    function levelBonus(level) {
-      // Level bonus is derived by taking the level, subtracting one,
-      // taking the smaller of it or maxLevel (100),
-      // dividing that by two and then raising it to a whole number
-
-      var levelOrMaxLevel = Math.min((level - 1), Shared.maxLevel);
-      var levelDividedByTwo = levelOrMaxLevel / 2;
-      var bonus = Math.ceil(levelDividedByTwo );
-
-      return bonus;
-    }
-
     function mountMasterProgress(mounts) {
       var dropMountsFound = Shared.count.mountMasterProgress(mounts);
       var display = _formatOutOfTotalDisplay(dropMountsFound, TOTAL_NUMBER_OF_DROP_ANIMALS);
@@ -114,12 +102,9 @@
 
     return {
       beastMasterProgress: beastMasterProgress,
-      classBonus: classBonus,
-      equipmentStatBonus: equipmentStatBonus,
       expDisplay: expDisplay,
       goldDisplay: goldDisplay,
       hpDisplay: hpDisplay,
-      levelBonus: levelBonus,
       mountMasterProgress: mountMasterProgress,
       mpDisplay: mpDisplay,
       totalCount: totalCount
