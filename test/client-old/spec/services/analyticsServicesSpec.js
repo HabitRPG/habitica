@@ -193,29 +193,16 @@ describe('Analytics Service', function () {
         };
         expectedProperties.balance = 12;
         expectedProperties.balanceGemAmount = 48;
-        expectedProperties.background = {
-          blizzard: true,
-        };
-        expectedProperties.shirt = {
-          horizon: true,
-        };
+        expectedProperties.animalEars = ['headAccessory_special_foxEars'];
+        expectedProperties.background = ['blizzard'];
+        expectedProperties.shirt = ['horizon'];
         expectedProperties.hair = {
-          base: {
-            1: true,
-          },
-          beard: {
-            3: true,
-          },
-          color: {
-            snowy: true,
-          },
-          mustache: {
-            2: true,
-          },
+          base: ['1'],
+          beard: ['3'],
+          color: ['snowy'],
+          mustache: ['2'],
         };
-        expectedProperties.skin = {
-          snowy: true,
-        };
+        expectedProperties.skin = ['snowy'];
 
         beforeEach(function() {
           user._id = 'unique-user-id';
@@ -233,9 +220,7 @@ describe('Analytics Service', function () {
           user.balance = 12;
           user.background = {
             blizzard: true,
-          };
-          user.shirt = {
-            horizon: true,
+            blue: true,
           };
           user.hair = {
             base: {
@@ -250,6 +235,13 @@ describe('Analytics Service', function () {
             mustache: {
               2: true,
             },
+          };
+          user.items.gear.owned = {
+            armor_special_bardRobes: true,
+            headAccessory_special_foxEars: true,
+          };
+          user.shirt = {
+            horizon: true,
           };
           user.skin = {
             snowy: true,
@@ -320,10 +312,7 @@ describe('Analytics Service', function () {
           user.balance = 12;
           user.background = {
             blizzard: true,
-            blue: true
-          };
-          user.shirt = {
-            horizon: true,
+            blue: true,
           };
           user.hair = {
             base: {
@@ -339,12 +328,15 @@ describe('Analytics Service', function () {
               2: true,
             },
           };
-          user.skin = {
-            snowy: true,
-          };
           user.items.gear.owned = {
             armor_special_bardRobes: true,
             headAccessory_special_foxEars: true,
+          };
+          user.shirt = {
+            horizon: true,
+          };
+          user.skin = {
+            snowy: true,
           };
 
           analytics.updateUser();

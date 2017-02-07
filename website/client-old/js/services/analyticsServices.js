@@ -114,7 +114,7 @@
       // current free backgrounds
       var free = ['blue', 'green', 'purple', 'red', 'yellow'];
       return Object.keys(owned).reduce(function(purchased, background) {
-        if (!free.contains(background)) {
+        if (!free.includes(background)) {
           purchased.push(background);
         }
         return purchased;
@@ -124,7 +124,7 @@
     // format hair purchases
     function _formatHair (hair) {
       var purchased = {};
-      Object.keys.forEach(function(style) {
+      Object.keys(hair).forEach(function(style) {
         purchased[style] = Object.keys(hair[style]);
       });
       return purchased;
@@ -144,11 +144,11 @@
     properties.balanceGemAmount = properties.balance * 4;
 
     // gem-purchased items
+    properties.animalEars = _filterAnimalEars(user.items.gear.owned);
     properties.background = _filterBackgrounds(user.background);
+    properties.hair = _formatHair(user.hair);
     properties.shirt = Object.keys(user.shirt);
-    properties.hair = _formatHair(Object.keys(user.hair));
     properties.skin = Object.keys(user.skin);
-    properties.animalEars = _filterAnimalEars(user.items.owned);
 
     properties.tutorialComplete = user.flags && user.flags.tour && user.flags.tour.intro === -2;
     if (user.habits && user.dailys && user.todos && user.rewards) {
@@ -177,29 +177,3 @@
     }
   }
 }());
-
-/*
-    // filter out animal ears from owned items
-    function _filterAnimalEars (owned) {
-      const animalEarsRegEx = new RegExp('headAccessory_special_[a-z]+Ears', 'g');
-      return Object.keys(owned).reduce((animalEars, item) => {
-        if (item.match(animalEarsRegEx)) {
-          animalEars.push(item);
-        }
-        return animalEars;
-      }, []);
-    }
-
-    // filter out gem-purchased backgrounds from backgrounds
-    function _filterBackgrounds (owned) {
-      // current free backgrounds
-      const free = ['blue', 'green', 'purple', 'red', 'yellow'];
-      return Object.keys(owned).reduce((purchased, background) => {
-        if (!free.contains(background)) {
-          purchased.push(background);
-        }
-        return purchased;
-      }, []);
-    }
-
-*/
