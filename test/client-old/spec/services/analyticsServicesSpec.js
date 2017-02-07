@@ -289,31 +289,17 @@ describe('Analytics Service', function () {
             rewards: 1
           },
           balance: 12,
-            balanceGemAmount: 48,
-            background: {
-              blizzard: true,
-            },
-            shirt: {
-              horizon: true,
-            },
-            hair: {
-              base: {
-                1: true,
-              },
-              beard: {
-                3: true,
-              },
-              color: {
-                snowy: true,
-              },
-              mustache: {
-                2: true,
-              },
-            },
-            skin: {
-              snowy: true,
-            },
-          };
+          balanceGemAmount: 48,
+          background: ['blizzard'],
+          shirt: ['horizon'],
+          hair: {
+            base: ['1'],
+            beard: ['3'],
+            color: ['snowy'],
+            mustache: ['2'],
+          },
+          skin: ['snowy'],
+          animalEars: ['headAccessory_special_foxEars'],
         };
 
         beforeEach(function() {
@@ -334,6 +320,7 @@ describe('Analytics Service', function () {
           user.balance = 12;
           user.background = {
             blizzard: true,
+            blue: true
           };
           user.shirt = {
             horizon: true,
@@ -354,6 +341,10 @@ describe('Analytics Service', function () {
           };
           user.skin = {
             snowy: true,
+          };
+          user.items.gear.owned = {
+            armor_special_bardRobes: true,
+            headAccessory_special_foxEars: true,
           };
 
           analytics.updateUser();
