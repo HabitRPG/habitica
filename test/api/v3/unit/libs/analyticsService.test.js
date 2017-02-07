@@ -281,6 +281,7 @@ describe('analyticsService', () => {
           loginIncentives: 1,
           background: {
             blizzard: true,
+            blue: true
           },
           shirt: {
             horizon: true,
@@ -298,6 +299,14 @@ describe('analyticsService', () => {
             mustache: {
               2: true,
             },
+          },
+          items: {
+            gear: {
+              owned: {
+                armor_special_bardRobes: true,
+                headAccessory_special_foxEars: true,
+              }
+            }
           },
           skin: {
             snowy: true,
@@ -328,29 +337,16 @@ describe('analyticsService', () => {
                 balance: 12,
                 balanceGemAmount: 48,
                 loginIncentives: 1,
-                background: {
-                  blizzard: true,
-                },
-                shirt: {
-                  horizon: true,
-                },
+                animalEars: ['headAccessory_special_foxEars'],
+                background: ['blizzard'],
+                shirt: ['horizon'],
                 hair: {
-                  base: {
-                    1: true,
-                  },
-                  beard: {
-                    3: true,
-                  },
-                  color: {
-                    snowy: true,
-                  },
-                  mustache: {
-                    2: true,
-                  },
+                  base: ['1'],
+                  beard: ['3'],
+                  color: ['snowy'],
+                  mustache: ['2'],
                 },
-                skin: {
-                  snowy: true,
-                },
+                skin: ['snowy']
               },
             });
           });
@@ -571,6 +567,7 @@ describe('analyticsService', () => {
           rewards: [{_id: 'reward'}],
           background: {
             blizzard: true,
+            blue: true
           },
           shirt: {
             horizon: true,
@@ -588,6 +585,14 @@ describe('analyticsService', () => {
             mustache: {
               2: true,
             },
+          },
+          items: {
+            gear: {
+              owned: {
+                armor_special_bardRobes: true,
+                headAccessory_special_foxEars: true,
+              }
+            }
           },
           skin: {
             snowy: true,
@@ -615,29 +620,16 @@ describe('analyticsService', () => {
                 },
                 contributorLevel: 1,
                 subscription: 'foo-plan',
-                background: {
-                  blizzard: true,
-                },
-                shirt: {
-                  horizon: true,
-                },
+                animalEars: ['headAccessory_special_foxEars'],
+                background: ['blizzard'],
+                shirt: ['horizon'],
                 hair: {
-                  base: {
-                    1: true,
-                  },
-                  beard: {
-                    3: true,
-                  },
-                  color: {
-                    snowy: true,
-                  },
-                  mustache: {
-                    2: true,
-                  },
+                  base: ['1'],
+                  beard: ['3'],
+                  color: ['snowy'],
+                  mustache: ['2'],
                 },
-                skin: {
-                  snowy: true,
-                },
+                skin: ['snowy'],
               },
             });
           });
