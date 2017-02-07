@@ -61,8 +61,8 @@ let _lookUpItemName = (itemKey) => {
 let _formatUserData = (user) => {
   // filter out animal ears from owned items
   function _filterAnimalEars (owned) {
-    var animalEarsRegEx = new RegExp('headAccessory_special_[a-z]+Ears', 'g');
-    return Object.keys(owned).reduce(function(animalEars, item) {
+    const animalEarsRegEx = new RegExp('headAccessory_special_[a-z]+Ears', 'g');
+    return Object.keys(owned).reduce((animalEars, item) => {
       if (item.match(animalEarsRegEx)) {
         animalEars.push(item);
       }

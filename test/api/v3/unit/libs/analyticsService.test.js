@@ -281,7 +281,7 @@ describe('analyticsService', () => {
           loginIncentives: 1,
           background: {
             blizzard: true,
-            blue: true
+            blue: true,
           },
           shirt: {
             horizon: true,
@@ -305,8 +305,8 @@ describe('analyticsService', () => {
               owned: {
                 armor_special_bardRobes: true,
                 headAccessory_special_foxEars: true,
-              }
-            }
+              },
+            },
           },
           skin: {
             snowy: true,
@@ -346,7 +346,7 @@ describe('analyticsService', () => {
                   color: ['snowy'],
                   mustache: ['2'],
                 },
-                skin: ['snowy']
+                skin: ['snowy'],
               },
             });
           });
@@ -567,7 +567,7 @@ describe('analyticsService', () => {
           rewards: [{_id: 'reward'}],
           background: {
             blizzard: true,
-            blue: true
+            blue: true,
           },
           shirt: {
             horizon: true,
@@ -591,8 +591,8 @@ describe('analyticsService', () => {
               owned: {
                 armor_special_bardRobes: true,
                 headAccessory_special_foxEars: true,
-              }
-            }
+              },
+            },
           },
           skin: {
             snowy: true,
