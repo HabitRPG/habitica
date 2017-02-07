@@ -67,6 +67,7 @@
             "js/services/pusherService.js",
             "js/services/costumeServices.js",
             "js/services/achievementServices.js",
+            "js/services/undoService.js",
 
             "js/filters/money.js",
             "js/filters/roundLargeNumbers.js",
@@ -84,6 +85,7 @@
             "js/directives/popover-html.directive.js",
             "js/directives/focus-element.directive.js",
             "js/directives/when-scrolled.directive.js",
+            "js/directives/undo.directive.js",
 
             "js/controllers/authCtrl.js",
             "js/controllers/autoCompleteCtrl.js",
