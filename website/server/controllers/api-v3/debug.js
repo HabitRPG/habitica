@@ -115,6 +115,14 @@ api.makeAdmin = {
  * @apiGroup Development
  * @apiPermission Developers
  *
+ * @apiParam {Object} gear Object to replace user's <code><a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/user/schema.js#L243">gear.owned</a></code> object.
+ * @apiParam {Object} special Object to replace user's <code><a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/user/schema.js#272">special</a></code> object.                                                                                                                             
+ * @apiParam {Object} pets Object to replace user's <code><a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/user/schema.js#296">pets</a></code> object.                                                                                                                                   
+ * @apiParam {Object} mounts Object to replace user's <code><a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/user/schema.js#329">mounts</a></code> object.                                                                                                                               
+ * @apiParam {Object} eggs Object to replace user's <code><a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/user/schema.js#310">eggs</a></code> object.                                                                                                                                   
+ * @apiParam {Object} hatchingPotions Object to replace user's <code><a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/user/schema.js#316">hatchingPotions</a></code> object.                                                                                                             
+ * @apiParam {Object} food Object to replace user's <code><a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/user/schema.js#322">food</a></code> object.                                                                                                                                   
+ * @apiParam {Object} quests Object to replace user's <code><a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/user/schema.js#344">quests</a></code> object. 
  * @apiSuccess {Object} data An empty Object
  */
 api.modifyInventory = {
