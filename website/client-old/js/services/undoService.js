@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg')
-.factory('Undo', ['$rootScope', '$http', 'Tasks',
-  function undo($rootScope, $http, Tasks) {
+.factory('Undo', ['$rootScope', '$http', 'Tasks', 'Common',
+  function undo($rootScope, $http, Tasks, Common) {
     var undoApi = {};
 
     undoApi.history = [];
@@ -14,7 +14,7 @@ angular.module('habitrpg')
     undoApi.undoAction = function () {
       var pop = undoApi.history.pop();
       if (!pop) return;
-  
+
       // @TODO: We need to add a pop interface for each action
       if (pop.action === 'scoreTask') {
         var direction = pop.data.direction;
@@ -29,6 +29,11 @@ angular.module('habitrpg')
           .then(function (res) {
             Tasks.handleScoreTaskResponse(res, pop.data.user);
           });
+      }
+
+      if (pop.action === 'buy') {
+        var data = pop.data.data;
+        Common.refund(data, pop.data.user)
       }
 
     };

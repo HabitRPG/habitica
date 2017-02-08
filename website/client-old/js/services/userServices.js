@@ -187,7 +187,7 @@ angular.module('habitrpg')
             var text = Content.gear.flat[openedItem.key].text();
             Notification.drop(env.t('messageDropMysteryItem', {dropText: text}), openedItem);
           }
-        })
+        });
       }
 
       function setUser(updates) {

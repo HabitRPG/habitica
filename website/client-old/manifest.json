@@ -68,6 +68,7 @@
             "js/services/costumeServices.js",
             "js/services/achievementServices.js",
             "js/services/undoService.js",
+            "js/services/commonServices.js",
 
             "js/filters/money.js",
             "js/filters/roundLargeNumbers.js",
