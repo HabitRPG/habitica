@@ -4,6 +4,8 @@ angular.module('habitrpg')
   .service('Common', ['$http', 'Notification', function ($http, Notification) {
     var user;
 
+    // @TODO: The user service has too many responsibilities. For now this code is duplicated.
+    // The reason of we need three serparate classes for this relation User->buy, Undo, User->Refund
     function callOpsFunctionAndRequest (opName, endPoint, method, paramString, opData) {
       if (!opData) opData = {};
 
