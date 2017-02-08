@@ -361,7 +361,12 @@ angular.module('habitrpg')
         },
 
         buy: function (data) {
+          Undo.addAction('buy', {itemKey: data.params.key, data: data, user: user});
           callOpsFunctionAndRequest('buy', 'buy', "POST", data.params.key, data);
+        },
+
+        refund: function (data) {
+          callOpsFunctionAndRequest('refund', 'refund', "POST", data.params.key, data);
         },
 
         buyArmoire: function () {

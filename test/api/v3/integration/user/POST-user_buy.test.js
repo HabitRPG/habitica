@@ -56,6 +56,7 @@ describe('POST /user/buy/:key', () => {
         message: t('messageHealthAlreadyMax'),
       });
   });
+
   it('buys a piece of gear', async () => {
     let key = 'armor_warrior_1';
 

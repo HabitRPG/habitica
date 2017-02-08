@@ -713,6 +713,51 @@ api.buySpecialSpell = {
 };
 
 /**
+ * @api {post} /api/v3/user/refund/:key Refund gear, armoire or potion
+ * @apiDescription Under the hood uses UserRefundGear, UserRefundPotion and UserRefundArmoire
+ * @apiName UserRefund
+ * @apiGroup User
+ *
+ * @apiParam {String} key The item to refund
+ */
+api.refund = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/refund/:key',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let buyRes = common.ops.refund(user, req, res.analytics);
+    await user.save();
+    res.respond(200, ...buyRes);
+  },
+};
+
+/**
+ * @api {post} /api/v3/user/refund-gear/:key Refund a piece of gear
+ * @apiName UserRefundGear
+ * @apiGroup User
+ *
+ * @apiParam {String} key The item to refund
+ *
+ * @apiSuccess {Object} data.items user.items
+ * @apiSuccess {Object} data.flags user.flags
+ * @apiSuccess {Object} data.achievements user.achievements
+ * @apiSuccess {Object} data.stats user.stats
+ * @apiSuccess {String} message Success message
+ */
+api.refundGear = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/refund-gear/:key',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let buyGearRes = common.ops.refundGear(user, req, res.analytics);
+    await user.save();
+    res.respond(200, ...buyGearRes);
+  },
+};
+
+/**
  * @api {post} /api/v3/user/hatch/:egg/:hatchingPotion Hatch a pet
  * @apiName UserHatch
  * @apiGroup User

@@ -131,6 +131,8 @@ import buyArmoire from './ops/buyArmoire';
 import buyMysterySet from './ops/buyMysterySet';
 import buyQuest from './ops/buyQuest';
 import buySpecialSpell from './ops/buySpecialSpell';
+import refund from './ops/refund';
+import refundGear from './ops/refundGear';
 import allocateNow from './ops/allocateNow';
 import hatch from './ops/hatch';
 import feed from './ops/feed';
@@ -167,6 +169,8 @@ api.ops = {
   buyMysterySet,
   buySpecialSpell,
   buyQuest,
+  refund,
+  refundGear,
   allocateNow,
   hatch,
   feed,
@@ -278,6 +282,8 @@ api.wrap = function wrapUser (user, main = true) {
       buyGear: _.partial(importedOps.buyGear, user),
       buyQuest: _.partial(importedOps.buyQuest, user),
       buyMysterySet: _.partial(importedOps.buyMysterySet, user),
+      refund: _.partial(importedOps.refund, user),
+      refundGear: _.partial(importedOps.refundGear, user),
       hourglassPurchase: _.partial(importedOps.hourglassPurchase, user),
       sell: _.partial(importedOps.sell, user),
       equip: _.partial(importedOps.equip, user),
