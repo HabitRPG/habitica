@@ -49,17 +49,16 @@ let drops = {
 };
 
 let premium = {
-  Spooky: {
+  RoyalPurple: {
     value: 2,
-    text: t('hatchingPotionSpooky'),
+    text: t('hatchingPotionRoyalPurple'),
     limited: true,
-    _season: 'fall',
   },
-  Peppermint: {
+  Cupid: {
     value: 2,
-    text: t('hatchingPotionPeppermint'),
+    text: t('hatchingPotionCupid'),
     limited: true,
-    _season: 'winter',
+    _season: 'valentines',
   },
   Floral: {
     value: 2,
@@ -73,20 +72,27 @@ let premium = {
     limited: true,
     _season: 'summer',
   },
+  Spooky: {
+    value: 2,
+    text: t('hatchingPotionSpooky'),
+    limited: true,
+    _season: 'fall',
+  },
   Ghost: {
     value: 2,
     text: t('hatchingPotionGhost'),
     limited: true,
     _season: 'fall',
   },
-  RoyalPurple: {
-    value: 2,
-    text: t('hatchingPotionRoyalPurple'),
-    limited: true,
-  },
   Holly: {
     value: 2,
     text: t('hatchingPotionHolly'),
+    limited: true,
+    _season: 'winter',
+  },
+  Peppermint: {
+    value: 2,
+    text: t('hatchingPotionPeppermint'),
     limited: true,
     _season: 'winter',
   },
@@ -118,7 +124,7 @@ each(premium, (pot, key) => {
     premium: true,
     limited: false,
     canBuy () {
-      return pot._season === 'winter';
+      return pot._season === 'valentines';
     },
   });
 });

@@ -161,6 +161,7 @@
     "hatchingPotionGhost": "Ghost",
     "hatchingPotionRoyalPurple": "Royal Purple",
     "hatchingPotionHolly": "Holly",
+    "hatchingPotionCupid": "Cupid",
     "hatchingPotionNotes": "Pour this on an egg, an' it'll hatch as a <%= potText(locale) %> pet.",
     "premiumPotionAddlNotes": "Ye canna use this on quest pet eggs.",
     "foodMeat": "Meat",

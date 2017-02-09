@@ -161,6 +161,7 @@
     "hatchingPotionGhost": "鬼魂",
     "hatchingPotionRoyalPurple": "皇家紫",
     "hatchingPotionHolly": "冬青树",
+    "hatchingPotionCupid": "丘比特",
     "hatchingPotionNotes": "把它倒在宠物蛋上可以孵化出一只<%= potText(locale) %>宠物。",
     "premiumPotionAddlNotes": "无法在任务奖励宠物蛋上使用",
     "foodMeat": "肉",

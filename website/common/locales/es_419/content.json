@@ -161,6 +161,7 @@
     "hatchingPotionGhost": "Ghost",
     "hatchingPotionRoyalPurple": "Royal Purple",
     "hatchingPotionHolly": "Holly",
+    "hatchingPotionCupid": "Cupid",
     "hatchingPotionNotes": "Vierte esto sobre un huevo, y nacerá una mascota <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "No se puede usar con huevos de mascotas de misión.",
     "foodMeat": "Carne",

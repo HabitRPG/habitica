@@ -161,6 +161,7 @@
     "hatchingPotionGhost": "Duch",
     "hatchingPotionRoyalPurple": "Královská fialová",
     "hatchingPotionHolly": "Svatý",
+    "hatchingPotionCupid": "Cupid",
     "hatchingPotionNotes": "Nalij ho na vejce a vylíhne se ti <%= potText(locale) %> mazlíček.",
     "premiumPotionAddlNotes": "Nelze použít na vejce mazlíčků z výprav.",
     "foodMeat": "Maso",

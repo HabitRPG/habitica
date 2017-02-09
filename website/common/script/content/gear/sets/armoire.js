@@ -209,6 +209,14 @@ let armor = {
     set: 'ramBarbarian',
     canOwn: ownsItem('armor_armoire_ramFleeceRobes'),
   },
+  gownOfHearts: {
+    text: t('armorArmoireGownOfHeartsText'),
+    notes: t('armorArmoireGownOfHeartsNotes', { con: 13 }),
+    value: 100,
+    con: 13,
+    set: 'queenOfHearts',
+    canOwn: ownsItem('armor_armoire_gownOfHearts'),
+  },
 };
 
 let eyewear = {
@@ -490,6 +498,14 @@ let head = {
     set: 'ramBarbarian',
     canOwn: ownsItem('head_armoire_ramHeaddress'),
   },
+  crownOfHearts: {
+    text: t('headArmoireCrownOfHeartsText'),
+    notes: t('headArmoireCrownOfHeartsNotes', { str: 13 }),
+    value: 100,
+    str: 13,
+    set: 'queenOfHearts',
+    canOwn: ownsItem('head_armoire_crownOfHearts'),
+  },
 };
 
 let shield = {
@@ -566,6 +582,13 @@ let shield = {
     con: 7,
     set: 'ramBarbarian',
     canOwn: ownsItem('shield_armoire_ramHornShield'),
+  },
+  redRose: {
+    text: t('shieldArmoireRedRoseText'),
+    notes: t('shieldArmoireRedRoseNotes', { per: 10 }),
+    value: 100,
+    per: 10,
+    canOwn: ownsItem('shield_armoire_redRose'),
   },
 };
 
@@ -762,6 +785,14 @@ let weapon = {
     int: 12,
     set: 'woodElf',
     canOwn: ownsItem('weapon_armoire_woodElfStaff'),
+  },
+  wandOfHearts: {
+    text: t('weaponArmoireWandOfHeartsText'),
+    notes: t('weaponArmoireWandOfHeartsNotes', { int: 13 }),
+    value: 100,
+    int: 13,
+    set: 'queenOfHearts',
+    canOwn: ownsItem('weapon_armoire_wandOfHearts'),
   },
 };
 

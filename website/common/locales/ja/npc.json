@@ -15,7 +15,7 @@
     "welcomeMarketMobile": "いらっしゃい、うちの店へようこそ!　なかなか見つからない「たまご」や「たまごがえしの薬」はいかが?　おすすめを見に顔出してくださいよ～。",
     "displayItemForGold": "<strong><%= itemType %></strong>を売りますか?",
     "displayEggForGold": "<strong><%= itemType %> のたまご</strong>を売りますか?",
-    "displayPotionForGold": "<strong><%= itemType %>の薬</strong>を売りますか?",
+    "displayPotionForGold": "<strong><%= itemType %>薬</strong>を売りますか?",
     "sellForGold": " <%= gold %> ゴールドで売る",
     "buyGems": "ジェムを買う",
     "purchaseGems": "ジェムを購入する",

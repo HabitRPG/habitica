@@ -106,6 +106,9 @@ api.createSubscription = async function createSubscription (data) {
       // Specify a lastBillingDate just for Amazon Payments
       // Resetted every time the subscription restarts
       lastBillingDate: data.paymentMethod === 'Amazon Payments' ? today : undefined,
+      nextPaymentProcessing: data.nextPaymentProcessing,
+      nextBillingDate: data.nextBillingDate,
+      additionalData: data.additionalData,
       owner: data.user._id,
     }).defaults({ // allow non-override if a plan was previously used
       gemsBought: 0,

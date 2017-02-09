@@ -161,6 +161,7 @@
     "hatchingPotionGhost": "Prízračný",
     "hatchingPotionRoyalPurple": "Royal Purple",
     "hatchingPotionHolly": "Holly",
+    "hatchingPotionCupid": "Cupid",
     "hatchingPotionNotes": "Vylej tento elixír na vajíčko a vyliahne sa z neho <%= potText(locale) %> zvieratko.",
     "premiumPotionAddlNotes": "Nedá sa použiť na vajíčka zvieratiek z výprav.",
     "foodMeat": "Mäso",
