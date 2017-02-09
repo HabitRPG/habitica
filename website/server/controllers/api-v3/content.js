@@ -5,6 +5,7 @@ import Bluebird from 'bluebird';
 import fsCallback from 'fs';
 import path from 'path';
 import logger from '../../libs/logger';
+import { model as Gear } from '../../models/gear';
 
 // Transform fs methods that accept callbacks in ones that return promises
 const fs = {
@@ -107,6 +108,11 @@ api.getContent = {
 
     if (proposedLang in cachedContentResponses) {
       language = proposedLang;
+    }
+
+    let gear = await Gear.find({}).exec();
+    for (let item of gear) {
+      common.content.gear.flat[item.key] = item.toObject();
     }
 
     let content;
