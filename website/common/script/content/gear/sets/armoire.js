@@ -5,6 +5,8 @@ let armor = {
   lunarArmor: {
     text: t('armorArmoireLunarArmorText'),
     notes: t('armorArmoireLunarArmorNotes', { str: 7, int: 7 }),
+    textlocaleKey: 'armorArmoireLunarArmorText',
+    notesLocalKey: 'armorArmoireLunarArmorNotes',
     value: 100,
     str: 7,
     int: 7,

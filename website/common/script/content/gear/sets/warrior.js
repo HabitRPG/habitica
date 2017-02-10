@@ -28,6 +28,8 @@ let armor = {
   5: {
     text: t('armorWarrior5Text'),
     notes: t('armorWarrior5Notes', { con: 11 }),
+    textlocaleKey: 'armorWarrior5Text',
+    notesLocalKey: 'armorWarrior5Notes',
     con: 11,
     value: 120,
     last: true,

@@ -19,7 +19,9 @@ module.exports = async function seedGear () {
 
     let newGearItem = new Gear();
     newGearItem.text = item.text;
+    if (item.textlocaleKey) newGearItem.text = item.textlocaleKey;
     newGearItem.notes = item.notes;
+    if (item.textlocaleKey) newGearItem.text = item.notelocaleKey;
     newGearItem.twoHanded = item.twoHanded;
     newGearItem.per = item.per;
     newGearItem.int = item.int;

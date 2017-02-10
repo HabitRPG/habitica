@@ -110,21 +110,22 @@ api.getContent = {
       language = proposedLang;
     }
 
-    let gear = await Gear.find({}).exec();
-    for (let item of gear) {
-      common.content.gear.flat[item.key] = item.toObject();
-    }
-
     let content;
 
     // is the content response for this language cached?
-    if (cachedContentResponses[language] === true) {
-      content = await fs.readFile(`${CONTENT_CACHE_PATH}${language}.json`, 'utf8');
-    } else { // generate the response
+    // if (cachedContentResponses[language] === true) {
+    //   content = await fs.readFile(`${CONTENT_CACHE_PATH}${language}.json`, 'utf8');
+    // } else { // generate the response
       content = _.cloneDeep(common.content);
+
+      let gear = await Gear.find({}).exec();
+      for (let item of gear) {
+        content.gear.flat[item.key] = item.toObject();
+      }
+
       walkContent(content, language);
       content = JSON.stringify(content);
-    }
+    // }
 
     res.set({
       'Content-Type': 'application/json',
