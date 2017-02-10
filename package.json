@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "3.75.1",
+  "version": "3.75.2",
   "main": "./website/server/index.js",
   "dependencies": {
     "@slack/client": "3.6.0",
@@ -89,8 +89,8 @@
     "object-path": "^0.9.2",
     "ora": "^0.2.0",
     "pageres": "^4.1.1",
-    "passport": "~0.2.1",
-    "passport-facebook": "2.0.0",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.0.0",
     "passport-google-oauth20": "1.0.0",
     "paypal-ipn": "3.0.0",
     "paypal-rest-sdk": "^1.2.1",
