@@ -29,7 +29,7 @@ let api = {};
  *
  * @apiSuccess {Object} data The user object
  *
- * @apiDescription The user profile contains data related to the authenticated user. 
+ * @apiDescription The user profile contains data related to the authenticated user.
  * More detail of the user model can be found here:
  * https://github.com/HabitRPG/habitica/tree/develop/website/server/models/user
 */
@@ -167,8 +167,8 @@ let checkPreferencePurchase = (user, path, item) => {
  * @api {put} /api/v3/user Update the user
  * @apiName UserUpdate
  * @apiGroup User
- * 
- * @apiDescription Some of the user items can be updated, such as preferences, flags and stats. 
+ *
+ * @apiDescription Some of the user items can be updated, such as preferences, flags and stats.
  ^
  * @apiParamExample {json} Request-Example:
  *  {
@@ -179,11 +179,11 @@ let checkPreferencePurchase = (user, path, item) => {
  *   "preferences.allocationMode":"flat",
  *   "preferences.hair.bangs": 3
  * }
- * 
+ *
  * @apiSuccess {Object} data The updated user object, the result is identical to the get user call
  *
  * @apiError (401) {NotAuthorized} messageUserOperationProtected Returned if the change is not allowed.
- * 
+ *
  * @apiErrorExample {json} Error-Response:
  *  {
  *   "success": false,
@@ -221,9 +221,9 @@ api.updateUser = {
  * @api {delete} /api/v3/user Delete an authenticated user's account
  * @apiName UserDelete
  * @apiGroup User
- * 
+ *
  * @apiParam {String} password The user's password if the account uses local authentication
- * 
+ *
  * @apiSuccess {Object} data An empty Object
  *
  * @apiSuccessExample {json} Result:
@@ -232,10 +232,10 @@ api.updateUser = {
  *   "data": {},
  *   "notifications": []
  * }
- * 
+ *
  * @apiError {BadRequest} MissingPassword The password was not included in the request
  * @apiError {BadRequest} NotAuthorized There is no account that uses those credentials.
- * 
+ *
  * @apiErrorExample {json}
  *  {
  *   "success": false,
@@ -248,7 +248,7 @@ api.updateUser = {
  *     }
  *   ]
  * }
- *  
+ *
  */
 api.deleteUser = {
   method: 'DELETE',
@@ -306,7 +306,7 @@ function _cleanChecklist (task) {
  * @api {get} /api/v3/user/anonymized Get anonymized user data
  * @apiName UserGetAnonymized
  * @apiGroup User
- * 
+ *
  * @apiDescription Returns the user's data without:
  * Authentication information
  * NewMessages/Invitations/Inbox
@@ -315,7 +315,7 @@ function _cleanChecklist (task) {
  * Contributor information
  * Special items
  * Webhooks
- * 
+ *
  * @apiSuccess {Object} data.user
  * @apiSuccess {Object} data.tasks
  **/
@@ -584,7 +584,7 @@ api.castSpell = {
  * @apiDescription Toggles the sleep key under user preference true and false.
  *
  * @apiSuccess {boolean} data user.preferences.sleep
- * 
+ *
  * @apiSuccessExample {json} Return-example
  * {
  *   "success": true,
@@ -615,9 +615,9 @@ api.sleep = {
  * {"stat":"int"}
  *
  * @apiSuccess {Object} data Returns stats from the user profile
- * 
+ *
  * @apiError {NotAuthorized} NoPoints Not enough attribute points to increment a stat.
- * 
+ *
  * @apiErrorExample {json}
  *  {
  *   "success": false,
@@ -679,7 +679,7 @@ api.allocate = {
  *   },
  *   "notifications": []
  * }
- * 
+ *
  * @apiSuccess {Object} data user.stats
  */
 api.allocateNow = {
@@ -701,10 +701,10 @@ api.allocateNow = {
  * @apiGroup User
  *
  * @apiParam {String} key The item to buy
- *  
+ *
  * @apiSuccess data User's data profile
  * @apiSuccess message Item purchased
- * 
+ *
  * @apiSuccessExample {json} Purchased a rogue short sword for example:
  * {
  *   "success": true,
@@ -714,11 +714,11 @@ api.allocateNow = {
  *   "message": "Bought Short Sword",
  *   "notifications": []
  * }
- *  
+ *
  *  @apiError (400) {NotAuthorized} messageAlreadyOwnGear Already own equipment
  *  @apiError (400) {NotAuthorized} messageNotEnoughGold Not enough gold for the purchase
  *
- *  @apiErrorExample {json} NotAuthorized Already own 
+ *  @apiErrorExample {json} NotAuthorized Already own
  *  {"success":false,"error":"NotAuthorized","message":"You already own that piece of equipment"}
  *
  *  @apiErrorExample {json} NotAuthorized Not enough gold
