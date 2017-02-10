@@ -3,6 +3,8 @@ import t from '../../../translation';
 let armorSpecialTakeThis = {
   text: t('armorSpecialTakeThisText'),
   notes: t('armorSpecialTakeThisNotes', {attrs: 5}),
+  textlocaleKey: 'armorSpecialTakeThisText',
+  notesLocalKey: 'armorSpecialTakeThisNotes',
   value: 0,
   con: 5,
   int: 5,
@@ -13,6 +15,8 @@ let armorSpecialTakeThis = {
 let backSpecialTakeThis = {
   text: t('backSpecialTakeThisText'),
   notes: t('backSpecialTakeThisNotes', {attrs: 1}),
+  textlocaleKey: 'backSpecialTakeThisText',
+  notesLocalKey: 'backSpecialTakeThisNotes',
   value: 0,
   con: 1,
   int: 1,
@@ -23,6 +27,8 @@ let backSpecialTakeThis = {
 let bodySpecialTakeThis = {
   text: t('bodySpecialTakeThisText'),
   notes: t('bodySpecialTakeThisNotes', {attrs: 1}),
+  textlocaleKey: 'bodySpecialTakeThisText',
+  notesLocalKey: 'bodySpecialTakeThisNotes',
   value: 0,
   con: 1,
   int: 1,
@@ -33,6 +39,8 @@ let bodySpecialTakeThis = {
 let headSpecialTakeThis = {
   text: t('headSpecialTakeThisText'),
   notes: t('headSpecialTakeThisNotes', {attrs: 5}),
+  textlocaleKey: 'headSpecialTakeThisText',
+  notesLocalKey: 'headSpecialTakeThisNotes',
   value: 0,
   con: 5,
   int: 5,
@@ -43,6 +51,8 @@ let headSpecialTakeThis = {
 let shieldSpecialTakeThis = {
   text: t('shieldSpecialTakeThisText'),
   notes: t('shieldSpecialTakeThisNotes', {attrs: 5}),
+  textlocaleKey: 'shieldSpecialTakeThisText',
+  notesLocalKey: 'shieldSpecialTakeThisNotes',
   value: 0,
   con: 5,
   int: 5,
@@ -53,6 +63,8 @@ let shieldSpecialTakeThis = {
 let weaponSpecialTakeThis = {
   text: t('weaponSpecialTakeThisText'),
   notes: t('weaponSpecialTakeThisNotes', {attrs: 5}),
+  textlocaleKey: 'weaponSpecialTakeThisText',
+  notesLocalKey: 'weaponSpecialTakeThisNotes',
   value: 0,
   con: 5,
   int: 5,

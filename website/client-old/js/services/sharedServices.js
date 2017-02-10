@@ -27,9 +27,10 @@ angular.module('habitrpg')
           return window.env.t(this.textlocaleKey, language);
         }
 
+        gearItem.noteslocaleKey = gearItem.notes;
         gearItem.notes = function (language) {
           if (!language) language = 'en';
-          return window.env.t(text, language);
+          return window.env.t(this.noteslocaleKey, language);
         }
       }
       return Shared.content;

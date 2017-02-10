@@ -13,18 +13,13 @@ module.exports = function updateStore (user , contentInc) {
   let contentToUse = content
   if (contentInc) contentToUse = contentInc;
 
-  // _.each(contentToUse.gearTypes, (type) => {
-  //   let found = _.find(contentToUse.gear.tree[type][user.stats.class], (item) => {
-  //     return !user.items.gear.owned[item.key];
-  //   });
-  //
-  //   if (found) changes.push(found);
-  // });
+  _.each(contentToUse.gearTypes, (type) => {
+    let found = _.find(contentToUse.gear.tree[type][user.stats.class], (item) => {
+      return !user.items.gear.owned[item.key];
+    });
 
-  let found = _.find(contentToUse.gear.flat, (item) => {
-    return !user.items.gear.owned[item.key] && [user.stats.class].indexOf(item.klass) !== -1;
+    if (found) changes.push(contentToUse.gear.flat[found.key]);
   });
-  if (found) changes.push(found);
 
   changes = changes.concat(_.filter(contentToUse.gear.flat, (val) => {
     if (['special', 'mystery', 'armoire'].indexOf(val.klass) !== -1 && !user.items.gear.owned[val.key] && (val.canOwn ? val.canOwn(user) : false)) {
