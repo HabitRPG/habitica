@@ -35,8 +35,7 @@ div(ng-if='(task.type !== "reward") || (!obj.auth && obj.purchased && obj.purcha
 
       hr
 
-  fieldset.option-group.advanced-option(ng-show="task._edit._advanced")
-
+  fieldset.option-group.advanced-option(ng-show="task._edit._advanced && task.type !== 'reward'")
     legend.option-title
       a.hint.priority-multiplier-help(href='http://habitica.wikia.com/wiki/Difficulty', target='_blank', popover-title=env.t('difficultyHelpTitle'), popover-trigger='mouseenter', popover=env.t('difficultyHelpContent'))=env.t('difficulty')
     ul.priority-multiplier
