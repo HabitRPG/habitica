@@ -27,11 +27,39 @@ let api = {};
  * @apiName UserGet
  * @apiGroup User
  *
+ * @apiDescription The user profile contains data related to the authenticated user including (but not limited to);
+ * Achievements
+ * Authentications (including types and timestamps)
+ * Challenges
+ * Flags (including armoire, tutorial, tour etc...)
+ * Guilds
+ * History (including timestamps and values)
+ * Inbox (includes message history)
+ * Invitations (to parties/guilds)
+ * Items (character's full inventory)
+ * New Messages (flags for groups/guilds that have new messages)
+ * Notifications
+ * Party (includes current quest information)
+ * Preferences (user selected prefs)
+ * Profile (name, photo url, blurb)
+ * Purchased (includes purchase history, gem purchased items, plans)
+ * PushDevices (identifiers for mobile devices authorized)
+ * Stats (standard RPG stats, class, buffs, xp, etc..)
+ * Tags
+ * TasksOrder (list of all ids for dailys, habits, rewards and todos)
+ * 
  * @apiSuccess {Object} data The user object
  *
- * @apiDescription The user profile contains data related to the authenticated user.
- * More detail of the user model can be found here:
- * https://github.com/HabitRPG/habitica/tree/develop/website/server/models/user
+ * @apiSuccessExample {json} Result:
+ *  {
+ *   "success": true,
+ *   "data": {
+ *   --  User data included here, for details of the user model see:
+ *   --  https://github.com/HabitRPG/habitica/tree/develop/website/server/models/user
+ *   },
+ *   "notifications": []
+ * }
+ *
 */
 api.getUser = {
   method: 'GET',
