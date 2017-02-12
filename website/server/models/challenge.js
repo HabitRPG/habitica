@@ -121,7 +121,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
 
     if (!matchingTask) { // If the task is new, create it
       matchingTask = new Tasks[chalTask.type](Tasks.Task.sanitize(syncableAttrs(chalTask)));
-      matchingTask.challenge = {taskId: chalTask._id, id: challenge._id, name: challenge.shortName};
+      matchingTask.challenge = {taskId: chalTask._id, id: challenge._id};
       matchingTask.userId = user._id;
       user.tasksOrder[`${chalTask.type}s`].push(matchingTask._id);
     } else {
