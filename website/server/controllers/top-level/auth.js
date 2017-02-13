@@ -5,9 +5,13 @@ let api = {};
 
 // Internal authentication routes
 
-function renderPasswordResetPage (res, hasError, message) {
-  return res.status(hasError ? 200 : 401).render('auth/reset-password-set-new-one.jade', {
+function renderPasswordResetPage (options = {}) {
+  // res is express' res, error any error and success if the password was successfully changed
+  let {res, hasError, success = false, message} = options;
+
+  return res.status(hasError ? 401 : 200).render('auth/reset-password-set-new-one.jade', {
     env: res.locals.habitrpg,
+    success,
     hasError,
     message, // can be error or success message
   });
@@ -16,50 +20,67 @@ function renderPasswordResetPage (res, hasError, message) {
 // Set a new password after having requested a password reset (GET route to input password)
 api.resetPasswordSetNewOne  = {
   method: 'GET',
-  url: '/auth/reset-password-set-new-one',
+  url: '/user/auth/local/reset-password-set-new-one',
   middlewares: [locals],
   runCron: false,
   async handler (req, res) {
     let user = await validatePasswordResetCodeAndFindUser(req.query.code);
     let isValidCode = Boolean(user);
 
-    if (!isValidCode) {
-      return renderPasswordResetPage(res, !isValidCode, res.t('invalidPasswordResetCode'));
-    } else {
-      return renderPasswordResetPage(res, false);
-    }
+    return renderPasswordResetPage({
+      res,
+      hasError: !isValidCode,
+      message: !isValidCode ? res.t('invalidPasswordResetCode') : null,
+    });
   },
 };
 
 // Set a new password after having requested a password reset (POST route to save password)
 api.resetPasswordSetNewOneSubmit  = {
   method: 'POST',
-  url: '/auth/reset-password-set-new-one',
+  url: '/user/auth/local/reset-password-set-new-one',
   middlewares: [locals],
   runCron: false,
   async handler (req, res) {
     let user = await validatePasswordResetCodeAndFindUser(req.query.code);
     let isValidCode = Boolean(user);
 
-    if (!isValidCode) return renderPasswordResetPage(res, true, res.t('invalidPasswordResetCode'));
+    if (!isValidCode) return renderPasswordResetPage({
+      res,
+      hasError: true,
+      message: res.t('invalidPasswordResetCode'),
+    });
 
-    let newPassword = String(req.body.newPassword);
-    let confirmPassword = String(req.body.confirmPassword);
+    let newPassword = req.body.newPassword;
+    let confirmPassword = req.body.confirmPassword;
 
     if (!newPassword) {
-      return renderPasswordResetPage(res, true, res.t('missingNewPassword'));
+      return renderPasswordResetPage({
+        res,
+        hasError: true,
+        message: res.t('missingNewPassword'),
+      });
     }
 
     if (newPassword !== confirmPassword) {
-      return renderPasswordResetPage(res, true, res.t('passwordConfirmationMatch'));
+      return renderPasswordResetPage({
+        res,
+        hasError: true,
+        message: res.t('passwordConfirmationMatch'),
+      });
     }
 
     // set new password and make sure it's using bcrypt for hashing
-    await convertToBcrypt(user, newPassword);
+    await convertToBcrypt(user, String(newPassword));
     user.auth.local.passwordResetCode = undefined; // Reset saved password reset code
     await user.save();
 
-    return renderPasswordResetPage(res, false, res.t('passwordChangeSuccess'));
+    return renderPasswordResetPage({
+      res,
+      hasError: false,
+      success: true,
+      message: res.t('passwordChangeSuccess'),
+    });
   },
 };
 
