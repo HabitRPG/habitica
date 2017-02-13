@@ -552,11 +552,13 @@ api.resetPassword = {
 
     if (user) {
       // create an encrypted link to be used to reset the password
-      const resetPasswordQueryString = JSON.stringify({
+      const passwordResetCode = JSON.stringify({
         userId: user._id,
         expiresAt: moment().add({ hours: 24 }),
       });
-      let link = `${BASE_URL}/static/reset-password-set-new-one?code=${encrypt(resetPasswordQueryString)}`;
+      let link = `${BASE_URL}/static/reset-password-set-new-one?code=${encrypt(passwordResetCode)}`;
+
+      user.auth.local.passwordResetCode = passwordResetCode;
 
       sendEmail({
         from: 'Habitica <admin@habitica.com>',

@@ -17,10 +17,12 @@ async function validatePasswordResetCodeAndFindUser (code) {
   let isCodeValid = true;
 
   let userId;
+  let user;
+  let decryptedPasswordResetCode;
 
   // wrapping the code in a try to be able to handle the error here
   try {
-    let decryptedPasswordResetCode = JSON.parse(decrypt(code || 'invalid')); // also catches missing code
+    decryptedPasswordResetCode = JSON.parse(decrypt(code || 'invalid')); // also catches missing code
     userId = decryptedPasswordResetCode.userId;
     let expiresAt = decryptedPasswordResetCode.expiresAt;
 
@@ -29,15 +31,23 @@ async function validatePasswordResetCodeAndFindUser (code) {
     isCodeValid = false;
   }
 
-  let user = await User.findById(userId).exec();
-  // check if user is found and if it's an email & password account
-  if (!user || !user.auth || !user.auth.local || !user.auth.local.email) isCodeValid = false;
+  if (isCodeValid) {
+    user = await User.findById(userId).exec();
+
+    // check if user is found and if it's an email & password account
+    if (!user || !user.auth || !user.auth.local || !user.auth.local.email) {
+      isCodeValid = false;
+    } else if (decryptedPasswordResetCode !== user.auth.local.passwordResetCode) {
+      // Make sure only the last code can be used
+      isCodeValid = false;
+    }
+  }
 
   return isCodeValid ? user : false;
 }
 
 function renderPasswordResetPage (res, hasError, message) {
-  return res.status(hasError ? 200 : 401).render('static/reset-password-set-new-one.jade', {
+  return res.status(hasError ? 200 : 401).render('auth/reset-password-set-new-one.jade', {
     env: res.locals.habitrpg,
     hasError,
     message, // can be error or success message
@@ -47,7 +57,7 @@ function renderPasswordResetPage (res, hasError, message) {
 // Set a new password after having requested a password reset (GET route to input password)
 api.resetPasswordSetNewOne  = {
   method: 'GET',
-  url: '/static/reset-password-set-new-one',
+  url: '/auth/reset-password-set-new-one',
   middlewares: [locals],
   runCron: false,
   async handler (req, res) {
@@ -65,7 +75,7 @@ api.resetPasswordSetNewOne  = {
 // Set a new password after having requested a password reset (POST route to save password)
 api.resetPasswordSetNewOneSubmit  = {
   method: 'POST',
-  url: '/static/reset-password-set-new-one',
+  url: '/auth/reset-password-set-new-one',
   middlewares: [locals],
   runCron: false,
   async handler (req, res) {
@@ -87,6 +97,7 @@ api.resetPasswordSetNewOneSubmit  = {
 
     // set new password and make sure it's using bcrypt for hashing
     await passwordUtils.convertToBcrypt(user, newPassword);
+    user.auth.local.passwordResetCode = undefined; // Reset saved password reset code
     await user.save();
 
     return renderPasswordResetPage(res, false, res.t('passwordChangeSuccess'));
