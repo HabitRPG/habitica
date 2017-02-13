@@ -1,50 +1,12 @@
 import locals from '../../middlewares/locals';
-import { decrypt } from '../../libs/encryption';
-import moment from 'moment';
-import { model as User } from '../../models/user';
-import * as passwordUtils from '../../libs/password';
+import { validatePasswordResetCodeAndFindUser, convertToBcrypt} from '../../libs/password';
 
 let api = {};
 
 // Internal authentication routes
 
 // TODO
-// - convert to bcrypt
 // - tests
-
-// returns the user if a valid password reset code is supplied, otherwise false
-async function validatePasswordResetCodeAndFindUser (code) {
-  let isCodeValid = true;
-
-  let userId;
-  let user;
-  let decryptedPasswordResetCode;
-
-  // wrapping the code in a try to be able to handle the error here
-  try {
-    decryptedPasswordResetCode = JSON.parse(decrypt(code || 'invalid')); // also catches missing code
-    userId = decryptedPasswordResetCode.userId;
-    let expiresAt = decryptedPasswordResetCode.expiresAt;
-
-    if (moment(expiresAt).isAfter(moment())) throw new Error();
-  } catch (err) {
-    isCodeValid = false;
-  }
-
-  if (isCodeValid) {
-    user = await User.findById(userId).exec();
-
-    // check if user is found and if it's an email & password account
-    if (!user || !user.auth || !user.auth.local || !user.auth.local.email) {
-      isCodeValid = false;
-    } else if (decryptedPasswordResetCode !== user.auth.local.passwordResetCode) {
-      // Make sure only the last code can be used
-      isCodeValid = false;
-    }
-  }
-
-  return isCodeValid ? user : false;
-}
 
 function renderPasswordResetPage (res, hasError, message) {
   return res.status(hasError ? 200 : 401).render('auth/reset-password-set-new-one.jade', {
@@ -84,10 +46,10 @@ api.resetPasswordSetNewOneSubmit  = {
 
     if (!isValidCode) return renderPasswordResetPage(res, true, res.t('invalidPasswordResetCode'));
 
-    let newPassword = req.body.newPassword;
-    let confirmPassword = req.body.confirmPassword;
+    let newPassword = String(req.body.newPassword);
+    let confirmPassword = String(req.body.confirmPassword);
 
-    if (!newPassword || confirmPassword) {
+    if (!newPassword) {
       return renderPasswordResetPage(res, true, res.t('missingNewPassword'));
     }
 
@@ -96,7 +58,7 @@ api.resetPasswordSetNewOneSubmit  = {
     }
 
     // set new password and make sure it's using bcrypt for hashing
-    await passwordUtils.convertToBcrypt(user, newPassword);
+    await convertToBcrypt(user, newPassword);
     user.auth.local.passwordResetCode = undefined; // Reset saved password reset code
     await user.save();
 

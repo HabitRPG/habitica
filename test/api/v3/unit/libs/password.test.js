@@ -172,6 +172,36 @@ describe('Password Utilities', () => {
     });
   });
 
+  describe('validatePasswordResetCodeAndFindUser', () => {
+    it('returns the user if the password reset code is valid', async () => {
+      expect(true).to.equal(false);
+    });
+
+    it('returns false if the code is missing', async () => {
+      expect(true).to.equal(false);
+    });
+
+    it('returns false if the code is invalid json', async () => {
+      expect(true).to.equal(false);
+    });
+
+    it('returns false if the code cannot be decrypted', async () => {
+      expect(true).to.equal(false);
+    });
+
+    it('returns false if the code is expired', async () => {
+      expect(true).to.equal(false);
+    });
+
+    it('returns false if the user has no local auth', async () => {
+      expect(true).to.equal(false);
+    });
+
+    it('returns false if the code doesn\'t match the on user.auth.passwordResetCode', async () => {
+      expect(true).to.equal(false);
+    });
+  });
+
   describe('bcrypt', () => {
     describe('Hash', () => {
       it('returns a hashed string', async () => {
