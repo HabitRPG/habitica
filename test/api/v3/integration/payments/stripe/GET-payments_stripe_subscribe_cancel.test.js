@@ -39,7 +39,7 @@ describe('payments - stripe - #subscribeCancel', () => {
         balance: 2,
       });
 
-      await user.get(`${endpoint}?redirect=none`);
+      await user.get(`${endpoint}`);
 
       expect(stripeCancelSubscriptionStub).to.be.calledOnce;
       expect(stripeCancelSubscriptionStub.args[0][0].user._id).to.eql(user._id);
@@ -64,7 +64,7 @@ describe('payments - stripe - #subscribeCancel', () => {
         'purchased.plan.lastBillingDate': new Date(),
       });
 
-      await user.get(`${endpoint}?groupId=${group._id}&redirect=none`);
+      await user.get(`${endpoint}&groupId=${group._id}`);
 
       expect(stripeCancelSubscriptionStub).to.be.calledOnce;
       expect(stripeCancelSubscriptionStub.args[0][0].user._id).to.eql(user._id);
