@@ -398,7 +398,7 @@ api.joinGroup = {
 
     group.memberCount += 1;
 
-    if (group.purchased.plan.customerId) {
+    if (group.isSubscribed() && !group.purchased.plan.dateTerminated)  {
       await payments.addSubToGroupUser(user, group);
       await group.updateGroupPlan();
     }
@@ -565,7 +565,7 @@ api.leaveGroup = {
 
     await group.leave(user, req.query.keep);
 
-    if (group.purchased.plan && group.purchased.plan.customerId) await group.updateGroupPlan(true);
+    if (group.isSubscribed() && !group.purchased.plan.dateTerminated)  await group.updateGroupPlan(true);
 
     _removeMessagesFromMember(user, group._id);
 
@@ -643,7 +643,7 @@ api.removeGroupMember = {
 
     if (isInGroup) {
       group.memberCount -= 1;
-      if (group.purchased.plan.customerId) {
+      if (group.isSubscribed() && !group.purchased.plan.dateTerminated)  {
         await group.updateGroupPlan(true);
         await payments.cancelGroupSubscriptionForUser(member, group);
       }
