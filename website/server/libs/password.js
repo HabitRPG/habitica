@@ -81,7 +81,7 @@ export async function validatePasswordResetCodeAndFindUser (code) {
     userId = decryptedPasswordResetCode.userId;
     let expiresAt = decryptedPasswordResetCode.expiresAt;
 
-    if (moment(expiresAt).isAfter(moment())) throw new Error();
+    if (moment(expiresAt).isBefore(moment())) throw new Error();
   } catch (err) {
     isCodeValid = false;
   }
@@ -92,7 +92,7 @@ export async function validatePasswordResetCodeAndFindUser (code) {
     // check if user is found and if it's an email & password account
     if (!user || !user.auth || !user.auth.local || !user.auth.local.email) {
       isCodeValid = false;
-    } else if (decryptedPasswordResetCode !== user.auth.local.passwordResetCode) {
+    } else if (code !== user.auth.local.passwordResetCode) {
       // Make sure only the last code can be used
       isCodeValid = false;
     }

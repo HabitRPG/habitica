@@ -1,12 +1,20 @@
 /* eslint-disable camelcase */
 
 import {
+  encrypt,
+} from '../../../../../website/server/libs/encryption';
+import moment from 'moment';
+import {
+  generateUser,
+} from '../../../../helpers/api-integration/v3';
+import {
   sha1Encrypt as sha1EncryptPassword,
   sha1MakeSalt,
   bcryptHash,
   bcryptCompare,
   compare,
   convertToBcrypt,
+  validatePasswordResetCodeAndFindUser,
 } from '../../../../../website/server/libs/password';
 
 describe('Password Utilities', () => {
@@ -173,32 +181,91 @@ describe('Password Utilities', () => {
   });
 
   describe('validatePasswordResetCodeAndFindUser', () => {
-    it('returns the user if the password reset code is valid', async () => {
-      expect(true).to.equal(false);
-    });
-
     it('returns false if the code is missing', async () => {
-      expect(true).to.equal(false);
+      let res = await validatePasswordResetCodeAndFindUser();
+      expect(res).to.equal(false);
     });
 
     it('returns false if the code is invalid json', async () => {
-      expect(true).to.equal(false);
+      let res = await validatePasswordResetCodeAndFindUser('invalid json');
+      expect(res).to.equal(false);
     });
 
     it('returns false if the code cannot be decrypted', async () => {
-      expect(true).to.equal(false);
+      let user = await generateUser();
+      let res = await validatePasswordResetCodeAndFindUser(JSON.stringify({ // not encrypted
+        userId: user._id,
+        expiresAt: new Date(),
+      }));
+      expect(res).to.equal(false);
     });
 
     it('returns false if the code is expired', async () => {
-      expect(true).to.equal(false);
+      let user = await generateUser();
+
+      let code = encrypt(JSON.stringify({
+        userId: user._id,
+        expiresAt: moment().subtract({minutes: 1}),
+      }));
+
+      await user.update({
+        'auth.local.passwordResetCode': code,
+      });
+
+      let res = await validatePasswordResetCodeAndFindUser(code);
+      expect(res).to.equal(false);
+    });
+
+    it('returns false if the user does not exist', async () => {
+      let res = await validatePasswordResetCodeAndFindUser(encrypt(JSON.stringify({
+        userId: Date.now().toString(),
+        expiresAt: moment().add({days: 1}),
+      })));
+      expect(res).to.equal(false);
     });
 
     it('returns false if the user has no local auth', async () => {
-      expect(true).to.equal(false);
+      let user = await generateUser({
+        auth: 'not an object with valid fields',
+      });
+      let res = await validatePasswordResetCodeAndFindUser(encrypt(JSON.stringify({
+        userId: user._id,
+        expiresAt: moment().add({days: 1}),
+      })));
+      expect(res).to.equal(false);
     });
 
-    it('returns false if the code doesn\'t match the on user.auth.passwordResetCode', async () => {
-      expect(true).to.equal(false);
+    it('returns false if the code doesn\'t match the one saved at user.auth.passwordResetCode', async () => {
+      let user = await generateUser();
+
+      let code = encrypt(JSON.stringify({
+        userId: user._id,
+        expiresAt: moment().add({days: 1}),
+      }));
+
+      await user.update({
+        'auth.local.passwordResetCode': 'invalid',
+      });
+
+      let res = await validatePasswordResetCodeAndFindUser(code);
+      expect(res).to.equal(false);
+    });
+
+    it('returns the user if the password reset code is valid', async () => {
+      let user = await generateUser();
+
+      let code = encrypt(JSON.stringify({
+        userId: user._id,
+        expiresAt: moment().add({days: 1}),
+      }));
+
+      await user.update({
+        'auth.local.passwordResetCode': code,
+      });
+
+      let res = await validatePasswordResetCodeAndFindUser(code);
+      expect(res).not.to.equal(false);
+      expect(res._id).to.equal(user._id);
     });
   });
 

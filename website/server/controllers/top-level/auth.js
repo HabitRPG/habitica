@@ -5,9 +5,6 @@ let api = {};
 
 // Internal authentication routes
 
-// TODO
-// - tests
-
 function renderPasswordResetPage (res, hasError, message) {
   return res.status(hasError ? 200 : 401).render('auth/reset-password-set-new-one.jade', {
     env: res.locals.habitrpg,
