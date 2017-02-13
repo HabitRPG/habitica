@@ -22,10 +22,11 @@ function($rootScope, User, $http, Content) {
 
     sub = sub && Content.subscriptionBlocks[sub];
 
-    var amount = // 500 = $5
-      sub ? sub.price*100
-        : data.gift && data.gift.type=='gems' ? data.gift.gems.amount/4*100
-        : 500;
+    var amount = 500;// 500 = $5
+    if (sub) amount = sub.price * 100;
+    if (data.gift && data.gift.type=='gems') amount = data.gift.gems.amount / 4 * 100;
+    if (data.group) amount = (sub.price + 3 * data.group.memberCount) * 100
+    console.log(data)
 
     StripeCheckout.open({
       key: window.env.STRIPE_PUB_KEY,
