@@ -88,6 +88,8 @@
     "deleteDo": "好，刪除我的帳號！",
     "enterNumber": "請輸入一個 0 到 24 的數字",
     "fillAll": "請填寫所有欄位",
+    "invalidPasswordResetCode": "The supplied password reset code is invalid or has expired.",
+    "passwordChangeSuccess": "Your password was successfully changed to the one you just chose. You can now use it to access your account.",
     "passwordSuccess": "成功更改密碼",
     "usernameSuccess": "成功修改帳號",
     "emailSuccess": "成功更改電子郵件位置",
