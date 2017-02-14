@@ -253,7 +253,7 @@
     "passwordConfirmationMatch": "Password confirmation doesn't match password.",
     "invalidLoginCredentials": "Incorrect username and/or email and/or password.",
     "passwordResetPage": "Reset Password",
-    "passwordReset": "If we have your email on file, a new password has been sent to your email.",
+    "passwordReset": "If we have your email on file, instructions for setting a new password have been sent to your email.",
     "passwordResetEmailSubject": "Password Reset for Habitica",
     "passwordResetEmailText": "If you requested a password reset for <%= username %> on Habitica, head to <%= passwordResetLink %> to set a new one. The link will expire after 24 hours. If you haven't requested a password reset, please ignore this email.",
     "passwordResetEmailHtml": "If you requested a password reset for <strong><%= username %></strong> on Habitica, <a href=\"<%= passwordResetLink %>\">click here</a> to set a new one. The link will expire after 24 hours.<br/><br>If you haven't requested a password reset, please ignore this email.",

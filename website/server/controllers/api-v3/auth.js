@@ -552,11 +552,11 @@ api.resetPassword = {
 
     if (user) {
       // create an encrypted link to be used to reset the password
-      const passwordResetCode = JSON.stringify({
+      const passwordResetCode = encrypt(JSON.stringify({
         userId: user._id,
         expiresAt: moment().add({ hours: 24 }),
-      });
-      let link = `${BASE_URL}/static/reset-password-set-new-one?code=${encrypt(passwordResetCode)}`;
+      }));
+      let link = `${BASE_URL}/static/user/auth/local/reset-password-set-new-one?code=${passwordResetCode}`;
 
       user.auth.local.passwordResetCode = passwordResetCode;
 

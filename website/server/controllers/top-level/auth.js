@@ -20,7 +20,7 @@ function renderPasswordResetPage (options = {}) {
 // Set a new password after having requested a password reset (GET route to input password)
 api.resetPasswordSetNewOne  = {
   method: 'GET',
-  url: '/user/auth/local/reset-password-set-new-one',
+  url: '/static/user/auth/local/reset-password-set-new-one',
   middlewares: [locals],
   runCron: false,
   async handler (req, res) {
@@ -38,7 +38,7 @@ api.resetPasswordSetNewOne  = {
 // Set a new password after having requested a password reset (POST route to save password)
 api.resetPasswordSetNewOneSubmit  = {
   method: 'POST',
-  url: '/user/auth/local/reset-password-set-new-one',
+  url: '/static/user/auth/local/reset-password-set-new-one',
   middlewares: [locals],
   runCron: false,
   async handler (req, res) {
