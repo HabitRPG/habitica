@@ -16,10 +16,12 @@ import { model as User } from '../../models/user';
 import { model as Group } from '../../models/group';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../../libs/email';
-import { decrypt } from '../../libs/encryption';
+import { decrypt, encrypt } from '../../libs/encryption';
 import { send as sendEmail } from '../../libs/email';
 import pusher from '../../libs/pusher';
 import common from '../../../common';
+
+const BASE_URL = nconf.get('BASE_URL');
 
 let api = {};
 
@@ -549,11 +551,14 @@ api.resetPassword = {
     let user = await User.findOne({ 'auth.local.email': email }).exec();
 
     if (user) {
-      // use a salt as the new password too (they'll change it later)
-      let newPassword =  passwordUtils.sha1MakeSalt();
+      // create an encrypted link to be used to reset the password
+      const passwordResetCode = encrypt(JSON.stringify({
+        userId: user._id,
+        expiresAt: moment().add({ hours: 24 }),
+      }));
+      let link = `${BASE_URL}/static/user/auth/local/reset-password-set-new-one?code=${passwordResetCode}`;
 
-      // set new password and make sure it's using bcrypt for hashing
-      await passwordUtils.convertToBcrypt(user, newPassword); // user is saved a few lines below
+      user.auth.local.passwordResetCode = passwordResetCode;
 
       sendEmail({
         from: 'Habitica <admin@habitica.com>',
@@ -561,13 +566,11 @@ api.resetPassword = {
         subject: res.t('passwordResetEmailSubject'),
         text: res.t('passwordResetEmailText', {
           username: user.auth.local.username,
-          newPassword,
-          baseUrl: nconf.get('BASE_URL'),
+          passwordResetLink: link,
         }),
         html: res.t('passwordResetEmailHtml', {
           username: user.auth.local.username,
-          newPassword,
-          baseUrl: nconf.get('BASE_URL'),
+          passwordResetLink: link,
         }),
       });
 
