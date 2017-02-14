@@ -11,7 +11,7 @@ import nconf from 'nconf';
 const API_TEST_SERVER_PORT = nconf.get('PORT');
 
 describe('GET /user/auth/local/reset-password-set-new-one', () => {
-  let endpoint = `http://localhost:${API_TEST_SERVER_PORT}/user/auth/local/reset-password-set-new-one`;
+  let endpoint = `http://localhost:${API_TEST_SERVER_PORT}/static/user/auth/local/reset-password-set-new-one`;
 
   // Tests to validate the validatePasswordResetCodeAndFindUser function
 
