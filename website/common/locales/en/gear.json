@@ -4,6 +4,7 @@
   "klass": "Class",
   "groupBy": "Group By <%= type %>",
   "classBonus": "(This item matches your class, so it gets an additional 1.5 stat multiplier.)",
+  "twoHandedItem": "Two-handed item.",
 
   "weapon": "weapon",
   "weaponCapitalized" : "Weapon",
@@ -101,7 +102,7 @@
   "weaponSpecialSkiText": "Ski-sassin Pole",
   "weaponSpecialSkiNotes": "A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases Strength by <%= str %>. Limited Edition 2013-2014 Winter Gear.",
   "weaponSpecialCandycaneText": "Candy Cane Staff",
-  "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
+  "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
   "weaponSpecialSnowflakeText": "Snowflake Wand",
   "weaponSpecialSnowflakeNotes": "This wand sparkles with unlimited healing power. Increases Intelligence by <%= int %>. Limited Edition 2013-2014 Winter Gear.",
 
