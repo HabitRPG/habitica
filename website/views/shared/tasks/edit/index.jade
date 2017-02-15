@@ -7,7 +7,7 @@ div(ng-if='task._editing')
 
     br
 
-    h2#task-edit-title
+    h3#task-edit-title
       markdown(text="task._edit.text")
 
     // Broken Challenge
@@ -60,8 +60,6 @@ div(ng-if='task._editing')
         include ./advanced_options
       
       .col-md-12
-        hr
-        
         .save-close
           button(type='submit', ng-click='saveTask(task,false,true); $close()')=env.t('saveAndClose')
         .save-close

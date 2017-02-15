@@ -88,6 +88,8 @@
     "deleteDo": "Fă-o, șterge-mi contul!",
     "enterNumber": "Te rog introdu un număr între 0 și 24",
     "fillAll": "Te rog completează toate câmpurile",
+    "invalidPasswordResetCode": "The supplied password reset code is invalid or has expired.",
+    "passwordChangeSuccess": "Your password was successfully changed to the one you just chose. You can now use it to access your account.",
     "passwordSuccess": "Password successfully changed",
     "usernameSuccess": "Login Name successfully changed",
     "emailSuccess": "Email successfully changed",

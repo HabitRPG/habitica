@@ -88,6 +88,8 @@
     "deleteDo": "עשה זאת, מחק את המשתמש שלי!",
     "enterNumber": "אנא הכניסו מספר בין 0 ל 24",
     "fillAll": "אנא מלאו את כל השדות",
+    "invalidPasswordResetCode": "The supplied password reset code is invalid or has expired.",
+    "passwordChangeSuccess": "Your password was successfully changed to the one you just chose. You can now use it to access your account.",
     "passwordSuccess": "הסיסמה שונתה בהצלחה",
     "usernameSuccess": "שם הכניסה שונה בהצלחה",
     "emailSuccess": "כתובת הדוא\"ל שונתה בהצלחה",

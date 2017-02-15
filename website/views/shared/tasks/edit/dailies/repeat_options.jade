@@ -1,3 +1,9 @@
+.form-group
+  legend.option-title=env.t('repeat')
+  select.form-control(ng-model='task._edit.frequency', ng-disabled='!canEdit(task)')
+    option(value='weekly')=env.t('repeatWeek')
+    option(value='daily')=env.t('repeatDays')
+
 legend.option-title
   span.hint(popover-trigger='mouseenter', popover-title=env.t('repeatHelpTitle'),
     popover='{{env.t(task._edit.frequency + "RepeatHelpContent")}}')=env.t('repeatEvery')

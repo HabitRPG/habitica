@@ -1,7 +1,7 @@
 {
     "pets": "Chowańce",
-    "activePet": "Aktywne zwierzątko",
-    "noActivePet": "Brak aktywnego zwierzątka",
+    "activePet": "Aktywny chowaniec",
+    "noActivePet": "Brak aktywnego chowańca",
     "petsFound": "Znalezione chowańce",
     "magicPets": "Magiczne chowańce",
     "rarePets": "Rzadkie chowańce",

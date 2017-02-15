@@ -87,5 +87,6 @@
     "fallEventAvailability": "Можно купить до 31 октября.",
     "winterEventAvailability": "Можно купить до 31 января.",
     "springEventAvailability": "Можно купить до 31 мая.",
-    "summerEventAvailability": "Можно купить до 31 августа."
+    "summerEventAvailability": "Можно купить до 31 августа.",
+    "valentinesEventAvailability": "Available for purchase until February 28."
 }

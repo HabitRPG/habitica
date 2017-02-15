@@ -88,6 +88,8 @@
     "deleteDo": "Так, вилучити мій акаунт!",
     "enterNumber": "Будь ласка, уведіть число від 0 до 24",
     "fillAll": "Будь ласка, заповніть усі поля",
+    "invalidPasswordResetCode": "The supplied password reset code is invalid or has expired.",
+    "passwordChangeSuccess": "Your password was successfully changed to the one you just chose. You can now use it to access your account.",
     "passwordSuccess": "Пароль успішно змінено",
     "usernameSuccess": "Login Name successfully changed",
     "emailSuccess": "Email успішно змінено",
