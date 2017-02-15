@@ -150,7 +150,7 @@ describe('shouldDo', () => {
     });
   });
 
-  context('Monthly - Every Day of the month', () => {
+  context('Monthly - Every X Months on a specified date', () => {
     it('leaves daily inactive if not day of the month', () => {
       dailyTask.everyX = 1;
       dailyTask.frequency = 'monthly';
@@ -188,7 +188,7 @@ describe('shouldDo', () => {
     });
   });
 
-  context('Monthly - Every Day of the week', () => {
+  context('Monthly - Certain days of the nth Week', () => {
     it('leaves daily inactive if not the correct week of the month on the day of the start date', () => {
       dailyTask.repeat = {
         su: false,
