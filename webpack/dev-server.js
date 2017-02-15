@@ -16,7 +16,6 @@ const webpackConfig = process.env.NODE_ENV === 'test' ?
 
 // default port where dev server listens for incoming traffic
 const port = process.env.PORT || config.dev.port;
-const autoOpenBrowser = Boolean(config.dev.autoOpenBrowser);
 // Define HTTP proxies to your custom API backend
 // https://github.com/chimurai/http-proxy-middleware
 const proxyTable = config.dev.proxyTable;
