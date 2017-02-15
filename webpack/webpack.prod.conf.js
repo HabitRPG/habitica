@@ -8,25 +8,19 @@ const merge = require('webpack-merge');
 const baseWebpackConfig = require('./webpack.base.conf');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const env = process.env.NODE_ENV === 'testing' ?
+const env = process.env.NODE_ENV === 'test' ?
   require('./config/test.env') :
   config.build.env;
 
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
-    loaders: utils.styleLoaders({ sourceMap: config.build.productionSourceMap, extract: true }),
+    rules: utils.styleLoaders({ sourceMap: config.build.productionSourceMap, extract: true }),
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js'),
-  },
-  vue: {
-    loaders: utils.cssLoaders({
-      sourceMap: config.build.productionSourceMap,
-      extract: true,
-    }),
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/workflow/production.html
@@ -37,15 +31,17 @@ const webpackConfig = merge(baseWebpackConfig, {
       compress: {
         warnings: false,
       },
+      sourceMap: true,
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
     // extract css into its own file
-    new ExtractTextPlugin(utils.assetsPath('css/[name].[contenthash].css')),
+    new ExtractTextPlugin({
+      filename: utils.assetsPath('css/[name].[contenthash].css')
+    }),
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: process.env.NODE_ENV === 'testing' ?
+      filename: process.env.NODE_ENV === 'test' ?
         'index.html' :
         config.build.index,
       template: './website/client/index.html',
@@ -95,6 +91,11 @@ if (config.build.productionGzip) {
       minRatio: 0.8,
     })
   );
+}
+
+if (config.build.bundleAnalyzerReport) {
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // eslint-disable-line global-require
+  webpackConfig.plugins.push(new BundleAnalyzerPlugin());
 }
 
 module.exports = webpackConfig;

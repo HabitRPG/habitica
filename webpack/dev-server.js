@@ -4,13 +4,19 @@ const path = require('path');
 const express = require('express');
 const webpack = require('webpack');
 const config = require('./config');
+
+if (!process.env.NODE_ENV) {
+  process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV);
+}
+
 const proxyMiddleware = require('http-proxy-middleware');
-const webpackConfig = process.env.NODE_ENV === 'testing' ?
+const webpackConfig = process.env.NODE_ENV === 'test' ?
   require('./webpack.prod.conf') :
   require('./webpack.dev.conf');
 
 // default port where dev server listens for incoming traffic
 const port = process.env.PORT || config.dev.port;
+const autoOpenBrowser = Boolean(config.dev.autoOpenBrowser);
 // Define HTTP proxies to your custom API backend
 // https://github.com/chimurai/http-proxy-middleware
 const proxyTable = config.dev.proxyTable;
@@ -41,7 +47,7 @@ Object.keys(proxyTable).forEach((context) => {
   if (typeof options === 'string') {
     options = { target: options };
   }
-  app.use(proxyMiddleware(context, options));
+  app.use(proxyMiddleware(options.filter || context, options));
 });
 
 // handle fallback for HTML5 history API
