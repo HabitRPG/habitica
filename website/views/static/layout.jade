@@ -10,8 +10,6 @@ html(ng-app='habitrpg')
     block title
       title=env.t('titleIndex')
 
-    include ../shared/new-relic
-
     script(type='text/javascript').
       window.env = !{JSON.stringify(env._.pick(env, env.clientVars))};
 

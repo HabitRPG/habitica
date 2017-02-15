@@ -103,7 +103,7 @@
     "habitHelp1": "Корисні звички - це те, що ви часто робите. Вони приносять Золото та Досвід щоразу, як ви клацаєте <%= plusIcon %>.",
     "habitHelp2": "Шкідливі звички - це те, чого ви не хотіли б робити. Вони забирають Здоров'я щоразу, як ви клацаєте  <%= minusIcon %>.",
     "habitHelp3": "Для натхнення огляньте ці <a href='http://habitica.wikia.com/wiki/Sample_Habits' target='_blank'>приклади Звичок</a>!",
-    "newbieGuild": "Є ще питання? Поставте їх у <%= linkStart %>Гільдії Новачків<%= linkEnd %>!",
+    "newbieGuild": "More questions? Ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>!",
     "dailyHelp1": "Щоденна задача повторюється <%= emphasisStart %>кожного дня<%= emphasisEnd %>, коли вона активна. Клацніть <%= pencilIcon %>, щоб змінити дні, коли щоденне завдання активне.",
     "dailyHelp2": "Якщо ви не виконуєте активне Щоденне завдання, ви втрачаєте Здоров'я, коли день закінчується.",
     "dailyHelp3": "Щоденне завдання стає <%= emphasisStart %>червонішим<%= emphasisEnd %>, коли ви його пропускаєте, і <%= emphasisStart %>синішим<%= emphasisEnd %>, коли ви його виконуєте. Чим червонішим є Щоденне завдання, тим більше за нього ви отримаєте винагороди... або ушкоджень.",
@@ -136,8 +136,8 @@
     "intelligenceExample": "Relating to academic or mentally challenging pursuits",
     "perceptionExample": "Relating to work or financial tasks",
     "constitutionExample": "Relating to health, wellness, and social interaction",
-    "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
-    "taskApprovalHasBeenRequested": "Approval has been requested",
-    "approvals": "Approvals",
-    "approvalRequired": "Approval Required"
+    "taskRequiresApproval": "Для виконання цього завдання необхідне підтвердження. На нього вже створено запит",
+    "taskApprovalHasBeenRequested": "Надіслано запит на ухвалення",
+    "approvals": "Ухвалень",
+    "approvalRequired": "Необіхдно ухвалень\n"
 }

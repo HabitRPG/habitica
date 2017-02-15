@@ -88,6 +88,8 @@
     "deleteDo": "Lakukan, hapus akun!",
     "enterNumber": "Mohon masukkan angka antara 0 dan 24",
     "fillAll": "Mohon isi semua isian",
+    "invalidPasswordResetCode": "The supplied password reset code is invalid or has expired.",
+    "passwordChangeSuccess": "Your password was successfully changed to the one you just chose. You can now use it to access your account.",
     "passwordSuccess": "Kata Sandi telah diubah",
     "usernameSuccess": "Nama Login telah diubah",
     "emailSuccess": "Email telah diubah",

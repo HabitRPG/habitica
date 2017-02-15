@@ -26,12 +26,9 @@ const IS_PROD = nconf.get('IS_PROD');
 const IS_DEV = nconf.get('IS_DEV');
 const CORES = Number(nconf.get('WEB_CONCURRENCY')) || 0;
 
-// Initialize New Relic
-if (IS_PROD && nconf.get('NEW_RELIC_ENABLED') === 'true') require('newrelic');
-
 // Setup the cluster module
 if (CORES !== 0 && cluster.isMaster && (IS_DEV || IS_PROD)) {
-  // Fork workers. If config.json has CORES=x, use that - otherwise, use all cpus-1 (production)
+  // Fork workers. If config.json has WEB_CONCURRENCY=x, use that - otherwise, use all cpus-1 (production)
   for (let i = 0; i < CORES; i += 1) {
     cluster.fork();
   }

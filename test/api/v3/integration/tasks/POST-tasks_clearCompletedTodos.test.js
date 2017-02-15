@@ -43,7 +43,7 @@ describe('POST /tasks/clearCompletedTodos', () => {
     let completedTodos = await user.get('/tasks/user?type=completedTodos');
     let todos = await user.get('/tasks/user?type=todos');
     let allTodos = todos.concat(completedTodos);
-    expect(allTodos.length).to.equal(initialTodoCount + 4); // + 6 - 3 completed (but one is from challenge)
-    expect(allTodos[allTodos.length - 1].text).to.equal('todo 7');
+    expect(allTodos.length).to.equal(initialTodoCount + 5); // + 7 - 3 completed (but one is from challenge)
+    expect(allTodos[allTodos.length - 1].text).to.equal('todo 6'); // last completed todo
   });
 });

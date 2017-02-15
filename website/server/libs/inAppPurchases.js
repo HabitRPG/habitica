@@ -10,6 +10,10 @@ import Bluebird from 'bluebird';
 iap.config({
   // This is the path to the directory containing iap-sanbox/iap-live files
   googlePublicKeyPath: nconf.get('IAP_GOOGLE_KEYDIR'),
+  googleAccToken: nconf.get('PLAY_API:ACCESS_TOKEN'),
+  googleRefToken: nconf.get('PLAY_API:REFRESH_TOKEN'),
+  googleClientID: nconf.get('PLAY_API:CLIENT_ID'),
+  googleClientSecret: nconf.get('PLAY_API:CLIENT_SECRET'),
 });
 
 module.exports = {

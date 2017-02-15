@@ -278,7 +278,7 @@ api.food = {
     target: 'CottonCandyBlue',
     article: '',
     canBuy: (function() {
-      return canBuyCandyFood;
+      return canBuyCakeFood;
     }),
     canDrop: canDropCakeFood,
   },

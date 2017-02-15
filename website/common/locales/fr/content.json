@@ -161,6 +161,7 @@
     "hatchingPotionGhost": "Fantôme",
     "hatchingPotionRoyalPurple": "Pourpre Royal",
     "hatchingPotionHolly": "Houx",
+    "hatchingPotionCupid": "Cupidon",
     "hatchingPotionNotes": "Versez-la sur un œuf et il en sortira un familier <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "N'est pas utilisable sur les œufs de quête.",
     "foodMeat": "Viande",

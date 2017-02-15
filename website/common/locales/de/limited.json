@@ -1,5 +1,5 @@
 {
-    "limitedEdition": "Begrenzte Auflage",
+    "limitedEdition": "Limitierte Ausgabe",
     "seasonalEdition": "Jahreszeiten-Edition",
     "winterColors": "Winterfarben",
     "annoyingFriends": "Nervige Freunde",
@@ -87,5 +87,6 @@
     "fallEventAvailability": "Zum Kauf verfügbar bis zum 31. Oktober.",
     "winterEventAvailability": "Zum Kauf verfügbar bis zum 31. Januar.",
     "springEventAvailability": "Zum Kauf verfügbar bis zum 31. Mai.",
-    "summerEventAvailability": "Zum Kauf verfügbar bis zum 31. August."
+    "summerEventAvailability": "Zum Kauf verfügbar bis zum 31. August.",
+    "valentinesEventAvailability": "Available for purchase until February 28."
 }

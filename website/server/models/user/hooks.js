@@ -10,7 +10,7 @@ import schema from './schema';
 schema.plugin(baseModel, {
   // noSet is not used as updating uses a whitelist and creating only accepts specific params (password, email, username, ...)
   noSet: [],
-  private: ['auth.local.hashed_password', 'auth.local.salt', '_cronSignature', '_ABtest', '_ABtests'],
+  private: ['auth.local.hashed_password', 'auth.local.passwordHashMethod', 'auth.local.salt', '_cronSignature', '_ABtest', '_ABtests'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
     delete plainObj.filters;
@@ -85,6 +85,19 @@ function _setUpNewUser (user) {
     user._ABtests.checkInModals = '20161221_showCheckInPreviews'; // show 'preview' check-in modals
   }
   user.items.quests.dustbunnies = 1;
+  user.items.gear.owned.armor_special_birthday = false; // eslint-disable-line camelcase
+  user.items.food = {
+    Cake_Base: 1, // eslint-disable-line camelcase
+    Cake_CottonCandyBlue: 1, // eslint-disable-line camelcase
+    Cake_CottonCandyPink: 1, // eslint-disable-line camelcase
+    Cake_Desert: 1, // eslint-disable-line camelcase
+    Cake_Golden: 1, // eslint-disable-line camelcase
+    Cake_Red: 1, // eslint-disable-line camelcase
+    Cake_Shade: 1, // eslint-disable-line camelcase
+    Cake_Skeleton: 1, // eslint-disable-line camelcase
+    Cake_White: 1, // eslint-disable-line camelcase
+    Cake_Zombie: 1, // eslint-disable-line camelcase
+  };
 
   if (user.registeredThrough === 'habitica-web' || user.registeredThrough === 'habitica-android') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];

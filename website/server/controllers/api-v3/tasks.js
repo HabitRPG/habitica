@@ -33,6 +33,11 @@ import logger from '../../libs/logger';
  * @apiError (404) {NotFound} ChecklistNotFound The specified checklist item could not be found.
  */
 
+/**
+ * @apiDefine NotAuthorized
+ * @apiError (401) {NotAuthorized} There is no account that uses those credentials.
+ */
+
 let api = {};
 let requiredGroupFields = '_id leader tasksOrder name';
 
@@ -42,8 +47,105 @@ let requiredGroupFields = '_id leader tasksOrder name';
  * @apiName CreateUserTasks
  * @apiGroup Task
  *
+ * @apiParam (Body) {string} text The text to be displayed for the task
+ * @apiParam (Body) {string="habit","daily","todo","reward"} type Task type, options are: "habit", "daily", "todo", "reward".
+ * @apiParam (Body) {string[]} [tags] Array of UUIDs of tags
+ * @apiParam (Body) {string} [alias] Alias to assign to task
+ * @apiParam (Body) {string="str","int","per","con"} [attribute] User's attribute to use, options are: "str", "int", "per", "con"
+ * @apiParam (Body) {boolean} [collapseChecklist=false] Determines if a checklist will be displayed
+ * @apiParam (Body) {string} [notes] Extra notes
+ * @apiParam (Body) {string} [date] Due date to be shown in task list. Only valid for type "todo."
+ * @apiParam (Body) {number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1, 1.5, 2; eqivalent of Trivial, Easy, Medium, Hard.
+ * @apiParam (Body) {string[]} [reminders] Array of reminders, each an object that must include: a UUID, startDate and time. For example {"id":"ed427623-9a69-4aac-9852-13deb9c190c3","startDate":"1/16/17","time":"1/16/17" }
+ * @apiParam (Body) {string="weekly","daily"} [frequency=weekly] Value "weekly" enables "On days of the week", value "daily" enables "EveryX Days". Only valid for type "daily".
+ * @apiParam (Body) {string} [repeat=true] List of objects for days of the week,  Days that are true will be repeated upon. Only valid for type "daily". Any days not specified will be marked as true. Days are: su, m, t, w, th, f, s. Value of frequency must be "weekly". For example, to skip repeats on Mon and Fri: "repeat":{"f":false,"m":false}
+ * @apiParam (Body) {number} [everyX=1] Value of frequency must be "daily", the number of days until this daily task is available again.
+ * @apiParam (Body) {number} [streak=0] Number of days that the task has consecutively been checked off. Only valid for type "daily"
+ * @apiParam (Body) {date} [startDate] Date when the task will first become available. Only valid for type "daily"
+ * @apiParam (Body) {boolean} [up=true] Only valid for type "habit" If true, enables the "+" under "Directions/Action" for "Good habits"
+ * @apiParam (Body) {boolean} [down=true] Only valid for type "habit" If true, enables the "-" under "Directions/Action" for "Bad habits"
+ * @apiParam (Body) {number} [value=0] Only valid for type "reward." The cost in gold of the reward
+ *
+ * @apiParamExample {json} Request-Example:
+ *     {
+ *       "id": 4711
+ *       "text":"Update Habitica API Documentation - Tasks",
+ *       "type":"todo",
+ *       "alias":"hab-api-tasks",
+ *       "notes":"Update the tasks api on GitHub",
+ *       "tags":["ed427623-9a69-4aac-9852-13deb9c190c3"],
+ *       "priority":2
+ *     }
+ *
  * @apiSuccess data An object if a single task was created, otherwise an array of tasks
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *     {
+ *       "success": true,
+ *       "data": {
+ *         "userId": "b0413351-405f-416f-8787-947ec1c85199",
+ *         "alias": "hab-api-tasks",
+ *         "text": "Update Habitica API Documentation - Tasks",
+ *         "type": "todo",
+ *         "notes": "Update the tasks api on GitHub",
+ *         "tags": [
+ *           "ed427623-9a69-4aac-9852-13deb9c190c3"
+ *         ],
+ *         "value": 0,
+ *         "priority": 2,
+ *         "attribute": "str",
+ *         "challenge": {
+ *
+ *         },
+ *         "group": {
+ *           "assignedUsers": [
+ *
+ *           ],
+ *           "approval": {
+ *             "required": false,
+ *             "approved": false,
+ *             "requested": false
+ *           }
+ *         },
+ *         "reminders": [
+ *
+ *         ],
+ *         "_id": "829d435b-edc4-498c-a30e-e52361a0f35a",
+ *         "createdAt": "2017-01-12T02:11:02.876Z",
+ *         "updatedAt": "2017-01-12T02:11:02.876Z",
+ *         "checklist": [
+ *
+ *         ],
+ *         "collapseChecklist": false,
+ *         "completed": false,
+ *         "id": "829d435b-edc4-498c-a30e-e52361a0f35a"
+ *       },
+ *       "notifications": [
+ *
+ *       ]
+ *     }
+ *
+ * @apiError (404) {NotFound} ChecklistNotFound The specified checklist item could not be found.
+ * @apiError (400) {BadRequest} MustBeType Task type must be one of "habit", "daily", "todo", "reward".
+ * @apiError (400) {BadRequest} Text-ValidationFailed Path 'text' is required.
+ * @apiError (400) {BadRequest} Alias-ValidationFailed Task short names can only contain alphanumeric characters, underscores and dashes.
+ * @apiError (400) {BadRequest} Value-ValidationFailed `x` is not a valid enum value for path `(body param)`.
+ * @apiError (401) {NotAuthorized} There is no account that uses those credentials.
+ *
+ * @apiErrorExample {json} Error-Response:
+ *     {
+ *       "success": false,
+ *       "error": "BadRequest",
+ *       "message": "todo validation failed",
+ *       "errors": [
+ *           {
+ *             "message": "Path `text` is required.",
+ *             "path": "text"
+ *           }
+ *         ]
+ *       }
  */
+
 api.createUserTasks = {
   method: 'POST',
   url: '/tasks/user',
@@ -71,9 +173,39 @@ api.createUserTasks = {
  *
  * @apiParam {UUID} challengeId The id of the challenge the new task(s) will belong to
  *
+ * @apiParam (Body) {string} text The text to be displayed for the task
+ * @apiParam (Body) {string="habit","daily","todo","reward"} type Task type, options are: "habit", "daily", "todo", "reward".
+ * @apiParam (Body) {string} [alias] Alias to assign to task
+ * @apiParam (Body) {string="str","int","per","con"} [attribute] User's attribute to use, options are: "str", "int", "per", "con"
+ * @apiParam (Body) {boolean} [collapseChecklist=false] Determines if a checklist will be displayed
+ * @apiParam (Body) {string} [notes] Extra notes
+ * @apiParam (Body) {string} [date] Due date to be shown in task list. Only valid for type "todo."
+ * @apiParam (Body) {number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1, 1.5, 2; eqivalent of Trivial, Easy, Medium, Hard.
+ * @apiParam (Body) {string[]} [reminders] Array of reminders, each an object that must include: a UUID, startDate and time. For example {"id":"ed427623-9a69-4aac-9852-13deb9c190c3","startDate":"1/16/17","time":"1/16/17" }
+ * @apiParam (Body) {string="weekly","daily"} [frequency=weekly] Value "weekly" enables "On days of the week", value "daily" enables "EveryX Days". Only valid for type "daily".
+ * @apiParam (Body) {string} [repeat=true] List of objects for days of the week,  Days that are true will be repeated upon. Only valid for type "daily". Any days not specified will be marked as true. Days are: su, m, t, w, th, f, s. Value of frequency must be "weekly". For example, to skip repeats on Mon and Fri: "repeat":{"f":false,"m":false}
+ * @apiParam (Body) {number} [everyX=1] Value of frequency must be "daily", the number of days until this daily task is available again.
+ * @apiParam (Body) {number} [streak=0] Number of days that the task has consecutively been checked off. Only valid for type "daily"
+ * @apiParam (Body) {date} [startDate] Date when the task will first become available. Only valid for type "daily"
+ * @apiParam (Body) {boolean} [up=true] Only valid for type "habit" If true, enables the "+" under "Directions/Action" for "Good habits"
+ * @apiParam (Body) {boolean} [down=true] Only valid for type "habit" If true, enables the "-" under "Directions/Action" for "Bad habits"
+ * @apiParam (Body) {number} [value=0] Only valid for type "reward." The cost in gold of the reward
+ *
+ * @apiParamExample {json} Request-Example:
+ * {"type":"todo","text":"Test API Params"}
+ *
  * @apiSuccess data An object if a single task was created, otherwise an array of tasks
  *
+ * @apiSuccessExample {json} Example return:
+ * {"success":true,"data":{"text":"Test API Params","type":"todo","notes":"","tags":[],"value":0,"priority":1,"attribute":"str","challenge":{"id":"f23c12f2-5830-4f15-9c36-e17fd729a812"},"group":{"assignedUsers":[],"approval":{"required":false,"approved":false,"requested":false}},"reminders":[],"_id":"4a29874c-0308-417b-a909-2a7d262b49f6","createdAt":"2017-01-13T21:23:05.949Z","updatedAt":"2017-01-13T21:23:05.949Z","checklist":[],"collapseChecklist":false,"completed":false,"id":"4a29874c-0308-417b-a909-2a7d262b49f6"},"notifications":[]}
+ *
+ * @apiError (404) {NotFound} ChecklistNotFound The specified checklist item could not be found.
  * @apiUse ChallengeNotFound
+ * @apiError (400) {BadRequest} MustBeType Task type must be one of "habit", "daily", "todo", "reward".
+ * @apiError (400) {BadRequest} Text-ValidationFailed Path 'text' is required.
+ * @apiError (400) {BadRequest} Alias-ValidationFailed Task short names can only contain alphanumeric characters, underscores and dashes.
+ * @apiError (400) {BadRequest} Value-ValidationFailed `x` is not a valid enum value for path `(body param)`.
+ * @apiError (401) {NotAuthorized} There is no account that uses those credentials.
  */
 api.createChallengeTasks = {
   method: 'POST',
@@ -108,9 +240,15 @@ api.createChallengeTasks = {
  * @apiName GetUserTasks
  * @apiGroup Task
  *
- * @apiParam {string="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that must be requested separately. The "completedTodos" type returns only the 30 most recently completed.
+ * @apiParam (URL) {string="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that must be requested separately. The "completedTodos" type returns only the 30 most recently completed.
  *
  * @apiSuccess {Array} data An array of tasks
+ *
+ * @apiSuccessExample
+ * {"success":true,"data":[{"_id":"8a9d461b-f5eb-4a16-97d3-c03380c422a3","userId":"b0413351-405f-416f-8787-947ec1c85199","text":"15 minute break","type":"reward","notes":"","tags":[],"value":10,"priority":1,"attribute":"str","challenge":{},"group":{"assignedUsers":[],"approval":{"required":false,"approved":false,"requested":false}},"reminders":[],"createdAt":"2017-01-07T17:52:09.121Z","updatedAt":"2017-01-11T14:25:32.504Z","id":"8a9d461b-f5eb-4a16-97d3-c03380c422a3"},,{"_id":"84c2e874-a8c9-4673-bd31-d97a1a42e9a3","userId":"b0413351-405f-416f-8787-947ec1c85199","alias":"prac31","text":"Practice Task 31","type":"daily","notes":"","tags":[],"value":1,"priority":1,"attribute":"str","challenge":{},"group":{"assignedUsers":[],"approval":{"required":false,"approved":false,"requested":false}},"reminders":[{"time":"2017-01-13T16:21:00.074Z","startDate":"2017-01-13T16:20:00.074Z","id":"b8b549c4-8d56-4e49-9b38-b4dcde9763b9"}],"createdAt":"2017-01-13T16:34:06.632Z","updatedAt":"2017-01-13T16:49:35.762Z","checklist":[],"collapseChecklist":false,"completed":true,"history":[],"streak":1,"repeat":{"su":false,"s":false,"f":true,"th":true,"w":true,"t":true,"m":true},"startDate":"2017-01-13T00:00:00.000Z","everyX":1,"frequency":"weekly","id":"84c2e874-a8c9-4673-bd31-d97a1a42e9a3"}],"notifications":[]}
+ *
+ * @apiError (BadRequest) Invalid_request_parameters Error returned if the type URL param was not correct.
+ * @apiError (401) {NotAuthorized} There is no account that uses those credentials.
  */
 api.getUserTasks = {
   method: 'GET',
@@ -139,7 +277,13 @@ api.getUserTasks = {
  * @apiParam {UUID} challengeId The id of the challenge from which to retrieve the tasks
  * @apiParam {string="habits","dailys","todos","rewards"} type Optional query parameter to return just a type of tasks
  *
+ * @apiExample {curl} Example use:
+ * curl -i https://habitica.com/api/v3/tasks/challenge/f23c12f2-5830-4f15-9c36-e17fd729a812
+ *
  * @apiSuccess {Array} data An array of tasks
+ *
+ * @apiSuccessExample
+ * {"success":true,"data":[{"_id":"5f12bfba-da30-4733-ad01-9c42f9817975","text":"API Trial","type":"habit","notes":"","tags":[],"value":27.70767809690112,"priority":1.5,"attribute":"str","challenge":{"id":"f23c12f2-5830-4f15-9c36-e17fd729a812"},"group":{"assignedUsers":[],"approval":{"required":false,"approved":false,"requested":false}},"reminders":[],"createdAt":"2017-01-12T19:03:33.485Z","updatedAt":"2017-01-13T17:45:52.442Z","history":[{"date":1484257319183,"value":18.53316748293123},{"date":1484329552441,"value":27.70767809690112}],"down":false,"up":true,"id":"5f12bfba-da30-4733-ad01-9c42f9817975"},{"_id":"54a81d23-529c-4daa-a6f7-c5c6e7e84936","text":"Challenge TODO","type":"todo","notes":"","tags":[],"value":2,"priority":2,"attribute":"str","challenge":{"id":"f23c12f2-5830-4f15-9c36-e17fd729a812"},"group":{"assignedUsers":[],"approval":{"required":false,"approved":false,"requested":false}},"reminders":[],"createdAt":"2017-01-12T19:07:10.310Z","updatedAt":"2017-01-13T20:24:51.070Z","checklist":[],"collapseChecklist":false,"completed":false,"id":"54a81d23-529c-4daa-a6f7-c5c6e7e84936"}],"notifications":[]}
  *
  * @apiUse ChallengeNotFound
  */
@@ -183,7 +327,13 @@ api.getChallengeTasks = {
  *
  * @apiParam {String} taskId The task _id or alias
  *
+ * @apiExample {curl} Example use:
+ * curl -i https://habitica.com/api/v3/tasks/54a81d23-529c-4daa-a6f7-c5c6e7e84936
+ *
  * @apiSuccess {Object} data The task object
+ *
+ * @apiSuccessExample {json} Example returned object
+ * {"success":true,"data":{"_id":"2b774d70-ec8b-41c1-8967-eb6b13d962ba","userId":"b0413351-405f-416f-8787-947ec1c85199","text":"API Trial","alias":"apiTrial","type":"habit","notes":"","tags":[],"value":11.996661122825959,"priority":1.5,"attribute":"str","challenge":{"taskId":"5f12bfba-da30-4733-ad01-9c42f9817975","id":"f23c12f2-5830-4f15-9c36-e17fd729a812"},"group":{"assignedUsers":[],"approval":{"required":false,"approved":false,"requested":false}},"reminders":[],"createdAt":"2017-01-12T19:03:33.495Z","updatedAt":"2017-01-13T20:52:02.927Z","history":[{"value":1,"date":1484248053486},{"value":1.9747,"date":1484252965224},{"value":2.9253562257358428,"date":1484252966902},{"value":3.853133245658556,"date":1484257191129},{"value":4.759112700885761,"date":1484257318911},{"value":5.6443010177121415,"date":1484257319164},{"value":3.752384470969301,"date":1484311429292},{"value":4.660705953838478,"date":1484311575632},{"value":5.54812929062314,"date":1484315395369},{"value":6.415599723011605,"date":1484329050485},{"value":7.263999553295137,"date":1484329050885},{"value":8.094153625212375,"date":1484329051509},{"value":8.906834219714574,"date":1484329088943},{"value":9.70276543915464,"date":1484329089547},{"value":10.482627142836241,"date":1484329089835},{"value":11.24705848799571,"date":1484329095500},{"value":11.996661122825959,"date":1484329552423}],"down":false,"up":true,"id":"2b774d70-ec8b-41c1-8967-eb6b13d962ba"},"notifications":[]}
  *
  * @apiUse TaskNotFound
  */
@@ -218,10 +368,28 @@ api.getTask = {
  *
  * @apiParam {String} taskId The task _id or alias
  *
+ * @apiParam (Body) {string} [text] The text to be displayed for the task
+ * @apiParam (Body) {string="str","int","per","con"} [attribute] User's attribute to use, options are: "str", "int", "per", "con"
+ * @apiParam (Body) {boolean} [collapseChecklist=false] Determines if a checklist will be displayed
+ * @apiParam (Body) {string} [notes] Extra notes
+ * @apiParam (Body) {string} [date] Due date to be shown in task list. Only valid for type "todo."
+ * @apiParam (Body) {number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1, 1.5, 2; eqivalent of Trivial, Easy, Medium, Hard.
+ * @apiParam (Body) {string[]} [reminders] Array of reminders, each an object that must include: a UUID, startDate and time.
+ * @apiParam (Body) {string="weekly","daily"} [frequency=weekly] Value "weekly" enables "On days of the week", value "daily" enables "EveryX Days". Only valid for type "daily".
+ * @apiParam (Body) {string} [repeat=true] List of objects for days of the week,  Days that are true will be repeated upon. Only valid for type "daily". Any days not specified will be marked as true. Days are: su, m, t, w, th, f, s. Value of frequency must be "weekly". For example, to skip repeats on Mon and Fri: "repeat":{"f":false,"m":false}
+ * @apiParam (Body) {number} [everyX=1] Value of frequency must be "daily", the number of days until this daily task is available again.
+ * @apiParam (Body) {number} [streak=0] Number of days that the task has consecutively been checked off. Only valid for type "daily"
+ * @apiParam (Body) {date} [startDate] Date when the task will first become available. Only valid for type "daily"
+ * @apiParam (Body) {boolean} [up=true] Only valid for type "habit" If true, enables the "+" under "Directions/Action" for "Good habits"
+ * @apiParam (Body) {boolean} [down=true] Only valid for type "habit" If true, enables the "-" under "Directions/Action" for "Bad habits"
+ * @apiParam (Body) {number} [value=0] Only valid for type "reward." The cost in gold of the reward
+ *
+ * @apiParamExample {json} Request-Example:
+ * {"notes":"This will be replace the notes, anything not specified will remain the same"}
+ *
  * @apiSuccess {Object} data The updated task
  *
  * @apiUse TaskNotFound
- * @apiUse ChallengeNotFound
  */
 api.updateTask = {
   method: 'PUT',
@@ -315,9 +483,18 @@ api.updateTask = {
  * @apiParam {String} taskId The task _id or alias
  * @apiParam {String="up","down"} direction The direction for scoring the task
  *
+ * @apiExample {json} Example call:
+ * curl -X "POST" https://habitica.com/api/v3/tasks/test-api-params/score/up
+ *
+ * @apiSuccess {Object} data The user stats
  * @apiSuccess {Object} data._tmp If an item was dropped it'll be returned in te _tmp object
  * @apiSuccess {Number} data.delta The delta
- * @apiSuccess {Object} data The user stats
+ *
+ * @apiSuccessExample {json} Example result:
+ * {"success":true,"data":{"delta":0.9746999906450404,"_tmp":{},"hp":49.06645205596985,"mp":37.2008917491047,"exp":101.93810026267543,"gp":77.09694176716997,"lvl":19,"class":"rogue","points":0,"str":5,"con":3,"int":3,"per":8,"buffs":{"str":9,"int":9,"per":9,"con":9,"stealth":0,"streaks":false,"snowball":false,"spookySparkles":false,"shinySeed":false,"seafoam":false},"training":{"int":0,"per":0,"str":0,"con":0}},"notifications":[]}
+ *
+ * @apiSuccessExample {json} Example result with item drop:
+ * {"success":true,"data":{"delta":1.0259567046270648,"_tmp":{"quest":{"progressDelta":1.2362778290756147,"collection":1},"drop":{"target":"Zombie","article":"","canDrop":true,"value":1,"key":"RottenMeat","type":"Food","dialog":"You've found Rotten Meat! Feed this to a pet and it may grow into a sturdy steed."}},"hp":50,"mp":66.2390716654227,"exp":143.93810026267545,"gp":135.12889840462591,"lvl":20,"class":"rogue","points":0,"str":6,"con":3,"int":3,"per":8,"buffs":{"str":10,"int":10,"per":10,"con":10,"stealth":0,"streaks":false,"snowball":false,"spookySparkles":false,"shinySeed":false,"seafoam":false},"training":{"int":0,"per":0,"str":0,"con":0}},"notifications":[]}
  *
  * @apiUse TaskNotFound
  */
@@ -435,9 +612,12 @@ api.scoreTask = {
  * @apiGroup Task
  *
  * @apiParam {String} taskId The task _id or alias
- * @apiParam {Number} position Query parameter - Where to move the task (-1 means push to bottom). First position is 0
+ * @apiParam {Number} position Query parameter - Where to move the task. 0 = top of the list. -1 = bottom of the list.  (-1 means push to bottom). First position is 0
  *
- * @apiSuccess {Array} data The new tasks order (user.tasksOrder.{task.type}s)
+ * @apiSuccess {Array} data The new tasks order for the specific type that the taskID belongs to.
+ *
+ * @apiSuccessExample {json}
+ * {"success":true,"data":["8d7e237a-b259-46ee-b431-33621256bb0b","2b774d70-ec8b-41c1-8967-eb6b13d962ba","f03d4a2b-9c36-4f33-9b5f-bae0aed23a49"],"notifications":[]}
  *
  * @apiUse TaskNotFound
  */
@@ -476,10 +656,17 @@ api.moveTask = {
  *
  * @apiParam {String} taskId The task _id or alias
  *
+ * @apiParam (Body) {string} text The text of the checklist item
+ *
+ * @apiParamExample {json} Example body data:
+ * {"text":"Do this subtask"}
+ *
  * @apiSuccess {Object} data The updated task
  *
+ * @apiSuccessExample {json} Example return:
+ * {"success":true,"data":{"_id":"84f02d6a-7b43-4818-a35c-d3336cec4880","userId":"b0413351-405f-416f-8787-947ec1c85199","text":"Test API Params","alias":"test-api-params","type":"todo","notes":"","tags":[],"value":0,"priority":2,"attribute":"int","challenge":{"taskId":"4a29874c-0308-417b-a909-2a7d262b49f6","id":"f23c12f2-5830-4f15-9c36-e17fd729a812"},"group":{"assignedUsers":[],"approval":{"required":false,"approved":false,"requested":false}},"reminders":[],"createdAt":"2017-01-13T21:23:05.949Z","updatedAt":"2017-01-14T03:38:07.406Z","checklist":[{"id":"afe4079d-dff1-47d9-9b06-5d76c69ddb12","text":"Do this subtask","completed":false}],"collapseChecklist":false,"completed":false,"id":"84f02d6a-7b43-4818-a35c-d3336cec4880"},"notifications":[]}
+ *
  * @apiUse TaskNotFound
- * @apiUse ChallengeNotFound
  */
 api.addChecklistItem = {
   method: 'POST',
@@ -578,6 +765,11 @@ api.scoreCheckListItem = {
  * @apiParam {String} taskId The task _id or alias
  * @apiParam {UUID} itemId The checklist item _id
  *
+ * @apiParam (body) {string} text The text that will replace the current checkitem text.
+ *
+ * @apiParamExample {json} Example body:
+ * {"text":"Czech 1"}
+ *
  * @apiSuccess {Object} data The updated task
  *
  * @apiUse TaskNotFound
@@ -632,7 +824,7 @@ api.updateChecklistItem = {
 };
 
 /**
- * @api {delete} /api/v3/tasks/:taskId/checklist/:itemId Remove a checklist item
+ * @api {delete} /api/v3/tasks/:taskId/checklist/:itemId Delete a checklist item from a task
  * @apiName RemoveChecklistItem
  * @apiGroup Task
  *
@@ -640,6 +832,9 @@ api.updateChecklistItem = {
  * @apiParam {UUID} itemId The checklist item _id
  *
  * @apiSuccess {Object} data The updated task
+ *
+ * @apiSuccessExample {json} Example return:
+ * {"success":true,"data":{"_id":"84f02d6a-7b43-4818-a35c-d3336cec4880","userId":"b0413351-405f-416f-8787-947ec1c85199","text":"Test API Params","alias":"test-api-params","type":"todo","notes":"","tags":[],"value":-1,"priority":2,"attribute":"int","challenge":{"taskId":"4a29874c-0308-417b-a909-2a7d262b49f6","id":"f23c12f2-5830-4f15-9c36-e17fd729a812"},"group":{"assignedUsers":[],"approval":{"required":false,"approved":false,"requested":false}},"reminders":[],"createdAt":"2017-01-13T21:23:05.949Z","updatedAt":"2017-01-14T19:35:41.881Z","checklist":[],"collapseChecklist":false,"completed":false,"id":"84f02d6a-7b43-4818-a35c-d3336cec4880"},"notifications":[]}
  *
  * @apiUse TaskNotFound
  * @apiUse ChallengeNotFound
@@ -700,7 +895,12 @@ api.removeChecklistItem = {
  *
  * @apiSuccess {Object} data The updated task
  *
+ * @apiSuccessExample {json} Example return:
+ * {"success":true,"data":{"_id":"84f02d6a-7b43-4818-a35c-d3336cec4880","userId":"b0413351-405f-416f-8787-947ec1c85199","text":"Test API Params","alias":"test-api-params","type":"todo","notes":"","tags":["3d5d324d-a042-4d5f-872e-0553e228553e"],"value":-1,"priority":2,"attribute":"int","challenge":{"taskId":"4a29874c-0308-417b-a909-2a7d262b49f6","id":"f23c12f2-5830-4f15-9c36-e17fd729a812"},"group":{"assignedUsers":[],"approval":{"required":false,"approved":false,"requested":false}},"reminders":[],"createdAt":"2017-01-13T21:23:05.949Z","updatedAt":"2017-01-14T19:41:29.466Z","checklist":[],"collapseChecklist":false,"completed":false,"id":"84f02d6a-7b43-4818-a35c-d3336cec4880"},"notifications":[]}
+ *
  * @apiUse TaskNotFound
+ * @apiError (400) {BadRequest} Invalid-request-parameters "tagId" must be a valid UUID corresponding to a tag belonging to the user.
+ * @apiError (400) {BadRequest} TagExists The task is already tagged with given tag.
  */
 api.addTagToTask = {
   method: 'POST',
@@ -733,14 +933,20 @@ api.addTagToTask = {
 };
 
 /**
- * @api {delete} /api/v3/tasks/:taskId/tags/:tagId Remove a tag from a task
+ * @api {delete} /api/v3/tasks/:taskId/tags/:tagId Delete a tag from a task
  * @apiName RemoveTagFromTask
  * @apiGroup Task
  *
  * @apiParam {String} taskId The task _id or alias
  * @apiParam {UUID} tagId The tag id
  *
+ * @apiExample {curl} Example use:
+ * curl -X "DELETE" https://habitica.com/api/v3/tasks/test-api-params/tags/3d5d324d-a042-4d5f-872e-0553e228553e
+ *
  * @apiSuccess {Object} data The updated task
+ *
+ * @apiSuccessExample {json} Example return:
+ * {"success":true,"data":{"_id":"84f02d6a-7b43-4818-a35c-d3336cec4880","userId":"b0413351-405f-416f-8787-947ec1c85199","text":"Test API Params","alias":"test-api-params","type":"todo","notes":"","tags":[],"value":-1,"priority":2,"attribute":"int","challenge":{"taskId":"4a29874c-0308-417b-a909-2a7d262b49f6","id":"f23c12f2-5830-4f15-9c36-e17fd729a812"},"group":{"assignedUsers":[],"approval":{"required":false,"approved":false,"requested":false}},"reminders":[],"createdAt":"2017-01-13T21:23:05.949Z","updatedAt":"2017-01-14T20:02:18.206Z","checklist":[],"collapseChecklist":false,"completed":false,"id":"84f02d6a-7b43-4818-a35c-d3336cec4880"},"notifications":[]}
  *
  * @apiUse TaskNotFound
  * @apiUse TagNotFound
@@ -779,7 +985,16 @@ api.removeTagFromTask = {
  * @apiParam {UUID} challengeId The challenge _id
  * @apiParam {String} keep Query parameter - keep-all or remove-all
  *
+ * @apiExample {curl}
+ * curl -X "POST" https://habitica.com/api/v3/tasks/unlink-all/f23c12f2-5830-4f15-9c36-e17fd729a812?keep=remove-all
+ *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiSuccessExample {json} Example return:
+ * {"success":true,"data":{},"notifications":[]}
+ *
+ * @apiError (400) {BadRequest} Broken Only broken challenges tasks can be unlinked.
+ *
  */
 api.unlinkAllTasks = {
   method: 'POST',
@@ -840,9 +1055,13 @@ api.unlinkAllTasks = {
  * @apiParam {String} taskId The task _id or alias
  * @apiParam {String} keep Query parameter - keep or remove
  *
+ * @apiExample {curl} Example call:
+ * curl -X "POST" https://habitica.com/api/v3/tasks/unlink-one/ee882e1d-ebd1-4716-88f2-4f9e47d947a8?keep=keep
+ *
  * @apiSuccess {Object} data An empty object
  *
  * @apiUse TaskNotFound
+ * @apiError (400) {BadRequest} Broken Only broken challenges tasks can be unlinked.
  */
 api.unlinkOneTask = {
   method: 'POST',
@@ -886,7 +1105,13 @@ api.unlinkOneTask = {
  * @apiName ClearCompletedTodos
  * @apiGroup Task
  *
+ * @apiExample {curl} Example call:
+ * curl -X "POST" https://habitica.com/api/v3/tasks/ClearCompletedTodos
+ *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiSuccessExample {json} Example return:
+ * {"success":true,"data":{},"notifications":[]}
  */
 api.clearCompletedTodos = {
   method: 'POST',
@@ -896,16 +1121,24 @@ api.clearCompletedTodos = {
     let user = res.locals.user;
 
     // Clear completed todos
-    // Do not delete challenges completed todos unless the task is broken
+    // Do not delete completed todos from challenges or groups, unless the task is broken
     await Tasks.Task.remove({
       userId: user._id,
       type: 'todo',
       completed: true,
-      $or: [
-        {'challenge.id': {$exists: false}},
-        {'challenge.broken': {$exists: true}},
-        {'group.id': {$exists: false}},
-        {'group.broken': {$exists: true}},
+      $and: [ // exclude challenge and group tasks
+        {
+          $or: [
+            {'challenge.id': {$exists: false}},
+            {'challenge.broken': {$exists: true}},
+          ],
+        },
+        {
+          $or: [
+            {'group.id': {$exists: false}},
+            {'group.broken': {$exists: true}},
+          ],
+        },
       ],
     }).exec();
 
@@ -920,10 +1153,16 @@ api.clearCompletedTodos = {
  *
  * @apiParam {String} taskId The task _id or alias
  *
+ * @apiExample {json} Example call:
+ * curl -X "DELETE" https://habitica.com/api/v3/tasks/3d5d324d-a042-4d5f-872e-0553e228553e
+ *
  * @apiSuccess {Object} data An empty object
  *
  * @apiUse TaskNotFound
- * @apiUse ChallengeNotFound
+ * @apiError (401) {NotAuthorized} Challenge A task belonging to a challenge can't be deleted.
+ * @apiError (401) {NotAuthorized} Group Can't delete group tasks that are assigned to you
+ * @apiError (401) {NotAuthorized} ChallengeLeader Tasks belonging to a challenge can only be edited by the leader.
+ * @apiError (401) {NotAuthorized} GroupLeader Not authorized to manage tasks!
  */
 api.deleteTask = {
   method: 'DELETE',

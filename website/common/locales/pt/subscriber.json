@@ -120,6 +120,7 @@
     "mysterySet201610": "Conjunto \"Chama Espectral\"",
     "mysterySet201611": "Cornucopia Set",
     "mysterySet201612": "Nutcracker Set",
+    "mysterySet201701": "Time-Freezer Set",
     "mysterySet301404": "Conjunto \"Steampunk Padrão\"",
     "mysterySet301405": "Conjunto \"Acessórios Steampunk\"",
     "mysterySetwondercon": "WonderCon",
@@ -151,5 +152,9 @@
     "noSudoAccess": "Você não possui acesso de administrador.",
     "couponCodeRequired": "O código do cupom é requerido.",
     "eventRequired": "\"req.params.event\" é necessário.",
-    "countRequired": "\"req.query.count\" é necessário."
+    "countRequired": "\"req.query.count\" é necessário.",
+    "missingPaymentId": "Missing req.query.paymentId",
+    "missingCustomerId": "Missing req.query.customerId",
+    "missingPaypalBlock": "Missing req.session.paypalBlock",
+    "missingSubKey": "Missing req.query.sub"
 }

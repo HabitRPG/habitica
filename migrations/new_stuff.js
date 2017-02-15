@@ -10,7 +10,6 @@ var monk = require('monk');
 var connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
 var dbUsers = monk(connectionString).get('users', { castIds: false });
 
-
 function processUsers(lastId) {
   // specify a query to limit the affected users (empty for all users):
   var query = {
@@ -45,10 +44,10 @@ function updateUsers (users) {
     return;
   }
 
-  var userPaymentPromises = users.map(updateUser);
+  var userPromises = users.map(updateUser);
   var lastUser = users[users.length - 1];
 
-  return Promise.all(userPaymentPromises)
+  return Promise.all(userPromises)
   .then(function () {
     processUsers(lastUser._id);
   });
@@ -80,4 +79,4 @@ function exiting(code, msg) {
   process.exit(code);
 }
 
-processUsers()
+module.exports = processUsers;

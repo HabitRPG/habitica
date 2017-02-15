@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "火炎爆破",
-    "spellWizardFireballNotes": "炎が手から吹き出します。経験値を手に入れ、ボスに追加のダメージを与えます!　呪文をかけるタスクをクリックしてください。(基準 : 知性)",
+    "spellWizardFireballNotes": "炎が手から吹き出します。経験値を手に入れ、ボスに追加のダメージを与えます!　呪文をかけるタスクをクリックしてください。(基準 : 知能)",
     "spellWizardMPHealText": "エーテル波動",
     "spellWizardMPHealNotes": "あなたのマナを犠牲にして仲間を助けます。残りのパーティーのメンバーのマナが増えます! (基準 : 知能)",
     "spellWizardEarthText": "地震",
@@ -15,7 +15,7 @@
     "spellWarriorValorousPresenceText": "勇烈な貫禄",
     "spellWarriorValorousPresenceNotes": "あなたの存在はパーティに自信を与えます。パーティの全員の力に勢いボーナスがつきます!　( 基準 : 勢いなしの力値 )",
     "spellWarriorIntimidateText": "威嚇的な視線",
-    "spellWarriorIntimidateNotes": "あなたのにらみが敵に恐怖をたたきこみます。パーティ全員の体質に勢いのボーナスがつきます!　( 体質: 勢いなしの性格値 )",
+    "spellWarriorIntimidateNotes": "あなたのにらみが敵に恐怖をたたきこみます。パーティ全員の体質に勢いのボーナスがつきます!　( 体質: 勢いなしの体質値 )",
     "spellRoguePickPocketText": "スリ",
     "spellRoguePickPocketNotes": "近くのタスクにスリをはたらきます。ゴールドを獲得!　唱える対象のタスクをクリックしてください。(基準 : 知覚)",
     "spellRogueBackStabText": "背後から一突き",
@@ -54,7 +54,7 @@
     "partyNotFound": "パーティが見つかりません。",
     "targetIdUUID": "\"targetId\" のUserIDが無効です。",
     "challengeTasksNoCast": "スキルはチャレンジのタスクには唱えられません。",
-    "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
+    "groupTasksNoCast": "スキルはグループのタスクには唱えられません。",
     "spellNotOwned": "あなたはこのスキルを習得していません。",
     "spellLevelTooHigh": "このスキルを使うにはレベル<%= level %>が必要です。"
 }

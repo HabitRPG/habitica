@@ -22,6 +22,8 @@ import { sendNotification as sendPushNotification } from '../../libs/pushNotific
 import pusher from '../../libs/pusher';
 import common from '../../../common';
 import payments from '../../libs/payments';
+import stripePayments from '../../libs/stripePayments';
+import amzLib from '../../libs/amazonPayments';
 import shared from '../../../common';
 
 
@@ -158,7 +160,7 @@ api.createGroupPlan = {
       let headers = req.headers;
       let coupon = req.query.coupon;
 
-      await payments.payWithStripe({
+      await stripePayments.checkout({
         token,
         user,
         gift,
@@ -175,7 +177,7 @@ api.createGroupPlan = {
       let groupId = savedGroup._id;
       let headers = req.headers;
 
-      await payments.subscribeWithAmazon({
+      await amzLib.subscribe({
         billingAgreementId,
         sub,
         coupon,
@@ -407,7 +409,7 @@ api.joinGroup = {
         headerText: common.i18n.t('invitationAcceptedHeader', inviter.preferences.language),
         bodyText: common.i18n.t('invitationAcceptedBody', {
           groupName: group.name,
-          username: user.auth.local.username,
+          username: user.profile.name,
         }, inviter.preferences.language),
       };
       inviter.addNotification('GROUP_INVITE_ACCEPTED', data);

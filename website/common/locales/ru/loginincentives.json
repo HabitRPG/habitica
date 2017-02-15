@@ -4,7 +4,7 @@
   "nextRewardUnlocksIn": "Ваш следующий приз будет доступен после того, как вы войдете в игру еще <%= numberOfCheckinsLeft %> раз(а)!",
   "awesome": "Потрясающе!",
   "totalCount": "<%= count %> всего",
-  "countLeft": "<%= count %> отметок до следующей награды",
+  "countLeft": "<%= count %> входов в игру до следующей награды",
   "incentivesDescription": "Когда дело касается новых привычек, постоянство - это главное. Каждый день, когда вы заходите в игру, приближает вас к призу.",
   "totalCheckins": "<%= count %> входов в игру",
   "checkinEarned": "Ваш счётчик входов вырос!",
@@ -12,5 +12,5 @@
   "totalCheckinsTitle": "Всего входов",
   "checkinProgressTitle": "Прогресс до следующего",
   "incentiveBackgroundsUnlockedWithCheckins": "Эти фоны будут доступны, если заходить в игру каждый день.",
-  "moreIncentivesComingSoon": "New check-in incentives will be added soon!"
+  "moreIncentivesComingSoon": "Новые стимулы для ежедневного входа будут скоро добавлены!"
 }

@@ -7,10 +7,10 @@
   "countLeft": "还需要<%= count %> 次签到才能得到下一个奖励哦~",
   "incentivesDescription": "养成习惯时，坚持是关键！每次签到都离你努力争取的东西更近一些。",
   "totalCheckins": "<%= count %>  次签到",
-  "checkinEarned": "你已经到柜台签到了！",
+  "checkinEarned": "你的签到总次数又升高了！",
   "unlockedCheckInReward": "你解锁了一个签到奖励！",
-  "totalCheckinsTitle": "总签到",
-  "checkinProgressTitle": "直到下一个进度",
+  "totalCheckinsTitle": "总签到次数",
+  "checkinProgressTitle": "距离下一个进度还有",
   "incentiveBackgroundsUnlockedWithCheckins": "这些背景将会通过每日签到解锁。",
-  "moreIncentivesComingSoon": "New check-in incentives will be added soon!"
+  "moreIncentivesComingSoon": "很快你会收到新的签到奖励！"
 }
