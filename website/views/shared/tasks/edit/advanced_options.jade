@@ -43,10 +43,10 @@ div(ng-if='(task.type !== "reward") || (!obj.auth && obj.purchased && obj.purcha
           legend.option-title=env.t('repeatsOn')
           label
             input(type="radio", ng-model='task._edit.repeatsOn', value='dayOfMonth')
-            |=env.t('dayOfMonth')
+            =env.t('dayOfMonth')
           label
             input(type="radio", ng-model='task._edit.repeatsOn', value='dayOfWeek')
-            |=env.t('dayOfWeek')
+            =env.t('dayOfWeek')
         
         .form-group
           legend.option-title=env.t('summary')

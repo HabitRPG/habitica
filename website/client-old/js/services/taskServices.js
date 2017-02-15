@@ -290,6 +290,8 @@ angular.module('habitrpg')
             if ($scope.task.type !== 'daily') return;
             $scope.summary = generateSummary($scope.task);
 
+            $scope.repeatSuffix = generateRepeatSuffix($scope.task);
+
             if ($scope.task._edit.repeatsOn == 'dayOfMonth') {
               var date = moment().date();
               $scope.task._edit.weeksOfMonth = [];
@@ -364,6 +366,19 @@ angular.module('habitrpg')
 
       return summary;
     }
+
+    function generateRepeatSuffix (task) {
+      if (task._edit.frequency === 'daily') {
+        return task._edit.everyX == 1 ? window.env.t('day') : window.env.t('days');
+      } else if (task._edit.frequency === 'weekly') {
+        return task._edit.everyX == 1 ? window.env.t('week') : window.env.t('weeks');
+      } else if (task._edit.frequency === 'monthly') {
+        return task._edit.everyX == 1 ? window.env.t('month') : window.env.t('months');
+      } else if (task._edit.frequency === 'yearly') {
+        return task._edit.everyX == 1 ? window.env.t('year') : window.env.t('years');
+      }
+
+    };
 
     function cancelTaskEdit(task) {
       task._edit = undefined;
