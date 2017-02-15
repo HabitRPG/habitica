@@ -714,7 +714,10 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     if (_.find(userToInvite.invitations.guilds, {id: group._id})) {
       throw new NotAuthorized(res.t('userAlreadyInvitedToGroup'));
     }
-    userToInvite.invitations.guilds.push({id: group._id, name: group.name, inviter: inviter._id});
+
+    let guildInvite = {id: group._id, name: group.name, inviter: inviter._id};
+    if (group.isSubscribed() && group.purchased.plan.dateTerminated) guildInvite.cancelledPlan = true;
+    userToInvite.invitations.guilds.push(guildInvite);
   } else if (group.type === 'party') {
     if (userToInvite.invitations.party.id) {
       throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
@@ -727,7 +730,9 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
       if (userParty && userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty'));
     }
 
-    userToInvite.invitations.party = {id: group._id, name: group.name, inviter: inviter._id};
+    let partyInvite = {id: group._id, name: group.name, inviter: inviter._id};
+    if (group.isSubscribed() && group.purchased.plan.dateTerminated) partyInvite.cancelledPlan = true;
+    userToInvite.invitations.party = partyInvite;
   }
 
   let groupLabel = group.type === 'guild' ? 'Guild' : 'Party';
@@ -790,10 +795,15 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
     userReturnInfo = await _inviteByUUID(userToContact._id, group, inviter, req, res);
   } else {
     userReturnInfo = invite.email;
+
+    let cancelledPlan = false;
+    if (group.isSubscribed() && group.purchased.plan.dateTerminated) cancelledPlan = true;
+
     const groupQueryString = JSON.stringify({
       id: group._id,
       inviter: inviter._id,
       sentAt: Date.now(), // so we can let it expire
+      cancelledPlan,
     });
     let link = `/static/front?groupInvite=${encrypt(groupQueryString)}`;
 

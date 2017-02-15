@@ -119,6 +119,10 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       };
 
       $scope.join = function (party) {
+        if (party.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
+          return;
+        }
+
         Groups.Group.join(party.id)
           .then(function (response) {
             $rootScope.party = $scope.group = response.data.data;
