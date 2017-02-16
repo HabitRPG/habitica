@@ -113,7 +113,7 @@
     "toUserIDRequired": "Wymagane ID Użytkownika",
     "gemAmountRequired": "Wymagana liczba klejnotów",
     "notAuthorizedToSendMessageToThisUser": "Nie można wysłać wiadomości do tego użytkownika.",
-    "privateMessageGiftGemsMessage": "Hello <%= receiverName %>, <%= senderName %> has sent you <%= gemAmount %> gems!",
+    "privateMessageGiftGemsMessage": "Cześć <%= receiverName %>, <%= senderName %> wysłał Ci <%= gemAmount %> klejnotów!",
     "privateMessageGiftSubscriptionMessage": "Miesięcy abonamentu: <%= numberOfMonths %>!",
     "cannotSendGemsToYourself": "Nie możesz wysłać sobie klejnotów. Zamiast tego wypróbuj abonament.",
     "badAmountOfGemsToSend": "Wartość musi być pomiędzy 1 i aktualną liczbą klejnotów.",
