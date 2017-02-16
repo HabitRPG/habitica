@@ -261,15 +261,16 @@ describe('shouldDo', () => {
         m: false,
       };
 
-      let today = moment('2017-01-27T00:00:00+00:00');
+      let today = moment('01/27/2017');
       let week = today.monthWeek();
       let dayOfWeek = today.day();
+      dailyTask.startDate = today.toDate();
       dailyTask.weeksOfMonth = [week];
       dailyTask.repeat[DAY_MAPPING[dayOfWeek]] = true;
       dailyTask.everyX = 2;
       dailyTask.frequency = 'monthly';
 
-      day = moment('2017-03-24T00:00:00+00:00');
+      day = moment('03/24/2017');
 
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
     });
