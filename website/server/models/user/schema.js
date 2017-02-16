@@ -462,6 +462,7 @@ let schema = new Schema({
       invitedQuest: {type: Boolean, default: true},
     },
     suppressModals: {
+      loginIncentive: {type: Boolean, default: false},
       levelUp: {type: Boolean, default: false},
       hatchPet: {type: Boolean, default: false},
       raisePet: {type: Boolean, default: false},

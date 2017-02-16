@@ -76,6 +76,9 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
                 input(type='checkbox', ng-model='user.preferences.displayInviteToPartyWhenPartyIs1', ng-change='set({"preferences.displayInviteToPartyWhenPartyIs1": user.preferences.displayInviteToPartyWhenPartyIs1 ? true : false})')
                 span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('displayInviteToPartyWhenPartyIs1'))=env.t('displayInviteToPartyWhenPartyIs1')
             .checkbox
+              label=env.t('suppressLoginIncentiveModal')
+                input(type='checkbox', ng-model='user.preferences.suppressModals.loginIncentive', ng-change='set({"preferences.suppressModals.loginIncentive": user.preferences.suppressModals.loginIncentive?true: false})')                
+            .checkbox
               label=env.t('suppressLevelUpModal')
                 input(type='checkbox', ng-model='user.preferences.suppressModals.levelUp', ng-change='set({"preferences.suppressModals.levelUp": user.preferences.suppressModals.levelUp?true: false})')
             .checkbox

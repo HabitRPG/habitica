@@ -147,7 +147,9 @@ habitrpg.controller('NotificationCtrl',
             scoreTaskNotification = notification;
             break;
           case 'LOGIN_INCENTIVE':
-            Notification.showLoginIncentive(User.user, notification.data, Social.loadWidgets);
+            if (!User.user.preferences.suppressModals.loginIncentive) {
+              Notification.showLoginIncentive(User.user, notification.data, Social.loadWidgets);
+            }
             break;
           default:
             if (notification.data.headerText && notification.data.bodyText) {
