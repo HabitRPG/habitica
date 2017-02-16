@@ -97,9 +97,13 @@ export function shouldDo (day, dailyTask) {
   }
 
   let daysOfTheWeek = [];
-  for (let [repeatDay, active] of Object.entries(dailyTask.repeat)) {
-    if (active) daysOfTheWeek.push(parseInt(DAY_MAPPING_STRING_TO_NUMBER[repeatDay], 10));
+
+  if (dailyTask.repeat) {
+    for (let [repeatDay, active] of Object.entries(dailyTask.repeat)) {
+      if (active) daysOfTheWeek.push(parseInt(DAY_MAPPING_STRING_TO_NUMBER[repeatDay], 10));
+    }
   }
+
 
   if (dailyTask.frequency === 'daily') {
     if (!dailyTask.everyX) return false; // error condition
