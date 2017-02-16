@@ -8,10 +8,8 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
     .row
       .col-sm-6.col-md-3(
         ng-repeat='list in lists',
-        ng-init="groupedList = _.groupBy(obj[list.type + 's'], 'challenge.shortName')",
         ng-class='::{ "rewards-module": list.type==="reward", "new-row-sm": list.type==="todo" }')
         .task-column(class='{{::list.type}}s')
-
           include ./task_view/graph
 
           h2.task-column_title(class='{{::list.type}}-title') {{::list.header}}
@@ -32,21 +30,25 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
           +taskColumnTabs('top')
 
           // Actual List
-          ul(class='{{::list.type}}s main-list', 
-            ng-init='taskList = obj[list.type+"s"]', 
-            ng-show='obj[list.type + "s"].length > 0', 
-            hrpg-sort-tasks, ng-if='!$state.includes("options.social.challenges") && !user.preferences.tasks.groupByChallenge')
+          ul(class='{{::list.type}}s main-list',
+            ng-init="taskList = obj[list.type+'s']",
+            ng-show='taskList.length > 0', 
+            hrpg-sort-tasks, 
+            ng-if='!$state.includes("options.social.challenges") && !user.preferences.tasks.groupByChallenge')
+            {{taskList}}
             include ./task
-
-          div(ng-repeat="(key, taskList) in groupedList", ng-if='user.preferences.tasks.groupByChallenge')
+          
+          div(ng-repeat="(key, taskList) in groupedList[list.type]", 
+            ng-if='user.preferences.tasks.groupByChallenge && !$state.includes("options.social.challenges")')
             h3 {{key}}
             ul(class='{{::list.type}}s main-list', 
-              ng-show='taskList.length > 0', hrpg-sort-tasks, 
-              ng-if='!$state.includes("options.social.challenges")')
+              ng-show='taskList.length > 0', hrpg-sort-tasks)
               include ./task
 
           //Loads the non-sortable lists for challenges
-          ul(class='{{::list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', ng-if='$state.includes("options.social.challenges")')
+          ul(class='{{::list.type}}s main-list', 
+            ng-show='obj[list.type + "s"].length > 0', 
+            ng-if='$state.includes("options.social.challenges")')
             include ./task
 
           include ./task_view/static_rewards

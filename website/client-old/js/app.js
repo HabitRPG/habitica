@@ -221,6 +221,15 @@ window.habitrpg = angular.module('habitrpg',
                     $scope.group[type + 's'] = _.compact(orderedTasks).concat(unorderedTasks);
                   }).value();
 
+                $scope.groupedList = {};
+                ['habit', 'daily', 'todo', 'reward'].forEach(function (listType) {
+                  groupTasksByChallenge($scope.group[listType  + 's'], listType);
+                });
+
+                function groupTasksByChallenge (taskList, type) {
+                  $scope.groupedList[type] = _.groupBy(taskList, 'challenge.shortName');
+                };
+
                 $scope.group.approvals = [];
                 if (User.user._id === $scope.group.leader._id) {
                   return Tasks.getGroupApprovals($scope.group._id);
@@ -257,7 +266,7 @@ window.habitrpg = angular.module('habitrpg',
                   tasks.forEach(function (element, index, array) {
                     if (!$scope.challenge[element.type + 's']) $scope.challenge[element.type + 's'] = [];
                     $scope.challenge[element.type + 's'].push(element);
-                  })
+                  });
 
                   return Members.getChallengeMembers($scope.challenge._id);
                 })
