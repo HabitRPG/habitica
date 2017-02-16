@@ -106,7 +106,7 @@
     "buyThis": "Comprare questo <%= text %> con <%= price %> delle tue <%= gems %> Gemme?",
     "noReachServer": "Il server non è attualmente raggiungibile, riprova più tardi",
     "errorUpCase": "ERRORE:",
-    "newPassSent": "Se abbiamo il tuo indirizzo e-mail in archivio, una nuova password è stata inviata a quell'indirizzo.",
+    "newPassSent": "If we have your email on file, instructions for setting a new password have been sent to your email.",
     "serverUnreach": "Il server non è attualmente raggiungibile.",
     "requestError": "Oh no, c'é stato un errore! <strong>Per favore, ricarica la pagina,</strong> la tua ultima azione potrebbe non essere stata salvata correttamente.",
     "seeConsole": "Se l'errore persiste, per favore segnalalo in Aiuto > Segnala un bug. Se sai come utilizzare la console del tuo browser, per favore allega eventuali messaggi di errore.",

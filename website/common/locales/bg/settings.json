@@ -88,6 +88,8 @@
     "deleteDo": "Потвърждавам, изтрийте профила ми!",
     "enterNumber": "Въведете число между 0 и 24",
     "fillAll": "Моля, попълнете всички полета",
+    "invalidPasswordResetCode": "The supplied password reset code is invalid or has expired.",
+    "passwordChangeSuccess": "Your password was successfully changed to the one you just chose. You can now use it to access your account.",
     "passwordSuccess": "Паролата е променена успешно",
     "usernameSuccess": "Потребителското име е променено успешно",
     "emailSuccess": "Е-пощата е променена успешно",

@@ -106,7 +106,7 @@
     "buyThis": "<%= text %> kopen met <%= price %> van je <%= gems %> edelstenen?",
     "noReachServer": "Server momenteel niet bereikbaar, probeer het later opnieuw",
     "errorUpCase": "FOUT:",
-    "newPassSent": "Als we jouw e-mailadres in ons bestand hebben, is er een nieuw wachtwoord gestuurd naar jouw e-mailadres.",
+    "newPassSent": "If we have your email on file, instructions for setting a new password have been sent to your email.",
     "serverUnreach": "Server momenteel niet bereikbaar.",
     "requestError": "Oei, er is iets fout gegaan!<strong>Laad de pagina opnieuw in,</strong> je laatste handelingen zijn misschien niet goed opgeslagen.",
     "seeConsole": "Als de fout blijft optreden, geef dat dan door via Help > Fout melden. Als je de console van je browser kunt vinden, geef dan alsjeblieft de foutmeldingen mee door.",

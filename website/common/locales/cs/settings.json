@@ -88,6 +88,8 @@
     "deleteDo": "Udělej to, vymaž můj účet!",
     "enterNumber": "Prosím, zadej číslo mezi 0 a 24",
     "fillAll": "Prosím, vyplň všechna pole",
+    "invalidPasswordResetCode": "The supplied password reset code is invalid or has expired.",
+    "passwordChangeSuccess": "Your password was successfully changed to the one you just chose. You can now use it to access your account.",
     "passwordSuccess": "Heslo úspěšně změněno",
     "usernameSuccess": "Přihlašovací jméno úspěšně změněno",
     "emailSuccess": "Email úspěšně změněn",

@@ -2,7 +2,7 @@ import {generateUser} from '../../../../../helpers/api-integration/v3';
 import googlePayments from '../../../../../../website/server/libs/googlePayments';
 
 describe('payments : google #cancelSubscribe', () => {
-  let endpoint = '/iap/android/subscribe/cancel';
+  let endpoint = '/iap/android/subscribe/cancel?noRedirect=true';
   let user;
 
   beforeEach(async () => {

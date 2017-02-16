@@ -106,7 +106,7 @@
     "buyThis": "¿Quieres comprar este <%= text %> con <%= price %> de tus <%= gems %> gemas?",
     "noReachServer": "No se puede acceder al servidor. Inténtalo de nuevo más tarde.",
     "errorUpCase": "ERROR:",
-    "newPassSent": "Si tenemos constancia de tu correo electrónico, te hemos enviado a tu dirección una nueva contraseña.",
+    "newPassSent": "If we have your email on file, instructions for setting a new password have been sent to your email.",
     "serverUnreach": "No se puede acceder al servidor.",
     "requestError": "Vaya, se ha producido un error. <strong>Actualiza la página;</strong> puede que tu última acción no se haya guardado correctamente.",
     "seeConsole": "Si el error persiste, informa de él en Ayuda > Notificar un error. Si sabes cómo usar la consola del navegador, incluye los mensajes de error.",
