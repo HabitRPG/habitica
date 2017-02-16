@@ -84,14 +84,12 @@ export class ApiGroup extends ApiObject {
   }
 
   async createCancelledSubscription () {
-    let group = this;
-
     let update = {
       purchased: {
         plan: {
           customerId: 'example-customer',
           dateTerminated: moment().add(1, 'days').toDate(),
-        }
+        },
       },
     };
 

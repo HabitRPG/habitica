@@ -1,4 +1,3 @@
-import moment from 'moment';
 import {
   generateUser,
   generateGroup,
