@@ -194,16 +194,21 @@ describe('shouldDo', () => {
         su: false,
         s: false,
         f: false,
-        th: true,
+        th: false,
         w: false,
         t: false,
         m: false,
       };
-      day = moment();
+
+      let today = moment('01/27/2017');
+      let week = today.monthWeek();
+      let dayOfWeek = today.day();
+      dailyTask.startDate = today.toDate();
+      dailyTask.weeksOfMonth = [week];
+      dailyTask.repeat[DAY_MAPPING[dayOfWeek]] = true;
       dailyTask.everyX = 1;
       dailyTask.frequency = 'monthly';
-      dailyTask.weeksOfMonth = [day.week()];
-      day = day.add(1, 'day').toDate();
+      day = moment('02/23/2017');
 
       expect(shouldDo(day, dailyTask, options)).to.equal(false);
     });
@@ -219,12 +224,15 @@ describe('shouldDo', () => {
         m: false,
       };
 
-      day = moment();
-      dailyTask.repeat[DAY_MAPPING[day.day()]] = true;
+      let today = moment('01/27/2017');
+      let week = today.monthWeek();
+      let dayOfWeek = today.day();
+      dailyTask.startDate = today.toDate();
+      dailyTask.weeksOfMonth = [week];
+      dailyTask.repeat[DAY_MAPPING[dayOfWeek]] = true;
       dailyTask.everyX = 1;
       dailyTask.frequency = 'monthly';
-      dailyTask.weeksOfMonth = [day.week() - 1];
-      day = day.add(day.week(), 'weeks').toDate();
+      day = moment('02/24/2017');
 
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
     });
@@ -240,12 +248,16 @@ describe('shouldDo', () => {
         m: false,
       };
 
-      day = moment();
-      dailyTask.repeat[DAY_MAPPING[day.day()]] = true;
+      let today = moment('01/26/2017');
+      let week = today.monthWeek();
+      let dayOfWeek = today.day();
+      dailyTask.startDate = today.toDate();
+      dailyTask.weeksOfMonth = [week];
+      dailyTask.repeat[DAY_MAPPING[dayOfWeek]] = true;
       dailyTask.everyX = 2;
       dailyTask.frequency = 'monthly';
-      dailyTask.weeksOfMonth = [day.week()];
-      day = day.add(day.week(), 'weeks').toDate();
+
+      day = moment('03/24/2017');
 
       expect(shouldDo(day, dailyTask, options)).to.equal(false);
     });
