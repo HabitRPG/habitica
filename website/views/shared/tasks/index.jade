@@ -8,7 +8,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
     .row
       .col-sm-6.col-md-3(
         ng-repeat='list in lists',
-        ng-init="groupedList = _.groupBy(obj[list.type + 's'], 'challenge.name')",
+        ng-init="groupedList = _.groupBy(obj[list.type + 's'], 'challenge.shortName')",
         ng-class='::{ "rewards-module": list.type==="reward", "new-row-sm": list.type==="todo" }')
         .task-column(class='{{::list.type}}s')
 
