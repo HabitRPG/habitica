@@ -31,7 +31,7 @@ describe('payments : paypal #checkout', () => {
         balance: 2,
       });
 
-      await user.get(endpoint);
+      await user.get(`${endpoint}?noRedirect=true`);
 
       expect(checkoutStub).to.be.calledOnce;
       expect(checkoutStub.args[0][0].gift).to.eql(undefined);

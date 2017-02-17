@@ -252,7 +252,7 @@
     "usernameTaken": "Nazwa użytkownika jest już zajęta",
     "passwordConfirmationMatch": "Potwierdzenie hasła nie jest identyczne z hasłem.",
     "invalidLoginCredentials": "Błędna nazwa użytkownika i/lub e-mail i/lub hasło",
-    "passwordResetPage": "Reset Password",
+    "passwordResetPage": "Zresetuj hasło",
     "passwordReset": "If we have your email on file, instructions for setting a new password have been sent to your email.",
     "passwordResetEmailSubject": "Reset hasła do Habitiki",
     "passwordResetEmailText": "If you requested a password reset for <%= username %> on Habitica, head to <%= passwordResetLink %> to set a new one. The link will expire after 24 hours. If you haven't requested a password reset, please ignore this email.",

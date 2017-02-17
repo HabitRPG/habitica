@@ -113,7 +113,7 @@
     "toUserIDRequired": "Нужен е потребителски идентификатор",
     "gemAmountRequired": "Нужен е брой диаманти",
     "notAuthorizedToSendMessageToThisUser": "Не можете да изпратите съобщение до този потребител",
-    "privateMessageGiftGemsMessage": "Hello <%= receiverName %>, <%= senderName %> has sent you <%= gemAmount %> gems!",
+    "privateMessageGiftGemsMessage": "Здравейте, <%= receiverName %>, <%= senderName %> Ви изпрати <%= gemAmount %> диамант(а)!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> месеца абонамент!",
     "cannotSendGemsToYourself": "Не можете да изпратите диаманти на себе си. Опитайте с абонамент.",
     "badAmountOfGemsToSend": "Стойността трябва да бъде между 1 и текущия Ви брой диаманти.",
