@@ -1,7 +1,7 @@
 <template lang="pug">
 .row
   .sixteen.wide.column
-    .ui.secondary.menu
+    .ui.secondary.menu.center-content
       router-link.item(:to="{name: 'inventory'}", exact)
         span(v-once) {{ $t('inventory') }}
       router-link.item(:to="{name: 'equipment'}")
