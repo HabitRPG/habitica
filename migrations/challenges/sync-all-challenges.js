@@ -4,7 +4,7 @@ import { model as Challenges } from '../../website/server/models/challenge';
 import { model as User } from '../../website/server/models/user';
 
 async function syncChallengeToMembers (challenges) {
-  challenges.forEach(async function (challenge) {
+  let challengSyncPromises = challenges.map(async function (challenge) {
     let users = await User.find({challenges: challenge._id}).exec();
 
     let promises = [];
@@ -13,10 +13,11 @@ async function syncChallengeToMembers (challenges) {
       promises.push(challenge.save());
       promises.push(user.save());
     });
-    await Bluebird.all(promises);
+
+    return Bluebird.all(promises);
   });
 
-  return challenges;
+  return await Bluebird.all(challengSyncPromises);
 }
 
 async function syncChallenges (lastChallengeDate) {
@@ -31,7 +32,8 @@ async function syncChallenges (lastChallengeDate) {
     .sort('-createdAt')
     .exec();
 
-  let syncedChallenges = await syncChallengeToMembers(challengesFound);
+  let syncedChallenges = await syncChallengeToMembers(challengesFound)
+    .catch(reason => console.error(reason));
   let lastChallenge = challengesFound[challengesFound.length - 1];
   if (lastChallenge) syncChallenges(lastChallenge.createdAt);
   return syncedChallenges;
