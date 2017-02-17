@@ -84,6 +84,7 @@
             "js/directives/popover-html.directive.js",
             "js/directives/focus-element.directive.js",
             "js/directives/when-scrolled.directive.js",
+            "js/directives/task-list.directive.js",
 
             "js/controllers/authCtrl.js",
             "js/controllers/autoCompleteCtrl.js",

@@ -16,13 +16,13 @@
       ui-keypress='{ 13:"score(task, \'down\')" }' )
     a(ng-if='task.down', ng-click='applyingAction || score(task,"down")')
       span.glyphicon.glyphicon-minus
-
+      
   // Rewards
   span(ng-if='::task.type=="reward"')
     input.task-input.reward.visuallyhidden(
       type='checkbox',
       ui-keypress='{ 13:"score(task, \'down\')" }' )
-    a.money.btn-buy(ng-class='{highValue: task.value >= 1000}', ng-click='score(task, "down")')
+    a.money.btn-buy(ng-class='{highValue: task.value >= 1000}', ng-click='score(task, "down"); console.log("SDF")')
       span.shop_gold
       span.reward-cost {{task.value}}
 
