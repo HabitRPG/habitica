@@ -87,6 +87,7 @@ api.iapiOSVerify = {
   url: '/iap/ios/verify',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
+    if (!req.body.transaction) throw new BadRequest(res.t('missingReceipt'));
 
     let appleRes = await applePayments.verifyGemPurchase(res.locals.user, req.body.transaction.receipt, req.headers);
 
@@ -106,6 +107,7 @@ api.iapSubscriptioniOS = {
   middlewares: [authWithUrl],
   async handler (req, res) {
     if (!req.body.sku) throw new BadRequest(res.t('missingSubscriptionCode'));
+    if (!req.body.receipt) throw new BadRequest(res.t('missingReceipt'));
 
     await applePayments.subscribe(req.body.sku, res.locals.user, req.body.receipt, req.headers);
 
