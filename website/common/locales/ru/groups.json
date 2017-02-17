@@ -113,7 +113,7 @@
     "toUserIDRequired": "Tребуется ID пользователя",
     "gemAmountRequired": "Требуется количество кристаллов.",
     "notAuthorizedToSendMessageToThisUser": "Не удается отправить сообщение этому пользователью.",
-    "privateMessageGiftGemsMessage": "Hello <%= receiverName %>, <%= senderName %> has sent you <%= gemAmount %> gems!",
+    "privateMessageGiftGemsMessage": "Привет <%= username %>, <%= senderName %> отправил вам <%= gemAmount %> самоцветов!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> месяцев подписки!",
     "cannotSendGemsToYourself": "Не удается отправить самоцветы самому себе. Вместо этого, опробуйте купуть подписку.",
     "badAmountOfGemsToSend": "Сумма должна быть в пределах 1 и текущего количествa самоцветов.",
