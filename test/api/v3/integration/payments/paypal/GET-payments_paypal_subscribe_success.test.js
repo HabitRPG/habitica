@@ -42,7 +42,7 @@ describe('payments : paypal #subscribeSuccess', () => {
         balance: 2,
       });
 
-      await user.get(`${endpoint}?token=${token}`);
+      await user.get(`${endpoint}?token=${token}&noRedirect=true`);
 
       expect(subscribeSuccessStub).to.be.calledOnce;
 

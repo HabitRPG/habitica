@@ -113,7 +113,7 @@
     "toUserIDRequired": "Eine Benutzer-ID wird benötigt",
     "gemAmountRequired": "Eine Anzahl an Edelsteinen wird benötigt",
     "notAuthorizedToSendMessageToThisUser": "Nachricht kann nicht an diesen Benutzer verschickt werden.",
-    "privateMessageGiftGemsMessage": "Hello <%= receiverName %>, <%= senderName %> has sent you <%= gemAmount %> gems!",
+    "privateMessageGiftGemsMessage": "Hallo <%= receiverName %>, <%= senderName %> hat Dir <%= gemAmount %> Edelsteine geschickt!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> Monate Abonnement!",
     "cannotSendGemsToYourself": "Edelsteine können nicht an Dich selbst geschickt werden. Versuche es stattdessen mit einem Abonnement.",
     "badAmountOfGemsToSend": "Die Menge muss zwischen 1 und Deiner aktuellen Edelsteinanzahl liegen.",

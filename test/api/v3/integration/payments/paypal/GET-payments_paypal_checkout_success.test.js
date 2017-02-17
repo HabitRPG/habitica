@@ -53,7 +53,7 @@ describe('payments : paypal #checkoutSuccess', () => {
         balance: 2,
       });
 
-      await user.get(`${endpoint}?PayerID=${customerId}&paymentId=${paymentId}`);
+      await user.get(`${endpoint}?PayerID=${customerId}&paymentId=${paymentId}&noRedirect=true`);
 
       expect(checkoutSuccessStub).to.be.calledOnce;
 
