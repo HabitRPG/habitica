@@ -5,7 +5,9 @@ const state = {
   title: 'Habitica',
   user: null,
   tasks: null, // user tasks
-  // content data, frozen to prevent Vue from modifying it since it's static data that never changes
+  party: null, // user party
+  userGuilds: null,
+  // content data, frozen to prevent Vue from modifying it since it's static and never changes
   // TODO apply freezing to the entire codebase (the server) and not only to the client side?
   // NOTE this takes about 10-15ms on a fast computer
   content: deepFreeze(content),
