@@ -65,7 +65,11 @@ describe('POST /user/auth/local/register', () => {
         password,
         confirmPassword: password,
       });
-    })
+
+      expect(user.tasksOrder.habits[0]).to.have.a.lengthOf(3);
+      expect(user.tasksOrder.habits[1]).to.have.a.lengthOf(1);
+      expect(user.tasksOrder.habits[2]).to.have.a.lengthOf(2);
+    });
 
     it('enrolls new users in an A/B test', async () => {
       let username = generateRandomUserName();
