@@ -145,10 +145,10 @@
 
     // gem-purchased items
     properties.animalEars = _filterAnimalEars(user.items.gear.owned);
-    properties.background = _filterBackgrounds(user.background);
-    properties.hair = _formatHair(user.hair);
-    properties.shirt = Object.keys(user.shirt);
-    properties.skin = Object.keys(user.skin);
+    properties.background = user.background ? _filterBackgrounds(user.background) : [];
+    properties.hair = user.hair ? _formatHair(user.hair) : {};
+    properties.shirt = user.shirt ? Object.keys(user.shirt) : [];
+    properties.skin = user.skin ? Object.keys(user.skin) : [];
 
     properties.tutorialComplete = user.flags && user.flags.tour && user.flags.tour.intro === -2;
     if (user.habits && user.dailys && user.todos && user.rewards) {
