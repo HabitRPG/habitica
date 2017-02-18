@@ -1,0 +1,21 @@
+script(type='text/ng-template', id='partials/options.settings.promo.html')
+  .container-fluid
+    .row
+      .col-md-6
+        h2=env.t('promoCode')
+        form.form-inline(role='form',ng-submit='enterCoupon(_couponCode)')
+          input.form-control(type='text', ng-model='_couponCode', placeholder=env.t('promoPlaceholder'))
+          button.btn.btn-primary(type='submit')= env.t('submit')
+        div
+          small= env.t('couponText')
+        div(ng-if='user.contributor.sudo')
+          hr
+          h4=env.t('generateCodes')
+          form.form(role='form',ng-submit='generateCodes(_codes)',ng-init='_codes={}')
+            .form-group
+              input.form-control(type='text',ng-model='_codes.event',placeholder="Event code (eg, 'wondercon')")
+            .form-group
+              input.form-control(type='number',ng-model='_codes.count',placeholder="Number of codes to generate (eg, 250)")
+            .form-group
+              button.btn.btn-primary(type='submit')=env.t('generate')
+              a.btn.btn-default(href='/api/v3/coupons?_id={{user._id}}&apiToken={{User.settings.auth.apiToken}}')=env.t('getCodes')

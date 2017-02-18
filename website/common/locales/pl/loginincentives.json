@@ -5,12 +5,12 @@
   "awesome": "Rewelacyjnie!",
   "totalCount": "<%= count %> łączna liczba",
   "countLeft": "<%= count %> wizyt do następnej nagrody",
-  "incentivesDescription": "Jeśli chodzi o wyrabianie przyzwyczajeń, konsekwencja jest kluczowa. Z każdym dniem gdy nas odwiedzasz zbliżasz się do nagrody.",
+  "incentivesDescription": "Jeśli chodzi o wyrabianie przyzwyczajeń, konsekwencja jest kluczowa. Z każdym dniem gdy odwiedzasz Habitikę zbliżasz się do nagrody.",
   "totalCheckins": "<%= count %> Wizyt",
-  "checkinEarned": "Twój Licznik Odwiedzin wzróśł!",
+  "checkinEarned": "Twój Licznik Odwiedzin wzrósł!",
   "unlockedCheckInReward": "Odblokowałeś Nagrodę za Wizyty!",
   "totalCheckinsTitle": "Wszystkie Wizyty",
-  "checkinProgressTitle": "Postęp do następnego",
+  "checkinProgressTitle": "Postęp do następnej",
   "incentiveBackgroundsUnlockedWithCheckins": "Te tła odblokują się wraz z Codziennymi Wizytami.",
-  "moreIncentivesComingSoon": "Nowe bodźce meldowania zostaną wkrótce dodane."
+  "moreIncentivesComingSoon": "Nowe zachęty do wizyt zostaną wkrótce dodane."
 }

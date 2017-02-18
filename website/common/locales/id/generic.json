@@ -106,7 +106,7 @@
     "buyThis": "Beli <%= text %> ini dengan <%= price %> dari <%= gems %> permatamu?",
     "noReachServer": "Server tidak dapat terhubung, coba lagi nanti",
     "errorUpCase": "ERROR:",
-    "newPassSent": "Jika email-mu telah terdaftar, kami akan mengirimkan kata sandi baru ke email kamu.",
+    "newPassSent": "If we have your email on file, instructions for setting a new password have been sent to your email.",
     "serverUnreach": "Server saat ini tidak terhubung.",
     "requestError": "Waduh, terjadi kesalahan! <strong>Mohon Muat ulang halaman,</strong> tindakan terakhir anda mungkin tidak dapat tersimpan dengan benar.",
     "seeConsole": "Jika kesalahan terus berlanjut, tolong laporkan pada Bantuan > Laporkan Gangguan. Jika kamu familiar dengan konsol browser, tolong sertakan pesan kesalahan.",

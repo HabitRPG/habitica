@@ -88,6 +88,8 @@
     "deleteDo": "Da, obriši moj nalog",
     "enterNumber": "Unesite broj između 0 i 24",
     "fillAll": "Molimo Vas da popunite sva polja",
+    "invalidPasswordResetCode": "The supplied password reset code is invalid or has expired.",
+    "passwordChangeSuccess": "Your password was successfully changed to the one you just chose. You can now use it to access your account.",
     "passwordSuccess": "Lozinka promenjena",
     "usernameSuccess": "Korisničko ime promenjeno",
     "emailSuccess": "Imejl adresa promenjena",

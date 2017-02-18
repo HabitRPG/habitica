@@ -40,7 +40,7 @@
     "noAdminAccess": "您沒有管理員權限。",
     "pageMustBeNumber": "req.query.page must be a number",
     "userNotFound": "找不到帳戶。",
-    "invalidUUID": "UUID must be valid",
+    "invalidUUID": "必須用有效的UUID",
     "title": "頭銜",
     "moreDetails": "更多細節 (1-7)",
     "moreDetails2": "更多細節 (8-9)",

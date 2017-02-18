@@ -88,6 +88,8 @@
     "deleteDo": "Gør det, slet min konto!",
     "enterNumber": "Indtast venligst et tal mellem 0 og 24",
     "fillAll": "Udfyld venligst alle felter",
+    "invalidPasswordResetCode": "The supplied password reset code is invalid or has expired.",
+    "passwordChangeSuccess": "Your password was successfully changed to the one you just chose. You can now use it to access your account.",
     "passwordSuccess": "Dit Kodeord er skiftet",
     "usernameSuccess": "Dit Loginnavn er nu ændret",
     "emailSuccess": "Din Email er skiftet",

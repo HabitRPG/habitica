@@ -1,0 +1,51 @@
+script(id='partials/options.profile.stats.html', type='text/ng-template')
+  .container-fluid
+    div(class='row')
+      .border-right(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')
+        include ../../shared/profiles/stats_col1
+      div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')
+        button.btn.btn-default(ng-if='user.preferences.disableClasses', ng-click='User.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
+        hr(ng-if='user.preferences.disableClasses')
+        include ../../shared/profiles/stats_col2
+      .col-md-4.border-left.allocate-stats(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
+        h3=env.t('characterBuild')
+        h4
+          =env.t('class') + ': '
+          span {{ {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer")}[user.stats.class] }}&nbsp;
+          a.btn.btn-danger.btn-xs(ng-click='changeClass(null)')=env.t('changeClass')
+          small.cost 3 <span class="Pet_Currency_Gem1x inline-gems"/>
+        table.table.table-striped
+          tr
+            td
+              p(ng-if='::user.stats.lvl >= 100')!=env.t('noMoreAllocate')
+              p(ng-if='user.stats.points || user.stats.lvl < 100')
+                strong.inline
+                  |{{user.stats.points}}&nbsp;
+                strong.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('levelPopover'))=env.t('unallocated')
+            td
+          tr
+            td(colspan=2)
+              fieldset.auto-allocate
+                .checkbox
+                  label
+                    input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation?true: false})', ng-click='set({"preferences.allocationMode":"taskbased"})')
+                    span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('autoAllocationPop'))=env.t('autoAllocation')
+                form(ng-show='user.preferences.automaticAllocation',style='margin-left:1em')
+                  .radio
+                    label
+                      input(type='radio', name='allocationMode', value='flat', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "flat"})')
+                      span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('evenAllocationPop'))=env.t('evenAllocation')
+                  .radio
+                    label
+                      input(type='radio', name='allocationMode', value='classbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "classbased"})')
+                      span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('classAllocationPop'))=env.t('classAllocation')
+                  .radio
+                    label
+                      input(type='radio', name='allocationMode', value='taskbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "taskbased"})')
+                      span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('taskAllocationPop'))=env.t('taskAllocation')
+                div(ng-show='user.preferences.automaticAllocation && !(user.preferences.allocationMode === "taskbased") && (user.stats.points > 0)')
+                  a.btn.btn-primary.btn-xs(ng-click='User.allocateNow({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('distributePointsPop'))
+                    span.glyphicon.glyphicon-download
+                    |&nbsp;
+                    =env.t('distributePoints')
+          +statAllocation()
