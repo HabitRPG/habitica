@@ -392,9 +392,9 @@ export function cron (options = {}) {
   //   _(user.inbox.messages)
   //     .sortBy('timestamp')
   //     .takeRight(numberOfPMs - maxPMs)
-  //     .each(pm => {
+  //     .forEach(pm => {
   //       delete user.inbox.messages[pm.id];
-  //     }).value();
+  //     })
   //
   //   user.markModified('inbox.messages');
   // }
