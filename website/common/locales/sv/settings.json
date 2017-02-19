@@ -88,6 +88,8 @@
     "deleteDo": "Gör det, ta bort mitt konto!",
     "enterNumber": "Var vänlig ange ett nummer mellan 0 och 24",
     "fillAll": "Var vänlig fyll i alla fält",
+    "invalidPasswordResetCode": "The supplied password reset code is invalid or has expired.",
+    "passwordChangeSuccess": "Your password was successfully changed to the one you just chose. You can now use it to access your account.",
     "passwordSuccess": "Lösenord framgångsrikt ändrat",
     "usernameSuccess": "Inloggningsnamn framgångsrikt ändrat",
     "emailSuccess": "E-postadress framgångsrikt ändrad",

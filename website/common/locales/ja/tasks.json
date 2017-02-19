@@ -103,7 +103,7 @@
     "habitHelp1": "いい習慣は、あなたがよく行うべきものです。<%= plusIcon %> をクリックするとゴールドと経験値が得られます。",
     "habitHelp2": "悪い習慣は、あなたがやめたいと思っていることです。<%= minusIcon %> をクリックすると体力が減ります。",
     "habitHelp3": "参考のために、<a href='http://ja.habitica.wikia.com/wiki/%E7%BF%92%E6%85%A3%E3%81%AE%E4%BE%8B' target='_blank'>習慣のサンプル</a>をチェックしてみてください!",
-    "newbieGuild": "More questions? Ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>!",
+    "newbieGuild": "ほかに質問がありますか?　<%= linkStart %>Habitica ヘルプ ギルド<%= linkEnd %>で質問してみてください!",
     "dailyHelp1": "「期限」に分類されている日課を、<%= emphasisStart %>毎日<%= emphasisEnd %>くり返しこなしましょう。<%= pencilIcon %> をクリックして、日課を「期限」にする日を編集します。",
     "dailyHelp2": "日課を完了できなければ、一日の終りに体力が減少します。",
     "dailyHelp3": "日課をさぼると<%= emphasisStart %>より赤く<%= emphasisEnd %>なり、達成すれば<%= emphasisStart %>より青く<%= emphasisEnd %>なります。赤みの強い日課は、それだけ達成したときの稼ぎも、さぼったときのダメージも大きくなります。",

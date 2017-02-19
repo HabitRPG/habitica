@@ -51,6 +51,8 @@ taskContainerStyles($stage)
     background-color: $stage[1]
   .option-group:not(.task-checklist)
     border-bottom: 1px solid darken($stage[1], 15%)
+  hr
+    border-bottom: 1px solid darken($stage[1], 15%)
   .option-content
     border-color: darken($stage[1], 16.18%) !important
     &:hover
@@ -550,7 +552,6 @@ form
       &:last-of-type
         margin-right: 0
   .repeat-days
-    padding-bottom: 1em
     li
       button
         min-width: 2.5em
@@ -561,11 +562,6 @@ form
     @extend $hrpg-button
   h2#task-edit-title
     margin-top: 1em
-
-// Dailies
-.dailies
-  .repeat-weekly
-    padding-bottom: 1em
 
 // Habits – task button styles (+ -)
 .habits
@@ -727,3 +723,7 @@ form
 // Add padding to exp-chart
 .exp-chart
   padding-bottom: 10px
+
+.task-extra-notes
+  z-index: 10
+  position: relative

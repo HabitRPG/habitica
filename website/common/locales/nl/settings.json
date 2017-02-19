@@ -88,6 +88,8 @@
     "deleteDo": "Ja, verwijder mijn account!",
     "enterNumber": "Vul een nummer tussen 0 en 24 in",
     "fillAll": "Vul alsjeblieft alle velden in",
+    "invalidPasswordResetCode": "De gegeven wachtwoord-herstelcode is ongeldig of verlopen.",
+    "passwordChangeSuccess": "Je wachtwoord is succesvol veranderd naar degene die je net gekozen hebt. Je kunt deze nu gebruiken op toegang te krijgen tot je account.",
     "passwordSuccess": "Wachtwoord succesvol aangepast",
     "usernameSuccess": "Inlognaam succesvol gewijzigd",
     "emailSuccess": "E-mailadres succesvol aangepast",

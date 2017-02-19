@@ -40,7 +40,7 @@
     "snowflakeSet": "雪片 (医师)",
     "yetiSet": "野人驯化 (战士)",
     "northMageSet": "北方法师(法师)",
-    "icicleDrakeSet": "冰柱之龙(盗贼)",
+    "icicleDrakeSet": "灞波儿奔(盗贼)",
     "soothingSkaterSet": "抚慰滑冰者(医者)",
     "gingerbreadSet": "姜饼人战士(战士)",
     "snowDaySet": "下雪天战士(战士)",
@@ -87,5 +87,6 @@
     "fallEventAvailability": "10月31日前可购买",
     "winterEventAvailability": "1月31日前可以使用",
     "springEventAvailability": "5月31日前可购买",
-    "summerEventAvailability": "8月31日前可购买"
+    "summerEventAvailability": "8月31日前可购买",
+    "valentinesEventAvailability": "Available for purchase until February 28."
 }

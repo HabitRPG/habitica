@@ -278,7 +278,7 @@ api.food = {
     target: 'CottonCandyBlue',
     article: '',
     canBuy: (function() {
-      return canBuyCandyFood;
+      return canBuyCakeFood;
     }),
     canDrop: canDropCakeFood,
   },
@@ -2921,6 +2921,38 @@ api.quests = {
       gp: 0,
       exp: 650
     }
+  },
+  guineapig: {
+    text: t('questGuineaPigText'),
+    notes: t('questGuineaPigNotes'),
+    completion: t('questGuineaPigCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questGuineaPigBoss'),
+      hp: 400,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'GuineaPig',
+          text: t('questGuineaPigDropGuineaPigEgg'),
+        }, {
+          type: 'eggs',
+          key: 'GuineaPig',
+          text: t('questGuineaPigDropGuineaPigEgg'),
+        }, {
+          type: 'eggs',
+          key: 'GuineaPig',
+          text: t('questGuineaPigDropGuineaPigEgg'),
+        },
+      ],
+      gp: 31,
+      exp: 200,
+      unlock: t('questGuineaPigUnlockText'),
+    },
   },
 };
 

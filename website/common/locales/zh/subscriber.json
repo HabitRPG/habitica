@@ -121,6 +121,7 @@
     "mysterySet201611": "丰收套装",
     "mysterySet201612": "胡桃夹子套装",
     "mysterySet201701": "冻结时间套装",
+    "mysterySet201702": "Heartstealer Set",
     "mysterySet301404": "蒸汽朋克标准套装",
     "mysterySet301405": "蒸汽朋克配饰套装",
     "mysterySetwondercon": "Wondercon漫展",
@@ -153,8 +154,8 @@
     "couponCodeRequired": "请填写优惠劵代码",
     "eventRequired": "需要 \"req.params.event\"",
     "countRequired": "需要 \"req.query.count\"",
-    "missingPaymentId": "Missing req.query.paymentId",
-    "missingCustomerId": "Missing req.query.customerId",
-    "missingPaypalBlock": "Missing req.session.paypalBlock",
-    "missingSubKey": "Missing req.query.sub"
+    "missingPaymentId": "缺少req.query.paymentId",
+    "missingCustomerId": "缺少Missing req.query.customerId",
+    "missingPaypalBlock": "缺少req.session.paypalBlock",
+    "missingSubKey": "缺少req.query.sub"
 }
