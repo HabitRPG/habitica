@@ -418,7 +418,6 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('adds the correct tags to the correct tasks', async () => {
-
       let user = await api.post('/user/auth/local/register', {
         username,
         email,
