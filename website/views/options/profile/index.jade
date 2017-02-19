@@ -4,7 +4,7 @@ mixin gemCost(cost)
     = ' ' + env.t('locked')
     block
 
--var gearGroup = function(grouping) { return env._(env.Content.gear.flat).where({gearSet:grouping}).pluck('key').value() }
+-var gearGroup = function(grouping) { return env._(env.Content.gear.flat).filter({gearSet:grouping}).map('key').value() }
 -var showPath = function(path, items, joiner) { return path+'["'+items.join('"] '+joiner+' '+path+'["')+'"]'; }
 -var unlockPath = function(path, items) { return 'unlock("'+path+'.'+items.join(','+path+'.')+'")'; }
 

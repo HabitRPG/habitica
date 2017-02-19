@@ -20,8 +20,8 @@ function getFullArmoire () {
       let armoireKey = gearObject.key;
 
       fullArmoire[armoireKey] = true;
-    }).value();
-  }).value();
+    });
+  });
 
   return fullArmoire;
 }
