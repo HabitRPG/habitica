@@ -702,7 +702,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
   }
 
   if (group.type === 'guild') {
-    if (_.contains(userToInvite.guilds, group._id)) {
+    if (_.includes(userToInvite.guilds, group._id)) {
       throw new NotAuthorized(res.t('userAlreadyInGroup'));
     }
     if (_.find(userToInvite.invitations.guilds, {id: group._id})) {
