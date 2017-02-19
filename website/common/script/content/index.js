@@ -2,12 +2,10 @@ import contains from 'lodash/contains';
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import sortBy from 'lodash/sortBy';
-import moment from 'moment';
 import t from './translation';
 
 import {
   CLASSES,
-  EVENTS,
   GEAR_TYPES,
   ITEM_LIST,
   USER_CAN_OWN_QUEST_CATEGORIES,
@@ -258,6 +256,7 @@ api.food = {
     value: 5,
     notes: t('foodSaddleNotes'),
   },
+  /* eslint-disable camelcase */
   Cake_Skeleton: {
     text: t('foodCakeSkeleton'),
     target: 'Skeleton',
@@ -438,9 +437,10 @@ api.food = {
     },
     canDrop: canDropCandyFood,
   },
+  /* eslint-enable camelcase */
 };
 
-_.each(api.food, function (food, key) {
+_.each(api.food, (food, key) => {
   return _.defaults(food, {
     value: 1,
     key,
@@ -822,7 +822,7 @@ api.quests = {
       unlock: t('questHedgehogUnlockText'),
     },
   },
-  ghost_stag: {
+  ghost_stag: { // eslint-disable-line camelcase
     text: t('questGhostStagText'),
     notes: t('questGhostStagNotes'),
     completion: t('questGhostStagCompletion'),
@@ -1072,7 +1072,7 @@ api.quests = {
       unlock: t('questOctopusUnlockText'),
     },
   },
-  dilatory_derby: {
+  dilatory_derby: { // eslint-disable-line camelcase
     text: t('questSeahorseText'),
     notes: t('questSeahorseNotes'),
     completion: t('questSeahorseCompletion'),
@@ -1601,7 +1601,7 @@ api.quests = {
       unlock: t('questTRexUnlockText'),
     },
   },
-  trex_undead: {
+  trex_undead: { // eslint-disable-line camelcase
     text: t('questTRexUndeadText'),
     notes: t('questTRexUndeadNotes'),
     completion: t('questTRexUndeadCompletion'),
@@ -2959,7 +2959,7 @@ api.quests = {
   },
 };
 
-_.each(api.quests, function (v, key) {
+_.each(api.quests, (v, key) => {
   let b;
   _.defaults(v, {
     key,
@@ -2982,7 +2982,7 @@ _.each(api.quests, function (v, key) {
   }
 });
 
-api.questsByLevel = _.sortBy(api.quests, function (quest) {
+api.questsByLevel = _.sortBy(api.quests, (quest) => {
   return quest.lvl || 0;
 });
 
