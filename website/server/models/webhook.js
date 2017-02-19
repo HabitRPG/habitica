@@ -69,7 +69,7 @@ schema.methods.formatOptions = function formatOptions (res) {
       throw new BadRequest(res.t('webhookBooleanOption', { option: invalidOption }));
     }
   } else if (this.type === 'groupChatReceived') {
-    this.options = _(this.options).pick('groupId').value();
+    this.options = _.pick(this.options, 'groupId');
 
     if (!validator.isUUID(this.options.groupId)) {
       throw new BadRequest(res.t('groupIdRequired'));
