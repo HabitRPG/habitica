@@ -425,9 +425,11 @@ describe('POST /user/auth/local/register', () => {
         confirmPassword: password,
       });
 
-      expect(user.tasksOrder.habits[0].tags).to.have.a.lengthOf(3);
-      expect(user.tasksOrder.habits[1].tags).to.have.a.lengthOf(1);
-      expect(user.tasksOrder.habits[2].tags).to.have.a.lengthOf(2);
+      let habits = await user.get('/tasks/user?type=habits');
+
+      expect(habits[0].tags).to.have.a.lengthOf(3);
+      expect(habits[1].tags).to.have.a.lengthOf(1);
+      expect(habits[2].tags).to.have.a.lengthOf(2);
     });
   });
 });
