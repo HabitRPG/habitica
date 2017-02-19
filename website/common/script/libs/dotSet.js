@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import set from 'lodash/set';
 
 // TODO remove completely, only used in client
 

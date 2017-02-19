@@ -1,5 +1,5 @@
 import uuid from '../libs/uuid';
-import _ from 'lodash';
+import get from 'lodash/get';
 
 // TODO used only in client, move there?
 

@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import max from 'lodash/max';
 import uuid from './uuid';
 
 /*

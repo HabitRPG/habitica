@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import each from 'lodash/each';
 import content from '../content/index';
 
 module.exports = function resetGear (user) {

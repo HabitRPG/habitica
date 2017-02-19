@@ -1,6 +1,6 @@
 import splitWhitespace from '../libs/splitWhitespace';
 import { capByLevel } from '../statHelpers';
-import _ from 'lodash';
+import pick from 'lodash/pick';
 
 module.exports = function disableClasses (user) {
   user.stats.class = 'warrior';

@@ -1,4 +1,9 @@
-import _ from 'lodash';
+import min from 'lodash/min';
+import pick from 'lodash/pick';
+import invert from 'lodash/invert';
+import findIndex from 'lodash/findIndex';
+import max from 'lodash/max';
+
 import splitWhitespace from '../libs/splitWhitespace';
 
 /*

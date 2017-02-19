@@ -1,4 +1,7 @@
-import _ from 'lodash';
+import contains from 'lodash/contains';
+import defaults from 'lodash/defaults';
+import each from 'lodash/each';
+import sortBy from 'lodash/sortBy';
 import moment from 'moment';
 import t from './translation';
 

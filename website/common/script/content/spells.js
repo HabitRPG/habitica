@@ -1,5 +1,5 @@
 import t from './translation';
-import _ from 'lodash';
+import each from 'lodash/each';
 import { NotAuthorized } from '../libs/errors';
 /*
   ---------------------------------------------------------------

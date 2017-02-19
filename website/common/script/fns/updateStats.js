@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import each from 'lodash/each';
 import {
   MAX_HEALTH,
   MAX_STAT_POINTS,

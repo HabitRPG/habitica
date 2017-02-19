@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import _ from 'lodash';
+import each from 'lodash/each';
 
 let subscriptionBlocks = {
   basic_earned: {

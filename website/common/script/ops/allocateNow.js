@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import times from 'lodash/times';
 import autoAllocate from '../fns/autoAllocate';
 
 module.exports = function allocateNow (user) {

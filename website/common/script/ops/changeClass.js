@@ -1,5 +1,8 @@
 import i18n from '../i18n';
-import _ from 'lodash';
+import get from 'lodash/get';
+import each from 'lodash/each';
+import findLast from 'lodash/findLast';
+import pick from 'lodash/pick';
 import splitWhitespace from '../libs/splitWhitespace';
 import { capByLevel } from '../statHelpers';
 import {

@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import merge from 'lodash/merge';
+import omit from 'lodash/omit';
 
 // From server pass task.toObject() not the task document directly
 module.exports = function updateTask (task, req = {}) {

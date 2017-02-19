@@ -1,4 +1,8 @@
-import _ from 'lodash';
+import each from 'lodash/each';
+import find from 'lodash/find';
+import filter from 'lodash/filter';
+import sortBy from 'lodash/sortBy';
+import reduce from 'lodash/reduce';
 import content from '../content/index';
 
 // Return the list of gear items available for purchase

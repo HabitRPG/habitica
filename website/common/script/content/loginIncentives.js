@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import range from 'lodash/range';
 import { MAX_INCENTIVES } from '../constants';
 
 module.exports = function getLoginIncentives (api) {

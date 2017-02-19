@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import get from 'lodash/get';
+import keys from 'lodash/keys';
 import i18n from '../i18n';
 import {
   BadRequest,

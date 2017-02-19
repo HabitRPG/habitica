@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import isString from 'lodash/isString';
+import clone from 'lodash/clone';
+import template from 'lodash/template';
 
 let i18n = {
   strings: null,

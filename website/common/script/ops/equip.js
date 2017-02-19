@@ -5,7 +5,7 @@ import {
   NotFound,
   BadRequest,
 } from '../libs/errors';
-import _ from 'lodash';
+import get from 'lodash/get';
 
 module.exports = function equip (user, req = {}) {
   // Being type a parameter followed by another parameter

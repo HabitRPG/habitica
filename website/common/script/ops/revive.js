@@ -1,6 +1,8 @@
 import content from '../content/index';
 import i18n from '../i18n';
-import _ from 'lodash';
+import merge from 'lodash/merge';
+import reduce from 'lodash/reduce';
+import each from 'lodash/each';
 import {
   NotAuthorized,
 } from '../libs/errors';

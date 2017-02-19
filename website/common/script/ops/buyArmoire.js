@@ -1,6 +1,9 @@
 import content from '../content/index';
 import i18n from '../i18n';
-import _ from 'lodash';
+import filter from 'lodash/filter';
+import isEmpty from 'lodash/isEmpty';
+import where from 'lodash/where';
+import pick from 'lodash/pick';
 import count from '../count';
 import splitWhitespace from '../libs/splitWhitespace';
 import {

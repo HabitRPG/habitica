@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import times from 'lodash/times';
+import reduce from 'lodash/reduce';
+import max from 'lodash/max';
 import {
   NotAuthorized,
 } from '../libs/errors';

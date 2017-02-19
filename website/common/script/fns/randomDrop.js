@@ -1,4 +1,9 @@
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
+import isFunction from 'lodash/isFunction';
+import min from 'lodash/min';
+import reduce from 'lodash/reduce';
+import where from 'lodash/where';
+import pick from 'lodash/pick';
 import content from '../content/index';
 import i18n from '../i18n';
 import { daysSince } from '../cron';

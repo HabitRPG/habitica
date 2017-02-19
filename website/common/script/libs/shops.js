@@ -1,5 +1,7 @@
-import _ from 'lodash';
-import pickBy from 'lodash.pickby'; // Not available in lodash 3
+import values from 'lodash/values';
+import map from 'lodash/map';
+import get from 'lodash/get';
+import pickBy from 'lodash/pickBy'; // Not available in lodash 3
 import content from '../content/index';
 import i18n from '../i18n';
 

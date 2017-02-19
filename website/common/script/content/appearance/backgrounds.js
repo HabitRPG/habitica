@@ -1,4 +1,4 @@
-import {forOwn} from 'lodash';
+import forOwn from 'lodash/forOwn';
 import t from '../translation';
 
 /* eslint-disable camelcase */

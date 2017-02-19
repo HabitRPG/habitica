@@ -1,5 +1,7 @@
 import i18n from '../i18n';
-import _ from 'lodash';
+import get from 'lodash/get';
+import findIndex from 'lodash/findIndex';
+import each from 'lodash/each';
 import { NotFound } from '../libs/errors';
 
 // TODO used only in client, move there?

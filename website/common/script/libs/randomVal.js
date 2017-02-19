@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import values from 'lodash/values';
+import keys from 'lodash/keys';
 
 function trueRandom () {
   return Math.random();

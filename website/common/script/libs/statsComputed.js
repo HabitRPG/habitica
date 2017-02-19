@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import each from 'lodash/each';
+import get from 'lodash/get';
+import values from 'lodash/values';
 import content from '../content/index';
 import * as statHelpers from '../statHelpers';
 

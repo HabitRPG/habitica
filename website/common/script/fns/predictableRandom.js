@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import omit from 'lodash/omit';
+import reduce from 'lodash/reduce';
+import isNumber from 'lodash/isNumber';
 
 // Because the same op needs to be performed on the client and the server (critical hits, item drops, etc),
 // we need things to be "random", but technically predictable so that they don't go out-of-sync

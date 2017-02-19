@@ -5,7 +5,7 @@ import {
   NotAuthorized,
   NotFound,
 } from '../libs/errors';
-import _ from 'lodash';
+import get from 'lodash/get';
 
 // buy a quest with gold
 module.exports = function buyQuest (user, req = {}, analytics) {

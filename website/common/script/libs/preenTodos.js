@@ -1,5 +1,5 @@
 import moment from 'moment';
-import _ from 'lodash';
+import filter from 'lodash/filter';
 
 // TODO used only in v2
 

@@ -1,4 +1,9 @@
-import _ from 'lodash';
+import each from 'lodash/each';
+import where from 'lodash/where';
+import keys from 'lodash/keys';
+import union from 'lodash/union';
+import reduce from 'lodash/reduce';
+
 import mysterySets from './mystery-sets';
 import gear from './gear';
 

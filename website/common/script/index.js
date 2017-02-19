@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import partial from 'lodash/partial';
 
 // When using a common module from the website or the server NEVER import the module directly
 // but access it through `api` (the main common) module, otherwise you would require the non transpiled version of the file in production.

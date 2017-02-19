@@ -1,11 +1,13 @@
 import i18n from '../i18n';
-import _ from 'lodash';
+import get from 'lodash/get';
+import each from 'lodash/each';
+import pick from 'lodash/pick';
+import setWith from 'lodash/setWith';
 import splitWhitespace from '../libs/splitWhitespace';
 import {
   NotAuthorized,
   BadRequest,
 } from '../libs/errors';
-import setWith from 'lodash.setwith'; // Not available in lodash 3
 
 // If item is already purchased -> equip it
 // Otherwise unlock it

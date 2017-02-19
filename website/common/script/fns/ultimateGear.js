@@ -1,5 +1,7 @@
 import content from '../content/index';
-import _ from 'lodash';
+import find from 'lodash/find';
+import reduce from 'lodash/reduce';
+import includes from 'lodash/includes';
 
 module.exports = function ultimateGear (user) {
   let owned = typeof window !== 'undefined' ? user.items.gear.owned : user.items.gear.owned.toObject();

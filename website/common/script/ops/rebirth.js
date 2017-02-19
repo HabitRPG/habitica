@@ -1,5 +1,5 @@
 import i18n from '../i18n';
-import _ from 'lodash';
+import each from 'lodash/each';
 import { capByLevel } from '../statHelpers';
 import { MAX_LEVEL } from '../constants';
 import {

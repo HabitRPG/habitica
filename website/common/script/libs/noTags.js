@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import filter from 'lodash/filter';
 
 /*
 are any tags active?
