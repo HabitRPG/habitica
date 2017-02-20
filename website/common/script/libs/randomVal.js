@@ -8,7 +8,7 @@ function trueRandom () {
 // Get a random property from an object
 // returns random property (the value)
 module.exports = function randomVal (obj, options = {}) {
-  let array = options.key ? _.keys(obj) : _.values(obj);
+  let array = options.key ? keys(obj) : values(obj);
   let random = options.predictableRandom || trueRandom();
 
   array.sort();

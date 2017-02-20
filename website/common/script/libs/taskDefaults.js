@@ -15,7 +15,7 @@ module.exports = function taskDefaults (task = {}) {
   }
 
   let defaultId = uuid();
-  let defaults = {
+  let defaultTaskObj = {
     _id: defaultId,
     text: task._id || defaultId,
     notes: '',
@@ -29,16 +29,16 @@ module.exports = function taskDefaults (task = {}) {
     updatedAt: new Date(),
   };
 
-  _.defaults(task, defaults);
+  defaults(task, defaultTaskObj);
 
   if (task.type === 'habit' || task.type === 'daily') {
-    _.defaults(task, {
+    defaults(task, {
       history: [],
     });
   }
 
   if (task.type === 'todo' || task.type === 'daily') {
-    _.defaults(task, {
+    defaults(task, {
       completed: false,
       collapseChecklist: false,
       checklist: [],
@@ -46,14 +46,14 @@ module.exports = function taskDefaults (task = {}) {
   }
 
   if (task.type === 'habit') {
-    _.defaults(task, {
+    defaults(task, {
       up: true,
       down: true,
     });
   }
 
   if (task.type === 'daily') {
-    _.defaults(task, {
+    defaults(task, {
       streak: 0,
       repeat: {
         m: true,

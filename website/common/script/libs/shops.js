@@ -1,7 +1,10 @@
 import values from 'lodash/values';
 import map from 'lodash/map';
-import get from 'lodash/get';
-import pickBy from 'lodash/pickBy'; // Not available in lodash 3
+import keys from 'lodash/keys';
+import each from 'lodash/each';
+import eachRight from 'lodash/eachRight';
+import toArray from 'lodash/toArray';
+import pickBy from 'lodash/pickBy';
 import content from '../content/index';
 import i18n from '../i18n';
 
@@ -27,7 +30,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   eggsCategory.items = _(content.questEggs)
     .values()
     .filter(egg => egg.canBuy(user))
-    .concat(_.values(content.dropEggs))
+    .concat(values(content.dropEggs))
     .map(egg => {
       return {
         key: egg.key,
@@ -114,7 +117,7 @@ shops.getMarketCategories = function getMarket (user, language) {
 shops.getQuestShopCategories = function getQuestShopCategories (user, language) {
   let categories = [];
 
-  _.each(content.userCanOwnQuestCategories, type => {
+  each(content.userCanOwnQuestCategories, type => {
     let category = {
       identifier: type,
       text: i18n.t(`${type}Quests`, language),
@@ -192,7 +195,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
         purchaseAll: true,
       };
 
-      category.items = _.map(set.items, item => {
+      category.items = map(set.items, item => {
         return {
           key: item.key,
           text: item.text(language),
@@ -230,19 +233,19 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
 
   let categories = [];
 
-  let flatGearArray = _.toArray(content.gear.flat);
+  let flatGearArray = toArray(content.gear.flat);
 
   let spells = pickBy(content.spells.special, (spell, key) => {
-    return _.indexOf(AVAILABLE_SPELLS, key) !== -1;
+    return AVAILABLE_SPELLS.indexOf(key) !== -1;
   });
 
-  if (_.keys(spells).length > 0) {
+  if (keys(spells).length > 0) {
     let category = {
       identifier: 'spells',
       text: i18n.t('seasonalItems', language),
     };
 
-    category.items = _.map(spells, (spell, key) => {
+    category.items = map(spells, (spell, key) => {
       return {
         key,
         text: spell.text(language),
@@ -260,16 +263,16 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   }
 
   let quests = pickBy(content.quests, (quest, key) => {
-    return _.indexOf(AVAILABLE_QUESTS, key) !== -1;
+    return AVAILABLE_QUESTS.indexOf(key) !== -1;
   });
 
-  if (_.keys(quests).length > 0) {
+  if (keys(quests).length > 0) {
     let category = {
       identifier: 'quests',
       text: i18n.t('quests', language),
     };
 
-    category.items = _.map(quests, (quest, key) => {
+    category.items = map(quests, (quest, key) => {
       return {
         key,
         text: quest.text(language),
@@ -327,7 +330,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
 shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
   let sets = [];
 
-  _.eachRight(content.backgrounds, (group, key) => {
+  eachRight(content.backgrounds, (group, key) => {
     let set = {
       identifier: key,
       text: i18n.t(key, language),

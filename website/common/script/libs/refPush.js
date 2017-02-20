@@ -1,5 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
-import max from 'lodash/max';
+import maxBy from 'lodash/maxBy';
+import values from 'lodash/values';
 import uuid from './uuid';
 
 /*
@@ -9,7 +10,7 @@ import uuid from './uuid';
  */
 
 module.exports = function refPush (reflist, item) {
-  item.sort = _.isEmpty(reflist) ? 0 : _.max(reflist, 'sort').sort + 1;
+  item.sort = isEmpty(reflist) ? 0 : maxBy(values(reflist), 'sort').sort + 1;
 
   if (!(item.id && !reflist[item.id])) {
     item.id = uuid();

@@ -9,7 +9,7 @@ module.exports = function pickDeep (obj, properties) {
   if (!Array.isArray(properties)) throw new Error('"properties" must be an array');
 
   let result = {};
-  _.each(properties, (prop) => _.set(result, prop, _.get(obj, prop)));
+  each(properties, (prop) => set(result, prop, get(obj, prop)));
 
   return result;
 };
