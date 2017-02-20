@@ -214,20 +214,20 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
   return categories;
 };
 
-const AVAILABLE_SETS = {
-};
-
-const AVAILABLE_SPELLS = [
-];
-
-const AVAILABLE_QUESTS = [
-];
-
 // To switch seasons/available inventory, edit the AVAILABLE_SETS object to whatever should be sold.
 // let AVAILABLE_SETS = {
 //   setKey: i18n.t('setTranslationString', language),
 // };
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
+  const AVAILABLE_SETS = {
+  };
+
+  const AVAILABLE_SPELLS = [
+  ];
+
+  const AVAILABLE_QUESTS = [
+  ];
+
   let categories = [];
 
   let flatGearArray = toArray(content.gear.flat);

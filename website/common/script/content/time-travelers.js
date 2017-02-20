@@ -18,8 +18,9 @@ each(mystery, (v, k) => {
 let timeTravelerStore = (user) => {
   let ownedKeys;
   let owned = user.items.gear.owned;
-  let unopenedGifts = user.purchased.plan.mysteryItems;
-  ownedKeys = keys((typeof owned.toObject === 'function' ? owned.toObject() : undefined) || owned);
+  let mysteryItems = user.purchased.plan.mysteryItems;
+  let unopenedGifts = typeof mysteryItems.toObject === 'function' ? mysteryItems.toObject() : mysteryItems;
+  ownedKeys = keys(typeof owned.toObject === 'function' ? owned.toObject() : owned);
   ownedKeys = union(ownedKeys, unopenedGifts);
   return reduce(mystery, (m, v, k) => {
     if (k === 'wondercon' || ownedKeys.indexOf(v.items[0].key) !== -1) {
