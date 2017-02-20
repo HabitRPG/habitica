@@ -82,7 +82,7 @@ export function startOfDay (options = {}) {
 export function daysSince (yesterday, options = {}) {
   let o = sanitizeOptions(options);
 
-  return startOfDay(_.defaults({ now: o.now }, o)).diff(startOfDay(_.defaults({ now: yesterday }, o)), 'days');
+  return startOfDay(defaults({ now: o.now }, o)).diff(startOfDay(defaults({ now: yesterday }, o)), 'days');
 }
 
 /*
@@ -94,7 +94,7 @@ export function shouldDo (day, dailyTask, options = {}) {
     return false;
   }
   let o = sanitizeOptions(options);
-  let startOfDayWithCDSTime = startOfDay(_.defaults({ now: day }, o));
+  let startOfDayWithCDSTime = startOfDay(defaults({ now: day }, o));
 
   // The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it.
   // Therefore, we must also ignore the time portion of the user's day start (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
