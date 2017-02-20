@@ -12,7 +12,7 @@ import {
 // If item is already purchased -> equip it
 // Otherwise unlock it
 module.exports = function unlock (user, req = {}, analytics) {
-  let path = _.get(req.query, 'path');
+  let path = get(req.query, 'path');
 
   if (!path) {
     throw new BadRequest(i18n.t('pathRequired', req.language));
@@ -39,8 +39,8 @@ module.exports = function unlock (user, req = {}, analytics) {
     setPaths = path.split(',');
     let alreadyOwnedItems = 0;
 
-    _.each(setPaths, singlePath => {
-      if (_.get(user, `purchased.${singlePath}`) === true) {
+    each(setPaths, singlePath => {
+      if (get(user, `purchased.${singlePath}`) === true) {
         alreadyOwnedItems++;
       }
     });
@@ -53,7 +53,7 @@ module.exports = function unlock (user, req = {}, analytics) {
       throw new NotAuthorized(i18n.t('alreadyUnlockedPart', req.language));
     } */
   } else {
-    alreadyOwns = _.get(user, `purchased.${path}`) === true;
+    alreadyOwns = get(user, `purchased.${path}`) === true;
   }
 
   if (isBackground && !alreadyOwns && (path.indexOf('.blue') !== -1 || path.indexOf('.green') !== -1 || path.indexOf('.red') !== -1 || path.indexOf('.purple') !== -1 || path.indexOf('.yellow') !== -1)) {
@@ -65,7 +65,7 @@ module.exports = function unlock (user, req = {}, analytics) {
   }
 
   if (isFullSet) {
-    _.each(setPaths, function markItemsAsPurchased (pathPart) {
+    each(setPaths, function markItemsAsPurchased (pathPart) {
       if (path.indexOf('gear.') !== -1) {
         // Using Object so path[1] won't create an array but an object {path: {1: value}}
         setWith(user, pathPart, true, Object);
@@ -112,7 +112,7 @@ module.exports = function unlock (user, req = {}, analytics) {
   }
 
   let response = [
-    _.pick(user, splitWhitespace('purchased preferences items')),
+    pick(user, splitWhitespace('purchased preferences items')),
   ];
 
   if (!alreadyOwns) response.push(i18n.t('unlocked', req.language));

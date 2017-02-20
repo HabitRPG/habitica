@@ -68,7 +68,7 @@ module.exports = function releaseBoth (user, req = {}, analytics) {
   }
 
   return [
-    _.pick(user, splitWhitespace('achievements items balance')),
+    pick(user, splitWhitespace('achievements items balance')),
     i18n.t('mountsAndPetsReleased'),
   ];
 };

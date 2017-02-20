@@ -12,7 +12,7 @@ module.exports = function openMysteryItem (user, req = {}, analytics) {
     throw new BadRequest(i18n.t('mysteryItemIsEmpty', req.language));
   }
 
-  item = _.cloneDeep(content.gear.flat[item]);
+  item = cloneDeep(content.gear.flat[item]);
   user.items.gear.owned[item.key] = true;
 
   user.markModified('purchased.plan.mysteryItems');

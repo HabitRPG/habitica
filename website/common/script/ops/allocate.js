@@ -9,7 +9,7 @@ import {
 import i18n from '../i18n';
 
 module.exports = function allocate (user, req = {}) {
-  let stat = _.get(req, 'query.stat', 'str');
+  let stat = get(req, 'query.stat', 'str');
 
   if (ATTRIBUTES.indexOf(stat) === -1) {
     throw new BadRequest(i18n.t('invalidAttribute', {attr: stat}, req.language));

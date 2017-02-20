@@ -10,7 +10,7 @@ import {
 } from '../libs/errors';
 
 module.exports = function buySpecialSpell (user, req = {}) {
-  let key = _.get(req, 'params.key');
+  let key = get(req, 'params.key');
   if (!key) throw new BadRequest(i18n.t('missingKeyParam', req.language));
 
   let item = content.special[key];
@@ -24,7 +24,7 @@ module.exports = function buySpecialSpell (user, req = {}) {
   user.items.special[key]++;
 
   return [
-    _.pick(user, splitWhitespace('items stats')),
+    pick(user, splitWhitespace('items stats')),
     i18n.t('messageBought', {
       itemText: item.text(req.language),
     }, req.language),

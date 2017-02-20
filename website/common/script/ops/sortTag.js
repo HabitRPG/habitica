@@ -4,8 +4,8 @@ import get from 'lodash/get';
 // TODO used only in client, move there?
 
 module.exports = function sortTag (user, req = {}) {
-  let to = _.get(req, 'query.to');
-  let fromParam = _.get(req, 'query.from');
+  let to = get(req, 'query.to');
+  let fromParam = get(req, 'query.from');
 
   let invalidTo = !to && to !== 0;
   let invalidFrom = !fromParam && fromParam !== 0;

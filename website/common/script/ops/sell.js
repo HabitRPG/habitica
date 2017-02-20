@@ -12,8 +12,8 @@ import {
 const ACCEPTEDTYPES = ['eggs', 'hatchingPotions', 'food'];
 
 module.exports = function sell (user, req = {}) {
-  let key = _.get(req.params, 'key');
-  let type = _.get(req.params, 'type');
+  let key = get(req.params, 'key');
+  let type = get(req.params, 'type');
 
   if (!type) {
     throw new BadRequest(i18n.t('typeRequired', req.language));
@@ -35,6 +35,6 @@ module.exports = function sell (user, req = {}) {
   user.stats.gp += content[type][key].value;
 
   return [
-    _.pick(user, splitWhitespace('stats items')),
+    pick(user, splitWhitespace('stats items')),
   ];
 };

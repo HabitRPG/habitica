@@ -35,7 +35,7 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
 
   let lvl = capByLevel(user.stats.lvl);
 
-  _.each(tasks, function resetTasks (task) {
+  each(tasks, function resetTasks (task) {
     if (!task.challenge || !task.challenge.id || task.challenge.broken) {
       if (task.type !== 'reward') {
         task.value = 0;
@@ -54,7 +54,7 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
 
   user.preferences.automaticAllocation = false;
 
-  _.each(USERSTATSLIST, function resetStats (value) {
+  each(USERSTATSLIST, function resetStats (value) {
     stats[value] = 0;
   });
 

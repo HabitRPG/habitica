@@ -10,7 +10,7 @@ import {
 } from '../libs/errors';
 
 module.exports = function changeClass (user, req = {}, analytics) {
-  let klass = _.get(req, 'query.class');
+  let klass = get(req, 'query.class');
 
   // user.flags.classSelected is set to false after the user paid the 3 gems
   if (user.stats.lvl < 10) {
@@ -19,9 +19,9 @@ module.exports = function changeClass (user, req = {}, analytics) {
     user.stats.class = klass;
     user.flags.classSelected = true;
 
-    _.each(['weapon', 'armor', 'shield', 'head'], (type) => {
+    each(['weapon', 'armor', 'shield', 'head'], (type) => {
       let foundKey = false;
-      _.findLast(user.items.gear.owned, (val, key) => {
+      findLast(user.items.gear.owned, (val, key) => {
         if (key.indexOf(`${type}_${klass}`) !== -1 && val === true) {
           foundKey = key;
           return true;
@@ -73,6 +73,6 @@ module.exports = function changeClass (user, req = {}, analytics) {
   }
 
   return [
-    _.pick(user, splitWhitespace('stats flags items preferences')),
+    pick(user, splitWhitespace('stats flags items preferences')),
   ];
 };

@@ -1,7 +1,7 @@
 import content from '../content/index';
 import i18n from '../i18n';
 import get from 'lodash/get';
-import contains from 'lodash/contains';
+import includes from 'lodash/includes';
 import keys from 'lodash/keys';
 import {
   BadRequest,
@@ -9,17 +9,17 @@ import {
 } from '../libs/errors';
 
 module.exports = function purchaseHourglass (user, req = {}, analytics) {
-  let key = _.get(req, 'params.key');
+  let key = get(req, 'params.key');
   if (!key) throw new BadRequest(i18n.t('missingKeyParam', req.language));
 
-  let type = _.get(req, 'params.type');
+  let type = get(req, 'params.type');
   if (!type) throw new BadRequest(i18n.t('missingTypeParam', req.language));
 
   if (!content.timeTravelStable[type]) {
-    throw new NotAuthorized(i18n.t('typeNotAllowedHourglass', {allowedTypes: _.keys(content.timeTravelStable).toString()}, req.language));
+    throw new NotAuthorized(i18n.t('typeNotAllowedHourglass', {allowedTypes: keys(content.timeTravelStable).toString()}, req.language));
   }
 
-  if (!_.contains(_.keys(content.timeTravelStable[type]), key)) {
+  if (!includes(keys(content.timeTravelStable[type]), key)) {
     throw new NotAuthorized(i18n.t('notAllowedHourglass', req.language));
   }
 

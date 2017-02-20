@@ -8,7 +8,7 @@ import buyArmoire from './buyArmoire';
 import buyGear from './buyGear';
 
 module.exports = function buy (user, req = {}, analytics) {
-  let key = _.get(req, 'params.key');
+  let key = get(req, 'params.key');
   if (!key) throw new BadRequest(i18n.t('missingKeyParam', req.language));
 
   let buyRes;

@@ -8,8 +8,8 @@ import {
 } from '../libs/errors';
 
 module.exports = function hatch (user, req = {}) {
-  let egg = _.get(req, 'params.egg');
-  let hatchingPotion = _.get(req, 'params.hatchingPotion');
+  let egg = get(req, 'params.egg');
+  let hatchingPotion = get(req, 'params.hatchingPotion');
 
   if (!(egg && hatchingPotion)) {
     throw new BadRequest(i18n.t('missingEggHatchingPotionHatch', req.language));

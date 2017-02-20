@@ -1,4 +1,4 @@
-import times from 'lodash/times';
+import timesLodash from 'lodash/times';
 import reduce from 'lodash/reduce';
 import max from 'lodash/max';
 import {
@@ -33,12 +33,12 @@ function _calculateDelta (task, direction, cron) {
   if (task.checklist && task.checklist.length > 0) {
     // If the Daily, only dock them a portion based on their checklist completion
     if (direction === 'down' && task.type === 'daily' && cron) {
-      nextDelta *= 1 - _.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0) / task.checklist.length;
+      nextDelta *= 1 - reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0) / task.checklist.length;
     }
 
     // If To-Do, point-match the TD per checklist item completed
     if (task.type === 'todo') {
-      nextDelta *= 1 + _.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
+      nextDelta *= 1 + reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
     }
   }
 
@@ -76,7 +76,7 @@ function _calculateReverseDelta (task, direction) {
 
   // Checklists - If To-Do, point-match the TD per checklist item completed
   if (task.checklist && task.checklist.length > 0 && task.type === 'todo') {
-    nextDelta *= 1 + _.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
+    nextDelta *= 1 + reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
   }
 
   return nextDelta;
@@ -143,7 +143,7 @@ function _changeTaskValue (user, task, direction, times, cron) {
   if (_crit > 1) user._tmp.crit = _crit;
 
   // If multiple days have passed, multiply times days missed
-  _.times(times, () => {
+  timesLodash(times, () => {
     // Each iteration calculate the nextDelta, which is then accumulated in the total delta.
     let nextDelta = !cron && direction === 'down' ? _calculateReverseDelta(task, direction) : _calculateDelta(task, direction, cron);
 
@@ -201,7 +201,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
     } else {
       _subtractPoints(user, task, stats, delta);
     }
-    _gainMP(user, _.max([0.25, 0.0025 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
+    _gainMP(user, max([0.25, 0.0025 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
 
     task.history = task.history || [];
     // Add history entry, even more than 1 per day
@@ -218,7 +218,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
       delta += _changeTaskValue(user, task, direction, times, cron);
       if (direction === 'down') delta = _calculateDelta(task, direction, cron); // recalculate delta for unchecking so the gp and exp come out correctly
       _addPoints(user, task, stats, direction, delta); // obviously for delta>0, but also a trick to undo accidental checkboxes
-      _gainMP(user, _.max([1, 0.01 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
+      _gainMP(user, max([1, 0.01 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
 
       if (direction === 'up') {
         task.streak += 1;
@@ -252,8 +252,8 @@ module.exports = function scoreTask (options = {}, req = {}) {
       _addPoints(user, task, stats, direction, delta);
 
       // MP++ per checklist item in ToDo, bonus per CLI
-      let multiplier = _.max([_.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 1), 1]);
-      _gainMP(user, _.max([multiplier, 0.01 * user._statsComputed.maxMP * multiplier]) * (direction === 'down' ? -1 : 1));
+      let multiplier = max([reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 1), 1]);
+      _gainMP(user, max([multiplier, 0.01 * user._statsComputed.maxMP * multiplier]) * (direction === 'down' ? -1 : 1));
     }
   } else if (task.type === 'reward') {
     // Don't adjust values for rewards

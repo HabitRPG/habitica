@@ -10,12 +10,12 @@ import findIndex from 'lodash/findIndex';
 // TODO used only in client, move there?
 
 module.exports = function sortTask (user, req = {}) {
-  let id = _.get(req, 'params.id');
-  let to = _.get(req, 'query.to');
-  let fromParam = _.get(req, 'query.from');
-  let taskType = _.get(req, 'params.taskType');
+  let id = get(req, 'params.id');
+  let to = get(req, 'query.to');
+  let fromParam = get(req, 'query.from');
+  let taskType = get(req, 'params.taskType');
 
-  let index = _.findIndex(user[`${taskType}s`], function findById (task) {
+  let index = findIndex(user[`${taskType}s`], function findById (task) {
     return task._id === id;
   });
 

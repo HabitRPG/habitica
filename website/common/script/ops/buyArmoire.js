@@ -2,7 +2,6 @@ import content from '../content/index';
 import i18n from '../i18n';
 import filter from 'lodash/filter';
 import isEmpty from 'lodash/isEmpty';
-import where from 'lodash/where';
 import pick from 'lodash/pick';
 import count from '../count';
 import splitWhitespace from '../libs/splitWhitespace';
@@ -33,10 +32,10 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
   let message;
 
   let armoireResult = randomVal.trueRandom();
-  let eligibleEquipment = _.filter(content.gear.flat, (eligible) => {
+  let eligibleEquipment = filter(content.gear.flat, (eligible) => {
     return eligible.klass === 'armoire' && !user.items.gear.owned[eligible.key];
   });
-  let armoireHasEquipment = !_.isEmpty(eligibleEquipment);
+  let armoireHasEquipment = !isEmpty(eligibleEquipment);
 
   if (armoireHasEquipment && (armoireResult < YIELD_EQUIPMENT_THRESHOLD || !user.flags.armoireOpened)) {
     eligibleEquipment.sort();
@@ -63,7 +62,7 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
       dropText: drop.text(req.language),
     };
   } else if ((armoireHasEquipment && armoireResult < YIELD_FOOD_THRESHOLD) || armoireResult < 0.5) { // eslint-disable-line no-extra-parens
-    drop = randomVal(_.where(content.food, {
+    drop = randomVal(filter(content.food, {
       canDrop: true,
     }));
 
@@ -110,7 +109,7 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
     });
   }
 
-  let resData = _.pick(user, splitWhitespace('items flags'));
+  let resData = pick(user, splitWhitespace('items flags'));
   if (armoireResp) resData.armoire = armoireResp;
 
   return [

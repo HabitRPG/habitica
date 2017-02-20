@@ -11,6 +11,6 @@ module.exports = function disableClasses (user) {
   user.stats.points = 0;
 
   return [
-    _.pick(user, splitWhitespace('stats flags preferences')),
+    pick(user, splitWhitespace('stats flags preferences')),
   ];
 };
