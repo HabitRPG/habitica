@@ -1,4 +1,4 @@
-import cloneDeep from 'lodash/cloneDeep';
+import cloneDeepWith from 'lodash/cloneDeepWith';
 import isFunction from 'lodash/isFunction';
 import min from 'lodash/min';
 import reduce from 'lodash/reduce';
@@ -15,7 +15,7 @@ import randomVal from '../libs/randomVal';
 
 // Clone a drop object maintaining its functions so that we can change it without affecting the original item
 function cloneDropItem (drop) {
-  return cloneDeep(drop, (val) => {
+  return cloneDeepWith(drop, (val) => {
     return isFunction(val) ? val : undefined; // undefined will be handled by lodash
   });
 }

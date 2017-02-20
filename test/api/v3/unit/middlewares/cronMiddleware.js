@@ -4,7 +4,6 @@ import {
   generateTodo,
   generateDaily,
 } from '../../../../helpers/api-unit.helper';
-import { cloneDeep } from 'lodash';
 import cronMiddleware from '../../../../../website/server/middlewares/cron';
 import moment from 'moment';
 import { model as User } from '../../../../../website/server/models/user';
@@ -202,7 +201,7 @@ describe('cron middleware', () => {
     user.lastCron = moment(new Date()).subtract({days: 2});
     await user.save();
 
-    let updatedUser = cloneDeep(user);
+    let updatedUser = new User(user.toObject());
     updatedUser.nMatched = 0;
 
     sandbox.spy(cronLib, 'recoverCron');

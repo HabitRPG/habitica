@@ -533,7 +533,7 @@ describe('cron', () => {
       tasksByType.dailys[0].completed = true;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
 
-      let previousBuffs = clone(user.stats.buffs);
+      let previousBuffs = user.stats.buffs.toObject();
 
       cron({user, tasksByType, daysMissed, analytics});
 
@@ -598,7 +598,7 @@ describe('cron', () => {
       tasksByType.dailys[0].completed = false;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
 
-      let previousBuffs = clone(user.stats.buffs);
+      let previousBuffs = user.stats.buffs.toObject();
 
       cronOverride({user, tasksByType, daysMissed, analytics});
 

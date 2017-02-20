@@ -364,7 +364,7 @@ export function cron (options = {}) {
 
   // After all is said and done, progress up user's effect on quest, return those values & reset the user's
   let progress = user.party.quest.progress;
-  _progress = _.cloneDeep(progress);
+  _progress = progress.toObject(); // clone the old progress object
   _.merge(progress, {down: 0, up: 0, collectedItems: 0});
 
   // Send notification for changes in HP and MP
