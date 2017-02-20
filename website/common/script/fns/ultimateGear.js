@@ -1,5 +1,5 @@
 import content from '../content/index';
-import find from 'lodash/find';
+import lodashFind from 'lodash/find';
 import reduce from 'lodash/reduce';
 import includes from 'lodash/includes';
 
@@ -8,8 +8,8 @@ module.exports = function ultimateGear (user) {
 
   content.classes.forEach((klass) => {
     if (user.achievements.ultimateGearSets[klass] !== true) {
-      user.achievements.ultimateGearSets[klass] = _.reduce(['armor', 'shield', 'head', 'weapon'], (soFarGood, type) => {
-        let found = _.find(content.gear.tree[type][klass], {
+      user.achievements.ultimateGearSets[klass] = reduce(['armor', 'shield', 'head', 'weapon'], (soFarGood, type) => {
+        let found = lodashFind(content.gear.tree[type][klass], {
           last: true,
         });
         return soFarGood && (!found || owned[found.key] === true);
@@ -28,7 +28,7 @@ module.exports = function ultimateGear (user) {
     ultimateGearSetValues = Object.values(user.achievements.ultimateGearSets);
   }
 
-  let hasFullSet = _.includes(ultimateGearSetValues, true);
+  let hasFullSet = includes(ultimateGearSetValues, true);
 
   if (hasFullSet && user.flags.armoireEnabled !== true) {
     user.flags.armoireEnabled = true;

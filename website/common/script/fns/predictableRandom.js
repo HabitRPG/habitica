@@ -10,10 +10,10 @@ module.exports = function predictableRandom (user, seed) {
     let stats = user.stats.toObject ? user.stats.toObject() : user.stats;
     // These items are not part of the stat object but exists on the server (see controllers/user#getUser)
     // we remove them in order to use the same user.stats both on server and on client
-    stats = _.omit(stats, 'toNextLevel', 'maxHealth', 'maxMP');
+    stats = omit(stats, ['toNextLevel', 'maxHealth', 'maxMP']);
 
-    seed = _.reduce(stats, (accumulator, val) => {
-      if (_.isNumber(val)) {
+    seed = reduce(stats, (accumulator, val) => {
+      if (isNumber(val)) {
         return accumulator + val;
       } else {
         return accumulator;
