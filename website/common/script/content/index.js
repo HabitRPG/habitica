@@ -1,4 +1,4 @@
-import contains from 'lodash/contains';
+import includes from 'lodash/includes';
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import sortBy from 'lodash/sortBy';
@@ -66,7 +66,7 @@ api.armoire = {
   value: 100,
   key: 'armoire',
   canOwn (u) {
-    return _.contains(u.achievements.ultimateGearSets, true);
+    return includes(u.achievements.ultimateGearSets, true);
   },
 };
 
@@ -440,8 +440,8 @@ api.food = {
   /* eslint-enable camelcase */
 };
 
-_.each(api.food, (food, key) => {
-  return _.defaults(food, {
+each(api.food, (food, key) => {
+  return defaults(food, {
     value: 1,
     key,
     notes: t('foodNotes'),
@@ -2959,9 +2959,9 @@ api.quests = {
   },
 };
 
-_.each(api.quests, (v, key) => {
+each(api.quests, (v, key) => {
   let b;
-  _.defaults(v, {
+  defaults(v, {
     key,
     canBuy () {
       return true;
@@ -2969,12 +2969,12 @@ _.each(api.quests, (v, key) => {
   });
   b = v.boss;
   if (b) {
-    _.defaults(b, {
+    defaults(b, {
       str: 1,
       def: 1,
     });
     if (b.rage) {
-      return _.defaults(b.rage, {
+      return defaults(b.rage, {
         title: t('bossRageTitle'),
         description: t('bossRageDescription'),
       });
@@ -2982,7 +2982,7 @@ _.each(api.quests, (v, key) => {
   }
 });
 
-api.questsByLevel = _.sortBy(api.quests, (quest) => {
+api.questsByLevel = sortBy(api.quests, (quest) => {
   return quest.lvl || 0;
 });
 

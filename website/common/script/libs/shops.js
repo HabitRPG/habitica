@@ -5,6 +5,7 @@ import each from 'lodash/each';
 import eachRight from 'lodash/eachRight';
 import toArray from 'lodash/toArray';
 import pickBy from 'lodash/pickBy';
+import sortBy from 'lodash/sortBy';
 import content from '../content/index';
 import i18n from '../i18n';
 
@@ -27,8 +28,7 @@ shops.getMarketCategories = function getMarket (user, language) {
     notes: i18n.t('dropsExplanation', language),
   };
 
-  eggsCategory.items = _(content.questEggs)
-    .values()
+  eggsCategory.items = sortBy(values(content.questEggs)
     .filter(egg => egg.canBuy(user))
     .concat(values(content.dropEggs))
     .map(egg => {
@@ -42,7 +42,7 @@ shops.getMarketCategories = function getMarket (user, language) {
         currency: 'gems',
         purchaseType: 'eggs',
       };
-    }).sortBy('key').value();
+    }), 'key');
   categories.push(eggsCategory);
 
   let hatchingPotionsCategory = {
@@ -50,8 +50,7 @@ shops.getMarketCategories = function getMarket (user, language) {
     text: i18n.t('hatchingPotions', language),
     notes: i18n.t('dropsExplanation', language),
   };
-  hatchingPotionsCategory.items = _(content.hatchingPotions)
-    .values()
+  hatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
     .filter(hp => !hp.limited)
     .map(hatchingPotion => {
       return {
@@ -64,7 +63,7 @@ shops.getMarketCategories = function getMarket (user, language) {
         currency: 'gems',
         purchaseType: 'hatchingPotions',
       };
-    }).sortBy('key').value();
+    }), 'key');
   categories.push(hatchingPotionsCategory);
 
   let premiumHatchingPotionsCategory = {
@@ -72,8 +71,7 @@ shops.getMarketCategories = function getMarket (user, language) {
     text: i18n.t('magicHatchingPotions', language),
     notes: i18n.t('premiumPotionNoDropExplanation', language),
   };
-  premiumHatchingPotionsCategory.items = _(content.hatchingPotions)
-    .values()
+  premiumHatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
     .filter(hp => hp.limited && hp.canBuy())
     .map(premiumHatchingPotion => {
       return {
@@ -86,7 +84,7 @@ shops.getMarketCategories = function getMarket (user, language) {
         currency: 'gems',
         purchaseType: 'hatchingPotions',
       };
-    }).sortBy('key').value();
+    }), 'key');
   categories.push(premiumHatchingPotionsCategory);
 
   let foodCategory = {
@@ -94,8 +92,7 @@ shops.getMarketCategories = function getMarket (user, language) {
     text: i18n.t('food', language),
     notes: i18n.t('dropsExplanation', language),
   };
-  foodCategory.items = _(content.food)
-    .values()
+  foodCategory.items = sortBy(values(content.food)
     .filter(food => food.canDrop || food.key === 'Saddle')
     .map(foodItem => {
       return {
@@ -108,7 +105,7 @@ shops.getMarketCategories = function getMarket (user, language) {
         currency: 'gems',
         purchaseType: 'food',
       };
-    }).sortBy('key').value();
+    }), 'key');
   categories.push(foodCategory);
 
   return categories;
@@ -123,7 +120,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
       text: i18n.t(`${type}Quests`, language),
     };
 
-    category.items = _(content.questsByLevel)
+    category.items = content.questsByLevel
       .filter(quest => quest.canBuy(user) && quest.category === type)
       .map(quest => {
         let locked = lockQuest(quest, user);
@@ -142,7 +139,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
           class: locked ? `inventory_quest_scroll_locked inventory_quest_scroll_${quest.key}_locked` : `inventory_quest_scroll inventory_quest_scroll_${quest.key}`,
           purchaseType: 'quests',
         };
-      }).value();
+      });
 
     categories.push(category);
   });
@@ -217,20 +214,20 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
   return categories;
 };
 
+const AVAILABLE_SETS = {
+};
+
+const AVAILABLE_SPELLS = [
+];
+
+const AVAILABLE_QUESTS = [
+];
+
 // To switch seasons/available inventory, edit the AVAILABLE_SETS object to whatever should be sold.
 // let AVAILABLE_SETS = {
 //   setKey: i18n.t('setTranslationString', language),
 // };
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
-  const AVAILABLE_SETS = {
-  };
-
-  const AVAILABLE_SPELLS = [
-  ];
-
-  const AVAILABLE_QUESTS = [
-  ];
-
   let categories = [];
 
   let flatGearArray = toArray(content.gear.flat);
@@ -299,12 +296,9 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
         text: AVAILABLE_SETS[key],
       };
 
-      category.items = _(flatGearArray).filter((gear) => {
-        if (gear.index !== key) {
-          return false;
-        }
-        return user.items.gear.owned[gear.key] === undefined;
-      }).where({index: key}).map(gear => {
+      category.items = flatGearArray.filter((gear) => {
+        return user.items.gear.owned[gear.key] === undefined && gear.index === key;
+      }).map(gear => {
         return {
           key: gear.key,
           text: gear.text(language),
@@ -317,7 +311,8 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
           purchaseType: 'gear',
           class: `shop_${gear.key}`,
         };
-      }).value();
+      });
+
       if (category.items.length > 0) {
         categories.push(category);
       }
@@ -336,17 +331,16 @@ shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
       text: i18n.t(key, language),
     };
 
-    set.items = _(group)
-      .map((background, bgKey) => {
-        return {
-          key: bgKey,
-          text: background.text(language),
-          notes: background.notes(language),
-          value: background.price,
-          currency: background.currency || 'gems',
-          purchaseType: 'backgrounds',
-        };
-      }).value();
+    set.items = map(group, (background, bgKey) => {
+      return {
+        key: bgKey,
+        text: background.text(language),
+        notes: background.notes(language),
+        value: background.price,
+        currency: background.currency || 'gems',
+        purchaseType: 'backgrounds',
+      };
+    });
 
     sets.push(set);
   });
