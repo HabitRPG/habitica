@@ -6,7 +6,5 @@
   "env": {
     "node": true,
   },
-  "globals": {
-    "_": true,
-  }
+
 }
