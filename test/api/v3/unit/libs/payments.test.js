@@ -476,7 +476,7 @@ describe('payments/index', () => {
         fakeClock.restore();
       });
 
-      it('does not award mystery item when user already has the item in the mystery box', async () => {
+      it.skip('does not award mystery item when user already has the item in the mystery box', async () => {
         let mayMysteryItemTimeframe = 1464725113000; // May 31st 2016
         let fakeClock = sinon.useFakeTimers(mayMysteryItemTimeframe);
         let mayMysteryItem = 'armor_mystery_201605';

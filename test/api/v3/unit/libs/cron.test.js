@@ -6,7 +6,6 @@ import requireAgain from 'require-again';
 import { recoverCron, cron } from '../../../../../website/server/libs/cron';
 import { model as User } from '../../../../../website/server/models/user';
 import * as Tasks from '../../../../../website/server/models/task';
-import { clone } from 'lodash';
 import common from '../../../../../website/common';
 import analytics from '../../../../../website/server/libs/analyticsService';
 
