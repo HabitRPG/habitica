@@ -1,8 +1,8 @@
 import {generateUser} from '../../../../../helpers/api-integration/v3';
-import googlePayments from '../../../../../../website/server/libs/googlePayments';
+import applePayments from '../../../../../../website/server/libs/applePayments';
 
-describe('payments : google #cancelSubscribe', () => {
-  let endpoint = '/iap/android/subscribe/cancel?noRedirect=true';
+describe('payments : apple #cancelSubscribe', () => {
+  let endpoint = '/iap/ios/subscribe/cancel?noRedirect=true';
   let user;
 
   beforeEach(async () => {
@@ -13,17 +13,17 @@ describe('payments : google #cancelSubscribe', () => {
     let cancelStub;
 
     beforeEach(async () => {
-      cancelStub = sinon.stub(googlePayments, 'cancelSubscribe').returnsPromise().resolves({});
+      cancelStub = sinon.stub(applePayments, 'cancelSubscribe').returnsPromise().resolves({});
     });
 
     afterEach(() => {
-      googlePayments.cancelSubscribe.restore();
+      applePayments.cancelSubscribe.restore();
     });
 
-    it('makes a purchase', async () => {
+    it('cancels the subscription', async () => {
       user = await generateUser({
         'profile.name': 'sender',
-        'purchased.plan.paymentMethod': 'Google',
+        'purchased.plan.paymentMethod': 'Apple',
         'purchased.plan.customerId': 'customer-id',
         'purchased.plan.planId': 'basic_3mo',
         'purchased.plan.lastBillingDate': new Date(),
