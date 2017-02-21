@@ -133,7 +133,7 @@ api.subscribe = async function subscribe (sku, user, receipt, signature, headers
 api.cancelSubscribe = async function cancelSubscribe (user, headers) {
   let plan = user.purchased.plan;
 
-  if (plan.paymentMethod !== 'Google') throw new NotAuthorized(shared.i18n.t('missingSubscription'));
+  if (plan.paymentMethod !== api.constants.PAYMENT_METHOD_GOOGLE) throw new NotAuthorized(shared.i18n.t('missingSubscription'));
 
   await iap.setup();
 

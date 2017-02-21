@@ -144,7 +144,7 @@ api.subscribe = async function subscribe (sku, user, receipt, headers, nextPayme
 api.cancelSubscribe = async function cancelSubscribe (user, headers) {
   let plan = user.purchased.plan;
 
-  if (plan.paymentMethod !== 'Apple') throw new NotAuthorized(shared.i18n.t('missingSubscription'));
+  if (plan.paymentMethod !== api.constants.PAYMENT_METHOD_APPLE) throw new NotAuthorized(shared.i18n.t('missingSubscription'));
 
   await iap.setup();
 
