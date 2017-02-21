@@ -142,13 +142,13 @@ api.subscribe = async function subscribe (sku, user, receipt, headers, nextPayme
 
 
 api.cancelSubscribe = async function cancelSubscribe (user, headers) {
-  let data = user.purchased.plan.additionalData;
+  let plan = user.purchased.plan;
 
-  if (!data) throw new NotAuthorized(shared.i18n.t('missingSubscription'));
+  if (plan.paymentMethod !== 'Apple') throw new NotAuthorized(shared.i18n.t('missingSubscription'));
 
   await iap.setup();
 
-  let appleRes = await iap.validate(iap.APPLE, data);
+  let appleRes = await iap.validate(iap.APPLE, plan.additionalData);
 
   let isValidated = iap.isValidated(appleRes);
   if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);

@@ -181,6 +181,7 @@ describe('Apple Payments', ()  => {
 
       user = new User();
       user.profile.name = 'sender';
+      user.purchased.plan.paymentMethod = applePayments.constants.PAYMENT_METHOD_APPLE;
       user.purchased.plan.customerId = customerId;
       user.purchased.plan.planId = subKey;
       user.purchased.plan.additionalData = receipt;
@@ -197,7 +198,7 @@ describe('Apple Payments', ()  => {
     });
 
     it('should throw an error if we are missing a subscription', async () => {
-      user.purchased.plan.additionalData = undefined;
+      user.purchased.plan.paymentMethod = undefined;
 
       await expect(applePayments.cancelSubscribe(user, headers))
         .to.eventually.be.rejected.and.to.eql({

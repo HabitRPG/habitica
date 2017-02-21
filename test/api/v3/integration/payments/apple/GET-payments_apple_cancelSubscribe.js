@@ -23,6 +23,7 @@ describe('payments : apple #cancelSubscribe', () => {
     it('cancels the subscription', async () => {
       user = await generateUser({
         'profile.name': 'sender',
+        'purchased.plan.paymentMethod': 'Apple',
         'purchased.plan.customerId': 'customer-id',
         'purchased.plan.planId': 'basic_3mo',
         'purchased.plan.lastBillingDate': new Date(),
