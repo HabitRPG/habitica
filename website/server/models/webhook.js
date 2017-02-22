@@ -60,7 +60,8 @@ schema.plugin(baseModel, {
 
 schema.methods.formatOptions = function formatOptions (res) {
   if (this.type === 'taskActivity') {
-    this.options = _(this.options).defaults(TASK_ACTIVITY_DEFAULT_OPTIONS).pick('created', 'updated', 'deleted', 'scored').value();
+    _.defaults(this.options, TASK_ACTIVITY_DEFAULT_OPTIONS);
+    this.options = _.pick(this.options, 'created', 'updated', 'deleted', 'scored');
 
     let invalidOption = Object.keys(this.options)
       .find(option => typeof this.options[option] !== 'boolean');
