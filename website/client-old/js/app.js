@@ -167,8 +167,8 @@ window.habitrpg = angular.module('habitrpg',
           url: '/:gid',
           templateUrl: 'partials/options.social.guilds.detail.html',
           title: env.t('titleGuilds'),
-          controller: ['$scope', 'Groups', 'Chat', '$stateParams', 'Members', 'Challenges', 'Tasks', 'User', '$location',
-          function($scope, Groups, Chat, $stateParams, Members, Challenges, Tasks, User, $location) {
+          controller: ['$scope', 'Groups', 'Chat', '$stateParams', 'Members', 'Challenges', 'Tasks', 'User', '$location', '$rootScope',
+          function($scope, Groups, Chat, $stateParams, Members, Challenges, Tasks, User, $location, $rootScope) {
             $scope.groupPanel = 'chat';
             $scope.upgrade = false;
 
@@ -221,16 +221,8 @@ window.habitrpg = angular.module('habitrpg',
                     $scope.group[type + 's'] = _.compact(orderedTasks).concat(unorderedTasks);
                   }).value();
 
-                $scope.groupedList = {};
-                ['habit', 'daily', 'todo', 'reward'].forEach(function (listType) {
-                  groupTasksByChallenge($scope.group[listType  + 's'], listType);
-                });
-
-                function groupTasksByChallenge (taskList, type) {
-                  $scope.groupedList[type] = _.groupBy(taskList, 'challenge.shortName');
-                };
-
                 $scope.group.approvals = [];
+                $rootScope.$broadcast('obj-updated', $scope.group);
                 if (User.user._id === $scope.group.leader._id) {
                   return Tasks.getGroupApprovals($scope.group._id);
                 }

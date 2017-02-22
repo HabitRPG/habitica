@@ -1,4 +1,4 @@
-habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', function ($scope, Shared, Tasks, User) {
+habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', '$rootScope', function ($scope, Shared, Tasks, User, $rootScope) {
     function handleGetGroupTasks (response) {
       var group = $scope.obj;
 
@@ -17,15 +17,7 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
         $scope.group[element.type + 's'].unshift(element);
       });
 
-      $scope.groupedList = {};
-      ['habit', 'daily', 'todo', 'reward'].forEach(function (listType) {
-        groupTasksByChallenge($scope.group[listType + 's'], listType);
-      });
-
-      function groupTasksByChallenge (taskList, type) {
-        $scope.groupedList[type] = _.groupBy(taskList, 'challenge.shortName');
-      };
-
+      $rootScope.$broadcast('obj-updated', $scope.group);
       $scope.loading = false;
     };
 

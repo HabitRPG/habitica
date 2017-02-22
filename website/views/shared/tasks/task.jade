@@ -1,6 +1,6 @@
-script(id='templates/task-list.html', type="text/ng-template")
+script(id='templates/task.html', type="text/ng-template")
   li(id='task-{{::task._id}}',
-    ng-repeat='task in taskList | filterByTaskInfo: obj.filterQuery | conditionalOrderBy: list.view=="dated":"date"',
+    ng-repeat='task in getTaskList(list, taskList, obj) | filterByTaskInfo: obj.filterQuery | conditionalOrderBy: list.view=="dated":"date"',
     class='task {{getClasses(task, user, list, main)}}',
     ng-class='{"cast-target":spell && (list.type != "reward"), "locked-task":obj._locked === true}',
     ng-click='spell && (list.type != "reward") && castEnd(task, "task", $event)',

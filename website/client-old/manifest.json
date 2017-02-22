@@ -85,6 +85,7 @@
             "js/directives/focus-element.directive.js",
             "js/directives/when-scrolled.directive.js",
             "js/directives/task-list.directive.js",
+            "js/directives/task.directive.js",
 
             "js/controllers/authCtrl.js",
             "js/controllers/autoCompleteCtrl.js",

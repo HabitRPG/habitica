@@ -3,6 +3,7 @@
 // started to get unwieldy
 
 include ./task_view/mixins
+include ./task-list
 include ./task
 
 script(id='templates/habitrpg-tasks.html', type="text/ng-template")
@@ -30,26 +31,9 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
               | {{env.t('innCheckOut')}}
 
           +taskColumnTabs('top')
-
-          // Actual List
-          ul(class='{{::list.type}}s main-list',
-            ng-show='obj[list.type+"s"].length > 0', 
-            hrpg-sort-tasks, 
-            ng-if='!$state.includes("options.social.challenges") && !user.preferences.tasks.groupByChallenge')
-            task-list(list="obj[list.type+'s']", list-details="list", object="obj", user="user")
           
-          div(ng-repeat="(key, taskList) in groupedList[list.type]", 
-            ng-if='user.preferences.tasks.groupByChallenge && !$state.includes("options.social.challenges")')
-            h3 {{key}}
-            ul(class='{{::list.type}}s main-list', 
-              ng-show='taskList.length > 0', hrpg-sort-tasks)
-              task-list(list="taskList")
-
-          //Loads the non-sortable lists for challenges
-          ul(class='{{::list.type}}s main-list', 
-            ng-show='obj[list.type + "s"].length > 0', 
-            ng-if='$state.includes("options.social.challenges")')
-            task-list(list="obj[list.type+'s']")
+          // Actual List
+          task-list
 
           include ./task_view/static_rewards
 
