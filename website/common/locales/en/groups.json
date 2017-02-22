@@ -255,5 +255,6 @@
   "confirmGuildPlanCreation": "Create this group?",
   "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription.",
   "aboutToJoinCancelledGroupPlan": "You are about to join a group with a cancelled group plan. You will NOT receive a free subscription.",
-  "cannotChangeLeaderWithActiveGroupPlan": "You can not change the leader with an active group plan"
+  "cannotChangeLeaderWithActiveGroupPlan": "You can not change the leader with an active group plan",
+  "paymentDetails": "Payment Details"
 }
