@@ -139,5 +139,6 @@
     "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
     "taskApprovalHasBeenRequested": "Approval has been requested",
     "approvals": "Approvals",
-    "approvalRequired": "Approval Required"
+    "approvalRequired": "Approval Required",
+    "confirmScoreNotes": "Confirm task scoring with notes"
 }
