@@ -667,6 +667,33 @@ describe('Group Model', () => {
         expect(party.memberCount).to.eql(1);
       });
 
+      it('deletes a private group when the last member leaves and a subscription is cancelled', async () => {
+        let guild = new Group({
+          name: 'test guild',
+          type: 'guild',
+          memberCount: 1,
+        });
+
+        let leader = new User({
+          guilds: [guild._id],
+        });
+
+        guild.leader = leader._id;
+
+        await Promise.all([
+          guild.save(),
+          leader.save(),
+        ]);
+
+        guild.purchased.plan.customerId = '110002222333';
+        guild.purchased.plan.dateTerminated = new Date();
+
+        await guild.leave(leader);
+
+        party = await Group.findOne({_id: guild._id});
+        expect(party).to.not.exist;
+      });
+
       it('does not delete a public group when the last member leaves', async () => {
         party.privacy = 'public';
 

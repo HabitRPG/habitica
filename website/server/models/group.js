@@ -907,7 +907,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
   let group = this;
   let update = {};
 
-  if (group.memberCount <= 1 && group.privacy === 'private' && group.isSubscribed()) {
+  if (group.memberCount <= 1 && group.privacy === 'private' && group.hasNotCancelled()) {
     throw new NotAuthorized(shared.i18n.t('cannotDeleteActiveGroup'));
   }
 
@@ -962,7 +962,9 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     } else {
       members = await User.find({'party._id': group._id}).select('_id').exec();
     }
+
     _.remove(members, {_id: user._id});
+
     if (members.length === 0) {
       promises.push(group.remove());
       return await Bluebird.all(promises);
@@ -1168,6 +1170,11 @@ schema.methods.isSubscribed = function isSubscribed () {
   let now = new Date();
   let plan = this.purchased.plan;
   return plan && plan.customerId && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
+};
+
+schema.methods.hasNotCancelled = function hasNotCancelled () {
+  let plan = this.purchased.plan;
+  return this.isSubscribed() && !plan.dateTerminated;
 };
 
 schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {
