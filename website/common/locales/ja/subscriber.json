@@ -121,6 +121,7 @@
     "mysterySet201611": "豊穣の角セット",
     "mysterySet201612": "くるみ割り人形セット",
     "mysterySet201701": "Time-Freezer Set",
+    "mysterySet201702": "Heartstealer Set",
     "mysterySet301404": "スチームパンク標準 セット",
     "mysterySet301405": "スチームパンク アクセサリー セット",
     "mysterySetwondercon": "Wondercon イベント",
@@ -153,8 +154,8 @@
     "couponCodeRequired": "クーポン コードが必要です。",
     "eventRequired": "\"req.params.event\" が必要です。",
     "countRequired": "\"req.query.count\" が必要です。",
-    "missingPaymentId": "Missing req.query.paymentId",
-    "missingCustomerId": "Missing req.query.customerId",
-    "missingPaypalBlock": "Missing req.session.paypalBlock",
-    "missingSubKey": "Missing req.query.sub"
+    "missingPaymentId": "req.query.paymentIdが見つかりません。",
+    "missingCustomerId": "req.query.customerIdが見つかりません。",
+    "missingPaypalBlock": "req.session.paypalBlockが見つかりません。",
+    "missingSubKey": "req.query.subが見つかりません。"
 }

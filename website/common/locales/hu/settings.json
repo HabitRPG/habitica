@@ -88,6 +88,8 @@
     "deleteDo": "Csináld, töröld a fiókomat!",
     "enterNumber": "Kérlek üss be egy 0 és 24 közötti számot",
     "fillAll": "Kérlek töltsd ki a az össszes mezőt",
+    "invalidPasswordResetCode": "The supplied password reset code is invalid or has expired.",
+    "passwordChangeSuccess": "Your password was successfully changed to the one you just chose. You can now use it to access your account.",
     "passwordSuccess": "A jelszó sikeresen módosítva",
     "usernameSuccess": "Bejelentkezési név sikeresen módosítva",
     "emailSuccess": "Az e-mail cím sikeresen módosítva",

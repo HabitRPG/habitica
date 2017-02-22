@@ -88,6 +88,8 @@
     "deleteDo": "Allez-y, supprimez mon compte !",
     "enterNumber": "Veuillez entrer un chiffre entre 0 et 24",
     "fillAll": "Veuillez remplir tous les champs",
+    "invalidPasswordResetCode": "Le code de réinitialisation fourni est invalide ou a expiré.",
+    "passwordChangeSuccess": "Votre mot de passe a été changé avec succès pour celui que vous venez de choisir. Vous pouvez maintenant l'utiliser pour accéder à votre compte.",
     "passwordSuccess": "Mot de passe modifié avec succès",
     "usernameSuccess": "Nom d'utilisateur modifié avec succès",
     "emailSuccess": "Adresse Mail modifiée avec succès",
