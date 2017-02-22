@@ -25,7 +25,7 @@ function($rootScope, User, $http, Content) {
     var amount = 500;// 500 = $5
     if (sub) amount = sub.price * 100;
     if (data.gift && data.gift.type=='gems') amount = data.gift.gems.amount / 4 * 100;
-    if (data.group) amount = (sub.price + 3 * data.group.memberCount) * 100
+    if (data.group) amount = (sub.price + 3 * (data.group.memberCount - 1)) * 100
     console.log(data)
 
     StripeCheckout.open({
