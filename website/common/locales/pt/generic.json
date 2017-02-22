@@ -106,7 +106,7 @@
     "buyThis": "Comprar <%= text %> com <%= price %> de suas <%= gems %> Gemas?",
     "noReachServer": "Servidor não disponível no momento, tente novamente mais tarde",
     "errorUpCase": "ERRO:",
-    "newPassSent": "Se nós tivermos o seu e-mail em ficheiro, será enviada uma nova palavra-passe para o seu e-mail.",
+    "newPassSent": "If we have your email on file, instructions for setting a new password have been sent to your email.",
     "serverUnreach": "Servidor não disponível no momento.",
     "requestError": "Caramba, um errou ocorreu! <strong>Por favor recarregue a página,</strong> sua última ação pode não ter sido salva corretamente. ",
     "seeConsole": "Se o erro persistir, por favor reporte em Ajuda > Reportar um Problema. Se você estiver familiarizado com o console do seu navegador, por favor inclua quaisquer mensagens de erro.",

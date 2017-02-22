@@ -451,6 +451,20 @@ let backgrounds = {
       notes: t('backgroundStoikalmVolcanoesNotes'),
     },
   },
+  backgrounds022017: {
+    bell_tower: {
+      text: t('backgroundBellTowerText'),
+      notes: t('backgroundBellTowerNotes'),
+    },
+    treasure_room: {
+      text: t('backgroundTreasureRoomText'),
+      notes: t('backgroundTreasureRoomNotes'),
+    },
+    wedding_arch: {
+      text: t('backgroundWeddingArchText'),
+      notes: t('backgroundWeddingArchNotes'),
+    },
+  },
   incentiveBackgrounds: {
     blue: {
       text: t('backgroundBlueText'),
