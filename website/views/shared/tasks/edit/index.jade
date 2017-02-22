@@ -7,7 +7,7 @@ div(ng-if='task._editing')
 
     br
 
-    h2#task-edit-title
+    h3#task-edit-title
       markdown(text="task._edit.text")
 
     // Broken Challenge
@@ -43,21 +43,24 @@ div(ng-if='task._editing')
     include ./checklist
 
     form
-      include ./text_notes
+      .col-md-6
+        include ./text_notes
 
-      include ./habits/plus_minus
+        include ./habits/plus_minus
 
-      include ./dailies/calendar
+        include ./dailies/calendar
 
-      include ./rewards/pricing
+        include ./rewards/pricing
 
-      include ./todos/due_date
+        include ./todos/due_date
 
-      include ./tags
-
-      include ./advanced_options
-
-      .save-close
-        button(type='submit', ng-click='saveTask(task,false,true); $close()')=env.t('saveAndClose')
-      .save-close
-        button(ng-click='cancelTaskEdit(task); $close()')=env.t('cancel')
+      .col-md-6
+        include ./tags
+      
+        include ./advanced_options
+      
+      .col-md-12
+        .save-close
+          button(type='submit', ng-click='saveTask(task,false,true); $close()')=env.t('saveAndClose')
+        .save-close
+          button(ng-click='cancelTaskEdit(task); $close()')=env.t('cancel')

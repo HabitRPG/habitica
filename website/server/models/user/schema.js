@@ -59,7 +59,9 @@ let schema = new Schema({
         type: String,
         enum: ['bcrypt', 'sha1'],
       },
-      salt: String, // Salt for SHA1 encrypted passwords, not stored for bcrypt
+      salt: String, // Salt for SHA1 encrypted passwords, not stored for bcrypt,
+      // Used to validate password reset codes and make sure only the most recent one can be used
+      passwordResetCode: String,
     },
     timestamps: {
       created: {type: Date, default: Date.now},

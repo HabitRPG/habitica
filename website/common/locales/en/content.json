@@ -199,6 +199,10 @@
   "questEggTriceratopsMountText": "Triceratops",
   "questEggTriceratopsAdjective": "a tricky",
 
+  "questEggGuineaPigText": "Guinea Pig",
+  "questEggGuineaPigMountText": "Guinea Pig",
+  "questEggGuineaPigAdjective": "a giddy",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
@@ -218,6 +222,7 @@
   "hatchingPotionGhost": "Ghost",
   "hatchingPotionRoyalPurple": "Royal Purple",
   "hatchingPotionHolly": "Holly",
+  "hatchingPotionCupid": "Cupid",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
   "premiumPotionAddlNotes": "Not usable on quest pet eggs.",

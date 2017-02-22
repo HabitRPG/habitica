@@ -88,6 +88,8 @@
     "deleteDo": "去吧，删除我的账号吧！",
     "enterNumber": "请输入一个0到24的数字",
     "fillAll": "请填写所有栏目",
+    "invalidPasswordResetCode": "The supplied password reset code is invalid or has expired.",
+    "passwordChangeSuccess": "Your password was successfully changed to the one you just chose. You can now use it to access your account.",
     "passwordSuccess": "密码修改成功",
     "usernameSuccess": "登陆名更改成功",
     "emailSuccess": "邮箱修改成功",

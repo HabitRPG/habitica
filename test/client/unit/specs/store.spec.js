@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import storeInjector from 'inject?-vue!client/store';
+import storeInjector from 'inject-loader?-vue!client/store';
 import { mapState, mapGetters, mapActions } from 'client/store';
 import { flattenAndNamespace } from 'client/store/helpers/internals';
 

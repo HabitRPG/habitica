@@ -88,6 +88,8 @@
     "deleteDo": "Sì, elimina il mio account!",
     "enterNumber": "Inserisci un numero compreso tra 0 e 24",
     "fillAll": "Compila tutti i campi",
+    "invalidPasswordResetCode": "The supplied password reset code is invalid or has expired.",
+    "passwordChangeSuccess": "Your password was successfully changed to the one you just chose. You can now use it to access your account.",
     "passwordSuccess": "Password modificata con successo",
     "usernameSuccess": "Nome utente modificato con successo",
     "emailSuccess": "Email cambiata con successo",
