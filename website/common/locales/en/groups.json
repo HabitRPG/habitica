@@ -254,5 +254,5 @@
   "cantDeleteAssignedGroupTasks": "Can't delete group tasks that are assigned to you.",
   "confirmGuildPlanCreation": "Create this group?",
   "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription.",
-  "aboutToJoinCancelledGroupPlan": "You are about to join a group with a canclled group plan. You will not recieve a free subscription."
+  "aboutToJoinCancelledGroupPlan": "You are about to join a group with a cancelled group plan. You will NOT receive a free subscription."
 }
