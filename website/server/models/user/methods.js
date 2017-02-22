@@ -9,7 +9,6 @@ import {
 
 import { defaults } from 'lodash';
 import { model as UserNotification } from '../userNotification';
-import slack from '../../libs/slack';
 import schema from './schema';
 import payments from '../../libs/payments';
 import amazonPayments from '../../libs/amazonPayments';

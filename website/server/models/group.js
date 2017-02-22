@@ -430,9 +430,6 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
     newMessage._meta = metaData;
   }
 
-  // Check for slurs before posting
-  this.checkForSlur(message, user)
-    
   this.chat.unshift(newMessage);
 
   const MAX_CHAT_COUNT = 200;
