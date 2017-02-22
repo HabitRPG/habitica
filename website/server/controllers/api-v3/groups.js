@@ -304,10 +304,13 @@ api.updateGroup = {
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
 
+    if (req.body.leader !== user._id && group.hasNotCancelled()) throw new NotAuthorized(res.t('cannotChangeLeaderWithActiveGroupPlan'));
+
     _.assign(group, _.merge(group.toObject(), Group.sanitizeUpdate(req.body)));
 
     let savedGroup = await group.save();
     let response = Group.toJSONCleanChat(savedGroup, user);
+
     // If the leader changed fetch new data, otherwise use authenticated user
     if (response.leader !== user._id) {
       let rawLeader = await User.findById(response.leader).select(nameFields).exec();
