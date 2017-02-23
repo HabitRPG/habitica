@@ -542,21 +542,21 @@ api.scoreTask = {
 
     let wasCompleted = task.completed;
 
-    let previousStats = user.stats;
+    let previousStats = _.clone(user.stats);
 
     let [delta] = common.ops.scoreTask({task, user, direction}, req);
     // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
     if (direction === 'up') user.fns.randomDrop({task, delta}, req);
 
-    let newStats = user.stats
+    let newStats = user.stats;
 
     let userUpdates = {
       stats: {},
     };
-    userUpdates.hp = previousStats.hp - newStats.hp;
-    userUpdates.mp = previousStats.mp - newStats.mp;
-    userUpdates.exp = previousStats.exp - newStats.exp;
-    userUpdates.gp = previousStats.gp - newStats.gp;
+    userUpdates.stats.hp = newStats.hp - previousStats.hp;
+    userUpdates.stats.mp = newStats.mp - previousStats.mp;
+    userUpdates.stats.exp = newStats.exp - previousStats.exp;
+    userUpdates.stats.gp = newStats.gp - previousStats.gp;
     if (user._tmp.drop) userUpdates.drop = user._tmp.drop;
     if (user._tmp.quest) userUpdates.quest = user._tmp.quest;
 
@@ -1233,6 +1233,53 @@ api.deleteTask = {
         task,
       });
     }
+  },
+};
+
+/**
+ * @api {post} /api/v3/tasks/:taskId/undo Undo scoring of a task given its id
+ * @apiName UndoTask
+ * @apiGroup Task
+ *
+ * @apiParam {String} taskId The task _id or alias
+ *
+ * @apiExample {json} Example call:
+ * curl -X "POST" https://habitica.com/api/v3/tasks/3d5d324d-a042-4d5f-872e-0553e228553e/undo
+ *
+ * @apiSuccess {Object} data An empty object
+ *
+ * @apiUse TaskNotFound
+ */
+api.undoTask = {
+  method: 'POST',
+  url: '/tasks/:taskId/undo',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let taskId = req.params.taskId;
+    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
+
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    }
+
+    let latestHistory = task.history[task.history.length - 1];
+
+    user.stats.hp -= latestHistory.stats.hp;
+    user.stats.mp -= latestHistory.stats.mp;
+    user.stats.exp -= latestHistory.stats.exp;
+    user.stats.gp -= latestHistory.stats.gp;
+    user.party.quest.progress.up -= latestHistory.quest.progressDelta;
+
+    let drop = latestHistory.quest.drop;
+    if (drop) {
+      let dropType = drop.type.toLowerCase();
+      user.items[dropType][drop.key] -= 1;
+    }
+
+    await user.save();
+
+    res.respond(200, {});
   },
 };
 
