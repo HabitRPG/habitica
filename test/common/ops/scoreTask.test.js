@@ -25,7 +25,7 @@ let rewrapUser = (user) => {
 
 let beforeAfter = () => {
   let beforeUser = generateUser();
-  let afterUser = beforeUser.toObject();
+  let afterUser = _.cloneDeep(beforeUser);
   rewrapUser(afterUser);
 
   return {
