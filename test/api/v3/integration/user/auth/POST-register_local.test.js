@@ -425,10 +425,14 @@ describe('POST /user/auth/local/register', () => {
         confirmPassword: password,
       });
 
-      let habits = await api.get('/tasks/user?type=habits', {
-        'x-api-user': user._id,
-        'x-api-key': user.apiToken,
+      let requests = requester({
+        auth: {
+          'x-api-user': user._id,
+          'x-api-key': user.apiToken,
+        }
       });
+
+      let habits = await requests.get('/tasks/user?type=habits');
 
       expect(habits[0].tags).to.have.a.lengthOf(3);
       expect(habits[1].tags).to.have.a.lengthOf(1);
