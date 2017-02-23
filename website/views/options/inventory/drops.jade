@@ -159,7 +159,7 @@
               p
                 | 20&nbsp;
                 span.shop_gold
-            div(ng-repeat='type in Content.cardTypes', ng-show='type.yearRound || type.key === "valentine"')
+            div(ng-repeat='type in Content.cardTypes', ng-show='type.yearRound')
               button.customize-option(class='inventory_special_{{::type.key}}',
               popover='{{::Content.spells.special[type.key].notes()}}',
               popover-title='{{::Content.spells.special[type.key].text()}}',

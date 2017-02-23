@@ -144,6 +144,7 @@
     "missingUnsubscriptionCode": "Missing unsubscription code.",
     "missingSubscription": "User does not have a plan subscription",
     "missingSubscriptionCode": "Missing subscription code. Possible values: basic_earned, basic_3mo, basic_6mo, google_6mo, basic_12mo.",
+    "missingReceipt": "Missing Receipt.",
     "cannotDeleteActiveAccount": "You have an active subscription, cancel your plan before deleting your account.",
     "paymentNotSuccessful": "The payment was not successful",
     "planNotActive": "The plan hasn't activated yet (due to a PayPal bug). It will begin <%= nextBillingDate %>, after which you can cancel to retain your full benefits",
