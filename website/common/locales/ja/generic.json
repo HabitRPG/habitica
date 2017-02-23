@@ -106,7 +106,7 @@
     "buyThis": "<%= price %> ジェムのこの<%= text %>を、手持ちの<%= gems %> ジェムから買いますか?",
     "noReachServer": "現在、サーバーに到達できません。後ほどもう一度お試しください。",
     "errorUpCase": "エラー：",
-    "newPassSent": "If we have your email on file, instructions for setting a new password have been sent to your email.",
+    "newPassSent": "もし入力されたメールアドレスが私たちのユーザーリストにあったのなら、新しいパスワードが送信されたはずです。",
     "serverUnreach": "現在サーバーに到達できません。",
     "requestError": "エラーが発生しました。<strong>ページを再読み込みしてください。</strong>おそらく最後に行った操作は、正しく反映されていないと思われます。",
     "seeConsole": "もしエラーがくり返されるなら、ヘルプ -> バグを報告する、からご報告ください。ブラウザーコンソールにお詳しいのでしたら、エラーメッセージもふくめてご報告ください。",
