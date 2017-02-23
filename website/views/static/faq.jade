@@ -19,10 +19,11 @@ block content
         |&nbsp;5&comma; 2016
 
       - var headings = ['overview', 'set-up-tasks', 'sample-tasks', 'task-color', 'health', 'party-with-friends', 'pets-mounts', 'character-classes', 'blue-mana-bar', 'monsters-quests', 'gems', 'bugs-features', 'world-boss']
+      - var replacements = { techAssistanceEmail: env.EMAILS.TECH_ASSISTANCE_EMAIL, wikiTechAssistanceEmail: `mailto:${env.EMAILS.TECH_ASSISTANCE_EMAIL}`,}
       - for heading, index in headings
         a.h2.accordion.collapsed(ng-href='#' + heading, data-toggle='collapse')=env.t('faqQuestion' + index)
         .clearfix.collapse(id=heading)
-          !=md.unsafeHTMLRender(env.t('webFaqAnswer' + index))
+          !=md.unsafeHTMLRender(env.t('webFaqAnswer' + index, replacements))
 
       hr
 
