@@ -81,7 +81,7 @@ describe('shared.ops.scoreTask', () => {
     expect(task.streak).to.eql(2);
   });
 
-  it('completes when the task direction is up', () => {
+  it.only('completes when the task direction is up', () => {
     let task = generateTodo({ userId: ref.afterUser._id, text: 'todo to complete', cron: false });
     scoreTask({ user: ref.afterUser, task, direction: 'up' });
     expect(task.completed).to.eql(true);

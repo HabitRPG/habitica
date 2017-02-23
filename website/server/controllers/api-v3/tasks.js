@@ -542,9 +542,30 @@ api.scoreTask = {
 
     let wasCompleted = task.completed;
 
+    let previousStats = user.stats;
+
     let [delta] = common.ops.scoreTask({task, user, direction}, req);
     // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
     if (direction === 'up') user.fns.randomDrop({task, delta}, req);
+
+    let newStats = user.stats
+
+    let userUpdates = {
+      stats: {},
+    };
+    userUpdates.hp = previousStats.hp - newStats.hp;
+    userUpdates.mp = previousStats.mp - newStats.mp;
+    userUpdates.exp = previousStats.exp - newStats.exp;
+    userUpdates.gp = previousStats.gp - newStats.gp;
+    if (user._tmp.drop) userUpdates.drop = user._tmp.drop;
+    if (user._tmp.quest) userUpdates.quest = user._tmp.quest;
+
+    let latestHistory = task.history[task.history.length - 1];
+    if (latestHistory) {
+      latestHistory.stats = userUpdates.stats;
+      latestHistory.drop = userUpdates.drop;
+      latestHistory.quest = userUpdates.quest;
+    }
 
     // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
     // TODO move to common code?

@@ -81,6 +81,22 @@ describe('POST /tasks/:id/score/:direction', () => {
       expect(body.direction).to.eql('up');
       expect(body.delta).to.be.greaterThan(0);
     });
+
+    it('tracks reward history', async () => {
+      let uuid = generateUUID();
+
+      let task = await user.post('/tasks/user', {
+        text: 'test habit',
+        type: 'habit',
+      });
+
+      await user.post(`/tasks/${task.id}/score/up`);
+      let updatedTask = await user.get(`/tasks/${task.id}`);
+      let history = updatedTask.history[updatedTask.history.length - 1];
+
+      expect(history.stats).to.exist;
+      expect(history.quest).to.exist;
+    });
   });
 
   context('todos', () => {
