@@ -5,7 +5,10 @@ import { model as User } from '../../website/server/models/user';
 
 async function syncChallengeToMembers (challenges) {
   let challengSyncPromises = challenges.map(async function (challenge) {
-    let users = await User.find({challenges: challenge._id}).exec();
+    let users = await User.find({
+      // _id: '',
+      challenges: challenge._id,
+    }).exec();
 
     let promises = [];
     users.forEach(function (user) {
@@ -21,7 +24,9 @@ async function syncChallengeToMembers (challenges) {
 }
 
 async function syncChallenges (lastChallengeDate) {
-  let query = {};
+  let query = {
+    // _id: '',
+  };
 
   if (lastChallengeDate) {
     query.createdOn = { $lte: lastChallengeDate };
