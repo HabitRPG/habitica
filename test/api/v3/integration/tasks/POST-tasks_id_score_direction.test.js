@@ -315,6 +315,17 @@ describe('POST /tasks/:id/score/:direction', () => {
 
       expect(updatedUser.stats.gp).to.be.greaterThan(user.stats.gp);
     });
+
+    it('adds score notes to task', async () => {
+      let scoreNotesString = 'test-notes';
+
+      await user.post(`/tasks/${habit._id}/score/up`, {
+        scoreNotes: scoreNotesString,
+      });
+      let updatedTask = await user.get(`/tasks/${habit._id}`);
+
+      expect(updatedTask.history[0].scoreNotes).to.eql(scoreNotesString);
+    });
   });
 
   context('reward', () => {

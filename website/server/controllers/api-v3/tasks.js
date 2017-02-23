@@ -509,10 +509,13 @@ api.scoreTask = {
     if (validationErrors) throw validationErrors;
 
     let user = res.locals.user;
+    let scoreNotes = req.body.scoreNotes;
     let {taskId} = req.params;
 
     let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, {userId: user._id});
     let direction = req.params.direction;
+
+    if (scoreNotes) task.scoreNotes = scoreNotes;
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 

@@ -208,6 +208,15 @@ describe('shared.ops.scoreTask', () => {
         expect(ref.afterUser.stats.gp).to.be.greaterThan(ref.beforeUser.stats.gp);
       });
 
+      it('adds score notes', () => {
+        let scoreNotesString = 'scoreNotes';
+        habit.scoreNotes = scoreNotesString;
+        options = { user: ref.afterUser, task: habit, direction: 'up', times: 5, cron: false };
+        scoreTask(options);
+
+        expect(habit.history[0].scoreNotes).to.eql(scoreNotesString);
+      });
+
       it('down', () => {
         scoreTask({user: ref.afterUser, task: habit, direction: 'down', times: 5, cron: false}, {});
 

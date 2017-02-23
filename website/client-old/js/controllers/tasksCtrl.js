@@ -26,7 +26,15 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
               if (direction === 'down') $rootScope.playSound('Minus_Habit');
               else if (direction === 'up') $rootScope.playSound('Plus_Habit');
       }
-      User.score({params:{task: task, direction:direction}});
+      User.score({
+        params: {
+          task: task,
+          direction:direction
+        },
+        body: {
+          scoreNotes: task.scoreNotes,
+        },
+      });
       Analytics.updateUser();
     }
 
