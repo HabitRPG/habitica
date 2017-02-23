@@ -421,7 +421,8 @@ describe('Purchasing a subscription for group', () => {
 
   it('does not override gemsBought, mysteryItems, dateCreated, and consective fields', async () => {
     let planCreatedDate = moment().toDate();
-    let mysteryItems = [{title: 'item'}];
+    let mysteryItem = {title: 'item'};
+    let mysteryItems = [mysteryItem];
     let consecutive = {
       trinkets: 3,
       gemCapExtra: 20,
@@ -451,7 +452,7 @@ describe('Purchasing a subscription for group', () => {
     let updatedUser = await User.findById(recipient._id).exec();
 
     expect(updatedUser.purchased.plan.gemsBought).to.equal(3);
-    expect(updatedUser.purchased.plan.mysteryItems.length).to.eql(1);
+    expect(updatedUser.purchased.plan.mysteryItems[0]).to.eql(mysteryItem);
     expect(updatedUser.purchased.plan.consecutive.count).to.equal(consecutive.count);
     expect(updatedUser.purchased.plan.consecutive.offset).to.equal(consecutive.offset);
     expect(updatedUser.purchased.plan.consecutive.gemCapExtra).to.equal(consecutive.gemCapExtra);
