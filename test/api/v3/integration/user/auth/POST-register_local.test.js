@@ -5,6 +5,7 @@ import {
   createAndPopulateGroup,
   getProperty,
 } from '../../../../../helpers/api-integration/v3';
+import { ApiUser } from '../../../../../helpers/api-integration/api-classes'
 import { v4 as generateRandomUserName } from 'uuid';
 import { each } from 'lodash';
 import { encrypt } from '../../../../../../website/server/libs/encryption';
@@ -425,12 +426,7 @@ describe('POST /user/auth/local/register', () => {
         confirmPassword: password,
       });
 
-      let requests = requester({
-        auth: {
-          'x-api-user': user._id,
-          'x-api-key': user.apiToken,
-        }
-      });
+      let requests = new ApiUser(user);
 
       let habits = await requests.get('/tasks/user?type=habits');
 
