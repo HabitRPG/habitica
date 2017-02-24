@@ -5,7 +5,7 @@ import {
   createAndPopulateGroup,
   getProperty,
 } from '../../../../../helpers/api-integration/v3';
-import { ApiUser } from '../../../../../helpers/api-integration/api-classes'
+import { ApiUser } from '../../../../../helpers/api-integration/api-classes';
 import { v4 as generateRandomUserName } from 'uuid';
 import { each } from 'lodash';
 import { encrypt } from '../../../../../../website/server/libs/encryption';
