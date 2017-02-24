@@ -28,7 +28,7 @@ import buyArmoire from './buyArmoire';
 import buyQuest from './buyQuest';
 import buyMysterySet from './buyMysterySet';
 import refund from './refund';
-import refundGear from './refundGear'
+import refundGear from './refundGear';
 import hourglassPurchase from './hourglassPurchase';
 import sell from './sell';
 import equip from './equip';

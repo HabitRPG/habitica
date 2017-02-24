@@ -4,11 +4,8 @@ import _ from 'lodash';
 import splitWhitespace from '../libs/splitWhitespace';
 import {
   BadRequest,
-  NotAuthorized,
   NotFound,
 } from '../libs/errors';
-import handleTwoHanded from '../fns/handleTwoHanded';
-import ultimateGear from '../fns/ultimateGear';
 
 module.exports = function refundGear (user, req = {}, analytics) {
   let key = _.get(req, 'params.key');

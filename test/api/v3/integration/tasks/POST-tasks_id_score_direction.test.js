@@ -83,8 +83,6 @@ describe('POST /tasks/:id/score/:direction', () => {
     });
 
     it('tracks reward history', async () => {
-      let uuid = generateUUID();
-
       let task = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',

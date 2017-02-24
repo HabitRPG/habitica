@@ -6,10 +6,6 @@ import {
 } from '../../helpers/common.helper';
 import refundGear from '../../../website/common/script/ops/refundGear';
 import shared from '../../../website/common/script';
-import {
-  NotAuthorized,
-} from '../../../website/common/script/libs/errors';
-import i18n from '../../../website/common/script/i18n';
 
 describe('shared.ops.refundGear', () => {
   let user;
@@ -67,7 +63,7 @@ describe('shared.ops.refundGear', () => {
 
     it('unequips equipment', () => {
       user.stats.gp = 31;
-      user.items.gear.equipped['weapon'] = 'armor_warrior_1';
+      user.items.gear.equipped.weapon = 'armor_warrior_1';
 
       refundGear(user, {params: {key: 'armor_warrior_1'}});
 

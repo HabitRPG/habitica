@@ -561,9 +561,9 @@ api.scoreTask = {
     if (user._tmp.quest) userUpdates.quest = user._tmp.quest;
 
     if (!task.history || task.history.length === 0) {
-      task.history = [{}]
+      task.history = [{}];
       task.markModified('history');
-    };
+    }
 
     let latestHistory = task.history[task.history.length - 1];
     if (latestHistory) {
