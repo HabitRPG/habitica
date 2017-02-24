@@ -107,7 +107,7 @@ api.subscribe = async function subscribe (sku, user, receipt, signature, headers
   let token = receiptObj.token || receiptObj.purchaseToken;
 
   let existingUser = await User.findOne({
-    'payments.plan.customerId': token,
+    'purchased.plan.customerId': token,
   }).exec();
   if (existingUser) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
 
@@ -131,13 +131,13 @@ api.subscribe = async function subscribe (sku, user, receipt, signature, headers
 
 
 api.cancelSubscribe = async function cancelSubscribe (user, headers) {
-  let data = user.purchased.plan.additionalData;
+  let plan = user.purchased.plan;
 
-  if (!data) throw new NotAuthorized(shared.i18n.t('missingSubscription'));
+  if (plan.paymentMethod !== api.constants.PAYMENT_METHOD_GOOGLE) throw new NotAuthorized(shared.i18n.t('missingSubscription'));
 
   await iap.setup();
 
-  let googleRes = await iap.validate(iap.GOOGLE, data);
+  let googleRes = await iap.validate(iap.GOOGLE, plan.additionalData);
 
   let isValidated = iap.isValidated(googleRes);
   if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);

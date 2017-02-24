@@ -113,7 +113,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         if (!group.name) group.name = env.t('possessiveParty', {name: User.user.profile.name});
         Groups.Group.create(group)
           .then(function(response) {
-            Analytics.updateUser({'party.id': $scope.group ._id, 'partySize': 1});
+            Analytics.updateUser({'partyID': $scope.group ._id, 'partySize': 1});
             $rootScope.hardRedirect('/#/options/groups/party');
           });
       };

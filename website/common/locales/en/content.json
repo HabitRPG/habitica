@@ -199,6 +199,10 @@
   "questEggTriceratopsMountText": "Triceratops",
   "questEggTriceratopsAdjective": "a tricky",
 
+  "questEggGuineaPigText": "Guinea Pig",
+  "questEggGuineaPigMountText": "Guinea Pig",
+  "questEggGuineaPigAdjective": "a giddy",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",

@@ -88,6 +88,8 @@
     "deleteDo": "はい。アカウントを削除します!",
     "enterNumber": "0〜24までの数字を入力してください",
     "fillAll": "すべてのフィールドを記入してください",
+    "invalidPasswordResetCode": "The supplied password reset code is invalid or has expired.",
+    "passwordChangeSuccess": "Your password was successfully changed to the one you just chose. You can now use it to access your account.",
     "passwordSuccess": "パスワードを変更しました",
     "usernameSuccess": "ログイン名を変更しました",
     "emailSuccess": "メールアドレスを変更しました",

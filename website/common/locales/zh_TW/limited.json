@@ -87,5 +87,6 @@
     "fallEventAvailability": "只能在 12月31號前購買喔。",
     "winterEventAvailability": "只能在 1月31號前購買喔。",
     "springEventAvailability": "只能在 5月31號前購買喔。",
-    "summerEventAvailability": "只能在 8月31號前購買喔。"
+    "summerEventAvailability": "只能在 8月31號前購買喔。",
+    "valentinesEventAvailability": "Available for purchase until February 28."
 }

@@ -84,7 +84,7 @@
     "streakSingular": "Streaker",
     "streakSingularText": "Heeft een serie van 21 dagen behaald op een Dagelijkse Taak",
     "perfectName": "<%= count %> Perfecte dagen",
-    "perfectText": "Heeft alle openstaande Dagelijkse Taken voltooid op <%= count %> dagen. Met deze prestatie krijg je de volgende dag een +niveau/2 bonus op alle eigenschappen. Niveaus hoger dan 100 geven geen extra effecten op versterkingen.",
+    "perfectText": "Heeft alle openstaande dagelijkse taken voltooid op <%= count %> dagen. Met deze prestatie krijg je de volgende dag een +niveau/2 bonus op alle eigenschappen. Niveaus hoger dan 100 geven geen extra effecten op versterkingen.",
     "perfectSingular": "Perfecte dag",
     "perfectSingularText": "Je hebt alle openstaande Dagelijkse Taken voltooid in één dag. Met deze prestatie krijg je de volgende dag een +niveau/2 bonus op alle eigenschappen. Niveaus hoger dan 100 geven geen extra effecten op versterkingen.",
     "streakerAchievement": "Je hebt de \"Streaker\"-prestatie verkregen! Een taak 21 dagen achter elkaar uitvoeren is een mijlpaal voor gewoontevorming. Deze prestatie wordt verhoogd voor elke bijkomende 21 dagen, voor deze Dagelijkse Taak of een andere.",

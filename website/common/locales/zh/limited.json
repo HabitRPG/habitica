@@ -87,5 +87,6 @@
     "fallEventAvailability": "10月31日前可购买",
     "winterEventAvailability": "1月31日前可以使用",
     "springEventAvailability": "5月31日前可购买",
-    "summerEventAvailability": "8月31日前可购买"
+    "summerEventAvailability": "8月31日前可购买",
+    "valentinesEventAvailability": "2月28日前可以购买"
 }

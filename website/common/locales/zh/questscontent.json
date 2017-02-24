@@ -435,5 +435,11 @@
     "questStoikalmCalamity3Boss": "灞波儿奔女王",
     "questStoikalmCalamity3DropBlueCottonCandy": "蓝色棉花糖(食物)",
     "questStoikalmCalamity3DropShield": "猛犸骑士角(盾牌装备)",
-    "questStoikalmCalamity3DropWeapon": "猛犸骑士矛(武器装备)"
+    "questStoikalmCalamity3DropWeapon": "猛犸骑士矛(武器装备)",
+    "questGuineaPigText": "豚鼠团伙",
+    "questGuineaPigNotes": "当 @Pandah 挥手叫你的时候，你正在 Habit 城里有名的市场中漫步 。“嘿，看看这些东西！”他们举起你从未见过的棕色和米色的蛋。<br><br>商人亚历山大对此皱起了眉头。“我不记得我拿出了它们。我想知道这些是从哪里——”一只小爪子打断了他的话。<br><br>“交出你所有的金币，商人！”吱吱叫的充满了邪恶的声音响起。<br><br>“噢不，这些蛋裂开了！”@mewrose 惊呼道。“这是顽固的，贪婪的豚鼠团伙！它们从来不做每日任务，所以他们时不时的窃取金币来购买治疗药水。”<br><br>“抢劫市场？”@emmavig 问道。“不要呆在我们的手表上！”不远处呼喊道，你急忙飞跑过去帮助亚历山大。",
+    "questGuineaPigCompletion": "\"我们认输啦!\"豚鼠头目向你挥舞着爪子，毛茸茸的脑袋羞愧低垂。从豚鼠头目的帽子掉落了一份清单，@snazzyorange迅速扒走做为证据。\"等一下，\"你说。\"难怪你已经受伤了!你的每日任务太多了。你不需要治疗药水──你只需要帮忙组织整理。\"<br><br>\"真的吗?\"豚鼠头目吱吱道。\"我们就为了这个抢了那麽多人! 作为我们不当行径的道歉，请拿些我们的蛋吧。\"",
+    "questGuineaPigBoss": "豚鼠团伙",
+    "questGuineaPigDropGuineaPigEgg": "豚鼠(宠物蛋)",
+    "questGuineaPigUnlockText": "解锁豚鼠蛋购买功能。"
 }

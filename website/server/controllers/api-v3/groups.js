@@ -22,6 +22,7 @@ import { sendNotification as sendPushNotification } from '../../libs/pushNotific
 import pusher from '../../libs/pusher';
 import common from '../../../common';
 import payments from '../../libs/payments';
+import stripePayments from '../../libs/stripePayments';
 import amzLib from '../../libs/amazonPayments';
 import shared from '../../../common';
 
@@ -159,7 +160,7 @@ api.createGroupPlan = {
       let headers = req.headers;
       let coupon = req.query.coupon;
 
-      await payments.payWithStripe({
+      await stripePayments.checkout({
         token,
         user,
         gift,

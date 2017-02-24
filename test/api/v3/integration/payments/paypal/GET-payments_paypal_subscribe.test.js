@@ -44,7 +44,7 @@ describe('payments : paypal #subscribe', () => {
         balance: 2,
       });
 
-      await user.get(`${endpoint}?sub=${subKey}`);
+      await user.get(`${endpoint}?sub=${subKey}&noRedirect=true`);
 
       expect(subscribeStub).to.be.calledOnce;
 

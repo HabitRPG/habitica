@@ -101,7 +101,7 @@ mixin customizeProfile(mobile)
           +buyPref('hair.color', ['rainbow','yellow','green','purple','blue','TRUred'], 'rainbowColors')
           +buyPref('hair.color', ['pblue2','pgreen2','porange2','ppink2','ppurple2','pyellow2'], 'shimmerColors', 'disabled')
           +buyPref('hair.color', ['candycorn','ghostwhite','halloween','midnight','pumpkin','zombie'], 'hauntedColors', 'disabled')
-          +buyPref('hair.color', ['aurora','festive','hollygreen','peppermint','snowy','winterstar'], 'winteryColors')
+          +buyPref('hair.color', ['aurora','festive','hollygreen','peppermint','snowy','winterstar'], 'winteryColors', 'disabled')
 
           li.customize-menu
             menu(label=env.t('bodyHair'))
@@ -177,139 +177,13 @@ mixin customizeProfile(mobile)
           +buyPref('skin', ['monster','pumpkin','skeleton','zombie','ghost','shadow'], 'spookySkins', 'disabled')
           +buyPref('skin', ['candycorn','ogre','pumpkin2','reptile','shadow2','skeleton2','transparent','zombie2'], 'supernaturalSkins', 'disabled')
           +buyPref('skin', ['clownfish','deepocean','merblue','mergold','mergreen','merruby','shark','tropicalwater'], 'splashySkins', 'disabled')
-          +buyPref('skin', ['aurora','dapper','festive','holly','polar','sugar','snowy','winterstar'], 'winterySkins')
+          +buyPref('skin', ['aurora','dapper','festive','holly','polar','sugar','snowy','winterstar'], 'winterySkins', 'disabled')
 
-
-script(id='partials/options.profile.avatar.html', type='text/ng-template')
-  +customizeProfile()
-
-script(id='partials/options.profile.stats.html', type='text/ng-template')
-  .container-fluid
-    div(class='row')
-      .border-right(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')
-        include ../shared/profiles/stats_col1
-      div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')
-        button.btn.btn-default(ng-if='user.preferences.disableClasses', ng-click='User.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('enableClassPop'))= env.t('enableClass')
-        hr(ng-if='user.preferences.disableClasses')
-        include ../shared/profiles/stats_col2
-      .col-md-4.border-left.allocate-stats(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
-        h3=env.t('characterBuild')
-        h4
-          =env.t('class') + ': '
-          span {{ {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer")}[user.stats.class] }}&nbsp;
-          a.btn.btn-danger.btn-xs(ng-click='changeClass(null)')=env.t('changeClass')
-          small.cost 3 <span class="Pet_Currency_Gem1x inline-gems"/>
-        table.table.table-striped
-          tr
-            td
-              p(ng-if='::user.stats.lvl >= 100')!=env.t('noMoreAllocate')
-              p(ng-if='user.stats.points || user.stats.lvl < 100')
-                strong.inline
-                  |{{user.stats.points}}&nbsp;
-                strong.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('levelPopover'))=env.t('unallocated')
-            td
-          tr
-            td(colspan=2)
-              fieldset.auto-allocate
-                .checkbox
-                  label
-                    input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation?true: false})', ng-click='set({"preferences.allocationMode":"taskbased"})')
-                    span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('autoAllocationPop'))=env.t('autoAllocation')
-                form(ng-show='user.preferences.automaticAllocation',style='margin-left:1em')
-                  .radio
-                    label
-                      input(type='radio', name='allocationMode', value='flat', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "flat"})')
-                      span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('evenAllocationPop'))=env.t('evenAllocation')
-                  .radio
-                    label
-                      input(type='radio', name='allocationMode', value='classbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "classbased"})')
-                      span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('classAllocationPop'))=env.t('classAllocation')
-                  .radio
-                    label
-                      input(type='radio', name='allocationMode', value='taskbased', ng-model='user.preferences.allocationMode', ng-change='set({"preferences.allocationMode": "taskbased"})')
-                      span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('taskAllocationPop'))=env.t('taskAllocation')
-                div(ng-show='user.preferences.automaticAllocation && !(user.preferences.allocationMode === "taskbased") && (user.stats.points > 0)')
-                  a.btn.btn-primary.btn-xs(ng-click='User.allocateNow({})', popover-trigger='mouseenter', popover-placement='right', popover=env.t('distributePointsPop'))
-                    span.glyphicon.glyphicon-download
-                    |&nbsp;
-                    =env.t('distributePoints')
-          +statAllocation()
-
-script(id='partials/options.profile.achievements.html', type='text/ng-template')
-  .container-fluid
-    div(class='row')
-      div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')
-        include ../shared/profiles/achievements
-
-script(id='partials/options.profile.profile.html', type='text/ng-template')
-  .container-fluid
-    .row
-      .col-md-12(ng-show='!_editing.profile')
-        button.btn.btn-default(ng-click='_editing.profile = true', ng-show='!_editing.profile')= env.t('edit')
-        h4=env.t('displayName')
-        span(ng-show='profile.profile.name') {{profile.profile.name}}
-        p
-          small.muted=env.t('displayNameDescription1')
-            |&nbsp;
-            a(href='/#/options/settings/settings')=env.t('displayNameDescription2')
-            |&nbsp;
-            =env.t('displayNameDescription3')
-        span.muted(ng-hide='profile.profile.name') -&nbsp;
-          =env.t('none')
-          | &nbsp;-
-
-        h4=env.t('displayPhoto')
-        img.img-rendering-auto(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
-        span.muted(ng-hide='profile.profile.imageUrl') -&nbsp;
-          =env.t('none')
-          | &nbsp;-
-
-        h4=env.t('displayBlurb')
-        markdown(ng-show='profile.profile.blurb', text='profile.profile.blurb')
-        span.muted(ng-hide='profile.profile.blurb') -&nbsp;
-          =env.t('none')
-          | &nbsp;-
-        //{{profile.profile.blurb | linky:'_blank'}}
-    .row
-      .col-md-6
-        h4=env.t('totalCheckinsTitle')
-        span {{env.t('totalCheckins', {count: user.loginIncentives})}}
-      .col-md-6
-        h4
-          | {{::getProgressDisplay()}}
-        .progress
-          .progress-bar(role='progressbar', aria-valuenow='{{::incentivesProgress()}}', aria-valuemin='0', aria-valuemax='100', style='width: {{::incentivesProgress()}}%;')
-            span.sr-only {{::incentivesProgress()}}% Complete
-
-      form.col-md-4(ng-show='_editing.profile', ng-submit='save()')
-        .alert.alert-info.alert-sm
-          !=env.t("communityGuidelinesWarning")
-        input.btn.btn-primary(type='submit', value=env.t('save'))
-        // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
-        .form-group
-          label=env.t('displayName')
-          input.form-control(type='text', placeholder=env.t('fullName'), ng-model='editingProfile.name')
-        .form-group
-          label=env.t('photoUrl')
-          input.form-control(type='url', ng-model='editingProfile.imageUrl', placeholder=env.t('imageUrl'))
-        .form-group
-          label=env.t('displayBlurb')
-          textarea.form-control(rows=5, placeholder=env.t('displayBlurbPlaceholder'), ng-model='editingProfile.blurb')
-          include ../shared/formatting-help
-
-mixin backgrounds(mobile)
-  div(class=mobile ? 'padding' : 'container-fluid')
-    li.customize-menu(ng-repeat='set in backgroundShopSets')
-      menu(label='{{set.text}}')
-      div(ng-if='set.identifier === "incentiveBackgrounds"')=env.t('incentiveBackgroundsUnlockedWithCheckins')
-      span(ng-hide='ownsSet("background", set.items) || set.identifier === "incentiveBackgrounds"')
-        +gemCost(7)
-          button.btn.btn-xs(ng-click='unlock(setKeys("background", set.items))')!= env.t('unlockSet',{cost:15}) + ' <span class="Pet_Currency_Gem1x inline-gems"/>'
-      button.customize-option(ng-repeat='bg in set.items', type='button', class='background_{{bg.key}}', ng-class='user.purchased.background.{{bg.key}} ? "background-unlocked" : "background-locked"', ng-click='unlock("background." + bg.key)', popover-title='{{bg.text}}', popover='{{bg.notes}}', popover-trigger='mouseenter')
-        i.glyphicon.glyphicon-lock(ng-if='!user.purchased.background[bg.key]')
-
-script(type='text/ng-template', id='partials/options.profile.backgrounds.html')
-  +backgrounds()
+include ./achievements
+include ./avatar
+include ./backgrounds
+include ./profile
+include ./stats
 
 script(id='partials/options.profile.html', type="text/ng-template")
   ul.options-menu
