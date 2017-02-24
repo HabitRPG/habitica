@@ -1,11 +1,6 @@
 import {
   generateUser,
-  sleep,
-  translate as t,
-  server,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
-import common from '../../../../../website/common';
 
 describe('POST /tasks/:id/undo', () => {
   let user;
@@ -20,11 +15,9 @@ describe('POST /tasks/:id/undo', () => {
   context('all', () => {
     ['habit', 'todo', 'daily'].forEach((type) => {
       it(`undos a score up ${type}`, async () => {
-        let uuid = generateUUID();
-
         let task = await user.post('/tasks/user', {
           text: `test ${type}`,
-          type: type,
+          type,
         });
 
         await user.post(`/tasks/${task.id}/score/up`);
@@ -48,8 +41,6 @@ describe('POST /tasks/:id/undo', () => {
       });
 
       it(`undos a score down ${type}`, async () => {
-        let uuid = generateUUID();
-
         let task = await user.post('/tasks/user', {
           text: 'test habit',
           type: 'habit',
