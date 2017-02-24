@@ -482,6 +482,7 @@ api.updateTask = {
  *
  * @apiParam {String} taskId The task _id or alias
  * @apiParam {String="up","down"} direction The direction for scoring the task
+ * @apiParam {String} scoreNotes Notes explaining the scoring
  *
  * @apiExample {json} Example call:
  * curl -X "POST" https://habitica.com/api/v3/tasks/test-api-params/score/up
