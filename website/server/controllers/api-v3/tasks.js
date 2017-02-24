@@ -560,11 +560,17 @@ api.scoreTask = {
     if (user._tmp.drop) userUpdates.drop = user._tmp.drop;
     if (user._tmp.quest) userUpdates.quest = user._tmp.quest;
 
+    if (!task.history || task.history.length === 0) {
+      task.history = [{}]
+      task.markModified('history');
+    };
+
     let latestHistory = task.history[task.history.length - 1];
     if (latestHistory) {
       latestHistory.stats = userUpdates.stats;
       latestHistory.drop = userUpdates.drop;
       latestHistory.quest = userUpdates.quest;
+      latestHistory.direction = direction;
     }
 
     // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
@@ -1264,22 +1270,23 @@ api.undoTask = {
     }
 
     let latestHistory = task.history[task.history.length - 1];
-
     user.stats.hp -= latestHistory.stats.hp;
     user.stats.mp -= latestHistory.stats.mp;
     user.stats.exp -= latestHistory.stats.exp;
     user.stats.gp -= latestHistory.stats.gp;
-    user.party.quest.progress.up -= latestHistory.quest.progressDelta;
+    if (latestHistory.quest && latestHistory.quest.progressDelta) user.party.quest.progress.up -= latestHistory.quest.progressDelta;
 
-    let drop = latestHistory.quest.drop;
-    if (drop) {
+    let drop = latestHistory.drop;
+    if (drop && latestHistory.direct === 'up') {
       let dropType = drop.type.toLowerCase();
       user.items[dropType][drop.key] -= 1;
     }
 
     await user.save();
 
-    res.respond(200, {});
+    res.respond(200, {
+      user,
+    });
   },
 };
 

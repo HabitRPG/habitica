@@ -144,6 +144,13 @@ angular.module('habitrpg')
       });
     };
 
+    function undoTask (taskId) {
+      return $http({
+        method: 'POST',
+        url: '/api/v3/tasks/' + taskId + '/undo',
+      });
+    };
+
     function handleScoreTaskResponse (res, user) {
       var tmp = res.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
       var crit = tmp.crit;
@@ -460,6 +467,8 @@ angular.module('habitrpg')
       getTask: getTask,
       updateTask: updateTask,
       deleteTask: deleteTask,
+      undoTask: undoTask,
+
       scoreTask: scoreTask,
       handleScoreTaskResponse: handleScoreTaskResponse,
       moveTask: moveTask,

@@ -58,7 +58,7 @@ module.exports = function randomDrop (user, options, req = {}) {
       user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level || 0))) {
     return;
   }
-console.log(user.flags.dropsEnabled)
+
   if (user.flags && user.flags.dropsEnabled && predictableRandom() < chance) {
     rarity = predictableRandom();
 

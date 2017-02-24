@@ -25,8 +25,9 @@ angular.module('habitrpg')
           direction = "up";
         }
 
-        Tasks.scoreTask(pop.data.task, direction, pop.data.user)
+        Tasks.undoTask(pop.data.task.id)
           .then(function (res) {
+            $rootScope.$broadcast('user-updated', res.data.data.user);
             Tasks.handleScoreTaskResponse(res, pop.data.user);
           });
       }

@@ -40,6 +40,10 @@ angular.module('habitrpg')
 
       user._wrapped = false;
 
+      $rootScope.$on('user-updated', function (event, user) {
+        sync();
+      });
+
       function syncUserTasks (tasks) {
         user.habits = [];
         user.todos = [];
