@@ -154,6 +154,8 @@ api.createUserTasks = {
     let user = res.locals.user;
     let tasks = await createTasks(req, res, {user});
 
+    tasks = tasks.map(task => task.withIsDue(user));
+
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
 
     tasks.forEach((task) => {
@@ -265,6 +267,9 @@ api.getUserTasks = {
     let user = res.locals.user;
 
     let tasks = await getTasks(req, res, {user});
+
+    tasks = tasks.map(task => task.withIsDue(user));
+
     return res.respond(200, tasks);
   },
 };
@@ -357,7 +362,7 @@ api.getTask = {
       throw new NotFound(res.t('taskNotFound'));
     }
 
-    res.respond(200, task);
+    res.respond(200, task.withIsDue(user));
   },
 };
 
@@ -447,6 +452,7 @@ api.updateTask = {
     }
 
     let savedTask = await task.save();
+    let taskObj = savedTask.withIsDue(user);
 
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
       let updateCheckListItems = _.remove(sanitizedObj.checklist, function getCheckListsToUpdate (checklist) {
@@ -460,7 +466,7 @@ api.updateTask = {
       await group.updateTask(savedTask, {updateCheckListItems});
     }
 
-    res.respond(200, savedTask);
+    res.respond(200, taskObj);
 
     if (challenge) {
       challenge.updateTask(savedTask);
@@ -469,7 +475,7 @@ api.updateTask = {
     } else {
       taskActivityWebhook.send(user.webhooks, {
         type: 'updated',
-        task: savedTask,
+        task: taskObj,
       });
     }
   },
@@ -565,13 +571,14 @@ api.scoreTask = {
     ]);
 
     let savedUser = results[0];
+    let savedTask = results[1];
 
     let userStats = savedUser.stats.toJSON();
     let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
     res.respond(200, resJsonData);
 
     taskScoredWebhook.send(user.webhooks, {
-      task,
+      task: savedTask.withIsDue(user),
       direction,
       delta,
       user,
@@ -707,7 +714,7 @@ api.addChecklistItem = {
 
     newCheckListItem.id = savedTask.checklist[savedTask.checklist.length - 1].id;
 
-    res.respond(200, savedTask);
+    res.respond(200, savedTask.withIsDue(user));
     if (challenge) challenge.updateTask(savedTask);
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
       await group.updateTask(savedTask, {newCheckListItem});
@@ -753,7 +760,7 @@ api.scoreCheckListItem = {
     item.completed = !item.completed;
     let savedTask = await task.save();
 
-    res.respond(200, savedTask);
+    res.respond(200, savedTask.withIsDue(user));
   },
 };
 
@@ -815,7 +822,7 @@ api.updateChecklistItem = {
     _.merge(item, Tasks.Task.sanitizeChecklist(req.body));
     let savedTask = await task.save();
 
-    res.respond(200, savedTask);
+    res.respond(200, savedTask.withIsDue(user));
     if (challenge) challenge.updateTask(savedTask);
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
       await group.updateTask(savedTask);
@@ -877,7 +884,7 @@ api.removeChecklistItem = {
     if (!hasItem) throw new NotFound(res.t('checklistItemNotFound'));
 
     let savedTask = await task.save();
-    res.respond(200, savedTask);
+    res.respond(200, savedTask.withIsDue(user));
     if (challenge) challenge.updateTask(savedTask);
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
       await group.updateTask(savedTask, {removedCheckListItemId: req.params.itemId});
@@ -928,7 +935,7 @@ api.addTagToTask = {
     task.tags.push(tagId);
 
     let savedTask = await task.save();
-    res.respond(200, savedTask);
+    res.respond(200, savedTask.withIsDue(user));
   },
 };
 
@@ -973,7 +980,7 @@ api.removeTagFromTask = {
     if (!hasTag) throw new NotFound(res.t('tagNotFound'));
 
     let savedTask = await task.save();
-    res.respond(200, savedTask);
+    res.respond(200, savedTask.withIsDue(user));
   },
 };
 
@@ -1209,7 +1216,7 @@ api.deleteTask = {
     } else {
       taskActivityWebhook.send(user.webhooks, {
         type: 'deleted',
-        task,
+        task: task.withIsDue(user),
       });
     }
   },

@@ -301,6 +301,15 @@ describe('POST /tasks/user', () => {
 
       expect(task.alias).to.eql('a_alias012');
     });
+
+    it('includes isDue property in task response', async () => {
+      let task = await user.post('/tasks/user', {
+        text: 'test daily',
+        type: 'daily',
+      });
+
+      expect(task.isDue).to.be.a('boolean');
+    });
   });
 
   context('habits', () => {

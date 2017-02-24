@@ -142,6 +142,33 @@ TaskSchema.statics.sanitizeReminder = function sanitizeReminder (reminderObj) {
   return reminderObj;
 };
 
+// We need a way to let API consumers know if a
+// daily is due this day or not. Unfortunately,
+// we can't do it as part of the toJSON transform
+// because the shouldDo logic needs access to
+// the user's preferences to calculate if the
+// task is due or not.
+TaskSchema.methods.withIsDue = function withIsDue (user) {
+  if (this.userId !== user._id) {
+    // if this is a task not owned by the user
+    // (such as a challenge or group task) just
+    // return the original task doc
+    return this;
+  }
+
+  let task = this.toJSON();
+
+  // shouldDo returns false if the task is not
+  // a daily. This means that all tasks will
+  // have a isDue property, but all non-dailys
+  // will be false.
+  task.isDue = shared.shouldDo(Date.now(), this, user.preferences);
+
+  // we return the toJSON'd task to simplify
+  // code in the task controller
+  return task;
+};
+
 TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta) {
   let chalTask = this;
 

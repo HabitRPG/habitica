@@ -295,6 +295,14 @@ describe('PUT /tasks/:id', () => {
 
       expect(fetchedDaily.text).to.eql('saved');
     });
+
+    it('includes isDue property in task response', async () => {
+      let savedDaily = await user.put(`/tasks/${daily._id}`, {
+        text: 'new text',
+      });
+
+      expect(savedDaily.isDue).to.be.a('boolean');
+    });
   });
 
   context('habits', () => {

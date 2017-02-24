@@ -78,6 +78,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       expect(body.user).to.have.all.keys('_id', '_tmp', 'stats');
       expect(body.user.stats).to.have.all.keys('hp', 'mp', 'exp', 'gp', 'lvl', 'class', 'points', 'str', 'con', 'int', 'per', 'buffs', 'training', 'maxHealth', 'maxMP', 'toNextLevel');
       expect(body.task.id).to.eql(task.id);
+      expect(body.task.isDue).to.be.a('boolean');
       expect(body.direction).to.eql('up');
       expect(body.delta).to.be.greaterThan(0);
     });

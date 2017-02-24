@@ -34,6 +34,12 @@ describe('GET /tasks/:id', () => {
       expect(getTask).to.eql(task);
     });
 
+    it('includes isDue property', async () => {
+      let getTask = await user.get(`/tasks/${task.alias}`);
+
+      expect(getTask.isDue).to.be.a('boolean');
+    });
+
     // TODO after challenges are implemented
     it('can get active challenge task that user does not own'); // Yes?
   });
