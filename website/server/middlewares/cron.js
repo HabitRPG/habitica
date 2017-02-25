@@ -6,7 +6,6 @@ import Bluebird from 'bluebird';
 import { model as Group } from '../models/group';
 import { model as User } from '../models/user';
 import { recoverCron, cron } from '../libs/cron';
-import { v4 as uuid } from 'uuid';
 
 const daysSince = common.daysSince;
 // Wait this length of time in ms before attempting another cron
@@ -103,7 +102,7 @@ async function cronAsync (req, res) {
       return null;
     }
 
-    // set _cronSignature to current time in ms since epoch time so we can make sure to wait at least an hour before trying again even if there is a timezone 
+    // set _cronSignature to current time in ms since epoch time so we can make sure to wait at least an hour before trying again even if there is a timezoned 
     let _cronSignature = now.getTime();
     // Calculate how long ago cron must have been attempted to try again
     let timeoutThreshold = _cronSignature - cronTimeout;
