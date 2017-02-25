@@ -428,8 +428,8 @@ describe('POST /user/auth/local/register', () => {
 
       let requests = new ApiUser(user);
 
-      let habits = await requests.get('/tasks/user?type=habit');
-      let todos = await requests.get('/tasks/user?type=todo');
+      let habits = await requests.get('/tasks/user?type=habits');
+      let todos = await requests.get('/tasks/user?type=todos');
       let tags = await requests.get('/tags');
 
       function findTag (tagStr) {
