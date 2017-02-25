@@ -434,8 +434,8 @@ describe('POST /user/auth/local/register', () => {
 
       function findTag (tagStr) {
         let tagName = t(tagStr);
-        return tags.filter((tag) => {
-          return tag.name === tagName;
+        return tags.find((tag) => {
+          return tag.name == tagName;
         }).id;
       }
 
