@@ -432,7 +432,7 @@ describe('POST /user/auth/local/register', () => {
       let todos = await requests.get('/tasks/user?type=todos');
 
       function findTag (tagName) {
-        let tag = user.tags.find( (userTag) => {
+        let tag = user.tags.find((userTag) => {
           return userTag.name === t(tagName);
         });
         return tag.id;
