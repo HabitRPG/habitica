@@ -63,7 +63,7 @@
     "gearAchievement": "Du har gennemført præstationen \"Det Ultimative Udstyr\" ved at opgradere til det maksimale udstyrssæt for din klasse. Du har opnået følgende komplette sæt:",
     "moreGearAchievements": "For at opnå flere emblemer for Ultimativt Udstyr, skift klasse på <a href='/#/options/profile/stats' target='_blank'>din status side</a> og køb udstyr til din nye klasse!",
     "armoireUnlocked": "For mere udstyr, prøv den <strong>Fortryllede Kiste!</strong> Klik på den Fortryllede Kiste-belønningen for en chance for at få specielt Udstyr! Der er også en chance for XP eller mad.",
-    "ultimGearName": "Ultimate Gear - <%= ultClass %>",
+    "ultimGearName": "Ultimative Udstyr - <%= ultClass %>",
     "ultimGearText": "Har opgraderet til det maksimale våben- og rustningssæt for <%= ultClass %> klassen",
     "level": "Niveau",
     "levelUp": "Niveau op!",

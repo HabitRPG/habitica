@@ -23,6 +23,7 @@ describe('payments : google #cancelSubscribe', () => {
     it('makes a purchase', async () => {
       user = await generateUser({
         'profile.name': 'sender',
+        'purchased.plan.paymentMethod': 'Google',
         'purchased.plan.customerId': 'customer-id',
         'purchased.plan.planId': 'basic_3mo',
         'purchased.plan.lastBillingDate': new Date(),
