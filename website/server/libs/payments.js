@@ -1,4 +1,4 @@
-import _ from 'lodash' ;
+import _ from 'lodash';
 import analytics from './analyticsService';
 import {
   getUserInfo,
@@ -6,7 +6,7 @@ import {
 } from './email';
 import moment from 'moment';
 import { sendNotification as sendPushNotification } from './pushNotifications';
-import shared from '../../common' ;
+import shared from '../../common';
 import {
   model as Group,
   basicFields as basicGroupFields,
