@@ -3495,9 +3495,9 @@
       }
     },
     "eslint-config-habitrpg": {
-      "version": "2.0.2",
-      "from": "eslint-config-habitrpg@>=2.0.0 <3.0.0",
-      "resolved": "https://registry.npmjs.org/eslint-config-habitrpg/-/eslint-config-habitrpg-2.0.2.tgz",
+      "version": "3.0.0",
+      "from": "eslint-config-habitrpg@>=3.0.0 <4.0.0",
+      "resolved": "https://registry.npmjs.org/eslint-config-habitrpg/-/eslint-config-habitrpg-3.0.0.tgz",
       "dev": true
     },
     "eslint-friendly-formatter": {
@@ -3547,6 +3547,13 @@
           "dev": true
         }
       }
+    },
+    "eslint-plugin-lodash": {
+      "version": "2.3.5",
+      "from": "eslint-plugin-lodash@>=2.3.5 <3.0.0",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-lodash/-/eslint-plugin-lodash-2.3.5.tgz",
+      "dev": true,
+      "optional": true
     },
     "eslint-plugin-mocha": {
       "version": "4.8.0",
@@ -12709,9 +12716,9 @@
       "resolved": "https://registry.npmjs.org/void-elements/-/void-elements-2.0.1.tgz"
     },
     "vue": {
-      "version": "2.2.0",
+      "version": "2.2.1",
       "from": "vue@>=2.1.0 <3.0.0",
-      "resolved": "https://registry.npmjs.org/vue/-/vue-2.2.0.tgz"
+      "resolved": "https://registry.npmjs.org/vue/-/vue-2.2.1.tgz"
     },
     "vue-hot-reload-api": {
       "version": "2.0.11",
@@ -12753,9 +12760,9 @@
       }
     },
     "vue-template-compiler": {
-      "version": "2.2.0",
+      "version": "2.2.1",
       "from": "vue-template-compiler@>=2.1.10 <3.0.0",
-      "resolved": "https://registry.npmjs.org/vue-template-compiler/-/vue-template-compiler-2.2.0.tgz"
+      "resolved": "https://registry.npmjs.org/vue-template-compiler/-/vue-template-compiler-2.2.1.tgz"
     },
     "vue-template-es2015-compiler": {
       "version": "1.5.1",
