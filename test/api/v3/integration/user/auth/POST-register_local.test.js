@@ -430,21 +430,20 @@ describe('POST /user/auth/local/register', () => {
 
       let habits = await requests.get('/tasks/user?type=habits');
       let todos = await requests.get('/tasks/user?type=todos');
-      let tags = await requests.get('/tags');
 
-      function findTag (tagStr) {
-        let tagName = t(tagStr);
-        return tags.find((tag) => {
-          return tag.name == tagName;
+      function findTag (tagName) {
+        let tag = user.tags.find( (userTag) => {
+          return userTag.name === t(tagName);
         });
+        return tag.id;
       }
 
       expect(habits[0].tags).to.have.a.lengthOf(3);
-      expect(habits[0].tags).to.deep.include.members(['defaultTag1', 'defaultTag4', 'defaultTag6'].map(findTag));
+      expect(habits[0].tags).to.include.members(['defaultTag1', 'defaultTag4', 'defaultTag6'].map(findTag));
       expect(habits[1].tags).to.have.a.lengthOf(1);
-      expect(habits[1].tags).to.deep.include.members(['defaultTag3'].map(findTag));
+      expect(habits[1].tags).to.include.members(['defaultTag3'].map(findTag));
       expect(habits[2].tags).to.have.a.lengthOf(2);
-      expect(habits[0].tags).to.deep.include.members(['defaultTag2', 'defaultTag3'].map(findTag));
+      expect(habits[0].tags).to.include.members(['defaultTag2', 'defaultTag3'].map(findTag));
       expect(todos[0].tags).to.have.a.lengthOf(0);
     });
   });
