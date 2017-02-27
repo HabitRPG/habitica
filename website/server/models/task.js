@@ -218,7 +218,7 @@ export let HabitSchema = new Schema(_.defaults({
 export let habit = Task.discriminator('habit', HabitSchema);
 
 export let DailySchema = new Schema(_.defaults({
-  frequency: {type: String, default: 'weekly', enum: ['daily', 'weekly']},
+  frequency: {type: String, default: 'weekly', enum: ['daily', 'weekly', 'monthly', 'yearly']},
   everyX: {type: Number, default: 1}, // e.g. once every X weeks
   startDate: {
     type: Date,
