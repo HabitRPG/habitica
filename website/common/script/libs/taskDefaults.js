@@ -49,6 +49,9 @@ module.exports = function taskDefaults (task = {}) {
     _.defaults(task, {
       up: true,
       down: true,
+      frequency: 'daily',
+      counterUp: 0,
+      counterDown: 0,
     });
   }
 
