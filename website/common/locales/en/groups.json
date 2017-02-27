@@ -190,6 +190,7 @@
   "inviteMissingUuid": "Missing user id in invite",
   "inviteMustNotBeEmpty": "Invite must not be empty.",
   "partyMustbePrivate": "Parties must be private",
+  "groupPlanMustbePrivate": "Group Plan must be private",
   "userAlreadyInGroup": "User already in that group.",
   "cannotInviteSelfToGroup": "You cannot invite yourself to a group.",
   "userAlreadyInvitedToGroup": "User already invited to that group.",
