@@ -22,7 +22,7 @@
     input.task-input.reward.visuallyhidden(
       type='checkbox',
       ui-keypress='{ 13:"score(task, \'down\')" }' )
-    a.money.btn-buy(ng-class='{highValue: task.value >= 1000}', ng-click='score(task, "down"); console.log("SDF")')
+    a.money.btn-buy(ng-class='{highValue: task.value >= 1000}', ng-click='score(task, "down");')
       span.shop_gold
       span.reward-cost {{task.value}}
 
