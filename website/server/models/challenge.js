@@ -237,13 +237,14 @@ schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep) {
   };
 
   removeFromArray(user.challenges, challengeId);
+  this.memberCount--;
 
   if (keep === 'keep-all') {
     await Tasks.Task.update(findQuery, {
       $set: {challenge: {}},
     }, {multi: true}).exec();
 
-    await user.save();
+    return Bluebird.all([user.save(), this.save()]);
   } else { // keep = 'remove-all'
     let tasks = await Tasks.Task.find(findQuery).select('_id type completed').exec();
     let taskPromises = tasks.map(task => {
@@ -255,7 +256,7 @@ schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep) {
       return task.remove();
     });
     user.markModified('tasksOrder');
-    taskPromises.push(user.save());
+    taskPromises.push(user.save(), this.save());
     return Bluebird.all(taskPromises);
   }
 };
