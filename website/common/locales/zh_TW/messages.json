@@ -54,5 +54,5 @@
     "messageUserOperationProtected": "路徑`<%= operation %>`沒有保留，因為它是一個受保護的路徑。",
     "messageUserOperationNotFound": "<%= operation %> 找不到行動",
     "messageNotificationNotFound": "找不到通知",
-    "notificationsRequired": "Notification ids are required."
+    "notificationsRequired": "通知用ID是必須的。"
 }
