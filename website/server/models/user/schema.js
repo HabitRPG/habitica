@@ -469,6 +469,7 @@ let schema = new Schema({
     },
     tasks: {
       groupByChallenge: {type: Boolean, default: false},
+      confirmScoreNotes: {type: Boolean, default: false},
     },
     improvementCategories: {
       type: Array,
