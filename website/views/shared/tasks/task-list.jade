@@ -1,0 +1,21 @@
+script(id='templates/task-list.html', type="text/ng-template")
+  ul(ng-init='setObj(obj)', class='{{::list.type}}s main-list',
+    ng-show='obj[list.type+"s"].length > 0', 
+    hrpg-sort-tasks, 
+    ng-if='showNormalList()')
+    task
+
+  div(ng-init='setObj(obj); console.log(obj)')
+    div(
+      ng-repeat="(key, taskList) in groupedList[list.type]", 
+      ng-if='user.preferences.tasks.groupByChallenge && !$state.includes("options.social.challenges")')
+      h3 {{key}}
+      ul(class='{{::list.type}}s main-list', 
+        ng-show='taskList.length > 0', hrpg-sort-tasks)
+        task
+
+  //Loads the non-sortable lists for challenges
+  ul(ng-init='setObj(obj)', class='{{::list.type}}s main-list', 
+    ng-show='obj[list.type + "s"].length > 0', 
+    ng-if='showChallengeList()')
+    task

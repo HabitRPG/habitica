@@ -85,6 +85,8 @@
             "js/directives/popover-html.directive.js",
             "js/directives/submit-form-on-enter.directive.js",
             "js/directives/when-scrolled.directive.js",
+            "js/directives/task-list.directive.js",
+            "js/directives/task.directive.js",
 
             "js/controllers/authCtrl.js",
             "js/controllers/autoCompleteCtrl.js",
