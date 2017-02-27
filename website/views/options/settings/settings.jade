@@ -68,6 +68,10 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
               label=env.t('confirmScoreNotes')
                 input(type='checkbox', ng-model='user.preferences.tasks.confirmScoreNotes', ng-change='set({"preferences.tasks.confirmScoreNotes": user.preferences.tasks.confirmScoreNotes ? true: false})')
 
+            .checkbox
+              label=env.t('groupTasksByChallenge')
+                input(type='checkbox', ng-model='user.preferences.tasks.groupByChallenge', ng-change='set({"preferences.tasks.groupByChallenge": user.preferences.tasks.groupByChallenge ? true: false})')
+
             hr
 
             button.btn.btn-default(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover=env.t('showBaileyPop'))= env.t('showBailey')
