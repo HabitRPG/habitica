@@ -469,6 +469,7 @@ let schema = new Schema({
     },
     tasks: {
       groupByChallenge: {type: Boolean, default: false},
+      confirmScoreNotes: {type: Boolean, default: false},
     },
     improvementCategories: {
       type: Array,
@@ -477,9 +478,6 @@ let schema = new Schema({
         let isValidCategory = categories.every(category => validCategories.indexOf(category) !== -1);
         return isValidCategory;
       },
-    },
-    tasks: {
-      confirmScoreNotes: {type: Boolean, default: false},
     },
   },
   profile: {
