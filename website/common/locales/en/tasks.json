@@ -136,6 +136,13 @@
     "intelligenceExample": "Relating to academic or mentally challenging pursuits",
     "perceptionExample": "Relating to work or financial tasks",
     "constitutionExample": "Relating to health, wellness, and social interaction",
+    "counterPeriod": "Counter Resets Every",
+    "counterPeriodDay": "Day",
+    "counterPeriodWeek": "Week",
+    "counterPeriodMonth": "Month",
+    "habitCounter": "Counter",
+    "habitCounterUp": "Positive Counter",
+    "habitCounterDown": "Negative Counter",
     "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
     "taskApprovalHasBeenRequested": "Approval has been requested",
     "approvals": "Approvals",
@@ -153,5 +160,6 @@
     "week": "Week",
     "weeks": "Weeks",
     "year": "Year",
-    "years": "Years"
+    "years": "Years",
+    "groupTasksByChallenge": "Group tasks by challenge title"
 }

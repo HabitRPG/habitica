@@ -58,6 +58,7 @@ export let TaskSchema = new Schema({
   userId: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']}, // When not set it belongs to a challenge
 
   challenge: {
+    shortName: {type: String, default: 'None'},
     id: {type: String, ref: 'Challenge', validate: [validator.isUUID, 'Invalid uuid.']}, // When set (and userId not set) it's the original task
     taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']}, // When not set but challenge.id defined it's the original task
     broken: {type: String, enum: ['CHALLENGE_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED', 'CHALLENGE_CLOSED', 'CHALLENGE_TASK_NOT_FOUND']}, // CHALLENGE_TASK_NOT_FOUND comes from v3 migration
@@ -214,6 +215,9 @@ let dailyTodoSchema = () => {
 export let HabitSchema = new Schema(_.defaults({
   up: {type: Boolean, default: true},
   down: {type: Boolean, default: true},
+  counterUp: {type: Number, default: 0},
+  counterDown: {type: Number, default: 0},
+  frequency: {type: String, default: 'daily', enum: ['daily', 'weekly', 'monthly']},
 }, habitDailySchema()), subDiscriminatorOptions);
 export let habit = Task.discriminator('habit', HabitSchema);
 
