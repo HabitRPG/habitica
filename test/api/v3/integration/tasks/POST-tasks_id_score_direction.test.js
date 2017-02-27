@@ -326,6 +326,19 @@ describe('POST /tasks/:id/score/:direction', () => {
 
       expect(updatedTask.history[0].scoreNotes).to.eql(scoreNotesString);
     });
+
+    it('errors when score notes are too large', async () => {
+      let scoreNotesString = new Array(258).join('a');
+
+      await expect(user.post(`/tasks/${habit._id}/score/up`, {
+        scoreNotes: scoreNotesString,
+      }))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('taskScoreNotesTooLong'),
+      });
+    });
   });
 
   context('reward', () => {

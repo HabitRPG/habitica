@@ -140,5 +140,6 @@
     "taskApprovalHasBeenRequested": "Approval has been requested",
     "approvals": "Approvals",
     "approvalRequired": "Approval Required",
-    "confirmScoreNotes": "Confirm task scoring with notes"
+    "confirmScoreNotes": "Confirm task scoring with notes",
+    "taskScoreNotesTooLong": "Task score notes must be less than 256 characters"
 }

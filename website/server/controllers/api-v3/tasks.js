@@ -23,6 +23,8 @@ import Bluebird from 'bluebird';
 import _ from 'lodash';
 import logger from '../../libs/logger';
 
+const MAX_SCORE_NOTES_LENGTH = 256;
+
 /**
  * @apiDefine TaskNotFound
  * @apiError (404) {NotFound} TaskNotFound The specified task could not be found.
@@ -511,6 +513,7 @@ api.scoreTask = {
 
     let user = res.locals.user;
     let scoreNotes = req.body.scoreNotes;
+    if (scoreNotes.length > MAX_SCORE_NOTES_LENGTH) throw new NotAuthorized(res.t('taskScoreNotesTooLong'));
     let {taskId} = req.params;
 
     let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, {userId: user._id});
