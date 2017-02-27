@@ -5,6 +5,8 @@ let armor = {
   lunarArmor: {
     text: t('armorArmoireLunarArmorText'),
     notes: t('armorArmoireLunarArmorNotes', { str: 7, int: 7 }),
+    textlocaleKey: 'armorArmoireLunarArmorText',
+    notesLocalKey: 'armorArmoireLunarArmorNotes',
     value: 100,
     str: 7,
     int: 7,
@@ -14,6 +16,8 @@ let armor = {
   gladiatorArmor: {
     text: t('armorArmoireGladiatorArmorText'),
     notes: t('armorArmoireGladiatorArmorNotes', { str: 7, per: 7 }),
+    textlocaleKey: 'armorArmoireGladiatorArmorText',
+    notesLocalKey: 'armorArmoireGladiatorArmorNotes',
     value: 100,
     str: 7,
     per: 7,
@@ -23,6 +27,8 @@ let armor = {
   rancherRobes: {
     text: t('armorArmoireRancherRobesText'),
     notes: t('armorArmoireRancherRobesNotes', { str: 5, per: 5, int: 5 }),
+    textlocaleKey: 'armorArmoireRancherRobesText',
+    notesLocalKey: 'armorArmoireRancherRobesNotes',
     value: 100,
     str: 5,
     per: 5,
@@ -33,6 +39,8 @@ let armor = {
   goldenToga: {
     text: t('armorArmoireGoldenTogaText'),
     notes: t('armorArmoireGoldenTogaNotes', { attrs: 8 }),
+    textlocaleKey: 'armorArmoireGoldenTogaText',
+    notesLocalKey: 'armorArmoireGoldenTogaNotes',
     value: 100,
     str: 8,
     con: 8,
@@ -42,6 +50,8 @@ let armor = {
   hornedIronArmor: {
     text: t('armorArmoireHornedIronArmorText'),
     notes: t('armorArmoireHornedIronArmorNotes', { con: 9, per: 7 }),
+    textlocaleKey: 'armorArmoireHornedIronArmorText',
+    notesLocalKey: 'armorArmoireHornedIronArmorNotes',
     value: 100,
     con: 9,
     per: 7,
@@ -51,6 +61,8 @@ let armor = {
   plagueDoctorOvercoat: {
     text: t('armorArmoirePlagueDoctorOvercoatText'),
     notes: t('armorArmoirePlagueDoctorOvercoatNotes', { int: 6, str: 5, con: 6 }),
+    textlocaleKey: 'armorArmoirePlagueDoctorOvercoatText',
+    notesLocalKey: 'armorArmoirePlagueDoctorOvercoatNotes',
     value: 100,
     int: 6,
     str: 5,
@@ -61,6 +73,8 @@ let armor = {
   shepherdRobes: {
     text: t('armorArmoireShepherdRobesText'),
     notes: t('armorArmoireShepherdRobesNotes', { attrs: 9 }),
+    textlocaleKey: 'armorArmoireShepherdRobesText',
+    notesLocalKey: 'armorArmoireShepherdRobesNotes',
     value: 100,
     str: 9,
     per: 9,
@@ -70,6 +84,8 @@ let armor = {
   royalRobes: {
     text: t('armorArmoireRoyalRobesText'),
     notes: t('armorArmoireRoyalRobesNotes', { attrs: 5 }),
+    textlocaleKey: 'armorArmoireRoyalRobesText',
+    notesLocalKey: 'armorArmoireRoyalRobesNotes',
     value: 100,
     con: 5,
     per: 5,
@@ -80,6 +96,8 @@ let armor = {
   crystalCrescentRobes: {
     text: t('armorArmoireCrystalCrescentRobesText'),
     notes: t('armorArmoireCrystalCrescentRobesNotes', { attrs: 7 }),
+    textlocaleKey: 'armorArmoireCrystalCrescentRobesText',
+    notesLocalKey: 'armorArmoireCrystalCrescentRobesNotes',
     value: 100,
     per: 7,
     con: 7,
@@ -89,6 +107,8 @@ let armor = {
   dragonTamerArmor: {
     text: t('armorArmoireDragonTamerArmorText'),
     notes: t('armorArmoireDragonTamerArmorNotes', { con: 15 }),
+    textlocaleKey: 'armorArmoireDragonTamerArmorText',
+    notesLocalKey: 'armorArmoireDragonTamerArmorNotes',
     value: 100,
     con: 15,
     set: 'dragonTamer',
@@ -97,6 +117,8 @@ let armor = {
   barristerRobes: {
     text: t('armorArmoireBarristerRobesText'),
     notes: t('armorArmoireBarristerRobesNotes', { con: 10 }),
+    textlocaleKey: 'armorArmoireBarristerRobesText',
+    notesLocalKey: 'armorArmoireBarristerRobesNotes',
     value: 100,
     con: 10,
     set: 'barrister',
@@ -105,6 +127,8 @@ let armor = {
   jesterCostume: {
     text: t('armorArmoireJesterCostumeText'),
     notes: t('armorArmoireJesterCostumeNotes', { int: 15 }),
+    textlocaleKey: 'armorArmoireJesterCostumeText',
+    notesLocalKey: 'armorArmoireJesterCostumeNotes',
     value: 100,
     int: 15,
     set: 'jester',
@@ -113,6 +137,8 @@ let armor = {
   minerOveralls: {
     text: t('armorArmoireMinerOverallsText'),
     notes: t('armorArmoireMinerOverallsNotes', { con: 10 }),
+    textlocaleKey: 'armorArmoireMinerOverallsText',
+    notesLocalKey: 'armorArmoireMinerOverallsNotes',
     value: 100,
     con: 10,
     set: 'miner',
@@ -121,6 +147,8 @@ let armor = {
   basicArcherArmor: {
     text: t('armorArmoireBasicArcherArmorText'),
     notes: t('armorArmoireBasicArcherArmorNotes', { per: 12 }),
+    textlocaleKey: 'armorArmoireBasicArcherArmorText',
+    notesLocalKey: 'armorArmoireBasicArcherArmorNotes',
     value: 100,
     per: 12,
     set: 'basicArcher',

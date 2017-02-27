@@ -13,6 +13,8 @@ let isContributorOfLevel = (tierRequirement, ownedItem) => {
 let armorSpecial1 = {
   text: t('armorSpecial1Text'),
   notes: t('armorSpecial1Notes', { attrs: 6 }),
+  textlocaleKey: 'armorSpecial1Text',
+  notesLocalKey: 'armorSpecial1Notes',
   con: 6,
   str: 6,
   per: 6,
@@ -24,6 +26,8 @@ let armorSpecial1 = {
 let headSpecial1 = {
   text: t('headSpecial1Text'),
   notes: t('headSpecial1Notes', { attrs: 6 }),
+  textlocaleKey: 'headSpecial1Text',
+  notesLocalKey: 'headSpecial1Notes',
   con: 6,
   str: 6,
   per: 6,
@@ -35,6 +39,8 @@ let headSpecial1 = {
 let shieldSpecial1 = {
   text: t('shieldSpecial1Text'),
   notes: t('shieldSpecial1Notes', { attrs: 6 }),
+  textlocaleKey: 'shieldSpecial1Text',
+  notesLocalKey: 'shieldSpecial1Notes',
   con: 6,
   str: 6,
   per: 6,
@@ -46,6 +52,8 @@ let shieldSpecial1 = {
 let weaponSpecial1 = {
   text: t('weaponSpecial1Text'),
   notes: t('weaponSpecial1Notes', { attrs: 6 }),
+  textlocaleKey: 'weaponSpecial1Text',
+  notesLocalKey: 'weaponSpecial1Notes',
   str: 6,
   per: 6,
   con: 6,
@@ -57,6 +65,8 @@ let weaponSpecial1 = {
 let weaponSpecialCritical = {
   text: t('weaponSpecialCriticalText'),
   notes: t('weaponSpecialCriticalNotes', { attrs: 40 }),
+  textlocaleKey: 'weaponSpecialCriticalText',
+  notesLocalKey: 'weaponSpecialCriticalNotes',
   str: 40,
   per: 40,
   value: 200,

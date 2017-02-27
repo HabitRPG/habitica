@@ -5,6 +5,7 @@ import Bluebird from 'bluebird';
 import fsCallback from 'fs';
 import path from 'path';
 import logger from '../../libs/logger';
+import { model as Gear } from '../../models/gear';
 
 // Transform fs methods that accept callbacks in ones that return promises
 const fs = {
@@ -112,13 +113,19 @@ api.getContent = {
     let content;
 
     // is the content response for this language cached?
-    if (cachedContentResponses[language] === true) {
-      content = await fs.readFile(`${CONTENT_CACHE_PATH}${language}.json`, 'utf8');
-    } else { // generate the response
+    // if (cachedContentResponses[language] === true) {
+    //   content = await fs.readFile(`${CONTENT_CACHE_PATH}${language}.json`, 'utf8');
+    // } else { // generate the response
       content = _.cloneDeep(common.content);
+
+      let gear = await Gear.find({}).exec();
+      for (let item of gear) {
+        content.gear.flat[item.key] = item.toObject();
+      }
+
       walkContent(content, language);
       content = JSON.stringify(content);
-    }
+    // }
 
     res.set({
       'Content-Type': 'application/json',

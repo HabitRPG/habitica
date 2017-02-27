@@ -238,8 +238,12 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      ------------------------
      */
 
-    $scope.$watch('user.items.gear.owned', function(){
-      $scope.itemStore = Shared.updateStore(User.user);
+    $scope.$watch('user.items.gear.owned', function() {
+      $scope.itemStore = Shared.updateStore(User.user, Content);
+      Shared.content.loadContent()
+        .then(function (content) {
+         $scope.itemStore = Shared.updateStore(User.user, content);
+        });
     },true);
 
     $scope.healthPotion = Content.potion;
