@@ -144,10 +144,13 @@ angular.module('habitrpg')
       });
     };
 
-    function scoreTask (taskId, direction) {
+    function scoreTask (taskId, direction, body) {
+      if (!body) body = {};
+
       return $http({
         method: 'POST',
         url: '/api/v3/tasks/' + taskId + '/score/' + direction,
+        data: body,
       });
     };
 

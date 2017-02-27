@@ -210,11 +210,15 @@ module.exports = function scoreTask (options = {}, req = {}) {
     _gainMP(user, _.max([0.25, 0.0025 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
 
     task.history = task.history || [];
+
     // Add history entry, even more than 1 per day
-    task.history.push({
+    let historyEntry = {
       date: Number(new Date()),
       value: task.value,
-    });
+    };
+    if (task.scoreNotes) historyEntry.scoreNotes = task.scoreNotes;
+
+    task.history.push(historyEntry);
 
     _updateCounter(task, direction, times);
   } else if (task.type === 'daily') {

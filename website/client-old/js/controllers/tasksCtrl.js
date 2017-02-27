@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrl', '$timeout', 'Content', 'Shared', 'Guide', 'Tasks', 'Analytics',
-  function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Content, Shared, Guide, Tasks, Analytics) {
+habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrl', '$timeout', 'Content', 'Shared', 'Guide', 'Tasks', 'Analytics', '$modal',
+  function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Content, Shared, Guide, Tasks, Analytics, $modal) {
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
 
@@ -11,7 +11,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       return Shared.count.remainingGearInSet(gear, 'armoire');
     };
 
-    $scope.score = function(task, direction) {
+    function scoreTask (task, direction) {
       switch (task.type) {
           case 'reward':
               playRewardSound(task);
@@ -26,8 +26,36 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
               if (direction === 'down') $rootScope.playSound('Minus_Habit');
               else if (direction === 'up') $rootScope.playSound('Plus_Habit');
       }
-      User.score({params:{task: task, direction:direction}});
+      User.score({
+        params: {
+          task: task,
+          direction:direction
+        },
+        body: {
+          scoreNotes: task.scoreNotes,
+        },
+      });
       Analytics.updateUser();
+    }
+
+    $scope.score = function(task, direction) {
+      if (!User.user.preferences.tasks.confirmScoreNotes) return scoreTask(task, direction);
+
+      $modal.open({
+        templateUrl: 'modals/task-notes.html',
+        controller: function ($scope, task) {
+          $scope.task = task;
+        },
+        resolve: {
+          task: function() {
+            return task;
+          }
+        }
+      }).result.then(function(result) {
+        task = result;
+        if (!task) return;
+        scoreTask(task, direction);
+      });
     };
 
     function addUserTasks(listDef, tasks) {
