@@ -14,8 +14,8 @@ angular.module('habitrpg')
 /**
  * Services that persists and retrieves user from localStorage.
  */
-  .factory('User', ['$rootScope', '$http', '$location', '$window', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'Notification', 'ApiUrl', 'Tasks', 'Tags', 'Content', 'UserNotifications',
-    function($rootScope, $http, $location, $window, STORAGE_USER_ID, STORAGE_SETTINGS_ID, Notification, ApiUrl, Tasks, Tags, Content, UserNotifications) {
+  .factory('User', ['$rootScope', '$http', '$location', '$window', 'STORAGE_USER_ID', 'STORAGE_SETTINGS_ID', 'Notification', 'ApiUrl', 'Tasks', 'Tags', 'Content', 'UserNotifications', 'Undo',
+    function($rootScope, $http, $location, $window, STORAGE_USER_ID, STORAGE_SETTINGS_ID, Notification, ApiUrl, Tasks, Tags, Content, UserNotifications, Undo) {
       var authenticated = false;
       var defaultSettings = {
         auth: { apiId: '', apiToken: ''},
@@ -39,6 +39,10 @@ angular.module('habitrpg')
       user.apiToken = user._id = ''; // we use id / apitoken to determine if registered
 
       user._wrapped = false;
+
+      $rootScope.$on('user-updated', function (event, user) {
+        sync();
+      });
 
       function syncUserTasks (tasks) {
         user.habits = [];
@@ -187,7 +191,7 @@ angular.module('habitrpg')
             var text = Content.gear.flat[openedItem.key].text();
             Notification.drop(env.t('messageDropMysteryItem', {dropText: text}), openedItem);
           }
-        })
+        });
       }
 
       function setUser(updates) {
@@ -236,77 +240,11 @@ angular.module('habitrpg')
         },
 
         score: function (data) {
-          try {
-            $window.habitrpgShared.ops.scoreTask({user: user, task: data.params.task, direction: data.params.direction}, data.params);
-          } catch (err) {
-            Notification.text(err.message);
-            return;
-          }
-
-          Tasks.scoreTask(data.params.task._id, data.params.direction).then(function (res) {
-            var tmp = res.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
-            var crit = tmp.crit;
-            var drop = tmp.drop;
-            var quest = tmp.quest;
-
-            if (crit) {
-              var critBonus = crit * 100 - 100;
-              Notification.crit(critBonus);
-            }
-
-            if (quest && user.party.quest && user.party.quest.key) {
-              var userQuest = Content.quests[user.party.quest.key];
-              if (quest.progressDelta && userQuest.boss) {
-                Notification.quest('questDamage', quest.progressDelta.toFixed(1));
-              } else if (quest.collection && userQuest.collect) {
-                Notification.quest('questCollection', quest.collection);
-              }
-            }
-
-            if (drop) {
-              var text, notes, type;
-              $rootScope.playSound('Item_Drop');
-
-              // Note: For Mystery Item gear, drop.type will be 'head', 'armor', etc
-              // so we use drop.notificationType below.
-
-              if (drop.type !== 'gear' && drop.type !== 'Quest' && drop.notificationType !== 'Mystery') {
-                if (drop.type === 'Food') {
-                  type = 'food';
-                } else if (drop.type === 'HatchingPotion') {
-                  type = 'hatchingPotions';
-                } else {
-                  type = drop.type.toLowerCase() + 's';
-                }
-                if(!user.items[type][drop.key]){
-                  user.items[type][drop.key] = 0;
-                }
-                user.items[type][drop.key]++;
-              }
-
-              if (drop.type === 'HatchingPotion'){
-                text = Content.hatchingPotions[drop.key].text();
-                notes = Content.hatchingPotions[drop.key].notes();
-                Notification.drop(env.t('messageDropPotion', {dropText: text, dropNotes: notes}), drop);
-              } else if (drop.type === 'Egg'){
-                text = Content.eggs[drop.key].text();
-                notes = Content.eggs[drop.key].notes();
-                Notification.drop(env.t('messageDropEgg', {dropText: text, dropNotes: notes}), drop);
-              } else if (drop.type === 'Food'){
-                text = Content.food[drop.key].text();
-                notes = Content.food[drop.key].notes();
-                Notification.drop(env.t('messageDropFood', {dropArticle: drop.article, dropText: text, dropNotes: notes}), drop);
-              } else if (drop.type === 'Quest') {
-                $rootScope.selectedQuest = Content.quests[drop.key];
-                $rootScope.openModal('questDrop', {controller:'PartyCtrl', size:'sm'});
-              } else {
-                // Keep support for another type of drops that might be added
-                Notification.drop(drop.dialog);
-              }
-
-              // Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'acquire item','itemName':after.key,'acquireMethod':'Drop'});
-            }
-          });
+          Undo.addAction('scoreTask', {task: data.params.task, direction: data.params.direction, user: user});
+          Tasks.scoreTask(data.params.task, data.params.direction, user)
+            .then(function (res) {
+              // Tasks.handleScoreTaskResponse(res, user);
+            });
         },
 
         sortTask: function (data) {
@@ -427,7 +365,12 @@ angular.module('habitrpg')
         },
 
         buy: function (data) {
+          Undo.addAction('buy', {itemKey: data.params.key, data: data, user: user});
           callOpsFunctionAndRequest('buy', 'buy', "POST", data.params.key, data);
+        },
+
+        refund: function (data) {
+          callOpsFunctionAndRequest('refund', 'refund', "POST", data.params.key, data);
         },
 
         buyArmoire: function () {

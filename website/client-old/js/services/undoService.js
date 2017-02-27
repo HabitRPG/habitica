@@ -1,0 +1,51 @@
+'use strict';
+
+angular.module('habitrpg')
+.factory('Undo', ['$rootScope', '$http', 'Tasks', 'Common',
+  function undo($rootScope, $http, Tasks, Common) {
+    var undoApi = {};
+
+    undoApi.history = [];
+
+    undoApi.addAction = function (action, data) {
+      undoApi.history.push({action: action, data: data});
+    };
+
+    undoApi.undoAction = function () {
+      var pop = undoApi.history.pop();
+      if (!pop) return;
+
+      // @TODO: We need to add a pop interface for each action
+      if (pop.action === 'scoreTask') {
+        var direction = pop.data.direction;
+
+        if (direction === "up")  {
+          direction = "down";
+        } else {
+          direction = "up";
+        }
+
+        Tasks.undoTask(pop.data.task.id)
+          .then(function (res) {
+            $rootScope.$broadcast('user-updated', res.data.data.user);
+            Tasks.handleScoreTaskResponse(res, pop.data.user);
+          });
+      }
+
+      if (pop.action === 'buy') {
+        var data = pop.data.data;
+        Common.refund(data, pop.data.user)
+      }
+
+    };
+
+    $rootScope.$on('keypress', function (e, a, key) {
+      console.log(key)
+        // $scope.$apply(function () {
+        //     $scope.key = key;
+        // });
+        /// 90
+    })
+
+    return undoApi;
+  }]);

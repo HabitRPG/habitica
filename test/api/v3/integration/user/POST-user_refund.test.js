@@ -8,7 +8,7 @@ import shared from '../../../../../website/common/script';
 
 let content = shared.content;
 
-describe('POST /user/buy/:key', () => {
+describe('POST /user/refund/:key', () => {
   let user;
 
   beforeEach(async () => {
@@ -20,7 +20,7 @@ describe('POST /user/buy/:key', () => {
   // More tests in common code unit tests
 
   it('returns an error if the item is not found', async () => {
-    await expect(user.post('/user/buy/notExisting'))
+    await expect(user.post('/user/refund/notExisting'))
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
@@ -28,14 +28,14 @@ describe('POST /user/buy/:key', () => {
       });
   });
 
-  it('buys a potion', async () => {
+  xit('refunds a potion', async () => {
     await user.update({
       'stats.gp': 400,
       'stats.hp': 40,
     });
 
     let potion = content.potion;
-    let res = await user.post('/user/buy/potion');
+    let res = await user.post('/user/refund/potion');
     await user.sync();
 
     expect(user.stats.hp).to.equal(50);
@@ -43,13 +43,13 @@ describe('POST /user/buy/:key', () => {
     expect(res.message).to.equal(t('messageBought', {itemText: potion.text()}));
   });
 
-  it('returns an error if user tries to buy a potion with full health', async () => {
+  xit('returns an error if user tries to refund a potion with full health', async () => {
     await user.update({
       'stats.gp': 40,
       'stats.hp': 50,
     });
 
-    await expect(user.post('/user/buy/potion'))
+    await expect(user.post('/user/refund/potion'))
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
@@ -57,12 +57,13 @@ describe('POST /user/buy/:key', () => {
       });
   });
 
-  it('buys a piece of gear', async () => {
+  it('refunds a piece of gear', async () => {
     let key = 'armor_warrior_1';
 
     await user.post(`/user/buy/${key}`);
+    await user.post(`/user/refund/${key}`);
     await user.sync();
 
-    expect(user.items.gear.owned.armor_warrior_1).to.eql(true);
+    expect(user.items.gear.owned.armor_warrior_1).to.eql(false);
   });
 });

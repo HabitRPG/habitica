@@ -249,6 +249,11 @@ nav.toolbar(ng-controller='MenuCtrl')
       li.toolbar-sync
         a(ng-click='User.sync()', popover=env.t('sync'),popover-placement='bottom',popover-trigger='mouseenter')
           span.glyphicon.glyphicon-refresh
+      
+      li.toolbar-sync
+        a(undo-button)
+          span.glyphicon.glyphicon-fast-backward
+          
       li.toolbar-settings
         a(data-expand-menu, menu='settings')
           span.glyphicon.glyphicon-cog
