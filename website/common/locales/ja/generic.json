@@ -51,7 +51,7 @@
     "help": "ヘルプ",
     "user": "ユーザー",
     "market": "市場",
-    "groupPlansTitle": "Group Plans",
+    "groupPlansTitle": "グループプラン",
     "subscriberItem": "ミステリー アイテム",
     "newSubscriberItem": "新しいミステリー アイテム",
     "subscriberItemText": "毎月、寄付会員にはミステリー アイテムが贈られます。通常、月の終わりの1週間前ごろにお届けします。詳しくはWiki の「ミステリー アイテム」のページをご覧ください。",
@@ -106,7 +106,7 @@
     "buyThis": "<%= price %> ジェムのこの<%= text %>を、手持ちの<%= gems %> ジェムから買いますか?",
     "noReachServer": "現在、サーバーに到達できません。後ほどもう一度お試しください。",
     "errorUpCase": "エラー：",
-    "newPassSent": "入力されたメールアドレスが私たちのユーザーリストにあったのなら、新しいパスワードをメール送信したはずです。",
+    "newPassSent": "もし入力されたメールアドレスが私たちのユーザーリストにあったのなら、新しいパスワードが送信されたはずです。",
     "serverUnreach": "現在サーバーに到達できません。",
     "requestError": "エラーが発生しました。<strong>ページを再読み込みしてください。</strong>おそらく最後に行った操作は、正しく反映されていないと思われます。",
     "seeConsole": "もしエラーがくり返されるなら、ヘルプ -> バグを報告する、からご報告ください。ブラウザーコンソールにお詳しいのでしたら、エラーメッセージもふくめてご報告ください。",
@@ -144,7 +144,7 @@
     "November": "11月",
     "December": "12月",
     "dateFormat": "日付の形式",
-    "achievementStressbeast": "Stoïkalmの救世主",
+    "achievementStressbeast": "オダヤカニの救世主",
     "achievementStressbeastText": "2014年冬のワンダーランドイベントで「不快なストレス獣」の打倒に協力しました!",
     "achievementBurnout": "繁栄の地の救世主",
     "achievementBurnoutText": "2015年秋の収穫祭イベントで「燃えつきと消耗の悪霊」の打倒に協力しました!",
@@ -194,6 +194,6 @@
     "enableDesktopNotifications": "デスクトップ通知を有効にする",
     "online": "オンライン",
     "onlineCount": "<%= count %> 人がオンライン",
-    "loading": "Loading...",
-    "userIdRequired": "User ID is required"
+    "loading": "読み込み中...",
+    "userIdRequired": "ユーザー ID が必要です。"
 }

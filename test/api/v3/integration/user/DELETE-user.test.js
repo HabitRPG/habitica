@@ -12,6 +12,10 @@ import {
   map,
 } from 'lodash';
 import Bluebird from 'bluebird';
+import {
+  sha1MakeSalt,
+  sha1Encrypt as sha1EncryptPassword,
+} from '../../../../../website/server/libs/password';
 
 describe('DELETE /user', () => {
   let user;
@@ -88,6 +92,30 @@ describe('DELETE /user', () => {
   it('deletes the user', async () => {
     await user.del('/user', {
       password,
+    });
+    await expect(checkExistence('users', user._id)).to.eventually.eql(false);
+  });
+
+  it('deletes the user with a legacy sha1 password', async () => {
+    let textPassword = 'mySecretPassword';
+    let salt = sha1MakeSalt();
+    let sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
+
+    await user.update({
+      'auth.local.hashed_password': sha1HashedPassword,
+      'auth.local.passwordHashMethod': 'sha1',
+      'auth.local.salt': salt,
+    });
+
+    await user.sync();
+
+    expect(user.auth.local.passwordHashMethod).to.equal('sha1');
+    expect(user.auth.local.salt).to.equal(salt);
+    expect(user.auth.local.hashed_password).to.equal(sha1HashedPassword);
+
+    // delete the user
+    await user.del('/user', {
+      password: textPassword,
     });
     await expect(checkExistence('users', user._id)).to.eventually.eql(false);
   });

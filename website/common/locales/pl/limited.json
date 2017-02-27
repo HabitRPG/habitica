@@ -78,14 +78,15 @@
     "sneakySqueakerSet": "Przebiegły Kwikacz (Łotrzyk)",
     "sunfishWarriorSet": "Błękitnoskrzeli Wojownik (Wojownik)",
     "shipSoothsayerSet": "Prorok na statku (Mag)",
-    "strappingSailorSet": "Postawny marynarz (Medyk)",
+    "strappingSailorSet": "Postawny marynarz (Uzdrowiciel)",
     "reefRenegadeSet": "Rafowy renegat (Łotrzyk)",
     "scarecrowWarriorSet": "Strach na Wróble (Wojownik)",
     "stitchWitchSet": "Zszyty czarownik (Mag)",
     "potionerSet": "Mistrz Eliksirów (Uzdrowiciel)",
-    "battleRogueSet": "Bit-wowy Łotrzyk (Łotrzyk)",
+    "battleRogueSet": "Nietoperzy Łotrzyk (Łotrzyk)",
     "fallEventAvailability": "Dostępne w sprzedaży do 31 października.",
     "winterEventAvailability": "Dostępne w sprzedaży do 31 stycznia.",
     "springEventAvailability": "Dostępne w sprzedaży do 31 maja.",
-    "summerEventAvailability": "Dostępne w sprzedaży do 31 sierpnia."
+    "summerEventAvailability": "Dostępne w sprzedaży do 31 sierpnia.",
+    "valentinesEventAvailability": "Dostępne w sprzedaży do 28 lutego."
 }

@@ -2,11 +2,13 @@ import {
   generateUser,
   translate as t,
   createAndPopulateGroup,
+  generateGroup,
   generateChallenge,
   sleep,
 } from '../../../../helpers/api-integration/v3';
 
 import { v4 as generateUUID } from 'uuid';
+import { find } from 'lodash';
 
 describe('POST /user/class/cast/:spellId', () => {
   let user;
@@ -120,6 +122,31 @@ describe('POST /user/class/cast/:spellId', () => {
       });
   });
 
+  it('returns an error if a group task was targeted', async () => {
+    let {group, groupLeader} = await createAndPopulateGroup();
+
+    let groupTask = await groupLeader.post(`/tasks/group/${group._id}`, {
+      text: 'todo group',
+      type: 'todo',
+    });
+    await groupLeader.post(`/tasks/${groupTask._id}/assign/${groupLeader._id}`);
+    let memberTasks = await groupLeader.get('/tasks/user');
+    let syncedGroupTask = find(memberTasks, function findAssignedTask (memberTask) {
+      return memberTask.group.id === group._id;
+    });
+
+    await groupLeader.update({'stats.class': 'rogue', 'stats.lvl': 11});
+    await sleep(0.5);
+    await groupLeader.sync();
+
+    await expect(groupLeader.post(`/user/class/cast/pickPocket?targetId=${syncedGroupTask._id}`))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('groupTasksNoCast'),
+      });
+  });
+
   it('returns an error if targeted party member doesn\'t exist', async () => {
     let {groupLeader} = await createAndPopulateGroup({
       groupDetails: { type: 'party', privacy: 'private' },
@@ -158,6 +185,40 @@ describe('POST /user/class/cast/:spellId', () => {
     await group.sync();
     expect(group.chat[0]).to.exist;
     expect(group.chat[0].uuid).to.equal('system');
+  });
+
+  it('searing brightness does not affect challenge or group tasks', async () => {
+    let guild = await generateGroup(user);
+    let challenge = await generateChallenge(user, guild);
+    await user.post(`/tasks/challenge/${challenge._id}`, {
+      text: 'test challenge habit',
+      type: 'habit',
+    });
+
+    let groupTask = await user.post(`/tasks/group/${guild._id}`, {
+      text: 'todo group',
+      type: 'todo',
+    });
+    await user.update({'stats.class': 'healer', 'stats.mp': 200, 'stats.lvl': 15});
+    await user.post(`/tasks/${groupTask._id}/assign/${user._id}`);
+
+    await user.post('/user/class/cast/brightness');
+    await user.sync();
+
+    let memberTasks = await user.get('/tasks/user');
+
+    let syncedGroupTask = find(memberTasks, function findAssignedTask (memberTask) {
+      return memberTask.group.id === guild._id;
+    });
+
+    let userChallengeTask = find(memberTasks, function findAssignedTask (memberTask) {
+      return memberTask.challenge.id === challenge._id;
+    });
+
+    expect(userChallengeTask).to.exist;
+    expect(syncedGroupTask).to.exist;
+    expect(userChallengeTask.value).to.equal(0);
+    expect(syncedGroupTask.value).to.equal(0);
   });
 
   // TODO find a way to have sinon working in integration tests

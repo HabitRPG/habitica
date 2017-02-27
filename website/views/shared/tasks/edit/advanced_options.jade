@@ -1,4 +1,4 @@
-div(ng-if='::task.type!="reward"')
+div(ng-if='(task.type !== "reward") || (!obj.auth && obj.purchased && obj.purchased.active)')
   button.advanced-options-toggle.option-title.mega(type='button',
     ng-class='{active: task._edit._advanced}',
     ng-click='task._edit._advanced = !task._edit._advanced', tooltip=env.t('expandCollapse'))
@@ -9,8 +9,8 @@ div(ng-if='::task.type!="reward"')
       a.hint(href='http://habitica.wikia.com/wiki/Task_Alias', target='_blank', popover-trigger='mouseenter', popover="{{::env.t('taskAliasPopover')}} {{::task._edit.alias ? '\n\n\' + env.t('taskAliasPopoverWarning') : ''}}")=env.t('taskAlias')
     input.form-control(ng-model='task._edit.alias' type='text' placeholder=env.t('taskAliasPlaceholder'))
 
-  fieldset.option-group.advanced-option(ng-show="task._edit._advanced")
-    group-tasks-actions(ng-if="obj.type == 'guild'", task='task', group='obj')
+  fieldset.option-group.advanced-option(ng-show="task._edit._advanced", ng-if="!obj.auth && obj.purchased && obj.purchased.active")
+    group-tasks-actions(task='task', group='obj')
 
   div(ng-show='task._edit._advanced')
     div(ng-if='::task.type == "daily"')
@@ -22,16 +22,6 @@ div(ng-if='::task.type!="reward"')
         input.form-control(type='text', ng-model='task._edit.startDate',
           datepicker-popup='{{::user.preferences.dateFormat}}', is-open='datepickerOpened',
           ng-click='datepickerOpened = true', ng-disabled='!canEdit(task)')
-
-      hr
-
-      .form-group
-        legend.option-title=env.t('repeat')
-        select.form-control(ng-model='task._edit.frequency', ng-disabled='!canEdit(task)')
-          option(value='weekly')=env.t('repeatWeek')
-          option(value='daily')=env.t('repeatDays')
-
-      include ./dailies/repeat_options
 
       hr
 

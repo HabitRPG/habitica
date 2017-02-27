@@ -21,12 +21,14 @@ import {
   MAX_HEALTH,
   MAX_LEVEL,
   MAX_STAT_POINTS,
+  MAX_INCENTIVES,
   TAVERN_ID,
   LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
   SUPPORTED_SOCIAL_NETWORKS,
 } from './constants';
 
 api.constants = {
+  MAX_INCENTIVES,
   LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
   SUPPORTED_SOCIAL_NETWORKS,
 };
@@ -294,7 +296,7 @@ api.wrap = function wrapUser (user, main = true) {
   user.fns = {
     handleTwoHanded: _.partial(importedFns.handleTwoHanded, user),
     predictableRandom: _.partial(importedFns.predictableRandom, user),
-    crit: _.partial(importedFns.crit, user),
+    crit: _.partial(importedFns.crit.crit, user),
     randomDrop: _.partial(importedFns.randomDrop, user),
     autoAllocate: _.partial(importedFns.autoAllocate, user),
     updateStats: _.partial(importedFns.updateStats, user),

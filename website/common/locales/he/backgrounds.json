@@ -1,8 +1,8 @@
 {
     "backgrounds": "תמונות רקע",
-    "background": "Background",
+    "background": "רקע",
     "backgroundShop": "Background Shop",
-    "backgroundShopText": "Background Shop",
+    "backgroundShopText": "חנות רקעים",
     "noBackground": "No Background Selected",
     "backgrounds062014": "סט 1: פורסם ביוני 2014",
     "backgroundBeachText": "חוף הים",
@@ -238,5 +238,19 @@
     "backgroundSparklingSnowflakeText": "Sparkling Snowflake",
     "backgroundSparklingSnowflakeNotes": "Glide on a Sparkling Snowflake.",
     "backgroundStoikalmVolcanoesText": "Stoïkalm Volcanoes",
-    "backgroundStoikalmVolcanoesNotes": "Explore the Stoïkalm Volcanoes."
+    "backgroundStoikalmVolcanoesNotes": "Explore the Stoïkalm Volcanoes.",
+    "backgrounds022017": "SET 33: Released February 2017",
+    "backgroundBellTowerText": "Bell Tower",
+    "backgroundBellTowerNotes": "Climb to the Bell Tower.",
+    "backgroundTreasureRoomText": "Treasure Room",
+    "backgroundTreasureRoomNotes": "Bask in the wealth of a Treasure Room.",
+    "backgroundWeddingArchText": "Wedding Arch",
+    "backgroundWeddingArchNotes": "Pose under the Wedding Arch.",
+    "backgrounds032017": "SET 34: Released March 2017",
+    "backgroundMagicBeanstalkText": "Magic Beanstalk",
+    "backgroundMagicBeanstalkNotes": "Ascend a Magic Beanstalk.",
+    "backgroundMeanderingCaveText": "Meandering Cave",
+    "backgroundMeanderingCaveNotes": "Explore the Meandering Cave.",
+    "backgroundMistiflyingCircusText": "Mistiflying Circus",
+    "backgroundMistiflyingCircusNotes": "Carouse in the Mistiflying Circus."
 }

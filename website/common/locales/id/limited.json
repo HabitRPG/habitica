@@ -7,7 +7,7 @@
     "alarmingFriends": "Teman yang Berbahaya",
     "alarmingFriendsText": "Got spooked <%= count %> times by party members.",
     "agriculturalFriends": "Teman Tanaman",
-    "agriculturalFriendsText": "Got transformed into a flower <%= count %> times by party members.",
+    "agriculturalFriendsText": "Diubah menjadi kembang <%= count %> kali oleh teman sekelompok. ",
     "aquaticFriends": "Teman Air",
     "aquaticFriendsText": "Got splashed <%= count %> times by party members.",
     "valentineCard": "Kartu Valentine",
@@ -43,10 +43,10 @@
     "icicleDrakeSet": "Naga Es (Pencuri)",
     "soothingSkaterSet": "Ski Penentram (Penyembuh)",
     "gingerbreadSet": "Prajurit Kue Jahe (Prajurit)",
-    "snowDaySet": "Snow Day Warrior (Warrior)",
+    "snowDaySet": "Prajurit Hari Bersalju (Prajurit) ",
     "snowboardingSet": "Snowboarding Sorcerer (Mage)",
-    "festiveFairySet": "Festive Fairy (Healer)",
-    "cocoaSet": "Cocoa Rogue (Rogue)",
+    "festiveFairySet": "Peri Festival (Penyembuh) ",
+    "cocoaSet": "Pencuri Coklat (Pencuri) ",
     "toAndFromCard": "Untuk: <%= toName %>, Dari: <%= fromName %>",
     "nyeCard": "Kartu Tahun Baru",
     "nyeCardExplanation": "Karena telah merayakan tahun baru bersama-sama, kalian berdua mendapatkan lencana \"Kawan Lama\"!",
@@ -87,5 +87,6 @@
     "fallEventAvailability": "Tersedia untuk dibeli hingga 31 Oktober.",
     "winterEventAvailability": "Available for purchase until January 31.",
     "springEventAvailability": "Tersedia untuk dibeli hingga 31 Mei.",
-    "summerEventAvailability": "Tersedia untuk dibeli hingga 31 Agustus."
+    "summerEventAvailability": "Tersedia untuk dibeli hingga 31 Agustus.",
+    "valentinesEventAvailability": "Available for purchase until February 28."
 }

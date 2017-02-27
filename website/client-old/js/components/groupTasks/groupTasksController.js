@@ -177,7 +177,7 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
 
           var claimingUsers = [];
           task.group.assignedUsers.forEach(function (userId) {
-            claimingUsers.push(memberIdToProfileNameMap[userId]);
+            claimingUsers.push('"' + memberIdToProfileNameMap[userId] + '"');
           })
 
           if (claimingUsers.length > 0) content += window.env.t('claimedBy', {claimingUsers: claimingUsers.join(', ')});

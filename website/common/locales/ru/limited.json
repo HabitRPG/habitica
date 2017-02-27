@@ -23,8 +23,8 @@
     "turkey": "Индейка",
     "gildedTurkey": "Золотая индейка",
     "polarBearPup": "Детеныш белого медведя",
-    "jackolantern": "Тыквенная лампа",
-    "ghostJackolantern": "Призрак Джек-Фонарщик",
+    "jackolantern": "Светильник Джека",
+    "ghostJackolantern": "Призрачный Cветильник Джека",
     "seasonalShop": "Сезонная лавка",
     "seasonalShopClosedTitle": "<%= linkStart %>Лесли<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Сезонная Чародейка<%= linkEnd %>",
@@ -40,7 +40,7 @@
     "snowflakeSet": "Снежинка (Целитель)",
     "yetiSet": "Укротитель Йети (Воин)",
     "northMageSet": "Маг с севера (Маг)",
-    "icicleDrakeSet": "Снежная Муха (Разбойник)",
+    "icicleDrakeSet": "Ледяной Дрэйк (Разбойник)",
     "soothingSkaterSet": "Успокаивающий Конькобежец (Целитель)",
     "gingerbreadSet": "Пряничный Воин (Воин)",
     "snowDaySet": "Боец снежного дня (Воин)",
@@ -87,5 +87,6 @@
     "fallEventAvailability": "Можно купить до 31 октября.",
     "winterEventAvailability": "Можно купить до 31 января.",
     "springEventAvailability": "Можно купить до 31 мая.",
-    "summerEventAvailability": "Можно купить до 31 августа."
+    "summerEventAvailability": "Можно купить до 31 августа.",
+    "valentinesEventAvailability": "Доступно для покупки до 28 февраля."
 }

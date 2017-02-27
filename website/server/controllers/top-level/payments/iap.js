@@ -2,13 +2,11 @@ import {
   authWithHeaders,
   authWithUrl,
 } from '../../../middlewares/auth';
-import iap from '../../../libs/inAppPurchases';
-import payments from '../../../libs/payments';
 import {
-  NotAuthorized,
+  BadRequest,
 } from '../../../libs/errors';
-import { model as IapPurchaseReceipt } from '../../../models/iapPurchaseReceipt';
-import logger from '../../../libs/logger';
+import googlePayments from '../../../libs/googlePayments';
+import applePayments from '../../../libs/applePayments';
 
 let api = {};
 
@@ -28,64 +26,55 @@ api.iapAndroidVerify = {
     let user = res.locals.user;
     let iapBody = req.body;
 
-    await iap.setup();
-
-    let testObj = {
-      data: iapBody.transaction.receipt,
-      signature: iapBody.transaction.signature,
-    };
-
-    let googleRes = await iap.validate(iap.GOOGLE, testObj);
-
-    let isValidated = iap.isValidated(googleRes);
-    if (!isValidated) throw new NotAuthorized('INVALID_RECEIPT');
-
-    let receiptObj = JSON.parse(testObj.data); // passed as a string
-    let token = receiptObj.token || receiptObj.purchaseToken;
-
-    let existingReceipt = await IapPurchaseReceipt.findOne({
-      _id: token,
-    }).exec();
-    if (existingReceipt) throw new NotAuthorized('RECEIPT_ALREADY_USED');
-
-    await IapPurchaseReceipt.create({
-      _id: token,
-      consumed: true,
-      userId: user._id,
-    });
-
-    let amount;
-
-    switch (receiptObj.productId) {
-      case 'com.habitrpg.android.habitica.iap.4gems':
-        amount = 1;
-        break;
-      case 'com.habitrpg.android.habitica.iap.20.gems':
-      case 'com.habitrpg.android.habitica.iap.21gems':
-        amount = 5.25;
-        break;
-      case 'com.habitrpg.android.habitica.iap.42gems':
-        amount = 10.5;
-        break;
-      case 'com.habitrpg.android.habitica.iap.84gems':
-        amount = 21;
-        break;
-    }
-
-    if (!amount) throw new Error('INVALID_ITEM_PURCHASED');
-
-    await payments.buyGems({
-      user,
-      paymentMethod: 'IAP GooglePlay',
-      amount,
-      headers: req.headers,
-    });
+    let googleRes = await googlePayments.verifyGemPurchase(user, iapBody.transaction.receipt, iapBody.transaction.signature, req.headers);
 
     res.respond(200, googleRes);
   },
 };
 
-// IMPORTANT: NOT PORTED TO v3 standards (not using res.respond)
+/**
+ * @apiIgnore Payments are considered part of the private API
+ * @api {post} /iap/android/subscription Android Subscribe
+ * @apiName IapAndroidSubscribe
+ * @apiGroup Payments
+ **/
+api.iapSubscriptionAndroid = {
+  method: 'POST',
+  url: '/iap/android/subscribe',
+  middlewares: [authWithUrl],
+  async handler (req, res) {
+    if (!req.body.sku) throw new BadRequest(res.t('missingSubscriptionCode'));
+    let user = res.locals.user;
+    let iapBody = req.body;
+
+    await googlePayments.subscribe(req.body.sku, user, iapBody.transaction.receipt, iapBody.transaction.signature, req.headers);
+
+    res.respond(200);
+  },
+};
+
+/**
+ * @apiIgnore Payments are considered part of the private API
+ * @api {get} /iap/android/subscribe/cancel Google Payments: subscribe cancel
+ * @apiName AndroidSubscribeCancel
+ * @apiGroup Payments
+ **/
+api.iapCancelSubscriptionAndroid = {
+  method: 'GET',
+  url: '/iap/android/subscribe/cancel',
+  middlewares: [authWithUrl],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    await googlePayments.cancelSubscribe(user, req.headers);
+
+    if (req.query.noRedirect) {
+      res.respond(200);
+    } else {
+      res.redirect('/');
+    }
+  },
+};
 
 /**
  * @apiIgnore Payments are considered part of the private API
@@ -98,88 +87,53 @@ api.iapiOSVerify = {
   url: '/iap/ios/verify',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
+    if (!req.body.transaction) throw new BadRequest(res.t('missingReceipt'));
+
+    let appleRes = await applePayments.verifyGemPurchase(res.locals.user, req.body.transaction.receipt, req.headers);
+
+    res.respond(200, appleRes);
+  },
+};
+
+/**
+ * @apiIgnore Payments are considered part of the private API
+ * @api {post} /iap/android/subscription iOS Subscribe
+ * @apiName IapiOSSubscribe
+ * @apiGroup Payments
+ **/
+api.iapSubscriptioniOS = {
+  method: 'POST',
+  url: '/iap/ios/subscribe',
+  middlewares: [authWithUrl],
+  async handler (req, res) {
+    if (!req.body.sku) throw new BadRequest(res.t('missingSubscriptionCode'));
+    if (!req.body.receipt) throw new BadRequest(res.t('missingReceipt'));
+
+    await applePayments.subscribe(req.body.sku, res.locals.user, req.body.receipt, req.headers);
+
+    res.respond(200);
+  },
+};
+
+/**
+ * @apiIgnore Payments are considered part of the private API
+ * @api {get} /iap/android/subscribe/cancel Apple Payments: subscribe cancel
+ * @apiName iOSSubscribeCancel
+ * @apiGroup Payments
+ **/
+api.iapCancelSubscriptioniOS = {
+  method: 'GET',
+  url: '/iap/ios/subscribe/cancel',
+  middlewares: [authWithUrl],
+  async handler (req, res) {
     let user = res.locals.user;
-    let iapBody = req.body;
 
-    let appleRes;
+    await applePayments.cancelSubscribe(user, req.headers);
 
-    try {
-      await iap.setup();
-
-      appleRes = await iap.validate(iap.APPLE, iapBody.transaction.receipt);
-      let isValidated = iap.isValidated(appleRes);
-      if (!isValidated) throw new Error('INVALID_RECEIPT');
-
-      let purchaseDataList = iap.getPurchaseData(appleRes);
-      if (purchaseDataList.length === 0) throw new Error('NO_ITEM_PURCHASED');
-
-      let correctReceipt = true;
-
-      // Purchasing one item at a time (processing of await(s) below is sequential not parallel)
-      for (let index in purchaseDataList) {
-        let purchaseData = purchaseDataList[index];
-        let token = purchaseData.transactionId;
-
-        let existingReceipt = await IapPurchaseReceipt.findOne({ // eslint-disable-line no-await-in-loop
-          _id: token,
-        }).exec();
-
-        if (!existingReceipt) {
-          await IapPurchaseReceipt.create({ // eslint-disable-line no-await-in-loop
-            _id: token,
-            consumed: true,
-            userId: user._id,
-          });
-        } else {
-          throw new Error('RECEIPT_ALREADY_USED');
-        }
-
-        let amount;
-        switch (purchaseData.productId) {
-          case 'com.habitrpg.ios.Habitica.4gems':
-            amount = 1;
-            break;
-          case 'com.habitrpg.ios.Habitica.20gems':
-          case 'com.habitrpg.ios.Habitica.21gems':
-            amount = 5.25;
-            break;
-          case 'com.habitrpg.ios.Habitica.42gems':
-            amount = 10.5;
-            break;
-          case 'com.habitrpg.ios.Habitica.84gems':
-            amount = 21;
-            break;
-        }
-        if (!amount) {
-          correctReceipt = false;
-          break;
-        }
-
-        await payments.buyGems({ // eslint-disable-line no-await-in-loop
-          user,
-          paymentMethod: 'IAP AppleStore',
-          amount,
-          headers: req.headers,
-        });
-      }
-
-      if (!correctReceipt) throw new Error('INVALID_ITEM_PURCHASED');
-
-      return res.status(200).json({
-        ok: true,
-        data: appleRes,
-      });
-    } catch (err) {
-      logger.error(err, {
-        userId: user._id,
-        iapBody,
-        appleRes,
-      });
-
-      return res.status(500).json({
-        ok: false,
-        data: 'An error occurred while processing the purchase.',
-      });
+    if (req.query.noRedirect) {
+      res.respond(200);
+    } else {
+      res.redirect('/');
     }
   },
 };

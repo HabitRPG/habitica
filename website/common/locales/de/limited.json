@@ -1,5 +1,5 @@
 {
-    "limitedEdition": "Begrenzte Auflage",
+    "limitedEdition": "Limitierte Ausgabe",
     "seasonalEdition": "Jahreszeiten-Edition",
     "winterColors": "Winterfarben",
     "annoyingFriends": "Nervige Freunde",
@@ -18,7 +18,7 @@
     "valentine2": "\"Rosen sind rot\n\nDieses Gedicht ist mir hold\n\nIch hoffe Du magst es\n\nDenn mich kostet's 10 Gold.\"",
     "valentine3": "\"Rosen sind rot\n\nEisdrachen sind blau\n\nOhne Deine Begleitung\n\nIst Habitica grau!\"",
     "valentineCardAchievementTitle": "Heißgeliebte Freunde",
-    "valentineCardAchievementText": "Ohh, Deine Freunde und Du, Ihr müsst euch ja wirklich gern haben! Du hast insgesamt <%= count %> Valentinstagskarten gesendet und bekommen.",
+    "valentineCardAchievementText": "Ohh, Deine Freunde und Du, Ihr müsst euch ja wirklich gern haben! Du hast insgesamt <%= count %> Valentinstagskarten gesendet oder erhalten.",
     "polarBear": "Eisbär",
     "turkey": "Truthahn",
     "gildedTurkey": "Vergoldeter Truthahn",
@@ -29,9 +29,9 @@
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Saisonzauberin<%= linkEnd %>",
     "seasonalShopClosedText": "Der Jahreszeitenmarkt ist gerade geschlossen!! Ich weiß nicht, wo die Saisonzauberin gerade ist, aber ich wette sie wird während der nächsten <a href='http://habitica.wikia.com/wiki/Grand_Galas' target='_blank'>Grand Gala</a> wieder zurück sein!",
-    "seasonalShopText": "Willkommen auf dem Jahreszeitenmarkt!! Momentan haben wir <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Frühlingsgegenstände</a> auf Lager. Alles hier wird während des Frühlingsevents, das jedes Jahr stattfindet, verfügbar sein. Allerdings nur bis zum 30. April, also stocke jetzt auf, ansonsten musst Du bis nächstes Jahr warten.",
+    "seasonalShopText": "Willkommen auf dem Jahreszeitenmarkt!! Momentan haben wir <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Frühlingsgegenstände</a> auf Lager. Alles hier wird während des Frühlingsevents, das jedes Jahr stattfindet, verfügbar sein. Allerdings nur bis zum 30. April, also decke dich jetzt ein, ansonsten musst Du bis nächstes Jahr warten.",
     "seasonalShopSummerText": "Willkommen auf dem Jahreszeitenmarkt!! Momentan haben wir <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>jahreszeitlich wechselnde</a> Gegenstände auf Lager. Alles hier wird während des Sommerevents, das jedes Jahr stattfindet, verfügbar sein. Allerdings nur bis zum 31. Juli, also stocke jetzt auf, ansonsten musst Du bis nächstes Jahr warten.",
-    "seasonalShopFallText": "Willkommen auf dem Jahreszeitenmarkt!! Momentan haben wir <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Herbstgegenstände</a> auf Lager. Alles hier wird während des Herbstevents, das jedes Jahr stattfindet, verfügbar sein. Allerdings nur bis zum 31. Oktober, also stocke jetzt Deine Vorräte auf, ansonsten musst Du bis nächstes Jahr warten.",
+    "seasonalShopFallText": "Willkommen auf dem Jahreszeitenmarkt!! Momentan haben wir <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'>Herbstgegenstände</a> auf Lager. Alles hier wird während des Herbstevents, das jedes Jahr stattfindet, verfügbar sein. Allerdings nur bis zum 31. Oktober, also stocke jetzt Deine Vorräte auf, sonst musst Du bis nächstes Jahr warten.",
     "seasonalShopWinterText": "Willkommen auf dem Jahreszeitenmarkt!! Momentan haben wir <a href='http://habitica.wikia.com/wiki/Item_Availability' target='_blank'> Saisonale Edition </a> Gegenstände auf Lager. Alles hier wird während des Winter-Wunderlandes, das jedes Jahr stattfindet, verfügbar sein. Allerdings nur bis 31. Januar, also decke Dich jetzt ein, sonst musst Du bis nächstes Jahr warten!",
     "seasonalShopFallTextBroken": "Willkommen auf dem Jahreszeitenmarkt!! Momentan haben wir Herbstgegenstände auf Lager. Alles hier wird während des Herbstevents, das jedes Jahr stattfindet, verfügbar sein. Allerdings nur bis zum 31. Oktober, also stocke jetzt Deine Vorräte auf, ansonsten musst Du bis nächstes Jahr warten ... <strong>*hach*</strong>",
     "seasonalShopRebirth": "Wenn Du etwas von dieser Ausrüstung bereits früher gekauft hast aber im Moment nicht im Besitz hast, kannst Du diesen Ausrüstungsgegenstand in der Belohnungsspalte erneut kaufen. Anfangs wirst Du nur Gegenstände für Deine momentane Klasse (Standard ist Krieger) kaufen können, aber keine Sorge, die anderen klassenspezifischen Gegenstände werden verfügbar, sobald Du zur jeweiligen Klasse wechselst.",
@@ -87,5 +87,6 @@
     "fallEventAvailability": "Zum Kauf verfügbar bis zum 31. Oktober.",
     "winterEventAvailability": "Zum Kauf verfügbar bis zum 31. Januar.",
     "springEventAvailability": "Zum Kauf verfügbar bis zum 31. Mai.",
-    "summerEventAvailability": "Zum Kauf verfügbar bis zum 31. August."
+    "summerEventAvailability": "Zum Kauf verfügbar bis zum 31. August.",
+    "valentinesEventAvailability": "Zum Kauf verfügbar bis zum 28. Februar."
 }

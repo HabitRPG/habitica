@@ -16,10 +16,12 @@ import { model as User } from '../../models/user';
 import { model as Group } from '../../models/group';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../../libs/email';
-import { decrypt } from '../../libs/encryption';
+import { decrypt, encrypt } from '../../libs/encryption';
 import { send as sendEmail } from '../../libs/email';
 import pusher from '../../libs/pusher';
 import common from '../../../common';
+
+const BASE_URL = nconf.get('BASE_URL');
 
 let api = {};
 
@@ -115,16 +117,15 @@ api.registerLocal = {
       if (lowerCaseUsername === user.auth.local.lowerCaseUsername) throw new NotAuthorized(res.t('usernameTaken'));
     }
 
-    let salt = passwordUtils.makeSalt();
-    let hashed_password = passwordUtils.encrypt(password, salt); // eslint-disable-line camelcase
+    let hashed_password = await passwordUtils.bcryptHash(password); // eslint-disable-line camelcase
     let newUser = {
       auth: {
         local: {
           username,
           lowerCaseUsername,
           email,
-          salt,
-          hashed_password, // eslint-disable-line camelcase
+          hashed_password, // eslint-disable-line camelcase,
+          passwordHashMethod: 'bcrypt',
         },
       },
       preferences: {
@@ -222,6 +223,7 @@ api.loginLocal = {
 
     let login;
     let username = req.body.username;
+    let password = req.body.password;
 
     if (validator.isEmail(username)) {
       login = {'auth.local.email': username.toLowerCase()}; // Emails are stored lowercase
@@ -229,9 +231,24 @@ api.loginLocal = {
       login = {'auth.local.username': username};
     }
 
-    let user = await User.findOne(login, {auth: 1, apiToken: 1}).exec();
-    let isValidPassword = user && user.auth.local.hashed_password === passwordUtils.encrypt(req.body.password, user.auth.local.salt);
+    // load the entire user because we may have to save it to convert the password to bcrypt
+    let user = await User.findOne(login).exec();
+
+    let isValidPassword;
+
+    if (!user) {
+      isValidPassword = false;
+    } else {
+      isValidPassword = await passwordUtils.compare(user, password);
+    }
+
     if (!isValidPassword) throw new NotAuthorized(res.t('invalidLoginCredentialsLong'));
+
+    // convert the hashed password to bcrypt from sha1
+    if (user.auth.local.passwordHashMethod === 'sha1') {
+      await passwordUtils.convertToBcrypt(user, password);
+      await user.save();
+    }
 
     res.analytics.track('login', {
       category: 'behaviour',
@@ -432,11 +449,17 @@ api.updateUsername = {
 
     if (!user.auth.local.username) throw new BadRequest(res.t('userHasNoLocalRegistration'));
 
-    let oldPassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
-    if (oldPassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
+    let password = req.body.password;
+    let isValidPassword = await passwordUtils.compare(user, password);
+    if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
 
     let count = await User.count({ 'auth.local.lowerCaseUsername': req.body.username.toLowerCase() });
     if (count > 0) throw new BadRequest(res.t('usernameTaken'));
+
+    // if password is using old sha1 encryption, change it
+    if (user.auth.local.passwordHashMethod === 'sha1') {
+      await passwordUtils.convertToBcrypt(user, password); // user is saved a few lines below
+    }
 
     // save username
     user.auth.local.lowerCaseUsername = req.body.username.toLowerCase();
@@ -486,13 +509,17 @@ api.updatePassword = {
       throw validationErrors;
     }
 
-    let oldPassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
-    if (oldPassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
+    let oldPassword = req.body.password;
+    let isValidPassword = await passwordUtils.compare(user, oldPassword);
+    if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
 
-    if (req.body.newPassword !== req.body.confirmPassword) throw new NotAuthorized(res.t('passwordConfirmationMatch'));
+    let newPassword = req.body.newPassword;
+    if (newPassword !== req.body.confirmPassword) throw new NotAuthorized(res.t('passwordConfirmationMatch'));
 
-    user.auth.local.hashed_password = passwordUtils.encrypt(req.body.newPassword, user.auth.local.salt); // eslint-disable-line camelcase
+    // set new password and make sure it's using bcrypt for hashing
+    await passwordUtils.convertToBcrypt(user, newPassword);
     await user.save();
+
     res.respond(200, {});
   },
 };
@@ -521,28 +548,29 @@ api.resetPassword = {
     if (validationErrors) throw validationErrors;
 
     let email = req.body.email.toLowerCase();
-    let salt = passwordUtils.makeSalt();
-    let newPassword =  passwordUtils.makeSalt(); // use a salt as the new password too (they'll change it later)
-    let hashedPassword = passwordUtils.encrypt(newPassword, salt);
-
     let user = await User.findOne({ 'auth.local.email': email }).exec();
 
     if (user) {
-      user.auth.local.salt = salt;
-      user.auth.local.hashed_password = hashedPassword; // eslint-disable-line camelcase
+      // create an encrypted link to be used to reset the password
+      const passwordResetCode = encrypt(JSON.stringify({
+        userId: user._id,
+        expiresAt: moment().add({ hours: 24 }),
+      }));
+      let link = `${BASE_URL}/static/user/auth/local/reset-password-set-new-one?code=${passwordResetCode}`;
+
+      user.auth.local.passwordResetCode = passwordResetCode;
+
       sendEmail({
         from: 'Habitica <admin@habitica.com>',
         to: email,
         subject: res.t('passwordResetEmailSubject'),
         text: res.t('passwordResetEmailText', {
           username: user.auth.local.username,
-          newPassword,
-          baseUrl: nconf.get('BASE_URL'),
+          passwordResetLink: link,
         }),
         html: res.t('passwordResetEmailHtml', {
           username: user.auth.local.username,
-          newPassword,
-          baseUrl: nconf.get('BASE_URL'),
+          passwordResetLink: link,
         }),
       });
 
@@ -584,8 +612,14 @@ api.updateEmail = {
 
     if (emailAlreadyInUse) throw new NotAuthorized(res.t('cannotFulfillReq'));
 
-    let candidatePassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
-    if (candidatePassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
+    let password = req.body.password;
+    let isValidPassword = await passwordUtils.compare(user, password);
+    if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
+
+    // if password is using old sha1 encryption, change it
+    if (user.auth.local.passwordHashMethod === 'sha1') {
+      await passwordUtils.convertToBcrypt(user, password);
+    }
 
     user.auth.local.email = req.body.newEmail;
     await user.save();

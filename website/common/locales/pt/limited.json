@@ -8,7 +8,7 @@
     "alarmingFriendsText": "Got spooked <%= count %> times by party members.",
     "agriculturalFriends": "Amigos Agrícolas",
     "agriculturalFriendsText": "Got transformed into a flower <%= count %> times by party members.",
-    "aquaticFriends": "Amigos aquáticos",
+    "aquaticFriends": "Amigos Aquáticos",
     "aquaticFriendsText": "Got splashed <%= count %> times by party members.",
     "valentineCard": "Cartão do Dia dos Namorados",
     "valentineCardExplanation": "Por aguentar um poema tão água com açucar, ambos receberam a medalha \"Amigos Adoráveis\"!",
@@ -87,5 +87,6 @@
     "fallEventAvailability": "Disponível para compra até 31 de Outubro.",
     "winterEventAvailability": "Available for purchase until January 31.",
     "springEventAvailability": "Disponível para compra até 31 de Maio.",
-    "summerEventAvailability": "Disponível para compra até 31 de Agosto."
+    "summerEventAvailability": "Disponível para compra até 31 de Agosto.",
+    "valentinesEventAvailability": "Available for purchase until February 28."
 }

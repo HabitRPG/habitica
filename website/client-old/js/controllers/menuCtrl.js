@@ -108,12 +108,12 @@ angular.module('habitrpg')
           'glyphicon-comment',
           'glyphicon-comment inactive',
           'glyphicon-question-sign',
-          'glyphicon glyphicon-ok-sign'
+          'glyphicon-ok-sign'
         );
       };
 
       $scope.hasNoNotifications = function() {
-        return selectNotificationValue(false, false, false, false, false, true, false);
+        return selectNotificationValue(false, false, false, false, false, true, false, false);
       };
 
       $scope.viewGroupApprovalNotification = function (notification, $index) {

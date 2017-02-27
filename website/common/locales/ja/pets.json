@@ -28,7 +28,7 @@
     "rarePetPop1": "金色の足跡をクリックすると、Habitica への貢献で、この貴重なペットを入手する詳しい方法がわかります!",
     "rarePetPop2": "このペットを手に入れる方法!",
     "potion": "<%= potionType %> ポーション",
-    "egg": "<%= eggType %>の卵",
+    "egg": "<%= eggType %>のたまご",
     "eggs": "たまご",
     "eggSingular": "たまご",
     "noEggs": "たまごを持っていません。",
@@ -93,6 +93,6 @@
     "mountsAndPetsReleased": "乗騎とペットを放しました。",
     "mountsReleased": "乗騎を放しました。",
     "gemsEach": "ジェム(毎)",
-    "foodWikiText": "ペットの餌の好みは？",
-    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
+    "foodWikiText": "ペットのえさの好みは？",
+    "foodWikiUrl": "http://ja.habitica.wikia.com/wiki/%E3%81%88%E3%81%95%E3%81%AE%E5%A5%BD%E3%81%BF"
 }

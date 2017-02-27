@@ -171,6 +171,7 @@ habitrpg.controller('NotificationCtrl',
           if (scoreTaskNotification) {
             Notification.markdown(scoreTaskNotification.data.message);
             User.score({params:{task: scoreTaskNotification.data.scoreTask, direction: "up"}});
+            User.sync();
           }
         });
       }
