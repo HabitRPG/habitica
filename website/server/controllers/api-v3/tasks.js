@@ -513,7 +513,7 @@ api.scoreTask = {
 
     let user = res.locals.user;
     let scoreNotes = req.body.scoreNotes;
-    if (scoreNotes.length > MAX_SCORE_NOTES_LENGTH) throw new NotAuthorized(res.t('taskScoreNotesTooLong'));
+    if (scoreNotes && scoreNotes.length > MAX_SCORE_NOTES_LENGTH) throw new NotAuthorized(res.t('taskScoreNotesTooLong'));
     let {taskId} = req.params;
 
     let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, {userId: user._id});
