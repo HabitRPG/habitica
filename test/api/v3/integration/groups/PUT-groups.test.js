@@ -50,8 +50,8 @@ describe('PUT /group', () => {
       leader: nonLeader._id,
     });
 
-    expect(updatedGroup.nonLeader._id).to.eql(nonLeader._id);
-    expect(updatedGroup.nonLeader.profile.name).to.eql(nonLeader.profile.name);
+    expect(updatedGroup.leader._id).to.eql(nonLeader._id);
+    expect(updatedGroup.leader.profile.name).to.eql(nonLeader.profile.name);
     expect(updatedGroup.name).to.equal(groupUpdatedName);
   });
 });
