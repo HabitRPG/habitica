@@ -174,6 +174,14 @@ function _changeTaskValue (user, task, direction, times, cron) {
   return addToDelta;
 }
 
+function _updateCounter (task, direction, times) {
+  if (direction === 'up') {
+    task.counterUp += times;
+  } else {
+    task.counterDown += times;
+  }
+}
+
 module.exports = function scoreTask (options = {}, req = {}) {
   let {user, task, direction, times = 1, cron = false} = options;
   let delta = 0;
@@ -204,11 +212,17 @@ module.exports = function scoreTask (options = {}, req = {}) {
     _gainMP(user, max([0.25, 0.0025 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
 
     task.history = task.history || [];
+
     // Add history entry, even more than 1 per day
-    task.history.push({
+    let historyEntry = {
       date: Number(new Date()),
       value: task.value,
-    });
+    };
+    if (task.scoreNotes) historyEntry.scoreNotes = task.scoreNotes;
+
+    task.history.push(historyEntry);
+
+    _updateCounter(task, direction, times);
   } else if (task.type === 'daily') {
     if (cron) {
       delta += _changeTaskValue(user, task, direction, times, cron);

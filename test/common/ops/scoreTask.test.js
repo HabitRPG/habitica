@@ -138,6 +138,9 @@ describe('shared.ops.scoreTask', () => {
       todo = generateTodo({ userId: ref.afterUser._id, text: 'some todo' });
 
       expect(habit.history.length).to.eql(0);
+      expect(habit.frequency).to.equal('daily');
+      expect(habit.counterUp).to.equal(0);
+      expect(habit.counterDown).to.equal(0);
 
       // before and after are the same user
       expect(ref.beforeUser._id).to.exist;
@@ -202,10 +205,20 @@ describe('shared.ops.scoreTask', () => {
 
         expect(habit.history.length).to.eql(1);
         expect(habit.value).to.be.greaterThan(0);
+        expect(habit.counterUp).to.equal(5);
 
         expect(ref.afterUser.stats.hp).to.eql(50);
         expect(ref.afterUser.stats.exp).to.be.greaterThan(ref.beforeUser.stats.exp);
         expect(ref.afterUser.stats.gp).to.be.greaterThan(ref.beforeUser.stats.gp);
+      });
+
+      it('adds score notes', () => {
+        let scoreNotesString = 'scoreNotes';
+        habit.scoreNotes = scoreNotesString;
+        options = { user: ref.afterUser, task: habit, direction: 'up', times: 5, cron: false };
+        scoreTask(options);
+
+        expect(habit.history[0].scoreNotes).to.eql(scoreNotesString);
       });
 
       it('down', () => {
@@ -213,6 +226,7 @@ describe('shared.ops.scoreTask', () => {
 
         expect(habit.history.length).to.eql(1);
         expect(habit.value).to.be.lessThan(0);
+        expect(habit.counterDown).to.equal(5);
 
         expect(ref.afterUser.stats.hp).to.be.lessThan(ref.beforeUser.stats.hp);
         expect(ref.afterUser.stats.exp).to.eql(0);

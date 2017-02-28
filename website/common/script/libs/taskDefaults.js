@@ -22,7 +22,9 @@ module.exports = function taskDefaults (task = {}) {
     tags: [],
     value: task.type === 'reward' ? 10 : 0,
     priority: 1,
-    challenge: {},
+    challenge: {
+      shortName: 'None',
+    },
     reminders: [],
     attribute: 'str',
     createdAt: new Date(), // TODO these are going to be overwritten by the server...
@@ -49,6 +51,9 @@ module.exports = function taskDefaults (task = {}) {
     defaults(task, {
       up: true,
       down: true,
+      frequency: 'daily',
+      counterUp: 0,
+      counterDown: 0,
     });
   }
 
