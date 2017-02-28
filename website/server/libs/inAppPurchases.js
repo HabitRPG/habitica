@@ -14,6 +14,7 @@ iap.config({
   googleRefToken: nconf.get('PLAY_API:REFRESH_TOKEN'),
   googleClientID: nconf.get('PLAY_API:CLIENT_ID'),
   googleClientSecret: nconf.get('PLAY_API:CLIENT_SECRET'),
+  applePassword: nconf.get('ITUNES_SHARED_SECRET'),
 });
 
 module.exports = {

@@ -113,7 +113,7 @@
     "toUserIDRequired": "Un ID Utente è richesto",
     "gemAmountRequired": "Un numero di gemme è richiesto",
     "notAuthorizedToSendMessageToThisUser": "Non puoi inviare un messaggio a questo utente.",
-    "privateMessageGiftGemsMessage": "Hello <%= receiverName %>, <%= senderName %> has sent you <%= gemAmount %> gems!",
+    "privateMessageGiftGemsMessage": "Ciao <%= receiverName %>, <%= senderName %> ti ha inviato <%= gemAmount %> gemme!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> mesi di abbonamento!",
     "cannotSendGemsToYourself": "Non puoi inviare gemme a te stesso. Prova un abbonamento invece.",
     "badAmountOfGemsToSend": "L'importo deve essere fra 1 e il numero corrente di gemme.",

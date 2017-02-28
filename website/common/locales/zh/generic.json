@@ -106,7 +106,7 @@
     "buyThis": "你有<%= gems %>个宝石，用其中的<%= price %>个购买<%= text %>？",
     "noReachServer": "暂时连不上服务器，请稍后再试",
     "errorUpCase": "错误：",
-    "newPassSent": "If we have your email on file, instructions for setting a new password have been sent to your email.",
+    "newPassSent": "如果我们已经记录您的电子邮箱，说明您的新密码已发送到您的电子邮箱中。",
     "serverUnreach": "暂时连不上服务器。",
     "requestError": "噫，出了一个错误！<strong>请刷新页面，</strong>你的上一个操作也许没能成功生效。",
     "seeConsole": "如果错误持续存在，请在帮助>报告Bug。如果你对你的浏览器的控制台熟悉的话，请加入所有的错误信息。",
