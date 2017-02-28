@@ -467,6 +467,10 @@ let schema = new Schema({
       raisePet: {type: Boolean, default: false},
       streak: {type: Boolean, default: false},
     },
+    tasks: {
+      groupByChallenge: {type: Boolean, default: false},
+      confirmScoreNotes: {type: Boolean, default: false},
+    },
     improvementCategories: {
       type: Array,
       validate: (categories) => {

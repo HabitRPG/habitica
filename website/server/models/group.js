@@ -557,7 +557,7 @@ schema.methods.startQuest = async function startQuest (user) {
         });
     });
   });
-  this.sendChat(`Your quest, ${quest.text('en')}, has started.`, null, {
+  this.sendChat(`\`Your quest, ${quest.text('en')}, has started.\``, null, {
     participatingMembers: this.getParticipatingQuestMembers().join(', '),
   });
 };
@@ -903,7 +903,7 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
   }
 };
 
-schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
+schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepChallenges = 'leave-challenges') {
   let group = this;
   let update = {};
 
@@ -911,16 +911,18 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     throw new NotAuthorized(shared.i18n.t('cannotDeleteActiveGroup'));
   }
 
-  // Unlink user challenge tasks
-  let challenges = await Challenge.find({
-    _id: {$in: user.challenges},
-    group: group._id,
-  }).exec();
+  // only remove user from challenges if it's set to leave-challenges
+  if (keepChallenges === 'leave-challenges') {
+    let challenges = await Challenge.find({
+      _id: {$in: user.challenges},
+      group: group._id,
+    }).exec();
 
-  let challengesToRemoveUserFrom = challenges.map(chal => {
-    return chal.unlinkTasks(user, keep);
-  });
-  await Bluebird.all(challengesToRemoveUserFrom);
+    let challengesToRemoveUserFrom = challenges.map(chal => {
+      return chal.unlinkTasks(user, keep);
+    });
+    await Bluebird.all(challengesToRemoveUserFrom);
+  }
 
   // Unlink group tasks)
   let assignedTasks = await Tasks.Task.find({

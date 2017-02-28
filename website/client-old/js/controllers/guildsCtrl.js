@@ -75,7 +75,7 @@ habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$r
            $scope.selectedGroup = undefined;
            $scope.popoverEl.popover('destroy');
          } else {
-           Groups.Group.leave($scope.selectedGroup._id, keep)
+           Groups.Group.leave($scope.selectedGroup._id, keep, 'remain-in-challenges')
             .success(function (data) {
               var index = User.user.guilds.indexOf($scope.selectedGroup._id);
               delete User.user.guilds[index];
