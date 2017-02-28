@@ -29,5 +29,5 @@ env:
     - TEST="test:sanity"
     - TEST="test:content" COVERAGE=true
     - TEST="test:common" COVERAGE=true
-    - TEST="test:karma"
+    - TEST="test:karma" COVERAGE=true
     - TEST="client:unit" COVERAGE=true
