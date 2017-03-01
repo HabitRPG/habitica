@@ -33,6 +33,9 @@ describe('shared.ops.addTask', () => {
     expect(habit.down).to.equal(false);
     expect(habit.history).to.eql([]);
     expect(habit.checklist).to.not.exist;
+    expect(habit.frequency).to.equal('daily');
+    expect(habit.counterUp).to.equal(0);
+    expect(habit.counterDown).to.equal(0);
   });
 
   it('adds an habtit when type is invalid', () => {

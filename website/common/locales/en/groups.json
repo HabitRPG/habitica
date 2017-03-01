@@ -102,6 +102,7 @@
   "messageSentAlert": "Message sent",
   "pmHeading": "Private message to <%= name %>",
   "pmsMarkedRead": "Your private messages have been marked as read",
+  "possessiveParty": "<%= name %>'s Party",
   "clearAll": "Delete All Messages",
   "confirmDeleteAllMessages": "Are you sure you want to delete all messages in your inbox? Other users will still see messages you have sent to them.",
   "optOutPopover": "Don't like private messages? Click to completely opt out",
@@ -254,5 +255,6 @@
   "claimedBy": "\n\nClaimed by: <%= claimingUsers %>",
   "cantDeleteAssignedGroupTasks": "Can't delete group tasks that are assigned to you.",
   "confirmGuildPlanCreation": "Create this group?",
-  "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription."
+  "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription.",
+  "remainOrLeaveChallenges": "req.query.keep must be either 'remain-in-challenges' or 'leave-challenges'"
 }

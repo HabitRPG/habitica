@@ -167,8 +167,8 @@ window.habitrpg = angular.module('habitrpg',
           url: '/:gid',
           templateUrl: 'partials/options.social.guilds.detail.html',
           title: env.t('titleGuilds'),
-          controller: ['$scope', 'Groups', 'Chat', '$stateParams', 'Members', 'Challenges', 'Tasks', 'User', '$location',
-          function($scope, Groups, Chat, $stateParams, Members, Challenges, Tasks, User, $location) {
+          controller: ['$scope', 'Groups', 'Chat', '$stateParams', 'Members', 'Challenges', 'Tasks', 'User', '$location', '$rootScope',
+          function($scope, Groups, Chat, $stateParams, Members, Challenges, Tasks, User, $location, $rootScope) {
             $scope.groupPanel = 'chat';
             $scope.upgrade = false;
 
@@ -222,6 +222,7 @@ window.habitrpg = angular.module('habitrpg',
                   }).value();
 
                 $scope.group.approvals = [];
+                $rootScope.$broadcast('obj-updated', $scope.group);
                 if (User.user._id === $scope.group.leader._id) {
                   return Tasks.getGroupApprovals($scope.group._id);
                 }
@@ -257,7 +258,7 @@ window.habitrpg = angular.module('habitrpg',
                   tasks.forEach(function (element, index, array) {
                     if (!$scope.challenge[element.type + 's']) $scope.challenge[element.type + 's'] = [];
                     $scope.challenge[element.type + 's'].push(element);
-                  })
+                  });
 
                   return Members.getChallengeMembers($scope.challenge._id);
                 })
