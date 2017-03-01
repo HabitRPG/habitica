@@ -23,7 +23,7 @@ schema.post('init', function postInitUser (doc) {
   shared.wrap(doc);
 });
 
-function findTag (tagName) {
+function findTag (user, tagName) {
    let tagID = _.find(user.tags, (userTag) => {
     return userTag.name === tagName(user.preferences.language);
   });
@@ -67,7 +67,7 @@ function _populateDefaultTasks (user, taskTypes) {
       }
 
       if (taskDefaults.tags) {
-        newTask.tags = _.compact(_.map(taskDefaults.tags, findTag));
+        newTask.tags = _.compact(_.map(taskDefaults.tags, _.partial(findTag, user));
       }
 
       return newTask.save();
