@@ -1,0 +1,10 @@
+script(id='modals/task--extra-notes.html', type='text/ng-template')
+  .modal-header
+    h4 Task Notes
+
+  .modal-body
+    textarea.form-control(ng-model="task.notes", row="10")
+
+  .modal-footer
+    .btn.btn-default(ng-click='$close()')=env.t('cancel')
+    .btn.btn-primary(ng-click="$close()")=env.t('close')
