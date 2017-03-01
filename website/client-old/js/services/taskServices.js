@@ -144,10 +144,13 @@ angular.module('habitrpg')
       });
     };
 
-    function scoreTask (taskId, direction) {
+    function scoreTask (taskId, direction, body) {
+      if (!body) body = {};
+
       return $http({
         method: 'POST',
         url: '/api/v3/tasks/' + taskId + '/score/' + direction,
+        data: body,
       });
     };
 
@@ -278,11 +281,107 @@ angular.module('habitrpg')
       }
       modalScope.cancelTaskEdit = cancelTaskEdit;
 
-      $rootScope.openModal('task-edit', {scope: modalScope })
-        .result.catch(function() {
-          cancelTaskEdit(task);
-        });
+      modalScope.task._edit.repeatsOn = 'dayOfMonth';
+      if (modalScope.task === 'daily' && modalScope.task._edit.weeksOfMonth.length > 0) {
+        modalScope.task._edit.repeatsOn = 'dayOfWeek';
+      }
+
+      $rootScope.openModal('task-edit', {
+        scope: modalScope,
+        controller: function ($scope) {
+          $scope.$watch('task._edit', function (newValue, oldValue) {
+            if ($scope.task.type !== 'daily') return;
+            $scope.summary = generateSummary($scope.task);
+
+            $scope.repeatSuffix = generateRepeatSuffix($scope.task);
+
+            if ($scope.task._edit.repeatsOn == 'dayOfMonth') {
+              var date = moment().date();
+              $scope.task._edit.weeksOfMonth = [];
+              $scope.task._edit.dayOfMonth = [date]; // @TODO This can handle multiple dates later
+            } else if ($scope.task._edit.repeatsOn == 'dayOfWeek') {
+              var week = Math.ceil(moment().date() / 7) - 1;
+              var dayOfWeek = moment().day();
+              var shortDay = numberToShortDay[dayOfWeek];
+              $scope.task._edit.dayOfMonth = [];
+              $scope.task._edit.weeksOfMonth = [week]; // @TODO: This can handle multiple weeks
+              for (var key in $scope.task._edit.repeat) {
+                $scope.task._edit.repeat[key] = false;
+              }
+              $scope.task._edit.repeat[shortDay] = true;
+            }
+          }, true);
+        },
+      })
+      .result.catch(function() {
+        cancelTaskEdit(task);
+      });
     }
+
+    /*
+     * Summary
+     */
+
+    var frequencyMap = {
+      'daily': 'days',
+      'weekly': 'weeks',
+      'monthly': 'months',
+      'yearly': 'years',
+    };
+
+    var shortDayToLongDayMap = {
+      'su': moment().day(0).format('dddd'),
+      's': moment().day(6).format('dddd'),
+      'f': moment().day(5).format('dddd'),
+      'th': moment().day(4).format('dddd'),
+      'w': moment().day(3).format('dddd'),
+      't': moment().day(2).format('dddd'),
+      'm': moment().day(1).format('dddd'),
+    };
+
+    var numberToShortDay = Shared.DAY_MAPPING;
+
+    function generateSummary(task) {
+      var frequencyPlural = frequencyMap[task._edit.frequency];
+
+      var repeatDays = '';
+      for (var key in task._edit.repeat) {
+        if (task._edit.repeat[key]) {
+          repeatDays += shortDayToLongDayMap[key] + ', ';
+        }
+      }
+
+      var summary = 'Repeats ' + task._edit.frequency + ' every ' + task._edit.everyX + ' ' + frequencyPlural;
+
+      if (task._edit.frequency === 'weekly') summary += ' on ' + repeatDays;
+
+      if (task._edit.frequency === 'monthly' && task._edit.repeatsOn == 'dayOfMonth') {
+        var date = moment().date();
+        summary += ' on the ' + date;
+      } else if (task._edit.frequency === 'monthly' && task._edit.repeatsOn == 'dayOfWeek') {
+        var week = Math.ceil(moment().date() / 7) - 1;
+        var dayOfWeek = moment().day();
+        var shortDay = numberToShortDay[dayOfWeek];
+        var longDay = shortDayToLongDayMap[shortDay];
+
+        summary += ' on the ' + (week + 1) + ' ' + longDay;
+      }
+
+      return summary;
+    }
+
+    function generateRepeatSuffix (task) {
+      if (task._edit.frequency === 'daily') {
+        return task._edit.everyX == 1 ? window.env.t('day') : window.env.t('days');
+      } else if (task._edit.frequency === 'weekly') {
+        return task._edit.everyX == 1 ? window.env.t('week') : window.env.t('weeks');
+      } else if (task._edit.frequency === 'monthly') {
+        return task._edit.everyX == 1 ? window.env.t('month') : window.env.t('months');
+      } else if (task._edit.frequency === 'yearly') {
+        return task._edit.everyX == 1 ? window.env.t('year') : window.env.t('years');
+      }
+
+    };
 
     function cancelTaskEdit(task) {
       task._edit = undefined;

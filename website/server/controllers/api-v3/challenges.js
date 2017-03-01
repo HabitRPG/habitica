@@ -195,8 +195,6 @@ api.leaveChallenge = {
 
     if (!challenge.isMember(user)) throw new NotAuthorized(res.t('challengeMemberNotFound'));
 
-    challenge.memberCount -= 1;
-
     // Unlink challenge's tasks from user's tasks and save the challenge
     await Bluebird.all([challenge.unlinkTasks(user, keep), challenge.save()]);
     res.respond(200, {});

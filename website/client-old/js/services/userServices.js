@@ -205,7 +205,7 @@ angular.module('habitrpg')
         },
 
         allocate: function (data) {
-          callOpsFunctionAndRequest('allocate', 'allocate', "POST",'', data);
+          callOpsFunctionAndRequest('allocate', 'allocate', "POST", '', data);
         },
 
         allocateNow: function () {
@@ -243,7 +243,8 @@ angular.module('habitrpg')
             return;
           }
 
-          Tasks.scoreTask(data.params.task._id, data.params.direction).then(function (res) {
+          Tasks.scoreTask(data.params.task._id, data.params.direction, data.body)
+          .then(function (res) {
             var tmp = res.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
             var crit = tmp.crit;
             var drop = tmp.drop;
