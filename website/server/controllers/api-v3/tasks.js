@@ -574,7 +574,7 @@ api.scoreTask = {
     let savedUser = results[0];
 
     let userStats = savedUser.stats.toJSON();
-    let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
+    let resJsonData = _.assign({delta, _tmp: user._tmp}, userStats);
     res.respond(200, resJsonData);
 
     taskScoredWebhook.send(user.webhooks, {

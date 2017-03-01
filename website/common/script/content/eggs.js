@@ -1,8 +1,6 @@
-import {
-  assign,
-  defaults,
-  each,
-} from  'lodash';
+import assign from 'lodash/assign';
+import defaults from 'lodash/defaults';
+import each from 'lodash/each';
 import t from './translation';
 
 function applyEggDefaults (set, config) {

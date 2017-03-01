@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import _ from 'lodash';
+import each from 'lodash/each';
 
 let subscriptionBlocks = {
   basic_earned: {
@@ -32,7 +32,7 @@ let subscriptionBlocks = {
   },
 };
 
-_.each(subscriptionBlocks, function createKeys (b, k) {
+each(subscriptionBlocks, function createKeys (b, k) {
   return b.key = k;
 });
 

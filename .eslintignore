@@ -8,16 +8,13 @@ dist/
 dist-client/
 
 # Not linted
-migrations/*
 website/client-old/
-scripts/*
-test/server_side/**/*
 test/client-old/spec/**/*
 
 # Temporarilly disabled. These should be removed when the linting errors are fixed TODO
-website/common/script/content/index.js
+migrations/*
+scripts/*
 website/common/browserify.js
-test/content/**/*
 Gruntfile.js
 gulpfile.js
 gulp

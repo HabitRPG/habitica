@@ -4,7 +4,7 @@ import {
   NotAuthorized,
 } from '../libs/errors';
 import splitWhitespace from '../libs/splitWhitespace';
-import _ from 'lodash';
+import pick from 'lodash/pick';
 
 module.exports = function releaseBoth (user, req = {}, analytics) {
   let animal;
@@ -68,7 +68,7 @@ module.exports = function releaseBoth (user, req = {}, analytics) {
   }
 
   return [
-    _.pick(user, splitWhitespace('achievements items balance')),
+    pick(user, splitWhitespace('achievements items balance')),
     i18n.t('mountsAndPetsReleased'),
   ];
 };

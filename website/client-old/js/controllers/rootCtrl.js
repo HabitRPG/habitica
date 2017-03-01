@@ -271,7 +271,7 @@ habitrpg.controller("RootCtrl", ['$scope', '$rootScope', '$location', 'User', '$
     $rootScope.getGearArray = function(set){
       var flatGearArray = _.toArray(Content.gear.flat);
 
-      var filteredArray = _.where(flatGearArray, {gearSet: set});
+      var filteredArray = _.filter(flatGearArray, {gearSet: set});
 
       return filteredArray;
     }
