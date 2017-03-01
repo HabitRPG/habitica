@@ -141,7 +141,7 @@
     "missingUnsubscriptionCode": "Il manque le code de désabonnement.",
     "missingSubscription": "L'utilisateur n'a pas de forfait d'abonnement",
     "missingSubscriptionCode": "Il manque le code d'abonnement. Valeurs possibles : basic_earned, basic_3mo, basic_6mo, google_6mo, basic_12mo.",
-    "missingReceipt": "Missing Receipt.",
+    "missingReceipt": "Reçu manquant.",
     "cannotDeleteActiveAccount": "Vous avez un abonnement actif, annulez le forfait avant de supprimer votre compte.",
     "paymentNotSuccessful": "Le paiement n'a pas abouti",
     "planNotActive": "Le plan n'a pas encore été activé (à cause d'un bug PayPal). Il commencera le <%= nextBillingDate %>, après quoi vous pourrez annuler pour en garder tous les bénéfices.",

@@ -102,6 +102,7 @@
     "messageSentAlert": "Besked afsendt",
     "pmHeading": "Privat besked til <%= name %>",
     "pmsMarkedRead": "Your private messages have been marked as read",
+    "possessiveParty": "<%= name %>s Gruppe",
     "clearAll": "Slet Alle Beskeder",
     "confirmDeleteAllMessages": "Er du sikker på, at du vil slette alle beskeder i din indbakke? Andre brugere kan stadig se beskeder, du har sendt til dem.",
     "optOutPopover": "Vil du ikke modtage private beskeder? Klik for at afmelde",
@@ -167,7 +168,6 @@
     "partyEmpty": "Du er det eneste medlem i din gruppe. Invitér dine venner!",
     "partyChatEmpty": "Din gruppechat er tom! Skriv en besked i boksen ovenover for at begynde at chatte.",
     "guildChatEmpty": "Denne klanchat er tom! Skriv en besked i boksen ovenover for at begynde at chatte.",
-    "possessiveParty": "<%= name %>s Gruppe",
     "requestAcceptGuidelines": "Hvis du gerne vil skrive beskeder i Værtshuset, din gruppe eller en klan, skal du først læse vores <%= linkStart %>Retningslinjer for Fællesskabet<%= linkEnd %> og så klikke på knappen under for at indikere at du accepterer dem.",
     "partyUpName": "Party Up",
     "partyOnName": "Party On",
@@ -250,5 +250,6 @@
     "claimedBy": "Claimed by: <%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "Can't delete group tasks that are assigned to you.",
     "confirmGuildPlanCreation": "Create this group?",
-    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription."
+    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription.",
+    "remainOrLeaveChallenges": "req.query.keep must be either 'remain-in-challenges' or 'leave-challenges'"
 }

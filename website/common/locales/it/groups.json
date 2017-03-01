@@ -102,6 +102,7 @@
     "messageSentAlert": "Messaggio inviato!",
     "pmHeading": "Messaggio privato a <%= name %>",
     "pmsMarkedRead": "I tuoi messaggi sono stati segnati come letti",
+    "possessiveParty": "Squadra di <%= name %>",
     "clearAll": "Cancella tutti i messaggi",
     "confirmDeleteAllMessages": "Vuoi davvero cancellare tutti i messaggi ricevuti? Gli altri utenti potranno ancora vedere i messaggi che gli hai inviato.",
     "optOutPopover": "Non ti piacciono i messaggi privati? Clicca per disattivare questa funzione.",
@@ -167,7 +168,6 @@
     "partyEmpty": "Sei l'unico membro della tua squadra. Invita qualche amico!",
     "partyChatEmpty": "La chat della squadra è vuota! Scrivi un messaggio nella casella qui sopra per cominciare una conversazione.",
     "guildChatEmpty": "La chat della gilda è vuota! Scrivi un messaggio nella casella qui sopra per cominciare una conversazione.",
-    "possessiveParty": "Squadra di <%= name %>",
     "requestAcceptGuidelines": "Se vuoi pubblicare messaggi nella chat della Taverna o di una qualsiasi squadra o gilda, per favore prima leggi le <%= linkStart %>Linee guida della community<%= linkEnd %> e successivamente clicca sul pulsante qui sotto per indicare che le accetti.",
     "partyUpName": "Party Up",
     "partyOnName": "Party On",
@@ -250,5 +250,6 @@
     "claimedBy": "Claimed by: <%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "Non puoi eliminare le attività di gruppo assegnate a te.",
     "confirmGuildPlanCreation": "Creare questo gruppo?",
-    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription."
+    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription.",
+    "remainOrLeaveChallenges": "req.query.keep must be either 'remain-in-challenges' or 'leave-challenges'"
 }

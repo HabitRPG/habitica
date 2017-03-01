@@ -102,6 +102,7 @@
     "messageSentAlert": "メッセージを送信しました",
     "pmHeading": "<%= name %> 宛プライベートメッセージ",
     "pmsMarkedRead": "プライベート メッセージに既読マークが付きました。",
+    "possessiveParty": "<%= name %>のパーティー",
     "clearAll": "すべてのメッセージを削除する",
     "confirmDeleteAllMessages": "受信トレイの全てのメッセージを削除してよろしいですか？ 既に送ったメッセージはまだ他のユーザに見られる状態です。",
     "optOutPopover": "プライベートメッセージあまり好きじゃない？参加しない場合はクリックしてください。",
@@ -167,7 +168,6 @@
     "partyEmpty": "パーティーのメンバーはあなただけです。友達を招待しましょう!",
     "partyChatEmpty": "パーティー チャットがまっ白です!　上のボックスにメッセージを書いてチャットをはじめましょう。",
     "guildChatEmpty": "こちらのギルド チャットはまっ白です!　上のボックスにメッセージを書いてチャットをはじめましょう。",
-    "possessiveParty": "<%= name %>のパーティー",
     "requestAcceptGuidelines": "キャンプ場チャットやどこかのギルド チャットにメッセージを投稿したいと思ったら、まず<%= linkStart %>コミュニティ ガイドライン<%= linkEnd %>を読み、それを認めたうえで下のボタンを押してください。",
     "partyUpName": "パーティー立ち上げ",
     "partyOnName": "パーティー参加",
@@ -250,5 +250,6 @@
     "claimedBy": "Claimed by: <%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "Can't delete group tasks that are assigned to you.",
     "confirmGuildPlanCreation": "Create this group?",
-    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription."
+    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription.",
+    "remainOrLeaveChallenges": "req.query.keep must be either 'remain-in-challenges' or 'leave-challenges'"
 }

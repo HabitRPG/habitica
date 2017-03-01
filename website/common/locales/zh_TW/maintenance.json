@@ -5,7 +5,7 @@
   "maintenanceMoreInfo": "你想要更多關於維修的資訊？ <%= linkStart %>去瀏覽我們的資訊頁吧！<%= linkEnd %>.",
   "noDamageKeepStreaks": "你不會受到傷害或失去連擊！",
   "thanksForPatience": "感謝你的耐心！",
-  "twitterMaintenanceUpdates": "For the most recent updates, watch our <a href='https://twitter.com/habitica'>Twitter</a>, where we will be posting status information.",
+  "twitterMaintenanceUpdates": "關於最近的更新請關注我們的 <a href='https://twitter.com/habitica'>Twitter</a>，我們將會在這裡發布最新的狀況",
   "veteranPetAward": "在最後，你會得到一個屬於老兵的寵物！",
 
   "maintenanceInfoTitle": "在Habitica中最近的維修",

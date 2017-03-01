@@ -141,7 +141,7 @@
     "missingUnsubscriptionCode": "缺少取消捐助代码。",
     "missingSubscription": "用户没有计划捐助",
     "missingSubscriptionCode": "缺少捐助代码。可能的值：basic_earned, basic_3mo, basic_6mo, google_6mo, basic_12mo。",
-    "missingReceipt": "Missing Receipt.",
+    "missingReceipt": "缺少收据",
     "cannotDeleteActiveAccount": "你有一个正进行的捐助，在删除你的账号前取消你的捐助计划。",
     "paymentNotSuccessful": "支付失败",
     "planNotActive": "捐助计划还没有开始(由于一个PayPal漏洞)。它将在<%= nextBillingDate %>开始，在开始后你可以取消它来保留你的完整资产。",

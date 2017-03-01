@@ -141,7 +141,7 @@
     "missingUnsubscriptionCode": "Липсва код за прекратяване на абонамента.",
     "missingSubscription": "Потребителят няма абонамент",
     "missingSubscriptionCode": "Липсва код за прекратяване на абонамента. Възможни стойности: basic_earned, basic_3mo, basic_6mo, google_6mo, basic_12mo.",
-    "missingReceipt": "Missing Receipt.",
+    "missingReceipt": "Липсва разписка.",
     "cannotDeleteActiveAccount": "Вие имате текущ абонамент. Прекратете го, преди да изтриете профила си.",
     "paymentNotSuccessful": "Плащането на беше успешно",
     "planNotActive": "Абонаментът все още не е влязъл в сила (поради грешка в PayPal). Той ще започне на <%= nextBillingDate %>, след което ще можете да го прекратите, за да запазите всичките си предимства",
