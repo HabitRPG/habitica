@@ -1,6 +1,4 @@
-import {
-  each,
-} from 'lodash';
+import each from 'lodash/each';
 import {
   drops as dropEggs,
   quests as questEggs,

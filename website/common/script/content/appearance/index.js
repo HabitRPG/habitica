@@ -4,7 +4,8 @@ import skins from './skin.js';
 import sizes from './size.js';
 import backgrounds from './backgrounds.js';
 import chairs from './chair.js';
-import {forOwn, clone} from 'lodash';
+import forOwn from 'lodash/forOwn';
+import clone from 'lodash/clone';
 
 let reorderedBgs = {};
 

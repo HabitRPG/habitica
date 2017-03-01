@@ -184,7 +184,7 @@ function($rootScope, User, $timeout, $state, Analytics, Notification, Shared, So
   }
 
   _.each(chapters, function(chapter, k){
-    _(chapter).flattenDeep().each(function(step, i) {
+    _(chapter).flattenDeep().forEach(function(step, i) {
       step.content = "<div><div class='" + (env.worldDmg.guide ? "npc_justin_broken" : "npc_justin") + " float-left'></div>" + step.content + "</div>";
       $(step.element).popover('destroy'); // destroy existing hover popovers so we can add our own
       step.onShow = function(){
@@ -232,7 +232,7 @@ function($rootScope, User, $timeout, $state, Analytics, Notification, Shared, So
           User.user.fns.updateStats(User.user.stats);
         }
       }
-    }).value();
+    });
   });
 
   var tour = {};

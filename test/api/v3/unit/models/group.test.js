@@ -1045,7 +1045,7 @@ describe('Group Model', () => {
 
           expect(email.sendTxn).to.be.calledOnce;
 
-          let memberIds = _.pluck(email.sendTxn.args[0][0], '_id');
+          let memberIds = _.map(email.sendTxn.args[0][0], '_id');
           let typeOfEmail = email.sendTxn.args[0][1];
 
           expect(memberIds).to.have.a.lengthOf(2);
@@ -1068,7 +1068,7 @@ describe('Group Model', () => {
 
           expect(email.sendTxn).to.be.calledOnce;
 
-          let memberIds = _.pluck(email.sendTxn.args[0][0], '_id');
+          let memberIds = _.map(email.sendTxn.args[0][0], '_id');
 
           expect(memberIds).to.have.a.lengthOf(1);
           expect(memberIds).to.not.include(participatingMember._id);
@@ -1089,7 +1089,7 @@ describe('Group Model', () => {
 
           expect(email.sendTxn).to.be.calledOnce;
 
-          let memberIds = _.pluck(email.sendTxn.args[0][0], '_id');
+          let memberIds = _.map(email.sendTxn.args[0][0], '_id');
 
           expect(memberIds).to.have.a.lengthOf(1);
           expect(memberIds).to.not.include(participatingMember._id);

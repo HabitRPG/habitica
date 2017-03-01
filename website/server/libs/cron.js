@@ -397,7 +397,8 @@ export function cron (options = {}) {
 
   // After all is said and done, progress up user's effect on quest, return those values & reset the user's
   let progress = user.party.quest.progress;
-  _progress = _.cloneDeep(progress);
+  _progress = _.cloneDeep(progress.toObject()); // clone the old progress object
+  progress.down = -1300;
   _.merge(progress, {down: 0, up: 0, collectedItems: 0});
 
   // Send notification for changes in HP and MP
@@ -425,9 +426,9 @@ export function cron (options = {}) {
   //   _(user.inbox.messages)
   //     .sortBy('timestamp')
   //     .takeRight(numberOfPMs - maxPMs)
-  //     .each(pm => {
+  //     .forEach(pm => {
   //       delete user.inbox.messages[pm.id];
-  //     }).value();
+  //     })
   //
   //   user.markModified('inbox.messages');
   // }

@@ -172,7 +172,7 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', '$ro
         var content = task.notes;
 
         if ($scope.group) {
-          var memberIdToProfileNameMap = _.object(_.map($scope.group.members, function(item) {
+          var memberIdToProfileNameMap = _.fromPairs(_.map($scope.group.members, function(item) {
              return [item.id, item.profile.name]
           }));
 

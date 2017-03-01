@@ -1,4 +1,4 @@
-import { each } from 'lodash';
+import each from 'lodash/each';
 import t from './translation';
 
 let mysterySets = {

@@ -1,6 +1,8 @@
 import content from '../content/index';
 import i18n from '../i18n';
-import _ from 'lodash';
+import merge from 'lodash/merge';
+import reduce from 'lodash/reduce';
+import each from 'lodash/each';
 import {
   NotAuthorized,
 } from '../libs/errors';
@@ -12,7 +14,7 @@ module.exports = function revive (user, req = {}, analytics) {
     throw new NotAuthorized(i18n.t('cannotRevive', req.language));
   }
 
-  _.merge(user.stats, {
+  merge(user.stats, {
     hp: 50,
     exp: 0,
     gp: 0,
@@ -22,7 +24,7 @@ module.exports = function revive (user, req = {}, analytics) {
     user.stats.lvl--;
   }
 
-  let lostStat = randomVal(_.reduce(['str', 'con', 'per', 'int'], function findRandomStat (m, k) {
+  let lostStat = randomVal(reduce(['str', 'con', 'per', 'int'], function findRandomStat (m, k) {
     if (user.stats[k]) {
       m[k] = k;
     }
@@ -47,7 +49,7 @@ module.exports = function revive (user, req = {}, analytics) {
   let losableItems = {};
   let userClass = user.stats.class;
 
-  _.each(gearOwned, function findLosableItems (value, key) {
+  each(gearOwned, function findLosableItems (value, key) {
     let itm;
     if (value) {
       itm = content.gear.flat[key];

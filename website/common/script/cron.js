@@ -4,7 +4,8 @@
   Cron and time / day functions
   ------------------------------------------------------
  */
-import _ from 'lodash';
+import defaults from 'lodash/defaults';
+import invert from 'lodash/invert';
 import moment from 'moment';
 import 'moment-recur';
 
@@ -18,7 +19,7 @@ export const DAY_MAPPING = {
   6: 's',
 };
 
-export const DAY_MAPPING_STRING_TO_NUMBER = _.invert(DAY_MAPPING);
+export const DAY_MAPPING_STRING_TO_NUMBER = invert(DAY_MAPPING);
 
 /*
   Each time we perform date maths (cron, task-due-days, etc), we need to consider user preferences.
@@ -28,13 +29,13 @@ export const DAY_MAPPING_STRING_TO_NUMBER = _.invert(DAY_MAPPING);
 
 function sanitizeOptions (o) {
   let ref = Number(o.dayStart || 0);
-  let dayStart = !_.isNaN(ref) && ref >= 0 && ref <= 24 ? ref : 0;
+  let dayStart = !Number.isNaN(ref) && ref >= 0 && ref <= 24 ? ref : 0;
 
   let timezoneOffset;
   let timezoneOffsetDefault = Number(moment().zone());
-  if (_.isFinite(o.timezoneOffsetOverride)) {
+  if (Number.isFinite(o.timezoneOffsetOverride)) {
     timezoneOffset = Number(o.timezoneOffsetOverride);
-  } else if (_.isFinite(o.timezoneOffset)) {
+  } else if (Number.isFinite(o.timezoneOffset)) {
     timezoneOffset = Number(o.timezoneOffset);
   } else {
     timezoneOffset = timezoneOffsetDefault;
@@ -84,7 +85,7 @@ export function startOfDay (options = {}) {
 export function daysSince (yesterday, options = {}) {
   let o = sanitizeOptions(options);
 
-  return startOfDay(_.defaults({ now: o.now }, o)).diff(startOfDay(_.defaults({ now: yesterday }, o)), 'days');
+  return startOfDay(defaults({ now: o.now }, o)).diff(startOfDay(defaults({ now: yesterday }, o)), 'days');
 }
 
 /*

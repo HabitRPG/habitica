@@ -1,6 +1,6 @@
 import content from '../content/index';
 import i18n from '../i18n';
-import { get } from 'lodash';
+import get from 'lodash/get';
 
 let achievs = {};
 let achievsContent = content.achievements;

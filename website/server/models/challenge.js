@@ -79,7 +79,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
   challenge.shortName = challenge.shortName || challenge.name;
 
   // Add challenge to user.challenges
-  if (!_.contains(user.challenges, challenge._id)) {
+  if (!_.includes(user.challenges, challenge._id)) {
     // using concat because mongoose's protection against concurrent array modification isn't working as expected.
     // see https://github.com/HabitRPG/habitrpg/pull/7787#issuecomment-232972394
     user.challenges = user.challenges.concat([challenge._id]);
