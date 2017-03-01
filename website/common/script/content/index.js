@@ -3002,7 +3002,7 @@ api.userDefaults = {
       tags: [
         t('defaultTag1'),  // Work
         t('defaultTag4'),  // School
-        t('defaultTag6')   // Chores
+        t('defaultTag6'),  // Chores
       ],
     }, {
       type: 'habit',
@@ -3012,7 +3012,7 @@ api.userDefaults = {
       down: true,
       attribute: 'str',
       tags: [
-        t('defaultTag3')   // Health + Wellness
+        t('defaultTag3'),  // Health + Wellness
       ],
     }, {
       type: 'habit',
@@ -3023,7 +3023,7 @@ api.userDefaults = {
       attribute: 'str',
       tags: [
         t('defaultTag2'),  // Exercise
-        t('defaultTag3')   // Health + Wellness
+        t('defaultTag3'),  // Health + Wellness
       ],
     },
   ],

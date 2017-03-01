@@ -67,7 +67,7 @@ function _populateDefaultTasks (user, taskTypes) {
       }
 
       if (taskDefaults.tags) {
-        newTask.tags = _.compact(_.map(taskDefaults.tags, _.partial(findTag, user));
+        newTask.tags = _.compact(_.map(taskDefaults.tags, _.partial(findTag, user)));
       }
 
       return newTask.save();
