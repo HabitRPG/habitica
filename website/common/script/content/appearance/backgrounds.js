@@ -465,6 +465,20 @@ let backgrounds = {
       notes: t('backgroundWeddingArchNotes'),
     },
   },
+  backgrounds032017: {
+    magic_beanstalk: {
+      text: t('backgroundMagicBeanstalkText'),
+      notes: t('backgroundMagicBeanstalkNotes'),
+    },
+    meandering_cave: {
+      text: t('backgroundMeanderingCaveText'),
+      notes: t('backgroundMeanderingCaveNotes'),
+    },
+    mistiflying_circus: {
+      text: t('backgroundMistiflyingCircusText'),
+      notes: t('backgroundMistiflyingCircusNotes'),
+    },
+  },
   incentiveBackgrounds: {
     blue: {
       text: t('backgroundBlueText'),
