@@ -43,6 +43,16 @@ import shared from '../../../common';
  */
 
 /**
+ * @apiDefine groupIdRequired
+ * @apiError (400) {BadRequest} groupIdRequired A groupId is required
+ */
+
+/**
+ * @apiDefine messageGroupRequiresInvite
+ * @apiError (400) {NotAuthorized} messageGroupRequiresInvite Group requires an invitation to join (e.g. private group, party)
+ */
+
+/**
  * @apiDefine GroupLeader Group Leader
  * The group leader can use this route.
  */
@@ -54,7 +64,43 @@ let api = {};
  * @apiName CreateGroup
  * @apiGroup Group
  *
- * @apiSuccess {Object} data The create group
+ * @apiParam (Body) {String} name
+ * @apiParam (Body) {String="guild","party"} type Type of group (guild or party)
+ * @apiParam (Body) {String="private","public"} privacy Privacy of group (party MUST be private)
+ *
+ * @apiParamExample {json} Private Guild:
+ *     {
+ *       "name": "The Best Guild",
+ *       "type": "guild",
+ *       "privacy": "private"
+ *     }
+ *
+ * @apiError (400) {NotAuthorized} messageInsufficientGems User does not have enough gems (4)
+ * @apiError (400) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
+ * @apiError (400) {NotAuthorized} messageGroupAlreadyInParty
+ *
+ * @apiSuccess {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ *
+ * @apiSuccessExample {json} Private Guild:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "name": "The Best Guild",
+ *       "leader": {
+ *         "_id": "authenticated-user-id",
+ *         "profile": {authenticated user's profile}
+ *       },
+ *       "type": "guild",
+ *       "privacy": "private",
+ *       "chat": [],
+ *       "leaderOnly": {
+ *         "challenges": false
+ *       },
+ *       memberCount: 1,
+ *       challengeCount: 0,
+ *       balance: 1,
+ *       logo: "",
+ *       leaderMessage: ""
+ *     }
  */
 api.createGroup = {
   method: 'POST',
@@ -207,7 +253,20 @@ api.createGroupPlan = {
  *
  * @apiParam {String} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, guilds, privateGuilds, publicGuilds, tavern
  *
- * @apiSuccess {Array} data An array of the requested groups
+ * @apiParamExample {json} Private Guilds, Tavern:
+ *     {
+ *       "type": "privateGuilds,tavern"
+ *     }
+ *
+ * @apiError (400) {BadRequest} groupTypesRequired Group types are required
+ *
+ * @apiSuccess {Object[]} data An array of the requested groups (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ *
+ * @apiSuccessExample {json} Private Guilds, Tavern:
+ *     HTTP/1.1 200 OK
+ *     [
+ *       {guilds}
+ *     ]
  */
 api.getGroups = {
   method: 'GET',
@@ -235,10 +294,21 @@ api.getGroups = {
  * @apiName GetGroup
  * @apiGroup Group
  *
- * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiSuccess {Object} data The group object
+ * @apiParamExample {String} Tavern:
+ *     /api/v3/groups/habitrpg
  *
+ * @apiSuccess {Object} data The group object (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ *
+ * @apiSuccessExample {json} Tavern:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "name": "Tavern",
+ *       ...
+ *     }
+ *
+ * @apiUse groupIdRequired
  * @apiUse GroupNotFound
  */
 api.getGroup = {
@@ -279,10 +349,23 @@ api.getGroup = {
  * @apiName UpdateGroup
  * @apiGroup Group
  *
- * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiSuccess {Object} data The updated group
+ * @apiParamExample {String} Tavern:
+ *     /api/v3/groups/habitrpg
  *
+ * @apiError (400) {NotAuthorized} messageGroupOnlyLeaderCanUpdate Only the group's leader can update the party
+ *
+ * @apiSuccess {Object} data The updated group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ *
+ * @apiSuccessExample {json} Tavern:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "name": "Tavern",
+ *       ...
+ *     }
+ *
+ * @apiUse groupIdRequired
  * @apiUse GroupNotFound
  *
  * @apiPermission GroupLeader
@@ -327,11 +410,23 @@ api.updateGroup = {
  * @apiName JoinGroup
  * @apiGroup Group
  *
- * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiSuccess {Object} data The joined group
+ * @apiParamExample {String} Tavern:
+ *     /api/v3/groups/habitrpg/join
  *
+ * @apiSuccess {Object} data The joined group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ *
+ * @apiSuccessExample {json} Tavern:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "name": "Tavern",
+ *       ...
+ *     }
+ *
+ * @apiUse groupIdRequired
  * @apiUse GroupNotFound
+ * @apiUse messageGroupRequiresInvite
  */
 api.joinGroup = {
   method: 'POST',
@@ -472,9 +567,15 @@ api.joinGroup = {
  * @apiName RejectGroupInvite
  * @apiGroup Group
  *
- * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ *
+ * @apiParamExample {String} party:
+ *     /api/v3/groups/party/reject
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiUse groupIdRequired
+ * @apiUse messageGroupRequiresInvite
  */
 api.rejectGroupInvite = {
   method: 'POST',
@@ -527,8 +628,19 @@ function _removeMessagesFromMember (member, groupId) {
  * @apiParam (Query) {String="remove-all","keep-all"} keep=keep-all Whether or not to keep challenge tasks belonging to the group being left.
  * @apiParam (Body) {String="remain-in-challenges","leave-challenges"} [keepChallenges=leave-challenges] Whether or not to remain in the challenges of the group being left.
  *
+ * @apiParamExample {json} Leave Party:
+ *     /api/v3/groups/party/leave
+ *     {
+ *       "keepChallenges": "remain-in-challenges"
+ *     }
+ *
+ * @apiError (400) {BadRequest} keepOrRemoveAll "keep" parameter is not "remove-all" or "keep-all"
+ * @apiError (400) {NotAuthorized} questLeaderCannotLeaveGroup User could not leave party because they are the owner of a quest currently running
+ * @apiError (400) {NotAuthorized} cannotLeaveWhileActiveQuest User could not leave party due to being in a quest
+ *
  * @apiSuccess {Object} data An empty object
  *
+ * @apiUse groupIdRequired
  * @apiUse GroupNotFound
  */
 api.leaveGroup = {
@@ -592,14 +704,23 @@ function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
  * @apiName RemoveGroupMember
  * @apiGroup Group
  *
- * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {UUID} memberId The _id of the member to remove
- * @apiParam {String} message Query parameter - The message to send to the removed members
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} memberId The _id of the member to remove
+ * @apiParam (Query) {String} message Query parameter - The message to send to the removed members
+ *
+ * @apiParamExample {URL} Remove member from party:
+ *     /api/v3/groups/party/removeMember/[User's ID]?message=Bye
+ *
+ * @apiError (400) {BadRequest} userIdrequired "memberId" cannot be empty or not a UUID
+ * @apiError (400) {NotAuthorized} onlyLeaderCanRemoveMember Only the group leader can remove members
+ * @apiError (400) {NotAuthorized} memberCannotRemoveYourself Group leader cannot remove themselves
+ * @apiError (404) {NotFound} groupMemberNotFound Group member was not found
  *
  * @apiSuccess {Object} data An empty object
  *
  * @apiPermission GroupLeader
  *
+ * @apiUse groupIdRequired
  * @apiUse GroupNotFound
  */
 api.removeGroupMember = {
