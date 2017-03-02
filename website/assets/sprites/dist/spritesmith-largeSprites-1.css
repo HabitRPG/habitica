@@ -1,3 +1,9 @@
+.promo_takeThis_gear {
+  background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
+  background-position: -643px -732px;
+  width: 114px;
+  height: 87px;
+}
 .promo_task_planning {
   background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
   background-position: -282px -536px;
@@ -84,7 +90,7 @@
 }
 .npc_viirus {
   background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
-  background-position: -643px -732px;
+  background-position: -453px -882px;
   width: 108px;
   height: 90px;
 }
@@ -96,7 +102,7 @@
 }
 .promo_backtoschool {
   background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
-  background-position: -723px -145px;
+  background-position: 0px -882px;
   width: 150px;
   height: 150px;
 }
@@ -108,7 +114,7 @@
 }
 .promo_startingover {
   background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
-  background-position: 0px -882px;
+  background-position: -151px -882px;
   width: 150px;
   height: 150px;
 }
@@ -138,13 +144,13 @@
 }
 .scene_phone_peek {
   background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
-  background-position: -151px -882px;
+  background-position: -723px -145px;
   width: 150px;
   height: 150px;
 }
 .welcome_basic_avatars {
   background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
-  background-position: -885px -317px;
+  background-position: -885px -151px;
   width: 246px;
   height: 165px;
 }
@@ -156,7 +162,7 @@
 }
 .welcome_sample_tasks {
   background-image: url(/static/sprites/spritesmith-largeSprites-1.png);
-  background-position: -885px -151px;
+  background-position: -885px -317px;
   width: 246px;
   height: 165px;
 }
