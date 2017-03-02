@@ -46,7 +46,7 @@ import shared from '../../../common';
  * @apiDefine groupIdRequired
  * @apiError (400) {BadRequest} groupIdRequired A groupId is required
  */
- 
+
 /**
  * @apiDefine messageGroupRequiresInvite
  * @apiError (400) {NotAuthorized} messageGroupRequiresInvite Group requires an invitation to join (e.g. private group, party)
