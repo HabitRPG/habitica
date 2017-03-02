@@ -24,10 +24,10 @@ schema.post('init', function postInitUser (doc) {
 });
 
 function findTag (user, tagName) {
-   let tagID = _.find(user.tags, (userTag) => {
+  let tagID = _.find(user.tags, (userTag) => {
     return userTag.name === tagName(user.preferences.language);
   });
-  return tagID.id
+  return tagID.id;
 }
 
 function _populateDefaultTasks (user, taskTypes) {
