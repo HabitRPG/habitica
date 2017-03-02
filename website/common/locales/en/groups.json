@@ -191,6 +191,7 @@
   "inviteMissingUuid": "Missing user id in invite",
   "inviteMustNotBeEmpty": "Invite must not be empty.",
   "partyMustbePrivate": "Parties must be private",
+  "groupPlanMustbePrivate": "Group Plan must be private",
   "userAlreadyInGroup": "User already in that group.",
   "cannotInviteSelfToGroup": "You cannot invite yourself to a group.",
   "userAlreadyInvitedToGroup": "User already invited to that group.",
@@ -214,6 +215,7 @@
   "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made.",
   "confirmAddTag": "Do you want to assign this task to \"<%= tag %>\"?",
   "confirmRemoveTag": "Do you really want to remove \"<%= tag %>\"?",
+
   "groupHomeTitle": "Home",
   "assignTask": "Assign Task",
   "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made.",
