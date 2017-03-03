@@ -23,6 +23,13 @@ schema.post('init', function postInitUser (doc) {
   shared.wrap(doc);
 });
 
+function findTag (user, tagName) {
+  let tagID = _.find(user.tags, (userTag) => {
+    return userTag.name === tagName(user.preferences.language);
+  });
+  return tagID.id;
+}
+
 function _populateDefaultTasks (user, taskTypes) {
   let tagsI = taskTypes.indexOf('tag');
 
@@ -57,6 +64,10 @@ function _populateDefaultTasks (user, taskTypes) {
           checklistItem.text = checklistItem.text(user.preferences.language);
           return checklistItem;
         });
+      }
+
+      if (taskDefaults.tags) {
+        newTask.tags = _.compact(_.map(taskDefaults.tags, _.partial(findTag, user)));
       }
 
       return newTask.save();

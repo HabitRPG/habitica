@@ -2999,6 +2999,11 @@ api.userDefaults = {
       up: true,
       down: false,
       attribute: 'per',
+      tags: [
+        t('defaultTag1'),  // Work
+        t('defaultTag4'),  // School
+        t('defaultTag6'),  // Chores
+      ],
     }, {
       type: 'habit',
       text: t('defaultHabit2Text'),
@@ -3006,6 +3011,9 @@ api.userDefaults = {
       up: false,
       down: true,
       attribute: 'str',
+      tags: [
+        t('defaultTag3'),  // Health + Wellness
+      ],
     }, {
       type: 'habit',
       text: t('defaultHabit3Text'),
@@ -3013,6 +3021,10 @@ api.userDefaults = {
       up: true,
       down: true,
       attribute: 'str',
+      tags: [
+        t('defaultTag2'),  // Exercise
+        t('defaultTag3'),  // Health + Wellness
+      ],
     },
   ],
   dailys: [],
