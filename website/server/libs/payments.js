@@ -251,7 +251,7 @@ api.createSubscription = async function createSubscription (data) {
   } else {
     if (!plan.dateTerminated) plan.dateTerminated = today;
 
-    _(plan).merge({ // override with these values
+    Object.assign(plan, { // override plan with new values
       planId: block.key,
       customerId: data.customerId,
       dateUpdated: today,
@@ -265,11 +265,12 @@ api.createSubscription = async function createSubscription (data) {
       nextBillingDate: data.nextBillingDate,
       additionalData: data.additionalData,
       owner: data.user._id,
-    }).defaults({ // allow non-override if a plan was previously used
-      gemsBought: 0,
-      dateCreated: today,
-      mysteryItems: [],
-    }).value();
+    });
+
+    // allow non-override if a plan was previously used
+    if (!plan.gemsBought) plan.gemsBought = 0;
+    if (!plan.dateCreated) plan.dateCreated = today;
+    if (!plan.mysteryItems) plan.mysteryItems = [];
 
     if (data.subscriptionId) {
       plan.subscriptionId = data.subscriptionId;

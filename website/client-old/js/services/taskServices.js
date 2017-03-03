@@ -3,8 +3,8 @@
 var TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'history', 'id', 'streak', 'createdAt', 'challenge'];
 
 angular.module('habitrpg')
-.factory('Tasks', ['$rootScope', 'Shared', '$http',
-  function tasksFactory($rootScope, Shared, $http) {
+.factory('Tasks', ['$rootScope', 'Shared', '$http', '$modal',
+  function tasksFactory($rootScope, Shared, $http, $modal) {
     function addTasks(listDef, addTaskFn) {
       var tasks = listDef.newTask;
 
@@ -256,6 +256,7 @@ angular.module('habitrpg')
     };
 
     function editTask(task, user, taskStatus, scopeInc) {
+      // @TODO: This should be it's own controller. And methods should be abstracted form the three task ctrls to a directive/ctrl
       var modalScope = $rootScope.$new();
       modalScope.task = task;
       modalScope.task._editing = true;
@@ -286,9 +287,10 @@ angular.module('habitrpg')
         modalScope.task._edit.repeatsOn = 'dayOfWeek';
       }
 
-      $rootScope.openModal('task-edit', {
+      $modal.open({
         scope: modalScope,
-        controller: function ($scope) {
+        templateUrl: 'modals/task-edit.html',
+        controller: ['$scope', function ($scope) {
           $scope.$watch('task._edit', function (newValue, oldValue) {
             if ($scope.task.type !== 'daily') return;
             $scope.summary = generateSummary($scope.task);
@@ -311,7 +313,7 @@ angular.module('habitrpg')
               $scope.task._edit.repeat[shortDay] = true;
             }
           }, true);
-        },
+        }],
       })
       .result.catch(function() {
         cancelTaskEdit(task);
@@ -402,7 +404,7 @@ angular.module('habitrpg')
       _(cleansedTask.checklist).forEach(function(item) {
         item.completed = false;
         item.id = Shared.uuid();
-      }).value();
+      });
 
       if (cleansedTask.type !== 'reward') {
         delete cleansedTask.value;

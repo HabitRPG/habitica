@@ -1,10 +1,10 @@
-import _ from 'lodash';
+import each from 'lodash/each';
 import content from '../content/index';
 
 module.exports = function resetGear (user) {
   let gear = user.items.gear;
 
-  _.each(['equipped', 'costume'], function resetUserGear (type) {
+  each(['equipped', 'costume'], function resetUserGear (type) {
     gear[type] = {};
     gear[type].armor = 'armor_base_0';
     gear[type].weapon = 'weapon_warrior_0';
@@ -14,7 +14,7 @@ module.exports = function resetGear (user) {
 
   // Gear.owned is a Mongo object so the _.each function iterates over hidden properties.
   // The content.gear.flat[k] check should prevent this causing an error
-  _.each(gear.owned, function resetOwnedGear (v, k) {
+  each(gear.owned, function resetOwnedGear (v, k) {
     if (gear.owned[k] && content.gear.flat[k] && content.gear.flat[k].value) {
       gear.owned[k] = false;
     }

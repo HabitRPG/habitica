@@ -8,6 +8,12 @@
 // Run the script with --max-old-space-size=4096 to allow up to 4GB of RAM
 console.log('Starting migrations/api_v3/unsubscriptions.js.');
 
+// IMPORTANT NOTE: this migration was written when we were using version 3 of lodash.
+// We've now upgraded to lodash v4 but the code used in this migration has not been
+// adapted to work with it. Before this migration is used again any lodash method should
+// be checked for compatibility against the v4 changelog and changed if necessary.
+// https://github.com/lodash/lodash/wiki/Changelog#v400
+
 require('babel-register');
 require('babel-polyfill');
 

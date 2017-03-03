@@ -102,6 +102,7 @@
     "messageSentAlert": "הודעה נשלחה",
     "pmHeading": "הודעה פרטית ל <%= name %>",
     "pmsMarkedRead": "ההודעות הפרטיות שלך סומנו כנקראו",
+    "possessiveParty": "החבורה של <%= name %>",
     "clearAll": "מחק את כל ההודעות",
     "confirmDeleteAllMessages": "האם אתם בטוחים שאתם רוצים למחוק את כל ההודעות בתיבת הדואר שלכם? משתמשים אחרים עדיין יראו הודעות ששלחתם אליהם.",
     "optOutPopover": "לא בקטע של הודעות פרטיות? לחצו כדי לוותר על זה",
@@ -167,7 +168,6 @@
     "partyEmpty": "אתם היחידים בחבורה שלכם. הזמינו חברים!",
     "partyChatEmpty": "שיחת החבורה שלכם ריקה! הקלידו הודעה בתיבה למעלה כדי להתחיל לשוחח.",
     "guildChatEmpty": "השיחה של הגילדה הזו ריקה! רשמו הודעה בקופסה למעלה כדי להתחיל לשוחח.",
-    "possessiveParty": "החבורה של <%= name %>",
     "requestAcceptGuidelines": "אם אתם מעוניינים לרשום הודעה בפונדק או חבורה כלשהי או גילדה, אנא קראו את <%= linkStart %>הנחיות הקהילה<%= linkEnd %> ולחצו על הכפתור למטה כדי לאשר שהן מקובלות עליכם.",
     "partyUpName": "חגיגה",
     "partyOnName": "מסיבה",
@@ -250,5 +250,6 @@
     "claimedBy": "Claimed by: <%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "Can't delete group tasks that are assigned to you.",
     "confirmGuildPlanCreation": "Create this group?",
-    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription."
+    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription.",
+    "remainOrLeaveChallenges": "req.query.keep must be either 'remain-in-challenges' or 'leave-challenges'"
 }

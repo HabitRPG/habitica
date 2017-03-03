@@ -102,6 +102,7 @@
     "messageSentAlert": "Wiadomość wysłana",
     "pmHeading": "Wiadomość prywatna do <%= name %>",
     "pmsMarkedRead": "Twoja prywatna wiadomość została oznaczona jako przeczytana",
+    "possessiveParty": "Drużyna należąca do <%= name %>",
     "clearAll": "Usuń wszystkie wiadomości",
     "confirmDeleteAllMessages": "Czy na pewno chcesz usunąć wszystkie wiadomości w skrzynce odbiorczej? Inni użytkownicy nadal będą widzieli wiadomości, które im przesłałeś.",
     "optOutPopover": "Nie lubisz prywatnych wiadomości? Kliknij, aby całkiem z nich zrezygnować.",
@@ -167,7 +168,6 @@
     "partyEmpty": "W twojej drużynie jesteś tylko ty. Zaproś swoich przyjaciół!",
     "partyChatEmpty": "Twój czat drużynowy jest pusty! Napisz wiadomość w powyższym okienku, by zacząć rozmowę.",
     "guildChatEmpty": "Czat tej gildii jest pusty! Napisz wiadomość w powyższym okienku, by zacząć rozmowę.",
-    "possessiveParty": "Drużyna należąca do <%= name %>",
     "requestAcceptGuidelines": "Jeżeli chcesz pisać w Gospodzie lub drużynie, czy też jakimkolwiek czacie gildii, proszę, przeczytaj najpierw <%= linkStart %>Wytyczne Społeczności<%= linkEnd %>, a następnie kliknij poniższy przycisk, aby potwierdzić, że je akceptujesz.",
     "partyUpName": "Razem raźniej",
     "partyOnName": "Jeden za wszystkich, wszyscy za jednego",
@@ -250,5 +250,6 @@
     "claimedBy": "Zgłosili się: <%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "Nie możesz usunąć zadań grupy, które są przypisane do ciebie.",
     "confirmGuildPlanCreation": "Stworzyć tę grupę?",
-    "onlyGroupLeaderCanInviteToGroupPlan": "Tylko przywódca grupy może zapraszać użytkowników do grupy z abonamentem."
+    "onlyGroupLeaderCanInviteToGroupPlan": "Tylko przywódca grupy może zapraszać użytkowników do grupy z abonamentem.",
+    "remainOrLeaveChallenges": "req.query.keep must be either 'remain-in-challenges' or 'leave-challenges'"
 }

@@ -470,12 +470,12 @@ schema.methods.startQuest = async function startQuest (user) {
     this.quest.progress.collect = collected;
   }
 
-  let nonMembers = Object.keys(_.pick(this.quest.members, (member) => {
+  let nonMembers = Object.keys(_.pickBy(this.quest.members, (member) => {
     return !member;
   }));
 
   // Changes quest.members to only include participating members
-  this.quest.members = _.pick(this.quest.members, _.identity);
+  this.quest.members = _.pickBy(this.quest.members, _.identity);
   let nonUserQuestMembers = _.keys(this.quest.members);
   removeFromArray(nonUserQuestMembers, user._id);
 
@@ -621,7 +621,7 @@ function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
     case 'food':
     case 'hatchingPotions':
     case 'quests': {
-      updates.$inc[`items.${itemToAward.type}.${dropK}`] = _.where(allAwardedItems, {type: itemToAward.type, key: itemToAward.key}).length;
+      updates.$inc[`items.${itemToAward.type}.${dropK}`] = _.filter(allAwardedItems, {type: itemToAward.type, key: itemToAward.key}).length;
       break;
     }
     case 'pets': {
@@ -633,7 +633,7 @@ function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
       break;
     }
   }
-  updates = _.omit(updates, _.isEmpty);
+  updates = _.omitBy(updates, _.isEmpty);
   return updates;
 }
 

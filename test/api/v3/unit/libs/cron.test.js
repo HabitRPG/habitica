@@ -6,7 +6,6 @@ import requireAgain from 'require-again';
 import { recoverCron, cron } from '../../../../../website/server/libs/cron';
 import { model as User } from '../../../../../website/server/models/user';
 import * as Tasks from '../../../../../website/server/models/task';
-import { clone } from 'lodash';
 import common from '../../../../../website/common';
 import analytics from '../../../../../website/server/libs/analyticsService';
 
@@ -597,7 +596,7 @@ describe('cron', () => {
       tasksByType.dailys[0].completed = true;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
 
-      let previousBuffs = clone(user.stats.buffs);
+      let previousBuffs = user.stats.buffs.toObject();
 
       cron({user, tasksByType, daysMissed, analytics});
 
@@ -662,7 +661,7 @@ describe('cron', () => {
       tasksByType.dailys[0].completed = false;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
 
-      let previousBuffs = clone(user.stats.buffs);
+      let previousBuffs = user.stats.buffs.toObject();
 
       cronOverride({user, tasksByType, daysMissed, analytics});
 

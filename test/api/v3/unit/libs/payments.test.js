@@ -434,7 +434,6 @@ describe('payments/index', () => {
         sandbox.spy(user.purchased.plan.mysteryItems, 'push');
 
         data = { paymentMethod: 'PaymentMethod', user, sub: { key: 'basic_3mo' } };
-
         await api.createSubscription(data);
 
         expect(user.purchased.plan.mysteryItems.push).to.be.calledOnce;

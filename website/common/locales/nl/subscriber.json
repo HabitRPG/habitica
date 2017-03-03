@@ -141,7 +141,7 @@
     "missingUnsubscriptionCode": "Mist uitschrijfcode.",
     "missingSubscription": "De gebruiker heeft geen standaard abonnement. ",
     "missingSubscriptionCode": "Mist inschrijfcode. Mogelijke waardes zijn basic_earned, basic_3mo, basic_6mo, google_6mo, basic_12mo.",
-    "missingReceipt": "Missing Receipt.",
+    "missingReceipt": "Ontvangstbewijs ontbreekt.",
     "cannotDeleteActiveAccount": "Je hebt een actief abonnement, annuleer je plan voordat je je account verwijdert.",
     "paymentNotSuccessful": "De betaling was niet succesvol",
     "planNotActive": "Het plan is nog niet geactiveerd (door een PayPal-fout). Het zal beginnen op <%= nextBillingDate %>, waarna je het kunt annuleren om al je voordelen te behouden. ",

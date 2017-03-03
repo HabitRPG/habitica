@@ -102,6 +102,7 @@
     "messageSentAlert": "Mensaje enviado",
     "pmHeading": "Mensaje privado a <%= name %>",
     "pmsMarkedRead": "Tus mensajes privados han sido marcados como leidos.",
+    "possessiveParty": "El Equipo de <%= name %>",
     "clearAll": "Borrar todos los mensajes",
     "confirmDeleteAllMessages": "¿Estás seguro de que quieres borrar todos los mensajes de tu bandeja de entrada? Otros usuarios todavía podrán ver los mensajes que les mandaste.",
     "optOutPopover": "¿No te gustan los mensajes privados? Haz clic para dejar de recibirlos.",
@@ -167,7 +168,6 @@
     "partyEmpty": "Eres el único en tu equipo. ¡Invita a tus amigos!",
     "partyChatEmpty": "¡El chat de tu equipo está vacío! Escribe un mensaje en el recuadro de arriba para empezar a conversar.",
     "guildChatEmpty": "¡El chat de este gremio está vacío! Escribe un mensaje en el recuadro de arriba para empezar a conversar.",
-    "possessiveParty": "El Equipo de <%= name %>",
     "requestAcceptGuidelines": "Si quieres publicar mensajes en la Taberna o en el chat de un equipo o de un gremio, por favor lee nuestras <%= linkStart %>Normas de la Comunidad<%= linkEnd %> primero y después haz clic en el botón de abajo para indicar que las aceptas.",
     "partyUpName": "Equipados",
     "partyOnName": "Equipazo",
@@ -250,5 +250,6 @@
     "claimedBy": "Claimed by: <%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "Can't delete group tasks that are assigned to you.",
     "confirmGuildPlanCreation": "Create this group?",
-    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription."
+    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription.",
+    "remainOrLeaveChallenges": "req.query.keep must be either 'remain-in-challenges' or 'leave-challenges'"
 }
