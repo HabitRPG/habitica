@@ -1,0 +1,16 @@
+{
+  "unlockedReward": "Отримано нагороду: <%= reward %>!",
+  "earnedRewardForDevotion": "За вдосконалення власного життя ви отримуєте нагороду: <%= reward %>",
+  "nextRewardUnlocksIn": "Check-ins until your next prize: <%= numberOfCheckinsLeft %>",
+  "awesome": "Круто!",
+  "totalCount": "Загалом: <%= count %>",
+  "countLeft": "Check-ins until next reward: <%= count %>",
+  "incentivesDescription": "Створення звички залежить від наполегливості та постійності. Щоденне входження в гру наближає вас до нагороди.",
+  "totalCheckins": "Входжень: <%= count %>",
+  "checkinEarned": "Ваш лічильник входжень збільшується!",
+  "unlockedCheckInReward": "Ви отримуєте нагороду за входження у гру!",
+  "totalCheckinsTitle": "Загалом входжень",
+  "checkinProgressTitle": "До наступної",
+  "incentiveBackgroundsUnlockedWithCheckins": "Ці зображення тла відкриються за допомогою щоденних входжень у гру.",
+  "moreIncentivesComingSoon": "Нові стимули для щоденного входження у гру будуть скоро додані!"
+}

@@ -1,0 +1,16 @@
+{
+  "unlockedReward": "Du hast <%= reward %> erhalten",
+  "earnedRewardForDevotion": "Du hast <%= reward %> erhalten, da Du Dich verpflichtet hast Dein Leben zu verbessern.",
+  "nextRewardUnlocksIn": "Check-ins until your next prize: <%= numberOfCheckinsLeft %>",
+  "awesome": "Großartig!",
+  "totalCount": "<%= count %> insgesamt",
+  "countLeft": "Check-ins until next reward: <%= count %>",
+  "incentivesDescription": "Wenn es darum geht sich etwas anzugewöhnen ist Konsistenz der Schlüssel. Jeder Tag den Du Dich anmeldest bringt Dich näher an eine Belohnung.",
+  "totalCheckins": "<%= count %> Anmeldungen",
+  "checkinEarned": "Dein Anmeldungszähler ist gestiegen!",
+  "unlockedCheckInReward": "Du hast eine Anmelde-Belohnung freigeschaltet!",
+  "totalCheckinsTitle": "Anmeldungen insgesamt",
+  "checkinProgressTitle": "Fortschritt bis zum nächsten",
+  "incentiveBackgroundsUnlockedWithCheckins": "Diese Hintergründe werden durch tägliche Anmeldungen freigeschaltet.",
+  "moreIncentivesComingSoon": "Neue Anmelde-Belohnungen werden bald hinzugefügt!"
+}

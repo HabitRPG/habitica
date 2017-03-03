@@ -54,6 +54,7 @@
     "partyNotFound": "Squadra non trovata.",
     "targetIdUUID": "\"targetId\" deve essere un ID Utente valido.",
     "challengeTasksNoCast": "Usare un'abilità sulle attività delle sfide non è permesso.",
+    "groupTasksNoCast": "Non è possibile usare abilità sulle attività di gruppo.",
     "spellNotOwned": "Non possiedi questa abilità.",
     "spellLevelTooHigh": "Devi raggiungere il livello <%= level %> per usare questa abilità."
 }

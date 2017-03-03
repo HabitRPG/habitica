@@ -1,23 +1,24 @@
-// TODO verify if it's needed, added because Vuex require Promise in the global scope
+// TODO verify if it's needed, added because Axios require Promise in the global scope
 // and babel-runtime doesn't affect external libraries
 require('babel-polyfill');
 
 import Vue from 'vue';
-import VueResource from 'vue-resource';
+import axios from 'axios';
 import AppComponent from './app';
 import router from './router';
 import store from './store';
 import './filters/registerGlobals';
+import i18n from './plugins/i18n';
+
+Vue.use(i18n);
 
 // TODO just for the beginning
-Vue.use(VueResource);
-
 let authSettings = localStorage.getItem('habit-mobile-settings');
 
 if (authSettings) {
   authSettings = JSON.parse(authSettings);
-  Vue.http.headers.common['x-api-user'] = authSettings.auth.apiId;
-  Vue.http.headers.common['x-api-key'] = authSettings.auth.apiToken;
+  axios.defaults.headers.common['x-api-user'] = authSettings.auth.apiId;
+  axios.defaults.headers.common['x-api-key'] = authSettings.auth.apiToken;
 }
 
 const app = new Vue({
@@ -36,7 +37,7 @@ store.watch(state => state.title, (title) => {
 
 // Mount the app when user and tasks are loaded
 let userDataWatcher = store.watch(state => [state.user, state.tasks], ([user, tasks]) => {
-  if (user && user._id && tasks && tasks.length) {
+  if (user && user._id && Array.isArray(tasks)) {
     userDataWatcher(); // remove the watcher
     app.$mount('#app');
   }

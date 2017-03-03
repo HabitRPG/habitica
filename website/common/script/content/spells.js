@@ -1,5 +1,5 @@
 import t from './translation';
-import _ from 'lodash';
+import each from 'lodash/each';
 import { NotAuthorized } from '../libs/errors';
 /*
   ---------------------------------------------------------------
@@ -56,7 +56,7 @@ spells.wizard = {
     target: 'party',
     notes: t('spellWizardMPHealNotes'),
     cast (user, target) {
-      _.each(target, (member) => {
+      each(target, (member) => {
         let bonus = user._statsComputed.int;
         if (user._id !== member._id) {
           member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125));
@@ -71,7 +71,7 @@ spells.wizard = {
     target: 'party',
     notes: t('spellWizardEarthNotes'),
     cast (user, target) {
-      _.each(target, (member) => {
+      each(target, (member) => {
         let bonus = user._statsComputed.int - user.stats.buffs.int;
         if (!member.stats.buffs.int) member.stats.buffs.int = 0;
         member.stats.buffs.int += Math.ceil(diminishingReturns(bonus, 30, 200));
@@ -123,7 +123,7 @@ spells.warrior = {
     target: 'party',
     notes: t('spellWarriorValorousPresenceNotes'),
     cast (user, target) {
-      _.each(target, (member) => {
+      each(target, (member) => {
         let bonus = user._statsComputed.str - user.stats.buffs.str;
         if (!member.stats.buffs.str) member.stats.buffs.str = 0;
         member.stats.buffs.str += Math.ceil(diminishingReturns(bonus, 20, 200));
@@ -137,7 +137,7 @@ spells.warrior = {
     target: 'party',
     notes: t('spellWarriorIntimidateNotes'),
     cast (user, target) {
-      _.each(target, (member) => {
+      each(target, (member) => {
         let bonus = user._statsComputed.con - user.stats.buffs.con;
         if (!member.stats.buffs.con) member.stats.buffs.con = 0;
         member.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 24, 200));
@@ -179,7 +179,7 @@ spells.rogue = {
     target: 'party',
     notes: t('spellRogueToolsOfTradeNotes'),
     cast (user, target) {
-      _.each(target, (member) => {
+      each(target, (member) => {
         let bonus = user._statsComputed.per - user.stats.buffs.per;
         if (!member.stats.buffs.per) member.stats.buffs.per = 0;
         member.stats.buffs.per += Math.ceil(diminishingReturns(bonus, 100, 50));
@@ -218,7 +218,7 @@ spells.healer = {
     target: 'tasks',
     notes: t('spellHealerBrightnessNotes'),
     cast (user, tasks) {
-      _.each(tasks, (task) => {
+      each(tasks, (task) => {
         if (task.type !== 'reward') {
           task.value += 4 * (user._statsComputed.int / (user._statsComputed.int + 40));
         }
@@ -232,7 +232,7 @@ spells.healer = {
     target: 'party',
     notes: t('spellHealerProtectAuraNotes'),
     cast (user, target) {
-      _.each(target, (member) => {
+      each(target, (member) => {
         let bonus = user._statsComputed.con - user.stats.buffs.con;
         if (!member.stats.buffs.con) member.stats.buffs.con = 0;
         member.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 200, 200));
@@ -246,7 +246,7 @@ spells.healer = {
     target: 'party',
     notes: t('spellHealerHealAllNotes'),
     cast (user, target) {
-      _.each(target, (member) => {
+      each(target, (member) => {
         member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * 0.04;
         if (member.stats.hp > 50) member.stats.hp = 50;
       });
@@ -388,7 +388,7 @@ spells.special = {
         if (!user.achievements.nye) user.achievements.nye = 0;
         user.achievements.nye++;
       } else {
-        _.each([user, target], (u) => {
+        each([user, target], (u) => {
           if (!u.achievements.nye) u.achievements.nye = 0;
           u.achievements.nye++;
         });
@@ -416,7 +416,7 @@ spells.special = {
         if (!user.achievements.valentine) user.achievements.valentine = 0;
         user.achievements.valentine++;
       } else {
-        _.each([user, target], (u) => {
+        each([user, target], (u) => {
           if (!u.achievements.valentine) u.achievements.valentine = 0;
           u.achievements.valentine++;
         });
@@ -443,7 +443,7 @@ spells.special = {
       if (user === target) {
         user.achievements.greeting++;
       } else {
-        _.each([user, target], (u) => {
+        each([user, target], (u) => {
           if (!u.achievements.greeting) u.achievements.greeting = 0;
           u.achievements.greeting++;
         });
@@ -471,7 +471,7 @@ spells.special = {
         if (!user.achievements.thankyou) user.achievements.thankyou = 0;
         user.achievements.thankyou++;
       } else {
-        _.each([user, target], (u) => {
+        each([user, target], (u) => {
           if (!u.achievements.thankyou) u.achievements.thankyou = 0;
           u.achievements.thankyou++;
         });
@@ -499,7 +499,7 @@ spells.special = {
         if (!user.achievements.birthday) user.achievements.birthday = 0;
         user.achievements.birthday++;
       } else {
-        _.each([user, target], (u) => {
+        each([user, target], (u) => {
           if (!u.achievements.birthday) u.achievements.birthday = 0;
           u.achievements.birthday++;
         });
@@ -516,8 +516,8 @@ spells.special = {
   },
 };
 
-_.each(spells, (spellClass) => {
-  _.each(spellClass, (spell, key) => {
+each(spells, (spellClass) => {
+  each(spellClass, (spell, key) => {
     spell.key = key;
     let _cast = spell.cast;
     spell.cast = function castSpell (user, target, req) {

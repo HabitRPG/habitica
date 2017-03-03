@@ -1,5 +1,13 @@
 .task-meta-controls
 
+  // Counter
+  span(ng-if='task.up && task.down')
+    span(tooltip=env.t('habitCounterUp')) +{{task.counterUp}}|
+    span(tooltip=env.t('habitCounterDown')) -{{task.counterDown}}&nbsp;
+    
+  span(ng-if='task.type=="habit" && (!task.up || !task.down)')
+    span(tooltip=env.t('habitCounter')) {{task.up ? task.counterUp : task.counterDown}}&nbsp;
+  
   // Due Date
   span(ng-if='task.type=="todo" && task.date')
     span(ng-class='{"label label-danger":(moment(task.date).isBefore(_today, "days") && !task.completed)}') {{task.date | date:(user.preferences.dateFormat.indexOf('yyyy') == 0 ? user.preferences.dateFormat.substr(5) : user.preferences.dateFormat.substr(0,5))}}
@@ -33,18 +41,9 @@
     span.glyphicon.glyphicon-tags(tooltip='{{Shared.appliedTags(user.tags, task.tags)}}', ng-hide='Shared.noTags(task.tags)')
     
     // edit
-    a(ng-hide='task._editing || (checkGroupAccess && !checkGroupAccess(obj))', ng-click='editTask(task, user, Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main))', tooltip=env.t('edit'))
+    a(ng-hide='checkGroupAccess && !checkGroupAccess(obj)', ng-click='editTask(task, user, Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main))', tooltip=env.t('edit'))
       | &nbsp;
-      span.glyphicon.glyphicon-pencil(ng-hide='task._editing')
-    | &nbsp;
-
-    a(ng-hide='!task._editing', ng-click='cancelTaskEdit(task)', tooltip=env.t('cancel'))
-      span.glyphicon.glyphicon-remove(ng-hide='!task._editing')
-      | &nbsp;
-      
-    // save
-    a(ng-hide='!task._editing', ng-click='saveTask(task)', tooltip=env.t('save'))
-      span.glyphicon.glyphicon-ok(ng-hide='!task._editing')
+      span.glyphicon.glyphicon-pencil
     | &nbsp;
   
     //challenges

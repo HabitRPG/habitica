@@ -37,7 +37,7 @@ describe('GET /members/:memberId', () => {
     expect(Object.keys(memberRes.auth)).to.eql(['timestamps']);
     expect(Object.keys(memberRes.preferences).sort()).to.eql([
       'size', 'hair', 'skin', 'shirt',
-      'chair', 'costume', 'sleep', 'background',
+      'chair', 'costume', 'sleep', 'background', 'tasks',
     ].sort());
 
     expect(memberRes.stats.maxMP).to.exist;

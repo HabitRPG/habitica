@@ -87,5 +87,6 @@
     "fallEventAvailability": "Available for purchase until October 31.",
     "winterEventAvailability": "Available for purchase until January 31.",
     "springEventAvailability": "Available for purchase until May 31.",
-    "summerEventAvailability": "Available for purchase until August 31."
+    "summerEventAvailability": "Available for purchase until August 31.",
+    "valentinesEventAvailability": "Available for purchase until February 28."
 }

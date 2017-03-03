@@ -1,4 +1,5 @@
 import scoreTask from '../../../website/common/script/ops/scoreTask';
+
 import {
   generateUser,
   generateDaily,
@@ -11,6 +12,7 @@ import i18n from '../../../website/common/script/i18n';
 import {
   NotAuthorized,
 } from '../../../website/common/script/libs/errors';
+import crit from '../../../website/common/script/fns/crit';
 
 let EPSILON = 0.0001; // negligible distance between datapoints
 
@@ -136,10 +138,39 @@ describe('shared.ops.scoreTask', () => {
       todo = generateTodo({ userId: ref.afterUser._id, text: 'some todo' });
 
       expect(habit.history.length).to.eql(0);
+      expect(habit.frequency).to.equal('daily');
+      expect(habit.counterUp).to.equal(0);
+      expect(habit.counterDown).to.equal(0);
 
       // before and after are the same user
       expect(ref.beforeUser._id).to.exist;
       expect(ref.beforeUser._id).to.eql(ref.afterUser._id);
+    });
+
+    it('critical hits', () => {
+      let normalUser = ref.beforeUser;
+      expect(normalUser.party.quest.progress.up).to.eql(0);
+      normalUser.party.quest.key = 'gryphon';
+      let critUser = ref.afterUser;
+      expect(critUser.party.quest.progress.up).to.eql(0);
+      critUser.party.quest.key = 'gryphon';
+      let normalTask = todo;
+      let critTask = freshTodo;
+
+      scoreTask({ user: normalUser, task: normalTask, direction: 'up', cron: false });
+      let normalTaskDelta = normalUser.party.quest.progress.up;
+
+      sandbox.stub(crit, 'crit').returns(1.5);
+      scoreTask({ user: critUser, task: critTask, direction: 'up', cron: false });
+      let critTaskDelta = critUser.party.quest.progress.up;
+      crit.crit.restore();
+
+      expect(critUser.stats.hp).to.eql(normalUser.stats.hp);
+      expect(critUser.stats.gp).to.be.greaterThan(normalUser.stats.gp);
+      expect(critUser.stats.mp).to.be.greaterThan(normalUser.stats.mp);
+      expect(critUser.stats.exp).to.be.greaterThan(normalUser.stats.exp);
+      expect(critTask.value).to.eql(normalTask.value);
+      expect(critTaskDelta).to.be.greaterThan(normalTaskDelta);
     });
 
     it('and increments quest progress', () => {
@@ -174,10 +205,20 @@ describe('shared.ops.scoreTask', () => {
 
         expect(habit.history.length).to.eql(1);
         expect(habit.value).to.be.greaterThan(0);
+        expect(habit.counterUp).to.equal(5);
 
         expect(ref.afterUser.stats.hp).to.eql(50);
         expect(ref.afterUser.stats.exp).to.be.greaterThan(ref.beforeUser.stats.exp);
         expect(ref.afterUser.stats.gp).to.be.greaterThan(ref.beforeUser.stats.gp);
+      });
+
+      it('adds score notes', () => {
+        let scoreNotesString = 'scoreNotes';
+        habit.scoreNotes = scoreNotesString;
+        options = { user: ref.afterUser, task: habit, direction: 'up', times: 5, cron: false };
+        scoreTask(options);
+
+        expect(habit.history[0].scoreNotes).to.eql(scoreNotesString);
       });
 
       it('down', () => {
@@ -185,6 +226,7 @@ describe('shared.ops.scoreTask', () => {
 
         expect(habit.history.length).to.eql(1);
         expect(habit.value).to.be.lessThan(0);
+        expect(habit.counterDown).to.equal(5);
 
         expect(ref.afterUser.stats.hp).to.be.lessThan(ref.beforeUser.stats.hp);
         expect(ref.afterUser.stats.exp).to.eql(0);

@@ -21,9 +21,9 @@ export default {
 };
 </script>
 
-<!-- Load CSS that doesn't belong to any specific component -->
-<style src="assets/css/index.css"></style>
+<style src="assets/less/semantic-ui/semantic.less" lang="less"></style>
 <style src="assets/less/index.less" lang="less"></style>
+<style src="assets/css/index.css"></style>
 
 <style scoped>
 .ui.fixed.menu + .ui.grid {

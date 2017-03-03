@@ -6,7 +6,6 @@ import requireAgain from 'require-again';
 import { recoverCron, cron } from '../../../../../website/server/libs/cron';
 import { model as User } from '../../../../../website/server/models/user';
 import * as Tasks from '../../../../../website/server/models/task';
-import { clone } from 'lodash';
 import common from '../../../../../website/common';
 import analytics from '../../../../../website/server/libs/analyticsService';
 
@@ -481,6 +480,67 @@ describe('cron', () => {
 
       expect(tasksByType.habits[0].value).to.equal(1);
     });
+
+    describe('counters', () => {
+      let notStartOfWeekOrMonth = new Date(2016, 9, 28).getTime(); // a Friday
+      let clock;
+
+      beforeEach(() => {
+        // Replace system clocks so we can get predictable results
+        clock = sinon.useFakeTimers(notStartOfWeekOrMonth);
+      });
+      afterEach(() => {
+        return clock.restore();
+      });
+
+      it('should reset a daily habit counter each day', () => {
+        tasksByType.habits[0].counterUp = 1;
+        tasksByType.habits[0].counterDown = 1;
+
+        cron({user, tasksByType, daysMissed, analytics});
+
+        expect(tasksByType.habits[0].counterUp).to.equal(0);
+        expect(tasksByType.habits[0].counterDown).to.equal(0);
+      });
+
+      it('should reset a weekly habit counter each Monday', () => {
+        tasksByType.habits[0].frequency = 'weekly';
+        tasksByType.habits[0].counterUp = 1;
+        tasksByType.habits[0].counterDown = 1;
+
+        // should not reset
+        cron({user, tasksByType, daysMissed, analytics});
+
+        expect(tasksByType.habits[0].counterUp).to.equal(1);
+        expect(tasksByType.habits[0].counterDown).to.equal(1);
+
+        // should reset
+        daysMissed = 8;
+        cron({user, tasksByType, daysMissed, analytics});
+
+        expect(tasksByType.habits[0].counterUp).to.equal(0);
+        expect(tasksByType.habits[0].counterDown).to.equal(0);
+      });
+
+      it('should reset a monthly habit counter the first day of each month', () => {
+        tasksByType.habits[0].frequency = 'monthly';
+        tasksByType.habits[0].counterUp = 1;
+        tasksByType.habits[0].counterDown = 1;
+
+        // should not reset
+        cron({user, tasksByType, daysMissed, analytics});
+
+        expect(tasksByType.habits[0].counterUp).to.equal(1);
+        expect(tasksByType.habits[0].counterDown).to.equal(1);
+
+        // should reset
+        daysMissed = 32;
+        cron({user, tasksByType, daysMissed, analytics});
+
+        expect(tasksByType.habits[0].counterUp).to.equal(0);
+        expect(tasksByType.habits[0].counterDown).to.equal(0);
+      });
+    });
   });
 
   describe('perfect day', () => {
@@ -533,7 +593,7 @@ describe('cron', () => {
       tasksByType.dailys[0].completed = true;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
 
-      let previousBuffs = clone(user.stats.buffs);
+      let previousBuffs = user.stats.buffs.toObject();
 
       cron({user, tasksByType, daysMissed, analytics});
 
@@ -598,7 +658,7 @@ describe('cron', () => {
       tasksByType.dailys[0].completed = false;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
 
-      let previousBuffs = clone(user.stats.buffs);
+      let previousBuffs = user.stats.buffs.toObject();
 
       cronOverride({user, tasksByType, daysMissed, analytics});
 
@@ -975,19 +1035,18 @@ describe('recoverCron', () => {
     sandbox.restore();
   });
 
-  it('throws an error if user cannot be found', async (done) => {
+  it('throws an error if user cannot be found', async () => {
     execStub.returns(Bluebird.resolve(null));
 
     try {
       await recoverCron(status, locals);
+      throw new Error('no exception when user cannot be found');
     } catch (err) {
       expect(err.message).to.eql(`User ${locals.user._id} not found while recovering.`);
-
-      done();
     }
   });
 
-  it('increases status.times count and reruns up to 4 times', async (done) => {
+  it('increases status.times count and reruns up to 4 times', async () => {
     execStub.returns(Bluebird.resolve({_cronSignature: 'RUNNING_CRON'}));
     execStub.onCall(4).returns(Bluebird.resolve({_cronSignature: 'NOT_RUNNING'}));
 
@@ -995,20 +1054,17 @@ describe('recoverCron', () => {
 
     expect(status.times).to.eql(4);
     expect(locals.user).to.eql({_cronSignature: 'NOT_RUNNING'});
-
-    done();
   });
 
-  it('throws an error if recoverCron runs 5 times', async (done) => {
+  it('throws an error if recoverCron runs 5 times', async () => {
     execStub.returns(Bluebird.resolve({_cronSignature: 'RUNNING_CRON'}));
 
     try {
       await recoverCron(status, locals);
+      throw new Error('no exception when recoverCron runs 5 times');
     } catch (err) {
       expect(status.times).to.eql(5);
       expect(err.message).to.eql(`Impossible to recover from cron for user ${locals.user._id}.`);
-
-      done();
     }
   });
 });

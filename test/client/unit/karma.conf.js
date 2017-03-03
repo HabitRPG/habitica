@@ -3,52 +3,12 @@
 // we are also using it with karma-webpack
 //   https://github.com/webpack/karma-webpack
 
-var path = require('path');
-var merge = require('webpack-merge');
-var baseConfig = require('../../../webpack/webpack.base.conf');
-var utils = require('../../../webpack/utils');
-var webpack = require('webpack');
-var projectRoot = path.resolve(__dirname, '../../../');
+// Necessary for babel to respect the env version of .babelrc which is necessary
+// Because inject-loader does not work with ["es2015", { modules: false }] that we use
+// in order to let webpack2 handle the imports
 
-var webpackConfig = merge(baseConfig, {
-  // use inline sourcemap for karma-sourcemap-loader
-  module: {
-    loaders: utils.styleLoaders(),
-  },
-  devtool: '#inline-source-map',
-  vue: {
-    loaders: {
-      js: 'isparta',
-    },
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': require('../../../webpack/config/test.env'),
-    }),
-  ],
-});
-
-// no need for app entry during tests
-delete webpackConfig.entry;
-
-// make sure isparta loader is applied before eslint
-webpackConfig.module.preLoaders = webpackConfig.module.preLoaders || [];
-webpackConfig.module.preLoaders.unshift({
-  test: /\.js$/,
-  loader: 'isparta',
-  include: [
-    path.resolve(projectRoot, 'website/client'),
-    path.resolve(projectRoot, 'website/common'),
-  ],
-});
-
-// only apply babel for test files when using isparta
-webpackConfig.module.loaders.some(function (loader, i) {
-  if (loader.loader === 'babel') {
-    loader.include = path.resolve(projectRoot, 'test/client/unit');
-    return true;
-  }
-});
+process.env.BABEL_ENV = process.env.NODE_ENV; // eslint-disable-line no-process-env
+const webpackConfig = require('../../../webpack/webpack.test.conf');
 
 module.exports = function (config) {
   config.set({

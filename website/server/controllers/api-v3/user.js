@@ -200,8 +200,9 @@ api.deleteUser = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let oldPassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
-    if (oldPassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
+    let password = req.body.password;
+    let isValidPassword = await passwordUtils.compare(user, password);
+    if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
 
     if (plan && plan.customerId && !plan.dateTerminated) {
       throw new NotAuthorized(res.t('cannotDeleteActiveAccount'));
@@ -256,6 +257,7 @@ api.getUserAnonymized = {
     if (user.auth) {
       delete user.auth.local;
       delete user.auth.facebook;
+      delete user.auth.google;
     }
     delete user.newMessages;
     delete user.profile;
@@ -392,11 +394,19 @@ api.castSpell = {
     } else if (targetType === 'tasks') { // new target type in v3: when all the user's tasks are necessary
       let tasks = await Tasks.Task.find({
         userId: user._id,
-        $or: [ // exclude challenge tasks
-          {'challenge.id': {$exists: false}},
-          {'challenge.broken': {$exists: true}},
-          {'group.id': {$exists: false}},
-          {'group.broken': {$exists: true}},
+        $and: [ // exclude challenge and group tasks
+          {
+            $or: [
+              {'challenge.id': {$exists: false}},
+              {'challenge.broken': {$exists: true}},
+            ],
+          },
+          {
+            $or: [
+              {'group.id': {$exists: false}},
+              {'group.broken': {$exists: true}},
+            ],
+          },
         ],
       }).exec();
 
@@ -547,7 +557,7 @@ api.allocateNow = {
 };
 
 /**
- * @api {post} /user/buy/:key Buy gear, armoire or potion
+ * @api {post} /api/v3/user/buy/:key Buy gear, armoire or potion
  * @apiDescription Under the hood uses UserBuyGear, UserBuyPotion and UserBuyArmoire
  * @apiName UserBuy
  * @apiGroup User
@@ -567,7 +577,7 @@ api.buy = {
 };
 
 /**
- * @api {post} /user/buy-gear/:key Buy a piece of gear
+ * @api {post} /api/v3/user/buy-gear/:key Buy a piece of gear
  * @apiName UserBuyGear
  * @apiGroup User
  *
@@ -592,7 +602,7 @@ api.buyGear = {
 };
 
 /**
- * @api {post} /user/buy-armoire Buy an armoire item
+ * @api {post} /api/v3/user/buy-armoire Buy an armoire item
  * @apiName UserBuyArmoire
  * @apiGroup User
  *
@@ -614,7 +624,7 @@ api.buyArmoire = {
 };
 
 /**
- * @api {post} /user/buy-health-potion Buy a health potion
+ * @api {post} /api/v3/user/buy-health-potion Buy a health potion
  * @apiName UserBuyPotion
  * @apiGroup User
  *
@@ -634,7 +644,7 @@ api.buyHealthPotion = {
 };
 
 /**
- * @api {post} /user/buy-mystery-set/:key Buy a mystery set
+ * @api {post} /api/v3/user/buy-mystery-set/:key Buy a mystery set
  * @apiName UserBuyMysterySet
  * @apiGroup User
  *
@@ -1055,11 +1065,19 @@ api.userRebirth = {
     let tasks = await Tasks.Task.find({
       userId: user._id,
       type: {$in: ['daily', 'habit', 'todo']},
-      $or: [ // exclude challenge tasks
-        {'challenge.id': {$exists: false}},
-        {'challenge.broken': {$exists: true}},
-        {'group.id': {$exists: false}},
-        {'group.broken': {$exists: true}},
+      $and: [ // exclude challenge and group tasks
+        {
+          $or: [
+            {'challenge.id': {$exists: false}},
+            {'challenge.broken': {$exists: true}},
+          ],
+        },
+        {
+          $or: [
+            {'group.id': {$exists: false}},
+            {'group.broken': {$exists: true}},
+          ],
+        },
       ],
     }).exec();
 
@@ -1173,11 +1191,19 @@ api.userReroll = {
     let query = {
       userId: user._id,
       type: {$in: ['daily', 'habit', 'todo']},
-      $or: [ // exclude challenge tasks
-        {'challenge.id': {$exists: false}},
-        {'challenge.broken': {$exists: true}},
-        {'group.id': {$exists: false}},
-        {'group.broken': {$exists: true}},
+      $and: [ // exclude challenge and group tasks
+        {
+          $or: [
+            {'challenge.id': {$exists: false}},
+            {'challenge.broken': {$exists: true}},
+          ],
+        },
+        {
+          $or: [
+            {'group.id': {$exists: false}},
+            {'group.broken': {$exists: true}},
+          ],
+        },
       ],
     };
     let tasks = await Tasks.Task.find(query).exec();
@@ -1210,11 +1236,19 @@ api.userReset = {
 
     let tasks = await Tasks.Task.find({
       userId: user._id,
-      $or: [ // exclude challenge tasks
-        {'challenge.id': {$exists: false}},
-        {'challenge.broken': {$exists: true}},
-        {'group.id': {$exists: false}},
-        {'group.broken': {$exists: true}},
+      $and: [ // exclude challenge and group tasks
+        {
+          $or: [
+            {'challenge.id': {$exists: false}},
+            {'challenge.broken': {$exists: true}},
+          ],
+        },
+        {
+          $or: [
+            {'group.id': {$exists: false}},
+            {'group.broken': {$exists: true}},
+          ],
+        },
       ],
     }).select('_id type challenge group').exec();
 

@@ -11,7 +11,6 @@ import {
   generateGroup,
 } from '../../../../helpers/api-unit.helper.js';
 import i18n from '../../../../../website/common/script/i18n';
-import amzLib from '../../../../../website/server/libs/amazonPayments';
 
 describe('payments/index', () => {
   let user, group, data, plan;
@@ -486,7 +485,6 @@ describe('payments/index', () => {
         sandbox.spy(user.purchased.plan.mysteryItems, 'push');
 
         data = { paymentMethod: 'PaymentMethod', user, sub: { key: 'basic_3mo' } };
-
         await api.createSubscription(data);
 
         expect(user.purchased.plan.mysteryItems.push).to.be.calledOnce;
@@ -816,111 +814,6 @@ describe('payments/index', () => {
 
       expect(spy.calledOnce).to.be.false;
       expect(updatedGroup.purchased.plan.quantity).to.eql(3);
-    });
-  });
-
-  describe('payWithStripe', () => {
-    let spy;
-    let stripeCreateCustomerSpy;
-    let createSubSpy;
-
-    beforeEach(function () {
-      spy = sinon.stub(stripe.subscriptions, 'update');
-      spy.returnsPromise().resolves;
-
-      stripeCreateCustomerSpy = sinon.stub(stripe.customers, 'create');
-      let stripCustomerResponse = {
-        subscriptions: {
-          data: [{id: 'test-id'}],
-        },
-      };
-      stripeCreateCustomerSpy.returnsPromise().resolves(stripCustomerResponse);
-
-      createSubSpy = sinon.stub(api, 'createSubscription');
-      createSubSpy.returnsPromise().resolves({});
-
-      data.groupId = group._id;
-      data.sub.quantity = 3;
-    });
-
-    afterEach(function () {
-      sinon.restore(stripe.subscriptions.update);
-      stripe.customers.create.restore();
-      api.createSubscription.restore();
-    });
-
-    it('subscribes with stripe', async () => {
-      let token = 'test-token';
-      let gift;
-      let sub = data.sub;
-      let groupId = group._id;
-      let email = 'test@test.com';
-      let headers = {};
-      let coupon;
-
-      await api.payWithStripe({
-        token,
-        user,
-        gift,
-        sub,
-        groupId,
-        email,
-        headers,
-        coupon,
-      }, stripe);
-
-      expect(stripeCreateCustomerSpy.calledOnce).to.be.true;
-      expect(createSubSpy.calledOnce).to.be.true;
-    });
-  });
-
-  describe('subscribeWithAmazon', () => {
-    let amazonSetBillingAgreementDetailsSpy;
-    let amazonConfirmBillingAgreementSpy;
-    let amazongAuthorizeOnBillingAgreementSpy;
-    let createSubSpy;
-
-    beforeEach(function () {
-      amazonSetBillingAgreementDetailsSpy = sinon.stub(amzLib, 'setBillingAgreementDetails');
-      amazonSetBillingAgreementDetailsSpy.returnsPromise().resolves({});
-
-      amazonConfirmBillingAgreementSpy = sinon.stub(amzLib, 'confirmBillingAgreement');
-      amazonConfirmBillingAgreementSpy.returnsPromise().resolves({});
-
-      amazongAuthorizeOnBillingAgreementSpy = sinon.stub(amzLib, 'authorizeOnBillingAgreement');
-      amazongAuthorizeOnBillingAgreementSpy.returnsPromise().resolves({});
-
-      createSubSpy = sinon.stub(api, 'createSubscription');
-      createSubSpy.returnsPromise().resolves({});
-    });
-
-    afterEach(function () {
-      amzLib.setBillingAgreementDetails.restore();
-      amzLib.confirmBillingAgreement.restore();
-      amzLib.authorizeOnBillingAgreement.restore();
-      api.createSubscription.restore();
-    });
-
-    it('subscribes with amazon', async () => {
-      let billingAgreementId = 'billingAgreementId';
-      let sub = data.sub;
-      let coupon;
-      let groupId = group._id;
-      let headers = {};
-
-      await api.subscribeWithAmazon({
-        billingAgreementId,
-        sub,
-        coupon,
-        user,
-        groupId,
-        headers,
-      });
-
-      expect(amazonSetBillingAgreementDetailsSpy.calledOnce).to.be.true;
-      expect(amazonConfirmBillingAgreementSpy.calledOnce).to.be.true;
-      expect(amazongAuthorizeOnBillingAgreementSpy.calledOnce).to.be.true;
-      expect(createSubSpy.calledOnce).to.be.true;
     });
   });
 });

@@ -29,8 +29,6 @@ footer.footer(ng-controller='FooterCtrl')
           li
             a(target='_blank', href='http://blog.habitrpg.com/')=env.t('tumblr')
           li
-            !=env.t('companyExtensions')
-          li
             a(href='/static/faq/')=env.t('FAQ')
           li
             a(href='/static/old-news')=env.t('oldNews')
@@ -95,6 +93,8 @@ footer.footer(ng-controller='FooterCtrl')
             a.btn.btn-default(ng-click='setHealthLow()') Health = 1
             a.btn.btn-default(ng-click='addMissedDay(1)') +1 Missed Day
             a.btn.btn-default(ng-click='addMissedDay(2)') +2 Missed Days
+            a.btn.btn-default(ng-click='addMissedDay(8)') +8 Missed Days
+            a.btn.btn-default(ng-click='addMissedDay(32)') +32 Missed Days
             a.btn.btn-default(ng-click='addTenGems()') +10 Gems
             a.btn.btn-default(ng-click='addHourglass()') +1 Mystic Hourglass
             a.btn.btn-default(ng-click='addGold()') +500GP

@@ -269,7 +269,11 @@ habitrpg.controller('SettingsCtrl',
 
     $scope.applyCoupon = function(coupon){
       $http.post(ApiUrl.get() + '/api/v3/coupons/validate/'+coupon)
-      .success(function(){
+      .success(function(res, code){
+        if (!res.data.valid) {
+          Notification.error(env.t('invalidCoupon'), true);
+          return;
+        }
         Notification.text("Coupon applied!");
         var subs = Content.subscriptionBlocks;
         subs["basic_6mo"].discount = true;

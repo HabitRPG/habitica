@@ -167,8 +167,8 @@ window.habitrpg = angular.module('habitrpg',
           url: '/:gid',
           templateUrl: 'partials/options.social.guilds.detail.html',
           title: env.t('titleGuilds'),
-          controller: ['$scope', 'Groups', 'Chat', '$stateParams', 'Members', 'Challenges', 'Tasks', 'User', '$location',
-          function($scope, Groups, Chat, $stateParams, Members, Challenges, Tasks, User, $location) {
+          controller: ['$scope', 'Groups', 'Chat', '$stateParams', 'Members', 'Challenges', 'Tasks', 'User', '$location', '$rootScope',
+          function($scope, Groups, Chat, $stateParams, Members, Challenges, Tasks, User, $location, $rootScope) {
             $scope.groupPanel = 'chat';
             $scope.upgrade = false;
 
@@ -198,12 +198,31 @@ window.habitrpg = angular.module('habitrpg',
               })
               .then(function (response) {
                 var tasks = response.data.data;
-                tasks.forEach(function (element, index, array) {
-                  if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
-                  $scope.group[element.type + 's'].unshift(element);
-                });
+
+                // @TODO: This task ordering logic should be astracted and user everywhere group or user tasks are loaded
+                var groupedTasks = _(tasks)
+                  .groupBy('type')
+                  .forEach(function (tasksOfType, type) {
+                    var order = $scope.group.tasksOrder[type + 's'];
+                    var orderedTasks = new Array(tasksOfType.length);
+                    var unorderedTasks = []; // what we want to add later
+
+                    tasksOfType.forEach(function (task, index) {
+                      var taskId = task._id;
+                      var i = order[index] === taskId ? index : order.indexOf(taskId);
+                      if (i === -1) {
+                        unorderedTasks.unshift(task); // unshift because we want to display new on top
+                      } else {
+                        orderedTasks[i] = task;
+                      }
+                    });
+
+                    // Remove empty values from the array and add any unordered task
+                    $scope.group[type + 's'] = _.compact(orderedTasks).concat(unorderedTasks);
+                  });
 
                 $scope.group.approvals = [];
+                $rootScope.$broadcast('obj-updated', $scope.group);
                 if (User.user._id === $scope.group.leader._id) {
                   return Tasks.getGroupApprovals($scope.group._id);
                 }
@@ -239,7 +258,7 @@ window.habitrpg = angular.module('habitrpg',
                   tasks.forEach(function (element, index, array) {
                     if (!$scope.challenge[element.type + 's']) $scope.challenge[element.type + 's'] = [];
                     $scope.challenge[element.type + 's'].push(element);
-                  })
+                  });
 
                   return Members.getChallengeMembers($scope.challenge._id);
                 })

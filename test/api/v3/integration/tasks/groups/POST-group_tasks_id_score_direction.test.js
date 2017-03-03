@@ -34,6 +34,10 @@ describe('POST /tasks/:id/score/:direction', () => {
   });
 
   it('prevents user from scoring a task that needs to be approved', async () => {
+    await user.update({
+      'preferences.language': 'cs',
+    });
+
     let memberTasks = await member.get('/tasks/user');
     let syncedTask = find(memberTasks, findAssignedTask);
 
@@ -52,7 +56,7 @@ describe('POST /tasks/:id/score/:direction', () => {
     expect(user.notifications[0].data.message).to.equal(t('userHasRequestedTaskApproval', {
       user: member.auth.local.username,
       taskName: updatedTask.text,
-    }));
+    }, 'cs')); // This test only works if we have the notification translated
     expect(user.notifications[0].data.groupId).to.equal(guild._id);
 
     expect(updatedTask.group.approval.requested).to.equal(true);

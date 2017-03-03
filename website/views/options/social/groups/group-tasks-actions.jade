@@ -5,6 +5,6 @@ script(type='text/ng-template', id='partials/groups.tasks.actions.html')
     
     ul.priority-multiplier
       li {{requiresApproval}}
-        button(type='button', ng-class='{active: task._edit.requiresApproval==true}',
-          ng-click='task._edit.requiresApproval = !task._edit.requiresApproval')
+        button(type='button', ng-class='{active: task._edit.group.approval.required == true}',
+          ng-click='toggleTaskRequiresApproval()')
           =env.t('approvalRequired')

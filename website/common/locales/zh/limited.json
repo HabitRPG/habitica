@@ -18,7 +18,7 @@
     "valentine2": "\"玫瑰是红色的\n这首诗已经流传很久\n我希望你能喜欢\n因为它价值十枚金币.\"",
     "valentine3": "\"玫瑰是红色的\n冰蜉蝣是蓝色的\n没有任何宝藏比得上\n与你共处的时光!\"",
     "valentineCardAchievementTitle": "崇拜的朋友",
-    "valentineCardAchievementText": "啊，你和你的朋友一定很关心对方！你们之间已经发送或接受了<%= cards %>张情人节卡片。",
+    "valentineCardAchievementText": "啊，你和你的朋友一定很关心对方！你们之间已经发送或接受了<%= count %>张情人节卡片。",
     "polarBear": "北极熊",
     "turkey": "火鸡",
     "gildedTurkey": "金黄色的火鸡",
@@ -40,7 +40,7 @@
     "snowflakeSet": "雪片 (医师)",
     "yetiSet": "野人驯化 (战士)",
     "northMageSet": "北方法师(法师)",
-    "icicleDrakeSet": "冰柱之龙(盗贼)",
+    "icicleDrakeSet": "灞波儿奔(盗贼)",
     "soothingSkaterSet": "抚慰滑冰者(医者)",
     "gingerbreadSet": "姜饼人战士(战士)",
     "snowDaySet": "下雪天战士(战士)",
@@ -53,7 +53,7 @@
     "nyeCardNotes": "送一张新年贺卡给你的一个队伍成员",
     "seasonalItems": "季节性商品",
     "nyeCardAchievementTitle": "老朋友",
-    "nyeCardAchievementText": "新年快乐！发送或接受了<%= cards %> 张贺年片。",
+    "nyeCardAchievementText": "新年快乐！发送或接受了<%= count %> 张贺年片。",
     "nye0": "新年快乐! 愿你消灭掉很多的坏习惯。",
     "nye1": "新年快乐! 愿你收获很多的奖励。",
     "nye2": "新年快乐! 愿你拥有很多完美日。",
@@ -87,5 +87,6 @@
     "fallEventAvailability": "10月31日前可购买",
     "winterEventAvailability": "1月31日前可以使用",
     "springEventAvailability": "5月31日前可购买",
-    "summerEventAvailability": "8月31日前可购买"
+    "summerEventAvailability": "8月31日前可购买",
+    "valentinesEventAvailability": "2月28日前可以购买"
 }

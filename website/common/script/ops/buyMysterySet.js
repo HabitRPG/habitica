@@ -1,6 +1,7 @@
 import i18n from '../i18n';
 import content from '../content/index';
-import _ from 'lodash';
+import get from 'lodash/get';
+import each from 'lodash/each';
 import {
   BadRequest,
   NotAuthorized,
@@ -8,7 +9,7 @@ import {
 } from '../libs/errors';
 
 module.exports = function buyMysterySet (user, req = {}, analytics) {
-  let key = _.get(req, 'params.key');
+  let key = get(req, 'params.key');
   if (!key) throw new BadRequest(i18n.t('missingKeyParam', req.language));
 
   if (!(user.purchased.plan.consecutive.trinkets > 0)) {
@@ -26,7 +27,7 @@ module.exports = function buyMysterySet (user, req = {}, analytics) {
     if (!window.confirm(i18n.t('hourglassBuyEquipSetConfirm'))) return;
   }
 
-  _.each(mysterySet.items, item => {
+  each(mysterySet.items, item => {
     user.items.gear.owned[item.key] = true;
     if (analytics) {
       analytics.track('acquire item', {

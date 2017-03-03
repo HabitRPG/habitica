@@ -7,7 +7,7 @@
     "alarmingFriends": "Обезпокоителни приятели",
     "alarmingFriendsText": "Превърнат(а) в дух <%= count %> пъти от членовете на групата.",
     "agriculturalFriends": "Селскостопански приятели",
-    "agriculturalFriendsText": "Превърнат(а) в цвете <%= count %>пъти от членовете на групата.",
+    "agriculturalFriendsText": "Превърнат(а) в цвете <%= count %> пъти от членовете на групата.",
     "aquaticFriends": "Водни приятели",
     "aquaticFriendsText": "Изпръскан(а) <%= count %> пъти от членовете на групата.",
     "valentineCard": "Картичка за Св. Валентин",
@@ -87,5 +87,6 @@
     "fallEventAvailability": "Налично за купуване до 31-ви октомври.",
     "winterEventAvailability": "Налично за купуване до 31-ви януари.",
     "springEventAvailability": "Налично за купуване до 31-ви май.",
-    "summerEventAvailability": "Налично за купуване до 31-ви август."
+    "summerEventAvailability": "Налично за купуване до 31-ви август.",
+    "valentinesEventAvailability": "Налично за купуване до 28-ми февруари."
 }

@@ -1,11 +1,15 @@
-var path = require('path');
-var config = require('./config');
-var utils = require('./utils');
-var projectRoot = path.resolve(__dirname, '../');
-var webpack = require('webpack');
+/* eslint-disable no-process-env, no-console */
 
-var IS_PROD = process.env.NODE_ENV === 'production';
-var baseConfig = {
+const path = require('path');
+const config = require('./config');
+const utils = require('./utils');
+const projectRoot = path.resolve(__dirname, '../');
+const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
+const postcssEasyImport = require('postcss-easy-import');
+const IS_PROD = process.env.NODE_ENV === 'production';
+
+const baseConfig = {
   entry: {
     app: './website/client/main.js',
   },
@@ -15,17 +19,20 @@ var baseConfig = {
     filename: '[name].js',
   },
   resolve: {
-    extensions: ['', '.js', '.vue'],
-    fallback: [path.join(__dirname, '../node_modules')],
+    extensions: ['*', '.js', '.vue', '.json'],
+    modules: [
+      path.join(__dirname, '..', 'website'),
+      path.join(__dirname, '..', 'test/client/unit'),
+      path.join(__dirname, '..', 'node_modules'),
+    ],
     alias: {
       jquery: 'jquery/src/jquery',
+      website: path.resolve(__dirname, '../website'),
+      common: path.resolve(__dirname, '../website/common'),
       client: path.resolve(__dirname, '../website/client'),
       assets: path.resolve(__dirname, '../website/client/assets'),
       components: path.resolve(__dirname, '../website/client/components'),
     },
-  },
-  resolveLoader: {
-    fallback: [path.join(__dirname, '../node_modules')],
   },
   plugins: [
     new webpack.ProvidePlugin({
@@ -34,38 +41,34 @@ var baseConfig = {
     }),
   ],
   module: {
-    preLoaders: !IS_PROD ? [
+    rules: [
       {
         test: /\.vue$/,
-        loader: 'eslint',
-        include: projectRoot,
-        exclude: /node_modules/,
+        loader: 'vue-loader',
+        options: {
+          loaders: utils.cssLoaders({
+            sourceMap: IS_PROD ?
+              config.build.productionSourceMap :
+              config.dev.cssSourceMap,
+            extract: IS_PROD,
+          }),
+          postcss: [
+            autoprefixer({
+              browsers: ['last 2 versions'],
+            }),
+            postcssEasyImport(),
+          ],
+        },
       },
       {
         test: /\.js$/,
-        loader: 'eslint',
+        loader: 'babel-loader',
         include: projectRoot,
         exclude: /node_modules/,
-      },
-    ] : [],
-    loaders: [
-      {
-        test: /\.vue$/,
-        loader: 'vue',
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel',
-        include: projectRoot,
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.json$/,
-        loader: 'json',
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'url',
+        loader: 'url-loader',
         query: {
           limit: 10000,
           name: utils.assetsPath('img/[name].[hash:7].[ext]'),
@@ -73,7 +76,7 @@ var baseConfig = {
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'url',
+        loader: 'url-loader',
         query: {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]'),
@@ -81,23 +84,21 @@ var baseConfig = {
       },
     ],
   },
-  vue: {
-    loaders: utils.cssLoaders(),
-    postcss: [
-      require('autoprefixer')({
-        browsers: ['last 2 versions'],
-      }),
-      require('postcss-easy-import')({
-        glob: true,
-      }),
-    ],
-  },
 };
 
 if (!IS_PROD) {
-  baseConfig.eslint = {
-    formatter: require('eslint-friendly-formatter'),
-    emitWarning: true,
-  };
+  const eslintFriendlyFormatter = require('eslint-friendly-formatter'); // eslint-disable-line global-require
+
+  baseConfig.module.rules.unshift({
+    test: /\.(js|vue)$/,
+    loader: 'eslint-loader',
+    enforce: 'pre',
+    include: projectRoot,
+    options: {
+      formatter: eslintFriendlyFormatter,
+      emitWarning: true,
+    },
+    exclude: /node_modules/,
+  });
 }
 module.exports = baseConfig;

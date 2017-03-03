@@ -1,6 +1,6 @@
-import Vue from 'vue';
+import axios from 'axios';
 
 export async function fetch (store) { // eslint-disable-line no-shadow
-  let response = await  Vue.http.get('/api/v3/user');
-  store.state.user = response.body.data;
+  let response = await axios.get('/api/v3/user');
+  store.state.user = response.data.data;
 }

@@ -1,13 +1,15 @@
 import i18n from '../i18n';
-import _ from 'lodash';
+import get from 'lodash/get';
+import findIndex from 'lodash/findIndex';
+import each from 'lodash/each';
 import { NotFound } from '../libs/errors';
 
 // TODO used only in client, move there?
 
 module.exports = function deleteTag (user, req = {}) {
-  let tid = _.get(req, 'params.id');
+  let tid = get(req, 'params.id');
 
-  let index = _.findIndex(user.tags, {
+  let index = findIndex(user.tags, {
     id: tid,
   });
 
@@ -20,11 +22,11 @@ module.exports = function deleteTag (user, req = {}) {
 
   user.tags.splice(index, 1);
 
-  _.each(user.tasks, (task) => {
+  each(user.tasks, (task) => {
     return delete task.tags[tag.id];
   });
 
-  _.each(['habits', 'dailys', 'todos', 'rewards'], (type) => {
+  each(['habits', 'dailys', 'todos', 'rewards'], (type) => {
     user.markModified(type);
   });
 

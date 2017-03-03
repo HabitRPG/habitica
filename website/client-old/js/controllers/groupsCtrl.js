@@ -2,6 +2,7 @@
 
 habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '$http', '$q', 'User', 'Members', '$state', 'Notification',
   function($scope, $rootScope, Shared, Groups, $http, $q, User, Members, $state, Notification) {
+    $scope.inviteOrStartParty = Groups.inviteOrStartParty;
     $scope.isMemberOfPendingQuest = function (userid, group) {
       if (!group.quest || !group.quest.members) return false;
       if (group.quest.active) return false; // quest is started, not pending
@@ -18,7 +19,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       // If the group is a guild, just check for an intersection with the
       // current user's guilds, rather than checking the members of the group.
       if(group.type === 'guild') {
-        return _.detect(User.user.guilds, function(guildId) { return guildId === group._id });
+        return _.find(User.user.guilds, function(guildId) { return guildId === group._id });
       }
 
       // Similarly, if we're dealing with the user's current party, return true.
@@ -124,25 +125,6 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       } else {
         $scope.removeMemberData = undefined;
       }
-    };
-
-    $scope.openInviteModal = function (group) {
-      if (group.type !== 'party' && group.type !== 'guild') {
-        return console.log('Invalid group type.')
-      }
-
-      var sendInviteText = window.env.t('sendInvitations');
-      if(group.purchased && group.purchased.plan && group.purchased.plan.customerId) sendInviteText += window.env.t('groupAdditionalUserCost');
-      group.sendInviteText = sendInviteText;
-
-      $rootScope.openModal('invite-' + group.type, {
-        controller:'InviteToGroupCtrl',
-        resolve: {
-          injectedGroup: function(){
-            return group;
-          },
-        }
-      });
     };
 
     $scope.quickReply = function (uid) {

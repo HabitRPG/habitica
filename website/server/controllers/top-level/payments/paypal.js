@@ -1,54 +1,15 @@
 /* eslint-disable camelcase */
-
-import nconf from 'nconf';
-import moment from 'moment';
-import _ from 'lodash';
-import payments from '../../../libs/payments';
-import ipn from 'paypal-ipn';
-import paypal from 'paypal-rest-sdk';
+import paypalPayments from '../../../libs/paypalPayments';
 import shared from '../../../../common';
-import cc from 'coupon-code';
-import Bluebird from 'bluebird';
-import { model as Coupon } from '../../../models/coupon';
-import { model as User } from '../../../models/user';
-import {
-  model as Group,
-  basicFields as basicGroupFields,
-} from '../../../models/group';
 import {
   authWithUrl,
   authWithSession,
 } from '../../../middlewares/auth';
 import {
   BadRequest,
-  NotAuthorized,
-  NotFound,
 } from '../../../libs/errors';
 
-const BASE_URL = nconf.get('BASE_URL');
-
-// This is the plan.id for paypal subscriptions. You have to set up billing plans via their REST sdk (they don't have
-// a web interface for billing-plan creation), see ./paypalBillingSetup.js for how. After the billing plan is created
-// there, get it's plan.id and store it in config.json
-_.each(shared.content.subscriptionBlocks, (block) => {
-  block.paypalKey = nconf.get(`PAYPAL:billing_plans:${block.key}`);
-});
-
-paypal.configure({
-  mode: nconf.get('PAYPAL:mode'), // sandbox or live
-  client_id: nconf.get('PAYPAL:client_id'),
-  client_secret: nconf.get('PAYPAL:client_secret'),
-});
-
-// TODO better handling of errors
-const paypalPaymentCreate = Bluebird.promisify(paypal.payment.create, {context: paypal.payment});
-const paypalPaymentExecute = Bluebird.promisify(paypal.payment.execute, {context: paypal.payment});
-const paypalBillingAgreementCreate = Bluebird.promisify(paypal.billingAgreement.create, {context: paypal.billingAgreement});
-const paypalBillingAgreementExecute = Bluebird.promisify(paypal.billingAgreement.execute, {context: paypal.billingAgreement});
-const paypalBillingAgreementGet = Bluebird.promisify(paypal.billingAgreement.get, {context: paypal.billingAgreement});
-const paypalBillingAgreementCancel = Bluebird.promisify(paypal.billingAgreement.cancel, {context: paypal.billingAgreement});
-
-const ipnVerifyAsync = Bluebird.promisify(ipn.verify, {context: ipn});
+const i18n = shared.i18n;
 
 let api = {};
 
@@ -66,46 +27,13 @@ api.checkout = {
     let gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
     req.session.gift = req.query.gift;
 
-    let amount = 5.00;
-    let description = 'Habitica Gems';
-    if (gift) {
-      if (gift.type === 'gems') {
-        amount = Number(gift.gems.amount / 4).toFixed(2);
-        description = `${description} (Gift)`;
-      } else {
-        amount = Number(shared.content.subscriptionBlocks[gift.subscription.key].price).toFixed(2);
-        description = 'mo. Habitica Subscription (Gift)';
-      }
+    let link = await paypalPayments.checkout({gift});
+
+    if (req.query.noRedirect) {
+      res.respond(200);
+    } else {
+      res.redirect(link);
     }
-
-    let createPayment = {
-      intent: 'sale',
-      payer: { payment_method: 'Paypal' },
-      redirect_urls: {
-        return_url: `${BASE_URL}/paypal/checkout/success`,
-        cancel_url: `${BASE_URL}`,
-      },
-      transactions: [{
-        item_list: {
-          items: [{
-            name: description,
-            // sku: 1,
-            price: amount,
-            currency: 'USD',
-            quantity: 1,
-          }],
-        },
-        amount: {
-          currency: 'USD',
-          total: amount,
-        },
-        description,
-      }],
-    };
-
-    let result = await paypalPaymentCreate(createPayment);
-    let link = _.find(result.links, { rel: 'approval_url' }).href;
-    res.redirect(link);
   },
 };
 
@@ -122,30 +50,20 @@ api.checkoutSuccess = {
   async handler (req, res) {
     let paymentId = req.query.paymentId;
     let customerId = req.query.PayerID;
-
-    let method = 'buyGems';
-    let data = {
-      user: res.locals.user,
-      customerId,
-      paymentMethod: 'Paypal',
-    };
-
+    let user = res.locals.user;
     let gift = req.session.gift ? JSON.parse(req.session.gift) : undefined;
     delete req.session.gift;
 
-    if (gift) {
-      gift.member = await User.findById(gift.uuid).exec();
-      if (gift.type === 'subscription') {
-        method = 'createSubscription';
-      }
+    if (!paymentId) throw new BadRequest(i18n.t('missingPaymentId'));
+    if (!customerId) throw new BadRequest(i18n.t('missingCustomerId'));
 
-      data.paymentMethod = 'PayPal (Gift)';
-      data.gift = gift;
+    await paypalPayments.checkoutSuccess({user, gift, paymentId, customerId});
+
+    if (req.query.noRedirect) {
+      res.respond(200);
+    } else {
+      res.redirect('/');
     }
-
-    await paypalPaymentExecute(paymentId, { payer_id: customerId });
-    await payments[method](data);
-    res.redirect('/');
   },
 };
 
@@ -160,32 +78,21 @@ api.subscribe = {
   url: '/paypal/subscribe',
   middlewares: [authWithUrl],
   async handler (req, res) {
+    if (!req.query.sub) throw new BadRequest(i18n.t('missingSubKey'));
+
     let sub = shared.content.subscriptionBlocks[req.query.sub];
+    let coupon = req.query.coupon;
 
-    if (sub.discount) {
-      if (!req.query.coupon) throw new BadRequest(res.t('couponCodeRequired'));
-      let coupon = await Coupon.findOne({_id: cc.validate(req.query.coupon), event: sub.key}).exec();
-      if (!coupon) throw new NotAuthorized(res.t('invalidCoupon'));
-    }
-
-    let billingPlanTitle = `Habitica Subscription ($${sub.price} every ${sub.months} months, recurring)`;
-    let billingAgreementAttributes = {
-      name: billingPlanTitle,
-      description: billingPlanTitle,
-      start_date: moment().add({ minutes: 5 }).format(),
-      plan: {
-        id: sub.paypalKey,
-      },
-      payer: {
-        payment_method: 'Paypal',
-      },
-    };
-    let billingAgreement = await paypalBillingAgreementCreate(billingAgreementAttributes);
+    let link = await paypalPayments.subscribe({sub, coupon});
 
     req.session.paypalBlock = req.query.sub;
     req.session.groupId = req.query.groupId;
-    let link = _.find(billingAgreement.links, { rel: 'approval_url' }).href;
-    res.redirect(link);
+
+    if (req.query.noRedirect) {
+      res.respond(200);
+    } else {
+      res.redirect(link);
+    }
   },
 };
 
@@ -201,23 +108,23 @@ api.subscribeSuccess = {
   middlewares: [authWithSession],
   async handler (req, res) {
     let user = res.locals.user;
+
+    if (!req.session.paypalBlock) throw new BadRequest(i18n.t('missingPaypalBlock'));
+
     let block = shared.content.subscriptionBlocks[req.session.paypalBlock];
     let groupId = req.session.groupId;
+    let token = req.query.token;
 
     delete req.session.paypalBlock;
     delete req.session.groupId;
 
-    let result = await paypalBillingAgreementExecute(req.query.token, {});
-    await payments.createSubscription({
-      user,
-      groupId,
-      customerId: result.id,
-      paymentMethod: 'Paypal',
-      sub: block,
-      headers: req.headers,
-    });
+    await paypalPayments.subscribeSuccess({user, block, groupId, token, headers: req.headers});
 
-    res.redirect('/');
+    if (req.query.noRedirect) {
+      res.respond(200);
+    } else {
+      res.redirect('/');
+    }
   },
 };
 
@@ -235,41 +142,13 @@ api.subscribeCancel = {
     let user = res.locals.user;
     let groupId = req.query.groupId;
 
-    let customerId;
-    if (groupId) {
-      let groupFields = basicGroupFields.concat(' purchased');
-      let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+    await paypalPayments.subscribeCancel({user, groupId});
 
-      if (!group) {
-        throw new NotFound(res.t('groupNotFound'));
-      }
-
-      if (!group.leader === user._id) {
-        throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
-      }
-      customerId = group.purchased.plan.customerId;
+    if (req.query.noRedirect) {
+      res.respond(200);
     } else {
-      customerId = user.purchased.plan.customerId;
+      res.redirect('/');
     }
-
-    if (!customerId) throw new NotAuthorized(res.t('missingSubscription'));
-
-    let customer = await paypalBillingAgreementGet(customerId);
-
-    let nextBillingDate = customer.agreement_details.next_billing_date;
-    if (customer.agreement_details.cycles_completed === '0') { // hasn't billed yet
-      throw new BadRequest(res.t('planNotActive', { nextBillingDate }));
-    }
-
-    await paypalBillingAgreementCancel(customerId, { note: res.t('cancelingSubscription') });
-    await payments.cancelSubscription({
-      user,
-      groupId,
-      paymentMethod: 'Paypal',
-      nextBill: nextBillingDate,
-    });
-
-    res.redirect('/');
   },
 };
 
@@ -288,25 +167,7 @@ api.ipn = {
   async handler (req, res) {
     res.sendStatus(200);
 
-    await ipnVerifyAsync(req.body);
-
-    if (req.body.txn_type === 'recurring_payment_profile_cancel' || req.body.txn_type === 'subscr_cancel') {
-      let user = await User.findOne({ 'purchased.plan.customerId': req.body.recurring_payment_id }).exec();
-      if (user) {
-        await payments.cancelSubscription({ user, paymentMethod: 'Paypal' });
-        return;
-      }
-
-      let groupFields = basicGroupFields.concat(' purchased');
-      let group = await Group
-        .findOne({ 'purchased.plan.customerId': req.body.recurring_payment_id })
-        .select(groupFields)
-        .exec();
-
-      if (group) {
-        await payments.cancelSubscription({ groupId: group._id, paymentMethod: 'Paypal' });
-      }
-    }
+    await paypalPayments.ipn(req.body);
   },
 };
 

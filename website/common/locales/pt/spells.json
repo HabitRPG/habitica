@@ -3,7 +3,7 @@
     "spellWizardFireballNotes": "Chamas explodem de suas mãos. Você ganha EXP e causa dano extra nos Chefões! Clique em uma tarefa para lançar. (Baseado em: INT)",
     "spellWizardMPHealText": "Onda Etérea",
     "spellWizardMPHealNotes": "Você sacrifica mana para ajudar os seus amigos. O resto da sua equipa ganha PM! (Baseado em: INT)",
-    "spellWizardEarthText": "Terremoto",
+    "spellWizardEarthText": "Terramoto",
     "spellWizardEarthNotes": "O seu poder mental balança a terra. A equipe toda ganha um bônus de inteligência! (Baseado em: INT sem bônus)",
     "spellWizardFrostText": "Geada Arrepiante",
     "spellWizardFrostNotes": "Gelo cobre suas tarefas. Nenhuma de suas barras será resetada para zero amanhã! (Lançar uma vez afeta todas as barras.)",
@@ -54,6 +54,7 @@
     "partyNotFound": "Equipa não encontrada",
     "targetIdUUID": "\"targetId\" precisa ser um ID de usuário válido.",
     "challengeTasksNoCast": "O uso de habilidade em tarefas de desafio não é permitido.",
+    "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "Você não possui essa habilidade.",
     "spellLevelTooHigh": "Você precisa ter nível <%= level %> para usar essa habilidade."
 }

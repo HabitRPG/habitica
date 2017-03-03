@@ -170,14 +170,18 @@ describe('Group Model', () => {
       });
 
       context('Boss Quests', () => {
+        let sendChatStub;
+
         beforeEach(async () => {
           party.quest.key = 'whale';
 
           await party.startQuest(questLeader);
           await party.save();
 
-          sandbox.stub(Group.prototype, 'sendChat');
+          sendChatStub = sandbox.stub(Group.prototype, 'sendChat');
         });
+
+        afterEach(() => sendChatStub.restore());
 
         it('applies user\'s progress to quest boss hp', async () => {
           await Group.processQuestProgress(participatingMember, progress);
@@ -322,14 +326,18 @@ describe('Group Model', () => {
       });
 
       context('Collection Quests', () => {
+        let sendChatStub;
+
         beforeEach(async () => {
           party.quest.key = 'atom1';
 
           await party.startQuest(questLeader);
           await party.save();
 
-          sandbox.stub(Group.prototype, 'sendChat');
+          sendChatStub = sandbox.stub(Group.prototype, 'sendChat');
         });
+
+        afterEach(() => sendChatStub.restore());
 
         it('applies user\'s progress to found quest items', async () => {
           await Group.processQuestProgress(participatingMember, progress);
@@ -365,6 +373,7 @@ describe('Group Model', () => {
           party.quest.active = false;
 
           await party.startQuest(questLeader);
+          Group.prototype.sendChat.reset();
           await party.save();
 
           await Group.processQuestProgress(participatingMember, progress);
@@ -383,6 +392,7 @@ describe('Group Model', () => {
           party.quest.active = false;
 
           await party.startQuest(questLeader);
+          Group.prototype.sendChat.reset();
           await party.save();
 
           await Group.processQuestProgress(participatingMember, progress);
@@ -809,6 +819,20 @@ describe('Group Model', () => {
         expect(party.chat).to.have.a.lengthOf(200);
       });
 
+      it('cuts down chat to 400 messages when group is subcribed', () => {
+        party.purchased.plan.customerId = 'test-customer-id';
+
+        for (let i = 0; i < 420; i++) {
+          party.chat.push({ text: 'a message' });
+        }
+
+        expect(party.chat).to.have.a.lengthOf(420);
+
+        party.sendChat('message');
+
+        expect(party.chat).to.have.a.lengthOf(400);
+      });
+
       it('updates users about new messages in party', () => {
         party.sendChat('message');
 
@@ -1021,7 +1045,7 @@ describe('Group Model', () => {
 
           expect(email.sendTxn).to.be.calledOnce;
 
-          let memberIds = _.pluck(email.sendTxn.args[0][0], '_id');
+          let memberIds = _.map(email.sendTxn.args[0][0], '_id');
           let typeOfEmail = email.sendTxn.args[0][1];
 
           expect(memberIds).to.have.a.lengthOf(2);
@@ -1044,7 +1068,7 @@ describe('Group Model', () => {
 
           expect(email.sendTxn).to.be.calledOnce;
 
-          let memberIds = _.pluck(email.sendTxn.args[0][0], '_id');
+          let memberIds = _.map(email.sendTxn.args[0][0], '_id');
 
           expect(memberIds).to.have.a.lengthOf(1);
           expect(memberIds).to.not.include(participatingMember._id);
@@ -1065,7 +1089,7 @@ describe('Group Model', () => {
 
           expect(email.sendTxn).to.be.calledOnce;
 
-          let memberIds = _.pluck(email.sendTxn.args[0][0], '_id');
+          let memberIds = _.map(email.sendTxn.args[0][0], '_id');
 
           expect(memberIds).to.have.a.lengthOf(1);
           expect(memberIds).to.not.include(participatingMember._id);

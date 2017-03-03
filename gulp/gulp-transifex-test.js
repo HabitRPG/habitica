@@ -67,7 +67,7 @@ gulp.task('transifex:malformedStrings', () => {
   let stringsWithIncorrectNumberOfInterpolations = [];
 
   let count = 0;
-  _(ALL_LANGUAGES).each(function (lang) {
+  _.each(ALL_LANGUAGES, function (lang) {
 
     _.each(stringsToLookFor, function (strings, file) {
       let translationFile = fs.readFileSync(LOCALES + lang + '/' + file);
@@ -84,12 +84,12 @@ gulp.task('transifex:malformedStrings', () => {
           let malformedString = `${lang} - ${file} - ${key} - ${translationString}`;
           stringsWithMalformedInterpolations.push(malformedString);
         } else if (englishOccurences.length !== translationOccurences.length && !malformedStringExceptions[key]) {
-          let missingInterploationString = `${lang} - ${file} - ${key} - ${translationString}`;
-          stringsWithIncorrectNumberOfInterpolations.push(missingInterploationString);
+          let missingInterpolationString = `${lang} - ${file} - ${key} - ${translationString}`;
+          stringsWithIncorrectNumberOfInterpolations.push(missingInterpolationString);
         }
       });
     });
-  }).value();
+  });
 
   if (!_.isEmpty(stringsWithMalformedInterpolations)) {
     let message = 'The following strings have malformed or missing interpolations';
@@ -114,7 +114,7 @@ function getArrayOfLanguages () {
 function eachTranslationFile (languages, cb) {
   let jsonFiles = stripOutNonJsonFiles(fs.readdirSync(ENGLISH_LOCALE));
 
-  _(languages).each((lang) => {
+  _.each(languages, (lang) => {
     _.each(jsonFiles, (filename) => {
       try {
         var translationFile = fs.readFileSync(LOCALES + lang + '/' + filename);
@@ -128,7 +128,7 @@ function eachTranslationFile (languages, cb) {
 
       cb(null, lang, filename, parsedEnglishFile, parsedTranslationFile);
     });
-  }).value();
+  });
 }
 
 function eachTranslationString (languages, cb) {
@@ -153,7 +153,7 @@ function formatMessageForPosting (msg, items) {
 function getStringsWith (json, interpolationRegex) {
   var strings = {};
 
-  _(json).each(function (file_name) {
+  _.each(json, function (file_name) {
     var raw_file = fs.readFileSync(ENGLISH_LOCALE + file_name);
     var parsed_json = JSON.parse(raw_file);
 
@@ -162,7 +162,7 @@ function getStringsWith (json, interpolationRegex) {
       var match = value.match(interpolationRegex);
       if (match) strings[file_name][key] = match;
     });
-  }).value();
+  });
 
   return strings;
 }

@@ -8,6 +8,7 @@ import nconf from 'nconf';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
+const MAX_INCENTIVES = common.constants.MAX_INCENTIVES;
 const shouldDo = common.shouldDo;
 const scoreTask = common.ops.scoreTask;
 const i18n = common.i18n;
@@ -129,7 +130,7 @@ function trackCronAnalytics (analytics, user, _progress, options) {
 }
 
 function awardLoginIncentives (user) {
-  if (user.loginIncentives > 50) return;
+  if (user.loginIncentives > MAX_INCENTIVES) return;
   // A/B test 2016-12-21: Should we deliver notifications for upcoming incentives on days when users don't receive rewards?
   if (!loginIncentives[user.loginIncentives].rewardKey && user._ABtests && user._ABtests.checkInModals === '20161221_noCheckInPreviews') return;
 
@@ -171,7 +172,7 @@ function awardLoginIncentives (user) {
     notificationData.message = i18n.t('unlockedCheckInReward', user.preferences.language);
   }
 
-  notificationData.nextRewardAt = loginIncentives[user.loginIncentives].nextRewardAt;
+  notificationData.nextRewardAt = loginIncentives[user.loginIncentives].nextRewardAt || 0;
   user.addNotification('LOGIN_INCENTIVE', notificationData);
 }
 
@@ -315,8 +316,41 @@ export function cron (options = {}) {
     }
   });
 
-  // move singleton Habits towards yellow.
-  tasksByType.habits.forEach((task) => { // slowly reset 'onlies' value to 0
+  // check if we've passed a day on which we should reset the habit counters, including today
+  let resetWeekly = false;
+  let resetMonthly = false;
+  for (let i = 0; i <= daysMissed; i++) {
+    if (resetWeekly === true && resetMonthly === true) {
+      break;
+    }
+    let thatDay = moment(now).subtract({days: i}).toDate();
+    if (thatDay.getDay() === 1) {
+      resetWeekly = true;
+    }
+    if (thatDay.getDate() === 1) {
+      resetMonthly = true;
+    }
+  }
+
+  tasksByType.habits.forEach((task) => {
+    // reset counters if appropriate
+
+    // this enormously clunky thing brought to you by lint
+    let reset = false;
+    if (task.frequency === 'daily') {
+      reset = true;
+    } else if (task.frequency === 'weekly' && resetWeekly === true) {
+      reset = true;
+    } else if (task.frequency === 'monthly' && resetMonthly === true) {
+      reset = true;
+    }
+    if (reset === true) {
+      task.counterUp = 0;
+      task.counterDown = 0;
+    }
+
+    // slowly reset value to 0 for "onlies" (Habits with + or - but not both)
+    // move singleton Habits towards yellow.
     if (task.up === false || task.down === false) {
       task.value = Math.abs(task.value) < 0.1 ? 0 : task.value = task.value / 2;
     }
@@ -363,7 +397,8 @@ export function cron (options = {}) {
 
   // After all is said and done, progress up user's effect on quest, return those values & reset the user's
   let progress = user.party.quest.progress;
-  _progress = _.cloneDeep(progress);
+  _progress = _.cloneDeep(progress.toObject()); // clone the old progress object
+  progress.down = -1300;
   _.merge(progress, {down: 0, up: 0, collectedItems: 0});
 
   // Send notification for changes in HP and MP
@@ -391,9 +426,9 @@ export function cron (options = {}) {
   //   _(user.inbox.messages)
   //     .sortBy('timestamp')
   //     .takeRight(numberOfPMs - maxPMs)
-  //     .each(pm => {
+  //     .forEach(pm => {
   //       delete user.inbox.messages[pm.id];
-  //     }).value();
+  //     })
   //
   //   user.markModified('inbox.messages');
   // }

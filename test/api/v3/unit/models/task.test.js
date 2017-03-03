@@ -91,25 +91,23 @@ describe('Task Model', () => {
         sandbox.spy(Tasks.Task, 'findOne');
       });
 
-      it('throws an error if task identifier is not passed in', async (done) => {
+      it('throws an error if task identifier is not passed in', async () => {
         try {
           await Tasks.Task.findByIdOrAlias(null, user._id);
+          throw new Error('No exception when Id is None');
         } catch (err) {
           expect(err).to.exist;
           expect(err).to.eql(new InternalServerError('Task identifier is a required argument'));
-
-          done();
         }
       });
 
-      it('throws an error if user identifier is not passed in', async (done) => {
+      it('throws an error if user identifier is not passed in', async () => {
         try {
           await Tasks.Task.findByIdOrAlias(taskWithAlias._id);
+          throw new Error('No exception when user_id is undefined');
         } catch (err) {
           expect(err).to.exist;
           expect(err).to.eql(new InternalServerError('User identifier is a required argument'));
-
-          done();
         }
       });
 

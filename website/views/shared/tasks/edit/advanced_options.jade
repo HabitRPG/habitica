@@ -1,4 +1,4 @@
-div(ng-if='::task.type!="reward"')
+div(ng-if='(task.type !== "reward") || (!obj.auth && obj.purchased && obj.purchased.active)')
   button.advanced-options-toggle.option-title.mega(type='button',
     ng-class='{active: task._edit._advanced}',
     ng-click='task._edit._advanced = !task._edit._advanced', tooltip=env.t('expandCollapse'))
@@ -9,8 +9,10 @@ div(ng-if='::task.type!="reward"')
       a.hint(href='http://habitica.wikia.com/wiki/Task_Alias', target='_blank', popover-trigger='mouseenter', popover="{{::env.t('taskAliasPopover')}} {{::task._edit.alias ? '\n\n\' + env.t('taskAliasPopoverWarning') : ''}}")=env.t('taskAlias')
     input.form-control(ng-model='task._edit.alias' type='text' placeholder=env.t('taskAliasPlaceholder'))
 
-  fieldset.option-group.advanced-option(ng-show="task._edit._advanced")
-    group-tasks-actions(ng-if="!obj.auth && obj.purchased && obj.purchased.active", task='task', group='obj')
+  include ./habits/frequency
+
+  fieldset.option-group.advanced-option(ng-show="task._edit._advanced", ng-if="!obj.auth && obj.purchased && obj.purchased.active")
+    group-tasks-actions(task='task', group='obj')
 
   div(ng-show='task._edit._advanced')
     div(ng-if='::task.type == "daily"')
@@ -28,15 +30,33 @@ div(ng-if='::task.type!="reward"')
       .form-group
         legend.option-title=env.t('repeat')
         select.form-control(ng-model='task._edit.frequency', ng-disabled='!canEdit(task)')
-          option(value='weekly')=env.t('repeatWeek')
-          option(value='daily')=env.t('repeatDays')
+          option(value='daily')=env.t('daily')
+          option(value='weekly')=env.t('weekly')
+          option(value='monthly')=env.t('monthly')
+          option(value='yearly')=env.t('yearly')
+        
+        //- select.form-control(ng-model='task._edit.frequency', ng-disabled='!canEdit(task)')
+        //-   option(value='weekly')=env.t('repeatWeek')
+        //-   option(value='daily')=env.t('repeatDays')
 
-      include ./dailies/repeat_options
+        include ./dailies/repeat_options
+        
+        .form-group(ng-show='task._edit.frequency === "monthly"')
+          legend.option-title=env.t('repeatsOn')
+          label
+            input(type="radio", ng-model='task._edit.repeatsOn', value='dayOfMonth')
+            =env.t('dayOfMonth')
+          label
+            input(type="radio", ng-model='task._edit.repeatsOn', value='dayOfWeek')
+            =env.t('dayOfWeek')
+        
+        .form-group
+          legend.option-title=env.t('summary')
+          div {{summary}}
 
       hr
 
   fieldset.option-group.advanced-option(ng-show="task._edit._advanced")
-
     legend.option-title
       a.hint.priority-multiplier-help(href='http://habitica.wikia.com/wiki/Difficulty', target='_blank', popover-title=env.t('difficultyHelpTitle'), popover-trigger='mouseenter', popover=env.t('difficultyHelpContent'))=env.t('difficulty')
     ul.priority-multiplier
