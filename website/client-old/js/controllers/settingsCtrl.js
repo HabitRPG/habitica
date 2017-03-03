@@ -2,8 +2,8 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('SettingsCtrl',
-  ['$scope', 'User', '$rootScope', '$http', 'ApiUrl', 'Guide', '$location', '$timeout', 'Content', 'Notification', 'Shared', 'Social', '$compile',
-  function($scope, User, $rootScope, $http, ApiUrl, Guide, $location, $timeout, Content, Notification, Shared, Social, $compile) {
+  ['$scope', 'User', '$rootScope', '$http', 'ApiUrl', 'Guide', '$location', '$modalStack', '$timeout', 'Content', 'Notification', 'Shared', 'Social', '$compile',
+  function($scope, User, $rootScope, $http, ApiUrl, Guide, $location, $modalStack, $timeout, Content, Notification, Shared, Social, $compile) {
     var RELEASE_ANIMAL_TYPES = {
       pets: 'releasePets',
       mounts: 'releaseMounts',
@@ -164,14 +164,17 @@ habitrpg.controller('SettingsCtrl',
     $scope.restore = function(){
       var stats = $scope.restoreValues.stats,
         achievements = $scope.restoreValues.achievements;
-      User.set({
-        "stats.hp": stats.hp,
-        "stats.exp": stats.exp,
-        "stats.gp": stats.gp,
-        "stats.lvl": stats.lvl,
-        "stats.mp": stats.mp,
-        "achievements.streak": achievements.streak
-      });
+      if (_validateValues(stats, achievements)) {
+        User.set({
+          'stats.hp': stats.hp,
+          'stats.exp': stats.exp,
+          'stats.gp': stats.gp,
+          'stats.lvl': stats.lvl,
+          'stats.mp': stats.mp,
+          'achievements.streak': achievements.streak
+        });
+        $modalStack.dismissAll();
+      }
     }
 
     $scope.reset = function(){
@@ -345,6 +348,16 @@ habitrpg.controller('SettingsCtrl',
       }
 
       return +nextCron.format('x');
+    }
+
+    function _validateValues(stats, achievements) {
+      if (stats.hp < 0 || stats.exp < 0 ||
+          stats.gp < 0 || stats.lvl < 1 ||
+          stats.mp < 0 || achievements.streak < 0) {
+        Notification.error(env.t('invalidValue'), true);
+        return false;
+      }
+      return true;
     }
   }
 ]);

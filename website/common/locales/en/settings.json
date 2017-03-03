@@ -26,6 +26,7 @@
     "showBaileyPop": "Bring Bailey the Town Crier out of hiding so you can review past news.",
     "fixVal": "Fix Character Values",
     "fixValPop": "Manually change values like Health, Level, and Gold.",
+    "invalidValue": "Invalid value: Level must be 1 or greater. All other values must be 0 or greater.",
     "enableClass": "Enable Class System",
     "enableClassPop": "You opted out of the class system initially. Would you like now to opt-in?",
     "classTourPop": "Show the tour for using the class system.",
