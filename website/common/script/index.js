@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import partial from 'lodash/partial';
 
 // When using a common module from the website or the server NEVER import the module directly
 // but access it through `api` (the main common) module, otherwise you would require the non transpiled version of the file in production.
@@ -13,9 +13,10 @@ import i18n from './i18n';
 api.i18n = i18n;
 
 // TODO under api.libs.cron?
-import { shouldDo, daysSince } from './cron';
+import { shouldDo, daysSince, DAY_MAPPING } from './cron';
 api.shouldDo = shouldDo;
 api.daysSince = daysSince;
+api.DAY_MAPPING = DAY_MAPPING;
 
 import {
   MAX_HEALTH,
@@ -249,59 +250,59 @@ api.wrap = function wrapUser (user, main = true) {
 
   if (main) {
     user.ops = {
-      sleep: _.partial(importedOps.sleep, user),
-      revive: _.partial(importedOps.revive, user),
-      reset: _.partial(importedOps.reset, user),
-      reroll: _.partial(importedOps.reroll, user),
-      rebirth: _.partial(importedOps.rebirth, user),
-      allocateNow: _.partial(importedOps.allocateNow, user),
-      sortTask: _.partial(importedOps.sortTask, user),
-      updateTask: _.partial(importedOps.updateTask, user),
-      deleteTask: _.partial(importedOps.deleteTask, user),
-      addTask: _.partial(importedOps.addTask, user),
-      addTag: _.partial(importedOps.addTag, user),
-      sortTag: _.partial(importedOps.sortTag, user),
-      updateTag: _.partial(importedOps.updateTag, user),
-      deleteTag: _.partial(importedOps.deleteTag, user),
-      clearPMs: _.partial(importedOps.clearPMs, user),
-      deletePM: _.partial(importedOps.deletePM, user),
-      blockUser: _.partial(importedOps.blockUser, user),
-      feed: _.partial(importedOps.feed, user),
-      buySpecialSpell: _.partial(importedOps.buySpecialSpell, user),
-      purchase: _.partial(importedOps.purchase, user),
-      releasePets: _.partial(importedOps.releasePets, user),
-      releaseMounts: _.partial(importedOps.releaseMounts, user),
-      releaseBoth: _.partial(importedOps.releaseBoth, user),
-      buy: _.partial(importedOps.buy, user),
-      buyHealthPotion: _.partial(importedOps.buyHealthPotion, user),
-      buyArmoire: _.partial(importedOps.buyArmoire, user),
-      buyGear: _.partial(importedOps.buyGear, user),
-      buyQuest: _.partial(importedOps.buyQuest, user),
-      buyMysterySet: _.partial(importedOps.buyMysterySet, user),
-      hourglassPurchase: _.partial(importedOps.hourglassPurchase, user),
-      sell: _.partial(importedOps.sell, user),
-      equip: _.partial(importedOps.equip, user),
-      hatch: _.partial(importedOps.hatch, user),
-      unlock: _.partial(importedOps.unlock, user),
-      changeClass: _.partial(importedOps.changeClass, user),
-      disableClasses: _.partial(importedOps.disableClasses, user),
-      allocate: _.partial(importedOps.allocate, user),
-      readCard: _.partial(importedOps.readCard, user),
-      openMysteryItem: _.partial(importedOps.openMysteryItem, user),
-      score: _.partial(importedOps.scoreTask, user),
-      markPmsRead: _.partial(importedOps.markPmsRead, user),
+      sleep: partial(importedOps.sleep, user),
+      revive: partial(importedOps.revive, user),
+      reset: partial(importedOps.reset, user),
+      reroll: partial(importedOps.reroll, user),
+      rebirth: partial(importedOps.rebirth, user),
+      allocateNow: partial(importedOps.allocateNow, user),
+      sortTask: partial(importedOps.sortTask, user),
+      updateTask: partial(importedOps.updateTask, user),
+      deleteTask: partial(importedOps.deleteTask, user),
+      addTask: partial(importedOps.addTask, user),
+      addTag: partial(importedOps.addTag, user),
+      sortTag: partial(importedOps.sortTag, user),
+      updateTag: partial(importedOps.updateTag, user),
+      deleteTag: partial(importedOps.deleteTag, user),
+      clearPMs: partial(importedOps.clearPMs, user),
+      deletePM: partial(importedOps.deletePM, user),
+      blockUser: partial(importedOps.blockUser, user),
+      feed: partial(importedOps.feed, user),
+      buySpecialSpell: partial(importedOps.buySpecialSpell, user),
+      purchase: partial(importedOps.purchase, user),
+      releasePets: partial(importedOps.releasePets, user),
+      releaseMounts: partial(importedOps.releaseMounts, user),
+      releaseBoth: partial(importedOps.releaseBoth, user),
+      buy: partial(importedOps.buy, user),
+      buyHealthPotion: partial(importedOps.buyHealthPotion, user),
+      buyArmoire: partial(importedOps.buyArmoire, user),
+      buyGear: partial(importedOps.buyGear, user),
+      buyQuest: partial(importedOps.buyQuest, user),
+      buyMysterySet: partial(importedOps.buyMysterySet, user),
+      hourglassPurchase: partial(importedOps.hourglassPurchase, user),
+      sell: partial(importedOps.sell, user),
+      equip: partial(importedOps.equip, user),
+      hatch: partial(importedOps.hatch, user),
+      unlock: partial(importedOps.unlock, user),
+      changeClass: partial(importedOps.changeClass, user),
+      disableClasses: partial(importedOps.disableClasses, user),
+      allocate: partial(importedOps.allocate, user),
+      readCard: partial(importedOps.readCard, user),
+      openMysteryItem: partial(importedOps.openMysteryItem, user),
+      score: partial(importedOps.scoreTask, user),
+      markPmsRead: partial(importedOps.markPmsRead, user),
     };
   }
 
   user.fns = {
-    handleTwoHanded: _.partial(importedFns.handleTwoHanded, user),
-    predictableRandom: _.partial(importedFns.predictableRandom, user),
-    crit: _.partial(importedFns.crit.crit, user),
-    randomDrop: _.partial(importedFns.randomDrop, user),
-    autoAllocate: _.partial(importedFns.autoAllocate, user),
-    updateStats: _.partial(importedFns.updateStats, user),
-    statsComputed: _.partial(statsComputed, user),
-    ultimateGear: _.partial(importedFns.ultimateGear, user),
+    handleTwoHanded: partial(importedFns.handleTwoHanded, user),
+    predictableRandom: partial(importedFns.predictableRandom, user),
+    crit: partial(importedFns.crit.crit, user),
+    randomDrop: partial(importedFns.randomDrop, user),
+    autoAllocate: partial(importedFns.autoAllocate, user),
+    updateStats: partial(importedFns.updateStats, user),
+    statsComputed: partial(statsComputed, user),
+    ultimateGear: partial(importedFns.ultimateGear, user),
   };
 
   Object.defineProperty(user, '_statsComputed', {

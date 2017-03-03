@@ -81,7 +81,7 @@
 
 <script>
 import { mapState } from '../../store';
-import { each } from 'lodash';
+import each from 'lodash/each';
 
 export default {
   computed: {

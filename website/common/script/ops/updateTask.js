@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import merge from 'lodash/merge';
+import omit from 'lodash/omit';
 
 // From server pass task.toObject() not the task document directly
 module.exports = function updateTask (task, req = {}) {
@@ -19,7 +20,7 @@ module.exports = function updateTask (task, req = {}) {
     task.tags = body.tags;
   }
 
-  _.merge(task, _.omit(body, ['_id', 'id', 'type', 'reminders', 'checklist', 'tags']));
+  merge(task, omit(body, ['_id', 'id', 'type', 'reminders', 'checklist', 'tags']));
 
   return [task];
 };

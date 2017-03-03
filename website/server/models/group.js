@@ -467,12 +467,12 @@ schema.methods.startQuest = async function startQuest (user) {
     this.quest.progress.collect = collected;
   }
 
-  let nonMembers = Object.keys(_.pick(this.quest.members, (member) => {
+  let nonMembers = Object.keys(_.pickBy(this.quest.members, (member) => {
     return !member;
   }));
 
   // Changes quest.members to only include participating members
-  this.quest.members = _.pick(this.quest.members, _.identity);
+  this.quest.members = _.pickBy(this.quest.members, _.identity);
   let nonUserQuestMembers = _.keys(this.quest.members);
   removeFromArray(nonUserQuestMembers, user._id);
 
@@ -554,7 +554,7 @@ schema.methods.startQuest = async function startQuest (user) {
         });
     });
   });
-  this.sendChat(`Your quest, ${quest.text('en')}, has started.`, null, {
+  this.sendChat(`\`Your quest, ${quest.text('en')}, has started.\``, null, {
     participatingMembers: this.getParticipatingQuestMembers().join(', '),
   });
 };
@@ -618,7 +618,7 @@ function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
     case 'food':
     case 'hatchingPotions':
     case 'quests': {
-      updates.$inc[`items.${itemToAward.type}.${dropK}`] = _.where(allAwardedItems, {type: itemToAward.type, key: itemToAward.key}).length;
+      updates.$inc[`items.${itemToAward.type}.${dropK}`] = _.filter(allAwardedItems, {type: itemToAward.type, key: itemToAward.key}).length;
       break;
     }
     case 'pets': {
@@ -630,7 +630,7 @@ function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
       break;
     }
   }
-  updates = _.omit(updates, _.isEmpty);
+  updates = _.omitBy(updates, _.isEmpty);
   return updates;
 }
 
@@ -900,7 +900,7 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
   }
 };
 
-schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
+schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepChallenges = 'leave-challenges') {
   let group = this;
   let update = {};
 
@@ -908,16 +908,18 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     throw new NotAuthorized(shared.i18n.t('cannotDeleteActiveGroup'));
   }
 
-  // Unlink user challenge tasks
-  let challenges = await Challenge.find({
-    _id: {$in: user.challenges},
-    group: group._id,
-  }).exec();
+  // only remove user from challenges if it's set to leave-challenges
+  if (keepChallenges === 'leave-challenges') {
+    let challenges = await Challenge.find({
+      _id: {$in: user.challenges},
+      group: group._id,
+    }).exec();
 
-  let challengesToRemoveUserFrom = challenges.map(chal => {
-    return chal.unlinkTasks(user, keep);
-  });
-  await Bluebird.all(challengesToRemoveUserFrom);
+    let challengesToRemoveUserFrom = challenges.map(chal => {
+      return chal.unlinkTasks(user, keep);
+    });
+    await Bluebird.all(challengesToRemoveUserFrom);
+  }
 
   // Unlink group tasks)
   let assignedTasks = await Tasks.Task.find({

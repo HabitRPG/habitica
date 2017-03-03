@@ -132,7 +132,7 @@
   }
 
   function _doesNotHaveAllowedHitType(properties) {
-    if (!_.contains(ALLOWED_HIT_TYPES, properties.hitType)) {
+    if (!_.includes(ALLOWED_HIT_TYPES, properties.hitType)) {
       console.log('Hit type of Analytics event must be one of the following: ' + JSON.stringify(ALLOWED_HIT_TYPES));
       return true;
     }

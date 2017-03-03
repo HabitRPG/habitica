@@ -1,4 +1,4 @@
-import { each } from 'lodash';
+import each from 'lodash/each';
 import t from './translation';
 
 let mysterySets = {
@@ -145,6 +145,10 @@ let mysterySets = {
   201701: {
     start: '2017-01-24',
     end: '2017-02-02',
+  },
+  201702: {
+    start: '2017-02-21',
+    end: '2017-03-02',
   },
   301404: {
     start: '3014-03-24',

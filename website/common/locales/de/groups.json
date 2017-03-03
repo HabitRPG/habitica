@@ -102,6 +102,7 @@
     "messageSentAlert": "Nachricht abgeschickt",
     "pmHeading": "Private Nachricht an <%= name %>",
     "pmsMarkedRead": "Deine private Nachricht wurde als gelesen markiert",
+    "possessiveParty": "<%= name %>s Gruppe",
     "clearAll": "Lösche alle Nachrichten",
     "confirmDeleteAllMessages": "Bist Du sicher, dass Du alle Nachrichten im Posteingang löschen möchtest? Andere Benutzer können immer noch die Nachrichten sehen, die Du ihnen geschickt hast.",
     "optOutPopover": "Du willst keine privaten Nachrichten? Klick hier um sie zu deaktivieren",
@@ -167,7 +168,6 @@
     "partyEmpty": "Du bist alleine in Deiner Gruppe. Lade Freunde ein!",
     "partyChatEmpty": "Dein Gruppenchat ist leer. Tippe eine Nachricht in der Box und beginne mit dem Chat.",
     "guildChatEmpty": "Dieser Gildenchat ist leer. Gib eine Nachricht ein und beginne mit dem Chat.",
-    "possessiveParty": "<%= name %>s Gruppe",
     "requestAcceptGuidelines": "Wenn Du Nachrichten im Gasthaus oder in irgendeinem Gruppen- oder Gilden-Chat posten willst, lies bitte zuerst unsere <%= linkStart %>Community-Richtlinien<%= linkEnd %>. Klicke danach unten auf den Button, um sie zu akzeptieren.",
     "partyUpName": "Party!",
     "partyOnName": "Riesenparty!",
@@ -250,5 +250,6 @@
     "claimedBy": "Eingefordert von: <%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "Du kannst Gruppen-Aufgaben, die dir zugewiesen wurden, nicht löschen.",
     "confirmGuildPlanCreation": "Diese Gruppe erstellen?",
-    "onlyGroupLeaderCanInviteToGroupPlan": "Nur der Gruppenleiter kann Nutzer zu einer Gruppe mit einem Abonnement hinzufügen."
+    "onlyGroupLeaderCanInviteToGroupPlan": "Nur der Gruppenleiter kann Nutzer zu einer Gruppe mit einem Abonnement hinzufügen.",
+    "remainOrLeaveChallenges": "req.query.keep must be either 'remain-in-challenges' or 'leave-challenges'"
 }

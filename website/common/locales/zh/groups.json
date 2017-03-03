@@ -102,6 +102,7 @@
     "messageSentAlert": "已发送消息",
     "pmHeading": "向<%= name %>发私信",
     "pmsMarkedRead": "您的私人消息已经被标记为已读",
+    "possessiveParty": "<%= name %>的队伍",
     "clearAll": "删除所有消息",
     "confirmDeleteAllMessages": "确定要删除收件箱里的所有消息吗？其他用户依然会看到你已发送给他们的消息。",
     "optOutPopover": "不喜欢私信？点击不再接收",
@@ -113,7 +114,7 @@
     "toUserIDRequired": "需要用户ID",
     "gemAmountRequired": "需要指明宝石数量",
     "notAuthorizedToSendMessageToThisUser": "无法向该用户发送消息",
-    "privateMessageGiftGemsMessage": "Hello <%= receiverName %>, <%= senderName %> has sent you <%= gemAmount %> gems!",
+    "privateMessageGiftGemsMessage": "<%= receiverName %> 您好！<%= senderName %> 给了您 <%= gemAmount %> 颗宝石！",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> 个月的捐助！",
     "cannotSendGemsToYourself": "无法向自己发送宝石。使用捐助功能试试看",
     "badAmountOfGemsToSend": "总数必须在1到你当前宝石数量之间。",
@@ -167,7 +168,6 @@
     "partyEmpty": "你孤身一人，快邀请你的朋友们！",
     "partyChatEmpty": "队伍聊天框里空空如也！在上面的聊天框打字来开始聊天。",
     "guildChatEmpty": "公会聊天框里空空如也！在上面的聊天框打字来开始聊天。",
-    "possessiveParty": "<%= name %>的队伍",
     "requestAcceptGuidelines": "如果你想在酒馆里，或是队伍和公会里张贴信息，请先阅读<%= linkStart %>社区指南<%= linkEnd %>并点击下面按钮，表示您接受其中的条款。 ",
     "partyUpName": "举行派对",
     "partyOnName": "欢乐派对",
@@ -250,5 +250,6 @@
     "claimedBy": "提出者：<%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "不能删除被分配的小组任务。",
     "confirmGuildPlanCreation": "创建这个团队？",
-    "onlyGroupLeaderCanInviteToGroupPlan": "只有组长可以邀请用户加入捐献小组"
+    "onlyGroupLeaderCanInviteToGroupPlan": "只有组长可以邀请用户加入捐献小组",
+    "remainOrLeaveChallenges": "req.query.keep must be either 'remain-in-challenges' or 'leave-challenges'"
 }

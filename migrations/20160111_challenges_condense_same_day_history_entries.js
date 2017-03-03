@@ -7,6 +7,12 @@ var migrationName = '20160111_challenges_condense_same_day_history_entries.js';
 var dbserver = '';
 var dbname = '';
 
+// IMPORTANT NOTE: this migration was written when we were using version 3 of lodash.
+// We've now upgraded to lodash v4 but the code used in this migration has not been
+// adapted to work with it. Before this migration is used again any lodash method should
+// be checked for compatibility against the v4 changelog and changed if necessary.
+// https://github.com/lodash/lodash/wiki/Changelog#v400
+
 var mongo = require('mongoskin');
 var _ = require('lodash');
 var moment = require('moment');

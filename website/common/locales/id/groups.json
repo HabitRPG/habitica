@@ -102,6 +102,7 @@
     "messageSentAlert": "Pesan terkirim",
     "pmHeading": "Pesan pribadi kepada <%= name %>",
     "pmsMarkedRead": "Pesan pribadi telah ditandai sebagai sudah dibaca.",
+    "possessiveParty": "Kelompok milik <%= name %>",
     "clearAll": "Hapus Semua Pesan",
     "confirmDeleteAllMessages": "Apakah kamu yakin mau menghapus semua pesan dalam inbox? User lain masih bisa melihat pesan yang telah kamu kirim ke mereka.",
     "optOutPopover": "Tidak menyukai pesan pribadi? Matikan fitur ini",
@@ -167,7 +168,6 @@
     "partyEmpty": "Kamu adalah satu-satunya di dalam kelompokmu. Undang temanmu!",
     "partyChatEmpty": "Percakapan kelompokmu kosong! Ketikkan pesan pada kotak di atas untuk memulai percakapan.",
     "guildChatEmpty": "Percakapan kelompok ini kosong! Ketikkan pesan pada kotak di atas untuk memulai percakapan.",
-    "possessiveParty": "Kelompok milik <%= name %>",
     "requestAcceptGuidelines": "Sebelum kamu mengirim pesan di Kedai Minuman atau obrolan kelompok maupun perkumpulan, silakan pertama-tama baca <%= linkStart %>Pedoman Komunitas<%= linkEnd %> kami dan klik tombol di bawah untuk menunjukkan bahwa kamu setuju.",
     "partyUpName": "Mari Berpesta",
     "partyOnName": "Terus Berpesta",
@@ -250,5 +250,6 @@
     "claimedBy": "Claimed by: <%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "Can't delete group tasks that are assigned to you.",
     "confirmGuildPlanCreation": "Create this group?",
-    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription."
+    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription.",
+    "remainOrLeaveChallenges": "req.query.keep must be either 'remain-in-challenges' or 'leave-challenges'"
 }

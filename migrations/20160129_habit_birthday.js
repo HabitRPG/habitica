@@ -11,6 +11,12 @@ var dbserver = 'localhost:27017'; // FOR TEST DATABASE
 // var dbserver = 'username:password@ds031379-a0.mongolab.com:31379'; // FOR PRODUCTION DATABASE
 var dbname = 'habitrpg';
 
+// IMPORTANT NOTE: this migration was written when we were using version 3 of lodash.
+// We've now upgraded to lodash v4 but the code used in this migration has not been
+// adapted to work with it. Before this migration is used again any lodash method should
+// be checked for compatibility against the v4 changelog and changed if necessary.
+// https://github.com/lodash/lodash/wiki/Changelog#v400
+
 var mongo = require('mongoskin');
 var _ = require('lodash');
 

@@ -30,7 +30,9 @@ describe('Inventory Controller', function() {
           suppressModals: {}
         },
         purchased: {
-          plan: {}
+          plan: {
+            mysteryItems: [],
+          },
         },
       });
 

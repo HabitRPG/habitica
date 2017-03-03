@@ -102,6 +102,7 @@
     "messageSentAlert": "Повідомлення відправлено",
     "pmHeading": "Приватне повідомлення до <%= name %>",
     "pmsMarkedRead": "Your private messages have been marked as read",
+    "possessiveParty": "<%= name %>'s Party",
     "clearAll": "Delete All Messages",
     "confirmDeleteAllMessages": "Are you sure you want to delete all messages in your inbox? Other users will still see messages you have sent to them.",
     "optOutPopover": "Не подобається приватні повідомлення? Натисніть, щоб повністю відмовитися від них",
@@ -167,7 +168,6 @@
     "partyEmpty": "You're the only one in your party. Invite your friends!",
     "partyChatEmpty": "Your party chat is empty! Type a message in the box above to start chatting.",
     "guildChatEmpty": "This guild's chat is empty! Type a message in the box above to start chatting.",
-    "possessiveParty": "<%= name %>'s Party",
     "requestAcceptGuidelines": "If you would like to post messages in the Tavern or any party or guild chat, please first read our <%= linkStart %>Community Guidelines<%= linkEnd %> and then click the button below to indicate that you accept them.",
     "partyUpName": "Party Up",
     "partyOnName": "Party On",
@@ -250,5 +250,6 @@
     "claimedBy": "Claimed by: <%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "Can't delete group tasks that are assigned to you.",
     "confirmGuildPlanCreation": "Create this group?",
-    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription."
+    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription.",
+    "remainOrLeaveChallenges": "req.query.keep must be either 'remain-in-challenges' or 'leave-challenges'"
 }

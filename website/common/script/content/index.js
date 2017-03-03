@@ -1,10 +1,11 @@
-import _ from 'lodash';
-import moment from 'moment';
+import includes from 'lodash/includes';
+import defaults from 'lodash/defaults';
+import each from 'lodash/each';
+import sortBy from 'lodash/sortBy';
 import t from './translation';
 
 import {
   CLASSES,
-  EVENTS,
   GEAR_TYPES,
   ITEM_LIST,
   USER_CAN_OWN_QUEST_CATEGORIES,
@@ -20,7 +21,7 @@ import stable from './stable';
 import gear from './gear';
 
 import appearances from './appearance';
-import backgrounds from './appearance/backgrounds.js'
+import backgrounds from './appearance/backgrounds.js';
 import spells from './spells';
 import subscriptionBlocks from './subscriptionBlocks';
 import faq from './faq';
@@ -50,23 +51,23 @@ api.potion = {
   text: t('potionText'),
   notes: t('potionNotes'),
   value: 25,
-  key: 'potion'
+  key: 'potion',
 };
 
 api.armoire = {
   type: 'armoire',
   text: t('armoireText'),
-  notes: (function(user, count) {
+  notes (user, count) {
     if (user.flags.armoireEmpty) {
       return t('armoireNotesEmpty')();
     }
     return t('armoireNotesFull')() + count;
-  }),
+  },
   value: 100,
   key: 'armoire',
-  canOwn: (function(u) {
-    return _.contains(u.achievements.ultimateGearSets, true);
-  })
+  canOwn (u) {
+    return includes(u.achievements.ultimateGearSets, true);
+  },
 };
 
 
@@ -91,20 +92,20 @@ api.cardTypes = {
   greeting: {
     key: 'greeting',
     messageOptions: 4,
-    yearRound: true
+    yearRound: true,
   },
   nye: {
     key: 'nye',
-    messageOptions: 5
+    messageOptions: 5,
   },
   thankyou: {
     key: 'thankyou',
     messageOptions: 4,
-    yearRound: true
+    yearRound: true,
   },
   valentine: {
     key: 'valentine',
-    messageOptions: 4
+    messageOptions: 4,
   },
   birthday: {
     key: 'birthday',
@@ -129,7 +130,7 @@ api.timeTravelStable = {
     'Mammoth-Base': t('mammoth'),
     'MantisShrimp-Base': t('mantisShrimp'),
     'Phoenix-Base': t('phoenix'),
-  }
+  },
 };
 
 api.dropHatchingPotions = hatchingPotions.drops;
@@ -161,291 +162,293 @@ api.food = {
     text: t('foodMeat'),
     target: 'Base',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyNormalFood;
-    }),
+    },
     canDrop: canDropNormalFood,
   },
   Milk: {
     text: t('foodMilk'),
     target: 'White',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyNormalFood;
-    }),
+    },
     canDrop: canDropNormalFood,
   },
   Potatoe: {
     text: t('foodPotatoe'),
     target: 'Desert',
     article: 'a ',
-    canBuy: (function() {
+    canBuy () {
       return canBuyNormalFood;
-    }),
+    },
     canDrop: canDropNormalFood,
   },
   Strawberry: {
     text: t('foodStrawberry'),
     target: 'Red',
     article: 'a ',
-    canBuy: (function() {
+    canBuy () {
       return canBuyNormalFood;
-    }),
+    },
     canDrop: canDropNormalFood,
   },
   Chocolate: {
     text: t('foodChocolate'),
     target: 'Shade',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyNormalFood;
-    }),
+    },
     canDrop: canDropNormalFood,
   },
   Fish: {
     text: t('foodFish'),
     target: 'Skeleton',
     article: 'a ',
-    canBuy: (function() {
+    canBuy () {
       return canBuyNormalFood;
-    }),
+    },
     canDrop: canDropNormalFood,
   },
   RottenMeat: {
     text: t('foodRottenMeat'),
     target: 'Zombie',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyNormalFood;
-    }),
+    },
     canDrop: canDropNormalFood,
   },
   CottonCandyPink: {
     text: t('foodCottonCandyPink'),
     target: 'CottonCandyPink',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyNormalFood;
-    }),
+    },
     canDrop: canDropNormalFood,
   },
   CottonCandyBlue: {
     text: t('foodCottonCandyBlue'),
     target: 'CottonCandyBlue',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyNormalFood;
-    }),
+    },
     canDrop: canDropNormalFood,
   },
   Honey: {
     text: t('foodHoney'),
     target: 'Golden',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyNormalFood;
-    }),
+    },
     canDrop: canDropNormalFood,
   },
   Saddle: {
-    canBuy: (function() {
+    canBuy () {
       return true;
-    }),
+    },
     text: t('foodSaddleText'),
     value: 5,
-    notes: t('foodSaddleNotes')
+    notes: t('foodSaddleNotes'),
   },
+  /* eslint-disable camelcase */
   Cake_Skeleton: {
     text: t('foodCakeSkeleton'),
     target: 'Skeleton',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCakeFood;
-    }),
+    },
     canDrop: canDropCakeFood,
   },
   Cake_Base: {
     text: t('foodCakeBase'),
     target: 'Base',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCakeFood;
-    }),
+    },
     canDrop: canDropCakeFood,
   },
   Cake_CottonCandyBlue: {
     text: t('foodCakeCottonCandyBlue'),
     target: 'CottonCandyBlue',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCakeFood;
-    }),
+    },
     canDrop: canDropCakeFood,
   },
   Cake_CottonCandyPink: {
     text: t('foodCakeCottonCandyPink'),
     target: 'CottonCandyPink',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCakeFood;
-    }),
+    },
     canDrop: canDropCakeFood,
   },
   Cake_Shade: {
     text: t('foodCakeShade'),
     target: 'Shade',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCakeFood;
-    }),
+    },
     canDrop: canDropCakeFood,
   },
   Cake_White: {
     text: t('foodCakeWhite'),
     target: 'White',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCakeFood;
-    }),
+    },
     canDrop: canDropCakeFood,
   },
   Cake_Golden: {
     text: t('foodCakeGolden'),
     target: 'Golden',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCakeFood;
-    }),
+    },
     canDrop: canDropCakeFood,
   },
   Cake_Zombie: {
     text: t('foodCakeZombie'),
     target: 'Zombie',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCakeFood;
-    }),
+    },
     canDrop: canDropCakeFood,
   },
   Cake_Desert: {
     text: t('foodCakeDesert'),
     target: 'Desert',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCakeFood;
-    }),
+    },
     canDrop: canDropCakeFood,
   },
   Cake_Red: {
     text: t('foodCakeRed'),
     target: 'Red',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCakeFood;
-    }),
+    },
     canDrop: canDropCakeFood,
   },
   Candy_Skeleton: {
     text: t('foodCandySkeleton'),
     target: 'Skeleton',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCandyFood;
-    }),
+    },
     canDrop: canDropCandyFood,
   },
   Candy_Base: {
     text: t('foodCandyBase'),
     target: 'Base',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCandyFood;
-    }),
+    },
     canDrop: canDropCandyFood,
   },
   Candy_CottonCandyBlue: {
     text: t('foodCandyCottonCandyBlue'),
     target: 'CottonCandyBlue',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCandyFood;
-    }),
+    },
     canDrop: canDropCandyFood,
   },
   Candy_CottonCandyPink: {
     text: t('foodCandyCottonCandyPink'),
     target: 'CottonCandyPink',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCandyFood;
-    }),
+    },
     canDrop: canDropCandyFood,
   },
   Candy_Shade: {
     text: t('foodCandyShade'),
     target: 'Shade',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCandyFood;
-    }),
+    },
     canDrop: canDropCandyFood,
   },
   Candy_White: {
     text: t('foodCandyWhite'),
     target: 'White',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCandyFood;
-    }),
+    },
     canDrop: canDropCandyFood,
   },
   Candy_Golden: {
     text: t('foodCandyGolden'),
     target: 'Golden',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCandyFood;
-    }),
+    },
     canDrop: canDropCandyFood,
   },
   Candy_Zombie: {
     text: t('foodCandyZombie'),
     target: 'Zombie',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCandyFood;
-    }),
+    },
     canDrop: canDropCandyFood,
   },
   Candy_Desert: {
     text: t('foodCandyDesert'),
     target: 'Desert',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCandyFood;
-    }),
+    },
     canDrop: canDropCandyFood,
   },
   Candy_Red: {
     text: t('foodCandyRed'),
     target: 'Red',
     article: '',
-    canBuy: (function() {
+    canBuy () {
       return canBuyCandyFood;
-    }),
+    },
     canDrop: canDropCandyFood,
-  }
+  },
+  /* eslint-enable camelcase */
 };
 
-_.each(api.food, function(food, key) {
-  return _.defaults(food, {
+each(api.food, (food, key) => {
+  return defaults(food, {
     value: 1,
-    key: key,
+    key,
     notes: t('foodNotes'),
-    canBuy: (function() {
+    canBuy () {
       return false;
-    }),
-    canDrop: false
+    },
+    canDrop: false,
   });
 });
 
@@ -453,170 +456,170 @@ api.userCanOwnQuestCategories = USER_CAN_OWN_QUEST_CATEGORIES;
 
 api.quests = {
   dilatory: {
-    text: t("questDilatoryText"),
-    notes: t("questDilatoryNotes"),
-    completion: t("questDilatoryCompletion"),
+    text: t('questDilatoryText'),
+    notes: t('questDilatoryNotes'),
+    completion: t('questDilatoryCompletion'),
     value: 0,
-    canBuy: (function() {
+    canBuy () {
       return false;
-    }),
+    },
     category: 'world',
     boss: {
-      name: t("questDilatoryBoss"),
+      name: t('questDilatoryBoss'),
       hp: 5000000,
       str: 1,
       def: 1,
       rage: {
-        title: t("questDilatoryBossRageTitle"),
-        description: t("questDilatoryBossRageDescription"),
+        title: t('questDilatoryBossRageTitle'),
+        description: t('questDilatoryBossRageDescription'),
         value: 4000000,
         tavern: t('questDilatoryBossRageTavern'),
         stables: t('questDilatoryBossRageStables'),
-        market: t('questDilatoryBossRageMarket')
-      }
+        market: t('questDilatoryBossRageMarket'),
+      },
     },
     drop: {
       items: [
         {
           type: 'pets',
           key: 'MantisShrimp-Base',
-          text: t('questDilatoryDropMantisShrimpPet')
+          text: t('questDilatoryDropMantisShrimpPet'),
         }, {
           type: 'mounts',
           key: 'MantisShrimp-Base',
-          text: t('questDilatoryDropMantisShrimpMount')
+          text: t('questDilatoryDropMantisShrimpMount'),
         }, {
           type: 'food',
           key: 'Meat',
-          text: t('foodMeat')
+          text: t('foodMeat'),
         }, {
           type: 'food',
           key: 'Milk',
-          text: t('foodMilk')
+          text: t('foodMilk'),
         }, {
           type: 'food',
           key: 'Potatoe',
-          text: t('foodPotatoe')
+          text: t('foodPotatoe'),
         }, {
           type: 'food',
           key: 'Strawberry',
-          text: t('foodStrawberry')
+          text: t('foodStrawberry'),
         }, {
           type: 'food',
           key: 'Chocolate',
-          text: t('foodChocolate')
+          text: t('foodChocolate'),
         }, {
           type: 'food',
           key: 'Fish',
-          text: t('foodFish')
+          text: t('foodFish'),
         }, {
           type: 'food',
           key: 'RottenMeat',
-          text: t('foodRottenMeat')
+          text: t('foodRottenMeat'),
         }, {
           type: 'food',
           key: 'CottonCandyPink',
-          text: t('foodCottonCandyPink')
+          text: t('foodCottonCandyPink'),
         }, {
           type: 'food',
           key: 'CottonCandyBlue',
-          text: t('foodCottonCandyBlue')
+          text: t('foodCottonCandyBlue'),
         }, {
           type: 'food',
           key: 'Honey',
-          text: t('foodHoney')
-        }
+          text: t('foodHoney'),
+        },
       ],
       gp: 0,
-      exp: 0
-    }
+      exp: 0,
+    },
   },
   stressbeast: {
-    text: t("questStressbeastText"),
-    notes: t("questStressbeastNotes"),
-    completion: t("questStressbeastCompletion"),
-    completionChat: t("questStressbeastCompletionChat"),
+    text: t('questStressbeastText'),
+    notes: t('questStressbeastNotes'),
+    completion: t('questStressbeastCompletion'),
+    completionChat: t('questStressbeastCompletionChat'),
     value: 0,
-    canBuy: (function() {
+    canBuy () {
       return false;
-    }),
+    },
     category: 'world',
     boss: {
-      name: t("questStressbeastBoss"),
+      name: t('questStressbeastBoss'),
       hp: 2750000,
       str: 1,
       def: 1,
       rage: {
-        title: t("questStressbeastBossRageTitle"),
-        description: t("questStressbeastBossRageDescription"),
+        title: t('questStressbeastBossRageTitle'),
+        description: t('questStressbeastBossRageDescription'),
         value: 1450000,
-        healing: .3,
+        healing: 0.3,
         stables: t('questStressbeastBossRageStables'),
         bailey: t('questStressbeastBossRageBailey'),
-        guide: t('questStressbeastBossRageGuide')
+        guide: t('questStressbeastBossRageGuide'),
       },
       desperation: {
         threshold: 500000,
         str: 3.5,
         def: 2,
-        text: t('questStressbeastDesperation')
-      }
+        text: t('questStressbeastDesperation'),
+      },
     },
     drop: {
       items: [
         {
           type: 'pets',
           key: 'Mammoth-Base',
-          text: t('questStressbeastDropMammothPet')
+          text: t('questStressbeastDropMammothPet'),
         }, {
           type: 'mounts',
           key: 'Mammoth-Base',
-          text: t('questStressbeastDropMammothMount')
+          text: t('questStressbeastDropMammothMount'),
         }, {
           type: 'food',
           key: 'Meat',
-          text: t('foodMeat')
+          text: t('foodMeat'),
         }, {
           type: 'food',
           key: 'Milk',
-          text: t('foodMilk')
+          text: t('foodMilk'),
         }, {
           type: 'food',
           key: 'Potatoe',
-          text: t('foodPotatoe')
+          text: t('foodPotatoe'),
         }, {
           type: 'food',
           key: 'Strawberry',
-          text: t('foodStrawberry')
+          text: t('foodStrawberry'),
         }, {
           type: 'food',
           key: 'Chocolate',
-          text: t('foodChocolate')
+          text: t('foodChocolate'),
         }, {
           type: 'food',
           key: 'Fish',
-          text: t('foodFish')
+          text: t('foodFish'),
         }, {
           type: 'food',
           key: 'RottenMeat',
-          text: t('foodRottenMeat')
+          text: t('foodRottenMeat'),
         }, {
           type: 'food',
           key: 'CottonCandyPink',
-          text: t('foodCottonCandyPink')
+          text: t('foodCottonCandyPink'),
         }, {
           type: 'food',
           key: 'CottonCandyBlue',
-          text: t('foodCottonCandyBlue')
+          text: t('foodCottonCandyBlue'),
         }, {
           type: 'food',
           key: 'Honey',
-          text: t('foodHoney')
-        }
+          text: t('foodHoney'),
+        },
       ],
       gp: 0,
-      exp: 0
-    }
+      exp: 0,
+    },
   },
   burnout: {
     text: t('questBurnoutText'),
@@ -624,9 +627,9 @@ api.quests = {
     completion: t('questBurnoutCompletion'),
     completionChat: t('questBurnoutCompletionChat'),
     value: 0,
-    canBuy: (function() {
+    canBuy () {
       return false;
-    }),
+    },
     category: 'world',
     boss: {
       name: t('questBurnoutBoss'),
@@ -639,69 +642,69 @@ api.quests = {
         value: 1000000,
         quests: t('questBurnoutBossRageQuests'),
         seasonalShop: t('questBurnoutBossRageSeasonalShop'),
-        tavern: t('questBurnoutBossRageTavern')
-      }
+        tavern: t('questBurnoutBossRageTavern'),
+      },
     },
     drop: {
       items: [
         {
           type: 'pets',
           key: 'Phoenix-Base',
-          text: t('questBurnoutDropPhoenixPet')
+          text: t('questBurnoutDropPhoenixPet'),
         }, {
           type: 'mounts',
           key: 'Phoenix-Base',
-          text: t('questBurnoutDropPhoenixMount')
+          text: t('questBurnoutDropPhoenixMount'),
         }, {
           type: 'food',
           key: 'Candy_Base',
-          text: t('foodCandyBase')
+          text: t('foodCandyBase'),
         }, {
           type: 'food',
           key: 'Candy_White',
-          text: t('foodCandyWhite')
+          text: t('foodCandyWhite'),
         }, {
           type: 'food',
           key: 'Candy_Desert',
-          text: t('foodCandyDesert')
+          text: t('foodCandyDesert'),
         }, {
           type: 'food',
           key: 'Candy_Red',
-          text: t('foodCandyRed')
+          text: t('foodCandyRed'),
         }, {
           type: 'food',
           key: 'Candy_Shade',
-          text: t('foodCandyShade')
+          text: t('foodCandyShade'),
         }, {
           type: 'food',
           key: 'Candy_Skeleton',
-          text: t('foodCandySkeleton')
+          text: t('foodCandySkeleton'),
         }, {
           type: 'food',
           key: 'Candy_Zombie',
-          text: t('foodCandyZombie')
+          text: t('foodCandyZombie'),
         }, {
           type: 'food',
           key: 'Candy_CottonCandyPink',
-          text: t('foodCandyCottonCandyPink')
+          text: t('foodCandyCottonCandyPink'),
         }, {
           type: 'food',
           key: 'Candy_CottonCandyBlue',
-          text: t('foodCandyCottonCandyBlue')
+          text: t('foodCandyCottonCandyBlue'),
         }, {
           type: 'food',
           key: 'Candy_Golden',
-          text: t('foodCandyGolden')
-        }
+          text: t('foodCandyGolden'),
+        },
       ],
       gp: 0,
-      exp: 0
-    }
+      exp: 0,
+    },
   },
   evilsanta: {
-    canBuy: (function() {
-      return true;
-    }),
+    canBuy () {
+      return false;
+    },
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
     completion: t('questEvilSantaCompletion'),
@@ -710,24 +713,24 @@ api.quests = {
     boss: {
       name: t('questEvilSantaBoss'),
       hp: 300,
-      str: 1
+      str: 1,
     },
     drop: {
       items: [
         {
           type: 'mounts',
           key: 'BearCub-Polar',
-          text: t('questEvilSantaDropBearCubPolarMount')
-        }
+          text: t('questEvilSantaDropBearCubPolarMount'),
+        },
       ],
       gp: 20,
-      exp: 100
-    }
+      exp: 100,
+    },
   },
   evilsanta2: {
-    canBuy: (function() {
-      return true;
-    }),
+    canBuy () {
+      return false;
+    },
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),
     completion: t('questEvilSanta2Completion'),
@@ -736,24 +739,24 @@ api.quests = {
     collect: {
       tracks: {
         text: t('questEvilSanta2CollectTracks'),
-        count: 20
+        count: 20,
       },
       branches: {
         text: t('questEvilSanta2CollectBranches'),
-        count: 10
-      }
+        count: 10,
+      },
     },
     drop: {
       items: [
         {
           type: 'pets',
           key: 'BearCub-Polar',
-          text: t('questEvilSanta2DropBearCubPolarPet')
-        }
+          text: t('questEvilSanta2DropBearCubPolarPet'),
+        },
       ],
       gp: 20,
-      exp: 100
-    }
+      exp: 100,
+    },
   },
   gryphon: {
     text: t('questGryphonText'),
@@ -764,28 +767,28 @@ api.quests = {
     boss: {
       name: t('questGryphonBoss'),
       hp: 300,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Gryphon',
-          text: t('questGryphonDropGryphonEgg')
+          text: t('questGryphonDropGryphonEgg'),
         }, {
           type: 'eggs',
           key: 'Gryphon',
-          text: t('questGryphonDropGryphonEgg')
+          text: t('questGryphonDropGryphonEgg'),
         }, {
           type: 'eggs',
           key: 'Gryphon',
-          text: t('questGryphonDropGryphonEgg')
-        }
+          text: t('questGryphonDropGryphonEgg'),
+        },
       ],
       gp: 25,
       exp: 125,
-      unlock: t('questGryphonUnlockText')
-    }
+      unlock: t('questGryphonUnlockText'),
+    },
   },
   hedgehog: {
     text: t('questHedgehogText'),
@@ -796,30 +799,30 @@ api.quests = {
     boss: {
       name: t('questHedgehogBoss'),
       hp: 400,
-      str: 1.25
+      str: 1.25,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Hedgehog',
-          text: t('questHedgehogDropHedgehogEgg')
+          text: t('questHedgehogDropHedgehogEgg'),
         }, {
           type: 'eggs',
           key: 'Hedgehog',
-          text: t('questHedgehogDropHedgehogEgg')
+          text: t('questHedgehogDropHedgehogEgg'),
         }, {
           type: 'eggs',
           key: 'Hedgehog',
-          text: t('questHedgehogDropHedgehogEgg')
-        }
+          text: t('questHedgehogDropHedgehogEgg'),
+        },
       ],
       gp: 30,
       exp: 125,
-      unlock: t('questHedgehogUnlockText')
-    }
+      unlock: t('questHedgehogUnlockText'),
+    },
   },
-  ghost_stag: {
+  ghost_stag: { // eslint-disable-line camelcase
     text: t('questGhostStagText'),
     notes: t('questGhostStagNotes'),
     completion: t('questGhostStagCompletion'),
@@ -828,28 +831,28 @@ api.quests = {
     boss: {
       name: t('questGhostStagBoss'),
       hp: 1200,
-      str: 2.5
+      str: 2.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Deer',
-          text: t('questGhostStagDropDeerEgg')
+          text: t('questGhostStagDropDeerEgg'),
         }, {
           type: 'eggs',
           key: 'Deer',
-          text: t('questGhostStagDropDeerEgg')
+          text: t('questGhostStagDropDeerEgg'),
         }, {
           type: 'eggs',
           key: 'Deer',
-          text: t('questGhostStagDropDeerEgg')
-        }
+          text: t('questGhostStagDropDeerEgg'),
+        },
       ],
       gp: 80,
       exp: 800,
-      unlock: t('questGhostStagUnlockText')
-    }
+      unlock: t('questGhostStagUnlockText'),
+    },
   },
   vice1: {
     text: t('questVice1Text'),
@@ -860,20 +863,20 @@ api.quests = {
     boss: {
       name: t('questVice1Boss'),
       hp: 750,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'quests',
-          key: "vice2",
+          key: 'vice2',
           text: t('questVice1DropVice2Quest'),
-          onlyOwner: true
-        }
+          onlyOwner: true,
+        },
       ],
       gp: 20,
-      exp: 100
-    }
+      exp: 100,
+    },
   },
   vice2: {
     text: t('questVice2Text'),
@@ -885,8 +888,8 @@ api.quests = {
     collect: {
       lightCrystal: {
         text: t('questVice2CollectLightCrystal'),
-        count: 45
-      }
+        count: 45,
+      },
     },
     drop: {
       items: [
@@ -894,12 +897,12 @@ api.quests = {
           type: 'quests',
           key: 'vice3',
           text: t('questVice2DropVice3Quest'),
-          onlyOwner: true
-        }
+          onlyOwner: true,
+        },
       ],
       gp: 20,
-      exp: 75
-    }
+      exp: 75,
+    },
   },
   vice3: {
     text: t('questVice3Text'),
@@ -912,98 +915,98 @@ api.quests = {
     boss: {
       name: t('questVice3Boss'),
       hp: 1500,
-      str: 3
+      str: 3,
     },
     drop: {
       items: [
         {
           type: 'gear',
-          key: "weapon_special_2",
-          text: t('questVice3DropWeaponSpecial2')
+          key: 'weapon_special_2',
+          text: t('questVice3DropWeaponSpecial2'),
         }, {
           type: 'eggs',
           key: 'Dragon',
-          text: t('questVice3DropDragonEgg')
+          text: t('questVice3DropDragonEgg'),
         }, {
           type: 'eggs',
           key: 'Dragon',
-          text: t('questVice3DropDragonEgg')
+          text: t('questVice3DropDragonEgg'),
         }, {
           type: 'hatchingPotions',
           key: 'Shade',
-          text: t('questVice3DropShadeHatchingPotion')
+          text: t('questVice3DropShadeHatchingPotion'),
         }, {
           type: 'hatchingPotions',
           key: 'Shade',
-          text: t('questVice3DropShadeHatchingPotion')
-        }
+          text: t('questVice3DropShadeHatchingPotion'),
+        },
       ],
       gp: 100,
-      exp: 1000
-    }
+      exp: 1000,
+    },
   },
   egg: {
     text: t('questEggHuntText'),
     notes: t('questEggHuntNotes'),
     completion: t('questEggHuntCompletion'),
     value: 1,
-    canBuy: (function() {
+    canBuy () {
       return false;
-    }),
+    },
     category: 'pet',
     collect: {
       plainEgg: {
         text: t('questEggHuntCollectPlainEgg'),
-        count: 100
-      }
+        count: 100,
+      },
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
+          text: t('questEggHuntDropPlainEgg'),
         }, {
           type: 'eggs',
           key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
+          text: t('questEggHuntDropPlainEgg'),
         }, {
           type: 'eggs',
           key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
+          text: t('questEggHuntDropPlainEgg'),
         }, {
           type: 'eggs',
           key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
+          text: t('questEggHuntDropPlainEgg'),
         }, {
           type: 'eggs',
           key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
+          text: t('questEggHuntDropPlainEgg'),
         }, {
           type: 'eggs',
           key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
+          text: t('questEggHuntDropPlainEgg'),
         }, {
           type: 'eggs',
           key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
+          text: t('questEggHuntDropPlainEgg'),
         }, {
           type: 'eggs',
           key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
+          text: t('questEggHuntDropPlainEgg'),
         }, {
           type: 'eggs',
           key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
+          text: t('questEggHuntDropPlainEgg'),
         }, {
           type: 'eggs',
           key: 'Egg',
-          text: t('questEggHuntDropPlainEgg')
-        }
+          text: t('questEggHuntDropPlainEgg'),
+        },
       ],
       gp: 0,
-      exp: 0
-    }
+      exp: 0,
+    },
   },
   rat: {
     text: t('questRatText'),
@@ -1014,28 +1017,28 @@ api.quests = {
     boss: {
       name: t('questRatBoss'),
       hp: 1200,
-      str: 2.5
+      str: 2.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Rat',
-          text: t('questRatDropRatEgg')
+          text: t('questRatDropRatEgg'),
         }, {
           type: 'eggs',
           key: 'Rat',
-          text: t('questRatDropRatEgg')
+          text: t('questRatDropRatEgg'),
         }, {
           type: 'eggs',
           key: 'Rat',
-          text: t('questRatDropRatEgg')
-        }
+          text: t('questRatDropRatEgg'),
+        },
       ],
       gp: 80,
       exp: 800,
-      unlock: t('questRatUnlockText')
-    }
+      unlock: t('questRatUnlockText'),
+    },
   },
   octopus: {
     text: t('questOctopusText'),
@@ -1046,30 +1049,30 @@ api.quests = {
     boss: {
       name: t('questOctopusBoss'),
       hp: 1200,
-      str: 2.5
+      str: 2.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Octopus',
-          text: t('questOctopusDropOctopusEgg')
+          text: t('questOctopusDropOctopusEgg'),
         }, {
           type: 'eggs',
           key: 'Octopus',
-          text: t('questOctopusDropOctopusEgg')
+          text: t('questOctopusDropOctopusEgg'),
         }, {
           type: 'eggs',
           key: 'Octopus',
-          text: t('questOctopusDropOctopusEgg')
-        }
+          text: t('questOctopusDropOctopusEgg'),
+        },
       ],
       gp: 80,
       exp: 800,
-      unlock: t('questOctopusUnlockText')
-    }
+      unlock: t('questOctopusUnlockText'),
+    },
   },
-  dilatory_derby: {
+  dilatory_derby: { // eslint-disable-line camelcase
     text: t('questSeahorseText'),
     notes: t('questSeahorseNotes'),
     completion: t('questSeahorseCompletion'),
@@ -1078,28 +1081,28 @@ api.quests = {
     boss: {
       name: t('questSeahorseBoss'),
       hp: 300,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Seahorse',
-          text: t('questSeahorseDropSeahorseEgg')
+          text: t('questSeahorseDropSeahorseEgg'),
         }, {
           type: 'eggs',
           key: 'Seahorse',
-          text: t('questSeahorseDropSeahorseEgg')
+          text: t('questSeahorseDropSeahorseEgg'),
         }, {
           type: 'eggs',
           key: 'Seahorse',
-          text: t('questSeahorseDropSeahorseEgg')
-        }
+          text: t('questSeahorseDropSeahorseEgg'),
+        },
       ],
       gp: 25,
       exp: 125,
-      unlock: t('questSeahorseUnlockText')
-    }
+      unlock: t('questSeahorseUnlockText'),
+    },
   },
   atom1: {
     text: t('questAtom1Text'),
@@ -1110,21 +1113,21 @@ api.quests = {
     collect: {
       soapBars: {
         text: t('questAtom1CollectSoapBars'),
-        count: 20
-      }
+        count: 20,
+      },
     },
     drop: {
       items: [
         {
           type: 'quests',
-          key: "atom2",
+          key: 'atom2',
           text: t('questAtom1Drop'),
-          onlyOwner: true
-        }
+          onlyOwner: true,
+        },
       ],
       gp: 7,
-      exp: 50
-    }
+      exp: 50,
+    },
   },
   atom2: {
     text: t('questAtom2Text'),
@@ -1136,20 +1139,20 @@ api.quests = {
     boss: {
       name: t('questAtom2Boss'),
       hp: 300,
-      str: 1
+      str: 1,
     },
     drop: {
       items: [
         {
           type: 'quests',
-          key: "atom3",
+          key: 'atom3',
           text: t('questAtom2Drop'),
-          onlyOwner: true
-        }
+          onlyOwner: true,
+        },
       ],
       gp: 20,
-      exp: 100
-    }
+      exp: 100,
+    },
   },
   atom3: {
     text: t('questAtom3Text'),
@@ -1162,27 +1165,27 @@ api.quests = {
     boss: {
       name: t('questAtom3Boss'),
       hp: 800,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'gear',
-          key: "head_special_2",
-          text: t('headSpecial2Text')
+          key: 'head_special_2',
+          text: t('headSpecial2Text'),
         }, {
           type: 'hatchingPotions',
-          key: "Base",
-          text: t('questAtom3DropPotion')
+          key: 'Base',
+          text: t('questAtom3DropPotion'),
         }, {
           type: 'hatchingPotions',
-          key: "Base",
-          text: t('questAtom3DropPotion')
-        }
+          key: 'Base',
+          text: t('questAtom3DropPotion'),
+        },
       ],
       gp: 25,
-      exp: 125
-    }
+      exp: 125,
+    },
   },
   harpy: {
     text: t('questHarpyText'),
@@ -1193,28 +1196,28 @@ api.quests = {
     boss: {
       name: t('questHarpyBoss'),
       hp: 600,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Parrot',
-          text: t('questHarpyDropParrotEgg')
+          text: t('questHarpyDropParrotEgg'),
         }, {
           type: 'eggs',
           key: 'Parrot',
-          text: t('questHarpyDropParrotEgg')
+          text: t('questHarpyDropParrotEgg'),
         }, {
           type: 'eggs',
           key: 'Parrot',
-          text: t('questHarpyDropParrotEgg')
-        }
+          text: t('questHarpyDropParrotEgg'),
+        },
       ],
       gp: 43,
       exp: 350,
-      unlock: t('questHarpyUnlockText')
-    }
+      unlock: t('questHarpyUnlockText'),
+    },
   },
   rooster: {
     text: t('questRoosterText'),
@@ -1225,28 +1228,28 @@ api.quests = {
     boss: {
       name: t('questRoosterBoss'),
       hp: 300,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Rooster',
-          text: t('questRoosterDropRoosterEgg')
+          text: t('questRoosterDropRoosterEgg'),
         }, {
           type: 'eggs',
           key: 'Rooster',
-          text: t('questRoosterDropRoosterEgg')
+          text: t('questRoosterDropRoosterEgg'),
         }, {
           type: 'eggs',
           key: 'Rooster',
-          text: t('questRoosterDropRoosterEgg')
-        }
+          text: t('questRoosterDropRoosterEgg'),
+        },
       ],
       gp: 25,
       exp: 125,
-      unlock: t('questRoosterUnlockText')
-    }
+      unlock: t('questRoosterUnlockText'),
+    },
   },
   spider: {
     text: t('questSpiderText'),
@@ -1257,28 +1260,28 @@ api.quests = {
     boss: {
       name: t('questSpiderBoss'),
       hp: 400,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Spider',
-          text: t('questSpiderDropSpiderEgg')
+          text: t('questSpiderDropSpiderEgg'),
         }, {
           type: 'eggs',
           key: 'Spider',
-          text: t('questSpiderDropSpiderEgg')
+          text: t('questSpiderDropSpiderEgg'),
         }, {
           type: 'eggs',
           key: 'Spider',
-          text: t('questSpiderDropSpiderEgg')
-        }
+          text: t('questSpiderDropSpiderEgg'),
+        },
       ],
       gp: 31,
       exp: 200,
-      unlock: t('questSpiderUnlockText')
-    }
+      unlock: t('questSpiderUnlockText'),
+    },
   },
   moonstone1: {
     text: t('questMoonstone1Text'),
@@ -1289,21 +1292,21 @@ api.quests = {
     collect: {
       moonstone: {
         text: t('questMoonstone1CollectMoonstone'),
-        count: 500
-      }
+        count: 500,
+      },
     },
     drop: {
       items: [
         {
           type: 'quests',
-          key: "moonstone2",
+          key: 'moonstone2',
           text: t('questMoonstone1DropMoonstone2Quest'),
-          onlyOwner: true
-        }
+          onlyOwner: true,
+        },
       ],
       gp: 50,
-      exp: 100
-    }
+      exp: 100,
+    },
   },
   moonstone2: {
     text: t('questMoonstone2Text'),
@@ -1315,7 +1318,7 @@ api.quests = {
     boss: {
       name: t('questMoonstone2Boss'),
       hp: 1500,
-      str: 3
+      str: 3,
     },
     drop: {
       items: [
@@ -1323,12 +1326,12 @@ api.quests = {
           type: 'quests',
           key: 'moonstone3',
           text: t('questMoonstone2DropMoonstone3Quest'),
-          onlyOwner: true
-        }
+          onlyOwner: true,
+        },
       ],
       gp: 500,
-      exp: 1000
-    }
+      exp: 1000,
+    },
   },
   moonstone3: {
     text: t('questMoonstone3Text'),
@@ -1341,51 +1344,51 @@ api.quests = {
     boss: {
       name: t('questMoonstone3Boss'),
       hp: 2000,
-      str: 3.5
+      str: 3.5,
     },
     drop: {
       items: [
         {
           type: 'gear',
-          key: "armor_special_2",
-          text: t('armorSpecial2Text')
+          key: 'armor_special_2',
+          text: t('armorSpecial2Text'),
         }, {
           type: 'food',
           key: 'RottenMeat',
-          text: t('questMoonstone3DropRottenMeat')
+          text: t('questMoonstone3DropRottenMeat'),
         }, {
           type: 'food',
           key: 'RottenMeat',
-          text: t('questMoonstone3DropRottenMeat')
+          text: t('questMoonstone3DropRottenMeat'),
         }, {
           type: 'food',
           key: 'RottenMeat',
-          text: t('questMoonstone3DropRottenMeat')
+          text: t('questMoonstone3DropRottenMeat'),
         }, {
           type: 'food',
           key: 'RottenMeat',
-          text: t('questMoonstone3DropRottenMeat')
+          text: t('questMoonstone3DropRottenMeat'),
         }, {
           type: 'food',
           key: 'RottenMeat',
-          text: t('questMoonstone3DropRottenMeat')
+          text: t('questMoonstone3DropRottenMeat'),
         }, {
           type: 'hatchingPotions',
           key: 'Zombie',
-          text: t('questMoonstone3DropZombiePotion')
+          text: t('questMoonstone3DropZombiePotion'),
         }, {
           type: 'hatchingPotions',
           key: 'Zombie',
-          text: t('questMoonstone3DropZombiePotion')
+          text: t('questMoonstone3DropZombiePotion'),
         }, {
           type: 'hatchingPotions',
           key: 'Zombie',
-          text: t('questMoonstone3DropZombiePotion')
-        }
+          text: t('questMoonstone3DropZombiePotion'),
+        },
       ],
       gp: 900,
-      exp: 1500
-    }
+      exp: 1500,
+    },
   },
   goldenknight1: {
     text: t('questGoldenknight1Text'),
@@ -1396,21 +1399,21 @@ api.quests = {
     collect: {
       testimony: {
         text: t('questGoldenknight1CollectTestimony'),
-        count: 300
-      }
+        count: 300,
+      },
     },
     drop: {
       items: [
         {
           type: 'quests',
-          key: "goldenknight2",
+          key: 'goldenknight2',
           text: t('questGoldenknight1DropGoldenknight2Quest'),
-          onlyOwner: true
-        }
+          onlyOwner: true,
+        },
       ],
       gp: 15,
-      exp: 120
-    }
+      exp: 120,
+    },
   },
   goldenknight2: {
     text: t('questGoldenknight2Text'),
@@ -1422,7 +1425,7 @@ api.quests = {
     boss: {
       name: t('questGoldenknight2Boss'),
       hp: 1000,
-      str: 3
+      str: 3,
     },
     drop: {
       items: [
@@ -1430,12 +1433,12 @@ api.quests = {
           type: 'quests',
           key: 'goldenknight3',
           text: t('questGoldenknight2DropGoldenknight3Quest'),
-          onlyOwner: true
-        }
+          onlyOwner: true,
+        },
       ],
       gp: 75,
-      exp: 750
-    }
+      exp: 750,
+    },
   },
   goldenknight3: {
     text: t('questGoldenknight3Text'),
@@ -1448,39 +1451,39 @@ api.quests = {
     boss: {
       name: t('questGoldenknight3Boss'),
       hp: 1700,
-      str: 3.5
+      str: 3.5,
     },
     drop: {
       items: [
         {
           type: 'food',
           key: 'Honey',
-          text: t('questGoldenknight3DropHoney')
+          text: t('questGoldenknight3DropHoney'),
         }, {
           type: 'food',
           key: 'Honey',
-          text: t('questGoldenknight3DropHoney')
+          text: t('questGoldenknight3DropHoney'),
         }, {
           type: 'food',
           key: 'Honey',
-          text: t('questGoldenknight3DropHoney')
+          text: t('questGoldenknight3DropHoney'),
         }, {
           type: 'hatchingPotions',
           key: 'Golden',
-          text: t('questGoldenknight3DropGoldenPotion')
+          text: t('questGoldenknight3DropGoldenPotion'),
         }, {
           type: 'hatchingPotions',
           key: 'Golden',
-          text: t('questGoldenknight3DropGoldenPotion')
+          text: t('questGoldenknight3DropGoldenPotion'),
         }, {
           type: 'gear',
           key: 'shield_special_goldenknight',
-          text: t('questGoldenknight3DropWeapon')
-        }
+          text: t('questGoldenknight3DropWeapon'),
+        },
       ],
       gp: 900,
-      exp: 1500
-    }
+      exp: 1500,
+    },
   },
   basilist: {
     text: t('questBasilistText'),
@@ -1490,17 +1493,17 @@ api.quests = {
     category: 'unlockable',
     unlockCondition: {
       condition: 'party invite',
-      text: t('inviteFriends')
+      text: t('inviteFriends'),
     },
     boss: {
       name: t('questBasilistBoss'),
       hp: 100,
-      str: 0.5
+      str: 0.5,
     },
     drop: {
       gp: 8,
-      exp: 42
-    }
+      exp: 42,
+    },
   },
   owl: {
     text: t('questOwlText'),
@@ -1511,28 +1514,28 @@ api.quests = {
     boss: {
       name: t('questOwlBoss'),
       hp: 500,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Owl',
-          text: t('questOwlDropOwlEgg')
+          text: t('questOwlDropOwlEgg'),
         }, {
           type: 'eggs',
           key: 'Owl',
-          text: t('questOwlDropOwlEgg')
+          text: t('questOwlDropOwlEgg'),
         }, {
           type: 'eggs',
           key: 'Owl',
-          text: t('questOwlDropOwlEgg')
-        }
+          text: t('questOwlDropOwlEgg'),
+        },
       ],
       gp: 37,
       exp: 275,
-      unlock: t('questOwlUnlockText')
-    }
+      unlock: t('questOwlUnlockText'),
+    },
   },
   penguin: {
     text: t('questPenguinText'),
@@ -1543,28 +1546,28 @@ api.quests = {
     boss: {
       name: t('questPenguinBoss'),
       hp: 400,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Penguin',
-          text: t('questPenguinDropPenguinEgg')
+          text: t('questPenguinDropPenguinEgg'),
         }, {
           type: 'eggs',
           key: 'Penguin',
-          text: t('questPenguinDropPenguinEgg')
+          text: t('questPenguinDropPenguinEgg'),
         }, {
           type: 'eggs',
           key: 'Penguin',
-          text: t('questPenguinDropPenguinEgg')
-        }
+          text: t('questPenguinDropPenguinEgg'),
+        },
       ],
       gp: 31,
       exp: 200,
-      unlock: t('questPenguinUnlockText')
-    }
+      unlock: t('questPenguinUnlockText'),
+    },
   },
   trex: {
     text: t('questTRexText'),
@@ -1575,30 +1578,30 @@ api.quests = {
     boss: {
       name: t('questTRexBoss'),
       hp: 800,
-      str: 2
+      str: 2,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'TRex',
-          text: t('questTRexDropTRexEgg')
+          text: t('questTRexDropTRexEgg'),
         }, {
           type: 'eggs',
           key: 'TRex',
-          text: t('questTRexDropTRexEgg')
+          text: t('questTRexDropTRexEgg'),
         }, {
           type: 'eggs',
           key: 'TRex',
-          text: t('questTRexDropTRexEgg')
-        }
+          text: t('questTRexDropTRexEgg'),
+        },
       ],
       gp: 55,
       exp: 500,
-      unlock: t('questTRexUnlockText')
-    }
+      unlock: t('questTRexUnlockText'),
+    },
   },
-  trex_undead: {
+  trex_undead: { // eslint-disable-line camelcase
     text: t('questTRexUndeadText'),
     notes: t('questTRexUndeadNotes'),
     completion: t('questTRexUndeadCompletion'),
@@ -1609,33 +1612,33 @@ api.quests = {
       hp: 500,
       str: 2,
       rage: {
-        title: t("questTRexUndeadRageTitle"),
-        description: t("questTRexUndeadRageDescription"),
+        title: t('questTRexUndeadRageTitle'),
+        description: t('questTRexUndeadRageDescription'),
         value: 50,
-        healing: .3,
-        effect: t('questTRexUndeadRageEffect')
-      }
+        healing: 0.3,
+        effect: t('questTRexUndeadRageEffect'),
+      },
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'TRex',
-          text: t('questTRexDropTRexEgg')
+          text: t('questTRexDropTRexEgg'),
         }, {
           type: 'eggs',
           key: 'TRex',
-          text: t('questTRexDropTRexEgg')
+          text: t('questTRexDropTRexEgg'),
         }, {
           type: 'eggs',
           key: 'TRex',
-          text: t('questTRexDropTRexEgg')
-        }
+          text: t('questTRexDropTRexEgg'),
+        },
       ],
       gp: 55,
       exp: 500,
-      unlock: t('questTRexUnlockText')
-    }
+      unlock: t('questTRexUnlockText'),
+    },
   },
   rock: {
     text: t('questRockText'),
@@ -1646,28 +1649,28 @@ api.quests = {
     boss: {
       name: t('questRockBoss'),
       hp: 400,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Rock',
-          text: t('questRockDropRockEgg')
+          text: t('questRockDropRockEgg'),
         }, {
           type: 'eggs',
           key: 'Rock',
-          text: t('questRockDropRockEgg')
+          text: t('questRockDropRockEgg'),
         }, {
           type: 'eggs',
           key: 'Rock',
-          text: t('questRockDropRockEgg')
-        }
+          text: t('questRockDropRockEgg'),
+        },
       ],
       gp: 31,
       exp: 200,
-      unlock: t('questRockUnlockText')
-    }
+      unlock: t('questRockUnlockText'),
+    },
   },
   bunny: {
     text: t('questBunnyText'),
@@ -1678,28 +1681,28 @@ api.quests = {
     boss: {
       name: t('questBunnyBoss'),
       hp: 300,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Bunny',
-          text: t('questBunnyDropBunnyEgg')
+          text: t('questBunnyDropBunnyEgg'),
         }, {
           type: 'eggs',
           key: 'Bunny',
-          text: t('questBunnyDropBunnyEgg')
+          text: t('questBunnyDropBunnyEgg'),
         }, {
           type: 'eggs',
           key: 'Bunny',
-          text: t('questBunnyDropBunnyEgg')
-        }
+          text: t('questBunnyDropBunnyEgg'),
+        },
       ],
       gp: 25,
       exp: 125,
-      unlock: t('questBunnyUnlockText')
-    }
+      unlock: t('questBunnyUnlockText'),
+    },
   },
   slime: {
     text: t('questSlimeText'),
@@ -1710,28 +1713,28 @@ api.quests = {
     boss: {
       name: t('questSlimeBoss'),
       hp: 400,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Slime',
-          text: t('questSlimeDropSlimeEgg')
+          text: t('questSlimeDropSlimeEgg'),
         }, {
           type: 'eggs',
           key: 'Slime',
-          text: t('questSlimeDropSlimeEgg')
+          text: t('questSlimeDropSlimeEgg'),
         }, {
           type: 'eggs',
           key: 'Slime',
-          text: t('questSlimeDropSlimeEgg')
-        }
+          text: t('questSlimeDropSlimeEgg'),
+        },
       ],
       gp: 31,
       exp: 200,
-      unlock: t('questSlimeUnlockText')
-    }
+      unlock: t('questSlimeUnlockText'),
+    },
   },
   sheep: {
     text: t('questSheepText'),
@@ -1742,28 +1745,28 @@ api.quests = {
     boss: {
       name: t('questSheepBoss'),
       hp: 300,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Sheep',
-          text: t('questSheepDropSheepEgg')
+          text: t('questSheepDropSheepEgg'),
         }, {
           type: 'eggs',
           key: 'Sheep',
-          text: t('questSheepDropSheepEgg')
+          text: t('questSheepDropSheepEgg'),
         }, {
           type: 'eggs',
           key: 'Sheep',
-          text: t('questSheepDropSheepEgg')
-        }
+          text: t('questSheepDropSheepEgg'),
+        },
       ],
       gp: 25,
       exp: 125,
-      unlock: t('questSheepUnlockText')
-    }
+      unlock: t('questSheepUnlockText'),
+    },
   },
   kraken: {
     text: t('questKrakenText'),
@@ -1774,28 +1777,28 @@ api.quests = {
     boss: {
       name: t('questKrakenBoss'),
       hp: 800,
-      str: 2
+      str: 2,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Cuttlefish',
-          text: t('questKrakenDropCuttlefishEgg')
+          text: t('questKrakenDropCuttlefishEgg'),
         }, {
           type: 'eggs',
           key: 'Cuttlefish',
-          text: t('questKrakenDropCuttlefishEgg')
+          text: t('questKrakenDropCuttlefishEgg'),
         }, {
           type: 'eggs',
           key: 'Cuttlefish',
-          text: t('questKrakenDropCuttlefishEgg')
-        }
+          text: t('questKrakenDropCuttlefishEgg'),
+        },
       ],
       gp: 55,
       exp: 500,
-      unlock: t('questKrakenUnlockText')
-    }
+      unlock: t('questKrakenUnlockText'),
+    },
   },
   whale: {
     text: t('questWhaleText'),
@@ -1806,28 +1809,28 @@ api.quests = {
     boss: {
       name: t('questWhaleBoss'),
       hp: 500,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Whale',
-          text: t('questWhaleDropWhaleEgg')
+          text: t('questWhaleDropWhaleEgg'),
         }, {
           type: 'eggs',
           key: 'Whale',
-          text: t('questWhaleDropWhaleEgg')
+          text: t('questWhaleDropWhaleEgg'),
         }, {
           type: 'eggs',
           key: 'Whale',
-          text: t('questWhaleDropWhaleEgg')
-        }
+          text: t('questWhaleDropWhaleEgg'),
+        },
       ],
       gp: 37,
       exp: 275,
-      unlock: t('questWhaleUnlockText')
-    }
+      unlock: t('questWhaleUnlockText'),
+    },
   },
   dilatoryDistress1: {
     text: t('questDilatoryDistress1Text'),
@@ -1839,24 +1842,24 @@ api.quests = {
     collect: {
       fireCoral: {
         text: t('questDilatoryDistress1CollectFireCoral'),
-        count: 25
+        count: 25,
       },
       blueFins: {
         text: t('questDilatoryDistress1CollectBlueFins'),
-        count: 25
-      }
+        count: 25,
+      },
     },
     drop: {
       items: [
         {
           type: 'gear',
-          key: "armor_special_finnedOceanicArmor",
-          text: t('questDilatoryDistress1DropArmor')
-        }
+          key: 'armor_special_finnedOceanicArmor',
+          text: t('questDilatoryDistress1DropArmor'),
+        },
       ],
       gp: 0,
-      exp: 75
-    }
+      exp: 75,
+    },
   },
   dilatoryDistress2: {
     text: t('questDilatoryDistress2Text'),
@@ -1870,32 +1873,32 @@ api.quests = {
       name: t('questDilatoryDistress2Boss'),
       hp: 500,
       rage: {
-        title: t("questDilatoryDistress2RageTitle"),
-        description: t("questDilatoryDistress2RageDescription"),
+        title: t('questDilatoryDistress2RageTitle'),
+        description: t('questDilatoryDistress2RageDescription'),
         value: 50,
-        healing: .3,
-        effect: t('questDilatoryDistress2RageEffect')
-      }
+        healing: 0.3,
+        effect: t('questDilatoryDistress2RageEffect'),
+      },
     },
     drop: {
       items: [
         {
           type: 'hatchingPotions',
           key: 'Skeleton',
-          text: t('questDilatoryDistress2DropSkeletonPotion')
+          text: t('questDilatoryDistress2DropSkeletonPotion'),
         }, {
           type: 'hatchingPotions',
           key: 'CottonCandyBlue',
-          text: t('questDilatoryDistress2DropCottonCandyBluePotion')
+          text: t('questDilatoryDistress2DropCottonCandyBluePotion'),
         }, {
           type: 'gear',
-          key: "head_special_fireCoralCirclet",
-          text: t('questDilatoryDistress2DropHeadgear')
-        }
+          key: 'head_special_fireCoralCirclet',
+          text: t('questDilatoryDistress2DropHeadgear'),
+        },
       ],
       gp: 0,
-      exp: 500
-    }
+      exp: 500,
+    },
   },
   dilatoryDistress3: {
     text: t('questDilatoryDistress3Text'),
@@ -1908,35 +1911,35 @@ api.quests = {
     boss: {
       name: t('questDilatoryDistress3Boss'),
       hp: 1000,
-      str: 2
+      str: 2,
     },
     drop: {
       items: [
         {
           type: 'food',
           key: 'Fish',
-          text: t('questDilatoryDistress3DropFish')
+          text: t('questDilatoryDistress3DropFish'),
         }, {
           type: 'food',
           key: 'Fish',
-          text: t('questDilatoryDistress3DropFish')
+          text: t('questDilatoryDistress3DropFish'),
         }, {
           type: 'food',
           key: 'Fish',
-          text: t('questDilatoryDistress3DropFish')
+          text: t('questDilatoryDistress3DropFish'),
         }, {
           type: 'gear',
-          key: "weapon_special_tridentOfCrashingTides",
-          text: t('questDilatoryDistress3DropWeapon')
+          key: 'weapon_special_tridentOfCrashingTides',
+          text: t('questDilatoryDistress3DropWeapon'),
         }, {
           type: 'gear',
-          key: "shield_special_moonpearlShield",
-          text: t('questDilatoryDistress3DropShield')
-        }
+          key: 'shield_special_moonpearlShield',
+          text: t('questDilatoryDistress3DropShield'),
+        },
       ],
       gp: 0,
-      exp: 650
-    }
+      exp: 650,
+    },
   },
   cheetah: {
     text: t('questCheetahText'),
@@ -1947,28 +1950,28 @@ api.quests = {
     boss: {
       name: t('questCheetahBoss'),
       hp: 600,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Cheetah',
-          text: t('questCheetahDropCheetahEgg')
+          text: t('questCheetahDropCheetahEgg'),
         }, {
           type: 'eggs',
           key: 'Cheetah',
-          text: t('questCheetahDropCheetahEgg')
+          text: t('questCheetahDropCheetahEgg'),
         }, {
           type: 'eggs',
           key: 'Cheetah',
-          text: t('questCheetahDropCheetahEgg')
-        }
+          text: t('questCheetahDropCheetahEgg'),
+        },
       ],
       gp: 43,
       exp: 350,
-      unlock: t('questCheetahUnlockText')
-    }
+      unlock: t('questCheetahUnlockText'),
+    },
   },
   horse: {
     text: t('questHorseText'),
@@ -1979,28 +1982,28 @@ api.quests = {
     boss: {
       name: t('questHorseBoss'),
       hp: 500,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Horse',
-          text: t('questHorseDropHorseEgg')
+          text: t('questHorseDropHorseEgg'),
         }, {
           type: 'eggs',
           key: 'Horse',
-          text: t('questHorseDropHorseEgg')
+          text: t('questHorseDropHorseEgg'),
         }, {
           type: 'eggs',
           key: 'Horse',
-          text: t('questHorseDropHorseEgg')
-        }
+          text: t('questHorseDropHorseEgg'),
+        },
       ],
       gp: 37,
       exp: 275,
-      unlock: t('questHorseUnlockText')
-    }
+      unlock: t('questHorseUnlockText'),
+    },
   },
   frog: {
     text: t('questFrogText'),
@@ -2011,28 +2014,28 @@ api.quests = {
     boss: {
       name: t('questFrogBoss'),
       hp: 300,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Frog',
-          text: t('questFrogDropFrogEgg')
+          text: t('questFrogDropFrogEgg'),
         }, {
           type: 'eggs',
           key: 'Frog',
-          text: t('questFrogDropFrogEgg')
+          text: t('questFrogDropFrogEgg'),
         }, {
           type: 'eggs',
           key: 'Frog',
-          text: t('questFrogDropFrogEgg')
-        }
+          text: t('questFrogDropFrogEgg'),
+        },
       ],
       gp: 25,
       exp: 125,
-      unlock: t('questFrogUnlockText')
-    }
+      unlock: t('questFrogUnlockText'),
+    },
   },
   snake: {
     text: t('questSnakeText'),
@@ -2043,28 +2046,28 @@ api.quests = {
     boss: {
       name: t('questSnakeBoss'),
       hp: 1100,
-      str: 2.5
+      str: 2.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Snake',
-          text: t('questSnakeDropSnakeEgg')
+          text: t('questSnakeDropSnakeEgg'),
         }, {
           type: 'eggs',
           key: 'Snake',
-          text: t('questSnakeDropSnakeEgg')
+          text: t('questSnakeDropSnakeEgg'),
         }, {
           type: 'eggs',
           key: 'Snake',
-          text: t('questSnakeDropSnakeEgg')
-        }
+          text: t('questSnakeDropSnakeEgg'),
+        },
       ],
       gp: 73,
       exp: 725,
-      unlock: t('questSnakeUnlockText')
-    }
+      unlock: t('questSnakeUnlockText'),
+    },
   },
   unicorn: {
     text: t('questUnicornText'),
@@ -2075,28 +2078,28 @@ api.quests = {
     boss: {
       name: t('questUnicornBoss'),
       hp: 600,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Unicorn',
-          text: t('questUnicornDropUnicornEgg')
+          text: t('questUnicornDropUnicornEgg'),
         }, {
           type: 'eggs',
           key: 'Unicorn',
-          text: t('questUnicornDropUnicornEgg')
+          text: t('questUnicornDropUnicornEgg'),
         }, {
           type: 'eggs',
           key: 'Unicorn',
-          text: t('questUnicornDropUnicornEgg')
-        }
+          text: t('questUnicornDropUnicornEgg'),
+        },
       ],
       gp: 43,
       exp: 350,
-      unlock: t('questUnicornUnlockText')
-    }
+      unlock: t('questUnicornUnlockText'),
+    },
   },
   sabretooth: {
     text: t('questSabretoothText'),
@@ -2107,28 +2110,28 @@ api.quests = {
     boss: {
       name: t('questSabretoothBoss'),
       hp: 1000,
-      str: 2
+      str: 2,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Sabretooth',
-          text: t('questSabretoothDropSabretoothEgg')
+          text: t('questSabretoothDropSabretoothEgg'),
         }, {
           type: 'eggs',
           key: 'Sabretooth',
-          text: t('questSabretoothDropSabretoothEgg')
+          text: t('questSabretoothDropSabretoothEgg'),
         }, {
           type: 'eggs',
           key: 'Sabretooth',
-          text: t('questSabretoothDropSabretoothEgg')
-        }
+          text: t('questSabretoothDropSabretoothEgg'),
+        },
       ],
       gp: 67,
       exp: 650,
-      unlock: t('questSabretoothUnlockText')
-    }
+      unlock: t('questSabretoothUnlockText'),
+    },
   },
   monkey: {
     text: t('questMonkeyText'),
@@ -2139,28 +2142,28 @@ api.quests = {
     boss: {
       name: t('questMonkeyBoss'),
       hp: 400,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Monkey',
-          text: t('questMonkeyDropMonkeyEgg')
+          text: t('questMonkeyDropMonkeyEgg'),
         }, {
           type: 'eggs',
           key: 'Monkey',
-          text: t('questMonkeyDropMonkeyEgg')
+          text: t('questMonkeyDropMonkeyEgg'),
         }, {
           type: 'eggs',
           key: 'Monkey',
-          text: t('questMonkeyDropMonkeyEgg')
-        }
+          text: t('questMonkeyDropMonkeyEgg'),
+        },
       ],
       gp: 31,
       exp: 200,
-      unlock: t('questMonkeyUnlockText')
-    }
+      unlock: t('questMonkeyUnlockText'),
+    },
   },
   snail: {
     text: t('questSnailText'),
@@ -2171,103 +2174,103 @@ api.quests = {
     boss: {
       name: t('questSnailBoss'),
       hp: 500,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'eggs',
           key: 'Snail',
-          text: t('questSnailDropSnailEgg')
+          text: t('questSnailDropSnailEgg'),
         }, {
           type: 'eggs',
           key: 'Snail',
-          text: t('questSnailDropSnailEgg')
+          text: t('questSnailDropSnailEgg'),
         }, {
           type: 'eggs',
           key: 'Snail',
-          text: t('questSnailDropSnailEgg')
-        }
+          text: t('questSnailDropSnailEgg'),
+        },
       ],
       gp: 37,
       exp: 275,
-      unlock: t('questSnailUnlockText')
-    }
+      unlock: t('questSnailUnlockText'),
+    },
   },
   bewilder: {
-    text: t("questBewilderText"),
-    notes: t("questBewilderNotes"),
-    completion: t("questBewilderCompletion"),
+    text: t('questBewilderText'),
+    notes: t('questBewilderNotes'),
+    completion: t('questBewilderCompletion'),
     completionChat: t('questBewilderCompletionChat'),
     value: 0,
-    canBuy: (function() {
+    canBuy () {
       return false;
-    }),
+    },
     category: 'world',
     boss: {
-      name: t("questBewilderText"),
+      name: t('questBewilderText'),
       hp: 20000000,
       str: 1,
       def: 1,
       rage: {
-        title: t("questBewilderBossRageTitle"),
-        description: t("questBewilderBossRageDescription"),
+        title: t('questBewilderBossRageTitle'),
+        description: t('questBewilderBossRageDescription'),
         value: 800000,
         bailey: t('questBewilderBossRageBailey'),
         stables: t('questBewilderBossRageStables'),
-        market: t('questBewilderBossRageMarket')
-      }
+        market: t('questBewilderBossRageMarket'),
+      },
     },
     drop: {
       items: [
         {
           type: 'pets',
           key: 'MagicalBee-Base',
-          text: t('questBewilderDropBumblebeePet')
+          text: t('questBewilderDropBumblebeePet'),
         }, {
           type: 'mounts',
           key: 'MagicalBee-Base',
-          text: t('questBewilderDropBumblebeeMount')
+          text: t('questBewilderDropBumblebeeMount'),
         }, {
           type: 'food',
           key: 'Meat',
-          text: t('foodMeat')
+          text: t('foodMeat'),
         }, {
           type: 'food',
           key: 'Milk',
-          text: t('foodMilk')
+          text: t('foodMilk'),
         }, {
           type: 'food',
           key: 'Potatoe',
-          text: t('foodPotatoe')
+          text: t('foodPotatoe'),
         }, {
           type: 'food',
           key: 'Strawberry',
-          text: t('foodStrawberry')
+          text: t('foodStrawberry'),
         }, {
           type: 'food',
           key: 'Chocolate',
-          text: t('foodChocolate')
+          text: t('foodChocolate'),
         }, {
           type: 'food',
           key: 'Fish',
-          text: t('foodFish')
+          text: t('foodFish'),
         }, {
           type: 'food',
           key: 'RottenMeat',
-          text: t('foodRottenMeat')
+          text: t('foodRottenMeat'),
         }, {
           type: 'food',
           key: 'CottonCandyPink',
-          text: t('foodCottonCandyPink')
+          text: t('foodCottonCandyPink'),
         }, {
           type: 'food',
           key: 'CottonCandyBlue',
-          text: t('foodCottonCandyBlue')
+          text: t('foodCottonCandyBlue'),
         }, {
           type: 'food',
           key: 'Honey',
-          text: t('foodHoney')
+          text: t('foodHoney'),
         },
       ],
       gp: 0,
@@ -2299,7 +2302,7 @@ api.quests = {
           type: 'eggs',
           key: 'Falcon',
           text: t('questFalconDropFalconEgg'),
-        }
+        },
       ],
       gp: 49,
       exp: 425,
@@ -2331,7 +2334,7 @@ api.quests = {
           type: 'eggs',
           key: 'Treeling',
           text: t('questTreelingDropTreelingEgg'),
-        }
+        },
       ],
       gp: 43,
       exp: 350,
@@ -2352,7 +2355,7 @@ api.quests = {
         title: t('questAxolotlRageTitle'),
         description: t('questAxolotlRageDescription'),
         value: 50,
-        healing: .3,
+        healing: 0.3,
         effect: t('questAxolotlRageEffect'),
       },
     },
@@ -2370,7 +2373,7 @@ api.quests = {
           type: 'eggs',
           key: 'Axolotl',
           text: t('questAxolotlDropAxolotlEgg'),
-        }
+        },
       ],
       gp: 37,
       exp: 275,
@@ -2402,7 +2405,7 @@ api.quests = {
           type: 'eggs',
           key: 'Turtle',
           text: t('questTurtleDropTurtleEgg'),
-        }
+        },
       ],
       gp: 25,
       exp: 125,
@@ -2434,7 +2437,7 @@ api.quests = {
           type: 'eggs',
           key: 'Armadillo',
           text: t('questArmadilloDropArmadilloEgg'),
-        }
+        },
       ],
       gp: 43,
       exp: 350,
@@ -2466,7 +2469,7 @@ api.quests = {
           type: 'eggs',
           key: 'Cow',
           text: t('questCowDropCowEgg'),
-        }
+        },
       ],
       gp: 31,
       exp: 200,
@@ -2516,32 +2519,32 @@ api.quests = {
       name: t('questTaskwoodsTerror1Boss'),
       hp: 500,
       rage: {
-        title: t("questTaskwoodsTerror1RageTitle"),
-        description: t("questTaskwoodsTerror1RageDescription"),
+        title: t('questTaskwoodsTerror1RageTitle'),
+        description: t('questTaskwoodsTerror1RageDescription'),
         value: 50,
-        healing: .3,
-        effect: t('questTaskwoodsTerror1RageEffect')
-      }
+        healing: 0.3,
+        effect: t('questTaskwoodsTerror1RageEffect'),
+      },
     },
     drop: {
       items: [
         {
           type: 'hatchingPotions',
           key: 'Skeleton',
-          text: t('questTaskwoodsTerror1DropSkeletonPotion')
+          text: t('questTaskwoodsTerror1DropSkeletonPotion'),
         }, {
           type: 'hatchingPotions',
           key: 'Red',
-          text: t('questTaskwoodsTerror1DropRedPotion')
+          text: t('questTaskwoodsTerror1DropRedPotion'),
         }, {
           type: 'gear',
-          key: "head_special_pyromancersTurban",
-          text: t('questTaskwoodsTerror1DropHeadgear')
-        }
+          key: 'head_special_pyromancersTurban',
+          text: t('questTaskwoodsTerror1DropHeadgear'),
+        },
       ],
       gp: 0,
-      exp: 500
-    }
+      exp: 500,
+    },
   },
   taskwoodsTerror2: {
     text: t('questTaskwoodsTerror2Text'),
@@ -2554,28 +2557,28 @@ api.quests = {
     collect: {
       pixie: {
         text: t('questTaskwoodsTerror2CollectPixies'),
-        count: 25
+        count: 25,
       },
       brownie: {
         text: t('questTaskwoodsTerror2CollectBrownies'),
-        count: 15
+        count: 15,
       },
       dryad: {
         text: t('questTaskwoodsTerror2CollectDryads'),
-        count: 10
+        count: 10,
       },
     },
     drop: {
       items: [
         {
           type: 'gear',
-          key: "armor_special_pyromancersRobes",
-          text: t('questTaskwoodsTerror2DropArmor')
-        }
+          key: 'armor_special_pyromancersRobes',
+          text: t('questTaskwoodsTerror2DropArmor'),
+        },
       ],
       gp: 0,
-      exp: 75
-    }
+      exp: 75,
+    },
   },
   taskwoodsTerror3: {
     text: t('questTaskwoodsTerror3Text'),
@@ -2588,31 +2591,31 @@ api.quests = {
     boss: {
       name: t('questTaskwoodsTerror3Boss'),
       hp: 1000,
-      str: 2
+      str: 2,
     },
     drop: {
       items: [
         {
           type: 'food',
           key: 'Strawberry',
-          text: t('questTaskwoodsTerror3DropStrawberry')
+          text: t('questTaskwoodsTerror3DropStrawberry'),
         }, {
           type: 'food',
           key: 'Strawberry',
-          text: t('questTaskwoodsTerror3DropStrawberry')
+          text: t('questTaskwoodsTerror3DropStrawberry'),
         }, {
           type: 'food',
           key: 'Strawberry',
-          text: t('questTaskwoodsTerror3DropStrawberry')
+          text: t('questTaskwoodsTerror3DropStrawberry'),
         }, {
           type: 'gear',
-          key: "weapon_special_taskwoodsLantern",
-          text: t('questTaskwoodsTerror3DropWeapon')
+          key: 'weapon_special_taskwoodsLantern',
+          text: t('questTaskwoodsTerror3DropWeapon'),
         },
       ],
       gp: 0,
-      exp: 650
-    }
+      exp: 650,
+    },
   },
   ferret: {
     text: t('questFerretText'),
@@ -2654,17 +2657,17 @@ api.quests = {
     category: 'unlockable',
     unlockCondition: {
       condition: 'party invite',
-      text: t('createAccountReward')
+      text: t('createAccountReward'),
     },
     boss: {
       name: t('questDustBunniesBoss'),
       hp: 100,
-      str: 0.5
+      str: 0.5,
     },
     drop: {
       gp: 8,
-      exp: 42
-    }
+      exp: 42,
+    },
   },
   moon1: {
     text: t('questMoon1Text'),
@@ -2675,25 +2678,25 @@ api.quests = {
     unlockCondition: {
       condition: 'party invite',
       incentiveThreshold: 7,
-      text: t('loginReward', {count: 7})
+      text: t('loginReward', {count: 7}),
     },
     collect: {
       shard: {
         text: t('questMoon1CollectShards'),
-        count: 20
+        count: 20,
       },
     },
     drop: {
       items: [
         {
           type: 'gear',
-          key: "head_special_lunarWarriorHelm",
-          text: t('questMoon1DropHeadgear')
+          key: 'head_special_lunarWarriorHelm',
+          text: t('questMoon1DropHeadgear'),
         },
       ],
       gp: 7,
-      exp: 50
-    }
+      exp: 50,
+    },
   },
   moon2: {
     text: t('questMoon2Text'),
@@ -2705,24 +2708,24 @@ api.quests = {
     unlockCondition: {
       condition: 'party invite',
       incentiveThreshold: 22,
-      text: t('loginReward', {count: 22})
+      text: t('loginReward', {count: 22}),
     },
     boss: {
       name: t('questMoon2Boss'),
       hp: 100,
-      str: 1.5
+      str: 1.5,
     },
     drop: {
       items: [
         {
           type: 'gear',
-          key: "armor_special_lunarWarriorArmor",
-          text: t('questMoon2DropArmor')
-        }
+          key: 'armor_special_lunarWarriorArmor',
+          text: t('questMoon2DropArmor'),
+        },
       ],
       gp: 37,
-      exp: 275
-    }
+      exp: 275,
+    },
   },
   moon3: {
     text: t('questMoon3Text'),
@@ -2734,24 +2737,24 @@ api.quests = {
     unlockCondition: {
       condition: 'party invite',
       incentiveThreshold: 40,
-      text: t('loginReward', {count: 40})
+      text: t('loginReward', {count: 40}),
     },
     boss: {
       name: t('questMoon3Boss'),
       hp: 1000,
-      str: 2
+      str: 2,
     },
     drop: {
       items: [
         {
           type: 'gear',
           key: 'weapon_special_lunarScythe',
-          text: t('questMoon3DropWeapon')
+          text: t('questMoon3DropWeapon'),
         },
       ],
       gp: 67,
-      exp: 650
-    }
+      exp: 650,
+    },
   },
   sloth: {
     text: t('questSlothText'),
@@ -2828,32 +2831,32 @@ api.quests = {
       name: t('questStoikalmCalamity1Boss'),
       hp: 500,
       rage: {
-        title: t("questStoikalmCalamity1RageTitle"),
-        description: t("questStoikalmCalamity1RageDescription"),
+        title: t('questStoikalmCalamity1RageTitle'),
+        description: t('questStoikalmCalamity1RageDescription'),
         value: 50,
-        healing: .3,
-        effect: t('questStoikalmCalamity1RageEffect')
-      }
+        healing: 0.3,
+        effect: t('questStoikalmCalamity1RageEffect'),
+      },
     },
     drop: {
       items: [
         {
           type: 'hatchingPotions',
           key: 'Skeleton',
-          text: t('questStoikalmCalamity1DropSkeletonPotion')
+          text: t('questStoikalmCalamity1DropSkeletonPotion'),
         }, {
           type: 'hatchingPotions',
           key: 'Desert',
-          text: t('questStoikalmCalamity1DropDesertPotion')
+          text: t('questStoikalmCalamity1DropDesertPotion'),
         }, {
           type: 'gear',
-          key: "armor_special_mammothRiderArmor",
-          text: t('questStoikalmCalamity1DropArmor')
-        }
+          key: 'armor_special_mammothRiderArmor',
+          text: t('questStoikalmCalamity1DropArmor'),
+        },
       ],
       gp: 0,
-      exp: 500
-    }
+      exp: 500,
+    },
   },
   stoikalmCalamity2: {
     text: t('questStoikalmCalamity2Text'),
@@ -2866,20 +2869,20 @@ api.quests = {
     collect: {
       icicleCoin: {
         text: t('questStoikalmCalamity2CollectIcicleCoins'),
-        count: 40
+        count: 40,
       },
     },
     drop: {
       items: [
         {
           type: 'gear',
-          key: "head_special_mammothRiderHelm",
-          text: t('questStoikalmCalamity2DropHeadgear')
-        }
+          key: 'head_special_mammothRiderHelm',
+          text: t('questStoikalmCalamity2DropHeadgear'),
+        },
       ],
       gp: 0,
-      exp: 75
-    }
+      exp: 75,
+    },
   },
   stoikalmCalamity3: {
     text: t('questStoikalmCalamity3Text'),
@@ -2892,35 +2895,35 @@ api.quests = {
     boss: {
       name: t('questStoikalmCalamity3Boss'),
       hp: 1000,
-      str: 2
+      str: 2,
     },
     drop: {
       items: [
         {
           type: 'food',
           key: 'CottonCandyBlue',
-          text: t('questStoikalmCalamity3DropBlueCottonCandy')
+          text: t('questStoikalmCalamity3DropBlueCottonCandy'),
         }, {
           type: 'food',
           key: 'CottonCandyBlue',
-          text: t('questStoikalmCalamity3DropBlueCottonCandy')
+          text: t('questStoikalmCalamity3DropBlueCottonCandy'),
         }, {
           type: 'food',
           key: 'CottonCandyBlue',
-          text: t('questStoikalmCalamity3DropBlueCottonCandy')
+          text: t('questStoikalmCalamity3DropBlueCottonCandy'),
         }, {
           type: 'gear',
-          key: "weapon_special_mammothRiderSpear",
-          text: t('questStoikalmCalamity3DropWeapon')
+          key: 'weapon_special_mammothRiderSpear',
+          text: t('questStoikalmCalamity3DropWeapon'),
         }, {
           type: 'gear',
-          key: "shield_special_mammothRiderHorn",
-          text: t('questStoikalmCalamity3DropShield')
+          key: 'shield_special_mammothRiderHorn',
+          text: t('questStoikalmCalamity3DropShield'),
         },
       ],
       gp: 0,
-      exp: 650
-    }
+      exp: 650,
+    },
   },
   guineapig: {
     text: t('questGuineaPigText'),
@@ -2956,30 +2959,30 @@ api.quests = {
   },
 };
 
-_.each(api.quests, function(v, key) {
-  var b;
-  _.defaults(v, {
-    key: key,
-    canBuy: (function() {
+each(api.quests, (v, key) => {
+  let b;
+  defaults(v, {
+    key,
+    canBuy () {
       return true;
-    })
+    },
   });
   b = v.boss;
   if (b) {
-    _.defaults(b, {
+    defaults(b, {
       str: 1,
-      def: 1
+      def: 1,
     });
     if (b.rage) {
-      return _.defaults(b.rage, {
+      return defaults(b.rage, {
         title: t('bossRageTitle'),
-        description: t('bossRageDescription')
+        description: t('bossRageDescription'),
       });
     }
   }
 });
 
-api.questsByLevel = _.sortBy(api.quests, function(quest) {
+api.questsByLevel = sortBy(api.quests, (quest) => {
   return quest.lvl || 0;
 });
 
@@ -2995,22 +2998,34 @@ api.userDefaults = {
       value: 0,
       up: true,
       down: false,
-      attribute: 'per'
+      attribute: 'per',
+      tags: [
+        t('defaultTag1'),  // Work
+        t('defaultTag4'),  // School
+        t('defaultTag6'),  // Chores
+      ],
     }, {
       type: 'habit',
       text: t('defaultHabit2Text'),
       value: 0,
       up: false,
       down: true,
-      attribute: 'str'
+      attribute: 'str',
+      tags: [
+        t('defaultTag3'),  // Health + Wellness
+      ],
     }, {
       type: 'habit',
       text: t('defaultHabit3Text'),
       value: 0,
       up: true,
       down: true,
-      attribute: 'str'
-    }
+      attribute: 'str',
+      tags: [
+        t('defaultTag2'),  // Exercise
+        t('defaultTag3'),  // Health + Wellness
+      ],
+    },
   ],
   dailys: [],
   todos: [
@@ -3019,33 +3034,33 @@ api.userDefaults = {
       text: t('defaultTodo1Text'),
       notes: t('defaultTodoNotes'),
       completed: false,
-      attribute: 'int'
-    }
+      attribute: 'int',
+    },
   ],
   rewards: [
     {
       type: 'reward',
       text: t('defaultReward1Text'),
-      value: 10
-    }
+      value: 10,
+    },
   ],
   tags: [
     {
-      name: t('defaultTag1')
+      name: t('defaultTag1'),
     }, {
-      name: t('defaultTag2')
+      name: t('defaultTag2'),
     }, {
-      name: t('defaultTag3')
+      name: t('defaultTag3'),
     }, {
-      name: t('defaultTag4')
+      name: t('defaultTag4'),
     }, {
-      name: t('defaultTag5')
+      name: t('defaultTag5'),
     }, {
-      name: t('defaultTag6')
+      name: t('defaultTag6'),
     }, {
-      name: t('defaultTag7')
-    }
-  ]
+      name: t('defaultTag7'),
+    },
+  ],
 };
 
 api.faq = faq;

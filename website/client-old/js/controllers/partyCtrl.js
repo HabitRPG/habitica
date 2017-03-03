@@ -113,7 +113,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         if (!group.name) group.name = env.t('possessiveParty', {name: User.user.profile.name});
         Groups.Group.create(group)
           .then(function(response) {
-            Analytics.updateUser({'party.id': $scope.group ._id, 'partySize': 1});
+            Analytics.updateUser({'partyID': $scope.group ._id, 'partySize': 1});
             $rootScope.hardRedirect('/#/options/groups/party');
           });
       };
@@ -134,7 +134,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
           $scope.selectedGroup = undefined;
           $scope.popoverEl.popover('destroy');
         } else {
-          Groups.Group.leave($scope.selectedGroup._id, keep)
+          Groups.Group.leave($scope.selectedGroup._id, keep, 'remain-in-challenges')
             .then(function (response) {
               Analytics.updateUser({'partySize':null,'partyID':null});
               User.sync().then(function () {
@@ -156,7 +156,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
           //TODO: Move this to challenge service
           Challenges.getGroupChallenges(group._id)
           .then(function(response) {
-              var challenges = _.pluck(_.filter(response.data.data, function(c) {
+              var challenges = _.map(_.filter(response.data.data, function(c) {
                   return c.group._id == group._id;
               }), '_id');
 
@@ -197,7 +197,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
 
       $scope.leaveOldPartyAndJoinNewParty = function(newPartyId, newPartyName) {
         if (confirm('Are you sure you want to delete your party and join ' + newPartyName + '?')) {
-          Groups.Group.leave(Groups.data.party._id, false)
+          Groups.Group.leave(Groups.data.party._id, false, 'remain-in-challenges')
             .then(function() {
               $rootScope.party = $scope.group = {
                 loadingParty: true
