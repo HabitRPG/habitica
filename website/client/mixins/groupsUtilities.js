@@ -11,7 +11,7 @@ export default {
       // If the group is a guild, just check for an intersection with the
       // current user's guilds, rather than checking the members of the group.
       if (group.type === 'guild') {
-        return user.guilds.find(guildId => guildId === group._id);
+        return user.guilds.indexOf(group._id) !== -1;
       }
 
       // Similarly, if we're dealing with the user's current party, return true.
