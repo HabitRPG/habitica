@@ -207,7 +207,7 @@ describe('Purchasing a subscription for group', () => {
     expect(updatedUser.purchased.plan.dateUpdated).to.exist;
     expect(updatedUser.purchased.plan.gemsBought).to.eql(0);
     expect(updatedUser.purchased.plan.paymentMethod).to.eql('Group Plan');
-    expect(updatedUser.purchased.plan.extraMonths).to.within(2, 3);
+    expect(updatedUser.purchased.plan.extraMonths).to.within(1, 3);
     expect(updatedUser.purchased.plan.dateTerminated).to.eql(null);
     expect(updatedUser.purchased.plan.lastBillingDate).to.not.exist;
     expect(updatedUser.purchased.plan.dateCreated).to.exist;
@@ -243,7 +243,7 @@ describe('Purchasing a subscription for group', () => {
     expect(updatedUser.purchased.plan.dateUpdated).to.exist;
     expect(updatedUser.purchased.plan.gemsBought).to.eql(0);
     expect(updatedUser.purchased.plan.paymentMethod).to.eql('Group Plan');
-    expect(updatedUser.purchased.plan.extraMonths).to.within(4, 5);
+    expect(updatedUser.purchased.plan.extraMonths).to.within(3, 5);
     expect(updatedUser.purchased.plan.dateTerminated).to.eql(null);
     expect(updatedUser.purchased.plan.lastBillingDate).to.not.exist;
     expect(updatedUser.purchased.plan.dateCreated).to.exist;
