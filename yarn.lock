@@ -3182,10 +3182,11 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-habitrpg@^2.0.0:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/eslint-config-habitrpg/-/eslint-config-habitrpg-2.0.2.tgz#a843d388f5ff41108ff3b243819949870d34eb26"
+eslint-config-habitrpg@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-habitrpg/-/eslint-config-habitrpg-3.0.0.tgz#7cfabbc91f5bd3ce0f00c0a9a3509ca2b9773bed"
   optionalDependencies:
+    eslint-plugin-lodash "^2.3.5"
     eslint-plugin-mocha "^4.7.0"
 
 eslint-friendly-formatter@^2.0.5:
@@ -3211,6 +3212,12 @@ eslint-plugin-html@^2.0.0:
   resolved "https://registry.yarnpkg.com/eslint-plugin-html/-/eslint-plugin-html-2.0.1.tgz#3a829510e82522f1e2e44d55d7661a176121fce1"
   dependencies:
     htmlparser2 "^3.8.2"
+
+eslint-plugin-lodash@^2.3.5:
+  version "2.3.5"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-lodash/-/eslint-plugin-lodash-2.3.5.tgz#d4fae9e7ae19ff2566bbf4bfd31c34c71b85da9f"
+  dependencies:
+    lodash "^4.0.0"
 
 eslint-plugin-mocha@^4.7.0:
   version "4.8.0"
@@ -6413,17 +6420,9 @@ lodash.pick@^4.2.1:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.pick/-/lodash.pick-4.4.0.tgz#52f05610fff9ded422611441ed1fc123a03001b3"
 
-lodash.pickby@^4.2.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/lodash.pickby/-/lodash.pickby-4.6.0.tgz#7dea21d8c18d7703a27c704c15d3b84a67e33aff"
-
 lodash.restparam@^3.0.0:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/lodash.restparam/-/lodash.restparam-3.6.1.tgz#936a4e309ef330a7645ed4145986c85ae5b20805"
-
-lodash.setwith@^4.2.0:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/lodash.setwith/-/lodash.setwith-4.3.2.tgz#1bcc057e62d90f5a6b9b9470ae2ab9d89edd8e6f"
 
 lodash.template@^2.4.1:
   version "2.4.1"
