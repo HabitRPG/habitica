@@ -9,35 +9,35 @@
     .ui.form
       .field
         .ui.checkbox
-          input(type='checkbox')
+          input(type="checkbox")
           label.label-primary(v-once) {{ $t('pets') }}
       .field.nested-field
         .ui.checkbox
-          input(type='checkbox')
+          input(type="checkbox")
           label(v-once) {{ $t('hatchingPotions') }}
       .field.nested-field
         .ui.checkbox
-          input(type='checkbox')
+          input(type="checkbox")
           label(v-once) {{ $t('quest') }}
       .field.nested-field
         .ui.checkbox
-          input(type='checkbox')
+          input(type="checkbox")
           label(v-once) {{ $t('special') }}
       .field
         .ui.checkbox
-          input(type='checkbox')
+          input(type="checkbox")
           label.label-primary(v-once) {{ $t('mounts') }}
       .field.nested-field
         .ui.checkbox
-          input(type='checkbox')
+          input(type="checkbox")
           label(v-once) {{ $t('hatchingPotions') }}
       .field.nested-field
         .ui.checkbox
-          input(type='checkbox')
+          input(type="checkbox")
           label(v-once) {{ $t('quest') }}
       .field.nested-field
         .ui.checkbox
-          input(type='checkbox')
+          input(type="checkbox")
           label(v-once) {{ $t('special') }}
 
   .thirteen.wide.column
@@ -60,18 +60,9 @@
     h2 Mounts
     h2 Quest Mounts
     h2 Rare Mounts
-
 </template>
 
 <style>
-.label-primary {
-  font-weight: bold;
-}
-
-.nested-field {
-  padding-left: 1.5rem;
-}
-
 .inventory-item-container {
   padding: 20px;
   border: 1px solid;
