@@ -12,7 +12,7 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template',
           tr(ng-if='user.purchased.plan.dateTerminated'): td.alert.alert-warning
             span.noninteractive-button.btn-danger=env.t('canceledSubscription')
             i.glyphicon.glyphicon-time
-            |  #{env.t('subCanceled')} <strong>{{moment(user.purchased.plan.dateTerminated).format('MM/DD/YYYY')}}</strong>
+            |  #{env.t('subCanceled')} <strong>{{user.purchased.plan.dateTerminated | date:user.preferences.dateFormat}}</strong>
           tr(ng-if='!user.purchased.plan.dateTerminated'): td
             h4=env.t('subscribed')
             p(ng-if='user.purchased.plan.planId')=env.t('purchasedPlanId', {price: '{{Content.subscriptionBlocks[user.purchased.plan.planId].price}}', months: '{{Content.subscriptionBlocks[user.purchased.plan.planId].months}}', plan: '{{user.purchased.plan.paymentMethod}}'})
