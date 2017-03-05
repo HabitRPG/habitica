@@ -7467,6 +7467,12 @@
       "resolved": "https://registry.npmjs.org/karma-sinon-chai/-/karma-sinon-chai-1.2.4.tgz",
       "dev": true
     },
+    "karma-sinon-stub-promise": {
+      "version": "1.0.0",
+      "from": "karma-sinon-stub-promise@latest",
+      "resolved": "https://registry.npmjs.org/karma-sinon-stub-promise/-/karma-sinon-stub-promise-1.0.0.tgz",
+      "dev": true
+    },
     "karma-sourcemap-loader": {
       "version": "0.3.7",
       "from": "karma-sourcemap-loader@>=0.3.7 <0.4.0",
