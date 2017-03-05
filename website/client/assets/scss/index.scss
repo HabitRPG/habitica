@@ -1,6 +1,9 @@
 // CSS that doesn't belong to any specific Vue compoennt
-@import './loading-screen';
 @import './forms';
+
+html, body {
+  height: 100%;
+}
 
 body {
   text-rendering: optimizeLegibility;
