@@ -3,7 +3,7 @@
 <template lang="pug">
 #app
   app-menu
-  .ui.grid.fluid
+  .container-fluid
     app-header
     router-view
 </template>

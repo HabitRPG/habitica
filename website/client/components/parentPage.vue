@@ -1,10 +1,9 @@
 <template lang="pug">
 .row
-  .sixteen.wide.column
+  .col
     router-view.row
 </template>
 
 <script>
-export default {
-};
+export default { };
 </script>
