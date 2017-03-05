@@ -19,6 +19,7 @@ import TavernPage from './components/social/tavern';
 import InboxPage from './components/social/inbox/index';
 import InboxConversationPage from './components/social/inbox/conversationPage';
 import GuildsDiscoveryPage from './components/social/guilds/discovery/index';
+import GuildPage from './components/social/guilds/guild';
 
 Vue.use(VueRouter);
 
@@ -69,6 +70,12 @@ export default new VueRouter({
               name: 'guilds',
               path: '',
               component: GuildsDiscoveryPage,
+            },
+            {
+              name: 'guild',
+              path: ':guildId',
+              component: GuildPage,
+              props: true,
             },
           ],
         },
