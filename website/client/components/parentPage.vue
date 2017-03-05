@@ -1,7 +1,7 @@
 <template lang="pug">
 .row
   .col
-    router-view.row
+    router-view
 </template>
 
 <script>

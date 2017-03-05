@@ -1,6 +1,20 @@
 <template lang="pug">
+nav.navbar.navbar-inverse.bg-inverse.fixed-top.navbar-toggleable-sm
+  .navbar-brand
+    // TODO css
+    img(src="~assets/header/png/logo@3x.png", height="28px")
+  .collapse.navbar-collapse
+    ul.navbar-nav
+      router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact) 
+        a.nav-link(v-once) {{ $t('tasks') }}
+      li.nav-item.dropdown
+        a.nav-link.dropdown-toggle Dropdown
+        .dropdown-menu
+          a.dropdown-item Action
+          a.dropdown-item Something Else
+          a.dropdown-item Another action
 // TODO srcset / svg images
-#app-menu.ui.top.fixed.menu
+// #app-menu.ui.top.fixed.menu
   .header.item
     img(src="~assets/header/png/logo@3x.png")
   router-link.item(:to="{name: 'tasks'}", exact) 
@@ -72,7 +86,13 @@
           span(v-once) {{ $t('logout') }}
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+// Make the dropdown menu open on hover
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+ }
+
 #app-menu {
   background: #432874 url(~assets/header/png/bits.png) right no-repeat;
   border-bottom: 0px;
