@@ -72,7 +72,7 @@
           span(v-once) {{ $t('logout') }}
 </template>
 
-<style lang="less">
+<style lang="scss">
 #app-menu {
   background: #432874 url(~assets/header/png/bits.png) right no-repeat;
   border-bottom: 0px;
