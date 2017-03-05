@@ -3,7 +3,8 @@
   .ui.right.floated.button(:class="[isMember ? 'red' : 'green']") {{ isMember ? $t('leave') : $t('join') }}
   .floated
     // TODO v-once?
-    h3.ui.header {{ guild.name }}
+    router-link(:to="{ name: 'guild', params: { guildId: guild._id } }")
+      h3.ui.header {{ guild.name }}
     p {{ guild.description }}
 </template>
 
