@@ -112,7 +112,7 @@
     "mystery": "Mystery",
     "changeClass": "Change Class, Refund Attribute Points",
     "lvl10ChangeClass": "To change class you must be at least level 10.",
-    "invalidClass":"Invalid class. Please specify warrior, rogue, wizard, or healer.",
+    "invalidClass":"Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options.",
     "unallocated": "Unallocated Attribute Points",
     "haveUnallocated": "You have <%= points %> unallocated Attribute Point(s)",
