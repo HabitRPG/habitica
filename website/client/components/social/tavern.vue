@@ -7,7 +7,7 @@
 <script>
 export default {
   data () {
-    // @TODO: Abstract to Store
+    // TODO: Abstract to Store
     let messages = [
       {
         from: 'Paglias',
@@ -26,7 +26,7 @@ export default {
 
   methods: {
     sendChat: function sendChat () {
-      // @TODO: This will be default values based on the conversation and current user
+      // TODO: This will be default values based on the conversation and current user
       let messageToSend = {
         from: 'TheHollidayInn',
         fromUserId: 3211,
