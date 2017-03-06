@@ -1,16 +1,11 @@
 <template lang="pug">
 .row
-  .sixteen.wide.column
-    .ui.secondary.menu.center-content
-      router-link.item(:to="{name: 'tavern'}")
-        span(v-once) {{ $t('tavern') }}
-      router-link.item(:to="{name: 'guilds'}")
-        span(v-once) {{ $t('guilds') }}
-      router-link.item(:to="{name: 'inbox'}")
-        span(v-once) {{ $t('inbox') }}
-
-  .sixteen.wide.column
-    router-view
+  .col-12
+    nav.nav
+      router-link.nav-link(:to="{name: 'tavern'}", exact) {{ $t('tavern') }}
+      router-link.nav-link(:to="{name: 'inbox'}") {{ $t('inbox') }}
+      router-link.nav-link(:to="{name: 'guildsDiscovery'}") {{ $t('guilds') }}
+  router-view.col-12
 </template>
 
 <script>

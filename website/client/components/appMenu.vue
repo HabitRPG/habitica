@@ -22,7 +22,7 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
           router-link.dropdown-item(:to="{name: 'inbox'}") {{ $t('inbox') }}
           router-link.dropdown-item(:to="{name: 'challenges'}") {{ $t('challenges') }}
           router-link.dropdown-item(:to="{name: 'party'}") {{ $t('party') }}
-          router-link.dropdown-item(:to="{name: 'guilds'}") {{ $t('guilds') }}
+          router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guilds') }}
       router-link.nav-item.dropdown(tag="li", to="/help", :class="{'active': $route.path.startsWith('/help')}")
         a.nav-link(v-once) {{ $t('help') }}
         .dropdown-menu
