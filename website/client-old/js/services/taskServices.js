@@ -358,11 +358,11 @@ angular.module('habitrpg')
       if (task._edit.frequency === 'weekly') summary += ' on ' + repeatDays;
 
       if (task._edit.frequency === 'monthly' && task._edit.repeatsOn == 'dayOfMonth') {
-        var date = moment().date();
+        var date = moment(task._edit.startDate).date();
         summary += ' on the ' + date;
       } else if (task._edit.frequency === 'monthly' && task._edit.repeatsOn == 'dayOfWeek') {
         var week = Math.ceil(moment().date() / 7) - 1;
-        var dayOfWeek = moment().day();
+        var dayOfWeek = moment(task._edit.startDate).day();
         var shortDay = numberToShortDay[dayOfWeek];
         var longDay = shortDayToLongDayMap[shortDay];
 
