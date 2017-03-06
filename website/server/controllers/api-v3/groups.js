@@ -842,7 +842,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     }
 
     let guildInvite = {id: group._id, name: group.name, inviter: inviter._id};
-    if (!group.hasNotCancelled()) guildInvite.cancelledPlan = true;
+    if (group.isSubscribed() && !group.hasNotCancelled()) guildInvite.cancelledPlan = true;
     userToInvite.invitations.guilds.push(guildInvite);
   } else if (group.type === 'party') {
     if (userToInvite.invitations.party.id) {
@@ -857,7 +857,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     }
 
     let partyInvite = {id: group._id, name: group.name, inviter: inviter._id};
-    if (!group.hasNotCancelled()) partyInvite.cancelledPlan = true;
+    if (group.isSubscribed() && !group.hasNotCancelled()) partyInvite.cancelledPlan = true;
     userToInvite.invitations.party = partyInvite;
   }
 
@@ -923,7 +923,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
     userReturnInfo = invite.email;
 
     let cancelledPlan = false;
-    if (!group.hasNotCancelled()) cancelledPlan = true;
+    if (group.isSubscribed() && !group.hasNotCancelled()) cancelledPlan = true;
 
     const groupQueryString = JSON.stringify({
       id: group._id,
