@@ -256,5 +256,6 @@
   "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription.",
   "remainOrLeaveChallenges": "req.query.keep must be either 'remain-in-challenges' or 'leave-challenges'",
   "paymentDetails": "Payment Details",
-  "aboutToJoinCancelledGroupPlan": "You are about to join a group with a canceled plan. You will NOT receive a free group plan."
+  "aboutToJoinCancelledGroupPlan": "You are about to join a group with a canceled plan. You will NOT receive a free subscription.",
+  "cannotChangeLeaderWithActiveGroupPlan": "You can not change the leader while the group has an active plan." 
 }
