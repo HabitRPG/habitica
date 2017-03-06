@@ -104,6 +104,11 @@ schema.methods.addComputedStatsToJSONObj = function addComputedStatsToUserJSONOb
   return statsObject;
 };
 
+// @TODO: There is currently a three way relation between the user, payment methods and the payment helper
+// This creates some odd Dependency Injection issues. To counter that, we use the user as the third layer
+// To negotiate between the payment providers and the payment helper (which probably has too many responsiblities)
+// In summary, currently is is best practice to use this method to cancel a user subscription, rather than calling the
+// payment helper.
 schema.methods.cancelSubscription = async function cancelSubscription () {
   let plan = this.purchased.plan;
 
