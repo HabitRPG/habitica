@@ -193,9 +193,10 @@ describe('Canceling a subscription for group', () => {
     await api.cancelSubscription(data);
 
     let now = new Date();
+    now.setHours(0, 0, 0, 0);
     let updatedLeader = await User.findById(user._id).exec();
     let daysTillTermination = moment(updatedLeader.purchased.plan.dateTerminated).diff(now, 'days');
-    expect(daysTillTermination).to.be.within(29, 30); // 1 month +/- 1 days
+    expect(daysTillTermination).to.be.within(2, 3); // only a few days
   });
 
   it('sends an email to members of group', async () => {
