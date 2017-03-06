@@ -3,6 +3,7 @@ import nconf from 'nconf';
 import Bluebird from 'bluebird';
 import moment from 'moment';
 import cc from 'coupon-code';
+import uuid from 'uuid';
 
 import common from '../../common';
 import {
@@ -38,6 +39,7 @@ api.constants = {
   SELLER_NOTE: 'Habitica Payment',
   SELLER_NOTE_SUBSCRIPTION: 'Habitica Subscription',
   SELLER_NOTE_ATHORIZATION_SUBSCRIPTION: 'Habitica Subscription Payment',
+  SELLER_NOTE_GROUP_NEW_MEMBER: 'Habitica Group Plan New Member',
   STORE_NAME: 'Habitica',
 
   GIFT_TYPE_GEMS: 'gems',
@@ -45,8 +47,8 @@ api.constants = {
 
   METHOD_BUY_GEMS: 'buyGems',
   METHOD_CREATE_SUBSCRIPTION: 'createSubscription',
-  PAYMENT_METHOD_AMAZON: 'Amazon Payments',
-  PAYMENT_METHOD_AMAZON_GIFT: 'Amazon Payments (Gift)',
+  PAYMENT_METHOD: 'Amazon Payments',
+  PAYMENT_METHOD_GIFT: 'Amazon Payments (Gift)',
 };
 
 api.getTokenInfo = Bluebird.promisify(amzPayment.api.getTokenInfo, {context: amzPayment.api});
@@ -138,7 +140,7 @@ api.checkout = async function checkout (options = {}) {
 
   let data = {
     user,
-    paymentMethod: this.constants.PAYMENT_METHOD_AMAZON,
+    paymentMethod: this.constants.PAYMENT_METHOD,
     headers,
   };
 
@@ -146,7 +148,7 @@ api.checkout = async function checkout (options = {}) {
     if (gift.type === this.constants.GIFT_TYPE_SUBSCRIPTION) method = this.constants.METHOD_CREATE_SUBSCRIPTION;
     gift.member = await User.findById(gift ? gift.uuid : undefined).exec();
     data.gift = gift;
-    data.paymentMethod = this.constants.PAYMENT_METHOD_AMAZON_GIFT;
+    data.paymentMethod = this.constants.PAYMENT_METHOD_GIFT;
   }
 
   await payments[method](data);
@@ -209,7 +211,7 @@ api.cancelSubscription = async function cancelSubscription (options = {}) {
     user,
     groupId,
     nextBill: moment(lastBillingDate).add({ days: subscriptionLength }),
-    paymentMethod: this.constants.PAYMENT_METHOD_AMAZON,
+    paymentMethod: this.constants.PAYMENT_METHOD,
     headers,
   });
 };
@@ -281,10 +283,35 @@ api.subscribe = async function subscribe (options) {
   await payments.createSubscription({
     user,
     customerId: billingAgreementId,
-    paymentMethod: this.constants.PAYMENT_METHOD_AMAZON,
+    paymentMethod: this.constants.PAYMENT_METHOD,
     sub,
     headers,
     groupId,
+  });
+};
+
+
+api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMember (group) {
+  // @TODO: Can we get this from the content plan?
+  let priceForNewMember = 3;
+
+  // @TODO: Prorate?
+
+  return this.authorizeOnBillingAgreement({
+    AmazonBillingAgreementId: group.purchased.plan.customerId,
+    AuthorizationReferenceId: uuid.v4().substring(0, 32),
+    AuthorizationAmount: {
+      CurrencyCode: this.constants.CURRENCY_CODE,
+      Amount: priceForNewMember,
+    },
+    SellerAuthorizationNote: this.constants.SELLER_NOTE_GROUP_NEW_MEMBER,
+    TransactionTimeout: 0,
+    CaptureNow: true,
+    SellerNote: this.constants.SELLER_NOTE_GROUP_NEW_MEMBER,
+    SellerOrderAttributes: {
+      SellerOrderId: uuid.v4(),
+      StoreName: this.constants.STORE_NAME,
+    },
   });
 };
 

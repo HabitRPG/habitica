@@ -71,7 +71,7 @@
 
         $scope.showNormalList = function (obj) {
           return objIsGroup(obj) || (!$state.includes("options.social.challenges") && !User.user.preferences.tasks.groupByChallenge);
-        };
+        }
 
         $scope.showChallengeList = function () {
           return $state.includes("options.social.challenges");

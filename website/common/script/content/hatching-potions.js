@@ -122,7 +122,7 @@ each(premium, (pot, key) => {
     premium: true,
     limited: false,
     canBuy () {
-      return pot._season === 'valentines';
+      return pot._season === 'regular';
     },
   });
 });

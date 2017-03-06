@@ -18,6 +18,8 @@ import SocialContainer from './components/social/index';
 import TavernPage from './components/social/tavern';
 import InboxPage from './components/social/inbox/index';
 import InboxConversationPage from './components/social/inbox/conversationPage';
+import GuildsDiscoveryPage from './components/social/guilds/discovery/index';
+import GuildPage from './components/social/guilds/guild';
 
 Vue.use(VueRouter);
 
@@ -60,7 +62,23 @@ export default new VueRouter({
         },
         { name: 'challenges', path: 'challenges', component: Page },
         { name: 'party', path: 'party', component: Page },
-        { name: 'guilds', path: 'guilds', component: Page },
+        {
+          path: 'guilds',
+          component: EmptyView,
+          children: [
+            {
+              name: 'guildsDiscovery',
+              path: 'discovery',
+              component: GuildsDiscoveryPage,
+            },
+            {
+              name: 'guild',
+              path: 'guild/:guildId',
+              component: GuildPage,
+              props: true,
+            },
+          ],
+        },
       ],
     },
     {

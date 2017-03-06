@@ -1,11 +1,10 @@
 <template lang="pug">
 .row
-  .sixteen.wide.column
+  .col
     h2 Page
     p {{ $route.path }}
 </template>
 
 <script>
-export default {
-};
+export default { };
 </script>
