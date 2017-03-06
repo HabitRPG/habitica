@@ -1,23 +1,16 @@
 <template lang="pug">
-.ui.internally.celled.grid
-  .row
-    .sixteen.wide.column
-      .ui.comments
-        h2.ui.dividing.header Conversation
-        .comment(v-for="message in messages")
-          a.avatar
-            img(src='http://semantic-ui.com/images/avatar/small/matt.jpg')
-          .content
-            a.author {{message.from}}
-            .metadata
-              span.date {{message.date}}
-            .text
-              | {{message.message}}
-        .field
-          textarea(v-model='newMessage')
-        .ui.blue.labeled.submit.icon.button(v-on:click='reply')
-          i.icon.edit
-          |  Add Reply
+.row
+  .col-12
+    h2 Conversation
+    .card(v-for="message in messages")
+      .card-block
+        strong {{message.from}}
+        span {{message.date}}
+        p {{message.message}}
+    form.form.mt-2(@submit.prevent='reply')
+      .form-group
+        textarea.form-control(rows="3", v-model='newMessage')
+      button.btn.btn-primary(type="submit") Add Reply
 </template>
 
 <script>
