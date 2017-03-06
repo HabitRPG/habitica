@@ -50,6 +50,7 @@
 
 #header-avatar {
   margin-top: 24px;
+  margin-right: 1rem;
   box-shadow: 0 2px 4px 0 rgba(53, 32, 93, 0.4);
 }
 
