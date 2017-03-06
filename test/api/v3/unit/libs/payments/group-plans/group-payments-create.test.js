@@ -281,7 +281,7 @@ describe('Purchasing a subscription for group', () => {
     let recipient = new User();
     recipient.profile.name = 'recipient';
     plan.planId = 'basic_earned';
-    plan.paymentMethod = amzLib.constants.PAYMENT_METHOD_AMAZON;
+    plan.paymentMethod = amzLib.constants.PAYMENT_METHOD;
     plan.lastBillingDate = moment().add(3, 'months');
     recipient.purchased.plan = plan;
     recipient.guilds.push(group._id);

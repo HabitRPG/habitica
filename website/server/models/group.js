@@ -1195,7 +1195,7 @@ schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember)
 
   if (this.purchased.plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
     await stripePayments.chargeForAdditionalGroupMember(this);
-  } else if (this.purchased.plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD_AMAZON && !removingMember) {
+  } else if (this.purchased.plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD && !removingMember) {
     await amazonPayments.chargeForAdditionalGroupMember(this);
   }
 };

@@ -107,7 +107,7 @@ describe('Amazon Payments', () => {
       expect(paymentBuyGemsStub).to.be.calledOnce;
       expect(paymentBuyGemsStub).to.be.calledWith({
         user,
-        paymentMethod: amzLib.constants.PAYMENT_METHOD_AMAZON,
+        paymentMethod: amzLib.constants.PAYMENT_METHOD,
         headers,
       });
       expectAmazonStubs();
@@ -130,7 +130,7 @@ describe('Amazon Payments', () => {
       expect(paymentBuyGemsStub).to.be.calledOnce;
       expect(paymentBuyGemsStub).to.be.calledWith({
         user,
-        paymentMethod: amzLib.constants.PAYMENT_METHOD_AMAZON_GIFT,
+        paymentMethod: amzLib.constants.PAYMENT_METHOD_GIFT,
         headers,
         gift,
       });
@@ -155,7 +155,7 @@ describe('Amazon Payments', () => {
       expect(paymentCreateSubscritionStub).to.be.calledOnce;
       expect(paymentCreateSubscritionStub).to.be.calledWith({
         user,
-        paymentMethod: amzLib.constants.PAYMENT_METHOD_AMAZON_GIFT,
+        paymentMethod: amzLib.constants.PAYMENT_METHOD_GIFT,
         headers,
         gift,
       });
@@ -318,7 +318,7 @@ describe('Amazon Payments', () => {
       expect(createSubSpy).to.be.calledWith({
         user,
         customerId: billingAgreementId,
-        paymentMethod: amzLib.constants.PAYMENT_METHOD_AMAZON,
+        paymentMethod: amzLib.constants.PAYMENT_METHOD,
         sub,
         headers,
         groupId,
@@ -377,7 +377,7 @@ describe('Amazon Payments', () => {
       expect(createSubSpy).to.be.calledWith({
         user,
         customerId: billingAgreementId,
-        paymentMethod: amzLib.constants.PAYMENT_METHOD_AMAZON,
+        paymentMethod: amzLib.constants.PAYMENT_METHOD,
         sub,
         headers,
         groupId,
@@ -457,7 +457,7 @@ describe('Amazon Payments', () => {
         user,
         groupId: undefined,
         nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
-        paymentMethod: amzLib.constants.PAYMENT_METHOD_AMAZON,
+        paymentMethod: amzLib.constants.PAYMENT_METHOD,
         headers,
       });
       expectAmazonStubs();
@@ -487,7 +487,7 @@ describe('Amazon Payments', () => {
         user,
         groupId: undefined,
         nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
-        paymentMethod: amzLib.constants.PAYMENT_METHOD_AMAZON,
+        paymentMethod: amzLib.constants.PAYMENT_METHOD,
         headers,
       });
       amzLib.closeBillingAgreement.restore();
@@ -525,7 +525,7 @@ describe('Amazon Payments', () => {
         user,
         groupId: group._id,
         nextBill: moment(group.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
-        paymentMethod: amzLib.constants.PAYMENT_METHOD_AMAZON,
+        paymentMethod: amzLib.constants.PAYMENT_METHOD,
         headers,
       });
       expectAmazonStubs();
@@ -555,7 +555,7 @@ describe('Amazon Payments', () => {
         user,
         groupId: group._id,
         nextBill: moment(group.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
-        paymentMethod: amzLib.constants.PAYMENT_METHOD_AMAZON,
+        paymentMethod: amzLib.constants.PAYMENT_METHOD,
         headers,
       });
       amzLib.closeBillingAgreement.restore();
@@ -606,7 +606,7 @@ describe('Amazon Payments', () => {
     });
 
     it('charges for a new member', async () => {
-      data.paymentMethod = amzLib.constants.PAYMENT_METHOD_AMAZON;
+      data.paymentMethod = amzLib.constants.PAYMENT_METHOD;
       await payments.createSubscription(data);
 
       let updatedGroup = await Group.findById(group._id).exec();

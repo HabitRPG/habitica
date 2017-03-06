@@ -34,7 +34,7 @@ api.constants = {
   // METHOD_BUY_GEMS: 'buyGems',
   // METHOD_CREATE_SUBSCRIPTION: 'createSubscription',
   PAYMENT_METHOD: 'Stripe',
-  // PAYMENT_METHOD_AMAZON_GIFT: 'Amazon Payments (Gift)',
+  // PAYMENT_METHOD_GIFT: 'Amazon Payments (Gift)',
 };
 
 api.setStripeApi = function setStripeApi (stripeInc) {

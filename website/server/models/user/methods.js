@@ -107,7 +107,7 @@ schema.methods.addComputedStatsToJSONObj = function addComputedStatsToUserJSONOb
 schema.methods.cancelSubscription = async function cancelSubscription () {
   let plan = this.purchased.plan;
 
-  if (plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD_AMAZON) {
+  if (plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD) {
     return await amazonPayments.cancelSubscription({user: this});
   } else if (plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
     return await stripePayments.cancelSubscription({user: this});

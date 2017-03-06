@@ -47,8 +47,8 @@ api.constants = {
 
   METHOD_BUY_GEMS: 'buyGems',
   METHOD_CREATE_SUBSCRIPTION: 'createSubscription',
-  PAYMENT_METHOD_AMAZON: 'Amazon Payments',
-  PAYMENT_METHOD_AMAZON_GIFT: 'Amazon Payments (Gift)',
+  PAYMENT_METHOD: 'Amazon Payments',
+  PAYMENT_METHOD_GIFT: 'Amazon Payments (Gift)',
 };
 
 api.getTokenInfo = Bluebird.promisify(amzPayment.api.getTokenInfo, {context: amzPayment.api});
@@ -140,7 +140,7 @@ api.checkout = async function checkout (options = {}) {
 
   let data = {
     user,
-    paymentMethod: this.constants.PAYMENT_METHOD_AMAZON,
+    paymentMethod: this.constants.PAYMENT_METHOD,
     headers,
   };
 
@@ -148,7 +148,7 @@ api.checkout = async function checkout (options = {}) {
     if (gift.type === this.constants.GIFT_TYPE_SUBSCRIPTION) method = this.constants.METHOD_CREATE_SUBSCRIPTION;
     gift.member = await User.findById(gift ? gift.uuid : undefined).exec();
     data.gift = gift;
-    data.paymentMethod = this.constants.PAYMENT_METHOD_AMAZON_GIFT;
+    data.paymentMethod = this.constants.PAYMENT_METHOD_GIFT;
   }
 
   await payments[method](data);
@@ -211,7 +211,7 @@ api.cancelSubscription = async function cancelSubscription (options = {}) {
     user,
     groupId,
     nextBill: moment(lastBillingDate).add({ days: subscriptionLength }),
-    paymentMethod: this.constants.PAYMENT_METHOD_AMAZON,
+    paymentMethod: this.constants.PAYMENT_METHOD,
     headers,
   });
 };
@@ -283,7 +283,7 @@ api.subscribe = async function subscribe (options) {
   await payments.createSubscription({
     user,
     customerId: billingAgreementId,
-    paymentMethod: this.constants.PAYMENT_METHOD_AMAZON,
+    paymentMethod: this.constants.PAYMENT_METHOD,
     sub,
     headers,
     groupId,
