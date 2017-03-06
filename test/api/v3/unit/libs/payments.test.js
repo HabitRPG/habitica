@@ -1,21 +1,17 @@
+import moment from 'moment';
+
 import * as sender from '../../../../../website/server/libs/email';
 import * as api from '../../../../../website/server/libs/payments';
 import analytics from '../../../../../website/server/libs/analyticsService';
 import notifications from '../../../../../website/server/libs/pushNotifications';
 import { model as User } from '../../../../../website/server/models/user';
-import { model as Group } from '../../../../../website/server/models/group';
-import stripeModule from 'stripe';
-import moment from 'moment';
 import { translate as t } from '../../../../helpers/api-v3-integration.helper';
 import {
   generateGroup,
 } from '../../../../helpers/api-unit.helper.js';
-import i18n from '../../../../../website/common/script/i18n';
 
 describe('payments/index', () => {
   let user, group, data, plan;
-
-  let stripe = stripeModule('test');
 
   beforeEach(async () => {
     user = new User();
@@ -319,53 +315,6 @@ describe('payments/index', () => {
       });
     });
 
-    context('Purchasing a subscription for group', () => {
-      it('creates a subscription', async () => {
-        expect(group.purchased.plan.planId).to.not.exist;
-        data.groupId = group._id;
-
-        await api.createSubscription(data);
-
-        let updatedGroup = await Group.findById(group._id).exec();
-
-        expect(updatedGroup.purchased.plan.planId).to.eql('basic_3mo');
-        expect(updatedGroup.purchased.plan.customerId).to.eql('customer-id');
-        expect(updatedGroup.purchased.plan.dateUpdated).to.exist;
-        expect(updatedGroup.purchased.plan.gemsBought).to.eql(0);
-        expect(updatedGroup.purchased.plan.paymentMethod).to.eql('Payment Method');
-        expect(updatedGroup.purchased.plan.extraMonths).to.eql(0);
-        expect(updatedGroup.purchased.plan.dateTerminated).to.eql(null);
-        expect(updatedGroup.purchased.plan.lastBillingDate).to.not.exist;
-        expect(updatedGroup.purchased.plan.dateCreated).to.exist;
-      });
-
-      it('sets extraMonths if plan has dateTerminated date', async () => {
-        group.purchased.plan = plan;
-        group.purchased.plan.dateTerminated = moment(new Date()).add(2, 'months');
-        await group.save();
-        expect(group.purchased.plan.extraMonths).to.eql(0);
-        data.groupId = group._id;
-
-        await api.createSubscription(data);
-
-        let updatedGroup = await Group.findById(group._id).exec();
-        expect(updatedGroup.purchased.plan.extraMonths).to.within(1.9, 2);
-      });
-
-      it('does not set negative extraMonths if plan has past dateTerminated date', async () => {
-        group.purchased.plan = plan;
-        group.purchased.plan.dateTerminated = moment(new Date()).subtract(2, 'months');
-        await group.save();
-        expect(group.purchased.plan.extraMonths).to.eql(0);
-        data.groupId = group._id;
-
-        await api.createSubscription(data);
-
-        let updatedGroup = await Group.findById(group._id).exec();
-        expect(updatedGroup.purchased.plan.extraMonths).to.eql(0);
-      });
-    });
-
     context('Block subscription perks', () => {
       it('adds block months to plan.consecutive.offset', async () => {
         await api.createSubscription(data);
@@ -558,112 +507,6 @@ describe('payments/index', () => {
         expect(sender.sendTxn).to.be.calledWith(user, 'cancel-subscription');
       });
     });
-
-    context('Canceling a subscription for group', () => {
-      it('adds a month termination date by default', async () => {
-        data.groupId = group._id;
-        await api.cancelSubscription(data);
-
-        let now = new Date();
-        let updatedGroup = await Group.findById(group._id).exec();
-        let daysTillTermination = moment(updatedGroup.purchased.plan.dateTerminated).diff(now, 'days');
-
-        expect(daysTillTermination).to.be.within(29, 30); // 1 month +/- 1 days
-      });
-
-      it('adds extraMonths to dateTerminated value', async () => {
-        group.purchased.plan.extraMonths = 2;
-        await group.save();
-        data.groupId = group._id;
-
-        await api.cancelSubscription(data);
-
-        let now = new Date();
-        let updatedGroup = await Group.findById(group._id).exec();
-        let daysTillTermination = moment(updatedGroup.purchased.plan.dateTerminated).diff(now, 'days');
-
-        expect(daysTillTermination).to.be.within(89, 90); // 3 months +/- 1 days
-      });
-
-      it('handles extra month fractions', async () => {
-        group.purchased.plan.extraMonths = 0.3;
-        await group.save();
-        data.groupId = group._id;
-
-        await api.cancelSubscription(data);
-
-        let now = new Date();
-        let updatedGroup = await Group.findById(group._id).exec();
-        let daysTillTermination = moment(updatedGroup.purchased.plan.dateTerminated).diff(now, 'days');
-
-        expect(daysTillTermination).to.be.within(38, 39); // should be about 1 month + 1/3 month
-      });
-
-      it('terminates at next billing date if it exists', async () => {
-        data.nextBill = moment().add({ days: 15 });
-        data.groupId = group._id;
-
-        await api.cancelSubscription(data);
-
-        let now = new Date();
-        let updatedGroup = await Group.findById(group._id).exec();
-        let daysTillTermination = moment(updatedGroup.purchased.plan.dateTerminated).diff(now, 'days');
-
-        expect(daysTillTermination).to.be.within(13, 15);
-      });
-
-      it('resets plan.extraMonths', async () => {
-        group.purchased.plan.extraMonths = 5;
-        await group.save();
-        data.groupId = group._id;
-
-        await api.cancelSubscription(data);
-
-        let updatedGroup = await Group.findById(group._id).exec();
-        expect(updatedGroup.purchased.plan.extraMonths).to.eql(0);
-      });
-
-      it('sends an email', async () => {
-        data.groupId = group._id;
-        await api.cancelSubscription(data);
-
-        expect(sender.sendTxn).to.be.calledOnce;
-        expect(sender.sendTxn).to.be.calledWith(user, 'group-cancel-subscription');
-      });
-
-      it('prevents non group leader from manging subscription', async () => {
-        let groupMember = new User();
-        data.user = groupMember;
-        data.groupId = group._id;
-
-        await expect(api.cancelSubscription(data))
-          .eventually.be.rejected.and.to.eql({
-            httpCode: 401,
-            message: i18n.t('onlyGroupLeaderCanManageSubscription'),
-            name: 'NotAuthorized',
-          });
-      });
-
-      it('allows old group leader to cancel if they created the subscription', async () => {
-        data.groupId = group._id;
-        data.sub = {
-          key: 'group_monthly',
-        };
-        data.paymentMethod = 'Payment Method';
-        await api.createSubscription(data);
-
-        let updatedGroup = await Group.findById(group._id).exec();
-        let newLeader = new User();
-        updatedGroup.leader = newLeader._id;
-        await updatedGroup.save();
-
-        await api.cancelSubscription(data);
-
-        updatedGroup = await Group.findById(group._id).exec();
-
-        expect(updatedGroup.purchased.plan.dateTerminated).to.exist;
-      });
-    });
   });
 
   describe('#buyGems', () => {
@@ -771,49 +614,24 @@ describe('payments/index', () => {
     });
   });
 
-  describe('#upgradeGroupPlan', () => {
-    let spy;
-
-    beforeEach(function () {
-      spy = sinon.stub(stripe.subscriptions, 'update');
-      spy.returnsPromise().resolves([]);
+  describe('addSubToGroupUser', () => {
+    it('adds a group subscription to a new user', async () => {
+      expect(group.purchased.plan.planId).to.not.exist;
       data.groupId = group._id;
-      data.sub.quantity = 3;
-    });
 
-    afterEach(function () {
-      sinon.restore(stripe.subscriptions.update);
-    });
+      await api.addSubToGroupUser(user, group);
 
-    it('updates a group plan quantity', async () => {
-      data.paymentMethod = 'Stripe';
-      await api.createSubscription(data);
+      let updatedUser = await User.findById(user._id).exec();
 
-      let updatedGroup = await Group.findById(group._id).exec();
-      expect(updatedGroup.purchased.plan.quantity).to.eql(3);
-
-      updatedGroup.memberCount += 1;
-      await updatedGroup.save();
-
-      await api.updateStripeGroupPlan(updatedGroup, stripe);
-
-      expect(spy.calledOnce).to.be.true;
-      expect(updatedGroup.purchased.plan.quantity).to.eql(4);
-    });
-
-    it('does not update a group plan quantity that has a payment method other than stripe', async () => {
-      await api.createSubscription(data);
-
-      let updatedGroup = await Group.findById(group._id).exec();
-      expect(updatedGroup.purchased.plan.quantity).to.eql(3);
-
-      updatedGroup.memberCount += 1;
-      await updatedGroup.save();
-
-      await api.updateStripeGroupPlan(updatedGroup, stripe);
-
-      expect(spy.calledOnce).to.be.false;
-      expect(updatedGroup.purchased.plan.quantity).to.eql(3);
+      expect(updatedUser.purchased.plan.planId).to.eql('group_plan_auto');
+      expect(updatedUser.purchased.plan.customerId).to.eql('group-plan');
+      expect(updatedUser.purchased.plan.dateUpdated).to.exist;
+      expect(updatedUser.purchased.plan.gemsBought).to.eql(0);
+      expect(updatedUser.purchased.plan.paymentMethod).to.eql('Group Plan');
+      expect(updatedUser.purchased.plan.extraMonths).to.eql(0);
+      expect(updatedUser.purchased.plan.dateTerminated).to.eql(null);
+      expect(updatedUser.purchased.plan.lastBillingDate).to.not.exist;
+      expect(updatedUser.purchased.plan.dateCreated).to.exist;
     });
   });
 });
