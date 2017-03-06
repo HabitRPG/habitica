@@ -27,7 +27,7 @@
         // @TODO: The use of scope with tasks is incorrect. We need to fix all task ctrls to use directives/services
         // $scope.obj = {};
         function setObj (obj, force) {
-          if (!force && ($scope.obj || scope.obj !== {} || !obj)) return;
+          if (!force && ($scope.obj || $scope.obj !== {} || !obj)) return;
           $scope.obj = obj;
           setUpGroupedList();
           setUpTaskWatch();
