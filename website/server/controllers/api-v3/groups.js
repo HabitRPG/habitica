@@ -387,10 +387,13 @@ api.updateGroup = {
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
 
+    if (req.body.leader !== user._id && group.hasNotCancelled()) throw new NotAuthorized(res.t('cannotChangeLeaderWithActiveGroupPlan'));
+
     _.assign(group, _.merge(group.toObject(), Group.sanitizeUpdate(req.body)));
 
     let savedGroup = await group.save();
     let response = Group.toJSONCleanChat(savedGroup, user);
+
     // If the leader changed fetch new data, otherwise use authenticated user
     if (response.leader !== user._id) {
       let rawLeader = await User.findById(response.leader).select(nameFields).exec();
@@ -493,7 +496,10 @@ api.joinGroup = {
 
     group.memberCount += 1;
 
-    if (group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
+    if (group.hasNotCancelled())  {
+      await payments.addSubToGroupUser(user, group);
+      await group.updateGroupPlan();
+    }
 
     let promises = [group.save(), user.save()];
 
@@ -676,7 +682,7 @@ api.leaveGroup = {
 
     await group.leave(user, req.query.keep, req.body.keepChallenges);
 
-    if (group.purchased.plan && group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
+    if (group.hasNotCancelled())  await group.updateGroupPlan(true);
 
     _removeMessagesFromMember(user, group._id);
 
@@ -763,7 +769,10 @@ api.removeGroupMember = {
 
     if (isInGroup) {
       group.memberCount -= 1;
-      if (group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
+      if (group.hasNotCancelled())  {
+        await group.updateGroupPlan(true);
+        await payments.cancelGroupSubscriptionForUser(member, group);
+      }
 
       if (group.quest && group.quest.leader === member._id) {
         group.quest.key = undefined;
@@ -831,7 +840,10 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     if (_.find(userToInvite.invitations.guilds, {id: group._id})) {
       throw new NotAuthorized(res.t('userAlreadyInvitedToGroup'));
     }
-    userToInvite.invitations.guilds.push({id: group._id, name: group.name, inviter: inviter._id});
+
+    let guildInvite = {id: group._id, name: group.name, inviter: inviter._id};
+    if (group.isSubscribed() && !group.hasNotCancelled()) guildInvite.cancelledPlan = true;
+    userToInvite.invitations.guilds.push(guildInvite);
   } else if (group.type === 'party') {
     if (userToInvite.invitations.party.id) {
       throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
@@ -844,7 +856,9 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
       if (userParty && userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty'));
     }
 
-    userToInvite.invitations.party = {id: group._id, name: group.name, inviter: inviter._id};
+    let partyInvite = {id: group._id, name: group.name, inviter: inviter._id};
+    if (group.isSubscribed() && !group.hasNotCancelled()) partyInvite.cancelledPlan = true;
+    userToInvite.invitations.party = partyInvite;
   }
 
   let groupLabel = group.type === 'guild' ? 'Guild' : 'Party';
@@ -907,10 +921,15 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
     userReturnInfo = await _inviteByUUID(userToContact._id, group, inviter, req, res);
   } else {
     userReturnInfo = invite.email;
+
+    let cancelledPlan = false;
+    if (group.isSubscribed() && !group.hasNotCancelled()) cancelledPlan = true;
+
     const groupQueryString = JSON.stringify({
       id: group._id,
       inviter: inviter._id,
       sentAt: Date.now(), // so we can let it expire
+      cancelledPlan,
     });
     let link = `/static/front?groupInvite=${encrypt(groupQueryString)}`;
 

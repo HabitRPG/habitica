@@ -1,3 +1,6 @@
+import moment from 'moment';
+import { v4 as generateUUID } from 'uuid';
+import validator from 'validator';
 import { sleep } from '../../../../helpers/api-unit.helper';
 import { model as Group, INVITES_LIMIT } from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
@@ -7,9 +10,7 @@ import {
 import { quests as questScrolls } from '../../../../../website/common/script/content';
 import { groupChatReceivedWebhook } from '../../../../../website/server/libs/webhook';
 import * as email from '../../../../../website/server/libs/email';
-import validator from 'validator';
 import { TAVERN_ID } from '../../../../../website/common/script/';
-import { v4 as generateUUID } from 'uuid';
 import shared from '../../../../../website/common';
 
 describe('Group Model', () => {
@@ -665,6 +666,49 @@ describe('Group Model', () => {
         party = await Group.findOne({_id: party._id});
         expect(party).to.exist;
         expect(party.memberCount).to.eql(1);
+      });
+
+      it('does not allow a leader to leave a group with an active subscription', async () => {
+        party.memberCount = 2;
+        party.purchased.plan.customerId = '110002222333';
+
+        await expect(party.leave(questLeader))
+          .to.eventually.be.rejected.and.to.eql({
+            name: 'NotAuthorized',
+            httpCode: 401,
+            message: shared.i18n.t('leaderCannotLeaveGroupWithActiveGroup'),
+          });
+
+        party = await Group.findOne({_id: party._id});
+        expect(party).to.exist;
+        expect(party.memberCount).to.eql(1);
+      });
+
+      it('deletes a private group when the last member leaves and a subscription is cancelled', async () => {
+        let guild = new Group({
+          name: 'test guild',
+          type: 'guild',
+          memberCount: 1,
+        });
+
+        let leader = new User({
+          guilds: [guild._id],
+        });
+
+        guild.leader = leader._id;
+
+        await Promise.all([
+          guild.save(),
+          leader.save(),
+        ]);
+
+        guild.purchased.plan.customerId = '110002222333';
+        guild.purchased.plan.dateTerminated = new Date();
+
+        await guild.leave(leader);
+
+        party = await Group.findOne({_id: guild._id});
+        expect(party).to.not.exist;
       });
 
       it('does not delete a public group when the last member leaves', async () => {
@@ -1543,6 +1587,58 @@ describe('Group Model', () => {
         expect(args.find(arg => arg[0][0].id === memberWithWebhook.webhooks[0].id)).to.be.exist;
         expect(args.find(arg => arg[0][0].id === memberWithWebhook2.webhooks[0].id)).to.be.exist;
         expect(args.find(arg => arg[0][0].id === memberWithWebhook3.webhooks[0].id)).to.be.exist;
+      });
+    });
+
+    context('isSubscribed', () => {
+      it('returns false if group does not have customer id', () => {
+        expect(party.isSubscribed()).to.be.undefined;
+      });
+
+      it('returns true if group does not have plan.dateTerminated', () => {
+        party.purchased.plan.customerId = 'test-id';
+
+        expect(party.isSubscribed()).to.be.true;
+      });
+
+      it('returns true if group if plan.dateTerminated is after today', () => {
+        party.purchased.plan.customerId = 'test-id';
+        party.purchased.plan.dateTerminated = moment().add(1, 'days').toDate();
+
+        expect(party.isSubscribed()).to.be.true;
+      });
+
+      it('returns false if group if plan.dateTerminated is before today', () => {
+        party.purchased.plan.customerId = 'test-id';
+        party.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
+
+        expect(party.isSubscribed()).to.be.false;
+      });
+    });
+
+    context('hasNotCancelled', () => {
+      it('returns false if group does not have customer id', () => {
+        expect(party.hasNotCancelled()).to.be.undefined;
+      });
+
+      it('returns true if party does not have plan.dateTerminated', () => {
+        party.purchased.plan.customerId = 'test-id';
+
+        expect(party.hasNotCancelled()).to.be.true;
+      });
+
+      it('returns false if party if plan.dateTerminated is after today', () => {
+        party.purchased.plan.customerId = 'test-id';
+        party.purchased.plan.dateTerminated = moment().add(1, 'days').toDate();
+
+        expect(party.hasNotCancelled()).to.be.false;
+      });
+
+      it('returns false if party if plan.dateTerminated is before today', () => {
+        party.purchased.plan.customerId = 'test-id';
+        party.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
+
+        expect(party.hasNotCancelled()).to.be.false;
       });
     });
   });
