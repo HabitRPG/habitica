@@ -149,7 +149,6 @@ describe('User Model', () => {
 
   context('isSubscribed', () => {
     let user;
-    
     beforeEach(() => {
       user = new User();
     });
@@ -182,7 +181,6 @@ describe('User Model', () => {
 
   context('hasNotCancelled', () => {
     let user;
-    
     beforeEach(() => {
       user = new User();
     });
