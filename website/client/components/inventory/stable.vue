@@ -1,46 +1,48 @@
 <template lang="pug">
-.ui.grid
-  .three.wide.column
-    .ui.left.icon.input
-      i.search.icon
-      input(type="text", :placeholder="$t('search')")
-    h3(v-once) {{ $t('filter') }}
+.row
+  .col-3
+    .form-group
+      input.form-control(type="text", :placeholder="$t('search')")
 
-    .ui.form
-      .field
-        .ui.checkbox
-          input(type="checkbox")
-          label.label-primary(v-once) {{ $t('pets') }}
-      .field.nested-field
-        .ui.checkbox
-          input(type="checkbox")
-          label(v-once) {{ $t('hatchingPotions') }}
-      .field.nested-field
-        .ui.checkbox
-          input(type="checkbox")
-          label(v-once) {{ $t('quest') }}
-      .field.nested-field
-        .ui.checkbox
-          input(type="checkbox")
-          label(v-once) {{ $t('special') }}
-      .field
-        .ui.checkbox
-          input(type="checkbox")
-          label.label-primary(v-once) {{ $t('mounts') }}
-      .field.nested-field
-        .ui.checkbox
-          input(type="checkbox")
-          label(v-once) {{ $t('hatchingPotions') }}
-      .field.nested-field
-        .ui.checkbox
-          input(type="checkbox")
-          label(v-once) {{ $t('quest') }}
-      .field.nested-field
-        .ui.checkbox
-          input(type="checkbox")
-          label(v-once) {{ $t('special') }}
+    .form
+      h3(v-once) {{ $t('filter') }}
+      .form-group
+        .form-check
+          label.form-check-label(v-once) 
+            input.form-check-input(type="checkbox")
+            strong {{ $t('pets') }}
+        .form-check.nested-field
+          label.form-check-label(v-once) 
+            input.form-check-input(type="checkbox")
+            span {{ $t('hatchingPotions') }}
+        .form-check.nested-field
+          label.form-check-label(v-once) 
+            input.form-check-input(type="checkbox")
+            span {{ $t('quest') }}
+        .form-check.nested-field
+          label.form-check-label(v-once) 
+            input.form-check-input(type="checkbox")
+            span {{ $t('special') }}
+      .form-group
+        .form-check
+          label.form-check-label(v-once) 
+            input.form-check-input(type="checkbox")
+            strong {{ $t('mounts') }}
+        .form-check.nested-field
+          label.form-check-label(v-once) 
+            input.form-check-input(type="checkbox")
+            span {{ $t('hatchingPotions') }}
+        .form-check.nested-field
+          label.form-check-label(v-once) 
+            input.form-check-input(type="checkbox")
+            span {{ $t('quest') }}
+        .form-check.nested-field
+          label.form-check-label(v-once) 
+            input.form-check-input(type="checkbox")
+            span {{ $t('special') }}
 
-  .thirteen.wide.column
+
+  .col-9
     h2 Pets
     .inventory-item-container(v-for="pet in listAnimals('pet', content.dropEggs, content.dropHatchingPotions)")
       .PixelPaw

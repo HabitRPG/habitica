@@ -5,7 +5,8 @@
       router-link.nav-link(:to="{name: 'tavern'}", exact) {{ $t('tavern') }}
       router-link.nav-link(:to="{name: 'inbox'}") {{ $t('inbox') }}
       router-link.nav-link(:to="{name: 'guildsDiscovery'}") {{ $t('guilds') }}
-  router-view.col-12
+  .col-12
+    router-view
 </template>
 
 <script>

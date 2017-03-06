@@ -1,36 +1,36 @@
 <template lang="pug">
 // TODO this is necessary until we have a way to wait for data to be loaded from the server
-div(v-if="guild")
-  .ui.grid
-    .row
-      .eight.wide.column.left.floated
-        h2.ui.header.sixteen.wide.column {{guild.name}}
-        .sixteen.wide.column
-          h4.ui.left.floated.header {{$t('groupLeader')}}
-          p {{guild.leader.profile.name}}
-      .eight.wide.column.right.floated
-        .ui.basic.segment.right.floated
-          // TODO extract button to component?
-          .ui.button(:class="[isMember ? 'red' : 'green']") {{ isMember ? $t('leave') : $t('join') }}
-        .ui.segment.compact.right.floated
-          h3.ui.header.centered
-            | {{guild.memberCount}}
-            .sub.header(v-once) {{ $t('members') }}
-    .row
-      .five.wide.column
-        h3.ui.header(v-once) {{ $t('description') }}
-        p {{ guild.description }}
-      .eleven.wide.column
-        h3.ui.header(v-once) {{ $t('chat') }}
-        .ui.minimal.comments
-          .comment(v-for="msg in guild.chat", :key="msg.id") 
-            .content
-              a.author {{msg.user}}
-              .metadata
-                span.date {{msg.timestamp}}
-              .text {{msg.text}}
+.row(v-if="guild")
+  .clearfix.col-12 
+    .float-left
+      h2 {{guild.name}}
+      strong.float-left {{$t('groupLeader')}}
+      span.float-left : {{guild.leader.profile.name}}
+    .float-right
+      .clearfix
+        h3.float-left
+          span.badge.badge-default {{guild.memberCount}}
+          |  {{$t('members')}}
+        button.btn.float-left(:class="[isMember ? 'btn-danger' : 'btn-success']") {{ isMember ? $t('leave') : $t('join') }}
+  .col-5
+    h4(v-once) {{ $t('description') }}
+    p {{ guild.description }}
+  .col-7
+    h4(v-once) {{ $t('chat') }}
+    .card(v-for="msg in guild.chat", :key="msg.id") 
+      .card-block
+        .clearfix
+          strong.float-left {{msg.user}}
+          .float-right {{msg.timestamp}}
+        .text {{msg.text}}
 </template>
 
+<style lang="scss" scoped>
+.card {
+  margin-bottom: 1rem;
+}
+
+</style>
 <script>
 import axios from 'axios';
 import groupUtilities from '../../../mixins/groupsUtilities';

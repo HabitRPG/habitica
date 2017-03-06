@@ -1,12 +1,18 @@
 <template lang="pug">
-.ui.clearing.raised.segment
-  .ui.right.floated.button(:class="[isMember ? 'red' : 'green']") {{ isMember ? $t('leave') : $t('join') }}
-  .floated
-    // TODO v-once?
-    router-link(:to="{ name: 'guild', params: { guildId: guild._id } }")
-      h3.ui.header {{ guild.name }}
+.card
+  .card-block
+    .clearfix
+      router-link.float-left(:to="{ name: 'guild', params: { guildId: guild._id } }")
+        h3 {{ guild.name }}
+      button.btn.float-right(:class="[isMember ? 'btn-danger' : 'btn-success']") {{ isMember ? $t('leave') : $t('join') }}
     p {{ guild.description }}
 </template>
+
+<style lang="scss" scoped>
+.card {
+  margin-bottom: 1rem;
+}
+</style>
 
 <script>
 import { mapState } from '../../../../store';
