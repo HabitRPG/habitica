@@ -1,6 +1,7 @@
+import Bluebird from 'bluebird';
+import moment from 'moment';
 import { model as User } from '../../../../../website/server/models/user';
 import common from '../../../../../website/common';
-import Bluebird from 'bluebird';
 
 describe('User Model', () => {
   it('keeps user._tmp when calling .toJSON', () => {
@@ -143,6 +144,72 @@ describe('User Model', () => {
         expect(userToJSON.notifications[0].type).to.equal('CRON');
         expect(userToJSON.notifications[0].data).to.eql({field: 1});
       });
+    });
+  });
+
+  context('isSubscribed', () => {
+    let user;
+    
+    beforeEach(() => {
+      user = new User();
+    });
+
+
+    it('returns false if user does not have customer id', () => {
+      expect(user.isSubscribed()).to.be.undefined;
+    });
+
+    it('returns true if user does not have plan.dateTerminated', () => {
+      user.purchased.plan.customerId = 'test-id';
+
+      expect(user.isSubscribed()).to.be.true;
+    });
+
+    it('returns true if user if plan.dateTerminated is after today', () => {
+      user.purchased.plan.customerId = 'test-id';
+      user.purchased.plan.dateTerminated = moment().add(1, 'days').toDate();
+
+      expect(user.isSubscribed()).to.be.true;
+    });
+
+    it('returns false if user if plan.dateTerminated is before today', () => {
+      user.purchased.plan.customerId = 'test-id';
+      user.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
+
+      expect(user.isSubscribed()).to.be.false;
+    });
+  });
+
+  context('hasNotCancelled', () => {
+    let user;
+    
+    beforeEach(() => {
+      user = new User();
+    });
+
+
+    it('returns false if user does not have customer id', () => {
+      expect(user.hasNotCancelled()).to.be.undefined;
+    });
+
+    it('returns true if user does not have plan.dateTerminated', () => {
+      user.purchased.plan.customerId = 'test-id';
+
+      expect(user.hasNotCancelled()).to.be.true;
+    });
+
+    it('returns false if user if plan.dateTerminated is after today', () => {
+      user.purchased.plan.customerId = 'test-id';
+      user.purchased.plan.dateTerminated = moment().add(1, 'days').toDate();
+
+      expect(user.hasNotCancelled()).to.be.false;
+    });
+
+    it('returns false if user if plan.dateTerminated is before today', () => {
+      user.purchased.plan.customerId = 'test-id';
+      user.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
+
+      expect(user.hasNotCancelled()).to.be.false;
     });
   });
 });
