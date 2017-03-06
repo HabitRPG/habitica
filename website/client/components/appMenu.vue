@@ -1,254 +1,131 @@
 <template lang="pug">
-nav.navbar.navbar-inverse.bg-inverse.fixed-top.navbar-toggleable-sm
-  .navbar-brand
-    // TODO css
-    img(src="~assets/header/png/logo@3x.png", height="28px")
+nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
+  .navbar-header
+    // TODO srcset / svg images
+    img(src="~assets/header/png/logo@3x.png")
   .collapse.navbar-collapse
-    ul.navbar-nav
+    ul.navbar-nav.mr-auto
       router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact) 
         a.nav-link(v-once) {{ $t('tasks') }}
-      li.nav-item.dropdown
-        a.nav-link.dropdown-toggle Dropdown
+      router-link.nav-item.dropdown(tag="li", :to="{name: 'inventory'}", :class="{'active': $route.path.startsWith('/inventory')}")
+        a.nav-link(v-once) {{ $t('inventory') }}
         .dropdown-menu
-          a.dropdown-item Action
-          a.dropdown-item Something Else
-          a.dropdown-item Another action
-// TODO srcset / svg images
-// #app-menu.ui.top.fixed.menu
-  .header.item
-    img(src="~assets/header/png/logo@3x.png")
-  router-link.item(:to="{name: 'tasks'}", exact) 
-    span(v-once) {{ $t('tasks') }}
-  // .simple makes it possible to have a dropdown without JS
-  .ui.simple.dropdown
-    router-link.item(:to="{name: 'inventory'}", :class="{'active': $route.path.startsWith('/inventory')}") 
-      span(v-once) {{ $t('inventory') }}
-    .menu
-      router-link.item(:to="{name: 'inventory'}") 
-        span(v-once) {{ $t('inventory') }}
-      router-link.item(:to="{name: 'equipment'}") 
-        span(v-once) {{ $t('equipment') }}
-      router-link.item(:to="{name: 'stable'}") 
-        span(v-once) {{ $t('stable') }}
-  router-link.item(:to="{name: 'market'}") 
-    span(v-once) {{ $t('market') }}
-  .ui.simple.dropdown
-    router-link.item(:to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/social')}") 
-      span(v-once) {{ $t('social') }}
-    .menu
-      router-link.item(:to="{name: 'tavern'}") 
-        span(v-once) {{ $t('tavern') }}
-      router-link.item(:to="{name: 'inbox'}") 
-        span(v-once) {{ $t('inbox') }}
-      router-link.item(:to="{name: 'challenges'}") 
-        span(v-once) {{ $t('challenges') }}
-      router-link.item(:to="{name: 'party'}") 
-        span(v-once) {{ $t('party') }}
-      router-link.item(:to="{name: 'guilds'}") 
-        span(v-once) {{ $t('guilds') }}
-  .ui.simple.dropdown
-    router-link.item(to="/help", :class="{'active': $route.path.startsWith('/help')}") 
-      span(v-once) {{ $t('help') }}
-    .menu
-      router-link.item(to="/help/faq") 
-        span(v-once) {{ $t('faq') }}
-      router-link.item(to="/help/report-bug") 
-        span(v-once) {{ $t('reportBug') }}
-      router-link.item(to="/help/request-feature") 
-        span(v-once) {{ $t('requestAF') }}
-  .right.menu
-    .item.with-img
+          router-link.dropdown-item(:to="{name: 'inventory'}", exact) {{ $t('inventory') }}
+          router-link.dropdown-item(:to="{name: 'equipment'}") {{ $t('equipment') }}
+          router-link.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
+      router-link.nav-item(tag="li", :to="{name: 'market'}", exact) 
+        a.nav-link(v-once) {{ $t('market') }}
+      router-link.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/social')}")
+        a.nav-link(v-once) {{ $t('social') }}
+        .dropdown-menu
+          router-link.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
+          router-link.dropdown-item(:to="{name: 'inbox'}") {{ $t('inbox') }}
+          router-link.dropdown-item(:to="{name: 'challenges'}") {{ $t('challenges') }}
+          router-link.dropdown-item(:to="{name: 'party'}") {{ $t('party') }}
+          router-link.dropdown-item(:to="{name: 'guilds'}") {{ $t('guilds') }}
+      router-link.nav-item.dropdown(tag="li", to="/help", :class="{'active': $route.path.startsWith('/help')}")
+        a.nav-link(v-once) {{ $t('help') }}
+        .dropdown-menu
+          router-link.dropdown-item(to="/help/faq") {{ $t('faq') }}
+          router-link.dropdown-item(to="/help/report-bug") {{ $t('reportBug') }}
+          router-link.dropdown-item(to="/help/request-feature") {{ $t('requestAF') }}
+    .item-with-icon
       img(src="~assets/header/png/gem@3x.png")
       span {{userGems}}
-    .item.with-img.gp-icon
+    .item-with-icon
       img(src="~assets/header/png/gold@3x.png")
       span {{user.stats.gp | floor}}
-    a.item.with-img.notifications-dropdown
+    .item-with-icon
       img(src="~assets/header/png/notifications@3x.png")
-    .ui.simple.dropdown.pointing
-      router-link.item.with-img.user-dropdown(:to="{name: 'avatar'}")
-        // TODO icons should be white when active
-        img(src="~assets/header/png/user@3x.png")
-      .menu
-        .item.user-edit-avatar
-          strong {{user.profile.name}}
-          a(v-once) {{ $t('editAvatar') }}
-        .divider
-        router-link.item(:to="{name: 'stats'}") 
-          span(v-once) {{ $t('stats') }}
-        router-link.item(:to="{name: 'achievements'}") 
-          span(v-once) {{ $t('achievements') }}
-        .divider
-        router-link.item(:to="{name: 'settings'}") 
-          span(v-once) {{ $t('settings') }}
-        .divider
-        router-link.item(to="/logout") 
-          span(v-once) {{ $t('logout') }}
+    router-link.dropdown.item-with-icon(:to="{name: 'avatar'}")
+      // TODO icons should be white when active
+      img(src="~assets/header/png/user@3x.png")
+      .dropdown-menu.dropdown-menu-right.user-dropdown
+        router-link.dropdown-item(:to="{name: 'avatar'}") {{ $t('editAvatar') }}
+        // .dropdown-divider
+        router-link.dropdown-item(:to="{name: 'stats'}") {{ $t('stats') }}
+        router-link.dropdown-item(:to="{name: 'achievements'}") {{ $t('achievements') }}
+        // .dropdown-divider
+        router-link.dropdown-item(:to="{name: 'settings'}") {{ $t('settings') }}
+        // .dropdown-divider
+        router-link.dropdown-item(to="/logout") {{ $t('logout') }}
 </template>
 
 <style lang="scss" scoped>
-// Make the dropdown menu open on hover
-.dropdown:hover .dropdown-menu {
-    display: block;
-    margin-top: 0; // remove the gap so it doesn't close
- }
-
-#app-menu {
+nav.navbar {
   background: #432874 url(~assets/header/png/bits.png) right no-repeat;
-  border-bottom: 0px;
-  
-  .item {
-    font-size: 16px !important;
+  padding: 0 1.5rem;
+  height: 56px;
+}
+
+.navbar-header {
+  margin-right: 3rem;
+
+  img {
+    height: 28px;
+  }
+}
+
+$active-purple: #6133b4;
+
+.nav-item {
+  .nav-link {
+    color: #fff;
+    font-weight: bold;
     line-height: 1.5;
+    padding: 1rem 1.5rem;
+  }
 
-    &.header {
-      width: 256px;
-      padding-left: 20px;
+  &:hover {
+    .nav-link {
+      color: #fff;
+      background: $active-purple;
+    }
+  }
 
-      img {
-        width: 128px;
-        height: 28px;
-      }
+  &.active,&:hover {
+    .nav-link {
+      box-shadow: 0px -4px 0px #6133b4 inset;
     }
   }
 }
 
-#app-menu .item:not(.header) img {
-  vertical-align: middle;
-  width: 32px;
-  height: 32px;
-  margin: 0 auto;
-}
-
-#app-menu .right.menu .item.with-img {
-  padding-left: 0px;
-  padding-right: 0px;
-  margin-right: 20px;
-}
-
-#app-menu .right.menu .item.with-img.user-dropdown, #app-menu .right.menu .item.with-img.notifications-dropdown{
-  width: 56px;
-}
-
-#app-menu .right.menu .item.with-img.user-dropdown, #app-menu .right.menu .item.with-img.notifications-dropdown {
-  width: 56px;
-}
-
-#app-menu .right.menu .item.with-img.notifications-dropdown {
-  margin-right: 0px;
-}
-
-#app-menu .right.menu .item.with-img.gp-icon {
-  margin-right: 40px;
-}
-
-#app-menu .right.menu .item.with-img img + span {
-  margin-left: 10px;
-}
-
-#app-menu .ui.menu .right.menu .ui.simple.dropdown > .item::before {
-  right: auto;
-  left: 0;
-}
-
-#app-menu > .item, #app-menu > .right.menu > .item, #app-menu .dropdown > .item {
-  height: 56px;
-  font-weight: bold;
-  text-align: center;
-  padding: 16px 20px;
-  color: #fff;
-}
-
-#app-menu > .item::before, #app-menu > .right.menu > .item::before, #app-menu .dropdown > .item::before {
-  width: 0px;
-}
-
-#app-menu > .item:not(.header):hover, #app-menu > .dropdown:hover {
-  background-color: #6133b4;
-}
-
-#app-menu > .item.active, #app-menu > .dropdown > .item.active {
-  box-shadow: 0px -4px 0px #6133b4 inset;
-}
-
-#app-menu > .dropdown > .menu {
-  border: none;
-  background-color: rgba(0, 0, 0, 0.5); // transparent
-}
-
-#app-menu > .dropdown > .menu > .item:last-child {
-  border-radius: 0px 0px 4px 4px !important;
-}
-
-#app-menu > .dropdown .menu > .item {
-  /* !important to override Semantic UI's !important */
-  width: 217px;
-  background: #6133b4 !important;
-  color: #fff !important;
-  padding: 6px 0px 6px 20px !important;
-}
-
-#app-menu .dropdown .menu .item.active {
-  font-weight: normal !important;
-}
-
-#app-menu > .dropdown .menu > .item:hover {
-  background: #4f2a93 !important; /* to override Semantic UI's !important */
-}
-
-#app-menu .ui.pointing.dropdown .menu .item {
-  padding-top: 12px !important;
-  padding-bottom: 12px !important;
-  color: #616162 !important;
-}
-
-#app-menu .ui.pointing.dropdown .menu .item {
-  padding-top: 12px !important;
-  padding-bottom: 12px !important;
-  color: #616162 !important;
-}
-
-#app-menu .ui.pointing.dropdown .menu .item:nth-child(3) {
-  padding-bottom: 8px !important;
-}
-
-#app-menu .ui.pointing.dropdown .menu .item:nth-child(4) {
-  padding-top: 8px !important;
-}
-
-#app-menu .ui.pointing.dropdown .menu {
-  width: 200px;
-  margin-right: 20px;
-  margin-top: 0px;
-}
-
-#app-menu .ui.pointing.dropdown .menu .item:hover {
-  background: #fff !important;
-  color: #6133b4 !important;
-}
-
-#app-menu .ui.pointing.dropdown > .menu::after {
-  top: -0.50em;
-  left: 85.3%;
-  width: 1em;
-  height: 1em;
-}
-
-#app-menu .ui.pointing.dropdown .divider {
-  margin: 0px;
-}
-
-#app-menu .user-edit-avatar strong, #app-menu .user-edit-avatar strong:hover {
-  color: #313131;
-  margin-top: -3px;
-  flex-grow: 1;
+// Make the dropdown menu open on hover
+.dropdown:hover .dropdown-menu {
   display: block;
+  margin-top: 0; // remove the gap so it doesn't close
 }
 
-#app-menu .user-edit-avatar a, #app-menu .user-edit-avatar a:hover {
-  font-size: 13px;
-  line-height: 1.23;
-  color: #6133b4;
+.dropdown-menu:not(.user-dropdown) {
+  background: $active-purple;
+  border-radius: 0px;
+  border: none;
+
+  .dropdown-item {
+    color: #fff;
+
+    &.active {
+      background: $active-purple;
+    }
+
+    &:hover {
+      background: #4f2a93;
+    }
+  }
+}
+
+.item-with-icon {
+  color: #fff;
+  font-weight: bold;
+  padding: 0.75rem 0;
+  padding-left: 1rem;
+
+  img {
+    vertical-align: middle;
+    width: 32px;
+    height: 32px;
+    margin-right: 0.5rem;
+  }
 }
 </style>
 
