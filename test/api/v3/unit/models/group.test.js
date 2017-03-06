@@ -667,6 +667,22 @@ describe('Group Model', () => {
         expect(party.memberCount).to.eql(1);
       });
 
+      it('does not allow a leader to leave a group with an active subscription', async () => {
+        party.memberCount = 2;
+        party.purchased.plan.customerId = '110002222333';
+
+        await expect(party.leave(questLeader))
+          .to.eventually.be.rejected.and.to.eql({
+            name: 'NotAuthorized',
+            httpCode: 401,
+            message: shared.i18n.t('leaderCannotLeaveGroupWithActiveGroup'),
+          });
+
+        party = await Group.findOne({_id: party._id});
+        expect(party).to.exist;
+        expect(party.memberCount).to.eql(1);
+      });
+
       it('deletes a private group when the last member leaves and a subscription is cancelled', async () => {
         let guild = new Group({
           name: 'test guild',
