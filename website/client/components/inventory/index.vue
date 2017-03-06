@@ -1,19 +1,14 @@
 <template lang="pug">
 .row
-  .sixteen.wide.column
-    .ui.secondary.menu.center-content
-      router-link.item(:to="{name: 'inventory'}", exact)
-        span(v-once) {{ $t('inventory') }}
-      router-link.item(:to="{name: 'equipment'}")
-        span(v-once) {{ $t('equipment') }}
-      router-link.item(:to="{name: 'stable'}")
-        span(v-once) {{ $t('stable') }}
-
-  .sixteen.wide.column
+  .col-12
+    nav.nav
+      router-link.nav-link(:to="{name: 'inventory'}", exact) {{ $t('inventory') }}
+      router-link.nav-link(:to="{name: 'equipment'}") {{ $t('equipment') }}
+      router-link.nav-link(:to="{name: 'stable'}") {{ $t('stable') }}
+  .col-12
     router-view
 </template>
 
 <script>
-export default {
-};
+export default {};
 </script>

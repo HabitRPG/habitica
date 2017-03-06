@@ -1,15 +1,11 @@
 <template lang="pug">
-.ui.internally.celled.grid
-  .row
-    .sixteen.wide.colum
-      h2.ui.dividing.header(v-once) {{ $t('inbox') }}
-      .ui.middle.aligned.selection.list
-        .item(v-for="conversation in conversations")
-          img.ui.avatar.image(src='http://semantic-ui.com/images/avatar/small/daniel.jpg')
-          .content
-            .header
-              router-link(:to="{ name: 'conversation', params: { id: conversation.fromUserId } }")
-                | {{ conversation.from }}
+.row
+  .col-12
+    h2(v-once) {{ $t('inbox') }}
+    .card(v-for="conversation in conversations")
+      .card-block
+        router-link(:to="{ name: 'conversation', params: { id: conversation.fromUserId } }")
+          | {{ conversation.from }}
 
 </template>
 

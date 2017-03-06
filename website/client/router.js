@@ -67,13 +67,13 @@ export default new VueRouter({
           component: EmptyView,
           children: [
             {
-              name: 'guilds',
-              path: '',
+              name: 'guildsDiscovery',
+              path: 'discovery',
               component: GuildsDiscoveryPage,
             },
             {
               name: 'guild',
-              path: ':guildId',
+              path: 'guild/:guildId',
               component: GuildPage,
               props: true,
             },
