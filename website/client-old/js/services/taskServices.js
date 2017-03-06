@@ -292,7 +292,7 @@ angular.module('habitrpg')
         templateUrl: 'modals/task-edit.html',
         controller: ['$scope', function ($scope) {
           $scope.$watch('task._edit', function (newValue, oldValue) {
-            if ($scope.task.type !== 'daily') return;
+            if ($scope.task.type !== 'daily' || !task._edit) return;
             $scope.summary = generateSummary($scope.task);
 
             $scope.repeatSuffix = generateRepeatSuffix($scope.task);
