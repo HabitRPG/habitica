@@ -65,13 +65,21 @@
           return $scope.obj[list.type+'s'];
         };
 
-        $scope.showNormalList = function () {
-          return !$state.includes("options.social.challenges") && !User.user.preferences.tasks.groupByChallenge;
+        function objIsGroup (obj) {
+          return obj && obj.type && (obj.type === 'guild' || obj.type === 'party');
+        }
+
+        $scope.showNormalList = function (obj) {
+          return objIsGroup(obj) || (!$state.includes("options.social.challenges") && !User.user.preferences.tasks.groupByChallenge);
         };
 
         $scope.showChallengeList = function () {
           return $state.includes("options.social.challenges");
         };
+
+        $scope.showGroupedList = function (obj) {
+          return User.user.preferences.tasks.groupByChallenge && !$state.includes("options.social.challenges") && !objIsGroup(obj);
+        }
       }
     }
   }
