@@ -74,14 +74,14 @@
         };
 
         $scope.showDoubleTaskCounter = function (task, obj) {
-          let objectIsGroup = obj.type && (obj.type === 'guild' || obj.type === 'party');
-          let objectIsChallenge = $state.includes("options.social.challenges");
+          var objectIsGroup = obj.type && (obj.type === 'guild' || obj.type === 'party');
+          var objectIsChallenge = $state.includes("options.social.challenges");
           return !objectIsGroup && !objectIsChallenge && task.up && task.down;
         };
 
         $scope.showSingleTaskCounter = function (task, obj) {
-          let objectIsGroup = obj.type && (obj.type === 'guild' || obj.type === 'party');
-          let objectIsChallenge = $state.includes("options.social.challenges");
+          var objectIsGroup = obj.type && (obj.type === 'guild' || obj.type === 'party');
+          var objectIsChallenge = $state.includes("options.social.challenges");
           return !objectIsGroup && !objectIsChallenge && task.type === "habit" && (!task.up || !task.down);
         };
       }
