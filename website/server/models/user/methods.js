@@ -19,6 +19,11 @@ schema.methods.isSubscribed = function isSubscribed () {
   return plan && plan.customerId && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
 };
 
+schema.methods.hasNotCancelled = function hasNotCancelled () {
+  let plan = this.purchased.plan;
+  return this.isSubscribed() && !plan.dateTerminated;
+};
+
 // Get an array of groups ids the user is member of
 schema.methods.getGroups = function getUserGroups () {
   let userGroups = this.guilds.slice(0); // clone user.guilds so we don't modify the original

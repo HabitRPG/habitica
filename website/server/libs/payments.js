@@ -23,6 +23,7 @@ let api = {};
 api.constants = {
   UNLIMITED_CUSTOMER_ID: 'habitrpg', // Users with the customerId have an unlimted free subscription
   GROUP_PLAN_CUSTOMER_ID: 'group-plan',
+  GROUP_PLAN_PAYMENT_METHOD: 'Group Plan',
 };
 
 function revealMysteryItems (user) {
@@ -110,7 +111,7 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
     let customerHasCancelledGroupPlan = memberPlan.dateTerminated && memberPlan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID && moment().isBefore(memberPlan.dateTerminated);
     if (customerIdsToIgnore.indexOf(memberPlan.customerId) !== -1 && !customerHasCancelledGroupPlan) return;
 
-    await member.cancelSubscription();
+    if (member.hasNotCancelled()) await member.cancelSubscription();
 
     let today = new Date();
     plan = _.clone(member.purchased.plan.toObject());

@@ -356,6 +356,28 @@ describe('Purchasing a subscription for group', () => {
     expect(updatedUser.purchased.plan.extraMonths).to.within(2, 3);
   });
 
+  it('adds months to members who already cancelled but not yet terminated group plan subscription', async () => {
+    let recipient = new User();
+    recipient.profile.name = 'recipient';
+    plan.key = 'basic_earned';
+    plan.paymentMethod = api.constants.GROUP_PLAN_PAYMENT_METHOD;
+    plan.extraMonths = 2.94;
+    recipient.purchased.plan = plan;
+    recipient.guilds.push(group._id);
+    await recipient.save();
+
+    user.guilds.push(group._id);
+    await user.save();
+    data.groupId = group._id;
+
+    await recipient.cancelSubscription();
+
+    await api.createSubscription(data);
+
+    let updatedUser = await User.findById(recipient._id).exec();
+    expect(updatedUser.purchased.plan.extraMonths).to.within(3, 4);
+  });
+
   it('resets date terminated if user has old subscription', async () => {
     let recipient = new User();
     recipient.profile.name = 'recipient';
