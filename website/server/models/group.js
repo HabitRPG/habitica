@@ -1184,6 +1184,15 @@ schema.methods.hasNotCancelled = function hasNotCancelled () {
 };
 
 schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {
+  // Recheck the group plan count
+  let members;
+  if (this.type === 'guild') {
+    members = await User.find({guilds: this._id}).select('_id').exec();
+  } else {
+    members = await User.find({'party._id': this._id}).select('_id').exec();
+  }
+  this.memberCount = members.length;
+
   if (this.purchased.plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
     await stripePayments.chargeForAdditionalGroupMember(this);
   } else if (this.purchased.plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD_AMAZON && !removingMember) {
