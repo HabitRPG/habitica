@@ -108,7 +108,7 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
 
   if (member.isSubscribed()) {
     let memberPlan = member.purchased.plan;
-    let customerHasCancelledGroupPlan = memberPlan.dateTerminated && memberPlan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID && moment().isBefore(memberPlan.dateTerminated);
+    let customerHasCancelledGroupPlan = memberPlan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID && !member.hasNotCancelled();
     if (customerIdsToIgnore.indexOf(memberPlan.customerId) !== -1 && !customerHasCancelledGroupPlan) return;
 
     if (member.hasNotCancelled()) await member.cancelSubscription();
@@ -172,16 +172,16 @@ api.cancelGroupUsersSubscription = async function cancelGroupUsersSubscription (
 api.cancelGroupSubscriptionForUser = async function cancelGroupSubscriptionForUser (user, group) {
   if (user.purchased.plan.customerId !== this.constants.GROUP_PLAN_CUSTOMER_ID) return;
 
-  let userGuilds = _.clone(user.guilds);
-  userGuilds.push('party');
+  let userGroups = _.clone(user.guilds.toObject());
+  userGroups.push('party');
 
-  let index = userGuilds.indexOf(group._id);
-  userGuilds.splice(index, 1);
+  let index = userGroups.indexOf(group._id);
+  userGroups.splice(index, 1);
 
   let groupPlansQuery = {
     type: {$in: ['guild', 'party']},
     // privacy: 'private',
-    _id: {$in: userGuilds},
+    _id: {$in: userGroups},
     'purchased.plan.dateTerminated': null,
   };
 

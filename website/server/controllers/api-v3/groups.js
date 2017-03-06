@@ -496,7 +496,7 @@ api.joinGroup = {
 
     group.memberCount += 1;
 
-    if (group.isSubscribed() && !group.purchased.plan.dateTerminated)  {
+    if (group.hasNotCancelled())  {
       await payments.addSubToGroupUser(user, group);
       await group.updateGroupPlan();
     }
@@ -682,7 +682,7 @@ api.leaveGroup = {
 
     await group.leave(user, req.query.keep, req.body.keepChallenges);
 
-    if (group.isSubscribed() && !group.purchased.plan.dateTerminated)  await group.updateGroupPlan(true);
+    if (group.hasNotCancelled())  await group.updateGroupPlan(true);
 
     _removeMessagesFromMember(user, group._id);
 
@@ -769,7 +769,7 @@ api.removeGroupMember = {
 
     if (isInGroup) {
       group.memberCount -= 1;
-      if (group.isSubscribed() && !group.purchased.plan.dateTerminated)  {
+      if (group.hasNotCancelled())  {
         await group.updateGroupPlan(true);
         await payments.cancelGroupSubscriptionForUser(member, group);
       }
@@ -842,7 +842,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     }
 
     let guildInvite = {id: group._id, name: group.name, inviter: inviter._id};
-    if (group.isSubscribed() && group.purchased.plan.dateTerminated) guildInvite.cancelledPlan = true;
+    if (!group.hasNotCancelled()) guildInvite.cancelledPlan = true;
     userToInvite.invitations.guilds.push(guildInvite);
   } else if (group.type === 'party') {
     if (userToInvite.invitations.party.id) {
@@ -857,7 +857,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     }
 
     let partyInvite = {id: group._id, name: group.name, inviter: inviter._id};
-    if (group.isSubscribed() && group.purchased.plan.dateTerminated) partyInvite.cancelledPlan = true;
+    if (!group.hasNotCancelled()) partyInvite.cancelledPlan = true;
     userToInvite.invitations.party = partyInvite;
   }
 
@@ -923,7 +923,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
     userReturnInfo = invite.email;
 
     let cancelledPlan = false;
-    if (group.isSubscribed() && group.purchased.plan.dateTerminated) cancelledPlan = true;
+    if (!group.hasNotCancelled()) cancelledPlan = true;
 
     const groupQueryString = JSON.stringify({
       id: group._id,
