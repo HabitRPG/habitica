@@ -80,6 +80,18 @@
         $scope.showGroupedList = function (obj) {
           return User.user.preferences.tasks.groupByChallenge && !$state.includes("options.social.challenges") && !objIsGroup(obj);
         }
+
+        $scope.showDoubleTaskCounter = function (task, obj) {
+          var objectIsGroup = obj.type && (obj.type === 'guild' || obj.type === 'party');
+          var objectIsChallenge = $state.includes("options.social.challenges");
+          return !objectIsGroup && !objectIsChallenge && task.up && task.down;
+        };
+
+        $scope.showSingleTaskCounter = function (task, obj) {
+          var objectIsGroup = obj.type && (obj.type === 'guild' || obj.type === 'party');
+          var objectIsChallenge = $state.includes("options.social.challenges");
+          return !objectIsGroup && !objectIsChallenge && task.type === "habit" && (!task.up || !task.down);
+        };
       }
     }
   }

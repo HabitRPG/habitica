@@ -114,7 +114,7 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
     if (member.hasNotCancelled()) await member.cancelSubscription();
 
     let today = new Date();
-    plan = _.clone(member.purchased.plan.toObject());
+    plan = member.purchased.plan.toObject();
     let extraMonths = Number(plan.extraMonths);
     if (plan.dateTerminated) extraMonths += _dateDiff(today, plan.dateTerminated);
 
@@ -172,7 +172,7 @@ api.cancelGroupUsersSubscription = async function cancelGroupUsersSubscription (
 api.cancelGroupSubscriptionForUser = async function cancelGroupSubscriptionForUser (user, group) {
   if (user.purchased.plan.customerId !== this.constants.GROUP_PLAN_CUSTOMER_ID) return;
 
-  let userGroups = _.clone(user.guilds.toObject());
+  let userGroups = user.guilds.toObject();
   userGroups.push('party');
 
   let index = userGroups.indexOf(group._id);
