@@ -20,13 +20,13 @@ module.exports = function releaseMounts (user, req = {}, analytics) {
   }
 
   for (let mount in content.pets) {
-    if(user.items.mounts[mount] === null) {
+    if (user.items.mounts[mount] === null) {
       giveMountMasterAchievement = false;
     }
     user.items.mounts[mount] = null;
   }
 
-  if(giveMountMasterAchievement) {
+  if (giveMountMasterAchievement) {
     if (!user.achievements.mountMasterCount) {
       user.achievements.mountMasterCount = 0;
     }
