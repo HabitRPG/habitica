@@ -60,8 +60,16 @@ describe('shared.ops.releaseMounts', () => {
 
   it('increases mountMasterCount achievement', () => {
     releaseMounts(user);
-
     expect(user.achievements.mountMasterCount).to.equal(1);
+  });
+
+  it('does not increase mountMasterCount achievement if user does not have all mounts', () => {
+    let mountMasterCountBeforeRelease = user.achievements.mountMasterCount;
+    user.items.mounts[animal] = null;
+
+    releaseMounts(user);
+
+    expect(user.achievements.mountMasterCount).to.equal(mountMasterCountBeforeRelease);
   });
 
   it('subtracts gems from balance', () => {

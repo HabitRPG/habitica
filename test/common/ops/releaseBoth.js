@@ -51,6 +51,15 @@ describe('shared.ops.releaseBoth', () => {
     expect(user.achievements.triadBingoCount).to.equal(2);
   });
 
+  it('does not grant triad bingo if any pet has not been previously found', () => {
+    let triadBingoCountBeforeRelease = user.achievements.triadBingoCount;
+    user.items.pets[animal] = -1;
+    let [, message] = releaseBoth(user);
+
+    expect(message).to.equal(i18n.t('mountsAndPetsReleased'));
+    expect(user.achievements.triadBingoCount).to.equal(triadBingoCountBeforeRelease);
+  });
+
   it('releases pets', () => {
     let [, message] = releaseBoth(user);
 
@@ -59,11 +68,37 @@ describe('shared.ops.releaseBoth', () => {
     expect(user.items.mounts[animal]).to.equal(null);
   });
 
+  it('does not increment beastMasterCount if any pet is level 0 (released)', () => {
+    let beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
+    user.items.pets[animal] = 0;
+
+    releaseBoth(user);
+
+    expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+  });
+
+  it('does not increment beastMasterCount if any pet is missing (null)', () => {
+    let beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
+    user.items.pets[animal] = null;
+    releaseBoth(user);
+
+    expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+  });
+
   it('releases mounts', () => {
     let [, message] = releaseBoth(user);
 
     expect(message).to.equal(i18n.t('mountsAndPetsReleased'));
     expect(user.items.mounts[animal]).to.equal(null);
+  });
+
+  it('does not increase mountMasterCount achievement if user does not have all mounts', () => {
+    let mountMasterCountBeforeRelease = user.achievements.mountMasterCount;
+    user.items.mounts[animal] = null;
+
+    releaseBoth(user);
+
+    expect(user.achievements.mountMasterCount).to.equal(mountMasterCountBeforeRelease);
   });
 
   it('removes drop currentPet', () => {
