@@ -46,11 +46,10 @@ module.exports = function releaseBoth (user, req = {}, analytics) {
   for (animal in content.pets) {
     if (user.items.pets[animal] === -1) {
       giveTriadBingo = false;
-    }
-    else if(user.items.pets[animal] === 0 || user.items.pets[animal] === null) {
+    } else if (user.items.pets[animal] === 0 || user.items.pets[animal] === null) {
       giveBeastMasterAchievement = false;
     }
-    if(user.items.mounts[animal] === null) {
+    if (user.items.mounts[animal] === null) {
       giveMountMasterAchievement = false;
     }
 
@@ -58,14 +57,14 @@ module.exports = function releaseBoth (user, req = {}, analytics) {
     user.items.mounts[animal] = null;
   }
 
-  if(giveBeastMasterAchievement) {
+  if (giveBeastMasterAchievement) {
     if (!user.achievements.beastMasterCount) {
       user.achievements.beastMasterCount = 0;
     }
     user.achievements.beastMasterCount++;
   }
 
-  if(giveMountMasterAchievement) {
+  if (giveMountMasterAchievement) {
     if (!user.achievements.mountMasterCount) {
       user.achievements.mountMasterCount = 0;
     }
