@@ -35,8 +35,9 @@ module.exports = function taskClasses (task, filters = [], dayStart = 0, lastCro
 
   if (type === 'todo' || type === 'daily') {
     let notDue = !shouldDo(Number(new Date()), task, { dayStart });
+    let isNotDueDaily = type === 'daily' && notDue;
 
-    if (completed || (type === 'daily' && notDue)) {
+    if (completed || isNotDueDaily) {
       classes += ' completed';
     } else {
       classes += ' uncompleted';
