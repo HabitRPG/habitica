@@ -1,11 +1,11 @@
 .task-meta-controls
 
   // Counter
-  span(ng-if='task.up && task.down')
+  span(ng-if='showDoubleTaskCounter(task, obj)')
     span(tooltip=env.t('habitCounterUp')) +{{task.counterUp}}|
     span(tooltip=env.t('habitCounterDown')) -{{task.counterDown}}&nbsp;
     
-  span(ng-if='task.type=="habit" && (!task.up || !task.down)')
+  span(ng-if='showSingleTaskCounter(task, obj)')
     span(tooltip=env.t('habitCounter')) {{task.up ? task.counterUp : task.counterDown}}&nbsp;
   
   // Due Date

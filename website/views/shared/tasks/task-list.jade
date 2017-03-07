@@ -5,7 +5,7 @@ script(id='templates/task-list.html', type="text/ng-template")
     ng-if='showNormalList()')
     task
 
-  div(ng-init='setObj(obj); console.log(obj)')
+  div(ng-init='setObj(obj);')
     div(
       ng-repeat="(key, taskList) in groupedList[list.type]", 
       ng-if='user.preferences.tasks.groupByChallenge && !$state.includes("options.social.challenges")')
