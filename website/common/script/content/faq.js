@@ -16,8 +16,8 @@ for (let i = 0; i <= NUMBER_OF_QUESTIONS; i++) {
     ios: t(`iosFaqAnswer${i}`),
     web: t(`webFaqAnswer${i}`, {
       //  TODO: Need to pull these values from nconf
-      techAssistanceEmail: 'techassistance@habitica.com',
-      wikiTechAssistanceEmail: 'mailto:techassistance@habitica.com',
+      techAssistanceEmail: 'admin@habitica.com',
+      wikiTechAssistanceEmail: 'mailto:admin@habitica.com',
     }),
   };
 
