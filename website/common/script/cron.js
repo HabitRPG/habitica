@@ -97,6 +97,9 @@ export function shouldDo (day, dailyTask) {
     return false;
   }
 
+  day = moment(day).startOf('day').toDate();
+  let startDate = moment(dailyTask.startDate).startOf('day').toDate();
+
   let daysOfTheWeek = [];
 
   if (dailyTask.repeat) {
@@ -105,14 +108,13 @@ export function shouldDo (day, dailyTask) {
     }
   }
 
-
   if (dailyTask.frequency === 'daily') {
     if (!dailyTask.everyX) return false; // error condition
-    let schedule = moment(dailyTask.startDate).recur()
+    let schedule = moment(startDate).recur()
       .every(dailyTask.everyX).days();
     return schedule.matches(day);
   } else if (dailyTask.frequency === 'weekly') {
-    let schedule = moment(dailyTask.startDate).recur();
+    let schedule = moment(startDate).recur();
 
     if (dailyTask.everyX > 1) {
       schedule = schedule.every(dailyTask.everyX).weeks();
@@ -122,21 +124,21 @@ export function shouldDo (day, dailyTask) {
 
     return schedule.matches(day);
   } else if (dailyTask.frequency === 'monthly') {
-    let schedule = moment(dailyTask.startDate).recur();
+    let schedule = moment(startDate).recur();
 
-    let differenceInMonths = moment(day).month() + 1 - moment(dailyTask.startDate).month() + 1;
+    let differenceInMonths = moment(day).month() + 1 - moment(startDate).month() + 1;
     let matchEveryX = differenceInMonths % dailyTask.everyX === 0;
 
-    if (dailyTask.weeksOfMonth) {
+    if (dailyTask.weeksOfMonth && dailyTask.weeksOfMonth.length > 0) {
       schedule = schedule.every(daysOfTheWeek).daysOfWeek()
                         .every(dailyTask.weeksOfMonth).weeksOfMonthByDay();
-    } else if (dailyTask.daysOfMonth) {
+    } else if (dailyTask.daysOfMonth && dailyTask.daysOfMonth.length > 0) {
       schedule = schedule.every(dailyTask.daysOfMonth).daysOfMonth();
     }
 
     return schedule.matches(day) && matchEveryX;
   } else if (dailyTask.frequency === 'yearly') {
-    let schedule = moment(dailyTask.startDate).recur();
+    let schedule = moment(startDate).recur();
 
     schedule = schedule.every(dailyTask.everyX).years();
 
