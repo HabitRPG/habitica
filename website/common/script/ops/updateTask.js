@@ -23,11 +23,11 @@ module.exports = function updateTask (task, req = {}) {
   merge(task, omit(body, ['_id', 'id', 'type', 'reminders', 'checklist', 'tags']));
 
   // Ensure arrays are emptied
-  if (body.daysOfMonth.length === 0) {
+  if (body.daysOfMonth && body.daysOfMonth.length === 0) {
     task.daysOfMonth = [];
   }
 
-  if (body.weeksOfMonth.length === 0) {
+  if (body.weeksOfMonth && body.weeksOfMonth.length === 0) {
     task.weeksOfMonth = [];
   }
 
