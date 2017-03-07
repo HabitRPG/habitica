@@ -11,6 +11,8 @@ module.exports = function releaseMounts (user, req = {}, analytics) {
 
   user.balance -= 1;
 
+  let giveMountMasterAchievement = true;
+
   let mountInfo = content.mountInfo[user.items.currentMount];
 
   if (mountInfo && mountInfo.type === 'drop') {
@@ -18,13 +20,18 @@ module.exports = function releaseMounts (user, req = {}, analytics) {
   }
 
   for (let mount in content.pets) {
+    if(user.items.mounts[mount] === null) {
+      giveMountMasterAchievement = false;
+    }
     user.items.mounts[mount] = null;
   }
 
-  if (!user.achievements.mountMasterCount) {
-    user.achievements.mountMasterCount = 0;
+  if(giveMountMasterAchievement) {
+    if (!user.achievements.mountMasterCount) {
+      user.achievements.mountMasterCount = 0;
+    }
+    user.achievements.mountMasterCount++;
   }
-  user.achievements.mountMasterCount++;
 
   if (analytics) {
     analytics.track('release mounts', {
