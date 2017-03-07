@@ -1,5 +1,6 @@
 import {
   generateUser,
+  generateGroup,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
@@ -12,7 +13,7 @@ describe('Post /groups/:groupId/invite', () => {
   let groupName = 'Test Public Guild';
 
   beforeEach(async () => {
-    inviter = await generateUser({balance: 1});
+    inviter = await generateUser({balance: 4});
     group = await inviter.post('/groups', {
       name: groupName,
       type: 'guild',
@@ -263,6 +264,25 @@ describe('Post /groups/:groupId/invite', () => {
       let invitedUser = await newUser.get('/user');
 
       expect(invitedUser.invitations.guilds[0].id).to.equal(group._id);
+      expect(invite).to.exist;
+    });
+
+    it('invites marks invite with cancelled plan', async () => {
+      let cancelledPlanGroup = await generateGroup(inviter, {
+        type: 'guild',
+        name: generateUUID(),
+      });
+      await cancelledPlanGroup.createCancelledSubscription();
+
+      let newUser = await generateUser();
+      let invite = await inviter.post(`/groups/${cancelledPlanGroup._id}/invite`, {
+        uuids: [newUser._id],
+        emails: [{name: 'test', email: 'test@habitica.com'}],
+      });
+      let invitedUser = await newUser.get('/user');
+
+      expect(invitedUser.invitations.guilds[0].id).to.equal(cancelledPlanGroup._id);
+      expect(invitedUser.invitations.guilds[0].cancelledPlan).to.be.true;
       expect(invite).to.exist;
     });
   });

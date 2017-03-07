@@ -10,6 +10,7 @@ import { model as Challenge} from './challenge';
 import * as Tasks from './task';
 import validator from 'validator';
 import { removeFromArray } from '../libs/collectionManipulators';
+import payments from '../libs/payments';
 import { groupChatReceivedWebhook } from '../libs/webhook';
 import {
   InternalServerError,
@@ -28,6 +29,8 @@ import {
 import {
   schema as SubscriptionPlanSchema,
 } from './subscriptionPlan';
+import amazonPayments from '../libs/amazonPayments';
+import stripePayments from '../libs/stripePayments';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -904,8 +907,12 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
   let group = this;
   let update = {};
 
-  if (group.memberCount <= 1 && group.privacy === 'private' && group.isSubscribed()) {
+  if (group.memberCount <= 1 && group.privacy === 'private' && group.hasNotCancelled()) {
     throw new NotAuthorized(shared.i18n.t('cannotDeleteActiveGroup'));
+  }
+
+  if (group.leader === user._id && group.hasNotCancelled()) {
+    throw new NotAuthorized(shared.i18n.t('leaderCannotLeaveGroupWithActiveGroup'));
   }
 
   // only remove user from challenges if it's set to leave-challenges
@@ -948,6 +955,10 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     update.$unset = {[`quest.members.${user._id}`]: 1};
   }
 
+  if (group.purchased.plan.customerId) {
+    promises.push(payments.cancelGroupSubscriptionForUser(user, this));
+  }
+
   // If user is the last one in group and group is private, delete it
   if (group.memberCount <= 1 && group.privacy === 'private') {
     // double check the member count is correct so we don't accidentally delete a group that still has users in it
@@ -957,7 +968,9 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     } else {
       members = await User.find({'party._id': group._id}).select('_id').exec();
     }
+
     _.remove(members, {_id: user._id});
+
     if (members.length === 0) {
       promises.push(group.remove());
       return await Bluebird.all(promises);
@@ -1163,6 +1176,28 @@ schema.methods.isSubscribed = function isSubscribed () {
   let now = new Date();
   let plan = this.purchased.plan;
   return plan && plan.customerId && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
+};
+
+schema.methods.hasNotCancelled = function hasNotCancelled () {
+  let plan = this.purchased.plan;
+  return this.isSubscribed() && !plan.dateTerminated;
+};
+
+schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {
+  // Recheck the group plan count
+  let members;
+  if (this.type === 'guild') {
+    members = await User.find({guilds: this._id}).select('_id').exec();
+  } else {
+    members = await User.find({'party._id': this._id}).select('_id').exec();
+  }
+  this.memberCount = members.length;
+
+  if (this.purchased.plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
+    await stripePayments.chargeForAdditionalGroupMember(this);
+  } else if (this.purchased.plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD && !removingMember) {
+    await amazonPayments.chargeForAdditionalGroupMember(this);
+  }
 };
 
 export let model = mongoose.model('Group', schema);

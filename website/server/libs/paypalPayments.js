@@ -42,6 +42,22 @@ paypal.configure({
 
 let api = {};
 
+api.constants = {
+  // CURRENCY_CODE: 'USD',
+  // SELLER_NOTE: 'Habitica Payment',
+  // SELLER_NOTE_SUBSCRIPTION: 'Habitica Subscription',
+  // SELLER_NOTE_ATHORIZATION_SUBSCRIPTION: 'Habitica Subscription Payment',
+  // STORE_NAME: 'Habitica',
+  //
+  // GIFT_TYPE_GEMS: 'gems',
+  // GIFT_TYPE_SUBSCRIPTION: 'subscription',
+  //
+  // METHOD_BUY_GEMS: 'buyGems',
+  // METHOD_CREATE_SUBSCRIPTION: 'createSubscription',
+  PAYMENT_METHOD: 'Paypal',
+  // PAYMENT_METHOD_GIFT: 'Amazon Payments (Gift)',
+};
+
 api.paypalPaymentCreate = Bluebird.promisify(paypal.payment.create, {context: paypal.payment});
 api.paypalPaymentExecute = Bluebird.promisify(paypal.payment.execute, {context: paypal.payment});
 api.paypalBillingAgreementCreate = Bluebird.promisify(paypal.billingAgreement.create, {context: paypal.billingAgreement});
@@ -68,7 +84,7 @@ api.checkout = async function checkout (options = {}) {
 
   let createPayment = {
     intent: 'sale',
-    payer: { payment_method: 'Paypal' },
+    payer: { payment_method: this.constants.PAYMENT_METHOD },
     redirect_urls: {
       return_url: `${BASE_URL}/paypal/checkout/success`,
       cancel_url: `${BASE_URL}`,
@@ -103,7 +119,7 @@ api.checkoutSuccess = async function checkoutSuccess (options = {}) {
   let data = {
     user,
     customerId,
-    paymentMethod: 'Paypal',
+    paymentMethod: this.constants.PAYMENT_METHOD,
   };
 
   if (gift) {
@@ -138,7 +154,7 @@ api.subscribe = async function subscribe (options = {}) {
       id: sub.paypalKey,
     },
     payer: {
-      payment_method: 'Paypal',
+      payment_method: this.constants.PAYMENT_METHOD,
     },
   };
   let billingAgreement = await this.paypalBillingAgreementCreate(billingAgreementAttributes);
@@ -154,7 +170,7 @@ api.subscribeSuccess = async function subscribeSuccess (options = {}) {
     user,
     groupId,
     customerId: result.id,
-    paymentMethod: 'Paypal',
+    paymentMethod: this.constants.PAYMENT_METHOD,
     sub: block,
     headers,
   });
@@ -194,7 +210,7 @@ api.subscribeCancel = async function subscribeCancel (options = {}) {
   await payments.cancelSubscription({
     user,
     groupId,
-    paymentMethod: 'Paypal',
+    paymentMethod: this.constants.PAYMENT_METHOD,
     nextBill: nextBillingDate,
   });
 };
@@ -208,7 +224,7 @@ api.ipn = async function ipnApi (options = {}) {
   // @TODO: Should this request billing date?
   let user = await User.findOne({ 'purchased.plan.customerId': recurring_payment_id }).exec();
   if (user) {
-    await payments.cancelSubscription({ user, paymentMethod: 'Paypal' });
+    await payments.cancelSubscription({ user, paymentMethod: this.constants.PAYMENT_METHOD });
     return;
   }
 
@@ -219,7 +235,7 @@ api.ipn = async function ipnApi (options = {}) {
     .exec();
 
   if (group) {
-    await payments.cancelSubscription({ groupId: group._id, paymentMethod: 'Paypal' });
+    await payments.cancelSubscription({ groupId: group._id, paymentMethod: this.constants.PAYMENT_METHOD });
   }
 };
 

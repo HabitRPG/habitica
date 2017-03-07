@@ -65,6 +65,12 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
           })
           .then(function (response) {
             var tasks = response.data.data;
+
+            $scope.group['habits'] = [];
+            $scope.group['dailys'] = [];
+            $scope.group['todos'] = [];
+            $scope.group['rewards'] = [];
+
             tasks.forEach(function (element, index, array) {
               if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
               $scope.group[element.type + 's'].unshift(element);
@@ -119,6 +125,10 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       };
 
       $scope.join = function (party) {
+        if (party.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
+          return;
+        }
+
         Groups.Group.join(party.id)
           .then(function (response) {
             $rootScope.party = $scope.group = response.data.data;

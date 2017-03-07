@@ -14,10 +14,10 @@ Example:
 
   Result:
     getters
-      user.gems
-      user.tasks
-      tasks.todos
-      tasks.dailys
+      user:gems
+      user:tasks
+      tasks:todos
+      tasks:dailys
 */
 export function flattenAndNamespace (namespaces) {
   let result = {};
