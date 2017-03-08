@@ -296,14 +296,13 @@ angular.module('habitrpg')
             $scope.summary = generateSummary($scope.task);
 
             $scope.repeatSuffix = generateRepeatSuffix($scope.task);
-
             if ($scope.task._edit.repeatsOn == 'dayOfMonth') {
-              var date = moment().date();
+              var date = moment(task._edit.startDate).date();
               $scope.task._edit.weeksOfMonth = [];
               $scope.task._edit.daysOfMonth = [date]; // @TODO This can handle multiple dates later
             } else if ($scope.task._edit.repeatsOn == 'dayOfWeek') {
-              var week = Math.ceil(moment().date() / 7) - 1;
-              var dayOfWeek = moment().day();
+              var week = Math.ceil(moment(task._edit.startDate).date() / 7) - 1;
+              var dayOfWeek = moment(task._edit.startDate).day();
               var shortDay = numberToShortDay[dayOfWeek];
               $scope.task._edit.daysOfMonth = [];
               $scope.task._edit.weeksOfMonth = [week]; // @TODO: This can handle multiple weeks
