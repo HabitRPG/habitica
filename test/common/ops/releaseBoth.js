@@ -34,7 +34,7 @@ describe('shared.ops.releaseBoth', () => {
   });
 
   it('grants triad bingo with gems', () => {
-    let [, message] = releaseBoth(user);
+    let message = releaseBoth(user)[1];
 
     expect(message).to.equal(i18n.t('mountsAndPetsReleased'));
     expect(user.achievements.triadBingoCount).to.equal(1);
@@ -45,7 +45,7 @@ describe('shared.ops.releaseBoth', () => {
     user.achievements.triadBingo = 1;
     user.achievements.triadBingoCount = 1;
 
-    let [, message] = releaseBoth(user);
+    let message = releaseBoth(user)[1];
 
     expect(message).to.equal(i18n.t('mountsAndPetsReleased'));
     expect(user.achievements.triadBingoCount).to.equal(2);
@@ -54,14 +54,14 @@ describe('shared.ops.releaseBoth', () => {
   it('does not grant triad bingo if any pet has not been previously found', () => {
     let triadBingoCountBeforeRelease = user.achievements.triadBingoCount;
     user.items.pets[animal] = -1;
-    let [, message] = releaseBoth(user);
+    let message = releaseBoth(user)[1];
 
     expect(message).to.equal(i18n.t('mountsAndPetsReleased'));
     expect(user.achievements.triadBingoCount).to.equal(triadBingoCountBeforeRelease);
   });
 
   it('releases pets', () => {
-    let [, message] = releaseBoth(user);
+    let message = releaseBoth(user)[1];
 
     expect(message).to.equal(i18n.t('mountsAndPetsReleased'));
     expect(user.items.pets[animal]).to.be.empty;
@@ -86,7 +86,7 @@ describe('shared.ops.releaseBoth', () => {
   });
 
   it('releases mounts', () => {
-    let [, message] = releaseBoth(user);
+    let message = releaseBoth(user)[1];
 
     expect(message).to.equal(i18n.t('mountsAndPetsReleased'));
     expect(user.items.mounts[animal]).to.equal(null);
