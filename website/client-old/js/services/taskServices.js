@@ -283,7 +283,7 @@ angular.module('habitrpg')
       modalScope.cancelTaskEdit = cancelTaskEdit;
 
       modalScope.task._edit.repeatsOn = 'dayOfMonth';
-      if (modalScope.task.type === 'daily' && modalScope.task._edit.weeksOfMonth.length > 0) {
+      if (modalScope.task.type === 'daily' && modalScope.task._edit.weeksOfMonth && modalScope.task._edit.weeksOfMonth.length > 0) {
         modalScope.task._edit.repeatsOn = 'dayOfWeek';
       }
 
