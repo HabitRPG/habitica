@@ -1,0 +1,119 @@
+{
+  "STYLE": {
+    "MAIN_COLOR": "",
+    "COLOR_TASKS_BY_DIFFICULTY": "true"
+  },
+  "PAGES": {
+    "FOOTER": "true",
+    "USER": {
+      "STATS": "false",
+      "ACHIEVEMENTS": "false",
+      "INCLUDE_INVENTORY": "true"
+    },
+    "INVENTORY": {
+      "ALL": "false",
+      "MARKET": "false",
+      "QUESTS": "false",
+      "TIME_TRAVELERS": "false",
+      "SEASONAL_SHOP": "false",
+      "MERCHANDISE": "false"
+    },
+    "SOCIAL": {
+      "GUILDS": "false",
+      "TAVERN": "true",
+      "PARTY": "false",
+      "HALL": "false",
+      "INBOX": "false",
+      "GROUP_PLANS": "false",
+      "LEADERBOARDS": "true"
+    },
+    "DATA": {
+      "ALL": "false"
+    },
+    "HELP": {
+      "ALL": "false"
+    },
+    "EXTRA": {
+      "NOTIFICATIONS": "false",
+      "SETTINGS": "false",
+      "SUBSCRIBE": "false",
+      "GEMS": "false",
+      "SILVER": "false"
+    }
+  },
+  "GAME": {
+    "DROPS": "false",
+    "CLASSES": "false",
+    "BAILEY": "false",
+    "TASKS": "habits rewards",
+    "TASKS_AGING": "false",
+    "EQUIPMENT_TYPES_DISABLED": "weapons shields",
+    "GEM_PURCHASE": "false",
+    "LOGIN_INCENTIVE_SET": "2",
+    "BACKGROUNDS": {
+      "DISABLED_BACKGROUNDS": "blacksmithy market archery_range"
+    },
+    "USER": {
+      "HEALTH_BAR": "false",
+      "PROFILE": {
+        "EDIT_DISPLAY_NAME": "false",
+        "EDIT_DISPLAY_PHOTO": "false",
+        "DISPLAY_PHOTO": "false",
+        "SEND_PRIVATE_MESSAGE": "false",
+        "SEND_GIFT": "false"
+      },
+      "MEMBER_MODAL": {
+        "MEMBER_SINCE": "false"
+      }
+    },
+    "CHAT": {
+      "COPY_AS_TODO": "false"
+    },
+    "CHALLENGES": {
+      "CHALLENGE_TITLE": "comedChallengeTitle"
+    },
+    "INVENTORY": {
+      "BATTLE_GEAR_TITLE_STRING": "comedBattleGearTitle",
+      "COSTUMES": "false"
+    },
+    "TAVERN": {
+      "TITLE_STRING": "comedTavernTitle"
+    },
+    "PARTY": {
+      "HOME_INVITE": "false"
+    },
+    "LEADERBOARDS": {
+      "MENU": "false",
+      "TOP_COUNT": "30"
+    },
+    "TAGS": {
+      "EDIT": "false",
+      "CLEAR": "false",
+      "TITLE_STRING": "comedTagsTitle",
+      "ICON": "glyphicon-tags"
+    },
+    "TASK_OPTIONS": {
+      "TASKS_TITLE": "comedTasksTitle",
+      "HABITS_TITLE": "comedHabitsTitle",
+      "EDIT": "true",
+      "ADD": "false",
+      "FILTER": "false",
+      "REWARDS": {
+        "HEALTH_POTIONS": "false"
+      },
+      "SEARCH_ALIGNMENT": "left",
+      "SEARCH_BAR": "false",
+      "TASK_VALUE_IN_TITLE": "true",
+      "NOTE_ICON": "glyphicon-question-sign"
+    },
+    "LOADING": {
+      "TITLE_STRING": "comedLoadingTitle",
+      "LOGO": "data:image/png;base64,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"
+    },
+    "HEADER": {
+      "STATS_TITLE_STRING": "comedStatsTitle",
+      "LEVEL_PROGRESS_TITLE_STRING": "comedLevelProgressTitle",
+      "ENTERPRISE_LOGO": "https://s3.amazonaws.com/habitica-assets/assets/enterprise/ComEd/Powering+Up+JD+Lockup_game+file.png"
+    }
+  }
+}
