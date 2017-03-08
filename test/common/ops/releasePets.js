@@ -32,7 +32,7 @@ describe('shared.ops.releasePets', () => {
   });
 
   it('releases pets', () => {
-    let [, message] = releasePets(user);
+    let message = releasePets(user)[1];
 
     expect(message).to.equal(i18n.t('petsReleased'));
     expect(user.items.pets[animal]).to.equal(0);
