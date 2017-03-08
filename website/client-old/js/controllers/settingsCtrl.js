@@ -164,7 +164,7 @@ habitrpg.controller('SettingsCtrl',
     $scope.restore = function(){
       var stats = $scope.restoreValues.stats,
         achievements = $scope.restoreValues.achievements;
-      if (_validateValues(stats, achievements)) {
+      if (_validateValues(stats.lvl)) {
         User.set({
           'stats.hp': stats.hp,
           'stats.exp': stats.exp,
@@ -350,11 +350,9 @@ habitrpg.controller('SettingsCtrl',
       return +nextCron.format('x');
     }
 
-    function _validateValues(stats, achievements) {
-      if (stats.hp < 0 || stats.exp < 0 ||
-          stats.gp < 0 || stats.lvl < 1 ||
-          stats.mp < 0 || achievements.streak < 0) {
-        Notification.error(env.t('invalidValue'), true);
+    function _validateValues(level) {
+      if (level < 1) {
+        Notification.error(env.t('invalidLevel'), true);
         return false;
       }
       return true;

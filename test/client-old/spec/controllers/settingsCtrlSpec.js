@@ -339,24 +339,24 @@ describe('Settings Controller', function () {
 
   context('Fixing character values', function () {
     describe('#restore', function () {
-      it('updates character values only when valid values are entered', function () {
+      it('doesn\'t update character values when level is less than 1', function () {
         scope.restoreValues = {
           stats: {
-            hp: -1,
-            exp: -1,
-            gp: -1,
+            hp: 0,
+            exp: 0,
+            gp: 0,
             lvl: 0,
-            mp: -1,
+            mp: 0,
           },
           achievements: {
-            streak: -1,
+            streak: 0,
           },
         };
         scope.restore();
         expect(User.set).to.not.be.called;
       });
 
-      it('doesn\'t update character values when invalid values are entered', function () {
+      it('updates character values when level is at least 1', function () {
         scope.restoreValues = {
           stats: {
             hp: 0,
