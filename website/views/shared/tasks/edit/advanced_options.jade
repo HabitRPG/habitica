@@ -27,7 +27,7 @@ div(ng-if='(task.type !== "reward") || (!obj.auth && obj.purchased && obj.purcha
 
       hr
 
-  fieldset.option-group.advanced-option(ng-show="task._edit._advanced && task.type !== 'reward'")
+  fieldset.option-group.advanced-option(ng-show="task._edit._advanced && task.type === 'daily'")
     select.form-control(ng-model='task._edit.frequency', ng-disabled='!canEdit(task)')
       option(value='daily')=env.t('daily')
       option(value='weekly')=env.t('weekly')
