@@ -18,6 +18,7 @@ describe('Settings Controller', function () {
         releaseMounts: sandbox.stub(),
         releaseBoth: sandbox.stub(),
         setCustomDayStart: sandbox.stub(),
+        restore: sandbox.stub(),
         user: user
       };
 
@@ -27,6 +28,7 @@ describe('Settings Controller', function () {
         releasePets: sandbox.stub(),
         releaseMounts: sandbox.stub(),
         releaseBoth: sandbox.stub(),
+        restore: sandbox.stub(),
       };
 
       Notification = {
@@ -331,6 +333,44 @@ describe('Settings Controller', function () {
 
         expect(Notification.error).to.not.be.called;
         expect(Notification.text).to.be.calledWith('Coupon applied!');
+      });
+    });
+  });
+
+  context('Fixing character values', function () {
+    describe('#restore', function () {
+      it('updates character values only when valid values are entered', function () {
+        scope.restoreValues = {
+          stats: {
+            hp: -1,
+            exp: -1,
+            gp: -1,
+            lvl: 0,
+            mp: -1,
+          },
+          achievements: {
+            streak: -1,
+          },
+        };
+        scope.restore();
+        expect(User.set).to.not.be.called;
+      });
+
+      it('doesn\'t update character values when invalid values are entered', function () {
+        scope.restoreValues = {
+          stats: {
+            hp: 0,
+            exp: 0,
+            gp: 0,
+            lvl: 1,
+            mp: 0,
+          },
+          achievements: {
+            streak: 0,
+          },
+        };
+        scope.restore();
+        expect(User.set).to.be.called;
       });
     });
   });
