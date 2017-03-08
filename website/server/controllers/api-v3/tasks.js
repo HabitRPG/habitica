@@ -70,7 +70,6 @@ let requiredGroupFields = '_id leader tasksOrder name';
  *
  * @apiParamExample {json} Request-Example:
  *     {
- *       "id": 4711
  *       "text":"Update Habitica API Documentation - Tasks",
  *       "type":"todo",
  *       "alias":"hab-api-tasks",
