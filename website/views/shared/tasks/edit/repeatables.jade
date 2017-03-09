@@ -1,10 +1,10 @@
 fieldset.option-group.advanced-option(ng-show="task.type === 'daily'")
-    //- legend.option-title
-    //-   span.hint(popover-title=env.t('startDateHelpTitle'), popover=env.t("startDateHelp"), popover-trigger='mouseenter')
-    //-     =env.t('startDate')
-    //- input.form-control(type='text', ng-model='task._edit.startDate',
-    //-   datepicker-popup='{{::user.preferences.dateFormat}}', is-open='datepickerOpened',
-    //-   ng-click='datepickerOpened = true', ng-disabled='!canEdit(task)')
+    legend.option-title
+      span.hint(popover-title=env.t('startDateHelpTitle'), popover=env.t("startDateHelp"), popover-trigger='mouseenter')
+        =env.t('startDate')
+    input.form-control(type='text', ng-model='task._edit.startDate',
+      datepicker-popup='{{::user.preferences.dateFormat}}', is-open='datepickerOpened',
+      ng-click='datepickerOpened = true', ng-disabled='!canEdit(task)')
     
     br
 
