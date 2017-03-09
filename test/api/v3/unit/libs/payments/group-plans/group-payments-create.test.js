@@ -142,7 +142,6 @@ describe('Purchasing a subscription for group', () => {
     data.groupId = group._id;
 
     await api.createSubscription(data);
-
     let updatedLeader = await User.findById(user._id).exec();
 
     expect(updatedLeader.purchased.plan.planId).to.eql('group_plan_auto');
@@ -154,6 +153,8 @@ describe('Purchasing a subscription for group', () => {
     expect(updatedLeader.purchased.plan.dateTerminated).to.eql(null);
     expect(updatedLeader.purchased.plan.lastBillingDate).to.not.exist;
     expect(updatedLeader.purchased.plan.dateCreated).to.exist;
+
+    expect(updatedLeader.items.mounts['Jackalope-RoyalPurple']).to.be.true;
   });
 
   it('sends an email to members of group', async () => {

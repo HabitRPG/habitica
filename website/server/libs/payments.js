@@ -56,9 +56,9 @@ function _dateDiff (earlyDate, lateDate) {
 api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers (group) {
   let members;
   if (group.type === 'guild') {
-    members = await User.find({guilds: group._id}).select('_id purchased auth profile.name').exec();
+    members = await User.find({guilds: group._id}).select('_id purchased items auth profile.name').exec();
   } else {
-    members = await User.find({'party._id': group._id}).select('_id purchased auth profile.name').exec();
+    members = await User.find({'party._id': group._id}).select('_id purchased items auth profile.name').exec();
   }
 
   let promises = members.map((member) => {
@@ -135,6 +135,7 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
   }
 
   member.purchased.plan = plan;
+  member.items.mounts['Jackalope-RoyalPurple'] = true;
 
   data.user = member;
   await this.createSubscription(data);
