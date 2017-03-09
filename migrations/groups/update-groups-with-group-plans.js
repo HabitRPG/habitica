@@ -14,7 +14,8 @@ import * as payments from '../../website/server/libs/payments';
 
 async function updateGroupsWithGroupPlans () {
     let groups = await Group.find({
-      'purchased.plan.customerId': 'group-unlimited',
+      'purchased.plan.planId': 'group_monthly',
+      'purchased.plan.dateTerminated': null,
     }).exec();
 
     let promises = [];
