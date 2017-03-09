@@ -135,7 +135,7 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
   }
 
   member.purchased.plan = plan;
-  member.items.pets['Jackalope-RoyalPurple'] = true;
+  member.items.mounts['Jackalope-RoyalPurple'] = true;
 
   data.user = member;
   await this.createSubscription(data);
