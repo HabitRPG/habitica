@@ -154,6 +154,8 @@ describe('Purchasing a subscription for group', () => {
     expect(updatedLeader.purchased.plan.dateTerminated).to.eql(null);
     expect(updatedLeader.purchased.plan.lastBillingDate).to.not.exist;
     expect(updatedLeader.purchased.plan.dateCreated).to.exist;
+
+    expect(updatedLeader.items.pets['Jackalope-RoyalPurple']).to.be.true;
   });
 
   it('sends an email to members of group', async () => {
