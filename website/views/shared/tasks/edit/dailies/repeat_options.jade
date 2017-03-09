@@ -1,9 +1,7 @@
-.form-group
+.form-group(ng-if='task._edit.frequency !== "weekly"')
   legend.option-title
     span.hint(popover-trigger='mouseenter', popover-title=env.t('repeatHelpTitle'),
       popover='{{env.t(task._edit.frequency + "RepeatHelpContent")}}')=env.t('repeatEvery')
-
-  // If frequency is daily
   ng-form.form-group(name='everyX')
     .input-group
       input.form-control(type='number', ng-model='task._edit.everyX', min='0', ng-disabled='!canEdit(task)', required)
