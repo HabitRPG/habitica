@@ -378,7 +378,8 @@ api.createSubscription = async function createSubscription (data) {
       email: getUserInfo(data.gift.member, ['email']).email,
     } : {},
     paymentMethod: data.paymentMethod,
-    months,
+    months: group ? 1 : months,
+    groupId,
   });
 };
 
