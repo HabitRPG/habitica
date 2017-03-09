@@ -15,7 +15,8 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template',
             |  #{env.t('subCanceled')} <strong>{{user.purchased.plan.dateTerminated | date:user.preferences.dateFormat}}</strong>
           tr(ng-if='!user.purchased.plan.dateTerminated'): td
             h4=env.t('subscribed')
-            p(ng-if='user.purchased.plan.planId')=env.t('purchasedPlanId', {price: '{{Content.subscriptionBlocks[user.purchased.plan.planId].price}}', months: '{{Content.subscriptionBlocks[user.purchased.plan.planId].months}}', plan: '{{user.purchased.plan.paymentMethod}}'})
+            p(ng-if='user.purchased.plan.planId && user.purchased.plan.customerId !== "group-plan"')=env.t('purchasedPlanId', {price: '{{Content.subscriptionBlocks[user.purchased.plan.planId].price}}', months: '{{Content.subscriptionBlocks[user.purchased.plan.planId].months}}', plan: '{{user.purchased.plan.paymentMethod}}'})
+            p(ng-if='user.purchased.plan.customerId === "group-plan"')=env.t('youHaveGroupPlan')
           tr(ng-if='user.purchased.plan.extraMonths'): td
             span.glyphicon.glyphicon-credit-card
             | &nbsp;#{env.t('purchasedPlanExtraMonths', {months: '{{user.purchased.plan.extraMonths | number:2}}'})}
@@ -26,6 +27,7 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template',
               li #{env.t('consecutiveMonths')} {{user.purchased.plan.consecutive.count + user.purchased.plan.consecutive.offset}}
               li #{env.t('gemCapExtra')} {{user.purchased.plan.consecutive.gemCapExtra}}
               li #{env.t('mysticHourglasses')} {{user.purchased.plan.consecutive.trinkets}}
+        
         div(ng-if='!user.purchased.plan.customerId || (user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')
           h4(ng-if='(user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')= env.t("resubscribe")
           .form-group.reduce-top-margin

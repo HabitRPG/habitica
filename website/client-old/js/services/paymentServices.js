@@ -296,6 +296,7 @@ function($rootScope, User, $http, Content) {
   }
 
   Payments.cancelSubscription = function(config) {
+    if (config && config.group && !confirm(window.env.t('confirmCancelGroupPlan'))) return; 
     if (!confirm(window.env.t('sureCancelSub'))) return;
 
     var group;
