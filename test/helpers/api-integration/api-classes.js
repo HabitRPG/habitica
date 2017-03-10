@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-
+import moment from 'moment';
 import { requester } from './requester';
 import {
   getDocument as getDocumentFromMongo,
@@ -79,6 +79,19 @@ export class ApiGroup extends ApiObject {
     }
 
     let update = { chat };
+
+    return await this.update(update);
+  }
+
+  async createCancelledSubscription () {
+    let update = {
+      purchased: {
+        plan: {
+          customerId: 'example-customer',
+          dateTerminated: moment().add(1, 'days').toDate(),
+        },
+      },
+    };
 
     return await this.update(update);
   }

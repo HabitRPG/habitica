@@ -102,6 +102,7 @@
   "messageSentAlert": "Message sent",
   "pmHeading": "Private message to <%= name %>",
   "pmsMarkedRead": "Your private messages have been marked as read",
+  "possessiveParty": "<%= name %>'s Party",
   "clearAll": "Delete All Messages",
   "confirmDeleteAllMessages": "Are you sure you want to delete all messages in your inbox? Other users will still see messages you have sent to them.",
   "optOutPopover": "Don't like private messages? Click to completely opt out",
@@ -213,7 +214,6 @@
   "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made.",
   "confirmAddTag": "Do you want to assign this task to \"<%= tag %>\"?",
   "confirmRemoveTag": "Do you really want to remove \"<%= tag %>\"?",
-
   "groupHomeTitle": "Home",
   "assignTask": "Assign Task",
   "desktopNotificationsText": "We need your permission to enable desktop notifications for new messages in party chat! Follow your browser's instructions to turn them on.<br><br>You'll receive these notifications only while you have Habitica open. If you decide you don't like them, they can be disabled in your browser's settings.<br><br>This box will close automatically when a decision is made.",
@@ -253,5 +253,14 @@
   "claimedBy": "\n\nClaimed by: <%= claimingUsers %>",
   "cantDeleteAssignedGroupTasks": "Can't delete group tasks that are assigned to you.",
   "confirmGuildPlanCreation": "Create this group?",
-  "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription."
+  "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription.",
+  "remainOrLeaveChallenges": "req.query.keep must be either 'remain-in-challenges' or 'leave-challenges'",
+  "paymentDetails": "Payment Details",
+  "aboutToJoinCancelledGroupPlan": "You are about to join a group with a canceled plan. You will NOT receive a free subscription.",
+  "cannotChangeLeaderWithActiveGroupPlan": "You can not change the leader while the group has an active plan.",
+  "leaderCannotLeaveGroupWithActiveGroup": "A leader can not leave a group while the group has an active plan",
+  "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a group plan. Any months of extra subscription credit you have will be applied at the end of the group plan.",
+  "cancelGroupSub": "Cancel Group Plan",
+  "confirmCancelGroupPlan": "Are you sure you want to cancel the group plan and remove its benefits from all members, including their free subscriptions?",
+  "purchasedGroupPlanPlanExtraMonths": "You have <%= months %> months of extra group plan credit."
 }

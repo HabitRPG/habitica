@@ -1,4 +1,4 @@
-import _ from 'lodash' ;
+import _ from 'lodash';
 import analytics from './analyticsService';
 import {
   getUserInfo,
@@ -6,23 +6,25 @@ import {
 } from './email';
 import moment from 'moment';
 import { sendNotification as sendPushNotification } from './pushNotifications';
-import shared from '../../common' ;
+import shared from '../../common';
 import {
   model as Group,
   basicFields as basicGroupFields,
 } from '../models/group';
+import { model as User } from '../models/user';
 import {
   NotAuthorized,
   NotFound,
 } from './errors';
 import slack from './slack';
-import nconf from 'nconf';
-
-import stripeModule from 'stripe';
-const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
-
 
 let api = {};
+
+api.constants = {
+  UNLIMITED_CUSTOMER_ID: 'habitrpg', // Users with the customerId have an unlimted free subscription
+  GROUP_PLAN_CUSTOMER_ID: 'group-plan',
+  GROUP_PLAN_PAYMENT_METHOD: 'Group Plan',
+};
 
 function revealMysteryItems (user) {
   _.each(shared.content.gear.flat, function findMysteryItems (item) {
@@ -43,6 +45,159 @@ function _dateDiff (earlyDate, lateDate) {
 
   return moment(lateDate).diff(earlyDate, 'months', true);
 }
+
+/**
+ * Add a subscription to members of a group
+ *
+ * @param  group  The Group Model that is subscribed to a group plan
+ *
+ * @return undefined
+ */
+api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers (group) {
+  let members;
+  if (group.type === 'guild') {
+    members = await User.find({guilds: group._id}).select('_id purchased items auth profile.name').exec();
+  } else {
+    members = await User.find({'party._id': group._id}).select('_id purchased items auth profile.name').exec();
+  }
+
+  let promises = members.map((member) => {
+    return this.addSubToGroupUser(member, group);
+  });
+
+  await Promise.all(promises);
+};
+
+/**
+ * Add a subscription to a new member of a group
+ *
+ * @param  member  The new member of the group
+ *
+ * @return undefined
+ */
+api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
+  let customerIdsToIgnore = [this.constants.GROUP_PLAN_CUSTOMER_ID, this.constants.UNLIMITED_CUSTOMER_ID];
+
+  let data = {
+    user: {},
+    sub: {
+      key: 'group_plan_auto',
+    },
+    customerId: 'group-plan',
+    paymentMethod: 'Group Plan',
+    headers: {},
+  };
+
+  let plan = {
+    planId: 'group_plan_auto',
+    customerId: 'group-plan',
+    dateUpdated: new Date(),
+    gemsBought: 0,
+    paymentMethod: 'groupPlan',
+    extraMonths: 0,
+    dateTerminated: null,
+    lastBillingDate: null,
+    dateCreated: new Date(),
+    mysteryItems: [],
+    consecutive: {
+      trinkets: 0,
+      offset: 0,
+      gemCapExtra: 0,
+    },
+  };
+
+  if (member.isSubscribed()) {
+    let memberPlan = member.purchased.plan;
+    let customerHasCancelledGroupPlan = memberPlan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID && !member.hasNotCancelled();
+    if (customerIdsToIgnore.indexOf(memberPlan.customerId) !== -1 && !customerHasCancelledGroupPlan) return;
+
+    if (member.hasNotCancelled()) await member.cancelSubscription();
+
+    let today = new Date();
+    plan = member.purchased.plan.toObject();
+    let extraMonths = Number(plan.extraMonths);
+    if (plan.dateTerminated) extraMonths += _dateDiff(today, plan.dateTerminated);
+
+    _(plan).merge({ // override with these values
+      planId: 'group_plan_auto',
+      customerId: 'group-plan',
+      dateUpdated: today,
+      paymentMethod: 'groupPlan',
+      extraMonths,
+      dateTerminated: null,
+      lastBillingDate: null,
+      owner: member._id,
+    }).defaults({ // allow non-override if a plan was previously used
+      gemsBought: 0,
+      dateCreated: today,
+      mysteryItems: [],
+    }).value();
+  }
+
+  member.purchased.plan = plan;
+  member.items.mounts['Jackalope-RoyalPurple'] = true;
+
+  data.user = member;
+  await this.createSubscription(data);
+
+  let leader = await User.findById(group.leader).exec();
+  txnEmail(data.user, 'group-member-joining', [
+    {name: 'LEADER', content: leader.profile.name},
+    {name: 'GROUP_NAME', content: group.name},
+  ]);
+};
+
+
+/**
+ * Cancels subscriptions of members of a group
+ *
+ * @param  group  The Group Model that is cancelling a group plan
+ *
+ * @return undefined
+ */
+api.cancelGroupUsersSubscription = async function cancelGroupUsersSubscription (group) {
+  let members;
+  if (group.type === 'guild') {
+    members = await User.find({guilds: group._id}).select('_id guilds purchased').exec();
+  } else {
+    members = await User.find({'party._id': group._id}).select('_id guilds purchased').exec();
+  }
+
+  let promises = members.map((member) => {
+    return this.cancelGroupSubscriptionForUser(member, group);
+  });
+
+  await Promise.all(promises);
+};
+
+api.cancelGroupSubscriptionForUser = async function cancelGroupSubscriptionForUser (user, group) {
+  if (user.purchased.plan.customerId !== this.constants.GROUP_PLAN_CUSTOMER_ID) return;
+
+  let userGroups = user.guilds.toObject();
+  userGroups.push('party');
+
+  let index = userGroups.indexOf(group._id);
+  userGroups.splice(index, 1);
+
+  let groupPlansQuery = {
+    type: {$in: ['guild', 'party']},
+    // privacy: 'private',
+    _id: {$in: userGroups},
+    'purchased.plan.dateTerminated': null,
+  };
+
+  let groupFields = `${basicGroupFields} purchased`;
+  let userGroupPlans = await Group.find(groupPlansQuery).select(groupFields).exec();
+
+  if (userGroupPlans.length === 0)  {
+    let leader = await User.findById(group.leader).exec();
+    txnEmail(user, 'group-member-cancel', [
+      {name: 'LEADER', content: leader.profile.name},
+      {name: 'GROUP_NAME', content: group.name},
+    ]);
+    await this.cancelSubscription({user});
+  }
+};
 
 api.createSubscription = async function createSubscription (data) {
   let recipient = data.gift ? data.gift.member : data.user;
@@ -75,6 +230,8 @@ api.createSubscription = async function createSubscription (data) {
     emailType = 'group-subscription-begins';
     groupId = group._id;
     recipient.purchased.plan.quantity = data.sub.quantity;
+
+    await this.addSubscriptionToGroupUsers(group);
   }
 
   plan = recipient.purchased.plan;
@@ -96,7 +253,7 @@ api.createSubscription = async function createSubscription (data) {
   } else {
     if (!plan.dateTerminated) plan.dateTerminated = today;
 
-    _(plan).merge({ // override with these values
+    Object.assign(plan, { // override plan with new values
       planId: block.key,
       customerId: data.customerId,
       dateUpdated: today,
@@ -110,11 +267,12 @@ api.createSubscription = async function createSubscription (data) {
       nextBillingDate: data.nextBillingDate,
       additionalData: data.additionalData,
       owner: data.user._id,
-    }).defaults({ // allow non-override if a plan was previously used
-      gemsBought: 0,
-      dateCreated: today,
-      mysteryItems: [],
-    }).value();
+    });
+
+    // allow non-override if a plan was previously used
+    if (!plan.gemsBought) plan.gemsBought = 0;
+    if (!plan.dateCreated) plan.dateCreated = today;
+    if (!plan.mysteryItems) plan.mysteryItems = [];
 
     if (data.subscriptionId) {
       plan.subscriptionId = data.subscriptionId;
@@ -134,7 +292,8 @@ api.createSubscription = async function createSubscription (data) {
     revealMysteryItems(recipient);
   }
 
-  if (!data.gift) {
+  // @TODO: Create a factory pattern for use cases
+  if (!data.gift && data.customerId !== this.constants.GROUP_PLAN_CUSTOMER_ID) {
     txnEmail(data.user, emailType);
   }
 
@@ -220,24 +379,9 @@ api.createSubscription = async function createSubscription (data) {
       email: getUserInfo(data.gift.member, ['email']).email,
     } : {},
     paymentMethod: data.paymentMethod,
-    months,
+    months: group ? 1 : months,
+    groupId,
   });
-};
-
-api.updateStripeGroupPlan = async function updateStripeGroupPlan (group, stripeInc) {
-  if (group.purchased.plan.paymentMethod !== 'Stripe') return;
-  let stripeApi = stripeInc || stripe;
-  let plan = shared.content.subscriptionBlocks.group_monthly;
-
-  await stripeApi.subscriptions.update(
-    group.purchased.plan.subscriptionId,
-    {
-      plan: plan.key,
-      quantity: group.memberCount + plan.quantity - 1,
-    }
-  );
-
-  group.purchased.plan.quantity = group.memberCount + plan.quantity - 1;
 };
 
 // Sets their subscription to be cancelled later
@@ -247,6 +391,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
   let cancelType = 'unsubscribe';
   let groupId;
   let emailType = 'cancel-subscription';
+  let emailMergeData = [];
 
   //  If we are buying a group subscription
   if (data.groupId) {
@@ -264,12 +409,23 @@ api.cancelSubscription = async function cancelSubscription (data) {
     }
     plan = group.purchased.plan;
     emailType = 'group-cancel-subscription';
+    emailMergeData.push({name: 'GROUP_NAME', content: group.name});
+
+    await this.cancelGroupUsersSubscription(group);
   } else {
     plan = data.user.purchased.plan;
   }
 
+  let customerId = plan.customerId;
   let now = moment();
-  let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days') : 30;
+  let defaultRemainingDays = 30;
+
+  if (plan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID) {
+    defaultRemainingDays = 2;
+  }
+
+  let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days') : defaultRemainingDays;
+  if (plan.extraMonths < 0) plan.extraMonths = 0;
   let extraDays = Math.ceil(30.5 * plan.extraMonths);
   let nowStr = `${now.format('MM')}/${moment(plan.dateUpdated).format('DD')}/${now.format('YYYY')}`;
   let nowStrFormat = 'MM/DD/YYYY';
@@ -288,7 +444,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
     await data.user.save();
   }
 
-  txnEmail(data.user, emailType);
+  if (customerId !== this.constants.GROUP_PLAN_CUSTOMER_ID) txnEmail(data.user, emailType, emailMergeData);
 
   if (group) {
     cancelType = 'group-unsubscribe';

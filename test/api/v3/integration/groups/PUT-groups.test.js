@@ -43,4 +43,15 @@ describe('PUT /group', () => {
     expect(updatedGroup.leader.profile.name).to.eql(leader.profile.name);
     expect(updatedGroup.name).to.equal(groupUpdatedName);
   });
+
+  it('allows a leader to change leaders', async () => {
+    let updatedGroup = await leader.put(`/groups/${groupToUpdate._id}`, {
+      name: groupUpdatedName,
+      leader: nonLeader._id,
+    });
+
+    expect(updatedGroup.leader._id).to.eql(nonLeader._id);
+    expect(updatedGroup.leader.profile.name).to.eql(nonLeader.profile.name);
+    expect(updatedGroup.name).to.equal(groupUpdatedName);
+  });
 });

@@ -102,6 +102,7 @@
     "messageSentAlert": "Bericht verzonden",
     "pmHeading": "Privébericht aan <%= name %>",
     "pmsMarkedRead": "Je privéberichten zijn gemarkeerd als gelezen.",
+    "possessiveParty": "<%= name %>s groep",
     "clearAll": "Alle berichten verwijderen",
     "confirmDeleteAllMessages": "Weet je zeker dat je alle berichten in je inbox wilt verwijderen? Andere gebruikers kunnen de berichten die je ze hebt gestuurd blijven zien.",
     "optOutPopover": "Vind je privéberichten maar niks? Klik hier om je helemaal af te melden.",
@@ -167,7 +168,6 @@
     "partyEmpty": "Je bent het enige lid van je groep. Nodig je vrienden uit!",
     "partyChatEmpty": "Je groepschat is leeg! Typ een bericht in het bovenstaande vak om een conversatie te beginnen.",
     "guildChatEmpty": "De gildechat is leeg! Typ een bericht in het bovenstaande vak om een conversatie te beginnen.",
-    "possessiveParty": "<%= name %>s groep",
     "requestAcceptGuidelines": "Als je berichten in de herberg of een groep- of gildechat wilt plaatsen, lees dan eerst onze <%= linkStart %>Gemeenschapsrichtlijnen<%= linkEnd %> en klik dan op de knop onderaan om aan te geven dat je ze accepteert.",
     "partyUpName": "Groepsvorming",
     "partyOnName": "Groepsfeestje",
@@ -250,5 +250,14 @@
     "claimedBy": "Geclaimd door: <%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "Je kunt geen groepstaken verwijderen die aan jou toegewezen zijn.",
     "confirmGuildPlanCreation": "Deze groep maken?",
-    "onlyGroupLeaderCanInviteToGroupPlan": "Alleen de groepsleider kan gebruikers uitnodigen voor een groep met een abonnement."
+    "onlyGroupLeaderCanInviteToGroupPlan": "Alleen de groepsleider kan gebruikers uitnodigen voor een groep met een abonnement.",
+    "remainOrLeaveChallenges": "req.query.keep must be either 'remain-in-challenges' or 'leave-challenges'",
+    "paymentDetails": "Payment Details",
+    "aboutToJoinCancelledGroupPlan": "You are about to join a group with a canceled plan. You will NOT receive a free subscription.",
+    "cannotChangeLeaderWithActiveGroupPlan": "You can not change the leader while the group has an active plan.",
+    "leaderCannotLeaveGroupWithActiveGroup": "A leader can not leave a group while the group has an active plan",
+    "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a group plan. Any months of extra subscription credit you have will be applied at the end of the group plan.",
+    "cancelGroupSub": "Cancel Group Plan",
+    "confirmCancelGroupPlan": "Are you sure you want to cancel the group plan and remove its benefits from all members, including their free subscriptions?",
+    "purchasedGroupPlanPlanExtraMonths": "You have <%= months %> months of extra group plan credit."
 }

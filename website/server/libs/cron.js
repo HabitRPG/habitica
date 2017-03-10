@@ -75,24 +75,21 @@ function grantEndOfTheMonthPerks (user, now) {
 }
 
 function removeTerminatedSubscription (user) {
-  // If subscription's termination date has arrived
   let plan = user.purchased.plan;
 
-  if (plan.dateTerminated && moment(plan.dateTerminated).isBefore(new Date())) {
-    _.merge(plan, {
-      planId: null,
-      customerId: null,
-      paymentMethod: null,
-    });
+  _.merge(plan, {
+    planId: null,
+    customerId: null,
+    paymentMethod: null,
+  });
 
-    _.merge(plan.consecutive, {
-      count: 0,
-      offset: 0,
-      gemCapExtra: 0,
-    });
+  _.merge(plan.consecutive, {
+    count: 0,
+    offset: 0,
+    gemCapExtra: 0,
+  });
 
-    user.markModified('purchased.plan');
-  }
+  user.markModified('purchased.plan');
 }
 
 function performSleepTasks (user, tasksByType, now) {
@@ -195,10 +192,14 @@ export function cron (options = {}) {
   if (user.purchased && user.purchased.plan && !moment(user.purchased.plan.dateUpdated).startOf('month').isSame(moment().startOf('month'))) {
     user.purchased.plan.gemsBought = 0;
   }
+
   if (user.isSubscribed()) {
     grantEndOfTheMonthPerks(user, now);
-    if (!CRON_SAFE_MODE) removeTerminatedSubscription(user);
   }
+
+  let plan = user.purchased.plan;
+  let userHasTerminatedSubscription = plan.dateTerminated && moment(plan.dateTerminated).isBefore(new Date());
+  if (!CRON_SAFE_MODE && userHasTerminatedSubscription) removeTerminatedSubscription(user);
 
   // Login Incentives
   user.loginIncentives++;
@@ -316,8 +317,41 @@ export function cron (options = {}) {
     }
   });
 
-  // move singleton Habits towards yellow.
-  tasksByType.habits.forEach((task) => { // slowly reset 'onlies' value to 0
+  // check if we've passed a day on which we should reset the habit counters, including today
+  let resetWeekly = false;
+  let resetMonthly = false;
+  for (let i = 0; i <= daysMissed; i++) {
+    if (resetWeekly === true && resetMonthly === true) {
+      break;
+    }
+    let thatDay = moment(now).subtract({days: i}).toDate();
+    if (thatDay.getDay() === 1) {
+      resetWeekly = true;
+    }
+    if (thatDay.getDate() === 1) {
+      resetMonthly = true;
+    }
+  }
+
+  tasksByType.habits.forEach((task) => {
+    // reset counters if appropriate
+
+    // this enormously clunky thing brought to you by lint
+    let reset = false;
+    if (task.frequency === 'daily') {
+      reset = true;
+    } else if (task.frequency === 'weekly' && resetWeekly === true) {
+      reset = true;
+    } else if (task.frequency === 'monthly' && resetMonthly === true) {
+      reset = true;
+    }
+    if (reset === true) {
+      task.counterUp = 0;
+      task.counterDown = 0;
+    }
+
+    // slowly reset value to 0 for "onlies" (Habits with + or - but not both)
+    // move singleton Habits towards yellow.
     if (task.up === false || task.down === false) {
       task.value = Math.abs(task.value) < 0.1 ? 0 : task.value = task.value / 2;
     }
@@ -364,7 +398,8 @@ export function cron (options = {}) {
 
   // After all is said and done, progress up user's effect on quest, return those values & reset the user's
   let progress = user.party.quest.progress;
-  _progress = _.cloneDeep(progress);
+  _progress = progress.toObject(); // clone the old progress object
+  progress.down = -1300;
   _.merge(progress, {down: 0, up: 0, collectedItems: 0});
 
   // Send notification for changes in HP and MP
@@ -392,9 +427,9 @@ export function cron (options = {}) {
   //   _(user.inbox.messages)
   //     .sortBy('timestamp')
   //     .takeRight(numberOfPMs - maxPMs)
-  //     .each(pm => {
+  //     .forEach(pm => {
   //       delete user.inbox.messages[pm.id];
-  //     }).value();
+  //     })
   //
   //   user.markModified('inbox.messages');
   // }

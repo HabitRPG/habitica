@@ -65,6 +65,12 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
           })
           .then(function (response) {
             var tasks = response.data.data;
+
+            $scope.group['habits'] = [];
+            $scope.group['dailys'] = [];
+            $scope.group['todos'] = [];
+            $scope.group['rewards'] = [];
+
             tasks.forEach(function (element, index, array) {
               if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
               $scope.group[element.type + 's'].unshift(element);
@@ -119,6 +125,10 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       };
 
       $scope.join = function (party) {
+        if (party.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
+          return;
+        }
+
         Groups.Group.join(party.id)
           .then(function (response) {
             $rootScope.party = $scope.group = response.data.data;
@@ -134,7 +144,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
           $scope.selectedGroup = undefined;
           $scope.popoverEl.popover('destroy');
         } else {
-          Groups.Group.leave($scope.selectedGroup._id, keep)
+          Groups.Group.leave($scope.selectedGroup._id, keep, 'remain-in-challenges')
             .then(function (response) {
               Analytics.updateUser({'partySize':null,'partyID':null});
               User.sync().then(function () {
@@ -156,7 +166,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
           //TODO: Move this to challenge service
           Challenges.getGroupChallenges(group._id)
           .then(function(response) {
-              var challenges = _.pluck(_.filter(response.data.data, function(c) {
+              var challenges = _.map(_.filter(response.data.data, function(c) {
                   return c.group._id == group._id;
               }), '_id');
 
@@ -197,7 +207,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
 
       $scope.leaveOldPartyAndJoinNewParty = function(newPartyId, newPartyName) {
         if (confirm('Are you sure you want to delete your party and join ' + newPartyName + '?')) {
-          Groups.Group.leave(Groups.data.party._id, false)
+          Groups.Group.leave(Groups.data.party._id, false, 'remain-in-challenges')
             .then(function() {
               $rootScope.party = $scope.group = {
                 loadingParty: true

@@ -37,7 +37,7 @@ store.watch(state => state.title, (title) => {
 
 // Mount the app when user and tasks are loaded
 let userDataWatcher = store.watch(state => [state.user, state.tasks], ([user, tasks]) => {
-  if (user && user._id && tasks && tasks.length) {
+  if (user && user._id && Array.isArray(tasks)) {
     userDataWatcher(); // remove the watcher
     app.$mount('#app');
   }

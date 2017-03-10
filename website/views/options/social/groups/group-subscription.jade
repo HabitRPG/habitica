@@ -15,11 +15,11 @@ mixin groupSubscription()
                 i.glyphicon.glyphicon-time
                 |  #{env.t('subCanceled')} <strong>{{moment(group.purchased.plan.dateTerminated).format('MM/DD/YYYY')}}</strong>
               tr(ng-if='!group.purchased.plan.dateTerminated'): td
-                h3=env.t('subscribed')
+                h3=env.t('paymentDetails')
                 p(ng-if='group.purchased.plan.planId')=env.t('groupSubscriptionPrice')
               tr(ng-if='group.purchased.plan.extraMonths'): td
                 span.glyphicon.glyphicon-credit-card
-                | &nbsp;#{env.t('purchasedPlanExtraMonths', {months: '{{group.purchased.plan.extraMonths | number:2}}'})}
+                | &nbsp;#{env.t('purchasedGroupPlanPlanExtraMonths', {months: '{{group.purchased.plan.extraMonths | number:2}}'})}
               tr(ng-if='group.purchased.plan.consecutive.count || group.purchased.plan.consecutive.offset'): td
                 span.glyphicon.glyphicon-forward
                 | &nbsp;#{env.t('consecutiveSubscription')}
@@ -30,15 +30,15 @@ mixin groupSubscription()
 
             div(ng-if='group.purchased.plan.customerId')
               .btn.btn-primary(ng-if='!group.purchased.plan.dateTerminated && group.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit({groupId: group.id})')=env.t('subUpdateCard')
-              .btn.btn-sm.btn-danger(ng-if='!group.purchased.plan.dateTerminated', ng-click='Payments.cancelSubscription({group: group})')=env.t('cancelSub')
+              .btn.btn-sm.btn-danger(ng-if='!group.purchased.plan.dateTerminated', ng-click='Payments.cancelSubscription({group: group})')=env.t('cancelGroupSub')
         
         .row
           .col-md-12(ng-if='!group.purchased.plan.customerId || (group.purchased.plan.customerId && group.purchased.plan.dateTerminated)', ng-init="_subscription.key='group_monthly'")
             .row.text-center
               h3 Upgrade My Group
               div
-                a.purchase.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon, groupId: group.id})', ng-disabled='!_subscription.key')= env.t('card')
-                a.purchase(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon, groupId: group.id})")
+                a.purchase.btn.btn-primary(ng-click='Payments.showStripe({subscription:_subscription.key, coupon:_subscription.coupon, groupId: group.id, group: group})', ng-disabled='!_subscription.key')= env.t('card')
+                a.purchase(ng-click="Payments.amazonPayments.init({type: 'subscription', subscription:_subscription.key, coupon:_subscription.coupon, groupId: group.id, group: group})")
                   img(src='https://payments.amazon.com/gp/cba/button',alt=env.t('amazonPayments'))
              //-  .col-xs-4
              //-    a.purchase(href='/paypal/subscribe?_id={{user._id}}&apiToken={{User.settings.auth.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}&groupId={{group.id}}', ng-disabled='!_subscription.key')

@@ -2,8 +2,17 @@
 // and babel-runtime doesn't affect external libraries
 require('babel-polyfill');
 
-// require all test files (files that ends with .spec.js)
-let testsContext = require.context('./specs', true, /\.spec$/);
+// Automatically setup SinonJS' sandbox for each test
+beforeEach(() => {
+  global.sandbox = sinon.sandbox.create();
+});
+
+afterEach(() => {
+  global.sandbox.restore();
+});
+
+// require all test files
+let testsContext = require.context('./specs', true, /\.js$/);
 testsContext.keys().forEach(testsContext);
 
 // require all .vue and .js files except main.js for coverage.

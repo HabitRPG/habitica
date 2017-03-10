@@ -1,10 +1,10 @@
 {
   "unlockedReward": "你收到 <%= reward %>",
   "earnedRewardForDevotion": "You have earned a <%= reward %> for being committed to improving your life.",
-  "nextRewardUnlocksIn": "你的下一個獎品將在 <%= numberOfCheckinsLeft %> 次簽到後解鎖！",
+  "nextRewardUnlocksIn": "Check-ins until your next prize: <%= numberOfCheckinsLeft %>",
   "awesome": "讚！",
   "totalCount": "<%= count %> 總數",
-  "countLeft": "下一個獎勵還要 <%= count %> 次簽到。",
+  "countLeft": "Check-ins until next reward: <%= count %>",
   "incentivesDescription": "When it comes to building habits, consistency is key. Each day you check-in you get closer to a prize.",
   "totalCheckins": "<%= count %> 簽到",
   "checkinEarned": "Your Check-In Counter went up!",

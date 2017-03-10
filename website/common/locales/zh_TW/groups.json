@@ -102,6 +102,7 @@
     "messageSentAlert": "已寄出的留言",
     "pmHeading": "給<%= name %>的私訊",
     "pmsMarkedRead": "你的私密訊息被標記成讀取了。",
+    "possessiveParty": "<%= name %>的隊伍",
     "clearAll": "刪除所有郵件",
     "confirmDeleteAllMessages": "你確定要刪除收件箱中的所有郵件？其他用戶仍然會看到你發給他們的郵件。",
     "optOutPopover": "不喜歡私密留言嗎？點選以更改設定。",
@@ -167,7 +168,6 @@
     "partyEmpty": "你現在孤零零的在隊伍裡，趕快邀請朋友加入吧！",
     "partyChatEmpty": "你的隊伍聊天室太安靜了！趕快發送訊息打破沉默吧。",
     "guildChatEmpty": "你的工會對話是空的！在上方空白處輸入一個訊息即可開始對話。",
-    "possessiveParty": "<%= name %>的隊伍",
     "requestAcceptGuidelines": "如果你想要在酒館、隊伍、或公會聊天室裡發表訊息，請先參閱 <%= linkStart %>社群規範s<%= linkEnd %> 並點選下面的按鈕表示接受此規範。",
     "partyUpName": "隊伍參與",
     "partyOnName": "龐大隊伍參與",
@@ -250,5 +250,14 @@
     "claimedBy": "Claimed by: <%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "Can't delete group tasks that are assigned to you.",
     "confirmGuildPlanCreation": "Create this group?",
-    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription."
+    "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription.",
+    "remainOrLeaveChallenges": "req.query.keep must be either 'remain-in-challenges' or 'leave-challenges'",
+    "paymentDetails": "Payment Details",
+    "aboutToJoinCancelledGroupPlan": "You are about to join a group with a canceled plan. You will NOT receive a free subscription.",
+    "cannotChangeLeaderWithActiveGroupPlan": "You can not change the leader while the group has an active plan.",
+    "leaderCannotLeaveGroupWithActiveGroup": "A leader can not leave a group while the group has an active plan",
+    "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a group plan. Any months of extra subscription credit you have will be applied at the end of the group plan.",
+    "cancelGroupSub": "Cancel Group Plan",
+    "confirmCancelGroupPlan": "Are you sure you want to cancel the group plan and remove its benefits from all members, including their free subscriptions?",
+    "purchasedGroupPlanPlanExtraMonths": "You have <%= months %> months of extra group plan credit."
 }
