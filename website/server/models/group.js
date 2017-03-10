@@ -113,7 +113,7 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased'],
   private: ['purchased.plan'],
   toJSONTransform (plainObj, originalDoc) {
-    if (plainObj.purchased) plainObj.purchased.active = originalDoc.purchased.plan && originalDoc.purchased.plan.customerId;
+    if (plainObj.purchased) plainObj.purchased.active = originalDoc.isSubscribed();
   },
 });
 
