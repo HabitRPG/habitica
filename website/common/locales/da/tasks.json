@@ -93,9 +93,9 @@
     "fortify": "Forstærk",
     "fortifyText": "Fortify will return all your tasks, except challenge tasks, to a neutral (yellow) state, as if you'd just added them, and top your Health off to full. This is great if all your red tasks are making the game too hard, or all your blue tasks are making the game too easy. If starting fresh sounds much more motivating, spend the Gems and catch a reprieve!",
     "confirmFortify": "Er du sikker?",
-    "fortifyComplete": "Fortify complete!",
+    "fortifyComplete": "Forstærkning gennemført!",
     "sureDelete": "Er du sikker på at du vil slette denne <%= taskType %> med teksten \"<%= taskText %>\"?",
-    "sureDeleteCompletedTodos": "Are you sure you want to delete your completed todos?",
+    "sureDeleteCompletedTodos": "Er du sikker på, at du vil slette dine færdiggjorte to-dos?",
     "streakCoins": "Stribebonus!",
     "pushTaskToTop": "Flyt opgave til toppen. Hold ctrl eller cmd nede for at flytte til bunden.",
     "emptyTask": "Indtast først opgavens titel.",
@@ -163,5 +163,7 @@
     "years": "Years",
     "confirmScoreNotes": "Confirm task scoring with notes",
     "taskScoreNotesTooLong": "Task score notes must be less than 256 characters",
-    "groupTasksByChallenge": "Group tasks by challenge title"
+    "groupTasksByChallenge": "Group tasks by challenge title",
+    "monthlyRepeatHelpContent": "This task will be due every X months",
+    "yearlyRepeatHelpContent": "This task will be due every X years"
 }

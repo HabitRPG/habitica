@@ -141,7 +141,7 @@
     "missingUnsubscriptionCode": "Brak kodu anulującego abonament.",
     "missingSubscription": "Użytkownik nie posiada abonamentu",
     "missingSubscriptionCode": "Brakuje kodu abonamentu. Ewentualne wartości: podstawowy_earned, podstawowy_3mc, podstawowy_6mc, google_6mc, podstawowy_12mc.",
-    "missingReceipt": "Missing Receipt.",
+    "missingReceipt": "Brakujące pokwitowanie.",
     "cannotDeleteActiveAccount": "Posiadasz aktywny abonament. Wycofaj go przed usunięciem konta.",
     "paymentNotSuccessful": "Płatność nie powiodła się",
     "planNotActive": "Ten plan nie został jeszcze aktywowany (z powodu błędu PayPal). Rozpocznie się on <%= nextBillingDate %>, wtedy będziesz mógł zrezygnować ze swoich korzyści",

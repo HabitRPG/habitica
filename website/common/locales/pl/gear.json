@@ -968,7 +968,7 @@
     "shieldArmoirePerchingFalconNotes": "Przyjaciel sokół siedzi na twoim ramieniu, gotów rzucić się na twoich wrogów. Zwiększa siłę o <%= str %>. Zaczarowana szafa: Zestaw Sokolnika (przedmiot 3 z 3).",
     "shieldArmoireRamHornShieldText": "Tarcza z baranimi rogami",
     "shieldArmoireRamHornShieldNotes": "Użyj tej tarczy, aby chwycić za rogi Codzienne zadania!  Zwiększa Kondycję i Siłę o <%= attrs %>. Zaczarowana Szafa: Zestaw Baraniego Barbarzyńcy (3 z 3).",
-    "shieldArmoireRedRoseText": "Red Rose",
+    "shieldArmoireRedRoseText": "Czerwona róża",
     "shieldArmoireRedRoseNotes": "This deep red rose smells enchanting. It will also sharpen your understanding. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
     "shieldArmoireMushroomDruidShieldText": "Tarcza grzybowego druida",
     "shieldArmoireMushroomDruidShieldNotes": "Though made from a mushroom, there's nothing mushy about this tough shield! Increases Constitution by <%= con %> and Strength by <%= str %>. Enchanted Armoire: Mushroom Druid Set (Item 3 of 3).",

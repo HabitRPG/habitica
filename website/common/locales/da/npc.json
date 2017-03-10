@@ -12,7 +12,7 @@
     "danielText2Broken": "Forresten... Hvis du deltager i en Boss quest, vil bossen stadig skade dig for dine gruppemedlemmers manglende daglige opgaver... Derudover kan du ikke skade Bossen (eller samle ting) før du forlader Kroen.",
     "alexander": "Købmanden Alexander",
     "welcomeMarket": "Velkommen til Markedet! Her kan du købe æg og eliksirer, der er svære at finde, eller sælge dine overskydende! Bestil nyttige tjenester! Kom og se hvad vi har at tilbyde.",
-    "welcomeMarketMobile": "Welcome to the Market! Buy hard-to-find eggs and potions! Come see what we have to offer.",
+    "welcomeMarketMobile": "Velkommen til Markedet! Køb æg og eliksirer, der er svære at finde! Kom og se hvad vi har at tilbyde.",
     "displayItemForGold": "Vil du sælge <strong><%= itemType %></strong>?",
     "displayEggForGold": "Vil du sælge et  <strong><%= itemType %>Æg</strong>?",
     "displayPotionForGold": "Vil du sælge en <strong><%= itemType %>Eliksir</strong>?",

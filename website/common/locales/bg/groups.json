@@ -251,5 +251,13 @@
     "cantDeleteAssignedGroupTasks": "Не можете да изтриете груповите задачи, които са Ви разпределени.",
     "confirmGuildPlanCreation": "Създаване на тази група?",
     "onlyGroupLeaderCanInviteToGroupPlan": "Само водачът на групата може да кани хора в група с абонамент.",
-    "remainOrLeaveChallenges": "req.query.keep must be either 'remain-in-challenges' or 'leave-challenges'"
+    "remainOrLeaveChallenges": "req.query.keep must be either 'remain-in-challenges' or 'leave-challenges'",
+    "paymentDetails": "Payment Details",
+    "aboutToJoinCancelledGroupPlan": "You are about to join a group with a canceled plan. You will NOT receive a free subscription.",
+    "cannotChangeLeaderWithActiveGroupPlan": "You can not change the leader while the group has an active plan.",
+    "leaderCannotLeaveGroupWithActiveGroup": "A leader can not leave a group while the group has an active plan",
+    "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a group plan. Any months of extra subscription credit you have will be applied at the end of the group plan.",
+    "cancelGroupSub": "Cancel Group Plan",
+    "confirmCancelGroupPlan": "Are you sure you want to cancel the group plan and remove its benefits from all members, including their free subscriptions?",
+    "purchasedGroupPlanPlanExtraMonths": "You have <%= months %> months of extra group plan credit."
 }
