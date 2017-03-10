@@ -7,6 +7,7 @@ import {
 import {
   TAVERN_ID,
 } from '../../../../../website/server/models/group';
+import apiMessages from '../../../../../website/server/libs/apiMessages';
 
 describe('GET /groups', () => {
   let user;
@@ -14,6 +15,7 @@ describe('GET /groups', () => {
   const NUMBER_OF_PUBLIC_GUILDS_USER_IS_MEMBER = 1;
   const NUMBER_OF_USERS_PRIVATE_GUILDS = 1;
   const NUMBER_OF_GROUPS_USER_CAN_VIEW = 5;
+  const GUILD_PER_PAGE = 30;
 
   before(async () => {
     await resetHabiticaDB();
@@ -96,6 +98,60 @@ describe('GET /groups', () => {
   it('returns all public guilds when publicGuilds passed in as query', async () => {
     await expect(user.get('/groups?type=publicGuilds'))
       .to.eventually.have.a.lengthOf(NUMBER_OF_PUBLIC_GUILDS);
+  });
+
+  describe('public guilds pagination', () => {
+    it('req.query.paginate must be a boolean string', async () => {
+      await expect(user.get('/groups?paginate=aString&type=publicGuilds'))
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: 'Invalid request parameters.',
+        });
+    });
+
+    it('req.query.paginate can only be true when req.query.type includes publicGuilds', async () => {
+      await expect(user.get('/groups?paginate=true&type=notPublicGuilds'))
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: apiMessages('guildsOnlyPaginate'),
+        });
+    });
+
+    it('req.query.page can\'t be negative', async () => {
+      await expect(user.get('/groups?paginate=true&page=-1&type=publicGuilds'))
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: 'Invalid request parameters.',
+        });
+    });
+
+    it('returns 30 guilds per page ordered by number of members', async () => {
+      await user.update({balance: 9000});
+      let groups = await Promise.all(_.times(60, (i) => {
+        return generateGroup(user, {
+          name: `public guild ${i} - is member`,
+          type: 'guild',
+          privacy: 'public',
+        });
+      }));
+
+      // update group number 32 and not the first to make sure sorting works
+      await groups[32].update({name: 'guild with most members', memberCount: 199});
+      await groups[33].update({name: 'guild with less members', memberCount: -100});
+
+      let page0 = await expect(user.get('/groups?type=publicGuilds&paginate=true'))
+        .to.eventually.have.a.lengthOf(GUILD_PER_PAGE);
+      expect(page0[0].name).to.equal('guild with most members');
+
+      await expect(user.get('/groups?type=publicGuilds&paginate=true&page=1'))
+        .to.eventually.have.a.lengthOf(GUILD_PER_PAGE);
+      let page2 = await expect(user.get('/groups?type=publicGuilds&paginate=true&page=2'))
+        .to.eventually.have.a.lengthOf(1 + 2); // 1 created now, 2 by other tests
+      expect(page2[2].name).to.equal('guild with less members');
+    });
   });
 
   it('returns all the user\'s guilds when guilds passed in as query', async () => {

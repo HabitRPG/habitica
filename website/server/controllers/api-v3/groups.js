@@ -25,7 +25,7 @@ import payments from '../../libs/payments';
 import stripePayments from '../../libs/stripePayments';
 import amzLib from '../../libs/amazonPayments';
 import shared from '../../../common';
-
+import apiMessages from '../../libs/apiMessages';
 
 /**
  * @apiDefine GroupBodyInvalid
@@ -252,6 +252,8 @@ api.createGroupPlan = {
  * @apiGroup Group
  *
  * @apiParam {String} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, guilds, privateGuilds, publicGuilds, tavern
+ * @apiParam {String="true","false"} [paginate] Public guilds support pagination. When true guilds are returned in groups of 30
+ * @apiParam {Number} [page] When pagination is enabled for public guilds this parameter can be used to specify the page number (the initial page is number 0 and not required)
  *
  * @apiParamExample {json} Private Guilds, Tavern:
  *     {
@@ -259,6 +261,9 @@ api.createGroupPlan = {
  *     }
  *
  * @apiError (400) {BadRequest} groupTypesRequired Group types are required
+ * @apiError (400) {BadRequest} guildsPaginateBooleanString Paginate query parameter must be a boolean (true or false)
+ * @apiError (400) {BadRequest} guildsPageInteger Page query parameter must be a positive integer
+ * @apiError (400) {BadRequest} guildsOnlyPaginate Only public guilds support pagination
  *
  * @apiSuccess {Object[]} data An array of the requested groups (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
  *
@@ -276,15 +281,27 @@ api.getGroups = {
     let user = res.locals.user;
 
     req.checkQuery('type', res.t('groupTypesRequired')).notEmpty();
+    // pagination options, can only be used with public guilds
+    req.checkQuery('paginate').optional().isIn(['true', 'false'], apiMessages('guildsPaginateBooleanString'));
+    req.checkQuery('page').optional().isInt({min: 0}, apiMessages('guildsPageInteger'));
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     let types = req.query.type.split(',');
+
+    let paginate = req.query.paginate === 'true' ? true : false;
+    if (paginate && !_.includes(types, 'publicGuilds')) {
+      throw new BadRequest(apiMessages('guildsOnlyPaginate'));
+    }
+
     let groupFields = basicGroupFields.concat(' description memberCount balance');
     let sort = '-memberCount';
 
-    let results = await Group.getGroups({user, types, groupFields, sort});
+    let results = await Group.getGroups({
+      user, types, groupFields, sort,
+      paginate, page: req.query.page,
+    });
     res.respond(200, results);
   },
 };
