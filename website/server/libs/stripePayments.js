@@ -227,8 +227,8 @@ api.cancelSubscription = async function cancelSubscription (options, stripeInc) 
   if (!customerId) throw new NotAuthorized(i18n.t('missingSubscription'));
 
   // @TODO: Handle error response
-  let customer = await stripeApi.customers.retrieve(customerId).catch(function(err) {
-    console.log(err);
+  let customer = await stripeApi.customers.retrieve(customerId).catch(function errorCatch (err) {
+    return err;
   });
   let nextBill = moment().add(30, 'days').unix() * 1000;
 

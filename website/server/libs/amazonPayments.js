@@ -196,11 +196,11 @@ api.cancelSubscription = async function cancelSubscription (options = {}) {
 
   let details = await this.getBillingAgreementDetails({
     AmazonBillingAgreementId: billingAgreementId,
-  }).catch(function (err) {
-    console.log(err);
+  }).catch(function errorCatch (err) {
+    return err;
   });
 
-  let badBAStates = ['Canceled', 'Closed', 'Suspended']
+  let badBAStates = ['Canceled', 'Closed', 'Suspended'];
   if (details && details.BillingAgreementDetails && details.BillingAgreementDetails.BillingAgreementStatus &&
       badBAStates.indexOf(details.BillingAgreementDetails.BillingAgreementStatus.State) === -1) {
     await this.closeBillingAgreement({
