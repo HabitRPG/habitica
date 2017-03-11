@@ -1,6 +1,7 @@
 import stripeModule from 'stripe';
 import nconf from 'nconf';
 import cc from 'coupon-code';
+import moment from 'moment';
 
 import {
   BadRequest,
@@ -226,20 +227,27 @@ api.cancelSubscription = async function cancelSubscription (options, stripeInc) 
   if (!customerId) throw new NotAuthorized(i18n.t('missingSubscription'));
 
   // @TODO: Handle error response
-  let customer = await stripeApi.customers.retrieve(customerId);
+  let customer = await stripeApi.customers.retrieve(customerId).catch(function errorCatch (err) {
+    return err;
+  });
+  let nextBill = moment().add(30, 'days').unix() * 1000;
 
-  let subscription = customer.subscription;
-  if (!subscription && customer.subscriptions) {
-    subscription = customer.subscriptions.data[0];
+  if (customer && (customer.subscription || customer.subscriptions)) {
+    let subscription = customer.subscription;
+    if (!subscription && customer.subscriptions) {
+      subscription = customer.subscriptions.data[0];
+    }
+    await stripeApi.customers.del(customerId);
+
+    if (subscription && subscription.current_period_end) {
+      nextBill = subscription.current_period_end * 1000; // timestamp in seconds
+    }
   }
 
-  if (!subscription) return;
-
-  await stripeApi.customers.del(customerId);
   await payments.cancelSubscription({
     user,
     groupId,
-    nextBill: subscription.current_period_end * 1000, // timestamp in seconds
+    nextBill,
     paymentMethod: this.constants.PAYMENT_METHOD,
   });
 };
