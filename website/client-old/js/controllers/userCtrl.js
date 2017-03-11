@@ -96,6 +96,8 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       if (!currentLoginDay) return env.t('moreIncentivesComingSoon');
       var nextRewardAt = currentLoginDay.nextRewardAt;
       if (!nextRewardAt) return env.t('moreIncentivesComingSoon');
+      // if we are on a reward day, let's show progress relative to this
+      if (currentLoginDay.reward) currentLoginDay.prevRewardKey = $scope.profile.loginIncentives;
       if (!currentLoginDay.prevRewardKey) currentLoginDay.prevRewardKey = 0;
       return env.t('checkinProgressTitle') + ' ' + ($scope.profile.loginIncentives - currentLoginDay.prevRewardKey) + '/' + (nextRewardAt - currentLoginDay.prevRewardKey);
     };
