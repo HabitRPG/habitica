@@ -153,31 +153,42 @@ schema.pre('validate', function preValidateUser (next) {
 schema.pre('save', true, function preSaveUser (next, done) {
   next();
 
-  if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
-    this.preferences.dayStart = 0;
-  }
+  // VERY IMPORTANT NOTE: when only some fields from an user document are selected
+  // using `.select('field1 field2')` when the user is saved we must make sure that
+  // these hooks do not run using default data. For example if user.items is missing
+  // we do not want to run any hook that relies on user.items because it will
+  // use the default values defined in the user schema and not the real ones.
+  // To check if a field was selected Document.isSelected('field') can be used.
+  // more info on its usage can be found at http://mongoosejs.com/docs/api.html#document_Document-isSelected
 
-  // Determines if Beast Master should be awarded
-  let beastMasterProgress = shared.count.beastMasterProgress(this.items.pets);
+  // do not calculate achievements if items or achievements are not selected
+  if (!this.isSelected('items') || !this.isSelected('achievements')) {
+    // Determines if Beast Master should be awarded
+    let beastMasterProgress = shared.count.beastMasterProgress(this.items.pets);
 
-  if (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0) {
-    this.achievements.beastMaster = true;
-  }
+    if (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0) {
+      this.achievements.beastMaster = true;
+    }
 
-  // Determines if Mount Master should be awarded
-  let mountMasterProgress = shared.count.mountMasterProgress(this.items.mounts);
+    // Determines if Mount Master should be awarded
+    let mountMasterProgress = shared.count.mountMasterProgress(this.items.mounts);
 
-  if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
-    this.achievements.mountMaster = true;
-  }
+    if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
+      this.achievements.mountMaster = true;
+    }
 
-  // Determines if Triad Bingo should be awarded
+    // Determines if Triad Bingo should be awarded
+    let dropPetCount = shared.count.dropPetsCurrentlyOwned(this.items.pets);
+    let qualifiesForTriad = dropPetCount >= 90 && mountMasterProgress >= 90;
 
-  let dropPetCount = shared.count.dropPetsCurrentlyOwned(this.items.pets);
-  let qualifiesForTriad = dropPetCount >= 90 && mountMasterProgress >= 90;
+    if (qualifiesForTriad || this.achievements.triadBingoCount > 0) {
+      this.achievements.triadBingo = true;
+    }
 
-  if (qualifiesForTriad || this.achievements.triadBingoCount > 0) {
-    this.achievements.triadBingo = true;
+    // EXAMPLE CODE for allowing all existing and new players to be
+    // automatically granted an item during a certain time period:
+    // if (!this.items.pets['JackOLantern-Base'] && moment().isBefore('2014-11-01'))
+    // this.items.pets['JackOLantern-Base'] = 5;
   }
 
   // Enable weekly recap emails for old users who sign in
@@ -188,10 +199,9 @@ schema.pre('save', true, function preSaveUser (next, done) {
     this.flags.lastWeeklyRecapDiscriminator = undefined;
   }
 
-  // EXAMPLE CODE for allowing all existing and new players to be
-  // automatically granted an item during a certain time period:
-  // if (!this.items.pets['JackOLantern-Base'] && moment().isBefore('2014-11-01'))
-  // this.items.pets['JackOLantern-Base'] = 5;
+  if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
+    this.preferences.dayStart = 0;
+  }
 
   // our own version incrementer
   if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;
