@@ -158,8 +158,17 @@ schema.pre('save', true, function preSaveUser (next, done) {
   // these hooks do not run using default data. For example if user.items is missing
   // we do not want to run any hook that relies on user.items because it will
   // use the default values defined in the user schema and not the real ones.
+  //
   // To check if a field was selected Document.isSelected('field') can be used.
   // more info on its usage can be found at http://mongoosejs.com/docs/api.html#document_Document-isSelected
+  // IMPORTANT NOTE2 : due to a bug in mongoose (https://github.com/Automattic/mongoose/issues/5063)
+  // document.isSelected('items') will return true even if only a sub field (like 'items.mounts')
+  // was selected. So this fix only works as long as the entire subdoc is selected
+  // For example in the code below it won't work if only `achievements.beastMasterCount` is selected
+  // which is why we should only ever select the full paths and not subdocs,
+  // or if we really have to do the document.isSelected() calls should check for
+  // every specific subpath (items.mounts, items.pets, ...) but it's better to avoid it
+  // since it'll break as soon as a new field is added to the schema but not here.
 
   // do not calculate achievements if items or achievements are not selected
   if (!this.isSelected('items') || !this.isSelected('achievements')) {
