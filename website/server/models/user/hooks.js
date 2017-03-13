@@ -171,7 +171,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
   // since it'll break as soon as a new field is added to the schema but not here.
 
   // do not calculate achievements if items or achievements are not selected
-  if (!this.isSelected('items') || !this.isSelected('achievements')) {
+  if (this.isSelected('items') && this.isSelected('achievements')) {
     // Determines if Beast Master should be awarded
     let beastMasterProgress = shared.count.beastMasterProgress(this.items.pets);
 
