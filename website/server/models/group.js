@@ -40,6 +40,7 @@ export const TAVERN_ID = shared.TAVERN_ID;
 
 const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
 const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = shared.constants.LARGE_GROUP_COUNT_MESSAGE_CUTOFF;
+const GUILDS_PER_PAGE = shared.constants.GUILDS_PER_PAGE;
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
@@ -205,7 +206,11 @@ schema.statics.getGroup = async function getGroup (options = {}) {
 export const VALID_QUERY_TYPES = ['party', 'guilds', 'privateGuilds', 'publicGuilds', 'tavern'];
 
 schema.statics.getGroups = async function getGroups (options = {}) {
-  let {user, types, groupFields = basicFields, sort = '-memberCount', populateLeader = false} = options;
+  let {
+    user, types, groupFields = basicFields,
+    sort = '-memberCount', populateLeader = false,
+    paginate = false, page = 0, // optional pagination for public guilds
+  } = options;
   let queries = [];
 
   // Throw error if an invalid type is supplied
@@ -247,6 +252,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
           privacy: 'public',
         }).select(groupFields);
         if (populateLeader === true) publicGuildsQuery.populate('leader', nameFields);
+        if (paginate === true) publicGuildsQuery.limit(GUILDS_PER_PAGE).skip(page * GUILDS_PER_PAGE);
         publicGuildsQuery.sort(sort).lean().exec();
         queries.push(publicGuildsQuery);
         break;

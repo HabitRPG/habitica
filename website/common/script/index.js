@@ -26,12 +26,14 @@ import {
   TAVERN_ID,
   LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
   SUPPORTED_SOCIAL_NETWORKS,
+  GUILDS_PER_PAGE,
 } from './constants';
 
 api.constants = {
   MAX_INCENTIVES,
   LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
   SUPPORTED_SOCIAL_NETWORKS,
+  GUILDS_PER_PAGE,
 };
 // TODO Move these under api.constants
 api.maxLevel = MAX_LEVEL;
