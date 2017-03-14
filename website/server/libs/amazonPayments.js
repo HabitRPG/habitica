@@ -253,10 +253,12 @@ api.subscribe = async function subscribe (options) {
   }
 
   let amount = sub.price;
+  let leaderCount = 1;
+  let priceOfSingleMember = 3;
 
   if (groupId) {
     let group = await Group.findById(groupId).exec();
-    amount = sub.price + (group.memberCount - 1) * 3;
+    amount = sub.price + (group.memberCount - leaderCount) * priceOfSingleMember;
   }
 
   await this.setBillingAgreementDetails({
