@@ -383,6 +383,72 @@ describe('Amazon Payments', () => {
         groupId,
       });
     });
+
+    it('subscribes with amazon with price to existing users', async () => {
+      user = new User();
+      user.guilds.push(groupId);
+      await user.save();
+      group.memberCount = 2;
+      await group.save();
+      sub.key = 'group_monthly';
+      sub.price = 9;
+      amount = 12;
+
+      await amzLib.subscribe({
+        billingAgreementId,
+        sub,
+        coupon,
+        user,
+        groupId,
+        headers,
+      });
+
+      expect(amazonSetBillingAgreementDetailsSpy).to.be.calledOnce;
+      expect(amazonSetBillingAgreementDetailsSpy).to.be.calledWith({
+        AmazonBillingAgreementId: billingAgreementId,
+        BillingAgreementAttributes: {
+          SellerNote: amzLib.constants.SELLER_NOTE_SUBSCRIPTION,
+          SellerBillingAgreementAttributes: {
+            SellerBillingAgreementId: common.uuid(),
+            StoreName: amzLib.constants.STORE_NAME,
+            CustomInformation: amzLib.constants.SELLER_NOTE_SUBSCRIPTION,
+          },
+        },
+      });
+
+      expect(amazonConfirmBillingAgreementSpy).to.be.calledOnce;
+      expect(amazonConfirmBillingAgreementSpy).to.be.calledWith({
+        AmazonBillingAgreementId: billingAgreementId,
+      });
+
+      expect(amazongAuthorizeOnBillingAgreementSpy).to.be.calledOnce;
+      expect(amazongAuthorizeOnBillingAgreementSpy).to.be.calledWith({
+        AmazonBillingAgreementId: billingAgreementId,
+        AuthorizationReferenceId: common.uuid().substring(0, 32),
+        AuthorizationAmount: {
+          CurrencyCode: amzLib.constants.CURRENCY_CODE,
+          Amount: amount,
+        },
+        SellerAuthorizationNote: amzLib.constants.SELLER_NOTE_ATHORIZATION_SUBSCRIPTION,
+        TransactionTimeout: 0,
+        CaptureNow: true,
+        SellerNote: amzLib.constants.SELLER_NOTE_ATHORIZATION_SUBSCRIPTION,
+        SellerOrderAttributes: {
+          SellerOrderId: common.uuid(),
+          StoreName: amzLib.constants.STORE_NAME,
+        },
+      });
+
+      expect(createSubSpy).to.be.calledOnce;
+      expect(createSubSpy).to.be.calledWith({
+        user,
+        customerId: billingAgreementId,
+        paymentMethod: amzLib.constants.PAYMENT_METHOD,
+        sub,
+        headers,
+        groupId,
+      });
+    });
   });
 
   describe('cancelSubscription', () => {

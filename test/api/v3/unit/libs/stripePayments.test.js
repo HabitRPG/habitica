@@ -395,6 +395,50 @@ describe('Stripe Payments', () => {
         subscriptionId,
       });
     });
+
+    it('subscribes a group with the correct number of group members', async () => {
+      token = 'test-token';
+      sub = data.sub;
+      groupId = group._id;
+      email = 'test@test.com';
+      headers = {};
+      user = new User();
+      user.guilds.push(groupId);
+      await user.save();
+      group.memberCount = 2;
+      await group.save();
+
+      await stripePayments.checkout({
+        token,
+        user,
+        gift,
+        sub,
+        groupId,
+        email,
+        headers,
+        coupon,
+      }, stripe);
+
+      expect(stripeCreateCustomerSpy).to.be.calledOnce;
+      expect(stripeCreateCustomerSpy).to.be.calledWith({
+        email,
+        metadata: { uuid: user._id },
+        card: token,
+        plan: sub.key,
+        quantity: 4,
+      });
+
+      expect(stripePaymentsCreateSubSpy).to.be.calledOnce;
+      expect(stripePaymentsCreateSubSpy).to.be.calledWith({
+        user,
+        customerId: customerIdResponse,
+        paymentMethod: 'Stripe',
+        sub,
+        headers,
+        groupId,
+        subscriptionId,
+      });
+    });
   });
 
   describe('edit subscription', () => {

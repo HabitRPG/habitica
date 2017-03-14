@@ -252,6 +252,17 @@ api.subscribe = async function subscribe (options) {
     if (!result) throw new NotAuthorized(i18n.t('invalidCoupon'));
   }
 
+  let amount = sub.price;
+  let leaderCount = 1;
+  let priceOfSingleMember = 3;
+
+  if (groupId) {
+    let groupFields = basicGroupFields.concat(' purchased');
+    let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+
+    amount = sub.price + (group.memberCount - leaderCount) * priceOfSingleMember;
+  }
+
   await this.setBillingAgreementDetails({
     AmazonBillingAgreementId: billingAgreementId,
     BillingAgreementAttributes: {
@@ -273,7 +284,7 @@ api.subscribe = async function subscribe (options) {
     AuthorizationReferenceId: common.uuid().substring(0, 32),
     AuthorizationAmount: {
       CurrencyCode: this.constants.CURRENCY_CODE,
-      Amount: sub.price,
+      Amount: amount,
     },
     SellerAuthorizationNote: this.constants.SELLER_NOTE_ATHORIZATION_SUBSCRIPTION,
     TransactionTimeout: 0,
