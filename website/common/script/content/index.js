@@ -2957,6 +2957,38 @@ api.quests = {
       unlock: t('questGuineaPigUnlockText'),
     },
   },
+  peacock: {
+    text: t('questPeacockText'),
+    notes: t('questPeacockNotes'),
+    completion: t('questPeacockCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questPeacockBoss'),
+      hp: 300,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Peacock',
+          text: t('questPeacockDropPeacockEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Peacock',
+          text: t('questPeacockDropPeacockEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Peacock',
+          text: t('questPeacockDropPeacockEgg'),
+        },
+      ],
+      gp: 25,
+      exp: 125,
+      unlock: t('questPeacockUnlockText'),
+    },
+  },
 };
 
 each(api.quests, (v, key) => {
