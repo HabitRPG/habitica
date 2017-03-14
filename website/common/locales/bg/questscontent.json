@@ -441,5 +441,11 @@
     "questGuineaPigCompletion": "„Предаваме се!“ — главатарят на бандата на морските свинчета маха с лапа към вас, навеждайки засрамено глава. От шапката му изпада списък, който @snazzyorange на момента прибира като доказателство. „Чакайте малко“ — казваш ти. „Нищо чудно, че постоянно сте губили здраве! Имате твърде много ежедневни задачи. Не ви трябват лечебни отвари — трябва ви помощ с организацията.“<br><br>„Така ли?“ — изписква главатарят на бандата — „Ограбихме толкова много хора заради нещо толкова просто! Моля те, вземи тези яйца като извинение за злините ни.“",
     "questGuineaPigBoss": "Бандата на морските свинчета",
     "questGuineaPigDropGuineaPigEgg": "Морско свинче (яйце)",
-    "questGuineaPigUnlockText": "Отключва възможността за купуване на яйца на морско свинче от пазара."
+    "questGuineaPigUnlockText": "Отключва възможността за купуване на яйца на морско свинче от пазара.",
+    "questPeacockText": "The Push-and-Pull Peacock",
+    "questPeacockNotes": "You trek through the Taskwoods, wondering which of the enticing new goals you should pick. As you go deeper into the forest, you realize that you're not alone in your indecision. \"I could learn a new language, or go to the gym...\" @Cecily Perez mutters. \"I could sleep more,\" muses @Lilith of Alfheim, \"or spend time with my friends...\" It looks like @PainterProphet, @Pfeffernusse, and @Draayder are equally paralyzed by the overwhelming options.<br><br>You realize that these ever-more-demanding feelings aren't really your own... you've stumbled straight into the trap of the pernicious Push-and-Pull Peacock! Before you can run, it leaps from the bushes. With each head pulling you in conflicting directions, you start to feel burnout overcoming you. You can't defeat both foes at once, so you only have one option -- concentrate on the nearest task to fight back!",
+    "questPeacockCompletion": "The Push-and-Pull Peacock is caught off guard by your sudden conviction. Defeated by your single-minded drive, its heads merge back into one, revealing the most beautiful creature you've ever seen. \"Thank you,\" the peacock says. \"I’ve spent so long pulling myself in different directions that I lost sight of what I truly wanted. Please accept these eggs as a token of my gratitude.\"",
+    "questPeacockBoss": "Push-and-Pull Peacock",
+    "questPeacockDropPeacockEgg": "Peacock (Egg)",
+    "questPeacockUnlockText": "Unlocks purchasable Peacock eggs in the Market"
 }

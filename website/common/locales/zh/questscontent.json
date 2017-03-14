@@ -441,5 +441,11 @@
     "questGuineaPigCompletion": "\"我们认输啦!\"豚鼠头目向你挥舞着爪子，毛茸茸的脑袋羞愧低垂。从豚鼠头目的帽子掉落了一份清单，@snazzyorange迅速扒走做为证据。\"等一下，\"你说。\"难怪你已经受伤了!你的每日任务太多了。你不需要治疗药水──你只需要帮忙组织整理。\"<br><br>\"真的吗?\"豚鼠头目吱吱道。\"我们就为了这个抢了那麽多人! 作为我们不当行径的道歉，请拿些我们的蛋吧。\"",
     "questGuineaPigBoss": "豚鼠团伙",
     "questGuineaPigDropGuineaPigEgg": "豚鼠(宠物蛋)",
-    "questGuineaPigUnlockText": "解锁豚鼠蛋购买功能。"
+    "questGuineaPigUnlockText": "解锁豚鼠蛋购买功能。",
+    "questPeacockText": "The Push-and-Pull Peacock",
+    "questPeacockNotes": "You trek through the Taskwoods, wondering which of the enticing new goals you should pick. As you go deeper into the forest, you realize that you're not alone in your indecision. \"I could learn a new language, or go to the gym...\" @Cecily Perez mutters. \"I could sleep more,\" muses @Lilith of Alfheim, \"or spend time with my friends...\" It looks like @PainterProphet, @Pfeffernusse, and @Draayder are equally paralyzed by the overwhelming options.<br><br>You realize that these ever-more-demanding feelings aren't really your own... you've stumbled straight into the trap of the pernicious Push-and-Pull Peacock! Before you can run, it leaps from the bushes. With each head pulling you in conflicting directions, you start to feel burnout overcoming you. You can't defeat both foes at once, so you only have one option -- concentrate on the nearest task to fight back!",
+    "questPeacockCompletion": "The Push-and-Pull Peacock is caught off guard by your sudden conviction. Defeated by your single-minded drive, its heads merge back into one, revealing the most beautiful creature you've ever seen. \"Thank you,\" the peacock says. \"I’ve spent so long pulling myself in different directions that I lost sight of what I truly wanted. Please accept these eggs as a token of my gratitude.\"",
+    "questPeacockBoss": "Push-and-Pull Peacock",
+    "questPeacockDropPeacockEgg": "Peacock (Egg)",
+    "questPeacockUnlockText": "Unlocks purchasable Peacock eggs in the Market"
 }

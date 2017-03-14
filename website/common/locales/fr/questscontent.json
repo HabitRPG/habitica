@@ -441,5 +441,11 @@
     "questGuineaPigCompletion": "\"On se rend !\". Le Boss du Gang des Cochons d'Inde lève les pattes en l'air, la tête basse et duveteuse. De sous son chapeau tombe un papier, une liste, que @snazzyorange ramasse aussitôt. Vous l'inspectez et dites \"Attendez une minute... Pas étonnant que vous perdiez de la santé ! Vous vous imposez beaucoup trop de Quotidiennes. Ce ne sont pas des potions de santé dont vous avez besoin... mais d'une meilleure organisation\".<br><br>\"Vraiment ?\" couine le Boss du Gang des Cochons d'Inde. \"Cela nous a poussé à voler tellement de gens ! Veuillez accepter nos œufs, comme geste d'excuse pour nos méthodes véreuses\".",
     "questGuineaPigBoss": "Gang des Cochons d'Inde",
     "questGuineaPigDropGuineaPigEgg": "Cochon d'Inde (Œuf)",
-    "questGuineaPigUnlockText": "Déverrouille l'achat d’œufs de cochon d'Inde au marché"
+    "questGuineaPigUnlockText": "Déverrouille l'achat d’œufs de cochon d'Inde au marché",
+    "questPeacockText": "The Push-and-Pull Peacock",
+    "questPeacockNotes": "You trek through the Taskwoods, wondering which of the enticing new goals you should pick. As you go deeper into the forest, you realize that you're not alone in your indecision. \"I could learn a new language, or go to the gym...\" @Cecily Perez mutters. \"I could sleep more,\" muses @Lilith of Alfheim, \"or spend time with my friends...\" It looks like @PainterProphet, @Pfeffernusse, and @Draayder are equally paralyzed by the overwhelming options.<br><br>You realize that these ever-more-demanding feelings aren't really your own... you've stumbled straight into the trap of the pernicious Push-and-Pull Peacock! Before you can run, it leaps from the bushes. With each head pulling you in conflicting directions, you start to feel burnout overcoming you. You can't defeat both foes at once, so you only have one option -- concentrate on the nearest task to fight back!",
+    "questPeacockCompletion": "The Push-and-Pull Peacock is caught off guard by your sudden conviction. Defeated by your single-minded drive, its heads merge back into one, revealing the most beautiful creature you've ever seen. \"Thank you,\" the peacock says. \"I’ve spent so long pulling myself in different directions that I lost sight of what I truly wanted. Please accept these eggs as a token of my gratitude.\"",
+    "questPeacockBoss": "Push-and-Pull Peacock",
+    "questPeacockDropPeacockEgg": "Peacock (Egg)",
+    "questPeacockUnlockText": "Unlocks purchasable Peacock eggs in the Market"
 }

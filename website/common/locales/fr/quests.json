@@ -110,6 +110,6 @@
     "createAccountReward": "Créer un compte",
     "loginIncentiveQuest": "Pour remporter cette quête, connectez-vous sur Habitica <%= count %> jours différents.",
     "loginIncentiveQuestObtained": "Vous avez gagné cette quête pour avoir fait une connexion sur Habitica <%= count %> jours différents !",
-    "loginReward": "<%= count %> connexions",
+    "loginReward": "<%= count %> connexion(s)",
     "createAccountQuest": "Vous avez reçu cette quête en rejoignant Habitica. Si des amis vous rejoignent, ils l'auront aussi."
 }

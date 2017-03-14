@@ -4,7 +4,7 @@
   "nextRewardUnlocksIn": "Check-ins until your next prize: <%= numberOfCheckinsLeft %>",
   "awesome": "Fantastico!",
   "totalCount": "<%= count %> conteggio totale",
-  "countLeft": "Check-ins until next reward: <%= count %>",
+  "countLeft": "Altri <%= count %> accessi per il prossimo premio",
   "incentivesDescription": "Quando si tratta di creare buone abitudini, la costanza è fondamentale. Ogni giorno che accedi ad Habitica ti avvicini ad un premio.",
   "totalCheckins": "<%= count %> accessi",
   "checkinEarned": "Il tuo contatore accessi è aumentato!",

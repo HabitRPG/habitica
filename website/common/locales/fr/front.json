@@ -181,7 +181,7 @@
     "localStorageTryFirst": "Si vous rencontrez des problèmes avec Habitica, cliquez sur le bouton ci-dessous pour effacer les données locales et les cookies de ce site (les autres sites ne seront pas affectés). Vous devrez vous reconnecter après avoir fait cela, il faudra donc que vous vous souvenez de votre identifiant et votre mot de passe, que vous pourrez retrouver dans : Paramètres => <%= linkStart %>Site<%= linkEnd %>.",
     "localStorageTryNext": "Si le problème persiste, alors <%= linkStart %>signalez un bug<%= linkEnd %> si vous ne l'avez déjà pas fait.",
     "localStorageClearing": "Effacement des données",
-    "localStorageClearingExplanation": "Les donnés d'habitica seront effacées de votre navigateur. Vous allez perdre la connexion et revenir sur la page d’accueil. Veuillez patienter.",
+    "localStorageClearingExplanation": "Les données d'habitica seront effacées de votre navigateur. Vous allez perdre la connexion et revenir sur la page d’accueil. Veuillez patienter.",
     "localStorageClear": "Effacer les donnés",
     "localStorageClearExplanation": "Ce bouton va effacer les données locales et les cookies, puis vous déconnectera.",
     "tutorials": "Tutoriels",

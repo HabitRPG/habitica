@@ -236,6 +236,9 @@
     "groupBenefitFourDescription": "Нужно проверить, что задача выполнена, перед тем как пользователи получат свою награду? Просто измените настройки подтверждения для дополнительного контроля.",
     "groupBenefitFiveTitle": "Общайтесь в отдельном чате со своей группой",
     "groupBenefitFiveDescription": "Будьте в курсе важных решений в нашем простом и понятном чате!",
+    "groupBenefitSixTitle": "Get a free subscription",
+    "groupBenefitSixDescription": "Get full subscription benefits, including exclusive monthly items and the ability to buy gems with gold! (If you're already a subscriber, your old subscription will be cancelled but your consecutive subscription benefits such as monthly hourglasses will remain.)",
+    "groupBenefitSevenTitle": "Get a brand-new exclusive Jackalope Mount",
     "createAGroup": "Создать группу",
     "assignFieldPlaceholder": "Укажите имя участника группы",
     "cannotDeleteActiveGroup": "Вы не можете удалить группу с активной подпиской",
@@ -259,5 +262,7 @@
     "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a group plan. Any months of extra subscription credit you have will be applied at the end of the group plan.",
     "cancelGroupSub": "Cancel Group Plan",
     "confirmCancelGroupPlan": "Are you sure you want to cancel the group plan and remove its benefits from all members, including their free subscriptions?",
+    "canceledGroupPlan": "Canceled Group Plan",
+    "groupPlanCanceled": "Group Plan will become inactive on",
     "purchasedGroupPlanPlanExtraMonths": "You have <%= months %> months of extra group plan credit."
 }

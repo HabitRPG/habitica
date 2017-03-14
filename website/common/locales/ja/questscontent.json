@@ -441,5 +441,11 @@
     "questGuineaPigCompletion": "「降参だぁ!!」モルモットギャング団のボスは前足を上げました。ふわふわの頭が恥ずかしげにうなだれています。彼の帽子の下からリストが落ち、@snazzyorangeは証拠のためにそれをひったくりました。「ちょっとまって」あなたは言います。「これじゃあ、ダメージを受けても仕方ないよ！　日課が多すぎるんだ。薬を使う必要なんてない――ただ整理する手助けがいるね」<br><br>「本当かい？」ボスはキィキィ声を上げました。「このためにモルたちは大勢の人からお金を奪ってきた！　間違ったやり方のおわびとして、モルたちのたまごを受けとってくれないだろうか」",
     "questGuineaPigBoss": "モルモットギャング団",
     "questGuineaPigDropGuineaPigEgg": "モルモット (たまご)",
-    "questGuineaPigUnlockText": "市場でのモルモットのたまご購入をアンロック"
+    "questGuineaPigUnlockText": "市場でのモルモットのたまご購入をアンロック",
+    "questPeacockText": "The Push-and-Pull Peacock",
+    "questPeacockNotes": "You trek through the Taskwoods, wondering which of the enticing new goals you should pick. As you go deeper into the forest, you realize that you're not alone in your indecision. \"I could learn a new language, or go to the gym...\" @Cecily Perez mutters. \"I could sleep more,\" muses @Lilith of Alfheim, \"or spend time with my friends...\" It looks like @PainterProphet, @Pfeffernusse, and @Draayder are equally paralyzed by the overwhelming options.<br><br>You realize that these ever-more-demanding feelings aren't really your own... you've stumbled straight into the trap of the pernicious Push-and-Pull Peacock! Before you can run, it leaps from the bushes. With each head pulling you in conflicting directions, you start to feel burnout overcoming you. You can't defeat both foes at once, so you only have one option -- concentrate on the nearest task to fight back!",
+    "questPeacockCompletion": "The Push-and-Pull Peacock is caught off guard by your sudden conviction. Defeated by your single-minded drive, its heads merge back into one, revealing the most beautiful creature you've ever seen. \"Thank you,\" the peacock says. \"I’ve spent so long pulling myself in different directions that I lost sight of what I truly wanted. Please accept these eggs as a token of my gratitude.\"",
+    "questPeacockBoss": "Push-and-Pull Peacock",
+    "questPeacockDropPeacockEgg": "Peacock (Egg)",
+    "questPeacockUnlockText": "Unlocks purchasable Peacock eggs in the Market"
 }
