@@ -257,7 +257,9 @@ api.subscribe = async function subscribe (options) {
   let priceOfSingleMember = 3;
 
   if (groupId) {
-    let group = await Group.findById(groupId).exec();
+    let groupFields = basicGroupFields.concat(' purchased');
+    let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+
     amount = sub.price + (group.memberCount - leaderCount) * priceOfSingleMember;
   }
 
