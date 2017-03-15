@@ -164,17 +164,21 @@ habitrpg.controller('SettingsCtrl',
     $scope.restore = function(){
       var stats = $scope.restoreValues.stats,
         achievements = $scope.restoreValues.achievements;
-      if (_validateValues(stats.lvl)) {
-        User.set({
-          'stats.hp': stats.hp,
-          'stats.exp': stats.exp,
-          'stats.gp': stats.gp,
-          'stats.lvl': stats.lvl,
-          'stats.mp': stats.mp,
-          'achievements.streak': achievements.streak
-        });
-        $modalStack.dismissAll();
+
+      if (stats.lvl < 1) {
+        Notification.error(env.t('invalidLevel'), true);
+        return;
       }
+
+      User.set({
+        'stats.hp': stats.hp,
+        'stats.exp': stats.exp,
+        'stats.gp': stats.gp,
+        'stats.lvl': stats.lvl,
+        'stats.mp': stats.mp,
+        'achievements.streak': achievements.streak
+      });
+      $modalStack.dismissAll();
     }
 
     $scope.reset = function(){
@@ -348,14 +352,6 @@ habitrpg.controller('SettingsCtrl',
       }
 
       return +nextCron.format('x');
-    }
-
-    function _validateValues(level) {
-      if (level < 1) {
-        Notification.error(env.t('invalidLevel'), true);
-        return false;
-      }
-      return true;
     }
   }
 ]);
