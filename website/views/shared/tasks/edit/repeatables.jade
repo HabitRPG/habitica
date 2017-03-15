@@ -8,15 +8,15 @@ fieldset.option-group.advanced-option(ng-show="task.type === 'daily'")
     
     br
 
-    //- select.form-control(ng-model='task._edit.frequency', ng-disabled='!canEdit(task)')
-    //-   option(value='daily')=env.t('daily')
-    //-   option(value='weekly')=env.t('weekly')
-    //-   option(value='monthly')=env.t('monthly')
-    //-   option(value='yearly')=env.t('yearly')
-
     select.form-control(ng-model='task._edit.frequency', ng-disabled='!canEdit(task)')
-      option(value='weekly')=env.t('repeatWeek')
-      option(value='daily')=env.t('repeatDays')
+      option(value='daily')=env.t('daily')
+      option(value='weekly')=env.t('weekly')
+      option(value='monthly')=env.t('monthly')
+      option(value='yearly')=env.t('yearly')
+
+    //- select.form-control(ng-model='task._edit.frequency', ng-disabled='!canEdit(task)')
+    //-   option(value='weekly')=env.t('repeatWeek')
+    //-   option(value='daily')=env.t('repeatDays')
 
     include ./dailies/repeat_options
 
@@ -29,6 +29,6 @@ fieldset.option-group.advanced-option(ng-show="task.type === 'daily'")
         input(type="radio", ng-model='task._edit.repeatsOn', value='dayOfWeek')
         =env.t('dayOfWeek')
 
-    //- .form-group
-    //-   legend.option-title=env.t('summary')
-    //-   div {{summary}}
+    .form-group
+      legend.option-title=env.t('summary')
+      div {{summary}}
