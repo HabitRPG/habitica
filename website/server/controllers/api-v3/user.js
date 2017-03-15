@@ -56,8 +56,7 @@ let api = {};
  *   "data": {
  *   --  User data included here, for details of the user model see:
  *   --  https://github.com/HabitRPG/habitica/tree/develop/website/server/models/user
- *   },
- *   "notifications": []
+ *   }
  * }
  *
 */
@@ -257,8 +256,7 @@ api.updateUser = {
  * @apiSuccessExample {json} Result:
  *  {
  *   "success": true,
- *   "data": {},
- *   "notifications": []
+ *   "data": {}
  * }
  *
  * @apiError {BadRequest} MissingPassword The password was not included in the request
@@ -616,8 +614,7 @@ api.castSpell = {
  * @apiSuccessExample {json} Return-example
  * {
  *   "success": true,
- *   "data": false,
- *   "notifications": []
+ *   "data": false
  * }
  */
 api.sleep = {
@@ -704,8 +701,7 @@ api.allocate = {
  *       "str": 0,
  *       "con": 0
  *     }
- *   },
- *   "notifications": []
+ *   }
  * }
  *
  * @apiSuccess {Object} data user.stats
@@ -739,8 +735,7 @@ api.allocateNow = {
  *   "data": {
  *     ---TRUNCATED USER RECORD---
  *   },
- *   "message": "Bought Short Sword",
- *   "notifications": []
+ *   "message": "Bought Short Sword"
  * }
  *
  *  @apiError (400) {NotAuthorized} messageAlreadyOwnGear Already own equipment
