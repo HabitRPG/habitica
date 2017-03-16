@@ -442,10 +442,10 @@
     "questGuineaPigBoss": "豚鼠团伙",
     "questGuineaPigDropGuineaPigEgg": "豚鼠(宠物蛋)",
     "questGuineaPigUnlockText": "解锁豚鼠蛋购买功能。",
-    "questPeacockText": "The Push-and-Pull Peacock",
-    "questPeacockNotes": "You trek through the Taskwoods, wondering which of the enticing new goals you should pick. As you go deeper into the forest, you realize that you're not alone in your indecision. \"I could learn a new language, or go to the gym...\" @Cecily Perez mutters. \"I could sleep more,\" muses @Lilith of Alfheim, \"or spend time with my friends...\" It looks like @PainterProphet, @Pfeffernusse, and @Draayder are equally paralyzed by the overwhelming options.<br><br>You realize that these ever-more-demanding feelings aren't really your own... you've stumbled straight into the trap of the pernicious Push-and-Pull Peacock! Before you can run, it leaps from the bushes. With each head pulling you in conflicting directions, you start to feel burnout overcoming you. You can't defeat both foes at once, so you only have one option -- concentrate on the nearest task to fight back!",
-    "questPeacockCompletion": "The Push-and-Pull Peacock is caught off guard by your sudden conviction. Defeated by your single-minded drive, its heads merge back into one, revealing the most beautiful creature you've ever seen. \"Thank you,\" the peacock says. \"I’ve spent so long pulling myself in different directions that I lost sight of what I truly wanted. Please accept these eggs as a token of my gratitude.\"",
-    "questPeacockBoss": "Push-and-Pull Peacock",
-    "questPeacockDropPeacockEgg": "Peacock (Egg)",
-    "questPeacockUnlockText": "Unlocks purchasable Peacock eggs in the Market"
+    "questPeacockText": "拖拉孔雀",
+    "questPeacockNotes": "你正跋涉在任务森林中，思考着该选择哪一个诱人的任务。在深入森林腹地后你意识到你并不是唯一一个在踌躇的人。“我可以去学一门新语言，或者去健身房。”，@Cecily Perez咕哝着。“我想多一些睡眠时间，但和朋友聚一聚也不错”，@Lilith of Alfheim陷入了沉思。@PainterProphet, @Pfeffernusse, 和@Draayder也处于选择困难的境地之中。<br><br>你意识到这种越来越吃力的感觉并不是来自自己内心，让你失足蹒跚的是拖拉孔雀的致命陷阱。你正要逃跑，它就从灌木丛里鱼跃而出，两颗头一起咬住你，要将你从中撕开。你开始感觉力不从心，无法同时招架两颗头的攻势。你只有一个选择，集中精力在最近的一个任务上，然后开始反击！",
+    "questPeacockCompletion": "拖拉孔雀被你坚定的信念打了个措手不及，被你对当前任务的一心一意所击败。它的两颗头融合在一起，这是你见过的最美丽的生物。“谢谢你”，孔雀说，“我一直把自己拖拽向不同的方向，以至于不再知道自己真正想要的是什么。请接受这些蛋作为谢礼吧。”",
+    "questPeacockBoss": "拖拉孔雀",
+    "questPeacockDropPeacockEgg": "孔雀(宠物蛋)",
+    "questPeacockUnlockText": "解锁孔雀蛋购买功能"
 }

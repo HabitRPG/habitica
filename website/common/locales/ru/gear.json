@@ -979,7 +979,7 @@
     "shieldArmoireRamHornShieldText": "Рогатый щит",
     "shieldArmoireRamHornShieldNotes": "Вдарь рогами этого щита по своим делам! Увеличивает телосложение и силу на <%= attrs %>. Зачарованный сундук: Набор рогатого варвара (предмет 3 из 3).",
     "shieldArmoireRedRoseText": "Красная роза",
-    "shieldArmoireRedRoseNotes": "This deep red rose smells enchanting. It will also sharpen your understanding. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
+    "shieldArmoireRedRoseNotes": "Эта темно-красная роза пахнет очаровательно. Она также увеличит вашу сообразительность. Увеличивает Восприятие на  <%= per %>. Зачарованный Сундук: Независимый предмет.",
     "shieldArmoireMushroomDruidShieldText": "Грибной Щит Друида",
     "shieldArmoireMushroomDruidShieldNotes": "Though made from a mushroom, there's nothing mushy about this tough shield! Increases Constitution by <%= con %> and Strength by <%= str %>. Enchanted Armoire: Mushroom Druid Set (Item 3 of 3).",
     "back": "Аксессуар на спину",

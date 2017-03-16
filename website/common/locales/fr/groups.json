@@ -236,9 +236,9 @@
     "groupBenefitFourDescription": "Vous souhaitez vérifier qu'une tâche a vraiment été remplie avant que les membres ne reçoivent leurs récompenses ? Ajustez simplement les paramètres de validation, pour plus de contrôle.",
     "groupBenefitFiveTitle": "Discutez en privé avec votre groupe",
     "groupBenefitFiveDescription": "Participez aux décisions importantes dans notre salle de discussion simple d'utilisation !",
-    "groupBenefitSixTitle": "Get a free subscription",
+    "groupBenefitSixTitle": "Obtenez un abonnement gratuit",
     "groupBenefitSixDescription": "Get full subscription benefits, including exclusive monthly items and the ability to buy gems with gold! (If you're already a subscriber, your old subscription will be cancelled but your consecutive subscription benefits such as monthly hourglasses will remain.)",
-    "groupBenefitSevenTitle": "Get a brand-new exclusive Jackalope Mount",
+    "groupBenefitSevenTitle": "Obtenez en exclusivité une toute nouvelle monture : le Léporilope",
     "createAGroup": "Créer un groupe",
     "assignFieldPlaceholder": "Renseignez le nom de profil d'un membre du groupe",
     "cannotDeleteActiveGroup": "Vous ne pouvez pas supprimer un groupe avec un abonnement actif",
@@ -263,6 +263,6 @@
     "cancelGroupSub": "Résilier l'Offre de groupe",
     "confirmCancelGroupPlan": "Êtes vous sûr de vouloir résilier l'Offre de groupe et en retirer les avantages à tous ses membres, y compris leurs abonnements gratuits ?",
     "canceledGroupPlan": "Canceled Group Plan",
-    "groupPlanCanceled": "Group Plan will become inactive on",
+    "groupPlanCanceled": "L'Offre de groupe sera inactive à partir du",
     "purchasedGroupPlanPlanExtraMonths": "Vous disposez d'un crédit de <%= months %> mois d'inscription supplémentaire."
 }

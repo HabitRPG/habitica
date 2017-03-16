@@ -236,9 +236,9 @@
     "groupBenefitFourDescription": "Muss die Erledigung einer Aufgabe erst überprüft werden, bevor der Nutzer seine Belohnung dafür erhält? Passe einfach nur die Zustimmungs-Einstellungen an, um zusätzliche Kontrolle zu erhalten.",
     "groupBenefitFiveTitle": "Kommuniziere privat mit deiner Gruppe",
     "groupBenefitFiveDescription": "Bleib auf dem Laufenden über wichtige Entscheidungen in dem einfach zu benutzenden Chatraum!",
-    "groupBenefitSixTitle": "Get a free subscription",
+    "groupBenefitSixTitle": "Erhalte ein kostenloses Abonnement",
     "groupBenefitSixDescription": "Get full subscription benefits, including exclusive monthly items and the ability to buy gems with gold! (If you're already a subscriber, your old subscription will be cancelled but your consecutive subscription benefits such as monthly hourglasses will remain.)",
-    "groupBenefitSevenTitle": "Get a brand-new exclusive Jackalope Mount",
+    "groupBenefitSevenTitle": "Erhalte ein brandneues, exklusives Wolpertinger-Reittier",
     "createAGroup": "Erstelle eine Gruppe",
     "assignFieldPlaceholder": "Gib den Profilnamen eines Gruppenmitglieds ein",
     "cannotDeleteActiveGroup": "Du kannst keine Gruppe mit einem laufenden Abonnement löschen",
@@ -262,7 +262,7 @@
     "youHaveGroupPlan": "Du hast ein kostenloses Abonnenement, weil Du einer Gruppe angehörst, die einen Gruppenplan hat. Dies endet, wenn Du nicht mehr in der Gruppe mit dem Gruppenplan bist. Deine zusätzlichen Abonnementsguthaben-Monate werden am Ende des Gruppenplans angehängt.",
     "cancelGroupSub": "Gruppenplan abbrechen",
     "confirmCancelGroupPlan": "Bist Du Dir sicher, dass du den Gruppenplan abbrechen möchtest und damit alle Gruppenmitglieder dessen Vorteile verlieren, unter anderem auch deren freies Abonnement?",
-    "canceledGroupPlan": "Canceled Group Plan",
-    "groupPlanCanceled": "Group Plan will become inactive on",
+    "canceledGroupPlan": "Abgebrochener Gruppenplan",
+    "groupPlanCanceled": "Der Gruppenplan wird inaktiv werden zum",
     "purchasedGroupPlanPlanExtraMonths": "Du hast <%=months %> Monate zusätzliches Gruppenplan-Guthaben"
 }
