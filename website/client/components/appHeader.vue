@@ -1,6 +1,6 @@
 <template lang="pug">
 #app-header.row
-  avatar#header-avatar(:user="$store.state.user")
+  avatar#header-avatar(:user="user")
   div
     span.character-name {{user.profile.name}}
     span.character-level Lvl {{user.stats.lvl}}
@@ -108,7 +108,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['user']),
+    ...mapState({user: 'user.data'}),
     maxMP () {
       return statsComputed(this.user).maxMP;
     },

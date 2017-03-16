@@ -10,10 +10,11 @@ export function asyncResourceFactory () {
   };
 }
 
-export function loadAsyncResource ({store, path, url, forceLoad = false}) {
+export function loadAsyncResource ({store, path, url, deserialize, forceLoad = false}) {
   if (!store) throw new Error('"store" is required and must be the application store.');
   if (!path) throw new Error('The path to the resource in the application state is required.');
   if (!url) throw new Error('The resource\'s url on the server is required.');
+  if (!deserialize) throw new Error('A response deserialization function named must be passed as "deserialize".');
 
   const resource = get(store.state, path);
   if (!resource) throw new Error(`No resouce found at path "${path}".`);
@@ -32,8 +33,12 @@ export function loadAsyncResource ({store, path, url, forceLoad = false}) {
         }
       });
     });
-  } else if (loadingStatus === 'LOADED' || loadingStatus === 'LOADED' && forceLoad) {
-    return axios.get(url); // TODO support more params
+  } else if (loadingStatus === 'NOT_LOADED' || loadingStatus === 'LOADED' && forceLoad) {
+    return axios.get(url).then(response => { // TODO support more params
+      resource.loadingStatus = 'LOADED';
+      resource.data = deserialize(response);
+      return resource;
+    });
   } else {
     return Promise.reject(new Error(`Invalid loading status "${loadingStatus} for resource at "${path}".`));
   }

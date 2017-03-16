@@ -45,7 +45,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['user']),
+    ...mapState({user: 'user.data'}),
     isMember () {
       return this.isMemberOfGroup(this.user, this.guild);
     },

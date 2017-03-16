@@ -1,6 +1,12 @@
-import axios from 'axios';
+import { loadAsyncResource } from 'client/libs/asyncResource';
 
-export async function fetchUserTasks (store) {
-  let response = await axios.get('/api/v3/tasks/user');
-  store.state.tasks = response.data.data;
+export function fetchUserTasks (store) {
+  return loadAsyncResource({
+    store,
+    path: 'tasks',
+    url: '/api/v3/tasks/user',
+    deserialize (response) {
+      return response.data.data;
+    },
+  });
 }

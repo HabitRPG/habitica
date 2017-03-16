@@ -19,8 +19,10 @@ store implementation. mapMutations is not present because we do not use mutation
 
 Source code https://github.com/vuejs/vuex/blob/v2.0.0-rc.6/src/helpers.js
 
-The code has been slightly changed to match our code style.
+The code has been slightly changed to match our code style and to support nested paths.
 */
+
+import get from 'lodash/get';
 
 function normalizeMap (map) {
   return Array.isArray(map) ?
@@ -35,7 +37,7 @@ export function mapState (states) {
     res[key] = function mappedState () {
       return typeof val === 'function' ?
         val.call(this, this.$store.state, this.$store.getters) :
-        this.$store.state[val];
+        get(this.$store.state, val);
     };
   });
 

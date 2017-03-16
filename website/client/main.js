@@ -48,7 +48,7 @@ store.watch(state => state.title, (title) => {
 });
 
 // Mount the app when user and tasks are loaded
-let userDataWatcher = store.watch(state => [state.user, state.tasks], ([user, tasks]) => {
+let userDataWatcher = store.watch(state => [state.user.data, state.tasks.data], ([user, tasks]) => {
   if (user && user._id && Array.isArray(tasks)) {
     userDataWatcher(); // remove the watcher
     app.$mount('#app');
@@ -59,6 +59,7 @@ let userDataWatcher = store.watch(state => [state.user, state.tasks], ([user, ta
 Promise.all([
   store.dispatch('user:fetch'),
   store.dispatch('tasks:fetchUserTasks'),
-]).catch(() => {
+]).catch((err) => {
+  console.error(err); // eslint-disable-line no-console
   alert('Impossible to fetch user. Copy into localStorage a valid habit-mobile-settings object.');
 });

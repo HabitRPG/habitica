@@ -20,7 +20,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['tasks']),
+    ...mapState({tasks: 'tasks.data'}),
   },
 };
 </script>

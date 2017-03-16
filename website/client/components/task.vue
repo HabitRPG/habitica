@@ -21,12 +21,15 @@ li
 </template>
 
 <script>
+import { mapState } from 'client/store';
+
 export default {
   props: ['task'],
   computed: {
+    ...mapState({user: 'user.data'}),
     taskTags () {
       let taskTags = this.task.tags;
-      return this.$store.state.user.tags
+      return this.user.tags
         .filter(tag => taskTags.indexOf(tag.id) !== -1)
         .map(tag => tag.name);
     },

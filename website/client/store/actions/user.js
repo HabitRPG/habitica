@@ -1,6 +1,12 @@
-import axios from 'axios';
+import { loadAsyncResource } from 'client/libs/asyncResource';
 
-export async function fetch (store) { // eslint-disable-line no-shadow
-  let response = await axios.get('/api/v3/user');
-  store.state.user = response.data.data;
+export function fetch (store) { // eslint-disable-line no-shadow
+  return loadAsyncResource({
+    store,
+    path: 'user',
+    url: '/api/v3/user',
+    deserialize (response) {
+      return response.data.data;
+    },
+  });
 }

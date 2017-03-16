@@ -137,7 +137,7 @@ export default {
     ...mapGetters({
       userGems: 'user:gems',
     }),
-    ...mapState(['user']),
+    ...mapState({user: 'user.data'}),
   },
 };
 </script>
