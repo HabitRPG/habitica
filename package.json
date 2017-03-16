@@ -55,7 +55,7 @@
     "grunt-contrib-stylus": "~0.20.0",
     "grunt-contrib-uglify": "~0.6.0",
     "grunt-contrib-watch": "~0.6.1",
-    "grunt-hashres": "~0.4.1",
+    "grunt-hashres": "habitrpg/grunt-hashres#v0.4.2",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.2",
     "gulp-grunt": "^0.5.2",
