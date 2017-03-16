@@ -9,7 +9,7 @@ import { recoverCron, cron } from '../libs/cron';
 
 const daysSince = common.daysSince;
 // Wait this length of time in ms before attempting another cron
-const CRON_TIMEOUT = new Date(60 * 60 * 1000).getTime();
+const CRON_TIMEOUT_WAIT = new Date(60 * 60 * 1000).getTime();
 
 async function cronAsync (req, res) {
   let user = res.locals.user;
@@ -102,17 +102,17 @@ async function cronAsync (req, res) {
       return null;
     }
 
-    // set _cronSignature to current time in ms since epoch time so we can make sure to wait at least an hour before trying again even if there is a timezoned
+    // set _cronSignature to current time in ms since epoch time so we can make sure to wait at least CRONT_TIMEOUT_WAIT before attempting another cron
     let _cronSignature = now.getTime();
     // Calculate how long ago cron must have been attempted to try again
-    let timeoutThreshold = _cronSignature - CRON_TIMEOUT;
+    let cronRetryTime = _cronSignature - CRON_TIMEOUT_WAIT;
 
     // To avoid double cron we first set _cronSignature and then check that it's not changed while processing
     let userUpdateResult = await User.update({
       _id: user._id,
-      $or: [ // Make sure cron was successful or failed at least CRON_TIMEOUT ms ago
-        {_cronSignature: 'NOT_RUNNING'}, // Check that in the meantime another cron has not started
-        {_cronSignature: {$lt: timeoutThreshold}},
+      $or: [ // Make sure last cron was successful or failed before cronRetryTime
+        {_cronSignature: 'NOT_RUNNING'},
+        {_cronSignature: {$lt: cronRetryTime}},
       ],
     }, {
       $set: {
