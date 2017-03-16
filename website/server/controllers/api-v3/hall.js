@@ -68,12 +68,9 @@ let api = {};
  * @api {get} /api/v3/hall/patrons Get all patrons
  * @apiDescription Returns an array of objects containing the patrons who backed Habitica's
  * original kickstarter. The array is sorted by the backer tier in descending order.
- * By default, only the first 50 patrons are returned. More can be accessed passing ?page=n
+ * By default, only the first 50 patrons are returned. More can be accessed by passing ?page=n
  * @apiName GetPatrons
  * @apiGroup Hall
- *
- * @apiHeader {UUID} x-api-user User ID
- * @apiHeader {UUID} x-api-key API Token
  *
  * @apiParam {Number} [page] Query Parameter - The result page. Default is 0
  *
@@ -110,8 +107,7 @@ let api = {};
  *         "tokensApplied": true
  *       }
  *     }
- *   ],
- *   "notifications": []
+ *   ]
  * }
  *
  *
@@ -154,9 +150,6 @@ api.getPatrons = {
  * @apiDescription Returns an array of objects containing the heroes who have
  * contributed for habitica. The array is sorted by the contribution level in descending order.
  *
- * @apiHeader {UUID} x-api-user User ID
- * @apiHeader {UUID} x-api-key API Token
- *
  * @apiSuccess {Array} heroes An array of heroes
  *
  * @apiSuccessExample {json} Example response:
@@ -175,8 +168,7 @@ api.getPatrons = {
  *      },
  *      "backer": {}
  *     }
- *   ],
- *   "notifications": []
+ *   ]
  * }
  *
  * @apiUse NoAuthHeaders
@@ -212,10 +204,7 @@ const heroAdminFields = 'contributor balance profile.name purchased items auth f
  * @apiGroup Hall
  * @apiPermission Admin
  *
- * @apiDescription Returns the profile of the given user as object
- *
- * @apiHeader {UUID} x-api-user User ID
- * @apiHeader {UUID} x-api-key API Token
+ * @apiDescription Returns the profile of the given user
  *
  * @apiSuccess {Object} data The user object
  *
@@ -262,7 +251,7 @@ const gemsPerTier = {1: 3, 2: 3, 3: 3, 4: 4, 5: 4, 6: 4, 7: 4, 8: 0, 9: 0};
  *
  * @apiDescription Update user's gem balance, contributions & contribution tier and admin status. Grant items, block / unblock user's account and revoke / unrevoke chat privileges.
  *
- * @apiExample Postman:
+ * @apiExample Example Body:
  * {
  *    "balance": 1000,
  *    "auth": {"blocked": false},
@@ -277,13 +266,6 @@ const gemsPerTier = {1: 3, 2: 3, 3: 3, 4: 4, 5: 4, 6: 4, 7: 4, 8: 0, 9: 0};
  *    "itemPath": "items.pets.BearCub-Skeleton",
  *    "itemVal": 1
  * }
- * @apiExample Curl:
- * {
- *  curl -X PUT -H "Content-Type: application/json" -H "x-api-user:cba6c400-dccc-xxxx-xxxx-xxxxxxxxxxxx" -H "x-api-key:e79f157f-389d-xxxx-xxxx-xxxxxxxxxxxx" -d '{"balance":1337, "auth": {"blocked": true}, "contributor": {"level": 6, "text": "Curler"}}' https://habitica.com/api/v3/hall/heroes/2b7cfdfa-3b81-xxxx-xxxx-xxxxxxxxxxxx
- * }
- *
- * @apiHeader {UUID} x-api-user User ID
- * @apiHeader {UUID} x-api-key API Token
  *
  * @apiSuccess {Object} data The updated user object
  *
