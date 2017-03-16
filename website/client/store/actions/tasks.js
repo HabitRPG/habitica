@@ -1,6 +1,6 @@
 import { loadAsyncResource } from 'client/libs/asyncResource';
 
-export function fetchUserTasks (store) {
+export function fetchUserTasks (store, forceReload = false) {
   return loadAsyncResource({
     store,
     path: 'tasks',
@@ -8,5 +8,6 @@ export function fetchUserTasks (store) {
     deserialize (response) {
       return response.data.data;
     },
+    forceReload,
   });
 }
