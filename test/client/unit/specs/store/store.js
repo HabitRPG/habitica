@@ -10,6 +10,9 @@ describe('Store', () => {
     injectedStore = storeInjector({ // eslint-disable-line babel/new-cap
       './state': {
         name: 'test',
+        nested: {
+          name: 'nested state test',
+        },
       },
       './getters': {
         computedName ({ state }) {
@@ -97,10 +100,12 @@ describe('Store', () => {
               return `${this.title} ${getters.computedName} ${state.name}`;
             },
           }),
+          ...mapState({nestedTest: 'nested.name'}),
         },
         created () {
           expect(this.name).to.equal('test');
           expect(this.nameComputed).to.equal('internal test computed! test');
+          expect(this.nestedTest).to.equal('nested state test');
           done();
         },
       });

@@ -1,6 +1,6 @@
 import { loadAsyncResource } from 'client/libs/asyncResource';
 
-export function fetch (store, forceReload = false) { // eslint-disable-line no-shadow
+export function fetch (store, forceLoad = false) { // eslint-disable-line no-shadow
   return loadAsyncResource({
     store,
     path: 'user',
@@ -8,6 +8,6 @@ export function fetch (store, forceReload = false) { // eslint-disable-line no-s
     deserialize (response) {
       return response.data.data;
     },
-    forceReload,
+    forceLoad,
   });
 }
