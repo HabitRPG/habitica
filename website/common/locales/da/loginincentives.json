@@ -1,10 +1,10 @@
 {
   "unlockedReward": "Du har modtaget <%= reward %>",
   "earnedRewardForDevotion": "Du har modtaget <%= reward %> for at være engageret i at forbedre dit liv.",
-  "nextRewardUnlocksIn": "Din næste præmie vil åbne om <%= numberOfCheckinsLeft %> check-ins!",
+  "nextRewardUnlocksIn": "Check-ins until your next prize: <%= numberOfCheckinsLeft %>",
   "awesome": "Fedt!",
   "totalCount": "<%= count %> total optælling",
-  "countLeft": "<%= count %> flere check-ins til næste belønning",
+  "countLeft": "Check-ins until next reward: <%= count %>",
   "incentivesDescription": "Når det kommer til at opbygge vaner er nøglen konsistens. Hver dag du tjekker in kommer du tættere på en præmie.",
   "totalCheckins": "<%= count %> Check-ins",
   "checkinEarned": "Din Check-in Tæller gik op!",

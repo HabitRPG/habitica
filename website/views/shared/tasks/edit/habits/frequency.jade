@@ -1,0 +1,8 @@
+fieldset.option-group.counter_period(ng-if='task.type === "habit" && canEdit(task) && task._edit._advanced')
+  .form-group
+    legend.option-title=env.t('counterPeriod')
+    select.form-control(ng-model='task._edit.frequency', ng-disabled='!canEdit(task)')
+      option(value='daily')=env.t('counterPeriodDay')
+      option(value='weekly')=env.t('counterPeriodWeek')
+      option(value='monthly')=env.t('counterPeriodMonth')
+      

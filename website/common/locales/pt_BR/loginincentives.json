@@ -4,7 +4,7 @@
   "nextRewardUnlocksIn": "Sua próxima recompensa será desbloqueada após <%= numberOfCheckinsLeft %> check-ins!",
   "awesome": "Incrível!",
   "totalCount": "<%= count %> contagem total",
-  "countLeft": "<%= count %> check-ins adicionais até a proxima recompensa",
+  "countLeft": "Sua próxima recompensa será desbloqueada após <%= numberOfCheckinsLeft %> check-ins!",
   "incentivesDescription": "Quando a questão é construir hábitos, consistência é a palavra chave. A cada dia com check-in você se aproxima de uma recompensa",
   "totalCheckins": "<%= count %> Check-Ins",
   "checkinEarned": "Seu contador de Check-In aumentou!",

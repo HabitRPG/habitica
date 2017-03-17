@@ -1,6 +1,7 @@
+import Bluebird from 'bluebird';
+import moment from 'moment';
 import { model as User } from '../../../../../website/server/models/user';
 import common from '../../../../../website/common';
-import Bluebird from 'bluebird';
 
 describe('User Model', () => {
   it('keeps user._tmp when calling .toJSON', () => {
@@ -143,6 +144,113 @@ describe('User Model', () => {
         expect(userToJSON.notifications[0].type).to.equal('CRON');
         expect(userToJSON.notifications[0].data).to.eql({field: 1});
       });
+    });
+  });
+
+  context('isSubscribed', () => {
+    let user;
+    beforeEach(() => {
+      user = new User();
+    });
+
+
+    it('returns false if user does not have customer id', () => {
+      expect(user.isSubscribed()).to.be.undefined;
+    });
+
+    it('returns true if user does not have plan.dateTerminated', () => {
+      user.purchased.plan.customerId = 'test-id';
+
+      expect(user.isSubscribed()).to.be.true;
+    });
+
+    it('returns true if user if plan.dateTerminated is after today', () => {
+      user.purchased.plan.customerId = 'test-id';
+      user.purchased.plan.dateTerminated = moment().add(1, 'days').toDate();
+
+      expect(user.isSubscribed()).to.be.true;
+    });
+
+    it('returns false if user if plan.dateTerminated is before today', () => {
+      user.purchased.plan.customerId = 'test-id';
+      user.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
+
+      expect(user.isSubscribed()).to.be.false;
+    });
+  });
+
+  context('hasNotCancelled', () => {
+    let user;
+    beforeEach(() => {
+      user = new User();
+    });
+
+
+    it('returns false if user does not have customer id', () => {
+      expect(user.hasNotCancelled()).to.be.undefined;
+    });
+
+    it('returns true if user does not have plan.dateTerminated', () => {
+      user.purchased.plan.customerId = 'test-id';
+
+      expect(user.hasNotCancelled()).to.be.true;
+    });
+
+    it('returns false if user if plan.dateTerminated is after today', () => {
+      user.purchased.plan.customerId = 'test-id';
+      user.purchased.plan.dateTerminated = moment().add(1, 'days').toDate();
+
+      expect(user.hasNotCancelled()).to.be.false;
+    });
+
+    it('returns false if user if plan.dateTerminated is before today', () => {
+      user.purchased.plan.customerId = 'test-id';
+      user.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
+
+      expect(user.hasNotCancelled()).to.be.false;
+    });
+  });
+
+  context('pre-save hook', () => {
+    it('does not try to award achievements when achievements or items not selected in query', async () => {
+      let user = new User();
+      user = await user.save(); // necessary for user.isSelected to work correctly
+
+      // Create conditions for the Beast Master achievement to be awarded
+      user.achievements.beastMasterCount = 3;
+      expect(user.achievements.beastMaster).to.not.equal(true); // verify that it was not awarded initially
+
+      user = await user.save();
+      // verify that it's been awarded
+      expect(user.achievements.beastMaster).to.equal(true);
+
+      // reset the user
+      user.achievements.beastMasterCount = 0;
+      user.achievements.beastMaster = false;
+
+      user = await user.save();
+      // verify it's been removed
+      expect(user.achievements.beastMaster).to.equal(false);
+
+      // fetch the user without selecting the 'items' field
+      user = await User.findById(user._id).select('-items').exec();
+      expect(user.isSelected('items')).to.equal(false);
+
+      // create the conditions for the beast master achievement but this time it should not be awarded
+      user.achievements.beastMasterCount = 3;
+      user = await user.save();
+      expect(user.achievements.beastMaster).to.equal(false);
+
+      // reset
+      user.achievements.beastMasterCount = 0;
+      user = await user.save();
+
+      // this time with achievements not selected
+      user = await User.findById(user._id).select('-achievements').exec();
+      expect(user.isSelected('achievements')).to.equal(false);
+      user.achievements.beastMasterCount = 3;
+      user = await user.save();
+      expect(user.achievements.beastMaster).to.not.equal(true);
     });
   });
 });

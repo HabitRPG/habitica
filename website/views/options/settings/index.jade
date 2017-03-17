@@ -1,0 +1,51 @@
+mixin subPerks()
+  ul
+    li
+      span.hint(popover=env.t('buyGemsGoldText', {gemCost: "{{Shared.planGemLimits.convRate}}", gemLimit: "{{Shared.planGemLimits.convCap}}"}),popover-trigger='mouseenter',popover-placement='right') #{env.t('buyGemsGold')}&nbsp;
+      span.badge.badge-success(ng-show='_subscription.key!="basic_earned"')=env.t('buyGemsGoldCap', {amount: '{{gemGoldCap(_subscription) | min }}'})
+    li
+      span.hint(popover=env.t('retainHistoryText'),popover-trigger='mouseenter',popover-placement='right')=env.t('retainHistory')
+    li
+      span.hint(popover=env.t('doubleDropsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('doubleDrops')
+    li
+      span.hint(popover=env.t('mysteryItemText'),popover-trigger='mouseenter',popover-placement='right') #{env.t('mysteryItem')}&nbsp;
+      div(ng-show='_subscription.key!="basic_earned"')
+        .badge.badge-success=env.t('mysticHourglass', {amount: '+{{numberOfMysticHourglasses(_subscription)}}'})
+        .small.muted=env.t('mysticHourglassText')
+    li
+      span.hint(popover=env.t('supportDevsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('supportDevs')
+
+script(id='partials/options.settings.html', type="text/ng-template")
+  ul.options-menu
+    li(ng-class="{ active: $state.includes('options.settings.settings') }")
+      a(ui-sref='options.settings.settings')
+        =env.t('site')
+    li(ng-class="{ active: $state.includes('options.settings.api') }")
+      a(ui-sref='options.settings.api')
+        =env.t('API')
+    li(ng-class="{ active: $state.includes('options.settings.export') }")
+      a(ui-sref='options.settings.export')
+        =env.t('dataExport')
+    li(ng-class="{ active: $state.includes('options.settings.promo') }")
+      a(ui-sref='options.settings.promo')
+        =env.t('promoCode')
+    li(ng-class="{ active: $state.includes('options.settings.subscription') }")
+      a(ui-sref='options.settings.subscription')=env.t('subscription')
+    li(ng-class="{ active: $state.includes('options.settings.notifications') }")
+      a(ui-sref='options.settings.notifications')=env.t('notifications')
+
+  .tab-content
+    .tab-pane.active
+      div(ui-view)
+
+include ./settings
+include ./promo
+include ./api
+include ./export
+include ./notification
+include ./subscription
+
+script(id='partials/feature-matrix-check.html',type='text/ng-template')
+  span.task-checker.action-yesno
+    input.focusable(type='checkbox', checked)
+    label

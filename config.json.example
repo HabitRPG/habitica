@@ -73,7 +73,7 @@
     "LOGGLY_ACCOUNT": "account",
     "PUSH_CONFIGS": {
         "GCM_SERVER_API_KEY": "",
-        "APN_ENABLED": "true",
+        "APN_ENABLED": "false",
         "FCM_SERVER_API_KEY": ""
     },
     "PUSHER": {
@@ -86,5 +86,6 @@
         "FLAGGING_URL": "https://hooks.slack.com/services/id/id/id",
         "FLAGGING_FOOTER_LINK": "https://habitrpg.github.io/flag-o-rama/",
         "SUBSCRIPTIONS_URL": "https://hooks.slack.com/services/id/id/id"
-    }
+    },
+    "ITUNES_SHARED_SECRET": "aaaabbbbccccddddeeeeffff00001111"
 }

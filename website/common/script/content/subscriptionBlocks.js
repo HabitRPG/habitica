@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import _ from 'lodash';
+import each from 'lodash/each';
 
 let subscriptionBlocks = {
   basic_earned: {
@@ -30,9 +30,15 @@ let subscriptionBlocks = {
     price: 9,
     quantity: 3, // Default quantity for Stripe - The same as having 3 user subscriptions
   },
+  group_plan_auto: {
+    type: 'group',
+    months: 0,
+    price: 0,
+    quantity: 1,
+  },
 };
 
-_.each(subscriptionBlocks, function createKeys (b, k) {
+each(subscriptionBlocks, function createKeys (b, k) {
   return b.key = k;
 });
 

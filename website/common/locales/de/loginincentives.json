@@ -1,10 +1,10 @@
 {
   "unlockedReward": "Du hast <%= reward %> erhalten",
   "earnedRewardForDevotion": "Du hast <%= reward %> erhalten, da Du Dich verpflichtet hast Dein Leben zu verbessern.",
-  "nextRewardUnlocksIn": "Dein nächster Preis wird nach <%= numberOfCheckinsLeft %> weiteren Anmeldungen freigeschaltet!",
+  "nextRewardUnlocksIn": "Noch <%= numberOfCheckinsLeft %> Anmeldungen bis zum nächsten Preis",
   "awesome": "Großartig!",
   "totalCount": "<%= count %> insgesamt",
-  "countLeft": "Noch <%= count %> Anmeldungen bis zur nächsten Belohnung",
+  "countLeft": "<%= count %> Anmeldungen bis zur nächsten Belohnung.",
   "incentivesDescription": "Wenn es darum geht sich etwas anzugewöhnen ist Konsistenz der Schlüssel. Jeder Tag den Du Dich anmeldest bringt Dich näher an eine Belohnung.",
   "totalCheckins": "<%= count %> Anmeldungen",
   "checkinEarned": "Dein Anmeldungszähler ist gestiegen!",

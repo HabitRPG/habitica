@@ -1,10 +1,10 @@
 {
   "unlockedReward": "You have received <%= reward %>",
   "earnedRewardForDevotion": "You have earned a <%= reward %> for being committed to improving your life.",
-  "nextRewardUnlocksIn": "Your next prize will unlock in <%= numberOfCheckinsLeft %> more check-ins!",
+  "nextRewardUnlocksIn": "Check-ins until your next prize: <%= numberOfCheckinsLeft %>",
   "awesome": "Fantasztikus!",
   "totalCount": "<%= count %> összesen",
-  "countLeft": "Még <%= count %> belépés a következő jutalomig",
+  "countLeft": "Check-ins until next reward: <%= count %>",
   "incentivesDescription": "Ha szokásokról kiépítéséről van szó, a következetesség a kulcsszó. Minden nap, amikor bejelentekezel, közelebb kerülsz a jutalomhoz.",
   "totalCheckins": "<%= count %> bejelentkezés",
   "checkinEarned": "A bejelentkezéseid száma növekedett!",

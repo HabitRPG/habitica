@@ -1,4 +1,4 @@
-habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', function ($scope, Shared, Tasks, User) {
+habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', '$rootScope', function ($scope, Shared, Tasks, User, $rootScope) {
     function handleGetGroupTasks (response) {
       var group = $scope.obj;
 
@@ -15,8 +15,9 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
       tasks.forEach(function (element, index, array) {
         if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
         $scope.group[element.type + 's'].unshift(element);
-      })
+      });
 
+      $rootScope.$broadcast('obj-updated', $scope.group);
       $scope.loading = false;
     };
 
@@ -73,6 +74,7 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
       if (group._id) Tasks.deleteTask(task._id);
       var index = group[task.type + 's'].indexOf(task);
       group[task.type + 's'].splice(index, 1);
+      $rootScope.$broadcast('obj-updated', $scope.group);
     };
 
     $scope.saveTask = function(task, stayOpen, isSaveAndClose) {
@@ -171,7 +173,7 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', func
         var content = task.notes;
 
         if ($scope.group) {
-          var memberIdToProfileNameMap = _.object(_.map($scope.group.members, function(item) {
+          var memberIdToProfileNameMap = _.fromPairs(_.map($scope.group.members, function(item) {
              return [item.id, item.profile.name]
           }));
 

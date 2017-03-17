@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import isString from 'lodash/isString';
+import clone from 'lodash/clone';
+import template from 'lodash/template';
 
 let i18n = {
   strings: null,
@@ -10,7 +12,7 @@ function t (stringName) {
   let vars = arguments[1];
   let locale;
 
-  if (_.isString(arguments[1])) {
+  if (isString(arguments[1])) {
     vars = null;
     locale = arguments[1];
   } else if (arguments[2]) {
@@ -31,15 +33,15 @@ function t (stringName) {
     string = i18n.translations[locale] && i18n.translations[locale][stringName];
   }
 
-  let clonedVars = _.clone(vars) || {};
+  let clonedVars = clone(vars) || {};
 
   clonedVars.locale = locale;
 
   if (string) {
     try {
-      return _.template(string)(clonedVars);
+      return template(string)(clonedVars);
     } catch (_error) {
-      return 'Error processing the string. Please see Help > Report a Bug.';
+      return `Error processing the string "${stringName}". Please see Help > Report a Bug.`;
     }
   } else {
     let stringNotFound;
@@ -51,11 +53,11 @@ function t (stringName) {
     }
 
     try {
-      return _.template(stringNotFound)({
+      return template(stringNotFound)({
         string: stringName,
       });
     } catch (_error) {
-      return 'Error processing the string. Please see Help > Report a Bug.';
+      return 'Error processing the string "stringNotFound". Please see Help > Report a Bug.';
     }
   }
 }

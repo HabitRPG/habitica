@@ -17,5 +17,9 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-var syncAllChallenges = require('./challenges/sync-all-challenges');
-syncAllChallenges();
+var processUsers = require('./groups/update-groups-with-group-plans');
+processUsers()
+  .catch(function (err) {
+      console.log(err)
+  })
+

@@ -10,6 +10,18 @@ import store from './store';
 import './filters/registerGlobals';
 import i18n from './plugins/i18n';
 
+const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
+
+// Configure Vue global options, see https://vuejs.org/v2/api/#Global-Config
+
+// Enable perf timeline measuring for Vue components in Chrome Dev Tools
+// Note: this has been disabled because it caused some perf issues
+// if rendering becomes too slow in dev mode, we should turn it off
+// See https://github.com/vuejs/vue/issues/5174
+Vue.config.performance = !IS_PRODUCTION;
+// Disable annoying reminder abour production build in dev mode
+Vue.config.productionTip = IS_PRODUCTION;
+
 Vue.use(i18n);
 
 // TODO just for the beginning
@@ -37,7 +49,7 @@ store.watch(state => state.title, (title) => {
 
 // Mount the app when user and tasks are loaded
 let userDataWatcher = store.watch(state => [state.user, state.tasks], ([user, tasks]) => {
-  if (user && user._id && tasks && tasks.length) {
+  if (user && user._id && Array.isArray(tasks)) {
     userDataWatcher(); // remove the watcher
     app.$mount('#app');
   }

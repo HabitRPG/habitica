@@ -23,6 +23,8 @@ import Bluebird from 'bluebird';
 import _ from 'lodash';
 import logger from '../../libs/logger';
 
+const MAX_SCORE_NOTES_LENGTH = 256;
+
 /**
  * @apiDefine TaskNotFound
  * @apiError (404) {NotFound} TaskNotFound The specified task could not be found.
@@ -68,7 +70,6 @@ let requiredGroupFields = '_id leader tasksOrder name';
  *
  * @apiParamExample {json} Request-Example:
  *     {
- *       "id": 4711
  *       "text":"Update Habitica API Documentation - Tasks",
  *       "type":"todo",
  *       "alias":"hab-api-tasks",
@@ -482,6 +483,7 @@ api.updateTask = {
  *
  * @apiParam {String} taskId The task _id or alias
  * @apiParam {String="up","down"} direction The direction for scoring the task
+ * @apiParam {String} scoreNotes Notes explaining the scoring
  *
  * @apiExample {json} Example call:
  * curl -X "POST" https://habitica.com/api/v3/tasks/test-api-params/score/up
@@ -509,10 +511,14 @@ api.scoreTask = {
     if (validationErrors) throw validationErrors;
 
     let user = res.locals.user;
+    let scoreNotes = req.body.scoreNotes;
+    if (scoreNotes && scoreNotes.length > MAX_SCORE_NOTES_LENGTH) throw new NotAuthorized(res.t('taskScoreNotesTooLong'));
     let {taskId} = req.params;
 
     let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, {userId: user._id});
     let direction = req.params.direction;
+
+    if (scoreNotes) task.scoreNotes = scoreNotes;
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
@@ -567,7 +573,7 @@ api.scoreTask = {
     let savedUser = results[0];
 
     let userStats = savedUser.stats.toJSON();
-    let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
+    let resJsonData = _.assign({delta, _tmp: user._tmp}, userStats);
     res.respond(200, resJsonData);
 
     taskScoredWebhook.send(user.webhooks, {

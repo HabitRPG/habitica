@@ -25,7 +25,7 @@ import payments from '../../libs/payments';
 import stripePayments from '../../libs/stripePayments';
 import amzLib from '../../libs/amazonPayments';
 import shared from '../../../common';
-
+import apiMessages from '../../libs/apiMessages';
 
 /**
  * @apiDefine GroupBodyInvalid
@@ -43,6 +43,16 @@ import shared from '../../../common';
  */
 
 /**
+ * @apiDefine groupIdRequired
+ * @apiError (400) {BadRequest} groupIdRequired A groupId is required
+ */
+
+/**
+ * @apiDefine messageGroupRequiresInvite
+ * @apiError (400) {NotAuthorized} messageGroupRequiresInvite Group requires an invitation to join (e.g. private group, party)
+ */
+
+/**
  * @apiDefine GroupLeader Group Leader
  * The group leader can use this route.
  */
@@ -54,7 +64,43 @@ let api = {};
  * @apiName CreateGroup
  * @apiGroup Group
  *
- * @apiSuccess {Object} data The create group
+ * @apiParam (Body) {String} name
+ * @apiParam (Body) {String="guild","party"} type Type of group (guild or party)
+ * @apiParam (Body) {String="private","public"} privacy Privacy of group (party MUST be private)
+ *
+ * @apiParamExample {json} Private Guild:
+ *     {
+ *       "name": "The Best Guild",
+ *       "type": "guild",
+ *       "privacy": "private"
+ *     }
+ *
+ * @apiError (400) {NotAuthorized} messageInsufficientGems User does not have enough gems (4)
+ * @apiError (400) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
+ * @apiError (400) {NotAuthorized} messageGroupAlreadyInParty
+ *
+ * @apiSuccess {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ *
+ * @apiSuccessExample {json} Private Guild:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "name": "The Best Guild",
+ *       "leader": {
+ *         "_id": "authenticated-user-id",
+ *         "profile": {authenticated user's profile}
+ *       },
+ *       "type": "guild",
+ *       "privacy": "private",
+ *       "chat": [],
+ *       "leaderOnly": {
+ *         "challenges": false
+ *       },
+ *       memberCount: 1,
+ *       challengeCount: 0,
+ *       balance: 1,
+ *       logo: "",
+ *       leaderMessage: ""
+ *     }
  */
 api.createGroup = {
   method: 'POST',
@@ -206,8 +252,26 @@ api.createGroupPlan = {
  * @apiGroup Group
  *
  * @apiParam {String} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, guilds, privateGuilds, publicGuilds, tavern
+ * @apiParam {String="true","false"} [paginate] Public guilds support pagination. When true guilds are returned in groups of 30
+ * @apiParam {Number} [page] When pagination is enabled for public guilds this parameter can be used to specify the page number (the initial page is number 0 and not required)
  *
- * @apiSuccess {Array} data An array of the requested groups
+ * @apiParamExample {json} Private Guilds, Tavern:
+ *     {
+ *       "type": "privateGuilds,tavern"
+ *     }
+ *
+ * @apiError (400) {BadRequest} groupTypesRequired Group types are required
+ * @apiError (400) {BadRequest} guildsPaginateBooleanString Paginate query parameter must be a boolean (true or false)
+ * @apiError (400) {BadRequest} guildsPageInteger Page query parameter must be a positive integer
+ * @apiError (400) {BadRequest} guildsOnlyPaginate Only public guilds support pagination
+ *
+ * @apiSuccess {Object[]} data An array of the requested groups (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ *
+ * @apiSuccessExample {json} Private Guilds, Tavern:
+ *     HTTP/1.1 200 OK
+ *     [
+ *       {guilds}
+ *     ]
  */
 api.getGroups = {
   method: 'GET',
@@ -217,15 +281,27 @@ api.getGroups = {
     let user = res.locals.user;
 
     req.checkQuery('type', res.t('groupTypesRequired')).notEmpty();
+    // pagination options, can only be used with public guilds
+    req.checkQuery('paginate').optional().isIn(['true', 'false'], apiMessages('guildsPaginateBooleanString'));
+    req.checkQuery('page').optional().isInt({min: 0}, apiMessages('guildsPageInteger'));
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     let types = req.query.type.split(',');
+
+    let paginate = req.query.paginate === 'true' ? true : false;
+    if (paginate && !_.includes(types, 'publicGuilds')) {
+      throw new BadRequest(apiMessages('guildsOnlyPaginate'));
+    }
+
     let groupFields = basicGroupFields.concat(' description memberCount balance');
     let sort = '-memberCount';
 
-    let results = await Group.getGroups({user, types, groupFields, sort});
+    let results = await Group.getGroups({
+      user, types, groupFields, sort,
+      paginate, page: req.query.page,
+    });
     res.respond(200, results);
   },
 };
@@ -235,10 +311,21 @@ api.getGroups = {
  * @apiName GetGroup
  * @apiGroup Group
  *
- * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiSuccess {Object} data The group object
+ * @apiParamExample {String} Tavern:
+ *     /api/v3/groups/habitrpg
  *
+ * @apiSuccess {Object} data The group object (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ *
+ * @apiSuccessExample {json} Tavern:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "name": "Tavern",
+ *       ...
+ *     }
+ *
+ * @apiUse groupIdRequired
  * @apiUse GroupNotFound
  */
 api.getGroup = {
@@ -279,10 +366,23 @@ api.getGroup = {
  * @apiName UpdateGroup
  * @apiGroup Group
  *
- * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiSuccess {Object} data The updated group
+ * @apiParamExample {String} Tavern:
+ *     /api/v3/groups/habitrpg
  *
+ * @apiError (400) {NotAuthorized} messageGroupOnlyLeaderCanUpdate Only the group's leader can update the party
+ *
+ * @apiSuccess {Object} data The updated group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ *
+ * @apiSuccessExample {json} Tavern:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "name": "Tavern",
+ *       ...
+ *     }
+ *
+ * @apiUse groupIdRequired
  * @apiUse GroupNotFound
  *
  * @apiPermission GroupLeader
@@ -304,10 +404,13 @@ api.updateGroup = {
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
 
+    if (req.body.leader !== user._id && group.hasNotCancelled()) throw new NotAuthorized(res.t('cannotChangeLeaderWithActiveGroupPlan'));
+
     _.assign(group, _.merge(group.toObject(), Group.sanitizeUpdate(req.body)));
 
     let savedGroup = await group.save();
     let response = Group.toJSONCleanChat(savedGroup, user);
+
     // If the leader changed fetch new data, otherwise use authenticated user
     if (response.leader !== user._id) {
       let rawLeader = await User.findById(response.leader).select(nameFields).exec();
@@ -327,11 +430,23 @@ api.updateGroup = {
  * @apiName JoinGroup
  * @apiGroup Group
  *
- * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiSuccess {Object} data The joined group
+ * @apiParamExample {String} Tavern:
+ *     /api/v3/groups/habitrpg/join
  *
+ * @apiSuccess {Object} data The joined group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ *
+ * @apiSuccessExample {json} Tavern:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "name": "Tavern",
+ *       ...
+ *     }
+ *
+ * @apiUse groupIdRequired
  * @apiUse GroupNotFound
+ * @apiUse messageGroupRequiresInvite
  */
 api.joinGroup = {
   method: 'POST',
@@ -398,7 +513,10 @@ api.joinGroup = {
 
     group.memberCount += 1;
 
-    if (group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
+    if (group.hasNotCancelled())  {
+      await payments.addSubToGroupUser(user, group);
+      await group.updateGroupPlan();
+    }
 
     let promises = [group.save(), user.save()];
 
@@ -472,9 +590,15 @@ api.joinGroup = {
  * @apiName RejectGroupInvite
  * @apiGroup Group
  *
- * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ *
+ * @apiParamExample {String} party:
+ *     /api/v3/groups/party/reject
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiUse groupIdRequired
+ * @apiUse messageGroupRequiresInvite
  */
 api.rejectGroupInvite = {
   method: 'POST',
@@ -524,10 +648,22 @@ function _removeMessagesFromMember (member, groupId) {
  * @apiGroup Group
  *
  * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {String="remove-all","keep-all"} keep Query parameter - Whether to keep or not challenges' tasks. Defaults to keep-all
+ * @apiParam (Query) {String="remove-all","keep-all"} keep=keep-all Whether or not to keep challenge tasks belonging to the group being left.
+ * @apiParam (Body) {String="remain-in-challenges","leave-challenges"} [keepChallenges=leave-challenges] Whether or not to remain in the challenges of the group being left.
+ *
+ * @apiParamExample {json} Leave Party:
+ *     /api/v3/groups/party/leave
+ *     {
+ *       "keepChallenges": "remain-in-challenges"
+ *     }
+ *
+ * @apiError (400) {BadRequest} keepOrRemoveAll "keep" parameter is not "remove-all" or "keep-all"
+ * @apiError (400) {NotAuthorized} questLeaderCannotLeaveGroup User could not leave party because they are the owner of a quest currently running
+ * @apiError (400) {NotAuthorized} cannotLeaveWhileActiveQuest User could not leave party due to being in a quest
  *
  * @apiSuccess {Object} data An empty object
  *
+ * @apiUse groupIdRequired
  * @apiUse GroupNotFound
  */
 api.leaveGroup = {
@@ -539,6 +675,7 @@ api.leaveGroup = {
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
     // When removing the user from challenges, should we keep the tasks?
     req.checkQuery('keep', res.t('keepOrRemoveAll')).optional().isIn(['keep-all', 'remove-all']);
+    req.checkBody('keepChallenges', res.t('remainOrLeaveChallenges')).optional().isIn(['remain-in-challenges', 'leave-challenges']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -560,9 +697,9 @@ api.leaveGroup = {
       }
     }
 
-    await group.leave(user, req.query.keep);
+    await group.leave(user, req.query.keep, req.body.keepChallenges);
 
-    if (group.purchased.plan && group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
+    if (group.hasNotCancelled())  await group.updateGroupPlan(true);
 
     _removeMessagesFromMember(user, group._id);
 
@@ -590,14 +727,23 @@ function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
  * @apiName RemoveGroupMember
  * @apiGroup Group
  *
- * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {UUID} memberId The _id of the member to remove
- * @apiParam {String} message Query parameter - The message to send to the removed members
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} memberId The _id of the member to remove
+ * @apiParam (Query) {String} message Query parameter - The message to send to the removed members
+ *
+ * @apiParamExample {URL} Remove member from party:
+ *     /api/v3/groups/party/removeMember/[User's ID]?message=Bye
+ *
+ * @apiError (400) {BadRequest} userIdrequired "memberId" cannot be empty or not a UUID
+ * @apiError (400) {NotAuthorized} onlyLeaderCanRemoveMember Only the group leader can remove members
+ * @apiError (400) {NotAuthorized} memberCannotRemoveYourself Group leader cannot remove themselves
+ * @apiError (404) {NotFound} groupMemberNotFound Group member was not found
  *
  * @apiSuccess {Object} data An empty object
  *
  * @apiPermission GroupLeader
  *
+ * @apiUse groupIdRequired
  * @apiUse GroupNotFound
  */
 api.removeGroupMember = {
@@ -640,7 +786,10 @@ api.removeGroupMember = {
 
     if (isInGroup) {
       group.memberCount -= 1;
-      if (group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
+      if (group.hasNotCancelled())  {
+        await group.updateGroupPlan(true);
+        await payments.cancelGroupSubscriptionForUser(member, group);
+      }
 
       if (group.quest && group.quest.leader === member._id) {
         group.quest.key = undefined;
@@ -702,13 +851,16 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
   }
 
   if (group.type === 'guild') {
-    if (_.contains(userToInvite.guilds, group._id)) {
+    if (_.includes(userToInvite.guilds, group._id)) {
       throw new NotAuthorized(res.t('userAlreadyInGroup'));
     }
     if (_.find(userToInvite.invitations.guilds, {id: group._id})) {
       throw new NotAuthorized(res.t('userAlreadyInvitedToGroup'));
     }
-    userToInvite.invitations.guilds.push({id: group._id, name: group.name, inviter: inviter._id});
+
+    let guildInvite = {id: group._id, name: group.name, inviter: inviter._id};
+    if (group.isSubscribed() && !group.hasNotCancelled()) guildInvite.cancelledPlan = true;
+    userToInvite.invitations.guilds.push(guildInvite);
   } else if (group.type === 'party') {
     if (userToInvite.invitations.party.id) {
       throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
@@ -721,7 +873,9 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
       if (userParty && userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty'));
     }
 
-    userToInvite.invitations.party = {id: group._id, name: group.name, inviter: inviter._id};
+    let partyInvite = {id: group._id, name: group.name, inviter: inviter._id};
+    if (group.isSubscribed() && !group.hasNotCancelled()) partyInvite.cancelledPlan = true;
+    userToInvite.invitations.party = partyInvite;
   }
 
   let groupLabel = group.type === 'guild' ? 'Guild' : 'Party';
@@ -784,10 +938,15 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
     userReturnInfo = await _inviteByUUID(userToContact._id, group, inviter, req, res);
   } else {
     userReturnInfo = invite.email;
+
+    let cancelledPlan = false;
+    if (group.isSubscribed() && !group.hasNotCancelled()) cancelledPlan = true;
+
     const groupQueryString = JSON.stringify({
       id: group._id,
       inviter: inviter._id,
       sentAt: Date.now(), // so we can let it expire
+      cancelledPlan,
     });
     let link = `/static/front?groupInvite=${encrypt(groupQueryString)}`;
 

@@ -1,7 +1,7 @@
 {
   "unlockedReward": "Hai ricevuto: <%= reward %>",
   "earnedRewardForDevotion": "Hai meritato <%= reward %> per la tua costanza nel migliorare la tua vita.",
-  "nextRewardUnlocksIn": "Il prossimo premio verrà sbloccato con altri <%= numberOfCheckinsLeft %> accessi!",
+  "nextRewardUnlocksIn": "Check-ins until your next prize: <%= numberOfCheckinsLeft %>",
   "awesome": "Fantastico!",
   "totalCount": "<%= count %> conteggio totale",
   "countLeft": "Altri <%= count %> accessi per il prossimo premio",

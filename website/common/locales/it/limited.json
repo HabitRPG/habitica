@@ -43,7 +43,7 @@
     "icicleDrakeSet": "Drago Fatato dei Ghiacci (Assassino)",
     "soothingSkaterSet": "Pattinatore Lenitivo (Guaritore)",
     "gingerbreadSet": "Guerriero Pan di Zenzero (Guerriero)",
-    "snowDaySet": "Snow Day Warrior (Warrior)",
+    "snowDaySet": "Guerriero del Giorno Innevato (Guerriero)",
     "snowboardingSet": "Stregone Snowboarder (Mago)",
     "festiveFairySet": "Fata Festiva (Guaritore)",
     "cocoaSet": "Assassino Cacao (Assassino)",
@@ -88,5 +88,5 @@
     "winterEventAvailability": "Disponibile fino al 31 gennaio.",
     "springEventAvailability": "Disponibile fino al 31 maggio.",
     "summerEventAvailability": "Disponibile fino al 31 agosto.",
-    "valentinesEventAvailability": "Available for purchase until February 28."
+    "valentinesEventAvailability": "Disponibile fino al 28 febbraio."
 }

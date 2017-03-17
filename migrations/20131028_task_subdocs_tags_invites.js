@@ -5,6 +5,12 @@
 // @see http://stackoverflow.com/questions/14867697/mongoose-full-collection-scan
 //Also, what do we think of a Mongoose Migration module? something like https://github.com/madhums/mongoose-migrate
 
+// IMPORTANT NOTE: this migration was written when we were using version 3 of lodash.
+// We've now upgraded to lodash v4 but the code used in this migration has not been
+// adapted to work with it. Before this migration is used again any lodash method should
+// be checked for compatibility against the v4 changelog and changed if necessary.
+// https://github.com/lodash/lodash/wiki/Changelog#v400
+
 db.users.find().forEach(function(user){
 
   // Add invites to groups

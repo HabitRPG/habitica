@@ -1,0 +1,12 @@
+// CSS that doesn't belong to any specific Vue compoennt
+@import './forms';
+
+html, body {
+  height: 100%;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

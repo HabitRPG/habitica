@@ -217,6 +217,15 @@ let armor = {
     set: 'queenOfHearts',
     canOwn: ownsItem('armor_armoire_gownOfHearts'),
   },
+  mushroomDruidArmor: {
+    text: t('armorArmoireMushroomDruidArmorText'),
+    notes: t('armorArmoireMushroomDruidArmorNotes', { con: 7, per: 8 }),
+    value: 100,
+    con: 7,
+    per: 8,
+    set: 'mushroomDruid',
+    canOwn: ownsItem('armor_armoire_mushroomDruidArmor'),
+  },
 };
 
 let eyewear = {
@@ -506,6 +515,15 @@ let head = {
     set: 'queenOfHearts',
     canOwn: ownsItem('head_armoire_crownOfHearts'),
   },
+  mushroomDruidCap: {
+    text: t('headArmoireMushroomDruidCapText'),
+    notes: t('headArmoireMushroomDruidCapNotes', { int: 6, str: 7 }),
+    value: 100,
+    int: 6,
+    str: 7,
+    set: 'mushroomDruid',
+    canOwn: ownsItem('head_armoire_mushroomDruidCap'),
+  },
 };
 
 let shield = {
@@ -589,6 +607,15 @@ let shield = {
     value: 100,
     per: 10,
     canOwn: ownsItem('shield_armoire_redRose'),
+  },
+  mushroomDruidShield: {
+    text: t('shieldArmoireMushroomDruidShieldText'),
+    notes: t('shieldArmoireMushroomDruidShieldNotes', { con: 9, str: 8 }),
+    value: 100,
+    con: 9,
+    str: 8,
+    set: 'mushroomDruid',
+    canOwn: ownsItem('shield_armoire_mushroomDruidShield'),
   },
 };
 
@@ -793,6 +820,14 @@ let weapon = {
     int: 13,
     set: 'queenOfHearts',
     canOwn: ownsItem('weapon_armoire_wandOfHearts'),
+  },
+  forestFungusStaff: {
+    text: t('weaponArmoireForestFungusStaffText'),
+    notes: t('weaponArmoireForestFungusStaffNotes', { int: 8, per: 9 }),
+    value: 100,
+    int: 8,
+    per: 9,
+    canOwn: ownsItem('weapon_armoire_forestFungusStaff'),
   },
 };
 

@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import _ from 'lodash';
+import defaults from 'lodash/defaults';
 import moment from 'moment';
 
 // Even though Mongoose handles task defaults, we want to make sure defaults are set on the client-side before
@@ -15,30 +15,32 @@ module.exports = function taskDefaults (task = {}) {
   }
 
   let defaultId = uuid();
-  let defaults = {
+  let defaultTaskObj = {
     _id: defaultId,
     text: task._id || defaultId,
     notes: '',
     tags: [],
     value: task.type === 'reward' ? 10 : 0,
     priority: 1,
-    challenge: {},
+    challenge: {
+      shortName: 'None',
+    },
     reminders: [],
     attribute: 'str',
     createdAt: new Date(), // TODO these are going to be overwritten by the server...
     updatedAt: new Date(),
   };
 
-  _.defaults(task, defaults);
+  defaults(task, defaultTaskObj);
 
   if (task.type === 'habit' || task.type === 'daily') {
-    _.defaults(task, {
+    defaults(task, {
       history: [],
     });
   }
 
   if (task.type === 'todo' || task.type === 'daily') {
-    _.defaults(task, {
+    defaults(task, {
       completed: false,
       collapseChecklist: false,
       checklist: [],
@@ -46,14 +48,17 @@ module.exports = function taskDefaults (task = {}) {
   }
 
   if (task.type === 'habit') {
-    _.defaults(task, {
+    defaults(task, {
       up: true,
       down: true,
+      frequency: 'daily',
+      counterUp: 0,
+      counterDown: 0,
     });
   }
 
   if (task.type === 'daily') {
-    _.defaults(task, {
+    defaults(task, {
       streak: 0,
       repeat: {
         m: true,

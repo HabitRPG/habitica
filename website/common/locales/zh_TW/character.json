@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "請記得你的角色名稱，簡介頭像以及簡介內容必須遵守<a href='https://habitica.com/static/community-guidelines' target='_blank'>使用者規範</a>(比如說:不可有猥褻行為、不可有成人議題、不可汙辱他人等等)。如果你不確定某些事有沒有合乎規定，歡迎來信到 <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
     "profile": "基本資料",
     "avatar": "客制化角色圖像",
     "other": "其他",
@@ -62,7 +62,7 @@
     "useCostumeInfo2": "當你第一次按下「使用服裝」時，你的頭像看起來會很簡陋...不過沒關係！如果你看畫面左邊，你會看到武器裝備的狀態還在。接下來，你可以在畫面右邊隨意穿上各種裝備，這雖不會影響到實際戰鬥數據，但是看起來十分帥氣！試著組合所有武器、防具、寵物、坐騎、還有背景吧！<br><br>有問題嗎？在遊戲維基裡看一看 <a href=\"http://habitica.wikia.com/wiki/Equipment#Costumes\">這個</a> on 找到你最佳的組合?到<a href=\"/#/options/groups/guilds/3884eeaa-2d6a-45e8-a279-ada6de9709e1\">這裡</a>或是酒館給大家看吧！",
     "gearAchievement": "你已達成「終極裝備」成就：升級到職業的最高裝備！你已完成以下組合：",
     "moreGearAchievements": "欲取得終極裝備徽章，到<a href='/#/options/profile/stats' target='_blank'>這裡</a>選擇職業並購買職業專屬物品!",
-    "armoireUnlocked": "For more equipment, check out the <strong>Enchanted Armoire!</strong> Click on the Enchanted Armoire Reward for a random chance at special Equipment! It may also give you random XP or food items.",
+    "armoireUnlocked": "獲得更多的裝備請購買<strong>神秘寶箱！</strong> 點擊神秘寶箱可獲得隨機的特殊裝備!!也有可能是獲得隨機的經驗值或是食物。",
     "ultimGearName": "終極裝備 - <%= ultClass %>",
     "ultimGearText": "已經升級到 <%= ultClass %> 的最高武器和盔甲。",
     "level": "等級",

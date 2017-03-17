@@ -10,6 +10,7 @@ import { model as Challenge} from './challenge';
 import * as Tasks from './task';
 import validator from 'validator';
 import { removeFromArray } from '../libs/collectionManipulators';
+import payments from '../libs/payments';
 import { groupChatReceivedWebhook } from '../libs/webhook';
 import {
   InternalServerError,
@@ -28,6 +29,8 @@ import {
 import {
   schema as SubscriptionPlanSchema,
 } from './subscriptionPlan';
+import amazonPayments from '../libs/amazonPayments';
+import stripePayments from '../libs/stripePayments';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -37,6 +40,7 @@ export const TAVERN_ID = shared.TAVERN_ID;
 
 const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
 const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = shared.constants.LARGE_GROUP_COUNT_MESSAGE_CUTOFF;
+const GUILDS_PER_PAGE = shared.constants.GUILDS_PER_PAGE;
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
@@ -110,7 +114,7 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased'],
   private: ['purchased.plan'],
   toJSONTransform (plainObj, originalDoc) {
-    if (plainObj.purchased) plainObj.purchased.active = originalDoc.purchased.plan && originalDoc.purchased.plan.customerId;
+    if (plainObj.purchased) plainObj.purchased.active = originalDoc.isSubscribed();
   },
 });
 
@@ -202,7 +206,11 @@ schema.statics.getGroup = async function getGroup (options = {}) {
 export const VALID_QUERY_TYPES = ['party', 'guilds', 'privateGuilds', 'publicGuilds', 'tavern'];
 
 schema.statics.getGroups = async function getGroups (options = {}) {
-  let {user, types, groupFields = basicFields, sort = '-memberCount', populateLeader = false} = options;
+  let {
+    user, types, groupFields = basicFields,
+    sort = '-memberCount', populateLeader = false,
+    paginate = false, page = 0, // optional pagination for public guilds
+  } = options;
   let queries = [];
 
   // Throw error if an invalid type is supplied
@@ -244,6 +252,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
           privacy: 'public',
         }).select(groupFields);
         if (populateLeader === true) publicGuildsQuery.populate('leader', nameFields);
+        if (paginate === true) publicGuildsQuery.limit(GUILDS_PER_PAGE).skip(page * GUILDS_PER_PAGE);
         publicGuildsQuery.sort(sort).lean().exec();
         queries.push(publicGuildsQuery);
         break;
@@ -467,12 +476,12 @@ schema.methods.startQuest = async function startQuest (user) {
     this.quest.progress.collect = collected;
   }
 
-  let nonMembers = Object.keys(_.pick(this.quest.members, (member) => {
+  let nonMembers = Object.keys(_.pickBy(this.quest.members, (member) => {
     return !member;
   }));
 
   // Changes quest.members to only include participating members
-  this.quest.members = _.pick(this.quest.members, _.identity);
+  this.quest.members = _.pickBy(this.quest.members, _.identity);
   let nonUserQuestMembers = _.keys(this.quest.members);
   removeFromArray(nonUserQuestMembers, user._id);
 
@@ -554,7 +563,7 @@ schema.methods.startQuest = async function startQuest (user) {
         });
     });
   });
-  this.sendChat(`Your quest, ${quest.text('en')}, has started.`, null, {
+  this.sendChat(`\`Your quest, ${quest.text('en')}, has started.\``, null, {
     participatingMembers: this.getParticipatingQuestMembers().join(', '),
   });
 };
@@ -618,7 +627,7 @@ function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
     case 'food':
     case 'hatchingPotions':
     case 'quests': {
-      updates.$inc[`items.${itemToAward.type}.${dropK}`] = _.where(allAwardedItems, {type: itemToAward.type, key: itemToAward.key}).length;
+      updates.$inc[`items.${itemToAward.type}.${dropK}`] = _.filter(allAwardedItems, {type: itemToAward.type, key: itemToAward.key}).length;
       break;
     }
     case 'pets': {
@@ -630,7 +639,7 @@ function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
       break;
     }
   }
-  updates = _.omit(updates, _.isEmpty);
+  updates = _.omitBy(updates, _.isEmpty);
   return updates;
 }
 
@@ -900,24 +909,30 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
   }
 };
 
-schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
+schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepChallenges = 'leave-challenges') {
   let group = this;
   let update = {};
 
-  if (group.memberCount <= 1 && group.privacy === 'private' && group.isSubscribed()) {
+  if (group.memberCount <= 1 && group.privacy === 'private' && group.hasNotCancelled()) {
     throw new NotAuthorized(shared.i18n.t('cannotDeleteActiveGroup'));
   }
 
-  // Unlink user challenge tasks
-  let challenges = await Challenge.find({
-    _id: {$in: user.challenges},
-    group: group._id,
-  }).exec();
+  if (group.leader === user._id && group.hasNotCancelled()) {
+    throw new NotAuthorized(shared.i18n.t('leaderCannotLeaveGroupWithActiveGroup'));
+  }
 
-  let challengesToRemoveUserFrom = challenges.map(chal => {
-    return chal.unlinkTasks(user, keep);
-  });
-  await Bluebird.all(challengesToRemoveUserFrom);
+  // only remove user from challenges if it's set to leave-challenges
+  if (keepChallenges === 'leave-challenges') {
+    let challenges = await Challenge.find({
+      _id: {$in: user.challenges},
+      group: group._id,
+    }).exec();
+
+    let challengesToRemoveUserFrom = challenges.map(chal => {
+      return chal.unlinkTasks(user, keep);
+    });
+    await Bluebird.all(challengesToRemoveUserFrom);
+  }
 
   // Unlink group tasks)
   let assignedTasks = await Tasks.Task.find({
@@ -946,6 +961,10 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     update.$unset = {[`quest.members.${user._id}`]: 1};
   }
 
+  if (group.purchased.plan.customerId) {
+    promises.push(payments.cancelGroupSubscriptionForUser(user, this));
+  }
+
   // If user is the last one in group and group is private, delete it
   if (group.memberCount <= 1 && group.privacy === 'private') {
     // double check the member count is correct so we don't accidentally delete a group that still has users in it
@@ -955,7 +974,9 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     } else {
       members = await User.find({'party._id': group._id}).select('_id').exec();
     }
+
     _.remove(members, {_id: user._id});
+
     if (members.length === 0) {
       promises.push(group.remove());
       return await Bluebird.all(promises);
@@ -1161,6 +1182,28 @@ schema.methods.isSubscribed = function isSubscribed () {
   let now = new Date();
   let plan = this.purchased.plan;
   return plan && plan.customerId && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
+};
+
+schema.methods.hasNotCancelled = function hasNotCancelled () {
+  let plan = this.purchased.plan;
+  return this.isSubscribed() && !plan.dateTerminated;
+};
+
+schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {
+  // Recheck the group plan count
+  let members;
+  if (this.type === 'guild') {
+    members = await User.find({guilds: this._id}).select('_id').exec();
+  } else {
+    members = await User.find({'party._id': this._id}).select('_id').exec();
+  }
+  this.memberCount = members.length;
+
+  if (this.purchased.plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
+    await stripePayments.chargeForAdditionalGroupMember(this);
+  } else if (this.purchased.plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD && !removingMember) {
+    await amazonPayments.chargeForAdditionalGroupMember(this);
+  }
 };
 
 export let model = mongoose.model('Group', schema);
