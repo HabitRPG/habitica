@@ -48,7 +48,7 @@
     "beastAchievement": "¡Has ganado el Logro \"Maestro de las Bestias\" por haber coleccionado todas las mascotas!",
     "beastMasterName": "Maestro de las Bestias",
     "beastMasterText": "Ha encontrado a las 90 mascotas (extremadamente difícil, ¡felicita a este usuario!)",
-    "beastMasterText2": "and has released their pets a total of <%= count %> time(s)",
+    "beastMasterText2": "y a liberado a sus mascotas un total de <%= count %> vez (o veces)",
     "mountMasterProgress": "Progreso de Maestro de las Monturas",
     "stableMountMasterProgress": "Progreso de Maestro de las Monturas: <%= number %> Monturas domadas",
     "mountAchievement": "¡Has ganado el Logro \"Maestro de las Monturas\" por haber coleccionado todas las monturas!",
@@ -94,6 +94,6 @@
     "mountsAndPetsReleased": "Monturas y mascotas liberadas.",
     "mountsReleased": "Monturas liberadas",
     "gemsEach": "gemas cada uno",
-    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiText": "¿Qué le gusta comer a mi mascota?",
     "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

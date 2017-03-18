@@ -112,6 +112,7 @@
     "mystery": "Misteri",
     "changeClass": "Ubah Pekerjaan, Mengembalikan Poin Atribut",
     "lvl10ChangeClass": "Untuk mengganti pekerjaan kamu harus setidaknya level 10.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "Setiap level akan otomatis memberikan satu point untuk diatur ke dalam atribut pilihanmu. Kamu dapat melakukannya secara manual atau membiarkan permainan menentukannya untukmu dengan menggunakan opsi Alokasi Otomatis.",
     "unallocated": "Poin Atribut yang Belum Dialokasikan",
     "haveUnallocated": "Kamu memiliki  <%= points %> Poin Atribut yang belum dialokasikan",

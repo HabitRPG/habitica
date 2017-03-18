@@ -112,6 +112,7 @@
     "mystery": "Mistero",
     "changeClass": "Cambia classe, recupera Punti Attributo allocati",
     "lvl10ChangeClass": "Per cambiare classe devi essere almeno al livello 10.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "Ogni volta che sali di livello ottieni un punto da assegnare ad un attributo a tua scelta. Puoi farlo manualmente, o lasciare che se ne occupi il gioco selezionando una delle opzioni di allocazione automatica.",
     "unallocated": "Punti Attributo non allocati",
     "haveUnallocated": "Hai <%= points %> Punto/i Attributo non allocato/i",

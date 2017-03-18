@@ -112,6 +112,7 @@
     "mystery": "Verrassingsartikelen",
     "changeClass": "Van klasse veranderen en eigenschapspunten terugkrijgen",
     "lvl10ChangeClass": "Om van klasse te veranderen moet je ten minste niveau 10 zijn.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "Elk niveau geeft je één punt om toe te wijzen aan een eigenschap van jouw keuze. Je kunt dit handmatig doen of het spel voor jou laten beslissen door gebruik te maken van één van de automatische verdelingsopties.",
     "unallocated": "nog niet toegewezen eigenschapspunten",
     "haveUnallocated": "Je hebt <%= points %> eigenschapspunt(en) nog niet toegewezen.",
