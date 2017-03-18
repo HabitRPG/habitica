@@ -33,8 +33,8 @@
 </style>
 <script>
 import axios from 'axios';
-import groupUtilities from '../../../mixins/groupsUtilities';
-import { mapState } from '../../../store';
+import groupUtilities from 'client/mixins/groupsUtilities';
+import { mapState } from 'client/libs/store';
 
 export default {
   mixins: [groupUtilities],

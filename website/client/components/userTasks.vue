@@ -8,7 +8,7 @@
 
 <script>
 import Task from './task';
-import { mapState } from '../store';
+import { mapState } from 'client/libs/store';
 
 export default {
   components: {

@@ -73,7 +73,7 @@
 </style>
 
 <script>
-import { mapState } from '../../store';
+import { mapState } from 'client/libs/store';
 import each from 'lodash/each';
 
 export default {

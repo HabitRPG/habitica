@@ -1,7 +1,6 @@
 import { asyncResourceFactory, loadAsyncResource } from 'client/libs/asyncResource';
 import axios from 'axios';
-import storeModule from 'client/store';
-import cloneDeep from 'lodash/cloneDeep';
+import generateStore from 'client/store';
 import { sleep } from '../../../../helpers/sleep';
 
 describe('async resource', () => {
@@ -36,7 +35,7 @@ describe('async resource', () => {
         })).to.throw;
       });
       it('resource not found', () => {
-        const store = cloneDeep(storeModule);
+        const store = generateStore();
 
         expect(() => loadAsyncResource({
           store,
@@ -47,7 +46,7 @@ describe('async resource', () => {
       });
 
       it('invalid loading status', () => {
-        const store = cloneDeep(storeModule);
+        const store = generateStore();
         store.state.user.loadingStatus = 'INVALID';
 
         expect(loadAsyncResource({
@@ -60,7 +59,7 @@ describe('async resource', () => {
     });
 
     it('returns the resource if it is already loaded and forceLoad is false', async () => {
-      const store = cloneDeep(storeModule);
+      const store = generateStore();
       store.state.user.loadingStatus = 'LOADED';
       store.state.user.data = {_id: 1};
 
@@ -78,7 +77,7 @@ describe('async resource', () => {
     });
 
     it('load the resource if it is not loaded', async () => {
-      const store = cloneDeep(storeModule);
+      const store = generateStore();
       store.state.user = asyncResourceFactory();
 
       sandbox.stub(axios, 'get').withArgs('/api/v3/user').returns(Promise.resolve({data: {data: {_id: 1}}}));
@@ -99,7 +98,7 @@ describe('async resource', () => {
     });
 
     it('load the resource if it is loaded but forceLoad is true', async () => {
-      const store = cloneDeep(storeModule);
+      const store = generateStore();
       store.state.user.loadingStatus = 'LOADED';
 
       sandbox.stub(axios, 'get').withArgs('/api/v3/user').returns(Promise.resolve({data: {data: {_id: 1}}}));
@@ -121,7 +120,7 @@ describe('async resource', () => {
     });
 
     it('does not send multiple requests if the resource is being loaded', async () => {
-      const store = cloneDeep(storeModule);
+      const store = generateStore();
       store.state.user.loadingStatus = 'LOADING';
 
       sandbox.stub(axios, 'get').withArgs('/api/v3/user').returns(Promise.resolve({data: {data: {_id: 1}}}));

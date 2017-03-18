@@ -15,8 +15,8 @@
 </style>
 
 <script>
-import { mapState } from '../../../../store';
-import groupUtilities from '../../../../mixins/groupsUtilities';
+import { mapState } from 'client/libs/store';
+import groupUtilities from 'client/mixins/groupsUtilities';
 
 export default {
   mixins: [groupUtilities],

@@ -21,7 +21,7 @@ li
 </template>
 
 <script>
-import { mapState } from 'client/store';
+import { mapState } from 'client/libs/store';
 
 export default {
   props: ['task'],

@@ -87,7 +87,7 @@
 
 <script>
 import Avatar from './avatar';
-import { mapState } from '../store';
+import { mapState } from 'client/libs/store';
 
 import { toNextLevel } from '../../common/script/statHelpers';
 import { MAX_HEALTH as maxHealth } from '../../common/script/constants';
