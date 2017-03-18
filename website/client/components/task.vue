@@ -17,22 +17,17 @@ li
     li(v-if="task.type === 'todo'") due date: {{task.date}}
     li attribute {{task.attribute}}
     li difficulty {{task.priority}}
-    li tags {{taskTags}}
+    li tags {{getTagsFor(task)}}
 </template>
 
 <script>
-import { mapState } from 'client/libs/store';
+import { mapState, mapGetters } from 'client/libs/store';
 
 export default {
   props: ['task'],
   computed: {
     ...mapState({user: 'user.data'}),
-    taskTags () {
-      let taskTags = this.task.tags;
-      return this.user.tags
-        .filter(tag => taskTags.indexOf(tag.id) !== -1)
-        .map(tag => tag.name);
-    },
+    ...mapGetters({getTagsFor: 'tasks:getTagsFor'}),
   },
 };
 </script>
