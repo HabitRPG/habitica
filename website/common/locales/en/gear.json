@@ -213,6 +213,15 @@
   "weaponSpecialWinter2017HealerText": "Sugar-Spun Wand",
   "weaponSpecialWinter2017HealerNotes": "This wand can reach into your dreams and bring you visions of dancing sugarplums. Increases Intelligence by <%= int %>. Limited Edition 2016-2017 Winter Gear.",
 
+  "weaponSpecialSpring2017RogueText": "Karrotana",
+  "weaponSpecialSpring2017RogueNotes": "These blades will make quick work of tasks, but also are handy for slicing vegetables! Yum! Increases Strength by <%= str %>. Limited Edition 2017 Spring Gear.",
+  "weaponSpecialSpring2017WarriorText": "Feathery Whip",
+  "weaponSpecialSpring2017WarriorNotes": "This mighty whip will tame the unruliest task. But.. It's also… So FUN AND DISTRACTING!! Increases Strength by <%= str %>. Limited Edition 2017 Spring Gear.",
+  "weaponSpecialSpring2017MageText": "Magic Fetching Stick",
+  "weaponSpecialSpring2017MageNotes": "When you're not crafting spells with it, you can throw it and then bring it back! What fun!! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2017 Spring Gear.",
+  "weaponSpecialSpring2017HealerText": "Egg Wand",
+  "weaponSpecialSpring2017HealerNotes": "The true magic of this wand is the secret of new life inside the colorful shell. Increases Intelligence by <%= int %>. Limited Edition 2017 Spring Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -469,6 +478,15 @@
   "armorSpecialWinter2017MageNotes": "Made of winter's warmest wool and woven with spells by the mystical Winter Wolf, these robes stave off the chill and keep your mind alert! Increases Intelligence by <%= int %>. Limited Edition 2016-2017 Winter Gear.",
   "armorSpecialWinter2017HealerText": "Shimmer Petal Armor",
   "armorSpecialWinter2017HealerNotes": "Though soft, this armor of petals has fantastic protective power. Increases Constitution by <%= con %>. Limited Edition 2016-2017 Winter Gear.",
+
+  "armorSpecialSpring2017RogueText": "Sneaky Bunny Suit",
+  "armorSpecialSpring2017RogueNotes": "Soft but strong, this suit helps you move through gardens with extra stealth. Increases Perception by <%= per %>. Limited Edition 2017 Spring Gear.",
+  "armorSpecialSpring2017WarriorText": "Pawsome Armor",
+  "armorSpecialSpring2017WarriorNotes": "This fancy armor is as shiny as your finely groomed coat, but with added resistance to attack. Increases Constitution by <%= con %>. Limited Edition 2017 Spring Gear.",
+  "armorSpecialSpring2017MageText": "Canine Conjuror Robes",
+  "armorSpecialSpring2017MageNotes": "Magical by design, fluffy by choice. Increases Intelligence by <%= int %>. Limited Edition 2017 Spring Gear.",
+  "armorSpecialSpring2017HealerText": "Robes of Repose",
+  "armorSpecialSpring2017HealerNotes": "The softness of these robes comforts you as well as any who need your healing help! Increases Constitution by <%= con %>. Limited Edition 2017 Spring Gear.",
 
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
@@ -776,6 +794,15 @@
   "headSpecialWinter2017HealerText": "Sparkling Blossom Helm",
   "headSpecialWinter2017HealerNotes": "These glittering petals focus brainpower! Increases Intelligence by <%= int %>. Limited Edition 2016-2017 Winter Gear.",
 
+  "headSpecialSpring2017RogueText": "Sneaky Bunny Helm",
+  "headSpecialSpring2017RogueNotes": "This mask will prevent your cuteness from giving you away as you sneak up on Dailies (or clovers)! Increases Perception by <%= per %>. Limited Edition 2017 Spring Gear.",
+  "headSpecialSpring2017WarriorText": "Feline Helm",
+  "headSpecialSpring2017WarriorNotes": "Protect your adorable, fuzzy noggin with this finely decorated helm. Increases Strength by <%= str %>. Limited Edition 2017 Spring Gear.",
+  "headSpecialSpring2017MageText": "Canine Conjuror Hat",
+  "headSpecialSpring2017MageNotes": "This hat can help you cast mighty spells… Or you can just use it to summon tennis balls. Your choice. Increases Perception by <%= per %>. Limited Edition 2017 Spring Gear.",
+  "headSpecialSpring2017HealerText": "Petal Circlet",
+  "headSpecialSpring2017HealerNotes": "This delicate crown emits the comforting scent of new Spring blooms. Increases Intelligence by <%= int %>. Limited Edition 2017 Spring Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -1040,6 +1067,13 @@
   "shieldSpecialWinter2017HealerText": "Sugarplum Shield",
   "shieldSpecialWinter2017HealerNotes": "This fibrous armament will help protect you from even the sourest of tasks! Increases Constitution by <%= con %>. Limited Edition 2016-2017 Winter Gear.",
 
+  "shieldSpecialSpring2017RogueText": "Karrotana",
+  "shieldSpecialSpring2017RogueNotes": "These blades will make quick work of tasks, but also are handy for slicing vegetables! Yum! Increases Strength by <%= str %>. Limited Edition 2017 Spring Gear.",
+  "shieldSpecialSpring2017WarriorText": "Yarn Shield",
+  "shieldSpecialSpring2017WarriorNotes": "Every fiber of this shield is woven with protective spells! Try not to play with it (too much). Increases Constitution by <%= con %>. Limited Edition 2017 Spring Gear.",
+  "shieldSpecialSpring2017HealerText": "Basket Shield",
+  "shieldSpecialSpring2017HealerNotes": "Protective and also handy for holding your many healing herbs and accoutrements. Increases Constitution by <%= con %>. Limited Edition 2017 Spring Gear.",
+
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
   "shieldMystery201701Text": "Time-Freezer Shield",
@@ -1163,6 +1197,15 @@
   "headAccessorySpecialSpring2016MageNotes": "These sharp ears can detect the minute hum of ambient Mana, or the muted footfalls of a Rogue. Confers no benefit. Limited Edition 2016 Spring Gear.",
   "headAccessorySpecialSpring2016HealerText": "Purple Bunny Ears",
   "headAccessorySpecialSpring2016HealerNotes": "They stand like flags above the fray, letting others know where to run for help. Confers no benefit. Limited Edition 2016 Spring Gear.",
+
+  "headAccessorySpecialSpring2017RogueText": "Red Bunny Ears",
+  "headAccessorySpecialSpring2017RogueNotes": "No sounds will escape you thanks to these ears. Confers no benefit. Limited Edition 2017 Spring Gear.",
+  "headAccessorySpecialSpring2017WarriorText": "Blue Kitty Ears",
+  "headAccessorySpecialSpring2017WarriorNotes": "These ears can hear a bag of kitty treats open even in the din of battle! Confers no benefit. Limited Edition 2017 Spring Gear.",
+  "headAccessorySpecialSpring2017MageText": "Teal Dog Ears",
+  "headAccessorySpecialSpring2017MageNotes": "You can hear the magic in the air! Confers no benefit. Limited Edition 2017 Spring Gear.",
+  "headAccessorySpecialSpring2017HealerText": "Purple Mouse Ears",
+  "headAccessorySpecialSpring2017HealerNotes": "These ears will help you hear healing secrets. Confers no benefit. Limited Edition 2017 Spring Gear.",
 
   "headAccessoryBearEarsText": "Bear Ears",
   "headAccessoryBearEarsNotes": "These ears make you look like a brave bear! Confers no benefit.",
