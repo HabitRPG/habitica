@@ -146,7 +146,7 @@
     "questEggGuineaPigText": "Conejillo de Indias",
     "questEggGuineaPigMountText": "Conejillo de Indias",
     "questEggGuineaPigAdjective": "a giddy",
-    "questEggPeacockText": "Peacock",
+    "questEggPeacockText": "Pavo real",
     "questEggPeacockMountText": "Peacock",
     "questEggPeacockAdjective": "a proud",
     "eggNotes": "Encuentra una poción de eclosión para verter sobre este huevo y se convertirá en <%= eggAdjective(locale) %> <%= eggText(locale) %>.",

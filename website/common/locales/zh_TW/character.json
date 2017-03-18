@@ -112,6 +112,7 @@
     "mystery": "神秘",
     "changeClass": "變更職業並重新分配屬性點",
     "lvl10ChangeClass": "你必須達到10級才能改變職業。",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "每升一級你都能得到一點並分配到你想要的屬性。你可以手動分配，或讓系統幫你自動完成。",
     "unallocated": "未分配的屬性點",
     "haveUnallocated": "你有( <%= points %> )點未分配的屬性點",

@@ -1,10 +1,10 @@
 {
   "unlockedReward": "Вы получили <%= reward %>",
   "earnedRewardForDevotion": "Вы заработали <%= reward %> за стремление улучшить свою жизнь.",
-  "nextRewardUnlocksIn": "Check-ins until your next prize: <%= numberOfCheckinsLeft %>",
+  "nextRewardUnlocksIn": "<%= numberOfCheckinsLeft %> входов в игру до следующего приза",
   "awesome": "Потрясающе!",
   "totalCount": "<%= count %> всего",
-  "countLeft": "Check-ins until next reward: <%= count %>",
+  "countLeft": "<%= count %> входов в игру до следующей награды",
   "incentivesDescription": "Когда дело касается новых привычек, постоянство - это главное. Каждый день, когда вы заходите в игру, приближает вас к призу.",
   "totalCheckins": "<%= count %> входов в игру",
   "checkinEarned": "Ваш счётчик входов вырос!",

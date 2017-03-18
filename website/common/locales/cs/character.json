@@ -112,6 +112,7 @@
     "mystery": "Záhadný",
     "changeClass": "Změň povolání, znovu přiřaď body vlastností",
     "lvl10ChangeClass": "Pro změnu povolání musíte být alespoň úroveň 10.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "S každou další úrovní získáš jeden bod, který můžeš přiřadit k libovolné vlastnosti. Přiřadit body můžeš buď manuálně anebo můžeš nechat hru rozhodnout za tebe na základě některé z možností automatického přiřazení.",
     "unallocated": "Nepřidělené body vlastností",
     "haveUnallocated": "Máš ( <%= points %> ) nepřiřazených Vlastnostních bodů.",

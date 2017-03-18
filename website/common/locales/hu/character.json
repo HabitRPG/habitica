@@ -112,6 +112,7 @@
     "mystery": "Rejtély",
     "changeClass": "Kaszt megváltoztatása, tulajdonság pontok újraosztása",
     "lvl10ChangeClass": "Hogy kasztot választhass, legalább 10. szintűnek kell lenned.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "Minden szinttel kapsz egy tulajdonság pontot, amit kioszthatsz. Ezt megteheted kézzel, vagy hagyhatod, hogy a játék eldöntse helyetted, ha az egyik Automatikus Elosztás opciót használod.",
     "unallocated": "Kiosztatlan tulajdonság pontok",
     "haveUnallocated": "<%= points %> elkölthető tulajdonság pontod maradt",

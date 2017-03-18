@@ -112,6 +112,7 @@
     "mystery": "Mystère",
     "changeClass": "Changer de classe et rembourser les points d'attribut.",
     "lvl10ChangeClass": "Vous devez être au moins au niveau 10 pour changer de classe.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "Vous pouvez affecter un point à un attribut de votre choix à chaque niveau gagné. Cette attribution peut se faire manuellement ou en laissant le jeu décider pour vous, en utilisant une des options d'Attribution Automatique.",
     "unallocated": "Points d'Attribut non alloués",
     "haveUnallocated": "Vous avez <%= points %> Point(s) d'Attribut non alloué(s).",

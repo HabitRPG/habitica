@@ -112,6 +112,7 @@
     "mystery": "Überraschung",
     "changeClass": "Wechsle die Klasse und erhalte alle Attributpunkte zurück",
     "lvl10ChangeClass": "Um Deine Klasse zu ändern, musst Du mindestens auf Level 10 sein.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "Jedes Level erhältst Du einen Punkt, den Du in ein Attribut Deiner Wahl setzen kannst. Du kannst Deine Punkte manuell verteilen, oder das Spiel entscheiden lassen indem Du eines der vorgegebenen Verteilungsmuster auswählst.",
     "unallocated": "Freie Attributpunkte",
     "haveUnallocated": "Du hast <%= points %> freie(n) Attributpunkt(e)",

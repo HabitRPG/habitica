@@ -112,6 +112,7 @@
     "mystery": "Mister",
     "changeClass": "Schimbă-ți Clasa, Restituie Punctele de atribut",
     "lvl10ChangeClass": "Pentru a îți schimba clasa trebuie să ai cel puțin nivelul 10.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "Fiecare nivel îți oferă un punct pe care-l poți repartiza unui atribut la alegerea ta. Poți face acest lucru manual, sau poți lăsa jocul să decidă pentru tine folosind una din opțiunile de Alocare Automată.",
     "unallocated": "Puncte de Atribut Nealocate",
     "haveUnallocated": "Ai <%= points %> Puncte pentru Atribue nealocate.",

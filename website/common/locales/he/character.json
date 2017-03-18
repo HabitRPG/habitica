@@ -112,6 +112,7 @@
     "mystery": "מסתורין",
     "changeClass": "שינוי מקצוע, החזרת נקודות תכונה",
     "lvl10ChangeClass": "כדי לשנות מקצוע עליכם להיות לפחות בדרגה 10.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "כל דרגה מעניקה לך נקודה אחת להקצות לתכונה לפי בחירתך. ניתן לעשות זאת באופן ידני, או לתת למשחק להחליט בשבילך באמצעות אחת האופציות להקצאה אוטומטית.",
     "unallocated": "נקודות תכונה שטרם הוקצו",
     "haveUnallocated": "יש לך <%= points %> נקודות תכונה שטרם הקצית.",

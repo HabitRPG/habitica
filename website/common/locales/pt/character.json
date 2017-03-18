@@ -112,6 +112,7 @@
     "mystery": "Mistério",
     "changeClass": "Alterar Classe, Restituir Pontos de Atributo",
     "lvl10ChangeClass": "Para mudar de classe você precisa ser pelo menos nível 10.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "A cada nível que alcançar você terá um ponto para distribuir para um atributo de sua escolha. Você pode fazer isso manualmente, ou deixar o jogo decidir por você usando uma das opções de Distribuição Automática.",
     "unallocated": "Pontos de Atributo não Distribuídos",
     "haveUnallocated": "Você tem <%= points %> Ponto(s) de Atributo não usados",

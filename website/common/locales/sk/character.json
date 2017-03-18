@@ -112,6 +112,7 @@
     "mystery": "Záhada",
     "changeClass": "Zmeniť povolanie, vrátiť pridelené body vlastností",
     "lvl10ChangeClass": "Aby si mohol zmeniť povolanie, musíš byť aspoň level 10.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "S každým levelom získaš jeden bod, ktorý môžeš priradiť do atribútu. Môžeš tak robiť ručne alebo nechať hru, aby rozhodla za teba, použitím možnosti \"automatické pridelenie\".",
     "unallocated": "Nepridelené body atribútov",
     "haveUnallocated": "Máš <%= points %> nepriradených bodov atribútov",
