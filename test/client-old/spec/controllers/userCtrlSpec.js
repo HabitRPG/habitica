@@ -1,26 +1,44 @@
 'use strict';
 
-describe('User Controller', function() {
-  var $rootScope, shared, scope, user, User, ctrl, content;
+describe.only('User Controller', function() {
+  var $rootScope, shared, scope, user, User, ctrl, content, achievement;
 
   beforeEach(function() {
-    user = specHelper.newUser();
+    user = specHelper.newUser({
+      balance: 4,
+      items: {
+        gear: { owned: {} },
+        eggs: { Cactus: 1 },
+        hatchingPotions: { Base: 1 },
+        food: { Meat: 1 },
+        pets: {},
+        mounts: {}
+      },
+      flags: {
+        armoireEnabled: true
+      },
+      preferences: {
+        suppressModals: {}
+      },
+      purchased: {
+        plan: {
+          mysteryItems: [],
+        },
+      },
+    });
+
     User = {
       user: user
     };
 
-    module(function($provide) {
-      $provide.value('User', User);
-      $provide.value('Guide', {});
-    });
-
-    inject(function($rootScope, $controller, Shared, Content){
+    inject(function($rootScope, $controller, Shared, User, Achievement, Guide) {
       scope = $rootScope.$new();
       Shared.wrap(user);
       shared = Shared;
-      content = Content
-      $controller('RootCtrl',  {$scope: scope, User: User, Shared: Shared});
-      ctrl = $controller('UserCtrl', {$scope: scope, User: User});
+      achievement = Achievement;
+      User.setUser(user);
+      $controller('RootCtrl',  {$scope: scope, User: User, Guide: Guide});
+      ctrl = $controller('UserCtrl', {$scope: scope, User: User, Guide: Guide});
     });
   });
 
