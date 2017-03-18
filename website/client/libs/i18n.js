@@ -1,10 +1,11 @@
-// Plugin to expose globally a '$t' method that calls common/i18n.t.
-// Can be used in templates.
+// Vue plugin to globally expose a '$t' method that calls common/i18n.t.
+// Can be anywhere inside vue as 'this.$t' or '$t' in templates.
 
-import i18n from '../../common/script/i18n';
+import i18n from 'common/script/i18n';
+
 // Load all english translations
 // TODO it's a workaround until proper translation loading works
-const context = require.context('../../common/locales/en', true, /\.(json)$/);
+const context = require.context('common/locales/en', true, /\.(json)$/);
 const translations = {};
 
 context.keys().forEach(filename => {

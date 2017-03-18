@@ -1,10 +1,10 @@
-import i18n from 'client/plugins/i18n';
+import i18n from 'client/libs/i18n';
 import commoni18n from 'common/script/i18n';
 import Vue from 'vue';
 
 describe('i18n plugin', () => {
   before(() => {
-    i18n.install(Vue);
+    Vue.use(i18n);
   });
 
   it('adds $t to Vue.prototype', () => {

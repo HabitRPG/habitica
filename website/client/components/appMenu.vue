@@ -130,14 +130,14 @@ $active-purple: #6133b4;
 </style>
 
 <script>
-import { mapState, mapGetters } from '../store';
+import { mapState, mapGetters } from 'client/libs/store';
 
 export default {
   computed: {
     ...mapGetters({
       userGems: 'user:gems',
     }),
-    ...mapState(['user']),
+    ...mapState({user: 'user.data'}),
   },
 };
 </script>
