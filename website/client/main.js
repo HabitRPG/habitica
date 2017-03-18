@@ -9,7 +9,7 @@ import router from './router';
 import generateStore from './store';
 import StoreModule from './libs/store';
 import './filters/registerGlobals';
-import i18n from './plugins/i18n';
+import i18n from './libs/i18n';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 
