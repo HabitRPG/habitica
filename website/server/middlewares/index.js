@@ -80,7 +80,7 @@ module.exports = function attachMiddlewares (app, server) {
   if (ENABLE_HTTP_AUTH) {
     const httpBasicAuthUsers = {};
     httpBasicAuthUsers[nconf.get('SITE_HTTP_AUTH:USERNAME')] = nconf.get('SITE_HTTP_AUTH:PASSWORD');
-    console.log(httpBasicAuthUsers);
+
     app.use(basicAuth({
       users: httpBasicAuthUsers,
       challenge: true,
