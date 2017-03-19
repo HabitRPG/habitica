@@ -286,11 +286,8 @@ api.handleWebhooks = async function handleWebhooks (options, stripeInc) {
   let stripeApi = stripe;
   if (stripeInc) stripeApi = stripeInc;
 
-  const eventJSON = JSON.parse(requestBody);
-  console.log(eventJSON);
-
   // Verify the event by fetching it from Stripe
-  const event = await stripeApi.events.retrieve(eventJSON.id);
+  const event = await stripeApi.events.retrieve(requestBody.id);
   console.log(event);
 
   switch (event.type) {
