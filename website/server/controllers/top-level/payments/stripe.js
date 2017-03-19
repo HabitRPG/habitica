@@ -89,7 +89,7 @@ api.subscribeCancel = {
 
 api.handleWebhooks = {
   method: 'POST',
-  url: '/stripe/webhook',
+  url: '/stripe/webhooks',
   async handler (req, res) {
     await stripePayments.handleWebhooks({requestBody: req.body});
 
