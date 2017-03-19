@@ -87,4 +87,14 @@ api.subscribeCancel = {
   },
 };
 
+api.handleWebhooks = {
+  method: 'POST',
+  url: '/stripe/webhook',
+  async handler (req, res) {
+    await stripePayments.handleWebhooks({requestBody: req.body});
+
+    return res.respond(200, {});
+  },
+};
+
 module.exports = api;
