@@ -3733,6 +3733,11 @@
         }
       }
     },
+    "express-basic-auth": {
+      "version": "1.0.1",
+      "from": "express-basic-auth@>=1.0.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/express-basic-auth/-/express-basic-auth-1.0.1.tgz"
+    },
     "express-csv": {
       "version": "0.6.0",
       "from": "express-csv@>=0.6.0 <0.7.0",
