@@ -260,6 +260,7 @@ angular.module('habitrpg')
               if (quest.progressDelta && userQuest.boss) {
                 Notification.quest('questDamage', quest.progressDelta.toFixed(1));
               } else if (quest.collection && userQuest.collect) {
+                user.party.quest.progress.collectedItems++;
                 Notification.quest('questCollection', quest.collection);
               }
             }
