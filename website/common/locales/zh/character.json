@@ -112,6 +112,7 @@
     "mystery": "神秘",
     "changeClass": "更改职业，重新分配属性点",
     "lvl10ChangeClass": "您必须达到10级才可以改变职业。",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "每一级你可以获得一个可自由分配的属性点。你可以手动分配，或者让系统为你自动分配。",
     "unallocated": "未分配的属性点",
     "haveUnallocated": "你有 <%= points %> 点未分配的属性点",

@@ -112,6 +112,7 @@
     "mystery": "Mystisk",
     "changeClass": "Skift klasse, Refunder attributpoint",
     "lvl10ChangeClass": "For at skifte klasse skal du være mindst niveau 10.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "Hvert niveau giver dig et point du kan tildele en attribut efter eget valg. Du kan gøre det manuelt, eller lade spillet bestemme for dig ved hjælp af en af de automatiske tildelingsmuligheder.",
     "unallocated": "Ufordelte attributpoint",
     "haveUnallocated": "Du har <%= points %> ubrugt(e) attributpoint",

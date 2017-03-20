@@ -1,6 +1,6 @@
 {
   "name": "habitica",
-  "version": "3.80.0",
+  "version": "3.80.1",
   "dependencies": {
     "@slack/client": {
       "version": "3.8.1",
@@ -3732,6 +3732,11 @@
           "resolved": "https://registry.npmjs.org/qs/-/qs-6.2.0.tgz"
         }
       }
+    },
+    "express-basic-auth": {
+      "version": "1.0.1",
+      "from": "express-basic-auth@>=1.0.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/express-basic-auth/-/express-basic-auth-1.0.1.tgz"
     },
     "express-csv": {
       "version": "0.6.0",

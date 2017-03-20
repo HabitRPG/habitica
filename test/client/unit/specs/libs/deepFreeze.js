@@ -1,7 +1,7 @@
 import deepFreeze from 'client/libs/deepFreeze';
 
 describe('deepFreeze', () => {
-  it('works as expected', () => {
+  it('deeply freezes an object', () => {
     let obj = {
       a: 1,
       b () {

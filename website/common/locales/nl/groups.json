@@ -236,9 +236,9 @@
     "groupBenefitFourDescription": "Is het nodig om te verifiëren of een taak daadwerkelijk is uitgevoerd voordat de gebruiker diens beloningen ontvangt? Pas simpelweg de goedkeuringsinstellingen aan voor meer controle.",
     "groupBenefitFiveTitle": "Chat privé met je groep",
     "groupBenefitFiveDescription": "Blijf op de hoogte van belangrijke beslissingen in onze makkelijk te gebruiken chatroom!",
-    "groupBenefitSixTitle": "Get a free subscription",
-    "groupBenefitSixDescription": "Get full subscription benefits, including exclusive monthly items and the ability to buy gems with gold! (If you're already a subscriber, your old subscription will be cancelled but your consecutive subscription benefits such as monthly hourglasses will remain.)",
-    "groupBenefitSevenTitle": "Get a brand-new exclusive Jackalope Mount",
+    "groupBenefitSixTitle": "Krijg een gratis abonnement",
+    "groupBenefitSixDescription": "Krijg alle abonnee voordelen, zoals exclusieve maandelijkse voorwerpen en de mogelijkheid om edelstenen te kopen met goud! (Als je al een abonnee bent, wordt je oude abonnement geannuleerd, maar je opeenvolgende abonnement voordelen, zoals maandelijkse zandlopers, zullen blijven.)",
+    "groupBenefitSevenTitle": "Krijg een gloednieuwe exclusieve jackalope rijdier",
     "createAGroup": "Maak een groep",
     "assignFieldPlaceholder": "Typ de profielnaam van een groepslid in",
     "cannotDeleteActiveGroup": "Je kunt geen groep met een actief abonnement verwijderen",
@@ -262,7 +262,7 @@
     "youHaveGroupPlan": "Je hebt een gratis abonnement omdat je lid bent van een groep met een groepsplan. Dit eindigt wanneer je niet langer in de groep zit die een groepsplan heeft.. Elke maand van extra abonnementskrediet die je hebt zal toegepast worden aan het einde van het groepsplan.",
     "cancelGroupSub": "Annuleer groepsplan",
     "confirmCancelGroupPlan": "Weet je zeker dat je het groepsplan wilt annuleren en de voordelen van alle leden wilt verwijderen, inclusief hun gratis abonnementen?",
-    "canceledGroupPlan": "Canceled Group Plan",
-    "groupPlanCanceled": "Group Plan will become inactive on",
+    "canceledGroupPlan": "Geannuleerd groepsplan",
+    "groupPlanCanceled": "Groepsplan zal inactief worden op",
     "purchasedGroupPlanPlanExtraMonths": "Je hebt <%= months %> maanden van extra groepsplan krediet."
 }

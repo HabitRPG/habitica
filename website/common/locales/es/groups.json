@@ -236,7 +236,7 @@
     "groupBenefitFourDescription": "¿Necesitas comprobar que una tarea realmente se ha hecho antes de recompensar a un usuario? Simplemente cambia los ajustes de las aprobaciones para mantener un mayor control.",
     "groupBenefitFiveTitle": "Conversa en privado con tu grupo",
     "groupBenefitFiveDescription": "¡Manténte al día de las decisiones importantes en nuestro chat de fácil uso!",
-    "groupBenefitSixTitle": "Get a free subscription",
+    "groupBenefitSixTitle": "Consigue una suscripción gratuita",
     "groupBenefitSixDescription": "Get full subscription benefits, including exclusive monthly items and the ability to buy gems with gold! (If you're already a subscriber, your old subscription will be cancelled but your consecutive subscription benefits such as monthly hourglasses will remain.)",
     "groupBenefitSevenTitle": "Get a brand-new exclusive Jackalope Mount",
     "createAGroup": "Crear un Grupo",
@@ -262,7 +262,7 @@
     "youHaveGroupPlan": "Tienes una suscripción gratuita porque eres miembro de un grupo que tiene un Plan de Grupo. Cualquier saldo de meses extra de suscripción que tengas se aplicará al final del plan de grupo.",
     "cancelGroupSub": "Cancelar plan de grupo",
     "confirmCancelGroupPlan": "¿Estás seguro de que quieres cancelar el plan de grupo y eliminar los beneficios de todos los miembros, incluyendo sus suscripciones gratuitas?",
-    "canceledGroupPlan": "Canceled Group Plan",
-    "groupPlanCanceled": "Group Plan will become inactive on",
+    "canceledGroupPlan": "Plan de grupo cancelado",
+    "groupPlanCanceled": "El plan de grupo se volverá inactivo el",
     "purchasedGroupPlanPlanExtraMonths": "Tienes <%= months %> meses de saldo extra de plan de grupo."
 }

@@ -236,9 +236,9 @@
     "groupBenefitFourDescription": "Искате ли да се уверите, че някоя определена задача е свършена правилно, преди потребителят да получи наградата си? Просто задайте това в настройките за одобрение!",
     "groupBenefitFiveTitle": "Провеждайте частни разговори с групата си",
     "groupBenefitFiveDescription": "Следете важните коментари и решения с нашата удобна стая за разговори!",
-    "groupBenefitSixTitle": "Get a free subscription",
-    "groupBenefitSixDescription": "Get full subscription benefits, including exclusive monthly items and the ability to buy gems with gold! (If you're already a subscriber, your old subscription will be cancelled but your consecutive subscription benefits such as monthly hourglasses will remain.)",
-    "groupBenefitSevenTitle": "Get a brand-new exclusive Jackalope Mount",
+    "groupBenefitSixTitle": "Сдобийте се с безплатен абонамент",
+    "groupBenefitSixDescription": "Сдобийте се с всички предимства на абонамента, включително ежемесечни предмети и възможността за закупуване на диаманти със злато! (Ако вече сте абонат, старият Ви абонамент ще бъде прекратен, но облагите, свързани с непрекъснат абонамент, като ежемесечните пясъчни часовници, си остават.)",
+    "groupBenefitSevenTitle": "Сдобийте се със съвсем новия изключителен превоз — рогат заек",
     "createAGroup": "Създайте група",
     "assignFieldPlaceholder": "Въведете профилното име на член на групата",
     "cannotDeleteActiveGroup": "Не можете да премахнете група с активен абонамент",
@@ -262,7 +262,7 @@
     "youHaveGroupPlan": "Имате безплатен абонамент, тъй като сте член на група, която има групов план. Това ще приключи, когато спрете да бъдете член на групата, която има този план. Оставащите средства за месечни абонаменти ще бъдат приложени след края на груповия план.",
     "cancelGroupSub": "Прекратяване на груповия план",
     "confirmCancelGroupPlan": "Наистина ли искате да прекратите груповия план и да лишите членовете на групата от предимствата му, включително от безплатния им абонамент?",
-    "canceledGroupPlan": "Canceled Group Plan",
-    "groupPlanCanceled": "Group Plan will become inactive on",
+    "canceledGroupPlan": "Груповият план е прекратен",
+    "groupPlanCanceled": "Груповият план ще стане неактивен на",
     "purchasedGroupPlanPlanExtraMonths": "Имате оставащи средства за <%= months %> месеца от груповия план."
 }

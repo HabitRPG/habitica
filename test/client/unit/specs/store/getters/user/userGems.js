@@ -5,7 +5,7 @@ describe('userGems getter', () => {
     expect(userGems({
       state: {
         user: {
-          balance: 4.5,
+          data: {balance: 4.5},
         },
       },
     })).to.equal(18);
