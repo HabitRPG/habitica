@@ -76,6 +76,11 @@
         "APN_ENABLED": "false",
         "FCM_SERVER_API_KEY": ""
     },
+    "SITE_HTTP_AUTH": {
+        "ENABLED": "false",
+        "USERNAME": "admin",
+        "PASSWORD": "password"
+    },
     "PUSHER": {
         "ENABLED": "false",
         "APP_ID": "appId",
