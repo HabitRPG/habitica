@@ -17,7 +17,7 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-var processUsers = require('./groups/update-groups-with-group-plans');
+var processUsers = require('./groups/add-unlimited-subscription');
 processUsers()
   .catch(function (err) {
       console.log(err)
