@@ -48,6 +48,21 @@ describe('DELETE /tasks/:id', () => {
       });
   });
 
+  it('allows a manager to delete a group task', async () => {
+    await user.post(`/groups/${guild._id}/add-manager`, {
+      managerId: member2._id,
+    });
+
+    await member2.del(`/tasks/${task._id}`);
+
+    await expect(user.get(`/tasks/${task._id}`))
+      .to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('taskNotFound'),
+      });
+  });
+
   it('unlinks assigned user', async () => {
     await user.del(`/tasks/${task._id}`);
 
