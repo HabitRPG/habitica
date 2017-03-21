@@ -1069,13 +1069,19 @@ api.inviteToGroup = {
 
     // If party, check the limit of members
     if (group.type === 'party') {
-      let partyLimitMembers = 2;
+      let partyLimitMembers = 5;
       let memberCount = 0;
 
       // Counting the members that already joined the party
       memberCount += group.memberCount;
-      //@TODO Count how many invitations currently exist in the party
-
+      // Count how many invitations currently exist in the party
+      let query = {};
+      query['invitations.party.id'] = group._id;
+      let groupInvites = await User
+        .find(query)
+        .select('_id')
+        .exec();
+      memberCount += groupInvites.length;
       // Counting the members that are going to be invited by email and uuids
       if (uuids)
         memberCount += uuids.length;
