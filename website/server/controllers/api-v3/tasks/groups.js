@@ -40,10 +40,14 @@ api.createGroupTasks = {
 
     let user = res.locals.user;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: requiredGroupFields});
+    let fields = requiredGroupFields.concat(' managers');
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    let isNotGroupLeader = group.leader !== user._id;
+    let isManager = Boolean(group.managers[user._id]);
+    let canNotEditTasks = isNotGroupLeader && !isManager;
+    if (canNotEditTasks) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     let tasks = await createTasks(req, res, {user, group});
 
