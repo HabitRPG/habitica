@@ -4,12 +4,12 @@ import {
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 
-describe('POST /group/:groupId/add-manager', () => {
+describe('POST /group/:groupId/remove-manager', () => {
   let leader, nonLeader, groupToUpdate;
   let groupName = 'Test Public Guild';
   let groupType = 'guild';
   let groupUpdatedName = 'Test Public Guild Updated';
-  let nonMember;
+  let nonManager;
 
   beforeEach(async () => {
     let { group, groupLeader, members } = await createAndPopulateGroup({
@@ -24,11 +24,11 @@ describe('POST /group/:groupId/add-manager', () => {
     groupToUpdate = group;
     leader = groupLeader;
     nonLeader = members[0];
-    nonMember = await generateUser();
+    nonManager = members[0];
   });
 
   it('returns an error when a non group leader tries to add member', async () => {
-    await expect(nonLeader.post(`/groups/${groupToUpdate._id}/add-manager`, {
+    await expect(nonLeader.post(`/groups/${groupToUpdate._id}/remove-manager`, {
       managerId: nonLeader._id,
     })).to.eventually.be.rejected.and.eql({
       code: 401,
@@ -37,21 +37,25 @@ describe('POST /group/:groupId/add-manager', () => {
     });
   });
 
-  it('returns an error when trying to promote a non member', async () => {
-    await expect(leader.post(`/groups/${groupToUpdate._id}/add-manager`, {
-      managerId: nonMember._id,
+  it('returns an error when manager does not exist', async () => {
+    await expect(leader.post(`/groups/${groupToUpdate._id}/remove-manager`, {
+      managerId: nonManager._id,
     })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('userMustBeMember'),
+      message: t('userIsNotManager'),
     });
   });
 
-  it('allows a leader to add managers', async () => {
-    let updatedGroup = await leader.post(`/groups/${groupToUpdate._id}/add-manager`, {
+  it('allows a leader to remove managers', async () => {
+    await leader.post(`/groups/${groupToUpdate._id}/add-manager`, {
       managerId: nonLeader._id,
     });
 
-    expect(updatedGroup.managers[nonLeader._id]).to.be.true;
+    let updatedGroup = await leader.post(`/groups/${groupToUpdate._id}/remove-manager`, {
+      managerId: nonLeader._id,
+    });
+
+    expect(updatedGroup.managers[nonLeader._id]).to.not.exist;
   });
 });

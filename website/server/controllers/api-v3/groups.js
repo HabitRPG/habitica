@@ -1135,4 +1135,51 @@ api.addGroupManager = {
   },
 };
 
+/**
+ * @api {post} /api/v3/groups/:groupId/remove-manager Removes a manager from a group
+ * @apiName RemoveGroupManager
+ * @apiGroup Group
+ *
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ *
+ * @apiParamExample {String} party:
+ *     /api/v3/groups/party/add-manager
+ *
+ * @apiBody (Body) {UUID} managerId TThe user _id of the member to remove
+ *
+ * @apiSuccess {Object} group The group
+ *
+ * @apiError (400) {NotAuthorized} managerId req.body.managerId is required
+ * @apiUse groupIdRequired
+ */
+api.removeGroupManager = {
+  method: 'POST',
+  url: '/groups/:groupId/remove-manager',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let managerId = req.body.managerId;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkBody('managerId', res.t('managerIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let groupFields = basicGroupFields.concat(' managers');
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: groupFields});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+
+    if (!group.managers[managerId]) throw new NotAuthorized(res.t('userIsNotManager'));
+
+    delete group.managers[managerId];
+    group.markModified('managers');
+    await group.save();
+
+    res.respond(200, group);
+  },
+};
+
 module.exports = api;
