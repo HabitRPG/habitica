@@ -236,9 +236,9 @@
     "groupBenefitFourDescription": "想要确认玩家在得到奖励之前是否真的完成了这个任务？通过审批设置来添加额外的审核吧。",
     "groupBenefitFiveTitle": "和团队秘密讨论",
     "groupBenefitFiveDescription": "在我们简便的聊天室里进行对重要决定的反复讨论吧~！",
-    "groupBenefitSixTitle": "Get a free subscription",
-    "groupBenefitSixDescription": "Get full subscription benefits, including exclusive monthly items and the ability to buy gems with gold! (If you're already a subscriber, your old subscription will be cancelled but your consecutive subscription benefits such as monthly hourglasses will remain.)",
-    "groupBenefitSevenTitle": "Get a brand-new exclusive Jackalope Mount",
+    "groupBenefitSixTitle": "获得免费订阅",
+    "groupBenefitSixDescription": "获得全部订阅加成，包括独家提供的月度礼品和可以使用金币购买宝石的权益！（如果你已经是一位订阅者，你的旧订阅将会被取消，但是你的连续订阅加成——比如每月沙漏——将会持续。）",
+    "groupBenefitSevenTitle": "获得一个全新的鹿角兔坐骑",
     "createAGroup": "创建一个小组",
     "assignFieldPlaceholder": "给组员一个特殊代号:smirk:",
     "cannotDeleteActiveGroup": "该小组的订购计划尚在进行中，你无法将其解散",
@@ -262,7 +262,7 @@
     "youHaveGroupPlan": "由于你所在的小组有组内订购计划，你将享受免费订购的权利。当你退出该小组时，该权利也随之结束。你通过其他方式订购的月数将在组内订购计划结束之后开始计算。",
     "cancelGroupSub": "取消团队套餐",
     "confirmCancelGroupPlan": "你确定要取消组内订购计划，并取消所有成员的免费订购的权利吗？",
-    "canceledGroupPlan": "Canceled Group Plan",
-    "groupPlanCanceled": "Group Plan will become inactive on",
+    "canceledGroupPlan": "已取消的团队套餐",
+    "groupPlanCanceled": "团队套餐将失效于",
     "purchasedGroupPlanPlanExtraMonths": "你有 <%= months %> 个月额外的组内订购的月数。"
 }
