@@ -126,5 +126,33 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         .then(function (response) {
           $rootScope.openModal('private-message', {controller: 'MemberModalCtrl'});
         });
-    }
+    };
+
+    $scope.memberProfileName = function (memberId) {
+      var member = _.find($scope.groupCopy.members, function (member) { return member._id === memberId; });
+      return member.profile.name;
+    };
+
+    $scope.addManager = function () {
+      Groups.Group.addManager($scope.groupCopy._id, $scope.groupCopy._newManager._id)
+        .then(function (response) {
+          $scope.groupCopy._newManager = '';
+          $scope.groupCopy.managers = response.data.data.managers;
+        });
+    };
+
+    $scope.removeManager = function (memberId) {
+      Groups.Group.removeManager($scope.groupCopy._id, memberId)
+        .then(function (response) {
+          $scope.groupCopy._newManager = '';
+          $scope.groupCopy.managers = response.data.data.managers;
+        });
+    };
+
+    $scope.userCanApprove = function (userId, group) {
+      if (!group) return false;
+      let leader = group.leader._id === userId;
+      let userIsManager = !!group.managers[userId];
+      return leader || userIsManager;
+    };
   }]);

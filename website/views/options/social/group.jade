@@ -14,7 +14,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
       a(ng-click="groupPanel = 'chat'")=env.t('groupHomeTitle')
     li(ng-show='group.purchased.active')
       a(ng-click="groupPanel = 'tasks'")=env.t('groupTasksTitle')
-    li(ng-show='group.purchased.active && group.leader._id === user._id')
+    li(ng-show='group.purchased.active && userCanApprove(user._id, group)')
       a(ng-click="groupPanel = 'approvals'")=env.t('approvalsTitle')
     li
       a(ng-click="groupPanel = 'subscription'", ng-show='group.leader._id === user._id && group.purchased.plan.customerId')=env.t('paymentDetails')
@@ -64,7 +64,16 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
 
               h4=env.t('assignLeader')
               select#group-leader-selection(ng-model='groupCopy._newLeader', ng-options='member.profile.name for member in group.members')
-
+              
+              h4=env.t('addManagers')
+              .form-group
+                select#group-leader-selection(ng-model='groupCopy._newManager', ng-options='member.profile.name for member in group.members')
+                button.btn.btn-primary(ng-click='addManager()')=env.t('addManager')
+              ul
+                li(ng-repeat='(managerId, value) in groupCopy.managers')
+                 | {{memberProfileName(managerId)}}
+                 button.btn.btn-warning(ng-click='removeManager(managerId)')=env.t('removeManager')
+              
             div(ng-show='!group._editing')
               img.img-rendering-auto.pull-right(ng-show='group.logo', ng-src='{{group.logo}}')
               markdown(text='group.description')
@@ -176,6 +185,6 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
 
     group-tasks(ng-show="groupPanel == 'tasks'")
 
-    group-approvals(ng-show="groupPanel == 'approvals'", ng-if="group.leader._id === user._id", group="group")
+    group-approvals(ng-show="groupPanel == 'approvals'", ng-if="userCanApprove(user._id, group)", group="group")
 
     +groupSubscription
