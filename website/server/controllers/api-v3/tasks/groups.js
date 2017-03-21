@@ -289,10 +289,14 @@ api.approveTask = {
       throw new NotFound(res.t('taskNotFound'));
     }
 
-    let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+    let fields = requiredGroupFields.concat(' managers');
+    let group = await Group.getGroup({user, groupId: task.group.id, fields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    let isNotGroupLeader = group.leader !== user._id;
+    let isManager = Boolean(group.managers[user._id]);
+    let canNotEditTasks = isNotGroupLeader && !isManager;
+    if (canNotEditTasks) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     task.group.approval.dateApproved = new Date();
     task.group.approval.approvingUser = user._id;

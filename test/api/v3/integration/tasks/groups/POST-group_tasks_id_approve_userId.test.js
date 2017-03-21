@@ -5,7 +5,7 @@ import {
 import { find } from 'lodash';
 
 describe('POST /tasks/:id/approve/:userId', () => {
-  let user, guild, member, task;
+  let user, guild, member, member2, task;
 
   function findAssignedTask (memberTask) {
     return memberTask.group.id === guild._id;
@@ -17,12 +17,13 @@ describe('POST /tasks/:id/approve/:userId', () => {
         name: 'Test Guild',
         type: 'guild',
       },
-      members: 1,
+      members: 2,
     });
 
     guild = group;
     user = groupLeader;
     member = members[0];
+    member2 = members[0];
 
     task = await user.post(`/tasks/group/${guild._id}`, {
       text: 'test todo',
@@ -67,6 +68,30 @@ describe('POST /tasks/:id/approve/:userId', () => {
 
     expect(syncedTask.group.approval.approved).to.be.true;
     expect(syncedTask.group.approval.approvingUser).to.equal(user._id);
+    expect(syncedTask.group.approval.dateApproved).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
+  });
+
+  it('allows a manager to approve an assigned user', async () => {
+    await user.post(`/groups/${guild._id}/add-manager`, {
+      managerId: member2._id,
+    });
+
+    await member2.post(`/tasks/${task._id}/assign/${member._id}`);
+    await member2.post(`/tasks/${task._id}/approve/${member._id}`);
+
+    let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, findAssignedTask);
+
+    await member.sync();
+
+    expect(member.notifications.length).to.equal(2);
+    expect(member.notifications[0].type).to.equal('GROUP_TASK_APPROVED');
+    expect(member.notifications[0].data.message).to.equal(t('yourTaskHasBeenApproved', {taskText: task.text}));
+    expect(member.notifications[1].type).to.equal('SCORED_TASK');
+    expect(member.notifications[1].data.message).to.equal(t('yourTaskHasBeenApproved', {taskText: task.text}));
+
+    expect(syncedTask.group.approval.approved).to.be.true;
+    expect(syncedTask.group.approval.approvingUser).to.equal(member2._id);
     expect(syncedTask.group.approval.dateApproved).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
   });
 });
