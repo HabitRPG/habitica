@@ -237,10 +237,14 @@ api.unassignTask = {
       throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
     }
 
-    let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+    let fields = requiredGroupFields.concat(' managers');
+    let group = await Group.getGroup({user, groupId: task.group.id, fields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    let isNotGroupLeader = group.leader !== user._id;
+    let isManager = Boolean(group.managers[user._id]);
+    let canNotEditTasks = isNotGroupLeader && !isManager;
+    if (canNotEditTasks) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     await group.unlinkTask(task, assignedUser);
 
