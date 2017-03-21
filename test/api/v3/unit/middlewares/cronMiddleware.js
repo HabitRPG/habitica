@@ -235,7 +235,13 @@ describe('cron middleware', () => {
     sandbox.spy(cronLib, 'recoverCron');
 
     sandbox.stub(User, 'update')
-      .withArgs({ _id: user._id, _cronSignature: 'NOT_RUNNING' })
+      .withArgs({
+        _id: user._id,
+        $or: [
+          {_cronSignature: 'NOT_RUNNING'},
+          {_cronSignature: {$lt: sinon.match.number}},
+        ],
+      })
       .returns({
         exec () {
           return Promise.resolve(updatedUser);
