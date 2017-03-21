@@ -341,10 +341,14 @@ api.getGroupApprovals = {
     let user = res.locals.user;
     let groupId = req.params.groupId;
 
-    let group = await Group.getGroup({user, groupId, fields: requiredGroupFields});
+    let fields = requiredGroupFields.concat(' managers');
+    let group = await Group.getGroup({user, groupId, fields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    let isNotGroupLeader = group.leader !== user._id;
+    let isManager = Boolean(group.managers[user._id]);
+    let canNotEditTasks = isNotGroupLeader && !isManager;
+    if (canNotEditTasks) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     let approvals = await Tasks.Task.find({
       'group.id': groupId,
