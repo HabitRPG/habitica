@@ -8,7 +8,6 @@ describe('POST /group/:groupId/add-manager', () => {
   let leader, nonLeader, groupToUpdate;
   let groupName = 'Test Public Guild';
   let groupType = 'guild';
-  let groupUpdatedName = 'Test Public Guild Updated';
   let nonMember;
 
   beforeEach(async () => {

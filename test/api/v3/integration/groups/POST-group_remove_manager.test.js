@@ -1,5 +1,4 @@
 import {
-  generateUser,
   createAndPopulateGroup,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
@@ -8,7 +7,6 @@ describe('POST /group/:groupId/remove-manager', () => {
   let leader, nonLeader, groupToUpdate;
   let groupName = 'Test Public Guild';
   let groupType = 'guild';
-  let groupUpdatedName = 'Test Public Guild Updated';
   let nonManager;
 
   beforeEach(async () => {
