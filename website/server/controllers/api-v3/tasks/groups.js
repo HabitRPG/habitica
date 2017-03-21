@@ -175,11 +175,15 @@ api.assignTask = {
       throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
     }
 
-    let groupFields = `${requiredGroupFields} chat`;
+    let groupFields = `${requiredGroupFields} chat managers`;
     let group = await Group.getGroup({user, groupId: task.group.id, fields: groupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id && user._id !== assignedUserId) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    let isNotGroupLeader = group.leader !== user._id;
+    let isManager = Boolean(group.managers[user._id]);
+    let userIsAssigningToSelf = user._id === assignedUserId;
+    let canNotEditTasks = isNotGroupLeader && !isManager && !userIsAssigningToSelf;
+    if (canNotEditTasks) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     // User is claiming the task
     if (user._id === assignedUserId) {
