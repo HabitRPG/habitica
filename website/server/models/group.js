@@ -105,6 +105,9 @@ export let schema = new Schema({
       return {};
     }},
   },
+  managers: {type: Schema.Types.Mixed, default: () => {
+    return {};
+  }},
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

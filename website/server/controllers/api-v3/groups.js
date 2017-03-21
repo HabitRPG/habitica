@@ -1086,4 +1086,53 @@ api.inviteToGroup = {
   },
 };
 
+/**
+ * @api {post} /api/v3/groups/:groupId/add-manager Add a manager to a group
+ * @apiName AddGroupManager
+ * @apiGroup Group
+ *
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ *
+ * @apiParamExample {String} party:
+ *     /api/v3/groups/party/add-manager
+ *
+ * @apiBody (Body) {UUID} managerId TThe user _id of the member to promote to manager
+ *
+ * @apiSuccess {Object} data An empty object
+ *
+ * @apiError (400) {NotAuthorized} managerId req.body.managerId is required
+ * @apiUse groupIdRequired
+ */
+api.addGroupManager = {
+  method: 'POST',
+  url: '/groups/:groupId/add-manager',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let managerId = req.body.managerId;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkBody('managerId', res.t('managerIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let newManager = await User.findById(managerId).exec();
+    let groupFields = basicGroupFields.concat(' managers');
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: groupFields});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+
+    let isMember = newManager.guilds.indexOf(group._id) !== -1;
+    if (!isMember) throw new NotAuthorized(res.t('userMustBeMember'));
+
+    group.managers[managerId] = true;
+    group.markModified('managers');
+    await group.save();
+
+    res.respond(200, group);
+  },
+};
+
 module.exports = api;
