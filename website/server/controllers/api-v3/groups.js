@@ -1038,6 +1038,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  * @apiError (400) {BadRequest} MustBeArray The `uuids` or `emails` body param was not an array.
  * @apiError (400) {BadRequest} TooManyInvites A max of 100 invites (combined emails and user ids) can
  * be sent out at a time.
+ * @apiError (400) {BadRequest} ExceedsMembersLimit A max of 30 members can join a party.
  *
  * @apiError (401) {NotAuthorized} UserAlreadyInvited The user has already been invited to the group.
  * @apiError (401) {NotAuthorized} UserAlreadyInGroup The user is already a member of the group.
@@ -1065,6 +1066,25 @@ api.inviteToGroup = {
 
     let uuids = req.body.uuids;
     let emails = req.body.emails;
+
+    // If party, check the limit of members
+    if (group.type === 'party') {
+      let partyLimitMembers = 2;
+      let memberCount = 0;
+
+      // Counting the members that already joined the party
+      memberCount += group.memberCount;
+      //@TODO Count how many invitations currently exist in the party
+
+      // Counting the members that are going to be invited by email and uuids
+      if (uuids)
+        memberCount += uuids.length;
+      if (emails)
+        memberCount += emails.length;
+
+      if (memberCount > partyLimitMembers)
+        throw new BadRequest(res.t('partyExceedsMembersLimit', {maxMembersParty: partyLimitMembers}));
+    }
 
     Group.validateInvitations(uuids, emails, res);
 
