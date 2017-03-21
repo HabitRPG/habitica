@@ -413,9 +413,13 @@ api.updateTask = {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.group.id && !task.userId) {
       //  @TODO: Abstract this access snippet
-      group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+      let fields = requiredGroupFields.concat(' managers');
+      group = await Group.getGroup({user, groupId: task.group.id, fields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      let isNotGroupLeader = group.leader !== user._id;
+      let isManager = Boolean(group.managers[user._id]);
+      let canNotEditTasks = isNotGroupLeader && !isManager;
+      if (canNotEditTasks) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
