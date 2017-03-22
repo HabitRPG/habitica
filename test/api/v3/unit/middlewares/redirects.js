@@ -152,7 +152,7 @@ describe('redirects middleware', () => {
       nconfStub.withArgs('IS_PROD').returns(true);
       req.hostname = 'www.habitica.com';
       req.method = 'GET';
-      req.originalUrl = '/static/front';
+      req.originalUrl = '/api/v3/challenges';
       req.url = '/api/v3/challenges';
 
       let attachRedirects = requireAgain(pathToRedirectsMiddleware);
