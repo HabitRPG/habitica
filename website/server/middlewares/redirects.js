@@ -1,6 +1,6 @@
 import nconf from 'nconf';
 
-const IS_PROD = nconf.get('IS_PROD') === 'true';
+const IS_PROD = nconf.get('IS_PROD');
 const IGNORE_REDIRECT = nconf.get('IGNORE_REDIRECT') === 'true';
 const BASE_URL = nconf.get('BASE_URL');
 
