@@ -68,11 +68,11 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
               h4=env.t('addManagers')
               .form-group
                 select#group-leader-selection(ng-model='groupCopy._newManager', ng-options='member.profile.name for member in group.members')
-                button.btn.btn-primary(ng-click='addManager()')=env.t('addManager')
+                button.btn.btn-primary.add-manager-button(ng-click='addManager()')=env.t('addManager')
               ul
                 li(ng-repeat='(managerId, value) in groupCopy.managers')
                  | {{memberProfileName(managerId)}}
-                 button.btn.btn-warning(ng-click='removeManager(managerId)')=env.t('removeManager')
+                 button.btn.btn-warning.remove-manager-button(ng-click='removeManager(managerId)')=env.t('removeManager')
               
             div(ng-show='!group._editing')
               img.img-rendering-auto.pull-right(ng-show='group.logo', ng-src='{{group.logo}}')
