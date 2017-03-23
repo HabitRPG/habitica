@@ -168,6 +168,7 @@
     "hatchingPotionRoyalPurple": "Purpura królewska",
     "hatchingPotionHolly": "Ostrokrzewowy",
     "hatchingPotionCupid": "Amor",
+    "hatchingPotionShimmer": "Shimmer",
     "hatchingPotionNotes": "Wylej go na jajko, a wykluje się z niego <%=potText(locale)%>.",
     "premiumPotionAddlNotes": "Nie nadaje się do użytku na jajach otrzymanych za misje.",
     "foodMeat": "Mięso",

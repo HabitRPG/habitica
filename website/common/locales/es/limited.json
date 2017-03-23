@@ -88,9 +88,6 @@
     "grandMalkinSet": "Gran Felino (Mago)",
     "cleverDogSet": "Perro Listo (Pícaro)",
     "braveMouseSet": "Ratón Valiente (Guerrero)",
-    "fallEventAvailability": "Disponible para la compra a partir del 31 de Octubre.",
-    "winterEventAvailability": "Disponible para su compra hasta el 31 de enero",
-    "springEventAvailability": "Disponible para la compra a partir del 31 de Mayo.",
-    "summerEventAvailability": "Disponible para la compra a partir del 31 de Agosto.",
-    "valentinesEventAvailability": "Disponible para su compra hasta el 28 de febrero."
+    "eventAvailability": "Available for purchase until <%= date(locale) %>.",
+    "dateEndApril": "April 19"
 }

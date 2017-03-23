@@ -168,6 +168,7 @@
     "hatchingPotionRoyalPurple": "高貴な紫の",
     "hatchingPotionHolly": "ひいらぎの",
     "hatchingPotionCupid": "キューピッドの",
+    "hatchingPotionShimmer": "Shimmer",
     "hatchingPotionNotes": "これをたまごにかけると、<%= potText(locale) %> ペットが生まれます。",
     "premiumPotionAddlNotes": "クエスト ペットのたまごには使えません。",
     "foodMeat": "肉",

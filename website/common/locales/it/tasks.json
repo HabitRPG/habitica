@@ -150,7 +150,7 @@
     "weekly": "Settimanale",
     "monthly": "Mensile",
     "yearly": "Annuale",
-    "onDays": "On Days",
+    "onDays": "Nei giorni",
     "summary": "Riassunto",
     "repeatsOn": "Ripeti di",
     "dayOfWeek": "Giorno della settimana",
@@ -163,7 +163,7 @@
     "years": "Anni",
     "confirmScoreNotes": "Confirm task scoring with notes",
     "taskScoreNotesTooLong": "Task score notes must be less than 256 characters",
-    "groupTasksByChallenge": "Group tasks by challenge title",
+    "groupTasksByChallenge": "Raggruppa le attività secondo il nome della sfida",
     "monthlyRepeatHelpContent": "Questa attività andrà completata ogni X mesi.",
     "yearlyRepeatHelpContent": "Questa attività andrà completata ogni X anni."
 }

@@ -88,9 +88,6 @@
     "grandMalkinSet": "Prächtiger Kater (Magier)",
     "cleverDogSet": "Schlauer Hund (Schurke)",
     "braveMouseSet": "Mutige Maus (Krieger)",
-    "fallEventAvailability": "Zum Kauf verfügbar bis zum 31. Oktober.",
-    "winterEventAvailability": "Zum Kauf verfügbar bis zum 31. Januar.",
-    "springEventAvailability": "Zum Kauf verfügbar bis zum 31. Mai.",
-    "summerEventAvailability": "Zum Kauf verfügbar bis zum 31. August.",
-    "valentinesEventAvailability": "Zum Kauf verfügbar bis zum 28. Februar."
+    "eventAvailability": "Available for purchase until <%= date(locale) %>.",
+    "dateEndApril": "April 19"
 }

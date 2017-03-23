@@ -168,6 +168,7 @@
     "hatchingPotionRoyalPurple": "Royal Purple",
     "hatchingPotionHolly": "Holly",
     "hatchingPotionCupid": "Cupid",
+    "hatchingPotionShimmer": "Shimmer",
     "hatchingPotionNotes": "Pospite ovo po jajetu, i iz njega će se izleći <%= potText(locale)  %> ljubimac.",
     "premiumPotionAddlNotes": "Not usable on quest pet eggs.",
     "foodMeat": "Meso",

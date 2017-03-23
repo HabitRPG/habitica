@@ -131,7 +131,7 @@
     "unsubscribedTextOthers": "你将不会收到任何来自Habitica的邮件。",
     "unsubscribeAllEmails": "确认从电子邮件退订",
     "unsubscribeAllEmailsText": "以此确认，我明白在我取消邮箱订阅后，Habitica不会再通过邮件通知我关于我的账号或关于网站的重要更改。",
-    "unsubscribeAllPush": "从所有推送通知中确认退订",
+    "unsubscribeAllPush": "确认 退订所有推送通知",
     "correctlyUnsubscribedEmailType": "正确的退订了 \"<%= emailType %>\"的邮件",
     "subscriptionRateText": "每 <%= months %>月充值 <%= price %> 美元",
     "recurringText": "康复中",
