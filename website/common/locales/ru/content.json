@@ -168,6 +168,7 @@
     "hatchingPotionRoyalPurple": "Королевский пурпурный",
     "hatchingPotionHolly": "Oстролистный",
     "hatchingPotionCupid": "Амур",
+    "hatchingPotionShimmer": "Shimmer",
     "hatchingPotionNotes": "Полейте его на яйцо и из него вылупится <%= potText(locale) %> питомец.",
     "premiumPotionAddlNotes": "Несовместим с яйцами квестовых питомцев.",
     "foodMeat": "Мясо",

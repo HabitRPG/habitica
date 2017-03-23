@@ -168,6 +168,7 @@
     "hatchingPotionRoyalPurple": "Royal Purple",
     "hatchingPotionHolly": "Holly",
     "hatchingPotionCupid": "Cupid",
+    "hatchingPotionShimmer": "Shimmer",
     "hatchingPotionNotes": "מזוג שיקוי זה על ביצה, והיא תבקע כ: <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "לא ניתן לשימוש על ביצי הרפתקאות.",
     "foodMeat": "בשר",

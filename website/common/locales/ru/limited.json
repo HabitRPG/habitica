@@ -88,9 +88,6 @@
     "grandMalkinSet": "Великий Малкин (Маг)",
     "cleverDogSet": "Мудрый Пёс (Вор)",
     "braveMouseSet": "Храбрая Мышь (Воин)",
-    "fallEventAvailability": "Можно купить до 31 октября.",
-    "winterEventAvailability": "Можно купить до 31 января.",
-    "springEventAvailability": "Можно купить до 31 мая.",
-    "summerEventAvailability": "Можно купить до 31 августа.",
-    "valentinesEventAvailability": "Доступно для покупки до 28 февраля."
+    "eventAvailability": "Available for purchase until <%= date(locale) %>.",
+    "dateEndApril": "April 19"
 }

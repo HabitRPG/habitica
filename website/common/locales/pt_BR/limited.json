@@ -88,9 +88,6 @@
     "grandMalkinSet": "Grand Malkin (Mage)",
     "cleverDogSet": "Clever Dog (Rogue)",
     "braveMouseSet": "Brave Mouse (Warrior)",
-    "fallEventAvailability": "Disponível para compra até 31 de Outubro.",
-    "winterEventAvailability": "Disponível para compra até 31 de janeiro.",
-    "springEventAvailability": "Disponível para compra até 31 de Maio.",
-    "summerEventAvailability": "Disponível para compra até 31 de Agosto.",
-    "valentinesEventAvailability": "Disponível para compra até 28 de fevereiro."
+    "eventAvailability": "Available for purchase until <%= date(locale) %>.",
+    "dateEndApril": "April 19"
 }
