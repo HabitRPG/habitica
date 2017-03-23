@@ -27,30 +27,29 @@ describe.only('User Controller', function() {
     inject(function($rootScope, $controller, User, Content) {
       scope = $rootScope.$new();
       content = Content;
-      $window = {
-        env: {
-          t: sandbox.stub(),
-        },
-      };
-      $controller('RootCtrl', { $scope: scope, $window: $window, User: User});
+      $controller('RootCtrl', { $scope: scope, User: User});
       ctrl = $controller('UserCtrl', { $scope: scope, User: User, $window: $window});
     });
   });
 
   describe('getProgressDisplay', function() {
+
+    beforeEach(() => {
+      sandbox.stub(window.env, 't');
+      window.env.t.onFirstCall().returns('Progress until next');
+    });
+
     it('should return initial progress', function() {
-      $window.env.t.onFirstCall().returns('');
       scope.profile.loginIncentives = 0;
       content.loginIncentives = [{
         nextRewardAt: 1,
         reward: true
       }];
       var actual = scope.getProgressDisplay();
-      expect(actual.trim()).to.eql('0/1');
+      expect(actual.trim()).to.eql('Progress until next 0/1');
     });
 
     it('should return progress between next reward and current reward', function() {
-      $window.env.t.onFirstCall().returns('');
       scope.profile.loginIncentives = 1;
       content.loginIncentives = [{
         nextRewardAt: 1,
@@ -64,7 +63,7 @@ describe.only('User Controller', function() {
         nextRewardAt: 3
       }];
       var actual = scope.getProgressDisplay();
-      expect(actual.trim()).to.eql('0/1');
+      expect(actual.trim()).to.eql('Progress until next 0/1');
     });
   });
 });
