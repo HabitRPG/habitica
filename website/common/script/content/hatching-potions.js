@@ -3,6 +3,8 @@ import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import t from './translation';
 
+const CURRENT_SEASON = 'April';
+
 let drops = {
   Base: {
     value: 2,
@@ -64,6 +66,12 @@ let premium = {
     limited: true,
     _season: 'spring',
   },
+  Shimmer: {
+    value: 2,
+    text: t('hatchingPotionShimmer'),
+    limited: true,
+    _season: 'April',
+  },
   Thunderstorm: {
     value: 2,
     text: t('hatchingPotionThunderstorm'),
@@ -118,11 +126,13 @@ each(premium, (pot, key) => {
     notes: t('hatchingPotionNotes', {
       potText: pot.text,
     }),
-    _addlNotes: t(`${pot._season}EventAvailability`),
+    _addlNotes: t('eventAvailability', {
+      date: t(`dateEnd${pot._season}`),
+    }),
     premium: true,
     limited: false,
     canBuy () {
-      return pot._season === 'regular';
+      return pot._season === CURRENT_SEASON;
     },
   });
 });
