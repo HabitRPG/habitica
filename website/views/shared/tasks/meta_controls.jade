@@ -67,6 +67,6 @@
     // notes
 
   // Make this icon available regardless of task ownership
-  a.task-notes(ng-show='task.notes && !task._editing', ng-click='showNoteDetails(task);', popover-trigger='click', data-popover-html="{{task.notes | markdown}}", popover-placement="top", popover-append-to-body='{{::modal ? "false":"true"}}')
+  a.task-notes(ng-show='task.notes && !task._editing', ng-click='showNoteDetails(task);', popover-trigger='hover', data-popover-html="{{task.notes | markdown}}", popover-placement="top", popover-append-to-body='{{::modal ? "false":"true"}}')
     span.glyphicon.glyphicon-comment
     | &nbsp;
