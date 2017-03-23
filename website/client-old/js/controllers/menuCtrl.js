@@ -23,7 +23,7 @@ angular.module('habitrpg')
         } else if (!(_.isEmpty(user.newMessages))) {
           return messageValue;
         } else if (!_.isEmpty(user.groupNotifications)) {
-          var groupNotificationTypes = _.pluck(user.groupNotifications, 'type');
+          var groupNotificationTypes = _.map(user.groupNotifications, 'type');
           if (groupNotificationTypes.indexOf('GROUP_TASK_APPROVAL') !== -1) {
             return groupApprovalRequested;
           } else if (groupNotificationTypes.indexOf('GROUP_TASK_APPROVED') !== -1) {

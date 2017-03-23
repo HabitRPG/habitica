@@ -28,7 +28,7 @@ angular.module('habitrpg')
       };
 
       $scope.newGroupIsReady = function () {
-        return $scope.newGroup.name && $scope.newGroup.description;
+        return !!$scope.newGroup.name;
       };
 
       $scope.createGroup = function () {

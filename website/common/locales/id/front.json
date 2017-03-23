@@ -37,7 +37,7 @@
     "dragonsilverQuote": "Tidak terhitung berapa banyak cara yang sudah saya coba untuk mencatat tugas dan alokasi waktu saya selama puluhan tahun... [Habitica] adalah satu-satunya yang benar-benar membuat saya melakukan sesuatu ketimbang cuma menuliskannya ke dalam daftar.",
     "dreimQuote": "Ketika saya menemukan [Habitica] musim panas lalu, saya baru saja gagal sekitar setengah dari seluruh ujian saya. Berkat Keseharian... Saya mampu mengatur dan mendisiplinkan diri sendiri, dan saya lulus semua ujian dengan nilai sangat baik bulan lalu.",
     "elmiQuote": "Setiap pagi saya tidak sabar untuk segera bekerja untuk dapatkan banyak koin!",
-    "emailNewPass": "Email a Password Reset Link",
+    "emailNewPass": "Kirimkan Email Tautan Reset Kata Sandi",
     "evagantzQuote": "Dokter gigi saya jadi benar-benar bangga karena saya rajin sekali menggunakan benang gigi. Terima kasih [Habitica]!",
     "examplesHeading": "Pengguna menggunakan Habitica untuk mengatur...",
     "featureAchievementByline": "Ingin sesuatu yang keren? Dapatkan lencana dan pamerkan!",
@@ -259,7 +259,7 @@
     "passwordResetEmailHtml": "Kalau kamu meminta reset kata sandi untuk <strong><%= username %></strong> di Habitica, <a href=\"<%= passwordResetLink %>\">klik di sini</a> untuk membuat kata sandi baru. Tautan akan hangus setelah 24 jam.<br/><br>Kalau kamu tidak pernah meminta reset kata sandi, abaikan saja email ini.",
     "invalidLoginCredentialsLong": "O-oh - nama pengguna atau kata sandi tidak benar.\n- Pastikan nama pengguna atau email diketikkan dengan benar.\n- Kamu mungkin mendaftar dengan menggunakan Facebook, bukan email. Periksa ulang dengan mencoba masuk melalui Facebook.\n- Jika kamu lupa kata sandi, klik \"Lupa Kata Sandi\".",
     "invalidCredentials": "Tidak ada akun yang menggunakan credential tersebut.",
-    "accountSuspended": "Akun telah ditangguhkan, dimohon menghubungi  leslie@habitica.com dengan ID Pengguna Anda \"<%= userId %>\" untuk bantuan.",
+    "accountSuspended": "Akun telah ditangguhkan, silakan menghubungi leslie@habitica.com dengan ID Pengguna Anda \"<%= userId %>\" untuk bantuan.",
     "unsupportedNetwork": "Jaringan ini saat ini belum didukung.",
     "cantDetachSocial": "Akun tidak memiliki metode autentikasi lain; tidak dapat memutuskan metode autentikasi ini.",
     "onlySocialAttachLocal": "Autentikasi lokal dapat ditambahkan hanya pada akun sosial.",
@@ -267,5 +267,5 @@
     "memberIdRequired": "\"member\" harus merupakan UUID yang valid.",
     "heroIdRequired": "\"heroId\" harus merupakan UUID yang valid.",
     "cannotFulfillReq": "Permintaanmu tidak dapat dipenuhi. Kirim email ke admin@habitica.com jika error ini terus berlangsung.",
-    "modelNotFound": "This model does not exist."
+    "modelNotFound": "Model ini tidak ada."
 }

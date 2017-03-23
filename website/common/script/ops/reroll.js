@@ -1,5 +1,5 @@
 import i18n from '../i18n';
-import _ from 'lodash';
+import each from 'lodash/each';
 import {
   NotAuthorized,
 } from '../libs/errors';
@@ -12,7 +12,7 @@ module.exports = function reroll (user, tasks = [], req = {}, analytics) {
   user.balance--;
   user.stats.hp = 50;
 
-  _.each(tasks, function resetTaskValues (task) {
+  each(tasks, function resetTaskValues (task) {
     if (!task.challenge || !task.challenge.id || task.challenge.broken) {
       if (task.type !== 'reward') {
         task.value = 0;

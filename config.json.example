@@ -73,8 +73,13 @@
     "LOGGLY_ACCOUNT": "account",
     "PUSH_CONFIGS": {
         "GCM_SERVER_API_KEY": "",
-        "APN_ENABLED": "true",
+        "APN_ENABLED": "false",
         "FCM_SERVER_API_KEY": ""
+    },
+    "SITE_HTTP_AUTH": {
+        "ENABLED": "false",
+        "USERNAME": "admin",
+        "PASSWORD": "password"
     },
     "PUSHER": {
         "ENABLED": "false",

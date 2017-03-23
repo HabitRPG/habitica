@@ -112,6 +112,7 @@
     "mystery": "Mysterium",
     "changeClass": "Byt Klass, Återbetala Egenskapspoäng",
     "lvl10ChangeClass": "För att byta klass måste du vara minst level 10.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "Varje nivå ger dig en poäng att dela ut till valfri egenskap. Du kan antingen göra det manuellt eller låta spelet bestämma åt dig genom att använda ett av alternativen under automatisk utdelning.",
     "unallocated": "Outdelade Egenskapspoäng",
     "haveUnallocated": "Du har <%= points %> outdela(t/de) egenskapspoäng",

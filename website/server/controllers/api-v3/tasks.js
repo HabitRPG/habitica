@@ -70,7 +70,6 @@ let requiredGroupFields = '_id leader tasksOrder name';
  *
  * @apiParamExample {json} Request-Example:
  *     {
- *       "id": 4711
  *       "text":"Update Habitica API Documentation - Tasks",
  *       "type":"todo",
  *       "alias":"hab-api-tasks",
@@ -574,7 +573,7 @@ api.scoreTask = {
     let savedUser = results[0];
 
     let userStats = savedUser.stats.toJSON();
-    let resJsonData = _.extend({delta, _tmp: user._tmp}, userStats);
+    let resJsonData = _.assign({delta, _tmp: user._tmp}, userStats);
     res.respond(200, resJsonData);
 
     taskScoredWebhook.send(user.webhooks, {

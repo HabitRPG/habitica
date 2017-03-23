@@ -1,3 +1,3 @@
 export function gems (store) {
-  return store.state.user.balance * 4;
+  return store.state.user.data.balance * 4;
 }

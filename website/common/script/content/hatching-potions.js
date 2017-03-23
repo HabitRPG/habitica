@@ -1,8 +1,6 @@
-import {
-  assign,
-  defaults,
-  each,
-} from 'lodash';
+import assign from 'lodash/assign';
+import defaults from 'lodash/defaults';
+import each from 'lodash/each';
 import t from './translation';
 
 let drops = {
@@ -124,7 +122,7 @@ each(premium, (pot, key) => {
     premium: true,
     limited: false,
     canBuy () {
-      return pot._season === 'valentines';
+      return pot._season === 'regular';
     },
   });
 });

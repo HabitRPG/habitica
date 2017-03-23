@@ -3,7 +3,7 @@ import i18n from '../i18n';
 import {
   BadRequest,
 } from '../libs/errors';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 
 module.exports = function openMysteryItem (user, req = {}, analytics) {
   let item = user.purchased.plan.mysteryItems.shift();
@@ -12,7 +12,7 @@ module.exports = function openMysteryItem (user, req = {}, analytics) {
     throw new BadRequest(i18n.t('mysteryItemIsEmpty', req.language));
   }
 
-  item = _.cloneDeep(content.gear.flat[item]);
+  item = cloneDeep(content.gear.flat[item]);
   user.items.gear.owned[item.key] = true;
 
   user.markModified('purchased.plan.mysteryItems');

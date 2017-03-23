@@ -1,4 +1,4 @@
-import {forOwn} from 'lodash';
+import forOwn from 'lodash/forOwn';
 
 module.exports = function prefillAppearances (obj) {
   forOwn(obj, function prefillAppearance (value, key) {

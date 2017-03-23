@@ -1,10 +1,10 @@
 {
   "unlockedReward": "Je hebt <%= reward %> ontvangen",
   "earnedRewardForDevotion": "Je hebt een <%= reward %> verdiend, omdat je vastberaden bent om je leven te verbeteren.",
-  "nextRewardUnlocksIn": "Je volgende prijs zal over <%= numberOfCheckinsLeft %> check-ins worden ontgrendeld!",
+  "nextRewardUnlocksIn": "Check-ins tot je volgende prijs: <%= numberOfCheckinsLeft %>",
   "awesome": "Super!",
   "totalCount": "<%= count %> totaal aantal",
-  "countLeft": "<%= count %> check-ins tot de volgende beloning",
+  "countLeft": "Check-ins tot volgende beloning: <%= count %>",
   "incentivesDescription": "Als het gaat om gewoontes opbouwen is consistentie noodzakelijk. Elke dag die je incheckt zul je dichter bij een prijs komen.",
   "totalCheckins": "<%= count %> check-ins",
   "checkinEarned": "Je check-in-teller is omhoog gegaan!",

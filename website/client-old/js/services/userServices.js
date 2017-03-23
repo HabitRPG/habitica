@@ -66,7 +66,7 @@ angular.module('habitrpg')
 
             // Remove empty values from the array and add any unordered task
             user[type + 's'] = _.compact(orderedTasks).concat(unorderedTasks);
-          }).value();
+          });
       }
 
       function sync() {

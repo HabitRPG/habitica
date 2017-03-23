@@ -84,9 +84,13 @@
     "stitchWitchSet": "Bruxa Costura (Mago)",
     "potionerSet": "Poçãoneiro (Curandeiro)",
     "battleRogueSet": "Ladino Morcego (Ladino)",
+    "springingBunnySet": "Springing Bunny (Healer)",
+    "grandMalkinSet": "Grand Malkin (Mage)",
+    "cleverDogSet": "Clever Dog (Rogue)",
+    "braveMouseSet": "Brave Mouse (Warrior)",
     "fallEventAvailability": "Disponível para compra até 31 de Outubro.",
     "winterEventAvailability": "Disponível para compra até 31 de janeiro.",
     "springEventAvailability": "Disponível para compra até 31 de Maio.",
     "summerEventAvailability": "Disponível para compra até 31 de Agosto.",
-    "valentinesEventAvailability": "Available for purchase until February 28."
+    "valentinesEventAvailability": "Disponível para compra até 28 de fevereiro."
 }

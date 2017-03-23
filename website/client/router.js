@@ -18,6 +18,8 @@ import SocialContainer from './components/social/index';
 import TavernPage from './components/social/tavern';
 import InboxPage from './components/social/inbox/index';
 import InboxConversationPage from './components/social/inbox/conversationPage';
+import GuildsDiscoveryPage from './components/social/guilds/discovery/index';
+import GuildPage from './components/social/guilds/guild';
 
 Vue.use(VueRouter);
 
@@ -25,6 +27,11 @@ export default new VueRouter({
   mode: 'history',
   base: process.env.NODE_ENV === 'production' ? '/new-app' : __dirname, // eslint-disable-line no-process-env
   linkActiveClass: 'active',
+  // When navigating to another route always scroll to the top
+  // To customize the behavior see https://router.vuejs.org/en/advanced/scroll-behavior.html
+  scrollBehavior () {
+    return { x: 0, y: 0 };
+  },
   routes: [
     { name: 'tasks', path: '/', component: UserTasks },
     {
@@ -60,7 +67,23 @@ export default new VueRouter({
         },
         { name: 'challenges', path: 'challenges', component: Page },
         { name: 'party', path: 'party', component: Page },
-        { name: 'guilds', path: 'guilds', component: Page },
+        {
+          path: 'guilds',
+          component: EmptyView,
+          children: [
+            {
+              name: 'guildsDiscovery',
+              path: 'discovery',
+              component: GuildsDiscoveryPage,
+            },
+            {
+              name: 'guild',
+              path: 'guild/:guildId',
+              component: GuildPage,
+              props: true,
+            },
+          ],
+        },
       ],
     },
     {

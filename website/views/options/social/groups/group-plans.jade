@@ -10,6 +10,11 @@ script(type='text/ng-template', id='partials/options.social.groupPlans.html')
       .col-sm-6.col-sm-offset-3
         a.btn.btn-primary.btn-lg.btn-block(ng-click="changePage(PAGES.CREATE_GROUP)")=env.t('createAGroup')
 
+    .row
+      .col-md-6.col-md-offset-3
+        br
+        .text-center=env.t('groupSubscriptionPrice')
+
   div(ng-show='activePage === PAGES.CREATE_GROUP')
     h2.text-center=env.t('createAGroup')
     

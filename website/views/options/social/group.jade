@@ -17,7 +17,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
     li(ng-show='group.purchased.active && group.leader._id === user._id')
       a(ng-click="groupPanel = 'approvals'")=env.t('approvalsTitle')
     li
-      a(ng-click="groupPanel = 'subscription'", ng-show='group.leader._id === user._id && group.purchased.plan.customerId')=env.t('subscription')
+      a(ng-click="groupPanel = 'subscription'", ng-show='group.leader._id === user._id && group.purchased.plan.customerId')=env.t('paymentDetails')
       a(ng-click="groupPanel = 'subscription'", ng-show='group.leader._id === user._id && !group.purchased.plan.customerId')=env.t('upgradeTitle')
 
   .tab-content

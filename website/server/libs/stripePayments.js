@@ -1,6 +1,7 @@
 import stripeModule from 'stripe';
 import nconf from 'nconf';
 import cc from 'coupon-code';
+import moment from 'moment';
 
 import {
   BadRequest,
@@ -16,10 +17,31 @@ import {
 } from '../models/group';
 import shared from '../../common';
 
-const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
+let stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
 const i18n = shared.i18n;
 
 let api = {};
+
+api.constants = {
+  // CURRENCY_CODE: 'USD',
+  // SELLER_NOTE: 'Habitica Payment',
+  // SELLER_NOTE_SUBSCRIPTION: 'Habitica Subscription',
+  // SELLER_NOTE_ATHORIZATION_SUBSCRIPTION: 'Habitica Subscription Payment',
+  // STORE_NAME: 'Habitica',
+  //
+  // GIFT_TYPE_GEMS: 'gems',
+  // GIFT_TYPE_SUBSCRIPTION: 'subscription',
+  //
+  // METHOD_BUY_GEMS: 'buyGems',
+  // METHOD_CREATE_SUBSCRIPTION: 'createSubscription',
+  PAYMENT_METHOD: 'Stripe',
+  // PAYMENT_METHOD_GIFT: 'Amazon Payments (Gift)',
+};
+
+api.setStripeApi = function setStripeApi (stripeInc) {
+  stripe = stripeInc;
+};
+
 
 /**
  * Allows for purchasing a user subscription, group subscription or gems with Stripe
@@ -70,6 +92,9 @@ api.checkout = async function checkout (options, stripeInc) {
 
     if (groupId) {
       customerObject.quantity = sub.quantity;
+      let groupFields = basicGroupFields.concat(' purchased');
+      let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+      customerObject.quantity = group.memberCount + sub.quantity - 1;
     }
 
     response = await stripeApi.customers.create(customerObject);
@@ -97,7 +122,7 @@ api.checkout = async function checkout (options, stripeInc) {
     await payments.createSubscription({
       user,
       customerId: response.id,
-      paymentMethod: 'Stripe',
+      paymentMethod: this.constants.PAYMENT_METHOD,
       sub,
       headers,
       groupId,
@@ -108,7 +133,7 @@ api.checkout = async function checkout (options, stripeInc) {
     let data = {
       user,
       customerId: response.id,
-      paymentMethod: 'Stripe',
+      paymentMethod: this.constants.PAYMENT_METHOD,
       gift,
     };
 
@@ -204,20 +229,45 @@ api.cancelSubscription = async function cancelSubscription (options, stripeInc) 
 
   if (!customerId) throw new NotAuthorized(i18n.t('missingSubscription'));
 
-  let customer = await stripeApi.customers.retrieve(customerId);
+  // @TODO: Handle error response
+  let customer = await stripeApi.customers.retrieve(customerId).catch(function errorCatch (err) {
+    return err;
+  });
+  let nextBill = moment().add(30, 'days').unix() * 1000;
 
-  let subscription = customer.subscription;
-  if (!subscription) {
-    subscription = customer.subscriptions.data[0];
+  if (customer && (customer.subscription || customer.subscriptions)) {
+    let subscription = customer.subscription;
+    if (!subscription && customer.subscriptions) {
+      subscription = customer.subscriptions.data[0];
+    }
+    await stripeApi.customers.del(customerId);
+
+    if (subscription && subscription.current_period_end) {
+      nextBill = subscription.current_period_end * 1000; // timestamp in seconds
+    }
   }
 
-  await stripeApi.customers.del(customerId);
   await payments.cancelSubscription({
     user,
     groupId,
-    nextBill: subscription.current_period_end * 1000, // timestamp in seconds
-    paymentMethod: 'Stripe',
+    nextBill,
+    paymentMethod: this.constants.PAYMENT_METHOD,
   });
+};
+
+api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMember (group) {
+  let stripeApi = stripe;
+  let plan = shared.content.subscriptionBlocks.group_monthly;
+
+  await stripeApi.subscriptions.update(
+    group.purchased.plan.subscriptionId,
+    {
+      plan: plan.key,
+      quantity: group.memberCount + plan.quantity - 1,
+    }
+  );
+
+  group.purchased.plan.quantity = group.memberCount + plan.quantity - 1;
 };
 
 module.exports = api;

@@ -7,7 +7,7 @@
     "messageFoodNotFound": ":food が user.items.food 上に見つかりません",
     "messageNotAvailable": "このアイテムは現在購入できません。",
     "messageCannotFeedPet": "このペットにはエサをあげられません",
-    "messageAlreadyMount": "既にそのマウントは所持しています。他のペットにエサをあげてみましょう。",
+    "messageAlreadyMount": "既にその乗騎は所持しています。他のペットにエサをあげてみましょう。",
     "messageEvolve": "<%= egg %> はあなたに懐きました。 一緒に出かけましょう!",
     "messageLikesFood": "<%= egg %>は<%= foodText %>が大好きなようです!",
     "messageDontEnjoyFood": "<%= egg %>は<%= foodText %>を食べましたが 、あまり好きではないようです。",

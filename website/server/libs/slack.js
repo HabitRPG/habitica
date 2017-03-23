@@ -69,6 +69,7 @@ function sendSubscriptionNotification ({
   recipient,
   paymentMethod,
   months,
+  groupId,
 }) {
   if (!SLACK_SUBSCRIPTIONS_URL) {
     return;
@@ -77,6 +78,8 @@ function sendSubscriptionNotification ({
   let timestamp = new Date();
   if (recipient.id) {
     text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month gift subscription for ${recipient.name} ${recipient.id} ${recipient.email} using ${paymentMethod} on ${timestamp}`;
+  } else if (groupId) {
+    text = `${buyer.name} ${buyer.id} ${buyer.email} bought a 1-month recurring group-plan for ${groupId} using ${paymentMethod} on ${timestamp}`;
   } else {
     text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month recurring subscription using ${paymentMethod} on ${timestamp}`;
   }

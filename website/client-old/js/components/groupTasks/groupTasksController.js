@@ -74,6 +74,7 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', '$ro
       if (group._id) Tasks.deleteTask(task._id);
       var index = group[task.type + 's'].indexOf(task);
       group[task.type + 's'].splice(index, 1);
+      $rootScope.$broadcast('obj-updated', $scope.group);
     };
 
     $scope.saveTask = function(task, stayOpen, isSaveAndClose) {
@@ -172,7 +173,7 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', '$ro
         var content = task.notes;
 
         if ($scope.group) {
-          var memberIdToProfileNameMap = _.object(_.map($scope.group.members, function(item) {
+          var memberIdToProfileNameMap = _.fromPairs(_.map($scope.group.members, function(item) {
              return [item.id, item.profile.name]
           }));
 

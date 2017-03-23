@@ -27,7 +27,7 @@
         // @TODO: The use of scope with tasks is incorrect. We need to fix all task ctrls to use directives/services
         // $scope.obj = {};
         function setObj (obj, force) {
-          if (!force && ($scope.obj || scope.obj !== {} || !obj)) return;
+          if (!force && ($scope.obj || $scope.obj !== {} || !obj)) return;
           $scope.obj = obj;
           setUpGroupedList();
           setUpTaskWatch();
@@ -65,12 +65,32 @@
           return $scope.obj[list.type+'s'];
         };
 
-        $scope.showNormalList = function () {
-          return !$state.includes("options.social.challenges") && !User.user.preferences.tasks.groupByChallenge;
-        };
+        function objIsGroup (obj) {
+          return obj && obj.type && (obj.type === 'guild' || obj.type === 'party');
+        }
+
+        $scope.showNormalList = function (obj) {
+          return objIsGroup(obj) || (!$state.includes("options.social.challenges") && !User.user.preferences.tasks.groupByChallenge);
+        }
 
         $scope.showChallengeList = function () {
           return $state.includes("options.social.challenges");
+        };
+
+        $scope.showGroupedList = function (obj) {
+          return User.user.preferences.tasks.groupByChallenge && !$state.includes("options.social.challenges") && !objIsGroup(obj);
+        }
+
+        $scope.showDoubleTaskCounter = function (task, obj) {
+          var objectIsGroup = obj.type && (obj.type === 'guild' || obj.type === 'party');
+          var objectIsChallenge = $state.includes("options.social.challenges");
+          return !objectIsGroup && !objectIsChallenge && task.up && task.down;
+        };
+
+        $scope.showSingleTaskCounter = function (task, obj) {
+          var objectIsGroup = obj.type && (obj.type === 'guild' || obj.type === 'party');
+          var objectIsChallenge = $state.includes("options.social.challenges");
+          return !objectIsGroup && !objectIsChallenge && task.type === "habit" && (!task.up || !task.down);
         };
       }
     }

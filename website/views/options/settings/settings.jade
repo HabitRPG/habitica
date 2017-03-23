@@ -64,13 +64,13 @@ script(type='text/ng-template', id='partials/options.settings.settings.html')
             .checkbox
               label=env.t('suppressStreakModal')
                 input(type='checkbox', ng-model='user.preferences.suppressModals.streak', ng-change='set({"preferences.suppressModals.streak": user.preferences.suppressModals.streak?true: false})')
-            .checkbox
-              label=env.t('confirmScoreNotes')
-                input(type='checkbox', ng-model='user.preferences.tasks.confirmScoreNotes', ng-change='set({"preferences.tasks.confirmScoreNotes": user.preferences.tasks.confirmScoreNotes ? true: false})')
+            //- .checkbox
+            //-   label=env.t('confirmScoreNotes')
+            //-     input(type='checkbox', ng-model='user.preferences.tasks.confirmScoreNotes', ng-change='set({"preferences.tasks.confirmScoreNotes": user.preferences.tasks.confirmScoreNotes ? true: false})')
 
-            .checkbox
-              label=env.t('groupTasksByChallenge')
-                input(type='checkbox', ng-model='user.preferences.tasks.groupByChallenge', ng-change='set({"preferences.tasks.groupByChallenge": user.preferences.tasks.groupByChallenge ? true: false})')
+            //- .checkbox
+            //-   label=env.t('groupTasksByChallenge')
+            //-     input(type='checkbox', ng-model='user.preferences.tasks.groupByChallenge', ng-change='set({"preferences.tasks.groupByChallenge": user.preferences.tasks.groupByChallenge ? true: false})')
 
             hr
 

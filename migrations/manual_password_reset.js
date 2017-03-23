@@ -1,6 +1,9 @@
 // EMAIL="x@y.com" node ./migrations/manual_password_reset.js
 // Be sure to have PRODUCTION_DB in your config.json
 
+// IMPORTANT: this script isn't updated to use the new password encryption that uses bcrypt
+// using it will break accounts and should not be used until upgraded
+
 var nconf = require('nconf'),
   path = require('path');
 nconf.argv().env().file('user', path.join(path.resolve(__dirname, '../config.json')));

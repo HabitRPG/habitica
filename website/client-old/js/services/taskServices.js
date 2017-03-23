@@ -3,8 +3,8 @@
 var TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'history', 'id', 'streak', 'createdAt', 'challenge'];
 
 angular.module('habitrpg')
-.factory('Tasks', ['$rootScope', 'Shared', '$http',
-  function tasksFactory($rootScope, Shared, $http) {
+.factory('Tasks', ['$rootScope', 'Shared', '$http', '$modal',
+  function tasksFactory($rootScope, Shared, $http, $modal) {
     function addTasks(listDef, addTaskFn) {
       var tasks = listDef.newTask;
 
@@ -256,6 +256,7 @@ angular.module('habitrpg')
     };
 
     function editTask(task, user, taskStatus, scopeInc) {
+      // @TODO: This should be it's own controller. And methods should be abstracted form the three task ctrls to a directive/ctrl
       var modalScope = $rootScope.$new();
       modalScope.task = task;
       modalScope.task._editing = true;
@@ -282,28 +283,28 @@ angular.module('habitrpg')
       modalScope.cancelTaskEdit = cancelTaskEdit;
 
       modalScope.task._edit.repeatsOn = 'dayOfMonth';
-      if (modalScope.task === 'daily' && modalScope.task._edit.weeksOfMonth.length > 0) {
+      if (modalScope.task.type === 'daily' && modalScope.task._edit.weeksOfMonth && modalScope.task._edit.weeksOfMonth.length > 0) {
         modalScope.task._edit.repeatsOn = 'dayOfWeek';
       }
 
-      $rootScope.openModal('task-edit', {
+      $modal.open({
         scope: modalScope,
-        controller: function ($scope) {
+        templateUrl: 'modals/task-edit.html',
+        controller: ['$scope', function ($scope) {
           $scope.$watch('task._edit', function (newValue, oldValue) {
-            if ($scope.task.type !== 'daily') return;
+            if ($scope.task.type !== 'daily' || !task._edit) return;
             $scope.summary = generateSummary($scope.task);
 
             $scope.repeatSuffix = generateRepeatSuffix($scope.task);
-
             if ($scope.task._edit.repeatsOn == 'dayOfMonth') {
-              var date = moment().date();
+              var date = moment(task._edit.startDate).date();
               $scope.task._edit.weeksOfMonth = [];
-              $scope.task._edit.dayOfMonth = [date]; // @TODO This can handle multiple dates later
+              $scope.task._edit.daysOfMonth = [date]; // @TODO This can handle multiple dates later
             } else if ($scope.task._edit.repeatsOn == 'dayOfWeek') {
-              var week = Math.ceil(moment().date() / 7) - 1;
-              var dayOfWeek = moment().day();
+              var week = Math.ceil(moment(task._edit.startDate).date() / 7) - 1;
+              var dayOfWeek = moment(task._edit.startDate).day();
               var shortDay = numberToShortDay[dayOfWeek];
-              $scope.task._edit.dayOfMonth = [];
+              $scope.task._edit.daysOfMonth = [];
               $scope.task._edit.weeksOfMonth = [week]; // @TODO: This can handle multiple weeks
               for (var key in $scope.task._edit.repeat) {
                 $scope.task._edit.repeat[key] = false;
@@ -311,7 +312,7 @@ angular.module('habitrpg')
               $scope.task._edit.repeat[shortDay] = true;
             }
           }, true);
-        },
+        }],
       })
       .result.catch(function() {
         cancelTaskEdit(task);
@@ -356,11 +357,11 @@ angular.module('habitrpg')
       if (task._edit.frequency === 'weekly') summary += ' on ' + repeatDays;
 
       if (task._edit.frequency === 'monthly' && task._edit.repeatsOn == 'dayOfMonth') {
-        var date = moment().date();
+        var date = moment(task._edit.startDate).date();
         summary += ' on the ' + date;
       } else if (task._edit.frequency === 'monthly' && task._edit.repeatsOn == 'dayOfWeek') {
-        var week = Math.ceil(moment().date() / 7) - 1;
-        var dayOfWeek = moment().day();
+        var week = Math.ceil(moment(task._edit.startDate).date() / 7) - 1;
+        var dayOfWeek = moment(task._edit.startDate).day();
         var shortDay = numberToShortDay[dayOfWeek];
         var longDay = shortDayToLongDayMap[shortDay];
 
@@ -402,7 +403,7 @@ angular.module('habitrpg')
       _(cleansedTask.checklist).forEach(function(item) {
         item.completed = false;
         item.id = Shared.uuid();
-      }).value();
+      });
 
       if (cleansedTask.type !== 'reward') {
         delete cleansedTask.value;

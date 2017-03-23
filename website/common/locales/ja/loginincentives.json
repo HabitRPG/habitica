@@ -1,10 +1,10 @@
 {
   "unlockedReward": "<%= reward %> が贈られました",
   "earnedRewardForDevotion": "あなたは、人生・生活を向上することを誓いました。それを称え、<%= reward %> を贈ります。",
-  "nextRewardUnlocksIn": "次の賞は、<%= numberOfCheckinsLeft %>回のチェックインでアンロックされます！",
+  "nextRewardUnlocksIn": "次のチェックインで賞まであと<%= numberOfCheckinsLeft %>",
   "awesome": "すごい!",
   "totalCount": "計 <%= count %> 回",
-  "countLeft": "次の賞まで、あと <%= count %> 回",
+  "countLeft": "次のチェックインで賞まであと<%= count %>",
   "incentivesDescription": "習慣づけのカギは継続性です。毎日のチェックインで、賞に近づきます。",
   "totalCheckins": "<%= count %> 回チェックイン",
   "checkinEarned": "チェックイン・カウンターが上がりました!",

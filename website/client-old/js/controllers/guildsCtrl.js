@@ -40,6 +40,10 @@ habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$r
       }
 
       $scope.join = function (group) {
+        if (group.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
+          return;
+        }
+
         var groupId = group._id;
 
         //  If we don't have the _id property, we are joining from an invitation
@@ -89,7 +93,7 @@ habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$r
 
         Challenges.getGroupChallenges(group._id)
         .then(function(response) {
-          var challenges = _.pluck(_.filter(response.data.data, function(c) {
+          var challenges = _.map(_.filter(response.data.data, function(c) {
               return c.group._id == group._id;
           }), '_id');
 

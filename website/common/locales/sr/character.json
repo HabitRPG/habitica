@@ -112,6 +112,7 @@
     "mystery": "Tajna",
     "changeClass": "Zamena klase i ponovna raspodela poena za osobine",
     "lvl10ChangeClass": "Da biste promenili klasu morati biti bar 10. nivo",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "Svaki nivo donosi Vam jedan poen koji možete dodeliti osobini kojoj želite. Možete to uraditi lično, ili možete prepustiti igri da to uradi umesto Vas.",
     "unallocated": "Neupotrebljeni poeni",
     "haveUnallocated": "Imate <%= points %> neupotrebljenih poena.",

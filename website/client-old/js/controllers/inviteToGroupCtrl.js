@@ -62,7 +62,7 @@ habitrpg.controller('InviteToGroupCtrl', ['$scope', '$rootScope', 'User', 'Group
     }
 
     function _getOnlyUuids() {
-      var uuids = _.pluck($scope.invitees, 'uuid');
+      var uuids = _.map($scope.invitees, 'uuid');
       var filteredUuids = _.filter(uuids, function(id) {
         return id != '';
       });

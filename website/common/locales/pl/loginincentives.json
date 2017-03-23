@@ -1,10 +1,10 @@
 {
   "unlockedReward": "Otrzymałeś <%= reward %>",
   "earnedRewardForDevotion": "Zdobyłeś <%= reward %>  za przyczynienie się do poprawy swojego życia.",
-  "nextRewardUnlocksIn": "Twoja następna nagroda zostanie odblokowana za <%= numberOfCheckinsLeft %> następnych wizyt!",
+  "nextRewardUnlocksIn": "Check-ins until your next prize: <%= numberOfCheckinsLeft %>",
   "awesome": "Rewelacyjnie!",
   "totalCount": "<%= count %> łączna liczba",
-  "countLeft": "<%= count %> wizyt do następnej nagrody",
+  "countLeft": "Check-ins until next reward: <%= count %>",
   "incentivesDescription": "Jeśli chodzi o wyrabianie przyzwyczajeń, konsekwencja jest kluczowa. Z każdym dniem gdy odwiedzasz Habitikę zbliżasz się do nagrody.",
   "totalCheckins": "<%= count %> Wizyt",
   "checkinEarned": "Twój Licznik Odwiedzin wzrósł!",

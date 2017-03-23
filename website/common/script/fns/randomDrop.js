@@ -1,4 +1,9 @@
-import _ from 'lodash';
+import cloneDeepWith from 'lodash/cloneDeepWith';
+import isFunction from 'lodash/isFunction';
+import min from 'lodash/min';
+import reduce from 'lodash/reduce';
+import filter from 'lodash/filter';
+import pickBy from 'lodash/pickBy';
 import content from '../content/index';
 import i18n from '../i18n';
 import { daysSince } from '../cron';
@@ -10,8 +15,8 @@ import randomVal from '../libs/randomVal';
 
 // Clone a drop object maintaining its functions so that we can change it without affecting the original item
 function cloneDropItem (drop) {
-  return _.cloneDeep(drop, (val) => {
-    return _.isFunction(val) ? val : undefined; // undefined will be handled by lodash
+  return cloneDeepWith(drop, (val) => {
+    return isFunction(val) ? val : undefined; // undefined will be handled by lodash
   });
 }
 
@@ -28,14 +33,14 @@ module.exports = function randomDrop (user, options, req = {}) {
   let predictableRandom = options.predictableRandom || trueRandom;
   let task = options.task;
 
-  let chance = _.min([Math.abs(task.value - 21.27), 37.5]) / 150 + 0.02;
+  let chance = min([Math.abs(task.value - 21.27), 37.5]) / 150 + 0.02;
   chance *= task.priority *                             // Task priority: +50% for Medium, +100% for Hard
     (1 + (task.streak / 100 || 0)) *                    // Streak bonus: +1% per streak
     (1 + user._statsComputed.per / 100) *               // PERception: +1% per point
     (1 + (user.contributor.level / 40 || 0)) *          // Contrib levels: +2.5% per level
     (1 + (user.achievements.rebirths / 20 || 0)) *      // Rebirths: +5% per achievement
     (1 + (user.achievements.streak / 200 || 0)) *       // Streak achievements: +0.5% per achievement
-    (user._tmp.crit || 1) * (1 + 0.5 * (_.reduce(task.checklist, (m, i) => {
+    (user._tmp.crit || 1) * (1 + 0.5 * (reduce(task.checklist, (m, i) => {
       return m + (i.completed ? 1 : 0); // +50% per checklist item complete. TODO: make this into X individual drop chances instead
     }, 0) || 0));
   chance = diminishingReturns(chance, 0.75);
@@ -63,7 +68,7 @@ module.exports = function randomDrop (user, options, req = {}) {
     rarity = predictableRandom();
 
     if (rarity > 0.6) { // food 40% chance
-      drop = cloneDropItem(randomVal(_.where(content.food, {
+      drop = cloneDropItem(randomVal(filter(content.food, {
         canDrop: true,
       })));
 
@@ -98,7 +103,7 @@ module.exports = function randomDrop (user, options, req = {}) {
       } else { // common, 40% of 30%
         acceptableDrops = ['Base', 'White', 'Desert'];
       }
-      drop = cloneDropItem(randomVal(_.pick(content.hatchingPotions, (v, k) => {
+      drop = cloneDropItem(randomVal(pickBy(content.hatchingPotions, (v, k) => {
         return acceptableDrops.indexOf(k) >= 0;
       })));
       if (!user.items.hatchingPotions[drop.key]) {

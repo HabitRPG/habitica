@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  .four.wide.column(v-for="taskType in tasksTypes")
+  .col(v-for="taskType in tasksTypes")
     h3 {{taskType}}s
     ul
       task(v-for="task in tasks", v-if="task.type === taskType", :key="task.id", :task="task")
@@ -8,7 +8,7 @@
 
 <script>
 import Task from './task';
-import { mapState } from '../store';
+import { mapState } from 'client/libs/store';
 
 export default {
   components: {
@@ -20,7 +20,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['tasks']),
+    ...mapState({tasks: 'tasks.data'}),
   },
 };
 </script>

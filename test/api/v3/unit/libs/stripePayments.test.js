@@ -5,6 +5,7 @@ import {
   generateGroup,
 } from '../../../../helpers/api-unit.helper.js';
 import { model as User } from '../../../../../website/server/models/user';
+import { model as Group } from '../../../../../website/server/models/group';
 import { model as Coupon } from '../../../../../website/server/models/coupon';
 import stripePayments from '../../../../../website/server/libs/stripePayments';
 import payments from '../../../../../website/server/libs/payments';
@@ -394,6 +395,50 @@ describe('Stripe Payments', () => {
         subscriptionId,
       });
     });
+
+    it('subscribes a group with the correct number of group members', async () => {
+      token = 'test-token';
+      sub = data.sub;
+      groupId = group._id;
+      email = 'test@test.com';
+      headers = {};
+      user = new User();
+      user.guilds.push(groupId);
+      await user.save();
+      group.memberCount = 2;
+      await group.save();
+
+      await stripePayments.checkout({
+        token,
+        user,
+        gift,
+        sub,
+        groupId,
+        email,
+        headers,
+        coupon,
+      }, stripe);
+
+      expect(stripeCreateCustomerSpy).to.be.calledOnce;
+      expect(stripeCreateCustomerSpy).to.be.calledWith({
+        email,
+        metadata: { uuid: user._id },
+        card: token,
+        plan: sub.key,
+        quantity: 4,
+      });
+
+      expect(stripePaymentsCreateSubSpy).to.be.calledOnce;
+      expect(stripePaymentsCreateSubSpy).to.be.calledWith({
+        user,
+        customerId: customerIdResponse,
+        paymentMethod: 'Stripe',
+        sub,
+        headers,
+        groupId,
+        subscriptionId,
+      });
+    });
   });
 
   describe('edit subscription', () => {
@@ -656,6 +701,62 @@ describe('Stripe Payments', () => {
           paymentMethod: 'Stripe',
         });
       });
+    });
+  });
+
+  describe('#upgradeGroupPlan', () => {
+    let spy, data, user, group;
+
+    beforeEach(async function () {
+      user = new User();
+      user.profile.name = 'sender';
+
+      data = {
+        user,
+        sub: {
+          key: 'basic_3mo', // @TODO: Validate that this is group
+        },
+        customerId: 'customer-id',
+        paymentMethod: 'Payment Method',
+        headers: {
+          'x-client': 'habitica-web',
+          'user-agent': '',
+        },
+      };
+
+      group = generateGroup({
+        name: 'test group',
+        type: 'guild',
+        privacy: 'public',
+        leader: user._id,
+      });
+      await group.save();
+
+      spy = sinon.stub(stripe.subscriptions, 'update');
+      spy.returnsPromise().resolves([]);
+      data.groupId = group._id;
+      data.sub.quantity = 3;
+      stripePayments.setStripeApi(stripe);
+    });
+
+    afterEach(function () {
+      sinon.restore(stripe.subscriptions.update);
+    });
+
+    it('updates a group plan quantity', async () => {
+      data.paymentMethod = 'Stripe';
+      await payments.createSubscription(data);
+
+      let updatedGroup = await Group.findById(group._id).exec();
+      expect(updatedGroup.purchased.plan.quantity).to.eql(3);
+
+      updatedGroup.memberCount += 1;
+      await updatedGroup.save();
+
+      await stripePayments.chargeForAdditionalGroupMember(updatedGroup);
+
+      expect(spy.calledOnce).to.be.true;
+      expect(updatedGroup.purchased.plan.quantity).to.eql(4);
     });
   });
 });

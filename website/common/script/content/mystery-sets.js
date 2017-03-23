@@ -1,4 +1,4 @@
-import { each } from 'lodash';
+import each from 'lodash/each';
 import t from './translation';
 
 let mysterySets = {
@@ -157,6 +157,14 @@ let mysterySets = {
   301405: {
     start: '3014-04-24',
     end: '3014-05-02',
+  },
+  301703: {
+    start: '3017-03-14',
+    end: '3017-04-02',
+  },
+  301704: {
+    start: '3017-04-14',
+    end: '3017-05-02',
   },
   // @TODO: Remove wondercon from mystery-sets
   wondercon: {

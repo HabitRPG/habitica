@@ -23,7 +23,7 @@
   "maintenanceInfoHowLongText": "我们必须移动所有一百三十万Habitica用户的任务和数据 -- 这不是一个容易的任务！我们预期将发生在大约太平洋时间下午1点 (8pm UTC)到太平洋时间晚10点 (5am UTC)。请放心，我们会竭尽所能使维护更快！你能关注<a href='https://twitter.com/habitica' target='_blank'>我们Twitter上的更新</a>。",
   "maintenanceInfoStatsAffected": "我的每日任务，连击数，增益魔法和探索任务将受到怎样的影响？",
   "maintenanceInfoStatsAffectedText1": "你将“不会”在这个周末受到任何伤害或丢失任何连击数，但是另外的，你的天数会正常复位！你打卡的每日任务将会变成未打卡状态，增益魔法将重置，等等。如果你在一个采集任务中，你仍然会找到物品。如果你在BOSS战中，你仍然对BOSS造成伤害，但BOSS不能伤害你。(甚至怪物也需要打个小盹！)",
-  "maintenanceInfoStatsAffectedText2": "在思索了很多之后，我们团队得出在维护期间，由于很多用户将不能正常打卡每日任务，这是最公平的方式来处理。我们非常抱歉这带来的不便！",
+  "maintenanceInfoStatsAffectedText2": "在思索了很多之后，我们团队得出结论，对于维护期间很多用户不能正常打卡的事，这是最公平的处理方法了。我们对此带来的不便感到非常抱歉！",
   "maintenanceInfoSeeTasks": "在当前状况下我是否需要去看我的任务列表？",
   "maintenanceInfoSeeTasksText": "你是否知道你需要在周六检视你的任务列表来提醒自己要做什么，我们建议在维护开始前这样做，对你的任务截图以便于能用来做参考。",
   "maintenanceInfoRarePet": "我将会得到哪种稀有宠物？",

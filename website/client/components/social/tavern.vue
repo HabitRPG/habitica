@@ -1,5 +1,7 @@
 <template lang="pug">
-.ui.grid
+.row
+  h2.col-12 Tavern
+// TODO Example code based on Semantic UI .ui.grid
   .four.wide.column
     h2.ui.dividing.header SideMenu
 
@@ -176,7 +178,7 @@
 <script>
 export default {
   data () {
-    // @TODO: Abstract to Store
+    // TODO: Abstract to Store
     let messages = [
       {
         from: 'Paglias',
@@ -195,7 +197,7 @@ export default {
 
   methods: {
     sendChat: function sendChat () {
-      // @TODO: This will be default values based on the conversation and current user
+      // TODO: This will be default values based on the conversation and current user
       let messageToSend = {
         from: 'TheHollidayInn',
         fromUserId: 3211,

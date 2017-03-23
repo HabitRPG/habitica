@@ -1,4 +1,5 @@
-import {each, defaults} from 'lodash';
+import each from 'lodash/each';
+import defaults from 'lodash/defaults';
 import moment from 'moment';
 
 import {

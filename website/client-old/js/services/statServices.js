@@ -41,14 +41,14 @@
 
       var equipmentTypes = ['weapon', 'armor', 'head', 'shield', 'back', 'body'];
 
-      _(equipmentTypes).each(function(type) {
+      _(equipmentTypes).forEach(function(type) {
         var equippedItem = equipped[type];
         if(gear[equippedItem]) {
           var equipmentStat = gear[equippedItem][stat];
 
           total += equipmentStat;
         }
-      }).value();
+      });
 
       return total;
     }

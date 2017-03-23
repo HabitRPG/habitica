@@ -1,6 +1,7 @@
 import content from '../content/index';
 import i18n from '../i18n';
-import _ from 'lodash';
+import get from 'lodash/get';
+import pick from 'lodash/pick';
 import splitWhitespace from '../libs/splitWhitespace';
 import planGemLimits from '../libs/planGemLimits';
 import {
@@ -10,8 +11,8 @@ import {
 } from '../libs/errors';
 
 module.exports = function purchase (user, req = {}, analytics) {
-  let type = _.get(req.params, 'type');
-  let key = _.get(req.params, 'key');
+  let type = get(req.params, 'type');
+  let key = get(req.params, 'key');
   let item;
   let price;
 
@@ -56,7 +57,7 @@ module.exports = function purchase (user, req = {}, analytics) {
     }
 
     return [
-      _.pick(user, splitWhitespace('stats balance')),
+      pick(user, splitWhitespace('stats balance')),
       i18n.t('plusOneGem', req.language),
     ];
   }
@@ -120,6 +121,6 @@ module.exports = function purchase (user, req = {}, analytics) {
   }
 
   return [
-    _.pick(user, splitWhitespace('items balance')),
+    pick(user, splitWhitespace('items balance')),
   ];
 };

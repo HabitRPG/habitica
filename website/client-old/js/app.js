@@ -219,7 +219,7 @@ window.habitrpg = angular.module('habitrpg',
 
                     // Remove empty values from the array and add any unordered task
                     $scope.group[type + 's'] = _.compact(orderedTasks).concat(unorderedTasks);
-                  }).value();
+                  });
 
                 $scope.group.approvals = [];
                 $rootScope.$broadcast('obj-updated', $scope.group);

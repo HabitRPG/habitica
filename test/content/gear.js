@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import {
   expectValidTranslationString,
 } from '../helpers/content.helper';
@@ -68,7 +69,7 @@ describe('Gear', () => {
       weapon_special_0: 70,
       weapon_special_2: 300,
       weapon_special_3: 300,
-    }
+    };
 
     each(cases, (tierRequirement, key) => {
       context(key, () => {
