@@ -5,11 +5,12 @@ var authorUuid = ''; //... own data is done
 /*
  * This migrations will add a free subscription to a specified group
  */
+import moment from 'moment';
 
 import { model as Group } from '../../website/server/models/group';
 
 // @TODO: this should probably be a GroupManager library method
-async function addUnlimitedSubscription (groupId) {
+async function addUnlimitedSubscription (groupId, dateTerminated) {
     let group = await Group.findById(groupId);
 
     group.purchased.plan.customerId = "group-unlimited";
@@ -18,6 +19,10 @@ async function addUnlimitedSubscription (groupId) {
     group.purchased.plan.paymentMethod = "Group Unlimited";
     group.purchased.plan.planId = "group_monthly";
     group.purchased.plan.dateTerminated = null;
+    if (dateTerminated) {
+        let dateToEnd = moment(dateTerminated).toDate();
+        group.purchased.plan.dateTerminated = dateToEnd;
+    }
     // group.purchased.plan.owner = ObjectId();
     group.purchased.plan.subscriptionId = "";
 
@@ -29,5 +34,7 @@ module.exports = async function addUnlimitedSubscriptionCreator () {
 
     if (!groupId) throw Error('Group ID is required');
 
-    let result = await addUnlimitedSubscription(groupId)
+    let dateTerminated = process.argv[3];
+
+    let result = await addUnlimitedSubscription(groupId, dateTerminated);
 };
