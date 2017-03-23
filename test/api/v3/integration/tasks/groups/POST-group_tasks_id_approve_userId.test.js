@@ -2,6 +2,7 @@ import {
   createAndPopulateGroup,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
+import apiMessages from '../../../../../../website/server/libs/apiMessages';
 import { find } from 'lodash';
 
 describe('POST /tasks/:id/approve/:userId', () => {
@@ -93,5 +94,20 @@ describe('POST /tasks/:id/approve/:userId', () => {
     expect(syncedTask.group.approval.approved).to.be.true;
     expect(syncedTask.group.approval.approvingUser).to.equal(member2._id);
     expect(syncedTask.group.approval.dateApproved).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
+  });
+
+  it('prevents double approval on a task', async () => {
+    await user.post(`/groups/${guild._id}/add-manager`, {
+      managerId: member2._id,
+    });
+
+    await member2.post(`/tasks/${task._id}/assign/${member._id}`);
+    await member2.post(`/tasks/${task._id}/approve/${member._id}`);
+    await expect(user.post(`/tasks/${task._id}/approve/${member._id}`))
+      .to.eventually.be.rejected.and.to.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: apiMessages('canOnlyApproveTaskOnce'),
+      });
   });
 });

@@ -13,6 +13,7 @@ import {
   getTasks,
   moveTask,
 } from '../../../libs/taskManager';
+import apiMessages from '../../../libs/apiMessages';
 
 let requiredGroupFields = '_id leader tasksOrder name';
 let types = Tasks.tasksTypes.map(type => `${type}s`);
@@ -295,6 +296,7 @@ api.approveTask = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (task.group.approval.approved === true) throw new NotAuthorized(apiMessages('canOnlyApproveTaskOnce'));
 
     task.group.approval.dateApproved = new Date();
     task.group.approval.approvingUser = user._id;
