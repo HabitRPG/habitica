@@ -60,17 +60,17 @@ let premium = {
     limited: true,
     _season: 'valentines',
   },
-  Floral: {
-    value: 2,
-    text: t('hatchingPotionFloral'),
-    limited: true,
-    _season: 'spring',
-  },
   Shimmer: {
     value: 2,
     text: t('hatchingPotionShimmer'),
     limited: true,
     _season: 'April',
+  },
+  Floral: {
+    value: 2,
+    text: t('hatchingPotionFloral'),
+    limited: true,
+    _season: 'spring',
   },
   Thunderstorm: {
     value: 2,
