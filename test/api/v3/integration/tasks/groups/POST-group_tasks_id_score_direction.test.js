@@ -5,7 +5,7 @@ import {
 import { find } from 'lodash';
 
 describe('POST /tasks/:id/score/:direction', () => {
-  let user, guild, member, task;
+  let user, guild, member, member2, task;
 
   function findAssignedTask (memberTask) {
     return memberTask.group.id === guild._id;
@@ -17,12 +17,13 @@ describe('POST /tasks/:id/score/:direction', () => {
         name: 'Test Guild',
         type: 'guild',
       },
-      members: 1,
+      members: 2,
     });
 
     guild = group;
     user = groupLeader;
     member = members[0];
+    member2 = members[1];
 
     task = await user.post(`/tasks/group/${guild._id}`, {
       text: 'test todo',
@@ -61,6 +62,40 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     expect(updatedTask.group.approval.requested).to.equal(true);
     expect(updatedTask.group.approval.requestedDate).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
+  });
+
+  it('sends notificatoins to all managers', async () => {
+    await user.post(`/groups/${guild._id}/add-manager`, {
+      managerId: member2._id,
+    });
+    let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, findAssignedTask);
+
+    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
+      .to.eventually.be.rejected.and.to.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('taskApprovalHasBeenRequested'),
+      });
+    let updatedTask = await member.get(`/tasks/${syncedTask._id}`);
+    await user.sync();
+    await member2.sync();
+
+    expect(user.notifications.length).to.equal(1);
+    expect(user.notifications[0].type).to.equal('GROUP_TASK_APPROVAL');
+    expect(user.notifications[0].data.message).to.equal(t('userHasRequestedTaskApproval', {
+      user: member.auth.local.username,
+      taskName: updatedTask.text,
+    }));
+    expect(user.notifications[0].data.groupId).to.equal(guild._id);
+
+    expect(member2.notifications.length).to.equal(1);
+    expect(member2.notifications[0].type).to.equal('GROUP_TASK_APPROVAL');
+    expect(member2.notifications[0].data.message).to.equal(t('userHasRequestedTaskApproval', {
+      user: member.auth.local.username,
+      taskName: updatedTask.text,
+    }));
+    expect(member2.notifications[0].data.groupId).to.equal(guild._id);
   });
 
   it('errors when approval has already been requested', async () => {

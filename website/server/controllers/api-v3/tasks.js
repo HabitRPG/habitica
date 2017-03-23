@@ -534,18 +534,28 @@ api.scoreTask = {
       task.group.approval.requested = true;
       task.group.approval.requestedDate = new Date();
 
-      let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
-      let groupLeader = await User.findById(group.leader).exec(); // Use this method so we can get access to notifications
+      let fields = requiredGroupFields.concat(' managers');
+      let group = await Group.getGroup({user, groupId: task.group.id, fields});
 
-      groupLeader.addNotification('GROUP_TASK_APPROVAL', {
-        message: res.t('userHasRequestedTaskApproval', {
-          user: user.profile.name,
-          taskName: task.text,
-        }, groupLeader.preferences.language),
-        groupId: group._id,
+      // @TODO: we can use the User.pushNotification function because we need to ensure notifications are translated
+      let managerIds = Object.keys(group.managers);
+      managerIds.push(group.leader);
+      let managers = await User.find({_id: managerIds}).exec(); // Use this method so we can get access to notifications
+
+      let managerPromises = [];
+      managers.forEach((manager) => {
+        manager.addNotification('GROUP_TASK_APPROVAL', {
+          message: res.t('userHasRequestedTaskApproval', {
+            user: user.profile.name,
+            taskName: task.text,
+          }, manager.preferences.language),
+          groupId: group._id,
+        });
+        managerPromises.push(manager.save());
       });
 
-      await Bluebird.all([groupLeader.save(), task.save()]);
+      managerPromises.push(task.save());
+      await Bluebird.all(managerPromises);
 
       throw new NotAuthorized(res.t('taskApprovalHasBeenRequested'));
     }
