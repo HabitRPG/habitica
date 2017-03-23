@@ -1117,14 +1117,14 @@ api.addGroupManager = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let newManager = await User.findById(managerId, 'guilds').exec();
+    let newManager = await User.findById(managerId, 'guilds party').exec();
     let groupFields = basicGroupFields.concat(' managers');
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: groupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
 
-    let isMember = newManager.guilds.indexOf(group._id) !== -1;
+    let isMember = group.isMember(newManager);
     if (!isMember) throw new NotAuthorized(res.t('userMustBeMember'));
 
     group.managers[managerId] = true;
