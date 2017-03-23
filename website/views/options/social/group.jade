@@ -87,7 +87,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             h3.panel-title
               =env.t('members')
               span(ng-if='group.type=="party" && (group.onlineUsers || group.onlineUsers == 0)')= ' (' + env.t('onlineCount', {count: "{{group.onlineUsers}}"}) + ')'
-              button.pull-right.btn.btn-primary(ng-click="inviteOrStartParty(group)")=env.t("inviteFriends")
+              button.pull-right.btn.btn-primary(ng-if='group.type=="party" && group.memberCount + group.invites.length < PARTY_LIMIT_MEMBERS' ng-click="inviteOrStartParty(group)")=env.t("inviteFriends")
           .panel-heading
             p(ng-if='group.type=="party"')=env.t('partyMembersInfo', {memberCount: "{{group.memberCount}}", invitationCount:"{{group.invites.length}}", limitMembers:"{{PARTY_LIMIT_MEMBERS}}"})
 
