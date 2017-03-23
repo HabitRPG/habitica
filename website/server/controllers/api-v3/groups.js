@@ -1069,7 +1069,6 @@ api.inviteToGroup = {
 
     // If party, check the limit of members
     if (group.type === 'party') {
-      let partyLimitMembers = 5;
       let memberCount = 0;
 
       // Counting the members that already joined the party
@@ -1088,8 +1087,8 @@ api.inviteToGroup = {
       if (emails)
         memberCount += emails.length;
 
-      if (memberCount > partyLimitMembers)
-        throw new BadRequest(res.t('partyExceedsMembersLimit', {maxMembersParty: partyLimitMembers}));
+      if (memberCount > common.constants.PARTY_LIMIT_MEMBERS)
+        throw new BadRequest(res.t('partyExceedsMembersLimit', {maxMembersParty: common.constants.PARTY_LIMIT_MEMBERS}));
     }
 
     Group.validateInvitations(uuids, emails, res);
