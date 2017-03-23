@@ -134,7 +134,7 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
     };
 
     $scope.addManager = function () {
-      Groups.Group.addManager($scope.groupCopy._id, $scope.groupCopy._newManager._id)
+      Groups.Group.addManager($scope.groupCopy._id, $scope.groupCopy._newManager)
         .then(function (response) {
           $scope.groupCopy._newManager = '';
           $scope.groupCopy.managers = response.data.data.managers;
