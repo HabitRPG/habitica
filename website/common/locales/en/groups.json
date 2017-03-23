@@ -135,7 +135,7 @@
   "leaderOnlyChallenges": "Only group leader can create challenges",
   "sendGift": "Send Gift",
   "inviteFriends": "Invite Friends",
-  "partyMembersInfo": "Your party currently has <%= memberCount %> members, and <%= invitationCount %> pending invitations. The limit of members in a party is <%= limitMembers %>. Invitations above this limit cannot be sent.",
+  "partyMembersInfo": "Your party currently has <%= memberCount %> members and <%= invitationCount %> pending invitations. The limit of members in a party is <%= limitMembers %>. Invitations above this limit cannot be sent.",
   "inviteByEmail": "Invite by Email",
   "inviteByEmailExplanation": "If a friend joins Habitica via your email, they'll automatically be invited to your party!",
   "inviteFriendsNow": "Invite Friends Now",

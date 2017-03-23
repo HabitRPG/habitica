@@ -1082,11 +1082,12 @@ api.inviteToGroup = {
         .exec();
       memberCount += groupInvites.length;
       // Counting the members that are going to be invited by email and uuids
-      if (uuids)
+      if (uuids) {
         memberCount += uuids.length;
-      if (emails)
+      }
+      if (emails) {
         memberCount += emails.length;
-
+      }
       if (memberCount > common.constants.PARTY_LIMIT_MEMBERS)
         throw new BadRequest(res.t('partyExceedsMembersLimit', {maxMembersParty: common.constants.PARTY_LIMIT_MEMBERS}));
     }
