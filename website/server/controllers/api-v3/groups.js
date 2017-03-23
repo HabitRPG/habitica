@@ -1111,13 +1111,13 @@ api.addGroupManager = {
     let user = res.locals.user;
     let managerId = req.body.managerId;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
-    req.checkBody('managerId', res.t('managerIdRequired')).notEmpty();
+    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkBody('managerId', apiMessages('managerIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let newManager = await User.findById(managerId).exec();
+    let newManager = await User.findById(managerId, 'guilds').exec();
     let groupFields = basicGroupFields.concat(' managers');
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: groupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
@@ -1160,8 +1160,8 @@ api.removeGroupManager = {
     let user = res.locals.user;
     let managerId = req.body.managerId;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
-    req.checkBody('managerId', res.t('managerIdRequired')).notEmpty();
+    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkBody('managerId', apiMessages('managerIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

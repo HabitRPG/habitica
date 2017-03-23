@@ -416,9 +416,9 @@ api.updateTask = {
       let fields = requiredGroupFields.concat(' managers');
       group = await Group.getGroup({user, groupId: task.group.id, fields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
-      let isNotGroupLeader = group.leader !== user._id;
+      let isGroupLeader = group.leader === user._id;
       let isManager = Boolean(group.managers[user._id]);
-      let canNotEditTasks = isNotGroupLeader && !isManager;
+      let canNotEditTasks = !isGroupLeader && !isManager;
       if (canNotEditTasks) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
@@ -1192,9 +1192,9 @@ api.deleteTask = {
       let fields = requiredGroupFields.concat(' managers');
       let group = await Group.getGroup({user, groupId: task.group.id, fields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
-      let isNotGroupLeader = group.leader !== user._id;
+      let isGroupLeader = group.leader === user._id;
       let isManager = Boolean(group.managers[user._id]);
-      let canNotEditTasks = isNotGroupLeader && !isManager;
+      let canNotEditTasks = !isGroupLeader && !isManager;
       if (canNotEditTasks) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
       await group.removeTask(task);
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights

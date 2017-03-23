@@ -16,6 +16,14 @@ import {
 
 let requiredGroupFields = '_id leader tasksOrder name';
 let types = Tasks.tasksTypes.map(type => `${type}s`);
+
+function canNotEditTasks(group, user, assignedUserId) {
+  let isNotGroupLeader = group.leader !== user._id;
+  let isManager = Boolean(group.managers[user._id]);
+  let userIsAssigningToSelf = Boolean(assignedUserId && user._id === assignedUserId);
+  let canNotEditTasks = isNotGroupLeader && !isManager && !userIsAssigningToSelf;
+}
+
 let api = {};
 
 /**
@@ -179,11 +187,7 @@ api.assignTask = {
     let group = await Group.getGroup({user, groupId: task.group.id, fields: groupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let isNotGroupLeader = group.leader !== user._id;
-    let isManager = Boolean(group.managers[user._id]);
-    let userIsAssigningToSelf = user._id === assignedUserId;
-    let canNotEditTasks = isNotGroupLeader && !isManager && !userIsAssigningToSelf;
-    if (canNotEditTasks) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (canNotEditTasks(group, user, assignedUserId)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     // User is claiming the task
     if (user._id === assignedUserId) {
@@ -241,10 +245,7 @@ api.unassignTask = {
     let group = await Group.getGroup({user, groupId: task.group.id, fields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let isNotGroupLeader = group.leader !== user._id;
-    let isManager = Boolean(group.managers[user._id]);
-    let canNotEditTasks = isNotGroupLeader && !isManager;
-    if (canNotEditTasks) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     await group.unlinkTask(task, assignedUser);
 
@@ -293,10 +294,7 @@ api.approveTask = {
     let group = await Group.getGroup({user, groupId: task.group.id, fields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let isNotGroupLeader = group.leader !== user._id;
-    let isManager = Boolean(group.managers[user._id]);
-    let canNotEditTasks = isNotGroupLeader && !isManager;
-    if (canNotEditTasks) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     task.group.approval.dateApproved = new Date();
     task.group.approval.approvingUser = user._id;
@@ -345,10 +343,7 @@ api.getGroupApprovals = {
     let group = await Group.getGroup({user, groupId, fields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let isNotGroupLeader = group.leader !== user._id;
-    let isManager = Boolean(group.managers[user._id]);
-    let canNotEditTasks = isNotGroupLeader && !isManager;
-    if (canNotEditTasks) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     let approvals = await Tasks.Task.find({
       'group.id': groupId,
