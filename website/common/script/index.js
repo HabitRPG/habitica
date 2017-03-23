@@ -35,7 +35,7 @@ api.constants = {
   LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
   SUPPORTED_SOCIAL_NETWORKS,
   GUILDS_PER_PAGE,
-  PARTY_LIMIT_MEMBERS
+  PARTY_LIMIT_MEMBERS,
 };
 // TODO Move these under api.constants
 api.maxLevel = MAX_LEVEL;
