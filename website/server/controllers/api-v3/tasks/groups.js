@@ -1,3 +1,4 @@
+import find from 'lodash/find';
 import { authWithHeaders } from '../../../middlewares/auth';
 import Bluebird from 'bluebird';
 import * as Tasks from '../../../models/task';
@@ -312,7 +313,31 @@ api.approveTask = {
       scoreTask: task,
     });
 
-    await Bluebird.all([assignedUser.save(), task.save()]);
+    console.log(assignedUser._id);
+
+    let managerIds = Object.keys(group.managers);
+    managerIds.push(group.leader);
+    let managers = await User.find({_id: managerIds}).exec(); // Use this method so we can get access to notifications
+
+    let managerPromises = [];
+    managers.forEach((manager) => {
+      let notificationIndex =  _.findIndex(manager.notifications, function findNotification (notification) {
+        let notificationMessage = res.t('userHasRequestedTaskApproval', {
+          user: assignedUser.profile.name,
+          taskName: task.text,
+        });
+        return notification.data.message === notificationMessage;
+      });
+
+      if (notificationIndex !== -1) {
+        manager.notifications.splice(notificationIndex, 1);
+        managerPromises.push(manager.save());
+      }
+    });
+
+    managerPromises.push(task.save());
+    managerPromises.push(assignedUser.save());
+    await Bluebird.all(managerPromises);
 
     res.respond(200, task);
   },
