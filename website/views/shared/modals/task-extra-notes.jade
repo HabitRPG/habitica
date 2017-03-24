@@ -4,7 +4,7 @@ script(id='modals/task-extra-notes.html', type='text/ng-template')
 
   .modal-body
     div
-      | {{task.notes}}
+      markdown(text='task.notes')
 
   .modal-footer
     .btn.btn-primary(ng-click="$close()")=env.t('close')
