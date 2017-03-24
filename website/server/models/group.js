@@ -300,7 +300,7 @@ schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
  * @param  res  Express res object for use with translations
  * @throws BadRequest An error describing the issue with the invitations
  */
-schema.statics.validateInvitations = async function getInvitationError (uuids, emails, group, res) {
+schema.statics.validateInvitations = async function getInvitationError (uuids, emails, res, group = null) {
   let uuidsIsArray = Array.isArray(uuids);
   let emailsIsArray = Array.isArray(emails);
   let emptyEmails = emailsIsArray && emails.length < 1;
@@ -341,7 +341,7 @@ schema.statics.validateInvitations = async function getInvitationError (uuids, e
   }
 
   // If party, check the limit of members
-  if (group.type === 'party') {
+  if (group && group.type === 'party') {
     let memberCount = 0;
 
     // Counting the members that already joined the party
