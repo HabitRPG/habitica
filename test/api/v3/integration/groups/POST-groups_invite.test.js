@@ -6,6 +6,7 @@ import {
 import { v4 as generateUUID } from 'uuid';
 
 const INVITES_LIMIT = 100;
+const PARTY_LIMIT_MEMBERS = 30;
 
 describe('Post /groups/:groupId/invite', () => {
   let inviter;
@@ -409,6 +410,25 @@ describe('Post /groups/:groupId/invite', () => {
         uuids: [userToInvite._id],
       });
       expect((await userToInvite.get('/user')).invitations.party.id).to.equal(party._id);
+    });
+
+    it('allow 30 members in a party', async () => {
+      let invitesToGenerate = [];
+      // Generate 29 users to invite (29 + leader = 30 members)
+      for (let i = 0; i < PARTY_LIMIT_MEMBERS - 1; i++) {
+        invitesToGenerate.push(generateUser());
+      }
+      let generatedInvites = await Promise.all(invitesToGenerate);
+      // Invite users
+      await inviter.post(`/groups/${party._id}/invite`, {
+        uuids: generatedInvites.map(invite => invite._id)
+      });
+      // Users accept invites
+      for (let i = 0; i < PARTY_LIMIT_MEMBERS - 1; i++) {
+        await generatedInvites[i].post(`/groups/${party._id}/join`);
+      }
+      // Verify the number of members
+      expect((await inviter.get(`/groups/${party._id}`)).memberCount).to.equal(PARTY_LIMIT_MEMBERS);
     });
   });
 });
