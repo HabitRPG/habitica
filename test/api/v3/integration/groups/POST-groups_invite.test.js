@@ -322,7 +322,7 @@ describe('Post /groups/:groupId/invite', () => {
       });
     });
 
-    it('allow 30+ members in a guild', async () => {
+    it('allows 30+ members in a guild', async () => {
       let invitesToGenerate = [];
       // Generate 30 users to invite (30 + leader = 31 members)
       for (let i = 0; i < PARTY_LIMIT_MEMBERS; i++) {
@@ -332,8 +332,7 @@ describe('Post /groups/:groupId/invite', () => {
       // Invite users
       expect(await inviter.post(`/groups/${group._id}/invite`, {
         uuids: generatedInvites.map(invite => invite._id),
-      }))
-      .to.be.an('array');
+      })).to.be.an('array');
     });
 
     // @TODO: Add this after we are able to mock the group plan route
@@ -426,7 +425,7 @@ describe('Post /groups/:groupId/invite', () => {
       expect((await userToInvite.get('/user')).invitations.party.id).to.equal(party._id);
     });
 
-    it('allow 30 members in a party', async () => {
+    it('allows 30 members in a party', async () => {
       let invitesToGenerate = [];
       // Generate 29 users to invite (29 + leader = 30 members)
       for (let i = 0; i < PARTY_LIMIT_MEMBERS - 1; i++) {
@@ -436,11 +435,10 @@ describe('Post /groups/:groupId/invite', () => {
       // Invite users
       expect(await inviter.post(`/groups/${party._id}/invite`, {
         uuids: generatedInvites.map(invite => invite._id),
-      }))
-      .to.be.an('array');
+      })).to.be.an('array');
     });
 
-    it('do not allow 30+ members in a party', async () => {
+    it('does not allow 30+ members in a party', async () => {
       let invitesToGenerate = [];
       // Generate 30 users to invite (30 + leader = 31 members)
       for (let i = 0; i < PARTY_LIMIT_MEMBERS; i++) {
