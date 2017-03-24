@@ -5,9 +5,7 @@ var migrationName = 'violet_backgrounds.js';
  */
 import Bluebird from 'bluebird';
 
-import { model as Group } from '../../website/server/models/group';
-import { model as User } from '../../website/server/models/user';
-import * as payments from '../../website/server/libs/payments';
+import { model as User } from '../website/server/models/user';
 
 async function addVioletBGs () {
   let userCount = 0;
