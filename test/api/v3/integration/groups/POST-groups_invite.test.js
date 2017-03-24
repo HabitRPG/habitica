@@ -322,6 +322,20 @@ describe('Post /groups/:groupId/invite', () => {
       });
     });
 
+    it('allow 30+ members in a guild', async () => {
+      let invitesToGenerate = [];
+      // Generate 30 users to invite (30 + leader = 31 members)
+      for (let i = 0; i < PARTY_LIMIT_MEMBERS; i++) {
+        invitesToGenerate.push(generateUser());
+      }
+      let generatedInvites = await Promise.all(invitesToGenerate);
+      // Invite users
+      expect(await inviter.post(`/groups/${group._id}/invite`, {
+        uuids: generatedInvites.map(invite => invite._id)
+      }))
+      .to.be.an('array');
+    });
+
     // @TODO: Add this after we are able to mock the group plan route
     xit('returns an error when a non-leader invites to a group plan', async () => {
       let userToInvite = await generateUser();
@@ -423,7 +437,7 @@ describe('Post /groups/:groupId/invite', () => {
       expect(await inviter.post(`/groups/${party._id}/invite`, {
         uuids: generatedInvites.map(invite => invite._id)
       }))
-      .to.be.a('array');
+      .to.be.an('array');
     });
 
     it('do not allow 30+ members in a party', async () => {
