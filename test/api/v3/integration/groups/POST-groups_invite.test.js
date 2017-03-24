@@ -430,5 +430,23 @@ describe('Post /groups/:groupId/invite', () => {
       // Verify the number of members
       expect((await inviter.get(`/groups/${party._id}`)).memberCount).to.equal(PARTY_LIMIT_MEMBERS);
     });
+
+    it('do not allow 30+ members in a party', async () => {
+      let invitesToGenerate = [];
+      // Generate 30 users to invite (30 + leader = 31 members)
+      for (let i = 0; i < PARTY_LIMIT_MEMBERS; i++) {
+        invitesToGenerate.push(generateUser());
+      }
+      let generatedInvites = await Promise.all(invitesToGenerate);
+      // Invite users - must fail
+      await expect(inviter.post(`/groups/${party._id}/invite`, {
+        uuids: generatedInvites.map(invite => invite._id)
+      }))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('partyExceedsMembersLimit', {maxMembersParty: PARTY_LIMIT_MEMBERS}),
+      });
+    });
   });
 });
