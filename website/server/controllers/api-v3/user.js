@@ -47,7 +47,7 @@ let api = {};
  * Stats (standard RPG stats, class, buffs, xp, etc..)
  * Tags
  * TasksOrder (list of all ids for dailys, habits, rewards and todos)
- * 
+ *
  * @apiSuccess {Object} data The user object
  *
  * @apiSuccessExample {json} Result:
