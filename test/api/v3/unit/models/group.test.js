@@ -4,9 +4,6 @@ import validator from 'validator';
 import { sleep } from '../../../../helpers/api-unit.helper';
 import { model as Group, INVITES_LIMIT } from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
-import {
-  BadRequest,
- } from '../../../../../website/server/libs/errors';
 import { quests as questScrolls } from '../../../../../website/common/script/content';
 import { groupChatReceivedWebhook } from '../../../../../website/server/libs/webhook';
 import * as email from '../../../../../website/server/libs/email';
