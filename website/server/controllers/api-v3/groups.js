@@ -1067,37 +1067,7 @@ api.inviteToGroup = {
     let uuids = req.body.uuids;
     let emails = req.body.emails;
 
-    Group.validateInvitations(uuids, emails, res);
-
-    // If party, check the limit of members
-    if (group.type === 'party') {
-      let memberCount = 0;
-
-      // Counting the members that already joined the party
-      memberCount += group.memberCount;
-
-      // Count how many invitations currently exist in the party
-      let query = {};
-      query['invitations.party.id'] = group._id;
-      let groupInvites = await User
-        .find(query)
-        .select('_id')
-        .exec();
-      memberCount += groupInvites.length;
-      
-      // Counting the members that are going to be invited by email and uuids
-      if (uuids) {
-        memberCount += uuids.length;
-      }
-
-      if (emails) {
-        memberCount += emails.length;
-      }
-
-      if (memberCount > common.constants.PARTY_LIMIT_MEMBERS) {
-        throw new BadRequest(res.t('partyExceedsMembersLimit', {maxMembersParty: common.constants.PARTY_LIMIT_MEMBERS}));
-      }
-    }
+    await Group.validateInvitations(uuids, emails, group, res);
 
     let results = [];
 

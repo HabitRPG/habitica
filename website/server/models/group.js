@@ -300,7 +300,7 @@ schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
  * @param  res  Express res object for use with translations
  * @throws BadRequest An error describing the issue with the invitations
  */
-schema.statics.validateInvitations = function getInvitationError (uuids, emails, res) {
+schema.statics.validateInvitations = async function getInvitationError (uuids, emails, group, res) {
   let uuidsIsArray = Array.isArray(uuids);
   let emailsIsArray = Array.isArray(emails);
   let emptyEmails = emailsIsArray && emails.length < 1;
@@ -338,6 +338,30 @@ schema.statics.validateInvitations = function getInvitationError (uuids, emails,
 
   if (totalInvites > INVITES_LIMIT) {
     throw new BadRequest(res.t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}));
+  }
+
+  // If party, check the limit of members
+  if (group.type === 'party') {
+    let memberCount = 0;
+
+    // Counting the members that already joined the party
+    memberCount += group.memberCount;
+
+    // Count how many invitations currently exist in the party
+    let query = {};
+    query['invitations.party.id'] = group._id;
+    let groupInvites = await User
+      .find(query)
+      .select('_id')
+      .exec();
+    memberCount += groupInvites.length;
+
+    // Counting the members that are going to be invited by email and uuids
+    memberCount += totalInvites;
+
+    if (memberCount > shared.constants.PARTY_LIMIT_MEMBERS) {
+      throw new BadRequest(res.t('partyExceedsMembersLimit', {maxMembersParty: shared.constants.PARTY_LIMIT_MEMBERS}));
+    }
   }
 };
 
