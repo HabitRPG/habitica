@@ -480,6 +480,11 @@ let backgrounds = {
     },
   },
   incentiveBackgrounds: {
+    violet: {
+      text: t('backgroundVioletText'),
+      notes: t('backgroundVioletNotes'),
+      currency: 'loginIncentive',
+    },
     blue: {
       text: t('backgroundBlueText'),
       notes: t('backgroundBlueNotes'),
