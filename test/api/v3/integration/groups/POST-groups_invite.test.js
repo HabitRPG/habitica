@@ -420,15 +420,10 @@ describe('Post /groups/:groupId/invite', () => {
       }
       let generatedInvites = await Promise.all(invitesToGenerate);
       // Invite users
-      await inviter.post(`/groups/${party._id}/invite`, {
+      expect(await inviter.post(`/groups/${party._id}/invite`, {
         uuids: generatedInvites.map(invite => invite._id)
-      });
-      // Users accept invites
-      for (let i = 0; i < PARTY_LIMIT_MEMBERS - 1; i++) {
-        await generatedInvites[i].post(`/groups/${party._id}/join`);
-      }
-      // Verify the number of members
-      expect((await inviter.get(`/groups/${party._id}`)).memberCount).to.equal(PARTY_LIMIT_MEMBERS);
+      }))
+      .to.be.a('array');
     });
 
     it('do not allow 30+ members in a party', async () => {
@@ -438,7 +433,7 @@ describe('Post /groups/:groupId/invite', () => {
         invitesToGenerate.push(generateUser());
       }
       let generatedInvites = await Promise.all(invitesToGenerate);
-      // Invite users - must fail
+      // Invite users
       await expect(inviter.post(`/groups/${party._id}/invite`, {
         uuids: generatedInvites.map(invite => invite._id)
       }))
