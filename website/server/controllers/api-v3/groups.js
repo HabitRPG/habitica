@@ -1083,8 +1083,8 @@ api.inviteToGroup = {
         .find(query)
         .select('_id')
         .exec();
-
       memberCount += groupInvites.length;
+      
       // Counting the members that are going to be invited by email and uuids
       if (uuids) {
         memberCount += uuids.length;
