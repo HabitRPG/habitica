@@ -331,7 +331,7 @@ describe('Post /groups/:groupId/invite', () => {
       let generatedInvites = await Promise.all(invitesToGenerate);
       // Invite users
       expect(await inviter.post(`/groups/${group._id}/invite`, {
-        uuids: generatedInvites.map(invite => invite._id)
+        uuids: generatedInvites.map(invite => invite._id),
       }))
       .to.be.an('array');
     });
@@ -435,7 +435,7 @@ describe('Post /groups/:groupId/invite', () => {
       let generatedInvites = await Promise.all(invitesToGenerate);
       // Invite users
       expect(await inviter.post(`/groups/${party._id}/invite`, {
-        uuids: generatedInvites.map(invite => invite._id)
+        uuids: generatedInvites.map(invite => invite._id),
       }))
       .to.be.an('array');
     });
@@ -449,7 +449,7 @@ describe('Post /groups/:groupId/invite', () => {
       let generatedInvites = await Promise.all(invitesToGenerate);
       // Invite users
       await expect(inviter.post(`/groups/${party._id}/invite`, {
-        uuids: generatedInvites.map(invite => invite._id)
+        uuids: generatedInvites.map(invite => invite._id),
       }))
       .to.eventually.be.rejected.and.eql({
         code: 400,
