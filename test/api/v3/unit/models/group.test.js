@@ -461,63 +461,63 @@ describe('Group Model', () => {
       });
 
       it('throws an error if no uuids or emails are passed in', async () => {
-        try {
-          Group.validateInvitations(null, null, res);
-        } catch (err) {
-          expect(err).to.be.an.instanceof(BadRequest);
-          expect(res.t).to.be.calledOnce;
-          expect(res.t).to.be.calledWith('canOnlyInviteEmailUuid');
-        }
+        await expect(Group.validateInvitations(null, null, res)).to.eventually.be.rejected.and.eql({
+          httpCode: 400,
+          message: 'Bad request.',
+          name: 'BadRequest',
+        });
+        expect(res.t).to.be.calledOnce;
+        expect(res.t).to.be.calledWith('canOnlyInviteEmailUuid');
       });
 
       it('throws an error if only uuids are passed in, but they are not an array', async () => {
-        try {
-          Group.validateInvitations({ uuid: 'user-id'}, null, res);
-        } catch (err) {
-          expect(err).to.be.an.instanceof(BadRequest);
-          expect(res.t).to.be.calledOnce;
-          expect(res.t).to.be.calledWith('uuidsMustBeAnArray');
-        }
+        await expect(Group.validateInvitations({ uuid: 'user-id'}, null, res)).to.eventually.be.rejected.and.eql({
+          httpCode: 400,
+          message: 'Bad request.',
+          name: 'BadRequest',
+        });
+        expect(res.t).to.be.calledOnce;
+        expect(res.t).to.be.calledWith('uuidsMustBeAnArray');
       });
 
       it('throws an error if only emails are passed in, but they are not an array', async () => {
-        try {
-          Group.validateInvitations(null, { emails: 'user@example.com'}, res);
-        } catch (err) {
-          expect(err).to.be.an.instanceof(BadRequest);
-          expect(res.t).to.be.calledOnce;
-          expect(res.t).to.be.calledWith('emailsMustBeAnArray');
-        }
+        await expect(Group.validateInvitations(null, { emails: 'user@example.com'}, res)).to.eventually.be.rejected.and.eql({
+          httpCode: 400,
+          message: 'Bad request.',
+          name: 'BadRequest',
+        });
+        expect(res.t).to.be.calledOnce;
+        expect(res.t).to.be.calledWith('emailsMustBeAnArray');
       });
 
       it('throws an error if emails are not passed in, and uuid array is empty', async () => {
-        try {
-          Group.validateInvitations([], null, res);
-        } catch (err) {
-          expect(err).to.be.an.instanceof(BadRequest);
-          expect(res.t).to.be.calledOnce;
-          expect(res.t).to.be.calledWith('inviteMissingUuid');
-        }
+        await expect(Group.validateInvitations([], null, res)).to.eventually.be.rejected.and.eql({
+          httpCode: 400,
+          message: 'Bad request.',
+          name: 'BadRequest',
+        });
+        expect(res.t).to.be.calledOnce;
+        expect(res.t).to.be.calledWith('inviteMissingUuid');
       });
 
       it('throws an error if uuids are not passed in, and email array is empty', async () => {
-        try {
-          Group.validateInvitations(null, [], res);
-        } catch (err) {
-          expect(err).to.be.an.instanceof(BadRequest);
-          expect(res.t).to.be.calledOnce;
-          expect(res.t).to.be.calledWith('inviteMissingEmail');
-        }
+        await expect(Group.validateInvitations(null, [], res)).to.eventually.be.rejected.and.eql({
+          httpCode: 400,
+          message: 'Bad request.',
+          name: 'BadRequest',
+        });
+        expect(res.t).to.be.calledOnce;
+        expect(res.t).to.be.calledWith('inviteMissingEmail');
       });
 
       it('throws an error if uuids and emails are passed in as empty arrays', async () => {
-        try {
-          Group.validateInvitations([], [], res);
-        } catch (err) {
-          expect(err).to.be.an.instanceof(BadRequest);
-          expect(res.t).to.be.calledOnce;
-          expect(res.t).to.be.calledWith('inviteMustNotBeEmpty');
-        }
+        await expect(Group.validateInvitations([], [], res)).to.eventually.be.rejected.and.eql({
+          httpCode: 400,
+          message: 'Bad request.',
+          name: 'BadRequest',
+        });
+        expect(res.t).to.be.calledOnce;
+        expect(res.t).to.be.calledWith('inviteMustNotBeEmpty');
       });
 
       it('throws an error if total invites exceed max invite constant', async () => {
@@ -531,13 +531,13 @@ describe('Group Model', () => {
 
         uuids.push('one-more-uuid'); // to put it over the limit
 
-        try {
-          Group.validateInvitations(uuids, emails, res);
-        } catch (err) {
-          expect(err).to.be.an.instanceof(BadRequest);
-          expect(res.t).to.be.calledOnce;
-          expect(res.t).to.be.calledWith('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT });
-        }
+        await expect(Group.validateInvitations(uuids, emails, res)).to.eventually.be.rejected.and.eql({
+          httpCode: 400,
+          message: 'Bad request.',
+          name: 'BadRequest',
+        });
+        expect(res.t).to.be.calledOnce;
+        expect(res.t).to.be.calledWith('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT });
       });
 
       it('does not throw error if number of invites matches max invite limit', () => {
