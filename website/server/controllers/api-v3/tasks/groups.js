@@ -1,4 +1,4 @@
-import find from 'lodash/find';
+import findIndex from 'lodash/findIndex';
 import { authWithHeaders } from '../../../middlewares/auth';
 import Bluebird from 'bluebird';
 import * as Tasks from '../../../models/task';
@@ -19,11 +19,11 @@ import apiMessages from '../../../libs/apiMessages';
 let requiredGroupFields = '_id leader tasksOrder name';
 let types = Tasks.tasksTypes.map(type => `${type}s`);
 
-function canNotEditTasks(group, user, assignedUserId) {
+function canNotEditTasks (group, user, assignedUserId) {
   let isNotGroupLeader = group.leader !== user._id;
   let isManager = Boolean(group.managers[user._id]);
   let userIsAssigningToSelf = Boolean(assignedUserId && user._id === assignedUserId);
-  let canNotEditTasks = isNotGroupLeader && !isManager && !userIsAssigningToSelf;
+  return isNotGroupLeader && !isManager && !userIsAssigningToSelf;
 }
 
 let api = {};
@@ -54,10 +54,7 @@ api.createGroupTasks = {
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let isNotGroupLeader = group.leader !== user._id;
-    let isManager = Boolean(group.managers[user._id]);
-    let canNotEditTasks = isNotGroupLeader && !isManager;
-    if (canNotEditTasks) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (canNotEditTasks()) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     let tasks = await createTasks(req, res, {user, group});
 
@@ -313,15 +310,13 @@ api.approveTask = {
       scoreTask: task,
     });
 
-    console.log(assignedUser._id);
-
     let managerIds = Object.keys(group.managers);
     managerIds.push(group.leader);
     let managers = await User.find({_id: managerIds}).exec(); // Use this method so we can get access to notifications
 
     let managerPromises = [];
     managers.forEach((manager) => {
-      let notificationIndex =  _.findIndex(manager.notifications, function findNotification (notification) {
+      let notificationIndex =  findIndex(manager.notifications, function findNotification (notification) {
         let notificationMessage = res.t('userHasRequestedTaskApproval', {
           user: assignedUser.profile.name,
           taskName: task.text,
