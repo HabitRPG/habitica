@@ -350,11 +350,8 @@ schema.statics.validateInvitations = async function getInvitationError (uuids, e
     // Count how many invitations currently exist in the party
     let query = {};
     query['invitations.party.id'] = group._id;
-    let groupInvites = await User
-      .find(query)
-      .select('_id')
-      .exec();
-    memberCount += groupInvites.length;
+    let groupInvites = await User.count(query).exec();
+    memberCount += groupInvites;
 
     // Counting the members that are going to be invited by email and uuids
     memberCount += totalInvites;

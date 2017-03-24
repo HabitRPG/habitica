@@ -1067,7 +1067,7 @@ api.inviteToGroup = {
     let uuids = req.body.uuids;
     let emails = req.body.emails;
 
-    await Group.validateInvitations(uuids, emails, group, res);
+    await Group.validateInvitations(uuids, emails, res, group);
 
     let results = [];
 
