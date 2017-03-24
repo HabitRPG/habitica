@@ -1,6 +1,6 @@
 'use strict';
 
-describe.only('User Controller', function() {
+describe('User Controller', function() {
   var $rootScope, $window, User, shared, scope, ctrl, content;
 
   beforeEach(function() {
