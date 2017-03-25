@@ -65,15 +65,16 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
               h4=env.t('assignLeader')
               select#group-leader-selection(ng-model='groupCopy._newLeader', ng-options='member.profile.name for member in group.members')
               
-              h4=env.t('addManagers')
-              .form-group
-                select#group-leader-selection(ng-model='groupCopy._newManager')
-                  option(ng-repeat='member in group.members', ng-if='member._id !== group.leader.id', ng-value='member._id') {{member.profile.name}}
-                button.btn.btn-primary.add-manager-button(ng-click='addManager()')=env.t('addManager')
-              ul
-                li(ng-repeat='(managerId, value) in groupCopy.managers')
-                 | {{memberProfileName(managerId)}}
-                 button.btn.btn-warning.remove-manager-button(ng-click='removeManager(managerId)')=env.t('removeManager')
+              div(ng-if='group.purchased.active')
+                h4=env.t('addManagers')
+                .form-group
+                  select#group-leader-selection(ng-model='groupCopy._newManager')
+                    option(ng-repeat='member in group.members', ng-if='member._id !== group.leader.id', ng-value='member._id') {{member.profile.name}}
+                  button.btn.btn-primary.add-manager-button(ng-click='addManager()')=env.t('addManager')
+                ul
+                  li(ng-repeat='(managerId, value) in groupCopy.managers')
+                   | {{memberProfileName(managerId)}}
+                   button.btn.btn-warning.remove-manager-button(ng-click='removeManager(managerId)')=env.t('removeManager')
               
             div(ng-show='!group._editing')
               img.img-rendering-auto.pull-right(ng-show='group.logo', ng-src='{{group.logo}}')

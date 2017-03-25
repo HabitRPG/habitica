@@ -162,8 +162,8 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', '$ro
       if (!group || !group.leader) return true;
       var userId = User.user._id;
       var leader = group.leader._id === userId;
-      var userIsManager = Boolean(group.managers[userId]);
-      return leader || userIsManager;
+      var isManager = Boolean(group.managers[userId]);
+      return leader || isManager;
     };
 
     /*
