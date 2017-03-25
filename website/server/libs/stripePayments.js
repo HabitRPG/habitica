@@ -308,7 +308,7 @@ api.handleWebhooks = async function handleWebhooks (options, stripeInc) {
         let groupFields = basicGroupFields.concat(' purchased');
         let group = await Group.findOne({
           'purchased.plan.customerId': customerId,
-          paymentMethod: this.constants.PAYMENT_METHOD,
+          'purchased.plan.paymentMethod': this.constants.PAYMENT_METHOD,
         }).select(groupFields).exec();
 
         if (!group) throw new NotFound(i18n.t('groupNotFound'));
@@ -319,11 +319,11 @@ api.handleWebhooks = async function handleWebhooks (options, stripeInc) {
         console.log('is not group sub');
         user = await User.findOne({
           'purchased.plan.customerId': customerId,
-          paymentMethod: this.constants.PAYMENT_METHOD,
+          'purchased.plan.paymentMethod': this.constants.PAYMENT_METHOD,
         }).exec();
       }
 
-      if (!user) throw new NotFound(i18n.t('groupNotFound'));
+      if (!user) throw new NotFound(i18n.t('userNotFound'));
 
       console.log('groupId', groupId);
       console.log('userId', user._id);
@@ -343,7 +343,7 @@ api.handleWebhooks = async function handleWebhooks (options, stripeInc) {
       break;
     }
     default: {
-      logger.error(new Error(`Missing handler for Stripe webhook ${event.type}`), {eventJSON});
+      logger.error(new Error(`Missing handler for Stripe webhook ${event.type}`), {event});
     }
   }
 };
