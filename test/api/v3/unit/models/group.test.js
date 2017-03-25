@@ -546,49 +546,33 @@ describe('Group Model', () => {
           emails.push(`user-${i}@example.com`);
         }
 
-        expect(async function () {
-          await Group.validateInvitations(uuids, emails, res);
-        }).to.not.throw();
+        await Group.validateInvitations(uuids, emails, res);
+        expect(res.t).to.not.be.called;
       });
 
 
       it('does not throw an error if only user ids are passed in', async () => {
-        expect(async function () {
-          await Group.validateInvitations(['user-id', 'user-id2'], null, res);
-        }).to.not.throw();
-
+        await Group.validateInvitations(['user-id', 'user-id2'], null, res);
         expect(res.t).to.not.be.called;
       });
 
       it('does not throw an error if only emails are passed in', async () => {
-        expect(async function () {
-          await Group.validateInvitations(null, ['user1@example.com', 'user2@example.com'], res);
-        }).to.not.throw();
-
+        await Group.validateInvitations(null, ['user1@example.com', 'user2@example.com'], res);
         expect(res.t).to.not.be.called;
       });
 
       it('does not throw an error if both uuids and emails are passed in', async () => {
-        expect(async function () {
-          await Group.validateInvitations(['user-id', 'user-id2'], ['user1@example.com', 'user2@example.com'], res);
-        }).to.not.throw();
-
+        await Group.validateInvitations(['user-id', 'user-id2'], ['user1@example.com', 'user2@example.com'], res);
         expect(res.t).to.not.be.called;
       });
 
       it('does not throw an error if uuids are passed in and emails are an empty array', async () => {
-        expect(async function () {
-          await Group.validateInvitations(['user-id', 'user-id2'], [], res);
-        }).to.not.throw();
-
+        await Group.validateInvitations(['user-id', 'user-id2'], [], res);
         expect(res.t).to.not.be.called;
       });
 
       it('does not throw an error if emails are passed in and uuids are an empty array', async () => {
-        expect(async function () {
-          await Group.validateInvitations([], ['user1@example.com', 'user2@example.com'], res);
-        }).to.not.throw();
-
+        await Group.validateInvitations([], ['user1@example.com', 'user2@example.com'], res);
         expect(res.t).to.not.be.called;
       });
     });
