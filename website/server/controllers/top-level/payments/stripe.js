@@ -91,13 +91,7 @@ api.handleWebhooks = {
   method: 'POST',
   url: '/stripe/webhooks',
   async handler (req, res) {
-    console.log('start handling webhook');
-
-    try {
-      await stripePayments.handleWebhooks({requestBody: req.body});
-    } catch (err) {
-      console.log(err);
-    }
+    await stripePayments.handleWebhooks({requestBody: req.body});
 
     return res.respond(200, {});
   },

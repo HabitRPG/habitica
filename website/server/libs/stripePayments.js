@@ -288,7 +288,6 @@ api.handleWebhooks = async function handleWebhooks (options, stripeInc) {
 
   // Verify the event by fetching it from Stripe
   const event = await stripeApi.events.retrieve(requestBody.id);
-  console.log(event);
 
   switch (event.type) {
     case 'customer.subscription.deleted': {
@@ -304,7 +303,6 @@ api.handleWebhooks = async function handleWebhooks (options, stripeInc) {
       let groupId;
 
       if (isGroupSub) {
-        console.log('is group sub');
         let groupFields = basicGroupFields.concat(' purchased');
         let group = await Group.findOne({
           'purchased.plan.customerId': customerId,
@@ -316,7 +314,6 @@ api.handleWebhooks = async function handleWebhooks (options, stripeInc) {
 
         user = await User.findById(group.leader).exec();
       } else {
-        console.log('is not group sub');
         user = await User.findOne({
           'purchased.plan.customerId': customerId,
           'purchased.plan.paymentMethod': this.constants.PAYMENT_METHOD,
@@ -325,20 +322,13 @@ api.handleWebhooks = async function handleWebhooks (options, stripeInc) {
 
       if (!user) throw new NotFound(i18n.t('userNotFound'));
 
-      console.log('groupId', groupId);
-      console.log('userId', user._id);
-
       await stripeApi.customers.del(customerId);
-
-      console.log('deleted stripe customer');
 
       await payments.cancelSubscription({
         user,
         groupId,
         paymentMethod: this.constants.PAYMENT_METHOD,
       });
-
-      console.log('cancelled subscription');
 
       break;
     }
