@@ -84,13 +84,10 @@
     "stitchWitchSet": "Sorcière Couturière (Mage)",
     "potionerSet": "Alchimiste (Guérisseur)",
     "battleRogueSet": "Voleur de Bat-aille (Voleur)",
-    "springingBunnySet": "Springing Bunny (Healer)",
+    "springingBunnySet": "Lapin Sautant (Guérisseur)",
     "grandMalkinSet": "Grand Malkin (Mage)",
-    "cleverDogSet": "Clever Dog (Rogue)",
-    "braveMouseSet": "Brave Mouse (Warrior)",
-    "fallEventAvailability": "Disponible à l'achat jusqu'au 31 octobre.",
-    "winterEventAvailability": "Disponible à l'achat jusqu'au 31 janvier.",
-    "springEventAvailability": "Disponible à l'achat jusqu'au 31 mai.",
-    "summerEventAvailability": "Disponible à l'achat jusqu'au 31 août.",
-    "valentinesEventAvailability": "Disponible à l'achat jusqu'au 28 février."
+    "cleverDogSet": "Chien Malin (Voleur)",
+    "braveMouseSet": "Souris Courageuse (Guerrier)",
+    "eventAvailability": "Available for purchase until <%= date(locale) %>.",
+    "dateEndApril": "April 19"
 }

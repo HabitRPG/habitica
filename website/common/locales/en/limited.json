@@ -95,5 +95,7 @@
     "valentinesEventAvailability": "Available for purchase until February 28.",
     "managerIdRequired": "req.body.managerId is required",
     "userMustBeMember": "User must be a member",
-    "userIsNotManager": "User is not manager"
+    "userIsNotManager": "User is not manager",
+    "eventAvailability": "Available for purchase until <%= date(locale) %>.",
+    "dateEndApril": "April 19"
 }

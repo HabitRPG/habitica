@@ -84,13 +84,10 @@
     "stitchWitchSet": "Stichhexe (Magier)",
     "potionerSet": "Tränkebrauer (Heiler)",
     "battleRogueSet": "Kampfschurke (Schurke)",
-    "springingBunnySet": "Springing Bunny (Healer)",
-    "grandMalkinSet": "Grand Malkin (Mage)",
-    "cleverDogSet": "Clever Dog (Rogue)",
-    "braveMouseSet": "Brave Mouse (Warrior)",
-    "fallEventAvailability": "Zum Kauf verfügbar bis zum 31. Oktober.",
-    "winterEventAvailability": "Zum Kauf verfügbar bis zum 31. Januar.",
-    "springEventAvailability": "Zum Kauf verfügbar bis zum 31. Mai.",
-    "summerEventAvailability": "Zum Kauf verfügbar bis zum 31. August.",
-    "valentinesEventAvailability": "Zum Kauf verfügbar bis zum 28. Februar."
+    "springingBunnySet": "Hüpfendes Häschen (Heiler)",
+    "grandMalkinSet": "Prächtiger Kater (Magier)",
+    "cleverDogSet": "Schlauer Hund (Schurke)",
+    "braveMouseSet": "Mutige Maus (Krieger)",
+    "eventAvailability": "Available for purchase until <%= date(locale) %>.",
+    "dateEndApril": "April 19"
 }

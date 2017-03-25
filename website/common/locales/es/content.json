@@ -168,6 +168,7 @@
     "hatchingPotionRoyalPurple": "Púrpura real",
     "hatchingPotionHolly": "Acebo",
     "hatchingPotionCupid": "Cupido",
+    "hatchingPotionShimmer": "Shimmer",
     "hatchingPotionNotes": "Echa esto en un huevo, y eclosionará como una mascota <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "No es usable en huevos de mascota de misión.",
     "foodMeat": "Carne",

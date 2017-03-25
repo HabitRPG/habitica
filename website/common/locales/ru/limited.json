@@ -84,13 +84,10 @@
     "stitchWitchSet": "Лоскутная колдунья (Маг)",
     "potionerSet": "Зельевар (Лекарь)",
     "battleRogueSet": "Бэт-Вор (Разбойник) ",
-    "springingBunnySet": "Springing Bunny (Healer)",
-    "grandMalkinSet": "Grand Malkin (Mage)",
-    "cleverDogSet": "Clever Dog (Rogue)",
-    "braveMouseSet": "Brave Mouse (Warrior)",
-    "fallEventAvailability": "Можно купить до 31 октября.",
-    "winterEventAvailability": "Можно купить до 31 января.",
-    "springEventAvailability": "Можно купить до 31 мая.",
-    "summerEventAvailability": "Можно купить до 31 августа.",
-    "valentinesEventAvailability": "Доступно для покупки до 28 февраля."
+    "springingBunnySet": "Скачущий Зайчик (Целитель)",
+    "grandMalkinSet": "Великий Малкин (Маг)",
+    "cleverDogSet": "Мудрый Пёс (Вор)",
+    "braveMouseSet": "Храбрая Мышь (Воин)",
+    "eventAvailability": "Available for purchase until <%= date(locale) %>.",
+    "dateEndApril": "April 19"
 }
