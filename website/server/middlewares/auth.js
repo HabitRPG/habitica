@@ -6,7 +6,7 @@ import {
 } from '../models/user';
 import nconf from 'nconf';
 
-const COMMUNITY_MANAGER_EMAIL = nconf.get('MAINTENANCE_MODE');
+const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 
 // Strins won't be translated here because getUserLanguage has not run yet
 
