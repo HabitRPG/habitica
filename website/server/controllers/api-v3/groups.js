@@ -1038,6 +1038,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  * @apiError (400) {BadRequest} MustBeArray The `uuids` or `emails` body param was not an array.
  * @apiError (400) {BadRequest} TooManyInvites A max of 100 invites (combined emails and user ids) can
  * be sent out at a time.
+ * @apiError (400) {BadRequest} ExceedsMembersLimit A max of 30 members can join a party.
  *
  * @apiError (401) {NotAuthorized} UserAlreadyInvited The user has already been invited to the group.
  * @apiError (401) {NotAuthorized} UserAlreadyInGroup The user is already a member of the group.
@@ -1066,7 +1067,7 @@ api.inviteToGroup = {
     let uuids = req.body.uuids;
     let emails = req.body.emails;
 
-    Group.validateInvitations(uuids, emails, res);
+    await Group.validateInvitations(uuids, emails, res, group);
 
     let results = [];
 
