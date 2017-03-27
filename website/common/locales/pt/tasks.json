@@ -164,6 +164,7 @@
     "confirmScoreNotes": "Confirme a pontuação de tarefas com notas",
     "taskScoreNotesTooLong": "Notas de pontuação de tarefas devem ter menos de 256 caracteres",
     "groupTasksByChallenge": "Agrupar tarefas por título de desafio",
+    "taskNotes": "Task Notes",
     "monthlyRepeatHelpContent": "Esta tarefa deve ser cumprida a cada X meses.",
     "yearlyRepeatHelpContent": "Esta tarefa deve ser cumprida a cada X anos"
 }

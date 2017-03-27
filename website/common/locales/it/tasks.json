@@ -164,6 +164,7 @@
     "confirmScoreNotes": "Confirm task scoring with notes",
     "taskScoreNotesTooLong": "Task score notes must be less than 256 characters",
     "groupTasksByChallenge": "Raggruppa le attività secondo il nome della sfida",
+    "taskNotes": "Task Notes",
     "monthlyRepeatHelpContent": "Questa attività andrà completata ogni X mesi.",
     "yearlyRepeatHelpContent": "Questa attività andrà completata ogni X anni."
 }

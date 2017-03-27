@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "請記得你的角色名稱，簡介頭像以及簡介內容必須遵守<a href='https://habitica.com/static/community-guidelines' target='_blank'>使用者規範</a>(比如說:不可有猥褻行為、不可有成人議題、不可汙辱他人等等)。如果你不確定某些事有沒有合乎規定，歡迎來信到 <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "基本資料",
     "avatar": "客制化角色圖像",
     "other": "其他",

@@ -88,6 +88,6 @@
     "grandMalkinSet": "Machtige malkin (Magiër)",
     "cleverDogSet": "Snuggere hond (Dief)",
     "braveMouseSet": "Moedige muis (Krijger)",
-    "eventAvailability": "Available for purchase until <%= date(locale) %>.",
-    "dateEndApril": "April 19"
+    "eventAvailability": "Verkrijgbaar voor aankoop tot <%=date(locale) %>.",
+    "dateEndApril": "19 april"
 }

@@ -164,6 +164,7 @@
     "confirmScoreNotes": "Confirmar la descripción de la tarea con anotaciones",
     "taskScoreNotesTooLong": "Las notas de descripción de tareas deben tener menos de 256 caracteres",
     "groupTasksByChallenge": "Agrupar tareas por título del desafío",
+    "taskNotes": "Task Notes",
     "monthlyRepeatHelpContent": "Esta tarea vencerá cada X meses",
     "yearlyRepeatHelpContent": "Esta tarea vencerá cada X años"
 }

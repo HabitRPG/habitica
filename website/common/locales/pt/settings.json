@@ -68,7 +68,7 @@
     "APIv3": "API v3",
     "APIText": "Copie isto para utilizar nas aplicações de terceiros. Entretanto, pense no seu Código API como uma palavra-passe, e não o divulgue publicamente. Ocasionalmente, poderá ser-lhe pedido a sua Identificação de Utilizador, mas nunca publique o seu Código API onde os outros possam vê-lo, incluindo no Github.",
     "APIToken": "Código API (é uma palavra-passe - veja o aviso acima!)",
-    "APITokenWarning": "Se necessita de um novo Código de API (por exemplo, se acidentalmente o partilhou publicamente), envie um correio eletrónico para <a href='mailto:admin@habitica.com'>admin@habitica.com</a> com o seu ID de Usuário e Código corrente. Uma vez reinicializado, deverá re-autorizar novamente a página e aplicação móvel saindo das mesmas e fornecendo o novo Código a quaisquer outras ferramentas de Habitica que utilize.",
+    "APITokenWarning": "If you need a new API Token (e.g., if you accidentally shared it), email <%= hrefTechAssistanceEmail %> with your User ID and current Token. Once it is reset you will need to re-authorize everything by logging out of the website and mobile app and by providing the new Token to any other Habitica tools that you use.",
     "thirdPartyApps": "Aplicações de Terceiros",
     "dataToolDesc": "Uma página que mostra certas informações da sua conta de Habitica, como estatísticas sobre suas tarefas, equipamentos e habilidades.",
     "beeminder": "Beeminder",

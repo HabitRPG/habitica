@@ -164,6 +164,7 @@
     "confirmScoreNotes": "Bevestig taak scores met notities",
     "taskScoreNotesTooLong": "Taak score notities moeten minder dan 256 karakters zijn.",
     "groupTasksByChallenge": "Groepeer taken met uitdaging titel",
+    "taskNotes": "Task Notes",
     "monthlyRepeatHelpContent": "Deze taak zul je iedere X maanden moeten doen",
     "yearlyRepeatHelpContent": "Deze taak zul je iedere X jaren moeten doen"
 }

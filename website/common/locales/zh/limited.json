@@ -88,6 +88,6 @@
     "grandMalkinSet": "豪华的猫（法师）",
     "cleverDogSet": "灵巧的狗 (盗贼)",
     "braveMouseSet": "勇敢的鼠(战士)",
-    "eventAvailability": "Available for purchase until <%= date(locale) %>.",
-    "dateEndApril": "April 19"
+    "eventAvailability": "在<%= date(locale) %>前可购买。",
+    "dateEndApril": "4月19日"
 }

@@ -168,7 +168,7 @@
     "hatchingPotionRoyalPurple": "Pourpre royal",
     "hatchingPotionHolly": "Houx",
     "hatchingPotionCupid": "Cupidon",
-    "hatchingPotionShimmer": "Shimmer",
+    "hatchingPotionShimmer": "scintillant",
     "hatchingPotionNotes": "Versez-la sur un œuf et il en sortira un familier <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "N'est pas utilisable sur les œufs de quête.",
     "foodMeat": "Viande",

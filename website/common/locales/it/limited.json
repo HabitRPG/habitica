@@ -88,6 +88,6 @@
     "grandMalkinSet": "Grande Feles (Mago)",
     "cleverDogSet": "Cane Intelligente (Assassino)",
     "braveMouseSet": "Topo Coraggioso (Guerriero)",
-    "eventAvailability": "Available for purchase until <%= date(locale) %>.",
-    "dateEndApril": "April 19"
+    "eventAvailability": "Disponibile fino al <%= date(locale) %>.",
+    "dateEndApril": "19 Aprile"
 }
