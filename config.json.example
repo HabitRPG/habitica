@@ -92,5 +92,10 @@
         "FLAGGING_FOOTER_LINK": "https://habitrpg.github.io/flag-o-rama/",
         "SUBSCRIPTIONS_URL": "https://hooks.slack.com/services/id/id/id"
     },
-    "ITUNES_SHARED_SECRET": "aaaabbbbccccddddeeeeffff00001111"
+    "ITUNES_SHARED_SECRET": "aaaabbbbccccddddeeeeffff00001111",
+    "EMAILS" : {
+        "COMMUNITY_MANAGER_EMAIL" : "community@example.com",
+        "TECH_ASSISTANCE_EMAIL" : "tech@example.com",
+        "PRESS_ENQUIRY_EMAIL" : "press@example.com"
+    }
 }
