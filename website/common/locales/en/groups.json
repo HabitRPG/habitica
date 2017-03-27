@@ -270,5 +270,7 @@
   "purchasedGroupPlanPlanExtraMonths": "You have <%= months %> months of extra group plan credit.",
   "addManagers": "Add Managers",
   "addManager": "Add Manager",
-  "removeManager": "Remove"
+  "removeManager": "Remove",
+  "userMustBeMember": "User must be a member",
+  "userIsNotManager": "User is not manager"
 }
