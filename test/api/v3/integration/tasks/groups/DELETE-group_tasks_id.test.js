@@ -4,7 +4,7 @@ import {
 } from '../../../../../helpers/api-integration/v3';
 import { find } from 'lodash';
 
-describe('DELETE /tasks/:id', () => {
+describe('Groups DELETE /tasks/:id', () => {
   let user, guild, member, member2, task;
 
   function findAssignedTask (memberTask) {

@@ -54,7 +54,7 @@ api.createGroupTasks = {
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (canNotEditTasks()) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     let tasks = await createTasks(req, res, {user, group});
 
