@@ -16,7 +16,7 @@
   "maintenanceInfoTechDetails": "Vuoi maggiori dettagli sul lato tecnico del processo? Visita <a href='http://devs.habitica.com/' target='_blank'>The Forge, il nostro dev blog</a>.",
   "maintenanceInfoMore": "Maggiori informazioni",
   "maintenanceInfoAccountChanges": "Che cambiamenti vedrò nel mio account dopo che la riscrittura sarà completa?",
-  "maintenanceInfoAccountChangesText": "Inizialmente non ci saranno grandi cambiamenti, a parte miglioramenti nelle performance per funzionalità come le Sfide. Se noti cambiamenti che non dovrebbero esserci, contattaci scrivendo a <a href='mailto:admin@habitica.com'>admin@habitica.com</a> e investigheremo per te!",
+  "maintenanceInfoAccountChangesText": "At first, there won’t be any notable changes aside from performance improvements for features such as Challenges. If you notice any changes that shouldn’t be there, email us at <%= hrefTechAssistanceEmail %> and we will investigate them for you!",
   "maintenanceInfoAddFeatures": "Che tipo di funzionalità potranno essere aggiunte ad Habitica?",
   "maintenanceInfoAddFeaturesText": "Il completamento di questa riscrittura ci permetterà di iniziare a costruire migliori chat e Gilde, piani per le organizzazioni e le famiglie, funzioni di produttività aggiuntive come le attività Mensili e la possibilità di registrare le attività del giorno precedente! Queste sono tutte funzioni interconnesse, quindi ci vorrà tempo per costruirle, ma finché non abbiamo finito con questa riscrittura non possiamo cominciare a lavorarci.",
   "maintenanceInfoHowLong": "Quanto durerà la manutenzione?",

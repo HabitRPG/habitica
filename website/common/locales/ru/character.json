@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Пожалуйста, помните: ваше имя, фото профиля, а также заметка о себе должны соответствовать <a href='https://habitica.com/static/community-guidelines' target='_blank'>Правилам сообщества</a> (например, не содержать материалов для взрослых, оскорблений и тому подобное). Если у вас есть вопросы относительно того, что допустимо, а что нет, пишите на почту <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Профиль",
     "avatar": "Персонализировать аватар",
     "other": "Прочее",
@@ -112,7 +112,7 @@
     "mystery": "Таинственный",
     "changeClass": "Сменить класс, перераспределить очки навыков",
     "lvl10ChangeClass": "Для того, что-бы изменить класс, вы должны быть, как минимум, на уровне 10.",
-    "invalidClass": "Неверный класс. Пожалуйста, выберите \"воин\", \"вор\", \"маг\" или \"целитель\".",
+    "invalidClass": "Неверный класс. Пожалуйста, выберите  'warrior', 'rogue', 'wizard' или 'healer'.",
     "levelPopover": "Каждый уровень приносит вам одно очко, которое можно направить на улучшение характеристик по вашему выбору. Это можно сделать вручную, а можно позволить игре решать за вас, выбрав один из вариантов автоматического распределения.",
     "unallocated": "Осталось неиспользованных очков",
     "haveUnallocated": "Вы не распределили <%= points %> очков",

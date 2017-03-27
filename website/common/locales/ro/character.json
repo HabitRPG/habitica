@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Vă rugăm să țineți cont de faptul că Numele Afișat, fotografia de profil, și descrierea scurtă trebuie sa fie in acord cu <a href='https://habitica.com/static/community-guidelines' target='_blank'>Regulile Comunității</a> (ex.: fără profanare, fără subiecte interzise minorilor, fără insulte etc.) Dacă aveți întrebări legate de cât de potrivit este conținutul pe care doriți să îl utilizați, vă invităm să contactați <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Personalizează Avatarul",
     "other": "Altele",

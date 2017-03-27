@@ -68,7 +68,7 @@
     "APIv3": "API v3",
     "APIText": "這個是使用再第三方應用上面的。但是，你的 API Token 相當於密碼，請不要公開它。有時候別人可能會向你要UUID，但是永遠不要把你的 API token 分享給其他人，包括在 Github 上。",
     "APIToken": "API Token（這相當於密碼——注意看上面的警告！）",
-    "APITokenWarning": "If you need a new API Token (e.g., if you accidentally shared it), email <a href='mailto:admin@habitica.com'>admin@habitica.com</a> with your User ID and current Token. Once it is reset you will need to re-authorize everything by logging out of the website and mobile app and by providing the new Token to any other Habitica tools that you use.",
+    "APITokenWarning": "If you need a new API Token (e.g., if you accidentally shared it), email <%= hrefTechAssistanceEmail %> with your User ID and current Token. Once it is reset you will need to re-authorize everything by logging out of the website and mobile app and by providing the new Token to any other Habitica tools that you use.",
     "thirdPartyApps": "第三方應用程式",
     "dataToolDesc": "A webpage that shows you certain information from your Habitica account, such as statistics about your tasks, equipment, and skills.",
     "beeminder": "Beeminder",
@@ -182,5 +182,5 @@
     "timezone": "時區",
     "timezoneUTC": "Habitica 使用您電腦的時區，現在是：<strong><%= utc %></strong>",
     "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been resetting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices.",
-    "push": "Push"
+    "push": "壓"
 }

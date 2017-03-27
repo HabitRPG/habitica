@@ -88,6 +88,6 @@
     "grandMalkinSet": "Големия Малкин (магьосник)",
     "cleverDogSet": "Умно куче (мошеник)",
     "braveMouseSet": "Смела мишка (воин)",
-    "eventAvailability": "Available for purchase until <%= date(locale) %>.",
-    "dateEndApril": "April 19"
+    "eventAvailability": "Налично за купуване до <%= date(locale) %>.",
+    "dateEndApril": "19 април"
 }
