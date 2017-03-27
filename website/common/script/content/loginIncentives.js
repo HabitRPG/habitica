@@ -15,6 +15,7 @@ module.exports = function getLoginIncentives (api) {
     2: {
       rewardKey: ['background_purple'],
       reward: [api.backgrounds.incentiveBackgrounds],
+      rewardName: 'incentiveBackgroundSet', // i18n string
       assignReward: function assignReward (user) {
         user.purchased.background.blue = true;
         user.purchased.background.green = true;

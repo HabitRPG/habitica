@@ -165,6 +165,11 @@ function awardLoginIncentives (user) {
       count += 1;
     }
 
+    // Overwrite notificationData.rewardText if rewardName was explicitly declared
+    if (loginIncentive.rewardName) {
+      notificationData.rewardText = i18n.t(loginIncentive.rewardName);
+    }
+
     notificationData.rewardKey = loginIncentive.rewardKey;
     notificationData.message = i18n.t('unlockedCheckInReward', user.preferences.language);
   }
