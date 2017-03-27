@@ -151,8 +151,8 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
 
     $scope.userCanApprove = function (userId, group) {
       if (!group) return false;
-      let leader = group.leader._id === userId;
-      let userIsManager = !!group.managers[userId];
+      var leader = group.leader._id === userId;
+      var userIsManager = !!group.managers[userId];
       return leader || userIsManager;
     };
   }]);
