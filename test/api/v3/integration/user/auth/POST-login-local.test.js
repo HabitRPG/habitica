@@ -9,6 +9,8 @@ import {
   sha1Encrypt as sha1EncryptPassword,
 } from '../../../../../../website/server/libs/password';
 
+import nconf from 'nconf';
+
 describe('POST /user/auth/local/login', () => {
   let api;
   let user;
@@ -43,7 +45,7 @@ describe('POST /user/auth/local/login', () => {
     })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('accountSuspended', { userId: user._id }),
+      message: t('accountSuspended', { communityManagerEmail: nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL'), userId: user._id }),
     });
   });
 
