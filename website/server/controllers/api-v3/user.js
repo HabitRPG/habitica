@@ -766,11 +766,33 @@ api.buy = {
  *
  * @apiParam {String} key The item to buy
  *
- * @apiSuccess {Object} data.items user.items
- * @apiSuccess {Object} data.flags user.flags
- * @apiSuccess {Object} data.achievements user.achievements
- * @apiSuccess {Object} data.stats user.stats
- * @apiSuccess {String} message Success message
+ * @apiSuccess {Object} data.items User's item inventory
+ * @apiSuccess {Object} data.flags User's flags
+ * @apiSuccess {Object} data.achievements User's achievements
+ * @apiSuccess {Object} data.stats User's current stats
+ * @apiSuccess {String} message Success message, item purchased
+ * 
+ * @apiSuccessExample {json} Purchased a warrior's wooden shield for example:
+ * {
+ *   "success": true,
+ *   "data": {
+ *     ---TRUNCATED USER RECORD---
+ *   },
+ *   "message": "Bought Wooden Shield"
+ * }
+ *
+ *  @apiError (400) {NotAuthorized} messageNotEnoughGold Not enough gold for the purchase
+ *  @apiError (400) {NotAuthorized} messageAlreadyOwnGear Already own equipment
+ *  @apiError (404) {NotFound} messageNotFound Item does not exist.
+ *
+ *  @apiErrorExample {json} NotAuthorized Already own 
+ *  {"success":false,"error":"NotAuthorized","message":"You already own that piece of equipment"}
+ *
+ *  @apiErrorExample {json} NotAuthorized Not enough gold
+ *  {"success":false,"error":"NotAuthorized","message":"Not Enough Gold"}
+ *
+ *  @apiErrorExample {json} NotFound Item not found
+ * {"success":false,"error":"NotFound","message":"Item \"weapon_misspelled_1\" not found."}
  */
 api.buyGear = {
   method: 'POST',
@@ -789,10 +811,28 @@ api.buyGear = {
  * @apiName UserBuyArmoire
  * @apiGroup User
  *
- * @apiSuccess {Object} data.items user.items
- * @apiSuccess {Object} data.flags user.flags
- * @apiSuccess {Object} data.armoire Extra item given by the armoire
+ * @apiSuccess {Object} data.items User's item inventory
+ * @apiSuccess {Object} data.flags User's flags
+ * @apiSuccess {Object} data.armoire Item given by the armoire
  * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json} Received a fish:
+ *  {
+ *   "success": true,
+ *   "data": {
+ *     ---DATA TRUNCATED---
+ *     "armoire": {
+ *       "type": "food",
+ *       "dropKey": "Fish",
+ *       "dropArticle": "a ",
+ *       "dropText": "Fish"
+ *     }
+ *   },
+ * 
+ *  @apiError (400) {NotAuthorized} messageNotEnoughGold Not enough gold for the purchase
+ *
+ *  @apiErrorExample {json} NotAuthorized Not enough gold
+ * {"success":false,"error":"NotAuthorized","message":"Not Enough Gold"}
  */
 api.buyArmoire = {
   method: 'POST',
@@ -811,8 +851,26 @@ api.buyArmoire = {
  * @apiName UserBuyPotion
  * @apiGroup User
  *
- * @apiSuccess {Object} data user.stats
+ * @apiSuccess {Object} data User's current stats
  * @apiSuccess {String} message Success message
+ * 
+ * @apiSuccessExample
+ *  {
+ *   "success": true,
+ *   "data": {
+ *     ---DATA TRUNCATED---
+ *   },
+ *   "message": "Bought Health Potion"
+ * }
+ *  
+ *  @apiError (400) {NotAuthorized} messageNotEnoughGold Not enough gold for the purchase
+ *  @apiError (400) {NotAuthorized} messageHealthAlreadyMax Health is already full.
+ *
+ *  @apiErrorExample {json} NotAuthorized Not enough gold
+ * {"success":false,"error":"NotAuthorized","message":"Not Enough Gold"}
+ *  @apiErrorExample {json} NotAuthorized Already at max health
+ * {"success":false,"error":"NotAuthorized","message":"You already have maximum health."}
+ *
  */
 api.buyHealthPotion = {
   method: 'POST',
@@ -836,6 +894,23 @@ api.buyHealthPotion = {
  * @apiSuccess {Object} data.items user.items
  * @apiSuccess {Object} data.purchasedPlanConsecutive user.purchased.plan.consecutive
  * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample{json} Successful purchase
+ * {
+ *   "success": true,
+ *   "data": {
+ *     ---DATA TRUNCATED---
+ *   },
+ *   "message": "Purchased an item set using a Mystic Hourglass!"
+ * }
+ *
+ * @apiError (400) {NotAuthorized} notEnoughHourglasses Not enough Mystic Hourglasses.
+ * @apiError (400) {NotFound} mysterySetNotFound Specified item does not exist or already owned.
+ *
+ * @apiErrorExample {json} Not enough hourglasses
+ * {"success":false,"error":"NotAuthorized","message":"You don't have enough Mystic Hourglasses."}
+ * @apiErrorExample {json} Already own, or doesn't exist
+ * {"success":false,"error":"NotFound","message":"Mystery set not found, or set already owned."}
  */
 api.buyMysterySet = {
   method: 'POST',
@@ -856,8 +931,26 @@ api.buyMysterySet = {
  *
  * @apiParam {String} key The quest scroll to buy
  *
- * @apiSuccess {Object} data `user.items.quests`
+ * @apiSuccess {Object} data.quests User's quest list
  * @apiSuccess {String} message Success message
+ * 
+ * @apiSuccessExample {json}
+ * {
+ *   "success": true,
+ *   "data": {
+ *     --- DATA TRUNCATED---
+ *   },
+ *   "message": "Bought Dilatory Distress, Part 1: Message in a Bottle"
+ * }
+ * 
+ * @apiError (400) {NotFound} questNotFound Specified quest does not exist
+ * @apiError (400) {NotAuthorized} messageNotEnoughGold Not enough gold for the purchase
+ *
+ * @apiErrorExample {json} Quest chosen does not exist
+ * {"success":false,"error":"NotFound","message":"Quest \"dilatoryDistress99\" not found."}
+ *  @apiErrorExample {json} NotAuthorized Not enough gold
+ * {"success":false,"error":"NotAuthorized","message":"Not Enough Gold"}
+ *
  */
 api.buyQuest = {
   method: 'POST',
@@ -879,9 +972,24 @@ api.buyQuest = {
  *
  * @apiParam {String} key The special item to buy. Must be one of the keys from "content.special", such as birthday, snowball, salt.
  *
- * @apiSuccess {Object} data.stats user.stats
- * @apiSuccess {Object} data.items user.items
+ * @apiSuccess {Object} data.stats User's current stats
+ * @apiSuccess {Object} data.items User's current inventory
  * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json} Purchased a greeting card:
+ * {
+ *   "success": true,
+ *   "data": {
+ *   },
+ *   "message": "Bought Greeting Card"
+ * }
+ * 
+ * @apiError (400) {NotAuthorized} messageNotEnoughGold Not enough gold for the purchase
+ *
+ *  @apiErrorExample {json} Not enough gold
+ * {"success":false,"error":"NotAuthorized","message":"Not Enough Gold"}
+ *  @apiErrorExample {json} Item name not found
+ * {"success":false,"error":"NotFound","message":"Skill \"happymardigras\" not found."}
  */
 api.buySpecialSpell = {
   method: 'POST',
@@ -902,9 +1010,28 @@ api.buySpecialSpell = {
  *
  * @apiParam {String} egg The egg to use
  * @apiParam {String} hatchingPotion The hatching potion to use
+ * @apiParamExample {URL} /api/v3/user/hatch/Dragon/CottonCandyPink
  *
  * @apiSuccess {Object} data user.items
  * @apiSuccess {String} message
+ *
+ * @apiSuccessExample {json} Successfully hatched 
+ *  {
+ *   "success": true,
+ *   "data": {},
+ *   "message": "Your egg hatched! Visit your stable to equip your pet."
+ * }
+ * 
+ * @apiError {NotAuthorized} messageAlreadyPet Already have the specific pet combination
+ * @apiError {NotFound} messageMissingEggPotion One or both of the ingrediants are missing. 
+ * @apiError {NotFound} messageInvalidEggPotionCombo Cannot use that combination of egg and potion.
+ *
+ * @apiErrorExample {json} Already have that pet.
+ * {"success":false,"error":"NotAuthorized","message":"You already have that pet. Try hatching a different combination
+ * @apiErrorExample {json} Either potion or egg (or both) not in inventory
+ * {"success":false,"error":"NotFound","message":"You're missing either that egg or that potion"}
+ * @apiErrorExample {json} Cannot use that combination
+ * {"success":false,"error":"NotAuthorized","message":"You can't hatch Quest Pet Eggs with Magic Hatching Potions! Try a different egg."}
  */
 api.hatch = {
   method: 'POST',
@@ -923,11 +1050,28 @@ api.hatch = {
  * @apiName UserEquip
  * @apiGroup User
  *
- * @apiParam {String} type The type of item to equip (mount, pet, costume or equipped)
+ * @apiParam {String="mount","pet","costume","equipped"} type The type of item to equip
  * @apiParam {String} key The item to equip
  *
+ * @apiParamExample {URL} /api/v3/user/equip/equipped/weapon_warrior_2
+ *
  * @apiSuccess {Object} data user.items
- * @apiSuccess {String} message Optional success message
+ * @apiSuccess {String} message Optional success message for unequipping an items
+ * 
+ * @apiSuccessExample {json}
+ *  {
+ *   "success": true,
+ *   "data": {---DATA TRUNCATED---},
+ *   "message": "Training Sword unequipped."
+ * }
+ *
+ * @apiError {NotFound} notOwned Item is not in inventory, item doesn't exist, or item is of the wrong type.
+ *
+ * @apiErrorExample {json} Item not owned or doesn't exist.
+ * {"success":false,"error":"NotFound","message":"You do not own this item."}
+ * {"success":false,"error":"NotFound","message":"You do not own this pet."}
+ * {"success":false,"error":"NotFound","message":"String 'mountNotOwned' not found."}
+ *
  */
 api.equip = {
   method: 'POST',
@@ -949,8 +1093,20 @@ api.equip = {
  * @apiParam {String} pet
  * @apiParam {String} food
  *
+ * @apiParamExample {url}
+ * https://habitica.com/api/v3/user/feed/Armadillo-Shade/Chocolate
+ *
  * @apiSuccess {Number} data The pet value
  * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ * {"success":true,"data":10,"message":"Shade Armadillo really likes the Chocolate!","notifications":[]}
+ *
+ * @apiError {NotFound} PetNotOwned :pet not found in user.items.pets
+ * @apiError {BedRequest} InvalidPet Invalid pet name supplied.
+ * @apiError {NotFound} FoodNotOwned :food not found in user.items.food  Note: also sent if food name is invalid.
+ *
+ *
  */
 api.feed = {
   method: 'POST',
@@ -976,6 +1132,12 @@ api.feed = {
  * @apiSuccess {Object} data.stats user.stats
  * @apiSuccess {Object} data.preferences user.preferences
  * @apiSuccess {Object} data.items user.items
+ *
+ * @apiError {NotAuthorized} Gems Not enough gems, if class was already selected and gems needed to be paid.
+ * @apiError {NotAuthorized} Level To change class you must be at least level 10.
+ *
+ * @apiErrorExample {json} 
+ * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
  */
 api.changeClass = {
   method: 'POST',
