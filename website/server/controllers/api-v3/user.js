@@ -771,7 +771,7 @@ api.buy = {
  * @apiSuccess {Object} data.achievements User's achievements
  * @apiSuccess {Object} data.stats User's current stats
  * @apiSuccess {String} message Success message, item purchased
- * 
+ *
  * @apiSuccessExample {json} Purchased a warrior's wooden shield for example:
  * {
  *   "success": true,
@@ -785,7 +785,7 @@ api.buy = {
  *  @apiError (400) {NotAuthorized} messageAlreadyOwnGear Already own equipment
  *  @apiError (404) {NotFound} messageNotFound Item does not exist.
  *
- *  @apiErrorExample {json} NotAuthorized Already own 
+ *  @apiErrorExample {json} NotAuthorized Already own
  *  {"success":false,"error":"NotAuthorized","message":"You already own that piece of equipment"}
  *
  *  @apiErrorExample {json} NotAuthorized Not enough gold
@@ -828,7 +828,7 @@ api.buyGear = {
  *       "dropText": "Fish"
  *     }
  *   },
- * 
+ *
  *  @apiError (400) {NotAuthorized} messageNotEnoughGold Not enough gold for the purchase
  *
  *  @apiErrorExample {json} NotAuthorized Not enough gold
@@ -853,7 +853,7 @@ api.buyArmoire = {
  *
  * @apiSuccess {Object} data User's current stats
  * @apiSuccess {String} message Success message
- * 
+ *
  * @apiSuccessExample
  *  {
  *   "success": true,
@@ -862,7 +862,7 @@ api.buyArmoire = {
  *   },
  *   "message": "Bought Health Potion"
  * }
- *  
+ *
  *  @apiError (400) {NotAuthorized} messageNotEnoughGold Not enough gold for the purchase
  *  @apiError (400) {NotAuthorized} messageHealthAlreadyMax Health is already full.
  *
@@ -933,7 +933,7 @@ api.buyMysterySet = {
  *
  * @apiSuccess {Object} data.quests User's quest list
  * @apiSuccess {String} message Success message
- * 
+ *
  * @apiSuccessExample {json}
  * {
  *   "success": true,
@@ -942,7 +942,7 @@ api.buyMysterySet = {
  *   },
  *   "message": "Bought Dilatory Distress, Part 1: Message in a Bottle"
  * }
- * 
+ *
  * @apiError (400) {NotFound} questNotFound Specified quest does not exist
  * @apiError (400) {NotAuthorized} messageNotEnoughGold Not enough gold for the purchase
  *
@@ -983,7 +983,7 @@ api.buyQuest = {
  *   },
  *   "message": "Bought Greeting Card"
  * }
- * 
+ *
  * @apiError (400) {NotAuthorized} messageNotEnoughGold Not enough gold for the purchase
  *
  *  @apiErrorExample {json} Not enough gold
@@ -1015,15 +1015,15 @@ api.buySpecialSpell = {
  * @apiSuccess {Object} data user.items
  * @apiSuccess {String} message
  *
- * @apiSuccessExample {json} Successfully hatched 
+ * @apiSuccessExample {json} Successfully hatched
  *  {
  *   "success": true,
  *   "data": {},
  *   "message": "Your egg hatched! Visit your stable to equip your pet."
  * }
- * 
+ *
  * @apiError {NotAuthorized} messageAlreadyPet Already have the specific pet combination
- * @apiError {NotFound} messageMissingEggPotion One or both of the ingrediants are missing. 
+ * @apiError {NotFound} messageMissingEggPotion One or both of the ingrediants are missing.
  * @apiError {NotFound} messageInvalidEggPotionCombo Cannot use that combination of egg and potion.
  *
  * @apiErrorExample {json} Already have that pet.
@@ -1057,7 +1057,7 @@ api.hatch = {
  *
  * @apiSuccess {Object} data user.items
  * @apiSuccess {String} message Optional success message for unequipping an items
- * 
+ *
  * @apiSuccessExample {json}
  *  {
  *   "success": true,
@@ -1136,7 +1136,7 @@ api.feed = {
  * @apiError {NotAuthorized} Gems Not enough gems, if class was already selected and gems needed to be paid.
  * @apiError {NotAuthorized} Level To change class you must be at least level 10.
  *
- * @apiErrorExample {json} 
+ * @apiErrorExample {json}
  * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
  */
 api.changeClass = {
