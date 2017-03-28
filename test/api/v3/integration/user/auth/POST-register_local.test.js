@@ -83,9 +83,9 @@ describe('POST /user/auth/local/register', () => {
         confirmPassword: password,
       });
 
-      expect(user.items.quests).to.not.be.empty;
-      expect(user.purchased.background).to.not.be.empty;
-      expect(user.preferences.background).to.not.be.empty;
+      expect(user.items.quests.dustbunnies).to.equal(1);
+      expect(user.purchased.background.violet).to.be.ok;
+      expect(user.preferences.background).to.equal('violet');
     });
 
     it('requires password and confirmPassword to match', async () => {
