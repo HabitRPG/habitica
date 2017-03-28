@@ -2,7 +2,7 @@ import stripeModule from 'stripe';
 import nconf from 'nconf';
 import cc from 'coupon-code';
 import moment from 'moment';
-
+import logger from './logger';
 import {
   BadRequest,
   NotAuthorized,
@@ -269,5 +269,74 @@ api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMemb
 
   group.purchased.plan.quantity = group.memberCount + plan.quantity - 1;
 };
+
+/**
+ * Handle webhooks from stripes
+ *
+ * @param  options
+ * @param  options.user  The user object who is purchasing
+ * @param  options.groupId  The id of the group purchasing a subscription
+ *
+ * @return undefined
+ */
+api.handleWebhooks = async function handleWebhooks (options, stripeInc) {
+  let {requestBody} = options;
+
+  // @TODO: We need to mock this, but curently we don't have correct Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
+  let stripeApi = stripe;
+  if (stripeInc) stripeApi = stripeInc;
+
+  // Verify the event by fetching it from Stripe
+  const event = await stripeApi.events.retrieve(requestBody.id);
+
+  switch (event.type) {
+    case 'customer.subscription.deleted': {
+      // event.request === null means that the user itself cancelled the subscrioption,
+      // the cancellation on our side has been already handled
+      if (event.request === null) break;
+
+      const subscription = event.data.object;
+      const customerId = subscription.customer;
+      const isGroupSub = shared.content.subscriptionBlocks[subscription.plan.id].target === 'group';
+
+      let user;
+      let groupId;
+
+      if (isGroupSub) {
+        let groupFields = basicGroupFields.concat(' purchased');
+        let group = await Group.findOne({
+          'purchased.plan.customerId': customerId,
+          'purchased.plan.paymentMethod': this.constants.PAYMENT_METHOD,
+        }).select(groupFields).exec();
+
+        if (!group) throw new NotFound(i18n.t('groupNotFound'));
+        groupId = group._id;
+
+        user = await User.findById(group.leader).exec();
+      } else {
+        user = await User.findOne({
+          'purchased.plan.customerId': customerId,
+          'purchased.plan.paymentMethod': this.constants.PAYMENT_METHOD,
+        }).exec();
+      }
+
+      if (!user) throw new NotFound(i18n.t('userNotFound'));
+
+      await stripeApi.customers.del(customerId);
+
+      await payments.cancelSubscription({
+        user,
+        groupId,
+        paymentMethod: this.constants.PAYMENT_METHOD,
+      });
+
+      break;
+    }
+    default: {
+      logger.error(new Error(`Missing handler for Stripe webhook ${event.type}`), {event});
+    }
+  }
+};
+
 
 module.exports = api;
