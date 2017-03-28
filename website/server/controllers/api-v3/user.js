@@ -407,7 +407,7 @@ const partyMembersFields = 'profile.name stats achievements items.special';
  * @apiName UserCast
  * @apiGroup User
  *
- * @apiParam {String=fireball, mpHeal, earth, frost, smash, defensiveStance, valorousPresence, intimidate, pickPocket, backStab, toolsOfTrade, stealth, heal, protectAura, brightness, healAll} spellId The skill to cast.
+ * @apiParam {String=fireball, mpheal, earth, frost, smash, defensiveStance, valorousPresence, intimidate, pickPocket, backStab, toolsOfTrade, stealth, heal, protectAura, brightness, healAll} spellId The skill to cast.
  * @apiParam (Body) {UUID} targetId Query parameter, necessary if the spell is cast on a party member or task. Not used if the spell is case on onesself or the user's current party.
  * @apiParamExample {json} Query example:
  *  {
@@ -419,7 +419,7 @@ const partyMembersFields = 'profile.name stats achievements items.special';
  * @apiDescription Skill Key to Name Mapping
  * Mage
  * fireball: "Burst of Flames"
- * mpHeal: "Ethereal Surge"
+ * mpheal: "Ethereal Surge"
  * earth: "Earthquake"
  * frost: "Chilling Frost"
  *
