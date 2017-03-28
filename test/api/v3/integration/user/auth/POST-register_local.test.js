@@ -71,6 +71,23 @@ describe('POST /user/auth/local/register', () => {
       await expect(getProperty('users', user._id, '_ABtests')).to.eventually.be.a('object');
     });
 
+    it('includes items awarded by default when creating a new user', async () => {
+      let username = generateRandomUserName();
+      let email = `${username}@example.com`;
+      let password = 'password';
+
+      let user = await api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      expect(user.items.quests).to.not.be.empty;
+      expect(user.purchased.background).to.not.be.empty;
+      expect(user.preferences.background).to.not.be.empty;
+    });
+
     it('requires password and confirmPassword to match', async () => {
       let username = generateRandomUserName();
       let email = `${username}@example.com`;

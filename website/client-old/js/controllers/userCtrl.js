@@ -86,6 +86,10 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       });
     };
 
+    $scope.showPlainBackgroundBlurb = function(identifier, set) {
+      return identifier === 'incentiveBackgrounds' && !$scope.ownsSet('background', set);
+    };
+
     $scope.setKeys = function(type, _set) {
       return _.map(_set, function(v,k) {
         if (type === 'background') k = v.key;
