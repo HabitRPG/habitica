@@ -225,8 +225,10 @@ module.exports = function getLoginIncentives (api) {
       },
     },
   };
+  // When the final check-in prize is added here, change {string name} in website/common/locales/en/loginIncentives.json
+  // to say "You have received the final Check-In prize!". Confirm the message with Lemoness first.
 
-  // Add refence link to next reward and add filler days so we have a map to refernce the next reward from any day
+  // Add reference link to next reward and add filler days so we have a map to reference the next reward from any day
   // We could also, use a list, but then we would be cloning each of the rewards.
   // Create a new array if we want the loginIncentives to be immutable in the future
   let nextRewardKey;

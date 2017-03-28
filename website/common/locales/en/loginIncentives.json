@@ -12,5 +12,6 @@
   "totalCheckinsTitle": "Total Check-Ins",
   "checkinProgressTitle": "Progress until next",
   "incentiveBackgroundsUnlockedWithCheckins": "These backgrounds will unlock with Daily Check-Ins.",
-  "moreIncentivesComingSoon": "New check-in incentives will be added soon!"
+  "moreIncentivesComingSoon": "New check-in incentives will be added soon!",
+  "checkinReceivedAllRewardsMessage" : "You have received all the Check-In prizes currently available! More will be added in the future."
 }
