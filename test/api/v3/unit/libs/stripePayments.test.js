@@ -12,6 +12,7 @@ import payments from '../../../../../website/server/libs/payments';
 import common from '../../../../../website/common';
 import logger from '../../../../../website/server/libs/logger';
 import { v4 as uuid } from 'uuid';
+import moment from 'moment';
 
 const i18n = common.i18n;
 
@@ -878,6 +879,7 @@ describe('Stripe Payments', () => {
           let cancelSubscriptionOpts = payments.cancelSubscription.lastCall.args[0];
           expect(cancelSubscriptionOpts.user._id).to.equal(subscriber._id);
           expect(cancelSubscriptionOpts.paymentMethod).to.equal('Stripe');
+          expect(Math.round(moment(cancelSubscriptionOpts.nextBill).diff(new Date(), 'days', true))).to.equal(3);
           expect(cancelSubscriptionOpts.groupId).to.be.undefined;
 
           stripe.events.retrieve.restore();
@@ -988,6 +990,7 @@ describe('Stripe Payments', () => {
           let cancelSubscriptionOpts = payments.cancelSubscription.lastCall.args[0];
           expect(cancelSubscriptionOpts.user._id).to.equal(leader._id);
           expect(cancelSubscriptionOpts.paymentMethod).to.equal('Stripe');
+          expect(Math.round(moment(cancelSubscriptionOpts.nextBill).diff(new Date(), 'days', true))).to.equal(3);
           expect(cancelSubscriptionOpts.groupId).to.equal(subscriber._id);
 
           stripe.events.retrieve.restore();
