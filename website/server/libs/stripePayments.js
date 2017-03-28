@@ -328,6 +328,8 @@ api.handleWebhooks = async function handleWebhooks (options, stripeInc) {
         user,
         groupId,
         paymentMethod: this.constants.PAYMENT_METHOD,
+        // Give three extra days to allow the user to resubscribe without losing benefits
+        nextBill: moment().add({days: 3}).toDate(),
       });
 
       break;
