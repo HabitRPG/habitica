@@ -31,7 +31,7 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template',
         div(ng-if='!user.purchased.plan.customerId || (user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')
           h4(ng-if='(user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')= env.t("resubscribe")
           .form-group.reduce-top-margin
-            .radio(ng-repeat='block in Content.subscriptionBlocks | toArray | omit: "discount==true" | orderBy:"months"', ng-if="block.type !== 'group'")
+            .radio(ng-repeat='block in Content.subscriptionBlocks | toArray | omit: "discount==true" | orderBy:"months"', ng-if="block.target !== 'group' && block.canSubscribe === true")
               label
                 input(type="radio", name="subRadio", ng-value="block.key", ng-model='_subscription.key')
                 span(ng-show='block.original')
