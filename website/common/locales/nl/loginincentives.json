@@ -4,13 +4,13 @@
   "nextRewardUnlocksIn": "Check-ins tot je volgende prijs: <%= numberOfCheckinsLeft %>",
   "awesome": "Super!",
   "totalCount": "<%= count %> totaal aantal",
-  "countLeft": "Check-ins tot volgende beloning: <%= count %>",
+  "countLeft": "Check-ins tot je volgende beloning: <%= count %>",
   "incentivesDescription": "Als het gaat om gewoontes opbouwen is consistentie noodzakelijk. Elke dag die je incheckt zul je dichter bij een prijs komen.",
   "totalCheckins": "<%= count %> check-ins",
   "checkinEarned": "Je check-in-teller is omhoog gegaan!",
   "unlockedCheckInReward": "Je hebt een check-in-prijs ontgrendeld!",
   "totalCheckinsTitle": "Totaal aantal check-ins",
   "checkinProgressTitle": "Vooruitgang tot volgende",
-  "incentiveBackgroundsUnlockedWithCheckins": "Deze achtergronden zullen worden ontgrendeld door dagelijkse check-ins.",
+  "incentiveBackgroundsUnlockedWithCheckins": "Locked Plain Backgrounds will unlock with Daily Check-Ins.",
   "moreIncentivesComingSoon": "Nieuwe check-in stimulansen zullen binnenkort worden toegevoegd."
 }

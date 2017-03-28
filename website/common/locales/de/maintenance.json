@@ -16,7 +16,7 @@
   "maintenanceInfoTechDetails": "Möchtest Du mehr über die technische Seite des Prozesses erfahren? Besuche <a href='http://devs.habitica.com/' target='_blank'>Die Schmiede, unseren Entwicklerblog</a>.",
   "maintenanceInfoMore": "Mehr Informationen",
   "maintenanceInfoAccountChanges": "Welche Änderungen werde ich in meinem Account sehen, wenn die Wartungsarbeiten fertig sind?",
-  "maintenanceInfoAccountChangesText": "At first, there won’t be any notable changes aside from performance improvements for features such as Challenges. If you notice any changes that shouldn’t be there, email us at <%= hrefTechAssistanceEmail %> and we will investigate them for you!",
+  "maintenanceInfoAccountChangesText": "Anfangs wird es keine merklichen Änderungen – außer den Performanceverbesserungen für Features wie Wettbewerbe – geben. Falls Du Änderungen bemerkst, die es so nicht geben sollte, schreibe uns eine E-Mail an <%= hrefTechAssistanceEmail %> und wir werden die Angelegenheit für Dich untersuchen!",
   "maintenanceInfoAddFeatures": "Welche Features werden dadurch auf Habitica möglich?",
   "maintenanceInfoAddFeaturesText": "Mit Abschluss dieser Wartungen wird es uns möglich sein, den Chat und die Gilden zu verbessern und Pläne für Organisationen und Familien umzusetzen, sowie mehr Produktivitätsfeatures einzuführen, wie zum Beispiel monatliche Aufgaben und die Möglichkeit, Aktivitäten vom Vortag aufzuzeichnen! All das sind große, einzelne Projekte, weshalb es Zeit brauchen wird sie einzuführen, vor dem Abschluss dieser Wartungen gab es leider noch keine Möglichkeiten damit zu beginnen.",
   "maintenanceInfoHowLong": "Wie lange werden die Wartungsarbeiten dauern?",

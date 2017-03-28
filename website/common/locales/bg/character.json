@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Имайте предвид, че екранното Ви име, профилната снимка и информацията за Вас трябва да отговорят на <a href='https://habitica.com/static/community-guidelines' target='_blank'>Обществените правила</a> (тоест без ругатни, съдържание за възрастни, обиди и т.н.). Ако имате въпроси относно това дали нещо е подходящо или не, можете да пишете на <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Профил",
     "avatar": "Персонализиране на героя",
     "other": "Други",
