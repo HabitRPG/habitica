@@ -25,9 +25,9 @@
 
           $modal.open({
             templateUrl: 'modals/task-extra-notes.html',
-            controller: function ($scope, task) {
+            controller: ['$scope', 'task', function ($scope, task) {
               $scope.task = task;
-            },
+            }],
             resolve: {
               task: function() {
                 return task;
