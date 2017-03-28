@@ -94,8 +94,8 @@
     },
     "ITUNES_SHARED_SECRET": "aaaabbbbccccddddeeeeffff00001111",
     "EMAILS" : {
-        "COMMUNITY_MANAGER_EMAIL" : "community@example.com",
-        "TECH_ASSISTANCE_EMAIL" : "tech@example.com",
-        "PRESS_ENQUIRY_EMAIL" : "press@example.com"
+        "COMMUNITY_MANAGER_EMAIL" : "leslie@habitica.com",
+        "TECH_ASSISTANCE_EMAIL" : "admin@habitica.com",
+        "PRESS_ENQUIRY_EMAIL" : "leslie@habitica.com"
     }
 }
