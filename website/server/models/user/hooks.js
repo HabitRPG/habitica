@@ -96,6 +96,8 @@ function _setUpNewUser (user) {
     user._ABtests.checkInModals = '20161221_showCheckInPreviews'; // show 'preview' check-in modals
   }
   user.items.quests.dustbunnies = 1;
+  user.purchased.background.violet = true;
+  user.preferences.background = 'violet';
 
   if (user.registeredThrough === 'habitica-web' || user.registeredThrough === 'habitica-android') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
