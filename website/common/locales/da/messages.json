@@ -54,5 +54,5 @@
     "messageUserOperationProtected": "stien `<%= operation %>` blev ikke gemt, da det er en beskyttet sti.",
     "messageUserOperationNotFound": "Funktionen <%= operation %> blev ikke fundet.",
     "messageNotificationNotFound": "Notifikation ikke fundet.",
-    "notificationsRequired": "Notification ids are required."
+    "notificationsRequired": "Notafikation ID'er er krævet."
 }

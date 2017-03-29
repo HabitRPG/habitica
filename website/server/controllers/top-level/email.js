@@ -39,15 +39,16 @@ api.unsubscribe = {
       let userUpdated = await User.update(
         {_id: data._id},
         { $set: {'preferences.emailNotifications.unsubscribeFromAll': true}}
-      );
+      ).exec();
 
       if (userUpdated.nModified !== 1) throw new NotFound(res.t('userNotFound'));
 
       res.send(`<h1>${res.t('unsubscribedSuccessfully')}</h1> ${res.t('unsubscribedTextUsers')}`);
     } else {
-      let unsubscribedEmail = await EmailUnsubscription.findOne({email: data.email.toLowerCase()});
-      let okResponse = `<h1>${res.t('unsubscribedSuccessfully')}</h1> ${res.t('unsubscribedTextOthers')}`;
+      let unsubscribedEmail = await EmailUnsubscription.findOne({email: data.email.toLowerCase()}).exec();
       if (!unsubscribedEmail) await EmailUnsubscription.create({email: data.email.toLowerCase()});
+
+      let okResponse = `<h1>${res.t('unsubscribedSuccessfully')}</h1> ${res.t('unsubscribedTextOthers')}`;
       res.send(okResponse);
     }
   },

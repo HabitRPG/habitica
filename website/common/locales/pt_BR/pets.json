@@ -25,6 +25,7 @@
     "royalPurpleGryphon": "Grifo Real Roxo",
     "phoenix": "Fênix",
     "magicalBee": "Abelha Mágica",
+    "royalPurpleJackalope": "Lebrílope Roxo Real ",
     "rarePetPop1": "Clique na pata de ouro para saber mais em como obter esse mascote raro através de contribuições ao Habitica.",
     "rarePetPop2": "Como Conseguir esse Mascote!",
     "potion": "Poção <%= potionType %>",
@@ -92,5 +93,7 @@
     "petsReleased": "Mascotes liberados.",
     "mountsAndPetsReleased": "Montarias e mascotes liberados.",
     "mountsReleased": "Montarias liberadas",
-    "gemsEach": "gemas cada"
+    "gemsEach": "gemas cada",
+    "foodWikiText": "O que meu mascote gosta de comer?",
+    "foodWikiUrl": "http://pt-br.habitica.wikia.com/wiki/Comida"
 }

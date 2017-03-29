@@ -5,6 +5,7 @@ import {
   createAndPopulateGroup,
   getProperty,
 } from '../../../../../helpers/api-integration/v3';
+import { ApiUser } from '../../../../../helpers/api-integration/api-classes';
 import { v4 as generateRandomUserName } from 'uuid';
 import { each } from 'lodash';
 import { encrypt } from '../../../../../../website/server/libs/encryption';
@@ -32,6 +33,7 @@ describe('POST /user/auth/local/register', () => {
       expect(user._id).to.exist;
       expect(user.apiToken).to.exist;
       expect(user.auth.local.username).to.eql(username);
+      expect(user.profile.name).to.eql(username);
     });
 
     it('provides default tags and tasks', async () => {
@@ -66,6 +68,7 @@ describe('POST /user/auth/local/register', () => {
       });
 
       await expect(getProperty('users', user._id, '_ABtest')).to.eventually.be.a('string');
+      await expect(getProperty('users', user._id, '_ABtests')).to.eventually.be.a('object');
     });
 
     it('requires password and confirmPassword to match', async () => {
@@ -413,6 +416,38 @@ describe('POST /user/auth/local/register', () => {
       });
 
       expect(user.tags).to.not.be.empty;
+    });
+
+    it('adds the correct tags to the correct tasks', async () => {
+      let user = await api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      let requests = new ApiUser(user);
+
+      let habits = await requests.get('/tasks/user?type=habits');
+      let todos = await requests.get('/tasks/user?type=todos');
+
+      function findTag (tagName) {
+        let tag = user.tags.find((userTag) => {
+          return userTag.name === t(tagName);
+        });
+        return tag.id;
+      }
+
+      expect(habits[0].tags).to.have.a.lengthOf(3);
+      expect(habits[0].tags).to.include.members(['defaultTag1', 'defaultTag4', 'defaultTag6'].map(findTag));
+
+      expect(habits[1].tags).to.have.a.lengthOf(1);
+      expect(habits[1].tags).to.include.members(['defaultTag3'].map(findTag));
+
+      expect(habits[2].tags).to.have.a.lengthOf(2);
+      expect(habits[2].tags).to.include.members(['defaultTag2', 'defaultTag3'].map(findTag));
+
+      expect(todos[0].tags).to.have.a.lengthOf(0);
     });
   });
 });

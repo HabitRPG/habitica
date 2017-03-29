@@ -1,11 +1,11 @@
 {
-  "habiticaBackSoon": "Don't worry, Habitica will be back soon!",
+  "habiticaBackSoon": "Nu vă faceți griji, Habitica se va întoarce în curând!",
   "importantMaintenance": "We are doing important maintenance that we estimate will last until 10pm Pacific Time (5am UTC).",
-  "maintenance": "Maintenance",
-  "maintenanceMoreInfo": "Want more information about the maintenance? <%= linkStart %>Check out our info page<%= linkEnd %>.",
+  "maintenance": "Mentenanță",
+  "maintenanceMoreInfo": "Doriți mai multe informații în legătura cu mentenanța? <%= linkStart %> Aruncați o privire paginii noastre de informații <%= linkEnd %>.",
   "noDamageKeepStreaks": "You will NOT take damage or lose streaks!",
-  "thanksForPatience": "Thanks for your patience!",
-  "twitterMaintenanceUpdates": "For the most recent updates, watch our <a href='https://twitter.com/habitica'>Twitter</a>, where we will be posting status information.",
+  "thanksForPatience": "Vă mulțumim pentru răbdare!",
+  "twitterMaintenanceUpdates": "Pentru cele mai recente ",
   "veteranPetAward": "At the end, you will receive a Veteran pet!",
 
   "maintenanceInfoTitle": "Information about Upcoming Maintenance to Habitica",

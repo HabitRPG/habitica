@@ -33,7 +33,7 @@ describe('POST /user/auth/social', () => {
 
   describe('facebook', () => {
     before(async () => {
-      let expectedResult = {id: facebookId};
+      let expectedResult = {id: facebookId, displayName: 'a facebook user'};
       sandbox.stub(passport._strategies.facebook, 'userProfile').yields(null, expectedResult);
       network = 'facebook';
     });
@@ -47,6 +47,7 @@ describe('POST /user/auth/social', () => {
       expect(response.apiToken).to.exist;
       expect(response.id).to.exist;
       expect(response.newUser).to.be.true;
+      await expect(getProperty('users', response.id, 'profile.name')).to.eventually.equal('a facebook user');
     });
 
     it('logs an existing user in', async () => {
@@ -88,7 +89,7 @@ describe('POST /user/auth/social', () => {
 
   describe('google', () => {
     before(async () => {
-      let expectedResult = {id: googleId};
+      let expectedResult = {id: googleId, displayName: 'a google user'};
       sandbox.stub(passport._strategies.google, 'userProfile').yields(null, expectedResult);
       network = 'google';
     });
@@ -102,6 +103,7 @@ describe('POST /user/auth/social', () => {
       expect(response.apiToken).to.exist;
       expect(response.id).to.exist;
       expect(response.newUser).to.be.true;
+      await expect(getProperty('users', response.id, 'profile.name')).to.eventually.equal('a google user');
     });
 
     it('logs an existing user in', async () => {

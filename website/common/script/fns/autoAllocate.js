@@ -1,4 +1,10 @@
-import _ from 'lodash';
+import min from 'lodash/min';
+import pick from 'lodash/pick';
+import values from 'lodash/values';
+import invert from 'lodash/invert';
+import findIndex from 'lodash/findIndex';
+import max from 'lodash/max';
+
 import splitWhitespace from '../libs/splitWhitespace';
 
 /*
@@ -14,8 +20,8 @@ function getStatToAllocate (user) {
 
   switch (user.preferences.allocationMode) {
     case 'flat': {
-      let stats = _.pick(statsObj, splitWhitespace('con str per int'));
-      return _.invert(stats)[_.min(stats)];
+      let stats = pick(statsObj, splitWhitespace('con str per int'));
+      return invert(stats)[min(values(stats))];
     }
     case 'classbased': {
       let preference;
@@ -47,14 +53,14 @@ function getStatToAllocate (user) {
         statsObj[preference[3]] - ideal[3],
       ];
 
-      suggested = _.findIndex(diff, (val) => {
-        if (val === _.min(diff)) return true;
+      suggested = findIndex(diff, (val) => {
+        if (val === min(diff)) return true;
       });
 
       return suggested !== -1 ? preference[suggested] : 'str';
     }
     case 'taskbased': {
-      suggested = _.invert(statsObj.training)[_.max(statsObj.training)];
+      suggested = invert(statsObj.training)[max(values(statsObj.training))];
 
       user.stats.training.str = 0;
       user.stats.training.int = 0;

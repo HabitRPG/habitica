@@ -25,6 +25,7 @@
     "royalPurpleGryphon": "Grifone Viola Reale",
     "phoenix": "Fenice",
     "magicalBee": "Ape Magica",
+    "royalPurpleJackalope": "Lepronte Viola Regale",
     "rarePetPop1": "Clicca sulla zampa d'oro per scoprire come ottenere questo raro animale contribuendo a migliorare Habitica!",
     "rarePetPop2": "Come ottenere questo animale?",
     "potion": "Pozione <%= potionType %>",
@@ -92,5 +93,7 @@
     "petsReleased": "Animali liberati.",
     "mountsAndPetsReleased": "Cavalcature e animali liberati",
     "mountsReleased": "Cavalcature liberate",
-    "gemsEach": "gemme ciascuno"
+    "gemsEach": "gemme ciascuno",
+    "foodWikiText": "Cosa piace mangiare al mio animale?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

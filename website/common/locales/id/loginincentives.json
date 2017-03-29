@@ -1,0 +1,16 @@
+{
+  "unlockedReward": "Kamu telah mendapatkan <%= reward %>",
+  "earnedRewardForDevotion": "Kamu telah mendapatkan sebuah <%= reward %> karena telah berkomitmen dalam pengembangan diri. ",
+  "nextRewardUnlocksIn": "Check-ins until your next prize: <%= numberOfCheckinsLeft %>",
+  "awesome": "Keren! ",
+  "totalCount": "<%= count %> total jumlah",
+  "countLeft": "Check-ins until next reward: <%= count %>",
+  "incentivesDescription": "When it comes to building habits, consistency is key. Each day you check-in you get closer to a prize.",
+  "totalCheckins": "<%= count %> Cek-in",
+  "checkinEarned": "Penghitung Cek-inmu naik! ",
+  "unlockedCheckInReward": "You unlocked a Check-In Prize!",
+  "totalCheckinsTitle": "Total Check-Ins",
+  "checkinProgressTitle": "Progress until next",
+  "incentiveBackgroundsUnlockedWithCheckins": "These backgrounds will unlock with Daily Check-Ins.",
+  "moreIncentivesComingSoon": "New check-in incentives will be added soon!"
+}

@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import get from 'lodash/get';
+import keys from 'lodash/keys';
 import i18n from '../i18n';
 import {
   BadRequest,
@@ -7,13 +8,13 @@ import {
 import content from '../content/index';
 
 module.exports = function readCard (user, req = {}) {
-  let cardType = _.get(req.params, 'cardType');
+  let cardType = get(req.params, 'cardType');
 
   if (!cardType) {
     throw new BadRequest(i18n.t('cardTypeRequired', req.language));
   }
 
-  if (_.keys(content.cardTypes).indexOf(cardType) === -1) {
+  if (keys(content.cardTypes).indexOf(cardType) === -1) {
     throw new NotAuthorized(i18n.t('cardTypeNotAllowed', req.language));
   }
 

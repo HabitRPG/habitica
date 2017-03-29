@@ -26,6 +26,32 @@ describe('PUT /user', () => {
       expect(user.preferences.costume).to.eql(true);
       expect(user.stats.hp).to.eql(14);
     });
+
+    it('profile.name cannot be an empty string or null', async () => {
+      await expect(user.put('/user', {
+        'profile.name': ' ', // string should be trimmed
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'User validation failed',
+      });
+
+      await expect(user.put('/user', {
+        'profile.name': '',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'User validation failed',
+      });
+
+      await expect(user.put('/user', {
+        'profile.name': null,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'User validation failed',
+      });
+    });
   });
 
   context('Top Level Protected Operations', () => {

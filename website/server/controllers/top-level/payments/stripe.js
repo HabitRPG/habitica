@@ -1,25 +1,9 @@
-import stripeModule from 'stripe';
 import shared from '../../../../common';
-import {
-  BadRequest,
-  NotAuthorized,
-  NotFound,
-} from '../../../libs/errors';
-import { model as Coupon } from '../../../models/coupon';
-import payments from '../../../libs/payments';
-import nconf from 'nconf';
-import { model as User } from '../../../models/user';
-import {
-  model as Group,
-  basicFields as basicGroupFields,
-} from '../../../models/group';
-import cc from 'coupon-code';
 import {
   authWithHeaders,
   authWithUrl,
 } from '../../../middlewares/auth';
-
-const stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
+import stripePayments from '../../../libs/stripePayments';
 
 let api = {};
 
@@ -42,74 +26,15 @@ api.checkout = {
   url: '/stripe/checkout',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
+    // @TODO: These quer params need to be changed to body
     let token = req.body.id;
     let user = res.locals.user;
     let gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
     let sub = req.query.sub ? shared.content.subscriptionBlocks[req.query.sub] : false;
     let groupId = req.query.groupId;
     let coupon;
-    let response;
 
-    if (!token) throw new BadRequest('Missing req.body.id');
-
-    if (sub) {
-      if (sub.discount) {
-        if (!req.query.coupon) throw new BadRequest(res.t('couponCodeRequired'));
-        coupon = await Coupon.findOne({_id: cc.validate(req.query.coupon), event: sub.key});
-        if (!coupon) throw new BadRequest(res.t('invalidCoupon'));
-      }
-
-      response = await stripe.customers.create({
-        email: req.body.email,
-        metadata: { uuid: user._id },
-        card: token,
-        plan: sub.key,
-      });
-    } else {
-      let amount = 500; // $5
-
-      if (gift) {
-        if (gift.type === 'subscription') {
-          amount = `${shared.content.subscriptionBlocks[gift.subscription.key].price * 100}`;
-        } else {
-          amount = `${gift.gems.amount / 4 * 100}`;
-        }
-      }
-
-      response = await stripe.charges.create({
-        amount,
-        currency: 'usd',
-        card: token,
-      });
-    }
-
-    if (sub) {
-      await payments.createSubscription({
-        user,
-        customerId: response.id,
-        paymentMethod: 'Stripe',
-        sub,
-        headers: req.headers,
-        groupId,
-      });
-    } else {
-      let method = 'buyGems';
-      let data = {
-        user,
-        customerId: response.id,
-        paymentMethod: 'Stripe',
-        gift,
-      };
-
-      if (gift) {
-        let member = await User.findById(gift.uuid);
-        gift.member = member;
-        if (gift.type === 'subscription') method = 'createSubscription';
-        data.paymentMethod = 'Gift';
-      }
-
-      await payments[method](data);
-    }
+    await stripePayments.checkout({token, user, gift, sub, groupId, coupon});
 
     res.respond(200, {});
   },
@@ -133,31 +58,8 @@ api.subscribeEdit = {
     let token = req.body.id;
     let groupId = req.body.groupId;
     let user = res.locals.user;
-    let customerId;
 
-    //  If we are buying a group subscription
-    if (groupId) {
-      let groupFields = basicGroupFields.concat(' purchased');
-      let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
-
-      if (!group) {
-        throw new NotFound(res.t('groupNotFound'));
-      }
-
-      if (!group.leader === user._id) {
-        throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
-      }
-      customerId = group.purchased.plan.customerId;
-    } else {
-      customerId = user.purchased.plan.customerId;
-    }
-
-    if (!customerId) throw new NotAuthorized(res.t('missingSubscription'));
-    if (!token) throw new BadRequest('Missing req.body.id');
-
-    let subscriptions = await stripe.customers.listSubscriptions(customerId);
-    let subscriptionId = subscriptions.data[0].id;
-    await stripe.customers.updateSubscription(customerId, subscriptionId, { card: token });
+    await stripePayments.editSubscription({token, groupId, user});
 
     res.respond(200, {});
   },
@@ -176,42 +78,12 @@ api.subscribeCancel = {
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.query.groupId;
-    let customerId;
+    let redirect = req.query.redirect;
 
-    if (groupId) {
-      let groupFields = basicGroupFields.concat(' purchased');
-      let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+    await stripePayments.cancelSubscription({user, groupId});
 
-      if (!group) {
-        throw new NotFound(res.t('groupNotFound'));
-      }
-
-      if (!group.leader === user._id) {
-        throw new NotAuthorized(res.t('onlyGroupLeaderCanManageSubscription'));
-      }
-      customerId = group.purchased.plan.customerId;
-    } else {
-      customerId = user.purchased.plan.customerId;
-    }
-
-    if (!customerId) throw new NotAuthorized(res.t('missingSubscription'));
-
-    let customer = await stripe.customers.retrieve(customerId);
-
-    let subscription = customer.subscription;
-    if (!subscription) {
-      subscription = customer.subscriptions.data[0];
-    }
-
-    await stripe.customers.del(customerId);
-    await payments.cancelSubscription({
-      user,
-      groupId,
-      nextBill: subscription.current_period_end * 1000, // timestamp in seconds
-      paymentMethod: 'Stripe',
-    });
-
-    res.redirect('/');
+    if (redirect === 'none') return res.respond(200, {});
+    return res.redirect('/');
   },
 };
 

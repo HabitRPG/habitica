@@ -1,0 +1,57 @@
+script(type='text/ng-template', id='partials/options.settings.api.html')
+  .container-fluid
+    .row
+      .col-md-6
+        h2=env.t('API')
+        small=env.t('APIText')
+        h6=env.t('userId')
+        pre.prettyprint {{user.id}}
+        h6=env.t('APIToken')
+        pre.prettyprint {{User.settings.auth.apiToken}}
+        small!=env.t("APITokenWarning")
+        br
+        h3=env.t('thirdPartyApps')
+        ul
+          li
+            a(target='_blank' href='https://www.beeminder.com/habitica')=env.t('beeminder')
+            br
+            =env.t('beeminderDesc')
+          li
+            a(target='_blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb')=env.t('chromeChatExtension')
+            br
+            =env.t('chromeChatExtensionDesc')
+          li
+            a(target='_blank' ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
+            br
+            =env.t('dataToolDesc')
+          li
+            !=env.t('otherExtensions')
+            br
+            =env.t('otherDesc')
+
+        hr
+
+        h2=env.t('webhooks')
+        table.table.table-striped
+          thead(ng-if='user.webhooks.length')
+            tr
+              th=env.t('enabled')
+              th=env.t('webhookURL')
+              th
+          tbody
+            tr(ng-repeat="webhook in user.webhooks track by $index")
+              td
+                input(type='checkbox', ng-model='webhook.enabled', ng-change='saveWebhook(webhook, $index)')
+              td
+                input.form-control(type='url', ng-model='webhook.url', ng-change='webhook._editing=true', ui-keyup="{13:'saveWebhook(webhook, $index)'}")
+              td
+                span.pull-left(ng-show='webhook._editing') *
+                a.checklist-icons(ng-click='deleteWebhook(webhook, $index)')
+                  span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
+            tr
+              td(colspan=2)
+                form.form-horizontal(ng-submit='addWebhook(_newWebhook.url)')
+                  .form-group.col-sm-10
+                    input.form-control(type='url', ng-model='_newWebhook.url', placeholder=env.t('webhookURL'))
+                  .col-sm-2
+                    button.btn.btn-sm.btn-primary(type='submit')=env.t('add')

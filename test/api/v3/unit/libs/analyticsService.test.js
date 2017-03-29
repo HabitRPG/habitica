@@ -303,6 +303,7 @@ describe('analyticsService', () => {
                 contributorLevel: 1,
                 subscription: 'foo-plan',
                 balance: 12,
+                balanceGemAmount: 48,
                 loginIncentives: 1,
               },
             });
@@ -353,7 +354,8 @@ describe('analyticsService', () => {
         purchaseType: 'checkout',
         gift: false,
         quantity: 1,
-        headers: {'x-client': 'habitica-web',
+        headers: {
+          'x-client': 'habitica-web',
           'user-agent': '',
         },
       };

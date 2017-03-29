@@ -41,14 +41,14 @@
 
       var equipmentTypes = ['weapon', 'armor', 'head', 'shield', 'back', 'body'];
 
-      _(equipmentTypes).each(function(type) {
+      _(equipmentTypes).forEach(function(type) {
         var equippedItem = equipped[type];
         if(gear[equippedItem]) {
           var equipmentStat = gear[equippedItem][stat];
 
           total += equipmentStat;
         }
-      }).value();
+      });
 
       return total;
     }
@@ -72,18 +72,6 @@
       var display = _formatOutOfTotalDisplay(remainingHP, totalHP);
 
       return display;
-    }
-
-    function levelBonus(level) {
-      // Level bonus is derived by taking the level, subtracting one,
-      // taking the smaller of it or maxLevel (100),
-      // dividing that by two and then raising it to a whole number
-
-      var levelOrMaxLevel = Math.min((level - 1), Shared.maxLevel);
-      var levelDividedByTwo = levelOrMaxLevel / 2;
-      var bonus = Math.ceil(levelDividedByTwo );
-
-      return bonus;
     }
 
     function mountMasterProgress(mounts) {
@@ -114,12 +102,9 @@
 
     return {
       beastMasterProgress: beastMasterProgress,
-      classBonus: classBonus,
-      equipmentStatBonus: equipmentStatBonus,
       expDisplay: expDisplay,
       goldDisplay: goldDisplay,
       hpDisplay: hpDisplay,
-      levelBonus: levelBonus,
       mountMasterProgress: mountMasterProgress,
       mpDisplay: mpDisplay,
       totalCount: totalCount

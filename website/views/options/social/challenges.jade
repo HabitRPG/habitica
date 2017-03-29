@@ -202,7 +202,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.html')
                   a.btn.btn-sm.btn-danger(ng-show='isUserMemberOf(challenge)', ng-click='clickLeave(challenge, $event)')
                     span.glyphicon.glyphicon-ban-circle
                     =env.t('leave')
-                  a.btn.btn-sm.btn-success(ng-hide='isUserMemberOf(challenge)', ng-click='join(challenge)')
+                  a.btn.btn-sm.btn-success(ng-hide='isUserMemberOf(challenge)', ng-click='join(challenge)', ng-disabled='challenge._joiningInProgress')
                     span.glyphicon.glyphicon-ok
                     =env.t('join')
               a.accordion-toggle(id="{{challenge._id}}" ng-click='toggle(challenge._id)')

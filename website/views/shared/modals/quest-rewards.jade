@@ -1,8 +1,8 @@
 script(id='partials/options.social.party.quest-rewards.html', type='text/ng-template')
   hr
-  h5 {{::header}}
+  h5 {{::headerParticipant}}
   table.table.table-striped
-    tr(ng-repeat='drop in quest.drop.items')
+    tr(ng-repeat='drop in _.reject(quest.drop.items, \'onlyOwner\')')
       td {{::drop.text()}}
     tr(ng-if='::quest.drop.exp > 0')
       td {{::quest.drop.exp}}&nbsp;
@@ -12,3 +12,8 @@ script(id='partials/options.social.party.quest-rewards.html', type='text/ng-temp
         =env.t('gold')
     tr(ng-if='::quest.drop.unlock()')
       td {{::quest.drop.unlock()}}
+  div(ng-if='getQuestOwnerRewards(quest).length > 0')
+    h5 {{::headerQuestOwner}}
+    table.table.table-striped
+      tr(ng-repeat='drop in getQuestOwnerRewards(quest)')
+        td {{::drop.text()}}

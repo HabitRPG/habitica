@@ -25,6 +25,7 @@
     "royalPurpleGryphon": "Kraljevski Ljubičasti Grifon",
     "phoenix": "Feniks",
     "magicalBee": "Magična Pčela",
+    "royalPurpleJackalope": "Royal Purple Jackalope",
     "rarePetPop1": "Kliknite na zlatnu šapu da saznate kako da nabavite ovu retku zver!",
     "rarePetPop2": "Kako nabaviti ovu zver!",
     "potion": "<%= potionType %> napitak",
@@ -92,5 +93,7 @@
     "petsReleased": "Ljubimci oslobođeni.",
     "mountsAndPetsReleased": "Životinje za jahanje i ljubimci su oslobođeni.",
     "mountsReleased": "Mounts released",
-    "gemsEach": "dragulja"
+    "gemsEach": "dragulja",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

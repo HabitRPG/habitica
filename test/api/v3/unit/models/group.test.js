@@ -1,13 +1,17 @@
+import moment from 'moment';
+import { v4 as generateUUID } from 'uuid';
+import validator from 'validator';
 import { sleep } from '../../../../helpers/api-unit.helper';
 import { model as Group, INVITES_LIMIT } from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
-import { BadRequest } from '../../../../../website/server/libs/errors';
+import {
+  BadRequest,
+ } from '../../../../../website/server/libs/errors';
 import { quests as questScrolls } from '../../../../../website/common/script/content';
 import { groupChatReceivedWebhook } from '../../../../../website/server/libs/webhook';
 import * as email from '../../../../../website/server/libs/email';
-import validator from 'validator';
 import { TAVERN_ID } from '../../../../../website/common/script/';
-import { v4 as generateUUID } from 'uuid';
+import shared from '../../../../../website/common';
 
 describe('Group Model', () => {
   let party, questLeader, participatingMember, nonParticipatingMember, undecidedMember;
@@ -167,14 +171,18 @@ describe('Group Model', () => {
       });
 
       context('Boss Quests', () => {
+        let sendChatStub;
+
         beforeEach(async () => {
           party.quest.key = 'whale';
 
           await party.startQuest(questLeader);
           await party.save();
 
-          sandbox.stub(Group.prototype, 'sendChat');
+          sendChatStub = sandbox.stub(Group.prototype, 'sendChat');
         });
+
+        afterEach(() => sendChatStub.restore());
 
         it('applies user\'s progress to quest boss hp', async () => {
           await Group.processQuestProgress(participatingMember, progress);
@@ -319,14 +327,18 @@ describe('Group Model', () => {
       });
 
       context('Collection Quests', () => {
+        let sendChatStub;
+
         beforeEach(async () => {
           party.quest.key = 'atom1';
 
           await party.startQuest(questLeader);
           await party.save();
 
-          sandbox.stub(Group.prototype, 'sendChat');
+          sendChatStub = sandbox.stub(Group.prototype, 'sendChat');
         });
+
+        afterEach(() => sendChatStub.restore());
 
         it('applies user\'s progress to found quest items', async () => {
           await Group.processQuestProgress(participatingMember, progress);
@@ -362,6 +374,7 @@ describe('Group Model', () => {
           party.quest.active = false;
 
           await party.startQuest(questLeader);
+          Group.prototype.sendChat.reset();
           await party.save();
 
           await Group.processQuestProgress(participatingMember, progress);
@@ -380,6 +393,7 @@ describe('Group Model', () => {
           party.quest.active = false;
 
           await party.startQuest(questLeader);
+          Group.prototype.sendChat.reset();
           await party.save();
 
           await Group.processQuestProgress(participatingMember, progress);
@@ -628,23 +642,147 @@ describe('Group Model', () => {
         });
       });
 
-      it('deletes a private group when the last member leaves', async () => {
-        party.memberCount = 1;
-
+      it('deletes a private party when the last member leaves', async () => {
         await party.leave(participatingMember);
+        await party.leave(questLeader);
+        await party.leave(nonParticipatingMember);
+        await party.leave(undecidedMember);
 
         party = await Group.findOne({_id: party._id});
         expect(party).to.not.exist;
       });
 
-      it('does not delete a public group when the last member leaves', async () => {
+      it('does not delete a private group when the last member leaves and a subscription is active', async () => {
         party.memberCount = 1;
+        party.purchased.plan.customerId = '110002222333';
+
+        await expect(party.leave(participatingMember))
+          .to.eventually.be.rejected.and.to.eql({
+            name: 'NotAuthorized',
+            httpCode: 401,
+            message: shared.i18n.t('cannotDeleteActiveGroup'),
+          });
+
+        party = await Group.findOne({_id: party._id});
+        expect(party).to.exist;
+        expect(party.memberCount).to.eql(1);
+      });
+
+      it('does not allow a leader to leave a group with an active subscription', async () => {
+        party.memberCount = 2;
+        party.purchased.plan.customerId = '110002222333';
+
+        await expect(party.leave(questLeader))
+          .to.eventually.be.rejected.and.to.eql({
+            name: 'NotAuthorized',
+            httpCode: 401,
+            message: shared.i18n.t('leaderCannotLeaveGroupWithActiveGroup'),
+          });
+
+        party = await Group.findOne({_id: party._id});
+        expect(party).to.exist;
+        expect(party.memberCount).to.eql(1);
+      });
+
+      it('deletes a private group when the last member leaves and a subscription is cancelled', async () => {
+        let guild = new Group({
+          name: 'test guild',
+          type: 'guild',
+          memberCount: 1,
+        });
+
+        let leader = new User({
+          guilds: [guild._id],
+        });
+
+        guild.leader = leader._id;
+
+        await Promise.all([
+          guild.save(),
+          leader.save(),
+        ]);
+
+        guild.purchased.plan.customerId = '110002222333';
+        guild.purchased.plan.dateTerminated = new Date();
+
+        await guild.leave(leader);
+
+        party = await Group.findOne({_id: guild._id});
+        expect(party).to.not.exist;
+      });
+
+      it('does not delete a public group when the last member leaves', async () => {
         party.privacy = 'public';
+
+        await party.leave(participatingMember);
+        await party.leave(questLeader);
+        await party.leave(nonParticipatingMember);
+        await party.leave(undecidedMember);
+
+        party = await Group.findOne({_id: party._id});
+        expect(party).to.exist;
+      });
+
+      it('does not delete a private party when the member count reaches zero if there are still members', async () => {
+        party.memberCount = 1;
 
         await party.leave(participatingMember);
 
         party = await Group.findOne({_id: party._id});
         expect(party).to.exist;
+      });
+
+      it('deletes a private guild when the last member leaves', async () => {
+        let guild = new Group({
+          name: 'test guild',
+          type: 'guild',
+          memberCount: 1,
+        });
+
+        let leader = new User({
+          guilds: [guild._id],
+        });
+
+        guild.leader = leader._id;
+
+        await Promise.all([
+          guild.save(),
+          leader.save(),
+        ]);
+
+        await guild.leave(leader);
+
+        guild = await Group.findOne({_id: guild._id});
+        expect(guild).to.not.exist;
+      });
+
+      it('does not delete a private guild when the member count reaches zero if there are still members', async () => {
+        let guild = new Group({
+          name: 'test guild',
+          type: 'guild',
+          memberCount: 1,
+        });
+
+        let leader = new User({
+          guilds: [guild._id],
+        });
+
+        let member = new User({
+          guilds: [guild._id],
+        });
+
+        guild.leader = leader._id;
+
+        await Promise.all([
+          guild.save(),
+          leader.save(),
+          member.save(),
+        ]);
+
+        await guild.leave(member);
+
+        guild = await Group.findOne({_id: guild._id});
+        expect(guild).to.exist;
       });
     });
 
@@ -723,6 +861,20 @@ describe('Group Model', () => {
         party.sendChat('message');
 
         expect(party.chat).to.have.a.lengthOf(200);
+      });
+
+      it('cuts down chat to 400 messages when group is subcribed', () => {
+        party.purchased.plan.customerId = 'test-customer-id';
+
+        for (let i = 0; i < 420; i++) {
+          party.chat.push({ text: 'a message' });
+        }
+
+        expect(party.chat).to.have.a.lengthOf(420);
+
+        party.sendChat('message');
+
+        expect(party.chat).to.have.a.lengthOf(400);
       });
 
       it('updates users about new messages in party', () => {
@@ -937,7 +1089,7 @@ describe('Group Model', () => {
 
           expect(email.sendTxn).to.be.calledOnce;
 
-          let memberIds = _.pluck(email.sendTxn.args[0][0], '_id');
+          let memberIds = _.map(email.sendTxn.args[0][0], '_id');
           let typeOfEmail = email.sendTxn.args[0][1];
 
           expect(memberIds).to.have.a.lengthOf(2);
@@ -960,7 +1112,7 @@ describe('Group Model', () => {
 
           expect(email.sendTxn).to.be.calledOnce;
 
-          let memberIds = _.pluck(email.sendTxn.args[0][0], '_id');
+          let memberIds = _.map(email.sendTxn.args[0][0], '_id');
 
           expect(memberIds).to.have.a.lengthOf(1);
           expect(memberIds).to.not.include(participatingMember._id);
@@ -981,7 +1133,7 @@ describe('Group Model', () => {
 
           expect(email.sendTxn).to.be.calledOnce;
 
-          let memberIds = _.pluck(email.sendTxn.args[0][0], '_id');
+          let memberIds = _.map(email.sendTxn.args[0][0], '_id');
 
           expect(memberIds).to.have.a.lengthOf(1);
           expect(memberIds).to.not.include(participatingMember._id);
@@ -1061,8 +1213,45 @@ describe('Group Model', () => {
           [nonParticipatingMember._id]: false,
           [undecidedMember._id]: null,
         };
+      });
 
-        sandbox.spy(User, 'update');
+      describe('user update retry failures', () => {
+        let successfulMock = {
+          exec: () => {
+            return Promise.resolve({raw: 'sucess'});
+          },
+        };
+        let failedMock = {
+          exec: () => {
+            return Promise.reject(new Error('error'));
+          },
+        };
+
+        it('doesn\'t retry successful operations', async () => {
+          sandbox.stub(User, 'update').returns(successfulMock);
+
+          await party.finishQuest(quest);
+
+          expect(User.update).to.be.calledTwice;
+        });
+
+        it('stops retrying when a successful update has occurred', async () => {
+          let updateStub = sandbox.stub(User, 'update');
+          updateStub.onCall(0).returns(failedMock);
+          updateStub.returns(successfulMock);
+
+          await party.finishQuest(quest);
+
+          expect(User.update).to.be.calledThrice;
+        });
+
+        it('retries failed updates at most five times per user', async () => {
+          sandbox.stub(User, 'update').returns(failedMock);
+
+          await expect(party.finishQuest(quest)).to.eventually.be.rejected;
+
+          expect(User.update.callCount).to.eql(10);
+        });
       });
 
       it('gives out achievements', async () => {
@@ -1138,14 +1327,34 @@ describe('Group Model', () => {
           expect(updatedParticipatingMember.items.hatchingPotions.Shade).to.eql(2);
         });
 
-        it('awards quests', async () => {
+        it('awards quest scrolls to owner', async () => {
+          let questAwardQuest = questScrolls.vice2;
+
+          await party.finishQuest(questAwardQuest);
+
+          let updatedLeader = await User.findById(questLeader._id);
+
+          expect(updatedLeader.items.quests.vice3).to.eql(1);
+        });
+
+        it('awards non quest leader rewards to quest leader', async () => {
+          let gearQuest = questScrolls.vice3;
+
+          await party.finishQuest(gearQuest);
+
+          let updatedLeader = await User.findById(questLeader._id);
+
+          expect(updatedLeader.items.gear.owned.weapon_special_2).to.eql(true);
+        });
+
+        it('doesn\'t award quest owner rewards to all participants', async () => {
           let questAwardQuest = questScrolls.vice2;
 
           await party.finishQuest(questAwardQuest);
 
           let updatedParticipatingMember = await User.findById(participatingMember._id);
 
-          expect(updatedParticipatingMember.items.quests.vice3).to.eql(1);
+          expect(updatedParticipatingMember.items.quests.vice3).to.not.exist;
         });
 
         it('awards pets', async () => {
@@ -1171,13 +1380,15 @@ describe('Group Model', () => {
 
       context('Party quests', () => {
         it('updates participating members with rewards', async () => {
+          sandbox.spy(User, 'update');
           await party.finishQuest(quest);
 
-          expect(User.update).to.be.calledOnce;
+          expect(User.update).to.be.calledTwice;
           expect(User.update).to.be.calledWithMatch({
-            _id: {
-              $in: [questLeader._id, participatingMember._id],
-            },
+            _id: questLeader._id,
+          });
+          expect(User.update).to.be.calledWithMatch({
+            _id: participatingMember._id,
           });
         });
 
@@ -1204,6 +1415,7 @@ describe('Group Model', () => {
         });
 
         it('updates all users with rewards', async () => {
+          sandbox.spy(User, 'update');
           await party.finishQuest(tavernQuest);
 
           expect(User.update).to.be.calledOnce;
@@ -1375,6 +1587,58 @@ describe('Group Model', () => {
         expect(args.find(arg => arg[0][0].id === memberWithWebhook.webhooks[0].id)).to.be.exist;
         expect(args.find(arg => arg[0][0].id === memberWithWebhook2.webhooks[0].id)).to.be.exist;
         expect(args.find(arg => arg[0][0].id === memberWithWebhook3.webhooks[0].id)).to.be.exist;
+      });
+    });
+
+    context('isSubscribed', () => {
+      it('returns false if group does not have customer id', () => {
+        expect(party.isSubscribed()).to.be.undefined;
+      });
+
+      it('returns true if group does not have plan.dateTerminated', () => {
+        party.purchased.plan.customerId = 'test-id';
+
+        expect(party.isSubscribed()).to.be.true;
+      });
+
+      it('returns true if group if plan.dateTerminated is after today', () => {
+        party.purchased.plan.customerId = 'test-id';
+        party.purchased.plan.dateTerminated = moment().add(1, 'days').toDate();
+
+        expect(party.isSubscribed()).to.be.true;
+      });
+
+      it('returns false if group if plan.dateTerminated is before today', () => {
+        party.purchased.plan.customerId = 'test-id';
+        party.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
+
+        expect(party.isSubscribed()).to.be.false;
+      });
+    });
+
+    context('hasNotCancelled', () => {
+      it('returns false if group does not have customer id', () => {
+        expect(party.hasNotCancelled()).to.be.undefined;
+      });
+
+      it('returns true if party does not have plan.dateTerminated', () => {
+        party.purchased.plan.customerId = 'test-id';
+
+        expect(party.hasNotCancelled()).to.be.true;
+      });
+
+      it('returns false if party if plan.dateTerminated is after today', () => {
+        party.purchased.plan.customerId = 'test-id';
+        party.purchased.plan.dateTerminated = moment().add(1, 'days').toDate();
+
+        expect(party.hasNotCancelled()).to.be.false;
+      });
+
+      it('returns false if party if plan.dateTerminated is before today', () => {
+        party.purchased.plan.customerId = 'test-id';
+        party.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
+
+        expect(party.hasNotCancelled()).to.be.false;
       });
     });
   });

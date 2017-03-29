@@ -1,12 +1,12 @@
 {
     "pets": "Mascotes",
-    "activePet": "Active Pet",
-    "noActivePet": "No Active Pet",
+    "activePet": "Mascote Ativo",
+    "noActivePet": "Sem Mascote ativo",
     "petsFound": "Mascotes Encontrados",
     "magicPets": "Poções Mágicas de Mascotes",
     "rarePets": "Mascotes Raros",
     "questPets": "Mascotes de Missão",
-    "mounts": "Montarias",
+    "mounts": "Montadas",
     "activeMount": "Active Mount",
     "noActiveMount": "No Active Mount",
     "mountsTamed": "Montarias Domadas",
@@ -25,6 +25,7 @@
     "royalPurpleGryphon": "Grifo Real Roxo",
     "phoenix": "Fênix",
     "magicalBee": "Abelha Mágica",
+    "royalPurpleJackalope": "Royal Purple Jackalope",
     "rarePetPop1": "Clique na pata de ouro para saber mais sobre como obter esse mascote raro através de contribuições ao Habitica.",
     "rarePetPop2": "Como Obter este Mascote!",
     "potion": "Poção <%= potionType %>",
@@ -92,5 +93,7 @@
     "petsReleased": "Mascotes libertados.",
     "mountsAndPetsReleased": "Montadas e mascotes libertados.",
     "mountsReleased": "Montarias libertadas.",
-    "gemsEach": "gemas cada"
+    "gemsEach": "gemas cada",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

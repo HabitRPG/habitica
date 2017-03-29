@@ -200,6 +200,32 @@ let armor = {
     set: 'woodElf',
     canOwn: ownsItem('armor_armoire_woodElfArmor'),
   },
+  ramFleeceRobes: {
+    text: t('armorArmoireRamFleeceRobesText'),
+    notes: t('armorArmoireRamFleeceRobesNotes', { con: 9, str: 7 }),
+    value: 100,
+    con: 9,
+    str: 7,
+    set: 'ramBarbarian',
+    canOwn: ownsItem('armor_armoire_ramFleeceRobes'),
+  },
+  gownOfHearts: {
+    text: t('armorArmoireGownOfHeartsText'),
+    notes: t('armorArmoireGownOfHeartsNotes', { con: 13 }),
+    value: 100,
+    con: 13,
+    set: 'queenOfHearts',
+    canOwn: ownsItem('armor_armoire_gownOfHearts'),
+  },
+  mushroomDruidArmor: {
+    text: t('armorArmoireMushroomDruidArmorText'),
+    notes: t('armorArmoireMushroomDruidArmorNotes', { con: 7, per: 8 }),
+    value: 100,
+    con: 7,
+    per: 8,
+    set: 'mushroomDruid',
+    canOwn: ownsItem('armor_armoire_mushroomDruidArmor'),
+  },
 };
 
 let eyewear = {
@@ -472,6 +498,32 @@ let head = {
     set: 'woodElf',
     canOwn: ownsItem('head_armoire_woodElfHelm'),
   },
+  ramHeaddress: {
+    text: t('headArmoireRamHeaddressText'),
+    notes: t('headArmoireRamHeaddressNotes', { con: 9, per: 7 }),
+    value: 100,
+    con: 9,
+    per: 7,
+    set: 'ramBarbarian',
+    canOwn: ownsItem('head_armoire_ramHeaddress'),
+  },
+  crownOfHearts: {
+    text: t('headArmoireCrownOfHeartsText'),
+    notes: t('headArmoireCrownOfHeartsNotes', { str: 13 }),
+    value: 100,
+    str: 13,
+    set: 'queenOfHearts',
+    canOwn: ownsItem('head_armoire_crownOfHearts'),
+  },
+  mushroomDruidCap: {
+    text: t('headArmoireMushroomDruidCapText'),
+    notes: t('headArmoireMushroomDruidCapNotes', { int: 6, str: 7 }),
+    value: 100,
+    int: 6,
+    str: 7,
+    set: 'mushroomDruid',
+    canOwn: ownsItem('head_armoire_mushroomDruidCap'),
+  },
 };
 
 let shield = {
@@ -539,6 +591,31 @@ let shield = {
     str: 16,
     set: 'falconer',
     canOwn: ownsItem('shield_armoire_perchingFalcon'),
+  },
+  ramHornShield: {
+    text: t('shieldArmoireRamHornShieldText'),
+    notes: t('shieldArmoireRamHornShieldNotes', { attrs: 7 }),
+    value: 100,
+    str: 7,
+    con: 7,
+    set: 'ramBarbarian',
+    canOwn: ownsItem('shield_armoire_ramHornShield'),
+  },
+  redRose: {
+    text: t('shieldArmoireRedRoseText'),
+    notes: t('shieldArmoireRedRoseNotes', { per: 10 }),
+    value: 100,
+    per: 10,
+    canOwn: ownsItem('shield_armoire_redRose'),
+  },
+  mushroomDruidShield: {
+    text: t('shieldArmoireMushroomDruidShieldText'),
+    notes: t('shieldArmoireMushroomDruidShieldNotes', { con: 9, str: 8 }),
+    value: 100,
+    con: 9,
+    str: 8,
+    set: 'mushroomDruid',
+    canOwn: ownsItem('shield_armoire_mushroomDruidShield'),
   },
 };
 
@@ -735,6 +812,22 @@ let weapon = {
     int: 12,
     set: 'woodElf',
     canOwn: ownsItem('weapon_armoire_woodElfStaff'),
+  },
+  wandOfHearts: {
+    text: t('weaponArmoireWandOfHeartsText'),
+    notes: t('weaponArmoireWandOfHeartsNotes', { int: 13 }),
+    value: 100,
+    int: 13,
+    set: 'queenOfHearts',
+    canOwn: ownsItem('weapon_armoire_wandOfHearts'),
+  },
+  forestFungusStaff: {
+    text: t('weaponArmoireForestFungusStaffText'),
+    notes: t('weaponArmoireForestFungusStaffNotes', { int: 8, per: 9 }),
+    value: 100,
+    int: 8,
+    per: 9,
+    canOwn: ownsItem('weapon_armoire_forestFungusStaff'),
   },
 };
 

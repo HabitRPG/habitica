@@ -1,5 +1,5 @@
 import i18n from '../i18n';
-import _ from 'lodash';
+import each from 'lodash/each';
 import { capByLevel } from '../statHelpers';
 import { MAX_LEVEL } from '../constants';
 import {
@@ -35,7 +35,7 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
 
   let lvl = capByLevel(user.stats.lvl);
 
-  _.each(tasks, function resetTasks (task) {
+  each(tasks, function resetTasks (task) {
     if (!task.challenge || !task.challenge.id || task.challenge.broken) {
       if (task.type !== 'reward') {
         task.value = 0;
@@ -54,7 +54,7 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
 
   user.preferences.automaticAllocation = false;
 
-  _.each(USERSTATSLIST, function resetStats (value) {
+  each(USERSTATSLIST, function resetStats (value) {
     stats[value] = 0;
   });
 

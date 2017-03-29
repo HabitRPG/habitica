@@ -21,7 +21,7 @@
     };
   }();
 
-  habitrpg.directive('markdown', ['$timeout', function($timeout) {
+  habitrpg.directive('markdown', ['$timeout', 'User', function($timeout, User) {
     return {
       restrict: 'E',
       link: function(scope, element, attrs) {
@@ -34,7 +34,7 @@
 
             var markdown = value;
             var linktarget = attrs.target || '_self';
-            var userName = scope.User.user.profile.name;
+            var userName = User.user.profile.name;
             var userHighlight = "@"+userName;
             var html = md.toHtml(markdown);
 
@@ -71,7 +71,8 @@ habitrpg.directive('questRewards', ['$rootScope', function($rootScope){
     restrict: 'AE',
     templateUrl: 'partials/options.social.party.quest-rewards.html',
     link: function(scope, element, attrs){
-      scope.header = attrs.header || 'Rewards';
+      scope.headerParticipant = attrs.headerParticipant || env.t('rewardsAllParticipants');
+      scope.headerQuestOwner = attrs.headerQuestOwner || env.t('rewardsQuestOwner');
       scope.quest = $rootScope.Content.quests[attrs.key];
     }
   }

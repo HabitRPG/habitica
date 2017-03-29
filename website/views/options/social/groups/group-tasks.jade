@@ -4,4 +4,10 @@ include ./group-members-autocomplete
 include ./group-tasks-approvals
 
 script(type='text/ng-template', id='partials/groups.tasks.html')
-  habitrpg-tasks(main=false)
+  .row(style="margin-bottom: 2rem;")
+    .col-md-12
+      button.btn.btn-primary(ng-click='refreshTasks()', ng-hide="loading")=env.t('refreshGroupTasks')
+      button.btn.btn-primary(ng-disabled="true", ng-show="loading")=env.t('loading')
+  
+  .row
+    habitrpg-tasks(main=false)

@@ -54,6 +54,7 @@
     "partyNotFound": "Sällskap inte hittat",
     "targetIdUUID": "\"targetId\" måste vara ett giltigt Användar-ID.",
     "challengeTasksNoCast": "Att kasta en färdighet på Utmaningsuppgifter är inte tillåtet.",
+    "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "Du äger inte denna färdighet.",
     "spellLevelTooHigh": "Du måste vara level <%= level %> för att använda den här färdigheten."
 }
