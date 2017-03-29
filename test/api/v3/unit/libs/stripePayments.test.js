@@ -810,7 +810,7 @@ describe('Stripe Payments', () => {
         sinon.stub(stripe.events, 'retrieve').returnsPromise().resolves({
           id: 123,
           type: eventType,
-          request: null,
+          request: 123,
         });
 
         await stripePayments.handleWebhooks({requestBody: {}}, stripe);
@@ -835,6 +835,7 @@ describe('Stripe Payments', () => {
                 customer: customerId,
               },
             },
+            request: null,
           });
 
           await expect(stripePayments.handleWebhooks({requestBody: {}}, stripe)).to.eventually.be.rejectedWith({
@@ -868,6 +869,7 @@ describe('Stripe Payments', () => {
                 customer: customerId,
               },
             },
+            request: null,
           });
 
           await stripePayments.handleWebhooks({requestBody: {}}, stripe);
@@ -900,6 +902,7 @@ describe('Stripe Payments', () => {
                 customer: customerId,
               },
             },
+            request: null,
           });
 
           await expect(stripePayments.handleWebhooks({requestBody: {}}, stripe)).to.eventually.be.rejectedWith({
@@ -938,6 +941,7 @@ describe('Stripe Payments', () => {
                 customer: customerId,
               },
             },
+            request: null,
           });
 
           await expect(stripePayments.handleWebhooks({requestBody: {}}, stripe)).to.eventually.be.rejectedWith({
@@ -979,6 +983,7 @@ describe('Stripe Payments', () => {
                 customer: customerId,
               },
             },
+            request: null,
           });
 
           await stripePayments.handleWebhooks({requestBody: {}}, stripe);
