@@ -291,9 +291,9 @@ api.handleWebhooks = async function handleWebhooks (options, stripeInc) {
 
   switch (event.type) {
     case 'customer.subscription.deleted': {
-      // event.request === null means that the user itself cancelled the subscrioption,
+      // event.request !== null means that the user itself cancelled the subscrioption,
       // the cancellation on our side has been already handled
-      if (event.request === null) break;
+      if (event.request !== null) break;
 
       const subscription = event.data.object;
       const customerId = subscription.customer;
