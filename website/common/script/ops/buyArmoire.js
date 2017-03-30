@@ -1,6 +1,8 @@
 import content from '../content/index';
 import i18n from '../i18n';
-import _ from 'lodash';
+import filter from 'lodash/filter';
+import isEmpty from 'lodash/isEmpty';
+import pick from 'lodash/pick';
 import count from '../count';
 import splitWhitespace from '../libs/splitWhitespace';
 import {
@@ -29,11 +31,11 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
   let drop;
   let message;
 
-  let armoireResult = Math.random();
-  let eligibleEquipment = _.filter(content.gear.flat, (eligible) => {
+  let armoireResult = randomVal.trueRandom();
+  let eligibleEquipment = filter(content.gear.flat, (eligible) => {
     return eligible.klass === 'armoire' && !user.items.gear.owned[eligible.key];
   });
-  let armoireHasEquipment = !_.isEmpty(eligibleEquipment);
+  let armoireHasEquipment = !isEmpty(eligibleEquipment);
 
   if (armoireHasEquipment && (armoireResult < YIELD_EQUIPMENT_THRESHOLD || !user.flags.armoireOpened)) {
     eligibleEquipment.sort();
@@ -60,7 +62,7 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
       dropText: drop.text(req.language),
     };
   } else if ((armoireHasEquipment && armoireResult < YIELD_FOOD_THRESHOLD) || armoireResult < 0.5) { // eslint-disable-line no-extra-parens
-    drop = randomVal(_.where(content.food, {
+    drop = randomVal(filter(content.food, {
       canDrop: true,
     }));
 
@@ -79,7 +81,7 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
       dropText: drop.text(req.language),
     };
   } else {
-    let armoireExp = Math.floor(Math.random() * 40 + 10);
+    let armoireExp = Math.floor(randomVal.trueRandom() * 40 + 10);
     user.stats.exp += armoireExp;
     message = i18n.t('armoireExp', req.language);
     armoireResp = {
@@ -107,7 +109,7 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
     });
   }
 
-  let resData = _.pick(user, splitWhitespace('items flags'));
+  let resData = pick(user, splitWhitespace('items flags'));
   if (armoireResp) resData.armoire = armoireResp;
 
   return [

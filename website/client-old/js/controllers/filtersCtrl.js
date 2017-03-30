@@ -19,7 +19,7 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'Shared',
         $scope._editing = false;
       } else {
         tagsSnap = angular.copy(user.tags);
-        tagsSnap = _.object(_.pluck(tagsSnap,'id'), tagsSnap);
+        tagsSnap = _.zipObject(_.map(tagsSnap, 'id'), tagsSnap);
         $scope._editing = true;
       }
     };
@@ -44,5 +44,9 @@ habitrpg.controller("FiltersCtrl", ['$scope', '$rootScope', 'User', 'Shared',
     $scope.createTag = function() {
       User.addTag({body:{name: $scope._newTag.name, id: Shared.uuid()}});
       $scope._newTag.name = '';
+    };
+
+    $scope.showChallengeClass = function (tag) {
+      return tag.challenge || tag.group;
     };
 }]);

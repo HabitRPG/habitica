@@ -1,16 +1,29 @@
+import moment from 'moment';
+
 import * as sender from '../../../../../website/server/libs/email';
 import * as api from '../../../../../website/server/libs/payments';
 import analytics from '../../../../../website/server/libs/analyticsService';
 import notifications from '../../../../../website/server/libs/pushNotifications';
 import { model as User } from '../../../../../website/server/models/user';
-import moment from 'moment';
+import { translate as t } from '../../../../helpers/api-v3-integration.helper';
+import {
+  generateGroup,
+} from '../../../../helpers/api-unit.helper.js';
 
 describe('payments/index', () => {
-  let user, data, plan;
+  let user, group, data, plan;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     user = new User();
     user.profile.name = 'sender';
+
+    group = generateGroup({
+      name: 'test group',
+      type: 'guild',
+      privacy: 'public',
+      leader: user._id,
+    });
+    await group.save();
 
     sandbox.stub(sender, 'sendTxn');
     sandbox.stub(user, 'sendMessage');
@@ -133,6 +146,14 @@ describe('payments/index', () => {
         expect(recipient.purchased.plan.dateUpdated).to.exist;
       });
 
+      it('sets plan.dateCreated if it did not previously exist', async () => {
+        expect(recipient.purchased.plan.dateCreated).to.not.exist;
+
+        await api.createSubscription(data);
+
+        expect(recipient.purchased.plan.dateCreated).to.exist;
+      });
+
       it('does not change plan.customerId if it already exists', async () => {
         recipient.purchased.plan = plan;
         data.customerId = 'purchaserCustomerId';
@@ -161,9 +182,10 @@ describe('payments/index', () => {
 
       it('sends a private message about the gift', async () => {
         await api.createSubscription(data);
+        let msg = '\`Hello recipient, sender has sent you 3 months of subscription!\`';
 
         expect(user.sendMessage).to.be.calledOnce;
-        expect(user.sendMessage).to.be.calledWith(recipient, '\`Hello recipient, sender has sent you 3 months of subscription!\`');
+        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg, senderMsg: msg });
       });
 
       it('sends an email about the gift', async () => {
@@ -186,6 +208,7 @@ describe('payments/index', () => {
         expect(analytics.trackPurchase).to.be.calledOnce;
         expect(analytics.trackPurchase).to.be.calledWith({
           uuid: user._id,
+          groupId: undefined,
           itemPurchased: 'Subscription',
           sku: 'payment method-subscription',
           purchaseType: 'subscribe',
@@ -276,6 +299,7 @@ describe('payments/index', () => {
         expect(analytics.trackPurchase).to.be.calledOnce;
         expect(analytics.trackPurchase).to.be.calledWith({
           uuid: user._id,
+          groupId: undefined,
           itemPurchased: 'Subscription',
           sku: 'payment method-subscription',
           purchaseType: 'subscribe',
@@ -410,7 +434,6 @@ describe('payments/index', () => {
         sandbox.spy(user.purchased.plan.mysteryItems, 'push');
 
         data = { paymentMethod: 'PaymentMethod', user, sub: { key: 'basic_3mo' } };
-
         await api.createSubscription(data);
 
         expect(user.purchased.plan.mysteryItems.push).to.be.calledOnce;
@@ -426,61 +449,63 @@ describe('payments/index', () => {
       data = { user };
     });
 
-    it('adds a month termination date by default', async () => {
-      await api.cancelSubscription(data);
+    context('Canceling a subscription for self', () => {
+      it('adds a month termination date by default', async () => {
+        await api.cancelSubscription(data);
 
-      let now = new Date();
-      let daysTillTermination = moment(user.purchased.plan.dateTerminated).diff(now, 'days');
+        let now = new Date();
+        let daysTillTermination = moment(user.purchased.plan.dateTerminated).diff(now, 'days');
 
-      expect(daysTillTermination).to.be.within(29, 30); // 1 month +/- 1 days
-    });
+        expect(daysTillTermination).to.be.within(29, 30); // 1 month +/- 1 days
+      });
 
-    it('adds extraMonths to dateTerminated value', async () => {
-      user.purchased.plan.extraMonths = 2;
+      it('adds extraMonths to dateTerminated value', async () => {
+        user.purchased.plan.extraMonths = 2;
 
-      await api.cancelSubscription(data);
+        await api.cancelSubscription(data);
 
-      let now = new Date();
-      let daysTillTermination = moment(user.purchased.plan.dateTerminated).diff(now, 'days');
+        let now = new Date();
+        let daysTillTermination = moment(user.purchased.plan.dateTerminated).diff(now, 'days');
 
-      expect(daysTillTermination).to.be.within(89, 90); // 3 months +/- 1 days
-    });
+        expect(daysTillTermination).to.be.within(89, 90); // 3 months +/- 1 days
+      });
 
-    it('handles extra month fractions', async () => {
-      user.purchased.plan.extraMonths = 0.3;
+      it('handles extra month fractions', async () => {
+        user.purchased.plan.extraMonths = 0.3;
 
-      await api.cancelSubscription(data);
+        await api.cancelSubscription(data);
 
-      let now = new Date();
-      let daysTillTermination = moment(user.purchased.plan.dateTerminated).diff(now, 'days');
+        let now = new Date();
+        let daysTillTermination = moment(user.purchased.plan.dateTerminated).diff(now, 'days');
 
-      expect(daysTillTermination).to.be.within(38, 39); // should be about 1 month + 1/3 month
-    });
+        expect(daysTillTermination).to.be.within(38, 39); // should be about 1 month + 1/3 month
+      });
 
-    it('terminates at next billing date if it exists', async () => {
-      data.nextBill = moment().add({ days: 15 });
+      it('terminates at next billing date if it exists', async () => {
+        data.nextBill = moment().add({ days: 15 });
 
-      await api.cancelSubscription(data);
+        await api.cancelSubscription(data);
 
-      let now = new Date();
-      let daysTillTermination = moment(user.purchased.plan.dateTerminated).diff(now, 'days');
+        let now = new Date();
+        let daysTillTermination = moment(user.purchased.plan.dateTerminated).diff(now, 'days');
 
-      expect(daysTillTermination).to.be.within(13, 15);
-    });
+        expect(daysTillTermination).to.be.within(13, 15);
+      });
 
-    it('resets plan.extraMonths', async () => {
-      user.purchased.plan.extraMonths = 5;
+      it('resets plan.extraMonths', async () => {
+        user.purchased.plan.extraMonths = 5;
 
-      await api.cancelSubscription(data);
+        await api.cancelSubscription(data);
 
-      expect(user.purchased.plan.extraMonths).to.eql(0);
-    });
+        expect(user.purchased.plan.extraMonths).to.eql(0);
+      });
 
-    it('sends an email', async () => {
-      await api.cancelSubscription(data);
+      it('sends an email', async () => {
+        await api.cancelSubscription(data);
 
-      expect(sender.sendTxn).to.be.calledOnce;
-      expect(sender.sendTxn).to.be.calledWith(user, 'cancel-subscription');
+        expect(sender.sendTxn).to.be.calledOnce;
+        expect(sender.sendTxn).to.be.calledWith(user, 'cancel-subscription');
+      });
     });
   });
 
@@ -553,14 +578,60 @@ describe('payments/index', () => {
 
       it('sends a message from purchaser to recipient', async () => {
         await api.buyGems(data);
+        let msg = '\`Hello recipient, sender has sent you 4 gems!\`';
 
-        expect(user.sendMessage).to.be.calledWith(recipient, '\`Hello recipient, sender has sent you 4 gems!\`');
+        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg, senderMsg: msg });
       });
 
       it('sends a push notification if user did not gift to self', async () => {
         await api.buyGems(data);
         expect(notifications.sendNotification).to.be.calledOnce;
       });
+
+      it('sends gem donation message in each participant\'s language', async () => {
+        // TODO using english for both users because other languages are not loaded
+        // for api.buyGems
+        await recipient.update({
+          'preferences.language': 'en',
+        });
+        await user.update({
+          'preferences.language': 'en',
+        });
+        await api.buyGems(data);
+
+        let [recipientsMessageContent, sendersMessageContent] = ['en', 'en'].map((lang) => {
+          let messageContent = t('giftedGemsFull', {
+            username: recipient.profile.name,
+            sender: user.profile.name,
+            gemAmount: data.gift.gems.amount,
+          }, lang);
+
+          return `\`${messageContent}\``;
+        });
+
+        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: recipientsMessageContent, senderMsg: sendersMessageContent });
+      });
+    });
+  });
+
+  describe('addSubToGroupUser', () => {
+    it('adds a group subscription to a new user', async () => {
+      expect(group.purchased.plan.planId).to.not.exist;
+      data.groupId = group._id;
+
+      await api.addSubToGroupUser(user, group);
+
+      let updatedUser = await User.findById(user._id).exec();
+
+      expect(updatedUser.purchased.plan.planId).to.eql('group_plan_auto');
+      expect(updatedUser.purchased.plan.customerId).to.eql('group-plan');
+      expect(updatedUser.purchased.plan.dateUpdated).to.exist;
+      expect(updatedUser.purchased.plan.gemsBought).to.eql(0);
+      expect(updatedUser.purchased.plan.paymentMethod).to.eql('Group Plan');
+      expect(updatedUser.purchased.plan.extraMonths).to.eql(0);
+      expect(updatedUser.purchased.plan.dateTerminated).to.eql(null);
+      expect(updatedUser.purchased.plan.lastBillingDate).to.not.exist;
+      expect(updatedUser.purchased.plan.dateCreated).to.exist;
     });
   });
 });

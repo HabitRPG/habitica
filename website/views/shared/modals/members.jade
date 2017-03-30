@@ -84,7 +84,7 @@ script(type='text/ng-template', id='modals/send-gift.html')
       .panel-heading=env.t('subscription')
       .panel-body
         .form-group
-          .radio(ng-repeat='block in Content.subscriptionBlocks | toArray | omit:"discount==true" | orderBy:"months"')
+          .radio(ng-repeat='block in Content.subscriptionBlocks | toArray | omit:"discount==true" | orderBy:"months"', ng-if="block.type !== 'group'")
             label
               input(type="radio", name="subRadio", ng-value="block.key", ng-model='gift.subscription.key')
               =env.t('sendGiftSubscription', {price: '{{::block.price}}', months: '{{::block.months}}'})

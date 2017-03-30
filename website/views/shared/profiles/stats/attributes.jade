@@ -10,9 +10,9 @@ table.table.table-striped
         strong : {{profile.fns.statsComputed().#{stat}}}
 
       td: ul.list-unstyled
-        +statList('statCalc.levelBonus(profile.stats.lvl)', 'levelBonus', 'level', true)
-        +statList('statCalc.equipmentStatBonus("' + stat + '", profile.items.gear.equipped)', 'equipmentBonus', 'equipment', true)
-        +statList('statCalc.classBonus(profile, "' + stat + '")', 'classBonus', 'classEquipBonus')
+        +statList('profile.fns.statsComputed().levelBonus.' + stat, 'levelBonus', 'level', true)
+        +statList('profile.fns.statsComputed().gearBonus.' + stat, 'equipmentBonus', 'equipment', true)
+        +statList('profile.fns.statsComputed().classBonus.' + stat, 'classBonus', 'classEquipBonus')
         +statList('profile.stats.' + stat, 'allocatedPoints', 'allocated')
         +statList('profile.stats.buffs.' + stat, 'buffs', 'buffs', true)
 

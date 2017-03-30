@@ -11,7 +11,7 @@ describe('crit', () => {
   });
 
   it('computes', () => {
-    let result = crit(user);
+    let result = crit.crit(user);
     expect(result).to.eql(1);
   });
 });

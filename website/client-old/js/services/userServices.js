@@ -66,7 +66,7 @@ angular.module('habitrpg')
 
             // Remove empty values from the array and add any unordered task
             user[type + 's'] = _.compact(orderedTasks).concat(unorderedTasks);
-          }).value();
+          });
       }
 
       function sync() {
@@ -205,7 +205,7 @@ angular.module('habitrpg')
         },
 
         allocate: function (data) {
-          callOpsFunctionAndRequest('allocate', 'allocate', "POST",'', data);
+          callOpsFunctionAndRequest('allocate', 'allocate', "POST", '', data);
         },
 
         allocateNow: function () {
@@ -243,7 +243,8 @@ angular.module('habitrpg')
             return;
           }
 
-          Tasks.scoreTask(data.params.task._id, data.params.direction).then(function (res) {
+          Tasks.scoreTask(data.params.task._id, data.params.direction, data.body)
+          .then(function (res) {
             var tmp = res.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
             var crit = tmp.crit;
             var drop = tmp.drop;
@@ -259,6 +260,7 @@ angular.module('habitrpg')
               if (quest.progressDelta && userQuest.boss) {
                 Notification.quest('questDamage', quest.progressDelta.toFixed(1));
               } else if (quest.collection && userQuest.collect) {
+                user.party.quest.progress.collectedItems++;
                 Notification.quest('questCollection', quest.collection);
               }
             }
@@ -326,6 +328,10 @@ angular.module('habitrpg')
 
         readNotification: function (notificationId) {
           UserNotifications.readNotification(notificationId);
+        },
+
+        readNotifications: function (notificationIds) {
+          return UserNotifications.readNotifications(notificationIds);
         },
 
         addTag: function(data) {
@@ -448,16 +454,7 @@ angular.module('habitrpg')
         },
 
         buySpecialSpell: function (data) {
-          $window.habitrpgShared.ops['buySpecialSpell'](user, data);
-          var key = data.params.key;
-
-          $http({
-            method: "POST",
-            url: '/api/v3/user/' + 'buy-special-spell/' + key,
-          })
-          .then(function (response) {
-            Notification.text(response.data.message);
-          })
+          callOpsFunctionAndRequest('buySpecialSpell', 'buy-special-spell', "POST", data.params.key, data);
         },
 
         buyMysterySet: function (data) {

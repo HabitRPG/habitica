@@ -63,15 +63,17 @@ describe('GET /groups/:groupId/invites', () => {
   });
 
   it('returns only first 30 invites', async () => {
-    let group = await generateGroup(user, {type: 'party', name: generateUUID()});
+    let leader = await generateUser({balance: 4});
+    let group = await generateGroup(leader, {type: 'guild', privacy: 'public', name: generateUUID()});
+
     let invitesToGenerate = [];
     for (let i = 0; i < 31; i++) {
       invitesToGenerate.push(generateUser());
     }
     let generatedInvites = await Promise.all(invitesToGenerate);
-    await user.post(`/groups/${group._id}/invite`, {uuids: generatedInvites.map(invite => invite._id)});
+    await leader.post(`/groups/${group._id}/invite`, {uuids: generatedInvites.map(invite => invite._id)});
 
-    let res = await user.get('/groups/party/invites');
+    let res = await leader.get(`/groups/${group._id}/invites`);
     expect(res.length).to.equal(30);
     res.forEach(member => {
       expect(member).to.have.all.keys(['_id', 'id', 'profile']);

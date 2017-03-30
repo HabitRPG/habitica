@@ -1,8 +1,11 @@
 import nconf from 'nconf';
 
 const IS_PROD = nconf.get('IS_PROD');
-const IGNORE_REDIRECT = nconf.get('IGNORE_REDIRECT');
+const IGNORE_REDIRECT = nconf.get('IGNORE_REDIRECT') === 'true';
 const BASE_URL = nconf.get('BASE_URL');
+
+let baseUrlSplit = BASE_URL.split('//');
+const BASE_URL_HOST = baseUrlSplit[1];
 
 function isHTTP (req) {
   return ( // eslint-disable-line no-extra-parens
@@ -13,15 +16,8 @@ function isHTTP (req) {
   );
 }
 
-function isProxied (req) {
-  return ( // eslint-disable-line no-extra-parens
-    req.header('x-habitica-lb') &&
-    req.header('x-habitica-lb') === 'Yes'
-  );
-}
-
 export function forceSSL (req, res, next) {
-  if (isHTTP(req) && !isProxied(req)) {
+  if (isHTTP(req)) {
     return res.redirect(BASE_URL + req.originalUrl);
   }
 
@@ -35,7 +31,7 @@ function nonApiUrl (req) {
 }
 
 export function forceHabitica (req, res, next) {
-  if (IS_PROD && !IGNORE_REDIRECT && !isProxied(req) && nonApiUrl(req)) {
+  if (IS_PROD && !IGNORE_REDIRECT && req.hostname !== BASE_URL_HOST && nonApiUrl(req) && req.method === 'GET') {
     return res.redirect(301, BASE_URL + req.url);
   }
 

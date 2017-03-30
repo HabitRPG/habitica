@@ -1,6 +1,6 @@
 import '../../website/server/libs/i18n';
 import mongoose from 'mongoose';
-import { defaultsDeep as defaults } from 'lodash';
+import defaultsDeep from 'lodash/defaultsDeep';
 import { model as User } from '../../website/server/models/user';
 import { model as Group } from '../../website/server/models/group';
 import { model as Challenge } from '../../website/server/models/challenge';
@@ -30,22 +30,23 @@ export function generateChallenge (options = {}) {
 
 export function generateRes (options = {}) {
   let defaultRes = {
-    render: sandbox.stub(),
-    send: sandbox.stub(),
-    status: sandbox.stub().returnsThis(),
-    sendStatus: sandbox.stub().returnsThis(),
     json: sandbox.stub(),
     locals: {
       user: generateUser(options.localsUser),
       group: generateGroup(options.localsGroup),
     },
+    redirect: sandbox.stub(),
+    render: sandbox.stub(),
+    send: sandbox.stub(),
+    sendStatus: sandbox.stub().returnsThis(),
     set: sandbox.stub(),
+    status: sandbox.stub().returnsThis(),
     t (string) {
       return i18n.t(string);
     },
   };
 
-  return defaults(options, defaultRes);
+  return defaultsDeep(options, defaultRes);
 }
 
 export function generateReq (options = {}) {
@@ -56,7 +57,7 @@ export function generateReq (options = {}) {
     header: sandbox.stub().returns(null),
   };
 
-  return defaults(options, defaultReq);
+  return defaultsDeep(options, defaultReq);
 }
 
 export function generateNext (func) {
@@ -86,7 +87,7 @@ export function generateTodo (user) {
     completed: false,
   };
 
-  let task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line babel/new-cap
+  let task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line new-cap
   task.userId = user._id;
   task.save();
 
@@ -101,7 +102,7 @@ export function generateDaily (user) {
     completed: false,
   };
 
-  let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line babel/new-cap
+  let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
   task.userId = user._id;
   task.save();
 

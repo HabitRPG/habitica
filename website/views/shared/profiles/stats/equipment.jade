@@ -1,10 +1,8 @@
-unless mobile
-  h4.stats-equipment(class=mobile?'item item-divider':'',
-    ng-show='user.flags.itemsEnabled')=env.t('equipment')
-  table.table.table-striped(ng-show='user.flags.itemsEnabled')
-    tr(ng-repeat='(itemType,gear) in profile.items.gear.equipped',
-      ng-init='piece=Content.gear.flat[gear]', ng-show='piece')
-      td
-        strong {{piece.text()}}
-        strong(ng-show='piece.str || piece.con || piece.per || piece.int') :&nbsp;
-        span(ng-repeat='stat in ["str","con","per","int"]', ng-show='piece[stat]') {{piece[stat]}} {{env.t(stat)}}&nbsp;
+h4.stats-equipment(ng-show='user.flags.itemsEnabled')=env.t('battleGear')
+table.table.table-striped(ng-show='user.flags.itemsEnabled')
+  tr(ng-repeat='(itemType,gear) in profile.items.gear.equipped',
+    ng-init='piece=Content.gear.flat[gear]', ng-show='piece')
+    td
+      strong {{piece.text()}}
+      strong(ng-show='piece.str || piece.con || piece.per || piece.int') :&nbsp;
+      span(ng-repeat='stat in ["str","con","per","int"]', ng-show='piece[stat]') {{piece[stat]}} {{env.t(stat)}}&nbsp;

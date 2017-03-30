@@ -38,7 +38,8 @@ describe('shared.fns.ultimateGear', () => {
     expect(user.addNotification).to.be.calledWith('ULTIMATE_GEAR_ACHIEVEMENT');
   });
 
-  it('does not set armoirEnabled when gear is not owned', () => {
+  it('does not set armoireEnabled when gear is not owned', () => {
+    user.flags.armoireEnabled = false;
     let items = {
       gear: {
         owned: {

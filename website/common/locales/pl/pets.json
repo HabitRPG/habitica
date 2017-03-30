@@ -1,10 +1,14 @@
 {
     "pets": "Chowańce",
+    "activePet": "Aktywny chowaniec",
+    "noActivePet": "Brak aktywnego chowańca",
     "petsFound": "Znalezione chowańce",
     "magicPets": "Magiczne chowańce",
     "rarePets": "Rzadkie chowańce",
     "questPets": "Chowańce z Misji",
     "mounts": "Wierzchowce",
+    "activeMount": "Aktywny wierzchowiec",
+    "noActiveMount": "Brak aktywnego wierzchowca",
     "mountsTamed": "Oswojonych wierzchowców",
     "questMounts": "Wierzchowce z Misji",
     "magicMounts": "Magiczne wierzchowce",
@@ -21,6 +25,7 @@
     "royalPurpleGryphon": "Purpurowy królewski gryf",
     "phoenix": "Feniks",
     "magicalBee": "Magiczna Pszczoła",
+    "royalPurpleJackalope": "Royal Purple Jackalope",
     "rarePetPop1": "Kliknij na złotą łapę, aby dowiedzieć się, jak możesz zdobyć tego rzadkiego chowańca poprzez pomoc w tworzeniu Habitiki!",
     "rarePetPop2": "Jak zdobyć tego Chowańca?",
     "potion": "Eliksir <%= potionType %>",
@@ -88,5 +93,7 @@
     "petsReleased": "Chowańce uwolnione.",
     "mountsAndPetsReleased": "Wierzchowce i chowańce uwolnione.",
     "mountsReleased": "Wierzchowce uwolnione.",
-    "gemsEach": "klejnotów każdy"
+    "gemsEach": "klejnotów każdy",
+    "foodWikiText": "Co lubi jeść mój chowaniec?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

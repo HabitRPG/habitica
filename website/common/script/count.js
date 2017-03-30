@@ -1,9 +1,7 @@
-import {
-  each,
-  filter,
-  keys,
-  size,
-} from 'lodash';
+import each from 'lodash/each';
+import filter from 'lodash/filter';
+import keys from 'lodash/keys';
+import size from 'lodash/size';
 import content from './content/index';
 
 const DROP_ANIMALS = keys(content.pets);

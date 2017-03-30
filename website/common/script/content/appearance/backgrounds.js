@@ -1,4 +1,4 @@
-import {forOwn} from 'lodash';
+import forOwn from 'lodash/forOwn';
 import t from '../translation';
 
 /* eslint-disable camelcase */
@@ -407,6 +407,108 @@ let backgrounds = {
     strange_sewers: {
       text: t('backgroundStrangeSewersText'),
       notes: t('backgroundStrangeSewersNotes'),
+    },
+  },
+  backgrounds112016: {
+    midnight_clouds: {
+      text: t('backgroundMidnightCloudsText'),
+      notes: t('backgroundMidnightCloudsNotes'),
+    },
+    stormy_rooftops: {
+      text: t('backgroundStormyRooftopsText'),
+      notes: t('backgroundStormyRooftopsNotes'),
+    },
+    windy_autumn: {
+      text: t('backgroundWindyAutumnText'),
+      notes: t('backgroundWindyAutumnNotes'),
+    },
+  },
+  backgrounds122016: {
+    shimmering_ice_prism: {
+      text: t('backgroundShimmeringIcePrismText'),
+      notes: t('backgroundShimmeringIcePrismNotes'),
+    },
+    winter_fireworks: {
+      text: t('backgroundWinterFireworksText'),
+      notes: t('backgroundWinterFireworksNotes'),
+    },
+    winter_storefront: {
+      text: t('backgroundWinterStorefrontText'),
+      notes: t('backgroundWinterStorefrontNotes'),
+    },
+  },
+  backgrounds012017: {
+    blizzard: {
+      text: t('backgroundBlizzardText'),
+      notes: t('backgroundBlizzardNotes'),
+    },
+    sparkling_snowflake: {
+      text: t('backgroundSparklingSnowflakeText'),
+      notes: t('backgroundSparklingSnowflakeNotes'),
+    },
+    stoikalm_volcanoes: {
+      text: t('backgroundStoikalmVolcanoesText'),
+      notes: t('backgroundStoikalmVolcanoesNotes'),
+    },
+  },
+  backgrounds022017: {
+    bell_tower: {
+      text: t('backgroundBellTowerText'),
+      notes: t('backgroundBellTowerNotes'),
+    },
+    treasure_room: {
+      text: t('backgroundTreasureRoomText'),
+      notes: t('backgroundTreasureRoomNotes'),
+    },
+    wedding_arch: {
+      text: t('backgroundWeddingArchText'),
+      notes: t('backgroundWeddingArchNotes'),
+    },
+  },
+  backgrounds032017: {
+    magic_beanstalk: {
+      text: t('backgroundMagicBeanstalkText'),
+      notes: t('backgroundMagicBeanstalkNotes'),
+    },
+    meandering_cave: {
+      text: t('backgroundMeanderingCaveText'),
+      notes: t('backgroundMeanderingCaveNotes'),
+    },
+    mistiflying_circus: {
+      text: t('backgroundMistiflyingCircusText'),
+      notes: t('backgroundMistiflyingCircusNotes'),
+    },
+  },
+  incentiveBackgrounds: {
+    violet: {
+      text: t('backgroundVioletText'),
+      notes: t('backgroundVioletNotes'),
+      currency: 'loginIncentive',
+    },
+    blue: {
+      text: t('backgroundBlueText'),
+      notes: t('backgroundBlueNotes'),
+      currency: 'loginIncentive',
+    },
+    green: {
+      text: t('backgroundGreenText'),
+      notes: t('backgroundGreenNotes'),
+      currency: 'loginIncentive',
+    },
+    purple: {
+      text: t('backgroundPurpleText'),
+      notes: t('backgroundPurpleNotes'),
+      currency: 'loginIncentive',
+    },
+    red: {
+      text: t('backgroundRedText'),
+      notes: t('backgroundRedNotes'),
+      currency: 'loginIncentive',
+    },
+    yellow: {
+      text: t('backgroundYellowText'),
+      notes: t('backgroundYellowNotes'),
+      currency: 'loginIncentive',
     },
   },
 };

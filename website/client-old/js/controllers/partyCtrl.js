@@ -1,7 +1,7 @@
 'use strict';
 
-habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social', 'Achievement',
-    function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social, Achievement) {
+habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social', 'Achievement', 'Members', 'Tasks',
+    function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social, Achievement, Members, Tasks) {
 
       var PARTY_LOADING_MESSAGES = 4;
 
@@ -10,6 +10,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       $scope.type = 'party';
       $scope.text = window.env.t('party');
       $scope.group = {loadingParty: true};
+      $scope.groupPanel = 'chat';
 
       $scope.inviteOrStartParty = Groups.inviteOrStartParty;
       $scope.loadWidgets = Social.loadWidgets;
@@ -21,7 +22,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
       function handlePartyResponse (group) {
         // Assign and not replace so that all the references get the modifications
         _.assign($rootScope.party, group);
-        $scope.group = $rootScope.party;
+        $scope.obj = $scope.group = $rootScope.party;
         $scope.group.loadingParty = false;
         checkForNotifications();
         if ($state.is('options.social.party')) {
@@ -43,7 +44,46 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
               }
             }, 100);
           }
-          Chat.markChatSeen($scope.group._id);
+          Chat.markChatSeen($scope.group._id)
+          .then (function () {
+            return Members.getGroupMembers($scope.group._id, true);
+          })
+          .then(function (response) {
+            $scope.group.members = response.data.data;
+
+            return Members.getGroupInvites($scope.group._id);
+          })
+          .then(function (response) {
+            $scope.group.invites = response.data.data;
+
+            return Challenges.getGroupChallenges($scope.group._id);
+          })
+          .then(function (response) {
+            $scope.group.challenges = response.data.data;
+
+            return Tasks.getGroupTasks($scope.group._id);
+          })
+          .then(function (response) {
+            var tasks = response.data.data;
+
+            $scope.group['habits'] = [];
+            $scope.group['dailys'] = [];
+            $scope.group['todos'] = [];
+            $scope.group['rewards'] = [];
+
+            tasks.forEach(function (element, index, array) {
+              if (!$scope.group[element.type + 's']) $scope.group[element.type + 's'] = [];
+              $scope.group[element.type + 's'].unshift(element);
+            });
+
+            $scope.group.approvals = [];
+            if (User.user._id === $scope.group.leader._id) {
+              return Tasks.getGroupApprovals($scope.group._id);
+            }
+          })
+          .then(function (response) {
+            if (response) $scope.group.approvals = response.data.data;
+          });
         }
       }
 
@@ -79,12 +119,16 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
         if (!group.name) group.name = env.t('possessiveParty', {name: User.user.profile.name});
         Groups.Group.create(group)
           .then(function(response) {
-            Analytics.updateUser({'party.id': $scope.group ._id, 'partySize': 1});
+            Analytics.updateUser({'partyID': $scope.group ._id, 'partySize': 1});
             $rootScope.hardRedirect('/#/options/groups/party');
           });
       };
 
       $scope.join = function (party) {
+        if (party.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
+          return;
+        }
+
         Groups.Group.join(party.id)
           .then(function (response) {
             $rootScope.party = $scope.group = response.data.data;
@@ -100,7 +144,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
           $scope.selectedGroup = undefined;
           $scope.popoverEl.popover('destroy');
         } else {
-          Groups.Group.leave($scope.selectedGroup._id, keep)
+          Groups.Group.leave($scope.selectedGroup._id, keep, 'remain-in-challenges')
             .then(function (response) {
               Analytics.updateUser({'partySize':null,'partyID':null});
               User.sync().then(function () {
@@ -122,7 +166,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
           //TODO: Move this to challenge service
           Challenges.getGroupChallenges(group._id)
           .then(function(response) {
-              var challenges = _.pluck(_.filter(response.data.data, function(c) {
+              var challenges = _.map(_.filter(response.data.data, function(c) {
                   return c.group._id == group._id;
               }), '_id');
 
@@ -163,7 +207,7 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
 
       $scope.leaveOldPartyAndJoinNewParty = function(newPartyId, newPartyName) {
         if (confirm('Are you sure you want to delete your party and join ' + newPartyName + '?')) {
-          Groups.Group.leave(Groups.data.party._id, false)
+          Groups.Group.leave(Groups.data.party._id, false, 'remain-in-challenges')
             .then(function() {
               $rootScope.party = $scope.group = {
                 loadingParty: true

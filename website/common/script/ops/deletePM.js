@@ -1,7 +1,7 @@
-import _ from 'lodash';
+import get from 'lodash/get';
 
 module.exports = function deletePM (user, req = {}) {
-  delete user.inbox.messages[_.get(req, 'params.id')];
+  delete user.inbox.messages[get(req, 'params.id')];
   user.markModified(`inbox.messages.${req.params.id}`);
   return [
     user.inbox.messages,

@@ -7,8 +7,10 @@ function _aggregate (history, aggregateBy) {
     .groupBy(entry => { // group entries by aggregateBy
       return moment(entry.date).format(aggregateBy);
     })
-    .sortBy((entry, key) => key) // sort by date
-    .map(entries => {
+    .toPairs() // [key, entry]
+    .sortBy(([key]) => key) // sort by date
+    .map(keyEntryPair => {
+      let entries = keyEntryPair[1]; // 1 is entry, 0 is key
       return {
         date: Number(entries[0].date),
         value: _.reduce(entries, (previousValue, entry) => {

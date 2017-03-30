@@ -1,5 +1,5 @@
 import taskDefaults from '../libs/taskDefaults';
-import clone from 'lodash/lang/clone';
+import clone from 'lodash/clone';
 
 // TODO move to client since it's only used there?
 

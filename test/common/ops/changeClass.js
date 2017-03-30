@@ -1,6 +1,7 @@
 import changeClass from '../../../website/common/script/ops/changeClass';
 import {
   NotAuthorized,
+  BadRequest,
 } from '../../../website/common/script/libs/errors';
 import i18n from '../../../website/common/script/i18n';
 import {
@@ -23,6 +24,19 @@ describe('shared.ops.changeClass', () => {
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('lvl10ChangeClass'));
+      done();
+    }
+  });
+
+  it('req.query.class is an invalid class', (done) => {
+    user.flags.classSelected = false;
+    user.preferences.disableClasses = false;
+
+    try {
+      changeClass(user, {query: {class: 'cellist'}});
+    } catch (err) {
+      expect(err).to.be.an.instanceof(BadRequest);
+      expect(err.message).to.equal(i18n.t('invalidClass'));
       done();
     }
   });

@@ -10,7 +10,12 @@ module.exports = function releasePets (user, req = {}, analytics) {
   }
 
   user.balance -= 1;
-  user.items.currentPet = '';
+
+  let petInfo = content.petInfo[user.items.currentPet];
+
+  if (petInfo && petInfo.type === 'drop') {
+    user.items.currentPet = '';
+  }
 
   for (let pet in content.pets) {
     user.items.pets[pet] = 0;

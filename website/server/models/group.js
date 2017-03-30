@@ -1,3 +1,4 @@
+import moment from 'moment';
 import mongoose from 'mongoose';
 import {
   model as User,
@@ -9,10 +10,12 @@ import { model as Challenge} from './challenge';
 import * as Tasks from './task';
 import validator from 'validator';
 import { removeFromArray } from '../libs/collectionManipulators';
+import payments from '../libs/payments';
 import { groupChatReceivedWebhook } from '../libs/webhook';
 import {
   InternalServerError,
   BadRequest,
+  NotAuthorized,
 } from '../libs/errors';
 import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email';
@@ -23,6 +26,11 @@ import pusher from '../libs/pusher';
 import {
   syncableAttrs,
 } from '../libs/taskManager';
+import {
+  schema as SubscriptionPlanSchema,
+} from './subscriptionPlan';
+import amazonPayments from '../libs/amazonPayments';
+import stripePayments from '../libs/stripePayments';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -32,9 +40,11 @@ export const TAVERN_ID = shared.TAVERN_ID;
 
 const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
 const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = shared.constants.LARGE_GROUP_COUNT_MESSAGE_CUTOFF;
+const GUILDS_PER_PAGE = shared.constants.GUILDS_PER_PAGE;
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
+const MAX_UPDATE_RETRIES = 5;
 
 export let schema = new Schema({
   name: {type: String, required: true},
@@ -91,7 +101,9 @@ export let schema = new Schema({
     rewards: [{type: String, ref: 'Task'}],
   },
   purchased: {
-    active: {type: Boolean, default: false},
+    plan: {type: SubscriptionPlanSchema, default: () => {
+      return {};
+    }},
   },
 }, {
   strict: true,
@@ -100,6 +112,10 @@ export let schema = new Schema({
 
 schema.plugin(baseModel, {
   noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased'],
+  private: ['purchased.plan'],
+  toJSONTransform (plainObj, originalDoc) {
+    if (plainObj.purchased) plainObj.purchased.active = originalDoc.isSubscribed();
+  },
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
@@ -190,7 +206,11 @@ schema.statics.getGroup = async function getGroup (options = {}) {
 export const VALID_QUERY_TYPES = ['party', 'guilds', 'privateGuilds', 'publicGuilds', 'tavern'];
 
 schema.statics.getGroups = async function getGroups (options = {}) {
-  let {user, types, groupFields = basicFields, sort = '-memberCount', populateLeader = false} = options;
+  let {
+    user, types, groupFields = basicFields,
+    sort = '-memberCount', populateLeader = false,
+    paginate = false, page = 0, // optional pagination for public guilds
+  } = options;
   let queries = [];
 
   // Throw error if an invalid type is supplied
@@ -232,6 +252,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
           privacy: 'public',
         }).select(groupFields);
         if (populateLeader === true) publicGuildsQuery.populate('leader', nameFields);
+        if (paginate === true) publicGuildsQuery.limit(GUILDS_PER_PAGE).skip(page * GUILDS_PER_PAGE);
         publicGuildsQuery.sort(sort).lean().exec();
         queries.push(publicGuildsQuery);
         break;
@@ -256,12 +277,14 @@ schema.statics.getGroups = async function getGroups (options = {}) {
 // When converting to json remove chat messages with more than 1 flag and remove all flags info
 // unless the user is an admin
 // Not putting into toJSON because there we can't access user
+// It also removes the _meta field that can be stored inside a chat message
 schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
   let toJSON = group.toJSON();
 
   if (!user.contributor.admin) {
     _.remove(toJSON.chat, chatMsg => {
       chatMsg.flags = {};
+      if (chatMsg._meta) chatMsg._meta = undefined;
       return chatMsg.flagCount >= 2;
     });
   }
@@ -277,7 +300,7 @@ schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
  * @param  res  Express res object for use with translations
  * @throws BadRequest An error describing the issue with the invitations
  */
-schema.statics.validateInvitations = function getInvitationError (uuids, emails, res) {
+schema.statics.validateInvitations = async function getInvitationError (uuids, emails, res, group = null) {
   let uuidsIsArray = Array.isArray(uuids);
   let emailsIsArray = Array.isArray(emails);
   let emptyEmails = emailsIsArray && emails.length < 1;
@@ -315,6 +338,27 @@ schema.statics.validateInvitations = function getInvitationError (uuids, emails,
 
   if (totalInvites > INVITES_LIMIT) {
     throw new BadRequest(res.t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}));
+  }
+
+  // If party, check the limit of members
+  if (group && group.type === 'party') {
+    let memberCount = 0;
+
+    // Counting the members that already joined the party
+    memberCount += group.memberCount;
+
+    // Count how many invitations currently exist in the party
+    let query = {};
+    query['invitations.party.id'] = group._id;
+    let groupInvites = await User.count(query).exec();
+    memberCount += groupInvites;
+
+    // Counting the members that are going to be invited by email and uuids
+    memberCount += totalInvites;
+
+    if (memberCount > shared.constants.PARTY_LIMIT_MEMBERS) {
+      throw new BadRequest(res.t('partyExceedsMembersLimit', {maxMembersParty: shared.constants.PARTY_LIMIT_MEMBERS}));
+    }
   }
 };
 
@@ -377,11 +421,27 @@ export function chatDefaults (msg, user) {
   return message;
 }
 
-schema.methods.sendChat = function sendChat (message, user) {
+schema.methods.sendChat = function sendChat (message, user, metaData) {
   let newMessage = chatDefaults(message, user);
 
+  // Optional data stored in the chat message but not returned
+  // to the users that can be stored for debugging purposes
+  if (metaData) {
+    newMessage._meta = metaData;
+  }
+
   this.chat.unshift(newMessage);
-  this.chat.splice(200);
+
+  const MAX_CHAT_COUNT = 200;
+  const MAX_SUBBED_GROUP_CHAT_COUNT = 400;
+
+  let maxCount = MAX_CHAT_COUNT;
+
+  if (this.isSubscribed()) {
+    maxCount = MAX_SUBBED_GROUP_CHAT_COUNT;
+  }
+
+  this.chat.splice(maxCount);
 
   // do not send notifications for guilds with more than 5000 users and for the tavern
   if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF) {
@@ -437,12 +497,12 @@ schema.methods.startQuest = async function startQuest (user) {
     this.quest.progress.collect = collected;
   }
 
-  let nonMembers = Object.keys(_.pick(this.quest.members, (member) => {
+  let nonMembers = Object.keys(_.pickBy(this.quest.members, (member) => {
     return !member;
   }));
 
   // Changes quest.members to only include participating members
-  this.quest.members = _.pick(this.quest.members, _.identity);
+  this.quest.members = _.pickBy(this.quest.members, _.identity);
   let nonUserQuestMembers = _.keys(this.quest.members);
   removeFromArray(nonUserQuestMembers, user._id);
 
@@ -450,7 +510,7 @@ schema.methods.startQuest = async function startQuest (user) {
   let partyId = this._id;
   let questMembers = this.quest.members;
   await Bluebird.map(Object.keys(this.quest.members), async (memberId) => {
-    let member = await User.findOne({_id: memberId, 'party._id': partyId}).select('_id').lean();
+    let member = await User.findOne({_id: memberId, 'party._id': partyId}).select('_id').lean().exec();
 
     if (!member) {
       delete questMembers[memberId];
@@ -524,6 +584,9 @@ schema.methods.startQuest = async function startQuest (user) {
         });
     });
   });
+  this.sendChat(`\`Your quest, ${quest.text('en')}, has started.\``, null, {
+    participatingMembers: this.getParticipatingQuestMembers().join(', '),
+  });
 };
 
 schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWebhooks (chat) {
@@ -542,7 +605,7 @@ schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWeb
     query.guilds = this._id;
   }
 
-  User.find(query).select({webhooks: 1}).lean().then((users) => {
+  User.find(query).select({webhooks: 1}).lean().exec().then((users) => {
     users.forEach((user) => {
       let { webhooks } = user;
       groupChatReceivedWebhook.send(webhooks, {
@@ -568,6 +631,52 @@ schema.statics.cleanGroupQuest = function cleanGroupQuest () {
   };
 };
 
+function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
+  let updates = {
+    $set: {},
+    $inc: {},
+  };
+  let dropK = itemToAward.key;
+
+  switch (itemToAward.type) {
+    case 'gear': {
+      // TODO This means they can lose their new gear on death, is that what we want?
+      updates.$set[`items.gear.owned.${dropK}`] = true;
+      break;
+    }
+    case 'eggs':
+    case 'food':
+    case 'hatchingPotions':
+    case 'quests': {
+      updates.$inc[`items.${itemToAward.type}.${dropK}`] = _.filter(allAwardedItems, {type: itemToAward.type, key: itemToAward.key}).length;
+      break;
+    }
+    case 'pets': {
+      updates.$set[`items.pets.${dropK}`] = 5;
+      break;
+    }
+    case 'mounts': {
+      updates.$set[`items.mounts.${dropK}`] = true;
+      break;
+    }
+  }
+  updates = _.omitBy(updates, _.isEmpty);
+  return updates;
+}
+
+async function _updateUserWithRetries (userId, updates, numTry = 1) {
+  return await User.update({_id: userId}, updates).exec()
+    .then((raw) => {
+      return raw;
+    }).catch((err) => {
+      if (numTry < MAX_UPDATE_RETRIES) {
+        return _updateUserWithRetries(userId, updates, ++numTry);
+      } else {
+        throw err;
+      }
+    });
+}
+
 // Participants: Grant rewards & achievements, finish quest.
 // Changes the group object update members
 schema.methods.finishQuest = async function finishQuest (quest) {
@@ -587,38 +696,35 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     updates.$set['party.quest'] = _cleanQuestProgress({completed: questK}); // clear quest progress
   }
 
-  _.each(quest.drop.items, (item) => {
-    let dropK = item.key;
-
-    switch (item.type) {
-      case 'gear': {
-        // TODO This means they can lose their new gear on death, is that what we want?
-        updates.$set[`items.gear.owned.${dropK}`] = true;
-        break;
-      }
-      case 'eggs':
-      case 'food':
-      case 'hatchingPotions':
-      case 'quests': {
-        updates.$inc[`items.${item.type}.${dropK}`] = _.where(quest.drop.items, {type: item.type, key: item.key}).length;
-        break;
-      }
-      case 'pets': {
-        updates.$set[`items.pets.${dropK}`] = 5;
-        break;
-      }
-      case 'mounts': {
-        updates.$set[`items.mounts.${dropK}`] = true;
-        break;
-      }
-    }
+  _.each(_.reject(quest.drop.items, 'onlyOwner'), (item) => {
+    _.merge(updates, _getUserUpdateForQuestReward(item, quest.drop.items));
   });
 
-  let q = this._id === TAVERN_ID ? {} : {_id: {$in: this.getParticipatingQuestMembers()}};
+  let questOwnerUpdates = {};
+  let questLeader = this.quest.leader;
+
+  _.each(_.filter(quest.drop.items, 'onlyOwner'), (item) => {
+    _.merge(questOwnerUpdates, _getUserUpdateForQuestReward(item, quest.drop.items));
+  });
+  _.merge(questOwnerUpdates, updates);
+
+  let participants = this._id === TAVERN_ID ? {} : this.getParticipatingQuestMembers();
   this.quest = {};
   this.markModified('quest');
 
-  return await User.update(q, updates, {multi: true}).exec();
+  if (this._id === TAVERN_ID) {
+    return await User.update({}, updates, {multi: true}).exec();
+  }
+
+  let promises = participants.map(userId => {
+    if (userId === questLeader) {
+      return _updateUserWithRetries(userId, questOwnerUpdates);
+    } else {
+      return _updateUserWithRetries(userId, updates);
+    }
+  });
+
+  return Bluebird.all(promises);
 };
 
 function _isOnQuest (user, progress, group) {
@@ -743,7 +849,7 @@ schema.statics.processQuestProgress = async function processQuestProgress (user,
   });
 };
 
-// to set a boss: `db.groups.update({_id:TAVERN_ID},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}})`
+// to set a boss: `db.groups.update({_id:TAVERN_ID},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}}).exec()`
 // we export an empty object that is then populated with the query-returned data
 export let tavernQuest = {};
 let tavernQ = {_id: TAVERN_ID, 'quest.key': {$ne: null}};
@@ -824,21 +930,41 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
   }
 };
 
-schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
+schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepChallenges = 'leave-challenges') {
   let group = this;
-  let update = {
-    $inc: {memberCount: -1},
-  };
+  let update = {};
 
-  let challenges = await Challenge.find({
-    _id: {$in: user.challenges},
-    group: group._id,
-  });
+  if (group.memberCount <= 1 && group.privacy === 'private' && group.hasNotCancelled()) {
+    throw new NotAuthorized(shared.i18n.t('cannotDeleteActiveGroup'));
+  }
 
-  let challengesToRemoveUserFrom = challenges.map(chal => {
-    return chal.unlinkTasks(user, keep);
+  if (group.leader === user._id && group.hasNotCancelled()) {
+    throw new NotAuthorized(shared.i18n.t('leaderCannotLeaveGroupWithActiveGroup'));
+  }
+
+  // only remove user from challenges if it's set to leave-challenges
+  if (keepChallenges === 'leave-challenges') {
+    let challenges = await Challenge.find({
+      _id: {$in: user.challenges},
+      group: group._id,
+    }).exec();
+
+    let challengesToRemoveUserFrom = challenges.map(chal => {
+      return chal.unlinkTasks(user, keep);
+    });
+    await Bluebird.all(challengesToRemoveUserFrom);
+  }
+
+  // Unlink group tasks)
+  let assignedTasks = await Tasks.Task.find({
+    'group.id': group._id,
+    userId: {$exists: false},
+    'group.assignedUsers': user._id,
+  }).exec();
+  let assignedTasksToRemoveUserFrom = assignedTasks.map(task => {
+    return this.unlinkTask(task, user, keep);
   });
-  await Bluebird.all(challengesToRemoveUserFrom);
+  await Bluebird.all(assignedTasksToRemoveUserFrom);
 
   let promises = [];
 
@@ -856,25 +982,59 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     update.$unset = {[`quest.members.${user._id}`]: 1};
   }
 
+  if (group.purchased.plan.customerId) {
+    promises.push(payments.cancelGroupSubscriptionForUser(user, this));
+  }
+
   // If user is the last one in group and group is private, delete it
   if (group.memberCount <= 1 && group.privacy === 'private') {
-    promises.push(group.remove());
-  } else { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
-    if (group.leader === user._id) {
-      let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
-      query._id = {$ne: user._id};
-      let seniorMember = await User.findOne(query).select('_id').exec();
-
-      // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
-      if (seniorMember) update.$set = {leader: seniorMember._id};
+    // double check the member count is correct so we don't accidentally delete a group that still has users in it
+    let members;
+    if (group.type === 'guild') {
+      members = await User.find({guilds: group._id}).select('_id').exec();
+    } else {
+      members = await User.find({'party._id': group._id}).select('_id').exec();
     }
-    promises.push(group.update(update).exec());
+
+    _.remove(members, {_id: user._id});
+
+    if (members.length === 0) {
+      promises.push(group.remove());
+      return await Bluebird.all(promises);
+    }
+  } else if (group.leader === user._id) { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
+    let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
+    query._id = {$ne: user._id};
+    let seniorMember = await User.findOne(query).select('_id').exec();
+
+    // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
+    if (seniorMember) update.$set = {leader: seniorMember._id};
   }
+  // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
+  update.$inc = {memberCount: -1};
+  if (group.leader === user._id) {
+    let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
+    query._id = {$ne: user._id};
+    let seniorMember = await User.findOne(query).select('_id').exec();
+
+    // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
+    if (seniorMember) update.$set = {leader: seniorMember._id};
+  }
+  promises.push(group.update(update).exec());
 
   return await Bluebird.all(promises);
 };
 
-schema.methods.updateTask = async function updateTask (taskToSync) {
+/**
+ * Updates all linked tasks for a group task
+ *
+ * @param  taskToSync  The group task that will be synced
+ * @param  options.newCheckListItem  The new checklist item that needs to be synced to all assigned users
+ * @param  options.removedCheckListItem  The removed checklist item that needs to be removed from all assigned users
+ *
+ * @return The created tasks
+ */
+schema.methods.updateTask = async function updateTask (taskToSync, options = {}) {
   let group = this;
 
   let updateCmd = {$set: {}};
@@ -884,13 +1044,52 @@ schema.methods.updateTask = async function updateTask (taskToSync) {
     updateCmd.$set[key] = syncableAttributes[key];
   }
 
+  updateCmd.$set['group.approval.required'] = taskToSync.group.approval.required;
+  updateCmd.$set['group.assignedUsers'] = taskToSync.group.assignedUsers;
+
   let taskSchema = Tasks[taskToSync.type];
-  // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
-  await taskSchema.update({
+
+  let updateQuery = {
     userId: {$exists: true},
     'group.id': group.id,
     'group.taskId': taskToSync._id,
-  }, updateCmd, {multi: true}).exec();
+  };
+
+  if (options.newCheckListItem) {
+    let newCheckList = {completed: false};
+    newCheckList.linkId = options.newCheckListItem.id;
+    newCheckList.text = options.newCheckListItem.text;
+    updateCmd.$push = { checklist: newCheckList };
+  }
+
+  if (options.removedCheckListItemId) {
+    updateCmd.$pull = { checklist: {linkId: {$in: [options.removedCheckListItemId]} } };
+  }
+
+  if (options.updateCheckListItems && options.updateCheckListItems.length > 0) {
+    let checkListIdsToRemove = [];
+    let checkListItemsToAdd = [];
+
+    options.updateCheckListItems.forEach(function gatherChecklists (updateCheckListItem) {
+      checkListIdsToRemove.push(updateCheckListItem.id);
+      let newCheckList = {completed: false};
+      newCheckList.linkId = updateCheckListItem.id;
+      newCheckList.text = updateCheckListItem.text;
+      checkListItemsToAdd.push(newCheckList);
+    });
+
+    updateCmd.$pull = { checklist: {linkId: {$in: checkListIdsToRemove} } };
+    await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
+
+    delete updateCmd.$pull;
+    updateCmd.$push = { checklist: { $each: checkListItemsToAdd } };
+    await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
+
+    return;
+  }
+
+  // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
+  await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
 };
 
 schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
@@ -909,11 +1108,13 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
     if (userTags[i].name !== group.name) {
       // update the name - it's been changed since
       userTags[i].name = group.name;
+      userTags[i].group = group._id;
     }
   } else {
     userTags.push({
       id: group._id,
       name: group.name,
+      group: group._id,
     });
   }
 
@@ -936,6 +1137,19 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
     // Make sure the task is in user.tasksOrder
     let orderList = user.tasksOrder[`${taskToSync.type}s`];
     if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
+  }
+
+  matchingTask.group.approval.required = taskToSync.group.approval.required;
+  matchingTask.group.assignedUsers = taskToSync.group.assignedUsers;
+
+  //  sync checklist
+  if (taskToSync.checklist) {
+    taskToSync.checklist.forEach(function syncCheckList (element) {
+      let newCheckList = {completed: false};
+      newCheckList.linkId = element.id;
+      newCheckList.text = element.text;
+      matchingTask.checklist.push(newCheckList);
+    });
   }
 
   if (!matchingTask.notes) matchingTask.notes = taskToSync.notes; // don't override the notes, but provide it if not provided
@@ -985,6 +1199,34 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
   }, {multi: true}).exec();
 };
 
+schema.methods.isSubscribed = function isSubscribed () {
+  let now = new Date();
+  let plan = this.purchased.plan;
+  return plan && plan.customerId && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
+};
+
+schema.methods.hasNotCancelled = function hasNotCancelled () {
+  let plan = this.purchased.plan;
+  return this.isSubscribed() && !plan.dateTerminated;
+};
+
+schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {
+  // Recheck the group plan count
+  let members;
+  if (this.type === 'guild') {
+    members = await User.find({guilds: this._id}).select('_id').exec();
+  } else {
+    members = await User.find({'party._id': this._id}).select('_id').exec();
+  }
+  this.memberCount = members.length;
+
+  if (this.purchased.plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
+    await stripePayments.chargeForAdditionalGroupMember(this);
+  } else if (this.purchased.plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD && !removingMember) {
+    await amazonPayments.chargeForAdditionalGroupMember(this);
+  }
+};
+
 export let model = mongoose.model('Group', schema);
 
 // initialize tavern if !exists (fresh installs)
@@ -993,7 +1235,7 @@ if (!nconf.get('IS_TEST')) {
   model.count({_id: TAVERN_ID}, (err, ct) => {
     if (err) throw err;
     if (ct > 0) return;
-    new model({ // eslint-disable-line babel/new-cap
+    new model({ // eslint-disable-line new-cap
       _id: TAVERN_ID,
       leader: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0', // Siena Leslie
       name: 'Tavern',

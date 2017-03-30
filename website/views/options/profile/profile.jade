@@ -1,0 +1,55 @@
+script(id='partials/options.profile.profile.html', type='text/ng-template')
+  .container-fluid
+    .row
+      .col-md-12(ng-show='!_editing.profile')
+        button.btn.btn-default(ng-click='_editing.profile = true', ng-show='!_editing.profile')= env.t('edit')
+        h4=env.t('displayName')
+        span(ng-show='profile.profile.name') {{profile.profile.name}}
+        p
+          small.muted=env.t('displayNameDescription1')
+            |&nbsp;
+            a(href='/#/options/settings/settings')=env.t('displayNameDescription2')
+            |&nbsp;
+            =env.t('displayNameDescription3')
+        span.muted(ng-hide='profile.profile.name') -&nbsp;
+          =env.t('none')
+          | &nbsp;-
+
+        h4=env.t('displayPhoto')
+        img.img-rendering-auto(ng-show='profile.profile.imageUrl', ng-src='{{profile.profile.imageUrl}}')
+        span.muted(ng-hide='profile.profile.imageUrl') -&nbsp;
+          =env.t('none')
+          | &nbsp;-
+
+        h4=env.t('displayBlurb')
+        markdown(ng-show='profile.profile.blurb', text='profile.profile.blurb')
+        span.muted(ng-hide='profile.profile.blurb') -&nbsp;
+          =env.t('none')
+          | &nbsp;-
+        //{{profile.profile.blurb | linky:'_blank'}}
+    .row
+      .col-md-6
+        h4=env.t('totalCheckinsTitle')
+        span {{env.t('totalCheckins', {count: user.loginIncentives})}}
+      .col-md-6
+        h4
+          | {{::getProgressDisplay()}}
+        .progress
+          .progress-bar(role='progressbar', aria-valuenow='{{::incentivesProgress()}}', aria-valuemin='0', aria-valuemax='100', style='width: {{::incentivesProgress()}}%;')
+            span.sr-only {{::incentivesProgress()}}% Complete
+
+      form.col-md-4(ng-show='_editing.profile', ng-submit='save()')
+        .alert.alert-info.alert-sm
+          !=env.t("communityGuidelinesWarning")
+        input.btn.btn-primary(type='submit', value=env.t('save'))
+        // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
+        .form-group
+          label=env.t('displayName')
+          input.form-control(type='text', placeholder=env.t('fullName'), ng-model='editingProfile.name')
+        .form-group
+          label=env.t('photoUrl')
+          input.form-control(type='url', ng-model='editingProfile.imageUrl', placeholder=env.t('imageUrl'))
+        .form-group
+          label=env.t('displayBlurb')
+          textarea.form-control(rows=5, placeholder=env.t('displayBlurbPlaceholder'), ng-model='editingProfile.blurb')
+          include ../../shared/formatting-help
