@@ -125,10 +125,18 @@ let api = {};
      "prize": 0,
      "memberCount": 1,
      "tasksOrder": {
-       "rewards": [],
-       "todos": [],
-       "dailys": [],
-       "habits": []
+       "rewards": [
+         "uuid-of-challenge-reward"
+       ],
+       "todos": [
+         "uuid-of-challenge-todo"
+       ],
+       "dailys": [
+         "uuid-of-challenge-daily"
+       ],
+       "habits": [
+         "uuid-of-challenge-habit"
+       ]
      },
      "official": false,
      "id": "challenge-id"
@@ -143,10 +151,12 @@ let api = {};
  * @apiDescription Creates a challenge. Cannot create associated tasks with this route. See <a href="#api-Task-CreateChallengeTasks">CreateChallengeTasks</a>.
  *
  * @apiParam (Body) {Object} challenge An object representing the challenge to be created
- * @apiParam (Body) {UUID} challenge.groupId The id of the group to which the challenge belongs.
- * @apiParam (Body) {String} challenge.name The full name of the challenge.
- * @apiParam (Body) {String} challenge.shortName A shortened name for the challenge, to be used as a tag.
- * @apiParam (Body) {Number} [challenge.prize=0] Number of gems offered as a prize to challenge winner. Default is 0.
+ * @apiParam (Body) {UUID} challenge.groupId The id of the group to which the challenge belongs
+ * @apiParam (Body) {String} challenge.name The full name of the challenge
+ * @apiParam (Body) {String} challenge.shortName A shortened name for the challenge, to be used as a tag
+ * @apiParam (Body) {String} [challenge.description] A description of the challenge
+ * @apiParam (Body) {Boolean} [official=False] Whether or not a challenge is an official Habitica challenge (requires admin)
+ * @apiParam (Body) {Number} [challenge.prize=0] Number of gems offered as a prize to challenge winner
  *
  * @apiSuccess {Object} challenge The newly created challenge.
  * @apiUse SuccessfulChallengeRequest
@@ -298,6 +308,7 @@ api.joinChallenge = {
  * @apiName LeaveChallenge
  * @apiGroup Challenge
  * @apiParam (Path) {UUID} challengeId The challenge _id
+ * @apiParam (Body) {String="remove-all","keep-all"} [keep="keep-all"] Whether or not to keep or remove the challenge's tasks
  *
  * @apiSuccess {Object} data An empty object
  *
