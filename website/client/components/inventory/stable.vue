@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  .col-3
+  .col-2.standard-sidebar
     .form-group
       input.form-control(type="text", :placeholder="$t('search')")
 
@@ -41,9 +41,8 @@
             input.form-check-input(type="checkbox")
             span {{ $t('special') }}
 
-
-  .col-9
-    h2 Pets
+  .col-10.standard-page
+    h4 Pets
     .inventory-item-container(v-for="pet in listAnimals('pet', content.dropEggs, content.dropHatchingPotions)")
       .PixelPaw
 
@@ -64,7 +63,7 @@
     h2 Rare Mounts
 </template>
 
-<style>
+<style lang="scss">
 .inventory-item-container {
   padding: 20px;
   border: 1px solid;

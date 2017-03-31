@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  .col-3
+  .col-2.standard-sidebar
     .form-group
       input.form-control(type="text", :placeholder="$t('search')")
     
@@ -22,7 +22,7 @@
             input.form-check-input(type="checkbox")
             span Animals
 
-  .col-9
+  .col-10.standard-page
     h2(v-once) {{ $t('publicGuilds') }}
     public-guild-item(v-for="guild in guilds", :key='guild._id', :guild="guild")
     mugen-scroll(

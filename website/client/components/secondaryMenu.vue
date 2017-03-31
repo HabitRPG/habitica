@@ -8,9 +8,8 @@ nav.nav.d-flex.justify-content-center.secondary-menu
 
 .secondary-menu {
   background: $gray-600;
-  margin-left: -15px;
-  margin-right: -15px;
   box-shadow: 0 1px 2px 0 rgba($black, 0.2);
+  z-index: 9;
 }
 
 .nav-link {

@@ -1,16 +1,20 @@
 // Variables
 @import './colors';
 
-// Global styles
-@import './forms';
-
 html, body {
   height: 100%;
 }
 
 body {
   background: $gray-700;
+  color: $black;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+// Global styles
+@import './forms';
+
+// Generic components
+@import './page';
