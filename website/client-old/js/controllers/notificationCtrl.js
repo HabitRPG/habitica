@@ -87,7 +87,7 @@ habitrpg.controller('NotificationCtrl',
       if (!after || after.length === 0) return;
 
       var notificationsToRead = [];
-      var scoreTaskNotification;
+      var scoreTaskNotification = [];
 
       after.forEach(function (notification) {
         if (lastShownNotifications.indexOf(notification.id) !== -1) {
@@ -144,7 +144,7 @@ habitrpg.controller('NotificationCtrl',
             markAsRead = false;
             break;
           case 'SCORED_TASK':
-            scoreTaskNotification = notification;
+            scoreTaskNotification.push(notification);
             break;
           case 'LOGIN_INCENTIVE':
             Notification.showLoginIncentive(User.user, notification.data, Social.loadWidgets);
@@ -168,10 +168,9 @@ habitrpg.controller('NotificationCtrl',
 
       if (userReadNotifsPromise) {
         userReadNotifsPromise.then(function () {
-          if (scoreTaskNotification) {
-            Notification.markdown(scoreTaskNotification.data.message);
-            User.score({params:{task: scoreTaskNotification.data.scoreTask, direction: "up"}});
-            User.sync();
+          for (var i = 0; i < scoreTaskNotification.length; i++) {
+            Notification.markdown(scoreTaskNotification[i].data.message);
+            User.score({params: {task: scoreTaskNotification[i].data.scoreTask, direction: "up"}});
           }
         });
       }
