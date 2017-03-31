@@ -100,7 +100,6 @@ import statsComputed from '../../common/script/libs/statsComputed';
 import percent from '../../common/script/libs/percent';
 
 export default {
-  name: 'header',
   components: {
     Avatar,
   },
