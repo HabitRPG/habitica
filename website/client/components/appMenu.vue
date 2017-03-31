@@ -52,8 +52,10 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
 </template>
 
 <style lang="scss" scoped>
+@import '~client/assets/scss/colors.scss';
+
 nav.navbar {
-  background: #432874 url(~assets/header/png/bits.png) right no-repeat;
+  background: $purple-100 url(~assets/header/png/bits.png) right no-repeat;
   padding: 0 1.5rem;
   height: 56px;
 }
@@ -66,11 +68,9 @@ nav.navbar {
   }
 }
 
-$active-purple: #6133b4;
-
 .nav-item {
   .nav-link {
-    color: #fff;
+    color: $white;
     font-weight: bold;
     line-height: 1.5;
     padding: 1rem 1.5rem;
@@ -78,14 +78,14 @@ $active-purple: #6133b4;
 
   &:hover {
     .nav-link {
-      color: #fff;
-      background: $active-purple;
+      color: $white;
+      background: $purple-300;
     }
   }
 
   &.active,&:hover {
     .nav-link {
-      box-shadow: 0px -4px 0px #6133b4 inset;
+      box-shadow: 0px -4px 0px $purple-300 inset;
     }
   }
 }
@@ -97,25 +97,25 @@ $active-purple: #6133b4;
 }
 
 .dropdown-menu:not(.user-dropdown) {
-  background: $active-purple;
+  background: $purple-300;
   border-radius: 0px;
   border: none;
 
   .dropdown-item {
-    color: #fff;
+    color: $white;
 
     &.active {
-      background: $active-purple;
+      background: $purple-300;
     }
 
     &:hover {
-      background: #4f2a93;
+      background: $purple-200;
     }
   }
 }
 
 .item-with-icon {
-  color: #fff;
+  color: $white;
   font-weight: bold;
   padding: 0.75rem 0;
   padding-left: 1rem;
