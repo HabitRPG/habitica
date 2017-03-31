@@ -107,7 +107,7 @@ let specialAchievs = {
     textKey: 'contribText',
   },
   npc: {
-    icon: 'achievement-ultimate-warrior',
+    icon: 'achievement-npc',
     titleKey: 'npcAchievementName',
     textKey: 'npcAchievementText',
   },
