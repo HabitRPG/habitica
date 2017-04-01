@@ -8,7 +8,7 @@ script(type='text/ng-template', id='modals/hatchPet.html')
       .container-fluid
         .row(style='margin-bottom:1em', ng-controller='UserCtrl')
           .col-xs-4(style='padding:0')
-            div(class='{{::hatchedPet.pet}}').pull-right
+            div(ng-class='aprilFool(hatchedPet.pet.slice(4))').pull-right
           .col-xs-3
             .empty_bottles(style='margin-top:2.8em')
           .col-xs-5(style='padding:0')
