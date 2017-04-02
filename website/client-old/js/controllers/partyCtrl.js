@@ -286,25 +286,5 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
 
         return isQuestLeader;
       };
-
-      $scope.aprilFool = function (pet) {
-        if (!pet) return 'Pet-AprilFool-None';
-        if (pet === 'Phoenix-Base') return 'Pet-AprilFool-Red';
-        var petStringArray = pet.split('-');
-        var petColor = petStringArray[1];
-        var standardColors = ['Base', 'CottonCandyBlue', 'CottonCandyPink', 'Desert', 'Golden', 'Red', 'Shade', 'Skeleton', 'White', 'Zombie'];
-        if (standardColors.indexOf(petColor) !== -1) return 'Pet-AprilFool-' + petColor;
-        if (petColor === 'Cerberus') return 'Pet-AprilFool-Zombie';
-        if (petColor === 'Cupid') return 'Pet-AprilFool-CottonCandyPink';
-        if (petColor === 'Ghost') return 'Pet-AprilFool-Skeleton';
-        if (petColor === 'Gilded') return 'Pet-AprilFool-Golden';
-        if (petColor === 'Hydra') return 'Pet-AprilFool-Zombie';
-        if (petColor === 'Polar') return 'Pet-AprilFool-White';
-        if (petColor === 'RoyalPurple') return 'Pet-AprilFool-Golden';
-        if (petColor === 'Shimmer') return 'Pet-AprilFool-Red';
-        if (petColor === 'Spooky') return 'Pet-AprilFool-Zombie';
-        if (petColor === 'Veteran') return 'Pet-AprilFool-Shade';
-        return 'Pet-AprilFool-Magic';
-      }
     }
   ]);
