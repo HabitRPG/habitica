@@ -33,4 +33,4 @@ mixin avatar(opts)
 
     // Pet
     if !opts.minimal
-      span.current-pet(ng-class='aprilFool(profile.items.currentPet)')
+      span.current-pet(class='Pet-{{profile.items.currentPet}}', ng-show='profile.items.currentPet')
