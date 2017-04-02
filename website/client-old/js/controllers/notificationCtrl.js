@@ -174,7 +174,7 @@ habitrpg.controller('NotificationCtrl',
             // Array with all approved tasks
             approvedTasks.push({
               params: {
-                task: jQuery.extend(true, {}, scoreTaskNotification[i].data.scoreTask), // Copy scoreTask in another object
+                task: scoreTaskNotification[i].data.scoreTask,
                 direction: "up"
               }
             });
