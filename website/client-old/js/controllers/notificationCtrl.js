@@ -169,22 +169,25 @@ habitrpg.controller('NotificationCtrl',
       if (userReadNotifsPromise) {
         userReadNotifsPromise.then(function () {
 
-          var approvedTasks = [];
-          for (var i = 0; i < scoreTaskNotification.length; i++) {
-            // Array with all approved tasks
-            approvedTasks.push({
-              params: {
-                task: scoreTaskNotification[i].data.scoreTask,
-                direction: "up"
-              }
-            });
+          // Only run this code for scoring approved tasks
+          if (scoreTaskNotification.length > 0) {
+            var approvedTasks = [];
+            for (var i = 0; i < scoreTaskNotification.length; i++) {
+              // Array with all approved tasks
+              approvedTasks.push({
+                params: {
+                  task: scoreTaskNotification[i].data.scoreTask,
+                  direction: "up"
+                }
+              });
 
-            // Show notification of task approved
-            Notification.markdown(scoreTaskNotification[i].data.message);
+              // Show notification of task approved
+              Notification.markdown(scoreTaskNotification[i].data.message);
+            }
+
+            // Score approved tasks
+            User.bulkScore(approvedTasks);
           }
-
-          // Score approved tasks
-          User.bulkScore(approvedTasks);
         });
       }
 
