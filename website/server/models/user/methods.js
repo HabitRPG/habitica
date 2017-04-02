@@ -110,16 +110,17 @@ schema.methods.addComputedStatsToJSONObj = function addComputedStatsToUserJSONOb
 // To negotiate between the payment providers and the payment helper (which probably has too many responsiblities)
 // In summary, currently is is best practice to use this method to cancel a user subscription, rather than calling the
 // payment helper.
-schema.methods.cancelSubscription = async function cancelSubscription () {
+schema.methods.cancelSubscription = async function cancelSubscription (options = {}) {
   let plan = this.purchased.plan;
 
+  options.user = this;
   if (plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD) {
-    return await amazonPayments.cancelSubscription({user: this});
+    return await amazonPayments.cancelSubscription(options);
   } else if (plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
-    return await stripePayments.cancelSubscription({user: this});
+    return await stripePayments.cancelSubscription(options);
   } else if (plan.paymentMethod === paypalPayments.constants.PAYMENT_METHOD) {
-    return await paypalPayments.subscribeCancel({user: this});
+    return await paypalPayments.subscribeCancel(options);
   }
 
-  return await payments.cancelSubscription({user: this});
+  return await payments.cancelSubscription(options);
 };

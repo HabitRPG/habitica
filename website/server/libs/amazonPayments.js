@@ -165,7 +165,7 @@ api.checkout = async function checkout (options = {}) {
  * @return undefined
  */
 api.cancelSubscription = async function cancelSubscription (options = {}) {
-  let {user, groupId, headers} = options;
+  let {user, groupId, headers, reason} = options; // TODO add `reason` to the other payment-specific cancelSubscription functions
 
   let billingAgreementId;
   let planId;
@@ -218,6 +218,7 @@ api.cancelSubscription = async function cancelSubscription (options = {}) {
     nextBill: moment(lastBillingDate).add({ days: subscriptionLength }),
     paymentMethod: this.constants.PAYMENT_METHOD,
     headers,
+    reason, // TODO add `reason` to the other payment-specific cancelSubscription functions
   });
 };
 
