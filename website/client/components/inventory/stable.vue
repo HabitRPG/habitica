@@ -43,20 +43,24 @@
 
   .col-10.standard-page
     h4 Pets
-    .inventory-item-container(v-for="pet in listAnimals('pet', content.dropEggs, content.dropHatchingPotions)")
+    .inventory-item-container(v-for="pet in dropPets")
       .PixelPaw
+    .btn.btn-secondary.d-block(@click="open.dropPets = !open.dropPets") {{ open.dropPets ? 'Close' : 'Open' }}
 
     h2 Magic Potions Pets
-    ul
-      li(v-for="pet in listAnimals('pet', content.dropEggs, content.premiumHatchingPotions)") {{pet}}
+    .inventory-item-container(v-for="pet in magicPets")
+      .PixelPaw
+    .btn.btn-secondary.d-block(@click="open.magicPets = !open.magicPets") {{ open.magicPets ? 'Close' : 'Open' }}
 
     h2 Quest Pets
-    ul
-      li(v-for="pet in listAnimals('pet', content.questEggs, content.dropHatchingPotions)") {{pet}}
+    .inventory-item-container(v-for="pet in questPets")
+      .PixelPaw
+    .btn.btn-secondary.d-block(@click="open.questPets = !open.questPets") {{ open.questPets ? 'Close' : 'Open' }}
 
     h2 Rare Pets
-    ul
-      li(v-for="pet in listAnimals('pet', content.dropEggs, content.dropHatchingPotions)") {{pet}}
+    .inventory-item-container(v-for="pet in rarePets")
+      .PixelPaw
+    .btn.btn-secondary.d-block(@click="open.rarePets = !open.rarePets") {{ open.rarePets ? 'Close' : 'Open' }}
 
     h2 Mounts
     h2 Quest Mounts
@@ -73,17 +77,47 @@
 
 <script>
 import { mapState } from 'client/libs/store';
+import Store from 'client/store';
 import each from 'lodash/each';
+import deepFreeze from 'client/libs/deepFreeze';
+
+// Normalize special pets and mounts
+//const specialMounts =
 
 export default {
+  data () {
+    return {
+      open: {
+        dropPets: false,
+        magicPets: false,
+        questPets: false,
+        rarePets: false,
+      },
+    };
+  },
   computed: {
     ...mapState(['content']),
+    dropPets () {
+      return this.listAnimals('pet', this.content.dropEggs, this.content.dropHatchingPotions, this.open.dropPets);
+    },
+    magicPets () {
+      return this.listAnimals('pet', this.content.dropEggs, this.content.premiumHatchingPotions, this.open.magicPets);
+    },
+    questPets () {
+      return this.listAnimals('pet', this.content.questEggs, this.content.dropHatchingPotions, this.open.questPets);
+    },
+    rarePets () {
+      return this.listAnimals('pet', this.content.dropEggs, this.content.dropHatchingPotions, this.open.rarePets);
+    },
   },
   methods: {
-    listAnimals (type, eggSource, potionSource) {
+    listAnimals (type, eggSource, potionSource, isOpen = false) {
       let animals = [];
+      let iteration = 0;
 
       each(eggSource, (egg) => {
+        if (iteration === 1 && !isOpen) return false;
+        iteration++;
         each(potionSource, (potion) => {
           let animalKey = `${egg.key}-${potion.key}`;
           animals.push(this.content[`${type}Info`][animalKey].text());
