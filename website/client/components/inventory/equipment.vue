@@ -10,11 +10,10 @@
         .form-check(
           v-for="group in itemsGroups", 
           :key="group.key",
-          v-if="group",
         )
-          label.form-check-label(v-once) 
-            input.form-check-input(type="checkbox")
-            span {{ $t(group.label) }}
+          label.form-check-label 
+            input.form-check-input(type="checkbox", v-model="viewOptions[group.key].selected")
+            span(v-once) {{ $t(group.label) }}
 
   .col-10.standard-page
     h1(v-once) {{ $t('equipment') }}
@@ -30,11 +29,18 @@
     div(
       v-for="group in itemsGroups", 
       :key="group.key",
-      v-if="group",
+      v-if="group && viewOptions[group.key].selected",
     )
-      h2(v-once) {{ $t(group.label) }}
-      div(v-for="item in group.items", :key="item.key")
+      h2
+       | {{ $t(group.label) }} 
+       span.badge.badge-pill.badge-default {{group.items.length}}
+
+      div(v-for="(item, index) in group.items", :key="item.key", v-if="viewOptions[group.key].open || index < 10")
         span(v-once) {{ item.text() }}
+      div(v-if="group.items.length === 0")
+        span No items in this category
+      .btn.btn-secondary.d-block(v-else, @click="viewOptions[group.key].open = !viewOptions[group.key].open") 
+       | {{ viewOptions[group.key].open ? 'Close' : 'Open' }}
 </template>
 
 <script>
@@ -46,7 +52,7 @@ export default {
   data () {
     return {
       groupBy: 'type', // or 'class' TODO move to router?
-      gearTypesToStrings: {
+      gearTypesToStrings: Object.freeze({
         headAccessory: 'headAccessoryCapitalized',
         head: 'headgearCapitalized',
         eyewear: 'eyewear',
@@ -55,8 +61,8 @@ export default {
         armor: 'armorCapitalized',
         body: 'body',
         back: 'back',
-      },
-      gearClassesToStrings: {
+      }),
+      gearClassesToStrings: Object.freeze({
         warrior: 'warrior',
         wizard: 'mage',
         rogue: 'rogue',
@@ -64,7 +70,8 @@ export default {
         special: 'special',
         mystery: 'mystery',
         armoire: 'armoireText',
-      },
+      }),
+      viewOptions: {},
     };
   },
   computed: {
@@ -107,17 +114,16 @@ export default {
       const items = this.groupBy === 'type' ? this.gearItemsByType : this.gearItemsByClass;
 
       return map(allGroups, (label, group) => {
-        const itemsOfGroup = items[group];
-        const hasItemsOfGroup = Boolean(itemsOfGroup);
-        if (hasItemsOfGroup) {
-          return {
-            key: group,
-            label,
-            items: itemsOfGroup,
-          };
-        } else {
-          return null;
-        }
+        this.$set(this.viewOptions, group, {
+          selected: true,
+          open: false,
+        });
+
+        return {
+          key: group,
+          label,
+          items: items[group] || [],
+        };
       });
     },
   },
