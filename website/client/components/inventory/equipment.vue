@@ -32,7 +32,7 @@
       :key="group.key",
       v-if="group",
     )
-      h4(v-once) {{ $t(group.label) }}
+      h2(v-once) {{ $t(group.label) }}
       div(v-for="item in group.items", :key="item.key")
         span(v-once) {{ item.text() }}
 </template>
