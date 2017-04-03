@@ -24,6 +24,8 @@ api.constants = {
   UNLIMITED_CUSTOMER_ID: 'habitrpg', // Users with the customerId have an unlimted free subscription
   GROUP_PLAN_CUSTOMER_ID: 'group-plan',
   GROUP_PLAN_PAYMENT_METHOD: 'Group Plan',
+  GOOGLE_PAYMENT_METHOD: 'Google',
+  IOS_PAYMENT_METHOD: 'ios', // @TODO: replace with correct payment method
 };
 
 function revealMysteryItems (user) {
@@ -77,6 +79,7 @@ api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers (gr
  */
 api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
   let customerIdsToIgnore = [this.constants.GROUP_PLAN_CUSTOMER_ID, this.constants.UNLIMITED_CUSTOMER_ID];
+  let paymentMethodsToIgnore = [this.constants.GOOGLE_PAYMENT_METHOD, this.constants.IOS_PAYMENT_METHOD];
 
   let data = {
     user: {},
@@ -109,7 +112,18 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
   if (member.isSubscribed()) {
     let memberPlan = member.purchased.plan;
     let customerHasCancelledGroupPlan = memberPlan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID && !member.hasNotCancelled();
-    if (customerIdsToIgnore.indexOf(memberPlan.customerId) !== -1 && !customerHasCancelledGroupPlan) return;
+    let ignorePaymentPlan = paymentMethodsToIgnore.indexOf(memberPlan.paymentMethod) !== -1;
+    let ignoreCustomerId = customerIdsToIgnore.indexOf(memberPlan.customerId) !== -1;
+
+    // @TODO: send email to admin
+    if (ignorePaymentPlan) {
+      // txnEmail(data.user, 'group-member-joining', [
+      //   {name: 'LEADER', content: leader.profile.name},
+      //   {name: 'GROUP_NAME', content: group.name},
+      // ]);
+    }
+
+    if ((ignorePaymentPlan || ignoreCustomerId) && !customerHasCancelledGroupPlan) return;
 
     if (member.hasNotCancelled()) await member.cancelSubscription();
 
