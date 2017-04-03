@@ -1,18 +1,19 @@
 .DS_Store
-website/client/gen
-website/client/common
-website/client/apidoc
+website/client-old/gen
+website/client-old/common
+website/client-old/apidoc
+website/client-old/js/habitrpg-shared.js*
+website/client-old/css/habitrpg-shared.css
 website/transpiled-babel/
-common/transpiled-babel/
+website/common/transpiled-babel/
 node_modules
 *.swp
 .idea*
 config.json
 npm-debug.log*
 lib
-website/client/bower_components
-website/client/new-stuff.html
-website/build
+website/client-old/bower_components
+website/client-old/new-stuff.html
 newrelic_agent.log
 .bower-tmp
 .bower-registry
@@ -25,14 +26,16 @@ src/*/*.map
 src/*/*/*.map
 test/*.js
 test/*.map
-website/client/docs
+website/client-old/docs
 *.sublime-workspace
 coverage
 coverage.html
 common/dist/scripts/*
-common/dist/sprites/habitrpg-shared.css
-
-test/spec/mocks/translations.js
+dist
+dist-client
+test/client/unit/coverage
+test/client/e2e/reports
+test/client-old/spec/mocks/translations.js
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

@@ -16,18 +16,18 @@
       ui-keypress='{ 13:"score(task, \'down\')" }' )
     a(ng-if='task.down', ng-click='applyingAction || score(task,"down")')
       span.glyphicon.glyphicon-minus
-
+      
   // Rewards
   span(ng-if='::task.type=="reward"')
     input.task-input.reward.visuallyhidden(
       type='checkbox',
       ui-keypress='{ 13:"score(task, \'down\')" }' )
-    a.money.btn-buy(ng-class='{highValue: task.value >= 1000}', ng-click='score(task, "down")')
+    a.money.btn-buy(ng-class='{highValue: task.value >= 1000}', ng-click='score(task, "down");')
       span.shop_gold
       span.reward-cost {{task.value}}
 
   // Daily & Todos
-  span.task-checker.action-yesno(ng-if='::task.type=="daily" || task.type=="todo"')
+  span.task-checker.action-yesno(ng-if='::task.type=="daily" || task.type=="todo"', ng-class='{"group-yesno": !!obj.leader}')
     input.task-input.visuallyhidden.focusable(id='box-{{::obj._id}}_{{::task._id}}', type='checkbox',
       ng-model='task.completed', ng-if='$state.includes("tasks")',
       ng-change='changeCheck(task)'
@@ -37,11 +37,13 @@
     label(for='box-{{::obj._id}}_{{::task._id}}')
 
 // main content
-.task-text(ng-dblclick='task._editing ? saveTask(task) : editTask(task)')
-  markdown(text='task.text',target='_blank')
+.task-text(ng-dblclick='doubleClickTask(obj, task)')
+  markdown(text='task._editing ? task._edit.text : task.text',target='_blank')
+
+  div(class='{{obj._id}}{{task.id}}-chart', ng-show='charts[obj._id+task.id]')
 
   div(ng-if='task.checklist && !$state.includes("options.social.challenges") && !task.collapseChecklist && !task._editing')
     fieldset.option-group.task-checklist
       label.checkbox(ng-repeat='item in task.checklist')
-        input(type='checkbox', ng-model='item.completed', ng-change='saveTask(task,true)')
+        input(type='checkbox', ng-model='item.completed', ng-change='completeChecklistItem(task)')
         markdown(text='item.text', target='_blank')

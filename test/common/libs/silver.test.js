@@ -1,4 +1,4 @@
-import silver from '../../../common/script/libs/silver';
+import silver from '../../../website/common/script/libs/silver';
 
 describe('silver', () => {
   it('is 0', () => {

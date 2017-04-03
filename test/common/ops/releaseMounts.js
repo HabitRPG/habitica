@@ -1,11 +1,12 @@
-import releaseMounts from '../../../common/script/ops/releaseMounts';
-import i18n from '../../../common/script/i18n';
+import releaseMounts from '../../../website/common/script/ops/releaseMounts';
+import content from '../../../website/common/script/content/index';
+import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';
 import {
   NotAuthorized,
-} from '../../../common/script/libs/errors';
+} from '../../../website/common/script/libs/errors';
 
 describe('shared.ops.releaseMounts', () => {
   let user;
@@ -37,10 +38,24 @@ describe('shared.ops.releaseMounts', () => {
     expect(user.items.mounts[animal]).to.equal(null);
   });
 
-  it('removes currentMount', () => {
+  it('removes drop currentMount', () => {
+    let mountInfo = content.mountInfo[user.items.currentMount];
+    expect(mountInfo.type).to.equal('drop');
     releaseMounts(user);
 
     expect(user.items.currentMount).to.be.empty;
+  });
+
+  it('leaves non-drop mount equipped', () => {
+    let questAnimal = 'Gryphon-Base';
+    user.items.currentMount = questAnimal;
+    user.items.mounts[questAnimal] = true;
+
+    let mountInfo = content.mountInfo[user.items.currentMount];
+    expect(mountInfo.type).to.not.equal('drop');
+    releaseMounts(user);
+
+    expect(user.items.currentMount).to.equal(questAnimal);
   });
 
   it('increases mountMasterCount achievement', () => {

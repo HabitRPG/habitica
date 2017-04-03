@@ -1,4 +1,4 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import { authWithHeaders } from '../../middlewares/auth';
 import {
   model as User,
   publicFields as memberFields,
@@ -9,26 +9,28 @@ import { model as Challenge } from '../../models/challenge';
 import {
   NotFound,
   NotAuthorized,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
 import * as Tasks from '../../models/task';
 import {
   getUserInfo,
   sendTxn as sendTxnEmail,
-} from '../../libs/api-v3/email';
+} from '../../libs/email';
 import Bluebird from 'bluebird';
-import sendPushNotification from '../../libs/api-v3/pushNotifications';
+import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
+import { achievements } from '../../../../website/common/';
 
 let api = {};
 
 /**
  * @api {get} /api/v3/members/:memberId Get a member profile
- * @apiVersion 3.0.0
  * @apiName GetMember
  * @apiGroup Member
  *
  * @apiParam {UUID} memberId The member's id
  *
- * @apiSuccess {object} data The member object
+ * @apiSuccess {Object} data The member object
+ *
+ * @apiUse UserNotFound
  */
 api.getMember = {
   method: 'GET',
@@ -50,7 +52,117 @@ api.getMember = {
     if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
 
     // manually call toJSON with minimize: true so empty paths aren't returned
-    res.respond(200, member.toJSON({minimize: true}));
+    let memberToJSON = member.toJSON({minimize: true});
+    member.addComputedStatsToJSONObj(memberToJSON.stats);
+
+    res.respond(200, memberToJSON);
+  },
+};
+
+/**
+ * @api {get} /api/v3/members/:memberId/achievements Get member achievements object
+ * @apiName GetMemberAchievements
+ * @apiGroup Member
+ * @apiDescription Get a list of achievements of the requested member, grouped by basic / seasonal / special.
+ *
+ * @apiParam (Path) {UUID} memberId The member's id
+ *
+ * @apiSuccess {Object} data The achievements object
+ *
+ * @apiSuccess {Object} data.basic The basic achievements object
+ * @apiSuccess {Object} data.seasonal The seasonal achievements object
+ * @apiSuccess {Object} data.special The special achievements object
+ *
+ * @apiSuccess {String} data.*.label The label for that category
+ * @apiSuccess {Object} data.*.achievements The achievements in that category
+ *
+ * @apiSuccess {String} data.*.achievements.title The localized title string
+ * @apiSuccess {String} data.*.achievements.text The localized description string
+ * @apiSuccess {Boolean} data.*.achievements.earned Whether the user has earned the achievement
+ * @apiSuccess {Number} data.*.achievements.index The unique index assigned to the achievement (only for sorting purposes)
+ * @apiSuccess {Anything} data.*.achievements.value The value related to the achievement (if applicable)
+ * @apiSuccess {Number} data.*.achievements.optionalCount The count related to the achievement (if applicable)
+ *
+ * @apiSuccessExample {json} Successful Response
+ * {
+ *   basic: {
+ *     label: "Basic",
+ *     achievements: {
+ *       streak: {
+ *         title: "0 Streak Achievements",
+ *         text: "Has performed 0 21-day streaks on Dailies",
+ *         icon: "achievement-thermometer",
+ *         earned: false,
+ *         value: 0,
+ *         index: 60,
+ *         optionalCount: 0
+ *       },
+ *       perfect: {
+ *         title: "5 Perfect Days",
+ *         text: "Completed all active Dailies on 5 days. With this achievement you get a +level/2 buff to all attributes for the next day. Levels greater than 100 don't have any additional effects on buffs.",
+ *         icon: "achievement-perfect",
+ *         earned: true,
+ *         value: 5,
+ *         index: 61,
+ *         optionalCount: 5
+ *       }
+ *     }
+ *   },
+ *   seasonal: {
+ *     label: "Seasonal",
+ *     achievements: {
+ *       habiticaDays: {
+ *         title: "Habitica Naming Day",
+ *         text: "Celebrated 0 Naming Days! Thanks for being a fantastic user.",
+ *         icon: "achievement-habiticaDay",
+ *         earned: false,
+ *         value: 0,
+ *         index: 72,
+ *         optionalCount: 0
+ *       }
+ *     }
+ *   },
+ *   special: {
+ *     label: "Special",
+ *     achievements: {
+ *       habitSurveys: {
+ *         title: "Helped Habitica Grow",
+ *         text: "Helped Habitica grow on 0 occasions, either by filling out a survey or helping with a major testing effort. Thank you!",
+ *         icon: "achievement-tree",
+ *         earned: false,
+ *         value: 0,
+ *         index: 88,
+ *         optionalCount: 0
+ *       }
+ *     }
+ *   }
+ * }
+ *
+ * @apiError (400) {BadRequest} MemberIdRequired The `id` param is required and must be a valid `UUID`
+ * @apiError (404) {NotFound} UserWithIdNotFound The `id` param did not belong to an existing member
+ */
+api.getMemberAchievements = {
+  method: 'GET',
+  url: '/members/:memberId/achievements',
+  middlewares: [],
+  async handler (req, res) {
+    req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let memberId = req.params.memberId;
+
+    let member = await User
+      .findById(memberId)
+      .select(memberFields)
+      .exec();
+
+    if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
+
+    let achievsObject = achievements.getAchievementsForProfile(member, req.language);
+
+    res.respond(200, achievsObject);
   },
 };
 
@@ -100,6 +212,7 @@ function _getMembersForItem (type) {
 
     let query = {};
     let fields = nameFields;
+    let addComputedStats = false; // add computes stats to the member info when items and stats are available
 
     if (type === 'challenge-members') {
       query.challenges = challenge._id;
@@ -111,6 +224,7 @@ function _getMembersForItem (type) {
 
         if (req.query.includeAllPublicFields === 'true') {
           fields = memberFields;
+          addComputedStats = true;
         }
       }
     } else if (type === 'group-invites') {
@@ -138,22 +252,29 @@ function _getMembersForItem (type) {
       .exec();
 
     // manually call toJSON with minimize: true so empty paths aren't returned
-    res.respond(200, members.map(member => member.toJSON({minimize: true})));
+    let membersToJSON = members.map(member => {
+      let memberToJSON = member.toJSON({minimize: true});
+      if (addComputedStats) member.addComputedStatsToJSONObj(memberToJSON.stats);
+
+      return memberToJSON;
+    });
+    res.respond(200, membersToJSON);
   };
 }
 
 /**
  * @api {get} /api/v3/groups/:groupId/members Get members for a group
  * @apiDescription With a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
- * @apiVersion 3.0.0
  * @apiName GetMembersForGroup
  * @apiGroup Member
  *
  * @apiParam {UUID} groupId The group id
  * @apiParam {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
- * @apiParam {boolean} includeAllPublicFields Query parameter available only when fetching a party. If === `true` then all public fields for members will be returned (liek when making a request for a single member)
+ * @apiParam {boolean} includeAllPublicFields Query parameter available only when fetching a party. If === `true` then all public fields for members will be returned (like when making a request for a single member)
  *
  * @apiSuccess {array} data An array of members, sorted by _id
+ * @apiUse ChallengeNotFound
+ * @apiUse GroupNotFound
  */
 api.getMembersForGroup = {
   method: 'GET',
@@ -165,7 +286,6 @@ api.getMembersForGroup = {
 /**
  * @api {get} /api/v3/groups/:groupId/invites Get invites for a group
  * @apiDescription With a limit of 30 member per request. To get all invites run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
- * @apiVersion 3.0.0
  * @apiName GetInvitesForGroup
  * @apiGroup Member
  *
@@ -173,6 +293,9 @@ api.getMembersForGroup = {
  * @apiParam {UUID} lastId Query parameter to specify the last invite returned in a previous request to this route and get the next batch of results
  *
  * @apiSuccess {array} data An array of invites, sorted by _id
+ *
+ * @apiUse ChallengeNotFound
+ * @apiUse GroupNotFound
  */
 api.getInvitesForGroup = {
   method: 'GET',
@@ -188,15 +311,17 @@ api.getInvitesForGroup = {
  * BETA You can also use ?includeAllMembers=true. This option is currently in BETA and may be removed in future.
  * Its use is discouraged and its performaces are not optimized especially for large challenges.
  *
- * @apiVersion 3.0.0
  * @apiName GetMembersForChallenge
  * @apiGroup Member
  *
  * @apiParam {UUID} challengeId The challenge id
  * @apiParam {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
- * @apiParam {string} includeAllMembers BETA Query parameter - If 'true' all challenge members are returned
+ * @apiParam {String} includeAllMembers BETA Query parameter - If 'true' all challenge members are returned
 
  * @apiSuccess {array} data An array of members, sorted by _id
+ *
+ * @apiUse ChallengeNotFound
+ * @apiUse GroupNotFound
  */
 api.getMembersForChallenge = {
   method: 'GET',
@@ -207,14 +332,16 @@ api.getMembersForChallenge = {
 
 /**
  * @api {get} /api/v3/challenges/:challengeId/members/:memberId Get a challenge member progress
- * @apiVersion 3.0.0
  * @apiName GetChallengeMemberProgress
  * @apiGroup Member
  *
  * @apiParam {UUID} challengeId The challenge _id
  * @apiParam {UUID} member The member _id
  *
- * @apiSuccess {object} data Return an object with member _id, profile.name and a tasks object with the challenge tasks for the member
+ * @apiSuccess {Object} data Return an object with member _id, profile.name and a tasks object with the challenge tasks for the member
+ *
+ * @apiUse ChallengeNotFound
+ * @apiUse UserNotFound
  */
 api.getChallengeMemberProgress = {
   method: 'GET',
@@ -260,7 +387,6 @@ api.getChallengeMemberProgress = {
 
 /**
  * @api {posts} /api/v3/members/send-private-message Send a private message to a member
- * @apiVersion 3.0.0
  * @apiName SendPrivateMessage
  * @apiGroup Member
  *
@@ -268,6 +394,8 @@ api.getChallengeMemberProgress = {
  * @apiParam {UUID} toUserId Body parameter - The user to contact
  *
  * @apiSuccess {Object} data An empty Object
+ *
+ * @apiUse UserNotFound
  */
 api.sendPrivateMessage = {
   method: 'POST',
@@ -294,7 +422,7 @@ api.sendPrivateMessage = {
       throw new NotAuthorized(res.t('notAuthorizedToSendMessageToThisUser'));
     }
 
-    await sender.sendMessage(receiver, message);
+    await sender.sendMessage(receiver, { receiverMsg: message });
 
     if (receiver.preferences.emailNotifications.newPM !== false) {
       sendTxnEmail(receiver, 'new-pm', [
@@ -321,7 +449,6 @@ api.sendPrivateMessage = {
 
 /**
  * @api {posts} /api/v3/members/transfer-gems Send a gem gift to a member
- * @apiVersion 3.0.0
  * @apiName TransferGems
  * @apiGroup Member
  *
@@ -330,6 +457,8 @@ api.sendPrivateMessage = {
  * @apiParam {Integer} gemAmount Body parameter The number of gems to send
  *
  * @apiSuccess {Object} data An empty Object
+ *
+ * @apiUse UserNotFound
  */
 api.transferGems = {
   method: 'POST',
@@ -363,18 +492,27 @@ api.transferGems = {
     let promises = [receiver.save(), sender.save()];
     await Bluebird.all(promises);
 
-    let message = res.t('privateMessageGiftIntro', {
-      receiverName: receiver.profile.name,
-      senderName: sender.profile.name,
+    // generate the message in both languages, so both users can understand it
+    let receiverLang = receiver.preferences.language;
+    let senderLang = sender.preferences.language;
+    let [receiverMsg, senderMsg] = [receiverLang, senderLang].map((lang) => {
+      let messageContent = res.t('privateMessageGiftGemsMessage', {
+        receiverName: receiver.profile.name,
+        senderName: sender.profile.name,
+        gemAmount,
+      }, lang);
+      messageContent = `\`${messageContent}\` `;
+
+      if (req.body.message) {
+        messageContent += req.body.message;
+      }
+      return messageContent;
     });
-    message += res.t('privateMessageGiftGemsMessage', {gemAmount});
-    message =  `\`${message}\` `;
 
-    if (req.body.message) {
-      message += req.body.message;
-    }
-
-    await sender.sendMessage(receiver, message);
+    await sender.sendMessage(receiver, {
+      senderMsg,
+      receiverMsg,
+    });
 
     let byUsername = getUserInfo(sender, ['name']).name;
 
@@ -387,8 +525,8 @@ api.transferGems = {
     if (receiver.preferences.pushNotifications.giftedGems !== false) {
       sendPushNotification(receiver,
         {
-          title: res.t('giftedGems'),
-          message: res.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}),
+          title: res.t('giftedGems', receiverLang),
+          message: res.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}, receiverLang),
           identifier: 'giftedGems',
           payload: {replyTo: sender._id},
         });

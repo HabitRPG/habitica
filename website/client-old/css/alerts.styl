@@ -1,0 +1,114 @@
+.new-stuff
+  position: fixed
+  text-align: center
+  top: 0
+  left: 0
+  width: 100%
+  height: 0
+  z-index: 1010
+
+.new-stuff> .alert
+  border-top: 0
+  border-radius: 0 0 4px 4px
+  padding-right: 14px
+  display: inline-block
+
+.wide-popover
+  max-width: -moz-max-content
+  max-width: max-content
+
+// Small alerts
+alert-sm-mixin()
+  padding-top: 8px
+  padding-bottom: 8px
+
+.alert-sm
+  alert-sm-mixin()
+
+#notification-area
+  position: fixed
+  top: 0
+  right: 0px
+  z-index: 1061
+
+  .alert
+    alert-sm-mixin()
+
+    .notification-icon
+      transform: scale(0.8)
+
+
+// variables
+
+gpColor = #FBEFC0
+gpText = #786938
+hpColor = #f2dede
+hpText = #b94a48
+lvlColor = #d9edf7
+lvlText = #3a87ad
+xpColor = #DCC0FB
+xpText = #635673
+deathColor = #4E4E4E
+deathText = #ABABAB
+mpColor = #c7d3e9
+mpText = #003aa1
+critColor = #fce5cd
+critText = #dc5000
+dropColor = #d9ead3
+dropText = #415838
+streakColor = #f5deb3
+streakText = #a0522d
+borderDarken = 20%
+
+// alert styles
+
+.alert-gp
+  background-color: gpColor
+  border-color: darken(gpColor,borderDarken)
+  color: gpText
+
+.alert-hp
+  background-color: hpColor
+  border-color: darken(hpColor,borderDarken)
+  color: hpText
+
+.alert-lvl
+  background-color: lvlColor
+  border-color: darken(lvlColor,borderDarken)
+  color: lvlText
+
+.alert-xp
+  background-color: xpColor
+  border-color: darken(xpColor,borderDarken)
+  color: xpText
+
+.alert-death
+  background-color: deathColor
+  border-color: deathColor
+  color: deathText
+
+.alert-mp
+  background-color: mpColor
+  border-color: darken(mpColor,borderDarken)
+  color: mpText
+
+.alert-crit
+  background-color: critColor
+  border-color: darken(critColor,borderDarken)
+  color: critText
+
+.alert-drop
+  background-color: dropColor
+  border-color: darken(dropColor,borderDarken)
+  color: dropText
+
+.alert-streak
+  background-color: streakColor
+  border-color: darken(streakColor,borderDarken)
+  color: streakText
+
+.undo-button
+  z-index: 3000
+  position:absolute
+  left:5px
+  top:5px

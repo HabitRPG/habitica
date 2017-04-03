@@ -1,13 +1,13 @@
 import {each} from 'lodash';
 import {
-  expectValidTranslationString
+  expectValidTranslationString,
 } from '../helpers/content.helper';
 
-import mysterySets from '../../common/script/content/mystery-sets';
+import mysterySets from '../../website/common/script/content/mystery-sets';
 
 describe('Mystery Sets', () => {
   it('has a valid text string', () => {
-    each(mysterySets, (set, key) => {
+    each(mysterySets, (set) => {
       expectValidTranslationString(set.text);
     });
   });

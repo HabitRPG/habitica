@@ -2,11 +2,11 @@
 import {
   generateUser,
 } from '../../helpers/common.helper';
-import buy from '../../../common/script/ops/buy';
+import buy from '../../../website/common/script/ops/buy';
 import {
   BadRequest,
-} from '../../../common/script/libs/errors';
-import i18n from '../../../common/script/i18n';
+} from '../../../website/common/script/libs/errors';
+import i18n from '../../../website/common/script/i18n';
 
 describe('shared.ops.buy', () => {
   let user;

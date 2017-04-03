@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "Perdeu todas as suas Vidas!",
+    "dontDespair": "Não desespere!",
+    "deathPenaltyDetails": "Perdeu um Nível, o seu Ouro, e uma parte do Equipamento, mas pode recuperá-los com trabalho árduo! Boa sorte - vai dar-se bem.",
+    "refillHealthTryAgain": "Recarregar Vida e Tentar Novamente",
+    "dyingOftenTips": "Isto está acontecendo com frequência? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Temos algumas dicas aqui!</a>",
+    "losingHealthWarning": "Cuidado - Está a perder Vida!",
+    "losingHealthWarning2": "Não deixe sua Vida chegar à zero! Se você deixar, você irá perder um nível, seu ouro e uma peça do equipamento.",
+    "toRegainHealth": "Para recuperar Vida: ",
+    "lowHealthTips1": "Suba de nível para encher a sua vida!",
+    "lowHealthTips2": "Compre uma Poção de Vida da coluna de recompensas para restaurar 15 Pontos de Vida",
+    "losingHealthQuickly": "Perdendo vida rapidamente?",
+    "lowHealthTips3": "Tarefas diárias incompletas prejudicam você de um dia para o outro, tenha o cuidado de não adicionar muitas de uma só vez!",
+    "lowHealthTips4": "Se a tarefa diária não for cumprida no dia, você pode desabilitá-la clicando no ícone do lápis.",
+    "goodLuck": "Boa Sorte!",
+    "cannotRevive": "Não pode reviver se não está morto"
+}

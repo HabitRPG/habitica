@@ -1,11 +1,11 @@
-import feed from '../../../common/script/ops/feed';
-import content from '../../../common/script/content';
+import feed from '../../../website/common/script/ops/feed';
+import content from '../../../website/common/script/content';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
-} from '../../../common/script/libs/errors';
-import i18n from '../../../common/script/i18n';
+} from '../../../website/common/script/libs/errors';
+import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';
@@ -38,9 +38,9 @@ describe('shared.ops.feed', () => {
       }
     });
 
-    it('does not allow feeding if food does not exists', (done) => {
+    it('does not allow feeding if food does not exist', (done) => {
       try {
-        feed(user, {params: {pet: 'valid-pet', food: 'invalid food name'}});
+        feed(user, {params: {pet: 'Wolf-Red', food: 'invalid food name'}});
       } catch (err) {
         expect(err).to.be.an.instanceof(NotFound);
         expect(err.message).to.equal(i18n.t('messageFoodNotFound'));
@@ -50,7 +50,7 @@ describe('shared.ops.feed', () => {
 
     it('does not allow feeding if pet is not owned', (done) => {
       try {
-        feed(user, {params: {pet: 'not-owned', food: 'Meat'}});
+        feed(user, {params: {pet: 'Wolf-Red', food: 'Meat'}});
       } catch (err) {
         expect(err).to.be.an.instanceof(NotFound);
         expect(err.message).to.equal(i18n.t('messagePetNotFound'));
@@ -100,18 +100,12 @@ describe('shared.ops.feed', () => {
       user.items.pets['Wolf-Base'] = 5;
       user.items.food.Saddle = 2;
       user.items.currentPet = 'Wolf-Base';
-      let [egg, potion] = 'Wolf-Base'.split('-');
-
-      let potionText = content.hatchingPotions[potion] ? content.hatchingPotions[potion].text() : potion;
-      let eggText = content.eggs[egg] ? content.eggs[egg].text() : egg;
+      let pet = content.petInfo['Wolf-Base'];
 
       let [data, message] = feed(user, {params: {pet: 'Wolf-Base', food: 'Saddle'}});
       expect(data).to.eql(user.items.pets['Wolf-Base']);
       expect(message).to.eql(i18n.t('messageEvolve', {
-        egg: i18n.t('petName', {
-          potion: potionText,
-          egg: eggText,
-        }),
+        egg: pet.text(),
       }));
 
       expect(user.items.food.Saddle).to.equal(1);
@@ -125,17 +119,12 @@ describe('shared.ops.feed', () => {
       user.items.food.Meat = 2;
 
       let food = content.food.Meat;
-      let [egg, potion] = 'Wolf-Base'.split('-');
-      let potionText = content.hatchingPotions[potion] ? content.hatchingPotions[potion].text() : potion;
-      let eggText = content.eggs[egg] ? content.eggs[egg].text() : egg;
+      let pet = content.petInfo['Wolf-Base'];
 
       let [data, message] = feed(user, {params: {pet: 'Wolf-Base', food: 'Meat'}});
       expect(data).to.eql(user.items.pets['Wolf-Base']);
       expect(message).to.eql(i18n.t('messageLikesFood', {
-        egg: i18n.t('petName', {
-          potion: potionText,
-          egg: eggText,
-        }),
+        egg: pet.text(),
         foodText: food.text(),
       }));
 
@@ -148,17 +137,12 @@ describe('shared.ops.feed', () => {
       user.items.food.Milk = 2;
 
       let food = content.food.Milk;
-      let [egg, potion] = 'Wolf-Spooky'.split('-');
-      let potionText = content.hatchingPotions[potion] ? content.hatchingPotions[potion].text() : potion;
-      let eggText = content.eggs[egg] ? content.eggs[egg].text() : egg;
+      let pet = content.petInfo['Wolf-Spooky'];
 
       let [data, message] = feed(user, {params: {pet: 'Wolf-Spooky', food: 'Milk'}});
       expect(data).to.eql(user.items.pets['Wolf-Spooky']);
       expect(message).to.eql(i18n.t('messageLikesFood', {
-        egg: i18n.t('petName', {
-          potion: potionText,
-          egg: eggText,
-        }),
+        egg: pet.text(),
         foodText: food.text(),
       }));
 
@@ -171,17 +155,12 @@ describe('shared.ops.feed', () => {
       user.items.food.Milk = 2;
 
       let food = content.food.Milk;
-      let [egg, potion] = 'Wolf-Base'.split('-');
-      let potionText = content.hatchingPotions[potion] ? content.hatchingPotions[potion].text() : potion;
-      let eggText = content.eggs[egg] ? content.eggs[egg].text() : egg;
+      let pet = content.petInfo['Wolf-Base'];
 
       let [data, message] = feed(user, {params: {pet: 'Wolf-Base', food: 'Milk'}});
       expect(data).to.eql(user.items.pets['Wolf-Base']);
       expect(message).to.eql(i18n.t('messageDontEnjoyFood', {
-        egg: i18n.t('petName', {
-          potion: potionText,
-          egg: eggText,
-        }),
+        egg: pet.text(),
         foodText: food.text(),
       }));
 
@@ -194,17 +173,12 @@ describe('shared.ops.feed', () => {
       user.items.food.Milk = 2;
       user.items.currentPet = 'Wolf-Base';
 
-      let [egg, potion] = 'Wolf-Base'.split('-');
-      let potionText = content.hatchingPotions[potion] ? content.hatchingPotions[potion].text() : potion;
-      let eggText = content.eggs[egg] ? content.eggs[egg].text() : egg;
+      let pet = content.petInfo['Wolf-Base'];
 
       let [data, message] = feed(user, {params: {pet: 'Wolf-Base', food: 'Milk'}});
       expect(data).to.eql(user.items.pets['Wolf-Base']);
       expect(message).to.eql(i18n.t('messageEvolve', {
-        egg: i18n.t('petName', {
-          potion: potionText,
-          egg: eggText,
-        }),
+        egg: pet.text(),
       }));
 
       expect(user.items.food.Milk).to.equal(1);

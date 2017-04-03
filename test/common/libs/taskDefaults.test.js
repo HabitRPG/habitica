@@ -1,4 +1,4 @@
-import taskDefaults from '../../../common/script/libs/taskDefaults';
+import taskDefaults from '../../../website/common/script/libs/taskDefaults';
 
 describe('taskDefaults', () => {
   it('applies defaults to undefined type or habit', () => {
@@ -12,6 +12,9 @@ describe('taskDefaults', () => {
     expect(task.up).to.eql(true);
     expect(task.down).to.eql(true);
     expect(task.history).to.eql([]);
+    expect(task.frequency).to.equal('daily');
+    expect(task.counterUp).to.equal(0);
+    expect(task.counterDown).to.equal(0);
   });
 
   it('applies defaults to a daily', () => {

@@ -2,16 +2,16 @@
 
 import mongoose from 'mongoose';
 import _ from 'lodash';
-import shared from '../../../common';
+import shared from '../../common';
 import couponCode from 'coupon-code';
-import baseModel from '../libs/api-v3/baseModel';
+import baseModel from '../libs/baseModel';
 import {
   BadRequest,
   NotAuthorized,
-} from '../libs/api-v3/errors';
+} from '../libs/errors';
 
 export let schema = new mongoose.Schema({
-  _id: {type: String, default: couponCode.generate},
+  _id: {type: String, default: couponCode.generate, required: true},
   event: {type: String, enum: ['wondercon', 'google_6mo']},
   user: {type: String, ref: 'User'},
 }, {

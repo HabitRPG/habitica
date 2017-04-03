@@ -4,7 +4,7 @@ import {
   generateDaily,
   generateReward,
 } from '../../../../helpers/api-integration/v3';
-import common from '../../../../../common';
+import common from '../../../../../website/common';
 import { v4 as generateUUID } from 'uuid';
 
 describe('GET /user/anonymized', () => {
@@ -13,12 +13,19 @@ describe('GET /user/anonymized', () => {
 
   before(async () => {
     user = await generateUser();
-    await user.update({ newMessages: ['some', 'new', 'messages'], 'profile.name': 'profile', 'purchased.plan': 'purchased plan',
-                        contributor: 'contributor', invitations: 'invitations', 'items.special.nyeReceived': 'some', 'items.special.valentineReceived': 'some',
-                        webhooks: 'some', 'achievements.challenges': 'some',
-                        'inbox.messages': [{ text: 'some text' }],
-                        tags: [{ name: 'some name', challenge: 'some challenge' }],
-                      });
+    await user.update({
+      newMessages: ['some', 'new', 'messages'],
+      'profile.name': 'profile',
+      'purchased.plan': 'purchased plan',
+      contributor: 'contributor',
+      invitations: 'invitations',
+      'items.special.nyeReceived': 'some',
+      'items.special.valentineReceived': 'some',
+      webhooks: [{url: 'https://somurl.com'}],
+      'achievements.challenges': 'some',
+      'inbox.messages': [{ text: 'some text' }],
+      tags: [{ name: 'some name', challenge: 'some challenge' }],
+    });
 
     await generateHabit({ userId: user._id });
     await generateHabit({ userId: user._id, text: generateUUID() });

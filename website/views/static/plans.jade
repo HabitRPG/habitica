@@ -15,15 +15,15 @@ block content
       p
         =env.t('indivPlan1')
         |&nbsp;
-        a(href='http://habitica.wikia.com/wiki/Guilds' target='_blank')=env.t('guilds')
+        !=env.t('guildsLink')
         = ' ' + env.t('and') + ' '
-        a(href='http://habitica.wikia.com/wiki/Challenges' target='_blank')=env.t('challenges')
+        !=env.t('challengesLink')
         |&nbsp;
         =env.t('indivPlan2')
       p
         =env.t('groupText1')
         |&nbsp;
-        a(href='http://habitica.wikia.com/wiki/Habitica' target='_blank')=env.t('habitica')
+        !=env.t('habiticaLink')
         |.&nbsp;
         =env.t('groupText2')
 

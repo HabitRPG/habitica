@@ -1,16 +1,17 @@
-import purchase from '../../../common/script/ops/purchase';
-import planGemLimits from '../../../common/script/libs/planGemLimits';
+import purchase from '../../../website/common/script/ops/purchase';
+import planGemLimits from '../../../website/common/script/libs/planGemLimits';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
-} from '../../../common/script/libs/errors';
-import i18n from '../../../common/script/i18n';
+} from '../../../website/common/script/libs/errors';
+import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';
 
 describe('shared.ops.purchase', () => {
+  const SEASONAL_FOOD = 'Meat';
   let user;
   let goldPoints = 40;
   let gemsBought = 40;
@@ -146,6 +147,15 @@ describe('shared.ops.purchase', () => {
       expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate);
     });
 
+    it('purchases gems with a different language than the default', () => {
+      let [, message] = purchase(user, {params: {type: 'gems', key: 'gem'}, language: 'de'});
+
+      expect(message).to.equal(i18n.t('plusOneGem', 'de'));
+      expect(user.balance).to.equal(userGemAmount + 0.5);
+      expect(user.purchased.plan.gemsBought).to.equal(2);
+      expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate * 2);
+    });
+
     it('purchases eggs', () => {
       let type = 'eggs';
       let key = 'Wolf';
@@ -166,7 +176,7 @@ describe('shared.ops.purchase', () => {
 
     it('purchases food', () => {
       let type = 'food';
-      let key = 'Meat';
+      let key = SEASONAL_FOOD;
 
       purchase(user, {params: {type, key}});
 

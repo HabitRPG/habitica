@@ -2,7 +2,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import content from '../../../../../common/script/content';
+import content from '../../../../../website/common/script/content';
 
 describe('POST /user/sell/:type/:key', () => {
   let user;

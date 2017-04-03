@@ -31,7 +31,7 @@ mixin chatMessages(inbox)
         span(ng-if='#{inbox ? "true" : ":: user.contributor.admin || message.uuid == user.id"}') &nbsp; &nbsp;
           a(ng-click='#{inbox? "User.deletePM({params:{id:message.$key}})" : "deleteChatMessage(group, message)"}')
             span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
-        span(ng-if=':: user.contributor.admin || (!message.sent && user.flags.communityGuidelinesAccepted && message.uuid != user.id)') &nbsp; &nbsp;
+        span(ng-if=':: user.contributor.admin || (!message.sent && user.flags.communityGuidelinesAccepted)') &nbsp; &nbsp;
           a(ng-click="flagChatMessage(group._id, message)")
             span.glyphicon.glyphicon-flag(tooltip="{{message.flags[user._id] ? env.t('abuseAlreadyReported') : env.t('abuseFlag')}}" ng-class='message.flags[user._id] ? "text-danger" : ""')
         span &nbsp; &nbsp;

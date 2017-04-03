@@ -1,8 +1,8 @@
-import shared from '../../../common';
+import shared from '../../../website/common';
 import {
   generateUser,
 } from '../../helpers/common.helper';
-import i18n from '../../../common/script/i18n';
+import i18n from '../../../website/common/script/i18n';
 
 describe('updateStore', () => {
   context('returns a list of gear items available for purchase', () => {

@@ -1,4 +1,4 @@
-import sleep from '../../../common/script/ops/sleep';
+import sleep from '../../../website/common/script/ops/sleep';
 import {
   generateUser,
 } from '../../helpers/common.helper';

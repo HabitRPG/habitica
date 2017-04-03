@@ -3,12 +3,12 @@
 import {
   generateUser,
 } from '../../helpers/common.helper';
-import buyMysterySet from '../../../common/script/ops/buyMysterySet';
+import buyMysterySet from '../../../website/common/script/ops/buyMysterySet';
 import {
   NotAuthorized,
   NotFound,
-} from '../../../common/script/libs/errors';
-import i18n from '../../../common/script/i18n';
+} from '../../../website/common/script/libs/errors';
+import i18n from '../../../website/common/script/i18n';
 
 describe('shared.ops.buyMysterySet', () => {
   let user;

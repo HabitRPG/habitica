@@ -1,6 +1,6 @@
 // Created by Sabe on 12/22/13.
 
-script(type='text/ng-template', id='modals/rebirthEnabled.html')  
+script(type='text/ng-template', id='modals/rebirthEnabled.html')
   .modal-header
     h4=env.t('rebirthNew')
   .modal-body
@@ -33,20 +33,19 @@ script(type='text/ng-template', id='modals/rebirth.html')
       li=env.t('rebirthInList2')
       li=env.t('rebirthInList3')
       li=env.t('rebirthInList4')
-      li=env.t('rebirthInList5')
     br
 
     p
       span.vertical-align.inline-block.achievement-sun
       |&nbsp;
-      =env.t('rebirthEarnAchievement')      
+      =env.t('rebirthEarnAchievement')
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('neverMind')
-    span(ng-if='user.balance < 2 && user.stats.lvl < 100')
+    span(ng-if='user.balance < 1.5 && user.stats.lvl < 100')
       a.btn.btn-success(ng-click='openModal("buyGems",{track:"Gems > Rebirth"})')=env.t('buyMoreGems')
       span.gem-cost=env.t('notEnoughGems')
-    span(ng-if='user.balance >= 2 || user.stats.lvl >= 100', ng-controller='SettingsCtrl')
+    span(ng-if='user.balance >= 1.5 || user.stats.lvl >= 100', ng-controller='SettingsCtrl')
       a.btn.btn-danger(ng-click='clickRebirth($event)')=env.t('beReborn')
       span.gem-cost(ng-if='user.stats.lvl < 100')
-        | 8&nbsp;
+        | 6&nbsp;
         =env.t('gems')

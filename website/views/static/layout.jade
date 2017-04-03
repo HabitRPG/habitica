@@ -10,8 +10,6 @@ html(ng-app='habitrpg')
     block title
       title=env.t('titleIndex')
 
-    include ../shared/new-relic
-
     script(type='text/javascript').
       window.env = !{JSON.stringify(env._.pick(env, env.clientVars))};
 
@@ -48,7 +46,7 @@ html(ng-app='habitrpg')
             li(class='#{menuItem=="plans" ? "active" : ""}')
               a(href='/static/plans')=env.t('groupPlans')
             li
-              a(href='http://blog.habitrpg.com/')=env.t('companyBlog')
+              a(href='https://habitica.wordpress.com/')=env.t('companyBlog')
             li(class='#{menuItem=="pressKit" ? "active" : ""}')
               a(href='/static/press-kit')=env.t('presskit')
             li(class='#{menuItem=="contact" ? "active" : ""}')

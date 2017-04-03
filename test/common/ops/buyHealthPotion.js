@@ -2,11 +2,11 @@
 import {
   generateUser,
 } from '../../helpers/common.helper';
-import buyHealthPotion from '../../../common/script/ops/buyHealthPotion';
+import buyHealthPotion from '../../../website/common/script/ops/buyHealthPotion';
 import {
   NotAuthorized,
-} from '../../../common/script/libs/errors';
-import i18n from '../../../common/script/i18n';
+} from '../../../website/common/script/libs/errors';
+import i18n from '../../../website/common/script/i18n';
 
 describe('shared.ops.buyHealthPotion', () => {
   let user;
@@ -57,6 +57,21 @@ describe('shared.ops.buyHealthPotion', () => {
         expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
         expect(user.stats.hp).to.eql(45);
         expect(user.stats.gp).to.eql(5);
+
+        done();
+      }
+    });
+
+    it('does not purchase if hp is full', (done) => {
+      user.stats.hp = 50;
+      user.stats.gp = 40;
+      try {
+        buyHealthPotion(user);
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('messageHealthAlreadyMax'));
+        expect(user.stats.hp).to.eql(50);
+        expect(user.stats.gp).to.eql(40);
 
         done();
       }

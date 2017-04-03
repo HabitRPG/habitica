@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
-import equip from '../../../common/script/ops/equip';
-import i18n from '../../../common/script/i18n';
+import equip from '../../../website/common/script/ops/equip';
+import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';
-import content from '../../../common/script/content/index';
+import content from '../../../website/common/script/content/index';
 
 describe('shared.ops.equip', () => {
   let user;
@@ -38,19 +38,19 @@ describe('shared.ops.equip', () => {
 
       // one-handed to one-handed
       let [, message] = equip(user, {params: {key: 'weapon_warrior_2'}});
-      expect(message).to.not.exists;
+      expect(message).to.not.exist;
 
       // one-handed to two-handed
       [, message] = equip(user, {params: {key: 'weapon_wizard_1'}});
-      expect(message).to.not.exists;
+      expect(message).to.not.exist;
 
       // two-handed to two-handed
       [, message] = equip(user, {params: {key: 'weapon_wizard_2'}});
-      expect(message).to.not.exists;
+      expect(message).to.not.exist;
 
       // two-handed to one-handed
       [, message] = equip(user, {params: {key: 'weapon_warrior_2'}});
-      expect(message).to.not.exists;
+      expect(message).to.not.exist;
     });
 
     it('should send messages if equipping a two-hander causes the off-hander to be unequipped', () => {

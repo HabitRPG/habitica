@@ -1,4 +1,4 @@
-import deletePM from '../../../common/script/ops/deletePM';
+import deletePM from '../../../website/common/script/ops/deletePM';
 import {
   generateUser,
 } from '../../helpers/common.helper';

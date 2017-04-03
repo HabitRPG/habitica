@@ -9,7 +9,7 @@ script(type='text/ng-template', id='modals/levelUp.html')
         .row
           .herobox(style='margin:auto 8.3em; width: 6em; height: 9em; padding-top: 0; cursor:default')
             .character-sprites(style='margin: 0; width: 0')
-              +generatedAvatar
+              +generatedAvatar({sleep: false})
         .row
           .herobox(style='margin:auto 8.9em; width: 6em; height: 0; padding-top: 0; cursor:default')
             .avatar-level(ng-class='userLevelStyle(user)')=env.t('level')+' {{user.stats.lvl}}'

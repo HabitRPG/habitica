@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "Došlo ti zdraví!",
+    "dontDespair": "Nezoufej!",
+    "deathPenaltyDetails": "Propadl ses o jednu úroveň níž, přišel jsi o všechno zlato a jeden kousek Vybavení, ale můžeš vše dostat zpátky tvrdou dřinou! Hodně štěstí -- půjde ti to.",
+    "refillHealthTryAgain": "Doplnit zdraví a zkusit to znovu",
+    "dyingOftenTips": "Děje se ti to často? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Tady je pár tipů!</a>",
+    "losingHealthWarning": "Opatrně - ubývá ti Zdraví!",
+    "losingHealthWarning2": "Nenech své Zdraví skončit na nule! Stane-li se to, ztratíš jednu úroveň, všechno své zlato a jeden kousek Vybavení.",
+    "toRegainHealth": "K obnově Zdraví:",
+    "lowHealthTips1": "K úplnému uzdravení získej další úroveň!",
+    "lowHealthTips2": "Kup si Lektvar Zdraví z oddílu Odměn a doplň si 15 bodů Zdraví.",
+    "losingHealthQuickly": "Ztrácíš Zdraví rychle?",
+    "lowHealthTips3": "Nedokončené Denní úkoly tě přes noc zraní, buď tedy opatrný s jejich přidáváním, hlavně na začátku!",
+    "lowHealthTips4": "Pokud nemusíš v určitých dnech plnit některé ze svých Denních úkolů, po kliknutí na ikonu tužky v pravém rohu úkolu můžeš příslušné dny upravit.",
+    "goodLuck": "Hodně štěstí!",
+    "cannotRevive": "Nemůžeš se oživit, když nejsi mrtvý"
+}

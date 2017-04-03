@@ -3,6 +3,7 @@ import {
   createAndPopulateGroup,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
+import { v4 as generateUUID } from 'uuid';
 
 import {
   each,
@@ -169,6 +170,45 @@ describe('GET /groups/:id', () => {
           error: 'NotFound',
           message: t('groupNotFound'),
         });
+    });
+
+    it('removes non-existant guild from user\'s guild list', async () => {
+      let guildId = generateUUID();
+
+      await user.update({
+        guilds: [guildId, generateUUID()],
+      });
+
+      await expect(user.get(`/groups/${guildId}`))
+        .to.eventually.be.rejected.and.eql({
+          code: 404,
+          error: 'NotFound',
+          message: t('groupNotFound'),
+        });
+
+      await user.sync();
+
+      expect(user.guilds).to.have.a.lengthOf(1);
+      expect(user.guilds).to.not.include(guildId);
+    });
+
+    it('removes non-existant party from user\'s party object', async () => {
+      let partyId = generateUUID();
+
+      await user.update({
+        party: { _id: partyId },
+      });
+
+      await expect(user.get(`/groups/${partyId}`))
+        .to.eventually.be.rejected.and.eql({
+          code: 404,
+          error: 'NotFound',
+          message: t('groupNotFound'),
+        });
+
+      await user.sync();
+
+      expect(user.party).to.eql({});
     });
   });
 

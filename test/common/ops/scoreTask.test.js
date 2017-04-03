@@ -1,4 +1,5 @@
-import scoreTask from '../../../common/script/ops/scoreTask';
+import scoreTask from '../../../website/common/script/ops/scoreTask';
+
 import {
   generateUser,
   generateDaily,
@@ -6,11 +7,12 @@ import {
   generateTodo,
   generateReward,
 } from '../../helpers/common.helper';
-import common from '../../../common';
-import i18n from '../../../common/script/i18n';
+import common from '../../../website/common';
+import i18n from '../../../website/common/script/i18n';
 import {
   NotAuthorized,
-} from '../../../common/script/libs/errors';
+} from '../../../website/common/script/libs/errors';
+import crit from '../../../website/common/script/fns/crit';
 
 let EPSILON = 0.0001; // negligible distance between datapoints
 
@@ -48,9 +50,11 @@ let expectClosePoints = (beforeUser, afterUser, beforeTask, task) => {
   expect(Math.abs(task.value - beforeTask.value)).to.be.lessThan(EPSILON);
 };
 
-let _expectRoughlyEqualDates = (date1, date2) => {
-  expect(date1.toString()).to.eql(date2.toString());
-};
+function expectRoughlyEqualDates (date1, date2) {
+  date1 = date1.valueOf();
+  date2 = date2.valueOf();
+  expect(date1).to.be.within(date2 - 100, date2 + 100);
+}
 
 describe('shared.ops.scoreTask', () => {
   let ref;
@@ -81,7 +85,7 @@ describe('shared.ops.scoreTask', () => {
     let task = generateTodo({ userId: ref.afterUser._id, text: 'todo to complete', cron: false });
     scoreTask({ user: ref.afterUser, task, direction: 'up' });
     expect(task.completed).to.eql(true);
-    _expectRoughlyEqualDates(task.dateCompleted, new Date());
+    expectRoughlyEqualDates(task.dateCompleted, new Date());
   });
 
   it('uncompletes when the task direction is down', () => {
@@ -134,10 +138,64 @@ describe('shared.ops.scoreTask', () => {
       todo = generateTodo({ userId: ref.afterUser._id, text: 'some todo' });
 
       expect(habit.history.length).to.eql(0);
+      expect(habit.frequency).to.equal('daily');
+      expect(habit.counterUp).to.equal(0);
+      expect(habit.counterDown).to.equal(0);
 
       // before and after are the same user
       expect(ref.beforeUser._id).to.exist;
       expect(ref.beforeUser._id).to.eql(ref.afterUser._id);
+    });
+
+    it('critical hits', () => {
+      let normalUser = ref.beforeUser;
+      expect(normalUser.party.quest.progress.up).to.eql(0);
+      normalUser.party.quest.key = 'gryphon';
+      let critUser = ref.afterUser;
+      expect(critUser.party.quest.progress.up).to.eql(0);
+      critUser.party.quest.key = 'gryphon';
+      let normalTask = todo;
+      let critTask = freshTodo;
+
+      scoreTask({ user: normalUser, task: normalTask, direction: 'up', cron: false });
+      let normalTaskDelta = normalUser.party.quest.progress.up;
+
+      sandbox.stub(crit, 'crit').returns(1.5);
+      scoreTask({ user: critUser, task: critTask, direction: 'up', cron: false });
+      let critTaskDelta = critUser.party.quest.progress.up;
+      crit.crit.restore();
+
+      expect(critUser.stats.hp).to.eql(normalUser.stats.hp);
+      expect(critUser.stats.gp).to.be.greaterThan(normalUser.stats.gp);
+      expect(critUser.stats.mp).to.be.greaterThan(normalUser.stats.mp);
+      expect(critUser.stats.exp).to.be.greaterThan(normalUser.stats.exp);
+      expect(critTask.value).to.eql(normalTask.value);
+      expect(critTaskDelta).to.be.greaterThan(normalTaskDelta);
+    });
+
+    it('and increments quest progress', () => {
+      expect(ref.afterUser.party.quest.progress.up).to.eql(0);
+      ref.afterUser.party.quest.key = 'gryphon';
+
+      scoreTask({ user: ref.afterUser, task: habit, direction: 'up', cron: false });
+      let firstTaskDelta = ref.afterUser.party.quest.progress.up;
+      expect(firstTaskDelta).to.be.greaterThan(0);
+      expect(ref.afterUser._tmp.quest.progressDelta).to.eql(firstTaskDelta);
+
+      scoreTask({ user: ref.afterUser, task: habit, direction: 'up', cron: false });
+      let secondTaskDelta = ref.afterUser.party.quest.progress.up - firstTaskDelta;
+      expect(secondTaskDelta).to.be.greaterThan(0);
+      expect(ref.afterUser._tmp.quest.progressDelta).to.eql(secondTaskDelta);
+    });
+
+    it('does not modify stats when task need approval', () => {
+      todo.group.approval.required = true;
+      options = { user: ref.afterUser, task: todo, direction: 'up', times: 5, cron: false };
+      scoreTask(options);
+
+      expect(ref.afterUser.stats.hp).to.eql(50);
+      expect(ref.afterUser.stats.exp).to.equal(ref.beforeUser.stats.exp);
+      expect(ref.afterUser.stats.gp).to.equal(ref.beforeUser.stats.gp);
     });
 
     context('habits', () => {
@@ -147,10 +205,20 @@ describe('shared.ops.scoreTask', () => {
 
         expect(habit.history.length).to.eql(1);
         expect(habit.value).to.be.greaterThan(0);
+        expect(habit.counterUp).to.equal(5);
 
         expect(ref.afterUser.stats.hp).to.eql(50);
         expect(ref.afterUser.stats.exp).to.be.greaterThan(ref.beforeUser.stats.exp);
         expect(ref.afterUser.stats.gp).to.be.greaterThan(ref.beforeUser.stats.gp);
+      });
+
+      it('adds score notes', () => {
+        let scoreNotesString = 'scoreNotes';
+        habit.scoreNotes = scoreNotesString;
+        options = { user: ref.afterUser, task: habit, direction: 'up', times: 5, cron: false };
+        scoreTask(options);
+
+        expect(habit.history[0].scoreNotes).to.eql(scoreNotesString);
       });
 
       it('down', () => {
@@ -158,6 +226,7 @@ describe('shared.ops.scoreTask', () => {
 
         expect(habit.history.length).to.eql(1);
         expect(habit.value).to.be.lessThan(0);
+        expect(habit.counterDown).to.equal(5);
 
         expect(ref.afterUser.stats.hp).to.be.lessThan(ref.beforeUser.stats.hp);
         expect(ref.afterUser.stats.exp).to.eql(0);

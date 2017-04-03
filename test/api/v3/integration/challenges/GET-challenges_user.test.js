@@ -45,6 +45,7 @@ describe('GET challenges/user', () => {
         type: publicGuild.type,
         privacy: publicGuild.privacy,
         name: publicGuild.name,
+        leader: publicGuild.leader._id,
       });
     });
 
@@ -64,6 +65,7 @@ describe('GET challenges/user', () => {
         type: publicGuild.type,
         privacy: publicGuild.privacy,
         name: publicGuild.name,
+        leader: publicGuild.leader._id,
       });
       let foundChallenge2 = _.find(challenges, { _id: challenge2._id });
       expect(foundChallenge2).to.exist;
@@ -78,6 +80,7 @@ describe('GET challenges/user', () => {
         type: publicGuild.type,
         privacy: publicGuild.privacy,
         name: publicGuild.name,
+        leader: publicGuild.leader._id,
       });
     });
 
@@ -97,6 +100,7 @@ describe('GET challenges/user', () => {
         type: publicGuild.type,
         privacy: publicGuild.privacy,
         name: publicGuild.name,
+        leader: publicGuild.leader._id,
       });
       let foundChallenge2 = _.find(challenges, { _id: challenge2._id });
       expect(foundChallenge2).to.exist;
@@ -111,6 +115,7 @@ describe('GET challenges/user', () => {
         type: publicGuild.type,
         privacy: publicGuild.privacy,
         name: publicGuild.name,
+        leader: publicGuild.leader._id,
       });
     });
 

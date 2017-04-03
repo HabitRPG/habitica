@@ -1,4 +1,4 @@
-import taskClasses from '../../../common/script/libs/taskClasses';
+import taskClasses from '../../../website/common/script/libs/taskClasses';
 
 describe('taskClasses', () => {
   let task = {};

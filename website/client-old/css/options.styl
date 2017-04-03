@@ -1,0 +1,40 @@
+@require "./variables/screen-size.styl"
+
+#main > div > div > div > .tab-content
+  margin: 1.618em 0em
+  @media screen and (min-width: $sm-min-screen-width)
+    border: 1px solid darken($color-options-menu, 12%)
+    padding-bottom: 1.618em
+.options-menu, .options-submenu
+  @extend $hrpg-submenu
+  border-bottom: 1px solid darken($color-options-menu, 12%)
+.options-menu
+  @media screen and (min-width: $sm-min-screen-width)
+    background-color: $color-options-menu
+
+  li
+    @extend $hrpg-button
+    hrpg-button-color-mixin($color-options-menu)
+
+    &.highlight
+      hrpg-button-color-mixin($color-options-submenu, true)
+      border: 1px solid;
+      border-radius: 3px;
+
+.options-submenu
+  margin-top: -1.618em
+  background-color: $color-options-submenu
+
+  li
+    @extend $hrpg-button
+    hrpg-button-color-mixin($color-options-submenu)
+
+.options-blurbmenu
+  margin: -1.618em 0 1.618em
+  border-bottom: 1px solid darken($color-options-menu, 12%)
+  padding: .5em
+
+  @media screen and (max-width: $xs-max-screen-width)
+    padding: 1em 0.618em 0 0.618em
+    border: 1px solid darken($color-options-menu, 12%)
+    border-top: none

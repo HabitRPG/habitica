@@ -2,7 +2,7 @@ import {
   requester,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
-import i18n from '../../../../../common/script/i18n';
+import i18n from '../../../../../website/common/script/i18n';
 
 describe('GET /content', () => {
   it('returns content (and does not require authentication)', async () => {

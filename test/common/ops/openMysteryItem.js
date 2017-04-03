@@ -1,12 +1,12 @@
-import openMysteryItem from '../../../common/script/ops/openMysteryItem';
+import openMysteryItem from '../../../website/common/script/ops/openMysteryItem';
 import {
   generateUser,
 } from '../../helpers/common.helper';
 import {
   BadRequest,
-} from '../../../common/script/libs/errors';
-import content from '../../../common/script/content/index';
-import i18n from '../../../common/script/i18n';
+} from '../../../website/common/script/libs/errors';
+import content from '../../../website/common/script/content/index';
+import i18n from '../../../website/common/script/i18n';
 
 describe('shared.ops.openMysteryItem', () => {
   let user;

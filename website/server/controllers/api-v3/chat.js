@@ -1,14 +1,15 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
+import { authWithHeaders } from '../../middlewares/auth';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import {
   NotFound,
   NotAuthorized,
-} from '../../libs/api-v3/errors';
+} from '../../libs/errors';
 import _ from 'lodash';
-import { removeFromArray } from '../../libs/api-v3/collectionManipulators';
-import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/api-v3/email';
-import pusher from '../../libs/api-v3/pusher';
+import { removeFromArray } from '../../libs/collectionManipulators';
+import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/email';
+import slack from '../../libs/slack';
+import pusher from '../../libs/pusher';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
 
@@ -16,17 +17,51 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
   return { email, canSend: true };
 });
 
+/**
+ * @apiDefine MessageNotFound
+ * @apiError (404) {NotFound} MessageNotFound The specified message could not be found.
+ */
+
+/**
+ * @apiDefine GroupIdRequired
+ * @apiError (404) {badRequest} groupIdRequired A group ID is required
+ */
+
+/**
+ * @apiDefine ChatIdRequired
+ * @apiError (404) {badRequest} chatIdRequired A chat ID is required
+ */
+
 let api = {};
+
+async function getAuthorEmailFromMessage (message) {
+  let authorId = message.uuid;
+
+  if (authorId === 'system') {
+    return 'system';
+  }
+
+  let author = await User.findOne({_id: authorId}, {auth: 1}).exec();
+
+  if (author) {
+    return getUserInfo(author, ['email']).email;
+  } else {
+    return 'Author Account Deleted';
+  }
+}
 
 /**
  * @api {get} /api/v3/groups/:groupId/chat Get chat messages from a group
- * @apiVersion 3.0.0
  * @apiName GetChat
  * @apiGroup Chat
+ * @apiDescription Fetches an array of messages from a group
  *
- * @apiParam {string} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiSuccess {Array} data An array of chat messages
+ * @apiSuccess {Array} data An array of <a href='https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js#L51' target='_blank'>chat messages</a>
+ *
+ * @apiUse GroupNotFound
+ * @apiUse GroupIdRequired
  */
 api.getChat = {
   method: 'GET',
@@ -49,15 +84,19 @@ api.getChat = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
- * @apiVersion 3.0.0
  * @apiName PostChat
  * @apiGroup Chat
+ * @apiDescription Posts a chat message to a group
  *
- * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {string} message Body parameter - message The message to post
- * @apiParam {UUID} previousMsg Query parameter - The previous chat message which will force a return of the full group chat
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Body) {String} message Message The message to post
+ * @apiParam (Query) {UUID} previousMsg The previous chat message's UUID which will force a return of the full group chat
  *
- * @apiSuccess data An array of chat messages if a new message was posted after previousMsg, otherwise the posted message
+ * @apiSuccess data An array of <a href='https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js#L51' target='_blank'>chat messages</a> if a new message was posted after previousMsg, otherwise the posted message
+ *
+ * @apiUse GroupNotFound
+ * @apiUse GroupIdRequired
+ * @apiError (400) {NotFound} ChatPriviledgesRevoked Your chat privileges have been revoked
  */
 api.postChat = {
   method: 'POST',
@@ -69,6 +108,7 @@ api.postChat = {
     let chatUpdated;
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.sanitize('message').trim();
     req.checkBody('message', res.t('messageGroupChatBlankMessage')).notEmpty();
 
     let validationErrors = req.validationErrors();
@@ -77,7 +117,7 @@ api.postChat = {
     let group = await Group.getGroup({user, groupId});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
-    if (group.type !== 'party' && user.flags.chatRevoked) {
+    if (group.privacy !== 'private' && user.flags.chatRevoked) {
       throw new NotFound('Your chat privileges have been revoked.');
     }
 
@@ -107,19 +147,27 @@ api.postChat = {
     } else {
       res.respond(200, {message: savedGroup.chat[0]});
     }
+
+    group.sendGroupChatReceivedWebhooks(newChatMessage);
   },
 };
 
 /**
  * @api {post} /api/v3/groups/:groupId/chat/:chatId/like Like a group chat message
- * @apiVersion 3.0.0
  * @apiName LikeChat
  * @apiGroup Chat
+ * @apiDescription Likes a chat message from a group
  *
- * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {UUID} chatId The chat message _id
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} chatId The chat message _id
  *
- * @apiSuccess {Object} data The liked chat message
+ * @apiSuccess {Object} data The liked <a href='https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js#L51' target='_blank'>chat message</a>
+ *
+ * @apiUse GroupNotFound
+ * @apiUse MessageNotFound
+ * @apiUse GroupIdRequired
+ * @apiUse ChatIdRequired
+ * @apiError (400) {NotFound} messageGroupChatLikeOwnMessage A user can't like their own message
  */
 api.likeChat = {
   method: 'POST',
@@ -140,6 +188,7 @@ api.likeChat = {
 
     let message = _.find(group.chat, {id: req.params.chatId});
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
+    // TODO correct this error type
     if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatLikeOwnMessage'));
 
     let update = {$set: {}};
@@ -152,21 +201,36 @@ api.likeChat = {
     await Group.update(
       {_id: group._id, 'chat.id': message.id},
       update
-    );
+    ).exec();
     res.respond(200, message); // TODO what if the message is flagged and shouldn't be returned?
   },
 };
 
 /**
  * @api {post} /api/v3/groups/:groupId/chat/:chatId/flag Flag a group chat message
- * @apiVersion 3.0.0
+ * @apiDescription A message will be hidden from chat if two or more users flag a message. It will be hidden immediately if a moderator flags the message. An email is sent to the moderators about every flagged message.
  * @apiName FlagChat
  * @apiGroup Chat
  *
- * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {UUID} chatId The chat message id
+ * @apiParam (Path) {UUID} groupId The group id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} chatId The chat message id
  *
- * @apiSuccess {object} data The flagged chat message
+ * @apiSuccess {Object} data The flagged chat message
+ * @apiSuccess {UUID} data.id The id of the message
+ * @apiSuccess {String} data.text The text of the message
+ * @apiSuccess {Number} data.timestamp The timestamp of the message in milliseconds
+ * @apiSuccess {Object} data.likes The likes of the message
+ * @apiSuccess {Object} data.flags The flags of the message
+ * @apiSuccess {Number} data.flagCount The number of flags the message has
+ * @apiSuccess {UUID} data.uuid The user id of the author of the message
+ * @apiSuccess {String} data.user The username of the author of the message
+ *
+ * @apiUse GroupNotFound
+ * @apiUse MessageNotFound
+ * @apiUse GroupIdRequired
+ * @apiUse ChatIdRequired
+ * @apiError (404) {NotFound} AlreadyFlagged Chat messages cannot be flagged more than once by a user
+ * @apiError (404) {NotFound} messageGroupChatFlagAlreadyReported The message has already been flagged
  */
 api.flagChat = {
   method: 'POST',
@@ -182,20 +246,21 @@ api.flagChat = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId});
+    let group = await Group.getGroup({
+      user,
+      groupId,
+      optionalMembership: user.contributor.admin,
+    });
     if (!group) throw new NotFound(res.t('groupNotFound'));
     let message = _.find(group.chat, {id: req.params.chatId});
 
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
 
-    if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatFlagOwnMessage'));
-
-    let author = await User.findOne({_id: message.uuid}, {auth: 1});
-
     let update = {$set: {}};
 
     // Log user ids that have flagged the message
     if (!message.flags) message.flags = {};
+    // TODO fix error type
     if (message.flags[user._id] && !user.contributor.admin) throw new NotFound(res.t('messageGroupChatFlagAlreadyReported'));
     message.flags[user._id] = true;
     update.$set[`chat.$.flags.${user._id}`] = true;
@@ -213,12 +278,10 @@ api.flagChat = {
     await Group.update(
       {_id: group._id, 'chat.id': message.id},
       update
-    );
+    ).exec();
 
     let reporterEmailContent = getUserInfo(user, ['email']).email;
-
-    let authorEmailContent = author ? getUserInfo(author, ['email']).email : 'system';
-
+    let authorEmail = await getAuthorEmailFromMessage(message);
     let groupUrl = getGroupUrl(group);
 
     sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods', [
@@ -232,7 +295,7 @@ api.flagChat = {
 
       {name: 'AUTHOR_USERNAME', content: message.user},
       {name: 'AUTHOR_UUID', content: message.uuid},
-      {name: 'AUTHOR_EMAIL', content: authorEmailContent},
+      {name: 'AUTHOR_EMAIL', content: authorEmail},
       {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
 
       {name: 'GROUP_NAME', content: group.name},
@@ -241,21 +304,34 @@ api.flagChat = {
       {name: 'GROUP_URL', content: groupUrl},
     ]);
 
+    slack.sendFlagNotification({
+      authorEmail,
+      flagger: user,
+      group,
+      message,
+    });
+
     res.respond(200, message);
   },
 };
 
 /**
- * @api {post} /api/v3/groups/:groupId/chat/:chatId/clearflags Clear a group chat message's flags
- * @apiDescription Admin-only
- * @apiVersion 3.0.0
+ * @api {post} /api/v3/groups/:groupId/chat/:chatId/clearflags Clear flags
+ * @apiDescription Resets the flag count on a chat message. Retains the id of the user's that have flagged the message. (Only visible to moderators)
+ * @apiPermission Admin
  * @apiName ClearFlags
  * @apiGroup Chat
  *
- * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {UUID} chatId The chat message id
+ * @apiParam (Path) {UUID} groupId The group id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} chatId The chat message id
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiUse GroupNotFound
+ * @apiUse MessageNotFound
+ * @apiUse GroupIdRequired
+ * @apiUse ChatIdRequired
+ * @apiError (404) {NotAuthorized} MustBeAdmin Must be a moderator to use this route
  */
 api.clearChatFlags = {
   method: 'Post',
@@ -276,7 +352,11 @@ api.clearChatFlags = {
       throw new NotAuthorized(res.t('messageGroupChatAdminClearFlagCount'));
     }
 
-    let group = await Group.getGroup({user, groupId});
+    let group = await Group.getGroup({
+      user,
+      groupId,
+      optionalMembership: user.contributor.admin,
+    });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let message = _.find(group.chat, {id: chatId});
@@ -287,14 +367,10 @@ api.clearChatFlags = {
     await Group.update(
       {_id: group._id, 'chat.id': message.id},
       {$set: {'chat.$.flagCount': message.flagCount}}
-    );
+    ).exec();
 
     let adminEmailContent = getUserInfo(user, ['email']).email;
-
-    let author = await User.findOne({_id: message.uuid}, {auth: 1});
-
-    let authorEmailContent = getUserInfo(author, ['email']).email;
-
+    let authorEmail = getAuthorEmailFromMessage(message);
     let groupUrl = getGroupUrl(group);
 
     sendTxn(FLAG_REPORT_EMAILS, 'unflag-report-to-mods', [
@@ -308,7 +384,7 @@ api.clearChatFlags = {
 
       {name: 'AUTHOR_USERNAME', content: message.user},
       {name: 'AUTHOR_UUID', content: message.uuid},
-      {name: 'AUTHOR_EMAIL', content: authorEmailContent},
+      {name: 'AUTHOR_EMAIL', content: authorEmail},
       {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
 
       {name: 'GROUP_NAME', content: group.name},
@@ -323,13 +399,13 @@ api.clearChatFlags = {
 
 /**
  * @api {post} /api/v3/groups/:groupId/chat/seen Mark all messages as read for a group
- * @apiVersion 3.0.0
  * @apiName SeenChat
  * @apiGroup Chat
  *
- * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Object} data An empty object
+ * @apiUse GroupIdRequired
  */
 api.seenChat = {
   method: 'POST',
@@ -358,16 +434,22 @@ api.seenChat = {
 
 /**
  * @api {delete} /api/v3/groups/:groupId/chat/:chatId Delete chat message from a group
- * @apiVersion 3.0.0
  * @apiName DeleteChat
  * @apiGroup Chat
+ * @apiDescription Delete's a chat message from a group
  *
- * @apiParam {string} previousMsg Query parameter - The last message fetched by the client so that the whole chat will be returned only if new messages have been posted in the meantime
- * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {UUID} chatId The chat message id
+ * @apiParam (Query) {UUID} previousMsg The last message's ID fetched by the client so that the whole chat will be returned only if new messages have been posted in the meantime
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} chatId The chat message id
  *
  * @apiSuccess data The updated chat array or an empty object if no message was posted after previousMsg
  * @apiSuccess {Object} data An empty object when the previous message was deleted
+ *
+ * @apiUse GroupNotFound
+ * @apiUse MessageNotFound
+ * @apiUse GroupIdRequired
+ * @apiUse ChatIdRequired
+ * @apiError (400) onlyCreatorOrAdminCanDeleteChat Only the creator of the message and admins can delete a chat message
  */
 api.deleteChat = {
   method: 'DELETE',
@@ -400,7 +482,7 @@ api.deleteChat = {
     await Group.update(
       {_id: group._id},
       {$pull: {chat: {id: chatId}}}
-    );
+    ).exec();
 
     if (chatUpdated) {
       let chatRes = Group.toJSONCleanChat(group, user).chat;

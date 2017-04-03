@@ -18,6 +18,8 @@ nav.toolbar(ng-controller='MenuCtrl')
               li
                 a(ui-sref='options.profile.stats')=env.t('stats')
               li
+                a(ui-sref='options.profile.achievements')=env.t('achievs')
+              li
                 a(ui-sref='options.profile.profile')=env.t('profile')
             ul.toolbar-submenu
               li
@@ -34,6 +36,8 @@ nav.toolbar(ng-controller='MenuCtrl')
                 a(ui-sref='options.social.challenges')=env.t('challenges')
               li
                 a(ui-sref='options.social.hall.heroes')=env.t('hall')
+              li
+                a(ui-sref='options.social.groupPlans')=env.t('groupPlansTitle')
             ul.toolbar-submenu
               li
                 a(ui-sref='options.inventory.drops')=env.t('market')
@@ -66,7 +70,7 @@ nav.toolbar(ng-controller='MenuCtrl')
               li
                 a(target='_blank' href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')=env.t('requestAF')
               li
-                a(target='_blank' href='http://habitica.wikia.com/wiki/Contributing_to_Habitica')=env.t('contributeToHRPG')
+                a(target='_blank' href=env.t('conLearnURL'))=env.t('contributeToHRPG')
               li
                 a(target='_blank' href=env.t('HabiticaWikiFrontPage'))=env.t('HabiticaWiki')
           ul.toolbar-controls
@@ -92,6 +96,8 @@ nav.toolbar(ng-controller='MenuCtrl')
             li
               a(ui-sref='options.profile.stats')=env.t('stats')
             li
+              a(ui-sref='options.profile.achievements')=env.t('achievs')
+            li
               a(ui-sref='options.profile.profile')=env.t('profile')
       li.toolbar-button-dropdown
         a(ui-sref='options.social.inbox', ng-if='user.inbox.newMessages')
@@ -116,6 +122,8 @@ nav.toolbar(ng-controller='MenuCtrl')
               a(ui-sref='options.social.challenges')=env.t('challenges')
             li
               a(ui-sref='options.social.hall.heroes')=env.t('hall')
+            li
+              a(ui-sref='options.social.groupPlans')=env.t('groupPlansTitle')
       li.toolbar-button-dropdown
         a(ui-sref='options.inventory.drops', data-close-menu)
           span=env.t('inventory')
@@ -167,13 +175,16 @@ nav.toolbar(ng-controller='MenuCtrl')
             li
               a(target='_blank' href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents')=env.t('requestAF')
             li
-              a(target='_blank' href='http://habitica.wikia.com/wiki/Contributing_to_Habitica')=env.t('contributeToHRPG')
+              a(target='_blank' href=env.t('conLearnURL'))=env.t('contributeToHRPG')
             li
               a(target='_blank' href=env.t('HabiticaWikiFrontPage'))=env.t('HabiticaWiki')
     ul.toolbar-subscribe(ng-if='!user.purchased.plan.customerId')
       li.toolbar-subscribe-button
         button.highlight(ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
     ul.toolbar-options
+      li.toolbar-quest-detail(ng-if='hasQuestProgress()')
+        a(ng-click='$state.go("options.social.party");', popover-placement='bottom',popover-trigger='mouseenter',popover-title='{{getQuestInfo().title}}', popover='{{getQuestInfo().body}}',popover-append-to-body='true')
+          span.glyphicon.glyphicon-screenshot
       li.toolbar-notifs
         a(data-expand-menu, menu='notifs')
           span.glyphicon(ng-class='iconClasses()')
@@ -211,6 +222,11 @@ nav.toolbar(ng-controller='MenuCtrl')
                   span {{v.name}}
                 a(ng-click='clearMessages(k)', popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
                   span.glyphicon.glyphicon-remove-circle
+              li(ng-repeat='notification in user.groupNotifications')
+                a(ng-click='viewGroupApprovalNotification(notification, $index)', data-close-menu)
+                  span(class="{{::groupApprovalNotificationIcon(notification)}}")
+                  span
+                    | {{notification.data.message}}
 
           ul.toolbar-controls
             li.toolbar-controls-button
@@ -223,9 +239,9 @@ nav.toolbar(ng-controller='MenuCtrl')
           div
             ul.toolbar-submenu
               // Using [{k,v}] instead of {k:v,k:v} to maintain order ('off' at top)
-              for theme in ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme']
+              for theme in ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme']
                 li
-                  a(ng-class="{'bg-primary':user.preferences.sound === '# {theme}'}", ng-click="set({'preferences.sound':'#{theme}'})")=env.t('audioTheme_'+theme)
+                  a(ng-class="{'bg-info':user.preferences.sound === '#{theme}'}", ng-click="set({'preferences.sound':'#{theme}'})")=env.t('audioTheme_'+theme)
           ul.toolbar-controls
             li.toolbar-controls-button
               a(data-close-menu)=env.t('close')
@@ -258,8 +274,6 @@ nav.toolbar(ng-controller='MenuCtrl')
             ul.toolbar-submenu
               li
                 a(href='https://habitica.com/static/faq', target='_blank')=env.t('FAQ')
-              li
-                a(href='https://vimeo.com/57654086', target='_blank')=env.t('tutorials')
           ul.toolbar-controls
             li.toolbar-controls-button
               a(data-close-menu)=env.t('close')
@@ -277,7 +291,7 @@ nav.toolbar(ng-controller='MenuCtrl')
 
     ul.toolbar-bailey(ng-class='{inactive: !_expandedMenu.menu}')
       li.toolbar-bailey-container(ng-if='user.flags.tour.intro!=-2')
-        .npc_justin_head.npc_bailey_head(popover='Continue Tour', popover-trigger='mouseenter', popover-placement='bottom', ng-click='Guide.goto("intro", user.flags.tour.intro, true)')
+        .npc_justin_head.npc_bailey_head(popover='Continue Tour', popover-trigger='mouseenter', popover-placement='bottom', ng-click='Guide.goto("intro", user.flags.tour.intro + 1, true)')
 
     ul.toolbar-bailey(ng-class='{inactive: !_expandedMenu.menu}')
       li.toolbar-bailey-container(ng-if='user.flags.newStuff')

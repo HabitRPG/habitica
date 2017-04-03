@@ -54,6 +54,55 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
       expect(messages[0].flagCount).to.eql(0);
       expect(messages[0].flags).to.have.property(admin._id, true);
     });
+
+    it('clears flags in a private group', async () => {
+      let { group, members } = await createAndPopulateGroup({
+        groupDetails: {
+          type: 'party',
+          privacy: 'private',
+        },
+        members: 1,
+      });
+
+      let privateMessage = await members[0].post(`/groups/${group._id}/chat`, { message: 'Some message' });
+      privateMessage = privateMessage.message;
+
+      await admin.post(`/groups/${group._id}/chat/${privateMessage.id}/flag`);
+      await admin.post(`/groups/${group._id}/chat/${privateMessage.id}/clearflags`);
+
+      let messages = await members[0].get(`/groups/${group._id}/chat`);
+      expect(messages[0].flagCount).to.eql(0);
+    });
+
+    it('can unflag a system message', async () => {
+      let { group, members } = await createAndPopulateGroup({
+        groupDetails: {
+          type: 'party',
+          privacy: 'private',
+        },
+        members: 1,
+      });
+
+      let member = members[0];
+
+      // make member that can use skills
+      await member.update({
+        'stats.lvl': 100,
+        'stats.mp': 400,
+        'stats.class': 'wizard',
+      });
+
+      await member.post('/user/class/cast/mpheal');
+
+      let [skillMsg] = await member.get(`/groups/${group.id}/chat`);
+
+      await member.post(`/groups/${group._id}/chat/${skillMsg.id}/flag`);
+      await admin.post(`/groups/${group._id}/chat/${skillMsg.id}/clearflags`);
+
+      let messages = await members[0].get(`/groups/${group._id}/chat`);
+      expect(messages[0].id).to.eql(skillMsg.id);
+      expect(messages[0].flagCount).to.eql(0);
+    });
   });
 
   context('admin user, group with multiple messages', () => {

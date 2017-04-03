@@ -1,23 +1,36 @@
+import moment from 'moment';
 import mongoose from 'mongoose';
 import {
   model as User,
   nameFields,
 } from './user';
-import shared from '../../../common';
+import shared from '../../common';
 import _  from 'lodash';
 import { model as Challenge} from './challenge';
+import * as Tasks from './task';
 import validator from 'validator';
-import { removeFromArray } from '../libs/api-v3/collectionManipulators';
+import { removeFromArray } from '../libs/collectionManipulators';
+import payments from '../libs/payments';
+import { groupChatReceivedWebhook } from '../libs/webhook';
 import {
   InternalServerError,
   BadRequest,
-} from '../libs/api-v3/errors';
-import baseModel from '../libs/api-v3/baseModel';
-import { sendTxn as sendTxnEmail } from '../libs/api-v3/email';
+  NotAuthorized,
+} from '../libs/errors';
+import baseModel from '../libs/baseModel';
+import { sendTxn as sendTxnEmail } from '../libs/email';
 import Bluebird from 'bluebird';
 import nconf from 'nconf';
-import sendPushNotification from '../libs/api-v3/pushNotifications';
-import pusher from '../libs/api-v3/pusher';
+import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
+import pusher from '../libs/pusher';
+import {
+  syncableAttrs,
+} from '../libs/taskManager';
+import {
+  schema as SubscriptionPlanSchema,
+} from './subscriptionPlan';
+import amazonPayments from '../libs/amazonPayments';
+import stripePayments from '../libs/stripePayments';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -27,9 +40,11 @@ export const TAVERN_ID = shared.TAVERN_ID;
 
 const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
 const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = shared.constants.LARGE_GROUP_COUNT_MESSAGE_CUTOFF;
+const GUILDS_PER_PAGE = shared.constants.GUILDS_PER_PAGE;
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
+const MAX_UPDATE_RETRIES = 5;
 
 export let schema = new Schema({
   name: {type: String, required: true},
@@ -79,13 +94,28 @@ export let schema = new Schema({
       return {};
     }},
   },
+  tasksOrder: {
+    habits: [{type: String, ref: 'Task'}],
+    dailys: [{type: String, ref: 'Task'}],
+    todos: [{type: String, ref: 'Task'}],
+    rewards: [{type: String, ref: 'Task'}],
+  },
+  purchased: {
+    plan: {type: SubscriptionPlanSchema, default: () => {
+      return {};
+    }},
+  },
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount'],
+  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased'],
+  private: ['purchased.plan'],
+  toJSONTransform (plainObj, originalDoc) {
+    if (plainObj.purchased) plainObj.purchased.active = originalDoc.isSubscribed();
+  },
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
@@ -95,7 +125,7 @@ schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
 };
 
 // Basic fields to fetch for populating a group info
-export let basicFields = 'name type privacy';
+export let basicFields = 'name type privacy leader';
 
 schema.pre('remove', true, async function preRemoveGroup (next, done) {
   next();
@@ -159,13 +189,28 @@ schema.statics.getGroup = async function getGroup (options = {}) {
   if (fields) mQuery.select(fields);
   if (populateLeader === true) mQuery.populate('leader', nameFields);
   let group = await mQuery.exec();
+
+  if (!group) {
+    if (groupId === user.party._id) {
+      // reset party object to default state
+      user.party = {};
+    } else {
+      removeFromArray(user.guilds, groupId);
+    }
+    await user.save();
+  }
+
   return group;
 };
 
 export const VALID_QUERY_TYPES = ['party', 'guilds', 'privateGuilds', 'publicGuilds', 'tavern'];
 
 schema.statics.getGroups = async function getGroups (options = {}) {
-  let {user, types, groupFields = basicFields, sort = '-memberCount', populateLeader = false} = options;
+  let {
+    user, types, groupFields = basicFields,
+    sort = '-memberCount', populateLeader = false,
+    paginate = false, page = 0, // optional pagination for public guilds
+  } = options;
   let queries = [];
 
   // Throw error if an invalid type is supplied
@@ -207,6 +252,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
           privacy: 'public',
         }).select(groupFields);
         if (populateLeader === true) publicGuildsQuery.populate('leader', nameFields);
+        if (paginate === true) publicGuildsQuery.limit(GUILDS_PER_PAGE).skip(page * GUILDS_PER_PAGE);
         publicGuildsQuery.sort(sort).lean().exec();
         queries.push(publicGuildsQuery);
         break;
@@ -231,17 +277,89 @@ schema.statics.getGroups = async function getGroups (options = {}) {
 // When converting to json remove chat messages with more than 1 flag and remove all flags info
 // unless the user is an admin
 // Not putting into toJSON because there we can't access user
+// It also removes the _meta field that can be stored inside a chat message
 schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
   let toJSON = group.toJSON();
 
   if (!user.contributor.admin) {
     _.remove(toJSON.chat, chatMsg => {
       chatMsg.flags = {};
+      if (chatMsg._meta) chatMsg._meta = undefined;
       return chatMsg.flagCount >= 2;
     });
   }
 
   return toJSON;
+};
+
+/**
+ * Checks inivtation uuids and emails for possible errors.
+ *
+ * @param  uuids  An array of user ids
+ * @param  emails  An array of emails
+ * @param  res  Express res object for use with translations
+ * @throws BadRequest An error describing the issue with the invitations
+ */
+schema.statics.validateInvitations = async function getInvitationError (uuids, emails, res, group = null) {
+  let uuidsIsArray = Array.isArray(uuids);
+  let emailsIsArray = Array.isArray(emails);
+  let emptyEmails = emailsIsArray && emails.length < 1;
+  let emptyUuids = uuidsIsArray && uuids.length < 1;
+
+  let errorString;
+
+  if (!uuids && !emails) {
+    errorString = 'canOnlyInviteEmailUuid';
+  } else if (uuids && !uuidsIsArray) {
+    errorString = 'uuidsMustBeAnArray';
+  } else if (emails && !emailsIsArray) {
+    errorString = 'emailsMustBeAnArray';
+  } else if (!emails && emptyUuids) {
+    errorString = 'inviteMissingUuid';
+  } else if (!uuids && emptyEmails) {
+    errorString = 'inviteMissingEmail';
+  } else if (emptyEmails && emptyUuids) {
+    errorString = 'inviteMustNotBeEmpty';
+  }
+
+  if (errorString) {
+    throw new BadRequest(res.t(errorString));
+  }
+
+  let totalInvites = 0;
+
+  if (uuids) {
+    totalInvites += uuids.length;
+  }
+
+  if (emails) {
+    totalInvites += emails.length;
+  }
+
+  if (totalInvites > INVITES_LIMIT) {
+    throw new BadRequest(res.t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}));
+  }
+
+  // If party, check the limit of members
+  if (group && group.type === 'party') {
+    let memberCount = 0;
+
+    // Counting the members that already joined the party
+    memberCount += group.memberCount;
+
+    // Count how many invitations currently exist in the party
+    let query = {};
+    query['invitations.party.id'] = group._id;
+    let groupInvites = await User.count(query).exec();
+    memberCount += groupInvites;
+
+    // Counting the members that are going to be invited by email and uuids
+    memberCount += totalInvites;
+
+    if (memberCount > shared.constants.PARTY_LIMIT_MEMBERS) {
+      throw new BadRequest(res.t('partyExceedsMembersLimit', {maxMembersParty: shared.constants.PARTY_LIMIT_MEMBERS}));
+    }
+  }
 };
 
 schema.methods.getParticipatingQuestMembers = function getParticipatingQuestMembers () {
@@ -303,11 +421,27 @@ export function chatDefaults (msg, user) {
   return message;
 }
 
-schema.methods.sendChat = function sendChat (message, user) {
+schema.methods.sendChat = function sendChat (message, user, metaData) {
   let newMessage = chatDefaults(message, user);
 
+  // Optional data stored in the chat message but not returned
+  // to the users that can be stored for debugging purposes
+  if (metaData) {
+    newMessage._meta = metaData;
+  }
+
   this.chat.unshift(newMessage);
-  this.chat.splice(200);
+
+  const MAX_CHAT_COUNT = 200;
+  const MAX_SUBBED_GROUP_CHAT_COUNT = 400;
+
+  let maxCount = MAX_CHAT_COUNT;
+
+  if (this.isSubscribed()) {
+    maxCount = MAX_SUBBED_GROUP_CHAT_COUNT;
+  }
+
+  this.chat.splice(maxCount);
 
   // do not send notifications for guilds with more than 5000 users and for the tavern
   if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF) {
@@ -329,6 +463,12 @@ schema.methods.sendChat = function sendChat (message, user) {
   query._id = { $ne: user ? user._id : ''};
 
   User.update(query, lastSeenUpdate, {multi: true}).exec();
+
+  // If the message being sent is a system message (not gone through the api.postChat controller)
+  // then notify Pusher about it (only parties for now)
+  if (newMessage.uuid === 'system' && this.privacy === 'private' && this.type === 'party') {
+    pusher.trigger(`presence-group-${this._id}`, 'new-chat', newMessage);
+  }
 
   return newMessage;
 };
@@ -357,14 +497,25 @@ schema.methods.startQuest = async function startQuest (user) {
     this.quest.progress.collect = collected;
   }
 
-  let nonMembers = Object.keys(_.pick(this.quest.members, (member) => {
+  let nonMembers = Object.keys(_.pickBy(this.quest.members, (member) => {
     return !member;
   }));
 
   // Changes quest.members to only include participating members
-  this.quest.members = _.pick(this.quest.members, _.identity);
+  this.quest.members = _.pickBy(this.quest.members, _.identity);
   let nonUserQuestMembers = _.keys(this.quest.members);
   removeFromArray(nonUserQuestMembers, user._id);
+
+  // remove any users from quest.members who aren't in the party
+  let partyId = this._id;
+  let questMembers = this.quest.members;
+  await Bluebird.map(Object.keys(this.quest.members), async (memberId) => {
+    let member = await User.findOne({_id: memberId, 'party._id': partyId}).select('_id').lean().exec();
+
+    if (!member) {
+      delete questMembers[memberId];
+    }
+  });
 
   if (userIsParticipating) {
     user.party.quest.key = this.quest.key;
@@ -433,6 +584,36 @@ schema.methods.startQuest = async function startQuest (user) {
         });
     });
   });
+  this.sendChat(`\`Your quest, ${quest.text('en')}, has started.\``, null, {
+    participatingMembers: this.getParticipatingQuestMembers().join(', '),
+  });
+};
+
+schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWebhooks (chat) {
+  let query = {
+    webhooks: {
+      $elemMatch: {
+        type: 'groupChatReceived',
+        'options.groupId': this._id,
+      },
+    },
+  };
+
+  if (this.type === 'party') {
+    query['party._id'] = this._id;
+  } else {
+    query.guilds = this._id;
+  }
+
+  User.find(query).select({webhooks: 1}).lean().exec().then((users) => {
+    users.forEach((user) => {
+      let { webhooks } = user;
+      groupChatReceivedWebhook.send(webhooks, {
+        group: this,
+        chat,
+      });
+    });
+  });
 };
 
 schema.statics.cleanQuestProgress = _cleanQuestProgress;
@@ -449,6 +630,52 @@ schema.statics.cleanGroupQuest = function cleanGroupQuest () {
     members: {},
   };
 };
+
+function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
+  let updates = {
+    $set: {},
+    $inc: {},
+  };
+  let dropK = itemToAward.key;
+
+  switch (itemToAward.type) {
+    case 'gear': {
+      // TODO This means they can lose their new gear on death, is that what we want?
+      updates.$set[`items.gear.owned.${dropK}`] = true;
+      break;
+    }
+    case 'eggs':
+    case 'food':
+    case 'hatchingPotions':
+    case 'quests': {
+      updates.$inc[`items.${itemToAward.type}.${dropK}`] = _.filter(allAwardedItems, {type: itemToAward.type, key: itemToAward.key}).length;
+      break;
+    }
+    case 'pets': {
+      updates.$set[`items.pets.${dropK}`] = 5;
+      break;
+    }
+    case 'mounts': {
+      updates.$set[`items.mounts.${dropK}`] = true;
+      break;
+    }
+  }
+  updates = _.omitBy(updates, _.isEmpty);
+  return updates;
+}
+
+async function _updateUserWithRetries (userId, updates, numTry = 1) {
+  return await User.update({_id: userId}, updates).exec()
+    .then((raw) => {
+      return raw;
+    }).catch((err) => {
+      if (numTry < MAX_UPDATE_RETRIES) {
+        return _updateUserWithRetries(userId, updates, ++numTry);
+      } else {
+        throw err;
+      }
+    });
+}
 
 // Participants: Grant rewards & achievements, finish quest.
 // Changes the group object update members
@@ -469,38 +696,35 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     updates.$set['party.quest'] = _cleanQuestProgress({completed: questK}); // clear quest progress
   }
 
-  _.each(quest.drop.items, (item) => {
-    let dropK = item.key;
-
-    switch (item.type) {
-      case 'gear': {
-        // TODO This means they can lose their new gear on death, is that what we want?
-        updates.$set[`items.gear.owned.${dropK}`] = true;
-        break;
-      }
-      case 'eggs':
-      case 'food':
-      case 'hatchingPotions':
-      case 'quests': {
-        updates.$inc[`items.${item.type}.${dropK}`] = _.where(quest.drop.items, {type: item.type, key: item.key}).length;
-        break;
-      }
-      case 'pets': {
-        updates.$set[`items.pets.${dropK}`] = 5;
-        break;
-      }
-      case 'mounts': {
-        updates.$set[`items.mounts.${dropK}`] = true;
-        break;
-      }
-    }
+  _.each(_.reject(quest.drop.items, 'onlyOwner'), (item) => {
+    _.merge(updates, _getUserUpdateForQuestReward(item, quest.drop.items));
   });
 
-  let q = this._id === TAVERN_ID ? {} : {_id: {$in: this.getParticipatingQuestMembers()}};
+  let questOwnerUpdates = {};
+  let questLeader = this.quest.leader;
+
+  _.each(_.filter(quest.drop.items, 'onlyOwner'), (item) => {
+    _.merge(questOwnerUpdates, _getUserUpdateForQuestReward(item, quest.drop.items));
+  });
+  _.merge(questOwnerUpdates, updates);
+
+  let participants = this._id === TAVERN_ID ? {} : this.getParticipatingQuestMembers();
   this.quest = {};
   this.markModified('quest');
 
-  return await User.update(q, updates, {multi: true}).exec();
+  if (this._id === TAVERN_ID) {
+    return await User.update({}, updates, {multi: true}).exec();
+  }
+
+  let promises = participants.map(userId => {
+    if (userId === questLeader) {
+      return _updateUserWithRetries(userId, questOwnerUpdates);
+    } else {
+      return _updateUserWithRetries(userId, updates);
+    }
+  });
+
+  return Bluebird.all(promises);
 };
 
 function _isOnQuest (user, progress, group) {
@@ -571,7 +795,7 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   let itemsFound = {};
 
   _.times(progress.collectedItems, () => {
-    let item = shared.fns.randomVal(user, quest.collect, {key: true, seed: Math.random()});
+    let item = shared.randomVal(quest.collect, {key: true});
 
     if (!itemsFound[item]) {
       itemsFound[item] = 0;
@@ -580,12 +804,19 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
     group.quest.progress.collect[item]++;
   });
 
+  // Add 0 for all items not found
+  Object.keys(this.quest.progress.collect).forEach((item) => {
+    if (!itemsFound[item]) {
+      itemsFound[item] = 0;
+    }
+  });
+
   let foundText = _.reduce(itemsFound, (m, v, k) => {
     m.push(`${v} ${quest.collect[k].text('en')}`);
     return m;
   }, []);
 
-  foundText = foundText.length > 0 ? foundText.join(', ') : 'nothing';
+  foundText = foundText.join(', ');
   group.sendChat(`\`${user.profile.name} found ${foundText}.\``);
   group.markModified('quest.progress.collect');
 
@@ -618,7 +849,7 @@ schema.statics.processQuestProgress = async function processQuestProgress (user,
   });
 };
 
-// to set a boss: `db.groups.update({_id:TAVERN_ID},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}})`
+// to set a boss: `db.groups.update({_id:TAVERN_ID},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}}).exec()`
 // we export an empty object that is then populated with the query-returned data
 export let tavernQuest = {};
 let tavernQ = {_id: TAVERN_ID, 'quest.key': {$ne: null}};
@@ -699,18 +930,41 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
   }
 };
 
-schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
+schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepChallenges = 'leave-challenges') {
   let group = this;
+  let update = {};
 
-  let challenges = await Challenge.find({
-    _id: {$in: user.challenges},
-    group: group._id,
-  });
+  if (group.memberCount <= 1 && group.privacy === 'private' && group.hasNotCancelled()) {
+    throw new NotAuthorized(shared.i18n.t('cannotDeleteActiveGroup'));
+  }
 
-  let challengesToRemoveUserFrom = challenges.map(chal => {
-    return chal.unlinkTasks(user, keep);
+  if (group.leader === user._id && group.hasNotCancelled()) {
+    throw new NotAuthorized(shared.i18n.t('leaderCannotLeaveGroupWithActiveGroup'));
+  }
+
+  // only remove user from challenges if it's set to leave-challenges
+  if (keepChallenges === 'leave-challenges') {
+    let challenges = await Challenge.find({
+      _id: {$in: user.challenges},
+      group: group._id,
+    }).exec();
+
+    let challengesToRemoveUserFrom = challenges.map(chal => {
+      return chal.unlinkTasks(user, keep);
+    });
+    await Bluebird.all(challengesToRemoveUserFrom);
+  }
+
+  // Unlink group tasks)
+  let assignedTasks = await Tasks.Task.find({
+    'group.id': group._id,
+    userId: {$exists: false},
+    'group.assignedUsers': user._id,
+  }).exec();
+  let assignedTasksToRemoveUserFrom = assignedTasks.map(task => {
+    return this.unlinkTask(task, user, keep);
   });
-  await Bluebird.all(challengesToRemoveUserFrom);
+  await Bluebird.all(assignedTasksToRemoveUserFrom);
 
   let promises = [];
 
@@ -724,86 +978,254 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all') {
     pusher.trigger(`presence-group-${group._id}`, 'user-left', {
       userId: user._id,
     });
+
+    update.$unset = {[`quest.members.${user._id}`]: 1};
+  }
+
+  if (group.purchased.plan.customerId) {
+    promises.push(payments.cancelGroupSubscriptionForUser(user, this));
   }
 
   // If user is the last one in group and group is private, delete it
   if (group.memberCount <= 1 && group.privacy === 'private') {
-    promises.push(group.remove());
-  } else { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
-    let update = {
-      $inc: {memberCount: -1},
-    };
-
-    if (group.leader === user._id) {
-      let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
-      query._id = {$ne: user._id};
-      let seniorMember = await User.findOne(query).select('_id').exec();
-
-      // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
-      if (seniorMember) update.$set = {leader: seniorMember._id};
+    // double check the member count is correct so we don't accidentally delete a group that still has users in it
+    let members;
+    if (group.type === 'guild') {
+      members = await User.find({guilds: group._id}).select('_id').exec();
+    } else {
+      members = await User.find({'party._id': group._id}).select('_id').exec();
     }
-    promises.push(group.update(update).exec());
+
+    _.remove(members, {_id: user._id});
+
+    if (members.length === 0) {
+      promises.push(group.remove());
+      return await Bluebird.all(promises);
+    }
+  } else if (group.leader === user._id) { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
+    let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
+    query._id = {$ne: user._id};
+    let seniorMember = await User.findOne(query).select('_id').exec();
+
+    // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
+    if (seniorMember) update.$set = {leader: seniorMember._id};
   }
+  // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
+  update.$inc = {memberCount: -1};
+  if (group.leader === user._id) {
+    let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
+    query._id = {$ne: user._id};
+    let seniorMember = await User.findOne(query).select('_id').exec();
+
+    // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
+    if (seniorMember) update.$set = {leader: seniorMember._id};
+  }
+  promises.push(group.update(update).exec());
 
   return await Bluebird.all(promises);
 };
 
-// API v2 compatibility methods
-schema.methods.getTransformedData = function getTransformedData (options) {
-  let cb = options.cb;
-  let populateMembers = options.populateMembers;
-  let populateInvites = options.populateInvites;
-  let populateChallenges = options.populateChallenges;
+/**
+ * Updates all linked tasks for a group task
+ *
+ * @param  taskToSync  The group task that will be synced
+ * @param  options.newCheckListItem  The new checklist item that needs to be synced to all assigned users
+ * @param  options.removedCheckListItem  The removed checklist item that needs to be removed from all assigned users
+ *
+ * @return The created tasks
+ */
+schema.methods.updateTask = async function updateTask (taskToSync, options = {}) {
+  let group = this;
 
-  let obj = this.toJSON();
+  let updateCmd = {$set: {}};
 
-  let queryMembers = {};
-  let queryInvites = {};
-
-  if (this.type === 'guild') {
-    queryInvites['invitations.guilds.id'] = this._id;
-  } else {
-    queryInvites['invitations.party.id'] = this._id;
+  let syncableAttributes = syncableAttrs(taskToSync);
+  for (let key in syncableAttributes) {
+    updateCmd.$set[key] = syncableAttributes[key];
   }
 
-  if (this.type === 'guild') {
-    queryMembers.guilds = this._id;
-  } else {
-    queryMembers['party._id'] = this._id;
+  updateCmd.$set['group.approval.required'] = taskToSync.group.approval.required;
+  updateCmd.$set['group.assignedUsers'] = taskToSync.group.assignedUsers;
+
+  let taskSchema = Tasks[taskToSync.type];
+
+  let updateQuery = {
+    userId: {$exists: true},
+    'group.id': group.id,
+    'group.taskId': taskToSync._id,
+  };
+
+  if (options.newCheckListItem) {
+    let newCheckList = {completed: false};
+    newCheckList.linkId = options.newCheckListItem.id;
+    newCheckList.text = options.newCheckListItem.text;
+    updateCmd.$push = { checklist: newCheckList };
   }
 
-  let selectDataMembers = '_id';
-  let selectDataInvites = '_id';
-  let selectDataChallenges = '_id';
-
-  if (populateMembers) {
-    selectDataMembers += ` ${populateMembers}`;
-  }
-  if (populateInvites) {
-    selectDataInvites += ` ${populateInvites}`;
-  }
-  if (populateChallenges) {
-    selectDataChallenges += ` ${populateChallenges}`;
+  if (options.removedCheckListItemId) {
+    updateCmd.$pull = { checklist: {linkId: {$in: [options.removedCheckListItemId]} } };
   }
 
-  let membersQuery = User.find(queryMembers).select(selectDataMembers);
-  if (options.limitPopulation) membersQuery.limit(15);
+  if (options.updateCheckListItems && options.updateCheckListItems.length > 0) {
+    let checkListIdsToRemove = [];
+    let checkListItemsToAdd = [];
 
-  Bluebird.all([
-    membersQuery.exec(),
-    User.find(queryInvites).select(populateInvites).exec(),
-    Challenge.find({group: obj._id}).select(populateMembers).exec(),
-  ])
-    .then((results) => {
-      obj.members = results[0];
-      obj.invites = results[1];
-      obj.challenges = results[2];
+    options.updateCheckListItems.forEach(function gatherChecklists (updateCheckListItem) {
+      checkListIdsToRemove.push(updateCheckListItem.id);
+      let newCheckList = {completed: false};
+      newCheckList.linkId = updateCheckListItem.id;
+      newCheckList.text = updateCheckListItem.text;
+      checkListItemsToAdd.push(newCheckList);
+    });
 
-      cb(null, obj);
-    })
-    .catch(cb);
+    updateCmd.$pull = { checklist: {linkId: {$in: checkListIdsToRemove} } };
+    await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
+
+    delete updateCmd.$pull;
+    updateCmd.$push = { checklist: { $each: checkListItemsToAdd } };
+    await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
+
+    return;
+  }
+
+  // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
+  await taskSchema.update(updateQuery, updateCmd, {multi: true}).exec();
 };
-// END API v2 compatibility methods
+
+schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
+  let group = this;
+  let toSave = [];
+
+  if (taskToSync.group.assignedUsers.indexOf(user._id) === -1) {
+    taskToSync.group.assignedUsers.push(user._id);
+  }
+
+  // Sync tags
+  let userTags = user.tags;
+  let i = _.findIndex(userTags, {id: group._id});
+
+  if (i !== -1) {
+    if (userTags[i].name !== group.name) {
+      // update the name - it's been changed since
+      userTags[i].name = group.name;
+      userTags[i].group = group._id;
+    }
+  } else {
+    userTags.push({
+      id: group._id,
+      name: group.name,
+      group: group._id,
+    });
+  }
+
+  let findQuery = {
+    'group.taskId': taskToSync._id,
+    userId: user._id,
+    'group.id': group._id,
+  };
+
+  let matchingTask = await Tasks.Task.findOne(findQuery).exec();
+
+  if (!matchingTask) { // If the task is new, create it
+    matchingTask = new Tasks[taskToSync.type](Tasks.Task.sanitize(syncableAttrs(taskToSync)));
+    matchingTask.group.id = taskToSync.group.id;
+    matchingTask.userId = user._id;
+    matchingTask.group.taskId = taskToSync._id;
+    user.tasksOrder[`${taskToSync.type}s`].push(matchingTask._id);
+  } else {
+    _.merge(matchingTask, syncableAttrs(taskToSync));
+    // Make sure the task is in user.tasksOrder
+    let orderList = user.tasksOrder[`${taskToSync.type}s`];
+    if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
+  }
+
+  matchingTask.group.approval.required = taskToSync.group.approval.required;
+  matchingTask.group.assignedUsers = taskToSync.group.assignedUsers;
+
+  //  sync checklist
+  if (taskToSync.checklist) {
+    taskToSync.checklist.forEach(function syncCheckList (element) {
+      let newCheckList = {completed: false};
+      newCheckList.linkId = element.id;
+      newCheckList.text = element.text;
+      matchingTask.checklist.push(newCheckList);
+    });
+  }
+
+  if (!matchingTask.notes) matchingTask.notes = taskToSync.notes; // don't override the notes, but provide it if not provided
+  if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id); // add tag if missing
+
+  toSave.push(matchingTask.save(), taskToSync.save(), user.save());
+  return Bluebird.all(toSave);
+};
+
+schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user, keep) {
+  let findQuery = {
+    'group.taskId': unlinkingTask._id,
+    userId: user._id,
+  };
+
+  let assignedUserIndex = unlinkingTask.group.assignedUsers.indexOf(user._id);
+  unlinkingTask.group.assignedUsers.splice(assignedUserIndex, 1);
+
+  if (keep === 'keep-all') {
+    await Tasks.Task.update(findQuery, {
+      $set: {group: {}},
+    }).exec();
+
+    await user.save();
+  } else { // keep = 'remove-all'
+    let task = await Tasks.Task.findOne(findQuery).select('_id type completed').exec();
+    // Remove task from user.tasksOrder and delete them
+    if (task.type !== 'todo' || !task.completed) {
+      removeFromArray(user.tasksOrder[`${task.type}s`], task._id);
+      user.markModified('tasksOrder');
+    }
+
+    return Bluebird.all([task.remove(), user.save(), unlinkingTask.save()]);
+  }
+};
+
+schema.methods.removeTask = async function groupRemoveTask (task) {
+  let group = this;
+
+  // Set the task as broken
+  await Tasks.Task.update({
+    userId: {$exists: true},
+    'group.id': group.id,
+    'group.taskId': task._id,
+  }, {
+    $set: {'group.broken': 'TASK_DELETED'},
+  }, {multi: true}).exec();
+};
+
+schema.methods.isSubscribed = function isSubscribed () {
+  let now = new Date();
+  let plan = this.purchased.plan;
+  return plan && plan.customerId && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
+};
+
+schema.methods.hasNotCancelled = function hasNotCancelled () {
+  let plan = this.purchased.plan;
+  return this.isSubscribed() && !plan.dateTerminated;
+};
+
+schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {
+  // Recheck the group plan count
+  let members;
+  if (this.type === 'guild') {
+    members = await User.find({guilds: this._id}).select('_id').exec();
+  } else {
+    members = await User.find({'party._id': this._id}).select('_id').exec();
+  }
+  this.memberCount = members.length;
+
+  if (this.purchased.plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
+    await stripePayments.chargeForAdditionalGroupMember(this);
+  } else if (this.purchased.plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD && !removingMember) {
+    await amazonPayments.chargeForAdditionalGroupMember(this);
+  }
+};
 
 export let model = mongoose.model('Group', schema);
 
@@ -813,7 +1235,7 @@ if (!nconf.get('IS_TEST')) {
   model.count({_id: TAVERN_ID}, (err, ct) => {
     if (err) throw err;
     if (ct > 0) return;
-    new model({ // eslint-disable-line babel/new-cap
+    new model({ // eslint-disable-line new-cap
       _id: TAVERN_ID,
       leader: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0', // Siena Leslie
       name: 'Tavern',

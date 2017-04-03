@@ -1,14 +1,20 @@
 import mongoose from 'mongoose';
-import shared from '../../../../common';
+import shared from '../../../common';
 import _ from 'lodash';
 import validator from 'validator';
 import { schema as TagSchema } from '../tag';
 import { schema as PushDeviceSchema } from '../pushDevice';
+import { schema as WebhookSchema } from '../webhook';
 import {
   schema as UserNotificationSchema,
 } from '../userNotification';
+import {
+  schema as SubscriptionPlanSchema,
+} from '../subscriptionPlan';
 
 const Schema = mongoose.Schema;
+
+const INVALID_DOMAINS = Object.freeze(['habitica.com', 'habitrpg.com']);
 
 // User schema definition
 let schema = new Schema({
@@ -22,10 +28,25 @@ let schema = new Schema({
     facebook: {type: Schema.Types.Mixed, default: () => {
       return {};
     }},
+    google: {type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
     local: {
       email: {
         type: String,
-        validate: [validator.isEmail, shared.i18n.t('invalidEmail')],
+        validate: [{
+          validator: validator.isEmail,
+          message: shared.i18n.t('invalidEmail'),
+        }, {
+          validator (email) {
+            let lowercaseEmail = email.toLowerCase();
+
+            return INVALID_DOMAINS.every((domain) => {
+              return !lowercaseEmail.endsWith(`@${domain}`);
+            });
+          },
+          message: shared.i18n.t('invalidEmailDomain', { domains: INVALID_DOMAINS.join(', ')}),
+        }],
       },
       username: {
         type: String,
@@ -33,7 +54,14 @@ let schema = new Schema({
       // Store a lowercase version of username to check for duplicates
       lowerCaseUsername: String,
       hashed_password: String, // eslint-disable-line camelcase
-      salt: String,
+      // Legacy password are hashed with SHA1, new ones with bcrypt
+      passwordHashMethod: {
+        type: String,
+        enum: ['bcrypt', 'sha1'],
+      },
+      salt: String, // Salt for SHA1 encrypted passwords, not stored for bcrypt,
+      // Used to validate password reset codes and make sure only the most recent one can be used
+      passwordResetCode: String,
     },
     timestamps: {
       created: {type: Date, default: Date.now},
@@ -126,24 +154,9 @@ let schema = new Schema({
     }},
     txnCount: {type: Number, default: 0},
     mobileChat: Boolean,
-    plan: {
-      planId: String,
-      paymentMethod: String, // enum: ['Paypal','Stripe', 'Gift', 'Amazon Payments', '']}
-      customerId: String, // Billing Agreement Id in case of Amazon Payments
-      dateCreated: Date,
-      dateTerminated: Date,
-      dateUpdated: Date,
-      extraMonths: {type: Number, default: 0},
-      gemsBought: {type: Number, default: 0},
-      mysteryItems: {type: Array, default: () => []},
-      lastBillingDate: Date, // Used only for Amazon Payments to keep track of billing date
-      consecutive: {
-        count: {type: Number, default: 0},
-        offset: {type: Number, default: 0}, // when gifted subs, offset++ for each month. offset-- each new-month (cron). count doesn't ++ until offset==0
-        gemCapExtra: {type: Number, default: 0},
-        trinkets: {type: Number, default: 0},
-      },
-    },
+    plan: {type: SubscriptionPlanSchema, default: () => {
+      return {};
+    }},
   },
 
   flags: {
@@ -178,6 +191,8 @@ let schema = new Schema({
         tavern: {type: Boolean, default: false},
         equipment: {type: Boolean, default: false},
         items: {type: Boolean, default: false},
+        mounts: {type: Boolean, default: false},
+        inbox: {type: Boolean, default: false},
       },
       ios: {
         addTask: {type: Boolean, default: false},
@@ -186,6 +201,7 @@ let schema = new Schema({
         filterTask: {type: Boolean, default: false},
         groupPets: {type: Boolean, default: false},
         inviteParty: {type: Boolean, default: false},
+        reorderTask: {type: Boolean, default: false},
       },
     },
     dropsEnabled: {type: Boolean, default: false},
@@ -208,10 +224,11 @@ let schema = new Schema({
     lastWeeklyRecap: {type: Date, default: Date.now},
     // Used to enable weekly recap emails as users login
     lastWeeklyRecapDiscriminator: Boolean,
+    onboardingEmailsPhase: String, // Keep track of the latest onboarding email sent
     communityGuidelinesAccepted: {type: Boolean, default: false},
     cronCount: {type: Number, default: 0},
     welcomed: {type: Boolean, default: false},
-    armoireEnabled: {type: Boolean, default: false},
+    armoireEnabled: {type: Boolean, default: true},
     armoireOpened: {type: Boolean, default: false},
     armoireEmpty: {type: Boolean, default: false},
     cardReceived: {type: Boolean, default: false},
@@ -391,7 +408,7 @@ let schema = new Schema({
     skin: {type: String, default: '915533'},
     shirt: {type: String, default: 'blue'},
     timezoneOffset: {type: Number, default: 0},
-    sound: {type: String, default: 'off', enum: ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme']},
+    sound: {type: String, default: 'rosstavoTheme', enum: ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme']},
     chair: {type: String, default: 'none'},
     timezoneOffsetAtLastCron: Number,
     language: String,
@@ -431,6 +448,7 @@ let schema = new Schema({
       // importantAnnouncements are in fact the recapture emails
       importantAnnouncements: {type: Boolean, default: true},
       weeklyRecaps: {type: Boolean, default: true},
+      onboarding: {type: Boolean, default: true},
     },
     pushNotifications: {
       unsubscribeFromAll: {type: Boolean, default: false},
@@ -449,6 +467,10 @@ let schema = new Schema({
       raisePet: {type: Boolean, default: false},
       streak: {type: Boolean, default: false},
     },
+    tasks: {
+      groupByChallenge: {type: Boolean, default: false},
+      confirmScoreNotes: {type: Boolean, default: false},
+    },
     improvementCategories: {
       type: Array,
       validate: (categories) => {
@@ -461,7 +483,11 @@ let schema = new Schema({
   profile: {
     blurb: String,
     imageUrl: String,
-    name: String,
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
   },
   stats: {
     hp: {type: Number, default: shared.maxHealth},
@@ -518,6 +544,12 @@ let schema = new Schema({
     return {};
   }},
   pushDevices: [PushDeviceSchema],
+  _ABtest: {type: String}, // deprecated. Superseded by _ABtests
+  _ABtests: {type: Schema.Types.Mixed, default: () => {
+    return {};
+  }},
+  webhooks: [WebhookSchema],
+  loginIncentives: {type: Number, default: 0},
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

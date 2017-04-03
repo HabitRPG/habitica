@@ -1,13 +1,15 @@
 import {
   generateUser,
+  sleep,
   translate as t,
+  server,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
 describe('POST /tasks/user', () => {
   let user;
 
-  before(async () => {
+  beforeEach(async () => {
     user = await generateUser();
   });
 
@@ -202,6 +204,71 @@ describe('POST /tasks/user', () => {
         error: 'BadRequest',
         message: t('taskAliasAlreadyUsed'),
       });
+    });
+  });
+
+  context('sending task activity webhooks', () => {
+    before(async () => {
+      await server.start();
+    });
+
+    after(async () => {
+      await server.close();
+    });
+
+    it('sends task activity webhooks', async () => {
+      let uuid = generateUUID();
+
+      await user.post('/user/webhook', {
+        url: `http://localhost:${server.port}/webhooks/${uuid}`,
+        type: 'taskActivity',
+        enabled: true,
+        options: {
+          created: true,
+        },
+      });
+
+      let task = await user.post('/tasks/user', {
+        text: 'test habit',
+        type: 'habit',
+      });
+
+      await sleep();
+
+      let body = server.getWebhookData(uuid);
+
+      expect(body.task).to.eql(task);
+    });
+
+    it('sends a task activity webhook for each task', async () => {
+      let uuid = generateUUID();
+
+      await user.post('/user/webhook', {
+        url: `http://localhost:${server.port}/webhooks/${uuid}`,
+        type: 'taskActivity',
+        enabled: true,
+        options: {
+          created: true,
+        },
+      });
+
+      let tasks = await user.post('/tasks/user', [{
+        text: 'test habit',
+        type: 'habit',
+      }, {
+        text: 'test todo',
+        type: 'todo',
+      }]);
+
+      await sleep();
+
+      let taskBodies = [
+        server.getWebhookData(uuid),
+        server.getWebhookData(uuid),
+      ];
+
+      expect(taskBodies.find(body => body.task.id === tasks[0].id)).to.exist;
+      expect(taskBodies.find(body => body.task.id === tasks[1].id)).to.exist;
     });
   });
 
@@ -429,6 +496,8 @@ describe('POST /tasks/user', () => {
         frequency: 'daily',
         everyX: 5,
         startDate: now,
+        daysOfMonth: [15],
+        weeksOfMonth: [3],
       });
 
       expect(task.userId).to.equal(user._id);
@@ -437,6 +506,8 @@ describe('POST /tasks/user', () => {
       expect(task.type).to.eql('daily');
       expect(task.frequency).to.eql('daily');
       expect(task.everyX).to.eql(5);
+      expect(task.daysOfMonth).to.eql([15]);
+      expect(task.weeksOfMonth).to.eql([3]);
       expect(new Date(task.startDate)).to.eql(now);
     });
 

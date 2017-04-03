@@ -4,13 +4,13 @@ import {
   generateReq,
   generateNext,
 } from '../../../../helpers/api-unit.helper';
-import analyticsService from '../../../../../website/server/libs/api-v3/analyticsService';
+import analyticsService from '../../../../../website/server/libs/analyticsService';
 import nconf from 'nconf';
 import requireAgain from 'require-again';
 
 describe('analytics middleware', () => {
   let res, req, next;
-  let pathToAnalyticsMiddleware = '../../../../../website/server/middlewares/api-v3/analytics';
+  let pathToAnalyticsMiddleware = '../../../../../website/server/middlewares/analytics';
 
   beforeEach(() => {
     res = generateRes();

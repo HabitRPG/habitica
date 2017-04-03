@@ -25,7 +25,7 @@ describe('POST /user/rebirth', () => {
 
   it('resets user\'s tasks', async () => {
     await user.update({
-      balance: 2,
+      balance: 1.5,
     });
 
     let daily = await generateDaily({

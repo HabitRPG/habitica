@@ -4,7 +4,7 @@ import {
   sleep,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
-import { quests as questScrolls } from '../../../../../common/script/content';
+import { quests as questScrolls } from '../../../../../website/common/script/content';
 
 describe('POST /groups/:groupId/quests/invite/:questKey', () => {
   let questingGroup;
@@ -187,6 +187,26 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
       await group.sync();
 
       expect(group.quest.active).to.eql(true);
+    });
+
+    it('starts quest automatically if user is in a solo party and verifies chat', async () => {
+      let leaderDetails = { balance: 10 };
+      leaderDetails[`items.quests.${PET_QUEST}`] = 1;
+      let { group, groupLeader } = await createAndPopulateGroup({
+        groupDetails: { type: 'party', privacy: 'private' },
+        leaderDetails,
+      });
+
+      await groupLeader.post(`/groups/${group._id}/quests/invite/${PET_QUEST}`);
+
+      await group.sync();
+
+      expect(group.chat[0].text).to.exist;
+      expect(group.chat[0]._meta).to.exist;
+      expect(group.chat[0]._meta).to.have.all.keys(['participatingMembers']);
+
+      let returnedGroup = await groupLeader.get(`/groups/${group._id}`);
+      expect(returnedGroup.chat[0]._meta).to.be.undefined;
     });
   });
 });

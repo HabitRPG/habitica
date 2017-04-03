@@ -4,7 +4,7 @@ import nconf from 'nconf';
 import nodemailer from 'nodemailer';
 import Bluebird from 'bluebird';
 import requireAgain from 'require-again';
-import logger from '../../../../../website/server/libs/api-v3/logger';
+import logger from '../../../../../website/server/libs/logger';
 import { TAVERN_ID } from '../../../../../website/server/models/group';
 
 function defer () {
@@ -50,34 +50,35 @@ function getUser () {
 }
 
 describe('emails', () => {
-  let pathToEmailLib = '../../../../../website/server/libs/api-v3/email';
+  let pathToEmailLib = '../../../../../website/server/libs/email';
 
   describe('sendEmail', () => {
-    it('can send an email using the default transport', () => {
-      let sendMailSpy = sandbox.stub().returns(defer().promise);
+    let sendMailSpy;
 
+    beforeEach(() => {
+      sendMailSpy = sandbox.stub().returns(defer().promise);
       sandbox.stub(nodemailer, 'createTransport').returns({
         sendMail: sendMailSpy,
       });
+    });
 
+    afterEach(() => {
+      sandbox.restore();
+    });
+
+    it('can send an email using the default transport', () => {
       let attachEmail = requireAgain(pathToEmailLib);
       attachEmail.send();
       expect(sendMailSpy).to.be.calledOnce;
     });
 
     it('logs errors', (done) => {
-      let deferred = defer();
-      let sendMailSpy = sandbox.stub().returns(deferred.promise);
-
-      sandbox.stub(nodemailer, 'createTransport').returns({
-        sendMail: sendMailSpy,
-      });
       sandbox.stub(logger, 'error');
 
       let attachEmail = requireAgain(pathToEmailLib);
       attachEmail.send();
       expect(sendMailSpy).to.be.calledOnce;
-      deferred.reject();
+      defer().reject();
 
       // wait for unhandledRejection event to fire
       setTimeout(() => {

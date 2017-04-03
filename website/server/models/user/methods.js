@@ -1,17 +1,28 @@
-import shared from '../../../../common';
-import _ from 'lodash';
-import * as Tasks from '../task';
+import moment from 'moment';
+import common from '../../../common';
 import Bluebird from 'bluebird';
 import {
   chatDefaults,
   TAVERN_ID,
 } from '../group';
 import { defaults } from 'lodash';
-
+import { model as UserNotification } from '../userNotification';
 import schema from './schema';
+import payments from '../../libs/payments';
+import amazonPayments from '../../libs/amazonPayments';
+import stripePayments from '../../libs/stripePayments';
+import paypalPayments from '../../libs/paypalPayments';
 
 schema.methods.isSubscribed = function isSubscribed () {
-  return !!this.purchased.plan.customerId; // eslint-disable-line no-implicit-coercion
+  let now = new Date();
+  let plan = this.purchased.plan;
+
+  return plan && plan.customerId && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
+};
+
+schema.methods.hasNotCancelled = function hasNotCancelled () {
+  let plan = this.purchased.plan;
+  return this.isSubscribed() && !plan.dateTerminated;
 };
 
 // Get an array of groups ids the user is member of
@@ -22,21 +33,39 @@ schema.methods.getGroups = function getUserGroups () {
   return userGroups;
 };
 
-schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, message) {
-  let sender = this;
 
-  shared.refPush(userToReceiveMessage.inbox.messages, chatDefaults(message, sender));
+/**
+ * Sends a message to a user. Archives a copy in sender's inbox.
+ *
+ * @param  userToReceiveMessage  The receiver
+ * @param  options
+ * @param  options.receiverMsg   The message to send to the receiver
+ * @param  options.senderMsg     The message to archive instead of receiverMsg
+ * @return N/A
+ */
+schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, options) {
+  let sender = this;
+  let senderMsg = options.senderMsg || options.receiverMsg;
+
+  common.refPush(userToReceiveMessage.inbox.messages, chatDefaults(options.receiverMsg, sender));
   userToReceiveMessage.inbox.newMessages++;
   userToReceiveMessage._v++;
   userToReceiveMessage.markModified('inbox.messages');
 
-  shared.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(message, userToReceiveMessage)));
+  common.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(senderMsg, userToReceiveMessage)));
   sender.markModified('inbox.messages');
 
   let promises = [userToReceiveMessage.save(), sender.save()];
   await Bluebird.all(promises);
 };
 
+/**
+ * Creates a notification based on the input parameters and adds it to the local user notifications array.
+ * This does not save the notification to the database or interact with the database in any way.
+ *
+ * @param  type  The type of notification to add to the user. Possible values are defined in the UserNotificaiton Schema
+ * @param  data  The data to add to the notification
+ */
 schema.methods.addNotification = function addUserNotification (type, data = {}) {
   this.notifications.push({
     type,
@@ -44,86 +73,53 @@ schema.methods.addNotification = function addUserNotification (type, data = {}) 
   });
 };
 
-// Methods to adapt the new schema to API v2 responses (mostly tasks inside the user model)
-// These will be removed once API v2 is discontinued
+/**
+ * Creates a notification based on the type and data input parameters and saves that new notification
+ * to the database directly using an update statement. The local copy of these users are not updated by
+ * this operation. Use this function when you want to add a notification to a user(s), but do not have
+ * the user document(s) opened.
+ *
+ * @param  query A Mongoose query defining the users to add the notification to.
+ * @param  type  The type of notification to add to the user. Possible values are defined in the UserNotificaiton Schema
+ * @param  data  The data to add to the notification
+ */
+schema.statics.pushNotification = async function pushNotification (query, type, data = {}) {
+  let newNotification = new UserNotification({type, data});
+  let validationResult = newNotification.validateSync();
+  if (validationResult) {
+    throw validationResult;
+  }
+  await this.update(query, {$push: {notifications: newNotification}}, {multi: true}).exec();
+};
 
-// Get all the tasks belonging to a user,
-schema.methods.getTasks = function getUserTasks () {
-  let args = Array.from(arguments);
-  let cb;
-  let type;
+// Add stats.toNextLevel, stats.maxMP and stats.maxHealth
+// to a JSONified User stats object
+schema.methods.addComputedStatsToJSONObj = function addComputedStatsToUserJSONObj (statsObject) {
+  // NOTE: if an item is manually added to user.stats then
+  // common/fns/predictableRandom must be tweaked so the new item is not considered.
+  // Otherwise the client will have it while the server won't and the results will be different.
+  statsObject.toNextLevel = common.tnl(this.stats.lvl);
+  statsObject.maxHealth = common.maxHealth;
+  statsObject.maxMP = common.statsComputed(this).maxMP;
 
-  if (args.length === 1) {
-    cb = args[0];
-  } else {
-    type = args[0];
-    cb = args[1];
+  return statsObject;
+};
+
+// @TODO: There is currently a three way relation between the user, payment methods and the payment helper
+// This creates some odd Dependency Injection issues. To counter that, we use the user as the third layer
+// To negotiate between the payment providers and the payment helper (which probably has too many responsiblities)
+// In summary, currently is is best practice to use this method to cancel a user subscription, rather than calling the
+// payment helper.
+schema.methods.cancelSubscription = async function cancelSubscription () {
+  let plan = this.purchased.plan;
+
+  if (plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD) {
+    return await amazonPayments.cancelSubscription({user: this});
+  } else if (plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
+    return await stripePayments.cancelSubscription({user: this});
+  } else if (plan.paymentMethod === paypalPayments.constants.PAYMENT_METHOD) {
+    return await paypalPayments.subscribeCancel({user: this});
   }
 
-  let query = {
-    userId: this._id,
-  };
-
-  if (type) query.type = type;
-
-  Tasks.Task.find(query, cb);
+  return await payments.cancelSubscription({user: this});
 };
-
-// Given user and an array of tasks, return an API compatible user + tasks obj
-schema.methods.addTasksToUser = function addTasksToUser (tasks) {
-  let obj = this.toJSON();
-
-  obj.id = obj._id;
-  obj.filters = {};
-
-  obj.tags = obj.tags.map(tag => {
-    return {
-      id: tag.id,
-      name: tag.name,
-      challenge: tag.challenge,
-    };
-  });
-
-  let tasksOrder = obj.tasksOrder; // Saving a reference because we won't return it
-
-  obj.habits = [];
-  obj.dailys = [];
-  obj.todos = [];
-  obj.rewards = [];
-
-  obj.tasksOrder = undefined;
-  let unordered = [];
-
-  tasks.forEach((task) => {
-    // We want to push the task at the same position where it's stored in tasksOrder
-    let pos = tasksOrder[`${task.type}s`].indexOf(task._id);
-    if (pos === -1) { // Should never happen, it means the lists got out of sync
-      unordered.push(task.toJSONV2());
-    } else {
-      obj[`${task.type}s`][pos] = task.toJSONV2();
-    }
-  });
-
-  // Reconcile unordered items
-  unordered.forEach((task) => {
-    obj[`${task.type}s`].push(task);
-  });
-
-  // Remove null values that can be created when inserting tasks at an index > length
-  ['habits', 'dailys', 'rewards', 'todos'].forEach((type) => {
-    obj[type] = _.compact(obj[type]);
-  });
-
-  return obj;
-};
-
-// Return the data maintaining backward compatibility
-schema.methods.getTransformedData = function getTransformedData (cb) {
-  let self = this;
-  this.getTasks((err, tasks) => {
-    if (err) return cb(err);
-    cb(null, self.addTasksToUser(tasks));
-  });
-};
-
-// END of API v2 methods

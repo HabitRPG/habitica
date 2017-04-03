@@ -1,10 +1,10 @@
-import hourglassPurchase from '../../../common/script/ops/hourglassPurchase';
+import hourglassPurchase from '../../../website/common/script/ops/hourglassPurchase';
 import {
   BadRequest,
   NotAuthorized,
-} from '../../../common/script/libs/errors';
-import i18n from '../../../common/script/i18n';
-import content from '../../../common/script/content/index';
+} from '../../../website/common/script/libs/errors';
+import i18n from '../../../website/common/script/i18n';
+import content from '../../../website/common/script/content/index';
 import {
   generateUser,
 } from '../../helpers/common.helper';

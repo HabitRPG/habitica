@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
-import baseModel from '../libs/api-v3/baseModel';
+import baseModel from '../libs/baseModel';
 
 // A collection used to store mailing list unsubscription for non registered email addresses
 export let schema = new mongoose.Schema({

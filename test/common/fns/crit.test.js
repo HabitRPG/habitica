@@ -1,4 +1,4 @@
-import crit from '../../../common/script/fns/crit';
+import crit from '../../../website/common/script/fns/crit';
 import {
   generateUser,
 } from '../../helpers/common.helper';
@@ -11,7 +11,7 @@ describe('crit', () => {
   });
 
   it('computes', () => {
-    let result = crit(user);
+    let result = crit.crit(user);
     expect(result).to.eql(1);
   });
 });

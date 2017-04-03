@@ -1,17 +1,26 @@
-import { authWithHeaders } from '../../middlewares/api-v3/auth';
-import ensureDevelpmentMode from '../../middlewares/api-v3/ensureDevelpmentMode';
-import { BadRequest } from '../../libs/api-v3/errors';
-import { content } from '../../../../common';
+import { authWithHeaders } from '../../middlewares/auth';
+import ensureDevelpmentMode from '../../middlewares/ensureDevelpmentMode';
+import { BadRequest } from '../../libs/errors';
+import { content } from '../../../common';
 import _ from 'lodash';
+
+/**
+ * @apiDefine Development Development
+ * These routes only exist while Habitica is in development mode. (Such as running a local instance on your computer)
+ */
+
+/**
+ * @apiDefine Developers Local Development
+ * This route only exists when developing Habitica in non-production environment.
+ */
 
 let api = {};
 
 /**
  * @api {post} /api/v3/debug/add-ten-gems Add ten gems to the current user
- * @apiDescription Only available in development mode.
- * @apiVersion 3.0.0
  * @apiName AddTenGems
  * @apiGroup Development
+ * @apiPermission Developers
  *
  * @apiSuccess {Object} data An empty Object
  */
@@ -32,10 +41,9 @@ api.addTenGems = {
 
 /**
  * @api {post} /api/v3/debug/add-hourglass Add Hourglass to the current user
- * @apiDescription Only available in development mode.
- * @apiVersion 3.0.0
  * @apiName AddHourglass
  * @apiGroup Development
+ * @apiPermission Developers
  *
  * @apiSuccess {Object} data An empty Object
  */
@@ -56,10 +64,9 @@ api.addHourglass = {
 
 /**
  * @api {post} /api/v3/debug/set-cron Set lastCron for user
- * @apiDescription Only available in development mode.
- * @apiVersion 3.0.0
  * @apiName setCron
  * @apiGroup Development
+ * @apiPermission Developers
  *
  * @apiSuccess {Object} data An empty Object
  */
@@ -81,10 +88,9 @@ api.setCron = {
 
 /**
  * @api {post} /api/v3/debug/make-admin Sets contributor.admin to true
- * @apiDescription Only available in development mode.
- * @apiVersion 3.0.0
  * @apiName setCron
  * @apiGroup Development
+ * @apiPermission Developers
  *
  * @apiSuccess {Object} data An empty Object
  */
@@ -105,11 +111,18 @@ api.makeAdmin = {
 
 /**
  * @api {post} /api/v3/debug/modify-inventory Manipulate user's inventory
- * @apiDescription Only available in development mode.
- * @apiVersion 3.0.0
  * @apiName modifyInventory
  * @apiGroup Development
+ * @apiPermission Developers
  *
+ * @apiParam {Object} gear Object to replace user's <code><a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/user/schema.js#L243">gear.owned</a></code> object.
+ * @apiParam {Object} special Object to replace user's <code><a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/user/schema.js#272">special</a></code> object.
+ * @apiParam {Object} pets Object to replace user's <code><a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/user/schema.js#296">pets</a></code> object.
+ * @apiParam {Object} mounts Object to replace user's <code><a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/user/schema.js#329">mounts</a></code> object.
+ * @apiParam {Object} eggs Object to replace user's <code><a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/user/schema.js#310">eggs</a></code> object.
+ * @apiParam {Object} hatchingPotions Object to replace user's <code><a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/user/schema.js#316">hatchingPotions</a></code> object.
+ * @apiParam {Object} food Object to replace user's <code><a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/user/schema.js#322">food</a></code> object.
+ * @apiParam {Object} quests Object to replace user's <code><a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/user/schema.js#344">quests</a></code> object.
  * @apiSuccess {Object} data An empty Object
  */
 api.modifyInventory = {
@@ -146,10 +159,9 @@ api.modifyInventory = {
 
 /**
  * @api {post} /api/v3/debug/quest-progress Artificially accelerate quest progress
- * @apiDescription Only available in development mode.
- * @apiVersion 3.0.0
  * @apiName questProgress
  * @apiGroup Development
+ * @apiPermission Developers
  *
  * @apiSuccess {Object} data An empty Object
  */

@@ -1,5 +1,5 @@
-fieldset.option-group.option-short(ng-if='task.type=="reward" && !task.challenge.id')
+fieldset.option-group.option-short(ng-if='task.type=="reward" && !task._edit.challenge.id')
   legend.option-title=env.t('price')
-  input.option-content(type='number', size='16', min='0', step='any', ng-model='task.value', required)
+  input.option-content(type='number', size='16', min='0', step='any', ng-model='task._edit.value', required)
   .money.input-suffix
     span.shop_gold

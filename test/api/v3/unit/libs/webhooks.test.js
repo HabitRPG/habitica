@@ -1,135 +1,376 @@
 import request from 'request';
-import { sendTaskWebhook } from '../../../../../website/server/libs/api-v3/webhook';
+import {
+  WebhookSender,
+  taskScoredWebhook,
+  groupChatReceivedWebhook,
+  taskActivityWebhook,
+} from '../../../../../website/server/libs/webhook';
 
 describe('webhooks', () => {
+  let webhooks;
+
   beforeEach(() => {
     sandbox.stub(request, 'post');
+
+    webhooks = [{
+      id: 'taskActivity',
+      url: 'http://task-scored.com',
+      enabled: true,
+      type: 'taskActivity',
+      options: {
+        created: true,
+        updated: true,
+        deleted: true,
+        scored: true,
+      },
+    }, {
+      id: 'groupChatReceived',
+      url: 'http://group-chat-received.com',
+      enabled: true,
+      type: 'groupChatReceived',
+      options: {
+        groupId: 'group-id',
+      },
+    }];
   });
 
   afterEach(() => {
     sandbox.restore();
   });
 
-  describe('sendTaskWebhook', () => {
-    let task = {
-      details: { _id: 'task-id' },
-      delta: 1.4,
-      direction: 'up',
-    };
+  describe('WebhookSender', () => {
+    it('creates a new WebhookSender object', () => {
+      let sendWebhook = new WebhookSender({
+        type: 'custom',
+      });
 
-    let data = {
-      task,
-      user: { _id: 'user-id' },
-    };
+      expect(sendWebhook.type).to.equal('custom');
+      expect(sendWebhook).to.respondTo('send');
+    });
 
-    it('does not send if no webhook endpoints exist', () => {
-      let  webhooks = { };
+    it('provides default function for data transformation', () => {
+      sandbox.spy(WebhookSender, 'defaultTransformData');
+      let sendWebhook = new WebhookSender({
+        type: 'custom',
+      });
 
-      sendTaskWebhook(webhooks, data);
+      let body = { foo: 'bar' };
 
+      sendWebhook.send([{id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'}], body);
+
+      expect(WebhookSender.defaultTransformData).to.be.calledOnce;
+      expect(request.post).to.be.calledOnce;
+      expect(request.post).to.be.calledWithMatch({
+        body,
+      });
+    });
+
+    it('can pass in a data transformation function', () => {
+      sandbox.spy(WebhookSender, 'defaultTransformData');
+      let sendWebhook = new WebhookSender({
+        type: 'custom',
+        transformData (data) {
+          let dataToSend = Object.assign({baz: 'biz'}, data);
+
+          return dataToSend;
+        },
+      });
+
+      let body = { foo: 'bar' };
+
+      sendWebhook.send([{id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'}], body);
+
+      expect(WebhookSender.defaultTransformData).to.not.be.called;
+      expect(request.post).to.be.calledOnce;
+      expect(request.post).to.be.calledWithMatch({
+        body: {
+          foo: 'bar',
+          baz: 'biz',
+        },
+      });
+    });
+
+    it('provieds a default filter function', () => {
+      sandbox.spy(WebhookSender, 'defaultWebhookFilter');
+      let sendWebhook = new WebhookSender({
+        type: 'custom',
+      });
+
+      let body = { foo: 'bar' };
+
+      sendWebhook.send([{id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'}], body);
+
+      expect(WebhookSender.defaultWebhookFilter).to.be.calledOnce;
+    });
+
+    it('can pass in a webhook filter function', () => {
+      sandbox.spy(WebhookSender, 'defaultWebhookFilter');
+      let sendWebhook = new WebhookSender({
+        type: 'custom',
+        webhookFilter (hook) {
+          return hook.url !== 'http://custom-url.com';
+        },
+      });
+
+      let body = { foo: 'bar' };
+
+      sendWebhook.send([{id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'}], body);
+
+      expect(WebhookSender.defaultWebhookFilter).to.not.be.called;
       expect(request.post).to.not.be.called;
     });
 
-    it('does not send if no webhooks are enabled', () => {
-      let webhooks = {
-        'some-id': {
-          sort: 0,
-          id: 'some-id',
-          enabled: false,
-          url: 'http://example.org/endpoint',
+    it('can pass in a webhook filter function that filters on data', () => {
+      sandbox.spy(WebhookSender, 'defaultWebhookFilter');
+      let sendWebhook = new WebhookSender({
+        type: 'custom',
+        webhookFilter (hook, data) {
+          return hook.options.foo === data.foo;
         },
-      };
+      });
 
-      sendTaskWebhook(webhooks, data);
+      let body = { foo: 'bar' };
 
-      expect(request.post).to.not.be.called;
-    });
-
-    it('does not send if webhook url is not valid', () => {
-      let webhooks = {
-        'some-id': {
-          sort: 0,
-          id: 'some-id',
-          enabled: true,
-          url: 'http://malformedurl/endpoint',
-        },
-      };
-
-      sendTaskWebhook(webhooks, data);
-
-      expect(request.post).to.not.be.called;
-    });
-
-    it('sends task direction, task, task delta, and abridged user data', () => {
-      let webhooks = {
-        'some-id': {
-          sort: 0,
-          id: 'some-id',
-          enabled: true,
-          url: 'http://example.org/endpoint',
-        },
-      };
-
-      sendTaskWebhook(webhooks, data);
+      sendWebhook.send([
+        { id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom', options: { foo: 'bar' }},
+        { id: 'other-custom-webhook', url: 'http://other-custom-url.com', enabled: true, type: 'custom', options: { foo: 'foo' }},
+      ], body);
 
       expect(request.post).to.be.calledOnce;
-      expect(request.post).to.be.calledWith({
-        url: 'http://example.org/endpoint',
-        body: {
-          direction: 'up',
-          task: { _id: 'task-id' },
-          delta: 1.4,
-          user: {
-            _id: 'user-id',
-          },
-        },
+      expect(request.post).to.be.calledWithMatch({
+        url: 'http://custom-url.com',
+      });
+    });
+
+    it('ignores disabled webhooks', () => {
+      let sendWebhook = new WebhookSender({
+        type: 'custom',
+      });
+
+      let body = { foo: 'bar' };
+
+      sendWebhook.send([{id: 'custom-webhook', url: 'http://custom-url.com', enabled: false, type: 'custom'}], body);
+
+      expect(request.post).to.not.be.called;
+    });
+
+    it('ignores webhooks with invalid urls', () => {
+      let sendWebhook = new WebhookSender({
+        type: 'custom',
+      });
+
+      let body = { foo: 'bar' };
+
+      sendWebhook.send([{id: 'custom-webhook', url: 'httxp://custom-url!!', enabled: true, type: 'custom'}], body);
+
+      expect(request.post).to.not.be.called;
+    });
+
+    it('ignores webhooks of other types', () => {
+      let sendWebhook = new WebhookSender({
+        type: 'custom',
+      });
+
+      let body = { foo: 'bar' };
+
+      sendWebhook.send([
+        { id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'},
+        { id: 'other-webhook', url: 'http://other-url.com', enabled: true, type: 'other'},
+      ], body);
+
+      expect(request.post).to.be.calledOnce;
+      expect(request.post).to.be.calledWithMatch({
+        url: 'http://custom-url.com',
+        body,
         json: true,
       });
     });
 
-    it('sends a post request for each webhook endpoint', () => {
-      let webhooks = {
-        'some-id': {
-          sort: 0,
-          id: 'some-id',
-          enabled: true,
-          url: 'http://example.org/endpoint',
+    it('sends multiple webhooks of the same type', () => {
+      let sendWebhook = new WebhookSender({
+        type: 'custom',
+      });
+
+      let body = { foo: 'bar' };
+
+      sendWebhook.send([
+        { id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'},
+        { id: 'other-custom-webhook', url: 'http://other-url.com', enabled: true, type: 'custom'},
+      ], body);
+
+      expect(request.post).to.be.calledTwice;
+      expect(request.post).to.be.calledWithMatch({
+        url: 'http://custom-url.com',
+        body,
+        json: true,
+      });
+      expect(request.post).to.be.calledWithMatch({
+        url: 'http://other-url.com',
+        body,
+        json: true,
+      });
+    });
+  });
+
+  describe('taskScoredWebhook', () => {
+    let data;
+
+    beforeEach(() => {
+      data = {
+        user: {
+          _id: 'user-id',
+          _tmp: {foo: 'bar'},
+          stats: {
+            lvl: 5,
+            int: 10,
+            str: 5,
+            exp: 423,
+            toJSON () {
+              return this;
+            },
+          },
+          addComputedStatsToJSONObj () {
+            let mockStats = Object.assign({
+              maxHealth: 50,
+              maxMP: 103,
+              toNextLevel: 40,
+            }, this.stats);
+
+            delete mockStats.toJSON;
+
+            return mockStats;
+          },
         },
-        'second-webhook': {
-          sort: 1,
-          id: 'second-webhook',
-          enabled: true,
-          url: 'http://example.com/2/endpoint',
+        task: {
+          text: 'text',
+        },
+        direction: 'up',
+        delta: 176,
+      };
+    });
+
+    it('sends task and stats data', () => {
+      taskScoredWebhook.send(webhooks, data);
+
+      expect(request.post).to.be.calledOnce;
+      expect(request.post).to.be.calledWithMatch({
+        body: {
+          type: 'scored',
+          user: {
+            _id: 'user-id',
+            _tmp: {foo: 'bar'},
+            stats: {
+              lvl: 5,
+              int: 10,
+              str: 5,
+              exp: 423,
+              toNextLevel: 40,
+              maxHealth: 50,
+              maxMP: 103,
+            },
+          },
+          task: {
+            text: 'text',
+          },
+          direction: 'up',
+          delta: 176,
+        },
+      });
+    });
+
+    it('does not send task scored data if scored option is not true', () => {
+      webhooks[0].options.scored = false;
+
+      taskScoredWebhook.send(webhooks, data);
+
+      expect(request.post).to.not.be.called;
+    });
+  });
+
+  describe('taskActivityWebhook', () => {
+    let data;
+
+    beforeEach(() => {
+      data = {
+        task: {
+          text: 'text',
+        },
+      };
+    });
+
+    ['created', 'updated', 'deleted'].forEach((type) => {
+      it(`sends ${type} tasks`, () => {
+        data.type = type;
+
+        taskActivityWebhook.send(webhooks, data);
+
+        expect(request.post).to.be.calledOnce;
+        expect(request.post).to.be.calledWithMatch({
+          body: {
+            type,
+            task: data.task,
+          },
+        });
+      });
+
+      it(`does not send task ${type} data if ${type} option is not true`, () => {
+        data.type = type;
+        webhooks[0].options[type] = false;
+
+        taskActivityWebhook.send(webhooks, data);
+
+        expect(request.post).to.not.be.called;
+      });
+    });
+  });
+
+  describe('groupChatReceivedWebhook', () => {
+    it('sends chat data', () => {
+      let data = {
+        group: {
+          id: 'group-id',
+          name: 'some group',
+          otherData: 'foo',
+        },
+        chat: {
+          id: 'some-id',
+          text: 'message',
         },
       };
 
-      sendTaskWebhook(webhooks, data);
+      groupChatReceivedWebhook.send(webhooks, data);
 
-      expect(request.post).to.be.calledTwice;
-      expect(request.post).to.be.calledWith({
-        url: 'http://example.org/endpoint',
+      expect(request.post).to.be.calledOnce;
+      expect(request.post).to.be.calledWithMatch({
         body: {
-          direction: 'up',
-          task: { _id: 'task-id' },
-          delta: 1.4,
-          user: {
-            _id: 'user-id',
+          group: {
+            id: 'group-id',
+            name: 'some group',
+          },
+          chat: {
+            id: 'some-id',
+            text: 'message',
           },
         },
-        json: true,
       });
-      expect(request.post).to.be.calledWith({
-        url: 'http://example.com/2/endpoint',
-        body: {
-          direction: 'up',
-          task: { _id: 'task-id' },
-          delta: 1.4,
-          user: {
-            _id: 'user-id',
-          },
+    });
+
+    it('does not send chat data for group if not selected', () => {
+      let data = {
+        group: {
+          id: 'not-group-id',
+          name: 'some group',
+          otherData: 'foo',
         },
-        json: true,
-      });
+        chat: {
+          id: 'some-id',
+          text: 'message',
+        },
+      };
+
+      groupChatReceivedWebhook.send(webhooks, data);
+
+      expect(request.post).to.not.be.called;
     });
   });
 });

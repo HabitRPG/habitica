@@ -74,6 +74,21 @@ describe('POST /groups/:groupId/quests/accept', () => {
       });
     });
 
+    it('clears the invalid invite from the user when the request fails', async () => {
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+
+      await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('questAlreadyAccepted'),
+      });
+
+      await partyMembers[0].sync();
+      expect(partyMembers[0].party.quest.RSVPNeeded).to.be.false;
+    });
+
     it('does not accept invite for a quest already underway', async () => {
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
       await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
@@ -132,6 +147,21 @@ describe('POST /groups/:groupId/quests/accept', () => {
       expect(rejectingMember.party.quest.RSVPNeeded).to.eql(false);
       expect(rejectingMember.party.quest.key).to.not.exist;
       expect(rejectingMember.party.quest.completed).to.not.exist;
+    });
+
+    it('begins the quest if accepting the last pending invite and verifies chat', async () => {
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+      // quest will start after everyone has accepted
+      await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
+
+      await questingGroup.sync();
+      expect(questingGroup.chat[0].text).to.exist;
+      expect(questingGroup.chat[0]._meta).to.exist;
+      expect(questingGroup.chat[0]._meta).to.have.all.keys(['participatingMembers']);
+
+      let returnedGroup = await leader.get(`/groups/${questingGroup._id}`);
+      expect(returnedGroup.chat[0]._meta).to.be.undefined;
     });
   });
 });

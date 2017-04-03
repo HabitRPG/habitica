@@ -1,4 +1,4 @@
-import disableClasses from '../../../common/script/ops/disableClasses';
+import disableClasses from '../../../website/common/script/ops/disableClasses';
 import {
   generateUser,
 } from '../../helpers/common.helper';

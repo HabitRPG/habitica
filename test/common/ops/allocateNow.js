@@ -1,4 +1,4 @@
-import allocateNow from '../../../common/script/ops/allocateNow';
+import allocateNow from '../../../website/common/script/ops/allocateNow';
 import {
   generateUser,
 } from '../../helpers/common.helper';

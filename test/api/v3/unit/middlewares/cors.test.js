@@ -4,7 +4,7 @@ import {
   generateReq,
   generateNext,
 } from '../../../../helpers/api-unit.helper';
-import cors from '../../../../../website/server/middlewares/api-v3/cors';
+import cors from '../../../../../website/server/middlewares/cors';
 
 describe('cors middleware', () => {
   let res, req, next;
@@ -20,7 +20,7 @@ describe('cors middleware', () => {
     expect(res.set).to.have.been.calledWith({
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,PUT,HEAD,DELETE',
-      'Access-Control-Allow-Headers': 'Content-Type,Accept,Content-Encoding,X-Requested-With,x-api-user,x-api-key',
+      'Access-Control-Allow-Headers': 'Content-Type,Accept,Content-Encoding,X-Requested-With,x-api-user,x-api-key,x-client',
     });
     expect(res.sendStatus).to.not.have.been.called;
     expect(next).to.have.been.called.once;
@@ -32,7 +32,7 @@ describe('cors middleware', () => {
     expect(res.set).to.have.been.calledWith({
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,PUT,HEAD,DELETE',
-      'Access-Control-Allow-Headers': 'Content-Type,Accept,Content-Encoding,X-Requested-With,x-api-user,x-api-key',
+      'Access-Control-Allow-Headers': 'Content-Type,Accept,Content-Encoding,X-Requested-With,x-api-user,x-api-key,x-client',
     });
     expect(res.sendStatus).to.have.been.calledWith(200);
     expect(next).to.not.have.been.called;

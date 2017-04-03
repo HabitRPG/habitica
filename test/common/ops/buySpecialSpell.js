@@ -1,14 +1,14 @@
-import buySpecialSpell from '../../../common/script/ops/buySpecialSpell';
+import buySpecialSpell from '../../../website/common/script/ops/buySpecialSpell';
 import {
   BadRequest,
   NotFound,
   NotAuthorized,
-} from '../../../common/script/libs/errors';
-import i18n from '../../../common/script/i18n';
+} from '../../../website/common/script/libs/errors';
+import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';
-import content from '../../../common/script/content/index';
+import content from '../../../website/common/script/content/index';
 
 describe('shared.ops.buySpecialSpell', () => {
   let user;

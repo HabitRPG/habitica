@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { TAVERN_ID } from '../../website/server/models/group';
+import { get } from 'lodash';
 
 // Useful for checking things that have been deleted,
 // but you no longer have access to,
@@ -14,6 +15,20 @@ export async function checkExistence (collectionName, id) {
       let exists = docs.length > 0;
 
       resolve(exists);
+    });
+  });
+}
+
+// Obtain a property from the database. Useful if the property is private
+// and thus unavailable to the client
+export async function getProperty (collectionName, id, path) {
+  return new Promise((resolve, reject) => {
+    let collection = mongoose.connection.db.collection(collectionName);
+
+    collection.find({_id: id}, {[path]: 1}).limit(1).toArray((findError, docs) => {
+      if (findError) return reject(findError);
+
+      resolve(get(docs[0], path));
     });
   });
 }
@@ -40,8 +55,8 @@ export async function resetHabiticaDB () {
               username: 'username',
               lowerCaseUsername: 'username',
               email: 'username@email.com',
-              salt: 'salt',
               hashed_password: 'hashed_password', // eslint-disable-line camelcase
+              passwordHashMethod: 'bcrypt',
             },
           },
         }, (insertErr) => {
@@ -59,6 +74,7 @@ export async function resetHabiticaDB () {
               name: 'HabitRPG',
               type: 'guild',
               privacy: 'public',
+              memberCount: 0,
             }, (insertErr2) => {
               if (insertErr2) return reject(insertErr2);
 

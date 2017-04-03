@@ -20,6 +20,6 @@ describe('POST /user/purchase-hourglass/:type/:key', () => {
 
     expect(response.message).to.eql(t('hourglassPurchase'));
     expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
-    expect(user.items.pets).to.eql({'MantisShrimp-Base': 5});
+    expect(user.items.pets['MantisShrimp-Base']).to.eql(5);
   });
 });

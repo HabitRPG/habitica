@@ -1,4 +1,4 @@
-import pickDeep from '../../../common/script/libs/pickDeep';
+import pickDeep from '../../../website/common/script/libs/pickDeep';
 
 describe('pickDeep', () => {
   it('throws an error if "properties" is not an array', () => {

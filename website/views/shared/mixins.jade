@@ -2,15 +2,9 @@ mixin gemButton(isGemsModal)
   a.pull-right.gem-wallet(ng-click=( isGemsModal ? '' : 'openModal("buyGems",{track:"Gems > Wallet"})'), popover-trigger='mouseenter', popover-title=env.t('gemsPopoverTitle'), popover=env.t('gemsWhatFor'), popover-placement='bottom')
     if !isGemsModal
       span.task-action-btn.tile.flush.bright.add-gems-btn ＋
-    span.task-action-btn.tile.flush.neutral
+    span.task-action-btn.tile.flush.neutral(class={"has-add-gems": !isGemsModal})
       .Pet_Currency_Gem2x.Gems
       =env.t('gemButton', {number: '{{user.balance * 4 | number:0}}'})
-
-mixin aLink(url, label)
-  if mobile
-    a(href="", ng-click="externalLink('#{url}')")= label
-  else
-    a(href='#{url}', target='_blank')= label
 
 mixin previewMarkdown(text)
   .panel.panel-warning

@@ -2,7 +2,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
-import { encrypt } from '../../../../../website/server/libs/api-v3/encryption';
+import { encrypt } from '../../../../../website/server/libs/encryption';
 import { v4 as generateUUID } from 'uuid';
 
 describe('GET /email/unsubscribe', () => {

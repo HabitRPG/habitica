@@ -1,0 +1,19 @@
+{
+    "defaultHabit1Text": "Produktive Arbeit (Klicke den Bleistift zum Bearbeiten)",
+    "defaultHabit1Notes": "Beispiele für positive Gewohnheiten: + Gemüse essen + 15 Minuten produktiv arbeiten",
+    "defaultHabit2Text": "Junkfood essen (Klicke den Bleistift zum Bearbeiten)",
+    "defaultHabit2Notes": "Beispiel für schlechte Gewohnheiten: - Rauchen - Dinge aufschieben",
+    "defaultHabit3Text": "Treppe/Aufzug nehmen (Klicke den Bleistift zum Bearbeiten)",
+    "defaultHabit3Notes": "Beispiel für gute oder schlechte Gewohnheiten: +/- Treppen/Aufzug benutzt ; +/- Wasser/Limonade getrunken",
+    "defaultTodoNotes": "Du kannst dieses To-Do entweder abhaken, es bearbeiten, oder löschen.",
+    "defaultTodo1Text": "Habitica beitreten (Hake mich ab!)",
+    "defaultReward1Text": "15 Minuten Pause",
+    "defaultReward1Notes": "Individuelle Belohnungen können viele Formen annehmen. Manche Leute verzichten auf ihre Lieblingsserien bis sie genügend Gold gesammelt haben um sie sich leisten zu können.",
+    "defaultTag1": "Arbeit",
+    "defaultTag2": "Training",
+    "defaultTag3": "Gesundheit + Wohlbefinden",
+    "defaultTag4": "Schule",
+    "defaultTag5": "Teams",
+    "defaultTag6": "Hausarbeiten",
+    "defaultTag7": "Kreativität"
+}

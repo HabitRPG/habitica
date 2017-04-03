@@ -1,4 +1,4 @@
-import baseModel from '../../../../../website/server/libs/api-v3/baseModel';
+import baseModel from '../../../../../website/server/libs/baseModel';
 import mongoose from 'mongoose';
 
 describe('Base model plugin', () => {

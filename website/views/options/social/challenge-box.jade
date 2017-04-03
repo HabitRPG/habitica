@@ -3,7 +3,7 @@
   .panel-heading
     h3.panel-title=env.t('challenges')
       |&nbsp;
-      a.pull-right(target='_blank', href='http://habitica.wikia.com/wiki/Challenges')
+      a.pull-right(target='_blank', href=env.t('moreInfoChallengesURL'))
         small=env.t('moreInfo')
   .panel-body.modal-fixed-height(bindonce='group.challenges')
     div(ng-if='group.challenges.length > 0')

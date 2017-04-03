@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
-import shared from '../../../common';
+import shared from '../../common';
 import validator from 'validator';
 import moment from 'moment';
-import baseModel from '../libs/api-v3/baseModel';
-import { InternalServerError } from '../libs/api-v3/errors';
+import baseModel from '../libs/baseModel';
+import { InternalServerError } from '../libs/errors';
 import _ from 'lodash';
-import { preenHistory } from '../libs/api-v3/preening';
+import { preenHistory } from '../libs/preening';
 
 const Schema = mongoose.Schema;
 
@@ -22,7 +22,6 @@ export let tasksTypes = ['habit', 'daily', 'todo', 'reward'];
 // Important
 // When something changes here remember to update the client side model at common/script/libs/taskDefaults
 export let TaskSchema = new Schema({
-  _legacyId: String, // TODO Remove when v2 is deprecated
   type: {type: String, enum: tasksTypes, required: true, default: tasksTypes[0]},
   text: {type: String, required: true},
   notes: {type: String, default: ''},
@@ -59,10 +58,26 @@ export let TaskSchema = new Schema({
   userId: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']}, // When not set it belongs to a challenge
 
   challenge: {
+    shortName: {type: String},
     id: {type: String, ref: 'Challenge', validate: [validator.isUUID, 'Invalid uuid.']}, // When set (and userId not set) it's the original task
     taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']}, // When not set but challenge.id defined it's the original task
     broken: {type: String, enum: ['CHALLENGE_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED', 'CHALLENGE_CLOSED', 'CHALLENGE_TASK_NOT_FOUND']}, // CHALLENGE_TASK_NOT_FOUND comes from v3 migration
     winner: String, // user.profile.name of the winner
+  },
+
+  group: {
+    id: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']},
+    broken: {type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED']},
+    assignedUsers: [{type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']}],
+    taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']},
+    approval: {
+      required: {type: Boolean, default: false},
+      approved: {type: Boolean, default: false},
+      dateApproved: {type: Date},
+      approvingUser: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']},
+      requested: {type: Boolean, default: false},
+      requestedDate: {type: Date},
+    },
   },
 
   reminders: [{
@@ -77,7 +92,7 @@ export let TaskSchema = new Schema({
 }, discriminatorOptions));
 
 TaskSchema.plugin(baseModel, {
-  noSet: ['challenge', 'userId', 'completed', 'history', 'dateCompleted', '_legacyId'],
+  noSet: ['challenge', 'userId', 'completed', 'history', 'dateCompleted', '_legacyId', 'group'],
   sanitizeTransform (taskObj) {
     if (taskObj.type && taskObj.type !== 'reward') { // value should be settable directly only for rewards
       delete taskObj.value;
@@ -113,7 +128,7 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (identifier,
 TaskSchema.statics.sanitizeUserChallengeTask = function sanitizeUserChallengeTask (taskObj) {
   let initialSanitization = this.sanitize(taskObj);
 
-  return _.pick(initialSanitization, ['streak', 'checklist', 'attribute', 'reminders', 'tags', 'notes']);
+  return _.pick(initialSanitization, ['streak', 'checklist', 'attribute', 'reminders', 'tags', 'notes', 'collapseChecklist', 'alias']);
 };
 
 // Sanitize checklist objects (disallowing id)
@@ -160,46 +175,6 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
   await chalTask.save();
 };
 
-
-// Methods to adapt the new schema to API v2 responses (mostly tasks inside the user model)
-// These will be removed once API v2 is discontinued
-
-// toJSON for API v2
-TaskSchema.methods.toJSONV2 = function toJSONV2 () {
-  let toJSON = this.toJSON();
-  if (toJSON._legacyId) {
-    toJSON.id = toJSON._legacyId;
-  } else {
-    toJSON.id = toJSON._id;
-  }
-
-  if (!toJSON.challenge) toJSON.challenge = {};
-
-  let v3Tags = this.tags;
-
-  toJSON.tags = {};
-  v3Tags.forEach(tag => {
-    toJSON.tags[tag] = true;
-  });
-
-  toJSON.dateCreated = this.createdAt;
-
-  return toJSON;
-};
-
-TaskSchema.statics.fromJSONV2 = function fromJSONV2 (taskObj) {
-  if (taskObj.id) taskObj._id = taskObj.id;
-
-  let v2Tags = taskObj.tags || {};
-
-  taskObj.tags = [];
-  taskObj.tags = _.map(v2Tags, (tag, key) => key);
-
-  return taskObj;
-};
-
-// END of API v2 methods
-
 export let Task = mongoose.model('Task', TaskSchema);
 
 Task.schema.path('alias').validate(function valiateAliasNotTaken (alias, respond) {
@@ -232,6 +207,7 @@ let dailyTodoSchema = () => {
       text: {type: String, required: false, default: ''}, // required:false because it can be empty on creation
       _id: false,
       id: {type: String, default: shared.uuid, required: true, validate: [validator.isUUID, 'Invalid uuid.']},
+      linkId: {type: String},
     }],
   };
 };
@@ -239,11 +215,14 @@ let dailyTodoSchema = () => {
 export let HabitSchema = new Schema(_.defaults({
   up: {type: Boolean, default: true},
   down: {type: Boolean, default: true},
+  counterUp: {type: Number, default: 0},
+  counterDown: {type: Number, default: 0},
+  frequency: {type: String, default: 'daily', enum: ['daily', 'weekly', 'monthly']},
 }, habitDailySchema()), subDiscriminatorOptions);
 export let habit = Task.discriminator('habit', HabitSchema);
 
 export let DailySchema = new Schema(_.defaults({
-  frequency: {type: String, default: 'weekly', enum: ['daily', 'weekly']},
+  frequency: {type: String, default: 'weekly', enum: ['daily', 'weekly', 'monthly', 'yearly']},
   everyX: {type: Number, default: 1}, // e.g. once every X weeks
   startDate: {
     type: Date,
@@ -261,6 +240,8 @@ export let DailySchema = new Schema(_.defaults({
     su: {type: Boolean, default: true},
   },
   streak: {type: Number, default: 0},
+  daysOfMonth: {type: [Number], default: []}, // Days of the month that the daily should repeat on
+  weeksOfMonth: {type: [Number], default: []}, // Weeks of the month that the daily should repeat on
 }, habitDailySchema(), dailyTodoSchema()), subDiscriminatorOptions);
 export let daily = Task.discriminator('daily', DailySchema);
 

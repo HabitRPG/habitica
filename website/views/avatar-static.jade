@@ -8,13 +8,13 @@ html(ng-app="habitrpg")
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     meta(name='apple-mobile-web-app-capable', content='yes')
 
-    // .slice(0).push('user') is to clone the array, 
+    // .slice(0).push('user') is to clone the array,
     // to be surethat  `user` is never available to other requests' env
     // TODO does it need only `user` in clientVars, not the others?
     -
       clientVars = env.clientVars.slice(0);
       clientVars.push('user');
-      
+
     script(type='text/javascript').
       window.env = !{JSON.stringify(env._.pick(env, clientVars))};
 

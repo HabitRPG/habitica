@@ -1,4 +1,4 @@
-import noTags from '../../../common/script/libs/noTags';
+import noTags from '../../../website/common/script/libs/noTags';
 
 describe('noTags', () => {
   it('returns true for no tags', () => {

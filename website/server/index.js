@@ -14,24 +14,21 @@ require('babel-polyfill');
 global.Promise = require('bluebird');
 
 // Initialize configuration BEFORE anything
-const setupNconf = require('./libs/api-v3/setupNconf');
+const setupNconf = require('./libs/setupNconf');
 setupNconf();
 
 const nconf = require('nconf');
 
 const cluster = require('cluster');
-const logger = require('./libs/api-v3/logger');
+const logger = require('./libs/logger');
 
 const IS_PROD = nconf.get('IS_PROD');
 const IS_DEV = nconf.get('IS_DEV');
 const CORES = Number(nconf.get('WEB_CONCURRENCY')) || 0;
 
-// Initialize New Relic
-if (IS_PROD && nconf.get('NEW_RELIC_ENABLED') === 'true') require('newrelic');
-
 // Setup the cluster module
 if (CORES !== 0 && cluster.isMaster && (IS_DEV || IS_PROD)) {
-  // Fork workers. If config.json has CORES=x, use that - otherwise, use all cpus-1 (production)
+  // Fork workers. If config.json has WEB_CONCURRENCY=x, use that - otherwise, use all cpus-1 (production)
   for (let i = 0; i < CORES; i += 1) {
     cluster.fork();
   }

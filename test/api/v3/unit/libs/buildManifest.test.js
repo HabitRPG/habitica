@@ -1,6 +1,6 @@
 import {
   getManifestFiles,
-} from '../../../../../website/server/libs/api-v3/buildManifest';
+} from '../../../../../website/server/libs/buildManifest';
 
 describe('Build Manifest', () => {
   describe('getManifestFiles', () => {

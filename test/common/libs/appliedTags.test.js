@@ -1,4 +1,4 @@
-import appliedTags from '../../../common/script/libs/appliedTags';
+import appliedTags from '../../../website/common/script/libs/appliedTags';
 
 describe('appliedTags', () => {
   it('returns the tasks', () => {

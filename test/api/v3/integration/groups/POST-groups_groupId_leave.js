@@ -6,6 +6,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
+import { v4 as generateUUID } from 'uuid';
 import {
   each,
 } from 'lodash';
@@ -64,7 +65,20 @@ describe('POST /groups/:groupId/leave', () => {
         expect(groupToLeave.leader).to.equal(member._id);
       });
 
-      context('With challenges', () => {
+      it('removes new messages for that group from user', async () => {
+        await member.post(`/groups/${groupToLeave._id}/chat`, { message: 'Some message' });
+
+        await leader.sync();
+
+        expect(leader.newMessages[groupToLeave._id]).to.not.be.empty;
+
+        await leader.post(`/groups/${groupToLeave._id}/leave`);
+        await leader.sync();
+
+        expect(leader.newMessages[groupToLeave._id]).to.be.empty;
+      });
+
+      context('with challenges', () => {
         let challenge;
 
         beforeEach(async () => {
@@ -92,9 +106,24 @@ describe('POST /groups/:groupId/leave', () => {
 
           let userWithChallengeTasks = await leader.get('/user');
 
-          expect(userWithChallengeTasks.challenges).to.not.include(challenge._id);
           // @TODO find elegant way to assert against the task existing
           expect(userWithChallengeTasks.tasksOrder.habits).to.not.be.empty;
+        });
+
+        it('keeps the user in the challenge when the keepChallenges parameter is set to remain-in-challenges', async () => {
+          await leader.post(`/groups/${groupToLeave._id}/leave`, {keepChallenges: 'remain-in-challenges'});
+
+          let userWithChallengeTasks = await leader.get('/user');
+
+          expect(userWithChallengeTasks.challenges).to.include(challenge._id);
+        });
+
+        it('drops the user in the challenge when the keepChallenges parameter isn\'t set', async () => {
+          await leader.post(`/groups/${groupToLeave._id}/leave`);
+
+          let userWithChallengeTasks = await leader.get('/user');
+
+          expect(userWithChallengeTasks.challenges).to.not.include(challenge._id);
         });
       });
 
@@ -121,6 +150,8 @@ describe('POST /groups/:groupId/leave', () => {
         privateGuild = group;
         leader = groupLeader;
         invitedUser = invitees[0];
+
+        await leader.post(`/groups/${group._id}/chat`, { message: 'Some message' });
       });
 
       it('removes a group when the last member leaves', async () => {
@@ -171,6 +202,19 @@ describe('POST /groups/:groupId/leave', () => {
 
         expect(userWithoutInvitation.invitations.guilds).to.not.be.empty;
       });
+
+      it('deletes non existant guild from user when user tries to leave', async () => {
+        let nonExistentGuildId = generateUUID();
+        let userWithNonExistentGuild = await generateUser({guilds: [nonExistentGuildId]});
+        expect(userWithNonExistentGuild.guilds).to.contain(nonExistentGuildId);
+
+        await expect(userWithNonExistentGuild.post(`/groups/${nonExistentGuildId}/leave`))
+          .to.eventually.be.rejected;
+
+        await userWithNonExistentGuild.sync();
+
+        expect(userWithNonExistentGuild.guilds).to.not.contain(nonExistentGuildId);
+      });
     });
 
     context('party', () => {
@@ -205,6 +249,19 @@ describe('POST /groups/:groupId/leave', () => {
 
         expect(userWithoutInvitation.invitations.party).to.be.empty;
       });
+    });
+
+    it('deletes non existant party from user when user tries to leave', async () => {
+      let nonExistentPartyId = generateUUID();
+      let userWithNonExistentParty = await generateUser({'party._id': nonExistentPartyId});
+      expect(userWithNonExistentParty.party._id).to.be.eql(nonExistentPartyId);
+
+      await expect(userWithNonExistentParty.post(`/groups/${nonExistentPartyId}/leave`))
+        .to.eventually.be.rejected;
+
+      await userWithNonExistentParty.sync();
+
+      expect(userWithNonExistentParty.party).to.eql({});
     });
   });
 });
