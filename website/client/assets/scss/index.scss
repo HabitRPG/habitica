@@ -3,17 +3,11 @@
 
 html, body {
   height: 100%;
-}
-
-body {
   background: $gray-700;
-  color: $black;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 // Global styles
+@import './typography';
 @import './forms';
 
 // Generic components

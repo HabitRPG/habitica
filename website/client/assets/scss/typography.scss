@@ -1,0 +1,36 @@
+// Import fonts from Google Fonts
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:700|Roboto:400,400i,700,700i);
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: $gray-50;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Headers
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.67;
+  color: $purple-200;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.2;
+  color: $gray-10;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.5;
+  color: $gray-50;
+}
