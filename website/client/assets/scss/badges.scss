@@ -1,0 +1,14 @@
+.badge {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.67;
+  color: $gray-300;
+}
+
+.badge-pill {
+  border-radius: 100px;
+}
+
+.badge-default {
+  background: $gray-500;
+}

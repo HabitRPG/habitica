@@ -1,0 +1,21 @@
+.btn {
+  cursor: pointer;
+}
+
+.btn-show-more {
+  display: block;
+  width: 50%;
+  max-width: 448px;
+  margin: 0 auto;
+  margin-bottom: 24px;
+  padding: 8px;
+  font-size: 14px;
+  line-height: 1.43;
+  text-align: center;
+  background: $gray-600;
+  color: $gray-200 !important; // Otherwise it gets ignored when used on an A element
+
+  &:hover {
+    color: inherit !important;
+  }
+}

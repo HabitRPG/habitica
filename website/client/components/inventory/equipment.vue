@@ -6,6 +6,7 @@
 
     .form
       h2(v-once) {{ $t('filter') }}
+      h3(v-once) Type
       .form-group
         .form-check(
           v-for="group in itemsGroups", 
@@ -32,14 +33,20 @@
       v-if="group && viewOptions[group.key].selected",
     )
       h2
-       | {{ $t(group.label) }} 
+       | {{ $t(group.label) }}
+       |
        span.badge.badge-pill.badge-default {{group.items.length}}
 
-      div(v-for="(item, index) in group.items", :key="item.key", v-if="viewOptions[group.key].open || index < 10")
-        span(v-once) {{ item.text() }}
+      .items
+        item(
+          v-for="(item, index) in group.items",
+          :key="item.key",
+          :item="item",
+          v-if="viewOptions[group.key].open || index < 9",
+        )
       div(v-if="group.items.length === 0")
         span No items in this category
-      .btn.btn-secondary.d-block(v-else, @click="viewOptions[group.key].open = !viewOptions[group.key].open") 
+      a.btn.btn-show-more(v-else, @click="viewOptions[group.key].open = !viewOptions[group.key].open") 
        | {{ viewOptions[group.key].open ? 'Close' : 'Open' }}
 </template>
 
@@ -47,8 +54,12 @@
 import { mapState } from 'client/libs/store';
 import each from 'lodash/each';
 import map from 'lodash/map';
+import Item from 'client/components/inventory/item';
 
 export default {
+  components: {
+    Item,
+  },
   data () {
     return {
       groupBy: 'type', // or 'class' TODO move to router?
