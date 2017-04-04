@@ -77,12 +77,12 @@
 
 <script>
 import { mapState } from 'client/libs/store';
-import Store from 'client/store';
 import each from 'lodash/each';
-import deepFreeze from 'client/libs/deepFreeze';
 
-// Normalize special pets and mounts
-//const specialMounts =
+// TODO Normalize special pets and mounts
+// import Store from 'client/store';
+// import deepFreeze from 'client/libs/deepFreeze';
+// const specialMounts =
 
 export default {
   data () {
