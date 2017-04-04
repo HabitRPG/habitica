@@ -216,7 +216,7 @@
     "backgroundWindyAutumnNotes": "Jagte blade i et Blæsende Efterår.",
     "incentiveBackgrounds": "Simpelt baggrund-sæt",
     "backgroundVioletText": "Violet",
-    "backgroundVioletNotes": "A vibrant violet backdrop.",
+    "backgroundVioletNotes": "En livlig violet baggrund.",
     "backgroundBlueText": "Blå",
     "backgroundBlueNotes": "En basis blå baggrund.",
     "backgroundGreenText": "Grøn",
@@ -254,5 +254,12 @@
     "backgroundMeanderingCaveText": "Bugtende Hule",
     "backgroundMeanderingCaveNotes": "Udforsk den Bugtende Hule.",
     "backgroundMistiflyingCircusText": "Mistiflying Cirkus",
-    "backgroundMistiflyingCircusNotes": "Svir i Mistiflying Cirkus."
+    "backgroundMistiflyingCircusNotes": "Svir i Mistiflying Cirkus.",
+    "backgrounds042017": "SET 35: Released April 2017",
+    "backgroundBugCoveredLogText": "Bug-Covered Log",
+    "backgroundBugCoveredLogNotes": "Investigate a Bug-Covered Log.",
+    "backgroundGiantBirdhouseText": "Giant Birdhouse",
+    "backgroundGiantBirdhouseNotes": "Perch in a Giant Birdhouse.",
+    "backgroundMistShroudedMountainText": "Mist-Shrouded Mountain",
+    "backgroundMistShroudedMountainNotes": "Summit a Mist-Shrouded Mountain."
 }

@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Tenha em mente que o seu nome de exibição, foto de perfil e blurb devem obedecer às <a href='https://habitica.com/static/community-guidelines' target='_blank'>Diretrizes de Comunidade</a> (por exemplo,  não usar profanidades, tópicos de adultos, insultos, etc). Se tiver alguma pergunta acerca de se algo é apropriado ou não, sinta-se à vontade de envia um correio eletrónico para <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Perfil",
     "avatar": "Personalizar Avatar",
     "other": "Outros",
@@ -112,7 +112,7 @@
     "mystery": "Mistério",
     "changeClass": "Alterar Classe, Restituir Pontos de Atributo",
     "lvl10ChangeClass": "Para mudar de classe você precisa ser pelo menos nível 10.",
-    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
+    "invalidClass": "Classe inválida. Por favor especifique 'guerreiro', 'ladino', 'mago' ou 'curandeiro'.",
     "levelPopover": "A cada nível que alcançar você terá um ponto para distribuir para um atributo de sua escolha. Você pode fazer isso manualmente, ou deixar o jogo decidir por você usando uma das opções de Distribuição Automática.",
     "unallocated": "Pontos de Atributo não Distribuídos",
     "haveUnallocated": "Você tem <%= points %> Ponto(s) de Atributo não usados",
