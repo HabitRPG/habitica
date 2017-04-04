@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Vær venligst opmærksom på, at dit Skærmnavn, profilbillede og den korte tekst skal leve op til <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (f.eks. ingen bandeord, ingen voksne emne, ingen fornærmelser osv.). Hvis du har nogle spørgsmål til om noget er passende, så send endelig en mail til <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Tilpas Avatar",
     "other": "Andet",

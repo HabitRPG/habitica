@@ -479,6 +479,20 @@ let backgrounds = {
       notes: t('backgroundMistiflyingCircusNotes'),
     },
   },
+  backgrounds042017: {
+    bug_covered_log: {
+      text: t('backgroundBugCoveredLogText'),
+      notes: t('backgroundBugCoveredLogNotes'),
+    },
+    giant_birdhouse: {
+      text: t('backgroundGiantBirdhouseText'),
+      notes: t('backgroundGiantBirdhouseNotes'),
+    },
+    mist_shrouded_mountain: {
+      text: t('backgroundMistShroudedMountainText'),
+      notes: t('backgroundMistShroudedMountainNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

@@ -215,8 +215,8 @@
     "backgroundWindyAutumnText": "Autunno ventoso",
     "backgroundWindyAutumnNotes": "Insegui le foglie autunnali.",
     "incentiveBackgrounds": "Set sfondi base",
-    "backgroundVioletText": "Violet",
-    "backgroundVioletNotes": "A vibrant violet backdrop.",
+    "backgroundVioletText": "Violetto",
+    "backgroundVioletNotes": "Un vivace sfondo violetto.",
     "backgroundBlueText": "Blu",
     "backgroundBlueNotes": "Un pacifico sfondo blu.",
     "backgroundGreenText": "Verde",
@@ -254,5 +254,12 @@
     "backgroundMeanderingCaveText": "Caverna Labirintica",
     "backgroundMeanderingCaveNotes": "Esplora la Caverna Labirintica.",
     "backgroundMistiflyingCircusText": "Circo di Fantalata",
-    "backgroundMistiflyingCircusNotes": "Spassatela nel circo di Fantalata."
+    "backgroundMistiflyingCircusNotes": "Spassatela nel circo di Fantalata.",
+    "backgrounds042017": "SET 35: Released April 2017",
+    "backgroundBugCoveredLogText": "Bug-Covered Log",
+    "backgroundBugCoveredLogNotes": "Investigate a Bug-Covered Log.",
+    "backgroundGiantBirdhouseText": "Giant Birdhouse",
+    "backgroundGiantBirdhouseNotes": "Perch in a Giant Birdhouse.",
+    "backgroundMistShroudedMountainText": "Mist-Shrouded Mountain",
+    "backgroundMistShroudedMountainNotes": "Summit a Mist-Shrouded Mountain."
 }
