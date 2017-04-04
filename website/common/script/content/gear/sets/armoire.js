@@ -226,6 +226,15 @@ let armor = {
     set: 'mushroomDruid',
     canOwn: ownsItem('armor_armoire_mushroomDruidArmor'),
   },
+  greenFestivalYukata: {
+    text: t('armorArmoireGreenFestivalYukataText'),
+    notes: t('armorArmoireGreenFestivalYukataNotes', { attrs: 8 }),
+    value: 100,
+    con: 8,
+    per: 8,
+    set: 'festivalAttire',
+    canOwn: ownsItem('armor_armoire_greenFestivalYukata'),
+  },
 };
 
 let eyewear = {
@@ -617,6 +626,14 @@ let shield = {
     set: 'mushroomDruid',
     canOwn: ownsItem('shield_armoire_mushroomDruidShield'),
   },
+  festivalParasol: {
+    text: t('shieldArmoireFestivalParasolText'),
+    notes: t('shieldArmoireFestivalParasolNotes', { con: 8 }),
+    value: 100,
+    con: 8,
+    set: 'festivalAttire',
+    canOwn: ownsItem('shield_armoire_festivalParasol'),
+  },
 };
 
 let headAccessory = {
@@ -828,6 +845,14 @@ let weapon = {
     int: 8,
     per: 9,
     canOwn: ownsItem('weapon_armoire_forestFungusStaff'),
+  },
+  festivalFirecracker: {
+    text: t('weaponArmoireFestivalFirecrackerText'),
+    notes: t('weaponArmoireFestivalFirecrackerNotes', { per: 8 }),
+    value: 100,
+    per: 8,
+    set: 'festivalAttire',
+    canOwn: ownsItem('weapon_armoire_festivalFirecracker'),
   },
 };
 
