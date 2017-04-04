@@ -229,6 +229,7 @@ export let DailySchema = new Schema(_.defaults({
     default () {
       return moment().startOf('day').toDate();
     },
+    required: true,
   },
   repeat: { // used only for 'weekly' frequency,
     m: {type: Boolean, default: true},
