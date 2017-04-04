@@ -161,10 +161,10 @@
     "weeks": "Tygodnie",
     "year": "Rok",
     "years": "Lata",
-    "confirmScoreNotes": "Confirm task scoring with notes",
-    "taskScoreNotesTooLong": "Task score notes must be less than 256 characters",
+    "confirmScoreNotes": "Potwierdź wynik zadania za pomocą notatki",
+    "taskScoreNotesTooLong": "Notatki do zadań muszą zawierać mniej niż 256 znaków",
     "groupTasksByChallenge": "Grupuj zadania po tytule wyzwania",
-    "taskNotes": "Task Notes",
+    "taskNotes": "Notatki do zadania",
     "monthlyRepeatHelpContent": "To zadanie należy wypełniać co X miesięcy",
     "yearlyRepeatHelpContent": "To zadanie należy wypełniać co X lat"
 }

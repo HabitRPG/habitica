@@ -13,7 +13,7 @@
     "alexander": "Alexander le Marchand",
     "welcomeMarket": "Bienvenue au Marché ! Achetez des œufs rares et des potions ! Vendez vos surplus ! Commandez des services utiles ! Venez voir ce que nous avons à proposer.",
     "welcomeMarketMobile": "Bienvenue au Marché! Achetez des œufs rares et des potions !  Venez voir ce que nous avons à offrir.",
-    "displayItemForGold": "Voulez-vous vendre un·e <strong><%= itemType %></strong> ?",
+    "displayItemForGold": "Voulez-vous vendre une <strong><%= itemType %></strong> ?",
     "displayEggForGold": "Voulez-vous vendre un œuf de <strong><%= itemType %></strong> ?",
     "displayPotionForGold": "Voulez-vous vendre une <strong>Potion <%= itemType %></strong> ?",
     "sellForGold": "Vendre pour <%= gold %> pièces d'or.",

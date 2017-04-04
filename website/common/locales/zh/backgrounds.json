@@ -215,8 +215,8 @@
     "backgroundWindyAutumnText": "刮风的秋天",
     "backgroundWindyAutumnNotes": "在刮风的秋天中追赶落叶",
     "incentiveBackgrounds": "简约背景套装",
-    "backgroundVioletText": "Violet",
-    "backgroundVioletNotes": "A vibrant violet backdrop.",
+    "backgroundVioletText": "紫罗兰色的",
+    "backgroundVioletNotes": "一个充满生气的紫罗兰背景",
     "backgroundBlueText": "蓝色",
     "backgroundBlueNotes": "基础蓝色背景",
     "backgroundGreenText": "绿色",
@@ -254,5 +254,12 @@
     "backgroundMeanderingCaveText": "曲折的洞穴",
     "backgroundMeanderingCaveNotes": "探索曲折的洞穴",
     "backgroundMistiflyingCircusText": "Mistiflying环形广场",
-    "backgroundMistiflyingCircusNotes": "Mistiflying环形广场上的宴会"
+    "backgroundMistiflyingCircusNotes": "Mistiflying环形广场上的宴会",
+    "backgrounds042017": "SET 35: Released April 2017",
+    "backgroundBugCoveredLogText": "Bug-Covered Log",
+    "backgroundBugCoveredLogNotes": "Investigate a Bug-Covered Log.",
+    "backgroundGiantBirdhouseText": "Giant Birdhouse",
+    "backgroundGiantBirdhouseNotes": "Perch in a Giant Birdhouse.",
+    "backgroundMistShroudedMountainText": "Mist-Shrouded Mountain",
+    "backgroundMistShroudedMountainNotes": "Summit a Mist-Shrouded Mountain."
 }

@@ -215,8 +215,8 @@
     "backgroundWindyAutumnText": "Ветренная Осень ",
     "backgroundWindyAutumnNotes": "Ветреная Осень — время гоняться за листьями.",
     "incentiveBackgrounds": "Набор простых фонов",
-    "backgroundVioletText": "Violet",
-    "backgroundVioletNotes": "A vibrant violet backdrop.",
+    "backgroundVioletText": "Фиолетовый",
+    "backgroundVioletNotes": "Энергичный фиолетовый фон.",
     "backgroundBlueText": "Синий",
     "backgroundBlueNotes": "Скромный синий фон.",
     "backgroundGreenText": "Зеленый",
@@ -254,5 +254,12 @@
     "backgroundMeanderingCaveText": "Извилистая пещера",
     "backgroundMeanderingCaveNotes": "Исследуйте Извилистую пещеру",
     "backgroundMistiflyingCircusText": "Мистический Цирк",
-    "backgroundMistiflyingCircusNotes": "Пирушка в Мистическом Цирке"
+    "backgroundMistiflyingCircusNotes": "Пирушка в Мистическом Цирке",
+    "backgrounds042017": "SET 35: Released April 2017",
+    "backgroundBugCoveredLogText": "Bug-Covered Log",
+    "backgroundBugCoveredLogNotes": "Investigate a Bug-Covered Log.",
+    "backgroundGiantBirdhouseText": "Giant Birdhouse",
+    "backgroundGiantBirdhouseNotes": "Perch in a Giant Birdhouse.",
+    "backgroundMistShroudedMountainText": "Mist-Shrouded Mountain",
+    "backgroundMistShroudedMountainNotes": "Summit a Mist-Shrouded Mountain."
 }

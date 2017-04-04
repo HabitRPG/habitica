@@ -155,6 +155,7 @@
     "sendGiftPurchase": "Nákup",
     "sendGiftMessagePlaceholder": "Súkromná správa (dobrovoľné)",
     "sendGiftSubscription": "<%= months %> mesiac(ov): $<%= price %> USD",
+    "gemGiftsAreOptional": "Please note that Habitica will never require you to gift gems to other players. Begging people for gems is a <strong>violation of the Community Guidelines</strong>, and all such instances should be reported to <%= hrefTechAssistanceEmail %>.",
     "battleWithFriends": "Bojuj s príšerami za pomoci svojich kamarátov",
     "startPartyWithFriends": "Založ družinu so svojimi kamarátmi!",
     "startAParty": "Založiť družinu",

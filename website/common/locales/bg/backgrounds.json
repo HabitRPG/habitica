@@ -215,8 +215,8 @@
     "backgroundWindyAutumnText": "Ветровита есен",
     "backgroundWindyAutumnNotes": "Гонете листа през ветровита есен.",
     "incentiveBackgrounds": "Комплект едноцветни фонове",
-    "backgroundVioletText": "Violet",
-    "backgroundVioletNotes": "A vibrant violet backdrop.",
+    "backgroundVioletText": "Виолетово",
+    "backgroundVioletNotes": "Енергичен виолетов фон.",
     "backgroundBlueText": "Синьо",
     "backgroundBlueNotes": "Обикновен син фон.",
     "backgroundGreenText": "Зелено",
@@ -254,5 +254,12 @@
     "backgroundMeanderingCaveText": "Криволичеща пещера",
     "backgroundMeanderingCaveNotes": "Изследвайте криволичещата пещера.",
     "backgroundMistiflyingCircusText": "Циркът на Мъглоград",
-    "backgroundMistiflyingCircusNotes": "Забавлявайте се в цирка на Мъглоград."
+    "backgroundMistiflyingCircusNotes": "Забавлявайте се в цирка на Мъглоград.",
+    "backgrounds042017": "SET 35: Released April 2017",
+    "backgroundBugCoveredLogText": "Bug-Covered Log",
+    "backgroundBugCoveredLogNotes": "Investigate a Bug-Covered Log.",
+    "backgroundGiantBirdhouseText": "Giant Birdhouse",
+    "backgroundGiantBirdhouseNotes": "Perch in a Giant Birdhouse.",
+    "backgroundMistShroudedMountainText": "Mist-Shrouded Mountain",
+    "backgroundMistShroudedMountainNotes": "Summit a Mist-Shrouded Mountain."
 }

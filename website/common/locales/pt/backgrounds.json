@@ -215,8 +215,8 @@
     "backgroundWindyAutumnText": "Outono Ventoso",
     "backgroundWindyAutumnNotes": "Persiga folhas durante um Outono Ventoso",
     "incentiveBackgrounds": "Plano de Fundo simples",
-    "backgroundVioletText": "Violet",
-    "backgroundVioletNotes": "A vibrant violet backdrop.",
+    "backgroundVioletText": "Violeta",
+    "backgroundVioletNotes": "Um plano de fundo violeta vibrante.",
     "backgroundBlueText": "Azul",
     "backgroundBlueNotes": "Um plano de fundo básico azul.",
     "backgroundGreenText": "Verde",
@@ -254,5 +254,12 @@
     "backgroundMeanderingCaveText": "Caverna Sinuosa",
     "backgroundMeanderingCaveNotes": "Explore a Caverna Sinuosa",
     "backgroundMistiflyingCircusText": "Circo Místico Voador",
-    "backgroundMistiflyingCircusNotes": "Divirta-se no Circo Místico Voador"
+    "backgroundMistiflyingCircusNotes": "Divirta-se no Circo Místico Voador",
+    "backgrounds042017": "SET 35: Released April 2017",
+    "backgroundBugCoveredLogText": "Bug-Covered Log",
+    "backgroundBugCoveredLogNotes": "Investigate a Bug-Covered Log.",
+    "backgroundGiantBirdhouseText": "Giant Birdhouse",
+    "backgroundGiantBirdhouseNotes": "Perch in a Giant Birdhouse.",
+    "backgroundMistShroudedMountainText": "Mist-Shrouded Mountain",
+    "backgroundMistShroudedMountainNotes": "Summit a Mist-Shrouded Mountain."
 }
