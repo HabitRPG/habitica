@@ -20,7 +20,7 @@ module.exports = function releaseMounts (user, req = {}, analytics) {
   }
 
   for (let mount in content.pets) {
-    if (user.items.mounts[mount] === null) {
+    if (user.items.mounts[mount] === null || user.items.mounts[mount] === undefined) {
       giveMountMasterAchievement = false;
     }
     user.items.mounts[mount] = null;

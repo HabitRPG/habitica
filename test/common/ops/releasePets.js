@@ -14,8 +14,12 @@ describe('shared.ops.releasePets', () => {
 
   beforeEach(() => {
     user = generateUser();
+    for (let k in content.pets) {
+      user.items.pets[k] = content.pets[k];
+      user.items.pets[k] = 5;
+    }
+
     user.items.currentPet = animal;
-    user.items.pets[animal] = 5;
     user.balance = 1;
   });
 
@@ -82,6 +86,14 @@ describe('shared.ops.releasePets', () => {
   it('does not increment beastMasterCount if any pet is missing (null)', () => {
     let beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
     user.items.pets[animal] = null;
+    releasePets(user);
+
+    expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+  });
+
+  it('does not increment beastMasterCount if any pet is missing (undefined)', () => {
+    let beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
+    delete user.items.pets[animal];
     releasePets(user);
 
     expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);

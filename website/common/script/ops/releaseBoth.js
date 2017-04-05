@@ -46,10 +46,10 @@ module.exports = function releaseBoth (user, req = {}, analytics) {
   for (animal in content.pets) {
     if (user.items.pets[animal] === -1) {
       giveTriadBingo = false;
-    } else if (user.items.pets[animal] === 0 || user.items.pets[animal] === null) {
+    } else if (!user.items.pets[animal]) {
       giveBeastMasterAchievement = false;
     }
-    if (user.items.mounts[animal] === null) {
+    if (user.items.mounts[animal] === null || user.items.mounts[animal] === undefined) {
       giveMountMasterAchievement = false;
     }
 

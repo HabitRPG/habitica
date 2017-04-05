@@ -20,7 +20,7 @@ module.exports = function releasePets (user, req = {}, analytics) {
   }
 
   for (let pet in content.pets) {
-    if (user.items.pets[pet] === 0 || user.items.pets[pet] === null) {
+    if (!user.items.pets[pet]) {
       giveBeastMasterAchievement = false;
     }
     user.items.pets[pet] = 0;
