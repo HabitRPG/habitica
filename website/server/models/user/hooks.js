@@ -99,7 +99,7 @@ function _setUpNewUser (user) {
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
 
-  if (user.registeredThrough === 'habitica-web' || user.registeredThrough === 'habitica-android') {
+  if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
 
     _.each(iterableFlags.tutorial.common, (val, section) => {
