@@ -611,6 +611,111 @@ api.scoreTask = {
   },
 };
 
+api.scoreTasks = {
+  method: 'POST',
+  url: '/tasks/score',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    req.checkBody('tasks', res.t('tasksRequired')).notEmpty();
+
+    let user = res.locals.user;
+    let resJsonData = [];
+
+    for (let i = 0; i < req.body.tasks.length; i++) {
+      let scoreNotes = req.body.tasks[i].scoreNotes;
+      if (scoreNotes && scoreNotes.length > MAX_SCORE_NOTES_LENGTH) throw new NotAuthorized(res.t('taskScoreNotesTooLong'));
+
+      let direction = req.body.tasks[i].direction;
+      if (direction != 'up' && direction != 'down') throw new NotAuthorized(res.t('directionUpDown'));
+      let taskId = req.body.tasks[i].taskId;
+
+      let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, {userId: user._id});
+
+      if (scoreNotes) task.scoreNotes = scoreNotes;
+
+      if (!task) throw new NotFound(res.t('taskNotFound'));
+
+      if (task.group.approval.required && !task.group.approval.approved) {
+        if (task.group.approval.requested) {
+          throw new NotAuthorized(res.t('taskRequiresApproval'));
+        }
+
+        task.group.approval.requested = true;
+        task.group.approval.requestedDate = new Date();
+
+        let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+        let groupLeader = await User.findById(group.leader).exec(); // Use this method so we can get access to notifications
+
+        groupLeader.addNotification('GROUP_TASK_APPROVAL', {
+          message: res.t('userHasRequestedTaskApproval', {
+            user: user.profile.name,
+            taskName: task.text,
+          }, groupLeader.preferences.language),
+          groupId: group._id,
+        });
+
+        await Bluebird.all([groupLeader.save(), task.save()]);
+
+        throw new NotAuthorized(res.t('taskApprovalHasBeenRequested'));
+      }
+
+      let wasCompleted = task.completed;
+
+      let [delta] = common.ops.scoreTask({task, user, direction}, req);
+      // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
+      if (direction === 'up') user.fns.randomDrop({task, delta}, req);
+
+      // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
+      // TODO move to common code?
+      if (task.type === 'todo') {
+        if (!wasCompleted && task.completed) {
+          removeFromArray(user.tasksOrder.todos, task._id);
+        } else if (wasCompleted && !task.completed) {
+          let hasTask = removeFromArray(user.tasksOrder.todos, task._id);
+          if (!hasTask) {
+            user.tasksOrder.todos.push(task._id);
+          } // If for some reason it hadn't been removed previously don't do anything
+        }
+      }
+
+      let results = await Bluebird.all([
+        user.save(),
+        task.save(),
+      ]);
+
+      let savedUser = results[0];
+
+      let userStats = savedUser.stats.toJSON();
+      resJsonData.push(_.assign({delta, _tmp: user._tmp}, userStats));
+
+      taskScoredWebhook.send(user.webhooks, {
+        task,
+        direction,
+        delta,
+        user,
+      });
+
+      if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
+        // Wrapping everything in a try/catch block because if an error occurs using `await` it MUST NOT bubble up because the request has already been handled
+        try {
+          let chalTask = await Tasks.Task.findOne({
+            _id: task.challenge.taskId,
+          }).exec();
+
+          if (!chalTask) return;
+
+          await chalTask.scoreChallengeTask(delta);
+        } catch (e) {
+          logger.error(e);
+        }
+      }
+    }
+
+    // Respond with the array of JSON data
+    res.respond(200, resJsonData);
+  },
+};
+
 /**
  * @api {post} /api/v3/tasks/:taskId/move/to/:position Move a task to a new position
  * @apiDescription Note: completed To-Dos are not sortable, do not appear in user.tasksOrder.todos, and are ordered by date of completion.

@@ -177,8 +177,11 @@ habitrpg.controller('NotificationCtrl',
               approvedTasks.push({
                 params: {
                   task: scoreTaskNotification[i].data.scoreTask,
-                  direction: "up"
-                }
+                  direction: "up",
+                },
+                body: {
+                  scoreNotes: scoreTaskNotification[i].data.scoreTask.scoreNotes,
+                },
               });
 
               // Show notification of task approved

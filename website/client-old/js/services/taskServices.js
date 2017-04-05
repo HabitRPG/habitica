@@ -154,6 +154,19 @@ angular.module('habitrpg')
       });
     };
 
+    function scoreTasks (tasks) {
+      // Check if tasks is a valid array
+      if (!tasks || tasks.length === 0) {
+        return;
+      }
+
+      return $http({
+        method: 'POST',
+        url: '/api/v3/tasks/score',
+        data: {tasks: tasks},
+      });
+    };
+
     function moveTask (taskId, position) {
       return $http({
         method: 'POST',
@@ -489,6 +502,7 @@ angular.module('habitrpg')
       updateTask: updateTask,
       deleteTask: deleteTask,
       scoreTask: scoreTask,
+      scoreTasks: scoreTasks,
       moveTask: moveTask,
       addChecklistItem: addChecklistItem,
       scoreCheckListItem: scoreCheckListItem,
