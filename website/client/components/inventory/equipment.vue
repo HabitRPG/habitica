@@ -2,30 +2,31 @@
 .row
   .col-2.standard-sidebar
     .form-group
-      input.form-control(type="text", :placeholder="$t('search')")
+      input.form-control.search-control(type="text", :placeholder="$t('search')")
 
     .form
       h2(v-once) {{ $t('filter') }}
-      h3(v-once) Type
+      h3 {{ this.groupBy === 'type' ? 'Type' : $t('class') }}
       .form-group
         .form-check(
           v-for="group in itemsGroups", 
           :key="group.key",
         )
-          label.form-check-label 
-            input.form-check-input(type="checkbox", v-model="viewOptions[group.key].selected")
-            span(v-once) {{ $t(group.label) }}
+          label.custom-control.custom-checkbox 
+            input.custom-control-input(type="checkbox", v-model="viewOptions[group.key].selected")
+            span.custom-control-indicator
+            span.custom-control-description(v-once) {{ $t(group.label) }}
 
   .col-10.standard-page
-    h1(v-once) {{ $t('equipment') }}
-    .form-check.form-check-inline
-      label.form-check-label
-        input.form-check-input(type='radio', v-model='groupBy', value='type')
-        | Group by type
-    .form-check.form-check-inline
-      label.form-check-label
-        input.form-check-input(type='radio', v-model='groupBy', value='class')
-        | Group by class
+    .clearfix
+      h1.float-left(v-once) {{ $t('equipment') }}
+      b-dropdown.float-right(text="Sort by", right=true)
+        b-dropdown-item(href="#") Option 1
+        b-dropdown-item(href="#") Option 2
+        b-dropdown-item(href="#") Option 3
+      b-dropdown.float-right(text="Group by", right=true)
+        b-dropdown-item(@click="groupBy = 'type'", :class="{'dropdown-item-active': groupBy === 'type'}") Type
+        b-dropdown-item(@click="groupBy = 'class'", :class="{'dropdown-item-active': groupBy === 'class'}") {{ $t('class') }}
 
     div(
       v-for="group in itemsGroups", 
