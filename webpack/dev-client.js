@@ -1,9 +1,10 @@
-/* eslint-disable */
-require('eventsource-polyfill')
-var hotClient = require('webpack-hot-middleware/client?noInfo=true&reload=true&overlay=false')
+/* global window:true */
 
-hotClient.subscribe(function (event) {
+require('eventsource-polyfill');
+const hotClient = require('webpack-hot-middleware/client?noInfo=true&reload=true&overlay=false');
+
+hotClient.subscribe(event => {
   if (event.action === 'reload') {
-    window.location.reload()
+    window.location.reload();
   }
-})
+});

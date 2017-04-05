@@ -240,6 +240,5 @@ describe('Groups Controller', function() {
   describe.skip("clickMember", function() { });
   describe.skip("removeMember", function() { });
   describe.skip("confirmRemoveMember", function() { });
-  describe.skip("openInviteModal", function() { });
   describe.skip("quickReply", function() { });
 });

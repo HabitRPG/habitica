@@ -4,6 +4,9 @@ import {
 import {
   model as User,
 } from '../models/user';
+import nconf from 'nconf';
+
+const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 
 // Strins won't be translated here because getUserLanguage has not run yet
 
@@ -26,7 +29,7 @@ export function authWithHeaders (optional = false) {
     .exec()
     .then((user) => {
       if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
-      if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {userId: user._id}));
+      if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id}));
 
       res.locals.user = user;
 

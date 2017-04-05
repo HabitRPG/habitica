@@ -4,7 +4,7 @@
   Cron and time / day functions
   ------------------------------------------------------
  */
-import _ from 'lodash';
+import _ from 'lodash'; // eslint-disable-line lodash/import-scope
 import moment from 'moment';
 
 export const DAY_MAPPING = {

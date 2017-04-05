@@ -44,6 +44,7 @@ module.exports = function karmaConfig (config) {
       '../../../website/client-old/js/filters/**/*.js',
       '../../../website/client-old/js/directives/**/*.js',
       '../../../website/client-old/js/controllers/**/*.js',
+      '../../../website/client-old/js/components/**/*.js',
 
       '../../../test/client-old/spec/specHelper.js',
       '../../../test/client-old/spec/**/*.js',
@@ -80,8 +81,11 @@ module.exports = function karmaConfig (config) {
     },
 
     coverageReporter: {
-      type: 'lcov',
-      dir: 'coverage/karma',
+      reporters: [
+        { type: 'lcov', subdir: '.' },
+        { type: 'text-summary' },
+      ],
+      dir: '../../../coverage/karma',
     },
 
     // Enable mocha-style reporting, for better test visibility

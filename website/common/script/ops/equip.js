@@ -5,13 +5,13 @@ import {
   NotFound,
   BadRequest,
 } from '../libs/errors';
-import _ from 'lodash';
+import get from 'lodash/get';
 
 module.exports = function equip (user, req = {}) {
   // Being type a parameter followed by another parameter
   // when using the API it must be passes specifically in the URL, it's won't default to equipped
-  let type = _.get(req, 'params.type', 'equipped');
-  let key = _.get(req, 'params.key');
+  let type = get(req, 'params.type', 'equipped');
+  let key = get(req, 'params.key');
 
   if (!key || !type) throw new BadRequest(i18n.t('missingTypeKeyEquip', req.language));
   if (['mount', 'pet', 'costume', 'equipped'].indexOf(type) === -1) {

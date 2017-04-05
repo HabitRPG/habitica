@@ -12,12 +12,13 @@ let api = {};
  * @apiDescription Does not require authentication
  * @apiName UnsubscribeEmail
  * @apiGroup Unsubscribe
- * @apiDescription This is a GET method so that you can put the unsubscribe link in emails.
+ * @apiDescription This is a GET method included in official emails from Habitica that will unsubscribe the user from emails.
  *
- * @apiParam {String} code Query parameter - An unsubscription code
+ * @apiParam (Query) {String} code An unsubscription code
  *
- * @apiSuccess {String} An html success message
+ * @apiSuccess {String} Webpage An html success message
  *
+ * @apiError (400) {BadRequest} missingUnsubscriptionCode The unsubscription code is missing.
  * @apiUse UserNotFound
  */
 api.unsubscribe = {
@@ -38,15 +39,16 @@ api.unsubscribe = {
       let userUpdated = await User.update(
         {_id: data._id},
         { $set: {'preferences.emailNotifications.unsubscribeFromAll': true}}
-      );
+      ).exec();
 
       if (userUpdated.nModified !== 1) throw new NotFound(res.t('userNotFound'));
 
       res.send(`<h1>${res.t('unsubscribedSuccessfully')}</h1> ${res.t('unsubscribedTextUsers')}`);
     } else {
-      let unsubscribedEmail = await EmailUnsubscription.findOne({email: data.email.toLowerCase()});
-      let okResponse = `<h1>${res.t('unsubscribedSuccessfully')}</h1> ${res.t('unsubscribedTextOthers')}`;
+      let unsubscribedEmail = await EmailUnsubscription.findOne({email: data.email.toLowerCase()}).exec();
       if (!unsubscribedEmail) await EmailUnsubscription.create({email: data.email.toLowerCase()});
+
+      let okResponse = `<h1>${res.t('unsubscribedSuccessfully')}</h1> ${res.t('unsubscribedTextOthers')}`;
       res.send(okResponse);
     }
   },

@@ -11,7 +11,7 @@ import {
 } from '../../helpers/common.helper';
 
 describe('shared.ops.purchase', () => {
-  const SEASONAL_FOOD = 'Candy_Base';
+  const SEASONAL_FOOD = 'Meat';
   let user;
   let goldPoints = 40;
   let gemsBought = 40;
@@ -145,6 +145,15 @@ describe('shared.ops.purchase', () => {
       expect(user.balance).to.equal(userGemAmount + 0.25);
       expect(user.purchased.plan.gemsBought).to.equal(1);
       expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate);
+    });
+
+    it('purchases gems with a different language than the default', () => {
+      let [, message] = purchase(user, {params: {type: 'gems', key: 'gem'}, language: 'de'});
+
+      expect(message).to.equal(i18n.t('plusOneGem', 'de'));
+      expect(user.balance).to.equal(userGemAmount + 0.5);
+      expect(user.purchased.plan.gemsBought).to.equal(2);
+      expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate * 2);
     });
 
     it('purchases eggs', () => {

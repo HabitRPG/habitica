@@ -1,10 +1,14 @@
 {
     "pets": "Mascotas",
+    "activePet": "Mascota activa",
+    "noActivePet": "Ninguna mascota activa",
     "petsFound": "Mascotas Encontradas",
     "magicPets": "Mascotas de pociones mágicas",
     "rarePets": "Mascotas Raras",
     "questPets": "Mascotas de Misión",
     "mounts": "Monturas",
+    "activeMount": "Montura activa",
+    "noActiveMount": "Ninguna montura activa",
     "mountsTamed": "Monturas Domadas",
     "questMounts": "Monturas de Misión",
     "magicMounts": "Monturas de pociones mágicas",
@@ -21,6 +25,7 @@
     "royalPurpleGryphon": "Grifo real morado",
     "phoenix": "Fénix",
     "magicalBee": "Abeja mágica",
+    "royalPurpleJackalope": "Jackalope Púrpura Real",
     "rarePetPop1": "¡Haz clic en la pata dorada para saber cómo puedes conseguir esta mascota contribuyendo con Habitica!",
     "rarePetPop2": "¡Como Obtener Esta Mascota!",
     "potion": "Poción <%= potionType %>",
@@ -88,5 +93,7 @@
     "petsReleased": "Mascotas liberadas.",
     "mountsAndPetsReleased": "Monturas y mascotas liberadas.",
     "mountsReleased": "Monturas liberadas.",
-    "gemsEach": "gemas cada uno"
+    "gemsEach": "gemas cada uno",
+    "foodWikiText": "¿Qué le gusta comer a mi mascota?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

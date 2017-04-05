@@ -18,21 +18,27 @@
         var modelAccessor = $parse(attrs.ngModel);
 
         return function (scope, element, attrs, controller) {
-          var availableTags = _.pluck(scope.group.members, 'profile.name');
-          var memberProfileNameToIdMap = _.object(_.map(scope.group.members, function(item) {
+          var availableTags = _.map(scope.group.members, 'profile.name');
+          var memberProfileNameToIdMap = _.fromPairs(_.map(scope.group.members, function(item) {
              return [item.profile.name, item.id]
           }));
-          var memberIdToProfileNameMap = _.object(_.map(scope.group.members, function(item) {
+          var memberIdToProfileNameMap = _.fromPairs(_.map(scope.group.members, function(item) {
              return [item.id, item.profile.name]
           }));
 
           var currentTags = [];
-          _.each(scope.task.group.assignedUsers, function(userId) { currentTags.push(memberIdToProfileNameMap[userId]) })
+          _.each(scope.task.group.assignedUsers, function(userId) { currentTags.push(memberIdToProfileNameMap[userId]) });
+
+          var allowedTags = [];
+          _.each(scope.task.group.members, function(userId) { currentTags.push(memberIdToProfileNameMap[userId]) });
 
           var taggle = new Taggle('taggle', {
             tags: currentTags,
-            allowedTags: currentTags,
+            allowedTags: allowedTags,
             allowDuplicates: false,
+            preserveCase: true,
+            delimeter: '|',
+            placeholder: window.env.t('assignFieldPlaceholder'),
             onBeforeTagAdd: function(event, tag) {
               return confirm(window.env.t('confirmAddTag', {tag: tag}));
             },

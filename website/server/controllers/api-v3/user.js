@@ -27,8 +27,39 @@ let api = {};
  * @apiName UserGet
  * @apiGroup User
  *
+ * @apiDescription The user profile contains data related to the authenticated user including (but not limited to);
+ * Achievements
+ * Authentications (including types and timestamps)
+ * Challenges
+ * Flags (including armoire, tutorial, tour etc...)
+ * Guilds
+ * History (including timestamps and values)
+ * Inbox (includes message history)
+ * Invitations (to parties/guilds)
+ * Items (character's full inventory)
+ * New Messages (flags for groups/guilds that have new messages)
+ * Notifications
+ * Party (includes current quest information)
+ * Preferences (user selected prefs)
+ * Profile (name, photo url, blurb)
+ * Purchased (includes purchase history, gem purchased items, plans)
+ * PushDevices (identifiers for mobile devices authorized)
+ * Stats (standard RPG stats, class, buffs, xp, etc..)
+ * Tags
+ * TasksOrder (list of all ids for dailys, habits, rewards and todos)
+ *
  * @apiSuccess {Object} data The user object
- */
+ *
+ * @apiSuccessExample {json} Result:
+ *  {
+ *   "success": true,
+ *   "data": {
+ *   --  User data included here, for details of the user model see:
+ *   --  https://github.com/HabitRPG/habitica/tree/develop/website/server/models/user
+ *   }
+ * }
+ *
+*/
 api.getUser = {
   method: 'GET',
   middlewares: [authWithHeaders()],
@@ -46,11 +77,30 @@ api.getUser = {
 };
 
 /**
- * @api {get} /api/v3/user/inventory/buy Get the gear items available for purchase for the current user
+ * @api {get} /api/v3/user/inventory/buy Get the gear items available for purchase for the authenticated user
  * @apiName UserGetBuyList
  * @apiGroup User
  *
- * @apiSuccess {Object} data The buy list
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *   "success": true,
+ *   "data": [
+ *     {
+ *       "text": "Training Sword",
+ *       "notes": "Practice weapon. Confers no benefit.",
+ *       "value": 1,
+ *       "type": "weapon",
+ *       "key": "weapon_warrior_0",
+ *       "set": "warrior-0",
+ *       "klass": "warrior",
+ *       "index": "0",
+ *       "str": 0,
+ *       "int": 0,
+ *       "per": 0,
+ *       "con": 0
+ *     }
+ *   ]
+ * }
  */
 api.getBuyList = {
   method: 'GET',
@@ -142,11 +192,31 @@ let checkPreferencePurchase = (user, path, item) => {
 
 /**
  * @api {put} /api/v3/user Update the user
- * @apiDescription Example body: {'stats.hp':50, 'preferences.background': 'beach'}
  * @apiName UserUpdate
  * @apiGroup User
  *
- * @apiSuccess {Object} data The updated user object
+ * @apiDescription Some of the user items can be updated, such as preferences, flags and stats.
+ ^
+ * @apiParamExample {json} Request-Example:
+ *  {
+ *   "achievements.habitBirthdays": 2,
+ *   "profile.name": "MadPink",
+ *   "stats.hp": 53,
+ *   "flags.warnedLowHealth":false,
+ *   "preferences.allocationMode":"flat",
+ *   "preferences.hair.bangs": 3
+ * }
+ *
+ * @apiSuccess {Object} data The updated user object, the result is identical to the get user call
+ *
+ * @apiError (401) {NotAuthorized} messageUserOperationProtected Returned if the change is not allowed.
+ *
+ * @apiErrorExample {json} Error-Response:
+ *  {
+ *   "success": false,
+ *   "error": "NotAuthorized",
+ *   "message": "path `stats.class` was not saved, as it's a protected path."
+ * }
  */
 api.updateUser = {
   method: 'PUT',
@@ -179,9 +249,32 @@ api.updateUser = {
  * @apiName UserDelete
  * @apiGroup User
  *
- * @apiParam {String} password The user's password (unless it's a Facebook account)
+ * @apiParam {String} password The user's password if the account uses local authentication
  *
  * @apiSuccess {Object} data An empty Object
+ *
+ * @apiSuccessExample {json} Result:
+ *  {
+ *   "success": true,
+ *   "data": {}
+ * }
+ *
+ * @apiError {BadRequest} MissingPassword The password was not included in the request
+ * @apiError {BadRequest} NotAuthorized There is no account that uses those credentials.
+ *
+ * @apiErrorExample {json}
+ *  {
+ *   "success": false,
+ *   "error": "BadRequest",
+ *   "message": "Invalid request parameters.",
+ *   "errors": [
+ *     {
+ *       "message": "Missing password.",
+ *       "param": "password"
+ *     }
+ *   ]
+ * }
+ *
  */
 api.deleteUser = {
   method: 'DELETE',
@@ -200,15 +293,16 @@ api.deleteUser = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let oldPassword = passwordUtils.encrypt(req.body.password, user.auth.local.salt);
-    if (oldPassword !== user.auth.local.hashed_password) throw new NotAuthorized(res.t('wrongPassword'));
+    let password = req.body.password;
+    let isValidPassword = await passwordUtils.compare(user, password);
+    if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
 
     if (plan && plan.customerId && !plan.dateTerminated) {
       throw new NotAuthorized(res.t('cannotDeleteActiveAccount'));
     }
 
     let types = ['party', 'guilds'];
-    let groupFields = basicGroupFields.concat(' leader memberCount');
+    let groupFields = basicGroupFields.concat(' leader memberCount purchased');
 
     let groupsUserIsMemberOf = await Group.getGroups({user, types, groupFields});
 
@@ -239,8 +333,17 @@ function _cleanChecklist (task) {
  * @apiName UserGetAnonymized
  * @apiGroup User
  *
+ * @apiDescription Returns the user's data without:
+ * Authentication information
+ * NewMessages/Invitations/Inbox
+ * Profile
+ * Purchased information
+ * Contributor information
+ * Special items
+ * Webhooks
+ *
  * @apiSuccess {Object} data.user
- * @apiSuccess {Array} data.tasks
+ * @apiSuccess {Object} data.tasks
  **/
 api.getUserAnonymized = {
   method: 'GET',
@@ -256,6 +359,7 @@ api.getUserAnonymized = {
     if (user.auth) {
       delete user.auth.local;
       delete user.auth.facebook;
+      delete user.auth.google;
     }
     delete user.newMessages;
     delete user.profile;
@@ -304,11 +408,15 @@ const partyMembersFields = 'profile.name stats achievements items.special';
  * @apiGroup User
  *
  * @apiParam {String=fireball, mpHeal, earth, frost, smash, defensiveStance, valorousPresence, intimidate, pickPocket, backStab, toolsOfTrade, stealth, heal, protectAura, brightness, healAll} spellId The skill to cast.
- * @apiParam {UUID} targetId Optional query parameter, the id of the target when casting a skill on a party member or a task
+ * @apiParam (Body) {UUID} targetId Query parameter, necessary if the spell is cast on a party member or task. Not used if the spell is case on onesself or the user's current party.
+ * @apiParamExample {json} Query example:
+ *  {
+ *     "targetId":"fd427623-9a69-4aac-9852-13deb9c190c3"
+ *  }
  *
  * @apiSuccess data Will return the modified targets. For party members only the necessary fields will be populated. The user is always returned.
  *
- * @apiExample Skill Key to Name Mapping
+ * @apiDescription Skill Key to Name Mapping
  * Mage
  * fireball: "Burst of Flames"
  * mpHeal: "Ethereal Surge"
@@ -333,10 +441,10 @@ const partyMembersFields = 'profile.name stats achievements items.special';
  * brightness: "Searing Brightness"
  * healAll: "Blessing"
  *
+ * @apiError (400) {NotAuthorized} Not enough mana.
  * @apiUse TaskNotFound
  * @apiUse PartyNotFound
  * @apiUse UserNotFound
- *
  */
 api.castSpell = {
   method: 'POST',
@@ -372,6 +480,7 @@ api.castSpell = {
       }).exec();
       if (!task) throw new NotFound(res.t('taskNotFound'));
       if (task.challenge.id) throw new BadRequest(res.t('challengeTasksNoCast'));
+      if (task.group.id) throw new BadRequest(res.t('groupTasksNoCast'));
 
       spell.cast(user, task, req);
 
@@ -391,9 +500,19 @@ api.castSpell = {
     } else if (targetType === 'tasks') { // new target type in v3: when all the user's tasks are necessary
       let tasks = await Tasks.Task.find({
         userId: user._id,
-        $or: [ // exclude challenge tasks
-          {'challenge.id': {$exists: false}},
-          {'challenge.broken': {$exists: true}},
+        $and: [ // exclude challenge and group tasks
+          {
+            $or: [
+              {'challenge.id': {$exists: false}},
+              {'challenge.broken': {$exists: true}},
+            ],
+          },
+          {
+            $or: [
+              {'group.id': {$exists: false}},
+              {'group.broken': {$exists: true}},
+            ],
+          },
         ],
       }).exec();
 
@@ -488,7 +607,15 @@ api.castSpell = {
  * @apiName UserSleep
  * @apiGroup User
  *
+ * @apiDescription Toggles the sleep key under user preference true and false.
+ *
  * @apiSuccess {boolean} data user.preferences.sleep
+ *
+ * @apiSuccessExample {json} Return-example
+ * {
+ *   "success": true,
+ *   "data": false
+ * }
  */
 api.sleep = {
   method: 'POST',
@@ -503,13 +630,25 @@ api.sleep = {
 };
 
 /**
- * @api {post} /api/v3/user/allocate Allocate an attribute point
+ * @api {post} /api/v3/user/allocate Allocate a single attribute point
  * @apiName UserAllocate
  * @apiGroup User
  *
- * @apiParam {String} stat Query parameter - Defaults to 'str', mast be one of be of str, con, int or per
+ * @apiParam (Body) {String="str","con","int","per"} stat Query parameter - Default ='str'
  *
- * @apiSuccess {Object} data user.stats
+ * @apiParamExample {json} Example request
+ * {"stat":"int"}
+ *
+ * @apiSuccess {Object} data Returns stats from the user profile
+ *
+ * @apiError {NotAuthorized} NoPoints Not enough attribute points to increment a stat.
+ *
+ * @apiErrorExample {json}
+ *  {
+ *   "success": false,
+ *   "error": "NotAuthorized",
+ *   "message": "You don't have enough attribute points."
+ * }
  */
 api.allocate = {
   method: 'POST',
@@ -525,9 +664,45 @@ api.allocate = {
 
 /**
  * @api {post} /api/v3/user/allocate-now Allocate all attribute points
- * @apiDescription Uses the user's chosen automatic allocation method, or if none, assigns all to STR.
+ * @apiDescription Uses the user's chosen automatic allocation method, or if none, assigns all to STR. Note: will return success, even if there are 0 points to allocate.
  * @apiName UserAllocateNow
  * @apiGroup User
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *  {
+ *   "success": true,
+ *   "data": {
+ *     "hp": 50,
+ *     "mp": 38,
+ *     "exp": 7,
+ *     "gp": 284.8637271160258,
+ *     "lvl": 10,
+ *     "class": "rogue",
+ *     "points": 0,
+ *     "str": 2,
+ *     "con": 2,
+ *     "int": 3,
+ *     "per": 3,
+ *     "buffs": {
+ *       "str": 0,
+ *       "int": 0,
+ *       "per": 0,
+ *       "con": 0,
+ *       "stealth": 0,
+ *       "streaks": false,
+ *       "snowball": false,
+ *       "spookySparkles": false,
+ *       "shinySeed": false,
+ *       "seafoam": false
+ *     },
+ *     "training": {
+ *       "int": 0,
+ *       "per": 0,
+ *       "str": 0,
+ *       "con": 0
+ *     }
+ *   }
+ * }
  *
  * @apiSuccess {Object} data user.stats
  */
@@ -544,12 +719,33 @@ api.allocateNow = {
 };
 
 /**
- * @api {post} /user/buy/:key Buy gear, armoire or potion
+ * @api {post} /api/v3/user/buy/:key Buy gear, armoire or potion
  * @apiDescription Under the hood uses UserBuyGear, UserBuyPotion and UserBuyArmoire
  * @apiName UserBuy
  * @apiGroup User
  *
  * @apiParam {String} key The item to buy
+ *
+ * @apiSuccess data User's data profile
+ * @apiSuccess message Item purchased
+ *
+ * @apiSuccessExample {json} Purchased a rogue short sword for example:
+ * {
+ *   "success": true,
+ *   "data": {
+ *     ---TRUNCATED USER RECORD---
+ *   },
+ *   "message": "Bought Short Sword"
+ * }
+ *
+ *  @apiError (400) {NotAuthorized} messageAlreadyOwnGear Already own equipment
+ *  @apiError (400) {NotAuthorized} messageNotEnoughGold Not enough gold for the purchase
+ *
+ *  @apiErrorExample {json} NotAuthorized Already own
+ *  {"success":false,"error":"NotAuthorized","message":"You already own that piece of equipment"}
+ *
+ *  @apiErrorExample {json} NotAuthorized Not enough gold
+ *  {"success":false,"error":"NotAuthorized","message":"Not Enough Gold"}
  */
 api.buy = {
   method: 'POST',
@@ -564,7 +760,7 @@ api.buy = {
 };
 
 /**
- * @api {post} /user/buy-gear/:key Buy a piece of gear
+ * @api {post} /api/v3/user/buy-gear/:key Buy a piece of gear
  * @apiName UserBuyGear
  * @apiGroup User
  *
@@ -589,7 +785,7 @@ api.buyGear = {
 };
 
 /**
- * @api {post} /user/buy-armoire Buy an armoire item
+ * @api {post} /api/v3/user/buy-armoire Buy an armoire item
  * @apiName UserBuyArmoire
  * @apiGroup User
  *
@@ -611,7 +807,7 @@ api.buyArmoire = {
 };
 
 /**
- * @api {post} /user/buy-health-potion Buy a health potion
+ * @api {post} /api/v3/user/buy-health-potion Buy a health potion
  * @apiName UserBuyPotion
  * @apiGroup User
  *
@@ -631,7 +827,7 @@ api.buyHealthPotion = {
 };
 
 /**
- * @api {post} /user/buy-mystery-set/:key Buy a mystery set
+ * @api {post} /api/v3/user/buy-mystery-set/:key Buy a mystery set
  * @apiName UserBuyMysterySet
  * @apiGroup User
  *
@@ -1052,9 +1248,19 @@ api.userRebirth = {
     let tasks = await Tasks.Task.find({
       userId: user._id,
       type: {$in: ['daily', 'habit', 'todo']},
-      $or: [ // exclude challenge tasks
-        {'challenge.id': {$exists: false}},
-        {'challenge.broken': {$exists: true}},
+      $and: [ // exclude challenge and group tasks
+        {
+          $or: [
+            {'challenge.id': {$exists: false}},
+            {'challenge.broken': {$exists: true}},
+          ],
+        },
+        {
+          $or: [
+            {'group.id': {$exists: false}},
+            {'group.broken': {$exists: true}},
+          ],
+        },
       ],
     }).exec();
 
@@ -1168,9 +1374,19 @@ api.userReroll = {
     let query = {
       userId: user._id,
       type: {$in: ['daily', 'habit', 'todo']},
-      $or: [ // exclude challenge tasks
-        {'challenge.id': {$exists: false}},
-        {'challenge.broken': {$exists: true}},
+      $and: [ // exclude challenge and group tasks
+        {
+          $or: [
+            {'challenge.id': {$exists: false}},
+            {'challenge.broken': {$exists: true}},
+          ],
+        },
+        {
+          $or: [
+            {'group.id': {$exists: false}},
+            {'group.broken': {$exists: true}},
+          ],
+        },
       ],
     };
     let tasks = await Tasks.Task.find(query).exec();
@@ -1203,11 +1419,21 @@ api.userReset = {
 
     let tasks = await Tasks.Task.find({
       userId: user._id,
-      $or: [ // exclude challenge tasks
-        {'challenge.id': {$exists: false}},
-        {'challenge.broken': {$exists: true}},
+      $and: [ // exclude challenge and group tasks
+        {
+          $or: [
+            {'challenge.id': {$exists: false}},
+            {'challenge.broken': {$exists: true}},
+          ],
+        },
+        {
+          $or: [
+            {'group.id': {$exists: false}},
+            {'group.broken': {$exists: true}},
+          ],
+        },
       ],
-    }).select('_id type challenge').exec();
+    }).select('_id type challenge group').exec();
 
     let resetRes = common.ops.reset(user, tasks);
 

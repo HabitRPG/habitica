@@ -6,7 +6,7 @@ import nconf from 'nconf';
 let api = {};
 
 const IS_PROD = nconf.get('IS_PROD');
-const TOTAL_USER_COUNT = '1,500,000';
+const TOTAL_USER_COUNT = '2,000,000';
 const LOADING_SCREEN_TIPS = 33;
 const IS_NEW_CLIENT_ENABLED = nconf.get('NEW_CLIENT_ENABLED') === 'true';
 
@@ -29,9 +29,9 @@ api.getFrontPage = {
 };
 
 let staticPages = ['front', 'privacy', 'terms', 'features',
-            'videos', 'contact', 'plans', 'new-stuff', 'community-guidelines',
-            'old-news', 'press-kit', 'faq', 'overview', 'apps',
-            'clear-browser-data', 'merch', 'maintenance-info'];
+                   'videos', 'contact', 'plans', 'new-stuff', 'community-guidelines',
+                   'old-news', 'press-kit', 'faq', 'overview', 'apps',
+                   'clear-browser-data', 'merch', 'maintenance-info'];
 
 _.each(staticPages, (name) => {
   api[`get${name}Page`] = {
@@ -81,11 +81,11 @@ api.redirectExtensionsPage = {
   url: '/static/extensions',
   runCron: false,
   async handler (req, res) {
-    return res.redirect('http://habitica.wikia.com/wiki/App_and_Extension_Integrations');
+    return res.redirect('http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations');
   },
 };
 
-// All requests to /new_app (expect /new_app/static) should serve the new client in development
+// All requests to /new_app (except /new_app/static) should serve the new client in development
 if (IS_PROD && IS_NEW_CLIENT_ENABLED) {
   api.getNewClient = {
     method: 'GET',

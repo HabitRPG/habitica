@@ -1,7 +1,7 @@
 'use strict';
 
 describe('groupServices', function() {
-  var $httpBackend, $http, groups, user;
+  var $httpBackend, $http, groups, user, $rootScope;
   var groupApiUrlPrefix = '/api/v3/groups';
 
   beforeEach(function() {
@@ -13,8 +13,10 @@ describe('groupServices', function() {
       $provide.value('User', {user: user});
     });
 
-    inject(function(_$httpBackend_, Groups, User) {
+    inject(function(_$httpBackend_, _$rootScope_, Groups, User) {
       $httpBackend = _$httpBackend_;
+      $rootScope = _$rootScope_;
+      $rootScope.openModal = function() {}
       groups = Groups;
     });
   });
@@ -165,5 +167,34 @@ describe('groupServices', function() {
       });
 
     $httpBackend.flush()
+  });
+
+  it('sets a "sendInviteText" property on a party to "Send Invitations"', function() {
+    var sendInviteText = window.env.t('sendInvitations');
+    var party = {
+      type: 'party',
+      data: {
+        _id: '1234',
+      },
+    };
+    groups.inviteOrStartParty(party);
+    expect(party.sendInviteText).to.eql(sendInviteText);
+  });
+
+  it('sets a "sendInviteText" proptery on a guild to "Send Invitations +$3.00/month/user"', function() {
+    var sendInviteText = window.env.t('sendInvitations');
+    var guild = {
+      type: 'guild',
+      data: {
+        _id: '12345',
+      },
+      purchased: {
+        plan: {
+          customerId: '123',
+        },
+      },
+    };
+    groups.inviteOrStartParty(guild);
+    expect(guild.sendInviteText).to.eql(sendInviteText + window.env.t('groupAdditionalUserCost'));
   });
 });

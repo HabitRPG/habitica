@@ -1,0 +1,13 @@
+script(id='partials/options.settings.export.html', type="text/ng-template")
+  .container-fluid
+    .row
+      .col-md-6
+        h2=env.t('dataExport')
+        small=env.t('saveData')
+        h4=env.t('habitHistory')
+        =env.t('exportHistory')
+        a(href="/export/history.csv")= ' ' + env.t('csv')
+        h4=env.t('userData')
+        =env.t('exportUserData')
+        a(href="/export/userdata.xml")= ' ' + env.t('xml') + ' '
+        a(href="/export/userdata.json")= env.t('json')

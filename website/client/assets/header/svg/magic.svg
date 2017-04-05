@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+    <title>7E7FE8AE-769F-4424-8713-31DAA23B5DA6</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Header" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Header---Desktop-HD" transform="translate(-180.000000, -196.000000)">
+            <g id="Header" transform="translate(0.000000, 56.000000)">
+                <g id="Magic" transform="translate(180.000000, 140.000000)">
+                    <g id="-g-Magic" transform="translate(1.000000, 0.000000)">
+                        <polygon id="Shape" fill="#2995CD" points="10 7.5 5 12 0 7.5 5 0"></polygon>
+                        <polygon id="Shape" fill="#50B5E9" points="1.3 7.35 5 5.85 5 10.65"></polygon>
+                        <polygon id="Shape" fill="#1F709A" opacity="0.25" points="5 5.85 8.7 7.35 5 10.65"></polygon>
+                        <polygon id="Shape" fill="#FFFFFF" opacity="0.25" points="5 5.85 5 1.8 8.7 7.35"></polygon>
+                        <polygon id="Shape" fill="#FFFFFF" opacity="0.5" points="1.3 7.35 5 1.8 5 5.85"></polygon>
+                        <polygon id="Shape" fill="#FFFFFF" opacity="0.5" points="2.6 7.15 5 3.6 7.4 7.15 5 9.3"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

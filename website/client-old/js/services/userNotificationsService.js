@@ -16,7 +16,18 @@ angular.module('habitrpg')
       });
     };
 
+    function readNotifications (notificationIds) {
+      if (!notificationIds || notificationIds.length === 0) return;
+
+      return $http({
+        method: 'POST',
+        url: 'api/v3/notifications/read',
+        data: {notificationIds: notificationIds},
+      });
+    };
+
     return {
       readNotification: readNotification,
+      readNotifications: readNotifications,
     };
   }]);

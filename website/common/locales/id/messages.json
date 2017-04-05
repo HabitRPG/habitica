@@ -53,5 +53,6 @@
     "messageGroupChatAdminClearFlagCount": "Hanya admin yang bisa menghapus jumlah tanda!",
     "messageUserOperationProtected": "jalur `<%= operation %>` tidak disimpan, karena terproteksi.",
     "messageUserOperationNotFound": "<%= operation %> operasi tidak ditemukan",
-    "messageNotificationNotFound": "Notifikasi tidak ditemukan."
+    "messageNotificationNotFound": "Notifikasi tidak ditemukan.",
+    "notificationsRequired": "Notification ids are required."
 }

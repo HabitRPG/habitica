@@ -1,22 +1,26 @@
 <!-- Entry point component for the entire app -->
 
 <template lang="pug">
-#app.ui.fluid.container
-  app-header
-  router-view.view
+#app
+  app-menu
+  .container-fluid
+    app-header
+    router-view
 </template>
 
 <script>
+import AppMenu from './components/appMenu';
 import AppHeader from './components/appHeader';
 
 export default {
+  name: 'app',
   components: {
+    AppMenu,
     AppHeader,
   },
 };
 </script>
 
-<style lang="less">
-// Load CSS that doesn't belong to any specific component
-@import './assets/less/index';
-</style>
+<style src="bootstrap/scss/bootstrap.scss" lang="scss"></style>
+<style src="assets/scss/index.scss" lang="scss"></style>
+<style src="assets/css/index.css"></style>

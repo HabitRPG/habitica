@@ -280,7 +280,7 @@ gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
 
 gulp.task('test:api-v3:unit', (done) => {
   let runner = exec(
-    testBin('mocha test/api/v3/unit --recursive --require ./test/helpers/start-server'),
+    testBin('node_modules/.bin/istanbul cover --dir coverage/api-v3-unit --report lcovonly node_modules/mocha/bin/_mocha -- test/api/v3/unit --recursive --require ./test/helpers/start-server'),
     (err, stdout, stderr) => {
       if (err) {
         process.exit(1);
@@ -298,7 +298,7 @@ gulp.task('test:api-v3:unit:watch', () => {
 
 gulp.task('test:api-v3:integration', (done) => {
   let runner = exec(
-    testBin('mocha test/api/v3/integration --recursive --require ./test/helpers/start-server'),
+    testBin('node_modules/.bin/istanbul cover --dir coverage/api-v3-integration --report lcovonly node_modules/mocha/bin/_mocha -- test/api/v3/integration --recursive --require ./test/helpers/start-server'),
     {maxBuffer: 500 * 1024},
     (err, stdout, stderr) => {
       if (err) {
@@ -318,7 +318,7 @@ gulp.task('test:api-v3:integration:watch', () => {
 
 gulp.task('test:api-v3:integration:separate-server', (done) => {
   let runner = exec(
-    testBin('mocha test/api/v3/integration --recursive', 'LOAD_SERVER=0'),
+    testBin('mocha test/api/v3/integration --recursive --require ./test/helpers/start-server', 'LOAD_SERVER=0'),
     {maxBuffer: 500 * 1024},
     (err, stdout, stderr) => done(err)
   );

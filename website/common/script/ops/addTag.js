@@ -1,5 +1,5 @@
 import uuid from '../libs/uuid';
-import _ from 'lodash';
+import get from 'lodash/get';
 
 // TODO used only in client, move there?
 
@@ -10,7 +10,7 @@ module.exports = function addTag (user, req = {}) {
 
   user.tags.push({
     name: req.body.name,
-    id: _.get(req, 'body.id') || uuid(),
+    id: get(req, 'body.id') || uuid(),
   });
 
   return user.tags;

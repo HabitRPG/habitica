@@ -14,6 +14,7 @@ describe('Notification Controller', function() {
     let User = {
       user,
       readNotification: function noop () {},
+      readNotifications: function noop () {},
       sync: userSync
     };
 

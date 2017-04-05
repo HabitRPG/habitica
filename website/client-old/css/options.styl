@@ -16,6 +16,11 @@
     @extend $hrpg-button
     hrpg-button-color-mixin($color-options-menu)
 
+    &.highlight
+      hrpg-button-color-mixin($color-options-submenu, true)
+      border: 1px solid;
+      border-radius: 3px;
+
 .options-submenu
   margin-top: -1.618em
   background-color: $color-options-submenu
@@ -33,5 +38,3 @@
     padding: 1em 0.618em 0 0.618em
     border: 1px solid darken($color-options-menu, 12%)
     border-top: none
-
-

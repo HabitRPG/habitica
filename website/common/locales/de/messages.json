@@ -29,7 +29,7 @@
     "messageFoundQuest": "Du hast die Quest \"<%= questText %>\" gefunden!",
     "messageAlreadyPurchasedGear": "Du hast diesen Gegenstand in der Vergangenheit bereits gekauft, besitzt ihn aktuell aber nicht mehr. Du kannst ihn in der Spalte \"Belohnungen\" Deiner Aufgabenseite erneut kaufen.",
     "messageAlreadyOwnGear": "Du besitzt diesen Gegenstand schon. Gehe zur Ausrüstungsseite um ihn anzulegen.",
-    "messageHealthAlreadyMax": "Du hast bereits volle Gesundheit.",
+    "messageHealthAlreadyMax": "Du hast schon alle Lebenspunkte.",
     "armoireEquipment": "<%= image %> Du hast ein Stück seltener Ausrüstung im verzauberten Schrank gefunden: <%= dropText %>! Großartig!",
     "armoireFood": "<%= image %> Du wühlst im verzauberten Schrank herum und findest <%= dropArticle %><%= dropText %>. Was macht das denn da drin?",
     "armoireExp": "Du ringst mit dem verzauberten Schrank und gewinnst Erfahrung. Nimm das!",
@@ -53,5 +53,6 @@
     "messageGroupChatAdminClearFlagCount": "Nur Admins können den Zählmarker zurücksetzen!",
     "messageUserOperationProtected": "Pfad `<%= operation %>` wurde nicht gespeichert, da dieser geschützt ist.",
     "messageUserOperationNotFound": "<%= operation %> Operation nicht gefunden",
-    "messageNotificationNotFound": "Mitteilung nicht gefunden."
+    "messageNotificationNotFound": "Mitteilung nicht gefunden.",
+    "notificationsRequired": "Mitteilungs-IDs werden benötigt."
 }
