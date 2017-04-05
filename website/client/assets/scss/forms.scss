@@ -1,3 +1,49 @@
 .nested-field {
   padding-left: 1.5rem;
 }
+
+// Search input
+.search-control {
+  font-size: inherit;
+  line-height: inherit;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  background-color: $gray-500;
+  border-color: transparent;
+  border-radius: 2px;
+
+  &:focus {
+    border-color: $gray-400;
+    background-color: $gray-500;
+  }
+}
+
+// Checkboxes
+.custom-control-description {
+  padding-top: 3px;
+}
+
+.custom-control-indicator {
+  width: 18px;
+  height: 18px;
+  border-radius: 2px;
+  border: 2px solid $gray-200;
+  background-color: transparent;
+  background-size: 75% 75%;
+}
+
+.custom-checkbox .custom-control-indicator {
+  border-radius: 2px;
+}
+
+.custom-control-input:checked~.custom-control-indicator {
+  background-color: $gray-200;
+}
+
+.custom-control-input:focus~.custom-control-indicator {
+  box-shadow: none;
+}
+
+.custom-control-input:active ~ .custom-control-indicator {
+  background-color: inherit;
+}

@@ -100,8 +100,15 @@ nav.navbar {
   background: $purple-300;
   border-radius: 0px;
   border: none;
+  box-shadow: none;
+  padding: 0px;
+
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 
   .dropdown-item {
+    font-size: 16px;
+    box-shadow: none;
     color: $white;
 
     &.active {
@@ -110,6 +117,11 @@ nav.navbar {
 
     &:hover {
       background: $purple-200;
+
+      &:last-child {
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
     }
   }
 }

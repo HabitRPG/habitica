@@ -1,0 +1,48 @@
+.dropdown > button {
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.43;
+  color: $gray-100;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($black, 0.1);
+
+  &:hover, &:active, &:focus {
+    color: $gray-100 !important;
+    background-color: $gray-600 !important;
+  }
+
+  &:focus {
+    box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($black, 0.1);
+  }
+}
+
+.dropdown-menu {
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($white, 0.1);
+}
+
+.dropdown-item {
+  padding-left: 24px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 14px;
+  line-height: 1.71;
+  color: $gray-50;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active, &:hover, &:focus {
+    background-color: $gray-600;
+    color: $gray-50;
+  }
+}
+
+.dropdown-item-active {
+  background-color: $gray-600;
+}
