@@ -112,6 +112,11 @@ api.cardTypes = {
     messageOptions: 1,
     yearRound: true,
   },
+  congrats: {
+    key: 'congrats',
+    messageOptions: 5,
+    yearRound: true,
+  },
 };
 
 api.special = api.spells.special;
