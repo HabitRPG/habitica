@@ -8,13 +8,12 @@
   line-height: inherit;
   padding-top: 9px;
   padding-bottom: 9px;
-  background-color: $gray-500;
   border-color: transparent;
   border-radius: 2px;
+  border-color: $gray-400;
 
   &:focus {
     border-color: $gray-400;
-    background-color: $gray-500;
   }
 }
 
