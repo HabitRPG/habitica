@@ -23,7 +23,7 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
     $scope.changeClass = function(klass){
       User.changeClass({query:{class:klass}});
       Shared.updateStore(User.user);
-
+      
       Guide.goto('classes', 0, true);
     }
 
