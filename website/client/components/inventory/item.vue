@@ -37,7 +37,6 @@
   margin: 0 auto;
   padding: 4px;
   margin-top: 22px;
-  background: $gray-600;
 
   & span {
     display: block;
