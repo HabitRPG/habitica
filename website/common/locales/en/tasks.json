@@ -121,7 +121,6 @@
     "taskIdRequired": "\"taskId\" must be a valid UUID.",
     "taskAliasAlreadyUsed": "Task alias already used on another task.",
     "taskNotFound": "Task not found.",
-    "tasksRequired": "Tasks are required.",
     "invalidTaskType": "Task type must be one of \"habit\", \"daily\", \"todo\", \"reward\".",
     "cantDeleteChallengeTasks": "A task belonging to a challenge can't be deleted.",
     "checklistOnlyDailyTodo": "Checklists are supported only on dailies and todos",
