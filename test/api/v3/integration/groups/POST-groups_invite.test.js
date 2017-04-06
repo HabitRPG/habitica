@@ -438,7 +438,7 @@ describe('Post /groups/:groupId/invite', () => {
       })).to.be.an('array');
     });
 
-    xit('does not allow 30+ members in a party', async () => {
+    it('does not allow 30+ members in a party', async () => {
       let invitesToGenerate = [];
       // Generate 30 users to invite (30 + leader = 31 members)
       for (let i = 0; i < PARTY_LIMIT_MEMBERS; i++) {
