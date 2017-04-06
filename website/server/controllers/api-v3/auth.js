@@ -159,7 +159,7 @@ api.registerLocal = {
     if (existingUser) {
       res.respond(200, savedUser.toJSON().auth.local); // We convert to toJSON to hide private fields
     } else {
-      let userJSON = savedUser.toJSON()
+      let userJSON = savedUser.toJSON();
       userJSON.newUser = true;
       res.respond(201, userJSON);
     }
