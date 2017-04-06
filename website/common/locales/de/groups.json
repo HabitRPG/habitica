@@ -155,7 +155,7 @@
     "sendGiftPurchase": "Kauf",
     "sendGiftMessagePlaceholder": "Persönliche Nachricht (optional)",
     "sendGiftSubscription": "<%= months %> Monat(e): $<%= price %> USD",
-    "gemGiftsAreOptional": "Please note that Habitica will never require you to gift gems to other players. Begging people for gems is a <strong>violation of the Community Guidelines</strong>, and all such instances should be reported to <%= hrefTechAssistanceEmail %>.",
+    "gemGiftsAreOptional": "Bitte nimm zur Kenntnis, dass Habitica niemals von Dir verlangen wird, anderen Spielern Edelsteine zu schenken. Bei anderen Spielern um Edelsteine zu betteln ist ein <strong>Verstoss gegen die Community-Richtlinien</strong>, und jedes Vorkommnis sollte bei <%= hrefTechAssistanceEmail %> gemeldet werden.",
     "battleWithFriends": "Besiege mit Freunden Monster!",
     "startPartyWithFriends": "Gründe eine Gruppe mit Deinen Freunden!",
     "startAParty": "Erstelle eine Gruppe",

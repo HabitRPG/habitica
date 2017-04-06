@@ -1020,7 +1020,7 @@
     "shieldArmoireRedRoseNotes": "Ta ciemnoczerwona róża pachnie czarująco. Wyostrza również twoje zmysły. Zwiększa Percepcję o <%= per %>. Zaczarowana Szafa: przedmiot niezależny.",
     "shieldArmoireMushroomDruidShieldText": "Tarcza grzybowego druida",
     "shieldArmoireMushroomDruidShieldNotes": "Nie mów że na grzyba ci ta grzybowa tarcza. Jest naprawdę mocna! Zwiększa kondycję o <%= con %> i siłę o <%= str %>.  Zaczarowana szafa: Zestaw grzybowego druida (przedmiot 3 z 3).",
-    "shieldArmoireFestivalParasolText": "Festival Parasol",
+    "shieldArmoireFestivalParasolText": "Festiwalowy parasol",
     "shieldArmoireFestivalParasolNotes": "This lightweight parasol will shield you from the glare--whether it's from the sun or from dark red Dailies! Increases Constitution by <%= con %>. Enchanted Armoire: Festival Attire Set (Item 2 of 3).",
     "back": "Osprzęt na plecy",
     "backBase0Text": "Nic na plecach",

@@ -39,7 +39,7 @@
     "contentKeyNotFound": "Nøgle ikke fundet for Indhold <%= type %>",
     "plusOneGem": "+1 ædelsten",
     "typeNotSellable": "Type is not sellable. Must be one of the following <%= acceptedTypes %>",
-    "userItemsKeyNotFound": "Key not found for user.items <%= type %>",
+    "userItemsKeyNotFound": "Nøgle ikke fundet for user.items <%= type %>",
     "pathRequired": "Path string is required",
     "unlocked": "Items have been unlocked",
     "alreadyUnlocked": "Full set already unlocked.",
