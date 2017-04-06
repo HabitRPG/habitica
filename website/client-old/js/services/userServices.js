@@ -318,18 +318,22 @@ angular.module('habitrpg')
 
         bulkScore: function (data) {
           var scoreCallback = function () {
-            if (data.length > 0) {
-              // Remove the first task from array and call the score function
-              userServices.score(data.shift(), scoreCallback);
-            }
-            else {
-              // Only run when finished scoring
-              sync();
-            }
+            setTimeout(function() {
+              if (data.length > 0) {
+                // Remove the first task from array and call the score function
+                userServices.score(data.shift(), scoreCallback);
+              }
+              else {
+                // Only run when finished scoring
+                sync();
+              }
+            }, 150);
           }
 
           // First call to score
-          scoreCallback();
+          if (data.length > 0) {
+            userServices.score(data.shift(), scoreCallback);
+          }
         },
 
         sortTask: function (data) {
