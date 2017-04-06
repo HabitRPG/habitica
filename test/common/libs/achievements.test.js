@@ -174,7 +174,7 @@ describe('achievements', () => {
     });
 
     it('card achievements exist with counts', () => {
-      let cardTypes = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday', 'congrats'];
+      let cardTypes = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday', 'congrats', 'getwell'];
       cardTypes.forEach((card) => {
         let cardAchiev = seasonalAchievs[`${card}Cards`];
 

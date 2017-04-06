@@ -238,7 +238,7 @@ function _getSeasonalAchievements (user, language) {
 
   _addPlural(result, user, {path: 'costumeContests', language});
 
-  let cardAchievements = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday', 'congrats'];
+  let cardAchievements = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday', 'congrats', 'getwell'];
   cardAchievements.forEach(path => {
     _addSimpleWithCount(result, user, {path, key: `${path}Cards`, language});
   });
