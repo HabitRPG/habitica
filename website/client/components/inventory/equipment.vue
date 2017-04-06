@@ -28,38 +28,43 @@
         b-dropdown-item(@click="groupBy = 'type'", :class="{'dropdown-item-active': groupBy === 'type'}") Type
         b-dropdown-item(@click="groupBy = 'class'", :class="{'dropdown-item-active': groupBy === 'class'}") {{ $t('class') }}
 
+    drawer(:title="$t('equipment')")
     div(
-      v-for="group in itemsGroups", 
-      :key="group.key",
+      v-for="group in itemsGroups",
       v-if="group && viewOptions[group.key].selected",
+      :key="group.key",
     )
       h2
        | {{ $t(group.label) }}
        |
-       span.badge.badge-pill.badge-default {{group.items.length}}
+       span.badge.badge-pill.badge-default {{items[group.key].length}}
 
       .items
         item(
-          v-for="(item, index) in group.items",
-          :key="item.key",
-          :item="item",
+          v-for="(item, index) in items[group.key]",
           v-if="viewOptions[group.key].open || index < 9",
+          :item="item",
+          :key="item.key",
+          :selected="equippedItems[item.type] === item.key",
+          @click.native="equip({key: item.key, type: 'equipped'})",
         )
-      div(v-if="group.items.length === 0")
+      div(v-if="items[group.key].length === 0")
         span No items in this category
       a.btn.btn-show-more(v-else, @click="viewOptions[group.key].open = !viewOptions[group.key].open") 
        | {{ viewOptions[group.key].open ? 'Close' : 'Open' }}
 </template>
 
 <script>
-import { mapState } from 'client/libs/store';
+import { mapState, mapActions } from 'client/libs/store';
 import each from 'lodash/each';
 import map from 'lodash/map';
 import Item from 'client/components/inventory/item';
+import Drawer from 'client/components/inventory/drawer';
 
 export default {
   components: {
     Item,
+    Drawer,
   },
   data () {
     return {
@@ -86,21 +91,38 @@ export default {
       viewOptions: {},
     };
   },
+  methods: {
+    ...mapActions({
+      equip: 'common:equip',
+    }),
+  },
   computed: {
     ...mapState({
       content: 'content',
       user: 'user.data',
+      ownedItems: 'user.data.items.gear.owned',
+      equippedItems: 'user.data.items.gear.equipped',
+      flatGear: 'content.gear.flat',
     }),
     gearItemsByType () {
-      const owned = this.user.items.gear.owned;
+      console.log('evalutaing')
       const gearItemsByType = {};
+      each(this.gearTypesToStrings, (string, type) => {
+        gearItemsByType[type] = [];
+      });
 
-      each(owned, (isOwned, gearKey) => {
+      each(this.ownedItems, (isOwned, gearKey) => {
         if (isOwned === true) {
-          const ownedItem = this.content.gear.flat[gearKey];
+          const ownedItem = this.flatGear[gearKey];
+
           if (ownedItem.klass !== 'base') {
-            if (!gearItemsByType[ownedItem.type]) gearItemsByType[ownedItem.type] = [];
-            gearItemsByType[ownedItem.type].push(ownedItem);
+            const isEquipped = this.equippedItems[ownedItem.type] === ownedItem.key;
+
+            if (isEquipped === true && false) { // TODO first postion only on first render
+              gearItemsByType[ownedItem.type].unshift(ownedItem);
+            } else {
+              gearItemsByType[ownedItem.type].push(ownedItem);
+            }
           }
         }
       });
@@ -108,24 +130,37 @@ export default {
       return gearItemsByType;
     },
     gearItemsByClass () {
-      const owned = this.user.items.gear.owned;
       const gearItemsByClass = {};
+      each(this.gearClassesToStrings, (string, klass) => {
+        gearItemsByClass[klass] = [];
+      });
 
-      each(owned, (isOwned, gearKey) => {
+      each(this.ownedItems, (isOwned, gearKey) => {
         if (isOwned === true) {
-          const ownedItem = this.content.gear.flat[gearKey];
-          if (!gearItemsByClass[ownedItem.klass]) gearItemsByClass[ownedItem.klass] = [];
-          gearItemsByClass[ownedItem.klass].push(ownedItem);
+          const ownedItem = this.flatGear[gearKey];
+          if (ownedItem.klass !== 'base') {
+            const isEquipped = this.equippedItems[ownedItem.type] === ownedItem.key;
+
+            if (isEquipped === true && false) { // TODO first postion only on first render
+              gearItemsByClass[ownedItem.klass].unshift(ownedItem);
+            } else {
+              gearItemsByClass[ownedItem.klass].push(ownedItem);
+            }
+          }
         }
       });
 
       return gearItemsByClass;
     },
+    groups () {
+      const groups = this.groupBy === 'type' ? this.gearTypesToStrings : this.gearClassesToStrings;
+      return groups;
+    },
+    items () {
+      return this.groupBy === 'type' ? this.gearItemsByType : this.gearItemsByClass;
+    },
     itemsGroups () {
-      const allGroups = this.groupBy === 'type' ? this.gearTypesToStrings : this.gearClassesToStrings;
-      const items = this.groupBy === 'type' ? this.gearItemsByType : this.gearItemsByClass;
-
-      return map(allGroups, (label, group) => {
+      return map(this.groups, (label, group) => {
         this.$set(this.viewOptions, group, {
           selected: true,
           open: false,
@@ -134,7 +169,6 @@ export default {
         return {
           key: group,
           label,
-          items: items[group] || [],
         };
       });
     },
