@@ -235,6 +235,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   };
 
   const AVAILABLE_SPELLS = [
+    'shinySeed',
   ];
 
   const AVAILABLE_QUESTS = [

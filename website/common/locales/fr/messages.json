@@ -37,7 +37,7 @@
     "messageAuthPasswordMustMatch": ":password et :confirmPassword ne correspondent pas",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword requis",
     "messageAuthUsernameTaken": "Nom d'utilisateur déjà pris.",
-    "messageAuthEmailTaken": "E-mail déjà pris.",
+    "messageAuthEmailTaken": "Adresse courriel déjà prise.",
     "messageAuthNoUserFound": "Utilisateur introuvable.",
     "messageAuthMustBeLoggedIn": "Vous devez être connecté.",
     "messageAuthMustIncludeTokens": "Votre demande doit contenir un jeton d'API et un ID d'Utilisateur.",

@@ -155,7 +155,7 @@
     "sendGiftPurchase": "支付",
     "sendGiftMessagePlaceholder": "私信(可选)",
     "sendGiftSubscription": "<%= months %> 月(或多个月)： $<%= price %>美元",
-    "gemGiftsAreOptional": "Please note that Habitica will never require you to gift gems to other players. Begging people for gems is a <strong>violation of the Community Guidelines</strong>, and all such instances should be reported to <%= hrefTechAssistanceEmail %>.",
+    "gemGiftsAreOptional": "请注意，Habitica决不会要求你将宝石赠送给其他玩家。向别人讨要宝石是一种 <strong>违反社区指南</strong>的行为，所有这类情况应该报告给<%= hrefTechAssistanceEmail %>。",
     "battleWithFriends": "与朋友一起大战怪兽",
     "startPartyWithFriends": "和你的朋友们组建新队伍",
     "startAParty": "创建一个队伍",
