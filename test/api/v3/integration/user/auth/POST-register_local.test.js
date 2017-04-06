@@ -34,6 +34,7 @@ describe('POST /user/auth/local/register', () => {
       expect(user.apiToken).to.exist;
       expect(user.auth.local.username).to.eql(username);
       expect(user.profile.name).to.eql(username);
+      expect(user.newUser).to.eql(true);
     });
 
     it('provides default tags and tasks', async () => {
