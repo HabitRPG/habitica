@@ -40,14 +40,14 @@
        span.badge.badge-pill.badge-default {{items[group.key].length}}
 
       .items
-        item(
+        div(
           v-for="(item, index) in items[group.key]",
           v-if="viewOptions[group.key].open || index < 9",
           :item="item",
           :key="item.key",
           :selected="equippedItems[item.type] === item.key",
-          @click.native="equip({key: item.key, type: 'equipped'})",
-        )
+          @click="equip({key: item.key, type: 'equipped'})",
+        ) {{item.key}} {{equippedItems[item.type] === item.key}}
       div(v-if="items[group.key].length === 0")
         span No items in this category
       a.btn.btn-show-more(v-else, @click="viewOptions[group.key].open = !viewOptions[group.key].open") 
@@ -105,7 +105,6 @@ export default {
       flatGear: 'content.gear.flat',
     }),
     gearItemsByType () {
-      console.log('evalutaing')
       const gearItemsByType = {};
       each(this.gearTypesToStrings, (string, type) => {
         gearItemsByType[type] = [];
@@ -153,8 +152,7 @@ export default {
       return gearItemsByClass;
     },
     groups () {
-      const groups = this.groupBy === 'type' ? this.gearTypesToStrings : this.gearClassesToStrings;
-      return groups;
+      return this.groupBy === 'type' ? this.gearTypesToStrings : this.gearClassesToStrings;
     },
     items () {
       return this.groupBy === 'type' ? this.gearItemsByType : this.gearItemsByClass;
