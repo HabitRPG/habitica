@@ -3,6 +3,7 @@
 require('babel-polyfill');
 
 import Vue from 'vue';
+window.Vue = Vue;
 import axios from 'axios';
 import AppComponent from './app';
 import router from './router';
