@@ -121,15 +121,28 @@ export default {
           const ownedItem = this.flatGear[gearKey];
 
           if (ownedItem.klass !== 'base') {
-            const isEquipped = this.equippedItems[ownedItem.type] === ownedItem.key;
+            const type = ownedItem.type;
+            const isEquipped = this.equippedItems[type] === ownedItem.key;
+            const viewOptions = this.viewOptions[type];
+            const firstRender = viewOptions.firstRender;
+            const itemsInFirstPosition = viewOptions.itemsInFirstPosition;
 
-            if (isEquipped === true) { // TODO first postion only on first render
-              gearItemsByType[ownedItem.type].unshift(ownedItem);
+            // Render selected items in first postion only for the first render
+            if (itemsInFirstPosition.indexOf(ownedItem.key) !== -1 && firstRender === false) {
+              gearItemsByType[type].unshift(ownedItem);
+            } else if (isEquipped === true && firstRender === true) {
+              gearItemsByType[type].unshift(ownedItem);
+              itemsInFirstPosition.push(ownedItem.key);
             } else {
-              gearItemsByType[ownedItem.type].push(ownedItem);
+              gearItemsByType[type].push(ownedItem);
             }
           }
         }
+      });
+
+
+      each(this.gearTypesToStrings, (string, type) => {
+        this.viewOptions[type].firstRender = false;
       });
 
       return gearItemsByType;
@@ -143,16 +156,29 @@ export default {
       each(this.ownedItems, (isOwned, gearKey) => {
         if (isOwned === true) {
           const ownedItem = this.flatGear[gearKey];
-          if (ownedItem.klass !== 'base') {
-            const isEquipped = this.equippedItems[ownedItem.type] === ownedItem.key;
+          const klass = ownedItem.klass;
 
-            if (isEquipped === true) { // TODO first postion only on first render
-              gearItemsByClass[ownedItem.klass].unshift(ownedItem);
+          if (klass !== 'base') {
+            const isEquipped = this.equippedItems[ownedItem.type] === ownedItem.key;
+            const viewOptions = this.viewOptions[klass];
+            const firstRender = viewOptions.firstRender;
+            const itemsInFirstPosition = viewOptions.itemsInFirstPosition;
+
+            // Render selected items in first postion only for the first render
+            if (itemsInFirstPosition.indexOf(ownedItem.key) !== -1 && firstRender === false) {
+              gearItemsByClass[klass].unshift(ownedItem);
+            } else if (isEquipped === true && firstRender === true) {
+              gearItemsByClass[klass].unshift(ownedItem);
+              itemsInFirstPosition.push(ownedItem.key);
             } else {
-              gearItemsByClass[ownedItem.klass].push(ownedItem);
+              gearItemsByClass[klass].push(ownedItem);
             }
           }
         }
+      });
+
+      each(this.gearClassesToStrings, (string, klass) => {
+        this.viewOptions[klass].firstRender = false;
       });
 
       return gearItemsByClass;
@@ -168,6 +194,8 @@ export default {
         this.$set(this.viewOptions, group, {
           selected: true,
           open: false,
+          itemsInFirstPosition: [],
+          firstRender: true,
         });
 
         return {
