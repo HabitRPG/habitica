@@ -40,14 +40,14 @@
        span.badge.badge-pill.badge-default {{items[group.key].length}}
 
       .items
-        div(
+        item(
           v-for="(item, index) in items[group.key]",
           v-if="viewOptions[group.key].open || index < 9",
           :item="item",
           :key="item.key",
           :selected="equippedItems[item.type] === item.key",
-          @click="equip({key: item.key, type: 'equipped'})",
-        ) {{item.key}} {{equippedItems[item.type] === item.key}}
+          @click.native="equip({key: item.key, type: 'equipped'})",
+        )
       div(v-if="items[group.key].length === 0")
         span No items in this category
       a.btn.btn-show-more(v-else, @click="viewOptions[group.key].open = !viewOptions[group.key].open") 
@@ -117,7 +117,7 @@ export default {
           if (ownedItem.klass !== 'base') {
             const isEquipped = this.equippedItems[ownedItem.type] === ownedItem.key;
 
-            if (isEquipped === true && false) { // TODO first postion only on first render
+            if (isEquipped === true) { // TODO first postion only on first render
               gearItemsByType[ownedItem.type].unshift(ownedItem);
             } else {
               gearItemsByType[ownedItem.type].push(ownedItem);
@@ -140,7 +140,7 @@ export default {
           if (ownedItem.klass !== 'base') {
             const isEquipped = this.equippedItems[ownedItem.type] === ownedItem.key;
 
-            if (isEquipped === true && false) { // TODO first postion only on first render
+            if (isEquipped === true) { // TODO first postion only on first render
               gearItemsByClass[ownedItem.klass].unshift(ownedItem);
             } else {
               gearItemsByClass[ownedItem.klass].push(ownedItem);
