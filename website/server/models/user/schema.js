@@ -556,5 +556,5 @@ let schema = new Schema({
   strict: true,
   minimize: false, // So empty objects are returned
 });
-console.log(schema.paths);
+
 module.exports = schema;
