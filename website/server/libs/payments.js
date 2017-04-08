@@ -20,7 +20,7 @@ import {
 import slack from './slack';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
-
+const JOINED_GROUP_PLAN = 'joined group plan';
 let api = {};
 
 api.constants = {
@@ -131,7 +131,7 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
 
     if ((ignorePaymentPlan || ignoreCustomerId) && !customerHasCancelledGroupPlan) return;
 
-    if (member.hasNotCancelled()) await member.cancelSubscription({reason:'joined_group_plan'}); // TODO make joined_group_plan a CONST
+    if (member.hasNotCancelled()) await member.cancelSubscription({cancellationReason: JOINED_GROUP_PLAN});
 
     let today = new Date();
     plan = member.purchased.plan.toObject();
@@ -435,7 +435,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
     await this.cancelGroupUsersSubscription(group);
   } else {
     plan = data.user.purchased.plan;
-    if (data.reason && data.reason === 'joined_group_plan') emailType = 'move-subscription-to-free-group-plan'; // TODO email template requires RECIPIENT_NAME and GROUP_NAME
+    if (data.cancellationReason && data.cancellationReason === JOINED_GROUP_PLAN) emailType = 'move-subscription-to-free-group-plan'; // TODO email template requires RECIPIENT_NAME and GROUP_NAME
   }
 
   let customerId = plan.customerId;
