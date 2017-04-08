@@ -28,7 +28,7 @@ script(id='partials/options.profile.stats.html', type='text/ng-template')
               fieldset.auto-allocate
                 .checkbox
                   label
-                    input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation?true: false})', ng-click='set({"preferences.allocationMode":"taskbased"})')
+                    input(type='checkbox', ng-model='user.preferences.automaticAllocation', ng-change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation?true: false, "preferences.allocationMode" : "taskbased"})')
                     span.hint(popover-trigger='mouseenter', popover-placement='right', popover=env.t('autoAllocationPop'))=env.t('autoAllocation')
                 form(ng-show='user.preferences.automaticAllocation',style='margin-left:1em')
                   .radio
