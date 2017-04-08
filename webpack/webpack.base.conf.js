@@ -17,6 +17,16 @@ const baseConfig = {
     path: config.build.assetsRoot,
     publicPath: IS_PROD ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
     filename: '[name].js',
+    devtoolModuleFilenameTemplate (info) {
+      // Fix source maps, code from
+      // https://github.com/Darkside73/bbsmile.com.ua/commit/3596d3c42ef91b69d8380359c3e8908edc08acdb
+      let filename = info.resourcePath;
+      if (info.resource.match(/\.vue$/) && !info.allLoaders.match(/type=script/)) {
+        filename = 'generated';
+      }
+
+      return filename;
+    },
   },
   resolve: {
     extensions: ['*', '.js', '.vue', '.json'],

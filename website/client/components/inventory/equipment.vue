@@ -58,6 +58,10 @@
 import { mapState, mapActions } from 'client/libs/store';
 import each from 'lodash/each';
 import map from 'lodash/map';
+
+import bDropdown from 'bootstrap-vue/lib/components/dropdown';
+import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
+
 import Item from 'client/components/inventory/item';
 import Drawer from 'client/components/inventory/drawer';
 
@@ -65,6 +69,8 @@ export default {
   components: {
     Item,
     Drawer,
+    bDropdown,
+    bDropdownItem,
   },
   data () {
     return {

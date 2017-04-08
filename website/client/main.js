@@ -3,7 +3,6 @@
 require('babel-polyfill');
 
 import Vue from 'vue';
-window.Vue = Vue;
 import axios from 'axios';
 import AppComponent from './app';
 import router from './router';
@@ -11,9 +10,6 @@ import generateStore from './store';
 import StoreModule from './libs/store';
 import './filters/registerGlobals';
 import i18n from './libs/i18n';
-
-import BoostrapDropdown from 'bootstrap-vue/lib/components/dropdown';
-import BoostrapDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 
@@ -29,9 +25,6 @@ Vue.config.productionTip = IS_PRODUCTION;
 
 Vue.use(i18n);
 Vue.use(StoreModule);
-
-Vue.component('b-dropdown', BoostrapDropdown);
-Vue.component('b-dropdown-item', BoostrapDropdownItem);
 
 // TODO just until we have proper authentication
 let authSettings = localStorage.getItem('habit-mobile-settings');

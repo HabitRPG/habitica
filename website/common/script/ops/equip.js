@@ -8,8 +8,6 @@ import {
 import get from 'lodash/get';
 
 module.exports = function equip (user, req = {}) {
-  const isBrowser = typeof window !== 'undefined'; 
-
   // Being type a parameter followed by another parameter
   // when using the API it must be passes specifically in the URL, it's won't default to equipped
   let type = get(req, 'params.type', 'equipped');
@@ -48,21 +46,12 @@ module.exports = function equip (user, req = {}) {
       let item = content.gear.flat[key];
 
       if (user.items.gear[type][item.type] === key) {
-        if (isBrowser) {
-          window.Vue.set(user.items.gear[type], item.type, `${item.type}_base_0`);
-        } else {
-          user.items.gear[type][item.type] = `${item.type}_base_0`;
-        }
         user.items.gear[type][item.type] = `${item.type}_base_0`;
         message = i18n.t('messageUnEquipped', {
           itemText: item.text(req.language),
         }, req.language);
       } else {
-        if (isBrowser) {
-          window.Vue.set(user.items.gear[type], item.type, item.key);
-        } else {
-          user.items.gear[type][item.type] = item.key;
-        }
+        user.items.gear[type][item.type] = item.key;
         message = handleTwoHanded(user, item, type, req);
       }
       break;
