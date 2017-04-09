@@ -83,6 +83,8 @@ habitrpg.controller('NotificationCtrl',
       User.user.groupNotifications.push(notification);
     }
 
+    var alreadyReadNotification = [];
+
     function handleUserNotifications (after) {
       if (!after || after.length === 0) return;
 
@@ -144,7 +146,24 @@ habitrpg.controller('NotificationCtrl',
             markAsRead = false;
             break;
           case 'SCORED_TASK':
-            scoreTaskNotification.push(notification);
+            var alreadyRead = false;
+
+            // Search if it is a read notification
+            for (var i = 0; i < alreadyReadNotification.length; i++) {
+              if (alreadyReadNotification[i] == notification.id) {
+                alreadyRead = true;
+                markAsRead = false; // Do not let it be read again
+                break;
+              }
+            }
+
+            // Only process the notification if it is an unread notification
+            if (!alreadyRead) {
+              scoreTaskNotification.push(notification);
+
+              // Add to array of read notifications
+              alreadyReadNotification.push(notification.id);
+            }
             break;
           case 'LOGIN_INCENTIVE':
             Notification.showLoginIncentive(User.user, notification.data, Social.loadWidgets);
