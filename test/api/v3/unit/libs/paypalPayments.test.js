@@ -447,6 +447,7 @@ describe('Paypal Payments', ()  => {
         groupId,
         paymentMethod: 'Paypal',
         nextBill: nextBillingDate,
+        cancellationReason: undefined,
       });
     });
 
@@ -464,6 +465,7 @@ describe('Paypal Payments', ()  => {
         groupId: group._id,
         paymentMethod: 'Paypal',
         nextBill: nextBillingDate,
+        cancellationReason: undefined,
       });
     });
   });

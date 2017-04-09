@@ -198,7 +198,7 @@ api.editSubscription = async function editSubscription (options, stripeInc) {
  * @param  options
  * @param  options.user  The user object who is purchasing
  * @param  options.groupId  The id of the group purchasing a subscription
- * @param  options.cancellationReason  A text string to control the email template used
+ * @param  options.cancellationReason  A text string to control sending an email
  *
  * @return undefined
  */

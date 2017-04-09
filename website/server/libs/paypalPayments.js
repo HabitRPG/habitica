@@ -182,7 +182,7 @@ api.subscribeSuccess = async function subscribeSuccess (options = {}) {
  * @param  options
  * @param  options.user  The user object who is canceling
  * @param  options.groupId  The id of the group that is canceling
- * @param  options.cancellationReason  A text string to control the email template used
+ * @param  options.cancellationReason  A text string to control sending an email
  *
  * @return undefined
  */

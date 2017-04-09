@@ -12,7 +12,7 @@ import {
   generateGroup,
 } from '../../../../../../helpers/api-unit.helper.js';
 
-describe('Purchasing a subscription for group', () => {
+describe('Purchasing a group plan for group', () => {
   let plan, group, user, data;
   let stripe = stripeModule('test');
 
@@ -81,7 +81,7 @@ describe('Purchasing a subscription for group', () => {
     sender.sendTxn.restore();
   });
 
-  it('creates a subscription', async () => {
+  it('creates a group plan', async () => {
     expect(group.purchased.plan.planId).to.not.exist;
     data.groupId = group._id;
 
@@ -157,7 +157,7 @@ describe('Purchasing a subscription for group', () => {
     expect(updatedLeader.items.mounts['Jackalope-RoyalPurple']).to.be.true;
   });
 
-  it('sends an email to members of group', async () => {
+  it('sends an email to member of group who was not a subscriber', async () => {
     let recipient = new User();
     recipient.profile.name = 'recipient';
     recipient.guilds.push(group._id);
@@ -169,11 +169,121 @@ describe('Purchasing a subscription for group', () => {
 
     expect(sender.sendTxn).to.be.calledTwice;
     expect(sender.sendTxn.firstCall.args[0]._id).to.equal(recipient._id);
-    expect(sender.sendTxn.firstCall.args[1]).to.equal('group-member-joining');
+    expect(sender.sendTxn.firstCall.args[1]).to.equal('group-member-join');
     expect(sender.sendTxn.firstCall.args[2]).to.eql([
       {name: 'LEADER', content: user.profile.name},
       {name: 'GROUP_NAME', content: group.name},
+      {name: 'PREVIOUS_SUBSCRIBER', content: false},
     ]);
+    // confirm that the other email sent is appropriate:
+    expect(sender.sendTxn.secondCall.args[0]._id).to.equal(group.leader);
+    expect(sender.sendTxn.secondCall.args[1]).to.equal('group-subscription-begins');
+  });
+
+  it('sends one email to subscribed member of group, stating subscription is cancelled (Stripe)', async () => {
+    let recipient = new User();
+    recipient.profile.name = 'recipient';
+    plan.key = 'basic_earned';
+    plan.paymentMethod = stripePayments.constants.PAYMENT_METHOD;
+    recipient.purchased.plan = plan;
+    recipient.guilds.push(group._id);
+    await recipient.save();
+
+    data.groupId = group._id;
+
+    await api.createSubscription(data);
+
+    expect(sender.sendTxn).to.be.calledTwice;
+    expect(sender.sendTxn.firstCall.args[0]._id).to.equal(recipient._id);
+    expect(sender.sendTxn.firstCall.args[1]).to.equal('group-member-join');
+    expect(sender.sendTxn.firstCall.args[2]).to.eql([
+      {name: 'LEADER', content: user.profile.name},
+      {name: 'GROUP_NAME', content: group.name},
+      {name: 'PREVIOUS_SUBSCRIBER', content: true},
+    ]);
+    // confirm that the other email sent is not a cancel-subscription email:
+    expect(sender.sendTxn.secondCall.args[0]._id).to.equal(group.leader);
+    expect(sender.sendTxn.secondCall.args[1]).to.equal('group-subscription-begins');
+  });
+
+  it('sends one email to subscribed member of group, stating subscription is cancelled (Amazon)', async () => {
+    sinon.stub(amzLib, 'getBillingAgreementDetails')
+      .returnsPromise()
+      .resolves({
+        BillingAgreementDetails: {
+          BillingAgreementStatus: {State: 'Closed'},
+        },
+      });
+
+    let recipient = new User();
+    recipient.profile.name = 'recipient';
+    plan.planId = 'basic_earned';
+    plan.paymentMethod = amzLib.constants.PAYMENT_METHOD;
+    recipient.purchased.plan = plan;
+    recipient.guilds.push(group._id);
+    await recipient.save();
+
+    data.groupId = group._id;
+
+    await api.createSubscription(data);
+
+    expect(sender.sendTxn).to.be.calledTwice;
+    expect(sender.sendTxn.firstCall.args[0]._id).to.equal(recipient._id);
+    expect(sender.sendTxn.firstCall.args[1]).to.equal('group-member-join');
+    expect(sender.sendTxn.firstCall.args[2]).to.eql([
+      {name: 'LEADER', content: user.profile.name},
+      {name: 'GROUP_NAME', content: group.name},
+      {name: 'PREVIOUS_SUBSCRIBER', content: true},
+    ]);
+    // confirm that the other email sent is not a cancel-subscription email:
+    expect(sender.sendTxn.secondCall.args[0]._id).to.equal(group.leader);
+    expect(sender.sendTxn.secondCall.args[1]).to.equal('group-subscription-begins');
+
+    amzLib.getBillingAgreementDetails.restore();
+  });
+
+  it('sends one email to subscribed member of group, stating subscription is cancelled (PayPal)', async () => {
+    sinon.stub(paypalPayments, 'paypalBillingAgreementCancel').returnsPromise().resolves({});
+    sinon.stub(paypalPayments, 'paypalBillingAgreementGet')
+      .returnsPromise().resolves({
+        agreement_details: { // eslint-disable-line camelcase
+          next_billing_date: moment().add(3, 'months').toDate(), // eslint-disable-line camelcase
+          cycles_completed: 1, // eslint-disable-line camelcase
+        },
+      });
+
+    let recipient = new User();
+    recipient.profile.name = 'recipient';
+    plan.planId = 'basic_earned';
+    plan.paymentMethod = paypalPayments.constants.PAYMENT_METHOD;
+    recipient.purchased.plan = plan;
+    recipient.guilds.push(group._id);
+    await recipient.save();
+
+    data.groupId = group._id;
+
+    await api.createSubscription(data);
+
+    expect(sender.sendTxn).to.be.calledTwice;
+    expect(sender.sendTxn.firstCall.args[0]._id).to.equal(recipient._id);
+    expect(sender.sendTxn.firstCall.args[1]).to.equal('group-member-join');
+    expect(sender.sendTxn.firstCall.args[2]).to.eql([
+      {name: 'LEADER', content: user.profile.name},
+      {name: 'GROUP_NAME', content: group.name},
+      {name: 'PREVIOUS_SUBSCRIBER', content: true},
+    ]);
+    // confirm that the other email sent is not a cancel-subscription email:
+    expect(sender.sendTxn.secondCall.args[0]._id).to.equal(group.leader);
+    expect(sender.sendTxn.secondCall.args[1]).to.equal('group-subscription-begins');
+
+    paypalPayments.paypalBillingAgreementGet.restore();
+    paypalPayments.paypalBillingAgreementCancel.restore();
+  });
+
+  // TODO get tests working for Google and iTunes subscriptions
+  it('does not send subscription cancellation email to members with existing recurring subscription (Android)', async () => {
+  });
+  it('does not send subscription cancellation email to members with existing recurring subscription (iOS)', async () => {
   });
 
   it('adds months to members with existing gift subscription', async () => {
@@ -333,7 +443,7 @@ describe('Purchasing a subscription for group', () => {
   });
 
   it('adds months to members with existing recurring subscription (Android)');
-  it('adds months to members with existing recurring subscription (iOs)');
+  it('adds months to members with existing recurring subscription (iOS)');
 
   it('adds months to members who already cancelled but not yet terminated recurring subscription', async () => {
     let recipient = new User();

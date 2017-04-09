@@ -83,6 +83,7 @@ api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers (gr
 api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
   let customerIdsToIgnore = [this.constants.GROUP_PLAN_CUSTOMER_ID, this.constants.UNLIMITED_CUSTOMER_ID];
   let paymentMethodsToIgnore = [this.constants.GOOGLE_PAYMENT_METHOD, this.constants.IOS_PAYMENT_METHOD];
+  let isPreviousSubscriber = false;
 
   let data = {
     user: {},
@@ -131,7 +132,10 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
 
     if ((ignorePaymentPlan || ignoreCustomerId) && !customerHasCancelledGroupPlan) return;
 
-    if (member.hasNotCancelled()) await member.cancelSubscription({cancellationReason: JOINED_GROUP_PLAN});
+    if (member.hasNotCancelled()) {
+      await member.cancelSubscription({cancellationReason: JOINED_GROUP_PLAN});
+      isPreviousSubscriber = true;
+    }
 
     let today = new Date();
     plan = member.purchased.plan.toObject();
@@ -161,9 +165,10 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
   await this.createSubscription(data);
 
   let leader = await User.findById(group.leader).exec();
-  txnEmail(data.user, 'group-member-joining', [
+  txnEmail(data.user, 'group-member-join', [
     {name: 'LEADER', content: leader.profile.name},
     {name: 'GROUP_NAME', content: group.name},
+    {name: 'PREVIOUS_SUBSCRIBER', content: isPreviousSubscriber},
   ]);
 };
 
@@ -405,17 +410,18 @@ api.createSubscription = async function createSubscription (data) {
   });
 };
 
-// Sets their subscription to be cancelled later
+// Cancels a subscription or group plan, setting termination to happen later
 api.cancelSubscription = async function cancelSubscription (data) {
   let plan;
   let group;
   let cancelType = 'unsubscribe';
   let groupId;
-  let emailType = 'cancel-subscription';
+  let emailType;
   let emailMergeData = [];
+  let sendEmail = true;
 
-  //  If we are cancelling a group subscription
   if (data.groupId) {
+    // cancelling a group plan
     let groupFields = basicGroupFields.concat(' purchased');
     group = await Group.getGroup({user: data.user, groupId: data.groupId, populateLeader: false, groupFields});
 
@@ -434,16 +440,20 @@ api.cancelSubscription = async function cancelSubscription (data) {
 
     await this.cancelGroupUsersSubscription(group);
   } else {
+    // cancelling a user subscription
     plan = data.user.purchased.plan;
-    if (data.cancellationReason && data.cancellationReason === JOINED_GROUP_PLAN) emailType = 'move-subscription-to-free-group-plan'; // TODO email template requires RECIPIENT_NAME and GROUP_NAME
+    emailType = 'cancel-subscription';
+    // When cancelling because the user joined a group plan, no cancel-subscription email is sent
+    // because the group-member-join email says the subscription is cancelled.
+    if (data.cancellationReason && data.cancellationReason === JOINED_GROUP_PLAN) sendEmail = false;
   }
 
-  let customerId = plan.customerId;
   let now = moment();
   let defaultRemainingDays = 30;
 
   if (plan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID) {
     defaultRemainingDays = 2;
+    sendEmail = false; // because group-member-cancel email has already been sent
   }
 
   let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days', true) : defaultRemainingDays;
@@ -466,7 +476,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
     await data.user.save();
   }
 
-  if (customerId !== this.constants.GROUP_PLAN_CUSTOMER_ID) txnEmail(data.user, emailType, emailMergeData);
+  if (sendEmail) txnEmail(data.user, emailType, emailMergeData);
 
   if (group) {
     cancelType = 'group-unsubscribe';
