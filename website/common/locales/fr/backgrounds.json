@@ -215,6 +215,8 @@
     "backgroundWindyAutumnText": "Automne venteux",
     "backgroundWindyAutumnNotes": "Pourchassez les feuilles pendant un automne venteux.",
     "incentiveBackgrounds": "Ensemble d'arrière-plans simples",
+    "backgroundVioletText": "Violet",
+    "backgroundVioletNotes": "Un arrière-plan violet vibrant.",
     "backgroundBlueText": "Bleu",
     "backgroundBlueNotes": "Un arrière-plan bleu basique.",
     "backgroundGreenText": "Vert",
@@ -222,7 +224,7 @@
     "backgroundPurpleText": "Pourpre",
     "backgroundPurpleNotes": "Un arrière-plan pourpre plaisant.",
     "backgroundRedText": "Rouge",
-    "backgroundRedNotes": "Un arrière-plan rouge excellent.",
+    "backgroundRedNotes": "Un arrière-plan rouge ravissant.",
     "backgroundYellowText": "Jaune",
     "backgroundYellowNotes": "Un arrière-plan jaune délicieux.",
     "backgrounds122016": "Ensemble 31 : sorti en décembre 2016",
@@ -252,5 +254,12 @@
     "backgroundMeanderingCaveText": "Grotte sinueuse",
     "backgroundMeanderingCaveNotes": "Explorez une grotte sinueuse.",
     "backgroundMistiflyingCircusText": "Cirque de Mistivolant",
-    "backgroundMistiflyingCircusNotes": "Participez au crique de Mistivolant."
+    "backgroundMistiflyingCircusNotes": "Participez au crique de Mistivolant.",
+    "backgrounds042017": "Ensemble 35 : sorti en avril 2017",
+    "backgroundBugCoveredLogText": "Souche couverte d'insectes",
+    "backgroundBugCoveredLogNotes": "Examinez une souche couverte d'insectes.",
+    "backgroundGiantBirdhouseText": "Nichoir géant",
+    "backgroundGiantBirdhouseNotes": "Perchez-vous dans un nichoir géant.",
+    "backgroundMistShroudedMountainText": "Montagne embrumée",
+    "backgroundMistShroudedMountainNotes": "Gravissez une montagne embrumée."
 }

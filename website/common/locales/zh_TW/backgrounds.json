@@ -215,6 +215,8 @@
     "backgroundWindyAutumnText": "風之秋",
     "backgroundWindyAutumnNotes": "在風之秋中追逐落葉。",
     "incentiveBackgrounds": "簡樸的的背景套組",
+    "backgroundVioletText": "紫色",
+    "backgroundVioletNotes": "一個鮮豔的紫色背景",
     "backgroundBlueText": "藍色",
     "backgroundBlueNotes": "一個標準的藍色背景。",
     "backgroundGreenText": "綠色",
@@ -252,5 +254,12 @@
     "backgroundMeanderingCaveText": "蜿蜒洞窟",
     "backgroundMeanderingCaveNotes": "在蜿蜒洞窟中探險",
     "backgroundMistiflyingCircusText": "神秘馬戲團",
-    "backgroundMistiflyingCircusNotes": "在神秘馬戲團中盡情玩耍"
+    "backgroundMistiflyingCircusNotes": "在神秘馬戲團中盡情玩耍",
+    "backgrounds042017": "第35組: 2017年4月推出",
+    "backgroundBugCoveredLogText": "爬滿蟲子的原木",
+    "backgroundBugCoveredLogNotes": "調查爬滿蟲子的原木",
+    "backgroundGiantBirdhouseText": "巨大的鳥屋",
+    "backgroundGiantBirdhouseNotes": "棲息在巨大的鳥屋",
+    "backgroundMistShroudedMountainText": "雲霧繚繞的山鋒",
+    "backgroundMistShroudedMountainNotes": "雲霧繚繞的山鋒頂端"
 }

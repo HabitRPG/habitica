@@ -215,6 +215,8 @@
     "backgroundWindyAutumnText": "Wietrzna jesień",
     "backgroundWindyAutumnNotes": "Goń liście podczas wietrznej jesieni",
     "incentiveBackgrounds": "Prosty zestaw tła",
+    "backgroundVioletText": "Fiolet",
+    "backgroundVioletNotes": "Energetyzujący fioletowy horyzont.",
     "backgroundBlueText": "Błękitny",
     "backgroundBlueNotes": "Podstawowy błękitny horyzont",
     "backgroundGreenText": "Zielony",
@@ -252,5 +254,12 @@
     "backgroundMeanderingCaveText": "Kręta jaskinia",
     "backgroundMeanderingCaveNotes": "Zbadaj krętą jaskinię.",
     "backgroundMistiflyingCircusText": "Mistiflying Circus",
-    "backgroundMistiflyingCircusNotes": "Carouse in the Mistiflying Circus."
+    "backgroundMistiflyingCircusNotes": "Carouse in the Mistiflying Circus.",
+    "backgrounds042017": "ZESTAW 35: Opublikowany w kwietniu 2017",
+    "backgroundBugCoveredLogText": "Bug-Covered Log",
+    "backgroundBugCoveredLogNotes": "Investigate a Bug-Covered Log.",
+    "backgroundGiantBirdhouseText": "Ogromny karmik",
+    "backgroundGiantBirdhouseNotes": "Grzęda w ogromnym karmiku",
+    "backgroundMistShroudedMountainText": "Pokryta mgłą góra",
+    "backgroundMistShroudedMountainNotes": "Summit a Mist-Shrouded Mountain."
 }

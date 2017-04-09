@@ -215,6 +215,8 @@
     "backgroundWindyAutumnText": "風吹く秋",
     "backgroundWindyAutumnNotes": "秋風の中落ち葉を追いかけよう",
     "incentiveBackgrounds": "シンプルな背景セット",
+    "backgroundVioletText": "Violet",
+    "backgroundVioletNotes": "A vibrant violet backdrop.",
     "backgroundBlueText": "青",
     "backgroundBlueNotes": "素直な青の背景です。",
     "backgroundGreenText": "緑",
@@ -252,5 +254,12 @@
     "backgroundMeanderingCaveText": "曲がりくねった洞窟",
     "backgroundMeanderingCaveNotes": "曲がりくねった洞窟を探検しよう。",
     "backgroundMistiflyingCircusText": "幻想的なサーカス",
-    "backgroundMistiflyingCircusNotes": "幻想的なサーカスで酔い騒ごう。"
+    "backgroundMistiflyingCircusNotes": "幻想的なサーカスで酔い騒ごう。",
+    "backgrounds042017": "SET 35: Released April 2017",
+    "backgroundBugCoveredLogText": "Bug-Covered Log",
+    "backgroundBugCoveredLogNotes": "Investigate a Bug-Covered Log.",
+    "backgroundGiantBirdhouseText": "Giant Birdhouse",
+    "backgroundGiantBirdhouseNotes": "Perch in a Giant Birdhouse.",
+    "backgroundMistShroudedMountainText": "Mist-Shrouded Mountain",
+    "backgroundMistShroudedMountainNotes": "Summit a Mist-Shrouded Mountain."
 }

@@ -155,6 +155,7 @@
     "sendGiftPurchase": "Приобрести",
     "sendGiftMessagePlaceholder": "Личное сообщение (необязательно)",
     "sendGiftSubscription": "<%= months %> мес.: $<%= price %> (долл. США)",
+    "gemGiftsAreOptional": "Please note that Habitica will never require you to gift gems to other players. Begging people for gems is a <strong>violation of the Community Guidelines</strong>, and all such instances should be reported to <%= hrefTechAssistanceEmail %>.",
     "battleWithFriends": "Побеждайте монстров с друзьями",
     "startPartyWithFriends": "Создайте команду с друзьями!",
     "startAParty": "Создать команду",

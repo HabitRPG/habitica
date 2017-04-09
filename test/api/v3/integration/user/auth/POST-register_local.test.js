@@ -34,6 +34,7 @@ describe('POST /user/auth/local/register', () => {
       expect(user.apiToken).to.exist;
       expect(user.auth.local.username).to.eql(username);
       expect(user.profile.name).to.eql(username);
+      expect(user.newUser).to.eql(true);
     });
 
     it('provides default tags and tasks', async () => {
@@ -69,6 +70,23 @@ describe('POST /user/auth/local/register', () => {
 
       await expect(getProperty('users', user._id, '_ABtest')).to.eventually.be.a('string');
       await expect(getProperty('users', user._id, '_ABtests')).to.eventually.be.a('object');
+    });
+
+    it('includes items awarded by default when creating a new user', async () => {
+      let username = generateRandomUserName();
+      let email = `${username}@example.com`;
+      let password = 'password';
+
+      let user = await api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      expect(user.items.quests.dustbunnies).to.equal(1);
+      expect(user.purchased.background.violet).to.be.ok;
+      expect(user.preferences.background).to.equal('violet');
     });
 
     it('requires password and confirmPassword to match', async () => {

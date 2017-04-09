@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Veuillez garder à l'esprit que votre nom d'utilisateur, votre photo de profil et votre résumé doivent obéir aux <a href='https://habitica.com/static/community-guidelines' target='_blank'>Règles de vie en communauté</a> (par exemple, grossièretés, sujets adultes, insultes, etc. sont interdits). Si vous ne savez pas si quelque chose est inconvenant ou non, n'hésitez pas à envoyer un courriel à <%= hrefBlankCommunityManagerEmail %> !",
     "profile": "Profil",
     "avatar": "Personnalisez votre avatar",
     "other": "Autres",
@@ -140,7 +140,7 @@
     "streaksFrozenText": "Les combos sur les tâches Quotidiennes manquées ne seront pas remis à zéro à la fin de la journée.",
     "respawn": "Résurrection !",
     "youDied": "Vous êtes mort !",
-    "dieText": "Vous avez perdu un Niveau, tout votre Or et une pièce d'Équipement aléatoire. Relevez-vous, Habiticien·ne, et essayez encore ! Mettez un frein à ces Habitudes négatives, complétez vos tâches Quotidiennes avec vigilance et tenez la mort à distance avec une Potion de Santé si vous fléchissez !",
+    "dieText": "Vous avez perdu un niveau, tout votre or et une pièce d'équipement aléatoire. Relevez-vous, membre d'Habitica, et essayez encore ! Mettez un frein à ces Habitudes négatives, complétez vos tâches Quotidiennes avec vigilance et tenez la mort à distance avec une potion de santé si vous fléchissez !",
     "sureReset": "Êtes-vous sûr·e ? Ceci réinitialisera la classe de votre personnage ainsi que vos points alloués (vous les récupérerez tous pour les ré-allouer), et vous coûtera 3 gemmes.",
     "purchaseFor": "Acheter pour <%= cost %> Gemmes ?",
     "notEnoughMana": "Pas assez de mana.",

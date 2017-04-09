@@ -1,9 +1,9 @@
 {
     "backgrounds": "Pozadí",
     "background": "Pozadí",
-    "backgroundShop": "Background Shop",
-    "backgroundShopText": "Background Shop",
-    "noBackground": "No Background Selected",
+    "backgroundShop": "Obchod s pozadími",
+    "backgroundShopText": "Obchod s pozadími",
+    "noBackground": "Nezvoleno žádné pozadí",
     "backgrounds062014": "SET 1: Vydáno v červnu 2014",
     "backgroundBeachText": "Pláž",
     "backgroundBeachNotes": "Veranda na teplé pláži.",
@@ -215,6 +215,8 @@
     "backgroundWindyAutumnText": "Větrný podzim",
     "backgroundWindyAutumnNotes": "Hoň se za listy během větrného podzimu.",
     "incentiveBackgrounds": "Prosté pozadí",
+    "backgroundVioletText": "Fialová",
+    "backgroundVioletNotes": "Živá fialová tapeta",
     "backgroundBlueText": "Modrá",
     "backgroundBlueNotes": "Základní modré pozadí.",
     "backgroundGreenText": "Zelená",
@@ -252,5 +254,12 @@
     "backgroundMeanderingCaveText": "Meandering Cave",
     "backgroundMeanderingCaveNotes": "Explore the Meandering Cave.",
     "backgroundMistiflyingCircusText": "Mistiflying Circus",
-    "backgroundMistiflyingCircusNotes": "Carouse in the Mistiflying Circus."
+    "backgroundMistiflyingCircusNotes": "Carouse in the Mistiflying Circus.",
+    "backgrounds042017": "SET 35: Released April 2017",
+    "backgroundBugCoveredLogText": "Bug-Covered Log",
+    "backgroundBugCoveredLogNotes": "Investigate a Bug-Covered Log.",
+    "backgroundGiantBirdhouseText": "Giant Birdhouse",
+    "backgroundGiantBirdhouseNotes": "Perch in a Giant Birdhouse.",
+    "backgroundMistShroudedMountainText": "Mist-Shrouded Mountain",
+    "backgroundMistShroudedMountainNotes": "Summit a Mist-Shrouded Mountain."
 }

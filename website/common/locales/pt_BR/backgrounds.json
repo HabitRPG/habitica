@@ -215,6 +215,8 @@
     "backgroundWindyAutumnText": "Outono Ventoso",
     "backgroundWindyAutumnNotes": "Catar folhas durante um Outono ventoso.",
     "incentiveBackgrounds": "Cenário básico selecionado",
+    "backgroundVioletText": "Violet",
+    "backgroundVioletNotes": "A vibrant violet backdrop.",
     "backgroundBlueText": "Azul",
     "backgroundBlueNotes": "Um cenário azul atrevido",
     "backgroundGreenText": "Verde",
@@ -252,5 +254,12 @@
     "backgroundMeanderingCaveText": "Caverna Serpenteante",
     "backgroundMeanderingCaveNotes": "Explore a Caverna Serpenteante.",
     "backgroundMistiflyingCircusText": "Circo Misterioso",
-    "backgroundMistiflyingCircusNotes": "Carouse in the Mistiflying Circus."
+    "backgroundMistiflyingCircusNotes": "Carouse in the Mistiflying Circus.",
+    "backgrounds042017": "SET 35: Released April 2017",
+    "backgroundBugCoveredLogText": "Bug-Covered Log",
+    "backgroundBugCoveredLogNotes": "Investigate a Bug-Covered Log.",
+    "backgroundGiantBirdhouseText": "Giant Birdhouse",
+    "backgroundGiantBirdhouseNotes": "Perch in a Giant Birdhouse.",
+    "backgroundMistShroudedMountainText": "Mist-Shrouded Mountain",
+    "backgroundMistShroudedMountainNotes": "Summit a Mist-Shrouded Mountain."
 }

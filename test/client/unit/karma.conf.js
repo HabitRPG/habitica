@@ -28,7 +28,7 @@ module.exports = function (config) {
       noInfo: true,
     },
     coverageReporter: {
-      dir: './coverage',
+      dir: '../../../coverage/client-unit',
       reporters: [
         { type: 'lcov', subdir: '.' },
         { type: 'text-summary' },

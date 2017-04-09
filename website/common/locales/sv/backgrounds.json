@@ -215,6 +215,8 @@
     "backgroundWindyAutumnText": "Blåsig Höst",
     "backgroundWindyAutumnNotes": "Jaga löv under en Blåsig Höst",
     "incentiveBackgrounds": "Vanlig bakgrund vald",
+    "backgroundVioletText": "Violet",
+    "backgroundVioletNotes": "A vibrant violet backdrop.",
     "backgroundBlueText": "Blå",
     "backgroundBlueNotes": "En bländande blå bakgrund.",
     "backgroundGreenText": "Grön",
@@ -247,10 +249,17 @@
     "backgroundWeddingArchText": "Bröllopsbåge",
     "backgroundWeddingArchNotes": "Posera under Bröllopsbågen.",
     "backgrounds032017": "SET 34: Released March 2017",
-    "backgroundMagicBeanstalkText": "Magic Beanstalk",
+    "backgroundMagicBeanstalkText": "Magisk bönstjälk",
     "backgroundMagicBeanstalkNotes": "Ascend a Magic Beanstalk.",
     "backgroundMeanderingCaveText": "Meandering Cave",
     "backgroundMeanderingCaveNotes": "Explore the Meandering Cave.",
     "backgroundMistiflyingCircusText": "Mistiflying Circus",
-    "backgroundMistiflyingCircusNotes": "Carouse in the Mistiflying Circus."
+    "backgroundMistiflyingCircusNotes": "Carouse in the Mistiflying Circus.",
+    "backgrounds042017": "SET 35: Released April 2017",
+    "backgroundBugCoveredLogText": "Bug-Covered Log",
+    "backgroundBugCoveredLogNotes": "Investigate a Bug-Covered Log.",
+    "backgroundGiantBirdhouseText": "Giant Birdhouse",
+    "backgroundGiantBirdhouseNotes": "Perch in a Giant Birdhouse.",
+    "backgroundMistShroudedMountainText": "Mist-Shrouded Mountain",
+    "backgroundMistShroudedMountainNotes": "Summit a Mist-Shrouded Mountain."
 }

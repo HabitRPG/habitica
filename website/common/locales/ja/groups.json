@@ -155,6 +155,7 @@
     "sendGiftPurchase": "購入する",
     "sendGiftMessagePlaceholder": "個人メッセージ(任意)",
     "sendGiftSubscription": "<%= months %> カ月 : <%= price %> 米ドル",
+    "gemGiftsAreOptional": "Please note that Habitica will never require you to gift gems to other players. Begging people for gems is a <strong>violation of the Community Guidelines</strong>, and all such instances should be reported to <%= hrefTechAssistanceEmail %>.",
     "battleWithFriends": "フレンドと一緒にモンスターと戦う",
     "startPartyWithFriends": "友達といっしょにパーティーをつくりましょう!",
     "startAParty": "チームを作る",

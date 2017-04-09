@@ -1,7 +1,7 @@
 {
   "unlockedReward": "Du har modtaget <%= reward %>",
   "earnedRewardForDevotion": "Du har modtaget <%= reward %> for at være engageret i at forbedre dit liv.",
-  "nextRewardUnlocksIn": "Check-ins until your next prize: <%= numberOfCheckinsLeft %>",
+  "nextRewardUnlocksIn": "Antal check-ins til din næste præmie: <%= numberOfCheckinsLeft %>",
   "awesome": "Fedt!",
   "totalCount": "<%= count %> total optælling",
   "countLeft": "Check-ins until next reward: <%= count %>",
@@ -11,6 +11,6 @@
   "unlockedCheckInReward": "Du har oplåst en Check-in Præmie!",
   "totalCheckinsTitle": "Total Check-ins",
   "checkinProgressTitle": "Fremskridt indtil næste",
-  "incentiveBackgroundsUnlockedWithCheckins": "Disse baggrunde vil låses op med Daglige Check-ins.",
+  "incentiveBackgroundsUnlockedWithCheckins": "Locked Plain Backgrounds will unlock with Daily Check-Ins.",
   "moreIncentivesComingSoon": "Nye indtjekning incitamenter vil blive tilføjet snart!"
 }

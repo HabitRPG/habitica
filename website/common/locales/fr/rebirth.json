@@ -24,6 +24,6 @@
     "rebirthPop": "Commencez un nouveau personnage au niveau 1 en conservant les succès, les objets de collecte, l'équipement et les tâches avec historique.",
     "rebirthName": "Orbe de Renaissance",
     "reborn": "Né de nouveau, niveau maximum <%= reLevel %>",
-    "confirmReborn": "Êtes-vous sûr·e ?",
+    "confirmReborn": "Confirmez-vous ?",
     "rebirthComplete": "Vous avez été ressuscité !"
 }
