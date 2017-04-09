@@ -157,7 +157,7 @@ function awardLoginIncentives (user) {
           notificationData.rewardText = i18n.t('potion', {potionType: notificationData.rewardText}, user.preferences.language);
         }
       } else if (loginIncentive.rewardKey[0] === 'background_blue') {
-        notificationData.rewardText = i18n.t('incentiveBackgrounds');
+        notificationData.rewardText = i18n.t('incentiveBackgrounds', user.preferences.language);
       }
 
       if (loginIncentive.reward.length > 0 && count < loginIncentive.reward.length - 1) notificationData.rewardText += ', ';
@@ -167,7 +167,7 @@ function awardLoginIncentives (user) {
 
     // Overwrite notificationData.rewardText if rewardName was explicitly declared
     if (loginIncentive.rewardName) {
-      notificationData.rewardText = i18n.t(loginIncentive.rewardName);
+      notificationData.rewardText = i18n.t(loginIncentive.rewardName, user.preferences.language);
     }
 
     notificationData.rewardKey = loginIncentive.rewardKey;
