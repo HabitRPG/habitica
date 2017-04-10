@@ -189,9 +189,7 @@ angular.module('habitrpg')
           }
         })
       }
-
-      //Calling this multiple times rapidly will not persist changes
-      //All changes must either be sent at once, or spaced in time (0.1-0.5 sec)
+      
       function setUser(updates) {
         for (var key in updates) {
           _.set(user, key, updates[key]);
