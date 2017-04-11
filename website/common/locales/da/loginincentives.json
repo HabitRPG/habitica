@@ -4,13 +4,13 @@
   "nextRewardUnlocksIn": "Antal check-ins til din næste præmie: <%= numberOfCheckinsLeft %>",
   "awesome": "Fedt!",
   "totalCount": "<%= count %> total optælling",
-  "countLeft": "Check-ins until next reward: <%= count %>",
+  "countLeft": "Check-ins inden næste præmie: <%= count %>",
   "incentivesDescription": "Når det kommer til at opbygge vaner er nøglen konsistens. Hver dag du tjekker in kommer du tættere på en præmie.",
   "totalCheckins": "<%= count %> Check-ins",
   "checkinEarned": "Din Check-in Tæller gik op!",
   "unlockedCheckInReward": "Du har oplåst en Check-in Præmie!",
   "totalCheckinsTitle": "Total Check-ins",
   "checkinProgressTitle": "Fremskridt indtil næste",
-  "incentiveBackgroundsUnlockedWithCheckins": "Locked Plain Backgrounds will unlock with Daily Check-Ins.",
+  "incentiveBackgroundsUnlockedWithCheckins": "Låste Almindelige Baggrunde vil blive låst op med Daglige Check-ins.",
   "moreIncentivesComingSoon": "Nye indtjekning incitamenter vil blive tilføjet snart!"
 }

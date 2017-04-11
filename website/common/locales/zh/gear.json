@@ -1021,7 +1021,11 @@
     "shieldArmoireMushroomDruidShieldText": "德鲁伊蘑菇盾",
     "shieldArmoireMushroomDruidShieldNotes": "尽管是由蘑菇打造而成的，却坚硬无比！增加 <%= con %> 点体质和 <%= str %> 点力量。魔法衣橱：德鲁伊蘑菇套装( 3 件套之 3 )",
     "shieldArmoireFestivalParasolText": "节日阳伞",
+<<<<<<< HEAD
     "shieldArmoireFestivalParasolNotes": "This lightweight parasol will shield you from the glare--whether it's from the sun or from dark red Dailies! Increases Constitution by <%= con %>. Enchanted Armoire: Festival Attire Set (Item 2 of 3).",
+=======
+    "shieldArmoireFestivalParasolNotes": "这把轻盈的太阳伞能够帮你抵御强光--无论它是来自太阳还是暗红色的每日任务！增加体质 <%= con %> 点。魔法衣橱：节日盛典套装(3件中的第2件)",
+>>>>>>> sabrecat/egg-quest
     "back": "背部挂件",
     "backBase0Text": "没有背部挂件",
     "backBase0Notes": "没有背部挂件。",

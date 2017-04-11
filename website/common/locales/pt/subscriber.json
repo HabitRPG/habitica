@@ -7,7 +7,7 @@
     "mustSubscribeToPurchaseGems": "Deve subscrever para comprar gemas com ouro.",
     "reachedGoldToGemCap": "Chegou ao limite de <%= convCap %> conversões de Ouro em Gemas para este mês. Este limite existe para evitar abuso / cultivo . O limite é reiniciado dentro dos primeiros 3 dias de cada mês.",
     "retainHistory": "Guardar Itens adicionais no histórico",
-    "retainHistoryText": "Deixa os Afazeres completos e o histórico de tarefas disponíveis por mais tempo.",
+    "retainHistoryText": "Faz com que os Afazeres completos e o histórico de tarefas fiquem disponíveis por mais tempo.",
     "doubleDrops": "Capacidade de drop diário dobrado",
     "doubleDropsText": "Complete seu estábulo mais rápido!",
     "mysteryItem": "Itens mensais exclusivos",
