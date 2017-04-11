@@ -951,7 +951,7 @@ api.quests = {
     completion: t('questEggHuntCompletion'),
     value: 1,
     canBuy () {
-      return false;
+      return true;
     },
     category: 'pet',
     collect: {

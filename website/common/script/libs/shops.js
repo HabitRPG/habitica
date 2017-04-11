@@ -239,6 +239,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   ];
 
   const AVAILABLE_QUESTS = [
+    'egg',
   ];
 
   let categories = [];
