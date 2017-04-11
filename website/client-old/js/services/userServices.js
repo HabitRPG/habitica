@@ -189,7 +189,7 @@ angular.module('habitrpg')
           }
         })
       }
-      
+
       function setUser(updates) {
         for (var key in updates) {
           _.set(user, key, updates[key]);
