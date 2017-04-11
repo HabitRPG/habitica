@@ -225,6 +225,8 @@ module.exports = function getLoginIncentives (api) {
       },
     },
   };
+  // When the final check-in prize is added here, change checkinReceivedAllRewardsMessage in website/common/locales/en/loginIncentives.json
+  // to say "You have received the final Check-In prize!". Confirm the message with Lemoness first.
 
   // Add reference link to next reward and add filler days so we have a map to reference the next reward from any day
   // We could also, use a list, but then we would be cloning each of the rewards.
