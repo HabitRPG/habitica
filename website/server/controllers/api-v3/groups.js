@@ -27,6 +27,8 @@ import amzLib from '../../libs/amazonPayments';
 import shared from '../../../common';
 import apiMessages from '../../libs/apiMessages';
 
+const MAX_EMAIL_INVITES_BY_USER = 200;
+
 /**
  * @apiDefine GroupBodyInvalid
  * @apiError (400) {BadRequest} GroupBodyInvalid A parameter in the group body was invalid.
@@ -1056,6 +1058,8 @@ api.inviteToGroup = {
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
 
+    if (user.invitesSent >= MAX_EMAIL_INVITES_BY_USER) throw new NotAuthorized(res.t('inviteLimitReached'));
+
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
@@ -1079,6 +1083,8 @@ api.inviteToGroup = {
 
     if (emails) {
       let emailInvites = emails.map((invite) => _inviteByEmail(invite, group, user, req, res));
+      user.invitesSent += emails.length;
+      await user.save();
       let emailResults = await Bluebird.all(emailInvites);
       results.push(...emailResults);
     }

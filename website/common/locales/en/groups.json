@@ -270,5 +270,6 @@
   "confirmCancelGroupPlan": "Are you sure you want to cancel the group plan and remove its benefits from all members, including their free subscriptions?",
   "canceledGroupPlan": "Canceled Group Plan",
   "groupPlanCanceled": "Group Plan will become inactive on",
-  "purchasedGroupPlanPlanExtraMonths": "You have <%= months %> months of extra group plan credit."
+  "purchasedGroupPlanPlanExtraMonths": "You have <%= months %> months of extra group plan credit.",
+  "inviteLimitReached": "You have already sent the max number of email invites."
 }
