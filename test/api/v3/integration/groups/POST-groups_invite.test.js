@@ -7,6 +7,7 @@ import { v4 as generateUUID } from 'uuid';
 
 const INVITES_LIMIT = 100;
 const PARTY_LIMIT_MEMBERS = 30;
+const MAX_EMAIL_INVITES_BY_USER = 200;
 
 describe('Post /groups/:groupId/invite', () => {
   let inviter;
@@ -205,13 +206,37 @@ describe('Post /groups/:groupId/invite', () => {
       });
     });
 
+    it('returns an error when a user has sent the max number of email invites', async () => {
+      let inviterWithMax = await generateUser({
+        invitesSent: MAX_EMAIL_INVITES_BY_USER,
+        balance: 4,
+      });
+      let tmpGroup = await inviterWithMax.post('/groups', {
+        name: groupName,
+        type: 'guild',
+      });
+
+      await expect(inviterWithMax.post(`/groups/${tmpGroup._id}/invite`, {
+        emails: [testInvite],
+        inviter: 'inviter name',
+      }))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('inviteLimitReached'),
+      });
+    });
+
     it('invites a user to a group by email', async () => {
       let res = await inviter.post(`/groups/${group._id}/invite`, {
         emails: [testInvite],
         inviter: 'inviter name',
       });
 
+      let updatedUser = await inviter.sync();
+
       expect(res).to.exist;
+      expect(updatedUser.invitesSent).to.eql(1);
     });
 
     it('invites multiple users to a group by email', async () => {
@@ -219,7 +244,10 @@ describe('Post /groups/:groupId/invite', () => {
         emails: [testInvite, {name: 'test2', email: 'test2@habitica.com'}],
       });
 
+      let updatedUser = await inviter.sync();
+
       expect(res).to.exist;
+      expect(updatedUser.invitesSent).to.eql(2);
     });
   });
 
