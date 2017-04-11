@@ -2,7 +2,7 @@
 .row
   .col-2.standard-sidebar
     .form-group
-      input.form-control.search-control(type="text", :placeholder="$t('search')")
+      input.form-control.search-control(type="text", v-model="searchText", :placeholder="$t('search')")
 
     .form
       h2(v-once) {{ $t('filter') }}
@@ -42,7 +42,7 @@
       .items
         item(
           v-for="(item, index) in items[group.key]",
-          v-if="viewOptions[group.key].open || index < 9",
+          v-if="viewOptions[group.key].open || index < itemsPerLine",
           :item="item",
           :key="item.key",
           :selected="equippedItems[item.type] === item.key",
@@ -50,14 +50,17 @@
         )
       div(v-if="items[group.key].length === 0")
         span No items in this category
-      a.btn.btn-show-more(v-else, @click="viewOptions[group.key].open = !viewOptions[group.key].open") 
-       | {{ viewOptions[group.key].open ? 'Close' : 'Open' }}
+      a.btn.btn-show-more(
+        v-if="items[group.key].length > itemsPerLine",
+        @click="viewOptions[group.key].open = !viewOptions[group.key].open"
+      ) {{ viewOptions[group.key].open ? 'Close' : 'Open' }}
 </template>
 
 <script>
 import { mapState, mapActions } from 'client/libs/store';
 import each from 'lodash/each';
 import map from 'lodash/map';
+import throttle from 'lodash/throttle';
 
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
@@ -74,6 +77,9 @@ export default {
   },
   data () {
     return {
+      itemsPerLine: 9,
+      searchText: null,
+      searchTextThrottled: null,
       groupBy: 'type', // or 'class' TODO move to router?
       gearTypesToStrings: Object.freeze({
         headAccessory: 'headAccessoryCapitalized',
@@ -97,6 +103,11 @@ export default {
       viewOptions: {},
     };
   },
+  watch: {
+    searchText: throttle(function throttleSearch () {
+      this.searchTextThrottled = this.searchText;
+    }, 250),
+  },
   methods: {
     ...mapActions({
       equip: 'common:equip',
@@ -111,6 +122,7 @@ export default {
       flatGear: 'content.gear.flat',
     }),
     gearItemsByType () {
+      const searchText = this.searchTextThrottled;
       const gearItemsByType = {};
       each(this.gearTypesToStrings, (string, type) => {
         gearItemsByType[type] = [];
@@ -120,7 +132,9 @@ export default {
         if (isOwned === true) {
           const ownedItem = this.flatGear[gearKey];
 
-          if (ownedItem.klass !== 'base') {
+          const isSearched = !searchText || ownedItem.text().toLowerCase().indexOf(searchText) !== -1;
+
+          if (ownedItem.klass !== 'base' && isSearched) {
             const type = ownedItem.type;
             const isEquipped = this.equippedItems[type] === ownedItem.key;
             const viewOptions = this.viewOptions[type];
@@ -148,6 +162,7 @@ export default {
       return gearItemsByType;
     },
     gearItemsByClass () {
+      const searchText = this.searchTextThrottled;
       const gearItemsByClass = {};
       each(this.gearClassesToStrings, (string, klass) => {
         gearItemsByClass[klass] = [];
@@ -158,7 +173,9 @@ export default {
           const ownedItem = this.flatGear[gearKey];
           const klass = ownedItem.klass;
 
-          if (klass !== 'base') {
+          const isSearched = !searchText || ownedItem.text().toLowerCase().indexOf(searchText) !== -1;
+
+          if (klass !== 'base' && isSearched) {
             const isEquipped = this.equippedItems[ownedItem.type] === ownedItem.key;
             const viewOptions = this.viewOptions[klass];
             const firstRender = viewOptions.firstRender;
