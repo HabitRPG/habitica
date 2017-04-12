@@ -35,7 +35,7 @@ import stripePayments from '../libs/stripePayments';
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
 
-export const INVITES_LIMIT = 100;
+export const INVITES_LIMIT = 100; // must not be greater than MAX_EMAIL_INVITES_BY_USER
 export const TAVERN_ID = shared.TAVERN_ID;
 
 const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
