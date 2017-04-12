@@ -146,19 +146,16 @@ habitrpg.controller('NotificationCtrl',
             markAsRead = false;
             break;
           case 'SCORED_TASK':
-            var alreadyRead = false;
-
             // Search if it is a read notification
             for (var i = 0; i < alreadyReadNotification.length; i++) {
               if (alreadyReadNotification[i] == notification.id) {
-                alreadyRead = true;
                 markAsRead = false; // Do not let it be read again
                 break;
               }
             }
 
             // Only process the notification if it is an unread notification
-            if (!alreadyRead) {
+            if (markAsRead) {
               scoreTaskNotification.push(notification);
 
               // Add to array of read notifications
