@@ -81,9 +81,12 @@ api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers (gr
  * @return undefined
  */
 api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
+  // When changing customerIdsToIgnore or paymentMethodsToIgnore, the code blocks below for
+  // the `group-member-join` email template will probably need to be changed.
   let customerIdsToIgnore = [this.constants.GROUP_PLAN_CUSTOMER_ID, this.constants.UNLIMITED_CUSTOMER_ID];
   let paymentMethodsToIgnore = [this.constants.GOOGLE_PAYMENT_METHOD, this.constants.IOS_PAYMENT_METHOD];
-  let isPreviousSubscriber = false;
+  let previousSubscriptionType = 'none';
+  let leader = await User.findById(group.leader).exec();
 
   let data = {
     user: {},
@@ -126,15 +129,38 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
         {name: 'EMAIL', content: getUserInfo(member, ['email']).email},
         {name: 'PAYMENT_METHOD', content: memberPlan.paymentMethod},
         {name: 'PURCHASED_PLAN', content: JSON.stringify(memberPlan)},
-        {name: 'ACTION_NEEDED', content: 'User has joined group plan. Tell them to cancel subscription then give them free sub.'},
+        {name: 'ACTION_NEEDED', content: 'User has joined group plan and has been told to cancel their subscription then email us. Ensure they do that then give them free sub.'},
+        // TODO User won't get email instructions if they've opted out of all emails. See if we can make this email an exception and if not, report here whether they've opted out.
       ]);
     }
 
-    if ((ignorePaymentPlan || ignoreCustomerId) && !customerHasCancelledGroupPlan) return;
+    if ((ignorePaymentPlan || ignoreCustomerId) && !customerHasCancelledGroupPlan) {
+      // member has been added to group plan but their subscription will not be changed
+      // automatically so they need a special message in the email
+      if (memberPlan.paymentMethod === this.constants.GOOGLE_PAYMENT_METHOD) {
+        previousSubscriptionType = 'Google';
+      } else if (memberPlan.paymentMethod === this.constants.IOS_PAYMENT_METHOD) {
+        previousSubscriptionType = 'iOS';
+      } else if (memberPlan.customerId === this.constants.UNLIMITED_CUSTOMER_ID) {
+        previousSubscriptionType = 'permanent_free';
+      } else if (memberPlan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID) {
+        previousSubscriptionType = 'group_plan';
+      } else {
+        // this triggers a generic message in the email template in case we forget
+        // to update this code for new special cases
+        previousSubscriptionType = 'unknown';
+      }
+      txnEmail(member, 'group-member-join', [
+        {name: 'LEADER', content: leader.profile.name},
+        {name: 'GROUP_NAME', content: group.name},
+        {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: previousSubscriptionType},
+      ]);
+      return;
+    }
 
     if (member.hasNotCancelled()) {
       await member.cancelSubscription({cancellationReason: JOINED_GROUP_PLAN});
-      isPreviousSubscriber = true;
+      previousSubscriptionType = 'normal';
     }
 
     let today = new Date();
@@ -164,11 +190,10 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
   data.user = member;
   await this.createSubscription(data);
 
-  let leader = await User.findById(group.leader).exec();
   txnEmail(data.user, 'group-member-join', [
     {name: 'LEADER', content: leader.profile.name},
     {name: 'GROUP_NAME', content: group.name},
-    {name: 'PREVIOUS_SUBSCRIBER', content: isPreviousSubscriber},
+    {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: previousSubscriptionType},
   ]);
 };
 
