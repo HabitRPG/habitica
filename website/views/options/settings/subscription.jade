@@ -27,7 +27,7 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template',
               li #{env.t('consecutiveMonths')} {{user.purchased.plan.consecutive.count + user.purchased.plan.consecutive.offset}}
               li #{env.t('gemCapExtra')} {{user.purchased.plan.consecutive.gemCapExtra}}
               li #{env.t('mysticHourglasses')} {{user.purchased.plan.consecutive.trinkets}}
-        
+
         div(ng-if='!user.purchased.plan.customerId || (user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')
           h4(ng-if='(user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')= env.t("resubscribe")
           .form-group.reduce-top-margin
@@ -49,7 +49,9 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template',
 
         div(ng-if='user.purchased.plan.customerId')
           .btn.btn-primary(ng-if='!user.purchased.plan.dateTerminated && user.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit()')=env.t('subUpdateCard')
-          .btn.btn-sm.btn-danger(ng-if='!user.purchased.plan.dateTerminated && user.purchased.plan.customerId !== "group-plan"', ng-click='Payments.cancelSubscription()')=env.t('cancelSub')
+          .btn.btn-sm.btn-danger(ng-if='user.purchased.plan.paymentMethod!="Apple" && user.purchased.plan.paymentMethod!="Google" && !user.purchased.plan.dateTerminated && user.purchased.plan.customerId !== "group-plan"', ng-click='Payments.cancelSubscription()')=env.t('cancelSub')
+          small(ng-if='user.purchased.plan.paymentMethod=="Google"')=env.t('cancelSubInfoGoogle')
+          small(ng-if='user.purchased.plan.paymentMethod=="Apple"')=env.t('cancelSubInfoApple')
 
         .container-fluid.slight-vertical-padding(ng-if='!user.purchased.plan.customerId || (user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')
           small.muted=env.t('subscribeUsing')

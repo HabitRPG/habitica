@@ -35,6 +35,8 @@
     "subscribed": "Subscribed",
     "manageSub": "Click to manage subscription",
     "cancelSub": "Cancel Subscription",
+    "cancelSubInfoGoogle": "Please go to the \"My apps & games\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
+    "cancelSubInfoApple": "Please go to the iTunes Store to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
     "canceledSubscription": "Canceled Subscription",
     "cancelingSubscription": "Canceling the subscription",
     "adminSub": "Administrator Subscriptions",
