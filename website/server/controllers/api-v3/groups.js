@@ -1,6 +1,7 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
+import nconf from 'nconf';
 import {
   model as Group,
   basicFields as basicGroupFields,
@@ -28,6 +29,7 @@ import shared from '../../../common';
 import apiMessages from '../../libs/apiMessages';
 
 const MAX_EMAIL_INVITES_BY_USER = 200;
+const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 
 /**
  * @apiDefine GroupBodyInvalid
@@ -1058,7 +1060,7 @@ api.inviteToGroup = {
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
 
-    if (user.invitesSent >= MAX_EMAIL_INVITES_BY_USER) throw new NotAuthorized(res.t('inviteLimitReached'));
+    if (user.invitesSent >= MAX_EMAIL_INVITES_BY_USER) throw new NotAuthorized(res.t('inviteLimitReached', { techAssistanceEmail: TECH_ASSISTANCE_EMAIL }));
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
