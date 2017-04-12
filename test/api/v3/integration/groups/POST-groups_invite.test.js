@@ -4,6 +4,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
+import nconf from 'nconf';
 
 const INVITES_LIMIT = 100;
 const PARTY_LIMIT_MEMBERS = 30;
@@ -223,7 +224,7 @@ describe('Post /groups/:groupId/invite', () => {
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('inviteLimitReached'),
+        message: t('inviteLimitReached', {techAssistanceEmail: nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL')}),
       });
     });
 
