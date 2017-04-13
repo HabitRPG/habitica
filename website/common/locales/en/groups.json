@@ -272,5 +272,6 @@
   "addManager": "Add Manager",
   "removeManager": "Remove",
   "userMustBeMember": "User must be a member",
-  "userIsNotManager": "User is not manager"
+  "userIsNotManager": "User is not manager",
+  "canOnlyApproveTaskOnce": "You can only approve a task once",
 }

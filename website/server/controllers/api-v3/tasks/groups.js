@@ -294,7 +294,7 @@ api.approveTask = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-    if (task.group.approval.approved === true) throw new NotAuthorized(apiMessages('canOnlyApproveTaskOnce'));
+    if (task.group.approval.approved === true) throw new NotAuthorized(res.t('canOnlyApproveTaskOnce'));
 
     task.group.approval.dateApproved = new Date();
     task.group.approval.approvingUser = user._id;

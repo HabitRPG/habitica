@@ -138,7 +138,7 @@ describe('POST /tasks/:id/approve/:userId', () => {
       .to.eventually.be.rejected.and.to.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: apiMessages('canOnlyApproveTaskOnce'),
+        message: t('canOnlyApproveTaskOnce'),
       });
   });
 });

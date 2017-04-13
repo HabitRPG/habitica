@@ -64,7 +64,7 @@ describe('POST /tasks/:id/score/:direction', () => {
     expect(updatedTask.group.approval.requestedDate).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
   });
 
-  it('sends notificatoins to all managers', async () => {
+  it('sends notifications to all managers', async () => {
     await user.post(`/groups/${guild._id}/add-manager`, {
       managerId: member2._id,
     });
