@@ -25,6 +25,13 @@ import logger from '../../libs/logger';
 
 const MAX_SCORE_NOTES_LENGTH = 256;
 
+function canNotEditTasks (group, user, assignedUserId) {
+  let isNotGroupLeader = group.leader !== user._id;
+  let isManager = Boolean(group.managers[user._id]);
+  let userIsAssigningToSelf = Boolean(assignedUserId && user._id === assignedUserId);
+  return isNotGroupLeader && !isManager && !userIsAssigningToSelf;
+}
+
 /**
  * @apiDefine TaskNotFound
  * @apiError (404) {NotFound} TaskNotFound The specified task could not be found.
@@ -416,10 +423,7 @@ api.updateTask = {
       let fields = requiredGroupFields.concat(' managers');
       group = await Group.getGroup({user, groupId: task.group.id, fields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
-      let isGroupLeader = group.leader === user._id;
-      let isManager = Boolean(group.managers[user._id]);
-      let canNotEditTasks = !isGroupLeader && !isManager;
-      if (canNotEditTasks) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
@@ -709,8 +713,7 @@ api.addChecklistItem = {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.group.id && !task.userId) {
       group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
-      if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
@@ -819,7 +822,7 @@ api.updateChecklistItem = {
     } else if (task.group.id && !task.userId) {
       group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
@@ -883,7 +886,7 @@ api.removeChecklistItem = {
     } else if (task.group.id && !task.userId) {
       group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
@@ -1202,10 +1205,7 @@ api.deleteTask = {
       let fields = requiredGroupFields.concat(' managers');
       let group = await Group.getGroup({user, groupId: task.group.id, fields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
-      let isGroupLeader = group.leader === user._id;
-      let isManager = Boolean(group.managers[user._id]);
-      let canNotEditTasks = !isGroupLeader && !isManager;
-      if (canNotEditTasks) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
       await group.removeTask(task);
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
