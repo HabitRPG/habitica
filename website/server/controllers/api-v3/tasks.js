@@ -552,9 +552,9 @@ api.scoreTask = {
           message: res.t('userHasRequestedTaskApproval', {
             user: user.profile.name,
             taskName: task.text,
-            taskId: task._id,
           }, manager.preferences.language),
           groupId: group._id,
+          taskId: task._id,
         });
         managerPromises.push(manager.save());
       });

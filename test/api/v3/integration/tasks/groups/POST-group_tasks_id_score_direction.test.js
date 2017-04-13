@@ -57,6 +57,7 @@ describe('POST /tasks/:id/score/:direction', () => {
     expect(user.notifications[0].data.message).to.equal(t('userHasRequestedTaskApproval', {
       user: member.auth.local.username,
       taskName: updatedTask.text,
+      taskId: updatedTask._id,
     }, 'cs')); // This test only works if we have the notification translated
     expect(user.notifications[0].data.groupId).to.equal(guild._id);
 
@@ -86,6 +87,7 @@ describe('POST /tasks/:id/score/:direction', () => {
     expect(user.notifications[0].data.message).to.equal(t('userHasRequestedTaskApproval', {
       user: member.auth.local.username,
       taskName: updatedTask.text,
+      taskId: updatedTask._id,
     }));
     expect(user.notifications[0].data.groupId).to.equal(guild._id);
 
@@ -94,6 +96,7 @@ describe('POST /tasks/:id/score/:direction', () => {
     expect(member2.notifications[0].data.message).to.equal(t('userHasRequestedTaskApproval', {
       user: member.auth.local.username,
       taskName: updatedTask.text,
+      taskId: updatedTask._id,
     }));
     expect(member2.notifications[0].data.groupId).to.equal(guild._id);
   });
