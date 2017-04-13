@@ -312,16 +312,12 @@ api.approveTask = {
 
     let managerIds = Object.keys(group.managers);
     managerIds.push(group.leader);
-    let managers = await User.find({_id: managerIds}).exec(); // Use this method so we can get access to notifications
+    let managers = await User.find({_id: managerIds}, 'notifications').exec(); // Use this method so we can get access to notifications
 
     let managerPromises = [];
     managers.forEach((manager) => {
       let notificationIndex =  findIndex(manager.notifications, function findNotification (notification) {
-        let notificationMessage = res.t('userHasRequestedTaskApproval', {
-          user: assignedUser.profile.name,
-          taskName: task.text,
-        });
-        return notification.data.message === notificationMessage;
+        return notification.data.taskId === task._id;
       });
 
       if (notificationIndex !== -1) {

@@ -544,7 +544,7 @@ api.scoreTask = {
       // @TODO: we can use the User.pushNotification function because we need to ensure notifications are translated
       let managerIds = Object.keys(group.managers);
       managerIds.push(group.leader);
-      let managers = await User.find({_id: managerIds}).exec(); // Use this method so we can get access to notifications
+      let managers = await User.find({_id: managerIds}, 'notifications preferences').exec(); // Use this method so we can get access to notifications
 
       let managerPromises = [];
       managers.forEach((manager) => {
@@ -552,6 +552,7 @@ api.scoreTask = {
           message: res.t('userHasRequestedTaskApproval', {
             user: user.profile.name,
             taskName: task.text,
+            taskId: task._id,
           }, manager.preferences.language),
           groupId: group._id,
         });
