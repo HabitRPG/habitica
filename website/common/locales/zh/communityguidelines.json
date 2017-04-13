@@ -83,7 +83,7 @@
     "commGuideList04B": "接受其他人对你所做修改的建议",
     "commGuideList04C": "在页面内的 讨论页里 讨论任何修改的冲突",
     "commGuideList04D": "将所有未解决的冲突提请wiki管理员关注",
-    "commGuideList04DRev": "Mentioning any unresolved conflict in the Wizards of the Wiki guild for additional discussion, or if the conflict has become abusive, contacting moderators (see below) or emailing Lemoness at <%= hrefCommunityManagerEmail %>",
+    "commGuideList04DRev": "可以在Wizards of the Wiki公会中提出任何尚未解决的争论，以便进一步商讨。或者，如果争论已演变成辱骂,请及时找到调解员反应（在下方）或发送电子邮件到<%= hrefCommunityManagerEmail %>",
     "commGuideList04E": "不允许垃圾信息或者为了个人谋求私利的页面",
     "commGuideList04F": "阅读<a href='http://habitica.wikia.com/wiki/Guidance_for_Scribes' target='_blank'>维基指导</a> 在做任何改变之前",
     "commGuideList04G": "在维基页面中使用中立的语气",

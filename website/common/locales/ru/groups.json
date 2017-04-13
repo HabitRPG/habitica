@@ -148,6 +148,7 @@
     "invitationsSent": "Приглашения отправлены!",
     "invitationSent": "Приглашение отправлено!",
     "inviteAlertInfo2": "Или поделитесь этой ссылкой (Скопировать/Вставить)",
+    "inviteLimitReached": "You have already sent the maximum number of email invitations. We have a limit to prevent spamming, however if you would like more, please contact us at <%= techAssistanceEmail %> and we'll be happy to discuss it!",
     "sendGiftHeading": "Отправить подарок <%= name %>",
     "sendGiftGemsBalance": "Из <%= number %> самоцветов",
     "sendGiftCost": "Всего: $<%= cost %> (долл. США)",

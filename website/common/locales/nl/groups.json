@@ -148,6 +148,7 @@
     "invitationsSent": "Uitnodigingen verstuurd!",
     "invitationSent": "Uitnodiging verstuurd!",
     "inviteAlertInfo2": "Of deel deze link (knip en plak):",
+    "inviteLimitReached": "You have already sent the maximum number of email invitations. We have a limit to prevent spamming, however if you would like more, please contact us at <%= techAssistanceEmail %> and we'll be happy to discuss it!",
     "sendGiftHeading": "Geschenk verzenden naar <%= name %>",
     "sendGiftGemsBalance": "Van <%= number %> edelstenen",
     "sendGiftCost": "Totaal: $<%= cost %> USD",

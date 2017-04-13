@@ -2989,6 +2989,38 @@ api.quests = {
       unlock: t('questPeacockUnlockText'),
     },
   },
+  butterfly: {
+    text: t('questButterflyText'),
+    notes: t('questButterflyNotes'),
+    completion: t('questButterflyCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questButterflyBoss'),
+      hp: 400,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Butterfly',
+          text: t('questButterflyDropButterflyEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Butterfly',
+          text: t('questButterflyDropButterflyEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Butterfly',
+          text: t('questButterflyDropButterflyEgg'),
+        },
+      ],
+      gp: 31,
+      exp: 200,
+      unlock: t('questButterflyUnlockText'),
+    },
+  },
 };
 
 each(api.quests, (v, key) => {

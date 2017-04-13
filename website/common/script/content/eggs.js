@@ -272,6 +272,11 @@ let quests = {
     adjective: t('questEggPeacockAdjective'),
     canBuy: hasQuestAchievementFunction('peacock'),
   },
+  Butterfly: {
+    text: t('questEggButterflyText'),
+    adjective: t('questEggButterflyAdjective'),
+    canBuy: hasQuestAchievementFunction('butterfly'),
+  },
 };
 
 applyEggDefaults(drops, {
