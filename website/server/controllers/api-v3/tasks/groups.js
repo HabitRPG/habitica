@@ -14,7 +14,6 @@ import {
   getTasks,
   moveTask,
 } from '../../../libs/taskManager';
-import apiMessages from '../../../libs/apiMessages';
 
 let requiredGroupFields = '_id leader tasksOrder name';
 let types = Tasks.tasksTypes.map(type => `${type}s`);

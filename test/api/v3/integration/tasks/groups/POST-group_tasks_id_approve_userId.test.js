@@ -2,7 +2,6 @@ import {
   createAndPopulateGroup,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import apiMessages from '../../../../../../website/server/libs/apiMessages';
 import { find } from 'lodash';
 
 describe('POST /tasks/:id/approve/:userId', () => {

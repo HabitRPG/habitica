@@ -1178,6 +1178,14 @@ api.removeGroupManager = {
     group.markModified('managers');
     await group.save();
 
+    let manager = await User.findById(managerId, 'notifications').exec();
+    let newNotifications = manager.notifications.filter((notification) => {
+      return notification.type !== 'GROUP_TASK_APPROVAL';
+    });
+    manager.notifications = newNotifications;
+    manager.markModified('notifications');
+    await manager.save();
+
     res.respond(200, group);
   },
 };
