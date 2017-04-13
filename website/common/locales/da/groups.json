@@ -148,6 +148,7 @@
     "invitationsSent": "Invitationer sendt!",
     "invitationSent": "Invitation sent!",
     "inviteAlertInfo2": "Eller del dette link (kopier/indsæt):",
+    "inviteLimitReached": "You have already sent the maximum number of email invitations. We have a limit to prevent spamming, however if you would like more, please contact us at <%= techAssistanceEmail %> and we'll be happy to discuss it!",
     "sendGiftHeading": "Send Gave til <%= name %>",
     "sendGiftGemsBalance": "Fra <%= number %> Ædelsten",
     "sendGiftCost": "Total: $<%= cost %> USD",

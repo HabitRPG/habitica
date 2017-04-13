@@ -36,10 +36,10 @@
     "messageInsufficientGems": "Gemas insuficientes!",
     "messageAuthPasswordMustMatch": ":password e :confirmPassword não combinam",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword requeridos",
-    "messageAuthUsernameTaken": "Nome de usuário já cadastrado",
+    "messageAuthUsernameTaken": "Nome de utilizador já registado",
     "messageAuthEmailTaken": "Email já cadastrado",
     "messageAuthNoUserFound": "Usuário não encontrado.",
-    "messageAuthMustBeLoggedIn": "Você deve estar logado.",
+    "messageAuthMustBeLoggedIn": "Deve ter a sessão iniciada.",
     "messageAuthMustIncludeTokens": "Você deve incluir o token e uid (ID do Usuário) na sua requisição",
     "messageGroupNotFound": "Grupo não encontrado ou você não tem acesso.",
     "messageGroupAlreadyInParty": "Já faz parte de uma equipa, tente recarregar.",
@@ -54,5 +54,5 @@
     "messageUserOperationProtected": "caminho `<%= operation %>` não foi salvo, já que é um caminho protegido.",
     "messageUserOperationNotFound": "<%= operation %> operação não encontrada",
     "messageNotificationNotFound": "Notificação não encontrada.",
-    "notificationsRequired": "Notification ids are required."
+    "notificationsRequired": "São necessárias as identificações de notificação."
 }

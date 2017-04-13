@@ -148,6 +148,7 @@
     "invitationsSent": "邀請已發送",
     "invitationSent": "邀請已送出！",
     "inviteAlertInfo2": "或者分享這個連接(複製／粘貼):",
+    "inviteLimitReached": "You have already sent the maximum number of email invitations. We have a limit to prevent spamming, however if you would like more, please contact us at <%= techAssistanceEmail %> and we'll be happy to discuss it!",
     "sendGiftHeading": "送<%= name %>禮物",
     "sendGiftGemsBalance": "從 <%= number %> 個寶石",
     "sendGiftCost": "總數: $<%= cost %> 美金",

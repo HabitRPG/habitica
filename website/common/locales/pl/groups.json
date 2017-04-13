@@ -148,6 +148,7 @@
     "invitationsSent": "Zaproszenia wysłane!",
     "invitationSent": "Zaproszenie wysłane!",
     "inviteAlertInfo2": "Lub podziel się tym odnośnikiem (kopiuj/wklej):",
+    "inviteLimitReached": "You have already sent the maximum number of email invitations. We have a limit to prevent spamming, however if you would like more, please contact us at <%= techAssistanceEmail %> and we'll be happy to discuss it!",
     "sendGiftHeading": "Wyślij prezent dla <%= name %>",
     "sendGiftGemsBalance": "Posiadanych Klejnotów: <%= number %>",
     "sendGiftCost": "Suma: <%= cost %> $",
