@@ -149,6 +149,10 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         });
     };
 
+    $scope.isManager = function (memberId, group) {
+      return Boolean(group.managers[memberId]);
+    }
+
     $scope.userCanApprove = function (userId, group) {
       if (!group) return false;
       var leader = group.leader._id === userId;

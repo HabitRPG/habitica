@@ -274,4 +274,6 @@
   "userMustBeMember": "User must be a member",
   "userIsNotManager": "User is not manager",
   "canOnlyApproveTaskOnce": "You can only approve a task once",
+  "leaderMarker": " - Leader",
+  "managerMarker": " - Manager"
 }

@@ -112,6 +112,10 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                   a.media-body
                     span(ng-click='clickMember(member._id, true)')
                         | {{member.profile.name}}
+                    span(ng-if='group.leader._id === member.id')
+                      | {{env.t('leaderMarker')}}
+                    span(ng-show='isManager(member._id, group)')
+                      | {{env.t('managerMarker')}}
                     span(ng-click='clickMember(member._id, true)' ng-if='group.type === "party"')
                         |  (#[strong {{member.stats.hp.toFixed(1)}}] #{env.t('hp')}) {{member.id === user.id ? ' ' + env.t('you') : ''}}
                   .pull-right(ng-if='group.type === "party"')
