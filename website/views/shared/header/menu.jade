@@ -77,7 +77,7 @@ nav.toolbar(ng-controller='MenuCtrl')
             li.toolbar-subscribe-button
               button(ng-if='!user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
             li.toolbar-controls-button
-              a(data-close-menu)=env.t('close')
+              a=env.t('close')
     ul.toolbar-nav
       li.toolbar-button
         a(ui-sref='tasks')
@@ -195,42 +195,42 @@ nav.toolbar(ng-controller='MenuCtrl')
             ul.toolbar-notifs-notifs
               li.toolbar-notifs-no-messages(ng-if='hasNoNotifications()')=env.t('noNotifications')
               li(ng-if='user.purchased.plan.mysteryItems.length')
-                a(ng-click='$state.go("options.inventory.drops"); ', data-close-menu)
+                a(ng-click='$state.go("options.inventory.drops"); ')
                   span.glyphicon.glyphicon-gift
                   span=env.t('newSubscriberItem')
               li(ng-if='user.invitations.party.id')
-                a(ui-sref='options.social.party', data-close-menu)
+                a(ui-sref='options.social.party')
                   span.glyphicon.glyphicon-user
                   span=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
               li(ng-if='user.flags.cardReceived')
-                a(ng-click='$state.go("options.inventory.drops"); ', data-close-menu)
+                a(ng-click='$state.go("options.inventory.drops"); ')
                   span.glyphicon.glyphicon-envelope
                   span=env.t('cardReceived')
                 a(ng-click='clearCards()', popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
                   span.glyphicon.glyphicon-remove-circle
               li(ng-repeat='guild in user.invitations.guilds')
-                a(ui-sref='options.social.guilds.public', data-close-menu)
+                a(ui-sref='options.social.guilds.public')
                   span.glyphicon.glyphicon-user
                   span=env.t('invitedTo', {name: '{{guild.name}}'})
               li(ng-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points')
-                a(ui-sref='options.profile.stats', data-close-menu)
+                a(ui-sref='options.profile.stats')
                   span.glyphicon.glyphicon-plus-sign
                   span=env.t('haveUnallocated', {points: '{{user.stats.points}}'})
               li(ng-repeat='(k,v) in user.newMessages', ng-if='v.value')
-                a(ng-click='(k === party._id || k === user.party._id) ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); ', data-close-menu)
+                a(ng-click='(k === party._id || k === user.party._id) ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); ')
                   span.glyphicon.glyphicon-comment
                   span {{v.name}}
                 a(ng-click='clearMessages(k)', popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
                   span.glyphicon.glyphicon-remove-circle
               li(ng-repeat='notification in user.groupNotifications')
-                a(ng-click='viewGroupApprovalNotification(notification, $index)', data-close-menu)
+                a(ng-click='viewGroupApprovalNotification(notification, $index)')
                   span(class="{{::groupApprovalNotificationIcon(notification)}}")
                   span
                     | {{notification.data.message}}
 
           ul.toolbar-controls
             li.toolbar-controls-button
-              a(data-close-menu)=env.t('close')
+              a=env.t('close')
       li.toolbar-audio(dropdown)
         a(dropdown-toggle)
           span.glyphicon(ng-class="{'glyphicon-volume-off':user.preferences.sound === 'off', 'glyphicon-volume-up':user.preferences.sound!='off'}")
@@ -244,7 +244,7 @@ nav.toolbar(ng-controller='MenuCtrl')
                   a(ng-class="{'bg-info':user.preferences.sound === '#{theme}'}", ng-click="set({'preferences.sound':'#{theme}'})")=env.t('audioTheme_'+theme)
           ul.toolbar-controls
             li.toolbar-controls-button
-              a(data-close-menu)=env.t('close')
+              a=env.t('close')
 
       li.toolbar-sync
         a(ng-click='User.sync()', popover=env.t('sync'),popover-placement='bottom',popover-trigger='mouseenter')
@@ -276,7 +276,7 @@ nav.toolbar(ng-controller='MenuCtrl')
                 a(href='https://habitica.com/static/faq', target='_blank')=env.t('FAQ')
           ul.toolbar-controls
             li.toolbar-controls-button
-              a(data-close-menu)=env.t('close')
+              a=env.t('close')
     ul.toolbar-wallet
       li.toolbar-gems(popover-trigger='mouseenter', popover-title=env.t('gemsPopoverTitle'), popover=env.t('gemsWhatFor'), popover-placement='bottom',popover-append-to-body='true')
         a.gem-wallet(ng-click='openModal("buyGems",{track:"Gems > Toolbar"})')
