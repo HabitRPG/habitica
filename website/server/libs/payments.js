@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import nconf from 'nconf';
 import analytics from './analyticsService';
 import {
   getUserInfo,
@@ -17,6 +18,10 @@ import {
   NotFound,
 } from './errors';
 import slack from './slack';
+
+const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
+  return { email, canSend: true };
+});
 
 let api = {};
 
@@ -115,12 +120,13 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
     let ignorePaymentPlan = paymentMethodsToIgnore.indexOf(memberPlan.paymentMethod) !== -1;
     let ignoreCustomerId = customerIdsToIgnore.indexOf(memberPlan.customerId) !== -1;
 
-    // @TODO: send email to admin
     if (ignorePaymentPlan) {
-      // txnEmail(data.user, 'group-member-joining', [
-      //   {name: 'LEADER', content: leader.profile.name},
-      //   {name: 'GROUP_NAME', content: group.name},
-      // ]);
+      txnEmail(FLAG_REPORT_EMAILS, 'invalid-payment-cancel', [
+        {name: 'USERNAME', content: member.auth.local.username},
+        {name: 'UUID', content: member._id},
+        {name: 'EMAIL', content: member.auth.local.email},
+        {name: 'PAYMENT_METHOD', content: memberPlan.paymentMethod},
+      ]);
     }
 
     if ((ignorePaymentPlan || ignoreCustomerId) && !customerHasCancelledGroupPlan) return;
