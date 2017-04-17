@@ -10,6 +10,9 @@ db.users.find().forEach(function(user){
          parseInt(items.shield) == 5 &&
          parseInt(items.weapon) == 6) {
 
+    	/**
+    	 * update User achievements
+    	 */
         try {
             db.users.update(
                 {_id:user._id},

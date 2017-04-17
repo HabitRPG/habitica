@@ -11,7 +11,11 @@ db.users.find().forEach(function(user){
             task.history = _.filter(task.history, function(h){return !!h.value})
         }
     });
-
+    
+    
+    /**
+     * Setting user tasks in db
+     */
     try {
         db.users.update(
             {_id:user._id},
