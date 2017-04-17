@@ -7,12 +7,16 @@
     input.task-input.habit.visuallyhidden(
       ng-if='task.up',
       type='checkbox',
+      aria-label='plus',
+      role='button', 
       ui-keypress='{ 13:"score(task, \'up\')" }' )
     a(ng-if='task.up', ng-click='applyingAction || score(task,"up")')
       span.glyphicon.glyphicon-plus
     input.task-input.habit.visuallyhidden(
       ng-if='task.down',
       type='checkbox',
+      aria-label='minus',
+      role='button',
       ui-keypress='{ 13:"score(task, \'down\')" }' )
     a(ng-if='task.down', ng-click='applyingAction || score(task,"down")')
       span.glyphicon.glyphicon-minus
