@@ -70,8 +70,8 @@ module.exports = prefill({
   'holly': {price: 2, set: sets.winterySkins},
   'polar': {price: 2, set: sets.winterySkins},
   'sugar': {price: 2, set: sets.winterySkins},
-  'snowy': {price: 2, set: sets.winterySkinColors},
-  'winterstar': {price: 2, set: sets.winterySkinColors},
+  'snowy': {price: 2, set: sets.winterySkins},
+  'winterstar': {price: 2, set: sets.winterySkins},
 
     /* eslint-enable quote-props */
 });
