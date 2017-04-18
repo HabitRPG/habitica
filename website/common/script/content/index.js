@@ -3127,6 +3127,74 @@ api.userDefaults = {
   ],
 };
 
+api.userDefaultsMobile = {
+  habits: [
+    {
+      type: 'habit',
+      text: t('defaultHabit4Text'),
+      notes: t('defaultHabit4Notes'),
+      up: true,
+      down: false,
+      attribute: 'per',
+    }, {
+      type: 'habit',
+      text: t('defaultHabit5Text'),
+      notes: t('defaultHabit5Notes'),
+      up: false,
+      down: true,
+      attribute: 'con',
+    },
+  ],
+  dailys: [
+    {
+      type: 'daily',
+      text: t('defaultDaily1Text'),
+      attribute: 'per',
+    },
+  ],
+  todos: [
+    {
+      type: 'todo',
+      text: t('defaultTodo1Text'),
+      notes: t('defaultTodoNotes'),
+      completed: false,
+      attribute: 'int',
+    },
+    {
+      type: 'todo',
+      text: t('defaultTodo2Text'),
+      notes: t('defaultTodo2Notes'),
+      completed: false,
+      attribute: 'int',
+    },
+  ],
+  rewards: [
+    {
+      type: 'reward',
+      text: t('defaultReward2Text'),
+      notes: t('defaultReward2Notes'),
+      value: 20,
+    },
+  ],
+  tags: [
+    {
+      name: t('defaultTag1'),
+    }, {
+      name: t('defaultTag2'),
+    }, {
+      name: t('defaultTag3'),
+    }, {
+      name: t('defaultTag4'),
+    }, {
+      name: t('defaultTag5'),
+    }, {
+      name: t('defaultTag6'),
+    }, {
+      name: t('defaultTag7'),
+    },
+  ],
+};
+
 api.faq = faq;
 
 api.loginIncentives = loginIncentives(api);

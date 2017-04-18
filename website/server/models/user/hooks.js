@@ -31,10 +31,11 @@ function findTag (user, tagName) {
 }
 
 function _populateDefaultTasks (user, taskTypes) {
+  let defaultsData = user.registeredThrough === 'habitica-web' ? shared.content.userDefaults: shared.content.userDefaultsMobile;
   let tagsI = taskTypes.indexOf('tag');
 
   if (tagsI !== -1) {
-    user.tags = _.map(shared.content.userDefaults.tags, (tag) => {
+    user.tags = _.map(defaultsData.tags, (tag) => {
       let newTag = _.cloneDeep(tag);
 
       // tasks automatically get _id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
@@ -53,7 +54,7 @@ function _populateDefaultTasks (user, taskTypes) {
   }
 
   _.each(taskTypes, (taskType) => {
-    let tasksOfType = _.map(shared.content.userDefaults[`${taskType}s`], (taskDefaults) => {
+    let tasksOfType = _.map(defaultsData[`${taskType}s`], (taskDefaults) => {
       let newTask = new Tasks[taskType](taskDefaults);
 
       newTask.userId = user._id;
