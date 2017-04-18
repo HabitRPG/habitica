@@ -289,6 +289,7 @@ api.createSubscription = async function createSubscription (data) {
   }
 
   if (recipient !== group) {
+    recipient.items.pets['Jackalope-RoyalPurple'] = 5;
     revealMysteryItems(recipient);
   }
 
