@@ -12,6 +12,9 @@ import {each} from 'lodash';
 const MAX_SPRITESHEET_SIZE = 1024 * 1024 * 3;
 const DIST_PATH = 'website/assets/sprites/dist/';
 
+const IMG_DIST_PATH_NEW_CLIENT = 'website/static/sprites/';
+const CSS_DIST_PATH_NEW_CLIENT = 'website/client/assets/css/sprites/';
+
 gulp.task('sprites:compile', ['sprites:clean', 'sprites:main', 'sprites:largeSprites', 'sprites:checkCompiledDimensions']);
 
 gulp.task('sprites:main', () => {
@@ -25,7 +28,7 @@ gulp.task('sprites:largeSprites', () => {
 });
 
 gulp.task('sprites:clean', (done) => {
-  clean(`${DIST_PATH}spritesmith*`, done);
+  clean(`{${DIST_PATH}spritesmith*,${IMG_DIST_PATH_NEW_CLIENT}spritesmith*,${CSS_DIST_PATH_NEW_CLIENT}spritesmith*}`, done);
 });
 
 gulp.task('sprites:checkCompiledDimensions', ['sprites:main', 'sprites:largeSprites'], () => {
@@ -66,14 +69,16 @@ function createSpritesStream (name, src) {
         algorithm: 'binary-tree',
         padding: 1,
         cssTemplate: 'website/assets/sprites/css/css.template.handlebars',
-        cssVarMap: cssVarMap
+        cssVarMap: cssVarMap,
       }));
 
     let imgStream = spriteData.img
       .pipe(imagemin())
+      .pipe(gulp.dest(IMG_DIST_PATH_NEW_CLIENT))
       .pipe(gulp.dest(DIST_PATH));
 
     let cssStream = spriteData.css
+      .pipe(gulp.dest(CSS_DIST_PATH_NEW_CLIENT))
       .pipe(gulp.dest(DIST_PATH));
 
     stream.add(imgStream);
@@ -148,4 +153,9 @@ function cssVarMap (sprite) {
   }
   if (~sprite.name.indexOf('shirt'))
     sprite.custom.px.offset_y = `-${ sprite.y + 30 }px`; // even more for shirts
+  if (~sprite.name.indexOf('hair_base')) {
+    let styleArray = sprite.name.split('_').slice(2,3);
+    if (Number(styleArray[0]) > 14)
+      sprite.custom.px.offset_y = `-${ sprite.y }px`; // don't crop updos
+  }
 }

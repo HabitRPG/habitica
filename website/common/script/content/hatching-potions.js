@@ -1,9 +1,9 @@
-import {
-  assign,
-  defaults,
-  each,
-} from 'lodash';
+import assign from 'lodash/assign';
+import defaults from 'lodash/defaults';
+import each from 'lodash/each';
 import t from './translation';
+
+const CURRENT_SEASON = 'April';
 
 let drops = {
   Base: {
@@ -49,20 +49,22 @@ let drops = {
 };
 
 let premium = {
-  Spooky: {
+  RoyalPurple: {
     value: 2,
-    text: t('hatchingPotionSpooky'),
+    text: t('hatchingPotionRoyalPurple'),
     limited: true,
-    _season: 'fall',
-    canBuy () {
-      return true;
-    },
   },
-  Peppermint: {
+  Cupid: {
     value: 2,
-    text: t('hatchingPotionPeppermint'),
+    text: t('hatchingPotionCupid'),
     limited: true,
-    _season: 'winter',
+    _season: 'valentines',
+  },
+  Shimmer: {
+    value: 2,
+    text: t('hatchingPotionShimmer'),
+    limited: true,
+    _season: 'April',
   },
   Floral: {
     value: 2,
@@ -76,14 +78,29 @@ let premium = {
     limited: true,
     _season: 'summer',
   },
+  Spooky: {
+    value: 2,
+    text: t('hatchingPotionSpooky'),
+    limited: true,
+    _season: 'fall',
+  },
   Ghost: {
     value: 2,
     text: t('hatchingPotionGhost'),
     limited: true,
     _season: 'fall',
-    canBuy () {
-      return true;
-    },
+  },
+  Holly: {
+    value: 2,
+    text: t('hatchingPotionHolly'),
+    limited: true,
+    _season: 'winter',
+  },
+  Peppermint: {
+    value: 2,
+    text: t('hatchingPotionPeppermint'),
+    limited: true,
+    _season: 'winter',
   },
 };
 
@@ -109,11 +126,13 @@ each(premium, (pot, key) => {
     notes: t('hatchingPotionNotes', {
       potText: pot.text,
     }),
-    _addlNotes: t(`${pot._season}EventAvailability`),
+    _addlNotes: t('eventAvailability', {
+      date: t(`dateEnd${pot._season}`),
+    }),
     premium: true,
     limited: false,
     canBuy () {
-      return false;
+      return pot._season === CURRENT_SEASON;
     },
   });
 });

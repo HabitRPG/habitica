@@ -5,7 +5,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 
-describe('GET challenges/group/:groupId', () => {
+describe('GET challenges/groups/:groupId', () => {
   context('Public Guild', () => {
     let publicGuild, user, nonMember, challenge, challenge2;
 

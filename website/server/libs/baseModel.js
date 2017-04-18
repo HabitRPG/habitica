@@ -1,6 +1,5 @@
 import { v4 as uuid } from 'uuid';
 import validator from 'validator';
-import objectPath from 'object-path'; // TODO use lodash's unset once v4 is out
 import _ from 'lodash';
 
 module.exports = function baseModel (schema, options = {}) {
@@ -45,7 +44,7 @@ module.exports = function baseModel (schema, options = {}) {
   // This method accepts an additional array of fields to be sanitized that can be passed at runtime
   schema.statics.sanitize = function sanitize (objToSanitize = {}, additionalFields = []) {
     noSetFields.concat(additionalFields).forEach((fieldPath) => {
-      objectPath.del(objToSanitize, fieldPath);
+      _.unset(objToSanitize, fieldPath);
     });
 
     // Allow a sanitize transform function to be used
@@ -57,7 +56,7 @@ module.exports = function baseModel (schema, options = {}) {
   if (!schema.options.toJSON) schema.options.toJSON = {};
   schema.options.toJSON.transform = function transformToObject (doc, plainObj) {
     privateFields.forEach((fieldPath) => {
-      objectPath.del(plainObj, fieldPath);
+      _.unset(plainObj, fieldPath);
     });
 
     // Always return `id`

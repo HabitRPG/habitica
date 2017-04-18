@@ -1,10 +1,14 @@
 {
     "pets": "חיות מחמד",
+    "activePet": "Active Pet",
+    "noActivePet": "No Active Pet",
     "petsFound": "חיות מחמד שנאספו",
     "magicPets": "חיות מחמד קסומות",
     "rarePets": "חיות מחמד נדירות",
     "questPets": "חיות הרפתקה",
     "mounts": "חיות רכיבה",
+    "activeMount": "Active Mount",
+    "noActiveMount": "No Active Mount",
     "mountsTamed": "חיות רכיבה שאולפו",
     "questMounts": "חיות רכיבה מהרפתקאות",
     "magicMounts": "חיות רכיבה קסומות",
@@ -21,6 +25,7 @@
     "royalPurpleGryphon": "גריפון סגול מלכותי",
     "phoenix": "פיניקס",
     "magicalBee": "דבורה קסומה",
+    "royalPurpleJackalope": "Royal Purple Jackalope",
     "rarePetPop1": "לחצו על הכפה הזהובה ותוכלו ללמוד כיצד להשיג חיה נדירה זו - דרך תרומה להאביטיקה!",
     "rarePetPop2": "איך לקבל את חיית המחמד הזו!",
     "potion": "שיקוי <%= potionType %>",
@@ -88,5 +93,7 @@
     "petsReleased": "חיות המחמד שוחררו.",
     "mountsAndPetsReleased": "חיות המחמד וחיות הרכיבה שוחררו",
     "mountsReleased": "חיות הרכיבה שוחררו",
-    "gemsEach": "אבני חן לכל אחד"
+    "gemsEach": "אבני חן לכל אחד",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

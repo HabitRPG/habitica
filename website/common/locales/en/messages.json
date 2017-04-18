@@ -59,5 +59,6 @@
 
   "messageUserOperationProtected": "path `<%= operation %>` was not saved, as it's a protected path.",
   "messageUserOperationNotFound": "<%= operation %> operation not found",
-  "messageNotificationNotFound": "Notification not found."
+  "messageNotificationNotFound": "Notification not found.",
+  "notificationsRequired": "Notification ids are required."
 }

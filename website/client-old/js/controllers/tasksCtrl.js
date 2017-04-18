@@ -1,7 +1,7 @@
 "use strict";
 
-habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrl', '$timeout', 'Content', 'Shared', 'Guide', 'Tasks', 'Analytics',
-  function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Content, Shared, Guide, Tasks, Analytics) {
+habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrl', '$timeout', 'Content', 'Shared', 'Guide', 'Tasks', 'Analytics', '$modal',
+  function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Content, Shared, Guide, Tasks, Analytics, $modal) {
     $scope.obj = User.user; // used for task-lists
     $scope.user = User.user;
 
@@ -11,7 +11,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       return Shared.count.remainingGearInSet(gear, 'armoire');
     };
 
-    $scope.score = function(task, direction) {
+    function scoreTask (task, direction) {
       switch (task.type) {
           case 'reward':
               playRewardSound(task);
@@ -26,8 +26,36 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
               if (direction === 'down') $rootScope.playSound('Minus_Habit');
               else if (direction === 'up') $rootScope.playSound('Plus_Habit');
       }
-      User.score({params:{task: task, direction:direction}});
+      User.score({
+        params: {
+          task: task,
+          direction:direction
+        },
+        body: {
+          scoreNotes: task.scoreNotes,
+        },
+      });
       Analytics.updateUser();
+    }
+
+    $scope.score = function(task, direction) {
+      if (!User.user.preferences.tasks.confirmScoreNotes) return scoreTask(task, direction);
+
+      $modal.open({
+        templateUrl: 'modals/task-notes.html',
+        controller: ['$scope', 'task', function ($scope, task) {
+          $scope.task = task;
+        }],
+        resolve: {
+          task: function() {
+            return task;
+          }
+        }
+      }).result.then(function(result) {
+        task = result;
+        if (!task) return;
+        scoreTask(task, direction);
+      });
     };
 
     function addUserTasks(listDef, tasks) {
@@ -42,6 +70,11 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       User.addTask({
         body: tasks,
       });
+
+      if (User.user.preferences.newTaskEdit) {
+        var taskToEdit = tasks[tasks.length -1];
+        $scope.editTask(taskToEdit, User.user, Shared.taskClasses(taskToEdit, User.user.filters, User.user.preferences.dayStart, User.user.lastCron, listDef.showCompleted, main));
+      }
     }
 
     $scope.addTask = function(listDef) {
@@ -51,11 +84,17 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     $scope.toggleBulk = Tasks.toggleBulk;
 
-    $scope.editTask = Tasks.editTask;
+    $scope.editTask = function (task, user, taskStatus) {
+      Tasks.editTask(task, user, taskStatus, $scope);
+    };
 
     $scope.canEdit = function(task) {
       // can't edit challenge tasks
-      return !task.challenge.id;
+      return !task.challenge.id && (!task.group || !task.group.id);
+    }
+
+    $scope.checkGroupAccess = function (group) {
+      return true;
     }
 
     $scope.doubleClickTask = function (obj, task) {
@@ -66,7 +105,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       if (task._editing) {
         $scope.saveTask(task);
       } else {
-        $scope.editTask(task, User.user);
+        $scope.editTask(task, User.user, Shared.taskClasses(task, [], User.user.preferences.dayStart));
       }
     }
 
@@ -98,6 +137,8 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       } else {
         $scope.score(task, "down");
       }
+
+      if (task.group && task.group.approval && task.group.approval.required && !task.group.approval.approved) task.completed = false;
     };
 
     $scope.saveTask = function(task, stayOpen, isSaveAndClose) {
@@ -118,6 +159,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.removeTask = function(task) {
       if (!Tasks.removeTask(task)) return;
       User.deleteTask({params:{id: task._id, taskType: task.type}})
+      $rootScope.$broadcast('obj-updated', User.user);
     };
 
     $scope.unlink = function(task, keep) {
@@ -173,11 +215,6 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      Checklists
      ------------------------
      */
-     /*
-      ------------------------
-      Checklists
-      ------------------------
-      */
      $scope.addChecklist = Tasks.addChecklist;
 
      $scope.addChecklistItem = Tasks.addChecklistItemToUI;
@@ -225,9 +262,10 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
      ------------------------
      */
 
-    $scope.shouldShow = function(task, list, prefs){
+    $scope.shouldShow = function(task, list, prefs) {
       if (task._editing) // never hide a task while being edited
         return true;
+
       var shouldDo = task.type == 'daily' ? habitrpgShared.shouldDo(new Date, task, prefs) : true;
       switch (list.view) {
         case "yellowred":  // Habits
@@ -324,4 +362,17 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
       return notes;
     };
+
+    /*
+     * Task Details
+     */
+      $scope.taskPopover = function (task) {
+        if (task.popoverOpen) return '';
+        var content = task.notes;
+        return content;
+      };
+
+      $scope.getClasses = function (task, user, list, main) {
+        return Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main);
+      }
   }]);

@@ -4,6 +4,7 @@ import {
   generateChallenge,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
+import { find } from 'lodash';
 
 describe('POST /user/reset', () => {
   let user;
@@ -86,19 +87,34 @@ describe('POST /user/reset', () => {
     expect(user.tasksOrder.rewards).to.be.empty;
   });
 
-  it('does not delete challenge tasks', async () => {
+  it('does not delete challenge or group tasks', async () => {
     let guild = await generateGroup(user);
     let challenge = await generateChallenge(user, guild);
-    let task = await user.post(`/tasks/challenge/${challenge._id}`, {
+    await user.post(`/tasks/challenge/${challenge._id}`, {
       text: 'test challenge habit',
       type: 'habit',
     });
 
+    let groupTask = await user.post(`/tasks/group/${guild._id}`, {
+      text: 'todo group',
+      type: 'todo',
+    });
+    await user.post(`/tasks/${groupTask._id}/assign/${user._id}`);
+
     await user.post('/user/reset');
     await user.sync();
 
-    let userChallengeTask = await user.get(`/tasks/${task._id}`);
+    let memberTasks = await user.get('/tasks/user');
 
-    expect(userChallengeTask).to.eql(task);
+    let syncedGroupTask = find(memberTasks, function findAssignedTask (memberTask) {
+      return memberTask.group.id === guild._id;
+    });
+
+    let userChallengeTask = find(memberTasks, function findAssignedTask (memberTask) {
+      return memberTask.challenge.id === challenge._id;
+    });
+
+    expect(userChallengeTask).to.exist;
+    expect(syncedGroupTask).to.exist;
   });
 });

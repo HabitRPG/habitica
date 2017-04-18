@@ -10,7 +10,7 @@ import schema from './schema';
 schema.plugin(baseModel, {
   // noSet is not used as updating uses a whitelist and creating only accepts specific params (password, email, username, ...)
   noSet: [],
-  private: ['auth.local.hashed_password', 'auth.local.salt', '_cronSignature', '_ABtest'],
+  private: ['auth.local.hashed_password', 'auth.local.passwordHashMethod', 'auth.local.salt', '_cronSignature', '_ABtest', '_ABtests'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
     delete plainObj.filters;
@@ -22,6 +22,13 @@ schema.plugin(baseModel, {
 schema.post('init', function postInitUser (doc) {
   shared.wrap(doc);
 });
+
+function findTag (user, tagName) {
+  let tagID = _.find(user.tags, (userTag) => {
+    return userTag.name === tagName(user.preferences.language);
+  });
+  return tagID.id;
+}
 
 function _populateDefaultTasks (user, taskTypes) {
   let tagsI = taskTypes.indexOf('tag');
@@ -59,6 +66,10 @@ function _populateDefaultTasks (user, taskTypes) {
         });
       }
 
+      if (taskDefaults.tags) {
+        newTask.tags = _.compact(_.map(taskDefaults.tags, _.partial(findTag, user)));
+      }
+
       return newTask.save();
     });
 
@@ -77,15 +88,18 @@ function _setUpNewUser (user) {
   let taskTypes;
   let iterableFlags = user.flags.toObject();
 
-  // A/B Test 2016-09-26: Start with Armoire Enabled?
+  user._ABtest = '';
+  // A/B test 2016-12-21: Should we deliver notifications for upcoming incentives on days when users don't receive rewards?
   if (Math.random() < 0.5) {
-    user.flags.armoireEnabled = true;
-    user._ABtest = '20160926-armoireEnabled';
+    user._ABtests.checkInModals = '20161221_noCheckInPreviews'; // no 'preview' check-in modals
   } else {
-    user._ABtest = '20160926-armoireDisabled';
+    user._ABtests.checkInModals = '20161221_showCheckInPreviews'; // show 'preview' check-in modals
   }
+  user.items.quests.dustbunnies = 1;
+  user.purchased.background.violet = true;
+  user.preferences.background = 'violet';
 
-  if (user.registeredThrough === 'habitica-web' || user.registeredThrough === 'habitica-android') {
+  if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
 
     _.each(iterableFlags.tutorial.common, (val, section) => {
@@ -123,43 +137,69 @@ function _setProfileName (user) {
 
   let localUsername = user.auth.local && user.auth.local.username;
   let googleUsername = google && google.displayName;
-  let anonymous = 'Anonymous';
+  let anonymous = 'profile name not found';
 
   return localUsername || _getFacebookName(user.auth.facebook) || googleUsername || anonymous;
 }
 
-schema.pre('save', true, function preSaveUser (next, done) {
-  next();
-
-  if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
-    this.preferences.dayStart = 0;
-  }
-
-  if (!this.profile.name) {
+schema.pre('validate', function preValidateUser (next) {
+  // Populate new user with profile name, not running in pre('save') because the field
+  // is required and validation fails if it doesn't exists like for new users
+  if (this.isNew && !this.profile.name) {
     this.profile.name = _setProfileName(this);
   }
 
-  // Determines if Beast Master should be awarded
-  let beastMasterProgress = shared.count.beastMasterProgress(this.items.pets);
+  next();
+});
 
-  if (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0) {
-    this.achievements.beastMaster = true;
-  }
+schema.pre('save', true, function preSaveUser (next, done) {
+  next();
 
-  // Determines if Mount Master should be awarded
-  let mountMasterProgress = shared.count.mountMasterProgress(this.items.mounts);
+  // VERY IMPORTANT NOTE: when only some fields from an user document are selected
+  // using `.select('field1 field2')` when the user is saved we must make sure that
+  // these hooks do not run using default data. For example if user.items is missing
+  // we do not want to run any hook that relies on user.items because it will
+  // use the default values defined in the user schema and not the real ones.
+  //
+  // To check if a field was selected Document.isSelected('field') can be used.
+  // more info on its usage can be found at http://mongoosejs.com/docs/api.html#document_Document-isSelected
+  // IMPORTANT NOTE2 : due to a bug in mongoose (https://github.com/Automattic/mongoose/issues/5063)
+  // document.isSelected('items') will return true even if only a sub field (like 'items.mounts')
+  // was selected. So this fix only works as long as the entire subdoc is selected
+  // For example in the code below it won't work if only `achievements.beastMasterCount` is selected
+  // which is why we should only ever select the full paths and not subdocs,
+  // or if we really have to do the document.isSelected() calls should check for
+  // every specific subpath (items.mounts, items.pets, ...) but it's better to avoid it
+  // since it'll break as soon as a new field is added to the schema but not here.
 
-  if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
-    this.achievements.mountMaster = true;
-  }
+  // do not calculate achievements if items or achievements are not selected
+  if (this.isSelected('items') && this.isSelected('achievements')) {
+    // Determines if Beast Master should be awarded
+    let beastMasterProgress = shared.count.beastMasterProgress(this.items.pets);
 
-  // Determines if Triad Bingo should be awarded
+    if (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0) {
+      this.achievements.beastMaster = true;
+    }
 
-  let dropPetCount = shared.count.dropPetsCurrentlyOwned(this.items.pets);
-  let qualifiesForTriad = dropPetCount >= 90 && mountMasterProgress >= 90;
+    // Determines if Mount Master should be awarded
+    let mountMasterProgress = shared.count.mountMasterProgress(this.items.mounts);
 
-  if (qualifiesForTriad || this.achievements.triadBingoCount > 0) {
-    this.achievements.triadBingo = true;
+    if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
+      this.achievements.mountMaster = true;
+    }
+
+    // Determines if Triad Bingo should be awarded
+    let dropPetCount = shared.count.dropPetsCurrentlyOwned(this.items.pets);
+    let qualifiesForTriad = dropPetCount >= 90 && mountMasterProgress >= 90;
+
+    if (qualifiesForTriad || this.achievements.triadBingoCount > 0) {
+      this.achievements.triadBingo = true;
+    }
+
+    // EXAMPLE CODE for allowing all existing and new players to be
+    // automatically granted an item during a certain time period:
+    // if (!this.items.pets['JackOLantern-Base'] && moment().isBefore('2014-11-01'))
+    // this.items.pets['JackOLantern-Base'] = 5;
   }
 
   // Enable weekly recap emails for old users who sign in
@@ -170,10 +210,9 @@ schema.pre('save', true, function preSaveUser (next, done) {
     this.flags.lastWeeklyRecapDiscriminator = undefined;
   }
 
-  // EXAMPLE CODE for allowing all existing and new players to be
-  // automatically granted an item during a certain time period:
-  // if (!this.items.pets['JackOLantern-Base'] && moment().isBefore('2014-11-01'))
-  // this.items.pets['JackOLantern-Base'] = 5;
+  if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
+    this.preferences.dayStart = 0;
+  }
 
   // our own version incrementer
   if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;

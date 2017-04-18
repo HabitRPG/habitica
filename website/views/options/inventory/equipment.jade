@@ -31,16 +31,22 @@ mixin equipmentButton(type)
         popover-append-to-body='true')
 
 mixin equipmentList(equipmentType)
-  menu.pets-menu(label='{{::label}}', ng-show='gearByClass[klass]', ng-if='groupingChoice === "klass"',
+  menu.pets-menu(label='{{::label}}', ng-show='filteredGearByClass[klass]', ng-if='groupingChoice === "klass"',
     ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery"), armoire:env.t("armoireText")}')
-    div(ng-repeat='item in gearByClass[klass] | orderBy: order')
+    div(ng-repeat='item in filteredGearByClass[klass] | orderBy: order')
       +equipmentButton(equipmentType)
-  menu.pets-menu(label='{{::label}}', ng-show='gearByType[type]', ng-if='groupingChoice === "equipmentType"',
+  menu.pets-menu(label='{{::label}}', ng-show='filteredGearByType[type]', ng-if='groupingChoice === "equipmentType"',
     ng-repeat='(type,label) in {headAccessory:env.t("headAccessoryCapitalized"), head:env.t("headgearCapitalized"), eyewear:env.t("eyewear"), weapon:env.t("weaponCapitalized"), shield:env.t("offhandCapitalized"), armor:env.t("armorCapitalized"), body:env.t("body"), back:env.t("back")}')
-    div(ng-repeat='item in gearByType[type] | orderBy: order', ng-show='item.klass !== "base"')
+    div(ng-repeat='item in filteredGearByType[type] | orderBy: order', ng-show='item.klass !== "base"')
       +equipmentButton(equipmentType)
 
 .container-fluid
+  .row
+    .col-md-6
+      .input-group.equipment-search
+        .input-group-addon
+          .glyphicon.glyphicon-search
+        input.form-control(type='text', placeholder=env.t('search'), ng-model='equipmentQuery.query', ng-model-options='{ debounce: 250 }')
   .row
     .col-md-6.border-right(ng-controller="SortableInventoryController")
       h3.equipment-title.hint(popover-trigger='mouseenter',

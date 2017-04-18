@@ -52,8 +52,7 @@ habitrpg.controller("HeaderCtrl", ['$scope', 'Groups', 'User',
                 return member.auth.timestamps.loggedin;
                 break
               default:
-                // party date joined
-                return true;
+                return member.profile.name;
           }
         }
       )
