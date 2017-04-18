@@ -145,7 +145,8 @@ api.postChat = {
       throw new NotFound('Your chat privileges have been revoked.');
     }
 
-    if (group.privacy !== 'private' && textContainsBannedWords(req.body.message)) {
+    let tavernNames = ['Tavern', 'HabitRPG'];
+    if (tavernNames.indexOf(group.name) !== -1 && textContainsBannedWords(req.body.message)) {
       throw new BadRequest(res.t('bannedWordUsed'));
     }
 
