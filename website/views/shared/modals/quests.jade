@@ -24,7 +24,7 @@ mixin questInfo
 
 script(type='text/ng-template', id='modals/questCompleted.html')
   .modal-header
-    h4 "{{::Content.quests[user.party.quest.completed].text()}}"
+    h4 "{{::Content.quests[user.party.quest.completed].text()}}"&nbsp;
       =env.t('completed')
   .modal-body
     .col-centered(ng-class='::Content.quests[user.party.quest.completed].completion() ? "pull-right-sm" : ""', class='quest_{{user.party.quest.completed}}')
