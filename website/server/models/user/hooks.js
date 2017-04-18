@@ -31,7 +31,12 @@ function findTag (user, tagName) {
 }
 
 function _populateDefaultTasks (user, taskTypes) {
-  let defaultsData = user.registeredThrough === 'habitica-web' ? shared.content.userDefaults : shared.content.userDefaultsMobile;
+  let defaultsData;
+  if (user.registeredThrough === 'habitica-android' || user.registeredThrough === 'habitica-ios') {
+    defaultsData = shared.content.userDefaultsMobile;
+  } else {
+    defaultsData = shared.content.userDefaults;
+  }
   let tagsI = taskTypes.indexOf('tag');
 
   if (tagsI !== -1) {
@@ -107,12 +112,17 @@ function _setUpNewUser (user) {
       user.flags.tutorial.common[section] = true;
     });
   } else {
-    taskTypes = ['todo', 'tag'];
     user.flags.showTour = false;
 
     _.each(iterableFlags.tour, (val, section) => {
       user.flags.tour[section] = -2;
     });
+
+    if (user.registeredThrough === 'habitica-android' || user.registeredThrough === 'habitica-ios') {
+      taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
+    } else {
+      taskTypes = ['todo', 'tag'];
+    }
   }
 
   return _populateDefaultTasks(user, taskTypes);
