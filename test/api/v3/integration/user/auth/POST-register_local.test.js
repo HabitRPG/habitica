@@ -50,11 +50,28 @@ describe('POST /user/auth/local/register', () => {
           confirmPassword: password,
         });
 
-        expect(user.tags).to.have.a.lengthOf(7);
-        expect(user.tasksOrder.todos).to.have.a.lengthOf(1);
-        expect(user.tasksOrder.dailys).to.have.a.lengthOf(0);
-        expect(user.tasksOrder.rewards).to.have.a.lengthOf(0);
-        expect(user.tasksOrder.habits).to.have.a.lengthOf(0);
+        let requests = new ApiUser(user);
+
+        let habits = await requests.get('/tasks/user?type=habits');
+        let dailys = await requests.get('/tasks/user?type=dailys');
+        let todos = await requests.get('/tasks/user?type=todos');
+        let rewards = await requests.get('/tasks/user?type=rewards');
+        let tags = await requests.get('/tags');
+
+        expect(habits).to.have.a.lengthOf(0);
+        expect(dailys).to.have.a.lengthOf(0);
+        expect(todos).to.have.a.lengthOf(1);
+        expect(todos[0].text).to.eql(t('defaultTodo1Text'));
+        expect(todos[0].notes).to.eql(t('defaultTodoNotes'));
+        expect(rewards).to.have.a.lengthOf(0);
+        expect(tags).to.have.a.lengthOf(7);
+        expect(tags[0].name).to.eql(t('defaultTag1'));
+        expect(tags[1].name).to.eql(t('defaultTag2'));
+        expect(tags[2].name).to.eql(t('defaultTag3'));
+        expect(tags[3].name).to.eql(t('defaultTag4'));
+        expect(tags[4].name).to.eql(t('defaultTag5'));
+        expect(tags[5].name).to.eql(t('defaultTag6'));
+        expect(tags[6].name).to.eql(t('defaultTag7'));
       });
 
       it('for Web', async () => {
@@ -73,11 +90,40 @@ describe('POST /user/auth/local/register', () => {
           confirmPassword: password,
         });
 
-        expect(user.tags).to.have.a.lengthOf(7);
-        expect(user.tasksOrder.todos).to.have.a.lengthOf(1);
-        expect(user.tasksOrder.dailys).to.have.a.lengthOf(0);
-        expect(user.tasksOrder.rewards).to.have.a.lengthOf(1);
-        expect(user.tasksOrder.habits).to.have.a.lengthOf(3);
+        let requests = new ApiUser(user);
+
+        let habits = await requests.get('/tasks/user?type=habits');
+        let dailys = await requests.get('/tasks/user?type=dailys');
+        let todos = await requests.get('/tasks/user?type=todos');
+        let rewards = await requests.get('/tasks/user?type=rewards');
+        let tags = await requests.get('/tags');
+
+        expect(habits).to.have.a.lengthOf(3);
+        expect(habits[0].text).to.eql(t('defaultHabit1Text'));
+        expect(habits[0].notes).to.eql('');
+        expect(habits[1].text).to.eql(t('defaultHabit2Text'));
+        expect(habits[1].notes).to.eql('');
+        expect(habits[2].text).to.eql(t('defaultHabit3Text'));
+        expect(habits[2].notes).to.eql('');
+
+        expect(dailys).to.have.a.lengthOf(0);
+
+        expect(todos).to.have.a.lengthOf(1);
+        expect(todos[0].text).to.eql(t('defaultTodo1Text'));
+        expect(todos[0].notes).to.eql(t('defaultTodoNotes'));
+
+        expect(rewards).to.have.a.lengthOf(1);
+        expect(rewards[0].text).to.eql(t('defaultReward1Text'));
+        expect(rewards[0].notes).to.eql('');
+
+        expect(tags).to.have.a.lengthOf(7);
+        expect(tags[0].name).to.eql(t('defaultTag1'));
+        expect(tags[1].name).to.eql(t('defaultTag2'));
+        expect(tags[2].name).to.eql(t('defaultTag3'));
+        expect(tags[3].name).to.eql(t('defaultTag4'));
+        expect(tags[4].name).to.eql(t('defaultTag5'));
+        expect(tags[5].name).to.eql(t('defaultTag6'));
+        expect(tags[6].name).to.eql(t('defaultTag7'));
       });
 
       it('for Android', async () => {
@@ -96,11 +142,42 @@ describe('POST /user/auth/local/register', () => {
           confirmPassword: password,
         });
 
-        expect(user.tags).to.have.a.lengthOf(7);
-        expect(user.tasksOrder.todos).to.have.a.lengthOf(2);
-        expect(user.tasksOrder.dailys).to.have.a.lengthOf(1);
-        expect(user.tasksOrder.rewards).to.have.a.lengthOf(1);
-        expect(user.tasksOrder.habits).to.have.a.lengthOf(2);
+        let requests = new ApiUser(user);
+
+        let habits = await requests.get('/tasks/user?type=habits');
+        let dailys = await requests.get('/tasks/user?type=dailys');
+        let todos = await requests.get('/tasks/user?type=todos');
+        let rewards = await requests.get('/tasks/user?type=rewards');
+        let tags = await requests.get('/tags');
+
+        expect(habits).to.have.a.lengthOf(2);
+        expect(habits[0].text).to.eql(t('defaultHabit4Text'));
+        expect(habits[0].notes).to.eql(t('defaultHabit4Notes'));
+        expect(habits[1].text).to.eql(t('defaultHabit5Text'));
+        expect(habits[1].notes).to.eql(t('defaultHabit5Notes'));
+
+        expect(dailys).to.have.a.lengthOf(1);
+        expect(dailys[0].text).to.eql(t('defaultDaily1Text'));
+        expect(dailys[0].notes).to.eql('');
+
+        expect(todos).to.have.a.lengthOf(2);
+        expect(todos[0].text).to.eql(t('defaultTodo1Text'));
+        expect(todos[0].notes).to.eql(t('defaultTodoNotes'));
+        expect(todos[1].text).to.eql(t('defaultTodo2Text'));
+        expect(todos[1].notes).to.eql(t('defaultTodo2Notes'));
+
+        expect(rewards).to.have.a.lengthOf(1);
+        expect(rewards[0].text).to.eql(t('defaultReward2Text'));
+        expect(rewards[0].notes).to.eql(t('defaultReward2Notes'));
+
+        expect(tags).to.have.a.lengthOf(7);
+        expect(tags[0].name).to.eql(t('defaultTag1'));
+        expect(tags[1].name).to.eql(t('defaultTag2'));
+        expect(tags[2].name).to.eql(t('defaultTag3'));
+        expect(tags[3].name).to.eql(t('defaultTag4'));
+        expect(tags[4].name).to.eql(t('defaultTag5'));
+        expect(tags[5].name).to.eql(t('defaultTag6'));
+        expect(tags[6].name).to.eql(t('defaultTag7'));
       });
 
       it('for iOS', async () => {
@@ -119,11 +196,42 @@ describe('POST /user/auth/local/register', () => {
           confirmPassword: password,
         });
 
-        expect(user.tags).to.have.a.lengthOf(7);
-        expect(user.tasksOrder.todos).to.have.a.lengthOf(2);
-        expect(user.tasksOrder.dailys).to.have.a.lengthOf(1);
-        expect(user.tasksOrder.rewards).to.have.a.lengthOf(1);
-        expect(user.tasksOrder.habits).to.have.a.lengthOf(2);
+        let requests = new ApiUser(user);
+
+        let habits = await requests.get('/tasks/user?type=habits');
+        let dailys = await requests.get('/tasks/user?type=dailys');
+        let todos = await requests.get('/tasks/user?type=todos');
+        let rewards = await requests.get('/tasks/user?type=rewards');
+        let tags = await requests.get('/tags');
+
+        expect(habits).to.have.a.lengthOf(2);
+        expect(habits[0].text).to.eql(t('defaultHabit4Text'));
+        expect(habits[0].notes).to.eql(t('defaultHabit4Notes'));
+        expect(habits[1].text).to.eql(t('defaultHabit5Text'));
+        expect(habits[1].notes).to.eql(t('defaultHabit5Notes'));
+
+        expect(dailys).to.have.a.lengthOf(1);
+        expect(dailys[0].text).to.eql(t('defaultDaily1Text'));
+        expect(dailys[0].notes).to.eql('');
+
+        expect(todos).to.have.a.lengthOf(2);
+        expect(todos[0].text).to.eql(t('defaultTodo1Text'));
+        expect(todos[0].notes).to.eql(t('defaultTodoNotes'));
+        expect(todos[1].text).to.eql(t('defaultTodo2Text'));
+        expect(todos[1].notes).to.eql(t('defaultTodo2Notes'));
+
+        expect(rewards).to.have.a.lengthOf(1);
+        expect(rewards[0].text).to.eql(t('defaultReward2Text'));
+        expect(rewards[0].notes).to.eql(t('defaultReward2Notes'));
+
+        expect(tags).to.have.a.lengthOf(7);
+        expect(tags[0].name).to.eql(t('defaultTag1'));
+        expect(tags[1].name).to.eql(t('defaultTag2'));
+        expect(tags[2].name).to.eql(t('defaultTag3'));
+        expect(tags[3].name).to.eql(t('defaultTag4'));
+        expect(tags[4].name).to.eql(t('defaultTag5'));
+        expect(tags[5].name).to.eql(t('defaultTag6'));
+        expect(tags[6].name).to.eql(t('defaultTag7'));
       });
     });
 
