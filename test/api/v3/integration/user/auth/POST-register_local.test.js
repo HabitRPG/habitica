@@ -37,7 +37,7 @@ describe('POST /user/auth/local/register', () => {
       expect(user.newUser).to.eql(true);
     });
 
-    context.only('provides default tags and tasks', async () => {
+    context('provides default tags and tasks', async () => {
       it('for a generic API consumer', async () => {
         let username = generateRandomUserName();
         let email = `${username}@example.com`;
