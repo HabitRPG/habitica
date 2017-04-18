@@ -31,7 +31,7 @@ function findTag (user, tagName) {
 }
 
 function _populateDefaultTasks (user, taskTypes) {
-  let defaultsData = user.registeredThrough === 'habitica-web' ? shared.content.userDefaults: shared.content.userDefaultsMobile;
+  let defaultsData = user.registeredThrough === 'habitica-web' ? shared.content.userDefaults : shared.content.userDefaultsMobile;
   let tagsI = taskTypes.indexOf('tag');
 
   if (tagsI !== -1) {
