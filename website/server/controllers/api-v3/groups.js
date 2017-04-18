@@ -27,6 +27,7 @@ import stripePayments from '../../libs/stripePayments';
 import amzLib from '../../libs/amazonPayments';
 import shared from '../../../common';
 import apiMessages from '../../libs/apiMessages';
+import clearPartyInvitation from '../../libs/clearPartyInvitation';
 
 const MAX_EMAIL_INVITES_BY_USER = 200;
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
@@ -473,8 +474,8 @@ api.joinGroup = {
 
     if (group.type === 'party' && group._id === user.invitations.party.id) {
       inviter = user.invitations.party.inviter;
-      user.invitations.party = {}; // Clear invite
-      user.markModified('invitations.party');
+
+      clearPartyInvitation(user, group._id);
 
       // invite new user to pending quest
       if (group.quest.key && !group.quest.active) {
@@ -620,7 +621,7 @@ api.rejectGroupInvite = {
     let isUserInvited = false;
 
     if (groupId === user.invitations.party.id) {
-      user.invitations.party = {};
+      clearPartyInvitation(user, groupId);
       user.markModified('invitations.party');
       isUserInvited = true;
     } else {
@@ -866,10 +867,6 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     if (group.isSubscribed() && !group.hasNotCancelled()) guildInvite.cancelledPlan = true;
     userToInvite.invitations.guilds.push(guildInvite);
   } else if (group.type === 'party') {
-    if (userToInvite.invitations.party.id) {
-      throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
-    }
-
     if (userToInvite.party._id) {
       let userParty = await Group.getGroup({user: userToInvite, groupId: 'party', fields: 'memberCount'});
 
@@ -879,7 +876,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
 
     let partyInvite = {id: group._id, name: group.name, inviter: inviter._id};
     if (group.isSubscribed() && !group.hasNotCancelled()) partyInvite.cancelledPlan = true;
-    userToInvite.invitations.party = partyInvite;
+    userToInvite.invitations.parties.push(partyInvite);
   }
 
   let groupLabel = group.type === 'guild' ? 'Guild' : 'Party';
