@@ -713,7 +713,8 @@ api.addChecklistItem = {
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.group.id && !task.userId) {
-      group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+      let fields = requiredGroupFields.concat(' managers');
+      group = await Group.getGroup({user, groupId: task.group.id, fields});
       if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
@@ -821,7 +822,8 @@ api.updateChecklistItem = {
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.group.id && !task.userId) {
-      group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+      let fields = requiredGroupFields.concat(' managers');
+      group = await Group.getGroup({user, groupId: task.group.id, fields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
@@ -885,7 +887,8 @@ api.removeChecklistItem = {
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.group.id && !task.userId) {
-      group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+      let fields = requiredGroupFields.concat(' managers');
+      group = await Group.getGroup({user, groupId: task.group.id, fields});
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
