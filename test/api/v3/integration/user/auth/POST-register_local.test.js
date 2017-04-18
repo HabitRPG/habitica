@@ -59,11 +59,15 @@ describe('POST /user/auth/local/register', () => {
         let tags = await requests.get('/tags');
 
         expect(habits).to.have.a.lengthOf(0);
+
         expect(dailys).to.have.a.lengthOf(0);
+
         expect(todos).to.have.a.lengthOf(1);
         expect(todos[0].text).to.eql(t('defaultTodo1Text'));
         expect(todos[0].notes).to.eql(t('defaultTodoNotes'));
+
         expect(rewards).to.have.a.lengthOf(0);
+
         expect(tags).to.have.a.lengthOf(7);
         expect(tags[0].name).to.eql(t('defaultTag1'));
         expect(tags[1].name).to.eql(t('defaultTag2'));
