@@ -37,23 +37,94 @@ describe('POST /user/auth/local/register', () => {
       expect(user.newUser).to.eql(true);
     });
 
-    it('provides default tags and tasks', async () => {
-      let username = generateRandomUserName();
-      let email = `${username}@example.com`;
-      let password = 'password';
+    context.only('provides default tags and tasks', async () => {
+      it('for a generic API consumer', async () => {
+        let username = generateRandomUserName();
+        let email = `${username}@example.com`;
+        let password = 'password';
 
-      let user = await api.post('/user/auth/local/register', {
-        username,
-        email,
-        password,
-        confirmPassword: password,
+        let user = await api.post('/user/auth/local/register', {
+          username,
+          email,
+          password,
+          confirmPassword: password,
+        });
+
+        expect(user.tags).to.have.a.lengthOf(7);
+        expect(user.tasksOrder.todos).to.have.a.lengthOf(1);
+        expect(user.tasksOrder.dailys).to.have.a.lengthOf(0);
+        expect(user.tasksOrder.rewards).to.have.a.lengthOf(0);
+        expect(user.tasksOrder.habits).to.have.a.lengthOf(0);
       });
 
-      expect(user.tags).to.have.a.lengthOf(7);
-      expect(user.tasksOrder.todos).to.have.a.lengthOf(1);
-      expect(user.tasksOrder.dailys).to.have.a.lengthOf(0);
-      expect(user.tasksOrder.rewards).to.have.a.lengthOf(0);
-      expect(user.tasksOrder.habits).to.have.a.lengthOf(0);
+      it('for Web', async () => {
+        api = requester(
+          null,
+          {'x-client': 'habitica-web'},
+        );
+        let username = generateRandomUserName();
+        let email = `${username}@example.com`;
+        let password = 'password';
+
+        let user = await api.post('/user/auth/local/register', {
+          username,
+          email,
+          password,
+          confirmPassword: password,
+        });
+
+        expect(user.tags).to.have.a.lengthOf(7);
+        expect(user.tasksOrder.todos).to.have.a.lengthOf(1);
+        expect(user.tasksOrder.dailys).to.have.a.lengthOf(0);
+        expect(user.tasksOrder.rewards).to.have.a.lengthOf(1);
+        expect(user.tasksOrder.habits).to.have.a.lengthOf(3);
+      });
+
+      it('for Android', async () => {
+        api = requester(
+          null,
+          {'x-client': 'habitica-android'},
+        );
+        let username = generateRandomUserName();
+        let email = `${username}@example.com`;
+        let password = 'password';
+
+        let user = await api.post('/user/auth/local/register', {
+          username,
+          email,
+          password,
+          confirmPassword: password,
+        });
+
+        expect(user.tags).to.have.a.lengthOf(7);
+        expect(user.tasksOrder.todos).to.have.a.lengthOf(2);
+        expect(user.tasksOrder.dailys).to.have.a.lengthOf(1);
+        expect(user.tasksOrder.rewards).to.have.a.lengthOf(1);
+        expect(user.tasksOrder.habits).to.have.a.lengthOf(2);
+      });
+
+      it('for iOS', async () => {
+        api = requester(
+          null,
+          {'x-client': 'habitica-ios'},
+        );
+        let username = generateRandomUserName();
+        let email = `${username}@example.com`;
+        let password = 'password';
+
+        let user = await api.post('/user/auth/local/register', {
+          username,
+          email,
+          password,
+          confirmPassword: password,
+        });
+
+        expect(user.tags).to.have.a.lengthOf(7);
+        expect(user.tasksOrder.todos).to.have.a.lengthOf(2);
+        expect(user.tasksOrder.dailys).to.have.a.lengthOf(1);
+        expect(user.tasksOrder.rewards).to.have.a.lengthOf(1);
+        expect(user.tasksOrder.habits).to.have.a.lengthOf(2);
+      });
     });
 
     it('enrolls new users in an A/B test', async () => {
