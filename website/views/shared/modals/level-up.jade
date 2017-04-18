@@ -17,11 +17,11 @@ script(type='text/ng-template', id='modals/levelUp.html')
       p=env.t('fullyHealed')
       br
       div(ng-if='user.flags.classSelected && !user.preferences.disableClasses && !user.preferences.automaticAllocation')
-        a.btn.btn-default(ng-click='statsAllocationBoxIsOpen = !statsAllocationBoxIsOpen',
-          data-toggle='collapse', data-target='#stat-allocation', aria-expanded=false, aria-controls='stat-allocation')
+        a.btn.btn-default(ng-click='statsAllocationBoxIsOpen = !statsAllocationBoxIsOpen', 
+          aria-expanded=false, aria-controls='stat-allocation')
           | {{statsAllocationBoxIsOpen  ? env.t('hideQuickAllocation') : env.t('showQuickAllocation')}}
         p &nbsp;
-        .collapse#stat-allocation
+        stat-allocation(ng-show='statsAllocationBoxIsOpen')
           table.table.text-left
             tr
               td
