@@ -112,7 +112,7 @@
     "mystery": "ミステリー",
     "changeClass": "クラスの変更、能力値の調整",
     "lvl10ChangeClass": "クラスを変えるには、レベル10以上にならないといけません。",
-    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
+    "invalidClass": "クラスは無効です。「warrior」、「rogue」、「wizard」、「healer」のどれかを指定してください。",
     "levelPopover": "レベルが上がるごとに、能力に割り当てられる 1 ポイントを得られます。手動で好きなように割り当てることもできますし、「自動割り当て」設定でおまかせにすることもできます。",
     "unallocated": "未割り当ての能力値ポイント",
     "haveUnallocated": "<%= points %> ポイントが割り当てできます。",
