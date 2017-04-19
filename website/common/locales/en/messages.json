@@ -61,7 +61,5 @@
   "messageUserOperationNotFound": "<%= operation %> operation not found",
   "messageNotificationNotFound": "Notification not found.",
 
-  "notificationsRequired": "Notification ids are required.",
-
-  "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic. Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!"
+  "notificationsRequired": "Notification ids are required."
 }
