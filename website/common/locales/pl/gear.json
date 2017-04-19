@@ -256,7 +256,7 @@
     "weaponArmoireWandOfHeartsNotes": "Ta różdżka błyszczy ciepłym czerwonym światłem. Dodaje również mądrości twemu sercu. Zwiększa inteligencję o <%= int %>. Zaczarowana szafa: Zestaw Damy Kier (przedmiot 3 z 3).",
     "weaponArmoireForestFungusStaffText": "Leśna grzybowa laska",
     "weaponArmoireForestFungusStaffNotes": "Użyj tej sękatej laski do mykologicznej magii! Zwiększa inteligencję o <%= int %> i percepcję o <%= per %>. Zaczarowana szafa: przedmiot niezależny.",
-    "weaponArmoireFestivalFirecrackerText": "Festival Firecracker",
+    "weaponArmoireFestivalFirecrackerText": "Festiwalowa petarda",
     "weaponArmoireFestivalFirecrackerNotes": "Enjoy this delightful sparkler responsibly. Increases Perception by <%= per %>. Enchanted Armoire: Festival Attire Set (Item 3 of 3).",
     "armor": "zbroja",
     "armorCapitalized": "Zbroja",

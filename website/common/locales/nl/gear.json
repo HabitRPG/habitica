@@ -195,7 +195,7 @@
     "weaponSpecialSpring2017RogueText": "Karotana",
     "weaponSpecialSpring2017RogueNotes": "Deze zwaarden maken korte metten met taken, maar maar zijn ook handig om groenten te snijden! Jammie! Verhoogt kracht met  <%= str %>.  Beperkte oplage lente-uitrusting 2017.",
     "weaponSpecialSpring2017WarriorText": "Gevederde zweep",
-    "weaponSpecialSpring2017WarriorNotes": "Deze machtige zweep zal de meest onhandelbare taak temmen. Maar... Het is ook... Zo PLEZANT EN AFLEIDEND!! Verhoogt kracht met <%= str %>. Beperkte Editie 2017 Lente uitrusting.",
+    "weaponSpecialSpring2017WarriorNotes": "Deze machtige zweep zal de meest onhandelbare taak temmen. Maar... Het is ook... Zo PLEZANT EN AFLEIDEND!! Verhoogt kracht met <%= str %>. Beperkte Editie 2017 lente-uitrusting.",
     "weaponSpecialSpring2017MageText": "Magische vangstok",
     "weaponSpecialSpring2017MageNotes": "Wanneer je er geen spreuken mee maakt, kan je het gooien en terug brengen! Veel plezier!! Verhoogt intelligentie met <%= int %> en perceptie met <%= per %>. Beperkte Editie 2017 Lente uitrusting.",
     "weaponSpecialSpring2017HealerText": "Eier Stok",

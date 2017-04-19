@@ -83,6 +83,12 @@ describe('payments/index', () => {
         };
       });
 
+      it('awards the Royal Purple Jackalope pet', async () => {
+        await api.createSubscription(data);
+
+        expect(recipient.items.pets['Jackalope-RoyalPurple']).to.eql(5);
+      });
+
       it('adds extra months to an existing subscription', async () => {
         recipient.purchased.plan = plan;
 
@@ -239,6 +245,12 @@ describe('payments/index', () => {
         expect(user.purchased.plan.dateTerminated).to.eql(null);
         expect(user.purchased.plan.lastBillingDate).to.not.exist;
         expect(user.purchased.plan.dateCreated).to.exist;
+      });
+
+      it('awards the Royal Purple Jackalope pet', async () => {
+        await api.createSubscription(data);
+
+        expect(user.items.pets['Jackalope-RoyalPurple']).to.eql(5);
       });
 
       it('sets extraMonths if plan has dateTerminated date', async () => {
@@ -632,6 +644,14 @@ describe('payments/index', () => {
       expect(updatedUser.purchased.plan.dateTerminated).to.eql(null);
       expect(updatedUser.purchased.plan.lastBillingDate).to.not.exist;
       expect(updatedUser.purchased.plan.dateCreated).to.exist;
+    });
+
+    it('awards the Royal Purple Jackalope pet', async () => {
+      await api.addSubToGroupUser(user, group);
+
+      let updatedUser = await User.findById(user._id).exec();
+
+      expect(updatedUser.items.pets['Jackalope-RoyalPurple']).to.eql(5);
     });
   });
 });

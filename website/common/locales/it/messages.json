@@ -35,7 +35,7 @@
     "armoireExp": "Fai a botte con lo Scrigno e ottieni Esperienza. Prendi questo!",
     "messageInsufficientGems": "Non hai abbastanza gemme!",
     "messageAuthPasswordMustMatch": ":password e :confirmPassword non corrispondono",
-    "messageAuthCredentialsRequired": "sino necessari :nome utente, :email, :Password, :conferma password",
+    "messageAuthCredentialsRequired": "sono necessari :username, :email, :password, :confirmPassword",
     "messageAuthUsernameTaken": "Nome utente già in uso",
     "messageAuthEmailTaken": "Indirizzo email già utilizzato",
     "messageAuthNoUserFound": "Nessun utente trovato.",

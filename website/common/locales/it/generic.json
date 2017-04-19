@@ -98,7 +98,7 @@
     "achievementDilatory": "Eroe di Dilatoria",
     "achievementDilatoryText": "Ha contribuito alla sconfitta del Drago Terrore di Dilatoria durante l'evento Summer Splash 2014!",
     "costumeContest": "Costume da Concorrente",
-    "costumeContestText": "Ha partecipato alla gara in costume di Habitoween. Guarda alcuni arrivi <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'> sul blog di Habitica</a>!",
+    "costumeContestText": "Ha partecipato alla gara in costume di Habitoween. Puoi trovare alcune foto <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>sul blog di Habitica</a>!",
     "costumeContestTextPlural": "Ha partecipato a <%= count %> gare in costume di Habitoween. Puoi guardare cos'hanno fatto i partecipanti sul <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>blog di Habitica</a>!",
     "memberSince": "- Membro dal:",
     "lastLoggedIn": "- Ultimo accesso:",

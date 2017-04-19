@@ -104,6 +104,6 @@
     "spring2017CanineConjurorSet": "Canine Conjuror (Mage)",
     "spring2017FloralMouseSet": "Floral Mouse (Healer)",
     "spring2017SneakyBunnySet": "Sneaky Bunny (Rogue)",
-    "eventAvailability": "Available for purchase until <%= date(locale) %>.",
+    "eventAvailability": "<%= date(locale) %>まで購入できます。",
     "dateEndApril": "4月19日"
 }
