@@ -94,7 +94,7 @@ function matchExact (r, str) {
 let bannedWordRegexs = [];
 for (let i = 0; i < bannedWords.length; i += 1) {
   let word = bannedWords[i];
-  let regEx = new RegExp(`\\b${word.toLowerCase()}\\b`);
+  let regEx = new RegExp(`\\b([^a-z]+)?${word.toLowerCase()}([^a-z]+)?\\b`);
   bannedWordRegexs.push(regEx);
 }
 
