@@ -561,7 +561,7 @@ api.joinGroup = {
       }
     }
 
-    if(group.type === 'guild'){
+    if (group.type === 'guild') {
       promises.push(User.update({
         'achievements.guild': {$ne: true},
       }, {$set: {'achievements.guild': true}}, {multi: true}).exec());
