@@ -55,8 +55,12 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
           } else {
             Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'group chat','groupType':group.type,'privacy':group.privacy});
           }
-        }, function(err){
+        })
+        .catch(function (err) {
           $scope._sending = false;
+          if (err.data.message === env.t('bannedWordUsed')) {
+            alert(err.data.message);
+          }
         });
     }
 
