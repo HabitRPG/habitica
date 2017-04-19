@@ -71,7 +71,7 @@ describe('POST /chat', () => {
   });
 
   it('returns an error when chat message contains a banned word in tavern', async () => {
-    await expect(user.post(`/groups/habitrpg/chat`, { message: testBannedWordMessage})).to.eventually.be.rejected.and.eql({
+    await expect(user.post('/groups/habitrpg/chat', { message: testBannedWordMessage})).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('bannedWordUsed'),

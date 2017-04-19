@@ -14,6 +14,7 @@ import pusher from '../../libs/pusher';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
 import bannedWords from '../../libs/bannedWords';
+import { TAVERN_ID } from '../../../common/script/constants';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
@@ -145,8 +146,7 @@ api.postChat = {
       throw new NotFound('Your chat privileges have been revoked.');
     }
 
-    let tavernNames = ['Tavern', 'HabitRPG'];
-    if (tavernNames.indexOf(group.name) !== -1 && textContainsBannedWords(req.body.message)) {
+    if (group._id === TAVERN_ID && textContainsBannedWords(req.body.message)) {
       throw new BadRequest(res.t('bannedWordUsed'));
     }
 
