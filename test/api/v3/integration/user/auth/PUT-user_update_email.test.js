@@ -2,6 +2,13 @@ import {
   generateUser,
   translate as t,
 } from '../../../../../helpers/api-v3-integration.helper';
+import {
+  bcryptCompare,
+  sha1MakeSalt,
+  sha1Encrypt as sha1EncryptPassword,
+} from '../../../../../../website/server/libs/password';
+
+import nconf from 'nconf';
 
 const ENDPOINT = '/user/auth/update-email';
 
@@ -63,8 +70,43 @@ describe('PUT /user/auth/update-email', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('cannotFulfillReq'),
+        message: t('cannotFulfillReq', { techAssistanceEmail: nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL') }),
       });
+    });
+
+    it('converts user with SHA1 encrypted password to bcrypt encryption', async () => {
+      let textPassword = 'mySecretPassword';
+      let salt = sha1MakeSalt();
+      let sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
+      let myNewEmail = 'my-new-random-email@example.net';
+
+      await user.update({
+        'auth.local.hashed_password': sha1HashedPassword,
+        'auth.local.passwordHashMethod': 'sha1',
+        'auth.local.salt': salt,
+      });
+
+      await user.sync();
+      expect(user.auth.local.passwordHashMethod).to.equal('sha1');
+      expect(user.auth.local.salt).to.equal(salt);
+      expect(user.auth.local.hashed_password).to.equal(sha1HashedPassword);
+
+      // update email
+      let response = await user.put(ENDPOINT, {
+        newEmail: myNewEmail,
+        password: textPassword,
+      });
+      expect(response).to.eql({ email: myNewEmail });
+
+      await user.sync();
+
+      expect(user.auth.local.email).to.equal(myNewEmail);
+      expect(user.auth.local.passwordHashMethod).to.equal('bcrypt');
+      expect(user.auth.local.salt).to.be.undefined;
+      expect(user.auth.local.hashed_password).not.to.equal(sha1HashedPassword);
+
+      let isValidPassword = await bcryptCompare(textPassword, user.auth.local.hashed_password);
+      expect(isValidPassword).to.equal(true);
     });
   });
 

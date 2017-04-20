@@ -496,6 +496,8 @@ describe('POST /tasks/user', () => {
         frequency: 'daily',
         everyX: 5,
         startDate: now,
+        daysOfMonth: [15],
+        weeksOfMonth: [3],
       });
 
       expect(task.userId).to.equal(user._id);
@@ -504,6 +506,8 @@ describe('POST /tasks/user', () => {
       expect(task.type).to.eql('daily');
       expect(task.frequency).to.eql('daily');
       expect(task.everyX).to.eql(5);
+      expect(task.daysOfMonth).to.eql([15]);
+      expect(task.weeksOfMonth).to.eql([3]);
       expect(new Date(task.startDate)).to.eql(now);
     });
 

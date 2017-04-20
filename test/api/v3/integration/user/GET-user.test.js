@@ -23,6 +23,7 @@ describe('GET /user', () => {
     let returnedUser = await user.get('/user');
 
     expect(returnedUser.auth.local.hashed_password).to.not.exist;
+    expect(returnedUser.auth.local.passwordHashMethod).to.not.exist;
     expect(returnedUser.auth.local.salt).to.not.exist;
     expect(returnedUser.apiToken).to.not.exist;
   });

@@ -1,0 +1,5 @@
+script(id='partials/options.profile.achievements.html', type='text/ng-template')
+  .container-fluid
+    div(class='row')
+      div(ng-class='user.flags.classSelected && !user.preferences.disableClasses ? "col-md-4" : "col-md-6"')
+        include ../../shared/profiles/achievements

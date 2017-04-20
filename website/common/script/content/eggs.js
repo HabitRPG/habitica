@@ -1,8 +1,6 @@
-import {
-  assign,
-  defaults,
-  each,
-} from  'lodash';
+import assign from 'lodash/assign';
+import defaults from 'lodash/defaults';
+import each from 'lodash/each';
 import t from './translation';
 
 function applyEggDefaults (set, config) {
@@ -243,6 +241,41 @@ let quests = {
     text: t('questEggCowText'),
     adjective: t('questEggCowAdjective'),
     canBuy: hasQuestAchievementFunction('cow'),
+  },
+  Beetle: {
+    text: t('questEggBeetleText'),
+    adjective: t('questEggBeetleAdjective'),
+    canBuy: hasQuestAchievementFunction('beetle'),
+  },
+  Ferret: {
+    text: t('questEggFerretText'),
+    adjective: t('questEggFerretAdjective'),
+    canBuy: hasQuestAchievementFunction('ferret'),
+  },
+  Sloth: {
+    text: t('questEggSlothText'),
+    adjective: t('questEggSlothAdjective'),
+    canBuy: hasQuestAchievementFunction('sloth'),
+  },
+  Triceratops: {
+    text: t('questEggTriceratopsText'),
+    adjective: t('questEggTriceratopsAdjective'),
+    canBuy: hasQuestAchievementFunction('triceratops'),
+  },
+  GuineaPig: {
+    text: t('questEggGuineaPigText'),
+    adjective: t('questEggGuineaPigAdjective'),
+    canBuy: hasQuestAchievementFunction('guineapig'),
+  },
+  Peacock: {
+    text: t('questEggPeacockText'),
+    adjective: t('questEggPeacockAdjective'),
+    canBuy: hasQuestAchievementFunction('peacock'),
+  },
+  Butterfly: {
+    text: t('questEggButterflyText'),
+    adjective: t('questEggButterflyAdjective'),
+    canBuy: hasQuestAchievementFunction('butterfly'),
   },
 };
 

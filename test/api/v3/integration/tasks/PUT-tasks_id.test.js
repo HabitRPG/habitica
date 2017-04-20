@@ -74,6 +74,7 @@ describe('PUT /tasks/:id', () => {
         checklist: [
           {text: 123, completed: false},
         ],
+        collapseChecklist: false,
       });
       await sleep(2);
 
@@ -111,6 +112,7 @@ describe('PUT /tasks/:id', () => {
           {text: 123, completed: false},
           {text: 456, completed: true},
         ],
+        collapseChecklist: true,
         notes: 'new notes',
         attribute: 'per',
         tags: [challengeUserTaskId],
@@ -143,6 +145,8 @@ describe('PUT /tasks/:id', () => {
       expect(savedChallengeUserTask.streak).to.equal(25);
       expect(savedChallengeUserTask.reminders.length).to.equal(2);
       expect(savedChallengeUserTask.checklist.length).to.equal(2);
+      expect(savedChallengeUserTask.alias).to.equal('a-short-task-name');
+      expect(savedChallengeUserTask.collapseChecklist).to.equal(true);
     });
   });
 

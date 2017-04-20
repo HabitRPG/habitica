@@ -22,7 +22,9 @@ describe('shops', () => {
     it('items contain required fields', () => {
       _.each(shopCategories, (category) => {
         _.each(category.items, (item) => {
-          expect(item).to.have.all.keys(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'class']);
+          _.each(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'class'], (key) => {
+            expect(_.has(item, key)).to.eql(true);
+          });
         });
       });
     });
@@ -46,7 +48,9 @@ describe('shops', () => {
     it('items contain required fields', () => {
       _.each(shopCategories, (category) => {
         _.each(category.items, (item) => {
-          expect(item).to.have.all.keys('key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'boss', 'class', 'collect', 'drop', 'unlockCondition', 'lvl');
+          _.each(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'boss', 'class', 'collect', 'drop', 'unlockCondition', 'lvl'], (key) => {
+            expect(_.has(item, key)).to.eql(true);
+          });
         });
       });
     });
@@ -70,7 +74,9 @@ describe('shops', () => {
     it('items contain required fields', () => {
       _.each(shopCategories, (category) => {
         _.each(category.items, (item) => {
-          expect(item).to.have.all.keys('key', 'text', 'value', 'currency', 'locked', 'purchaseType', 'class', 'notes', 'class');
+          _.each(['key', 'text', 'value', 'currency', 'locked', 'purchaseType', 'class', 'notes', 'class'], (key) => {
+            expect(_.has(item, key)).to.eql(true);
+          });
         });
       });
     });
@@ -94,7 +100,9 @@ describe('shops', () => {
     it('items contain required fields', () => {
       _.each(shopCategories, (category) => {
         _.each(category.items, (item) => {
-          expect(item).to.have.all.keys('key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'specialClass', 'type');
+          _.each(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'type'], (key) => {
+            expect(_.has(item, key)).to.eql(true);
+          });
         });
       });
     });

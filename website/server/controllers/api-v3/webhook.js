@@ -27,12 +27,12 @@ let api = {};
  * @apiName AddWebhook
  * @apiGroup Webhook
  *
- * @apiParam {UUID} [id="Randomly Generated UUID"] Body parameter - The webhook's id
- * @apiParam {String} url Body parameter - The webhook's URL
- * @apiParam {String} [label] Body parameter - A label to remind you what this webhook does
- * @apiParam {Boolean} [enabled=true] Body parameter - If the webhook should be enabled
- * @apiParam {Sring="taskActivity","groupChatReceived"} [type="taskActivity"] Body parameter - The webhook's type.
- * @apiParam {Object} [options] Body parameter - The webhook's options. Wil differ depending on type. Required for `groupChatReceived` type. If a webhook supports options, the default values are displayed in the examples below
+ * @apiParam (Body) {UUID} [id="Randomly Generated UUID"] The webhook's id
+ * @apiParam (Body) {String} url The webhook's URL
+ * @apiParam (Body) {String} [label] A label to remind you what this webhook does
+ * @apiParam (Body) {Boolean} [enabled=true] If the webhook should be enabled
+ * @apiParam (Body) {Sring="taskActivity","groupChatReceived"} [type="taskActivity"] The webhook's type.
+ * @apiParam (Body) {Object} [options] The webhook's options. Wil differ depending on type. Required for `groupChatReceived` type. If a webhook supports options, the default values are displayed in the examples below
  * @apiParamExample {json} Task Activity Example
  *   {
  *     "enabled": true, // default
@@ -101,12 +101,12 @@ api.addWebhook = {
  * @apiGroup Webhook
  * @apiDescription Can change `url`, `enabled`, `type`, and `options` properties. Cannot change `id`.
  *
- * @apiParam {UUID} id URL parameter - The id of the webhook to update
- * @apiParam {String} [url] Body parameter - The webhook's URL
- * @apiParam {String} [label] Body parameter - A label to remind you what this webhook does
- * @apiParam {Boolean} [enabled] Body parameter - If the webhook should be enabled
- * @apiParam {Sring="taskActivity","groupChatReceived"} [type] Body parameter - The webhook's type.
- * @apiParam {Object} [options] Body parameter - The webhook's options. Wil differ depending on type. The options are enumerated in the [add webhook examples](#api-Webhook-UserAddWebhook).
+ * @apiParam (Path) {UUID} id URL parameter - The id of the webhook to update
+ * @apiParam (Body) {String} [url] The webhook's URL
+ * @apiParam (Body) {String} [label] A label to remind you what this webhook does
+ * @apiParam (Body) {Boolean} [enabled] If the webhook should be enabled
+ * @apiParam (Body) {Sring="taskActivity","groupChatReceived"} [type] The webhook's type.
+ * @apiParam (Body) {Object} [options] The webhook's options. Wil differ depending on type. The options are enumerated in the [add webhook examples](#api-Webhook-UserAddWebhook).
  * @apiParamExample {json} Update Enabled and Type Properties
  *   {
  *     "enabled": false,
@@ -177,7 +177,7 @@ api.updateWebhook = {
 * @apiName UserDeleteWebhook
 * @apiGroup Webhook
 *
-* @apiParam {UUID} id The id of the webhook to delete
+* @apiParam (Path) {UUID} id The id of the webhook to delete
 *
 * @apiSuccess {Array} data The remaining webhooks for the user
 * @apiUse WebhookNotFound

@@ -20,7 +20,7 @@ mixin questInfo
         p(ng-repeat='(k,v) in ::selectedQuest.collect')
           | {{:: env.t('collectionItems', { number: selectedQuest.collect[k].count, items: selectedQuest.collect[k].text() })}}
   div(ng-bind-html='::selectedQuest.notes()')
-  quest-rewards(key='{{::selectedQuest.key}}', header=env.t('rewards'))
+  quest-rewards(key='{{::selectedQuest.key}}', header-participant=env.t('rewardsAllParticipants'), header-quest-owner=env.t('rewardsQuestOwner'))
 
 script(type='text/ng-template', id='modals/questCompleted.html')
   .modal-header
@@ -29,7 +29,7 @@ script(type='text/ng-template', id='modals/questCompleted.html')
   .modal-body
     .col-centered(ng-class='::Content.quests[user.party.quest.completed].completion() ? "pull-right-sm" : ""', class='quest_{{user.party.quest.completed}}')
     p(ng-bind-html='::Content.quests[user.party.quest.completed].completion()')
-    quest-rewards(key='{{user.party.quest.completed}}', header=env.t('youReceived'))
+    quest-rewards(key='{{user.party.quest.completed}}', header-participant=env.t('youReceived'), header-quest-owner=env.t('questOwnerReceived'))
   .modal-footer
     button.btn.btn-primary(ng-click='set({"party.quest.completed":""}); $close()')=env.t('ok')
 
@@ -84,7 +84,7 @@ script(type='text/ng-template', id='modals/questInvitation.html')
           strong=env.t('collect') + ': '
           | {{::Content.quests[user.party.quest.key].collect[k].count}} {{::Content.quests[user.party.quest.key].collect[k].text()}}
     div(ng-bind-html='::Content.quests[user.party.quest.key].notes()')
-    quest-rewards(key='{{::user.party.quest.key}}', header=env.t('rewards'))
+    quest-rewards(key='{{::user.party.quest.key}}', header-participant=env.t('rewardsAllParticipants'), header-quest-owner=env.t('rewardsQuestOwner'))
   .modal-footer
     button.btn.btn-default(ng-click='questHold = true; $close()')=env.t('askLater')
     button.btn.btn-default(ng-click='questReject(); $close()')=env.t('reject')

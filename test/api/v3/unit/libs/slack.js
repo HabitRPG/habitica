@@ -19,6 +19,9 @@ describe('slack', () => {
           profile: {
             name: 'flagger',
           },
+          preferences: {
+            language: 'flagger-lang',
+          },
         },
         group: {
           id: 'group-id',
@@ -44,7 +47,7 @@ describe('slack', () => {
 
       expect(IncomingWebhook.prototype.send).to.be.calledOnce;
       expect(IncomingWebhook.prototype.send).to.be.calledWith({
-        text: 'flagger (flagger-id) flagged a message',
+        text: 'flagger (flagger-id) flagged a message (language: flagger-lang)',
         attachments: [{
           fallback: 'Flag Message',
           color: 'danger',

@@ -17,20 +17,22 @@ RUN apt-get install -y \
     python
 
 # Install NodeJS
-RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 RUN apt-get install -y nodejs
+
+# Install npm@latest
+RUN curl -sL https://www.npmjs.org/install.sh | sh
 
 # Clean up package management
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 
 # Install global packages
-RUN npm install -g npm@3
-RUN npm install -g gulp grunt-cli bower
+RUN npm install -g gulp grunt-cli bower mocha
 
 # Clone Habitica repo and install dependencies
 WORKDIR /habitrpg
-RUN git clone https://github.com/HabitRPG/habitrpg.git /habitrpg
+RUN git clone https://github.com/HabitRPG/habitica.git /habitrpg
 RUN npm install
 RUN bower install --allow-root
 

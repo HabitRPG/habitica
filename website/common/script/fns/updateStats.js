@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import each from 'lodash/each';
 import {
   MAX_HEALTH,
   MAX_STAT_POINTS,
@@ -67,7 +67,7 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
       user.items.eggs.Wolf = 1;
     }
   }
-  _.each({
+  each({
     vice1: 30,
     atom1: 15,
     moonstone1: 60,
@@ -94,7 +94,7 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
       };
     }
   });
-  if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.beastMaster)) {
+  if (!user.flags.rebirthEnabled && user.stats.lvl >= 50) {
     user.addNotification('REBIRTH_ENABLED');
     user.flags.rebirthEnabled = true;
   }

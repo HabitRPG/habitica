@@ -12,9 +12,9 @@ import { mods } from '../models/user';
 // To avoid stringifying more data then we need,
 // items from `env` used on the client will have to be specified in this array
 const CLIENT_VARS = ['language', 'isStaticPage', 'availableLanguages', 'translations',
-                  'FACEBOOK_KEY', 'GOOGLE_CLIENT_ID', 'FACEBOOK_ANALYTICS', 'NODE_ENV', 'BASE_URL', 'GA_ID',
-                  'AMAZON_PAYMENTS', 'STRIPE_PUB_KEY', 'AMPLITUDE_KEY',
-                  'worldDmg', 'mods', 'IS_MOBILE', 'PUSHER:KEY', 'PUSHER:ENABLED'];
+                     'FACEBOOK_KEY', 'GOOGLE_CLIENT_ID', 'NODE_ENV', 'BASE_URL', 'GA_ID',
+                     'AMAZON_PAYMENTS', 'STRIPE_PUB_KEY', 'AMPLITUDE_KEY',
+                     'worldDmg', 'mods', 'IS_MOBILE', 'PUSHER:KEY', 'PUSHER:ENABLED'];
 
 let env = {
   getManifestFiles,
@@ -28,9 +28,14 @@ let env = {
     SELLER_ID: nconf.get('AMAZON_PAYMENTS:SELLER_ID'),
     CLIENT_ID: nconf.get('AMAZON_PAYMENTS:CLIENT_ID'),
   },
+  EMAILS: {
+    COMMUNITY_MANAGER_EMAIL: nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL'),
+    TECH_ASSISTANCE_EMAIL: nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL'),
+    PRESS_ENQUIRY_EMAIL: nconf.get('EMAILS:PRESS_ENQUIRY_EMAIL'),
+  },
 };
 
-'NODE_ENV BASE_URL GA_ID STRIPE_PUB_KEY FACEBOOK_ANALYTICS FACEBOOK_KEY GOOGLE_CLIENT_ID AMPLITUDE_KEY PUSHER:KEY PUSHER:ENABLED'
+'NODE_ENV BASE_URL GA_ID STRIPE_PUB_KEY FACEBOOK_KEY GOOGLE_CLIENT_ID AMPLITUDE_KEY PUSHER:KEY PUSHER:ENABLED'
   .split(' ')
   .forEach(key => {
     env[key] = nconf.get(key);

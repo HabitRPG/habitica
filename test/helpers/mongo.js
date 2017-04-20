@@ -55,8 +55,8 @@ export async function resetHabiticaDB () {
               username: 'username',
               lowerCaseUsername: 'username',
               email: 'username@email.com',
-              salt: 'salt',
               hashed_password: 'hashed_password', // eslint-disable-line camelcase
+              passwordHashMethod: 'bcrypt',
             },
           },
         }, (insertErr) => {
@@ -74,6 +74,7 @@ export async function resetHabiticaDB () {
               name: 'HabitRPG',
               type: 'guild',
               privacy: 'public',
+              memberCount: 0,
             }, (insertErr2) => {
               if (insertErr2) return reject(insertErr2);
 

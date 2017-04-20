@@ -65,7 +65,20 @@ describe('POST /groups/:groupId/leave', () => {
         expect(groupToLeave.leader).to.equal(member._id);
       });
 
-      context('With challenges', () => {
+      it('removes new messages for that group from user', async () => {
+        await member.post(`/groups/${groupToLeave._id}/chat`, { message: 'Some message' });
+
+        await leader.sync();
+
+        expect(leader.newMessages[groupToLeave._id]).to.not.be.empty;
+
+        await leader.post(`/groups/${groupToLeave._id}/leave`);
+        await leader.sync();
+
+        expect(leader.newMessages[groupToLeave._id]).to.be.empty;
+      });
+
+      context('with challenges', () => {
         let challenge;
 
         beforeEach(async () => {
@@ -93,9 +106,24 @@ describe('POST /groups/:groupId/leave', () => {
 
           let userWithChallengeTasks = await leader.get('/user');
 
-          expect(userWithChallengeTasks.challenges).to.not.include(challenge._id);
           // @TODO find elegant way to assert against the task existing
           expect(userWithChallengeTasks.tasksOrder.habits).to.not.be.empty;
+        });
+
+        it('keeps the user in the challenge when the keepChallenges parameter is set to remain-in-challenges', async () => {
+          await leader.post(`/groups/${groupToLeave._id}/leave`, {keepChallenges: 'remain-in-challenges'});
+
+          let userWithChallengeTasks = await leader.get('/user');
+
+          expect(userWithChallengeTasks.challenges).to.include(challenge._id);
+        });
+
+        it('drops the user in the challenge when the keepChallenges parameter isn\'t set', async () => {
+          await leader.post(`/groups/${groupToLeave._id}/leave`);
+
+          let userWithChallengeTasks = await leader.get('/user');
+
+          expect(userWithChallengeTasks.challenges).to.not.include(challenge._id);
         });
       });
 
@@ -122,6 +150,8 @@ describe('POST /groups/:groupId/leave', () => {
         privateGuild = group;
         leader = groupLeader;
         invitedUser = invitees[0];
+
+        await leader.post(`/groups/${group._id}/chat`, { message: 'Some message' });
       });
 
       it('removes a group when the last member leaves', async () => {

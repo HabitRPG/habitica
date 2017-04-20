@@ -1,6 +1,4 @@
-import {
-  each,
-} from 'lodash';
+import each from 'lodash/each';
 import {
   drops as dropEggs,
   quests as questEggs,
@@ -68,6 +66,8 @@ let specialPets = {
   'MagicalBee-Base': 'magicalBee',
   'Lion-Veteran': 'veteranLion',
   'Gryphon-RoyalPurple': 'royalPurpleGryphon',
+  'JackOLantern-Ghost': 'ghostJackolantern',
+  'Jackalope-RoyalPurple': 'royalPurpleJackalope',
 };
 
 let specialMounts = {
@@ -81,6 +81,8 @@ let specialMounts = {
   'Phoenix-Base': 'phoenix',
   'JackOLantern-Base': 'jackolantern',
   'MagicalBee-Base': 'magicalBee',
+  'Turkey-Gilded': 'gildedTurkey',
+  'Jackalope-RoyalPurple': 'royalPurpleJackalope',
 };
 
 each(specialPets, (translationString, key) => {

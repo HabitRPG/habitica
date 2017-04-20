@@ -1,10 +1,14 @@
 {
     "pets": "Улюбленці",
+    "activePet": "Active Pet",
+    "noActivePet": "No Active Pet",
     "petsFound": "Знайдені улюбленці",
     "magicPets": "Magic Potion Pets",
     "rarePets": "Рідкісні улюбленці",
     "questPets": "Квестові улюбленці",
     "mounts": "Скакуни",
+    "activeMount": "Active Mount",
+    "noActiveMount": "No Active Mount",
     "mountsTamed": "Приборкані скакуни",
     "questMounts": "Квестові скакуни",
     "magicMounts": "Magic Potion Mounts",
@@ -21,6 +25,7 @@
     "royalPurpleGryphon": "Royal Purple Gryphon",
     "phoenix": "Phoenix",
     "magicalBee": "Magical Bee",
+    "royalPurpleJackalope": "Royal Purple Jackalope",
     "rarePetPop1": "Клацніть на золоту лапку, аби довідатися, як отримати цього улюбленця, підтримавши проект Habitica!",
     "rarePetPop2": "Як отримати цього улюбленця!",
     "potion": "<%= potionType %> Зілля",
@@ -88,5 +93,7 @@
     "petsReleased": "Pets released.",
     "mountsAndPetsReleased": "Mounts and pets released",
     "mountsReleased": "Mounts released",
-    "gemsEach": "gems each"
+    "gemsEach": "gems each",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

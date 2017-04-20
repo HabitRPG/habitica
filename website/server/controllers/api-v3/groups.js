@@ -1,6 +1,7 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
+import nconf from 'nconf';
 import {
   model as Group,
   basicFields as basicGroupFields,
@@ -20,6 +21,20 @@ import { sendTxn as sendTxnEmail } from '../../libs/email';
 import { encrypt } from '../../libs/encryption';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import pusher from '../../libs/pusher';
+import common from '../../../common';
+import payments from '../../libs/payments';
+import stripePayments from '../../libs/stripePayments';
+import amzLib from '../../libs/amazonPayments';
+import shared from '../../../common';
+import apiMessages from '../../libs/apiMessages';
+
+const MAX_EMAIL_INVITES_BY_USER = 200;
+const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
+
+/**
+ * @apiDefine GroupBodyInvalid
+ * @apiError (400) {BadRequest} GroupBodyInvalid A parameter in the group body was invalid.
+ */
 
 /**
  * @apiDefine GroupNotFound
@@ -29,6 +44,16 @@ import pusher from '../../libs/pusher';
 /**
  * @apiDefine PartyNotFound
  * @apiError (404) {NotFound} PartyNotFound The user's party could not be found.
+ */
+
+/**
+ * @apiDefine groupIdRequired
+ * @apiError (400) {BadRequest} groupIdRequired A groupId is required
+ */
+
+/**
+ * @apiDefine messageGroupRequiresInvite
+ * @apiError (400) {NotAuthorized} messageGroupRequiresInvite Group requires an invitation to join (e.g. private group, party)
  */
 
 /**
@@ -43,7 +68,43 @@ let api = {};
  * @apiName CreateGroup
  * @apiGroup Group
  *
- * @apiSuccess {Object} data The create group
+ * @apiParam (Body) {String} name
+ * @apiParam (Body) {String="guild","party"} type Type of group (guild or party)
+ * @apiParam (Body) {String="private","public"} privacy Privacy of group (party MUST be private)
+ *
+ * @apiParamExample {json} Private Guild:
+ *     {
+ *       "name": "The Best Guild",
+ *       "type": "guild",
+ *       "privacy": "private"
+ *     }
+ *
+ * @apiError (400) {NotAuthorized} messageInsufficientGems User does not have enough gems (4)
+ * @apiError (400) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
+ * @apiError (400) {NotAuthorized} messageGroupAlreadyInParty
+ *
+ * @apiSuccess {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ *
+ * @apiSuccessExample {json} Private Guild:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "name": "The Best Guild",
+ *       "leader": {
+ *         "_id": "authenticated-user-id",
+ *         "profile": {authenticated user's profile}
+ *       },
+ *       "type": "guild",
+ *       "privacy": "private",
+ *       "chat": [],
+ *       "leaderOnly": {
+ *         "challenges": false
+ *       },
+ *       memberCount: 1,
+ *       challengeCount: 0,
+ *       balance: 1,
+ *       logo: "",
+ *       leaderMessage: ""
+ *     }
  */
 api.createGroup = {
   method: 'POST',
@@ -101,13 +162,120 @@ api.createGroup = {
 };
 
 /**
+ * @api {post} /api/v3/groups/create-plan Create a Group and then redirect to the correct payment
+ * @apiName CreateGroupPlan
+ * @apiGroup Group
+ *
+ * @apiSuccess {Object} data The created group
+ */
+api.createGroupPlan = {
+  method: 'POST',
+  url: '/groups/create-plan',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let group = new Group(Group.sanitize(req.body.groupToCreate));
+
+    req.checkBody('paymentType', res.t('paymentTypeRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    // @TODO: Change message
+    if (group.privacy !== 'private') throw new NotAuthorized(res.t('partyMustbePrivate'));
+    group.leader = user._id;
+    user.guilds.push(group._id);
+
+    let results = await Bluebird.all([user.save(), group.save()]);
+    let savedGroup = results[1];
+
+    // Analytics
+    let analyticsObject = {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      owner: true,
+      groupType: savedGroup.type,
+      privacy: savedGroup.privacy,
+      headers: req.headers,
+    };
+    res.analytics.track('join group', analyticsObject);
+
+    if (req.body.paymentType === 'Stripe') {
+      let token = req.body.id;
+      let gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
+      let sub = req.query.sub ? shared.content.subscriptionBlocks[req.query.sub] : false;
+      let groupId = savedGroup._id;
+      let email = req.body.email;
+      let headers = req.headers;
+      let coupon = req.query.coupon;
+
+      await stripePayments.checkout({
+        token,
+        user,
+        gift,
+        sub,
+        groupId,
+        email,
+        headers,
+        coupon,
+      });
+    } else if (req.body.paymentType === 'Amazon') {
+      let billingAgreementId = req.body.billingAgreementId;
+      let sub = req.body.subscription ? shared.content.subscriptionBlocks[req.body.subscription] : false;
+      let coupon = req.body.coupon;
+      let groupId = savedGroup._id;
+      let headers = req.headers;
+
+      await amzLib.subscribe({
+        billingAgreementId,
+        sub,
+        coupon,
+        user,
+        groupId,
+        headers,
+      });
+    }
+
+    // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
+    // await Q.ninvoke(savedGroup, 'populate', ['leader', nameFields]); // doc.populate doesn't return a promise
+    let response = savedGroup.toJSON();
+    // the leader is the authenticated user
+    response.leader = {
+      _id: user._id,
+      profile: {name: user.profile.name},
+    };
+
+    res.respond(201, response); // do not remove chat flags data as we've just created the group
+  },
+};
+
+/**
  * @api {get} /api/v3/groups Get groups for a user
  * @apiName GetGroups
  * @apiGroup Group
  *
  * @apiParam {String} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, guilds, privateGuilds, publicGuilds, tavern
+ * @apiParam {String="true","false"} [paginate] Public guilds support pagination. When true guilds are returned in groups of 30
+ * @apiParam {Number} [page] When pagination is enabled for public guilds this parameter can be used to specify the page number (the initial page is number 0 and not required)
  *
- * @apiSuccess {Array} data An array of the requested groups
+ * @apiParamExample {json} Private Guilds, Tavern:
+ *     {
+ *       "type": "privateGuilds,tavern"
+ *     }
+ *
+ * @apiError (400) {BadRequest} groupTypesRequired Group types are required
+ * @apiError (400) {BadRequest} guildsPaginateBooleanString Paginate query parameter must be a boolean (true or false)
+ * @apiError (400) {BadRequest} guildsPageInteger Page query parameter must be a positive integer
+ * @apiError (400) {BadRequest} guildsOnlyPaginate Only public guilds support pagination
+ *
+ * @apiSuccess {Object[]} data An array of the requested groups (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ *
+ * @apiSuccessExample {json} Private Guilds, Tavern:
+ *     HTTP/1.1 200 OK
+ *     [
+ *       {guilds}
+ *     ]
  */
 api.getGroups = {
   method: 'GET',
@@ -117,15 +285,27 @@ api.getGroups = {
     let user = res.locals.user;
 
     req.checkQuery('type', res.t('groupTypesRequired')).notEmpty();
+    // pagination options, can only be used with public guilds
+    req.checkQuery('paginate').optional().isIn(['true', 'false'], apiMessages('guildsPaginateBooleanString'));
+    req.checkQuery('page').optional().isInt({min: 0}, apiMessages('guildsPageInteger'));
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     let types = req.query.type.split(',');
+
+    let paginate = req.query.paginate === 'true' ? true : false;
+    if (paginate && !_.includes(types, 'publicGuilds')) {
+      throw new BadRequest(apiMessages('guildsOnlyPaginate'));
+    }
+
     let groupFields = basicGroupFields.concat(' description memberCount balance');
     let sort = '-memberCount';
 
-    let results = await Group.getGroups({user, types, groupFields, sort});
+    let results = await Group.getGroups({
+      user, types, groupFields, sort,
+      paginate, page: req.query.page,
+    });
     res.respond(200, results);
   },
 };
@@ -135,10 +315,21 @@ api.getGroups = {
  * @apiName GetGroup
  * @apiGroup Group
  *
- * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiSuccess {Object} data The group object
+ * @apiParamExample {String} Tavern:
+ *     /api/v3/groups/habitrpg
  *
+ * @apiSuccess {Object} data The group object (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ *
+ * @apiSuccessExample {json} Tavern:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "name": "Tavern",
+ *       ...
+ *     }
+ *
+ * @apiUse groupIdRequired
  * @apiUse GroupNotFound
  */
 api.getGroup = {
@@ -160,12 +351,17 @@ api.getGroup = {
       throw new NotFound(res.t('groupNotFound'));
     }
 
-    group = Group.toJSONCleanChat(group, user);
-    // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    let leader = await User.findById(group.leader).select(nameFields).exec();
-    if (leader) group.leader = leader.toJSON({minimize: true});
+    let groupJson = Group.toJSONCleanChat(group, user);
 
-    res.respond(200, group);
+    if (groupJson.leader === user._id) {
+      groupJson.purchased.plan = group.purchased.plan.toObject();
+    }
+
+    // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
+    let leader = await User.findById(groupJson.leader).select(nameFields).exec();
+    if (leader) groupJson.leader = leader.toJSON({minimize: true});
+
+    res.respond(200, groupJson);
   },
 };
 
@@ -174,10 +370,23 @@ api.getGroup = {
  * @apiName UpdateGroup
  * @apiGroup Group
  *
- * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiSuccess {Object} data The updated group
+ * @apiParamExample {String} Tavern:
+ *     /api/v3/groups/habitrpg
  *
+ * @apiError (400) {NotAuthorized} messageGroupOnlyLeaderCanUpdate Only the group's leader can update the party
+ *
+ * @apiSuccess {Object} data The updated group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ *
+ * @apiSuccessExample {json} Tavern:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "name": "Tavern",
+ *       ...
+ *     }
+ *
+ * @apiUse groupIdRequired
  * @apiUse GroupNotFound
  *
  * @apiPermission GroupLeader
@@ -199,13 +408,17 @@ api.updateGroup = {
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
 
+    if (req.body.leader !== user._id && group.hasNotCancelled()) throw new NotAuthorized(res.t('cannotChangeLeaderWithActiveGroupPlan'));
+
     _.assign(group, _.merge(group.toObject(), Group.sanitizeUpdate(req.body)));
 
     let savedGroup = await group.save();
     let response = Group.toJSONCleanChat(savedGroup, user);
+
     // If the leader changed fetch new data, otherwise use authenticated user
     if (response.leader !== user._id) {
-      response.leader = (await User.findById(response.leader).select(nameFields).exec()).toJSON({minimize: true});
+      let rawLeader = await User.findById(response.leader).select(nameFields).exec();
+      response.leader = rawLeader.toJSON({minimize: true});
     } else {
       response.leader = {
         _id: user._id,
@@ -221,11 +434,23 @@ api.updateGroup = {
  * @apiName JoinGroup
  * @apiGroup Group
  *
- * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiSuccess {Object} data The joined group
+ * @apiParamExample {String} Tavern:
+ *     /api/v3/groups/habitrpg/join
  *
+ * @apiSuccess {Object} data The joined group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ *
+ * @apiSuccessExample {json} Tavern:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "name": "Tavern",
+ *       ...
+ *     }
+ *
+ * @apiUse groupIdRequired
  * @apiUse GroupNotFound
+ * @apiUse messageGroupRequiresInvite
  */
 api.joinGroup = {
   method: 'POST',
@@ -274,6 +499,7 @@ api.joinGroup = {
 
       if (hasInvitation) {
         isUserInvited = true;
+        inviter = hasInvitation.inviter;
       } else {
         isUserInvited = group.privacy === 'private' ? false : true;
       }
@@ -291,15 +517,47 @@ api.joinGroup = {
 
     group.memberCount += 1;
 
+    if (group.hasNotCancelled())  {
+      await payments.addSubToGroupUser(user, group);
+      await group.updateGroupPlan();
+    }
+
     let promises = [group.save(), user.save()];
 
+    if (inviter) {
+      inviter = await User.findById(inviter).exec();
+
+      let data = {
+        headerText: common.i18n.t('invitationAcceptedHeader', inviter.preferences.language),
+        bodyText: common.i18n.t('invitationAcceptedBody', {
+          groupName: group.name,
+          username: user.profile.name,
+        }, inviter.preferences.language),
+      };
+      inviter.addNotification('GROUP_INVITE_ACCEPTED', data);
+
+      // Reward Inviter
+      if (group.type === 'party') {
+        if (!inviter.items.quests.basilist) {
+          inviter.items.quests.basilist = 0;
+        }
+        inviter.items.quests.basilist++;
+      }
+      promises.push(inviter.save());
+    }
+
     if (group.type === 'party' && inviter) {
-      promises.push(User.update({_id: inviter}, {$inc: {'items.quests.basilist': 1}}).exec()); // Reward inviter
       if (group.memberCount > 1) {
-        promises.push(User.update({$or: [{'party._id': group._id}, {_id: user._id}], 'achievements.partyUp': {$ne: true}}, {$set: {'achievements.partyUp': true}}, {multi: true}).exec());
+        promises.push(User.update({
+          $or: [{'party._id': group._id}, {_id: user._id}],
+          'achievements.partyUp': {$ne: true},
+        }, {$set: {'achievements.partyUp': true}}, {multi: true}).exec());
       }
       if (group.memberCount > 3) {
-        promises.push(User.update({$or: [{'party._id': group._id}, {_id: user._id}], 'achievements.partyOn': {$ne: true}}, {$set: {'achievements.partyOn': true}}, {multi: true}).exec());
+        promises.push(User.update({
+          $or: [{'party._id': group._id}, {_id: user._id}],
+          'achievements.partyOn': {$ne: true},
+        }, {$set: {'achievements.partyOn': true}}, {multi: true}).exec());
       }
     }
 
@@ -336,9 +594,15 @@ api.joinGroup = {
  * @apiName RejectGroupInvite
  * @apiGroup Group
  *
- * @apiParam {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ *
+ * @apiParamExample {String} party:
+ *     /api/v3/groups/party/reject
  *
  * @apiSuccess {Object} data An empty object
+ *
+ * @apiUse groupIdRequired
+ * @apiUse messageGroupRequiresInvite
  */
 api.rejectGroupInvite = {
   method: 'POST',
@@ -375,16 +639,35 @@ api.rejectGroupInvite = {
   },
 };
 
+function _removeMessagesFromMember (member, groupId) {
+  if (member.newMessages[groupId]) {
+    delete member.newMessages[groupId];
+    member.markModified('newMessages');
+  }
+}
+
 /**
  * @api {post} /api/v3/groups/:groupId/leave Leave a group
  * @apiName LeaveGroup
  * @apiGroup Group
  *
  * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {String="remove-all","keep-all"} keep Query parameter - Whether to keep or not challenges' tasks. Defaults to keep-all
+ * @apiParam (Query) {String="remove-all","keep-all"} keep=keep-all Whether or not to keep challenge tasks belonging to the group being left.
+ * @apiParam (Body) {String="remain-in-challenges","leave-challenges"} [keepChallenges=leave-challenges] Whether or not to remain in the challenges of the group being left.
+ *
+ * @apiParamExample {json} Leave Party:
+ *     /api/v3/groups/party/leave
+ *     {
+ *       "keepChallenges": "remain-in-challenges"
+ *     }
+ *
+ * @apiError (400) {BadRequest} keepOrRemoveAll "keep" parameter is not "remove-all" or "keep-all"
+ * @apiError (400) {NotAuthorized} questLeaderCannotLeaveGroup User could not leave party because they are the owner of a quest currently running
+ * @apiError (400) {NotAuthorized} cannotLeaveWhileActiveQuest User could not leave party due to being in a quest
  *
  * @apiSuccess {Object} data An empty object
  *
+ * @apiUse groupIdRequired
  * @apiUse GroupNotFound
  */
 api.leaveGroup = {
@@ -393,10 +676,10 @@ api.leaveGroup = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
-
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
     // When removing the user from challenges, should we keep the tasks?
     req.checkQuery('keep', res.t('keepOrRemoveAll')).optional().isIn(['keep-all', 'remove-all']);
+    req.checkBody('keepChallenges', res.t('remainOrLeaveChallenges')).optional().isIn(['remain-in-challenges', 'leave-challenges']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -407,7 +690,7 @@ api.leaveGroup = {
       throw new NotFound(res.t('groupNotFound'));
     }
 
-    // During quests, checke wheter user can leave
+    // During quests, check if user can leave
     if (group.type === 'party') {
       if (group.quest && group.quest.leader === user._id) {
         throw new NotAuthorized(res.t('questLeaderCannotLeaveGroup'));
@@ -418,15 +701,23 @@ api.leaveGroup = {
       }
     }
 
-    await group.leave(user, req.query.keep);
+    await group.leave(user, req.query.keep, req.body.keepChallenges);
+
+    if (group.hasNotCancelled())  await group.updateGroupPlan(true);
+
+    _removeMessagesFromMember(user, group._id);
+
+    await user.save();
+
     res.respond(200, {});
   },
 };
 
 // Send an email to the removed user with an optional message from the leader
-function _sendMessageToRemoved (group, removedUser, message) {
+function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
   if (removedUser.preferences.emailNotifications.kickedGroup !== false) {
-    sendTxnEmail(removedUser, `kicked-from-${group.type}`, [
+    let subject = isInGroup ? `kicked-from-${group.type}` : `${group.type}-invite-rescinded`;
+    sendTxnEmail(removedUser, subject, [
       {name: 'GROUP_NAME', content: group.name},
       {name: 'MESSAGE', content: message},
       {name: 'GUILDS_LINK', content: '/#/options/groups/guilds/public'},
@@ -440,14 +731,23 @@ function _sendMessageToRemoved (group, removedUser, message) {
  * @apiName RemoveGroupMember
  * @apiGroup Group
  *
- * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam {UUID} memberId The _id of the member to remove
- * @apiParam {String} message Query parameter - The message to send to the removed members
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} memberId The _id of the member to remove
+ * @apiParam (Query) {String} message Query parameter - The message to send to the removed members
+ *
+ * @apiParamExample {URL} Remove member from party:
+ *     /api/v3/groups/party/removeMember/[User's ID]?message=Bye
+ *
+ * @apiError (400) {BadRequest} userIdrequired "memberId" cannot be empty or not a UUID
+ * @apiError (400) {NotAuthorized} onlyLeaderCanRemoveMember Only the group leader can remove members
+ * @apiError (400) {NotAuthorized} memberCannotRemoveYourself Group leader cannot remove themselves
+ * @apiError (404) {NotFound} groupMemberNotFound Group member was not found
  *
  * @apiSuccess {Object} data An empty object
  *
  * @apiPermission GroupLeader
  *
+ * @apiUse groupIdRequired
  * @apiUse GroupNotFound
  */
 api.removeGroupMember = {
@@ -490,6 +790,10 @@ api.removeGroupMember = {
 
     if (isInGroup) {
       group.memberCount -= 1;
+      if (group.hasNotCancelled())  {
+        await group.updateGroupPlan(true);
+        await payments.cancelGroupSubscriptionForUser(member, group);
+      }
 
       if (group.quest && group.quest.leader === member._id) {
         group.quest.key = undefined;
@@ -513,10 +817,7 @@ api.removeGroupMember = {
         member.party._id = undefined; // TODO remove quest information too? Use group.leave()?
       }
 
-      if (member.newMessages[group._id]) {
-        member.newMessages[group._id] = undefined;
-        member.markModified('newMessages');
-      }
+      _removeMessagesFromMember(member, group._id);
 
       if (group.quest && group.quest.active && group.quest.leader === member._id) {
         member.items.quests[group.quest.key] += 1;
@@ -534,7 +835,7 @@ api.removeGroupMember = {
     }
 
     let message = req.query.message;
-    if (message) _sendMessageToRemoved(group, member, message);
+    _sendMessageToRemoved(group, member, message, isInGroup);
 
     await Bluebird.all([
       member.save(),
@@ -554,13 +855,16 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
   }
 
   if (group.type === 'guild') {
-    if (_.contains(userToInvite.guilds, group._id)) {
+    if (_.includes(userToInvite.guilds, group._id)) {
       throw new NotAuthorized(res.t('userAlreadyInGroup'));
     }
     if (_.find(userToInvite.invitations.guilds, {id: group._id})) {
       throw new NotAuthorized(res.t('userAlreadyInvitedToGroup'));
     }
-    userToInvite.invitations.guilds.push({id: group._id, name: group.name, inviter: inviter._id});
+
+    let guildInvite = {id: group._id, name: group.name, inviter: inviter._id};
+    if (group.isSubscribed() && !group.hasNotCancelled()) guildInvite.cancelledPlan = true;
+    userToInvite.invitations.guilds.push(guildInvite);
   } else if (group.type === 'party') {
     if (userToInvite.invitations.party.id) {
       throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
@@ -573,7 +877,9 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
       if (userParty && userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty'));
     }
 
-    userToInvite.invitations.party = {id: group._id, name: group.name, inviter: inviter._id};
+    let partyInvite = {id: group._id, name: group.name, inviter: inviter._id};
+    if (group.isSubscribed() && !group.hasNotCancelled()) partyInvite.cancelledPlan = true;
+    userToInvite.invitations.party = partyInvite;
   }
 
   let groupLabel = group.type === 'guild' ? 'Guild' : 'Party';
@@ -636,10 +942,15 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
     userReturnInfo = await _inviteByUUID(userToContact._id, group, inviter, req, res);
   } else {
     userReturnInfo = invite.email;
+
+    let cancelledPlan = false;
+    if (group.isSubscribed() && !group.hasNotCancelled()) cancelledPlan = true;
+
     const groupQueryString = JSON.stringify({
       id: group._id,
       inviter: inviter._id,
       sentAt: Date.now(), // so we can let it expire
+      cancelledPlan,
     });
     let link = `/static/front?groupInvite=${encrypt(groupQueryString)}`;
 
@@ -667,40 +978,78 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  * @apiGroup Group
  * @apiDescription You can provide both `emails` and `uuids`, or just one. You must provide at least one.
  *
- * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
- * @apiParam {Array} [emails] Body parameter - An array of emails addresses to invite
- * @apiParam {Array} [uuids] Body parameter - An array of uuids to invite
+ * @apiParam (Body) {Object[]} [emails] An array of objects, each representing one email address to invite
+ * @apiParam (Body) {String} emails.email The email address of the user being invited.
+ * @apiParam (Body) {String} [emails.name] The name of the user being invited.
+ * @apiParam (Body) {Array} [uuids] An array of uuids to invite
  *
  * @apiParamExample {json} Emails
- *   {
- *     "emails": ["user-1@example.com", "user-2@exmaple.com"]
- *   }
+ * {
+ *   "emails": [
+ *     {"email": "user-1@example.com"},
+ *     {"name": "User2", "email": "user-2@example.com"}
+ *   ]
+ * }
  * @apiParamExample {json} User Ids
  *   {
  *     "uuids": ["user-id-of-existing-user", "user-id-of-another-existing-user"]
  *   }
  * @apiParamExample {json} User Ids and Emails
- *   {
- *     "emails": ["user-1@example.com", "user-2@exmaple.com"],
- *     "uuids": ["user-id-of-existing-user", "user-id-of-another-existing-user"],
- *   }
+ * {
+ *   "emails": [
+ *       {"email": "user-1@example.com"},
+ *       {"email": "user-2@example.com"}
+ *   ],
+ *   "uuids": ["user-id-of-existing-user"]
+ * }
  *
  * @apiSuccess {Array} data The invites
  * @apiSuccess {Object} data[0] If the invitation was a user id, you'll receive back an object. You'll recieve one Object for each succesful user id invite.
  * @apiSuccess {String} data[1] If the invitation was an email, you'll receive back the email. You'll recieve one String for each successful email invite.
  *
- * @apiSuccessExample {json} Successful Response
- *   {
- *     data: [
- *       { id: 'the-id-of-the-invited-user', name: 'The group name', inviter: 'your-user-id' },
- *       "user@example.com"
- *     ]
- *   }
+ * @apiSuccessExample {json} Successful Response with Emails
+ * {
+ *   "data": [
+ *      "user-1@example.com",
+ *      "user-2@exmaple.com"
+ *   ]
+ * }
+ *
+ * @apiSuccessExample {json} Successful Response with User Id
+ * {
+ *   "data": [
+ *     { id: 'the-id-of-the-invited-user', name: 'The group name', inviter: 'your-user-id' }
+ *   ]
+ * }
+ * @apiSuccessExample {json} Successful Response with User Ids and Emails
+ * {
+ *   "data": [
+ *     "user-1@example.com",
+ *     { id: 'the-id-of-the-invited-user', name: 'The group name', inviter: 'your-user-id' },
+ *     "user-2@exmaple.com"
+ *   ]
+ * }
+ *
+ * @apiUse GroupBodyInvalid
+ *
+ * @apiError (400) {BadRequest} NoEmailProvided An email address was not provided in the `emails` body
+ * param `Array`.
+ * @apiError (400) {BadRequest} UuidOrEmailOnly The `emails` and `uuids` params were both missing and/or a
+ * key other than `emails` or `uuids` was provided in the body param.
+ * @apiError (400) {BadRequest} CannotInviteSelf User id or email of invitee matches that of the inviter.
+ * @apiError (400) {BadRequest} MustBeArray The `uuids` or `emails` body param was not an array.
+ * @apiError (400) {BadRequest} TooManyInvites A max of 100 invites (combined emails and user ids) can
+ * be sent out at a time.
+ * @apiError (400) {BadRequest} ExceedsMembersLimit A max of 30 members can join a party.
+ *
+ * @apiError (401) {NotAuthorized} UserAlreadyInvited The user has already been invited to the group.
+ * @apiError (401) {NotAuthorized} UserAlreadyInGroup The user is already a member of the group.
  *
  * @apiUse GroupNotFound
- * @apiError InvalidInvitationParams An error relating to the data sent in `emails` and/or `uuids`
- * @apiError TooManyInvites A max of 100 invites (combined emails and user ids) can be sent out at a time
+ * @apiUse UserNotFound
+ * @apiUse PartyNotFound
  */
 api.inviteToGroup = {
   method: 'POST',
@@ -711,16 +1060,20 @@ api.inviteToGroup = {
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
 
+    if (user.invitesSent >= MAX_EMAIL_INVITES_BY_USER) throw new NotAuthorized(res.t('inviteLimitReached', { techAssistanceEmail: TECH_ASSISTANCE_EMAIL }));
+
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
+    if (group.purchased && group.purchased.plan.customerId && user._id !== group.leader) throw new NotAuthorized(res.t('onlyGroupLeaderCanInviteToGroupPlan'));
+
     let uuids = req.body.uuids;
     let emails = req.body.emails;
 
-    Group.validateInvitations(uuids, emails, res);
+    await Group.validateInvitations(uuids, emails, res, group);
 
     let results = [];
 
@@ -732,6 +1085,8 @@ api.inviteToGroup = {
 
     if (emails) {
       let emailInvites = emails.map((invite) => _inviteByEmail(invite, group, user, req, res));
+      user.invitesSent += emails.length;
+      await user.save();
       let emailResults = await Bluebird.all(emailInvites);
       results.push(...emailResults);
     }

@@ -54,6 +54,7 @@
     "partyNotFound": "חבורה לא נמצאה",
     "targetIdUUID": "\"targetId\" חייב להיות מזהה משתמש תקין.",
     "challengeTasksNoCast": "לא ניתן להשתמש ביכולות מיוחדות על משימות של אתגרים.",
+    "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "אין לכם את היכולת הזו.",
     "spellLevelTooHigh": "עליכם להיות בדרגה <%= level %> כדי להשתמש ביכולת מיוחדת."
 }

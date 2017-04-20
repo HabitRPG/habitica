@@ -7,7 +7,7 @@ import {
   NotFound,
 } from '../libs/errors';
 
-const router = express.Router(); // eslint-disable-line babel/new-cap
+const router = express.Router(); // eslint-disable-line new-cap
 
 const BASE_URL = nconf.get('BASE_URL');
 

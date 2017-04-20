@@ -1,10 +1,14 @@
 {
     "pets": "Zvieratká",
+    "activePet": "Active Pet",
+    "noActivePet": "No Active Pet",
     "petsFound": "nájdených zvieratiek",
     "magicPets": "Zvieratká z čarovných elixírov",
     "rarePets": "Vzácne zvieratká",
     "questPets": "Zvieratká z výprav",
     "mounts": "Tátoše",
+    "activeMount": "Active Mount",
+    "noActiveMount": "No Active Mount",
     "mountsTamed": "tátošov skrotených",
     "questMounts": "Tátoše z výprav",
     "magicMounts": "Tátoše z čarovných elixírov",
@@ -21,6 +25,7 @@
     "royalPurpleGryphon": "Kráľovský fialový Gryf",
     "phoenix": "Fénix",
     "magicalBee": "Čarovná včela",
+    "royalPurpleJackalope": "Royal Purple Jackalope",
     "rarePetPop1": "Ak chceš vedieť, ako môžeš získať vzácne zvieratko vďaka prispevaniu do Habitica, klikni na zlatú packu.",
     "rarePetPop2": "Ako získam toto zvieratko?",
     "potion": "<%= potionType %> liahoxír",
@@ -88,5 +93,7 @@
     "petsReleased": "Zvieratká vypustené.",
     "mountsAndPetsReleased": "Tátoše a zvieratká vypustené",
     "mountsReleased": "Tátoše vypustené",
-    "gemsEach": "drahokamy za každý"
+    "gemsEach": "drahokamy za každý",
+    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

@@ -1,6 +1,6 @@
 {
   "extends": [
     "habitrpg/server",
-    "habitrpg/babel"
+    "habitrpg/esnext"
   ]
 }

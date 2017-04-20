@@ -11,12 +11,24 @@ import couponCode from 'coupon-code';
 let api = {};
 
 /**
+ * @apiDefine Sudo Sudo Users
+ * Moderators with all access permissions.
+ */
+
+/**
  * @api {get} /api/v3/coupons Get coupons
- * @apiDescription Sudo users only
  * @apiName GetCoupons
  * @apiGroup Coupon
+ * @apiPermission sudo
  *
  * @apiSuccess {String} Coupons in CSV format
+ *
+ * @apiSuccessExample {String}
+ * code,event,date,user
+ * GJG4-WEA4-QX3P,wondercon,1476929528704,user-uuid
+ * TT32-EYQA-JPBT,wondercon,1476929528705,
+ * V3EK-GE8M-LMJ4,wondercon,1476929528705,another-user-uuid
+ *
  */
 api.getCoupons = {
   method: 'GET',
@@ -40,14 +52,17 @@ api.getCoupons = {
 
 /**
  * @api {post} /api/v3/coupons/generate/:event Generate coupons for an event
- * @apiDescription Sudo users only
  * @apiName GenerateCoupons
  * @apiGroup Coupon
+ * @apiPermission sudo
  *
- * @apiParam {String} event The event for which the coupon should be generated
- * @apiParam {Number} count Query parameter to specify the number of coupon codes to generate
+ * @apiParam (Path) {String=wondercon,google_6mo} event The event for which the coupon should be generated
+ * @apiParam (Query) {Number} count The number of coupon codes to generate
  *
  * @apiSuccess {Array} data Generated coupons
+ *
+ * @apiError (400) {BadRequest} CouponValidationError The request was missing the count query parameter or used an invalid event.
+ *
  */
 api.generateCoupons = {
   method: 'POST',
@@ -66,11 +81,11 @@ api.generateCoupons = {
 };
 
 /**
- * @api {post} /api/v3/coupons/enter/:code Enter coupon code
- * @apiName EnterCouponCode
+ * @api {post} /api/v3/coupons/enter/:code Redeem a coupon code
+ * @apiName RedeemCouponCode
  * @apiGroup Coupon
  *
- * @apiParam {String} code The coupon code to apply
+ * @apiParam (Path) {String} code The coupon code to apply
  *
  * @apiSuccess {Object} data User object
  */
@@ -96,7 +111,9 @@ api.enterCouponCode = {
  * @apiName ValidateCoupon
  * @apiGroup Coupon
  *
- * @apiSuccess {Boolean} data.valid True or false
+ * @apiParam (Path) {String} code The coupon code to validate
+ *
+ * @apiSuccess {Boolean} data.valid True or False
  */
 api.validateCoupon = {
   method: 'POST',

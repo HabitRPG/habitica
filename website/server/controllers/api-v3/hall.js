@@ -177,9 +177,12 @@ api.updateHero = {
       _.set(hero, updateData.itemPath, updateData.itemVal); // Sanitization at 5c30944 (deemed unnecessary)
     }
 
-    if (updateData.auth && _.isBoolean(updateData.auth.blocked)) {
+    if (updateData.auth && updateData.auth.blocked === true) {
       hero.auth.blocked = updateData.auth.blocked;
       hero.preferences.sleep = true; // when blocking, have them rest at an inn to prevent damage
+    }
+    if (updateData.auth && updateData.auth.blocked === false) {
+      hero.auth.blocked = false;
     }
     if (updateData.flags && _.isBoolean(updateData.flags.chatRevoked)) hero.flags.chatRevoked = updateData.flags.chatRevoked;
 

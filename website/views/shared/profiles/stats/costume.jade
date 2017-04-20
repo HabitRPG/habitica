@@ -1,0 +1,6 @@
+div(ng-if='profile.preferences.costume')
+  h4=env.t('costume')
+  table.table.table-striped
+    tr(ng-repeat='(itemType,costume) in profile.items.gear.costume', ng-init='piece=Content.gear.flat[costume]', ng-show='piece')
+      td
+        strong {{piece.text()}}

@@ -35,7 +35,7 @@ angular.module('habitrpg')
           if (isUserLoaded && notification.type === 'CRON') {
             // If the user is already loaded, do not show the notification, syncing will show it
             // (the user will be synced automatically)
-            $rootScope.User.readNotification(notification.id);
+            // $rootScope.User.readNotifications([notification.id]);
             return false;
           }
 

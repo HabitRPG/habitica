@@ -1,4 +1,11 @@
-import _ from 'lodash';
+import values from 'lodash/values';
+import map from 'lodash/map';
+import keys from 'lodash/keys';
+import each from 'lodash/each';
+import eachRight from 'lodash/eachRight';
+import toArray from 'lodash/toArray';
+import pickBy from 'lodash/pickBy';
+import sortBy from 'lodash/sortBy';
 import content from '../content/index';
 import i18n from '../i18n';
 
@@ -6,6 +13,9 @@ let shops = {};
 
 function lockQuest (quest, user) {
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
+  if (quest.unlockCondition && (quest.key === 'moon1' || quest.key === 'moon2' || quest.key === 'moon3')) {
+    return user.loginIncentives < quest.unlockCondition.incentiveThreshold;
+  }
   if (user.achievements.quests) return quest.previous && !user.achievements.quests[quest.previous];
   return quest.previous;
 }
@@ -18,10 +28,9 @@ shops.getMarketCategories = function getMarket (user, language) {
     notes: i18n.t('dropsExplanation', language),
   };
 
-  eggsCategory.items = _(content.questEggs)
-    .values()
+  eggsCategory.items = sortBy(values(content.questEggs)
     .filter(egg => egg.canBuy(user))
-    .concat(_.values(content.dropEggs))
+    .concat(values(content.dropEggs))
     .map(egg => {
       return {
         key: egg.key,
@@ -33,7 +42,7 @@ shops.getMarketCategories = function getMarket (user, language) {
         currency: 'gems',
         purchaseType: 'eggs',
       };
-    }).sortBy('key').value();
+    }), 'key');
   categories.push(eggsCategory);
 
   let hatchingPotionsCategory = {
@@ -41,8 +50,7 @@ shops.getMarketCategories = function getMarket (user, language) {
     text: i18n.t('hatchingPotions', language),
     notes: i18n.t('dropsExplanation', language),
   };
-  hatchingPotionsCategory.items = _(content.hatchingPotions)
-    .values()
+  hatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
     .filter(hp => !hp.limited)
     .map(hatchingPotion => {
       return {
@@ -55,7 +63,7 @@ shops.getMarketCategories = function getMarket (user, language) {
         currency: 'gems',
         purchaseType: 'hatchingPotions',
       };
-    }).sortBy('key').value();
+    }), 'key');
   categories.push(hatchingPotionsCategory);
 
   let premiumHatchingPotionsCategory = {
@@ -63,8 +71,7 @@ shops.getMarketCategories = function getMarket (user, language) {
     text: i18n.t('magicHatchingPotions', language),
     notes: i18n.t('premiumPotionNoDropExplanation', language),
   };
-  premiumHatchingPotionsCategory.items = _(content.hatchingPotions)
-    .values()
+  premiumHatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
     .filter(hp => hp.limited && hp.canBuy())
     .map(premiumHatchingPotion => {
       return {
@@ -77,7 +84,7 @@ shops.getMarketCategories = function getMarket (user, language) {
         currency: 'gems',
         purchaseType: 'hatchingPotions',
       };
-    }).sortBy('key').value();
+    }), 'key');
   categories.push(premiumHatchingPotionsCategory);
 
   let foodCategory = {
@@ -85,8 +92,7 @@ shops.getMarketCategories = function getMarket (user, language) {
     text: i18n.t('food', language),
     notes: i18n.t('dropsExplanation', language),
   };
-  foodCategory.items = _(content.food)
-    .values()
+  foodCategory.items = sortBy(values(content.food)
     .filter(food => food.canDrop || food.key === 'Saddle')
     .map(foodItem => {
       return {
@@ -99,7 +105,7 @@ shops.getMarketCategories = function getMarket (user, language) {
         currency: 'gems',
         purchaseType: 'food',
       };
-    }).sortBy('key').value();
+    }), 'key');
   categories.push(foodCategory);
 
   return categories;
@@ -108,13 +114,13 @@ shops.getMarketCategories = function getMarket (user, language) {
 shops.getQuestShopCategories = function getQuestShopCategories (user, language) {
   let categories = [];
 
-  _.each(content.userCanOwnQuestCategories, type => {
+  each(content.userCanOwnQuestCategories, type => {
     let category = {
       identifier: type,
       text: i18n.t(`${type}Quests`, language),
     };
 
-    category.items = _(content.questsByLevel)
+    category.items = content.questsByLevel
       .filter(quest => quest.canBuy(user) && quest.category === type)
       .map(quest => {
         let locked = lockQuest(quest, user);
@@ -130,10 +136,10 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
           boss: quest.boss,
           collect: quest.collect,
           lvl: quest.lvl,
-          class: locked ? `inventory_quest_scroll_${quest.key}_locked` : `inventory_quest_scroll_${quest.key}`,
+          class: locked ? `inventory_quest_scroll_locked inventory_quest_scroll_${quest.key}_locked` : `inventory_quest_scroll inventory_quest_scroll_${quest.key}`,
           purchaseType: 'quests',
         };
-      }).value();
+      });
 
     categories.push(category);
   });
@@ -143,7 +149,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
 
 shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, language) {
   let categories = [];
-  let stable = {pets: 'Pet-', mounts: 'Mount_Head_'};
+  let stable = {pets: 'Pet-', mounts: 'Mount_Icon_'};
   for (let type in stable) {
     if (stable.hasOwnProperty(type)) {
       let category = {
@@ -176,7 +182,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
     }
   }
 
-  let sets = content.timeTravelerStore(user.items.gear.owned);
+  let sets = content.timeTravelerStore(user);
   for (let setKey in  sets) {
     if (sets.hasOwnProperty(setKey)) {
       let set = sets[setKey];
@@ -186,7 +192,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
         purchaseAll: true,
       };
 
-      category.items = _.map(set.items, item => {
+      category.items = map(set.items, item => {
         return {
           key: item.key,
           text: item.text(language),
@@ -208,39 +214,105 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
   return categories;
 };
 
-// To switch seasons/available inventory, edit the availableSets object to whatever should be sold.
-// let availableSets = {
+// To switch seasons/available inventory, edit the AVAILABLE_SETS object to whatever should be sold.
+// let AVAILABLE_SETS = {
 //   setKey: i18n.t('setTranslationString', language),
 // };
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
-  let availableSets = {
-    fallHealer: i18n.t('mummyMedicSet', language),
-    fall2015Healer: i18n.t('potionerSet', language),
-    fallMage: i18n.t('witchyWizardSet', language),
-    fall2015Mage: i18n.t('stitchWitchSet', language),
-    fallRogue: i18n.t('vampireSmiterSet', language),
-    fall2015Rogue: i18n.t('battleRogueSet', language),
-    fallWarrior: i18n.t('monsterOfScienceSet', language),
-    fall2015Warrior: i18n.t('scarecrowWarriorSet', language),
+  const AVAILABLE_SETS = {
+    springHealer: i18n.t('lovingPupSet', language),
+    springMage: i18n.t('magicMouseSet', language),
+    springRogue: i18n.t('stealthyKittySet', language),
+    springWarrior: i18n.t('mightyBunnySet', language),
+    spring2015Healer: i18n.t('comfortingKittySet', language),
+    spring2015Mage: i18n.t('magicianBunnySet', language),
+    spring2015Rogue: i18n.t('sneakySqueakerSet', language),
+    spring2015Warrior: i18n.t('bewareDogSet', language),
+    spring2016Healer: i18n.t('springingBunnySet', language),
+    spring2016Mage: i18n.t('grandMalkinSet', language),
+    spring2016Rogue: i18n.t('cleverDogSet', language),
+    spring2016Warrior: i18n.t('braveMouseSet', language),
   };
+
+  const AVAILABLE_SPELLS = [
+    'shinySeed',
+  ];
+
+  const AVAILABLE_QUESTS = [
+    'egg',
+  ];
 
   let categories = [];
 
-  let flatGearArray = _.toArray(content.gear.flat);
+  let flatGearArray = toArray(content.gear.flat);
 
-  for (let key in availableSets) {
-    if (availableSets.hasOwnProperty(key)) {
+  let spells = pickBy(content.spells.special, (spell, key) => {
+    return AVAILABLE_SPELLS.indexOf(key) !== -1;
+  });
+
+  if (keys(spells).length > 0) {
+    let category = {
+      identifier: 'spells',
+      text: i18n.t('seasonalItems', language),
+    };
+
+    category.items = map(spells, (spell, key) => {
+      return {
+        key,
+        text: spell.text(language),
+        notes: spell.notes(language),
+        value: spell.value,
+        type: 'special',
+        currency: 'gold',
+        locked: false,
+        purchaseType: 'spells',
+        class: `inventory_special_${key}`,
+      };
+    });
+
+    categories.push(category);
+  }
+
+  let quests = pickBy(content.quests, (quest, key) => {
+    return AVAILABLE_QUESTS.indexOf(key) !== -1;
+  });
+
+  if (keys(quests).length > 0) {
+    let category = {
+      identifier: 'quests',
+      text: i18n.t('quests', language),
+    };
+
+    category.items = map(quests, (quest, key) => {
+      return {
+        key,
+        text: quest.text(language),
+        notes: quest.notes(language),
+        value: quest.value,
+        type: 'quests',
+        currency: 'gems',
+        locked: false,
+        drop: quest.drop,
+        boss: quest.boss,
+        collect: quest.collect,
+        class: `inventory_quest_scroll_${key}`,
+        purchaseType: 'quests',
+      };
+    });
+
+    categories.push(category);
+  }
+
+  for (let key in AVAILABLE_SETS) {
+    if (AVAILABLE_SETS.hasOwnProperty(key)) {
       let category = {
         identifier: key,
-        text: availableSets[key],
+        text: AVAILABLE_SETS[key],
       };
 
-      category.items = _(flatGearArray).filter((gear) => {
-        if (gear.index !== key) {
-          return false;
-        }
-        return user.items.gear.owned[gear.key] === undefined;
-      }).where({index: key}).map(gear => {
+      category.items = flatGearArray.filter((gear) => {
+        return user.items.gear.owned[gear.key] === undefined && gear.index === key;
+      }).map(gear => {
         return {
           key: gear.key,
           text: gear.text(language),
@@ -251,8 +323,10 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
           locked: false,
           currency: 'gems',
           purchaseType: 'gear',
+          class: `shop_${gear.key}`,
         };
-      }).value();
+      });
+
       if (category.items.length > 0) {
         categories.push(category);
       }
@@ -260,6 +334,32 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   }
 
   return categories;
+};
+
+shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
+  let sets = [];
+
+  eachRight(content.backgrounds, (group, key) => {
+    let set = {
+      identifier: key,
+      text: i18n.t(key, language),
+    };
+
+    set.items = map(group, (background, bgKey) => {
+      return {
+        key: bgKey,
+        text: background.text(language),
+        notes: background.notes(language),
+        value: background.price,
+        currency: background.currency || 'gems',
+        purchaseType: 'backgrounds',
+      };
+    });
+
+    sets.push(set);
+  });
+
+  return sets;
 };
 
 module.exports = shops;
