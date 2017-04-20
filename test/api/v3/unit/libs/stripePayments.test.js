@@ -48,6 +48,33 @@ describe('Stripe Payments', () => {
       payments.createSubscription.restore();
     });
 
+    it('should error if gem amount is too low', async () => {
+      let receivingUser = new User();
+      receivingUser.save();
+      gift = {
+        type: 'gems',
+        gems: {
+          amount: 0,
+          uuid: receivingUser._id,
+        },
+      };
+
+      await expect(stripePayments.checkout({
+        token,
+        user,
+        gift,
+        groupId,
+        email,
+        headers,
+        coupon,
+      }, stripe))
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 400,
+        message: "Amount must be at least 1.",
+        name: "BadRequest",
+      });
+    });
+
     it('should purchase gems', async () => {
       await stripePayments.checkout({
         token,

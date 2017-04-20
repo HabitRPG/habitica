@@ -107,6 +107,9 @@ api.checkout = async function checkout (options, stripeInc) {
       if (gift.type === 'subscription') {
         amount = `${shared.content.subscriptionBlocks[gift.subscription.key].price * 100}`;
       } else {
+        if (gift.gems.amount <= 0) {
+          throw new BadRequest(shared.i18n.t('badAmountOfGemsToPurchase'));
+        }
         amount = `${gift.gems.amount / 4 * 100}`;
       }
     }
