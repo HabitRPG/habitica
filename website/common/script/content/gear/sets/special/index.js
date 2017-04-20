@@ -49,6 +49,13 @@ let armor = {
     value: 130,
     canOwn: ownsItem('armor_special_mammothRiderArmor'),
   },
+  roguishRainbowMessengerRobes: {
+    text: t('armorSpecialRoguishRainbowMessengerRobesText'),
+    notes: t('armorSpecialRoguishRainbowMessengerRobesNotes', { str: 15 }),
+    str: 15,
+    value: 130,
+    canOwn: ownsItem('armor_special_roguishRainbowMessengerRobes'),
+  },
   pageArmor: {
     text: t('armorSpecialPageArmorText'),
     notes: t('armorSpecialPageArmorNotes', { con: 16 }),
@@ -734,6 +741,13 @@ let head = {
     per: 15,
     value: 130,
     canOwn: ownsItem('head_special_mammothRiderHelm'),
+  },
+  roguishRainbowMessengerHood: {
+    text: t('headSpecialRoguishRainbowMessengerHoodText'),
+    notes: t('headSpecialRoguishRainbowMessengerHoodNotes', { con: 15 }),
+    con: 15,
+    value: 130,
+    canOwn: ownsItem('head_special_roguishRainbowMessengerHood'),
   },
   pageHelm: {
     text: t('headSpecialPageHelmText'),
@@ -1516,6 +1530,13 @@ let shield = {
     value: 130,
     canOwn: ownsItem('shield_special_mammothRiderHorn'),
   },
+  roguishRainbowMessage: {
+    text: t('shieldSpecialRoguishRainbowMessageText'),
+    notes: t('shieldSpecialRoguishRainbowMessageNotes', { int: 15 }),
+    int: 15,
+    value: 130,
+    canOwn: ownsItem('shield_special_roguishRainbowMessage'),
+  },
   diamondStave: {
     text: t('shieldSpecialDiamondStaveText'),
     notes: t('shieldSpecialDiamondStaveNotes', { int: 16 }),
@@ -1935,6 +1956,13 @@ let weapon = {
     int: 15,
     value: 130,
     canOwn: ownsItem('weapon_special_mammothRiderSpear'),
+  },
+  roguishRainbowMessage: {
+    text: t('weaponSpecialRoguishRainbowMessageText'),
+    notes: t('weaponSpecialRoguishRainbowMessageNotes', { per: 15 }),
+    per: 15,
+    value: 130,
+    canOwn: ownsItem('weapon_special_roguishRainbowMessage'),
   },
   pageBanner: {
     text: t('weaponSpecialPageBannerText'),

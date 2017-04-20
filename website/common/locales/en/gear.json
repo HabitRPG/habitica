@@ -95,6 +95,8 @@
   "weaponSpecialMammothRiderSpearNotes": "This rose quartz-tipped spear will imbue you with ancient spell-casting power. Increases Intelligence by <%= int %>.",
   "weaponSpecialPageBannerText": "Page Banner",
   "weaponSpecialPageBannerNotes": "Wave your banner high to inspire confidence! Increases Strength by <%= str %>.",
+  "weaponSpecialRoguishRainbowMessageText": "Roguish Rainbow Message",
+  "weaponSpecialRoguishRainbowMessageNotes": "This sparkly envelope contains messages of encouragement from Habiticans, and a touch of magic to help speed your deliveries! Increases Perception by <%= per %>.",
 
   "weaponSpecialYetiText": "Yeti-Tamer Spear",
   "weaponSpecialYetiNotes": "This spear allows its user to command any yeti. Increases Strength by <%= str %>. Limited Edition 2013-2014 Winter Gear.",
@@ -352,6 +354,8 @@
   "armorSpecialMammothRiderArmorNotes": "This suit of fur and leather includes a snazzy cape studded with rose quartz gems. It will protect you from bitter winds as you adventure in the coldest climes. Increases Constitution by <%= con %>.",
   "armorSpecialPageArmorText": "Page Armor",
   "armorSpecialPageArmorNotes": "Carry everything you need in your perfect pack! Increases Constitution by <%= con %>.",
+  "armorSpecialRoguishRainbowMessengerRobesText": "Roguish Rainbow Messenger Robes",
+  "armorSpecialRoguishRainbowMessengerRobesNotes": "These vividly striped robes will allow you to fly through gale-force winds smoothly and safely. Increases Strength by <%= str %>.",
 
   "armorSpecialYetiText": "Yeti-Tamer Robe",
   "armorSpecialYetiNotes": "Fuzzy and fierce. Increases Constitution by <%= con %>. Limited Edition 2013-2014 Winter Gear.",
@@ -674,6 +678,8 @@
   "headSpecialMammothRiderHelmNotes": "Don't let its fluffiness fool you--this hat will grant you piercing powers of perception! Increases Perception by <%= per %>.",
   "headSpecialPageHelmText": "Page Helm",
   "headSpecialPageHelmNotes": "Chainmail: for the stylish AND the practical. Increases Perception by <%= per %>.",
+  "headSpecialRoguishRainbowMessengerHoodText": "Roguish Rainbow Messenger Hood",
+  "headSpecialRoguishRainbowMessengerHoodNotes": "This bright hood emits a colorful glow that will protect you from unpleasant weather! Increases Constitution by <%= con %>.",
 
   "headSpecialNyeText": "Absurd Party Hat",
   "headSpecialNyeNotes": "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
@@ -976,15 +982,16 @@
   "shieldSpecial1Notes": "Shatters arrows and deflects the words of naysayers. Increases all attributes by <%= attrs %>.",
   "shieldSpecialTakeThisText": "Take This Shield",
   "shieldSpecialTakeThisNotes": "This shield was earned by participating in a sponsored Challenge made by Take This. Congratulations! Increases all attributes by <%= attrs %>.",
+  "shieldSpecialGoldenknightText": "Mustaine's Milestone Mashing Morning Star",
+  "shieldSpecialGoldenknightNotes": "Meetings, monsters, malaise: managed! Mash! Increases Constitution and Perception by <%= attrs %> each.",
   "shieldSpecialMoonpearlShieldText": "Moonpearl Shield",
   "shieldSpecialMoonpearlShieldNotes": "Designed for fast swimming, and also some defense. Increases Constitution by <%= con %>.",
   "shieldSpecialMammothRiderHornText": "Mammoth Rider's Horn",
   "shieldSpecialMammothRiderHornNotes": "One blow on this mighty rose quartz horn and you'll summon powerful magical forces. Increases Strength by <%= str %>.",
   "shieldSpecialDiamondStaveText": "Diamond Stave",
   "shieldSpecialDiamondStaveNotes": "This valuable stave has mystical powers. Increases Intelligence by <%= int %>.",
-
-  "shieldSpecialGoldenknightText": "Mustaine's Milestone Mashing Morning Star",
-  "shieldSpecialGoldenknightNotes": "Meetings, monsters, malaise: managed! Mash! Increases Constitution and Perception by <%= attrs %> each.",
+  "weaponSpecialRoguishRainbowMessageText": "Roguish Rainbow Message",
+  "weaponSpecialRoguishRainbowMessageNotes": "This sparkly envelope contains messages of encouragement from Habiticans, and a touch of magic to help speed your deliveries! Increases Intelligence by <%= int %>.",
 
   "shieldSpecialYetiText": "Yeti-Tamer Shield",
   "shieldSpecialYetiNotes": "This shield reflects light from the snow. Increases Constitution by <%= con %>. Limited Edition 2013-2014 Winter Gear.",
