@@ -70,6 +70,7 @@ nav.navbar {
 
 .nav-item {
   .nav-link {
+    font-size: 16px;
     color: $white;
     font-weight: bold;
     line-height: 1.5;

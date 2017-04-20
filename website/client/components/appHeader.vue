@@ -7,8 +7,8 @@
     .progress-container.d-flex
       img.icon(src="~assets/header/png/health@3x.png")
       .progress
-        .progress-bar.bg-danger(:style="{width: `${percent(user.stats.hp, maxHealth)}%`}")
-      span {{user.stats.hp | round}} / {{maxHealth}}
+        .progress-bar.bg-danger(:style="{width: `${percent(user.stats.hp, MAX_HEALTH)}%`}")
+      span {{user.stats.hp | round}} / {{MAX_HEALTH}}
     .progress-container.d-flex
       img.icon(src="~assets/header/png/experience@3x.png")
       .progress
@@ -95,7 +95,6 @@ import Avatar from './avatar';
 import { mapState } from 'client/libs/store';
 
 import { toNextLevel } from '../../common/script/statHelpers';
-import { MAX_HEALTH as maxHealth } from '../../common/script/constants';
 import statsComputed from '../../common/script/libs/statsComputed';
 import percent from '../../common/script/libs/percent';
 
@@ -106,13 +105,11 @@ export default {
   methods: {
     percent,
   },
-  data () {
-    return {
-      maxHealth,
-    };
-  },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({
+      user: 'user.data',
+      MAX_HEALTH: 'constants.MAX_HEALTH',
+    }),
     maxMP () {
       return statsComputed(this.user).maxMP;
     },

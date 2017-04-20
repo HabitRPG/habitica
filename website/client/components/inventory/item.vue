@@ -4,9 +4,21 @@
 -->
 
 <template lang="pug">
-.item-container
-  span.item-selected-badge.badge.badge-pill(v-if="selected === true") &#9733;
-  span(:class="'shop_' + item.key")
+b-popover(
+  :triggers="['hover']",
+  placement="top",
+)
+  span(slot="content", v-once)
+    h4.popover-content-title {{ item.text() }}
+    .popover-content-text {{ item.notes() }}
+    .popover-content-attr(v-for="attr in ATTRIBUTES") 
+      span.popover-content-attr-key {{ `${$t(attr)}: ` }}
+      span.popover-content-attr-val {{ `+${item[attr]}` }}
+
+
+  .item-container
+    span.item-selected-badge.badge.badge-pill(v-if="selected === true") &#9733;
+    span(:class="'shop_' + item.key", v-once)
 </template>
 
 <style lang="scss">
@@ -14,6 +26,10 @@
 
 .items {
   margin-bottom: 12px;
+}
+
+.items > div {
+  display: inline-block;
 }
 
 .item-container {
@@ -29,11 +45,11 @@
   cursor: pointer;
 }
 
-.items > .item-container:last-of-type {
+.items > div:last-of-type {
   margin-right: 0px;
 }
 
-.item-container > span[class^="shop_"] {
+.item-container span[class^="shop_"] {
   width: 40px;
   height: 40px;
   margin: 0 auto;
@@ -53,7 +69,13 @@
 </style>
 
 <script>
+import bPopover from 'bootstrap-vue/lib/components/popover';
+import { mapState } from 'client/libs/store';
+
 export default {
+  components: {
+    bPopover,
+  },
   props: {
     item: {
       type: Object,
@@ -63,6 +85,11 @@ export default {
       type: Boolean,
       required: false,
     },
+  },
+  computed: {
+    ...mapState({
+      ATTRIBUTES: 'constants.ATTRIBUTES',
+    }),
   },
 };
 </script>

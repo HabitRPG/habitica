@@ -38,7 +38,7 @@
 import axios from 'axios';
 import MugenScroll from 'vue-mugen-scroll';
 import PublicGuildItem from './publicGuildItem';
-import { GUILDS_PER_PAGE } from 'common/script/constants';
+import { mapState } from 'client/libs/store';
 
 export default {
   components: { PublicGuildItem, MugenScroll },
@@ -49,6 +49,11 @@ export default {
       lastPageLoaded: 0,
       guilds: [],
     };
+  },
+  computed: {
+    ...mapState({
+      GUILDS_PER_PAGE: 'constants.GUILDS_PER_PAGE',
+    }),
   },
   created () {
     this.fetchGuilds();
@@ -65,7 +70,7 @@ export default {
       });
       let guilds = response.data.data;
       this.guilds.push(...guilds);
-      if (guilds.length < GUILDS_PER_PAGE) this.hasLoadedAllGuilds = true;
+      if (guilds.length < this.GUILDS_PER_PAGE) this.hasLoadedAllGuilds = true;
       this.lastPageLoaded++;
       this.loading = false;
     },
