@@ -172,6 +172,7 @@
     "hatchingPotionHolly": "Acebo",
     "hatchingPotionCupid": "Cupido",
     "hatchingPotionShimmer": "Shimmer",
+    "hatchingPotionFairy": "Fairy",
     "hatchingPotionNotes": "Vierte esto sobre un huevo, y nacerá una mascota <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "No se puede usar con huevos de mascotas de misión.",
     "foodMeat": "Carne",

@@ -105,5 +105,6 @@
     "spring2017FloralMouseSet": "Blumenmaus (Heiler)",
     "spring2017SneakyBunnySet": "Raffiniertes Häschen (Schurke)",
     "eventAvailability": "Zum Kauf verfügbar bis zum <%= date(locale) %>.",
-    "dateEndApril": "19. April"
+    "dateEndApril": "19. April",
+    "dateEndMay": "May 17"
 }

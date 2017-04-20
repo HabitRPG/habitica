@@ -172,6 +172,7 @@
     "hatchingPotionHolly": "Magyal",
     "hatchingPotionCupid": "Kupidó",
     "hatchingPotionShimmer": "Shimmer",
+    "hatchingPotionFairy": "Fairy",
     "hatchingPotionNotes": "Öntsd ezt egy tojásra, és egy <%= potText(locale) %> háziállat fog belőle kikelni.",
     "premiumPotionAddlNotes": "Nem használható küldetésben szerzett tojásokhoz.",
     "foodMeat": "Hús",

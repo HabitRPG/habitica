@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "Explosion de flammes",
-    "spellWizardFireballNotes": "Des flammes jaillissent de vos mains. Vous gagnez de l'expérience et infligez des dégâts supplémentaires au Boss ! Cliquez sur une tâche pour lancer. (Basé sur : Intelligence)",
+    "spellWizardFireballNotes": "Des flammes jaillissent de vos mains. Vous gagnez de l'expérience et infligez des dégâts supplémentaires au boss ! Cliquez sur une tâche pour lancer. (Basé sur : Intelligence)",
     "spellWizardMPHealText": "Poussée éthérée",
     "spellWizardMPHealNotes": "Vous sacrifiez de la magie pour aider vos camarades. Le reste de votre équipe gagne du mana ! (Basé sur : Intelligence)",
     "spellWizardEarthText": "Séisme",
@@ -9,7 +9,7 @@
     "spellWizardFrostNotes": "De la glace recouvre vos tâches. Aucun de vos combos ne sera remis à zéro demain ! (Le sort affecte tous les combos)",
     "spellWizardFrostAlreadyCast": "Vous avez déjà lancé ce sort aujourd'hui. Vos combos sont gelés, et vous n'avez pas besoin de le lancer à nouveau.",
     "spellWarriorSmashText": "Frappe brutale",
-    "spellWarriorSmashNotes": "Vous attaquez une tâche de toutes vos forces. Elle devient plus bleue, ou moins rouge, et vous infligez des dégâts supplémentaires aux Boss ! Cliquez sur une tâche pour lancer. (Basé sur : Force)",
+    "spellWarriorSmashNotes": "Vous attaquez une tâche de toutes vos forces. Elle devient plus bleue, ou moins rouge, et vous infligez des dégâts supplémentaires aux boss ! Cliquez sur une tâche pour lancer. (Basé sur : Force)",
     "spellWarriorDefensiveStanceText": "Posture défensive",
     "spellWarriorDefensiveStanceNotes": "Vous vous préparez au prochain assaut de vos tâches. Vous gagnez un bonus de Constitution ! (Basé sur : Constitution sans bonus)",
     "spellWarriorValorousPresenceText": "Présence valeureuse",

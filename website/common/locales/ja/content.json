@@ -172,6 +172,7 @@
     "hatchingPotionHolly": "ひいらぎの",
     "hatchingPotionCupid": "キューピッドの",
     "hatchingPotionShimmer": "きらきらの",
+    "hatchingPotionFairy": "Fairy",
     "hatchingPotionNotes": "これをたまごにかけると、<%= potText(locale) %> ペットが生まれます。",
     "premiumPotionAddlNotes": "クエスト ペットのたまごには使えません。",
     "foodMeat": "肉",

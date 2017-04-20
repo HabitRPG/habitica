@@ -105,5 +105,6 @@
     "spring2017FloralMouseSet": "Bloemige muis (heler)",
     "spring2017SneakyBunnySet": "Geniepig konijn (dief)",
     "eventAvailability": "Verkrijgbaar voor aankoop tot <%=date(locale) %>.",
-    "dateEndApril": "19 april"
+    "dateEndApril": "19 april",
+    "dateEndMay": "May 17"
 }
