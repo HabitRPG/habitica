@@ -19,9 +19,7 @@ import {
 } from './errors';
 import slack from './slack';
 
-const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
-  return { email, canSend: true };
-});
+const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 
 let api = {};
 
@@ -30,7 +28,7 @@ api.constants = {
   GROUP_PLAN_CUSTOMER_ID: 'group-plan',
   GROUP_PLAN_PAYMENT_METHOD: 'Group Plan',
   GOOGLE_PAYMENT_METHOD: 'Google',
-  IOS_PAYMENT_METHOD: 'ios', // @TODO: replace with correct payment method
+  IOS_PAYMENT_METHOD: 'Apple',
 };
 
 function revealMysteryItems (user) {
@@ -121,11 +119,13 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
     let ignoreCustomerId = customerIdsToIgnore.indexOf(memberPlan.customerId) !== -1;
 
     if (ignorePaymentPlan) {
-      txnEmail(FLAG_REPORT_EMAILS, 'invalid-payment-cancel', [
-        {name: 'USERNAME', content: member.auth.local.username},
+      txnEmail(FLAG_REPORT_EMAILS, 'admin-user-subscription-details', [
+        {name: 'PROFILE_NAME', content: member.profile.name},
         {name: 'UUID', content: member._id},
         {name: 'EMAIL', content: member.auth.local.email},
         {name: 'PAYMENT_METHOD', content: memberPlan.paymentMethod},
+        {name: 'PURCHASED_PLAN', content: JSON.stringify(memberPlan)},
+        {name: 'ACTION_NEEDED', content: 'User has joined group plan. Tell them to cancel subscription then give them free sub.'},
       ]);
     }
 
