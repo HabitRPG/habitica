@@ -49,12 +49,18 @@
           @click.native="equip({key: item.key, type: 'equipped'})",
         )
       div(v-if="items[group.key].length === 0")
-        span No items in this category
+        p(v-once) {{ $t('noGearItemsOfType', { type: $t(group.label) }) }}
       a.btn.btn-show-more(
         v-if="items[group.key].length > itemsPerLine",
         @click="viewOptions[group.key].open = !viewOptions[group.key].open"
-      ) {{ viewOptions[group.key].open ? 'Close' : 'Open' }}
+      ) {{ viewOptions[group.key].open ? $t('showLessGearItems', { type: $t(group.label) }) : $t('showAllGearItems', { type: $t(group.label), items: items[group.key].length }) }}
 </template>
+
+<style lang="scss" scoped>
+.standard-page {
+  padding-bottom: 100px;
+}
+</style>
 
 <script>
 import { mapState, mapActions } from 'client/libs/store';
@@ -81,7 +87,7 @@ export default {
       searchText: null,
       searchTextThrottled: null,
       groupBy: 'type', // or 'class' TODO move to router?
-      gearTypesToStrings: Object.freeze({
+      gearTypesToStrings: Object.freeze({ // TODO use content.itemList?
         headAccessory: 'headAccessoryCapitalized',
         head: 'headgearCapitalized',
         eyewear: 'eyewear',

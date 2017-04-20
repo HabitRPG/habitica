@@ -4,16 +4,18 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
+  line-height: 1.43;
 }
 
 // Headers
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Roboto Condensed', sans-serif;
+  font-weight: bold;
 }
 
 h1 {
   font-size: 24px;
-  font-weight: bold;
   line-height: 1.67;
   color: $purple-200;
   margin-bottom: 24px;
@@ -21,7 +23,6 @@ h1 {
 
 h2 {
   font-size: 20px;
-  font-weight: bold;
   line-height: 1.2;
   color: $gray-10;
   margin-bottom: 16px;
@@ -29,8 +30,13 @@ h2 {
 
 h3 {
   font-size: 16px;
-  font-weight: bold;
   line-height: 1.5;
   color: $gray-50;
   margin-bottom: 9px;
+}
+
+h4 {
+  font-size: 14px;
+  line-height: 1.43;
+  color: $gray-10;
 }
