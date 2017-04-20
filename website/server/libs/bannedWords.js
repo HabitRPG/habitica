@@ -1,3 +1,5 @@
+/* eslint-disable no-multiple-empty-lines */
+
 // CONTENT WARNING:
 // This file contains slurs, swear words, religious oaths, and words related to addictive substance and adult topics.
 // Do not read this file if you do not want to be exposed to those words.
