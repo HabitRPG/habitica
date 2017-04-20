@@ -990,8 +990,8 @@
   "shieldSpecialMammothRiderHornNotes": "One blow on this mighty rose quartz horn and you'll summon powerful magical forces. Increases Strength by <%= str %>.",
   "shieldSpecialDiamondStaveText": "Diamond Stave",
   "shieldSpecialDiamondStaveNotes": "This valuable stave has mystical powers. Increases Intelligence by <%= int %>.",
-  "weaponSpecialRoguishRainbowMessageText": "Roguish Rainbow Message",
-  "weaponSpecialRoguishRainbowMessageNotes": "This sparkly envelope contains messages of encouragement from Habiticans, and a touch of magic to help speed your deliveries! Increases Intelligence by <%= int %>.",
+  "shieldSpecialRoguishRainbowMessageText": "Roguish Rainbow Message",
+  "shieldSpecialRoguishRainbowMessageNotes": "This sparkly envelope contains messages of encouragement from Habiticans, and a touch of magic to help speed your deliveries! Increases Intelligence by <%= int %>.",
 
   "shieldSpecialYetiText": "Yeti-Tamer Shield",
   "shieldSpecialYetiNotes": "This shield reflects light from the snow. Increases Constitution by <%= con %>. Limited Edition 2013-2014 Winter Gear.",

@@ -3071,16 +3071,16 @@ api.quests = {
     category: 'gold',
     collect: {
       mistifly1: {
-        text: t('questMayhemMistiflying2CollectMistiflies'),
-        count: 15,
+        text: t('questMayhemMistiflying2CollectRedMistiflies'),
+        count: 25,
       },
       mistifly2: {
-        text: t('questMayhemMistiflying2CollectMistiflies'),
+        text: t('questMayhemMistiflying2CollectBlueMistiflies'),
         count: 15,
       },
       mistifly3: {
-        text: t('questMayhemMistiflying2CollectMistiflies'),
-        count: 15,
+        text: t('questMayhemMistiflying2CollectGreenMistiflies'),
+        count: 10,
       },
     },
     drop: {
