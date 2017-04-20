@@ -81,7 +81,7 @@
 .slide-up-enter-active, .slide-up-leave-active {
   transition-property: all;
   transition-duration: 450ms;
-  transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);;
+  transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 .slide-up-enter, .slide-up-leave-to {
   max-height: 0;
