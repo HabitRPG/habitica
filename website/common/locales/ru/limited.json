@@ -105,5 +105,6 @@
     "spring2017FloralMouseSet": "Цветочная мышь (Целитель)",
     "spring2017SneakyBunnySet": "Скрытный кролик (Разбойник)",
     "eventAvailability": "Available for purchase until <%= date(locale) %>.",
-    "dateEndApril": "Апрель 19"
+    "dateEndApril": "Апрель 19",
+    "dateEndMay": "May 17"
 }

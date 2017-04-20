@@ -172,6 +172,7 @@
     "hatchingPotionHolly": "Natal",
     "hatchingPotionCupid": "Cupid",
     "hatchingPotionShimmer": "Shimmer",
+    "hatchingPotionFairy": "Fairy",
     "hatchingPotionNotes": "Berikan ini pada sebuah telur, dan ia akan menetas menjadi binatang peliharaan <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Tidak dapat digunakan pada telur peliharaan sayembara",
     "foodMeat": "Daging",

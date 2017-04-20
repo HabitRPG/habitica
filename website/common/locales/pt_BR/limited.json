@@ -105,5 +105,6 @@
     "spring2017FloralMouseSet": "Rato Colorido (Curandeiro)",
     "spring2017SneakyBunnySet": "Coelhinho Sorrateiro (Ladino)",
     "eventAvailability": "Disponível para compra até <%= date(locale) %>.",
-    "dateEndApril": "19 de Abril"
+    "dateEndApril": "19 de Abril",
+    "dateEndMay": "May 17"
 }

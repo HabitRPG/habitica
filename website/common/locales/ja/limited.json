@@ -105,5 +105,6 @@
     "spring2017FloralMouseSet": "Floral Mouse (Healer)",
     "spring2017SneakyBunnySet": "Sneaky Bunny (Rogue)",
     "eventAvailability": "<%= date(locale) %>まで購入できます。",
-    "dateEndApril": "4月19日"
+    "dateEndApril": "4月19日",
+    "dateEndMay": "May 17"
 }
