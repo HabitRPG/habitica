@@ -119,10 +119,10 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
     let ignoreCustomerId = customerIdsToIgnore.indexOf(memberPlan.customerId) !== -1;
 
     if (ignorePaymentPlan) {
-      txnEmail(FLAG_REPORT_EMAILS, 'admin-user-subscription-details', [
+      txnEmail(TECH_ASSISTANCE_EMAIL, 'admin-user-subscription-details', [
         {name: 'PROFILE_NAME', content: member.profile.name},
         {name: 'UUID', content: member._id},
-        {name: 'EMAIL', content: member.auth.local.email},
+        {name: 'EMAIL', content: getUserInfo(member, ['email']).email},
         {name: 'PAYMENT_METHOD', content: memberPlan.paymentMethod},
         {name: 'PURCHASED_PLAN', content: JSON.stringify(memberPlan)},
         {name: 'ACTION_NEEDED', content: 'User has joined group plan. Tell them to cancel subscription then give them free sub.'},
