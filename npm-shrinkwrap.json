@@ -527,9 +527,9 @@
       "resolved": "https://registry.npmjs.org/aws4/-/aws4-1.6.0.tgz"
     },
     "axios": {
-      "version": "0.15.3",
-      "from": "axios@>=0.15.3 <0.16.0",
-      "resolved": "https://registry.npmjs.org/axios/-/axios-0.15.3.tgz"
+      "version": "0.16.1",
+      "from": "axios@>=0.16.0 <0.17.0",
+      "resolved": "https://registry.npmjs.org/axios/-/axios-0.16.1.tgz"
     },
     "babel-code-frame": {
       "version": "6.22.0",
@@ -1008,14 +1008,24 @@
       "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.0.0-alpha.6.tgz"
     },
     "bootstrap-vue": {
-      "version": "0.11.1",
-      "from": "bootstrap-vue@>=0.11.1 <0.12.0",
-      "resolved": "https://registry.npmjs.org/bootstrap-vue/-/bootstrap-vue-0.11.1.tgz",
+      "version": "0.13.1",
+      "from": "bootstrap-vue@>=0.13.1 <0.14.0",
+      "resolved": "https://registry.npmjs.org/bootstrap-vue/-/bootstrap-vue-0.13.1.tgz",
       "dependencies": {
+        "async": {
+          "version": "0.2.10",
+          "from": "async@>=0.2.6 <0.3.0",
+          "resolved": "https://registry.npmjs.org/async/-/async-0.2.10.tgz"
+        },
         "tether": {
           "version": "1.4.0",
           "from": "tether@latest",
           "resolved": "https://registry.npmjs.org/tether/-/tether-1.4.0.tgz"
+        },
+        "uglify-js-harmony": {
+          "version": "2.7.5",
+          "from": "uglify-js-harmony@>=2.7.5 <3.0.0",
+          "resolved": "https://registry.npmjs.org/uglify-js-harmony/-/uglify-js-harmony-2.7.5.tgz"
         }
       }
     },
@@ -2361,9 +2371,9 @@
       "resolved": "https://registry.npmjs.org/create-hmac/-/create-hmac-1.1.4.tgz"
     },
     "cross-env": {
-      "version": "3.2.4",
-      "from": "cross-env@>=3.1.4 <4.0.0",
-      "resolved": "https://registry.npmjs.org/cross-env/-/cross-env-3.2.4.tgz",
+      "version": "4.0.0",
+      "from": "cross-env@>=4.0.0 <5.0.0",
+      "resolved": "https://registry.npmjs.org/cross-env/-/cross-env-4.0.0.tgz",
       "dev": true,
       "dependencies": {
         "is-windows": {
@@ -2422,9 +2432,9 @@
       "resolved": "https://registry.npmjs.org/css-color-names/-/css-color-names-0.0.4.tgz"
     },
     "css-loader": {
-      "version": "0.26.4",
-      "from": "css-loader@>=0.26.1 <0.27.0",
-      "resolved": "https://registry.npmjs.org/css-loader/-/css-loader-0.26.4.tgz",
+      "version": "0.28.0",
+      "from": "css-loader@>=0.28.0 <0.29.0",
+      "resolved": "https://registry.npmjs.org/css-loader/-/css-loader-0.28.0.tgz",
       "dependencies": {
         "loader-utils": {
           "version": "1.1.0",
@@ -4149,9 +4159,9 @@
       "resolved": "https://registry.npmjs.org/flatten/-/flatten-1.0.2.tgz"
     },
     "follow-redirects": {
-      "version": "1.0.0",
-      "from": "follow-redirects@1.0.0",
-      "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.0.0.tgz"
+      "version": "1.2.3",
+      "from": "follow-redirects@>=1.2.3 <2.0.0",
+      "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.2.3.tgz"
     },
     "for-in": {
       "version": "1.0.2",
@@ -13141,6 +13151,11 @@
           "version": "4.0.2",
           "from": "lru-cache@>=4.0.1 <5.0.0",
           "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-4.0.2.tgz"
+        },
+        "vue-style-loader": {
+          "version": "2.0.5",
+          "from": "vue-style-loader@>=2.0.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/vue-style-loader/-/vue-style-loader-2.0.5.tgz"
         }
       }
     },
@@ -13162,9 +13177,9 @@
       "resolved": "https://registry.npmjs.org/vue-router/-/vue-router-2.5.3.tgz"
     },
     "vue-style-loader": {
-      "version": "2.0.5",
-      "from": "vue-style-loader@>=2.0.0 <3.0.0",
-      "resolved": "https://registry.npmjs.org/vue-style-loader/-/vue-style-loader-2.0.5.tgz",
+      "version": "3.0.0",
+      "from": "vue-style-loader@>=3.0.0 <4.0.0",
+      "resolved": "https://registry.npmjs.org/vue-style-loader/-/vue-style-loader-3.0.0.tgz",
       "dependencies": {
         "loader-utils": {
           "version": "1.1.0",
@@ -13392,9 +13407,9 @@
       "dev": true
     },
     "webpack-merge": {
-      "version": "2.6.1",
-      "from": "webpack-merge@>=2.6.1 <3.0.0",
-      "resolved": "https://registry.npmjs.org/webpack-merge/-/webpack-merge-2.6.1.tgz"
+      "version": "4.1.0",
+      "from": "webpack-merge@>=4.0.0 <5.0.0",
+      "resolved": "https://registry.npmjs.org/webpack-merge/-/webpack-merge-4.1.0.tgz"
     },
     "webpack-sources": {
       "version": "0.1.5",
