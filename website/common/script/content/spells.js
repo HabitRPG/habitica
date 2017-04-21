@@ -397,7 +397,6 @@ spells.special = {
       if (!target.items.special.nyeReceived) target.items.special.nyeReceived = [];
       target.items.special.nyeReceived.push(user.profile.name);
 
-      if (!target.flags) target.flags = {};
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -425,7 +424,6 @@ spells.special = {
       if (!target.items.special.valentineReceived) target.items.special.valentineReceived = [];
       target.items.special.valentineReceived.push(user.profile.name);
 
-      if (!target.flags) target.flags = {};
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -452,7 +450,6 @@ spells.special = {
       if (!target.items.special.greetingReceived) target.items.special.greetingReceived = [];
       target.items.special.greetingReceived.push(user.profile.name);
 
-      if (!target.flags) target.flags = {};
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -480,7 +477,6 @@ spells.special = {
       if (!target.items.special.thankyouReceived) target.items.special.thankyouReceived = [];
       target.items.special.thankyouReceived.push(user.profile.name);
 
-      if (!target.flags) target.flags = {};
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -508,7 +504,6 @@ spells.special = {
       if (!target.items.special.birthdayReceived) target.items.special.birthdayReceived = [];
       target.items.special.birthdayReceived.push(user.profile.name);
 
-      if (!target.flags) target.flags = {};
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -535,7 +530,6 @@ spells.special = {
       if (!target.items.special.congratsReceived) target.items.special.congratsReceived = [];
       target.items.special.congratsReceived.push(user.profile.name);
 
-      if (!target.flags) target.flags = {};
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -562,7 +556,6 @@ spells.special = {
       if (!target.items.special.getwellReceived) target.items.special.getwellReceived = [];
       target.items.special.getwellReceived.push(user.profile.name);
 
-      if (!target.flags) target.flags = {};
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
