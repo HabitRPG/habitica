@@ -19,7 +19,7 @@
 
   .col-10.standard-page
     .clearfix
-      h1.float-left(v-once) {{ $t('equipment') }}
+      h1.float-left.mb-0(v-once) {{ $t('equipment') }}
       b-dropdown.float-right(text="Sort by", right=true)
         b-dropdown-item(href="#") Option 1
         b-dropdown-item(href="#") Option 2
@@ -29,9 +29,17 @@
         b-dropdown-item(@click="groupBy = 'class'", :class="{'dropdown-item-active': groupBy === 'class'}") {{ $t('class') }}
 
     drawer(:title="$t('equipment')")
+      .items.items-one-line(slot="drawer-slider")
+        item(
+          v-for="(label, group) in gearTypesToStrings", 
+          :key="group",
+          :item="flatGear[equippedItems[group]]",
+          :label="$t(label)",
+          @click="equip",
+        )
     div(
       v-for="group in itemsGroups",
-      v-if="group && viewOptions[group.key].selected",
+      v-if="viewOptions[group.key].selected",
       :key="group.key",
     )
       h2
@@ -46,7 +54,7 @@
           :item="item",
           :key="item.key",
           :selected="equippedItems[item.type] === item.key",
-          @click.native="equip({key: item.key, type: 'equipped'})",
+          @click="equip",
         )
       div(v-if="items[group.key].length === 0")
         p(v-once) {{ $t('noGearItemsOfType', { type: $t(group.label) }) }}
@@ -57,13 +65,17 @@
 </template>
 
 <style lang="scss" scoped>
+h2 {
+  margin-top: 24px;
+}
+
 .standard-page {
-  padding-bottom: 100px;
+  padding-bottom: 72px;
 }
 </style>
 
 <script>
-import { mapState, mapActions } from 'client/libs/store';
+import { mapState } from 'client/libs/store';
 import each from 'lodash/each';
 import map from 'lodash/map';
 import throttle from 'lodash/throttle';
@@ -98,7 +110,7 @@ export default {
         back: 'back',
       }),
       gearClassesToStrings: Object.freeze({
-        warrior: 'warrior',
+        warrior: 'warrior', // TODO immediately calculate $(label) instead of all the times
         wizard: 'mage',
         rogue: 'rogue',
         healer: 'healer',
@@ -115,9 +127,9 @@ export default {
     }, 250),
   },
   methods: {
-    ...mapActions({
-      equip: 'common:equip',
-    }),
+    equip (item) {
+      this.$store.dispatch('common:equip', {key: item.key, type: 'equipped'});
+    },
   },
   computed: {
     ...mapState({
