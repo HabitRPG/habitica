@@ -7,6 +7,7 @@
 b-popover(
   :triggers="['hover']",
   placement="top",
+  offset="-6px 0",
 )
   span(slot="content", v-once)
     h4.popover-content-title {{ item.text() }}

@@ -2,7 +2,6 @@
   border-radius: 4px;
   background-color: rgba(52, 49, 58, 0.96);
   box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
-  top: 6px !important; // TODO see https://github.com/bootstrap-vue/bootstrap-vue/issues/249
 
   &::after, &::before {
     display: none;
