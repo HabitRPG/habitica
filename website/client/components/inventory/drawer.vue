@@ -3,46 +3,8 @@
   .drawer-title(@click="open = !open") {{title}}
   transition(name="slide-up")
     .drawer-content(v-show="open")
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
-      | Drawer Content
+      .drawer-slider
+        slot(name="drawer-slider")
 </template>
 
 <style lang="scss" scoped>
@@ -72,10 +34,18 @@
 
 .drawer-content {
   line-height: 1.33;
-  max-height: 160px;
+  max-height: 196px;
   background-color: $gray-50;
   color: $gray-500;
   box-shadow: 0 2px 16px 0 rgba($black, 0.3);
+  width: 100%;
+}
+
+.drawer-slider {
+  padding: 12px 0px 0px 24px;
+  width: 100%;
+  overflow-x: scroll;
+  white-space: nowrap;
 }
 
 .slide-up-enter-active, .slide-up-leave-active {

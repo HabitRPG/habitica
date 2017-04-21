@@ -7,10 +7,11 @@
   width: 50%;
   max-width: 448px;
   margin: 0 auto;
-  margin-bottom: 24px;
+  margin-top: 12px;
   padding: 8px;
   font-size: 14px;
   line-height: 1.43;
+  font-weight: bold;
   text-align: center;
   background: $gray-600;
   color: $gray-200 !important; // Otherwise it gets ignored when used on an A element
