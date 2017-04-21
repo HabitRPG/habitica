@@ -1,5 +1,6 @@
 // Logger utility
 import winston from 'winston';
+import 'winston-loggly-bulk';
 import nconf from 'nconf';
 import _ from 'lodash';
 import {
@@ -15,10 +16,16 @@ const logger = new winston.Logger();
 
 if (IS_PROD) {
   if (ENABLE_LOGS_IN_PROD) {
-    logger.add(winston.transports.Console, {
-      timestamp: true,
-      colorize: false,
-      prettyPrint: false,
+    // logger.add(winston.transports.Console, {
+    //   timestamp: true,
+    //   colorize: false,
+    //   prettyPrint: false,
+    // });
+    logger.add(winston.transports.Loggly, {
+        inputToken: nconf.get('LOGGLY:TOKEN'),
+        subdomain: nconf.get('LOGGLY:SUBDOMAIN'),
+        tags: ['Winston-NodeJS'],
+        json: true,
     });
   }
 } else if (!IS_TEST || IS_TEST && ENABLE_LOGS_IN_TEST) { // Do not log anything when testing unless specified
