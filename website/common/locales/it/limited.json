@@ -76,7 +76,7 @@
     "magicianBunnySet": "Coniglio del Mago (Mago)",
     "comfortingKittySet": "Gattino Confortante (Guaritore)",
     "sneakySqueakerSet": "Roditore Furtivo (Assassino)",
-    "sunfishWarriorSet": "Guerriero manta (Guerriero)",
+    "sunfishWarriorSet": "Guerriero Pesce Luna (Guerriero)",
     "shipSoothsayerSet": "Astrologo da nave (Mago)",
     "strappingSailorSet": "Robusto Marinaio (Guaritore)",
     "reefRenegadeSet": "Rinnegato delle scogliere (Assassino)",
@@ -105,5 +105,6 @@
     "spring2017FloralMouseSet": "Topo Floreale (Guaritore)",
     "spring2017SneakyBunnySet": "Coniglio Furtivo (Assassino)",
     "eventAvailability": "Disponibile fino al <%= date(locale) %>.",
-    "dateEndApril": "19 Aprile"
+    "dateEndApril": "19 Aprile",
+    "dateEndMay": "May 17"
 }

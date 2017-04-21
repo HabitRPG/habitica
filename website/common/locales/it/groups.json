@@ -111,7 +111,7 @@
     "pm-reply": "Rispondi",
     "inbox": "Messaggi",
     "messageRequired": "Un messaggio è richiesto.",
-    "toUserIDRequired": "Un ID Utente è richesto",
+    "toUserIDRequired": "È necessario un ID Utente",
     "gemAmountRequired": "Un numero di gemme è richiesto",
     "notAuthorizedToSendMessageToThisUser": "Non puoi inviare un messaggio a questo utente.",
     "privateMessageGiftGemsMessage": "Ciao <%= receiverName %>, <%= senderName %> ti ha inviato <%= gemAmount %> gemme!",

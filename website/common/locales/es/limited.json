@@ -105,5 +105,6 @@
     "spring2017FloralMouseSet": "Ratón Floral (Sanador)",
     "spring2017SneakyBunnySet": "Conejo Furtivo (Pícaro)",
     "eventAvailability": "Disponible para su compra hasta el <%= date(locale) %>.",
-    "dateEndApril": "19 de abril"
+    "dateEndApril": "19 de abril",
+    "dateEndMay": "May 17"
 }

@@ -172,6 +172,7 @@
     "hatchingPotionHolly": "Stechpalme",
     "hatchingPotionCupid": "Amors",
     "hatchingPotionShimmer": "Schimmernder",
+    "hatchingPotionFairy": "Fairy",
     "hatchingPotionNotes": "Gieße ihn über ein Ei und es wird ein <%= potText(locale) %> Haustier daraus schlüpfen.",
     "premiumPotionAddlNotes": "Nicht auf Eier von Quest-Haustieren anwendbar.",
     "foodMeat": "Fleisch",
