@@ -33,25 +33,25 @@ let api = {};
 /**
  * @apiDefine SuccessfulChallengeRequest
  * @apiSuccess {UUID} challenge.group._id The group id.
- * @apiSuccess {String} challenge.group.type Group type: `Guild` or `Party`.
- * @apiSuccess {String} challenge.group.privacy Group privacy: `Public` or `Private`.
+ * @apiSuccess {String} challenge.group.type Group type: `guild` or `party`.
+ * @apiSuccess {String} challenge.group.privacy Group privacy: `public` or `private`.
  * @apiSuccess {String} challenge.name Full name of challenge.
- * @apiSuccess {String} challenge.shortName Short name of challenge.
+ * @apiSuccess {String} challenge.shortName A shortened name for the challenge, to be used as a tag.
  * @apiSuccess {Object} challenge.leader User details of challenge leader.
  * @apiSuccess {UUID} challenge.leader._id User id of challenge leader.
  * @apiSuccess {Object} challenge.leader.profile Profile information of leader.
- * @apiSuccess {Object} challenge.leader.profile.name Username of leader.
+ * @apiSuccess {Object} challenge.leader.profile.name Display Name of leader.
  * @apiSuccess {String} challenge.updatedAt Timestamp of last update.
  * @apiSuccess {String} challenge.createdAt Timestamp of challenge creation.
  * @apiSuccess {UUID} challenge.id Id number of newly created challenge.
  * @apiSuccess {UUID} challenge._id Same as `challenge.id`.
- * @apiSuccess {String} challenge.prize Number of gems offered as prize to winner.
+ * @apiSuccess {String} challenge.prize Number of gems offered as prize to winner (can be 0).
  * @apiSuccess {String} challenge.memberCount Number users participating in challenge.
- * @apiSuccess {Object} challenge.tasksOrder Object representing associated tasks and rewards.
- * @apiSuccess {Array} challenge.tasksOrder.rewards Array of `reward` objects associated with challenge.
- * @apiSuccess {Array} challenge.tasksOrder.todos Array of `todo` objects associated with challenge.
- * @apiSuccess {Array} challenge.tasksOrder.dailys Array of `dailys` objects associated with challenge.
- * @apiSuccess {Array} challenge.tasksOrder.habits Array of `habits` objects associated with challenge.
+ * @apiSuccess {Object} challenge.tasksOrder Object containing IDs of the challenge's tasks and rewards in their preferred sort order.
+ * @apiSuccess {Array} challenge.tasksOrder.rewards Array of `reward` task IDs.
+ * @apiSuccess {Array} challenge.tasksOrder.todos Array of `todo` task IDs.
+ * @apiSuccess {Array} challenge.tasksOrder.dailys Array of `daily` task IDs.
+ * @apiSuccess {Array} challenge.tasksOrder.habits Array of `habit` task IDs.
  * @apiSuccess {Boolean} challenge.official Boolean indicating if this is an official Habitica challenge.
  *
  */
@@ -102,7 +102,7 @@ let api = {};
 
 /**
  * @apiDefine ChallengeArrayExample
- * @apiSuccessExample {json} Sucessfull response with array of challenges
+ * @apiSuccessExample {json} Sucessful response with array of challenges
  {
    "data": [{
      "group": {
@@ -155,7 +155,7 @@ let api = {};
  * @apiParam (Body) {String} challenge.name The full name of the challenge
  * @apiParam (Body) {String} challenge.shortName A shortened name for the challenge, to be used as a tag
  * @apiParam (Body) {String} [challenge.description] A description of the challenge
- * @apiParam (Body) {Boolean} [official=False] Whether or not a challenge is an official Habitica challenge (requires admin)
+ * @apiParam (Body) {Boolean} [official=false] Whether or not a challenge is an official Habitica challenge (requires admin)
  * @apiParam (Body) {Number} [challenge.prize=0] Number of gems offered as a prize to challenge winner
  *
  * @apiSuccess {Object} challenge The newly created challenge.
