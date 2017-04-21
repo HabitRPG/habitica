@@ -149,7 +149,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
 
 shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, language) {
   let categories = [];
-  let stable = {pets: 'Pet-', mounts: 'Mount_Head_'};
+  let stable = {pets: 'Pet-', mounts: 'Mount_Icon_'};
   for (let type in stable) {
     if (stable.hasOwnProperty(type)) {
       let category = {

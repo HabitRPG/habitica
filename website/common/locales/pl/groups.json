@@ -268,5 +268,5 @@
     "confirmCancelGroupPlan": "Are you sure you want to cancel the group plan and remove its benefits from all members, including their free subscriptions?",
     "canceledGroupPlan": "Anuluj plan grupowy",
     "groupPlanCanceled": "Plan grupowy stanie się nieaktywny",
-    "purchasedGroupPlanPlanExtraMonths": "You have <%= months %> months of extra group plan credit."
+    "purchasedGroupPlanPlanExtraMonths": "Posiadasz <%= months %> miesięcy dodatkowego abonamentu grupowego."
 }

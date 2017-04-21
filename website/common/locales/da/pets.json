@@ -77,7 +77,7 @@
     "rideNow": "Rid nu",
     "rideLater": "Rid senere",
     "petName": "<%= potion(locale) %> <%= egg(locale) %>",
-    "mountName": "<%= potion(locale) %> <%= mount(locale) %>",
+    "mountName": "<%= potion(locale) %>-<%= mount(locale) %>",
     "petKeyName": "Nøglen til Kennelen",
     "petKeyPop": "Slip dine kæledyr fri og lad dem starte deres eget eventyr, så kan du igen opleve glæden ved at være Dyretæmmer!",
     "petKeyBegin": "Nøglen til Kennelen: Oplev <%= title %> Igen!",

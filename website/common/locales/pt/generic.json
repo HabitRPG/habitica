@@ -51,7 +51,7 @@
     "help": "Ajuda",
     "user": "Usuário",
     "market": "Mercado",
-    "groupPlansTitle": "Group Plans",
+    "groupPlansTitle": "Planos de Grupo",
     "subscriberItem": "Item Misterioso",
     "newSubscriberItem": "Novo Item Misterioso",
     "subscriberItemText": "A cada mês, assinantes receberão um item misterioso. Ele normalmente é liberado cerca de uma semana antes do final do mês. Veja a página \"Item Misterioso\" da wiki para mais informações.",
@@ -124,7 +124,7 @@
     "audioTheme_luneFoxTheme": "Tema da Raposa Lunar",
     "audioTheme_rosstavoTheme": "Tema de Rosstavo",
     "audioTheme_dewinTheme": "Tema de Dewin",
-    "audioTheme_airuTheme": "Airu's Theme",
+    "audioTheme_airuTheme": "Tema Airu",
     "askQuestion": "Fazer uma Pergunta",
     "reportBug": "Reportar um Erro",
     "HabiticaWiki": "A Wiki Habitica",
@@ -194,6 +194,6 @@
     "enableDesktopNotifications": "Ativar as notificações no ambiente de trabalho ",
     "online": "online",
     "onlineCount": "<%= count %> online",
-    "loading": "Loading...",
-    "userIdRequired": "User ID is required"
+    "loading": "A carregar...",
+    "userIdRequired": "Id. do Utilizador obrigatória"
 }

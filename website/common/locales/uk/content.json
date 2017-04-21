@@ -172,6 +172,7 @@
     "hatchingPotionHolly": "Святий",
     "hatchingPotionCupid": "Купідонний",
     "hatchingPotionShimmer": "Shimmer",
+    "hatchingPotionFairy": "Fairy",
     "hatchingPotionNotes": "Вилийте це на яйце, і з нього вилупиться улюбленець<%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Неможливо використати на квестових яйцях з улюбленцями.",
     "foodMeat": "М'ясо",
