@@ -1,6 +1,7 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
+import nconf from 'nconf';
 import {
   model as Group,
   basicFields as basicGroupFields,
@@ -25,7 +26,10 @@ import payments from '../../libs/payments';
 import stripePayments from '../../libs/stripePayments';
 import amzLib from '../../libs/amazonPayments';
 import shared from '../../../common';
+import apiMessages from '../../libs/apiMessages';
 
+const MAX_EMAIL_INVITES_BY_USER = 200;
+const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 
 /**
  * @apiDefine GroupBodyInvalid
@@ -252,6 +256,8 @@ api.createGroupPlan = {
  * @apiGroup Group
  *
  * @apiParam {String} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, guilds, privateGuilds, publicGuilds, tavern
+ * @apiParam {String="true","false"} [paginate] Public guilds support pagination. When true guilds are returned in groups of 30
+ * @apiParam {Number} [page] When pagination is enabled for public guilds this parameter can be used to specify the page number (the initial page is number 0 and not required)
  *
  * @apiParamExample {json} Private Guilds, Tavern:
  *     {
@@ -259,6 +265,9 @@ api.createGroupPlan = {
  *     }
  *
  * @apiError (400) {BadRequest} groupTypesRequired Group types are required
+ * @apiError (400) {BadRequest} guildsPaginateBooleanString Paginate query parameter must be a boolean (true or false)
+ * @apiError (400) {BadRequest} guildsPageInteger Page query parameter must be a positive integer
+ * @apiError (400) {BadRequest} guildsOnlyPaginate Only public guilds support pagination
  *
  * @apiSuccess {Object[]} data An array of the requested groups (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
  *
@@ -276,15 +285,27 @@ api.getGroups = {
     let user = res.locals.user;
 
     req.checkQuery('type', res.t('groupTypesRequired')).notEmpty();
+    // pagination options, can only be used with public guilds
+    req.checkQuery('paginate').optional().isIn(['true', 'false'], apiMessages('guildsPaginateBooleanString'));
+    req.checkQuery('page').optional().isInt({min: 0}, apiMessages('guildsPageInteger'));
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     let types = req.query.type.split(',');
+
+    let paginate = req.query.paginate === 'true' ? true : false;
+    if (paginate && !_.includes(types, 'publicGuilds')) {
+      throw new BadRequest(apiMessages('guildsOnlyPaginate'));
+    }
+
     let groupFields = basicGroupFields.concat(' description memberCount balance');
     let sort = '-memberCount';
 
-    let results = await Group.getGroups({user, types, groupFields, sort});
+    let results = await Group.getGroups({
+      user, types, groupFields, sort,
+      paginate, page: req.query.page,
+    });
     res.respond(200, results);
   },
 };
@@ -389,10 +410,13 @@ api.updateGroup = {
     if (group.leader !== user._id && group.type === 'party') throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
     else if (group.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
 
+    if (req.body.leader !== user._id && group.hasNotCancelled()) throw new NotAuthorized(res.t('cannotChangeLeaderWithActiveGroupPlan'));
+
     _.assign(group, _.merge(group.toObject(), Group.sanitizeUpdate(req.body)));
 
     let savedGroup = await group.save();
     let response = Group.toJSONCleanChat(savedGroup, user);
+
     // If the leader changed fetch new data, otherwise use authenticated user
     if (response.leader !== user._id) {
       let rawLeader = await User.findById(response.leader).select(nameFields).exec();
@@ -495,7 +519,10 @@ api.joinGroup = {
 
     group.memberCount += 1;
 
-    if (group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
+    if (group.hasNotCancelled())  {
+      await payments.addSubToGroupUser(user, group);
+      await group.updateGroupPlan();
+    }
 
     let promises = [group.save(), user.save()];
 
@@ -678,7 +705,7 @@ api.leaveGroup = {
 
     await group.leave(user, req.query.keep, req.body.keepChallenges);
 
-    if (group.purchased.plan && group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
+    if (group.hasNotCancelled())  await group.updateGroupPlan(true);
 
     _removeMessagesFromMember(user, group._id);
 
@@ -770,7 +797,10 @@ api.removeGroupMember = {
 
     if (isInGroup) {
       group.memberCount -= 1;
-      if (group.purchased.plan.customerId) await payments.updateStripeGroupPlan(group);
+      if (group.hasNotCancelled())  {
+        await group.updateGroupPlan(true);
+        await payments.cancelGroupSubscriptionForUser(member, group);
+      }
 
       if (group.quest && group.quest.leader === member._id) {
         group.quest.key = undefined;
@@ -838,7 +868,10 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     if (_.find(userToInvite.invitations.guilds, {id: group._id})) {
       throw new NotAuthorized(res.t('userAlreadyInvitedToGroup'));
     }
-    userToInvite.invitations.guilds.push({id: group._id, name: group.name, inviter: inviter._id});
+
+    let guildInvite = {id: group._id, name: group.name, inviter: inviter._id};
+    if (group.isSubscribed() && !group.hasNotCancelled()) guildInvite.cancelledPlan = true;
+    userToInvite.invitations.guilds.push(guildInvite);
   } else if (group.type === 'party') {
     if (userToInvite.invitations.party.id) {
       throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
@@ -851,7 +884,9 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
       if (userParty && userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty'));
     }
 
-    userToInvite.invitations.party = {id: group._id, name: group.name, inviter: inviter._id};
+    let partyInvite = {id: group._id, name: group.name, inviter: inviter._id};
+    if (group.isSubscribed() && !group.hasNotCancelled()) partyInvite.cancelledPlan = true;
+    userToInvite.invitations.party = partyInvite;
   }
 
   let groupLabel = group.type === 'guild' ? 'Guild' : 'Party';
@@ -914,10 +949,15 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
     userReturnInfo = await _inviteByUUID(userToContact._id, group, inviter, req, res);
   } else {
     userReturnInfo = invite.email;
+
+    let cancelledPlan = false;
+    if (group.isSubscribed() && !group.hasNotCancelled()) cancelledPlan = true;
+
     const groupQueryString = JSON.stringify({
       id: group._id,
       inviter: inviter._id,
       sentAt: Date.now(), // so we can let it expire
+      cancelledPlan,
     });
     let link = `/static/front?groupInvite=${encrypt(groupQueryString)}`;
 
@@ -1009,6 +1049,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  * @apiError (400) {BadRequest} MustBeArray The `uuids` or `emails` body param was not an array.
  * @apiError (400) {BadRequest} TooManyInvites A max of 100 invites (combined emails and user ids) can
  * be sent out at a time.
+ * @apiError (400) {BadRequest} ExceedsMembersLimit A max of 30 members can join a party.
  *
  * @apiError (401) {NotAuthorized} UserAlreadyInvited The user has already been invited to the group.
  * @apiError (401) {NotAuthorized} UserAlreadyInGroup The user is already a member of the group.
@@ -1026,6 +1067,8 @@ api.inviteToGroup = {
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
 
+    if (user.invitesSent >= MAX_EMAIL_INVITES_BY_USER) throw new NotAuthorized(res.t('inviteLimitReached', { techAssistanceEmail: TECH_ASSISTANCE_EMAIL }));
+
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
@@ -1037,7 +1080,7 @@ api.inviteToGroup = {
     let uuids = req.body.uuids;
     let emails = req.body.emails;
 
-    Group.validateInvitations(uuids, emails, res);
+    await Group.validateInvitations(uuids, emails, res, group);
 
     let results = [];
 
@@ -1049,6 +1092,8 @@ api.inviteToGroup = {
 
     if (emails) {
       let emailInvites = emails.map((invite) => _inviteByEmail(invite, group, user, req, res));
+      user.invitesSent += emails.length;
+      await user.save();
       let emailResults = await Bluebird.all(emailInvites);
       results.push(...emailResults);
     }

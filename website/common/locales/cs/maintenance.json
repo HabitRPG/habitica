@@ -16,7 +16,7 @@
   "maintenanceInfoTechDetails": "Chcete více detailů ohledně technické stránky procesu? Navštivte <a href='http://devs.habitica.com/' target='_blank'>Kovárnu, náš blog o vývoji</a>.",
   "maintenanceInfoMore": "Více informací",
   "maintenanceInfoAccountChanges": "Jaké změn, ve svém účtu, si budu moci všimnout, až bude přepis dokončen? ",
-  "maintenanceInfoAccountChangesText": "Ze začátku nenarazíte na žádné znatelné změny, kromě vylepšení výkonu funkcí jako jsou například Výzvy. Všimnete-li si nějakých změn, které tu nemají být, pošlete nám email <a href='mailto:admin@habitica.com'>admin@habitica.com</a> a my je pro vás vyřešíme!",
+  "maintenanceInfoAccountChangesText": "At first, there won’t be any notable changes aside from performance improvements for features such as Challenges. If you notice any changes that shouldn’t be there, email us at <%= hrefTechAssistanceEmail %> and we will investigate them for you!",
   "maintenanceInfoAddFeatures": "Jaké vylepšení se přidají do země Habitica?",
   "maintenanceInfoAddFeaturesText": "Dokončení tohoto přepisu nám dovolí začít budovat vylepšený chat a Cechy, plány pro organizace a rodiny a další produktivní funkce, například Měsíčky a možnost si nahrát včerejší aktivitu! To jsou všechno funkce, které jsou jednotlivé, takže bude trvat déle je zavést,pokud bychom však nezačali s tímto přepisem, nebylo by možné je začít provádět.",
   "maintenanceInfoHowLong": "Jako dlouho bude údržba trvat?",

@@ -2,6 +2,8 @@
 
 habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '$http', '$q', 'User', 'Members', '$state', 'Notification',
   function($scope, $rootScope, Shared, Groups, $http, $q, User, Members, $state, Notification) {
+    $scope.PARTY_LIMIT_MEMBERS = Shared.constants.PARTY_LIMIT_MEMBERS;
+
     $scope.inviteOrStartParty = Groups.inviteOrStartParty;
     $scope.isMemberOfPendingQuest = function (userid, group) {
       if (!group.quest || !group.quest.members) return false;

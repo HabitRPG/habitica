@@ -150,6 +150,10 @@ let mysterySets = {
     start: '2017-02-21',
     end: '2017-03-02',
   },
+  201703: {
+    start: '2017-03-23',
+    end: '2017-04-02',
+  },
   301404: {
     start: '3014-03-24',
     end: '3014-04-02',
@@ -157,6 +161,14 @@ let mysterySets = {
   301405: {
     start: '3014-04-24',
     end: '3014-05-02',
+  },
+  301703: {
+    start: '3017-03-14',
+    end: '3017-04-02',
+  },
+  301704: {
+    start: '3017-04-14',
+    end: '3017-05-02',
   },
   // @TODO: Remove wondercon from mystery-sets
   wondercon: {

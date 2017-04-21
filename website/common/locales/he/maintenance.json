@@ -16,7 +16,7 @@
   "maintenanceInfoTechDetails": "מעוניינים בפרטים טכניים נוספים? בקרו ב<a href='http://devs.habitica.com/' target='_blank'>מסגריה, בלוג המפתחים שלנו</a>.",
   "maintenanceInfoMore": "מידע נוסף",
   "maintenanceInfoAccountChanges": "איזה שינויים אראה בחשבון כשתסתיים הכתיבה מחדש?",
-  "maintenanceInfoAccountChangesText": "קודם כל, לא צפויים שינויים משמעותיים מלבד שיפורי ביצועים לדברים כמו האתגרים שלנו. אם אתם שמים לב להבדלים שלא אמורים לקרות, שלחו לנו מייל ל <a href='mailto:admin@habitica.com'>admin@habitica.com</a> ונבדוק את העיניינים האלו בשבילכם!",
+  "maintenanceInfoAccountChangesText": "At first, there won’t be any notable changes aside from performance improvements for features such as Challenges. If you notice any changes that shouldn’t be there, email us at <%= hrefTechAssistanceEmail %> and we will investigate them for you!",
   "maintenanceInfoAddFeatures": "אילו יכולות חדשות זה יאפשר להאביטיקה להוסיף?",
   "maintenanceInfoAddFeaturesText": "השלמת הכתיבה-מחדש הזו תאפשר לנו להתחיל לשפר את הצ׳אט והגילדות, לאפשר תוכניות לארגונים ומשפחות, והוספת דברים שקשורים לאפקטיביות כמו מטלות חודשיות והיכולת לתעד פעילויות של אתמול! כל אחד מאלו הוא פרוייקט בפני עצמו, אז יקח לנו זמן לבנות אותם, אבל עד שלא סיימנו עם השדרוג, לא יכולנו לחשוב עליהם אפילו.",
   "maintenanceInfoHowLong": "כמה זמן תארך התחזוקה?",

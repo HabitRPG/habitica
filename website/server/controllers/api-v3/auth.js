@@ -22,6 +22,8 @@ import pusher from '../../libs/pusher';
 import common from '../../../common';
 
 const BASE_URL = nconf.get('BASE_URL');
+const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
+const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 
 let api = {};
 
@@ -157,7 +159,9 @@ api.registerLocal = {
     if (existingUser) {
       res.respond(200, savedUser.toJSON().auth.local); // We convert to toJSON to hide private fields
     } else {
-      res.respond(201, savedUser);
+      let userJSON = savedUser.toJSON();
+      userJSON.newUser = true;
+      res.respond(201, userJSON);
     }
 
     // Clean previous email preferences and send welcome email
@@ -183,7 +187,7 @@ api.registerLocal = {
 };
 
 function _loginRes (user, req, res) {
-  if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {userId: user._id}));
+  if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id}));
   return res.respond(200, {id: user._id, apiToken: user.apiToken, newUser: user.newUser || false});
 }
 
@@ -610,7 +614,7 @@ api.updateEmail = {
       'auth.local.email': req.body.newEmail,
     }).select({_id: 1}).lean().exec();
 
-    if (emailAlreadyInUse) throw new NotAuthorized(res.t('cannotFulfillReq'));
+    if (emailAlreadyInUse) throw new NotAuthorized(res.t('cannotFulfillReq', { techAssistanceEmail: TECH_ASSISTANCE_EMAIL }));
 
     let password = req.body.password;
     let isValidPassword = await passwordUtils.compare(user, password);

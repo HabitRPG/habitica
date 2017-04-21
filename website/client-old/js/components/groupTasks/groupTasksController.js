@@ -74,6 +74,7 @@ habitrpg.controller('GroupTasksCtrl', ['$scope', 'Shared', 'Tasks', 'User', '$ro
       if (group._id) Tasks.deleteTask(task._id);
       var index = group[task.type + 's'].indexOf(task);
       group[task.type + 's'].splice(index, 1);
+      $rootScope.$broadcast('obj-updated', $scope.group);
     };
 
     $scope.saveTask = function(task, stayOpen, isSaveAndClose) {

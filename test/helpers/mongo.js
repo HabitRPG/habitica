@@ -74,6 +74,7 @@ export async function resetHabiticaDB () {
               name: 'HabitRPG',
               type: 'guild',
               privacy: 'public',
+              memberCount: 0,
             }, (insertErr2) => {
               if (insertErr2) return reject(insertErr2);
 

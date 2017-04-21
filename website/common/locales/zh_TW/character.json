@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "請記得你的角色名稱，簡介頭像以及簡介內容必須遵守<a href='https://habitica.com/static/community-guidelines' target='_blank'>使用者規範</a>(比如說:不可有猥褻行為、不可有成人議題、不可汙辱他人等等)。如果你不確定某些事有沒有合乎規定，歡迎來信到 <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "請記得你的角色名稱，簡介頭像以及簡介內容必須遵守<a href='https://habitica.com/static/community-guidelines' target='_blank'>使用者規範</a>(比如說:不可有猥褻行為、不可有成人議題、不可汙辱他人等等)。如果你不確定某些事有沒有合乎規定，歡迎來信到 <%= hrefCommunityManagerEmail %>!",
     "profile": "基本資料",
     "avatar": "客制化角色圖像",
     "other": "其他",
@@ -112,6 +112,7 @@
     "mystery": "神秘",
     "changeClass": "變更職業並重新分配屬性點",
     "lvl10ChangeClass": "你必須達到10級才能改變職業。",
+    "invalidClass": "此職業不存在。請指定\"戰士\"、\"盜賊\"、\"法師\"、或\"醫者\"。",
     "levelPopover": "每升一級你都能得到一點並分配到你想要的屬性。你可以手動分配，或讓系統幫你自動完成。",
     "unallocated": "未分配的屬性點",
     "haveUnallocated": "你有( <%= points %> )點未分配的屬性點",
@@ -148,7 +149,7 @@
     "youCastTarget": "你對 <%= target %>施放了 <%= spell %>。",
     "youCastParty": "你對整個隊伍施放了 <%= spell %>。",
     "critBonus": "會心一擊！額外加成：",
-    "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. To change it, click the Edit button above. If instead you want to change your login name, go to",
+    "displayNameDescription1": "此訊息與你的角色圖像會一併顯示在你酒館、公會與隊伍聊天室的貼文中。如果要更改，請按上面的\"更改\"按鈕。而如果你想要更改登入名稱，請至",
     "displayNameDescription2": "設定->網站",
     "displayNameDescription3": "並查看註冊部分。",
     "unequipBattleGear": "卸下戰鬥裝備",

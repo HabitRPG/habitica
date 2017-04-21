@@ -1,7 +1,7 @@
 {
   "unlockedReward": "Otrzymałeś <%= reward %>",
   "earnedRewardForDevotion": "Zdobyłeś <%= reward %>  za przyczynienie się do poprawy swojego życia.",
-  "nextRewardUnlocksIn": "Check-ins until your next prize: <%= numberOfCheckinsLeft %>",
+  "nextRewardUnlocksIn": "Check-in: <%=numberOfCheckinsLeft %> aby otrzymać kolejną nagrodę",
   "awesome": "Rewelacyjnie!",
   "totalCount": "<%= count %> łączna liczba",
   "countLeft": "Check-ins until next reward: <%= count %>",
@@ -11,6 +11,6 @@
   "unlockedCheckInReward": "Odblokowałeś Nagrodę za Wizyty!",
   "totalCheckinsTitle": "Wszystkie Wizyty",
   "checkinProgressTitle": "Postęp do następnej",
-  "incentiveBackgroundsUnlockedWithCheckins": "Te tła odblokują się wraz z Codziennymi Wizytami.",
+  "incentiveBackgroundsUnlockedWithCheckins": "Locked Plain Backgrounds will unlock with Daily Check-Ins.",
   "moreIncentivesComingSoon": "Nowe zachęty do wizyt zostaną wkrótce dodane."
 }

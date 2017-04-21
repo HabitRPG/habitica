@@ -79,12 +79,15 @@ script(type='text/ng-template', id='modals/send-gift.html')
             .btn-group
               a.btn.btn-default(ng-class="{active:gift.gems.fromBalance}", ng-click="gift.gems.fromBalance=true")=env.t('sendGiftFromBalance')
               a.btn.btn-default(ng-class="{active:!gift.gems.fromBalance}", ng-click="gift.gems.fromBalance=false")=env.t('sendGiftPurchase')
+        .row
+          .col-md-12
+            p.small.muted!=env.t('gemGiftsAreOptional', { hrefTechAssistanceEmail : '<a href="mailto:' + env.EMAILS.TECH_ASSISTANCE_EMAIL + '">' + env.EMAILS.TECH_ASSISTANCE_EMAIL + '</a>'})
 
     .panel.panel-default(class="{{gift.type=='subscription' ? 'panel-primary' : 'transparent'}}", ng-click='gift.type="subscription"')
       .panel-heading=env.t('subscription')
       .panel-body
         .form-group
-          .radio(ng-repeat='block in Content.subscriptionBlocks | toArray | omit:"discount==true" | orderBy:"months"', ng-if="block.type !== 'group'")
+          .radio(ng-repeat='block in Content.subscriptionBlocks | toArray | omit:"discount==true" | orderBy:"months"', ng-if="block.target !== 'group' && block.canSubscribe === true")
             label
               input(type="radio", name="subRadio", ng-value="block.key", ng-model='gift.subscription.key')
               =env.t('sendGiftSubscription', {price: '{{::block.price}}', months: '{{::block.months}}'})

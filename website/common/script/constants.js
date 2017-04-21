@@ -11,3 +11,7 @@ export const SUPPORTED_SOCIAL_NETWORKS = [
   {key: 'facebook', name: 'Facebook'},
   {key: 'google', name: 'Google'},
 ];
+
+export const GUILDS_PER_PAGE = 30; // number of guilds to return per page when using pagination
+
+export const PARTY_LIMIT_MEMBERS = 30;

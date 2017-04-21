@@ -10,6 +10,7 @@ import { model as Challenge} from './challenge';
 import * as Tasks from './task';
 import validator from 'validator';
 import { removeFromArray } from '../libs/collectionManipulators';
+import payments from '../libs/payments';
 import { groupChatReceivedWebhook } from '../libs/webhook';
 import {
   InternalServerError,
@@ -28,15 +29,18 @@ import {
 import {
   schema as SubscriptionPlanSchema,
 } from './subscriptionPlan';
+import amazonPayments from '../libs/amazonPayments';
+import stripePayments from '../libs/stripePayments';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
 
-export const INVITES_LIMIT = 100;
+export const INVITES_LIMIT = 100; // must not be greater than MAX_EMAIL_INVITES_BY_USER
 export const TAVERN_ID = shared.TAVERN_ID;
 
 const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
 const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = shared.constants.LARGE_GROUP_COUNT_MESSAGE_CUTOFF;
+const GUILDS_PER_PAGE = shared.constants.GUILDS_PER_PAGE;
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
@@ -110,7 +114,7 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased'],
   private: ['purchased.plan'],
   toJSONTransform (plainObj, originalDoc) {
-    if (plainObj.purchased) plainObj.purchased.active = originalDoc.purchased.plan && originalDoc.purchased.plan.customerId;
+    if (plainObj.purchased) plainObj.purchased.active = originalDoc.isSubscribed();
   },
 });
 
@@ -202,7 +206,11 @@ schema.statics.getGroup = async function getGroup (options = {}) {
 export const VALID_QUERY_TYPES = ['party', 'guilds', 'privateGuilds', 'publicGuilds', 'tavern'];
 
 schema.statics.getGroups = async function getGroups (options = {}) {
-  let {user, types, groupFields = basicFields, sort = '-memberCount', populateLeader = false} = options;
+  let {
+    user, types, groupFields = basicFields,
+    sort = '-memberCount', populateLeader = false,
+    paginate = false, page = 0, // optional pagination for public guilds
+  } = options;
   let queries = [];
 
   // Throw error if an invalid type is supplied
@@ -244,6 +252,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
           privacy: 'public',
         }).select(groupFields);
         if (populateLeader === true) publicGuildsQuery.populate('leader', nameFields);
+        if (paginate === true) publicGuildsQuery.limit(GUILDS_PER_PAGE).skip(page * GUILDS_PER_PAGE);
         publicGuildsQuery.sort(sort).lean().exec();
         queries.push(publicGuildsQuery);
         break;
@@ -291,7 +300,7 @@ schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
  * @param  res  Express res object for use with translations
  * @throws BadRequest An error describing the issue with the invitations
  */
-schema.statics.validateInvitations = function getInvitationError (uuids, emails, res) {
+schema.statics.validateInvitations = async function getInvitationError (uuids, emails, res, group = null) {
   let uuidsIsArray = Array.isArray(uuids);
   let emailsIsArray = Array.isArray(emails);
   let emptyEmails = emailsIsArray && emails.length < 1;
@@ -329,6 +338,27 @@ schema.statics.validateInvitations = function getInvitationError (uuids, emails,
 
   if (totalInvites > INVITES_LIMIT) {
     throw new BadRequest(res.t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}));
+  }
+
+  // If party, check the limit of members
+  if (group && group.type === 'party') {
+    let memberCount = 0;
+
+    // Counting the members that already joined the party
+    memberCount += group.memberCount;
+
+    // Count how many invitations currently exist in the party
+    let query = {};
+    query['invitations.party.id'] = group._id;
+    let groupInvites = await User.count(query).exec();
+    memberCount += groupInvites;
+
+    // Counting the members that are going to be invited by email and uuids
+    memberCount += totalInvites;
+
+    if (memberCount > shared.constants.PARTY_LIMIT_MEMBERS) {
+      throw new BadRequest(res.t('partyExceedsMembersLimit', {maxMembersParty: shared.constants.PARTY_LIMIT_MEMBERS}));
+    }
   }
 };
 
@@ -904,8 +934,12 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
   let group = this;
   let update = {};
 
-  if (group.memberCount <= 1 && group.privacy === 'private' && group.isSubscribed()) {
+  if (group.memberCount <= 1 && group.privacy === 'private' && group.hasNotCancelled()) {
     throw new NotAuthorized(shared.i18n.t('cannotDeleteActiveGroup'));
+  }
+
+  if (group.leader === user._id && group.hasNotCancelled()) {
+    throw new NotAuthorized(shared.i18n.t('leaderCannotLeaveGroupWithActiveGroup'));
   }
 
   // only remove user from challenges if it's set to leave-challenges
@@ -948,6 +982,10 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     update.$unset = {[`quest.members.${user._id}`]: 1};
   }
 
+  if (group.purchased.plan.customerId) {
+    promises.push(payments.cancelGroupSubscriptionForUser(user, this));
+  }
+
   // If user is the last one in group and group is private, delete it
   if (group.memberCount <= 1 && group.privacy === 'private') {
     // double check the member count is correct so we don't accidentally delete a group that still has users in it
@@ -957,7 +995,9 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     } else {
       members = await User.find({'party._id': group._id}).select('_id').exec();
     }
+
     _.remove(members, {_id: user._id});
+
     if (members.length === 0) {
       promises.push(group.remove());
       return await Bluebird.all(promises);
@@ -1163,6 +1203,28 @@ schema.methods.isSubscribed = function isSubscribed () {
   let now = new Date();
   let plan = this.purchased.plan;
   return plan && plan.customerId && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
+};
+
+schema.methods.hasNotCancelled = function hasNotCancelled () {
+  let plan = this.purchased.plan;
+  return this.isSubscribed() && !plan.dateTerminated;
+};
+
+schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {
+  // Recheck the group plan count
+  let members;
+  if (this.type === 'guild') {
+    members = await User.find({guilds: this._id}).select('_id').exec();
+  } else {
+    members = await User.find({'party._id': this._id}).select('_id').exec();
+  }
+  this.memberCount = members.length;
+
+  if (this.purchased.plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
+    await stripePayments.chargeForAdditionalGroupMember(this);
+  } else if (this.purchased.plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD && !removingMember) {
+    await amazonPayments.chargeForAdditionalGroupMember(this);
+  }
 };
 
 export let model = mongoose.model('Group', schema);

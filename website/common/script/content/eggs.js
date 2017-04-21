@@ -267,6 +267,16 @@ let quests = {
     adjective: t('questEggGuineaPigAdjective'),
     canBuy: hasQuestAchievementFunction('guineapig'),
   },
+  Peacock: {
+    text: t('questEggPeacockText'),
+    adjective: t('questEggPeacockAdjective'),
+    canBuy: hasQuestAchievementFunction('peacock'),
+  },
+  Butterfly: {
+    text: t('questEggButterflyText'),
+    adjective: t('questEggButterflyAdjective'),
+    canBuy: hasQuestAchievementFunction('butterfly'),
+  },
 };
 
 applyEggDefaults(drops, {

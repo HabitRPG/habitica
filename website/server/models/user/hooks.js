@@ -31,10 +31,16 @@ function findTag (user, tagName) {
 }
 
 function _populateDefaultTasks (user, taskTypes) {
+  let defaultsData;
+  if (user.registeredThrough === 'habitica-android' || user.registeredThrough === 'habitica-ios') {
+    defaultsData = shared.content.userDefaultsMobile;
+  } else {
+    defaultsData = shared.content.userDefaults;
+  }
   let tagsI = taskTypes.indexOf('tag');
 
   if (tagsI !== -1) {
-    user.tags = _.map(shared.content.userDefaults.tags, (tag) => {
+    user.tags = _.map(defaultsData.tags, (tag) => {
       let newTag = _.cloneDeep(tag);
 
       // tasks automatically get _id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
@@ -53,7 +59,7 @@ function _populateDefaultTasks (user, taskTypes) {
   }
 
   _.each(taskTypes, (taskType) => {
-    let tasksOfType = _.map(shared.content.userDefaults[`${taskType}s`], (taskDefaults) => {
+    let tasksOfType = _.map(defaultsData[`${taskType}s`], (taskDefaults) => {
       let newTask = new Tasks[taskType](taskDefaults);
 
       newTask.userId = user._id;
@@ -96,20 +102,27 @@ function _setUpNewUser (user) {
     user._ABtests.checkInModals = '20161221_showCheckInPreviews'; // show 'preview' check-in modals
   }
   user.items.quests.dustbunnies = 1;
+  user.purchased.background.violet = true;
+  user.preferences.background = 'violet';
 
-  if (user.registeredThrough === 'habitica-web' || user.registeredThrough === 'habitica-android') {
+  if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
 
     _.each(iterableFlags.tutorial.common, (val, section) => {
       user.flags.tutorial.common[section] = true;
     });
   } else {
-    taskTypes = ['todo', 'tag'];
     user.flags.showTour = false;
 
     _.each(iterableFlags.tour, (val, section) => {
       user.flags.tour[section] = -2;
     });
+
+    if (user.registeredThrough === 'habitica-android' || user.registeredThrough === 'habitica-ios') {
+      taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
+    } else {
+      taskTypes = ['todo', 'tag'];
+    }
   }
 
   return _populateDefaultTasks(user, taskTypes);
@@ -153,31 +166,51 @@ schema.pre('validate', function preValidateUser (next) {
 schema.pre('save', true, function preSaveUser (next, done) {
   next();
 
-  if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
-    this.preferences.dayStart = 0;
-  }
+  // VERY IMPORTANT NOTE: when only some fields from an user document are selected
+  // using `.select('field1 field2')` when the user is saved we must make sure that
+  // these hooks do not run using default data. For example if user.items is missing
+  // we do not want to run any hook that relies on user.items because it will
+  // use the default values defined in the user schema and not the real ones.
+  //
+  // To check if a field was selected Document.isSelected('field') can be used.
+  // more info on its usage can be found at http://mongoosejs.com/docs/api.html#document_Document-isSelected
+  // IMPORTANT NOTE2 : due to a bug in mongoose (https://github.com/Automattic/mongoose/issues/5063)
+  // document.isSelected('items') will return true even if only a sub field (like 'items.mounts')
+  // was selected. So this fix only works as long as the entire subdoc is selected
+  // For example in the code below it won't work if only `achievements.beastMasterCount` is selected
+  // which is why we should only ever select the full paths and not subdocs,
+  // or if we really have to do the document.isSelected() calls should check for
+  // every specific subpath (items.mounts, items.pets, ...) but it's better to avoid it
+  // since it'll break as soon as a new field is added to the schema but not here.
 
-  // Determines if Beast Master should be awarded
-  let beastMasterProgress = shared.count.beastMasterProgress(this.items.pets);
+  // do not calculate achievements if items or achievements are not selected
+  if (this.isSelected('items') && this.isSelected('achievements')) {
+    // Determines if Beast Master should be awarded
+    let beastMasterProgress = shared.count.beastMasterProgress(this.items.pets);
 
-  if (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0) {
-    this.achievements.beastMaster = true;
-  }
+    if (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0) {
+      this.achievements.beastMaster = true;
+    }
 
-  // Determines if Mount Master should be awarded
-  let mountMasterProgress = shared.count.mountMasterProgress(this.items.mounts);
+    // Determines if Mount Master should be awarded
+    let mountMasterProgress = shared.count.mountMasterProgress(this.items.mounts);
 
-  if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
-    this.achievements.mountMaster = true;
-  }
+    if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
+      this.achievements.mountMaster = true;
+    }
 
-  // Determines if Triad Bingo should be awarded
+    // Determines if Triad Bingo should be awarded
+    let dropPetCount = shared.count.dropPetsCurrentlyOwned(this.items.pets);
+    let qualifiesForTriad = dropPetCount >= 90 && mountMasterProgress >= 90;
 
-  let dropPetCount = shared.count.dropPetsCurrentlyOwned(this.items.pets);
-  let qualifiesForTriad = dropPetCount >= 90 && mountMasterProgress >= 90;
+    if (qualifiesForTriad || this.achievements.triadBingoCount > 0) {
+      this.achievements.triadBingo = true;
+    }
 
-  if (qualifiesForTriad || this.achievements.triadBingoCount > 0) {
-    this.achievements.triadBingo = true;
+    // EXAMPLE CODE for allowing all existing and new players to be
+    // automatically granted an item during a certain time period:
+    // if (!this.items.pets['JackOLantern-Base'] && moment().isBefore('2014-11-01'))
+    // this.items.pets['JackOLantern-Base'] = 5;
   }
 
   // Enable weekly recap emails for old users who sign in
@@ -188,10 +221,9 @@ schema.pre('save', true, function preSaveUser (next, done) {
     this.flags.lastWeeklyRecapDiscriminator = undefined;
   }
 
-  // EXAMPLE CODE for allowing all existing and new players to be
-  // automatically granted an item during a certain time period:
-  // if (!this.items.pets['JackOLantern-Base'] && moment().isBefore('2014-11-01'))
-  // this.items.pets['JackOLantern-Base'] = 5;
+  if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
+    this.preferences.dayStart = 0;
+  }
 
   // our own version incrementer
   if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;

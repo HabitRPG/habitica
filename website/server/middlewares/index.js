@@ -26,9 +26,11 @@ import responseHandler from './response';
 import {
   attachTranslateFunction,
 } from './language';
+import basicAuth from 'express-basic-auth';
 
 const IS_PROD = nconf.get('IS_PROD');
 const DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING') === 'true';
+const ENABLE_HTTP_AUTH = nconf.get('SITE_HTTP_AUTH:ENABLED') === 'true';
 const PUBLIC_DIR = path.join(__dirname, '/../../client-old');
 
 const SESSION_SECRET = nconf.get('SESSION_SECRET');
@@ -74,6 +76,17 @@ module.exports = function attachMiddlewares (app, server) {
   app.use(passport.initialize());
   app.use(passport.session());
 
+  // The site can require basic HTTP authentication to be accessed
+  if (ENABLE_HTTP_AUTH) {
+    const httpBasicAuthUsers = {};
+    httpBasicAuthUsers[nconf.get('SITE_HTTP_AUTH:USERNAME')] = nconf.get('SITE_HTTP_AUTH:PASSWORD');
+
+    app.use(basicAuth({
+      users: httpBasicAuthUsers,
+      challenge: true,
+      realm: 'Habitica',
+    }));
+  }
   app.use('/api/v2', v2);
   app.use('/api/v1', v1);
   app.use(v3); // the main app, also setup top-level routes

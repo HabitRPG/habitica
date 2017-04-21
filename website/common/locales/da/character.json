@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Vær opmærksom på at dit Skærmnavn, profilbillede og den korte tekst skal leve op til  <a href='https://habitica.com/static/community-guidelines' target='_blank'>Retningslinjer for Fællesskabet</a> (f.eks. ingen bandeord, ingen fornærmelser osv.). Hvis du har nogle spørgsmål til om noget er passende, send endelig en mail til <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Vær venligst opmærksom på, at dit Skærmnavn, profilbillede og den korte tekst skal leve op til <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (f.eks. ingen bandeord, ingen voksne emne, ingen fornærmelser osv.). Hvis du har nogle spørgsmål til om noget er passende, så send endelig en mail til <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Tilpas Avatar",
     "other": "Andet",
@@ -112,6 +112,7 @@
     "mystery": "Mystisk",
     "changeClass": "Skift klasse, Refunder attributpoint",
     "lvl10ChangeClass": "For at skifte klasse skal du være mindst niveau 10.",
+    "invalidClass": "Ugyldig klasses. Angiv venligst 'warrior', 'rogue', 'wizard' eller 'healer'.",
     "levelPopover": "Hvert niveau giver dig et point du kan tildele en attribut efter eget valg. Du kan gøre det manuelt, eller lade spillet bestemme for dig ved hjælp af en af de automatiske tildelingsmuligheder.",
     "unallocated": "Ufordelte attributpoint",
     "haveUnallocated": "Du har <%= points %> ubrugt(e) attributpoint",

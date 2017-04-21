@@ -43,9 +43,9 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
       $modal.open({
         templateUrl: 'modals/task-notes.html',
-        controller: function ($scope, task) {
+        controller: ['$scope', 'task', function ($scope, task) {
           $scope.task = task;
-        },
+        }],
         resolve: {
           task: function() {
             return task;
@@ -159,6 +159,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
     $scope.removeTask = function(task) {
       if (!Tasks.removeTask(task)) return;
       User.deleteTask({params:{id: task._id, taskType: task.type}})
+      $rootScope.$broadcast('obj-updated', User.user);
     };
 
     $scope.unlink = function(task, keep) {

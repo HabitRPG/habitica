@@ -134,7 +134,10 @@ describe('cron', () => {
       user.purchased.plan.dateUpdated = moment().subtract(6, 'months').toDate();
       user.purchased.plan.dateTerminated = moment().subtract(3, 'months').toDate();
       user.purchased.plan.consecutive.count = 5;
+      user.purchased.plan.consecutive.trinkets = 1;
+
       cron({user, tasksByType, daysMissed, analytics});
+
       expect(user.purchased.plan.consecutive.trinkets).to.equal(1);
     });
 

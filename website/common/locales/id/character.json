@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Harap diperhatikan bahwa Nama Tampilan, foto profil, dan celoteh harus menaati <a href='https://habitica.com/static/community-guidelines' target='_blank'>Pedoman Komunitas</a> (tidak mengandung umpatan, topik dewasa, hinaan dsb). Jika kamu tidak yakin apakah sesuatu itu pantas atau tidak, silakan mengirim email ke <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Ubah Tampilan Avatar",
     "other": "Lainnya",
@@ -112,6 +112,7 @@
     "mystery": "Misteri",
     "changeClass": "Ubah Pekerjaan, Mengembalikan Poin Atribut",
     "lvl10ChangeClass": "Untuk mengganti pekerjaan kamu harus setidaknya level 10.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "Setiap level akan otomatis memberikan satu point untuk diatur ke dalam atribut pilihanmu. Kamu dapat melakukannya secara manual atau membiarkan permainan menentukannya untukmu dengan menggunakan opsi Alokasi Otomatis.",
     "unallocated": "Poin Atribut yang Belum Dialokasikan",
     "haveUnallocated": "Kamu memiliki  <%= points %> Poin Atribut yang belum dialokasikan",

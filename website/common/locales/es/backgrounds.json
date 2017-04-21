@@ -215,6 +215,8 @@
     "backgroundWindyAutumnText": "Otoño Ventoso",
     "backgroundWindyAutumnNotes": "Caza las hojas durante el Otoño Ventoso.",
     "incentiveBackgrounds": "Conjunto de fondos lisos",
+    "backgroundVioletText": "violeta",
+    "backgroundVioletNotes": "A vibrant violet backdrop.",
     "backgroundBlueText": "Azul",
     "backgroundBlueNotes": "Un fondo básico azul.",
     "backgroundGreenText": "Verde",
@@ -251,6 +253,13 @@
     "backgroundMagicBeanstalkNotes": "Subir por un Tallo de Judía Mágico",
     "backgroundMeanderingCaveText": "Cuerva Serpenteante",
     "backgroundMeanderingCaveNotes": "Explorar la Cueva Serpenteante",
-    "backgroundMistiflyingCircusText": "Mistiflying Circus",
-    "backgroundMistiflyingCircusNotes": "Carouse in the Mistiflying Circus."
+    "backgroundMistiflyingCircusText": "Desconcertante circo volador",
+    "backgroundMistiflyingCircusNotes": "Parranda en el desconcertante circo volador",
+    "backgrounds042017": "35.ª serie: abril del 2017",
+    "backgroundBugCoveredLogText": "Bug-Covered Log",
+    "backgroundBugCoveredLogNotes": "Investigate a Bug-Covered Log.",
+    "backgroundGiantBirdhouseText": "Giant Birdhouse",
+    "backgroundGiantBirdhouseNotes": "Perch in a Giant Birdhouse.",
+    "backgroundMistShroudedMountainText": "Mist-Shrouded Mountain",
+    "backgroundMistShroudedMountainNotes": "Summit a Mist-Shrouded Mountain."
 }

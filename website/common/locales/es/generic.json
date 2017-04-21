@@ -190,10 +190,10 @@
     "wonChallengeShare": "¡He ganado un desafío en Habitica!",
     "achievementShare": "¡He obtenido un nuevo logro en Habitica!",
     "orderBy": "Ordenar por <%= item %>",
-    "you": "(tu)",
+    "you": "(tú)",
     "enableDesktopNotifications": "Permitir Notificaciones de Escritorio",
     "online": "en línea",
     "onlineCount": "<%= count %> en línea",
     "loading": "Cargando...",
-    "userIdRequired": "Es necesaria una ID de usuario"
+    "userIdRequired": "Es necesaria un ID de usuario"
 }

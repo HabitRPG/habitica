@@ -40,6 +40,10 @@ habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$r
       }
 
       $scope.join = function (group) {
+        if (group.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
+          return;
+        }
+
         var groupId = group._id;
 
         //  If we don't have the _id property, we are joining from an invitation

@@ -1,4 +1,4 @@
-fieldset.option-group.counter_period(ng-if='task.type === "habit" && canEdit(task)')
+fieldset.option-group.counter_period(ng-if='task.type === "habit" && canEdit(task) && task._edit._advanced')
   .form-group
     legend.option-title=env.t('counterPeriod')
     select.form-control(ng-model='task._edit.frequency', ng-disabled='!canEdit(task)')

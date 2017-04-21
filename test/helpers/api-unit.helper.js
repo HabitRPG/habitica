@@ -30,16 +30,17 @@ export function generateChallenge (options = {}) {
 
 export function generateRes (options = {}) {
   let defaultRes = {
-    render: sandbox.stub(),
-    send: sandbox.stub(),
-    status: sandbox.stub().returnsThis(),
-    sendStatus: sandbox.stub().returnsThis(),
     json: sandbox.stub(),
     locals: {
       user: generateUser(options.localsUser),
       group: generateGroup(options.localsGroup),
     },
+    redirect: sandbox.stub(),
+    render: sandbox.stub(),
+    send: sandbox.stub(),
+    sendStatus: sandbox.stub().returnsThis(),
     set: sandbox.stub(),
+    status: sandbox.stub().returnsThis(),
     t (string) {
       return i18n.t(string);
     },

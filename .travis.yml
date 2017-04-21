@@ -16,18 +16,18 @@ before_script:
   - npm run test:build
   - cp config.json.example config.json
   - if [ $REQUIRES_SERVER ]; then until nc -z localhost 27017; do echo Waiting for MongoDB; sleep 1; done; export DISPLAY=:99; fi
-after_script:
-  - ./node_modules/.bin/lcov-result-merger 'coverage/**/*.info' | ./node_modules/coveralls/bin/coveralls.js
-script: npm run $TEST
+script:
+  - npm run $TEST
+  - if [ $COVERAGE ]; then ./node_modules/.bin/lcov-result-merger 'coverage/**/*.info' | ./node_modules/coveralls/bin/coveralls.js; fi
 env:
   global:
     - CXX=g++-4.8
     - DISABLE_REQUEST_LOGGING=true
   matrix:
     - TEST="lint"
-    - TEST="test:api-v3" REQUIRES_SERVER=true
+    - TEST="test:api-v3" REQUIRES_SERVER=true COVERAGE=true
     - TEST="test:sanity"
-    - TEST="test:content"
-    - TEST="test:common"
-    - TEST="test:karma"
-    - TEST="client:unit"
+    - TEST="test:content" COVERAGE=true
+    - TEST="test:common" COVERAGE=true
+    - TEST="test:karma" COVERAGE=true
+    - TEST="client:unit" COVERAGE=true

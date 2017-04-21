@@ -3,7 +3,7 @@
 <template lang="pug">
 #app
   app-menu
-  .ui.grid.fluid
+  .container-fluid
     app-header
     router-view
 </template>
@@ -21,16 +21,6 @@ export default {
 };
 </script>
 
-<style src="assets/less/semantic-ui/semantic.less" lang="less"></style>
-<style src="assets/less/index.less" lang="less"></style>
+<style src="bootstrap/scss/bootstrap.scss" lang="scss"></style>
+<style src="assets/scss/index.scss" lang="scss"></style>
 <style src="assets/css/index.css"></style>
-
-<style scoped>
-.ui.fixed.menu + .ui.grid {
-  padding-top: 0px;
-}
-
-.ui.grid {
-  margin-top: 0px;
-}
-</style>

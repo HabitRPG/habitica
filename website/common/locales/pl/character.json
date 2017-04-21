@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Pamiętaj, że twoja nazwa gracza, zdjęcie profilowe oraz krótki opis muszą zgadzać się z <a href='https://habitica.com/static/community-guidelines' target='_blank'>wytycznymi społeczności</a> (np. brak profanacji, brak tematów dla dorosłych, brak obraźliwych rzeczy itd.) Jeśli masz jakieś pytania odnośnie poprawności, skontaktuj się z <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Pamiętaj, że twoja nazwa gracza, zdjęcie profilowe oraz krótki opis muszą zgadzać się z <a href='https://habitica.com/static/community-guidelines' target='_blank'>wytycznymi społeczności</a> (np. brak profanacji, brak tematów dla dorosłych, brak obraźliwych rzeczy itd.) Jeśli masz jakieś pytania odnośnie poprawności, skontaktuj się z <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Dostosuj Awatara",
     "other": "Inne",
@@ -112,6 +112,7 @@
     "mystery": "Tajemniczy",
     "changeClass": "Zmień klasę i przywróć punkty atrybutów",
     "lvl10ChangeClass": "Aby zmienić klasę musisz być na poziomie co najmniej 10. ",
+    "invalidClass": "Niepoprawna klasa. Prosimy określić \"wojownik\", \"łotrzyk\",  \"czarownik\" czy \"medyk\"",
     "levelPopover": "Każdy zdobyty poziom daje Ci jeden punkt, który możesz przydzielić do wybranego przez siebie atrybutu. Możesz zrobić to ręcznie lub pozwolić, by gra zdecydowała za Ciebie, używając jednej z opcji automatycznego przydzielania.",
     "unallocated": "Nieprzydzielone punkty atrybutów",
     "haveUnallocated": "Nieprzydzielone Punkty Atrybutów: <%= points %>",
