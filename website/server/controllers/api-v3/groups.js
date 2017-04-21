@@ -27,7 +27,6 @@ import stripePayments from '../../libs/stripePayments';
 import amzLib from '../../libs/amazonPayments';
 import shared from '../../../common';
 import apiMessages from '../../libs/apiMessages';
-import clearPartyInvitation from '../../libs/clearPartyInvitation';
 
 const MAX_EMAIL_INVITES_BY_USER = 200;
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
@@ -472,29 +471,43 @@ api.joinGroup = {
 
     let isUserInvited = false;
 
-    if (group.type === 'party' && group._id === user.invitations.party.id) {
-      inviter = user.invitations.party.inviter;
-
-      clearPartyInvitation(user, group._id);
-
-      // invite new user to pending quest
-      if (group.quest.key && !group.quest.active) {
-        user.party.quest.RSVPNeeded = true;
-        user.party.quest.key = group.quest.key;
-        group.quest.members[user._id] = null;
-        group.markModified('quest.members');
+    // Check if was invited to party
+    if (group.type === 'party') {
+      // Validate invitation
+      let hasInvitation = false;
+      for (let i = 0; i < user.invitations.parties.length; i++) {
+        if (group._id === user.invitations.parties[i].id) {
+          hasInvitation = true;
+          break;
+        }
       }
 
-      // If user was in a different party (when partying solo you can be invited to a new party)
-      // make him leave that party before doing anything
-      if (user.party._id) {
-        let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
-        if (userPreviousParty) await userPreviousParty.leave(user);
+      if (hasInvitation) {
+        inviter = user.invitations.party.inviter;
+
+        // Clear all invitations of new user
+        user.invitations.parties = [];
+        user.invitations.party = {};
+
+        // invite new user to pending quest
+        if (group.quest.key && !group.quest.active) {
+          user.party.quest.RSVPNeeded = true;
+          user.party.quest.key = group.quest.key;
+          group.quest.members[user._id] = null;
+          group.markModified('quest.members');
+        }
+
+        // If user was in a different party (when partying solo you can be invited to a new party)
+        // make him leave that party before doing anything
+        if (user.party._id) {
+          let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
+          if (userPreviousParty) await userPreviousParty.leave(user);
+        }
+
+        user.party._id = group._id; // Set group as user's party
+
+        isUserInvited = true;
       }
-
-      user.party._id = group._id; // Set group as user's party
-
-      isUserInvited = true;
     } else if (group.type === 'guild') {
       let hasInvitation = removeFromArray(user.invitations.guilds, { id: group._id });
 
@@ -620,8 +633,9 @@ api.rejectGroupInvite = {
     let groupId = req.params.groupId;
     let isUserInvited = false;
 
-    if (groupId === user.invitations.party.id) {
-      clearPartyInvitation(user, groupId);
+    let hasPartyInvitation = removeFromArray(user.invitations.parties, { id: groupId });
+    if (hasPartyInvitation) {
+      user.invitations.party = user.invitations.parties.length > 0 ? user.invitations.parties[user.invitations.parties.length - 1] : {};
       user.markModified('invitations.party');
       isUserInvited = true;
     } else {
@@ -877,6 +891,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     let partyInvite = {id: group._id, name: group.name, inviter: inviter._id};
     if (group.isSubscribed() && !group.hasNotCancelled()) partyInvite.cancelledPlan = true;
     userToInvite.invitations.parties.push(partyInvite);
+    userToInvite.invitations.party = partyInvite;
   }
 
   let groupLabel = group.type === 'guild' ? 'Guild' : 'Party';
