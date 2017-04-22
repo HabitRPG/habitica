@@ -19,4 +19,5 @@ module.exports = prefill({
   spookySkins: {setPrice: 5, availableUntil: '2016-01-01', text: t('spookySkins')},
   supernaturalSkins: {setPrice: 5, availableUntil: '2016-11-01', text: t('supernaturalSkins')},
   splashySkins: {setPrice: 5, availableUntil: '2016-01-01', text: t('splashySkins')},
+  winterySkins: {setPrice: 5, availableFrom: '2015-12-18', availableUntil: '2016-02-02', text: t('winterySkins')},
 });
