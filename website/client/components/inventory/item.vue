@@ -12,9 +12,12 @@ b-popover(
       span.popover-content-attr-key {{ `${$t(attr)}: ` }}
       span.popover-content-attr-val {{ `+${item[attr]}` }}
 
-  .item-wrapper(@click="click")
+  .item-wrapper
     .item
-      span.item-selected-badge.badge.badge-pill(v-if="selected === true") &#9733;
+      span.badge.badge-pill(
+        :class="{'item-selected-badge': selected === true}",
+        @click="click",
+      ) &#9733;
       span.item-content(:class="'shop_' + item.key")
     span.item-label(v-if="label") {{ label }}
 div(v-else)
