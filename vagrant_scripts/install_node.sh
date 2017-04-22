@@ -16,7 +16,7 @@ nvm use
 nvm alias default current
 
 echo Update npm...
-npm install -g npm@4.5.0
+npm install -g npm@4
 
 echo Installing global modules...
 npm install -g gulp bower grunt-cli mocha node-pre-gyp
