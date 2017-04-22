@@ -872,6 +872,12 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     if (group.isSubscribed() && !group.hasNotCancelled()) guildInvite.cancelledPlan = true;
     userToInvite.invitations.guilds.push(guildInvite);
   } else if (group.type === 'party') {
+
+    // Do not add to invitations.parties array if the user is already invited to that party
+    if (_.find(userToInvite.invitations.parties, {id: group._id})) {
+      throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
+    }
+
     if (userToInvite.party._id) {
       let userParty = await Group.getGroup({user: userToInvite, groupId: 'party', fields: 'memberCount'});
 
@@ -882,10 +888,6 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     let partyInvite = {id: group._id, name: group.name, inviter: inviter._id};
     if (group.isSubscribed() && !group.hasNotCancelled()) partyInvite.cancelledPlan = true;
 
-    // Do not add to invitations.parties array if the user is already invited to that party
-    if (_.find(userToInvite.invitations.parties, {id: group._id})) {
-      throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
-    }
     userToInvite.invitations.parties.push(partyInvite);
     userToInvite.invitations.party = partyInvite;
   }
