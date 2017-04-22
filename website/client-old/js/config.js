@@ -81,11 +81,20 @@ angular.module('habitrpg')
           if (!mobileApp) // skip mobile for now
             $rootScope.$broadcast('responseError', "The site has been updated and the page needs to refresh. The last action has not been recorded, please refresh and try again.");
 
-        } else if (response.data && response.data.code && response.data.code === 'ACCOUNT_SUSPENDED') {
-          confirm(response.data.err);
-          localStorage.clear();
-          window.location.href = mobileApp ? '/app/login' : '/logout'; //location.reload()
-
+        } else if (response.data && response.data.error && response.data.error === 'AccountSuspended') {
+          $rootScope.openModal('account-suspended', { controller : ['$scope', function($scope) {
+            let jadeArgs = JSON.parse(response.data.message);
+            $scope.managerEmail = jadeArgs["communityManagerEmail"];
+            $scope.userId = jadeArgs["userId"];
+            $scope.userName = jadeArgs["userName"];
+            }]
+          }).result.then(function(data) {
+            localStorage.clear();
+            window.location.href = mobileApp ? '/app/login' : '/logout'; //location.reload()
+          }, function(err) {
+            localStorage.clear();
+            window.location.href = mobileApp ? '/app/login' : '/logout'; //location.reload()
+          });
         // 400 range
         } else if (response.status < 400) {
           // never triggered because we're in responseError

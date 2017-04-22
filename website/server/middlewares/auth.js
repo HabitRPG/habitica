@@ -1,5 +1,6 @@
 import {
   NotAuthorized,
+  AccountSuspended,
 } from '../libs/errors';
 import {
   model as User,
@@ -29,7 +30,7 @@ export function authWithHeaders (optional = false) {
     .exec()
     .then((user) => {
       if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
-      if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id}));
+      if (user.auth.blocked) throw new AccountSuspended(JSON.stringify({communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id, userName: user.profile.name}));
 
       res.locals.user = user;
 

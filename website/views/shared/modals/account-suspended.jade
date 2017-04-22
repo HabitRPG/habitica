@@ -1,0 +1,4 @@
+script(id='modals/account-suspended.html', type='text/ng-template')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      p!=env.t("accountSuspended", { communityManagerEmail : '{{managerEmail}}', userName : '{{userName}}', userId : '{{userId}}' })

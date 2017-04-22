@@ -6,6 +6,7 @@ import {
   authWithHeaders,
 } from '../../middlewares/auth';
 import {
+  AccountSuspended,
   NotAuthorized,
   BadRequest,
   NotFound,
@@ -187,7 +188,7 @@ api.registerLocal = {
 };
 
 function _loginRes (user, req, res) {
-  if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id}));
+  if (user.auth.blocked) throw new AccountSuspended(JSON.stringify({communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id, userName: user.profile.name}));
   return res.respond(200, {id: user._id, apiToken: user.apiToken, newUser: user.newUser || false});
 }
 
