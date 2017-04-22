@@ -473,16 +473,7 @@ api.joinGroup = {
 
     // Check if was invited to party
     if (group.type === 'party') {
-      // Validate invitation
-      let hasInvitation = false;
-      for (let i = 0; i < user.invitations.parties.length; i++) {
-        if (group._id === user.invitations.parties[i].id) {
-          hasInvitation = true;
-          break;
-        }
-      }
-
-      if (hasInvitation) {
+      if (_.find(user.invitations.parties, {id: group._id})) {
         inviter = user.invitations.party.inviter;
 
         // Clear all invitations of new user
@@ -890,6 +881,11 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
 
     let partyInvite = {id: group._id, name: group.name, inviter: inviter._id};
     if (group.isSubscribed() && !group.hasNotCancelled()) partyInvite.cancelledPlan = true;
+
+    // Do not add to invitations.parties array if the user is already invited to that party
+    if (_.find(userToInvite.invitations.parties, {id: group._id})) {
+      throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
+    }
     userToInvite.invitations.parties.push(partyInvite);
     userToInvite.invitations.party = partyInvite;
   }
