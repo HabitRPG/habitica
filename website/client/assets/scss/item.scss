@@ -24,12 +24,21 @@
   border-radius: 2px;
   background: $white;
   box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($black, 0.1);
-  cursor: pointer;
 
   &-empty {
     background: $gray-10;
     box-shadow: none;
     cursor: auto;
+  }
+
+  &:hover {
+    box-shadow: 0 4px 4px 0 rgba($black, 0.16), 0 1px 8px 0 rgba($black, 0.12);
+    border: solid 1px #d5c8ff;
+
+    & .item-content {
+      top: 21px;
+      right: 25px;
+    }
   }
 }
 
@@ -54,11 +63,24 @@
   margin-top: 4px;
 }
 
-.item-selected-badge {
+.item > .badge {
+  cursor: pointer;
+  display: none;
   position: absolute;
   top: -12px;
   left: -12px;
-  background: $teal-50;
+  color: $gray-400;
+  background: $white;
   padding: 2px 6px;
-  color: $white;
+  box-shadow: 0 1px 1px 0 rgba($black, 0.12);
+
+  &.item-selected-badge {
+    display: block;
+    background: $teal-50;
+    color: $white;
+  }
+}
+
+.item:hover > .badge {
+  display: block;
 }
