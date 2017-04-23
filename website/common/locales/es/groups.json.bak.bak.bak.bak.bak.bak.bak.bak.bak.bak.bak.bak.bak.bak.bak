@@ -245,7 +245,7 @@
     "groupBenefitFreeSubscriptionDescription": "¡Obtenga beneficios de suscripción completa, incluyendo artículos mensuales exclusivos y la posibilidad de comprar gemas con oro! (Si ya es un suscriptor, su suscripción antigua se cancelará, pero sus beneficios de suscripción consecutivos, como relojes de arena mensuales, se permanecerá.)",
     "groupBenefitExclusiveMountTitle": "Obtenga un para-estrenar y exclusivo Jackalope Mount.",
     "groupBenefitGroupManagersTitle": "Add Group Managers to help manage tasks",
-    "groupBenefitGroupManagersDescription": "Want to share your group's responsibilities? Promote people to Group Managers to help the Leader add, assign, and approve tasks!",
+    "groupBenefitEightDescription": "Want to share your group's responsibilities? Promote people to Group Managers to help the Leader add, assign, and approve tasks!",
     "createAGroup": "Crear un Grupo",
     "assignFieldPlaceholder": "Teclea el nombre de perfil del miembro del grupo",
     "cannotDeleteActiveGroup": "No puedes eliminar un grupo que tiene una suscripción activa",

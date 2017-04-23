@@ -245,7 +245,7 @@
     "groupBenefitFreeSubscriptionDescription": "Obtenez tous les avantages d'un abonnement, dont des objets exclusifs chaque mois et la possibilité d'acheter des gemmes avec de l'or ! (Si vous êtes déjà abonné, votre ancien abonnement sera annulé, mais vos avantages cumulés, par exemple les sabliers mensuels, seront conservés.)",
     "groupBenefitExclusiveMountTitle": "Obtenez en exclusivité une toute nouvelle monture : le Léporilope",
     "groupBenefitGroupManagersTitle": "Ajoutez des gestionnaires de groupe pour vous aider à gérer les tâches.",
-    "groupBenefitGroupManagersDescription": "Vous souhaitez partager les responsabilités de votre groupe ? Promouvez des membres au grade de gestionnaires de groupe pour aider le responsable à ajouter, assigner et approuver des tâches !",
+    "groupBenefitEightDescription": "Vous souhaitez partager les responsabilités de votre groupe ? Promouvez des membres au grade de gestionnaires de groupe pour aider le responsable à ajouter, assigner et approuver des tâches !",
     "createAGroup": "Créer un groupe",
     "assignFieldPlaceholder": "Renseignez le nom de profil d'un membre du groupe",
     "cannotDeleteActiveGroup": "Vous ne pouvez pas supprimer un groupe avec un abonnement actif",
