@@ -872,7 +872,6 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     if (group.isSubscribed() && !group.hasNotCancelled()) guildInvite.cancelledPlan = true;
     userToInvite.invitations.guilds.push(guildInvite);
   } else if (group.type === 'party') {
-
     // Do not add to invitations.parties array if the user is already invited to that party
     if (_.find(userToInvite.invitations.parties, {id: group._id})) {
       throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
