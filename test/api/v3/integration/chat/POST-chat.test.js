@@ -198,19 +198,30 @@ describe('POST /chat', () => {
   });
 
   it('errors and revokes privileges when chat message contains a banned slur', async () => {
+    // Uncommenting these lines makes the expect(user.flags.chatRevoked).to.be.true; line to
+    // error with: expected false to be true
+    // user.flags.chatRevoked = false;
+    // await user.update({'flags.chatRevoked': false});
+
     await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testSlurMessage})).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: 'Your message contained inapropriate language, and your chat privileges have been revoked.',
     });
 
-    // expect(user.flags.chatRevoked).to.be.true;
+    // Chat privileges are revoked
+    await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
+      code: 404,
+      error: 'NotFound',
+      message: 'Your chat privileges have been revoked.',
+    });
 
+    // Restore chat privileges to continue testing
     user.flags.chatRevoked = false;
     await user.update({'flags.chatRevoked': false});
   });
 
-  it('does not allow slurs in private gropus', async () => {
+  it('does not allow slurs in private groups', async () => {
     let { group, members } = await createAndPopulateGroup({
       groupDetails: {
         name: 'Party',
@@ -225,10 +236,22 @@ describe('POST /chat', () => {
       message: 'Your message contained inapropriate language, and your chat privileges have been revoked.',
     });
 
-    // expect(user.flags.chatRevoked).to.be.true;
+    // await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testSlurMessage})).to.eventually.be.rejected.and.eql({
+    //   code: 400,
+    //   error: 'BadRequest',
+    //   message: 'Your message contained inapropriate language, and your chat privileges have been revoked.',
+    // });
 
-    user.flags.chatRevoked = false;
-    await user.update({'flags.chatRevoked': false});
+    // // Chat privileges are revoked
+    // await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
+    //   code: 404,
+    //   error: 'NotFound',
+    //   message: 'Your chat privileges have been revoked.',
+    // });
+
+    // Restore chat privileges to continue testing
+    // user.flags.chatRevoked = false;
+    // await user.update({'flags.chatRevoked': false});
   });
 
   it('creates a chat', async () => {
