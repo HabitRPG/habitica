@@ -75,7 +75,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
                   li(ng-repeat='(managerId, value) in groupCopy.managers')
                    | {{memberProfileName(managerId)}}
                    button.btn.btn-warning.remove-manager-button(ng-click='removeManager(managerId)')=env.t('removeManager')
-              
+
             div(ng-show='!group._editing')
               img.img-rendering-auto.pull-right(ng-show='group.logo', ng-src='{{group.logo}}')
               markdown(text='group.description')

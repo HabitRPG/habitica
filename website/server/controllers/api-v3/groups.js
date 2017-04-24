@@ -1096,7 +1096,7 @@ api.inviteToGroup = {
  * @apiParamExample {String} party:
  *     /api/v3/groups/party/add-manager
  *
- * @apiBody (Body) {UUID} managerId TThe user _id of the member to promote to manager
+ * @apiBody (Body) {UUID} managerId The user _id of the member to promote to manager
  *
  * @apiSuccess {Object} data An empty object
  *
@@ -1136,7 +1136,7 @@ api.addGroupManager = {
 };
 
 /**
- * @api {post} /api/v3/groups/:groupId/remove-manager Removes a manager from a group
+ * @api {post} /api/v3/groups/:groupId/remove-manager Remove a manager from a group
  * @apiName RemoveGroupManager
  * @apiGroup Group
  *
@@ -1145,7 +1145,7 @@ api.addGroupManager = {
  * @apiParamExample {String} party:
  *     /api/v3/groups/party/add-manager
  *
- * @apiBody (Body) {UUID} managerId TThe user _id of the member to remove
+ * @apiBody (Body) {UUID} managerId The user _id of the member to remove
  *
  * @apiSuccess {Object} group The group
  *

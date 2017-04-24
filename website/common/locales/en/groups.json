@@ -273,7 +273,7 @@
   "removeManager": "Remove",
   "userMustBeMember": "User must be a member",
   "userIsNotManager": "User is not manager",
-  "canOnlyApproveTaskOnce": "You can only approve a task once",
+  "canOnlyApproveTaskOnce": "This task has already been approved.",
   "leaderMarker": " - Leader",
   "managerMarker": " - Manager"
 }

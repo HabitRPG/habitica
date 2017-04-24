@@ -96,8 +96,8 @@ habitrpg.controller('NotificationCtrl',
           return;
         }
 
-        // Some notifications are not marked read here, soo we need to fix this system
-        // To handle notiications differently
+        // Some notifications are not marked read here, so we need to fix this system
+        // to handle notifications differently
         if (['GROUP_TASK_APPROVED', 'GROUP_TASK_APPROVAL'].indexOf(notification.type) === -1) {
           lastShownNotifications.push(notification.id);
           if (lastShownNotifications.length > 10) {
