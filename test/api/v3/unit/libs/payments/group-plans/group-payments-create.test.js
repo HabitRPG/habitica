@@ -603,7 +603,7 @@ describe('Purchasing a subscription for group', () => {
     expect(updatedUser.purchased.plan.dateCreated).to.exist;
   });
 
-  it('does not modify a user with an Google subscription', async () => {
+  it('does not modify a user with a Google subscription', async () => {
     plan.customerId = 'random';
     plan.paymentMethod = api.constants.GOOGLE_PAYMENT_METHOD;
 
