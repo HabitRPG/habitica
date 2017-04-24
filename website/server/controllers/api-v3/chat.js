@@ -5,7 +5,6 @@ import {
   BadRequest,
   NotFound,
   NotAuthorized,
-  BadRequest,
 } from '../../libs/errors';
 import _ from 'lodash';
 import { removeFromArray } from '../../libs/collectionManipulators';
@@ -16,7 +15,6 @@ import nconf from 'nconf';
 import Bluebird from 'bluebird';
 import bannedWords from '../../libs/bannedWords';
 import { TAVERN_ID } from '../../models/group';
-import bannedSlurs from '../../../common/bannedSlurs';
 import bannedSlurs from '../../bannedSlurs';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
@@ -56,15 +54,22 @@ async function getAuthorEmailFromMessage (message) {
   }
 }
 
+// @TODO: Probably move this to a library
 function matchExact (r, str) {
   let match = str.match(r);
   return match !== null && match[0] !== null;
 }
 
-function textContainsBannedWords (message, bannedWordList) {
-  for (let i = 0; i < bannedWordList.length; i += 1) {
-    let word = bannedWordList[i];
-    let regEx = new RegExp(`\\b${word.toLowerCase()}\\b`);
+let bannedWordRegexs = [];
+for (let i = 0; i < bannedWords.length; i += 1) {
+  let word = bannedWords[i];
+  let regEx = new RegExp(`\\b([^a-z]+)?${word.toLowerCase()}([^a-z]+)?\\b`);
+  bannedWordRegexs.push(regEx);
+}
+
+function textContainsBannedWords (message) {
+  for (let i = 0; i < bannedWordRegexs.length; i += 1) {
+    let regEx = bannedWordRegexs[i];
     if (matchExact(regEx, message.toLowerCase())) return true;
   }
 
@@ -102,28 +107,6 @@ api.getChat = {
     res.respond(200, Group.toJSONCleanChat(group, user).chat);
   },
 };
-
-// @TODO: Probably move this to a library
-function matchExact (r, str) {
-  let match = str.match(r);
-  return match !== null && match[0] !== null;
-}
-
-let bannedWordRegexs = [];
-for (let i = 0; i < bannedWords.length; i += 1) {
-  let word = bannedWords[i];
-  let regEx = new RegExp(`\\b([^a-z]+)?${word.toLowerCase()}([^a-z]+)?\\b`);
-  bannedWordRegexs.push(regEx);
-}
-
-function textContainsBannedWords (message) {
-  for (let i = 0; i < bannedWordRegexs.length; i += 1) {
-    let regEx = bannedWordRegexs[i];
-    if (matchExact(regEx, message.toLowerCase())) return true;
-  }
-
-  return false;
-}
 
 /**
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group

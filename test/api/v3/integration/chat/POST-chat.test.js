@@ -250,8 +250,8 @@ describe('POST /chat', () => {
     // });
 
     // Restore chat privileges to continue testing
-    // user.flags.chatRevoked = false;
-    // await user.update({'flags.chatRevoked': false});
+    user.flags.chatRevoked = false;
+    await user.update({'flags.chatRevoked': false});
   });
 
   it('creates a chat', async () => {
