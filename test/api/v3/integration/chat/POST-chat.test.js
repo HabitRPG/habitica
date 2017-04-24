@@ -9,6 +9,7 @@ import { v4 as generateUUID } from 'uuid';
 describe('POST /chat', () => {
   let user, groupWithChat, userWithChatRevoked, member;
   let testMessage = 'Test Message';
+  let testBannedWordMessage = 'TEST_PLACEHOLDER_SWEAR_WORD_HERE';
 
   before(async () => {
     let { group, groupLeader, members } = await createAndPopulateGroup({
@@ -66,6 +67,96 @@ describe('POST /chat', () => {
       code: 404,
       error: 'NotFound',
       message: 'Your chat privileges have been revoked.',
+    });
+  });
+
+  context('banned word', () => {
+    it('returns an error when chat message contains a banned word in tavern', async () => {
+      await expect(user.post('/groups/habitrpg/chat', { message: testBannedWordMessage}))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('bannedWordUsed'),
+      });
+    });
+
+    it('errors when word is part of a phrase', async () => {
+      let wordInPhrase = `phrase ${testBannedWordMessage} end`;
+      await expect(user.post('/groups/habitrpg/chat', { message: wordInPhrase}))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('bannedWordUsed'),
+      });
+    });
+
+    it('errors when word is surrounded by non alphabet characters', async () => {
+      let wordInPhrase = `_!${testBannedWordMessage}@_`;
+      await expect(user.post('/groups/habitrpg/chat', { message: wordInPhrase}))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('bannedWordUsed'),
+      });
+    });
+
+    it('does not error when bad word is suffix of a word', async () => {
+      let wordAsSuffix = `prefix${testBannedWordMessage}`;
+      let message = await user.post('/groups/habitrpg/chat', { message: wordAsSuffix});
+
+      expect(message.message.id).to.exist;
+    });
+
+    it('does not error when bad word is prefix of a word', async () => {
+      let wordAsPrefix = `${testBannedWordMessage}suffix`;
+      let message = await user.post('/groups/habitrpg/chat', { message: wordAsPrefix});
+
+      expect(message.message.id).to.exist;
+    });
+
+    it('does not error when sending a chat message containing a banned word to a party', async () => {
+      let { group, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Party',
+          type: 'party',
+          privacy: 'private',
+        },
+        members: 1,
+      });
+
+      let message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage});
+
+      expect(message.message.id).to.exist;
+    });
+
+    it('does not error when sending a chat message containing a banned word to a public guild', async () => {
+      let { group, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'public guild',
+          type: 'guild',
+          privacy: 'public',
+        },
+        members: 1,
+      });
+
+      let message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage});
+
+      expect(message.message.id).to.exist;
+    });
+
+    it('does not error when sending a chat message containing a banned word to a private guild', async () => {
+      let { group, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'private guild',
+          type: 'guild',
+          privacy: 'private',
+        },
+        members: 1,
+      });
+
+      let message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage});
+
+      expect(message.message.id).to.exist;
     });
   });
 
