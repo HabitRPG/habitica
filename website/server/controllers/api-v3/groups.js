@@ -489,7 +489,7 @@ api.joinGroup = {
         }
 
         // If user was in a different party (when partying solo you can be invited to a new party)
-        // make him leave that party before doing anything
+        // make them leave that party before doing anything
         if (user.party._id) {
           let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
           if (userPreviousParty) await userPreviousParty.leave(user);
