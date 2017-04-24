@@ -440,7 +440,7 @@ describe('Post /groups/:groupId/invite', () => {
       await inviter.post(`/groups/${party._id}/invite`, {
         uuids: [userToInvite._id],
       });
-      expect((await userToInvite.get('/user')).invitations.party.id).to.equal(party._id);
+      expect((await userToInvite.get('/user')).invitations.parties[0].id).to.equal(party._id);
     });
 
     it('allow inviting a user to 2 different parties', async () => {
@@ -482,7 +482,7 @@ describe('Post /groups/:groupId/invite', () => {
       await inviter.post(`/groups/${party._id}/invite`, {
         uuids: [userToInvite._id],
       });
-      expect((await userToInvite.get('/user')).invitations.party.id).to.equal(party._id);
+      expect((await userToInvite.get('/user')).invitations.parties[0].id).to.equal(party._id);
     });
 
     it('allows 30 members in a party', async () => {

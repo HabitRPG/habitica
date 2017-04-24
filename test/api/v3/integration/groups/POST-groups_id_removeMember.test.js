@@ -152,13 +152,13 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
     });
 
     it('can remove other invites', async () => {
-      expect(partyInvitedUser.invitations.party).to.not.be.empty;
+      expect(partyInvitedUser.invitations.parties[0]).to.not.be.empty;
 
       await partyLeader.post(`/groups/${party._id}/removeMember/${partyInvitedUser._id}`);
 
       let invitedUserWithoutInvite = await partyInvitedUser.get('/user');
 
-      expect(invitedUserWithoutInvite.invitations.party).to.be.empty;
+      expect(invitedUserWithoutInvite.invitations.parties[0]).to.be.empty;
     });
 
     it('removes new messages from a member who is removed', async () => {
