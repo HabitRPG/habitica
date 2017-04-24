@@ -296,7 +296,7 @@ function($rootScope, User, $http, Content) {
   }
 
   Payments.cancelSubscription = function(config) {
-    if (config && config.group && !confirm(window.env.t('confirmCancelGroupPlan'))) return; 
+    if (config && config.group && !confirm(window.env.t('confirmCancelGroupPlan'))) return;
     if (!confirm(window.env.t('sureCancelSub'))) return;
 
     var group;
@@ -315,11 +315,23 @@ function($rootScope, User, $http, Content) {
       paymentMethod = paymentMethod.toLowerCase();
     }
 
-    var cancelUrl = '/' + paymentMethod + '/subscribe/cancel?_id=' + User.user._id + '&apiToken=' + User.settings.auth.apiToken;
+    var queryParams = {
+      _id: User.user._id,
+      apiToken: User.settings.auth.apiToken,
+      noRedirect: true,
+    };
+
     if (group) {
-      cancelUrl += '&groupId=' + group._id;
+      queryParams.groupId = group._id;
     }
-    window.location.href = cancelUrl;
+
+    var cancelUrl = '/' + paymentMethod + '/subscribe/cancel?' + $.param(queryParams);
+
+    $http.get(cancelUrl)
+      .then(function (success) {
+        alert(window.evn.t('paypalCanceled'));
+        window.location.href = '/';
+      });
   }
 
   Payments.encodeGift = function(uuid, gift) {
