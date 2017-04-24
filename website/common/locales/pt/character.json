@@ -110,7 +110,7 @@
     "rogue": "Ladino",
     "mage": "Mago",
     "mystery": "Mistério",
-    "changeClass": "Alterar Classe, Restituir Pontos de Atributo",
+    "changeClass": "Alterar Classe, Reembolsar Pontos de Atributo",
     "lvl10ChangeClass": "Para mudar de classe você precisa ser pelo menos nível 10.",
     "invalidClass": "Classe inválida. Por favor especifique 'guerreiro', 'ladino', 'mago' ou 'curandeiro'.",
     "levelPopover": "A cada nível que alcançar você terá um ponto para distribuir para um atributo de sua escolha. Você pode fazer isso manualmente, ou deixar o jogo decidir por você usando uma das opções de Distribuição Automática.",

@@ -24,7 +24,7 @@
     "gildedTurkey": "Forgyldt kalkun",
     "polarBearPup": "Isbjørneunge",
     "jackolantern": "Græskarlygte",
-    "ghostJackolantern": "Ghost Jack-O-Lantern",
+    "ghostJackolantern": "Spøgelses Græskarlygte",
     "seasonalShop": "Sæson-marked",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Sæson-heksen<%= linkEnd %>",
@@ -46,7 +46,7 @@
     "snowDaySet": "Snow Day Warrior (Warrior)",
     "snowboardingSet": "Snowboarding Sorcerer (Mage)",
     "festiveFairySet": "Festive Fairy (Healer)",
-    "cocoaSet": "Cocoa Rogue (Rogue)",
+    "cocoaSet": "Kakao Slyngel (Slyngel)",
     "toAndFromCard": "Til: <%= toName %>, Fra: <%= fromName %>",
     "nyeCard": "Nytårskort",
     "nyeCardExplanation": "Da I har fejret nytår sammen, modtager I begge \"Gammel Kending\"-emblemet!",
@@ -105,5 +105,6 @@
     "spring2017FloralMouseSet": "Floral Mouse (Healer)",
     "spring2017SneakyBunnySet": "Sneaky Bunny (Rogue)",
     "eventAvailability": "Available for purchase until <%= date(locale) %>.",
-    "dateEndApril": "April 19"
+    "dateEndApril": "April 19",
+    "dateEndMay": "May 17"
 }

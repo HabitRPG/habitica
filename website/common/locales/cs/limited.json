@@ -3,11 +3,11 @@
     "seasonalEdition": "Sezónní edice",
     "winterColors": "Zimní barvy",
     "annoyingFriends": "Otravní přátelé",
-    "annoyingFriendsText": "Got snowballed <%= count %> times by party members.",
+    "annoyingFriendsText": "Byl zkoulován <%= count %> krát členy party",
     "alarmingFriends": "Strašliví přátelé",
-    "alarmingFriendsText": "Got spooked <%= count %> times by party members.",
+    "alarmingFriendsText": "Byl vystrašen <%= count %> krát členy party",
     "agriculturalFriends": "Zemědělští přátelé",
-    "agriculturalFriendsText": "Got transformed into a flower <%= count %> times by party members.",
+    "agriculturalFriendsText": "Byl <%= count %> krát proměněn v kytku členy party",
     "aquaticFriends": "Podvodní přátelé",
     "aquaticFriendsText": "Got splashed <%= count %> times by party members.",
     "valentineCard": "Valentýnka",
@@ -105,5 +105,6 @@
     "spring2017FloralMouseSet": "Floral Mouse (Healer)",
     "spring2017SneakyBunnySet": "Sneaky Bunny (Rogue)",
     "eventAvailability": "Available for purchase until <%= date(locale) %>.",
-    "dateEndApril": "April 19"
+    "dateEndApril": "April 19",
+    "dateEndMay": "May 17"
 }

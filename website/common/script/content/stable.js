@@ -67,6 +67,7 @@ let specialPets = {
   'Lion-Veteran': 'veteranLion',
   'Gryphon-RoyalPurple': 'royalPurpleGryphon',
   'JackOLantern-Ghost': 'ghostJackolantern',
+  'Jackalope-RoyalPurple': 'royalPurpleJackalope',
 };
 
 let specialMounts = {
