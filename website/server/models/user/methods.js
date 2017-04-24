@@ -1,11 +1,13 @@
 import moment from 'moment';
 import common from '../../../common';
+import nconf from 'nconf';
 import Bluebird from 'bluebird';
 import {
   chatDefaults,
   TAVERN_ID,
 } from '../group';
 import { model as Group } from '../group';
+import { getGroupUrl, sendTxn } from '../../libs/email';
 import { defaults } from 'lodash';
 import { model as UserNotification } from '../userNotification';
 import schema from './schema';
@@ -14,6 +16,12 @@ import amazonPayments from '../../libs/amazonPayments';
 import stripePayments from '../../libs/stripePayments';
 import paypalPayments from '../../libs/paypalPayments';
 
+<<<<<<< HEAD
+=======
+const SLUR_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
+  return { email, canSend: true };
+});
+>>>>>>> Created report to be sent to moderators via email
 
 schema.methods.isSubscribed = function isSubscribed () {
   let now = new Date();
@@ -130,7 +138,7 @@ schema.methods.muteUser = async function muteUser (message, groupId) {
   let user = this;
 
   user.flags.chatRevoked = true;
-  await user.save()
+  // await user.save()
 
   let group = await Group.getGroup({
     user,
@@ -139,31 +147,30 @@ schema.methods.muteUser = async function muteUser (message, groupId) {
   });
 
   let authorEmail = user.auth.local.email;
-  // let groupUrl = getGroupUrl(group);
-  // console.log(user)
+  let groupUrl = getGroupUrl(group);
 
-  // console.log(user.chatRevoked)
-  // console.log(message)
+  let report =  [
+    {name: 'MESSAGE_TIME', content: (new Date()).toString()},
+    {name: 'MESSAGE_TEXT', content: message},
+
+    {name: 'AUTHOR_USERNAME', content: user.profile.name},
+    {name: 'AUTHOR_UUID', content: user._id},
+    {name: 'AUTHOR_EMAIL', content: authorEmail},
+    {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
+
+    {name: 'GROUP_NAME', content: group.name},
+    {name: 'GROUP_TYPE', content: group.type},
+    {name: 'GROUP_ID', content: group._id},
+    {name: 'GROUP_URL', content: groupUrl},
+  ]
+    // console.log(report)
     
-  // sendTxn(SLUR_REPORT_EMAILS, 'slur-report-to-mods', [
-  //     {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
-  //     {name: 'MESSAGE_TEXT', content: message.text},
+  sendTxn(SLUR_REPORT_EMAILS, 'slur-report-to-mods', report);
 
-  //     {name: 'AUTHOR_USERNAME', content: message.user},
-  //     {name: 'AUTHOR_UUID', content: message.uuid},
-  //     {name: 'AUTHOR_EMAIL', content: authorEmail},
-  //     {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
-
-  //     {name: 'GROUP_NAME', content: group.name},
-  //     {name: 'GROUP_TYPE', content: group.type},
-  //     {name: 'GROUP_ID', content: group._id},
-  //     {name: 'GROUP_URL', content: groupUrl},
-  //   ]);
-
-  //   slack.sendSlurNotification({
-  //     authorEmail,
-  //     group,
-  //     message,
+    // slack.sendSlurNotification({
+    //   authorEmail,
+    //   group,
+    //   message,
     // });
 
 };
