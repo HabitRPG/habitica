@@ -16,11 +16,11 @@ const logger = new winston.Logger();
 
 if (IS_PROD) {
   if (ENABLE_LOGS_IN_PROD) {
-    // logger.add(winston.transports.Console, {
-    //   timestamp: true,
-    //   colorize: false,
-    //   prettyPrint: false,
-    // });
+    logger.add(winston.transports.Console, {
+      timestamp: true,
+      colorize: false,
+      prettyPrint: false,
+    });
     logger.add(winston.transports.Loggly, {
         inputToken: nconf.get('LOGGLY:TOKEN'),
         subdomain: nconf.get('LOGGLY:SUBDOMAIN'),
