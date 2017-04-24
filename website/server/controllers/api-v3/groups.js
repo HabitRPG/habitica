@@ -834,6 +834,7 @@ api.removeGroupMember = {
       }
       if (isInvited === 'party') {
         member.invitations.party = {};
+        member.invitations.parties = [];
         member.markModified('invitations.party');
       }
     } else {

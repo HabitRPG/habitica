@@ -376,6 +376,7 @@ schema.methods.removeGroupInvitations = async function removeGroupInvitations ()
   let userUpdates = usersToRemoveInvitationsFrom.map(user => {
     if (group.type === 'party') {
       user.invitations.party = {};
+      user.invitations.parties = [];
       this.markModified('invitations.party');
     } else {
       removeFromArray(user.invitations.guilds, { id: group._id });
