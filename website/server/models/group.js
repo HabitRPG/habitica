@@ -105,13 +105,16 @@ export let schema = new Schema({
       return {};
     }},
   },
+  managers: {type: Schema.Types.Mixed, default: () => {
+    return {};
+  }},
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased'],
+  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased', 'managers'],
   private: ['purchased.plan'],
   toJSONTransform (plainObj, originalDoc) {
     if (plainObj.purchased) plainObj.purchased.active = originalDoc.isSubscribed();
