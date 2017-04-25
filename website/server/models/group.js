@@ -48,9 +48,9 @@ const MAX_UPDATE_RETRIES = 5;
 
 /*
 #  Spam constants to limit people from sending too many messages too quickly
-#    MESSAGE_LIMIT - The amount of messages that can be sent in a time window
-#    WINDOW_LENGTH - The window length for spam protection in milliseconds
-#    CONTRIBUTOR_LEVEL - Anyone at or above this level is exempt
+#    SPAM_MESSAGE_LIMIT - The amount of messages that can be sent in a time window
+#    SPAM_WINDOW_LENGTH - The window length for spam protection in milliseconds
+#    SPAM_MIN_EXEMPT_CONTRIB_LEVEL - Anyone at or above this level is exempt
 */
 export const SPAM_MESSAGE_LIMIT = 2;
 export const SPAM_WINDOW_LENGTH = 60000; // 1 minute
