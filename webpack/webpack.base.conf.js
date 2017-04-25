@@ -31,17 +31,17 @@ const baseConfig = {
   resolve: {
     extensions: ['*', '.js', '.vue', '.json'],
     modules: [
-      path.join(__dirname, '..', 'website'),
-      path.join(__dirname, '..', 'test/client/unit'),
-      path.join(__dirname, '..', 'node_modules'),
+      path.join(projectRoot, 'website'),
+      path.join(projectRoot, 'test/client/unit'),
+      path.join(projectRoot, 'node_modules'),
     ],
     alias: {
       jquery: 'jquery/src/jquery',
-      website: path.resolve(__dirname, '../website'),
-      common: path.resolve(__dirname, '../website/common'),
-      client: path.resolve(__dirname, '../website/client'),
-      assets: path.resolve(__dirname, '../website/client/assets'),
-      components: path.resolve(__dirname, '../website/client/components'),
+      website: path.resolve(projectRoot, 'website'),
+      common: path.resolve(projectRoot, 'website/common'),
+      client: path.resolve(projectRoot, 'website/client'),
+      assets: path.resolve(projectRoot, 'website/client/assets'),
+      components: path.resolve(projectRoot, 'website/client/components'),
     },
   },
   plugins: [
@@ -73,8 +73,13 @@ const baseConfig = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: projectRoot,
-        exclude: /node_modules/,
+        include: [
+          path.join(projectRoot, 'website'),
+          path.join(projectRoot, 'node_modules', 'bootstrap-vue'),
+        ],
+        options: {
+          cacheDirectory: true,
+        },
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
