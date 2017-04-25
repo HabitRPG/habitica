@@ -49,6 +49,8 @@ _.each(blocks, function(block){
   });
 })
 
+// @TODO: Add cli library for this
+
 switch(OP) {
   case "list":
     paypal.billingPlan.list({status: 'ACTIVE'}, function(err, plans){
@@ -91,4 +93,17 @@ switch(OP) {
     });
     break;
   case "remove": break;
+
+  case 'create-webprofile':
+    let webexpinfo = {
+      "name": "HabiticaProfile",
+      "input_fields": {
+        "no_shipping": 1,
+      },
+    };
+
+    paypal.webProfile.create(webexpinfo, (error, result) => {
+      console.log(error, result)
+    })
+    break;
 }
