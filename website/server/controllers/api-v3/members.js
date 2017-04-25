@@ -231,7 +231,7 @@ function _getMembersForItem (type) {
       if (group.type === 'guild') { // eslint-disable-line no-lonely-if
         query['invitations.guilds.id'] = group._id;
       } else {
-        query['invitations.party.id'] = group._id; // group._id and not groupId because groupId could be === 'party'
+        query['invitations.parties.id'] = group._id; // group._id and not groupId because groupId could be === 'party'
       }
     }
 

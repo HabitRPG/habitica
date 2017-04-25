@@ -789,7 +789,7 @@ api.removeGroupMember = {
     }
 
     let isInvited;
-    if (_.find(user.invitations.parties, {id: group._id})) {
+    if (_.find(member.invitations.parties, {id: group._id})) {
       isInvited = 'party';
     } else if (_.findIndex(member.invitations.guilds, {id: group._id}) !== -1) {
       isInvited = 'guild';
@@ -835,7 +835,7 @@ api.removeGroupMember = {
       }
       if (isInvited === 'party') {
         member.invitations.party = {};
-        removeFromArray(user.invitations.parties, { id: group._id });
+        removeFromArray(member.invitations.parties, { id: group._id });
         member.markModified('invitations.party');
       }
     } else {
@@ -932,7 +932,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
   if (group.type === 'guild') {
     return userInvited.invitations.guilds[userToInvite.invitations.guilds.length - 1];
   } else if (group.type === 'party') {
-    return userToInvite.invitations.parties[userToInvite.invitations.parties.length - 1];
+    return userInvited.invitations.parties[userToInvite.invitations.parties.length - 1];
   }
 }
 

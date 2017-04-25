@@ -14,7 +14,7 @@ angular.module('habitrpg')
 
         if (user.purchased && user.purchased.plan && user.purchased.plan.mysteryItems && user.purchased.plan.mysteryItems.length) {
           return mysteryValue;
-        } else if ((user.invitations.party && user.invitations.party.id) || (user.invitations.guilds && user.invitations.guilds.length > 0)) {
+        } else if ((user.invitations.parties && user.invitations.parties.length > 0) || (user.invitations.guilds && user.invitations.guilds.length > 0)) {
           return invitationValue;
         } else if (user.flags.cardReceived) {
           return cardValue;
