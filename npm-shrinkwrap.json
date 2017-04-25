@@ -1008,9 +1008,9 @@
       "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.0.0-alpha.6.tgz"
     },
     "bootstrap-vue": {
-      "version": "0.13.1",
-      "from": "bootstrap-vue@>=0.13.1 <0.14.0",
-      "resolved": "https://registry.npmjs.org/bootstrap-vue/-/bootstrap-vue-0.13.1.tgz",
+      "version": "0.14.0",
+      "from": "bootstrap-vue/bootstrap-vue",
+      "resolved": "git://github.com/bootstrap-vue/bootstrap-vue.git#03b32cb5e1eae4ad3443aad1915d0d378f809a91",
       "dependencies": {
         "async": {
           "version": "0.2.10",
