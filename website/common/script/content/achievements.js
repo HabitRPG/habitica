@@ -83,6 +83,11 @@ let basicAchievs = {
     titleKey: 'partyOnName',
     textKey: 'partyOnText',
   },
+  guild: {
+    icon: 'achievement-guild',
+    titleKey: 'guildName',
+    textKey: 'guildText',
+  },
   streak: {
     icon: 'achievement-thermometer',
     singularTitleKey: 'streakSingular',

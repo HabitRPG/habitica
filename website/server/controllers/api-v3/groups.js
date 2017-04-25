@@ -561,6 +561,12 @@ api.joinGroup = {
       }
     }
 
+    if (group.type === 'guild') {
+      promises.push(User.update({
+        'achievements.guild': {$ne: true},
+      }, {$set: {'achievements.guild': true}}, {multi: true}).exec());
+    }
+
     promises = await Bluebird.all(promises);
 
     let response = Group.toJSONCleanChat(promises[0], user);
