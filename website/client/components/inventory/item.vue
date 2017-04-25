@@ -1,9 +1,8 @@
 <template lang="pug">
 b-popover(
   :triggers="['hover']",
-  placement="top",
-  offset="-6px 0",
-  v-if="item && item.key.indexOf('_base_0') === -1"
+  :placement="popoverPosition",
+  v-if="item && item.key.indexOf('_base_0') === -1",
 )
   span(slot="content")
     h4.popover-content-title {{ item.text() }}
@@ -45,6 +44,10 @@ export default {
     },
     label: {
       type: String,
+    },
+    popoverPosition: {
+      type: String,
+      default: 'bottom',
     },
   },
   computed: {

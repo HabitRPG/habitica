@@ -1,18 +1,34 @@
 <template lang="pug">
-.toggle-switch
-  input.toggle-switch-checkbox(type='checkbox', :id="id")
-  label.toggle-switch-label(:for="id")
-    span.toggle-switch-inner
-    span.toggle-switch-switch
+.clearfix.toggle-switch-container
+  .float-left.toggle-switch-description {{ label }}
+  .toggle-switch.float-right
+    input.toggle-switch-checkbox(
+      type='checkbox', :id="id", 
+      @change="$emit('change', $event.target.checked)", 
+      :checked="checked",
+    )
+    label.toggle-switch-label(:for="id")
+      span.toggle-switch-inner
+      span.toggle-switch-switch
 </template>
 
 <style lang="scss" scoped>
 @import '~client/assets/scss/colors.scss';
 
+.toggle-switch-container {
+  margin-top: 6px;
+}
+
 .toggle-switch {
   position: relative; 
   width: 40px;
   user-select: none;
+  margin-left: 9px;
+}
+
+.toggle-switch-description {
+  height: 20px;
+  border-bottom: 1px dashed $gray-200;
 }
 
 .toggle-switch-checkbox {
@@ -85,6 +101,16 @@ export default {
       // A value is required for the required for the for and id attributes
       id: Math.random(),
     };
+  },
+  props: {
+    label: {
+      type: String,
+      required: true,
+    },
+    checked: {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>
