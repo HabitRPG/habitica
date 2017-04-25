@@ -29,12 +29,32 @@
         b-dropdown-item(@click="groupBy = 'class'", :class="{'dropdown-item-active': groupBy === 'class'}") {{ $t('class') }}
 
     drawer(:title="$t('equipment')")
+      div(slot="drawer-header")
+        .drawer-tab-container
+          .drawer-tab.text-right
+            a.drawer-tab-text(
+              @click="costume = false", 
+              :class="{'drawer-tab-text-active': costume === false}",
+            ) {{ $t('equipment') }}
+          .clearfix
+            .drawer-tab.float-left
+              a.drawer-tab-text(
+                @click="costume = true", 
+                :class="{'drawer-tab-text-active': costume === true}",
+              ) {{ $t('costume') }}
+            toggle-switch.float-right(
+              :label="$t(costume ? 'useCostume' : 'autoEquipBattleGear')",
+              :checked="user.preferences[drawerPreference]",
+              @change="changeDrawerPreference",
+            )
       .items.items-one-line(slot="drawer-slider")
         item(
           v-for="(label, group) in gearTypesToStrings", 
           :key="group",
-          :item="flatGear[equippedItems[group]]",
+          :item="flatGear[activeItems[group]]",
           :label="$t(label)",
+          :selected="true",
+          :popoverPosition="'top'",
           @click="equip",
         )
     div(
@@ -53,7 +73,7 @@
           v-if="viewOptions[group.key].open || index < itemsPerLine",
           :item="item",
           :key="item.key",
-          :selected="equippedItems[item.type] === item.key",
+          :selected="activeItems[item.type] === item.key",
           @click="equip",
         )
       div(v-if="items[group.key].length === 0")
@@ -82,6 +102,7 @@ import throttle from 'lodash/throttle';
 
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
+import toggleSwitch from 'client/components/ui/toggleSwitch';
 
 import Item from 'client/components/inventory/item';
 import Drawer from 'client/components/inventory/drawer';
@@ -92,12 +113,14 @@ export default {
     Drawer,
     bDropdown,
     bDropdownItem,
+    toggleSwitch,
   },
   data () {
     return {
       itemsPerLine: 9,
       searchText: null,
       searchTextThrottled: null,
+      costume: false,
       groupBy: 'type', // or 'class' TODO move to router?
       gearTypesToStrings: Object.freeze({ // TODO use content.itemList?
         headAccessory: 'headAccessoryCapitalized',
@@ -128,7 +151,12 @@ export default {
   },
   methods: {
     equip (item) {
-      this.$store.dispatch('common:equip', {key: item.key, type: 'equipped'});
+      this.$store.dispatch('common:equip', {key: item.key, type: this.costume ? 'costume' : 'equipped'});
+    },
+    changeDrawerPreference (newVal) {
+      this.$store.dispatch('user:set', {
+        [`preferences.${this.drawerPreference}`]: newVal,
+      });
     },
   },
   computed: {
@@ -137,8 +165,15 @@ export default {
       user: 'user.data',
       ownedItems: 'user.data.items.gear.owned',
       equippedItems: 'user.data.items.gear.equipped',
+      costumeItems: 'user.data.items.gear.costume',
       flatGear: 'content.gear.flat',
     }),
+    drawerPreference () {
+      return this.costume === true ? 'costume' : 'autoEquip';
+    },
+    activeItems () {
+      return this.costume === true ? this.costumeItems : this.equippedItems;
+    },
     gearItemsByType () {
       const searchText = this.searchTextThrottled;
       const gearItemsByType = {};
@@ -154,7 +189,7 @@ export default {
 
           if (ownedItem.klass !== 'base' && isSearched) {
             const type = ownedItem.type;
-            const isEquipped = this.equippedItems[type] === ownedItem.key;
+            const isEquipped = this.activeItems[type] === ownedItem.key;
             const viewOptions = this.viewOptions[type];
             const firstRender = viewOptions.firstRender;
             const itemsInFirstPosition = viewOptions.itemsInFirstPosition;
@@ -194,7 +229,7 @@ export default {
           const isSearched = !searchText || ownedItem.text().toLowerCase().indexOf(searchText) !== -1;
 
           if (klass !== 'base' && isSearched) {
-            const isEquipped = this.equippedItems[ownedItem.type] === ownedItem.key;
+            const isEquipped = this.activeItems[ownedItem.type] === ownedItem.key;
             const viewOptions = this.viewOptions[klass];
             const firstRender = viewOptions.firstRender;
             const itemsInFirstPosition = viewOptions.itemsInFirstPosition;

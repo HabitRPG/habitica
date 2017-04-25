@@ -3,11 +3,12 @@
   .drawer-title(@click="open = !open") {{title}}
   transition(name="slide-up")
     .drawer-content(v-show="open")
+      slot(name="drawer-header")
       .drawer-slider
         slot(name="drawer-slider")
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~client/assets/scss/colors.scss';
 
 .drawer-container {
@@ -34,11 +35,39 @@
 
 .drawer-content {
   line-height: 1.33;
-  max-height: 196px;
+  max-height: 300px;
   background-color: $gray-50;
   color: $gray-500;
   box-shadow: 0 2px 16px 0 rgba($black, 0.3);
   width: 100%;
+  padding-top: 6px;
+  padding-right: 24px;
+}
+
+
+.drawer-tab {
+  &-container {
+    display: flex;
+    margin-left: 24px;
+
+    & > div {
+      flex: 1;
+    }
+  }
+
+  &-text {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.67;
+    text-align: center;
+    color: $white;
+    border-bottom: 2px solid transparent;
+    padding: 0px 8px 8px 8px;
+
+    &-active {
+      border-color: $purple-400;
+    }
+  }
 }
 
 .drawer-slider {

@@ -1,5 +1,8 @@
+// TODO move to item component?
+
 .items > div {
   display: inline-block;
+  margin-right: 24px;
 }
 
 .items > div:last-of-type {
@@ -9,7 +12,6 @@
 .item-wrapper {
   position: relative;
   display: inline-block;
-  margin-right: 24px;
   margin-bottom: 12px;
 }
 
@@ -24,6 +26,10 @@
   border-radius: 2px;
   background: $white;
   box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($black, 0.1);
+  border: 1px solid transparent;
+  transition-duration: .15s;
+  transition-property: border-color, box-shadow;
+  transition-timing-function: ease-in;
 
   &-empty {
     background: $gray-10;
@@ -33,13 +39,13 @@
 
   &:hover {
     box-shadow: 0 4px 4px 0 rgba($black, 0.16), 0 1px 8px 0 rgba($black, 0.12);
-    border: solid 1px #d5c8ff;
-
-    & .item-content {
-      top: 21px;
-      right: 25px;
-    }
+    border-color: $purple-500;
   }
+}
+
+.drawer-content .item:hover {
+  border-color: transparent;
+  box-shadow: none;
 }
 
 .item .item-content {
@@ -71,7 +77,7 @@
   left: -12px;
   color: $gray-400;
   background: $white;
-  padding: 2px 6px;
+  padding: 4.5px 6px;
   box-shadow: 0 1px 1px 0 rgba($black, 0.12);
 
   &.item-selected-badge {

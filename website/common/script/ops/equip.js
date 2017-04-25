@@ -46,12 +46,20 @@ module.exports = function equip (user, req = {}) {
       let item = content.gear.flat[key];
 
       if (user.items.gear[type][item.type] === key) {
-        user.items.gear[type][item.type] = `${item.type}_base_0`;
+        user.items.gear[type] = Object.assign(
+          {},
+          user.items.gear[type],
+          {[item.type]: `${item.type}_base_0`}
+        );
         message = i18n.t('messageUnEquipped', {
           itemText: item.text(req.language),
         }, req.language);
       } else {
-        user.items.gear[type][item.type] = item.key;
+        user.items.gear[type] = Object.assign(
+          {},
+          user.items.gear[type],
+          {[item.type]: item.key}
+        );
         message = handleTwoHanded(user, item, type, req);
       }
       break;
