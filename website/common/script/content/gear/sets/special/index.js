@@ -63,6 +63,41 @@ let armor = {
     value: 0,
     canOwn: ownsItem('armor_special_pageArmor'),
   },
+  sneakthiefRobes: {
+    text: t('armorSpecialSneakthiefRobesText'),
+    notes: t('armorSpecialSneakthiefRobesNotes', { int: 16 }),
+    int: 16,
+    value: 0,
+    canOwn: ownsItem('armor_special_sneakthiefRobes'),
+  },
+  snowSovereignRobes: {
+    text: t('armorSpecialSnowSovereignRobesText'),
+    notes: t('armorSpecialSnowSovereignRobesNotes', { per: 17 }),
+    per: 17,
+    value: 0,
+    canOwn: ownsItem('armor_special_snowSovereignRobes'),
+  },
+  dandySuit: {
+    text: t('armorSpecialDandySuitText'),
+    notes: t('armorSpecialDandySuitNotes', { per: 17 }),
+    per: 17,
+    value: 0,
+    canOwn: ownsItem('armor_special_dandySuit'),
+  },
+  nomadsCuirass: {
+    text: t('armorSpecialNomadsCuirassText'),
+    notes: t('armorSpecialNomadsCuirassNotes', { con: 17 }),
+    con: 17,
+    value: 0,
+    canOwn: ownsItem('armor_special_nomadsCuirass'),
+  },
+  samuraiArmor: {
+    text: t('armorSpecialSamuraiArmorText'),
+    notes: t('armorSpecialSamuraiArmorNotes', { per: 17 }),
+    per: 17,
+    value: 0,
+    canOwn: ownsItem('armor_special_samuraiArmor'),
+  },
   yeti: {
     event: EVENTS.winter,
     specialClass: 'warrior',
@@ -582,6 +617,11 @@ let back = {
   wondercon_red: wonderconGear.backSpecialWonderconRed,  // eslint-disable-line camelcase
   wondercon_black: wonderconGear.backSpecialWonderconBlack,  // eslint-disable-line camelcase
   takeThis: takeThisGear.backSpecialTakeThis,
+  snowdriftVeil: {
+    text: t('backSpecialSnowdriftVeilText'),
+    notes: t('backSpecialSnowdriftVeilNotes'),
+    value: 0,
+  },
 };
 
 let body = {
@@ -755,6 +795,41 @@ let head = {
     per: 16,
     value: 0,
     canOwn: ownsItem('head_special_pageHelm'),
+  },
+  clandestineCowl: {
+    text: t('headSpecialClandestineCowlText'),
+    notes: t('headSpecialClandestineCowlNotes', { per: 16 }),
+    per: 16,
+    value: 0,
+    canOwn: ownsItem('head_special_clandestineCowl'),
+  },
+  snowSovereignCrown: {
+    text: t('headSpecialSnowSovereignCrownText'),
+    notes: t('headSpecialSnowSovereignCrownNotes', { con: 16 }),
+    con: 16,
+    value: 0,
+    canOwn: ownsItem('head_special_snowSovereignCrown'),
+  },
+  spikedHelm: {
+    text: t('headSpecialSpikedHelmText'),
+    notes: t('headSpecialSpikedHelmNotes', { str: 16 }),
+    str: 16,
+    value: 0,
+    canOwn: ownsItem('head_special_spikedHelm'),
+  },
+  dandyHat: {
+    text: t('headSpecialDandyHatText'),
+    notes: t('headSpecialDandyHatNotes', { con: 17 }),
+    con: 17,
+    value: 0,
+    canOwn: ownsItem('head_special_dandyHat'),
+  },
+  kabuto: {
+    text: t('headSpecialKabutoText'),
+    notes: t('headSpecialKabutoNotes', { int: 17 }),
+    int: 17,
+    value: 0,
+    canOwn: ownsItem('head_special_kabuto'),
   },
   nye: {
     event: EVENTS.nye,
@@ -1544,6 +1619,27 @@ let shield = {
     value: 0,
     canOwn: ownsItem('shield_special_diamondStave'),
   },
+  lootBag: {
+    text: t('shieldSpecialLootBagText'),
+    notes: t('shieldSpecialLootBagNotes', { str: 16 }),
+    str: 16,
+    value: 0,
+    canOwn: ownsItem('shield_special_lootBag'),
+  },
+  wintryMirror: {
+    text: t('shieldSpecialWintryMirrorText'),
+    notes: t('shieldSpecialWintryMirrorNotes', { int: 16 }),
+    int: 16,
+    value: 0,
+    canOwn: ownsItem('shield_special_wintryMirror'),
+  },
+  wakizashi: {
+    text: t('shieldSpecialWakizashiText'),
+    notes: t('shieldSpecialWakizashiNotes', { con: 17 }),
+    con: 17,
+    value: 0,
+    canOwn: ownsItem('shield_special_wakizashi'),
+  },
   yeti: {
     event: EVENTS.winter,
     specialClass: 'warrior',
@@ -1970,6 +2066,34 @@ let weapon = {
     str: 16,
     value: 0,
     canOwn: ownsItem('weapon_special_pageBanner'),
+  },
+  skeletonKey: {
+    text: t('weaponSpecialSkeletonKeyText'),
+    notes: t('weaponSpecialSkeletonKeyNotes', { con: 16 }),
+    con: 16,
+    value: 0,
+    canOwn: ownsItem('weapon_special_skeletonKey'),
+  },
+  nomadsScimitar: {
+    text: t('weaponSpecialNomadsScimitarText'),
+    notes: t('weaponSpecialNomadsScimitarNotes', { int: 16 }),
+    int: 16,
+    value: 0,
+    canOwn: ownsItem('weapon_special_nomadsScimitar'),
+  },
+  fencingFoil: {
+    text: t('weaponSpecialFencingFoilText'),
+    notes: t('weaponSpecialFencingFoilNotes', { str: 16 }),
+    str: 16,
+    value: 0,
+    canOwn: ownsItem('weapon_special_fencingFoil'),
+  },
+  tachi: {
+    text: t('weaponSpecialTachiText'),
+    notes: t('weaponSpecialTachiNotes', { str: 17 }),
+    str: 17,
+    value: 0,
+    canOwn: ownsItem('weapon_special_tachi'),
   },
   yeti: {
     event: EVENTS.winter,

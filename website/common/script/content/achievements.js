@@ -97,6 +97,11 @@ let basicAchievs = {
     pluralTitleKey: 'perfectName',
     pluralTextKey: 'perfectText',
   },
+  royallyLoyal: {
+    icon: 'achievement-royally-loyal',
+    titleKey: 'royallyLoyalName',
+    textKey: 'royallyLoyalText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 
