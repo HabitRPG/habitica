@@ -471,10 +471,11 @@ api.joinGroup = {
 
     let isUserInvited = false;
 
-    // Check if was invited to party
     if (group.type === 'party') {
-      if (_.find(user.invitations.parties, {id: group._id})) {
-        inviter = user.invitations.party.inviter;
+      // Check if was invited to party
+      let inviterParty = _.find(user.invitations.parties, {id: group._id});
+      if (inviterParty) {
+        inviter = inviterParty.inviter;
 
         // Clear all invitations of new user
         user.invitations.parties = [];
@@ -788,7 +789,7 @@ api.removeGroupMember = {
     }
 
     let isInvited;
-    if (member.invitations.party && member.invitations.party.id === group._id) {
+    if (_.find(user.invitations.parties, {id: group._id})) {
       isInvited = 'party';
     } else if (_.findIndex(member.invitations.guilds, {id: group._id}) !== -1) {
       isInvited = 'guild';
@@ -834,7 +835,7 @@ api.removeGroupMember = {
       }
       if (isInvited === 'party') {
         member.invitations.party = {};
-        member.invitations.parties = [];
+        removeFromArray(user.invitations.parties, { id: group._id });
         member.markModified('invitations.party');
       }
     } else {
@@ -931,7 +932,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
   if (group.type === 'guild') {
     return userInvited.invitations.guilds[userToInvite.invitations.guilds.length - 1];
   } else if (group.type === 'party') {
-    return userInvited.invitations.party;
+    return userToInvite.invitations.parties[userToInvite.invitations.parties.length - 1];
   }
 }
 
