@@ -38,19 +38,20 @@ One caveat. If you have a severe syntax error in your files, the tests may fail 
 $ gulp test:api:safe
 ```
 
-If you'd like to run the tests individually and inspect the output from the server, in one pane you can run:
+If you'd like to run selected tests and inspect the output from the server, in one pane you can run:
 
 ```bash
 $ gulp test:nodemon
 ```
 
-And run your tests in another pane:
+Wait for it to get to `info: Connected with Mongoose` and then leave it running. Run your tests in another pane:
 
 ```bash
-$ mocha path/to/file.js
+# Run a single test
+$ mocha test/SUBDIRECTORY/NAME_OF_TEST.js --require ./test/helpers/start-server
 
-# Mark a test with the `.only` attribute
-$ mocha
+# Run all tests in a subdirectory
+$ mocha test/SUBDIRECTORY --recursive --require ./test/helpers/start-server
 ```
 
 ## Structure
