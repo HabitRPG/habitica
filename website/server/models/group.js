@@ -46,6 +46,16 @@ const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 const MAX_UPDATE_RETRIES = 5;
 
+/*
+#  Spam constants to limit people from sending too many messages too quickly
+#    SPAM_MESSAGE_LIMIT - The amount of messages that can be sent in a time window
+#    SPAM_WINDOW_LENGTH - The window length for spam protection in milliseconds
+#    SPAM_MIN_EXEMPT_CONTRIB_LEVEL - Anyone at or above this level is exempt
+*/
+export const SPAM_MESSAGE_LIMIT = 2;
+export const SPAM_WINDOW_LENGTH = 60000; // 1 minute
+export const SPAM_MIN_EXEMPT_CONTRIB_LEVEL = 4;
+
 export let schema = new Schema({
   name: {type: String, required: true},
   description: String,
@@ -105,13 +115,16 @@ export let schema = new Schema({
       return {};
     }},
   },
+  managers: {type: Schema.Types.Mixed, default: () => {
+    return {};
+  }},
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased'],
+  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased', 'managers'],
   private: ['purchased.plan'],
   toJSONTransform (plainObj, originalDoc) {
     if (plainObj.purchased) plainObj.purchased.active = originalDoc.isSubscribed();
@@ -1197,6 +1210,31 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
   }, {
     $set: {'group.broken': 'TASK_DELETED'},
   }, {multi: true}).exec();
+};
+
+// Returns true if the user has reached the spam message limit
+schema.methods.checkChatSpam = function groupCheckChatSpam (user) {
+  if (this._id !== TAVERN_ID) {
+    return false;
+  } else if (user.contributor && user.contributor.level >= SPAM_MIN_EXEMPT_CONTRIB_LEVEL) {
+    return false;
+  }
+
+  let currentTime = Date.now();
+  let userMessages = 0;
+  for (let i = 0; i < this.chat.length; i++) {
+    let message = this.chat[i];
+    if (message.uuid === user._id && currentTime - message.timestamp <= SPAM_WINDOW_LENGTH) {
+      userMessages++;
+      if (userMessages >= SPAM_MESSAGE_LIMIT) {
+        return true;
+      }
+    } else if (currentTime - message.timestamp > SPAM_WINDOW_LENGTH) {
+      break;
+    }
+  }
+
+  return false;
 };
 
 schema.methods.isSubscribed = function isSubscribed () {

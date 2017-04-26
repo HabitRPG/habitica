@@ -148,6 +148,7 @@
     "invitationsSent": "¡Invitaciones enviadas!",
     "invitationSent": "¡Invitación enviada!",
     "inviteAlertInfo2": "O comparte este enlace (copia/pega):",
+    "inviteLimitReached": "You have already sent the maximum number of email invitations. We have a limit to prevent spamming, however if you would like more, please contact us at <%= techAssistanceEmail %> and we'll be happy to discuss it!",
     "sendGiftHeading": "Enviar regalo a <%= name %>",
     "sendGiftGemsBalance": "De <%= number %> Gemas",
     "sendGiftCost": "Total: <%= cost %> $",

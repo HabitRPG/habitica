@@ -334,4 +334,34 @@ describe('Settings Controller', function () {
       });
     });
   });
+
+  context('Fixing character values', function () {
+    describe('#restore', function () {
+      var blankRestoreValues = {
+        stats: {
+          hp: 0,
+          exp: 0,
+          gp: 0,
+          lvl: 0,
+          mp: 0,
+        },
+        achievements: {
+          streak: 0,
+        },
+      };
+
+      it('doesn\'t update character values when level is less than 1', function () {
+        scope.restoreValues = blankRestoreValues;
+        scope.restore();
+        expect(User.set).to.not.be.called;
+      });
+
+      it('updates character values when level is at least 1', function () {
+        scope.restoreValues = blankRestoreValues;
+        scope.restoreValues.stats.lvl = 1;
+        scope.restore();
+        expect(User.set).to.be.called;
+      });
+    });
+  });
 });

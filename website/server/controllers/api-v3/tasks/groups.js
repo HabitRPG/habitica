@@ -1,3 +1,4 @@
+import findIndex from 'lodash/findIndex';
 import { authWithHeaders } from '../../../middlewares/auth';
 import Bluebird from 'bluebird';
 import * as Tasks from '../../../models/task';
@@ -16,6 +17,14 @@ import {
 
 let requiredGroupFields = '_id leader tasksOrder name';
 let types = Tasks.tasksTypes.map(type => `${type}s`);
+
+function canNotEditTasks (group, user, assignedUserId) {
+  let isNotGroupLeader = group.leader !== user._id;
+  let isManager = Boolean(group.managers[user._id]);
+  let userIsAssigningToSelf = Boolean(assignedUserId && user._id === assignedUserId);
+  return isNotGroupLeader && !isManager && !userIsAssigningToSelf;
+}
+
 let api = {};
 
 /**
@@ -40,10 +49,11 @@ api.createGroupTasks = {
 
     let user = res.locals.user;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: requiredGroupFields});
+    let fields = requiredGroupFields.concat(' managers');
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     let tasks = await createTasks(req, res, {user, group});
 
@@ -171,11 +181,11 @@ api.assignTask = {
       throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
     }
 
-    let groupFields = `${requiredGroupFields} chat`;
+    let groupFields = `${requiredGroupFields} chat managers`;
     let group = await Group.getGroup({user, groupId: task.group.id, fields: groupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id && user._id !== assignedUserId) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (canNotEditTasks(group, user, assignedUserId)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     // User is claiming the task
     if (user._id === assignedUserId) {
@@ -229,10 +239,11 @@ api.unassignTask = {
       throw new NotAuthorized(res.t('onlyGroupTasksCanBeAssigned'));
     }
 
-    let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+    let fields = requiredGroupFields.concat(' managers');
+    let group = await Group.getGroup({user, groupId: task.group.id, fields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     await group.unlinkTask(task, assignedUser);
 
@@ -277,10 +288,12 @@ api.approveTask = {
       throw new NotFound(res.t('taskNotFound'));
     }
 
-    let group = await Group.getGroup({user, groupId: task.group.id, fields: requiredGroupFields});
+    let fields = requiredGroupFields.concat(' managers');
+    let group = await Group.getGroup({user, groupId: task.group.id, fields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (task.group.approval.approved === true) throw new NotAuthorized(res.t('canOnlyApproveTaskOnce'));
 
     task.group.approval.dateApproved = new Date();
     task.group.approval.approvingUser = user._id;
@@ -296,7 +309,25 @@ api.approveTask = {
       scoreTask: task,
     });
 
-    await Bluebird.all([assignedUser.save(), task.save()]);
+    let managerIds = Object.keys(group.managers);
+    managerIds.push(group.leader);
+    let managers = await User.find({_id: managerIds}, 'notifications').exec(); // Use this method so we can get access to notifications
+
+    let managerPromises = [];
+    managers.forEach((manager) => {
+      let notificationIndex =  findIndex(manager.notifications, function findNotification (notification) {
+        return notification.data.taskId === task._id;
+      });
+
+      if (notificationIndex !== -1) {
+        manager.notifications.splice(notificationIndex, 1);
+        managerPromises.push(manager.save());
+      }
+    });
+
+    managerPromises.push(task.save());
+    managerPromises.push(assignedUser.save());
+    await Bluebird.all(managerPromises);
 
     res.respond(200, task);
   },
@@ -325,10 +356,11 @@ api.getGroupApprovals = {
     let user = res.locals.user;
     let groupId = req.params.groupId;
 
-    let group = await Group.getGroup({user, groupId, fields: requiredGroupFields});
+    let fields = requiredGroupFields.concat(' managers');
+    let group = await Group.getGroup({user, groupId, fields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     let approvals = await Tasks.Task.find({
       'group.id': groupId,

@@ -148,6 +148,7 @@
     "invitationsSent": "Einladungen verschickt!",
     "invitationSent": "Einladung verschickt!",
     "inviteAlertInfo2": "Oder teile diesen Link (kopieren/einfügen):",
+    "inviteLimitReached": "Du hast bereits die maximale Anzahl an E-Mail-Einladungen verschickt. Wir haben ein Limit, um Spam-Mails zu vermeiden. Wenn du mehr Einladungen versenden möchtest, schreibe uns unter <%= techAssistanceEmail %> und wir werden eine gemeinsame Lösung finden!",
     "sendGiftHeading": "Sende Geschenk an <%= name %>",
     "sendGiftGemsBalance": "Von <%= number %> Edelsteinen",
     "sendGiftCost": "Insgesamt: $<%= cost %> USD",

@@ -125,11 +125,13 @@ api.timeTravelStable = {
     'Mammoth-Base': t('mammoth'),
     'MantisShrimp-Base': t('mantisShrimp'),
     'Phoenix-Base': t('phoenix'),
+    'MagicalBee-Base': t('magicalBee'),
   },
   mounts: {
     'Mammoth-Base': t('mammoth'),
     'MantisShrimp-Base': t('mantisShrimp'),
     'Phoenix-Base': t('phoenix'),
+    'MagicalBee-Base': t('magicalBee'),
   },
 };
 
@@ -2989,6 +2991,151 @@ api.quests = {
       unlock: t('questPeacockUnlockText'),
     },
   },
+  butterfly: {
+    text: t('questButterflyText'),
+    notes: t('questButterflyNotes'),
+    completion: t('questButterflyCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questButterflyBoss'),
+      hp: 400,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Butterfly',
+          text: t('questButterflyDropButterflyEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Butterfly',
+          text: t('questButterflyDropButterflyEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Butterfly',
+          text: t('questButterflyDropButterflyEgg'),
+        },
+      ],
+      gp: 31,
+      exp: 200,
+      unlock: t('questButterflyUnlockText'),
+    },
+  },
+  mayhemMistiflying1: {
+    text: t('questMayhemMistiflying1Text'),
+    notes: t('questMayhemMistiflying1Notes'),
+    completion: t('questMayhemMistiflying1Completion'),
+    value: 4,
+    goldValue: 200,
+    category: 'gold',
+    boss: {
+      name: t('questMayhemMistiflying1Boss'),
+      hp: 500,
+      rage: {
+        title: t('questMayhemMistiflying1RageTitle'),
+        description: t('questMayhemMistiflying1RageDescription'),
+        value: 50,
+        healing: 0.3,
+        effect: t('questMayhemMistiflying1RageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Skeleton',
+          text: t('questMayhemMistiflying1DropSkeletonPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'White',
+          text: t('questMayhemMistiflying1DropWhitePotion'),
+        }, {
+          type: 'gear',
+          key: 'armor_special_roguishRainbowMessengerRobes',
+          text: t('questMayhemMistiflying1DropArmor'),
+        },
+      ],
+      gp: 0,
+      exp: 500,
+    },
+  },
+  mayhemMistiflying2: {
+    text: t('questMayhemMistiflying2Text'),
+    notes: t('questMayhemMistiflying2Notes'),
+    completion: t('questMayhemMistiflying2Completion'),
+    previous: 'mayhemMistiflying1',
+    value: 4,
+    goldValue: 300,
+    category: 'gold',
+    collect: {
+      mistifly1: {
+        text: t('questMayhemMistiflying2CollectRedMistiflies'),
+        count: 25,
+      },
+      mistifly2: {
+        text: t('questMayhemMistiflying2CollectBlueMistiflies'),
+        count: 15,
+      },
+      mistifly3: {
+        text: t('questMayhemMistiflying2CollectGreenMistiflies'),
+        count: 10,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'gear',
+          key: 'head_special_roguishRainbowMessengerHood',
+          text: t('questMayhemMistiflying2DropHeadgear'),
+        },
+      ],
+      gp: 0,
+      exp: 75,
+    },
+  },
+  mayhemMistiflying3: {
+    text: t('questMayhemMistiflying3Text'),
+    notes: t('questMayhemMistiflying3Notes'),
+    completion: t('questMayhemMistiflying3Completion'),
+    previous: 'mayhemMistiflying2',
+    value: 4,
+    goldValue: 400,
+    category: 'gold',
+    boss: {
+      name: t('questMayhemMistiflying3Boss'),
+      hp: 1000,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'food',
+          key: 'CottonCandyPink',
+          text: t('questMayhemMistiflying3DropPinkCottonCandy'),
+        }, {
+          type: 'food',
+          key: 'CottonCandyPink',
+          text: t('questMayhemMistiflying3DropPinkCottonCandy'),
+        }, {
+          type: 'food',
+          key: 'CottonCandyPink',
+          text: t('questMayhemMistiflying3DropPinkCottonCandy'),
+        }, {
+          type: 'gear',
+          key: 'weapon_special_roguishRainbowMessage',
+          text: t('questMayhemMistiflying3DropWeapon'),
+        }, {
+          type: 'gear',
+          key: 'shield_special_roguishRainbowMessage',
+          text: t('questMayhemMistiflying3DropShield'),
+        },
+      ],
+      gp: 0,
+      exp: 650,
+    },
+  },
 };
 
 each(api.quests, (v, key) => {
@@ -3074,6 +3221,74 @@ api.userDefaults = {
       type: 'reward',
       text: t('defaultReward1Text'),
       value: 10,
+    },
+  ],
+  tags: [
+    {
+      name: t('defaultTag1'),
+    }, {
+      name: t('defaultTag2'),
+    }, {
+      name: t('defaultTag3'),
+    }, {
+      name: t('defaultTag4'),
+    }, {
+      name: t('defaultTag5'),
+    }, {
+      name: t('defaultTag6'),
+    }, {
+      name: t('defaultTag7'),
+    },
+  ],
+};
+
+api.userDefaultsMobile = {
+  habits: [
+    {
+      type: 'habit',
+      text: t('defaultHabit4Text'),
+      notes: t('defaultHabit4Notes'),
+      up: true,
+      down: false,
+      attribute: 'per',
+    }, {
+      type: 'habit',
+      text: t('defaultHabit5Text'),
+      notes: t('defaultHabit5Notes'),
+      up: false,
+      down: true,
+      attribute: 'con',
+    },
+  ],
+  dailys: [
+    {
+      type: 'daily',
+      text: t('defaultDaily1Text'),
+      attribute: 'per',
+    },
+  ],
+  todos: [
+    {
+      type: 'todo',
+      text: t('defaultTodo1Text'),
+      notes: t('defaultTodoNotes'),
+      completed: false,
+      attribute: 'int',
+    },
+    {
+      type: 'todo',
+      text: t('defaultTodo2Text'),
+      notes: t('defaultTodo2Notes'),
+      completed: false,
+      attribute: 'int',
+    },
+  ],
+  rewards: [
+    {
+      type: 'reward',
+      text: t('defaultReward2Text'),
+      notes: t('defaultReward2Notes'),
+      value: 20,
     },
   ],
   tags: [

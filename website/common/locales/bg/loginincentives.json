@@ -1,6 +1,6 @@
 {
   "unlockedReward": "Получихте <%= reward %>",
-  "earnedRewardForDevotion": "Чрез усърдието си в подобряването на собствения си живот, си заслужихте <%= reward %>.",
+  "earnedRewardForDevotion": "You have earned <%= reward %> for being committed to improving your life.",
   "nextRewardUnlocksIn": "Брой отчитания до следващата награда: <%= numberOfCheckinsLeft %>",
   "awesome": "Страхотно!",
   "totalCount": "Общо: <%= count %>",
@@ -12,5 +12,18 @@
   "totalCheckinsTitle": "Общ брой отчитания",
   "checkinProgressTitle": "Напредък до следващата",
   "incentiveBackgroundsUnlockedWithCheckins": "Заключените едноцветни фонови изображения ще се отключат чрез ежедневните Ви отчитания.",
-  "moreIncentivesComingSoon": "Скоро ще бъдат добавени нови стимули за отчитане!"
+  "checkinReceivedAllRewardsMessage": "You have received all the Check-In prizes available! Congratulations!",
+  "oneOfAllPetEggs": "one of each standard Pet Egg",
+  "twoOfAllPetEggs": "two of each standard Pet Egg",
+  "threeOfAllPetEggs": "three of each standard Pet Egg",
+  "oneOfAllHatchingPotions": "one of each standard Hatching Potion",
+  "threeOfEachFood": "three of each standard Pet Food",
+  "fourOfEachFood": "four of each standard Pet Food",
+  "twoSaddles": "two Saddles",
+  "threeSaddles": "three Saddles",
+  "incentiveAchievement": "the Royally Loyal achievement",
+  "royallyLoyal": "Royally Loyal",
+  "royallyLoyalText": "This user has checked in over 500 times, and has earned every Check-In Prize!",
+  "checkInRewards": "Check-In Rewards",
+  "backloggedCheckInRewards": "You received Check-In Prizes! Visit your Inventory and Equipment to see what's new."
 }
