@@ -106,5 +106,5 @@
     "spring2017SneakyBunnySet": "Raffiniertes Häschen (Schurke)",
     "eventAvailability": "Zum Kauf verfügbar bis zum <%= date(locale) %>.",
     "dateEndApril": "19. April",
-    "dateEndMay": "May 17"
+    "dateEndMay": "17. Mai"
 }

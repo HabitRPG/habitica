@@ -98,13 +98,13 @@
     "fall2016BlackWidowSet": "Черная вдова Разбойник (Разбойник)",
     "winter2017IceHockeySet": "Хоккейная клюшка  (воин)",
     "winter2017WinterWolfSet": "Зимний волк (Маг)",
-    "winter2017SugarPlumSet": "Sugar Plum Healer (Healer)",
+    "winter2017SugarPlumSet": "Сахарная слива (Целитель)",
     "winter2017FrostyRogueSet": "Морозный разбойник (Разбойник)",
     "spring2017FelineWarriorSet": "Кошачий воин (воин)",
     "spring2017CanineConjurorSet": "Собачий заклинатель(маг)",
     "spring2017FloralMouseSet": "Цветочная мышь (Целитель)",
     "spring2017SneakyBunnySet": "Скрытный кролик (Разбойник)",
-    "eventAvailability": "Available for purchase until <%= date(locale) %>.",
+    "eventAvailability": "Доступно для покупки до <%= date(locale) %>.",
     "dateEndApril": "Апрель 19",
-    "dateEndMay": "May 17"
+    "dateEndMay": "Май 17"
 }

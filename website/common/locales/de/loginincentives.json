@@ -1,6 +1,6 @@
 {
   "unlockedReward": "Du hast <%= reward %> erhalten",
-  "earnedRewardForDevotion": "Du hast <%= reward %> erhalten, da Du Dich verpflichtet hast Dein Leben zu verbessern.",
+  "earnedRewardForDevotion": "You have earned <%= reward %> for being committed to improving your life.",
   "nextRewardUnlocksIn": "Noch <%= numberOfCheckinsLeft %> Anmeldungen bis zum nächsten Preis",
   "awesome": "Großartig!",
   "totalCount": "<%= count %> insgesamt",
@@ -12,5 +12,18 @@
   "totalCheckinsTitle": "Anmeldungen insgesamt",
   "checkinProgressTitle": "Fortschritt bis zum nächsten",
   "incentiveBackgroundsUnlockedWithCheckins": "Gesperrte einfarbige Hintergründe werden durch tägliches Anmelden freigeschalten.",
-  "moreIncentivesComingSoon": "Neue Anmelde-Belohnungen werden bald hinzugefügt!"
+  "checkinReceivedAllRewardsMessage": "You have received all the Check-In prizes available! Congratulations!",
+  "oneOfAllPetEggs": "one of each standard Pet Egg",
+  "twoOfAllPetEggs": "two of each standard Pet Egg",
+  "threeOfAllPetEggs": "three of each standard Pet Egg",
+  "oneOfAllHatchingPotions": "one of each standard Hatching Potion",
+  "threeOfEachFood": "three of each standard Pet Food",
+  "fourOfEachFood": "four of each standard Pet Food",
+  "twoSaddles": "two Saddles",
+  "threeSaddles": "three Saddles",
+  "incentiveAchievement": "the Royally Loyal achievement",
+  "royallyLoyal": "Royally Loyal",
+  "royallyLoyalText": "This user has checked in over 500 times, and has earned every Check-In Prize!",
+  "checkInRewards": "Check-In Rewards",
+  "backloggedCheckInRewards": "You received Check-In Prizes! Visit your Inventory and Equipment to see what's new."
 }
