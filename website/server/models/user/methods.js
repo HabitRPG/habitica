@@ -105,6 +105,17 @@ schema.methods.addComputedStatsToJSONObj = function addComputedStatsToUserJSONOb
   return statsObject;
 };
 
+/**
+ * Cancels a subscription.
+ *
+ * @param  options
+ * @param  options.user  The user object who is purchasing
+ * @param  options.groupId  The id of the group purchasing a subscription
+ * @param  options.headers  The request headers (only for Amazon subscriptions)
+ * @param  options.cancellationReason  A text string to control sending an email
+ *
+ * @return a Promise from api.cancelSubscription()
+ */
 // @TODO: There is currently a three way relation between the user, payment methods and the payment helper
 // This creates some odd Dependency Injection issues. To counter that, we use the user as the third layer
 // To negotiate between the payment providers and the payment helper (which probably has too many responsiblities)
@@ -121,6 +132,7 @@ schema.methods.cancelSubscription = async function cancelSubscription (options =
   } else if (plan.paymentMethod === paypalPayments.constants.PAYMENT_METHOD) {
     return await paypalPayments.subscribeCancel(options);
   }
+  // Android and iOS subscriptions cannot be cancelled by Habitica.
 
   return await payments.cancelSubscription(options);
 };

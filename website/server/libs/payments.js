@@ -21,6 +21,7 @@ import slack from './slack';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 const JOINED_GROUP_PLAN = 'joined group plan';
+
 let api = {};
 
 api.constants = {
