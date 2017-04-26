@@ -99,7 +99,7 @@ let basicAchievs = {
   },
   royallyLoyal: {
     icon: 'achievement-royally-loyal',
-    titleKey: 'royallyLoyalName',
+    titleKey: 'royallyLoyal',
     textKey: 'royallyLoyalText',
   },
 };

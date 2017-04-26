@@ -1,6 +1,6 @@
 {
   "unlockedReward": "You have received <%= reward %>",
-  "earnedRewardForDevotion": "You have earned a <%= reward %> for being committed to improving your life.",
+  "earnedRewardForDevotion": "You have earned <%= reward %> for being committed to improving your life.",
   "nextRewardUnlocksIn": "Check-ins until your next prize: <%= numberOfCheckinsLeft %>",
   "awesome": "Awesome!",
   "totalCount": "<%= count %> total count",
@@ -20,5 +20,10 @@
   "threeOfEachFood": "three of each standard Pet Food",
   "fourOfEachFood": "four of each standard Pet Food",
   "twoSaddles": "two Saddles",
-  "threeSaddles": "three Saddles"
+  "threeSaddles": "three Saddles",
+  "incentiveAchievement": "the Royally Loyal achievement",
+  "royallyLoyal": "Royally Loyal",
+  "royallyLoyalText": "This user has checked in over 500 times, and has earned every Check-In Prize!",
+  "checkInRewards": "Check-In Rewards",
+  "backloggedCheckInRewards": "You received Check-In Prizes! Visit your Inventory and Equipment to see what's new."
 }

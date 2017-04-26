@@ -337,7 +337,7 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     140: {
-      rewardKey: ['weapon_special_skeletonKey', 'shield_special_lootBag'],
+      rewardKey: ['shop_weapon_special_skeletonKey', 'shop_shield_special_lootBag'],
       reward: [api.gear.flat.weapon_special_skeletonKey, api.gear.flat.shield_special_lootBag],
       assignReward: function assignReward (user) {
         user.items.gear.owned.weapon_special_skeletonKey = true; // eslint-disable-line camelcase
@@ -353,7 +353,7 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     150: {
-      rewardKey: ['head_special_clandestineCowl', 'broad_armor_special_sneakthiefRobes'],
+      rewardKey: ['shop_head_special_clandestineCowl', 'shop_armor_special_sneakthiefRobes'],
       reward: [api.gear.flat.head_special_clandestineCowl, api.gear.flat.armor_special_sneakthiefRobes],
       assignReward: function assignReward (user) {
         user.items.gear.owned.head_special_clandestineCowl = true; // eslint-disable-line camelcase
@@ -369,7 +369,7 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     170: {
-      rewardKey: ['head_special_snowSovereignCrown', 'broad_armor_special_snowSovereignRobes'],
+      rewardKey: ['shop_head_special_snowSovereignCrown', 'shop_armor_special_snowSovereignRobes'],
       reward: [api.gear.flat.head_special_snowSovereignCrown, api.gear.flat.armor_special_snowSovereignRobes],
       assignReward: function assignReward (user) {
         user.items.gear.owned.head_special_snowSovereignCrown = true; // eslint-disable-line camelcase
@@ -385,11 +385,11 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     190: {
-      rewardKey: ['shield_special_wintryMirror', 'back_special_snowdriftVeil'],
+      rewardKey: ['shop_shield_special_wintryMirror', 'shop_back_special_snowdriftVeil'],
       reward: [api.gear.flat.shield_special_wintryMirror, api.gear.flat.back_special_snowdriftVeil],
       assignReward: function assignReward (user) {
-        user.items.gear.owned.head_special_wintryMirror = true; // eslint-disable-line camelcase
-        user.items.gear.owned.armor_special_snowdriftVeil = true; // eslint-disable-line camelcase
+        user.items.gear.owned.shield_special_wintryMirror = true; // eslint-disable-line camelcase
+        user.items.gear.owned.back_special_snowdriftVeil = true; // eslint-disable-line camelcase
       },
     },
     200: {
@@ -409,7 +409,7 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     240: {
-      rewardKey: ['weapon_special_nomadsScimitar', 'broad_armor_special_nomadsCuirass'],
+      rewardKey: ['shop_weapon_special_nomadsScimitar', 'shop_armor_special_nomadsCuirass'],
       reward: [api.gear.flat.weapon_special_nomadsScimitar, api.gear.flat.armor_special_nomadsCuirass],
       assignReward: function assignReward (user) {
         user.items.gear.owned.weapon_special_nomadsScimitar = true; // eslint-disable-line camelcase
@@ -417,7 +417,7 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     260: {
-      rewardKey: ['head_special_spikedHelm'],
+      rewardKey: ['shop_head_special_spikedHelm'],
       reward: [api.gear.flat.head_special_spikedHelm],
       assignReward: function assignReward (user) {
         user.items.gear.owned.head_special_spikedHelm = true; // eslint-disable-line camelcase
@@ -476,14 +476,14 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     320: {
-      rewardKey: ['head_special_dandyHat'],
+      rewardKey: ['shop_head_special_dandyHat'],
       reward: [api.gear.flat.head_special_dandyHat],
       assignReward: function assignReward (user) {
         user.items.gear.owned.head_special_dandyHat = true; // eslint-disable-line camelcase
       },
     },
     340: {
-      rewardKey: ['weapon_special_fencingFoil', 'broad_armor_special_dandySuit'],
+      rewardKey: ['shop_weapon_special_fencingFoil', 'shop_armor_special_dandySuit'],
       reward: [api.gear.flat.weapon_special_fencingFoil, api.gear.flat.armor_special_dandySuit],
       assignReward: function assignReward (user) {
         user.items.gear.owned.weapon_special_fencingFoil = true; // eslint-disable-line camelcase
@@ -561,7 +561,7 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     450: {
-      rewardKey: ['weapon_special_tachi', 'broad_armor_special_samuraiArmor'],
+      rewardKey: ['shop_weapon_special_tachi', 'shop_armor_special_samuraiArmor'],
       reward: [api.gear.flat.weapon_special_tachi, api.gear.flat.armor_special_samuraiArmor],
       assignReward: function assignReward (user) {
         user.items.gear.owned.weapon_special_tachi = true; // eslint-disable-line camelcase
@@ -569,7 +569,7 @@ module.exports = function getLoginIncentives (api) {
       },
     },
     475: {
-      rewardKey: ['head_special_kabuto', 'shield_special_wakizashi'],
+      rewardKey: ['shop_head_special_kabuto', 'shop_shield_special_wakizashi'],
       reward: [api.gear.flat.head_special_kabuto, api.gear.flat.shield_special_wakizashi],
       assignReward: function assignReward (user) {
         user.items.gear.owned.head_special_kabuto = true; // eslint-disable-line camelcase
@@ -579,13 +579,12 @@ module.exports = function getLoginIncentives (api) {
     500: {
       rewardKey: ['achievement-royally-loyal2x'],
       reward: [api.achievements.royallyLoyal],
+      rewardName: 'incentiveAchievement',
       assignReward: function assignReward (user) {
         user.achievements.royallyLoyal = true; // eslint-disable-line camelcase
       },
     },
   };
-  // When the final check-in prize is added here, change checkinReceivedAllRewardsMessage in website/common/locales/en/loginIncentives.json
-  // to say "You have received the final Check-In prize!". Confirm the message with Lemoness first.
 
   // Add reference link to next reward and add filler days so we have a map to reference the next reward from any day
   // We could also, use a list, but then we would be cloning each of the rewards.
