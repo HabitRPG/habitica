@@ -16,6 +16,7 @@ describe('payments/index', () => {
   beforeEach(async () => {
     user = new User();
     user.profile.name = 'sender';
+    await user.save();
 
     group = generateGroup({
       name: 'test group',
