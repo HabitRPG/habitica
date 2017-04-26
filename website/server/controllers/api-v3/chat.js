@@ -153,6 +153,10 @@ api.postChat = {
     let lastClientMsg = req.query.previousMsg;
     chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
 
+    if (group.checkChatSpam(user)) {
+      throw new NotAuthorized(res.t('messageGroupChatSpam'));
+    }
+
     let newChatMessage = group.sendChat(req.body.message, user);
 
     let toSave = [group.save()];
