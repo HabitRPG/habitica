@@ -56,6 +56,7 @@ api.constants = {
   // METHOD_BUY_GEMS: 'buyGems',
   // METHOD_CREATE_SUBSCRIPTION: 'createSubscription',
   PAYMENT_METHOD: 'Paypal',
+  PAYMENT_METHOD_DONATION: 'Paypal (Donation)',
   // PAYMENT_METHOD_GIFT: 'Amazon Payments (Gift)',
 };
 
@@ -133,6 +134,8 @@ api.checkoutSuccess = async function checkoutSuccess (options = {}) {
 
   if (donation) {
     method = 'donate';
+    data.donation = donation;
+    data.paymentMethod = this.constants.PAYMENT_METHOD_DONATION;
   }
 
   if (gift) {

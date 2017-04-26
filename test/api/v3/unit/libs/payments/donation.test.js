@@ -4,8 +4,37 @@ const BASE_URL = nconf.get('BASE_URL');
 
 import payments from '../../../../../../website/server/libs/payments';
 import paypalPayments from '../../../../../../website/server/libs/paypalPayments';
+import analytics from '../../../../../../website/server/libs/analyticsService';
 
-describe.only('One Time Donations', () => {
+describe('One Time Donations', () => {
+  describe('Payment Library', () => {
+    let data;
+
+    beforeEach(() => {
+      data = {
+        user: {
+          _id: 'test-id',
+        },
+        paymentMethod: 'payment',
+        headers: {
+          'x-client': 'habitica-web',
+          'user-agent': '',
+        },
+      };
+      sandbox.stub(analytics, 'trackPurchase');
+    });
+
+    afterEach(() => {
+      sandbox.restore();
+    });
+
+    it('tracks the donation', async () => {
+      await payments.donate(data);
+
+      expect(analytics.trackPurchase).to.be.calledOnce;
+    });
+  });
+
   describe('Paypal', () => {
     let approvalHerf;
     let user = {};
@@ -74,7 +103,8 @@ describe.only('One Time Donations', () => {
       expect(paymentDonationStub).to.be.calledWith({
         user,
         customerId,
-        paymentMethod: 'Paypal',
+        paymentMethod: paypalPayments.constants.PAYMENT_METHOD_DONATION,
+        donation,
       });
     });
   });
