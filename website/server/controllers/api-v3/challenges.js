@@ -190,9 +190,6 @@ api.leaveChallenge = {
     let challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy'});
-    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
-
     if (!challenge.isMember(user)) throw new NotAuthorized(res.t('challengeMemberNotFound'));
 
     // Unlink challenge's tasks from user's tasks and save the challenge
