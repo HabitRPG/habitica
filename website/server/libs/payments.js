@@ -536,4 +536,8 @@ api.buyGems = async function buyGems (data) {
   await data.user.save();
 };
 
+api.donate = async function donate () {
+
+};
+
 module.exports = api;

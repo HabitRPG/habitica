@@ -48,6 +48,7 @@ api.constants = {
   // SELLER_NOTE_SUBSCRIPTION: 'Habitica Subscription',
   // SELLER_NOTE_ATHORIZATION_SUBSCRIPTION: 'Habitica Subscription Payment',
   // STORE_NAME: 'Habitica',
+  SELLER_NOTE_DONATION: 'Habitica One-Time Donation',
   //
   // GIFT_TYPE_GEMS: 'gems',
   // GIFT_TYPE_SUBSCRIPTION: 'subscription',
@@ -68,7 +69,9 @@ api.paypalBillingAgreementCancel = Bluebird.promisify(paypal.billingAgreement.ca
 api.ipnVerifyAsync = Bluebird.promisify(ipn.verify, {context: ipn});
 
 api.checkout = async function checkout (options = {}) {
-  let {gift} = options;
+  let {gift, donation} = options;
+
+  let returnUrl = `${BASE_URL}/paypal/checkout/success`;
 
   let amount = 5.00;
   let description = 'Habitica Gems';
@@ -82,11 +85,17 @@ api.checkout = async function checkout (options = {}) {
     }
   }
 
+  if (donation) {
+    amount = (donation).toFixed(2);
+    description = this.constants.SELLER_NOTE_DONATION;
+    returnUrl = `${BASE_URL}/paypal/donation/success`;
+  }
+
   let createPayment = {
     intent: 'sale',
     payer: { payment_method: this.constants.PAYMENT_METHOD },
     redirect_urls: {
-      return_url: `${BASE_URL}/paypal/checkout/success`,
+      return_url: returnUrl,
       cancel_url: `${BASE_URL}`,
     },
     transactions: [{
@@ -113,7 +122,7 @@ api.checkout = async function checkout (options = {}) {
 };
 
 api.checkoutSuccess = async function checkoutSuccess (options = {}) {
-  let {user, gift, paymentId, customerId} = options;
+  let {user, gift, paymentId, customerId, donation} = options;
 
   let method = 'buyGems';
   let data = {
@@ -121,6 +130,10 @@ api.checkoutSuccess = async function checkoutSuccess (options = {}) {
     customerId,
     paymentMethod: this.constants.PAYMENT_METHOD,
   };
+
+  if (donation) {
+    method = 'donate';
+  }
 
   if (gift) {
     gift.member = await User.findById(gift.uuid).exec();
