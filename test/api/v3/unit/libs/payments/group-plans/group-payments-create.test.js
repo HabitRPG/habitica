@@ -14,6 +14,11 @@ import {
 } from '../../../../../../helpers/api-unit.helper.js';
 
 describe('Purchasing a group plan for group', () => {
+  const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_GOOGLE = 'Google_subscription';
+  const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_IOS = 'iOS_subscription';
+  const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL = 'normal_subscription';
+  const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NONE = 'no_subscription';
+
   let plan, group, user, data;
   let stripe = stripeModule('test');
   let groupLeaderName = 'sender';
@@ -176,7 +181,7 @@ describe('Purchasing a group plan for group', () => {
     expect(sender.sendTxn.firstCall.args[2]).to.eql([
       {name: 'LEADER', content: user.profile.name},
       {name: 'GROUP_NAME', content: group.name},
-      {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: 'none'},
+      {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NONE},
     ]);
     // confirm that the other email sent is appropriate:
     expect(sender.sendTxn.secondCall.args[0]._id).to.equal(group.leader);
@@ -202,7 +207,7 @@ describe('Purchasing a group plan for group', () => {
     expect(sender.sendTxn.firstCall.args[2]).to.eql([
       {name: 'LEADER', content: user.profile.name},
       {name: 'GROUP_NAME', content: group.name},
-      {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: 'normal'},
+      {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL},
     ]);
     // confirm that the other email sent is not a cancel-subscription email:
     expect(sender.sendTxn.secondCall.args[0]._id).to.equal(group.leader);
@@ -236,7 +241,7 @@ describe('Purchasing a group plan for group', () => {
     expect(sender.sendTxn.firstCall.args[2]).to.eql([
       {name: 'LEADER', content: user.profile.name},
       {name: 'GROUP_NAME', content: group.name},
-      {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: 'normal'},
+      {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL},
     ]);
     // confirm that the other email sent is not a cancel-subscription email:
     expect(sender.sendTxn.secondCall.args[0]._id).to.equal(group.leader);
@@ -273,7 +278,7 @@ describe('Purchasing a group plan for group', () => {
     expect(sender.sendTxn.firstCall.args[2]).to.eql([
       {name: 'LEADER', content: user.profile.name},
       {name: 'GROUP_NAME', content: group.name},
-      {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: 'normal'},
+      {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL},
     ]);
     // confirm that the other email sent is not a cancel-subscription email:
     expect(sender.sendTxn.secondCall.args[0]._id).to.equal(group.leader);
@@ -308,7 +313,7 @@ describe('Purchasing a group plan for group', () => {
     expect(sender.sendTxn.args[1][2]).to.eql([
       {name: 'LEADER', content: groupLeaderName},
       {name: 'GROUP_NAME', content: groupName},
-      {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: 'Google'},
+      {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_GOOGLE},
     ]);
     expect(sender.sendTxn.args[2][0]._id).to.equal(group.leader);
     expect(sender.sendTxn.args[2][1]).to.equal('group-member-join');
@@ -341,7 +346,7 @@ describe('Purchasing a group plan for group', () => {
     expect(sender.sendTxn.args[1][2]).to.eql([
       {name: 'LEADER', content: groupLeaderName},
       {name: 'GROUP_NAME', content: groupName},
-      {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: 'iOS'},
+      {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_IOS},
     ]);
     expect(sender.sendTxn.args[2][0]._id).to.equal(group.leader);
     expect(sender.sendTxn.args[2][1]).to.equal('group-member-join');

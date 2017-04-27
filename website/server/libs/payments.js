@@ -82,11 +82,21 @@ api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers (gr
  * @return undefined
  */
 api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
+  // These EMAIL_TEMPLATE constants are used to pass strings into templates that are
+  // stored externally and so their values must not be changed.
+  const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_GOOGLE = 'Google_subscription';
+  const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_IOS = 'iOS_subscription';
+  const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_GROUP_PLAN = 'group_plan_free_subscription';
+  const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_LIFETIME_FREE = 'lifetime_free_subscription';
+  const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL = 'normal_subscription';
+  const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_UNKNOWN = 'unknown_type_of_subscription';
+  const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NONE = 'no_subscription';
+
   // When changing customerIdsToIgnore or paymentMethodsToIgnore, the code blocks below for
   // the `group-member-join` email template will probably need to be changed.
   let customerIdsToIgnore = [this.constants.GROUP_PLAN_CUSTOMER_ID, this.constants.UNLIMITED_CUSTOMER_ID];
   let paymentMethodsToIgnore = [this.constants.GOOGLE_PAYMENT_METHOD, this.constants.IOS_PAYMENT_METHOD];
-  let previousSubscriptionType = 'none';
+  let previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NONE;
   let leader = await User.findById(group.leader).exec();
 
   let data = {
@@ -139,17 +149,17 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
       // member has been added to group plan but their subscription will not be changed
       // automatically so they need a special message in the email
       if (memberPlan.paymentMethod === this.constants.GOOGLE_PAYMENT_METHOD) {
-        previousSubscriptionType = 'Google';
+        previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_GOOGLE;
       } else if (memberPlan.paymentMethod === this.constants.IOS_PAYMENT_METHOD) {
-        previousSubscriptionType = 'iOS';
+        previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_IOS;
       } else if (memberPlan.customerId === this.constants.UNLIMITED_CUSTOMER_ID) {
-        previousSubscriptionType = 'permanent_free';
+        previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_LIFETIME_FREE;
       } else if (memberPlan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID) {
-        previousSubscriptionType = 'group_plan';
+        previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_GROUP_PLAN;
       } else {
         // this triggers a generic message in the email template in case we forget
         // to update this code for new special cases
-        previousSubscriptionType = 'unknown';
+        previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_UNKNOWN;
       }
       txnEmail(member, 'group-member-join', [
         {name: 'LEADER', content: leader.profile.name},
@@ -161,7 +171,7 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
 
     if (member.hasNotCancelled()) {
       await member.cancelSubscription({cancellationReason: JOINED_GROUP_PLAN});
-      previousSubscriptionType = 'normal';
+      previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL;
     }
 
     let today = new Date();
