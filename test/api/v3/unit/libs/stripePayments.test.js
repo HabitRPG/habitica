@@ -70,8 +70,8 @@ describe('Stripe Payments', () => {
       }, stripe))
       .to.eventually.be.rejected.and.to.eql({
         httpCode: 400,
-        message: "Amount must be at least 1.",
-        name: "BadRequest",
+        message: 'Amount must be at least 1.',
+        name: 'BadRequest',
       });
     });
 
@@ -79,7 +79,7 @@ describe('Stripe Payments', () => {
       await stripePayments.checkout({
         token,
         user,
-        gift,
+        gift: undefined,
         groupId,
         email,
         headers,

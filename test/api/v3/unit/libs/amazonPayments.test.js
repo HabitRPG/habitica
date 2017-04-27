@@ -127,8 +127,8 @@ describe('Amazon Payments', () => {
       await expect(amzLib.checkout({gift, user, orderReferenceId, headers}))
       .to.eventually.be.rejected.and.to.eql({
         httpCode: 400,
-        message: "Amount must be at least 1.",
-        name: "BadRequest",
+        message: 'Amount must be at least 1.',
+        name: 'BadRequest',
       });
     });
 
