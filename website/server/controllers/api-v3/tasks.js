@@ -1149,12 +1149,11 @@ api.clearCompletedTodos = {
 
     // Clear completed todos
     // Do not delete completed todos from challenges or groups, unless the task is broken
-    await Tasks.Task.remove({
-      userId: user._id,
+    let ids = await (Tasks.Task.getNonGroupNonChallengeTasks(user._id, {
       type: 'todo',
       completed: true,
-      $and: Tasks.skipChallengeTasks,
-    }).exec();
+    }).exec()).map(task => task._id);
+    await Tasks.Task.deleteMany({ _id: {$in: ids} }).exec();
 
     res.respond(200, {});
   },

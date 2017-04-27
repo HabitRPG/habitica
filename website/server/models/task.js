@@ -175,22 +175,30 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
   await chalTask.save();
 };
 
-// skips challenge and group tasks
-export let skipChallengeTasks = [
-  {
-    $or: [
-      {'challenge.id': {$exists: false}},
-      {'challenge.broken': {$exists: true}},
-    ],
-  }, {
-    $or: [
-      {'group.id': {$exists: false}},
-      {'group.broken': {$exists: true}},
-    ],
-  },
-];
+export let Task;
 
-export let Task = mongoose.model('Task', TaskSchema);
+TaskSchema.statics.getNonGroupNonChallengeTasks = async function getNonGroupNonChallengeTasks (userId, subQuery = {}) {
+  let query = {
+    userId,
+    $and: [
+      {
+        $or: [
+          {'challenge.id': {$exists: false}},
+          {'challenge.broken': {$exists: true}},
+        ],
+      }, {
+        $or: [
+          {'group.id': {$exists: false}},
+          {'group.broken': {$exists: true}},
+        ],
+      },
+    ],
+  };
+  _.assignIn(query, subQuery);
+  return await Task.find(query);
+};
+
+Task = mongoose.model('Task', TaskSchema);
 
 Task.schema.path('alias').validate(function valiateAliasNotTaken (alias, respond) {
   Task.findOne({
