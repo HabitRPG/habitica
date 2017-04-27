@@ -87,9 +87,9 @@ api.checkout = async function checkout (options = {}) {
   }
 
   if (donation) {
-    amount = (donation).toFixed(2);
+    amount = parseInt(donation);
+    amount = (amount).toFixed(2);
     description = this.constants.SELLER_NOTE_DONATION;
-    returnUrl = `${BASE_URL}/paypal/donation/success`;
   }
 
   let createPayment = {

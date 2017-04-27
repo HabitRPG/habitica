@@ -3,7 +3,7 @@
 habitrpg
   .controller("MemberModalCtrl", ['$scope', '$rootScope', 'Members', 'Shared', '$http', 'Notification', 'Groups', 'Chat', '$controller', 'Stats', 'Costume',
     function($scope, $rootScope, Members, Shared, $http, Notification, Groups, Chat, $controller, Stats, Costume) {
-
+      console.log("DS")
       $controller('RootCtrl', {$scope: $scope});
       $rootScope.appLoaded = true;
 

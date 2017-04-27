@@ -45,7 +45,7 @@ describe('One Time Donations', () => {
         intent: 'sale',
         payer: { payment_method: 'Paypal' },
         redirect_urls: {
-          return_url: `${BASE_URL}/paypal/donation/success`,
+          return_url: `${BASE_URL}/paypal/checkout/success`,
           cancel_url: `${BASE_URL}`,
         },
         transactions: [{
