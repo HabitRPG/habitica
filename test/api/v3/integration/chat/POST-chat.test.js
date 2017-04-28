@@ -230,28 +230,23 @@ describe('POST /chat', () => {
       },
       members: 1,
     });
+
     await expect(members[0].post(`/groups/${group._id}/chat`, { message: testSlurMessage})).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: 'Your message contained inapropriate language, and your chat privileges have been revoked.',
     });
 
-    // await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testSlurMessage})).to.eventually.be.rejected.and.eql({
-    //   code: 400,
-    //   error: 'BadRequest',
-    //   message: 'Your message contained inapropriate language, and your chat privileges have been revoked.',
-    // });
-
-    // // Chat privileges are revoked
-    // await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
-    //   code: 404,
-    //   error: 'NotFound',
-    //   message: 'Your chat privileges have been revoked.',
-    // });
+    // Chat privileges are revoked
+    await expect(members[0].post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
+      code: 404,
+      error: 'NotFound',
+      message: 'Your chat privileges have been revoked.',
+    });
 
     // Restore chat privileges to continue testing
-    user.flags.chatRevoked = false;
-    await user.update({'flags.chatRevoked': false});
+    members[0].flags.chatRevoked = false;
+    await members[0].update({'flags.chatRevoked': false});
   });
 
   it('creates a chat', async () => {
