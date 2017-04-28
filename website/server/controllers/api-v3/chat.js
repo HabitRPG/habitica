@@ -76,6 +76,22 @@ function textContainsBannedWords (message) {
   return false;
 }
 
+let bannedSlurRegexs = [];
+for (let i = 0; i < bannedSlurs.length; i += 1) {
+  let word = bannedSlurs[i];
+  let regEx = new RegExp(`\\b([^a-z]+)?${word.toLowerCase()}([^a-z]+)?\\b`);
+  bannedSlurRegexs.push(regEx);
+}
+
+function textContainsBannedSlur (message) {
+  for (let i = 0; i < bannedSlurRegexs.length; i += 1) {
+    let regEx = bannedSlurRegexs[i];
+    if (matchExact(regEx, message.toLowerCase())) return true;
+  }
+
+  return false;
+}
+
 /**
  * @api {get} /api/v3/groups/:groupId/chat Get chat messages from a group
  * @apiName GetChat
@@ -143,8 +159,8 @@ api.postChat = {
     let group = await Group.getGroup({user, groupId});
 
     // Check message for banned slurs
-    let message = req.body.message;
-    if (textContainsBannedWords(message, bannedSlurs)) {
+    if (textContainsBannedSlur(req.body.message)) {
+      let message = req.body.message;
       user.flags.chatRevoked = true;
       await user.save();
 
