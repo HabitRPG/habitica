@@ -177,7 +177,7 @@ api.postChat = {
         message,
       });
 
-      throw new BadRequest('Your message contained inapropriate language, and your chat privileges have been revoked.');
+      throw new BadRequest(res.t('bannedSlurUsed'));
     }
 
     if (!group) throw new NotFound(res.t('groupNotFound'));

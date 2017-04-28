@@ -206,7 +206,7 @@ describe('POST /chat', () => {
     await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testSlurMessage})).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
-      message: 'Your message contained inapropriate language, and your chat privileges have been revoked.',
+      message: t('bannedSlurUsed'),
     });
 
     // Chat privileges are revoked
@@ -234,7 +234,7 @@ describe('POST /chat', () => {
     await expect(members[0].post(`/groups/${group._id}/chat`, { message: testSlurMessage})).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
-      message: 'Your message contained inapropriate language, and your chat privileges have been revoked.',
+      message: t('bannedSlurUsed'),
     });
 
     // Chat privileges are revoked
