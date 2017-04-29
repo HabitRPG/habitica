@@ -415,7 +415,6 @@ const partyMembersFields = 'profile.name stats achievements items.special';
  *
  * Cast "Tools of the Trade" on the party:
  *  https://habitica.com/api/v3/user/class/cast/toolsOfTrade
- * 
  *
  * @apiSuccess data Will return the modified targets. For party members only the necessary fields will be populated. The user is always returned.
  *
