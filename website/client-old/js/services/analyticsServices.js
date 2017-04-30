@@ -112,9 +112,9 @@
     // filter out gem-purchased backgrounds from backgrounds
     function _filterBackgrounds (owned) {
       // current free backgrounds
-      var free = ['blue', 'green', 'purple', 'red', 'yellow'];
+      var freeBackgrounds = Object.keys(window.habitrpgShared.content.backgrounds.incentiveBackgrounds);
       return Object.keys(owned).reduce(function(purchased, background) {
-        if (!free.includes(background)) {
+        if (!freeBackgrounds.includes(background)) {
           purchased.push(background);
         }
         return purchased;

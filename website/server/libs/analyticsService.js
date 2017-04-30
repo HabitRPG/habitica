@@ -73,9 +73,9 @@ let _formatUserData = (user) => {
   // filter out gem-purchased backgrounds from backgrounds
   function _filterBackgrounds (owned) {
     // current free backgrounds
-    const free = ['blue', 'green', 'purple', 'red', 'yellow'];
+    const freeBackgrounds = Object.keys(Content.backgrounds.incentiveBackgrounds);
     return Object.keys(owned).reduce((purchased, background) => {
-      if (!free.includes(background)) {
+      if (!freeBackgrounds.includes(background)) {
         purchased.push(background);
       }
       return purchased;
