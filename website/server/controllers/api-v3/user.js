@@ -408,7 +408,7 @@ const partyMembersFields = 'profile.name stats achievements items.special';
  * @apiGroup User
  *
  * @apiParam {String=fireball, mpHeal, earth, frost, smash, defensiveStance, valorousPresence, intimidate, pickPocket, backStab, toolsOfTrade, stealth, heal, protectAura, brightness, healAll} spellId The skill to cast.
- * @apiParam (Query) {UUID} targetId Query parameter, necessary if the spell is cast on a party member or task. Not used if the spell is case on onesself or the user's current party.
+ * @apiParam (Query) {UUID} targetId Query parameter, necessary if the spell is cast on a party member or task. Not used if the spell is case on the user or the user's current party.
  * @apiParamExample {json} Query example:
  * Cast "Pickpocket" on a task:
  *  https://habitica.com/api/v3/user/class/cast/pickPocket?targetId=fd427623...
