@@ -1,3 +1,4 @@
+import moment from 'moment'
 import {
   generateUser,
   generateGroup,
@@ -389,18 +390,20 @@ describe('PUT /tasks/:id', () => {
       });
     });
 
-    it('updates a daily', async () => {
+    it.only('updates a daily', async () => {
       let savedDaily = await user.put(`/tasks/${daily._id}`, {
         text: 'some new text',
         notes: 'some new notes',
         frequency: 'daily',
         everyX: 5,
+        startDate: moment().add(1, 'days').toDate(),
       });
 
       expect(savedDaily.text).to.eql('some new text');
       expect(savedDaily.notes).to.eql('some new notes');
       expect(savedDaily.frequency).to.eql('daily');
       expect(savedDaily.everyX).to.eql(5);
+      expect(savedDaily.isDue).to.be.false;
     });
 
     it('can update checklists (replace it)', async () => {
