@@ -358,6 +358,14 @@ describe('cron', () => {
       };
     });
 
+    it('computes isdue', () => {
+      tasksByType.dailys[0].frequency = 'daily';
+      tasksByType.dailys[0].everyX = 5;
+      tasksByType.dailys[0].startDate = moment().add(1, 'days').toDate();
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(tasksByType.dailys[0].isDue).to.be.false;
+    });
+
     it('should add history', () => {
       cron({user, tasksByType, daysMissed, analytics});
       expect(tasksByType.dailys[0].history).to.be.lengthOf(1);
