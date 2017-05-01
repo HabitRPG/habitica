@@ -589,6 +589,10 @@ api.scoreTask = {
       }
     }
 
+    if (task.type === 'daily') {
+      task.isDue = common.shouldDo(Date.now(), task, user.preferences);
+    }
+
     let results = await Bluebird.all([
       user.save(),
       task.save(),
