@@ -242,6 +242,7 @@ export let DailySchema = new Schema(_.defaults({
   streak: {type: Number, default: 0},
   daysOfMonth: {type: [Number], default: []}, // Days of the month that the daily should repeat on
   weeksOfMonth: {type: [Number], default: []}, // Weeks of the month that the daily should repeat on
+  isDue: {type: Boolean},
 }, habitDailySchema(), dailyTodoSchema()), subDiscriminatorOptions);
 export let daily = Task.discriminator('daily', DailySchema);
 
