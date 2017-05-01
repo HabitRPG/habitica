@@ -1,4 +1,4 @@
-import moment from 'moment'
+import moment from 'moment';
 import {
   generateUser,
   generateGroup,
@@ -390,7 +390,7 @@ describe('PUT /tasks/:id', () => {
       });
     });
 
-    it.only('updates a daily', async () => {
+    it('updates a daily', async () => {
       let savedDaily = await user.put(`/tasks/${daily._id}`, {
         text: 'some new text',
         notes: 'some new notes',
