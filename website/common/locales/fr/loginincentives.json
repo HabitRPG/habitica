@@ -4,7 +4,7 @@
   "nextRewardUnlocksIn": "Connexion(s) jusqu'à votre prochaine récompense : <%= numberOfCheckinsLeft %>",
   "awesome": "Génial !",
   "totalCount": "<%= count %> au total",
-  "countLeft": "Connexion(s) avant votre prochain récompense: <%= count %>",
+  "countLeft": "Connexion(s) avant votre prochaine récompense : <%= count %>",
   "incentivesDescription": "Lorsqu'il s'agit de construire des habitudes, la clé réside dans la constance. Chaque jour de connexion vous rapproche d'un prix.",
   "totalCheckins": "<%= count %> connexions",
   "checkinEarned": "Votre compteur de connexion a augmenté !",

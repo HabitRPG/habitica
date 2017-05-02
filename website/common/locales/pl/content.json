@@ -172,7 +172,7 @@
     "hatchingPotionHolly": "Ostrokrzewowy",
     "hatchingPotionCupid": "Amor",
     "hatchingPotionShimmer": "Migoczący",
-    "hatchingPotionFairy": "Fairy",
+    "hatchingPotionFairy": "Wróżka",
     "hatchingPotionNotes": "Wylej go na jajko, a wykluje się z niego <%=potText(locale)%>.",
     "premiumPotionAddlNotes": "Nie nadaje się do użytku na jajach otrzymanych za misje.",
     "foodMeat": "Mięso",
