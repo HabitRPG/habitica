@@ -97,6 +97,11 @@ let basicAchievs = {
     pluralTitleKey: 'perfectName',
     pluralTextKey: 'perfectText',
   },
+  royallyLoyal: {
+    icon: 'achievement-royally-loyal',
+    titleKey: 'royallyLoyal',
+    textKey: 'royallyLoyalText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 
@@ -107,7 +112,7 @@ let specialAchievs = {
     textKey: 'contribText',
   },
   npc: {
-    icon: 'achievement-ultimate-warrior',
+    icon: 'achievement-npc',
     titleKey: 'npcAchievementName',
     textKey: 'npcAchievementText',
   },

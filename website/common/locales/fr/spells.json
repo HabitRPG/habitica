@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "Outils de travail",
     "spellRogueToolsOfTradeNotes": "Vous partagez vos talents avec vos amis. Toute votre équipe gagne un bonus de Perception ! (Basé sur : Perception sans bonus)",
     "spellRogueStealthText": "Furtivité",
-    "spellRogueStealthNotes": "Vos talents de discrétion sont trop efficaces pour qu'on vous repère. Certaines de vos tâches quotidiennes ne vous causeront pas de dégâts cette nuit, et leurs combos/couleurs ne changeront pas. (Lancer plusieurs fois pour affecter plus de tâches quotidiennes)",
+    "spellRogueStealthNotes": "Vos talents de discrétion sont trop efficaces pour qu'on vous repère. Certaines de vos tâches quotidiennes ne vous causeront pas de dégâts cette nuit, et leurs combos/couleurs ne changeront pas. (Lancer plusieurs fois pour affecter plus de tâches quotidiennes.)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Nombre de quotidiennes évitées : <%= number %>.",
     "spellRogueStealthMaxedOut": "Vous avez déjà évité toutes vos quotidiennes; nul besoin d'utiliser cette compétence à nouveau.",
     "spellHealerHealText": "Lumière de guérison",

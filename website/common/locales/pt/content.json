@@ -172,7 +172,7 @@
     "hatchingPotionHolly": "Azevinho",
     "hatchingPotionCupid": "Cúpido",
     "hatchingPotionShimmer": "Cintilante",
-    "hatchingPotionFairy": "Fairy",
+    "hatchingPotionFairy": "Fada",
     "hatchingPotionNotes": "Utilize isto num ovo, e ele chocará como um mascote <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Não utilizável nos ovos de mascote de missão.",
     "foodMeat": "Carne",

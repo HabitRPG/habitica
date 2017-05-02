@@ -2,8 +2,8 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('SettingsCtrl',
-  ['$scope', 'User', '$rootScope', '$http', 'ApiUrl', 'Guide', '$location', '$timeout', 'Content', 'Notification', 'Shared', 'Social', '$compile',
-  function($scope, User, $rootScope, $http, ApiUrl, Guide, $location, $timeout, Content, Notification, Shared, Social, $compile) {
+  ['$scope', 'User', '$rootScope', '$http', 'ApiUrl', 'Guide', '$location', '$modalStack', '$timeout', 'Content', 'Notification', 'Shared', 'Social', '$compile',
+  function($scope, User, $rootScope, $http, ApiUrl, Guide, $location, $modalStack, $timeout, Content, Notification, Shared, Social, $compile) {
     var RELEASE_ANIMAL_TYPES = {
       pets: 'releasePets',
       mounts: 'releaseMounts',
@@ -164,14 +164,21 @@ habitrpg.controller('SettingsCtrl',
     $scope.restore = function(){
       var stats = $scope.restoreValues.stats,
         achievements = $scope.restoreValues.achievements;
+
+      if (stats.lvl < 1) {
+        Notification.error(env.t('invalidLevel'), true);
+        return;
+      }
+
       User.set({
-        "stats.hp": stats.hp,
-        "stats.exp": stats.exp,
-        "stats.gp": stats.gp,
-        "stats.lvl": stats.lvl,
-        "stats.mp": stats.mp,
-        "achievements.streak": achievements.streak
+        'stats.hp': stats.hp,
+        'stats.exp': stats.exp,
+        'stats.gp': stats.gp,
+        'stats.lvl': stats.lvl,
+        'stats.mp': stats.mp,
+        'achievements.streak': achievements.streak
       });
+      $modalStack.dismissAll();
     }
 
     $scope.reset = function(){

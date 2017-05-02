@@ -106,5 +106,5 @@
     "spring2017SneakyBunnySet": "Coniglio Furtivo (Assassino)",
     "eventAvailability": "Disponibile fino al <%= date(locale) %>.",
     "dateEndApril": "19 Aprile",
-    "dateEndMay": "May 17"
+    "dateEndMay": "17 maggio"
 }

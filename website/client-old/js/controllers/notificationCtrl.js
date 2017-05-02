@@ -89,14 +89,20 @@ habitrpg.controller('NotificationCtrl',
       var notificationsToRead = [];
       var scoreTaskNotification;
 
+      User.user.groupNotifications = []; // Flush group notifictions
+
       after.forEach(function (notification) {
         if (lastShownNotifications.indexOf(notification.id) !== -1) {
           return;
         }
 
-        lastShownNotifications.push(notification.id);
-        if (lastShownNotifications.length > 10) {
-          lastShownNotifications.splice(0, 9);
+        // Some notifications are not marked read here, so we need to fix this system
+        // to handle notifications differently
+        if (['GROUP_TASK_APPROVED', 'GROUP_TASK_APPROVAL'].indexOf(notification.type) === -1) {
+          lastShownNotifications.push(notification.id);
+          if (lastShownNotifications.length > 10) {
+            lastShownNotifications.splice(0, 9);
+          }
         }
 
         var markAsRead = true;

@@ -89,4 +89,25 @@ describe('PUT /tasks/:id', () => {
     expect(member2SyncedTask.up).to.eql(false);
     expect(member2SyncedTask.down).to.eql(false);
   });
+
+  it('updates the linked tasks', async () => {
+    await user.post(`/groups/${guild._id}/add-manager`, {
+      managerId: member2._id,
+    });
+
+    await member2.put(`/tasks/${task._id}`, {
+      text: 'some new text',
+      up: false,
+      down: false,
+      notes: 'some new notes',
+    });
+
+
+    let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, findAssignedTask);
+
+    expect(syncedTask.text).to.eql('some new text');
+    expect(syncedTask.up).to.eql(false);
+    expect(syncedTask.down).to.eql(false);
+  });
 });

@@ -106,5 +106,5 @@
     "spring2017SneakyBunnySet": "Промъкващо се зайче (мошеник)",
     "eventAvailability": "Налично за купуване до <%= date(locale) %>.",
     "dateEndApril": "19 април",
-    "dateEndMay": "May 17"
+    "dateEndMay": "17 май"
 }

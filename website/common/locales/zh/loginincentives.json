@@ -1,6 +1,6 @@
 {
   "unlockedReward": "你已经收到了 <%= reward %> ",
-  "earnedRewardForDevotion": "因为努力地改善自己的生活，你赢得了一个 <%= reward %> ！",
+  "earnedRewardForDevotion": "You have earned <%= reward %> for being committed to improving your life.",
   "nextRewardUnlocksIn": "继续签到直到获得下次战利品吧！剩余签到数：<%= numberOfCheckinsLeft %>",
   "awesome": "哟嚯！！",
   "totalCount": "总共 <%= count %> 次",
@@ -12,5 +12,18 @@
   "totalCheckinsTitle": "总签到次数",
   "checkinProgressTitle": "签到进度",
   "incentiveBackgroundsUnlockedWithCheckins": "现在锁着的简约背景套装会通过每日签到解锁。",
-  "moreIncentivesComingSoon": "很快你会收到新的签到奖励！"
+  "checkinReceivedAllRewardsMessage": "You have received all the Check-In prizes available! Congratulations!",
+  "oneOfAllPetEggs": "one of each standard Pet Egg",
+  "twoOfAllPetEggs": "two of each standard Pet Egg",
+  "threeOfAllPetEggs": "three of each standard Pet Egg",
+  "oneOfAllHatchingPotions": "one of each standard Hatching Potion",
+  "threeOfEachFood": "three of each standard Pet Food",
+  "fourOfEachFood": "four of each standard Pet Food",
+  "twoSaddles": "two Saddles",
+  "threeSaddles": "three Saddles",
+  "incentiveAchievement": "the Royally Loyal achievement",
+  "royallyLoyal": "Royally Loyal",
+  "royallyLoyalText": "This user has checked in over 500 times, and has earned every Check-In Prize!",
+  "checkInRewards": "Check-In Rewards",
+  "backloggedCheckInRewards": "You received Check-In Prizes! Visit your Inventory and Equipment to see what's new."
 }
