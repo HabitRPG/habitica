@@ -208,7 +208,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       expect(task.completed).to.equal(false);
     });
 
-    it('computes is due', async () => {
+    it('computes isDue', async () => {
       await user.post(`/tasks/${daily._id}/score/up`);
       let task = await user.get(`/tasks/${daily._id}`);
 

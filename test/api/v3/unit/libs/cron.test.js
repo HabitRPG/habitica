@@ -358,7 +358,7 @@ describe('cron', () => {
       };
     });
 
-    it('computes isdue', () => {
+    it('computes isDue', () => {
       tasksByType.dailys[0].frequency = 'daily';
       tasksByType.dailys[0].everyX = 5;
       tasksByType.dailys[0].startDate = moment().add(1, 'days').toDate();
