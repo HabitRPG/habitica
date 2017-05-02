@@ -327,7 +327,7 @@ describe('POST /user/auth/local/register', () => {
         confirmPassword: password,
       });
 
-      expect(user.invitations.party).to.eql({
+      expect(user.invitations.parties[0]).to.eql({
         id: group._id,
         name: group.name,
         inviter: groupLeader._id,
