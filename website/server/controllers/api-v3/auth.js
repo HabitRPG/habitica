@@ -45,6 +45,7 @@ async function _handleGroupInvitation (user, invite) {
     if (!group) throw new NotFound('Group not found.');
 
     if (group.type === 'party') {
+      user.invitations.party = {id: group._id, name: group.name, inviter};
       user.invitations.parties.push({id: group._id, name: group.name, inviter});
     } else {
       user.invitations.guilds.push({id: group._id, name: group.name, inviter});
