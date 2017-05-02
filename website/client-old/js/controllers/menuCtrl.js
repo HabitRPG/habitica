@@ -76,8 +76,8 @@ angular.module('habitrpg')
       $scope.getNotificationsCount = function() {
         var count = 0;
 
-        if($scope.user.invitations.party && $scope.user.invitations.party.id){
-          count++;
+        if($scope.user.invitations.parties){
+          count += $scope.user.invitations.parties.length;
         }
 
         if($scope.user.purchased.plan && $scope.user.purchased.plan.mysteryItems.length){
