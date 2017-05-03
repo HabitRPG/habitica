@@ -224,14 +224,14 @@ describe('POST /user/class/cast/:spellId', () => {
   it('increases both user\'s achievement values', async () => {
     let recipient = await generateUser();
     await user.update({'stats.gp': 10});
-    await user.post(`/user/cast/cast/birthday?targetId=${recipient.id}`);
+    await user.post(`/user/cast/cast/birthday?targetId=${recipient._id}`);
     expect(user.achievements.birthday).to.equal(1);
     expect(recipient.achievements.birthday).to.equal(1);
   });
 
   it('only increases user\'s achievement one if target == caster', async () => {
     await user.update({'stats.gp': 10});
-    await user.post(`/user/cast/cast/birthday?targetId=${user.id}`);
+    await user.post(`/user/cast/cast/birthday?targetId=${user._id}`);
     expect(user.achievements.birthday).to.equal(1);
   });
 
