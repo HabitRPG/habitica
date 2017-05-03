@@ -148,6 +148,7 @@
     "invitationsSent": "הזמנות נשלחו!",
     "invitationSent": "הזמנה נשלחה!",
     "inviteAlertInfo2": "או שתפו את הקישור (העתק/הדבק):",
+    "inviteLimitReached": "You have already sent the maximum number of email invitations. We have a limit to prevent spamming, however if you would like more, please contact us at <%= techAssistanceEmail %> and we'll be happy to discuss it!",
     "sendGiftHeading": "שלחו מתנה ל<%= name %>",
     "sendGiftGemsBalance": "החל מ-<%= number %> אבני חן",
     "sendGiftCost": "סך הכל: <%= cost %>$",

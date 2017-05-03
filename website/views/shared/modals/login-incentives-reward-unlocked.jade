@@ -18,6 +18,8 @@ script(id='modals/login-incentives-reward-unlocked.html', type='text/ng-template
         p {{env.t('earnedRewardForDevotion', {reward: data.rewardText})}}
       .col-md-12.text-center(ng-show="data.nextRewardAt")
         h4 {{env.t('nextRewardUnlocksIn', {numberOfCheckinsLeft: data.nextRewardAt - user.loginIncentives})}}
+      .col-md-10.col-md-offset-1.text-center
+        h4(ng-if="user.loginIncentives === MAX_INCENTIVES")=env.t('checkinReceivedAllRewardsMessage')
   .modal-footer
     .row
       a.btn.btn-primary.col-md-6.col-md-offset-3(ng-click='$close()')=env.t('awesome')

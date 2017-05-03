@@ -64,5 +64,14 @@ module.exports = prefill({
   'shark': {price: 2, set: sets.splashySkins},
   'tropicalwater': {price: 2, set: sets.splashySkins},
 
+  'aurora': {price: 2, set: sets.winterySkins},
+  'dapper': {price: 2, set: sets.winterySkins},
+  'festive': {price: 2, set: sets.winterySkins},
+  'holly': {price: 2, set: sets.winterySkins},
+  'polar': {price: 2, set: sets.winterySkins},
+  'sugar': {price: 2, set: sets.winterySkins},
+  'snowy': {price: 2, set: sets.winterySkins},
+  'winterstar': {price: 2, set: sets.winterySkins},
+
     /* eslint-enable quote-props */
 });
