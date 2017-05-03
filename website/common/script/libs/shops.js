@@ -25,7 +25,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   let eggsCategory = {
     identifier: 'eggs',
     text: i18n.t('eggs', language),
-    notes: i18n.t('dropsExplanation', language),
+    notes: i18n.t('dropsExplanationEggs', language),
   };
 
   eggsCategory.items = sortBy(values(content.questEggs)
@@ -149,7 +149,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
 
 shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, language) {
   let categories = [];
-  let stable = {pets: 'Pet-', mounts: 'Mount_Head_'};
+  let stable = {pets: 'Pet-', mounts: 'Mount_Icon_'};
   for (let type in stable) {
     if (stable.hasOwnProperty(type)) {
       let category = {
@@ -239,6 +239,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   ];
 
   const AVAILABLE_QUESTS = [
+    'egg',
   ];
 
   let categories = [];

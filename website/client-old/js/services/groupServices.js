@@ -108,6 +108,26 @@ angular.module('habitrpg')
       });
     };
 
+    Group.addManager = function(gid, memberId) {
+      return $http({
+        method: "POST",
+        url: groupApiURLPrefix + '/' + gid + '/add-manager/',
+        data: {
+          managerId: memberId,
+        },
+      });
+    };
+
+    Group.removeManager = function(gid, memberId) {
+      return $http({
+        method: "POST",
+        url: groupApiURLPrefix + '/' + gid + '/remove-manager/',
+        data: {
+          managerId: memberId,
+        },
+      });
+    };
+
     $rootScope.$on('syncPartyRequest', function (event, options) {
       if (options.type === 'user_update') {
         var index = _.findIndex(data.party.members, function(user) { return user._id === options.user._id; });
@@ -221,7 +241,7 @@ angular.module('habitrpg')
 
     function inviteOrStartParty (group) {
       Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Invite Friends'});
-      
+
       var sendInviteText = window.env.t('sendInvitations');
       if (group.type !== 'party' && group.type !== 'guild') {
         $location.path("/options/groups/party");

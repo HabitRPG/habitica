@@ -13,6 +13,8 @@ mixin subPerks()
         .badge.badge-success=env.t('mysticHourglass', {amount: '+{{numberOfMysticHourglasses(_subscription)}}'})
         .small.muted=env.t('mysticHourglassText')
     li
+      span.hint(popover=env.t('exclusiveJackalopePetText'),popover-trigger='mouseenter',popover-placement='right')=env.t('exclusiveJackalopePet')
+    li
       span.hint(popover=env.t('supportDevsText'),popover-trigger='mouseenter',popover-placement='right')=env.t('supportDevs')
 
 script(id='partials/options.settings.html', type="text/ng-template")

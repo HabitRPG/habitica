@@ -148,6 +148,7 @@
     "invitationsSent": "Pozvánky odoslané!",
     "invitationSent": "Pozvánka odoslaná!",
     "inviteAlertInfo2": "Alebo zdieľaj tento odkaz (kopíruj/vlož):",
+    "inviteLimitReached": "You have already sent the maximum number of email invitations. We have a limit to prevent spamming, however if you would like more, please contact us at <%= techAssistanceEmail %> and we'll be happy to discuss it!",
     "sendGiftHeading": "Poslať darček pre <%= name %>",
     "sendGiftGemsBalance": "Od <%= number %> Drahokamov",
     "sendGiftCost": "Celkovo: $<%= cost %> USD",

@@ -148,6 +148,7 @@
     "invitationsSent": "Invitations sent!",
     "invitationSent": "Invitation sent!",
     "inviteAlertInfo2": "Or share this link (copy/paste):",
+    "inviteLimitReached": "You have already sent the maximum number of email invitations. We have a limit to prevent spamming, however if you would like more, please contact us at <%= techAssistanceEmail %> and we'll be happy to discuss it!",
     "sendGiftHeading": "Send Gift t' <%= name %>",
     "sendGiftGemsBalance": "From <%= number %> Sapphires",
     "sendGiftCost": "Total: $<%= cost %> USD",

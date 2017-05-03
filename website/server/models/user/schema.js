@@ -111,6 +111,7 @@ let schema = new Schema({
     birthday: Number,
     partyUp: Boolean,
     partyOn: Boolean,
+    royallyLoyal: Boolean,
   },
 
   backer: {
@@ -494,7 +495,7 @@ let schema = new Schema({
     mp: {type: Number, default: 10},
     exp: {type: Number, default: 0},
     gp: {type: Number, default: 0},
-    lvl: {type: Number, default: 1},
+    lvl: {type: Number, default: 1, min: 1},
 
     // Class System
     class: {type: String, enum: ['warrior', 'rogue', 'wizard', 'healer'], default: 'warrior', required: true},
@@ -550,6 +551,7 @@ let schema = new Schema({
   }},
   webhooks: [WebhookSchema],
   loginIncentives: {type: Number, default: 0},
+  invitesSent: {type: Number, default: 0},
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

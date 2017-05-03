@@ -114,4 +114,19 @@ describe('POST /tasks/:taskId/unassign/:memberId', () => {
     expect(groupTask[0].group.assignedUsers).to.contain(member2._id);
     expect(member2SyncedTask).to.exist;
   });
+
+  it('allows a manager to unassign a user from a task', async () => {
+    await user.post(`/groups/${guild._id}/add-manager`, {
+      managerId: member2._id,
+    });
+
+    await member2.post(`/tasks/${task._id}/unassign/${member._id}`);
+
+    let groupTask = await member2.get(`/tasks/group/${guild._id}`);
+    let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, findAssignedTask);
+
+    expect(groupTask[0].group.assignedUsers).to.not.contain(member._id);
+    expect(syncedTask).to.not.exist;
+  });
 });
