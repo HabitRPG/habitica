@@ -227,67 +227,64 @@ export function moveTask (order, taskId, to) {
   }
 }
 
-export function ageDailies (user, now, daysMissed, dailies) {
+export function ageDailies (user, daysMissed, dailies) {
   // For incomplete Dailys, add value (further incentive), deduct health, keep records for later decreasing the nightly mana gain
   let dailyChecked = 0; // how many dailies were checked?
   let dailyDueUnchecked = 0; // how many dailies were un-checked?
   let atLeastOneDailyDue = false; // were any dailies due?
   if (!user.party.quest.progress.down) user.party.quest.progress.down = 0;
   let perfect = true;
-  let multiDaysCountAsOneDay = true;
+  let now = moment();
 
   dailies.forEach((task) => {
     let scheduleMisses = 0;
     let EvadeTask = 0;
 
-    for (let i = 0; i < daysMissed; i++) {
-      let thatDay = moment(now).subtract({days: i + 1});
+    let thatDay = moment(now).subtract({days: 1});
 
-      if (!shouldDo(thatDay.toDate(), task, user.preferences)) continue; // eslint-disable-line no-continue
-
-      user.yesterDailies.push(task._id);
-      // atLeastOneDailyDue = true;
-      // scheduleMisses++;
-      // if (user.stats.buffs.stealth) {
-      //   user.stats.buffs.stealth--;
-      //   EvadeTask++;
-      // }
-      // if (multiDaysCountAsOneDay) break;
+    if (shouldDo(thatDay.toDate(), task, user.preferences)) {
+      atLeastOneDailyDue = true;
+      scheduleMisses++;
+      if (user.stats.buffs.stealth) {
+        user.stats.buffs.stealth--;
+        EvadeTask++;
+      }
     }
 
-    if (scheduleMisses > EvadeTask) {
-      // The user did not complete this due Daily (but no penalty if cron is running in safe mode).
-      if (CRON_SAFE_MODE) {
-        dailyChecked += 1; // allows full allotment of mp to be gained
-      } else {
-        perfect = false;
+    if (scheduleMisses <= EvadeTask) return;
 
-        if (task.checklist && task.checklist.length > 0) { // Partially completed checklists dock fewer mana points
-          let fractionChecked = _.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0) / task.checklist.length;
-          dailyDueUnchecked += 1 - fractionChecked;
-          dailyChecked += fractionChecked;
-        } else {
-          dailyDueUnchecked += 1;
-        }
+    // The user did not complete this due Daily (but no penalty if cron is running in safe mode).
+    if (CRON_SAFE_MODE) {
+      dailyChecked += 1; // allows full allotment of mp to be gained
+      return;
+    }
 
-        let delta = scoreTask({
-          user,
-          task,
-          direction: 'down',
-          times: multiDaysCountAsOneDay ? 1 : scheduleMisses - EvadeTask,
-          cron: true,
-        });
+    perfect = false;
 
-        if (!CRON_SEMI_SAFE_MODE) {
-          // Apply damage from a boss, less damage for Trivial priority (difficulty)
-          user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
-          // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
-          // initially, and when we realised, we could not fix it because users are used to
-          // their Medium and Hard Dailies doing an Easy amount of damage from boss.
-          // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
-          // setting between Trivial and Easy.
-        }
-      }
+    if (task.checklist && task.checklist.length > 0) { // Partially completed checklists dock fewer mana points
+      let fractionChecked = _.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0) / task.checklist.length;
+      dailyDueUnchecked += 1 - fractionChecked;
+      dailyChecked += fractionChecked;
+    } else {
+      dailyDueUnchecked += 1;
+    }
+
+    let delta = scoreTask({
+      user,
+      task,
+      direction: 'down',
+      times: 1,
+      cron: true,
+    });
+
+    if (!CRON_SEMI_SAFE_MODE) {
+      // Apply damage from a boss, less damage for Trivial priority (difficulty)
+      user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
+      // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
+      // initially, and when we realised, we could not fix it because users are used to
+      // their Medium and Hard Dailies doing an Easy amount of damage from boss.
+      // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
+      // setting between Trivial and Easy.
     }
   });
 }
