@@ -93,7 +93,7 @@
     "passwordSuccess": "成功更改密碼",
     "usernameSuccess": "成功修改帳號",
     "emailSuccess": "成功更改電子郵件位置",
-    "detachSocial": "註銷<%= network%>註冊",
+    "detachSocial": "註銷<%= network %>註冊",
     "detachedSocial": "Successfully removed <%= network %> authentication from your account",
     "addedLocalAuth": "成功加入本地端認證",
     "data": "數據",
