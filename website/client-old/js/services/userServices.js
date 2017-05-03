@@ -240,6 +240,7 @@ angular.module('habitrpg')
             $window.habitrpgShared.ops.scoreTask({user: user, task: data.params.task, direction: data.params.direction}, data.params);
           } catch (err) {
             Notification.text(err.message);
+            sync();
             return;
           }
 

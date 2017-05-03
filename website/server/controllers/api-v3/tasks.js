@@ -530,6 +530,14 @@ api.scoreTask = {
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
+    if (task.completed && (task.type === 'daily' || task.type === 'todo') && direction === 'up') {
+      throw new NotAuthorized('Your session is outdated. Please refresh the page.');
+    }
+
+    if (!task.completed && (task.type === 'daily' || task.type === 'todo') && direction === 'down') {
+      throw new NotAuthorized('Your session is outdated. Please refresh the page.');
+    }
+
     if (task.group.approval.required && !task.group.approval.approved) {
       if (task.group.approval.requested) {
         throw new NotAuthorized(res.t('taskRequiresApproval'));
