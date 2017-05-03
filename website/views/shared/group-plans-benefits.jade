@@ -1,9 +1,10 @@
 mixin groupPlansBenefits()
   h2.text-center=env.t('groupBenefitsTitle')
   .row(style="font-size: 2rem;")
-    .col-md-6.col-md-offset-3=env.t('groupBenefitsDescription')
-  .row
-    .col-md-5.col-md-offset-4
+    .col-md-6.col-md-offset-3.text-center=env.t('groupBenefitsDescription')
+  .row.row-margin
+    .col-md-4
+      h2=env.t('teamBasedTasks')
       div
         h3
           span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
@@ -27,13 +28,23 @@ mixin groupPlansBenefits()
       div
         h3
           span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
+          =env.t('groupBenefitGroupManagersTitle')
+        span=env.t('groupBenefitGroupManagersDescription')
+
+    .col-md-4
+      h2=env.t('specializedCommunication')
+      div
+        h3
+          span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
           =env.t('groupBenefitChatPrivatelyTitle')
         span=env.t('groupBenefitChatPrivatelyDescription')
       div
         h3
           span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
-          =env.t('groupBenefitGroupManagersTitle')
-        span=env.t('groupBenefitGroupManagersDescription')
+          =env.t('groupBenefitMessageLimitTitle')
+        span=env.t('groupBenefitMessageLimitDescription')
+    .col-md-4
+      h2=env.t('funExtras')
       div
         h3
           span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
