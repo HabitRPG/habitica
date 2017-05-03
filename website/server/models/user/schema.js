@@ -541,6 +541,7 @@ let schema = new Schema({
     todos: [{type: String, ref: 'Task'}],
     rewards: [{type: String, ref: 'Task'}],
   },
+  yesterDalies: [{type: String, ref: 'Task'}],
   extra: {type: Schema.Types.Mixed, default: () => {
     return {};
   }},
