@@ -1,9 +1,18 @@
+import moment from 'moment';
+import Bluebird from 'bluebird';
+import _ from 'lodash';
+import nconf from 'nconf';
+
+import common from '../../common/';
 import * as Tasks from '../models/task';
 import {
   BadRequest,
 } from './errors';
-import Bluebird from 'bluebird';
-import _ from 'lodash';
+
+const shouldDo = common.shouldDo;
+const scoreTask = common.ops.scoreTask
+const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
+const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 
 async function _validateTaskAlias (tasks, res) {
   let tasksWithAliases = tasks.filter(task => task.alias);
@@ -216,4 +225,69 @@ export function moveTask (order, taskId, to) {
   } else {
     order.splice(to, 0, taskId);
   }
+}
+
+export function ageDailies (user, now, daysMissed, dailies) {
+  // For incomplete Dailys, add value (further incentive), deduct health, keep records for later decreasing the nightly mana gain
+  let dailyChecked = 0; // how many dailies were checked?
+  let dailyDueUnchecked = 0; // how many dailies were un-checked?
+  let atLeastOneDailyDue = false; // were any dailies due?
+  if (!user.party.quest.progress.down) user.party.quest.progress.down = 0;
+  let perfect = true;
+  let multiDaysCountAsOneDay = true;
+
+  dailies.forEach((task) => {
+    let scheduleMisses = 0;
+    let EvadeTask = 0;
+
+    for (let i = 0; i < daysMissed; i++) {
+      let thatDay = moment(now).subtract({days: i + 1});
+
+      if (!shouldDo(thatDay.toDate(), task, user.preferences)) continue; // eslint-disable-line no-continue
+
+      user.yesterDailies.push(task._id);
+      // atLeastOneDailyDue = true;
+      // scheduleMisses++;
+      // if (user.stats.buffs.stealth) {
+      //   user.stats.buffs.stealth--;
+      //   EvadeTask++;
+      // }
+      // if (multiDaysCountAsOneDay) break;
+    }
+
+    if (scheduleMisses > EvadeTask) {
+      // The user did not complete this due Daily (but no penalty if cron is running in safe mode).
+      if (CRON_SAFE_MODE) {
+        dailyChecked += 1; // allows full allotment of mp to be gained
+      } else {
+        perfect = false;
+
+        if (task.checklist && task.checklist.length > 0) { // Partially completed checklists dock fewer mana points
+          let fractionChecked = _.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0) / task.checklist.length;
+          dailyDueUnchecked += 1 - fractionChecked;
+          dailyChecked += fractionChecked;
+        } else {
+          dailyDueUnchecked += 1;
+        }
+
+        let delta = scoreTask({
+          user,
+          task,
+          direction: 'down',
+          times: multiDaysCountAsOneDay ? 1 : scheduleMisses - EvadeTask,
+          cron: true,
+        });
+
+        if (!CRON_SEMI_SAFE_MODE) {
+          // Apply damage from a boss, less damage for Trivial priority (difficulty)
+          user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
+          // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
+          // initially, and when we realised, we could not fix it because users are used to
+          // their Medium and Hard Dailies doing an Easy amount of damage from boss.
+          // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
+          // setting between Trivial and Easy.
+        }
+      }
+    }
+  });
 }
