@@ -43,37 +43,45 @@ describe('shouldDo', () => {
     beforeEach(() => {
       dailyTask.frequency = 'daily';
     });
+
     context('User timezone is UTC', () => {
       beforeEach(() => {
         options.timezoneOffset = 0;
       });
+
       it('returns true if Start Date is before today', () => {
         dailyTask.startDate = moment().subtract(1, 'days').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
+
       it('returns true if Start Date is today',  () => {
         dailyTask.startDate = moment().toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
     });
+
     context('User timezone is between UTC-12 and UTC (0~720)', () => {
       beforeEach(() => {
         options.timezoneOffset = 600;
       });
+
       it('returns true if Start Date is before today', () => {
         dailyTask.startDate = moment().subtract(1, 'days').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
+
       it('returns true if Start Date is today',  () => {
         dailyTask.startDate = moment().startOf('day').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
+
       it('returns true if the user\'s current time is after start date and CDS', () => {
         options.dayStart = 4;
         day = moment().utcOffset(options.timezoneOffset).startOf('day').add(6, 'hours').toDate();
         dailyTask.startDate = moment().utcOffset(options.timezoneOffset).subtract(1, 'day').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
+
       it('returns false if the user\'s current time is before CDS', () => {
         options.dayStart = 8;
         day = moment().utcOffset(options.timezoneOffset).startOf('day').add(2, 'hours').toDate();
@@ -81,23 +89,28 @@ describe('shouldDo', () => {
         expect(shouldDo(day, dailyTask, options)).to.equal(false);
       });
     });
+
     context('User timezone is between UTC and GMT+14 (-840~0)', () => {
       beforeEach(() => {
         options.timezoneOffset = -420;
       });
+
       it('returns true if Start Date is before today', () => {
         dailyTask.startDate = moment().subtract(1, 'days').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
+
       it('returns true if Start Date is today',  () => {
         dailyTask.startDate = moment().startOf('day').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
+
       it('returns true if the user\'s current time is after CDS', () => {
         options.dayStart = 4;
         day = moment().utcOffset(options.timezoneOffset).startOf('day').add(6, 'hours').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
+
       it('returns false if the user\'s current time is before CDS', () => {
         options.dayStart = 8;
         day = moment().utcOffset(options.timezoneOffset).startOf('day').add(2, 'hours').toDate();
@@ -113,22 +126,31 @@ describe('shouldDo', () => {
       dailyTask.everyX = 2;
       dailyTask.startDate = new Date();
     });
+
     context('CDS is midnight (Default dayStart=0)', () => {
       beforeEach(() => {
         options.dayStart = 0;
       });
+
       context('Current Date is yesterday', () => {
         it('should not be due yesterday', () => {
           day = moment(day).subtract(1, 'days').toDate();
           expect(shouldDo(day, dailyTask, options)).to.equal(false);
         });
       });
+
       context('Current Date is today', () => {
         it('returns false if current time is before midnight', () => {
-          day = moment(day).startOf('day').add(1, 'hours').toDate();
+          day = moment(day).startOf('day').subtract(1, 'hours').toDate();
           expect(shouldDo(day, dailyTask, options)).to.equal(false);
         });
+
+        it('returns true if current time is after midnight', () => {
+          day = moment(day).startOf('day').add(1, 'hours').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(true);
+        });
       });
+
       context('Current Date is tomorrow', () => {
         it('should not be due tomorrow', () => {
           day = moment(day).add(1, 'days').toDate();
@@ -136,31 +158,37 @@ describe('shouldDo', () => {
         });
       });
     });
+
     context('CDS is 0 <= n < 24', () => {
       beforeEach(() => {
         options.dayStart = 7;
       });
+
       context('Current Date is yesterday', () => {
         it('should not be due yesterday', () => {
           day = moment(day).subtract(1, 'days').toDate();
           expect(shouldDo(day, dailyTask, options)).to.equal(false);
         });
       });
+
       context('Current Date is today', () => {
         it('returns false if current hour is before CDS', () => {
           day = moment(day).startOf('day').add(1, 'hours').toDate();
           expect(shouldDo(day, dailyTask, options)).to.equal(false);
         });
+
         it('returns true if current hour is after CDS', () => {
           day = moment(day).startOf('day').add(9, 'hours').toDate();
           expect(shouldDo(day, dailyTask, options)).to.equal(true);
         });
       });
+
       context('Current Date is tomorrow', () => {
         it('returns true if current hour is before CDS', () => {
           day = moment(day).endOf('day').add(1, 'hours').toDate();
           expect(shouldDo(day, dailyTask, options)).to.equal(true);
         });
+
         it('returns false if current hour is after CDS', () => {
           day = moment(day).endOf('day').add(9, 'hours').toDate();
           expect(shouldDo(day, dailyTask, options)).to.equal(false);
@@ -206,6 +234,7 @@ describe('shouldDo', () => {
         day = moment(day).add(7, 'days');
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
+
       it('returns true when current time is after CDS', () => {
         dailyTask.startDate = moment().subtract(5, 'days').toDate();
         dailyTask.everyX = 5;
@@ -215,6 +244,7 @@ describe('shouldDo', () => {
 
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
+
       it('returns false when current time is before CDS', () => {
         dailyTask.startDate = moment().subtract(5, 'days').toDate();
         dailyTask.everyX = 5;
@@ -230,21 +260,25 @@ describe('shouldDo', () => {
       beforeEach(() => {
         dailyTask.everyX = 0;
       });
+
       it('returns false on the Start Date', () => {
         dailyTask.startDate = moment().subtract(4, 'days').toDate();
         day = moment().subtract(4, 'days').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(false);
       });
+
       it('returns false on the day before Start Date', () => {
         dailyTask.startDate = moment().subtract(4, 'days').toDate();
         day = moment().subtract(5, 'days').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(false);
       });
+
       it('returns false on the day after Start Date', () => {
         dailyTask.startDate = moment().subtract(4, 'days').toDate();
         day = moment().subtract(3, 'days').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(false);
       });
+
       it('returns false for today', () => {
         dailyTask.startDate = moment().toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(false);
@@ -327,6 +361,7 @@ describe('shouldDo', () => {
         6: 's',
         7: 'su',
       };
+
       beforeEach(() => {
         // Set repeat day to current weekday
         const currentWeekday = moment().isoWeekday();
@@ -342,22 +377,31 @@ describe('shouldDo', () => {
         };
         dailyTask.repeat[weekdayMap[currentWeekday]] = true;
       });
+
       context('CDS is midnight (Default dayStart=0)', () => {
         beforeEach(() => {
           options.dayStart = 0;
         });
+
         context('Current Date is one day before the matching day', () => {
           it('should return false', () => {
             day = moment(day).subtract(1, 'days').toDate();
             expect(shouldDo(day, dailyTask, options)).to.equal(false);
           });
         });
+
         context('Current Date is on the matching day', () => {
           it('returns false if current time is before midnight', () => {
-            day = moment(day).startOf('day').add(1, 'hours').toDate();
+            day = moment(day).startOf('day').subtract(1, 'hours').toDate();
             expect(shouldDo(day, dailyTask, options)).to.equal(false);
           });
+
+          it('returns true if current time is after midnight', () => {
+            day = moment(day).startOf('day').add(1, 'hours').toDate();
+            expect(shouldDo(day, dailyTask, options)).to.equal(true);
+          });
         });
+
         context('Current Date is one day after the matching day', () => {
           it('should not be due tomorrow', () => {
             day = moment(day).add(1, 'days').toDate();
@@ -365,31 +409,37 @@ describe('shouldDo', () => {
           });
         });
       });
+
       context('CDS is 0 <= n < 24', () => {
         beforeEach(() => {
           options.dayStart = 7;
         });
+
         context('Current Date is one day before the matching day', () => {
           it('should not be due', () => {
             day = moment(day).subtract(1, 'days').toDate();
             expect(shouldDo(day, dailyTask, options)).to.equal(false);
           });
         });
+
         context('Current Date is on the matching day', () => {
           it('returns false if current hour is before CDS', () => {
             day = moment(day).startOf('day').add(1, 'hours').toDate();
             expect(shouldDo(day, dailyTask, options)).to.equal(false);
           });
+
           it('returns true if current hour is after CDS', () => {
             day = moment(day).startOf('day').add(9, 'hours').toDate();
             expect(shouldDo(day, dailyTask, options)).to.equal(true);
           });
         });
+
         context('Current Date is one day after the matching day', () => {
           it('returns true if current hour is before CDS', () => {
             day = moment(day).endOf('day').add(1, 'hours').toDate();
             expect(shouldDo(day, dailyTask, options)).to.equal(true);
           });
+
           it('returns false if current hour is after CDS', () => {
             day = moment(day).endOf('day').add(9, 'hours').toDate();
             expect(shouldDo(day, dailyTask, options)).to.equal(false);
@@ -410,17 +460,21 @@ describe('shouldDo', () => {
           m: false,
         };
       });
+
       it('returns false for a day before the Start Date', () => {
         day = moment().subtract(1, 'days').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(false);
       });
+
       it('returns false for the Start Date', () => {
         expect(shouldDo(day, dailyTask, options)).to.equal(false);
       });
+
       it('returns false for a day after the Start Date', () => {
         day = moment().add(1, 'days').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(false);
       });
+
       it('returns false for today', () => {
         expect(shouldDo(day, dailyTask, options)).to.equal(false);
       });
