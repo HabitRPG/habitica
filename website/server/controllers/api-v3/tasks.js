@@ -14,6 +14,7 @@ import {
   BadRequest,
 } from '../../libs/errors';
 import {
+  ageDailies,
   createTasks,
   getTasks,
   moveTask,
@@ -1245,6 +1246,38 @@ api.deleteTask = {
         task,
       });
     }
+  },
+};
+
+/**
+ * @api {post} /api/v3/tasks/age-dailies Ages dailies that are in the uesterDailies field
+ * @apiName AgeDailies
+ * @apiGroup Task
+ *
+ *
+ * @apiExample {json} Example call:
+ * curl -X "POST" https://habitica.com/api/v3/tasks/age-dailies
+ *
+ * @apiSuccess {Object} data An empty object
+ *
+ */
+api.ageDailies = {
+  method: 'POST',
+  url: '/tasks/age-dailies',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    let taskIds = user.yesterDailies;
+    let dailies = await Tasks.Task.find({_id: taskIds, type: 'daily'}).exec();
+    let daysMissed = 1; // I believe we only handle one day damage now. Maybe multi can be for hard mode?
+
+    ageDailies(user, daysMissed, dailies);
+
+    user.yesterDailies = [];
+    await user.save();
+
+    res.respond(200, {});
   },
 };
 
