@@ -221,6 +221,20 @@ describe('POST /user/class/cast/:spellId', () => {
     expect(syncedGroupTask.value).to.equal(0);
   });
 
+  it('increases both user\'s achievement values', async () => {
+    let recipient = await generateUser();
+    await user.update({'stats.gp': 10});
+    await user.post(`/user/cast/cast/birthday?targetId=${recipient.id}`);
+    expect(user.achievements.birthday).to.equal(1);
+    expect(recipient.achievements.birthday).to.equal(1);
+  });
+
+  it('only increases user\'s achievement one if target == caster', async () => {
+    await user.update({'stats.gp': 10});
+    await user.post(`/user/cast/cast/birthday?targetId=${user.id}`);
+    expect(user.achievements.birthday).to.equal(1);
+  });
+
   // TODO find a way to have sinon working in integration tests
   // it doesn't work when tests are running separately from server
   it('passes correct target to spell when targetType === \'task\'');
