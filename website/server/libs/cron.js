@@ -242,7 +242,7 @@ export function cron (options = {}) {
   let dailyDueUnchecked = 0; // how many dailies were un-checked?
   let atLeastOneDailyDue = false; // were any dailies due?
   if (!user.party.quest.progress.down) user.party.quest.progress.down = 0;
-  user.yesterDalies = [];
+  user.yesterDailies = [];
 
   tasksByType.dailys.forEach((task) => {
     let completed = task.completed;
@@ -265,7 +265,7 @@ export function cron (options = {}) {
 
         if (!shouldDo(thatDay.toDate(), task, user.preferences)) continue; // eslint-disable-line no-continue
 
-        user.yesterDalies.push(task._id);
+        user.yesterDailies.push(task._id);
         // atLeastOneDailyDue = true;
         // scheduleMisses++;
         // if (user.stats.buffs.stealth) {

@@ -584,6 +584,11 @@ api.scoreTask = {
       }
     }
 
+    let indexOfYesterday = user.yesterDailies.indexOf(task._id);
+    if (indexOfYesterday !== -1) {
+      user.yesterDailies.splice(indexOfYesterday, 1);
+    }
+
     let results = await Bluebird.all([
       user.save(),
       task.save(),
