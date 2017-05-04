@@ -255,6 +255,13 @@ angular.module('habitrpg')
       });
     };
 
+    function ageDailies () {
+      return $http({
+        method: 'POST',
+        url: '/api/v3/tasks/age-dailies',
+      });
+    };
+
     function editTask(task, user, taskStatus, scopeInc) {
       // @TODO: This should be it's own controller. And methods should be abstracted form the three task ctrls to a directive/ctrl
       var modalScope = $rootScope.$new();
@@ -504,6 +511,7 @@ angular.module('habitrpg')
       cloneTask: cloneTask,
       assignTask: assignTask,
       unAssignTask: unAssignTask,
+      ageDailies: ageDailies,
 
       addChecklist: addChecklist,
       addChecklistItemToUI: addChecklistItemToUI,

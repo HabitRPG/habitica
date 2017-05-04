@@ -4,6 +4,38 @@ habitrpg.controller('NotificationCtrl',
   ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement', 'Social', 'Tasks',
   function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement, Social, Tasks) {
 
+    $rootScope.$watch('user.yesterDailies', function (after, before) {
+      if (after.length === 0) return;
+
+      var yesterDailies = [];
+      after.forEach((taskId) => {
+        let dailyFound = _.find(User.user.dailys, (task) => {
+          return taskId === task._id;
+        });
+        if (dailyFound) yesterDailies.push(dailyFound);
+      });
+
+      var modalScope = $rootScope.$new();
+      modalScope.obj = User.user;
+      modalScope.taskList = yesterDailies;
+      modalScope.list = {
+        showCompleted: false,
+        type: 'daily',
+      };
+
+      $rootScope.openModal('yesterDailies', {
+        scope: modalScope,
+        controller: ['$scope', 'Tasks', 'User', function ($scope, Tasks, User) {
+          $scope.ageDailies = function () {
+            Tasks.ageDailies()
+              .then(function () {
+                User.sync();
+              });
+          };
+        }],
+      });
+    });
+
     $rootScope.$watch('user.stats.hp', function (after, before) {
       if (after <= 0){
         $rootScope.playSound('Death');

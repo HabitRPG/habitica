@@ -167,5 +167,8 @@
     "taskNotes": "Task Notes",
     "monthlyRepeatHelpContent": "This task will be due every X months",
     "yearlyRepeatHelpContent": "This task will be due every X years",
-    "resets": "Resets"
+    "resets": "Resets",
+    "yesterDailiesTitle": "Did you completed any of these?",
+    "yesterDailiesSubTitle": "(Check any you have)",
+    "yesterDailiesCallToAction": "That's All"
 }
