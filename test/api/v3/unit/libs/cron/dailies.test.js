@@ -9,7 +9,7 @@ import analytics from '../../../../../../website/server/libs/analyticsService';
 
 let pathToCronLib = '../../../../../../website/server/libs/cron';
 
-describe('dailys', () => {
+describe.only('dailys', () => {
   let user;
   let tasksByType = {habits: [], dailys: [], todos: [], rewards: []};
   let daysMissed = 0;
