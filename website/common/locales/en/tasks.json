@@ -168,7 +168,8 @@
     "monthlyRepeatHelpContent": "This task will be due every X months",
     "yearlyRepeatHelpContent": "This task will be due every X years",
     "resets": "Resets",
-    "yesterDailiesTitle": "Did you completed any of these?",
+    "yesterDailiesTitle": "Did you complete any of these?",
     "yesterDailiesSubTitle": "(Check any you have)",
-    "yesterDailiesCallToAction": "That's All"
+    "yesterDailiesCallToAction": "That's All",
+    "yesterDailiesOptionTitle": "Mark this as a Yesterdaily?"
 }

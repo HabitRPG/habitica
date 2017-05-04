@@ -10,6 +10,11 @@ div(ng-if='(task.type !== "reward") || (!obj.auth && obj.purchased && obj.purcha
     input.form-control(ng-model='task._edit.alias' type='text' placeholder=env.t('taskAliasPlaceholder'))
 
   include ./habits/frequency
+  
+  fieldset.option-group.advanced-option(ng-if='task.type === "daily" && task._edit._advanced')
+    .form-group
+      input(type='checkbox', ng-model='task._edit.yesterDaily', ng-disabled='!canEdit(task)')
+      legend.option-title=env.t('yesterDailiesOptionTitle')  
 
   fieldset.option-group.advanced-option(ng-show="task._edit._advanced", ng-if="!obj.auth && obj.purchased && obj.purchased.active")
     group-tasks-actions(task='task', group='obj')
