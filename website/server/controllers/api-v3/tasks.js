@@ -447,6 +447,8 @@ api.updateTask = {
       sanitizedObj = Tasks.Task.sanitize(updatedTaskObj);
     }
 
+    console.log(updatedTaskObj)
+
     _.assign(task, sanitizedObj);
     // console.log(task.modifiedPaths(), task.toObject().repeat === tep)
     // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()

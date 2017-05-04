@@ -264,8 +264,10 @@ export function cron (options = {}) {
 
         if (!shouldDo(thatDay.toDate(), task, user.preferences)) continue; // eslint-disable-line no-continue
 
-        // @TODO: add yesterdaily check
-        user.yesterDailies.push(task._id);
+        if (task.yesterDaily) {
+          user.yesterDailies.push(task._id);
+          continue; // eslint-disable-line no-continue
+        }
 
         atLeastOneDailyDue = true;
         scheduleMisses++;

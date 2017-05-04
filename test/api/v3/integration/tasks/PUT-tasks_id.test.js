@@ -395,12 +395,14 @@ describe('PUT /tasks/:id', () => {
         notes: 'some new notes',
         frequency: 'daily',
         everyX: 5,
+        yesterDaily: false,
       });
 
       expect(savedDaily.text).to.eql('some new text');
       expect(savedDaily.notes).to.eql('some new notes');
       expect(savedDaily.frequency).to.eql('daily');
       expect(savedDaily.everyX).to.eql(5);
+      expect(savedDaily.yesterDaily).to.be.false;
     });
 
     it('can update checklists (replace it)', async () => {

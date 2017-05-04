@@ -9,7 +9,7 @@ import analytics from '../../../../../../website/server/libs/analyticsService';
 
 let pathToCronLib = '../../../../../../website/server/libs/cron';
 
-describe.only('dailys', () => {
+describe('dailys', () => {
   let user;
   let tasksByType = {habits: [], dailys: [], todos: [], rewards: []};
   let daysMissed = 0;
@@ -78,6 +78,7 @@ describe.only('dailys', () => {
   describe('yesterDailies', () => {
     it('should store dailies that are incomplete', () => {
       daysMissed = 1;
+      tasksByType.dailys[0].yesterDaily = true;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
 
       cron({user, tasksByType, daysMissed, analytics});
@@ -87,6 +88,7 @@ describe.only('dailys', () => {
 
     it('should store new dailies that are incomplete in place of the last', () => {
       daysMissed = 1;
+      tasksByType.dailys[0].yesterDaily = true;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
 
       cron({user, tasksByType, daysMissed, analytics});
@@ -105,12 +107,23 @@ describe.only('dailys', () => {
       expect(user.yesterDailies[0]).to.eql(tasksByType.dailys[1]._id);
     });
 
-    xit('should not damage the user', () => {
+    it('should not damage the user', () => {
+      let hpBefore = user.stats.hp;
+      daysMissed = 1;
+      tasksByType.dailys[0].yesterDaily = true;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
 
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.stats.hp).to.be.equal(hpBefore);
     });
   });
 
   describe('missed dailies', () => {
+    beforeEach(() => {
+      tasksByType.dailys[0].yesterDaily = false;
+    });
+
     it('should do damage for missing a daily', () => {
       daysMissed = 1;
       let hpBefore = user.stats.hp;
