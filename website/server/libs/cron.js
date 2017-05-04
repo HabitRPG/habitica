@@ -286,12 +286,11 @@ export function cron (options = {}) {
     }
   });
 
-  let {dailyChecked2, dailyDueUnchecked2, atLeastOneDailyDue2, perfect2} = ageDailies(user, daysMissed, dailiesToAge);
-  dailyChecked += dailyChecked2;
-  dailyDueUnchecked += dailyDueUnchecked2;
-  if (!atLeastOneDailyDue) atLeastOneDailyDue = atLeastOneDailyDue2;
-  if (perfect) perfect = perfect2;
-
+  let {dailyCheckedAged, dailyDueUncheckedAged, atLeastOneDailyDueAged, perfectAged} = ageDailies(user, daysMissed, dailiesToAge);
+  dailyChecked += dailyCheckedAged;
+  dailyDueUnchecked += dailyDueUncheckedAged;
+  if (!atLeastOneDailyDue) perfectAged = atLeastOneDailyDueAged;
+  if (perfect) perfect = perfectAged;
 
   // check if we've passed a day on which we should reset the habit counters, including today
   let resetWeekly = false;
@@ -369,6 +368,7 @@ export function cron (options = {}) {
   // Add 10 MP, or 10% of max MP if that'd be more. Perform this after Perfect Day for maximum benefit
   // Adjust for fraction of dailies completed
   if (dailyDueUnchecked === 0 && dailyChecked === 0) dailyChecked = 1;
+
   user.stats.mp += _.max([10, 0.1 * user._statsComputed.maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked);
   if (user.stats.mp > user._statsComputed.maxMP) user.stats.mp = user._statsComputed.maxMP;
 

@@ -229,11 +229,11 @@ export function moveTask (order, taskId, to) {
 
 export function ageDailies (user, daysMissed, dailies) {
   // For incomplete Dailys, add value (further incentive), deduct health, keep records for later decreasing the nightly mana gain
-  let dailyChecked = 0; // how many dailies were checked?
-  let dailyDueUnchecked = 0; // how many dailies were un-checked?
-  let atLeastOneDailyDue = false; // were any dailies due?
+  let dailyCheckedAged = 0; // how many dailies were checked?
+  let dailyDueUncheckedAged = 0; // how many dailies were un-checked?
+  let atLeastOneDailyDueAged = false; // were any dailies due?
   if (!user.party.quest.progress.down) user.party.quest.progress.down = 0;
-  let perfect = true;
+  let perfectAged = true;
   let now = moment();
 
   dailies.forEach((task) => {
@@ -243,7 +243,7 @@ export function ageDailies (user, daysMissed, dailies) {
     let thatDay = moment(now).subtract({days: 1});
 
     if (shouldDo(thatDay.toDate(), task, user.preferences)) {
-      atLeastOneDailyDue = true;
+      atLeastOneDailyDueAged = true;
       scheduleMisses++;
       if (user.stats.buffs.stealth) {
         user.stats.buffs.stealth--;
@@ -255,18 +255,18 @@ export function ageDailies (user, daysMissed, dailies) {
 
     // The user did not complete this due Daily (but no penalty if cron is running in safe mode).
     if (CRON_SAFE_MODE) {
-      dailyChecked += 1; // allows full allotment of mp to be gained
+      dailyCheckedAged += 1; // allows full allotment of mp to be gained
       return;
     }
 
-    perfect = false;
+    perfectAged = false;
 
     if (task.checklist && task.checklist.length > 0) { // Partially completed checklists dock fewer mana points
       let fractionChecked = _.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0) / task.checklist.length;
-      dailyDueUnchecked += 1 - fractionChecked;
-      dailyChecked += fractionChecked;
+      dailyDueUncheckedAged += 1 - fractionChecked;
+      dailyCheckedAged += fractionChecked;
     } else {
-      dailyDueUnchecked += 1;
+      dailyDueUncheckedAged += 1;
     }
 
     let delta = scoreTask({
@@ -288,5 +288,5 @@ export function ageDailies (user, daysMissed, dailies) {
     }
   });
 
-  return {dailyChecked, dailyDueUnchecked, atLeastOneDailyDue, perfect};
+  return {dailyCheckedAged, dailyDueUncheckedAged, atLeastOneDailyDueAged, perfectAged};
 }
