@@ -10,7 +10,7 @@ import {
 } from './errors';
 
 const shouldDo = common.shouldDo;
-const scoreTask = common.ops.scoreTask
+const scoreTask = common.ops.scoreTask;
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 
@@ -287,4 +287,6 @@ export function ageDailies (user, daysMissed, dailies) {
       // setting between Trivial and Easy.
     }
   });
+
+  return {dailyChecked, dailyDueUnchecked, atLeastOneDailyDue, perfect};
 }

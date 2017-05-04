@@ -134,7 +134,8 @@ describe('dailys', () => {
       expect(user.stats.hp).to.be.lessThan(hpBefore);
     });
 
-    it('should not do damage for missing a daily when CRON_SAFE_MODE is set', () => {
+    // This test has moved to the task manager unit test. Leaving it here to confirm
+    xit('should not do damage for missing a daily when CRON_SAFE_MODE is set', () => {
       sandbox.stub(nconf, 'get').withArgs('CRON_SAFE_MODE').returns('true');
       let cronOverride = requireAgain(pathToCronLib).cron;
 
