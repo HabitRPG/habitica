@@ -137,9 +137,23 @@ describe('POST /tasks/:id/score/:direction', () => {
       expect(updatedTask.dateCompleted).to.be.a('undefined');
     });
 
-    it('scores up todo even if it is already completed'); // Yes?
+    it('doesn\'t let a todo be completed twice', async () => {
+      await user.post(`/tasks/${todo._id}/score/up`);
+      await expect(user.post(`/tasks/${todo._id}/score/up`)).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('sessionOutdated'),
+      });
+    });
 
-    it('scores down todo even if it is already uncompleted'); // Yes?
+    it('doesn\'t let a todo be uncompleted twice', async () => {
+      await user.post(`/tasks/${todo._id}/score/down`);
+      await expect(user.post(`/tasks/${todo._id}/score/down`)).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('sessionOutdated'),
+      });
+    });
 
     context('user stats when direction is up', () => {
       let updatedUser;
@@ -208,9 +222,23 @@ describe('POST /tasks/:id/score/:direction', () => {
       expect(task.completed).to.equal(false);
     });
 
-    it('scores up daily even if it is already completed'); // Yes?
+    it('doesn\'t let a daily be completed twice', async () => {
+      await user.post(`/tasks/${daily._id}/score/up`);
+      await expect(user.post(`/tasks/${daily._id}/score/up`)).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('sessionOutdated'),
+      });
+    });
 
-    it('scores down daily even if it is already uncompleted'); // Yes?
+    it('doesn\'t let a daily be uncompleted twice', async () => {
+      await user.post(`/tasks/${daily._id}/score/down`);
+      await expect(user.post(`/tasks/${daily._id}/score/down`)).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('sessionOutdated'),
+      });
+    });
 
     context('user stats when direction is up', () => {
       let updatedUser;
