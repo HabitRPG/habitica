@@ -76,10 +76,12 @@ describe('Stripe Payments', () => {
     });
 
     it('should purchase gems', async () => {
+      gift = undefined;
+
       await stripePayments.checkout({
         token,
         user,
-        gift: undefined,
+        gift,
         groupId,
         email,
         headers,
