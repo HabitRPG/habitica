@@ -32,7 +32,7 @@ describe('shared.ops.releasePets', () => {
   });
 
   it('releases pets', () => {
-    let [, message] = releasePets(user);
+    let message = releasePets(user)[1];
 
     expect(message).to.equal(i18n.t('petsReleased'));
     expect(user.items.pets[animal]).to.equal(0);
@@ -68,5 +68,22 @@ describe('shared.ops.releasePets', () => {
     releasePets(user);
 
     expect(user.achievements.beastMasterCount).to.equal(1);
+  });
+
+  it('does not increment beastMasterCount if any pet is level 0 (released)', () => {
+    let beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
+
+    user.items.pets[animal] = 0;
+    releasePets(user);
+
+    expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+  });
+
+  it('does not increment beastMasterCount if any pet is missing (null)', () => {
+    let beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
+    user.items.pets[animal] = null;
+    releasePets(user);
+
+    expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
   });
 });
