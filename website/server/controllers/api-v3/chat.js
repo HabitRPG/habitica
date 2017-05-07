@@ -175,7 +175,7 @@ api.postChat = {
         {name: 'AUTHOR_USERNAME', content: user.profile.name},
         {name: 'AUTHOR_UUID', content: user._id},
         {name: 'AUTHOR_EMAIL', content: authorEmail},
-        {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
+        {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${user._id}`},
 
         {name: 'GROUP_NAME', content: group.name},
         {name: 'GROUP_TYPE', content: group.type},
