@@ -5,6 +5,7 @@ import {
   server,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
+import * as email from '../../../../../website/server/libs/email';
 
 describe('POST /chat', () => {
   let user, groupWithChat, userWithChatRevoked, member;
@@ -13,6 +14,8 @@ describe('POST /chat', () => {
   let testSlurMessage = 'message with TEST_PLACEHOLDER_SLUR_WORD_HERE';
 
   before(async () => {
+    sandbox.stub(email, 'sendTxn');
+
     let { group, groupLeader, members } = await createAndPopulateGroup({
       groupDetails: {
         name: 'Test Guild',
@@ -198,16 +201,18 @@ describe('POST /chat', () => {
   });
 
   it('errors and revokes privileges when chat message contains a banned slur', async () => {
-    // Uncommenting these lines makes the expect(user.flags.chatRevoked).to.be.true; line to
-    // error with: expected false to be true
-    // user.flags.chatRevoked = false;
-    // await user.update({'flags.chatRevoked': false});
-
     await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testSlurMessage})).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('bannedSlurUsed'),
     });
+
+    // Email sent to mods
+    await sleep(0.5);
+    expect(email.sendTxn).to.be.calledOnce;
+
+    let typeOfEmail = email.sendTxn.args[0][1];
+    expect(typeOfEmail).to.eql('slur-report-to-mods');
 
     // Chat privileges are revoked
     await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
@@ -236,6 +241,13 @@ describe('POST /chat', () => {
       error: 'BadRequest',
       message: t('bannedSlurUsed'),
     });
+
+    // Email sent to mods
+    await sleep(0.5);
+    expect(email.sendTxn).to.be.calledOnce;
+
+    let typeOfEmail = email.sendTxn.args[0][1];
+    expect(typeOfEmail).to.eql('slur-report-to-mods');
 
     // Chat privileges are revoked
     await expect(members[0].post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
