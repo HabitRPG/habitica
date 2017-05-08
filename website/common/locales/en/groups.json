@@ -280,5 +280,7 @@
   "userIsNotManager": "User is not manager",
   "canOnlyApproveTaskOnce": "This task has already been approved.",
   "leaderMarker": " - Leader",
-  "managerMarker": " - Manager"
+  "managerMarker": " - Manager",
+  "myGuilds": "My Guilds",
+  "guildsDiscovery": "Discover Guilds"
 }

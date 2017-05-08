@@ -1,7 +1,7 @@
 <template lang="pug">
 // TODO this is necessary until we have a way to wait for data to be loaded from the server
 .row(v-if="guild")
-  .clearfix.col-12 
+  .clearfix.col-12
     .float-left
       h2 {{guild.name}}
       strong.float-left {{$t('groupLeader')}}
@@ -17,7 +17,7 @@
     p {{ guild.description }}
   .col-7
     h4(v-once) {{ $t('chat') }}
-    .card(v-for="msg in guild.chat", :key="msg.id") 
+    .card(v-for="msg in guild.chat", :key="msg.id")
       .card-block
         .clearfix
           strong.float-left {{msg.user}}

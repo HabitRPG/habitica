@@ -1,33 +1,12 @@
 <template lang="pug">
 .row
-  .col-3
-    .form-group
-      input.form-control(type="text", :placeholder="$t('search')")
-    
-    form
-      h3(v-once) {{ $t('filter') }}
-
-      .form-group
-        h5 Interests
-        .form-check
-          .label.form-check-label
-            input.form-check-input(type="checkbox")
-            span Habitica Official
-        .form-check
-          .label.form-check-label
-            input.form-check-input(type="checkbox")
-            span Nature
-        .form-check
-          .label.form-check-label
-            input.form-check-input(type="checkbox")
-            span Animals
-
+  sidebar
   .col-9
-    h2(v-once) {{ $t('publicGuilds') }}
+    h2(v-once) {{ $t('myGuilds') }}
     public-guild-item(v-for="guild in guilds", :key='guild._id', :guild="guild")
     mugen-scroll(
-      :handler="fetchGuilds", 
-      :should-handle="loading === false && hasLoadedAllGuilds === false", 
+      :handler="fetchGuilds",
+      :should-handle="loading === false && hasLoadedAllGuilds === false",
       :handle-on-mount="false",
       v-show="hasLoadedAllGuilds === false",
     )
@@ -38,10 +17,11 @@
 import axios from 'axios';
 import MugenScroll from 'vue-mugen-scroll';
 import PublicGuildItem from './publicGuildItem';
+import Sidebar from './sidebar';
 import { GUILDS_PER_PAGE } from 'common/script/constants';
 
 export default {
-  components: { PublicGuildItem, MugenScroll },
+  components: { PublicGuildItem, MugenScroll, Sidebar },
   data () {
     return {
       loading: false,
