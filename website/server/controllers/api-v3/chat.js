@@ -2,6 +2,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import {
+  BadRequest,
   NotFound,
   NotAuthorized,
 } from '../../libs/errors';
@@ -12,6 +13,8 @@ import slack from '../../libs/slack';
 import pusher from '../../libs/pusher';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
+import bannedWords from '../../libs/bannedWords';
+import { TAVERN_ID } from '../../models/group';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
@@ -82,6 +85,28 @@ api.getChat = {
   },
 };
 
+// @TODO: Probably move this to a library
+function matchExact (r, str) {
+  let match = str.match(r);
+  return match !== null && match[0] !== null;
+}
+
+let bannedWordRegexs = [];
+for (let i = 0; i < bannedWords.length; i += 1) {
+  let word = bannedWords[i];
+  let regEx = new RegExp(`\\b([^a-z]+)?${word.toLowerCase()}([^a-z]+)?\\b`);
+  bannedWordRegexs.push(regEx);
+}
+
+function textContainsBannedWords (message) {
+  for (let i = 0; i < bannedWordRegexs.length; i += 1) {
+    let regEx = bannedWordRegexs[i];
+    if (matchExact(regEx, message.toLowerCase())) return true;
+  }
+
+  return false;
+}
+
 /**
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
  * @apiName PostChat
@@ -121,8 +146,16 @@ api.postChat = {
       throw new NotFound('Your chat privileges have been revoked.');
     }
 
+    if (group._id === TAVERN_ID && textContainsBannedWords(req.body.message)) {
+      throw new BadRequest(res.t('bannedWordUsed'));
+    }
+
     let lastClientMsg = req.query.previousMsg;
     chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
+
+    if (group.checkChatSpam(user)) {
+      throw new NotAuthorized(res.t('messageGroupChatSpam'));
+    }
 
     let newChatMessage = group.sendChat(req.body.message, user);
 

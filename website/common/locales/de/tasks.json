@@ -136,7 +136,7 @@
     "intelligenceExample": "Alles was mit Schule zu tun hat oder sonst Deinen Kopf anstrengt",
     "perceptionExample": "Alles was mit Arbeit oder Finanzen zu tun hat",
     "constitutionExample": "Alles was mit Gesundheit, Wohlbefinden und sozialen Kontakten zu tun hat.",
-    "counterPeriod": "Zähler wird zurückgesetzt alle",
+    "counterPeriod": "Zähler wird zurückgesetzt jede/n",
     "counterPeriodDay": "Tag",
     "counterPeriodWeek": "Woche",
     "counterPeriodMonth": "Monat",
@@ -164,6 +164,7 @@
     "confirmScoreNotes": "Bestätige das Erfüllen der Aufgabe mit einer Notiz",
     "taskScoreNotesTooLong": "Notizen zum Erfüllen einer Aufgabe müssen kürzer als 256 Zeichen sein",
     "groupTasksByChallenge": "Gruppiere die Aufgaben nach Wettbewerbs-Titel",
+    "taskNotes": "Aufgabennotizen",
     "monthlyRepeatHelpContent": "Diese Aufgabe wird alle X Monate fällig werden",
     "yearlyRepeatHelpContent": "Diese Aufgabe wird alle X Jahre fällig werden "
 }

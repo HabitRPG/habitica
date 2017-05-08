@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import nconf from 'nconf';
 import analytics from './analyticsService';
 import {
   getUserInfo,
@@ -18,12 +19,16 @@ import {
 } from './errors';
 import slack from './slack';
 
+const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
+
 let api = {};
 
 api.constants = {
   UNLIMITED_CUSTOMER_ID: 'habitrpg', // Users with the customerId have an unlimted free subscription
   GROUP_PLAN_CUSTOMER_ID: 'group-plan',
   GROUP_PLAN_PAYMENT_METHOD: 'Group Plan',
+  GOOGLE_PAYMENT_METHOD: 'Google',
+  IOS_PAYMENT_METHOD: 'Apple',
 };
 
 function revealMysteryItems (user) {
@@ -77,6 +82,7 @@ api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers (gr
  */
 api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
   let customerIdsToIgnore = [this.constants.GROUP_PLAN_CUSTOMER_ID, this.constants.UNLIMITED_CUSTOMER_ID];
+  let paymentMethodsToIgnore = [this.constants.GOOGLE_PAYMENT_METHOD, this.constants.IOS_PAYMENT_METHOD];
 
   let data = {
     user: {},
@@ -109,7 +115,21 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
   if (member.isSubscribed()) {
     let memberPlan = member.purchased.plan;
     let customerHasCancelledGroupPlan = memberPlan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID && !member.hasNotCancelled();
-    if (customerIdsToIgnore.indexOf(memberPlan.customerId) !== -1 && !customerHasCancelledGroupPlan) return;
+    let ignorePaymentPlan = paymentMethodsToIgnore.indexOf(memberPlan.paymentMethod) !== -1;
+    let ignoreCustomerId = customerIdsToIgnore.indexOf(memberPlan.customerId) !== -1;
+
+    if (ignorePaymentPlan) {
+      txnEmail(TECH_ASSISTANCE_EMAIL, 'admin-user-subscription-details', [
+        {name: 'PROFILE_NAME', content: member.profile.name},
+        {name: 'UUID', content: member._id},
+        {name: 'EMAIL', content: getUserInfo(member, ['email']).email},
+        {name: 'PAYMENT_METHOD', content: memberPlan.paymentMethod},
+        {name: 'PURCHASED_PLAN', content: JSON.stringify(memberPlan)},
+        {name: 'ACTION_NEEDED', content: 'User has joined group plan. Tell them to cancel subscription then give them free sub.'},
+      ]);
+    }
+
+    if ((ignorePaymentPlan || ignoreCustomerId) && !customerHasCancelledGroupPlan) return;
 
     if (member.hasNotCancelled()) await member.cancelSubscription();
 
@@ -289,6 +309,7 @@ api.createSubscription = async function createSubscription (data) {
   }
 
   if (recipient !== group) {
+    recipient.items.pets['Jackalope-RoyalPurple'] = 5;
     revealMysteryItems(recipient);
   }
 
@@ -424,7 +445,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
     defaultRemainingDays = 2;
   }
 
-  let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days') : defaultRemainingDays;
+  let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days', true) : defaultRemainingDays;
   if (plan.extraMonths < 0) plan.extraMonths = 0;
   let extraDays = Math.ceil(30.5 * plan.extraMonths);
   let nowStr = `${now.format('MM')}/${moment(plan.dateUpdated).format('DD')}/${now.format('YYYY')}`;

@@ -31,10 +31,16 @@ function findTag (user, tagName) {
 }
 
 function _populateDefaultTasks (user, taskTypes) {
+  let defaultsData;
+  if (user.registeredThrough === 'habitica-android' || user.registeredThrough === 'habitica-ios') {
+    defaultsData = shared.content.userDefaultsMobile;
+  } else {
+    defaultsData = shared.content.userDefaults;
+  }
   let tagsI = taskTypes.indexOf('tag');
 
   if (tagsI !== -1) {
-    user.tags = _.map(shared.content.userDefaults.tags, (tag) => {
+    user.tags = _.map(defaultsData.tags, (tag) => {
       let newTag = _.cloneDeep(tag);
 
       // tasks automatically get _id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
@@ -53,7 +59,7 @@ function _populateDefaultTasks (user, taskTypes) {
   }
 
   _.each(taskTypes, (taskType) => {
-    let tasksOfType = _.map(shared.content.userDefaults[`${taskType}s`], (taskDefaults) => {
+    let tasksOfType = _.map(defaultsData[`${taskType}s`], (taskDefaults) => {
       let newTask = new Tasks[taskType](taskDefaults);
 
       newTask.userId = user._id;
@@ -96,20 +102,27 @@ function _setUpNewUser (user) {
     user._ABtests.checkInModals = '20161221_showCheckInPreviews'; // show 'preview' check-in modals
   }
   user.items.quests.dustbunnies = 1;
+  user.purchased.background.violet = true;
+  user.preferences.background = 'violet';
 
-  if (user.registeredThrough === 'habitica-web' || user.registeredThrough === 'habitica-android') {
+  if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
 
     _.each(iterableFlags.tutorial.common, (val, section) => {
       user.flags.tutorial.common[section] = true;
     });
   } else {
-    taskTypes = ['todo', 'tag'];
     user.flags.showTour = false;
 
     _.each(iterableFlags.tour, (val, section) => {
       user.flags.tour[section] = -2;
     });
+
+    if (user.registeredThrough === 'habitica-android' || user.registeredThrough === 'habitica-ios') {
+      taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
+    } else {
+      taskTypes = ['todo', 'tag'];
+    }
   }
 
   return _populateDefaultTasks(user, taskTypes);

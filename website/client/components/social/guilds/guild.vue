@@ -33,8 +33,8 @@
 </style>
 <script>
 import axios from 'axios';
-import groupUtilities from '../../../mixins/groupsUtilities';
-import { mapState } from '../../../store';
+import groupUtilities from 'client/mixins/groupsUtilities';
+import { mapState } from 'client/libs/store';
 
 export default {
   mixins: [groupUtilities],
@@ -45,7 +45,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['user']),
+    ...mapState({user: 'user.data'}),
     isMember () {
       return this.isMemberOfGroup(this.user, this.guild);
     },

@@ -479,7 +479,40 @@ let backgrounds = {
       notes: t('backgroundMistiflyingCircusNotes'),
     },
   },
+  backgrounds042017: {
+    bug_covered_log: {
+      text: t('backgroundBugCoveredLogText'),
+      notes: t('backgroundBugCoveredLogNotes'),
+    },
+    giant_birdhouse: {
+      text: t('backgroundGiantBirdhouseText'),
+      notes: t('backgroundGiantBirdhouseNotes'),
+    },
+    mist_shrouded_mountain: {
+      text: t('backgroundMistShroudedMountainText'),
+      notes: t('backgroundMistShroudedMountainNotes'),
+    },
+  },
+  backgrounds052017: {
+    guardian_statues: {
+      text: t('backgroundGuardianStatuesText'),
+      notes: t('backgroundGuardianStatuesNotes'),
+    },
+    habit_city_streets: {
+      text: t('backgroundHabitCityStreetsText'),
+      notes: t('backgroundHabitCityStreetsNotes'),
+    },
+    on_tree_branch: {
+      text: t('backgroundOnATreeBranchText'),
+      notes: t('backgroundOnATreeBranchNotes'),
+    },
+  },
   incentiveBackgrounds: {
+    violet: {
+      text: t('backgroundVioletText'),
+      notes: t('backgroundVioletNotes'),
+      currency: 'loginIncentive',
+    },
     blue: {
       text: t('backgroundBlueText'),
       notes: t('backgroundBlueNotes'),

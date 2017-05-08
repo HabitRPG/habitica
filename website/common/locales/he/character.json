@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "אנא שימו לב ששם התצוגה שלכם, תמונת הפרופיל, וה״חירטוט״ חייבים להתאים ל<a href='https://habitica.com/static/community-guidelines' target='_blank'>הנחיות הקהילה</a> (למשל: בלי גסויות, בלי תכנים למבוגרים בלבד, בלי העלבות, וכד׳). אם יש לכם שאלות אם משהו יכול להתאים תרגישו חופשי לשלוח מייל ל<a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "פרופיל",
     "avatar": "התאם דמות",
     "other": "אחר",
@@ -112,6 +112,7 @@
     "mystery": "מסתורין",
     "changeClass": "שינוי מקצוע, החזרת נקודות תכונה",
     "lvl10ChangeClass": "כדי לשנות מקצוע עליכם להיות לפחות בדרגה 10.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "כל דרגה מעניקה לך נקודה אחת להקצות לתכונה לפי בחירתך. ניתן לעשות זאת באופן ידני, או לתת למשחק להחליט בשבילך באמצעות אחת האופציות להקצאה אוטומטית.",
     "unallocated": "נקודות תכונה שטרם הוקצו",
     "haveUnallocated": "יש לך <%= points %> נקודות תכונה שטרם הקצית.",

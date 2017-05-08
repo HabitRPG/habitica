@@ -25,7 +25,7 @@
     "royalPurpleGryphon": "Королевский пурпурный грифон",
     "phoenix": "Феникс",
     "magicalBee": "Волшебная пчелка",
-    "royalPurpleJackalope": "Royal Purple Jackalope",
+    "royalPurpleJackalope": "Королевский пурпурный Джекалоп",
     "rarePetPop1": "Нажмите золотую лапу, чтобы подробнее узнать, как получить этого редкого питомца, приняв участие в проекте Habitica!",
     "rarePetPop2": "Как получить этого питомца?",
     "potion": "<%= potionType %> эликсир",
@@ -41,7 +41,7 @@
     "foodText": "еда",
     "food": "Еда и сёдла",
     "noFood": "У вас нет ни еды, ни сёдел",
-    "dropsExplanation": "Получите эти предметы быстрее за самоцветы, если не хотите дожидаться пока они выпадут при завершении задания. <a href=\"http://habitica.wikia.com/wiki/Drops\">Узнайте больше о системе выпадения трофеев</a>.",
+    "dropsExplanation": "Получите эти предметы быстрее за самоцветы, если не хотите дожидаться пока они выпадут при завершении задания. <a href=\"http://ru.habitica.wikia.com/wiki/Трофеи\">Узнайте больше о системе выпадения трофеев</a>.",
     "premiumPotionNoDropExplanation": "Волшебные инкубационные эликсиры не могут быть использованы на яйцах, полученных в квестах. Единственный способ получить волшебные инкубанционные эликсиры — купить их здесь. Они не выпадают в качестве трофеев.",
     "beastMasterProgress": "Прогресс повелителя зверей",
     "stableBeastMasterProgress": "Мастер зверей: Найдено <%= number %> питомцев",
@@ -95,5 +95,5 @@
     "mountsReleased": "Скакуны освобождены.",
     "gemsEach": "самоцветов за каждый",
     "foodWikiText": "Что любит есть мой питомец?",
-    "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
+    "foodWikiUrl": "http://ru.habitica.wikia.com/wiki/Еда#.D0.9F.D1.80.D0.B5.D0.B4.D0.BF.D0.BE.D1.87.D1.82.D0.B5.D0.BD.D0.B8.D1.8F_.D0.B2_.D0.B5.D0.B4.D0.B5"
 }

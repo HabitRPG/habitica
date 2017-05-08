@@ -65,7 +65,7 @@
     "spells": "魔法",
     "spellsText": "クラス特定の魔法をアンロックできるようになりました。最初の魔法はレベル 11 で現れます。マナは1日ごとに10 ポイント、<a target='_blank' href='http://habitica.wikia.com/wiki/Todos'>To-Do</a> 完了ごとに 1 ポイント補充されます。",
     "toDo": "To-Do",
-    "moreClass": "クラス・システムの詳細な情報は <a href='http://habitica.wikia.com/wiki/Class_System' target='_blank'>Wikia</a> をお読みください。",
+    "moreClass": "クラス・システムの詳細な情報は <a href='http://ja.habitica.wikia.com/wiki/%E3%82%AF%E3%83%A9%E3%82%B9%E3%83%BB%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0' target='_blank'>Wikia</a> をお読みください。",
     "tourWelcome": "Habiticaへようこそ!　こちらはあなたの To-Do リストです。タスクやってチェックを入れ、次に進みましょう!",
     "tourExp": "やりました!　タスクをやってチェックを入れると経験値とゴールドが得られます。",
     "tourDailies": "この列は日課のタスクです。毎日やるべきタスクを入力して次に進みましょう! 　<strong>日課のサンプル</strong>: <strong>布団を上げる</strong>、<strong>歯のフロスをする</strong>, <strong>仕事のメールをチェックする</strong>",

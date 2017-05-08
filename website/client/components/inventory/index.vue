@@ -8,7 +8,3 @@
   .col-12
     router-view
 </template>
-
-<script>
-export default {};
-</script>

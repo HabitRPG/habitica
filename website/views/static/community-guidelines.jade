@@ -28,8 +28,8 @@ block content
       p.pagemeta
         =env.t('lastUpdated')
         |&nbsp;
-        =env.t('February')
-        |&nbsp;28&comma; 2016
+        =env.t('March')
+        |&nbsp;30&comma; 2017
       h2#welcome=env.t('commGuideHeadingWelcome')
       .clearfix
         img.pull-left(src='/community-guidelines-images/intro.png', alt='')
@@ -54,36 +54,42 @@ block content
         strong=env.t('commGuidePara007')
       p
         strong=env.t('commGuidePara008')
+      br
       p
         strong=env.t('commGuidePara009')
       .clearfix
         img.pull-left(src='/community-guidelines-images/staff.png', alt='')
         ul.pull-left.list-unstyled
           li
-            strong Lefnire (Tyler Renelle)
+            strong=env.t('commGuideAKA', {habitName: 'Beffymaroo', realName: 'Beth'})
           li
-            strong redphoenix (caffeinatedvee&nbsp;
-              =env.t('commGuidePara009a')
-              |, veeeeeee&nbsp;
-              =env.t('commGuidePara009b')
-              |) (Vicky Hsu)
+            strong=env.t('commGuideAKA', {habitName: 'Viirus', realName: 'Phillip'})
           li
-            strong Lemoness (Siena Leslie)
+            strong=env.t('commGuideAKA', {habitName: 'redphoenix', realName: 'Vicky'})
+              |  (
+              =env.t('commGuideOnTrello', {trelloName: 'caffeinatedvee'})
+              | ,&nbsp;
+              =env.t('commGuideOnGitHub', {gitHubName: 'veeeeeee'})
+              | )
           li
-            strong SabreCat (Sabe)
+            strong=env.t('commGuideAKA', {habitName:'Lemoness', realName: 'Leslie'})
+              |  (
+              =env.t('commGuideOnTrello', {trelloName: 'lemonesstree'})
+              | )
           li
-            strong paglias (Matteo)
+            strong=env.t('commGuideAKA', {habitName: 'SabreCat', realName: 'Sabe'})
           li
-            strong viirus (Phillip)
-
+            strong=env.t('commGuideAKA', {habitName: 'paglias', realName: 'Matteo'})
+          li
+            strong=env.t('commGuideAKA', {habitName: 'TheHollidayInn', realName: 'Keith'})
+      br
       p=env.t('commGuidePara010')
-      p
-        strong=env.t('commGuidePara011')
       .clearfix
         img.pull-left(src='/community-guidelines-images/moderators.png', alt='')
+        p
+          strong=env.t('commGuidePara011')
+        br
         ul.pull-left.list-unstyled
-          li
-            strong beffymaroo
           li
             strong Bailey (It's Bailey&nbsp;
               =env.t('commGuidePara011a')
@@ -99,16 +105,20 @@ block content
           li
             strong Cantras
           li
-            strong Blade (crookedneighbor&nbsp;
-              =env.t('commGuidePara011d')
+            strong Blade (
+              =env.t('commGuideOnGitHub', {gitHubName: 'crookedneighbor'})
               |)
           li
-            strong Breadstrings
+            strong Daniel the Bard
+          li
+            strong shanaqui
+          li
+            strong Dewines
           li
             strong Megan
           li
-            strong Daniel the Bard
-      p!=env.t('commGuidePara012')
+            strong Breadstrings
+      p!=env.t('commGuidePara012', { hrefCommunityManagerEmail : '<a href="mailto:' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '">' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '</a>' })
       p=env.t('commGuidePara013')
       p=env.t('commGuidePara014')
         |&nbsp;
@@ -127,11 +137,17 @@ block content
           li!=env.t('commGuideList02E')
           li!=env.t('commGuideList02F')
           li!=env.t('commGuideList02G')
-          li!=env.t('commGuideList02H')
+          li!=env.t('commGuideList02H', { hrefCommunityManagerEmail : '<a href="mailto:' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '">' + env.EMAILS.COMMUNITY_MANAGER_EMAIL +'</a>' })
           li!=env.t('commGuideList02I')
+          li!=env.t('commGuideList02J')
+          li!=env.t('commGuideList02K', { hrefCommunityManagerEmail : '<a href="mailto:' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '">' + env.EMAILS.COMMUNITY_MANAGER_EMAIL +'</a>' })
+        br
         p!=env.t('commGuidePara019')
-        p=env.t('commGuidePara020')
-        p &nbsp;
+        br
+        p!=env.t('commGuidePara020')
+        br
+        p!=env.t('commGuidePara020A', { hrefCommunityManagerEmail : '<a href="mailto:' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '">' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '</a>' })
+        br
         p=env.t('commGuidePara021')
 
       h3#tavern=env.t('commGuideHeadingTavern')
@@ -148,7 +164,7 @@ block content
         img.pull-right(src='/community-guidelines-images/publicGuilds.png', alt='')
         p!=env.t('commGuidePara029')
         p!=env.t('commGuidePara031')
-        p!=env.t('commGuidePara033')
+        p!=env.t('commGuidePara033', { hrefCommunityManagerEmail : '<a href="mailto:' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '">' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '</a>' })
         p!=env.t('commGuidePara035')
         p
           strong=env.t('commGuidePara037')
@@ -170,7 +186,6 @@ block content
           li!=env.t('commGuideList03B')
           li!=env.t('commGuideList03C')
           li!=env.t('commGuideList03D')
-          li!=env.t('commGuideList03E')
         p!=env.t('commGuidePara042')
 
       h3#github=env.t('commGuideHeadingGitHub')
@@ -178,29 +193,16 @@ block content
         img.pull-left(src='/community-guidelines-images/github.gif', alt='')
         p!=env.t('commGuidePara043')
         p
-          strong=env.t('commGuidePara044')
+          strong!=env.t('commGuidePara044')
         ul.listColumns2.peopleList
-          li lefnire (Tyler)
-          li Alys
-          li benmanley (Pixel)
-          li colegleason (Cole)
-          li deilann (Ryan v*)
-          li Fandekasp
-          li Lemoness
-          li litenull
-          li paglias
-          li SabreCat
-          li Sinza-
-          li snicker
-          li thepeopleseason
-          li zakkain
-          li crookedneighbor (Blade)
-          li huaruiwu
-          li negue
-          li ruddfawcett
-          li wogsland
-          li MagicMicky
-          li viirus
+          li @alys
+          li @crookedneighbor (Blade)
+          li @lemoness
+          li @paglias
+          li @SabreCat
+          li @TheHollidayInn
+          li @veeeeeee (redphoenix)
+          li @vIiRuS
 
       h3#wiki=env.t('commGuideHeadingWiki')
       .clearfix
@@ -214,22 +216,27 @@ block content
           li=env.t('commGuideList04A')
           li=env.t('commGuideList04B')
           li=env.t('commGuideList04C')
-          li=env.t('commGuideList04D')
+          li!=env.t('commGuideList04DRev', { hrefCommunityManagerEmail : '<a href="mailto:' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '">' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '</a>' })
           li=env.t('commGuideList04E')
-          li=env.t('commGuideList04F')
+          li!=env.t('commGuideList04F')
           li=env.t('commGuideList04G')
           li=env.t('commGuideList04H')
-        p
-          strong=env.t('commGuidePara049')
+        br
+        p=env.t('commGuidePara049')
         ul.peopleList
-          li Breadstrings (bureaucrat)
-          li JiggerD
-          li LadyAlys
-          li LadyKatFrog
-          li Lefnire (bureaucrat)
+          li LadyAlys (Alys)
+          li Sonnet73
+          li Taldin
+        br
+        p=env.t('commGuidePara049A')
+        ul.peopleList
+          li Beffymaroo
+          li Cantras
+          li Meganstrickland (Megan)
+        br
         p=env.t('commGuidePara018')
           |:&nbsp;
-          em Bobbyroberts99 (founder and bureaucrat), wc8 (bureaucrat)
+          em Bobbyroberts99 (founder and bureaucrat), wc8 (bureaucrat), Lefnire (bureaucrat), JiggerD, LadyKatFrog, Breadstrings (bureaucrat), Deilann
 
       h2#infractions-consequences-restoration=env.t('commGuideHeadingInfractionsEtc')
       h3#infractions=env.t('commGuideHeadingInfractions')
@@ -251,7 +258,7 @@ block content
         p=env.t('commGuidePara054')
         p=env.t('commGuidePara055')
         ul
-          li!=env.t('commGuideList06A')
+          li!=env.t('commGuideList06A', { hrefCommunityManagerEmail : '<a href="mailto:' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '">' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '</a>' })
           li=env.t('commGuideList06B')
           li=env.t('commGuideList06C')
           li=env.t('commGuideList06D')
@@ -273,6 +280,8 @@ block content
           li=env.t('commGuideList08A')
           li=env.t('commGuideList08B')
           li=env.t('commGuideList08C')
+        p=env.t('commGuidePara060A')
+        p!=env.t('commGuidePara060B', { hrefCommunityManagerEmail : '<a href="mailto:' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '">' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '</a>' })
         h4=env.t('commGuideHeadingSevereConsequences')
         ul
           li=env.t('commGuideList09A')
@@ -281,6 +290,8 @@ block content
         h4=env.t('commGuideHeadingModerateConsequences')
         ul
           li=env.t('commGuideList10A')
+            ul(style='margin-left:2em')
+              li=env.t('commGuideList10A1')
           li=env.t('commGuideList10B')
           li=env.t('commGuideList10C')
           li=env.t('commGuideList10D')
@@ -322,7 +333,7 @@ block content
           li!=env.t('commGuideList13D')
 
       h2#final=env.t('commGuideHeadingFinal')
-      p!=env.t('commGuidePara067')
+      p!=env.t('commGuidePara067', { hrefCommunityManagerEmail : '<a href="mailto:' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '">' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '</a>' })
       p=env.t('commGuidePara068')
 
       h2#links=env.t('commGuideHeadingLinks')
@@ -359,9 +370,9 @@ block content
          a(href='https://trello.com/b/nnv4QIRX/' target='_blank')=env.t('commGuideLink08')
          |:&nbsp;
          =env.t('commGuideLink08description')
-
       p
         strong=env.t('commGuidePara069')
+      br
       ul.listColumns2.peopleList
         li Breadstrings
         li Draayder

@@ -62,7 +62,7 @@
     "surveysMultiple": "Helped Habitica grow on <%= count %> occasions, either by filling out a survey or helping with a major testing effort. Thank you!",
     "currentSurvey": "Aktuálny dotazník",
     "surveyWhen": "Odznak dostanú všetci účastníci najneskôr v marci po spracovaní dotazníkov.",
-    "blurbInbox": "Toto je miesto, kde sa ukladajú tvoje súkromné správy! Môžeš poslať správu tak, že klikneš na obálku vedľa niekoho mena v Hostinci, Družine alebo chate Cechu. Ak si dostal nevhodnú správu, mal by si ju odfotiť a poslať Lemoness (<a href=\"mailto:leslie@habitica.com\">leslie@habitica.com</a>)",
+    "blurbInbox": "This is where your private messages are stored! You can send someone a message by clicking on the envelope icon next to their name in Tavern, Party, or Guild Chat. If you've received an inappropriate PM, you should email a screenshot of it to Lemoness (<%= hrefCommunityManagerEmail %>)",
     "blurbGuildsPage": "Cechy sú chatovacie skupiny so spoločnými záujmami vytvorené hráčmi pre hráčov. Preštuduj si ich zoznam a pripoj sa k tým, ktoré ťa zaujímajú.",
     "blurbChallenges": "Výzvy vytvárajú tvoji spoluhráči. Keď sa pripojíš k výzve, úlohy z nej sa objavia na tvojom paneli a ak výzvu vyhráš, dostaneš odznak a často aj nejaké drahokamy. ",
     "blurbHallPatrons": "Toto je Sieň Patrónov, kde si uctievame ušľachtilých dobrodruhov, ktorí podporili pôvodnú Habitiku na Kickstarteri. Ďakujeme im za to, že nám pomohli priviesť Habitiku k životu!",

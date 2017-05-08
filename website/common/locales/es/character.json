@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Por favor, ten en cuenta que tu Nombre de Usuario, foto de perfil y biografía deben cumplir con las <a href='https://habitica.com/static/community-guidelines' target='_blank'>Normas de la Comunidad</a> (por ejemplo, no se permite lenguaje grosero, temas adultos, insultos, etc.) Si tienes preguntas acerca de qué es o no apropiado, no dudes en enviar un email a <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Perfil",
     "avatar": "Personalizar personaje",
     "other": "Otro",
@@ -112,6 +112,7 @@
     "mystery": "Misterio",
     "changeClass": "Cambiar Clase, Devolver Puntos de Atributo",
     "lvl10ChangeClass": "Para cambiar de clase debes estar en el nivel 10 como mínimo.",
+    "invalidClass": "Clase no válida. Por favor, especifique 'warrior', 'rogue', 'wizard', o 'healer'.",
     "levelPopover": "Con cada nivel consigues un punto para asignar a un atributo a tu elección. Lo puedes asignar manualmente o dejar que el juego decida por tí usando una de las opciones de Asignación Automática.",
     "unallocated": "Puntos de Atributo no Asignados",
     "haveUnallocated": "Tienes <%= points %> puntos de Atributo(s) no asignados",

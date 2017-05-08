@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Ne feledd, hogy a nevednek, profilképednek, és bemutatkozásodnak meg kell felelnie a <a href='https://habitica.com/static/community-guidelines' target='_blank'>Közösségi Irányelvek</a>nek (pl. ne káromkodj, ne tegyél felnőtt témájú tartalmat, ne sértegess másokat). Ha bármilyen kérdésed van arról, hogy milyen dolgok helyénvalóak, írj bátran a  <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a> címre!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Avatár személyreszabása",
     "other": "Egyéb",
@@ -112,6 +112,7 @@
     "mystery": "Rejtély",
     "changeClass": "Kaszt megváltoztatása, tulajdonság pontok újraosztása",
     "lvl10ChangeClass": "Hogy kasztot választhass, legalább 10. szintűnek kell lenned.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "Minden szinttel kapsz egy tulajdonság pontot, amit kioszthatsz. Ezt megteheted kézzel, vagy hagyhatod, hogy a játék eldöntse helyetted, ha az egyik Automatikus Elosztás opciót használod.",
     "unallocated": "Kiosztatlan tulajdonság pontok",
     "haveUnallocated": "<%= points %> elkölthető tulajdonság pontod maradt",

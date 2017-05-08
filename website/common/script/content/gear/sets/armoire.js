@@ -226,6 +226,23 @@ let armor = {
     set: 'mushroomDruid',
     canOwn: ownsItem('armor_armoire_mushroomDruidArmor'),
   },
+  greenFestivalYukata: {
+    text: t('armorArmoireGreenFestivalYukataText'),
+    notes: t('armorArmoireGreenFestivalYukataNotes', { attrs: 8 }),
+    value: 100,
+    con: 8,
+    per: 8,
+    set: 'festivalAttire',
+    canOwn: ownsItem('armor_armoire_greenFestivalYukata'),
+  },
+  merchantTunic: {
+    text: t('armorArmoireMerchantTunicText'),
+    notes: t('armorArmoireMerchantTunicNotes', { per: 10 }),
+    value: 100,
+    per: 10,
+    set: 'merchant',
+    canOwn: ownsItem('armor_armoire_merchantTunic'),
+  },
 };
 
 let eyewear = {
@@ -524,6 +541,15 @@ let head = {
     set: 'mushroomDruid',
     canOwn: ownsItem('head_armoire_mushroomDruidCap'),
   },
+  merchantChaperon: {
+    text: t('headArmoireMerchantChaperonText'),
+    notes: t('headArmoireMerchantChaperonNotes', { attrs: 7 }),
+    value: 100,
+    int: 7,
+    per: 7,
+    set: 'merchant',
+    canOwn: ownsItem('head_armoire_merchantChaperon'),
+  },
 };
 
 let shield = {
@@ -616,6 +642,14 @@ let shield = {
     str: 8,
     set: 'mushroomDruid',
     canOwn: ownsItem('shield_armoire_mushroomDruidShield'),
+  },
+  festivalParasol: {
+    text: t('shieldArmoireFestivalParasolText'),
+    notes: t('shieldArmoireFestivalParasolNotes', { con: 8 }),
+    value: 100,
+    con: 8,
+    set: 'festivalAttire',
+    canOwn: ownsItem('shield_armoire_festivalParasol'),
   },
 };
 
@@ -828,6 +862,22 @@ let weapon = {
     int: 8,
     per: 9,
     canOwn: ownsItem('weapon_armoire_forestFungusStaff'),
+  },
+  festivalFirecracker: {
+    text: t('weaponArmoireFestivalFirecrackerText'),
+    notes: t('weaponArmoireFestivalFirecrackerNotes', { per: 8 }),
+    value: 100,
+    per: 8,
+    set: 'festivalAttire',
+    canOwn: ownsItem('weapon_armoire_festivalFirecracker'),
+  },
+  merchantsDisplayTray: {
+    text: t('weaponArmoireMerchantsDisplayTrayText'),
+    notes: t('weaponArmoireMerchantsDisplayTrayNotes', { int: 10 }),
+    value: 100,
+    int: 10,
+    set: 'merchant',
+    canOwn: ownsItem('weapon_armoire_merchantsDisplayTray'),
   },
 };
 

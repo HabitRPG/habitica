@@ -150,7 +150,7 @@
     "weekly": "每周",
     "monthly": "每月",
     "yearly": "每年",
-    "onDays": "On Days",
+    "onDays": "每天",
     "summary": "概要",
     "repeatsOn": "重複開啟",
     "dayOfWeek": "星期",
@@ -164,6 +164,7 @@
     "confirmScoreNotes": "通过标记确认任务分数",
     "taskScoreNotesTooLong": "任务分数标记必须少于256",
     "groupTasksByChallenge": "将小组按挑战的标题归类",
+    "taskNotes": "任务笔记",
     "monthlyRepeatHelpContent": "这个任务会每隔X月重复",
     "yearlyRepeatHelpContent": "这个任务会每隔X年重复"
 }
