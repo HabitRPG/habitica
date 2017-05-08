@@ -25,7 +25,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   let eggsCategory = {
     identifier: 'eggs',
     text: i18n.t('eggs', language),
-    notes: i18n.t('dropsExplanation', language),
+    notes: i18n.t('dropsExplanationEggs', language),
   };
 
   eggsCategory.items = sortBy(values(content.questEggs)
