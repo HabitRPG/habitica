@@ -33,7 +33,7 @@ function sanitizeOptions (o) {
 
   let timezoneOffset;
   let timezoneOffsetDefault = Number(moment().utcOffset());
-  if (_.isFinite(o.timezoneOffsetOverride)) {
+  if (isFinite(o.timezoneOffsetOverride)) {
     timezoneOffset = Number(o.timezoneOffsetOverride);
   } else if (Number.isFinite(o.timezoneOffset)) {
     timezoneOffset = Number(o.timezoneOffset);
@@ -97,11 +97,15 @@ export function shouldDo (day, dailyTask, options = {}) {
     return false;
   }
   let o = sanitizeOptions(options);
-  let startOfDayWithCDSTime = startOfDay(_.defaults({ now: day }, o));
+  let startOfDayWithCDSTime = startOfDay(defaults({ now: day }, o));
   // The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it.
   // Therefore, we must also ignore the time portion of the user's day start (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
   // NB: The user's day start date has already been converted to the PREVIOUS day's date if the time portion was before CDS.
-  let startDate = moment(dailyTask.startDate).utcOffset(o.timezoneOffset);
+  let startDate = moment(dailyTask.startDate).utcOffset(o.timezoneOffset).startOf('day');
+
+  if (startDate > startOfDayWithCDSTime.startOf('day')) {
+    return false; // Daily starts in the future
+  }
 
   let daysOfTheWeek = [];
 
@@ -115,7 +119,7 @@ export function shouldDo (day, dailyTask, options = {}) {
     if (!dailyTask.everyX) return false; // error condition
     let schedule = moment(startDate).recur()
       .every(dailyTask.everyX).days();
-    return schedule.matches(day);
+    return schedule.matches(startOfDayWithCDSTime);
   } else if (dailyTask.frequency === 'weekly') {
     let schedule = moment(startDate).recur();
 
@@ -125,7 +129,7 @@ export function shouldDo (day, dailyTask, options = {}) {
 
     schedule = schedule.every(daysOfTheWeek).daysOfWeek();
 
-    return schedule.matches(day);
+    return schedule.matches(startOfDayWithCDSTime);
   } else if (dailyTask.frequency === 'monthly') {
     let schedule = moment(startDate).recur();
 

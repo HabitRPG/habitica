@@ -70,7 +70,7 @@ describe('shouldDo', () => {
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
 
-      it('returns true if Start Date is today',  () => {
+      it('returns true if Start Date is today', () => {
         dailyTask.startDate = moment().startOf('day').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
