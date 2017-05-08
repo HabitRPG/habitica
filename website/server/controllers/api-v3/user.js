@@ -1343,7 +1343,7 @@ api.userOpenMysteryItem = {
  *   },
  *   "message": "Pets released"
  * }
- * 
+ *
  * @apiError {NotAuthorized} Not enough gems
  *
  * @apiErrorExample {json}
@@ -1427,7 +1427,7 @@ api.userReleaseBoth = {
  *   },
  *   "message": "Mounts released"
  * }
- * 
+ *
  * @apiError {NotAuthorized} Not enough gems
  *
  * @apiErrorExample {json}
@@ -1781,3 +1781,4 @@ api.setCustomDayStart = {
 };
 
 module.exports = api;
+
