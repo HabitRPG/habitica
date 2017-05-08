@@ -75,14 +75,14 @@ describe('shouldDo', () => {
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
 
-      it('returns true if the user\'s current time is after start date and CDS', () => {
+      it('returns true if the user\'s current time is after start date and Custom Day Start', () => {
         options.dayStart = 4;
         day = moment().utcOffset(options.timezoneOffset).startOf('day').add(6, 'hours').toDate();
         dailyTask.startDate = moment().utcOffset(options.timezoneOffset).subtract(1, 'day').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
 
-      it('returns false if the user\'s current time is before CDS', () => {
+      it('returns false if the user\'s current time is before Custom Day Start', () => {
         options.dayStart = 8;
         day = moment().utcOffset(options.timezoneOffset).startOf('day').add(2, 'hours').toDate();
         dailyTask.startDate = moment().utcOffset(options.timezoneOffset).startOf('day').toDate();
@@ -105,13 +105,13 @@ describe('shouldDo', () => {
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
 
-      it('returns true if the user\'s current time is after CDS', () => {
+      it('returns true if the user\'s current time is after Custom Day Start', () => {
         options.dayStart = 4;
         day = moment().utcOffset(options.timezoneOffset).startOf('day').add(6, 'hours').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
 
-      it('returns false if the user\'s current time is before CDS', () => {
+      it('returns false if the user\'s current time is before Custom Day Start', () => {
         options.dayStart = 8;
         day = moment().utcOffset(options.timezoneOffset).startOf('day').add(2, 'hours').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(false);
@@ -119,7 +119,7 @@ describe('shouldDo', () => {
     });
   });
 
-  context('CDS variations', () => {
+  context('Custom Day Start variations', () => {
     beforeEach(() => {
       // Daily is due every 2 days, and start today
       dailyTask.frequency = 'daily';
@@ -127,7 +127,7 @@ describe('shouldDo', () => {
       dailyTask.startDate = new Date();
     });
 
-    context('CDS is midnight (Default dayStart=0)', () => {
+    context('Custom Day Start is midnight (Default dayStart=0)', () => {
       beforeEach(() => {
         options.dayStart = 0;
       });
@@ -159,7 +159,7 @@ describe('shouldDo', () => {
       });
     });
 
-    context('CDS is 0 <= n < 24', () => {
+    context('Custom Day Start is 0 <= n < 24', () => {
       beforeEach(() => {
         options.dayStart = 7;
       });
@@ -172,24 +172,24 @@ describe('shouldDo', () => {
       });
 
       context('Current Date is today', () => {
-        it('returns false if current hour is before CDS', () => {
+        it('returns false if current hour is before Custom Day Start', () => {
           day = moment(day).startOf('day').add(1, 'hours').toDate();
           expect(shouldDo(day, dailyTask, options)).to.equal(false);
         });
 
-        it('returns true if current hour is after CDS', () => {
+        it('returns true if current hour is after Custom Day Start', () => {
           day = moment(day).startOf('day').add(9, 'hours').toDate();
           expect(shouldDo(day, dailyTask, options)).to.equal(true);
         });
       });
 
       context('Current Date is tomorrow', () => {
-        it('returns true if current hour is before CDS', () => {
+        it('returns true if current hour is before Custom Day Start', () => {
           day = moment(day).endOf('day').add(1, 'hours').toDate();
           expect(shouldDo(day, dailyTask, options)).to.equal(true);
         });
 
-        it('returns false if current hour is after CDS', () => {
+        it('returns false if current hour is after Custom Day Start', () => {
           day = moment(day).endOf('day').add(9, 'hours').toDate();
           expect(shouldDo(day, dailyTask, options)).to.equal(false);
         });
@@ -222,7 +222,7 @@ describe('shouldDo', () => {
     });
 
     context('On multiples of x', () => {
-      it('returns true when CDS is midnight', () => {
+      it('returns true when Custom Day Start is midnight', () => {
         dailyTask.startDate = moment().subtract(7, 'days').toDate();
         dailyTask.everyX = 7;
 
@@ -235,7 +235,7 @@ describe('shouldDo', () => {
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
 
-      it('returns true when current time is after CDS', () => {
+      it('returns true when current time is after Custom Day Start', () => {
         dailyTask.startDate = moment().subtract(5, 'days').toDate();
         dailyTask.everyX = 5;
 
@@ -245,7 +245,7 @@ describe('shouldDo', () => {
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
 
-      it('returns false when current time is before CDS', () => {
+      it('returns false when current time is before Custom Day Start', () => {
         dailyTask.startDate = moment().subtract(5, 'days').toDate();
         dailyTask.everyX = 5;
 
@@ -378,7 +378,7 @@ describe('shouldDo', () => {
         dailyTask.repeat[weekdayMap[currentWeekday]] = true;
       });
 
-      context('CDS is midnight (Default dayStart=0)', () => {
+      context('Custom Day Start is midnight (Default dayStart=0)', () => {
         beforeEach(() => {
           options.dayStart = 0;
         });
@@ -410,7 +410,7 @@ describe('shouldDo', () => {
         });
       });
 
-      context('CDS is 0 <= n < 24', () => {
+      context('Custom Day Start is 0 <= n < 24', () => {
         beforeEach(() => {
           options.dayStart = 7;
         });
@@ -423,24 +423,24 @@ describe('shouldDo', () => {
         });
 
         context('Current Date is on the matching day', () => {
-          it('returns false if current hour is before CDS', () => {
+          it('returns false if current hour is before Custom Day Start', () => {
             day = moment(day).startOf('day').add(1, 'hours').toDate();
             expect(shouldDo(day, dailyTask, options)).to.equal(false);
           });
 
-          it('returns true if current hour is after CDS', () => {
+          it('returns true if current hour is after Custom Day Start', () => {
             day = moment(day).startOf('day').add(9, 'hours').toDate();
             expect(shouldDo(day, dailyTask, options)).to.equal(true);
           });
         });
 
         context('Current Date is one day after the matching day', () => {
-          it('returns true if current hour is before CDS', () => {
+          it('returns true if current hour is before Custom Day Start', () => {
             day = moment(day).endOf('day').add(1, 'hours').toDate();
             expect(shouldDo(day, dailyTask, options)).to.equal(true);
           });
 
-          it('returns false if current hour is after CDS', () => {
+          it('returns false if current hour is after Custom Day Start', () => {
             day = moment(day).endOf('day').add(9, 'hours').toDate();
             expect(shouldDo(day, dailyTask, options)).to.equal(false);
           });
@@ -533,6 +533,53 @@ describe('shouldDo', () => {
 
       expect(shouldDo(threeWeeksFromToday, dailyTask, options)).to.equal(true);
     });
+
+    it('activates Daily on start date', () => {
+      dailyTask.everyX = 3;
+
+      expect(shouldDo(day, dailyTask, options)).to.equal(true);
+    });
+
+    context('Custom Day Start is 0 <= n < 24', () => {
+      let threeWeeksFromToday;
+
+      beforeEach(() => {
+        options.dayStart = 7;
+        dailyTask.everyX = 3;
+        threeWeeksFromToday = moment().add(3, 'weeks').toDate();
+      });
+
+      context('Current Date is one day before the matching day', () => {
+        it('should not be due', () => {
+          day = moment(threeWeeksFromToday).subtract(1, 'days').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(false);
+        });
+      });
+
+      context('Current Date is on the matching day', () => {
+        it('returns false if current hour is before Custom Day Start', () => {
+          day = moment(threeWeeksFromToday).startOf('day').add(1, 'hours').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(false);
+        });
+
+        it('returns true if current hour is after Custom Day Start', () => {
+          day = moment(threeWeeksFromToday).startOf('day').add(9, 'hours').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(true);
+        });
+      });
+
+      context('Current Date is one day after the matching day', () => {
+        it('returns true if current hour is before Custom Day Start', () => {
+          day = moment(threeWeeksFromToday).endOf('day').add(1, 'hours').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(true);
+        });
+
+        it('returns false if current hour is after Custom Day Start', () => {
+          day = moment(threeWeeksFromToday).endOf('day').add(9, 'hours').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(false);
+        });
+      });
+    });
   });
 
   context('Monthly - Every X Months on a specified date', () => {
@@ -570,6 +617,55 @@ describe('shouldDo', () => {
       dailyTask.daysOfMonth = [15];
       day = moment().add(2, 'months').date(15).toDate();
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
+    });
+
+    it('activates Daily on start date', () => {
+      dailyTask.everyX = 2;
+      dailyTask.frequency = 'monthly';
+      dailyTask.daysOfMonth = [15];
+      day = moment().date(15).toDate();
+      expect(shouldDo(day, dailyTask, options)).to.equal(true);
+    });
+
+    context('Custom Day Start is 0 <= n < 24', () => {
+      beforeEach(() => {
+        options.dayStart = 7;
+        dailyTask.everyX = 2;
+        dailyTask.frequency = 'monthly';
+        dailyTask.daysOfMonth = [15];
+        day = moment().add(2, 'months').date(15).toDate();
+      });
+
+      context('Current Date is one day before the matching day', () => {
+        it('should not be due', () => {
+          day = moment(day).subtract(1, 'days').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(false);
+        });
+      });
+
+      context('Current Date is on the matching day', () => {
+        it('returns false if current hour is before Custom Day Start', () => {
+          day = moment(day).startOf('day').add(1, 'hours').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(false);
+        });
+
+        it('returns true if current hour is after Custom Day Start', () => {
+          day = moment(day).startOf('day').add(9, 'hours').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(true);
+        });
+      });
+
+      context('Current Date is one day after the matching day', () => {
+        it('returns true if current hour is before Custom Day Start', () => {
+          day = moment(day).endOf('day').add(1, 'hours').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(true);
+        });
+
+        it('returns false if current hour is after Custom Day Start', () => {
+          day = moment(day).endOf('day').add(9, 'hours').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(false);
+        });
+      });
     });
   });
 
@@ -671,6 +767,87 @@ describe('shouldDo', () => {
 
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
     });
+
+    it('activates Daily on start date', () => {
+      dailyTask.repeat = {
+        su: false,
+        s: false,
+        f: false,
+        th: false,
+        w: false,
+        t: false,
+        m: false,
+      };
+
+      let today = moment('2017-01-27');
+      let week = today.monthWeek();
+      let dayOfWeek = today.day();
+      dailyTask.startDate = today.toDate();
+      dailyTask.weeksOfMonth = [week];
+      dailyTask.repeat[DAY_MAPPING[dayOfWeek]] = true;
+      dailyTask.everyX = 2;
+      dailyTask.frequency = 'monthly';
+
+      day = moment('2017-03-24');
+      expect(shouldDo(day, dailyTask, options)).to.equal(true);
+    });
+
+    context('Custom Day Start is 0 <= n < 24', () => {
+      beforeEach(() => {
+        options.dayStart = 7;
+        dailyTask.repeat = {
+          su: false,
+          s: false,
+          f: false,
+          th: false,
+          w: false,
+          t: false,
+          m: false,
+        };
+
+        let today = moment('2017-01-27');
+        let week = today.monthWeek();
+        let dayOfWeek = today.day();
+        dailyTask.startDate = today.toDate();
+        dailyTask.weeksOfMonth = [week];
+        dailyTask.repeat[DAY_MAPPING[dayOfWeek]] = true;
+        dailyTask.everyX = 2;
+        dailyTask.frequency = 'monthly';
+
+        day = moment('2017-03-24');
+      });
+
+      context('Current Date is one day before the matching day', () => {
+        it('should not be due', () => {
+          day = moment(day).subtract(1, 'days').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(false);
+        });
+      });
+
+      context('Current Date is on the matching day', () => {
+        it('returns false if current hour is before Custom Day Start', () => {
+          day = moment(day).startOf('day').add(1, 'hours').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(false);
+        });
+
+        it('returns true if current hour is after Custom Day Start', () => {
+          day = moment(day).startOf('day').add(9, 'hours').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(true);
+        });
+      });
+
+      context('Current Date is one day after the matching day', () => {
+        it('returns true if current hour is before Custom Day Start', () => {
+          day = moment(day).endOf('day').add(1, 'hours').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(true);
+        });
+
+        it('returns false if current hour is after Custom Day Start', () => {
+          day = moment(day).endOf('day').add(9, 'hours').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(false);
+        });
+      });
+    });
   });
 
   context('Every X Years', () => {
@@ -690,6 +867,56 @@ describe('shouldDo', () => {
       day = day.add(2, 'years').toDate();
 
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
+    });
+
+    it('activates Daily on start date', () => {
+      day = moment();
+      dailyTask.everyX = 2;
+      dailyTask.frequency = 'yearly';
+      day = day.add(2, 'years').toDate();
+
+      expect(shouldDo(day, dailyTask, options)).to.equal(true);
+    });
+
+    context('Custom Day Start is 0 <= n < 24', () => {
+      beforeEach(() => {
+        options.dayStart = 7;
+        day = moment();
+        dailyTask.everyX = 2;
+        dailyTask.frequency = 'yearly';
+        day = day.add(2, 'years').toDate();
+      });
+
+      context('Current Date is one day before the matching day', () => {
+        it('should not be due', () => {
+          day = moment(day).subtract(1, 'days').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(false);
+        });
+      });
+
+      context('Current Date is on the matching day', () => {
+        it('returns false if current hour is before Custom Day Start', () => {
+          day = moment(day).startOf('day').add(1, 'hours').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(false);
+        });
+
+        it('returns true if current hour is after Custom Day Start', () => {
+          day = moment(day).startOf('day').add(9, 'hours').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(true);
+        });
+      });
+
+      context('Current Date is one day after the matching day', () => {
+        it('returns true if current hour is before Custom Day Start', () => {
+          day = moment(day).endOf('day').add(1, 'hours').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(true);
+        });
+
+        it('returns false if current hour is after Custom Day Start', () => {
+          day = moment(day).endOf('day').add(9, 'hours').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(false);
+        });
+      });
     });
   });
 });

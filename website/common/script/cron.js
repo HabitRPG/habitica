@@ -143,13 +143,13 @@ export function shouldDo (day, dailyTask, options = {}) {
       schedule = schedule.every(dailyTask.daysOfMonth).daysOfMonth();
     }
 
-    return schedule.matches(day) && matchEveryX;
+    return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
   } else if (dailyTask.frequency === 'yearly') {
     let schedule = moment(startDate).recur();
 
     schedule = schedule.every(dailyTask.everyX).years();
 
-    return schedule.matches(day);
+    return schedule.matches(startOfDayWithCDSTime);
   }
 
   return false;
