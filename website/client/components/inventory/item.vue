@@ -2,7 +2,7 @@
 b-popover(
   :triggers="['hover']",
   :placement="popoverPosition",
-  v-show="item && item.key.indexOf('_base_0') === -1",
+  v-if="item && item.key.indexOf('_base_0') === -1",
 )
   span(slot="content")
     h4.popover-content-title {{ item.text() }}
