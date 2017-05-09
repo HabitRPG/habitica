@@ -296,7 +296,7 @@ describe('cron middleware', () => {
       cronMiddleware(req, res, (err) => {
         if (err) return reject(err);
         expect(moment(now).isSame(user.auth.timestamps.loggedin, 'day'));
-	expect(user._cronSignature).to.be.equal('NOT_RUNNING');
+        expect(user._cronSignature).to.be.equal('NOT_RUNNING');
         resolve();
       });
     });
