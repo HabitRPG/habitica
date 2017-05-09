@@ -240,51 +240,53 @@ export function ageDailies (user, daysMissed, dailies) {
     let scheduleMisses = 0;
     let EvadeTask = 0;
 
-    let thatDay = now.subtract({days: 1});
+    for (let i = 0; i < daysMissed; i++) {
+      let thatDay = now.subtract({days: i});
 
-    if (shouldDo(thatDay.toDate(), task, user.preferences)) {
-      atLeastOneDailyDueAged = true;
-      scheduleMisses++;
-      if (user.stats.buffs.stealth) {
-        user.stats.buffs.stealth--;
-        EvadeTask++;
+      if (shouldDo(thatDay.toDate(), task, user.preferences)) {
+        atLeastOneDailyDueAged = true;
+        scheduleMisses++;
+        if (user.stats.buffs.stealth) {
+          user.stats.buffs.stealth--;
+          EvadeTask++;
+        }
       }
-    }
 
-    if (scheduleMisses <= EvadeTask) return;
+      if (scheduleMisses <= EvadeTask) return;
 
-    // The user did not complete this due Daily (but no penalty if cron is running in safe mode).
-    if (CRON_SAFE_MODE) {
-      dailyCheckedAged += 1; // allows full allotment of mp to be gained
-      return;
-    }
+      // The user did not complete this due Daily (but no penalty if cron is running in safe mode).
+      if (CRON_SAFE_MODE) {
+        dailyCheckedAged += 1; // allows full allotment of mp to be gained
+        return;
+      }
 
-    perfectAged = false;
+      perfectAged = false;
 
-    if (task.checklist && task.checklist.length > 0) { // Partially completed checklists dock fewer mana points
-      let fractionChecked = _.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0) / task.checklist.length;
-      dailyDueUncheckedAged += 1 - fractionChecked;
-      dailyCheckedAged += fractionChecked;
-    } else {
-      dailyDueUncheckedAged += 1;
-    }
+      if (task.checklist && task.checklist.length > 0) { // Partially completed checklists dock fewer mana points
+        let fractionChecked = _.reduce(task.checklist, (m, item) => m + (item.completed ? 1 : 0), 0) / task.checklist.length;
+        dailyDueUncheckedAged += 1 - fractionChecked;
+        dailyCheckedAged += fractionChecked;
+      } else {
+        dailyDueUncheckedAged += 1;
+      }
 
-    let delta = scoreTask({
-      user,
-      task,
-      direction: 'down',
-      times: 1,
-      cron: true,
-    });
+      let delta = scoreTask({
+        user,
+        task,
+        direction: 'down',
+        times: 1,
+        cron: true,
+      });
 
-    if (!CRON_SEMI_SAFE_MODE) {
-      // Apply damage from a boss, less damage for Trivial priority (difficulty)
-      user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
-      // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
-      // initially, and when we realised, we could not fix it because users are used to
-      // their Medium and Hard Dailies doing an Easy amount of damage from boss.
-      // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
-      // setting between Trivial and Easy.
+      if (!CRON_SEMI_SAFE_MODE) {
+        // Apply damage from a boss, less damage for Trivial priority (difficulty)
+        user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
+        // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
+        // initially, and when we realised, we could not fix it because users are used to
+        // their Medium and Hard Dailies doing an Easy amount of damage from boss.
+        // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
+        // setting between Trivial and Easy.
+      }
     }
   });
 
