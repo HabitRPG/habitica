@@ -473,7 +473,6 @@ describe('cron', () => {
       daysMissed = 1;
       tasksByType.dailys[0].completed = true;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
-
       cron({user, tasksByType, daysMissed, analytics});
 
       expect(user.achievements.perfect).to.equal(1);
@@ -595,6 +594,7 @@ describe('cron', () => {
       };
 
       let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
+      task.yesterDaily = false;
       tasksByType.dailys = [];
       tasksByType.dailys.push(task);
 

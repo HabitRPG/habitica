@@ -264,6 +264,8 @@ export function cron (options = {}) {
 
         if (!shouldDo(thatDay.toDate(), task, user.preferences)) continue; // eslint-disable-line no-continue
 
+        atLeastOneDailyDue = true;
+
         if (task.yesterDaily) {
           user.yesterDailies.push(task._id);
           continue; // eslint-disable-line no-continue
@@ -290,6 +292,7 @@ export function cron (options = {}) {
   dailyChecked += dailyCheckedAged;
   dailyDueUnchecked += dailyDueUncheckedAged;
   if (!atLeastOneDailyDue) perfectAged = atLeastOneDailyDueAged;
+
   if (perfect) perfect = perfectAged;
 
   // check if we've passed a day on which we should reset the habit counters, including today
