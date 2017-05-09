@@ -1,0 +1,8 @@
+{
+  "costumePopoverText": "Select \"Use Costume\" to equip items to your avatar without affecting the stats from your Battle Gear! This means that you can dress up your avatar in whatever outfit you like while still having your best Battle Gear equipped.",
+  "autoEquipPopoverText": "Select this option to automatically equip gear as soon as you purchase it.",
+  "showAllGearItems": "Show All <%= items %> <%= type %> Gear Items",
+  "showLessGearItems": "Show Less <%= type %> Gear Items",
+  "noGearItemsOfType": "You don't own any pieces of <%= type %>.",
+
+}
