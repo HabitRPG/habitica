@@ -8,7 +8,7 @@ habitrpg.controller('NotificationCtrl',
       if (after.length === 0) return;
 
       var yesterDailies = [];
-      after.forEach((taskId) => {
+      after.forEach(function (taskId) {
         let dailyFound = _.find(User.user.dailys, (task) => {
           return taskId === task._id;
         });
