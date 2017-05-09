@@ -2,5 +2,10 @@
   "env": {
     "node": true,
     "browser": true,
-  }
+  },
+  "extends": [
+    "habitrpg/browser",
+    "habitrpg/mocha",
+    "habitrpg/esnext",
+  ],
 }
