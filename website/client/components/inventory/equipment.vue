@@ -28,7 +28,7 @@
         b-dropdown-item(@click="groupBy = 'type'", :class="{'dropdown-item-active': groupBy === 'type'}") Type
         b-dropdown-item(@click="groupBy = 'class'", :class="{'dropdown-item-active': groupBy === 'class'}") {{ $t('class') }}
 
-    drawer(:title="$t('equipment')")
+    drawer(:title="$t('equipment')", :errorMessage="(costume && !user.preferences.costume) ? $t('costumeDisabled') : ''")
       div(slot="drawer-header")
         .drawer-tab-container
           .drawer-tab.text-right
