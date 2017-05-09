@@ -6,6 +6,8 @@
       slot(name="drawer-header")
       .drawer-slider
         slot(name="drawer-slider")
+        div.message(v-if="errorMessage != ''")
+          .content {{ errorMessage }}
 </template>
 
 <style lang="scss">
@@ -75,6 +77,24 @@
   width: 100%;
   overflow-x: scroll;
   white-space: nowrap;
+  position: relative;
+
+  & .message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    top: calc(50% - 30px);
+    left: 24px;
+    right: 0;
+    position: absolute;
+
+    & .content {
+      background-color: rgba($gray-200, 0.5);
+      border-radius: 8px;
+      padding: 12px;
+    }
+  }
 }
 
 .slide-up-enter-active, .slide-up-leave-active {
@@ -93,6 +113,9 @@ export default {
     title: {
       type: String,
       required: true,
+    },
+    errorMessage: {
+      type: String,
     },
   },
   data () {
