@@ -167,5 +167,6 @@
     "taskNotes": "Task Notes",
     "monthlyRepeatHelpContent": "This task will be due every X months",
     "yearlyRepeatHelpContent": "This task will be due every X years",
-    "resets": "Resets"
+    "resets": "Resets",
+    "sessionOutdated":"Your session is outdated. Please reload the page."
 }
