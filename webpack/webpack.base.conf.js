@@ -74,6 +74,7 @@ const baseConfig = {
         test: /\.js$/,
         loader: 'babel-loader',
         include: [
+          path.join(projectRoot, 'test', 'client'),
           path.join(projectRoot, 'website'),
           path.join(projectRoot, 'node_modules', 'bootstrap-vue'),
         ],
