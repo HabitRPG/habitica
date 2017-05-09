@@ -240,7 +240,7 @@ export function ageDailies (user, daysMissed, dailies) {
     let scheduleMisses = 0;
     let EvadeTask = 0;
 
-    let thatDay = moment(now).subtract({days: 1});
+    let thatDay = now.subtract({days: 1});
 
     if (shouldDo(thatDay.toDate(), task, user.preferences)) {
       atLeastOneDailyDueAged = true;

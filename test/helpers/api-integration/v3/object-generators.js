@@ -33,14 +33,6 @@ export async function generateUser (update = {}) {
   return apiUser;
 }
 
-export async function updateUser (user, update = {}) {
-  let apiUser = new ApiUser(user);
-
-  await apiUser.update(update);
-
-  return apiUser;
-}
-
 export async function generateHabit (update = {}) {
   let type = 'habit';
   let task = new Tasks[type](update);

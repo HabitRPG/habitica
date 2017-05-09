@@ -1,7 +1,6 @@
 import moment from 'moment';
 import {
   generateUser,
-  updateUser,
 } from '../../../../helpers/api-integration/v3';
 
 describe('POST /tasks/age-dailies', () => {
@@ -19,7 +18,7 @@ describe('POST /tasks/age-dailies', () => {
     });
 
 
-    await updateUser(user, {
+    await user.update({
       yesterDailies: [daily._id],
     });
   });

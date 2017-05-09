@@ -1250,7 +1250,7 @@ api.deleteTask = {
 };
 
 /**
- * @api {post} /api/v3/tasks/age-dailies Ages dailies that are in the uesterDailies field
+ * @api {post} /api/v3/tasks/age-dailies Ages dailies that are in the yesterDailies field
  * @apiName AgeDailies
  * @apiGroup Task
  *
