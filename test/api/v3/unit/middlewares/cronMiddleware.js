@@ -257,4 +257,48 @@ describe('cron middleware', () => {
       });
     });
   });
+
+  it('cronSignature less than an hour ago should error', async () => {
+    user.lastCron = moment(new Date()).subtract({days: 2});
+    let now = new Date();
+    await User.update({
+      _id: user._id,
+    }, {
+      $set: {
+        _cronSignature: now.getTime()-3500000,
+      },
+    }).exec();
+    await user.save();
+
+    await new Promise((resolve, reject) => {
+      cronMiddleware(req, res, (err) => {
+        if (err) {
+          return resolve();
+	}
+        reject(new Error("Shouldn't have cronned"));
+      });
+    });
+  });
+  
+   it('cronSignature longer than an hour ago should allow cron', async () => {
+    user.lastCron = moment(new Date()).subtract({days: 2});
+    let now = new Date();
+    await User.update({
+      _id: user._id,
+    }, {
+      $set: {
+        _cronSignature: now.getTime()-3700000,
+      },
+    }).exec();
+    await user.save();
+
+    await new Promise((resolve, reject) => {
+      cronMiddleware(req, res, (err) => {
+        if (err) return reject(err);
+        expect(moment(now).isSame(user.auth.timestamps.loggedin, 'day'));
+	expect(user._cronSignature).to.be.equal('NOT_RUNNING');
+        resolve();
+      });
+    });
+  });
 });
