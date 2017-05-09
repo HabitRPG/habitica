@@ -225,7 +225,7 @@ describe('POST /user/class/cast/:spellId', () => {
     let party = await createAndPopulateGroup({
       'members': 1
     });
-    let leader = party.leader;
+    let leader = party.groupleader;
     let recipient = party.members[0];
     await leader.update({'stats.gp': 10});
     await leader.post(`/user/class/cast/birthday?targetId=${recipient._id}`);
