@@ -223,9 +223,9 @@ describe('POST /user/class/cast/:spellId', () => {
 
   it('increases both user\'s achievement values', async () => {
     let party = await createAndPopulateGroup({
-      'members': 1
+      members: 1,
     });
-    let leader = party.groupleader;
+    let leader = party.groupLeader;
     let recipient = party.members[0];
     await leader.update({'stats.gp': 10});
     await leader.post(`/user/class/cast/birthday?targetId=${recipient._id}`);
