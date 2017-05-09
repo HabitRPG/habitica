@@ -2,7 +2,7 @@
 .row
   sidebar
 
-  .col-9
+  .col-10
     h2(v-once) {{ $t('publicGuilds') }}
     public-guild-item(v-for="guild in guilds", :key='guild._id', :guild="guild")
     mugen-scroll(
@@ -72,6 +72,9 @@ export default {
           'three',
         ],
       });
+    },
+    filterGuilds () {
+      console.log('SD')
     },
   },
 };

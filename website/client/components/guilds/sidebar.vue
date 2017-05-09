@@ -1,5 +1,5 @@
 <template lang="pug">
-.col-3.side-bar
+.col-2.side-bar
   .form-group
     input.form-control.search(type="text", :placeholder="$t('search')")
 
@@ -9,11 +9,11 @@
       h5 Category
       .form-check
         .label.form-check-label
-          input.form-check-input(type="checkbox")
+          input.form-check-input(type="checkbox", value='official', v-model="categoryFilters")
           span Habitica Official
       .form-check
         .label.form-check-label
-          input.form-check-input(type="checkbox")
+          input.form-check-input(type="checkbox", value='nature', v-model="categoryFilters")
           span Nature
       .form-check
         .label.form-check-label
@@ -81,6 +81,15 @@
 
 <script>
 export default {
-
-}
+  data () {
+    return {
+      categoryFilters: [],
+    };
+  },
+  watch: {
+    categoryFilters: function (categoryFilters) {
+      console.log(categoryFilters);
+    },
+  },
+};
 </script>

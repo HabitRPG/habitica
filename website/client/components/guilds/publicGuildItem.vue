@@ -2,21 +2,26 @@
 .card
   .card-block
     .row
-      .col-md-8
-        router-link(:to="{ name: 'guild', params: { guildId: guild._id } }")
-          h3 {{ guild.name }}
-        p {{ guild.description }}
       .col-md-2
-        button.btn.float-right(:class="[isMember ? 'btn-danger' : 'btn-success']") {{ isMember ? $t('leave') : $t('join') }}
-    .row
-      .col-md-12
-        .category-label(v-for="category in guild.categories")
-          | {{category}}
+        img.icon.shield(src="~assets/guilds/gold-guild-badge.svg")
+      .col-md-10
+        .row
+          .col-md-8
+              router-link(:to="{ name: 'guild', params: { guildId: guild._id } }")
+                h3 {{ guild.name }}
+              p {{ guild.description }}
+          .col-md-2.cta-container
+            button.btn(:class="[isMember ? 'btn-danger' : 'btn-success']") {{ isMember ? $t('leave') : $t('join') }}
+        .row
+          .col-md-12
+            .category-label(v-for="category in guild.categories")
+              | {{category}}
+            span.recommend-text Suggested because you’re new to Habitica.
 </template>
 
 <style lang="scss" scoped>
 .card {
-  height: 280px;
+  height: 260px;
   border-radius: 4px;
   background-color: #ffffff;
   box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
@@ -44,6 +49,36 @@
   line-height: 1.33;
   text-align: center;
   color: #a5a1ac;
+}
+
+.card .recommend-text {
+  font-size: 12px;
+  font-style: italic;
+  line-height: 2;
+  color: #a5a1ac;
+}
+
+.card .btn-success {
+  border-radius: 2px;
+  background-color: #24cc8f;
+  box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: condensed;
+  line-height: 1.5;
+  text-align: center;
+  color: #ffffff;
+}
+
+.card .cta-container {
+  margin: 0 auto;
+  margin-top: 4em;
+}
+
+.card .shield {
+  width: 70px;
+  height: 76px;
+  margin: auto;
 }
 </style>
 

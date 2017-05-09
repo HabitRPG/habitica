@@ -1,7 +1,7 @@
 <template lang="pug">
 .row
   sidebar
-  .col-9
+  .col-10
     h2(v-once) {{ $t('myGuilds') }}
     public-guild-item(v-for="guild in guilds", :key='guild._id', :guild="guild")
     mugen-scroll(
