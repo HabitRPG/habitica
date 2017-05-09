@@ -244,6 +244,8 @@
     "groupBenefitSixTitle": "Obter uma subscrição gratuita",
     "groupBenefitSixDescription": "Obtenha todos os benefícios de uma subscrição, incluindo objectos mensais exclusivos e a habilidade de comprar gemas com ouro! (Se já for um subscritor, a sua subscrição antiga será cancelada mas os benefícios de subscrição consecutiva, como as ampulhetas mensais, serão mantidos.)",
     "groupBenefitSevenTitle": "Obtenha uma montaria Jackalope nova e exclusiva. ",
+    "groupBenefitEightTitle": "Add Group Managers to help manage tasks",
+    "groupBenefitEightDescription": "Want to share your group's responsibilities? Promote people to Group Managers to help the Leader add, assign, and approve tasks!",
     "createAGroup": "Criar um Grupo",
     "assignFieldPlaceholder": "Escreva o nome do perfil de um dos membros do grupo",
     "cannotDeleteActiveGroup": "Não pode remover um grupo com uma subscrição ativa",

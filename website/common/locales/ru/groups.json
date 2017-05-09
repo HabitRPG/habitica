@@ -244,6 +244,8 @@
     "groupBenefitSixTitle": "Получи бесплатную подписку",
     "groupBenefitSixDescription": "Получите все преимущества подписки, включая эксклюзивные ежемесячные предметы и возможность покупать самоцветы за золото! Если вы уже оплатили подписку, ваша старая подписка будет отменена, но вытекающие из нее преимущества, такие как (monthly hourglasses) останутся",
     "groupBenefitSevenTitle": "Получи нового эксклюзивного скакуна Джекалопа",
+    "groupBenefitEightTitle": "Add Group Managers to help manage tasks",
+    "groupBenefitEightDescription": "Want to share your group's responsibilities? Promote people to Group Managers to help the Leader add, assign, and approve tasks!",
     "createAGroup": "Создать группу",
     "assignFieldPlaceholder": "Укажите имя участника группы",
     "cannotDeleteActiveGroup": "Вы не можете удалить группу с активной подпиской",
