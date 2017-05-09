@@ -166,5 +166,6 @@
     "groupTasksByChallenge": "Grupuj zadania po tytule wyzwania",
     "taskNotes": "Notatki do zadania",
     "monthlyRepeatHelpContent": "To zadanie należy wypełniać co X miesięcy",
-    "yearlyRepeatHelpContent": "To zadanie należy wypełniać co X lat"
+    "yearlyRepeatHelpContent": "To zadanie należy wypełniać co X lat",
+    "resets": "Resets"
 }

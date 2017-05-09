@@ -42,6 +42,7 @@
     "food": "Cibo e Selle",
     "noFood": "Non hai cibo o selle.",
     "dropsExplanation": "Ottieni questi oggetti più velocemente con le Gemme se non vuoi aspettare di ottenerli come drop quando completi un'attività. <a href=\"http://habitica.wikia.com/wiki/Drops\">Maggiori informazioni sul sistema di drop.</a>",
+    "dropsExplanationEggs": "Spend Gems to get eggs more quickly, if you don't want to wait for standard eggs to drop, or to repeat Quests to earn Quest eggs. <a href=\"http://habitica.wikia.com/wiki/Drops\">Learn more about the drop system.</a>",
     "premiumPotionNoDropExplanation": "Le Pozioni di Schiusura Magiche non possono essere usate sulle uova ottenute dalle Missioni. L'unico modo per ottenerle è comprarle qui sotto, non come drop casuali.",
     "beastMasterProgress": "Progresso in Re delle Bestie",
     "stableBeastMasterProgress": "Progresso in Re delle Bestie: <%= number %> animali trovati",

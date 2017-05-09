@@ -21,6 +21,7 @@
     "communityGuidelines": "社区准则",
     "communityGuidelinesRead1": "请阅读我们的",
     "communityGuidelinesRead2": "在聊天之前",
+    "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic. Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
     "party": "队伍",
     "createAParty": "创建一个队伍",
     "updatedParty": "队伍设置已更新。",
@@ -268,5 +269,13 @@
     "confirmCancelGroupPlan": "你确定要取消组内订购计划，并取消所有成员的免费订购的权利吗？",
     "canceledGroupPlan": "已取消的团队套餐",
     "groupPlanCanceled": "团队套餐将失效于",
-    "purchasedGroupPlanPlanExtraMonths": "你有 <%= months %> 个月额外的组内订购的月数。"
+    "purchasedGroupPlanPlanExtraMonths": "你有 <%= months %> 个月额外的组内订购的月数。",
+    "addManagers": "Add Managers",
+    "addManager": "Add Manager",
+    "removeManager": "Remove",
+    "userMustBeMember": "User must be a member",
+    "userIsNotManager": "User is not manager",
+    "canOnlyApproveTaskOnce": "This task has already been approved.",
+    "leaderMarker": "- Leader",
+    "managerMarker": "- Manager"
 }

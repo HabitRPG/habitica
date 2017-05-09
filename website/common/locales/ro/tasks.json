@@ -166,5 +166,6 @@
     "groupTasksByChallenge": "Group tasks by challenge title",
     "taskNotes": "Task Notes",
     "monthlyRepeatHelpContent": "This task will be due every X months",
-    "yearlyRepeatHelpContent": "This task will be due every X years"
+    "yearlyRepeatHelpContent": "This task will be due every X years",
+    "resets": "Resets"
 }

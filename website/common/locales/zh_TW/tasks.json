@@ -166,5 +166,6 @@
     "groupTasksByChallenge": "以挑戰名稱排序 隊伍任務",
     "taskNotes": "Task Notes",
     "monthlyRepeatHelpContent": "這個任務每X月會結算一次",
-    "yearlyRepeatHelpContent": "這個任務每X年會結算一次"
+    "yearlyRepeatHelpContent": "這個任務每X年會結算一次",
+    "resets": "Resets"
 }

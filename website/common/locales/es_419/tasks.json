@@ -145,7 +145,7 @@
     "habitCounterDown": "Contado positivo",
     "taskRequiresApproval": "Esta tarea debe ser aprovada antes de que la puedas completar. La aprobación ya ha sido solicitada.",
     "taskApprovalHasBeenRequested": "La aprobación ha sido solicitada",
-    "approvals": "Approvals",
+    "approvals": "Aprobaciones",
     "approvalRequired": "Aprobación requerida",
     "weekly": "Semanal",
     "monthly": "Mensual",
@@ -166,5 +166,6 @@
     "groupTasksByChallenge": "Tareas grupales por título de desafío",
     "taskNotes": "Notas de Tareas",
     "monthlyRepeatHelpContent": "Esta tarea vencerá cada X meses",
-    "yearlyRepeatHelpContent": "Esta tarea vencerá cada X años"
+    "yearlyRepeatHelpContent": "Esta tarea vencerá cada X años",
+    "resets": "Resets"
 }

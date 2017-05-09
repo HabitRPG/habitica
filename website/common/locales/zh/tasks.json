@@ -166,5 +166,6 @@
     "groupTasksByChallenge": "将小组按挑战的标题归类",
     "taskNotes": "任务笔记",
     "monthlyRepeatHelpContent": "这个任务会每隔X月重复",
-    "yearlyRepeatHelpContent": "这个任务会每隔X年重复"
+    "yearlyRepeatHelpContent": "这个任务会每隔X年重复",
+    "resets": "Resets"
 }

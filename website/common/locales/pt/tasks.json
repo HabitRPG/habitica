@@ -166,5 +166,6 @@
     "groupTasksByChallenge": "Agrupar tarefas por título de desafio",
     "taskNotes": "Notas de Tarefa",
     "monthlyRepeatHelpContent": "Esta tarefa deve ser cumprida a cada X meses.",
-    "yearlyRepeatHelpContent": "Esta tarefa deve ser cumprida a cada X anos"
+    "yearlyRepeatHelpContent": "Esta tarefa deve ser cumprida a cada X anos",
+    "resets": "Resets"
 }

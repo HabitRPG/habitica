@@ -21,6 +21,7 @@
     "communityGuidelines": "Gemeenschapsrichtlijnen",
     "communityGuidelinesRead1": "Lees alsjeblieft onze",
     "communityGuidelinesRead2": "voordat je begint met chatten.",
+    "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic. Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
     "party": "Groep",
     "createAParty": "Creëer een groep",
     "updatedParty": "Groepsinstellingen bijgewerkt.",
@@ -268,5 +269,13 @@
     "confirmCancelGroupPlan": "Weet je zeker dat je het groepsplan wilt annuleren en de voordelen van alle leden wilt verwijderen, inclusief hun gratis abonnementen?",
     "canceledGroupPlan": "Geannuleerd groepsplan",
     "groupPlanCanceled": "Groepsplan zal inactief worden op",
-    "purchasedGroupPlanPlanExtraMonths": "Je hebt <%= months %> maanden van extra groepsplan krediet."
+    "purchasedGroupPlanPlanExtraMonths": "Je hebt <%= months %> maanden van extra groepsplan krediet.",
+    "addManagers": "Add Managers",
+    "addManager": "Add Manager",
+    "removeManager": "Remove",
+    "userMustBeMember": "User must be a member",
+    "userIsNotManager": "User is not manager",
+    "canOnlyApproveTaskOnce": "This task has already been approved.",
+    "leaderMarker": "- Leader",
+    "managerMarker": "- Manager"
 }

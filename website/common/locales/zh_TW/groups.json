@@ -21,6 +21,7 @@
     "communityGuidelines": "社群規範",
     "communityGuidelinesRead1": "請閲讀我們的",
     "communityGuidelinesRead2": "在聊天之前",
+    "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic. Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
     "party": "隊伍",
     "createAParty": "建立一個隊伍",
     "updatedParty": "隊與設置更新。",
@@ -96,7 +97,7 @@
     "confirm": "確認",
     "leaveGroup": "退出公會？",
     "leavePartyCha": "退出隊伍挑戰並...",
-    "leaveParty": "離開隊伍？",
+    "leaveParty": "Leave party?",
     "sendPM": "送出私密訊息",
     "send": "送出",
     "messageSentAlert": "已寄出的留言",
@@ -268,5 +269,13 @@
     "confirmCancelGroupPlan": "Are you sure you want to cancel the group plan and remove its benefits from all members, including their free subscriptions?",
     "canceledGroupPlan": "Canceled Group Plan",
     "groupPlanCanceled": "Group Plan will become inactive on",
-    "purchasedGroupPlanPlanExtraMonths": "You have <%= months %> months of extra group plan credit."
+    "purchasedGroupPlanPlanExtraMonths": "You have <%= months %> months of extra group plan credit.",
+    "addManagers": "Add Managers",
+    "addManager": "Add Manager",
+    "removeManager": "Remove",
+    "userMustBeMember": "User must be a member",
+    "userIsNotManager": "User is not manager",
+    "canOnlyApproveTaskOnce": "This task has already been approved.",
+    "leaderMarker": "- Leader",
+    "managerMarker": "- Manager"
 }

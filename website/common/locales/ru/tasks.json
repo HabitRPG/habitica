@@ -166,5 +166,6 @@
     "groupTasksByChallenge": "Сгруппируйте задания по тегу испытания",
     "taskNotes": "Примечания к задаче",
     "monthlyRepeatHelpContent": "Это задание будет появляться каждые N месяцев",
-    "yearlyRepeatHelpContent": "Это задание будет появляться каждые N лет"
+    "yearlyRepeatHelpContent": "Это задание будет появляться каждые N лет",
+    "resets": "Resets"
 }

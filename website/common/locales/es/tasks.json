@@ -166,5 +166,6 @@
     "groupTasksByChallenge": "Agrupar tareas por título del desafío",
     "taskNotes": "Notas de la Tarea",
     "monthlyRepeatHelpContent": "Esta tarea vencerá cada X meses",
-    "yearlyRepeatHelpContent": "Esta tarea vencerá cada X años"
+    "yearlyRepeatHelpContent": "Esta tarea vencerá cada X años",
+    "resets": "Resets"
 }

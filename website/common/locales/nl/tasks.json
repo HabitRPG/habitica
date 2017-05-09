@@ -166,5 +166,6 @@
     "groupTasksByChallenge": "Groepeer taken met uitdaging titel",
     "taskNotes": "Taken notities",
     "monthlyRepeatHelpContent": "Deze taak zul je iedere X maanden moeten doen",
-    "yearlyRepeatHelpContent": "Deze taak zul je iedere X jaren moeten doen"
+    "yearlyRepeatHelpContent": "Deze taak zul je iedere X jaren moeten doen",
+    "resets": "Resets"
 }

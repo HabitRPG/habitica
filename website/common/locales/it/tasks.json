@@ -166,5 +166,6 @@
     "groupTasksByChallenge": "Raggruppa le attività secondo il nome della sfida",
     "taskNotes": "Task Notes",
     "monthlyRepeatHelpContent": "Questa attività andrà completata ogni X mesi.",
-    "yearlyRepeatHelpContent": "Questa attività andrà completata ogni X anni."
+    "yearlyRepeatHelpContent": "Questa attività andrà completata ogni X anni.",
+    "resets": "Resets"
 }

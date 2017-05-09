@@ -166,5 +166,6 @@
     "groupTasksByChallenge": "Gruppér opgaver efter udfordrings-titel.",
     "taskNotes": "Opgavenoter",
     "monthlyRepeatHelpContent": "Denne opgave vil være forfalden hver X måneder",
-    "yearlyRepeatHelpContent": "Denne opgave vil være forfalden hver X år"
+    "yearlyRepeatHelpContent": "Denne opgave vil være forfalden hver X år",
+    "resets": "Resets"
 }

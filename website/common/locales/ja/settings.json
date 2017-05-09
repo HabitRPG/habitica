@@ -26,6 +26,7 @@
     "showBaileyPop": "隠れている広報係・Bailey を表示して、過去のニュースを見直す。",
     "fixVal": "キャラクター設定値を直す",
     "fixValPop": "手動で体力、レベル、ゴールドのような値を変更します。",
+    "invalidLevel": "Invalid value: Level must be 1 or greater.",
     "enableClass": "クラスシステムを有効にする",
     "enableClassPop": "初期設定では、クラスシステムは無効に設定されています。有効にしますか?",
     "classTourPop": "クラス・システムのツアーを表示する",

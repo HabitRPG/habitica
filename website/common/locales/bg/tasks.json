@@ -166,5 +166,6 @@
     "groupTasksByChallenge": "Групиране на задачите по заглавие на предизвикателство",
     "taskNotes": "Бележки към задачата",
     "monthlyRepeatHelpContent": "Тази задача ще бъде подновявана на всеки Х месеца.",
-    "yearlyRepeatHelpContent": "Тази задача ще бъде подновявана на всеки Х години."
+    "yearlyRepeatHelpContent": "Тази задача ще бъде подновявана на всеки Х години.",
+    "resets": "Resets"
 }

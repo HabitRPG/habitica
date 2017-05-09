@@ -87,7 +87,7 @@
     "weaponSpecialMammothRiderSpearText": "騎象者之槍",
     "weaponSpecialMammothRiderSpearNotes": "這把玫瑰石槍將會賦予你古老的施術能力。增加智力<%= attrs %>點。",
     "weaponSpecialPageBannerText": "書頁旗幟",
-    "weaponSpecialPageBannerNotes": "揮動旗幟，提升士氣！增加力量<%= attrs %>點。",
+    "weaponSpecialPageBannerNotes": "揮動旗幟，提升士氣！增加力量<%= str %>點。",
     "weaponSpecialRoguishRainbowMessageText": "Roguish Rainbow Message",
     "weaponSpecialRoguishRainbowMessageNotes": "This sparkly envelope contains messages of encouragement from Habiticans, and a touch of magic to help speed your deliveries! Increases Perception by <%= per %>.",
     "weaponSpecialSkeletonKeyText": "Skeleton Key",
