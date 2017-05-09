@@ -51,8 +51,9 @@
 
 // Do not include the following words:
 // 'ale' because it's Polish for 'but'.
-// 'Jesus' because it's a legitimate modern given name.
-// 'Christ' because it's a legitimate modern surname.
+// legitimate given names: 'Jesus', 'Sherry'
+// legitimate surnames: 'Christ'
+// legitimate place names: 'Dyke'
 
 let bannedWords = [
   'TEST_PLACEHOLDER_SWEAR_WORD_HERE',
@@ -120,8 +121,6 @@ let bannedWords = [
   'sluts',
   'cunt',
   'cunts',
-  'dyke',
-  'dykes',
   'spic',
   'spics',
   'tranny',
@@ -136,6 +135,9 @@ let bannedWords = [
   'rape',
   'raped',
   'raping',
+  'r\\*pe',
+  'r\\*ped',
+  'r\\*ping',
   'blowjob',
   'rimjob',
   'handjob',
@@ -153,7 +155,6 @@ let bannedWords = [
   'beer',
   'beers',
   'mead',
-  'sherry',
   'champagne',
   'rum',
   'brandy',

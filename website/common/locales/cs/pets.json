@@ -42,6 +42,7 @@
     "food": "Jídlo a sedla",
     "noFood": "Nemáš žádné jídlo ani žádná sedla.",
     "dropsExplanation": "Tyto předměty můžeš získat rychleji, když si je koupíš za Drahokamy, a nemusíš tak čekat, až je najdeš po splnění úkolu. <a href=\"http://habitica.wikia.com/wiki/Drops\">Zjisti více o nalézání předmětů.</a>",
+    "dropsExplanationEggs": "Spend Gems to get eggs more quickly, if you don't want to wait for standard eggs to drop, or to repeat Quests to earn Quest eggs. <a href=\"http://habitica.wikia.com/wiki/Drops\">Learn more about the drop system.</a>",
     "premiumPotionNoDropExplanation": "Magické líhnoucí lektvary nemohou být použity na vejce z Výprav. Můžeš si je pouze koupit, nenajdeš je.",
     "beastMasterProgress": "Pokrok Pána šelem",
     "stableBeastMasterProgress": "Pokrok Pána šelem: nalezl <%= number %> mazlíčků",

@@ -26,6 +26,7 @@
     "showBaileyPop": "Rappelle Bailey la crieuse publique afin que vous puissiez revoir les dernières nouveautés.",
     "fixVal": "Corriger les valeurs du personnage",
     "fixValPop": "Changer manuellement les valeurs telles que la Vie, le Niveau et l'Or.",
+    "invalidLevel": "Invalid value: Level must be 1 or greater.",
     "enableClass": "Activer le système de classe",
     "enableClassPop": "Vous avez désactivé le système de classe. Voulez-vous à présent l'activer ?",
     "classTourPop": "Montre la visite guidée à propos l'utilisation du système de classe.",

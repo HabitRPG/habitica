@@ -21,6 +21,7 @@
     "communityGuidelines": "Diretrizes de Comunidade",
     "communityGuidelinesRead1": "Por favor, leia nossas",
     "communityGuidelinesRead2": "antes de conversar.",
+    "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic. Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
     "party": "Grupo",
     "createAParty": "Criar um Grupo",
     "updatedParty": "Configurações de grupo atualizadas.",
@@ -243,6 +244,8 @@
     "groupBenefitSixTitle": "Obtenha uma assinatura gratuitamente",
     "groupBenefitSixDescription": "Obtenha todos os benefícios da assinatura, como itens mensais e a possibilidade de comprar gemas com ouro! (Se você já é assinante, suas assinaturas serão canceladas mas os seus benefícios pelas assinaturas consecutivas, como as ampulhetas mensais, continuarão).",
     "groupBenefitSevenTitle": "Receba uma Montaria de Lebrílope novinha exclusiva",
+    "groupBenefitEightTitle": "Add Group Managers to help manage tasks",
+    "groupBenefitEightDescription": "Want to share your group's responsibilities? Promote people to Group Managers to help the Leader add, assign, and approve tasks!",
     "createAGroup": "Crie um Grupo",
     "assignFieldPlaceholder": "Digite o nome do perfil de um membro do grupo",
     "cannotDeleteActiveGroup": "Você não pode remover um grupo com assinatura ativa",
@@ -268,5 +271,13 @@
     "confirmCancelGroupPlan": "Você tem certeza que você quer cancelar o plano de grupo e remover os benefícios de todos os membros, incluindo os que tem assinaturas gratuitas?",
     "canceledGroupPlan": "Plano de Grupo cancelado",
     "groupPlanCanceled": "O Plano de Grupo ficará inativo em",
-    "purchasedGroupPlanPlanExtraMonths": "Você tem <%= months %> meses de créditos de plano de grup."
+    "purchasedGroupPlanPlanExtraMonths": "Você tem <%= months %> meses de créditos de plano de grup.",
+    "addManagers": "Add Managers",
+    "addManager": "Add Manager",
+    "removeManager": "Remove",
+    "userMustBeMember": "User must be a member",
+    "userIsNotManager": "User is not manager",
+    "canOnlyApproveTaskOnce": "This task has already been approved.",
+    "leaderMarker": "- Leader",
+    "managerMarker": "- Manager"
 }

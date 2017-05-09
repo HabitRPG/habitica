@@ -26,6 +26,7 @@
     "showBaileyPop": "呼叫傳令員 Bailey，以查看過去的新聞。",
     "fixVal": "修改角色數值",
     "fixValPop": "手動修改諸如生命值、等級和金幣等數值。",
+    "invalidLevel": "Invalid value: Level must be 1 or greater.",
     "enableClass": "開啟職業系統",
     "enableClassPop": "你當初放棄了職業系統，現在確認開啟嗎？",
     "classTourPop": "顯示使用職業系統的教學。",
