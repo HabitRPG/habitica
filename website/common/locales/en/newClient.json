@@ -3,6 +3,5 @@
   "autoEquipPopoverText": "Select this option to automatically equip gear as soon as you purchase it.",
   "showAllGearItems": "Show All <%= items %> <%= type %> Gear Items",
   "showLessGearItems": "Show Less <%= type %> Gear Items",
-  "noGearItemsOfType": "You don't own any pieces of <%= type %>.",
-
+  "noGearItemsOfType": "You don't own any pieces of <%= type %>."
 }
