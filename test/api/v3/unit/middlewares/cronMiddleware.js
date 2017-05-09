@@ -265,7 +265,7 @@ describe('cron middleware', () => {
       _id: user._id,
     }, {
       $set: {
-        _cronSignature: now.getTime()-3500000,
+        _cronSignature: now.getTime() - 3500000,
       },
     }).exec();
     await user.save();
@@ -274,13 +274,13 @@ describe('cron middleware', () => {
       cronMiddleware(req, res, (err) => {
         if (err) {
           return resolve();
-	}
-        reject(new Error("Shouldn't have cronned"));
+        }
+        reject(new Error('Should not have cronned'));
       });
     });
   });
-  
-   it('cronSignature longer than an hour ago should allow cron', async () => {
+
+  it('cronSignature longer than an hour ago should allow cron', async () => {
     user.lastCron = moment(new Date()).subtract({days: 2});
     let now = new Date();
     await User.update({
