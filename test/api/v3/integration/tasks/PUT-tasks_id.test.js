@@ -396,22 +396,16 @@ describe('PUT /tasks/:id', () => {
         notes: 'some new notes',
         frequency: 'daily',
         everyX: 5,
-<<<<<<< HEAD
         yesterDaily: false,
-=======
         startDate: moment().add(1, 'days').toDate(),
->>>>>>> upstream/develop
       });
 
       expect(savedDaily.text).to.eql('some new text');
       expect(savedDaily.notes).to.eql('some new notes');
       expect(savedDaily.frequency).to.eql('daily');
       expect(savedDaily.everyX).to.eql(5);
-<<<<<<< HEAD
       expect(savedDaily.yesterDaily).to.be.false;
-=======
       expect(savedDaily.isDue).to.be.false;
->>>>>>> upstream/develop
     });
 
     it('can update checklists (replace it)', async () => {

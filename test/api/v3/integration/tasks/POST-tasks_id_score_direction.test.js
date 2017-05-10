@@ -1,6 +1,5 @@
 import {
   generateUser,
-  updateUser,
   sleep,
   translate as t,
   server,
@@ -269,9 +268,10 @@ describe('POST /tasks/:id/score/:direction', () => {
         text: 'test daily',
         type: 'daily',
       });
-      await updateUser(userWhoMissedDailies, {
+      await userWhoMissedDailies.update({
         yesterDailies: [missedDaily._id],
       });
+
       await userWhoMissedDailies.sync();
       expect(userWhoMissedDailies.yesterDailies.length).to.eql(1);
 
