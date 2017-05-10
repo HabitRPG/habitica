@@ -15,7 +15,7 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
         .task-column(class='{{::list.type}}s')
           include ./task_view/graph
           h2.task-column_title(class='{{::list.type}}-title') {{::list.header}}
-          h5.tasks-warning Warning: Adding a new task will get saved automatically and clicking the cancel button above will not revert any changes.
+          h5.tasks-warning When you add a new task, it will be immediately saved to the challenge and given to all participants. Clicking the cancel button above will not revert your change.
 
           include ./task_view/help
 
