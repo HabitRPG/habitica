@@ -103,6 +103,6 @@ export default {
     leave () {
       // console.log('leave', this.guild._id)
     },
-  }
+  },
 };
 </script>

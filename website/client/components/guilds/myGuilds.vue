@@ -14,11 +14,10 @@
 </template>
 
 <script>
-import axios from 'axios';
 import MugenScroll from 'vue-mugen-scroll';
 import PublicGuildItem from './publicGuildItem';
 import Sidebar from './sidebar';
-import { GUILDS_PER_PAGE } from 'common/script/constants';
+// import { GUILDS_PER_PAGE } from 'common/script/constants';
 
 export default {
   components: { PublicGuildItem, MugenScroll, Sidebar },
@@ -27,27 +26,26 @@ export default {
       loading: false,
       hasLoadedAllGuilds: false,
       lastPageLoaded: 0,
-      guilds: [],
     };
   },
   created () {
     this.fetchGuilds();
   },
+  computed: {
+    guilds () {
+      return this.$store.state.myGuilds;
+    },
+  },
   methods: {
     async fetchGuilds () {
       this.loading = true;
-      let response = await axios.get('/api/v3/groups', {
-        params: {
-          type: 'publicGuilds',
-          paginate: true,
-          page: this.lastPageLoaded,
-        },
-      });
-      let guilds = response.data.data;
-      this.guilds.push(...guilds);
-      if (guilds.length < GUILDS_PER_PAGE) this.hasLoadedAllGuilds = true;
-      this.lastPageLoaded++;
+      await this.$store.dispatch('guilds:getMyGuilds', {page: this.lastPageLoaded});
+
+      // if (guilds.length < GUILDS_PER_PAGE) this.hasLoadedAllGuilds = true;
+      // this.lastPageLoaded++;
+
       this.loading = false;
+      this.hasLoadedAllGuilds = true;
     },
   },
 };

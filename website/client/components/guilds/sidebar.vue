@@ -87,8 +87,8 @@ export default {
     };
   },
   watch: {
-    categoryFilters: (categoryFilters) => {
-    },
+    // categoryFilters: (categoryFilters) => {
+    // },
   },
 };
 </script>

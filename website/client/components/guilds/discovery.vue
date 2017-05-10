@@ -31,7 +31,6 @@ h2 {
 import MugenScroll from 'vue-mugen-scroll';
 import PublicGuildItem from './publicGuildItem';
 import Sidebar from './sidebar';
-import { mapState, mapGetters } from 'client/libs/store';
 // import { GUILDS_PER_PAGE } from 'common/script/constants';
 
 export default {
@@ -48,8 +47,8 @@ export default {
   },
   computed: {
     guilds () {
-      return this.$store.state.publicGuilds
-    }
+      return this.$store.state.publicGuilds;
+    },
   },
   methods: {
     async fetchGuilds () {
