@@ -287,7 +287,7 @@ describe('cron middleware', () => {
       _id: user._id,
     }, {
       $set: {
-        _cronSignature: now.getTime()-3700000,
+        _cronSignature: now.getTime() - 3700000,
       },
     }).exec();
     await user.save();
