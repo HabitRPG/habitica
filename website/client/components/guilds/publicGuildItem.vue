@@ -11,7 +11,8 @@
                 h3 {{ guild.name }}
               p {{ guild.description }}
           .col-md-2.cta-container
-            button.btn(:class="[isMember ? 'btn-danger' : 'btn-success']") {{ isMember ? $t('leave') : $t('join') }}
+            button.btn.btn-danger(v-if='isMember' @click='leave()') {{ $t('leave') }}
+            button.btn.btn-success(v-if='!isMember'  @click='join()') {{ $t('join') }}
         .row
           .col-md-12
             .category-label(v-for="category in guild.categories")
@@ -95,5 +96,13 @@ export default {
       return this.isMemberOfGroup(this.user, this.guild);
     },
   },
+  methods: {
+    join () {
+      // console.log('join', this.guild._id)
+    },
+    leave () {
+      // console.log('leave', this.guild._id)
+    },
+  }
 };
 </script>

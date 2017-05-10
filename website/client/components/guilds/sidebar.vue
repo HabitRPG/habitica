@@ -87,8 +87,7 @@ export default {
     };
   },
   watch: {
-    categoryFilters: function (categoryFilters) {
-      console.log(categoryFilters);
+    categoryFilters: (categoryFilters) => {
     },
   },
 };

@@ -1,6 +1,7 @@
 import { flattenAndNamespace } from 'client/libs/store/helpers/internals';
 import * as user from './user';
 import * as tasks from './tasks';
+import * as guilds from './guilds';
 
 // Getters should be named as 'getterName' and can be accessed as 'namespace:getterName'
 // Example: gems in user.js -> 'user:gems'
@@ -8,6 +9,7 @@ import * as tasks from './tasks';
 const getters = flattenAndNamespace({
   user,
   tasks,
+  guilds,
 });
 
 export default getters;
