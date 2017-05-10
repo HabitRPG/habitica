@@ -5,11 +5,11 @@ habitrpg.controller('NotificationCtrl',
   function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement, Social, Tasks) {
 
     $rootScope.$watch('user.yesterDailies', function (after, before) {
-      if (after.length === 0) return;
+      if (!after || after.length === 0) return;
 
       var yesterDailies = [];
       after.forEach(function (taskId) {
-        let dailyFound = _.find(User.user.dailys, (task) => {
+        var dailyFound = _.find(User.user.dailys, function (task) {
           return taskId === task._id;
         });
         if (dailyFound) yesterDailies.push(dailyFound);
