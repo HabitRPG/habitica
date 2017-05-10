@@ -14,7 +14,6 @@
   box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
   color: $white;
 
-
   &:focus {
     outline: none;
     border-color: $purple-400;
@@ -39,7 +38,7 @@
   }
 }
 
-.btn[disabled] {
+.btn:disabled {
   box-shadow: none;
   opacity: 0.64;
   border-color: transparent;
@@ -48,13 +47,19 @@
 .btn-primary {
   background: $purple-200;
 
-  &:hover:not([disabled]), &:active {
+  &:disabled {
+    background: $purple-200;
+  }
+
+  &:hover:not(:disabled), &:active {
     background: #5d3b9c;
   }
 }
 
 .btn-secondary {
-  &:hover:not([disabled]), &:active {
+  background: $white;
+
+  &:hover:not(:disabled), &:active {
     background: $white;
     color: $purple-200;
   }
@@ -67,7 +72,7 @@
     color: $purple-200;
   }
 
-  &[disabled] {
+  &:disabled {
     background: $gray-500;
     color: $gray-100;
   }
@@ -76,7 +81,11 @@
 .btn-success {
   background: $green-10;
 
-  &:hover:not([disabled]), &:active {
+  &:disabled {
+    background: $green-10;
+  }
+
+  &:hover:not(:disabled), &:active {
     background: $green-50;
   }
 }
@@ -84,7 +93,11 @@
 .btn-info {
   background: $blue-50;
 
-  &:hover:not([disabled]), &:active {
+  &:disabled {
+    background: $blue-50;
+  }
+
+  &:hover:not(:disabled), &:active {
     background: $blue-100;
   }
 }
@@ -92,7 +105,11 @@
 .btn-danger {
   background: $red-50;
 
-  &:hover:not([disabled]), &:active {
+  &:disabled {
+    background: $red-50;
+  }
+
+  &:hover:not(:disabled), &:active {
     background: $red-100;
   }
 }
