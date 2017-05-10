@@ -97,5 +97,9 @@
         "COMMUNITY_MANAGER_EMAIL" : "leslie@habitica.com",
         "TECH_ASSISTANCE_EMAIL" : "admin@habitica.com",
         "PRESS_ENQUIRY_EMAIL" : "leslie@habitica.com"
+    },
+    "LOGGLY" : {
+        "TOKEN" : "example-token",
+        "SUBDOMAIN" : "exmaple-subdomain"
     }
 }

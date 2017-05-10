@@ -493,6 +493,20 @@ let backgrounds = {
       notes: t('backgroundMistShroudedMountainNotes'),
     },
   },
+  backgrounds052017: {
+    guardian_statues: {
+      text: t('backgroundGuardianStatuesText'),
+      notes: t('backgroundGuardianStatuesNotes'),
+    },
+    habit_city_streets: {
+      text: t('backgroundHabitCityStreetsText'),
+      notes: t('backgroundHabitCityStreetsNotes'),
+    },
+    on_tree_branch: {
+      text: t('backgroundOnATreeBranchText'),
+      notes: t('backgroundOnATreeBranchNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

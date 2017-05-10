@@ -952,10 +952,10 @@ api.quests = {
     notes: t('questEggHuntNotes'),
     completion: t('questEggHuntCompletion'),
     value: 1,
-    canBuy () {
-      return true;
-    },
     category: 'pet',
+    canBuy () {
+      return false;
+    },
     collect: {
       plainEgg: {
         text: t('questEggHuntCollectPlainEgg'),

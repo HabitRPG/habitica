@@ -26,6 +26,7 @@
     "showBaileyPop": "Breng Bailey de Stadsomroeper uit haar schuilplaats zodat je nieuws uit het verleden kunt nalezen.",
     "fixVal": "Personagewaarden bijstellen",
     "fixValPop": "Handmatig veranderen van waarden zoals gezondheidspunten, niveau en goud.",
+    "invalidLevel": "Invalid value: Level must be 1 or greater.",
     "enableClass": "Klassensysteem aanzetten",
     "enableClassPop": "Aanvankelijk had je geen klasse gekozen. Wil je er nu een kiezen?",
     "classTourPop": "Laat de rondleiding zien over hoe je het klassensysteem kunt gebruiken.",
