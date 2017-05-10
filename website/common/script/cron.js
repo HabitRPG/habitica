@@ -33,6 +33,7 @@ function sanitizeOptions (o) {
 
   let timezoneOffset;
   let timezoneOffsetDefault = Number(moment().zone());
+
   if (isFinite(o.timezoneOffsetOverride)) {
     timezoneOffset = Number(o.timezoneOffsetOverride);
   } else if (Number.isFinite(o.timezoneOffset)) {
@@ -101,6 +102,7 @@ export function shouldDo (day, dailyTask, options = {}) {
   // The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it.
   // Therefore, we must also ignore the time portion of the user's day start (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
   // NB: The user's day start date has already been converted to the PREVIOUS day's date if the time portion was before CDS.
+
   let startDate = moment(dailyTask.startDate).zone(o.timezoneOffset).startOf('day');
 
   if (startDate > startOfDayWithCDSTime.startOf('day')) {

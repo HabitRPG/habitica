@@ -26,6 +26,7 @@
     "showBaileyPop": "Hent byudråberen Bailey frem fra sit gemmested så du kan se tidligere nyheder.",
     "fixVal": "Ret Karakterværdier",
     "fixValPop": "Manuelt ret værdier såsom Liv, Niveau og Guld.",
+    "invalidLevel": "Invalid value: Level must be 1 or greater.",
     "enableClass": "Aktivér Klassesystem",
     "enableClassPop": "Du fravalgte oprindeligt klassesystemet. Vil du gerne aktivere det nu?",
     "classTourPop": "Starter rundvisningen i brugen af klassesystemet.",

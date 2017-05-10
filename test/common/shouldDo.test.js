@@ -7,7 +7,6 @@ describe('shouldDo', () => {
   let options = {};
 
   beforeEach(() => {
-    options = {};
     day = new Date();
     dailyTask = {
       completed: 'false',
@@ -215,8 +214,9 @@ describe('shouldDo', () => {
       expect(shouldDo(day, dailyTask, options)).to.equal(false);
     });
 
-    it('returns true on the Start Date', () => {
-      dailyTask.startDate = moment().toDate();
+    it('returns true on multiples of x', () => {
+      dailyTask.startDate = moment().subtract(7, 'days').toDate();
+      dailyTask.everyX = 7;
 
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
     });
@@ -279,10 +279,8 @@ describe('shouldDo', () => {
         expect(shouldDo(day, dailyTask, options)).to.equal(false);
       });
 
-      it('returns false for today', () => {
-        dailyTask.startDate = moment().toDate();
-        expect(shouldDo(day, dailyTask, options)).to.equal(false);
-      });
+      day = moment(day).add(7, 'days');
+      expect(shouldDo(day, dailyTask, options)).to.equal(true);
     });
   });
 

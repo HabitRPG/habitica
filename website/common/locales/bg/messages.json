@@ -51,6 +51,7 @@
     "messageGroupChatFlagAlreadyReported": "Вече сте докладвали това съобщение",
     "messageGroupChatNotFound": "Съобщението не е намерено!",
     "messageGroupChatAdminClearFlagCount": "Само администратор може да изчисти броя на докладванията!",
+    "messageGroupChatSpam": "Whoops, looks like you're posting too many messages! Please wait a minute and try again. The Tavern chat only holds 200 messages at a time, so Habitica encourages posting longer, more thoughtful messages and consolidating replies. Can't wait to hear what you have to say. :)",
     "messageUserOperationProtected": "Пътят `<%= operation %>` не беше запазен, тъй като е защитен път.",
     "messageUserOperationNotFound": "Операцията „<%= operation %>“ не е намерена",
     "messageNotificationNotFound": "Известието не е намерено.",

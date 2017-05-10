@@ -2,11 +2,11 @@
 
   // Counter
   span(ng-if='showDoubleTaskCounter(task, obj)')
-    span(tooltip='{{env.t("habitCounterUp")}} ({{env.t("resets")}} {{env.t(task.frequency)}})') +{{task.counterUp}}|
-    span(tooltip='{{env.t("habitCounterDown")}} ({{env.t("resets")}} {{env.t(task.frequency)}})') -{{task.counterDown}}&nbsp;
+    span(tooltip='{{env.t( "habitCounterUp", {frequency:env.t(task.frequency)} )}}') +{{task.counterUp}}|
+    span(tooltip='{{env.t( "habitCounterDown", {frequency:env.t(task.frequency)} )}}') -{{task.counterDown}}&nbsp;
 
   span(ng-if='showSingleTaskCounter(task, obj)')
-    span(tooltip='{{env.t("habitCounter")}} ({{env.t("resets")}} {{env.t(task.frequency)}})') {{task.up ? task.counterUp : task.counterDown}}&nbsp;
+    span(tooltip='{{env.t( "habitCounter", {frequency:env.t(task.frequency)} )}}') {{task.up ? task.counterUp : task.counterDown}}&nbsp;
 
   // Due Date
   span(ng-if='task.type=="todo" && task.date')

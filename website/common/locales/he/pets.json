@@ -42,6 +42,7 @@
     "food": "אוכל ואוכפים",
     "noFood": "אין לך אוכל או אוכפים",
     "dropsExplanation": "קבלו חפצים אלו מהר יותר עם אבני-חן, אם אינכם מעוניינים לחכות שיפלו בהשלמת משימות. <a href=\"http://habitica.wikia.com/wiki/Drops\">למדו עוד על מערכת הנפילות.</a>",
+    "dropsExplanationEggs": "Spend Gems to get eggs more quickly, if you don't want to wait for standard eggs to drop, or to repeat Quests to earn Quest eggs. <a href=\"http://habitica.wikia.com/wiki/Drops\">Learn more about the drop system.</a>",
     "premiumPotionNoDropExplanation": "לא ניתן להשתמש בשיקויי הבקעה קסומים על ביצים שהתקבלו מהרפתקאות. הדרך היחידה לקבל שיקויי הבקעה קסומים היא על ידי שימוש בהם למטה, לא מנפילות אקראיות.",
     "beastMasterProgress": "התקדמות אדון החיות",
     "stableBeastMasterProgress": "התקדמות אדון החיות: נמצאו <%= number %> חיות מחמד",
