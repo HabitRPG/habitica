@@ -291,7 +291,7 @@ export function cron (options = {}) {
   let {dailyCheckedAged, dailyDueUncheckedAged, atLeastOneDailyDueAged, perfectAged} = ageDailies(user, daysMissed, dailiesToAge);
   dailyChecked += dailyCheckedAged;
   dailyDueUnchecked += dailyDueUncheckedAged;
-  if (!atLeastOneDailyDue) perfectAged = atLeastOneDailyDueAged;
+  if (!atLeastOneDailyDue) atLeastOneDailyDue = atLeastOneDailyDueAged;
 
   if (perfect) perfect = perfectAged;
 

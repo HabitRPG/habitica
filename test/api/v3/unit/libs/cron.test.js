@@ -531,6 +531,7 @@ describe('cron', () => {
       daysMissed = 1;
       tasksByType.dailys[0].completed = false;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+      tasksByType.dailys[0].yesterDaily = false;
 
       user.stats.buffs = {
         str: 1,
