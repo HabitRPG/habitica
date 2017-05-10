@@ -7,22 +7,22 @@ include ./task-list
 include ./task
 
 script(id='templates/habitrpg-tasks.html', type="text/ng-template")
-  .tasks-lists.container-fluid
+  .tasks-lists.container-fluid    
     .row
       .col-sm-6.col-md-3(
         ng-repeat='list in lists',
         ng-class='::{ "rewards-module": list.type==="reward", "new-row-sm": list.type==="todo" }')
         .task-column(class='{{::list.type}}s')
           include ./task_view/graph
-
           h2.task-column_title(class='{{::list.type}}-title') {{::list.header}}
+          h5.tasks-warning Warning: Adding a new task will get saved automatically and clicking the cancel button above will not revert any changes.
 
           include ./task_view/help
 
           .todos-chart(ng-if='::list.type == "todo"', ng-show='charts.todos')
 
           include ./task_view/add_new
-
+          
           alert.alert-warning.dailiesRestingInInn(ng-if='list.type == "daily" && user.preferences.sleep && !$state.includes("options.social.challenges")')
             i.glyphicon.glyphicon-warning-sign &nbsp;
             =env.t('dailiesRestingInInn')
