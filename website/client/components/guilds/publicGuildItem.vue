@@ -97,11 +97,12 @@ export default {
     },
   },
   methods: {
-    join () {
-      // console.log('join', this.guild._id)
+    async join () {
+      await this.$store.dispatch('guilds:joinGuild', {guildId: this.guild._id});
     },
-    leave () {
-      // console.log('leave', this.guild._id)
+    async leave () {
+      // @TODO: ask about challenges when we add challenges
+      await this.$store.dispatch('guilds:leaveGuild', {guildId: this.guild._id});
     },
   },
 };

@@ -29,18 +29,20 @@ export async function getMyGuilds (store) {
 
   return response.data.data;
 }
+// @TODO: abstract for parties as well
+export async function joinGuild (store, payload) {
+  let response = await axios.post(`/api/v3/groups/${payload.guildId}/join`);
+
+  store.state.user.data.guilds.push(payload.guildId);
+
+  return response.data.data;
+}
 
 export async function leaveGuild (store, payload) {
-  let response = await axios.get('/api/v3/groups', {
-    params: {
-      type: 'publicGuilds',
-      paginate: true,
-      page: payload.page,
-    },
-  });
+  let response = await axios.post(`/api/v3/groups/${payload.guildId}/leave`);
 
-  let guilds = response.data.data;
-  store.state.publicGuilds = guilds;
+  let index = store.state.user.data.guilds.indexOf(payload.guildId);
+  store.state.user.data.guilds.splice(index, 1);
 
   return response.data.data;
 }
