@@ -21,7 +21,7 @@
     "communityGuidelines": "Community-Richtlinien",
     "communityGuidelinesRead1": "Bitte lies unsere",
     "communityGuidelinesRead2": "vor dem Chatten.",
-    "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic. Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
+    "bannedWordUsed": "Hoppla! Es scheint so, als ob dieser Beitrag ein Schimpfwort oder einen religiösen Fluch enthält, oder sich auf süchtig machende Substanzen oder nicht-jugendfreie Themen bezieht. Habitica hat Spieler unterschiedlichster Herkunft, weswegen wir unseren Chat besonders sauber halten wollen. Du kannst Deine Nachricht gerne überarbeiten, um sie doch noch posten zu können! ",
     "party": "Gruppe",
     "createAParty": "Gruppe erstellen",
     "updatedParty": "Gruppeneinstellungen wurden aktualisiert.",
@@ -274,10 +274,10 @@
     "purchasedGroupPlanPlanExtraMonths": "Du hast <%=months %> Monate zusätzliches Gruppenplan-Guthaben",
     "addManagers": "Add Managers",
     "addManager": "Add Manager",
-    "removeManager": "Remove",
+    "removeManager": "Entfernen",
     "userMustBeMember": "User must be a member",
     "userIsNotManager": "User is not manager",
     "canOnlyApproveTaskOnce": "This task has already been approved.",
-    "leaderMarker": "- Leader",
-    "managerMarker": "- Manager"
+    "leaderMarker": "- Anführer",
+    "managerMarker": "- Organisator"
 }
