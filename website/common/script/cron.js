@@ -105,7 +105,7 @@ export function shouldDo (day, dailyTask, options = {}) {
 
   let startDate = moment(dailyTask.startDate).zone(o.timezoneOffset).startOf('day');
 
-  if (startDate > startOfDayWithCDSTime.startOf('day')) {
+  if (startDate > startOfDayWithCDSTime.startOf('day') && !options.nextDue) {
     return false; // Daily starts in the future
   }
 
@@ -121,6 +121,9 @@ export function shouldDo (day, dailyTask, options = {}) {
     if (!dailyTask.everyX) return false; // error condition
     let schedule = moment(startDate).recur()
       .every(dailyTask.everyX).days();
+
+    if (options.nextDue) return schedule.next(3, 'L');
+
     return schedule.matches(startOfDayWithCDSTime);
   } else if (dailyTask.frequency === 'weekly') {
     let schedule = moment(startDate).recur();
@@ -130,6 +133,8 @@ export function shouldDo (day, dailyTask, options = {}) {
     }
 
     schedule = schedule.every(daysOfTheWeek).daysOfWeek();
+
+    if (options.nextDue) return schedule.next(3, 'L');
 
     return schedule.matches(startOfDayWithCDSTime);
   } else if (dailyTask.frequency === 'monthly') {
@@ -145,11 +150,15 @@ export function shouldDo (day, dailyTask, options = {}) {
       schedule = schedule.every(dailyTask.daysOfMonth).daysOfMonth();
     }
 
+    if (options.nextDue) return schedule.next(3, 'L');
+
     return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
   } else if (dailyTask.frequency === 'yearly') {
     let schedule = moment(startDate).recur();
 
     schedule = schedule.every(dailyTask.everyX).years();
+
+    if (options.nextDue) return schedule.next(3, 'L');
 
     return schedule.matches(startOfDayWithCDSTime);
   }

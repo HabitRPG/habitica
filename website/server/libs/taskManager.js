@@ -4,6 +4,7 @@ import {
 } from './errors';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import shared from '../../common';
 
 async function _validateTaskAlias (tasks, res) {
@@ -64,7 +65,15 @@ export async function createTasks (req, res, options = {}) {
       newTask.userId = user._id;
     }
 
-    if (newTask.type === 'daily') newTask.isDue = shared.shouldDo(Date.now(), newTask, user.preferences);
+    if (newTask.type === 'daily') {
+      let optionsForShouldDo = cloneDeep(user.preferences.toObject());
+      newTask.isDue = shared.shouldDo(Date.now(), newTask, optionsForShouldDo);
+      optionsForShouldDo.nextDue = true;
+      let nextDue = shared.shouldDo(Date.now(), newTask, optionsForShouldDo);
+      if (nextDue && nextDue.length > 0) {
+        newTask.nextDue = nextDue;
+      }
+    }
 
     // Validate that the task is valid and throw if it isn't
     // otherwise since we're saving user/challenge/group and task in parallel it could save the user/challenge/group with a tasksOrder that doens't match reality

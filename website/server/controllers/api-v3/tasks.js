@@ -21,6 +21,7 @@ import {
 import common from '../../../common';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import logger from '../../libs/logger';
 
 const MAX_SCORE_NOTES_LENGTH = 256;
@@ -457,7 +458,13 @@ api.updateTask = {
     }
 
     if (sanitizedObj.type === 'daily') {
-      task.isDue = common.shouldDo(Date.now(), sanitizedObj, user.preferences);
+      let optionsForShouldDo = cloneDeep(user.preferences.toObject());
+      task.isDue = common.shouldDo(Date.now(), sanitizedObj, optionsForShouldDo);
+      optionsForShouldDo.nextDue = true;
+      let nextDue = common.shouldDo(Date.now(), sanitizedObj, optionsForShouldDo);
+      if (nextDue && nextDue.length > 0) {
+        task.nextDue = nextDue;
+      }
     }
 
     let savedTask = await task.save();
@@ -590,7 +597,13 @@ api.scoreTask = {
     }
 
     if (task.type === 'daily') {
-      task.isDue = common.shouldDo(Date.now(), task, user.preferences);
+      let optionsForShouldDo = cloneDeep(user.preferences.toObject());
+      task.isDue = common.shouldDo(Date.now(), task, optionsForShouldDo);
+      optionsForShouldDo.nextDue = true;
+      let nextDue = common.shouldDo(Date.now(), task, optionsForShouldDo);
+      if (nextDue && nextDue.length > 0) {
+        task.nextDue = nextDue;
+      }
     }
 
     let results = await Bluebird.all([
