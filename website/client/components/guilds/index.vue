@@ -7,61 +7,82 @@
         router-link.nav-link(:to="{name: 'myGuilds'}", :class="{'active': $route.name === 'myGuilds'}") {{ $t('myGuilds') }}
         router-link.nav-link(:to="{name: 'guildsDiscovery'}", :class="{'active': $route.name === 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
       .col-md-2
-        b-btn.btn.btn-primary.btn-purple(@click="$root.$emit('show::modal','modal1')") Create Guild
+        button.btn.btn-primary.btn-purple(b-btn, @click="$root.$emit('show::modal','modal1')") Create Guild
   .col-12
     router-view
 
-  b-modal#modal1(title="Submit your name", @ok="submit", @shown="clearName")
+  b-modal#modal1(title="Create a Guild", @ok="submit", @shown="clearName")
   form(@submit.stop.prevent="submit")
-    b-form-input(type="text", placeholder="Enter your name", v-model="name")
+    b-form-input(type="text", placeholder="Enter your name", v-model="newGuild.name")
 </template>
 
 <style>
-body {
-  background-color: #f9f9f9
-}
+  body {
+    background-color: #f9f9f9
+  }
 
-.sub-nav {
-  height: 56px;
-  background-color: #edecee;
-  box-shadow: 0 1px 2px 0 rgba(26, 24, 29, 0.2);
-  text-align: center;
-  position: relative;
-  z-index: 1;
-}
+  .sub-nav {
+    height: 56px;
+    background-color: #edecee;
+    box-shadow: 0 1px 2px 0 rgba(26, 24, 29, 0.2);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
 
-.sub-nav a {
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 1.5;
-  color: #4e4a57;
-  padding: 1em;
-  float: left;
-}
+  .sub-nav a {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.5;
+    color: #4e4a57;
+    padding: 1em;
+    float: left;
+  }
 
-.sub-nav a.active {
-  color: #6133b4;
-  border-bottom: 4px solid #6133b4;
-}
+  .sub-nav a.active {
+    color: #6133b4;
+    border-bottom: 4px solid #6133b4;
+  }
 
-.btn-purple {
-  margin: .5em;
-  border-radius: 2px;
-  background-color: #4f2a93;
-  box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
-  font-weight: bold;
-}
+  .btn-purple {
+    margin: .5em;
+    border-radius: 2px;
+    background-color: #4f2a93;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
+    font-weight: bold;
+  }
 
-.btn-purple:hover, .btn-purple:active {
-  background-color: #4f2a93;
-  box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
-}
+  .btn-purple:hover, .btn-purple:active {
+    background-color: #4f2a93;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
+  }
 </style>
 
 <script>
-// import groupUtilities from 'client/mixins/groupsUtilities';
+import bModal from 'bootstrap-vue/lib/components/modal';
+import bBtn from 'bootstrap-vue/lib/components/button';
+import bFormInput from 'bootstrap-vue/lib/components/form-input';
 
 export default {
-  props: ['b-modal'],
+  components: {
+    bModal,
+    bBtn,
+    bFormInput,
+  },
+  data () {
+    return {
+      newGuild: {
+        name: '',
+      },
+    };
+  },
+  methods: {
+    submit () {
+
+    },
+    clearName () {
+
+    },
+  },
 };
 </script>
