@@ -94,13 +94,20 @@ function _setUpNewUser (user) {
   let taskTypes;
   let iterableFlags = user.flags.toObject();
 
-  user._ABtest = '';
-  // A/B test 2016-12-21: Should we deliver notifications for upcoming incentives on days when users don't receive rewards?
-  if (Math.random() < 0.5) {
-    user._ABtests.checkInModals = '20161221_noCheckInPreviews'; // no 'preview' check-in modals
+  // A/B test 2017-05-11: Can we encourage people to join Guilds with a pester modal?
+  let testGroup = Math.random();
+  if (testGroup < 0.1) {
+    user._ABtests.guildReminder = '20170511_noGuildReminder'; // control group, don't pester about Guilds
+  } else if (testGroup < 0.235) {
+    user._ABtests.guildReminder = '20170511_text1timing1'; // first sample text, show after two clicks
+  } else if (testGroup < 0.46) {
+    user._ABtests.guildReminder = '20170511_text2timing1'; // second sample text, show after two clicks
+  } else if (testGroup < 0.685) {
+    user._ABtests.guildReminder = '20170511_text1timing2'; // first sample text, show after five clicks
   } else {
-    user._ABtests.checkInModals = '20161221_showCheckInPreviews'; // show 'preview' check-in modals
+    user._ABtests.guildReminder = '20170511_text2timing2'; // second sample text, show after five clicks
   }
+
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
