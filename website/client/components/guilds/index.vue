@@ -7,9 +7,13 @@
         router-link.nav-link(:to="{name: 'myGuilds'}", :class="{'active': $route.name === 'myGuilds'}") {{ $t('myGuilds') }}
         router-link.nav-link(:to="{name: 'guildsDiscovery'}", :class="{'active': $route.name === 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
       .col-md-2
-        button.btn.btn-primary.btn-purple Create Guild
+        b-btn.btn.btn-primary.btn-purple(@click="$root.$emit('show::modal','modal1')") Create Guild
   .col-12
     router-view
+
+  b-modal#modal1(title="Submit your name", @ok="submit", @shown="clearName")
+  form(@submit.stop.prevent="submit")
+    b-form-input(type="text", placeholder="Enter your name", v-model="name")
 </template>
 
 <style>
@@ -53,3 +57,11 @@ body {
   box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
 }
 </style>
+
+<script>
+// import groupUtilities from 'client/mixins/groupsUtilities';
+
+export default {
+  props: ['b-modal'],
+};
+</script>

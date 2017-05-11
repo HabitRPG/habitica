@@ -1,5 +1,6 @@
 import groupsUtilities from 'client/mixins/groupsUtilities';
 import { TAVERN_ID } from 'common/script/constants';
+import generateStore from 'client/store';
 import Vue from 'vue';
 
 describe('Groups Utilities Mixin', () => {
@@ -7,6 +8,7 @@ describe('Groups Utilities Mixin', () => {
 
   before(() => {
     instance = new Vue({
+      store: generateStore(),
       mixins: [groupsUtilities],
     });
 

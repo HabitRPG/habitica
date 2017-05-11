@@ -11,6 +11,7 @@ import UserTasks from './components/userTasks';
 
 // Inventory
 import InventoryContainer from './components/inventory/index';
+import EquipmentPage from './components/inventory/equipment';
 import StablePage from './components/inventory/stable';
 
 // Social
@@ -43,7 +44,7 @@ export default new VueRouter({
       component: InventoryContainer,
       children: [
         { name: 'inventory', path: '', component: Page },
-        { name: 'equipment', path: 'equipment', component: Page },
+        { name: 'equipment', path: 'equipment', component: EquipmentPage },
         { name: 'stable', path: 'stable', component: StablePage },
       ],
     },

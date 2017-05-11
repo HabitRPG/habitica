@@ -1,0 +1,65 @@
+.nested-field {
+  padding-left: 1.5rem;
+}
+
+// Search input
+.search-control {
+  font-size: inherit;
+  line-height: inherit;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  border-color: transparent;
+  border-radius: 2px;
+  border-color: $gray-400;
+
+  &:focus {
+    border-color: $gray-400;
+  }
+}
+
+// Checkboxes
+.custom-control-description {
+  padding-top: 3px;
+  padding-left: 3px;
+}
+
+
+// TODO reuse some for radio buttons with custom-control instead of custom-checkbox
+.custom-checkbox, .custom-radio {
+  & .custom-control-indicator {
+    width: 18px;
+    height: 18px;
+    background-size: 75% 75%;
+    background-color: transparent;
+    border: 2px solid $gray-200;
+  }
+}
+
+.custom-checkbox {
+  & .custom-control-indicator {
+    border-radius: 2px;
+  }
+}
+
+.custom-control-input:checked~.custom-control-indicator {
+  background-color: $purple-400;
+  border-color: $purple-400;
+}
+
+$bg-focused-active-checkbox: #4f2993;
+
+.custom-control-input {
+  &:focus:not(:checked)~.custom-control-indicator, &:active:not(:checked)~.custom-control-indicator  {
+    box-shadow: 0 0 0 6px rgba($bg-focused-active-checkbox, 0.1);
+  }
+
+  &:focus:checked~.custom-control-indicator, &:active:checked~.custom-control-indicator  {
+    box-shadow: 0 0 0 6px rgba($bg-focused-active-checkbox, 0.1);
+    border-color: $purple-400;
+    background-color: $purple-400;
+  }
+}
+
+.custom-control-input:active~.custom-control-indicator {
+  background-color: inherit;
+}
