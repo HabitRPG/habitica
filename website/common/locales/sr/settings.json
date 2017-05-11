@@ -26,6 +26,7 @@
     "showBaileyPop": "Vikar Bejli će se pojaviti kako biste mogli da pročitate stara obaveštenja.",
     "fixVal": "Nameštanje osobina lika",
     "fixValPop": "Ručno podešavanje vrednosti poput Zdravlja, Zlata, i nivoa.",
+    "invalidLevel": "Invalid value: Level must be 1 or greater.",
     "enableClass": "Uključiti sistem klasa",
     "enableClassPop": "Sistem klasa je isključen. Želite li da ga uključite?",
     "classTourPop": "Prikazati objašnjenje za upotrebu sistema klasa.",

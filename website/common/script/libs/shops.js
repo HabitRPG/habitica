@@ -25,7 +25,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   let eggsCategory = {
     identifier: 'eggs',
     text: i18n.t('eggs', language),
-    notes: i18n.t('dropsExplanation', language),
+    notes: i18n.t('dropsExplanationEggs', language),
   };
 
   eggsCategory.items = sortBy(values(content.questEggs)
@@ -220,26 +220,12 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
 // };
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
   const AVAILABLE_SETS = {
-    springHealer: i18n.t('lovingPupSet', language),
-    springMage: i18n.t('magicMouseSet', language),
-    springRogue: i18n.t('stealthyKittySet', language),
-    springWarrior: i18n.t('mightyBunnySet', language),
-    spring2015Healer: i18n.t('comfortingKittySet', language),
-    spring2015Mage: i18n.t('magicianBunnySet', language),
-    spring2015Rogue: i18n.t('sneakySqueakerSet', language),
-    spring2015Warrior: i18n.t('bewareDogSet', language),
-    spring2016Healer: i18n.t('springingBunnySet', language),
-    spring2016Mage: i18n.t('grandMalkinSet', language),
-    spring2016Rogue: i18n.t('cleverDogSet', language),
-    spring2016Warrior: i18n.t('braveMouseSet', language),
   };
 
   const AVAILABLE_SPELLS = [
-    'shinySeed',
   ];
 
   const AVAILABLE_QUESTS = [
-    'egg',
   ];
 
   let categories = [];

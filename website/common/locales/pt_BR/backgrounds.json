@@ -208,7 +208,7 @@
     "backgroundRainyCityText": "Cidade Chuvosa",
     "backgroundRainyCityNotes": "Se molhe por aí em uma cidade chuvosa.",
     "backgrounds112016": "Conjunto 30: Lançado em Novembro de 2016",
-    "backgroundMidnightCloudsText": "Nuvens da Meia-noite",
+    "backgroundMidnightCloudsText": "Nuvens da Meia noite",
     "backgroundMidnightCloudsNotes": "Voar através das Nuvens da Meia-noite.",
     "backgroundStormyRooftopsText": "Telhados Tempestuósos",
     "backgroundStormyRooftopsNotes": "Se esgueirar pelos Telhados Tempestuosos.",
@@ -261,5 +261,12 @@
     "backgroundGiantBirdhouseText": "Grande ninho de passaro",
     "backgroundGiantBirdhouseNotes": "Poleiro em uma Casa de Pássaro Gigante.",
     "backgroundMistShroudedMountainText": "Montanha Coberta de Neblina",
-    "backgroundMistShroudedMountainNotes": "Cume de uma Montanha Coberta de Neblina."
+    "backgroundMistShroudedMountainNotes": "Cume de uma Montanha Coberta de Neblina.",
+    "backgrounds052017": "Conjunto 36: Lançado em Maio de 2017",
+    "backgroundGuardianStatuesText": "Estátuas do Guardião",
+    "backgroundGuardianStatuesNotes": "Permaneça atento em frente a Estátua do Guardião.",
+    "backgroundHabitCityStreetsText": "Ruas da Cidade dos Hábitos",
+    "backgroundHabitCityStreetsNotes": "Explore as ruas da Cidade dos Hábitos.",
+    "backgroundOnATreeBranchText": "Em um ramo da árvore",
+    "backgroundOnATreeBranchNotes": "Poleiro em um ramo da árvore."
 }
