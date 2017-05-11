@@ -24,6 +24,7 @@ describe('shouldDo', () => {
       },
       startDate: new Date(),
     };
+    options = {};
   });
 
   it('returns false if task type is not a daily', () => {
@@ -39,10 +40,6 @@ describe('shouldDo', () => {
   });
 
   context('Timezone variations', () => {
-    beforeEach(() => {
-      dailyTask.frequency = 'daily';
-    });
-
     context('User timezone is UTC', () => {
       beforeEach(() => {
         options.timezoneOffset = 0;
@@ -56,6 +53,11 @@ describe('shouldDo', () => {
       it('returns true if Start Date is today',  () => {
         dailyTask.startDate = moment().toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
+      });
+
+      it('returns false if Start Date is after today',  () => {
+        dailyTask.startDate = moment().add(1, 'days').toDate();
+        expect(shouldDo(day, dailyTask, options)).to.equal(false);
       });
     });
 
@@ -76,15 +78,15 @@ describe('shouldDo', () => {
 
       it('returns true if the user\'s current time is after start date and Custom Day Start', () => {
         options.dayStart = 4;
-        day = moment().utcOffset(options.timezoneOffset).startOf('day').add(6, 'hours').toDate();
-        dailyTask.startDate = moment().utcOffset(options.timezoneOffset).subtract(1, 'day').toDate();
+        day = moment().zone(options.timezoneOffset).startOf('day').add(6, 'hours').toDate();
+        dailyTask.startDate = moment().zone(options.timezoneOffset).startOf('day').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
 
       it('returns false if the user\'s current time is before Custom Day Start', () => {
         options.dayStart = 8;
-        day = moment().utcOffset(options.timezoneOffset).startOf('day').add(2, 'hours').toDate();
-        dailyTask.startDate = moment().utcOffset(options.timezoneOffset).startOf('day').toDate();
+        day = moment().zone(options.timezoneOffset).startOf('day').add(2, 'hours').toDate();
+        dailyTask.startDate = moment().zone(options.timezoneOffset).startOf('day').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(false);
       });
     });
@@ -106,13 +108,13 @@ describe('shouldDo', () => {
 
       it('returns true if the user\'s current time is after Custom Day Start', () => {
         options.dayStart = 4;
-        day = moment().utcOffset(options.timezoneOffset).startOf('day').add(6, 'hours').toDate();
+        day = moment().zone(options.timezoneOffset).startOf('day').add(6, 'hours').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
 
       it('returns false if the user\'s current time is before Custom Day Start', () => {
         options.dayStart = 8;
-        day = moment().utcOffset(options.timezoneOffset).startOf('day').add(2, 'hours').toDate();
+        day = moment().zone(options.timezoneOffset).startOf('day').add(2, 'hours').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(false);
       });
     });
@@ -278,9 +280,6 @@ describe('shouldDo', () => {
         day = moment().subtract(3, 'days').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(false);
       });
-
-      day = moment(day).add(7, 'days');
-      expect(shouldDo(day, dailyTask, options)).to.equal(true);
     });
   });
 
