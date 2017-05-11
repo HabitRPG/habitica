@@ -955,7 +955,7 @@
     "shieldSpecialLootBagText": "Sac à butin",
     "shieldSpecialLootBagNotes": "Ce sac est parfait pour stocker toutes les bonnes choses que vous aurez dérobées à d'innocentes tâches ! Augmente la Force de <%= str %>.",
     "shieldSpecialWintryMirrorText": "Miroir hivernal",
-    "shieldSpecialWintryMirrorNotes": "Quoi de mieux pour admirer votre style hivernal ? Augmente l'Intelligence de <%= int %>.",
+    "shieldSpecialWintryMirrorNotes": "Quoi de mieux pour admirer votre style automne-hiver ? Augmente l'Intelligence de <%= int %>.",
     "shieldSpecialWakizashiText": "Wakizashi de samouraï",
     "shieldSpecialWakizashiNotes": "Cette lame courte est parfaite pour combattre vos quotidiennes au corps-à-corps ! Augmente la Constitution de <%= con %>.",
     "shieldSpecialYetiText": "Bouclier du dresseur de yéti",

@@ -140,9 +140,9 @@
     "counterPeriodDay": "Tag",
     "counterPeriodWeek": "Woche",
     "counterPeriodMonth": "Monat",
-    "habitCounter": "Counter (Resets <%= frequency %>)",
-    "habitCounterUp": "Positive Counter (Resets <%= frequency %>)",
-    "habitCounterDown": "Negative Counter (Resets <%= frequency %>)",
+    "habitCounter": "Zähler (wird jede/n <%= frequency %> zurückgesetzt)",
+    "habitCounterUp": "Positiver Zähler (wird jede/n <%= frequency %> zurückgesetzt)",
+    "habitCounterDown": "Negativer Zähler (wird jede/n <%= frequency %> zurückgesetzt)",
     "taskRequiresApproval": "Dieser Aufgabe muss zugestimmt werden, bevor du sie abschließen kannst. Eine Zustimmung wurde bereits angefragt.",
     "taskApprovalHasBeenRequested": "Die Zustimmung wurde angefragt.",
     "approvals": "Zustimmungen",
@@ -167,5 +167,5 @@
     "taskNotes": "Aufgabennotizen",
     "monthlyRepeatHelpContent": "Diese Aufgabe wird alle X Monate fällig werden",
     "yearlyRepeatHelpContent": "Diese Aufgabe wird alle X Jahre fällig werden ",
-    "resets": "Resets"
+    "resets": "Wird zurückgesetzt"
 }

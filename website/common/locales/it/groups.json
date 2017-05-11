@@ -274,10 +274,10 @@
     "purchasedGroupPlanPlanExtraMonths": "Hai <%= months %> mesi di credito extra per piani per gruppi.",
     "addManagers": "Add Managers",
     "addManager": "Add Manager",
-    "removeManager": "Remove",
-    "userMustBeMember": "User must be a member",
+    "removeManager": "Rimuovi",
+    "userMustBeMember": "L'utente deve essere un membro",
     "userIsNotManager": "User is not manager",
-    "canOnlyApproveTaskOnce": "This task has already been approved.",
+    "canOnlyApproveTaskOnce": "Questa attività è gia stata approvata",
     "leaderMarker": "- Leader",
     "managerMarker": "- Manager"
 }
