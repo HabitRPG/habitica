@@ -6,7 +6,7 @@
       slot(name="drawer-header")
       .drawer-slider
         slot(name="drawer-slider")
-        div.message(v-if="!errorMessage")
+        div.message(v-if="errorMessage != null")
           .content {{ errorMessage }}
 </template>
 
@@ -75,7 +75,6 @@
 .drawer-slider {
   padding: 12px 0 0 24px;
   width: 100%;
-  overflow-x: scroll;
   white-space: nowrap;
   position: relative;
 
