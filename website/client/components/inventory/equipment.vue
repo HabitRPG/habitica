@@ -83,6 +83,7 @@
           :item="item",
           :key="item.key",
           :selected="activeItems[item.type] === item.key",
+          :starVisible="!costume || user.preferences.costume",
           @click="equip",
         )
       div(v-if="items[group.key].length === 0")
@@ -162,9 +163,7 @@ export default {
   },
   methods: {
     equip (item) {
-      if (!this.costume || this.user.preferences.costume) {
-        this.$store.dispatch('common:equip', {key: item.key, type: this.costume ? 'costume' : 'equipped'});
-      }
+      this.$store.dispatch('common:equip', {key: item.key, type: this.costume ? 'costume' : 'equipped'});
     },
     changeDrawerPreference (newVal) {
       this.$store.dispatch('user:set', {
