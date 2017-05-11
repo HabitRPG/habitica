@@ -1010,7 +1010,8 @@ api.buySpecialSpell = {
  *
  * @apiParam {String} egg The egg to use
  * @apiParam {String} hatchingPotion The hatching potion to use
- * @apiParamExample {URL} /api/v3/user/hatch/Dragon/CottonCandyPink
+ * @apiParamExample {URL} Example-URL
+ * https://habitica.com/api/v3/user/hatch/Dragon/CottonCandyPink
  *
  * @apiSuccess {Object} data user.items
  * @apiSuccess {String} message
@@ -1053,7 +1054,8 @@ api.hatch = {
  * @apiParam {String="mount","pet","costume","equipped"} type The type of item to equip
  * @apiParam {String} key The item to equip
  *
- * @apiParamExample {URL} /api/v3/user/equip/equipped/weapon_warrior_2
+ * @apiParamExample {URL} Example-URL
+ * https://habitica.com/api/v3/user/equip/equipped/weapon_warrior_2
  *
  * @apiSuccess {Object} data user.items
  * @apiSuccess {String} message Optional success message for unequipping an items
@@ -1093,7 +1095,7 @@ api.equip = {
  * @apiParam {String} pet
  * @apiParam {String} food
  *
- * @apiParamExample {url}
+ * @apiParamExample {url} Example-URL
  * https://habitica.com/api/v3/user/feed/Armadillo-Shade/Chocolate
  *
  * @apiSuccess {Number} data The pet value
