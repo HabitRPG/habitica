@@ -1,6 +1,6 @@
 {
   "unlockedReward": "Je hebt <%= reward %> ontvangen",
-  "earnedRewardForDevotion": "Je hebt een <%= reward %> verdiend, omdat je vastberaden bent om je leven te verbeteren.",
+  "earnedRewardForDevotion": "Je hebt <%= reward %> verdiend, omdat je vastberaden bent om je leven te verbeteren.",
   "nextRewardUnlocksIn": "Check-ins tot je volgende prijs: <%= numberOfCheckinsLeft %>",
   "awesome": "Super!",
   "totalCount": "<%= count %> totaal aantal",
@@ -11,6 +11,19 @@
   "unlockedCheckInReward": "Je hebt een check-in-prijs ontgrendeld!",
   "totalCheckinsTitle": "Totaal aantal check-ins",
   "checkinProgressTitle": "Vooruitgang tot volgende",
-  "incentiveBackgroundsUnlockedWithCheckins": "Locked Plain Backgrounds will unlock with Daily Check-Ins.",
-  "moreIncentivesComingSoon": "Nieuwe check-in stimulansen zullen binnenkort worden toegevoegd."
+  "incentiveBackgroundsUnlockedWithCheckins": "Deze achtergronden zullen worden ontgrendeld door dagelijkse check-ins.",
+  "checkinReceivedAllRewardsMessage": "Je hebt alle beschikbare check-in prijzen ontvangen! Gefeliciteerd!",
+  "oneOfAllPetEggs": "één van elk standaard huisdier ei",
+  "twoOfAllPetEggs": "twee van elk standaard huisdier ei",
+  "threeOfAllPetEggs": "drie van elk standaard huisdier ei",
+  "oneOfAllHatchingPotions": "één van elk standaard uitbroeddrank",
+  "threeOfEachFood": "drie van elk standaard huisdier voedsel",
+  "fourOfEachFood": "vier van elk standaard huisdier voedsel",
+  "twoSaddles": "twee zadels",
+  "threeSaddles": "drie zadels",
+  "incentiveAchievement": "de Koninklijk Loyaal prestatie",
+  "royallyLoyal": "Koninklijk Loyaal",
+  "royallyLoyalText": "Deze gebruiker heeft meer dan 500 keer ingecheckt en heeft elke check-in prijs verdient!",
+  "checkInRewards": "Check-in prijzen",
+  "backloggedCheckInRewards": "Je hebt check-in prijzen ontvangen! Zie je boedel en uitrusting om de nieuwe dingen te zien."
 }

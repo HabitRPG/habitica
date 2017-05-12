@@ -140,9 +140,9 @@
     "counterPeriodDay": "Dag",
     "counterPeriodWeek": "Week",
     "counterPeriodMonth": "Maand",
-    "habitCounter": "Teller",
-    "habitCounterUp": "Positieve teller",
-    "habitCounterDown": "Negatieve teller",
+    "habitCounter": "Counter (Resets <%= frequency %>)",
+    "habitCounterUp": "Positive Counter (Resets <%= frequency %>)",
+    "habitCounterDown": "Negative Counter (Resets <%= frequency %>)",
     "taskRequiresApproval": "Deze taak moet worden goedgekeurd voordat je hem kunt voltooien. Er is al goedkeuring gevraagd",
     "taskApprovalHasBeenRequested": "Er is goedkeuring gevraagd",
     "approvals": "Goedkeuringen",
@@ -164,7 +164,8 @@
     "confirmScoreNotes": "Bevestig taak scores met notities",
     "taskScoreNotesTooLong": "Taak score notities moeten minder dan 256 karakters zijn.",
     "groupTasksByChallenge": "Groepeer taken met uitdaging titel",
-    "taskNotes": "Task Notes",
+    "taskNotes": "Taken notities",
     "monthlyRepeatHelpContent": "Deze taak zul je iedere X maanden moeten doen",
-    "yearlyRepeatHelpContent": "Deze taak zul je iedere X jaren moeten doen"
+    "yearlyRepeatHelpContent": "Deze taak zul je iedere X jaren moeten doen",
+    "resets": "Resets"
 }

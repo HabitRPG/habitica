@@ -1,6 +1,6 @@
 "use strict";
 
-habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$http', '$state', 'Guide', 'Shared', 'Content', 'Stats', 'Social', 'Costume',
+habitrpg.controller('UserCtrl', ['$rootScope', '$scope', '$location', 'User', '$http', '$state', 'Guide', 'Shared', 'Content', 'Stats', 'Social', 'Costume',
   function($rootScope, $scope, $location, User, $http, $state, Guide, Shared, Content, Stats, Social, Costume) {
     $scope.profile = User.user;
 
@@ -99,9 +99,11 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
 
     $scope.getProgressDisplay = function () {
       var currentLoginDay = Content.loginIncentives[$scope.profile.loginIncentives];
-      if (!currentLoginDay) return env.t('moreIncentivesComingSoon');
+      if (!currentLoginDay) return env.t('checkinReceivedAllRewardsMessage');
       var nextRewardAt = currentLoginDay.nextRewardAt;
       if (!nextRewardAt) return env.t('moreIncentivesComingSoon');
+      // if we are on a reward day, let's show progress relative to this
+      if (currentLoginDay.reward) currentLoginDay.prevRewardKey = $scope.profile.loginIncentives;
       if (!currentLoginDay.prevRewardKey) currentLoginDay.prevRewardKey = 0;
       return env.t('checkinProgressTitle') + ' ' + ($scope.profile.loginIncentives - currentLoginDay.prevRewardKey) + '/' + (nextRewardAt - currentLoginDay.prevRewardKey);
     };

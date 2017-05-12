@@ -53,7 +53,7 @@
     "nyeCardNotes": "Envie um cartão de Ano Novo para um membro da equipa.",
     "seasonalItems": "Itens Sazonais",
     "nyeCardAchievementTitle": "Velhos Conhecidos",
-    "nyeCardAchievementText": "Happy New Year! Sent or received <%= count %> New Year's cards.",
+    "nyeCardAchievementText": "Feliz Ano Novo! Mandou ou recebeu <%= cards %> cartões de Ano Novo.",
     "nye0": "Feliz Ano Novo! Que você derrote muitos maus Hábitos.",
     "nye1": "Feliz Ano Novo! Que você colha muitas Recompensas.",
     "nye2": "Feliz Ano Novo! Que você conquiste vários Dias Perfeitos.",
@@ -104,6 +104,7 @@
     "spring2017CanineConjurorSet": "Canine Conjuror (Mage)",
     "spring2017FloralMouseSet": "Floral Mouse (Healer)",
     "spring2017SneakyBunnySet": "Sneaky Bunny (Rogue)",
-    "eventAvailability": "Available for purchase until <%= date(locale) %>.",
-    "dateEndApril": "April 19"
+    "eventAvailability": "Disponível para comprar até <%= date(locale) %>.",
+    "dateEndApril": "19 de abril",
+    "dateEndMay": "May 17"
 }

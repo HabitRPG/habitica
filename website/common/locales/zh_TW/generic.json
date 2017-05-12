@@ -161,7 +161,7 @@
     "greeting2": "`瘋狂的招手`",
     "greeting3": "嘿你！",
     "greetingCardAchievementTitle": "愉快的密友",
-    "greetingCardAchievementText": "Hey! Hi! Hello! Sent or received <%= count %> greeting cards.",
+    "greetingCardAchievementText": "嘿! 嗨! 你好! 你收到或寄出了<%= count %>張賀卡。",
     "thankyouCard": "感謝卡",
     "thankyouCardExplanation": "你收到大大感恩成就!",
     "thankyouCardNotes": "送張感謝卡給隊伍成員。",
@@ -190,10 +190,10 @@
     "wonChallengeShare": "我在 Habitica 贏得了挑戰！",
     "achievementShare": "我在 Habitica 獲得了一個新成就！",
     "orderBy": "以 <%= item %> 排序",
-    "you": "(you)",
+    "you": "(你)",
     "enableDesktopNotifications": "Enable Desktop Notifications",
-    "online": "online",
+    "online": "在線上",
     "onlineCount": "<%= count %> online",
     "loading": "Loading...",
-    "userIdRequired": "User ID is required"
+    "userIdRequired": "需要UUID"
 }

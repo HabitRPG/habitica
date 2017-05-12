@@ -18,8 +18,8 @@
     "commGuidePara008": "A moderátorok címkéje sötétkék, csillagokkal. A rangjuk \"Őrző\". Az egyedüli kivetél Bailey, aki egy NJK, címkéje fekete-zöld csillaggal megjelölve.",
     "commGuidePara009": "A jelenlegi Stáb Tagok (balról jobbra):",
     "commGuideAKA": "<%= habitName %> aka <%= realName %>",
-    "commGuideOnTrello": "<%= trelloName %> on Trello",
-    "commGuideOnGitHub": "<%= gitHubName %> on GitHub",
+    "commGuideOnTrello": "<%=trelloName %> a Trellón",
+    "commGuideOnGitHub": "<%=gitHubName %> a GitHubon",
     "commGuidePara010": "Egy-két moderátor segíti a Stáb Tagjait. Őket gondosan választottuk ki, ezért adjátok meg nekik a megfelelő tiszteletet és hallgassatok a tanácsaikra.",
     "commGuidePara011": "A jelenlegi Moderátorok (balról jobbra):",
     "commGuidePara011a": "Fogadó chaten",
@@ -64,7 +64,7 @@
     "commGuidePara039": "The Back Corner Guild is a free public space to discuss sensitive subjects, and it is carefully moderated. It is not a place for general discussions or conversations. <strong>The Public Space Guidelines still apply, as do all of the Terms and Conditions.</strong> Just because we are wearing long cloaks and clustering in a corner doesn't mean that anything goes! Now pass me that smoldering candle, will you?",
     "commGuideHeadingTrello": "Trello Táblák",
     "commGuidePara040": "<strong>Trello serves as an open forum for suggestions and discussion of site features.</strong> Habitica is ruled by the people in the form of valiant contributors -- we all build the site together. Trello lends structure to our system. Out of consideration for this, <strong>try your best to contain all your thoughts into one comment, instead of commenting many times in a row on the same card. If you think of something new, feel free to edit your original comments.</strong> Please, take pity on those of us who receive a notification for every new comment. Our inboxes can only withstand so much.",
-    "commGuidePara041": "A Habitica öt különböző Trello táblát használ:",
+    "commGuidePara041": "A Habitica négy Trello boardot használ:",
     "commGuideList03A": "The <strong>Main Board</strong> is a place to request and vote on site features.",
     "commGuideList03B": "The <strong>Mobile Board</strong> is a place to request and vote on mobile app features.",
     "commGuideList03C": "A <strong>Pixel Grafika Tábla</strong> a pixel grafikák bemutatására és megvitatására szolgál.",
@@ -184,5 +184,5 @@
     "commGuideLink07description": "újabb pixel-art beküldésere.",
     "commGuideLink08": "A Küldetés Trello",
     "commGuideLink08description": "újabb küldetések beküldésére.",
-    "lastUpdated": "Last updated"
+    "lastUpdated": "Utoljára frissítve"
 }

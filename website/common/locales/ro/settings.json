@@ -26,6 +26,7 @@
     "showBaileyPop": "Cheam-o pe Bailey Crainica afară din ascunziș pentru a revedea știrile vechi.",
     "fixVal": "Aranjează Valorile Personajului",
     "fixValPop": "Schimbă manual valori ca Sănătate, Nivel și Aur.",
+    "invalidLevel": "Invalid value: Level must be 1 or greater.",
     "enableClass": "Activează Sistemul de Clase.",
     "enableClassPop": "Inițial, ai dezactivat sistemul de clase. Vrei să îl reactivezi acum?",
     "classTourPop": "Arată turul de prezentare a utilizării sistemului de clase.",

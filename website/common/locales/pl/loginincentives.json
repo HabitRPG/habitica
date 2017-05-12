@@ -1,7 +1,7 @@
 {
   "unlockedReward": "Otrzymałeś <%= reward %>",
-  "earnedRewardForDevotion": "Zdobyłeś <%= reward %>  za przyczynienie się do poprawy swojego życia.",
-  "nextRewardUnlocksIn": "Check-ins until your next prize: <%= numberOfCheckinsLeft %>",
+  "earnedRewardForDevotion": "You have earned <%= reward %> for being committed to improving your life.",
+  "nextRewardUnlocksIn": "Check-in: <%=numberOfCheckinsLeft %> aby otrzymać kolejną nagrodę",
   "awesome": "Rewelacyjnie!",
   "totalCount": "<%= count %> łączna liczba",
   "countLeft": "Check-ins until next reward: <%= count %>",
@@ -12,5 +12,18 @@
   "totalCheckinsTitle": "Wszystkie Wizyty",
   "checkinProgressTitle": "Postęp do następnej",
   "incentiveBackgroundsUnlockedWithCheckins": "Locked Plain Backgrounds will unlock with Daily Check-Ins.",
-  "moreIncentivesComingSoon": "Nowe zachęty do wizyt zostaną wkrótce dodane."
+  "checkinReceivedAllRewardsMessage": "You have received all the Check-In prizes available! Congratulations!",
+  "oneOfAllPetEggs": "jedno ze standardowych jaj chowańca",
+  "twoOfAllPetEggs": "dwa jaja, z każdego standardowego chowańca",
+  "threeOfAllPetEggs": "trzy jaja, z każdego standardowego chowańca",
+  "oneOfAllHatchingPotions": "jeden ze standardowych eliksirów wyklucia",
+  "threeOfEachFood": "trzy porcje z każdego standardowego jedzenia dla chowańca",
+  "fourOfEachFood": "cztery porcje z każdego standardowego jedzenia dla chowańca",
+  "twoSaddles": "dwa siodła",
+  "threeSaddles": "trzy siodła",
+  "incentiveAchievement": "the Royally Loyal achievement",
+  "royallyLoyal": "Royally Loyal",
+  "royallyLoyalText": "This user has checked in over 500 times, and has earned every Check-In Prize!",
+  "checkInRewards": "Check-In Rewards",
+  "backloggedCheckInRewards": "You received Check-In Prizes! Visit your Inventory and Equipment to see what's new."
 }

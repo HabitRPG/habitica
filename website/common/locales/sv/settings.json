@@ -26,6 +26,7 @@
     "showBaileyPop": "Hämta Stadsutroparen Baily så du kan titta tillbaka på gamla nyheter.",
     "fixVal": "Fixa Karaktärsvärden",
     "fixValPop": "Ändra värden som Hälsa, Level och Guld manuellt.",
+    "invalidLevel": "Invalid value: Level must be 1 or greater.",
     "enableClass": "Aktivera Klass-system",
     "enableClassPop": "Du har tidigare valt bort klass-systemet. Vill du ändra ditt beslut?",
     "classTourPop": "Visa rundturen för användning av klass-systemet.",

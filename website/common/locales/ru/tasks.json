@@ -140,9 +140,9 @@
     "counterPeriodDay": "День",
     "counterPeriodWeek": "Неделя",
     "counterPeriodMonth": "Месяц",
-    "habitCounter": "Счетчик",
-    "habitCounterUp": "Положительный счетчик",
-    "habitCounterDown": "Отрицательный счетчик",
+    "habitCounter": "Counter (Resets <%= frequency %>)",
+    "habitCounterUp": "Positive Counter (Resets <%= frequency %>)",
+    "habitCounterDown": "Negative Counter (Resets <%= frequency %>)",
     "taskRequiresApproval": "Перед тем как выполнять эту задачу, она должна быть одобрена. Одобрение уже запрошено.",
     "taskApprovalHasBeenRequested": "Одобрение запрошено",
     "approvals": "Одобрения",
@@ -164,7 +164,8 @@
     "confirmScoreNotes": "Подкрепите оценку задания комментарием",
     "taskScoreNotesTooLong": "Комментарий к заданию должен быть меньше 256 символов",
     "groupTasksByChallenge": "Сгруппируйте задания по тегу испытания",
-    "taskNotes": "Task Notes",
+    "taskNotes": "Примечания к задаче",
     "monthlyRepeatHelpContent": "Это задание будет появляться каждые N месяцев",
-    "yearlyRepeatHelpContent": "Это задание будет появляться каждые N лет"
+    "yearlyRepeatHelpContent": "Это задание будет появляться каждые N лет",
+    "resets": "Resets"
 }
