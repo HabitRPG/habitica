@@ -1,10 +1,10 @@
 <template lang="pug">
 .row
-  sidebar
+  sidebar(v-on:search="updateSearch")
 
   .col-10
     h2(v-once) {{ $t('publicGuilds') }}
-    public-guild-item(v-for="guild in guilds", :key='guild._id', :guild="guild")
+    public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild")
     mugen-scroll(
       :handler="fetchGuilds",
       :should-handle="loading === false && hasLoadedAllGuilds === false",
@@ -40,6 +40,7 @@ export default {
       loading: false,
       hasLoadedAllGuilds: false,
       lastPageLoaded: 0,
+      search: '',
     };
   },
   created () {
@@ -49,11 +50,21 @@ export default {
     guilds () {
       return this.$store.state.publicGuilds;
     },
+    filteredGuilds: function () {
+      let search = this.search;
+      return this.guilds.filter(function (guild) {
+        if (!search) return guild
+        return guild.name.toLowerCase().indexOf(search.toLowerCase()) >= 0
+      })
+    },
   },
   methods: {
+    updateSearch (eventData) {
+      this.search = eventData.searchTerm
+    },
     async fetchGuilds () {
       this.loading = true;
-      await this.$store.dispatch('guilds:getPublicGuilds', {page: this.lastPageLoaded});
+      await this.$store.dispatch('guilds:getPublicGuilds', {page: this.lastPageLoaded})
 
       // if (guilds.length < GUILDS_PER_PAGE) this.hasLoadedAllGuilds = true;
       // this.lastPageLoaded++;
@@ -69,7 +80,7 @@ export default {
           'two',
           'three',
         ],
-      });
+      })
     },
     filterGuilds () {
 

@@ -1,7 +1,7 @@
 <template lang="pug">
 .col-2.side-bar
   .form-group
-    input.form-control.search(type="text", :placeholder="$t('search')")
+    input.form-control.search(type="text", :placeholder="$t('search')", v-model='searchTerm')
 
   form
     h3(v-once) {{ $t('filter') }}
@@ -84,11 +84,15 @@ export default {
   data () {
     return {
       categoryFilters: [],
+      searchTerm: '',
     };
   },
   watch: {
     // categoryFilters: (categoryFilters) => {
     // },
+    searchTerm: function (searchTerm) {
+      this.$emit('search', {searchTerm})
+    },
   },
 };
 </script>
