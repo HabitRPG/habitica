@@ -140,7 +140,7 @@ export function shouldDo (day, dailyTask, options = {}) {
   } else if (dailyTask.frequency === 'monthly') {
     let schedule = moment(startDate).recur();
 
-    let differenceInMonths = moment(day).month() + 1 - moment(startDate).month() + 1;
+    let differenceInMonths = moment(day).month() - moment(startDate).month();
     let matchEveryX = differenceInMonths % dailyTask.everyX === 0;
 
     if (dailyTask.weeksOfMonth && dailyTask.weeksOfMonth.length > 0) {

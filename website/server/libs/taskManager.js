@@ -26,7 +26,7 @@ async function _validateTaskAlias (tasks, res) {
 export function setNextDue (task, user) {
   if (task.type !== 'daily') return;
 
-  let optionsForShouldDo = cloneDeep(user.preferences.toObject());
+  let optionsForShouldDo = user.preferences.toObject();
   task.isDue = shared.shouldDo(Date.now(), task, optionsForShouldDo);
   optionsForShouldDo.nextDue = true;
   let nextDue = shared.shouldDo(Date.now(), task, optionsForShouldDo);
