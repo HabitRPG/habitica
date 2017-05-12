@@ -43,6 +43,7 @@
     "exportChallengeCSV": "Export to CSV",
     "selectGroup": "Please select group",
     "challengeCreated": "Challenge created",
+    "challengeTaskMessage": "When you add a new task, it will be immediately saved to the challenge and given to all participants. Clicking the cancel button above will not revert your change.",
     "sureDelCha": "Are you sure you want to delete this challenge?",
     "sureDelChaTavern": "Are you sure you want to delete this challenge? Your gems will not be refunded.",
     "removeTasks": "Remove Tasks",

@@ -7,7 +7,7 @@ include ./task-list
 include ./task
 
 script(id='templates/habitrpg-tasks.html', type="text/ng-template")
-  .tasks-lists.container-fluid    
+  .tasks-lists.container-fluid
     .row
       .col-sm-6.col-md-3(
         ng-repeat='list in lists',
@@ -15,14 +15,14 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
         .task-column(class='{{::list.type}}s')
           include ./task_view/graph
           h2.task-column_title(class='{{::list.type}}-title') {{::list.header}}
-          h5.tasks-warning When you add a new task, it will be immediately saved to the challenge and given to all participants. Clicking the cancel button above will not revert your change.
+          h5.tasks-message=env.t('challengeTaskMessage')
 
           include ./task_view/help
 
           .todos-chart(ng-if='::list.type == "todo"', ng-show='charts.todos')
 
           include ./task_view/add_new
-          
+
           alert.alert-warning.dailiesRestingInInn(ng-if='list.type == "daily" && user.preferences.sleep && !$state.includes("options.social.challenges")')
             i.glyphicon.glyphicon-warning-sign &nbsp;
             =env.t('dailiesRestingInInn')
