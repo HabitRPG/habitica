@@ -37,17 +37,17 @@ export default {
     guilds () {
       return this.$store.state.myGuilds;
     },
-    filteredGuilds: function () {
+    filteredGuilds: function filteredGuilds () {
       let search = this.search;
-      return this.guilds.filter(function (guild) {
-        if (!search) return guild
-        return guild.name.toLowerCase().indexOf(search.toLowerCase()) >= 0
-      })
+      return this.guilds.filter((guild) => {
+        if (!search) return guild;
+        return guild.name.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+      });
     },
   },
   methods: {
     updateSearch (eventData) {
-      this.search = eventData.searchTerm
+      this.search = eventData.searchTerm;
     },
     async fetchGuilds () {
       this.loading = true;

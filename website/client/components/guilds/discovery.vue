@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  sidebar(v-on:search="updateSearch")
+  sidebar(v-on:search="updateSearch", v-on:filter="updateFilters")
 
   .col-10
     h2(v-once) {{ $t('publicGuilds') }}
@@ -31,6 +31,7 @@ h2 {
 import MugenScroll from 'vue-mugen-scroll';
 import PublicGuildItem from './publicGuildItem';
 import Sidebar from './sidebar';
+import intersection from 'lodash/intersection';
 // import { GUILDS_PER_PAGE } from 'common/script/constants';
 
 export default {
@@ -41,6 +42,7 @@ export default {
       hasLoadedAllGuilds: false,
       lastPageLoaded: 0,
       search: '',
+      filters: {},
     };
   },
   created () {
@@ -50,21 +52,36 @@ export default {
     guilds () {
       return this.$store.state.publicGuilds;
     },
-    filteredGuilds: function () {
+    filteredGuilds: function filteredGuilds () {
       let search = this.search;
-      return this.guilds.filter(function (guild) {
-        if (!search) return guild
-        return guild.name.toLowerCase().indexOf(search.toLowerCase()) >= 0
-      })
+      let filters = this.filters;
+      return this.guilds.filter((guild) => {
+        let passedSearch = true;
+        let hasCategories = true;
+
+        if (search) {
+          passedSearch = guild.name.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+        }
+
+        if (filters.categories && filters.categories.length > 0) {
+          let intersectingCats = intersection(filters.categories, guild.categories);
+          hasCategories = intersectingCats.length > 0;
+        }
+
+        return passedSearch && hasCategories;
+      });
     },
   },
   methods: {
     updateSearch (eventData) {
-      this.search = eventData.searchTerm
+      this.search = eventData.searchTerm;
+    },
+    updateFilters (eventData) {
+      this.filters = eventData;
     },
     async fetchGuilds () {
       this.loading = true;
-      await this.$store.dispatch('guilds:getPublicGuilds', {page: this.lastPageLoaded})
+      await this.$store.dispatch('guilds:getPublicGuilds', {page: this.lastPageLoaded});
 
       // if (guilds.length < GUILDS_PER_PAGE) this.hasLoadedAllGuilds = true;
       // this.lastPageLoaded++;
@@ -76,14 +93,11 @@ export default {
         name: 'Test',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla scelerisque ultrices libero, ultricies pharetra metus. Sed vel vestibulum nibh. Vestibulum ultricies, lorem non bibendum consequat, nisl lacus semper nulla, hendrerit dignissim ipsum erat eu odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at aliquet urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla non est ut nisl interdum tincidunt in eu dui. Proin condimentum a.',
         categories: [
-          'one',
+          'official',
           'two',
           'three',
         ],
-      })
-    },
-    filterGuilds () {
-
+      });
     },
   },
 };

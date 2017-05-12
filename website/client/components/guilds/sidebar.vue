@@ -88,10 +88,11 @@ export default {
     };
   },
   watch: {
-    // categoryFilters: (categoryFilters) => {
-    // },
-    searchTerm: function (searchTerm) {
-      this.$emit('search', {searchTerm})
+    categoryFilters: function categoryFilters (newCategoryFilters) {
+      this.$emit('filter', {categories: newCategoryFilters});
+    },
+    searchTerm: function searchTerm (newSearch) {
+      this.$emit('search', {searchTerm: newSearch});
     },
   },
 };
