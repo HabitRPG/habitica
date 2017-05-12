@@ -1,6 +1,9 @@
 <template lang="pug">
-.drawer-container(:style="{right: positionRight}")
-  .drawer-title(@click="open = !open") {{title}}
+.drawer-container()
+  .drawer-title(@click="open = !open")
+    | {{title}}
+    img.drawer-toggle-icon(src="~assets/drawer/minimize.svg", v-if="open")
+    img.drawer-toggle-icon.closed(src="~assets/drawer/expand.svg", v-else)
   transition(name="slide-up")
     .drawer-content(v-show="open")
       slot(name="drawer-header")
@@ -16,11 +19,21 @@
 .drawer-container {
   z-index: 19;
   position: fixed;
-  bottom: 0;
-  width: 968px;
-  max-width: 90%;
+  max-width: 80%;
   font-size: 12px;
   font-weight: bold;
+  bottom: 0;
+  left: 19%;
+  right: 3%;
+}
+
+.drawer-toggle-icon {
+  float: right;
+  margin: 10px;
+
+  &.closed {
+    margin-top: 5px;
+  }
 }
 
 .drawer-title {
@@ -41,8 +54,8 @@
   background-color: $gray-50;
   color: $gray-500;
   box-shadow: 0 2px 16px 0 rgba($black, 0.3);
-  width: 100%;
   padding-top: 6px;
+  padding-left: 24px;
   padding-right: 24px;
 }
 
@@ -73,8 +86,9 @@
 }
 
 .drawer-slider {
-  padding: 12px 0 0 24px;
-  width: 100%;
+  padding:   12px 0 0 0;
+  overflow-x: auto;
+  overflow-y: hidden;
   white-space: nowrap;
   position: relative;
 
@@ -120,14 +134,7 @@ export default {
   data () {
     return {
       open: true,
-      positionRight: null,
     };
-  },
-  mounted () {
-    // Center in the middle of the container
-    const parentElWith = this.$el.parentElement.offsetWidth;
-    const elWidth = this.$el.offsetWidth;
-    this.positionRight = `${(parentElWith - elWidth) / 2}px`;
-  },
+  }
 };
 </script>
