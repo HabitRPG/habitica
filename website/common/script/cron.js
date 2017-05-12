@@ -122,7 +122,7 @@ export function shouldDo (day, dailyTask, options = {}) {
     let schedule = moment(startDate).recur()
       .every(dailyTask.everyX).days();
 
-    if (options.nextDue) return schedule.next(3, 'L');
+    if (options.nextDue) return schedule.fromDate(startOfDayWithCDSTime).next(3);
 
     return schedule.matches(startOfDayWithCDSTime);
   } else if (dailyTask.frequency === 'weekly') {
@@ -134,7 +134,7 @@ export function shouldDo (day, dailyTask, options = {}) {
 
     schedule = schedule.every(daysOfTheWeek).daysOfWeek();
 
-    if (options.nextDue) return schedule.next(3, 'L');
+    if (options.nextDue) return schedule.fromDate(startOfDayWithCDSTime).next(3);
 
     return schedule.matches(startOfDayWithCDSTime);
   } else if (dailyTask.frequency === 'monthly') {
@@ -150,7 +150,7 @@ export function shouldDo (day, dailyTask, options = {}) {
       schedule = schedule.every(dailyTask.daysOfMonth).daysOfMonth();
     }
 
-    if (options.nextDue) return schedule.next(3, 'L');
+    if (options.nextDue) return schedule.fromDate(startOfDayWithCDSTime).next(3);
 
     return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
   } else if (dailyTask.frequency === 'yearly') {
@@ -158,7 +158,7 @@ export function shouldDo (day, dailyTask, options = {}) {
 
     schedule = schedule.every(dailyTask.everyX).years();
 
-    if (options.nextDue) return schedule.next(3, 'L');
+    if (options.nextDue) return schedule.fromDate(startOfDayWithCDSTime).next(3);
 
     return schedule.matches(startOfDayWithCDSTime);
   }

@@ -17,11 +17,11 @@ import {
   createTasks,
   getTasks,
   moveTask,
+  setNextDue,
 } from '../../libs/taskManager';
 import common from '../../../common';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
-import cloneDeep from 'lodash/cloneDeep';
 import logger from '../../libs/logger';
 
 const MAX_SCORE_NOTES_LENGTH = 256;
@@ -457,15 +457,7 @@ api.updateTask = {
       task.group.approval.required = true;
     }
 
-    if (sanitizedObj.type === 'daily') {
-      let optionsForShouldDo = cloneDeep(user.preferences.toObject());
-      task.isDue = common.shouldDo(Date.now(), sanitizedObj, optionsForShouldDo);
-      optionsForShouldDo.nextDue = true;
-      let nextDue = common.shouldDo(Date.now(), sanitizedObj, optionsForShouldDo);
-      if (nextDue && nextDue.length > 0) {
-        task.nextDue = nextDue;
-      }
-    }
+    setNextDue(task, user);
 
     let savedTask = await task.save();
 
@@ -596,15 +588,7 @@ api.scoreTask = {
       }
     }
 
-    if (task.type === 'daily') {
-      let optionsForShouldDo = cloneDeep(user.preferences.toObject());
-      task.isDue = common.shouldDo(Date.now(), task, optionsForShouldDo);
-      optionsForShouldDo.nextDue = true;
-      let nextDue = common.shouldDo(Date.now(), task, optionsForShouldDo);
-      if (nextDue && nextDue.length > 0) {
-        task.nextDue = nextDue;
-      }
-    }
+    setNextDue(task, user);
 
     let results = await Bluebird.all([
       user.save(),
