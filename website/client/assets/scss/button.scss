@@ -8,7 +8,7 @@
   font-size: 16px;
   font-weight: bold;
   line-height: 1.5;
-  border: 1px solid transparent;
+  border: 1px solid transparent !important;
   padding: 7.5px 15.5px;
   border-radius: 2px;
   box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
@@ -24,17 +24,10 @@
     @include btn-focus-hover-shadow();
     border-color: transparent;
   }
-}
-
-.btn-secondary {
-  color: $gray-50;
-
-  &:focus {
-    border-color: $purple-500;
-  }
 
   &:active {
-    border-color: $purple-500;
+    box-shadow: none;
+    border: 1px solid transparent;
   }
 }
 
@@ -56,20 +49,22 @@
   }
 }
 
-.btn-secondary {
-  background: $white;
+.btn-secondary, .dropdown > .btn-secondary {
+  color: $gray-50;
+  background: $white !important;
 
   &:hover:not(:disabled), &:active {
-    background: $white;
     color: $purple-200;
   }
 
   &:active {
-    border-color: $purple-500;
+    border-color: $purple-500 !important;
   }
 
   &:focus {
-    color: $purple-200;
+    background: $white !important;
+    color: $purple-200 !important;
+    border-color: $purple-500 !important;
   }
 
   &:disabled {
