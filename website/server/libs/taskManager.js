@@ -4,7 +4,6 @@ import {
 } from './errors';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
-import cloneDeep from 'lodash/cloneDeep';
 import shared from '../../common';
 
 async function _validateTaskAlias (tasks, res) {
