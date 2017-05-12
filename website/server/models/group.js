@@ -288,7 +288,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
 };
 
 // When converting to json remove chat messages with more than 1 flag and remove all flags info
-// unless the user is an admin
+// unless the user is an admin or said chat is posted by that user
 // Not putting into toJSON because there we can't access user
 // It also removes the _meta field that can be stored inside a chat message
 schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
@@ -298,7 +298,7 @@ schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
     _.remove(toJSON.chat, chatMsg => {
       chatMsg.flags = {};
       if (chatMsg._meta) chatMsg._meta = undefined;
-      return chatMsg.flagCount >= 2;
+      return (user._id !== chatMsg.uuid) && chatMsg.flagCount >= 2;
     });
   }
 
