@@ -623,8 +623,8 @@ describe('POST /tasks/user', () => {
         code: 400,
         error: 'BadRequest',
         message: 'daily validation failed',
-      })
-    })
+      });
+    });
 
     it('can create checklists', async () => {
       let task = await user.post('/tasks/user', {
