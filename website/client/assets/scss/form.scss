@@ -2,14 +2,15 @@
   padding-left: 1.5rem;
 }
 
-// Textarea
-textarea {
-  border: 1px solid $gray-400;
+// Inputs and texteares
+
+input, textarea, input.form-control, textarea.form-control {
   padding: 10px 16px;
   border-radius: 2px;
   font-size: 14px;
   line-height: 1.43;
   color: $gray-200;
+  border: 1px solid $gray-400;
 
   &:hover:not(:disabled) {
     border-color: $gray-300;
@@ -25,24 +26,34 @@ textarea {
     opacity: 0.64;
     background: $gray-500;
   }
-}
 
-// Search input
-.search-control {
-  font-size: inherit;
-  line-height: inherit;
-  padding-top: 9px;
-  padding-bottom: 9px;
-  border-color: transparent;
-  border-radius: 2px;
-  border-color: $gray-400;
+  &.input-search { // TODO Abstract to work with all icons 
+    background-repeat: no-repeat;
+    background-position: center left 16px;
+    background-size: 16px 16px;
+    background-image: url(~client/assets/svg/search.svg);
+    padding-left: 40px;
+  }
 
-  &:focus {
-    border-color: $gray-400;
+  &.input-valid, &.input-invalid {
+    background-repeat: no-repeat;
+    background-position: center right 16px;
+  }
+
+  &.input-valid {
+    padding-right: 37px;
+    background-image: url(~client/assets/svg/check.svg);
+    background-size: 13px 10px;
+  }
+
+  &.input-invalid {
+    padding-right: 40px;
+    background-image: url(~client/assets/svg/alert.svg);
+    background-size: 16px 16px;
   }
 }
 
-// Checkboxes
+// Checkboxes and radios
 .custom-control-description {
   padding-top: 3px;
   padding-left: 3px;

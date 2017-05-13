@@ -2,7 +2,7 @@
 .row
   .col-2.standard-sidebar
     .form-group
-      input.form-control.search-control(type="text", v-model="searchText", :placeholder="$t('search')")
+      input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
     .form
       h2(v-once) {{ $t('filter') }}
