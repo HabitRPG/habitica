@@ -23,7 +23,7 @@
             span Animals
 
   .col-10.standard-page
-    h2(v-once) {{ $t('publicGuilds') }}
+    h1.page-header(v-once) {{ $t('publicGuilds') }}
     public-guild-item(v-for="guild in guilds", :key='guild._id', :guild="guild")
     mugen-scroll(
       :handler="fetchGuilds", 

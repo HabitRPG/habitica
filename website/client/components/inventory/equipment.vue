@@ -19,7 +19,7 @@
 
   .col-10.standard-page
     .clearfix
-      h1.float-left.mb-0(v-once) {{ $t('equipment') }}
+      h1.float-left.mb-0.page-header(v-once) {{ $t('equipment') }}
       b-dropdown.float-right(text="Sort by", right=true)
         b-dropdown-item(href="#") Option 1
         b-dropdown-item(href="#") Option 2
