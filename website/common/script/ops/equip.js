@@ -48,7 +48,7 @@ module.exports = function equip (user, req = {}) {
       if (user.items.gear[type][item.type] === key) {
         user.items.gear[type] = Object.assign(
           {},
-          user.items.gear[type],
+          user.items.gear[type].toObject ? user.items.gear[type].toObject() : user.items.gear[type],
           {[item.type]: `${item.type}_base_0`}
         );
         message = i18n.t('messageUnEquipped', {
@@ -57,7 +57,7 @@ module.exports = function equip (user, req = {}) {
       } else {
         user.items.gear[type] = Object.assign(
           {},
-          user.items.gear[type],
+          user.items.gear[type].toObject ? user.items.gear[type].toObject() : user.items.gear[type],
           {[item.type]: item.key}
         );
         message = handleTwoHanded(user, item, type, req);
