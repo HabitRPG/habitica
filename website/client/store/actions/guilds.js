@@ -46,3 +46,13 @@ export async function leaveGuild (store, payload) {
 
   return response.data.data;
 }
+
+export async function create (store, payload) {
+  let response = await axios.post('/api/v3/groups/', payload.group);
+  let newGroup = response.data.data;
+
+  // @TODO: Check what type of guild
+  store.state.publicGuilds.push(newGroup);
+
+  return newGroup;
+}
