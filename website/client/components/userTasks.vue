@@ -41,7 +41,7 @@
       b-dropdown-item(href="#") Menu item 4
   .col-6.p-4
     h3 Dropdown Menu Disabled
-    b-dropdown(text="Menu", right=false)
+    b-dropdown(text="Menu", disabled)
       b-dropdown-item(href="#") Menu item 1
       b-dropdown-item(href="#") Menu item 2
       b-dropdown-item(href="#") Menu item 3

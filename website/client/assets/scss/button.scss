@@ -31,7 +31,7 @@
   }
 }
 
-.btn:disabled {
+.btn:disabled, .btn.disabled {
   box-shadow: none;
   opacity: 0.64;
   border-color: transparent;
@@ -53,7 +53,7 @@
   color: $gray-50;
   background: $white !important;
 
-  &:hover:not(:disabled), &:active {
+  &:hover:not(:disabled):not(.disabled), &:active {
     color: $purple-200;
   }
 
@@ -67,9 +67,9 @@
     border-color: $purple-500 !important;
   }
 
-  &:disabled {
-    background: $gray-500;
-    color: $gray-100;
+  &:disabled, &.disabled {
+    background: $gray-500 !important;
+    color: $gray-100 !important;
   }
 }
 
