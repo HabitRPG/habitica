@@ -75,6 +75,7 @@ nav.navbar {
     font-weight: bold;
     line-height: 1.5;
     padding: 1rem 1.5rem;
+    transition: none;
   }
 
   &:hover {
@@ -111,6 +112,7 @@ nav.navbar {
     font-size: 16px;
     box-shadow: none;
     color: $white;
+    border: none;
 
     &.active {
       background: $purple-300;
