@@ -28,6 +28,9 @@
         h3 Textarea Disabled
         textarea.form-control(disabled, rows="10", cols="50")
     .row
+      .col-2.p-4
+        toggleSwitch(label="Toggle Switch")
+    .row
       .col-3.p-4
         h3 Main Button
         button.btn.btn-primary Button
@@ -86,12 +89,14 @@ import Task from './task';
 import { mapState } from 'client/libs/store';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
+import toggleSwitch from 'client/components/ui/toggleSwitch';
 
 export default {
   components: {
     Task,
     bDropdown,
     bDropdownItem,
+    toggleSwitch,
   },
   data () {
     return {

@@ -1,7 +1,7 @@
 <template lang="pug">
 .clearfix.toggle-switch-container
   .float-left.toggle-switch-description {{ label }}
-  .toggle-switch.float-right
+  .toggle-switch.float-left
     input.toggle-switch-checkbox(
       type='checkbox', :id="id", 
       @change="$emit('change', $event.target.checked)", 
@@ -40,6 +40,8 @@
   overflow: hidden; 
   cursor: pointer;
   border-radius: 100px;
+  margin-bottom: 0px;
+  margin-top: 3px;
 }
 
 .toggle-switch-inner {
@@ -75,6 +77,7 @@
   display: block; 
   width: 20px; 
   margin: -2px;
+  margin-top: 1px;
   height: 20px;
   background: $white;
   position: absolute; 
