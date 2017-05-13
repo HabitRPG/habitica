@@ -2,6 +2,14 @@
 .row
   .col-12
     .row
+      .col-6.p-4
+        h3 Textarea
+        textarea(rows="5", cols="50")
+      .col-6.p-4
+        h3 Textarea Disabled
+        textarea(disabled, rows="10", cols="50")
+  .col-12
+    .row
       .col-3.p-4
         h3 Main Button
         button.btn.btn-primary Button

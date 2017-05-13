@@ -6,6 +6,12 @@ html, body {
   background: $gray-700;
 }
 
+* {
+  transition-duration: .15s;
+  transition-property: border-color, box-shadow, color;
+  transition-timing-function: ease-in;
+}
+
 // Global styles
 @import './typography';
 @import './form';
