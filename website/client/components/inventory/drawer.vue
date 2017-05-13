@@ -135,6 +135,6 @@ export default {
     return {
       open: true,
     };
-  }
+  },
 };
 </script>
