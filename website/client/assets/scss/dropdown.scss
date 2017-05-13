@@ -6,8 +6,10 @@
   line-height: 1.43;
 }
 
-.dropdown > .btn:focus {
-  box-shadow: none !important;
+.dropdown.show > .dropdown-toggle {
+  color: $purple-200;
+  border-color: $purple-500 !important;
+  box-shadow: none;
 }
 
 .dropdown-toggle::after {
@@ -38,7 +40,7 @@
     outline: none;
   }
 
-  &:active, &:hover, &:focus {
+  &:active, &:hover, &:focus, &.active {
     background-color: rgba(#d5c8ff, 0.32);
     color: $purple-200;
   }
