@@ -32,6 +32,50 @@
         toggleSwitch(label="Toggle Switch")
     .row
       .col-3.p-4
+        h3 Checkbox
+        label.custom-control.custom-checkbox
+          input.custom-control-input(type='checkbox')
+          span.custom-control-indicator
+          span.custom-control-description Check this custom checkbox
+      .col-3.p-4
+        h3 Checkbox Disabled Checked
+        label.custom-control.custom-checkbox
+          input.custom-control-input(type='checkbox', disabled, checked)
+          span.custom-control-indicator
+          span.custom-control-description Check this custom checkbox
+      .col-3.p-4
+        h3 Checkbox Disabled Not Checked
+        label.custom-control.custom-checkbox
+          input.custom-control-input(type='checkbox', disabled)
+          span.custom-control-indicator
+          span.custom-control-description Check this custom checkbox
+      .col-6.p-4
+        h3 Radio Button
+        form
+          label.custom-control.custom-radio
+            input#radio1.custom-control-input(name='radio', type='radio')
+            span.custom-control-indicator
+            span.custom-control-description Toggle this custom radio
+          label.custom-control.custom-radio
+            input#radio2.custom-control-input(name='radio', type='radio')
+            span.custom-control-indicator
+            span.custom-control-description Toggle this custom radio
+      .col-3.p-4
+        h3 Radio Button Disabled Checked
+        form
+          label.custom-control.custom-radio
+            input#radio3.custom-control-input(name='radio', type='radio', disabled, checked)
+            span.custom-control-indicator
+            span.custom-control-description Toggle this custom radio
+      .col-3.p-4
+        h3 Radio Button Disabled Not Checked
+        form
+          label.custom-control.custom-radio
+            input#radio3.custom-control-input(name='radio', type='radio', disabled)
+            span.custom-control-indicator
+            span.custom-control-description Toggle this custom radio
+    .row
+      .col-3.p-4
         h3 Main Button
         button.btn.btn-primary Button
       .col-3.p-4
