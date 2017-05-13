@@ -15,8 +15,7 @@ block content
     br
     .row
       .col-sm-6.col-sm-offset-3
-        //todo fix
-        a.btn.btn-primary.btn-lg.btn-block(ui-sref="options.social.newGroup")=env.t('createAGroup')
+        a.btn.btn-primary.btn-lg.btn-block(ng-click="goToNewGroupPage()")=env.t('createAGroup')
 
     .row
       .col-md-6.col-md-offset-3

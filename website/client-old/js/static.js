@@ -26,11 +26,20 @@ window.habitrpg = angular.module('habitrpg', ['chieffancypants.loadingBar', 'ui.
     $http.defaults.headers.common['x-client'] = 'habitica-web';
   }])
 
-.controller("PlansCtrl", ['$rootScope','Analytics',
-  function($rootScope,Analytics) {
+.controller("PlansCtrl", ['$rootScope','Analytics','$location','User',
+  function($rootScope,Analytics,$location,User) {
     $rootScope.clickContact = function(){
       Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Contact Us (Plans)'})
-    }
+    };
+    $rootScope.goToNewGroupPage = function () {
+      if (User.authenticated()) {
+        window.location.href="/#/options/groups/new-group";
+      } else {
+        // There is no authenticated user, so redirect to the login page,
+        // taking the hash with it to effectively redirect after login.
+        window.location.href = "/static/login#/options/groups/new-group";
+      }
+    };
   }
 ])
 
