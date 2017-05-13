@@ -260,6 +260,7 @@
   "familyPlansButton": "Sign Up for Family Plan Mailing List",
   "familyPlansDescription": "Want a cozier solution to manage your household? Family Plans are coming soon!",
   "createAGroup": "Create a Group",
+  "getAGroupPlanToday": "Get a Group Plan Today",
   "assignFieldPlaceholder": "Type a group member's profile name",
   "cannotDeleteActiveGroup": "You cannot remove a group with an active subscription",
   "groupTasksTitle": "Group Tasks List",
