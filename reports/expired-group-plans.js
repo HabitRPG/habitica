@@ -1,16 +1,16 @@
-// Lists out users who belong to groups with active group plans, with their profile names and email addresses
-// mongo habitrpg ./reports/group-plans.js > group-plans.csv
+// Lists out users who are leaders of groups with expired group plans, with their profile names and email addresses
+// mongo habitrpg ./reports/expired-group-plans.js > expired-group-plans.csv
 
-let groupList = [];
+let userList = [];
 
-db.groups.find({'purchased.plan.customerId':{$exists:true},$or:[{'purchased.plan.dateTerminated':null},{'purchased.plan.dateTerminated':''},{'purchased.plan.dateTerminated':{$gt:new Date()}}]},{'_id':1})
+db.groups.find({'purchased.plan.customerId':{$exists:true},$and:[{'purchased.plan.dateTerminated':{$type:'date'}},{'purchased.plan.dateTerminated':{$lt:new Date()}}]},{'purchased.plan':1})
   .forEach(function (group) {
-    groupList.push(group._id);
+    userList.push(group.purchased.plan.owner);
   });
 
 print('name,email');
 
-db.users.find({$or:[{'party._id':{$in:groupList}},{'guilds':{$in:groupList}}]},{'profile.name':1,'auth':1})
+db.users.find({'_id':{$in:userList}},{'profile.name':1,'auth':1})
   .forEach(function (user) {
     if (!user || !user.auth) return;
     let email;
@@ -25,3 +25,4 @@ db.users.find({$or:[{'party._id':{$in:groupList}},{'guilds':{$in:groupList}}]},{
     }
     print('\"' + user.profile.name + '\"' + ',' + '\"' + email + '\"');
   });
+
