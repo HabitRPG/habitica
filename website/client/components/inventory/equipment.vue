@@ -9,10 +9,10 @@
       h3 {{ this.groupBy === 'type' ? 'Type' : $t('class') }}
       .form-group
         .form-check(
-          v-for="group in itemsGroups", 
+          v-for="group in itemsGroups",
           :key="group.key",
         )
-          label.custom-control.custom-checkbox 
+          label.custom-control.custom-checkbox
             input.custom-control-input(type="checkbox", v-model="viewOptions[group.key].selected")
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t(group.label) }}
@@ -28,28 +28,37 @@
         b-dropdown-item(@click="groupBy = 'type'", :class="{'dropdown-item-active': groupBy === 'type'}") Type
         b-dropdown-item(@click="groupBy = 'class'", :class="{'dropdown-item-active': groupBy === 'class'}") {{ $t('class') }}
 
-    drawer(:title="$t('equipment')")
+    drawer(:title="$t('equipment')", :errorMessage="(costume && !user.preferences.costume) ? $t('costumeDisabled') : null")
       div(slot="drawer-header")
         .drawer-tab-container
           .drawer-tab.text-right
             a.drawer-tab-text(
-              @click="costume = false", 
+              @click="costume = false",
               :class="{'drawer-tab-text-active': costume === false}",
             ) {{ $t('equipment') }}
           .clearfix
             .drawer-tab.float-left
               a.drawer-tab-text(
-                @click="costume = true", 
+                @click="costume = true",
                 :class="{'drawer-tab-text-active': costume === true}",
               ) {{ $t('costume') }}
-            toggle-switch.float-right(
-              :label="$t(costume ? 'useCostume' : 'autoEquipBattleGear')",
-              :checked="user.preferences[drawerPreference]",
-              @change="changeDrawerPreference",
+
+            b-popover(
+              :triggers="['hover']",
+              :placement="'top'"
             )
+              span(slot="content")
+                .popover-content-title {{ $t(drawerPreference+'PopoverText') }}
+
+              toggle-switch.float-right(
+                :label="$t(costume ? 'useCostume' : 'autoEquipBattleGear')",
+                :checked="user.preferences[drawerPreference]",
+                @change="changeDrawerPreference",
+              )
+
       .items.items-one-line(slot="drawer-slider")
         item(
-          v-for="(label, group) in gearTypesToStrings", 
+          v-for="(label, group) in gearTypesToStrings",
           :key="group",
           :item="flatGear[activeItems[group]]",
           :label="$t(label)",
@@ -74,6 +83,7 @@
           :item="item",
           :key="item.key",
           :selected="activeItems[item.type] === item.key",
+          :starVisible="!costume || user.preferences.costume",
           @click="equip",
         )
       div(v-if="items[group.key].length === 0")
@@ -102,6 +112,7 @@ import throttle from 'lodash/throttle';
 
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
+import bPopover from 'bootstrap-vue/lib/components/popover';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 
 import Item from 'client/components/inventory/item';
@@ -113,6 +124,7 @@ export default {
     Drawer,
     bDropdown,
     bDropdownItem,
+    bPopover,
     toggleSwitch,
   },
   data () {

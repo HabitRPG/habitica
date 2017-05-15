@@ -1,11 +1,16 @@
 <template lang="pug">
-.drawer-container(:style="{right: positionRight}")
-  .drawer-title(@click="open = !open") {{title}}
+.drawer-container()
+  .drawer-title(@click="open = !open")
+    | {{title}}
+    img.drawer-toggle-icon(src="~assets/drawer/minimize.svg", v-if="open")
+    img.drawer-toggle-icon.closed(src="~assets/drawer/expand.svg", v-else)
   transition(name="slide-up")
     .drawer-content(v-show="open")
       slot(name="drawer-header")
       .drawer-slider
         slot(name="drawer-slider")
+        div.message(v-if="errorMessage != null")
+          .content {{ errorMessage }}
 </template>
 
 <style lang="scss">
@@ -14,11 +19,21 @@
 .drawer-container {
   z-index: 19;
   position: fixed;
-  bottom: 0;
-  width: 968px;
-  max-width: 90%;
+  max-width: 80%;
   font-size: 12px;
   font-weight: bold;
+  bottom: 0;
+  left: 19%;
+  right: 3%;
+}
+
+.drawer-toggle-icon {
+  float: right;
+  margin: 10px;
+
+  &.closed {
+    margin-top: 5px;
+  }
 }
 
 .drawer-title {
@@ -39,8 +54,8 @@
   background-color: $gray-50;
   color: $gray-500;
   box-shadow: 0 2px 16px 0 rgba($black, 0.3);
-  width: 100%;
   padding-top: 6px;
+  padding-left: 24px;
   padding-right: 24px;
 }
 
@@ -71,10 +86,28 @@
 }
 
 .drawer-slider {
-  padding: 12px 0px 0px 24px;
-  width: 100%;
-  overflow-x: scroll;
+  padding:   12px 0 0 0;
+  overflow-x: auto;
+  overflow-y: hidden;
   white-space: nowrap;
+  position: relative;
+
+  & .message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    top: calc(50% - 30px);
+    left: 24px;
+    right: 0;
+    position: absolute;
+
+    & .content {
+      background-color: rgba($gray-200, 0.5);
+      border-radius: 8px;
+      padding: 12px;
+    }
+  }
 }
 
 .slide-up-enter-active, .slide-up-leave-active {
@@ -94,18 +127,14 @@ export default {
       type: String,
       required: true,
     },
+    errorMessage: {
+      type: String,
+    },
   },
   data () {
     return {
       open: true,
-      positionRight: null,
     };
-  },
-  mounted () {
-    // Center in the middle of the container
-    const parentElWith = this.$el.parentElement.offsetWidth;
-    const elWidth = this.$el.offsetWidth;
-    this.positionRight = `${(parentElWith - elWidth) / 2}px`;
   },
 };
 </script>
