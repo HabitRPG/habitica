@@ -2,69 +2,86 @@
 .row
   .col-2.standard-sidebar
     .form-group
-      input.form-control(type="text", :placeholder="$t('search')")
+      input.form-control.input-search(type="text", :placeholder="$t('search')")
 
     .form
-      h3(v-once) {{ $t('filter') }}
+      h2(v-once) {{ $t('filter') }}
+      h3(v-once) {{ $t('pets') }}
       .form-group
         .form-check
-          label.form-check-label(v-once) 
-            input.form-check-input(type="checkbox")
-            strong {{ $t('pets') }}
-        .form-check.nested-field
-          label.form-check-label(v-once) 
-            input.form-check-input(type="checkbox")
-            span {{ $t('hatchingPotions') }}
-        .form-check.nested-field
-          label.form-check-label(v-once) 
-            input.form-check-input(type="checkbox")
-            span {{ $t('quest') }}
-        .form-check.nested-field
-          label.form-check-label(v-once) 
-            input.form-check-input(type="checkbox")
-            span {{ $t('special') }}
+          label.custom-control.custom-checkbox(v-once)
+            input.custom-control-input(type="checkbox")
+            span.custom-control-indicator
+            span.custom-control-description(v-once) Standard
+          label.custom-control.custom-checkbox(v-once)
+            input.custom-control-input(type="checkbox")
+            span.custom-control-indicator
+            span.custom-control-description(v-once) {{ $t('hatchingPotions') }}
+          label.custom-control.custom-checkbox(v-once)
+            input.custom-control-input(type="checkbox")
+            span.custom-control-indicator
+            span.custom-control-description(v-once) {{ $t('quest') }}
+          label.custom-control.custom-checkbox(v-once)
+            input.custom-control-input(type="checkbox")
+            span.custom-control-indicator
+            span.custom-control-description(v-once) {{ $t('special') }}
+      h3(v-once) {{ $t('mounts') }}
       .form-group
         .form-check
-          label.form-check-label(v-once) 
-            input.form-check-input(type="checkbox")
-            strong {{ $t('mounts') }}
-        .form-check.nested-field
-          label.form-check-label(v-once) 
-            input.form-check-input(type="checkbox")
-            span {{ $t('hatchingPotions') }}
-        .form-check.nested-field
-          label.form-check-label(v-once) 
-            input.form-check-input(type="checkbox")
-            span {{ $t('quest') }}
-        .form-check.nested-field
-          label.form-check-label(v-once) 
-            input.form-check-input(type="checkbox")
-            span {{ $t('special') }}
+          label.custom-control.custom-checkbox(v-once)
+            input.custom-control-input(type="checkbox")
+            span.custom-control-indicator
+            span.custom-control-description(v-once) Standard
+          label.custom-control.custom-checkbox(v-once)
+            input.custom-control-input(type="checkbox")
+            span.custom-control-indicator
+            span.custom-control-description(v-once) {{ $t('hatchingPotions') }}
+          label.custom-control.custom-checkbox(v-once)
+            input.custom-control-input(type="checkbox")
+            span.custom-control-indicator
+            span.custom-control-description(v-once) {{ $t('quest') }}
+          label.custom-control.custom-checkbox(v-once)
+            input.custom-control-input(type="checkbox")
+            span.custom-control-indicator
+            span.custom-control-description(v-once) {{ $t('special') }}
 
   .col-10.standard-page
-    h4 Pets
+    .clearfix
+      h1.float-left.mb-0.page-header(v-once) {{ $t('stable') }}
+      b-dropdown.float-right(text="Sort by", right=true)
+        b-dropdown-item(href="#") Option 1
+        b-dropdown-item(href="#") Option 2
+        b-dropdown-item(href="#") Option 3
+
+
+    h2 Pets
+    h4 Standard
+
     .inventory-item-container(v-for="pet in dropPets")
       .PixelPaw
-    .btn.btn-secondary.d-block(@click="open.dropPets = !open.dropPets") {{ open.dropPets ? 'Close' : 'Open' }}
+    .btn.btn-show-more(@click="open.dropPets = !open.dropPets") {{ open.dropPets ? 'Close' : 'Open' }}
 
-    h2 Magic Potions Pets
+    h4 Magic Potions Pets
     .inventory-item-container(v-for="pet in magicPets")
       .PixelPaw
-    .btn.btn-secondary.d-block(@click="open.magicPets = !open.magicPets") {{ open.magicPets ? 'Close' : 'Open' }}
+    .btn.btn-show-more(@click="open.magicPets = !open.magicPets") {{ open.magicPets ? 'Close' : 'Open' }}
 
-    h2 Quest Pets
+    h4 Quest Pets
     .inventory-item-container(v-for="pet in questPets")
       .PixelPaw
-    .btn.btn-secondary.d-block(@click="open.questPets = !open.questPets") {{ open.questPets ? 'Close' : 'Open' }}
+    .btn.btn-show-more(@click="open.questPets = !open.questPets") {{ open.questPets ? 'Close' : 'Open' }}
 
-    h2 Rare Pets
+    h4 Rare Pets
     .inventory-item-container(v-for="pet in rarePets")
       .PixelPaw
-    .btn.btn-secondary.d-block(@click="open.rarePets = !open.rarePets") {{ open.rarePets ? 'Close' : 'Open' }}
+    .btn.btn-show-more(@click="open.rarePets = !open.rarePets") {{ open.rarePets ? 'Close' : 'Open' }}
 
     h2 Mounts
-    h2 Quest Mounts
-    h2 Rare Mounts
+
+    h4 Standard Mounts
+    h4 Magic Potion Mounts
+    h4 Quest Mounts
+    h4 Special Mounts
 </template>
 
 <style lang="scss">
@@ -77,7 +94,14 @@
 
 <script>
 import { mapState } from 'client/libs/store';
+
+import bDropdown from 'bootstrap-vue/lib/components/dropdown';
+import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
+
 import each from 'lodash/each';
+
+import Item from 'client/components/inventory/item';
+import Drawer from 'client/components/inventory/drawer';
 
 // TODO Normalize special pets and mounts
 // import Store from 'client/store';
@@ -85,6 +109,12 @@ import each from 'lodash/each';
 // const specialMounts =
 
 export default {
+  components: {
+    Item,
+    Drawer,
+    bDropdown,
+    bDropdownItem,
+  },
   data () {
     return {
       open: {
