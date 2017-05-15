@@ -510,6 +510,9 @@ api.joinGroup = {
         throw new NotAuthorized(res.t('userAlreadyInGroup'));
       }
       user.guilds.push(group._id); // Add group to user's guilds
+      if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
+        user._ABtests.counter = -1;
+      }
     }
     if (!isUserInvited) throw new NotAuthorized(res.t('messageGroupRequiresInvite'));
 

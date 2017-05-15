@@ -584,6 +584,17 @@ api.scoreTask = {
       }
     }
 
+    if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
+      user._ABtests.counter++;
+      if (user._ABtests.counter > 1) {
+        if (user._ABtests.guildReminder.indexOf('timing1') !== -1 || user._ABtests.counter > 4) {
+          user._ABtests.counter = -1;
+          let textVariant = user._ABtests.guildReminder.indexOf('text2');
+          user.addNotification('GUILD_PROMPT', {textVariant: textVariant});
+        }
+      }
+    }
+
     let results = await Bluebird.all([
       user.save(),
       task.save(),

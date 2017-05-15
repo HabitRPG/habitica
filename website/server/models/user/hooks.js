@@ -10,7 +10,7 @@ import schema from './schema';
 schema.plugin(baseModel, {
   // noSet is not used as updating uses a whitelist and creating only accepts specific params (password, email, username, ...)
   noSet: [],
-  private: ['auth.local.hashed_password', 'auth.local.passwordHashMethod', 'auth.local.salt', '_cronSignature', '_ABtest', '_ABtests'],
+  private: ['auth.local.hashed_password', 'auth.local.passwordHashMethod', 'auth.local.salt', '_cronSignature', '_ABtests'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
     delete plainObj.filters;
@@ -98,14 +98,19 @@ function _setUpNewUser (user) {
   let testGroup = Math.random();
   if (testGroup < 0.1) {
     user._ABtests.guildReminder = '20170511_noGuildReminder'; // control group, don't pester about Guilds
+    user._ABtests.counter = -1;
   } else if (testGroup < 0.235) {
     user._ABtests.guildReminder = '20170511_text1timing1'; // first sample text, show after two clicks
+    user._ABtests.counter = 0;
   } else if (testGroup < 0.46) {
     user._ABtests.guildReminder = '20170511_text2timing1'; // second sample text, show after two clicks
+    user._ABtests.counter = 0;
   } else if (testGroup < 0.685) {
     user._ABtests.guildReminder = '20170511_text1timing2'; // first sample text, show after five clicks
+    user._ABtests.counter = 0;
   } else {
     user._ABtests.guildReminder = '20170511_text2timing2'; // second sample text, show after five clicks
+    user._ABtests.counter = 0;
   }
 
   user.items.quests.dustbunnies = 1;

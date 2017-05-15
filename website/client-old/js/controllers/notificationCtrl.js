@@ -78,7 +78,7 @@ habitrpg.controller('NotificationCtrl',
     // Avoid showing the same notiication more than once
     var lastShownNotifications = [];
 
-    function trasnferGroupNotification(notification) {
+    function transferGroupNotification(notification) {
       if (!User.user.groupNotifications) User.user.groupNotifications = [];
       User.user.groupNotifications.push(notification);
     }
@@ -108,6 +108,13 @@ habitrpg.controller('NotificationCtrl',
         var markAsRead = true;
 
         switch (notification.type) {
+          case 'GUILD_PROMPT':
+            if (notification.data.textVariant === -1) {
+              $rootScope.openModal('testing');
+            } else {
+              $rootScope.openModal('testingVariant');
+            }
+            break;
           case 'DROPS_ENABLED':
             $rootScope.openModal('dropsEnabled');
             break;
@@ -142,11 +149,11 @@ habitrpg.controller('NotificationCtrl',
             }
             break;
           case 'GROUP_TASK_APPROVAL':
-            trasnferGroupNotification(notification);
+            transferGroupNotification(notification);
             markAsRead = false;
             break;
           case 'GROUP_TASK_APPROVED':
-            trasnferGroupNotification(notification);
+            transferGroupNotification(notification);
             markAsRead = false;
             break;
           case 'SCORED_TASK':
