@@ -21,66 +21,66 @@
 </template>
 
 <style lang="scss" scoped>
-.card {
-  height: 260px;
-  border-radius: 4px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
-  margin-bottom: 1rem;
-}
+  .card {
+    height: 260px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
+    margin-bottom: 1rem;
+  }
 
-.card h3 {
-  height: 24px;
-  font-size: 16px;
-  font-weight: bold;
-  font-stretch: condensed;
-  line-height: 1.5;
-  color: #34313a;
-}
+  .card h3 {
+    height: 24px;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: condensed;
+    line-height: 1.5;
+    color: #34313a;
+  }
 
-.card .category-label {
-  min-width: 100px;
-  border-radius: 100px;
-  background-color: #edecee;
-  padding: .5em;
-  display: inline-block;
-  margin-right: .5em;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.33;
-  text-align: center;
-  color: #a5a1ac;
-}
+  .card .category-label {
+    min-width: 100px;
+    border-radius: 100px;
+    background-color: #edecee;
+    padding: .5em;
+    display: inline-block;
+    margin-right: .5em;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.33;
+    text-align: center;
+    color: #a5a1ac;
+  }
 
-.card .recommend-text {
-  font-size: 12px;
-  font-style: italic;
-  line-height: 2;
-  color: #a5a1ac;
-}
+  .card .recommend-text {
+    font-size: 12px;
+    font-style: italic;
+    line-height: 2;
+    color: #a5a1ac;
+  }
 
-.card .btn-success {
-  border-radius: 2px;
-  background-color: #24cc8f;
-  box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
-  font-size: 16px;
-  font-weight: bold;
-  font-stretch: condensed;
-  line-height: 1.5;
-  text-align: center;
-  color: #ffffff;
-}
+  .card .btn-success {
+    border-radius: 2px;
+    background-color: #24cc8f;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: condensed;
+    line-height: 1.5;
+    text-align: center;
+    color: #ffffff;
+  }
 
-.card .cta-container {
-  margin: 0 auto;
-  margin-top: 4em;
-}
+  .card .cta-container {
+    margin: 0 auto;
+    margin-top: 4em;
+  }
 
-.card .shield {
-  width: 70px;
-  height: 76px;
-  margin: auto;
-}
+  .card .shield {
+    width: 70px;
+    height: 76px;
+    margin: auto;
+  }
 </style>
 
 <script>
@@ -98,11 +98,21 @@ export default {
   },
   methods: {
     async join () {
+      // @TODO: This needs to be in the notifications where users will now accept invites
+      if (this.guild.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
+        return;
+      }
       await this.$store.dispatch('guilds:joinGuild', {guildId: this.guild._id});
     },
     async leave () {
       // @TODO: ask about challenges when we add challenges
       await this.$store.dispatch('guilds:leaveGuild', {guildId: this.guild._id});
+    },
+    async reject (invitationToReject) {
+      // @TODO: This needs to be in the notifications where users will now accept invites
+      var index = _.findIndex(User.user.invitations.guilds, function(invite) { return invite.id === invitationToReject.id; });
+      User.user.invitations.guilds = User.user.invitations.guilds.splice(0, index);
+      await this.$store.dispatch('guilds:rejectInvite', {guildId: invitationToReject.id});
     },
   },
 };

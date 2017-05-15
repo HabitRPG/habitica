@@ -39,7 +39,12 @@ export async function joinGuild (store, payload) {
 }
 
 export async function leaveGuild (store, payload) {
-  let response = await axios.post(`/api/v3/groups/${payload.guildId}/leave`);
+  // @TODO: is the dafault for keepChallenges 'remain-in-challenges'
+  let data = {
+    keep: payload.keep,
+    keepChallenges: payload.keepChallenges,
+  };
+  let response = await axios.post(`/api/v3/groups/${payload.guildId}/leave`, data);
 
   let index = store.state.user.data.guilds.indexOf(payload.guildId);
   store.state.user.data.guilds.splice(index, 1);
@@ -55,4 +60,12 @@ export async function create (store, payload) {
   store.state.publicGuilds.push(newGroup);
 
   return newGroup;
+}
+
+export async function rejectInvite (store, payload) {
+  let response = await axios.post(`/api/v3/groups/${payload.groupId}/reject-invite`);
+
+  // @TODO: refresh or add guild
+
+  return response;
 }
