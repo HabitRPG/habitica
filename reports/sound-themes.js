@@ -1,4 +1,5 @@
 // How many users use each sound theme? Outputs count of users per theme
+// Run using migration-runner.js
 
 var userList = [];
 var cursor = db.users.find({'auth.timestamps.loggedin':{$gt: new Date('2017-01-01')}},{'_id':1,'auth':1})

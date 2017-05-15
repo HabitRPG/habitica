@@ -1,4 +1,5 @@
 // How many Guilds are users members of? Outputs counts of users with each number of Guilds
+// Run using migration-runner.js
 
 var aggregationCursor = db.users.aggregate(
 	[

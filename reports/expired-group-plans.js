@@ -25,4 +25,3 @@ db.users.find({'_id':{$in:userList}},{'profile.name':1,'auth':1})
     }
     print('\"' + user.profile.name + '\"' + ',' + '\"' + email + '\"');
   });
-
