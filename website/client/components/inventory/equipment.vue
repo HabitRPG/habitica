@@ -65,12 +65,14 @@
           v-for="(label, group) in gearTypesToStrings",
           :key="group",
           :item="flatGear[activeItems[group]]",
+          :showPopover="flatGear[activeItems[group]] && flatGear[activeItems[group]].key.indexOf('_base_0') === -1",
           :label="$t(label)",
           :selected="true",
           :popoverPosition="'top'",
           :starVisible="!costume || user.preferences.costume",
           @click="equip",
         )
+          equipmentAttributesPopover(slot="popoverContent")
     div(
       v-for="group in itemsGroups",
       v-if="viewOptions[group.key].selected",
@@ -86,11 +88,13 @@
           v-for="(item, index) in items[group.key]",
           v-if="viewOptions[group.key].open || index < itemsPerLine",
           :item="item",
+          :showPopover="flatGear[activeItems[group]] && flatGear[activeItems[group]].key.indexOf('_base_0') === -1",
           :key="item.key",
           :selected="activeItems[item.type] === item.key",
           :starVisible="!costume || user.preferences.costume",
           @click="equip",
         )
+          equipmentAttributesPopover(slot="popoverContent")
       div(v-if="items[group.key].length === 0")
         p(v-once) {{ $t('noGearItemsOfType', { type: $t(group.label) }) }}
       a.btn.btn-show-more(
@@ -117,11 +121,13 @@ import bPopover from 'bootstrap-vue/lib/components/popover';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 
 import Item from 'client/components/inventory/item';
+import EquipmentAttributesPopover from 'client/components/inventory/equipmentAttributesPopover';
 import Drawer from 'client/components/inventory/drawer';
 
 export default {
   components: {
     Item,
+    EquipmentAttributesPopover,
     Drawer,
     bDropdown,
     bDropdownItem,
