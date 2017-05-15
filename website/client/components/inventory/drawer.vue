@@ -1,5 +1,5 @@
 <template lang="pug">
-.drawer-container()
+.drawer-container
   .drawer-title(@click="open = !open")
     | {{title}}
     img.drawer-toggle-icon(src="~assets/drawer/minimize.svg", v-if="open")
@@ -19,12 +19,19 @@
 .drawer-container {
   z-index: 19;
   position: fixed;
-  max-width: 80%;
   font-size: 12px;
   font-weight: bold;
   bottom: 0;
   left: 19%;
   right: 3%;
+  max-width: 80%;
+
+  @media screen and (min-width: 1241px) {
+    max-width: 968px;
+    // 16.67% is the width of the .col-2 sidebar
+    left: calc((100% + 16.67% - 968px) / 2);
+    right: 0%;
+  }
 }
 
 .drawer-toggle-icon {
