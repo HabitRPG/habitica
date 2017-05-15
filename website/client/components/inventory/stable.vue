@@ -57,8 +57,18 @@
     h2 Pets
     h4 Standard
 
-    .inventory-item-container(v-for="pet in dropPets")
-      .PixelPaw
+    .items
+      item(
+      v-for="pet in dropPets",
+      :item="pet",
+      :key="pet.key",
+      :showPopover="true",
+      :label="pet.value",
+      :popoverPosition="'top'",
+      )
+        span(slot="popoverContent") {{ pet }}
+        div(slot="itemContent", :class="'Pet-' + pet.key")
+
     .btn.btn-show-more(@click="open.dropPets = !open.dropPets") {{ open.dropPets ? 'Close' : 'Open' }}
 
     h4 Magic Potions Pets
@@ -89,6 +99,13 @@
   padding: 20px;
   border: 1px solid;
   display: inline-block;
+}
+
+.item.item-content {
+  position: absolute;
+  top: -18px;
+  right: 5px;
+  display: block;
 }
 </style>
 
@@ -150,7 +167,10 @@ export default {
         iteration++;
         each(potionSource, (potion) => {
           let animalKey = `${egg.key}-${potion.key}`;
-          animals.push(this.content[`${type}Info`][animalKey].text());
+          animals.push({
+            key: animalKey,
+            pet: this.content[`${type}Info`][animalKey].text(),
+          });
         });
       });
 

@@ -14,7 +14,8 @@ b-popover(
         @click="click",
         v-if="starVisible"
       ) &#9733;
-      span.item-content(:class="'shop_' + item.key")
+      span.item-content
+        slot(name="itemContent")
     span.item-label(v-if="label") {{ label }}
 div(v-else)
   .item-wrapper
