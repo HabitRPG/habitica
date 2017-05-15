@@ -352,7 +352,11 @@ angular.module('habitrpg')
         }
       }
 
-      var summary = 'Repeats ' + task._edit.frequency + ' every ' + task._edit.everyX + ' ' + frequencyPlural;
+      var summary = window.env.t('summaryStart', {
+        frequency: task._edit.frequency,
+        everyX: task._edit.everyX,
+        frequencyPlural: frequencyPlural,
+      });
 
       if (task._edit.frequency === 'weekly') summary += ' on ' + repeatDays;
 
