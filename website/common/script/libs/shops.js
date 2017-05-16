@@ -130,7 +130,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
         currency: 'gems',
         class: `quest_bundle_${bundle.key}`,
         purchaseType: 'bundles',
-      }
+      };
     }));
 
   categories.push(bundleCategory);

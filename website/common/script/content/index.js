@@ -65,12 +65,12 @@ api.bundles = {
       'owl',
     ],
     canBuy () {
-      return moment().isBetween('2017-05-16','2017-06-02');
+      return moment().isBetween('2017-05-16', '2017-06-02');
     },
     type: 'quests',
     value: 7,
   },
-},
+};
 
 /*
    ---------------------------------------------------------------
