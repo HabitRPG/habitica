@@ -29,7 +29,10 @@
           b-dropdown-item(@click="groupBy = 'type'", :class="{'dropdown-item-active': groupBy === 'type'}") Type
           b-dropdown-item(@click="groupBy = 'class'", :class="{'dropdown-item-active': groupBy === 'class'}") {{ $t('class') }}
 
-    drawer(:title="$t('equipment')", :errorMessage="(costume && !user.preferences.costume) ? $t('costumeDisabled') : null")
+    drawer(
+      :title="$t('equipment')", 
+      :errorMessage="(costume && !user.preferences.costume) ? $t('costumeDisabled') : null",
+    )
       div(slot="drawer-header")
         .drawer-tab-container
           .drawer-tab.text-right
@@ -98,10 +101,6 @@
 <style lang="scss" scoped>
 h2 {
   margin-top: 24px;
-}
-
-.standard-page {
-  padding-bottom: 72px;
 }
 </style>
 

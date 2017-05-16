@@ -1008,9 +1008,9 @@
       "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.0.0-alpha.6.tgz"
     },
     "bootstrap-vue": {
-      "version": "0.15.6",
-      "from": "bootstrap-vue@>=0.15.6 <0.16.0",
-      "resolved": "https://registry.npmjs.org/bootstrap-vue/-/bootstrap-vue-0.15.6.tgz",
+      "version": "0.15.8",
+      "from": "bootstrap-vue@>=0.15.8 <0.16.0",
+      "resolved": "https://registry.npmjs.org/bootstrap-vue/-/bootstrap-vue-0.15.8.tgz",
       "dependencies": {
         "tether": {
           "version": "1.4.0",

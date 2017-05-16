@@ -4,7 +4,7 @@
     | {{title}}
     img.drawer-toggle-icon(src="~assets/drawer/minimize.svg", v-if="open")
     img.drawer-toggle-icon.closed(src="~assets/drawer/expand.svg", v-else)
-  transition(name="slide-up")
+  transition(name="slide-up", @afterLeave="adjustPagePadding", @afterEnter="adjustPagePadding")
     .drawer-content(v-show="open")
       slot(name="drawer-header")
       .drawer-slider
@@ -27,10 +27,9 @@
   max-width: 80%;
 
   @media screen and (min-width: 1241px) {
-    $max-drawer-width: 968px;
-    max-width: $max-drawer-width;
+    max-width: 968px;
     // 16.67% is the width of the .col-2 sidebar
-    left: calc((100% + 16.67% - $max-drawer-width) / 2);
+    left: calc((100% + 16.67% - 968px) / 2);
     right: 0%;
   }
 }
@@ -143,6 +142,18 @@ export default {
     return {
       open: true,
     };
+  },
+  methods: {
+    adjustPagePadding () {
+      let minPaddingBottom = 20;
+      let drawerHeight = this.$el.offsetHeight;
+      let standardPage = document.getElementsByClassName('standard-page')[0];
+      standardPage.style.paddingBottom = `${drawerHeight + minPaddingBottom}px`;
+    },
+  },
+  mounted () {
+    // Make sure the page has enough space so the drawer does not overlap content
+    this.adjustPagePadding();
   },
 };
 </script>
