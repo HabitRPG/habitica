@@ -594,6 +594,26 @@ angular.module('habitrpg')
           });
         },
 
+        addClient: function (data) {
+          return $http({
+            method: 'POST',
+            url: '/api/v3/oauth/client',
+            data: data,
+          }).then(function (response) {
+            var client = response.data.data;
+            user.oauth.clients.push(client);
+          });
+        },
+
+        deleteClient: function (client, index) {
+          return $http({
+            method: 'DELETE',
+            url: '/api/v3/oauth/client/' + client.clientId,
+          }).then(function () {
+            user.oauth.clients.splice(index, index + 1);
+          });
+        },
+
         sleep: function () {
           callOpsFunctionAndRequest('sleep', 'sleep', "POST");
         },
@@ -613,7 +633,7 @@ angular.module('habitrpg')
 
         authenticate: function (uuid, token, cb) {
           if (uuid && token) {
-            var offset = moment().zone(); // eg, 240 - this will be converted on server as -(offset/60)
+            var offset = moment().utcOffset(); // eg, 240 - this will be converted on server as -(offset/60)
             $http.defaults.headers.common['x-api-user'] = uuid;
             $http.defaults.headers.common['x-api-key'] = token;
             $http.defaults.headers.common['x-user-timezoneOffset'] = offset;

@@ -10,6 +10,40 @@ script(type='text/ng-template', id='partials/options.settings.api.html')
         pre.prettyprint {{User.settings.auth.apiToken}}
         small!=env.t("APITokenWarning", { hrefTechAssistanceEmail : '<a href="mailto:' + env.EMAILS.TECH_ASSISTANCE_EMAIL + '">' + env.EMAILS.TECH_ASSISTANCE_EMAIL + '</a>' })
         br
+        h3=env.t('applications')
+        table.table.table-striped
+          thead(ng-if='user.oauth.clients.length')
+            tr
+              th=env.t('clientName')
+              th=env.t('clientId')
+              th=env.t('clientSecret')
+              th=env.t('redirectUrl')
+              th
+          tbody
+            tr(ng-repeat="client in user.oauth.clients track by $index")
+              td
+                small {{client.clientName}}
+                //input.form-control(type='text', ng-model='client.clientName', ng-change='client._editing=true', ui-keyup="{13:'saveClient(client, $index)'}")
+              td
+                small {{client.clientId}}
+              td
+                small {{client.clientSecret}}
+              td
+                small {{client.redirectUri}}
+              td
+                span.pull-left(ng-show='client._editing') *
+                a.checklist-icons(ng-click='deleteClient(client, $index)')
+                  span.glyphicon.glyphicon-trash(tooltip=env.t('delete'))
+            tr
+              td(colspan=4)
+                form.form-horizontal(ng-submit='addClient(_newClient.clientName, _newClient.redirectUri)')
+                  .form-group.col-sm-5
+                    input.form-control(type='text', ng-model='_newClient.clientName', placeholder=env.t('clientName'))
+                  .form-group.col-sm-5
+                    input.form-control(type='url', ng-model='_newClient.redirectUri', placeholder=env.t('redirectUrl'))
+                  .col-sm-2
+                    button.btn.btn-sm.btn-primary(type='submit')=env.t('add')
+        br
         h3=env.t('thirdPartyApps')
         ul
           li

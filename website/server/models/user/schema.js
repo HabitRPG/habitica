@@ -11,6 +11,7 @@ import {
 import {
   schema as SubscriptionPlanSchema,
 } from '../subscriptionPlan';
+import { OAuthClientsSchema, OAuthTokenSchema, OAuthCodeSchema } from '../oauth';
 
 const Schema = mongoose.Schema;
 
@@ -67,6 +68,11 @@ let schema = new Schema({
       created: {type: Date, default: Date.now},
       loggedin: {type: Date, default: Date.now},
     },
+  },
+  oauth: {
+    clients: [OAuthClientsSchema],
+    authCodes: [OAuthCodeSchema],
+    tokens: [OAuthTokenSchema]
   },
   // We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
   // have been updated (http://goo.gl/gQLz41), but we want *every* update

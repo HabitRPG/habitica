@@ -274,6 +274,21 @@ habitrpg.controller('SettingsCtrl',
     }
     $scope.deleteWebhook = User.deleteWebhook;
 
+    // ---- Client apps ----
+    $scope._newClient = {clientName:'',redirectUri:''};
+    $scope.addClient = function(name,url) {
+      if(_.isEmpty(name) || _.isEmpty(url)) {
+        return;
+      }
+      User.addClient({
+        clientName: name,
+        redirectUri: url
+      });
+      $scope._newClient.clientName = '';
+      $scope._newClient.redirectUri = '';
+    }
+    $scope.deleteClient = User.deleteClient;
+
     $scope.applyCoupon = function(coupon){
       $http.post(ApiUrl.get() + '/api/v3/coupons/validate/'+coupon)
       .success(function(res, code){
