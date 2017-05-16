@@ -24,22 +24,43 @@
       .col-12
         h3(v-once) {{ $t('chat') }}
 
-        textarea
+        textarea(placeholder='Type your message to Guild members here')
+        button.btn.btn-secondary.send-chat.float-right Send
 
         div.hr
           div.hr-middle
             | Today
 
-        .card(v-for="msg in guild.chat", :key="msg.id")
-          .card-block
-            h3 Character name
-            span 2 hours ago
-            .clearfix
-              strong.float-left {{msg.user}}
-              .float-right {{msg.timestamp}}
-            .text {{msg.text}}
+        .row
+          .col-md-2
+            img.icon(src="~assets/chat/like.svg")
+          .col-md-10
+            .card(v-for="msg in guild.chat", :key="msg.id")
+              .card-block
+                h3.leader Character name
+                span 2 hours ago
+                .clearfix
+                  strong.float-left {{msg.user}}
+                  .float-right {{msg.timestamp}}
+                .text {{msg.text}}
+                hr
+                span.action
+                  img.icon(src="~assets/chat/like.svg")
+                  | Like
+                span.action
+                  img.icon(src="~assets/chat/copy.svg")
+                  | Copy as To-Do
+                span.action
+                  img.icon(src="~assets/chat/report.svg")
+                  | Report
+                span.action
+                  img.icon(src="~assets/chat/delete.svg")
+                  | Delete
+                span.action.float-right
+                  img.icon(src="~assets/chat/liked.svg")
+                  | +3
 
-  .col-md-4
+  .col-md-4.sidebar
     .guild-background.row
       .col-6
         p Image here
@@ -76,9 +97,23 @@
 </template>
 
 <style lang="scss" scoped>
+  .sidebar {
+    background-color: #edecee;
+  }
+
   .card {
     margin: 2em 0;
     padding: 1em;
+
+    h3.leader {
+      color: #4f2a93;
+    }
+
+    .text {
+      font-size: 16px;
+      line-height: 1.43;
+      color: #4e4a57;
+    }
   }
 
   .guild-background {
@@ -92,6 +127,11 @@
     border-radius: 2px;
     background-color: #ffffff;
     border: solid 1px #c3c0c7;
+    font-size: 16px;
+    font-style: italic;
+    line-height: 1.43;
+    color: #a5a1ac;
+    padding: .5em;
   }
 
   .icon.shield, .icon.gem {
@@ -105,6 +145,13 @@
 
   .chat-row {
     margin-top: 2em;
+
+    .send-chat {
+      margin-top: -3.5em;
+      z-index: 10;
+      position: relative;
+      margin-right: 1em;
+    }
   }
 
   .hr {
@@ -112,6 +159,7 @@
     height: 20px;
     border-bottom: 1px solid #e1e0e3;
     text-align: center;
+    margin: 2em 0;
   }
 
   .hr-middle {
@@ -126,6 +174,18 @@
     margin-top: .2em;
     display: inline-block;
     width: 100px;
+  }
+
+  span.action {
+    font-size: 14px;
+    line-height: 1.33;
+    color: #878190;
+    font-weight: 500;
+    margin-right: 1em;
+  }
+
+  span.action .icon {
+    margin-right: .3em;
   }
 </style>
 
