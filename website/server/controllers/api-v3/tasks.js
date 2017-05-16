@@ -431,6 +431,7 @@ api.updateTask = {
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
+
     let oldCheckList = task.checklist;
     // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
     let [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
@@ -453,6 +454,10 @@ api.updateTask = {
 
     if (sanitizedObj.requiresApproval) {
       task.group.approval.required = true;
+    }
+
+    if (sanitizedObj.type === 'daily') {
+      task.isDue = common.shouldDo(Date.now(), sanitizedObj, user.preferences);
     }
 
     let savedTask = await task.save();
@@ -582,6 +587,10 @@ api.scoreTask = {
           user.tasksOrder.todos.push(task._id);
         } // If for some reason it hadn't been removed previously don't do anything
       }
+    }
+
+    if (task.type === 'daily') {
+      task.isDue = common.shouldDo(Date.now(), task, user.preferences);
     }
 
     let results = await Bluebird.all([

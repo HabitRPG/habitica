@@ -314,6 +314,7 @@ export function cron (options = {}) {
       value: task.value,
     });
     task.completed = false;
+    task.isDue = common.shouldDo(Date.now(), task, user.preferences);
 
     if (completed || scheduleMisses > 0) {
       if (task.checklist) {

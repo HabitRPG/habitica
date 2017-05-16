@@ -106,5 +106,5 @@
     "spring2017SneakyBunnySet": "Sneaky Bunny (Rogue)",
     "eventAvailability": "<%= date(locale) %>まで購入できます。",
     "dateEndApril": "4月19日",
-    "dateEndMay": "May 17"
+    "dateEndMay": "5月17日"
 }
