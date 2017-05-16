@@ -20,13 +20,14 @@
   .col-10.standard-page
     .clearfix
       h1.float-left.mb-0.page-header(v-once) {{ $t('equipment') }}
-      b-dropdown.float-right(text="Sort by", right=true)
-        b-dropdown-item(href="#") Option 1
-        b-dropdown-item(href="#") Option 2
-        b-dropdown-item(href="#") Option 3
-      b-dropdown.float-right(text="Group by", right=true)
-        b-dropdown-item(@click="groupBy = 'type'", :class="{'dropdown-item-active': groupBy === 'type'}") Type
-        b-dropdown-item(@click="groupBy = 'class'", :class="{'dropdown-item-active': groupBy === 'class'}") {{ $t('class') }}
+      .float-right
+        b-dropdown(text="Sort by", right=true)
+          b-dropdown-item(href="#") Option 1
+          b-dropdown-item(href="#") Option 2
+          b-dropdown-item(href="#") Option 3
+        b-dropdown(text="Group by", right=true)
+          b-dropdown-item(@click="groupBy = 'type'", :class="{'dropdown-item-active': groupBy === 'type'}") Type
+          b-dropdown-item(@click="groupBy = 'class'", :class="{'dropdown-item-active': groupBy === 'class'}") {{ $t('class') }}
 
     drawer(:title="$t('equipment')", :errorMessage="(costume && !user.preferences.costume) ? $t('costumeDisabled') : null")
       div(slot="drawer-header")

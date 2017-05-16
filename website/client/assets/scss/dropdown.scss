@@ -49,3 +49,7 @@
 .dropdown-item-active {
   background-color: $gray-600;
 }
+
+.dropdown + .dropdown {
+  margin-left: 12px;
+}
