@@ -11,7 +11,7 @@ export async function getPublicGuilds (store, payload) {
   });
 
   let guilds = response.data.data;
-  store.state.publicGuilds = guilds;
+  store.state.publicGuilds.push(...guilds);
 
   return response.data.data;
 }

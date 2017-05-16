@@ -7,9 +7,9 @@
     public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild")
     mugen-scroll(
       :handler="fetchGuilds",
-      :should-handle="loading === false && hasLoadedAllGuilds === false",
+      :should-handle="!loading && !this.hasLoadedAllGuilds",
       :handle-on-mount="false",
-      v-show="hasLoadedAllGuilds === false",
+      v-show="loading",
     )
       span loading...
 </template>
@@ -57,7 +57,7 @@ export default {
       let filters = this.filters;
       return this.guilds.filter((guild) => {
         let passedSearch = true;
-        let hasCategories = true;
+        let hasCategories = true
 
         if (search) {
           passedSearch = guild.name.toLowerCase().indexOf(search.toLowerCase()) >= 0;
@@ -81,23 +81,13 @@ export default {
     },
     async fetchGuilds () {
       this.loading = true;
-      await this.$store.dispatch('guilds:getPublicGuilds', {page: this.lastPageLoaded});
 
-      // if (guilds.length < GUILDS_PER_PAGE) this.hasLoadedAllGuilds = true;
-      // this.lastPageLoaded++;
+      let response = await this.$store.dispatch('guilds:getPublicGuilds', {page: this.lastPageLoaded});
 
+      if (response.length === 0) this.hasLoadedAllGuilds = true;
+
+      this.lastPageLoaded++;
       this.loading = false;
-      this.hasLoadedAllGuilds = true;
-
-      this.$store.state.publicGuilds.push({
-        name: 'Test',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla scelerisque ultrices libero, ultricies pharetra metus. Sed vel vestibulum nibh. Vestibulum ultricies, lorem non bibendum consequat, nisl lacus semper nulla, hendrerit dignissim ipsum erat eu odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at aliquet urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla non est ut nisl interdum tincidunt in eu dui. Proin condimentum a.',
-        categories: [
-          'official',
-          'two',
-          'three',
-        ],
-      });
     },
   },
 };
