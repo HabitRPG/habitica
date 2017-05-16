@@ -207,6 +207,38 @@ export default {
     isMember () {
       return this.isMemberOfGroup(this.user, this.guild);
     },
+    isMemberOfPendingQuest () {
+      let userid = this.user._id;
+      let group = this.guild;
+      if (!group.quest || !group.quest.members) return false;
+      if (group.quest.active) return false; // quest is started, not pending
+      return userid in group.quest.members && group.quest.members[userid] != false;
+    },
+    isMemberOfRunningQuest () {
+      let userid = this.user._id;
+      let group = this.guild;
+      if (!group.quest || !group.quest.members) return false;
+      if (!group.quest.active) return false; // quest is pending, not started
+      return group.quest.members[userid];
+    },
+    isMember () {
+      let userid = this.user._id;
+      let group = this.guild;
+      return ~(group.members.indexOf(userid));
+    },
+    memberProfileName (memberId) {
+      var member = _.find($scope.groupCopy.members, function (member) { return member._id === memberId; });
+      return member.profile.name;
+    },
+    isManager (memberId, group) {
+      return Boolean(group.managers[memberId]);
+    },
+    userCanApprove (userId, group) {
+      if (!group) return false;
+      var leader = group.leader._id === userId;
+      var userIsManager = !!group.managers[userId];
+      return leader || userIsManager;
+    },
   },
   created () {
     this.fetchGuild();
@@ -225,6 +257,90 @@ export default {
           }
         ]
       });
+    },
+    editGroup () {
+      // @TODO: Open up model
+    },
+    save () {
+      var newLeader = $scope.groupCopy._newLeader && $scope.groupCopy._newLeader._id;
+
+      if (newLeader) {
+        $scope.groupCopy.leader = newLeader;
+      }
+
+      Groups.Group.update(group);
+    },
+    deleteAllMessages () {
+      if (confirm(window.env.t('confirmDeleteAllMessages'))) {
+        User.clearPMs();
+      }
+    },
+    // @TODO: Move to component
+    clickMember (uid, forceShow) {
+      if (User.user._id == uid && !forceShow) {
+        if ($state.is('tasks')) {
+          $state.go('options.profile.avatar');
+        } else {
+          $state.go('tasks');
+        }
+      } else {
+        // We need the member information up top here, but then we pass it down to the modal controller
+        // down below. Better way of handling this?
+        Members.selectMember(uid)
+          .then(function () {
+            $rootScope.openModal('member', {controller: 'MemberModalCtrl', windowClass: 'profile-modal', size: 'lg'});
+          });
+      }
+    },
+    // @TODO: Move to component
+    removeMember (group, member, isMember) {
+      // TODO find a better way to do this (share data with remove member modal)
+      $scope.removeMemberData = {
+        group: group,
+        member: member,
+        isMember: isMember
+      };
+      $rootScope.openModal('remove-member', {scope: $scope});
+    },
+    confirmRemoveMember (confirm) {
+      if (confirm) {
+        Groups.Group.removeMember(
+          $scope.removeMemberData.group._id,
+          $scope.removeMemberData.member._id,
+          $scope.removeMemberData.message
+        ).then(function (response) {
+          if($scope.removeMemberData.isMember){
+            _.pull($scope.removeMemberData.group.members, $scope.removeMemberData.member);
+          }else{
+            _.pull($scope.removeMemberData.group.invites, $scope.removeMemberData.member);
+          }
+
+          $scope.removeMemberData = undefined;
+        });
+      } else {
+        $scope.removeMemberData = undefined;
+      }
+    },
+    // @TODO: move to component
+    quickReply (uid) {
+      Members.selectMember(uid)
+        .then(function (response) {
+          $rootScope.openModal('private-message', {controller: 'MemberModalCtrl'});
+        });
+    },
+    addManager () {
+      Groups.Group.addManager($scope.groupCopy._id, $scope.groupCopy._newManager)
+        .then(function (response) {
+          $scope.groupCopy._newManager = '';
+          $scope.groupCopy.managers = response.data.data.managers;
+        });
+    },
+    removeManager (memberId) {
+      Groups.Group.removeManager($scope.groupCopy._id, memberId)
+        .then(function (response) {
+          $scope.groupCopy._newManager = '';
+          $scope.groupCopy.managers = response.data.data.managers;
+        });
     },
   },
 };
