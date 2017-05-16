@@ -2721,4 +2721,4 @@ module.exports = {
   quests,
   questsByLevel,
   userCanOwnQuestCategories,
-}
+};

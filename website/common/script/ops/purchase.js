@@ -104,7 +104,7 @@ module.exports = function purchase (user, req = {}, analytics) {
     user.items.gear.owned[key] = true;
   } else if (type === 'bundles') {
     let subType = item.type;
-    forEach(item.bundleKeys, function (bundledKey) {
+    forEach(item.bundleKeys, function addBundledItems (bundledKey) {
       if (!user.items[subType][bundledKey] || user.items[subType][key] < 0) {
         user.items[subType][bundledKey] = 0;
       }
