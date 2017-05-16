@@ -66,7 +66,6 @@
   padding-right: 24px;
 }
 
-
 .drawer-tab {
   &-container {
     display: flex;
@@ -93,7 +92,8 @@
 }
 
 .drawer-slider {
-  padding:   12px 0 0 0;
+  padding: 12px 0 0 24px;
+  margin-left: -24px;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;

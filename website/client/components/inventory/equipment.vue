@@ -68,6 +68,7 @@
           :label="$t(label)",
           :selected="true",
           :popoverPosition="'top'",
+          :starVisible="!costume || user.preferences.costume",
           @click="equip",
         )
     div(
