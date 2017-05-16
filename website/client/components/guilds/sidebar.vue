@@ -7,42 +7,34 @@
     h3(v-once) {{ $t('filter') }}
     .form-group
       h5 Category
-      .form-check
-        .label.form-check-label
-          input.form-check-input(type="checkbox", value='official', v-model="categoryFilters")
-          span Habitica Official
-      .form-check
-        .label.form-check-label
-          input.form-check-input(type="checkbox", value='nature', v-model="categoryFilters")
-          span Nature
-      .form-check
-        .label.form-check-label
-          input.form-check-input(type="checkbox")
-          span Animals
+      .form-check(
+        v-for="group in categoryOptions",
+        :key="group.key",
+      )
+        label.custom-control.custom-checkbox
+          input.custom-control-input(type="checkbox", :value='group.key' v-model="categoryFilters")
+          span.custom-control-indicator
+          span.custom-control-description(v-once) {{ $t(group.label) }}
     .form-group
       h5 Role
-      .form-check
-        .label.form-check-label
-          input.form-check-input(type="checkbox")
-          span Habitica Official
-      .form-check
-        .label.form-check-label
-          input.form-check-input(type="checkbox")
-          span Nature
+      .form-check(
+        v-for="group in roleOptions",
+        :key="group.key",
+      )
+        label.custom-control.custom-checkbox
+          input.custom-control-input(type="checkbox", :value='group.key' v-model="roleFilters")
+          span.custom-control-indicator
+          span.custom-control-description(v-once) {{ $t(group.label) }}
     .form-group
       h5 Guild Size
-      .form-check
-        .label.form-check-label
-          input.form-check-input(type="checkbox")
-          span Habitica Official
-      .form-check
-        .label.form-check-label
-          input.form-check-input(type="checkbox")
-          span Nature
-      .form-check
-        .label.form-check-label
-          input.form-check-input(type="checkbox")
-          span Animals
+      .form-check(
+        v-for="group in guildSizeOptions",
+        :key="group.key",
+      )
+        label.custom-control.custom-checkbox
+          input.custom-control-input(type="checkbox", :value='group.key' v-model="guildSizeFilters")
+          span.custom-control-indicator
+          span.custom-control-description(v-once) {{ $t(group.label) }}
 </template>
 
 <style>
@@ -84,12 +76,62 @@ export default {
   data () {
     return {
       categoryFilters: [],
+      categoryOptions: [
+        {
+          label: 'habiticaOfficial',
+          key: 'official',
+        },
+        {
+          label: 'Nature',
+          key: 'nature',
+        },
+        {
+          label: 'Animals',
+          key: 'animals',
+        },
+      ],
+      roleFilters: [],
+      roleOptions: [
+        {
+          label: 'Habitica Official',
+          key: 'official',
+        },
+        {
+          label: 'Nature',
+          key: 'nature',
+        },
+        {
+          label: 'Animals',
+          key: 'animals',
+        },
+      ],
+      guildSizeFilters: [],
+      guildSizeOptions: [
+        {
+          label: 'Habitica Official',
+          key: 'official',
+        },
+        {
+          label: 'Nature',
+          key: 'nature',
+        },
+        {
+          label: 'Animals',
+          key: 'animals',
+        },
+      ],
       searchTerm: '',
     };
   },
   watch: {
     categoryFilters: function categoryFilters (newCategoryFilters) {
       this.$emit('filter', {categories: newCategoryFilters});
+    },
+    roleFilters: function roleFilters (newRoleFilters) {
+      this.$emit('filter', {roles: newRoleFilters});
+    },
+    guildSizeFilters: function guildSizeFilters (newGuildSizeFilters) {
+      this.$emit('filter', {guildSize: newGuildSizeFilters});
     },
     searchTerm: function searchTerm (newSearch) {
       this.$emit('search', {searchTerm: newSearch});
