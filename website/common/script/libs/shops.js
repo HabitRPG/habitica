@@ -114,6 +114,27 @@ shops.getMarketCategories = function getMarket (user, language) {
 shops.getQuestShopCategories = function getQuestShopCategories (user, language) {
   let categories = [];
 
+  let bundleCategory = {
+    identifier: 'bundle',
+    text: i18n.t('questBundles', language),
+  };
+
+  bundleCategory.items = sortBy(values(content.bundles)
+    .filter(bundle => bundle.type === 'quests' && bundle.canBuy())
+    .map(bundle => {
+      return {
+        key: bundle.key,
+        text: bundle.text(language),
+        notes: bundle.notes(language),
+        value: bundle.value,
+        currency: 'gems',
+        class: `quest_bundle_${bundle.key}`,
+        purchaseType: 'bundles',
+      }
+    }));
+
+  categories.push(bundleCategory);
+
   each(content.userCanOwnQuestCategories, type => {
     let category = {
       identifier: type,
