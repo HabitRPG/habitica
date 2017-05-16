@@ -28,7 +28,7 @@ function sanitizeOptions (o) {
   let dayStart = !_.isNaN(ref) && ref >= 0 && ref <= 24 ? ref : 0;
 
   let timezoneOffset;
-  let timezoneOffsetDefault = Number(moment().zone());
+  let timezoneOffsetDefault = Number(moment().utcOffset());
   if (_.isFinite(o.timezoneOffsetOverride)) {
     timezoneOffset = Number(o.timezoneOffsetOverride);
   } else if (_.isFinite(o.timezoneOffset)) {
@@ -41,7 +41,7 @@ function sanitizeOptions (o) {
     timezoneOffset = timezoneOffsetDefault;
   }
 
-  let now = o.now ? moment(o.now).zone(timezoneOffset) : moment().zone(timezoneOffset);
+  let now = o.now ? moment(o.now).utcOffset(timezoneOffset) : moment().utcOffset(timezoneOffset);
 
   // return a new object, we don't want to add "now" to user object
   return {
@@ -98,7 +98,7 @@ export function shouldDo (day, dailyTask, options = {}) {
   // The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it.
   // Therefore, we must also ignore the time portion of the user's day start (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
   // NB: The user's day start date has already been converted to the PREVIOUS day's date if the time portion was before CDS.
-  let taskStartDate = moment(dailyTask.startDate).zone(o.timezoneOffset);
+  let taskStartDate = moment(dailyTask.startDate).utcOffset(o.timezoneOffset);
 
   taskStartDate = moment(taskStartDate).startOf('day');
   if (taskStartDate > startOfDayWithCDSTime.startOf('day')) {
