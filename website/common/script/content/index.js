@@ -1,6 +1,7 @@
-import includes from 'lodash/includes';
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
+import includes from 'lodash/includes';
+import moment from 'moment';
 import t from './translation';
 
 import {
@@ -46,6 +47,30 @@ api.subscriptionBlocks = subscriptionBlocks;
 
 api.mystery = timeTravelers.mystery;
 api.timeTravelerStore = timeTravelers.timeTravelerStore;
+
+/*
+   ---------------------------------------------------------------
+   Discounted Item Bundles
+   ---------------------------------------------------------------
+   */
+
+api.bundles = {
+  featheredFriends: {
+    key: 'featheredFriends',
+    text: t('featheredFriendsText'),
+    notes: t('featheredFriendsNotes'),
+    bundleKeys: [
+      'falcon',
+      'harpy',
+      'owl',
+    ],
+    canBuy () {
+      return moment().isBetween('2017-05-16','2017-06-02');
+    },
+    type: 'quests',
+    value: 7,
+  },
+},
 
 /*
    ---------------------------------------------------------------
