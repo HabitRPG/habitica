@@ -143,12 +143,17 @@
     properties.balance = user.balance;
     properties.balanceGemAmount = properties.balance * 4;
 
-    // gem-purchased items
-    properties.animalEars = _filterAnimalEars(user.items.gear.owned);
-    properties.background = user.background ? _filterBackgrounds(user.background) : [];
-    properties.hair = user.hair ? _formatHair(user.hair) : {};
-    properties.shirt = user.shirt ? Object.keys(user.shirt) : [];
-    properties.skin = user.skin ? Object.keys(user.skin) : [];
+    properties.gemPurchased = {};
+    if (user.items && user.items.gear && user.items.gear.owned) {
+      properties.gemPurchased.animalEars = _filterAnimalEars(user.items.gear.owned);
+    }
+
+    if (user.purchased) {
+      properties.gemPurchased.background = user.purchased.background ? _filterBackgrounds(user.purchased.background) : [];
+      properties.gemPurchased.hair = user.purchased.hair ? _formatHair(user.purchased.hair) : {};
+      properties.gemPurchased.shirt = user.purchased.shirt ? Object.keys(user.purchased.shirt) : [];
+      properties.gemPurchased.skin = user.purchased.skin ? Object.keys(user.purchased.skin) : [];
+    }
 
     properties.tutorialComplete = user.flags && user.flags.tour && user.flags.tour.intro === -2;
     if (user.habits && user.dailys && user.todos && user.rewards) {
