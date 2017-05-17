@@ -203,7 +203,7 @@ describe('shared.ops.purchase', () => {
       expect(user.items.gear.owned[key]).to.be.true;
     });
 
-    it.only('purchases quest bundles', () => {
+    it('purchases quest bundles', () => {
       let clock = sandbox.useFakeTimers(+moment('2017-05-20'));
       let type = 'bundles';
       let key = 'featheredFriends';
