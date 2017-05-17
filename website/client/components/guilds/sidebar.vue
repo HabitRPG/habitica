@@ -166,13 +166,14 @@ export default {
       this.emitFilters();
     },
     searchTerm: function searchTerm (newSearch) {
-      this.emitFilters();
+      this.$emit('search', {
+        searchTerm: newSearch,
+      });
     },
   },
   methods: {
     emitFilters () {
       this.$emit('filter', {
-        searchTerm: this.searchTerm,
         categories: this.categoryFilters,
         roles: this.roleFilters,
         guildSize: this.guildSizeFilters,

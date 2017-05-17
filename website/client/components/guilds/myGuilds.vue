@@ -33,7 +33,7 @@ export default {
     };
   },
   created () {
-    this.fetchGuilds();
+    if (!this.guilds) this.fetchGuilds();
   },
   computed: {
     guilds () {
@@ -42,7 +42,7 @@ export default {
     filteredGuilds () {
       let search = this.search;
       let filters = this.filters;
-      let user = this.user;
+      let user = this.$store.state.user.data;
       let filterGuild = this.filterGuild;
       return this.guilds.filter((guild) => {
         return filterGuild(guild, filters, search, user);
@@ -57,6 +57,9 @@ export default {
       this.filters = eventData;
     },
     async fetchGuilds () {
+      // We have the data cached
+      if (this.lastPageLoaded === 0 && this.guilds.length > 0) return;
+
       this.loading = true;
       await this.$store.dispatch('guilds:getMyGuilds', {page: this.lastPageLoaded});
 

@@ -47,16 +47,16 @@ export default {
     };
   },
   created () {
-    this.fetchGuilds();
+    if (!this.$store.state.publicGuilds) this.fetchGuilds();
   },
   computed: {
     guilds () {
       return this.$store.state.publicGuilds;
     },
-    filteredGuilds: function filteredGuilds () {
+    filteredGuilds () {
       let search = this.search;
       let filters = this.filters;
-      let user = this.user;
+      let user = this.$store.state.user.data;
       let filterGuild = this.filterGuild;
       return this.guilds.filter((guild) => {
         return filterGuild(guild, filters, search, user);
@@ -68,13 +68,13 @@ export default {
       this.search = eventData.searchTerm;
     },
     updateFilters (eventData) {
-      if (eventData.roles) this.filters.roles = eventData.roles;
-      if (eventData.tier) this.filters.tier = eventData.tier;
-      if (eventData.categories) this.filters.categories = eventData.categories;
+      this.filters = eventData;
     },
     async fetchGuilds () {
-      this.loading = true;
+      // We have the data cached
+      if (this.lastPageLoaded === 0 && this.guilds.length > 0) return;
 
+      this.loading = true;
       let response = await this.$store.dispatch('guilds:getPublicGuilds', {page: this.lastPageLoaded});
 
       if (response.length === 0) this.hasLoadedAllGuilds = true;
