@@ -593,6 +593,7 @@ api.scoreTask = {
           user.addNotification('GUILD_PROMPT', {textVariant});
         }
       }
+      user.markModified('_ABtests');
     }
 
     let results = await Bluebird.all([
