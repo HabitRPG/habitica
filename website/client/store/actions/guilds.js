@@ -1,5 +1,6 @@
 import axios from 'axios';
 import omit from 'lodash/omit';
+import findIndex from 'lodash/findIndex';
 
 export async function getPublicGuilds (store, payload) {
   let response = await axios.get('/api/v3/groups', {
@@ -49,6 +50,9 @@ export async function join (store, payload) {
 
   // @TODO: abstract for parties as well
   store.state.user.data.guilds.push(payload.guildId);
+  if (payload.type === 'myGuilds') {
+    store.state.myGuilds.push(response.data.data);
+  }
 
   return response.data.data;
 }
@@ -64,6 +68,12 @@ export async function leave (store, payload) {
   // @TODO: update for party
   let index = store.state.user.data.guilds.indexOf(payload.guildId);
   store.state.user.data.guilds.splice(index, 1);
+  if (payload.type === 'myGuilds') {
+    let guildIndex = findIndex(store.state.myGuilds, (guild) => {
+      return guild._id === payload.guildId;
+    });
+    store.state.myGuilds.splice(guildIndex, 1);
+  }
 
   return response.data.data;
 }

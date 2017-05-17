@@ -11,14 +11,13 @@
       :handle-on-mount="false",
       v-show="hasLoadedAllGuilds === false",
     )
-      span loading...
+      span {{$t('loading')}}
 </template>
 
 <script>
 import MugenScroll from 'vue-mugen-scroll';
 import PublicGuildItem from './publicGuildItem';
 import Sidebar from './sidebar';
-// import { GUILDS_PER_PAGE } from 'common/script/constants';
 
 export default {
   components: { PublicGuildItem, MugenScroll, Sidebar },
@@ -52,9 +51,6 @@ export default {
     async fetchGuilds () {
       this.loading = true;
       await this.$store.dispatch('guilds:getMyGuilds', {page: this.lastPageLoaded});
-
-      // if (guilds.length < GUILDS_PER_PAGE) this.hasLoadedAllGuilds = true;
-      // this.lastPageLoaded++;
 
       this.loading = false;
       this.hasLoadedAllGuilds = true;

@@ -11,7 +11,7 @@
       :handle-on-mount="false",
       v-show="loading",
     )
-      span loading...
+      span $t('loading') 
 </template>
 
 <style>
