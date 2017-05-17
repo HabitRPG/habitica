@@ -304,5 +304,9 @@
   "onlyLeaderCreatesChallenges": "Only the Guild Leader can create Guild Challenges",
   "guildLeaderCantBeMessaged": "Guild Leader can not be messaged directly",
   "privateGuild": "Private Guild",
-  "allowGuildInvationsFromNonMembers": "Allow Guild invitations from non-members"
+  "allowGuildInvationsFromNonMembers": "Allow Guild invitations from non-members",
+  "charactersRemaining": "characters remaining",
+  "guildDescriptionPlaceHolder": "Write a short description advertising your Guild to other Habiticans. What is the main purpose of your Guild and why should people join it? Try to include useful keywords in the description so that Habiticans can easily find it when they search!",
+  "guildGemCostInfo": "A Gem cost promotes high quality Guilds and is transferred into your Guild's bank.",
+  "categories": "Categories"
 }
