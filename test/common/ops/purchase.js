@@ -204,9 +204,10 @@ describe('shared.ops.purchase', () => {
     });
 
     it('purchases quest bundles', () => {
-      let clock = sandbox.useFakeTimers(+moment('2017-05-20'));
+      let clock = sandbox.useFakeTimers(moment('2017-05-20').valueOf());
       let type = 'bundles';
       let key = 'featheredFriends';
+      let price = 1.75;
       let questList = [
         'falcon',
         'harpy',
@@ -218,6 +219,8 @@ describe('shared.ops.purchase', () => {
       forEach(questList, (bundledKey) => {
         expect(user.items.quests[bundledKey]).to.equal(1);
       });
+
+      expect(user.balance).to.equal(userGemAmount - price);
 
       clock.restore();
     });
