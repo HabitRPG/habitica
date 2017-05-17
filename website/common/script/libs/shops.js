@@ -114,6 +114,58 @@ shops.getMarketCategories = function getMarket (user, language) {
 shops.getQuestShopCategories = function getQuestShopCategories (user, language) {
   let categories = [];
 
+  /*
+   * ---------------------------------------------------------------
+   * Quest Bundles
+   * ---------------------------------------------------------------
+   *
+   * These appear in the Content index.js as follows:
+   * {
+   *   bundleName: {
+   *     key: 'bundleName',
+   *     text: t('bundleNameText'),
+   *     notes: t('bundleNameNotes'),
+   *     bundleKeys: [
+   *       'quest1',
+   *       'quest2',
+   *       'quest3',
+   *     ],
+   *     canBuy () {
+   *       return true when bundle is available for purchase;
+   *     },
+   *   type: 'quests',
+   *   value: 7,
+   *   },
+   *   secondBundleName: {
+   *     ...
+   *   },
+   * }
+   *
+   * After filtering and mapping, the Shop will produce:
+   *
+   * [
+   *   {
+   *     identifier: 'bundle',
+   *     text: 'i18ned string for bundles category',
+   *     items: [
+   *       {
+   *         key: 'bundleName',
+   *         text: 'i18ned string for bundle title',
+   *         notes: 'i18ned string for bundle description',
+   *         value: 7,
+   *         currency: 'gems',
+   *         class: 'quest_bundle_bundleName',
+   *         purchaseType: 'bundles',
+   *       },
+   *       { second bundle },
+   *     ],
+   *   },
+   *   { main quest category 1 },
+   *   ...
+   * ]
+   *
+   */
+
   let bundleCategory = {
     identifier: 'bundle',
     text: i18n.t('questBundles', language),
