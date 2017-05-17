@@ -7,7 +7,7 @@ import {
 import _ from 'lodash';
 import { OAuthClients } from '../../models/oauth';
 import { removeFromArray } from '../../libs/collectionManipulators';
-import { server } from '../../libs/oauth'
+import { server, authorization } from '../../libs/oauth'
 import locals from '../../middlewares/locals';
 import passport from 'passport';
 import { ensureLoggedIn } from 'connect-ensure-login';
@@ -95,27 +95,7 @@ api.authorization = {
   url: '/oauth/authorization',
   middlewares: [
     ensureLoggedIn('/api/v3/oauth/login'),
-    server.authorization(async (clientId, redirectUri, done) => {
-      let user = await User.findOne({'oauth.clients.clientId': clientId}).exec();
-      if (!user) return done(null, false);
-      let client = _.find(user.oauth.clients, {clientId: clientId});
-      if (client.redirectUri !== redirectUri) { return done(null, false); }
-      return done(null, client, redirectUri);
-      
-    }, (client, user, done) => {
-      // Check if grant request qualifies for immediate approval
-      return done(null, false);
-      // Auto-approve
-      /*if (client.isTrusted) return done(null, true);
-      
-      db.accessTokens.findByUserIdAndClientId(user.id, client.clientId, (error, token) => {
-        // Auto-approve
-        if (token) return done(null, true);
-        
-        // Otherwise ask user
-        return done(null, false);
-      });*/
-    }),
+    authorization(),
     locals
   ],
   async handler (req, res) {

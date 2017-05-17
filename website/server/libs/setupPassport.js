@@ -77,9 +77,10 @@ passport.use(new LocalStrategy(
 passport.serializeUser((user, done) => {
   return done(null, user._id);
 });
-passport.deserializeUser(async (userId, done) => {
-  let user = await User.findOne({_id: userId}).exec();
-  return done(null, user);
+passport.deserializeUser((userId, done) => {
+  User.findOne({_id: userId}).exec().then((user)=>{
+    return done(null, user);
+  }).catch(done);
 });
 
 // TODO remove?
@@ -111,12 +112,13 @@ passport.use(new GoogleStrategy({
  * to the `Authorization` header). While this approach is not recommended by
  * the specification, in practice it is quite common.
  */
-async function verifyClient(clientId, clientSecret, done) {
-  let user = await User.findOne({'oauth.clients.clientId': clientId}).exec();
-  if (!user) return done(null, false);
-  let client = _.find(user.oauth.clients, {clientId: clientId});
-  if (client.clientSecret !== clientSecret) return done(null, false);
-  return done(null, client);
+function verifyClient(clientId, clientSecret, done) {
+  User.findOne({'oauth.clients.clientId': clientId}).exec().then((user)=>{
+    if (!user) return done(null, false);
+    let client = _.find(user.oauth.clients, {clientId: clientId});
+    if (client.clientSecret !== clientSecret) return done(null, false);
+    return done(null, client);
+  }).catch(done);
 }
 
 passport.use(new ClientPasswordStrategy(verifyClient));
@@ -130,9 +132,10 @@ passport.use(new ClientPasswordStrategy(verifyClient));
  * the authorizing user.
  */
 passport.use(new BearerStrategy(
-  async (accessToken, done) => {
-    let user = await User.findOne({'oauth.tokens.accessToken': accessToken}).exec();
-    if (!user) return done(null, false);
-    done(null, user, { scope: '*' });
+  (accessToken, done) => {
+    User.findOne({'oauth.tokens.accessToken': accessToken}).exec().then((user)=>{
+      if (!user) return done(null, false);
+      done(null, user, { scope: '*' });
+    }).catch(done);
   }
 ));

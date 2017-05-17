@@ -31,11 +31,12 @@ const server = createServer();
 
 server.serializeClient((client, done) => done(null, client.clientId));
 
-server.deserializeClient(async (clientId, done) => {
-  let user = await User.findOne({'oauth.clients.clientId': clientId}).exec();
-  if (!user) return done(false);
-  let client = _.find(user.oauth.clients, {clientId: clientId});
-  return done(null, client);
+server.deserializeClient((clientId, done) => {
+  User.findOne({'oauth.clients.clientId': clientId}).exec().then((user)=>{
+    if (!user) return done(false);
+    let client = _.find(user.oauth.clients, {clientId: clientId});
+    return done(null, client);
+  }).catch(done);
 });
 
 // Register supported grant types.
@@ -52,15 +53,12 @@ server.deserializeClient(async (clientId, done) => {
 // the application. The application issues a code, which is bound to these
 // values, and will be exchanged for an access token.
 
-server.grant(grant.code(async (client, redirectUri, user, ares, done) => {
-  console.log('code grant')
+server.grant(grant.code((client, redirectUri, user, ares, done) => {
   const code = uuid();
   user.oauth.authCodes.push(OAuthCodeModel.sanitize({'accessCode':code, 'redirectUris':redirectUri, 'cliendId': client.clientId, 'scope': ares.scope }));
-  let savedUser = await user.save();
-
-  //let l = savedUser.oauth.authCodes.length;
-  //let authCode = savedUser.oauth.authCodes[l - 1];
-  return done(null, code);
+  user.save().then((savedUser)=>{
+    return done(null, code);
+  }).catch(done);
 }));
 
 // Grant implicit authorization. The callback takes the `client` requesting
@@ -69,13 +67,12 @@ server.grant(grant.code(async (client, redirectUri, user, ares, done) => {
 // the application. The application issues a token, which is bound to these
 // values.
 
-server.grant(grant.token(async (client, user, ares, done) => {
+server.grant(grant.token((client, user, ares, done) => {
   const token = uuid();
   user.oauth.tokens.push(OAuthTokensModel.sanitize({'accessToken':token, 'accessTokenExpiresOn':moment().add({ days: 30 }), 'redirectUris':redirectUri, 'cliendId': client.clientId, 'scope': ares.scope }));
-  let savedUser = await user.save();
-  //let l = savedUser.oauth.tokens.length;
-  //let authCode = savedUser.oauth.tokens[l - 1];
-  return done(null, token);
+  user.save().then((savedUser)=>{
+    return done(null, token);
+  }).catch(done);
 }));
 
 // Exchange authorization codes for access tokens. The callback accepts the
@@ -84,20 +81,44 @@ server.grant(grant.token(async (client, user, ares, done) => {
 // application issues an access token on behalf of the user who authorized the
 // code.
 
-server.exchange('code',exchange.code(async (client, code, redirectUri, done) => {
-  let user = await User.findOne({'oauth.authCodes.accessCode': code}).exec();
-  if (!user) return done(null, false);
-  let authCode = _.find(user.oauth.authCodes, {accessCode: code});
-  //if (client.clientId !== authCode.clientId) return done(null, false);
-  //if (redirectUri !== authCode.redirectUri) return done(null, false);
+server.exchange('code',exchange.code((client, code, redirectUri, done) => {
+  User.findOne({'oauth.authCodes.accessCode': code}).exec().then((user)=>{
+    if (!user) return done(null, false);
+    let authCode = _.find(user.oauth.authCodes, {accessCode: code});
+    //if (client.clientId !== authCode.clientId) return done(null, false);
+    //if (redirectUri !== authCode.redirectUri) return done(null, false);
 
-  const token = uuid();
-  user.oauth.tokens.push(OAuthTokensModel.sanitize({'accessToken':token, 'accessTokenExpiresOn':moment().add({ days: 30 }), 'redirectUris':redirectUri, 'cliendId': client.clientId, 'scope': authCode.scope }));
-  removeFromArray(user.oauth.authCodes, { accessCode: code });
-  let savedUser = await user.save();
-
-  return done(null, token);
-
+    const token = uuid();
+    user.oauth.tokens.push(OAuthTokensModel.sanitize({'accessToken':token, 'accessTokenExpiresOn':moment().add({ days: 30 }), 'redirectUris':redirectUri, 'cliendId': client.clientId, 'scope': authCode.scope }));
+    removeFromArray(user.oauth.authCodes, { accessCode: code });
+    user.save().then((savedUser)=>{
+      return done(null, token);
+    }).catch(done);
+  }).catch(done);
 }));
+
+module.exports.authorization = function(){
+  return server.authorization((clientId, redirectUri, done) => {
+      User.findOne({'oauth.clients.clientId': clientId}).exec().then((user)=>{
+        if (!user) return done(null, false);
+        let client = _.find(user.oauth.clients, {clientId: clientId});
+        if (client.redirectUri !== redirectUri) { return done(null, false); }
+        return done(null, client, redirectUri);
+      }).catch(done);
+    }, (client, user, done) => {
+      // Check if grant request qualifies for immediate approval
+      return done(null, false);
+      // Auto-approve
+      /*if (client.isTrusted) return done(null, true);
+      
+      db.accessTokens.findByUserIdAndClientId(user.id, client.clientId, (error, token) => {
+        // Auto-approve
+        if (token) return done(null, true);
+        
+        // Otherwise ask user
+        return done(null, false);
+      });*/
+    });
+};
 
 module.exports.server = server;
