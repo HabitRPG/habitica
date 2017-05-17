@@ -99,7 +99,7 @@ api.authorization = {
       let user = await User.findOne({'oauth.clients':{$elemMatch: {clientId: clientId}}}).exec();
       if (!user) return done(null, false);
       let client = _.find(user.oauth.clients, {clientId: clientId});
-      if (!client.redirectUri != redirectUri) { return done(null, false); }
+      if (client.redirectUri !== redirectUri) { return done(null, false); }
       return done(null, client, redirectUri);
       
     }, (client, user, done) => {
@@ -119,7 +119,7 @@ api.authorization = {
     locals
   ],
   async handler (req, res) {
-    res.render('auth/dialog.jade', { env:res.locals.habitrpg, transactionId: req.oauth2.transactionID, user: res.locals.user, client: req.oauth2.client });
+    res.render('auth/dialog.jade', { env:res.locals.habitrpg, transactionId: req.oauth2.transactionID, user: req.user, client: req.oauth2.client });
   }
 };
 

@@ -6,12 +6,12 @@ block title
 block content
   .row
     .col-md-12
+      p 
+        span Hi 
+        b=user.profile.name+'!'
       p
-        | Hi
-        | =user.profile.name
-      p
-        | =client.clientName
-        | is requesting access to your account.
+        b=client.clientName
+        span  is requesting access to your account.
       p='Do you approve?'
       form(method='post', action='/api/v3/oauth/authorization/decision')
         input(name='transaction_id', type='hidden', value=transactionId)
