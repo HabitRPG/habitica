@@ -17,7 +17,7 @@ module.exports.readController = function readController (router, controller) {
     // If an authentication middleware is used run getUserLanguage after it, otherwise before
     // for cron instead use it only if an authentication middleware is present
     let authMiddlewareIndex = _.findIndex(middlewares, middleware => {
-      if(_.isUndefined(middleware.name)) return false;
+      if(typeof middleware.name === 'undefined') return false;
       if (middleware.name.indexOf('authWith') === 0) { // authWith{Headers|Session|Url|...}
         return true;
       } else {
