@@ -13,6 +13,7 @@ import { Strategy as BearerStrategy } from 'passport-http-bearer';
 import {
   NotAuthorized
 } from './errors';
+import { checkCredentials } from './auth'
 
 /**
  * LocalStrategy
@@ -21,51 +22,7 @@ import {
  * Anytime a request is made to authorize an application, we must ensure that
  * a user is logged in before asking them to approve the request.
  */
-passport.use(new LocalStrategy(
-  async (username, password, done) => {
-
-    let login;
-    //let username = req.body.username;
-    //let password = req.body.password;
-
-    console.log("At the local strategy");
-
-    if (validator.isEmail(username)) {
-      login = {'auth.local.email': username.toLowerCase()}; // Emails are stored lowercase
-    } else {
-      login = {'auth.local.username': username};
-    }
-
-    // load the entire user because we may have to save it to convert the password to bcrypt
-    let user = await User.findOne(login).exec();
-
-    let isValidPassword;
-
-    if (!user) {
-      isValidPassword = false;
-    } else {
-      isValidPassword = await passwordUtils.compare(user, password);
-    }
-
-    if (!isValidPassword) throw new NotAuthorized('invalidLoginCredentials');
-
-    // convert the hashed password to bcrypt from sha1
-    if (user.auth.local.passwordHashMethod === 'sha1') {
-      await passwordUtils.convertToBcrypt(user, password);
-      await user.save();
-    }
-
-    /*res.analytics.track('login', {
-      category: 'behaviour',
-      type: 'local',
-      gaLabel: 'local',
-      uuid: user._id,
-      headers: req.headers,
-    });*/
-
-    return done(null, user);
-  }
-));
+passport.use(new LocalStrategy(checkCredentials));
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
