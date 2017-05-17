@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  sidebar(v-on:search="updateSearch")
+  sidebar(v-on:search="updateSearch", v-on:filter="updateFilters")
 
   .col-10
     h2(v-once) {{ $t('myGuilds') }}
@@ -11,15 +11,17 @@
       :handle-on-mount="false",
       v-show="hasLoadedAllGuilds === false",
     )
-      span {{$t('loading')}}
+      span {{ $t('loading') }}
 </template>
 
 <script>
 import MugenScroll from 'vue-mugen-scroll';
 import PublicGuildItem from './publicGuildItem';
 import Sidebar from './sidebar';
+import groupUtilities from 'client/mixins/groupsUtilities';
 
 export default {
+  mixins: [groupUtilities],
   components: { PublicGuildItem, MugenScroll, Sidebar },
   data () {
     return {
@@ -27,6 +29,7 @@ export default {
       hasLoadedAllGuilds: false,
       lastPageLoaded: 0,
       search: '',
+      filters: {},
     };
   },
   created () {
@@ -36,17 +39,22 @@ export default {
     guilds () {
       return this.$store.state.myGuilds;
     },
-    filteredGuilds: function filteredGuilds () {
+    filteredGuilds () {
       let search = this.search;
+      let filters = this.filters;
+      let user = this.user;
+      let filterGuild = this.filterGuild;
       return this.guilds.filter((guild) => {
-        if (!search) return guild;
-        return guild.name.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+        return filterGuild(guild, filters, search, user);
       });
     },
   },
   methods: {
     updateSearch (eventData) {
       this.search = eventData.searchTerm;
+    },
+    updateFilters (eventData) {
+      this.filters = eventData;
     },
     async fetchGuilds () {
       this.loading = true;

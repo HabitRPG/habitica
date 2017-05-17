@@ -37,37 +37,37 @@
           span.custom-control-description(v-once) {{ $t(group.label) }}
 </template>
 
-<style>
+<style lang="scss" scoped>
   .side-bar {
     background-color: #edecee;
     padding: 2em;
-  }
 
-  .side-bar h3 {
-    margin-bottom: 1em;
-    margin-top: 1em;
-  }
+    h3 {
+      margin-bottom: 1em;
+      margin-top: 1em;
+    }
 
-  .side-bar .search {
-    border-radius: 2px;
-    background-color: #ffffff;
-    border: solid 1px #c3c0c7;
-    height: 40px;
-  }
+    .search {
+      border-radius: 2px;
+      background-color: #ffffff;
+      border: solid 1px #c3c0c7;
+      height: 40px;
+    }
 
-  .side-bar [type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    border-radius: 2px;
-    border: solid 2px #878190;
-  }
+    [type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      border-radius: 2px;
+      border: solid 2px #878190;
+    }
 
-  .side-bar .label span {
-    font-size: 14px;
-    line-height: 1.43;
-    color: #4e4a57;
-    font-weight: 500;
-    padding-left: .5em;
+    .label span {
+      font-size: 14px;
+      line-height: 1.43;
+      color: #4e4a57;
+      font-weight: 500;
+      padding-left: .5em;
+    }
   }
 </style>
 
@@ -82,60 +82,102 @@ export default {
           key: 'official',
         },
         {
-          label: 'Nature',
-          key: 'nature',
+          label: 'animals',
+          key: 'animals',
         },
         {
-          label: 'Animals',
-          key: 'animals',
+          label: 'artDesign',
+          key: 'art_design',
+        },
+        {
+          label: 'booksWriting',
+          key: 'books_writing',
+        },
+        {
+          label: 'comicsHobbies',
+          key: 'comics_hobbies',
+        },
+        {
+          label: 'diyCrafts',
+          key: 'diy_crafts',
+        },
+        {
+          label: 'education',
+          key: 'education',
+        },
+        {
+          label: 'foodCooking',
+          key: 'food_cooking',
+        },
+        {
+          label: 'healthFitness',
+          key: 'health_fitness',
+        },
+        {
+          label: 'music',
+          key: 'music',
+        },
+        {
+          label: 'relationship',
+          key: 'relationship',
+        },
+        {
+          label: 'scienceTech',
+          key: 'science_tech ',
         },
       ],
       roleFilters: [],
       roleOptions: [
         {
-          label: 'Habitica Official',
-          key: 'official',
+          label: 'guildLeader',
+          key: 'guild_leader',
         },
         {
-          label: 'Nature',
-          key: 'nature',
-        },
-        {
-          label: 'Animals',
-          key: 'animals',
+          label: 'member',
+          key: 'member',
         },
       ],
       guildSizeFilters: [],
       guildSizeOptions: [
         {
-          label: 'Habitica Official',
-          key: 'official',
+          label: 'goldTier',
+          key: 'gold_tier',
         },
         {
-          label: 'Nature',
-          key: 'nature',
+          label: 'silverTier',
+          key: 'silver_tier',
         },
         {
-          label: 'Animals',
-          key: 'animals',
+          label: 'bronzeTier',
+          key: 'bronze_tier',
         },
       ],
       searchTerm: '',
     };
   },
   watch: {
-    categoryFilters: function categoryFilters (newCategoryFilters) {
-      this.$emit('filter', {categories: newCategoryFilters});
+    categoryFilters: function categoryFilters () {
+      this.emitFilters();
     },
-    roleFilters: function roleFilters (newRoleFilters) {
-      this.$emit('filter', {roles: newRoleFilters});
+    roleFilters: function roleFilters () {
+      this.emitFilters();
     },
-    guildSizeFilters: function guildSizeFilters (newGuildSizeFilters) {
-      this.$emit('filter', {guildSize: newGuildSizeFilters});
+    guildSizeFilters: function guildSizeFilters () {
+      this.emitFilters();
     },
     searchTerm: function searchTerm (newSearch) {
-      this.$emit('search', {searchTerm: newSearch});
+      this.emitFilters();
     },
   },
+  methods: {
+    emitFilters () {
+      this.$emit('filter', {
+        searchTerm: this.searchTerm,
+        categories: this.categoryFilters,
+        roles: this.roleFilters,
+        guildSize: this.guildSizeFilters,
+      });
+    }
+  }
 };
 </script>

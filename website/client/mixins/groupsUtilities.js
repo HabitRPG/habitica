@@ -1,3 +1,5 @@
+import intersection from 'lodash/intersection';
+
 export default {
   methods: {
     isMemberOfGroup (user, group) {
@@ -15,6 +17,34 @@ export default {
       }
 
       return false;
+    },
+    isLeaderOfGroup (user, group) {
+      return user._id === group.leader._id;
+    },
+    filterGuild (group, filters, search, user) {
+      let passedSearch = true;
+      let hasCategories = true;
+      let isMember = true;
+      let isLeader = true;
+
+      if (search) {
+        passedSearch = group.name.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+      }
+
+      if (filters.categories && filters.categories.length > 0) {
+        let intersectingCats = intersection(filters.categories, group.categories);
+        hasCategories = intersectingCats.length > 0;
+      }
+
+      if (filters.roles && filters.roles.indexOf('member')) {
+        isMember = this.isMemberOfGroup(user, group);
+      }
+
+      if (filters.roles && filters.roles.indexOf('guild_leader')) {
+        isLeader = this.isLeaderOfGroup(user, group);
+      }
+
+      return passedSearch && hasCategories && isMember && isLeader;
     },
   },
 };

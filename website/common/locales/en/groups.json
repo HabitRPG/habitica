@@ -283,5 +283,21 @@
   "managerMarker": " - Manager",
   "myGuilds": "My Guilds",
   "guildsDiscovery": "Discover Guilds",
-  "habiticaOfficial": "Habitica Official"
+  "habiticaOfficial": "Habitica Official",
+  "animals": "Animals",
+  "artDesign": "Art & Design",
+  "booksWriting": "Books & Writing",
+  "comicsHobbies": "Comics & Hobbies",
+  "diyCrafts": "DIY & Crafts",
+  "education": "Education",
+  "foodCooking": "Food & Cooking",
+  "healthFitness": "Health & Fitness",
+  "music": "Music",
+  "relationship": "Relationships",
+  "scienceTech": "Science & Technology",
+  "guildLeader": "Guild Leader",
+  "member": "Member",
+  "goldTier": "Gold Tier",
+  "silverTier": "Silver Tier",
+  "bronzeTier": "Bronze Tier"
 }

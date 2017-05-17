@@ -11,7 +11,7 @@
       :handle-on-mount="false",
       v-show="loading",
     )
-      span $t('loading') 
+      span {{ $t('loading') }}
 </template>
 
 <style>
@@ -31,10 +31,11 @@ h2 {
 import MugenScroll from 'vue-mugen-scroll';
 import PublicGuildItem from './publicGuildItem';
 import Sidebar from './sidebar';
-import intersection from 'lodash/intersection';
+import groupUtilities from 'client/mixins/groupsUtilities';
 // import { GUILDS_PER_PAGE } from 'common/script/constants';
 
 export default {
+  mixins: [groupUtilities],
   components: { PublicGuildItem, MugenScroll, Sidebar },
   data () {
     return {
@@ -55,20 +56,10 @@ export default {
     filteredGuilds: function filteredGuilds () {
       let search = this.search;
       let filters = this.filters;
+      let user = this.user;
+      let filterGuild = this.filterGuild;
       return this.guilds.filter((guild) => {
-        let passedSearch = true;
-        let hasCategories = true
-
-        if (search) {
-          passedSearch = guild.name.toLowerCase().indexOf(search.toLowerCase()) >= 0;
-        }
-
-        if (filters.categories && filters.categories.length > 0) {
-          let intersectingCats = intersection(filters.categories, guild.categories);
-          hasCategories = intersectingCats.length > 0;
-        }
-
-        return passedSearch && hasCategories;
+        return filterGuild(guild, filters, search, user);
       });
     },
   },
@@ -77,7 +68,9 @@ export default {
       this.search = eventData.searchTerm;
     },
     updateFilters (eventData) {
-      this.filters = eventData;
+      if (eventData.roles) this.filters.roles = eventData.roles;
+      if (eventData.tier) this.filters.tier = eventData.tier;
+      if (eventData.categories) this.filters.categories = eventData.categories;
     },
     async fetchGuilds () {
       this.loading = true;
