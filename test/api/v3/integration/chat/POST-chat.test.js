@@ -14,8 +14,6 @@ describe('POST /chat', () => {
   let testSlurMessage = 'message with TEST_PLACEHOLDER_SLUR_WORD_HERE';
 
   before(async () => {
-    sandbox.stub(email, 'sendTxn');
-
     let { group, groupLeader, members } = await createAndPopulateGroup({
       groupDetails: {
         name: 'Test Guild',
@@ -29,6 +27,10 @@ describe('POST /chat', () => {
     groupWithChat = group;
     userWithChatRevoked = await members[0].update({'flags.chatRevoked': true});
     member = members[0];
+  });
+
+  after(async () => {
+    sandbox.restore();
   });
 
   it('Returns an error when no message is provided', async () => {
@@ -164,6 +166,75 @@ describe('POST /chat', () => {
     });
   });
 
+  context('banned slur', () => {
+    beforeEach(() => {
+      sandbox.spy(email, 'sendTxn');
+    });
+
+    afterEach(() => {
+      sandbox.restore();
+    });
+
+    it('errors and revokes privileges when chat message contains a banned slur', async () => {
+      await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testSlurMessage})).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('bannedSlurUsed'),
+      });
+
+      // Email sent to mods
+      await sleep(0.5);
+      expect(email.sendTxn).to.be.called;
+      let typeOfEmail = email.sendTxn.args[0][1];
+      expect(typeOfEmail).to.eql('slur-report-to-mods');
+
+      // Chat privileges are revoked
+      await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: 'Your chat privileges have been revoked.',
+      });
+
+      // Restore chat privileges to continue testing
+      user.flags.chatRevoked = false;
+      await user.update({'flags.chatRevoked': false});
+    });
+
+    it('does not allow slurs in private groups', async () => {
+      let { group, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Party',
+          type: 'party',
+          privacy: 'private',
+        },
+        members: 1,
+      });
+
+      await expect(members[0].post(`/groups/${group._id}/chat`, { message: testSlurMessage})).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('bannedSlurUsed'),
+      });
+
+      // Email sent to mods
+      await sleep(0.5);
+      expect(email.sendTxn).to.be.called;
+      let typeOfEmail = email.sendTxn.args[0][1];
+      expect(typeOfEmail).to.eql('slur-report-to-mods');
+
+      // Chat privileges are revoked
+      await expect(members[0].post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: 'Your chat privileges have been revoked.',
+      });
+
+      // Restore chat privileges to continue testing
+      members[0].flags.chatRevoked = false;
+      await members[0].update({'flags.chatRevoked': false});
+    });
+  });
+
   it('does not error when sending a message to a private guild with a user with revoked chat', async () => {
     let { group, members } = await createAndPopulateGroup({
       groupDetails: {
@@ -198,67 +269,6 @@ describe('POST /chat', () => {
     let message = await privatePartyMemberWithChatsRevoked.post(`/groups/${group._id}/chat`, { message: testMessage});
 
     expect(message.message.id).to.exist;
-  });
-
-  it('errors and revokes privileges when chat message contains a banned slur', async () => {
-    await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testSlurMessage})).to.eventually.be.rejected.and.eql({
-      code: 400,
-      error: 'BadRequest',
-      message: t('bannedSlurUsed'),
-    });
-
-    // Email sent to mods
-    await sleep(0.5);
-    expect(email.sendTxn).to.be.calledOnce;
-
-    let typeOfEmail = email.sendTxn.args[0][1];
-    expect(typeOfEmail).to.eql('slur-report-to-mods');
-
-    // Chat privileges are revoked
-    await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
-      code: 404,
-      error: 'NotFound',
-      message: 'Your chat privileges have been revoked.',
-    });
-
-    // Restore chat privileges to continue testing
-    user.flags.chatRevoked = false;
-    await user.update({'flags.chatRevoked': false});
-  });
-
-  it('does not allow slurs in private groups', async () => {
-    let { group, members } = await createAndPopulateGroup({
-      groupDetails: {
-        name: 'Party',
-        type: 'party',
-        privacy: 'private',
-      },
-      members: 1,
-    });
-
-    await expect(members[0].post(`/groups/${group._id}/chat`, { message: testSlurMessage})).to.eventually.be.rejected.and.eql({
-      code: 400,
-      error: 'BadRequest',
-      message: t('bannedSlurUsed'),
-    });
-
-    // Email sent to mods
-    await sleep(0.5);
-    expect(email.sendTxn).to.be.calledOnce;
-
-    let typeOfEmail = email.sendTxn.args[0][1];
-    expect(typeOfEmail).to.eql('slur-report-to-mods');
-
-    // Chat privileges are revoked
-    await expect(members[0].post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
-      code: 404,
-      error: 'NotFound',
-      message: 'Your chat privileges have been revoked.',
-    });
-
-    // Restore chat privileges to continue testing
-    members[0].flags.chatRevoked = false;
-    await members[0].update({'flags.chatRevoked': false});
   });
 
   it('creates a chat', async () => {
