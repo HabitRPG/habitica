@@ -590,7 +590,7 @@ api.scoreTask = {
         if (user._ABtests.guildReminder.indexOf('timing1') !== -1 || user._ABtests.counter > 4) {
           user._ABtests.counter = -1;
           let textVariant = user._ABtests.guildReminder.indexOf('text2');
-          user.addNotification('GUILD_PROMPT', {textVariant: textVariant});
+          user.addNotification('GUILD_PROMPT', {textVariant});
         }
       }
     }
