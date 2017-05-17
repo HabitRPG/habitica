@@ -8,7 +8,7 @@
   font-size: 16px;
   font-weight: bold;
   line-height: 1.5;
-  border: 1px solid transparent;
+  border: 1px solid transparent !important;
   padding: 7.5px 15.5px;
   border-radius: 2px;
   box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
@@ -24,21 +24,14 @@
     @include btn-focus-hover-shadow();
     border-color: transparent;
   }
-}
-
-.btn-secondary {
-  color: $gray-50;
-
-  &:focus {
-    border-color: $purple-500;
-  }
 
   &:active {
-    border-color: $purple-500;
+    box-shadow: none;
+    border: 1px solid transparent;
   }
 }
 
-.btn:disabled {
+.btn:disabled, .btn.disabled {
   box-shadow: none;
   opacity: 0.64;
   border-color: transparent;
@@ -56,25 +49,21 @@
   }
 }
 
-.btn-secondary {
-  background: $white;
+.btn-secondary, .dropdown > .btn-secondary {
+  color: $gray-50;
+  background: $white !important;
 
-  &:hover:not(:disabled), &:active {
-    background: $white;
-    color: $purple-200;
+  &:hover:not(:disabled):not(.disabled), &:active, &:focus {
+    color: $purple-200 !important;
   }
 
-  &:active {
-    border-color: $purple-500;
+  &:active, &:focus {
+    border-color: $purple-500 !important;
   }
 
-  &:focus {
-    color: $purple-200;
-  }
-
-  &:disabled {
-    background: $gray-500;
-    color: $gray-100;
+  &:disabled, &.disabled {
+    background: $gray-500 !important;
+    color: $gray-100 !important;
   }
 }
 
@@ -127,8 +116,10 @@
   text-align: center;
   background: $gray-600;
   color: $gray-200 !important; // Otherwise it gets ignored when used on an A element
+  box-shadow: none;
 
   &:hover {
+    box-shadow: none;
     color: inherit !important;
   }
 }

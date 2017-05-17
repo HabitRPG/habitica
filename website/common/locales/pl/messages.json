@@ -51,6 +51,7 @@
     "messageGroupChatFlagAlreadyReported": "Już zgłosiłeś tę wiadomość.",
     "messageGroupChatNotFound": "Nie znaleziono wiadomości!",
     "messageGroupChatAdminClearFlagCount": "Tylko administrator może wyczyścić licznik flag!",
+    "messageGroupChatSpam": "Whoops, looks like you're posting too many messages! Please wait a minute and try again. The Tavern chat only holds 200 messages at a time, so Habitica encourages posting longer, more thoughtful messages and consolidating replies. Can't wait to hear what you have to say. :)",
     "messageUserOperationProtected": "Ścieżka `<%= operation %>` nie została zapisana, gdyż jest chronniona przed zapisem.",
     "messageUserOperationNotFound": "Operacja <%= operation %> nie znaleziona",
     "messageNotificationNotFound": "Nie znaleziono powiadomienia.",

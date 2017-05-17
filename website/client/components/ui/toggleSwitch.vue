@@ -1,10 +1,10 @@
 <template lang="pug">
 .clearfix.toggle-switch-container
   .float-left.toggle-switch-description {{ label }}
-  .toggle-switch.float-right
+  .toggle-switch.float-left
     input.toggle-switch-checkbox(
-      type='checkbox', :id="id", 
-      @change="$emit('change', $event.target.checked)", 
+      type='checkbox', :id="id",
+      @change="$emit('change', $event.target.checked)",
       :checked="checked",
     )
     label.toggle-switch-label(:for="id")
@@ -20,7 +20,7 @@
 }
 
 .toggle-switch {
-  position: relative; 
+  position: relative;
   width: 40px;
   user-select: none;
   margin-left: 9px;
@@ -36,24 +36,26 @@
 }
 
 .toggle-switch-label {
-  display: block; 
-  overflow: hidden; 
+  display: block;
+  overflow: hidden;
   cursor: pointer;
   border-radius: 100px;
+  margin-bottom: 0px;
+  margin-top: 3px;
 }
 
 .toggle-switch-inner {
-  display: block; 
-  width: 200%; 
+  display: block;
+  width: 200%;
   margin-left: -100%;
   transition: margin 0.3s ease-in 0s;
 }
 
 .toggle-switch-inner:before, .toggle-switch-inner:after {
-  display: block; 
-  float: left; 
-  width: 50%; 
-  height: 16px; 
+  display: block;
+  float: left;
+  width: 50%;
+  height: 16px;
   padding: 0;
 }
 
@@ -72,17 +74,18 @@
 
 .toggle-switch-switch {
   box-shadow: 0 1px 2px 0 rgba($black, 0.32);
-  display: block; 
-  width: 20px; 
+  display: block;
+  width: 20px;
   margin: -2px;
+  margin-top: 1px;
   height: 20px;
   background: $white;
-  position: absolute; 
-  top: 0; 
+  position: absolute;
+  top: 0;
   bottom: 0;
   right: 22px;
   border-radius: 100px;
-  transition: all 0.3s ease-in 0s; 
+  transition: all 0.3s ease-in 0s;
 }
 
 .toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-inner {
@@ -90,7 +93,7 @@
 }
 
 .toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-switch {
-  right: 0px; 
+  right: 0px;
 }
 </style>
 

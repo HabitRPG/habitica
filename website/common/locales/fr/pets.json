@@ -42,6 +42,7 @@
     "food": "Nourriture et selles",
     "noFood": "Vous n'avez ni nourriture ni selle.",
     "dropsExplanation": "Récupérez ces objets plus vite avec des gemmes, si vous ne voulez pas attendre de les recevoir comme butin. <a href=\"http://fr.habitica.wikia.com/wiki/Butins\">Apprenez-en plus sur le système de butin.</a>",
+    "dropsExplanationEggs": "Dépensez des gemmes pour obtenir des œufs plus rapidement si vous ne voulez pas attendre d'en obtenir comme butin, ou si vous souhaitez obtenir de nouveaux œufs de quête sans refaire les quêtes associées. <a href=\"http://fr.habitica.wikia.com/wiki/Butins\">Apprenez-en plus sur le système de butin.</a>",
     "premiumPotionNoDropExplanation": "Les potions d'éclosion magiques ne peuvent pas être utilisées sur les œufs reçus dans les quêtes. Le seul moyen d'obtenir des potions d'éclosion magiques est de les acheter ci-dessous, pas de les recevoir des butins.",
     "beastMasterProgress": "Progression du Maître des bêtes",
     "stableBeastMasterProgress": "Progression du Maître des bêtes : <%= number %> familiers trouvés",

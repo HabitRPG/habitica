@@ -7,7 +7,7 @@ b-popover(
   span(slot="content")
     h4.popover-content-title {{ item.text() }}
     .popover-content-text {{ item.notes() }}
-    .popover-content-attr(v-for="attr in ATTRIBUTES") 
+    .popover-content-attr(v-for="attr in ATTRIBUTES")
       span.popover-content-attr-key {{ `${$t(attr)}: ` }}
       span.popover-content-attr-val {{ `+${item[attr]}` }}
 
@@ -16,6 +16,7 @@ b-popover(
       span.badge.badge-pill(
         :class="{'item-selected-badge': selected === true}",
         @click="click",
+        v-if="starVisible"
       ) &#9733;
       span.item-content(:class="'shop_' + item.key")
     span.item-label(v-if="label") {{ label }}
@@ -40,6 +41,9 @@ export default {
       type: Object,
     },
     selected: {
+      type: Boolean,
+    },
+    starVisible: {
       type: Boolean,
     },
     label: {

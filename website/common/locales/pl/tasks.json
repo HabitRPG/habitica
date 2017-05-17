@@ -140,9 +140,9 @@
     "counterPeriodDay": "Dzień",
     "counterPeriodWeek": "Tydzień",
     "counterPeriodMonth": "Miesiąc",
-    "habitCounter": "Licznik",
-    "habitCounterUp": "Pozytywny licznik",
-    "habitCounterDown": "Negatywny licznik",
+    "habitCounter": "Counter (Resets <%= frequency %>)",
+    "habitCounterUp": "Positive Counter (Resets <%= frequency %>)",
+    "habitCounterDown": "Negative Counter (Resets <%= frequency %>)",
     "taskRequiresApproval": "To zadanie musi zostać zaaprobowane, zanim będziesz mógł je ukończyć. Prośba o zatwierdzenie została już wysłana.",
     "taskApprovalHasBeenRequested": "Prośba o zatwierdzenie została wysłana",
     "approvals": "Aprobaty",
@@ -166,5 +166,6 @@
     "groupTasksByChallenge": "Grupuj zadania po tytule wyzwania",
     "taskNotes": "Notatki do zadania",
     "monthlyRepeatHelpContent": "To zadanie należy wypełniać co X miesięcy",
-    "yearlyRepeatHelpContent": "To zadanie należy wypełniać co X lat"
+    "yearlyRepeatHelpContent": "To zadanie należy wypełniać co X lat",
+    "resets": "Resets"
 }

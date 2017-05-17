@@ -26,6 +26,7 @@
     "showBaileyPop": "Locke Bailey die Marktschreierin aus ihrem Versteck um alte Neuigkeiten anzuzeigen.",
     "fixVal": "Charakterwerte reparieren",
     "fixValPop": "Verändere Werte wie Lebenspunkte, Level, Gold manuell.",
+    "invalidLevel": "Ungültiger Wert: Das Level muss 1 oder mehr sein.",
     "enableClass": "Klassensystem aktivieren",
     "enableClassPop": "Du hast Dich vorher entschlossen auf das Klassensystem zu verzichten. Möchtest Du es jetzt aktivieren?",
     "classTourPop": "Zeigt die Anleitung für das Klassensystem an.",

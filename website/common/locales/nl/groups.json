@@ -21,6 +21,7 @@
     "communityGuidelines": "Gemeenschapsrichtlijnen",
     "communityGuidelinesRead1": "Lees alsjeblieft onze",
     "communityGuidelinesRead2": "voordat je begint met chatten.",
+    "bannedWordUsed": "Oeps! Het lijkt er op dat dit bericht een scheldwoord, religieuze eed, of verwijzing naar een verslavende substantie of volwassen onderwerp bevat. Habitica heeft gebruikers van alle achtergronden, dus houden we onze chat heel netjes. Je mag gerust je bericht bewerken zodat je het kan plaatsen!",
     "party": "Groep",
     "createAParty": "Creëer een groep",
     "updatedParty": "Groepsinstellingen bijgewerkt.",
@@ -243,6 +244,8 @@
     "groupBenefitSixTitle": "Krijg een gratis abonnement",
     "groupBenefitSixDescription": "Krijg alle abonnee voordelen, zoals exclusieve maandelijkse voorwerpen en de mogelijkheid om edelstenen te kopen met goud! (Als je al een abonnee bent, wordt je oude abonnement geannuleerd, maar je opeenvolgende abonnement voordelen, zoals maandelijkse zandlopers, zullen blijven.)",
     "groupBenefitSevenTitle": "Krijg een gloednieuw exclusief jackalope rijdier",
+    "groupBenefitEightTitle": "Voeg groepsmanagers toe om je te helpen met het beheren van taken",
+    "groupBenefitEightDescription": "Wil je de verantwoordelijkheden van je groep delen? Promoveer mensen tot groepsmanagers om de leider te helpen met het toevoegen, toewijzen en goedkeuren van taken!",
     "createAGroup": "Maak een groep",
     "assignFieldPlaceholder": "Typ de profielnaam van een groepslid in",
     "cannotDeleteActiveGroup": "Je kunt geen groep met een actief abonnement verwijderen",
@@ -268,5 +271,13 @@
     "confirmCancelGroupPlan": "Weet je zeker dat je het groepsplan wilt annuleren en de voordelen van alle leden wilt verwijderen, inclusief hun gratis abonnementen?",
     "canceledGroupPlan": "Geannuleerd groepsplan",
     "groupPlanCanceled": "Groepsplan zal inactief worden op",
-    "purchasedGroupPlanPlanExtraMonths": "Je hebt <%= months %> maanden van extra groepsplan krediet."
+    "purchasedGroupPlanPlanExtraMonths": "Je hebt <%= months %> maanden van extra groepsplan krediet.",
+    "addManagers": "Voeg managers toe",
+    "addManager": "Voeg manager toe",
+    "removeManager": "Verwijder",
+    "userMustBeMember": "Gebruiker moet een lid zijn",
+    "userIsNotManager": "Gebruiker is geen manager",
+    "canOnlyApproveTaskOnce": "Deze taak is al goedgekeurd.",
+    "leaderMarker": "- Leider",
+    "managerMarker": "- Manager"
 }

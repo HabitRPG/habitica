@@ -51,6 +51,7 @@
     "messageGroupChatFlagAlreadyReported": "Vous avez déjà signalé ce message.",
     "messageGroupChatNotFound": "Message introuvable !",
     "messageGroupChatAdminClearFlagCount": "Seul un administrateur peut modifier ce compteur !",
+    "messageGroupChatSpam": "Oups, on dirait que vous postez trop de messages ! Merci d'attendre une minute et d'essayer de nouveau. Le fil de discussion de la taverne ne peut contenir que 200 messages, Habitica encourage donc à poster des messages plus longs et plus réfléchis et des réponses d'un seul tenant. Nous avons hâte d'entendre ce que vous avez à dire. :)",
     "messageUserOperationProtected": "chemin `<%= operation %>` n'a pas été sauvegardé car c'est un chemin protégé.",
     "messageUserOperationNotFound": "<%= operation %> opération introuvable",
     "messageNotificationNotFound": "Notification non trouvée.",

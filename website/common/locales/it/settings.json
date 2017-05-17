@@ -26,6 +26,7 @@
     "showBaileyPop": "Mostra Bailey la Banditrice in modo da poter rileggere le vecchie notizie.",
     "fixVal": "Sistema i valori del tuo personaggio",
     "fixValPop": "Modifica manualmente valori come Salute, livello e quantità di Oro.",
+    "invalidLevel": "Valore non valido: il livello deve essere maggiore o uguale di 1.",
     "enableClass": "Attiva il sistema delle classi",
     "enableClassPop": "Avevi scelto di non utilizzare il sistema delle classi, inizialmente. Vorresti cominciare?",
     "classTourPop": "Mostra il tour introduttivo su come utilizzzare il sistema delle classi.",

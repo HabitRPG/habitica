@@ -92,7 +92,7 @@ export let TaskSchema = new Schema({
 }, discriminatorOptions));
 
 TaskSchema.plugin(baseModel, {
-  noSet: ['challenge', 'userId', 'completed', 'history', 'dateCompleted', '_legacyId', 'group'],
+  noSet: ['challenge', 'userId', 'completed', 'history', 'dateCompleted', '_legacyId', 'group', 'isDue'],
   sanitizeTransform (taskObj) {
     if (taskObj.type && taskObj.type !== 'reward') { // value should be settable directly only for rewards
       delete taskObj.value;
@@ -242,6 +242,7 @@ export let DailySchema = new Schema(_.defaults({
   streak: {type: Number, default: 0},
   daysOfMonth: {type: [Number], default: []}, // Days of the month that the daily should repeat on
   weeksOfMonth: {type: [Number], default: []}, // Weeks of the month that the daily should repeat on
+  isDue: {type: Boolean},
 }, habitDailySchema(), dailyTodoSchema()), subDiscriminatorOptions);
 export let daily = Task.discriminator('daily', DailySchema);
 

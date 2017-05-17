@@ -1,6 +1,6 @@
 {
   "unlockedReward": "<%= reward %> が贈られました",
-  "earnedRewardForDevotion": "You have earned <%= reward %> for being committed to improving your life.",
+  "earnedRewardForDevotion": "あなたは、人生・生活を向上することを誓いました。それを称え、<%= reward %> を贈ります。",
   "nextRewardUnlocksIn": "次のチェックインで賞まであと<%= numberOfCheckinsLeft %>",
   "awesome": "すごい!",
   "totalCount": "計 <%= count %> 回",
