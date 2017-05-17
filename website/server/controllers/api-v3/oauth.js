@@ -96,7 +96,7 @@ api.authorization = {
   middlewares: [
     ensureLoggedIn('/api/v3/oauth/login'),
     server.authorization(async (clientId, redirectUri, done) => {
-      let user = await User.findOne({'oauth.clients':{$elemMatch: {clientId: clientId}}}).exec();
+      let user = await User.findOne({'oauth.clients.clientId': clientId}).exec();
       if (!user) return done(null, false);
       let client = _.find(user.oauth.clients, {clientId: clientId});
       if (client.redirectUri !== redirectUri) { return done(null, false); }

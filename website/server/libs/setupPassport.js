@@ -112,7 +112,7 @@ passport.use(new GoogleStrategy({
  * the specification, in practice it is quite common.
  */
 async function verifyClient(clientId, clientSecret, done) {
-  let user = await User.findOne({'oauth.clients':{$elemMatch: {clientId: clientId}}}).exec();
+  let user = await User.findOne({'oauth.clients.clientId': clientId}).exec();
   if (!user) return done(null, false);
   let client = _.find(user.oauth.clients, {clientId: clientId});
   if (client.clientSecret !== clientSecret) return done(null, false);
@@ -131,7 +131,7 @@ passport.use(new ClientPasswordStrategy(verifyClient));
  */
 passport.use(new BearerStrategy(
   async (accessToken, done) => {
-    let user = await User.findOne({'oauth.tokens':{$elemMatch: {accessToken: accessToken}}}).exec();
+    let user = await User.findOne({'oauth.tokens.accessToken': accessToken}).exec();
     if (!user) return done(null, false);
     done(null, user, { scope: '*' });
   }

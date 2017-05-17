@@ -32,7 +32,7 @@ const server = createServer();
 server.serializeClient((client, done) => done(null, client.clientId));
 
 server.deserializeClient(async (clientId, done) => {
-  let user = await User.findOne({'oauth.clients':{$elemMatch: {clientId: clientId}}}).exec();
+  let user = await User.findOne({'oauth.clients.clientId': clientId}).exec();
   if (!user) return done(false);
   let client = _.find(user.oauth.clients, {clientId: clientId});
   return done(null, client);
@@ -85,7 +85,7 @@ server.grant(grant.token(async (client, user, ares, done) => {
 // code.
 
 server.exchange('code',exchange.code(async (client, code, redirectUri, done) => {
-  let user = await User.findOne({'oauth.authCodes':{$elemMatch: {accessCode: code}}}).exec();
+  let user = await User.findOne({'oauth.authCodes.accessCode': code}).exec();
   if (!user) return done(null, false);
   let authCode = _.find(user.oauth.authCodes, {accessCode: code});
   //if (client.clientId !== authCode.clientId) return done(null, false);
