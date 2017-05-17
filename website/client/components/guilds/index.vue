@@ -7,25 +7,28 @@
         router-link.nav-link(:to="{name: 'myGuilds'}", :class="{'active': $route.name === 'myGuilds'}") {{ $t('myGuilds') }}
         router-link.nav-link(:to="{name: 'guildsDiscovery'}", :class="{'active': $route.name === 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
       .col-md-2
-        button.btn.btn-primary.btn-purple(b-btn, @click="$root.$emit('show::modal','modal1')") Create Guild
+        button.btn.btn-primary.btn-purple(b-btn, @click="$root.$emit('show::modal','modal1')") {{ $t('createGuild') }}
   .col-12
     router-view
 
-  b-modal#modal1(title="Create a Guild")
+  b-modal#modal1(:title="$t('createGuild')")
     form(@submit.stop.prevent="submit")
       .form-group
         label
-          strong Name*
+          strong {{$t('name')}}*
         b-form-input(type="text", placeholder="Enter your name", v-model="newGuild.name")
 
       .form-group
         label
-          strong Privacy Settings*
+          strong {{$t('privacySettings')}}*
         br
-        b-form-checkbox Only the Guild Leader can create Guild Challenges
-        b-form-checkbox Guild Leader can not be messaged directly
-        b-form-checkbox Private Guild
-        b-form-checkbox Allow Guild invitations from non-members
+        b-form-checkbox {{$t('onlyLeaderCreatesChallenges')}}
+        br
+        b-form-checkbox {{$t('guildLeaderCantBeMessaged')}}
+        br
+        b-form-checkbox {{$t('privateGuild')}}
+        br
+        b-form-checkbox {{$t('allowGuildInvationsFromNonMembers')}}
 
       .form-group
         label

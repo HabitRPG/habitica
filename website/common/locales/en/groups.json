@@ -299,5 +299,10 @@
   "member": "Member",
   "goldTier": "Gold Tier",
   "silverTier": "Silver Tier",
-  "bronzeTier": "Bronze Tier"
+  "bronzeTier": "Bronze Tier",
+  "privacySettings": "Privacy Settings",
+  "onlyLeaderCreatesChallenges": "Only the Guild Leader can create Guild Challenges",
+  "guildLeaderCantBeMessaged": "Guild Leader can not be messaged directly",
+  "privateGuild": "Private Guild",
+  "allowGuildInvationsFromNonMembers": "Allow Guild invitations from non-members"
 }
