@@ -63,7 +63,7 @@ api.deleteClient = {
     if (validationErrors) throw validationErrors;
 
     let client = removeFromArray(user.oauth.clients, { clientId: req.params.clientId });
-    if (!client) throw new NotFound(res.t('tagNotFound'));
+    if (!client) throw new NotFound(res.t('clientNotFound'));
 
     await user.save();
     res.respond(200, {});
