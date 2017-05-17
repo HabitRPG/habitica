@@ -11,6 +11,7 @@ import UserTasks from './components/userTasks';
 
 // Inventory
 import InventoryContainer from './components/inventory/index';
+import ItemsPage from './components/inventory/items';
 import EquipmentPage from './components/inventory/equipment';
 import StablePage from './components/inventory/stable';
 
@@ -39,7 +40,7 @@ export default new VueRouter({
       path: '/inventory',
       component: InventoryContainer,
       children: [
-        { name: 'inventory', path: '', component: Page },
+        { name: 'items', path: 'items', component: ItemsPage },
         { name: 'equipment', path: 'equipment', component: EquipmentPage },
         { name: 'stable', path: 'stable', component: StablePage },
       ],

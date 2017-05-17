@@ -4,5 +4,6 @@
   "showAllGearItems": "Show All <%= items %> <%= type %> Gear Items",
   "showLessGearItems": "Show Less <%= type %> Gear Items",
   "noGearItemsOfType": "You don't own any pieces of <%= type %>.",
-  "costumeDisabled": "You have disabled your costume."
+  "costumeDisabled": "You have disabled your costume.",
+  "items": "Items"
 }
