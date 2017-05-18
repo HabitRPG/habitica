@@ -16,26 +16,27 @@ module.exports.checkCredentials = function (username, password, done) {
     } else {
       login = {'auth.local.username': username};
     }
-
+    let foundUser;
     // load the entire user because we may have to save it to convert the password to bcrypt
-    User.findOne(login).exec().then((user)=>{
+    return User.findOne(login).exec().then((user)=>{
       if (!user) {
         throw new NotAuthorized('invalidLoginCredentials');
       }
-      passwordUtils.compare(user, password).then((isValidPassword)=>{
-        if (!isValidPassword) throw new NotAuthorized('invalidLoginCredentials');
+      foundUser = user;
+      return passwordUtils.compare(user, password);
+    }).then((isValidPassword)=>{
+      if (!isValidPassword) throw new NotAuthorized('invalidLoginCredentials');
 
-        // convert the hashed password to bcrypt from sha1
-        if (user.auth.local.passwordHashMethod === 'sha1') {
-          passwordUtils.convertToBcrypt(user, password).then(()=>{
-            return user.save();
-          }).then(()=>{
-            return done(null, user);
-          }).catch(done);
-        } else {
-          return done(null, user);
-        }
-      }).catch(done);
+      // convert the hashed password to bcrypt from sha1
+      if (foundUser.auth.local.passwordHashMethod === 'sha1') {
+        passwordUtils.convertToBcrypt(foundUser, password).then(()=>{
+          return foundUser.save();
+        }).then(()=>{
+          return done(null, foundUser);
+        }).catch(done);
+      } else {
+        return done(null, foundUser);
+      }
     }).catch(done);
   
 };

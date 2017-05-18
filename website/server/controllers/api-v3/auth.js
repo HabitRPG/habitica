@@ -230,6 +230,10 @@ api.loginLocal = {
     let password = req.body.password;
 
     checkCredentials(username,password,(err,user)=>{
+      if(err) { 
+        throw new NotAuthorized('invalidLoginCredentials');
+      }
+
       res.analytics.track('login', {
         category: 'behaviour',
         type: 'local',
