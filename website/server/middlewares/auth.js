@@ -14,18 +14,29 @@ const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 // If optional is true, don't error on missing authentication
 export function authWithHeaders (optional = false) {
   return function authWithHeadersHandler (req, res, next) {
-    let userId = req.header('x-api-user');
-    let apiToken = req.header('x-api-key');
+    let search = {};
+    let authToken = req.header('Authorization');
+    
+    if(authToken){
+      let parts = authToken.split(' ');
+      search = {
+        'oauth.tokens.accessToken': parts[1]
+      };
+    } else {
+      let userId = req.header('x-api-user');
+      let apiToken = req.header('x-api-key');
 
-    if (!userId || !apiToken) {
-      if (optional) return next();
-      return next(new NotAuthorized(res.t('missingAuthHeaders')));
+      if (!userId || !apiToken) {
+        if (optional) return next();
+        return next(new NotAuthorized(res.t('missingAuthHeaders')));
+      }
+      search = {
+        _id: userId,
+        apiToken
+      };
     }
 
-    return User.findOne({
-      _id: userId,
-      apiToken,
-    })
+    return User.findOne(search)
     .exec()
     .then((user) => {
       if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
