@@ -294,6 +294,7 @@ angular.module('habitrpg')
           $scope.$watch('task._edit', function (newValue, oldValue) {
             if ($scope.task.type !== 'daily' || !task._edit) return;
             $scope.summary = generateSummary($scope.task);
+            $scope.nextDue = generateNextDue($scope.task);
 
             $scope.repeatSuffix = generateRepeatSuffix($scope.task);
             if ($scope.task._edit.repeatsOn == 'dayOfMonth') {
@@ -385,8 +386,16 @@ angular.module('habitrpg')
       } else if (task._edit.frequency === 'yearly') {
         return task._edit.everyX == 1 ? window.env.t('year') : window.env.t('years');
       }
-
     };
+
+    function generateNextDue (task) {
+      if (!task.nextDue) return;
+      let nextDue = task.nextDue.map((date) => {
+        let dateObject = new Date(date);
+        return [dateObject.getFullYear(), dateObject.getMonth() + 1, dateObject.getDate()].join('-');
+      })
+      return nextDue.join(', ');
+    }
 
     function cancelTaskEdit(task) {
       task._edit = undefined;
