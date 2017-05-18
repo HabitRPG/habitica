@@ -282,7 +282,7 @@ api.updateUser = {
  */
 api.deleteUser = {
   method: 'DELETE',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(false, true)],
   url: '/user',
   async handler (req, res) {
     let user = res.locals.user;

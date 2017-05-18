@@ -8,7 +8,6 @@ import {
 } from '../models/user';
 import nconf from 'nconf';
 import passport from 'passport';
-import { isRouteBlacklisted } from '../libs/routeBlacklist';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 
@@ -16,7 +15,7 @@ const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 
 // Authenticate a request through the x-api-user and x-api key header
 // If optional is true, don't error on missing authentication
-export function authWithHeaders (optional = false) {
+export function authWithHeaders (optional = false, blacklisted = false) {
   return function authWithHeadersHandler (req, res, next) {
     let search = {};
     let authToken = req.header('Authorization');
@@ -27,7 +26,7 @@ export function authWithHeaders (optional = false) {
         if (err) return next(err);
         if (!user) return next(new NotAuthorized(res.t('invalidCredentials')));
         if (user.auth.blocked) return next(new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id})));
-        if (isRouteBlacklisted(req.url, req.method)) {
+        if (blacklisted) {
           return next(new BadRequest('You are not allowed to perform this action.'));
         }
 
