@@ -86,6 +86,7 @@
 <script>
 import { mapState } from 'client/libs/store';
 import groupUtilities from 'client/mixins/groupsUtilities';
+import findIndex from 'lodash/findIndex';
 
 export default {
   mixins: [groupUtilities],
@@ -110,8 +111,10 @@ export default {
     },
     async reject (invitationToReject) {
       // @TODO: This needs to be in the notifications where users will now accept invites
-      var index = _.findIndex(User.user.invitations.guilds, function(invite) { return invite.id === invitationToReject.id; });
-      User.user.invitations.guilds = User.user.invitations.guilds.splice(0, index);
+      let index = findIndex(this.user.invitations.guilds, function findInviteIndex (invite) {
+        return invite.id === invitationToReject.id;
+      });
+      this.user.invitations.guilds = this.user.invitations.guilds.splice(0, index);
       await this.$store.dispatch('guilds:rejectInvite', {guildId: invitationToReject.id});
     },
   },

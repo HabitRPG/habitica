@@ -178,7 +178,7 @@ export default {
         roles: this.roleFilters,
         guildSize: this.guildSizeFilters,
       });
-    }
-  }
+    },
+  },
 };
 </script>

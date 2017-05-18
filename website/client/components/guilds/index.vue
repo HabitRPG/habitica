@@ -255,7 +255,7 @@ export default {
     },
     async submit () {
       if (this.$store.state.user.data.balance < 1) {
-        alert("Not enough gems");
+        alert('Not enough gems');
         return;
         // return $rootScope.openModal('buyGems', {track:"Gems > Create Group"});
       }
@@ -263,11 +263,11 @@ export default {
       if (!this.newGuild.name || !this.newGuild.description) {
         alert('Enter a name and description');
         return;
-      };
-      //$t('confirmGuild')
+      }
+      //  $t('confirmGuild')
       if (!confirm('Confirm?')) return;
 
-      let response = await this.$store.dispatch('guilds:create', {group: this.newGuild});
+      await this.$store.dispatch('guilds:create', {group: this.newGuild});
 
       this.newGuild = {
         name: '',
