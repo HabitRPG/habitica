@@ -111,5 +111,7 @@
     "loginIncentiveQuest": "To earn this quest, check in to Habitica on <%= count %> different days!",
     "loginIncentiveQuestObtained": "You earned this quest by checking in to Habitica on <%= count %> different days!",
     "loginReward": "<%= count %> Check-ins",
-    "createAccountQuest": "Túto výpravu si získal keď si sa pridal k Habitike! Ak sa pridá aj kamarát, dostane výpravu tiež."
+    "createAccountQuest": "Túto výpravu si získal keď si sa pridal k Habitike! Ak sa pridá aj kamarát, dostane výpravu tiež.",
+    "questBundles": "Discounted Quest Bundles",
+    "buyQuestBundle": "Buy Quest Bundle"
 }
