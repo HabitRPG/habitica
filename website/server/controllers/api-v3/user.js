@@ -71,7 +71,8 @@ api.getUser = {
     // Remove apiToken from response TODO make it private at the user level? returned in signup/login
     delete userToJSON.apiToken;
     if(userToJSON.oauth) {
-      delete userToJSON.oauth;
+      delete userToJSON.oauth.authCodes;
+      delete userToJSON.oauth.tokens;
     }
 
     user.addComputedStatsToJSONObj(userToJSON.stats);
