@@ -134,12 +134,19 @@ habitrpg.controller('NotificationCtrl',
             }
             break;
           case 'ULTIMATE_GEAR_ACHIEVEMENT':
+            $rootScope.playSound('Achievement_Unlocked');
             Achievement.displayAchievement('ultimateGear', {size: 'md'});
             break;
           case 'REBIRTH_ACHIEVEMENT':
+            $rootScope.playSound('Achievement_Unlocked');
             Achievement.displayAchievement('rebirth');
             break;
+          case 'GUILD_JOINED_ACHIEVEMENT':
+            $rootScope.playSound('Achievement_Unlocked');
+            Achievement.displayAchievement('joinedGuild', {size: 'md'});
+            break;
           case 'NEW_CONTRIBUTOR_LEVEL':
+            $rootScope.playSound('Achievement_Unlocked');
             Achievement.displayAchievement('contributor', {size: 'md'});
             break;
           case 'CRON':

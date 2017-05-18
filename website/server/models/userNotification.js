@@ -19,6 +19,7 @@ const NOTIFICATION_TYPES = [
   'SCORED_TASK',
   'BOSS_DAMAGE', // Not used currently but kept to avoid validation errors
   'GUILD_PROMPT',
+  'GUILD_JOINED_ACHIEVEMENT',
 ];
 
 const Schema = mongoose.Schema;
