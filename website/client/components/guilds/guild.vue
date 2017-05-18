@@ -1,6 +1,8 @@
 <template lang="pug">
 // TODO this is necessary until we have a way to wait for data to be loaded from the server
 .row(v-if="guild")
+  members-modal(:group='guild')
+
   .clearfix.col-8
     .row
       .col-6
@@ -193,10 +195,14 @@
 import axios from 'axios';
 import groupUtilities from 'client/mixins/groupsUtilities';
 import { mapState } from 'client/libs/store';
+import membersModal from './membersModal';
 
 export default {
   mixins: [groupUtilities],
   props: ['guildId'],
+  components: {
+    membersModal,
+  },
   data () {
     return {
       guild: null,
@@ -270,23 +276,6 @@ export default {
     deleteAllMessages () {
       if (confirm(window.env.t('confirmDeleteAllMessages'))) {
         // User.clearPMs();
-      }
-    },
-    // @TODO: Move to component
-    clickMember (uid, forceShow) {
-      if (this.user._id === uid && !forceShow) {
-        // if ($state.is('tasks')) {
-        //   $state.go('options.profile.avatar');
-        // } else {
-        //   $state.go('tasks');
-        // }
-      } else {
-        // We need the member information up top here, but then we pass it down to the modal controller
-        // down below. Better way of handling this?
-        // Members.selectMember(uid)
-        //   .then(function () {
-        //     $rootScope.openModal('member', {controller: 'MemberModalCtrl', windowClass: 'profile-modal', size: 'lg'});
-        //   });
       }
     },
     // @TODO: Move to component
