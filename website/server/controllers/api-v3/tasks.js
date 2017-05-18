@@ -600,7 +600,7 @@ api.scoreTask = {
       }
       user.markModified('_ABtests');
     }
-    
+
     if (task.type === 'daily') {
       task.isDue = common.shouldDo(Date.now(), task, user.preferences);
     }
