@@ -111,5 +111,7 @@
     "loginIncentiveQuest": "Para ganhar esta missão, entre no Habitica em <%= count %> dias diferentes!",
     "loginIncentiveQuestObtained": "Você ganhou esta missão ao entrar no Habitica em <%= count %> dias diferentes!",
     "loginReward": "<%= count %> entradas",
-    "createAccountQuest": "Você recebeu esta missão quando se juntou ao Habitica! Se um amigo se juntar, também receberão esta missão. "
+    "createAccountQuest": "Você recebeu esta missão quando se juntou ao Habitica! Se um amigo se juntar, também receberão esta missão. ",
+    "questBundles": "Discounted Quest Bundles",
+    "buyQuestBundle": "Buy Quest Bundle"
 }

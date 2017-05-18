@@ -411,7 +411,7 @@
     "questTriceratopsText": "De Stampende Triceratops",
     "questTriceratopsNotes": "De met sneeuw bedekte Stoïkalm Vulkanen zijn altijd vol met wandelaars en toeristen. Een toerist @plumilla, roept over de menigte. \"Kijk! I betoverde de grond en liet hem gloeien, zodat we er op kunnen sporten voor onze dagelijkse buitentaken!\" Binnen de kortste keren  wervelt de grond met gloeiende rode patronen. Er komen zelfs wat prehistorische dieren uit de omgeving om mee te spelen.<br><br> Plotseling klinkt er een luide kraak -- een nieuwsgierige triceratops is op de staf van @plumilla gaan staan. Hij wordt opgeslokt door een golf van magische energie en de grond begint te trillen en te gloeien. De ogen van de triceratops gloeien rood, hij brult en begint een stampede!<br><br>\"Dit is niet goed,\" roept @McCoyly, wijzend naar de bergen. Elke magisch versterkte stap zorgt er voor dat de vulkanen uitbarsten en de gloeiende grond verandert in lava onder de voeten van de dinosaurus! Snel, je moet de denderende triceratops ophouden totdat iemand de spreuk ongedaan kan maken!",
     "questTriceratopsCompletion": "Door snel denkwerk weet je het dier richting de kalmerende Stoïkalm Steppes te drijven, zodat @*~Seraphina~* en @PainterProphet de lava-spreuk zonder afleiding kunnen terugdraaien. De kalmerende aura van de steppes begint te werken en de triceratops rolt zich op wanneer de vulkanen weer beginnen te slapen. \"Zonder jou zouden we ons niet hebben kunnen concentreren om de uitbrastingen te stoppen. Geef deze dieren een goed huis.\"",
-    "questTriceratopsBoss": "Stampende Triceratops",
+    "questTriceratopsBoss": "Stampende triceratops",
     "questTriceratopsDropTriceratopsEgg": "Triceratops (Ei)",
     "questTriceratopsUnlockText": "Maakt het kopen van Triceratops eieren in de markt mogelijk",
     "questStoikalmCalamity1Text": "Stoïkalmse Calamiteit , Deel 1: Aardse vijanden",
@@ -432,7 +432,7 @@
     "questStoikalmCalamity3Text": "Stoïkalmse Calamiteit, Deel 3: Ijskegeldraak beving",
     "questStoikalmCalamity3Notes": "De kronkelende tunnels van de ijskegeldraak grotten glinsteren met vorst... en met onmetelijke rijkdom. Je gaapt, maar Vrouwe Glaciate stapt verder zonder een oogwenk. \"Overdreven flitsend\", zegt ze. \"Hoewel bewonderenswaardig bemachtigd van respectabel huurlingswerk en voorzichtige bankinvesteringen. Kijk verder.\" Je ziet een torenhoge hoop van gestolen voorwerpen verstopt in de schaduwen.<br><br>Terwijl je dichterbij komt hoor je een sissende stem. \"Mijn heerlijke schat! Je zal het niet van me terug stelen!\" Een bochtig lichaam glijdt langs de berg: de Ijskegeldraak koningin zelve! Je hebt net genoeg tijd om de vreemde armbanden op te merken die rond haar polsen glinsteren en de wildheid die in haar ogen glanst voordat ze een brul uitschreeuwt die de aarde rondom je doet beven.",
     "questStoikalmCalamity3Completion": "Je bedwingt de Ijskegeldraak Koningin, waarmee je Vrouwe Glaciate tijd geeft om de gloeiende armbanden te breken. De koningin verstijft in duidelijke mortificatie en bedekt het vlug met een hooghartige houding. \"Wees vrij om deze uitwendige voorwerpen te verwijderen,\" zegt ze. \"Ik vrees dat ze simpelweg niet bij ons decor passen.\"<br><br>\"En ook omdat je ze gestolen hebt,\" zegt @Beffymaroo. \"Door monsters van de aarde op te roepen.\"<br><br>De Ijskegeldraak Koningin lijkt geïrriteerd. \"Praat dat maar uit met die ellendige armbandverkoopster,\" zegt ze. \"Je moet Tzina hebben. Ik was hoofdzakelijk onafhankelijk.\"<br><br>Vrouwe Glaciate klapt je op de arm. \"Goed werk vandaag,\" zegt ze terwijl ze een speer en een hoorn van de hoop geeft. \"Wees trots.\"",
-    "questStoikalmCalamity3Boss": "Ijskegeldraak Koniging",
+    "questStoikalmCalamity3Boss": "Ijskegeldraakkoningin",
     "questStoikalmCalamity3DropBlueCottonCandy": "Blauwe suikerspin (Voedsel)",
     "questStoikalmCalamity3DropShield": "Mammoetrijder's hoorn (Schild)",
     "questStoikalmCalamity3DropWeapon": "Mammoetrijder speer (Wapen)",
@@ -477,5 +477,7 @@
     "questMayhemMistiflying3Boss": "De windwerker",
     "questMayhemMistiflying3DropPinkCottonCandy": "Roze suikerspin (Voedsel)",
     "questMayhemMistiflying3DropShield": "Roguish Rainbow Message (Shield-Hand Weapon)",
-    "questMayhemMistiflying3DropWeapon": "Roguish Rainbow Message (Weapon)"
+    "questMayhemMistiflying3DropWeapon": "Roguish Rainbow Message (Weapon)",
+    "featheredFriendsText": "Feathered Friends Quest Bundle",
+    "featheredFriendsNotes": "Contains 'Help! Harpy!,' 'The Night-Owl,' and 'The Birds of Preycrastination.' Available until May 31."
 }
