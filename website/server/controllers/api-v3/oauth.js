@@ -99,7 +99,7 @@ api.authorization = {
     locals
   ],
   async handler (req, res) {
-    res.render('auth/dialog.jade', { env:res.locals.habitrpg, transactionId: req.oauth2.transactionID, user: req.user, client: req.oauth2.client });
+    res.render('auth/dialog.jade', { env:res.locals.habitrpg, user: req.user, oauth2:req.oauth2 });
   }
 };
 

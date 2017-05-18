@@ -10,12 +10,16 @@ block content
         span Hi 
         b=user.profile.name+'!'
       p
-        b=client.clientName
+        b=oauth2.client.clientName
         span  is requesting access to your account.
+      p Scope
+      for scp in oauth2.req.scope
+        p=scp
       p='Do you approve?'
       form(method='post', action='/api/v3/oauth/authorization/decision')
-        input(name='transaction_id', type='hidden', value=transactionId)
-        input(name='client_id', type='hidden', value=client.clientId)
-        input(name='redirect_uri', type='hidden', value=client.redirectUri)
+        input(name='transaction_id', type='hidden', value=oauth2.transactionID)
+        input(name='client_id', type='hidden', value=oauth2.req.clientID)
+        input(name='redirect_uri', type='hidden', value=oauth2.req.redirectURI)
+        input(name='scope', type='hidden', value=oauth2.req.scope)
         input#allow.btn.btn-default(type='submit',value='Allow')
         input#deny.btn.btn-default(type='submit',value='Deny',name='cancel')

@@ -53,9 +53,10 @@ server.deserializeClient((clientId, done) => {
 // the application. The application issues a code, which is bound to these
 // values, and will be exchanged for an access token.
 
-server.grant(grant.code((client, redirectUri, user, ares, done) => {
+server.grant(grant.code({scopeSeparator:[',',' ',', ']},(client, redirectUri, user, ares, areq, done) => {
   const code = uuid();
-  user.oauth.authCodes.push(OAuthCodeModel.sanitize({'accessCode':code, 'redirectUris':redirectUri, 'cliendId': client.clientId, 'scope': ares.scope }));
+  console.log(areq);
+  user.oauth.authCodes.push(OAuthCodeModel.sanitize({'accessCode':code, 'redirectUris':redirectUri, 'cliendId': client.clientId, 'scope': areq.scope }));
   user.save().then((savedUser)=>{
     return done(null, code);
   }).catch(done);
@@ -98,7 +99,7 @@ server.exchange('code',exchange.code((client, code, redirectUri, done) => {
 }));
 
 module.exports.authorization = function(){
-  return server.authorization((clientId, redirectUri, done) => {
+  return server.authorization((clientId, redirectUri, scope, done) => {
       User.findOne({'oauth.clients.clientId': clientId}).exec().then((user)=>{
         if (!user) return done(null, false);
         let client = _.find(user.oauth.clients, {clientId: clientId});
