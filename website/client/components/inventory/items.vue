@@ -23,6 +23,29 @@
         b-dropdown(:text="$t('sortBy')", right=true)
           b-dropdown-item(@click="sortBy = 'quantity'", :active="sortBy === 'quantity'") {{ $t('quantity') }}
           b-dropdown-item(@click="sortBy = 'AZ'", :active="sortBy === 'AZ'") {{ $t('sortAZ') }}
+    div(
+      v-for="group in itemsGroups",
+      v-if="viewOptions[group].selected",
+      :key="group",
+    )
+      h2
+       | {{ $t(group) }}
+       |
+       span.badge.badge-pill.badge-default {{items[group].length}}
+
+      .items
+        item(
+          v-for="({data: item, quantity}, index) in items[group]",
+          v-if="viewOptions[group].open || index < itemsPerLine",
+          :item="item",
+          :key="item.key",
+        )
+      div(v-if="items[group].length === 0")
+        p(v-once) {{ $t('noGearItemsOfType', { type: $t(group) }) }}
+      a.btn.btn-show-more(
+        v-if="items[group].length > itemsPerLine",
+        @click="viewOptions[group].open = !viewOptions[group].open"
+      ) {{ viewOptions[group].open ? $t('showLessGearItems', { type: $t(group) }) : $t('showAllGearItems', { type: $t(group), items: items[group].length }) }}
 
 </template>
 
@@ -51,7 +74,7 @@ export default {
       searchTextThrottled: null,
       viewOptions: {},
       groups: ['eggs', 'hatchingPotions', 'food'],
-      sortBy: 'quanitty', // or 'AZ'
+      sortBy: 'quantity', // or 'AZ'
     };
   },
   watch: {
@@ -64,27 +87,6 @@ export default {
       content: 'content',
       user: 'user.data',
     }),
-    items () {
-      const searchText = this.searchTextThrottled;
-      const itemsByType = {};
-
-      this.itemsGroups.forEach(group => {
-        itemsByType[group] = [];
-        const contentItems = this.content[group];
-
-        each(this.user.items[group], (quantity, itemKey) => {
-          if (quantity < 0) return false;
-          const item = contentItems[itemKey];
-
-          const isSearched = !searchText || item.text().toLowerCase().indexOf(searchText) !== -1;
-          if (!isSearched) return false;
-
-          itemsByType[group].push(item);
-        });
-      });
-
-      return itemsByType;
-    },
     // TODO copied from Equipment, not used now but will in future once
     // not all items groups will be shown for all users (the special ones)
     itemsGroups () {
@@ -96,6 +98,39 @@ export default {
 
         return group;
       });
+    },
+    items () {
+      const searchText = this.searchTextThrottled;
+      const itemsByType = {};
+
+      this.itemsGroups.forEach(group => {
+        let itemsArray = itemsByType[group] = [];
+        const contentItems = this.content[group];
+
+        each(this.user.items[group], (quantity, itemKey) => {
+          if (quantity > 0) {
+            const item = contentItems[itemKey];
+
+            const isSearched = !searchText || item.text().toLowerCase().indexOf(searchText) !== -1;
+            if (isSearched) {
+              itemsArray.push({
+                data: item,
+                quantity,
+              });
+            }
+          }
+        });
+
+        itemsArray.sort((a, b) => {
+          if (this.sortBy === 'quantity') {
+            return b.quantity - a.quantity;
+          } else { // AZ
+            return a.data.text().localeCompare(b.data.text()); // TODO slow?
+          }
+        });
+      });
+
+      return itemsByType;
     },
   },
 };
