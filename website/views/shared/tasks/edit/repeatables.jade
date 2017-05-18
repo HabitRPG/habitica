@@ -23,10 +23,10 @@ fieldset.option-group.advanced-option(ng-show="task.type === 'daily'")
     .form-group(ng-show='task._edit.frequency === "monthly"')
       legend.option-title=env.t('repeatsOn')
       label
-        input(type="radio", ng-model='task._edit.repeatsOn', value='dayOfMonth')
+        input(type="radio", ng-model='task._edit.repeatsOn', value='dayOfMonth', ng-disabled='!canEdit(task)')
         =env.t('dayOfMonth')
       label
-        input(type="radio", ng-model='task._edit.repeatsOn', value='dayOfWeek')
+        input(type="radio", ng-model='task._edit.repeatsOn', value='dayOfWeek', ng-disabled='!canEdit(task)')
         =env.t('dayOfWeek')
 
     .form-group
