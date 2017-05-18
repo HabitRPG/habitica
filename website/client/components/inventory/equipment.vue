@@ -6,7 +6,7 @@
 
     .form
       h2(v-once) {{ $t('filter') }}
-      h3 {{ this.groupBy === 'type' ? 'Type' : $t('class') }}
+      h3 {{ this.groupBy === 'type' ? $t('equipmentType') : $t('class') }}
       .form-group
         .form-check(
           v-for="group in itemsGroups",
@@ -15,19 +15,19 @@
           label.custom-control.custom-checkbox
             input.custom-control-input(type="checkbox", v-model="viewOptions[group.key].selected")
             span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t(group.label) }}
+            span.custom-control-description(v-once) {{ group.label }}
 
   .col-10.standard-page
     .clearfix
       h1.float-left.mb-0.page-header(v-once) {{ $t('equipment') }}
       .float-right
-        b-dropdown(text="Sort by", right=true)
+        b-dropdown(:text="$t('sortBy')", right=true)
           b-dropdown-item(href="#") Option 1
           b-dropdown-item(href="#") Option 2
           b-dropdown-item(href="#") Option 3
-        b-dropdown(text="Group by", right=true)
-          b-dropdown-item(@click="groupBy = 'type'", :class="{'dropdown-item-active': groupBy === 'type'}") Type
-          b-dropdown-item(@click="groupBy = 'class'", :class="{'dropdown-item-active': groupBy === 'class'}") {{ $t('class') }}
+        b-dropdown(:text="$t('groupBy2')", right=true)
+          b-dropdown-item(@click="groupBy = 'type'", :active="groupBy === 'type'") {{ $t('equipmentType') }}
+          b-dropdown-item(@click="groupBy = 'class'", :active="groupBy === 'class'") {{ $t('class') }}
 
     drawer(
       :title="$t('equipment')",
@@ -67,7 +67,7 @@
           :item="flatGear[activeItems[group]]",
           :itemContentClass="flatGear[activeItems[group]] ? 'shop_' + flatGear[activeItems[group]].key : null",
           :showPopover="!!flatGear[activeItems[group]] && flatGear[activeItems[group]].key.indexOf('_base_0') === -1",
-          :label="$t(label)",
+          :label="label",
           :selected="true",
           :popoverPosition="'top'",
           :starVisible="!costume || user.preferences.costume",
@@ -82,7 +82,7 @@
       :key="group.key",
     )
       h2
-       | {{ $t(group.label) }}
+       | {{ group.label }}
        |
        span.badge.badge-pill.badge-default {{items[group.key].length}}
 
@@ -101,11 +101,11 @@
           template(slot="popoverContent", scope="ctx")
             equipmentAttributesPopover(:item="ctx.item")
       div(v-if="items[group.key].length === 0")
-        p(v-once) {{ $t('noGearItemsOfType', { type: $t(group.label) }) }}
+        p(v-once) {{ $t('noGearItemsOfType', { type: group.label }) }}
       a.btn.btn-show-more(
         v-if="items[group.key].length > itemsPerLine",
         @click="viewOptions[group.key].open = !viewOptions[group.key].open"
-      ) {{ viewOptions[group.key].open ? $t('showLessGearItems', { type: $t(group.label) }) : $t('showAllGearItems', { type: $t(group.label), items: items[group.key].length }) }}
+      ) {{ viewOptions[group.key].open ? $t('showLessGearItems', { type: group.label }) : $t('showAllGearItems', { type: group.label, items: items[group.key].length }) }}
 </template>
 
 <style lang="scss" scoped>
@@ -129,6 +129,8 @@ import Item from 'client/components/inventory/item';
 import EquipmentAttributesPopover from 'client/components/inventory/equipmentAttributesPopover';
 import Drawer from 'client/components/inventory/drawer';
 
+import i18n from 'common/script/i18n';
+
 export default {
   components: {
     Item,
@@ -145,25 +147,25 @@ export default {
       searchText: null,
       searchTextThrottled: null,
       costume: false,
-      groupBy: 'type', // or 'class' TODO move to router?
+      groupBy: 'type', // or 'class'
       gearTypesToStrings: Object.freeze({ // TODO use content.itemList?
-        headAccessory: 'headAccessoryCapitalized',
-        head: 'headgearCapitalized',
-        eyewear: 'eyewear',
-        weapon: 'weaponCapitalized',
-        shield: 'offhandCapitalized',
-        armor: 'armorCapitalized',
-        body: 'body',
-        back: 'back',
+        headAccessory: i18n.t('headAccessoryCapitalized'),
+        head: i18n.t('headgearCapitalized'),
+        eyewear: i18n.t('eyewear'),
+        weapon: i18n.t('weaponCapitalized'),
+        shield: i18n.t('offhandCapitalized'),
+        armor: i18n.t('armorCapitalized'),
+        body: i18n.t('body'),
+        back: i18n.t('back'),
       }),
       gearClassesToStrings: Object.freeze({
-        warrior: 'warrior', // TODO immediately calculate $(label) instead of all the times
-        wizard: 'mage',
-        rogue: 'rogue',
-        healer: 'healer',
-        special: 'special',
-        mystery: 'mystery',
-        armoire: 'armoireText',
+        warrior: i18n.t('warrior'),
+        wizard: i18n.t('mage'),
+        rogue: i18n.t('rogue'),
+        healer: i18n.t('healer'),
+        special: i18n.t('special'),
+        mystery: i18n.t('mystery'),
+        armoire: i18n.t('armoireText'),
       }),
       viewOptions: {},
     };

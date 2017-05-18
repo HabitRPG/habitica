@@ -5,5 +5,9 @@
   "showLessGearItems": "Show Less <%= type %> Gear Items",
   "noGearItemsOfType": "You don't own any pieces of <%= type %>.",
   "costumeDisabled": "You have disabled your costume.",
-  "items": "Items"
+  "items": "Items",
+  "sortBy": "Sort By",
+  "groupBy2": "Group By",
+  "quantity": "Quantity",
+  "sortAZ": "A-Z"
 }

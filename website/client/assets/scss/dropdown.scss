@@ -40,7 +40,7 @@
     outline: none;
   }
 
-  &:active, &:hover, &:focus, &.active, &.dropdown-item-active {
+  &:active, &:hover, &:focus, &.active {
     background-color: rgba(#d5c8ff, 0.32);
     color: $purple-200;
   }
