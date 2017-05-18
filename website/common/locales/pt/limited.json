@@ -106,5 +106,6 @@
     "spring2017SneakyBunnySet": "Sneaky Bunny (Rogue)",
     "eventAvailability": "Disponível para comprar até <%= date(locale) %>.",
     "dateEndApril": "19 de abril",
-    "dateEndMay": "May 17"
+    "dateEndMay": "May 17",
+    "discountBundle": "bundle"
 }

@@ -1,12 +1,44 @@
-// CSS that doesn't belong to any specific Vue compoennt
-@import './forms';
+// Functions
+
+// From Bootstrap 4
+// Replace `$search` with `$replace` in `$string`
+// @author Hugo Giraudel
+// @param {String} $string - Initial string
+// @param {String} $search - Substring to replace
+// @param {String} $replace ('') - New value
+// @return {String} - Updated string
+@function str-replace($string, $search, $replace: "") {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+// Variables
+@import './colors';
 
 html, body {
   height: 100%;
+  background: $gray-700;
 }
 
-body {
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  transition-duration: .15s;
+  transition-property: border-color, box-shadow, color;
+  transition-timing-function: ease-in;
 }
+
+// Global styles
+@import './typography';
+@import './form';
+@import './button';
+@import './badge';
+@import './dropdown';
+@import './popover';
+@import './item';
+
+// Generic components
+@import './page';

@@ -3,7 +3,7 @@
 .row(v-if="guild")
   .clearfix.col-12 
     .float-left
-      h2 {{guild.name}}
+      h1.page-header {{guild.name}}
       strong.float-left {{$t('groupLeader')}}
       span.float-left : {{guild.leader.profile.name}}
     .float-right

@@ -253,10 +253,10 @@
     "passwordConfirmationMatch": "パスワードが不一致です。",
     "invalidLoginCredentials": "ユーザー名とパスワードのいずれかまたは両方が無効です。",
     "passwordResetPage": "パスワードをリセットする",
-    "passwordReset": "If we have your email on file, instructions for setting a new password have been sent to your email.",
+    "passwordReset": "もし入力されたメールアドレスが私たちのユーザーリストにあったのなら、新しいパスワードを設定する方法の説明が送信されたはずです。",
     "passwordResetEmailSubject": "パスワードのリセット",
-    "passwordResetEmailText": "If you requested a password reset for <%= username %> on Habitica, head to <%= passwordResetLink %> to set a new one. The link will expire after 24 hours. If you haven't requested a password reset, please ignore this email.",
-    "passwordResetEmailHtml": "If you requested a password reset for <strong><%= username %></strong> on Habitica, <a href=\"<%= passwordResetLink %>\">click here</a> to set a new one. The link will expire after 24 hours.<br/><br>If you haven't requested a password reset, please ignore this email.",
+    "passwordResetEmailText": "Habiticaで <%= username %> のパスワードのリセットを頼んだのなら、新しいパスワードを設定するために <%= passwordResetLink %> に行ってください。このリンクは24時間後に無効になります。パスワードのリセットを頼んでいない場合、このメールを無視しても結構です。",
+    "passwordResetEmailHtml": "Habiticaで <strong><%= username %></strong> のパスワードのリセットを頼んだのなら、新しいパスワードを設定するために <a href=\"<%= passwordResetLink %>\"> ここ </a>にクリックしてください。このリンクは24時間後に無効になります。<br/><br>パスワードのリセットを頼んでいない場合、このメールを無視しても結構です。",
     "invalidLoginCredentialsLong": "ああ…。ユーザー名またはパスワードが不正です。\n- ユーザー名またはメールアドレスが正しく入力されているかを確認してください。\n- メールアドレスではなく Facebook を通じて登録した場合は、Facebook ログインを再確認してください。\n- パスワードを忘れてしまったのなら、「パスワード忘れ」をクリックしてください。",
     "invalidCredentials": "この認証情報を使ったアカウントはありません。",
     "accountSuspended": "アカウントは停止しています。参考としてユーザーID 、「<%= userId %>」を添えて、<%= communityManagerEmail %>へご連絡ください。",
@@ -267,5 +267,5 @@
     "memberIdRequired": "\"member\" の UUID が無効です。",
     "heroIdRequired": "\"heroId\" の UUID が無効です。",
     "cannotFulfillReq": "操作に対する処理を完了できませんでした。エラーをくり返す場合は、admin@habitica.com にメールしてください。",
-    "modelNotFound": "This model does not exist."
+    "modelNotFound": "このモデルは存在しません。"
 }
