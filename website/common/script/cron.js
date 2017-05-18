@@ -122,7 +122,7 @@ export function shouldDo (day, dailyTask, options = {}) {
     let schedule = moment(startDate).recur()
       .every(dailyTask.everyX).days();
 
-    if (options.nextDue) return schedule.fromDate(startOfDayWithCDSTime).next(3);
+    if (options.nextDue) return schedule.fromDate(startOfDayWithCDSTime).next(6);
 
     return schedule.matches(startOfDayWithCDSTime);
   } else if (dailyTask.frequency === 'weekly') {
@@ -133,7 +133,15 @@ export function shouldDo (day, dailyTask, options = {}) {
 
     schedule = schedule.every(daysOfTheWeek).daysOfWeek();
 
-    if (options.nextDue) return schedule.fromDate(startOfDayWithCDSTime).next(3);
+    if (options.nextDue) {
+      let dates = schedule.fromDate(startOfDayWithCDSTime).next(6);
+      let filterDates = dates.filter((momentDate) => {
+        let weekDiff = momentDate.week() - moment(startDate).week();
+        let matchX = weekDiff % dailyTask.everyX === 0;
+        return matchX;
+      });
+      return filterDates;
+    }
 
     return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
   } else if (dailyTask.frequency === 'monthly') {
@@ -149,7 +157,15 @@ export function shouldDo (day, dailyTask, options = {}) {
       schedule = schedule.every(dailyTask.daysOfMonth).daysOfMonth();
     }
 
-    if (options.nextDue) return schedule.fromDate(startOfDayWithCDSTime).next(3);
+    if (options.nextDue) {
+      let dates = schedule.fromDate(startOfDayWithCDSTime).next(6);
+      let filterDates = dates.filter((momentDate) => {
+        let monthDiff = momentDate.month() - moment(startDate).month();
+        let matchX = monthDiff % dailyTask.everyX === 0;
+        return matchX;
+      });
+      return filterDates;
+    }
 
     return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
   } else if (dailyTask.frequency === 'yearly') {
@@ -157,7 +173,15 @@ export function shouldDo (day, dailyTask, options = {}) {
 
     schedule = schedule.every(dailyTask.everyX).years();
 
-    if (options.nextDue) return schedule.fromDate(startOfDayWithCDSTime).next(3);
+    if (options.nextDue) {
+      let dates = schedule.fromDate(startOfDayWithCDSTime).next(6);
+      let filterDates = dates.filter((momentDate) => {
+        let monthDiff = momentDate.years() - moment(startDate).years();
+        let matchX = monthDiff % dailyTask.everyX === 0;
+        return matchX;
+      });
+      return filterDates;
+    }
 
     return schedule.matches(startOfDayWithCDSTime);
   }

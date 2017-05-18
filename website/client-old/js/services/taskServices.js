@@ -263,6 +263,7 @@ angular.module('habitrpg')
       modalScope.task._tags = !user.preferences.tagsCollapsed;
       modalScope.task._advanced = !user.preferences.advancedCollapsed;
       modalScope.task._edit = angular.copy(task);
+      modalScope.user = user;
       if($rootScope.charts[task._id]) $rootScope.charts[task.id] = false;
 
       modalScope.taskStatus = taskStatus;
@@ -294,7 +295,7 @@ angular.module('habitrpg')
           $scope.$watch('task._edit', function (newValue, oldValue) {
             if ($scope.task.type !== 'daily' || !task._edit) return;
             $scope.summary = generateSummary($scope.task);
-            $scope.nextDue = generateNextDue($scope.task);
+            $scope.nextDue = generateNextDue($scope.task._edit, $scope.user);
 
             $scope.repeatSuffix = generateRepeatSuffix($scope.task);
             if ($scope.task._edit.repeatsOn == 'dayOfMonth') {
@@ -388,12 +389,15 @@ angular.module('habitrpg')
       }
     };
 
-    function generateNextDue (task) {
-      if (!task.nextDue) return;
-      let nextDue = task.nextDue.map((date) => {
-        let dateObject = new Date(date);
-        return [dateObject.getFullYear(), dateObject.getMonth() + 1, dateObject.getDate()].join('-');
-      })
+    function generateNextDue (task, user) {
+      let options = angular.copy(user);
+      options.nextDue = true;
+      let nextDueDates = Shared.shouldDo(new Date, task, options);
+
+      let nextDue = nextDueDates.map((date) => {
+        return date.format('MM-DD-YYYY');
+      });
+
       return nextDue.join(', ');
     }
 
