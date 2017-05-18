@@ -70,6 +70,9 @@ api.getUser = {
 
     // Remove apiToken from response TODO make it private at the user level? returned in signup/login
     delete userToJSON.apiToken;
+    if(userToJSON.oauth) {
+      delete userToJSON.oauth;
+    }
 
     user.addComputedStatsToJSONObj(userToJSON.stats);
     return res.respond(200, userToJSON);
@@ -360,6 +363,9 @@ api.getUserAnonymized = {
       delete user.auth.local;
       delete user.auth.facebook;
       delete user.auth.google;
+    }
+    if(user.oauth) {
+      delete user.oauth;
     }
     delete user.newMessages;
     delete user.profile;
