@@ -1,10 +1,14 @@
 import {
   NotAuthorized,
+  BadRequest,
+  NotFound
 } from '../libs/errors';
 import {
   model as User,
 } from '../models/user';
 import nconf from 'nconf';
+import passport from 'passport';
+import { isRouteBlacklisted } from '../libs/routeBlacklist';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 
@@ -18,10 +22,20 @@ export function authWithHeaders (optional = false) {
     let authToken = req.header('Authorization');
     
     if(authToken){
-      let parts = authToken.split(' ');
-      search = {
-        'oauth.tokens.accessToken': parts[1]
-      };
+      // if Authorization header is set, use bearer passport strategy to get user
+      return passport.authenticate('bearer', { session: false }, (err, user, info)=>{
+        if (err) return next(err);
+        if (!user) return next(new NotAuthorized(res.t('invalidCredentials')));
+        if (user.auth.blocked) return next(new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id})));
+        if (isRouteBlacklisted(req.url, req.method)) {
+          return next(new BadRequest('You are not allowed to perform this action.'));
+        }
+
+        res.locals.user = user;
+
+        req.session.userId = user._id;
+        return next();
+      })(req, res, next);
     } else {
       let userId = req.header('x-api-user');
       let apiToken = req.header('x-api-key');

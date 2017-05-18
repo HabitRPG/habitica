@@ -14,6 +14,7 @@ import {
   NotAuthorized
 } from './errors';
 import { checkCredentials } from './auth'
+import moment from 'moment';
 
 /**
  * LocalStrategy
@@ -91,8 +92,12 @@ passport.use(new ClientPasswordStrategy(verifyClient));
 passport.use(new BearerStrategy(
   (accessToken, done) => {
     User.findOne({'oauth.tokens.accessToken': accessToken}).exec().then((user)=>{
-      if (!user) return done(null, false);
-      done(null, user, { scope: '*' });
+      if (!user) throw new NotAuthorized();//return done(null, false);
+      let token = _.find(user.oauth.tokens, {accessToken: accessToken});
+      if(moment().isAfter(token.accessTokenExpiresOn)) {
+        throw new NotAuthorized('Access token expired');
+      }
+      done(null, user, { accessToken: token, scope: token.scope });
     }).catch(done);
   }
 ));
