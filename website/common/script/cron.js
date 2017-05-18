@@ -128,15 +128,14 @@ export function shouldDo (day, dailyTask, options = {}) {
   } else if (dailyTask.frequency === 'weekly') {
     let schedule = moment(startDate).recur();
 
-    if (dailyTask.everyX > 1) {
-      schedule = schedule.every(dailyTask.everyX).weeks();
-    }
+    let differenceInWeeks = moment(day).week() - moment(startDate).week();
+    let matchEveryX = differenceInWeeks % dailyTask.everyX === 0;
 
     schedule = schedule.every(daysOfTheWeek).daysOfWeek();
 
     if (options.nextDue) return schedule.fromDate(startOfDayWithCDSTime).next(3);
 
-    return schedule.matches(startOfDayWithCDSTime);
+    return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
   } else if (dailyTask.frequency === 'monthly') {
     let schedule = moment(startDate).recur();
 
