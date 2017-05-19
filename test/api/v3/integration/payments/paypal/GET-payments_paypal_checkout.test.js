@@ -36,5 +36,21 @@ describe('payments : paypal #checkout', () => {
       expect(checkoutStub).to.be.calledOnce;
       expect(checkoutStub.args[0][0].gift).to.eql(undefined);
     });
+
+    it('creates a purchase link with a donation', async () => {
+      user = await generateUser({
+        'profile.name': 'sender',
+        'purchased.plan.customerId': 'customer-id',
+        'purchased.plan.planId': 'basic_3mo',
+        'purchased.plan.lastBillingDate': new Date(),
+        balance: 2,
+      });
+      let donation = '5';
+
+      await user.get(`${endpoint}?noRedirect=true&donation=${donation}`);
+
+      expect(checkoutStub).to.be.calledOnce;
+      expect(checkoutStub.args[0][0].donation).to.eql(donation);
+    });
   });
 });

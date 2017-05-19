@@ -556,4 +556,25 @@ api.buyGems = async function buyGems (data) {
   await data.user.save();
 };
 
+api.donate = async function donate (data) {
+  let {
+    user,
+    customerId,
+    paymentMethod,
+    donation,
+    headers,
+  } = data;
+
+  analytics.trackPurchase({
+    uuid: data.user._id,
+    itemPurchased: 'Donation',
+    sku: `${data.paymentMethod.toLowerCase()}-checkout`,
+    purchaseType: 'checkout',
+    paymentMethod: data.paymentMethod,
+    quantity: 1,
+    purchaseValue: donation,
+    headers: data.headers,
+  });
+};
+
 module.exports = api;

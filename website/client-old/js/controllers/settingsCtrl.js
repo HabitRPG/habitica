@@ -353,5 +353,9 @@ habitrpg.controller('SettingsCtrl',
 
       return +nextCron.format('x');
     }
+
+    $scope.donate = function () {
+      $rootScope.openModal('donate', {controller: 'DonateModalCtrl'});
+    }
   }
 ]);

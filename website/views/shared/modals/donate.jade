@@ -1,0 +1,13 @@
+script(id='modals/donate.html', type='text/ng-template')
+  .modal-header.text-center
+    h2=env.t('donate')
+  .modal-body
+    .row
+    .row(style="font-size: 1.5rem;")
+      .col-md-6.col-md-offset-3.text-center
+        form
+          label Amount ($)
+          input.form-control(ng-model='amount')
+  .modal-footer
+    a.btn.btn-warning.col-md-3.col-md-offset-3(ng-click='$close()')=env.t('close')
+    a.btn.btn-primary.col-md-3(ng-click='donate()', ng-disabled='!amount')=env.t('donate')

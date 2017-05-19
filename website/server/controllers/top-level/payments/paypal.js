@@ -25,9 +25,11 @@ api.checkout = {
   middlewares: [authWithUrl],
   async handler (req, res) {
     let gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
+    let donation = req.query.donation;
     req.session.gift = req.query.gift;
+    req.session.donation = req.query.donation;
 
-    let link = await paypalPayments.checkout({gift});
+    let link = await paypalPayments.checkout({gift, donation});
 
     if (req.query.noRedirect) {
       res.respond(200);
@@ -53,11 +55,13 @@ api.checkoutSuccess = {
     let user = res.locals.user;
     let gift = req.session.gift ? JSON.parse(req.session.gift) : undefined;
     delete req.session.gift;
+    let donation = req.session.donation;
+    delete req.session.donation;
 
     if (!paymentId) throw new BadRequest(i18n.t('missingPaymentId'));
     if (!customerId) throw new BadRequest(i18n.t('missingCustomerId'));
 
-    await paypalPayments.checkoutSuccess({user, gift, paymentId, customerId});
+    await paypalPayments.checkoutSuccess({user, gift, paymentId, customerId, donation});
 
     if (req.query.noRedirect) {
       res.respond(200);

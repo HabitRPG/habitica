@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg').factory('Payments',
-['$rootScope', 'User', '$http', 'Content',
-function($rootScope, User, $http, Content) {
+['$rootScope', 'User', '$http', 'Content', '$window',
+function($rootScope, User, $http, Content, $window) {
   var Payments = {};
   var isAmazonReady = false;
 
@@ -296,7 +296,7 @@ function($rootScope, User, $http, Content) {
   }
 
   Payments.cancelSubscription = function(config) {
-    if (config && config.group && !confirm(window.env.t('confirmCancelGroupPlan'))) return; 
+    if (config && config.group && !confirm(window.env.t('confirmCancelGroupPlan'))) return;
     if (!confirm(window.env.t('sureCancelSub'))) return;
 
     var group;
@@ -326,6 +326,16 @@ function($rootScope, User, $http, Content) {
     gift.uuid = uuid;
     var encodedString = JSON.stringify(gift);
     return encodeURIComponent(encodedString);
+  }
+
+  Payments.checkoutWithPaypal = function (options) {
+    let url = '/paypal/checkout?_id=' + User.user._id + '&apiToken=' + User.settings.auth.apiToken;
+
+    if (options.donation) {
+      url += '&donation=' + options.donation;
+    }
+
+    $window.location.href = url;
   }
 
   return Payments;
