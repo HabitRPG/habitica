@@ -186,12 +186,12 @@ api.postChat = {
       sendTxn(FLAG_REPORT_EMAILS, 'slur-report-to-mods', report);
 
       // Slack the mods
-      slack.sendSlurNotification({
-        authorEmail,
-        user,
-        group,
-        message,
-      });
+      // slack.sendSlurNotification({
+      //   authorEmail,
+      //   user,
+      //   group,
+      //   message,
+      // });
 
       throw new BadRequest(res.t('bannedSlurUsed'));
     }

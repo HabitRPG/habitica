@@ -29,10 +29,6 @@ describe('POST /chat', () => {
     member = members[0];
   });
 
-  after(async () => {
-    sandbox.restore();
-  });
-
   it('Returns an error when no message is provided', async () => {
     await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: ''}))
       .to.eventually.be.rejected.and.eql({
@@ -185,8 +181,7 @@ describe('POST /chat', () => {
       // Email sent to mods
       await sleep(0.5);
       expect(email.sendTxn).to.be.called;
-      let typeOfEmail = email.sendTxn.args[0][1];
-      expect(typeOfEmail).to.eql('slur-report-to-mods');
+      expect(email.sendTxn.args[0][1]).to.be.eql('slur-report-to-mods');
 
       // Chat privileges are revoked
       await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
@@ -219,8 +214,7 @@ describe('POST /chat', () => {
       // Email sent to mods
       await sleep(0.5);
       expect(email.sendTxn).to.be.called;
-      let typeOfEmail = email.sendTxn.args[0][1];
-      expect(typeOfEmail).to.eql('slur-report-to-mods');
+      expect(email.sendTxn.args[0][1]).to.be.eql('slur-report-to-mods');
 
       // Chat privileges are revoked
       await expect(members[0].post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
