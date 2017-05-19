@@ -310,5 +310,8 @@
   "charactersRemaining": "characters remaining",
   "guildDescriptionPlaceHolder": "Write a short description advertising your Guild to other Habiticans. What is the main purpose of your Guild and why should people join it? Try to include useful keywords in the description so that Habiticans can easily find it when they search!",
   "guildGemCostInfo": "A Gem cost promotes high quality Guilds and is transferred into your Guild's bank.",
-  "categories": "Categories"
+  "categories": "Categories",
+  "noGuildsTitle": "You aren’t a member of any Guilds.",
+  "noGuildsParagraph1": "Guilds are social groups created by other players that can offer you support,  accountability, and encouraging chat.",
+  "noGuildsParagraph2": "Click the Discover tab to see recommended Guilds based on your interests, browse Habitica’s public Guilds, or create your own Guild."
 }

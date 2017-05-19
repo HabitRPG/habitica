@@ -2,7 +2,15 @@
 .row
   sidebar(v-on:search="updateSearch", v-on:filter="updateFilters")
 
-  .col-10
+  .col-10.no-guilds(v-if='filteredGuilds.length === 0')
+    .no-guilds-wrapper
+      img(src='~assets/guilds/grey-badge.svg')
+      h2 {{$t('noGuildsTitle')}}
+      p {{$t('noGuildsParagraph1')}}
+      p {{$t('noGuildsParagraph2')}}
+      span(v-if='loading') {{ $t('loading') }}
+
+  .col-10(v-if='filteredGuilds.length > 0')
     h2(v-once) {{ $t('myGuilds') }}
     public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild")
     mugen-scroll(
@@ -13,6 +21,32 @@
     )
       span {{ $t('loading') }}
 </template>
+
+<style lang="scss" scoped>
+.no-guilds {
+  text-align: center;
+  color: #878190;
+  margin-top: 15em;
+
+  h2 {
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: condensed;
+    line-height: 1.2;
+    color: #878190;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 1.43;
+  }
+
+  .no-guilds-wrapper {
+    width: 400px;
+    margin: 0 auto;
+  }
+}
+</style>
 
 <script>
 import MugenScroll from 'vue-mugen-scroll';
@@ -33,7 +67,7 @@ export default {
     };
   },
   created () {
-    if (!this.guilds) this.fetchGuilds();
+    // this.fetchGuilds();
   },
   computed: {
     guilds () {
