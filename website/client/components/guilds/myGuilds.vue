@@ -17,7 +17,7 @@
         b-form-select.float-right.sort-select(v-model='sort', :options='sortOptions')
     .row
       .col-md-12
-        public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild")
+        public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild", :display-gem-bank='true')
         mugen-scroll(
           :handler="fetchGuilds",
           :should-handle="loading === false && hasLoadedAllGuilds === false",
@@ -76,7 +76,18 @@ export default {
       filters: {},
       sort: 'none',
       sortOptions: [
-        {text: 'None', value: 'none'},
+        {
+          text: 'None',
+          value: 'none',
+        },
+        {
+          text: 'Member Count',
+          value: 'member_count',
+        },
+        {
+          text: 'Recent Activity',
+          value: 'recent_activity',
+        },
       ],
     };
   },

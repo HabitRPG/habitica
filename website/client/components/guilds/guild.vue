@@ -1,8 +1,6 @@
 <template lang="pug">
 // TODO this is necessary until we have a way to wait for data to be loaded from the server
 .row(v-if="guild")
-  members-modal(:group='guild')
-
   .clearfix.col-8
     .row
       .col-6
@@ -15,13 +13,13 @@
           .row.icon-row
             .col-6
               img.icon.shield(src="~assets/guilds/gold-guild-badge.svg")
-              | {{guild.memberCount}}
-              div {{$t('members')}}
+              span.number {{guild.memberCount}}
+              div Guild Members
             .col-6
               .item-with-icon
                 img.icon.gem(src="~assets/header/png/gem@3x.png")
-              | {{guild.memberCount}}
-              div {{$t('members')}}
+                span.number {{guild.memberCount}}
+                div Guild Bank
     .row.chat-row
       .col-12
         h3(v-once) {{ $t('chat') }}
@@ -67,6 +65,8 @@
       .col-6
         p Image here
       .col-6
+        members-modal(:group='guild')
+        br
         button.btn.btn-primary Join Guild
         br
         button.btn.float-left(:class="[isMember ? 'btn-danger' : 'btn-success']") {{ isMember ? $t('leave') : $t('join') }}
@@ -142,7 +142,14 @@
   }
 
   .icon-row {
-    margin-top: 1.5em;
+    width: 200px;
+    margin-top: 3em;
+    margin-right: 3em;
+
+    .number {
+      font-size: 22px;
+      font-weight: bold;
+    }
   }
 
   .chat-row {

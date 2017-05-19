@@ -4,6 +4,7 @@
     .row
       .col-md-2
         img.icon.shield(src="~assets/guilds/gold-guild-badge.svg")
+        .member-count {{guild.memberCount}}
       .col-md-10
         .row
           .col-md-8
@@ -11,8 +12,12 @@
                 h3 {{ guild.name }}
               p {{ guild.description }}
           .col-md-2.cta-container
-            button.btn.btn-danger(v-if='isMember' @click='leave()') {{ $t('leave') }}
+            button.btn.btn-danger(v-if='isMember && displayLeave' @click='leave()') {{ $t('leave') }}
             button.btn.btn-success(v-if='!isMember'  @click='join()') {{ $t('join') }}
+            div.item-with-icon(v-if='displayGemBank')
+              img(src="~assets/guilds/green-gem.svg")
+              span.count 2
+            div.guild-bank(v-if='displayGemBank') Guild Bank
         .row
           .col-md-12
             .category-label(v-for="category in guild.categories")
@@ -79,6 +84,42 @@
       width: 70px;
       height: 76px;
       margin: auto;
+      margin: 4em auto;
+      display: block;
+      background-size: cover;
+      width: 100%;
+      height: 100px;
+    }
+
+    .item-with-icon {
+      img {
+        height: 37px;
+      }
+
+      .count {
+        font-size: 20px;
+        height: 37px;
+        width: 37px;
+        margin-left: .2em;
+      }
+    }
+
+    .guild-bank {
+      font-size: 12px;
+      line-height: 1.33;
+      color: #a5a1ac;
+    }
+
+    .member-count {
+      position: relative;
+      top: -3.6em;
+      left: -.1em;
+      font-size: 28px;
+      font-weight: bold;
+      font-stretch: condensed;
+      line-height: 1.2;
+      text-align: center;
+      color: #b36213;
     }
   }
 </style>
@@ -90,7 +131,7 @@ import findIndex from 'lodash/findIndex';
 
 export default {
   mixins: [groupUtilities],
-  props: ['guild'],
+  props: ['guild', 'displayLeave', 'displayGemBank'],
   computed: {
     ...mapState({user: 'user.data'}),
     isMember () {
