@@ -21,7 +21,7 @@
     "communityGuidelines": "Diretrizes de Comunidade",
     "communityGuidelinesRead1": "Por favor, leia nossas",
     "communityGuidelinesRead2": "antes de conversar.",
-    "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic. Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
+    "bannedWordUsed": "Oops! Parece que esta publicação tem um palavrão,  ofensas religiosas, ou referências a substâncias viciantes ou tópicos adultos. Habitica tem usuários de diferentes origens, então mantenha o chat civilizado. Sinta-se à vontade para editar sua mensagem para que assim possa publica-lá!",
     "party": "Grupo",
     "createAParty": "Criar um Grupo",
     "updatedParty": "Configurações de grupo atualizadas.",
@@ -245,7 +245,7 @@
     "groupBenefitSixDescription": "Obtenha todos os benefícios da assinatura, como itens mensais e a possibilidade de comprar gemas com ouro! (Se você já é assinante, suas assinaturas serão canceladas mas os seus benefícios pelas assinaturas consecutivas, como as ampulhetas mensais, continuarão).",
     "groupBenefitSevenTitle": "Receba uma Montaria de Lebrílope novinha exclusiva",
     "groupBenefitEightTitle": "Adicionar Gestores do Grupo para ajudar a gerenciar as tarefas",
-    "groupBenefitEightDescription": "Want to share your group's responsibilities? Promote people to Group Managers to help the Leader add, assign, and approve tasks!",
+    "groupBenefitEightDescription": "Quer dividir suas responsabilidades no grupo? Promova pessoas para Gerente do Grupo para ajudar o Líder adicionar, delegar e aprovar tarefas!",
     "createAGroup": "Crie um Grupo",
     "assignFieldPlaceholder": "Digite o nome do perfil de um membro do grupo",
     "cannotDeleteActiveGroup": "Você não pode remover um grupo com assinatura ativa",
@@ -279,5 +279,7 @@
     "userIsNotManager": "O usuário não é um gestor",
     "canOnlyApproveTaskOnce": "Esta tarefa já foi aprovada.",
     "leaderMarker": "- Líder",
-    "managerMarker": "- Gestor"
+    "managerMarker": "- Gestor",
+    "joinedGuild": "Joined a Guild",
+    "joinedGuildText": "Ventured into the social side of Habitica by joining a Guild!"
 }

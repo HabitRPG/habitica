@@ -915,7 +915,7 @@
     "offhand": "skjoldhånds-udstyr",
     "offhandCapitalized": "Skjoldhånds-udstyr",
     "shieldBase0Text": "Intet Skjoldhånds-udstyr",
-    "shieldBase0Notes": "Intet skjold eller andet våben.",
+    "shieldBase0Notes": "No shield or shield-hand item.",
     "shieldWarrior1Text": "Træskjold",
     "shieldWarrior1Notes": "Rundt skjold af tykt træ. Øger Konstitution med <%= con %>.",
     "shieldWarrior2Text": "Lille Skjold",

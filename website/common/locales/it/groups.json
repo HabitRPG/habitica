@@ -279,5 +279,7 @@
     "userIsNotManager": "L'utente non è un amministratore",
     "canOnlyApproveTaskOnce": "Questa attività è gia stata approvata",
     "leaderMarker": "- Leader",
-    "managerMarker": "- Amministratore"
+    "managerMarker": "- Amministratore",
+    "joinedGuild": "Joined a Guild",
+    "joinedGuildText": "Ventured into the social side of Habitica by joining a Guild!"
 }

@@ -117,7 +117,7 @@
     "unallocated": "nog niet toegewezen eigenschapspunten",
     "haveUnallocated": "Je hebt <%= points %> eigenschapspunt(en) nog niet toegewezen.",
     "autoAllocation": "Automatische verdeling",
-    "autoAllocationPop": "Wijst punten toe aan eigenschappen op basis van jouw voorkeuren wanneer je er een niveau bij krijgt.",
+    "autoAllocationPop": "Wijst punten toe aan eigenschappen op basis van jouw voorkeuren, wanneer je een niveau omhoog gaat.",
     "evenAllocation": "Verdeel punten gelijkmatig",
     "evenAllocationPop": "Wijst hetzelfde aantal punten toe aan elke eigenschap.",
     "classAllocation": "Verdeel punten op basis van klasse",

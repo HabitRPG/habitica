@@ -157,7 +157,7 @@
     "sendGiftPurchase": "Kopen",
     "sendGiftMessagePlaceholder": "Persoonlijk bericht (optioneel)",
     "sendGiftSubscription": "<%= months %> Maand(en): $<%= price %> USD",
-    "gemGiftsAreOptional": "Habitica zal je nooit vragen om edelstenen te versturen naar andere spelers. Bedelen voor edelstenen bij anderen is een <strong>overtreding van de gemeenschapsrichtlijnen</strong>, als dit gebeurd zou je dit moeten melden bij <%= hrefTechAssistanceEmail %>.",
+    "gemGiftsAreOptional": "Habitica zal je nooit vragen om edelstenen te versturen naar andere spelers. Bedelen voor edelstenen bij anderen is een <strong>overtreding van de gemeenschapsrichtlijnen</strong>. Als dit gebeurd zou je dit moeten melden bij <%= hrefTechAssistanceEmail %>.",
     "battleWithFriends": "Strijd met je vrienden tegen monsters",
     "startPartyWithFriends": "Start een groep met je vrienden!",
     "startAParty": "Een groep beginnen",
@@ -279,5 +279,7 @@
     "userIsNotManager": "Gebruiker is geen manager",
     "canOnlyApproveTaskOnce": "Deze taak is al goedgekeurd.",
     "leaderMarker": "- Leider",
-    "managerMarker": "- Manager"
+    "managerMarker": "- Manager",
+    "joinedGuild": "Joined a Guild",
+    "joinedGuildText": "Ventured into the social side of Habitica by joining a Guild!"
 }

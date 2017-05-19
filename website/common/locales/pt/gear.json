@@ -915,7 +915,7 @@
     "offhand": "item da segunda mão",
     "offhandCapitalized": "Item para mão do escudo",
     "shieldBase0Text": "Sem Equipamento na Segunda Mão",
-    "shieldBase0Notes": "Sem escudo ou segundo armamento.",
+    "shieldBase0Notes": "No shield or shield-hand item.",
     "shieldWarrior1Text": "Escudo de Madeira",
     "shieldWarrior1Notes": "Escudo redondo de madeira grossa. Aumenta Constituição em <%= con %>.",
     "shieldWarrior2Text": "Escudo",

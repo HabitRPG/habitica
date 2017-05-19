@@ -915,7 +915,7 @@
     "offhand": "artikel voor schildhand",
     "offhandCapitalized": "Schildhandvoorwerp",
     "shieldBase0Text": "Geen uitrusting voor schildhand",
-    "shieldBase0Notes": "Geen schild of tweede wapen.",
+    "shieldBase0Notes": "No shield or shield-hand item.",
     "shieldWarrior1Text": "Houten schild",
     "shieldWarrior1Notes": "Rond schild van dik hout. Verhoogt lichaam met <%= con %>.",
     "shieldWarrior2Text": "Rond schild",

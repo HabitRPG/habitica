@@ -915,7 +915,7 @@
     "offhand": "Balkezes tárgy",
     "offhandCapitalized": "Shield-Hand Item",
     "shieldBase0Text": "Nincs balkezes felszerelés",
-    "shieldBase0Notes": "Nincs pajzs vagy másodlagos fegyver.",
+    "shieldBase0Notes": "No shield or shield-hand item.",
     "shieldWarrior1Text": "Fapajzs",
     "shieldWarrior1Notes": "Kerek vastag fapajzs. Növeli a szervezettséget <%= con %> ponttal.",
     "shieldWarrior2Text": "Kis fapajzs",

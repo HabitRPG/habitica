@@ -915,7 +915,7 @@
     "offhand": "副手物品",
     "offhandCapitalized": "副手物品",
     "shieldBase0Text": "没有副手装备",
-    "shieldBase0Notes": "没有盾牌或副手武器。",
+    "shieldBase0Notes": "No shield or shield-hand item.",
     "shieldWarrior1Text": "木盾",
     "shieldWarrior1Notes": "厚木头制的圆盾。增加<%= con %>体质。",
     "shieldWarrior2Text": "圆盾",

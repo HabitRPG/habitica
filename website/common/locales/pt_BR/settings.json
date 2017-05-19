@@ -26,7 +26,7 @@
     "showBaileyPop": "Traga Bailey, o Pregoeiro da Cidade, de onde estiver escondido para que você possa ver notícias passadas.",
     "fixVal": "Corrigir Valores do Personagem",
     "fixValPop": "Alterar manualmente os valores como Vida, Nível e Ouro.",
-    "invalidLevel": "Invalid value: Level must be 1 or greater.",
+    "invalidLevel": "Valor inválido: Nível deve ser 1 ou maior",
     "enableClass": "Habilitar Sistema de Classe",
     "enableClassPop": "Você optou por não usar o sistema de classe inicialmente? Deseja habilitar agora?",
     "classTourPop": "Mostra o tour de como usar o sistema de classes.",

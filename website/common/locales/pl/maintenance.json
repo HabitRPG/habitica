@@ -16,7 +16,7 @@
   "maintenanceInfoTechDetails": "Chciałbyś poczytać więcej o technicznej stronie całego procesu? Zajrzyj na <a href='http://devs.habitica.com/' target='_blank'>The Forge, bloga naszych developerów</a> (po angielsku).",
   "maintenanceInfoMore": "Dodatkowe informacje",
   "maintenanceInfoAccountChanges": "Jakie zmiany zobaczę?",
-  "maintenanceInfoAccountChangesText": "At first, there won’t be any notable changes aside from performance improvements for features such as Challenges. If you notice any changes that shouldn’t be there, email us at <%= hrefTechAssistanceEmail %> and we will investigate them for you!",
+  "maintenanceInfoAccountChangesText": "Z początku nie będą widoczne żadne zmiany oprócz poprawy funkcjonowania niektórych elementów strony, takich jak wyzwania. Jeśli zauważysz zmiany, których nie powinno tam być, napisz do nas na <%= hrefTechAssistanceEmail %> – zajmiemy się tym!",
   "maintenanceInfoAddFeatures": "Dodanie jakich funkcji umożliwią zmiany?",
   "maintenanceInfoAddFeaturesText": "Przepisanie kodu pozwoli nam zająć się poprawkami w funkcjonowaniu czatu i gildii oraz budową planów dla organizacji i rodzin. Umożliwi także dodanie nowych funkcji, takich jak Comiesięczne zadania i odhaczanie wczorajszych Codziennych! Wszystko to są zupełnie nowe rzeczy, których stworzenie zajmie trochę czasu, ale dopóki nie skończyliśmy pisać nowego API, nie mieliśmy możliwości się tym zająć.",
   "maintenanceInfoHowLong": "Ile czasu potrwa przerwa techniczna?",

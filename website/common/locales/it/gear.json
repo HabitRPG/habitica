@@ -915,7 +915,7 @@
     "offhand": "oggetto per mano da scudo",
     "offhandCapitalized": "Oggetto per mano da scudo",
     "shieldBase0Text": "Nessun equipaggiamento nella mano da scudo",
-    "shieldBase0Notes": "Nessuno scudo o arma secondaria.",
+    "shieldBase0Notes": "No shield or shield-hand item.",
     "shieldWarrior1Text": "Scudo di Legno",
     "shieldWarrior1Notes": "Scudo rotondo, fatto di legno pesante. Aumenta la Costituzione di <%= con %>.",
     "shieldWarrior2Text": "Brocchiero",

@@ -112,6 +112,6 @@
     "loginIncentiveQuestObtained": "Сдобихте се с тази мисия като се отчетохте в Хабитика <%= count %> различни дни!",
     "loginReward": "<%= count %> отчитания",
     "createAccountQuest": "Получихте тази мисия като се присъединихте към Хабитика! Ако Ваш приятел се присъедини, той или тя също ще я получат.",
-    "questBundles": "Discounted Quest Bundles",
-    "buyQuestBundle": "Buy Quest Bundle"
+    "questBundles": "Пакети мисии с отстъпка",
+    "buyQuestBundle": "Купуване на пакет мисии"
 }

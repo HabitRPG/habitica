@@ -112,6 +112,6 @@
     "loginIncentiveQuestObtained": "Hai ottenuto questa missione usando Habitica <%= count %> giorni!",
     "loginReward": "<%= count %> accessi",
     "createAccountQuest": "Hai ricevuto questa missione quando ti sei iscritto ad Habitica! Se un tuo amico si iscriverà, ne riceverà una anche lui.",
-    "questBundles": "Discounted Quest Bundles",
-    "buyQuestBundle": "Buy Quest Bundle"
+    "questBundles": "Pacchetto missioni scontato",
+    "buyQuestBundle": "Compra pacchetto missioni"
 }

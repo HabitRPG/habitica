@@ -1,4 +1,5 @@
 {
+    "stable": "Stable",
     "pets": "ペット",
     "activePet": "今連れているペット",
     "noActivePet": "何も連れ歩いていません",

@@ -112,6 +112,6 @@
     "loginIncentiveQuestObtained": "Vous avez gagné cette quête pour vous être connecté sur Habitica <%= count %> jours différents !",
     "loginReward": "<%= count %> connexion(s)",
     "createAccountQuest": "Vous avez reçu cette quête en rejoignant Habitica. Si des amis vous rejoignent, ils l'auront aussi.",
-    "questBundles": "Discounted Quest Bundles",
-    "buyQuestBundle": "Buy Quest Bundle"
+    "questBundles": "Lots de quêtes à prix réduits",
+    "buyQuestBundle": "Acheter ce lot de quêtes"
 }

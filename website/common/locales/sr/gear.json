@@ -915,7 +915,7 @@
     "offhand": "predmet za levu ruku",
     "offhandCapitalized": "Shield-Hand Item",
     "shieldBase0Text": "Nema opreme za levu ruku",
-    "shieldBase0Notes": "Nema štita ni drugog oružja",
+    "shieldBase0Notes": "No shield or shield-hand item.",
     "shieldWarrior1Text": "Drveni štit",
     "shieldWarrior1Notes": "Okrugli štit od debelog drveta. Povećava Vitalnost za <%= con %>.",
     "shieldWarrior2Text": "Laki štit",
