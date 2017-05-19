@@ -2,14 +2,14 @@ import _ from 'lodash';
 
 const ROUTE_BLACKLIST = [
   {
-    url:'/user',
-    method:'DELETE'
-  }
+    url: '/user',
+    method: 'DELETE',
+  },
 ];
 
-module.exports.isRouteBlacklisted = function(url, method) {
+module.exports.isRouteBlacklisted = function isRouteBlacklisted (url, method) {
   return typeof _.find(ROUTE_BLACKLIST, {
-    url: url,
-    method: method
+    url,
+    method,
   }) !== 'undefined';
 };

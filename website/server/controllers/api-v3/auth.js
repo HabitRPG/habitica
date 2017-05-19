@@ -20,7 +20,7 @@ import { decrypt, encrypt } from '../../libs/encryption';
 import { send as sendEmail } from '../../libs/email';
 import pusher from '../../libs/pusher';
 import common from '../../../common';
-import { checkCredentials } from '../../libs/auth'
+import { checkCredentials } from '../../libs/auth';
 
 const BASE_URL = nconf.get('BASE_URL');
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
@@ -229,8 +229,8 @@ api.loginLocal = {
     let username = req.body.username;
     let password = req.body.password;
 
-    checkCredentials(username,password,(err,user)=>{
-      if(err) { 
+    checkCredentials(username, password, (err, user) => {
+      if (err) {
         throw new NotAuthorized('invalidLoginCredentials');
       }
 
@@ -243,7 +243,7 @@ api.loginLocal = {
       });
 
       return _loginRes(user, req, res);
-    })
+    });
   },
 };
 

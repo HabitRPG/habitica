@@ -72,7 +72,7 @@ let schema = new Schema({
   oauth: {
     clients: [OAuthClientsSchema],
     authCodes: [OAuthCodeSchema],
-    tokens: [OAuthTokenSchema]
+    tokens: [OAuthTokenSchema],
   },
   // We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
   // have been updated (http://goo.gl/gQLz41), but we want *every* update

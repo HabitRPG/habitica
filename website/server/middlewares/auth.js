@@ -1,7 +1,6 @@
 import {
   NotAuthorized,
   BadRequest,
-  NotFound
 } from '../libs/errors';
 import {
   model as User,
@@ -19,10 +18,10 @@ export function authWithHeaders (optional = false, blacklisted = false) {
   return function authWithHeadersHandler (req, res, next) {
     let search = {};
     let authToken = req.header('Authorization');
-    
-    if(authToken){
+
+    if (authToken) {
       // if Authorization header is set, use bearer passport strategy to get user
-      return passport.authenticate('bearer', { session: false }, (err, user, info)=>{
+      return passport.authenticate('bearer', { session: false }, (err, user) => {
         if (err) return next(err);
         if (!user) return next(new NotAuthorized(res.t('invalidCredentials')));
         if (user.auth.blocked) return next(new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id})));
@@ -45,7 +44,7 @@ export function authWithHeaders (optional = false, blacklisted = false) {
       }
       search = {
         _id: userId,
-        apiToken
+        apiToken,
       };
     }
 

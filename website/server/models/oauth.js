@@ -7,35 +7,35 @@ const Schema = mongoose.Schema;
 
 export let OAuthClientsSchema = new Schema({
   clientName: { type: String },
-  clientId:  {
+  clientId: {
     type: String,
     default: uuid,
     validate: [validator.isUUID, 'Invalid uuid.'],
     required: true,
   },
-  clientSecret:  {
+  clientSecret: {
     type: String,
     default: uuid,
     validate: [validator.isUUID, 'Invalid uuid.'],
     required: true,
   },
-  redirectUri: { type: String }
+  redirectUri: { type: String },
 });
 
 export let OAuthCodeSchema = new Schema({
   accessCode: { type: String },
-  clientId: {type: String, ref: 'OAuthClients', validate: [validator.isUUID, 'Invalid uuid.']},
+  clientId: { type: String, ref: 'OAuthClients', validate: [validator.isUUID, 'Invalid uuid.'] },
   redirectUri: { type: String },
-  scope: { type: Array }
+  scope: { type: Array },
 });
 
 export let OAuthTokenSchema = new Schema({
   accessToken: { type: String },
   accessTokenExpiresOn: { type: Date },
-  clientId: {type: String, ref: 'OAuthClients', validate: [validator.isUUID, 'Invalid uuid.']},
+  clientId: { type: String, ref: 'OAuthClients', validate: [validator.isUUID, 'Invalid uuid.'] },
   scope: { type: Array },
   refreshToken: { type: String },
-  refreshTokenExpiresOn: { type: Date }
+  refreshTokenExpiresOn: { type: Date },
 });
 
 OAuthClientsSchema.plugin(baseModel, {

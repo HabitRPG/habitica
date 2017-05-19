@@ -1,12 +1,10 @@
-import { 
-    OAuthToken as OAuthTokensModel, 
-    OAuthClients as OAuthClientsModel,
-    OAuthCode as OAuthCodeModel
+import {
+    OAuthToken as OAuthTokensModel,
+    OAuthCode as OAuthCodeModel,
 } from '../models/oauth';
 import {
   model as User,
 } from '../models/user';
-import validator from 'validator';
 import _ from 'lodash';
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
@@ -32,9 +30,9 @@ const server = createServer();
 server.serializeClient((client, done) => done(null, client.clientId));
 
 server.deserializeClient((clientId, done) => {
-  User.findOne({'oauth.clients.clientId': clientId}).exec().then((user)=>{
+  User.findOne({'oauth.clients.clientId': clientId}).exec().then((user) => {
     if (!user) return done(false);
-    let client = _.find(user.oauth.clients, {clientId: clientId});
+    let client = _.find(user.oauth.clients, { clientId });
     return done(null, client);
   }).catch(done);
 });
@@ -53,11 +51,10 @@ server.deserializeClient((clientId, done) => {
 // the application. The application issues a code, which is bound to these
 // values, and will be exchanged for an access token.
 
-server.grant(grant.code({scopeSeparator:[',',' ',', ']},(client, redirectUri, user, ares, areq, done) => {
+server.grant(grant.code({scopeSeparator: [',', ' ', ', ']}, (client, redirectUri, user, ares, areq, done) => {
   const code = uuid();
-  console.log(areq);
-  user.oauth.authCodes.push(OAuthCodeModel.sanitize({'accessCode':code, 'redirectUris':redirectUri, 'cliendId': client.clientId, 'scope': areq.scope }));
-  user.save().then((savedUser)=>{
+  user.oauth.authCodes.push(OAuthCodeModel.sanitize({accessCode: code, redirectUris: redirectUri, cliendId: client.clientId, scope: areq.scope }));
+  user.save().then(() => {
     return done(null, code);
   }).catch(done);
 }));
@@ -70,8 +67,8 @@ server.grant(grant.code({scopeSeparator:[',',' ',', ']},(client, redirectUri, us
 
 server.grant(grant.token((client, user, ares, done) => {
   const token = uuid();
-  user.oauth.tokens.push(OAuthTokensModel.sanitize({'accessToken':token, 'accessTokenExpiresOn':moment().add({ days: 30 }), 'redirectUris':redirectUri, 'cliendId': client.clientId, 'scope': ares.scope }));
-  user.save().then((savedUser)=>{
+  user.oauth.tokens.push(OAuthTokensModel.sanitize({accessToken: token, accessTokenExpiresOn: moment().add({ days: 30 }), cliendId: client.clientId, scope: ares.scope }));
+  user.save().then(() => {
     return done(null, token);
   }).catch(done);
 }));
@@ -82,31 +79,33 @@ server.grant(grant.token((client, user, ares, done) => {
 // application issues an access token on behalf of the user who authorized the
 // code.
 
-server.exchange('code',exchange.code((client, code, redirectUri, done) => {
-  User.findOne({'oauth.authCodes.accessCode': code}).exec().then((user)=>{
+server.exchange('code', exchange.code((client, code, redirectUri, done) => {
+  User.findOne({'oauth.authCodes.accessCode': code}).exec().then((user) => {
     if (!user) return done(null, false);
-    let authCode = _.find(user.oauth.authCodes, {accessCode: code});
-    //if (client.clientId !== authCode.clientId) return done(null, false);
-    //if (redirectUri !== authCode.redirectUri) return done(null, false);
+    let authCode = _.find(user.oauth.authCodes, { accessCode: code });
+    // if (client.clientId !== authCode.clientId) return done(null, false);
+    // if (redirectUri !== authCode.redirectUri) return done(null, false);
 
     const token = uuid();
-    user.oauth.tokens.push(OAuthTokensModel.sanitize({'accessToken':token, 'accessTokenExpiresOn':moment().add({ days: 30 }), 'redirectUris':redirectUri, 'cliendId': client.clientId, 'scope': authCode.scope }));
+    user.oauth.tokens.push(OAuthTokensModel.sanitize({accessToken: token, accessTokenExpiresOn: moment().add({ days: 30 }), cliendId: client.clientId, scope: authCode.scope }));
     removeFromArray(user.oauth.authCodes, { accessCode: code });
-    user.save().then((savedUser)=>{
+    user.save().then(() => {
       return done(null, token);
     }).catch(done);
   }).catch(done);
 }));
 
-module.exports.authorization = function(){
+module.exports.authorization = function authorization () {
   return server.authorization((clientId, redirectUri, scope, done) => {
-      User.findOne({'oauth.clients.clientId': clientId}).exec().then((user)=>{
-        if (!user) return done(null, false);
-        let client = _.find(user.oauth.clients, {clientId: clientId});
-        if (client.redirectUri !== redirectUri) { return done(null, false); }
-        return done(null, client, redirectUri);
-      }).catch(done);
-    });
+    User.findOne({'oauth.clients.clientId': clientId}).exec().then((user) => {
+      if (!user) return done(null, false);
+      let client = _.find(user.oauth.clients, { clientId });
+      if (client.redirectUri !== redirectUri) {
+        return done(null, false);
+      }
+      return done(null, client, redirectUri);
+    }).catch(done);
+  });
 };
 
 module.exports.server = server;

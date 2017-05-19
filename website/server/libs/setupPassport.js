@@ -3,17 +3,14 @@ import nconf from 'nconf';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import _ from 'lodash';
-import validator from 'validator';
-import * as passwordUtils from './password';
 import { model as User } from '../models/user';
-import { BasicStrategy } from 'passport-http';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as ClientPasswordStrategy } from 'passport-oauth2-client-password';
 import { Strategy as BearerStrategy } from 'passport-http-bearer';
 import {
-  NotAuthorized
+  NotAuthorized,
 } from './errors';
-import { checkCredentials } from './auth'
+import { checkCredentials } from './auth';
 import moment from 'moment';
 
 /**
@@ -36,7 +33,7 @@ passport.serializeUser((user, done) => {
   return done(null, user._id);
 });
 passport.deserializeUser((userId, done) => {
-  User.findOne({_id: userId}).exec().then((user)=>{
+  User.findOne({_id: userId}).exec().then((user) => {
     return done(null, user);
   }).catch(done);
 });
@@ -70,10 +67,10 @@ passport.use(new GoogleStrategy({
  * to the `Authorization` header). While this approach is not recommended by
  * the specification, in practice it is quite common.
  */
-function verifyClient(clientId, clientSecret, done) {
-  User.findOne({'oauth.clients.clientId': clientId}).exec().then((user)=>{
+function verifyClient (clientId, clientSecret, done) {
+  User.findOne({'oauth.clients.clientId': clientId}).exec().then((user) => {
     if (!user) return done(null, false);
-    let client = _.find(user.oauth.clients, {clientId: clientId});
+    let client = _.find(user.oauth.clients, { clientId });
     if (client.clientSecret !== clientSecret) return done(null, false);
     return done(null, client);
   }).catch(done);
@@ -91,10 +88,10 @@ passport.use(new ClientPasswordStrategy(verifyClient));
  */
 passport.use(new BearerStrategy(
   (accessToken, done) => {
-    User.findOne({'oauth.tokens.accessToken': accessToken}).exec().then((user)=>{
-      if (!user) throw new NotAuthorized();//return done(null, false);
-      let token = _.find(user.oauth.tokens, {accessToken: accessToken});
-      if(moment().isAfter(token.accessTokenExpiresOn)) {
+    User.findOne({'oauth.tokens.accessToken': accessToken}).exec().then((user) => {
+      if (!user) throw new NotAuthorized();
+      let token = _.find(user.oauth.tokens, { accessToken });
+      if (moment().isAfter(token.accessTokenExpiresOn)) {
         throw new NotAuthorized('Access token expired');
       }
       done(null, user, { accessToken: token, scope: token.scope });

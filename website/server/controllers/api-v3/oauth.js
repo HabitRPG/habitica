@@ -2,12 +2,11 @@ import {
   authWithHeaders,
 } from '../../middlewares/auth';
 import {
-  model as User,
-} from '../../models/user';
-import _ from 'lodash';
+  NotFound,
+} from '../../libs/errors';
 import { OAuthClients } from '../../models/oauth';
 import { removeFromArray } from '../../libs/collectionManipulators';
-import { server, authorization } from '../../libs/oauth'
+import { server, authorization } from '../../libs/oauth';
 import locals from '../../middlewares/locals';
 import passport from 'passport';
 import { ensureLoggedIn } from 'connect-ensure-login';
@@ -20,7 +19,7 @@ api.getClients = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
-    //let clients = await OAuthClients.find({'userId':user._id}).exec();
+    // let clients = await OAuthClients.find({'userId':user._id}).exec();
     res.respond(200, user.oauth.clients);
   },
 };
@@ -34,14 +33,14 @@ api.createClient = {
 
     req.checkBody({
       redirectUri: {notEmpty: {errorMessage: res.t('missingRedirectUris')}},
-      clientName: {notEmpty: {errorMessage: res.t('missingClientName')}}
+      clientName: {notEmpty: {errorMessage: res.t('missingClientName')}},
     });
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     let { redirectUri, clientName } = req.body;
 
-    user.oauth.clients.push(OAuthClients.sanitize({'clientName':clientName, 'redirectUri':redirectUri }));
+    user.oauth.clients.push(OAuthClients.sanitize({ clientName, redirectUri }));
     let savedUser = await user.save();
 
     let l = savedUser.oauth.clients.length;
@@ -75,19 +74,16 @@ api.login = {
   url: '/oauth/login',
   middlewares: [locals],
   async handler (req, res) {
-    res.render('auth/login.jade', { env:res.locals.habitrpg });
-  }
+    res.render('auth/login.jade', { env: res.locals.habitrpg });
+  },
 };
 
 api.loginPost = {
   method: 'POST',
   url: '/oauth/login',
   middlewares: [
-    passport.authenticate('local',{ successReturnToOrRedirect: '/', failureRedirect: '/api/v3/oauth/login' })
+    passport.authenticate('local', { successReturnToOrRedirect: '/', failureRedirect: '/api/v3/oauth/login' }),
   ],
-  async handler (req, res) {
-    
-  }
 };
 
 api.authorization = {
@@ -96,11 +92,11 @@ api.authorization = {
   middlewares: [
     ensureLoggedIn('/api/v3/oauth/login'),
     authorization(),
-    locals
+    locals,
   ],
   async handler (req, res) {
-    res.render('auth/dialog.jade', { env:res.locals.habitrpg, user: req.user, oauth2:req.oauth2 });
-  }
+    res.render('auth/dialog.jade', { env: res.locals.habitrpg, user: req.user, oauth2: req.oauth2 });
+  },
 };
 
 api.decision = {
@@ -108,11 +104,8 @@ api.decision = {
   url: '/oauth/authorization/decision',
   middlewares: [
     ensureLoggedIn('/api/v3/oauth/login'),
-    server.decision()
+    server.decision(),
   ],
-  async handler (req, res) {
-    //console.log(server.decision);
-  }
 };
 
 api.token = {
@@ -123,9 +116,6 @@ api.token = {
     server.token(),
     server.errorHandler(),
   ],
-  async handler (req, res) {
-    //console.log(server.decision);
-  }
 };
 
 module.exports = api;
