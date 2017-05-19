@@ -11,18 +11,27 @@
       span(v-if='loading') {{ $t('loading') }}
 
   .col-10(v-if='filteredGuilds.length > 0')
-    h2(v-once) {{ $t('myGuilds') }}
-    public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild")
-    mugen-scroll(
-      :handler="fetchGuilds",
-      :should-handle="loading === false && hasLoadedAllGuilds === false",
-      :handle-on-mount="false",
-      v-show="hasLoadedAllGuilds === false",
-    )
-      span {{ $t('loading') }}
+    .row
+      .col-md-12
+        h2.float-left(v-once) {{ $t('myGuilds') }}
+        b-form-select.float-right.sort-select(v-model='sort', :options='sortOptions')
+    .row
+      .col-md-12
+        public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild")
+        mugen-scroll(
+          :handler="fetchGuilds",
+          :should-handle="loading === false && hasLoadedAllGuilds === false",
+          :handle-on-mount="false",
+          v-show="hasLoadedAllGuilds === false",
+        )
+          span {{ $t('loading') }}
 </template>
 
 <style lang="scss" scoped>
+.sort-select {
+  margin: 2em;
+}
+
 .no-guilds {
   text-align: center;
   color: #878190;
@@ -53,10 +62,11 @@ import MugenScroll from 'vue-mugen-scroll';
 import PublicGuildItem from './publicGuildItem';
 import Sidebar from './sidebar';
 import groupUtilities from 'client/mixins/groupsUtilities';
+import bFormSelect from 'bootstrap-vue/lib/components/form-select';
 
 export default {
   mixins: [groupUtilities],
-  components: { PublicGuildItem, MugenScroll, Sidebar },
+  components: { PublicGuildItem, MugenScroll, Sidebar, bFormSelect },
   data () {
     return {
       loading: false,
@@ -64,10 +74,14 @@ export default {
       lastPageLoaded: 0,
       search: '',
       filters: {},
+      sort: 'none',
+      sortOptions: [
+        {text: 'None', value: 'none'},
+      ],
     };
   },
   created () {
-    // this.fetchGuilds();
+    this.fetchGuilds();
   },
   computed: {
     guilds () {
