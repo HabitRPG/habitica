@@ -21,8 +21,6 @@ export async function getMyGuilds (store) {
   let response = await axios.get('/api/v3/groups', {
     params: {
       type: 'privateGuilds',
-      // paginate: true,
-      // page: payload.page,
     },
   });
 
@@ -82,8 +80,12 @@ export async function create (store, payload) {
   let response = await axios.post('/api/v3/groups/', payload.group);
   let newGroup = response.data.data;
 
-  // @TODO: Check what type of guild
-  store.state.publicGuilds.push(newGroup);
+  // @TODO: Add party
+  if (newGroup.privacy === 'public') {
+    store.state.publicGuilds.push(newGroup);
+  } else if (newGroup.privacy === 'private') {
+    store.state.myGuilds.push(newGroup);
+  }
 
   return newGroup;
 }
