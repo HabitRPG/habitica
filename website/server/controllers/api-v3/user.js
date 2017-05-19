@@ -121,6 +121,8 @@ api.getBuyList = {
 };
 
 let updatablePaths = [
+  '_ABtests.counter',
+
   'flags.customizationsNotification',
   'flags.showTour',
   'flags.tour',
