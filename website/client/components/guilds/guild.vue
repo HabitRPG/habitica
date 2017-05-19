@@ -278,56 +278,6 @@ export default {
         // User.clearPMs();
       }
     },
-    // @TODO: Move to component
-    // removeMember (group, member, isMember) {
-    //   // TODO find a better way to do this (share data with remove member modal)
-    //   // let removeMemberData = {
-    //   //   group: group,
-    //   //   member: member,
-    //   //   isMember: isMember
-    //   // };
-    //   // $rootScope.openModal('remove-member', {scope: $scope});
-    // },
-    confirmRemoveMember (confirmation) {
-      if (confirmation) {
-        // Groups.Group.removeMember(
-        //   $scope.removeMemberData.group._id,
-        //   $scope.removeMemberData.member._id,
-        //   $scope.removeMemberData.message
-        // ).then(function (response) {
-        //   if($scope.removeMemberData.isMember){
-        //     _.pull($scope.removeMemberData.group.members, $scope.removeMemberData.member);
-        //   }else{
-        //     _.pull($scope.removeMemberData.group.invites, $scope.removeMemberData.member);
-        //   }
-        //
-        //   $scope.removeMemberData = undefined;
-        // });
-      } else {
-        // $scope.removeMemberData = undefined;
-      }
-    },
-    // @TODO: move to component
-    // quickReply (uid) {
-    //   // Members.selectMember(uid)
-    //   //   .then(function (response) {
-    //   //     $rootScope.openModal('private-message', {controller: 'MemberModalCtrl'});
-    //   //   });
-    // },
-    addManager () {
-      // Groups.Group.addManager(this.group._id, this.group._newManager)
-      //   .then(function (response) {
-      //     this.group._newManager = '';
-      //     this.group.managers = response.data.data.managers;
-      //   });
-    },
-    // removeManager (memberId) {
-    //   // Groups.Group.removeManager(this.group._id, memberId)
-    //   //   .then(function (response) {
-    //   //     this.group._newManager = '';
-    //   //     this.group.managers = response.data.data.managers;
-    //   //   });
-    // },
     // inviteOrStartParty (group) {
       // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Invite Friends'});
 

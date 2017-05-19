@@ -5,6 +5,16 @@ div
   b-modal#members-modal(:title="$t('createGuild')")
     ul(v-for='member in members')
       li(@click='clickMember') {{member}}
+        button(@click='removeMember(member)') Remove
+        button(@click='quickReply(member)') Message
+        button(@click='addManager(member)') Add Manager
+        button(@click='removeManager(member)') Remove Manager
+
+  b-modal#remove-member(:title="$t('confirmRemoveMember')")
+    button(@click='confirmRemoveMember(member)') Remove
+
+  b-modal#private-message(:title="$t('confirmRemoveMember')")
+    button(@click='confirmRemoveMember(member)') Remove
 </template>
 
 <script>
@@ -20,6 +30,7 @@ export default {
   data () {
     return {
       members: ['one', 'two'],
+      memberToRemove: '',
     };
   },
   methods: {
@@ -45,6 +56,52 @@ export default {
       // Members.selectMember(uid)
       //   .then(function () {
       //     $rootScope.openModal('member', {controller: 'MemberModalCtrl', windowClass: 'profile-modal', size: 'lg'});
+      //   });
+    },
+    removeMember (member) {
+      this.memberToRemove = member;
+      this.$root.$emit('show::modal', 'remove-member');
+    },
+    confirmRemoveMember (confirmation) {
+      if (!confirmation) {
+        this.memberToRemove = '';
+        return;
+      }
+      // Groups.Group.removeMember(
+      //   $scope.removeMemberData.group._id,
+      //   $scope.removeMemberData.member._id,
+      //   $scope.removeMemberData.message
+      // ).then(function (response) {
+      //   if($scope.removeMemberData.isMember){
+      //     _.pull($scope.removeMemberData.group.members, $scope.removeMemberData.member);
+      //   }else{
+      //     _.pull($scope.removeMemberData.group.invites, $scope.removeMemberData.member);
+      //   }
+      //
+      //   $scope.removeMemberData = undefined;
+      // });
+    },
+    quickReply (uid) {
+      this.memberToReply = uid;
+      this.$root.$emit('show::modal', 'private-message');
+      // Members.selectMember(uid)
+      //   .then(function (response) {
+      //     $rootScope.openModal('private-message', {controller: 'MemberModalCtrl'});
+      //   });
+    },
+    addManager () {
+      // Groups.Group.addManager(this.group._id, this.group._newManager)
+      //   .then(function (response) {
+      //     this.group._newManager = '';
+      //     this.group.managers = response.data.data.managers;
+      //   });
+    },
+    removeManager (memberId) {
+      this.memberToReply = memberId;
+      // Groups.Group.removeManager(this.group._id, memberId)
+      //   .then(function (response) {
+      //     this.group._newManager = '';
+      //     this.group.managers = response.data.data.managers;
       //   });
     },
   },
