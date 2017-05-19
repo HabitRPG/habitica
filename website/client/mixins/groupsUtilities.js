@@ -36,13 +36,16 @@ export default {
         hasCategories = intersectingCats.length > 0;
       }
 
-      if (filters.roles && filters.roles.indexOf('member')) {
+      let filteringRole = filters.roles && filters.roles.length > 0;
+      if (filteringRole && filters.roles.indexOf('member')) {
         isMember = this.isMemberOfGroup(user, group);
       }
 
-      if (filters.roles && filters.roles.indexOf('guild_leader')) {
+      if (filteringRole && filters.roles.indexOf('guild_leader')) {
         isLeader = this.isLeaderOfGroup(user, group);
       }
+
+      // @TODO: Tier filters
 
       return passedSearch && hasCategories && isMember && isLeader;
     },
