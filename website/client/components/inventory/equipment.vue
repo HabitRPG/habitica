@@ -65,6 +65,7 @@
           v-for="(label, group) in gearTypesToStrings",
           :key="group",
           :item="flatGear[activeItems[group]]",
+          :itemContentClass="'shop_' + flatGear[activeItems[group]].key",
           :showPopover="flatGear[activeItems[group]] && flatGear[activeItems[group]].key.indexOf('_base_0') === -1",
           :label="$t(label)",
           :selected="true",
@@ -72,8 +73,6 @@
           :starVisible="!costume || user.preferences.costume",
           @click="equip",
         )
-          template(slot="itemContent", scope="ctx")
-            div(:class="'shop_' + ctx.item.key")
           template(slot="popoverContent", scope="ctx")
             equipmentAttributesPopover(:item="ctx.item")
 
@@ -92,13 +91,13 @@
           v-for="(item, index) in items[group.key]",
           v-if="viewOptions[group.key].open || index < itemsPerLine",
           :item="item",
+          :itemContentClass="'shop_' + item.key",
           :showPopover="item && item.key.indexOf('_base_0') === -1",
           :key="item.key",
           :selected="activeItems[item.type] === item.key",
           :starVisible="!costume || user.preferences.costume",
           @click="equip",
         )
-          div(slot="itemContent", :class="'shop_' + item.key")
           template(slot="popoverContent", scope="ctx")
             equipmentAttributesPopover(:item="ctx.item")
       div(v-if="items[group.key].length === 0")

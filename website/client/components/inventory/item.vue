@@ -14,8 +14,7 @@ b-popover(
         @click="click",
         v-if="starVisible"
       ) &#9733;
-      span.item-content
-        slot(name="itemContent", :item="item")
+      span.item-content(:class="itemContentClass")
     span.item-label(v-if="label") {{ label }}
 div(v-else)
   .item-wrapper
@@ -36,6 +35,9 @@ export default {
   props: {
     item: {
       type: Object,
+    },
+    itemContentClass: {
+      type: String
     },
     selected: {
       type: Boolean,
