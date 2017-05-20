@@ -915,7 +915,7 @@
     "offhand": "利き手と反対の手のアイテム",
     "offhandCapitalized": "利き手と反対の手のアイテム",
     "shieldBase0Text": "利き手と反対の手の装備はありません",
-    "shieldBase0Notes": "盾、または第2の武器がありません。",
+    "shieldBase0Notes": "No shield or shield-hand item.",
     "shieldWarrior1Text": "木の盾",
     "shieldWarrior1Notes": "厚い木で作られた丸い盾。体質が<%= con %>上がります。",
     "shieldWarrior2Text": "バックラー",

@@ -915,7 +915,7 @@
     "offhand": "équipement de main de bouclier",
     "offhandCapitalized": "Équipement de main de bouclier",
     "shieldBase0Text": "Pas d'équipement de main de bouclier",
-    "shieldBase0Notes": "Pas de bouclier ni de deuxième arme.",
+    "shieldBase0Notes": "No shield or shield-hand item.",
     "shieldWarrior1Text": "Bouclier de bois",
     "shieldWarrior1Notes": "Un bouclier rond en bois épais. Augmente la Constitution de <%= con %>.",
     "shieldWarrior2Text": "Bouclier",

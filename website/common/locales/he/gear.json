@@ -915,7 +915,7 @@
     "offhand": "חפץ ליד המגינה",
     "offhandCapitalized": "חפץ ליד המגינה",
     "shieldBase0Text": "אין חפץ ביד המגינה",
-    "shieldBase0Notes": "לא הצטיידת באף מגן או נשק ליד החדשה.",
+    "shieldBase0Notes": "No shield or shield-hand item.",
     "shieldWarrior1Text": "מגן עץ",
     "shieldWarrior1Notes": "מגן עץ עגול ועבה. מגביר את ערך החוסן שלך ב<%= con %> נקודות.",
     "shieldWarrior2Text": "מגן יד",

@@ -1,4 +1,5 @@
 {
+    "stable": "Stable",
     "pets": "Familiers",
     "activePet": "Familier sélectionné",
     "noActivePet": "Aucun familier sélectionné",

@@ -1,4 +1,5 @@
 {
+    "stable": "Stable",
     "pets": "Любимци",
     "activePet": "Текущ любимец",
     "noActivePet": "Няма текущ любимец",

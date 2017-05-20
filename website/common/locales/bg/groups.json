@@ -279,5 +279,7 @@
     "userIsNotManager": "Потребителят не е управител",
     "canOnlyApproveTaskOnce": "Тази задача е вече одобрена.",
     "leaderMarker": "— Водач",
-    "managerMarker": "— Управител"
+    "managerMarker": "— Управител",
+    "joinedGuild": "Joined a Guild",
+    "joinedGuildText": "Ventured into the social side of Habitica by joining a Guild!"
 }

@@ -915,7 +915,7 @@
     "offhand": "artículo adicional",
     "offhandCapitalized": "Artículo Adicional",
     "shieldBase0Text": "Sin equipamiento adicional",
-    "shieldBase0Notes": "Sin escudo o arma secundaria.",
+    "shieldBase0Notes": "No shield or shield-hand item.",
     "shieldWarrior1Text": "Escudo de Madera",
     "shieldWarrior1Notes": "Escudo redondo de madera gruesa. Incrementa la Constitución por <%= con %>.",
     "shieldWarrior2Text": "Broquel",

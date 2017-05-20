@@ -915,7 +915,7 @@
     "offhand": "shield-hand item",
     "offhandCapitalized": "Shield-Hand Item",
     "shieldBase0Text": "No Shield-Hand Equipment",
-    "shieldBase0Notes": "Niciun scut sau a doua armă",
+    "shieldBase0Notes": "No shield or shield-hand item.",
     "shieldWarrior1Text": "Scut de lemn",
     "shieldWarrior1Notes": "Round shield of thick wood. Increases Constitution by <%= con %>.",
     "shieldWarrior2Text": "Pavăză",
