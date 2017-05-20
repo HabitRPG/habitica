@@ -128,7 +128,7 @@ export function shouldDo (day, dailyTask, options = {}) {
   } else if (dailyTask.frequency === 'weekly') {
     let schedule = moment(startDate).recur();
 
-    let differenceInWeeks = moment(day).week() - moment(startDate).week();
+    let differenceInWeeks = moment(startOfDayWithCDSTime).week() - moment(startDate).week();
     let matchEveryX = differenceInWeeks % dailyTask.everyX === 0;
 
     schedule = schedule.every(daysOfTheWeek).daysOfWeek();
@@ -147,7 +147,7 @@ export function shouldDo (day, dailyTask, options = {}) {
   } else if (dailyTask.frequency === 'monthly') {
     let schedule = moment(startDate).recur();
 
-    let differenceInMonths = moment(day).month() - moment(startDate).month();
+    let differenceInMonths = moment(startOfDayWithCDSTime).month() - moment(startDate).month();
     let matchEveryX = differenceInMonths % dailyTask.everyX === 0;
 
     if (dailyTask.weeksOfMonth && dailyTask.weeksOfMonth.length > 0) {

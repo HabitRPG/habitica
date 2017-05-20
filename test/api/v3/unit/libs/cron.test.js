@@ -371,7 +371,7 @@ describe('cron', () => {
       tasksByType.dailys[0].everyX = 5;
       tasksByType.dailys[0].startDate = moment().add(1, 'days').toDate();
       cron({user, tasksByType, daysMissed, analytics});
-      expect(tasksByType.dailys[0].nextDue.length).to.eql(3);
+      expect(tasksByType.dailys[0].nextDue.length).to.eql(6);
     });
 
     it('should add history', () => {

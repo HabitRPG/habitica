@@ -543,7 +543,19 @@ describe('shouldDo', () => {
       beforeEach(() => {
         options.dayStart = 7;
         dailyTask.everyX = 3;
-        threeWeeksFromToday = moment().add(3, 'weeks').toDate();
+        dailyTask.repeat = {
+          su: false,
+          s: false,
+          f: false,
+          th: false,
+          w: false,
+          t: false,
+          m: false,
+        };
+
+        day = moment();
+        dailyTask.repeat[DAY_MAPPING[day.day()]] = true;
+        threeWeeksFromToday = moment().add(3, 'weeks').day(day.day()).toDate();
       });
 
       context('Current Date is one day before the matching day', () => {
@@ -620,7 +632,7 @@ describe('shouldDo', () => {
       dailyTask.everyX = 2;
       dailyTask.frequency = 'monthly';
       dailyTask.daysOfMonth = [15];
-      day = moment().date(15).toDate();
+      day = moment().add(2, 'months').date(15).toDate();
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
     });
 

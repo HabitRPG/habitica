@@ -390,11 +390,11 @@ angular.module('habitrpg')
     };
 
     function generateNextDue (task, user) {
-      let options = angular.copy(user);
+      var options = angular.copy(user);
       options.nextDue = true;
-      let nextDueDates = Shared.shouldDo(new Date, task, options);
+      var nextDueDates = Shared.shouldDo(new Date, task, options);
 
-      let nextDue = nextDueDates.map((date) => {
+      var nextDue = nextDueDates.map(function (date) {
         return date.format('MM-DD-YYYY');
       });
 
