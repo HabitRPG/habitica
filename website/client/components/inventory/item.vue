@@ -5,7 +5,7 @@ b-popover(
   v-if="showPopover",
 )
   span(slot="content")
-    slot(name="popoverContent")
+    slot(name="popoverContent", :item="item")
 
   .item-wrapper
     .item
@@ -15,7 +15,7 @@ b-popover(
         v-if="starVisible"
       ) &#9733;
       span.item-content
-        slot(name="itemContent")
+        slot(name="itemContent", :item="item")
     span.item-label(v-if="label") {{ label }}
 div(v-else)
   .item-wrapper

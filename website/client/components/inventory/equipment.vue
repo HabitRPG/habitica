@@ -30,7 +30,7 @@
           b-dropdown-item(@click="groupBy = 'class'", :class="{'dropdown-item-active': groupBy === 'class'}") {{ $t('class') }}
 
     drawer(
-      :title="$t('equipment')", 
+      :title="$t('equipment')",
       :errorMessage="(costume && !user.preferences.costume) ? $t('costumeDisabled') : null",
     )
       div(slot="drawer-header")
@@ -72,8 +72,11 @@
           :starVisible="!costume || user.preferences.costume",
           @click="equip",
         )
-          div(slot="itemContent", :class="'shop_' + flatGear[activeItems[group]].key")
-          equipmentAttributesPopover(:item="flatGear[activeItems[group]]", slot="popoverContent")
+          template(slot="itemContent", scope="ctx")
+            div(:class="'shop_' + ctx.item.key")
+          template(slot="popoverContent", scope="ctx")
+            equipmentAttributesPopover(:item="ctx.item")
+
     div(
       v-for="group in itemsGroups",
       v-if="viewOptions[group.key].selected",
@@ -96,7 +99,8 @@
           @click="equip",
         )
           div(slot="itemContent", :class="'shop_' + item.key")
-          equipmentAttributesPopover(:item="item", slot="popoverContent")
+          template(slot="popoverContent", scope="ctx")
+            equipmentAttributesPopover(:item="ctx.item")
       div(v-if="items[group.key].length === 0")
         p(v-once) {{ $t('noGearItemsOfType', { type: $t(group.label) }) }}
       a.btn.btn-show-more(
