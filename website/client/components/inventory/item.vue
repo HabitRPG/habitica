@@ -2,14 +2,10 @@
 b-popover(
   :triggers="['hover']",
   :placement="popoverPosition",
-  v-if="item && item.key.indexOf('_base_0') === -1",
+  v-if="showPopover",
 )
   span(slot="content")
-    h4.popover-content-title {{ item.text() }}
-    .popover-content-text {{ item.notes() }}
-    .popover-content-attr(v-for="attr in ATTRIBUTES")
-      span.popover-content-attr-key {{ `${$t(attr)}: ` }}
-      span.popover-content-attr-val {{ `+${item[attr]}` }}
+    slot(name="popoverContent", :item="item")
 
   .item-wrapper
     .item
@@ -18,7 +14,7 @@ b-popover(
         @click="click",
         v-if="starVisible"
       ) &#9733;
-      span.item-content(:class="'shop_' + item.key")
+      span.item-content(:class="itemContentClass")
     span.item-label(v-if="label") {{ label }}
 div(v-else)
   .item-wrapper
@@ -40,6 +36,9 @@ export default {
     item: {
       type: Object,
     },
+    itemContentClass: {
+      type: String
+    },
     selected: {
       type: Boolean,
     },
@@ -48,6 +47,10 @@ export default {
     },
     label: {
       type: String,
+    },
+    showPopover: {
+      type: Boolean,
+      default: true,
     },
     popoverPosition: {
       type: String,
