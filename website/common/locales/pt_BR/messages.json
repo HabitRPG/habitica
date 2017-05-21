@@ -51,7 +51,7 @@
     "messageGroupChatFlagAlreadyReported": "Você já reportou essa mensagem.",
     "messageGroupChatNotFound": "Mensagem não encontrada!",
     "messageGroupChatAdminClearFlagCount": "Somente um administrador pode remover o contador de denúncias!",
-    "messageGroupChatSpam": "Whoops, looks like you're posting too many messages! Please wait a minute and try again. The Tavern chat only holds 200 messages at a time, so Habitica encourages posting longer, more thoughtful messages and consolidating replies. Can't wait to hear what you have to say. :)",
+    "messageGroupChatSpam": "Ops, parece que você está postando mensagens demais! Por favor aguarde um minuto e tente novamente. O chat da Taverna só suporta 200 mensagens por vez, então a Habitica recomenda postar mensagens longas e mais profundas e respostas consolidadoras. Mal posso esperar para ouvir o que você tem a dizer. :)",
     "messageUserOperationProtected": "caminho `<%= operation %>` não foi salvo, já que é um caminho protegido.",
     "messageUserOperationNotFound": "<%= operation %> operação não encontrada",
     "messageNotificationNotFound": "Notificação não encontrada.",

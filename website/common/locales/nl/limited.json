@@ -106,5 +106,6 @@
     "spring2017SneakyBunnySet": "Geniepig konijn (dief)",
     "eventAvailability": "Verkrijgbaar voor aankoop tot <%=date(locale) %>.",
     "dateEndApril": "19 april",
-    "dateEndMay": "17 mei"
+    "dateEndMay": "17 mei",
+    "discountBundle": "bundel"
 }

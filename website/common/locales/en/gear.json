@@ -988,7 +988,7 @@
   "offhandCapitalized": "Shield-Hand Item",
 
   "shieldBase0Text": "No Shield-Hand Equipment",
-  "shieldBase0Notes": "No shield or second weapon.",
+  "shieldBase0Notes": "No shield or shield-hand item.",
 
   "shieldWarrior1Text": "Wooden Shield",
   "shieldWarrior1Notes": "Round shield of thick wood. Increases Constitution by <%= con %>.",

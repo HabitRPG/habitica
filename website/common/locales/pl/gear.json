@@ -915,7 +915,7 @@
     "offhand": "Tarcza",
     "offhandCapitalized": "Tarcza",
     "shieldBase0Text": "Brak tarczy w ekwipunku.",
-    "shieldBase0Notes": "Bez tarczy lub drugiej broni.",
+    "shieldBase0Notes": "No shield or shield-hand item.",
     "shieldWarrior1Text": "Drewniana tarcza",
     "shieldWarrior1Notes": "Okrągła tarcza z grubego drewna. Zwiększa Kondycję o <%= con %>.",
     "shieldWarrior2Text": "Puklerz",

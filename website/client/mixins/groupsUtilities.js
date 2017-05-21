@@ -1,12 +1,7 @@
-// TODO if we only have a single method here, move it to an utility
-// a full mixin is not needed
-
-import { TAVERN_ID } from '../../common/script/constants';
-
 export default {
   methods: {
     isMemberOfGroup (user, group) {
-      if (group._id === TAVERN_ID) return true;
+      if (group._id === this.$store.state.constants.TAVERN_ID) return true;
 
       // If the group is a guild, just check for an intersection with the
       // current user's guilds, rather than checking the members of the group.

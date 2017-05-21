@@ -1,4 +1,5 @@
 {
+    "stable": "Stable",
     "pets": "宠物",
     "activePet": "参战的宠物",
     "noActivePet": "休息的宠物",

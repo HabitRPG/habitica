@@ -915,7 +915,7 @@
     "offhand": "štít v ruce",
     "offhandCapitalized": "Shield-Hand Item",
     "shieldBase0Text": "Bez štítu v ruce",
-    "shieldBase0Notes": "Bez štítu nebo druhé zbraně.",
+    "shieldBase0Notes": "No shield or shield-hand item.",
     "shieldWarrior1Text": "Dřevěný štít",
     "shieldWarrior1Notes": "Kulatý štít z tlustého dřeva. Zvyšuje Obranu o <%= con %>.",
     "shieldWarrior2Text": "Pukléř",

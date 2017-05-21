@@ -56,6 +56,7 @@ export const ITEM_LIST = {
   quests:          { localeKey: 'quest',          isEquipment: false },
   food:            { localeKey: 'foodText',       isEquipment: false },
   Saddle:          { localeKey: 'foodSaddleText', isEquipment: false },
+  bundles:         { localeKey: 'discountBundle', isEquipment: false },
 };
 
 export const USER_CAN_OWN_QUEST_CATEGORIES = [

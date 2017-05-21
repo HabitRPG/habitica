@@ -51,7 +51,7 @@
     "messageGroupChatFlagAlreadyReported": "Je hebt dit bericht al gerapporteerd.",
     "messageGroupChatNotFound": "Bericht niet gevonden.",
     "messageGroupChatAdminClearFlagCount": "Alleen een admin kan de flag-telling leegmaken!",
-    "messageGroupChatSpam": "Whoops, looks like you're posting too many messages! Please wait a minute and try again. The Tavern chat only holds 200 messages at a time, so Habitica encourages posting longer, more thoughtful messages and consolidating replies. Can't wait to hear what you have to say. :)",
+    "messageGroupChatSpam": "Oeps, het ziet er naar uit dat je te veel berichten plaatst! Wacht alsjeblieft een minuut en probeer het dan nog eens. De herberg chat kan slechts 200 berichten tonen, dus Habitica moedigt spelers aan om langere berichten en verstevigde reacties te plaatsen. We kunnen niet wachten om te horen wat je te zeggen hebt. :)",
     "messageUserOperationProtected": "path `<%= operation %>`  is niet opgeslagen, omdat het een beschermd path is.",
     "messageUserOperationNotFound": "<%= operation %> operatie niet gevonden",
     "messageNotificationNotFound": "Mededeling niet gevonden.",

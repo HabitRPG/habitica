@@ -915,7 +915,7 @@
     "offhand": "предмет за защитната ръка",
     "offhandCapitalized": "Предмет за защитната ръка",
     "shieldBase0Text": "Няма предмет в защитната ръка",
-    "shieldBase0Notes": "Няма щит или второ оръжие.",
+    "shieldBase0Notes": "No shield or shield-hand item.",
     "shieldWarrior1Text": "Дървен щит",
     "shieldWarrior1Notes": "Кръгъл щит от дебело дърво. Увеличава якостта с <%= con %>.",
     "shieldWarrior2Text": "Щит",
