@@ -125,7 +125,7 @@ export default {
           if (this.sortBy === 'quantity') {
             return b.quantity - a.quantity;
           } else { // AZ
-            return a.data.text().localeCompare(b.data.text()); // TODO slow?
+            return a.data.text().localeCompare(b.data.text());
           }
         });
       });
