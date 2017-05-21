@@ -44,7 +44,9 @@
           :starVisible="true",
           :selected="true",
         )
-          template(slot="popoverContent", scope="ctx") {{ ctx.item.text() }}
+          template(slot="popoverContent", scope="ctx") 
+            h4.popover-content-title {{ ctx.item.text() }}
+            popover-content-text {{ ctx.item.notes() }}
 
       div(v-if="items[group.key].length === 0")
         p(v-once) {{ $t('noGearItemsOfType', { type: $t(group.key) }) }}

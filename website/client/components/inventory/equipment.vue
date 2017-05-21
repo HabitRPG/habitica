@@ -54,7 +54,7 @@
               :placement="'top'"
             )
               span(slot="content")
-                .popover-content-title {{ $t(drawerPreference+'PopoverText') }}
+                .popover-content-text {{ $t(drawerPreference+'PopoverText') }}
 
               toggle-switch.float-right(
                 :label="$t(costume ? 'useCostume' : 'autoEquipBattleGear')",
