@@ -834,8 +834,8 @@ api.removeGroupMember = {
         removeFromArray(member.invitations.guilds, { id: group._id });
       }
       if (isInvited === 'party') {
-        member.invitations.party = {};
         removeFromArray(member.invitations.parties, { id: group._id });
+        member.invitations.party = member.invitations.parties.length > 0 ? member.invitations.parties[member.invitations.parties.length - 1] : {};
         member.markModified('invitations.party');
       }
     } else {

@@ -1,4 +1,4 @@
-.container-fluid(ng-show='user.invitations.party.id')
+.container-fluid(ng-show='user.invitations.parties.length > 0')
   h3=env.t('partyInvitationsText', {numberInvites: '{{user.invitations.parties.length}}'})
 
   div(ng-repeat='partyInvite in user.invitations.parties')
