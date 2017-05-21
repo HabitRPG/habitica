@@ -55,6 +55,7 @@
           item(
           v-for="pet in pets(petGroup, viewOptions[petGroup.key].open)",
           :item="pet",
+          :itemContentClass="'Pet-' + pet.key",
           :key="pet.key",
           :showPopover="true",
           :label="pet.value",
@@ -62,7 +63,6 @@
           v-once
           )
             span(slot="popoverContent", v-once) {{ pet }}
-            div(slot="itemContent", :class="'Pet-' + pet.key", v-once)
 
         .btn.btn-show-more(@click="viewOptions[petGroup.key].open = !viewOptions[petGroup.key].open") {{ viewOptions[petGroup.key].open ? 'Close' : 'Open' }}
 
@@ -122,51 +122,51 @@
       ...mapState(['content']),
 
       petGroups () {
-        var petGroups = [
+        let petGroups = [
           {
             label: 'Standard',
             key: 'standardPets',
             petSource: {
               eggs: this.content.dropEggs,
-              potions: this.content.dropHatchingPotions
-            }
+              potions: this.content.dropHatchingPotions,
+            },
           },
           {
             label: this.$t('magicPets'),
             key: 'magicPets',
             petSource: {
               eggs: this.content.dropEggs,
-              potions: this.content.premiumHatchingPotions
-            }
+              potions: this.content.premiumHatchingPotions,
+            },
           },
           {
             label: this.$t('questPets'),
             key: 'questPets',
             petSource: {
               eggs: this.content.questEggs,
-              potions: this.content.dropHatchingPotions
-            }
+              potions: this.content.dropHatchingPotions,
+            },
           },
           {
             label: this.$t('rarePets'),
             key: 'rarePets',
             petSource: {
               eggs: this.content.dropEggs,
-              potions: this.content.dropHatchingPotions
-            }
-          }
+              potions: this.content.dropHatchingPotions,
+            },
+          },
         ];
 
         petGroups.map((petGroup) => {
           this.$set(this.viewOptions, petGroup.key, {
             selected: true,
-            open: false
-          })
+            open: false,
+          });
         });
 
 
         return petGroups;
-      },
+      }
     },
     methods: {
       listAnimals (type, eggSource, potionSource, isOpen = false) {
@@ -187,8 +187,8 @@
 
         return animals;
       },
-      pets (petGroup, open) {
-        return this.listAnimals('pet', petGroup.petSource.eggs, petGroup.petSource.potions, open);
+      pets (petGroup, showAll) {
+        return this.listAnimals('pet', petGroup.petSource.eggs, petGroup.petSource.potions, showAll);
       },
     },
   };
