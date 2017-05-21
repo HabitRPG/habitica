@@ -20,9 +20,10 @@
     .clearfix
       h1.float-left.mb-0.page-header(v-once) {{ $t('items') }}
       .float-right
-        b-dropdown(:text="$t('sortBy')", right=true)
+        span.dropdown-label {{ $t('sortBy') }}
+        b-dropdown(:text="$t(sortBy)", right=true)
           b-dropdown-item(@click="sortBy = 'quantity'", :active="sortBy === 'quantity'") {{ $t('quantity') }}
-          b-dropdown-item(@click="sortBy = 'AZ'", :active="sortBy === 'AZ'") {{ $t('sortAZ') }}
+          b-dropdown-item(@click="sortBy = 'AZ'", :active="sortBy === 'AZ'") {{ $t('AZ') }}
     div(
       v-for="group in groups",
       v-if="group.selected",

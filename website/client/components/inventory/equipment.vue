@@ -21,11 +21,13 @@
     .clearfix
       h1.float-left.mb-0.page-header(v-once) {{ $t('equipment') }}
       .float-right
-        b-dropdown(:text="$t('sortBy')", right=true)
+        span.dropdown-label {{ $t('sortBy') }}
+        b-dropdown(:text="'Sort 1'", right=true)
           b-dropdown-item(href="#") Option 1
           b-dropdown-item(href="#") Option 2
           b-dropdown-item(href="#") Option 3
-        b-dropdown(:text="$t('groupBy2')", right=true)
+        span.dropdown-label {{ $t('groupBy2') }}
+        b-dropdown(:text="$t(groupBy === 'type' ? 'equipmentType' : 'class')", right=true)
           b-dropdown-item(@click="groupBy = 'type'", :active="groupBy === 'type'") {{ $t('equipmentType') }}
           b-dropdown-item(@click="groupBy = 'class'", :active="groupBy === 'class'") {{ $t('class') }}
 
