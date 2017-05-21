@@ -37,7 +37,7 @@ export default {
       type: Object,
     },
     itemContentClass: {
-      type: String
+      type: String,
     },
     selected: {
       type: Boolean,
