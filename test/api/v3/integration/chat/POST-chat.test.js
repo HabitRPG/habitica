@@ -6,6 +6,10 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 import * as email from '../../../../../website/server/libs/email';
+import { IncomingWebhook } from '@slack/client';
+import nconf from 'nconf';
+
+const BASE_URL = nconf.get('BASE_URL');
 
 describe('POST /chat', () => {
   let user, groupWithChat, userWithChatRevoked, member;
@@ -165,6 +169,7 @@ describe('POST /chat', () => {
   context('banned slur', () => {
     beforeEach(() => {
       sandbox.spy(email, 'sendTxn');
+      sandbox.stub(IncomingWebhook.prototype, 'send');
     });
 
     afterEach(() => {
@@ -182,6 +187,24 @@ describe('POST /chat', () => {
       await sleep(0.5);
       expect(email.sendTxn).to.be.calledOnce;
       expect(email.sendTxn.args[0][1]).to.be.eql('slur-report-to-mods');
+
+      // Slack message to mods
+      expect(IncomingWebhook.prototype.send).to.be.calledOnce;
+      expect(IncomingWebhook.prototype.send).to.be.calledWith({
+        text: `${user.profile.name} (${user.id}) tried to post a slur`,
+        attachments: [{
+          fallback: 'Slur Message',
+          color: 'danger',
+          author_name: `${user.profile.name} - ${user.auth.local.email} - ${user._id}`,
+          title: 'Slur in Test Guild',
+          title_link: `${BASE_URL}/#/options/groups/guilds/${groupWithChat.id}`,
+          text: testSlurMessage,
+          // footer: sandbox.match(/<.*?groupId=group-id&chatId=chat-id\|Flag this message>/),
+          mrkdwn_in: [
+            'text',
+          ],
+        }],
+      });
 
       // Chat privileges are revoked
       await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
@@ -215,6 +238,24 @@ describe('POST /chat', () => {
       await sleep(0.5);
       expect(email.sendTxn).to.be.calledThrice;
       expect(email.sendTxn.args[2][1]).to.be.eql('slur-report-to-mods');
+
+      // Slack message to mods
+      expect(IncomingWebhook.prototype.send).to.be.calledOnce;
+      expect(IncomingWebhook.prototype.send).to.be.calledWith({
+        text: `${members[0].profile.name} (${members[0].id}) tried to post a slur`,
+        attachments: [{
+          fallback: 'Slur Message',
+          color: 'danger',
+          author_name: `${members[0].profile.name} - ${members[0].auth.local.email} - ${members[0]._id}`,
+          title: 'Slur in Party - (private party)',
+          title_link: undefined,
+          text: testSlurMessage,
+          // footer: sandbox.match(/<.*?groupId=group-id&chatId=chat-id\|Flag this message>/),
+          mrkdwn_in: [
+            'text',
+          ],
+        }],
+      });
 
       // Chat privileges are revoked
       await expect(members[0].post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({

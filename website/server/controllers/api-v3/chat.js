@@ -185,13 +185,18 @@ api.postChat = {
 
       sendTxn(FLAG_REPORT_EMAILS, 'slur-report-to-mods', report);
 
+      let authorName = `${user.profile.name} - ${authorEmail} - ${user._id}`;
+      let text = `${user.profile.name} (${user._id}) tried to post a slur`;
+
       // Slack the mods
-      // slack.sendSlurNotification({
-      //   authorEmail,
-      //   user,
-      //   group,
-      //   message,
-      // });
+      slack.sendSlurNotification({
+        authorEmail,
+        user,
+        group,
+        message,
+	authorName,
+	text
+      });
 
       throw new BadRequest(res.t('bannedSlurUsed'));
     }
