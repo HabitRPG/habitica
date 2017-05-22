@@ -1297,7 +1297,11 @@ api.ageDailies = {
     ageDailies(user, daysMissed, dailies);
 
     user.yesterDailies = [];
-    await user.save();
+    let toSave = [user.save()];
+    dailies.forEach(task => {
+      if (task.isModified()) toSave.push(task.save());
+    });
+    await Bluebird.all(toSave);
 
     let progress = user.party.quest.progress;
     let _progress = progress.toObject(); // clone the old progress object

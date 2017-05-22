@@ -289,6 +289,17 @@ export function ageDailies (user, daysMissed, dailies) {
         // setting between Trivial and Easy.
       }
     }
+
+    task.history.push({
+      date: Number(new Date()),
+      value: task.value,
+    });
+    task.completed = false;
+    task.isDue = common.shouldDo(Date.now(), task, user.preferences);
+
+    if (task.checklist) {
+      task.checklist.forEach(i => i.completed = false);
+    }
   });
 
   return {dailyCheckedAged, dailyDueUncheckedAged, atLeastOneDailyDueAged, perfectAged};
