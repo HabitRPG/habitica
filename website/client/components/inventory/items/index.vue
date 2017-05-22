@@ -136,7 +136,7 @@ export default {
 
         itemsArray.sort((a, b) => {
           if (this.sortBy === 'quantity') {
-            return b.itemQuantity - a.itemQuantity;
+            return b.quantity - a.quantity;
           } else { // AZ
             return a.data.text().localeCompare(b.data.text());
           }
