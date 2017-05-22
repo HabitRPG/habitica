@@ -9,9 +9,10 @@
     '$state',
     'User',
     '$rootScope',
+    'Tasks',
   ];
 
-  function taskList($state, User, $rootScope) {
+  function taskList($state, User, $rootScope, Tasks) {
     return {
       restrict: 'EA',
       templateUrl: 'templates/task-list.html',
@@ -24,6 +25,8 @@
       //  user: "=",
       // },
       link: function($scope, element, attrs) {
+        $scope.checklistCompletion = Tasks.checklistCompletion;
+
         // @TODO: The use of scope with tasks is incorrect. We need to fix all task ctrls to use directives/services
         // $scope.obj = {};
         function setObj (obj, force) {
