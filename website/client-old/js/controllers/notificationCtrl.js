@@ -25,7 +25,17 @@ habitrpg.controller('NotificationCtrl',
 
       $rootScope.openModal('yesterDailies', {
         scope: modalScope,
-        controller: ['$scope', 'Tasks', 'User', function ($scope, Tasks, User) {
+        controller: ['$scope', 'Tasks', 'User', '$rootScope', function ($scope, Tasks, User, $rootScope) {
+          $rootScope.$on('task:scored', function (event, data) {
+            let task = data.task;    console.log(task);
+            var indexOfTask = _.findIndex($scope.taskList, function (taskInList) {
+              return taskInList._id === task._id;
+            });
+
+            $scope.taskList[indexOfTask].completed = true;
+            console.log($scope.taskList[indexOfTask]);
+          });
+
           $scope.ageDailies = function () {
             Tasks.ageDailies()
               .then(function () {

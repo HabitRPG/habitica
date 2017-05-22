@@ -36,6 +36,7 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         },
       });
       Analytics.updateUser();
+      $rootScope.$broadcast('task:scored', {task: task});
     }
 
     $scope.score = function(task, direction) {
