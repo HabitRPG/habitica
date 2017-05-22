@@ -1,19 +1,21 @@
 <template lang="pug">
+div(v-if="emptyItem")
+  .item-wrapper
+    .item.item-empty
+      .item-content
+    span.item-label(v-if="label") {{ label }}
 b-popover(
+  v-else,
   :triggers="['hover']",
   :placement="popoverPosition",
-  v-if="showPopover",
+  @click="click",
 )
   span(slot="content")
     slot(name="popoverContent", :item="item")
 
   .item-wrapper
     .item
-      span.badge.badge-pill(
-        :class="{'item-selected-badge': selected === true}",
-        @click="click",
-        v-if="starVisible"
-      ) &#9733;
+      slot(name="itemBadge", :item="item")
       span.item-content(:class="itemContentClass")
     span.item-label(v-if="label") {{ label }}
 div(v-else)
@@ -39,18 +41,12 @@ export default {
     itemContentClass: {
       type: String,
     },
-    selected: {
-      type: Boolean,
-    },
-    starVisible: {
-      type: Boolean,
-    },
     label: {
       type: String,
     },
-    showPopover: {
+    emptyItem: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     popoverPosition: {
       type: String,

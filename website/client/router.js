@@ -11,8 +11,8 @@ import UserTasks from './components/userTasks';
 
 // Inventory
 import InventoryContainer from './components/inventory/index';
-import ItemsPage from './components/inventory/items';
-import EquipmentPage from './components/inventory/equipment';
+import ItemsPage from './components/inventory/items/index';
+import EquipmentPage from './components/inventory/equipment/index';
 import StablePage from './components/inventory/stable';
 
 // Social

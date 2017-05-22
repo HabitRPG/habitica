@@ -68,16 +68,18 @@
           :key="group",
           :item="flatGear[activeItems[group]]",
           :itemContentClass="flatGear[activeItems[group]] ? 'shop_' + flatGear[activeItems[group]].key : null",
-          :showPopover="!!flatGear[activeItems[group]] && flatGear[activeItems[group]].key.indexOf('_base_0') === -1",
+          :emptyItem="!flatGear[activeItems[group]] || flatGear[activeItems[group]].key.indexOf('_base_0') !== -1",
           :label="label",
-          :selected="true",
           :popoverPosition="'top'",
-          :starVisible="!costume || user.preferences.costume",
-          @click="equip",
         )
           template(slot="popoverContent", scope="ctx")
             equipmentAttributesPopover(:item="ctx.item")
-
+          template(slot="itemBadge", scope="ctx")
+            equipmentBadge(
+              :selected="true",
+              :show="!costume || user.preferences.costume",
+              @click="equip(ctx.item)",
+            )
     div(
       v-for="group in itemsGroups",
       v-if="viewOptions[group.key].selected",
@@ -94,12 +96,15 @@
           v-if="viewOptions[group.key].open || index < itemsPerLine",
           :item="item",
           :itemContentClass="'shop_' + item.key",
-          :showPopover="item && item.key.indexOf('_base_0') === -1",
+          :emptyItem="!item || item.key.indexOf('_base_0') !== -1",
           :key="item.key",
-          :selected="activeItems[item.type] === item.key",
-          :starVisible="!costume || user.preferences.costume",
-          @click="equip",
         )
+          template(slot="itemBadge", scope="ctx")
+            equipmentBadge(
+              :selected="activeItems[ctx.item.type] === ctx.item.key",
+              :show="!costume || user.preferences.costume",
+              @click="equip(ctx.item)",
+            )
           template(slot="popoverContent", scope="ctx")
             equipmentAttributesPopover(:item="ctx.item")
       div(v-if="items[group.key].length === 0")
@@ -128,15 +133,18 @@ import bPopover from 'bootstrap-vue/lib/components/popover';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 
 import Item from 'client/components/inventory/item';
-import EquipmentAttributesPopover from 'client/components/inventory/equipmentAttributesPopover';
+import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
+import EquipmentBadge from 'client/components/inventory/equipment/badge';
 import Drawer from 'client/components/inventory/drawer';
 
 import i18n from 'common/script/i18n';
 
 export default {
+  name: 'Equipment',
   components: {
     Item,
     EquipmentAttributesPopover,
+    EquipmentBadge,
     Drawer,
     bDropdown,
     bDropdownItem,

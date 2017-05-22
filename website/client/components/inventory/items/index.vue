@@ -41,13 +41,13 @@
           :item="item",
           :key="item.key",
           :itemContentClass="`Pet_${group.classPrefix}_${item.key}`"
-          :starVisible="true",
           :selected="true",
         )
           template(slot="popoverContent", scope="ctx") 
             h4.popover-content-title {{ ctx.item.text() }}
-            popover-content-text {{ ctx.item.notes() }}
-
+            .popover-content-text {{ ctx.item.notes() }}
+          template(slot="itemBadge", scope="ctx")
+            span.badge.badge-pill.badge-item.badge-quantity {{ quantity }}
       div(v-if="items[group.key].length === 0")
         p(v-once) {{ $t('noGearItemsOfType', { type: $t(group.key) }) }}
       a.btn.btn-show-more(
@@ -84,6 +84,7 @@ const groups = [
 });
 
 export default {
+  name: 'Items',
   components: {
     Item,
     bDropdown,
