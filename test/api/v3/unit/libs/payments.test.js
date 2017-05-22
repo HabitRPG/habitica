@@ -504,6 +504,18 @@ describe('payments/index', () => {
         expect(daysTillTermination).to.be.within(13, 15);
       });
 
+      it('terminates at next billing date even if dateUpdated is prior to now', async () => {
+        data.nextBill = moment().add({ days: 15 });
+        data.user.purchased.plan.dateUpdated = moment().subtract({ days: 10 });
+
+        await api.cancelSubscription(data);
+
+        let now = new Date();
+        let daysTillTermination = moment(user.purchased.plan.dateTerminated).diff(now, 'days');
+
+        expect(daysTillTermination).to.be.within(13, 15);
+      });
+
       it('resets plan.extraMonths', async () => {
         user.purchased.plan.extraMonths = 5;
 
