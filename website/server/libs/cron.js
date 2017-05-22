@@ -248,6 +248,7 @@ export function cron (options = {}) {
     let completed = task.completed;
     // Deduct points for missed Daily tasks
     let scheduleMisses = daysMissed;
+    let ageDaily = false;
 
     if (completed) {
       dailyChecked += 1;
@@ -258,6 +259,7 @@ export function cron (options = {}) {
     } else {
       // dailys repeat, so need to calculate how many they've missed according to their own schedule
       scheduleMisses = 0;
+      ageDaily = true;
 
       for (let i = 0; i < daysMissed; i++) {
         let thatDay = moment(now).subtract({days: i + 1});
@@ -282,7 +284,7 @@ export function cron (options = {}) {
     task.completed = false;
     task.isDue = common.shouldDo(Date.now(), task, user.preferences);
 
-    if (completed || scheduleMisses > 0) {
+    if (completed || ageDaily || scheduleMisses > 0) {
       if (task.checklist) {
         task.checklist.forEach(i => i.completed = false);
       }
