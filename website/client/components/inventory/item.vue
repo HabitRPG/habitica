@@ -18,12 +18,6 @@ b-popover(
       slot(name="itemBadge", :item="item")
       span.item-content(:class="itemContentClass")
     span.item-label(v-if="label") {{ label }}
-div(v-else)
-  .item-wrapper
-    .item.item-empty
-      .item-content
-    span.item-label(v-if="label") {{ label }}
-
 </template>
 
 <script>

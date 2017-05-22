@@ -40,7 +40,7 @@
           v-if="group.open || index < itemsPerLine",
           :item="item",
           :key="item.key",
-          :itemContentClass="`Pet_${group.classPrefix}_${item.key}`"
+          :itemContentClass="`${group.classPrefix}${item.key}`"
           :selected="true",
         )
           template(slot="popoverContent", scope="ctx") 
@@ -69,17 +69,21 @@ import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Item from 'client/components/inventory/item';
 
+const allowedSpecialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
+
 const groups = [
-  ['eggs', 'Egg'],
-  ['hatchingPotions', 'HatchingPotion'],
-  ['food', 'Food'],
-].map(([group, classPrefix]) => {
+  ['eggs', 'Pet_Egg_'],
+  ['hatchingPotions', 'Pet_HatchingPotion_'],
+  ['food', 'Pet_Food_'],
+  ['special', 'inventory_special_', allowedSpecialItems],
+].map(([group, classPrefix, allowedItems]) => {
   return {
     key: group,
     quantity: 0,
     selected: true,
     open: false,
     classPrefix,
+    allowedItems,
   };
 });
 
@@ -119,7 +123,7 @@ export default {
         const contentItems = this.content[groupKey];
 
         each(this.user.items[groupKey], (itemQuantity, itemKey) => {
-          if (itemQuantity > 0) {
+          if (itemQuantity > 0 && (!group.allowedItems || group.allowedItems.indexOf(itemKey) !== -1)) {
             const item = contentItems[itemKey];
 
             const isSearched = !searchText || item.text().toLowerCase().indexOf(searchText) !== -1;

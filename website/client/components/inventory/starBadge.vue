@@ -10,6 +10,7 @@ span.badge.badge-pill.badge-item.badge-star(
 @import '~client/assets/scss/colors.scss';
 
 .badge-star {
+  cursor: pointer;
   display: none;
   left: -9px;
   color: $gray-400;

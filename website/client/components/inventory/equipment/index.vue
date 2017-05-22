@@ -75,7 +75,7 @@
           template(slot="popoverContent", scope="ctx")
             equipmentAttributesPopover(:item="ctx.item")
           template(slot="itemBadge", scope="ctx")
-            equipmentBadge(
+            starBadge(
               :selected="true",
               :show="!costume || user.preferences.costume",
               @click="equip(ctx.item)",
@@ -100,7 +100,7 @@
           :key="item.key",
         )
           template(slot="itemBadge", scope="ctx")
-            equipmentBadge(
+            starBadge(
               :selected="activeItems[ctx.item.type] === ctx.item.key",
               :show="!costume || user.preferences.costume",
               @click="equip(ctx.item)",
@@ -134,7 +134,7 @@ import toggleSwitch from 'client/components/ui/toggleSwitch';
 
 import Item from 'client/components/inventory/item';
 import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
-import EquipmentBadge from 'client/components/inventory/equipment/badge';
+import StarBadge from 'client/components/inventory/starBadge';
 import Drawer from 'client/components/inventory/drawer';
 
 import i18n from 'common/script/i18n';
@@ -144,7 +144,7 @@ export default {
   components: {
     Item,
     EquipmentAttributesPopover,
-    EquipmentBadge,
+    StarBadge,
     Drawer,
     bDropdown,
     bDropdownItem,
