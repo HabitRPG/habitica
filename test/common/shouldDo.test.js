@@ -480,8 +480,20 @@ describe('shouldDo', () => {
 
   context('Every X Weeks', () => {
     it('leaves daily inactive if it has not been the specified number of weeks', () => {
+      dailyTask.repeat = {
+        su: false,
+        s: false,
+        f: false,
+        th: false,
+        w: false,
+        t: false,
+        m: false,
+      };
+
+      day = moment();
+      dailyTask.repeat[DAY_MAPPING[day.day()]] = true;
       dailyTask.everyX = 3;
-      let tomorrow = moment().add(1, 'day').toDate();
+      let tomorrow = day.add(2, 'weeks').day(day.day()).toDate();
 
       expect(shouldDo(tomorrow, dailyTask, options)).to.equal(false);
     });
