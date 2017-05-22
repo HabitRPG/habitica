@@ -110,7 +110,7 @@ habitrpg.controller('NotificationCtrl',
     // Avoid showing the same notiication more than once
     var lastShownNotifications = [];
 
-    function trasnferGroupNotification(notification) {
+    function transferGroupNotification(notification) {
       if (!User.user.groupNotifications) User.user.groupNotifications = [];
       User.user.groupNotifications.push(notification);
     }
@@ -142,6 +142,13 @@ habitrpg.controller('NotificationCtrl',
         var markAsRead = true;
 
         switch (notification.type) {
+          case 'GUILD_PROMPT':
+            if (notification.data.textVariant === -1) {
+              $rootScope.openModal('testing');
+            } else {
+              $rootScope.openModal('testingVariant');
+            }
+            break;
           case 'DROPS_ENABLED':
             $rootScope.openModal('dropsEnabled');
             break;
@@ -161,12 +168,19 @@ habitrpg.controller('NotificationCtrl',
             }
             break;
           case 'ULTIMATE_GEAR_ACHIEVEMENT':
+            $rootScope.playSound('Achievement_Unlocked');
             Achievement.displayAchievement('ultimateGear', {size: 'md'});
             break;
           case 'REBIRTH_ACHIEVEMENT':
+            $rootScope.playSound('Achievement_Unlocked');
             Achievement.displayAchievement('rebirth');
             break;
+          case 'GUILD_JOINED_ACHIEVEMENT':
+            $rootScope.playSound('Achievement_Unlocked');
+            Achievement.displayAchievement('joinedGuild', {size: 'md'});
+            break;
           case 'NEW_CONTRIBUTOR_LEVEL':
+            $rootScope.playSound('Achievement_Unlocked');
             Achievement.displayAchievement('contributor', {size: 'md'});
             break;
           case 'CRON':
@@ -176,11 +190,11 @@ habitrpg.controller('NotificationCtrl',
             }
             break;
           case 'GROUP_TASK_APPROVAL':
-            trasnferGroupNotification(notification);
+            transferGroupNotification(notification);
             markAsRead = false;
             break;
           case 'GROUP_TASK_APPROVED':
-            trasnferGroupNotification(notification);
+            transferGroupNotification(notification);
             markAsRead = false;
             break;
           case 'SCORED_TASK':

@@ -102,6 +102,11 @@ let basicAchievs = {
     titleKey: 'royallyLoyal',
     textKey: 'royallyLoyalText',
   },
+  joinedGuild: {
+    icon: 'achievement-guild',
+    titleKey: 'joinedGuild',
+    textKey: 'joinedGuildText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 

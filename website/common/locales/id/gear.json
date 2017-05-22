@@ -915,7 +915,7 @@
     "offhand": "perisai",
     "offhandCapitalized": "Shield-Hand Item",
     "shieldBase0Text": "Tidak Menggunakan Perisai",
-    "shieldBase0Notes": "Tidak menggunakan perisai maupun senjata kedua.",
+    "shieldBase0Notes": "No shield or shield-hand item.",
     "shieldWarrior1Text": "Perisai Kayu",
     "shieldWarrior1Notes": "Tameng kayu yang bundar dan tebal. Meningkatkan Ketahanan sebesar <%= con %>",
     "shieldWarrior2Text": "Sabuk",

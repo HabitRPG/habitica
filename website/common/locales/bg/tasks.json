@@ -140,9 +140,9 @@
     "counterPeriodDay": "Ден",
     "counterPeriodWeek": "Седмица",
     "counterPeriodMonth": "Месец",
-    "habitCounter": "Counter (Resets <%= frequency %>)",
-    "habitCounterUp": "Positive Counter (Resets <%= frequency %>)",
-    "habitCounterDown": "Negative Counter (Resets <%= frequency %>)",
+    "habitCounter": "Брояч (Нулира се <%= frequency %>)",
+    "habitCounterUp": "Положителен брояч (Нулира се <%= frequency %>)",
+    "habitCounterDown": "Отрицателен брояч (Нулира се <%= frequency %>)",
     "taskRequiresApproval": "Тази задача трябва да бъде одобрена, преди да я изпълните. Одобрението вече беше поискано.",
     "taskApprovalHasBeenRequested": "Одобрението беше поискано.",
     "approvals": "Одобрения",
@@ -167,5 +167,5 @@
     "taskNotes": "Бележки към задачата",
     "monthlyRepeatHelpContent": "Тази задача ще бъде подновявана на всеки Х месеца.",
     "yearlyRepeatHelpContent": "Тази задача ще бъде подновявана на всеки Х години.",
-    "resets": "Resets"
+    "resets": "Нулира се"
 }
