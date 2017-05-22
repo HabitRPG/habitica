@@ -281,7 +281,7 @@ export function ageDailies (user, daysMissed, dailies) {
 
       if (!CRON_SEMI_SAFE_MODE) {
         // Apply damage from a boss, less damage for Trivial priority (difficulty)
-        user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
+        if (delta) user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
         // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
         // initially, and when we realised, we could not fix it because users are used to
         // their Medium and Hard Dailies doing an Easy amount of damage from boss.

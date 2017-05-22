@@ -259,7 +259,6 @@ export function cron (options = {}) {
     } else {
       // dailys repeat, so need to calculate how many they've missed according to their own schedule
       scheduleMisses = 0;
-      ageDaily = true;
 
       for (let i = 0; i < daysMissed; i++) {
         let thatDay = moment(now).subtract({days: i + 1});
@@ -274,6 +273,7 @@ export function cron (options = {}) {
         }
 
         dailiesToAge.push(task);
+        ageDaily = true;
       }
     }
 

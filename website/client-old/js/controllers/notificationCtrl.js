@@ -4,16 +4,21 @@ habitrpg.controller('NotificationCtrl',
   ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement', 'Social', 'Tasks',
   function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement, Social, Tasks) {
 
+    $scope.yesterDailiesModalOpen = false;
     $rootScope.$watch('user.yesterDailies', function (after, before) {
-      if (!after || after.length === 0) return;
+      if (!after || after.length === 0 || $scope.yesterDailiesModalOpen) return;
 
       var yesterDailies = [];
       after.forEach(function (taskId) {
         var dailyFound = _.find(User.user.dailys, function (task) {
           return taskId === task._id;
         });
+
+        if (dailyFound.group.approval && dailyFound.group.approval.requested) return;
         if (dailyFound) yesterDailies.push(dailyFound);
       });
+
+      if (yesterDailies.length === 0) return;
 
       var modalScope = $rootScope.$new();
       modalScope.obj = User.user;
@@ -23,6 +28,7 @@ habitrpg.controller('NotificationCtrl',
         type: 'daily',
       };
 
+      $scope.yesterDailiesModalOpen = true;
       $rootScope.openModal('yesterDailies', {
         scope: modalScope,
         controller: ['$scope', 'Tasks', 'User', '$rootScope', function ($scope, Tasks, User, $rootScope) {
@@ -31,18 +37,21 @@ habitrpg.controller('NotificationCtrl',
             var indexOfTask = _.findIndex($scope.taskList, function (taskInList) {
               return taskInList._id === task._id;
             });
-
+            if (!$scope.taskList[indexOfTask]) return;
             $scope.taskList[indexOfTask].completed = true;
-            console.log($scope.taskList[indexOfTask]);
           });
 
           $scope.ageDailies = function () {
             Tasks.ageDailies()
               .then(function () {
+                $scope.yesterDailiesModalOpen = false;
                 User.sync();
               });
           };
         }],
+      })
+      .result.catch(function() {
+        $scope.yesterDailiesModalOpen = false;
       });
     });
 
