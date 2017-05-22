@@ -1299,6 +1299,10 @@ api.ageDailies = {
     user.yesterDailies = [];
     await user.save();
 
+    let progress = user.party.quest.progress;
+    let _progress = progress.toObject(); // clone the old progress object
+    await Group.processQuestProgress(user, _progress);
+
     res.respond(200, {});
   },
 };
