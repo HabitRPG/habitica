@@ -1,0 +1,16 @@
+extends ../static/layout
+
+block title
+  title Login
+
+block content
+  .row
+    .col-md-12
+      form(method='post', action='/api/v3/oauth/login')
+        .form-group
+          label(for='username')=env.t('username')
+          input#username.form-control(name='username', type='text', placeholder=env.t('username'))
+        .form-group
+          label(for='password')=env.t('password')
+          input#password.form-control(name='password', type='password', placeholder=env.t('password'))
+        button.btn.btn-default(type='submit')=env.t('submit')

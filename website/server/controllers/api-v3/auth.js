@@ -20,6 +20,7 @@ import { decrypt, encrypt } from '../../libs/encryption';
 import { send as sendEmail } from '../../libs/email';
 import pusher from '../../libs/pusher';
 import common from '../../../common';
+import { checkCredentials } from '../../libs/auth';
 
 const BASE_URL = nconf.get('BASE_URL');
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
@@ -225,44 +226,24 @@ api.loginLocal = {
     req.sanitizeBody('username').trim();
     req.sanitizeBody('password').trim();
 
-    let login;
     let username = req.body.username;
     let password = req.body.password;
 
-    if (validator.isEmail(username)) {
-      login = {'auth.local.email': username.toLowerCase()}; // Emails are stored lowercase
-    } else {
-      login = {'auth.local.username': username};
-    }
+    checkCredentials(username, password, (err, user) => {
+      if (err) {
+        throw new NotAuthorized('invalidLoginCredentials');
+      }
 
-    // load the entire user because we may have to save it to convert the password to bcrypt
-    let user = await User.findOne(login).exec();
+      res.analytics.track('login', {
+        category: 'behaviour',
+        type: 'local',
+        gaLabel: 'local',
+        uuid: user._id,
+        headers: req.headers,
+      });
 
-    let isValidPassword;
-
-    if (!user) {
-      isValidPassword = false;
-    } else {
-      isValidPassword = await passwordUtils.compare(user, password);
-    }
-
-    if (!isValidPassword) throw new NotAuthorized(res.t('invalidLoginCredentialsLong'));
-
-    // convert the hashed password to bcrypt from sha1
-    if (user.auth.local.passwordHashMethod === 'sha1') {
-      await passwordUtils.convertToBcrypt(user, password);
-      await user.save();
-    }
-
-    res.analytics.track('login', {
-      category: 'behaviour',
-      type: 'local',
-      gaLabel: 'local',
-      uuid: user._id,
-      headers: req.headers,
+      return _loginRes(user, req, res);
     });
-
-    return _loginRes(user, ...arguments);
   },
 };
 
