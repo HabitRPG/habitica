@@ -448,7 +448,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
   let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days', true) : defaultRemainingDays;
   if (plan.extraMonths < 0) plan.extraMonths = 0;
   let extraDays = Math.ceil(30.5 * plan.extraMonths);
-  let nowStr = `${now.format('MM')}/${moment(plan.dateUpdated).format('DD')}/${now.format('YYYY')}`;
+  let nowStr = `${now.format('MM')}/${now.format('DD')}/${now.format('YYYY')}`;
   let nowStrFormat = 'MM/DD/YYYY';
 
   plan.dateTerminated =
