@@ -131,6 +131,7 @@ export function shouldDo (day, dailyTask, options = {}) {
     let differenceInWeeks = moment(startOfDayWithCDSTime).week() - moment(startDate).week();
     let matchEveryX = differenceInWeeks % dailyTask.everyX === 0;
 
+    if (daysOfTheWeek.length === 0) return false;
     schedule = schedule.every(daysOfTheWeek).daysOfWeek();
 
     if (options.nextDue) {
