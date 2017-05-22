@@ -190,12 +190,12 @@ api.postChat = {
 
       // Slack the mods
       slack.sendSlurNotification({
-        authorEmail,
-        user,
+        // authorEmail,
+        // user,
         group,
         message,
-	authorName,
-	text
+        authorName,
+        text,
       });
 
       throw new BadRequest(res.t('bannedSlurUsed'));

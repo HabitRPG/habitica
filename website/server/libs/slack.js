@@ -95,12 +95,12 @@ module.exports = {
 };
 
 function sendSlurNotification ({
-  authorEmail,
-  author,
+  // authorEmail,
+  // author,
   group,
   message,
   authorName,
-  text
+  text,
 }) {
   if (!SLACK_FLAGGING_URL) {
     return;
