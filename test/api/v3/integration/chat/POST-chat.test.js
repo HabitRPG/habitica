@@ -190,6 +190,7 @@ describe('POST /chat', () => {
 
       // Slack message to mods
       expect(IncomingWebhook.prototype.send).to.be.calledOnce;
+      /* eslint-disable camelcase */
       expect(IncomingWebhook.prototype.send).to.be.calledWith({
         text: `${user.profile.name} (${user.id}) tried to post a slur`,
         attachments: [{
@@ -205,6 +206,7 @@ describe('POST /chat', () => {
           ],
         }],
       });
+      /* eslint-enable camelcase */
 
       // Chat privileges are revoked
       await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
@@ -241,6 +243,7 @@ describe('POST /chat', () => {
 
       // Slack message to mods
       expect(IncomingWebhook.prototype.send).to.be.calledOnce;
+      /* eslint-disable camelcase */
       expect(IncomingWebhook.prototype.send).to.be.calledWith({
         text: `${members[0].profile.name} (${members[0].id}) tried to post a slur`,
         attachments: [{
@@ -256,6 +259,7 @@ describe('POST /chat', () => {
           ],
         }],
       });
+      /* eslint-enable camelcase */
 
       // Chat privileges are revoked
       await expect(members[0].post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
