@@ -593,6 +593,7 @@ api.scoreTask = {
     let indexOfYesterday = user.yesterDailies.indexOf(task._id);
     if (indexOfYesterday !== -1) {
       user.yesterDailies.splice(indexOfYesterday, 1);
+      task.completed = false;
     }
 
     if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {

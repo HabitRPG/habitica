@@ -262,7 +262,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       });
     });
 
-    it('removes a daily if it is in the yesterdailies', async () => {
+    it('removes a daily if it is in the yesterdailies and keeps it set to incomplete', async () => {
       userWhoMissedDailies = await generateUser({});
       let missedDaily = await userWhoMissedDailies.post('/tasks/user', {
         text: 'test daily',
@@ -277,7 +277,9 @@ describe('POST /tasks/:id/score/:direction', () => {
 
       await userWhoMissedDailies.post(`/tasks/${missedDaily._id}/score/up`);
       await userWhoMissedDailies.sync();
+      let updatedMissedDaily = await userWhoMissedDailies.get(`/tasks/${missedDaily._id}`);
 
+      expect(updatedMissedDaily.completed).to.be.false;
       expect(userWhoMissedDailies.yesterDailies.length).to.eql(0);
     });
   });
