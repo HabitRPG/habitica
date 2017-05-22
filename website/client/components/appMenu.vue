@@ -7,10 +7,10 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
     ul.navbar-nav.mr-auto
       router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact) 
         a.nav-link(v-once) {{ $t('tasks') }}
-      router-link.nav-item.dropdown(tag="li", :to="{name: 'inventory'}", :class="{'active': $route.path.startsWith('/inventory')}")
+      router-link.nav-item.dropdown(tag="li", :to="{name: 'items'}", :class="{'active': $route.path.startsWith('/inventory')}")
         a.nav-link(v-once) {{ $t('inventory') }}
         .dropdown-menu
-          router-link.dropdown-item(:to="{name: 'inventory'}", exact) {{ $t('inventory') }}
+          router-link.dropdown-item(:to="{name: 'items'}", exact) {{ $t('items') }}
           router-link.dropdown-item(:to="{name: 'equipment'}") {{ $t('equipment') }}
           router-link.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
       router-link.nav-item(tag="li", :to="{name: 'market'}", exact) 
