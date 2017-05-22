@@ -510,7 +510,7 @@ describe('POST /tasks/user', () => {
       expect(task.weeksOfMonth).to.eql([3]);
       expect(new Date(task.startDate)).to.eql(now);
       expect(task.isDue).to.be.true;
-      expect(task.nextDue.length).to.eql(3);
+      expect(task.nextDue.length).to.eql(6);
     });
 
     it('creates multiple dailys', async () => {
