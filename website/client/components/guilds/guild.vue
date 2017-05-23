@@ -76,6 +76,8 @@
         button.btn.btn-purple Message Guild Leader
         br
         button.btn.btn-purple Donate Gems
+        br
+        button.btn.btn-primary.btn-purple(b-btn, @click="updateGuild") {{ $t('updateGuild') }}
     div
       h3(v-once) {{ $t('description') }}
       p {{ guild.description }}
@@ -258,6 +260,10 @@ export default {
     $route: 'fetchGuild',
   },
   methods: {
+    updateGuild () {
+      this.$store.state.editingGroup = this.guild;
+      this.$root.$emit('show::modal', 'guild-form');
+    },
     fetchGuild () {
       axios.get(`/api/v3/groups/${this.guildId}`).then(response => {
         this.guild = response.data.data;

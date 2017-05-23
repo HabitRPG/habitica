@@ -1,10 +1,15 @@
 <template lang="pug">
-  b-modal#modal1(:title="$t('createGuild')", :hide-footer="true")
+  b-modal#guild-form(:title="getTitle()", :hide-footer="true")
     form(@submit.stop.prevent="submit")
       .form-group
         label
           strong {{$t('name')}}*
         b-form-input(type="text", placeholder="Enter your name", v-model="newGuild.name")
+
+      .form-group(v-if='newGuild.id')
+        label
+          strong {{$t('guildLeader')}}*
+          b-form-select(v-model="newGuild.newLeader" :options="members")
 
       .form-group
         label
@@ -28,6 +33,11 @@
         div.description-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
         b-form-input(type="text", textarea :placeholder="$t('guildDescriptionPlaceHolder')", v-model="newGuild.description")
 
+      .form-group(v-if='newGuild.id')
+        label
+          strong {{$t('guildInformation')}}*
+        b-form-input(type="text", textarea :placeholder="$t('guildInformationPlaceHolder')", v-model="newGuild.guildInformation")
+
       .form-group(style='position: relative;')
         label
           strong {{$t('categories')}}*
@@ -49,7 +59,8 @@
         div.item-with-icon
           img(src="~assets/guilds/green-gem.svg")
           span.count 2
-        button.btn.btn-primary.btn-md(:disabled='!newGuild.name || !newGuild.description') {{ $t('createGuild') }}
+        button.btn.btn-primary.btn-md(v-if='!newGuild.id', :disabled='!newGuild.name || !newGuild.description') {{ $t('createGuild') }}
+        button.btn.btn-primary.btn-md(v-if='newGuild.id', :disabled='!newGuild.name || !newGuild.description') {{ $t('updateGuild') }}
         div.gem-description
           | {{ $t('guildGemCostInfo') }}
 </template>
@@ -160,15 +171,18 @@ export default {
   data () {
     let data = {
       newGuild: {
+        id: '',
         name: '',
         type: 'guild',
         privacy: 'private',
         description: '',
+        guildInformation: '',
         categories: [],
         onlyLeaderCreatesChallenges: true,
         guildLeaderCantBeMessaged: true,
         privateGuild: true,
         allowGuildInvationsFromNonMembers: true,
+        newLeader: '',
       },
       categoryOptions: [
         {
@@ -217,6 +231,7 @@ export default {
         },
       ],
       showCategorySelect: false,
+      members: ['one', 'two'],
     };
 
     let hashedCategories = {};
@@ -227,17 +242,33 @@ export default {
 
     return data;
   },
+  mounted () {
+    let vm = this;
+    this.$root.$on('shown::modal', () => {
+      let editingGroup = vm.$store.state.editingGroup;
+      if (!editingGroup) return;
+      vm.newGuild.name = editingGroup.name;
+      vm.newGuild.type = editingGroup.type;
+      vm.newGuild.privacy = editingGroup.privacy;
+      if (editingGroup.description) vm.newGuild.description = editingGroup.description;
+      vm.newGuild.id = editingGroup._id;
+    });
+  },
   computed: {
     charactersRemaining () {
       return 500 - this.newGuild.description.length;
     },
   },
   methods: {
+    getTitle () {
+      if (!this.newGuild.id) return this.$t('createGuild');
+      return this.$t('updateGuild');
+    },
     toggleCategorySelect () {
       this.showCategorySelect = !this.showCategorySelect;
     },
     async submit () {
-      if (this.$store.state.user.data.balance < 1) {
+      if (this.$store.state.user.data.balance < 1 && !this.newGuild.id) {
         alert('Not enough gems');
         return;
         // return $rootScope.openModal('buyGems', {track:"Gems > Create Group"});
@@ -266,7 +297,13 @@ export default {
         };
       }
 
-      await this.$store.dispatch('guilds:create', {group: this.newGuild});
+      if (this.newGuild.id) {
+        await this.$store.dispatch('guilds:update', {group: this.newGuild});
+      } else {
+        await this.$store.dispatch('guilds:create', {group: this.newGuild});
+      }
+
+      this.$store.state.editingGroup = {};
 
       this.newGuild = {
         name: '',
