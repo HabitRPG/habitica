@@ -1,10 +1,10 @@
 <template lang="pug">
 div
-  h4.popover-content-title(v-once) {{ item.text() }}
-  .popover-content-text(v-once) {{ item.notes() }}
+  h4.popover-content-title {{ item.text() }}
+  .popover-content-text {{ item.notes() }}
   .popover-content-attr(v-for="attr in ATTRIBUTES", :key="attr", v-once)
-    span.popover-content-attr-key(v-once) {{ `${$t(attr)}: ` }}
-    span.popover-content-attr-val(v-once) {{ `+${item[attr]}` }}
+    span.popover-content-attr-key {{ `${$t(attr)}: ` }}
+    span.popover-content-attr-val {{ `+${item[attr]}` }}
 </template>
 
 <script>
