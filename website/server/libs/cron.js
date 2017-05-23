@@ -329,11 +329,11 @@ export function cron (options = {}) {
     if (resetWeekly === true && resetMonthly === true) {
       break;
     }
-    let thatDay = moment(now).subtract({days: i}).toDate();
-    if (thatDay.getDay() === 1) {
+    let thatDay = moment(now).utcOffset(user.preferences.timezoneOffset).subtract({days: i});
+    if (thatDay.day() === 1) {
       resetWeekly = true;
     }
-    if (thatDay.getDate() === 1) {
+    if (thatDay.date() === 1) {
       resetMonthly = true;
     }
   }
