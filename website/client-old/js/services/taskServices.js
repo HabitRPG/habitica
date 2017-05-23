@@ -395,7 +395,7 @@ angular.module('habitrpg')
       var nextDueDates = Shared.shouldDo(new Date, task, options);
       if (!nextDueDates) return '';
 
-      let dateFormat = 'MM-DD-YYYY';
+      var dateFormat = 'MM-DD-YYYY';
       if (user.preferences.dateFormat) dateFormat = user.preferences.dateFormat.toUpperCase();
 
       var nextDue = nextDueDates.map(function (date) {
