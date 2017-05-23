@@ -140,9 +140,9 @@
     "counterPeriodDay": "天",
     "counterPeriodWeek": "周",
     "counterPeriodMonth": "月",
-    "habitCounter": "计数",
-    "habitCounterUp": "积极计数",
-    "habitCounterDown": "消极计数",
+    "habitCounter": "Counter (Resets <%= frequency %>)",
+    "habitCounterUp": "Positive Counter (Resets <%= frequency %>)",
+    "habitCounterDown": "Negative Counter (Resets <%= frequency %>)",
     "taskRequiresApproval": "这项任务必须在你能完成它之前得到批准。已请求批准",
     "taskApprovalHasBeenRequested": "请求已被批准",
     "approvals": "许可",
@@ -166,5 +166,6 @@
     "groupTasksByChallenge": "将小组按挑战的标题归类",
     "taskNotes": "任务笔记",
     "monthlyRepeatHelpContent": "这个任务会每隔X月重复",
-    "yearlyRepeatHelpContent": "这个任务会每隔X年重复"
+    "yearlyRepeatHelpContent": "这个任务会每隔X年重复",
+    "resets": "Resets"
 }

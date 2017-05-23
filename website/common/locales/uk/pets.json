@@ -1,4 +1,5 @@
 {
+    "stable": "Stable",
     "pets": "Улюбленці",
     "activePet": "Active Pet",
     "noActivePet": "No Active Pet",
@@ -42,6 +43,7 @@
     "food": "Їжа та сідла",
     "noFood": "У Вас немає жодної їжі чи сідла.",
     "dropsExplanation": "Get these items faster with Gems if you don't want to wait for them to drop when completing a task. <a href=\"http://habitica.wikia.com/wiki/Drops\">Learn more about the drop system.</a>",
+    "dropsExplanationEggs": "Spend Gems to get eggs more quickly, if you don't want to wait for standard eggs to drop, or to repeat Quests to earn Quest eggs. <a href=\"http://habitica.wikia.com/wiki/Drops\">Learn more about the drop system.</a>",
     "premiumPotionNoDropExplanation": "Magic Hatching Potions cannot be used on eggs received from Quests. The only way to get Magic Hatching Potions is by buying them below, not from random drops.",
     "beastMasterProgress": "Прогрес Володару Звірів",
     "stableBeastMasterProgress": "Beast Master Progress: <%= number %> Pets Found",

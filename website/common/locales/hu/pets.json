@@ -1,4 +1,5 @@
 {
+    "stable": "Stable",
     "pets": "Háziállatok",
     "activePet": "Aktív háziállat",
     "noActivePet": "Nincs aktív háziállat",
@@ -25,7 +26,7 @@
     "royalPurpleGryphon": "Fenséges lila griffmadár",
     "phoenix": "Főnix",
     "magicalBee": "Mágikus Méh",
-    "royalPurpleJackalope": "Royal Purple Jackalope",
+    "royalPurpleJackalope": "Fenséges lila szarvasnyúl",
     "rarePetPop1": "Kattints az arany mancsra, hogy megtudd hogyan tudod megszerezni ezt a ritka háziállatot úgy, hogy közreműködsz a Habitica-nak.",
     "rarePetPop2": "Hogyan szerezheted meg ezt a háziállatot!",
     "potion": "<%= potionType %> főzet",
@@ -42,6 +43,7 @@
     "food": "Ételek és nyergek",
     "noFood": "Nincs ételed vagy nyerged.",
     "dropsExplanation": "Szerezd meg ezeket a dolgokat drágakövekért, ha nem akarod megvárni, hogy az elvégzett feladataidért kapj ilyeneket. <a href=\"http://habitica.wikia.com/wiki/Drops\">További információ a jutalmazási rendszerről.</a>",
+    "dropsExplanationEggs": "Spend Gems to get eggs more quickly, if you don't want to wait for standard eggs to drop, or to repeat Quests to earn Quest eggs. <a href=\"http://habitica.wikia.com/wiki/Drops\">Learn more about the drop system.</a>",
     "premiumPotionNoDropExplanation": "A mágikus keltetőfőzetek nem használhatóak a küldetések során szerzett tojásokon. Az egyetlen módja, hogy Mágikus keltetőfőzetet szerez, ha megvásárolod őket.",
     "beastMasterProgress": "Bestiamester Haladás",
     "stableBeastMasterProgress": "Bestiamester haladás: <%= number %> megtalált háziállat",

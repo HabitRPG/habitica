@@ -105,5 +105,7 @@
     "spring2017FloralMouseSet": "Kwiecista Mysz (Uzdrowiciel)",
     "spring2017SneakyBunnySet": "Przebiegły Królik (Łotrzyk)",
     "eventAvailability": "Dostępny w sprzedaży do <%= date(locale) %>.",
-    "dateEndApril": "19 kwietnia"
+    "dateEndApril": "19 kwietnia",
+    "dateEndMay": "17 Maja",
+    "discountBundle": "bundle"
 }

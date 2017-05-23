@@ -1,0 +1,29 @@
+.badge {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.33;
+  color: $gray-200;
+  padding: 4px 8px;
+  box-shadow: 0 1px 1px 0 rgba($black, 0.12);
+}
+
+.badge-pill {
+  border-radius: 100px;
+}
+
+.badge-default {
+  background: $gray-500;
+  box-shadow: none;
+}
+
+.badge-item {
+  position: absolute;
+  top: -9px;
+}
+
+.badge-quantity {
+  color: $white;
+  right: -9px;
+  padding: 4.5px 8.5px;
+  background-color: $orange-100;
+}

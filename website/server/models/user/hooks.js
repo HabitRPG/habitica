@@ -10,7 +10,7 @@ import schema from './schema';
 schema.plugin(baseModel, {
   // noSet is not used as updating uses a whitelist and creating only accepts specific params (password, email, username, ...)
   noSet: [],
-  private: ['auth.local.hashed_password', 'auth.local.passwordHashMethod', 'auth.local.salt', '_cronSignature', '_ABtest', '_ABtests'],
+  private: ['auth.local.hashed_password', 'auth.local.passwordHashMethod', 'auth.local.salt', '_cronSignature', '_ABtests'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
     delete plainObj.filters;
@@ -31,10 +31,16 @@ function findTag (user, tagName) {
 }
 
 function _populateDefaultTasks (user, taskTypes) {
+  let defaultsData;
+  if (user.registeredThrough === 'habitica-android' || user.registeredThrough === 'habitica-ios') {
+    defaultsData = shared.content.userDefaultsMobile;
+  } else {
+    defaultsData = shared.content.userDefaults;
+  }
   let tagsI = taskTypes.indexOf('tag');
 
   if (tagsI !== -1) {
-    user.tags = _.map(shared.content.userDefaults.tags, (tag) => {
+    user.tags = _.map(defaultsData.tags, (tag) => {
       let newTag = _.cloneDeep(tag);
 
       // tasks automatically get _id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
@@ -53,7 +59,7 @@ function _populateDefaultTasks (user, taskTypes) {
   }
 
   _.each(taskTypes, (taskType) => {
-    let tasksOfType = _.map(shared.content.userDefaults[`${taskType}s`], (taskDefaults) => {
+    let tasksOfType = _.map(defaultsData[`${taskType}s`], (taskDefaults) => {
       let newTask = new Tasks[taskType](taskDefaults);
 
       newTask.userId = user._id;
@@ -88,30 +94,47 @@ function _setUpNewUser (user) {
   let taskTypes;
   let iterableFlags = user.flags.toObject();
 
-  user._ABtest = '';
-  // A/B test 2016-12-21: Should we deliver notifications for upcoming incentives on days when users don't receive rewards?
-  if (Math.random() < 0.5) {
-    user._ABtests.checkInModals = '20161221_noCheckInPreviews'; // no 'preview' check-in modals
+  // A/B test 2017-05-11: Can we encourage people to join Guilds with a pester modal?
+  let testGroup = Math.random();
+  if (testGroup < 0.1) {
+    user._ABtests.guildReminder = '20170511_noGuildReminder'; // control group, don't pester about Guilds
+    user._ABtests.counter = -1;
+  } else if (testGroup < 0.235) {
+    user._ABtests.guildReminder = '20170511_text1timing1'; // first sample text, show after two clicks
+    user._ABtests.counter = 0;
+  } else if (testGroup < 0.46) {
+    user._ABtests.guildReminder = '20170511_text2timing1'; // second sample text, show after two clicks
+    user._ABtests.counter = 0;
+  } else if (testGroup < 0.685) {
+    user._ABtests.guildReminder = '20170511_text1timing2'; // first sample text, show after five clicks
+    user._ABtests.counter = 0;
   } else {
-    user._ABtests.checkInModals = '20161221_showCheckInPreviews'; // show 'preview' check-in modals
+    user._ABtests.guildReminder = '20170511_text2timing2'; // second sample text, show after five clicks
+    user._ABtests.counter = 0;
   }
+
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
 
-  if (user.registeredThrough === 'habitica-web' || user.registeredThrough === 'habitica-android') {
+  if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
 
     _.each(iterableFlags.tutorial.common, (val, section) => {
       user.flags.tutorial.common[section] = true;
     });
   } else {
-    taskTypes = ['todo', 'tag'];
     user.flags.showTour = false;
 
     _.each(iterableFlags.tour, (val, section) => {
       user.flags.tour[section] = -2;
     });
+
+    if (user.registeredThrough === 'habitica-android' || user.registeredThrough === 'habitica-ios') {
+      taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
+    } else {
+      taskTypes = ['todo', 'tag'];
+    }
   }
 
   return _populateDefaultTasks(user, taskTypes);
