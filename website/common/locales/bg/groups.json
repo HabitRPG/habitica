@@ -280,6 +280,6 @@
     "canOnlyApproveTaskOnce": "Тази задача е вече одобрена.",
     "leaderMarker": "— Водач",
     "managerMarker": "— Управител",
-    "joinedGuild": "Joined a Guild",
-    "joinedGuildText": "Ventured into the social side of Habitica by joining a Guild!"
+    "joinedGuild": "Присъединил(а) се към гилдия",
+    "joinedGuildText": "Потопил(а) се в обществената част на Хабитика чрез присъединяване към гилдия!"
 }
