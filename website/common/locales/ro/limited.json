@@ -105,5 +105,7 @@
     "spring2017FloralMouseSet": "Floral Mouse (Healer)",
     "spring2017SneakyBunnySet": "Sneaky Bunny (Rogue)",
     "eventAvailability": "Available for purchase until <%= date(locale) %>.",
-    "dateEndApril": "April 19"
+    "dateEndApril": "April 19",
+    "dateEndMay": "May 17",
+    "discountBundle": "bundle"
 }

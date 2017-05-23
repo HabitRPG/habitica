@@ -9,6 +9,8 @@ import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';
+import forEach from 'lodash/forEach';
+import moment from 'moment';
 
 describe('shared.ops.purchase', () => {
   const SEASONAL_FOOD = 'Meat';
@@ -199,6 +201,29 @@ describe('shared.ops.purchase', () => {
       purchase(user, {params: {type, key}});
 
       expect(user.items.gear.owned[key]).to.be.true;
+    });
+
+    it('purchases quest bundles', () => {
+      let startingBalance = user.balance;
+      let clock = sandbox.useFakeTimers(moment('2017-05-20').valueOf());
+      let type = 'bundles';
+      let key = 'featheredFriends';
+      let price = 1.75;
+      let questList = [
+        'falcon',
+        'harpy',
+        'owl',
+      ];
+
+      purchase(user, {params: {type, key}});
+
+      forEach(questList, (bundledKey) => {
+        expect(user.items.quests[bundledKey]).to.equal(1);
+      });
+
+      expect(user.balance).to.equal(startingBalance - price);
+
+      clock.restore();
     });
   });
 });

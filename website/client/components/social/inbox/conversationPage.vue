@@ -1,7 +1,7 @@
 <template lang="pug">
 .row
   .col-12
-    h2 Conversation
+    h1.page-header Conversation
     .card(v-for="message in messages")
       .card-block
         strong {{message.from}}

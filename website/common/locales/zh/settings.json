@@ -26,6 +26,7 @@
     "showBaileyPop": "显示传令员Bailey以查看过往新闻。",
     "fixVal": "修复角色数值",
     "fixValPop": "手动修改诸如生命值，等级和金币等数值。",
+    "invalidLevel": "Invalid value: Level must be 1 or greater.",
     "enableClass": "开启职业系统",
     "enableClassPop": "你当初放弃了任务系统，希望现在开启吗？",
     "classTourPop": "显示如何使用职业系统的教程。",
