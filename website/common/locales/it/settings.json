@@ -62,7 +62,7 @@
     "confirmPass": "Conferma la nuova password",
     "newUsername": "Nuovo nome utente",
     "dangerZone": "Zona pericolosa",
-    "resetText1": "ATTENZIONE! Questo resetterà diversi aspetti del tuo account. E' altamente sconsigliato, ma qualcuno trova questa opzione utile all'inizio, dopo aver provato il sito per un po' di tempo.",
+    "resetText1": "ATTENZIONE! Questo resetterà diversi aspetti del tuo account. È altamente sconsigliato, ma qualcuno trova questa opzione utile all'inizio, dopo aver provato il sito per un po' di tempo.",
     "resetText2": "Perderai tutti i tuoi livelli, l'oro e i punti esperienza. Tutte le tue attività (eccetto quelle delle sfide) verranno cancellate in modo permanente, insieme alla loro cronologia dei progressi. Perderai inoltre tutto il tuo equipaggiamento, ma potrai recuperare ogni cosa, compresi gli oggetti in edizione limitata e gli Oggetti Misteriosi che già possiedi (alcuni oggetti potrebbero richiedere l'appartenenza ad una determinata classe per essere acquistati). Manterrai la tua classe, i tuoi animali e le cavalcature. Potresti forse preferire la Sfera della Rinascita, un'alternativa molto più sicura che ti permette di tenere le tue attività e il tuo equipaggiamento.",
     "deleteLocalAccountText": "Sei sicuro? Questo cancellerà per sempre il tuo profilo, e non potrà mai essere ripristinato! dovrai registrarti con un nuovo profilo per usare ancora Habitica. Gemme provenienti risparmiate spes.ei non saranno rimborsat.ei. Se siete assolutamente certi, digitate la password nella casella di testo sottostante.",
     "API": "API",

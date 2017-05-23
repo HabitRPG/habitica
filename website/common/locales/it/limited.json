@@ -13,7 +13,7 @@
     "valentineCard": "Biglietto di San Valentino",
     "valentineCardExplanation": "Per aver condiviso la dolcezza di questo poema, ricevete entrambi la medaglia \"Amici Inseparabili\"!",
     "valentineCardNotes": "Manda un biglietto di San Valentino a un membro della squadra.",
-    "valentine0": "\"Le rose sono rosse\n\nLe mie Daily sono blu\n\nE' bello esser in squadra\n\nPerchè qui ci sei anche tu!\"",
+    "valentine0": "\"Le rose sono rosse\n\nLe mie Daily sono blu\n\nÈ bello esser in squadra\n\nPerchè qui ci sei anche tu!\"",
     "valentine1": "\"Le rose sono rosse\n\nLa neve è così bella\n\nVieni insieme a me\n\nE sconfiggiamo la Viverna!\"",
     "valentine2": "\"Le rose sono rosse\n\nQuesto poema è un capolavoro\n\nSpero tanto che ti piaccia\n\nPerchè costa dieci d'oro.\"",
     "valentine3": "\"Le rose sono rosse\n\nLe Ricompense una delizia\n\nMa nessun tesoro è meglio\n\nDella tua amicizia!\"",
@@ -107,5 +107,6 @@
     "eventAvailability": "Disponibile fino al <%= date(locale) %>.",
     "dateEndApril": "19 aprile",
     "dateEndMay": "17 maggio",
+    "dateEndJune": "June 14",
     "discountBundle": "pacchetto"
 }

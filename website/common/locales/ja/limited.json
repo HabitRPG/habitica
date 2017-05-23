@@ -107,5 +107,6 @@
     "eventAvailability": "<%= date(locale) %>まで購入できます。",
     "dateEndApril": "4月19日",
     "dateEndMay": "5月17日",
+    "dateEndJune": "June 14",
     "discountBundle": "bundle"
 }
