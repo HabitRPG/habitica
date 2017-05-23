@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#guild-form(:title="getTitle()", :hide-footer="true")
+  b-modal#guild-form(:title="title", :hide-footer="true")
     form(@submit.stop.prevent="submit")
       .form-group
         label
@@ -66,6 +66,8 @@
 </template>
 
 <style lang="scss" scoped>
+  @import '~client/assets/scss/colors.scss';
+
   textarea {
     height: 150px;
   }
@@ -74,7 +76,7 @@
     font-size: 12px;
     line-height: 1.33;
     text-align: center;
-    color: #878190;
+    color: $gray-200;
   }
 
   .description-count {
@@ -99,7 +101,7 @@
   .category-label {
     min-width: 100px;
     border-radius: 100px;
-    background-color: #edecee;
+    background-color: $gray-600;
     padding: .5em;
     display: inline-block;
     margin-right: .5em;
@@ -107,7 +109,7 @@
     font-weight: 500;
     line-height: 1.33;
     text-align: center;
-    color: #a5a1ac;
+    color: $gray-300;
   }
 
   .item-with-icon {
@@ -122,7 +124,7 @@
       font-size: 14px;
       font-weight: bold;
       margin-right: 1em;
-      color: #24cc8f;
+      color: $green-10;
     }
   }
 
@@ -258,12 +260,12 @@ export default {
     charactersRemaining () {
       return 500 - this.newGuild.description.length;
     },
-  },
-  methods: {
-    getTitle () {
+    title () {
       if (!this.newGuild.id) return this.$t('createGuild');
       return this.$t('updateGuild');
     },
+  },
+  methods: {
     toggleCategorySelect () {
       this.showCategorySelect = !this.showCategorySelect;
     },

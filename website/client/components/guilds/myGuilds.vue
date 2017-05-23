@@ -13,7 +13,7 @@
   .col-10(v-if='filteredGuilds.length > 0')
     .row
       .col-md-12
-        h2.float-left(v-once) {{ $t('myGuilds') }}
+        h1.page-header.float-left(v-once) {{ $t('myGuilds') }}
         b-form-select.float-right.sort-select(v-model='sort', :options='sortOptions')
     .row
       .col-md-12
@@ -37,14 +37,6 @@
   color: #878190;
   margin-top: 15em;
 
-  h2 {
-    font-size: 20px;
-    font-weight: bold;
-    font-stretch: condensed;
-    line-height: 1.2;
-    color: #878190;
-  }
-
   p {
     font-size: 14px;
     line-height: 1.43;
@@ -58,11 +50,14 @@
 </style>
 
 <script>
+import { mapState } from 'client/libs/store';
+import groupUtilities from 'client/mixins/groupsUtilities';
+
 import MugenScroll from 'vue-mugen-scroll';
+import bFormSelect from 'bootstrap-vue/lib/components/form-select';
+
 import PublicGuildItem from './publicGuildItem';
 import Sidebar from './sidebar';
-import groupUtilities from 'client/mixins/groupsUtilities';
-import bFormSelect from 'bootstrap-vue/lib/components/form-select';
 
 export default {
   mixins: [groupUtilities],
@@ -95,9 +90,9 @@ export default {
     this.fetchGuilds();
   },
   computed: {
-    guilds () {
-      return this.$store.state.myGuilds;
-    },
+    ...mapState({
+      guilds: 'myGuilds',
+    }),
     filteredGuilds () {
       let search = this.search;
       let filters = this.filters;

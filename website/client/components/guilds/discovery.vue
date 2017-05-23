@@ -1,11 +1,11 @@
 <template lang="pug">
 .row
-  sidebar(v-on:search="updateSearch", v-on:filter="updateFilters")
+  sidebar(@:search="updateSearch", @:filter="updateFilters")
 
   .col-10
     .row
       .col-md-12
-        h2.float-left(v-once) {{ $t('publicGuilds') }}
+        h1.page-header.float-left(v-once) {{ $t('publicGuilds') }}
         b-form-select.float-right.sort-select(v-model='sort', :options='sortOptions')
     .row
       .col-md-12
@@ -22,17 +22,6 @@
 <style>
 .sort-select {
   margin: 2em;
-}
-
-h2 {
-  height: 40px;
-  font-size: 24px;
-  font-weight: bold;
-  font-stretch: condensed;
-  line-height: 1.67;
-  color: #4f2a93;
-  margin-top: 1em;
-  margin-bottom: 1em;
 }
 </style>
 

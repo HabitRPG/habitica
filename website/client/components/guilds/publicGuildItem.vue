@@ -63,18 +63,6 @@
       color: #a5a1ac;
     }
 
-    .btn-success {
-      border-radius: 2px;
-      background-color: #24cc8f;
-      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
-      font-size: 16px;
-      font-weight: bold;
-      font-stretch: condensed;
-      line-height: 1.5;
-      text-align: center;
-      color: #ffffff;
-    }
-
     .cta-container {
       margin: 0 auto;
       margin-top: 4em;

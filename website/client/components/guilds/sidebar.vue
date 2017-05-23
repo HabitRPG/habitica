@@ -1,5 +1,5 @@
 <template lang="pug">
-.col-2.side-bar
+.col-2.standard-sidebar
   .form-group
     input.form-control.search(type="text", :placeholder="$t('search')", v-model='searchTerm')
 
@@ -37,41 +37,9 @@
           span.custom-control-description(v-once) {{ $t(group.label) }}
 </template>
 
-<style lang="scss" scoped>
-  .side-bar {
-    background-color: #edecee;
-    padding: 2em;
-
-    h3 {
-      margin-bottom: 1em;
-      margin-top: 1em;
-    }
-
-    .search {
-      border-radius: 2px;
-      background-color: #ffffff;
-      border: solid 1px #c3c0c7;
-      height: 40px;
-    }
-
-    [type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      border-radius: 2px;
-      border: solid 2px #878190;
-    }
-
-    .label span {
-      font-size: 14px;
-      line-height: 1.43;
-      color: #4e4a57;
-      font-weight: 500;
-      padding-left: .5em;
-    }
-  }
-</style>
-
 <script>
+import throttle from 'lodash/throttle';
+
 export default {
   data () {
     return {
@@ -165,11 +133,11 @@ export default {
     guildSizeFilters: function guildSizeFilters () {
       this.emitFilters();
     },
-    searchTerm: function searchTerm (newSearch) {
+    searchTerm: throttle(function searchTerm (newSearch) {
       this.$emit('search', {
         searchTerm: newSearch,
       });
-    },
+    }, 250),
   },
   methods: {
     emitFilters () {
