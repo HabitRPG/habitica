@@ -247,8 +247,7 @@ export function cron (options = {}) {
   tasksByType.dailys.forEach((task) => {
     let completed = task.completed;
     // Deduct points for missed Daily tasks
-    let scheduleMisses = daysMissed;
-    let ageDaily = false;
+    // let scheduleMisses = daysMissed;
 
     if (completed) {
       dailyChecked += 1;
@@ -256,9 +255,13 @@ export function cron (options = {}) {
         let thatDay = moment(now).subtract({days: daysMissed});
         atLeastOneDailyDue = shouldDo(thatDay.toDate(), task, user.preferences);
       }
+
+      if (task.checklist) {
+        task.checklist.forEach(i => i.completed = false);
+      }
     } else {
       // dailys repeat, so need to calculate how many they've missed according to their own schedule
-      scheduleMisses = 0;
+      // scheduleMisses = 0;
 
       for (let i = 0; i < daysMissed; i++) {
         let thatDay = moment(now).subtract({days: i + 1});
@@ -273,7 +276,6 @@ export function cron (options = {}) {
         }
 
         dailiesToAge.push(task);
-        ageDaily = true;
       }
     }
 
@@ -283,19 +285,12 @@ export function cron (options = {}) {
     });
     task.completed = false;
     task.isDue = common.shouldDo(Date.now(), task, user.preferences);
-
-    if (completed || ageDaily || scheduleMisses > 0) {
-      if (task.checklist) {
-        task.checklist.forEach(i => i.completed = false);
-      }
-    }
   });
 
   let {dailyCheckedAged, dailyDueUncheckedAged, atLeastOneDailyDueAged, perfectAged} = ageDailies(user, daysMissed, dailiesToAge);
   dailyChecked += dailyCheckedAged;
   dailyDueUnchecked += dailyDueUncheckedAged;
   if (!atLeastOneDailyDue) atLeastOneDailyDue = atLeastOneDailyDueAged;
-
   if (perfect) perfect = perfectAged;
 
   // check if we've passed a day on which we should reset the habit counters, including today

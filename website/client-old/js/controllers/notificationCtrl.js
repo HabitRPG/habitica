@@ -33,7 +33,7 @@ habitrpg.controller('NotificationCtrl',
         scope: modalScope,
         controller: ['$scope', 'Tasks', 'User', '$rootScope', function ($scope, Tasks, User, $rootScope) {
           $rootScope.$on('task:scored', function (event, data) {
-            let task = data.task;    console.log(task);
+            var task = data.task;    console.log(task);
             var indexOfTask = _.findIndex($scope.taskList, function (taskInList) {
               return taskInList._id === task._id;
             });

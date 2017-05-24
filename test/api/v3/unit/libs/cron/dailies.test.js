@@ -113,6 +113,7 @@ describe('dailys', () => {
 
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.yesterDailies[0]).to.eql(tasksByType.dailys[1]._id);
+      tasksByType.dailys.pop();
     });
 
     it('should not damage the user', () => {
@@ -170,6 +171,7 @@ describe('dailys', () => {
     it('should do less damage for missing a daily with partial completion', () => {
       daysMissed = 1;
       let hpBefore = user.stats.hp;
+
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
       cron({user, tasksByType, daysMissed, analytics});
       let hpDifferenceOfFullyIncompleteDaily = hpBefore - user.stats.hp;
