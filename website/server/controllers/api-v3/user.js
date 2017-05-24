@@ -14,6 +14,13 @@ import { model as User } from '../../models/user';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/password';
+import {
+  getUserInfo,
+  sendTxn as txnEmail,
+} from '../../libs/email';
+import nconf from 'nconf';
+
+const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 
 /**
  * @apiDefine UserNotFound
@@ -252,6 +259,7 @@ api.updateUser = {
  * @apiGroup User
  *
  * @apiParam {String} password The user's password if the account uses local authentication
+ * @apiParam {String} feedback User's optional feedback explaining reasons for deletion
  *
  * @apiSuccess {Object} data An empty Object
  *
@@ -262,6 +270,7 @@ api.updateUser = {
  * }
  *
  * @apiError {BadRequest} MissingPassword The password was not included in the request
+ * @apiError {BadRequest} LengthExceeded The feedback provided is longer than 10K
  * @apiError {BadRequest} NotAuthorized There is no account that uses those credentials.
  *
  * @apiErrorExample {json}
@@ -286,16 +295,15 @@ api.deleteUser = {
     let user = res.locals.user;
     let plan = user.purchased.plan;
 
-    req.checkBody({
-      password: {
-        notEmpty: {errorMessage: res.t('missingPassword')},
-      },
-    });
+    let password = req.body.password;
+    if (!password) throw new BadRequest(res.t('missingPassword'));
+
+    let feedback = req.body.feedback;
+    if (feedback && feedback.length > 10000) throw new BadRequest('Account deletion feedback is limited to 10,000 characters. For lengthy feedback, email ' + TECH_ASSISTANCE_EMAIL);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let password = req.body.password;
     let isValidPassword = await passwordUtils.compare(user, password);
     if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
 
@@ -320,8 +328,14 @@ api.deleteUser = {
 
     await user.remove();
 
-    if (req.body.feedback) {
-      // Send feedback via email
+    if (feedback) {
+      txnEmail(TECH_ASSISTANCE_EMAIL, 'admin-feedback', [
+        {name: 'PROFILE_NAME', content: user.profile.name},
+        {name: 'UUID', content: user._id},
+        {name: 'EMAIL', content: getUserInfo(user, ['email']).email},
+        {name: 'FEEDBACK_SOURCE', content: 'from deletion form'},
+        {name: 'FEEDBACK', content: feedback},
+      ]);
     }
 
     res.respond(200, {});
