@@ -1,22 +1,20 @@
 <template lang="pug">
 .row
-  sidebar(@:search="updateSearch", @:filter="updateFilters")
+  sidebar(@search="updateSearch", @filter="updateFilters")
 
   .col-10
-    .row
-      .col-md-12
+    .clearfix
         h1.page-header.float-left(v-once) {{ $t('publicGuilds') }}
         b-form-select.float-right.sort-select(v-model='sort', :options='sortOptions')
-    .row
-      .col-md-12
-        public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild", :display-leave='true')
-        mugen-scroll(
-          :handler="fetchGuilds",
-          :should-handle="!loading && !this.hasLoadedAllGuilds",
-          :handle-on-mount="false",
-          v-show="loading",
-        )
-          span {{ $t('loading') }}
+    .col-md-12
+      public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild", :display-leave='true')
+      mugen-scroll(
+        :handler="fetchGuilds",
+        :should-handle="!loading && !this.hasLoadedAllGuilds",
+        :handle-on-mount="false",
+        v-show="loading",
+      )
+        span(v-once) {{ $t('loading') }}
 </template>
 
 <style>
@@ -31,7 +29,6 @@ import PublicGuildItem from './publicGuildItem';
 import Sidebar from './sidebar';
 import groupUtilities from 'client/mixins/groupsUtilities';
 import bFormSelect from 'bootstrap-vue/lib/components/form-select';
-// import { GUILDS_PER_PAGE } from 'common/script/constants';
 
 export default {
   mixins: [groupUtilities],

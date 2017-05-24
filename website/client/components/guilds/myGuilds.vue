@@ -10,7 +10,7 @@
       p {{$t('noGuildsParagraph2')}}
       span(v-if='loading') {{ $t('loading') }}
 
-  .col-10(v-if='filteredGuilds.length > 0')
+  .col-10.standard-page(v-if='filteredGuilds.length > 0')
     .row
       .col-md-12
         h1.page-header.float-left(v-once) {{ $t('myGuilds') }}
@@ -24,29 +24,30 @@
           :handle-on-mount="false",
           v-show="hasLoadedAllGuilds === false",
         )
-          span {{ $t('loading') }}
+          span(v-once) {{ $t('loading') }}
 </template>
 
 <style lang="scss" scoped>
-.sort-select {
-  margin: 2em;
-}
-
-.no-guilds {
-  text-align: center;
-  color: #878190;
-  margin-top: 15em;
-
-  p {
-    font-size: 14px;
-    line-height: 1.43;
+  @import '~client/assets/scss/colors.scss';
+  .sort-select {
+    margin: 2em;
   }
 
-  .no-guilds-wrapper {
-    width: 400px;
-    margin: 0 auto;
+  .no-guilds {
+    text-align: center;
+    color: $gray-200;
+    margin-top: 15em;
+
+    p {
+      font-size: 14px;
+      line-height: 1.43;
+    }
+
+    .no-guilds-wrapper {
+      width: 400px;
+      margin: 0 auto;
+    }
   }
-}
 </style>
 
 <script>

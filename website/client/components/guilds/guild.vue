@@ -6,7 +6,7 @@
       .col-6
         .float-left
           h2 {{guild.name}}
-          strong.float-left {{$t('groupLeader')}}
+          strong.float-left(v-once) {{$t('groupLeader')}}
           span.float-left : {{guild.leader.profile.name}}
       .col-6
         .float-right
@@ -14,22 +14,21 @@
             .col-6
               img.icon.shield(src="~assets/guilds/gold-guild-badge.svg")
               span.number {{guild.memberCount}}
-              div Guild Members
+              div(v-once) {{ $t('guildMembers') }}
             .col-6
               .item-with-icon
                 img.icon.gem(src="~assets/header/png/gem@3x.png")
                 span.number {{guild.memberCount}}
-                div Guild Bank
+                div(v-once) {{ $t('guildBank') }}
     .row.chat-row
       .col-12
         h3(v-once) {{ $t('chat') }}
 
-        textarea(placeholder='Type your message to Guild members here')
-        button.btn.btn-secondary.send-chat.float-right Send
+        textarea(placeholder="$('chatPlaceHolder')")
+        button.btn.btn-secondary.send-chat.float-right(v-once) {{ $t('send') }}
 
-        div.hr
-          div.hr-middle
-            | Today
+        .hr
+          .hr-middle(v-once) {{ $t('today') }}
 
         .row
           .col-md-2
@@ -44,18 +43,18 @@
                   .float-right {{msg.timestamp}}
                 .text {{msg.text}}
                 hr
-                span.action
+                span.action(v-once)
                   img.icon(src="~assets/chat/like.svg")
-                  | Like
-                span.action
+                  | {{$t('like')}}
+                span.action(v-once)
                   img.icon(src="~assets/chat/copy.svg")
-                  | Copy as To-Do
-                span.action
+                  | {{$t('copyAsTodo')}}
+                span.action(v-once)
                   img.icon(src="~assets/chat/report.svg")
-                  | Report
-                span.action
+                  | {{$t('report')}}
+                span.action(v-once)
                   img.icon(src="~assets/chat/delete.svg")
-                  | Delete
+                  | {{$t('delete')}}
                 span.action.float-right
                   img.icon(src="~assets/chat/liked.svg")
                   | +3
@@ -67,23 +66,23 @@
       .col-6
         members-modal(:group='guild')
         br
-        button.btn.btn-primary Join Guild
+        button.btn.btn-primary(v-once) {{$t('joinGuild')}}
         br
         button.btn.float-left(:class="[isMember ? 'btn-danger' : 'btn-success']") {{ isMember ? $t('leave') : $t('join') }}
         br
-        button.btn.btn-purple Invite to Guild
+        button.btn.btn-purple(v-once) {{$t('inviteToGuild')}}
         br
-        button.btn.btn-purple Message Guild Leader
+        button.btn.btn-purple(v-once) {{$t('messageGuildLeader')}}
         br
-        button.btn.btn-purple Donate Gems
+        button.btn.btn-purple(v-once) {{$t('donateGems')}}
         br
-        button.btn.btn-primary.btn-purple(b-btn, @click="updateGuild") {{ $t('updateGuild') }}
+        button.btn.btn-primary.btn-purple(b-btn, @click="updateGuild", v-once) {{ $t('updateGuild') }}
     div
       h3(v-once) {{ $t('description') }}
-      p {{ guild.description }}
+      p(v-once) {{ guild.description }}
       p Life hacks are tricks, shortcuts, or methods that help increase productivity, efficiency, health, and so on. Generally, they get you to a better state of life. Life hacking is the process of utilizing and implementing these secrets. And, in this guild, we want to help everyone discover these improved ways of doing things.
     div
-      h3 Guild Information
+      h3(v-once) {{$t('guildInformation')}}
       h4 Welcome
       p Below are some resources that some members might find useful. Consider checking them out before posting any questions, as they just might help answer some of them! Feel free to share your life hacks in the guild chat, or ask any questions that you might have. Please peruse at your leisure, and remember: this guild is meant to help guide you in the right direction. Only you will know what works best for you.
     div
@@ -101,8 +100,10 @@
 </template>
 
 <style lang="scss" scoped>
+  @import '~client/assets/scss/colors.scss';
+
   .sidebar {
-    background-color: #edecee;
+    background-color: $gray-600;
   }
 
   .card {
@@ -110,18 +111,18 @@
     padding: 1em;
 
     h3.leader {
-      color: #4f2a93;
+      color: $purple-200;
     }
 
     .text {
       font-size: 16px;
       line-height: 1.43;
-      color: #4e4a57;
+      color: $gray-50;
     }
   }
 
   .guild-background {
-    background-image: linear-gradient(to bottom, rgba(237, 236, 238, 0), #edecee);
+    background-image: linear-gradient(to bottom, rgba($gray-600, 0), $gray-600);
     height: 300px;
   }
 
@@ -129,12 +130,12 @@
     height: 150px;
     width: 100%;
     border-radius: 2px;
-    background-color: #ffffff;
-    border: solid 1px #c3c0c7;
+    background-color: $white;
+    border: solid 1px $gray-400;
     font-size: 16px;
     font-style: italic;
     line-height: 1.43;
-    color: #a5a1ac;
+    color: $gray-300;
     padding: .5em;
   }
 
@@ -168,7 +169,7 @@
   .hr {
     width: 100%;
     height: 20px;
-    border-bottom: 1px solid #e1e0e3;
+    border-bottom: 1px solid $gray-500;
     text-align: center;
     margin: 2em 0;
   }
@@ -176,11 +177,11 @@
   .hr-middle {
     font-size: 16px;
     font-weight: bold;
-    font-stretch: condensed;
+    font-family: 'Roboto Condensed';
     line-height: 1.5;
     text-align: center;
-    color: #878190;
-    background-color: #f9f9f9;
+    color: $gray-200;
+    background-color: $gray-700;
     padding: .2em;
     margin-top: .2em;
     display: inline-block;
@@ -190,7 +191,7 @@
   span.action {
     font-size: 14px;
     line-height: 1.33;
-    color: #878190;
+    color: $gray-200;
     font-weight: 500;
     margin-right: 1em;
   }
@@ -201,7 +202,6 @@
 </style>
 
 <script>
-import axios from 'axios';
 import groupUtilities from 'client/mixins/groupsUtilities';
 import { mapState } from 'client/libs/store';
 import membersModal from './membersModal';
@@ -264,15 +264,14 @@ export default {
       this.$store.state.editingGroup = this.guild;
       this.$root.$emit('show::modal', 'guild-form');
     },
-    fetchGuild () {
-      axios.get(`/api/v3/groups/${this.guildId}`).then(response => {
-        this.guild = response.data.data;
-        this.guild.chat = [
-          {
-            text: '@CharacterName Vestibulum ultricies, lorem non bibendum consequat, nisl lacus semper nulla, hendrerit dignissim ipsum erat eu odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at aliquet urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla non est ut nisl interdum tincidunt in eu dui. Proin condimentum a.',
-          },
-        ];
-      });
+    async fetchGuild () {
+      this.guild = await this.$store.dispatch('guilds:getGroup', {groupId: this.guildId});
+
+      this.guild.chat = [
+        {
+          text: '@CharacterName Vestibulum ultricies, lorem non bibendum consequat, nisl lacus semper nulla, hendrerit dignissim ipsum erat eu odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at aliquet urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla non est ut nisl interdum tincidunt in eu dui. Proin condimentum a.',
+        },
+      ];
     },
     editGroup () {
       // @TODO: Open up model
@@ -287,7 +286,7 @@ export default {
       // Groups.Group.update(group);
     },
     deleteAllMessages () {
-      if (confirm(window.env.t('confirmDeleteAllMessages'))) {
+      if (confirm(this.$t('confirmDeleteAllMessages'))) {
         // User.clearPMs();
       }
     },

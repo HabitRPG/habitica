@@ -3,18 +3,18 @@ div
   button.btn.btn-primary.btn-purple(b-btn, @click="$root.$emit('show::modal','members-modal')") {{ $t('viewMembers') }}
 
   b-modal#members-modal(:title="$t('createGuild')")
-    ul(v-for='member in members')
+    ul(v-for='member in members', :key='member')
       li(@click='clickMember') {{member}}
-        button(@click='removeMember(member)') Remove
-        button(@click='quickReply(member)') Message
-        button(@click='addManager(member)') Add Manager
-        button(@click='removeManager(member)') Remove Manager
+        button(@click='removeMember(member)', v-once) {{$t('remove')}}
+        button(@click='quickReply(member)', v-once) {{$t('message')}}
+        button(@click='addManager(member)', v-once) {{$t('addManager')}}
+        button(@click='removeManager(member)', v-once) {{$t('addManager')}}
 
   b-modal#remove-member(:title="$t('confirmRemoveMember')")
-    button(@click='confirmRemoveMember(member)') Remove
+    button(@click='confirmRemoveMember(member)', v-once) {{$t('remove')}}
 
   b-modal#private-message(:title="$t('confirmRemoveMember')")
-    button(@click='confirmRemoveMember(member)') Remove
+    button(@click='confirmRemoveMember(member)', v-once) {{$t('remove')}}
 </template>
 
 <script>

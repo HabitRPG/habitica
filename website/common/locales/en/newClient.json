@@ -4,5 +4,22 @@
   "showAllGearItems": "Show All <%= items %> <%= type %> Gear Items",
   "showLessGearItems": "Show Less <%= type %> Gear Items",
   "noGearItemsOfType": "You don't own any pieces of <%= type %>.",
-  "costumeDisabled": "You have disabled your costume."
+  "costumeDisabled": "You have disabled your costume.",
+  "newGuildPlaceHolder": "Enter your name",
+  "confirmGuild": "Are you sure?",
+  "guildMembers": "Guild Members",
+  "guildBank": "Guild Bank",
+  "chatPlaceHolder": "Type your message to Guild members here",
+  "today": "Today",
+  "like": "Like",
+  "copyAsTodo": "Copy as To-Do",
+  "report": "Report",
+  "delete": "Delete",
+  "joinGuild": "Join Guild",
+  "inviteToGuild": "Invite to Guild",
+  "messageGuildLeader": "Message Guild Leader",
+  "donateGems": "Donate Gems",
+  "guildInformation": "Guild Information",
+  "updateGuild": "Update Guild",
+  "viewMembers": "View Members"
 }

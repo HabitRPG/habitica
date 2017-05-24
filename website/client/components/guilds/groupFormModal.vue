@@ -3,17 +3,17 @@
     form(@submit.stop.prevent="submit")
       .form-group
         label
-          strong {{$t('name')}}*
-        b-form-input(type="text", placeholder="Enter your name", v-model="newGuild.name")
+          strong(v-once) {{$t('name')}}*
+        b-form-input(type="text", placeholder="$t('newGuildPlaceHolder')", v-model="newGuild.name")
 
       .form-group(v-if='newGuild.id')
         label
-          strong {{$t('guildLeader')}}*
+          strong(v-once) {{$t('guildLeader')}}*
           b-form-select(v-model="newGuild.newLeader" :options="members")
 
       .form-group
         label
-          strong {{$t('privacySettings')}}*
+          strong(v-once) {{$t('privacySettings')}}*
         br
         b-form-checkbox(v-model='newGuild.onlyLeaderCreatesChallenges') {{$t('onlyLeaderCreatesChallenges')}}
           b-tooltip.icon(:content="$t('privateDescription')")
@@ -29,18 +29,18 @@
 
       .form-group
         label
-          strong {{$t('description')}}*
+          strong(v-once) {{$t('description')}}*
         div.description-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
         b-form-input(type="text", textarea :placeholder="$t('guildDescriptionPlaceHolder')", v-model="newGuild.description")
 
       .form-group(v-if='newGuild.id')
         label
-          strong {{$t('guildInformation')}}*
+          strong(v-once) {{$t('guildInformation')}}*
         b-form-input(type="text", textarea :placeholder="$t('guildInformationPlaceHolder')", v-model="newGuild.guildInformation")
 
       .form-group(style='position: relative;')
         label
-          strong {{$t('categories')}}*
+          strong(v-once) {{$t('categories')}}*
         div.category-wrap(@click.prevent="toggleCategorySelect")
           span.category-select(v-if='newGuild.categories.length === 0') {{$t('none')}}
           .category-label(v-for='category in newGuild.categories') {{$t(categoriesHashByKey[category])}}
@@ -58,11 +58,10 @@
       .form-group.text-center
         div.item-with-icon
           img(src="~assets/guilds/green-gem.svg")
-          span.count 2
+          span.count 4
         button.btn.btn-primary.btn-md(v-if='!newGuild.id', :disabled='!newGuild.name || !newGuild.description') {{ $t('createGuild') }}
         button.btn.btn-primary.btn-md(v-if='newGuild.id', :disabled='!newGuild.name || !newGuild.description') {{ $t('updateGuild') }}
-        div.gem-description
-          | {{ $t('guildGemCostInfo') }}
+        .gem-description(v-once) {{ $t('guildGemCostInfo') }}
 </template>
 
 <style lang="scss" scoped>
@@ -94,8 +93,8 @@
     top: -480px;
     padding: 2em;
     border-radius: 2px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
+    background-color: $white;
+    box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($black, 0.1);
   }
 
   .category-label {
@@ -245,15 +244,14 @@ export default {
     return data;
   },
   mounted () {
-    let vm = this;
     this.$root.$on('shown::modal', () => {
-      let editingGroup = vm.$store.state.editingGroup;
+      let editingGroup = this.$store.state.editingGroup;
       if (!editingGroup) return;
-      vm.newGuild.name = editingGroup.name;
-      vm.newGuild.type = editingGroup.type;
-      vm.newGuild.privacy = editingGroup.privacy;
-      if (editingGroup.description) vm.newGuild.description = editingGroup.description;
-      vm.newGuild.id = editingGroup._id;
+      this.newGuild.name = editingGroup.name;
+      this.newGuild.type = editingGroup.type;
+      this.newGuild.privacy = editingGroup.privacy;
+      if (editingGroup.description) this.newGuild.description = editingGroup.description;
+      this.newGuild.id = editingGroup._id;
     });
   },
   computed: {
@@ -271,23 +269,26 @@ export default {
     },
     async submit () {
       if (this.$store.state.user.data.balance < 1 && !this.newGuild.id) {
+        // @TODO: Add proper notifications
         alert('Not enough gems');
         return;
-        // return $rootScope.openModal('buyGems', {track:"Gems > Create Group"});
+        // @TODO return $rootScope.openModal('buyGems', {track:"Gems > Create Group"});
       }
 
       if (!this.newGuild.name || !this.newGuild.description) {
+        // @TODO: Add proper notifications
         alert('Enter a name and description');
         return;
       }
 
       if (this.newGuild.description.length > 500) {
+        // @TODO: Add proper notifications
         alert('Description is too long');
         return;
       }
 
-      //  $t('confirmGuild')
-      if (!confirm('Confirm?')) return;
+      // @TODO: Add proper notifications
+      if (!confirm(this.$t('confirmGuild'))) return;
 
       if (!this.newGuild.privateGuild) {
         this.newGuild.privacy = 'public';

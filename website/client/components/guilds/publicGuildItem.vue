@@ -12,12 +12,12 @@
                 h3 {{ guild.name }}
               p {{ guild.description }}
           .col-md-2.cta-container
-            button.btn.btn-danger(v-if='isMember && displayLeave' @click='leave()') {{ $t('leave') }}
-            button.btn.btn-success(v-if='!isMember'  @click='join()') {{ $t('join') }}
+            button.btn.btn-danger(v-if='isMember && displayLeave' @click='leave()', v-once) {{ $t('leave') }}
+            button.btn.btn-success(v-if='!isMember'  @click='join()', v-once) {{ $t('join') }}
             div.item-with-icon(v-if='displayGemBank')
               img(src="~assets/guilds/green-gem.svg")
               span.count 2
-            div.guild-bank(v-if='displayGemBank') Guild Bank
+            div.guild-bank(v-if='displayGemBank', v-once) {{$t('guildBank')}}
         .row
           .col-md-12
             .category-label(v-for="category in guild.categories")
@@ -26,26 +26,19 @@
 </template>
 
 <style lang="scss" scoped>
+  @import '~client/assets/scss/colors.scss';
+
   .card {
     height: 260px;
     border-radius: 4px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
+    background-color: $white;
+    box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($black, 0.1);
     margin-bottom: 1rem;
-
-    h3 {
-      height: 24px;
-      font-size: 16px;
-      font-weight: bold;
-      font-stretch: condensed;
-      line-height: 1.5;
-      color: #34313a;
-    }
 
     .category-label {
       min-width: 100px;
       border-radius: 100px;
-      background-color: #edecee;
+      background-color: $gray-600;
       padding: .5em;
       display: inline-block;
       margin-right: .5em;
@@ -53,14 +46,14 @@
       font-weight: 500;
       line-height: 1.33;
       text-align: center;
-      color: #a5a1ac;
+      color: $gray-300;
     }
 
     .recommend-text {
       font-size: 12px;
       font-style: italic;
       line-height: 2;
-      color: #a5a1ac;
+      color: $gray-300;
     }
 
     .cta-container {
@@ -95,7 +88,7 @@
     .guild-bank {
       font-size: 12px;
       line-height: 1.33;
-      color: #a5a1ac;
+      color: $gray-300;
     }
 
     .member-count {
@@ -104,7 +97,7 @@
       left: -.1em;
       font-size: 28px;
       font-weight: bold;
-      font-stretch: condensed;
+      font-family: 'Roboto Condensed';
       line-height: 1.2;
       text-align: center;
       color: #b36213;
