@@ -47,11 +47,19 @@ describe('shops', () => {
 
     it('items contain required fields', () => {
       _.each(shopCategories, (category) => {
-        _.each(category.items, (item) => {
-          _.each(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'boss', 'class', 'collect', 'drop', 'unlockCondition', 'lvl'], (key) => {
-            expect(_.has(item, key)).to.eql(true);
+        if (category.identifier === 'bundle') {
+          _.each(category.items, (item) => {
+            _.each(['key', 'text', 'notes', 'value', 'currency', 'purchaseType', 'class'], (key) => {
+              expect(_.has(item, key)).to.eql(true);
+            });
           });
-        });
+        } else {
+          _.each(category.items, (item) => {
+            _.each(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'boss', 'class', 'collect', 'drop', 'unlockCondition', 'lvl'], (key) => {
+              expect(_.has(item, key)).to.eql(true);
+            });
+          });
+        }
       });
     });
   });

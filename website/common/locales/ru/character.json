@@ -1,7 +1,7 @@
 {
     "communityGuidelinesWarning": "Пожалуйста, обратите внимание, что ваши отображаемое имя, фотография и информация о себе должны соответствовать <a href='https://habitica.com/static/community-guidelines' target='_blank'>Правилам Сообщества</a> (в частности, не должно быть ненормативной лексики, тем для взрослых, оскорблений и т.п.). Если вы сомневаетесь в допустимости какой-либо информации, не стесняйтесь задать вопрос по электронной почте <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Профиль",
-    "avatar": "Персонализировать аватар",
+    "avatar": "Настроить аватар",
     "other": "Прочее",
     "fullName": "Полное имя",
     "displayName": "Отображаемое имя",
@@ -161,7 +161,7 @@
     "mageWiki": "<a href='http://habitica.wikia.com/wiki/Mage' target='_blank'>Маг</a>",
     "rogueWiki": "<a href='http://habitica.wikia.com/wiki/Rogue' target='_blank'>Разбойник</a>",
     "healerWiki": "<a href='http://habitica.wikia.com/wiki/Healer' target='_blank'>Целитель</a>",
-    "chooseClassLearn": "<a href='http://habitica.wikia.com/wiki/Class_System' target='_blank'>Подробнее о классах</a>",
+    "chooseClassLearn": "<a href='http://ru.habitica.wikia.com/wiki/Система_классов' target='_blank'>Подробнее о классах</a>",
     "str": "СИЛ",
     "con": "ТЕЛ",
     "per": "ВОС",

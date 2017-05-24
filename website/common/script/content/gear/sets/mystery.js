@@ -246,6 +246,15 @@ let back = {
   },
 };
 
+let body = {
+  201705: {
+    text: t('bodyMystery201705Text'),
+    notes: t('bodyMystery201705Notes'),
+    mystery: '201705',
+    value: 0,
+  },
+};
+
 let eyewear = {
   201503: {
     text: t('eyewearMystery201503Text'),
@@ -454,6 +463,12 @@ let head = {
     mystery: '201703',
     value: 0,
   },
+  201705: {
+    text: t('headMystery201705Text'),
+    notes: t('headMystery201705Notes'),
+    mystery: '201705',
+    value: 0,
+  },
   301404: {
     text: t('headMystery301404Text'),
     notes: t('headMystery301404Notes'),
@@ -582,6 +597,7 @@ let weapon = {
 let mysterySet = {
   armor,
   back,
+  body,
   eyewear,
   head,
   headAccessory,

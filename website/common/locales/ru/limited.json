@@ -106,5 +106,7 @@
     "spring2017SneakyBunnySet": "Скрытный кролик (Разбойник)",
     "eventAvailability": "Доступно для покупки до <%= date(locale) %>.",
     "dateEndApril": "Апрель 19",
-    "dateEndMay": "Май 17"
+    "dateEndMay": "Май 17",
+    "dateEndJune": "June 14",
+    "discountBundle": "bundle"
 }

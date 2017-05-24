@@ -2,8 +2,8 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('SettingsCtrl',
-  ['$scope', 'User', '$rootScope', '$http', 'ApiUrl', 'Guide', '$location', '$modalStack', '$timeout', 'Content', 'Notification', 'Shared', 'Social', '$compile',
-  function($scope, User, $rootScope, $http, ApiUrl, Guide, $location, $modalStack, $timeout, Content, Notification, Shared, Social, $compile) {
+  ['$scope', 'User', '$rootScope', '$http', 'ApiUrl', 'Guide', '$location', '$modalStack', '$timeout', 'Content', 'Notification', 'Shared', 'Social', '$compile', '$sce', 'Payments',
+  function($scope, User, $rootScope, $http, ApiUrl, Guide, $location, $modalStack, $timeout, Content, Notification, Shared, Social, $compile, $sce, Payments) {
     var RELEASE_ANIMAL_TYPES = {
       pets: 'releasePets',
       mounts: 'releaseMounts',
@@ -340,6 +340,49 @@ habitrpg.controller('SettingsCtrl',
     };
 
     $scope.socialLogin = Social.socialLogin;
+
+    $scope.hasSubscription = function (user) {
+      return !!user.purchased.plan.customerId;
+    }
+
+    $scope.hasCanceledSubscription = function (user) {
+      return (
+        $scope.hasSubscription(user) &&
+        !!user.purchased.plan.dateTerminated
+      );
+    }
+
+    $scope.canCancelSubscription = function (user) {
+      return (
+        user.purchased.plan.paymentMethod !== Payments.paymentMethods.GOOGLE &&
+        user.purchased.plan.paymentMethod !== Payments.paymentMethods.APPLE &&
+        !$scope.hasCanceledSubscription(user) &&
+        !$scope.hasGroupPlan(user)
+      );
+    };
+
+    $scope.hasPlan = function (user) {
+      return !!user.purchased.plan.planId;
+    };
+
+    $scope.hasGroupPlan = function (user) {
+      return user.purchased.plan.customerId === "group-plan";
+    };
+
+    $scope.hasConsecutiveSubscription = function (user) {
+      return !!user.purchased.plan.consecutive.count || !!user.purchased.plan.consecutive.offset;
+    };
+
+    $scope.canEditCardDetails = function (user) {
+      return (
+        !$scope.hasCanceledSubscription(user) &&
+        user.purchased.plan.paymentMethod === Payments.paymentMethods.STRIPE
+      );
+    };
+
+    $scope.getCancelSubInfo = function (user) {
+      return $sce.trustAsHtml(env.t('cancelSubInfo' + user.purchased.plan.paymentMethod));
+    };
 
     function _calculateNextCron() {
       $scope.dayStart;

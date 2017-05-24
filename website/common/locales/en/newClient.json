@@ -21,5 +21,10 @@
   "donateGems": "Donate Gems",
   "guildInformation": "Guild Information",
   "updateGuild": "Update Guild",
-  "viewMembers": "View Members"
+  "viewMembers": "View Members",
+  "items": "Items",
+  "sortBy": "Sort By",
+  "groupBy2": "Group By",
+  "quantity": "Quantity",
+  "AZ": "A-Z"
 }

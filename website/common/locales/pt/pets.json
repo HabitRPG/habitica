@@ -1,4 +1,5 @@
 {
+    "stable": "Stable",
     "pets": "Mascotes",
     "activePet": "Mascote Ativo",
     "noActivePet": "Sem Mascote ativo",
