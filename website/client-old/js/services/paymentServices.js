@@ -6,6 +6,15 @@ function($rootScope, User, $http, Content) {
   var Payments = {};
   var isAmazonReady = false;
 
+  Payments.paymentMethods = {
+    AMAZON_PAYMENTS: 'Amazon Payments',
+    STRIPE: 'Stripe',
+    GOOGLE: 'Google',
+    APPLE: 'Apple',
+    PAYPAL: 'Paypal',
+    GIFT: 'Gift'
+  };
+
   window.onAmazonLoginReady = function(){
     isAmazonReady = true;
     amazon.Login.setClientId(window.env.AMAZON_PAYMENTS.CLIENT_ID);
@@ -296,7 +305,7 @@ function($rootScope, User, $http, Content) {
   }
 
   Payments.cancelSubscription = function(config) {
-    if (config && config.group && !confirm(window.env.t('confirmCancelGroupPlan'))) return; 
+    if (config && config.group && !confirm(window.env.t('confirmCancelGroupPlan'))) return;
     if (!confirm(window.env.t('sureCancelSub'))) return;
 
     var group;
