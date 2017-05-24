@@ -299,7 +299,7 @@ api.deleteUser = {
     if (!password) throw new BadRequest(res.t('missingPassword'));
 
     let feedback = req.body.feedback;
-    if (feedback && feedback.length > 10000) throw new BadRequest('Account deletion feedback is limited to 10,000 characters. For lengthy feedback, email ' + TECH_ASSISTANCE_EMAIL);
+    if (feedback && feedback.length > 10000) throw new BadRequest(`Account deletion feedback is limited to 10,000 characters. For lengthy feedback, email ${TECH_ASSISTANCE_EMAIL}.`);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

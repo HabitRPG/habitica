@@ -59,7 +59,7 @@ describe('DELETE /user', () => {
     })).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
-      message: 'Account deletion feedback is limited to 10,000 characters. For lengthy feedback, email admin@habitica.com',
+      message: 'Account deletion feedback is limited to 10,000 characters. For lengthy feedback, email admin@habitica.com.',
     });
   });
 
@@ -126,7 +126,6 @@ describe('DELETE /user', () => {
 
   it('sends feedback to the admin email', async () => {
     sandbox.spy(email, 'sendTxn');
-    let userId = user._id;
 
     let feedback = 'Reasons for Deletion';
     await user.del('/user', {
@@ -141,7 +140,6 @@ describe('DELETE /user', () => {
 
   it('does not send email if no feedback is supplied', async () => {
     sandbox.spy(email, 'sendTxn');
-    let userId = user._id;
 
     await user.del('/user', {
       password,
