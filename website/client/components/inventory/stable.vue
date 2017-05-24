@@ -1,5 +1,5 @@
 <template lang="pug">
-  .row
+  .row.stable
     .col-2.standard-sidebar
       .form-group
         input.form-control.input-search(type="text", :placeholder="$t('search')")
@@ -8,8 +8,8 @@
         h2(v-once) {{ $t('filter') }}
         h3(v-once) {{ $t('pets') }}
         .form-group
-          .form-check
-            label.custom-control.custom-checkbox(v-for="petGroup in petGroups", :key="petGroup.key", v-once)
+          .form-check(v-for="petGroup in petGroups", :key="petGroup.key", v-once)
+            label.custom-control.custom-checkbox
               input.custom-control-input(type="checkbox", v-model="viewOptions[petGroup.key].selected")
               span.custom-control-indicator
               span.custom-control-description(v-once) {{ petGroup.label }}
@@ -20,14 +20,17 @@
               input.custom-control-input(type="checkbox")
               span.custom-control-indicator
               span.custom-control-description(v-once) Standard
+          .form-check
             label.custom-control.custom-checkbox(v-once)
               input.custom-control-input(type="checkbox")
               span.custom-control-indicator
               span.custom-control-description(v-once) {{ $t('hatchingPotions') }}
+          .form-check
             label.custom-control.custom-checkbox(v-once)
               input.custom-control-input(type="checkbox")
               span.custom-control-indicator
               span.custom-control-description(v-once) {{ $t('quest') }}
+          .form-check
             label.custom-control.custom-checkbox(v-once)
               input.custom-control-input(type="checkbox")
               span.custom-control-indicator
@@ -53,14 +56,17 @@
 
         .items
           item(
-          v-for="pet in pets(petGroup, viewOptions[petGroup.key].open)",
-          :item="pet",
-          :itemContentClass="'Pet-' + pet.key",
-          :key="pet.key",
-          :showPopover="true",
-          :label="pet.value",
-          :popoverPosition="'top'",
-          v-once
+            v-for="pet in pets(petGroup, viewOptions[petGroup.key].open)",
+            :item="pet",
+            :itemContentClass="pet.isOwned ? ('Pet Pet-' + pet.key) : 'PixelPaw'",
+            :key="pet.key",
+            :showPopover="true",
+            :selected="pet.key === currentPet",
+            :starVisible="true",
+            :label="pet.value",
+            :popoverPosition="'top'",
+            @click="selectPet",
+            v-once
           )
             span(slot="popoverContent", v-once) {{ pet }}
 
@@ -82,11 +88,20 @@
     display: inline-block;
   }
 
-  .item .item-content {
+  .stable .item .item-content.Pet {
     position: absolute;
     top: -18px;
     right: inherit;
-    display: block;
+    width: 80px;
+    height: 94px;
+  }
+
+  .stable .item .item-content.PixelPaw {
+    position: absolute;
+    top: 15px;
+    right: 21px;
+    width: 51px;
+    height: 51px;
   }
 </style>
 
@@ -119,12 +134,16 @@
       };
     },
     computed: {
-      ...mapState(['content']),
+      ...mapState({
+        content: 'content',
+        currentPet: 'user.data.items.currentPet',
+        userPets: 'user.data.items.pets',
+      }),
 
       petGroups () {
         let petGroups = [
           {
-            label: 'Standard',
+            label: this.$t('filterByStandard'),
             key: 'standardPets',
             petSource: {
               eggs: this.content.dropEggs,
@@ -132,7 +151,7 @@
             },
           },
           {
-            label: this.$t('magicPets'),
+            label: this.$t('filterByMagicPotion'),
             key: 'magicPets',
             petSource: {
               eggs: this.content.dropEggs,
@@ -140,7 +159,7 @@
             },
           },
           {
-            label: this.$t('questPets'),
+            label: this.$t('filterByQuest'),
             key: 'questPets',
             petSource: {
               eggs: this.content.questEggs,
@@ -148,7 +167,7 @@
             },
           },
           {
-            label: this.$t('rarePets'),
+            label: this.$t('special'),
             key: 'rarePets',
             petSource: {
               eggs: this.content.dropEggs,
@@ -180,6 +199,7 @@
             let animalKey = `${egg.key}-${potion.key}`;
             animals.push({
               key: animalKey,
+              isOwned: this.userPets[animalKey] > 0,
               pet: this.content[`${type}Info`][animalKey].text(),
             });
           });
@@ -189,6 +209,10 @@
       },
       pets (petGroup, showAll) {
         return this.listAnimals('pet', petGroup.petSource.eggs, petGroup.petSource.potions, showAll);
+      },
+
+      equip (item) {
+        this.$store.dispatch('common:selectPet', { key: item.key });
       },
     },
   };
