@@ -208,7 +208,6 @@
     "onlyCreatorOrAdminCanDeleteChat": "Not authorised to delete this message!",
     "onlyGroupLeaderCanEditTasks": "Not authorised to manage tasks!",
     "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
-    "chatPrivilegesRevoked": "Your chat privileges have been revoked.",
     "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
     "newChatMessageTitle": "New message in <%= groupName %>",
     "exportInbox": "Export Messages",
