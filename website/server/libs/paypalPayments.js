@@ -221,7 +221,7 @@ api.ipn = async function ipnApi (options = {}) {
   let {txn_type, recurring_payment_id} = options;
 
   let ipnAccetableTypes = [
-    'recurring_payment_profile_cancel', 
+    'recurring_payment_profile_cancel',
     'recurring_payment_failed',
     'recurring_payment_expired',
     'subscr_cancel',
