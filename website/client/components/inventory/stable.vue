@@ -96,18 +96,7 @@
 
   .stable .item .item-content.Pet {
     position: absolute;
-    top: -18px;
-    right: inherit;
-    width: 80px;
-    height: 94px;
-  }
-
-  .stable .item .item-content.PixelPaw {
-    position: absolute;
-    top: 15px;
-    right: 21px;
-    width: 51px;
-    height: 51px;
+    top: -28px;
   }
 
   .toggle-switch-container.hideMissing {
