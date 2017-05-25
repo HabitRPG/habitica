@@ -30,7 +30,7 @@
           b-dropdown-item(@click="groupBy = 'class'", :class="{'dropdown-item-active': groupBy === 'class'}") {{ $t('class') }}
 
     drawer(
-      :title="$t('equipment')", 
+      :title="$t('equipment')",
       :errorMessage="(costume && !user.preferences.costume) ? $t('costumeDisabled') : null",
     )
       div(slot="drawer-header")
@@ -65,12 +65,17 @@
           v-for="(label, group) in gearTypesToStrings",
           :key="group",
           :item="flatGear[activeItems[group]]",
+          :itemContentClass="flatGear[activeItems[group]] ? 'shop_' + flatGear[activeItems[group]].key : null",
+          :showPopover="!!flatGear[activeItems[group]] && flatGear[activeItems[group]].key.indexOf('_base_0') === -1",
           :label="$t(label)",
           :selected="true",
           :popoverPosition="'top'",
           :starVisible="!costume || user.preferences.costume",
           @click="equip",
         )
+          template(slot="popoverContent", scope="ctx")
+            equipmentAttributesPopover(:item="ctx.item")
+
     div(
       v-for="group in itemsGroups",
       v-if="viewOptions[group.key].selected",
@@ -86,11 +91,15 @@
           v-for="(item, index) in items[group.key]",
           v-if="viewOptions[group.key].open || index < itemsPerLine",
           :item="item",
+          :itemContentClass="'shop_' + item.key",
+          :showPopover="item && item.key.indexOf('_base_0') === -1",
           :key="item.key",
           :selected="activeItems[item.type] === item.key",
           :starVisible="!costume || user.preferences.costume",
           @click="equip",
         )
+          template(slot="popoverContent", scope="ctx")
+            equipmentAttributesPopover(:item="ctx.item")
       div(v-if="items[group.key].length === 0")
         p(v-once) {{ $t('noGearItemsOfType', { type: $t(group.label) }) }}
       a.btn.btn-show-more(
@@ -117,11 +126,13 @@ import bPopover from 'bootstrap-vue/lib/components/popover';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 
 import Item from 'client/components/inventory/item';
+import EquipmentAttributesPopover from 'client/components/inventory/equipmentAttributesPopover';
 import Drawer from 'client/components/inventory/drawer';
 
 export default {
   components: {
     Item,
+    EquipmentAttributesPopover,
     Drawer,
     bDropdown,
     bDropdownItem,
