@@ -106,5 +106,7 @@
     "spring2017SneakyBunnySet": "Krybende Kanin (Slyngel)",
     "eventAvailability": "Tilgændelig til køb indtil <%= date(locale) %>.",
     "dateEndApril": "19. april",
-    "dateEndMay": "17. maj"
+    "dateEndMay": "17. maj",
+    "dateEndJune": "June 14",
+    "discountBundle": "bundle"
 }

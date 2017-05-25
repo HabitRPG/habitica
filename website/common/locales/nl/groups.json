@@ -157,7 +157,7 @@
     "sendGiftPurchase": "Kopen",
     "sendGiftMessagePlaceholder": "Persoonlijk bericht (optioneel)",
     "sendGiftSubscription": "<%= months %> Maand(en): $<%= price %> USD",
-    "gemGiftsAreOptional": "Habitica zal je nooit vragen om edelstenen te versturen naar andere spelers. Bedelen voor edelstenen bij anderen is een <strong>overtreding van de gemeenschapsrichtlijnen</strong>, als dit gebeurd zou je dit moeten melden bij <%= hrefTechAssistanceEmail %>.",
+    "gemGiftsAreOptional": "Habitica zal je nooit vragen om edelstenen te versturen naar andere spelers. Bedelen voor edelstenen bij anderen is een <strong>overtreding van de gemeenschapsrichtlijnen</strong>. Als dit gebeurd zou je dit moeten melden bij <%= hrefTechAssistanceEmail %>.",
     "battleWithFriends": "Strijd met je vrienden tegen monsters",
     "startPartyWithFriends": "Start een groep met je vrienden!",
     "startAParty": "Een groep beginnen",
@@ -244,7 +244,7 @@
     "groupBenefitSixTitle": "Krijg een gratis abonnement",
     "groupBenefitSixDescription": "Krijg alle abonnee voordelen, zoals exclusieve maandelijkse voorwerpen en de mogelijkheid om edelstenen te kopen met goud! (Als je al een abonnee bent, wordt je oude abonnement geannuleerd, maar je opeenvolgende abonnement voordelen, zoals maandelijkse zandlopers, zullen blijven.)",
     "groupBenefitSevenTitle": "Krijg een gloednieuw exclusief jackalope rijdier",
-    "groupBenefitEightTitle": "Voeg groepsmanagers toe om je te helpen met het beheren van taken",
+    "groupBenefitEightTitle": "Voeg groepsmanagers toe zodat ze je kunnen helpen met het beheren van taken",
     "groupBenefitEightDescription": "Wil je de verantwoordelijkheden van je groep delen? Promoveer mensen tot groepsmanagers om de leider te helpen met het toevoegen, toewijzen en goedkeuren van taken!",
     "createAGroup": "Maak een groep",
     "assignFieldPlaceholder": "Typ de profielnaam van een groepslid in",
@@ -279,5 +279,7 @@
     "userIsNotManager": "Gebruiker is geen manager",
     "canOnlyApproveTaskOnce": "Deze taak is al goedgekeurd.",
     "leaderMarker": "- Leider",
-    "managerMarker": "- Manager"
+    "managerMarker": "- Manager",
+    "joinedGuild": "Lid geworden van een gilde",
+    "joinedGuildText": "Zich gewaagd aan de sociale kant van Habitica door lid te worden van een gilde!"
 }

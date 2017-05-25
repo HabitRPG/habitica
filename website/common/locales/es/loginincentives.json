@@ -1,6 +1,6 @@
 {
   "unlockedReward": "Has recibido <%= reward %>",
-  "earnedRewardForDevotion": "You have earned <%= reward %> for being committed to improving your life.",
+  "earnedRewardForDevotion": "Has ganado <%= reward %> por siendo committed por mejorado su vida.",
   "nextRewardUnlocksIn": "Check-ins hasta tu próximo premio: <%= numberOfCheckinsLeft %>",
   "awesome": "¡Genial!",
   "totalCount": "<%= count %> en total",
@@ -12,7 +12,7 @@
   "totalCheckinsTitle": "Check-Ins en Total",
   "checkinProgressTitle": "Progreso hasta el próximo",
   "incentiveBackgroundsUnlockedWithCheckins": "Los fondos lisos bloqueados se desbloquean con Check-Ins Diarios.",
-  "checkinReceivedAllRewardsMessage": "You have received all the Check-In prizes available! Congratulations!",
+  "checkinReceivedAllRewardsMessage": "¡Has recibido todos los Check-In precios disponible! ¡Felicitación!",
   "oneOfAllPetEggs": "one of each standard Pet Egg",
   "twoOfAllPetEggs": "two of each standard Pet Egg",
   "threeOfAllPetEggs": "three of each standard Pet Egg",
