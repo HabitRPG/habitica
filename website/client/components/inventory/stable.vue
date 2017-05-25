@@ -35,6 +35,13 @@
               input.custom-control-input(type="checkbox")
               span.custom-control-indicator
               span.custom-control-description(v-once) {{ $t('special') }}
+        div.form-group.clearfix
+          h3.float-left Hide Missing
+          toggle-switch.float-right.hideMissing(
+            :label="''",
+            :checked="hideMissing",
+            @change="updateHideMissing"
+          )
 
     .col-10.standard-page
       .clearfix
@@ -56,7 +63,7 @@
 
         .items
           item(
-            v-for="pet in pets(petGroup, viewOptions[petGroup.key].open)",
+            v-for="pet in pets(petGroup, viewOptions[petGroup.key].open, hideMissing)",
             :item="pet",
             :itemContentClass="pet.isOwned ? ('Pet Pet-' + pet.key) : 'PixelPaw'",
             :key="pet.key",
@@ -65,8 +72,7 @@
             :starVisible="true",
             :label="pet.value",
             :popoverPosition="'top'",
-            @click="selectPet",
-            v-once
+            @click="selectPet"
           )
             span(slot="popoverContent", v-once) {{ pet }}
 
@@ -103,6 +109,10 @@
     width: 51px;
     height: 51px;
   }
+
+  .toggle-switch-container.hideMissing {
+    margin-top: 0;
+  }
 </style>
 
 <script>
@@ -111,10 +121,12 @@
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
   import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
+
   import each from 'lodash/each';
 
   import Item from 'client/components/inventory/item';
   import Drawer from 'client/components/inventory/drawer';
+  import toggleSwitch from 'client/components/ui/toggleSwitch';
 
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
@@ -127,10 +139,12 @@
       Drawer,
       bDropdown,
       bDropdownItem,
+      toggleSwitch,
     },
     data () {
       return {
         viewOptions: {},
+        hideMissing: false,
       };
     },
     computed: {
@@ -185,10 +199,10 @@
 
 
         return petGroups;
-      }
+      },
     },
     methods: {
-      listAnimals (type, eggSource, potionSource, isOpen = false) {
+      listAnimals (type, eggSource, potionSource, isOpen, hideMissing) {
         let animals = [];
         let iteration = 0;
 
@@ -197,9 +211,15 @@
           iteration++;
           each(potionSource, (potion) => {
             let animalKey = `${egg.key}-${potion.key}`;
+            let isOwned = this.userPets[animalKey] > 0;
+
+            if (hideMissing && !isOwned) {
+              return true;
+            }
+
             animals.push({
               key: animalKey,
-              isOwned: this.userPets[animalKey] > 0,
+              isOwned,
               pet: this.content[`${type}Info`][animalKey].text(),
             });
           });
@@ -207,11 +227,16 @@
 
         return animals;
       },
-      pets (petGroup, showAll) {
-        return this.listAnimals('pet', petGroup.petSource.eggs, petGroup.petSource.potions, showAll);
+
+      pets (petGroup, showAll, hideMissing) {
+        return this.listAnimals('pet', petGroup.petSource.eggs, petGroup.petSource.potions, showAll, hideMissing);
       },
 
-      equip (item) {
+      updateHideMissing (newVal) {
+        this.hideMissing = newVal;
+      },
+
+      selectPet (item) {
         this.$store.dispatch('common:selectPet', { key: item.key });
       },
     },
