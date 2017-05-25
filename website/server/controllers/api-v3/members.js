@@ -389,7 +389,7 @@ api.getChallengeMemberProgress = {
 };
 
 /**
- * @api {get} /api/v3/members/:toUserId/objections-to/:interaction Get the message of any errors that would occur if the given interaction was attempted - BETA
+ * @api {get} /api/v3/members/:toUserId/objections/:interaction Get any objections that would occur if the given interaction was attempted - BETA
  * @apiVersion 3.0.0
  * @apiName GetObjectionsToInteraction
  * @apiGroup Member
@@ -397,11 +397,11 @@ api.getChallengeMemberProgress = {
  * @apiParam {UUID} toUserId The user to interact with
  * @apiParam {String="send-private-message","transfer-gems"} interaction Name of the interaction to query
  *
- * @apiSuccess {Array} data Return an array of error messages, if the interaction would be blocked; otherwise an empty array
+ * @apiSuccess {Array} data Return an array of objections, if the interaction would be blocked; otherwise an empty array
  */
 api.getObjectionsToInteraction = {
   method: 'GET',
-  url: '/members/:toUserId/objections-to/:interaction',
+  url: '/members/:toUserId/objections/:interaction',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();
