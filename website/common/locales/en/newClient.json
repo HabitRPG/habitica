@@ -13,5 +13,8 @@
   "costumeDisabled": "You have disabled your costume.",
   "filterByStandard": "Standard",
   "filterByMagicPotion": "Magin Potion",
-  "filterByQuest": "Quest"
+  "filterByQuest": "Quest",
+  "standard": "Standard",
+  "sortByColor": "Color",
+  "sortByHatchable": "Hatchable"
 }

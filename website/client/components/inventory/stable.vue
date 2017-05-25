@@ -46,10 +46,9 @@
     .col-10.standard-page
       .clearfix
         h1.float-left.mb-0.page-header(v-once) {{ $t('stable') }}
-        b-dropdown.float-right(text="Sort by", right=true)
-          b-dropdown-item(href="#") Option 1
-          b-dropdown-item(href="#") Option 2
-          b-dropdown-item(href="#") Option 3
+        b-dropdown.float-right(:text="$t('sortBy') +((selectedSortBy === 'standard')?'': ': '+ $t(selectedSortBy))", right=true)
+          b-dropdown-item(
+            v-for="sort in sortByItems", @click="selectedSortBy = sort", :active="selectedSortBy === sort") {{ $t(sort) }}
 
 
       h2(v-once) {{ $t('pets') }}
@@ -63,7 +62,7 @@
 
         .items
           item(
-            v-for="pet in pets(petGroup, viewOptions[petGroup.key].open, hideMissing)",
+            v-for="pet in pets(petGroup, viewOptions[petGroup.key].open, hideMissing, selectedSortBy)",
             :item="pet",
             :itemContentClass="pet.isOwned ? ('Pet Pet-' + pet.key) : 'PixelPaw'",
             :key="pet.key",
@@ -112,6 +111,7 @@
 
 
   import each from 'lodash/each';
+  import sortBy from 'lodash/sortBy';
 
   import Item from 'client/components/inventory/item';
   import Drawer from 'client/components/inventory/drawer';
@@ -134,13 +134,20 @@
       return {
         viewOptions: {},
         hideMissing: false,
+        selectedSortBy: 'standard',
+        sortByItems: [
+          'standard',
+          'AZ',
+          'sortByColor',
+          'sortByHatchable'
+        ],
       };
     },
     computed: {
       ...mapState({
         content: 'content',
         currentPet: 'user.data.items.currentPet',
-        userPets: 'user.data.items.pets',
+        userItems: 'user.data.items',
       }),
 
       petGroups () {
@@ -191,7 +198,8 @@
       },
     },
     methods: {
-      listAnimals (type, eggSource, potionSource, isOpen, hideMissing) {
+      // negue: if performance gets slow, maybe create a cache of the static data, like names / keys?
+      listAnimals (type, eggSource, potionSource, isOpen, hideMissing, sort) {
         let animals = [];
         let iteration = 0;
 
@@ -200,25 +208,41 @@
           iteration++;
           each(potionSource, (potion) => {
             let animalKey = `${egg.key}-${potion.key}`;
-            let isOwned = this.userPets[animalKey] > 0;
+            let isOwned = this.userItems.pets[animalKey] > 0;
 
             if (hideMissing && !isOwned) {
               return true;
             }
 
+            let hatchable = this.userItems.eggs[egg.key] > 0 && this.userItems.hatchingPotions[potion.key] > 0;
+
             animals.push({
               key: animalKey,
+              potionName: potion.text(),
               isOwned,
+              hatchable,
               pet: this.content[`${type}Info`][animalKey].text(),
             });
           });
         });
 
+        switch(sort) {
+          case 'AZ': {
+            animals = sortBy(animals, ['pet']);
+          }
+          case 'sortByColor': {
+            animals = sortBy(animals, ['potionName']);
+          }
+          case 'sortByHatchable': {
+            animals = sortBy(animals, [(i) => i.hatchable ? 0 : 1])
+          }
+        }
+
         return animals;
       },
 
-      pets (petGroup, showAll, hideMissing) {
-        return this.listAnimals('pet', petGroup.petSource.eggs, petGroup.petSource.potions, showAll, hideMissing);
+      pets (petGroup, showAll, hideMissing, sortBy) {
+        return this.listAnimals('pet', petGroup.petSource.eggs, petGroup.petSource.potions, showAll, hideMissing, sortBy);
       },
 
       updateHideMissing (newVal) {
