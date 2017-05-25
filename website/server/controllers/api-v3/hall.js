@@ -6,62 +6,6 @@ import {
 } from '../../libs/errors';
 import _ from 'lodash';
 
-/**
- * @apiDefine Admin Moderators
- * Contributors of tier 8 or higher can use this route.
- */
-
-/**
- * @apiDefine NoAuthHeaders Missing authentication headers
- *
- * @apiError (401) {NotAuthorized} NoAuthHeaders Missing authentication headers
- *
- * @apiErrorExample Missing authentication headers
- * {
- *   "success": false,
- *   "error": "NotAuthorized",
- *   "message": "Missing authentication headers."
- * }
- */
-
-/**
-* @apiDefine NoAccount There is no account that uses those credentials.
-*
-* @apiError (401) {NotAuthorized} NoAccount There is no account that uses those credentials
-*
-* @apiErrorExample No account
-* {
-*   "success": false,
-*   "error": "NotAuthorized",
-*   "message": "There is no account that uses those credentials."
-* }
-*/
-
-/**
- * @apiDefine NotAdmin You don't have admin access.
- *
- * @apiError (401) {NotAuthorized} NotAdmin User is not an admin
- *
- * @apiErrorExample No admin access
- * {
- *   "success": false,
- *   "error": "NotAuthorized",
- *   "message": "You don't have admin access."
- * }
- */
-
-/**
- * @apiDefine NoUser No user
- * @apiError (404) {NotFound} NoUser The specified user could not be found.
- *
- * @apiErrorExample No user
- * {
- *   "success": false,
- *   "error": "NotFound",
- *   "message": "User with id \"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\" not found."
- * }
- */
-
 let api = {};
 
 /**
@@ -72,8 +16,7 @@ let api = {};
  * @apiName GetPatrons
  * @apiGroup Hall
  *
- * @apiParam {Number} [page] Query Parameter - The result page. Default is 0
- *
+ * @apiParam (Query) {Number} [page=0] The result page.
  * @apiSuccess {Array} data An array of patrons
  *
  * @apiSuccessExample {json} Example response
@@ -148,7 +91,7 @@ api.getPatrons = {
  * @apiGroup Hall
  *
  * @apiDescription Returns an array of objects containing the heroes who have
- * contributed for habitica. The array is sorted by the contribution level in descending order.
+ * contributed for Habitica. The array is sorted by the contribution level in descending order.
  *
  * @apiSuccess {Array} heroes An array of heroes
  *
