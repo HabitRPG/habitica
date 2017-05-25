@@ -18,13 +18,6 @@
     .row
       .col-md-12
         public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild", :display-gem-bank='true')
-        mugen-scroll(
-          :handler="fetchGuilds",
-          :should-handle="loading === false && hasLoadedAllGuilds === false",
-          :handle-on-mount="false",
-          v-show="hasLoadedAllGuilds === false",
-        )
-          span(v-once) {{ $t('loading') }}
 </template>
 
 <style lang="scss" scoped>
@@ -112,14 +105,9 @@ export default {
       this.filters = eventData;
     },
     async fetchGuilds () {
-      // We have the data cached
-      if (this.lastPageLoaded === 0 && this.guilds.length > 0) return;
-
       this.loading = true;
       await this.$store.dispatch('guilds:getMyGuilds', {page: this.lastPageLoaded});
-
       this.loading = false;
-      this.hasLoadedAllGuilds = true;
     },
   },
 };
