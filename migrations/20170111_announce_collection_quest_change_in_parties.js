@@ -61,15 +61,10 @@ function reportError (err) {
 function findPartiesWithCollectionQuest () {
   logger.info('Looking up groups on collection quests...');
 
-  return Groups.find({'quest.key': {$in: COLLECTION_QUESTS }}, ['name','quest']).toArray().then((groups) => {
+  return Groups.find({'quest.key': {$in: COLLECTION_QUESTS}}, ['name','quest']).toArray().then((groups) => {
     logger.success('Found', groups.length, 'parties on collection quests');
 
-    let groupsOfInterest = groups.reduce((array, party) => {
-      array.push(party);
-      return array;
-    }, []);
-
-    return Promise.resolve(groupsOfInterest);
+    return Promise.resolve(groups);
   })
 }
 
