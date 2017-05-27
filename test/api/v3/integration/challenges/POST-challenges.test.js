@@ -306,7 +306,7 @@ describe('POST /challenges', () => {
     });
 
     it('awards achievement if this is creator\'s first challenge', async () => {
-      let challenge = await groupLeader.post('/challenges', {
+      await groupLeader.post('/challenges', {
         group: group._id,
         name: 'Test Challenge',
         shortName: 'TC Label',
