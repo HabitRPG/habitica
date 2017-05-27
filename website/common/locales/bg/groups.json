@@ -279,5 +279,7 @@
     "userIsNotManager": "Потребителят не е управител",
     "canOnlyApproveTaskOnce": "Тази задача е вече одобрена.",
     "leaderMarker": "— Водач",
-    "managerMarker": "— Управител"
+    "managerMarker": "— Управител",
+    "joinedGuild": "Присъединил(а) се към гилдия",
+    "joinedGuildText": "Потопил(а) се в обществената част на Хабитика чрез присъединяване към гилдия!"
 }

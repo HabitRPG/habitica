@@ -49,11 +49,18 @@
 
 
 
-// Do not include the following words:
+// Do not block the following words:
 // 'ale' because it's Polish for 'but'.
-// legitimate given names: 'Jesus', 'Sherry'
-// legitimate surnames: 'Christ'
-// legitimate place names: 'Dyke'
+// 'af' because it's Danish for 'of'.
+// 'god' because it is allowed for use in ways that are not oaths.
+// Tobacco products because they are more often mentioned when celebrating quitting than in a way that might trigger addictive behaviour.
+// Legitimate given names: 'Jesus', 'Sherry'
+// Legitimate surnames: 'Christ'
+// Legitimate place names: 'Dyke'
+//
+// Explanations for some blocked words:
+// 'fag' means 'subject' in some Scandinavian languages but we have decided to block it for its use as an English-language slur; hopefully the Scandinavian languages have suitable synonyms.
+// 'slut' means 'end' in Danish but is blocked for the same reason as 'fag'.
 
 let bannedWords = [
   'TEST_PLACEHOLDER_SWEAR_WORD_HERE',
@@ -66,7 +73,9 @@ let bannedWords = [
   'dammit',
   'damned',
   'omg',
-  'god',
+  'oh my god',
+  'oh god',
+  'oh, god',
   'g\\*d',
 
   'shit',
@@ -88,9 +97,9 @@ let bannedWords = [
   'motherfucking',
   'muthafucka',
   'fu',
-  'wtf',
+  'fuq',
   'dafuq',
-  'af',
+  'wtf',
 
   'ass',
   'arse',
@@ -150,6 +159,10 @@ let bannedWords = [
   'fap',
   'nofap',
   'fapping',
+  'masturbate',
+  'masturbates',
+  'masturbating',
+  'masturbation',
 
   'alcohol',
   'beer',

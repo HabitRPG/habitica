@@ -279,5 +279,7 @@
     "userIsNotManager": "L'utilisateur n'est pas un gestionnaire",
     "canOnlyApproveTaskOnce": "Cette tâche a déjà été approuvée.",
     "leaderMarker": "- Responsable",
-    "managerMarker": "- Gestionnaire"
+    "managerMarker": "- Gestionnaire",
+    "joinedGuild": "A rejoint une guilde",
+    "joinedGuildText": "A exploré le côté social d'Habitica en rejoignant une guilde !"
 }

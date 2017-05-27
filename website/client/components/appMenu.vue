@@ -7,10 +7,10 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
     ul.navbar-nav.mr-auto
       router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact) 
         a.nav-link(v-once) {{ $t('tasks') }}
-      router-link.nav-item.dropdown(tag="li", :to="{name: 'inventory'}", :class="{'active': $route.path.startsWith('/inventory')}")
+      router-link.nav-item.dropdown(tag="li", :to="{name: 'items'}", :class="{'active': $route.path.startsWith('/inventory')}")
         a.nav-link(v-once) {{ $t('inventory') }}
         .dropdown-menu
-          router-link.dropdown-item(:to="{name: 'inventory'}", exact) {{ $t('inventory') }}
+          router-link.dropdown-item(:to="{name: 'items'}", exact) {{ $t('items') }}
           router-link.dropdown-item(:to="{name: 'equipment'}") {{ $t('equipment') }}
           router-link.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
       router-link.nav-item(tag="li", :to="{name: 'market'}", exact) 
@@ -52,8 +52,10 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
 </template>
 
 <style lang="scss" scoped>
+@import '~client/assets/scss/colors.scss';
+
 nav.navbar {
-  background: #432874 url(~assets/header/png/bits.png) right no-repeat;
+  background: $purple-100 url(~assets/header/png/bits.png) right no-repeat;
   padding: 0 1.5rem;
   height: 56px;
 }
@@ -66,26 +68,26 @@ nav.navbar {
   }
 }
 
-$active-purple: #6133b4;
-
 .nav-item {
   .nav-link {
-    color: #fff;
+    font-size: 16px;
+    color: $white;
     font-weight: bold;
     line-height: 1.5;
     padding: 1rem 1.5rem;
+    transition: none;
   }
 
   &:hover {
     .nav-link {
-      color: #fff;
-      background: $active-purple;
+      color: $white;
+      background: $purple-300;
     }
   }
 
   &.active,&:hover {
     .nav-link {
-      box-shadow: 0px -4px 0px #6133b4 inset;
+      box-shadow: 0px -4px 0px $purple-300 inset;
     }
   }
 }
@@ -97,25 +99,38 @@ $active-purple: #6133b4;
 }
 
 .dropdown-menu:not(.user-dropdown) {
-  background: $active-purple;
+  background: $purple-300;
   border-radius: 0px;
   border: none;
+  box-shadow: none;
+  padding: 0px;
+
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 
   .dropdown-item {
-    color: #fff;
+    font-size: 16px;
+    box-shadow: none;
+    color: $white;
+    border: none;
 
     &.active {
-      background: $active-purple;
+      background: $purple-300;
     }
 
     &:hover {
-      background: #4f2a93;
+      background: $purple-200;
+
+      &:last-child {
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
     }
   }
 }
 
 .item-with-icon {
-  color: #fff;
+  color: $white;
   font-weight: bold;
   padding: 0.75rem 0;
   padding-left: 1rem;

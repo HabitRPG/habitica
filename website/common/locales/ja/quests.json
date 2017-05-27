@@ -111,5 +111,7 @@
     "loginIncentiveQuest": "このクエストを入手するには、<%= count %>日のログインが必要です！",
     "loginIncentiveQuestObtained": "<%= count %>日のログインによりこのクエストを手に入れました！",
     "loginReward": "<%= count %>日のログイン",
-    "createAccountQuest": "このクエストはHabiticaに参加した時に配布されます！もしあなたの友達が参加すれば、彼らも同じように受け取るでしょう。"
+    "createAccountQuest": "このクエストはHabiticaに参加した時に配布されます！もしあなたの友達が参加すれば、彼らも同じように受け取るでしょう。",
+    "questBundles": "Discounted Quest Bundles",
+    "buyQuestBundle": "Buy Quest Bundle"
 }
