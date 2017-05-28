@@ -60,9 +60,10 @@
       )
         h4(v-once) {{ petGroup.label }}
 
-        .items
+
+        div.items(v-for="(petRow, index) in pets(petGroup, viewOptions[petGroup.key].open, hideMissing, selectedSortBy)")
           item(
-            v-for="pet in pets(petGroup, viewOptions[petGroup.key].open, hideMissing, selectedSortBy)",
+            v-for="pet in petRow",
             :item="pet",
             :itemContentClass="pet.isOwned ? ('Pet Pet-' + pet.key) : 'PixelPaw'",
             :key="pet.key",
@@ -110,8 +111,11 @@
   import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
 
-  import each from 'lodash/each';
-  import sortBy from 'lodash/sortBy';
+  import _each from 'lodash/each';
+  import _sortBy from 'lodash/sortBy';
+  import _take from 'lodash/take';
+  import _filter from 'lodash/filter';
+  import _drop from 'lodash/drop';
 
   import Item from 'client/components/inventory/item';
   import Drawer from 'client/components/inventory/drawer';
@@ -134,12 +138,14 @@
       return {
         viewOptions: {},
         hideMissing: false,
+
+        // sort has the translation-keys as values
         selectedSortBy: 'standard',
         sortByItems: [
           'standard',
           'AZ',
           'sortByColor',
-          'sortByHatchable'
+          'sortByHatchable',
         ],
       };
     },
@@ -198,51 +204,82 @@
       },
     },
     methods: {
-      // negue: if performance gets slow, maybe create a cache of the static data, like names / keys?
-      listAnimals (type, eggSource, potionSource, isOpen, hideMissing, sort) {
+
+      getAnimalList (key, type, eggSource, potionSource) {
+        this.cachedAnimalList = this.cachedAnimalList || {};
+        if (this.cachedAnimalList[key]) {
+          return this.cachedAnimalList[key];
+        }
+
         let animals = [];
-        let iteration = 0;
 
-        each(eggSource, (egg) => {
-          if (iteration === 1 && !isOpen) return false;
-          iteration++;
-          each(potionSource, (potion) => {
+        _each(eggSource, (egg) => {
+          _each(potionSource, (potion) => {
             let animalKey = `${egg.key}-${potion.key}`;
-            let isOwned = this.userItems.pets[animalKey] > 0;
-
-            if (hideMissing && !isOwned) {
-              return true;
-            }
-
+            let isOwned = this.userItems[`${type}s`][animalKey] > 0;
             let hatchable = this.userItems.eggs[egg.key] > 0 && this.userItems.hatchingPotions[potion.key] > 0;
 
             animals.push({
               key: animalKey,
+              eggKey: egg.key,
+              potionKey: potion.key,
               potionName: potion.text(),
+              pet: this.content[`${type}Info`][animalKey].text(),
               isOwned,
               hatchable,
-              pet: this.content[`${type}Info`][animalKey].text(),
             });
           });
         });
 
-        switch(sort) {
-          case 'AZ': {
-            animals = sortBy(animals, ['pet']);
-          }
-          case 'sortByColor': {
-            animals = sortBy(animals, ['potionName']);
-          }
-          case 'sortByHatchable': {
-            animals = sortBy(animals, [(i) => i.hatchable ? 0 : 1])
-          }
-        }
+        this.cachedAnimalList[key] = animals;
 
         return animals;
       },
 
+      listAnimals (petGroup, type, isOpen, hideMissing, sort) {
+        let animals = this.getAnimalList(petGroup.key, type, petGroup.petSource.eggs, petGroup.petSource.potions);
+
+        if (hideMissing) {
+          animals = _filter(animals, 'isOwned');
+        }
+
+        switch (sort) {
+          case 'AZ':
+            animals = _sortBy(animals, ['pet']);
+            break;
+
+          case 'sortByColor':
+            animals = _sortBy(animals, ['potionName']);
+            break;
+
+          case 'sortByHatchable': {
+            if (type === 'pet') {
+              let filterFunc = (i) => {
+                return i.hatchable ? 0 : 1;
+              };
+
+              animals = _sortBy(animals, [filterFunc]);
+            }
+            break;
+          }
+        }
+
+        let animalRows = [];
+
+        let rowsToShow = isOpen ? Math.round(animals.length / 10) : 1;
+
+        for (let i = 0; i < rowsToShow; i++) {
+          let skipped = _drop(animals, i * 10);
+          let row = _take(skipped, 10);
+
+          animalRows.push(row);
+        }
+
+        return animalRows;
+      },
+
       pets (petGroup, showAll, hideMissing, sortBy) {
-        return this.listAnimals('pet', petGroup.petSource.eggs, petGroup.petSource.potions, showAll, hideMissing, sortBy);
+        return this.listAnimals(petGroup, 'pet', showAll, hideMissing, sortBy);
       },
 
       updateHideMissing (newVal) {
@@ -250,7 +287,7 @@
       },
 
       selectPet (item) {
-        this.$store.dispatch('common:selectPet', { key: item.key });
+        this.$store.dispatch('common:selectPet', {key: item.key});
       },
     },
   };
