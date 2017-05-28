@@ -111,8 +111,8 @@ let schema = new Schema({
     birthday: Number,
     partyUp: Boolean,
     partyOn: Boolean,
-    congrats: Boolean,
-    getwell: Boolean,
+    congrats: Number,
+    getwell: Number,
   },
 
   backer: {
