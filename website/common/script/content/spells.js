@@ -519,6 +519,7 @@ spells.special = {
     notes: t('congratsCardNotes'),
     cast (user, target) {
       if (user === target) {
+        if (!user.achievements.congrats) user.achievements.congrats = 0;
         user.achievements.congrats++;
       } else {
         each([user, target], (u) => {
@@ -545,6 +546,7 @@ spells.special = {
     notes: t('getwellCardNotes'),
     cast (user, target) {
       if (user === target) {
+        if (!user.achievements.getwell) user.achievements.getwell = 0;
         user.achievements.getwell++;
       } else {
         each([user, target], (u) => {
