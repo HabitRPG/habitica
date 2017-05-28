@@ -83,7 +83,7 @@ describe('POST /user/auth/social', () => {
         network,
       });
 
-      await expect(getProperty('users', user._id, '_ABtest')).to.eventually.be.a('string');
+      await expect(getProperty('users', user._id, '_ABtests')).to.eventually.be.a('object');
     });
   });
 
@@ -139,7 +139,7 @@ describe('POST /user/auth/social', () => {
         network,
       });
 
-      await expect(getProperty('users', user._id, '_ABtest')).to.eventually.be.a('string');
+      await expect(getProperty('users', user._id, '_ABtests')).to.eventually.be.a('object');
     });
   });
 });

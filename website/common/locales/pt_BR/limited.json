@@ -106,5 +106,7 @@
     "spring2017SneakyBunnySet": "Coelhinho Sorrateiro (Ladino)",
     "eventAvailability": "Disponível para compra até <%= date(locale) %>.",
     "dateEndApril": "19 de Abril",
-    "dateEndMay": "May 17"
+    "dateEndMay": "Maio 17",
+    "dateEndJune": "June 14",
+    "discountBundle": "pacote"
 }

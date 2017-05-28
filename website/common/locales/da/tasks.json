@@ -140,9 +140,9 @@
     "counterPeriodDay": "Dag",
     "counterPeriodWeek": "Uge",
     "counterPeriodMonth": "Måned",
-    "habitCounter": "Tæller",
-    "habitCounterUp": "Positiv Tæller",
-    "habitCounterDown": "Negativ Tæller",
+    "habitCounter": "Tæller (Nulstilles <%= frequency %>)",
+    "habitCounterUp": "Positiv Tæller (Nulstilles <%= frequency %>)",
+    "habitCounterDown": "Negativ Tæller (Nulstilles <%= frequency %>)",
     "taskRequiresApproval": "Denne opgave skal godkendes før du kan fuldføre den. Godkendelse er allerede anmodet",
     "taskApprovalHasBeenRequested": "Godkendelse er anmodet",
     "approvals": "Godkendelser",
@@ -166,5 +166,6 @@
     "groupTasksByChallenge": "Gruppér opgaver efter udfordrings-titel.",
     "taskNotes": "Opgavenoter",
     "monthlyRepeatHelpContent": "Denne opgave vil være forfalden hver X måneder",
-    "yearlyRepeatHelpContent": "Denne opgave vil være forfalden hver X år"
+    "yearlyRepeatHelpContent": "Denne opgave vil være forfalden hver X år",
+    "resets": "Nulstilles"
 }

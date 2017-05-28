@@ -106,5 +106,7 @@
     "spring2017SneakyBunnySet": "Przebiegły Królik (Łotrzyk)",
     "eventAvailability": "Dostępny w sprzedaży do <%= date(locale) %>.",
     "dateEndApril": "19 kwietnia",
-    "dateEndMay": "May 17"
+    "dateEndMay": "17 Maja",
+    "dateEndJune": "June 14",
+    "discountBundle": "bundle"
 }

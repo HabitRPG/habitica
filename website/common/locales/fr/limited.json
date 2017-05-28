@@ -51,7 +51,7 @@
     "nyeCard": "Carte de la Nouvelle Année",
     "nyeCardExplanation": "Pour avoir célébré cette nouvelle année ensemble, vous avez tous les deux reçu le badge \"Vieille Connaissance\" !",
     "nyeCardNotes": "Envoyer une carte de la nouvelle année à un membre de l'équipe.",
-    "seasonalItems": "Objets Saisonniers",
+    "seasonalItems": "Objets saisonniers",
     "nyeCardAchievementTitle": "Vieille Connaissance",
     "nyeCardAchievementText": "Bonne Année ! A envoyé ou reçu <%= count %> cartes de la Nouvelle Année.",
     "nye0": "Bonne Année ! Que vous tuiez de nombreuses mauvaises habitudes.",
@@ -106,5 +106,7 @@
     "spring2017SneakyBunnySet": "Lapin masqué (Voleur)",
     "eventAvailability": "Disponible à l'achat jusqu'au <%= date(locale) %>.",
     "dateEndApril": "19 avril",
-    "dateEndMay": "May 17"
+    "dateEndMay": "17 mai",
+    "dateEndJune": "June 14",
+    "discountBundle": "lot"
 }

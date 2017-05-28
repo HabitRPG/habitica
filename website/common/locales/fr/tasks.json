@@ -140,9 +140,9 @@
     "counterPeriodDay": "Jours",
     "counterPeriodWeek": "Semaines",
     "counterPeriodMonth": "Mois",
-    "habitCounter": "Compteur",
-    "habitCounterUp": "Compteur positif",
-    "habitCounterDown": "Compteur négatif",
+    "habitCounter": "Compteur (se réinitialise tous les <%= frequency %>)",
+    "habitCounterUp": "Compteur positif (se réinitialise tous les <%= frequency %>)",
+    "habitCounterDown": "Compteur négatif (se réinitialise tous les <%= frequency %>)",
     "taskRequiresApproval": "Cette tâche nécessite une approbation avant de pouvoir être complétée. Une approbation a déjà été demandée.",
     "taskApprovalHasBeenRequested": "Une approbation a été demandée",
     "approvals": "Approbations",
@@ -166,5 +166,6 @@
     "groupTasksByChallenge": "Regrouper les tâches par titre de défis",
     "taskNotes": "Notes de tâche",
     "monthlyRepeatHelpContent": "Cette tâche arrivera à échéance tous les X mois",
-    "yearlyRepeatHelpContent": "Cette tâche arrivera à échéance tous les X ans"
+    "yearlyRepeatHelpContent": "Cette tâche arrivera à échéance tous les X ans",
+    "resets": "Réinitialisations"
 }

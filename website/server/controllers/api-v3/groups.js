@@ -122,6 +122,14 @@ api.createGroup = {
 
       user.balance--;
       user.guilds.push(group._id);
+      if (!user.achievements.joinedGuild) {
+        user.achievements.joinedGuild = true;
+        user.addNotification('GUILD_JOINED_ACHIEVEMENT');
+      }
+      if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
+        user._ABtests.counter = -1;
+        user.markModified('_ABtests');
+      }
     } else {
       if (group.privacy !== 'private') throw new NotAuthorized(res.t('partyMustbePrivate'));
       if (user.party._id) throw new NotAuthorized(res.t('messageGroupAlreadyInParty'));
@@ -510,6 +518,14 @@ api.joinGroup = {
         throw new NotAuthorized(res.t('userAlreadyInGroup'));
       }
       user.guilds.push(group._id); // Add group to user's guilds
+      if (!user.achievements.joinedGuild) {
+        user.achievements.joinedGuild = true;
+        user.addNotification('GUILD_JOINED_ACHIEVEMENT');
+      }
+      if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
+        user._ABtests.counter = -1;
+        user.markModified('_ABtests');
+      }
     }
     if (!isUserInvited) throw new NotAuthorized(res.t('messageGroupRequiresInvite'));
 
@@ -1092,6 +1108,110 @@ api.inviteToGroup = {
     }
 
     res.respond(200, results);
+  },
+};
+
+/**
+ * @api {post} /api/v3/groups/:groupId/add-manager Add a manager to a group
+ * @apiName AddGroupManager
+ * @apiGroup Group
+ *
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ *
+ * @apiParamExample {String} party:
+ *     /api/v3/groups/party/add-manager
+ *
+ * @apiBody (Body) {UUID} managerId The user _id of the member to promote to manager
+ *
+ * @apiSuccess {Object} data An empty object
+ *
+ * @apiError (400) {NotAuthorized} managerId req.body.managerId is required
+ * @apiUse groupIdRequired
+ */
+api.addGroupManager = {
+  method: 'POST',
+  url: '/groups/:groupId/add-manager',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let managerId = req.body.managerId;
+
+    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkBody('managerId', apiMessages('managerIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let newManager = await User.findById(managerId, 'guilds party').exec();
+    let groupFields = basicGroupFields.concat(' managers');
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: groupFields});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+
+    let isMember = group.isMember(newManager);
+    if (!isMember) throw new NotAuthorized(res.t('userMustBeMember'));
+
+    group.managers[managerId] = true;
+    group.markModified('managers');
+    await group.save();
+
+    res.respond(200, group);
+  },
+};
+
+/**
+ * @api {post} /api/v3/groups/:groupId/remove-manager Remove a manager from a group
+ * @apiName RemoveGroupManager
+ * @apiGroup Group
+ *
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ *
+ * @apiParamExample {String} party:
+ *     /api/v3/groups/party/add-manager
+ *
+ * @apiBody (Body) {UUID} managerId The user _id of the member to remove
+ *
+ * @apiSuccess {Object} group The group
+ *
+ * @apiError (400) {NotAuthorized} managerId req.body.managerId is required
+ * @apiUse groupIdRequired
+ */
+api.removeGroupManager = {
+  method: 'POST',
+  url: '/groups/:groupId/remove-manager',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let managerId = req.body.managerId;
+
+    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkBody('managerId', apiMessages('managerIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let groupFields = basicGroupFields.concat(' managers');
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: groupFields});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+
+    if (!group.managers[managerId]) throw new NotAuthorized(res.t('userIsNotManager'));
+
+    delete group.managers[managerId];
+    group.markModified('managers');
+    await group.save();
+
+    let manager = await User.findById(managerId, 'notifications').exec();
+    let newNotifications = manager.notifications.filter((notification) => {
+      return notification.type !== 'GROUP_TASK_APPROVAL';
+    });
+    manager.notifications = newNotifications;
+    manager.markModified('notifications');
+    await manager.save();
+
+    res.respond(200, group);
   },
 };
 

@@ -134,7 +134,7 @@
     "playButtonFull": "Entrar no Habitica",
     "presskit": "Pacote de Imprensa",
     "presskitDownload": "Baixar todas as imagens:",
-    "presskitText": "Thanks for your interest in Habitica! The following images can be used for articles or videos about Habitica. For more information, please contact Siena Leslie at <%= pressEnquiryEmail %>.",
+    "presskitText": "Obrigado pelo seu interesse em Habitica! As imagens seguintes podem ser usadas em artigos e videos sobre Habitica. Para mais informação, por favor contacte Siena Leslie em <%= pressEnquiryEmail %>.",
     "pkVideo": "Video",
     "pkPromo": "Promoções",
     "pkLogo": "Logos",

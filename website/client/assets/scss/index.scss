@@ -1,12 +1,22 @@
-// CSS that doesn't belong to any specific Vue compoennt
-@import './forms';
+// Variables and Functions
+@import './utils';
+@import './colors';
 
-html, body {
-  height: 100%;
+* {
+  transition-duration: .15s;
+  transition-property: border-color, box-shadow, color;
+  transition-timing-function: ease-in;
 }
 
-body {
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+// Generic components
+@import './page';
+
+// Global styles
+@import './typography';
+@import './form';
+@import './button';
+@import './badge';
+@import './dropdown';
+@import './popover';
+@import './item';
+
