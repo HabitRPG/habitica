@@ -6,7 +6,6 @@
  */
 import defaults from 'lodash/defaults';
 import invert from 'lodash/invert';
-import isFinite from 'lodash/isFinite';
 import moment from 'moment';
 import 'moment-recur';
 
