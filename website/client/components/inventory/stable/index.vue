@@ -72,6 +72,7 @@
             :starVisible="true",
             :label="pet.value",
             :popoverPosition="'top'",
+            :progress="pet.progress",
             @click="selectPet"
           )
             span(slot="popoverContent", v-once) {{ pet }}
@@ -116,8 +117,9 @@
   import _take from 'lodash/take';
   import _filter from 'lodash/filter';
   import _drop from 'lodash/drop';
+  import _flatMap from 'lodash/flatMap';
 
-  import Item from 'client/components/inventory/item';
+  import Item from './petItem';
   import Drawer from 'client/components/inventory/drawer';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
 
@@ -238,6 +240,7 @@
 
       listAnimals (petGroup, type, isOpen, hideMissing, sort) {
         let animals = this.getAnimalList(petGroup.key, type, petGroup.petSource.eggs, petGroup.petSource.potions);
+        let isPetList = type === 'pet';
 
         if (hideMissing) {
           animals = _filter(animals, 'isOwned');
@@ -253,7 +256,7 @@
             break;
 
           case 'sortByHatchable': {
-            if (type === 'pet') {
+            if (isPetList) {
               let filterFunc = (i) => {
                 return i.hatchable ? 0 : 1;
               };
@@ -272,7 +275,16 @@
           let skipped = _drop(animals, i * 10);
           let row = _take(skipped, 10);
 
-          animalRows.push(row);
+          let rowWithProgressData = isPetList ? _flatMap(row, (a) => {
+            let progress = this.userItems[`${type}s`][a.key];
+
+            return {
+              ...a,
+              progress,
+            };
+          }) : row;
+
+          animalRows.push(rowWithProgressData);
         }
 
         return animalRows;

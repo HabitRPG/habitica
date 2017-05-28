@@ -13,7 +13,7 @@ import UserTasks from './components/userTasks';
 import InventoryContainer from './components/inventory/index';
 import ItemsPage from './components/inventory/items/index';
 import EquipmentPage from './components/inventory/equipment/index';
-import StablePage from './components/inventory/stable';
+import StablePage from './components/inventory/stable/index';
 
 // Social
 import SocialContainer from './components/social/index';
