@@ -322,7 +322,7 @@ describe('shouldDo', () => {
       }
     });
 
-    it.only('returns false and ignore malformed repeat object', () => {
+    it('returns false and ignore malformed repeat object', () => {
       dailyTask.repeat = {
         su: false,
         s: false,
