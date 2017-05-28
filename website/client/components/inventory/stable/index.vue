@@ -48,7 +48,11 @@
         h1.float-left.mb-0.page-header(v-once) {{ $t('stable') }}
         b-dropdown.float-right(:text="$t('sortBy') +((selectedSortBy === 'standard')?'': ': '+ $t(selectedSortBy))", right=true)
           b-dropdown-item(
-            v-for="sort in sortByItems", @click="selectedSortBy = sort", :active="selectedSortBy === sort") {{ $t(sort) }}
+            v-for="sort in sortByItems",
+            @click="selectedSortBy = sort",
+            :active="selectedSortBy === sort",
+            :key="sort"
+          ) {{ $t(sort) }}
 
 
       h2(v-once) {{ $t('pets') }}
@@ -186,10 +190,9 @@
           },
           {
             label: this.$t('special'),
-            key: 'rarePets',
+            key: 'specialPets',
             petSource: {
-              eggs: this.content.dropEggs,
-              potions: this.content.dropHatchingPotions,
+              pets: this.content.specialPets,
             },
           },
         ];
@@ -207,7 +210,9 @@
     },
     methods: {
 
-      getAnimalList (key, type, eggSource, potionSource) {
+      getAnimalList (animalGroup, type) {
+        let key = animalGroup.key;
+
         this.cachedAnimalList = this.cachedAnimalList || {};
         if (this.cachedAnimalList[key]) {
           return this.cachedAnimalList[key];
@@ -215,37 +220,56 @@
 
         let animals = [];
 
-        _each(eggSource, (egg) => {
-          _each(potionSource, (potion) => {
-            let animalKey = `${egg.key}-${potion.key}`;
-            let isOwned = this.userItems[`${type}s`][animalKey] > 0;
-            let hatchable = this.userItems.eggs[egg.key] > 0 && this.userItems.hatchingPotions[potion.key] > 0;
+        if (key === 'specialPets') {
+          _each(animalGroup.petSource.pets, (value, specialKey) => {
+            let eggKey = specialKey.split('-')[0];
+            let potionKey = specialKey.split('-')[1];
+            let isOwned = this.userItems[`${type}s`][specialKey] > 0;
 
             animals.push({
-              key: animalKey,
-              eggKey: egg.key,
-              potionKey: potion.key,
-              potionName: potion.text(),
-              pet: this.content[`${type}Info`][animalKey].text(),
+              key: specialKey,
+              eggKey,
+              potionKey,
+              pet: this.content[`${type}Info`][specialKey].text(),
               isOwned,
-              hatchable,
             });
           });
-        });
+        } else {
+          _each(animalGroup.petSource.eggs, (egg) => {
+            _each(animalGroup.petSource.potions, (potion) => {
+              let animalKey = `${egg.key}-${potion.key}`;
+              let isOwned = this.userItems[`${type}s`][animalKey] > 0;
+              let hatchable = this.userItems.eggs[egg.key] > 0 && this.userItems.hatchingPotions[potion.key] > 0;
+
+              animals.push({
+                key: animalKey,
+                eggKey: egg.key,
+                potionKey: potion.key,
+                potionName: potion.text(),
+                pet: this.content[`${type}Info`][animalKey].text(),
+                isOwned,
+                hatchable,
+              });
+            });
+          });
+        }
 
         this.cachedAnimalList[key] = animals;
 
         return animals;
       },
 
-      listAnimals (petGroup, type, isOpen, hideMissing, sort) {
-        let animals = this.getAnimalList(petGroup.key, type, petGroup.petSource.eggs, petGroup.petSource.potions);
+      listAnimals (animalGroup, type, isOpen, hideMissing, sort) {
+        let animals = this.getAnimalList(animalGroup, type);
         let isPetList = type === 'pet';
+        let withProgress = isPetList && animalGroup.key !== 'specialPets';
 
+        // 1. Filter
         if (hideMissing) {
           animals = _filter(animals, 'isOwned');
         }
 
+        // 2. Sort
         switch (sort) {
           case 'AZ':
             animals = _sortBy(animals, ['pet']);
@@ -275,7 +299,7 @@
           let skipped = _drop(animals, i * 10);
           let row = _take(skipped, 10);
 
-          let rowWithProgressData = isPetList ? _flatMap(row, (a) => {
+          let rowWithProgressData = withProgress ? _flatMap(row, (a) => {
             let progress = this.userItems[`${type}s`][a.key];
 
             return {
@@ -290,8 +314,8 @@
         return animalRows;
       },
 
-      pets (petGroup, showAll, hideMissing, sortBy) {
-        return this.listAnimals(petGroup, 'pet', showAll, hideMissing, sortBy);
+      pets (animalGroup, showAll, hideMissing, sortBy) {
+        return this.listAnimals(animalGroup, 'pet', showAll, hideMissing, sortBy);
       },
 
       updateHideMissing (newVal) {
