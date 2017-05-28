@@ -320,6 +320,10 @@ api.deleteUser = {
 
     await user.remove();
 
+    if (req.body.feedback) {
+      // Send feedback via email
+    }
+
     res.respond(200, {});
   },
 };
