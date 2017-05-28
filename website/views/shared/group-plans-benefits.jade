@@ -6,38 +6,44 @@ mixin groupPlansBenefits()
     .col-md-4
       h2=env.t('teamBasedTasks')
       div
+        // shared tasks
         h3
           span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
-          =env.t('groupBenefitSharedTaskTitle')
-        span=env.t('groupBenefitSharedTaskDescription')
+          =env.t('groupBenefitOneTitle')
+        span=env.t('groupBenefitOneDescription')
       div
+        // assign tasks
         h3
           span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
-          =env.t('groupBenefitAssignTasksTitle')
-        span=env.t('groupBenefitAssignTasksDescription')
+          =env.t('groupBenefitTwoTitle')
+        span=env.t('groupBenefitTwoDescription')
       div
+        // claim tasks
         h3
           span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
-          =env.t('groupBenefitClaimTaskTitle')
-        span=env.t('groupBenefitClaimTaskDescription')
+          =env.t('groupBenefitThreeTitle')
+        span=env.t('groupBenefitThreeDescription')
       div
+        // mark tasks
         h3
           span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
-          =env.t('groupBenefitMarkTasksTitle')
-        span=env.t('groupBenefitMarkTasksDescription')
+          =env.t('groupBenefitFourTitle')
+        span=env.t('groupBenefitFourDescription')
       div
+        // group managers
         h3
           span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
-          =env.t('groupBenefitGroupManagersTitle')
-        span=env.t('groupBenefitGroupManagersDescription')
+          =env.t('groupBenefitEightTitle')
+        span=env.t('groupBenefitEightDescription')
 
     .col-md-4
       h2=env.t('specializedCommunication')
       div
+        // chat privately
         h3
           span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
-          =env.t('groupBenefitChatPrivatelyTitle')
-        span=env.t('groupBenefitChatPrivatelyDescription')
+          =env.t('groupBenefitFiveTitle')
+        span=env.t('groupBenefitFiveDescription')
       div
         h3
           span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
@@ -46,11 +52,13 @@ mixin groupPlansBenefits()
     .col-md-4
       h2=env.t('funExtras')
       div
+        // free subscription
         h3
           span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
-          =env.t('groupBenefitFreeSubscriptionTitle')
-        span=env.t('groupBenefitFreeSubscriptionDescription')
+          =env.t('groupBenefitSixTitle')
+        span=env.t('groupBenefitSixDescription')
       div
+        // exclusive mount
         h3
           span.glyphicon.glyphicon-ok-circle(style='margin-right: 1.5rem;')
-          =env.t('groupBenefitExclusiveMountTitle')
+          =env.t('groupBenefitSevenTitle')
