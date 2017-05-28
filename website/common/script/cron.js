@@ -4,8 +4,10 @@
   Cron and time / day functions
   ------------------------------------------------------
  */
-import _ from 'lodash'; // eslint-disable-line lodash/import-scope
+import defaults from 'lodash/defaults';
+import invert from 'lodash/invert';
 import moment from 'moment';
+import 'moment-recur';
 
 export const DAY_MAPPING = {
   0: 'su',
@@ -17,6 +19,8 @@ export const DAY_MAPPING = {
   6: 's',
 };
 
+export const DAY_MAPPING_STRING_TO_NUMBER = invert(DAY_MAPPING);
+
 /*
   Each time we perform date maths (cron, task-due-days, etc), we need to consider user preferences.
   Specifically {dayStart} (custom day start) and {timezoneOffset}. This function sanitizes / defaults those values.
@@ -25,13 +29,14 @@ export const DAY_MAPPING = {
 
 function sanitizeOptions (o) {
   let ref = Number(o.dayStart || 0);
-  let dayStart = !_.isNaN(ref) && ref >= 0 && ref <= 24 ? ref : 0;
+  let dayStart = !Number.isNaN(ref) && ref >= 0 && ref <= 24 ? ref : 0;
 
   let timezoneOffset;
   let timezoneOffsetDefault = Number(moment().zone());
-  if (_.isFinite(o.timezoneOffsetOverride)) {
+
+  if (isFinite(o.timezoneOffsetOverride)) {
     timezoneOffset = Number(o.timezoneOffsetOverride);
-  } else if (_.isFinite(o.timezoneOffset)) {
+  } else if (Number.isFinite(o.timezoneOffset)) {
     timezoneOffset = Number(o.timezoneOffset);
   } else {
     timezoneOffset = timezoneOffsetDefault;
@@ -81,7 +86,7 @@ export function startOfDay (options = {}) {
 export function daysSince (yesterday, options = {}) {
   let o = sanitizeOptions(options);
 
-  return startOfDay(_.defaults({ now: o.now }, o)).diff(startOfDay(_.defaults({ now: yesterday }, o)), 'days');
+  return startOfDay(defaults({ now: o.now }, o)).diff(startOfDay(defaults({ now: yesterday }, o)), 'days');
 }
 
 /*
@@ -93,32 +98,94 @@ export function shouldDo (day, dailyTask, options = {}) {
     return false;
   }
   let o = sanitizeOptions(options);
-  let startOfDayWithCDSTime = startOfDay(_.defaults({ now: day }, o));
-
+  let startOfDayWithCDSTime = startOfDay(defaults({ now: day }, o));
   // The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it.
   // Therefore, we must also ignore the time portion of the user's day start (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
   // NB: The user's day start date has already been converted to the PREVIOUS day's date if the time portion was before CDS.
-  let taskStartDate = moment(dailyTask.startDate).zone(o.timezoneOffset);
 
-  taskStartDate = moment(taskStartDate).startOf('day');
-  if (taskStartDate > startOfDayWithCDSTime.startOf('day')) {
+  let startDate = moment(dailyTask.startDate).zone(o.timezoneOffset).startOf('day');
+
+  if (startDate > startOfDayWithCDSTime.startOf('day') && !options.nextDue) {
     return false; // Daily starts in the future
   }
-  if (dailyTask.frequency === 'daily') { // "Every X Days"
-    if (!dailyTask.everyX) {
-      return false; // error condition
-    }
-    let daysSinceTaskStart = startOfDayWithCDSTime.startOf('day').diff(taskStartDate, 'days');
 
-    return daysSinceTaskStart % dailyTask.everyX === 0;
-  } else if (dailyTask.frequency === 'weekly') { // "On Certain Days of the Week"
-    if (!dailyTask.repeat) {
-      return false; // error condition
-    }
-    let dayOfWeekNum = startOfDayWithCDSTime.day(); // e.g., 0 for Sunday
+  let daysOfTheWeek = [];
 
-    return dailyTask.repeat[DAY_MAPPING[dayOfWeekNum]];
-  } else {
-    return false; // error condition - unexpected frequency string
+  if (dailyTask.repeat) {
+    for (let [repeatDay, active] of Object.entries(dailyTask.repeat)) {
+      if (active) daysOfTheWeek.push(parseInt(DAY_MAPPING_STRING_TO_NUMBER[repeatDay], 10));
+    }
   }
+
+  if (dailyTask.frequency === 'daily') {
+    if (!dailyTask.everyX) return false; // error condition
+    let schedule = moment(startDate).recur()
+      .every(dailyTask.everyX).days();
+
+    if (options.nextDue) return schedule.fromDate(startOfDayWithCDSTime).next(6);
+
+    return schedule.matches(startOfDayWithCDSTime);
+  } else if (dailyTask.frequency === 'weekly') {
+    let schedule = moment(startDate).recur();
+
+    let differenceInWeeks = moment(startOfDayWithCDSTime).week() - moment(startDate).week();
+    let matchEveryX = differenceInWeeks % dailyTask.everyX === 0;
+
+    if (daysOfTheWeek.length === 0) return false;
+    schedule = schedule.every(daysOfTheWeek).daysOfWeek();
+
+    if (options.nextDue) {
+      let dates = schedule.fromDate(startOfDayWithCDSTime.subtract('1', 'days')).next(6);
+      let filterDates = dates.filter((momentDate) => {
+        let weekDiff = momentDate.week() - moment(startDate).week();
+        let matchX = weekDiff % dailyTask.everyX === 0;
+        return matchX;
+      });
+      return filterDates;
+    }
+
+    return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
+  } else if (dailyTask.frequency === 'monthly') {
+    let schedule = moment(startDate).recur();
+
+    let differenceInMonths = moment(startOfDayWithCDSTime).month() - moment(startDate).month();
+    let matchEveryX = differenceInMonths % dailyTask.everyX === 0;
+
+    if (dailyTask.weeksOfMonth && dailyTask.weeksOfMonth.length > 0) {
+      schedule = schedule.every(daysOfTheWeek).daysOfWeek()
+                        .every(dailyTask.weeksOfMonth).weeksOfMonthByDay();
+    } else if (dailyTask.daysOfMonth && dailyTask.daysOfMonth.length > 0) {
+      schedule = schedule.every(dailyTask.daysOfMonth).daysOfMonth();
+    }
+
+    if (options.nextDue) {
+      let dates = schedule.fromDate(startOfDayWithCDSTime).next(6);
+      let filterDates = dates.filter((momentDate) => {
+        let monthDiff = momentDate.month() - moment(startDate).month();
+        let matchX = monthDiff % dailyTask.everyX === 0;
+        return matchX;
+      });
+      return filterDates;
+    }
+
+    return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
+  } else if (dailyTask.frequency === 'yearly') {
+    let schedule = moment(startDate).recur();
+
+    schedule = schedule.every(dailyTask.everyX).years();
+
+    if (options.nextDue) {
+      let dates = schedule.fromDate(startOfDayWithCDSTime).next(6);
+      let filterDates = dates.filter((momentDate) => {
+        let monthDiff = momentDate.years() - moment(startDate).years();
+        let matchX = monthDiff % dailyTask.everyX === 0;
+        return matchX;
+      });
+      return filterDates;
+    }
+
+    return schedule.matches(startOfDayWithCDSTime);
+  }
+
+  return false;
 }
