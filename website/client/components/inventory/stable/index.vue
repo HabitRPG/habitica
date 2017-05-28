@@ -72,7 +72,6 @@
             :itemContentClass="pet.isOwned ? ('Pet Pet-' + pet.key) : 'PixelPaw'",
             :key="pet.key",
             :showPopover="true",
-            :selected="pet.key === currentPet",
             :starVisible="true",
             :label="pet.value",
             :popoverPosition="'top'",
@@ -80,6 +79,12 @@
             @click="selectPet"
           )
             span(slot="popoverContent", v-once) {{ pet }}
+            template(slot="itemBadge", scope="ctx")
+              starBadge(
+                :selected="ctx.item.key === currentPet",
+                :show="true",
+                @click="selectPet(ctx.item)",
+              )
 
         .btn.btn-show-more(@click="viewOptions[petGroup.key].open = !viewOptions[petGroup.key].open") {{ viewOptions[petGroup.key].open ? 'Close' : 'Open' }}
 
@@ -126,6 +131,7 @@
   import Item from './petItem';
   import Drawer from 'client/components/inventory/drawer';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
+  import StarBadge from 'client/components/inventory/starBadge';
 
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
@@ -139,6 +145,7 @@
       bDropdown,
       bDropdownItem,
       toggleSwitch,
+      StarBadge,
     },
     data () {
       return {
@@ -323,7 +330,7 @@
       },
 
       selectPet (item) {
-        this.$store.dispatch('common:selectPet', {key: item.key});
+        this.$store.dispatch('common:equip', {key: item.key, type: 'pet'});
       },
     },
   };
