@@ -6,9 +6,10 @@ import Bluebird from 'bluebird';
 import { model as Group } from '../models/group';
 import { model as User } from '../models/user';
 import { recoverCron, cron } from '../libs/cron';
-import { v4 as uuid } from 'uuid';
 
 const daysSince = common.daysSince;
+// Wait this length of time in ms before attempting another cron
+const CRON_TIMEOUT = new Date(60 * 60 * 1000).getTime();
 
 async function cronAsync (req, res) {
   let user = res.locals.user;
@@ -101,12 +102,18 @@ async function cronAsync (req, res) {
       return null;
     }
 
-    let _cronSignature = uuid();
+    // set _cronSignature to current time in ms since epoch time so we can make sure to wait at least an hour before trying again even if there is a timezoned
+    let _cronSignature = now.getTime();
+    // Calculate how long ago cron must have been attempted to try again
+    let timeoutThreshold = _cronSignature - CRON_TIMEOUT;
 
     // To avoid double cron we first set _cronSignature and then check that it's not changed while processing
     let userUpdateResult = await User.update({
       _id: user._id,
-      _cronSignature: 'NOT_RUNNING', // Check that in the meantime another cron has not started
+      $or: [ // Make sure cron was successful or failed at least CRON_TIMEOUT ms ago
+        {_cronSignature: 'NOT_RUNNING'}, // Check that in the meantime another cron has not started
+        {_cronSignature: {$lt: timeoutThreshold}},
+      ],
     }, {
       $set: {
         _cronSignature,
