@@ -8,28 +8,28 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template',
         +subPerks()
 
       .col-md-6
-        table.table.alert.alert-info(ng-if='user.purchased.plan.customerId')
-          tr(ng-if='user.purchased.plan.dateTerminated'): td.alert.alert-warning
+        table.table.alert.alert-info(ng-if='hasSubscription(user)')
+          tr(ng-if='hasCanceledSubscription(user)'): td.alert.alert-warning
             span.noninteractive-button.btn-danger=env.t('canceledSubscription')
             i.glyphicon.glyphicon-time
             |  #{env.t('subCanceled')} <strong>{{user.purchased.plan.dateTerminated | date:user.preferences.dateFormat}}</strong>
-          tr(ng-if='!user.purchased.plan.dateTerminated'): td
+          tr(ng-if='!hasCanceledSubscription(user)'): td
             h4=env.t('subscribed')
-            p(ng-if='user.purchased.plan.planId && user.purchased.plan.customerId !== "group-plan"')=env.t('purchasedPlanId', {price: '{{Content.subscriptionBlocks[user.purchased.plan.planId].price}}', months: '{{Content.subscriptionBlocks[user.purchased.plan.planId].months}}', plan: '{{user.purchased.plan.paymentMethod}}'})
-            p(ng-if='user.purchased.plan.customerId === "group-plan"')=env.t('youHaveGroupPlan')
+            p(ng-if='hasPlan(user) && !hasGroupPlan(user)')=env.t('purchasedPlanId', {price: '{{Content.subscriptionBlocks[user.purchased.plan.planId].price}}', months: '{{Content.subscriptionBlocks[user.purchased.plan.planId].months}}', plan: '{{user.purchased.plan.paymentMethod}}'})
+            p(ng-if='hasGroupPlan(user)')=env.t('youHaveGroupPlan')
           tr(ng-if='user.purchased.plan.extraMonths'): td
             span.glyphicon.glyphicon-credit-card
             | &nbsp;#{env.t('purchasedPlanExtraMonths', {months: '{{user.purchased.plan.extraMonths | number:2}}'})}
-          tr(ng-if='user.purchased.plan.consecutive.count || user.purchased.plan.consecutive.offset'): td
+          tr(ng-if='hasConsecutiveSubscription(user)'): td
             span.glyphicon.glyphicon-forward
             | &nbsp;#{env.t('consecutiveSubscription')}
             ul.list-unstyled
               li #{env.t('consecutiveMonths')} {{user.purchased.plan.consecutive.count + user.purchased.plan.consecutive.offset}}
               li #{env.t('gemCapExtra')} {{user.purchased.plan.consecutive.gemCapExtra}}
               li #{env.t('mysticHourglasses')} {{user.purchased.plan.consecutive.trinkets}}
-        
-        div(ng-if='!user.purchased.plan.customerId || (user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')
-          h4(ng-if='(user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')= env.t("resubscribe")
+
+        div(ng-if='!hasSubscription(user) || hasCanceledSubscription(user)')
+          h4(ng-if='hasCanceledSubscription(user)')= env.t("resubscribe")
           .form-group.reduce-top-margin
             .radio(ng-repeat='block in Content.subscriptionBlocks | toArray | omit: "discount==true" | orderBy:"months"', ng-if="block.target !== 'group' && block.canSubscribe === true")
               label
@@ -47,11 +47,12 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template',
             .form-group
               button.pull-right.btn.btn-small(type='button',ng-click='applyCoupon(_subscription.coupon)')= env.t("apply")
 
-        div(ng-if='user.purchased.plan.customerId')
-          .btn.btn-primary(ng-if='!user.purchased.plan.dateTerminated && user.purchased.plan.paymentMethod=="Stripe"', ng-click='Payments.showStripeEdit()')=env.t('subUpdateCard')
-          .btn.btn-sm.btn-danger(ng-if='!user.purchased.plan.dateTerminated && user.purchased.plan.customerId !== "group-plan"', ng-click='Payments.cancelSubscription()')=env.t('cancelSub')
+        div(ng-if='hasSubscription(user)')
+          .btn.btn-primary(ng-if='canEditCardDetails(user)', ng-click='Payments.showStripeEdit()')=env.t('subUpdateCard')
+          .btn.btn-sm.btn-danger(ng-if='canCancelSubscription(user)', ng-click='Payments.cancelSubscription()')=env.t('cancelSub')
+          small(ng-if='!canCancelSubscription(user)', ng-bind-html='getCancelSubInfo(user)')
 
-        .container-fluid.slight-vertical-padding(ng-if='!user.purchased.plan.customerId || (user.purchased.plan.customerId && user.purchased.plan.dateTerminated)')
+        .container-fluid.slight-vertical-padding(ng-if='!hasSubscription(user) || hasCanceledSubscription(user)')
           small.muted=env.t('subscribeUsing')
           .row.text-center
             .col-md-4

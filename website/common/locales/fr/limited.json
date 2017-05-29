@@ -107,5 +107,6 @@
     "eventAvailability": "Disponible à l'achat jusqu'au <%= date(locale) %>.",
     "dateEndApril": "19 avril",
     "dateEndMay": "17 mai",
+    "dateEndJune": "June 14",
     "discountBundle": "lot"
 }
