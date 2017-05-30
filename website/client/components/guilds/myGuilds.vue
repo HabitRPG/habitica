@@ -2,7 +2,7 @@
 .row
   sidebar(v-on:search="updateSearch", v-on:filter="updateFilters")
 
-  .col-10.no-guilds(v-if='filteredGuilds.length === 0')
+  .col-10.no-guilds.standard-page(v-if='filteredGuilds.length === 0')
     .no-guilds-wrapper
       img(src='~assets/guilds/grey-badge.svg')
       h2 {{$t('noGuildsTitle')}}
@@ -14,7 +14,8 @@
     .row
       .col-md-12
         h1.page-header.float-left(v-once) {{ $t('myGuilds') }}
-        b-form-select.float-right.sort-select(v-model='sort', :options='sortOptions')
+        b-dropdown.float-right.sort-select(:text="$t('sort')", right=true)
+          b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption.value)') {{sortOption.text}}
     .row
       .col-md-12
         public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild", :display-gem-bank='true')
@@ -49,32 +50,32 @@ import groupUtilities from 'client/mixins/groupsUtilities';
 
 import MugenScroll from 'vue-mugen-scroll';
 import bFormSelect from 'bootstrap-vue/lib/components/form-select';
+import bDropdown from 'bootstrap-vue/lib/components/dropdown';
+import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
 import PublicGuildItem from './publicGuildItem';
 import Sidebar from './sidebar';
 
 export default {
   mixins: [groupUtilities],
-  components: { PublicGuildItem, MugenScroll, Sidebar, bFormSelect },
+  components: { PublicGuildItem, MugenScroll, Sidebar, bFormSelect, bDropdown, bDropdownItem },
   data () {
     return {
       loading: false,
-      hasLoadedAllGuilds: false,
-      lastPageLoaded: 0,
       search: '',
       filters: {},
       sort: 'none',
       sortOptions: [
         {
-          text: 'None',
+          text: this.$t('none'),
           value: 'none',
         },
         {
-          text: 'Member Count',
+          text: this.$t('memberCount'),
           value: 'member_count',
         },
         {
-          text: 'Recent Activity',
+          text: this.$t('recentActivity'),
           value: 'recent_activity',
         },
       ],
@@ -106,7 +107,7 @@ export default {
     },
     async fetchGuilds () {
       this.loading = true;
-      await this.$store.dispatch('guilds:getMyGuilds', {page: this.lastPageLoaded});
+      await this.$store.dispatch('guilds:getMyGuilds');
       this.loading = false;
     },
   },

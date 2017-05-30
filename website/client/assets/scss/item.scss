@@ -65,25 +65,3 @@
   color: $gray-400;
   margin-top: 4px;
 }
-
-.item > .badge {
-  cursor: pointer;
-  display: none;
-  position: absolute;
-  top: -12px;
-  left: -12px;
-  color: $gray-400;
-  background: $white;
-  padding: 4.5px 6px;
-  box-shadow: 0 1px 1px 0 rgba($black, 0.12);
-
-  &.item-selected-badge {
-    display: block;
-    background: $teal-50;
-    color: $white;
-  }
-}
-
-.item:hover > .badge {
-  display: block;
-}

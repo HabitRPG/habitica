@@ -2,10 +2,11 @@
 .row
   sidebar(@search="updateSearch", @filter="updateFilters")
 
-  .col-10
+  .col-10.standard-page
     .clearfix
         h1.page-header.float-left(v-once) {{ $t('publicGuilds') }}
-        b-form-select.float-right.sort-select(v-model='sort', :options='sortOptions')
+        b-dropdown.float-right.sort-select(:text="$t('sort')", right=true)
+          b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption.value)') {{sortOption.text}}
     .col-md-12
       public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild", :display-leave='true')
       mugen-scroll(
@@ -28,11 +29,14 @@ import MugenScroll from 'vue-mugen-scroll';
 import PublicGuildItem from './publicGuildItem';
 import Sidebar from './sidebar';
 import groupUtilities from 'client/mixins/groupsUtilities';
+
 import bFormSelect from 'bootstrap-vue/lib/components/form-select';
+import bDropdown from 'bootstrap-vue/lib/components/dropdown';
+import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
 export default {
   mixins: [groupUtilities],
-  components: { PublicGuildItem, MugenScroll, Sidebar, bFormSelect },
+  components: { PublicGuildItem, MugenScroll, Sidebar, bFormSelect, bDropdown, bDropdownItem },
   data () {
     return {
       loading: false,
@@ -43,32 +47,31 @@ export default {
       sort: 'none',
       sortOptions: [
         {
-          text: 'None',
+          text: this.$t('none'),
           value: 'none',
         },
         {
-          text: 'Member Count',
+          text: this.$t('memberCount'),
           value: 'member_count',
         },
         {
-          text: 'Recent Activity',
+          text: this.$t('recentActivity'),
           value: 'recent_activity',
         },
       ],
+      guilds: [],
     };
   },
   created () {
     if (!this.$store.state.publicGuilds) this.fetchGuilds();
   },
   computed: {
-    guilds () {
-      return this.$store.state.publicGuilds;
-    },
     filteredGuilds () {
       let search = this.search;
       let filters = this.filters;
       let user = this.$store.state.user.data;
       let filterGuild = this.filterGuild;
+      // @TODO: Move this to the server
       return this.guilds.filter((guild) => {
         return filterGuild(guild, filters, search, user);
       });
@@ -86,9 +89,10 @@ export default {
       if (this.lastPageLoaded === 0 && this.guilds.length > 0) return;
 
       this.loading = true;
-      let response = await this.$store.dispatch('guilds:getPublicGuilds', {page: this.lastPageLoaded});
+      let guilds = await this.$store.dispatch('guilds:getPublicGuilds', {page: this.lastPageLoaded});
+      if (guilds.length === 0) this.hasLoadedAllGuilds = true;
 
-      if (response.length === 0) this.hasLoadedAllGuilds = true;
+      this.guilds.push(...guilds);
 
       this.lastPageLoaded++;
       this.loading = false;

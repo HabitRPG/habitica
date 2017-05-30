@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  button.btn.btn-primary.btn-purple(b-btn, @click="$root.$emit('show::modal','members-modal')") {{ $t('viewMembers') }}
+  button.btn.btn-primary.btn-primary(b-btn, @click="$root.$emit('show::modal','members-modal')") {{ $t('viewMembers') }}
 
   b-modal#members-modal(:title="$t('createGuild')")
     ul(v-for='member in members', :key='member')
@@ -19,13 +19,11 @@ div
 
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
-import bBtn from 'bootstrap-vue/lib/components/button';
 
 export default {
   props: ['group'],
   components: {
     bModal,
-    bBtn,
   },
   data () {
     return {

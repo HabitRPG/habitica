@@ -70,13 +70,13 @@
         br
         button.btn.float-left(:class="[isMember ? 'btn-danger' : 'btn-success']") {{ isMember ? $t('leave') : $t('join') }}
         br
-        button.btn.btn-purple(v-once) {{$t('inviteToGuild')}}
+        button.btn.btn-primary(v-once) {{$t('inviteToGuild')}}
         br
-        button.btn.btn-purple(v-once) {{$t('messageGuildLeader')}}
+        button.btn.btn-primary(v-once) {{$t('messageGuildLeader')}}
         br
-        button.btn.btn-purple(v-once) {{$t('donateGems')}}
+        button.btn.btn-primary(v-once) {{$t('donateGems')}}
         br
-        button.btn.btn-primary.btn-purple(b-btn, @click="updateGuild", v-once) {{ $t('updateGuild') }}
+        button.btn.btn-primary.btn-primary(b-btn, @click="updateGuild", v-once) {{ $t('updateGuild') }}
     div
       h3(v-once) {{ $t('description') }}
       p(v-once) {{ guild.description }}

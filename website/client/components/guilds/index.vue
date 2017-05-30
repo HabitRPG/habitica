@@ -13,12 +13,6 @@
 <!-- .col-md-2
   button.btn.btn-primary(b-btn, @click="$root.$emit('show::modal','guild-form')") {{ $t('createGuild') }} -->
 
-<style>
-  body {
-    background-color: #f9f9f9;
-  }
-</style>
-
 <script>
 import groupFormModal from './groupFormModal';
 import SecondaryMenu from 'client/components/secondaryMenu';

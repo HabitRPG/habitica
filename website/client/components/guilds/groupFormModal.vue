@@ -15,17 +15,32 @@
         label
           strong(v-once) {{$t('privacySettings')}}*
         br
-        b-form-checkbox(v-model='newGuild.onlyLeaderCreatesChallenges') {{$t('onlyLeaderCreatesChallenges')}}
+        label.custom-control.custom-checkbox
+          input.custom-control-input(type="checkbox", v-model="newGuild.onlyLeaderCreatesChallenges")
+          span.custom-control-indicator
+          span.custom-control-description(v-once) {{ $t('onlyLeaderCreatesChallenges') }}
           b-tooltip.icon(:content="$t('privateDescription')")
             img(src='~assets/guilds/information.svg')
+
         br
-        b-form-checkbox(v-model='newGuild.guildLeaderCantBeMessaged') {{$t('guildLeaderCantBeMessaged')}}
+        label.custom-control.custom-checkbox
+          input.custom-control-input(type="checkbox", v-model="newGuild.guildLeaderCantBeMessaged")
+          span.custom-control-indicator
+          span.custom-control-description(v-once) {{ $t('guildLeaderCantBeMessaged') }}
+
         br
-        b-form-checkbox(v-model='newGuild.privateGuild') {{$t('privateGuild')}}
+        label.custom-control.custom-checkbox
+          input.custom-control-input(type="checkbox", v-model="newGuild.privateGuild")
+          span.custom-control-indicator
+          span.custom-control-description(v-once) {{ $t('privateGuild') }}
           b-tooltip.icon(:content="$t('privateDescription')")
             img(src='~assets/guilds/information.svg')
+
         br
-        b-form-checkbox(v-model='newGuild.allowGuildInvationsFromNonMembers') {{$t('allowGuildInvationsFromNonMembers')}}
+        label.custom-control.custom-checkbox
+          input.custom-control-input(type="checkbox", v-model="newGuild.allowGuildInvationsFromNonMembers")
+          span.custom-control-indicator
+          span.custom-control-description(v-once) {{ $t('allowGuildInvationsFromNonMembers') }}
 
       .form-group
         label

@@ -16,7 +16,7 @@
             button.btn.btn-success(v-if='!isMember'  @click='join()', v-once) {{ $t('join') }}
             div.item-with-icon(v-if='displayGemBank')
               img(src="~assets/guilds/green-gem.svg")
-              span.count 2
+              span.count {{ guild.balance }}
             div.guild-bank(v-if='displayGemBank', v-once) {{$t('guildBank')}}
         .row
           .col-md-12
