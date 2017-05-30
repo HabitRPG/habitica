@@ -94,7 +94,7 @@ export function daysSince (yesterday, options = {}) {
  */
 
 export function shouldDo (day, dailyTask, options = {}) {
-  if (dailyTask.type !== 'daily') {
+  if (dailyTask.type !== 'daily' || dailyTask.everyX > 9999) {
     return false;
   }
   let o = sanitizeOptions(options);
@@ -110,81 +110,95 @@ export function shouldDo (day, dailyTask, options = {}) {
   }
 
   let daysOfTheWeek = [];
+  let schedule = [];
 
   if (dailyTask.repeat) {
     for (let [repeatDay, active] of Object.entries(dailyTask.repeat)) {
       if (active) daysOfTheWeek.push(parseInt(DAY_MAPPING_STRING_TO_NUMBER[repeatDay], 10));
     }
+    daysOfTheWeek.sort();
   }
 
   if (dailyTask.frequency === 'daily') {
     if (!dailyTask.everyX) return false; // error condition
-    let schedule = moment(startDate).recur()
-      .every(dailyTask.everyX).days();
 
-    if (options.nextDue) return schedule.fromDate(startOfDayWithCDSTime).next(6);
+    let i = 1;
+    while (schedule.length < 6) {
+      let calcDate = moment(startDate).add(dailyTask.everyX * i, 'days');
+      if (calcDate >= startOfDayWithCDSTime) schedule.push(calcDate);
+      i++;
+    }
 
-    return schedule.matches(startOfDayWithCDSTime);
+    if (options.nextDue) {
+      return schedule;
+    }
+
+    // true if current day = (task start date or first calculated due date)
+    return startOfDayWithCDSTime.isSame(moment(startDate), 'day') || startOfDayWithCDSTime.isSame(schedule[0], 'day');
   } else if (dailyTask.frequency === 'weekly') {
-    let schedule = moment(startDate).recur();
-
-    let differenceInWeeks = moment(startOfDayWithCDSTime).week() - moment(startDate).week();
-    let matchEveryX = differenceInWeeks % dailyTask.everyX === 0;
-
     if (daysOfTheWeek.length === 0) return false;
-    schedule = schedule.every(daysOfTheWeek).daysOfWeek();
 
-    if (options.nextDue) {
-      let dates = schedule.fromDate(startOfDayWithCDSTime.subtract('1', 'days')).next(6);
-      let filterDates = dates.filter((momentDate) => {
-        let weekDiff = momentDate.week() - moment(startDate).week();
-        let matchX = weekDiff % dailyTask.everyX === 0;
-        return matchX;
-      });
-      return filterDates;
+    // weekly multiple starts at 0 for current week
+    let i = 0;
+    while (schedule.length < 6) {
+      for (let j = 0; j < daysOfTheWeek.length && schedule.length < 6; j++) {
+        let calcDate = moment(startDate).day(daysOfTheWeek[j]).add(dailyTask.everyX * i, 'weeks');
+        if (calcDate >= startOfDayWithCDSTime) schedule.push(calcDate);
+      }
+      i++;
     }
 
-    return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
+    if (options.nextDue) {
+      return schedule;
+    }
+    // true if current day = (task start date or first calculated due date)
+    return startOfDayWithCDSTime.isSame(moment(startDate), 'day') || startOfDayWithCDSTime.isSame(schedule[0], 'day');
   } else if (dailyTask.frequency === 'monthly') {
-    let schedule = moment(startDate).recur();
-
-    let differenceInMonths = moment(startOfDayWithCDSTime).month() - moment(startDate).month();
-    let matchEveryX = differenceInMonths % dailyTask.everyX === 0;
-
     if (dailyTask.weeksOfMonth && dailyTask.weeksOfMonth.length > 0) {
-      schedule = schedule.every(daysOfTheWeek).daysOfWeek()
-                        .every(dailyTask.weeksOfMonth).weeksOfMonthByDay();
+      let differenceInMonths = moment(startOfDayWithCDSTime).month() - moment(startDate).month();
+      let matchEveryX = differenceInMonths % dailyTask.everyX === 0;
+      schedule = moment(startDate).recur().every(daysOfTheWeek).daysOfWeek().every(dailyTask.weeksOfMonth).weeksOfMonthByDay();
+
+      if (options.nextDue) {
+        let dates = schedule.fromDate(startOfDayWithCDSTime).next(6);
+        let filterDates = dates.filter((momentDate) => {
+          let monthDiff = momentDate.month() - moment(startDate).month();
+          let matchX = monthDiff % dailyTask.everyX === 0;
+          return matchX;
+        });
+        return filterDates;
+      }
+      return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
     } else if (dailyTask.daysOfMonth && dailyTask.daysOfMonth.length > 0) {
-      schedule = schedule.every(dailyTask.daysOfMonth).daysOfMonth();
+      let i = 0;
+      while (schedule.length < 6) {
+        let calcDate = moment(startDate).add(dailyTask.everyX * i, 'months');
+        if (calcDate >= startOfDayWithCDSTime) schedule.push(calcDate);
+        i++;
+      }
+
+      if (options.nextDue) {
+        return schedule;
+      }
+      // true if current day = (task start date or first calculated due date)
+      return startOfDayWithCDSTime.isSame(moment(startDate), 'day') || startOfDayWithCDSTime.isSame(schedule[0], 'day');
     }
 
-    if (options.nextDue) {
-      let dates = schedule.fromDate(startOfDayWithCDSTime).next(6);
-      let filterDates = dates.filter((momentDate) => {
-        let monthDiff = momentDate.month() - moment(startDate).month();
-        let matchX = monthDiff % dailyTask.everyX === 0;
-        return matchX;
-      });
-      return filterDates;
-    }
-
-    return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
+    return false;
   } else if (dailyTask.frequency === 'yearly') {
-    let schedule = moment(startDate).recur();
-
-    schedule = schedule.every(dailyTask.everyX).years();
-
-    if (options.nextDue) {
-      let dates = schedule.fromDate(startOfDayWithCDSTime).next(6);
-      let filterDates = dates.filter((momentDate) => {
-        let monthDiff = momentDate.years() - moment(startDate).years();
-        let matchX = monthDiff % dailyTask.everyX === 0;
-        return matchX;
-      });
-      return filterDates;
+    let i = 1;
+    while (schedule.length < 6) {
+      let calcDate = moment(startDate).add(dailyTask.everyX * i, 'years');
+      if (calcDate >= startOfDayWithCDSTime) schedule.push(calcDate);
+      i++;
     }
 
-    return schedule.matches(startOfDayWithCDSTime);
+    if (options.nextDue) {
+      return schedule;
+    }
+
+    // true if current day = (task start date or first calculated due date)
+    return startOfDayWithCDSTime.isSame(moment(startDate), 'day') || startOfDayWithCDSTime.isSame(schedule[0], 'day');
   }
 
   return false;
