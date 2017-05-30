@@ -220,14 +220,14 @@ api.ipn = async function ipnApi (options = {}) {
 
   let {txn_type, recurring_payment_id} = options;
 
-  let ipnAccetableTypes = [
+  let ipnAcceptableTypes = [
     'recurring_payment_profile_cancel',
     'recurring_payment_failed',
     'recurring_payment_expired',
     'subscr_cancel',
     'subscr_failed'];
 
-  if (ipnAccetableTypes.indexOf(txn_type) === -1) return;
+  if (ipnAcceptableTypes.indexOf(txn_type) === -1) return;
   // @TODO: Should this request billing date?
   let user = await User.findOne({ 'purchased.plan.customerId': recurring_payment_id }).exec();
   if (user) {
