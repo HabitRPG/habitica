@@ -8,6 +8,14 @@
   transition-timing-function: ease-in;
 }
 
+.svgicon, .svgicon * {
+  transition: none;
+}
+
+.svgicon path {
+  fill: currentColor;
+}
+
 // Generic components
 @import './page';
 
@@ -19,4 +27,4 @@
 @import './dropdown';
 @import './popover';
 @import './item';
-
+@import './stats';

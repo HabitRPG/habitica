@@ -214,6 +214,7 @@
     "sinon-chai": "^2.8.0",
     "sinon-stub-promise": "^4.0.0",
     "superagent-defaults": "^0.1.13",
+    "svg-inline-loader": "^0.7.1",
     "vinyl-transform": "^1.0.0",
     "webpack-bundle-analyzer": "^2.2.1",
     "webpack-dev-middleware": "^1.10.0",

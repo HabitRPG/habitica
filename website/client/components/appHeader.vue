@@ -2,61 +2,72 @@
 #app-header.row
   avatar#header-avatar(:user="user")
   div
-    span.character-name {{user.profile.name}}
-    span.character-level Lvl {{user.stats.lvl}}
+    h3.character-name 
+      | {{user.profile.name}}
+      .is-buffed
+        .icon(v-html="icons.buff", v-if="isBuffed")
+    span.small-text.character-level {{ characterLevel }}
     .progress-container.d-flex
-      img.icon(src="~assets/header/png/health@3x.png")
+      .icon(v-html="icons.health")
       .progress
-        .progress-bar.bg-danger(:style="{width: `${percent(user.stats.hp, MAX_HEALTH)}%`}")
-      span {{user.stats.hp | round}} / {{MAX_HEALTH}}
+        .progress-bar.bg-health(:style="{width: `${percent(user.stats.hp, MAX_HEALTH)}%`}")
+      span.small-text {{user.stats.hp | round}} / {{MAX_HEALTH}}
     .progress-container.d-flex
-      img.icon(src="~assets/header/png/experience@3x.png")
+      .icon(v-html="icons.experience")
       .progress
-        .progress-bar.bg-warning(:style="{width: `${percent(user.stats.exp, toNextLevel)}%`}")
-      span {{user.stats.exp | round}} / {{toNextLevel}}
-    .progress-container.d-flex(ng-if="user.flags.classSelected && !user.preferences.disableClasses")
-      img.icon(src="~assets/header/png/magic@3x.png")
+        .progress-bar.bg-experience(:style="{width: `${percent(user.stats.exp, toNextLevel)}%`}")
+      span.small-text {{user.stats.exp | round}} / {{toNextLevel}}
+    .progress-container.d-flex(v-if="user.flags.classSelected && !user.preferences.disableClasses")
+      .icon(v-html="icons.mana")
       .progress
-        .progress-bar(:style="{width: `${percent(user.stats.mp, maxMP)}%`}")
-      span {{user.stats.mp | round}} / {{maxMP}}
+        .progress-bar.bg-mana(:style="{width: `${percent(user.stats.mp, maxMP)}%`}")
+      span.small-text {{user.stats.mp | round}} / {{maxMP}}
 </template>
 
 <style lang="scss" scoped>
 @import '~client/assets/scss/colors.scss';
 
-// TODO move to colors.scss if used in other places
 $header-dark-background: #271B3D;
-$header-text-color: #D5C8FF;
 
-/* TODO refactor: only partially ported from SemanticUI; */
 #app-header {
   padding-left: 14px;
   margin-top: 56px;
   background: $purple-50;
   height: 192px;
-  color: $header-text-color;
+  color: $header-color;
 }
 
 .character-name {
-  display: block;
-  font-size: 16px;
-  margin-top: 32px;
-  line-height: 1.5;
+  margin-top: 24px;
   color: $white;
-  font-weight: bold;
+  margin-bottom: 1px;
 }
 
 .character-level {
   display: block;
-  font-size: 12px;
-  margin-top: 4px;
-  margin-bottom: 20px;
-  line-height: 1;
+  font-style: normal;
+  color: $header-color;
+  margin-bottom: 16px;
+}
+
+.is-buffed {
+  width: 20px;
+  height: 20px;
+  background: $header-dark-background;
+  display: inline-block;
+  margin-left: 16px;
+
+  .icon {
+    width: 10px;
+    height: 12px;
+    margin: 0 auto;
+    vertical-align: middle;
+  }
 }
 
 #header-avatar {
   margin-top: 24px;
-  margin-right: 1rem;
+  margin-right: 16px;
 }
 
 .progress-container {
@@ -64,39 +75,45 @@ $header-text-color: #D5C8FF;
 }
 
 .progress-container > span {
-  font-size: 12px;
-  margin-left: 10px;
-  line-height: 1em;
+  color: $header-color;
+  margin-left: 16px;
+  font-style: normal;
 }
 
 .progress-container > .icon {
-  width: 12px;
-  height: 12px;
-  margin-right: 10px;
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  margin-top: -4px;
 }
 
 .progress-container > .progress {
   width: 203px;
   margin: 0px;
-  border-radius: 0px;
-  height: 12px;
+  border-radius: 2px;
+  height: 16px;
   background-color: $header-dark-background;
 }
 
 .progress-container > .progress > .progress-bar {
-  border-radius: 0px;
-  height: 12px;
+  border-radius: 2px;
+  height: 16px;
   min-width: 0px;
 }
 </style>
 
 <script>
 import Avatar from './avatar';
-import { mapState } from 'client/libs/store';
+import { mapState, mapGetters } from 'client/libs/store';
 
 import { toNextLevel } from '../../common/script/statHelpers';
 import statsComputed from '../../common/script/libs/statsComputed';
 import percent from '../../common/script/libs/percent';
+
+const IconHealth = require('!svg-inline-loader!assets/header/health.svg');
+const IconMana = require('!svg-inline-loader!assets/header/mana.svg');
+const IconExperience = require('!svg-inline-loader!assets/header/experience.svg');
+const IconBuff = require('!svg-inline-loader!assets/header/buff.svg');
 
 export default {
   components: {
@@ -105,16 +122,34 @@ export default {
   methods: {
     percent,
   },
+  data () {
+    return {
+      icons: {
+        health: IconHealth,
+        experience: IconExperience,
+        mana: IconMana,
+        buff: IconBuff,
+      },
+    };
+  },
   computed: {
     ...mapState({
       user: 'user.data',
       MAX_HEALTH: 'constants.MAX_HEALTH',
+    }),
+    ...mapGetters({
+      isBuffed: 'user:isBuffed',
     }),
     maxMP () {
       return statsComputed(this.user).maxMP;
     },
     toNextLevel () { // Exp to next level
       return toNextLevel(this.user.stats.lvl);
+    },
+    characterLevel () {
+      return `${this.$t('level')} ${this.user.stats.lvl} ${
+        this.user.stats.class ? this.$t(this.user.stats.class) : ''
+      }`;
     },
   },
 };
