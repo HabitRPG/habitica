@@ -1,7 +1,7 @@
 <template lang="pug">
 nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
   .navbar-header
-    div.logo(v-html="icons.logo")
+    img.logo(src="~assets/header/png/logo@2x.png")
   .collapse.navbar-collapse
     ul.navbar-nav.mr-auto
       router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact) 
@@ -29,15 +29,15 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
           router-link.dropdown-item(to="/help/report-bug") {{ $t('reportBug') }}
           router-link.dropdown-item(to="/help/request-feature") {{ $t('requestAF') }}
     .item-with-icon
-      .icon(v-html="icons.gem")
+      icon(name="gem")
       span {{userGems}}
     .item-with-icon
-      .icon(v-html="icons.gold")
+      icon(name="gold")
       span {{user.stats.gp | floor}}
     .item-with-icon.item-notifications
-      .svgicon.icon(v-html="icons.notifications")
+      icon(name="notifications")
     router-link.dropdown.item-with-icon.item-user(:to="{name: 'avatar'}")
-      .svgicon.icon(v-html="icons.user")
+      icon(name="user")
       .dropdown-menu.dropdown-menu-right.user-dropdown
         router-link.dropdown-item.edit-avatar(:to="{name: 'avatar'}") 
           h3 {{ user.profile.name }}
@@ -53,7 +53,7 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
 @import '~client/assets/scss/colors.scss';
 
 nav.navbar {
-  background: $purple-100 url(~assets/header/bits.svg) right no-repeat;
+  background: $purple-100 url(~assets/header/png/bits.png) right no-repeat;
   padding-left: 25px;
   padding-right: 12.5px;
   height: 56px;
@@ -142,7 +142,7 @@ nav.navbar {
   padding-top: 16px;
   padding-left: 16px;
 
-  .icon {
+  .svg-icon {
     vertical-align: middle;
     width: 24px;
     height: 24px;
@@ -155,12 +155,14 @@ nav.navbar {
   padding-right: 12.5px;
   padding-left: 12.5px;
   color: $header-color;
+
   &:hover {
     color: $white;
   }
 
-  .icon {
+  .svg-icon {
     margin-right: 0px;
+    color: inherit;
   }
 }
 
@@ -186,26 +188,11 @@ nav.navbar {
 </style>
 
 <script>
-const IconLogo = require('!svg-inline-loader!assets/header/logo.svg');
-const IconGem = require('!svg-inline-loader!assets/header/gem.svg');
-const IconGold = require('!svg-inline-loader!assets/header/gold.svg');
-const IconUser = require('!svg-inline-loader!assets/header/user.svg');
-const IconNotifications = require('!svg-inline-loader!assets/header/notifications.svg');
-
 import { mapState, mapGetters } from 'client/libs/store';
+import Icon from 'components/ui/icon';
 
 export default {
-  data () {
-    return {
-      icons: {
-        logo: IconLogo,
-        gem: IconGem,
-        gold: IconGold,
-        user: IconUser,
-        notifications: IconNotifications,
-      },
-    };
-  },
+  components: { Icon },
   computed: {
     ...mapGetters({
       userGems: 'user:gems',
