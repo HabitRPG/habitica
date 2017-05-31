@@ -297,6 +297,8 @@ angular.module('habitrpg')
             $scope.summary = generateSummary($scope.task);
             $scope.nextDue = generateNextDue($scope.task._edit, $scope.user);
 
+            $scope.task._edit.repeatLast = false; // Ensure this is reset every time
+
             $scope.repeatSuffix = generateRepeatSuffix($scope.task);
             if ($scope.task._edit.repeatsOn == 'dayOfMonth') {
               var date = moment(task._edit.startDate).date();
@@ -308,6 +310,11 @@ angular.module('habitrpg')
               var shortDay = numberToShortDay[dayOfWeek];
               $scope.task._edit.daysOfMonth = [];
               $scope.task._edit.weeksOfMonth = [week]; // @TODO: This can handle multiple weeks
+
+              if (week === 4) {
+                $scope.task._edit.repeatLast = true;
+              }
+
               for (var key in $scope.task._edit.repeat) {
                 $scope.task._edit.repeat[key] = false;
               }
@@ -371,7 +378,10 @@ angular.module('habitrpg')
         var shortDay = numberToShortDay[dayOfWeek];
         var longDay = shortDayToLongDayMap[shortDay];
 
-        summary += ' on the ' + (week + 1) + ' ' + longDay;
+        let repeatNumber = (week + 1);
+        if (repeatNumber === 5) repeatNumber = env.t('last');
+
+        summary += ' on the ' + repeatNumber + ' ' + longDay;
       }
 
       return summary;

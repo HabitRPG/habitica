@@ -169,5 +169,6 @@
     "yearlyRepeatHelpContent": "This task will be due every X years",
     "resets": "Resets",
     "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %> ",
-    "nextDue": "Next Due Dates"
+    "nextDue": "Next Due Dates",
+    "last": "last"
 }
