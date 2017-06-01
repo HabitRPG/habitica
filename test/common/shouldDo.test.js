@@ -734,6 +734,28 @@ describe('shouldDo', () => {
       expect(shouldDo(day, dailyTask, options)).to.equal(false);
     });
 
+    it('returns false when next due is requested and no repeats are available', () => {
+      dailyTask.repeat = {
+        su: false,
+        s: false,
+        f: false,
+        th: false,
+        w: false,
+        t: false,
+        m: false,
+      };
+
+      let today = moment('2017-05-27T17:34:40.000Z');
+      let week = today.monthWeek();
+      dailyTask.startDate = today.toDate();
+      dailyTask.weeksOfMonth = [week];
+      dailyTask.everyX = 1;
+      dailyTask.frequency = 'monthly';
+      day = moment('2017-02-23');
+      options.nextDue = true;
+      expect(shouldDo(day, dailyTask, options)).to.equal(false);
+    });
+
     it('activates Daily if correct week of the month on the day of the start date', () => {
       dailyTask.repeat = {
         su: false,
