@@ -81,7 +81,7 @@
     "strappingSailorSet": "Robusto Marinaio (Guaritore)",
     "reefRenegadeSet": "Rinnegato delle scogliere (Assassino)",
     "scarecrowWarriorSet": "Guerriero Spaventapasseri (Guerriero)",
-    "stitchWitchSet": "Stitch Witch (Mage)",
+    "stitchWitchSet": "Fattucchiera Filaecuci (Mago)",
     "potionerSet": "Alchimista (Guaritore)",
     "battleRogueSet": "Assassino da Bat-taglia (Assassino)",
     "springingBunnySet": "Coniglio Saltellante (Guaritore)",
@@ -107,6 +107,6 @@
     "eventAvailability": "Disponibile fino al <%= date(locale) %>.",
     "dateEndApril": "19 aprile",
     "dateEndMay": "17 maggio",
-    "dateEndJune": "June 14",
+    "dateEndJune": "14 giugno",
     "discountBundle": "pacchetto"
 }

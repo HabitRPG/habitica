@@ -140,9 +140,9 @@
     "counterPeriodDay": "Dzień",
     "counterPeriodWeek": "Tydzień",
     "counterPeriodMonth": "Miesiąc",
-    "habitCounter": "Counter (Resets <%= frequency %>)",
-    "habitCounterUp": "Positive Counter (Resets <%= frequency %>)",
-    "habitCounterDown": "Negative Counter (Resets <%= frequency %>)",
+    "habitCounter": "Licznik (Resetowany <%= frequency %>)",
+    "habitCounterUp": "Pozytywny licznik (Resetowany <%= frequency %>)",
+    "habitCounterDown": "Negatywny licznik (Resetowany <%= frequency %>)",
     "taskRequiresApproval": "To zadanie musi zostać zaaprobowane, zanim będziesz mógł je ukończyć. Prośba o zatwierdzenie została już wysłana.",
     "taskApprovalHasBeenRequested": "Prośba o zatwierdzenie została wysłana",
     "approvals": "Aprobaty",
@@ -167,5 +167,7 @@
     "taskNotes": "Notatki do zadania",
     "monthlyRepeatHelpContent": "To zadanie należy wypełniać co X miesięcy",
     "yearlyRepeatHelpContent": "To zadanie należy wypełniać co X lat",
-    "resets": "Resets"
+    "resets": "Resetowany",
+    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Next Due Dates"
 }
