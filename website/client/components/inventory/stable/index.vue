@@ -15,26 +15,12 @@
               span.custom-control-description(v-once) {{ petGroup.label }}
         h3(v-once) {{ $t('mounts') }}
         .form-group
-          .form-check
-            label.custom-control.custom-checkbox(v-once)
-              input.custom-control-input(type="checkbox")
+          .form-check(v-for="mountGroup in mountGroups", :key="mountGroup.key", v-once)
+            label.custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox", v-model="viewOptions[mountGroup.key].selected")
               span.custom-control-indicator
-              span.custom-control-description(v-once) Standard
-          .form-check
-            label.custom-control.custom-checkbox(v-once)
-              input.custom-control-input(type="checkbox")
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ $t('hatchingPotions') }}
-          .form-check
-            label.custom-control.custom-checkbox(v-once)
-              input.custom-control-input(type="checkbox")
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ $t('quest') }}
-          .form-check
-            label.custom-control.custom-checkbox(v-once)
-              input.custom-control-input(type="checkbox")
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ $t('special') }}
+              span.custom-control-description(v-once) {{ mountGroup.label }}
+
         div.form-group.clearfix
           h3.float-left Hide Missing
           toggle-switch.float-right.hideMissing(
@@ -67,7 +53,6 @@
       )
         h4(v-once) {{ petGroup.label }}
 
-
         div.items(v-for="(petRow, index) in pets(petGroup, viewOptions[petGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled)")
           item(
             v-for="pet in petRow",
@@ -91,13 +76,40 @@
 
         .btn.btn-show-more(@click="viewOptions[petGroup.key].open = !viewOptions[petGroup.key].open") {{ viewOptions[petGroup.key].open ? 'Close' : 'Open' }}
 
+      h2
+        | {{ $t('mounts') }}
+        |
+        span.badge.badge-pill.badge-default {{countOwnedAnimals(mountGroups[0], 'mount')}}
 
-      h2 Mounts
+      div(
+        v-for="mountGroup in mountGroups",
+        v-if="viewOptions[mountGroup.key].selected",
+        :key="mountGroup.key"
+      )
+        h4(v-once) {{ mountGroup.label }}
 
-      h4 Standard Mounts
-      h4 Magic Potion Mounts
-      h4 Quest Mounts
-      h4 Special Mounts
+        div.items(v-for="(mountRow, index) in mounts(mountGroup, viewOptions[mountGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled)")
+          item(
+            v-for="mount in mountRow",
+            :item="mount",
+            :itemContentClass="mount.isOwned ? ('Mount_Icon_' + mount.key) : 'PixelPaw'",
+            :key="mount.key",
+            :showPopover="true",
+            :starVisible="true",
+            :label="mount.value",
+            :popoverPosition="'top'",
+            @click="selectMount"
+          )
+            span(slot="popoverContent", v-once) {{ mount }}
+            template(slot="itemBadge", scope="ctx")
+              starBadge(
+                :selected="ctx.item.key === currentMount",
+                :show="true",
+                @click="selectMount(ctx.item)",
+              )
+
+        .btn.btn-show-more(@click="viewOptions[mountGroup.key].open = !viewOptions[mountGroup.key].open") {{ viewOptions[mountGroup.key].open ? 'Close' : 'Open' }}
+
 </template>
 
 <style lang="scss">
@@ -180,6 +192,7 @@
       ...mapState({
         content: 'content',
         currentPet: 'user.data.items.currentPet',
+        currentMount: 'user.data.items.currentMount',
         userItems: 'user.data.items',
       }),
 
@@ -227,6 +240,51 @@
 
 
         return petGroups;
+      },
+      mountGroups () {
+        let mountGroups = [
+          {
+            label: this.$t('filterByStandard'),
+            key: 'standardMounts',
+            petSource: {
+              eggs: this.content.dropEggs,
+              potions: this.content.dropHatchingPotions,
+            },
+          },
+          {
+            label: this.$t('filterByMagicPotion'),
+            key: 'magicMounts',
+            petSource: {
+              eggs: this.content.dropEggs,
+              potions: this.content.premiumHatchingPotions,
+            },
+          },
+          {
+            label: this.$t('filterByQuest'),
+            key: 'questMounts',
+            petSource: {
+              eggs: this.content.questEggs,
+              potions: this.content.dropHatchingPotions,
+            },
+          },
+          /*{
+            label: this.$t('special'),
+            key: 'specialMounts',
+            petSource: {
+              pets: this.content.specialMounts,
+            },
+          },*/
+        ];
+
+        mountGroups.map((mountGroup) => {
+          this.$set(this.viewOptions, mountGroup.key, {
+            selected: true,
+            open: false,
+          });
+        });
+
+
+        return mountGroups;
       },
     },
     methods: {
@@ -354,12 +412,20 @@
         return this.listAnimals(animalGroup, 'pet', showAll, hideMissing, sortBy, searchText);
       },
 
+      mounts (animalGroup, showAll, hideMissing, sortBy, searchText) {
+        return this.listAnimals(animalGroup, 'mount', showAll, hideMissing, sortBy, searchText);
+      },
+
       updateHideMissing (newVal) {
         this.hideMissing = newVal;
       },
 
       selectPet (item) {
         this.$store.dispatch('common:equip', {key: item.key, type: 'pet'});
+      },
+
+      selectMount (item) {
+        this.$store.dispatch('common:equip', {key: item.key, type: 'mount'});
       },
     },
   };
