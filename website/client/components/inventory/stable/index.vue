@@ -2,7 +2,7 @@
   .row.stable
     .col-2.standard-sidebar
       .form-group
-        input.form-control.input-search(type="text", :placeholder="$t('search')")
+        input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
       .form
         h2(v-once) {{ $t('filter') }}
@@ -65,7 +65,7 @@
         h4(v-once) {{ petGroup.label }}
 
 
-        div.items(v-for="(petRow, index) in pets(petGroup, viewOptions[petGroup.key].open, hideMissing, selectedSortBy)")
+        div.items(v-for="(petRow, index) in pets(petGroup, viewOptions[petGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled)")
           item(
             v-for="pet in petRow",
             :item="pet",
@@ -127,6 +127,7 @@
   import _filter from 'lodash/filter';
   import _drop from 'lodash/drop';
   import _flatMap from 'lodash/flatMap';
+  import _throttle from 'lodash/throttle';
 
   import Item from './petItem';
   import Drawer from 'client/components/inventory/drawer';
@@ -152,6 +153,9 @@
         viewOptions: {},
         hideMissing: false,
 
+        searchText: null,
+        searchTextThrottled: '',
+
         // sort has the translation-keys as values
         selectedSortBy: 'standard',
         sortByItems: [
@@ -161,6 +165,13 @@
           'sortByHatchable',
         ],
       };
+    },
+    watch: {
+      searchText: _throttle(function throttleSearch() {
+        let search = this.searchText.toLowerCase();
+
+        this.searchTextThrottled = search;
+      }, 250),
     },
     computed: {
       ...mapState({
@@ -266,7 +277,7 @@
         return animals;
       },
 
-      listAnimals (animalGroup, type, isOpen, hideMissing, sort) {
+      listAnimals (animalGroup, type, isOpen, hideMissing, sort, searchText) {
         let animals = this.getAnimalList(animalGroup, type);
         let isPetList = type === 'pet';
         let withProgress = isPetList && animalGroup.key !== 'specialPets';
@@ -274,6 +285,12 @@
         // 1. Filter
         if (hideMissing) {
           animals = _filter(animals, 'isOwned');
+        }
+
+        if (searchText && searchText !== '') {
+          animals = _filter(animals, (a) => {
+              return a.pet.toLowerCase().indexOf(searchText) !== -1;
+          });
         }
 
         // 2. Sort
@@ -288,11 +305,11 @@
 
           case 'sortByHatchable': {
             if (isPetList) {
-              let filterFunc = (i) => {
+              let sortFunc = (i) => {
                 return i.hatchable ? 0 : 1;
               };
 
-              animals = _sortBy(animals, [filterFunc]);
+              animals = _sortBy(animals, [sortFunc]);
             }
             break;
           }
@@ -321,8 +338,8 @@
         return animalRows;
       },
 
-      pets (animalGroup, showAll, hideMissing, sortBy) {
-        return this.listAnimals(animalGroup, 'pet', showAll, hideMissing, sortBy);
+      pets (animalGroup, showAll, hideMissing, sortBy, searchText) {
+        return this.listAnimals(animalGroup, 'pet', showAll, hideMissing, sortBy, searchText);
       },
 
       updateHideMissing (newVal) {
