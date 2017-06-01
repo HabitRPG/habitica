@@ -46,7 +46,7 @@
     "snowDaySet": "Schneetag-Krieger (Krieger)",
     "snowboardingSet": "Snowboard-Hexer (Magier)",
     "festiveFairySet": "Festliche Fee (Heiler)",
-    "cocoaSet": "Kokos-Schurke (Schurke)",
+    "cocoaSet": "Schoko-Schurke (Schurke)",
     "toAndFromCard": "An: <%= toName %>, Von: <%= fromName %>",
     "nyeCard": "Neujahrskarte",
     "nyeCardExplanation": "Dafür, dass ihr gemeinsam Neujahr gefeiert habt, erhaltet ihr beide die Auszeichnung \"Alte Bekannte\"!",
@@ -105,5 +105,8 @@
     "spring2017FloralMouseSet": "Blumenmaus (Heiler)",
     "spring2017SneakyBunnySet": "Raffiniertes Häschen (Schurke)",
     "eventAvailability": "Zum Kauf verfügbar bis zum <%= date(locale) %>.",
-    "dateEndApril": "19. April"
+    "dateEndApril": "19. April",
+    "dateEndMay": "17. Mai",
+    "dateEndJune": "June 14",
+    "discountBundle": "Paket"
 }

@@ -51,6 +51,7 @@
     "messageGroupChatFlagAlreadyReported": "Kamu telah melaporkan pesan ini",
     "messageGroupChatNotFound": "Pesan tidak ditemukan!",
     "messageGroupChatAdminClearFlagCount": "Hanya admin yang bisa menghapus jumlah tanda!",
+    "messageGroupChatSpam": "Whoops, looks like you're posting too many messages! Please wait a minute and try again. The Tavern chat only holds 200 messages at a time, so Habitica encourages posting longer, more thoughtful messages and consolidating replies. Can't wait to hear what you have to say. :)",
     "messageUserOperationProtected": "jalur `<%= operation %>` tidak disimpan, karena terproteksi.",
     "messageUserOperationNotFound": "<%= operation %> operasi tidak ditemukan",
     "messageNotificationNotFound": "Notifikasi tidak ditemukan.",

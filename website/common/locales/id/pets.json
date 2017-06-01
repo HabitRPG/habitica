@@ -1,4 +1,5 @@
 {
+    "stable": "Stable",
     "pets": "Peliharaan",
     "activePet": "Peliharaan yang Dipilih",
     "noActivePet": "Tidak ada Peliharaan yang Dipilih",
@@ -42,6 +43,7 @@
     "food": "Makanan dan Sadel",
     "noFood": "Kamu tidak mempunyai makanan atau sadel.",
     "dropsExplanation": "Dapatkan item-item ini lebih cepat dengan Permata jika kamu tidak ingin menunggu jatuhan ketika menyelesaikan tugas. <a href=\"http://habitica.wikia.com/wiki/Drops\">Lebih lanjut mengenai sistem jatuhan.</a>",
+    "dropsExplanationEggs": "Spend Gems to get eggs more quickly, if you don't want to wait for standard eggs to drop, or to repeat Quests to earn Quest eggs. <a href=\"http://habitica.wikia.com/wiki/Drops\">Learn more about the drop system.</a>",
     "premiumPotionNoDropExplanation": "Ramuan Penetas Ajaib tidak dapat digunakan pada telur yang didapatkan dari Sayembara. Satu-satunya cara mendapatkan Ramuan Penetas Ajaib adalah dengan membelinya, bukan dari jatuhan.",
     "beastMasterProgress": "Perkembangan Beast Master",
     "stableBeastMasterProgress": "Perkembangan Penakluk Monster: <%= number %> Peliharaan Ditemukan",

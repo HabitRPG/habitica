@@ -26,6 +26,7 @@
     "showBaileyPop": "Sacar a Bailey el Pregonero de su escondite para poder ver las noticias antiguas.",
     "fixVal": "Ajustar valores de personaje",
     "fixValPop": "Permite cambiar manualmente valores como tu Salud, Nivel y el Oro",
+    "invalidLevel": "Invalid value: Level must be 1 or greater.",
     "enableClass": "Activar Sistema de Clases",
     "enableClassPop": "Inicialmente decidiste no utilizar el sistema de clases. ¿Quieres usarlo ahora?",
     "classTourPop": "Iniciar el Tour para usar el sistema de clases.",

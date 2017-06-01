@@ -78,30 +78,45 @@ habitrpg.controller('NotificationCtrl',
     // Avoid showing the same notiication more than once
     var lastShownNotifications = [];
 
-    function trasnferGroupNotification(notification) {
+    function transferGroupNotification(notification) {
       if (!User.user.groupNotifications) User.user.groupNotifications = [];
       User.user.groupNotifications.push(notification);
     }
+
+    var alreadyReadNotification = [];
 
     function handleUserNotifications (after) {
       if (!after || after.length === 0) return;
 
       var notificationsToRead = [];
-      var scoreTaskNotification;
+      var scoreTaskNotification = [];
+
+      User.user.groupNotifications = []; // Flush group notifictions
 
       after.forEach(function (notification) {
         if (lastShownNotifications.indexOf(notification.id) !== -1) {
           return;
         }
 
-        lastShownNotifications.push(notification.id);
-        if (lastShownNotifications.length > 10) {
-          lastShownNotifications.splice(0, 9);
+        // Some notifications are not marked read here, so we need to fix this system
+        // to handle notifications differently
+        if (['GROUP_TASK_APPROVED', 'GROUP_TASK_APPROVAL'].indexOf(notification.type) === -1) {
+          lastShownNotifications.push(notification.id);
+          if (lastShownNotifications.length > 10) {
+            lastShownNotifications.splice(0, 9);
+          }
         }
 
         var markAsRead = true;
 
         switch (notification.type) {
+          case 'GUILD_PROMPT':
+            if (notification.data.textVariant === -1) {
+              $rootScope.openModal('testing');
+            } else {
+              $rootScope.openModal('testingVariant');
+            }
+            break;
           case 'DROPS_ENABLED':
             $rootScope.openModal('dropsEnabled');
             break;
@@ -121,12 +136,19 @@ habitrpg.controller('NotificationCtrl',
             }
             break;
           case 'ULTIMATE_GEAR_ACHIEVEMENT':
+            $rootScope.playSound('Achievement_Unlocked');
             Achievement.displayAchievement('ultimateGear', {size: 'md'});
             break;
           case 'REBIRTH_ACHIEVEMENT':
+            $rootScope.playSound('Achievement_Unlocked');
             Achievement.displayAchievement('rebirth');
             break;
+          case 'GUILD_JOINED_ACHIEVEMENT':
+            $rootScope.playSound('Achievement_Unlocked');
+            Achievement.displayAchievement('joinedGuild', {size: 'md'});
+            break;
           case 'NEW_CONTRIBUTOR_LEVEL':
+            $rootScope.playSound('Achievement_Unlocked');
             Achievement.displayAchievement('contributor', {size: 'md'});
             break;
           case 'CRON':
@@ -136,15 +158,29 @@ habitrpg.controller('NotificationCtrl',
             }
             break;
           case 'GROUP_TASK_APPROVAL':
-            trasnferGroupNotification(notification);
+            transferGroupNotification(notification);
             markAsRead = false;
             break;
           case 'GROUP_TASK_APPROVED':
-            trasnferGroupNotification(notification);
+            transferGroupNotification(notification);
             markAsRead = false;
             break;
           case 'SCORED_TASK':
-            scoreTaskNotification = notification;
+            // Search if it is a read notification
+            for (var i = 0; i < alreadyReadNotification.length; i++) {
+              if (alreadyReadNotification[i] == notification.id) {
+                markAsRead = false; // Do not let it be read again
+                break;
+              }
+            }
+
+            // Only process the notification if it is an unread notification
+            if (markAsRead) {
+              scoreTaskNotification.push(notification);
+
+              // Add to array of read notifications
+              alreadyReadNotification.push(notification.id);
+            }
             break;
           case 'LOGIN_INCENTIVE':
             Notification.showLoginIncentive(User.user, notification.data, Social.loadWidgets);
@@ -168,10 +204,25 @@ habitrpg.controller('NotificationCtrl',
 
       if (userReadNotifsPromise) {
         userReadNotifsPromise.then(function () {
-          if (scoreTaskNotification) {
-            Notification.markdown(scoreTaskNotification.data.message);
-            User.score({params:{task: scoreTaskNotification.data.scoreTask, direction: "up"}});
-            User.sync();
+
+          // Only run this code for scoring approved tasks
+          if (scoreTaskNotification.length > 0) {
+            var approvedTasks = [];
+            for (var i = 0; i < scoreTaskNotification.length; i++) {
+              // Array with all approved tasks
+              approvedTasks.push({
+                params: {
+                  task: scoreTaskNotification[i].data.scoreTask,
+                  direction: "up"
+                }
+              });
+
+              // Show notification of task approved
+              Notification.markdown(scoreTaskNotification[i].data.message);
+            }
+
+            // Score approved tasks
+            User.bulkScore(approvedTasks);
           }
         });
       }

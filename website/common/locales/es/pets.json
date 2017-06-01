@@ -1,4 +1,5 @@
 {
+    "stable": "Stable",
     "pets": "Mascotas",
     "activePet": "Mascota activa",
     "noActivePet": "Ninguna mascota activa",
@@ -42,6 +43,7 @@
     "food": "Comida y Sillas de montar",
     "noFood": "No tienes comida ni sillas de montar",
     "dropsExplanation": "Puedes conseguir estos objetos más rápido utilizando gemas si no quieres esperar a que aparezcan como botín al completar una tarea. <a href=\"http://habitica.wikia.com/wiki/Drops\">Más información sobre el sistema de botín.</a>",
+    "dropsExplanationEggs": "Spend Gems to get eggs more quickly, if you don't want to wait for standard eggs to drop, or to repeat Quests to earn Quest eggs. <a href=\"http://habitica.wikia.com/wiki/Drops\">Learn more about the drop system.</a>",
     "premiumPotionNoDropExplanation": "Las pociones de eclosión mágicas no se pueden usar en los huevos recibidos por completar misiones. La única forma de conseguir estas pociones es comprándolas más abajo: nunca aparecen al azar como botín.",
     "beastMasterProgress": "Progreso como domador de bestias",
     "stableBeastMasterProgress": "Progreso como domador de bestias: <%= number %> mascotas encontradas",

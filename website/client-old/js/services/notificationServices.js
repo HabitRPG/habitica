@@ -147,6 +147,7 @@ angular.module("habitrpg").factory("Notification",
     modalScope.data = rewardData;
     var nextRewardKey = Shared.content.loginIncentives[user.loginIncentives].nextRewardAt;
     modalScope.nextReward = Shared.content.loginIncentives[nextRewardKey];
+    modalScope.MAX_INCENTIVES = Shared.constants.MAX_INCENTIVES;
     modalScope.user = user;
     // modalScope.loadWidgets = Social.loadWidgets;
     modalScope.loadWidgets = loadWidgets;

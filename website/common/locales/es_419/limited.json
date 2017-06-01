@@ -97,13 +97,16 @@
     "fall2016GorgonHealerSet": "Gorgon Healer (Healer)",
     "fall2016BlackWidowSet": "Black Widow Rogue (Rogue)",
     "winter2017IceHockeySet": "Ice Hockey (Warrior)",
-    "winter2017WinterWolfSet": "Winter Wolf (Mage)",
+    "winter2017WinterWolfSet": "Lobo Invernal (Mago)",
     "winter2017SugarPlumSet": "Sugar Plum Healer (Healer)",
     "winter2017FrostyRogueSet": "Frosty Rogue (Rogue)",
-    "spring2017FelineWarriorSet": "Feline Warrior (Warrior)",
+    "spring2017FelineWarriorSet": "Guerrero Felino (Guerrero)",
     "spring2017CanineConjurorSet": "Canine Conjuror (Mage)",
-    "spring2017FloralMouseSet": "Floral Mouse (Healer)",
-    "spring2017SneakyBunnySet": "Sneaky Bunny (Rogue)",
-    "eventAvailability": "Available for purchase until <%= date(locale) %>.",
-    "dateEndApril": "April 19"
+    "spring2017FloralMouseSet": "Ratón Floral (Sanador)",
+    "spring2017SneakyBunnySet": "Conejo Furtivo (Granuja)",
+    "eventAvailability": "Disponible para compra hasta el <%= date(locale) %>.",
+    "dateEndApril": "19 de Abril",
+    "dateEndMay": "17 de Mayo",
+    "dateEndJune": "June 14",
+    "discountBundle": "bundle"
 }

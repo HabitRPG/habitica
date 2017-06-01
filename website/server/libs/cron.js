@@ -4,6 +4,7 @@ import { model as User } from '../models/user';
 import common from '../../common/';
 import { preenUserHistory } from '../libs/preening';
 import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import nconf from 'nconf';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
@@ -14,6 +15,16 @@ const scoreTask = common.ops.scoreTask;
 const i18n = common.i18n;
 const loginIncentives = common.content.loginIncentives;
 // const maxPMs = 200;
+
+function setIsDueNextDue (task, user, now) {
+  let optionsForShouldDo = cloneDeep(user.preferences.toObject());
+  task.isDue = common.shouldDo(now, task, optionsForShouldDo);
+  optionsForShouldDo.nextDue = true;
+  let nextDue = common.shouldDo(now, task, optionsForShouldDo);
+  if (nextDue && nextDue.length > 0) {
+    task.nextDue = nextDue;
+  }
+}
 
 export async function recoverCron (status, locals) {
   let {user} = locals;
@@ -107,6 +118,7 @@ function performSleepTasks (user, tasksByType, now) {
     }
 
     daily.completed = false;
+    setIsDueNextDue(daily, user, now);
   });
 }
 
@@ -157,12 +169,17 @@ function awardLoginIncentives (user) {
           notificationData.rewardText = i18n.t('potion', {potionType: notificationData.rewardText}, user.preferences.language);
         }
       } else if (loginIncentive.rewardKey[0] === 'background_blue') {
-        notificationData.rewardText = i18n.t('incentiveBackgrounds');
+        notificationData.rewardText = i18n.t('incentiveBackgrounds', user.preferences.language);
       }
 
       if (loginIncentive.reward.length > 0 && count < loginIncentive.reward.length - 1) notificationData.rewardText += ', ';
 
       count += 1;
+    }
+
+    // Overwrite notificationData.rewardText if rewardName was explicitly declared
+    if (loginIncentive.rewardName) {
+      notificationData.rewardText = i18n.t(loginIncentive.rewardName, user.preferences.language);
     }
 
     notificationData.rewardKey = loginIncentive.rewardKey;
@@ -309,6 +326,8 @@ export function cron (options = {}) {
       value: task.value,
     });
     task.completed = false;
+
+    setIsDueNextDue(task, user, now);
 
     if (completed || scheduleMisses > 0) {
       if (task.checklist) {

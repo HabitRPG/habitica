@@ -140,9 +140,9 @@
     "counterPeriodDay": "Día",
     "counterPeriodWeek": "Semana",
     "counterPeriodMonth": "Mes",
-    "habitCounter": "Contador",
-    "habitCounterUp": "Contador positivo",
-    "habitCounterDown": "Contador negativo",
+    "habitCounter": "Counter (Resets <%= frequency %>)",
+    "habitCounterUp": "Positive Counter (Resets <%= frequency %>)",
+    "habitCounterDown": "Negative Counter (Resets <%= frequency %>)",
     "taskRequiresApproval": "La tarea debe ser aprobada antes de que la completes. La aprobación ya ha sido pedida.",
     "taskApprovalHasBeenRequested": "La aprobacion ha sido enviada",
     "approvals": "Aprobaciones",
@@ -164,7 +164,8 @@
     "confirmScoreNotes": "Confirmar la descripción de la tarea con anotaciones",
     "taskScoreNotesTooLong": "Las notas de descripción de tareas deben tener menos de 256 caracteres",
     "groupTasksByChallenge": "Agrupar tareas por título del desafío",
-    "taskNotes": "Task Notes",
+    "taskNotes": "Notas de la Tarea",
     "monthlyRepeatHelpContent": "Esta tarea vencerá cada X meses",
-    "yearlyRepeatHelpContent": "Esta tarea vencerá cada X años"
+    "yearlyRepeatHelpContent": "Esta tarea vencerá cada X años",
+    "resets": "Resets"
 }

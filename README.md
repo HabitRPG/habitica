@@ -5,8 +5,7 @@ Habitica [![Build Status](https://travis-ci.org/HabitRPG/habitica.svg?branch=dev
 
 We need more programmers! Your assistance will be greatly appreciated.
 
-For an introduction to the technologies used and how the software is organized, refer to [Contributing to Habitica](http://habitica.wikia.com/wiki/Contributing_to_Habitica#Coders_.28Web_.26_Mobile.29) - "Coders (Web & Mobile)" section.
+For an introduction to the technologies used and how the software is organized, refer to [Guidance for Blacksmiths](http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths).
 
-To set up a local install of Habitica for development and testing, see [Setting up Habitica Locally](http://habitica.wikia.com/wiki/Setting_up_Habitica_Locally), which contains instructions for Windows, *nix / Mac OS, and Vagrant.
+To set up a local install of Habitica for development and testing on various platforms, see [Setting up Habitica Locally](http://habitica.wikia.com/wiki/Setting_up_Habitica_Locally).
 
-Then read [Guidance for Blacksmiths](http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths) for additional instructions and useful tips.

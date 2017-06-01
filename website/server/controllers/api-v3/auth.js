@@ -159,7 +159,9 @@ api.registerLocal = {
     if (existingUser) {
       res.respond(200, savedUser.toJSON().auth.local); // We convert to toJSON to hide private fields
     } else {
-      res.respond(201, savedUser);
+      let userJSON = savedUser.toJSON();
+      userJSON.newUser = true;
+      res.respond(201, userJSON);
     }
 
     // Clean previous email preferences and send welcome email

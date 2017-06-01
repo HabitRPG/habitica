@@ -105,5 +105,8 @@
     "spring2017FloralMouseSet": "Цветна мишка (лечител)",
     "spring2017SneakyBunnySet": "Промъкващо се зайче (мошеник)",
     "eventAvailability": "Налично за купуване до <%= date(locale) %>.",
-    "dateEndApril": "19 април"
+    "dateEndApril": "19 април",
+    "dateEndMay": "17 май",
+    "dateEndJune": "June 14",
+    "discountBundle": "пакет"
 }
