@@ -55,7 +55,10 @@
           ) {{ $t(sort) }}
 
 
-      h2(v-once) {{ $t('pets') }}
+      h2
+        | {{ $t('pets') }}
+        |
+        span.badge.badge-pill.badge-default {{countOwnedAnimals(petGroups[0], 'pet')}}
 
       div(
         v-for="petGroup in petGroups",
@@ -336,6 +339,15 @@
         }
 
         return animalRows;
+      },
+
+      countOwnedAnimals(animalGroup, type) {
+        let animals = this.getAnimalList(animalGroup, type);
+
+        let countAll = animals.length;
+        let countOwned = _filter(animals, 'isOwned');
+
+        return `${countOwned.length}/${countAll}`;
       },
 
       pets (animalGroup, showAll, hideMissing, sortBy, searchText) {
