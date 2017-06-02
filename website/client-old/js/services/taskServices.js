@@ -373,6 +373,8 @@ angular.module('habitrpg')
 
         summary += ' on the ' + (week + 1) + ' ' + longDay;
       }
+      
+      if (task._edit.everyX === 0) summary = 'Repeats never.';
 
       return summary;
     }
