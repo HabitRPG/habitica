@@ -351,6 +351,9 @@ let schema = new Schema({
       date: {type: Date, default: Date.now},
       count: {type: Number, default: 0},
     },
+    lastDropYesterday: {
+      count: {type: Number, default: 0},
+    },
   },
 
   lastCron: {type: Date, default: Date.now},

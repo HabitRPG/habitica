@@ -56,6 +56,13 @@ describe('cron', () => {
     expect(user.items.lastDrop.count).to.equal(0);
   });
 
+  it('sets user.items.lastDropYesterday.count', () => {
+    user.items.lastDrop.count = 4;
+    cron({user, tasksByType, daysMissed, analytics});
+    expect(user.items.lastDrop.count).to.equal(0);
+    expect(user.items.lastDropYesterday.count).to.equal(4);
+  });
+
   it('increments user cron count', () => {
     let cronCountBefore = user.flags.cronCount;
     cron({user, tasksByType, daysMissed, analytics});

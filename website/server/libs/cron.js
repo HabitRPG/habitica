@@ -187,6 +187,7 @@ export function cron (options = {}) {
 
   user.preferences.timezoneOffsetAtLastCron = timezoneOffsetFromUserPrefs;
   // User is only allowed a certain number of drops a day. This resets the count.
+  user.items.lastDropYesterday.count = user.items.lastDrop.count;
   if (user.items.lastDrop.count > 0) user.items.lastDrop.count = 0;
 
   // "Perfect Day" achievement for perfect days

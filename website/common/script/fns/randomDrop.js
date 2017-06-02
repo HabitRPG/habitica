@@ -32,6 +32,7 @@ module.exports = function randomDrop (user, options, req = {}) {
 
   let predictableRandom = options.predictableRandom || trueRandom;
   let task = options.task;
+  let yesterdaily = options.yesterdaily;
 
   let chance = min([Math.abs(task.value - 21.27), 37.5]) / 150 + 0.02;
   chance *= task.priority *                             // Task priority: +50% for Medium, +100% for Hard
@@ -59,10 +60,13 @@ module.exports = function randomDrop (user, options, req = {}) {
     dropMultiplier = 1;
   }
 
+  let dropMultiplierCalculated = dropMultiplier * (5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level || 0));
   if (daysSince(user.items.lastDrop.date, user.preferences) === 0 &&
-      user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level || 0))) {
+      user.items.lastDrop.count >= dropMultiplierCalculated) {
     return;
   }
+
+  if (yesterdaily && user.items.lastDropYesterday.count >= dropMultiplierCalculated) return;
 
   if (user.flags && user.flags.dropsEnabled && predictableRandom() < chance) {
     rarity = predictableRandom();
@@ -118,6 +122,7 @@ module.exports = function randomDrop (user, options, req = {}) {
     }
 
     user._tmp.drop = drop;
+    if (yesterdaily) return;
     user.items.lastDrop.date = Number(new Date());
     user.items.lastDrop.count++;
   }
