@@ -1,6 +1,5 @@
 import i18n from '../i18n';
 import get from 'lodash/get';
-import each from 'lodash/each';
 import pick from 'lodash/pick';
 import splitWhitespace from '../libs/splitWhitespace';
 import { capByLevel } from '../statHelpers';
@@ -42,11 +41,8 @@ module.exports = function changeClass (user, req = {}, analytics) {
     user.stats.class = klass;
     user.flags.classSelected = true;
 
-    each(['weapon', 'armor', 'shield', 'head'], (type) => {
-      if (type === 'weapon' || (type === 'shield' && klass === 'rogue')) { // eslint-disable-line no-extra-parens
-        user.items.gear.owned[`${type}_${klass}_0`] = true;
-      }
-    });
+    user.items.gear.owned[`weapon_${klass}_0`] = true;
+    if (klass === 'rogue')  user.items.gear.owned[`shield_${klass}_0`] = true;
 
     if (analytics) {
       analytics.track('change class', {
