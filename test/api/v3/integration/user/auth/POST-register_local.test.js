@@ -251,7 +251,6 @@ describe('POST /user/auth/local/register', () => {
         confirmPassword: password,
       });
 
-      await expect(getProperty('users', user._id, '_ABtest')).to.eventually.be.a('string');
       await expect(getProperty('users', user._id, '_ABtests')).to.eventually.be.a('object');
     });
 

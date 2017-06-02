@@ -21,6 +21,7 @@
     "communityGuidelines": "Règles de vie en communauté",
     "communityGuidelinesRead1": "Merci de lire nos",
     "communityGuidelinesRead2": "avant de participer aux discussions.",
+    "bannedWordUsed": "Oups ! Il semblerait que ce message contienne une injure, une connotation religieuse, ou une référence à une drogue ou un sujet mature. Les utilisateurs d'Habitica proviennent de tous horizons, et nous préservons donc nos fils de discussion. N'hésitez pas à retoucher votre message pour pouvoir l'envoyer !",
     "party": "Équipe",
     "createAParty": "Créer une équipe",
     "updatedParty": "Paramètres d'équipe mis à jour.",
@@ -243,6 +244,8 @@
     "groupBenefitSixTitle": "Obtenez un abonnement gratuit",
     "groupBenefitSixDescription": "Obtenez tous les avantages d'un abonnement, dont des objets exclusifs chaque mois et la possibilité d'acheter des gemmes avec de l'or ! (Si vous êtes déjà abonné, votre ancien abonnement sera annulé, mais vos avantages cumulés, par exemple les sabliers mensuels, seront conservés.)",
     "groupBenefitSevenTitle": "Obtenez en exclusivité une toute nouvelle monture : le Léporilope",
+    "groupBenefitEightTitle": "Ajoutez des gestionnaires de groupe pour vous aider à gérer les tâches.",
+    "groupBenefitEightDescription": "Vous souhaitez partager les responsabilités de votre groupe ? Promouvez des membres au grade de gestionnaires de groupe pour aider le responsable à ajouter, assigner et approuver des tâches !",
     "createAGroup": "Créer un groupe",
     "assignFieldPlaceholder": "Renseignez le nom de profil d'un membre du groupe",
     "cannotDeleteActiveGroup": "Vous ne pouvez pas supprimer un groupe avec un abonnement actif",
@@ -268,5 +271,15 @@
     "confirmCancelGroupPlan": "Êtes-vous sûr de vouloir résilier l'Offre de groupe et de retirer les avantages à tous ces membres, y compris leurs abonnements gratuits ?",
     "canceledGroupPlan": "Offre de groupe annulée",
     "groupPlanCanceled": "L'Offre de groupe sera inactive à partir du",
-    "purchasedGroupPlanPlanExtraMonths": "Vous disposez d'un crédit de <%= months %> mois d'inscription supplémentaire."
+    "purchasedGroupPlanPlanExtraMonths": "Vous disposez d'un crédit de <%= months %> mois d'inscription supplémentaire.",
+    "addManagers": "Ajouter des gestionnaires",
+    "addManager": "Ajouter un ou une gestionnaire",
+    "removeManager": "Retirer",
+    "userMustBeMember": "L'utilisateur doit être un membre",
+    "userIsNotManager": "L'utilisateur n'est pas un gestionnaire",
+    "canOnlyApproveTaskOnce": "Cette tâche a déjà été approuvée.",
+    "leaderMarker": "- Responsable",
+    "managerMarker": "- Gestionnaire",
+    "joinedGuild": "A rejoint une guilde",
+    "joinedGuildText": "A exploré le côté social d'Habitica en rejoignant une guilde !"
 }

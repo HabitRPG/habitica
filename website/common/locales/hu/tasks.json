@@ -140,9 +140,9 @@
     "counterPeriodDay": "Day",
     "counterPeriodWeek": "Week",
     "counterPeriodMonth": "Hónap",
-    "habitCounter": "Counter",
-    "habitCounterUp": "Positive Counter",
-    "habitCounterDown": "Negative Counter",
+    "habitCounter": "Counter (Resets <%= frequency %>)",
+    "habitCounterUp": "Positive Counter (Resets <%= frequency %>)",
+    "habitCounterDown": "Negative Counter (Resets <%= frequency %>)",
     "taskRequiresApproval": "Ezt a feladatot jóvá kell hagyni mielőtt befejezed. Jóváhagyás már kérve.",
     "taskApprovalHasBeenRequested": "Jóváhagyás kérve",
     "approvals": "Jóváhagyások",
@@ -166,5 +166,8 @@
     "groupTasksByChallenge": "Group tasks by challenge title",
     "taskNotes": "Task Notes",
     "monthlyRepeatHelpContent": "This task will be due every X months",
-    "yearlyRepeatHelpContent": "This task will be due every X years"
+    "yearlyRepeatHelpContent": "This task will be due every X years",
+    "resets": "Resets",
+    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Next Due Dates"
 }

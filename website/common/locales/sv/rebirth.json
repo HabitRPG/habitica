@@ -21,7 +21,7 @@
     "rebirthOrb": "Used an Orb of Rebirth to start over after attaining Level <%= level %>.",
     "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher.",
     "rebirthOrbNoLevel": "Used an Orb of Rebirth to start over.",
-    "rebirthPop": "Börja med en ny karaktär på level 1 men behåll bedrifter, saker, utrustning och uppgifter med historik.",
+    "rebirthPop": "Restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history.",
     "rebirthName": "Pånyttfödelsesfär",
     "reborn": "Pånyttfödd, max level <%= reLevel %>",
     "confirmReborn": "Är du säker?",

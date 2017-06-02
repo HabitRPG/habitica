@@ -58,8 +58,7 @@ export default new Vue({
       this.$store.dispatch('user:fetch'),
       this.$store.dispatch('tasks:fetchUserTasks'),
     ]).catch((err) => {
-      console.error(err); // eslint-disable-line no-console
-      alert('Impossible to fetch user. Copy into localStorage a valid habit-mobile-settings object.');
+      console.error('Impossible to fetch user. Copy into localStorage a valid habit-mobile-settings object.', err); // eslint-disable-line no-console
     });
   },
   mounted () { // Remove the loading screen when the app is mounted
