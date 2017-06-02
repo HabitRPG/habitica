@@ -507,6 +507,20 @@ let backgrounds = {
       notes: t('backgroundOnATreeBranchNotes'),
     },
   },
+  backgrounds062017: {
+    buried_treasure: {
+      text: t('backgroundBuriedTreasureText'),
+      notes: t('backgroundBuriedTreasureNotes'),
+    },
+    ocean_sunrise: {
+      text: t('backgroundOceanSunriseText'),
+      notes: t('backgroundOceanSunriseNotes'),
+    },
+    sandcastle: {
+      text: t('backgroundSandcastleText'),
+      notes: t('backgroundSandcastleNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
