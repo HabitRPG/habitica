@@ -167,5 +167,7 @@
     "taskNotes": "Task Notes",
     "monthlyRepeatHelpContent": "這個任務每X月會結算一次",
     "yearlyRepeatHelpContent": "這個任務每X年會結算一次",
-    "resets": "Resets"
+    "resets": "Resets",
+    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Next Due Dates"
 }

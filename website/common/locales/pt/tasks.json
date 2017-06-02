@@ -167,5 +167,7 @@
     "taskNotes": "Notas de Tarefa",
     "monthlyRepeatHelpContent": "Esta tarefa deve ser cumprida a cada X meses.",
     "yearlyRepeatHelpContent": "Esta tarefa deve ser cumprida a cada X anos",
-    "resets": "Recomeça"
+    "resets": "Recomeça",
+    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Next Due Dates"
 }

@@ -320,6 +320,24 @@ describe('cron', () => {
       expect(tasksByType.dailys[0].completed).to.be.false;
       expect(user.stats.hp).to.equal(healthBefore);
     });
+
+    it('sets isDue for daily', () => {
+      let daily = {
+        text: 'test daily',
+        type: 'daily',
+        frequency: 'daily',
+        everyX: 5,
+        startDate: new Date(),
+      };
+
+      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
+      tasksByType.dailys.push(task);
+      tasksByType.dailys[0].completed = true;
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(tasksByType.dailys[0].isDue).to.be.exist;
+    });
   });
 
   describe('todos', () => {
@@ -346,6 +364,125 @@ describe('cron', () => {
       cron({user, tasksByType, daysMissed, analytics});
 
       expect(user.history.todos).to.be.lengthOf(1);
+    });
+  });
+
+  // @TODO: remove duplicates
+  describe('dailys', () => {
+    beforeEach(() => {
+      let daily = {
+        text: 'test daily',
+        type: 'daily',
+      };
+
+      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
+      tasksByType.dailys = [];
+      tasksByType.dailys.push(task);
+
+      user._statsComputed = {
+        con: 1,
+      };
+    });
+
+    it('computes isDue', () => {
+      tasksByType.dailys[0].frequency = 'daily';
+      tasksByType.dailys[0].everyX = 5;
+      tasksByType.dailys[0].startDate = moment().add(1, 'days').toDate();
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(tasksByType.dailys[0].isDue).to.be.false;
+    });
+
+    it('computes nextDue', () => {
+      tasksByType.dailys[0].frequency = 'daily';
+      tasksByType.dailys[0].everyX = 5;
+      tasksByType.dailys[0].startDate = moment().add(1, 'days').toDate();
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(tasksByType.dailys[0].nextDue.length).to.eql(6);
+    });
+
+    it('should add history', () => {
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(tasksByType.dailys[0].history).to.be.lengthOf(1);
+    });
+
+    it('should set tasks completed to false', () => {
+      tasksByType.dailys[0].completed = true;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(tasksByType.dailys[0].completed).to.be.false;
+    });
+
+    it('should reset task checklist for completed dailys', () => {
+      tasksByType.dailys[0].checklist.push({title: 'test', completed: false});
+      tasksByType.dailys[0].completed = true;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(tasksByType.dailys[0].checklist[0].completed).to.be.false;
+    });
+
+    it('should reset task checklist for dailys with scheduled misses', () => {
+      daysMissed = 10;
+      tasksByType.dailys[0].checklist.push({title: 'test', completed: false});
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(tasksByType.dailys[0].checklist[0].completed).to.be.false;
+    });
+
+    it('should do damage for missing a daily', () => {
+      daysMissed = 1;
+      let hpBefore = user.stats.hp;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.stats.hp).to.be.lessThan(hpBefore);
+    });
+
+    it('should not do damage for missing a daily when CRON_SAFE_MODE is set', () => {
+      sandbox.stub(nconf, 'get').withArgs('CRON_SAFE_MODE').returns('true');
+      let cronOverride = requireAgain(pathToCronLib).cron;
+
+      daysMissed = 1;
+      let hpBefore = user.stats.hp;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+
+      cronOverride({user, tasksByType, daysMissed, analytics});
+
+      expect(user.stats.hp).to.equal(hpBefore);
+    });
+
+    it('should not do damage for missing a daily if user stealth buff is greater than or equal to days missed', () => {
+      daysMissed = 1;
+      let hpBefore = user.stats.hp;
+      user.stats.buffs.stealth = 2;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.stats.hp).to.equal(hpBefore);
+    });
+
+    it('should do less damage for missing a daily with partial completion', () => {
+      daysMissed = 1;
+      let hpBefore = user.stats.hp;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+      cron({user, tasksByType, daysMissed, analytics});
+      let hpDifferenceOfFullyIncompleteDaily = hpBefore - user.stats.hp;
+
+      hpBefore = user.stats.hp;
+      tasksByType.dailys[0].checklist.push({title: 'test', completed: true});
+      tasksByType.dailys[0].checklist.push({title: 'test2', completed: false});
+      cron({user, tasksByType, daysMissed, analytics});
+      let hpDifferenceOfPartiallyIncompleteDaily = hpBefore - user.stats.hp;
+
+      expect(hpDifferenceOfPartiallyIncompleteDaily).to.be.lessThan(hpDifferenceOfFullyIncompleteDaily);
+    });
+
+    it('should decrement quest progress down for missing a daily', () => {
+      daysMissed = 1;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+
+      let progress = cron({user, tasksByType, daysMissed, analytics});
+
+      expect(progress.down).to.equal(-1);
     });
   });
 

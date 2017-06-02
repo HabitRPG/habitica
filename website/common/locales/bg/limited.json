@@ -107,5 +107,6 @@
     "eventAvailability": "Налично за купуване до <%= date(locale) %>.",
     "dateEndApril": "19 април",
     "dateEndMay": "17 май",
+    "dateEndJune": "14 юни",
     "discountBundle": "пакет"
 }

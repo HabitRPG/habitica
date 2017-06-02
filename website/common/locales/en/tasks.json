@@ -172,5 +172,7 @@
     "yesterDailiesSubTitle": "(Check any you have)",
     "yesterDailiesCallToAction": "That's All",
     "yesterDailiesOptionTitle": "Prompt to check off if missed",
-    "yesterDailiesDescription": "Prompt to check off if missed"
+    "yesterDailiesDescription": "Prompt to check off if missed",
+    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %> ",
+    "nextDue": "Next Due Dates"
 }

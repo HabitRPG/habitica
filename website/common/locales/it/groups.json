@@ -136,7 +136,7 @@
     "leaderOnlyChallenges": "Solo il leader del gruppo può creare le sfide",
     "sendGift": "Invia regalo",
     "inviteFriends": "Invita amici",
-    "partyMembersInfo": "Al momento la tua squadra ha <%= memberCount %> membri e <%= invitationCount %> inviti ancora senza risposta. In un squadra ci possono essere al massimo <%= limitMembers %> membri. Non può essere mandata una quantità di inviti superiore a questo numero.",
+    "partyMembersInfo": "Al momento la tua squadra ha <%= memberCount %> membri e <%= invitationCount %> inviti ancora senza risposta. In una squadra ci possono essere al massimo <%= limitMembers %> persone. Non può essere mandata una quantità di inviti superiore a questo numero.",
     "inviteByEmail": "Invita via e-mail",
     "inviteByEmailExplanation": "Se degli amici si iscrivono ad Habitica tramite la tua email, verranno automaticamente invitati nella tua squadra!",
     "inviteFriendsNow": "Invita amici ora",
@@ -189,7 +189,7 @@
     "mustBeGroupMember": "Deve essere membro del gruppo.",
     "keepOrRemoveAll": "req.query.keep deve essere \"keep-all\" oppure \"remove-all\"",
     "keepOrRemove": "req.query.keep deve essere \"keep\" oppure \"remove\"",
-    "canOnlyInviteEmailUuid": "E' possibile invitare solo con uuid o e-mail.",
+    "canOnlyInviteEmailUuid": "È possibile invitare solo con uuid o e-mail.",
     "inviteMissingEmail": "Indirizzo e-mail mancante nell'invito.",
     "inviteMissingUuid": "ID utente mancante nell'invito.",
     "inviteMustNotBeEmpty": "L'invito non può essere vuoto.",
@@ -250,7 +250,7 @@
     "assignFieldPlaceholder": "Scrivi il nome utente di un membro del gruppo",
     "cannotDeleteActiveGroup": "Non puoi rimuovere un gruppo con un abbonamento attivo.",
     "groupTasksTitle": "Lista attività del gruppo",
-    "approvalsTitle": "Atttività in attesa di approvazione",
+    "approvalsTitle": "Attività in attesa di approvazione",
     "upgradeTitle": "Effettua l'upgrade",
     "blankApprovalsDescription": "Quando il tuo gruppo completa delle attività che richiedono la tua approvazione, appariranno qui! Puoi regolare i requisiti di approvazione durante la modifica delle attività.",
     "userIsClamingTask": "`<%= username %> ha richiesto \"<%= task %>\"`",
@@ -280,6 +280,6 @@
     "canOnlyApproveTaskOnce": "Questa attività è gia stata approvata",
     "leaderMarker": "- Leader",
     "managerMarker": "- Amministratore",
-    "joinedGuild": "Joined a Guild",
-    "joinedGuildText": "Ventured into the social side of Habitica by joining a Guild!"
+    "joinedGuild": "Unito ad una Gilda",
+    "joinedGuildText": "Si è avventurato nel lato sociale di Habitica unendosi ad una Gilda!"
 }

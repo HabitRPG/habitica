@@ -29,6 +29,19 @@ async function _validateTaskAlias (tasks, res) {
   });
 }
 
+export function setNextDue (task, user) {
+  if (task.type !== 'daily') return;
+
+  let optionsForShouldDo = user.preferences.toObject();
+  task.isDue = shared.shouldDo(Date.now(), task, optionsForShouldDo);
+  optionsForShouldDo.nextDue = true;
+  let nextDue = shared.shouldDo(Date.now(), task, optionsForShouldDo);
+  if (nextDue && nextDue.length > 0) {
+    task.nextDue = nextDue.map((dueDate) => {
+      return dueDate.toISOString();
+    });
+  }
+}
 
 /**
  * Creates tasks for a user, challenge or group.
@@ -72,6 +85,8 @@ export async function createTasks (req, res, options = {}) {
     }
 
     if (newTask.type === 'daily') newTask.isDue = common.shouldDo(Date.now(), newTask, user.preferences);
+
+    setNextDue(newTask, user);
 
     // Validate that the task is valid and throw if it isn't
     // otherwise since we're saving user/challenge/group and task in parallel it could save the user/challenge/group with a tasksOrder that doens't match reality
