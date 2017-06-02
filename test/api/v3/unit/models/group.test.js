@@ -2,7 +2,13 @@ import moment from 'moment';
 import { v4 as generateUUID } from 'uuid';
 import validator from 'validator';
 import { sleep } from '../../../../helpers/api-unit.helper';
-import { model as Group, INVITES_LIMIT } from '../../../../../website/server/models/group';
+import {
+  SPAM_MESSAGE_LIMIT,
+  SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
+  SPAM_WINDOW_LENGTH,
+  INVITES_LIMIT,
+  model as Group,
+} from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
 import { quests as questScrolls } from '../../../../../website/common/script/content';
 import { groupChatReceivedWebhook } from '../../../../../website/server/libs/webhook';
@@ -592,6 +598,99 @@ describe('Group Model', () => {
           participatingMember._id,
           questLeader._id,
         ]);
+      });
+    });
+
+    describe('#checkChatSpam', () => {
+      let testUser, testTime, tavern;
+      let testUserID = '1';
+      beforeEach(async () => {
+        testTime = Date.now();
+
+        tavern = new Group({
+          name: 'test tavern',
+          type: 'guild',
+          privacy: 'public',
+        });
+        tavern._id = TAVERN_ID;
+
+        testUser = {
+          _id: testUserID,
+        };
+      });
+
+      function generateTestMessage (overrides = {}) {
+        return Object.assign({}, {
+          text: 'test message',
+          uuid: testUserID,
+          timestamp: testTime,
+        }, overrides);
+      }
+
+      it('group that is not the tavern returns false, while tavern returns true', async () => {
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
+          party.chat.push(generateTestMessage());
+        }
+        expect(party.checkChatSpam(testUser)).to.eql(false);
+
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
+          tavern.chat.push(generateTestMessage());
+        }
+        expect(tavern.checkChatSpam(testUser)).to.eql(true);
+      });
+
+      it('high enough contributor returns false', async () => {
+        let highContributor = testUser;
+        highContributor.contributor = {
+          level: SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
+        };
+
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
+          tavern.chat.push(generateTestMessage());
+        }
+
+        expect(tavern.checkChatSpam(highContributor)).to.eql(false);
+      });
+
+      it('chat with no messages returns false', async () => {
+        expect(tavern.chat.length).to.eql(0);
+        expect(tavern.checkChatSpam(testUser)).to.eql(false);
+      });
+
+      it('user has not reached limit but another one has returns false', async () => {
+        let otherUserID = '2';
+
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
+          tavern.chat.push(generateTestMessage({uuid: otherUserID}));
+        }
+
+        expect(tavern.checkChatSpam(testUser)).to.eql(false);
+      });
+
+      it('user messages is less than the limit returns false', async () => {
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT - 1; i++) {
+          tavern.chat.push(generateTestMessage());
+        }
+
+        expect(tavern.checkChatSpam(testUser)).to.eql(false);
+      });
+
+      it('user has reached the message limit outside of window returns false', async () => {
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT - 1; i++) {
+          tavern.chat.push(generateTestMessage());
+        }
+        let earlierTimestamp = testTime - SPAM_WINDOW_LENGTH - 1;
+        tavern.chat.push(generateTestMessage({timestamp: earlierTimestamp}));
+
+        expect(tavern.checkChatSpam(testUser)).to.eql(false);
+      });
+
+      it('user has posted too many messages in limit returns true', async () => {
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
+          tavern.chat.push(generateTestMessage());
+        }
+
+        expect(tavern.checkChatSpam(testUser)).to.eql(true);
       });
     });
 

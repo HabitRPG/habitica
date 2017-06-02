@@ -1,7 +1,7 @@
 <template lang="pug">
 .row
   .col-12
-    h2(v-once) {{ $t('inbox') }}
+    h1.page-header(v-once) {{ $t('inbox') }}
     .card(v-for="conversation in conversations")
       .card-block
         router-link(:to="{ name: 'conversation', params: { id: conversation.fromUserId } }")

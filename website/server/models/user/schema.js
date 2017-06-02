@@ -111,6 +111,8 @@ let schema = new Schema({
     birthday: Number,
     partyUp: Boolean,
     partyOn: Boolean,
+    royallyLoyal: Boolean,
+    joinedGuild: Boolean,
   },
 
   backer: {
@@ -494,7 +496,7 @@ let schema = new Schema({
     mp: {type: Number, default: 10},
     exp: {type: Number, default: 0},
     gp: {type: Number, default: 0},
-    lvl: {type: Number, default: 1},
+    lvl: {type: Number, default: 1, min: 1},
 
     // Class System
     class: {type: String, enum: ['warrior', 'rogue', 'wizard', 'healer'], default: 'warrior', required: true},
@@ -544,7 +546,6 @@ let schema = new Schema({
     return {};
   }},
   pushDevices: [PushDeviceSchema],
-  _ABtest: {type: String}, // deprecated. Superseded by _ABtests
   _ABtests: {type: Schema.Types.Mixed, default: () => {
     return {};
   }},

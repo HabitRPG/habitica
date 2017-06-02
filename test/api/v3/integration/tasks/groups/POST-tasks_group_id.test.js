@@ -1,16 +1,29 @@
 import {
   generateUser,
-  generateGroup,
+  createAndPopulateGroup,
   translate as t,
 } from '../../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
 describe('POST /tasks/group/:groupid', () => {
-  let user, guild;
+  let user, guild, manager;
+  let groupName = 'Test Public Guild';
+  let groupType = 'guild';
 
   beforeEach(async () => {
     user = await generateUser({balance: 1});
-    guild = await generateGroup(user, {type: 'guild'});
+    let { group, groupLeader, members } = await createAndPopulateGroup({
+      groupDetails: {
+        name: groupName,
+        type: groupType,
+        privacy: 'private',
+      },
+      members: 1,
+    });
+
+    guild = group;
+    user = groupLeader;
+    manager = members[0];
   });
 
   it('returns error when group is not found', async () => {
@@ -115,5 +128,28 @@ describe('POST /tasks/group/:groupid', () => {
     expect(task.frequency).to.eql('daily');
     expect(task.everyX).to.eql(5);
     expect(new Date(task.startDate)).to.eql(now);
+  });
+
+  it('allows a manager to add a group task', async () => {
+    await user.post(`/groups/${guild._id}/add-manager`, {
+      managerId: manager._id,
+    });
+
+    let task = await manager.post(`/tasks/group/${guild._id}`, {
+      text: 'test habit',
+      type: 'habit',
+      up: false,
+      down: true,
+      notes: 1976,
+    });
+
+    let groupTask = await manager.get(`/tasks/group/${guild._id}`);
+
+    expect(groupTask[0].group.id).to.equal(guild._id);
+    expect(task.text).to.eql('test habit');
+    expect(task.notes).to.eql('1976');
+    expect(task.type).to.eql('habit');
+    expect(task.up).to.eql(false);
+    expect(task.down).to.eql(true);
   });
 });

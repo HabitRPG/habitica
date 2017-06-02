@@ -8,6 +8,8 @@ const messages = {
   guildsOnlyPaginate: 'Only public guilds support pagination.',
   guildsPaginateBooleanString: 'req.query.paginate must be a boolean string.',
   guildsPageInteger: 'req.query.page must be an integer greater than or equal to 0.',
+  groupIdRequired: 'req.params.groupId must contain a groupId.',
+  managerIdRequired: 'req.body.managerId must contain a user ID.',
 };
 
 export default function (msgKey, vars = {}) {
