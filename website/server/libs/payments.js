@@ -112,6 +112,23 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
     },
   };
 
+  plan = member.purchased.plan.toObject();
+
+  _(plan).merge({ // override with these values
+    planId: 'group_plan_auto',
+    customerId: 'group-plan',
+    dateUpdated: today,
+    paymentMethod: 'groupPlan',
+    extraMonths,
+    dateTerminated: null,
+    lastBillingDate: null,
+    owner: member._id,
+  }).defaults({ // allow non-override if a plan was previously used
+    gemsBought: 0,
+    dateCreated: today,
+    mysteryItems: [],
+  }).value();
+
   if (member.isSubscribed()) {
     let memberPlan = member.purchased.plan;
     let customerHasCancelledGroupPlan = memberPlan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID && !member.hasNotCancelled();
@@ -134,24 +151,9 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
     if (member.hasNotCancelled()) await member.cancelSubscription();
 
     let today = new Date();
-    plan = member.purchased.plan.toObject();
+    // plan = member.purchased.plan.toObject(); 
     let extraMonths = Number(plan.extraMonths);
     if (plan.dateTerminated) extraMonths += _dateDiff(today, plan.dateTerminated);
-
-    _(plan).merge({ // override with these values
-      planId: 'group_plan_auto',
-      customerId: 'group-plan',
-      dateUpdated: today,
-      paymentMethod: 'groupPlan',
-      extraMonths,
-      dateTerminated: null,
-      lastBillingDate: null,
-      owner: member._id,
-    }).defaults({ // allow non-override if a plan was previously used
-      gemsBought: 0,
-      dateCreated: today,
-      mysteryItems: [],
-    }).value();
   }
 
   member.purchased.plan = plan;
