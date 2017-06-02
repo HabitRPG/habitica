@@ -19,7 +19,7 @@ include ../../shared/mixins
       li.customize-menu
         h3.equipment-title=env.t('questsForSale')
         div(ng-repeat='category in questShopCategories')
-          menu.pets-menu(label='{{category.text}}')
+          menu.pets-menu(label='{{category.text}}', ng-if='category.items.length > 0')
             div(ng-repeat='quest in category.items')
               button.customize-option(ng-class='quest.class',
                 data-popover-html="{{quest.locked ? env.t('scrollsPre') : questPopover(quest) | markdown}}",

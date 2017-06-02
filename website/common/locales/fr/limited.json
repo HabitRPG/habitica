@@ -106,5 +106,7 @@
     "spring2017SneakyBunnySet": "Lapin masqué (Voleur)",
     "eventAvailability": "Disponible à l'achat jusqu'au <%= date(locale) %>.",
     "dateEndApril": "19 avril",
-    "dateEndMay": "17 mai"
+    "dateEndMay": "17 mai",
+    "dateEndJune": "14 juin",
+    "discountBundle": "lot"
 }

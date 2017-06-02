@@ -5,6 +5,16 @@ angular.module('habitrpg').factory('Payments',
 function($rootScope, User, $http, Content, Notification) {
   var Payments = {};
   var isAmazonReady = false;
+  Payments.amazonButtonEnabled = true;
+
+  Payments.paymentMethods = {
+    AMAZON_PAYMENTS: 'Amazon Payments',
+    STRIPE: 'Stripe',
+    GOOGLE: 'Google',
+    APPLE: 'Apple',
+    PAYPAL: 'Paypal',
+    GIFT: 'Gift'
+  };
 
   window.onAmazonLoginReady = function(){
     isAmazonReady = true;
@@ -201,14 +211,14 @@ function($rootScope, User, $http, Content, Notification) {
 
   }
 
-  Payments.amazonPayments.canCheckout = function(){
-    if(Payments.amazonPayments.type === 'single'){
+  Payments.amazonPayments.canCheckout = function() {
+    if (Payments.amazonPayments.type === 'single') {
       return Payments.amazonPayments.paymentSelected === true;
-    }else if(Payments.amazonPayments.type === 'subscription'){
+    } else if(Payments.amazonPayments.type === 'subscription') {
       return Payments.amazonPayments.paymentSelected === true &&
               // Mah.. one is a boolean the other a string...
               Payments.amazonPayments.recurringConsent === 'true';
-    }else{
+    } else {
       return false;
     }
   }
@@ -267,7 +277,8 @@ function($rootScope, User, $http, Content, Notification) {
   }
 
   Payments.amazonPayments.checkout = function() {
-    if(Payments.amazonPayments.type === 'single'){
+    Payments.amazonButtonEnabled = false;
+    if (Payments.amazonPayments.type === 'single') {
       var url = '/amazon/checkout';
       $http.post(url, {
         orderReferenceId: Payments.amazonPayments.orderReferenceId,

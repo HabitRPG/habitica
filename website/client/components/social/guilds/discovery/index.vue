@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  .col-3
+  .col-2.standard-sidebar
     .form-group
       input.form-control(type="text", :placeholder="$t('search')")
     
@@ -22,8 +22,8 @@
             input.form-check-input(type="checkbox")
             span Animals
 
-  .col-9
-    h2(v-once) {{ $t('publicGuilds') }}
+  .col-10.standard-page
+    h1.page-header(v-once) {{ $t('publicGuilds') }}
     public-guild-item(v-for="guild in guilds", :key='guild._id', :guild="guild")
     mugen-scroll(
       :handler="fetchGuilds", 
@@ -38,7 +38,7 @@
 import axios from 'axios';
 import MugenScroll from 'vue-mugen-scroll';
 import PublicGuildItem from './publicGuildItem';
-import { GUILDS_PER_PAGE } from 'common/script/constants';
+import { mapState } from 'client/libs/store';
 
 export default {
   components: { PublicGuildItem, MugenScroll },
@@ -49,6 +49,11 @@ export default {
       lastPageLoaded: 0,
       guilds: [],
     };
+  },
+  computed: {
+    ...mapState({
+      GUILDS_PER_PAGE: 'constants.GUILDS_PER_PAGE',
+    }),
   },
   created () {
     this.fetchGuilds();
@@ -65,7 +70,7 @@ export default {
       });
       let guilds = response.data.data;
       this.guilds.push(...guilds);
-      if (guilds.length < GUILDS_PER_PAGE) this.hasLoadedAllGuilds = true;
+      if (guilds.length < this.GUILDS_PER_PAGE) this.hasLoadedAllGuilds = true;
       this.lastPageLoaded++;
       this.loading = false;
     },

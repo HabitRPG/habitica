@@ -68,7 +68,7 @@
     "questVice2DropVice3Quest": "Vice Parte 3 (Pergamino)",
     "questVice3Text": "Vicio, Parte 3: Vicio Se Despierta",
     "questVice3Notes": "Tras mucho esfuerzo, tu grupo a descubierto la guarida de Vice. El enorme monstruo observa a tu grupo con desaprovación. Una sombra se retuerce a tu alrededor, y una voz susurra en tu interior... \"¿Más necios de Habitica que intentan pararme? Encantador..., hubiera sido más inteligente no haber venido.\" El escamado titán alza su cabeza y se prepara para atacar. ¡Es tu oportunidad!¡Da lo mejor de tí y derrota a Vice de una vez por todas!",
-    "questVice3Completion": "Las sombras se disipan de la caverna y un silencio férreo cae. ¡Vaya, lo habéis conseguido! ¡Habéis derrotado Vice! Tú y tu partido podéis por fin respirar tranquilos. Disfrutad de vuestra victoria, valientes Habiteers, pero recordad las lecciones que habéis aprendido al combatir a Vice y seguid adelante. ¡Todavía hay Hábitos por hacer y males potencialmente peores que conquistar!",
+    "questVice3Completion": "Las sombras se disipan de la caverna y un silencio férreo cae. ¡Vaya, lo habéis conseguido! ¡Habéis derrotado a Vice! Tú y tu grupo podéis por fin respirar tranquilos. Disfrutad de vuestra victoria, valientes Habiteers, pero recordad las lecciones que habéis aprendido al combatir a Vice y seguid adelante. ¡Todavía hay Hábitos por hacer y males potencialmente peores que conquistar!",
     "questVice3Boss": "Vice, el Wyrm Sombrío",
     "questVice3DropWeaponSpecial2": "La vara del Dragón de Stephen Weber",
     "questVice3DropDragonEgg": "Dragón (Huevo)",
@@ -107,7 +107,7 @@
     "questBasilistCompletion": "La Basi-Lista se ha diseminado en trozos de papel, que brillan sutilmente con los colores del arcoiris.  \"¡Menos mal!\" dice @Arcosine. \"¡Qué bien que estuvierais aquí!\" Sintiéndote más experimentado que antes, recoges un poco del oro caído entre los papeles.",
     "questBasilistBoss": "El Basi-lista",
     "questEggHuntText": "Cacería de huevos",
-    "questEggHuntNotes": "Overnight, strange plain eggs have appeared everywhere: in Matt's stables, behind the counter at the Tavern, and even among the pet eggs at the Marketplace! What a nuisance! \"Nobody knows where they came from, or what they might hatch into,\" says Megan, \"but we can't just leave them laying around! Work hard and search hard to help me gather up these mysterious eggs. Maybe if you collect enough, there will be some extras left over for you...\"",
+    "questEggHuntNotes": "Por la noche, extraños huevos lisos aparecieron en todas partes: en los establos de Matt, atrás del mostrador en la Taberna, e incluso entre los huevos de mascotas en el Mercado. ¡Qué molestia! \"Nadie sabe de dónde vinieron, o en qué pueden convertirse\", dice Megan, \"pero no podemos dejarlos por ahí sin hacer nada! Trabajen duro y busquen mucho para ayudarme a reunir estos huevos misteriosos. Tal vez, si juntan los suficientes, haya algunas sobras para ustedes...\"",
     "questEggHuntCompletion": "¡Lo lograste! En agradecimiento, <strong>Megan</strong> te da diez de los huevos. \"Apuesto a que las pociones de eclosión los teñirán de hermosos colores! Y me pregunto qué pasará cuando se conviertan en monturas...\"",
     "questEggHuntCollectPlainEgg": "Huevos lisos",
     "questEggHuntDropPlainEgg": "Huevo liso",
@@ -434,7 +434,7 @@
     "questStoikalmCalamity3Completion": "You subdue the Icicle Drake Queen, giving Lady Glaciate time to shatter the glowing bracelets. The Queen stiffens in apparent mortification, then quickly covers it with a haughty pose. \"Feel free to remove these extraneous items,\" she says. \"I'm afraid they simply don't fit our decor.\"<br><br>\"Also, you stole them,\" @Beffymaroo says. \"By summoning monsters from the earth.\"<br><br>The Icicle Drake Queen looks miffed. \"Take it up with that wretched bracelet saleswoman,\" she says. \"It's Tzina you want. I was essentially unaffiliated.\"<br><br>Lady Glaciate claps you on the arm. \"You did well today,\" she says, handing you a spear and a horn from the pile. \"Be proud.\"",
     "questStoikalmCalamity3Boss": "Reina de Pato de Carámbano",
     "questStoikalmCalamity3DropBlueCottonCandy": "Algodón de azúcar azul (comida)",
-    "questStoikalmCalamity3DropShield": "Cuerno de jinete de mamut (escudo)",
+    "questStoikalmCalamity3DropShield": "Mammoth Rider's Horn (Shield-Hand Item)",
     "questStoikalmCalamity3DropWeapon": "Arpón de jinete de mamut (arma)",
     "questGuineaPigText": "La Pandilla de Cobayas",
     "questGuineaPigNotes": "You're casually strolling through Habit City's famous Market when @Pandah waves you down. \"Hey, check these out!\" They're holding up a brown and beige egg you don't recognize.<br><br>Alexander the Merchant frowns at it. \"I don't remember putting that out. I wonder where it came--\" A small paw cuts him off.<br><br>\"Guinea all your gold, merchant!\" squeaks a tiny voice brimming with evil.<br><br>\"Oh no, the egg was a distraction!\" @mewrose exclaims. \"It's the gritty, greedy Guinea Pig Gang! They never do their Dailies, so they constantly steal gold to buy health potions.\"<br><br>\"Robbing the Market?\" says @emmavig. \"Not on our watch!\" Without further prompting, you leap to Alexander's aid.",
@@ -477,5 +477,7 @@
     "questMayhemMistiflying3Boss": "The Wind-Worker",
     "questMayhemMistiflying3DropPinkCottonCandy": "Pink Cotton Candy (Food)",
     "questMayhemMistiflying3DropShield": "Roguish Rainbow Message (Shield-Hand Weapon)",
-    "questMayhemMistiflying3DropWeapon": "Roguish Rainbow Message (Weapon)"
+    "questMayhemMistiflying3DropWeapon": "Roguish Rainbow Message (Weapon)",
+    "featheredFriendsText": "Feathered Friends Quest Bundle",
+    "featheredFriendsNotes": "Contains 'Help! Harpy!,' 'The Night-Owl,' and 'The Birds of Preycrastination.' Available until May 31."
 }
