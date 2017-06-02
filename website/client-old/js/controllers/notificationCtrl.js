@@ -14,7 +14,7 @@ habitrpg.controller('NotificationCtrl',
           return taskId === task._id;
         });
 
-        if (dailyFound.group.approval && dailyFound.group.approval.requested) return;
+        if (dailyFound && dailyFound.group.approval && dailyFound.group.approval.requested) return;
         if (dailyFound) yesterDailies.push(dailyFound);
       });
 
@@ -33,12 +33,14 @@ habitrpg.controller('NotificationCtrl',
         scope: modalScope,
         controller: ['$scope', 'Tasks', 'User', '$rootScope', function ($scope, Tasks, User, $rootScope) {
           $rootScope.$on('task:scored', function (event, data) {
-            var task = data.task;    console.log(task);
+            var task = data.task;
             var indexOfTask = _.findIndex($scope.taskList, function (taskInList) {
               return taskInList._id === task._id;
             });
             if (!$scope.taskList[indexOfTask]) return;
-            $scope.taskList[indexOfTask].completed = true;
+            $scope.taskList[indexOfTask].group.approval.requested = task.group.approval.requested;
+            if ($scope.taskList[indexOfTask].group.approval.requested) return;
+            $scope.taskList[indexOfTask].completed = !$scope.taskList[indexOfTask].completed ;
           });
 
           $scope.ageDailies = function () {

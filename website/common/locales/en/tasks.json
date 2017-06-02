@@ -171,5 +171,6 @@
     "yesterDailiesTitle": "Did you complete any of these?",
     "yesterDailiesSubTitle": "(Check any you have)",
     "yesterDailiesCallToAction": "That's All",
-    "yesterDailiesOptionTitle": "Mark this as a Yesterdaily?"
+    "yesterDailiesOptionTitle": "Prompt to check off if missed",
+    "yesterDailiesDescription": "Prompt to check off if missed"
 }
