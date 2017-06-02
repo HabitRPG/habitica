@@ -14,8 +14,10 @@
     .row
       .col-md-12
         h1.page-header.float-left(v-once) {{ $t('myGuilds') }}
-        b-dropdown.float-right.sort-select(:text="$t('sort')", right=true)
-          b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption.value)') {{sortOption.text}}
+        .float-right
+          span.dropdown-label {{ $t('sortBy') }}
+          b-dropdown(:text="$t('sort')", right=true)
+            b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption.value)') {{sortOption.text}}
     .row
       .col-md-12
         public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild", :display-gem-bank='true')

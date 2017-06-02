@@ -76,7 +76,7 @@
         br
         button.btn.btn-primary(v-once) {{$t('donateGems')}}
         br
-        button.btn.btn-primary.btn-primary(b-btn, @click="updateGuild", v-once) {{ $t('updateGuild') }}
+        button.btn.btn-primary(b-btn, @click="updateGuild", v-once) {{ $t('updateGuild') }}
     div
       h3(v-once) {{ $t('description') }}
       p(v-once) {{ guild.description }}
