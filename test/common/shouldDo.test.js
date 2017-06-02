@@ -322,6 +322,25 @@ describe('shouldDo', () => {
       }
     });
 
+    it('returns false and ignore malformed repeat object', () => {
+      dailyTask.repeat = {
+        su: false,
+        s: false,
+        f: false,
+        th: false,
+        w: false,
+        t: false,
+        m: false,
+        errors: 'errors',
+      };
+
+      for (let weekday of [0, 1, 2, 3, 4, 5, 6]) {
+        day = moment().day(weekday).toDate();
+
+        expect(shouldDo(day, dailyTask, options)).to.equal(false);
+      }
+    });
+
     it('returns false if day of the week does not match and active on the day it matches', () => {
       dailyTask.repeat = {
         su: false,

@@ -243,6 +243,15 @@ let armor = {
     set: 'merchant',
     canOwn: ownsItem('armor_armoire_merchantTunic'),
   },
+  vikingTunic: {
+    text: t('armorArmoireVikingTunicText'),
+    notes: t('armorArmoireVikingTunicNotes', { con: 6, str: 8 }),
+    value: 100,
+    con: 6,
+    str: 8,
+    set: 'viking',
+    canOwn: ownsItem('armor_armoire_vikingTunic'),
+  },
 };
 
 let eyewear = {
@@ -550,6 +559,15 @@ let head = {
     set: 'merchant',
     canOwn: ownsItem('head_armoire_merchantChaperon'),
   },
+  vikingHelm: {
+    text: t('headArmoireVikingHelmText'),
+    notes: t('headArmoireVikingHelmNotes', { str: 6, per: 8 }),
+    value: 100,
+    str: 6,
+    per: 8,
+    set: 'viking',
+    canOwn: ownsItem('head_armoire_vikingHelm'),
+  },
 };
 
 let shield = {
@@ -650,6 +668,15 @@ let shield = {
     con: 8,
     set: 'festivalAttire',
     canOwn: ownsItem('shield_armoire_festivalParasol'),
+  },
+  vikingShield: {
+    text: t('shieldArmoireVikingShieldText'),
+    notes: t('shieldArmoireVikingShieldNotes', { per: 6, int: 8 }),
+    value: 100,
+    per: 6,
+    int: 8,
+    set: 'viking',
+    canOwn: ownsItem('shield_armoire_vikingShield'),
   },
 };
 
@@ -878,6 +905,14 @@ let weapon = {
     int: 10,
     set: 'merchant',
     canOwn: ownsItem('weapon_armoire_merchantsDisplayTray'),
+  },
+  battleAxe: {
+    text: t('weaponArmoireBattleAxeText'),
+    notes: t('weaponArmoireBattleAxeNotes', { int: 6, con: 8 }),
+    value: 100,
+    int: 6,
+    con: 8,
+    canOwn: ownsItem('weapon_armoire_battleAxe'),
   },
 };
 

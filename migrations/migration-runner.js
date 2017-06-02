@@ -17,8 +17,5 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-var processUsers = require('./groups/update-groups-with-group-plans');
-processUsers()
-  .catch(function (err) {
-      console.log(err)
-  })
+var processUsers = require('./takeThis');
+processUsers();
