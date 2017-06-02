@@ -17,6 +17,7 @@ import {
   createTasks,
   getTasks,
   moveTask,
+  setNextDue,
 } from '../../libs/taskManager';
 import common from '../../../common';
 import Bluebird from 'bluebird';
@@ -456,9 +457,7 @@ api.updateTask = {
       task.group.approval.required = true;
     }
 
-    if (sanitizedObj.type === 'daily') {
-      task.isDue = common.shouldDo(Date.now(), sanitizedObj, user.preferences);
-    }
+    setNextDue(task, user);
 
     let savedTask = await task.save();
 
@@ -589,6 +588,8 @@ api.scoreTask = {
       }
     }
 
+    setNextDue(task, user);
+
     if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
       user._ABtests.counter++;
       if (user._ABtests.counter > 1) {
@@ -599,10 +600,6 @@ api.scoreTask = {
         }
       }
       user.markModified('_ABtests');
-    }
-
-    if (task.type === 'daily') {
-      task.isDue = common.shouldDo(Date.now(), task, user.preferences);
     }
 
     let results = await Bluebird.all([
