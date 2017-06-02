@@ -106,7 +106,7 @@
     "spring2017SneakyBunnySet": "Conejo Furtivo (Pícaro)",
     "eventAvailability": "Disponible para su compra hasta el <%= date(locale) %>.",
     "dateEndApril": "19 de abril",
-    "dateEndMay": "May 17",
-    "dateEndJune": "June 14",
-    "discountBundle": "bundle"
+    "dateEndMay": "17 de mayo",
+    "dateEndJune": "14 de junio",
+    "discountBundle": "Lote"
 }

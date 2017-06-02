@@ -55,7 +55,7 @@ shops.getMarketCategories = function getMarket (user, language) {
     .map(hatchingPotion => {
       return {
         key: hatchingPotion.key,
-        text: hatchingPotion.text(language),
+        text: i18n.t('potion', {potionType: hatchingPotion.text(language)}),
         notes: hatchingPotion.notes(language),
         class: `Pet_HatchingPotion_${hatchingPotion.key}`,
         value: hatchingPotion.value,
@@ -76,7 +76,7 @@ shops.getMarketCategories = function getMarket (user, language) {
     .map(premiumHatchingPotion => {
       return {
         key: premiumHatchingPotion.key,
-        text: premiumHatchingPotion.text(language),
+        text: i18n.t('potion', {potionType: premiumHatchingPotion.text(language)}),
         notes: `${premiumHatchingPotion.notes(language)} ${premiumHatchingPotion._addlNotes(language)}`,
         class: `Pet_HatchingPotion_${premiumHatchingPotion.key}`,
         value: premiumHatchingPotion.value,
@@ -85,7 +85,9 @@ shops.getMarketCategories = function getMarket (user, language) {
         purchaseType: 'hatchingPotions',
       };
     }), 'key');
-  categories.push(premiumHatchingPotionsCategory);
+  if (premiumHatchingPotionsCategory.items.length > 0) {
+    categories.push(premiumHatchingPotionsCategory);
+  }
 
   let foodCategory = {
     identifier: 'food',
@@ -185,7 +187,9 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
       };
     }));
 
-  categories.push(bundleCategory);
+  if (bundleCategory.items.length > 0) {
+    categories.push(bundleCategory);
+  }
 
   each(content.userCanOwnQuestCategories, type => {
     let category = {
