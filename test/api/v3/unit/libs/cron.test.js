@@ -392,6 +392,118 @@ describe('cron', () => {
       expect(tasksByType.dailys[0].nextDue.length).to.eql(6);
     });
 
+    it('should compute daily nextDue values', () => {
+      let now = moment.utc('2017-05-01').toDate();
+      tasksByType.dailys[0].frequency = 'daily';
+      tasksByType.dailys[0].everyX = 2;
+      tasksByType.dailys[0].startDate = now;
+      cron({user, tasksByType, daysMissed, analytics, now});
+      expect(tasksByType.dailys[0].nextDue.length).to.eql(6);
+      expect(moment(tasksByType.dailys[0].nextDue[0]).toDate()).to.eql(moment.utc('2017-05-03').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[1]).toDate()).to.eql(moment.utc('2017-05-05').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[2]).toDate()).to.eql(moment.utc('2017-05-07').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[3]).toDate()).to.eql(moment.utc('2017-05-09').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[4]).toDate()).to.eql(moment.utc('2017-05-11').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[5]).toDate()).to.eql(moment.utc('2017-05-13').toDate());
+    });
+
+    it('should compute weekly nextDue values', () => {
+      let now = moment.utc('2017-05-01').toDate();
+      tasksByType.dailys[0].frequency = 'weekly';
+      tasksByType.dailys[0].everyX = 1;
+      tasksByType.dailys[0].repeat = {
+        su: true,
+        m: true,
+        t: true,
+        w: true,
+        th: true,
+        f: true,
+        s: true,
+      };
+      tasksByType.dailys[0].startDate = now;
+      cron({user, tasksByType, daysMissed, analytics, now});
+      expect(tasksByType.dailys[0].nextDue.length).to.eql(6);
+      expect(moment(tasksByType.dailys[0].nextDue[0]).toDate()).to.eql(moment.utc('2017-05-02').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[1]).toDate()).to.eql(moment.utc('2017-05-03').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[2]).toDate()).to.eql(moment.utc('2017-05-04').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[3]).toDate()).to.eql(moment.utc('2017-05-05').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[4]).toDate()).to.eql(moment.utc('2017-05-06').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[5]).toDate()).to.eql(moment.utc('2017-05-07').toDate());
+      tasksByType.dailys[0].everyX = 2;
+      tasksByType.dailys[0].repeat = {
+        su: true,
+        m: false,
+        t: false,
+        w: false,
+        th: false,
+        f: true,
+        s: false,
+      };
+      tasksByType.dailys[0].startDate = now;
+      cron({user, tasksByType, daysMissed, analytics, now});
+      expect(tasksByType.dailys[0].nextDue.length).to.eql(6);
+      expect(moment(tasksByType.dailys[0].nextDue[0]).toDate()).to.eql(moment.utc('2017-05-05').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[1]).toDate()).to.eql(moment.utc('2017-05-14').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[2]).toDate()).to.eql(moment.utc('2017-05-19').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[3]).toDate()).to.eql(moment.utc('2017-05-28').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[4]).toDate()).to.eql(moment.utc('2017-06-02').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[5]).toDate()).to.eql(moment.utc('2017-06-11').toDate());
+    });
+
+    it('should compute monthly nextDue values', () => {
+      let now = moment.utc('2017-05-01').toDate();
+
+      tasksByType.dailys[0].frequency = 'monthly';
+      tasksByType.dailys[0].everyX = 3;
+      tasksByType.dailys[0].startDate = now;
+      tasksByType.dailys[0].daysOfMonth = [1];
+      cron({user, tasksByType, daysMissed, analytics, now});
+      expect(tasksByType.dailys[0].nextDue.length).to.eql(6);
+      expect(moment(tasksByType.dailys[0].nextDue[0]).toDate()).to.eql(moment.utc('2017-08-01').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[1]).toDate()).to.eql(moment.utc('2017-11-01').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[2]).toDate()).to.eql(moment.utc('2018-02-01').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[3]).toDate()).to.eql(moment.utc('2018-05-01').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[4]).toDate()).to.eql(moment.utc('2018-08-01').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[5]).toDate()).to.eql(moment.utc('2018-11-01').toDate());
+
+      tasksByType.dailys[0].startDate = now;
+      tasksByType.dailys[0].weeksOfMonth = [1];
+      tasksByType.dailys[0].everyX = 1;
+      tasksByType.dailys[0].repeat = {
+        su: false,
+        m: true,
+        t: false,
+        w: false,
+        th: false,
+        f: false,
+        s: false,
+      };
+      cron({user, tasksByType, daysMissed, analytics, now});
+      expect(tasksByType.dailys[0].nextDue.length).to.eql(6);
+      expect(moment(tasksByType.dailys[0].nextDue[0]).toDate()).to.eql(moment.utc('2017-06-05').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[1]).toDate()).to.eql(moment.utc('2017-07-03').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[2]).toDate()).to.eql(moment.utc('2017-08-07').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[3]).toDate()).to.eql(moment.utc('2017-09-04').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[4]).toDate()).to.eql(moment.utc('2017-10-02').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[5]).toDate()).to.eql(moment.utc('2017-11-06').toDate());
+    });
+
+    it('should compute yearly nextDue values', () => {
+      let now = moment.utc('2017-05-01').toDate();
+      tasksByType.dailys[0].frequency = 'yearly';
+      tasksByType.dailys[0].everyX = 5;
+      tasksByType.dailys[0].startDate = now;
+      cron({user, tasksByType, daysMissed, analytics, now});
+      expect(tasksByType.dailys[0].nextDue.length).to.eql(6);
+      expect(moment(tasksByType.dailys[0].nextDue[0]).toDate()).to.eql(moment.utc('2022-05-01').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[1]).toDate()).to.eql(moment.utc('2027-05-01').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[2]).toDate()).to.eql(moment.utc('2032-05-01').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[3]).toDate()).to.eql(moment.utc('2037-05-01').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[4]).toDate()).to.eql(moment.utc('2042-05-01').toDate());
+      expect(moment(tasksByType.dailys[0].nextDue[5]).toDate()).to.eql(moment.utc('2047-05-01').toDate());
+    });
+
+
     it('should add history', () => {
       cron({user, tasksByType, daysMissed, analytics});
       expect(tasksByType.dailys[0].history).to.be.lengthOf(1);

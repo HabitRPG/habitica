@@ -623,21 +623,20 @@ describe('shouldDo', () => {
   });
 
   context('Monthly - Every X Months on a specified date', () => {
-    beforeEach(() => {
-      day = moment();
-      dailyTask.frequency = 'monthly';
-      dailyTask.daysOfMonth = [day.date()];
-    });
-
     it('leaves daily inactive if not day of the month', () => {
       dailyTask.everyX = 1;
-      let tomorrow = moment().add(1, 'day').toDate();
+      dailyTask.frequency = 'monthly';
+      dailyTask.daysOfMonth = [15];
+      let tomorrow = moment().add(1, 'day').toDate();// @TODO: make sure this is not the 15
 
       expect(shouldDo(tomorrow, dailyTask, options)).to.equal(false);
     });
 
     it('activates Daily on matching day of month', () => {
+      day = moment();
       dailyTask.everyX = 1;
+      dailyTask.frequency = 'monthly';
+      dailyTask.daysOfMonth = [day.date()];
       day = day.add(1, 'months').date(day.date()).toDate();
 
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
@@ -645,6 +644,8 @@ describe('shouldDo', () => {
 
     it('leaves daily inactive if not on date of the x month', () => {
       dailyTask.everyX = 2;
+      dailyTask.frequency = 'monthly';
+      dailyTask.daysOfMonth = [15];
       let tomorrow = moment().add(2, 'months').add(1, 'day').toDate();
 
       expect(shouldDo(tomorrow, dailyTask, options)).to.equal(false);
@@ -652,25 +653,26 @@ describe('shouldDo', () => {
 
     it('activates Daily if on date of the x month', () => {
       dailyTask.everyX = 2;
-      day = moment().add(2, 'months').toDate();
+      dailyTask.frequency = 'monthly';
+      dailyTask.daysOfMonth = [15];
+      day = moment().add(2, 'months').date(15).toDate();
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
     });
 
     it('activates Daily on start date', () => {
       dailyTask.everyX = 2;
-      day = moment().add(2, 'months').toDate();
-
+      dailyTask.frequency = 'monthly';
+      dailyTask.daysOfMonth = [15];
+      day = moment().add(2, 'months').date(15).toDate();
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
     });
 
     context('Custom Day Start is 0 <= n < 24', () => {
-      day = moment();
       beforeEach(() => {
         options.dayStart = 7;
         dailyTask.everyX = 2;
         dailyTask.frequency = 'monthly';
         dailyTask.daysOfMonth = [15];
-        dailyTask.startDate = moment().date(15);
         day = moment().add(2, 'months').date(15).toDate();
       });
 
