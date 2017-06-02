@@ -378,7 +378,7 @@ angular.module('habitrpg')
         var shortDay = numberToShortDay[dayOfWeek];
         var longDay = shortDayToLongDayMap[shortDay];
 
-        let repeatNumber = (week + 1);
+        var repeatNumber = (week + 1);
         if (repeatNumber === 5) repeatNumber = env.t('last');
 
         summary += ' on the ' + repeatNumber + ' ' + longDay;
