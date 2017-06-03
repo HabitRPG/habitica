@@ -452,6 +452,15 @@ api.sendPrivateMessage = {
     let objections = sender.getObjectionsToInteraction('send-private-message', receiver);
     if (objections.length > 0) throw new NotAuthorized(res.t(objections[0]));
 
+    let userBlockedSender = receiver.inbox.blocks.indexOf(sender._id) !== -1;
+    let userIsBlockBySender = sender.inbox.blocks.indexOf(receiver._id) !== -1;
+    let userOptedOutOfMessaging = receiver.inbox.optOut;
+    let senderIsNotAdmin = !sender.contributor.admin;
+
+    if (senderIsNotAdmin && (userBlockedSender || userIsBlockBySender || userOptedOutOfMessaging)) {
+      throw new NotAuthorized(res.t('notAuthorizedToSendMessageToThisUser'));
+    }
+
     await sender.sendMessage(receiver, { receiverMsg: message });
 
     if (receiver.preferences.emailNotifications.newPM !== false) {
