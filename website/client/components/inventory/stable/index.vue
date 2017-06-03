@@ -66,11 +66,20 @@
             :progress="pet.progress",
             @click="selectPet"
           )
-            span(slot="popoverContent", v-once) {{ pet }}
+            span(slot="popoverContent")
+              div.hatchablePopover(v-if="!pet.isOwned && pet.hatchable")
+                h4.popover-content-title {{ pet.pet }}
+                div.popover-content-text(v-html="$t('haveHatchablePet', { potion: pet.potionName, egg: pet.eggName })")
+                div.potionEggGroup
+                  div.potionEggBackground
+                    div(:class="'Pet_HatchingPotion_'+pet.potionKey")
+                  div.potionEggBackground
+                    div(:class="'Pet_Egg_'+pet.eggKey")
+
             template(slot="itemBadge", scope="ctx")
               starBadge(
                 :selected="ctx.item.key === currentPet",
-                :show="true",
+                :show="ctx.item.isOwned",
                 @click="selectPet(ctx.item)",
               )
 
@@ -126,6 +135,32 @@
 
   .toggle-switch-container.hideMissing {
     margin-top: 0;
+  }
+
+  .hatchablePopover {
+    width: 180px
+  }
+
+  .potionEggGroup {
+    margin: 0 auto;
+  }
+
+  .potionEggBackground {
+    display: inline-flex;
+    align-items: center;
+
+    width: 64px;
+    height: 64px;
+    border-radius: 2px;
+    background-color: #4e4a57;
+
+    &:first-child {
+      margin-right: 24px;
+    }
+
+    & div {
+      margin: 0 auto;
+    }
   }
 </style>
 
@@ -323,6 +358,7 @@
               animals.push({
                 key: animalKey,
                 eggKey: egg.key,
+                eggName: egg.text(),
                 potionKey: potion.key,
                 potionName: potion.text(),
                 pet: this.content[`${type}Info`][animalKey].text(),
