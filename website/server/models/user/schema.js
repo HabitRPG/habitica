@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+﻿import mongoose from 'mongoose';
 import shared from '../../../common';
 import _ from 'lodash';
 import validator from 'validator';
@@ -83,6 +83,7 @@ let schema = new Schema({
     },
     beastMaster: Boolean,
     beastMasterCount: Number,
+    mountCollector: Number,
     mountMaster: Boolean,
     mountMasterCount: Number,
     triadBingo: Boolean,
