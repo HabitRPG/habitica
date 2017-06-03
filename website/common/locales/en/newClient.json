@@ -16,5 +16,6 @@
   "filterByQuest": "Quest",
   "standard": "Standard",
   "sortByColor": "Color",
-  "sortByHatchable": "Hatchable"
+  "sortByHatchable": "Hatchable",
+  "haveHatchablePet": "You have a <%= potion %> and <%= egg %> to hatch this pet! <b>Click and hold</b> the paw print to hatch."
 }
