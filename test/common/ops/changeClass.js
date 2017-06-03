@@ -58,7 +58,7 @@ describe('shared.ops.changeClass', () => {
       }
     });
 
-    it.only('changes class', () => {
+    it('changes class', () => {
       user.stats.class = 'healer';
       user.items.gear.owned.weapon_healer_3 = true;
       user.items.gear.equipped.weapon = 'weapon_healer_3';
