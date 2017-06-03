@@ -9,9 +9,9 @@ script(type='text/ng-template', id='partials/groups.tasks.approvals.html')
   .panel-group(ng-repeat="approval in group.approvals")
     .panel.panel-default
       .panel-heading
-            span
-              markdown(text = "approvalTitle(approval)")
-              a.btn.btn-sm.btn-success.pull-right(ng-click="approve(approval.group.taskId, approval.userId._id, approval.userId.profile.name, $index)")=env.t('approve') 
+        span
+         markdown(text = "approvalTitle(approval)")
+         a.btn.btn-sm.btn-success.pull-right(ng-click="approve(approval.group.taskId, approval.userId._id, approval.userId.profile.name, $index)")=env.t('approve') 
   
 
   // *alternative solution- puts text in one column and the approve button in the other 
