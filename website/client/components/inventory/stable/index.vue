@@ -57,13 +57,14 @@
           item(
             v-for="pet in petRow",
             :item="pet",
-            :itemContentClass="pet.isOwned ? ('Pet Pet-' + pet.key) : 'PixelPaw'",
+            :itemContentClass="getPetItemClass(pet)",
             :key="pet.key",
             :showPopover="true",
             :starVisible="true",
             :label="pet.value",
             :popoverPosition="'top'",
             :progress="pet.progress",
+            :emptyItem="!pet.isOwned",
             @click="selectPet"
           )
             span(slot="popoverContent")
@@ -161,6 +162,17 @@
     & div {
       margin: 0 auto;
     }
+  }
+
+  .PixelPaw.greyedOut {
+    opacity: 0.3;
+  }
+
+  .item.item-empty {
+    width: 94px;
+    height: 92px;
+    border-radius: 2px;
+    background-color: #e1e0e3;
   }
 </style>
 
@@ -435,7 +447,7 @@
         return animalRows;
       },
 
-      countOwnedAnimals(animalGroup, type) {
+      countOwnedAnimals (animalGroup, type) {
         let animals = this.getAnimalList(animalGroup, type);
 
         let countAll = animals.length;
@@ -452,6 +464,19 @@
         return this.listAnimals(animalGroup, 'mount', showAll, hideMissing, sortBy, searchText);
       },
 
+      getPetItemClass (pet) {
+        if (pet.isOwned) {
+          return `Pet Pet-${pet.key}`;
+        }
+
+        if (pet.hatchable) {
+          return 'PixelPaw';
+        }
+
+        return 'GreyedOut PixelPaw';
+      },
+
+      // Actions
       updateHideMissing (newVal) {
         this.hideMissing = newVal;
       },

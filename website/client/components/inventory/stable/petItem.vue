@@ -1,25 +1,19 @@
 <template lang="pug">
-  div(v-if="emptyItem")
-    .item-wrapper
-      .item.item-empty
-        .item-content
-      span.item-label(v-if="label") {{ label }}
-  b-popover(
-  v-else,
+b-popover(
   :triggers="['hover']",
   :placement="popoverPosition",
   @click="click",
-  )
-    span(slot="content")
-      slot(name="popoverContent", :item="item")
+)
+  span(slot="content")
+    slot(name="popoverContent", :item="item")
 
-    .item-wrapper
-      .item
-        slot(name="itemBadge", :item="item")
-        span.item-content(:class="itemContentClass")
-        span.pet-progress-background(v-if="progress > 0")
-          div.pet-progress-bar(v-bind:style="{width: 100 * progress/50 + '%' }")
-      span.item-label(v-if="label") {{ label }}
+  .item-wrapper
+    .item(:class="{'item-empty': emptyItem}")
+      slot(name="itemBadge", :item="item")
+      span.item-content(:class="itemContentClass")
+      span.pet-progress-background(v-if="progress > 0")
+        div.pet-progress-bar(v-bind:style="{width: 100 * progress/50 + '%' }")
+    span.item-label(v-if="label") {{ label }}
 </template>
 
 <style lang="scss">
