@@ -118,4 +118,80 @@ describe('POST /members/send-private-message', () => {
     expect(sendersMessageInReceiversInbox).to.exist;
     expect(sendersMessageInSendersInbox).to.exist;
   });
+
+  context('sender is an admin', () => {
+    beforeEach(async () => {
+      userToSendMessage = await generateUser({'contributor.admin': true});
+    });
+
+    it('sends a private message when receiver has opted out of messaging', async () => {
+      let receiver = await generateUser({'inbox.optOut': true});
+
+      await userToSendMessage.post('/members/send-private-message', {
+        message: messageToSend,
+        toUserId: receiver._id,
+      });
+
+      let updatedReceiver = await receiver.get('/user');
+      let updatedSender = await userToSendMessage.get('/user');
+
+      let sendersMessageInReceiversInbox = _.find(updatedReceiver.inbox.messages, (message) => {
+        return message.uuid === userToSendMessage._id && message.text === messageToSend;
+      });
+
+      let sendersMessageInSendersInbox = _.find(updatedSender.inbox.messages, (message) => {
+        return message.uuid === receiver._id && message.text === messageToSend;
+      });
+
+      expect(sendersMessageInReceiversInbox).to.exist;
+      expect(sendersMessageInSendersInbox).to.exist;
+    });
+
+    it('sends a private message when receiver has blocked the sender', async () => {
+      let receiver = await generateUser({'inbox.blocks': [userToSendMessage._id]});
+
+      await userToSendMessage.post('/members/send-private-message', {
+        message: messageToSend,
+        toUserId: receiver._id,
+      });
+
+      let updatedReceiver = await receiver.get('/user');
+      let updatedSender = await userToSendMessage.get('/user');
+
+      let sendersMessageInReceiversInbox = _.find(updatedReceiver.inbox.messages, (message) => {
+        return message.uuid === userToSendMessage._id && message.text === messageToSend;
+      });
+
+      let sendersMessageInSendersInbox = _.find(updatedSender.inbox.messages, (message) => {
+        return message.uuid === receiver._id && message.text === messageToSend;
+      });
+
+      expect(sendersMessageInReceiversInbox).to.exist;
+      expect(sendersMessageInSendersInbox).to.exist;
+    });
+
+    it('sends a private message when sender has blocked the receiver', async () => {
+      let receiver = await generateUser();
+      let sender = await generateUser({'inbox.blocks': [receiver._id], 'contributor.admin': true});
+
+      await sender.post('/members/send-private-message', {
+        message: messageToSend,
+        toUserId: receiver._id,
+      });
+
+      let updatedReceiver = await receiver.get('/user');
+      let updatedSender = await sender.get('/user');
+
+      let sendersMessageInReceiversInbox = _.find(updatedReceiver.inbox.messages, (message) => {
+        return message.uuid === sender._id && message.text === messageToSend;
+      });
+
+      let sendersMessageInSendersInbox = _.find(updatedSender.inbox.messages, (message) => {
+        return message.uuid === receiver._id && message.text === messageToSend;
+      });
+
+      expect(sendersMessageInReceiversInbox).to.exist;
+      expect(sendersMessageInSendersInbox).to.exist;
+    });
+  });
 });
