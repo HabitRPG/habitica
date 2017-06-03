@@ -1,4 +1,4 @@
-habitrpg.controller("InventoryCtrl",
+﻿habitrpg.controller("InventoryCtrl",
   ['$rootScope', '$scope', 'Shared', '$window', 'User', 'Content', 'Analytics', 'Quests', 'Stats', 'Social', 'Achievement',
   function($rootScope, $scope, Shared, $window, User, Content, Analytics, Quests, Stats, Social, Achievement) {
 
@@ -253,20 +253,40 @@ habitrpg.controller("InventoryCtrl",
             size:'sm'
           });
         }
-
-        // Checks if mountmaster has been reached for the first time
-        if(!user.achievements.mountMaster
-            && $scope.mountCount >= 90) {
-          User.user.achievements.mountMaster = true;
-          Achievement.displayAchievement('mountMaster');
-        }
+        handleMountAchievements();
 
       // Selecting Pet
       } else {
         User.equip({params:{type: 'pet', key: pet.key}});
       }
     }
+    function handleMountAchievements() {
+        //Mount collector
+        var retrospectiveCount = (user.achievements.mountMaster || 0) * 90 + $rootScope.countExists(user.items.mounts);
+        user.achievements.mountCollector = Math.max(retrospectiveCount, user.achievements.mountCollector || 0);
+        switch (user.achievements.mountCollector) {
+            case 1:
+                Achievement.displayAchievement('mountMaster1');
+                break;
+            case 10:
+                Achievement.displayAchievement('mountMaster10');
+                break;
+            case 25:
+                Achievement.displayAchievement('mountMaster25');
+                break;
+            case 50:
+                Achievement.displayAchievement('mountMaster50');
+                break;
+        }
 
+        // Checks if mountmaster has been reached for the first time
+        if (!user.achievements.mountMaster
+            && $scope.mountCount >= 90) {
+            User.user.achievements.mountMaster = true;
+            Achievement.displayAchievement('mountMaster');
+        }
+
+    }
     $scope.chooseMount = function(egg, potion) {
       User.equip({params:{type: 'mount', key: egg + '-' + potion}});
     }

@@ -1,4 +1,4 @@
-include ../avatar/generated_avatar
+﻿include ../avatar/generated_avatar
 mixin achievementFooter
   - var tweet = env.t('achievementShare');
   .modal-footer(style='margin-top:0', ng-init='loadWidgets()')
@@ -81,6 +81,23 @@ script(id='modals/achievements/beastMaster.html', type='text/ng-template')
       p=env.t('beastAchievement')
       br
       button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
+    +achievementFooter
+
+// MountCollector
+script(id='modals/achievements/streak.html', type='text/ng-template')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom: 0')=env.t('streakAchievement')
+      +achievementAvatar('thermometer',2.5)
+      h4(ng-if='user.achievements.MountCollector === 1')=env.t('firstmountCollectorAchievement')
+      h4(ng-if='user.achievements.MountCollector > 1')=env.t('mountCollectorAchievementCount', {mounts:'{{::user.achievements.MountCollector}}'})
+      p=env.t('twentyOneDays')
+      p=env.t('dontBreakStreak')
+      br
+      button.btn.btn-primary(ng-click='$close()')=env.t('dontStop')
+      .checkbox
+        label(style='display:inline-block')=env.t('dontShowAgain')
+          input(type='checkbox', ng-model='user.preferences.suppressModals.streak', ng-change='set({"preferences.suppressModals.streak": user.preferences.suppressModals.streak?true: false})')
     +achievementFooter
 
 // Mount Master
