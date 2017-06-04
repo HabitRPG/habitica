@@ -9,5 +9,19 @@ script(type='text/ng-template', id='partials/groups.tasks.approvals.html')
   .panel-group(ng-repeat="approval in group.approvals")
     .panel.panel-default
       .panel-heading
-        span {{approvalTitle(approval)}}
-        a.btn.btn-sm.btn-success.pull-right(ng-click="approve(approval.group.taskId, approval.userId._id, approval.userId.profile.name, $index)")=env.t('approve')
+        span 
+          markdown(text = "approvalTitle(approval)")
+          a.btn.btn-sm.btn-success.pull-right(ng-click="approve(approval.group.taskId, approval.userId._id, approval.userId.profile.name, $index)")=env.t('approve')
+
+
+ // *ALTERNATIVE SOLUTION-puts text in one column and the approve button in the other 
+ // div
+ //   .container(style="width:100%")
+ //     .panel-group(ng-repeat="approval in group.approvals")
+ //       div
+ //         .row
+ //           .panel.panel-default.col-lg-11
+ //             .panel-heading
+ //               markdown(text ="approvalTitle(approval)")
+ //           .col-lg-1
+ //             a.btn.btn-md.btn-success.align-right(style="margin-top:4px")(ng-click="approve(approval.group.taskId, approval.userId._id, approval.userId.profile.name, $index)")=env.t('approve')
