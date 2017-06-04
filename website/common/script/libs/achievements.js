@@ -147,7 +147,7 @@ function _addPlural (result, user, data) {
   });
 }
 
-function _addMultiicon(result, user, data) {
+function _addMultiIcon(result, user, data) {
     let value = user.achievements[data.path] || 0;
 
     let key = data.key || data.path;
@@ -218,7 +218,7 @@ function _getBasicAchievements (user, language) {
   _addSimple(result, user, {path: 'joinedGuild', language});
   _addSimple(result, user, {path: 'royallyLoyal', language});
 
-  _addMultiicon(result, user, { path: 'mountCollector', language });
+  _addMultiIcon(result, user, { path: 'mountCollector', language });
   _addSimpleWithMasterCount(result, user, {path: 'beastMaster', language});
   _addSimpleWithMasterCount(result, user, {path: 'mountMaster', language});
   _addSimpleWithMasterCount(result, user, {path: 'triadBingo', language});

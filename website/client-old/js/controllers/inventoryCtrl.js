@@ -266,16 +266,12 @@
         user.achievements.mountCollector = Math.max(retrospectiveCount, user.achievements.mountCollector || 0);
         switch (user.achievements.mountCollector) {
             case 1:
-                Achievement.displayAchievement('mountMaster1');
                 break;
             case 10:
-                Achievement.displayAchievement('mountMaster10');
                 break;
             case 25:
-                Achievement.displayAchievement('mountMaster25');
                 break;
             case 50:
-                Achievement.displayAchievement('mountMaster50');
                 break;
         }
 
