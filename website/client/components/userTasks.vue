@@ -129,7 +129,7 @@
         h4 Heading 4
       .col-6.p-4
         p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vehicula, purus sit amet sodales pharetra, ipsum ipsum mollis orci, id pharetra velit diam et dui. Sed placerat ipsum eget pharetra rutrum. Ut vitae rutrum lacus, eu imperdiet velit. Pellentesque eu velit cursus, scelerisque dui quis, dapibus magna. Vestibulum molestie sed sapien et ultricies. Nam porta ipsum leo, non congue magna vestibulum a. Etiam dictum felis sit amet augue varius tincidunt. Sed eget urna auctor, convallis felis in, pretium justo. Curabitur aliquet, ligula id tincidunt ullamcorper, orci lorem pharetra neque, in ornare arcu magna accumsan arcu. Maecenas dignissim lorem sed eros accumsan scelerisque.
-        p.small-text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vehicula, purus sit amet sodales pharetra, ipsum ipsum mollis orci, id pharetra velit diam et dui. 
+        p.small-text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vehicula, purus sit amet sodales pharetra, ipsum ipsum mollis orci, id pharetra velit diam et dui.
     .row
       .col(v-for="taskType in tasksTypes")
         h3 {{taskType}}s
