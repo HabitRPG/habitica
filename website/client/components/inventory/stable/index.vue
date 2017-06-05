@@ -59,16 +59,15 @@
             :item="pet",
             :itemContentClass="getPetItemClass(pet)",
             :key="pet.key",
-            :showPopover="true",
-            :starVisible="true",
-            :label="pet.value",
             :popoverPosition="'top'",
             :progress="pet.progress",
-            :emptyItem="!pet.isOwned",
-            @click="selectPet"
+            :emptyItem="!pet.isOwned()",
+            @hatchPet="hatchPet",
           )
             span(slot="popoverContent")
-              div.hatchablePopover(v-if="!pet.isOwned && pet.hatchable")
+              div(v-if="pet.isOwned()")
+                h4.popover-content-title {{ pet.pet }}
+              div.hatchablePopover(v-else-if="pet.isHatchable()")
                 h4.popover-content-title {{ pet.pet }}
                 div.popover-content-text(v-html="$t('haveHatchablePet', { potion: pet.potionName, egg: pet.eggName })")
                 div.potionEggGroup
@@ -80,7 +79,7 @@
             template(slot="itemBadge", scope="ctx")
               starBadge(
                 :selected="ctx.item.key === currentPet",
-                :show="ctx.item.isOwned",
+                :show="ctx.item.isOwned()",
                 @click="selectPet(ctx.item)",
               )
 
@@ -104,11 +103,7 @@
             :item="mount",
             :itemContentClass="mount.isOwned ? ('Mount_Icon_' + mount.key) : 'PixelPaw'",
             :key="mount.key",
-            :showPopover="true",
-            :starVisible="true",
-            :label="mount.value",
-            :popoverPosition="'top'",
-            @click="selectMount"
+            :popoverPosition="'top'"
           )
             span(slot="popoverContent", v-once) {{ mount }}
             template(slot="itemBadge", scope="ctx")
@@ -345,27 +340,30 @@
         }
 
         let animals = [];
+        let userItems = this.userItems;
 
         if (key === 'specialPets') {
           _each(animalGroup.petSource.pets, (value, specialKey) => {
             let eggKey = specialKey.split('-')[0];
             let potionKey = specialKey.split('-')[1];
-            let isOwned = this.userItems[`${type}s`][specialKey] > 0;
 
             animals.push({
               key: specialKey,
               eggKey,
               potionKey,
               pet: this.content[`${type}Info`][specialKey].text(),
-              isOwned,
+              isOwned ()  {
+                return [`${type}s`][this.key] > 0;
+              },
+              isHatchable() {
+                return false;
+              },
             });
           });
         } else {
           _each(animalGroup.petSource.eggs, (egg) => {
             _each(animalGroup.petSource.potions, (potion) => {
               let animalKey = `${egg.key}-${potion.key}`;
-              let isOwned = this.userItems[`${type}s`][animalKey] > 0;
-              let hatchable = this.userItems.eggs[egg.key] > 0 && this.userItems.hatchingPotions[potion.key] > 0;
 
               animals.push({
                 key: animalKey,
@@ -374,8 +372,12 @@
                 potionKey: potion.key,
                 potionName: potion.text(),
                 pet: this.content[`${type}Info`][animalKey].text(),
-                isOwned,
-                hatchable,
+                isOwned ()  {
+                  return userItems[`${type}s`][animalKey] > 0;
+                },
+                isHatchable() {
+                  return userItems.eggs[egg.key] > 0 && userItems.hatchingPotions[potion.key] > 0;
+                },
               });
             });
           });
@@ -393,7 +395,9 @@
 
         // 1. Filter
         if (hideMissing) {
-          animals = _filter(animals, 'isOwned');
+          animals = _filter(animals, (a) => {
+            return a.isOwned();
+          });
         }
 
         if (searchText && searchText !== '') {
@@ -415,7 +419,7 @@
           case 'sortByHatchable': {
             if (isPetList) {
               let sortFunc = (i) => {
-                return i.hatchable ? 0 : 1;
+                return i.isHatchable() ? 0 : 1;
               };
 
               animals = _sortBy(animals, [sortFunc]);
@@ -451,7 +455,9 @@
         let animals = this.getAnimalList(animalGroup, type);
 
         let countAll = animals.length;
-        let countOwned = _filter(animals, 'isOwned');
+        let countOwned = _filter(animals, (a) => {
+          return a.isOwned();
+        });
 
         return `${countOwned.length}/${countAll}`;
       },
@@ -465,11 +471,11 @@
       },
 
       getPetItemClass (pet) {
-        if (pet.isOwned) {
+        if (pet.isOwned()) {
           return `Pet Pet-${pet.key}`;
         }
 
-        if (pet.hatchable) {
+        if (pet.isHatchable()) {
           return 'PixelPaw';
         }
 
@@ -487,6 +493,10 @@
 
       selectMount (item) {
         this.$store.dispatch('common:equip', {key: item.key, type: 'mount'});
+      },
+
+      hatchPet (pet) {
+        this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
       },
     },
   };
