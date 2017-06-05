@@ -27,7 +27,7 @@ input, textarea, input.form-control, textarea.form-control {
     background: $gray-500;
   }
 
-  &.input-search { // TODO Abstract to work with all icons 
+  &.input-search { // TODO Abstract to work with all icons
     background-repeat: no-repeat;
     background-position: center left 16px;
     background-size: 16px 16px;
