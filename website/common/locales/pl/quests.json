@@ -112,6 +112,6 @@
     "loginIncentiveQuestObtained": "Zdobyłeś to zadanie dzięki wizytom przez <%= count %> różnych dni!",
     "loginReward": "<%= count %> Wizyt",
     "createAccountQuest": "Otrzymałeś tą misję, kiedy dołączyłeś do Habitiki. Jeżeli twój przyjaciel dołączy, również otrzyma misję.",
-    "questBundles": "Discounted Quest Bundles",
-    "buyQuestBundle": "Buy Quest Bundle"
+    "questBundles": "Przecenione pakiety misji",
+    "buyQuestBundle": "Kup pakiet misji"
 }
