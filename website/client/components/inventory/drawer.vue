@@ -35,11 +35,10 @@
 
 .drawer-toggle-icon {
   float: right;
-  margin: 10px;
-  margin-top: 0px;
+  margin-right: 16px;
 
   &.closed {
-    margin-top: 5px;
+    margin-top: 3px;
   }
 }
 
