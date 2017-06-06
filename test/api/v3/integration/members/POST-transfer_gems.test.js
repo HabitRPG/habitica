@@ -43,7 +43,7 @@ describe('POST /members/transfer-gems', () => {
     });
   });
 
-  it('returns error when to user is not found', async () => {
+  it('returns error when recipient is not found', async () => {
     await expect(userToSendMessage.post('/members/transfer-gems', {
       message,
       gemAmount,
@@ -55,7 +55,7 @@ describe('POST /members/transfer-gems', () => {
     });
   });
 
-  it('returns error when to user attempts to send gems to themselves', async () => {
+  it('returns error when user attempts to send gems to themselves', async () => {
     await expect(userToSendMessage.post('/members/transfer-gems', {
       message,
       gemAmount,
@@ -67,7 +67,7 @@ describe('POST /members/transfer-gems', () => {
     });
   });
 
-  it('returns error when to user has blocked the sender', async () => {
+  it('returns error when recipient has blocked the sender', async () => {
     let receiverWhoBlocksUser = await generateUser({'inbox.blocks': [userToSendMessage._id]});
 
     await expect(userToSendMessage.post('/members/transfer-gems', {
@@ -81,7 +81,7 @@ describe('POST /members/transfer-gems', () => {
     });
   });
 
-  it('returns error when sender has blocked to user', async () => {
+  it('returns error when sender has blocked recipient', async () => {
     let sender = await generateUser({'inbox.blocks': [receiver._id]});
 
     await expect(sender.post('/members/transfer-gems', {
@@ -109,7 +109,7 @@ describe('POST /members/transfer-gems', () => {
     });
   });
 
-  it('works when only the receiver\'s chat privileges are revoked', async () => {
+  it('works when only the recipient\'s chat privileges are revoked', async () => {
     let receiverWithChatRevoked = await generateUser({'flags.chatRevoked': true});
 
     await expect(userToSendMessage.post('/members/transfer-gems', {
@@ -202,7 +202,7 @@ describe('POST /members/transfer-gems', () => {
     expect(updatedSender.balance).to.equal(0);
   });
 
-  it('does not requrie a message', async () => {
+  it('does not require a message', async () => {
     await userToSendMessage.post('/members/transfer-gems', {
       gemAmount,
       toUserId: receiver._id,
