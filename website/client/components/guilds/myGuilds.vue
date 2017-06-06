@@ -4,7 +4,7 @@
 
   .col-10.no-guilds.standard-page(v-if='filteredGuilds.length === 0')
     .no-guilds-wrapper
-      img(src='~assets/guilds/grey-badge.svg')
+      .svg-icon(v-html='icons.greyBadge')
       h2 {{$t('noGuildsTitle')}}
       p {{$t('noGuildsParagraph1')}}
       p {{$t('noGuildsParagraph2')}}
@@ -24,26 +24,26 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
-  .sort-select {
-    margin: 2em;
+@import '~client/assets/scss/colors.scss';
+.sort-select {
+  margin: 2em;
+}
+
+.no-guilds {
+  text-align: center;
+  color: $gray-200;
+  margin-top: 15em;
+
+  p {
+    font-size: 14px;
+    line-height: 1.43;
   }
 
-  .no-guilds {
-    text-align: center;
-    color: $gray-200;
-    margin-top: 15em;
-
-    p {
-      font-size: 14px;
-      line-height: 1.43;
-    }
-
-    .no-guilds-wrapper {
-      width: 400px;
-      margin: 0 auto;
-    }
+  .no-guilds-wrapper {
+    width: 400px;
+    margin: 0 auto;
   }
+}
 </style>
 
 <script>
@@ -58,11 +58,16 @@ import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import PublicGuildItem from './publicGuildItem';
 import Sidebar from './sidebar';
 
+import greyBadgeIcon from 'assets/svg/grey-badge.svg';
+
 export default {
   mixins: [groupUtilities],
   components: { PublicGuildItem, MugenScroll, Sidebar, bFormSelect, bDropdown, bDropdownItem },
   data () {
     return {
+      icons: Object.freeze({
+        greyBadge: greyBadgeIcon,
+      }),
       loading: false,
       search: '',
       filters: {},

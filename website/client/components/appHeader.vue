@@ -112,10 +112,10 @@ import { toNextLevel } from '../../common/script/statHelpers';
 import statsComputed from '../../common/script/libs/statsComputed';
 import percent from '../../common/script/libs/percent';
 
-import buffIcon from 'assets/header/buff.svg';
-import healthIcon from 'assets/header/health.svg';
-import experienceIcon from 'assets/header/experience.svg';
-import manaIcon from 'assets/header/mana.svg';
+import buffIcon from 'assets/svg/buff.svg';
+import healthIcon from 'assets/svg/health.svg';
+import experienceIcon from 'assets/svg/experience.svg';
+import manaIcon from 'assets/svg/mana.svg';
 
 export default {
   components: {

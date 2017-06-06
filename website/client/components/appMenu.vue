@@ -1,7 +1,7 @@
 <template lang="pug">
 nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
   .navbar-header
-    img.logo(src="~assets/header/logo.svg")
+    .svg-icon(v-html="icons.logo")
   .collapse.navbar-collapse
     ul.navbar-nav.mr-auto
       router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact)
@@ -57,7 +57,7 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
 @import '~client/assets/scss/colors.scss';
 
 nav.navbar {
-  background: $purple-100 url(~assets/header/png/bits.png) right no-repeat;
+  background: $purple-100 url(~assets/svg/bits.svg) right no-repeat;
   padding-left: 25px;
   padding-right: 12.5px;
   height: 56px;
@@ -193,10 +193,11 @@ nav.navbar {
 
 <script>
 import { mapState, mapGetters } from 'client/libs/store';
-import gemIcon from 'assets/header/gem.svg';
-import goldIcon from 'assets/header/gold.svg';
-import notificationsIcon from 'assets/header/notifications.svg';
-import userIcon from 'assets/header/user.svg';
+import gemIcon from 'assets/svg/gem.svg';
+import goldIcon from 'assets/svg/gold.svg';
+import notificationsIcon from 'assets/svg/notifications.svg';
+import userIcon from 'assets/svg/user.svg';
+import logo from 'assets/svg/logo.svg';
 
 export default {
   data () {
@@ -206,6 +207,7 @@ export default {
         gold: goldIcon,
         notifications: notificationsIcon,
         user: userIcon,
+        logo,
       }),
     };
   },
