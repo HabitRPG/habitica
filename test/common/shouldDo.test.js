@@ -736,7 +736,7 @@ describe('shouldDo', () => {
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
     });
 
-    it.only('should compute monthly nextDue values', () => {
+    it('should compute monthly nextDue values', () => {
       options.timezoneOffset = 0;
       options.nextDue = true;
 

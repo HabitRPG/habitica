@@ -219,6 +219,5 @@ export function shouldDo (day, dailyTask, options = {}) {
 
     return schedule.matches(startOfDayWithCDSTime);
   }
-  console.log(2);
   return false;
 }
