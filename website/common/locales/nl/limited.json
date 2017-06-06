@@ -107,6 +107,6 @@
     "eventAvailability": "Verkrijgbaar voor aankoop tot <%=date(locale) %>.",
     "dateEndApril": "19 april",
     "dateEndMay": "17 mei",
-    "dateEndJune": "June 14",
+    "dateEndJune": "14 juni",
     "discountBundle": "bundel"
 }

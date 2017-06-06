@@ -1,8 +1,6 @@
 <template lang="pug">
 .row
-  h1.page-header.col-12 Tavern
-// TODO Example code based on Semantic UI .ui.grid
-  .four.wide.column
+  .col-md-4
     h2.ui.dividing.header SideMenu
 
     .ui.card
@@ -153,7 +151,7 @@
         ul
           li Challenge 1
 
-  .twelve.wide.column
+  .col-md-8
     h2.ui.dividing.header Tavern Chat
     .ui.comments
 
@@ -172,7 +170,6 @@
             span.date {{message.date}}
           .text
             | {{message.message}}
-
 </template>
 
 <script>

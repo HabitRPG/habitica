@@ -167,5 +167,7 @@
     "taskNotes": "Примечания к задаче",
     "monthlyRepeatHelpContent": "Это задание будет появляться каждые N месяцев",
     "yearlyRepeatHelpContent": "Это задание будет появляться каждые N лет",
-    "resets": "Resets"
+    "resets": "Resets",
+    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Next Due Dates"
 }

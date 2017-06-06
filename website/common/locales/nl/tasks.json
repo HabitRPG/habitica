@@ -62,7 +62,7 @@
     "score": "Score",
     "reward": "Beloning",
     "rewards": "Beloningen",
-    "ingamerewards": "Uitrusting en vaardigheden",
+    "ingamerewards": "Equipment & Skills",
     "gold": "Goud",
     "silver": "Zilver (100 zilver = 1 goud)",
     "newReward": "Nieuwe Beloning",
@@ -140,9 +140,9 @@
     "counterPeriodDay": "Dag",
     "counterPeriodWeek": "Week",
     "counterPeriodMonth": "Maand",
-    "habitCounter": "Counter (Resets <%= frequency %>)",
-    "habitCounterUp": "Positive Counter (Resets <%= frequency %>)",
-    "habitCounterDown": "Negative Counter (Resets <%= frequency %>)",
+    "habitCounter": "Teller (Herstart <%= frequency %>)",
+    "habitCounterUp": "Positive teller (Herstart <%= frequency %>)",
+    "habitCounterDown": "Negatieve teller (Herstart <%= frequency %>)",
     "taskRequiresApproval": "Deze taak moet worden goedgekeurd voordat je hem kunt voltooien. Er is al goedkeuring gevraagd",
     "taskApprovalHasBeenRequested": "Er is goedkeuring gevraagd",
     "approvals": "Goedkeuringen",
@@ -167,5 +167,7 @@
     "taskNotes": "Taken notities",
     "monthlyRepeatHelpContent": "Deze taak zul je iedere X maanden moeten doen",
     "yearlyRepeatHelpContent": "Deze taak zul je iedere X jaren moeten doen",
-    "resets": "Resets"
+    "resets": "Herstart",
+    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Next Due Dates"
 }
