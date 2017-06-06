@@ -140,12 +140,12 @@
     "counterPeriodDay": "Día",
     "counterPeriodWeek": "Semana",
     "counterPeriodMonth": "Mes",
-    "habitCounter": "Contador",
-    "habitCounterUp": "Contador positivo",
-    "habitCounterDown": "Contado positivo",
+    "habitCounter": "Counter (Resets <%= frequency %>)",
+    "habitCounterUp": "Positive Counter (Resets <%= frequency %>)",
+    "habitCounterDown": "Negative Counter (Resets <%= frequency %>)",
     "taskRequiresApproval": "Esta tarea debe ser aprovada antes de que la puedas completar. La aprobación ya ha sido solicitada.",
     "taskApprovalHasBeenRequested": "La aprobación ha sido solicitada",
-    "approvals": "Approvals",
+    "approvals": "Aprobaciones",
     "approvalRequired": "Aprobación requerida",
     "weekly": "Semanal",
     "monthly": "Mensual",
@@ -166,5 +166,8 @@
     "groupTasksByChallenge": "Tareas grupales por título de desafío",
     "taskNotes": "Notas de Tareas",
     "monthlyRepeatHelpContent": "Esta tarea vencerá cada X meses",
-    "yearlyRepeatHelpContent": "Esta tarea vencerá cada X años"
+    "yearlyRepeatHelpContent": "Esta tarea vencerá cada X años",
+    "resets": "Resets",
+    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Next Due Dates"
 }

@@ -313,6 +313,24 @@ describe('cron', () => {
       expect(tasksByType.dailys[0].completed).to.be.false;
       expect(user.stats.hp).to.equal(healthBefore);
     });
+
+    it('sets isDue for daily', () => {
+      let daily = {
+        text: 'test daily',
+        type: 'daily',
+        frequency: 'daily',
+        everyX: 5,
+        startDate: new Date(),
+      };
+
+      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
+      tasksByType.dailys.push(task);
+      tasksByType.dailys[0].completed = true;
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(tasksByType.dailys[0].isDue).to.be.exist;
+    });
   });
 
   describe('todos', () => {
@@ -356,6 +374,22 @@ describe('cron', () => {
       user._statsComputed = {
         con: 1,
       };
+    });
+
+    it('computes isDue', () => {
+      tasksByType.dailys[0].frequency = 'daily';
+      tasksByType.dailys[0].everyX = 5;
+      tasksByType.dailys[0].startDate = moment().add(1, 'days').toDate();
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(tasksByType.dailys[0].isDue).to.be.false;
+    });
+
+    it('computes nextDue', () => {
+      tasksByType.dailys[0].frequency = 'daily';
+      tasksByType.dailys[0].everyX = 5;
+      tasksByType.dailys[0].startDate = moment().add(1, 'days').toDate();
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(tasksByType.dailys[0].nextDue.length).to.eql(6);
     });
 
     it('should add history', () => {

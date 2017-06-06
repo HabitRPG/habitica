@@ -68,7 +68,7 @@
     "questVice2DropVice3Quest": "Вайс. Часть 3 (свиток)",
     "questVice3Text": "Вайс, Часть 3: Вайс пробуждается",
     "questVice3Notes": "Приложив большие усилия, ваша команда нашла логово Вайса. Неповоротливый монстр оглядывает вас с отвращением. Вокруг вас в вихрем сгущаются тени, а в голове звучит шепот: «Неужели глупые хабитяне вновь пришли остановить меня? Мило. Но мудрее было бы не делать этого». Покрытый чешуей исполин отводит голову назад, готовясь к атаке. Это ваш шанс! Покажите ему, на что вы способны и сокрушите Вайса раз и навсегда!",
-    "questVice3Completion": "Тени в пещере рассеиваются, и наступает звенящая тишина. Честное слово, вы это сделали! Вы победили Вайса! Вы и вся ваша команда, наконец, можете вздохнуть с облегчением. Наслаждайтесь победой, храбрые Хабитяне, двигайтесь дальше, но не забывайте уроков, которые вы получили в битве с Вайсом. Вам предстоит работать над привычками, а, возможно, и сразиться с еще большим злом!",
+    "questVice3Completion": "The shadows dissipate from the cavern and a steely silence falls. My word, you've done it! You have defeated Vice! You and your party may finally breathe a sigh of relief. Enjoy your victory, brave Habiteers, but take the lessons you've learned from battling Vice and move forward. There are still Habits to be done and potentially worse evils to conquer!",
     "questVice3Boss": "Вайс, Змей Теней",
     "questVice3DropWeaponSpecial2": "Посох дракона Стивена Уэбера",
     "questVice3DropDragonEgg": "Дракон (яйцо)",
@@ -389,7 +389,7 @@
     "questDustBunniesBoss": "Дикие пылевые зайцы",
     "questMoon1Text": "Лунная битва, часть 1: Сбор загадочных осколков",
     "questMoon1Notes": "Хабитанцы отвлеклись от своих дел на нечто странное: повсюду появились перекрученные каменные осколки. Взволнованная провидица @Starsystemic призвала вас в башню. Он говорит: \"Я вижу зловещее знамение в этих осколках. Земля будет опустошена и трудолюбивые хабитанцы опустят руки. Я могу найти источник этого, но сначала мне нужно изучить эти кусочки. Можете ли вы собрать их немного для меня?\"",
-    "questMoon1Completion": "@Starststemic исчезает в башне для изучения собранных осколков. \"Это гораздо сложнее, чем я думала\" , говорит @Beffymaroo, ее доверенный помощник. \"Понадобится время, чтобы найти причину. Продолжайте отмечаться каждый день, и когда мы узнаем больше, мы пришлем вам следующий свиток с заданием\".",
+    "questMoon1Completion": "@Starsystemic disappears into her tower to examine the shards you gathered. \"This may be more complicated than we feared,\" says @Beffymaroo, her trusted assistant. \"It will take us some time to discover the cause. Keep checking in every day, and when we know more, we'll send you the next quest scroll.\"",
     "questMoon1CollectShards": "Лунные осколки",
     "questMoon1DropHeadgear": "Шлем лунного воина (головной убор)",
     "questMoon2Text": "Лунная битва, часть 2: Остановить Затмевающий Стресс",
@@ -434,7 +434,7 @@
     "questStoikalmCalamity3Completion": "Вы ослабили Королеву Ледяных Дрэйков, дав Леди Глэсиэйт время для того, чтобы разбить браслеты. Королева застывает со смиренным видом, а затем быстро маскирует свое унижение надменной позой. \"Не стесняйтесь убрать эти посторонние предметы, - говорит она. - Боюсь, они просто не подходят нашему декору\". <br><br>\"А еще вы их украли, - замечает @Beffymaroo, - вы призвали этих монстров из-под земли\". <br><br> Королева Ледяных Дрэйков выглядит обиженной. \"Забирайте их с этим жалким браслетом торговки\", - отвечает она. - \"Ее имя - Цина, если хотите. По существу, я почти не участвовала.\"<br><br> Леди Глэсиэйт хлопает Вас по плечу. \"Вы хорошо сегодня постарались\", - говорит она, вручая Вам копье и горн, вытащенные ранее из кучи. - \"Гордитесь.\"",
     "questStoikalmCalamity3Boss": "Королева Ледяных Дрэйков",
     "questStoikalmCalamity3DropBlueCottonCandy": "Синяя сладкая вата (еда)",
-    "questStoikalmCalamity3DropShield": "Горн Наездника Мамонта (щит)",
+    "questStoikalmCalamity3DropShield": "Mammoth Rider's Horn (Shield-Hand Item)",
     "questStoikalmCalamity3DropWeapon": "Копье Наездника Мамонта (оружие)",
     "questGuineaPigText": "Банда морских свинок",
     "questGuineaPigNotes": "Вы как обычно прогуливаетесь по знаменитому Рынку Habit City, и тут @Pandah машет вам рукой. \"Эй, посмотри на этих!\".  У них в руках коричнево-бежевое яйцо, которое ты не можешь опознать.<br><br>Торговец Александр неодобрительно хмурится. \"Что-то не припомню, чтобы я выставлял такое на продажу. Интересно, откуда оно взялось...\" Маленькая лапка прерывает его. <br><br>\"Тащи сюда все свое золото, торговец!\" - пищит тоненький голосок, переполненный злобой.<br><br>\"О нет, яйцо было отвлекающим маневром!\" восклицает @mewrose. \"Это безжалостная, жадная Банда Морских Свинок! Они никогда не делают ежедневные задания, и поэтому постоянно воруют золото, чтобы покупать зелье здоровья.\"<br><br>\"Грабить рынок?\" - произносит @emmavig. \"Не в мою смену!\" Без лишних разговоров, вы бросаетесь на помощь Александру.",
@@ -477,5 +477,7 @@
     "questMayhemMistiflying3Boss": "The Wind-Worker",
     "questMayhemMistiflying3DropPinkCottonCandy": "Розовая сахарная вата (еда)",
     "questMayhemMistiflying3DropShield": "Roguish Rainbow Message (Shield-Hand Weapon)",
-    "questMayhemMistiflying3DropWeapon": "Roguish Rainbow Message (Weapon)"
+    "questMayhemMistiflying3DropWeapon": "Roguish Rainbow Message (Weapon)",
+    "featheredFriendsText": "Feathered Friends Quest Bundle",
+    "featheredFriendsNotes": "Contains 'Help! Harpy!,' 'The Night-Owl,' and 'The Birds of Preycrastination.' Available until May 31."
 }
