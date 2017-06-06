@@ -170,5 +170,8 @@
     "resets": "Resets",
     "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %> ",
     "nextDue": "Next Due Dates",
-    "last": "last"
+    "last": "last",
+    "repeatLast": "Select your repeat last option",
+    "repeatFourthOfWeek": "Repeat every 4th week",
+    "repeatLastOfWeek": "Repeat on the last week"
 }

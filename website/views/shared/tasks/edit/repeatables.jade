@@ -28,6 +28,15 @@ fieldset.option-group.advanced-option(ng-show="task.type === 'daily'")
       label
         input(type="radio", ng-model='task._edit.repeatsOn', value='dayOfWeek', ng-disabled='!canEdit(task)')
         =env.t('dayOfWeek')
+    
+    .form-group(ng-show='task._edit.frequency === "monthly" && task._edit.repeatsOn == "dayOfWeek" && isWeekFour()')
+      legend.option-title=env.t('repeatLast')
+      label
+        input(type="radio", ng-model='task._edit.repeatLastOption', value='no', ng-disabled='!canEdit(task)')
+        =env.t('repeatFourthOfWeek')
+      label
+        input(type="radio", ng-model='task._edit.repeatLastOption', value='yes', ng-disabled='!canEdit(task)')
+        =env.t('repeatLastOfWeek')
 
     .form-group
       legend.option-title=env.t('summary')

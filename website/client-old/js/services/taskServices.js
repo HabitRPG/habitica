@@ -311,7 +311,9 @@ angular.module('habitrpg')
               $scope.task._edit.daysOfMonth = [];
               $scope.task._edit.weeksOfMonth = [week]; // @TODO: This can handle multiple weeks
 
-              if (week === 4) {
+              if (!task._edit.repeatLastOption) task._edit.repeatLastOption = 'yes';
+
+              if (week === 4 && task._edit.repeatLastOption === 'yes') {
                 $scope.task._edit.repeatLast = true;
               }
 
@@ -321,6 +323,11 @@ angular.module('habitrpg')
               $scope.task._edit.repeat[shortDay] = true;
             }
           }, true);
+
+          $scope.isWeekFour = function () {
+            var week = Math.ceil(moment(task._edit.startDate).date() / 7) - 1;
+            return week === 4;
+          };
         }],
       })
       .result.catch(function() {
