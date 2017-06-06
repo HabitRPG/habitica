@@ -61,17 +61,6 @@
     margin-top: 4em;
   }
 
-  .shield {
-    width: 70px;
-    height: 76px;
-    margin: auto;
-    margin: 4em auto;
-    display: block;
-    background-size: cover;
-    width: 100%;
-    height: 100px;
-  }
-
   .item-with-icon {
     .svg-icon {
       height: 37px;
@@ -83,6 +72,10 @@
       width: 37px;
       margin-left: .2em;
     }
+  }
+
+  .shield {
+    width: 70px;
   }
 
   .guild-bank {

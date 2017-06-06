@@ -36,6 +36,7 @@
 .drawer-toggle-icon {
   float: right;
   margin: 10px;
+  margin-top: 0px;
 
   &.closed {
     margin-top: 5px;
