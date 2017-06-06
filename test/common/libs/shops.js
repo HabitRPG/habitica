@@ -13,6 +13,12 @@ describe('shops', () => {
       expect(shopCategories.length).to.be.greaterThan(2);
     });
 
+    it('does not contain an empty category', () => {
+      _.each(shopCategories, (category) => {
+        expect(category.items.length).to.be.greaterThan(0);
+      });
+    });
+
     it('does not duplicate identifiers', () => {
       let identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)));
 
