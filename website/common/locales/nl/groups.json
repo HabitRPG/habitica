@@ -244,7 +244,7 @@
     "groupBenefitSixTitle": "Krijg een gratis abonnement",
     "groupBenefitSixDescription": "Krijg alle abonnee voordelen, zoals exclusieve maandelijkse voorwerpen en de mogelijkheid om edelstenen te kopen met goud! (Als je al een abonnee bent, wordt je oude abonnement geannuleerd, maar je opeenvolgende abonnement voordelen, zoals maandelijkse zandlopers, zullen blijven.)",
     "groupBenefitSevenTitle": "Krijg een gloednieuw exclusief jackalope rijdier",
-    "groupBenefitEightTitle": "Voeg groepsmanagers toe om je te helpen met het beheren van taken",
+    "groupBenefitEightTitle": "Voeg groepsmanagers toe zodat ze je kunnen helpen met het beheren van taken",
     "groupBenefitEightDescription": "Wil je de verantwoordelijkheden van je groep delen? Promoveer mensen tot groepsmanagers om de leider te helpen met het toevoegen, toewijzen en goedkeuren van taken!",
     "createAGroup": "Maak een groep",
     "assignFieldPlaceholder": "Typ de profielnaam van een groepslid in",
@@ -280,6 +280,6 @@
     "canOnlyApproveTaskOnce": "Deze taak is al goedgekeurd.",
     "leaderMarker": "- Leider",
     "managerMarker": "- Manager",
-    "joinedGuild": "Joined a Guild",
-    "joinedGuildText": "Ventured into the social side of Habitica by joining a Guild!"
+    "joinedGuild": "Lid geworden van een gilde",
+    "joinedGuildText": "Zich gewaagd aan de sociale kant van Habitica door lid te worden van een gilde!"
 }

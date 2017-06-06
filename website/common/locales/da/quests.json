@@ -112,6 +112,6 @@
     "loginIncentiveQuestObtained": "Du fik denne quest ved at logge på Habitica på <%= count %> forskellige dage!",
     "loginReward": "<%= count %> Check-ins",
     "createAccountQuest": "Du fik denne quest da du sluttede dig til Habitica! Hvis en ven også opretter sig vil de også få en.",
-    "questBundles": "Discounted Quest Bundles",
-    "buyQuestBundle": "Buy Quest Bundle"
+    "questBundles": "Nedsatte Quest Pakker",
+    "buyQuestBundle": "Køb Quest Pakke"
 }

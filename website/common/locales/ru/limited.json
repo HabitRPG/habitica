@@ -107,5 +107,6 @@
     "eventAvailability": "Доступно для покупки до <%= date(locale) %>.",
     "dateEndApril": "Апрель 19",
     "dateEndMay": "Май 17",
-    "discountBundle": "bundle"
+    "dateEndJune": "14 Июня",
+    "discountBundle": "комплект"
 }

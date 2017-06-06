@@ -1,5 +1,5 @@
 {
-    "stable": "Stable",
+    "stable": "马厩",
     "pets": "宠物",
     "activePet": "参战的宠物",
     "noActivePet": "休息的宠物",
@@ -43,7 +43,7 @@
     "food": "食物和鞍",
     "noFood": "你没有任何食物或鞍。",
     "dropsExplanation": "如果你不想等每次完成任务才掉落这些物品，你可以用宝石来加速获取。 <a href=\"http://habitica.wikia.com/wiki/Drops\">你可以在这了解更多关于掉落系统的信息。</a>",
-    "dropsExplanationEggs": "Spend Gems to get eggs more quickly, if you don't want to wait for standard eggs to drop, or to repeat Quests to earn Quest eggs. <a href=\"http://habitica.wikia.com/wiki/Drops\">Learn more about the drop system.</a>",
+    "dropsExplanationEggs": "花费钻石来更快的获得宠物蛋。如果你不想等待普通宠物蛋掉落或者不想宠物完成副本来得到副本宠物蛋的话。<a href=\"http://habitica.wikia.com/wiki/Drops\">了解更多关于掉落系统。</a>",
     "premiumPotionNoDropExplanation": "魔法孵化药水不能用来孵化从完成任务获得的蛋，也不会随机掉落，获取魔法孵化药水只有一个办法：在下面链接购买。",
     "beastMasterProgress": "驯兽师进度",
     "stableBeastMasterProgress": "驯兽师进度:<%= number %>宠物已获得",

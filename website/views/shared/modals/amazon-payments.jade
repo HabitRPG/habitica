@@ -12,4 +12,4 @@ script(id='modals/amazonPayments.html', type='text/ng-template')
 
   .modal-footer
     .btn.btn-default(ng-click='Payments.amazonPayments.reset()')=env.t('cancel')
-    .btn.btn-primary(ng-disabled="!Payments.amazonPayments.canCheckout()", ng-click="Payments.amazonPayments.checkout()")=env.t('checkout')
+    .btn.btn-primary(ng-disabled="!Payments.amazonPayments.canCheckout() || !Payments.amazonButtonEnabled", ng-click="Payments.amazonPayments.checkout()")=env.t('checkout')

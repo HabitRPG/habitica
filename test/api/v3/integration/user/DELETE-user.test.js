@@ -16,6 +16,7 @@ import {
   sha1MakeSalt,
   sha1Encrypt as sha1EncryptPassword,
 } from '../../../../../website/server/libs/password';
+import * as email from '../../../../../website/server/libs/email';
 
 describe('DELETE /user', () => {
   let user;
@@ -25,13 +26,40 @@ describe('DELETE /user', () => {
     user = await generateUser({balance: 10});
   });
 
-  it('returns an errors if password is wrong', async () => {
+  it('returns an error if password is wrong', async () => {
     await expect(user.del('/user', {
       password: 'wrong-password',
     })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
       message: t('wrongPassword'),
+    });
+  });
+
+  it('returns an error if password is not supplied', async () => {
+    await expect(user.del('/user', {
+      password: '',
+    })).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('missingPassword'),
+    });
+  });
+
+  it('returns an error if excessive feedback is supplied', async () => {
+    let feedbackText = 'spam feedback ';
+    let feedback = feedbackText;
+    while (feedback.length < 10000) {
+      feedback = feedback + feedbackText;
+    }
+
+    await expect(user.del('/user', {
+      password,
+      feedback,
+    })).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: 'Account deletion feedback is limited to 10,000 characters. For lengthy feedback, email admin@habitica.com.',
     });
   });
 
@@ -94,6 +122,32 @@ describe('DELETE /user', () => {
       password,
     });
     await expect(checkExistence('users', user._id)).to.eventually.eql(false);
+  });
+
+  it('sends feedback to the admin email', async () => {
+    sandbox.spy(email, 'sendTxn');
+
+    let feedback = 'Reasons for Deletion';
+    await user.del('/user', {
+      password,
+      feedback,
+    });
+
+    expect(email.sendTxn).to.be.calledOnce;
+
+    sandbox.restore();
+  });
+
+  it('does not send email if no feedback is supplied', async () => {
+    sandbox.spy(email, 'sendTxn');
+
+    await user.del('/user', {
+      password,
+    });
+
+    expect(email.sendTxn).to.not.be.called;
+
+    sandbox.restore();
   });
 
   it('deletes the user with a legacy sha1 password', async () => {
