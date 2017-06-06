@@ -17,6 +17,7 @@ import {
   createTasks,
   getTasks,
   moveTask,
+  setNextDue,
 } from '../../libs/taskManager';
 import common from '../../../common';
 import Bluebird from 'bluebird';
@@ -431,6 +432,7 @@ api.updateTask = {
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
+
     let oldCheckList = task.checklist;
     // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
     let [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
@@ -454,6 +456,8 @@ api.updateTask = {
     if (sanitizedObj.requiresApproval) {
       task.group.approval.required = true;
     }
+
+    setNextDue(task, user);
 
     let savedTask = await task.save();
 
@@ -582,6 +586,20 @@ api.scoreTask = {
           user.tasksOrder.todos.push(task._id);
         } // If for some reason it hadn't been removed previously don't do anything
       }
+    }
+
+    setNextDue(task, user);
+
+    if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
+      user._ABtests.counter++;
+      if (user._ABtests.counter > 1) {
+        if (user._ABtests.guildReminder.indexOf('timing1') !== -1 || user._ABtests.counter > 4) {
+          user._ABtests.counter = -1;
+          let textVariant = user._ABtests.guildReminder.indexOf('text2');
+          user.addNotification('GUILD_PROMPT', {textVariant});
+        }
+      }
+      user.markModified('_ABtests');
     }
 
     let results = await Bluebird.all([

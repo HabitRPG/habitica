@@ -14,6 +14,13 @@ import { model as User } from '../../models/user';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/password';
+import {
+  getUserInfo,
+  sendTxn as txnEmail,
+} from '../../libs/email';
+import nconf from 'nconf';
+
+const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 
 /**
  * @apiDefine UserNotFound
@@ -121,6 +128,8 @@ api.getBuyList = {
 };
 
 let updatablePaths = [
+  '_ABtests.counter',
+
   'flags.customizationsNotification',
   'flags.showTour',
   'flags.tour',
@@ -250,6 +259,7 @@ api.updateUser = {
  * @apiGroup User
  *
  * @apiParam {String} password The user's password if the account uses local authentication
+ * @apiParam {String} feedback User's optional feedback explaining reasons for deletion
  *
  * @apiSuccess {Object} data An empty Object
  *
@@ -260,6 +270,7 @@ api.updateUser = {
  * }
  *
  * @apiError {BadRequest} MissingPassword The password was not included in the request
+ * @apiError {BadRequest} LengthExceeded The feedback provided is longer than 10K
  * @apiError {BadRequest} NotAuthorized There is no account that uses those credentials.
  *
  * @apiErrorExample {json}
@@ -284,16 +295,15 @@ api.deleteUser = {
     let user = res.locals.user;
     let plan = user.purchased.plan;
 
-    req.checkBody({
-      password: {
-        notEmpty: {errorMessage: res.t('missingPassword')},
-      },
-    });
+    let password = req.body.password;
+    if (!password) throw new BadRequest(res.t('missingPassword'));
+
+    let feedback = req.body.feedback;
+    if (feedback && feedback.length > 10000) throw new BadRequest(`Account deletion feedback is limited to 10,000 characters. For lengthy feedback, email ${TECH_ASSISTANCE_EMAIL}.`);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let password = req.body.password;
     let isValidPassword = await passwordUtils.compare(user, password);
     if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
 
@@ -317,6 +327,16 @@ api.deleteUser = {
     }).exec();
 
     await user.remove();
+
+    if (feedback) {
+      txnEmail(TECH_ASSISTANCE_EMAIL, 'admin-feedback', [
+        {name: 'PROFILE_NAME', content: user.profile.name},
+        {name: 'UUID', content: user._id},
+        {name: 'EMAIL', content: getUserInfo(user, ['email']).email},
+        {name: 'FEEDBACK_SOURCE', content: 'from deletion form'},
+        {name: 'FEEDBACK', content: feedback},
+      ]);
+    }
 
     res.respond(200, {});
   },
@@ -407,12 +427,15 @@ const partyMembersFields = 'profile.name stats achievements items.special';
  * @apiName UserCast
  * @apiGroup User
  *
- * @apiParam {String=fireball, mpheal, earth, frost, smash, defensiveStance, valorousPresence, intimidate, pickPocket, backStab, toolsOfTrade, stealth, heal, protectAura, brightness, healAll} spellId The skill to cast.
- * @apiParam (Body) {UUID} targetId Query parameter, necessary if the spell is cast on a party member or task. Not used if the spell is case on onesself or the user's current party.
+
+ * @apiParam {String=fireball, mpHeal, earth, frost, smash, defensiveStance, valorousPresence, intimidate, pickPocket, backStab, toolsOfTrade, stealth, heal, protectAura, brightness, healAll} spellId The skill to cast.
+ * @apiParam (Query) {UUID} targetId Query parameter, necessary if the spell is cast on a party member or task. Not used if the spell is case on the user or the user's current party.
  * @apiParamExample {json} Query example:
- *  {
- *     "targetId":"fd427623-9a69-4aac-9852-13deb9c190c3"
- *  }
+ * Cast "Pickpocket" on a task:
+ *  https://habitica.com/api/v3/user/class/cast/pickPocket?targetId=fd427623...
+ *
+ * Cast "Tools of the Trade" on the party:
+ *  https://habitica.com/api/v3/user/class/cast/toolsOfTrade
  *
  * @apiSuccess data Will return the modified targets. For party members only the necessary fields will be populated. The user is always returned.
  *

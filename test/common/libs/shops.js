@@ -13,6 +13,12 @@ describe('shops', () => {
       expect(shopCategories.length).to.be.greaterThan(2);
     });
 
+    it('does not contain an empty category', () => {
+      _.each(shopCategories, (category) => {
+        expect(category.items.length).to.be.greaterThan(0);
+      });
+    });
+
     it('does not duplicate identifiers', () => {
       let identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)));
 
@@ -47,11 +53,19 @@ describe('shops', () => {
 
     it('items contain required fields', () => {
       _.each(shopCategories, (category) => {
-        _.each(category.items, (item) => {
-          _.each(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'boss', 'class', 'collect', 'drop', 'unlockCondition', 'lvl'], (key) => {
-            expect(_.has(item, key)).to.eql(true);
+        if (category.identifier === 'bundle') {
+          _.each(category.items, (item) => {
+            _.each(['key', 'text', 'notes', 'value', 'currency', 'purchaseType', 'class'], (key) => {
+              expect(_.has(item, key)).to.eql(true);
+            });
           });
-        });
+        } else {
+          _.each(category.items, (item) => {
+            _.each(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'boss', 'class', 'collect', 'drop', 'unlockCondition', 'lvl'], (key) => {
+              expect(_.has(item, key)).to.eql(true);
+            });
+          });
+        }
       });
     });
   });

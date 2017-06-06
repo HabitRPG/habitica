@@ -7,8 +7,8 @@
     .progress-container.d-flex
       img.icon(src="~assets/header/png/health@3x.png")
       .progress
-        .progress-bar.bg-danger(:style="{width: `${percent(user.stats.hp, maxHealth)}%`}")
-      span {{user.stats.hp | round}} / {{maxHealth}}
+        .progress-bar.bg-danger(:style="{width: `${percent(user.stats.hp, MAX_HEALTH)}%`}")
+      span {{user.stats.hp | round}} / {{MAX_HEALTH}}
     .progress-container.d-flex
       img.icon(src="~assets/header/png/experience@3x.png")
       .progress
@@ -21,14 +21,20 @@
       span {{user.stats.mp | round}} / {{maxMP}}
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '~client/assets/scss/colors.scss';
+
+// TODO move to colors.scss if used in other places
+$header-dark-background: #271B3D;
+$header-text-color: #D5C8FF;
+
 /* TODO refactor: only partially ported from SemanticUI; */
 #app-header {
   padding-left: 14px;
   margin-top: 56px;
-  background: #36205d;
+  background: $purple-50;
   height: 192px;
-  color: #d5c8ff;
+  color: $header-text-color;
 }
 
 .character-name {
@@ -36,7 +42,7 @@
   font-size: 16px;
   margin-top: 32px;
   line-height: 1.5;
-  color: #fff;
+  color: $white;
   font-weight: bold;
 }
 
@@ -51,7 +57,6 @@
 #header-avatar {
   margin-top: 24px;
   margin-right: 1rem;
-  box-shadow: 0 2px 4px 0 rgba(53, 32, 93, 0.4);
 }
 
 .progress-container {
@@ -75,7 +80,7 @@
   margin: 0px;
   border-radius: 0px;
   height: 12px;
-  background-color: rgba(0, 0, 0, 0.35);
+  background-color: $header-dark-background;
 }
 
 .progress-container > .progress > .progress-bar {
@@ -90,25 +95,21 @@ import Avatar from './avatar';
 import { mapState } from 'client/libs/store';
 
 import { toNextLevel } from '../../common/script/statHelpers';
-import { MAX_HEALTH as maxHealth } from '../../common/script/constants';
 import statsComputed from '../../common/script/libs/statsComputed';
 import percent from '../../common/script/libs/percent';
 
 export default {
-  name: 'header',
   components: {
     Avatar,
   },
   methods: {
     percent,
   },
-  data () {
-    return {
-      maxHealth,
-    };
-  },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({
+      user: 'user.data',
+      MAX_HEALTH: 'constants.MAX_HEALTH',
+    }),
     maxMP () {
       return statsComputed(this.user).maxMP;
     },

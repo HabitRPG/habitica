@@ -1,4 +1,5 @@
 {
+    "stable": "Stald",
     "pets": "Kæledyr",
     "activePet": "Aktive Kæledyr",
     "noActivePet": "Intet aktivt Kæledyr",
@@ -42,6 +43,7 @@
     "food": "Mad og sadler",
     "noFood": "Du har hverken mad eller sadler.",
     "dropsExplanation": "Du kan få fat i disse ting hurtigere med ædelsten, hvis du ikke længere vil vente på at finde dem når du gennemfører en opgave. <a href=\"http://habitica.wikia.com/wiki/Drops\">Lær mere om drop-systemet.</a>",
+    "dropsExplanationEggs": "Brug Ædelsten for hurtigere at få æg, hvis du ikke vil vente på at få standard-æg som Drops, eller gentage Quests for at vinde Quest-æg.  <a href=\"http://habitica.wikia.com/wiki/Drops\">Læs mere om dropsystemet her.</a>",
     "premiumPotionNoDropExplanation": "Magiske udrugningseliksirer kan ikke blive brugt på æg der er modtaget fra quests. Den eneste måde at få en magisk udrugningseliksir på er ved at købe dem nedenfor, ikke fra tilfældige drop. ",
     "beastMasterProgress": "Dyretæmmerfremskridt",
     "stableBeastMasterProgress": "Dyretæmmerfremskridt: <%= number %> Kæledyr fundet",
