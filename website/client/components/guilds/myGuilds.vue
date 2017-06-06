@@ -17,7 +17,7 @@
         .float-right
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
-            b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption.value)') {{sortOption.text}}
+            b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
     .row
       .col-md-12
         public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild", :display-gem-bank='true')

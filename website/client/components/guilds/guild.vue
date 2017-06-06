@@ -17,7 +17,7 @@
               div(v-once) {{ $t('guildMembers') }}
             .col-6
               .item-with-icon
-                img.icon.gem(src="~assets/header/png/gem@3x.png")
+                img.icon.gem(src="~assets/header/gem.svg")
                 span.number {{guild.memberCount}}
                 div(v-once) {{ $t('guildBank') }}
     .row.chat-row
