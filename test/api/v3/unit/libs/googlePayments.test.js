@@ -190,6 +190,7 @@ describe('Google Payments', ()  => {
       user = new User();
       user.profile.name = 'sender';
       user.purchased.plan.customerId = customerId;
+      user.purchased.plan.paymentMethod = googlePayments.constants.PAYMENT_METHOD_GOOGLE;
       user.purchased.plan.planId = subKey;
       user.purchased.plan.additionalData = {data: receipt, signature};
 
@@ -205,7 +206,7 @@ describe('Google Payments', ()  => {
     });
 
     it('should throw an error if we are missing a subscription', async () => {
-      user.purchased.plan.additionalData = undefined;
+      user.purchased.plan.paymentMethod = undefined;
 
       await expect(googlePayments.cancelSubscribe(user, headers))
         .to.eventually.be.rejected.and.to.eql({

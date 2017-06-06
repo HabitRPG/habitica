@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Prosím, měj na paměti, že tvé jméno, profilová fotka a záložka musí být v souladu s <a href='https://habitica.com/static/community-guidelines' target='_blank'> zásadami komunity</a>. (žádné vulgarismy, témata pro dospělé, urážky atd.). Jestli máš nějaké otázky o tom, jestli něco je nebo není správné, klidně napiš na e-mail <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a> !",
+    "communityGuidelinesWarning": "Prosím, měj na paměti, že tvé zobrazované jméno, profilový obrázek a stručný popis musí být v souladu s <a href='https://habitica.com/static/community-guidelines' target='_blank'>Pravidly komunity</a> (tzn. žádné vulgarismy, témata pro dospělé nebo urážky). Pokud máš jakékoliv otázky ohledně toho, zdali něco je či není vhodné, neváhej nám napsat e-mail <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Upravit postavu",
     "other": "Další",
@@ -42,7 +42,7 @@
     "spookySkins": "Strašidelné kůže",
     "supernaturalSkins": "Nadpřirozené kůže",
     "splashySkins": "Vodní kůže",
-    "winterySkins": "Wintery Skins",
+    "winterySkins": "Zimní kůže",
     "rainbowColors": "Duhové barvy",
     "shimmerColors": "Třpytivé barvy",
     "hauntedColors": "Strašidelné barvy",
@@ -112,6 +112,7 @@
     "mystery": "Záhadný",
     "changeClass": "Změň povolání, znovu přiřaď body vlastností",
     "lvl10ChangeClass": "Pro změnu povolání musíte být alespoň úroveň 10.",
+    "invalidClass": "Neplatné povolání. Prosím, vyber si válečníka, zloděje, mága nebo léčitele.",
     "levelPopover": "S každou další úrovní získáš jeden bod, který můžeš přiřadit k libovolné vlastnosti. Přiřadit body můžeš buď manuálně anebo můžeš nechat hru rozhodnout za tebe na základě některé z možností automatického přiřazení.",
     "unallocated": "Nepřidělené body vlastností",
     "haveUnallocated": "Máš ( <%= points %> ) nepřiřazených Vlastnostních bodů.",

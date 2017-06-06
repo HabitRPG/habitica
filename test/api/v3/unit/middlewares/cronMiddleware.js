@@ -4,7 +4,6 @@ import {
   generateTodo,
   generateDaily,
 } from '../../../../helpers/api-unit.helper';
-import { cloneDeep } from 'lodash';
 import cronMiddleware from '../../../../../website/server/middlewares/cron';
 import moment from 'moment';
 import { model as User } from '../../../../../website/server/models/user';
@@ -60,7 +59,7 @@ describe('cron middleware', () => {
     cronMiddleware(req, res, done);
   });
 
-  it('should clear todos older than 30 days for free users', async (done) => {
+  it('should clear todos older than 30 days for free users', async () => {
     user.lastCron = moment(new Date()).subtract({days: 2});
     let task = generateTodo(user);
     task.dateCompleted = moment(new Date()).subtract({days: 31});
@@ -68,16 +67,21 @@ describe('cron middleware', () => {
     await task.save();
     await user.save();
 
-    cronMiddleware(req, res, (err) => {
-      Tasks.Task.findOne({_id: task}, function (secondErr, taskFound) {
-        expect(secondErr).to.not.exist;
-        expect(taskFound).to.not.exist;
-        done(err);
+    await new Promise((resolve, reject) => {
+      cronMiddleware(req, res, (err) => {
+        if (err) return reject(err);
+
+        Tasks.Task.findOne({_id: task}, function (secondErr, taskFound) {
+          if (secondErr) return reject(err);
+          expect(secondErr).to.not.exist;
+          expect(taskFound).to.not.exist;
+          resolve();
+        });
       });
     });
   });
 
-  it('should not clear todos older than 30 days for subscribed users', async (done) => {
+  it('should not clear todos older than 30 days for subscribed users', async () => {
     user.purchased.plan.customerId = 'subscribedId';
     user.purchased.plan.dateUpdated = moment('012013', 'MMYYYY');
     user.lastCron = moment(new Date()).subtract({days: 2});
@@ -87,16 +91,20 @@ describe('cron middleware', () => {
     await task.save();
     await user.save();
 
-    cronMiddleware(req, res, (err) => {
-      Tasks.Task.findOne({_id: task}, function (secondErr, taskFound) {
-        expect(secondErr).to.not.exist;
-        expect(taskFound).to.exist;
-        done(err);
+    await new Promise((resolve, reject) => {
+      cronMiddleware(req, res, (err) => {
+        if (err) return reject(err);
+        Tasks.Task.findOne({_id: task}, function (secondErr, taskFound) {
+          if (secondErr) return reject(secondErr);
+          expect(secondErr).to.not.exist;
+          expect(taskFound).to.exist;
+          resolve();
+        });
       });
     });
   });
 
-  it('should clear todos older than 90 days for subscribed users', async (done) => {
+  it('should clear todos older than 90 days for subscribed users', async () => {
     user.purchased.plan.customerId = 'subscribedId';
     user.purchased.plan.dateUpdated = moment('012013', 'MMYYYY');
     user.lastCron = moment(new Date()).subtract({days: 2});
@@ -107,39 +115,49 @@ describe('cron middleware', () => {
     await task.save();
     await user.save();
 
-    cronMiddleware(req, res, (err) => {
-      Tasks.Task.findOne({_id: task}, function (secondErr, taskFound) {
-        expect(secondErr).to.not.exist;
-        expect(taskFound).to.not.exist;
-        done(err);
+    await new Promise((resolve, reject) => {
+      cronMiddleware(req, res, (err) => {
+        if (err) return reject(err);
+        Tasks.Task.findOne({_id: task}, function (secondErr, taskFound) {
+          if (secondErr) return reject(secondErr);
+          expect(secondErr).to.not.exist;
+          expect(taskFound).to.not.exist;
+          resolve();
+        });
       });
     });
   });
 
-  it('should call next if user was not modified after cron', async (done) => {
+  it('should call next if user was not modified after cron', async () => {
     let hpBefore = user.stats.hp;
     user.lastCron = moment(new Date()).subtract({days: 2});
     await user.save();
 
-    cronMiddleware(req, res, (err) => {
-      expect(hpBefore).to.equal(user.stats.hp);
-      done(err);
+    await new Promise((resolve, reject) => {
+      cronMiddleware(req, res, (err) => {
+        if (err) return reject(err);
+        expect(hpBefore).to.equal(user.stats.hp);
+        resolve();
+      });
     });
   });
 
-  it('updates user.auth.timestamps.loggedin and lastCron', async (done) => {
+  it('updates user.auth.timestamps.loggedin and lastCron', async () => {
     user.lastCron = moment(new Date()).subtract({days: 2});
     let now = new Date();
     await user.save();
 
-    cronMiddleware(req, res, (err) => {
-      expect(moment(now).isSame(user.lastCron, 'day'));
-      expect(moment(now).isSame(user.auth.timestamps.loggedin, 'day'));
-      done(err);
+    await new Promise((resolve, reject) => {
+      cronMiddleware(req, res, (err) => {
+        if (err) return reject(err);
+        expect(moment(now).isSame(user.lastCron, 'day'));
+        expect(moment(now).isSame(user.auth.timestamps.loggedin, 'day'));
+        resolve();
+      });
     });
   });
 
-  it('does damage for missing dailies', async (done) => {
+  it('does damage for missing dailies', async () => {
     let hpBefore = user.stats.hp;
     user.lastCron = moment(new Date()).subtract({days: 2});
     let daily = generateDaily(user);
@@ -147,28 +165,34 @@ describe('cron middleware', () => {
     await daily.save();
     await user.save();
 
-    cronMiddleware(req, res, (err) => {
-      expect(user.stats.hp).to.be.lessThan(hpBefore);
-      done(err);
+    await new Promise((resolve, reject) => {
+      cronMiddleware(req, res, (err) => {
+        if (err) return reject(err);
+        expect(user.stats.hp).to.be.lessThan(hpBefore);
+        resolve();
+      });
     });
   });
 
-  it('updates tasks', async (done) => {
+  it('updates tasks', async () => {
     user.lastCron = moment(new Date()).subtract({days: 2});
     let todo = generateTodo(user);
     let todoValueBefore = todo.value;
     await user.save();
 
-    cronMiddleware(req, res, () => {
-      Tasks.Task.findOne({_id: todo._id}, function (err, todoFound) {
-        expect(err).to.not.exist;
-        expect(todoFound.value).to.be.lessThan(todoValueBefore);
-        done();
+    await new Promise((resolve, reject) => {
+      cronMiddleware(req, res, (err) => {
+        if (err) return reject(err);
+        Tasks.Task.findOne({_id: todo._id}, function (secondErr, todoFound) {
+          if (secondErr) return reject(secondErr);
+          expect(todoFound.value).to.be.lessThan(todoValueBefore);
+          resolve();
+        });
       });
     });
   });
 
-  it('applies quest progress', async (done) => {
+  it('applies quest progress', async () => {
     let hpBefore = user.stats.hp;
     user.lastCron = moment(new Date()).subtract({days: 2});
     let daily = generateDaily(user);
@@ -192,17 +216,20 @@ describe('cron middleware', () => {
 
     party.startQuest(user);
 
-    cronMiddleware(req, res, () => {
-      expect(user.stats.hp).to.be.lessThan(hpBefore);
-      done();
+    await new Promise((resolve, reject) => {
+      cronMiddleware(req, res, (err) => {
+        if (err) return reject(err);
+        expect(user.stats.hp).to.be.lessThan(hpBefore);
+        resolve();
+      });
     });
   });
 
-  it('recovers from failed cron and does not error when user is already cronning', async (done) => {
+  it('recovers from failed cron and does not error when user is already cronning', async () => {
     user.lastCron = moment(new Date()).subtract({days: 2});
     await user.save();
 
-    let updatedUser = cloneDeep(user);
+    let updatedUser = user.toObject();
     updatedUser.nMatched = 0;
 
     sandbox.spy(cronLib, 'recoverCron');
@@ -215,10 +242,13 @@ describe('cron middleware', () => {
         },
       });
 
-    cronMiddleware(req, res, () => {
-      expect(cronLib.recoverCron).to.be.calledOnce;
+    await new Promise((resolve, reject) => {
+      cronMiddleware(req, res, (err) => {
+        if (err) return reject(err);
+        expect(cronLib.recoverCron).to.be.calledOnce;
 
-      done();
+        resolve();
+      });
     });
   });
 });

@@ -1,6 +1,6 @@
 {
   "habiticaBackSoon": "Nie martw się, Habitica niedługo wróci!",
-  "importantMaintenance": "Przeprowadzamy ważne prace konserwacyjne. Prace prawdopodobnie zakończą się 10PM Czasu Pacyficznego (5AM UTC).",
+  "importantMaintenance": "Przeprowadzamy ważne prace konserwacyjne. Prace prawdopodobnie zakończą się o 10PM Czasu Pacyficznego (5AM UTC).",
   "maintenance": "Przerwa techniczna",
   "maintenanceMoreInfo": "Chcesz dowiedzieć się więcej o zmianach? <%= linkStart%>Zajrzyj tutaj.<%= linkEnd %>",
   "noDamageKeepStreaks": "NIE otrzymasz obrażeń ani nie stracisz serii!",
@@ -16,7 +16,7 @@
   "maintenanceInfoTechDetails": "Chciałbyś poczytać więcej o technicznej stronie całego procesu? Zajrzyj na <a href='http://devs.habitica.com/' target='_blank'>The Forge, bloga naszych developerów</a> (po angielsku).",
   "maintenanceInfoMore": "Dodatkowe informacje",
   "maintenanceInfoAccountChanges": "Jakie zmiany zobaczę?",
-  "maintenanceInfoAccountChangesText": "Z początku nie będą widoczne żadne zmiany oprócz poprawy funkcjonowania niektórych elementów strony, takich jak wyzwania. Jeśli zauważysz zmiany, których nie powinno tam być, napisz do nas na <a href='mailto:admin@habitica.com'>admin@habitica.com</a> – zajmiemy się tym!",
+  "maintenanceInfoAccountChangesText": "Z początku nie będą widoczne żadne zmiany oprócz poprawy funkcjonowania niektórych elementów strony, takich jak wyzwania. Jeśli zauważysz zmiany, których nie powinno tam być, napisz do nas na <%= hrefTechAssistanceEmail %> – zajmiemy się tym!",
   "maintenanceInfoAddFeatures": "Dodanie jakich funkcji umożliwią zmiany?",
   "maintenanceInfoAddFeaturesText": "Przepisanie kodu pozwoli nam zająć się poprawkami w funkcjonowaniu czatu i gildii oraz budową planów dla organizacji i rodzin. Umożliwi także dodanie nowych funkcji, takich jak Comiesięczne zadania i odhaczanie wczorajszych Codziennych! Wszystko to są zupełnie nowe rzeczy, których stworzenie zajmie trochę czasu, ale dopóki nie skończyliśmy pisać nowego API, nie mieliśmy możliwości się tym zająć.",
   "maintenanceInfoHowLong": "Ile czasu potrwa przerwa techniczna?",

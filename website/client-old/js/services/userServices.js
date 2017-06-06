@@ -66,7 +66,7 @@ angular.module('habitrpg')
 
             // Remove empty values from the array and add any unordered task
             user[type + 's'] = _.compact(orderedTasks).concat(unorderedTasks);
-          }).value();
+          });
       }
 
       function sync() {
@@ -205,7 +205,7 @@ angular.module('habitrpg')
         },
 
         allocate: function (data) {
-          callOpsFunctionAndRequest('allocate', 'allocate', "POST",'', data);
+          callOpsFunctionAndRequest('allocate', 'allocate', "POST", '', data);
         },
 
         allocateNow: function () {
@@ -235,7 +235,7 @@ angular.module('habitrpg')
           Tasks.createUserTasks(data.body);
         },
 
-        score: function (data) {
+        score: function (data, callback) {
           try {
             $window.habitrpgShared.ops.scoreTask({user: user, task: data.params.task, direction: data.params.direction}, data.params);
           } catch (err) {
@@ -243,7 +243,8 @@ angular.module('habitrpg')
             return;
           }
 
-          Tasks.scoreTask(data.params.task._id, data.params.direction).then(function (res) {
+          Tasks.scoreTask(data.params.task._id, data.params.direction, data.body)
+          .then(function (res) {
             var tmp = res.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
             var crit = tmp.crit;
             var drop = tmp.drop;
@@ -259,6 +260,7 @@ angular.module('habitrpg')
               if (quest.progressDelta && userQuest.boss) {
                 Notification.quest('questDamage', quest.progressDelta.toFixed(1));
               } else if (quest.collection && userQuest.collect) {
+                user.party.quest.progress.collectedItems++;
                 Notification.quest('questCollection', quest.collection);
               }
             }
@@ -306,7 +308,32 @@ angular.module('habitrpg')
 
               // Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'acquire item','itemName':after.key,'acquireMethod':'Drop'});
             }
+
+            if (callback) {
+              callback();
+            }
+
           });
+        },
+
+        bulkScore: function (data) {
+          var scoreCallback = function () {
+            setTimeout(function() {
+              if (data.length > 0) {
+                // Remove the first task from array and call the score function
+                userServices.score(data.shift(), scoreCallback);
+              }
+              else {
+                // Only run when finished scoring
+                sync();
+              }
+            }, 150);
+          }
+
+          // First call to score
+          if (data.length > 0) {
+            userServices.score(data.shift(), scoreCallback);
+          }
         },
 
         sortTask: function (data) {

@@ -1,7 +1,7 @@
 'use strict';
 
 habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'ApiUrl', 'Notification', 'Members', '$rootScope', 'Analytics',
-    function($scope, Groups, Chat, User, $http, ApiUrl, Notification, Members, $rootScope, Analytics){
+    function($scope, Groups, Chat, User, $http, ApiUrl, Notification, Members, $rootScope, Analytics) {
     $scope.message = {content:''};
     $scope._sending = false;
 
@@ -23,7 +23,7 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
       return message.highlight;
     }
 
-    $scope.postChat = function(group, message){
+    $scope.postChat = function(group, message) {
       if (_.isEmpty(message) || $scope._sending) return;
       $scope._sending = true;
 
@@ -55,16 +55,14 @@ habitrpg.controller('ChatCtrl', ['$scope', 'Groups', 'Chat', 'User', '$http', 'A
           } else {
             Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'group chat','groupType':group.type,'privacy':group.privacy});
           }
-        }, function(err){
+        })
+        .catch(function (err) {
           $scope._sending = false;
+          if (err.data.message === env.t('bannedWordUsed')) {
+            alert(err.data.message);
+          }
         });
     }
-
-    $scope.keyDownListener = function (e) {
-      if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-        $scope.postChat($scope.group, $scope.message.content);
-      }
-    };
 
     $scope.deleteChatMessage = function(group, message){
       if(message.uuid === User.user.id || (User.user.backer && User.user.contributor.admin)){

@@ -108,7 +108,7 @@
     "buyThis": "Buy this <%= text %> with <%= price %> of your <%= gems %> Gems?",
     "noReachServer": "Server not currently reachable, try again later",
     "errorUpCase": "ERROR:",
-    "newPassSent": "If we have your email on file, a new password has been sent to your email.",
+    "newPassSent": "If we have your email on file, instructions for setting a new password have been sent to your email.",
     "serverUnreach": "Server currently unreachable.",
     "requestError": "Yikes, an error occurred! <strong>Please reload the page,</strong> your last action may not have been saved correctly.",
     "seeConsole": "If the error persists, please report it at Help > Report a Bug. If you're familiar with your browser's console, please include any error messages.",

@@ -1,34 +1,40 @@
 <template lang="pug">
 #app-header.row
-  avatar#header-avatar(:user="$store.state.user")
-  .eight.wide.column
+  avatar#header-avatar(:user="user")
+  div
     span.character-name {{user.profile.name}}
     span.character-level Lvl {{user.stats.lvl}}
-    .progress-container
+    .progress-container.d-flex
       img.icon(src="~assets/header/png/health@3x.png")
-      .ui.progress.red
-        .bar(:style="{width: `${percent(user.stats.hp, maxHealth)}%`}")
-      span {{user.stats.hp | round}} / {{maxHealth}}
-    .progress-container
+      .progress
+        .progress-bar.bg-danger(:style="{width: `${percent(user.stats.hp, MAX_HEALTH)}%`}")
+      span {{user.stats.hp | round}} / {{MAX_HEALTH}}
+    .progress-container.d-flex
       img.icon(src="~assets/header/png/experience@3x.png")
-      .ui.progress.yellow
-        .bar(:style="{width: `${percent(user.stats.exp, toNextLevel)}%`}")
+      .progress
+        .progress-bar.bg-warning(:style="{width: `${percent(user.stats.exp, toNextLevel)}%`}")
       span {{user.stats.exp | round}} / {{toNextLevel}}
-    .progress-container(ng-if="user.flags.classSelected && !user.preferences.disableClasses")
+    .progress-container.d-flex(ng-if="user.flags.classSelected && !user.preferences.disableClasses")
       img.icon(src="~assets/header/png/magic@3x.png")
-      .ui.progress.blue
-        .bar(:style="{width: `${percent(user.stats.mp, maxMP)}%`}")
+      .progress
+        .progress-bar(:style="{width: `${percent(user.stats.mp, maxMP)}%`}")
       span {{user.stats.mp | round}} / {{maxMP}}
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '~client/assets/scss/colors.scss';
+
+// TODO move to colors.scss if used in other places
+$header-dark-background: #271B3D;
+$header-text-color: #D5C8FF;
+
+/* TODO refactor: only partially ported from SemanticUI; */
 #app-header {
-  padding: 0px 0px 0px 20px;
+  padding-left: 14px;
   margin-top: 56px;
-  background: #36205d;
-  margin-left: 1rem;
+  background: $purple-50;
   height: 192px;
-  color: #d5c8ff;
+  color: $header-text-color;
 }
 
 .character-name {
@@ -36,7 +42,7 @@
   font-size: 16px;
   margin-top: 32px;
   line-height: 1.5;
-  color: #fff;
+  color: $white;
   font-weight: bold;
 }
 
@@ -50,12 +56,10 @@
 
 #header-avatar {
   margin-top: 24px;
-  box-shadow: 0 2px 4px 0 rgba(53, 32, 93, 0.4);
+  margin-right: 1rem;
 }
 
 .progress-container {
-  display: flex;
-  align-items: center;
   margin-bottom: 12px;
 }
 
@@ -71,15 +75,15 @@
   margin-right: 10px;
 }
 
-.progress-container > .ui.progress {
+.progress-container > .progress {
   width: 203px;
   margin: 0px;
   border-radius: 0px;
   height: 12px;
-  background-color: rgba(0, 0, 0, 0.35);
+  background-color: $header-dark-background;
 }
 
-.progress-container > .ui.progress > .bar {
+.progress-container > .progress > .progress-bar {
   border-radius: 0px;
   height: 12px;
   min-width: 0px;
@@ -88,28 +92,24 @@
 
 <script>
 import Avatar from './avatar';
-import { mapState } from '../store';
+import { mapState } from 'client/libs/store';
 
 import { toNextLevel } from '../../common/script/statHelpers';
-import { MAX_HEALTH as maxHealth } from '../../common/script/constants';
 import statsComputed from '../../common/script/libs/statsComputed';
 import percent from '../../common/script/libs/percent';
 
 export default {
-  name: 'header',
   components: {
     Avatar,
   },
   methods: {
     percent,
   },
-  data () {
-    return {
-      maxHealth,
-    };
-  },
   computed: {
-    ...mapState(['user']),
+    ...mapState({
+      user: 'user.data',
+      MAX_HEALTH: 'constants.MAX_HEALTH',
+    }),
     maxMP () {
       return statsComputed(this.user).maxMP;
     },

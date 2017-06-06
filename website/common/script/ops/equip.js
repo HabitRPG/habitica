@@ -5,13 +5,13 @@ import {
   NotFound,
   BadRequest,
 } from '../libs/errors';
-import _ from 'lodash';
+import get from 'lodash/get';
 
 module.exports = function equip (user, req = {}) {
   // Being type a parameter followed by another parameter
   // when using the API it must be passes specifically in the URL, it's won't default to equipped
-  let type = _.get(req, 'params.type', 'equipped');
-  let key = _.get(req, 'params.key');
+  let type = get(req, 'params.type', 'equipped');
+  let key = get(req, 'params.key');
 
   if (!key || !type) throw new BadRequest(i18n.t('missingTypeKeyEquip', req.language));
   if (['mount', 'pet', 'costume', 'equipped'].indexOf(type) === -1) {
@@ -46,12 +46,20 @@ module.exports = function equip (user, req = {}) {
       let item = content.gear.flat[key];
 
       if (user.items.gear[type][item.type] === key) {
-        user.items.gear[type][item.type] = `${item.type}_base_0`;
+        user.items.gear[type] = Object.assign(
+          {},
+          user.items.gear[type].toObject ? user.items.gear[type].toObject() : user.items.gear[type],
+          {[item.type]: `${item.type}_base_0`}
+        );
         message = i18n.t('messageUnEquipped', {
           itemText: item.text(req.language),
         }, req.language);
       } else {
-        user.items.gear[type][item.type] = item.key;
+        user.items.gear[type] = Object.assign(
+          {},
+          user.items.gear[type].toObject ? user.items.gear[type].toObject() : user.items.gear[type],
+          {[item.type]: item.key}
+        );
         message = handleTwoHanded(user, item, type, req);
       }
       break;

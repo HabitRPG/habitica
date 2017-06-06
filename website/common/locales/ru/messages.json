@@ -51,8 +51,9 @@
     "messageGroupChatFlagAlreadyReported": "Вы уже отправили жалобу на это сообщение.",
     "messageGroupChatNotFound": "Сообщение не найдено!",
     "messageGroupChatAdminClearFlagCount": "Только администратор может очистить счётчик отметок.",
+    "messageGroupChatSpam": "Whoops, looks like you're posting too many messages! Please wait a minute and try again. The Tavern chat only holds 200 messages at a time, so Habitica encourages posting longer, more thoughtful messages and consolidating replies. Can't wait to hear what you have to say. :)",
     "messageUserOperationProtected": "путь `<%= operation %>` не был сохранён, это зарезервированный путь.",
     "messageUserOperationNotFound": "Операция <%= operation %> не найдена",
     "messageNotificationNotFound": "Уведомление не найдено.",
-    "notificationsRequired": "Требуются идентификаторы уведомлений."
+    "notificationsRequired": "Необходим идентификатор оповещений."
 }

@@ -44,8 +44,8 @@
 
 <style scoped>
 .avatar {
-  max-width: 140px;
-  max-height: 147px;
+  width: 140px;
+  height: 147px;
   image-rendering: pixelated;
 }
 
@@ -67,7 +67,6 @@
 
 <script>
 export default {
-  name: 'avatar',
   props: {
     user: {
       type: Object,

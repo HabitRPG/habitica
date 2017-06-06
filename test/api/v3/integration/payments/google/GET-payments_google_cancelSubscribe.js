@@ -2,7 +2,7 @@ import {generateUser} from '../../../../../helpers/api-integration/v3';
 import googlePayments from '../../../../../../website/server/libs/googlePayments';
 
 describe('payments : google #cancelSubscribe', () => {
-  let endpoint = '/iap/android/subscribe/cancel';
+  let endpoint = '/iap/android/subscribe/cancel?noRedirect=true';
   let user;
 
   beforeEach(async () => {
@@ -23,6 +23,7 @@ describe('payments : google #cancelSubscribe', () => {
     it('makes a purchase', async () => {
       user = await generateUser({
         'profile.name': 'sender',
+        'purchased.plan.paymentMethod': 'Google',
         'purchased.plan.customerId': 'customer-id',
         'purchased.plan.planId': 'basic_3mo',
         'purchased.plan.lastBillingDate': new Date(),

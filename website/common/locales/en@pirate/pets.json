@@ -1,4 +1,5 @@
 {
+    "stable": "Stable",
     "pets": "Pets",
     "activePet": "Active Pet",
     "noActivePet": "No Active Pet",
@@ -25,6 +26,7 @@
     "royalPurpleGryphon": "Royal Purple Gryphon",
     "phoenix": "Phoenix",
     "magicalBee": "Magical Bee",
+    "royalPurpleJackalope": "Royal Purple Jackalope",
     "rarePetPop1": "Click th' gold paw t' learn more 'bout how ye can obtain 'tis rare pet through contributin' t' Habitica!",
     "rarePetPop2": "How t' Get this Pet!",
     "potion": "<%= potionType %> Potion",
@@ -41,6 +43,7 @@
     "food": "Vittles an' Saddles",
     "noFood": "Ye don't 'ave any vittles 'r saddles.",
     "dropsExplanation": "Get these items faster with Sapphires if ye don't want t' wait for 'em t' drop when completin' a task. <a href=\"http://habitica.wikia.com/wiki/Drops\">Learn more about th' drop system.</a>",
+    "dropsExplanationEggs": "Spend Gems to get eggs more quickly, if you don't want to wait for standard eggs to drop, or to repeat Quests to earn Quest eggs. <a href=\"http://habitica.wikia.com/wiki/Drops\">Learn more about the drop system.</a>",
     "premiumPotionNoDropExplanation": "Magic Hatchin' Potions cannot be used on eggs received from Quests. Th' only way t' get Magic Hatching Potions is by buyin' 'em below, not from random drops.",
     "beastMasterProgress": "Beast Master Progress",
     "stableBeastMasterProgress": "Beast Master Progress: <%= number %> Pets Found",

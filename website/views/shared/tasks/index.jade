@@ -3,12 +3,16 @@
 // started to get unwieldy
 
 include ./task_view/mixins
+include ./task-list
+include ./task
+
 script(id='templates/habitrpg-tasks.html', type="text/ng-template")
   .tasks-lists.container-fluid
     .row
-      .col-sm-6.col-md-3(ng-repeat='list in lists', ng-class='::{ "rewards-module": list.type==="reward", "new-row-sm": list.type==="todo" }')
+      .col-sm-6.col-md-3(
+        ng-repeat='list in lists',
+        ng-class='::{ "rewards-module": list.type==="reward", "new-row-sm": list.type==="todo" }')
         .task-column(class='{{::list.type}}s')
-
           include ./task_view/graph
 
           h2.task-column_title(class='{{::list.type}}-title') {{::list.header}}
@@ -27,13 +31,9 @@ script(id='templates/habitrpg-tasks.html', type="text/ng-template")
               | {{env.t('innCheckOut')}}
 
           +taskColumnTabs('top')
-
+          
           // Actual List
-          ul(class='{{::list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', hrpg-sort-tasks, ng-if='!$state.includes("options.social.challenges")')
-            include ./task
-          //Loads the non-sortable lists for challenges
-          ul(class='{{::list.type}}s main-list', ng-show='obj[list.type + "s"].length > 0', ng-if='$state.includes("options.social.challenges")')
-            include ./task
+          task-list
 
           include ./task_view/static_rewards
 

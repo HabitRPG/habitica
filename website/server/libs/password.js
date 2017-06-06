@@ -1,6 +1,9 @@
 // Utilities for working with passwords
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
+import { decrypt } from './encryption';
+import moment from 'moment';
+import { model as User } from '../models/user';
 
 const BCRYPT_SALT_ROUNDS = 10;
 
@@ -62,4 +65,38 @@ export async function convertToBcrypt (user, plainTextPassword) {
   user.auth.local.salt = undefined;
   user.auth.local.passwordHashMethod = 'bcrypt';
   user.auth.local.hashed_password = await bcryptHash(plainTextPassword); // eslint-disable-line camelcase
+}
+
+// Returns the user if a valid password reset code is supplied, otherwise false
+export async function validatePasswordResetCodeAndFindUser (code) {
+  let isCodeValid = true;
+
+  let userId;
+  let user;
+  let decryptedPasswordResetCode;
+
+  // wrapping the code in a try to be able to handle the error here
+  try {
+    decryptedPasswordResetCode = JSON.parse(decrypt(code || 'invalid')); // also catches missing code
+    userId = decryptedPasswordResetCode.userId;
+    let expiresAt = decryptedPasswordResetCode.expiresAt;
+
+    if (moment(expiresAt).isBefore(moment())) throw new Error();
+  } catch (err) {
+    isCodeValid = false;
+  }
+
+  if (isCodeValid) {
+    user = await User.findById(userId).exec();
+
+    // check if user is found and if it's an email & password account
+    if (!user || !user.auth || !user.auth.local || !user.auth.local.email) {
+      isCodeValid = false;
+    } else if (code !== user.auth.local.passwordResetCode) {
+      // Make sure only the last code can be used
+      isCodeValid = false;
+    }
+  }
+
+  return isCodeValid ? user : false;
 }

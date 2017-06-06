@@ -106,7 +106,7 @@
     "buyThis": "Koupit <%= text %> za <%= price %> z tvých <%= gems %>  drahokamů?",
     "noReachServer": "Server je momentálně nedostupný, zkus to později.",
     "errorUpCase": "CHYBA:",
-    "newPassSent": "Pokud máme tvůj e-mail v databázi, zašleme ti na něj nové heslo.",
+    "newPassSent": "If we have your email on file, instructions for setting a new password have been sent to your email.",
     "serverUnreach": "Server je momentálně nedostupný.",
     "requestError": "Jéje, chybka! <strong>Prosíme, načti stránku znovu,</strong> tvé poslední akce se nemusely uložit správně.",
     "seeConsole": "Pokud chyba přetrvává, prosíme, nahlaš jí přes Nápověda > Nahlásit chybu. Pokud znáš konzoli svého prohlížeče, prosíme, připoj k hlášení všechny chybové hlášky z ní,",

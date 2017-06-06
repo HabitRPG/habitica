@@ -23,7 +23,9 @@ const PLATFORM_MAP = Object.freeze({
   'habitica-android': 'Android',
 });
 
-let amplitude = new Amplitude(AMPLIUDE_TOKEN);
+let amplitude;
+if (AMPLIUDE_TOKEN) amplitude = new Amplitude(AMPLIUDE_TOKEN);
+
 let ga = googleAnalytics(GA_TOKEN);
 
 let _lookUpItemName = (itemKey) => {

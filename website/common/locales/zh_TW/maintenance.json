@@ -5,7 +5,7 @@
   "maintenanceMoreInfo": "你想要更多關於維修的資訊？ <%= linkStart %>去瀏覽我們的資訊頁吧！<%= linkEnd %>.",
   "noDamageKeepStreaks": "你不會受到傷害或失去連擊！",
   "thanksForPatience": "感謝你的耐心！",
-  "twitterMaintenanceUpdates": "For the most recent updates, watch our <a href='https://twitter.com/habitica'>Twitter</a>, where we will be posting status information.",
+  "twitterMaintenanceUpdates": "關於最近的更新請關注我們的 <a href='https://twitter.com/habitica'>Twitter</a>，我們將會在這裡發布最新的狀況",
   "veteranPetAward": "在最後，你會得到一個屬於老兵的寵物！",
 
   "maintenanceInfoTitle": "在Habitica中最近的維修",
@@ -16,7 +16,7 @@
   "maintenanceInfoTechDetails": "Want more details on the technical side of the process? Visit <a href='http://devs.habitica.com/' target='_blank'>The Forge, our dev blog</a>.",
   "maintenanceInfoMore": "更多資訊",
   "maintenanceInfoAccountChanges": "What changes will I see to my account after the rewrite is complete?",
-  "maintenanceInfoAccountChangesText": "At first, there won’t be any notable changes aside from performance improvements for features such as Challenges. If you notice any changes that shouldn’t be there, email us at <a href='mailto:admin@habitica.com'>admin@habitica.com</a> and we will investigate them for you!",
+  "maintenanceInfoAccountChangesText": "At first, there won’t be any notable changes aside from performance improvements for features such as Challenges. If you notice any changes that shouldn’t be there, email us at <%= hrefTechAssistanceEmail %> and we will investigate them for you!",
   "maintenanceInfoAddFeatures": "What kind of features will this allow Habitica to add?",
   "maintenanceInfoAddFeaturesText": "Completing this rewrite will allow us to start building out improved chat and Guilds, plans for organizations and families, and additional productivity features like Monthlies and the ability to record yesterday’s activity! Those are all involved features on their own, so it will take time to build them, but until we were finished with this rewrite, there was no way we could start them.",
   "maintenanceInfoHowLong": "維修會持續多久？",
@@ -26,9 +26,9 @@
   "maintenanceInfoStatsAffectedText2": "After a lot of thought, our team concluded that this was the most fair way to handle the fact that many users will not be able to check off their Dailies normally during the maintenance. We’re sorry for any inconvenience this causes!",
   "maintenanceInfoSeeTasks": "如果我需要查看我的任務呢？",
   "maintenanceInfoSeeTasksText": "If you know that you will need to see your task list on Saturday to remind yourself what you have to do, we recommend that before the maintenance begins, you take a screenshot of your tasks so that you can use it as a reference.",
-  "maintenanceInfoRarePet": "What kind of rare pet will I receive?",
+  "maintenanceInfoRarePet": "我會受到什麼樣的稀有寵物？",
   "maintenanceInfoRarePetText": "To thank you for your patience during the downtime, everyone will get a rare Veteran Pet. If you’ve never received a Veteran Pet before, you will receive a Veteran Wolf. If you already have a Veteran Wolf, you will receive a Veteran Tiger. And if you already have a Veteran Wolf and a Veteran Tiger, you will receive a never-before-seen Veteran pet! After the migration is completed, it may take several hours for your pet to show up, but never fear, everyone will get one.",
-  "maintenanceInfoWho": "Who worked on this massive project?",
+  "maintenanceInfoWho": "是誰曾參與了這超大的工程?",
   "maintenanceInfoWhoText": "We’re glad you asked! It was spearheaded by our amazing contributor paglias, with lots of help from Blade, TheHollidayInn, SabreCat, Victor Pudeyev, TheUnknown, and Alys.",
   "maintenanceInfoTesting": "The new version was also tirelessly tested by a bunch of our amazing open-source volunteers. Thank you -- we couldn't have done this without you."
 }

@@ -81,7 +81,7 @@ api.redirectExtensionsPage = {
   url: '/static/extensions',
   runCron: false,
   async handler (req, res) {
-    return res.redirect('http://habitica.wikia.com/wiki/App_and_Extension_Integrations');
+    return res.redirect('http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations');
   },
 };
 

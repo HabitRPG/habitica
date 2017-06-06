@@ -62,7 +62,7 @@
     "surveysMultiple": "Membantu Habitica berkembang sebanyak <%= count %> kali, baik dengan mengisi survey atau membantu dalam pengujian utama. Terima kasih!",
     "currentSurvey": "Kuisioner Sekarang",
     "surveyWhen": "Lencana akan diberikan kepada semua peserta ketika survei telah diproses, pada akhir Maret.",
-    "blurbInbox": "Di sinilah pesan-pesan pribadimu disimpan! Kamu dapat mengirim pesan pada seseorang dengan klik pada ikon amplop di samping nama mereka di percakapan Kedai, Party, atau Guild. Jika kamu menerima pesan pribadi yang tidak pantas, kamu dapat mengirimkan screenshot pesan pada Lemoness (<a href=\"mailto:leslie@habitica.com\">leslie@habitica.com</a>)",
+    "blurbInbox": "This is where your private messages are stored! You can send someone a message by clicking on the envelope icon next to their name in Tavern, Party, or Guild Chat. If you've received an inappropriate PM, you should email a screenshot of it to Lemoness (<%= hrefCommunityManagerEmail %>)",
     "blurbGuildsPage": "Guild adalah grup obrolan bertopik yang dibuat oleh pengguna, untuk pengguna. Telusuri daftar tema dan bergabunglah dengan guild yang menarik untukmu!",
     "blurbChallenges": "Tantangan dibuat oleh sesama pemain. Bergabung pada sebuah tantangan akan menambah tugas ke daftarmu, dan memenangkan tantangan akan memberikanmu lencana dan terkadang hadiah permata!",
     "blurbHallPatrons": "Ini adalah Aula para Pelindung, di mana kami memberi penghormatan pada petualang pemberani yang membantu Kickstarter awal Habitica. Kami berterima kasih kepada mereka yang membantu kami menjadikan Habitica kenyataan!",

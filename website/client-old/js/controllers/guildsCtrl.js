@@ -40,6 +40,10 @@ habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$r
       }
 
       $scope.join = function (group) {
+        if (group.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
+          return;
+        }
+
         var groupId = group._id;
 
         //  If we don't have the _id property, we are joining from an invitation
@@ -71,7 +75,7 @@ habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$r
            $scope.selectedGroup = undefined;
            $scope.popoverEl.popover('destroy');
          } else {
-           Groups.Group.leave($scope.selectedGroup._id, keep)
+           Groups.Group.leave($scope.selectedGroup._id, keep, 'remain-in-challenges')
             .success(function (data) {
               var index = User.user.guilds.indexOf($scope.selectedGroup._id);
               delete User.user.guilds[index];
@@ -89,7 +93,7 @@ habitrpg.controller("GuildsCtrl", ['$scope', 'Groups', 'User', 'Challenges', '$r
 
         Challenges.getGroupChallenges(group._id)
         .then(function(response) {
-          var challenges = _.pluck(_.filter(response.data.data, function(c) {
+          var challenges = _.map(_.filter(response.data.data, function(c) {
               return c.group._id == group._id;
           }), '_id');
 

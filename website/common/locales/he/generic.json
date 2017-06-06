@@ -106,7 +106,7 @@
     "buyThis": "האם לקנות <%= text %> זה עם <%= price %> מתוך <%= gems %> אבני החן שלכם?",
     "noReachServer": "השרת אינו זמין כרגע, אנא נסו שוב מאוחר יותר",
     "errorUpCase": "שגיאה:",
-    "newPassSent": "אם הדוא\"ל שלכם קיים ברישומינו, סיסמה חדשה נשלחה אליו.",
+    "newPassSent": "If we have your email on file, instructions for setting a new password have been sent to your email.",
     "serverUnreach": "השרת אינו זמין כרגע.",
     "requestError": "אופס, ארעה תקלה! <strong>אנא טענו מחדש את הדף,</strong> ייתכן והפעולה האחרונה שביצעתם לא נשמרה כראוי.",
     "seeConsole": "אם התקלה נמשכת, בבקשה דווח על כך בעזרה > דווח על באג. אם אתה יודע להשתמש בקונסלת הדפדפן שלך, בבקשה הוסף כל הודעות שגיאה.",

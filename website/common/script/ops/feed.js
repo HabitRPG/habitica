@@ -1,6 +1,6 @@
 import content from '../content/index';
 import i18n from '../i18n';
-import _ from 'lodash';
+import get from 'lodash/get';
 import {
   BadRequest,
   NotAuthorized,
@@ -21,8 +21,8 @@ function evolve (user, pet, req) {
 }
 
 module.exports = function feed (user, req = {}) {
-  let pet = _.get(req, 'params.pet');
-  let foodK = _.get(req, 'params.food');
+  let pet = get(req, 'params.pet');
+  let foodK = get(req, 'params.food');
 
   if (!pet || !foodK) throw new BadRequest(i18n.t('missingPetFoodFeed', req.language));
 

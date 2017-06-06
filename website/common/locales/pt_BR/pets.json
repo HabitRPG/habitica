@@ -1,4 +1,5 @@
 {
+    "stable": "Stable",
     "pets": "Mascotes",
     "activePet": "Mascote Ativo",
     "noActivePet": "Nenhum Mascote Ativo",
@@ -25,6 +26,7 @@
     "royalPurpleGryphon": "Grifo Real Roxo",
     "phoenix": "Fênix",
     "magicalBee": "Abelha Mágica",
+    "royalPurpleJackalope": "Lebrílope Roxo Real ",
     "rarePetPop1": "Clique na pata de ouro para saber mais em como obter esse mascote raro através de contribuições ao Habitica.",
     "rarePetPop2": "Como Conseguir esse Mascote!",
     "potion": "Poção <%= potionType %>",
@@ -41,6 +43,7 @@
     "food": "Comida e Selas",
     "noFood": "Você não possui comida ou selas.",
     "dropsExplanation": "Consiga estes itens mais rápido com Gemas caso você não queira esperar que apareçam ao completar uma tarefa. <a href=\"http://habitica.wikia.com/wiki/Drops\">Aprenda mais sobre o sistema de drop.</a>",
+    "dropsExplanationEggs": "Gaste gemas para ganhar ovos mais rápido, se você não quiser esperar por ovos comuns de drop, ou para repetir Missões para ganhar ovos de Missões. <a href=\"http://habitica.wikia.com/wiki/Drops\">Aprenda mais sobre o sistema de drop.</a>",
     "premiumPotionNoDropExplanation": "Poções Mágicas de Eclosão não podem ser usadas em ovos recebidos de Missões. A única forma de conseguir Poções Mágicas de Eclosão é comprando-as abaixo. Não são recebidas de drops aleatórios.",
     "beastMasterProgress": "Progresso Como Mestre das Bestas",
     "stableBeastMasterProgress": "Progresso Como Mestre das Bestas: <%= number %> Mascotes Encontrados",

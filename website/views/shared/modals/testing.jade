@@ -1,0 +1,31 @@
+script(type='text/ng-template', id='modals/testing.html')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center(style='padding-bottom:0')
+      h3=env.t('guildReminderTitle')
+      br
+      .scene_guilds.center-block
+      br
+      h4=env.t('guildReminderText1')
+    .modal-footer(style='padding-top:0')
+      .container-fluid
+        .row
+          .col-xs-6.text-center
+            button.btn-lg.btn-default(ng-click='$close()')=env.t('guildReminderDismiss')
+          .col-xs-6.text-center
+            button.btn-lg.btn-primary(ui-sref='options.social.guilds.public', href='/#/options/groups/guilds/public', ng-click='$close()')=env.t('guildReminderCTA')
+
+script(type='text/ng-template', id='modals/testingVariant.html')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center(style='padding-bottom:0')
+      h3=env.t('guildReminderTitle')
+      br
+      .scene_guilds.center-block
+      br
+      h4=env.t('guildReminderText2')
+    .modal-footer(style='padding-top:0')
+      .container-fluid
+        .row
+          .col-xs-6.text-center
+            button.btn-lg.btn-default(ng-click='$close()')=env.t('guildReminderDismiss')
+          .col-xs-6.text-center
+            button.btn-lg.btn-primary(ui-sref='options.social.guilds.public', href='/#/options/groups/guilds/public', ng-click='$close()')=env.t('guildReminderCTA')

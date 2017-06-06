@@ -15,13 +15,13 @@ import i18n from '../../../website/common/script/i18n';
 function getFullArmoire () {
   let fullArmoire = {};
 
-  _(content.gearTypes).each((type) => {
-    _(content.gear.tree[type].armoire).each((gearObject) => {
+  _.each(content.gearTypes, (type) => {
+    _.each(content.gear.tree[type].armoire, (gearObject) => {
       let armoireKey = gearObject.key;
 
       fullArmoire[armoireKey] = true;
-    }).value();
-  }).value();
+    });
+  });
 
   return fullArmoire;
 }

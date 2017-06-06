@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Snälla tänk på att ditt användarnamn, profilbild och presentation måste följa <a href='https://habitica.com/static/community-guidelines' target='_blank'>Gemenskapens riktlinjer</a> (t.ex. inga svordomar, inget opassande material, inga förolämpningar, etc.). Om du har frågor huruvida något är passande, skriv till mailen<a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Skräddarsy Avatar",
     "other": "Annat",
@@ -42,7 +42,7 @@
     "spookySkins": "Spöklika hudtyper",
     "supernaturalSkins": "Övernaturliga hudtyper",
     "splashySkins": "Plaskande skinn",
-    "winterySkins": "Wintery Skins",
+    "winterySkins": "Vinterhuder",
     "rainbowColors": "Regnbågsfärger",
     "shimmerColors": "Skimrande färger",
     "hauntedColors": "Spöklika färger",
@@ -112,6 +112,7 @@
     "mystery": "Mysterium",
     "changeClass": "Byt Klass, Återbetala Egenskapspoäng",
     "lvl10ChangeClass": "För att byta klass måste du vara minst level 10.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "Varje nivå ger dig en poäng att dela ut till valfri egenskap. Du kan antingen göra det manuellt eller låta spelet bestämma åt dig genom att använda ett av alternativen under automatisk utdelning.",
     "unallocated": "Outdelade Egenskapspoäng",
     "haveUnallocated": "Du har <%= points %> outdela(t/de) egenskapspoäng",

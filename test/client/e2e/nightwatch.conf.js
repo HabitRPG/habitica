@@ -3,6 +3,7 @@
 require('babel-register');
 const config = require('../../../webpack/config');
 const chromeDriverPath = require('chromedriver').path;
+const seleniumServerPath = require('selenium-server').path;
 
 // http://nightwatchjs.org/guide#settings-file
 module.exports = {
@@ -12,7 +13,7 @@ module.exports = {
 
   selenium: {
     start_process: true,
-    server_path: 'node_modules/selenium-server/lib/runner/selenium-server-standalone-2.53.0.jar',
+    server_path: seleniumServerPath,
     host: '127.0.0.1',
     port: 4444,
     cli_args: {

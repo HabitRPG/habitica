@@ -53,7 +53,7 @@
     "spellNotFound": "Nie znaleziono umiejętności „<%= spellId %>”.",
     "partyNotFound": "Nie znaleziono drużyny.",
     "targetIdUUID": "\"targetId\" musi być prawidłowym ID użytkownika.",
-    "challengeTasksNoCast": "Rzucanie czaru na zadanie z wyzwań nie jest dozwolone.",
+    "challengeTasksNoCast": "Rzucanie czaru na zadania z wyzwań nie jest dozwolone.",
     "groupTasksNoCast": "Nie można używać umiejętności na zadaniach grupowych.",
     "spellNotOwned": "Nie posiadasz tej umiejętności.",
     "spellLevelTooHigh": "Ta umiejętność wymaga poziomu <%= level %>."

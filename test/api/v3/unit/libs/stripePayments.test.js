@@ -5,10 +5,14 @@ import {
   generateGroup,
 } from '../../../../helpers/api-unit.helper.js';
 import { model as User } from '../../../../../website/server/models/user';
+import { model as Group } from '../../../../../website/server/models/group';
 import { model as Coupon } from '../../../../../website/server/models/coupon';
 import stripePayments from '../../../../../website/server/libs/stripePayments';
 import payments from '../../../../../website/server/libs/payments';
 import common from '../../../../../website/common';
+import logger from '../../../../../website/server/libs/logger';
+import { v4 as uuid } from 'uuid';
+import moment from 'moment';
 
 const i18n = common.i18n;
 
@@ -394,6 +398,50 @@ describe('Stripe Payments', () => {
         subscriptionId,
       });
     });
+
+    it('subscribes a group with the correct number of group members', async () => {
+      token = 'test-token';
+      sub = data.sub;
+      groupId = group._id;
+      email = 'test@test.com';
+      headers = {};
+      user = new User();
+      user.guilds.push(groupId);
+      await user.save();
+      group.memberCount = 2;
+      await group.save();
+
+      await stripePayments.checkout({
+        token,
+        user,
+        gift,
+        sub,
+        groupId,
+        email,
+        headers,
+        coupon,
+      }, stripe);
+
+      expect(stripeCreateCustomerSpy).to.be.calledOnce;
+      expect(stripeCreateCustomerSpy).to.be.calledWith({
+        email,
+        metadata: { uuid: user._id },
+        card: token,
+        plan: sub.key,
+        quantity: 4,
+      });
+
+      expect(stripePaymentsCreateSubSpy).to.be.calledOnce;
+      expect(stripePaymentsCreateSubSpy).to.be.calledWith({
+        user,
+        customerId: customerIdResponse,
+        paymentMethod: 'Stripe',
+        sub,
+        headers,
+        groupId,
+        subscriptionId,
+      });
+    });
   });
 
   describe('edit subscription', () => {
@@ -654,6 +702,303 @@ describe('Stripe Payments', () => {
           groupId,
           nextBill: currentPeriodEndTimeStamp * 1000, // timestamp in seconds
           paymentMethod: 'Stripe',
+        });
+      });
+    });
+  });
+
+  describe('#upgradeGroupPlan', () => {
+    let spy, data, user, group;
+
+    beforeEach(async function () {
+      user = new User();
+      user.profile.name = 'sender';
+
+      data = {
+        user,
+        sub: {
+          key: 'basic_3mo', // @TODO: Validate that this is group
+        },
+        customerId: 'customer-id',
+        paymentMethod: 'Payment Method',
+        headers: {
+          'x-client': 'habitica-web',
+          'user-agent': '',
+        },
+      };
+
+      group = generateGroup({
+        name: 'test group',
+        type: 'guild',
+        privacy: 'public',
+        leader: user._id,
+      });
+      await group.save();
+
+      spy = sinon.stub(stripe.subscriptions, 'update');
+      spy.returnsPromise().resolves([]);
+      data.groupId = group._id;
+      data.sub.quantity = 3;
+      stripePayments.setStripeApi(stripe);
+    });
+
+    afterEach(function () {
+      sinon.restore(stripe.subscriptions.update);
+    });
+
+    it('updates a group plan quantity', async () => {
+      data.paymentMethod = 'Stripe';
+      await payments.createSubscription(data);
+
+      let updatedGroup = await Group.findById(group._id).exec();
+      expect(updatedGroup.purchased.plan.quantity).to.eql(3);
+
+      updatedGroup.memberCount += 1;
+      await updatedGroup.save();
+
+      await stripePayments.chargeForAdditionalGroupMember(updatedGroup);
+
+      expect(spy.calledOnce).to.be.true;
+      expect(updatedGroup.purchased.plan.quantity).to.eql(4);
+    });
+  });
+
+  describe('handleWebhooks', () => {
+    describe('all events', () => {
+      const eventType = 'account.updated';
+      const event = {id: 123};
+      const eventRetrieved = {type: eventType};
+
+      beforeEach(() => {
+        sinon.stub(stripe.events, 'retrieve').returnsPromise().resolves(eventRetrieved);
+        sinon.stub(logger, 'error');
+      });
+
+      afterEach(() => {
+        stripe.events.retrieve.restore();
+        logger.error.restore();
+      });
+
+      it('logs an error if an unsupported webhook event is passed', async () => {
+        const error = new Error(`Missing handler for Stripe webhook ${eventType}`);
+        await stripePayments.handleWebhooks({requestBody: event}, stripe);
+        expect(logger.error).to.have.been.called.once;
+        expect(logger.error).to.have.been.calledWith(error, {event: eventRetrieved});
+      });
+
+      it('retrieves and validates the event from Stripe', async () => {
+        await stripePayments.handleWebhooks({requestBody: event}, stripe);
+        expect(stripe.events.retrieve).to.have.been.called.once;
+        expect(stripe.events.retrieve).to.have.been.calledWith(event.id);
+      });
+    });
+
+    describe('customer.subscription.deleted', () => {
+      const eventType = 'customer.subscription.deleted';
+
+      beforeEach(() => {
+        sinon.stub(stripe.customers, 'del').returnsPromise().resolves({});
+        sinon.stub(payments, 'cancelSubscription').returnsPromise().resolves({});
+      });
+
+      afterEach(() => {
+        stripe.customers.del.restore();
+        payments.cancelSubscription.restore();
+      });
+
+      it('does not do anything if event.request is null (subscription cancelled manually)', async () => {
+        sinon.stub(stripe.events, 'retrieve').returnsPromise().resolves({
+          id: 123,
+          type: eventType,
+          request: 123,
+        });
+
+        await stripePayments.handleWebhooks({requestBody: {}}, stripe);
+
+        expect(stripe.events.retrieve).to.have.been.called.once;
+        expect(stripe.customers.del).to.not.have.been.called;
+        expect(payments.cancelSubscription).to.not.have.been.called;
+        stripe.events.retrieve.restore();
+      });
+
+      describe('user subscription', () => {
+        it('throws an error if the user is not found', async () => {
+          const customerId = 456;
+          sinon.stub(stripe.events, 'retrieve').returnsPromise().resolves({
+            id: 123,
+            type: eventType,
+            data: {
+              object: {
+                plan: {
+                  id: 'basic_earned',
+                },
+                customer: customerId,
+              },
+            },
+            request: null,
+          });
+
+          await expect(stripePayments.handleWebhooks({requestBody: {}}, stripe)).to.eventually.be.rejectedWith({
+            message: i18n.t('userNotFound'),
+            httpCode: 404,
+            name: 'NotFound',
+          });
+
+          expect(stripe.customers.del).to.not.have.been.called;
+          expect(payments.cancelSubscription).to.not.have.been.called;
+
+          stripe.events.retrieve.restore();
+        });
+
+        it('deletes the customer on Stripe and calls payments.cancelSubscription', async () => {
+          const customerId = '456';
+
+          let subscriber = new User();
+          subscriber.purchased.plan.customerId = customerId;
+          subscriber.purchased.plan.paymentMethod = 'Stripe';
+          await subscriber.save();
+
+          sinon.stub(stripe.events, 'retrieve').returnsPromise().resolves({
+            id: 123,
+            type: eventType,
+            data: {
+              object: {
+                plan: {
+                  id: 'basic_earned',
+                },
+                customer: customerId,
+              },
+            },
+            request: null,
+          });
+
+          await stripePayments.handleWebhooks({requestBody: {}}, stripe);
+
+          expect(stripe.customers.del).to.have.been.calledOnce;
+          expect(stripe.customers.del).to.have.been.calledWith(customerId);
+          expect(payments.cancelSubscription).to.have.been.calledOnce;
+
+          let cancelSubscriptionOpts = payments.cancelSubscription.lastCall.args[0];
+          expect(cancelSubscriptionOpts.user._id).to.equal(subscriber._id);
+          expect(cancelSubscriptionOpts.paymentMethod).to.equal('Stripe');
+          expect(Math.round(moment(cancelSubscriptionOpts.nextBill).diff(new Date(), 'days', true))).to.equal(3);
+          expect(cancelSubscriptionOpts.groupId).to.be.undefined;
+
+          stripe.events.retrieve.restore();
+        });
+      });
+
+      describe('group plan subscription', () => {
+        it('throws an error if the group is not found', async () => {
+          const customerId = 456;
+          sinon.stub(stripe.events, 'retrieve').returnsPromise().resolves({
+            id: 123,
+            type: eventType,
+            data: {
+              object: {
+                plan: {
+                  id: 'group_monthly',
+                },
+                customer: customerId,
+              },
+            },
+            request: null,
+          });
+
+          await expect(stripePayments.handleWebhooks({requestBody: {}}, stripe)).to.eventually.be.rejectedWith({
+            message: i18n.t('groupNotFound'),
+            httpCode: 404,
+            name: 'NotFound',
+          });
+
+          expect(stripe.customers.del).to.not.have.been.called;
+          expect(payments.cancelSubscription).to.not.have.been.called;
+
+          stripe.events.retrieve.restore();
+        });
+
+        it('throws an error if the group leader is not found', async () => {
+          const customerId = 456;
+
+          let subscriber = generateGroup({
+            name: 'test group',
+            type: 'guild',
+            privacy: 'public',
+            leader: uuid(),
+          });
+          subscriber.purchased.plan.customerId = customerId;
+          subscriber.purchased.plan.paymentMethod = 'Stripe';
+          await subscriber.save();
+
+          sinon.stub(stripe.events, 'retrieve').returnsPromise().resolves({
+            id: 123,
+            type: eventType,
+            data: {
+              object: {
+                plan: {
+                  id: 'group_monthly',
+                },
+                customer: customerId,
+              },
+            },
+            request: null,
+          });
+
+          await expect(stripePayments.handleWebhooks({requestBody: {}}, stripe)).to.eventually.be.rejectedWith({
+            message: i18n.t('userNotFound'),
+            httpCode: 404,
+            name: 'NotFound',
+          });
+
+          expect(stripe.customers.del).to.not.have.been.called;
+          expect(payments.cancelSubscription).to.not.have.been.called;
+
+          stripe.events.retrieve.restore();
+        });
+
+        it('deletes the customer on Stripe and calls payments.cancelSubscription', async () => {
+          const customerId = '456';
+
+          let leader = new User();
+          await leader.save();
+
+          let subscriber = generateGroup({
+            name: 'test group',
+            type: 'guild',
+            privacy: 'public',
+            leader: leader._id,
+          });
+          subscriber.purchased.plan.customerId = customerId;
+          subscriber.purchased.plan.paymentMethod = 'Stripe';
+          await subscriber.save();
+
+          sinon.stub(stripe.events, 'retrieve').returnsPromise().resolves({
+            id: 123,
+            type: eventType,
+            data: {
+              object: {
+                plan: {
+                  id: 'group_monthly',
+                },
+                customer: customerId,
+              },
+            },
+            request: null,
+          });
+
+          await stripePayments.handleWebhooks({requestBody: {}}, stripe);
+
+          expect(stripe.customers.del).to.have.been.calledOnce;
+          expect(stripe.customers.del).to.have.been.calledWith(customerId);
+          expect(payments.cancelSubscription).to.have.been.calledOnce;
+
+          let cancelSubscriptionOpts = payments.cancelSubscription.lastCall.args[0];
+          expect(cancelSubscriptionOpts.user._id).to.equal(leader._id);
+          expect(cancelSubscriptionOpts.paymentMethod).to.equal('Stripe');
+          expect(Math.round(moment(cancelSubscriptionOpts.nextBill).diff(new Date(), 'days', true))).to.equal(3);
+          expect(cancelSubscriptionOpts.groupId).to.equal(subscriber._id);
+
+          stripe.events.retrieve.restore();
         });
       });
     });

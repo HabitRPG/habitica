@@ -1,6 +1,6 @@
 {
   "habiticaBackSoon": "Ne aggódj! Habitica hamarosan visszatér.",
-  "importantMaintenance": "We are doing important maintenance that we estimate will last until 10pm Pacific Time (5am UTC).",
+  "importantMaintenance": "Fontos karbantartási munkákat végzünk, ami eltarthat a következő időpontig: 22:00 Pacific Time (5:00 UTC). ",
   "maintenance": "Karbantartás",
   "maintenanceMoreInfo": "Szeretnél többet megtudni a karbantartásról? <%= linkStart %> Nézd meg itt. <%= linkEnd%>",
   "noDamageKeepStreaks": "NEM kapsz sebzést, és NEM veszítesz szériát!",
@@ -16,7 +16,7 @@
   "maintenanceInfoTechDetails": "Többet szeretnél tudni a technikai oldalról? Látogass el a  <a href='http://devs.habitica.com/' target='_blank'>The Forge, fejlesztői blogra</a>.",
   "maintenanceInfoMore": "Bővebben",
   "maintenanceInfoAccountChanges": "Mi fog megváltozni a fiókomban, ha kész lesz a fejlesztés?",
-  "maintenanceInfoAccountChangesText": "Elsőre nem fogsz látványos változást észrevenni a gyorsuláson kívül például a kihívásoknál. De ha észre veszel valamit, ami nem oda való, akkor írj egy e-mailt a <a href='mailto:admin@habitica.com'>admin@habitica.com</a>-ra, és mi azt kivizsgáljuk!",
+  "maintenanceInfoAccountChangesText": "Először nem lesz semmi jelentős változás eltekintve bizonyos funkcióknál, mint a Kihívásoknál tapasztalt jobb teljesítménytől. Ha olyan változást tapasztalsz, aminek nem kéne ott lennie, küldj egy e-mailt a <%= hrefTechAssistanceEmail %> címre, és mi kivizsgáljuk az ügyet!",
   "maintenanceInfoAddFeatures": "Miféle tulajdonságokkal fog bővülni a Habitica?",
   "maintenanceInfoAddFeaturesText": "Behozhatunk különböző dolgokat, mint a tovább fejlesztett chat és céhek. Programok szervezetek és családok számára. Számos termelékenységet és produktivitást segítő eszközt, mint a havi tevékenységek. Ezek beemeléséhez időre van szükségünk, és amíg az API újraírása meg nem történik, ezeket sem tudjuk addig implementálni.",
   "maintenanceInfoHowLong": "Meddig tart majd a karbantartás?",

@@ -62,7 +62,7 @@
     "surveysMultiple": "Helped Habitica grow on <%= count %> occasions, either by filling out a survey or helping with a major testing effort. Thank you!",
     "currentSurvey": "Nova anketa",
     "surveyWhen": "Odlikovanje se dodeljuje učesnicima nakon što se ankete obrade, krajem marta.",
-    "blurbInbox": "This is where your private messages are stored! You can send someone a message by clicking on the envelope icon next to their name in Tavern, Party, or Guild Chat. If you've received an inappropriate PM, you should email a screenshot of it to Lemoness (<a href=\"mailto:leslie@habitica.com\">leslie@habitica.com</a>)",
+    "blurbInbox": "This is where your private messages are stored! You can send someone a message by clicking on the envelope icon next to their name in Tavern, Party, or Guild Chat. If you've received an inappropriate PM, you should email a screenshot of it to Lemoness (<%= hrefCommunityManagerEmail %>)",
     "blurbGuildsPage": "Udruženja su čet grupe ljudi sa sličnim interesima, napravljene od strane igrača, za igrače. Pogledajte listu i udružite se Udruženjima koja vas interesuju!",
     "blurbChallenges": "Izazovi su napravljeni od strane igrača. Prihvatanje Izazova će dodati njegov zadatak u vašu komandnu tabelu za zadatke, a pobeđivanje Izazova će vam dati odlikovanje, a često i dragulje!",
     "blurbHallPatrons": "Ovo je Dvorana Patrona, gde dajemo odlikovanje plemenitim herojima koji su pomogli Habitca Kickstarteru. Zahvaljujemo im za njihovu pomoć!",

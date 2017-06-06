@@ -151,10 +151,34 @@ let armor = {
     mystery: '201612',
     value: 0,
   },
+  201703: {
+    text: t('armorMystery201703Text'),
+    notes: t('armorMystery201703Notes'),
+    mystery: '201703',
+    value: 0,
+  },
+  201704: {
+    text: t('armorMystery201704Text'),
+    notes: t('armorMystery201704Notes'),
+    mystery: '201704',
+    value: 0,
+  },
   301404: {
     text: t('armorMystery301404Text'),
     notes: t('armorMystery301404Notes'),
     mystery: '301404',
+    value: 0,
+  },
+  301703: {
+    text: t('armorMystery301703Text'),
+    notes: t('armorMystery301703Notes'),
+    mystery: '301703',
+    value: 0,
+  },
+  301704: {
+    text: t('armorMystery301704Text'),
+    notes: t('armorMystery301704Notes'),
+    mystery: '301704',
     value: 0,
   },
 };
@@ -208,6 +232,27 @@ let back = {
     mystery: '201608',
     value: 0,
   },
+  201702: {
+    text: t('backMystery201702Text'),
+    notes: t('backMystery201702Notes'),
+    mystery: '201702',
+    value: 0,
+  },
+  201704: {
+    text: t('backMystery201704Text'),
+    notes: t('backMystery201704Notes'),
+    mystery: '201704',
+    value: 0,
+  },
+};
+
+let body = {
+  201705: {
+    text: t('bodyMystery201705Text'),
+    notes: t('bodyMystery201705Notes'),
+    mystery: '201705',
+    value: 0,
+  },
 };
 
 let eyewear = {
@@ -245,6 +290,12 @@ let eyewear = {
     text: t('eyewearMystery301405Text'),
     notes: t('eyewearMystery301405Notes'),
     mystery: '301405',
+    value: 0,
+  },
+  301703: {
+    text: t('eyewearMystery301703Text'),
+    notes: t('eyewearMystery301703Notes'),
+    mystery: '301703',
     value: 0,
   },
 };
@@ -400,6 +451,24 @@ let head = {
     mystery: '201612',
     value: 0,
   },
+  201702: {
+    text: t('headMystery201702Text'),
+    notes: t('headMystery201702Notes'),
+    mystery: '201702',
+    value: 0,
+  },
+  201703: {
+    text: t('headMystery201703Text'),
+    notes: t('headMystery201703Notes'),
+    mystery: '201703',
+    value: 0,
+  },
+  201705: {
+    text: t('headMystery201705Text'),
+    notes: t('headMystery201705Notes'),
+    mystery: '201705',
+    value: 0,
+  },
   301404: {
     text: t('headMystery301404Text'),
     notes: t('headMystery301404Notes'),
@@ -410,6 +479,18 @@ let head = {
     text: t('headMystery301405Text'),
     notes: t('headMystery301405Notes'),
     mystery: '301405',
+    value: 0,
+  },
+  301703: {
+    text: t('headMystery301703Text'),
+    notes: t('headMystery301703Notes'),
+    mystery: '301703',
+    value: 0,
+  },
+  301704: {
+    text: t('headMystery301704Text'),
+    notes: t('headMystery301704Notes'),
+    mystery: '301704',
     value: 0,
   },
 };
@@ -472,6 +553,12 @@ let shield = {
     mystery: '301405',
     value: 0,
   },
+  301704: {
+    text: t('shieldMystery301704Text'),
+    notes: t('shieldMystery301704Notes'),
+    mystery: '301704',
+    value: 0,
+  },
 };
 
 let weapon = {
@@ -510,6 +597,7 @@ let weapon = {
 let mysterySet = {
   armor,
   back,
+  body,
   eyewear,
   head,
   headAccessory,

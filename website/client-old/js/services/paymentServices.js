@@ -5,6 +5,16 @@ angular.module('habitrpg').factory('Payments',
 function($rootScope, User, $http, Content) {
   var Payments = {};
   var isAmazonReady = false;
+  Payments.amazonButtonEnabled = true;
+
+  Payments.paymentMethods = {
+    AMAZON_PAYMENTS: 'Amazon Payments',
+    STRIPE: 'Stripe',
+    GOOGLE: 'Google',
+    APPLE: 'Apple',
+    PAYPAL: 'Paypal',
+    GIFT: 'Gift'
+  };
 
   window.onAmazonLoginReady = function(){
     isAmazonReady = true;
@@ -22,10 +32,10 @@ function($rootScope, User, $http, Content) {
 
     sub = sub && Content.subscriptionBlocks[sub];
 
-    var amount = // 500 = $5
-      sub ? sub.price*100
-        : data.gift && data.gift.type=='gems' ? data.gift.gems.amount/4*100
-        : 500;
+    var amount = 500;// 500 = $5
+    if (sub) amount = sub.price * 100;
+    if (data.gift && data.gift.type=='gems') amount = data.gift.gems.amount / 4 * 100;
+    if (data.group) amount = (sub.price + 3 * (data.group.memberCount - 1)) * 100;
 
     StripeCheckout.open({
       key: window.env.STRIPE_PUB_KEY,
@@ -189,14 +199,14 @@ function($rootScope, User, $http, Content) {
 
   }
 
-  Payments.amazonPayments.canCheckout = function(){
-    if(Payments.amazonPayments.type === 'single'){
+  Payments.amazonPayments.canCheckout = function() {
+    if (Payments.amazonPayments.type === 'single') {
       return Payments.amazonPayments.paymentSelected === true;
-    }else if(Payments.amazonPayments.type === 'subscription'){
+    } else if(Payments.amazonPayments.type === 'subscription') {
       return Payments.amazonPayments.paymentSelected === true &&
               // Mah.. one is a boolean the other a string...
               Payments.amazonPayments.recurringConsent === 'true';
-    }else{
+    } else {
       return false;
     }
   }
@@ -255,7 +265,8 @@ function($rootScope, User, $http, Content) {
   }
 
   Payments.amazonPayments.checkout = function() {
-    if(Payments.amazonPayments.type === 'single'){
+    Payments.amazonButtonEnabled = false;
+    if (Payments.amazonPayments.type === 'single') {
       var url = '/amazon/checkout';
       $http.post(url, {
         orderReferenceId: Payments.amazonPayments.orderReferenceId,
@@ -296,6 +307,7 @@ function($rootScope, User, $http, Content) {
   }
 
   Payments.cancelSubscription = function(config) {
+    if (config && config.group && !confirm(window.env.t('confirmCancelGroupPlan'))) return;
     if (!confirm(window.env.t('sureCancelSub'))) return;
 
     var group;

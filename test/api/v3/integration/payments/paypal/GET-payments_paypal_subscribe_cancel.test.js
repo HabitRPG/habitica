@@ -41,7 +41,7 @@ describe('payments : paypal #subscribeCancel', () => {
         balance: 2,
       });
 
-      await user.get(endpoint);
+      await user.get(`${endpoint}?noRedirect=true`);
 
       expect(subscribeCancelStub).to.be.calledOnce;
 

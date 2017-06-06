@@ -29,7 +29,11 @@ api.checkout = {
 
     let link = await paypalPayments.checkout({gift});
 
-    res.redirect(link);
+    if (req.query.noRedirect) {
+      res.respond(200);
+    } else {
+      res.redirect(link);
+    }
   },
 };
 
@@ -55,7 +59,11 @@ api.checkoutSuccess = {
 
     await paypalPayments.checkoutSuccess({user, gift, paymentId, customerId});
 
-    res.redirect('/');
+    if (req.query.noRedirect) {
+      res.respond(200);
+    } else {
+      res.redirect('/');
+    }
   },
 };
 
@@ -80,7 +88,11 @@ api.subscribe = {
     req.session.paypalBlock = req.query.sub;
     req.session.groupId = req.query.groupId;
 
-    res.redirect(link);
+    if (req.query.noRedirect) {
+      res.respond(200);
+    } else {
+      res.redirect(link);
+    }
   },
 };
 
@@ -108,7 +120,11 @@ api.subscribeSuccess = {
 
     await paypalPayments.subscribeSuccess({user, block, groupId, token, headers: req.headers});
 
-    res.redirect('/');
+    if (req.query.noRedirect) {
+      res.respond(200);
+    } else {
+      res.redirect('/');
+    }
   },
 };
 
@@ -128,7 +144,11 @@ api.subscribeCancel = {
 
     await paypalPayments.subscribeCancel({user, groupId});
 
-    res.redirect('/');
+    if (req.query.noRedirect) {
+      res.respond(200);
+    } else {
+      res.redirect('/');
+    }
   },
 };
 

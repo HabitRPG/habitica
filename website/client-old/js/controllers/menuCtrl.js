@@ -23,7 +23,7 @@ angular.module('habitrpg')
         } else if (!(_.isEmpty(user.newMessages))) {
           return messageValue;
         } else if (!_.isEmpty(user.groupNotifications)) {
-          var groupNotificationTypes = _.pluck(user.groupNotifications, 'type');
+          var groupNotificationTypes = _.map(user.groupNotifications, 'type');
           if (groupNotificationTypes.indexOf('GROUP_TASK_APPROVAL') !== -1) {
             return groupApprovalRequested;
           } else if (groupNotificationTypes.indexOf('GROUP_TASK_APPROVED') !== -1) {
@@ -116,10 +116,10 @@ angular.module('habitrpg')
         return selectNotificationValue(false, false, false, false, false, true, false, false);
       };
 
-      $scope.viewGroupApprovalNotification = function (notification, $index) {
+      $scope.viewGroupApprovalNotification = function (notification, $index, navigate) {
         User.readNotification(notification.id);
         User.user.groupNotifications.splice($index, 1);
-        $state.go("options.social.guilds.detail", {gid: notification.data.groupId});
+        if (navigate) $state.go("options.social.guilds.detail", {gid: notification.data.groupId});
       };
 
       $scope.groupApprovalNotificationIcon = function (notification) {

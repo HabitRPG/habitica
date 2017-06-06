@@ -59,7 +59,9 @@ let schema = new Schema({
         type: String,
         enum: ['bcrypt', 'sha1'],
       },
-      salt: String, // Salt for SHA1 encrypted passwords, not stored for bcrypt
+      salt: String, // Salt for SHA1 encrypted passwords, not stored for bcrypt,
+      // Used to validate password reset codes and make sure only the most recent one can be used
+      passwordResetCode: String,
     },
     timestamps: {
       created: {type: Date, default: Date.now},
@@ -109,6 +111,8 @@ let schema = new Schema({
     birthday: Number,
     partyUp: Boolean,
     partyOn: Boolean,
+    royallyLoyal: Boolean,
+    joinedGuild: Boolean,
   },
 
   backer: {
@@ -465,6 +469,10 @@ let schema = new Schema({
       raisePet: {type: Boolean, default: false},
       streak: {type: Boolean, default: false},
     },
+    tasks: {
+      groupByChallenge: {type: Boolean, default: false},
+      confirmScoreNotes: {type: Boolean, default: false},
+    },
     improvementCategories: {
       type: Array,
       validate: (categories) => {
@@ -488,7 +496,7 @@ let schema = new Schema({
     mp: {type: Number, default: 10},
     exp: {type: Number, default: 0},
     gp: {type: Number, default: 0},
-    lvl: {type: Number, default: 1},
+    lvl: {type: Number, default: 1, min: 1},
 
     // Class System
     class: {type: String, enum: ['warrior', 'rogue', 'wizard', 'healer'], default: 'warrior', required: true},
@@ -538,12 +546,12 @@ let schema = new Schema({
     return {};
   }},
   pushDevices: [PushDeviceSchema],
-  _ABtest: {type: String}, // deprecated. Superseded by _ABtests
   _ABtests: {type: Schema.Types.Mixed, default: () => {
     return {};
   }},
   webhooks: [WebhookSchema],
   loginIncentives: {type: Number, default: 0},
+  invitesSent: {type: Number, default: 0},
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

@@ -1,4 +1,4 @@
-import {forOwn} from 'lodash';
+import forOwn from 'lodash/forOwn';
 import t from '../translation';
 
 /* eslint-disable camelcase */
@@ -465,7 +465,68 @@ let backgrounds = {
       notes: t('backgroundWeddingArchNotes'),
     },
   },
+  backgrounds032017: {
+    magic_beanstalk: {
+      text: t('backgroundMagicBeanstalkText'),
+      notes: t('backgroundMagicBeanstalkNotes'),
+    },
+    meandering_cave: {
+      text: t('backgroundMeanderingCaveText'),
+      notes: t('backgroundMeanderingCaveNotes'),
+    },
+    mistiflying_circus: {
+      text: t('backgroundMistiflyingCircusText'),
+      notes: t('backgroundMistiflyingCircusNotes'),
+    },
+  },
+  backgrounds042017: {
+    bug_covered_log: {
+      text: t('backgroundBugCoveredLogText'),
+      notes: t('backgroundBugCoveredLogNotes'),
+    },
+    giant_birdhouse: {
+      text: t('backgroundGiantBirdhouseText'),
+      notes: t('backgroundGiantBirdhouseNotes'),
+    },
+    mist_shrouded_mountain: {
+      text: t('backgroundMistShroudedMountainText'),
+      notes: t('backgroundMistShroudedMountainNotes'),
+    },
+  },
+  backgrounds052017: {
+    guardian_statues: {
+      text: t('backgroundGuardianStatuesText'),
+      notes: t('backgroundGuardianStatuesNotes'),
+    },
+    habit_city_streets: {
+      text: t('backgroundHabitCityStreetsText'),
+      notes: t('backgroundHabitCityStreetsNotes'),
+    },
+    on_tree_branch: {
+      text: t('backgroundOnATreeBranchText'),
+      notes: t('backgroundOnATreeBranchNotes'),
+    },
+  },
+  backgrounds062017: {
+    buried_treasure: {
+      text: t('backgroundBuriedTreasureText'),
+      notes: t('backgroundBuriedTreasureNotes'),
+    },
+    ocean_sunrise: {
+      text: t('backgroundOceanSunriseText'),
+      notes: t('backgroundOceanSunriseNotes'),
+    },
+    sandcastle: {
+      text: t('backgroundSandcastleText'),
+      notes: t('backgroundSandcastleNotes'),
+    },
+  },
   incentiveBackgrounds: {
+    violet: {
+      text: t('backgroundVioletText'),
+      notes: t('backgroundVioletNotes'),
+      currency: 'loginIncentive',
+    },
     blue: {
       text: t('backgroundBlueText'),
       notes: t('backgroundBlueNotes'),

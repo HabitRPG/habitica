@@ -1,4 +1,4 @@
-import { each } from 'lodash';
+import each from 'lodash/each';
 
 let achievementsData = {};
 
@@ -97,6 +97,16 @@ let basicAchievs = {
     pluralTitleKey: 'perfectName',
     pluralTextKey: 'perfectText',
   },
+  royallyLoyal: {
+    icon: 'achievement-royally-loyal',
+    titleKey: 'royallyLoyal',
+    textKey: 'royallyLoyalText',
+  },
+  joinedGuild: {
+    icon: 'achievement-guild',
+    titleKey: 'joinedGuild',
+    textKey: 'joinedGuildText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 
@@ -107,7 +117,7 @@ let specialAchievs = {
     textKey: 'contribText',
   },
   npc: {
-    icon: 'achievement-ultimate-warrior',
+    icon: 'achievement-npc',
     titleKey: 'npcAchievementName',
     textKey: 'npcAchievementText',
   },

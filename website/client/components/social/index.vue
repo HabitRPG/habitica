@@ -1,17 +1,19 @@
 <template lang="pug">
 .row
-  .sixteen.wide.column
-    .ui.secondary.menu
-      router-link.item(:to="{name: 'tavern'}")
-        span(v-once) {{ $t('tavern') }}
-      router-link.item(:to="{name: 'inbox'}")
-        span(v-once) {{ $t('inbox') }}
-
-  .sixteen.wide.column
+  secondary-menu.col-12
+    router-link.nav-link(:to="{name: 'tavern'}", exact) {{ $t('tavern') }}
+    router-link.nav-link(:to="{name: 'inbox'}") {{ $t('inbox') }}
+    router-link.nav-link(:to="{name: 'guildsDiscovery'}") {{ $t('guilds') }}
+  .col-12
     router-view
 </template>
 
 <script>
+import SecondaryMenu from 'client/components/secondaryMenu';
+
 export default {
+  components: {
+    SecondaryMenu,
+  },
 };
 </script>

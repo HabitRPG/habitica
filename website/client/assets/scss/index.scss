@@ -1,0 +1,21 @@
+// Variables and Functions
+@import './utils';
+@import './colors';
+
+* {
+  transition-duration: .15s;
+  transition-property: border-color, box-shadow, color;
+  transition-timing-function: ease-in;
+}
+
+// Generic components
+@import './page';
+
+// Global styles
+@import './typography';
+@import './form';
+@import './button';
+@import './badge';
+@import './dropdown';
+@import './popover';
+@import './item';

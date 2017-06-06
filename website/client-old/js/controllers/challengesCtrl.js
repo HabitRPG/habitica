@@ -63,7 +63,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
       //If the user has one filter selected, assume that the user wants to default to that group
       var defaultGroup;
       //Our filters contain all groups, but we only want groups that have atleast one challenge
-      var groupsWithChallenges = _.uniq(_.pluck($scope.groupsFilter, '_id'));
+      var groupsWithChallenges = _.uniq(_.map($scope.groupsFilter, '_id'));
       var len = groupsWithChallenges.length;
       var filterCount = 0;
 
@@ -108,11 +108,11 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
         reward: []
       };
 
-      _(clonedTasks).each(function(val, type) {
+      _(clonedTasks).forEach(function(val, type) {
         if (challenge[type + 's']) {
           challenge[type + 's'].forEach(_cloneTaskAndPush);
         }
-      }).value();
+      });
 
       $scope.obj = $scope.newChallenge = {
         name: challenge.name,
@@ -446,7 +446,7 @@ habitrpg.controller("ChallengesCtrl", ['$rootScope','$scope', 'Shared', 'User', 
     };
 
     $scope.filterInitialChallenges = function() {
-      $scope.groupsFilter = _.uniq(_.compact(_.pluck($scope.challenges, 'group')), function(g) {return g._id});
+      $scope.groupsFilter = _.uniqBy(_.compact(_.map($scope.challenges, 'group')), function(g) {return g._id});
 
       $scope.search = {
         group: _.transform($scope.groupsFilter, function(m,g) { m[g._id] = true;}),
