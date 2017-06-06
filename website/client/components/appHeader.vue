@@ -5,20 +5,20 @@
     h3.character-name 
       | {{user.profile.name}}
       .is-buffed(v-if="isBuffed")
-        icon(name="buff")
+        .svg-icon(v-html="icons.buff")
     span.small-text.character-level {{ characterLevel }}
     .progress-container.d-flex
-      icon(name="health")
+      .svg-icon(v-html="icons.health")
       .progress
         .progress-bar.bg-health(:style="{width: `${percent(user.stats.hp, MAX_HEALTH)}%`}")
       span.small-text {{user.stats.hp | round}} / {{MAX_HEALTH}}
     .progress-container.d-flex
-      icon(name="experience")
+      .svg-icon(v-html="icons.experience")
       .progress
         .progress-bar.bg-experience(:style="{width: `${percent(user.stats.exp, toNextLevel)}%`}")
       span.small-text {{user.stats.exp | round}} / {{toNextLevel}}
     .progress-container.d-flex(v-if="user.flags.classSelected && !user.preferences.disableClasses")
-      icon(name="mana")
+      .svg-icon(v-html="icons.mana")
       .progress
         .progress-bar.bg-mana(:style="{width: `${percent(user.stats.mp, maxMP)}%`}")
       span.small-text {{user.stats.mp | round}} / {{maxMP}}
@@ -106,20 +106,33 @@ $header-dark-background: #271B3D;
 
 <script>
 import Avatar from './avatar';
-import Icon from 'components/ui/icon';
 import { mapState, mapGetters } from 'client/libs/store';
 
 import { toNextLevel } from '../../common/script/statHelpers';
 import statsComputed from '../../common/script/libs/statsComputed';
 import percent from '../../common/script/libs/percent';
 
+import buffIcon from 'assets/header/buff.svg';
+import healthIcon from 'assets/header/health.svg';
+import experienceIcon from 'assets/header/experience.svg';
+import manaIcon from 'assets/header/mana.svg';
+
 export default {
   components: {
     Avatar,
-    Icon,
   },
   methods: {
     percent,
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        buff: buffIcon,
+        health: healthIcon,
+        experience: experienceIcon,
+        mana: manaIcon,
+      }),
+    };
   },
   computed: {
     ...mapState({

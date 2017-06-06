@@ -1,7 +1,7 @@
 <template lang="pug">
 nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
   .navbar-header
-    img.logo(src="~assets/header/png/logo@2x.png")
+    img.logo(src="~assets/header/logo.svg")
   .collapse.navbar-collapse
     ul.navbar-nav.mr-auto
       router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact)
@@ -33,15 +33,15 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
           router-link.dropdown-item(to="/help/report-bug") {{ $t('reportBug') }}
           router-link.dropdown-item(to="/help/request-feature") {{ $t('requestAF') }}
     .item-with-icon
-      icon(name="gem")
+      .svg-icon(v-html="icons.gem")
       span {{userGems}}
     .item-with-icon
-      icon(name="gold")
+      .svg-icon(v-html="icons.gold")
       span {{user.stats.gp | floor}}
     .item-with-icon.item-notifications
-      icon(name="notifications")
+      .svg-icon(v-html="icons.notifications")
     router-link.dropdown.item-with-icon.item-user(:to="{name: 'avatar'}")
-      icon(name="user")
+      .svg-icon(v-html="icons.user")
       .dropdown-menu.dropdown-menu-right.user-dropdown
         router-link.dropdown-item.edit-avatar(:to="{name: 'avatar'}") 
           h3 {{ user.profile.name }}
@@ -193,10 +193,22 @@ nav.navbar {
 
 <script>
 import { mapState, mapGetters } from 'client/libs/store';
-import Icon from 'components/ui/icon';
+import gemIcon from 'assets/header/gem.svg';
+import goldIcon from 'assets/header/gold.svg';
+import notificationsIcon from 'assets/header/notifications.svg';
+import userIcon from 'assets/header/user.svg';
 
 export default {
-  components: { Icon },
+  data () {
+    return {
+      icons: Object.freeze({
+        gem: gemIcon,
+        gold: goldIcon,
+        notifications: notificationsIcon,
+        user: userIcon,
+      }),
+    };
+  },
   computed: {
     ...mapGetters({
       userGems: 'user:gems',

@@ -12238,6 +12238,18 @@
         }
       }
     },
+    "svgo-loader": {
+      "version": "1.2.1",
+      "from": "svgo-loader@latest",
+      "resolved": "https://registry.npmjs.org/svgo-loader/-/svgo-loader-1.2.1.tgz",
+      "dependencies": {
+        "loader-utils": {
+          "version": "1.1.0",
+          "from": "loader-utils@>=1.0.3 <2.0.0",
+          "resolved": "https://registry.npmjs.org/loader-utils/-/loader-utils-1.1.0.tgz"
+        }
+      }
+    },
     "syntax-error": {
       "version": "1.3.0",
       "from": "syntax-error@>=1.1.1 <2.0.0",

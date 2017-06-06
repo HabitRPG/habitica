@@ -83,7 +83,7 @@ const baseConfig = {
         },
       },
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        test: /\.(png|jpe?g|gif)(\?.*)?$/,
         loader: 'url-loader',
         query: {
           limit: 10000,
@@ -97,6 +97,13 @@ const baseConfig = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]'),
         },
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          { loader: 'svg-inline-loader' },
+          { loader: 'svgo-loader' },
+        ],
       },
     ],
   },
