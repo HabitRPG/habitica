@@ -40,6 +40,19 @@
             span(class='shop_gold', ng-if='item.currency === "gold"')
 
     li.customize-menu
+      menu.pets-menu(label=env.t('cards'))
+        div(ng-repeat='type in Content.cardTypes', ng-show='type.yearRound')
+          button.customize-option(class='inventory_special_{{::type.key}}',
+          popover='{{::Content.spells.special[type.key].notes()}}',
+          popover-title='{{::Content.spells.special[type.key].text()}}',
+          popover-trigger='mouseenter', popover-placement='right',
+          popover-append-to-body='true',
+          ng-click='castStart(Content.spells.special[type.key])')
+          p
+            | {{Content.spells.special[type.key].value}}
+            span(class='shop_gold')
+
+    li.customize-menu
       menu.pets-menu(label=env.t('special'))
         div
           button.customize-option(class='inventory_special_fortify',
@@ -78,13 +91,3 @@
           p
             | 20&nbsp;
             span.shop_gold
-        div(ng-repeat='type in Content.cardTypes', ng-show='type.yearRound')
-          button.customize-option(class='inventory_special_{{::type.key}}',
-          popover='{{::Content.spells.special[type.key].notes()}}',
-          popover-title='{{::Content.spells.special[type.key].text()}}',
-          popover-trigger='mouseenter', popover-placement='right',
-          popover-append-to-body='true',
-          ng-click='castStart(Content.spells.special[type.key])')
-          p
-            | {{Content.spells.special[type.key].value}}
-            span(class='shop_gold')

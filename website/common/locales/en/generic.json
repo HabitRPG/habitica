@@ -153,6 +153,7 @@
     "achievementBewilder": "Savior of Mistiflying",
     "achievementBewilderText": "Helped defeat the Be-Wilder during the 2016 Spring Fling Event!",
     "checkOutProgress": "Check out my progress in Habitica!",
+    "cards": "Cards",
     "cardReceived": "Received a card!",
     "cardReceivedFrom": "<%= cardType %> from <%= userName %>",
     "greetingCard": "Greeting Card",
