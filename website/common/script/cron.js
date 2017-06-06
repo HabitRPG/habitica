@@ -112,7 +112,8 @@ export function shouldDo (day, dailyTask, options = {}) {
   let daysOfTheWeek = [];
   if (dailyTask.repeat) {
     for (let [repeatDay, active] of Object.entries(dailyTask.repeat)) {
-      if (active && !isNaN(DAY_MAPPING_STRING_TO_NUMBER[repeatDay])) daysOfTheWeek.push(parseInt(DAY_MAPPING_STRING_TO_NUMBER[repeatDay], 10));
+      if (!isFinite(DAY_MAPPING_STRING_TO_NUMBER[repeatDay])) continue; // eslint-disable-line no-continue
+      if (active) daysOfTheWeek.push(parseInt(DAY_MAPPING_STRING_TO_NUMBER[repeatDay], 10));
     }
   }
 
