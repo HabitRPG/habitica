@@ -5,24 +5,28 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
     img(src="~assets/header/png/logo@3x.png")
   .collapse.navbar-collapse
     ul.navbar-nav.mr-auto
-      router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact) 
+      router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact)
         a.nav-link(v-once) {{ $t('tasks') }}
-      router-link.nav-item.dropdown(tag="li", :to="{name: 'inventory'}", :class="{'active': $route.path.startsWith('/inventory')}")
+      router-link.nav-item.dropdown(tag="li", :to="{name: 'items'}", :class="{'active': $route.path.startsWith('/inventory')}")
         a.nav-link(v-once) {{ $t('inventory') }}
         .dropdown-menu
-          router-link.dropdown-item(:to="{name: 'inventory'}", exact) {{ $t('inventory') }}
+          router-link.dropdown-item(:to="{name: 'items'}", exact) {{ $t('items') }}
           router-link.dropdown-item(:to="{name: 'equipment'}") {{ $t('equipment') }}
           router-link.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
-      router-link.nav-item(tag="li", :to="{name: 'market'}", exact) 
+      router-link.nav-item(tag="li", :to="{name: 'market'}", exact)
         a.nav-link(v-once) {{ $t('market') }}
+      router-link.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/guilds')}")
+        a.nav-link(v-once) {{ $t('guilds') }}
+        .dropdown-menu
+          router-link.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
+          router-link.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
+          router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
       router-link.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/social')}")
         a.nav-link(v-once) {{ $t('social') }}
         .dropdown-menu
-          router-link.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
           router-link.dropdown-item(:to="{name: 'inbox'}") {{ $t('inbox') }}
           router-link.dropdown-item(:to="{name: 'challenges'}") {{ $t('challenges') }}
           router-link.dropdown-item(:to="{name: 'party'}") {{ $t('party') }}
-          router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guilds') }}
       router-link.nav-item.dropdown(tag="li", to="/help", :class="{'active': $route.path.startsWith('/help')}")
         a.nav-link(v-once) {{ $t('help') }}
         .dropdown-menu

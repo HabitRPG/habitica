@@ -21,7 +21,7 @@
     "communityGuidelines": "Правила сообщества",
     "communityGuidelinesRead1": "Пожалуйста, прочтите",
     "communityGuidelinesRead2": "до того, как включиться в чат.",
-    "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic. Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
+    "bannedWordUsed": "Упс! Похоже что этот пост содержит ругательство, религиозную присягу, отсылки к веществам, вызывающим зависимость или к темам для взрослых. У Habitica есть пользователи из всех слоев общества, так что мы поддерживаем наши чаты в чистоте. \nОтредактируйте свое сообщение, и тогда вы сможете его отправить!",
     "party": "Команда",
     "createAParty": "Создать команду",
     "updatedParty": "Настройки команды обновлены.",
@@ -274,10 +274,12 @@
     "purchasedGroupPlanPlanExtraMonths": "У вас остается <%= months %> мес. оплаченного группового тарифа.",
     "addManagers": "Add Managers",
     "addManager": "Add Manager",
-    "removeManager": "Remove",
-    "userMustBeMember": "User must be a member",
+    "removeManager": "Удалить",
+    "userMustBeMember": "Пользователь должен быть участником группы",
     "userIsNotManager": "User is not manager",
-    "canOnlyApproveTaskOnce": "This task has already been approved.",
+    "canOnlyApproveTaskOnce": "Это задание уже было одобрено.",
     "leaderMarker": "- Leader",
-    "managerMarker": "- Manager"
+    "managerMarker": "- Manager",
+    "joinedGuild": "Joined a Guild",
+    "joinedGuildText": "Ventured into the social side of Habitica by joining a Guild!"
 }

@@ -112,6 +112,7 @@ let schema = new Schema({
     partyUp: Boolean,
     partyOn: Boolean,
     royallyLoyal: Boolean,
+    joinedGuild: Boolean,
   },
 
   backer: {
@@ -545,7 +546,6 @@ let schema = new Schema({
     return {};
   }},
   pushDevices: [PushDeviceSchema],
-  _ABtest: {type: String}, // deprecated. Superseded by _ABtests
   _ABtests: {type: Schema.Types.Mixed, default: () => {
     return {};
   }},

@@ -1,31 +1,23 @@
 <template lang="pug">
-b-popover(
-  :triggers="['hover']",
-  :placement="popoverPosition",
-  v-if="item && item.key.indexOf('_base_0') === -1",
-)
-  span(slot="content")
-    h4.popover-content-title {{ item.text() }}
-    .popover-content-text {{ item.notes() }}
-    .popover-content-attr(v-for="attr in ATTRIBUTES")
-      span.popover-content-attr-key {{ `${$t(attr)}: ` }}
-      span.popover-content-attr-val {{ `+${item[attr]}` }}
-
-  .item-wrapper
-    .item
-      span.badge.badge-pill(
-        :class="{'item-selected-badge': selected === true}",
-        @click="click",
-        v-if="starVisible"
-      ) &#9733;
-      span.item-content(:class="'shop_' + item.key")
-    span.item-label(v-if="label") {{ label }}
-div(v-else)
+div(v-if="emptyItem")
   .item-wrapper
     .item.item-empty
       .item-content
     span.item-label(v-if="label") {{ label }}
+b-popover(
+  v-else,
+  :triggers="['hover']",
+  :placement="popoverPosition",
+  @click="click",
+)
+  span(slot="content")
+    slot(name="popoverContent", :item="item")
 
+  .item-wrapper
+    .item
+      slot(name="itemBadge", :item="item")
+      span.item-content(:class="itemContentClass")
+    span.item-label(v-if="label") {{ label }}
 </template>
 
 <script>
@@ -40,14 +32,15 @@ export default {
     item: {
       type: Object,
     },
-    selected: {
-      type: Boolean,
-    },
-    starVisible: {
-      type: Boolean,
+    itemContentClass: {
+      type: String,
     },
     label: {
       type: String,
+    },
+    emptyItem: {
+      type: Boolean,
+      default: false,
     },
     popoverPosition: {
       type: String,

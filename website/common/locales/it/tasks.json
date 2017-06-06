@@ -167,5 +167,7 @@
     "taskNotes": "Task Notes",
     "monthlyRepeatHelpContent": "Questa attività andrà completata ogni X mesi.",
     "yearlyRepeatHelpContent": "Questa attività andrà completata ogni X anni.",
-    "resets": "Resets"
+    "resets": "Resets",
+    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Next Due Dates"
 }

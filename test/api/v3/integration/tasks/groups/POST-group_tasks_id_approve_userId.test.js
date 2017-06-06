@@ -112,8 +112,8 @@ describe('POST /tasks/:id/approve/:userId', () => {
 
     await user.sync();
     await member2.sync();
-    expect(user.notifications.length).to.equal(1);
-    expect(user.notifications[0].type).to.equal('GROUP_TASK_APPROVAL');
+    expect(user.notifications.length).to.equal(2);
+    expect(user.notifications[1].type).to.equal('GROUP_TASK_APPROVAL');
     expect(member2.notifications.length).to.equal(1);
     expect(member2.notifications[0].type).to.equal('GROUP_TASK_APPROVAL');
 
@@ -122,7 +122,7 @@ describe('POST /tasks/:id/approve/:userId', () => {
     await user.sync();
     await member2.sync();
 
-    expect(user.notifications.length).to.equal(0);
+    expect(user.notifications.length).to.equal(1);
     expect(member2.notifications.length).to.equal(0);
   });
 

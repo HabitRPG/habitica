@@ -140,9 +140,9 @@
     "counterPeriodDay": "Dag",
     "counterPeriodWeek": "Uge",
     "counterPeriodMonth": "Måned",
-    "habitCounter": "Counter (Resets <%= frequency %>)",
-    "habitCounterUp": "Positive Counter (Resets <%= frequency %>)",
-    "habitCounterDown": "Negative Counter (Resets <%= frequency %>)",
+    "habitCounter": "Tæller (Nulstilles <%= frequency %>)",
+    "habitCounterUp": "Positiv Tæller (Nulstilles <%= frequency %>)",
+    "habitCounterDown": "Negativ Tæller (Nulstilles <%= frequency %>)",
     "taskRequiresApproval": "Denne opgave skal godkendes før du kan fuldføre den. Godkendelse er allerede anmodet",
     "taskApprovalHasBeenRequested": "Godkendelse er anmodet",
     "approvals": "Godkendelser",
@@ -167,5 +167,7 @@
     "taskNotes": "Opgavenoter",
     "monthlyRepeatHelpContent": "Denne opgave vil være forfalden hver X måneder",
     "yearlyRepeatHelpContent": "Denne opgave vil være forfalden hver X år",
-    "resets": "Resets"
+    "resets": "Nulstilles",
+    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Next Due Dates"
 }

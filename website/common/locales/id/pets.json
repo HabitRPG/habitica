@@ -1,4 +1,5 @@
 {
+    "stable": "Stable",
     "pets": "Peliharaan",
     "activePet": "Peliharaan yang Dipilih",
     "noActivePet": "Tidak ada Peliharaan yang Dipilih",
