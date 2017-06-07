@@ -22,6 +22,12 @@
       .progress
         .progress-bar.bg-mana(:style="{width: `${percent(user.stats.mp, maxMP)}%`}")
       span.small-text {{user.stats.mp | round}} / {{maxMP}}
+  .no-party.d-flex.justify-content-center.text-center(v-if="!user.party._id")
+    .align-self-center(v-once)
+      h3 {{ $t('battleWithFriends') }}
+      span.small-text(v-html="$t('inviteFriendsParty')")
+      br
+      button.btn.btn-primary {{ $t('startAParty') }}
 </template>
 
 <style lang="scss" scoped>
@@ -37,16 +43,34 @@ $header-dark-background: #271B3D;
   color: $header-color;
 }
 
+.small-text {
+  color: $header-color;
+}
+
+.no-party {
+  flex-grow: 1;
+
+  h3 {
+    margin-bottom: 4px;
+  }
+
+  button {
+    margin-top: 16px;
+  }
+}
+
+h3 {
+  color: $white;
+}
+
 .character-name {
   margin-top: 24px;
-  color: $white;
   margin-bottom: 1px;
 }
 
 .character-level {
   display: block;
   font-style: normal;
-  color: $header-color;
   margin-bottom: 16px;
 }
 
