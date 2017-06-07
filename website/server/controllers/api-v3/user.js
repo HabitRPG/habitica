@@ -1033,8 +1033,8 @@ api.buySpecialSpell = {
  *
  * @apiParam {String} egg The egg to use
  * @apiParam {String} hatchingPotion The hatching potion to use
- * @apiParamExample {URL}
- * /api/v3/user/hatch/Dragon/CottonCandyPink
+ * @apiParamExample {URL} Example-URL
+ * https://habitica.com/api/v3/user/hatch/Dragon/CottonCandyPink
  *
  * @apiSuccess {Object} data user.items
  * @apiSuccess {String} message
@@ -1077,8 +1077,8 @@ api.hatch = {
  * @apiParam {String="mount","pet","costume","equipped"} type The type of item to equip
  * @apiParam {String} key The item to equip
  *
- * @apiParamExample {URL}
- * /api/v3/user/equip/equipped/weapon_warrior_2
+ * @apiParamExample {URL} Example-URL
+ * https://habitica.com/api/v3/user/equip/equipped/weapon_warrior_2
  *
  * @apiSuccess {Object} data user.items
  * @apiSuccess {String} message Optional success message for unequipping an items
@@ -1118,7 +1118,7 @@ api.equip = {
  * @apiParam {String} pet
  * @apiParam {String} food
  *
- * @apiParamExample {url}
+ * @apiParamExample {url} Example-URL
  * https://habitica.com/api/v3/user/feed/Armadillo-Shade/Chocolate
  *
  * @apiSuccess {Number} data The pet value
@@ -1202,12 +1202,20 @@ api.disableClasses = {
  * @apiName UserPurchase
  * @apiGroup User
  *
- * @apiParam {String} type Type of item to purchase. Must be one of: gems, eggs, hatchingPotions, food, quests, or gear
+ * @apiParam {String="gems","eggs","hatchingPotions","premiumHatchingPotions",food","quests","gear"} type Type of item to purchase.
  * @apiParam {String} key Item's key (use "gem" for purchasing gems)
  *
  * @apiSuccess {Object} data.items user.items
  * @apiSuccess {Number} data.balance user.balance
  * @apiSuccess {String} message Success message
+ *
+ * @apiError {NotAuthorized} NotAvailable Item is not available to be purchased (not unlocked for the user).
+ * @apiError {NotAuthorized} Gems Not enough gems
+ * @apiError {NotFound} Key Key not found for Content type.
+ * @apiError {NotFound} Type Type invalid.
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"This item is not currently available for purchase."}
  */
 api.purchase = {
   method: 'POST',
@@ -1226,12 +1234,19 @@ api.purchase = {
  * @apiName UserPurchaseHourglass
  * @apiGroup User
  *
- * @apiParam {String} type The type of item to purchase (pets or mounts)
- * @apiParam {String} key Ex: {MantisShrimp-Base}. The key for the mount/pet
+ * @apiParam {String="pets","mounts"} type The type of item to purchase
+ * @apiParam {String} key Ex: {Phoenix-Base}. The key for the mount/pet
  *
  * @apiSuccess {Object} data.items user.items
  * @apiSuccess {Object} data.purchasedPlanConsecutive user.purchased.plan.consecutive
  * @apiSuccess {String} message Success message
+ *
+ * @apiError {NotAuthorized} NotAvailable Item is not available to be purchased or is not valid.
+ * @apiError {NotAuthorized} Hourglasses User does not have enough Mystic Hourglasses.
+ * @apiError {NotFound} Type Type invalid.
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"You don't have enough Mystic Hourglasses."}
  */
 api.userPurchaseHourglass = {
   method: 'POST',
@@ -1250,11 +1265,40 @@ api.userPurchaseHourglass = {
  * @apiName UserReadCard
  * @apiGroup User
  *
- * @apiParam {String} cardType Type of card to read
+ * @apiParam {String} cardType Type of card to read (e.g. - birthday, greeting, nye, thankyou, valentine)
  *
  * @apiSuccess {Object} data.specialItems user.items.special
  * @apiSuccess {Boolean} data.cardReceived user.flags.cardReceived
  * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ *  {
+ *   "success": true,
+ *   "data": {
+ *     "specialItems": {
+ *       "snowball": 0,
+ *       "spookySparkles": 0,
+ *       "shinySeed": 0,
+ *       "seafoam": 0,
+ *       "valentine": 0,
+ *       "valentineReceived": [],
+ *       "nye": 0,
+ *       "nyeReceived": [],
+ *       "greeting": 0,
+ *       "greetingReceived": [
+ *          "MadPink"
+ *           ],
+ *       "thankyou": 0,
+ *       "thankyouReceived": [],
+ *       "birthday": 0,
+ *       "birthdayReceived": []
+ *     },
+ *     "cardReceived": false
+ *   },
+ *   "message": "valentine has been read"
+ * }
+ *
+ * @apiError {NotAuthorized} CardType Unknown card type.
  */
 api.readCard = {
   method: 'POST',
@@ -1275,6 +1319,28 @@ api.readCard = {
  *
  * @apiSuccess {Object} data The item obtained
  * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ * { "success": true,
+ *   "data": {
+ *     "mystery": "201612",
+ *     "value": 0,
+ *     "type": "armor",
+ *     "key": "armor_mystery_201612",
+ *     "set": "mystery-201612",
+ *     "klass": "mystery",
+ *     "index": "201612",
+ *     "str": 0,
+ *     "int": 0,
+ *     "per": 0,
+ *     "con": 0
+ *   },
+ *   "message": "Mystery item opened."
+ *
+ * @apiError {BadRequest} Empty No mystery items to open.
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"BadRequest","message":"Mystery items are empty"}
  */
 api.userOpenMysteryItem = {
   method: 'POST',
@@ -1294,6 +1360,19 @@ api.userOpenMysteryItem = {
  *
  * @apiSuccess {Object} data.items `user.items.pets`
  * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ *  {
+ *   "success": true,
+ *   "data": {
+ *   },
+ *   "message": "Pets released"
+ * }
+ *
+ * @apiError {NotAuthorized} Not enough gems
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
  */
 api.userReleasePets = {
   method: 'POST',
@@ -1311,11 +1390,38 @@ api.userReleasePets = {
  * @api {post} /api/v3/user/release-both Release pets and mounts and grants Triad Bingo
  * @apiName UserReleaseBoth
  * @apiGroup User
-
+ *
  * @apiSuccess {Object} data.achievements
  * @apiSuccess {Object} data.items
  * @apiSuccess {Number} data.balance
  * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ *  {
+ *   "success": true,
+ *   "data": {
+ *     "achievements": {
+ *       "ultimateGearSets": {},
+ *       "challenges": [],
+ *       "quests": {},
+ *       "perfect": 0,
+ *       "beastMaster": true,
+ *       "beastMasterCount": 1,
+ *       "mountMasterCount": 1,
+ *       "triadBingoCount": 1,
+ *       "mountMaster": true,
+ *       "triadBingo": true
+ *     },
+ *     "items": {}
+ *   },
+ *   "message": "Mounts and pets released"
+ * }
+ *
+ * @apiError {NotAuthorized} Not enough gems
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
+
  */
 api.userReleaseBoth = {
   method: 'POST',
@@ -1336,6 +1442,22 @@ api.userReleaseBoth = {
  *
  * @apiSuccess {Object} data user.items.mounts
  * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ *  {
+ *   "success": true,
+ *   "data": {
+ *     },
+ *     "items": {}
+ *   },
+ *   "message": "Mounts released"
+ * }
+ *
+ * @apiError {NotAuthorized} Not enough gems
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
+ *
  */
 api.userReleaseMounts = {
   method: 'POST',
@@ -1354,12 +1476,17 @@ api.userReleaseMounts = {
  * @apiName UserSell
  * @apiGroup User
  *
- * @apiParam {String} type The type of item to sell. Must be one of: eggs, hatchingPotions, or food
+ * @apiParam {String="eggs","hatchingPotions","food"} type The type of item to sell.
  * @apiParam {String} key The key of the item
  *
  * @apiSuccess {Object} data.stats
  * @apiSuccess {Object} data.items
- * @apiSuccess {String} message Success message
+ *
+ * @apiError {NotFound} InvalidKey Key not found for user.items eggs (either the key does not exist or the user has none in inventory)
+ * @apiError {NotAuthorized} InvalidType Type is not a valid type.
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"Type is not sellable. Must be one of the following eggs, hatchingPotions, food"}
  */
 api.userSell = {
   method: 'POST',
@@ -1378,12 +1505,31 @@ api.userSell = {
  * @apiName UserUnlock
  * @apiGroup User
  *
- * @apiParam {String} path Query parameter. The path to unlock
+ * @apiParam {String} path Query parameter. Full path to unlock. See "content" API call for list of items.
+ *
+ * @apiParamExample {curl}
+ * curl -x POST http://habitica.com/api/v3/user/unlock?path=background.midnight_clouds
+ * curl -x POST http://habitica.com/api/v3/user/unlock?path=hair.color.midnight
  *
  * @apiSuccess {Object} data.purchased
  * @apiSuccess {Object} data.items
  * @apiSuccess {Object} data.preferences
- * @apiSuccess {String} message
+ * @apiSuccess {String} message "Items have been unlocked"
+ *
+ * @apiSuccessExample {json}
+ * {
+ *  "success": true,
+ *  "data": {},
+ *  "message": "Items have been unlocked"
+ * }
+ *
+ * @apiError {BadRequest} Path Path to unlock not specified
+ * @apiError {NotAuthorized} Gems Not enough gems available.
+ * @apiError {NotAuthorized} Unlocked Full set already unlocked.
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"BadRequest","message":"Path string is required"}
+ 8 {"success":false,"error":"NotAuthorized","message":"Full set already unlocked."}
  */
 api.userUnlock = {
   method: 'POST',
@@ -1660,3 +1806,4 @@ api.setCustomDayStart = {
 };
 
 module.exports = api;
+
