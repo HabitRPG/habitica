@@ -77,6 +77,10 @@ api.getUser = {
 
     // Remove apiToken from response TODO make it private at the user level? returned in signup/login
     delete userToJSON.apiToken;
+    if (userToJSON.oauth) {
+      delete userToJSON.oauth.authCodes;
+      delete userToJSON.oauth.tokens;
+    }
 
     user.addComputedStatsToJSONObj(userToJSON.stats);
     return res.respond(200, userToJSON);
@@ -289,7 +293,7 @@ api.updateUser = {
  */
 api.deleteUser = {
   method: 'DELETE',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(false, true)],
   url: '/user',
   async handler (req, res) {
     let user = res.locals.user;
@@ -380,6 +384,9 @@ api.getUserAnonymized = {
       delete user.auth.local;
       delete user.auth.facebook;
       delete user.auth.google;
+    }
+    if (user.oauth) {
+      delete user.oauth;
     }
     delete user.newMessages;
     delete user.profile;

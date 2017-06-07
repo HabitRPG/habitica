@@ -594,6 +594,26 @@ angular.module('habitrpg')
           });
         },
 
+        addClient: function (data) {
+          return $http({
+            method: 'POST',
+            url: '/api/v3/oauth/client',
+            data: data,
+          }).then(function (response) {
+            var client = response.data.data;
+            user.oauth.clients.push(client);
+          });
+        },
+
+        deleteClient: function (client, index) {
+          return $http({
+            method: 'DELETE',
+            url: '/api/v3/oauth/client/' + client.clientId,
+          }).then(function () {
+            user.oauth.clients.splice(index, index + 1);
+          });
+        },
+
         sleep: function () {
           callOpsFunctionAndRequest('sleep', 'sleep', "POST");
         },
