@@ -14,3 +14,7 @@
 
   @return $string;
 }
+
+@function base64svg ($image) {
+ @return 'data:image/svg+xml;base64,' + $image;
+}

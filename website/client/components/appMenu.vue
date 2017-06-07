@@ -1,7 +1,7 @@
 <template lang="pug">
 nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
   .navbar-header
-    .svg-icon(v-html="icons.logo")
+    .logo.svg-icon(v-html="icons.logo")
   .collapse.navbar-collapse
     ul.navbar-nav.mr-auto
       router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact)
@@ -55,9 +55,10 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
 
 <style lang="scss" scoped>
 @import '~client/assets/scss/colors.scss';
+@import '~client/assets/scss/utils.scss';
 
 nav.navbar {
-  background: $purple-100 url(~assets/svg/bits.svg) right no-repeat;
+  background: $purple-100 url(base64svg('~assets/svg/bits.svg')) right no-repeat;
   padding-left: 25px;
   padding-right: 12.5px;
   height: 56px;
