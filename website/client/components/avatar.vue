@@ -2,7 +2,7 @@
 .avatar(:style="{width, height, paddingTop}", :class="backgroundClass")
   .character-sprites
     template(v-if="!avatarOnly" v-once)
-      // Mount
+      // Mount Body
       span(v-if="user.items.currentMount", :class="'Mount_Body_' + user.items.currentMount")
 
     // Buffs that cause visual changes to avatar: Snowman, Ghost, Flower, etc
@@ -47,6 +47,7 @@
   width: 140px;
   height: 147px;
   image-rendering: pixelated;
+  position: relative;
 }
 
 .character-sprites {
@@ -60,8 +61,8 @@
 }
 
 .current-pet {
-  bottom: 21px;
-  left: 20px;
+  bottom: 0px;
+  left: 0px;
 }
 </style>
 
