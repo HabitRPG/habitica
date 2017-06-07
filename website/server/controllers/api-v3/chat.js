@@ -2,6 +2,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import {
+  BadRequest,
   NotFound,
   NotAuthorized,
 } from '../../libs/errors';
@@ -12,6 +13,8 @@ import slack from '../../libs/slack';
 import pusher from '../../libs/pusher';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
+import bannedWords from '../../libs/bannedWords';
+import { TAVERN_ID } from '../../models/group';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
@@ -82,6 +85,28 @@ api.getChat = {
   },
 };
 
+// @TODO: Probably move this to a library
+function matchExact (r, str) {
+  let match = str.match(r);
+  return match !== null && match[0] !== null;
+}
+
+let bannedWordRegexs = [];
+for (let i = 0; i < bannedWords.length; i += 1) {
+  let word = bannedWords[i];
+  let regEx = new RegExp(`\\b([^a-z]+)?${word.toLowerCase()}([^a-z]+)?\\b`);
+  bannedWordRegexs.push(regEx);
+}
+
+function textContainsBannedWords (message) {
+  for (let i = 0; i < bannedWordRegexs.length; i += 1) {
+    let regEx = bannedWordRegexs[i];
+    if (matchExact(regEx, message.toLowerCase())) return true;
+  }
+
+  return false;
+}
+
 /**
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
  * @apiName PostChat
@@ -91,8 +116,6 @@ api.getChat = {
  * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam (Body) {String} message Message The message to post
  * @apiParam (Query) {UUID} previousMsg The previous chat message's UUID which will force a return of the full group chat
- *
- * @apiSuccess data An array of <a href='https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js#L51' target='_blank'>chat messages</a> if a new message was posted after previousMsg, otherwise the posted message
  *
  * @apiUse GroupNotFound
  * @apiUse GroupIdRequired
@@ -118,11 +141,19 @@ api.postChat = {
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.privacy !== 'private' && user.flags.chatRevoked) {
-      throw new NotFound('Your chat privileges have been revoked.');
+      throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
+    }
+
+    if (group._id === TAVERN_ID && textContainsBannedWords(req.body.message)) {
+      throw new BadRequest(res.t('bannedWordUsed'));
     }
 
     let lastClientMsg = req.query.previousMsg;
     chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
+
+    if (group.checkChatSpam(user)) {
+      throw new NotAuthorized(res.t('messageGroupChatSpam'));
+    }
 
     let newChatMessage = group.sendChat(req.body.message, user);
 

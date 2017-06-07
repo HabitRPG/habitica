@@ -74,6 +74,18 @@ describe('POST /group', () => {
       expect(updatedUser.guilds).to.include(guild._id);
     });
 
+    it('awards the Joined Guild achievement', async () => {
+      await user.post('/groups', {
+        name: 'some guild',
+        type: 'guild',
+        privacy: 'public',
+      });
+
+      let updatedUser = await user.get('/user');
+
+      expect(updatedUser.achievements.joinedGuild).to.eql(true);
+    });
+
     context('public guild', () => {
       it('creates a group', async () => {
         let groupName = 'Test Public Guild';

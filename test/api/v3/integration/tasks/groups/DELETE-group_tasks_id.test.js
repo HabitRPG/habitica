@@ -4,7 +4,7 @@ import {
 } from '../../../../../helpers/api-integration/v3';
 import { find } from 'lodash';
 
-describe('DELETE /tasks/:id', () => {
+describe('Groups DELETE /tasks/:id', () => {
   let user, guild, member, member2, task;
 
   function findAssignedTask (memberTask) {
@@ -39,6 +39,21 @@ describe('DELETE /tasks/:id', () => {
 
   it('deletes a group task', async () => {
     await user.del(`/tasks/${task._id}`);
+
+    await expect(user.get(`/tasks/${task._id}`))
+      .to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('taskNotFound'),
+      });
+  });
+
+  it('allows a manager to delete a group task', async () => {
+    await user.post(`/groups/${guild._id}/add-manager`, {
+      managerId: member2._id,
+    });
+
+    await member2.del(`/tasks/${task._id}`);
 
     await expect(user.get(`/tasks/${task._id}`))
       .to.eventually.be.rejected.and.eql({

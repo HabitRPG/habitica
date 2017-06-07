@@ -149,7 +149,7 @@
     "youCastTarget": "Du wendest <%= spell %> auf <%= target %> an.",
     "youCastParty": "Du wendest <%= spell %> auf Deine Gruppe an.",
     "critBonus": "Kritischer Treffer! Bonus:",
-    "displayNameDescription1": "Dies wird bei Nachrichten, die Du im Gasthaus postest, sowie im Gruppenchat und auch auf Deinem Avatar angezeigt. Um den Namen anzupassen, verwende den Bearbeiten-Knopf oben. Wenn Du stattdessen Deinen Anmeldenamen ändern willst, gehe zu",
+    "displayNameDescription1": "Dieser wird bei Nachrichten, die Du im Gasthaus postest, sowie im Gruppenchat und auch auf Deinem Avatar angezeigt. Um den Namen anzupassen, verwende den Bearbeiten-Knopf oben. Wenn Du stattdessen Deinen Anmeldenamen ändern willst, gehe zu",
     "displayNameDescription2": "Einstellungen->Seite",
     "displayNameDescription3": "und vergleiche auch den Abschnitt Registrierung.",
     "unequipBattleGear": "Kampfausrüstung ablegen",

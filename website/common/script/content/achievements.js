@@ -97,6 +97,16 @@ let basicAchievs = {
     pluralTitleKey: 'perfectName',
     pluralTextKey: 'perfectText',
   },
+  royallyLoyal: {
+    icon: 'achievement-royally-loyal',
+    titleKey: 'royallyLoyal',
+    textKey: 'royallyLoyalText',
+  },
+  joinedGuild: {
+    icon: 'achievement-guild',
+    titleKey: 'joinedGuild',
+    textKey: 'joinedGuildText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 
@@ -107,7 +117,7 @@ let specialAchievs = {
     textKey: 'contribText',
   },
   npc: {
-    icon: 'achievement-ultimate-warrior',
+    icon: 'achievement-npc',
     titleKey: 'npcAchievementName',
     textKey: 'npcAchievementText',
   },
@@ -171,7 +181,7 @@ let ultimateGearAchievs = ['healer', 'rogue', 'warrior', 'mage'].reduce((achievs
 }, {});
 Object.assign(achievementsData, ultimateGearAchievs);
 
-let cardAchievs = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday'].reduce((achievs, type) => {
+let cardAchievs = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday', 'congrats', 'getwell'].reduce((achievs, type) => {
   achievs[`${type}Cards`] = {
     icon: `achievement-${type}`,
     titleKey: `${type}CardAchievementTitle`,

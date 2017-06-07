@@ -208,6 +208,20 @@ describe('POST /tasks/:id/score/:direction', () => {
       expect(task.completed).to.equal(false);
     });
 
+    it('computes isDue', async () => {
+      await user.post(`/tasks/${daily._id}/score/up`);
+      let task = await user.get(`/tasks/${daily._id}`);
+
+      expect(task.isDue).to.equal(true);
+    });
+
+    it('computes nextDue', async () => {
+      await user.post(`/tasks/${daily._id}/score/up`);
+      let task = await user.get(`/tasks/${daily._id}`);
+
+      expect(task.nextDue.length).to.eql(6);
+    });
+
     it('scores up daily even if it is already completed'); // Yes?
 
     it('scores down daily even if it is already uncompleted'); // Yes?

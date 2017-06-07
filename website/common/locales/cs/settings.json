@@ -26,6 +26,7 @@
     "showBaileyPop": "Vytáhni Baileyho, městského vyvolávače, z úkrytu, aby sis mohl přečíst starší novinky.",
     "fixVal": "Opravit hodnoty postavy",
     "fixValPop": "Ručně upravit hodnoty jako zdraví, úroveň a zlaťáky.",
+    "invalidLevel": "Invalid value: Level must be 1 or greater.",
     "enableClass": "Povolit systém povolání",
     "enableClassPop": "Dříve jsi se odhlásil ze sytému povolání. Chceš se nyní zapojit?",
     "classTourPop": "Zobrazí průvodce pro použití systému povolání.",

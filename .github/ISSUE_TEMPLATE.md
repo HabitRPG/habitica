@@ -1,21 +1,19 @@
-[//]: # (Before logging this issue, look through common problems at https://github.com/HabitRPG/habitrpg/issues If you find your issue there, read at least the first post to see if there is a workaround for you)
+[//]: # (Before logging this issue, please post to the Report a Bug guild from the Habitica website's Help menu. Most bugs can be handled quickly there. If a GitHub issue is needed, you will be advised of that by a moderator or staff member -- a player with a dark blue or purple name. It is recommended that you don't create a new issue unless advised to.)
 
-[//]: # (Github is primarily used for reporting bugs. If you have a feature request, use "Help > Request a Feature" so that the feature request can be vetted by the larger Habitica community)
+[//]: # (Bugs in the mobile apps can also be reported there.)
 
-[//]: # (To report a bug in one of the mobile apps, please report it in the correct repository. Android: https://github.com/HabitRPG/habitrpg-android, iOS: https://github.com/HabitRPG/habitrpg-ios)
+[//]: # (If you have a feature request, use "Help > Request a Feature", not GitHub or the Report a Bug guild.)
 
-[//]: # (For more guidelines see https://github.com/HabitRPG/habitrpg/issues/2760)
+[//]: # (For more guidelines see https://github.com/HabitRPG/habitica/issues/2760)
 
 [//]: # (Fill out relevant information - UUID is found in Settings -> API)
-General Info
+### General Info
   * UUID: 
   * Browser: 
   * OS: 
 
 ### Description
-[//]: # (Describe bug in detail here. Include pictures if helpful.)
-
-
+[//]: # (Describe bug in detail here. Include screenshots if helpful.)
 
 #### Console Errors
 [//]: # (Include any JavaScript console errors here.)

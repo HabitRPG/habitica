@@ -2,8 +2,8 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('SettingsCtrl',
-  ['$scope', 'User', '$rootScope', '$http', 'ApiUrl', 'Guide', '$location', '$timeout', 'Content', 'Notification', 'Shared', 'Social', '$compile',
-  function($scope, User, $rootScope, $http, ApiUrl, Guide, $location, $timeout, Content, Notification, Shared, Social, $compile) {
+  ['$scope', 'User', '$rootScope', '$http', 'ApiUrl', 'Guide', '$location', '$modalStack', '$timeout', 'Content', 'Notification', 'Shared', 'Social', '$compile', '$sce', 'Payments',
+  function($scope, User, $rootScope, $http, ApiUrl, Guide, $location, $modalStack, $timeout, Content, Notification, Shared, Social, $compile, $sce, Payments) {
     var RELEASE_ANIMAL_TYPES = {
       pets: 'releasePets',
       mounts: 'releaseMounts',
@@ -164,14 +164,21 @@ habitrpg.controller('SettingsCtrl',
     $scope.restore = function(){
       var stats = $scope.restoreValues.stats,
         achievements = $scope.restoreValues.achievements;
+
+      if (stats.lvl < 1) {
+        Notification.error(env.t('invalidLevel'), true);
+        return;
+      }
+
       User.set({
-        "stats.hp": stats.hp,
-        "stats.exp": stats.exp,
-        "stats.gp": stats.gp,
-        "stats.lvl": stats.lvl,
-        "stats.mp": stats.mp,
-        "achievements.streak": achievements.streak
+        'stats.hp': stats.hp,
+        'stats.exp': stats.exp,
+        'stats.gp': stats.gp,
+        'stats.lvl': stats.lvl,
+        'stats.mp': stats.mp,
+        'achievements.streak': achievements.streak
       });
+      $modalStack.dismissAll();
     }
 
     $scope.reset = function(){
@@ -180,11 +187,11 @@ habitrpg.controller('SettingsCtrl',
       $rootScope.$state.go('tasks');
     }
 
-    $scope['delete'] = function(password) {
+    $scope.delete = function(password, feedback) {
       $http({
         url: ApiUrl.get() + '/api/v3/user',
         method: 'DELETE',
-        data: {password: password},
+        data: {password: password, feedback: feedback},
       })
       .then(function(res, code) {
         localStorage.clear();
@@ -333,6 +340,49 @@ habitrpg.controller('SettingsCtrl',
     };
 
     $scope.socialLogin = Social.socialLogin;
+
+    $scope.hasSubscription = function (user) {
+      return !!user.purchased.plan.customerId;
+    }
+
+    $scope.hasCanceledSubscription = function (user) {
+      return (
+        $scope.hasSubscription(user) &&
+        !!user.purchased.plan.dateTerminated
+      );
+    }
+
+    $scope.canCancelSubscription = function (user) {
+      return (
+        user.purchased.plan.paymentMethod !== Payments.paymentMethods.GOOGLE &&
+        user.purchased.plan.paymentMethod !== Payments.paymentMethods.APPLE &&
+        !$scope.hasCanceledSubscription(user) &&
+        !$scope.hasGroupPlan(user)
+      );
+    };
+
+    $scope.hasPlan = function (user) {
+      return !!user.purchased.plan.planId;
+    };
+
+    $scope.hasGroupPlan = function (user) {
+      return user.purchased.plan.customerId === "group-plan";
+    };
+
+    $scope.hasConsecutiveSubscription = function (user) {
+      return !!user.purchased.plan.consecutive.count || !!user.purchased.plan.consecutive.offset;
+    };
+
+    $scope.canEditCardDetails = function (user) {
+      return (
+        !$scope.hasCanceledSubscription(user) &&
+        user.purchased.plan.paymentMethod === Payments.paymentMethods.STRIPE
+      );
+    };
+
+    $scope.getCancelSubInfo = function (user) {
+      return $sce.trustAsHtml(env.t('cancelSubInfo' + user.purchased.plan.paymentMethod));
+    };
 
     function _calculateNextCron() {
       $scope.dayStart;

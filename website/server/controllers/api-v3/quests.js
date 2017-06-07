@@ -39,7 +39,7 @@ function canStartQuestAutomatically (group)  {
 let api = {};
 
 /**
- * @api {post} /api/v3/groups/:groupId/quests/invite Invite users to a quest
+ * @api {post} /api/v3/groups/:groupId/quests/invite/:questKey Invite users to a quest
  * @apiName InviteToQuest
  * @apiGroup Quest
  *

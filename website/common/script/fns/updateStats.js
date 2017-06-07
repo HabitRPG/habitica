@@ -94,7 +94,7 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
       };
     }
   });
-  if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.beastMaster)) {
+  if (!user.flags.rebirthEnabled && user.stats.lvl >= 50) {
     user.addNotification('REBIRTH_ENABLED');
     user.flags.rebirthEnabled = true;
   }

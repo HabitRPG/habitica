@@ -39,7 +39,7 @@ angular.module('habitrpg')
 
     function buyQuest(quest) {
       return $q(function(resolve, reject) {
-        var item = Content.quests[quest];
+        var item = Content.quests[quest] || Content.bundles[quest];
 
         var preventQuestModal = _preventQuestModal(item);
         if (preventQuestModal) {
@@ -73,7 +73,10 @@ angular.module('habitrpg')
     function questPopover(quest) {
       // The popover gets parsed as markdown (hence the double \n for line breaks
       var text = '';
-      if(quest.boss) {
+      if (quest.purchaseType === 'bundles') {
+        text += quest.notes;
+      }
+      if (quest.boss) {
         text += '**' + window.env.t('bossHP') + ':** ' + quest.boss.hp + '\n\n';
         text += '**' + window.env.t('bossStrength') + ':** ' + quest.boss.str + '\n\n';
       } else if(quest.collect) {
@@ -82,25 +85,27 @@ angular.module('habitrpg')
           text += '**' + window.env.t('collect') + ':** ' + quest.collect[key].count + ' ' + quest.collect[key].text() + '\n\n';
         }
       }
-      text += '---\n\n';
-      text += '**' + window.env.t('rewardsAllParticipants') + ':**\n\n';
-      var participantRewards = _.reject(quest.drop.items, 'onlyOwner');
-      if(participantRewards.length > 0) {
-        _.each(participantRewards, function(item) {
-          text += item.text() + '\n\n';
-        });
-      }
-      if(quest.drop.exp)
-        text += quest.drop.exp + ' ' + window.env.t('experience') + '\n\n';
-      if(quest.drop.gp)
-        text += quest.drop.gp + ' ' + window.env.t('gold') + '\n\n';
+      if (quest.drop) {
+        text += '---\n\n';
+        text += '**' + window.env.t('rewardsAllParticipants') + ':**\n\n';
+        var participantRewards = _.reject(quest.drop.items, 'onlyOwner');
+        if(participantRewards.length > 0) {
+          _.each(participantRewards, function(item) {
+            text += item.text() + '\n\n';
+          });
+        }
+        if (quest.drop.exp)
+          text += quest.drop.exp + ' ' + window.env.t('experience') + '\n\n';
+        if (quest.drop.gp)
+          text += quest.drop.gp + ' ' + window.env.t('gold') + '\n\n';
 
-      var ownerRewards = _.filter(quest.drop.items, 'onlyOwner');
-      if(ownerRewards.length > 0) {
-        text += '**' + window.env.t('rewardsQuestOwner') + ':**\n\n';
-        _.each(ownerRewards, function(item){
-          text += item.text() + '\n\n';
-        });
+        var ownerRewards = _.filter(quest.drop.items, 'onlyOwner');
+        if (ownerRewards.length > 0) {
+          text += '**' + window.env.t('rewardsQuestOwner') + ':**\n\n';
+          _.each(ownerRewards, function(item){
+            text += item.text() + '\n\n';
+          });
+        }
       }
 
       return text;
@@ -108,7 +113,7 @@ angular.module('habitrpg')
 
     function showQuest(quest) {
       return $q(function(resolve, reject) {
-        var item =  Content.quests[quest];
+        var item = Content.quests[quest];
 
         var preventQuestModal = _preventQuestModal(item);
         if (preventQuestModal) {

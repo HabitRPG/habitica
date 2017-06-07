@@ -55,4 +55,13 @@ describe('GET /approvals/group/:groupId', () => {
     let approvals = await user.get(`/approvals/group/${guild._id}`);
     expect(approvals[0]._id).to.equal(syncedTask._id);
   });
+
+  it('allows managers to get a list of task that need approval', async () => {
+    await user.post(`/groups/${guild._id}/add-manager`, {
+      managerId: member._id,
+    });
+
+    let approvals = await member.get(`/approvals/group/${guild._id}`);
+    expect(approvals[0]._id).to.equal(syncedTask._id);
+  });
 });
