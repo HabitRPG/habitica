@@ -8,14 +8,22 @@
         h2(v-once) {{ $t('filter') }}
         h3(v-once) {{ $t('pets') }}
         .form-group
-          .form-check(v-for="petGroup in petGroups", :key="petGroup.key", v-once)
+          .form-check(
+            v-for="petGroup in petGroups",
+            v-if="viewOptions[petGroup.key].animalCount != 0",
+            :key="petGroup.key"
+          )
             label.custom-control.custom-checkbox
               input.custom-control-input(type="checkbox", v-model="viewOptions[petGroup.key].selected")
               span.custom-control-indicator
               span.custom-control-description(v-once) {{ petGroup.label }}
         h3(v-once) {{ $t('mounts') }}
         .form-group
-          .form-check(v-for="mountGroup in mountGroups", :key="mountGroup.key", v-once)
+          .form-check(
+            v-for="mountGroup in mountGroups",
+            v-if="viewOptions[mountGroup.key].animalCount != 0",
+            :key="mountGroup.key"
+          )
             label.custom-control.custom-checkbox
               input.custom-control-input(type="checkbox", v-model="viewOptions[mountGroup.key].selected")
               span.custom-control-indicator
@@ -51,11 +59,13 @@
         v-if="viewOptions[petGroup.key].selected",
         :key="petGroup.key"
       )
-        h4(v-once) {{ petGroup.label }}
+        h4(v-if="viewOptions[petGroup.key].animalCount != 0") {{ petGroup.label }}
 
-        div.items(v-for="(petRow, index) in pets(petGroup, viewOptions[petGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled)")
-          item(
-            v-for="pet in petRow",
+        div.items(
+          v-for="(rows, index) in pets(petGroup, viewOptions[petGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled)"
+        )
+          petItem(
+            v-for="pet in rows",
             :item="pet",
             :itemContentClass="getPetItemClass(pet)",
             :key="pet.key",
@@ -95,11 +105,13 @@
         v-if="viewOptions[mountGroup.key].selected",
         :key="mountGroup.key"
       )
-        h4(v-once) {{ mountGroup.label }}
+        h4(v-if="viewOptions[mountGroup.key].animalCount != 0") {{ mountGroup.label }}
 
-        div.items(v-for="(mountRow, index) in mounts(mountGroup, viewOptions[mountGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled)")
+        div.items(
+          v-for="(rows, index) in mounts(mountGroup, viewOptions[mountGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled)"
+        )
           item(
-            v-for="mount in mountRow",
+            v-for="mount in rows",
             :item="mount",
             :itemContentClass="mount.isOwned ? ('Mount_Icon_' + mount.key) : 'PixelPaw'",
             :key="mount.key",
@@ -115,6 +127,48 @@
 
         .btn.btn-show-more(@click="viewOptions[mountGroup.key].open = !viewOptions[mountGroup.key].open") {{ viewOptions[mountGroup.key].open ? 'Close' : 'Open' }}
 
+      drawer(
+        title="Quick Inventory",
+      )
+        div(slot="drawer-header")
+          .drawer-tab-container
+            .drawer-tab.text-right
+              a.drawer-tab-text(
+                :class="{'drawer-tab-text-active': true}",
+              ) Pet Food
+            .clearfix
+              .drawer-tab.float-left
+                a.drawer-tab-text(
+                  :class="{'drawer-tab-text-active': false}",
+                ) Special
+
+              b-popover(
+                :triggers="['hover']",
+                :placement="'top'"
+              )
+                span(slot="content")
+                  .popover-content-text Test Popover
+
+                div.float-right What does my pet like to eat?
+
+        .items.items-one-line(slot="drawer-slider")
+          item(
+            v-for="food in content.food",
+            v-if="userItems.food[food.key]",
+            :key="food.key",
+            :item="food",
+            :itemContentClass="'Pet_Food_'+food.key",
+            :emptyItem="false",
+            :popoverPosition="'top'",
+          )
+            template(slot="popoverContent", scope="ctx")
+              h4.popover-content-title {{ food.text() }}
+              div.popover-content-text(v-html="food.notes()")
+            template(slot="itemBadge", scope="ctx")
+              countBadge(
+                :show="true",
+                :count="userItems.food[food.key]"
+              )
 </template>
 
 <style lang="scss">
@@ -176,7 +230,7 @@
 
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
   import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
-
+  import bPopover from 'bootstrap-vue/lib/components/popover';
 
   import _each from 'lodash/each';
   import _sortBy from 'lodash/sortBy';
@@ -186,10 +240,12 @@
   import _flatMap from 'lodash/flatMap';
   import _throttle from 'lodash/throttle';
 
-  import Item from './petItem';
+  import Item from '../item';
+  import PetItem from './petItem';
   import Drawer from 'client/components/inventory/drawer';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import StarBadge from 'client/components/inventory/starBadge';
+  import CountBadge from './countBadge';
 
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
@@ -198,12 +254,15 @@
 
   export default {
     components: {
+      PetItem,
       Item,
       Drawer,
       bDropdown,
       bDropdownItem,
+      bPopover,
       toggleSwitch,
       StarBadge,
+      CountBadge,
     },
     data () {
       return {
@@ -268,8 +327,9 @@
             label: this.$t('special'),
             key: 'specialPets',
             petSource: {
-              pets: this.content.specialPets,
+              special: this.content.specialPets,
             },
+            alwaysHideMissing: true,
           },
         ];
 
@@ -277,6 +337,7 @@
           this.$set(this.viewOptions, petGroup.key, {
             selected: true,
             open: false,
+            animalCount: 0,
           });
         });
 
@@ -309,19 +370,21 @@
               potions: this.content.dropHatchingPotions,
             },
           },
-          /*{
+          {
             label: this.$t('special'),
             key: 'specialMounts',
             petSource: {
-              pets: this.content.specialMounts,
+              special: this.content.specialMounts,
             },
-          },*/
+            alwaysHideMissing: true,
+          },
         ];
 
         mountGroups.map((mountGroup) => {
           this.$set(this.viewOptions, mountGroup.key, {
             selected: true,
             open: false,
+            animalCount: 0,
           });
         });
 
@@ -342,45 +405,51 @@
         let animals = [];
         let userItems = this.userItems;
 
-        if (key === 'specialPets') {
-          _each(animalGroup.petSource.pets, (value, specialKey) => {
-            let eggKey = specialKey.split('-')[0];
-            let potionKey = specialKey.split('-')[1];
-
-            animals.push({
-              key: specialKey,
-              eggKey,
-              potionKey,
-              pet: this.content[`${type}Info`][specialKey].text(),
-              isOwned ()  {
-                return [`${type}s`][this.key] > 0;
-              },
-              isHatchable() {
-                return false;
-              },
-            });
-          });
-        } else {
-          _each(animalGroup.petSource.eggs, (egg) => {
-            _each(animalGroup.petSource.potions, (potion) => {
-              let animalKey = `${egg.key}-${potion.key}`;
+        switch (key) {
+          case 'specialPets':
+          case 'specialMounts': {
+            _each(animalGroup.petSource.special, (value, specialKey) => {
+              let eggKey = specialKey.split('-')[0];
+              let potionKey = specialKey.split('-')[1];
 
               animals.push({
-                key: animalKey,
-                eggKey: egg.key,
-                eggName: egg.text(),
-                potionKey: potion.key,
-                potionName: potion.text(),
-                pet: this.content[`${type}Info`][animalKey].text(),
+                key: specialKey,
+                eggKey,
+                potionKey,
+                pet: this.content[`${type}Info`][specialKey].text(),
                 isOwned ()  {
-                  return userItems[`${type}s`][animalKey] > 0;
+                  return [`${type}s`][this.key] > 0;
                 },
-                isHatchable() {
-                  return userItems.eggs[egg.key] > 0 && userItems.hatchingPotions[potion.key] > 0;
+                isHatchable () {
+                  return false;
                 },
               });
             });
-          });
+            break;
+          }
+
+          default: {
+            _each(animalGroup.petSource.eggs, (egg) => {
+              _each(animalGroup.petSource.potions, (potion) => {
+                let animalKey = `${egg.key}-${potion.key}`;
+
+                animals.push({
+                  key: animalKey,
+                  eggKey: egg.key,
+                  eggName: egg.text(),
+                  potionKey: potion.key,
+                  potionName: potion.text(),
+                  pet: this.content[`${type}Info`][animalKey].text(),
+                  isOwned ()  {
+                    return userItems[`${type}s`][animalKey] > 0;
+                  },
+                  isHatchable () {
+                    return userItems.eggs[egg.key] > 0 && userItems.hatchingPotions[potion.key] > 0;
+                  },
+                });
+              });
+            });
+          }
         }
 
         this.cachedAnimalList[key] = animals;
@@ -394,7 +463,7 @@
         let withProgress = isPetList && animalGroup.key !== 'specialPets';
 
         // 1. Filter
-        if (hideMissing) {
+        if (hideMissing || animalGroup.alwaysHideMissing) {
           animals = _filter(animals, (a) => {
             return a.isOwned();
           });
@@ -402,7 +471,7 @@
 
         if (searchText && searchText !== '') {
           animals = _filter(animals, (a) => {
-              return a.pet.toLowerCase().indexOf(searchText) !== -1;
+            return a.pet.toLowerCase().indexOf(searchText) !== -1;
           });
         }
 
@@ -430,7 +499,7 @@
 
         let animalRows = [];
 
-        let rowsToShow = isOpen ? Math.round(animals.length / 10) : 1;
+        let rowsToShow = isOpen ? Math.ceil(animals.length / 10) : 1;
 
         for (let i = 0; i < rowsToShow; i++) {
           let skipped = _drop(animals, i * 10);
@@ -447,6 +516,8 @@
 
           animalRows.push(rowWithProgressData);
         }
+
+        this.viewOptions[animalGroup.key].animalCount = animals.length;
 
         return animalRows;
       },

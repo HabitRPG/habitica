@@ -47,11 +47,6 @@ export default {
       default: 'bottom',
     },
   },
-  computed: {
-    ...mapState({
-      ATTRIBUTES: 'constants.ATTRIBUTES',
-    }),
-  },
   methods: {
     click () {
       this.$emit('click', this.item);

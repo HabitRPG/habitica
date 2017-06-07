@@ -101,7 +101,6 @@ b-popover(
 
           this.holdProgress += 1;
         }, 1000);
-
       },
       holdStop () {
         if (this.currentHoldingTimer) {
