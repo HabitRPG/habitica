@@ -683,6 +683,7 @@ describe('Stripe Payments', () => {
           groupId: undefined,
           nextBill: currentPeriodEndTimeStamp * 1000, // timestamp in seconds
           paymentMethod: 'Stripe',
+          cancellationReason: undefined,
         });
       });
 
@@ -702,6 +703,7 @@ describe('Stripe Payments', () => {
           groupId,
           nextBill: currentPeriodEndTimeStamp * 1000, // timestamp in seconds
           paymentMethod: 'Stripe',
+          cancellationReason: undefined,
         });
       });
     });
