@@ -107,6 +107,11 @@ let basicAchievs = {
     titleKey: 'joinedGuild',
     textKey: 'joinedGuildText',
   },
+  joinedChallenge: {
+    icon: 'achievement-challenge',
+    titleKey: 'joinedChallenge',
+    textKey: 'joinedChallengeText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 
