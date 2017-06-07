@@ -1,13 +1,21 @@
 mixin simpleAchiev(achiev)
   - var popoverHtml = '<div class="{{earnedClass}}">{{achiev.title}}<hr>{{achiev.text}}</div>';
+  //- style is used to set a height to prevent duplicate popovers
+  //- (e.g. click vs hover) from appearing out of alignment.
+  //-
+  //- height value from .achievement-unearned2x
   div(ng-init='earnedClass = achiev.earned ? "" : "muted"',
       data-popover-html='#{popoverHtml}',
       popover-placement='{{achievPopoverPlacement}}',
-      popover-append-to-body='{{achievAppendToBody}}')&attributes(attributes)
+      popover-append-to-body='{{achievAppendToBody}}',
+      style='height:52px;')&attributes(attributes)
+    //- padding set to 0 on verticals to combat alignment
+    //- changes due to user-agent stylesheets
     button.pet-button(popover-trigger='mouseenter',
       data-popover-html='#{popoverHtml}',
       popover-placement='{{achievPopoverPlacement}}',
-      popover-append-to-body='{{achievAppendToBody}}')
+      popover-append-to-body='{{achievAppendToBody}}'
+      style='padding-top:0;padding-bottom:0:')
 
       .achievement(ng-class='achiev.icon + "2x"', ng-if='achiev.earned')
         .counter.badge.badge-info.stack-count(ng-if='(achiev.optionalCount)') {{::achiev.optionalCount}}
