@@ -1762,7 +1762,7 @@ api.markPmsRead = {
  *   },
  *   "message": "Fortify complete!"
  * }
- * 
+ *
  * @apiError {NotAuthorized} Not enough gems
  *
  * @apiErrorExample {json}
