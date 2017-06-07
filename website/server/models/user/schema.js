@@ -111,6 +111,8 @@ let schema = new Schema({
     birthday: Number,
     partyUp: Boolean,
     partyOn: Boolean,
+    congrats: Number,
+    getwell: Number,
     royallyLoyal: Boolean,
     joinedGuild: Boolean,
   },
@@ -288,6 +290,10 @@ let schema = new Schema({
       thankyouReceived: Array,
       birthday: {type: Number, default: 0},
       birthdayReceived: Array,
+      congrats: {type: Number, default: 0},
+      congratsReceived: Array,
+      getwell: {type: Number, default: 0},
+      getwellReceived: Array,
     },
 
     // -------------- Animals -------------------
