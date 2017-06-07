@@ -2,30 +2,41 @@
 div
   button.btn.btn-primary(b-btn, @click="$root.$emit('show::modal','members-modal')") {{ $t('viewMembers') }}
 
-  b-modal#members-modal(:title="$t('createGuild')")
+  b-modal#members-modal(:title="$t('createGuild')", size='lg')
     .header-wrap(slot="modal-header")
       .row
         .col-6
-          h1 Testing
+          h1(v-once) {{$t('members')}}
         .col-6
           button(type="button" aria-label="Close" class="close")
             span(aria-hidden="true") ×
       .row
         .form-group.col-6
           input.form-control.search(type="text", :placeholder="$t('search')", v-model='searchTerm')
-        .col-6
+        .col-4.offset-2
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
             b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption.value)') {{sortOption.text}}
     .row(v-for='member in members', :key='member', )
-      .col-8
-        user-list-detail
-      .col-4
+      .col-8.offset-1
+        user-list-detail(:user='member')
+      .col-3.actions
         b-dropdown(:text="$t('sort')", right=true)
-          b-dropdown-item(@click='sort(option.value)') {{$t('remove')}}
-          b-dropdown-item(@click='sort(option.value)') {{$t('message')}}
-          b-dropdown-item(@click='sort(option.value)') {{$t('addManager')}}
-          b-dropdown-item(@click='sort(option.value)') {{$t('removeManager')}}
+          b-dropdown-item(@click='sort(option.value)')
+            img.action-icon(src='~assets/members/remove.svg')
+            | {{$t('removeMember')}}
+          b-dropdown-item(@click='sort(option.value)')
+            img.action-icon(src='~assets/members/message.svg')
+            | {{$t('sendMessage')}}
+          b-dropdown-item(@click='sort(option.value)')
+            img.action-icon(src='~assets/members/star.svg')
+            | {{$t('promoteToLeader')}}
+          b-dropdown-item(@click='sort(option.value)')
+            img.action-icon(src='~assets/members/star.svg')
+            | {{$t('addManager')}}
+          b-dropdown-item(@click='sort(option.value)')
+            img.action-icon(src='~assets/members/remove.svg')
+            | {{$t('removeManager2')}}
 
   b-modal#remove-member(:title="$t('confirmRemoveMember')")
     button(@click='confirmRemoveMember(member)', v-once) {{$t('remove')}}
@@ -35,20 +46,26 @@ div
 </template>
 
 <style lang='scss'>
+  header {
+    background-color: #edecee;
+    border-radius: 4px 4px 0 0;
+  }
 
-header {
-  background-color: #edecee;
-  border-radius: 4px 4px 0 0;
-}
+  .header-wrap {
+    width: 100%;
+  }
 
-.header-wrap {
-  width: 100%;
-}
+  h1 {
+    color: #4f2a93;
+  }
 
-h1 {
-  color: #4f2a93;
-}
+  .actions {
+    padding-top: 5em;
 
+    .action-icon {
+      margin-right: 1em;
+    }
+  }
 </style>
 
 <script>
@@ -66,15 +83,41 @@ export default {
     bDropdownItem,
     UserListDetail,
   },
+  created () {
+    this.getMembers();
+  },
   data () {
     return {
-      members: ['one', 'two'],
+      members: [],
       memberToRemove: '',
+      sortOptions: [
+        {
+          value: 'tier',
+          text: this.$t('tier'),
+        },
+        {
+          value: 'name',
+          text: this.$t('name'),
+        },
+        {
+          value: 'level',
+          text: this.$t('level'),
+        },
+        {
+          value: 'class',
+          text: this.$t('class'),
+        },
+      ],
+      searchTerm: '',
     };
   },
   methods: {
-    getMembers () {
-      // We should get members here via store if they are not loaded
+    async getMembers () {
+      let members = await this.$store.dispatch('members:getGroupMembers', {
+        groupId: this.group._id,
+        includeAllPublicFields: true,
+      });
+      this.members = members;
     },
     clickMember (uid, forceShow) {
       let user = this.$store.state.user.data;

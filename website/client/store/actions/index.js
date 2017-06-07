@@ -4,6 +4,7 @@ import * as common from './common';
 import * as user from './user';
 import * as tasks from './tasks';
 import * as guilds from './guilds';
+import * as members from './members';
 
 // Actions should be named as 'actionName' and can be accessed as 'namespace:actionName'
 // Example: fetch in user.js -> 'user:fetch'
@@ -13,6 +14,7 @@ const actions = flattenAndNamespace({
   user,
   tasks,
   guilds,
+  members,
 });
 
 export default actions;

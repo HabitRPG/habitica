@@ -22,63 +22,63 @@ div
 </template>
 
 <style lang="scss" scoped>
-@import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/colors.scss';
 
-// TODO move to colors.scss if used in other places
-$header-dark-background: #271B3D;
-$header-text-color: #D5C8FF;
+  // TODO move to colors.scss if used in other places
+  $header-dark-background: #271B3D;
+  $header-text-color: #D5C8FF;
 
-.character-name {
-  display: block;
-  font-size: 16px;
-  margin-top: 32px;
-  line-height: 1.5;
-  color: $white;
-  font-weight: bold;
-}
+  .character-name {
+    display: block;
+    font-size: 16px;
+    margin-top: 32px;
+    line-height: 1.5;
+    color: $white;
+    font-weight: bold;
+  }
 
-.character-level {
-  display: block;
-  font-size: 12px;
-  margin-top: 4px;
-  margin-bottom: 20px;
-  line-height: 1;
-}
+  .character-level {
+    display: block;
+    font-size: 12px;
+    margin-top: 4px;
+    margin-bottom: 20px;
+    line-height: 1;
+  }
 
-#header-avatar {
-  margin-top: 24px;
-  margin-right: 1rem;
-}
+  #header-avatar {
+    margin-top: 24px;
+    margin-right: 1rem;
+  }
 
-.progress-container {
-  margin-bottom: 12px;
-}
+  .progress-container {
+    margin-bottom: 12px;
+  }
 
-.progress-container > span {
-  font-size: 12px;
-  margin-left: 10px;
-  line-height: 1em;
-}
+  .progress-container > span {
+    font-size: 12px;
+    margin-left: 10px;
+    line-height: 1em;
+  }
 
-.progress-container > .icon {
-  width: 12px;
-  height: 12px;
-  margin-right: 10px;
-}
+  .progress-container > .icon {
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+  }
 
-.progress-container > .progress {
-  width: 203px;
-  margin: 0px;
-  border-radius: 0px;
-  height: 12px;
-  background-color: $header-dark-background;
-}
+  .progress-container > .progress {
+    width: 203px;
+    margin: 0px;
+    border-radius: 0px;
+    height: 12px;
+    background-color: $header-dark-background;
+  }
 
-.progress-container > .progress > .progress-bar {
-  border-radius: 0px;
-  height: 12px;
-  min-width: 0px;
-}
+  .progress-container > .progress > .progress-bar {
+    border-radius: 0px;
+    height: 12px;
+    min-width: 0px;
+  }
 </style>
 
 <script>
@@ -90,6 +90,7 @@ import statsComputed from '../../common/script/libs/statsComputed';
 import percent from '../../common/script/libs/percent';
 
 export default {
+  props: ['user'],
   components: {
     Avatar,
   },
@@ -98,7 +99,7 @@ export default {
   },
   computed: {
     ...mapState({
-      user: 'user.data',
+      //user: 'user.data',
       MAX_HEALTH: 'constants.MAX_HEALTH',
     }),
     maxMP () {
