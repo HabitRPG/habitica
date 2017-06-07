@@ -40,7 +40,7 @@ habitrpg.controller('NotificationCtrl',
             if (!$scope.taskList[indexOfTask]) return;
             $scope.taskList[indexOfTask].group.approval.requested = task.group.approval.requested;
             if ($scope.taskList[indexOfTask].group.approval.requested) return;
-            $scope.taskList[indexOfTask].completed = !$scope.taskList[indexOfTask].completed ;
+            $scope.taskList[indexOfTask].completed = task.completed;
           });
 
           $scope.ageDailies = function () {

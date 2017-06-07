@@ -33,9 +33,9 @@ export function setNextDue (task, user) {
   if (task.type !== 'daily') return;
 
   let optionsForShouldDo = user.preferences.toObject();
-  task.isDue = shared.shouldDo(Date.now(), task, optionsForShouldDo);
+  task.isDue = common.shouldDo(Date.now(), task, optionsForShouldDo);
   optionsForShouldDo.nextDue = true;
-  let nextDue = shared.shouldDo(Date.now(), task, optionsForShouldDo);
+  let nextDue = common.shouldDo(Date.now(), task, optionsForShouldDo);
   if (nextDue && nextDue.length > 0) {
     task.nextDue = nextDue.map((dueDate) => {
       return dueDate.toISOString();

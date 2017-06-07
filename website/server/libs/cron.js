@@ -6,9 +6,7 @@ import { model as User } from '../models/user';
 import common from '../../common/';
 import { preenUserHistory } from '../libs/preening';
 import { ageDailies } from '../libs/taskManager';
-import _ from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
-import nconf from 'nconf';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const MAX_INCENTIVES = common.constants.MAX_INCENTIVES;
@@ -304,7 +302,8 @@ export function cron (options = {}) {
 
     setIsDueNextDue(task, user, now);
 
-    if (completed || scheduleMisses > 0) {
+    //  || scheduleMisses > 0
+    if (completed) {
       if (task.checklist) {
         task.checklist.forEach(i => i.completed = false);
       }
