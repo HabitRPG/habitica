@@ -455,7 +455,7 @@ api.sendPrivateMessage = {
     let userBlockedSender = receiver.inbox.blocks.indexOf(sender._id) !== -1;
     let userIsBlockBySender = sender.inbox.blocks.indexOf(receiver._id) !== -1;
     let userOptedOutOfMessaging = receiver.inbox.optOut;
-    let senderIsNotAdmin = !sender.contributor.admin;
+    let senderIsNotAdmin = Boolean(!sender.contributor.admin);
 
     if (senderIsNotAdmin && (userBlockedSender || userIsBlockBySender || userOptedOutOfMessaging)) {
       throw new NotAuthorized(res.t('notAuthorizedToSendMessageToThisUser'));
