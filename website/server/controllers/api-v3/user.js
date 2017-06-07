@@ -1550,6 +1550,12 @@ api.userUnlock = {
  *
  * @apiSuccess {Object} data user.items
  * @apiSuccess {String} message Success message
+ *
+ *
+ * @apiError {NotAuthorized} NotDead Cannot revive player if player is not dead yet
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"Cannot revive if not dead"}
  */
 api.userRevive = {
   method: 'POST',
@@ -1571,6 +1577,25 @@ api.userRevive = {
  * @apiSuccess {Object} data.user
  * @apiSuccess {Array} data.tasks User's modified tasks (no rewards)
  * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ *  {
+ *   "success": true,
+ *   "data": {
+ *   },
+ *   "message": "You have been reborn!"
+ *     {
+ *       "type": "REBIRTH_ACHIEVEMENT",
+ *       "data": {},
+ *       "id": "424d69fa-3a6d-47db-96a4-6db42ed77a43"
+ *     }
+ *   ]
+ * }
+ *
+ * @apiError {NotAuthorized} Not enough gems
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
  */
 api.userRebirth = {
   method: 'POST',
@@ -1617,6 +1642,12 @@ api.userRebirth = {
  * @apiParam {UUID} uuid The uuid of the user to block / unblock
  *
  * @apiSuccess {Array} data user.inbox.blocks
+ *
+ * @apiSuccessExample {json}
+ * {"success":true,"data":["e4842579-g987-d2d2-8660-2f79e725fb79"],"notifications":[]}
+ *
+ * @apiError {BadRequest} InvalidUUID UUID is incorrect.
+ *
  */
 api.blockUser = {
   method: 'POST',
@@ -1638,6 +1669,25 @@ api.blockUser = {
  * @apiParam {UUID} id The id of the message to delete
  *
  * @apiSuccess {Object} data user.inbox.messages
+ * @apiSuccessExample {json}
+ * {
+ *   "success": true,
+ *   "data": {
+ *     "74d9a2e7-4c6e-4f3b-c3c4-517873f41592": {
+ *       "sort": 0,
+ *       "user": "MadPink",
+ *       "backer": {},
+ *       "contributor": {},
+ *       "uuid": "b0413351-405f-416f-9999-947ec1c85199",
+ *       "flagCount": 0,
+ *       "flags": {},
+ *       "likes": {},
+ *       "timestamp": 1487276826704,
+ *       "text": "Hi there!",
+ *       "id": "74d9a2e7-4c6e-4f3b-c3c4-517873f41592"
+ *     }
+ *   }
+ * }
  */
 api.deleteMessage = {
   method: 'DELETE',
@@ -1656,7 +1706,10 @@ api.deleteMessage = {
  * @apiName clearMessages
  * @apiGroup User
  *
- * @apiSuccess {Object} data user.inbox.messages
+ * @apiSuccess {Object} data user.inbox.messages which should be empty
+ *
+ * @apiSuccessExample {json}
+ * {"success":true,"data":{},"notifications":[]}
  */
 api.clearMessages = {
   method: 'DELETE',
@@ -1676,6 +1729,10 @@ api.clearMessages = {
  * @apiGroup User
  *
  * @apiSuccess {Object} data user.inbox.messages
+ *
+ * @apiSuccessExample {json}
+ * {"success":true,"data":[0,"Your private messages have been marked as read"],"notifications":[]}
+ *
  */
 api.markPmsRead = {
   method: 'POST',
@@ -1697,6 +1754,19 @@ api.markPmsRead = {
  * @apiSuccess {Object} data.user
  * @apiSuccess {Object} data.tasks User's modified tasks (no rewards)
  * @apiSuccess {Object} message Success message
+ *
+ * @apiSuccessExample {json}
+ *  {
+ *   "success": true,
+ *   "data": {
+ *   },
+ *   "message": "Fortify complete!"
+ * }
+ * 
+ * @apiError {NotAuthorized} Not enough gems
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
  */
 api.userReroll = {
   method: 'POST',
@@ -1740,8 +1810,20 @@ api.userReroll = {
  * @apiGroup User
  *
  * @apiSuccess {Object} data.user
- * @apiSuccess {Object} data.tasksToRemove IDs of removed tasks
+ * @apiSuccess {Array} data.tasksToRemove IDs of removed tasks
  * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ *  {
+ *   "success": true,
+ *   "data": {--TRUNCATED--},
+ *     "tasksToRemove": [
+ *       "ebb8748c-0565-431e-9036-b908da25c6b4",
+ *       "12a1cecf-68eb-40a7-b282-4f388c32124c"
+ *     ]
+ *   },
+ *   "message": "Reset complete!"
+ * }
  */
 api.userReset = {
   method: 'POST',
@@ -1784,7 +1866,22 @@ api.userReset = {
  * @apiName setCustomDayStart
  * @apiGroup User
  *
+ *
+ * @apiParam (Body) {number} [dayStart=0] The hour number 0-23 for day to begin. If body is not included, will default to 0.
+ *
+ * @apiParamExample {json} Request-Example:
+ * {"dayStart":2}
+ *
  * @apiSuccess {Object} data An empty Object
+ * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ * {"success":true,"data":{"message":"Your custom day start has changed."},"notifications":[]}
+ *
+ * @apiError {BadRequest} Validation Value provided is not a number, or is outside the range of 0-23
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"BadRequest","message":"User validation failed","errors":[{"message":"Path `preferences.dayStart` (25) is more than maximum allowed value (23).","path":"preferences.dayStart","value":25}]}
  */
 api.setCustomDayStart = {
   method: 'POST',
@@ -1806,4 +1903,3 @@ api.setCustomDayStart = {
 };
 
 module.exports = api;
-
