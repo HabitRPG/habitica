@@ -138,7 +138,7 @@ describe('Canceling a subscription for group', () => {
     ]);
   });
 
-  it('prevents non group leader from manging subscription', async () => {
+  it('prevents non group leader from managing subscription', async () => {
     let groupMember = new User();
     data.user = groupMember;
     data.groupId = group._id;

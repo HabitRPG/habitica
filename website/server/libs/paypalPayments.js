@@ -176,8 +176,18 @@ api.subscribeSuccess = async function subscribeSuccess (options = {}) {
   });
 };
 
+/**
+ * Cancel a PayPal Subscription
+ *
+ * @param  options
+ * @param  options.user  The user object who is canceling
+ * @param  options.groupId  The id of the group that is canceling
+ * @param  options.cancellationReason  A text string to control sending an email
+ *
+ * @return undefined
+ */
 api.subscribeCancel = async function subscribeCancel (options = {}) {
-  let {groupId, user} = options;
+  let {groupId, user, cancellationReason} = options;
 
   let customerId;
   if (groupId) {
@@ -212,6 +222,7 @@ api.subscribeCancel = async function subscribeCancel (options = {}) {
     groupId,
     paymentMethod: this.constants.PAYMENT_METHOD,
     nextBill: nextBillingDate,
+    cancellationReason,
   });
 };
 

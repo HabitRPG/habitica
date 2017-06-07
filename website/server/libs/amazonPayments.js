@@ -161,11 +161,12 @@ api.checkout = async function checkout (options = {}) {
  * @param  options.user  The user object who is canceling
  * @param  options.groupId  The id of the group that is canceling
  * @param  options.headers  The request headers
+ * @param  options.cancellationReason  A text string to control sending an email
  *
  * @return undefined
  */
 api.cancelSubscription = async function cancelSubscription (options = {}) {
-  let {user, groupId, headers} = options;
+  let {user, groupId, headers, cancellationReason} = options;
 
   let billingAgreementId;
   let planId;
@@ -218,6 +219,7 @@ api.cancelSubscription = async function cancelSubscription (options = {}) {
     nextBill: moment(lastBillingDate).add({ days: subscriptionLength }),
     paymentMethod: this.constants.PAYMENT_METHOD,
     headers,
+    cancellationReason,
   });
 };
 
