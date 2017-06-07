@@ -17,6 +17,7 @@ import {
   NotAuthorized,
 } from '../../libs/errors';
 import { removeFromArray } from '../../libs/collectionManipulators';
+import userBlockPresent from '../../libs/userBlockPresent';
 import { sendTxn as sendTxnEmail } from '../../libs/email';
 import { encrypt } from '../../libs/encryption';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
@@ -868,6 +869,8 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     throw new NotFound(res.t('userWithIDNotFound', {userId: uuid}));
   } else if (inviter._id === userToInvite._id) {
     throw new BadRequest(res.t('cannotInviteSelfToGroup'));
+  } else if (userBlockPresent(inviter, userToInvite)) {
+    throw new NotAuthorized(res.t('notAuthorizedToSendMessageToThisUser'));
   }
 
   if (group.type === 'guild') {

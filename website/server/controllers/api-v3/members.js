@@ -10,6 +10,7 @@ import {
   NotFound,
   NotAuthorized,
 } from '../../libs/errors';
+import userBlockPresent from '../../libs/userBlockPresent';
 import * as Tasks from '../../models/task';
 import {
   getUserInfo,
@@ -414,11 +415,11 @@ api.sendPrivateMessage = {
     let receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
 
-    let userBlockedSender = receiver.inbox.blocks.indexOf(sender._id) !== -1;
-    let userIsBlockBySender = sender.inbox.blocks.indexOf(receiver._id) !== -1;
     let userOptedOutOfMessaging = receiver.inbox.optOut;
 
-    if (userBlockedSender || userIsBlockBySender || userOptedOutOfMessaging) {
+    let userBlock = userBlockPresent(sender, receiver);
+
+    if (userBlock || userOptedOutOfMessaging) {
       throw new NotAuthorized(res.t('notAuthorizedToSendMessageToThisUser'));
     }
 
