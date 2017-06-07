@@ -3,7 +3,7 @@ var authorUuid = 'd904bd62-da08-416b-a816-ba797c9ee265'; //... own data is done
 
 /**
  * database_reports/count_users_who_own_specified_gear.js
- * https://github.com/HabitRPG/habitrpg/pull/3884
+ * https://github.com/HabitRPG/habitica/pull/3884
  */
 
 var thingsOfInterest = {

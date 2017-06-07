@@ -228,7 +228,7 @@ describe('Group Model', () => {
         });
 
         it('applies damage only to participating members of party even under buggy conditions', async () => {
-          // stops unfair damage from mbugs like https://github.com/HabitRPG/habitrpg/issues/7653
+          // stops unfair damage from mbugs like https://github.com/HabitRPG/habitica/issues/7653
           party.quest.members = {
             [questLeader._id]: true,
             [participatingMember._id]: true,
