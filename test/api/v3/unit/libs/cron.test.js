@@ -568,7 +568,7 @@ describe('cron', () => {
         clock = sinon.useFakeTimers(monday);
 
         // User clock: Tuesday 1am UTC + 2
-        user.preferences.timezoneOffset = 120;
+        user.preferences.timezoneOffset = -120;
 
         tasksByType.habits[0].frequency = 'weekly';
         tasksByType.habits[0].counterUp = 1;
@@ -597,7 +597,7 @@ describe('cron', () => {
         clock = sinon.useFakeTimers(sunday);
 
         // User clock: Monday 2am UTC + 3
-        user.preferences.timezoneOffset = 180;
+        user.preferences.timezoneOffset = -180;
 
         tasksByType.habits[0].frequency = 'weekly';
         tasksByType.habits[0].counterUp = 1;
@@ -618,7 +618,7 @@ describe('cron', () => {
         clock = sinon.useFakeTimers(monday);
 
         // User clock: Sunday 11pm UTC - 3
-        user.preferences.timezoneOffset = -180;
+        user.preferences.timezoneOffset = 180;
 
         tasksByType.habits[0].frequency = 'weekly';
         tasksByType.habits[0].counterUp = 1;
@@ -659,7 +659,7 @@ describe('cron', () => {
         clock = sinon.useFakeTimers(monday);
 
         // User clock: 5/1/17 2am UTC + 3
-        user.preferences.timezoneOffset = 180;
+        user.preferences.timezoneOffset = -180;
 
         tasksByType.habits[0].frequency = 'monthly';
         tasksByType.habits[0].counterUp = 1;
@@ -681,7 +681,7 @@ describe('cron', () => {
         clock = sinon.useFakeTimers(monday);
 
         // User clock: 5/2/17 2am UTC + 3
-        user.preferences.timezoneOffset = 180;
+        user.preferences.timezoneOffset = -180;
 
         tasksByType.habits[0].frequency = 'monthly';
         tasksByType.habits[0].counterUp = 1;

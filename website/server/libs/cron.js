@@ -343,7 +343,7 @@ export function cron (options = {}) {
     if (resetWeekly === true && resetMonthly === true) {
       break;
     }
-    let thatDay = moment(now).utcOffset(user.preferences.timezoneOffset).subtract({days: i});
+    let thatDay = moment(now).zone(user.preferences.timezoneOffset).subtract({days: i});
     if (thatDay.day() === 1) {
       resetWeekly = true;
     }
