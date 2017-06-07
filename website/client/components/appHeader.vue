@@ -33,7 +33,7 @@ $header-dark-background: #271B3D;
   padding-left: 14px;
   margin-top: 56px;
   background: $purple-50;
-  height: 192px;
+  height: 204px;
   color: $header-color;
 }
 
@@ -63,7 +63,6 @@ $header-dark-background: #271B3D;
     width: 10px;
     height: 12px;
     margin: 0 auto;
-    margin-top: 4px;
   }
 }
 
