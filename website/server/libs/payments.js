@@ -112,8 +112,8 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
     },
   };
 
+  let memberPlan = member.purchased.plan;
   if (member.isSubscribed()) {
-    let memberPlan = member.purchased.plan;
     let customerHasCancelledGroupPlan = memberPlan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID && !member.hasNotCancelled();
     let ignorePaymentPlan = paymentMethodsToIgnore.indexOf(memberPlan.paymentMethod) !== -1;
     let ignoreCustomerId = customerIdsToIgnore.indexOf(memberPlan.customerId) !== -1;
@@ -153,6 +153,10 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
       mysteryItems: [],
     }).value();
   }
+
+  // save unused hourglass and mystery items
+  plan.consecutive.trinkets = memberPlan.consecutive.trinkets;
+  plan.mysteryItems = memberPlan.mysteryItems;
 
   member.purchased.plan = plan;
   member.items.mounts['Jackalope-RoyalPurple'] = true;

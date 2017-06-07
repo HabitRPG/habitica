@@ -653,5 +653,32 @@ describe('payments/index', () => {
 
       expect(updatedUser.items.pets['Jackalope-RoyalPurple']).to.eql(5);
     });
+
+    it('saves previously unused Mystery Items and Hourglasses for an expired subscription', async () => {
+      let planExpirationDate = new Date();
+      planExpirationDate.setDate(planExpirationDate.getDate() - 2);
+      let mysteryItem = 'item';
+      let mysteryItems = [mysteryItem];
+      let consecutive = {
+        trinkets: 3,
+      };
+
+      // set expired plan with unused items
+      plan.mysteryItems = mysteryItems;
+      plan.consecutive = consecutive;
+      plan.dateCreated = planExpirationDate;
+      plan.dateTerminated = planExpirationDate;
+      plan.customerId = null;
+
+      user.purchased.plan = plan;
+
+      await user.save();
+      await api.addSubToGroupUser(user, group);
+
+      let updatedUser = await User.findById(user._id).exec();
+
+      expect(updatedUser.purchased.plan.mysteryItems[0]).to.eql(mysteryItem);
+      expect(updatedUser.purchased.plan.consecutive.trinkets).to.equal(consecutive.trinkets);
+    });
   });
 });
