@@ -21,6 +21,7 @@ import {
 import nconf from 'nconf';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
+const DELETE_CONFIRMATION = 'DELETE';
 
 /**
  * @apiDefine UserNotFound
@@ -296,13 +297,13 @@ api.deleteUser = {
     let plan = user.purchased.plan;
 
     let password = req.body.password;
-    if(user.auth.local.hashed_password && user.auth.local.email) {
-      if (!password) throw new BadRequest(res.t('missingPassword'));
+    if (!password) throw new BadRequest(res.t('missingPassword'));
 
+    if (user.auth.local.hashed_password && user.auth.local.email) {
       let isValidPassword = await passwordUtils.compare(user, password);
       if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
-    } else if ((user.auth.facebook.id || user.auth.google.id) && req.body.password !== 'DELETE') {
-        throw new NotAuthorized(res.t('incorrectDeletePhrase'))
+    } else if ((user.auth.facebook.id || user.auth.google.id) && password !== DELETE_CONFIRMATION) {
+      throw new NotAuthorized(res.t('incorrectDeletePhrase'));
     }
 
     let feedback = req.body.feedback;
