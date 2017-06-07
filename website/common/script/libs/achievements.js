@@ -191,6 +191,11 @@ function _getBasicAchievements (user, language) {
   _addUltimateGear(result, user, {path: 'warrior', language});
   _addUltimateGear(result, user, {path: 'mage', altPath: 'wizard', language});
 
+  let cardAchievements = ['greeting', 'thankyou', 'birthday', 'congrats', 'getwell'];
+  cardAchievements.forEach(path => {
+    _addSimpleWithCount(result, user, {path, key: `${path}Cards`, language});
+  });
+
   let rebirthTitle;
   let rebirthText;
 
@@ -240,7 +245,7 @@ function _getSeasonalAchievements (user, language) {
 
   _addPlural(result, user, {path: 'costumeContests', language});
 
-  let cardAchievements = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday', 'congrats', 'getwell'];
+  let cardAchievements = ['nye', 'valentine'];
   cardAchievements.forEach(path => {
     _addSimpleWithCount(result, user, {path, key: `${path}Cards`, language});
   });
