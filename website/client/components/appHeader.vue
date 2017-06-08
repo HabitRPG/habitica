@@ -1,12 +1,18 @@
 <template lang="pug">
 #app-header.row
-  user-list-detail(:user="user")
+  user-list-detail(:member="user", :expanded="true")
   .no-party.d-flex.justify-content-center.text-center(v-if="!user.party._id")
     .align-self-center(v-once)
       h3 {{ $t('battleWithFriends') }}
       span.small-text(v-html="$t('inviteFriendsParty')")
       br
       button.btn.btn-primary {{ $t('startAParty') }}
+  div(v-else)
+    user-list-detail(
+      v-for="member in partyMembers",
+      :key="member._id",
+      :member="member",
+    )
 </template>
 
 <style lang="scss" scoped>
@@ -39,7 +45,7 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
+import { mapGetters, mapActions } from 'client/libs/store';
 import UserListDetail from './userListDetail';
 
 export default {
@@ -47,9 +53,18 @@ export default {
     UserListDetail,
   },
   computed: {
-    ...mapState({
-      user: 'user.data',
+    ...mapGetters({
+      user: 'user:data',
+      partyMembers: 'party:members',
     }),
+  },
+  methods: {
+    ...mapActions({
+      getPartyMembers: 'party:getMembers',
+    }),
+  },
+  created () {
+    this.getPartyMembers();
   },
 };
 </script>
