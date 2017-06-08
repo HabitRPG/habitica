@@ -118,7 +118,10 @@ export default {
       type: Object,
       required: true,
     },
-    expanded: Boolean,
+    expanded: {
+      type: Boolean,
+      default: false,
+    },
   },
   data () {
     return {
