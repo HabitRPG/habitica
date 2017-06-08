@@ -20,7 +20,7 @@
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t('onlyLeaderCreatesChallenges') }}
           b-tooltip.icon(:content="$t('privateDescription')")
-            img(src='~assets/guilds/information.svg')
+            .svg-icon(v-html='icons.information')
 
         br
         label.custom-control.custom-checkbox
@@ -34,7 +34,7 @@
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t('privateGuild') }}
           b-tooltip.icon(:content="$t('privateDescription')")
-            img(src='~assets/guilds/information.svg')
+            .svg-icon(v-html='icons.information')
 
         br
         label.custom-control.custom-checkbox
@@ -72,7 +72,7 @@
 
       .form-group.text-center
         div.item-with-icon
-          img(src="~assets/guilds/green-gem.svg")
+          .svg-icon(v-html="icons.gem")
           span.count 4
         button.btn.btn-primary.btn-md(v-if='!newGuild.id', :disabled='!newGuild.name || !newGuild.description') {{ $t('createGuild') }}
         button.btn.btn-primary.btn-md(v-if='newGuild.id', :disabled='!newGuild.name || !newGuild.description') {{ $t('updateGuild') }}
@@ -175,6 +175,9 @@ import bFormCheckbox from 'bootstrap-vue/lib/components/form-checkbox';
 import bFormSelect from 'bootstrap-vue/lib/components/form-select';
 import bTooltip from 'bootstrap-vue/lib/components/tooltip';
 
+import gemIcon from 'assets/svg/gem.svg';
+import informationIcon from 'assets/svg/information.svg';
+
 export default {
   components: {
     bModal,
@@ -255,6 +258,11 @@ export default {
       hashedCategories[category.key] = category.label;
     });
     data.categoriesHashByKey = hashedCategories;
+
+    data.icons = Object.freeze({
+      gem: gemIcon,
+      information: informationIcon,
+    });
 
     return data;
   },
