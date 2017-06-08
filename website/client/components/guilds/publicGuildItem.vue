@@ -3,7 +3,7 @@
   .card-block
     .row
       .col-md-2
-        img.icon.shield(src="~assets/guilds/gold-guild-badge.svg")
+        .svg-icon.shield(v-html="icons.goldGuildBadge")
         .member-count {{guild.memberCount}}
       .col-md-10
         .row
@@ -15,7 +15,7 @@
             button.btn.btn-danger(v-if='isMember && displayLeave' @click='leave()', v-once) {{ $t('leave') }}
             button.btn.btn-success(v-if='!isMember'  @click='join()', v-once) {{ $t('join') }}
             div.item-with-icon(v-if='displayGemBank')
-              img(src="~assets/guilds/green-gem.svg")
+              .svg-icon(v-html="icons.gem")
               span.count {{ guild.balance }}
             div.guild-bank(v-if='displayGemBank', v-once) {{$t('guildBank')}}
         .row
@@ -26,89 +26,84 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+@import '~client/assets/scss/colors.scss';
 
-  .card {
-    height: 260px;
-    border-radius: 4px;
-    background-color: $white;
-    box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($black, 0.1);
-    margin-bottom: 1rem;
+.card {
+  height: 260px;
+  border-radius: 4px;
+  background-color: $white;
+  box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($black, 0.1);
+  margin-bottom: 1rem;
 
-    .category-label {
-      min-width: 100px;
-      border-radius: 100px;
-      background-color: $gray-600;
-      padding: .5em;
-      display: inline-block;
-      margin-right: .5em;
-      font-size: 12px;
-      font-weight: 500;
-      line-height: 1.33;
-      text-align: center;
-      color: $gray-300;
+  .category-label {
+    min-width: 100px;
+    border-radius: 100px;
+    background-color: $gray-600;
+    padding: .5em;
+    display: inline-block;
+    margin-right: .5em;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.33;
+    text-align: center;
+    color: $gray-300;
+  }
+
+  .recommend-text {
+    font-size: 12px;
+    font-style: italic;
+    line-height: 2;
+    color: $gray-300;
+  }
+
+  .cta-container {
+    margin: 0 auto;
+    margin-top: 4em;
+  }
+
+  .item-with-icon {
+    .svg-icon {
+      height: 37px;
     }
 
-    .recommend-text {
-      font-size: 12px;
-      font-style: italic;
-      line-height: 2;
-      color: $gray-300;
-    }
-
-    .cta-container {
-      margin: 0 auto;
-      margin-top: 4em;
-    }
-
-    .shield {
-      width: 70px;
-      height: 76px;
-      margin: auto;
-      margin: 4em auto;
-      display: block;
-      background-size: cover;
-      width: 100%;
-      height: 100px;
-    }
-
-    .item-with-icon {
-      img {
-        height: 37px;
-      }
-
-      .count {
-        font-size: 20px;
-        height: 37px;
-        width: 37px;
-        margin-left: .2em;
-      }
-    }
-
-    .guild-bank {
-      font-size: 12px;
-      line-height: 1.33;
-      color: $gray-300;
-    }
-
-    .member-count {
-      position: relative;
-      top: -3.6em;
-      left: -.1em;
-      font-size: 28px;
-      font-weight: bold;
-      font-family: 'Roboto Condensed';
-      line-height: 1.2;
-      text-align: center;
-      color: #b36213;
+    .count {
+      font-size: 20px;
+      height: 37px;
+      width: 37px;
+      margin-left: .2em;
     }
   }
+
+  .shield {
+    width: 70px;
+  }
+
+  .guild-bank {
+    font-size: 12px;
+    line-height: 1.33;
+    color: $gray-300;
+  }
+
+  .member-count {
+    position: relative;
+    top: -3.6em;
+    left: -.1em;
+    font-size: 28px;
+    font-weight: bold;
+    font-family: 'Roboto Condensed';
+    line-height: 1.2;
+    text-align: center;
+    color: #b36213;
+  }
+}
 </style>
 
 <script>
 import { mapState } from 'client/libs/store';
 import groupUtilities from 'client/mixins/groupsUtilities';
 import findIndex from 'lodash/findIndex';
+import gemIcon from 'assets/svg/gem.svg';
+import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge.svg';
 
 export default {
   mixins: [groupUtilities],
@@ -118,6 +113,14 @@ export default {
     isMember () {
       return this.isMemberOfGroup(this.user, this.guild);
     },
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        gem: gemIcon,
+        goldGuildBadge: goldGuildBadgeIcon,
+      }),
+    };
   },
   methods: {
     async join () {

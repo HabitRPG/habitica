@@ -1,4 +1,6 @@
 {
+  "shops": "Shops",
+  "faq": "FAQ",
   "costumePopoverText": "Select \"Use Costume\" to equip items to your avatar without affecting the stats from your Battle Gear! This means that you can dress up your avatar in whatever outfit you like while still having your best Battle Gear equipped.",
   "autoEquipPopoverText": "Select this option to automatically equip gear as soon as you purchase it.",
   "costumeDisabled": "You have disabled your costume.",
@@ -22,6 +24,7 @@
   "groupBy2": "Group By",
   "quantity": "Quantity",
   "AZ": "A-Z",
+  "editAvatar": "Edit Avatar",
   "sort": "Sort",
   "memberCount": "Member Count",
   "recentActivity": "Recent Activity",
@@ -60,5 +63,6 @@
   "noGuildsTitle": "You aren’t a member of any Guilds.",
   "noGuildsParagraph1": "Guilds are social groups created by other players that can offer you support,  accountability, and encouraging chat.",
   "noGuildsParagraph2": "Click the Discover tab to see recommended Guilds based on your interests, browse Habitica’s public Guilds, or create your own Guild.",
-  "privateDescription": "A private Guild will not be displayed in Habitica’s Guild directory. New members can be added by invitation only."
+  "privateDescription": "A private Guild will not be displayed in Habitica’s Guild directory. New members can be added by invitation only.",
+  "inviteFriendsParty": "Inviting friends to your party will grant you an exclusive <br/> Quest Scroll to battle the Basi-List together!"
 }
