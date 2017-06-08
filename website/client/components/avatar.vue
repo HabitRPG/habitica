@@ -10,7 +10,7 @@
       span(v-if="user.stats.buffs[item]", :class="klass")
 
     // Show flower ALL THE TIME!!!
-    // See https://github.com/HabitRPG/habitrpg/issues/7133
+    // See https://github.com/HabitRPG/habitica/issues/7133
     span(:class="'hair_flower_' + user.preferences.hair.flower")
 
     // Show avatar only if not currently affected by visual buff

@@ -107,6 +107,11 @@ let basicAchievs = {
     titleKey: 'joinedGuild',
     textKey: 'joinedGuildText',
   },
+  joinedChallenge: {
+    icon: 'achievement-challenge',
+    titleKey: 'joinedChallenge',
+    textKey: 'joinedChallengeText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 
@@ -181,7 +186,7 @@ let ultimateGearAchievs = ['healer', 'rogue', 'warrior', 'mage'].reduce((achievs
 }, {});
 Object.assign(achievementsData, ultimateGearAchievs);
 
-let cardAchievs = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday'].reduce((achievs, type) => {
+let cardAchievs = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday', 'congrats', 'getwell'].reduce((achievs, type) => {
   achievs[`${type}Cards`] = {
     icon: `achievement-${type}`,
     titleKey: `${type}CardAchievementTitle`,
