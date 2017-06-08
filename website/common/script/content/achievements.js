@@ -1,4 +1,4 @@
-import each from 'lodash/each';
+﻿import each from 'lodash/each';
 
 let achievementsData = {};
 
@@ -49,6 +49,18 @@ let seasonalSpellAchievs = {
   },
 };
 Object.assign(achievementsData, seasonalSpellAchievs);
+
+let multiiconAchievs = {
+    mountCollector: {
+        icons: ['achievement-grow-mount-1-', 'achievement-grow-mount-10-', 'achievement-grow-mount-25-', "achievement-grow-mount-50-"],
+        rules: [1, 10, 25, 50],
+        singularTitleKey: 'mountCollectorSingular',
+        singularTextKey: 'mountCollectorSingularText',
+        pluralTitleKey: 'mountCollectorName',
+        pluralTextKey: 'mountCollectorText',
+    },
+}
+Object.assign(achievementsData, multiiconAchievs);
 
 let masterAchievs = {
   beastMaster: {

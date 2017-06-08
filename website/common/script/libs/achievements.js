@@ -1,4 +1,4 @@
-import content from '../content/index';
+﻿import content from '../content/index';
 import i18n from '../i18n';
 import get from 'lodash/get';
 
@@ -147,6 +147,42 @@ function _addPlural (result, user, data) {
   });
 }
 
+function _addMultiIcon(result, user, data) {
+    let value = user.achievements[data.path] || 0;
+
+    let key = data.key || data.path;
+    let thisContent = achievsContent[key];
+
+    let titleKey;
+    let textKey;
+
+    let icon = thisContent.icons[0];
+    // Use the right icon based on the value
+    for (let i = 0; i < thisContent.rules.length; i++)
+        if (value >= thisContent.rules[i])
+            icon = thisContent.icons[i];
+
+    // If value === 1, use singular versions of strings.
+    // If value !== 1, use plural versions of strings.
+    if (value === 1) {
+        titleKey = thisContent.singularTitleKey;
+        textKey = thisContent.singularTextKey;
+    } else {
+        titleKey = thisContent.pluralTitleKey;
+        textKey = thisContent.pluralTextKey;
+    }
+
+    _add(result, {
+        title: i18n.t(titleKey, { count: value }, data.language),
+        text: i18n.t(textKey, { count: value }, data.language),
+        icon: icon,
+        key,
+        value,
+        optionalCount: value,
+        earned: Boolean(value),
+    });
+}
+
 function _addUltimateGear (result, user, data) {
   if (!data.altPath) {
     data.altPath = data.path;
@@ -183,6 +219,7 @@ function _getBasicAchievements (user, language) {
   _addSimple(result, user, {path: 'royallyLoyal', language});
   _addSimple(result, user, {path: 'joinedChallenge', language});
 
+  _addMultiIcon(result, user, { path: 'mountCollector', language });
   _addSimpleWithMasterCount(result, user, {path: 'beastMaster', language});
   _addSimpleWithMasterCount(result, user, {path: 'mountMaster', language});
   _addSimpleWithMasterCount(result, user, {path: 'triadBingo', language});
@@ -223,6 +260,8 @@ function _getBasicAchievements (user, language) {
     optionalCount: user.achievements.rebirths,
   });
 
+  for (var r in result)
+      console.log(result[r]);
   return result;
 }
 
