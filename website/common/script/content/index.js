@@ -6,6 +6,7 @@ import t from './translation';
 
 import {
   CLASSES,
+  EVENTS,
   GEAR_TYPES,
   ITEM_LIST,
 } from './constants';
@@ -111,6 +112,37 @@ api.armoire = {
 
 api.classes = CLASSES;
 
+/*
+   ---------------------------------------------------------------
+   Events
+   ---------------------------------------------------------------
+   */
+
+api.events = EVENTS;
+
+api.getNextEvent = function getNextEvent () {
+  let nextEvent;
+  let today = new Date().toISOString();
+  for (let eventKey in EVENTS) {
+    let seasonalEvent = EVENTS[eventKey];
+    if (seasonalEvent.end >= today) {
+      if (!nextEvent || seasonalEvent.end > nextEvent.end) {
+        seasonalEvent.key = eventKey;
+        nextEvent = seasonalEvent;
+      }
+    }
+  }
+  return nextEvent;
+};
+
+api.getActiveEvent = function getActiveEvent () {
+  let nextEvent = api.getNextEvent();
+  let today = new Date().toISOString();
+  if (nextEvent.end <= today) {
+    return null;
+  }
+  return nextEvent;
+};
 
 /*
    ---------------------------------------------------------------

@@ -3,10 +3,20 @@ import defaults from 'lodash/defaults';
 import sortBy from 'lodash/sortBy';
 import t from './translation';
 import {
+  EVENTS,
   USER_CAN_OWN_QUEST_CATEGORIES,
 } from './constants';
 
 let userCanOwnQuestCategories = USER_CAN_OWN_QUEST_CATEGORIES;
+
+function canBuyForEvent (eventKey) {
+  let today = new Date().toISOString();
+  let seasonalEvent = EVENTS[eventKey];
+  if (seasonalEvent.start < today && today < seasonalEvent.end) {
+    return true;
+  }
+  return false;
+}
 
 let quests = {
   dilatory: {
@@ -257,7 +267,7 @@ let quests = {
   },
   evilsanta: {
     canBuy () {
-      return false;
+      return canBuyForEvent('winter');
     },
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
@@ -283,7 +293,7 @@ let quests = {
   },
   evilsanta2: {
     canBuy () {
-      return false;
+      return canBuyForEvent('winter');
     },
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),
@@ -506,7 +516,7 @@ let quests = {
     value: 1,
     category: 'pet',
     canBuy () {
-      return false;
+      return canBuyForEvent('spring');
     },
     collect: {
       plainEgg: {
