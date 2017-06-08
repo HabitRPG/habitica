@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import EmptyView from './components/emptyView';
+// import EmptyView from './components/emptyView';
 // TODO Dummy elements used as placeholder until real components are implemented
 import ParentPage from './components/parentPage';
 import Page from './components/page';
@@ -16,9 +16,9 @@ import EquipmentPage from './components/inventory/equipment/index';
 import StablePage from './components/inventory/stable';
 
 // Social
-import SocialContainer from './components/social/index';
-import InboxPage from './components/social/inbox/index';
-import InboxConversationPage from './components/social/inbox/conversationPage';
+// TODO add inbox back
+// import InboxPage from './components/social/inbox/index';
+// import InboxConversationPage from './components/social/inbox/conversationPage';
 
 // Guilds
 import GuildIndex from './components/guilds/index';
@@ -49,7 +49,7 @@ export default new VueRouter({
         { name: 'stable', path: 'stable', component: StablePage },
       ],
     },
-    { name: 'market', path: '/market', component: Page },
+    { name: 'shops', path: '/shops', component: Page },
     {
       path: '/guilds',
       component: GuildIndex,
@@ -73,30 +73,25 @@ export default new VueRouter({
         },
       ],
     },
-    {
-      path: '/social',
-      component: SocialContainer,
-      children: [
-        {
-          path: 'inbox',
-          component: EmptyView,
-          children: [
-            {
-              name: 'inbox',
-              path: '',
-              component: InboxPage,
-            },
-            {
-              name: 'conversation',
-              path: 'conversation/:id',
-              component: InboxConversationPage,
-            },
-          ],
-        },
-        { name: 'challenges', path: 'challenges', component: Page },
-        { name: 'party', path: 'party', component: Page },
-      ],
-    },
+    { name: 'challenges', path: 'challenges', component: Page },
+    { name: 'party', path: 'party', component: Page },
+    /* TODO add inbox back
+      {
+        path: 'inbox',
+        component: EmptyView,
+        children: [
+          {
+            name: 'inbox',
+            path: '',
+            component: InboxPage,
+          },
+          {
+            name: 'conversation',
+            path: 'conversation/:id',
+            component: InboxConversationPage,
+          },
+        ],
+      }, */
     {
       path: '/user',
       component: ParentPage,
