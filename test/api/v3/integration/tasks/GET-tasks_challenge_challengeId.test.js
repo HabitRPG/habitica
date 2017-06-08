@@ -61,6 +61,12 @@ describe('GET /tasks/:taskId', () => {
         expect(getTask).to.eql(task);
       });
 
+      it('does not include isDue property', async () => {
+        let getTask = await user.get(`/tasks/${task._id}`);
+
+        expect(getTask.isDue).to.not.exist;
+      });
+
       it('returns error when user is not a member of the challenge', async () => {
         let anotherUser = await generateUser();
 

@@ -5,6 +5,7 @@ import * as Tasks from '../../../../../website/server/models/task';
 import { InternalServerError } from '../../../../../website/server/libs/errors';
 import { each } from 'lodash';
 import { generateHistory } from '../../../../helpers/api-unit.helper.js';
+import shared from '../../../../../website/common';
 
 describe('Task Model', () => {
   let guild, leader, challenge, task;
@@ -165,6 +166,79 @@ describe('Task Model', () => {
   });
 
   describe('Instance Methods', () => {
+    describe('withIsDue', () => {
+      it('returns the doc if task is not owned by the user', () => {
+        let daily = new Tasks.daily({ // eslint-disable-line new-cap
+          text: 'Daily',
+          userId: 'user-id',
+        });
+
+        let dailyObj = daily.withIsDue({
+          _id: 'not-user-id',
+        });
+
+        expect(daily).to.equal(dailyObj);
+      });
+
+      it('does not include isDue if not owned by the user', () => {
+        let daily = new Tasks.daily({ // eslint-disable-line new-cap
+          text: 'Daily',
+          userId: 'user-id',
+        });
+
+        let dailyObj = daily.withIsDue({
+          _id: 'not-user-id',
+        });
+
+        expect(dailyObj.isDue).to.not.exist;
+      });
+
+      it('returns a plain javascript object if task is owned by user', () => {
+        let daily = new Tasks.daily({ // eslint-disable-line new-cap
+          text: 'Daily',
+          userId: 'user-id',
+        });
+
+        let dailyObj = daily.withIsDue({
+          _id: 'user-id',
+        });
+
+        expect(daily).to.not.equal(dailyObj);
+        expect(daily.text).to.equal(dailyObj.text);
+      });
+
+      it('includes an isDue property', () => {
+        let daily = new Tasks.daily({ // eslint-disable-line new-cap
+          text: 'Daily',
+          userId: 'user-id',
+        });
+
+        let dailyObj = daily.withIsDue({
+          _id: 'user-id',
+        });
+
+        expect(dailyObj.isDue).to.be.a('boolean');
+      });
+
+      it('calls shared.shouldDo to calculate isDue', () => {
+        sandbox.spy(shared, 'shouldDo');
+
+        let user = {
+          _id: 'user-id',
+          preferences: {},
+        };
+        let daily = new Tasks.daily({ // eslint-disable-line new-cap
+          text: 'Daily',
+          userId: 'user-id',
+        });
+
+        daily.withIsDue(user);
+
+        expect(shared.shouldDo).to.be.calledOnce;
+        expect(shared.shouldDo).to.be.calledWith(sandbox.match.number, daily, user.preferences);
+      });
+    });
+
     describe('scoreChallengeTask', () => {
     });
 

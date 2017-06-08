@@ -15,6 +15,16 @@ describe('GET /tasks/user', () => {
     expect(tasks.length).to.equal(createdTasks.length + 1); // + 1 because 1 is a default task
   });
 
+  it('includes isDue properties on user tasks', async () => {
+    await user.post('/tasks/user', [{text: 'test habit', type: 'habit'}, {text: 'test todo', type: 'todo'}]);
+    let tasks = await user.get('/tasks/user');
+    expect(tasks.length).to.be.greaterThan(0);
+
+    tasks.forEach((task) => {
+      expect(task.isDue).to.be.a('boolean');
+    });
+  });
+
   it('returns only a type of user\'s tasks if req.query.type is specified', async () => {
     let createdTasks = await user.post('/tasks/user', [
       {text: 'test habit', type: 'habit'},
