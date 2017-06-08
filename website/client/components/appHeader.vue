@@ -50,6 +50,6 @@ export default {
    ...mapState({
      user: 'user.data',
    }),
- },
+  },
 };
 </script>

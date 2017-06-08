@@ -16,7 +16,7 @@ div
         .col-4.offset-2
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
-            b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption.value)') {{sortOption.text}}
+            b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption.value)', :key='sortOption.value') {{sortOption.text}}
     .row(v-for='member in members', :key='member', )
       .col-8.offset-1
         user-list-detail(:user='member')
@@ -132,11 +132,11 @@ export default {
         return;
       }
 
-      let shownMember = await this.$store.dispatch('members:selectMember', {
+      await this.$store.dispatch('members:selectMember', {
         memberId: uid,
       });
 
-      $root.$emit('show::modal', 'members-modal');
+      this.$root.$emit('show::modal', 'members-modal');
     },
     async removeMember (member) {
       this.memberToRemove = member;
@@ -159,18 +159,18 @@ export default {
     },
     async quickReply (uid) {
       this.memberToReply = uid;
-      let shownMember = await this.$store.dispatch('members:selectMember', {
+      await this.$store.dispatch('members:selectMember', {
         memberId: uid,
       });
-      this.$root.$emit('show::modal', 'private-message'); //MemberModalCtrl
+      this.$root.$emit('show::modal', 'private-message'); //  MemberModalCtrl
     },
     async addManager (memberId) {
-      let shownMember = await this.$store.dispatch('group:addManager', {
+      await this.$store.dispatch('group:addManager', {
         memberId,
       });
     },
     async removeManager (memberId) {
-      let shownMember = await this.$store.dispatch('group:removeManager', {
+      await this.$store.dispatch('group:removeManager', {
         memberId,
       });
     },

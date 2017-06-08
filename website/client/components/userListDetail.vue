@@ -110,7 +110,6 @@ import experienceIcon from 'assets/svg/experience.svg';
 import manaIcon from 'assets/svg/mana.svg';
 
 export default {
-  props: ['user'],
   components: {
     Avatar,
   },
