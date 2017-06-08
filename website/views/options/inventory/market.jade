@@ -1,0 +1,93 @@
+.col-md-6.border-left
+  h2=env.t('market')
+  .npc_alex_container
+    .pull-left-sm.col-centered(class="#{env.worldDmg.market ? 'npc_alex_broken' : 'npc_alex'}")
+    .popover.static-popover.fade.right.in.pull-left-sm
+      .arrow.hidden-xs
+      h3.popover-title
+        a(target='_blank', href='http://www.kickstarter.com/profile/523661924')=env.t('alexander')
+      .popover-content
+        p=env.t('welcomeMarket')
+        hr(ng-show='selectedEgg || selectedPotion || selectedFood')
+        div(ng-show='selectedEgg || selectedPotion || selectedFood')
+          .pull-left.customize-option(class='Pet_Egg_{{selectedEgg.key}}' ng-show='selectedEgg')
+          p(ng-show='selectedEgg')
+            !=env.t('displayEggForGold', {itemType: "{{selectedEgg.text()}}"})
+          .pull-left.customize-option(class='Pet_HatchingPotion_{{selectedPotion.key}}' ng-show='selectedPotion')
+          p(ng-show='selectedPotion')
+            !=env.t('displayPotionForGold', {itemType: "{{selectedPotion.text()}}"})
+          .pull-left.customize-option(class='Pet_Food_{{selectedFood.key}}' ng-show='selectedFood')
+          p(ng-show='selectedFood')
+            !=env.t('displayItemForGold', {itemType: "{{selectedFood.text()}}"})
+        .clearfix
+          button.btn.btn-primary.btn-block(ng-show='selectedEgg', ng-click='sellInventory()')=env.t('sellForGold', {itemType: "{{selectedEgg.text()}}", gold: "{{selectedEgg.value}}"})
+          button.btn.btn-primary.btn-block(ng-show='selectedPotion', ng-click='sellInventory()')=env.t('sellForGold', {itemType: "{{selectedPotion.text()}}", gold: "{{selectedPotion.value}}"})
+          button.btn.btn-primary.btn-block(ng-show='selectedFood', ng-click='sellInventory()')=env.t('sellForGold', {item: "{{selectedFood.text()}}", gold: "{{selectedFood.value}}"})
+
+  menu.inventory-list(type='list')
+    li.customize-menu(ng-repeat='category in marketShopCategories')
+      menu.pets-menu(label='{{category.text}}', ng-if='category.items.length > 0')
+        p.muted(ng-bind-html='category.notes')
+
+        div(ng-repeat='item in category.items')
+          button.customize-option(class='{{item.class}}',
+            popover='{{item.notes}}', popover-append-to-body='true',
+            popover-title!='{{item.text}}',
+            popover-trigger='mouseenter', popover-placement='top',
+            ng-click='purchase(item.purchaseType, item)')
+          p {{item.value}}&nbsp;
+            span.Pet_Currency_Gem1x.inline-gems(ng-if='item.currency === "gems"')
+            span(class='shop_gold', ng-if='item.currency === "gold"')
+
+    li.customize-menu
+      menu.pets-menu(label=env.t('cards'))
+        div(ng-repeat='type in Content.cardTypes', ng-show='type.yearRound')
+          button.customize-option(class='inventory_special_{{::type.key}}',
+          popover='{{::Content.spells.special[type.key].notes()}}',
+          popover-title='{{::Content.spells.special[type.key].text()}}',
+          popover-trigger='mouseenter', popover-placement='right',
+          popover-append-to-body='true',
+          ng-click='castStart(Content.spells.special[type.key])')
+          p
+            | {{Content.spells.special[type.key].value}}
+            span(class='shop_gold')
+
+    li.customize-menu
+      menu.pets-menu(label=env.t('special'))
+        div
+          button.customize-option(class='inventory_special_fortify',
+            popover=env.t('fortifyPop'),
+            popover-title=env.t('fortifyName'),
+            popover-trigger='mouseenter', popover-placement='top',
+            popover-append-to-body='true',
+            ng-click='openModal("reroll")')
+          p
+            | 4&nbsp;
+            span.Pet_Currency_Gem1x.inline-gems
+        div(ng-show='user.flags.rebirthEnabled')
+          button.customize-option(class='rebirth_orb',
+            popover=env.t('rebirthPop'), popover-title=env.t('rebirthName'),
+            popover-trigger='mouseenter', popover-placement='top',
+            popover-append-to-body='true',
+            ng-click='openModal("rebirth")')
+          p(ng-show='user.stats.lvl < 100')
+            | 6&nbsp;
+            span.Pet_Currency_Gem1x.inline-gems
+        div(ng-show='petCount >= 90 || mountCount >= 90')
+          button.customize-option(popover=env.t('petKeyPop'), popover-title=env.t('petKeyName'),
+            popover-trigger='mouseenter', popover-placement='top',
+            popover-append-to-body='true',
+            ng-click='openModal("pet-key", {size:"lg", controller:"InventoryCtrl"})', class='pet_key')
+          p(ng-show='petCount < 90 || mountCount < 90 || !user.achievements.triadBingo')
+            | 4&nbsp;
+            span.Pet_Currency_Gem1x.inline-gems
+        div(ng-if='user.purchased.plan.customerId', ng-class='::{transparent:(Shared.planGemLimits.convCap + User.user.purchased.plan.consecutive.gemCapExtra - User.user.purchased.plan.gemsBought) < 1}')
+          button.customize-option(popover=env.t('subGemPop'), popover-title=env.t('subGemName'),
+            popover-trigger='mouseenter', popover-placement='top',
+            popover-append-to-body='true',
+            ng-click='User.purchase({params:{type:"gems",key:"gem"}})')
+            span.Pet_Currency_Gem.inline-gems
+            .badge.badge-success.stack-count {{Shared.planGemLimits.convCap + User.user.purchased.plan.consecutive.gemCapExtra - User.user.purchased.plan.gemsBought}}
+          p
+            | 20&nbsp;
+            span.shop_gold

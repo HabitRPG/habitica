@@ -1,11 +1,10 @@
 <template lang="pug">
 nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
   .navbar-header
-    // TODO srcset / svg images
-    img(src="~assets/header/png/logo@3x.png")
+    .logo.svg-icon(v-html="icons.logo")
   .collapse.navbar-collapse
     ul.navbar-nav.mr-auto
-      router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact) 
+      router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact)
         a.nav-link(v-once) {{ $t('tasks') }}
       router-link.nav-item.dropdown(tag="li", :to="{name: 'items'}", :class="{'active': $route.path.startsWith('/inventory')}")
         a.nav-link(v-once) {{ $t('inventory') }}
@@ -13,16 +12,18 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
           router-link.dropdown-item(:to="{name: 'items'}", exact) {{ $t('items') }}
           router-link.dropdown-item(:to="{name: 'equipment'}") {{ $t('equipment') }}
           router-link.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
-      router-link.nav-item(tag="li", :to="{name: 'market'}", exact) 
-        a.nav-link(v-once) {{ $t('market') }}
-      router-link.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/social')}")
-        a.nav-link(v-once) {{ $t('social') }}
+      router-link.nav-item(tag="li", :to="{name: 'shops'}", exact)
+        a.nav-link(v-once) {{ $t('shops') }}
+      router-link.nav-item(tag="li", :to="{name: 'party'}", exact)
+        a.nav-link(v-once) {{ $t('party') }}
+      router-link.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/guilds')}")
+        a.nav-link(v-once) {{ $t('guilds') }}
         .dropdown-menu
           router-link.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
-          router-link.dropdown-item(:to="{name: 'inbox'}") {{ $t('inbox') }}
-          router-link.dropdown-item(:to="{name: 'challenges'}") {{ $t('challenges') }}
-          router-link.dropdown-item(:to="{name: 'party'}") {{ $t('party') }}
-          router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guilds') }}
+          router-link.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
+          router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
+      router-link.nav-item(tag="li", :to="{name: 'challenges'}", exact)
+        a.nav-link(v-once) {{ $t('challenges') }}
       router-link.nav-item.dropdown(tag="li", to="/help", :class="{'active': $route.path.startsWith('/help')}")
         a.nav-link(v-once) {{ $t('help') }}
         .dropdown-menu
@@ -30,40 +31,43 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
           router-link.dropdown-item(to="/help/report-bug") {{ $t('reportBug') }}
           router-link.dropdown-item(to="/help/request-feature") {{ $t('requestAF') }}
     .item-with-icon
-      img(src="~assets/header/png/gem@3x.png")
-      span {{userGems}}
+      .svg-icon(v-html="icons.gem")
+      span {{userGems | roundBigNumber}}
     .item-with-icon
-      img(src="~assets/header/png/gold@3x.png")
-      span {{user.stats.gp | floor}}
-    .item-with-icon
-      img(src="~assets/header/png/notifications@3x.png")
-    router-link.dropdown.item-with-icon(:to="{name: 'avatar'}")
-      // TODO icons should be white when active
-      img(src="~assets/header/png/user@3x.png")
+      .svg-icon(v-html="icons.gold")
+      span {{user.stats.gp | roundBigNumber}}
+    .item-with-icon.item-notifications
+      .svg-icon(v-html="icons.notifications")
+    router-link.dropdown.item-with-icon.item-user(:to="{name: 'avatar'}")
+      .svg-icon(v-html="icons.user")
       .dropdown-menu.dropdown-menu-right.user-dropdown
-        router-link.dropdown-item(:to="{name: 'avatar'}") {{ $t('editAvatar') }}
-        // .dropdown-divider
+        router-link.dropdown-item.edit-avatar(:to="{name: 'avatar'}") 
+          h3 {{ user.profile.name }}
+          span.small-text {{ $t('editAvatar') }}
+        //.dropdown-divider
         router-link.dropdown-item(:to="{name: 'stats'}") {{ $t('stats') }}
         router-link.dropdown-item(:to="{name: 'achievements'}") {{ $t('achievements') }}
-        // .dropdown-divider
         router-link.dropdown-item(:to="{name: 'settings'}") {{ $t('settings') }}
-        // .dropdown-divider
         router-link.dropdown-item(to="/logout") {{ $t('logout') }}
 </template>
 
 <style lang="scss" scoped>
 @import '~client/assets/scss/colors.scss';
+@import '~client/assets/scss/utils.scss';
 
 nav.navbar {
-  background: $purple-100 url(~assets/header/png/bits.png) right no-repeat;
-  padding: 0 1.5rem;
+  background: $purple-100 url(~assets/svg/for-css/bits.svg) right no-repeat;
+  padding-left: 25px;
+  padding-right: 12.5px;
   height: 56px;
+  box-shadow: 0 1px 2px 0 rgba($black, 0.24);
 }
 
 .navbar-header {
-  margin-right: 3rem;
+  margin-right: 48px;
 
-  img {
+  .logo {
+    width: 128px;
     height: 28px;
   }
 }
@@ -74,18 +78,18 @@ nav.navbar {
     color: $white;
     font-weight: bold;
     line-height: 1.5;
-    padding: 1rem 1.5rem;
+    padding: 16px 24px;
     transition: none;
   }
 
   &:hover {
     .nav-link {
       color: $white;
-      background: $purple-300;
+      background: $purple-200;
     }
   }
 
-  &.active,&:hover {
+  &.active:not(:hover) {
     .nav-link {
       box-shadow: 0px -4px 0px $purple-300 inset;
     }
@@ -98,8 +102,12 @@ nav.navbar {
   margin-top: 0; // remove the gap so it doesn't close
 }
 
+.dropdown + .dropdown {
+  margin-left: 0px;
+}
+
 .dropdown-menu:not(.user-dropdown) {
-  background: $purple-300;
+  background: $purple-200;
   border-radius: 0px;
   border: none;
   box-shadow: none;
@@ -113,13 +121,14 @@ nav.navbar {
     box-shadow: none;
     color: $white;
     border: none;
+    line-height: 1.5;
 
     &.active {
       background: $purple-300;
     }
 
     &:hover {
-      background: $purple-200;
+      background: $purple-300;
 
       &:last-child {
         border-bottom-right-radius: 5px;
@@ -131,23 +140,76 @@ nav.navbar {
 
 .item-with-icon {
   color: $white;
-  font-weight: bold;
-  padding: 0.75rem 0;
-  padding-left: 1rem;
+  font-size: 16px;
+  font-weight: normal;
+  padding-top: 16px;
+  padding-left: 16px;
 
-  img {
+  .svg-icon {
     vertical-align: middle;
-    width: 32px;
-    height: 32px;
-    margin-right: 0.5rem;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    float: left;
   }
+}
+
+.item-notifications, .item-user {
+  padding-right: 12.5px;
+  padding-left: 12.5px;
+  color: $header-color;
+
+  &:hover {
+    color: $white;
+  }
+
+  .svg-icon {
+    margin-right: 0px;
+    color: inherit;
+  }
+}
+
+.item-notifications {
+  margin-left: 33.5px;
+}
+
+.item-user .edit-avatar {
+  h3 {
+    color: $gray-10;
+    margin-bottom: 0px;
+  }
+
+  .small-text {
+    color: $gray-200;
+    font-style: normal;
+    display: block;
+  }
+
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 </style>
 
 <script>
 import { mapState, mapGetters } from 'client/libs/store';
+import gemIcon from 'assets/svg/gem.svg';
+import goldIcon from 'assets/svg/gold.svg';
+import notificationsIcon from 'assets/svg/notifications.svg';
+import userIcon from 'assets/svg/user.svg';
+import logo from 'assets/svg/logo.svg';
 
 export default {
+  data () {
+    return {
+      icons: Object.freeze({
+        gem: gemIcon,
+        gold: goldIcon,
+        notifications: notificationsIcon,
+        user: userIcon,
+        logo,
+      }),
+    };
+  },
   computed: {
     ...mapGetters({
       userGems: 'user:gems',

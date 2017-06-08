@@ -107,6 +107,6 @@
     "eventAvailability": "Tilgændelig til køb indtil <%= date(locale) %>.",
     "dateEndApril": "19. april",
     "dateEndMay": "17. maj",
-    "dateEndJune": "June 14",
-    "discountBundle": "bundle"
+    "dateEndJune": "Juni 14",
+    "discountBundle": "pakke"
 }

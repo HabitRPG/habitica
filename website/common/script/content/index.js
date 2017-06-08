@@ -65,7 +65,7 @@ api.bundles = {
       'owl',
     ],
     canBuy () {
-      return moment().isBetween('2017-05-16', '2017-06-02');
+      return moment().isBetween('2017-05-16', '2017-05-31');
     },
     type: 'quests',
     value: 7,
@@ -142,6 +142,16 @@ api.cardTypes = {
   birthday: {
     key: 'birthday',
     messageOptions: 1,
+    yearRound: true,
+  },
+  congrats: {
+    key: 'congrats',
+    messageOptions: 5,
+    yearRound: true,
+  },
+  getwell: {
+    key: 'getwell',
+    messageOptions: 4,
     yearRound: true,
   },
 };

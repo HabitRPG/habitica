@@ -16,6 +16,16 @@ const i18n = common.i18n;
 const loginIncentives = common.content.loginIncentives;
 // const maxPMs = 200;
 
+function setIsDueNextDue (task, user, now) {
+  let optionsForShouldDo = cloneDeep(user.preferences.toObject());
+  task.isDue = common.shouldDo(now, task, optionsForShouldDo);
+  optionsForShouldDo.nextDue = true;
+  let nextDue = common.shouldDo(now, task, optionsForShouldDo);
+  if (nextDue && nextDue.length > 0) {
+    task.nextDue = nextDue;
+  }
+}
+
 export async function recoverCron (status, locals) {
   let {user} = locals;
 
@@ -101,13 +111,14 @@ function performSleepTasks (user, tasksByType, now) {
     let thatDay = moment(now).subtract({days: 1});
 
     if (shouldDo(thatDay.toDate(), daily, user.preferences) || completed) {
-      // TODO also untick checklists if the Daily was due on previous missed days, if two or more days were missed at once -- https://github.com/HabitRPG/habitrpg/pull/7218#issuecomment-219256016
+      // TODO also untick checklists if the Daily was due on previous missed days, if two or more days were missed at once -- https://github.com/HabitRPG/habitica/pull/7218#issuecomment-219256016
       if (daily.checklist) {
         daily.checklist.forEach(box => box.completed = false);
       }
     }
 
     daily.completed = false;
+    setIsDueNextDue(daily, user, now);
   });
 }
 
@@ -316,14 +327,7 @@ export function cron (options = {}) {
     });
     task.completed = false;
 
-    let optionsForShouldDo = cloneDeep(user.preferences.toObject());
-    task.isDue = common.shouldDo(now, task, optionsForShouldDo);
-    optionsForShouldDo.nextDue = true;
-    let nextDue = common.shouldDo(now, task, optionsForShouldDo);
-
-    if (nextDue && nextDue.length > 0) {
-      task.nextDue = nextDue;
-    }
+    setIsDueNextDue(task, user, now);
 
     if (completed || scheduleMisses > 0) {
       if (task.checklist) {
@@ -387,7 +391,7 @@ export function cron (options = {}) {
 
   // preen user history so that it doesn't become a performance problem
   // also for subscribed users but differently
-  // TODO also do while resting in the inn. Note that later we'll be allowing the value/color of tasks to change while sleeping (https://github.com/HabitRPG/habitrpg/issues/5232), so the code in performSleepTasks() might be best merged back into here for that. Perhaps wait until then to do preen history for sleeping users.
+  // TODO also do while resting in the inn. Note that later we'll be allowing the value/color of tasks to change while sleeping (https://github.com/HabitRPG/habitica/issues/5232), so the code in performSleepTasks() might be best merged back into here for that. Perhaps wait until then to do preen history for sleeping users.
   preenUserHistory(user, tasksByType, user.preferences.timezoneOffset);
 
   if (perfect && atLeastOneDailyDue) {

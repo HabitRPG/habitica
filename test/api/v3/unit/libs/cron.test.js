@@ -313,6 +313,24 @@ describe('cron', () => {
       expect(tasksByType.dailys[0].completed).to.be.false;
       expect(user.stats.hp).to.equal(healthBefore);
     });
+
+    it('sets isDue for daily', () => {
+      let daily = {
+        text: 'test daily',
+        type: 'daily',
+        frequency: 'daily',
+        everyX: 5,
+        startDate: new Date(),
+      };
+
+      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
+      tasksByType.dailys.push(task);
+      tasksByType.dailys[0].completed = true;
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(tasksByType.dailys[0].isDue).to.be.exist;
+    });
   });
 
   describe('todos', () => {

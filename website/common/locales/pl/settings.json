@@ -26,7 +26,7 @@
     "showBaileyPop": "Wywołuje Bailey, Herold Miejską, z ukrycia, żebyś mógł przejrzeć stare wieści.",
     "fixVal": "Napraw wartości postaci",
     "fixValPop": "Manualnie zmienia wartości takie jak Zdrowie, Poziom i Złoto.",
-    "invalidLevel": "Invalid value: Level must be 1 or greater.",
+    "invalidLevel": "Niepoprawna wartość: Poziom musi być 1 lub większy.",
     "enableClass": "Odblokuj system klas",
     "enableClassPop": "Wyłączyłeś wcześniej system klas. Czy chcesz włączyć go teraz ponownie?",
     "classTourPop": "Pokazuje przewodnik objaśniający działanie systemu klas.",

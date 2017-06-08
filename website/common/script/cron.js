@@ -94,7 +94,7 @@ export function daysSince (yesterday, options = {}) {
  */
 
 export function shouldDo (day, dailyTask, options = {}) {
-  if (dailyTask.type !== 'daily') {
+  if (dailyTask.type !== 'daily' || dailyTask.startDate === null || dailyTask.everyX < 1 || dailyTask.everyX > 9999) {
     return false;
   }
   let o = sanitizeOptions(options);
@@ -110,9 +110,9 @@ export function shouldDo (day, dailyTask, options = {}) {
   }
 
   let daysOfTheWeek = [];
-
   if (dailyTask.repeat) {
     for (let [repeatDay, active] of Object.entries(dailyTask.repeat)) {
+      if (!isFinite(DAY_MAPPING_STRING_TO_NUMBER[repeatDay])) continue; // eslint-disable-line no-continue
       if (active) daysOfTheWeek.push(parseInt(DAY_MAPPING_STRING_TO_NUMBER[repeatDay], 10));
     }
   }
@@ -122,7 +122,14 @@ export function shouldDo (day, dailyTask, options = {}) {
     let schedule = moment(startDate).recur()
       .every(dailyTask.everyX).days();
 
-    if (options.nextDue) return schedule.fromDate(startOfDayWithCDSTime).next(6);
+    if (options.nextDue) {
+      let filteredDates = [];
+      for (let i = 1; filteredDates.length < 6; i++) {
+        let calcDate = moment(startDate).add(dailyTask.everyX * i, 'days');
+        if (calcDate > startOfDayWithCDSTime) filteredDates.push(calcDate);
+      }
+      return filteredDates;
+    }
 
     return schedule.matches(startOfDayWithCDSTime);
   } else if (dailyTask.frequency === 'weekly') {
@@ -133,15 +140,20 @@ export function shouldDo (day, dailyTask, options = {}) {
 
     if (daysOfTheWeek.length === 0) return false;
     schedule = schedule.every(daysOfTheWeek).daysOfWeek();
-
     if (options.nextDue) {
-      let dates = schedule.fromDate(startOfDayWithCDSTime.subtract('1', 'days')).next(6);
-      let filterDates = dates.filter((momentDate) => {
-        let weekDiff = momentDate.week() - moment(startDate).week();
-        let matchX = weekDiff % dailyTask.everyX === 0;
-        return matchX;
+      let filteredDates = [];
+      for (let i = 0; filteredDates.length < 6; i++) {
+        for (let j = 0; j < daysOfTheWeek.length && filteredDates.length < 6; j++) {
+          let calcDate = moment(startDate).day(daysOfTheWeek[j]).add(dailyTask.everyX * i, 'weeks');
+          if (calcDate > startOfDayWithCDSTime) filteredDates.push(calcDate);
+        }
+      }
+      let sortedDates = filteredDates.sort((date1, date2) => {
+        if (date1.toDate() > date2.toDate()) return 1;
+        if (date2.toDate() > date1.toDate()) return -1;
+        return 0;
       });
-      return filterDates;
+      return sortedDates;
     }
 
     return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
@@ -153,19 +165,42 @@ export function shouldDo (day, dailyTask, options = {}) {
 
     if (dailyTask.weeksOfMonth && dailyTask.weeksOfMonth.length > 0) {
       schedule = schedule.every(daysOfTheWeek).daysOfWeek()
-                        .every(dailyTask.weeksOfMonth).weeksOfMonthByDay();
+        .every(dailyTask.weeksOfMonth).weeksOfMonthByDay();
+
+      if (options.nextDue) {
+        let filteredDates = [];
+        for (let i = 1; filteredDates.length < 6; i++) {
+          let recurDate = moment(startDate).add(dailyTask.everyX * i, 'months');
+          let calcDate = recurDate.clone();
+          calcDate.day(daysOfTheWeek[0]);
+
+          let startDateWeek = Math.ceil(moment(startDate).date() / 7);
+          let calcDateWeek = Math.ceil(calcDate.date() / 7);
+
+          // adjust week since weeks will rollover to other months
+          if (calcDate.month() < recurDate.month()) calcDate.add(1, 'weeks');
+          else if (calcDate.month() > recurDate.month()) calcDate.subtract(1, 'weeks');
+          else if (calcDateWeek > startDateWeek) calcDate.subtract(1, 'weeks');
+          else if (calcDateWeek < startDateWeek) calcDate.add(1, 'weeks');
+
+          calcDateWeek = Math.ceil(calcDate.date() / 7);
+
+          if (calcDate >= startOfDayWithCDSTime &&
+            calcDateWeek === startDateWeek && calcDate.month() === recurDate.month()) filteredDates.push(calcDate);
+        }
+        return filteredDates;
+      }
+      return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
     } else if (dailyTask.daysOfMonth && dailyTask.daysOfMonth.length > 0) {
       schedule = schedule.every(dailyTask.daysOfMonth).daysOfMonth();
-    }
-
-    if (options.nextDue) {
-      let dates = schedule.fromDate(startOfDayWithCDSTime).next(6);
-      let filterDates = dates.filter((momentDate) => {
-        let monthDiff = momentDate.month() - moment(startDate).month();
-        let matchX = monthDiff % dailyTask.everyX === 0;
-        return matchX;
-      });
-      return filterDates;
+      if (options.nextDue) {
+        let filteredDates = [];
+        for (let i = 1; filteredDates.length < 6; i++) {
+          let calcDate = moment(startDate).add(dailyTask.everyX * i, 'months');
+          if (calcDate >= startOfDayWithCDSTime) filteredDates.push(calcDate);
+        }
+        return filteredDates;
+      }
     }
 
     return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
@@ -175,17 +210,15 @@ export function shouldDo (day, dailyTask, options = {}) {
     schedule = schedule.every(dailyTask.everyX).years();
 
     if (options.nextDue) {
-      let dates = schedule.fromDate(startOfDayWithCDSTime).next(6);
-      let filterDates = dates.filter((momentDate) => {
-        let monthDiff = momentDate.years() - moment(startDate).years();
-        let matchX = monthDiff % dailyTask.everyX === 0;
-        return matchX;
-      });
-      return filterDates;
+      let filteredDates = [];
+      for (let i = 1; filteredDates.length < 6; i++) {
+        let calcDate = moment(startDate).add(dailyTask.everyX * i, 'years');
+        if (calcDate > startOfDayWithCDSTime) filteredDates.push(calcDate);
+      }
+      return filteredDates;
     }
 
     return schedule.matches(startOfDayWithCDSTime);
   }
-
   return false;
 }

@@ -167,5 +167,7 @@
     "taskNotes": "Notes de tâche",
     "monthlyRepeatHelpContent": "Cette tâche arrivera à échéance tous les X mois",
     "yearlyRepeatHelpContent": "Cette tâche arrivera à échéance tous les X ans",
-    "resets": "Réinitialisations"
+    "resets": "Réinitialisations",
+    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Next Due Dates"
 }

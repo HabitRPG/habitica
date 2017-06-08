@@ -2,8 +2,7 @@
 .drawer-container
   .drawer-title(@click="open = !open")
     | {{title}}
-    img.drawer-toggle-icon(src="~assets/drawer/minimize.svg", v-if="open")
-    img.drawer-toggle-icon.closed(src="~assets/drawer/expand.svg", v-else)
+    .drawer-toggle-icon.svg-icon(v-html="open ? icons.minimize : icons.expand", :class="{ closed: !open }")
   transition(name="slide-up", @afterLeave="adjustPagePadding", @afterEnter="adjustPagePadding")
     .drawer-content(v-show="open")
       slot(name="drawer-header")
@@ -36,10 +35,10 @@
 
 .drawer-toggle-icon {
   float: right;
-  margin: 10px;
+  margin-right: 16px;
 
   &.closed {
-    margin-top: 5px;
+    margin-top: 3px;
   }
 }
 
@@ -128,6 +127,9 @@
 </style>
 
 <script>
+import expandIcon from 'assets/svg/expand.svg';
+import minimizeIcon from 'assets/svg/minimize.svg';
+
 export default {
   props: {
     title: {
@@ -141,6 +143,10 @@ export default {
   data () {
     return {
       open: true,
+      icons: Object.freeze({
+        expand: expandIcon,
+        minimize: minimizeIcon,
+      }),
     };
   },
   methods: {

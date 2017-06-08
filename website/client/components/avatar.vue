@@ -2,7 +2,7 @@
 .avatar(:style="{width, height, paddingTop}", :class="backgroundClass")
   .character-sprites
     template(v-if="!avatarOnly" v-once)
-      // Mount
+      // Mount Body
       span(v-if="user.items.currentMount", :class="'Mount_Body_' + user.items.currentMount")
 
     // Buffs that cause visual changes to avatar: Snowman, Ghost, Flower, etc
@@ -10,7 +10,7 @@
       span(v-if="user.stats.buffs[item]", :class="klass")
 
     // Show flower ALL THE TIME!!!
-    // See https://github.com/HabitRPG/habitrpg/issues/7133
+    // See https://github.com/HabitRPG/habitica/issues/7133
     span(:class="'hair_flower_' + user.preferences.hair.flower")
 
     // Show avatar only if not currently affected by visual buff
@@ -40,13 +40,18 @@
       span(v-if="user.items.currentMount", :class="'Mount_Head_' + user.items.currentMount")
       // Pet
       span.current-pet(v-if="user.items.currentPet", :class="'Pet-' + user.items.currentPet")
+  .class-badge.d-flex.justify-content-center(v-if="user.flags.classSelected")
+    .align-self-center.svg-icon(v-html="icons[user.stats.class]")
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '~client/assets/scss/colors.scss';
+
 .avatar {
   width: 140px;
   height: 147px;
   image-rendering: pixelated;
+  position: relative;
 }
 
 .character-sprites {
@@ -60,12 +65,35 @@
 }
 
 .current-pet {
-  bottom: 21px;
-  left: 20px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.class-badge {
+  $badge-size: 32px;
+  position: absolute;
+  left: calc(50% - (16px));
+  bottom: -($badge-size / 2);
+
+  width: $badge-size;
+  height: $badge-size;
+  background: $white;
+  box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
+  border-radius: 100px;
+
+  .svg-icon {
+    width: 19px;
+    height: 19px;
+  }
 }
 </style>
 
 <script>
+import warriorIcon from 'assets/svg/warrior.svg';
+import rogueIcon from 'assets/svg/rogue.svg';
+import healerIcon from 'assets/svg/healer.svg';
+import wizardIcon from 'assets/svg/wizard.svg';
+
 export default {
   props: {
     user: {
@@ -84,6 +112,16 @@ export default {
       type: Number,
       default: 147,
     },
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        warrior: warriorIcon,
+        rogue: rogueIcon,
+        healer: healerIcon,
+        wizard: wizardIcon,
+      }),
+    };
   },
   computed: {
     paddingTop () {

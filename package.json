@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "3.93.0",
+  "version": "3.94.0",
   "main": "./website/server/index.js",
   "dependencies": {
     "@slack/client": "^3.8.1",
@@ -15,8 +15,10 @@
     "aws-sdk": "^2.0.25",
     "axios": "^0.16.0",
     "babel-core": "^6.0.0",
+    "babel-eslint": "^7.2.3",
     "babel-loader": "^6.0.0",
     "babel-plugin-syntax-async-functions": "^6.13.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-async-to-module-method": "^6.8.0",
     "babel-plugin-transform-object-rest-spread": "^6.16.0",
     "babel-plugin-transform-regenerator": "^6.16.1",
@@ -109,6 +111,9 @@
     "shelljs": "^0.7.6",
     "stripe": "^4.2.0",
     "superagent": "^3.4.3",
+    "svg-inline-loader": "^0.7.1",
+    "svg-url-loader": "^2.0.2",
+    "svgo-loader": "^1.2.1",
     "universal-analytics": "~0.3.2",
     "url-loader": "^0.5.7",
     "useragent": "^2.1.9",
@@ -135,7 +140,7 @@
   },
   "scripts": {
     "lint": "eslint --ext .js,.vue .",
-    "test": "npm run lint && gulp test && npm run client:unit",
+    "test": "npm run lint && gulp test && npm run client:unit && gulp apidoc",
     "test:build": "gulp test:prepare:build",
     "test:api-v3": "gulp test:api-v3",
     "test:api-v3:unit": "gulp test:api-v3:unit",
@@ -159,7 +164,8 @@
     "client:e2e": "node test/client/e2e/runner.js",
     "client:test": "npm run client:unit && npm run client:e2e",
     "start": "gulp run:dev",
-    "postinstall": "bower --config.interactive=false install -f; gulp build; npm run client:build"
+    "postinstall": "bower --config.interactive=false install -f && gulp build && npm run client:build",
+    "apidoc": "gulp apidoc"
   },
   "devDependencies": {
     "babel-plugin-istanbul": "^4.0.0",
@@ -207,6 +213,7 @@
     "nightwatch": "^0.9.12",
     "phantomjs-prebuilt": "^2.1.12",
     "protractor": "^3.1.1",
+    "raw-loader": "^0.5.1",
     "require-again": "^2.0.0",
     "rewire": "^2.3.3",
     "selenium-server": "^3.0.1",

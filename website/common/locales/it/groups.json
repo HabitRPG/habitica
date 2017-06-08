@@ -136,7 +136,7 @@
     "leaderOnlyChallenges": "Solo il leader del gruppo può creare le sfide",
     "sendGift": "Invia regalo",
     "inviteFriends": "Invita amici",
-    "partyMembersInfo": "Al momento la tua squadra ha <%= memberCount %> membri e <%= invitationCount %> inviti ancora senza risposta. In un squadra ci possono essere al massimo <%= limitMembers %> membri. Non può essere mandata una quantità di inviti superiore a questo numero.",
+    "partyMembersInfo": "Al momento la tua squadra ha <%= memberCount %> membri e <%= invitationCount %> inviti ancora senza risposta. In una squadra ci possono essere al massimo <%= limitMembers %> persone. Non può essere mandata una quantità di inviti superiore a questo numero.",
     "inviteByEmail": "Invita via e-mail",
     "inviteByEmailExplanation": "Se degli amici si iscrivono ad Habitica tramite la tua email, verranno automaticamente invitati nella tua squadra!",
     "inviteFriendsNow": "Invita amici ora",
