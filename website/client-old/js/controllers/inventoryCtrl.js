@@ -365,6 +365,12 @@ habitrpg.controller("InventoryCtrl",
       }
     };
 
+    $scope.twoHandedNotes = function (item) {
+      if (item.twoHanded) {
+        return window.env.t('twoHandedItem');
+      }
+    };
+
     $scope.hasAllTimeTravelerItems = function() {
       return ($scope.hasAllTimeTravelerItemsOfType('mystery') &&
         $scope.hasAllTimeTravelerItemsOfType('pets') &&

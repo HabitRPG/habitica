@@ -41,3 +41,4 @@ test/client-old/spec/mocks/translations.js
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+/nbproject/private/
