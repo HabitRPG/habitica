@@ -2,7 +2,7 @@
 .d-flex
   avatar#header-avatar(:user="user")
   div
-    h3.character-name 
+    h3.character-name
       | {{user.profile.name}}
       .is-buffed(v-if="isBuffed")
         .svg-icon(v-html="icons.buff")

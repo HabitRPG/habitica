@@ -47,9 +47,9 @@ export default {
     UserListDetail,
   },
   computed: {
-    ...mapState({
-      user: 'user.data',
-    }),
+   ...mapState({
+     user: 'user.data',
+   }),
   },
 };
 </script>
