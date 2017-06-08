@@ -32,10 +32,10 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
           router-link.dropdown-item(to="/help/request-feature") {{ $t('requestAF') }}
     .item-with-icon
       .svg-icon(v-html="icons.gem")
-      span {{userGems}}
+      span {{userGems | roundBigNumber}}
     .item-with-icon
       .svg-icon(v-html="icons.gold")
-      span {{user.stats.gp | floor}}
+      span {{user.stats.gp | roundBigNumber}}
     .item-with-icon.item-notifications
       .svg-icon(v-html="icons.notifications")
     router-link.dropdown.item-with-icon.item-user(:to="{name: 'avatar'}")
