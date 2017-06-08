@@ -7,11 +7,30 @@
       span.small-text(v-html="$t('inviteFriendsParty')")
       br
       button.btn.btn-primary {{ $t('startAParty') }}
-  .party-members(v-else)
+  .party-members.d-flex(v-else)
     member-details(
       v-for="member in partyMembers",
       :key="member._id",
       :member="member",
+      condensed=true,
+    )
+    member-details(
+      v-for="member in partyMembers",
+      :key="member._id",
+      :member="member",
+      condensed=true,
+    )
+    member-details(
+      v-for="member in partyMembers",
+      :key="member._id",
+      :member="member",
+      condensed=true,
+    )
+    member-details(
+      v-for="member in partyMembers",
+      :key="member._id",
+      :member="member",
+      condensed=true,
     )
 </template>
 
@@ -24,15 +43,18 @@
   background: $purple-50;
   height: 204px;
   color: $header-color;
+  flex-wrap: nowrap;
+}
+
+.no-party, .party-members {
+  flex-grow: 1;
 }
 
 .party-members {
-  margin-left: 24px;
+  overflow-x: auto;
 }
 
 .no-party {
-  flex-grow: 1;
-
   .small-text {
     color: $header-color;
   }
