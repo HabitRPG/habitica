@@ -19,7 +19,7 @@ div
             b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption.value)', :key='sortOption.value') {{sortOption.text}}
     .row(v-for='member in members', :key='member', )
       .col-8.offset-1
-        user-list-detail(:user='member')
+        member-details(:user='member')
       .col-3.actions
         b-dropdown(:text="$t('sort')", right=true)
           b-dropdown-item(@click='sort(option.value)')
@@ -73,7 +73,7 @@ import bModal from 'bootstrap-vue/lib/components/modal';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
-import UserListDetail from '../userListDetail';
+import MemberDetails from '../memberDetails';
 
 export default {
   props: ['group'],
@@ -81,7 +81,7 @@ export default {
     bModal,
     bDropdown,
     bDropdownItem,
-    UserListDetail,
+    MemberDetails,
   },
   created () {
     this.getMembers();

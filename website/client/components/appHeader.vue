@@ -1,6 +1,6 @@
 <template lang="pug">
 #app-header.row
-  user-list-detail(:member="user", :expanded="true")
+  member-details(:member="user", :expanded="true")
   .no-party.d-flex.justify-content-center.text-center(v-if="!user.party._id")
     .align-self-center(v-once)
       h3 {{ $t('battleWithFriends') }}
@@ -8,7 +8,7 @@
       br
       button.btn.btn-primary {{ $t('startAParty') }}
   div(v-else)
-    user-list-detail(
+    member-details(
       v-for="member in partyMembers",
       :key="member._id",
       :member="member",
@@ -46,11 +46,11 @@
 
 <script>
 import { mapGetters, mapActions } from 'client/libs/store';
-import UserListDetail from './userListDetail';
+import MemberDetails from './memberDetails';
 
 export default {
   components: {
-    UserListDetail,
+    MemberDetails,
   },
   computed: {
     ...mapGetters({
