@@ -27,10 +27,6 @@ module.exports.readController = function readController (router, controller) {
     let middlewaresToAdd = [getUserLanguage];
 
     if (authMiddlewareIndex !== -1) { // the user will be authenticated, getUserLanguage and cron after authentication
-      if (!(runCron === false)) { // eslint-disable-line no-extra-parens
-        middlewaresToAdd.push(cron);
-      }
-
       if (authMiddlewareIndex === middlewares.length - 1) {
         middlewares.push(...middlewaresToAdd);
       } else {
