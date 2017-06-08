@@ -169,5 +169,10 @@
     "yearlyRepeatHelpContent": "This task will be due every X years",
     "resets": "Resets",
     "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %> ",
-    "nextDue": "Next Due Dates"
+    "nextDue": "Next Due Dates",
+    "yesterDailiesTitle": "Did you complete any of these?",
+    "yesterDailiesSubTitle": "(Check any you have)",
+    "yesterDailiesCallToAction": "That's All",
+    "yesterDailiesOptionTitle": "Prompt to check off if missed",
+    "yesterDailiesDescription": "Prompt to check off if missed"
 }

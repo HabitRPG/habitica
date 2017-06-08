@@ -36,6 +36,9 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
         },
       });
       Analytics.updateUser();
+
+      if (task.group.approval.required) task.group.approval.requested = true;
+      $rootScope.$broadcast('task:scored', {task: task});
     }
 
     $scope.score = function(task, direction) {
