@@ -186,6 +186,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
   context('dailys', () => {
     let daily;
+    let userWhoMissedDailies;
 
     beforeEach(async () => {
       daily = await user.post('/tasks/user', {
@@ -266,6 +267,27 @@ describe('POST /tasks/:id/score/:direction', () => {
       it('decreases user\'s gold', () => {
         expect(updatedUser.stats.gp).to.be.lessThan(user.stats.gp);
       });
+    });
+
+    it('removes a daily if it is in the yesterdailies and keeps it set to incomplete', async () => {
+      userWhoMissedDailies = await generateUser({});
+      let missedDaily = await userWhoMissedDailies.post('/tasks/user', {
+        text: 'test daily',
+        type: 'daily',
+      });
+      await userWhoMissedDailies.update({
+        yesterDailies: [missedDaily._id],
+      });
+
+      await userWhoMissedDailies.sync();
+      expect(userWhoMissedDailies.yesterDailies.length).to.eql(1);
+
+      await userWhoMissedDailies.post(`/tasks/${missedDaily._id}/score/up`);
+      await userWhoMissedDailies.sync();
+      let updatedMissedDaily = await userWhoMissedDailies.get(`/tasks/${missedDaily._id}`);
+
+      expect(updatedMissedDaily.completed).to.be.false;
+      expect(userWhoMissedDailies.yesterDailies.length).to.eql(0);
     });
   });
 

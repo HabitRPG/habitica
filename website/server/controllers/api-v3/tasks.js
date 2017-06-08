@@ -14,6 +14,7 @@ import {
   BadRequest,
 } from '../../libs/errors';
 import {
+  ageDailies,
   createTasks,
   getTasks,
   moveTask,
@@ -573,7 +574,8 @@ api.scoreTask = {
 
     let [delta] = common.ops.scoreTask({task, user, direction}, req);
     // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
-    if (direction === 'up') user.fns.randomDrop({task, delta}, req);
+    let yesterdaily = user.yesterDailies.indexOf(task._id) !== -1;
+    if (direction === 'up') user.fns.randomDrop({task, delta, yesterdaily}, req);
 
     // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
     // TODO move to common code?
@@ -586,6 +588,12 @@ api.scoreTask = {
           user.tasksOrder.todos.push(task._id);
         } // If for some reason it hadn't been removed previously don't do anything
       }
+    }
+
+    let indexOfYesterday = user.yesterDailies.indexOf(task._id);
+    if (indexOfYesterday !== -1) {
+      user.yesterDailies.splice(indexOfYesterday, 1);
+      task.completed = false;
     }
 
     setNextDue(task, user);
@@ -1258,6 +1266,46 @@ api.deleteTask = {
         task,
       });
     }
+  },
+};
+
+/**
+ * @api {post} /api/v3/tasks/age-dailies Ages dailies that are in the yesterDailies field
+ * @apiName AgeDailies
+ * @apiGroup Task
+ *
+ *
+ * @apiExample {json} Example call:
+ * curl -X "POST" https://habitica.com/api/v3/tasks/age-dailies
+ *
+ * @apiSuccess {Object} data An empty object
+ *
+ */
+api.ageDailies = {
+  method: 'POST',
+  url: '/tasks/age-dailies',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    let taskIds = user.yesterDailies;
+    let dailies = await Tasks.Task.find({_id: taskIds, type: 'daily'}).exec();
+    let daysMissed = 1; // I believe we only handle one day damage now. Maybe multi can be for hard mode?
+
+    ageDailies(user, daysMissed, dailies);
+
+    user.yesterDailies = [];
+    let toSave = [user.save()];
+    dailies.forEach(task => {
+      if (task.isModified()) toSave.push(task.save());
+    });
+    await Bluebird.all(toSave);
+
+    let progress = user.party.quest.progress;
+    let _progress = progress.toObject(); // clone the old progress object
+    await Group.processQuestProgress(user, _progress);
+
+    res.respond(200, {});
   },
 };
 

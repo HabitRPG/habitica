@@ -1,10 +1,17 @@
+import moment from 'moment';
+import Bluebird from 'bluebird';
+import _ from 'lodash';
+import nconf from 'nconf';
+import common from '../../common/';
 import * as Tasks from '../models/task';
 import {
   BadRequest,
 } from './errors';
-import Bluebird from 'bluebird';
-import _ from 'lodash';
-import shared from '../../common';
+
+const shouldDo = common.shouldDo;
+const scoreTask = common.ops.scoreTask;
+let CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
+const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 
 async function _validateTaskAlias (tasks, res) {
   let tasksWithAliases = tasks.filter(task => task.alias);
@@ -26,9 +33,9 @@ export function setNextDue (task, user) {
   if (task.type !== 'daily') return;
 
   let optionsForShouldDo = user.preferences.toObject();
-  task.isDue = shared.shouldDo(Date.now(), task, optionsForShouldDo);
+  task.isDue = common.shouldDo(Date.now(), task, optionsForShouldDo);
   optionsForShouldDo.nextDue = true;
-  let nextDue = shared.shouldDo(Date.now(), task, optionsForShouldDo);
+  let nextDue = common.shouldDo(Date.now(), task, optionsForShouldDo);
   if (nextDue && nextDue.length > 0) {
     task.nextDue = nextDue.map((dueDate) => {
       return dueDate.toISOString();
@@ -76,6 +83,8 @@ export async function createTasks (req, res, options = {}) {
     } else {
       newTask.userId = user._id;
     }
+
+    if (newTask.type === 'daily') newTask.isDue = common.shouldDo(Date.now(), newTask, user.preferences);
 
     setNextDue(newTask, user);
 
@@ -200,7 +209,7 @@ export async function getTasks (req, res, options = {}) {
 export function syncableAttrs (task) {
   let t = task.toObject(); // lodash doesn't seem to like _.omit on Document
   // only sync/compare important attrs
-  let omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt', 'createdAt', 'group', 'checklist', 'attribute'];
+  let omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt', 'createdAt', 'group', 'checklist', 'attribute', 'yesterDaily'];
   if (t.type !== 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
 }
@@ -232,4 +241,81 @@ export function moveTask (order, taskId, to) {
   } else {
     order.splice(to, 0, taskId);
   }
+}
+
+export function ageDailies (user, daysMissed, dailies) {
+  // For incomplete Dailys, add value (further incentive), deduct health, keep records for later decreasing the nightly mana gain
+  let dailyCheckedAged = 0; // how many dailies were checked?
+  let dailyDueUncheckedAged = 0; // how many dailies were un-checked?
+  let atLeastOneDailyDueAged = false; // were any dailies due?
+  if (!user.party.quest.progress.down) user.party.quest.progress.down = 0;
+  let perfectAged = true;
+  let now = moment();
+
+  dailies.forEach((task) => {
+    let scheduleMisses = 0;
+    let EvadeTask = 0;
+
+    for (let i = 0; i < daysMissed; i++) {
+      let thatDay = now.subtract({days: i});
+
+      if (shouldDo(thatDay.toDate(), task, user.preferences)) {
+        atLeastOneDailyDueAged = true;
+        scheduleMisses++;
+        if (user.stats.buffs.stealth) {
+          user.stats.buffs.stealth--;
+          EvadeTask++;
+        }
+      }
+
+      if (scheduleMisses <= EvadeTask) return;
+
+      // The user did not complete this due Daily (but no penalty if cron is running in safe mode).
+      if (CRON_SAFE_MODE) {
+        dailyCheckedAged += 1; // allows full allotment of mp to be gained
+        return;
+      }
+
+      perfectAged = false;
+
+      if (task.checklist && task.checklist.length > 0) { // Partially completed checklists dock fewer mana points
+        let fractionChecked = _.reduce(task.checklist, (m, item) => m + (item.completed ? 1 : 0), 0) / task.checklist.length;
+        dailyDueUncheckedAged += 1 - fractionChecked;
+        dailyCheckedAged += fractionChecked;
+      } else {
+        dailyDueUncheckedAged += 1;
+      }
+
+      let delta = scoreTask({
+        user,
+        task,
+        direction: 'down',
+        times: 1,
+        cron: true,
+      });
+
+      if (!CRON_SEMI_SAFE_MODE) {
+        // Apply damage from a boss, less damage for Trivial priority (difficulty)
+        if (delta) user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
+        // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
+        // initially, and when we realised, we could not fix it because users are used to
+        // their Medium and Hard Dailies doing an Easy amount of damage from boss.
+        // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
+        // setting between Trivial and Easy.
+      }
+    }
+
+    task.history.push({
+      date: Number(new Date()),
+      value: task.value,
+    });
+    task.completed = false;
+    task.isDue = common.shouldDo(Date.now(), task, user.preferences);
+
+    if (task.checklist) {
+      task.checklist.forEach(i => i.completed = false);
+    }
+  });
+
+  return {dailyCheckedAged, dailyDueUncheckedAged, atLeastOneDailyDueAged, perfectAged};
 }

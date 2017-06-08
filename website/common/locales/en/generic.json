@@ -219,5 +219,7 @@
     "online": "online",
     "onlineCount": "<%= count %> online",
     "loading": "Loading...",
-    "userIdRequired": "User ID is required"
+    "userIdRequired": "User ID is required",
+    "yes": "Yes",
+    "no": "No"
 }

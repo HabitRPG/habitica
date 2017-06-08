@@ -358,6 +358,9 @@ let schema = new Schema({
       date: {type: Date, default: Date.now},
       count: {type: Number, default: 0},
     },
+    lastDropYesterday: {
+      count: {type: Number, default: 0},
+    },
   },
 
   lastCron: {type: Date, default: Date.now},
@@ -549,6 +552,7 @@ let schema = new Schema({
     todos: [{type: String, ref: 'Task'}],
     rewards: [{type: String, ref: 'Task'}],
   },
+  yesterDailies: [{type: String, ref: 'Task'}],
   extra: {type: Schema.Types.Mixed, default: () => {
     return {};
   }},

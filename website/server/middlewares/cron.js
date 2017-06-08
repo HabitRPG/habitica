@@ -156,7 +156,7 @@ async function cronAsync (req, res) {
     // Save user and tasks
     let toSave = [user.save()];
     tasks.forEach(task => {
-      if (task.isModified()) toSave.push(task.save());
+      toSave.push(task.save());
     });
     await Bluebird.all(toSave);
 

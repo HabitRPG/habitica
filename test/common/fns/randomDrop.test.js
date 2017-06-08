@@ -44,6 +44,14 @@ describe('common.fns.randomDrop', () => {
       expect(user._tmp.drop).to.be.undefined;
     });
 
+    it('does nothing if user.items.lastDropYesterday.count is exceeded and the task was in the yesterdailies list', () => {
+      user.items.lastDropYesterday.count = 100;
+      user.items.lastDrop.count = 0;
+      randomDrop(user, { task, predictableRandom, yesterdaily: true });
+      expect(user._tmp.drop).to.be.undefined;
+      expect(user.items.lastDrop.count).to.eql(0);
+    });
+
     it('drops something when the task is a todo', () => {
       expect(user._tmp).to.eql({});
       user.flags.dropsEnabled = true;

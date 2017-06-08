@@ -157,11 +157,12 @@ describe('cron middleware', () => {
     });
   });
 
-  it('does damage for missing dailies', async () => {
+  it('does damage for missing dailies that are not yesterdailies', async () => {
     let hpBefore = user.stats.hp;
     user.lastCron = moment(new Date()).subtract({days: 2});
     let daily = generateDaily(user);
     daily.startDate = moment(new Date()).subtract({days: 2});
+    daily.yesterDaily = false;
     await daily.save();
     await user.save();
 
@@ -197,6 +198,7 @@ describe('cron middleware', () => {
     user.lastCron = moment(new Date()).subtract({days: 2});
     let daily = generateDaily(user);
     daily.startDate = moment(new Date()).subtract({days: 2});
+    daily.yesterDaily = false;
     await daily.save();
 
     let questKey = 'dilatory';

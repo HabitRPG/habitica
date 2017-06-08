@@ -56,6 +56,13 @@ describe('cron', () => {
     expect(user.items.lastDrop.count).to.equal(0);
   });
 
+  it('sets user.items.lastDropYesterday.count', () => {
+    user.items.lastDrop.count = 4;
+    cron({user, tasksByType, daysMissed, analytics});
+    expect(user.items.lastDrop.count).to.equal(0);
+    expect(user.items.lastDropYesterday.count).to.equal(4);
+  });
+
   it('increments user cron count', () => {
     let cronCountBefore = user.flags.cronCount;
     cron({user, tasksByType, daysMissed, analytics});
@@ -360,6 +367,7 @@ describe('cron', () => {
     });
   });
 
+  // @TODO: remove duplicates
   describe('dailys', () => {
     beforeEach(() => {
       let daily = {
@@ -609,7 +617,6 @@ describe('cron', () => {
       daysMissed = 1;
       tasksByType.dailys[0].completed = true;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
-
       cron({user, tasksByType, daysMissed, analytics});
 
       expect(user.achievements.perfect).to.equal(1);
@@ -668,6 +675,7 @@ describe('cron', () => {
       daysMissed = 1;
       tasksByType.dailys[0].completed = false;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+      tasksByType.dailys[0].yesterDaily = false;
 
       user.stats.buffs = {
         str: 1,
@@ -731,6 +739,7 @@ describe('cron', () => {
       };
 
       let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
+      task.yesterDaily = false;
       tasksByType.dailys = [];
       tasksByType.dailys.push(task);
 

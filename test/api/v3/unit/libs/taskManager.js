@@ -1,4 +1,9 @@
+import moment from 'moment';
+import nconf from 'nconf';
+import requireAgain from 'require-again'; // @TODO: Remove the need for this. Stub a singelton
+
 import {
+  ageDailies,
   createTasks,
   getTasks,
   syncableAttrs,
@@ -177,5 +182,84 @@ describe('taskManager', () => {
     moveTask(order, 'task-id-2', 0);
 
     expect(order).to.eql(['task-id-2', 'task-id-1']);
+  });
+
+  describe('aging dailies', async () => {
+    let dailies, daysMissed;
+
+    beforeEach(async () => {
+      let daily = {
+        text: 'test daily',
+        type: 'daily',
+      };
+      req.body = daily;
+      res.t = i18n.t;
+      dailies = await createTasks(req, res, {user});
+
+      daysMissed = 1;
+
+      user._statsComputed = {
+        con: 1,
+      };
+    });
+
+    it('should do damage for missing a daily', () => {
+      daysMissed = 1;
+      let hpBefore = user.stats.hp;
+      dailies[0].startDate = moment(new Date()).subtract({days: 1});
+
+      ageDailies(user, daysMissed, dailies);
+
+      expect(user.stats.hp).to.be.lessThan(hpBefore);
+    });
+
+    it('should not do damage for missing a daily when CRON_SAFE_MODE is set', () => {
+      sandbox.stub(nconf, 'get').withArgs('CRON_SAFE_MODE').returns('true');
+      let ageDailiesOverride = requireAgain('../../../../../website/server/libs/taskManager').ageDailies;
+
+      daysMissed = 1;
+      let hpBefore = user.stats.hp;
+      dailies[0].startDate = moment(new Date()).subtract({days: 1});
+
+      ageDailiesOverride(user, daysMissed, dailies);
+
+      expect(user.stats.hp).to.equal(hpBefore);
+    });
+
+    it('should not do damage for missing a daily if user stealth buff is greater than or equal to days missed', () => {
+      daysMissed = 1;
+      let hpBefore = user.stats.hp;
+      user.stats.buffs.stealth = 2;
+      dailies[0].startDate = moment(new Date()).subtract({days: 1});
+
+      ageDailies(user, daysMissed, dailies);
+
+      expect(user.stats.hp).to.equal(hpBefore);
+    });
+
+    it('should do less damage for missing a daily with partial completion', () => {
+      daysMissed = 1;
+      let hpBefore = user.stats.hp;
+      dailies[0].startDate = moment(new Date()).subtract({days: 1});
+      ageDailies(user, daysMissed, dailies);
+      let hpDifferenceOfFullyIncompleteDaily = hpBefore - user.stats.hp;
+
+      hpBefore = user.stats.hp;
+      dailies[0].checklist.push({title: 'test', completed: true});
+      dailies[0].checklist.push({title: 'test2', completed: false});
+      ageDailies(user, daysMissed, dailies);
+      let hpDifferenceOfPartiallyIncompleteDaily = hpBefore - user.stats.hp;
+
+      expect(hpDifferenceOfPartiallyIncompleteDaily).to.be.lessThan(hpDifferenceOfFullyIncompleteDaily);
+    });
+
+    it('should decrement quest progress down for missing a daily', () => {
+      daysMissed = 1;
+      dailies[0].startDate = moment(new Date()).subtract({days: 1});
+
+      ageDailies(user, daysMissed, dailies);
+
+      expect(user.party.quest.progress.down).to.equal(-1);
+    });
   });
 });

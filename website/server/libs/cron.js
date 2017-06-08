@@ -1,14 +1,14 @@
+import _ from 'lodash';
+import nconf from 'nconf';
 import moment from 'moment';
 import Bluebird from 'bluebird';
 import { model as User } from '../models/user';
 import common from '../../common/';
 import { preenUserHistory } from '../libs/preening';
-import _ from 'lodash';
+import { ageDailies } from '../libs/taskManager';
 import cloneDeep from 'lodash/cloneDeep';
-import nconf from 'nconf';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
-const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 const MAX_INCENTIVES = common.constants.MAX_INCENTIVES;
 const shouldDo = common.shouldDo;
 const scoreTask = common.ops.scoreTask;
@@ -200,6 +200,7 @@ export function cron (options = {}) {
 
   user.preferences.timezoneOffsetAtLastCron = timezoneOffsetFromUserPrefs;
   // User is only allowed a certain number of drops a day. This resets the count.
+  user.items.lastDropYesterday.count = user.items.lastDrop.count;
   if (user.items.lastDrop.count > 0) user.items.lastDrop.count = 0;
 
   // "Perfect Day" achievement for perfect days
@@ -254,12 +255,13 @@ export function cron (options = {}) {
   let dailyDueUnchecked = 0; // how many dailies were un-checked?
   let atLeastOneDailyDue = false; // were any dailies due?
   if (!user.party.quest.progress.down) user.party.quest.progress.down = 0;
+  user.yesterDailies = [];
+  let dailiesToAge = [];
 
   tasksByType.dailys.forEach((task) => {
     let completed = task.completed;
     // Deduct points for missed Daily tasks
-    let EvadeTask = 0;
-    let scheduleMisses = daysMissed;
+    // let scheduleMisses = daysMissed;
 
     if (completed) {
       dailyChecked += 1;
@@ -267,57 +269,27 @@ export function cron (options = {}) {
         let thatDay = moment(now).subtract({days: daysMissed});
         atLeastOneDailyDue = shouldDo(thatDay.toDate(), task, user.preferences);
       }
+
+      if (task.checklist) {
+        task.checklist.forEach(i => i.completed = false);
+      }
     } else {
       // dailys repeat, so need to calculate how many they've missed according to their own schedule
-      scheduleMisses = 0;
+      // scheduleMisses = 0;
 
       for (let i = 0; i < daysMissed; i++) {
         let thatDay = moment(now).subtract({days: i + 1});
 
-        if (shouldDo(thatDay.toDate(), task, user.preferences)) {
-          atLeastOneDailyDue = true;
-          scheduleMisses++;
-          if (user.stats.buffs.stealth) {
-            user.stats.buffs.stealth--;
-            EvadeTask++;
-          }
-          if (multiDaysCountAsOneDay) break;
+        if (!shouldDo(thatDay.toDate(), task, user.preferences)) continue; // eslint-disable-line no-continue
+
+        atLeastOneDailyDue = true;
+
+        if (task.yesterDaily) {
+          user.yesterDailies.push(task._id);
+          continue; // eslint-disable-line no-continue
         }
-      }
 
-      if (scheduleMisses > EvadeTask) {
-        // The user did not complete this due Daily (but no penalty if cron is running in safe mode).
-        if (CRON_SAFE_MODE) {
-          dailyChecked += 1; // allows full allotment of mp to be gained
-        } else {
-          perfect = false;
-
-          if (task.checklist && task.checklist.length > 0) { // Partially completed checklists dock fewer mana points
-            let fractionChecked = _.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0) / task.checklist.length;
-            dailyDueUnchecked += 1 - fractionChecked;
-            dailyChecked += fractionChecked;
-          } else {
-            dailyDueUnchecked += 1;
-          }
-
-          let delta = scoreTask({
-            user,
-            task,
-            direction: 'down',
-            times: multiDaysCountAsOneDay ? 1 : scheduleMisses - EvadeTask,
-            cron: true,
-          });
-
-          if (!CRON_SEMI_SAFE_MODE) {
-            // Apply damage from a boss, less damage for Trivial priority (difficulty)
-            user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
-            // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
-            // initially, and when we realised, we could not fix it because users are used to
-            // their Medium and Hard Dailies doing an Easy amount of damage from boss.
-            // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
-            // setting between Trivial and Easy.
-          }
-        }
+        dailiesToAge.push(task);
       }
     }
 
@@ -326,15 +298,23 @@ export function cron (options = {}) {
       value: task.value,
     });
     task.completed = false;
+    task.isDue = common.shouldDo(Date.now(), task, user.preferences);
 
     setIsDueNextDue(task, user, now);
 
-    if (completed || scheduleMisses > 0) {
+    //  || scheduleMisses > 0
+    if (completed) {
       if (task.checklist) {
         task.checklist.forEach(i => i.completed = false);
       }
     }
   });
+
+  let {dailyCheckedAged, dailyDueUncheckedAged, atLeastOneDailyDueAged, perfectAged} = ageDailies(user, daysMissed, dailiesToAge);
+  dailyChecked += dailyCheckedAged;
+  dailyDueUnchecked += dailyDueUncheckedAged;
+  if (!atLeastOneDailyDue) atLeastOneDailyDue = atLeastOneDailyDueAged;
+  if (perfect) perfect = perfectAged;
 
   // check if we've passed a day on which we should reset the habit counters, including today
   let resetWeekly = false;
@@ -412,6 +392,7 @@ export function cron (options = {}) {
   // Add 10 MP, or 10% of max MP if that'd be more. Perform this after Perfect Day for maximum benefit
   // Adjust for fraction of dailies completed
   if (dailyDueUnchecked === 0 && dailyChecked === 0) dailyChecked = 1;
+
   user.stats.mp += _.max([10, 0.1 * user._statsComputed.maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked);
   if (user.stats.mp > user._statsComputed.maxMP) user.stats.mp = user._statsComputed.maxMP;
 
