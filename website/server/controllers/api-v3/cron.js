@@ -1,5 +1,5 @@
 import { authWithHeaders } from '../../middlewares/auth';
-import cron from '../middlewares/cron';
+import cron from '../../middlewares/cron';
 
 let api = {};
 

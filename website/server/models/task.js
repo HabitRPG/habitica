@@ -128,7 +128,7 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (identifier,
 TaskSchema.statics.sanitizeUserChallengeTask = function sanitizeUserChallengeTask (taskObj) {
   let initialSanitization = this.sanitize(taskObj);
 
-  return _.pick(initialSanitization, ['streak', 'checklist', 'attribute', 'reminders', 'tags', 'notes', 'collapseChecklist', 'alias']);
+  return _.pick(initialSanitization, ['streak', 'checklist', 'attribute', 'reminders', 'tags', 'notes', 'collapseChecklist', 'alias', 'yesterDaily']);
 };
 
 // Sanitize checklist objects (disallowing id)
@@ -244,6 +244,7 @@ export let DailySchema = new Schema(_.defaults({
   weeksOfMonth: {type: [Number], default: []}, // Weeks of the month that the daily should repeat on
   isDue: {type: Boolean},
   nextDue: [{type: String}],
+  yesterDaily: {type: Boolean, default: true},
 }, habitDailySchema(), dailyTodoSchema()), subDiscriminatorOptions);
 export let daily = Task.discriminator('daily', DailySchema);
 

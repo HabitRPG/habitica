@@ -133,6 +133,7 @@ describe('POST /tasks/user', () => {
       expect(task.completed).to.equal(false);
       expect(task.streak).not.to.equal('never');
       expect(task.value).not.to.equal(324);
+      expect(task.yesterDaily).to.equal(true);
     });
 
     it('ignores invalid fields', async () => {
