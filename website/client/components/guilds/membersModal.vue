@@ -3,12 +3,29 @@ div
   button.btn.btn-primary(b-btn, @click="$root.$emit('show::modal','members-modal')") {{ $t('viewMembers') }}
 
   b-modal#members-modal(:title="$t('createGuild')")
-    ul(v-for='member in members', :key='member')
-      li(@click='clickMember') {{member}}
-        button(@click='removeMember(member)', v-once) {{$t('remove')}}
-        button(@click='quickReply(member)', v-once) {{$t('message')}}
-        button(@click='addManager(member)', v-once) {{$t('addManager')}}
-        button(@click='removeManager(member)', v-once) {{$t('addManager')}}
+    .header-wrap(slot="modal-header")
+      .row
+        .col-6
+          h1 Testing
+        .col-6
+          button(type="button" aria-label="Close" class="close")
+            span(aria-hidden="true") ×
+      .row
+        .form-group.col-6
+          input.form-control.search(type="text", :placeholder="$t('search')", v-model='searchTerm')
+        .col-6
+          span.dropdown-label {{ $t('sortBy') }}
+          b-dropdown(:text="$t('sort')", right=true)
+            b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
+    .row(v-for='member in members', :key='member', )
+      .col-8
+        user-list-detail
+      .col-4
+        b-dropdown(:text="$t('sort')", right=true)
+          b-dropdown-item(@click='sort(option.value)') {{$t('remove')}}
+          b-dropdown-item(@click='sort(option.value)') {{$t('message')}}
+          b-dropdown-item(@click='sort(option.value)') {{$t('addManager')}}
+          b-dropdown-item(@click='sort(option.value)') {{$t('removeManager')}}
 
   b-modal#remove-member(:title="$t('confirmRemoveMember')")
     button(@click='confirmRemoveMember(member)', v-once) {{$t('remove')}}
@@ -17,13 +34,37 @@ div
     button(@click='confirmRemoveMember(member)', v-once) {{$t('remove')}}
 </template>
 
+<style lang='scss'>
+
+header {
+  background-color: #edecee;
+  border-radius: 4px 4px 0 0;
+}
+
+.header-wrap {
+  width: 100%;
+}
+
+h1 {
+  color: #4f2a93;
+}
+
+</style>
+
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
+import bDropdown from 'bootstrap-vue/lib/components/dropdown';
+import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
+
+import UserListDetail from '../userListDetail';
 
 export default {
   props: ['group'],
   components: {
     bModal,
+    bDropdown,
+    bDropdownItem,
+    UserListDetail,
   },
   data () {
     return {
