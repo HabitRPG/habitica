@@ -135,7 +135,7 @@
   },
   "scripts": {
     "lint": "eslint --ext .js,.vue .",
-    "test": "npm run lint && gulp test && npm run client:unit",
+    "test": "npm run lint && gulp test && npm run client:unit && gulp apidoc",
     "test:build": "gulp test:prepare:build",
     "test:api-v3": "gulp test:api-v3",
     "test:api-v3:unit": "gulp test:api-v3:unit",
@@ -159,7 +159,8 @@
     "client:e2e": "node test/client/e2e/runner.js",
     "client:test": "npm run client:unit && npm run client:e2e",
     "start": "gulp run:dev",
-    "postinstall": "bower --config.interactive=false install -f && gulp build && npm run client:build"
+    "postinstall": "bower --config.interactive=false install -f && gulp build && npm run client:build",
+    "apidoc": "gulp apidoc"
   },
   "devDependencies": {
     "babel-plugin-istanbul": "^4.0.0",
