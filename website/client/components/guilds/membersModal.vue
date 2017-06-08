@@ -119,7 +119,7 @@ export default {
       });
       this.members = members;
     },
-    clickMember (uid, forceShow) {
+    async clickMember (uid, forceShow) {
       let user = this.$store.state.user.data;
 
       if (user._id === uid && !forceShow) {
@@ -132,59 +132,47 @@ export default {
         return;
       }
 
-      // $root.$emit('show::modal','members-modal')
-      // We need the member information up top here, but then we pass it down to the modal controller
-      // down below. Better way of handling this?
-      // Members.selectMember(uid)
-      //   .then(function () {
-      //     $rootScope.openModal('member', {controller: 'MemberModalCtrl', windowClass: 'profile-modal', size: 'lg'});
-      //   });
+      let shownMember = await this.$store.dispatch('members:selectMember', {
+        memberId: uid,
+      });
+
+      $root.$emit('show::modal', 'members-modal');
     },
-    removeMember (member) {
+    async removeMember (member) {
       this.memberToRemove = member;
       this.$root.$emit('show::modal', 'remove-member');
     },
-    confirmRemoveMember (confirmation) {
+    async confirmRemoveMember (confirmation) {
       if (!confirmation) {
         this.memberToRemove = '';
         return;
       }
-      // Groups.Group.removeMember(
-      //   $scope.removeMemberData.group._id,
-      //   $scope.removeMemberData.member._id,
-      //   $scope.removeMemberData.message
-      // ).then(function (response) {
-      //   if($scope.removeMemberData.isMember){
-      //     _.pull($scope.removeMemberData.group.members, $scope.removeMemberData.member);
-      //   }else{
-      //     _.pull($scope.removeMemberData.group.invites, $scope.removeMemberData.member);
-      //   }
-      //
-      //   $scope.removeMemberData = undefined;
-      // });
+
+      await this.$store.dispatch('members:removeMember', {
+        memberId: this.memberToRemove._id,
+        groupId: this.group._id,
+        message: this.removeMessage,
+      });
+
+      this.memberToRemove = '';
+      this.removeMessage = '';
     },
-    quickReply (uid) {
+    async quickReply (uid) {
       this.memberToReply = uid;
-      this.$root.$emit('show::modal', 'private-message');
-      // Members.selectMember(uid)
-      //   .then(function (response) {
-      //     $rootScope.openModal('private-message', {controller: 'MemberModalCtrl'});
-      //   });
+      let shownMember = await this.$store.dispatch('members:selectMember', {
+        memberId: uid,
+      });
+      this.$root.$emit('show::modal', 'private-message'); //MemberModalCtrl
     },
-    addManager () {
-      // Groups.Group.addManager(this.group._id, this.group._newManager)
-      //   .then(function (response) {
-      //     this.group._newManager = '';
-      //     this.group.managers = response.data.data.managers;
-      //   });
+    async addManager (memberId) {
+      let shownMember = await this.$store.dispatch('group:addManager', {
+        memberId,
+      });
     },
-    removeManager (memberId) {
-      this.memberToReply = memberId;
-      // Groups.Group.removeManager(this.group._id, memberId)
-      //   .then(function (response) {
-      //     this.group._newManager = '';
-      //     this.group.managers = response.data.data.managers;
-      //   });
+    async removeManager (memberId) {
+      let shownMember = await this.$store.dispatch('group:removeManager', {
+        memberId,
+      });
     },
   },
 };

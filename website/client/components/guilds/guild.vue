@@ -24,7 +24,7 @@
       .col-12
         h3(v-once) {{ $t('chat') }}
 
-        textarea(placeholder="$('chatPlaceHolder')")
+        textarea(:placeholder="$t('chatPlaceHolder')")
         button.btn.btn-secondary.send-chat.float-right(v-once) {{ $t('send') }}
 
         .hr
@@ -66,9 +66,7 @@
       .col-6
         members-modal(:group='guild')
         br
-        button.btn.btn-primary(v-once) {{$t('joinGuild')}}
-        br
-        button.btn.float-left(:class="[isMember ? 'btn-danger' : 'btn-success']") {{ isMember ? $t('leave') : $t('join') }}
+        button.btn.btn-primary(:class="[isMember ? 'btn-danger' : 'btn-success']") {{ isMember ? $t('leave') : $t('join') }}
         br
         button.btn.btn-primary(v-once) {{$t('inviteToGuild')}}
         br
@@ -272,18 +270,6 @@ export default {
           text: '@CharacterName Vestibulum ultricies, lorem non bibendum consequat, nisl lacus semper nulla, hendrerit dignissim ipsum erat eu odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at aliquet urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla non est ut nisl interdum tincidunt in eu dui. Proin condimentum a.',
         },
       ];
-    },
-    editGroup () {
-      // @TODO: Open up model
-    },
-    save () {
-      let newLeader = this.group._newLeader && this.group._newLeader._id;
-
-      if (newLeader) {
-        this.group.leader = newLeader;
-      }
-
-      // Groups.Group.update(group);
     },
     deleteAllMessages () {
       if (confirm(this.$t('confirmDeleteAllMessages'))) {
