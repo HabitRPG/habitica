@@ -9,11 +9,16 @@ import Page from './components/page';
 // Tasks
 import UserTasks from './components/userTasks';
 
+// Except for tasks that are always loaded all the other main level
+// components are loaded in separate webpack chunks.
+// See https://webpack.js.org/guides/code-splitting-async/
+// for docs
+
 // Inventory
-import InventoryContainer from './components/inventory/index';
-import ItemsPage from './components/inventory/items/index';
-import EquipmentPage from './components/inventory/equipment/index';
-import StablePage from './components/inventory/stable';
+const InventoryContainer = () => import(/* webpackChunkName: "inventory" */'./components/inventory/index');
+const ItemsPage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/items/index');
+const EquipmentPage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/equipment/index');
+const StablePage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/stable');
 
 // Social
 // TODO add inbox back
@@ -21,11 +26,11 @@ import StablePage from './components/inventory/stable';
 // import InboxConversationPage from './components/social/inbox/conversationPage';
 
 // Guilds
-import GuildIndex from './components/guilds/index';
-import TavernPage from './components/guilds/tavern';
-import MyGuilds from './components/guilds/myGuilds';
-import GuildsDiscoveryPage from './components/guilds/discovery';
-import GuildPage from './components/guilds/guild';
+const GuildIndex = () => import(/* webpackChunkName: "guilds" */ './components/guilds/index');
+const TavernPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/tavern');
+const MyGuilds = () => import(/* webpackChunkName: "guilds" */ './components/guilds/myGuilds');
+const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/discovery');
+const GuildPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/guild');
 
 Vue.use(VueRouter);
 
