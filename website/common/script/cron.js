@@ -94,7 +94,7 @@ export function daysSince (yesterday, options = {}) {
  */
 
 export function shouldDo (day, dailyTask, options = {}) {
-  if (dailyTask.type !== 'daily' || dailyTask.everyX < 1 || dailyTask.everyX > 9999) {
+  if (dailyTask.type !== 'daily' || dailyTask.startDate === null || dailyTask.everyX < 1 || dailyTask.everyX > 9999) {
     return false;
   }
   let o = sanitizeOptions(options);

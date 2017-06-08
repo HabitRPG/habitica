@@ -436,6 +436,24 @@ describe('shouldDo', () => {
       expect(moment(nextDue[5]).toDate()).to.eql(moment.utc('2017-06-11').toDate());
     });
 
+    it('should not go into an infinite loop with invalid values', () => {
+      options.nextDue = true;
+
+      day = moment('2017-05-01').toDate();
+      dailyTask.frequency = 'weekly';
+      dailyTask.everyX = 1;
+      dailyTask.startDate = null;
+
+      nextDue = shouldDo(day, dailyTask, options);
+      expect(nextDue).to.eql(false);
+
+      dailyTask.startDate = day;
+      dailyTask.everyX = 0;
+
+      nextDue = shouldDo(day, dailyTask, options);
+      expect(nextDue).to.eql(false);
+    });
+
     context('Day of the week matches', () => {
       const weekdayMap = {
         1: 'm',
