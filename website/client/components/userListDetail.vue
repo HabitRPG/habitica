@@ -1,27 +1,27 @@
 <template lang="pug">
 .d-flex
-  avatar#header-avatar(:user="user")
-  div
-    h3.character-name
-      | {{user.profile.name}}
+  avatar#header-avatar(:member="member")
+  div(v-if="expanded")
+    h3.character-name 
+      | {{member.profile.name}}
       .is-buffed(v-if="isBuffed")
         .svg-icon(v-html="icons.buff")
     span.small-text.character-level {{ characterLevel }}
     .progress-container.d-flex
       .svg-icon(v-html="icons.health")
       .progress
-        .progress-bar.bg-health(:style="{width: `${percent(user.stats.hp, MAX_HEALTH)}%`}")
-      span.small-text {{user.stats.hp | round}} / {{MAX_HEALTH}}
+        .progress-bar.bg-health(:style="{width: `${percent(member.stats.hp, MAX_HEALTH)}%`}")
+      span.small-text {{member.stats.hp | round}} / {{MAX_HEALTH}}
     .progress-container.d-flex
       .svg-icon(v-html="icons.experience")
       .progress
-        .progress-bar.bg-experience(:style="{width: `${percent(user.stats.exp, toNextLevel)}%`}")
-      span.small-text {{user.stats.exp | round}} / {{toNextLevel}}
-    .progress-container.d-flex(v-if="user.flags.classSelected && !user.preferences.disableClasses")
+        .progress-bar.bg-experience(:style="{width: `${percent(member.stats.exp, toNextLevel)}%`}")
+      span.small-text {{member.stats.exp | round}} / {{toNextLevel}}
+    .progress-container.d-flex(v-if="hasClass")
       .svg-icon(v-html="icons.mana")
       .progress
-        .progress-bar.bg-mana(:style="{width: `${percent(user.stats.mp, maxMP)}%`}")
-      span.small-text {{user.stats.mp | round}} / {{maxMP}}
+        .progress-bar.bg-mana(:style="{width: `${percent(member.stats.mp, maxMP)}%`}")
+      span.small-text {{member.stats.mp | round}} / {{maxMP}}
 </template>
 
 <style lang="scss" scoped>
@@ -82,7 +82,7 @@
 }
 
 .progress-container > .progress {
-  width: 203px;
+  width: 303px;
   margin: 0px;
   border-radius: 2px;
   height: 16px;
@@ -98,7 +98,7 @@
 
 <script>
 import Avatar from './avatar';
-import { mapState, mapGetters } from 'client/libs/store';
+import { mapState } from 'client/libs/store';
 
 import { toNextLevel } from '../../common/script/statHelpers';
 import statsComputed from '../../common/script/libs/statsComputed';
@@ -114,10 +114,11 @@ export default {
     Avatar,
   },
   props: {
-    user: {
+    member: {
       type: Object,
       required: true,
     },
+    expanded: Boolean,
   },
   data () {
     return {
@@ -131,23 +132,26 @@ export default {
   },
   methods: {
     percent,
+    hasClass () {
+      return this.$store.getters['members:hasClass'](this.member);
+    },
+    isBuffed () {
+      return this.$store.getters['members:isBuffed'](this.member);
+    },
   },
   computed: {
     ...mapState({
       MAX_HEALTH: 'constants.MAX_HEALTH',
     }),
-    ...mapGetters({
-      isBuffed: 'user:isBuffed',
-    }),
     maxMP () {
-      return statsComputed(this.user).maxMP;
+      return statsComputed(this.member).maxMP;
     },
     toNextLevel () { // Exp to next level
-      return toNextLevel(this.user.stats.lvl);
+      return toNextLevel(this.member.stats.lvl);
     },
     characterLevel () {
-      return `${this.$t('level')} ${this.user.stats.lvl} ${
-        this.user.stats.class ? this.$t(this.user.stats.class) : ''
+      return `${this.$t('level')} ${this.member.stats.lvl} ${
+        this.member.stats.class ? this.$t(this.member.stats.class) : ''
       }`;
     },
   },
