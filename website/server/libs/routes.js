@@ -3,7 +3,6 @@ import _ from 'lodash';
 import {
   getUserLanguage,
 } from '../middlewares/language';
-import cron from '../middlewares/cron';
 
 // Wrapper function to handler `async` route handlers that return promises
 // It takes the async function, execute it and pass any error to next (args[2])
@@ -12,7 +11,7 @@ let noop = (req, res, next) =>  next();
 
 module.exports.readController = function readController (router, controller) {
   _.each(controller, (action) => {
-    let {method, url, middlewares = [], handler, runCron} = action;
+    let {method, url, middlewares = [], handler} = action;
 
     // If an authentication middleware is used run getUserLanguage after it, otherwise before
     // for cron instead use it only if an authentication middleware is present
