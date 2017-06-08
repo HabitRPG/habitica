@@ -12221,6 +12221,23 @@
       "from": "svg-inline-loader@latest",
       "resolved": "https://registry.npmjs.org/svg-inline-loader/-/svg-inline-loader-0.7.1.tgz"
     },
+    "svg-url-loader": {
+      "version": "2.0.2",
+      "from": "svg-url-loader@latest",
+      "resolved": "https://registry.npmjs.org/svg-url-loader/-/svg-url-loader-2.0.2.tgz",
+      "dependencies": {
+        "file-loader": {
+          "version": "0.10.0",
+          "from": "file-loader@0.10.0",
+          "resolved": "https://registry.npmjs.org/file-loader/-/file-loader-0.10.0.tgz"
+        },
+        "loader-utils": {
+          "version": "0.2.16",
+          "from": "loader-utils@0.2.16",
+          "resolved": "https://registry.npmjs.org/loader-utils/-/loader-utils-0.2.16.tgz"
+        }
+      }
+    },
     "svgo": {
       "version": "0.7.2",
       "from": "svgo@>=0.7.0 <0.8.0",

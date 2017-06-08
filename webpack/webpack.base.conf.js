@@ -104,6 +104,15 @@ const baseConfig = {
           { loader: 'svg-inline-loader' },
           { loader: 'svgo-loader' },
         ],
+        exclude: [path.resolve(projectRoot, 'website/client/assets/svg/for-css')],
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          { loader: 'svg-url-loader' },
+          { loader: 'svgo-loader' },
+        ],
+        include: [path.resolve(projectRoot, 'website/client/assets/svg/for-css')],
       },
     ],
   },

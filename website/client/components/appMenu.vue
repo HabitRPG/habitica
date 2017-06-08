@@ -56,7 +56,7 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
 @import '~client/assets/scss/utils.scss';
 
 nav.navbar {
-  background: $purple-100 url(base64svg('~assets/svg/bits.svg')) right no-repeat;
+  background: $purple-100 url(~assets/svg/for-css/bits.svg) right no-repeat;
   padding-left: 25px;
   padding-right: 12.5px;
   height: 56px;
