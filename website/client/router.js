@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-// import EmptyView from './components/emptyView';
+import EmptyView from './components/emptyView';
+
 // TODO Dummy elements used as placeholder until real components are implemented
 import ParentPage from './components/parentPage';
 import Page from './components/page';
@@ -21,9 +22,8 @@ const EquipmentPage = () => import(/* webpackChunkName: "inventory" */'./compone
 const StablePage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/stable');
 
 // Social
-// TODO add inbox back
-// import InboxPage from './components/social/inbox/index';
-// import InboxConversationPage from './components/social/inbox/conversationPage';
+const InboxPage = () => import(/* webpackChunkName: "inbox" */ './components/social/inbox/index');
+const InboxConversationPage = () => import(/* webpackChunkName: "inbox" */ './components/social/inbox/conversationPage');
 
 // Guilds
 const GuildIndex = () => import(/* webpackChunkName: "guilds" */ './components/guilds/index');
@@ -80,28 +80,27 @@ export default new VueRouter({
     },
     { name: 'challenges', path: 'challenges', component: Page },
     { name: 'party', path: 'party', component: Page },
-    /* TODO add inbox back
-      {
-        path: 'inbox',
-        component: EmptyView,
-        children: [
-          {
-            name: 'inbox',
-            path: '',
-            component: InboxPage,
-          },
-          {
-            name: 'conversation',
-            path: 'conversation/:id',
-            component: InboxConversationPage,
-          },
-        ],
-      }, */
     {
       path: '/user',
       component: ParentPage,
       children: [
         { name: 'avatar', path: 'avatar', component: Page },
+        {
+          path: 'inbox',
+          component: EmptyView,
+          children: [
+            {
+              name: 'inbox',
+              path: '',
+              component: InboxPage,
+            },
+            {
+              name: 'conversation',
+              path: 'conversation/:id',
+              component: InboxConversationPage,
+            },
+          ],
+        },
         { name: 'stats', path: 'stats', component: Page },
         { name: 'achievements', path: 'achievements', component: Page },
         { name: 'settings', path: 'settings', component: Page },

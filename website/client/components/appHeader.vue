@@ -1,6 +1,6 @@
 <template lang="pug">
 #app-header.row
-  member-details(:member="user", :expanded="true")
+  member-details(:member="user", @click.native="")
   .no-party.d-flex.justify-content-center.text-center(v-if="!user.party._id")
     .align-self-center(v-once)
       h3 {{ $t('battleWithFriends') }}

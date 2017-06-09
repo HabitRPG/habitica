@@ -1,6 +1,7 @@
 <template lang="pug">
-.d-flex.member-details(@click="onHover()", :class="{ condensed, expanded }")
-  avatar(:member="member")
+.d-flex.member-details(@click="click", :class="{ condensed, expanded }")
+  router-link(:to="{ name: 'avatar' }")
+    avatar(:member="member")
   .member-stats
     h3.character-name 
       | {{member.profile.name}}
@@ -176,9 +177,8 @@ export default {
     isBuffed () {
       return this.$store.getters['members:isBuffed'](this.member);
     },
-    onHover () {
-      this.expanded = !this.expanded;
-      console.log('on hover');
+    click () {
+      if (this.condensed) this.expanded = !this.expanded;
     },
   },
   computed: {
