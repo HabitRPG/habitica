@@ -3,18 +3,26 @@
 habitrpg.controller('NotificationCtrl',
   ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement', 'Social', 'Tasks',
   function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement, Social, Tasks) {
-    $scope.yesterDailiesModalOpen = false;
-    $rootScope.$watch('user.yesterDailies', function (after, before) {
-      if (!after || after.length === 0 || $scope.yesterDailiesModalOpen) return;
+    $rootScope.$watch('user', function (after, before) {
+      runYesterDailies();
+    });
+
+    $rootScope.$on('userUpdated', function (after, before) {
+      runYesterDailies();
+    });
+
+    function runYesterDailies() {
+      let userLastCron = moment(User.user.lastCron).local();
+      let userDayStart = moment().startOf('day').add({ hours: User.user.preferences.dayStart });
+      if (!userLastCron.isBefore(userDayStart)) return;
+      let dailys = User.user.dailys;
+
+      if (!Boolean(dailys) || dailys.length === 0) return;
 
       var yesterDailies = [];
-      after.forEach(function (taskId) {
-        var dailyFound = _.find(User.user.dailys, function (task) {
-          return taskId === task._id;
-        });
-
-        if (dailyFound && dailyFound.group.approval && dailyFound.group.approval.requested) return;
-        if (dailyFound) yesterDailies.push(dailyFound);
+      dailys.forEach(function (task) {
+        if (task && task.group.approval && task.group.approval.requested) return;
+        if (task) yesterDailies.push(task);
       });
 
       if (yesterDailies.length === 0) return;
@@ -43,18 +51,11 @@ habitrpg.controller('NotificationCtrl',
           });
 
           $scope.ageDailies = function () {
-            Tasks.ageDailies()
-              .then(function () {
-                $scope.yesterDailiesModalOpen = false;
-                User.sync();
-              });
+            User.runCron();
           };
         }],
-      })
-      .result.catch(function() {
-        $scope.yesterDailiesModalOpen = false;
       });
-    });
+    }
 
     $rootScope.$watch('user.stats.hp', function (after, before) {
       if (after <= 0){

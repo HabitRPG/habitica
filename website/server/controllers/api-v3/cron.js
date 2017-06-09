@@ -12,9 +12,11 @@ let api = {};
  */
 api.cron = {
   method: 'POST',
-  url: '/debug/cron',
+  url: '/cron',
   middlewares: [authWithHeaders(), cron],
   async handler (req, res) {
     res.respond(200, {});
   },
 };
+
+module.exports = api;
