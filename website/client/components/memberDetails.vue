@@ -1,7 +1,7 @@
 <template lang="pug">
-.d-flex
-  avatar#header-avatar(:member="member")
-  div(v-if="expanded")
+.d-flex.member-details(:class="{ condensed, expanded }")
+  avatar(:member="member", @click.native="$emit('click')",)
+  .member-stats
     h3.character-name 
       | {{member.profile.name}}
       .is-buffed(v-if="isBuffed")
@@ -27,12 +27,69 @@
 <style lang="scss" scoped>
 @import '~client/assets/scss/colors.scss';
 
+.member-details {
+  white-space: nowrap;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  transition: all .15s ease;
+}
+
+.member-stats {
+  padding-left: 16px;
+  padding-right: 24px;
+  height: auto;
+  opacity: 1;
+  transition: all 0.15s ease-out;
+}
+
+.member-details.condensed:not(.expanded) .member-stats {
+  opacity: 0;
+  height: 0;
+  padding: 0;
+  width: 0;
+}
+
+// Condensed version
+.member-details.condensed.expanded {
+  background: $header-dark-background;
+  padding-top: 9px;
+  margin-top: 15px;
+  border-radius: 4px;
+  padding-left: 9px;
+  box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
+
+  .is-buffed {
+    background-color: $purple-50;
+  }
+
+  .member-stats {
+    padding-right: 16px;
+  }
+
+  .progress-container > .svg-icon {
+    width: 19px;
+    height: 19px;
+    margin-top: -2px;
+  }
+
+  .progress-container > .progress {
+    width: 152px;
+    border-radius: 0px;
+    height: 10px;
+    margin-top: 2px;
+  }
+
+  .progress-container > .progress > .progress-bar {
+    border-radius: 0px;
+    height: 10px;
+  }
+}
+
 .small-text {
   color: $header-color;
 }
 
 .character-name {
-  margin-top: 24px;
   margin-bottom: 1px;
   color: $white;
 }
@@ -60,7 +117,6 @@
 }
 
 #header-avatar {
-  margin-top: 24px;
   margin-right: 16px;
 }
 
@@ -118,7 +174,14 @@ export default {
       type: Object,
       required: true,
     },
-    expanded: Boolean,
+    condensed: {
+      type: Boolean,
+      default: false,
+    },
+    expanded: {
+      type: Boolean,
+      default: false,
+    },
   },
   data () {
     return {
