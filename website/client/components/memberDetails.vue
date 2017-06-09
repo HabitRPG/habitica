@@ -1,7 +1,6 @@
 <template lang="pug">
-.d-flex.member-details(@click="click", :class="{ condensed, expanded }")
-  router-link(:to="{ name: 'avatar' }")
-    avatar(:member="member")
+.d-flex.member-details(:class="{ condensed, expanded }")
+  avatar(:member="member", @click.native="$emit('click')",)
   .member-stats
     h3.character-name 
       | {{member.profile.name}}
@@ -59,8 +58,30 @@
   padding-left: 9px;
   box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
 
+  .is-buffed {
+    background-color: $purple-50;
+  }
+
   .member-stats {
     padding-right: 16px;
+  }
+
+  .progress-container > .svg-icon {
+    width: 19px;
+    height: 19px;
+    margin-top: -2px;
+  }
+
+  .progress-container > .progress {
+    width: 152px;
+    border-radius: 0px;
+    height: 10px;
+    margin-top: 2px;
+  }
+
+  .progress-container > .progress > .progress-bar {
+    border-radius: 0px;
+    height: 10px;
   }
 }
 
@@ -157,10 +178,13 @@ export default {
       type: Boolean,
       default: false,
     },
+    expanded: {
+      type: Boolean,
+      default: false,
+    },
   },
   data () {
     return {
-      expanded: false,
       icons: Object.freeze({
         buff: buffIcon,
         health: healthIcon,
@@ -176,9 +200,6 @@ export default {
     },
     isBuffed () {
       return this.$store.getters['members:isBuffed'](this.member);
-    },
-    click () {
-      if (this.condensed) this.expanded = !this.expanded;
     },
   },
   computed: {

@@ -1,37 +1,24 @@
 <template lang="pug">
 #app-header.row
-  member-details(:member="user", @click.native="")
-  .no-party.d-flex.justify-content-center.text-center(v-if="!user.party._id")
+  member-details(:member="user", @click="$router.push({name: 'avatar'})")
+  .party-members.d-flex(v-if="partyMembers && partyMembers.length > 1")
+    member-details(
+      v-for="member in partyMembers",
+      :key="member._id",
+      v-if="member._id !== user._id",
+      :member="member",
+      condensed=true,
+      @click="expandMember(member._id)"
+      :expanded="member._id === expandedMember",
+    )
+    button.btn.btn-primary {{ $t('viewParty') }}
+  .no-party.d-flex.justify-content-center.text-center(v-else)
     .align-self-center(v-once)
       h3 {{ $t('battleWithFriends') }}
       span.small-text(v-html="$t('inviteFriendsParty')")
       br
+      // TODO link to party creation
       button.btn.btn-primary {{ $t('startAParty') }}
-  .party-members.d-flex(v-else)
-    member-details(
-      v-for="member in partyMembers",
-      :key="member._id",
-      :member="member",
-      condensed=true,
-    )
-    member-details(
-      v-for="member in partyMembers",
-      :key="member._id",
-      :member="member",
-      condensed=true,
-    )
-    member-details(
-      v-for="member in partyMembers",
-      :key="member._id",
-      :member="member",
-      condensed=true,
-    )
-    member-details(
-      v-for="member in partyMembers",
-      :key="member._id",
-      :member="member",
-      condensed=true,
-    )
 </template>
 
 <style lang="scss" scoped>
@@ -78,6 +65,11 @@ export default {
   components: {
     MemberDetails,
   },
+  data () {
+    return {
+      expandedMember: null,
+    };
+  },
   computed: {
     ...mapGetters({
       user: 'user:data',
@@ -88,6 +80,13 @@ export default {
     ...mapActions({
       getPartyMembers: 'party:getMembers',
     }),
+    expandMember (memberId) {
+      if (this.expandedMember === memberId) {
+        this.expandedMember = null;
+      } else {
+        this.expandedMember = memberId;
+      }
+    },
   },
   created () {
     this.getPartyMembers();
