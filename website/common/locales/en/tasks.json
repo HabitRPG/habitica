@@ -147,7 +147,7 @@
     "taskApprovalHasBeenRequested": "Approval has been requested",
     "approvals": "Approvals",
     "approvalRequired": "Approval Required",
-    "repeatZero": "Repeats never.",
+    "repeatZero": "Daily is never due",
     "repeatType": "Repeat Type",
     "repeatTypeHelpTitle": "What kind of repeat is this?",
     "repeatTypeHelp": "Select \"Daily\" if you want this task to repeat every day or every third day, etc. Select \"Weekly\"if you want it to repeat on certain days of the week. If you select \"Monthly\" or \"Yearly\", adjust the Start Date to control which day of the month or year the task will be due on.",
