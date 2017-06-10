@@ -537,7 +537,7 @@ describe('POST /user/auth/local/register', () => {
       expect(user.invitations.party).to.eql({});
     });
 
-    it.only('adds a user to a guild on an invite of type other than party', async () => {
+    it('adds a user to a guild on an invite of type other than party', async () => {
       let { group, groupLeader } = await createAndPopulateGroup({
           groupDetails: { type: 'guild', privacy: 'private' },
       });
