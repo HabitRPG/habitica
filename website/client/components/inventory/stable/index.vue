@@ -134,13 +134,18 @@
           .drawer-tab-container
             .drawer-tab.text-right
               a.drawer-tab-text(
-                :class="{'drawer-tab-text-active': true}",
-              ) Pet Food
+                @click="selectedDrawerTab = 0",
+                :class="{'drawer-tab-text-active': selectedDrawerTab === 0}",
+              ) {{ drawerTabs[0].label }}
             .clearfix
               .drawer-tab.float-left
                 a.drawer-tab-text(
-                  :class="{'drawer-tab-text-active': false}",
-                ) Special
+                  @click="selectedDrawerTab = 1",
+                  :class={
+                    'drawer-tab-text-active': selectedDrawerTab === 1,
+                    'drawer-tab-text-disabled': drawerTabs && drawerTabs[1].items.length === 0
+                    },
+                )  {{ drawerTabs[1].label }}
 
               b-popover(
                 :triggers="['hover']",
@@ -151,24 +156,27 @@
 
                 div.float-right What does my pet like to eat?
 
-        .items.items-one-line(slot="drawer-slider")
-          item(
-            v-for="food in content.food",
-            v-if="userItems.food[food.key]",
-            :key="food.key",
-            :item="food",
-            :itemContentClass="'Pet_Food_'+food.key",
-            :emptyItem="false",
-            :popoverPosition="'top'",
-          )
-            template(slot="popoverContent", scope="ctx")
-              h4.popover-content-title {{ food.text() }}
-              div.popover-content-text(v-html="food.notes()")
-            template(slot="itemBadge", scope="ctx")
-              countBadge(
-                :show="true",
-                :count="userItems.food[food.key]"
-              )
+        drawer-slider(
+          slot="drawer-slider",
+          :items="drawerTabs[selectedDrawerTab].items",
+          :scrollButtonsVisible="true"
+        )
+          template(slot="item", scope="ctx")
+            item(
+              :item="ctx.item",
+              :itemContentClass="'Pet_Food_'+ctx.item.key",
+              :emptyItem="false",
+              :popoverPosition="'top'",
+            )
+              template(slot="popoverContent", scope="ctx")
+                h4.popover-content-title {{ ctx.item.text() }}
+                div.popover-content-text(v-html="ctx.item.notes()")
+                | {{ ctx.item }}
+              template(slot="itemBadge", scope="ctx")
+                countBadge(
+                  :show="true",
+                  :count="userItems.food[ctx.item.key]"
+                )
 </template>
 
 <style lang="scss">
@@ -246,6 +254,7 @@
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import StarBadge from 'client/components/inventory/starBadge';
   import CountBadge from './countBadge';
+  import DrawerSlider from './drawerSlider';
 
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
@@ -263,6 +272,7 @@
       toggleSwitch,
       StarBadge,
       CountBadge,
+      DrawerSlider,
     },
     data () {
       return {
@@ -280,10 +290,12 @@
           'sortByColor',
           'sortByHatchable',
         ],
+
+        selectedDrawerTab: 0,
       };
     },
     watch: {
-      searchText: _throttle(function throttleSearch() {
+      searchText: _throttle(function throttleSearch () {
         let search = this.searchText.toLowerCase();
 
         this.searchTextThrottled = search;
@@ -390,6 +402,23 @@
 
 
         return mountGroups;
+      },
+
+      drawerTabs () {
+        return [
+          {
+            label: this.$t('food'),
+            items: _filter(this.content.food, f => {
+              return f.key !== 'Saddle' && this.userItems.food[f.key];
+            }),
+          },
+          {
+            label: this.$t('special'),
+            items: _filter(this.content.food, f => {
+              return f.key === 'Saddle' && this.userItems.food[f.key];
+            }),
+          },
+        ];
       },
     },
     methods: {

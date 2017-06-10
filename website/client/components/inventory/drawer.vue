@@ -87,12 +87,16 @@
     &-active {
       border-color: $purple-400;
     }
+
+    &-disabled {
+      color: $gray-50;
+      cursor: pointer;
+    }
   }
 }
 
 .drawer-slider {
-  padding: 12px 0 0 24px;
-  margin-left: -24px;
+  padding: 12px 0 0 0;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
