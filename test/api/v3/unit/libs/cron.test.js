@@ -591,7 +591,6 @@ describe('cron', () => {
 
         expect(tasksByType.habits[0].counterUp).to.equal(0);
         expect(tasksByType.habits[0].counterDown).to.equal(0);
-
       });
 
       it('should not reset a weekly habit counter when server tz is Monday but user\'s tz is Tuesday', () => {
