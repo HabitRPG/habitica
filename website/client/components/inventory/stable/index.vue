@@ -1,6 +1,17 @@
 <template lang="pug">
   .row.stable
-    .col-2.standard-sidebar
+    .standard-sidebar
+      div
+        b-popover(
+          :triggers="['hover']",
+          :placement="'right'"
+        )
+          span(slot="content")
+            h4.popover-content-title {{ $t('mattBoch') }}
+            .popover-content-text {{ $t('mattBochText1') }}
+
+          div.npc_matt
+
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
@@ -37,7 +48,7 @@
             @change="updateHideMissing"
           )
 
-    .col-10.standard-page
+    .standard-page
       .clearfix
         h1.float-left.mb-0.page-header(v-once) {{ $t('stable') }}
         b-dropdown.float-right(:text="$t('sortBy') +((selectedSortBy === 'standard')?'': ': '+ $t(selectedSortBy))", right=true)
@@ -244,6 +255,20 @@
     border-radius: 2px;
     background-color: #e1e0e3;
   }
+
+  .npc_matt {
+    margin-bottom: 17px;
+  }
+
+  .stable {
+
+    .standard-page {
+      flex: 1;
+    }
+
+  }
+
+
 </style>
 
 <script>
