@@ -90,24 +90,27 @@ describe('POST /tasks/unlink-all/:challengeId', () => {
     });
   });
 
-  it.only('unlinks a task from a challenge on keep=keep-all', async () => {
-    /*
-      NOTE: I expected keep-all to preserve the tasks, but if I try to GET them by _id afterwards they are gone
-      Is this intended behavior? What is keep-all supposed to do?
-      From what I can tell the tasks are gone for this user
-    */
-    const { groupLeader, group, members } = await createAndPopulateGroup({ members: 1 });
-    const [follower] = members;
-    const newChallenge = await generateChallenge(groupLeader, group);
-    const thisTask = await groupLeader.post(`/tasks/challenge/${newChallenge._id}`, tasksToTest.daily);
-
-    // This gives:  Only the challenge leader can delete it.
-    await groupLeader.del(`/challenges/${challenge._id}`);
-    /*
-    const response = await groupLeader.post(`/tasks/unlink-all/${challenge._id}?keep=keep-all`);
-    expect(response).to.eql({});
-    const keptTask = await follower.get(`/tasks/${thisTask._id}`);
-    console.log(keptTask); */
-    // expect(response).to.eql({});
+  it('unlinks a task from a challenge on keep=keep-all', async () => {
+    const daily = await user.post(`/tasks/challenge/${challenge._id}`, tasksToTest.daily);
+    const anotherUser = await generateUser();
+    await user.post(`/groups/${guild._id}/invite`, {
+        uuids: [anotherUser._id],
+    });
+    // Have the second user join the group and challenge
+    await anotherUser.post(`/groups/${guild._id}/join`);
+    await anotherUser.post(`/challenges/${challenge._id}/join`);
+    // Have the leader delete the challenge and unlink the tasks
+    await user.del(`/challenges/${challenge._id}`);
+    await user.post(`/tasks/unlink-all/${challenge._id}?keep=keep-all`);
+    // Get the second task for the second user
+    const [, anotherUserTask] = await anotherUser.get('/tasks/user');
+    // Expect the second user to still have the task, but unlinked
+    expect(anotherUserTask.challenge).to.eql({
+      taskId: daily._id,
+      id: challenge._id,
+      shortName: challenge.shortName,
+      broken: 'CHALLENGE_DELETED',
+      winner: null,
+    });
   });
 });
