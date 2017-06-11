@@ -40,27 +40,21 @@ describe('POST /tasks/unlink-all/:challengeId', () => {
   });
 
   it('fails if no keep query', async () => {
-    try {
-      await user.post(`/tasks/unlink-all/${challenge._id}`);
-    } catch (err) {
-      expect(err).to.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('invalidReqParams'),
-      });
-    }
+    await expect(user.post(`/tasks/unlink-all/${challenge._id}`))
+    .to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
   });
 
   it('fails if invalid challenge id', async () => {
-    try {
-      await user.post('/tasks/unlink-all/123?keep=remove-all');
-    } catch (err) {
-      expect(err).to.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('invalidReqParams'),
-      });
-    }
+    await expect(user.post('/tasks/unlink-all/123?keep=remove-all'))
+    .to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
   });
 
   it('fails on an unbroken challenge', async () => {
