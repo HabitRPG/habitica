@@ -214,6 +214,10 @@ habitrpg.controller('NotificationCtrl',
             $rootScope.playSound('Achievement_Unlocked');
             Achievement.displayAchievement('joinedChallenge', {size: 'md'});
             break;
+          case 'INVITED_FRIEND_ACHIEVEMENT':
+            $rootScope.playSound('Achievement_Unlocked');
+            Achievement.displayAchievement('invitedFriend', {size: 'md'});
+            break;
           case 'NEW_CONTRIBUTOR_LEVEL':
             $rootScope.playSound('Achievement_Unlocked');
             Achievement.displayAchievement('contributor', {size: 'md'});
