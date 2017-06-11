@@ -9,9 +9,8 @@ b-popover(
   .item-wrapper
     .item(
       :class="{'item-empty': emptyItem}",
-      @touchend="holdStop",
-      @touchstart="holdStart",
       @mouseup="holdStop",
+      @mouseleave="holdStop",
       @mousedown.left="holdStart"
     )
       slot(name="itemBadge", :item="item")
@@ -102,6 +101,7 @@ b-popover(
           this.holdProgress += 1;
         }, 1000);
       },
+
       holdStop () {
         if (this.currentHoldingTimer) {
           clearInterval(this.currentHoldingTimer);
