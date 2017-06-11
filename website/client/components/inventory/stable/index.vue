@@ -97,7 +97,10 @@
                   @click="selectPet(ctx.item)",
                 )
 
-        .btn.btn-show-more(@click="viewOptions[petGroup.key].open = !viewOptions[petGroup.key].open") {{ viewOptions[petGroup.key].open ? 'Close' : 'Open' }}
+        .btn.btn-show-more(
+          @click="viewOptions[petGroup.key].open = !viewOptions[petGroup.key].open",
+          v-if="viewOptions[petGroup.key].animalCount != 0"
+        ) {{ $t(viewOptions[petGroup.key].open ? 'showLessAnimals' : 'showAllAnimals', { color: petGroup.label, type: $t('pets')}) }}
 
       h2
         | {{ $t('mounts') }}
@@ -130,7 +133,10 @@
                 @click="selectMount(ctx.item)",
               )
 
-        .btn.btn-show-more(@click="viewOptions[mountGroup.key].open = !viewOptions[mountGroup.key].open") {{ viewOptions[mountGroup.key].open ? 'Close' : 'Open' }}
+        .btn.btn-show-more(
+          @click="viewOptions[mountGroup.key].open = !viewOptions[mountGroup.key].open",
+          v-if="viewOptions[mountGroup.key].animalCount != 0"
+        ) {{ $t(viewOptions[mountGroup.key].open ? 'showLessAnimals' : 'showAllAnimals', { color: mountGroup.label, type: $t('mounts')}) }}
 
       drawer(
         title="Quick Inventory",
