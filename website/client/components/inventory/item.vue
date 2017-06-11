@@ -16,7 +16,11 @@ b-popover(
   .item-wrapper
     .item
       slot(name="itemBadge", :item="item")
-      span.item-content(:class="itemContentClass")
+      span.item-content(
+        :class="itemContentClass",
+        :draggable="draggable",
+        @dragstart="onDrag"
+      )
     span.item-label(v-if="label") {{ label }}
 </template>
 
@@ -46,10 +50,21 @@ export default {
       type: String,
       default: 'bottom',
     },
+    draggable: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     click () {
       this.$emit('click', this.item);
+    },
+    onDrag (ev) {
+      if (this.draggable) {
+        this.$emit('onDrag', ev);
+      } else {
+        ev.preventDefault();
+      }
     },
   },
 };

@@ -62,36 +62,40 @@
         h4(v-if="viewOptions[petGroup.key].animalCount != 0") {{ petGroup.label }}
 
         div.items(
-          v-for="(rows, index) in pets(petGroup, viewOptions[petGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled)"
+          v-for="(rows, index) in pets(petGroup, viewOptions[petGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled)",
         )
-          petItem(
+          div(
             v-for="pet in rows",
-            :item="pet",
-            :itemContentClass="getPetItemClass(pet)",
             :key="pet.key",
-            :popoverPosition="'top'",
-            :progress="pet.progress",
-            :emptyItem="!pet.isOwned()",
-            @hatchPet="hatchPet",
+            @dragover="onDragOver($event, pet)",
+            @drop.prevent="onDrop($event, pet)"
           )
-            span(slot="popoverContent")
-              div(v-if="pet.isOwned()")
-                h4.popover-content-title {{ pet.pet }}
-              div.hatchablePopover(v-else-if="pet.isHatchable()")
-                h4.popover-content-title {{ pet.pet }}
-                div.popover-content-text(v-html="$t('haveHatchablePet', { potion: pet.potionName, egg: pet.eggName })")
-                div.potionEggGroup
-                  div.potionEggBackground
-                    div(:class="'Pet_HatchingPotion_'+pet.potionKey")
-                  div.potionEggBackground
-                    div(:class="'Pet_Egg_'+pet.eggKey")
+            petItem(
+              :item="pet",
+              :itemContentClass="getPetItemClass(pet)",
+              :popoverPosition="'top'",
+              :progress="pet.progress",
+              :emptyItem="!pet.isOwned()",
+              @hatchPet="hatchPet",
+            )
+              span(slot="popoverContent")
+                div(v-if="pet.isOwned()")
+                  h4.popover-content-title {{ pet.name }}
+                div.hatchablePopover(v-else-if="pet.isHatchable()")
+                  h4.popover-content-title {{ pet.name }}
+                  div.popover-content-text(v-html="$t('haveHatchablePet', { potion: pet.potionName, egg: pet.eggName })")
+                  div.potionEggGroup
+                    div.potionEggBackground
+                      div(:class="'Pet_HatchingPotion_'+pet.potionKey")
+                    div.potionEggBackground
+                      div(:class="'Pet_Egg_'+pet.eggKey")
 
-            template(slot="itemBadge", scope="ctx")
-              starBadge(
-                :selected="ctx.item.key === currentPet",
-                :show="ctx.item.isOwned()",
-                @click="selectPet(ctx.item)",
-              )
+              template(slot="itemBadge", scope="ctx")
+                starBadge(
+                  :selected="ctx.item.key === currentPet",
+                  :show="ctx.item.isOwned()",
+                  @click="selectPet(ctx.item)",
+                )
 
         .btn.btn-show-more(@click="viewOptions[petGroup.key].open = !viewOptions[petGroup.key].open") {{ viewOptions[petGroup.key].open ? 'Close' : 'Open' }}
 
@@ -113,15 +117,16 @@
           item(
             v-for="mount in rows",
             :item="mount",
-            :itemContentClass="mount.isOwned ? ('Mount_Icon_' + mount.key) : 'PixelPaw'",
+            :itemContentClass="mount.isOwned() ? ('Mount_Icon_' + mount.key) : 'PixelPaw greyedOut'",
             :key="mount.key",
             :popoverPosition="'top'"
           )
-            span(slot="popoverContent", v-once) {{ mount }}
+            span(slot="popoverContent")
+              h4.popover-content-title {{ mount.name }}
             template(slot="itemBadge", scope="ctx")
               starBadge(
                 :selected="ctx.item.key === currentMount",
-                :show="true",
+                :show="mount.isOwned()",
                 @click="selectMount(ctx.item)",
               )
 
@@ -156,10 +161,11 @@
 
                 div.float-right What does my pet like to eat?
 
+
         drawer-slider(
-          slot="drawer-slider",
           :items="drawerTabs[selectedDrawerTab].items",
-          :scrollButtonsVisible="true"
+          :scrollButtonsVisible="true",
+          slot="drawer-slider",
         )
           template(slot="item", scope="ctx")
             item(
@@ -167,11 +173,12 @@
               :itemContentClass="'Pet_Food_'+ctx.item.key",
               :emptyItem="false",
               :popoverPosition="'top'",
+              :draggable="true",
+              @onDrag="onDrag($event, ctx.item)"
             )
               template(slot="popoverContent", scope="ctx")
                 h4.popover-content-title {{ ctx.item.text() }}
                 div.popover-content-text(v-html="ctx.item.notes()")
-                | {{ ctx.item }}
               template(slot="itemBadge", scope="ctx")
                 countBadge(
                   :show="true",
@@ -468,7 +475,7 @@
                   eggName: egg.text(),
                   potionKey: potion.key,
                   potionName: potion.text(),
-                  pet: this.content[`${type}Info`][animalKey].text(),
+                  name: this.content[`${type}Info`][animalKey].text(),
                   isOwned ()  {
                     return userItems[`${type}s`][animalKey] > 0;
                   },
@@ -500,7 +507,7 @@
 
         if (searchText && searchText !== '') {
           animals = _filter(animals, (a) => {
-            return a.pet.toLowerCase().indexOf(searchText) !== -1;
+            return a.name.toLowerCase().indexOf(searchText) !== -1;
           });
         }
 
@@ -597,6 +604,21 @@
 
       hatchPet (pet) {
         this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
+      },
+
+      onDrag (ev, food) {
+        ev.dataTransfer.setData('food', food.key);
+      },
+
+      onDragOver (ev, pet) {
+        if (!this.userItems.mounts[pet.key]) {
+          ev.preventDefault();
+        }
+      },
+
+      onDrop (ev, pet) {
+        let food = ev.dataTransfer.getData('food');
+        this.$store.dispatch('common:feed', {pet: pet.key, food});
       },
     },
   };
