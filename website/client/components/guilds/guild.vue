@@ -87,6 +87,28 @@
           h4(v-once) {{ $t('yourNotOnQuest') }}
           p(v-once) {{ $t('questDescription') }}
           button.btn.btn-secondary(v-once) {{ $t('startAQuest') }}
+      .row.quest-active-section
+        .col-12.text-center
+          .svg-icon(v-html="icons.questIcon")
+          p {{questData}}
+          h4(v-once) {{ $t('yourNotOnQuest') }}
+          p(v-once) {{ $t('questDescription') }}
+          <!-- .quest-box(style='background-image: {{this.questBackground}}') -->
+          .quest-box.svg-icon(v-html="icons.questBackground")
+          .boss-info
+            .row
+              .col-6
+                h4.float-left Boss Name
+              .col-6
+                span.float-right Participants
+            .row
+              .col-12.boss-health-bar
+            .row.boss-details
+                .col-6
+                  span.float-left 999/1000
+                .col-6
+                  span.float-right 30 pending damage
+
 
     div
       h3(v-once) {{ $t('description') }}
@@ -260,6 +282,18 @@
       margin-left: 2.2em;
     }
   }
+
+  .quest-active-section {
+    .quest-box {
+      height: 200px;
+      width: 100%;
+
+      svg: {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
 </style>
 
 <script>
@@ -267,6 +301,7 @@ import groupUtilities from 'client/mixins/groupsUtilities';
 import { mapState } from 'client/libs/store';
 import membersModal from './membersModal';
 import { TAVERN_ID } from 'common/script/constants';
+import quests from 'common/script/content/quests';
 
 import bCollapse from 'bootstrap-vue/lib/components/collapse';
 import bCard from 'bootstrap-vue/lib/components/card';
@@ -283,6 +318,7 @@ import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge.svg';
 import questIcon from 'assets/svg/quest.svg';
 import challengeIcon from 'assets/svg/challenge.svg';
 import informationIcon from 'assets/svg/information.svg';
+import questBackground from 'assets/svg/quest-background-border.svg';
 
 export default {
   mixins: [groupUtilities],
@@ -310,7 +346,9 @@ export default {
         questIcon,
         challengeIcon,
         information: informationIcon,
+        questBackground,
       }),
+      questData: {},
     };
   },
   computed: {
@@ -319,8 +357,18 @@ export default {
       return this.$route.path.startsWith('/party');
     },
     onQuest () {
-      console.log(this.guild)
-      return false;
+      let fakeQuestData = {
+        active: true,
+        extra: {},
+        key: "basilist",
+        leader: "206039c6-24e4-4b9f-8a31-61cbb9aa3f66",
+        members: {},
+        progress: {hp: 100, collect: {}},
+      };
+      this.guild.quest = fakeQuestData;
+      console.log(quests);
+      this.questData = quests.quests[this.guild.quest.key];
+      return this.guild.quest.active;
     },
     isLeader () {
       return this.user._id === this.guild.leader._id;
