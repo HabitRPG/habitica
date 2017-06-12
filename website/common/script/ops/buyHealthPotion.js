@@ -19,7 +19,7 @@ module.exports = function buyHealthPotion (user, req = {}, analytics) {
     throw new NotAuthorized(i18n.t('messageHealthAlreadyMax', req.language));
   }
 
-  if (user.stats.hp == 0) {
+  if (user.stats.hp <= 0) {
     throw new NotAuthorized(i18n.t('messageHealthAlreadyMin', req.language));
   }
 

@@ -77,7 +77,7 @@ describe('shared.ops.buyHealthPotion', () => {
       }
     });
 
-    it('does not purchase if hp is zero', (done) => {
+    it('does not allow potion purchases when hp is zero', (done) => {
       user.stats.hp = 0;
       user.stats.gp = 40;
       try {
@@ -86,6 +86,21 @@ describe('shared.ops.buyHealthPotion', () => {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('messageHealthAlreadyMin'));
         expect(user.stats.hp).to.eql(0);
+        expect(user.stats.gp).to.eql(40);
+
+        done();
+      }
+    });
+
+    it('does not allow potion purchases when hp is negative', (done) => {
+      user.stats.hp = -8;
+      user.stats.gp = 40;
+      try {
+        buyHealthPotion(user);
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('messageHealthAlreadyMin'));
+        expect(user.stats.hp).to.eql(-8);
         expect(user.stats.gp).to.eql(40);
 
         done();
