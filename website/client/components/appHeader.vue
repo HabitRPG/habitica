@@ -17,7 +17,7 @@
       h3 {{ $t('battleWithFriends') }}
       span.small-text(v-html="$t('inviteFriendsParty')")
       br
-      // TODO link to party creation
+      // TODO link to party creation or party page if partying solo
       button.btn.btn-primary {{ $t('startAParty') }}
 </template>
 
