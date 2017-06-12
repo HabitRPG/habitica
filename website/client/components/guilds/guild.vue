@@ -202,6 +202,7 @@ span.action .icon {
 import groupUtilities from 'client/mixins/groupsUtilities';
 import { mapState } from 'client/libs/store';
 import membersModal from './membersModal';
+import { TAVERN_ID } from 'common/script/constants';
 
 import deleteIcon from 'assets/svg/delete.svg';
 import copyIcon from 'assets/svg/copy.svg';
@@ -270,10 +271,9 @@ export default {
     if (this.$route.path.startsWith('/party')) {
       this.guildId = 'party';
     } else if (this.$route.path.startsWith('/guilds/tavern')) {
-      this.guildId = 'habitrpg';
+      this.guildId = TAVERN_ID;
     }
     this.fetchGuild();
-    // $route.path.startsWith('/party')
   },
   watch: {
     // call again the method if the route changes (when this route is already active)

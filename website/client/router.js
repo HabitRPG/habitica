@@ -27,7 +27,7 @@ const InboxConversationPage = () => import(/* webpackChunkName: "inbox" */ './co
 
 // Guilds
 const GuildIndex = () => import(/* webpackChunkName: "guilds" */ './components/guilds/index');
-const TavernPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/tavern');
+// const TavernPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/tavern');
 const MyGuilds = () => import(/* webpackChunkName: "guilds" */ './components/guilds/myGuilds');
 const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/discovery');
 const GuildPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/guild');
@@ -55,7 +55,6 @@ export default new VueRouter({
       ],
     },
     { name: 'shops', path: '/shops', component: Page },
-    { name: 'market', path: '/market', component: Page },
     { name: 'party', path: '/party', component: GuildPage },
     {
       path: '/guilds',
@@ -81,7 +80,6 @@ export default new VueRouter({
       ],
     },
     { name: 'challenges', path: 'challenges', component: Page },
-    { name: 'party', path: 'party', component: Page },
     {
       path: '/user',
       component: ParentPage,
@@ -103,14 +101,6 @@ export default new VueRouter({
             },
           ],
         },
-        { name: 'challenges', path: 'challenges', component: Page },
-      ],
-    },
-    {
-      path: '/user',
-      component: ParentPage,
-      children: [
-        { name: 'avatar', path: 'avatar', component: Page },
         { name: 'stats', path: 'stats', component: Page },
         { name: 'achievements', path: 'achievements', component: Page },
         { name: 'settings', path: 'settings', component: Page },
