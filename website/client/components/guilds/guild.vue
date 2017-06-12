@@ -97,17 +97,19 @@
       h4 Welcome
       p Below are some resources that some members might find useful. Consider checking them out before posting any questions, as they just might help answer some of them! Feel free to share your life hacks in the guild chat, or ask any questions that you might have. Please peruse at your leisure, and remember: this guild is meant to help guide you in the right direction. Only you will know what works best for you.
     div
-      h3 Challenges
-      .card
-        h4 Challenge
-        .row
-          .col-8
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla scelerisque ultrices libero.
-          .col-4
-        .row
-          .col-md-12
-            span Tag
-            span 100
+      .row
+        .col-8.information-header
+          h3(v-once)
+            | {{ $t('challenges') }}
+          b-tooltip.icon.tooltip-wrapper(:content="$t('privateDescription')")
+            .svg-icon(v-html='icons.information')
+        .col-4
+      .row.no-quest-section(v-if='!hasChallenges')
+        .col-12.text-center
+          .svg-icon(v-html="icons.challengeIcon")
+          h4(v-once) {{ $t('haveNoChallenges') }}
+          p(v-once) {{ $t('challengeDescription') }}
+          button.btn.btn-secondary(v-once) {{ $t('createChallenge') }}
     div.text-center
       button.btn.btn-primary(class='btn-danger', v-if='isMember') {{ $t('leave') }}
 </template>
@@ -248,6 +250,16 @@
       margin-bottom: 2em;
     }
   }
+
+  .information-header {
+    h3, .tooltip-wrapper {
+      display: inline-block;
+    }
+
+    .tooltip-wrapper {
+      margin-left: 2.2em;
+    }
+  }
 </style>
 
 <script>
@@ -259,6 +271,7 @@ import { TAVERN_ID } from 'common/script/constants';
 import bCollapse from 'bootstrap-vue/lib/components/collapse';
 import bCard from 'bootstrap-vue/lib/components/card';
 import bToggle from 'bootstrap-vue/lib/directives/toggle';
+import bTooltip from 'bootstrap-vue/lib/components/tooltip';
 
 import deleteIcon from 'assets/svg/delete.svg';
 import copyIcon from 'assets/svg/copy.svg';
@@ -268,6 +281,8 @@ import reportIcon from 'assets/svg/report.svg';
 import gemIcon from 'assets/svg/gem.svg';
 import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge.svg';
 import questIcon from 'assets/svg/quest.svg';
+import challengeIcon from 'assets/svg/challenge.svg';
+import informationIcon from 'assets/svg/information.svg';
 
 export default {
   mixins: [groupUtilities],
@@ -276,6 +291,7 @@ export default {
     membersModal,
     bCollapse,
     bCard,
+    bTooltip,
   },
   directives: {
     bToggle,
@@ -292,6 +308,8 @@ export default {
         goldGuildBadge: goldGuildBadgeIcon,
         liked: likedIcon,
         questIcon,
+        challengeIcon,
+        information: informationIcon,
       }),
     };
   },
@@ -338,6 +356,10 @@ export default {
       let leader = group.leader._id === userId;
       let userIsManager = Boolean(group.managers[userId]);
       return leader || userIsManager;
+    },
+    hasChallenges () {
+      if (!this.guild.challenges) return false;
+      return this.guild.challenges.length === 0;
     },
   },
   created () {
