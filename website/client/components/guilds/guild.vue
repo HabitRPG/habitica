@@ -62,18 +62,32 @@
   .col-md-4.sidebar
     .guild-background.row
       .col-6
-        p Image here
+        p(v-if='!isParty')  Image here
       .col-6
         .button-container
-          button.btn.btn-primary(class='btn-success', v-if='!isMember') {{ $t('join') }}
+          button.btn.btn-success(class='btn-success', v-if='isLeader') {{ $t('upgradeParty') }}
         .button-container
-          button.btn.btn-primary(v-once, v-if='isMember') {{$t('inviteToGuild')}}
+          button.btn.btn-primary(b-btn, @click="updateGuild", v-once, v-if='isLeader') {{ $t('updateGuild') }}
         .button-container
-          button.btn.btn-primary(v-once, v-if='isMember') {{$t('messageGuildLeader')}}
+          button.btn.btn-success(class='btn-success', v-if='!isMember') {{ $t('join') }}
         .button-container
-          button.btn.btn-primary(v-once, v-if='isMember') {{$t('donateGems')}}
+          button.btn.btn-primary(v-once) {{$t('inviteToGuild')}}
         .button-container
-          button.btn.btn-primary(b-btn, @click="updateGuild", v-once, v-if='isMember') {{ $t('updateGuild') }}
+          button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}}
+        .button-container
+          button.btn.btn-primary(v-once, v-if='isMember && !isParty') {{$t('donateGems')}}
+    div
+      .row
+        .col-8
+          h3(v-once) {{ $t('questDetailsTitle') }}
+        .col-4
+      .row.no-quest-section(v-if='isParty && !onQuest')
+        .col-12.text-center
+          .svg-icon(v-html="icons.questIcon")
+          h4(v-once) {{ $t('yourNotOnQuest') }}
+          p(v-once) {{ $t('questDescription') }}
+          button.btn.btn-secondary(v-once) {{ $t('startAQuest') }}
+
     div
       h3(v-once) {{ $t('description') }}
       p(v-once) {{ guild.description }}
@@ -94,127 +108,146 @@
           .col-md-12
             span Tag
             span 100
-    div
+    div.text-center
       button.btn.btn-primary(class='btn-danger', v-if='isMember') {{ $t('leave') }}
 </template>
 
 <style lang="scss" scoped>
-@import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/colors.scss';
 
-.button-container {
-  margin-bottom: 1em;
+  .button-container {
+    margin-bottom: 1em;
 
-  button {
+    button {
+      width: 100%;
+    }
+  }
+
+  .item-with-icon {
+    border-radius: 2px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+    padding: 1em;
+  }
+
+  .sidebar {
+    background-color: $gray-600;
+    padding-top: 2em;
+  }
+
+  .card {
+    margin: 2em 0;
+    padding: 1em;
+
+    h3.leader {
+      color: $purple-200;
+    }
+
+    .text {
+      font-size: 16px;
+      line-height: 1.43;
+      color: $gray-50;
+    }
+  }
+
+  .guild-background {
+    background-image: linear-gradient(to bottom, rgba($gray-600, 0), $gray-600);
+  }
+
+  textarea {
+    height: 150px;
     width: 100%;
-  }
-}
-
-.item-with-icon {
-  border-radius: 2px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-  padding: 1em;
-}
-
-.sidebar {
-  background-color: $gray-600;
-}
-
-.card {
-  margin: 2em 0;
-  padding: 1em;
-
-  h3.leader {
-    color: $purple-200;
-  }
-
-  .text {
+    background-color: $white;
+    border: solid 1px $gray-400;
     font-size: 16px;
+    font-style: italic;
     line-height: 1.43;
-    color: $gray-50;
+    color: $gray-300;
+    padding: .5em;
   }
-}
 
-.guild-background {
-  background-image: linear-gradient(to bottom, rgba($gray-600, 0), $gray-600);
-  height: 300px;
-}
-
-textarea {
-  height: 150px;
-  width: 100%;
-  background-color: $white;
-  border: solid 1px $gray-400;
-  font-size: 16px;
-  font-style: italic;
-  line-height: 1.43;
-  color: $gray-300;
-  padding: .5em;
-}
-
-.svg-icon.shield, .svg-icon.gem {
-  width: 40px;
-  margin-right: 1em;
-}
-
-.title-details {
-  padding-top: 1em;
-  padding-left: 1em;
-}
-
-.icon-row {
-  margin-top: 1em;
-
-  .number {
-    font-size: 22px;
-    font-weight: bold;
-  }
-}
-
-.chat-row {
-  margin-top: 2em;
-
-  .send-chat {
-    margin-top: -3.5em;
-    z-index: 10;
-    position: relative;
+  .svg-icon.shield, .svg-icon.gem {
+    width: 40px;
     margin-right: 1em;
   }
-}
 
-.hr {
-  width: 100%;
-  height: 20px;
-  border-bottom: 1px solid $gray-500;
-  text-align: center;
-  margin: 2em 0;
-}
+  .title-details {
+    padding-top: 1em;
+    padding-left: 1em;
+  }
 
-.hr-middle {
-  font-size: 16px;
-  font-weight: bold;
-  font-family: 'Roboto Condensed';
-  line-height: 1.5;
-  text-align: center;
-  color: $gray-200;
-  background-color: $gray-700;
-  padding: .2em;
-  margin-top: .2em;
-  display: inline-block;
-  width: 100px;
-}
+  .icon-row {
+    margin-top: 1em;
 
-span.action {
-  font-size: 14px;
-  line-height: 1.33;
-  color: $gray-200;
-  font-weight: 500;
-  margin-right: 1em;
-}
+    .number {
+      font-size: 22px;
+      font-weight: bold;
+    }
+  }
 
-span.action .icon {
-  margin-right: .3em;
-}
+  .chat-row {
+    margin-top: 2em;
+
+    .send-chat {
+      margin-top: -3.5em;
+      z-index: 10;
+      position: relative;
+      margin-right: 1em;
+    }
+  }
+
+  .hr {
+    width: 100%;
+    height: 20px;
+    border-bottom: 1px solid $gray-500;
+    text-align: center;
+    margin: 2em 0;
+  }
+
+  .hr-middle {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Roboto Condensed';
+    line-height: 1.5;
+    text-align: center;
+    color: $gray-200;
+    background-color: $gray-700;
+    padding: .2em;
+    margin-top: .2em;
+    display: inline-block;
+    width: 100px;
+  }
+
+  span.action {
+    font-size: 14px;
+    line-height: 1.33;
+    color: $gray-200;
+    font-weight: 500;
+    margin-right: 1em;
+  }
+
+  span.action .icon {
+    margin-right: .3em;
+  }
+
+  .no-quest-section {
+    padding: 2em;
+    color: $gray-300;
+
+    h4 {
+      color: $gray-300;
+    }
+
+    p {
+      margin-bottom: 2em;
+    }
+
+    .svg-icon {
+      height: 30px;
+      width: 30px;
+      margin-bottom: 2em;
+    }
+  }
 </style>
 
 <script>
@@ -223,6 +256,10 @@ import { mapState } from 'client/libs/store';
 import membersModal from './membersModal';
 import { TAVERN_ID } from 'common/script/constants';
 
+import bCollapse from 'bootstrap-vue/lib/components/collapse';
+import bCard from 'bootstrap-vue/lib/components/card';
+import bToggle from 'bootstrap-vue/lib/directives/toggle';
+
 import deleteIcon from 'assets/svg/delete.svg';
 import copyIcon from 'assets/svg/copy.svg';
 import likeIcon from 'assets/svg/like.svg';
@@ -230,12 +267,18 @@ import likedIcon from 'assets/svg/liked.svg';
 import reportIcon from 'assets/svg/report.svg';
 import gemIcon from 'assets/svg/gem.svg';
 import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge.svg';
+import questIcon from 'assets/svg/quest.svg';
 
 export default {
   mixins: [groupUtilities],
   props: ['guildId'],
   components: {
     membersModal,
+    bCollapse,
+    bCard,
+  },
+  directives: {
+    bToggle,
   },
   data () {
     return {
@@ -248,11 +291,22 @@ export default {
         gem: gemIcon,
         goldGuildBadge: goldGuildBadgeIcon,
         liked: likedIcon,
+        questIcon,
       }),
     };
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    isParty () {
+      return this.$route.path.startsWith('/party');
+    },
+    onQuest () {
+      console.log(this.guild)
+      return false;
+    },
+    isLeader () {
+      return this.user._id === this.guild.leader._id;
+    },
     isMember () {
       return this.isMemberOfGroup(this.user, this.guild);
     },
@@ -287,7 +341,7 @@ export default {
     },
   },
   created () {
-    if (this.$route.path.startsWith('/party')) {
+    if (this.isParty) {
       this.guildId = 'party';
     } else if (this.$route.path.startsWith('/guilds/tavern')) {
       this.guildId = TAVERN_ID;

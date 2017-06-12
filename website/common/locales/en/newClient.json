@@ -69,5 +69,10 @@
   "sendMessage": "Send Message",
   "removeManager2": "Remove Manager",
   "promoteToLeader": "Promote to Leader",
-  "inviteFriendsParty": "Inviting friends to your party will grant you an exclusive <br/> Quest Scroll to battle the Basi-List together!"
+  "inviteFriendsParty": "Inviting friends to your party will grant you an exclusive <br/> Quest Scroll to battle the Basi-List together!",
+  "upgradeParty": "Upgrade Party",
+  "questDetailsTitle": "Quest Details",
+  "yourNotOnQuest": "You're not on a quest",
+  "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
+  "startAQuest": "Start a Quest"
 }
