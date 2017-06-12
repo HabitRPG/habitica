@@ -7,8 +7,8 @@
           :placement="'right'"
         )
           span(slot="content")
-            h4.popover-content-title {{ $t('mattBoch') }}
-            .popover-content-text {{ $t('mattBochText1') }}
+            h4.popover-content-title(v-once) {{ $t('mattBoch') }}
+            .popover-content-text(v-once) {{ $t('mattBochText1') }}
 
           div.npc_matt
 
@@ -150,7 +150,8 @@
         ) {{ $t(viewOptions[mountGroup.key].open ? 'showLessAnimals' : 'showAllAnimals', { color: mountGroup.label, type: $t('mounts')}) }}
 
       drawer(
-        title="Quick Inventory",
+        :title="$('quickInventory')",
+        :errorMessage="(!hasDrawerTabItems(selectedDrawerTab)) ? $t('noFood') : null"
       )
         div(slot="drawer-header")
           .drawer-tab-container
@@ -163,10 +164,7 @@
               .drawer-tab.float-left
                 a.drawer-tab-text(
                   @click="selectedDrawerTab = 1",
-                  :class={
-                    'drawer-tab-text-active': selectedDrawerTab === 1,
-                    'drawer-tab-text-disabled': drawerTabs && drawerTabs[1].items.length === 0
-                    },
+                  :class="{ 'drawer-tab-text-active': selectedDrawerTab === 1 }",
                 )  {{ drawerTabs[1].label }}
 
               b-popover(
@@ -181,7 +179,7 @@
 
         drawer-slider(
           :items="drawerTabs[selectedDrawerTab].items",
-          :scrollButtonsVisible="true",
+          :scrollButtonsVisible="hasDrawerTabItems(selectedDrawerTab)",
           slot="drawer-slider",
         )
           template(slot="item", scope="ctx")
@@ -268,6 +266,9 @@
 
   }
 
+  .drawer-slider .items {
+    height: 114px;
+  }
 
 </style>
 
@@ -618,6 +619,10 @@
         }
 
         return 'GreyedOut PixelPaw';
+      },
+
+      hasDrawerTabItems (index) {
+        return this.drawerTabs && this.drawerTabs[index].items.length !== 0;
       },
 
       // Actions

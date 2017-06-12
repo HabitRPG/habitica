@@ -35,7 +35,7 @@ div.slider-root(v-bind:class="{'scrollButtonsVisible': scrollButtonsVisible}")
   height: 40px;
   border-radius: 50%;
   background-color: #ffffff;
-  box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+  box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
   position: absolute;
   top: calc((100% - 40px) / 2);
 

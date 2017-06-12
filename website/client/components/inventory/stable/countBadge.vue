@@ -14,7 +14,7 @@ span.badge.badge-pill.badge-item.badge-count(
   padding: 4.5px 6px;
   min-width: 24px;
   height: 24px;
-  box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);
+  box-shadow: 0 1px 1px 0 rgba($black, 0.12);
 }
 
 </style>

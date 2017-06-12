@@ -74,5 +74,7 @@
   "privateDescription": "A private Guild will not be displayed in Habitica’s Guild directory. New members can be added by invitation only.",
   "inviteFriendsParty": "Inviting friends to your party will grant you an exclusive <br/> Quest Scroll to battle the Basi-List together!",
   "showAllAnimals": "Show All <%= color %> <%= type %>",
-  "showLessAnimals": "Show Less <%= color %> <%= type %>"
+  "showLessAnimals": "Show Less <%= color %> <%= type %>",
+  "quickInventory": "Quick Inventory",
+  "noFood": "You don't have any items."
 }

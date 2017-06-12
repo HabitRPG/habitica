@@ -87,11 +87,6 @@
     &-active {
       border-color: $purple-400;
     }
-
-    &-disabled {
-      color: $gray-50;
-      cursor: pointer;
-    }
   }
 }
 
