@@ -343,8 +343,8 @@ api.leaveChallenge = {
     let challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    //Prevented users from leaving challenge after quitting party.
-    //let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy'});
+   // Prevented users from leaving challenge after quitting party.
+   // let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy'});
    // if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     if (!challenge.isMember(user)) throw new NotAuthorized(res.t('challengeMemberNotFound'));
