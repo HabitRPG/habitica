@@ -216,9 +216,9 @@ describe('POST /chat', () => {
 
       // Chat privileges are revoked
       await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
-        code: 404,
-        error: 'NotFound',
-        message: 'Your chat privileges have been revoked.',
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('chatPrivilegesRevoked'),
       });
 
       // Restore chat privileges to continue testing
@@ -269,9 +269,9 @@ describe('POST /chat', () => {
 
       // Chat privileges are revoked
       await expect(members[0].post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
-        code: 404,
-        error: 'NotFound',
-        message: 'Your chat privileges have been revoked.',
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('chatPrivilegesRevoked'),
       });
 
       // Restore chat privileges to continue testing
