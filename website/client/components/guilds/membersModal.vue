@@ -19,7 +19,7 @@ div
             b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption.value)', :key='sortOption.value') {{sortOption.text}}
     .row(v-for='member in members', :key='member', )
       .col-8.offset-1
-        member-details(:user='member')
+        member-details(:member='member')
       .col-3.actions
         b-dropdown(:text="$t('sort')", right=true)
           b-dropdown-item(@click='sort(option.value)')

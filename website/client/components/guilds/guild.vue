@@ -3,23 +3,23 @@
 .row(v-if="guild")
   .clearfix.col-8
     .row
+      .col-6.title-details
+        h1 {{guild.name}}
+        strong.float-left(v-once) {{$t('groupLeader')}}
+        span.float-left(v-once, v-if='guild.leader.profile') : {{guild.leader.profile.name}}
       .col-6
-        .float-left
-          h2 {{guild.name}}
-          strong.float-left(v-once) {{$t('groupLeader')}}
-          span.float-left(v-once, v-if='guild.leader.profile') : {{guild.leader.profile.name}}
-      .col-6
-        .float-right
-          .row.icon-row
-            .col-6
+        .row.icon-row
+          .col-6
+            members-modal(:group='guild', v-if='isMember')
+            .item-with-icon
               .svg-icon.shield(v-html="icons.goldGuildBadge")
               span.number {{guild.memberCount}}
               div(v-once) {{ $t('guildMembers') }}
-            .col-6
-              .item-with-icon
-                .svg-icon.gem(v-html="icons.gem")
-                span.number {{guild.memberCount}}
-                div(v-once) {{ $t('guildBank') }}
+          .col-6
+            .item-with-icon
+              .svg-icon.gem(v-html="icons.gem")
+              span.number {{guild.memberCount}}
+              div(v-once) {{ $t('guildBank') }}
     .row.chat-row
       .col-12
         h3(v-once) {{ $t('chat') }}
@@ -64,17 +64,16 @@
       .col-6
         p Image here
       .col-6
-        members-modal(:group='guild')
-        br
-        button.btn.btn-primary(:class="[isMember ? 'btn-danger' : 'btn-success']") {{ isMember ? $t('leave') : $t('join') }}
-        br
-        button.btn.btn-primary(v-once) {{$t('inviteToGuild')}}
-        br
-        button.btn.btn-primary(v-once) {{$t('messageGuildLeader')}}
-        br
-        button.btn.btn-primary(v-once) {{$t('donateGems')}}
-        br
-        button.btn.btn-primary(b-btn, @click="updateGuild", v-once) {{ $t('updateGuild') }}
+        .button-container
+          button.btn.btn-primary(class='btn-success', v-if='!isMember') {{ $t('join') }}
+        .button-container
+          button.btn.btn-primary(v-once, v-if='isMember') {{$t('inviteToGuild')}}
+        .button-container
+          button.btn.btn-primary(v-once, v-if='isMember') {{$t('messageGuildLeader')}}
+        .button-container
+          button.btn.btn-primary(v-once, v-if='isMember') {{$t('donateGems')}}
+        .button-container
+          button.btn.btn-primary(b-btn, @click="updateGuild", v-once, v-if='isMember') {{ $t('updateGuild') }}
     div
       h3(v-once) {{ $t('description') }}
       p(v-once) {{ guild.description }}
@@ -95,10 +94,27 @@
           .col-md-12
             span Tag
             span 100
+    div
+      button.btn.btn-primary(class='btn-danger', v-if='isMember') {{ $t('leave') }}
 </template>
 
 <style lang="scss" scoped>
 @import '~client/assets/scss/colors.scss';
+
+.button-container {
+  margin-bottom: 1em;
+
+  button {
+    width: 100%;
+  }
+}
+
+.item-with-icon {
+  border-radius: 2px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+  padding: 1em;
+}
 
 .sidebar {
   background-color: $gray-600;
@@ -141,10 +157,13 @@ textarea {
   margin-right: 1em;
 }
 
+.title-details {
+  padding-top: 1em;
+  padding-left: 1em;
+}
+
 .icon-row {
-  width: 200px;
-  margin-top: 3em;
-  margin-right: 3em;
+  margin-top: 1em;
 
   .number {
     font-size: 22px;
