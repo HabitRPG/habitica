@@ -7,7 +7,7 @@
         .float-left
           h2 {{guild.name}}
           strong.float-left(v-once) {{$t('groupLeader')}}
-          span.float-left : {{guild.leader.profile.name}}
+          span.float-left(v-once, v-if='guild.leader.profile') : {{guild.leader.profile.name}}
       .col-6
         .float-right
           .row.icon-row
@@ -267,7 +267,13 @@ export default {
     },
   },
   created () {
+    if (this.$route.path.startsWith('/party')) {
+      this.guildId = 'party';
+    } else if (this.$route.path.startsWith('/guilds/tavern')) {
+      this.guildId = 'habitrpg';
+    }
     this.fetchGuild();
+    // $route.path.startsWith('/party')
   },
   watch: {
     // call again the method if the route changes (when this route is already active)
@@ -280,12 +286,6 @@ export default {
     },
     async fetchGuild () {
       this.guild = await this.$store.dispatch('guilds:getGroup', {groupId: this.guildId});
-
-      this.guild.chat = [
-        {
-          text: '@CharacterName Vestibulum ultricies, lorem non bibendum consequat, nisl lacus semper nulla, hendrerit dignissim ipsum erat eu odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at aliquet urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla non est ut nisl interdum tincidunt in eu dui. Proin condimentum a.',
-        },
-      ];
     },
     deleteAllMessages () {
       if (confirm(this.$t('confirmDeleteAllMessages'))) {

@@ -55,11 +55,13 @@ export default new VueRouter({
       ],
     },
     { name: 'shops', path: '/shops', component: Page },
+    { name: 'market', path: '/market', component: Page },
+    { name: 'party', path: '/party', component: GuildPage },
     {
       path: '/guilds',
       component: GuildIndex,
       children: [
-        { name: 'tavern', path: 'tavern', component: TavernPage },
+        { name: 'tavern', path: 'tavern', component: GuildPage },
         {
           name: 'myGuilds',
           path: 'myGuilds',
@@ -101,6 +103,14 @@ export default new VueRouter({
             },
           ],
         },
+        { name: 'challenges', path: 'challenges', component: Page },
+      ],
+    },
+    {
+      path: '/user',
+      component: ParentPage,
+      children: [
+        { name: 'avatar', path: 'avatar', component: Page },
         { name: 'stats', path: 'stats', component: Page },
         { name: 'achievements', path: 'achievements', component: Page },
         { name: 'settings', path: 'settings', component: Page },
