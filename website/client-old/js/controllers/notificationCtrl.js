@@ -12,10 +12,10 @@ habitrpg.controller('NotificationCtrl',
     });
 
     function runYesterDailies() {
-      let userLastCron = moment(User.user.lastCron).local();
-      let userDayStart = moment().startOf('day').add({ hours: User.user.preferences.dayStart });
+      var userLastCron = moment(User.user.lastCron).local();
+      var userDayStart = moment().startOf('day').add({ hours: User.user.preferences.dayStart });
       if (!userLastCron.isBefore(userDayStart)) return;
-      let dailys = User.user.dailys;
+      var dailys = User.user.dailys;
 
       if (!Boolean(dailys) || dailys.length === 0) return;
 
