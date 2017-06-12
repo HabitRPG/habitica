@@ -134,8 +134,6 @@ api.getChat = {
  * @apiParam (Body) {String} message Message The message to post
  * @apiParam (Query) {UUID} previousMsg The previous chat message's UUID which will force a return of the full group chat
  *
- * @apiSuccess data An array of <a href='https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js#L51' target='_blank'>chat messages</a> if a new message was posted after previousMsg, otherwise the posted message
- *
  * @apiUse GroupNotFound
  * @apiUse GroupIdRequired
  * @apiError (400) {NotFound} ChatPriviledgesRevoked Your chat privileges have been revoked
@@ -198,7 +196,7 @@ api.postChat = {
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.privacy !== 'private' && user.flags.chatRevoked) {
-      throw new NotFound('Your chat privileges have been revoked.');
+      throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
     }
 
     if (group._id === TAVERN_ID && textContainsBannedWords(req.body.message)) {
@@ -207,6 +205,10 @@ api.postChat = {
 
     let lastClientMsg = req.query.previousMsg;
     chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
+
+    if (group.checkChatSpam(user)) {
+      throw new NotAuthorized(res.t('messageGroupChatSpam'));
+    }
 
     let newChatMessage = group.sendChat(req.body.message, user);
 

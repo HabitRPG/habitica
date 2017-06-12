@@ -6,22 +6,56 @@ import {
 } from '../../libs/errors';
 import _ from 'lodash';
 
-/**
- * @apiDefine Admin Moderators
- * Contributors of tier 8 or higher can use this route.
- */
-
 let api = {};
 
 /**
  * @api {get} /api/v3/hall/patrons Get all patrons
- * @apiDescription Only the first 50 patrons are returned. More can be accessed passing ?page=n
+ * @apiDescription Returns an array of objects containing the patrons who backed Habitica's
+ * original kickstarter. The array is sorted by the backer tier in descending order.
+ * By default, only the first 50 patrons are returned. More can be accessed by passing ?page=n
  * @apiName GetPatrons
  * @apiGroup Hall
  *
- * @apiParam {Number} page Query Parameter - The result page. Default is 0
- *
+ * @apiParam (Query) {Number} [page=0] The result page.
  * @apiSuccess {Array} data An array of patrons
+ *
+ * @apiSuccessExample {json} Example response
+ * {
+ *   "success": true,
+ *   "data": [
+ *     {
+ *       "_id": "3adb52a9-0dfb-4752-81f2-a62d911d1bf5",
+ *       "profile": {
+ *         "name": "mattboch"
+ *       },
+ *       "contributor": {},
+ *       "backer": {
+ *         "tier": 800,
+ *         "npc": "Beast Master"
+ *       }
+ *     },
+ *     {
+ *       "_id": "9da65443-ed43-4c21-804f-d260c1361596",
+ *       "profile": {
+ *         "name": "ʎǝlᴉɐq s,┴I"
+ *       },
+ *       "contributor": {
+ *         "text": "Pollen Purveyor",
+ *         "admin": true,
+ *         "level": 8
+ *       },
+ *       "backer": {
+ *         "npc": "Town Crier",
+ *         "tier": 800,
+ *         "tokensApplied": true
+ *       }
+ *     }
+ *   ]
+ * }
+ *
+ *
+ * @apiUse NoAuthHeaders
+ * @apiUse NoAccount
  */
 api.getPatrons = {
   method: 'GET',
@@ -56,7 +90,32 @@ api.getPatrons = {
  * @apiName GetHeroes
  * @apiGroup Hall
  *
- * @apiSuccess {Array} data An array of heroes
+ * @apiDescription Returns an array of objects containing the heroes who have
+ * contributed for Habitica. The array is sorted by the contribution level in descending order.
+ *
+ * @apiSuccess {Array} heroes An array of heroes
+ *
+ * @apiSuccessExample {json} Example response:
+ * {
+ *   "success": true,
+ *   "data": [
+ *    {
+ *      "_id": "e6e01d2a-c2fa-4b9f-9c0f-7865b777e7b5",
+ *      "profile": {
+ *        "name": "test2"
+ *      },
+ *      "contributor": {
+ *        "admin": false,
+ *        "level": 2,
+ *        "text": "Linguist"
+ *      },
+ *      "backer": {}
+ *     }
+ *   ]
+ * }
+ *
+ * @apiUse NoAuthHeaders
+ * @apiUse NoAccount
  */
 api.getHeroes = {
   method: 'GET',
@@ -83,14 +142,19 @@ const heroAdminFields = 'contributor balance profile.name purchased items auth f
 
 /**
  * @api {get} /api/v3/hall/heroes/:heroId Get any user ("hero") given the UUID
+ * @apiParam {UUID} heroId user ID
  * @apiName GetHero
  * @apiGroup Hall
+ * @apiPermission Admin
+ *
+ * @apiDescription Returns the profile of the given user
  *
  * @apiSuccess {Object} data The user object
  *
- * @apiPermission Admin
- *
- * @apiUse UserNotFound
+ * @apiUse NoAuthHeaders
+ * @apiUse NoAccount
+ * @apiUse NoUser
+ * @apiUse NotAdmin
  */
 api.getHero = {
   method: 'GET',
@@ -123,15 +187,35 @@ const gemsPerTier = {1: 3, 2: 3, 3: 3, 4: 4, 5: 4, 6: 4, 7: 4, 8: 0, 9: 0};
 
 /**
  * @api {put} /api/v3/hall/heroes/:heroId Update any user ("hero")
- * @apiDescription Must be an admin to make this request.
+ * @apiParam {UUID} heroId user ID
  * @apiName UpdateHero
  * @apiGroup Hall
+ * @apiPermission Admin
+ *
+ * @apiDescription Update user's gem balance, contributions & contribution tier and admin status. Grant items, block / unblock user's account and revoke / unrevoke chat privileges.
+ *
+ * @apiExample Example Body:
+ * {
+ *    "balance": 1000,
+ *    "auth": {"blocked": false},
+ *    "flags": {"chatRevoked": true},
+ *    "purchased": {"ads": true},
+ *    "contributor": {
+ *      "admin": true,
+ *      "contributions": "Improving API documentation",
+ *      "level": 5,
+ *      "text": "Scribe, Blacksmith"
+ *    },
+ *    "itemPath": "items.pets.BearCub-Skeleton",
+ *    "itemVal": 1
+ * }
  *
  * @apiSuccess {Object} data The updated user object
  *
- * @apiPermission Admin
- *
- * @apiUse UserNotFound
+ * @apiUse NoAuthHeaders
+ * @apiUse NoAccount
+ * @apiUse NoUser
+ * @apiUse NotAdmin
  */
 api.updateHero = {
   method: 'PUT',

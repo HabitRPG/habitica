@@ -172,7 +172,7 @@
     "hatchingPotionHolly": "Oстролистный",
     "hatchingPotionCupid": "Амур",
     "hatchingPotionShimmer": "Мерцающий",
-    "hatchingPotionFairy": "Fairy",
+    "hatchingPotionFairy": "Сказочный",
     "hatchingPotionNotes": "Полейте его на яйцо и из него вылупится <%= potText(locale) %> питомец.",
     "premiumPotionAddlNotes": "Несовместим с яйцами квестовых питомцев.",
     "foodMeat": "Мясо",

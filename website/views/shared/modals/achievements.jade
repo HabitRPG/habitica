@@ -117,7 +117,7 @@ script(id='modals/achievements/contributor.html', type='text/ng-template')
       button.btn.btn-primary(style='margin-top:1em' ng-click='$close()')=env.t('huzzah')
     +achievementFooter
 
-//Rebirth
+// Rebirth
 script(id='modals/achievements/rebirth.html', type='text/ng-template')
   .modal-content(style='min-width:28em')
     .modal-body.text-center
@@ -149,6 +149,28 @@ script(id='modals/achievements/partyOn.html', type='text/ng-template')
       h3(style='margin-bottom:0')=env.t('modalAchievement')
       +achievementAvatar('partyOn',0)
       p=env.t('partyOnText')
+      br
+      button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
+    +achievementFooter
+
+// Joined Guild
+script(id='modals/achievements/joinedGuild.html', type='text/ng-template')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom:0')=env.t('modalAchievement')
+      +achievementAvatar('guild',0)
+      p=env.t('joinedGuildText')
+      br
+      button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
+    +achievementFooter
+
+// Joined Challenge
+script(id='modals/achievements/joinedChallenge.html', type='text/ng-template')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom:0')=env.t('modalAchievement')
+      +achievementAvatar('challenge',0)
+      p=env.t('joinedChallengeText')
       br
       button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
     +achievementFooter

@@ -4,6 +4,11 @@ import {
   sleep,
   server,
 } from '../../../../helpers/api-v3-integration.helper';
+import {
+  SPAM_MESSAGE_LIMIT,
+  SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
+  TAVERN_ID,
+} from '../../../../../website/server/models/group';
 import { v4 as generateUUID } from 'uuid';
 import * as email from '../../../../../website/server/libs/email';
 import { IncomingWebhook } from '@slack/client';
@@ -12,7 +17,7 @@ import nconf from 'nconf';
 const BASE_URL = nconf.get('BASE_URL');
 
 describe('POST /chat', () => {
-  let user, groupWithChat, userWithChatRevoked, member;
+  let user, groupWithChat, member, additionalMember;
   let testMessage = 'Test Message';
   let testBannedWordMessage = 'TEST_PLACEHOLDER_SWEAR_WORD_HERE';
   let testSlurMessage = 'message with TEST_PLACEHOLDER_SLUR_WORD_HERE';
@@ -29,8 +34,8 @@ describe('POST /chat', () => {
 
     user = groupLeader;
     groupWithChat = group;
-    userWithChatRevoked = await members[0].update({'flags.chatRevoked': true});
     member = members[0];
+    additionalMember = members[1];
   });
 
   it('Returns an error when no message is provided', async () => {
@@ -69,10 +74,11 @@ describe('POST /chat', () => {
   });
 
   it('returns an error when chat privileges are revoked when sending a message to a public guild', async () => {
+    let userWithChatRevoked = await member.update({'flags.chatRevoked': true});
     await expect(userWithChatRevoked.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
-      code: 404,
-      error: 'NotFound',
-      message: 'Your chat privileges have been revoked.',
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('chatPrivilegesRevoked'),
     });
   });
 
@@ -377,5 +383,31 @@ describe('POST /chat', () => {
 
     expect(message.message.id).to.exist;
     expect(memberWithNotification.newMessages[`${group._id}`]).to.exist;
+  });
+
+  context('Spam prevention', () => {
+    it('Returns an error when the user has been posting too many messages', async () => {
+      // Post as many messages are needed to reach the spam limit
+      for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
+        let result = await additionalMember.post(`/groups/${TAVERN_ID}/chat`, { message: testMessage }); // eslint-disable-line no-await-in-loop
+        expect(result.message.id).to.exist;
+      }
+
+      await expect(additionalMember.post(`/groups/${TAVERN_ID}/chat`, { message: testMessage })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('messageGroupChatSpam'),
+      });
+    });
+
+    it('contributor should not receive spam alert', async () => {
+      let userSocialite = await member.update({'contributor.level': SPAM_MIN_EXEMPT_CONTRIB_LEVEL, 'flags.chatRevoked': false});
+
+      // Post 1 more message than the spam limit to ensure they do not reach the limit
+      for (let i = 0; i < SPAM_MESSAGE_LIMIT + 1; i++) {
+        let result = await userSocialite.post(`/groups/${TAVERN_ID}/chat`, { message: testMessage }); // eslint-disable-line no-await-in-loop
+        expect(result.message.id).to.exist;
+      }
+    });
   });
 });

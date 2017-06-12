@@ -140,9 +140,9 @@
     "counterPeriodDay": "日",
     "counterPeriodWeek": "週",
     "counterPeriodMonth": "月",
-    "habitCounter": "計數器",
-    "habitCounterUp": "好習慣計數器",
-    "habitCounterDown": "壞習慣計數器",
+    "habitCounter": "Counter (Resets <%= frequency %>)",
+    "habitCounterUp": "Positive Counter (Resets <%= frequency %>)",
+    "habitCounterDown": "Negative Counter (Resets <%= frequency %>)",
     "taskRequiresApproval": "這個任務必須在你能完成它之前被批准。 已請求批准。",
     "taskApprovalHasBeenRequested": "已請求批准。",
     "approvals": "批准",
@@ -166,5 +166,8 @@
     "groupTasksByChallenge": "以挑戰名稱排序 隊伍任務",
     "taskNotes": "Task Notes",
     "monthlyRepeatHelpContent": "這個任務每X月會結算一次",
-    "yearlyRepeatHelpContent": "這個任務每X年會結算一次"
+    "yearlyRepeatHelpContent": "這個任務每X年會結算一次",
+    "resets": "Resets",
+    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Next Due Dates"
 }

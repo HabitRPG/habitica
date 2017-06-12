@@ -1,4 +1,5 @@
 {
+    "stable": "Stable",
     "pets": "寵物",
     "activePet": "活躍中的寵物",
     "noActivePet": "沒有活躍中的寵物",
@@ -42,6 +43,7 @@
     "food": "食物和鞍",
     "noFood": "你沒有任何食物或鞍。",
     "dropsExplanation": "如果不想要再苦苦等待完成任務捲軸後掉落的獎賞的話，使用寶石將可以更快速的得到這些物品哦！<a href=\"http://habitica.wikia.com/wiki/Drops\">點擊這裡瞭解更多掉落系統</a>",
+    "dropsExplanationEggs": "Spend Gems to get eggs more quickly, if you don't want to wait for standard eggs to drop, or to repeat Quests to earn Quest eggs. <a href=\"http://habitica.wikia.com/wiki/Drops\">Learn more about the drop system.</a>",
     "premiumPotionNoDropExplanation": "魔法孵化藥水不能使用在從任務中獲得的蛋上。唯一可以得到魔法孵化藥水的辦法就是在下面購買，而不是從掉落系統中獲得。",
     "beastMasterProgress": "寵物大師進度",
     "stableBeastMasterProgress": "寵物大師進度：目前找到<%= number %>隻寵物",

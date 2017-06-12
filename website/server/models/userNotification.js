@@ -18,6 +18,9 @@ const NOTIFICATION_TYPES = [
   'GROUP_INVITE_ACCEPTED',
   'SCORED_TASK',
   'BOSS_DAMAGE', // Not used currently but kept to avoid validation errors
+  'GUILD_PROMPT',
+  'GUILD_JOINED_ACHIEVEMENT',
+  'CHALLENGE_JOINED_ACHIEVEMENT',
 ];
 
 const Schema = mongoose.Schema;

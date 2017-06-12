@@ -1,4 +1,4 @@
-var migrationName = '20170404_takeThis.js'; // Update per month
+var migrationName = '20170502_takeThis.js'; // Update per month
 var authorName = 'Sabe'; // in case script author needs to know when their ...
 var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
 
@@ -14,7 +14,7 @@ function processUsers(lastId) {
   // specify a query to limit the affected users (empty for all users):
   var query = {
     'migration':{$ne:migrationName},
-    'challenges':{$in:['630018a7-49ab-4e95-ac26-12417b746e1c']} // Update per month
+    'challenges':{$in:['69999331-d4ea-45a0-8c3f-f725d22b56c8']} // Update per month
   };
 
   if (lastId) {

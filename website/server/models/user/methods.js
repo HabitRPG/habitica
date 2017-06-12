@@ -7,7 +7,7 @@ import {
   TAVERN_ID,
 } from '../group';
 
-import { defaults } from 'lodash';
+import { defaults, map, flatten, flow, compact, uniq, partialRight } from 'lodash';
 import { model as UserNotification } from '../userNotification';
 import schema from './schema';
 import payments from '../../libs/payments';
@@ -33,6 +33,56 @@ schema.methods.getGroups = function getUserGroups () {
   if (this.party._id) userGroups.push(this.party._id);
   userGroups.push(TAVERN_ID);
   return userGroups;
+};
+
+/* eslint-disable no-unused-vars */ // The checks below all get access to sndr and rcvr, but not all use both
+const INTERACTION_CHECKS = Object.freeze({
+  always: [
+    // Revoked chat privileges block all interactions to prevent the evading of harassment protections
+    // See issue #7971 for some discussion
+    (sndr, rcvr) => sndr.flags.chatRevoked && 'chatPrivilegesRevoked',
+
+    // Direct user blocks prevent all interactions
+    (sndr, rcvr) => rcvr.inbox.blocks.includes(sndr._id) && 'notAuthorizedToSendMessageToThisUser',
+    (sndr, rcvr) => sndr.inbox.blocks.includes(rcvr._id) && 'notAuthorizedToSendMessageToThisUser',
+  ],
+
+  'send-private-message': [
+    // Private messaging has an opt-out, which does not affect other interactions
+    (sndr, rcvr) => rcvr.inbox.optOut && 'notAuthorizedToSendMessageToThisUser',
+
+    // We allow a player to message themselves so they can test how PMs work or send their own notes to themselves
+  ],
+
+  'transfer-gems': [
+    // Unlike private messages, gems can't be sent to oneself
+    (sndr, rcvr) => rcvr._id === sndr._id && 'cannotSendGemsToYourself',
+  ],
+});
+/* eslint-enable no-unused-vars */
+
+export const KNOWN_INTERACTIONS = Object.freeze(Object.keys(INTERACTION_CHECKS).filter(key => key !== 'always'));
+
+// Get an array of error message keys that would be thrown if the given interaction was attempted
+schema.methods.getObjectionsToInteraction = function getObjectionsToInteraction (interaction, receiver) {
+  if (!KNOWN_INTERACTIONS.includes(interaction)) {
+    throw new Error(`Unknown kind of interaction: "${interaction}", expected one of ${KNOWN_INTERACTIONS.join(', ')}`);
+  }
+
+  let sender = this;
+  let checks = [
+    INTERACTION_CHECKS.always,
+    INTERACTION_CHECKS[interaction],
+  ];
+
+  let executeChecks = partialRight(map, (check) => check(sender, receiver));
+
+  return flow(
+    flatten,
+    executeChecks,
+    compact, // Remove passed checks (passed checks return falsy; failed checks return message keys)
+    uniq
+  )(checks);
 };
 
 
@@ -107,21 +157,34 @@ schema.methods.addComputedStatsToJSONObj = function addComputedStatsToUserJSONOb
   return statsObject;
 };
 
+/**
+ * Cancels a subscription.
+ *
+ * @param  options
+ * @param  options.user  The user object who is purchasing
+ * @param  options.groupId  The id of the group purchasing a subscription
+ * @param  options.headers  The request headers (only for Amazon subscriptions)
+ * @param  options.cancellationReason  A text string to control sending an email
+ *
+ * @return a Promise from api.cancelSubscription()
+ */
 // @TODO: There is currently a three way relation between the user, payment methods and the payment helper
 // This creates some odd Dependency Injection issues. To counter that, we use the user as the third layer
 // To negotiate between the payment providers and the payment helper (which probably has too many responsiblities)
 // In summary, currently is is best practice to use this method to cancel a user subscription, rather than calling the
 // payment helper.
-schema.methods.cancelSubscription = async function cancelSubscription () {
+schema.methods.cancelSubscription = async function cancelSubscription (options = {}) {
   let plan = this.purchased.plan;
 
+  options.user = this;
   if (plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD) {
-    return await amazonPayments.cancelSubscription({user: this});
+    return await amazonPayments.cancelSubscription(options);
   } else if (plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
-    return await stripePayments.cancelSubscription({user: this});
+    return await stripePayments.cancelSubscription(options);
   } else if (plan.paymentMethod === paypalPayments.constants.PAYMENT_METHOD) {
-    return await paypalPayments.subscribeCancel({user: this});
+    return await paypalPayments.subscribeCancel(options);
   }
+  // Android and iOS subscriptions cannot be cancelled by Habitica.
 
-  return await payments.cancelSubscription({user: this});
+  return await payments.cancelSubscription(options);
 };
