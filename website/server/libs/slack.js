@@ -95,20 +95,18 @@ module.exports = {
 };
 
 function sendSlurNotification ({
-  // authorEmail,
-  // author,
+  authorEmail,
+  author,
   group,
   message,
-  authorName,
-  text,
 }) {
   if (!SLACK_FLAGGING_URL) {
     return;
   }
   let titleLink;
-  // let authorName;
+  let authorName;
   let title = `Slur in ${group.name}`;
-  // let text = `${author.profile.name} (${author._id}) tried to post a slur`;
+  let text = `${author.profile.name} (${author._id}) tried to post a slur`;
 
   if (group.id === TAVERN_ID) {
     titleLink = `${BASE_URL}/#/options/groups/tavern`;
@@ -118,7 +116,7 @@ function sendSlurNotification ({
     title += ` - (${group.privacy} ${group.type})`;
   }
 
-  // authorName = `${author.profile.name} - ${authorEmail} - ${author.id}`;
+  authorName = `${author.profile.name} - ${authorEmail} - ${author.id}`;
 
   flagSlack.send({
     text,
