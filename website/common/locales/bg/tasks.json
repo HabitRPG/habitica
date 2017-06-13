@@ -169,5 +169,5 @@
     "yearlyRepeatHelpContent": "Тази задача ще бъде подновявана на всеки Х години.",
     "resets": "Нулира се",
     "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
-    "nextDue": "Next Due Dates"
+    "nextDue": "Следващи крайни дати"
 }

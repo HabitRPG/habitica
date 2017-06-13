@@ -168,6 +168,6 @@
     "monthlyRepeatHelpContent": "Questa attività andrà completata ogni X mesi.",
     "yearlyRepeatHelpContent": "Questa attività andrà completata ogni X anni.",
     "resets": "Resets",
-    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
-    "nextDue": "Next Due Dates"
+    "summaryStart": "Si ripete <%= frequency %> ogni <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Prossime date previste"
 }
