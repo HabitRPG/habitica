@@ -68,13 +68,15 @@
   .member-stats {
     background: $header-dark-background;
     position: absolute;
-    left: 140px;
-    padding-top: 8px;
-    padding-right: 16px;
+    right: 100%;
+    height: calc(100% + 18px);
     margin-top: -9px;
+    padding-top: 9px;
+    padding-bottom: 24px;
+    padding-right: 16px;
     padding-bottom: 14px;
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     z-index: 9;
   }
 
@@ -207,12 +209,6 @@ export default {
   },
   methods: {
     percent,
-    hasClass () {
-      return this.$store.getters['members:hasClass'](this.member);
-    },
-    isBuffed () {
-      return this.$store.getters['members:isBuffed'](this.member);
-    },
   },
   computed: {
     ...mapState({
@@ -228,6 +224,12 @@ export default {
       return `${this.$t('level')} ${this.member.stats.lvl} ${
         this.member.stats.class ? this.$t(this.member.stats.class) : ''
       }`;
+    },
+    isBuffed () {
+      return this.$store.getters['members:isBuffed'](this.member);
+    },
+    hasClass () {
+      return this.$store.getters['members:hasClass'](this.member);
     },
   },
 };

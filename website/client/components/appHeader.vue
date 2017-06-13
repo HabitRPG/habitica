@@ -78,7 +78,6 @@ export default {
       getPartyMembers: 'party:getMembers',
     }),
     expandMember (memberId) {
-      console.log('expand')
       if (this.expandedMember === memberId) {
         this.expandedMember = null;
       } else {
