@@ -26,6 +26,7 @@
     "showBaileyPop": "Vytiahni mestskú hlásničku Bailey zo skrýše a prečítaj si staršie oznamy.",
     "fixVal": "Opraviť hodnoty postavy",
     "fixValPop": "Manuálne nastav hodnoty ako zdravie, level, a zlato.",
+    "invalidLevel": "Invalid value: Level must be 1 or greater.",
     "enableClass": "Povoliť povolania",
     "enableClassPop": "Pôvodne si povolania odmietol. Chceš ich začať používať?",
     "classTourPop": "Zobraziť prehliadku s informáciami o používaní povolaní.",

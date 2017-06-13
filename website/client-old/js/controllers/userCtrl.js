@@ -99,7 +99,7 @@ habitrpg.controller('UserCtrl', ['$rootScope', '$scope', '$location', 'User', '$
 
     $scope.getProgressDisplay = function () {
       var currentLoginDay = Content.loginIncentives[$scope.profile.loginIncentives];
-      if (!currentLoginDay) return env.t('moreIncentivesComingSoon');
+      if (!currentLoginDay) return env.t('checkinReceivedAllRewardsMessage');
       var nextRewardAt = currentLoginDay.nextRewardAt;
       if (!nextRewardAt) return env.t('moreIncentivesComingSoon');
       // if we are on a reward day, let's show progress relative to this

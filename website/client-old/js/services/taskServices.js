@@ -263,6 +263,7 @@ angular.module('habitrpg')
       modalScope.task._tags = !user.preferences.tagsCollapsed;
       modalScope.task._advanced = !user.preferences.advancedCollapsed;
       modalScope.task._edit = angular.copy(task);
+      modalScope.user = user;
       if($rootScope.charts[task._id]) $rootScope.charts[task.id] = false;
 
       modalScope.taskStatus = taskStatus;
@@ -294,13 +295,14 @@ angular.module('habitrpg')
           $scope.$watch('task._edit', function (newValue, oldValue) {
             if ($scope.task.type !== 'daily' || !task._edit) return;
             $scope.summary = generateSummary($scope.task);
+            $scope.nextDue = generateNextDue($scope.task._edit, $scope.user);
 
             $scope.repeatSuffix = generateRepeatSuffix($scope.task);
-            if ($scope.task._edit.repeatsOn == 'dayOfMonth') {
+            if (task._edit.frequency === 'monthly' && $scope.task._edit.repeatsOn == 'dayOfMonth') {
               var date = moment(task._edit.startDate).date();
               $scope.task._edit.weeksOfMonth = [];
               $scope.task._edit.daysOfMonth = [date]; // @TODO This can handle multiple dates later
-            } else if ($scope.task._edit.repeatsOn == 'dayOfWeek') {
+            } else if (task._edit.frequency === 'monthly' && $scope.task._edit.repeatsOn == 'dayOfWeek') {
               var week = Math.ceil(moment(task._edit.startDate).date() / 7) - 1;
               var dayOfWeek = moment(task._edit.startDate).day();
               var shortDay = numberToShortDay[dayOfWeek];
@@ -352,7 +354,11 @@ angular.module('habitrpg')
         }
       }
 
-      var summary = 'Repeats ' + task._edit.frequency + ' every ' + task._edit.everyX + ' ' + frequencyPlural;
+      var summary = window.env.t('summaryStart', {
+        frequency: task._edit.frequency,
+        everyX: task._edit.everyX,
+        frequencyPlural: frequencyPlural,
+      });
 
       if (task._edit.frequency === 'weekly') summary += ' on ' + repeatDays;
 
@@ -381,8 +387,23 @@ angular.module('habitrpg')
       } else if (task._edit.frequency === 'yearly') {
         return task._edit.everyX == 1 ? window.env.t('year') : window.env.t('years');
       }
-
     };
+
+    function generateNextDue (task, user) {
+      var options = angular.copy(user);
+      options.nextDue = true;
+      var nextDueDates = Shared.shouldDo(new Date, task, options);
+      if (!nextDueDates) return '';
+
+      var dateFormat = 'MM-DD-YYYY';
+      if (user.preferences.dateFormat) dateFormat = user.preferences.dateFormat.toUpperCase();
+
+      var nextDue = nextDueDates.map(function (date) {
+        return date.format(dateFormat);
+      });
+
+      return nextDue.join(', ');
+    }
 
     function cancelTaskEdit(task) {
       task._edit = undefined;

@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import nconf from 'nconf';
 import analytics from './analyticsService';
 import {
   getUserInfo,
@@ -18,12 +19,17 @@ import {
 } from './errors';
 import slack from './slack';
 
+const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
+const JOINED_GROUP_PLAN = 'joined group plan';
+
 let api = {};
 
 api.constants = {
   UNLIMITED_CUSTOMER_ID: 'habitrpg', // Users with the customerId have an unlimted free subscription
   GROUP_PLAN_CUSTOMER_ID: 'group-plan',
   GROUP_PLAN_PAYMENT_METHOD: 'Group Plan',
+  GOOGLE_PAYMENT_METHOD: 'Google',
+  IOS_PAYMENT_METHOD: 'Apple',
 };
 
 function revealMysteryItems (user) {
@@ -76,7 +82,22 @@ api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers (gr
  * @return undefined
  */
 api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
+  // These EMAIL_TEMPLATE constants are used to pass strings into templates that are
+  // stored externally and so their values must not be changed.
+  const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_GOOGLE = 'Google_subscription';
+  const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_IOS = 'iOS_subscription';
+  const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_GROUP_PLAN = 'group_plan_free_subscription';
+  const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_LIFETIME_FREE = 'lifetime_free_subscription';
+  const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL = 'normal_subscription';
+  const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_UNKNOWN = 'unknown_type_of_subscription';
+  const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NONE = 'no_subscription';
+
+  // When changing customerIdsToIgnore or paymentMethodsToIgnore, the code blocks below for
+  // the `group-member-join` email template will probably need to be changed.
   let customerIdsToIgnore = [this.constants.GROUP_PLAN_CUSTOMER_ID, this.constants.UNLIMITED_CUSTOMER_ID];
+  let paymentMethodsToIgnore = [this.constants.GOOGLE_PAYMENT_METHOD, this.constants.IOS_PAYMENT_METHOD];
+  let previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NONE;
+  let leader = await User.findById(group.leader).exec();
 
   let data = {
     user: {},
@@ -106,12 +127,52 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
     },
   };
 
+  let memberPlan = member.purchased.plan;
   if (member.isSubscribed()) {
-    let memberPlan = member.purchased.plan;
     let customerHasCancelledGroupPlan = memberPlan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID && !member.hasNotCancelled();
-    if (customerIdsToIgnore.indexOf(memberPlan.customerId) !== -1 && !customerHasCancelledGroupPlan) return;
+    let ignorePaymentPlan = paymentMethodsToIgnore.indexOf(memberPlan.paymentMethod) !== -1;
+    let ignoreCustomerId = customerIdsToIgnore.indexOf(memberPlan.customerId) !== -1;
 
-    if (member.hasNotCancelled()) await member.cancelSubscription();
+    if (ignorePaymentPlan) {
+      txnEmail(TECH_ASSISTANCE_EMAIL, 'admin-user-subscription-details', [
+        {name: 'PROFILE_NAME', content: member.profile.name},
+        {name: 'UUID', content: member._id},
+        {name: 'EMAIL', content: getUserInfo(member, ['email']).email},
+        {name: 'PAYMENT_METHOD', content: memberPlan.paymentMethod},
+        {name: 'PURCHASED_PLAN', content: JSON.stringify(memberPlan)},
+        {name: 'ACTION_NEEDED', content: 'User has joined group plan and has been told to cancel their subscription then email us. Ensure they do that then give them free sub.'},
+        // TODO User won't get email instructions if they've opted out of all emails. See if we can make this email an exception and if not, report here whether they've opted out.
+      ]);
+    }
+
+    if ((ignorePaymentPlan || ignoreCustomerId) && !customerHasCancelledGroupPlan) {
+      // member has been added to group plan but their subscription will not be changed
+      // automatically so they need a special message in the email
+      if (memberPlan.paymentMethod === this.constants.GOOGLE_PAYMENT_METHOD) {
+        previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_GOOGLE;
+      } else if (memberPlan.paymentMethod === this.constants.IOS_PAYMENT_METHOD) {
+        previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_IOS;
+      } else if (memberPlan.customerId === this.constants.UNLIMITED_CUSTOMER_ID) {
+        previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_LIFETIME_FREE;
+      } else if (memberPlan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID) {
+        previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_GROUP_PLAN;
+      } else {
+        // this triggers a generic message in the email template in case we forget
+        // to update this code for new special cases
+        previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_UNKNOWN;
+      }
+      txnEmail(member, 'group-member-join', [
+        {name: 'LEADER', content: leader.profile.name},
+        {name: 'GROUP_NAME', content: group.name},
+        {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: previousSubscriptionType},
+      ]);
+      return;
+    }
+
+    if (member.hasNotCancelled()) {
+      await member.cancelSubscription({cancellationReason: JOINED_GROUP_PLAN});
+      previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL;
+    }
 
     let today = new Date();
     plan = member.purchased.plan.toObject();
@@ -134,16 +195,20 @@ api.addSubToGroupUser = async function addSubToGroupUser (member, group) {
     }).value();
   }
 
+  // save unused hourglass and mystery items
+  plan.consecutive.trinkets = memberPlan.consecutive.trinkets;
+  plan.mysteryItems = memberPlan.mysteryItems;
+
   member.purchased.plan = plan;
   member.items.mounts['Jackalope-RoyalPurple'] = true;
 
   data.user = member;
   await this.createSubscription(data);
 
-  let leader = await User.findById(group.leader).exec();
-  txnEmail(data.user, 'group-member-joining', [
+  txnEmail(data.user, 'group-member-join', [
     {name: 'LEADER', content: leader.profile.name},
     {name: 'GROUP_NAME', content: group.name},
+    {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: previousSubscriptionType},
   ]);
 };
 
@@ -289,6 +354,7 @@ api.createSubscription = async function createSubscription (data) {
   }
 
   if (recipient !== group) {
+    recipient.items.pets['Jackalope-RoyalPurple'] = 5;
     revealMysteryItems(recipient);
   }
 
@@ -384,17 +450,18 @@ api.createSubscription = async function createSubscription (data) {
   });
 };
 
-// Sets their subscription to be cancelled later
+// Cancels a subscription or group plan, setting termination to happen later
 api.cancelSubscription = async function cancelSubscription (data) {
   let plan;
   let group;
   let cancelType = 'unsubscribe';
   let groupId;
-  let emailType = 'cancel-subscription';
+  let emailType;
   let emailMergeData = [];
+  let sendEmail = true;
 
-  //  If we are buying a group subscription
   if (data.groupId) {
+    // cancelling a group plan
     let groupFields = basicGroupFields.concat(' purchased');
     group = await Group.getGroup({user: data.user, groupId: data.groupId, populateLeader: false, groupFields});
 
@@ -413,21 +480,26 @@ api.cancelSubscription = async function cancelSubscription (data) {
 
     await this.cancelGroupUsersSubscription(group);
   } else {
+    // cancelling a user subscription
     plan = data.user.purchased.plan;
+    emailType = 'cancel-subscription';
+    // When cancelling because the user joined a group plan, no cancel-subscription email is sent
+    // because the group-member-join email says the subscription is cancelled.
+    if (data.cancellationReason && data.cancellationReason === JOINED_GROUP_PLAN) sendEmail = false;
   }
 
-  let customerId = plan.customerId;
   let now = moment();
   let defaultRemainingDays = 30;
 
   if (plan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID) {
     defaultRemainingDays = 2;
+    sendEmail = false; // because group-member-cancel email has already been sent
   }
 
   let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days', true) : defaultRemainingDays;
   if (plan.extraMonths < 0) plan.extraMonths = 0;
   let extraDays = Math.ceil(30.5 * plan.extraMonths);
-  let nowStr = `${now.format('MM')}/${moment(plan.dateUpdated).format('DD')}/${now.format('YYYY')}`;
+  let nowStr = `${now.format('MM')}/${now.format('DD')}/${now.format('YYYY')}`;
   let nowStrFormat = 'MM/DD/YYYY';
 
   plan.dateTerminated =
@@ -444,7 +516,7 @@ api.cancelSubscription = async function cancelSubscription (data) {
     await data.user.save();
   }
 
-  if (customerId !== this.constants.GROUP_PLAN_CUSTOMER_ID) txnEmail(data.user, emailType, emailMergeData);
+  if (sendEmail) txnEmail(data.user, emailType, emailMergeData);
 
   if (group) {
     cancelType = 'group-unsubscribe';

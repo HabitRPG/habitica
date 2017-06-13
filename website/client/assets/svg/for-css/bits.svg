@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="56" viewBox="0 0 128 56">
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#6133B4" d="M24 0h8v8h-8z"/>
+        <path fill="#4F2A93" d="M16 0h8v8h-8zM24 8h8v8h-8z"/>
+        <path fill="#432874" d="M16 8h8v8h-8zM32 0h8v8h-8zM32 8h8v8h-8z"/>
+        <path fill="#4F2A93" d="M40 0h8v8h-8z"/>
+        <path fill="#432874" d="M40 8h8v8h-8zM48 0h8v8h-8z"/>
+        <path fill="#6133B4" d="M48 8h8v8h-8zM56 0h8v8h-8z"/>
+        <path fill="#4F2A93" d="M56 8h8v8h-8z"/>
+        <path fill="#6133B4" d="M64 0h8v8h-8z"/>
+        <path fill="#4F2A93" d="M64 8h8v8h-8zM72 0h8v8h-8z"/>
+        <path fill="#6133B4" d="M72 8h8v8h-8zM80 0h8v8h-8z"/>
+        <path fill="#4F2A93" d="M80 8h8v8h-8z"/>
+        <path fill="#6133B4" d="M88 0h8v8h-8z"/>
+        <path fill="#4F2A93" d="M88 8h8v8h-8z"/>
+        <path fill="#432874" d="M96 0h8v8h-8z"/>
+        <path fill="#6133B4" d="M96 8h8v8h-8z"/>
+        <path fill="#432874" d="M24 16h8v8h-8zM16 16h8v8h-8z"/>
+        <path fill="#4F2A93" d="M8 16h8v8H8z"/>
+        <path fill="#6133B4" d="M32 16h8v8h-8z"/>
+        <path fill="#4F2A93" d="M40 16h8v8h-8zM48 16h8v8h-8zM56 16h8v8h-8z"/>
+        <path fill="#6133B4" d="M64 16h8v8h-8z"/>
+        <path fill="#4F2A93" d="M72 16h8v8h-8z"/>
+        <path fill="#432874" d="M80 16h8v8h-8z"/>
+        <path fill="#4F2A93" d="M88 16h8v8h-8zM96 16h8v8h-8z"/>
+        <path fill="#432874" d="M24 24h8v8h-8z"/>
+        <path fill="#6133B4" d="M16 24h8v8h-8z"/>
+        <path fill="#4F2A93" d="M32 24h8v8h-8z"/>
+        <path fill="#432874" d="M40 24h8v8h-8zM48 24h8v8h-8z"/>
+        <path fill="#4F2A93" d="M56 24h8v8h-8z"/>
+        <path fill="#432874" d="M64 24h8v8h-8z"/>
+        <path fill="#4F2A93" d="M72 24h8v8h-8zM80 24h8v8h-8z"/>
+        <path fill="#432874" d="M88 24h8v8h-8z"/>
+        <path fill="#4F2A93" d="M96 24h8v8h-8z"/>
+        <path fill="#432874" d="M24 32h8v8h-8zM16 32h8v8h-8zM8 32h8v8H8z"/>
+        <path fill="#6133B4" d="M32 32h8v8h-8z"/>
+        <path fill="#4F2A93" d="M40 32h8v8h-8z"/>
+        <path fill="#6133B4" d="M48 32h8v8h-8z"/>
+        <path fill="#432874" d="M56 32h8v8h-8z"/>
+        <path fill="#4F2A93" d="M64 32h8v8h-8z"/>
+        <path fill="#6133B4" d="M72 32h8v8h-8z"/>
+        <path fill="#4F2A93" d="M80 32h8v8h-8z"/>
+        <path fill="#6133B4" d="M88 32h8v8h-8z"/>
+        <path fill="#4F2A93" d="M96 32h8v8h-8zM24 40h8v8h-8z"/>
+        <path fill="#432874" d="M16 40h8v8h-8zM8 40h8v8H8z"/>
+        <path fill="#4F2A93" d="M0 40h8v8H0z"/>
+        <path fill="#432874" d="M32 40h8v8h-8zM40 40h8v8h-8z"/>
+        <path fill="#6133B4" d="M48 40h8v8h-8zM56 40h8v8h-8zM64 40h8v8h-8z"/>
+        <path fill="#432874" d="M72 40h8v8h-8zM80 40h8v8h-8z"/>
+        <path fill="#6133B4" d="M88 40h8v8h-8z"/>
+        <path fill="#432874" d="M96 40h8v8h-8z"/>
+        <path fill="#6133B4" d="M24 48h8v8h-8z"/>
+        <path fill="#4F2A93" d="M16 48h8v8h-8zM32 48h8v8h-8z"/>
+        <path fill="#432874" d="M40 48h8v8h-8z"/>
+        <path fill="#4F2A93" d="M48 48h8v8h-8z"/>
+        <path fill="#432874" d="M56 48h8v8h-8z"/>
+        <path fill="#4F2A93" d="M64 48h8v8h-8zM72 48h8v8h-8z"/>
+        <path fill="#6133B4" d="M80 48h8v8h-8z"/>
+        <path fill="#432874" d="M88 48h8v8h-8z"/>
+        <path fill="#6133B4" d="M96 48h8v8h-8z"/>
+        <path fill="#4F2A93" d="M104 0h8v8h-8z"/>
+        <path fill="#432874" d="M104 8h8v8h-8z"/>
+        <path fill="#6133B4" d="M104 16h8v8h-8z"/>
+        <path fill="#4F2A93" d="M104 24h8v8h-8z"/>
+        <path fill="#432874" d="M104 32h8v8h-8z"/>
+        <path fill="#6133B4" d="M104 40h8v8h-8z"/>
+        <path fill="#4F2A93" d="M104 48h8v8h-8z"/>
+        <path fill="#432874" d="M112 0h8v8h-8z"/>
+        <path fill="#6133B4" d="M112 8h8v8h-8z"/>
+        <path fill="#4F2A93" d="M112 16h8v8h-8z"/>
+        <path fill="#6133B4" d="M112 24h8v8h-8zM112 32h8v8h-8z"/>
+        <path fill="#4F2A93" d="M112 40h8v8h-8z"/>
+        <path fill="#432874" d="M112 48h8v8h-8zM120 0h8v8h-8z"/>
+        <path fill="#4F2A93" d="M120 8h8v8h-8zM120 16h8v8h-8z"/>
+        <path fill="#432874" d="M120 24h8v8h-8zM120 32h8v8h-8z"/>
+        <path fill="#6133B4" d="M120 40h8v8h-8z"/>
+        <path fill="#4F2A93" d="M120 48h8v8h-8z"/>
+    </g>
+</svg>

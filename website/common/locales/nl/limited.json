@@ -5,7 +5,7 @@
     "annoyingFriends": "Irritante vrienden",
     "annoyingFriendsText": "Is <%= count %> keer geraakt met een sneeuwbal door groepsleden.",
     "alarmingFriends": "Verontrustende vrienden",
-    "alarmingFriendsText": "Is <%= count %> geschrokken door groepsleden.",
+    "alarmingFriendsText": "Is <%= count %> keer geschrokken door groepsleden.",
     "agriculturalFriends": "Vrienden met groene vingers",
     "agriculturalFriendsText": "Is <%= count %> keer in een bloem veranderd door groepsleden.",
     "aquaticFriends": "Spetterende vrienden",
@@ -105,5 +105,8 @@
     "spring2017FloralMouseSet": "Bloemige muis (heler)",
     "spring2017SneakyBunnySet": "Geniepig konijn (dief)",
     "eventAvailability": "Verkrijgbaar voor aankoop tot <%=date(locale) %>.",
-    "dateEndApril": "19 april"
+    "dateEndApril": "19 april",
+    "dateEndMay": "17 mei",
+    "dateEndJune": "14 juni",
+    "discountBundle": "bundel"
 }

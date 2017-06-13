@@ -116,10 +116,10 @@ angular.module('habitrpg')
         return selectNotificationValue(false, false, false, false, false, true, false, false);
       };
 
-      $scope.viewGroupApprovalNotification = function (notification, $index) {
+      $scope.viewGroupApprovalNotification = function (notification, $index, navigate) {
         User.readNotification(notification.id);
         User.user.groupNotifications.splice($index, 1);
-        $state.go("options.social.guilds.detail", {gid: notification.data.groupId});
+        if (navigate) $state.go("options.social.guilds.detail", {gid: notification.data.groupId});
       };
 
       $scope.groupApprovalNotificationIcon = function (notification) {

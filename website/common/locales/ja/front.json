@@ -110,7 +110,7 @@
     "marketing2Lead3": "<strong>チャレンジ</strong> で友達やHabiticaで出会った人と競争してみましょう。チャレンジの勝者は特別な賞を手にすることができます。",
     "marketing3Header": "アプリと拡張機能",
     "marketing3Lead1": "<strong>iPhone もしくは Android</strong> アプリを使えば、外出先でも Habitica が操作できます。私たちは ログインするのに webサイトでボタンをクリックするのは、めんどうだと気づきました。",
-    "marketing3Lead2": "Other <strong>3rd Party Tools</strong> tie Habitica into various aspects of your life. Our API provides easy integration for things like the <a href='https://chrome.google.com/webstore/detail/habitica/pidkmpibnnnhneohdgjclfdjpijggmjj?hl=en-US' target='_blank'>Chrome Extension</a>, for which you lose points when browsing unproductive websites, and gain points when on productive ones. <a href='http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>See more here</a>",
+    "marketing3Lead2": "その他の<strong>サードパーティーのツール</strong>は、あなたの生活のさまざまな側面を Habitica に関連づけします。Habitica が提供している API は、非生産的な Web ページを見ていたらポイントを奪い、生産的なページを見ていたらポイントを加える<a href='https://chrome.google.com/webstore/detail/habitica/pidkmpibnnnhneohdgjclfdjpijggmjj?hl=en-US' target='_blank'>Chrome 拡張機能</a>のように簡単に統合できます。<a href='http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>詳しくはこちら</a>",
     "marketing4Header": "組織での利用",
     "marketing4Lead1": "教育は、ゲーム化のもっとも適した分野の一つです。近年、電話機とゲームが、どれだけ学生・生徒たちとぴったりくっついていることか－－みなさんご存知でしょう。力を解き放つのです!　学生・生徒たちを友達同士の競争のスタートラインに並べましょう。よい行いにはレアな賞をあげましょう。学生・生徒の成績と態度が急上昇するのを見ていましょう。",
     "marketing4Lead1Title": "教育におけるゲーミフィケーション",
@@ -134,7 +134,7 @@
     "playButtonFull": "Habitica をプレー",
     "presskit": "報道関係者向け",
     "presskitDownload": "すべての画像をダウンロード",
-    "presskitText": "Thanks for your interest in Habitica! The following images can be used for articles or videos about Habitica. For more information, please contact Siena Leslie at <%= pressEnquiryEmail %>.",
+    "presskitText": "Habitica に興味をもっていただき、ありがとうございます!　以下の画像データは、Habitica に関する記事や動画でお使いいただけます。詳細は、<%= pressEnquiryEmail %> あてで、担当・Siena Leslie までご連絡ください。",
     "pkVideo": "ビデオ",
     "pkPromo": "プロモーション",
     "pkLogo": "ロゴ",
@@ -253,10 +253,10 @@
     "passwordConfirmationMatch": "パスワードが不一致です。",
     "invalidLoginCredentials": "ユーザー名とパスワードのいずれかまたは両方が無効です。",
     "passwordResetPage": "パスワードをリセットする",
-    "passwordReset": "If we have your email on file, instructions for setting a new password have been sent to your email.",
+    "passwordReset": "もし入力されたメールアドレスが私たちのユーザーリストにあったのなら、新しいパスワードを設定する方法の説明が送信されたはずです。",
     "passwordResetEmailSubject": "パスワードのリセット",
-    "passwordResetEmailText": "If you requested a password reset for <%= username %> on Habitica, head to <%= passwordResetLink %> to set a new one. The link will expire after 24 hours. If you haven't requested a password reset, please ignore this email.",
-    "passwordResetEmailHtml": "If you requested a password reset for <strong><%= username %></strong> on Habitica, <a href=\"<%= passwordResetLink %>\">click here</a> to set a new one. The link will expire after 24 hours.<br/><br>If you haven't requested a password reset, please ignore this email.",
+    "passwordResetEmailText": "Habiticaで <%= username %> のパスワードのリセットを頼んだのなら、新しいパスワードを設定するために <%= passwordResetLink %> に行ってください。このリンクは24時間後に無効になります。パスワードのリセットを頼んでいない場合、このメールを無視しても結構です。",
+    "passwordResetEmailHtml": "Habiticaで <strong><%= username %></strong> のパスワードのリセットを頼んだのなら、新しいパスワードを設定するために <a href=\"<%= passwordResetLink %>\"> ここ </a>にクリックしてください。このリンクは24時間後に無効になります。<br/><br>パスワードのリセットを頼んでいない場合、このメールを無視しても結構です。",
     "invalidLoginCredentialsLong": "ああ…。ユーザー名またはパスワードが不正です。\n- ユーザー名またはメールアドレスが正しく入力されているかを確認してください。\n- メールアドレスではなく Facebook を通じて登録した場合は、Facebook ログインを再確認してください。\n- パスワードを忘れてしまったのなら、「パスワード忘れ」をクリックしてください。",
     "invalidCredentials": "この認証情報を使ったアカウントはありません。",
     "accountSuspended": "アカウントは停止しています。参考としてユーザーID 、「<%= userId %>」を添えて、<%= communityManagerEmail %>へご連絡ください。",
@@ -267,5 +267,5 @@
     "memberIdRequired": "\"member\" の UUID が無効です。",
     "heroIdRequired": "\"heroId\" の UUID が無効です。",
     "cannotFulfillReq": "操作に対する処理を完了できませんでした。エラーをくり返す場合は、admin@habitica.com にメールしてください。",
-    "modelNotFound": "This model does not exist."
+    "modelNotFound": "このモデルは存在しません。"
 }

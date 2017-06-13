@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
   .col
-    h2 Page
+    h1.page-header Page
     p {{ $route.path }}
 </template>

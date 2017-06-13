@@ -35,6 +35,12 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
       return ~(memberIds.indexOf(userid));
     };
 
+    $scope.isAbleToEditGroup = function (group) {
+      if (group.leader._id === User.user._id) return true;
+      if (User.user.contributor.admin && group.type === "guild") return true;
+      return false;
+    };
+
     $scope.isMember = function (user, group) {
       return ~(group.members.indexOf(user._id));
     };
@@ -128,5 +134,37 @@ habitrpg.controller("GroupsCtrl", ['$scope', '$rootScope', 'Shared', 'Groups', '
         .then(function (response) {
           $rootScope.openModal('private-message', {controller: 'MemberModalCtrl'});
         });
+    };
+
+    $scope.memberProfileName = function (memberId) {
+      var member = _.find($scope.groupCopy.members, function (member) { return member._id === memberId; });
+      return member.profile.name;
+    };
+
+    $scope.addManager = function () {
+      Groups.Group.addManager($scope.groupCopy._id, $scope.groupCopy._newManager)
+        .then(function (response) {
+          $scope.groupCopy._newManager = '';
+          $scope.groupCopy.managers = response.data.data.managers;
+        });
+    };
+
+    $scope.removeManager = function (memberId) {
+      Groups.Group.removeManager($scope.groupCopy._id, memberId)
+        .then(function (response) {
+          $scope.groupCopy._newManager = '';
+          $scope.groupCopy.managers = response.data.data.managers;
+        });
+    };
+
+    $scope.isManager = function (memberId, group) {
+      return Boolean(group.managers[memberId]);
     }
+
+    $scope.userCanApprove = function (userId, group) {
+      if (!group) return false;
+      var leader = group.leader._id === userId;
+      var userIsManager = !!group.managers[userId];
+      return leader || userIsManager;
+    };
   }]);

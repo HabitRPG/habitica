@@ -17,21 +17,31 @@ const baseConfig = {
     path: config.build.assetsRoot,
     publicPath: IS_PROD ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
     filename: '[name].js',
+    devtoolModuleFilenameTemplate (info) {
+      // Fix source maps, code from
+      // https://github.com/Darkside73/bbsmile.com.ua/commit/3596d3c42ef91b69d8380359c3e8908edc08acdb
+      let filename = info.resourcePath;
+      if (info.resource.match(/\.vue$/) && !info.allLoaders.match(/type=script/)) {
+        filename = 'generated';
+      }
+
+      return filename;
+    },
   },
   resolve: {
     extensions: ['*', '.js', '.vue', '.json'],
     modules: [
-      path.join(__dirname, '..', 'website'),
-      path.join(__dirname, '..', 'test/client/unit'),
-      path.join(__dirname, '..', 'node_modules'),
+      path.join(projectRoot, 'website'),
+      path.join(projectRoot, 'test/client/unit'),
+      path.join(projectRoot, 'node_modules'),
     ],
     alias: {
       jquery: 'jquery/src/jquery',
-      website: path.resolve(__dirname, '../website'),
-      common: path.resolve(__dirname, '../website/common'),
-      client: path.resolve(__dirname, '../website/client'),
-      assets: path.resolve(__dirname, '../website/client/assets'),
-      components: path.resolve(__dirname, '../website/client/components'),
+      website: path.resolve(projectRoot, 'website'),
+      common: path.resolve(projectRoot, 'website/common'),
+      client: path.resolve(projectRoot, 'website/client'),
+      assets: path.resolve(projectRoot, 'website/client/assets'),
+      components: path.resolve(projectRoot, 'website/client/components'),
     },
   },
   plugins: [
@@ -63,11 +73,17 @@ const baseConfig = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: projectRoot,
-        exclude: /node_modules/,
+        include: [
+          path.join(projectRoot, 'test'),
+          path.join(projectRoot, 'website'),
+          path.join(projectRoot, 'node_modules', 'bootstrap-vue'),
+        ],
+        options: {
+          cacheDirectory: true,
+        },
       },
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        test: /\.(png|jpe?g|gif)(\?.*)?$/,
         loader: 'url-loader',
         query: {
           limit: 10000,
@@ -81,6 +97,22 @@ const baseConfig = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]'),
         },
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          { loader: 'svg-inline-loader' },
+          { loader: 'svgo-loader' },
+        ],
+        exclude: [path.resolve(projectRoot, 'website/client/assets/svg/for-css')],
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          { loader: 'svg-url-loader' },
+          { loader: 'svgo-loader' },
+        ],
+        include: [path.resolve(projectRoot, 'website/client/assets/svg/for-css')],
       },
     ],
   },

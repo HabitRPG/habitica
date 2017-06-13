@@ -122,6 +122,14 @@ api.createGroup = {
 
       user.balance--;
       user.guilds.push(group._id);
+      if (!user.achievements.joinedGuild) {
+        user.achievements.joinedGuild = true;
+        user.addNotification('GUILD_JOINED_ACHIEVEMENT');
+      }
+      if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
+        user._ABtests.counter = -1;
+        user.markModified('_ABtests');
+      }
     } else {
       if (group.privacy !== 'private') throw new NotAuthorized(res.t('partyMustbePrivate'));
       if (user.party._id) throw new NotAuthorized(res.t('messageGroupAlreadyInParty'));
@@ -389,7 +397,7 @@ api.getGroup = {
  * @apiUse groupIdRequired
  * @apiUse GroupNotFound
  *
- * @apiPermission GroupLeader
+ * @apiPermission GroupLeader, Admin
  */
 api.updateGroup = {
   method: 'PUT',
@@ -402,11 +410,13 @@ api.updateGroup = {
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
+    let optionalMembership = Boolean(user.contributor.admin);
+    let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership});
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+    if (group.leader !== user._id && group.type === 'party') throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+    else if (group.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
 
     if (req.body.leader !== user._id && group.hasNotCancelled()) throw new NotAuthorized(res.t('cannotChangeLeaderWithActiveGroupPlan'));
 
@@ -465,7 +475,7 @@ api.joinGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-     // Works even if the user is not yet a member of the group
+    // Works even if the user is not yet a member of the group
     let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership: true}); // Do not fetch chat and work even if the user is not yet a member of the group
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
@@ -516,6 +526,14 @@ api.joinGroup = {
         throw new NotAuthorized(res.t('userAlreadyInGroup'));
       }
       user.guilds.push(group._id); // Add group to user's guilds
+      if (!user.achievements.joinedGuild) {
+        user.achievements.joinedGuild = true;
+        user.addNotification('GUILD_JOINED_ACHIEVEMENT');
+      }
+      if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
+        user._ABtests.counter = -1;
+        user.markModified('_ABtests');
+      }
     }
     if (!isUserInvited) throw new NotAuthorized(res.t('messageGroupRequiresInvite'));
 
@@ -752,7 +770,7 @@ function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
  *
  * @apiSuccess {Object} data An empty object
  *
- * @apiPermission GroupLeader
+ * @apiPermission GroupLeader, Admin
  *
  * @apiUse groupIdRequired
  * @apiUse GroupNotFound
@@ -769,13 +787,18 @@ api.removeGroupMember = {
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
+    let optionalMembership = Boolean(user.contributor.admin);
+    let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership, fields: '-chat'}); // Do not fetch chat
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat'}); // Do not fetch chat
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let uuid = req.params.memberId;
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
+    if (group.leader !== user._id && group.type === 'party') throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
+    if (group.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
+
+    if (group.leader === uuid && user.contributor.admin) throw new NotAuthorized(res.t('cannotRemoveCurrentLeader'));
+
     if (user._id === uuid) throw new NotAuthorized(res.t('memberCannotRemoveYourself'));
 
     let member = await User.findOne({_id: uuid}).exec();
@@ -942,12 +965,12 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
   if (!invite.email) throw new BadRequest(res.t('inviteMissingEmail'));
 
   let userToContact = await User.findOne({$or: [
-    {'auth.local.email': invite.email},
-    {'auth.facebook.emails.value': invite.email},
-    {'auth.google.emails.value': invite.email},
+      {'auth.local.email': invite.email},
+      {'auth.facebook.emails.value': invite.email},
+      {'auth.google.emails.value': invite.email},
   ]})
-  .select({_id: true, 'preferences.emailNotifications': true})
-  .exec();
+    .select({_id: true, 'preferences.emailNotifications': true})
+    .exec();
 
   if (userToContact) {
     userReturnInfo = await _inviteByUUID(userToContact._id, group, inviter, req, res);
@@ -1103,6 +1126,110 @@ api.inviteToGroup = {
     }
 
     res.respond(200, results);
+  },
+};
+
+/**
+ * @api {post} /api/v3/groups/:groupId/add-manager Add a manager to a group
+ * @apiName AddGroupManager
+ * @apiGroup Group
+ *
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ *
+ * @apiParamExample {String} party:
+ *     /api/v3/groups/party/add-manager
+ *
+ * @apiBody (Body) {UUID} managerId The user _id of the member to promote to manager
+ *
+ * @apiSuccess {Object} data An empty object
+ *
+ * @apiError (400) {NotAuthorized} managerId req.body.managerId is required
+ * @apiUse groupIdRequired
+ */
+api.addGroupManager = {
+  method: 'POST',
+  url: '/groups/:groupId/add-manager',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let managerId = req.body.managerId;
+
+    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkBody('managerId', apiMessages('managerIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let newManager = await User.findById(managerId, 'guilds party').exec();
+    let groupFields = basicGroupFields.concat(' managers');
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: groupFields});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+
+    let isMember = group.isMember(newManager);
+    if (!isMember) throw new NotAuthorized(res.t('userMustBeMember'));
+
+    group.managers[managerId] = true;
+    group.markModified('managers');
+    await group.save();
+
+    res.respond(200, group);
+  },
+};
+
+/**
+ * @api {post} /api/v3/groups/:groupId/remove-manager Remove a manager from a group
+ * @apiName RemoveGroupManager
+ * @apiGroup Group
+ *
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ *
+ * @apiParamExample {String} party:
+ *     /api/v3/groups/party/add-manager
+ *
+ * @apiBody (Body) {UUID} managerId The user _id of the member to remove
+ *
+ * @apiSuccess {Object} group The group
+ *
+ * @apiError (400) {NotAuthorized} managerId req.body.managerId is required
+ * @apiUse groupIdRequired
+ */
+api.removeGroupManager = {
+  method: 'POST',
+  url: '/groups/:groupId/remove-manager',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let managerId = req.body.managerId;
+
+    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkBody('managerId', apiMessages('managerIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let groupFields = basicGroupFields.concat(' managers');
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: groupFields});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+
+    if (!group.managers[managerId]) throw new NotAuthorized(res.t('userIsNotManager'));
+
+    delete group.managers[managerId];
+    group.markModified('managers');
+    await group.save();
+
+    let manager = await User.findById(managerId, 'notifications').exec();
+    let newNotifications = manager.notifications.filter((notification) => {
+      return notification.type !== 'GROUP_TASK_APPROVAL';
+    });
+    manager.notifications = newNotifications;
+    manager.markModified('notifications');
+    await manager.save();
+
+    res.respond(200, group);
   },
 };
 

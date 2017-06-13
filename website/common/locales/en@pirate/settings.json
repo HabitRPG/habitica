@@ -26,6 +26,7 @@
     "showBaileyPop": "Bring Bailey the First Mate out o' hidin' so ye can review past news.",
     "fixVal": "Fix Character Values",
     "fixValPop": "Manually change values like Health, Level, an' Doubloons.",
+    "invalidLevel": "Invalid value: Level must be 1 or greater.",
     "enableClass": "Enable Class System",
     "enableClassPop": "Ye opted out 'o th' class system initially. Would ye like now t' opt-in?",
     "classTourPop": "Show th' tour fer usin' th' class system.",
