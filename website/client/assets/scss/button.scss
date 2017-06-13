@@ -25,7 +25,7 @@
     border-color: transparent;
   }
 
-  &:active {
+  &:active, &.active {
     box-shadow: none;
     border: 1px solid transparent;
   }
@@ -44,8 +44,9 @@
     background: $purple-200;
   }
 
-  &:hover:not(:disabled), &:active {
+  &:hover:not(:disabled), &:active, &.active, &:focus {
     background: #5d3b9c;
+    color: $white;
   }
 }
 
@@ -53,11 +54,11 @@
   color: $gray-50;
   background: $white !important;
 
-  &:hover:not(:disabled):not(.disabled), &:active, &:focus {
+  &:hover:not(:disabled):not(.disabled), &:active, &.active, &:focus {
     color: $purple-200 !important;
   }
 
-  &:active, &:focus {
+  &:active, &:focus, &.active {
     border-color: $purple-500 !important;
   }
 
@@ -74,7 +75,7 @@
     background: $green-10;
   }
 
-  &:hover:not(:disabled), &:active {
+  &:hover:not(:disabled), &:active, &.active {
     background: $green-50;
   }
 }
@@ -86,7 +87,7 @@
     background: $blue-50;
   }
 
-  &:hover:not(:disabled), &:active {
+  &:hover:not(:disabled), &:active, &.active {
     background: $blue-100;
   }
 }
@@ -98,7 +99,7 @@
     background: $red-50;
   }
 
-  &:hover:not(:disabled), &:active {
+  &:hover:not(:disabled), &:active, &.active {
     background: $red-100;
   }
 }

@@ -3,22 +3,23 @@
   member-details(:member="user", @click="$router.push({name: 'avatar'})")
   .party-members.d-flex(v-if="partyMembers && partyMembers.length > 1")
     member-details(
-      v-for="member in partyMembers",
+      v-for="(member, $index) in partyMembers",
       :key="member._id",
-      v-if="member._id !== user._id",
+      v-if="member._id !== user._id && $index < 6",
       :member="member",
       condensed=true,
-      @click="expandMember(member._id)"
+      @onHover="expandMember(member._id)",
       :expanded="member._id === expandedMember",
     )
-    button.btn.btn-primary {{ $t('viewParty') }}
+    .d-flex.align-self-center
+      router-link.btn.btn-primary(:active-class="''", :to="{name: 'party'}") {{ $t('viewParty') }}
   .no-party.d-flex.justify-content-center.text-center(v-else)
     .align-self-center(v-once)
       h3 {{ $t('battleWithFriends') }}
       span.small-text(v-html="$t('inviteFriendsParty')")
       br
       // TODO link to party creation or party page if partying solo
-      button.btn.btn-primary {{ $t('startAParty') }}
+      router-link.btn.btn-primary(:active-class="''", :to="{name: 'party'}") {{ $t('startAParty') }}
 </template>
 
 <style lang="scss" scoped>
@@ -35,10 +36,6 @@
 
 .no-party, .party-members {
   flex-grow: 1;
-}
-
-.party-members {
-  overflow-x: auto;
 }
 
 .no-party {
@@ -81,6 +78,7 @@ export default {
       getPartyMembers: 'party:getMembers',
     }),
     expandMember (memberId) {
+      console.log('expand')
       if (this.expandedMember === memberId) {
         this.expandedMember = null;
       } else {

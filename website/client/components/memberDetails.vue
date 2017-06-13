@@ -1,6 +1,10 @@
 <template lang="pug">
 .d-flex.member-details(:class="{ condensed, expanded }")
-  avatar(:member="member", @click.native="$emit('click')",)
+  avatar(:member="member", 
+    @click.native="$emit('click')", 
+    @mouseover.native="$emit('onHover')",
+    @mouseout.native="$emit('onHover')",
+  )
   .member-stats
     h3.character-name 
       | {{member.profile.name}}
@@ -31,7 +35,7 @@
   white-space: nowrap;
   margin-top: 24px;
   margin-bottom: 24px;
-  transition: all .15s ease;
+  transition: all 0.15s ease-out;
 }
 
 .member-stats {
@@ -39,7 +43,7 @@
   padding-right: 24px;
   height: auto;
   opacity: 1;
-  transition: all 0.15s ease-out;
+  transition: opacity 0.15s ease-out;
 }
 
 .member-details.condensed:not(.expanded) .member-stats {
@@ -52,18 +56,26 @@
 // Condensed version
 .member-details.condensed.expanded {
   background: $header-dark-background;
-  padding-top: 9px;
-  margin-top: 15px;
-  border-radius: 4px;
-  padding-left: 9px;
-  box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
+  box-shadow: 0 0 0px 9px $header-dark-background;
+  position: relative;
+  margin-bottom: 33px;
+  z-index: 8;
 
   .is-buffed {
     background-color: $purple-50;
   }
 
   .member-stats {
+    background: $header-dark-background;
+    position: absolute;
+    left: 140px;
+    padding-top: 8px;
     padding-right: 16px;
+    margin-top: -9px;
+    padding-bottom: 14px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    z-index: 9;
   }
 
   .progress-container > .svg-icon {
