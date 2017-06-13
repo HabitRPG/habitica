@@ -559,9 +559,43 @@ describe('cron', () => {
         expect(tasksByType.habits[0].counterDown).to.equal(0);
       });
 
+      it('should reset a weekly habit counter with custom daily start', () => {
+        clock.restore();
+
+        // Server clock: Monday 12am UTC
+        let monday = new Date('May 22, 2017 00:00:00 GMT').getTime();
+        clock = sinon.useFakeTimers(monday);
+
+        // cron runs at 2am
+        user.preferences.dayStart = 2;
+
+        tasksByType.habits[0].frequency = 'weekly';
+        tasksByType.habits[0].counterUp = 1;
+        tasksByType.habits[0].counterDown = 1;
+        daysMissed = 1;
+
+        // should not reset
+        cron({user, tasksByType, daysMissed, analytics});
+
+        expect(tasksByType.habits[0].counterUp).to.equal(1);
+        expect(tasksByType.habits[0].counterDown).to.equal(1);
+
+        clock.restore();
+
+        // Server clock: Monday 3am UTC
+        monday = new Date('May 22, 2017 03:00:00 GMT').getTime();
+        clock = sinon.useFakeTimers(monday);
+
+        // should reset after user CDS
+        cron({user, tasksByType, daysMissed, analytics});
+
+        expect(tasksByType.habits[0].counterUp).to.equal(0);
+        expect(tasksByType.habits[0].counterDown).to.equal(0);
+
+      });
+
       it('should not reset a weekly habit counter when server tz is Monday but user\'s tz is Tuesday', () => {
         clock.restore();
-        daysMissed = 0;
 
         // Server clock: Monday 11pm UTC
         let monday = new Date('May 22, 2017 23:00:00 GMT').getTime();
@@ -573,6 +607,7 @@ describe('cron', () => {
         tasksByType.habits[0].frequency = 'weekly';
         tasksByType.habits[0].counterUp = 1;
         tasksByType.habits[0].counterDown = 1;
+        daysMissed = 1;
 
         // should not reset
         cron({user, tasksByType, daysMissed, analytics});
@@ -580,9 +615,9 @@ describe('cron', () => {
         expect(tasksByType.habits[0].counterUp).to.equal(1);
         expect(tasksByType.habits[0].counterDown).to.equal(1);
 
-        // User missed one day, which will subtract User clock back to Monday 1am UTC + 2
+        // User missed one cron, which will subtract User clock back to Monday 1am UTC + 2
         // should reset
-        daysMissed = 1;
+        daysMissed = 2;
         cron({user, tasksByType, daysMissed, analytics});
 
         expect(tasksByType.habits[0].counterUp).to.equal(0);
@@ -602,6 +637,7 @@ describe('cron', () => {
         tasksByType.habits[0].frequency = 'weekly';
         tasksByType.habits[0].counterUp = 1;
         tasksByType.habits[0].counterDown = 1;
+        daysMissed = 1;
 
         // should reset
         cron({user, tasksByType, daysMissed, analytics});
@@ -623,6 +659,7 @@ describe('cron', () => {
         tasksByType.habits[0].frequency = 'weekly';
         tasksByType.habits[0].counterUp = 1;
         tasksByType.habits[0].counterDown = 1;
+        daysMissed = 1;
 
         // should not reset
         cron({user, tasksByType, daysMissed, analytics});
@@ -664,6 +701,7 @@ describe('cron', () => {
         tasksByType.habits[0].frequency = 'monthly';
         tasksByType.habits[0].counterUp = 1;
         tasksByType.habits[0].counterDown = 1;
+        daysMissed = 1;
 
         // should reset
         cron({user, tasksByType, daysMissed, analytics});
@@ -674,7 +712,6 @@ describe('cron', () => {
 
       it('should not reset a monthly habit counter when server tz is first day of month but user tz is 2nd day of the month', () => {
         clock.restore();
-        daysMissed = 0;
 
         // Server clock: 5/1/17 11pm UTC
         let monday = new Date('May 1, 2017 23:00:00 GMT').getTime();
@@ -686,6 +723,7 @@ describe('cron', () => {
         tasksByType.habits[0].frequency = 'monthly';
         tasksByType.habits[0].counterUp = 1;
         tasksByType.habits[0].counterDown = 1;
+        daysMissed = 1;
 
         // should not reset
         cron({user, tasksByType, daysMissed, analytics});
@@ -695,7 +733,7 @@ describe('cron', () => {
 
         // User missed one day, which will subtract User clock back to 5/1/17 2am UTC + 3
         // should reset
-        daysMissed = 1;
+        daysMissed = 2;
         cron({user, tasksByType, daysMissed, analytics});
 
         expect(tasksByType.habits[0].counterUp).to.equal(0);
