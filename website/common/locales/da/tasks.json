@@ -168,6 +168,6 @@
     "monthlyRepeatHelpContent": "Denne opgave vil være forfalden hver X måneder",
     "yearlyRepeatHelpContent": "Denne opgave vil være forfalden hver X år",
     "resets": "Nulstilles",
-    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
-    "nextDue": "Next Due Dates"
+    "summaryStart": "Gentages <%= frequency %> hver <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Næste Forfaldsdatoer"
 }

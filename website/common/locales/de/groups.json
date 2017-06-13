@@ -136,7 +136,7 @@
     "leaderOnlyChallenges": "Nur der Gruppenleiter kann Wettbewerbe erstellen",
     "sendGift": "Geschenk schicken",
     "inviteFriends": "Lade Freunde ein",
-    "partyMembersInfo": "Deine Gruppe hat aktuell <%= memberCount %> Mitglieder und <%= invitationCount %> ausstehende Einladungen. Die maximale Anzahl an Mitgliedern in einer Gruppe ist <%= limitMembers %>. EInladungen über diesem Limit können nicht verschickt werden. ",
+    "partyMembersInfo": "Deine Gruppe hat aktuell <%= memberCount %> Mitglieder und <%= invitationCount %> ausstehende Einladungen. Die maximale Anzahl an Mitgliedern in einer Gruppe ist <%= limitMembers %>. Einladungen über diesem Limit können nicht verschickt werden.",
     "inviteByEmail": "Lade per E-Mail ein",
     "inviteByEmailExplanation": "Wenn Freunde über Deine E-Mail zu Habitica stoßen werden sie automatisch zu Deiner Gruppe eingeladen!",
     "inviteFriendsNow": "Jetzt Freunde einladen",

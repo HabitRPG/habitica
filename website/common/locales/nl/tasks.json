@@ -62,7 +62,7 @@
     "score": "Score",
     "reward": "Beloning",
     "rewards": "Beloningen",
-    "ingamerewards": "Equipment & Skills",
+    "ingamerewards": "Uitrusting & vaardigheden",
     "gold": "Goud",
     "silver": "Zilver (100 zilver = 1 goud)",
     "newReward": "Nieuwe Beloning",
@@ -168,6 +168,6 @@
     "monthlyRepeatHelpContent": "Deze taak zul je iedere X maanden moeten doen",
     "yearlyRepeatHelpContent": "Deze taak zul je iedere X jaren moeten doen",
     "resets": "Herstart",
-    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
+    "summaryStart": "Herhaalt <%= frequency %> iedere <%= everyX %> <%= frequencyPlural %>",
     "nextDue": "Next Due Dates"
 }

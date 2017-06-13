@@ -113,5 +113,5 @@
     "loginReward": "<%= count %> 次签到",
     "createAccountQuest": "当你加人Habitica的时候，你会收到这个任务！如果你的朋友加入，他们也会得到一个。",
     "questBundles": "Discounted Quest Bundles",
-    "buyQuestBundle": "Buy Quest Bundle"
+    "buyQuestBundle": "购买任务包"
 }
