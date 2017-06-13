@@ -91,6 +91,7 @@
     border-radius: 0px;
     height: 10px;
     margin-top: 2px;
+    background: $purple-100;
   }
 
   .progress-container > .progress > .progress-bar {

@@ -1,18 +1,19 @@
 <template lang="pug">
 #app-header.row
   member-details(:member="user", @click="$router.push({name: 'avatar'})")
+  .view-party
+    // TODO button should open the party members modal
+    router-link.btn.btn-primary(:active-class="''", :to="{name: 'party'}") {{ $t('viewParty') }}
   .party-members.d-flex(v-if="partyMembers && partyMembers.length > 1")
     member-details(
       v-for="(member, $index) in partyMembers",
       :key="member._id",
-      v-if="member._id !== user._id && $index < 6",
+      v-if="member._id !== user._id && $index < 10",
       :member="member",
       condensed=true,
       @onHover="expandMember(member._id)",
       :expanded="member._id === expandedMember",
     )
-    .d-flex.align-self-center
-      router-link.btn.btn-primary(:active-class="''", :to="{name: 'party'}") {{ $t('viewParty') }}
   .no-party.d-flex.justify-content-center.text-center(v-else)
     .align-self-center(v-once)
       h3 {{ $t('battleWithFriends') }}
@@ -32,10 +33,27 @@
   height: 204px;
   color: $header-color;
   flex-wrap: nowrap;
+  position: relative;
 }
 
 .no-party, .party-members {
   flex-grow: 1;
+}
+
+.party-members {
+}
+
+.view-party {
+  position: absolute;
+  z-index: 10;
+  right: 0;
+  padding-right: 40px;
+  height: 100%;
+  background-image: linear-gradient(to right, rgba($purple-50, 0), $purple-50);
+
+  .btn {
+    margin-top: 75%;
+  }
 }
 
 .no-party {
