@@ -167,5 +167,7 @@
     "taskNotes": "Opgavenoter",
     "monthlyRepeatHelpContent": "Denne opgave vil være forfalden hver X måneder",
     "yearlyRepeatHelpContent": "Denne opgave vil være forfalden hver X år",
-    "resets": "Nulstilles"
+    "resets": "Nulstilles",
+    "summaryStart": "Gentages <%= frequency %> hver <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Næste Forfaldsdatoer"
 }

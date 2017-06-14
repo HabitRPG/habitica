@@ -121,6 +121,17 @@ describe('achievements', () => {
       });
     });
 
+    it('card achievements exist with counts', () => {
+      let cardTypes = ['greeting', 'thankyou', 'birthday', 'congrats', 'getwell'];
+      cardTypes.forEach((card) => {
+        let cardAchiev = basicAchievs[`${card}Cards`];
+
+        expect(cardAchiev).to.exist;
+        expect(cardAchiev).to.have.property('optionalCount')
+          .that.is.a('number');
+      });
+    });
+
     it('rebirth achievement exists with no count', () => {
       let rebirth = basicAchievs.rebirth;
 
@@ -174,7 +185,7 @@ describe('achievements', () => {
     });
 
     it('card achievements exist with counts', () => {
-      let cardTypes = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday'];
+      let cardTypes = ['nye', 'valentine'];
       cardTypes.forEach((card) => {
         let cardAchiev = seasonalAchievs[`${card}Cards`];
 

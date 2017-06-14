@@ -167,5 +167,7 @@
     "taskNotes": "Бележки към задачата",
     "monthlyRepeatHelpContent": "Тази задача ще бъде подновявана на всеки Х месеца.",
     "yearlyRepeatHelpContent": "Тази задача ще бъде подновявана на всеки Х години.",
-    "resets": "Нулира се"
+    "resets": "Нулира се",
+    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Следващи крайни дати"
 }

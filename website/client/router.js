@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import EmptyView from './components/emptyView';
+
 // TODO Dummy elements used as placeholder until real components are implemented
 import ParentPage from './components/parentPage';
 import Page from './components/page';
@@ -9,19 +10,27 @@ import Page from './components/page';
 // Tasks
 import UserTasks from './components/userTasks';
 
+// Except for tasks that are always loaded all the other main level
+// components are loaded in separate webpack chunks.
+// See https://webpack.js.org/guides/code-splitting-async/
+// for docs
+
 // Inventory
-import InventoryContainer from './components/inventory/index';
-import ItemsPage from './components/inventory/items/index';
-import EquipmentPage from './components/inventory/equipment/index';
-import StablePage from './components/inventory/stable';
+const InventoryContainer = () => import(/* webpackChunkName: "inventory" */'./components/inventory/index');
+const ItemsPage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/items/index');
+const EquipmentPage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/equipment/index');
+const StablePage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/stable');
 
 // Social
-import SocialContainer from './components/social/index';
-import TavernPage from './components/social/tavern';
-import InboxPage from './components/social/inbox/index';
-import InboxConversationPage from './components/social/inbox/conversationPage';
-import GuildsDiscoveryPage from './components/social/guilds/discovery/index';
-import GuildPage from './components/social/guilds/guild';
+const InboxPage = () => import(/* webpackChunkName: "inbox" */ './components/social/inbox/index');
+const InboxConversationPage = () => import(/* webpackChunkName: "inbox" */ './components/social/inbox/conversationPage');
+
+// Guilds
+const GuildIndex = () => import(/* webpackChunkName: "guilds" */ './components/guilds/index');
+const TavernPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/tavern');
+const MyGuilds = () => import(/* webpackChunkName: "guilds" */ './components/guilds/myGuilds');
+const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/discovery');
+const GuildPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/guild');
 
 Vue.use(VueRouter);
 
@@ -45,12 +54,37 @@ export default new VueRouter({
         { name: 'stable', path: 'stable', component: StablePage },
       ],
     },
-    { name: 'market', path: '/market', component: Page },
+    { name: 'shops', path: '/shops', component: Page },
     {
-      path: '/social',
-      component: SocialContainer,
+      path: '/guilds',
+      component: GuildIndex,
       children: [
         { name: 'tavern', path: 'tavern', component: TavernPage },
+        {
+          name: 'myGuilds',
+          path: 'myGuilds',
+          component: MyGuilds,
+        },
+        {
+          name: 'guildsDiscovery',
+          path: 'discovery',
+          component: GuildsDiscoveryPage,
+        },
+        {
+          name: 'guild',
+          path: 'guild/:guildId',
+          component: GuildPage,
+          props: true,
+        },
+      ],
+    },
+    { name: 'challenges', path: 'challenges', component: Page },
+    { name: 'party', path: 'party', component: Page },
+    {
+      path: '/user',
+      component: ParentPage,
+      children: [
+        { name: 'avatar', path: 'avatar', component: Page },
         {
           path: 'inbox',
           component: EmptyView,
@@ -67,32 +101,6 @@ export default new VueRouter({
             },
           ],
         },
-        { name: 'challenges', path: 'challenges', component: Page },
-        { name: 'party', path: 'party', component: Page },
-        {
-          path: 'guilds',
-          component: EmptyView,
-          children: [
-            {
-              name: 'guildsDiscovery',
-              path: 'discovery',
-              component: GuildsDiscoveryPage,
-            },
-            {
-              name: 'guild',
-              path: 'guild/:guildId',
-              component: GuildPage,
-              props: true,
-            },
-          ],
-        },
-      ],
-    },
-    {
-      path: '/user',
-      component: ParentPage,
-      children: [
-        { name: 'avatar', path: 'avatar', component: Page },
         { name: 'stats', path: 'stats', component: Page },
         { name: 'achievements', path: 'achievements', component: Page },
         { name: 'settings', path: 'settings', component: Page },

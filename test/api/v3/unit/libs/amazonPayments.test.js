@@ -525,6 +525,7 @@ describe('Amazon Payments', () => {
         nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
         paymentMethod: amzLib.constants.PAYMENT_METHOD,
         headers,
+        cancellationReason: undefined,
       });
       expectAmazonStubs();
     });
@@ -555,6 +556,7 @@ describe('Amazon Payments', () => {
         nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
         paymentMethod: amzLib.constants.PAYMENT_METHOD,
         headers,
+        cancellationReason: undefined,
       });
       amzLib.closeBillingAgreement.restore();
     });
@@ -593,6 +595,7 @@ describe('Amazon Payments', () => {
         nextBill: moment(group.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
         paymentMethod: amzLib.constants.PAYMENT_METHOD,
         headers,
+        cancellationReason: undefined,
       });
       expectAmazonStubs();
     });
@@ -623,6 +626,7 @@ describe('Amazon Payments', () => {
         nextBill: moment(group.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
         paymentMethod: amzLib.constants.PAYMENT_METHOD,
         headers,
+        cancellationReason: undefined,
       });
       amzLib.closeBillingAgreement.restore();
     });

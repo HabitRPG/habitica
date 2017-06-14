@@ -34,6 +34,7 @@
     "resetAccPop": "从头再来，移除所有等级，金币，装备，历史和任务。",
     "deleteAccount": "删除帐户",
     "deleteAccPop": "取消并移除你的Habitica帐户。",
+    "feedback": "If you'd like to give us feedback, please enter it below - we'd love to know what you liked or didn't like about Habitica! It will be anonymous unless you choose to enter your contact details. Don't speak English well? No problem! Use the language you prefer.",
     "qrCode": "QR码",
     "dataExport": "导出数据",
     "saveData": "以下是用于保存数据的几个选项。",

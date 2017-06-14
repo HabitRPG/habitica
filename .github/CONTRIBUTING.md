@@ -1,6 +1,6 @@
 # Reporting Bugs
 
-[Please see these instructions for reporting bugs](https://github.com/HabitRPG/habitrpg/issues/2760)
+[Please see these instructions for reporting bugs](https://github.com/HabitRPG/habitica/issues/2760)
 
 # Pull Request
 

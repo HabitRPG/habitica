@@ -52,7 +52,7 @@
     "todos": "À Faire",
     "newTodo": "Nouvelle tâche À faire",
     "newTodoBulk": "Nouvelles tâches À Faire (une par ligne)",
-    "dueDate": "Date d'Échéance",
+    "dueDate": "Date butoir",
     "remaining": "Actives",
     "complete": "Complétées",
     "dated": "Datées",
@@ -167,5 +167,7 @@
     "taskNotes": "Notes de tâche",
     "monthlyRepeatHelpContent": "Cette tâche arrivera à échéance tous les X mois",
     "yearlyRepeatHelpContent": "Cette tâche arrivera à échéance tous les X ans",
-    "resets": "Réinitialisations"
+    "resets": "Réinitialisations",
+    "summaryStart": "Se répète <%= frequency %> tous ou toutes les <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Prochaines dates d'échéances"
 }

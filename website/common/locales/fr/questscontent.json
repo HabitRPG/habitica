@@ -434,7 +434,7 @@
     "questStoikalmCalamity3Completion": "Vous maîtrisez la reine guivre-givre, donnant à Dame Givre le temps de briser les bracelets scintillants. La reine se fige, meurtrie, mais se ressaisit rapidement et prend un air hautain. \"Vous pouvez disposer de ces objets en surplus, lance-t-elle, je crains qu'ils n'aillent pas du tout avec la déco.\"<br><br>\"Oui, et puis... vous les avez dérobés, en invoquant des monstres de terre\", ajoute @Beffymaro.<br><br>La reine guivre-givre semble piquée au vif. \"Voyez ça avec cette maudite vendeuse de bracelets, cette Tzina. Je n'ai rien à voir avec tout cela.\"<br><br>Dame Givre vous serre le bras. \"Beau boulot\", dit-elle en vous tendant une lance et un olifant pris de la pile. \"Vous êtes digne des chevaucheurs\".",
     "questStoikalmCalamity3Boss": "Reine guivre-givre",
     "questStoikalmCalamity3DropBlueCottonCandy": "Barbe-à-papa bleue (Nourriture)",
-    "questStoikalmCalamity3DropShield": "Olifant de chevaucheur de mammouths (Bouclier)",
+    "questStoikalmCalamity3DropShield": "Olifant de chevaucheur de mammouths (Équipement de main de bouclier)",
     "questStoikalmCalamity3DropWeapon": "Lance de chevaucheur de mammouths (Arme)",
     "questGuineaPigText": "Le gang des cochons d'Inde",
     "questGuineaPigNotes": "Vous vous baladez nonchalamment sur le célèbre marché d'Habitiville quand @Pandah vous fait signe. \"Hé, regardez ça !\" Plus loin, un groupe exhibe à Alexandre le marchand un œuf aux teintes brunes et beiges, que vous n'arrivez pas à identifier.<br><br>Alexandre fronce les sourcils. \"Je ne me souviens pas avoir proposé cet œuf à la vente. D'où peut-il bien...\" Une petite patte lui coupe la parole.<br><br>\"D'inde-nous tout ton argent, marchand !\" couine une petite voix machiavélique.<br><br>\"Oh non, l’œuf était un hameçon !\" s'exclame @mewrose. \"Ces brutes avides forment le gang des cochons d'Inde ! Ils ne font jamais leurs Quotidiennes. Du coup, ils passent leur temps à voler de l'or pour s'acheter des potions de santé !\"<br><br>\"Dévaliser le marché ?\", dit @emmavig. \"Pas si nous sommes là !\" Sans plus attendre, vous vous lancez au secours d'Alexandre.",
@@ -479,5 +479,11 @@
     "questMayhemMistiflying3DropShield": "Missive arc-en-ciel (Arme de main de bouclier)",
     "questMayhemMistiflying3DropWeapon": "Missive arc-en-ciel (Arme)",
     "featheredFriendsText": "Lot de quêtes des amis à plumes",
-    "featheredFriendsNotes": "Contient \"À l'aide ! Harpie !\", \"L'oiseau de nuit\" et \"Les oiseaux de la proiecrastination\". Disponible jusqu'au 31 mai."
+    "featheredFriendsNotes": "Contient \"À l'aide ! Harpie !\", \"L'oiseau de nuit\" et \"Les oiseaux de la proiecrastination\". Disponible jusqu'au 31 mai.",
+    "questNudibranchText": "Infestation of the NowDo Nudibranches",
+    "questNudibranchNotes": "You finally get around to checking your To-dos on a lazy day in Habitica. Bright against your deepest red tasks are a gaggle of vibrant blue sea slugs. You are entranced! Their sapphire colors make your most intimidating tasks look as easy as your best Habits. In a feverish stupor you get to work, tackling one task after the other in a ceaseless frenzy...<br><br>The next thing you know, @LilithofAlfheim is pouring cold water over you. “The NowDo Nudibranches have been stinging you all over! You need to take a break!”<br><br>Shocked, you see that your skin is as bright red as your To-Do list was. \"Being productive is one thing,\" @beffymaroo says, \"but you've also got to take care of yourself. Hurry, let's get rid of them!\"",
+    "questNudibranchCompletion": "You see the last of the NowDo Nudibranches sliding off of a pile of completed tasks as @amadshade washes them away. One leaves behind a cloth bag, and you open it to reveal some gold and a few little ellipsoids you guess are eggs.",
+    "questNudibranchBoss": "NowDo Nudibranch",
+    "questNudibranchDropNudibranchEgg": "Nudibranch (Egg)",
+    "questNudibranchUnlockText": "Unlocks purchasable Nudibranch eggs in the Market"
 }

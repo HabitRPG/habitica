@@ -39,7 +39,7 @@
     "newDailyBulk": "Novas Diárias (uma por linha)",
     "streakCounter": "Contador de Combo",
     "repeat": "Repetir",
-    "repeatEvery": "Repetir Toda",
+    "repeatEvery": "Repetir a cada",
     "repeatHelpTitle": "Com que frequência esta tarefa deve ser repetida?",
     "dailyRepeatHelpContent": "Esta tarefa deve ser feita a cada X dias. Você pode escolher este valor logo abaixo.",
     "weeklyRepeatHelpContent": "Esta tarefa deve ser feita nos dias em destaque abaixo. Clique em um dia para ativá-lo/desativá-lo.",
@@ -167,5 +167,7 @@
     "taskNotes": "Notas da Tarefa",
     "monthlyRepeatHelpContent": "Esta tarefa deve ser feita a cada X meses",
     "yearlyRepeatHelpContent": "Esta tarefa deve ser feita a cada X anos",
-    "resets": "Reseta"
+    "resets": "Reseta",
+    "summaryStart": "Repete uma vez a cada <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Próximas Datas"
 }

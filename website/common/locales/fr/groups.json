@@ -34,7 +34,7 @@
     "userId": "ID d'utilisateur",
     "invite": "Inviter",
     "leave": "Quitter",
-    "invitedTo": "Invité·e à rejoindre <%= name %>",
+    "invitedTo": "Invité à rejoindre <%= name %>",
     "invitedToNewParty": "On vous invite à rejoindre une équipe ! Voulez-vous quitter cette équipe et rejoindre <%= partyName %> ?",
     "invitationAcceptedHeader": "Votre invitation a été acceptée",
     "invitationAcceptedBody": "<%= username %> a accepté votre invitation pour <%= groupName %> !",

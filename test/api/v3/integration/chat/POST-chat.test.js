@@ -70,9 +70,9 @@ describe('POST /chat', () => {
   it('returns an error when chat privileges are revoked when sending a message to a public guild', async () => {
     let userWithChatRevoked = await member.update({'flags.chatRevoked': true});
     await expect(userWithChatRevoked.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
-      code: 404,
-      error: 'NotFound',
-      message: 'Your chat privileges have been revoked.',
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('chatPrivilegesRevoked'),
     });
   });
 
