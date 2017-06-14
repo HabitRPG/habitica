@@ -113,7 +113,7 @@ let basicAchievs = {
     textKey: 'joinedChallengeText',
   },
   invitedFriend: {
-    icon: 'achievement-invited-friend',
+    icon: 'achievement-friends',
     titleKey: 'invitedFriend',
     textKey: 'invitedFriendText'
   }
