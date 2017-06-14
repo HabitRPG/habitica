@@ -51,14 +51,16 @@
     .standard-page(v-resize="500", @resized="availableContentWidth = $event.width - 48")
       .clearfix
         h1.float-left.mb-0.page-header(v-once) {{ $t('stable') }}
-        b-dropdown.float-right(:text="$t('sortBy') +((selectedSortBy === 'standard')?'': ': '+ $t(selectedSortBy))", right=true)
-          b-dropdown-item(
-            v-for="sort in sortByItems",
-            @click="selectedSortBy = sort",
-            :active="selectedSortBy === sort",
-            :key="sort"
-          ) {{ $t(sort) }}
 
+        div.float-right
+          span.dropdown-label {{ $t('sortBy') }}
+          b-dropdown(:text="$t(selectedSortBy)", right=true)
+            b-dropdown-item(
+              v-for="sort in sortByItems",
+              @click="selectedSortBy = sort",
+              :active="selectedSortBy === sort",
+              :key="sort"
+            ) {{ $t(sort) }}
 
       h2
         | {{ $t('pets') }}
