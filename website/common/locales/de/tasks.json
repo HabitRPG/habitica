@@ -168,6 +168,6 @@
     "monthlyRepeatHelpContent": "Diese Aufgabe wird alle X Monate fällig werden",
     "yearlyRepeatHelpContent": "Diese Aufgabe wird alle X Jahre fällig werden ",
     "resets": "Wird zurückgesetzt",
-    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
-    "nextDue": "Next Due Dates"
+    "summaryStart": "Wird <%= frequency %> alle <%= everyX %> <%= frequencyPlural %> fällig",
+    "nextDue": "Nächste Fälligkeitstermine"
 }

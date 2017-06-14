@@ -37,6 +37,8 @@
     "subscribed": "Telah Berlangganan",
     "manageSub": "Klik untuk mengatur langganan",
     "cancelSub": "Batalkan Langganan",
+    "cancelSubInfoGoogle": "Please go to the \"My apps & games\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
+    "cancelSubInfoApple": "Please follow <a href=\"https://support.apple.com/en-us/HT202039\">Apple’s official instructions</a> to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
     "canceledSubscription": "Langganan Batal",
     "cancelingSubscription": "Batalkan langganan",
     "adminSub": "Pengelola Berlangganan",
