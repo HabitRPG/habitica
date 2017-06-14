@@ -48,7 +48,7 @@
             @change="updateHideMissing"
           )
 
-    .standard-page
+    .standard-page(v-resize="500", @resized="availableContentWidth = $event.width - 48")
       .clearfix
         h1.float-left.mb-0.page-header(v-once) {{ $t('stable') }}
         b-dropdown.float-right(:text="$t('sortBy') +((selectedSortBy === 'standard')?'': ': '+ $t(selectedSortBy))", right=true)
@@ -72,11 +72,9 @@
       )
         h4(v-if="viewOptions[petGroup.key].animalCount != 0") {{ petGroup.label }}
 
-        div.items(
-          v-for="(rows, index) in pets(petGroup, viewOptions[petGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled)",
-        )
+        div.items
           div(
-            v-for="pet in rows",
+            v-for="pet in pets(petGroup, viewOptions[petGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled, availableContentWidth)",
             :key="pet.key",
             @dragover="onDragOver($event, pet)",
             @drop.prevent="onDrop($event, pet)"
@@ -125,11 +123,9 @@
       )
         h4(v-if="viewOptions[mountGroup.key].animalCount != 0") {{ mountGroup.label }}
 
-        div.items(
-          v-for="(rows, index) in mounts(mountGroup, viewOptions[mountGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled)"
-        )
+        div.items
           item(
-            v-for="mount in rows",
+            v-for="mount in mounts(mountGroup, viewOptions[mountGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled, availableContentWidth)",
             :item="mount",
             :itemContentClass="mount.isOwned() ? ('Mount_Icon_' + mount.key) : 'PixelPaw greyedOut'",
             :key="mount.key",
@@ -301,6 +297,8 @@
   import CountBadge from './countBadge';
   import DrawerSlider from './drawerSlider';
 
+  import ResizeDirective from 'client/directives/resize.directive';
+
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
   // import deepFreeze from 'client/libs/deepFreeze';
@@ -318,6 +316,9 @@
       StarBadge,
       CountBadge,
       DrawerSlider,
+    },
+    directives: {
+      resize: ResizeDirective,
     },
     data () {
       return {
@@ -337,6 +338,7 @@
         ],
 
         selectedDrawerTab: 0,
+        availableContentWidth: 0,
       };
     },
     watch: {
@@ -531,7 +533,7 @@
         return animals;
       },
 
-      listAnimals (animalGroup, type, isOpen, hideMissing, sort, searchText) {
+      listAnimals (animalGroup, type, isOpen, hideMissing, sort, searchText, availableSpace) {
         let animals = this.getAnimalList(animalGroup, type);
         let isPetList = type === 'pet';
         let withProgress = isPetList && animalGroup.key !== 'specialPets';
@@ -573,11 +575,13 @@
 
         let animalRows = [];
 
-        let rowsToShow = isOpen ? Math.ceil(animals.length / 10) : 1;
+        let itemsPerRow = Math.floor(availableSpace / (94 + 24));
+
+        let rowsToShow = isOpen ? Math.ceil(animals.length / itemsPerRow) : 1;
 
         for (let i = 0; i < rowsToShow; i++) {
-          let skipped = _drop(animals, i * 10);
-          let row = _take(skipped, 10);
+          let skipped = _drop(animals, i * itemsPerRow);
+          let row = _take(skipped, itemsPerRow);
 
           let rowWithProgressData = withProgress ? _flatMap(row, (a) => {
             let progress = this.userItems[`${type}s`][a.key];
@@ -588,7 +592,7 @@
             };
           }) : row;
 
-          animalRows.push(rowWithProgressData);
+          animalRows.push(...rowWithProgressData);
         }
 
         this.viewOptions[animalGroup.key].animalCount = animals.length;
@@ -607,12 +611,12 @@
         return `${countOwned.length}/${countAll}`;
       },
 
-      pets (animalGroup, showAll, hideMissing, sortBy, searchText) {
-        return this.listAnimals(animalGroup, 'pet', showAll, hideMissing, sortBy, searchText);
+      pets (animalGroup, showAll, hideMissing, sortBy, searchText, availableSpace) {
+        return this.listAnimals(animalGroup, 'pet', showAll, hideMissing, sortBy, searchText, availableSpace);
       },
 
-      mounts (animalGroup, showAll, hideMissing, sortBy, searchText) {
-        return this.listAnimals(animalGroup, 'mount', showAll, hideMissing, sortBy, searchText);
+      mounts (animalGroup, showAll, hideMissing, sortBy, searchText, availableSpace) {
+        return this.listAnimals(animalGroup, 'mount', showAll, hideMissing, sortBy, searchText, availableSpace);
       },
 
       getPetItemClass (pet) {
