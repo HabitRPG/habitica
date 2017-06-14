@@ -515,6 +515,28 @@ describe('POST /user/auth/local/register', () => {
         inviter: groupLeader._id,
       });
     });
+
+    it('awards achievement to inviter', async () => {
+      let { group, groupLeader } = await createAndPopulateGroup({
+        groupDetails: { type: 'party', privacy: 'private' },
+      });
+
+      let invite = encrypt(JSON.stringify({
+        id: group._id,
+        inviter: groupLeader._id,
+        sentAt: Date.now(), // so we can let it expire
+      }));
+
+      await api.post(`/user/auth/local/register?groupInvite=${invite}`, {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      await groupLeader.sync();
+      expect(groupLeader.achievements.invitedFriend).to.be.true;
+    });
   });
 
   context('successful login via api', () => {
