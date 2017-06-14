@@ -115,8 +115,8 @@ let basicAchievs = {
   invitedFriend: {
     icon: 'achievement-friends',
     titleKey: 'invitedFriend',
-    textKey: 'invitedFriendText'
-  }
+    textKey: 'invitedFriendText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 
