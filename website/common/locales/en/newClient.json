@@ -53,8 +53,8 @@
   "silverTier": "Silver Tier",
   "bronzeTier": "Bronze Tier",
   "privacySettings": "Privacy Settings",
-  "onlyLeaderCreatesChallenges": "Only the Guild Leader can create Guild Challenges",
-  "guildLeaderCantBeMessaged": "Guild Leader can not be messaged directly",
+  "onlyLeaderCreatesChallenges": "Only the Leader can create Challenges",
+  "guildLeaderCantBeMessaged": "Leader can not be messaged directly",
   "privateGuild": "Private Guild",
   "allowGuildInvationsFromNonMembers": "Allow Guild invitations from non-members",
   "charactersRemaining": "characters remaining",
@@ -76,5 +76,8 @@
   "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
   "startAQuest": "Start a Quest",
   "haveNoChallenges": "You don’t have any Challenges",
-  "challengeDescription": "Challenges are community events in which players compete and earn prizes by completing a group of related tasks."
+  "challengeDescription": "Challenges are community events in which players compete and earn prizes by completing a group of related tasks.",
+  "createParty": "Create a Party",
+  "partyDescriptionPlaceHolder": "This is our party’s description. It describes what we do in this party. If you want to learn more about what we do in this party, read the description. Party on.",
+  "inviteMembersNow": "Would you like to invite users now?"
 }

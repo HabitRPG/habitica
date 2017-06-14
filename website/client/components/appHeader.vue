@@ -18,52 +18,56 @@
       span.small-text(v-html="$t('inviteFriendsParty')")
       br
       // TODO link to party creation
-      button.btn.btn-primary {{ $t('startAParty') }}
+      button.btn.btn-primary(@click="launchPartyModal()") {{ $t('startAParty') }}
+
+  group-form-modal
 </template>
 
 <style lang="scss" scoped>
-@import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/colors.scss';
 
-#app-header {
-  padding-left: 14px;
-  margin-top: 56px;
-  background: $purple-50;
-  height: 204px;
-  color: $header-color;
-  flex-wrap: nowrap;
-}
-
-.no-party, .party-members {
-  flex-grow: 1;
-}
-
-.party-members {
-  overflow-x: auto;
-}
-
-.no-party {
-  .small-text {
+  #app-header {
+    padding-left: 14px;
+    margin-top: 56px;
+    background: $purple-50;
+    height: 204px;
     color: $header-color;
+    flex-wrap: nowrap;
   }
 
-  h3 {
-    color: $white;
-    margin-bottom: 4px;
+  .no-party, .party-members {
+    flex-grow: 1;
   }
 
-  button {
-    margin-top: 16px;
+  .party-members {
+    overflow-x: auto;
   }
-}
+
+  .no-party {
+    .small-text {
+      color: $header-color;
+    }
+
+    h3 {
+      color: $white;
+      margin-bottom: 4px;
+    }
+
+    button {
+      margin-top: 16px;
+    }
+  }
 </style>
 
 <script>
 import { mapGetters, mapActions } from 'client/libs/store';
 import MemberDetails from './memberDetails';
+import groupFormModal from './guilds/groupFormModal'
 
 export default {
   components: {
     MemberDetails,
+    groupFormModal,
   },
   data () {
     return {
@@ -86,6 +90,10 @@ export default {
       } else {
         this.expandedMember = memberId;
       }
+    },
+    launchPartyModal () {
+
+      this.$root.$emit('show::modal', 'guild-form');
     },
   },
   created () {
