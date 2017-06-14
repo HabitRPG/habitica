@@ -15,7 +15,8 @@
       a.slider-button
         .svg-icon(v-html="icons.next")
 
-    div.sliding-content(v-resize="", @resized="currentWidth = $event.width - 120")
+    // 120 = width of the left/right buttons
+    div.sliding-content(v-resize="500", @resized="currentWidth = $event.width - 120")
       .items.items-one-line
         template(v-for="item in pages[currentPage]")
           div.vertical-divider(v-if="item.ofNextPage")
@@ -71,12 +72,10 @@
 
     &.left-button {
       left: 0;
-      background: linear-gradient(to left, rgba(gray, 0.01), $gray-50);
     }
 
     &.right-button {
       right: 0;
-      background: linear-gradient(to right, rgba(gray, 0.01), $gray-50);
     }
   }
 

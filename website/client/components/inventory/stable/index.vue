@@ -266,6 +266,10 @@
       flex: 1;
     }
 
+    .drawer-container {
+      // 3% padding + 252px sidebar width
+      left: calc(3% + 252px) !important;
+    }
   }
 
   .drawer-slider .items {
