@@ -87,6 +87,7 @@
               :popoverPosition="'top'",
               :progress="pet.progress",
               :emptyItem="!pet.isOwned()",
+              :showPopover="pet.isOwned() || pet.isHatchable()",
               @hatchPet="hatchPet",
             )
               span(slot="popoverContent")
@@ -243,7 +244,7 @@
     }
   }
 
-  .PixelPaw.greyedOut {
+  .GreyedOut {
     opacity: 0.3;
   }
 
@@ -251,7 +252,7 @@
     width: 94px;
     height: 92px;
     border-radius: 2px;
-    background-color: #e1e0e3;
+    background-color: #edecee;
   }
 
   .npc_matt {

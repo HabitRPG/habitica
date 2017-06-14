@@ -1,6 +1,6 @@
 <template lang="pug">
 b-popover(
-  :triggers="['hover']",
+  :triggers="[showPopover?'hover':'']",
   :placement="popoverPosition",
 )
   span(slot="content")
@@ -71,6 +71,10 @@ b-popover(
       popoverPosition: {
         type: String,
         default: 'bottom',
+      },
+      showPopover: {
+        type: Boolean,
+        default: true,
       },
     },
     data () {
