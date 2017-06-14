@@ -38,6 +38,18 @@ angular.module('habitrpg')
     }
 
     function saveTask (task, stayOpen, isSaveAndClose) {
+
+      // Ensure user has a repeat day selected for monthly day of the week
+      var taskIsDayOfTheWeekMonthly = task._edit.frequency === 'monthly' && task._edit.repeatsOn == 'dayOfWeek';
+      var repeats = _.values(task._edit.repeat);
+      var repeatHasTrueDay = _.find(repeats, function (item) {
+        return item === true;
+      });
+      if (taskIsDayOfTheWeekMonthly && !repeatHasTrueDay) {
+        alert(env.t('repeatDayError'));
+        return;
+      }
+
       if (task._edit) {
         angular.copy(task._edit, task);
       }
