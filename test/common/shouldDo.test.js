@@ -713,8 +713,9 @@ describe('shouldDo', () => {
     it('leaves daily inactive if not day of the month', () => {
       dailyTask.everyX = 1;
       dailyTask.frequency = 'monthly';
-      dailyTask.daysOfMonth = [15];
-      let tomorrow = moment().add(1, 'day').toDate();// @TODO: make sure this is not the 15
+      let today = moment();
+      dailyTask.daysOfMonth = [today.date()];
+      let tomorrow = today.add(1, 'day').toDate();
 
       expect(shouldDo(tomorrow, dailyTask, options)).to.equal(false);
     });
@@ -732,8 +733,9 @@ describe('shouldDo', () => {
     it('leaves daily inactive if not on date of the x month', () => {
       dailyTask.everyX = 2;
       dailyTask.frequency = 'monthly';
-      dailyTask.daysOfMonth = [15];
-      let tomorrow = moment().add(2, 'months').add(1, 'day').toDate();
+      let today = moment();
+      dailyTask.daysOfMonth = [today.date()];
+      let tomorrow = today.add(2, 'months').add(1, 'day').toDate();
 
       expect(shouldDo(tomorrow, dailyTask, options)).to.equal(false);
     });
