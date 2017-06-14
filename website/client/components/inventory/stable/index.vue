@@ -150,7 +150,7 @@
         ) {{ $t(viewOptions[mountGroup.key].open ? 'showLessAnimals' : 'showAllAnimals', { color: mountGroup.label, type: $t('mounts')}) }}
 
       drawer(
-        :title="$('quickInventory')",
+        :title="$t('quickInventory')",
         :errorMessage="(!hasDrawerTabItems(selectedDrawerTab)) ? $t('noFood') : null"
       )
         div(slot="drawer-header")
@@ -181,6 +181,8 @@
           :items="drawerTabs[selectedDrawerTab].items",
           :scrollButtonsVisible="hasDrawerTabItems(selectedDrawerTab)",
           slot="drawer-slider",
+          :itemWidth=94,
+          :itemMargin=24,
         )
           template(slot="item", scope="ctx")
             item(
