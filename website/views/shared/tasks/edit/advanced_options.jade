@@ -15,7 +15,7 @@ div(ng-if='(task.type !== "reward") || task.userId || (!obj.auth && obj.purchase
     .form-group
       input(type='checkbox', ng-model='task._edit.yesterDaily', ng-disabled='$state.includes("options.social.challenges") || $state.includes("options.social.groups")')
       legend.option-title
-        a.hint(href='http://habitica.wikia.com/wiki/Task_Alias', target='_blank', popover-trigger='mouseenter', popover="{{::env.t('yesterDailiesDescription')}}")=env.t('yesterDailiesOptionTitle')
+        span.hint(popover-trigger='mouseenter', popover="{{::env.t('yesterDailiesDescription')}}")=env.t('yesterDailiesOptionTitle')
 
   fieldset.option-group.advanced-option(ng-show="task._edit._advanced", ng-if="!obj.auth && obj.purchased && obj.purchased.active")
     group-tasks-actions(task='task', group='obj')

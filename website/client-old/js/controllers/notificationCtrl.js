@@ -14,15 +14,20 @@ habitrpg.controller('NotificationCtrl',
     function runYesterDailies() {
       var userLastCron = moment(User.user.lastCron).local();
       var userDayStart = moment().startOf('day').add({ hours: User.user.preferences.dayStart });
-      if (!userLastCron.isBefore(userDayStart)) return;
+
+      if (userLastCron.date() == userDayStart.date()) return;
       var dailys = User.user.dailys;
 
       if (!Boolean(dailys) || dailys.length === 0) return;
 
+      var yesterDay = moment().subtract('1', 'day').startOf('day').add({ hours: User.user.preferences.dayStart });
       var yesterDailies = [];
       dailys.forEach(function (task) {
         if (task && task.group.approval && task.group.approval.requested) return;
-        if (task) yesterDailies.push(task);
+
+        var shouldDo = Shared.shouldDo(yesterDay, task);
+
+        if (task.yesterDaily && shouldDo) yesterDailies.push(task);
       });
 
       if (yesterDailies.length === 0) return;
