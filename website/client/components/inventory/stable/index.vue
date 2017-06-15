@@ -78,8 +78,9 @@
           div(
             v-for="pet in pets(petGroup, viewOptions[petGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled, availableContentWidth)",
             :key="pet.key",
+            v-drag.drop.food="pet.key",
             @dragover="onDragOver($event, pet)",
-            @drop.prevent="onDrop($event, pet)"
+            @dropped="onDrop($event, pet)",
           )
             petItem(
               :item="pet",
@@ -184,22 +185,10 @@
           :itemMargin=24,
         )
           template(slot="item", scope="ctx")
-            item(
+            foodItem(
               :item="ctx.item",
-              :itemContentClass="'Pet_Food_'+ctx.item.key",
-              :emptyItem="false",
-              :popoverPosition="'top'",
-              :draggable="true",
-              @onDrag="onDrag($event, ctx.item)"
+              :itemCount="userItems.food[ctx.item.key]",
             )
-              template(slot="popoverContent", scope="ctx")
-                h4.popover-content-title {{ ctx.item.text() }}
-                div.popover-content-text(v-html="ctx.item.notes()")
-              template(slot="itemBadge", scope="ctx")
-                countBadge(
-                  :show="true",
-                  :count="userItems.food[ctx.item.key]"
-                )
 </template>
 
 <style lang="scss">
@@ -294,6 +283,7 @@
 
   import Item from '../item';
   import PetItem from './petItem';
+  import FoodItem from './foodItem';
   import Drawer from 'client/components/inventory/drawer';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import StarBadge from 'client/components/inventory/starBadge';
@@ -301,6 +291,7 @@
   import DrawerSlider from './drawerSlider';
 
   import ResizeDirective from 'client/directives/resize.directive';
+  import DragDropDirective from 'client/directives/dragdrop.directive';
 
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
@@ -311,6 +302,7 @@
     components: {
       PetItem,
       Item,
+      FoodItem,
       Drawer,
       bDropdown,
       bDropdownItem,
@@ -322,6 +314,7 @@
     },
     directives: {
       resize: ResizeDirective,
+      drag: DragDropDirective,
     },
     data () {
       return {
@@ -655,19 +648,14 @@
         this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
       },
 
-      onDrag (ev, food) {
-        ev.dataTransfer.setData('food', food.key);
-      },
-
       onDragOver (ev, pet) {
-        if (!this.userItems.mounts[pet.key]) {
-          ev.preventDefault();
+        if (this.userItems.mounts[pet.key]) {
+          ev.dropable = false;
         }
       },
 
       onDrop (ev, pet) {
-        let food = ev.dataTransfer.getData('food');
-        this.$store.dispatch('common:feed', {pet: pet.key, food});
+        this.$store.dispatch('common:feed', {pet: pet.key, food: ev.draggingKey});
       },
     },
   };
