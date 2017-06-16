@@ -1,26 +1,27 @@
 <template lang="pug">
-#app-header.row
-  member-details(:member="user", @click="$router.push({name: 'avatar'})")
-  .party-members.d-flex(v-if="partyMembers && partyMembers.length > 1")
-    member-details(
-      v-for="member in partyMembers",
-      :key="member._id",
-      v-if="member._id !== user._id",
-      :member="member",
-      condensed=true,
-      @click="expandMember(member._id)"
-      :expanded="member._id === expandedMember",
-    )
-    button.btn.btn-primary {{ $t('viewParty') }}
-  .no-party.d-flex.justify-content-center.text-center(v-else)
-    .align-self-center(v-once)
-      h3 {{ $t('battleWithFriends') }}
-      span.small-text(v-html="$t('inviteFriendsParty')")
-      br
-      // TODO link to party creation
-      button.btn.btn-primary(@click="launchPartyModal()") {{ $t('startAParty') }}
+div
+  #app-header.row
+    member-details(:member="user", @click="$router.push({name: 'avatar'})")
+    .party-members.d-flex(v-if="partyMembers && partyMembers.length > 1")
+      member-details(
+        v-for="member in partyMembers",
+        :key="member._id",
+        v-if="member._id !== user._id",
+        :member="member",
+        condensed=true,
+        @click="expandMember(member._id)"
+        :expanded="member._id === expandedMember",
+      )
+      button.btn.btn-primary {{ $t('viewParty') }}
+    .no-party.d-flex.justify-content-center.text-center(v-else)
+      .align-self-center(v-once)
+        h3 {{ $t('battleWithFriends') }}
+        span.small-text(v-html="$t('inviteFriendsParty')")
+        br
+        // TODO link to party creation
+        button.btn.btn-primary(@click="launchPartyModal()") {{ $t('startAParty') }}
 
-  group-form-modal
+  create-party-modal
 </template>
 
 <style lang="scss" scoped>
@@ -62,12 +63,12 @@
 <script>
 import { mapGetters, mapActions } from 'client/libs/store';
 import MemberDetails from './memberDetails';
-import groupFormModal from './guilds/groupFormModal'
+import createPartyModal from './guilds/createPartyModal';
 
 export default {
   components: {
     MemberDetails,
-    groupFormModal,
+    createPartyModal,
   },
   data () {
     return {
@@ -93,7 +94,7 @@ export default {
     },
     launchPartyModal () {
 
-      this.$root.$emit('show::modal', 'guild-form');
+      this.$root.$emit('show::modal', 'create-party-modal');
     },
   },
   created () {

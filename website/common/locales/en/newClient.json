@@ -79,5 +79,12 @@
   "challengeDescription": "Challenges are community events in which players compete and earn prizes by completing a group of related tasks.",
   "createParty": "Create a Party",
   "partyDescriptionPlaceHolder": "This is our party’s description. It describes what we do in this party. If you want to learn more about what we do in this party, read the description. Party on.",
-  "inviteMembersNow": "Would you like to invite users now?"
+  "inviteMembersNow": "Would you like to invite users now?",
+  "playInPartyTitle": "Play Habitica in a Party!",
+  "playInPartyDescription": "Take on amazing quests with friends or on your own. Battle monsters, create Challenges, and help yourself stay accountable through Parties.",
+  "startYourOwnPartyTitle": "Start your own Party",
+  "startYourOwnPartyDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam accumsan sagittis tellus tempor euismod. Sed imperdiet facilisis tortor in malesuada.",
+  "shartUserId": "Share User ID",
+  "wantToJoinPartyTitle": "Want to join a Party?",
+  "wantToJoinPartyDescription": "Aenean non mattis eros, quis semper ipsum. Phasellus vulputate in nibh et suscipit. In hac habitasse platea dictumst."
 }
