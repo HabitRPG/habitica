@@ -42,10 +42,12 @@ habitrpg.controller('NotificationCtrl',
         showCompleted: false,
         type: 'daily',
       };
+      modalScope.processingYesterdailies = true;
 
       $scope.yesterDailiesModalOpen = true;
       $rootScope.openModal('yesterDailies', {
         scope: modalScope,
+        backdrop: 'static',
         controller: ['$scope', 'Tasks', 'User', '$rootScope', function ($scope, Tasks, User, $rootScope) {
           $rootScope.$on('task:scored', function (event, data) {
             var task = data.task;
