@@ -41,16 +41,14 @@
 .member-stats {
   padding-left: 16px;
   padding-right: 24px;
-  height: auto;
   opacity: 1;
   transition: opacity 0.15s ease-out;
 }
 
 .member-details.condensed:not(.expanded) .member-stats {
   opacity: 0;
-  height: 0;
-  padding: 0;
-  width: 0;
+  position: absolute;
+  z-index: -1;
 }
 
 // Condensed version
