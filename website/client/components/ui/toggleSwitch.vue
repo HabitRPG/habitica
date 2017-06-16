@@ -108,11 +108,11 @@ export default {
   },
   model: {
     prop: 'checked',
-    event: 'change'
+    event: 'change',
   },
   props: {
     value: {
-      default: true
+      default: true,
     },
     label: {
       type: String,
@@ -124,14 +124,14 @@ export default {
     },
   },
   computed: {
-    isChecked() {
-      return this.checked == this.value;
-    }
+    isChecked () {
+      return this.checked === this.value;
+    },
   },
   methods: {
-    handleChange({ target: { checked } }) {
-      this.$emit('change', checked ? this.value : this.uncheckedValue)
-    }
-  }
+    handleChange ({ target: { checked } }) {
+      this.$emit('change', checked ? this.value : this.uncheckedValue);
+    },
+  },
 };
 </script>

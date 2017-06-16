@@ -79,9 +79,9 @@
 
     .section-header
       .row
-        .col-8
+        .col-10
           h3(v-once) {{ $t('questDetailsTitle') }}
-        .col-4
+        .col-2
           .toggle-up(@click="sections.quest = !sections.quest", v-if="sections.quest")
             .svg-icon(v-html="icons.upIcon")
           .toggle-down(@click="sections.quest = !sections.quest", v-if="!sections.quest")
@@ -117,33 +117,42 @@
 
     .section-header
       .row
-        .col-8
+        .col-10
           h3(v-once) {{ $t('description') }}
-        .col-4
-          button(@click="sections.description = !sections.description") Toggle
+        .col-2
+          .toggle-up(@click="sections.description = !sections.description", v-if="sections.description")
+            .svg-icon(v-html="icons.upIcon")
+          .toggle-down(@click="sections.description = !sections.description", v-if="!sections.description")
+            .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.description")
         p(v-once) {{ guild.description }}
         p Life hacks are tricks, shortcuts, or methods that help increase productivity, efficiency, health, and so on. Generally, they get you to a better state of life. Life hacking is the process of utilizing and implementing these secrets. And, in this guild, we want to help everyone discover these improved ways of doing things.
 
     .section-header
       .row
-        .col-8
+        .col-10
           h3(v-once) {{ $t('guildInformation') }}
-        .col-4
-          button(@click="sections.information = !sections.information") Toggle
+        .col-2
+          .toggle-up(@click="sections.information = !sections.information", v-if="sections.information")
+            .svg-icon(v-html="icons.upIcon")
+          .toggle-down(@click="sections.information = !sections.information", v-if="!sections.information")
+            .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.information")
         h4 Welcome
         p Below are some resources that some members might find useful. Consider checking them out before posting any questions, as they just might help answer some of them! Feel free to share your life hacks in the guild chat, or ask any questions that you might have. Please peruse at your leisure, and remember: this guild is meant to help guide you in the right direction. Only you will know what works best for you.
 
     .section-header.challenge
       .row
-        .col-8.information-header
+        .col-10.information-header
           h3(v-once)
             | {{ $t('challenges') }}
           b-tooltip.icon.tooltip-wrapper(:content="$t('privateDescription')")
             .svg-icon(v-html='icons.information')
-        .col-4
-          button(@click="sections.challenges = !sections.challenges") Toggle
+        .col-2
+          .toggle-up(@click="sections.challenges = !sections.challenges", v-if="sections.challenges")
+            .svg-icon(v-html="icons.upIcon")
+          .toggle-down(@click="sections.challenges = !sections.challenges", v-if="!sections.challenges")
+            .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.challenges")
         .row.no-quest-section(v-if='!hasChallenges')
           .col-12.text-center
@@ -325,6 +334,10 @@
     margin-bottom: 1em;
     padding-bottom: 1em;
   }
+
+  .toggle-up, .toggle-down {
+    cursor: pointer;
+  }
 </style>
 
 <script>
@@ -401,13 +414,12 @@ export default {
       let fakeQuestData = {
         active: true,
         extra: {},
-        key: "basilist",
-        leader: "206039c6-24e4-4b9f-8a31-61cbb9aa3f66",
+        key: 'basilist',
+        leader: '206039c6-24e4-4b9f-8a31-61cbb9aa3f66',
         members: {},
         progress: {hp: 100, collect: {}},
       };
       this.guild.quest = fakeQuestData;
-      console.log(quests);
       this.questData = quests.quests[this.guild.quest.key];
       return this.guild.quest.active;
     },

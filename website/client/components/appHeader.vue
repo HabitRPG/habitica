@@ -93,7 +93,6 @@ export default {
       }
     },
     launchPartyModal () {
-
       this.$root.$emit('show::modal', 'create-party-modal');
     },
   },
