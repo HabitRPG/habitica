@@ -5,5 +5,9 @@
   stroke-width: 0;
   stroke: currentColor;
   fill: currentColor;
-  transition: none;
+  transition: none !important;
+}
+
+.svg-icon * {
+  transition: none !important;
 }
