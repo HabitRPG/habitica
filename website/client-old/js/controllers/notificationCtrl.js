@@ -24,13 +24,16 @@ habitrpg.controller('NotificationCtrl',
       var yesterDailies = [];
       dailys.forEach(function (task) {
         if (task && task.group.approval && task.group.approval.requested) return;
-
+        if (task.completed) return;
         var shouldDo = Shared.shouldDo(yesterDay, task);
 
         if (task.yesterDaily && shouldDo) yesterDailies.push(task);
       });
 
-      if (yesterDailies.length === 0) return;
+      if (yesterDailies.length === 0) {
+        User.runCron();
+        return;
+      };
 
       var modalScope = $rootScope.$new();
       modalScope.obj = User.user;
