@@ -86,5 +86,10 @@
   "startYourOwnPartyDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam accumsan sagittis tellus tempor euismod. Sed imperdiet facilisis tortor in malesuada.",
   "shartUserId": "Share User ID",
   "wantToJoinPartyTitle": "Want to join a Party?",
-  "wantToJoinPartyDescription": "Aenean non mattis eros, quis semper ipsum. Phasellus vulputate in nibh et suscipit. In hac habitasse platea dictumst."
+  "wantToJoinPartyDescription": "Aenean non mattis eros, quis semper ipsum. Phasellus vulputate in nibh et suscipit. In hac habitasse platea dictumst.",
+  "copy": "Copy",
+  "lookingForGroup": "Looking for Group",
+  "qrCode": "QR code",
+  "facebook": "Facebook",
+  "twitter": "Twitter"
 }
