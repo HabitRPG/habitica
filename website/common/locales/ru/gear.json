@@ -915,7 +915,7 @@
     "headArmoireCrownOfHeartsText": "Корона из Сердец",
     "headArmoireCrownOfHeartsNotes": "Эта корона цвета алой розы не только не оставит вас незамеченным! Она укрепит ваше сердце для борьбы со сложными задачами. Увеличивает силу на <%= str %>. Зачарованный сундук: Набор Червонной Дамы (Предмет 1 из 3)",
     "headArmoireMushroomDruidCapText": "Колпак Грибного Друида",
-    "headArmoireMushroomDruidCapNotes": "Harvested deep in a misty forest, this cap grants the wearer knowledge of medicinal plants. Increases Intelligence by <%= int %> and Strength by <%= str %>. Enchanted Armoire: Mushroom Druid Set (Item 1 of 3).",
+    "headArmoireMushroomDruidCapNotes": "Собранная глубоко в туманном лесу, эта шапка дает владельцу знание лекарственных растений. Увеличивает интеллект на <%= int %> и силу на <%= str %>. Зачарованный сундук: Набор Грибного Друида (предмет 1 из 3).",
     "headArmoireMerchantChaperonText": "Merchant Chaperon",
     "headArmoireMerchantChaperonNotes": "This versatile wrapped wool hat will surely make you the most stylish seller in the market! Increases Perception and Intelligence by <%= attrs %> each. Enchanted Armoire: Merchant Set (Item 1 of 3).",
     "headArmoireVikingHelmText": "Викингский шлем",

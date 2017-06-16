@@ -152,7 +152,7 @@
     "addLocalAuth": "Add local authentication:",
     "generateCodes": "Generate Codes",
     "generate": "Generate",
-    "getCodes": "Get Codes",
+    "getCodes": "Отримати коди",
     "webhooks": "Webhooks",
     "enabled": "Enabled",
     "webhookURL": "Webhook URL",

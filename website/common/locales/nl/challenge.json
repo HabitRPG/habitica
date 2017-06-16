@@ -79,5 +79,7 @@
     "onlyChalLeaderEditTasks": "Taken die bij een uitdaging horen kunnen alleen aangepast worden door de leider.",
     "userAlreadyInChallenge": "Gebruiker doet al mee aan deze uitdaging.",
     "cantOnlyUnlinkChalTask": "Alleen afgebroken uitdagingstaken kunnen worden losgekoppeld.",
-    "shortNameTooShort": "Labelnaam moet bestaan uit in ieder geval 3 karakters."
+    "shortNameTooShort": "Labelnaam moet bestaan uit in ieder geval 3 karakters.",
+    "joinedChallenge": "Joined a Challenge",
+    "joinedChallengeText": "This user put themselves to the test by joining a Challenge!"
 }

@@ -271,7 +271,7 @@
     "weaponArmoireMerchantsDisplayTrayText": "Bandeja de exibição do Comerciante",
     "weaponArmoireMerchantsDisplayTrayNotes": "Use essa bandeja lacada para mostrar os ótimos itens que você está oferecendo para venda. Aumenta Inteligência em <%= int %>. Armário Encantado: Conjunto do Comerciante (Item 3 de 3)",
     "weaponArmoireBattleAxeText": "Machado de Batalha",
-    "weaponArmoireBattleAxeNotes": "This fine iron axe is well-suited to battling your fiercest foes or your most difficult tasks. Increases Intelligence by <%= int %> and Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
+    "weaponArmoireBattleAxeNotes": "Este belo machado de ferro é bom para lutar contra seus mais ferozes inimigos ou suas tarefas mais difíceis. Aumenta Inteligência em <% int %> e Constituição em <% con %>. Armário Encantado: Item Independente.",
     "armor": "armadura",
     "armorCapitalized": "Armadura",
     "armorBase0Text": "Roupas Modestas",

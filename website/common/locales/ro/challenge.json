@@ -79,5 +79,7 @@
     "onlyChalLeaderEditTasks": "Sarcinile care aparțin unei provocări pot fi modificate numai de lider.",
     "userAlreadyInChallenge": "Utilizatorul participă, deja, la această provocare.",
     "cantOnlyUnlinkChalTask": "Numai sarcinile nefuncționale din provocări își pot pierde legătura.",
-    "shortNameTooShort": "Numele etichetei trebuie să aibă cel puțin 3 caractere."
+    "shortNameTooShort": "Numele etichetei trebuie să aibă cel puțin 3 caractere.",
+    "joinedChallenge": "Joined a Challenge",
+    "joinedChallengeText": "This user put themselves to the test by joining a Challenge!"
 }

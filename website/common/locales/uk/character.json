@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Пам’ятайте, що ваше ім’я, світлина профілю та інформація про себе повинні відповідати <a href='https://habitica.com/static/community-guidelines' target='_blank'>правилам спільноти</a> (тобто, жодних непристойностей, тем для дорослих, образ тощо). Якщо у вас виникли запитання, ви можете написати на <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Профіль",
     "avatar": "Налаштувати аватар",
     "other": "Інше",
@@ -127,7 +127,7 @@
     "distributePoints": "Використайте нерозподілені очки",
     "distributePointsPop": "Призначити всі нерозподілені очки на характеристики, відповідно до обраної схеми розподілення.",
     "warriorText": "Воїни частіше завдають „критичних ударів“, які приносять додаткове золото, досвід та випадіння предметів за виконане завдання. Також вони завдають значної шкоди босам. Грайте за Воїна, якщо бажаєте несподіваних трофеїв та прагнете дати на горіхи у квестах із босами!",
-    "mageText": "Mages learn swiftly, gaining Experience and Levels faster than other classes. They also get a great deal of Mana for using special abilities. Play a Mage if you enjoy the tactical game aspects of Habitica, or if you are strongly motivated by leveling up and unlocking advanced features!",
+    "mageText": "Чародії швидко вчаться, отримуючи досвід та рівні швидше, аніж інші класи. Також вигідно використовують ману на особливі здібності. Грайте чародієм, якщо вам подобаються тактичні особливості Habitica, або вас сильно мотивує отримання нових рівнів та відкривання додаткових можливостей.",
     "rogueText": "Розбійники полюбляють багатство, тож отримують золота більше за інших і знаходять різноманітні предмети частіше. Їхня здібність «Скрадання» дозволяє їм зменшити наслідки пропущених щоденних завдань. Грайте розбійником, якщо ви хочете здобувати нагороди та досягнення, значки та купу предметів!",
     "healerText": "Цілителі невразливі до ушкоджень та поширюють захист на інших. Невиконані щоденні завдання та шкідливі звички ледь турбують їх, у них є шляхи підняти своє Здоров'я після поразки. Грайте цілителем, якщо Вам подобається допомагати іншим членам гурту, або Вас надихає ідея через старанну працю обманути Смерть!",
     "optOutOfClasses": "Відмовитися",

@@ -79,5 +79,7 @@
     "onlyChalLeaderEditTasks": "Les tâches appartenant à un défi ne peuvent être modifiées que par son responsable.",
     "userAlreadyInChallenge": "Cette personne participe déjà à ce défi.",
     "cantOnlyUnlinkChalTask": "Seules les tâches des défis cassés peuvent être déliées.",
-    "shortNameTooShort": "Le nom de l'étiquette doit contenir au moins 3 caractères."
+    "shortNameTooShort": "Le nom de l'étiquette doit contenir au moins 3 caractères.",
+    "joinedChallenge": "Joined a Challenge",
+    "joinedChallengeText": "This user put themselves to the test by joining a Challenge!"
 }
