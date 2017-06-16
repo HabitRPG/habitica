@@ -158,6 +158,7 @@ nav.navbar {
   padding-right: 12.5px;
   padding-left: 12.5px;
   color: $header-color;
+  transition: none;
 
   &:hover {
     color: $white;
