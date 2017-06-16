@@ -253,9 +253,6 @@ function _getBasicAchievements (user, language) {
     earned: Boolean(user.achievements.rebirths),
     optionalCount: user.achievements.rebirths,
   });
-
-  for (var r in result)
-      console.log(result[r]);
   return result;
 }
 

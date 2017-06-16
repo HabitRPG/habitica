@@ -11,6 +11,8 @@ function evolve (user, pet, req) {
   user.items.pets[pet.key] = -1;
   user.items.mounts[pet.key] = true;
 
+  handleMountAchievements(user);
+
   if (pet.key === user.items.currentPet) {
     user.items.currentPet = '';
   }
@@ -19,7 +21,33 @@ function evolve (user, pet, req) {
     egg: pet.text(req.language),
   }, req.language);
 }
+    function handleMountAchievements(user) {
+        //Mount collector
+        console.log(0);
+        console.log(user);
+        console.log(user.achievements.mountMaster || 0);
+        var retrospectiveCount = (user.achievements.mountMaster || 0) * 90 + (Object.keys(user.items.mounts).length || 0);
+        console.log("retro" + retrospectiveCount);
+        console.log(Object.keys(user.items.mounts).length);
+        user.achievements.mountCollector = Math.max(retrospectiveCount, user.achievements.mountCollector || 0);
+        console.log(user.achievements.mountCollector);
+        switch (user.achievements.mountCollector) {
+            case 1:
+                Achievement.displayAchievement('mountCollector1');
+                break;
+            case 10:
+                Achievement.displayAchievement('mountCollector10');
+                break;
+            case 25:
+                Achievement.displayAchievement('mountCollector25');
+                break;
+            case 50:
+                Achievement.displayAchievement('mountCollector50');
+                break;
+        }
 
+
+    }
 module.exports = function feed (user, req = {}) {
   let pet = get(req, 'params.pet');
   let foodK = get(req, 'params.food');

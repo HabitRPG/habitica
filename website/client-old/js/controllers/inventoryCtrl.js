@@ -253,28 +253,6 @@
             size:'sm'
           });
         }
-        handleMountAchievements();
-
-      // Selecting Pet
-      } else {
-        User.equip({params:{type: 'pet', key: pet.key}});
-      }
-    }
-    function handleMountAchievements() {
-        //Mount collector
-        var retrospectiveCount = (user.achievements.mountMaster || 0) * 90 + $rootScope.countExists(user.items.mounts);
-        user.achievements.mountCollector = Math.max(retrospectiveCount, user.achievements.mountCollector || 0);
-        switch (user.achievements.mountCollector) {
-            case 1:
-                break;
-            case 10:
-                break;
-            case 25:
-                break;
-            case 50:
-                break;
-        }
-
         // Checks if mountmaster has been reached for the first time
         if (!user.achievements.mountMaster
             && $scope.mountCount >= 90) {
@@ -282,7 +260,12 @@
             Achievement.displayAchievement('mountMaster');
         }
 
+      // Selecting Pet
+      } else {
+        User.equip({params:{type: 'pet', key: pet.key}});
+      }
     }
+
     $scope.chooseMount = function(egg, potion) {
       User.equip({params:{type: 'mount', key: egg + '-' + potion}});
     }
