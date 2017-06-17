@@ -2,8 +2,9 @@ import assign from 'lodash/assign';
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import t from './translation';
-
-const CURRENT_SEASON = 'June';
+import {
+  EVENTS,
+} from './constants';
 
 let drops = {
   Base: {
@@ -125,6 +126,14 @@ each(drops, (pot, key) => {
   });
 });
 
+let eventsList = [];
+each(EVENTS, (eventData, key) => {
+  let today = new Date().toISOString();
+  if (eventData.start < today && today < eventData.end) {
+    eventsList.push(key);
+  }
+});
+
 each(premium, (pot, key) => {
   defaults(pot, {
     key,
@@ -138,7 +147,7 @@ each(premium, (pot, key) => {
     premium: true,
     limited: false,
     canBuy () {
-      return pot._season === CURRENT_SEASON;
+      return eventsList.indexOf(pot._season) > -1;
     },
   });
 });
