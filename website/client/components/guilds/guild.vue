@@ -92,7 +92,8 @@
             .svg-icon(v-html="icons.questIcon")
             h4(v-once) {{ $t('yourNotOnQuest') }}
             p(v-once) {{ $t('questDescription') }}
-            button.btn.btn-secondary(v-once) {{ $t('startAQuest') }}
+            button.btn.btn-secondary(v-once, @click="openStartQuestModal()") {{ $t('startAQuest') }}
+            start-quest-modal
         .row.quest-active-section
           .col-12.text-center
             .svg-icon(v-html="icons.questIcon")
@@ -344,6 +345,7 @@
 import groupUtilities from 'client/mixins/groupsUtilities';
 import { mapState } from 'client/libs/store';
 import membersModal from './membersModal';
+import startQuestModal from './startQuestModal';
 import { TAVERN_ID } from 'common/script/constants';
 import quests from 'common/script/content/quests';
 
@@ -371,6 +373,7 @@ export default {
   props: ['guildId'],
   components: {
     membersModal,
+    startQuestModal,
     bCollapse,
     bCard,
     bTooltip,
@@ -412,7 +415,7 @@ export default {
     },
     onQuest () {
       let fakeQuestData = {
-        active: true,
+        active: false,
         extra: {},
         key: 'basilist',
         leader: '206039c6-24e4-4b9f-8a31-61cbb9aa3f66',
@@ -487,6 +490,9 @@ export default {
       if (confirm(this.$t('confirmDeleteAllMessages'))) {
         // User.clearPMs();
       }
+    },
+    openStartQuestModal () {
+      this.$root.$emit('show::modal', 'start-quest-modal');
     },
     // inviteOrStartParty (group) {
       // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Invite Friends'});
