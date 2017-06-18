@@ -7,8 +7,8 @@ import EmptyView from './components/emptyView';
 import ParentPage from './components/parentPage';
 import Page from './components/page';
 
-// Tasks
-import UserTasks from './components/userTasks';
+// User tasks are always loaded in the main app chunk
+import UserTasks from './components/tasks/user';
 
 // Except for tasks that are always loaded all the other main level
 // components are loaded in separate webpack chunks.
