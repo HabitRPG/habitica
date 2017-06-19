@@ -154,7 +154,7 @@
     "questEggButterflyAdjective": "かわいい",
     "questEggNudibranchText": "ウミウシ",
     "questEggNudibranchMountText": "ウミウシ",
-    "questEggNudibranchAdjective": "a nifty",
+    "questEggNudibranchAdjective": "しゃれた",
     "eggNotes": "たまごがえしの薬を見つけて、たまごにかけると、<%= eggAdjective(locale) %> <%= eggText(locale) %>が生まれます。",
     "hatchingPotionBase": "普通の",
     "hatchingPotionWhite": "白い",

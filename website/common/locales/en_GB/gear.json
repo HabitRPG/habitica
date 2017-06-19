@@ -587,7 +587,7 @@
     "armorArmoireMerchantTunicText": "Merchant Tunic",
     "armorArmoireMerchantTunicNotes": "The wide sleeves of this tunic are perfect for stashing the coins you've earned! Increases Perception by <%= per %>. Enchanted Armoire: Merchant Set (Item 2 of 3).",
     "armorArmoireVikingTunicText": "Viking Tunic",
-    "armorArmoireVikingTunicNotes": "This warm woolen tunic includes a cloak for extra coziness even in ocean gales. Increases Constitution by <%= con %> and Strength by <%= str %>. Enchanted Armoire: Viking Set (Item 1 of 3).",
+    "armorArmoireVikingTunicNotes": "This warm woollen tunic includes a cloak for extra cosiness even in ocean gales. Increases Constitution by <%= con %> and Strength by <%= str %>. Enchanted Armoire: Viking Set (Item 1 of 3).",
     "headgear": "headgear",
     "headgearCapitalized": "Headgear",
     "headBase0Text": "No Helm",

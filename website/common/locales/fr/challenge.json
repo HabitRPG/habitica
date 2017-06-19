@@ -80,6 +80,6 @@
     "userAlreadyInChallenge": "Cette personne participe déjà à ce défi.",
     "cantOnlyUnlinkChalTask": "Seules les tâches des défis cassés peuvent être déliées.",
     "shortNameTooShort": "Le nom de l'étiquette doit contenir au moins 3 caractères.",
-    "joinedChallenge": "Joined a Challenge",
-    "joinedChallengeText": "This user put themselves to the test by joining a Challenge!"
+    "joinedChallenge": "A rejoint un défi",
+    "joinedChallengeText": "Cet utilisateur s'est testé en rejoignant un Défi !"
 }
