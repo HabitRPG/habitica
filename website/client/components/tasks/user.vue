@@ -7,13 +7,13 @@
       .col-1.offset-3
         button.btn.btn-success(v-once) {{ $t('create') }}
     .row
-      .col-3(v-for="taskType in tasksTypes")
-        h3 {{taskType}}s
-        ul.tasks-column
-          task(v-for="task in tasks", v-if="task.type === taskType", :key="task.id", :task="task")
+      .tasks-column.col-3(v-for="taskType in tasksTypes", :key="taskType.type")
+        h2.tasks-column-title(v-once) {{ $t(taskType.string) }}
+        .tasks-list
+          task(v-for="task in tasks[`${taskType.type}s`]", :key="task.id", :task="task")
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '~client/assets/scss/colors.scss';
 
 .user-tasks-page {
@@ -24,10 +24,15 @@
   margin-bottom: 40px;
 }
 
-.tasks-column {
+.tasks-list {
   border-radius: 4px;
   background: $gray-600;
   padding: 8px;
+  padding-bottom: 0.1px; // not sure why but this is necessary or the last task will overflow the container
+}
+
+.tasks-column-title {
+  margin-bottom: 8px;
 }
 </style>
 <script>
@@ -40,7 +45,12 @@ export default {
   },
   data () {
     return {
-      tasksTypes: ['habit', 'daily', 'todo', 'reward'],
+      tasksTypes: Object.freeze([
+        {type: 'habit', string: 'habits'},
+        {type: 'daily', string: 'dailies'},
+        {type: 'todo', string: 'todos'},
+        {type: 'reward', string: 'rewards'},
+      ]),
     };
   },
   computed: {
