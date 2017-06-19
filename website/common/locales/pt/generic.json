@@ -164,7 +164,7 @@
     "greeting2": "`aperto de mão empolgado`",
     "greeting3": "Ei você!",
     "greetingCardAchievementTitle": "Camarada Animado",
-    "greetingCardAchievementText": "Oi! Boas! Olá! Mandou ou recebeu <%= cards %> cartões de cumprimentos.",
+    "greetingCardAchievementText": "Oi! Boas! Olá! Mandou ou recebeu <%= count %> cartões de cumprimentos.",
     "thankyouCard": "Cartão de agradecimento",
     "thankyouCardExplanation": "Ambos receberam a conquista Incrivelmente Grato!",
     "thankyouCardNotes": "Envie um cartão de Agradecimentos para um membro da equipa.",

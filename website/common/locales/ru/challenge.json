@@ -80,6 +80,6 @@
     "userAlreadyInChallenge": "Пользователь уже участвует в этом испытании.",
     "cantOnlyUnlinkChalTask": "Только испорченные задания испытаний могут быть откреплены.",
     "shortNameTooShort": "Название тега должно быть по крайней мере 3 символа.",
-    "joinedChallenge": "Joined a Challenge",
-    "joinedChallengeText": "This user put themselves to the test by joining a Challenge!"
+    "joinedChallenge": "Присоединился к испытанию",
+    "joinedChallengeText": "Этот пользователь проверил свои силы, присоединившись к испытанию!"
 }
