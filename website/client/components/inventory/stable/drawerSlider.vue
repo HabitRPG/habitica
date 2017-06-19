@@ -144,7 +144,7 @@
       },
 
       nextPage () {
-        if (this.currentPage < this.pages.length - 1){
+        if (this.currentPage < this.pages.length - 1) {
           this.currentPage++;
         } else {
           this.currentPage = 0;

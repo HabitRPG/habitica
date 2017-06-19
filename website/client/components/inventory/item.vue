@@ -26,7 +26,6 @@ b-popover(
 
 <script>
 import bPopover from 'bootstrap-vue/lib/components/popover';
-import { mapState } from 'client/libs/store';
 
 export default {
   components: {
