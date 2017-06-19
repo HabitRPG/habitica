@@ -105,5 +105,17 @@ export default {
       shareUserIdShown: false,
     };
   },
+  methods: {
+    createParty () {
+      // group.loadingParty = true;
+      //
+      // if (!group.name) group.name = env.t('possessiveParty', {name: User.user.profile.name});
+      // Groups.Group.create(group)
+      //   .then(function(response) {
+      //     Analytics.updateUser({'partyID': $scope.group ._id, 'partySize': 1});
+      //     $rootScope.hardRedirect('/#/options/groups/party');
+      //   });
+    },
+  },
 };
 </script>

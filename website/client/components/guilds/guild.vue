@@ -400,6 +400,7 @@ export default {
         downIcon,
       }),
       questData: {},
+      selectedQuest: {},
       sections: {
         quest: true,
         description: true,
@@ -431,6 +432,10 @@ export default {
     },
     isMember () {
       return this.isMemberOfGroup(this.user, this.guild);
+    },
+    canEditQuest () {
+      var isQuestLeader = this.guild.quest && this.guild.quest.leader === this.user._id;
+      return isQuestLeader;
     },
     isMemberOfPendingQuest () {
       let userid = this.user._id;
@@ -469,6 +474,14 @@ export default {
   created () {
     if (this.isParty) {
       this.guildId = 'party';
+      // @TODO: Set up from old client. Decide what we need and what we don't
+      // Check Desktop notifs
+      // Mark Chat seen
+      // Load members
+      // Load invites
+      // Load challenges
+      // Load group tasks for group plan
+      // Load approvals for group plan
     } else if (this.$route.path.startsWith('/guilds/tavern')) {
       this.guildId = TAVERN_ID;
     }
@@ -485,6 +498,9 @@ export default {
     },
     async fetchGuild () {
       this.guild = await this.$store.dispatch('guilds:getGroup', {groupId: this.guildId});
+      if (this.isParty) {
+        this.checkForAchievements();
+      }
     },
     deleteAllMessages () {
       if (confirm(this.$t('confirmDeleteAllMessages'))) {
@@ -516,6 +532,122 @@ export default {
       //   },
       // });
     // },
+    checkForAchievements () {
+      // Checks if user's party has reached 2 players for the first time.
+      if(!this.user.achievements.partyUp
+          && this.guild.memberCount >= 2) {
+        // @TODO
+        // User.set({'achievements.partyUp':true});
+        // Achievement.displayAchievement('partyUp');
+      }
+
+      // Checks if user's party has reached 4 players for the first time.
+      if(!this.user.achievements.partyOn
+          && this.guild.memberCount >= 4) {
+        // @TODO
+        // User.set({'achievements.partyOn':true});
+        // Achievement.displayAchievement('partyOn');
+      }
+    },
+    // @TODO: This should be moved to notifications component
+    async join () {
+
+      if (this.guild.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
+        return;
+      }
+
+      await this.$store.dispatch('guilds:join', {groupId: this.guild._id});
+
+      // @TODO: Implement
+      // User.sync();
+      // Analytics.updateUser({'partyID': party.id});
+      //  $rootScope.hardRedirect('/#/options/groups/party');
+    },
+    clickLeave () {
+      //Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Leave Party'});
+      // @TODO: Get challenges and ask to keep or remove
+      let keep = true;
+      this.leave(keep);
+    },
+    async leave (keepTasks) {
+      let keepChallenges = 'remain-in-challenges';
+      await this.$store.dispatch('guilds:leave', {
+        groupId: this.guild._id,
+        keep: keepTasks,
+        keepChallenges,
+      });
+
+      // @TODO: Implement
+      // Analytics.updateUser({'partySize':null,'partyID':null});
+      // User.sync().then(function () {
+      //  $rootScope.hardRedirect('/#/options/groups/party');
+      // });
+    },
+    // @TODO: Move to notificatin component
+    async leaveOldPartyAndJoinNewParty () {
+      if (!confirm('Are you sure you want to delete your party and join ' + newPartyName + '?'));
+      return;
+
+      let keepChallenges = 'remain-in-challenges';
+      await this.$store.dispatch('guilds:leave', {
+        groupId: this.guild._id,
+        keep: false,
+        keepChallenges,
+      });
+
+      await this.$store.dispatch('guilds:join', {groupId: this.guild._id});
+    },
+    // @TODO: Move to notificatin component
+    async reject () {
+      await this.$store.dispatch('guilds:rejectInvite', {groupId: this.guild._id});
+      // User.sync();
+    },
+    clickStartQuest () {
+      // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Start a Quest'});
+      let hasQuests = _.find(User.user.items.quests, function(quest) {
+        return quest > 0;
+      });
+
+      if (hasQuests) {
+        this.$root.$emit('show::modal', 'owned-quests');
+        return;
+      }
+      // $rootScope.$state.go('options.inventory.quests');
+    },
+    async questInit () {
+      let key = this.selectedQuest.key;
+      await this.$store.dispatch('quests:initQuest', {key});
+      this.selectedQuest = undefined;
+    },
+    async questCancel () {
+      if (!confirm(this.$t('sureCancel'))) return;
+      let quest = await this.$store.dispatch('quests:cancel', {key});
+      this.guild.quest = quest;
+    },
+    async questAbort () {
+      if (!confirm(this.$t('sureAbort'))) return;
+      if (!confirm(this.$t('doubleSureAbort'))) return;
+      let quest = await this.$store.dispatch('quests:abort', {key});
+      this.guild.quest = quest;
+    },
+    async questLeave () {
+      if (!confirm(this.$t('sureLeave'))) return;
+      let quest = await this.$store.dispatch('quests:leave', {key});
+      this.guild.quest = quest;
+    },
+    async questAccept () {
+      let quest = await this.$store.dispatch('quests:accept', {key});
+      this.guild.quest = quest;
+    },
+    async questForceStart () {
+      let quest = await this.$store.dispatch('quests:forceSart', {key});
+      this.guild.quest = quest;
+    },
+    // @TODO: Move to notificaitons component?
+    async questReject () {
+      let quest = await this.$store.dispatch('quests:reject', {key});
+      this.guild.quest = quest;
+    },
   },
 };
 </script>
