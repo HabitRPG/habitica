@@ -2688,6 +2688,38 @@ let quests = {
       exp: 650,
     },
   },
+  nudibranch: {
+    text: t('questNudibranchText'),
+    notes: t('questNudibranchNotes'),
+    completion: t('questNudibranchCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questNudibranchBoss'),
+      hp: 400,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Nudibranch',
+          text: t('questNudibranchDropNudibranchEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Nudibranch',
+          text: t('questNudibranchDropNudibranchEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Nudibranch',
+          text: t('questNudibranchDropNudibranchEgg'),
+        },
+      ],
+      gp: 31,
+      exp: 200,
+      unlock: t('questNudibranchUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {

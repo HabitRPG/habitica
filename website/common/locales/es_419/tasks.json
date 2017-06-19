@@ -91,7 +91,7 @@
     "fortifyName": "Poción de Fortalecimiento",
     "fortifyPop": "Devuelve todas tus tareas a un valor neutral (amarillo), y recupera toda la salud perdida.",
     "fortify": "Fortalecer",
-    "fortifyText": "Fortify will return all your tasks, except challenge tasks, to a neutral (yellow) state, as if you'd just added them, and top your Health off to full. This is great if all your red tasks are making the game too hard, or all your blue tasks are making the game too easy. If starting fresh sounds much more motivating, spend the Gems and catch a reprieve!",
+    "fortifyText": "Fortalecer devuelve todas tus tareas, excepto las de desafíos, a un valor neutral (amarillo), como si las acabaras de añadir, y llena tu salud a tope. Esto es genial si todas tus tareas rojas hacen muy difícil el juego, o si todas tus tareas azules lo vuelven demasiado fácil. Si empezar de cero suena mucho más motivador, ¡gasta las gemas y tómate un respiro!",
     "confirmFortify": "¿Estás seguro?",
     "fortifyComplete": "¡Fortalecimiento completado!",
     "sureDelete": "¿Estás seguro de que quieres eliminar el/la <%= taskType %> que posee el texto \"<%= taskText %>\"?",
@@ -140,9 +140,9 @@
     "counterPeriodDay": "Día",
     "counterPeriodWeek": "Semana",
     "counterPeriodMonth": "Mes",
-    "habitCounter": "Counter (Resets <%= frequency %>)",
-    "habitCounterUp": "Positive Counter (Resets <%= frequency %>)",
-    "habitCounterDown": "Negative Counter (Resets <%= frequency %>)",
+    "habitCounter": "Contador (Se reinicia <%= frequency %>)",
+    "habitCounterUp": "Contador positivo (Se reinicia <%= frequency %>)",
+    "habitCounterDown": "Contador negativo (Se reinicia <%= frequency %>)",
     "taskRequiresApproval": "Esta tarea debe ser aprovada antes de que la puedas completar. La aprobación ya ha sido solicitada.",
     "taskApprovalHasBeenRequested": "La aprobación ha sido solicitada",
     "approvals": "Aprobaciones",
@@ -167,7 +167,8 @@
     "taskNotes": "Notas de Tareas",
     "monthlyRepeatHelpContent": "Esta tarea vencerá cada X meses",
     "yearlyRepeatHelpContent": "Esta tarea vencerá cada X años",
-    "resets": "Resets",
-    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
-    "nextDue": "Next Due Dates"
+    "resets": "Se reinicia",
+    "summaryStart": "Se repite <%= frequency %> cada <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Próximas fechas límite",
+    "repeatDayError": "Please ensure that you have at least one day of the week selected."
 }

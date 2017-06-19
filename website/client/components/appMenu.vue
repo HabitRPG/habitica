@@ -44,7 +44,7 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
         router-link.dropdown-item.edit-avatar(:to="{name: 'avatar'}") 
           h3 {{ user.profile.name }}
           span.small-text {{ $t('editAvatar') }}
-        //.dropdown-divider
+        router-link.dropdown-item(:to="{name: 'inbox'}") {{ $t('inbox') }}
         router-link.dropdown-item(:to="{name: 'stats'}") {{ $t('stats') }}
         router-link.dropdown-item(:to="{name: 'achievements'}") {{ $t('achievements') }}
         router-link.dropdown-item(:to="{name: 'settings'}") {{ $t('settings') }}
@@ -158,6 +158,7 @@ nav.navbar {
   padding-right: 12.5px;
   padding-left: 12.5px;
   color: $header-color;
+  transition: none;
 
   &:hover {
     color: $white;

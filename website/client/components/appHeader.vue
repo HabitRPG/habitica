@@ -1,12 +1,26 @@
 <template lang="pug">
 #app-header.row
-  user-list-detail(:user="user")
-  .no-party.d-flex.justify-content-center.text-center(v-if="!user.party._id")
+  member-details(:member="user", @click="$router.push({name: 'avatar'})")
+  .view-party
+    // TODO button should open the party members modal
+    router-link.btn.btn-primary(:active-class="''", :to="{name: 'party'}") {{ $t('viewParty') }}
+  .party-members.d-flex(v-if="partyMembers && partyMembers.length > 1")
+    member-details(
+      v-for="(member, $index) in partyMembers",
+      :key="member._id",
+      v-if="member._id !== user._id && $index < 10",
+      :member="member",
+      condensed=true,
+      @onHover="expandMember(member._id)",
+      :expanded="member._id === expandedMember",
+    )
+  .no-party.d-flex.justify-content-center.text-center(v-else)
     .align-self-center(v-once)
       h3 {{ $t('battleWithFriends') }}
       span.small-text(v-html="$t('inviteFriendsParty')")
       br
-      button.btn.btn-primary {{ $t('startAParty') }}
+      // TODO link to party creation or party page if partying solo
+      router-link.btn.btn-primary(:active-class="''", :to="{name: 'party'}") {{ $t('startAParty') }}
 </template>
 
 <style lang="scss" scoped>
@@ -18,11 +32,31 @@
   background: $purple-50;
   height: 204px;
   color: $header-color;
+  flex-wrap: nowrap;
+  position: relative;
+}
+
+.no-party, .party-members {
+  flex-grow: 1;
+}
+
+.party-members {
+}
+
+.view-party {
+  position: absolute;
+  z-index: 10;
+  right: 0;
+  padding-right: 40px;
+  height: 100%;
+  background-image: linear-gradient(to right, rgba($purple-50, 0), $purple-50);
+
+  .btn {
+    margin-top: 75%;
+  }
 }
 
 .no-party {
-  flex-grow: 1;
-
   .small-text {
     color: $header-color;
   }
@@ -39,17 +73,38 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
-import UserListDetail from './userListDetail';
+import { mapGetters, mapActions } from 'client/libs/store';
+import MemberDetails from './memberDetails';
 
 export default {
   components: {
-    UserListDetail,
+    MemberDetails,
+  },
+  data () {
+    return {
+      expandedMember: null,
+    };
   },
   computed: {
-    ...mapState({
-      user: 'user.data',
+    ...mapGetters({
+      user: 'user:data',
+      partyMembers: 'party:members',
     }),
+  },
+  methods: {
+    ...mapActions({
+      getPartyMembers: 'party:getMembers',
+    }),
+    expandMember (memberId) {
+      if (this.expandedMember === memberId) {
+        this.expandedMember = null;
+      } else {
+        this.expandedMember = memberId;
+      }
+    },
+  },
+  created () {
+    this.getPartyMembers();
   },
 };
 </script>

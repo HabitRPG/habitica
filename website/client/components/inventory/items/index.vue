@@ -53,7 +53,7 @@
       a.btn.btn-show-more(
         v-if="items[group.key].length > itemsPerLine",
         @click="group.open = !group.open"
-      ) {{ group.open ? $t('showLessGearItems', { type: $t(group.key) }) : $t('showAllGearItems', { type: $t(group.key), items: items[group.key].length }) }}
+      ) {{ group.open ? $t('showLessItems', { type: $t(group.key) }) : $t('showAllItems', { type: $t(group.key), items: items[group.key].length }) }}
 
 </template>
 

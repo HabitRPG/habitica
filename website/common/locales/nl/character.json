@@ -127,7 +127,7 @@
     "distributePoints": "Verdeel niet toegekende punten",
     "distributePointsPop": "Verdeelt alle nog niet toegekende eigenschapspunten aan de hand van het gekozen toekenningsschema.",
     "warriorText": "Krijgers behalen meer en betere \"voltreffers\", die willekeurig extra goud, ervaringspunten, en kans op vondsten geven voor het afstrepen van een taak. Ook doen ze veel schade aan eindbazen. Speel een Krijger als je je gemotiveerd voelt door onvoorspelbare jackpot-achtige beloningen of als je pijn aan eindbazen wil uitdelen in queesten!",
-    "mageText": "Magiërs leren snel, en doen sneller ervaring en niveaus op dan andere klassen. Ze krijgen ook een grote hoeveelheid mana om te gebruiken voor speciale vaardigheden. Speel een Magiër als je de tactische spelaspecten van Habitica leuk vindt of als je zeer gemotiveerd bent om niveaus te stijgen en geavanceerde functies vrij te spelen!",
+    "mageText": "Mages learn swiftly, gaining Experience and Levels faster than other classes. They also get a great deal of Mana for using special abilities. Play a Mage if you enjoy the tactical game aspects of Habitica, or if you are strongly motivated by leveling up and unlocking advanced features!",
     "rogueText": "Dieven houden ervan rijkdom te vergaren, verkrijgen meer goud dan enig ander en zijn bedreven in het vinden van willekeurige voorwerpen. Hun kenmerkende behendigheid laat hen de consequenties ontduiken van het missen van dagelijkse taken. Speel een dief als je veel motivatie vindt in het krijgen van beloningen, het behalen van prestaties en het streven naar buit en badges!",
     "healerText": "Helers zijn ongevoelig voor schade, en kunnen deze bescherming uitstrekken naar anderen. Gemiste dagelijkse taken en slechte gewoontes hebben nauwelijks invloed op hun humeur, en ze hebben manieren om gezondheidspunten te herstellen na een mislukking. Speel een Heler als je het leuk vindt om anderen in je groep te assisteren, of als het idee om de dood voor de gek te houden door hard te werken je inspireert!",
     "optOutOfClasses": "Afmelden",
@@ -170,6 +170,5 @@
     "hideQuickAllocation": "Verberg verdeling eigenschapspunten",
     "quickAllocationLevelPopover": "Met ieder niveau verdien je een punt om toe te wijzen aan een eigenschap van jouw keuze. Je kunt dit eigenhandig doen of het spel voor je laten bepalen door een van de automatische toewijzingsopties te kiezen in Gebruiker -> Statistieken gebruiker.",
     "invalidAttribute": "\"<%= attr %>\" is geen geldige eigenschap.",
-    "notEnoughAttrPoints": "Je hebt niet genoeg eigenschapspunten.",
-    "gearNotOwned": "Je bezit dit voorwerp niet."
+    "notEnoughAttrPoints": "Je hebt niet genoeg eigenschapspunten."
 }
