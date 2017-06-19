@@ -1,27 +1,16 @@
-export function initQuest (store) {
+import axios from 'axios';
+// export async function initQuest (store) {
+// }
 
-}
+export async function sendAction (store, payload) {
+  // Analytics.updateUser({
+  //   partyID: party._id,
+  //   partySize: party.memberCount
+  // });
+  let response = await axios.get(`/api/v3/groups/${payload.groupId}/${payload.action}`);
 
-export function cancel (store) {
+  // @TODO: Update user?
+  //  User.sync();
 
-}
-
-export function abort (store) {
-
-}
-
-export function leave (store) {
-
-}
-
-export function accept (store) {
-
-}
-
-export function forceStart (store) {
-
-}
-
-export function reject (store) {
-
+  return response.data.quest || response.data.data;
 }

@@ -11,7 +11,7 @@ b-modal#start-quest-modal(title="Empty", size='sm', hide-footer=true)
       Strong Difficulty: &nbsp;
       span 20 Bars of Soap
   div
-    button.btn.btn-primary Invite Party to Quest
+    button.btn.btn-primary(@click='questInit()') Invite Party to Quest
   div
     p Clicking “Invite” will send an invitation to your party members. When all members have accepted or denied, the Quest begins.
 
@@ -76,6 +76,7 @@ import starIcon from 'assets/svg/star.svg';
 import goldIcon from 'assets/svg/gold.svg';
 
 export default {
+  props: ['groupId'],
   components: {
     bModal,
   },
@@ -92,6 +93,15 @@ export default {
       }),
       shareUserIdShown: false,
     };
+  },
+  methods: {
+    async questInit () {
+      // let key = this.selectedQuest.key;
+      let key = 'dilatory';
+      // Analytics.updateUser({'partyID': party._id, 'partySize': party.memberCount});
+      await this.$store.dispatch('guilds:inviteToQuest', {groupId: this.groupId, key});
+      this.selectedQuest = undefined;
+    },
   },
 };
 </script>

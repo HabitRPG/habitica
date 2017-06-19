@@ -1,24 +1,24 @@
 <template lang="pug">
 // TODO this is necessary until we have a way to wait for data to be loaded from the server
-.row(v-if="guild")
+.row(v-if="group")
   .clearfix.col-8
     .row
       .col-6.title-details
-        h1 {{guild.name}}
+        h1 {{group.name}}
         strong.float-left(v-once) {{$t('groupLeader')}}
-        span.float-left(v-once, v-if='guild.leader.profile') : {{guild.leader.profile.name}}
+        span.float-left(v-once, v-if='group.leader.profile') : {{group.leader.profile.name}}
       .col-6
         .row.icon-row
           .col-6
-            members-modal(:group='guild', v-if='isMember')
+            members-modal(:group='group', v-if='isMember')
             .item-with-icon
               .svg-icon.shield(v-html="icons.goldGuildBadge")
-              span.number {{guild.memberCount}}
+              span.number {{group.memberCount}}
               div(v-once) {{ $t('guildMembers') }}
           .col-6
             .item-with-icon
               .svg-icon.gem(v-html="icons.gem")
-              span.number {{guild.memberCount}}
+              span.number {{group.memberCount}}
               div(v-once) {{ $t('guildBank') }}
     .row.chat-row
       .col-12
@@ -34,7 +34,7 @@
           .col-md-2
             .svg-icon(v-html="icons.like")
           .col-md-10
-            .card(v-for="msg in guild.chat", :key="msg.id")
+            .card(v-for="msg in group.chat", :key="msg.id")
               .card-block
                 h3.leader Character name
                 span 2 hours ago
@@ -93,7 +93,7 @@
             h4(v-once) {{ $t('yourNotOnQuest') }}
             p(v-once) {{ $t('questDescription') }}
             button.btn.btn-secondary(v-once, @click="openStartQuestModal()") {{ $t('startAQuest') }}
-            start-quest-modal
+            start-quest-modal(:groupId='this.group._id')
         .row.quest-active-section
           .col-12.text-center
             .svg-icon(v-html="icons.questIcon")
@@ -126,7 +126,7 @@
           .toggle-down(@click="sections.description = !sections.description", v-if="!sections.description")
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.description")
-        p(v-once) {{ guild.description }}
+        p(v-once) {{ group.description }}
         p Life hacks are tricks, shortcuts, or methods that help increase productivity, efficiency, health, and so on. Generally, they get you to a better state of life. Life hacking is the process of utilizing and implementing these secrets. And, in this guild, we want to help everyone discover these improved ways of doing things.
 
     .section-header
@@ -383,7 +383,7 @@ export default {
   },
   data () {
     return {
-      guild: null,
+      group: null,
       icons: Object.freeze({
         like: likeIcon,
         copy: copyIcon,
@@ -423,30 +423,30 @@ export default {
         members: {},
         progress: {hp: 100, collect: {}},
       };
-      this.guild.quest = fakeQuestData;
-      this.questData = quests.quests[this.guild.quest.key];
-      return this.guild.quest.active;
+      this.group.quest = fakeQuestData;
+      this.questData = quests.quests[this.group.quest.key];
+      return this.group.quest.active;
     },
     isLeader () {
-      return this.user._id === this.guild.leader._id;
+      return this.user._id === this.group.leader._id;
     },
     isMember () {
-      return this.isMemberOfGroup(this.user, this.guild);
+      return this.isMemberOfGroup(this.user, this.group);
     },
     canEditQuest () {
-      var isQuestLeader = this.guild.quest && this.guild.quest.leader === this.user._id;
+      let isQuestLeader = this.group.quest && this.group.quest.leader === this.user._id;
       return isQuestLeader;
     },
     isMemberOfPendingQuest () {
       let userid = this.user._id;
-      let group = this.guild;
+      let group = this.group;
       if (!group.quest || !group.quest.members) return false;
       if (group.quest.active) return false; // quest is started, not pending
       return userid in group.quest.members && group.quest.members[userid] !== false;
     },
     isMemberOfRunningQuest () {
       let userid = this.user._id;
-      let group = this.guild;
+      let group = this.group;
       if (!group.quest || !group.quest.members) return false;
       if (!group.quest.active) return false; // quest is pending, not started
       return group.quest.members[userid];
@@ -467,13 +467,13 @@ export default {
       return leader || userIsManager;
     },
     hasChallenges () {
-      if (!this.guild.challenges) return false;
-      return this.guild.challenges.length === 0;
+      if (!this.group.challenges) return false;
+      return this.group.challenges.length === 0;
     },
   },
   created () {
     if (this.isParty) {
-      this.guildId = 'party';
+      this.groupId = 'party';
       // @TODO: Set up from old client. Decide what we need and what we don't
       // Check Desktop notifs
       // Mark Chat seen
@@ -483,7 +483,7 @@ export default {
       // Load group tasks for group plan
       // Load approvals for group plan
     } else if (this.$route.path.startsWith('/guilds/tavern')) {
-      this.guildId = TAVERN_ID;
+      this.groupId = TAVERN_ID;
     }
     this.fetchGuild();
   },
@@ -493,11 +493,11 @@ export default {
   },
   methods: {
     updateGuild () {
-      this.$store.state.editingGroup = this.guild;
+      this.$store.state.editingGroup = this.group;
       this.$root.$emit('show::modal', 'guild-form');
     },
     async fetchGuild () {
-      this.guild = await this.$store.dispatch('guilds:getGroup', {groupId: this.guildId});
+      this.group = await this.$store.dispatch('guilds:getGroup', {groupId: this.groupId});
       if (this.isParty) {
         this.checkForAchievements();
       }
@@ -534,16 +534,14 @@ export default {
     // },
     checkForAchievements () {
       // Checks if user's party has reached 2 players for the first time.
-      if(!this.user.achievements.partyUp
-          && this.guild.memberCount >= 2) {
+      if (!this.user.achievements.partyUp && this.group.memberCount >= 2) {
         // @TODO
         // User.set({'achievements.partyUp':true});
         // Achievement.displayAchievement('partyUp');
       }
 
       // Checks if user's party has reached 4 players for the first time.
-      if(!this.user.achievements.partyOn
-          && this.guild.memberCount >= 4) {
+      if (!this.user.achievements.partyOn && this.group.memberCount >= 4) {
         // @TODO
         // User.set({'achievements.partyOn':true});
         // Achievement.displayAchievement('partyOn');
@@ -551,20 +549,19 @@ export default {
     },
     // @TODO: This should be moved to notifications component
     async join () {
-
-      if (this.guild.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
+      if (this.group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
 
-      await this.$store.dispatch('guilds:join', {groupId: this.guild._id});
+      await this.$store.dispatch('guilds:join', {groupId: this.group._id});
 
       // @TODO: Implement
       // User.sync();
       // Analytics.updateUser({'partyID': party.id});
-      //  $rootScope.hardRedirect('/#/options/groups/party');
+      // $rootScope.hardRedirect('/#/options/groups/party');
     },
     clickLeave () {
-      //Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Leave Party'});
+      // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Leave Party'});
       // @TODO: Get challenges and ask to keep or remove
       let keep = true;
       this.leave(keep);
@@ -572,7 +569,7 @@ export default {
     async leave (keepTasks) {
       let keepChallenges = 'remain-in-challenges';
       await this.$store.dispatch('guilds:leave', {
-        groupId: this.guild._id,
+        groupId: this.group._id,
         keep: keepTasks,
         keepChallenges,
       });
@@ -585,26 +582,26 @@ export default {
     },
     // @TODO: Move to notificatin component
     async leaveOldPartyAndJoinNewParty () {
-      if (!confirm('Are you sure you want to delete your party and join ' + newPartyName + '?'));
-      return;
+      let newPartyName = 'where does this come from';
+      if (!confirm(`Are you sure you want to delete your party and join${newPartyName}?`)) return;
 
       let keepChallenges = 'remain-in-challenges';
       await this.$store.dispatch('guilds:leave', {
-        groupId: this.guild._id,
+        groupId: this.group._id,
         keep: false,
         keepChallenges,
       });
 
-      await this.$store.dispatch('guilds:join', {groupId: this.guild._id});
+      await this.$store.dispatch('guilds:join', {groupId: this.group._id});
     },
     // @TODO: Move to notificatin component
     async reject () {
-      await this.$store.dispatch('guilds:rejectInvite', {groupId: this.guild._id});
+      await this.$store.dispatch('guilds:rejectInvite', {groupId: this.group._id});
       // User.sync();
     },
     clickStartQuest () {
       // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Start a Quest'});
-      let hasQuests = _.find(User.user.items.quests, function(quest) {
+      let hasQuests = find(this.user.items.quests, (quest) => {
         return quest > 0;
       });
 
@@ -614,39 +611,34 @@ export default {
       }
       // $rootScope.$state.go('options.inventory.quests');
     },
-    async questInit () {
-      let key = this.selectedQuest.key;
-      await this.$store.dispatch('quests:initQuest', {key});
-      this.selectedQuest = undefined;
-    },
     async questCancel () {
       if (!confirm(this.$t('sureCancel'))) return;
-      let quest = await this.$store.dispatch('quests:cancel', {key});
-      this.guild.quest = quest;
+      let quest = await this.$store.dispatch('quests:sendAction', {action: 'quests/cancel'});
+      this.group.quest = quest;
     },
     async questAbort () {
       if (!confirm(this.$t('sureAbort'))) return;
       if (!confirm(this.$t('doubleSureAbort'))) return;
-      let quest = await this.$store.dispatch('quests:abort', {key});
-      this.guild.quest = quest;
+      let quest = await this.$store.dispatch('quests:sendAction', {action: 'quests/abort'});
+      this.group.quest = quest;
     },
     async questLeave () {
       if (!confirm(this.$t('sureLeave'))) return;
-      let quest = await this.$store.dispatch('quests:leave', {key});
-      this.guild.quest = quest;
+      let quest = await this.$store.dispatch('quests:sendAction', {action: 'quests/leave'});
+      this.group.quest = quest;
     },
     async questAccept () {
-      let quest = await this.$store.dispatch('quests:accept', {key});
-      this.guild.quest = quest;
+      let quest = await this.$store.dispatch('quests:sendAction', {action: 'quests/accept'});
+      this.group.quest = quest;
     },
     async questForceStart () {
-      let quest = await this.$store.dispatch('quests:forceSart', {key});
-      this.guild.quest = quest;
+      let quest = await this.$store.dispatch('quests:sendAction', {action: 'quests/force-start'});
+      this.group.quest = quest;
     },
     // @TODO: Move to notificaitons component?
     async questReject () {
-      let quest = await this.$store.dispatch('quests:reject', {key});
-      this.guild.quest = quest;
+      let quest = await this.$store.dispatch('quests:sendAction', {action: 'quests/reject'});
+      this.group.quest = quest;
     },
   },
 };
