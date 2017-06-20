@@ -1,39 +1,42 @@
 <template lang="pug">
-b-modal#start-quest-modal(title="Empty", size='sm', hide-footer=true)
-  h2 Attack of the Mundane, Part 1: Dish Disaster!
-  span by: Keith Holliday
-  p You reach the shores of Washed-Up Lake for some well-earned relaxation... But the lake is polluted with unwashed dishes! How did this happen? Well, you simply cannot allow the lake to be in this state. There is only one thing you can do: clean the dishes and save your vacation spot! Better find some soap to clean up this mess. A lot of soap...
-  div
+  b-modal#start-quest-modal(title="Empty", size='md', hide-footer=true)
+    .quest-image(:class="'quest_' + questData.key")
+    h2 {{questData.text()}}
+    //- span by: Keith Holliday @TODO: Add author
+    p {{questData.notes()}}
+    div.quest-details
+      div(v-if=' questData.collect')
+        Strong {{$t('collect')}}: &nbsp;
+        span(v-for="(value, key, index) in questData.collect")
+          | {{$t('collectionItems', { number: questData.collect[key].count, items: questData.collect[key].text() })}}
+      div
+        Strong {{$t('collect')}}: &nbsp;
+        span
+          .svg-icon(v-html="icons.difficultyStarIcon")
     div
-      Strong Collect: &nbsp;
-      span 20 Bars of Soap
+      button.btn.btn-primary(@click='questInit()') {{$t('inviteToPartyOrQuest')}}
     div
-      Strong Difficulty: &nbsp;
-      span 20 Bars of Soap
-  div
-    button.btn.btn-primary(@click='questInit()') Invite Party to Quest
-  div
-    p Clicking “Invite” will send an invitation to your party members. When all members have accepted or denied, the Quest begins.
-
-  .side-panel
-    h4.text-center Rewards
-    .box
-      .svg-icon(v-html="icons.starIcon")
-      strong 50 Experience
-    .box
-      .svg-icon(v-html="icons.goldIcon")
-      strong 7 Gold
-    h4.text-center Quest Owner Rewards
-    .box
-      .svg-icon(v-html="icons.goldIcon")
-      strong Attack of the Mundane, Part 2: The SnackLess Monster
+      p {{$t('inviteInformation')}}
+    .side-panel
+      h4.text-center {{$t('rewards')}}
+      .box
+        .svg-icon.rewards-icon(v-html="icons.starIcon")
+        strong {{questData.drop.exp}} {{$t('experience')}}
+      .box
+        .svg-icon.rewards-icon(v-html="icons.goldIcon")
+        strong {{questData.drop.gp}} {{$t('gold')}}
+      h4.text-center(v-if='questData.drop.items') {{$t('questOwnerRewards')}}
+      .box(v-for='item in questData.drop.items')
+        .rewards-icon(v-if='item.type === "quest"', :class="'quest_' + item.key")
+        .drop-rewards-icon(v-if='item.type === "gear"', :class="'shop_' + item.key")
+        strong.quest-reward-text {{item.text()}}
 </template>
 
-<style lang='scss'>
+<style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
 
   header {
-    background-color: $white;
+    background-color: $white !important;
     border: none !important;
 
     h5 {
@@ -41,31 +44,69 @@ b-modal#start-quest-modal(title="Empty", size='sm', hide-footer=true)
     }
   }
 
+  .quest-image {
+    margin: 0 auto;
+    margin-bottom: 1em;
+  }
+
+  .quest-details {
+    margin: 0 auto;
+    text-align: left;
+    width: 180px;
+  }
+
+  .btn-primary {
+    margin: 1em 0;
+  }
+
   .side-panel {
     background: #edecee;
     position: absolute;
     height: 460px;
-    width: 280px;
+    width: 320px;
     top: -1.8em;
-    left: 21em;
+    left: 35em;
     z-index: -1;
     padding-top: 1em;
     border-radius: 4px;
 
+    .drop-rewards-icon {
+      width: 35px;
+      height: 35px;
+      float: left;
+    }
+
+    .rewards-icon {
+      float: left;
+      width: 30px;
+      height: 30px;
+
+      svg {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    .quest-reward-text {
+      font-size: 12px;
+    }
+
     .box {
-      width: 180px;
+      width: 220px;
       height: 64px;
       border-radius: 2px;
       background-color: #ffffff;
       margin: 0 auto;
       margin-bottom: 1em;
-      padding: 1.4em;
+      padding: 1em;
     }
   }
 </style>
 
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
+
+import quests from 'common/script/content/quests';
 
 import copyIcon from 'assets/svg/copy.svg';
 import greyBadgeIcon from 'assets/svg/grey-badge.svg';
@@ -74,9 +115,10 @@ import facebookIcon from 'assets/svg/facebook.svg';
 import twitterIcon from 'assets/svg/twitter.svg';
 import starIcon from 'assets/svg/star.svg';
 import goldIcon from 'assets/svg/gold.svg';
+import difficultyStarIcon from 'assets/svg/difficulty-star.svg';
 
 export default {
-  props: ['group'],
+  props: ['group', 'selectedQuest'],
   components: {
     bModal,
   },
@@ -90,21 +132,25 @@ export default {
         twitter: twitterIcon,
         starIcon,
         goldIcon,
+        difficultyStarIcon,
       }),
       shareUserIdShown: false,
     };
   },
+  computed: {
+    questData () {
+      return quests.quests[this.selectedQuest];
+    },
+  },
   methods: {
     async questInit () {
-      // let key = this.selectedQuest.key;
-      let key = 'basilist';
+      let key = this.selectedQuest;
       // Analytics.updateUser({'partyID': party._id, 'partySize': party.memberCount});
       let response = await this.$store.dispatch('guilds:inviteToQuest', {groupId: this.group._id, key});
       let quest = response.data.data;
       this.group.quest = quest;
       this.$store.party.quest = quest;
       this.$root.$emit('hide::modal', 'start-quest-modal');
-      // this.selectedQuest = undefined;
     },
   },
 };

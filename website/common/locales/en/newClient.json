@@ -90,6 +90,12 @@
   "copy": "Copy",
   "lookingForGroup": "Looking for Group",
   "qrCode": "QR code",
-  "facebook": "Facebook",
-  "twitter": "Twitter"
+  "collect": "Collect",
+  "difficulty": "Difficulty",
+  "inviteToPartyOrQuest": "Invite Party to Quest",
+  "inviteInformation": "Clicking “Invite” will send an invitation to your party members. When all members have accepted or denied, the Quest begins.",
+  "rewards": "Rewards",
+  "experience": "Experience",
+  "gold": "Gold",
+  "questOwnerRewards": "Quest Owner Rewards"
 }

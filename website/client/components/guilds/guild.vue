@@ -1,5 +1,4 @@
 <template lang="pug">
-// TODO this is necessary until we have a way to wait for data to be loaded from the server
 .row(v-if="group")
   .clearfix.col-8
     .row
@@ -93,15 +92,15 @@
             h4(v-once) {{ $t('yourNotOnQuest') }}
             p(v-once) {{ $t('questDescription') }}
             button.btn.btn-secondary(v-once, @click="openStartQuestModal()") {{ $t('startAQuest') }}
-            start-quest-modal(:group='this.group')
+            owned-quests-modal(:group='this.group')
         .row.quest-active-section(v-if='isParty && onPendingQuest && !onActiveQuest')
           h2 Pending quest
           button.btn.btn-secondary(v-once, @click="questForceStart()") {{ $t('begin') }}
           button.btn.btn-secondary(v-once, @click="questCancel()") {{ $t('cancel') }}
         .row.quest-active-section(v-if='isParty && !onPendingQuest && onActiveQuest')
           .col-12.text-center
-            //- div(:class=`quest_${questData.key}`)
-            h4(v-once) {{ questData.boss.name() }}
+            div(:class="'quest_' + questData.key")
+            h3(v-once) {{ questData.boss.name() }}
             div(style="width: 100%; background-color: red; height:50px;")
             .quest-box.svg-icon(v-html="icons.questBackground")
             .boss-info
@@ -117,6 +116,7 @@
                     span.float-left 999/1000
                   .col-6
                     span.float-right 30 pending damage
+            button.btn.btn-secondary(v-once, @click="questAbort()") {{ $t('abort') }}
 
     .section-header
       .row
@@ -347,7 +347,7 @@
 import groupUtilities from 'client/mixins/groupsUtilities';
 import { mapState } from 'client/libs/store';
 import membersModal from './membersModal';
-import startQuestModal from './startQuestModal';
+import ownedQuestsModal from './ownedQuestsModal';
 import { TAVERN_ID } from 'common/script/constants';
 import quests from 'common/script/content/quests';
 import percent from 'common/script/libs/percent';
@@ -376,7 +376,7 @@ export default {
   props: ['guildId'],
   components: {
     membersModal,
-    startQuestModal,
+    ownedQuestsModal,
     bCollapse,
     bCard,
     bTooltip,
@@ -468,7 +468,7 @@ export default {
     },
     bossHpPercent () {
       return percent(this.group.quest.progress.hp, this.questData.boss.hp);
-    }
+    },
   },
   created () {
     if (this.isParty) {
@@ -501,7 +501,7 @@ export default {
         this.$store.party = group;
         this.group = this.$store.party;
         this.checkForAchievements();
-        this.questData = quests.quests[this.group.quest.key];console.log(this.questData)
+        this.questData = quests.quests[this.group.quest.key];
         return;
       }
       this.group = group;
@@ -512,7 +512,7 @@ export default {
       }
     },
     openStartQuestModal () {
-      this.$root.$emit('show::modal', 'start-quest-modal');
+      this.$root.$emit('show::modal', 'owned-quests-modal');
     },
     // inviteOrStartParty (group) {
       // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Invite Friends'});
@@ -610,7 +610,7 @@ export default {
       });
 
       if (hasQuests) {
-        this.$root.$emit('show::modal', 'owned-quests');
+        this.$root.$emit('show::modal', 'owned-quests-modal');
         return;
       }
       // $rootScope.$state.go('options.inventory.quests');
