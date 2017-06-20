@@ -189,9 +189,24 @@
               :item="ctx.item",
               :itemCount="userItems.food[ctx.item.key]",
             )
+
+    b-modal#welcome-modal(
+      :ok-only="true",
+      :ok-title="$t('gotIt')",
+      :visible="!hideDialog",
+      :hide-header="true"
+    )
+      div.content
+        div.npc_matt
+        h1.page-header(v-once) {{ $t('welcomeStable') }}
+        div.content-text(v-once) {{ $t('welcomeStableText') }}
+
 </template>
 
 <style lang="scss">
+
+  @import '~client/assets/scss/colors.scss';
+
   .inventory-item-container {
     padding: 20px;
     border: 1px solid;
@@ -264,6 +279,47 @@
     height: 114px;
   }
 
+
+  div#welcome-modal {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    header, footer {
+      border: 0;
+    }
+
+    .npc_matt {
+      margin: 0 auto 21px auto;
+    }
+
+    .content {
+      text-align: center;
+
+      // the modal already has 15px padding
+      margin-left: 33px;
+      margin-right: 33px;
+      margin-top: 25px;
+    }
+
+    .content-text {
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 1.43;
+
+      width: 400px;
+    }
+
+    .modal-footer {
+      justify-content: center;
+    }
+  }
+
+  .modal-backdrop.fade.show {
+    background-color: $purple-50;
+    opacity: 0.9;
+  }
 </style>
 
 <script>
@@ -272,6 +328,7 @@
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
   import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
   import bPopover from 'bootstrap-vue/lib/components/popover';
+  import bModal from 'bootstrap-vue/lib/components/modal';
 
   import _each from 'lodash/each';
   import _sortBy from 'lodash/sortBy';
@@ -307,6 +364,7 @@
       bDropdown,
       bDropdownItem,
       bPopover,
+      bModal,
       toggleSwitch,
       StarBadge,
       CountBadge,
@@ -350,6 +408,7 @@
         currentPet: 'user.data.items.currentPet',
         currentMount: 'user.data.items.currentMount',
         userItems: 'user.data.items',
+        hideDialog: 'user.data.flags.tutorial.common.mounts',
       }),
 
       petGroups () {

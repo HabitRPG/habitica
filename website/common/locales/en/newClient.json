@@ -80,5 +80,8 @@
   "showAllAnimals": "Show All <%= color %> <%= type %>",
   "showLessAnimals": "Show Less <%= color %> <%= type %>",
   "quickInventory": "Quick Inventory",
-  "noFood": "You don't have any items."
+  "noFood": "You don't have any items.",
+  "gotIt": "Got it!",
+  "welcomeStable": "Welcome to the Stable!",
+  "welcomeStableText": "I'm Matt, the Beast Master. Starting at level 3, you can hatch Pets from Eggs by using Potions you find! When you hatch a Pet from your Inventory, it will appear here! Click a Pet's to add it to your avatar. Feed them with the Food you find in your Inventory after level 3, and they'll grow into hardy Mounts."
 }
