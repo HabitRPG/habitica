@@ -76,7 +76,7 @@ import starIcon from 'assets/svg/star.svg';
 import goldIcon from 'assets/svg/gold.svg';
 
 export default {
-  props: ['groupId'],
+  props: ['group'],
   components: {
     bModal,
   },
@@ -97,10 +97,14 @@ export default {
   methods: {
     async questInit () {
       // let key = this.selectedQuest.key;
-      let key = 'dilatory';
+      let key = 'basilist';
       // Analytics.updateUser({'partyID': party._id, 'partySize': party.memberCount});
-      await this.$store.dispatch('guilds:inviteToQuest', {groupId: this.groupId, key});
-      this.selectedQuest = undefined;
+      let response = await this.$store.dispatch('guilds:inviteToQuest', {groupId: this.group._id, key});
+      let quest = response.data.data;
+      this.group.quest = quest;
+      this.$store.party.quest = quest;
+      this.$root.$emit('hide::modal', 'start-quest-modal');
+      // this.selectedQuest = undefined;
     },
   },
 };

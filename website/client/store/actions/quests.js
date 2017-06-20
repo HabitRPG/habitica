@@ -7,7 +7,7 @@ export async function sendAction (store, payload) {
   //   partyID: party._id,
   //   partySize: party.memberCount
   // });
-  let response = await axios.get(`/api/v3/groups/${payload.groupId}/${payload.action}`);
+  let response = await axios.post(`/api/v3/groups/${payload.groupId}/${payload.action}`);
 
   // @TODO: Update user?
   //  User.sync();

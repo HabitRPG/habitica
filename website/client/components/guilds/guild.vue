@@ -87,20 +87,22 @@
           .toggle-down(@click="sections.quest = !sections.quest", v-if="!sections.quest")
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.quest")
-        .row.no-quest-section(v-if='isParty && !onQuest')
+        .row.no-quest-section(v-if='isParty && !onPendingQuest && !onActiveQuest')
           .col-12.text-center
             .svg-icon(v-html="icons.questIcon")
             h4(v-once) {{ $t('yourNotOnQuest') }}
             p(v-once) {{ $t('questDescription') }}
             button.btn.btn-secondary(v-once, @click="openStartQuestModal()") {{ $t('startAQuest') }}
-            start-quest-modal(:groupId='this.group._id')
-        .row.quest-active-section
+            start-quest-modal(:group='this.group')
+        .row.quest-active-section(v-if='isParty && onPendingQuest && !onActiveQuest')
+          h2 Pending quest
+          button.btn.btn-secondary(v-once, @click="questForceStart()") {{ $t('begin') }}
+          button.btn.btn-secondary(v-once, @click="questCancel()") {{ $t('cancel') }}
+        .row.quest-active-section(v-if='isParty && !onPendingQuest && onActiveQuest')
           .col-12.text-center
-            .svg-icon(v-html="icons.questIcon")
-            p {{questData}}
-            h4(v-once) {{ $t('yourNotOnQuest') }}
-            p(v-once) {{ $t('questDescription') }}
-            <!-- .quest-box(style='background-image: {{this.questBackground}}') -->
+            //- div(:class=`quest_${questData.key}`)
+            h4(v-once) {{ questData.boss.name() }}
+            div(style="width: 100%; background-color: red; height:50px;")
             .quest-box.svg-icon(v-html="icons.questBackground")
             .boss-info
               .row
@@ -348,6 +350,7 @@ import membersModal from './membersModal';
 import startQuestModal from './startQuestModal';
 import { TAVERN_ID } from 'common/script/constants';
 import quests from 'common/script/content/quests';
+import percent from 'common/script/libs/percent';
 
 import bCollapse from 'bootstrap-vue/lib/components/collapse';
 import bCard from 'bootstrap-vue/lib/components/card';
@@ -414,17 +417,10 @@ export default {
     isParty () {
       return this.$route.path.startsWith('/party');
     },
-    onQuest () {
-      let fakeQuestData = {
-        active: false,
-        extra: {},
-        key: 'basilist',
-        leader: '206039c6-24e4-4b9f-8a31-61cbb9aa3f66',
-        members: {},
-        progress: {hp: 100, collect: {}},
-      };
-      this.group.quest = fakeQuestData;
-      this.questData = quests.quests[this.group.quest.key];
+    onPendingQuest () {
+      return Boolean(this.group.quest.key) && !this.group.quest.active;
+    },
+    onActiveQuest () {
       return this.group.quest.active;
     },
     isLeader () {
@@ -470,6 +466,9 @@ export default {
       if (!this.group.challenges) return false;
       return this.group.challenges.length === 0;
     },
+    bossHpPercent () {
+      return percent(this.group.quest.progress.hp, this.questData.boss.hp);
+    }
   },
   created () {
     if (this.isParty) {
@@ -497,10 +496,15 @@ export default {
       this.$root.$emit('show::modal', 'guild-form');
     },
     async fetchGuild () {
-      this.group = await this.$store.dispatch('guilds:getGroup', {groupId: this.groupId});
+      let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.groupId});
       if (this.isParty) {
+        this.$store.party = group;
+        this.group = this.$store.party;
         this.checkForAchievements();
+        this.questData = quests.quests[this.group.quest.key];console.log(this.questData)
+        return;
       }
+      this.group = group;
     },
     deleteAllMessages () {
       if (confirm(this.$t('confirmDeleteAllMessages'))) {
@@ -613,31 +617,31 @@ export default {
     },
     async questCancel () {
       if (!confirm(this.$t('sureCancel'))) return;
-      let quest = await this.$store.dispatch('quests:sendAction', {action: 'quests/cancel'});
+      let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/cancel'});
       this.group.quest = quest;
     },
     async questAbort () {
       if (!confirm(this.$t('sureAbort'))) return;
       if (!confirm(this.$t('doubleSureAbort'))) return;
-      let quest = await this.$store.dispatch('quests:sendAction', {action: 'quests/abort'});
+      let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/abort'});
       this.group.quest = quest;
     },
     async questLeave () {
       if (!confirm(this.$t('sureLeave'))) return;
-      let quest = await this.$store.dispatch('quests:sendAction', {action: 'quests/leave'});
+      let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/leave'});
       this.group.quest = quest;
     },
     async questAccept () {
-      let quest = await this.$store.dispatch('quests:sendAction', {action: 'quests/accept'});
+      let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/accept'});
       this.group.quest = quest;
     },
     async questForceStart () {
-      let quest = await this.$store.dispatch('quests:sendAction', {action: 'quests/force-start'});
+      let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/force-start'});
       this.group.quest = quest;
     },
     // @TODO: Move to notificaitons component?
     async questReject () {
-      let quest = await this.$store.dispatch('quests:sendAction', {action: 'quests/reject'});
+      let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/reject'});
       this.group.quest = quest;
     },
   },

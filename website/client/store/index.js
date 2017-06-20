@@ -18,6 +18,7 @@ export default function () {
       user: asyncResourceFactory(),
       tasks: asyncResourceFactory(), // user tasks
       party: {
+        quest: {},
         members: asyncResourceFactory(),
       },
       myGuilds: [],
