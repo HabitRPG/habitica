@@ -329,7 +329,7 @@ api.deleteUser = {
     await user.remove();
 
     if (feedback) {
-      txnEmail(TECH_ASSISTANCE_EMAIL, 'admin-feedback', [
+      txnEmail({email: TECH_ASSISTANCE_EMAIL}, 'admin-feedback', [
         {name: 'PROFILE_NAME', content: user.profile.name},
         {name: 'UUID', content: user._id},
         {name: 'EMAIL', content: getUserInfo(user, ['email']).email},
