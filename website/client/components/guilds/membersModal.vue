@@ -1,6 +1,9 @@
 <template lang="pug">
 div
-  button.btn.btn-primary(b-btn, @click="$root.$emit('show::modal','members-modal')") {{ $t('viewMembers') }}
+  .item-with-icon(@click="$root.$emit('show::modal','members-modal')")
+    .svg-icon.shield(v-html="icons.goldGuildBadgeIcon")
+    span.number {{group.memberCount}}
+    div(v-once) {{ $t('guildMembers') }}
 
   b-modal#members-modal(:title="$t('createGuild')", size='lg')
     .header-wrap(slot="modal-header")
@@ -23,20 +26,21 @@ div
       .col-3.actions
         b-dropdown(:text="$t('sort')", right=true)
           b-dropdown-item(@click='sort(option.value)')
-            img.action-icon(src='~assets/members/remove.svg')
+            .svg-icon(v-html="icons.removeIcon")
             | {{$t('removeMember')}}
           b-dropdown-item(@click='sort(option.value)')
-            img.action-icon(src='~assets/members/message.svg')
+            .svg-icon(v-html="icons.messageIcon")
             | {{$t('sendMessage')}}
           b-dropdown-item(@click='sort(option.value)')
-            img.action-icon(src='~assets/members/star.svg')
+            .svg-icon(v-html="icons.starIcon")
             | {{$t('promoteToLeader')}}
           b-dropdown-item(@click='sort(option.value)')
-            img.action-icon(src='~assets/members/star.svg')
+            .svg-icon(v-html="icons.starIcon")
             | {{$t('addManager')}}
           b-dropdown-item(@click='sort(option.value)')
-            img.action-icon(src='~assets/members/remove.svg')
+            .svg-icon(v-html="icons.removeIcon")
             | {{$t('removeManager2')}}
+    .row-fluid.gradient
 
   b-modal#remove-member(:title="$t('confirmRemoveMember')")
     button(@click='confirmRemoveMember(member)', v-once) {{$t('remove')}}
@@ -45,7 +49,7 @@ div
     button(@click='confirmRemoveMember(member)', v-once) {{$t('remove')}}
 </template>
 
-<style lang='scss'>
+<style lang='scss' scoped>
   header {
     background-color: #edecee;
     border-radius: 4px 4px 0 0;
@@ -66,6 +70,48 @@ div
       margin-right: 1em;
     }
   }
+
+  #members-modal_modal_body {
+    padding: 0;
+
+    .col-8 {
+      margin-left: 0;
+    }
+
+    .member-details {
+      margin: 0;
+    }
+
+    .member-stats {
+      width: 382px;
+      height: 147px;
+    }
+
+    .gradient {
+      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), #ffffff);
+      height: 200px;
+      width: 100%;
+      position: absolute;
+      bottom: 0px;
+    }
+  }
+
+  .item-with-icon {
+    border-radius: 2px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+    padding: 1em;
+  }
+
+  .svg-icon.shield, .svg-icon.gem {
+    width: 40px;
+    margin-right: 1em;
+  }
+
+  .number {
+    font-size: 22px;
+    font-weight: bold;
+  }
 </style>
 
 <script>
@@ -74,6 +120,10 @@ import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
 import MemberDetails from '../memberDetails';
+import removeIcon from 'assets/members/remove.svg';
+import messageIcon from 'assets/members/message.svg';
+import starIcon from 'assets/members/star.svg';
+import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge.svg';
 
 export default {
   props: ['group'],
@@ -109,6 +159,12 @@ export default {
         },
       ],
       searchTerm: '',
+      icons: Object.freeze({
+        removeIcon,
+        messageIcon,
+        starIcon,
+        goldGuildBadgeIcon,
+      }),
     };
   },
   methods: {

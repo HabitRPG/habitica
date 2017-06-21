@@ -8,13 +8,9 @@
         span.float-left(v-once, v-if='group.leader.profile') : {{group.leader.profile.name}}
       .col-6
         .row.icon-row
-          .col-6
+          .col-6(v-bind:class="{ 'offset-6': isParty }")
             members-modal(:group='group', v-if='isMember')
-            .item-with-icon
-              .svg-icon.shield(v-html="icons.goldGuildBadge")
-              span.number {{group.memberCount}}
-              div(v-once) {{ $t('guildMembers') }}
-          .col-6
+          .col-6(v-if='!isParty')
             .item-with-icon
               .svg-icon.gem(v-html="icons.gem")
               span.number {{group.memberCount}}
@@ -363,7 +359,6 @@ import likeIcon from 'assets/svg/like.svg';
 import likedIcon from 'assets/svg/liked.svg';
 import reportIcon from 'assets/svg/report.svg';
 import gemIcon from 'assets/svg/gem.svg';
-import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge.svg';
 import questIcon from 'assets/svg/quest.svg';
 import challengeIcon from 'assets/svg/challenge.svg';
 import informationIcon from 'assets/svg/information.svg';
@@ -393,7 +388,6 @@ export default {
         report: reportIcon,
         delete: deleteIcon,
         gem: gemIcon,
-        goldGuildBadge: goldGuildBadgeIcon,
         liked: likedIcon,
         questIcon,
         challengeIcon,
