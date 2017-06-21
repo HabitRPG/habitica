@@ -1,0 +1,59 @@
+ .task-color {
+  // for editing rewards or when a task is created
+  &-purple {
+    background: $purple-300;
+  }
+
+  &-worst {
+    background: $maroon-100;
+    &-control {
+      background: darken($maroon-100, 12%);
+    }
+  }
+
+  &-worse {
+    background: $red-100;
+    &-control {
+      background: darken($red-100, 12%);
+    }
+  }
+
+  &-bad {
+    background: $orange-100;
+    &-control {
+      background: darken($orange-100, 12%);
+    }
+  }
+
+  &-neutral {
+    background: $yellow-50;
+    &-control {
+      background: darken($yellow-50, 12%);
+    }
+  }
+
+  &-good {
+    background: $green-10;
+    &-control {
+      background: darken($green-10, 12%);
+    }
+  }
+
+  &-better {
+    background: $blue-50;
+    &-control {
+      background: darken($blue-50, 12%);
+    }
+  }
+
+  &-best {
+    background: $teal-50;
+    &-control {
+      background: darken($teal-50, 12%);
+    }
+  }
+
+  &-reward {
+    background: rgba($yellow-500, 0.26);
+  }
+}

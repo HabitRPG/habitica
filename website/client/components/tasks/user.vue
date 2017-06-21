@@ -28,7 +28,8 @@
   border-radius: 4px;
   background: $gray-600;
   padding: 8px;
-  padding-bottom: 0.1px; // not sure why but this is necessary or the last task will overflow the container
+  // not sure why but this is necessary or the last task will overflow the container
+  padding-bottom: 0.1px;
 }
 
 .tasks-column-title {

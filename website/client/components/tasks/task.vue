@@ -1,9 +1,13 @@
 <template lang="pug">
-.task(:class="color")
-  h3.task-title {{task.text}}
-  .task-notes.small-text {{task.notes}}
-  // p(v-if="task.type === 'habit'") up: {{task.up}}, down: {{task.down}}
-  // p value: {{task.value}}
+.task.d-flex
+  .left-control.d-flex.align-items-center(v-if="leftControl", :class="controlColor")
+    .control-area(:class="controlAreaColor")
+  .task-content
+    h3.task-title(:class="{ 'has-notes': task.notes }") {{task.text}}
+    .task-notes.small-text {{task.notes}}
+    .icons.small-text icons
+  .right-control.d-flex.align-items-center(v-if="rightControl", :class="controlColor")
+    .control-area(:class="controlAreaColor")
   // template(v-if="task.type === 'daily' || task.type === 'todo'")
     p completed: {{task.completed}}
     p
@@ -23,51 +27,59 @@
 @import '~client/assets/scss/colors.scss';
 
 .task {
-  padding: 8px;
   margin-bottom: 8px;
   box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
   background: $white;
+  border-radius: 2px;
 }
 
 .task-title {
-  margin-bottom: 0px;
+  margin-bottom: 8px;
   color: $gray-10;
   font-weight: normal;
+
+  &.has-notes {
+    margin-bottom: 0px;
+  }
 }
 
 .task-notes {
   color: $gray-100;
   font-style: normal;
+  margin-bottom: 4px;
 }
 
-.color {
-  &-worst {
-    background: $maroon-100;
-  }
+.task-content {
+  padding: 8px;
+  flex-grow: 1;
+}
 
-  &-worse {
-    background: $red-100;
-  }
+.icons {
+  float: right;
+  color: $gray-300;
+}
 
-  &-bad {
-    background: $orange-100;
-  }
+.left-control, .right-control {
+  width: 40px;
+  flex-shrink: 0;
+}
 
-  &-neutral {
-    background: $yellow-50;
-  }
+.left-control {
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
 
-  &-good {
-    background: $green-10;
-  }
+.right-control {
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
 
-  &-better {
-    background: $blue-50;
-  }
-
-  &-best {
-   background: $teal-50;
-  }
+.control-area {
+  width: 28px;
+  height: 28px;
+  border-radius: 100px;
+  color: $white;
+  margin: 0 auto;
 }
 </style>
 
@@ -78,27 +90,26 @@ export default {
   props: ['task'],
   computed: {
     ...mapState({user: 'user.data'}),
-    ...mapGetters({getTagsFor: 'tasks:getTagsFor'}),
-    color () {
-      const value = this.task.value;
-
-      if (this.task.type === 'reward') {
-        return 'color-purple';
-      } else if (value < -20) {
-        return 'color-worst';
-      } else if (value < -10) {
-        return 'color-worse';
-      } else if (value < -1) {
-        return 'color-bad';
-      } else if (value < 1) {
-        return 'color-neutral';
-      } else if (value < 5) {
-        return 'color-good';
-      } else if (value < 10) {
-        return 'color-better';
-      } else {
-        return 'color-best';
-      }
+    ...mapGetters({
+      getTagsFor: 'tasks:getTagsFor',
+      getColorClassFor: 'tasks:getColorClassFor',
+    }),
+    leftControl () {
+      const task = this.task;
+      if (task.type === 'reward') return false;
+      return true;
+    },
+    rightControl () {
+      const task = this.task;
+      if (task.type === 'reward') return true;
+      if (task.type === 'habit') return true;
+      return false;
+    },
+    controlColor () {
+      return this.getColorClassFor(this.task);
+    },
+    controlAreaColor () {
+      return this.getColorClassFor(this.task, {isControlArea: true});
     },
   },
   data () {
