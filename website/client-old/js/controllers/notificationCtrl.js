@@ -15,7 +15,7 @@ habitrpg.controller('NotificationCtrl',
       var userLastCron = moment(User.user.lastCron).local();
       var userDayStart = moment().startOf('day').add({ hours: User.user.preferences.dayStart });
 
-      if (userLastCron.date() == userDayStart.date()) return;
+      if (!User.user.needsCron) return;
       var dailys = User.user.dailys;
 
       if (!Boolean(dailys) || dailys.length === 0) return;
