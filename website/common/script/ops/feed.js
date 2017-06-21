@@ -10,9 +10,7 @@ import {
 function evolve (user, pet, req) {
   user.items.pets[pet.key] = -1;
   user.items.mounts[pet.key] = true;
-
   handleMountAchievements(user);
-
   if (pet.key === user.items.currentPet) {
     user.items.currentPet = '';
   }
@@ -21,34 +19,25 @@ function evolve (user, pet, req) {
     egg: pet.text(req.language),
   }, req.language);
 }
-    function handleMountAchievements(user) {
-        //Mount collector
-        console.log(0);
-        console.log(user);
-        console.log(user.achievements.mountMaster || 0);
-        var retrospectiveCount = (user.achievements.mountMaster || 0) * 90 + (Object.keys(user.items.mounts).length || 0);
-        console.log("retro" + retrospectiveCount);
-        console.log(Object.keys(user.items.mounts).length);
-        user.achievements.mountCollector = Math.max(retrospectiveCount, user.achievements.mountCollector || 0);
-        console.log(user.achievements.mountCollector);
-        switch (user.achievements.mountCollector) {
-            case 1:
-                Achievement.displayAchievement('mountCollector1');
-                break;
-            case 10:
-                Achievement.displayAchievement('mountCollector10');
-                break;
-            case 25:
-                Achievement.displayAchievement('mountCollector25');
-                break;
-            case 50:
-                Achievement.displayAchievement('mountCollector50');
-                break;
-        }
+function handleMountAchievements(_user) {
+    console.log("MC-1 " + _user.achievements.mountCollector);
 
-
+    //Mount collector
+    var mountCount = 0;
+    for (var i in _user.items.mounts) {
+        if (_user.items.mounts[i]) mountCount++;
     }
-module.exports = function feed (user, req = {}) {
+    //tracks mounts raised on mobile, or before the achievement was added
+    console.log("MC0 " + _user.achievements.mountCollector);
+    console.log(mountCount);
+    //var retrospectiveCount = (user.achievements.mountMasterCount || 0) * 90 + (mountsCount || 0);
+    //console.log(retrospectiveCount);
+    console.log("MC1 " + _user.achievements.mountCollector);
+    _user.achievements.mountCollector = Math.max(mountCount, (_user.achievements.mountCollector || 0) + 1);
+    console.log("MC: " + _user.achievements.mountCollector);
+}
+
+module.exports = function feed(user, req = {}) {
   let pet = get(req, 'params.pet');
   let foodK = get(req, 'params.food');
 

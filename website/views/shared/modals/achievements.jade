@@ -84,13 +84,54 @@ script(id='modals/achievements/beastMaster.html', type='text/ng-template')
     +achievementFooter
 
 // MountCollector
-script(id='modals/achievements/streak.html', type='text/ng-template')
+script(id='modals/achievements/mountCollector1.html', type='text/ng-template')
   .modal-content(style='min-width:28em')
     .modal-body.text-center
       h3(style='margin-bottom: 0')=env.t('streakAchievement')
-      +achievementAvatar('thermometer',2.5)
-      h4(ng-if='user.achievements.MountCollector === 1')=env.t('firstmountCollectorAchievement')
-      h4(ng-if='user.achievements.MountCollector > 1')=env.t('mountCollectorAchievementCount', {mounts:'{{::user.achievements.MountCollector}}'})
+      +achievementAvatar('grow-mount-1-',2.5)
+      h4=env.t('firstmountCollectorAchievement')
+      p=env.t('twentyOneDays')
+      p=env.t('dontBreakStreak')
+      br
+      button.btn.btn-primary(ng-click='$close()')=env.t('dontStop')
+      .checkbox
+        label(style='display:inline-block')=env.t('dontShowAgain')
+          input(type='checkbox', ng-model='user.preferences.suppressModals.streak', ng-change='set({"preferences.suppressModals.streak": user.preferences.suppressModals.streak?true: false})')
+    +achievementFooter
+script(id='modals/achievements/mountCollector10.html', type='text/ng-template')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom: 0')=env.t('streakAchievement')
+      +achievementAvatar('grow-mount-10-',2.5)
+      h4=env.t('mountCollectorAchievementCount', {mounts:'{{::user.achievements.MountCollector}}'})
+      p=env.t('twentyOneDays')
+      p=env.t('dontBreakStreak')
+      br
+      button.btn.btn-primary(ng-click='$close()')=env.t('dontStop')
+      .checkbox
+        label(style='display:inline-block')=env.t('dontShowAgain')
+          input(type='checkbox', ng-model='user.preferences.suppressModals.streak', ng-change='set({"preferences.suppressModals.streak": user.preferences.suppressModals.streak?true: false})')
+    +achievementFooter
+script(id='modals/achievements/mountCollector25.html', type='text/ng-template')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom: 0')=env.t('streakAchievement')
+      +achievementAvatar('grow-mount-25-',2.5)
+      h4=env.t('mountCollectorAchievementCount', {mounts:'{{::user.achievements.MountCollector}}'})
+      p=env.t('twentyOneDays')
+      p=env.t('dontBreakStreak')
+      br
+      button.btn.btn-primary(ng-click='$close()')=env.t('dontStop')
+      .checkbox
+        label(style='display:inline-block')=env.t('dontShowAgain')
+          input(type='checkbox', ng-model='user.preferences.suppressModals.streak', ng-change='set({"preferences.suppressModals.streak": user.preferences.suppressModals.streak?true: false})')
+    +achievementFooter
+script(id='modals/achievements/mountCollector50.html', type='text/ng-template')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom: 0')=env.t('streakAchievement')
+      +achievementAvatar('grow-mount-50-',2.5)
+      h4=env.t('mountCollectorAchievementCount', {mounts:'{{::user.achievements.MountCollector}}'})
       p=env.t('twentyOneDays')
       p=env.t('dontBreakStreak')
       br

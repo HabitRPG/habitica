@@ -253,6 +253,22 @@
             size:'sm'
           });
         }
+        //Checks if a new mountCollector achievement level was reached
+        switch (user.achievements.mountCollector) {
+            case 1:
+                Achievement.displayAchievement('mountCollector1');
+                break;
+            case 10:
+                Achievement.displayAchievement('mountCollector10');
+                break;
+            case 25:
+                Achievement.displayAchievement('mountCollector25');
+                break;
+            case 50:
+                Achievement.displayAchievement('mountCollector50');
+                break;
+        }
+        console.log(User.user.achievements.mountCollector);
         // Checks if mountmaster has been reached for the first time
         if (!user.achievements.mountMaster
             && $scope.mountCount >= 90) {
