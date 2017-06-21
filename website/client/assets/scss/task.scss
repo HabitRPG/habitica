@@ -66,6 +66,14 @@
     }
   }
 
+  &-daily-todo-content-disabled {
+    background: $gray-600;
+
+    * {
+      color: $gray-300 !important;
+    }
+  }
+
   &-habit-disabled {
     background: $gray-700;
     color: rgba(0, 0, 0, 0.12);

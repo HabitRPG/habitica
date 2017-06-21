@@ -1,25 +1,28 @@
 <template lang="pug">
 .task.d-flex
   // Habits left side control
-  .left-control.d-flex.align-items-center(v-if="task.type === 'habit'", :class="controlClass.up")
-    .habit-control(:class="controlClass.up + '-control'")
+  .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.up")
+    .task-control.habit-control(:class="controlClass.up + '-control'")
       .svg-icon.positive(v-html="icons.positive")
   // Dailies and todos left side control
-  .left-control.d-flex.align-items-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass")
+  .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass")
+    .task-control.daily-todo-control(:class="controlClass + '-control'")
   // Task title, description and icons
-  .task-content
+  .task-content(:class="contentClass")
     h3.task-title(:class="{ 'has-notes': task.notes }") {{task.text}}
     .task-notes.small-text {{task.notes}}
     .icons.small-text icons
   // Habits right side control
-  .right-control.d-flex.align-items-center(v-if="task.type === 'habit'", :class="controlClass.down")
-    .habit-control(:class="controlClass.down + '-control'")
+  .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down")
+    .task-control.habit-control(:class="controlClass.down + '-control'")
       .svg-icon.negative(v-html="icons.negative")
   // Rewards right side control
-  .right-control.d-flex.align-items-center(v-if="task.type === 'reward'", :class="controlClass")
+  .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass")
+    .svg-icon(v-html="icons.gold")
+    .small-text {{task.value}}
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '~client/assets/scss/colors.scss';
 
 .task {
@@ -70,12 +73,14 @@
   border-bottom-right-radius: 2px;
 }
 
-.habit-control {
+.task-control {
   width: 28px;
   height: 28px;
+}
+
+.habit-control {
   border-radius: 100px;
   color: $white;
-  margin: 0 auto;
 
   .svg-icon {
     width: 10px;
@@ -90,12 +95,31 @@
     margin-top: 13px;
   }
 }
+
+.daily-todo-control {
+  border-radius: 2px;
+}
+
+.reward-control {
+  flex-direction: column;
+
+  .svg-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .small-text {
+    margin-top: 4px;
+    color: $yellow-10;
+  }
+}
 </style>
 
 <script>
 import { mapState, mapGetters } from 'client/libs/store';
 import positiveIcon from 'assets/svg/positive.svg';
 import negativeIcon from 'assets/svg/negative.svg';
+import goldIcon from 'assets/svg/gold.svg';
 
 export default {
   props: ['task'],
@@ -104,6 +128,7 @@ export default {
       icons: Object.freeze({
         positive: positiveIcon,
         negative: negativeIcon,
+        gold: goldIcon,
       }),
     };
   },
@@ -126,6 +151,9 @@ export default {
     },
     controlClass () {
       return this.getTaskClasses(this.task, 'control');
+    },
+    contentClass () {
+      return this.getTaskClasses(this.task, 'content');
     },
   },
 };

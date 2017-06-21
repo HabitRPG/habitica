@@ -24,7 +24,7 @@ function getTaskColorByValue (value) {
 }
 
 export function getTaskClasses () {
-  // Purpose is one of 'controls', 'editModal', 'createModal'
+  // Purpose is one of 'controls', 'editModal', 'createModal', 'content'
   return (task, purpose) => {
     const type = task.type;
 
@@ -36,10 +36,10 @@ export function getTaskClasses () {
       case 'control':
         switch (type) {
           case 'daily':
-            if (task.checked /* || !task.shouldDo */) return 'task-daily-todo-disabled'; // TODO add shouldDo
+            if (task.completed || !task.isDue) return 'task-daily-todo-disabled'; // TODO add shouldDo
             return getTaskColorByValue(task.value);
           case 'todo':
-            if (task.checked) return 'task-daily-todo-disabled';
+            if (task.completed) return 'task-daily-todo-disabled';
             return getTaskColorByValue(task.value);
           case 'habit':
             return {
@@ -49,6 +49,12 @@ export function getTaskClasses () {
           case 'reward':
             return 'task-reward';
         }
+        break;
+      case 'content':
+        if (type === 'daily' && (task.completed || !task.isDue) || type === 'todo' && task.completed) {
+          return 'task-daily-todo-content-disabled';
+        }
+        break;
     }
   };
 }
