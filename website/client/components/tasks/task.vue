@@ -1,29 +1,25 @@
 <template lang="pug">
 .task.d-flex
-  .left-control.d-flex.align-items-center(v-if="leftControl", :class="controlColor")
-    .control-area(:class="controlAreaColor")
+  // Habits left side control
+  .left-control.d-flex.align-items-center(v-if="task.type === 'habit'", :class="controlClass.up")
+    .habit-control(:class="controlClass.up + '-control'")
+      .svg-icon.positive(v-html="icons.positive")
+  // Dailies and todos left side control
+  .left-control.d-flex.align-items-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass")
+  // Task title, description and icons
   .task-content
     h3.task-title(:class="{ 'has-notes': task.notes }") {{task.text}}
     .task-notes.small-text {{task.notes}}
     .icons.small-text icons
-  .right-control.d-flex.align-items-center(v-if="rightControl", :class="controlColor")
-    .control-area(:class="controlAreaColor")
-  // template(v-if="task.type === 'daily' || task.type === 'todo'")
-    p completed: {{task.completed}}
-    p
-      span checklist
-      ul 
-        li(v-for="checklist in task.checklist") {{checklist.text}}
-  // template(v-if="task.type === 'daily'") 
-    p streak: {{task.streak}}
-    p repeat: {{task.repeat}}
-  // p(v-if="task.type === 'todo'") due date: {{task.date}}
-  // p attribute {{task.attribute}}
-  // p difficulty {{task.priority}}
-  // p tags {{getTagsFor(task)}}
+  // Habits right side control
+  .right-control.d-flex.align-items-center(v-if="task.type === 'habit'", :class="controlClass.down")
+    .habit-control(:class="controlClass.down + '-control'")
+      .svg-icon.negative(v-html="icons.negative")
+  // Rewards right side control
+  .right-control.d-flex.align-items-center(v-if="task.type === 'reward'", :class="controlClass")
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~client/assets/scss/colors.scss';
 
 .task {
@@ -74,25 +70,48 @@
   border-bottom-right-radius: 2px;
 }
 
-.control-area {
+.habit-control {
   width: 28px;
   height: 28px;
   border-radius: 100px;
   color: $white;
   margin: 0 auto;
+
+  .svg-icon {
+    width: 10px;
+    margin: 0 auto;
+  }
+
+  .positive {
+    margin-top: 9px;
+  }
+
+  .negative {
+    margin-top: 13px;
+  }
 }
 </style>
 
 <script>
 import { mapState, mapGetters } from 'client/libs/store';
+import positiveIcon from 'assets/svg/positive.svg';
+import negativeIcon from 'assets/svg/negative.svg';
 
 export default {
   props: ['task'],
+  data () {
+    return {
+      icons: Object.freeze({
+        positive: positiveIcon,
+        negative: negativeIcon,
+      }),
+    };
+  },
   computed: {
     ...mapState({user: 'user.data'}),
     ...mapGetters({
       getTagsFor: 'tasks:getTagsFor',
-      getColorClassFor: 'tasks:getColorClassFor',
+      getTaskClasses: 'tasks:getTaskClasses',
     }),
     leftControl () {
       const task = this.task;
@@ -105,19 +124,9 @@ export default {
       if (task.type === 'habit') return true;
       return false;
     },
-    controlColor () {
-      return this.getColorClassFor(this.task);
+    controlClass () {
+      return this.getTaskClasses(this.task, 'control');
     },
-    controlAreaColor () {
-      return this.getColorClassFor(this.task, {isControlArea: true});
-    },
-  },
-  data () {
-    return {
-      colors: Object.freeze({
-
-      }),
-    };
   },
 };
 </script>

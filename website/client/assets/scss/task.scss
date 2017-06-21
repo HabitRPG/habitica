@@ -1,4 +1,4 @@
- .task-color {
+ .task {
   // for editing rewards or when a task is created
   &-purple {
     background: $purple-300;
@@ -55,5 +55,24 @@
 
   &-reward {
     background: rgba($yellow-500, 0.26);
+  }
+
+  &-daily-todo-disabled {
+    background: $gray-500;
+
+    &-control {
+      background: $gray-400;
+      color: $gray-200;
+    }
+  }
+
+  &-habit-disabled {
+    background: $gray-700;
+    color: rgba(0, 0, 0, 0.12);
+
+    &-control {
+      color: rgba(0, 0, 0, 0.12) !important;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+    }
   }
 }

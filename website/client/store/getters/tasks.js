@@ -5,35 +5,50 @@ export function getTagsFor (store) {
     .map(tag => tag.name);
 }
 
-export function getColorClassFor () {
-  return (task, {isNew, isEditing, isControlArea} = {}) => {
-    const value = task.value;
-    let color = 'task-color-';
+function getTaskColorByValue (value) {
+  if (value < -20) {
+    return 'task-worst';
+  } else if (value < -10) {
+    return 'task-worse';
+  } else if (value < -1) {
+    return 'task-bad';
+  } else if (value < 1) {
+    return 'task-neutral';
+  } else if (value < 5) {
+    return 'task-good';
+  } else if (value < 10) {
+    return 'task-better';
+  } else {
+    return 'task-best';
+  }
+}
 
-    if (isNew && isEditing) {
-      color += 'purple';
-      return color;
-    } else if (task.type === 'reward') {
-      color += isEditing ? 'purple' : 'reward';
-      return color;
-    } else if (value < -20) {
-      color += 'worst';
-    } else if (value < -10) {
-      color += 'worse';
-    } else if (value < -1) {
-      color += 'bad';
-    } else if (value < 1) {
-      color += 'neutral';
-    } else if (value < 5) {
-      color += 'good';
-    } else if (value < 10) {
-      color += 'better';
-    } else {
-      color += 'best';
+export function getTaskClasses () {
+  // Purpose is one of 'controls', 'editModal', 'createModal'
+  return (task, purpose) => {
+    const type = task.type;
+
+    switch (purpose) {
+      case 'createModal':
+        return 'task-purple';
+      case 'editModal':
+        return type === 'reward' ? 'task-purple' : getTaskColorByValue(task.value);
+      case 'control':
+        switch (type) {
+          case 'daily':
+            if (task.checked /* || !task.shouldDo */) return 'task-daily-todo-disabled'; // TODO add shouldDo
+            return getTaskColorByValue(task.value);
+          case 'todo':
+            if (task.checked) return 'task-daily-todo-disabled';
+            return getTaskColorByValue(task.value);
+          case 'habit':
+            return {
+              up: task.up ? getTaskColorByValue(task.value) : 'task-habit-disabled',
+              down: task.down ? getTaskColorByValue(task.value) : 'task-habit-disabled',
+            };
+          case 'reward':
+            return 'task-reward';
+        }
     }
-
-    if (isControlArea) color += '-control';
-
-    return color;
   };
 }
