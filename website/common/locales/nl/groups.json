@@ -209,7 +209,7 @@
     "onlyCreatorOrAdminCanDeleteChat": "Niet gemachtigd om dit bericht te verwijderen!",
     "onlyGroupLeaderCanEditTasks": "Niet gemachtigd om taken te beheren!",
     "onlyGroupTasksCanBeAssigned": "Enkel groepstaken kunnen toegewezen worden.",
-    "chatPrivilegesRevoked": "Your chat privileges have been revoked.",
+    "chatPrivilegesRevoked": "Je chatbevoegdheden zijn ingetrokken.",
     "newChatMessagePlainNotification": "Nieuw bericht in <%= groupName %> door <%= authorName %>. Klik hier om de chat pagina te openen!",
     "newChatMessageTitle": "Nieuw bericht in <%= groupName %>",
     "exportInbox": "Exporteer berichten",
