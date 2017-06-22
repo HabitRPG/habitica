@@ -164,6 +164,7 @@ export function shouldDo (day, dailyTask, options = {}) {
     let matchEveryX = differenceInMonths % dailyTask.everyX === 0;
 
     if (dailyTask.weeksOfMonth && dailyTask.weeksOfMonth.length > 0) {
+      if (daysOfTheWeek.length === 0) return false;
       schedule = schedule.every(daysOfTheWeek).daysOfWeek()
         .every(dailyTask.weeksOfMonth).weeksOfMonthByDay();
 

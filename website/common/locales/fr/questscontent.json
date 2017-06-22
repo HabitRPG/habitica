@@ -479,5 +479,11 @@
     "questMayhemMistiflying3DropShield": "Missive arc-en-ciel (Arme de main de bouclier)",
     "questMayhemMistiflying3DropWeapon": "Missive arc-en-ciel (Arme)",
     "featheredFriendsText": "Lot de quêtes des amis à plumes",
-    "featheredFriendsNotes": "Contient \"À l'aide ! Harpie !\", \"L'oiseau de nuit\" et \"Les oiseaux de la proiecrastination\". Disponible jusqu'au 31 mai."
+    "featheredFriendsNotes": "Contient \"À l'aide ! Harpie !\", \"L'oiseau de nuit\" et \"Les oiseaux de la proiecrastination\". Disponible jusqu'au 31 mai.",
+    "questNudibranchText": "L'infestation des nudibranches cépadimanches.",
+    "questNudibranchNotes": "C'est une journée pas très chargée qui s'écoule, et vous trouvez enfin le temps de jeter un œil à vos tâches À faire. Juste à côté de vos tâches les plus rouge vif, vous remarquez un amas ultra-brillant de limaces de mer bleues. Cela vous fascine ! Leurs couleurs saphir rendent vos objectifs les plus intimidants aussi faciles que vos habitudes les plus ancrées. Dans un élan fiévreux, vous vous mettez au travail, abattant chaque tâche en une frénésie sans fin. <br><br>La dernière chose dont vous vous rappelez ensuite, c'est @LilithofAlfheim vous jetant de l'eau froide dessus. \"Les nudibranches cépadimanches ne cessent de te piquer ! Il faut que tu fasses une pause !\"<br><br>Sous le choc, vous remarquez que votre peau est aussi rouge vif que vos tâches l'étaient. \"C'est bien d'être productif, vous lance @beffymaroo, mais il faut aussi prendre soin de soi ! Allez, vite, il faut s'en débarasser !\"",
+    "questNudibranchCompletion": "@amadshade lessive le dernier nudibranche cépadimanche, que vous voyez glisser d'une pile de tâches complétées. Il laisse derrière lui un sac de vêtements, que vous ouvrez et qui contient de l'or... ainsi que quelques ellipsoïdes. Sans doute des œufs !",
+    "questNudibranchBoss": "Nudibranche cépadimanche",
+    "questNudibranchDropNudibranchEgg": "Nudibranche (Œuf)",
+    "questNudibranchUnlockText": "Déverrouille l'achat d’œufs de nudibranche au marché"
 }

@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "3.94.0",
+  "version": "3.97.2",
   "main": "./website/server/index.js",
   "dependencies": {
     "@slack/client": "^3.8.1",
@@ -157,8 +157,8 @@
     "test:nodemon": "gulp test:nodemon",
     "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html",
     "sprites": "gulp sprites:compile",
-    "client:dev": "node webpack/dev-server.js",
-    "client:build": "node webpack/build.js",
+    "client:dev": "gulp bootstrap && node webpack/dev-server.js",
+    "client:build": "gulp bootstrap && node webpack/build.js",
     "client:unit": "cross-env NODE_ENV=test karma start test/client/unit/karma.conf.js --single-run",
     "client:unit:watch": "cross-env NODE_ENV=test karma start test/client/unit/karma.conf.js",
     "client:e2e": "node test/client/e2e/runner.js",

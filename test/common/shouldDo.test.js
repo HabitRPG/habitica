@@ -713,8 +713,9 @@ describe('shouldDo', () => {
     it('leaves daily inactive if not day of the month', () => {
       dailyTask.everyX = 1;
       dailyTask.frequency = 'monthly';
-      dailyTask.daysOfMonth = [15];
-      let tomorrow = moment().add(1, 'day').toDate();// @TODO: make sure this is not the 15
+      let today = moment();
+      dailyTask.daysOfMonth = [today.date()];
+      let tomorrow = today.add(1, 'day').toDate();
 
       expect(shouldDo(tomorrow, dailyTask, options)).to.equal(false);
     });
@@ -732,8 +733,9 @@ describe('shouldDo', () => {
     it('leaves daily inactive if not on date of the x month', () => {
       dailyTask.everyX = 2;
       dailyTask.frequency = 'monthly';
-      dailyTask.daysOfMonth = [15];
-      let tomorrow = moment().add(2, 'months').add(1, 'day').toDate();
+      let today = moment();
+      dailyTask.daysOfMonth = [today.date()];
+      let tomorrow = today.add(2, 'months').add(1, 'day').toDate();
 
       expect(shouldDo(tomorrow, dailyTask, options)).to.equal(false);
     });
@@ -908,6 +910,28 @@ describe('shouldDo', () => {
       dailyTask.frequency = 'monthly';
       day = moment('2017-02-23');
 
+      expect(shouldDo(day, dailyTask, options)).to.equal(false);
+    });
+
+    it('returns false when next due is requested and no repeats are available', () => {
+      dailyTask.repeat = {
+        su: false,
+        s: false,
+        f: false,
+        th: false,
+        w: false,
+        t: false,
+        m: false,
+      };
+
+      let today = moment('2017-05-27T17:34:40.000Z');
+      let week = today.monthWeek();
+      dailyTask.startDate = today.toDate();
+      dailyTask.weeksOfMonth = [week];
+      dailyTask.everyX = 1;
+      dailyTask.frequency = 'monthly';
+      day = moment('2017-02-23');
+      options.nextDue = true;
       expect(shouldDo(day, dailyTask, options)).to.equal(false);
     });
 

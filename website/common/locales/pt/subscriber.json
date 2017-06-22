@@ -37,6 +37,8 @@
     "subscribed": "Assinado",
     "manageSub": "Clique para gerir a subscrição",
     "cancelSub": "Cancelar Assinatura",
+    "cancelSubInfoGoogle": "Please go to the \"My apps & games\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
+    "cancelSubInfoApple": "Please follow <a href=\"https://support.apple.com/en-us/HT202039\">Apple’s official instructions</a> to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
     "canceledSubscription": "Assinatura Cancelada",
     "cancelingSubscription": "Cancelando a assinatura.",
     "adminSub": "Assinaturas Administrativas",
