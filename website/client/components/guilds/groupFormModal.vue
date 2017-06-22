@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#guild-form(:title="title", :hide-footer="true")
+  b-modal#guild-form(:title="title", :hide-footer="true", size='lg')
     form(@submit.stop.prevent="submit")
       .form-group
         label
@@ -48,12 +48,12 @@
         div.description-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
         b-form-input(type="text", textarea :placeholder="creatingParty ? $t('partyDescriptionPlaceHolder') : $t('guildDescriptionPlaceHolder')", v-model="newGuild.description")
 
-      .form-group(v-if='newGuild.id')
+      .form-group(v-if='newGuild.id && !creatingParty')
         label
           strong(v-once) {{$t('guildInformation')}}*
-        b-form-input(type="text", textarea :placeholder="$t('guildInformationPlaceHolder')", v-model="newGuild.guildInformation")
+        b-form-input(type="text", textarea, :placeholder="$t('guildInformationPlaceHolder')", v-model="newGuild.guildInformation")
 
-      .form-group(v-if='creatingParty')
+      .form-group(v-if='creatingParty && !newGuild.id')
         span
           toggleSwitch(:label="$t('inviteMembersNow')", v-model='inviteMembers')
 
@@ -74,7 +74,7 @@
               span.custom-control-description(v-once) {{ $t(group.label) }}
           button.btn.btn-primary(@click.prevent="toggleCategorySelect") {{$t('close')}}
 
-      .form-group(v-if='inviteMembers')
+      .form-group(v-if='inviteMembers && !newGuild.id')
         label
           strong(v-once) Invite via Email or User ID
           p Invite users via a valid email or 36-digit User ID. If an email isn’t registered yet, we’ll invite them to join.
@@ -349,7 +349,7 @@ export default {
       }
 
       // @TODO: Add proper notifications
-      if (!confirm(this.$t('confirmGuild'))) return;
+      if (!this.newGuild.id && !confirm(this.$t('confirmGuild'))) return;
 
       if (!this.newGuild.privateGuild) {
         this.newGuild.privacy = 'public';
@@ -380,6 +380,8 @@ export default {
         privateGuild: true,
         allowGuildInvationsFromNonMembers: true,
       };
+
+      this.$root.$emit('hide::modal', 'guild-form');
     },
   },
 };

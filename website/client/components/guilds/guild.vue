@@ -1,5 +1,6 @@
 <template lang="pug">
 .row(v-if="group")
+  group-form-modal
   .clearfix.col-8
     .row
       .col-6.title-details
@@ -8,7 +9,7 @@
         span.float-left(v-once, v-if='group.leader.profile') : {{group.leader.profile.name}}
       .col-6
         .row.icon-row
-          .col-6(v-bind:class="{ 'offset-6': isParty }")
+          .col-4(v-bind:class="{ 'offset-8': isParty }")
             members-modal(:group='group', v-if='isMember')
           .col-6(v-if='!isParty')
             .item-with-icon
@@ -60,13 +61,13 @@
         p(v-if='!isParty')  Image here
       .col-6
         .button-container
-          button.btn.btn-success(class='btn-success', v-if='isLeader') {{ $t('upgradeParty') }}
+          button.btn.btn-success(class='btn-success', v-if='isLeader') {{ $t('upgrade') }}
         .button-container
-          button.btn.btn-primary(b-btn, @click="updateGuild", v-once, v-if='isLeader') {{ $t('updateGuild') }}
+          button.btn.btn-primary(b-btn, @click="updateGuild", v-once, v-if='isLeader') {{ $t('edit') }}
         .button-container
           button.btn.btn-success(class='btn-success', v-if='!isMember') {{ $t('join') }}
         .button-container
-          button.btn.btn-primary(v-once) {{$t('inviteToGuild')}}
+          button.btn.btn-primary(v-once) {{$t('invite')}}
         .button-container
           button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}}
         .button-container
@@ -95,21 +96,30 @@
           button.btn.btn-secondary(v-once, @click="questCancel()") {{ $t('cancel') }}
         .row.quest-active-section(v-if='isParty && !onPendingQuest && onActiveQuest')
           .col-12.text-center
-            div(:class="'quest_' + questData.key")
-            h3(v-once) {{ questData.boss.name() }}
-            div(style="width: 100%; background-color: red; height:50px;")
+            .quest-boss(:class="'quest_' + questData.key")
+            h3(v-once) {{ questData.text() }}
             .quest-box.svg-icon(v-html="icons.questBackground")
-            .boss-info
+            .collect-info(v-if='questData.collect')
+              .row(v-for='(value, key) in questData.collect')
+                .col-2
+                  div(:class="'quest_' + questData.key + '_' + key")
+                .col-10
+                  strong {{value.text()}}
+                  .collect-progress-bar
+                  strong {{group.quest.progress.collect[key]}} / {{value.count}}
+            .boss-info(v-if='questData.boss')
               .row
                 .col-6
-                  h4.float-left Boss Name
+                  h4.float-left(v-once) {{ questData.boss.name() }}
                 .col-6
-                  span.float-right Participants
+                  span.float-right(v-once) {{ $t('participants') }}
               .row
-                .col-12.boss-health-bar
+                .col-12
+                  .boss-health-bar
               .row.boss-details
                   .col-6
-                    span.float-left 999/1000
+                    span.float-left
+                      | {{group.quest.progress.hp}} / {{questData.boss.hp}}
                   .col-6
                     span.float-right 30 pending damage
             button.btn.btn-secondary(v-once, @click="questAbort()") {{ $t('abort') }}
@@ -312,13 +322,20 @@
 
   .quest-active-section {
     .quest-box {
-      height: 200px;
+      height: 100px;
       width: 100%;
 
       svg: {
         width: 100%;
         height: 100%;
       }
+    }
+
+    .boss-info, .collect-info {
+      position: relative;
+      top: -89px;
+      left: 15px;
+      width: 32em;
     }
   }
 
@@ -337,6 +354,23 @@
   .toggle-up, .toggle-down {
     cursor: pointer;
   }
+
+  .quest-boss {
+    margin: 0 auto;
+  }
+
+  .boss-health-bar {
+    width: 80%;
+    background-color: red;
+    height: 15px;
+    margin-bottom: .5em;
+  }
+
+  .collect-progress-bar {
+    background-color: #24cc8f;
+    height: 15px;
+    width: 80%;
+  }
 </style>
 
 <script>
@@ -347,6 +381,7 @@ import ownedQuestsModal from './ownedQuestsModal';
 import { TAVERN_ID } from 'common/script/constants';
 import quests from 'common/script/content/quests';
 import percent from 'common/script/libs/percent';
+import groupFormModal from './groupFormModal';
 
 import bCollapse from 'bootstrap-vue/lib/components/collapse';
 import bCard from 'bootstrap-vue/lib/components/card';
@@ -375,6 +410,7 @@ export default {
     bCollapse,
     bCard,
     bTooltip,
+    groupFormModal,
   },
   directives: {
     bToggle,

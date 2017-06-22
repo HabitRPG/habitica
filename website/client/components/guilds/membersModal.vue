@@ -3,7 +3,7 @@ div
   .item-with-icon(@click="$root.$emit('show::modal','members-modal')")
     .svg-icon.shield(v-html="icons.goldGuildBadgeIcon")
     span.number {{group.memberCount}}
-    div(v-once) {{ $t('guildMembers') }}
+    div(v-once) {{ $t('members') }}
 
   b-modal#members-modal(:title="$t('createGuild')", size='lg')
     .header-wrap(slot="modal-header")
@@ -101,6 +101,7 @@ div
     background-color: #ffffff;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     padding: 1em;
+    text-align: center;
   }
 
   .svg-icon.shield, .svg-icon.gem {

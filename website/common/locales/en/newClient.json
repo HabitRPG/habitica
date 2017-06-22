@@ -97,5 +97,9 @@
   "rewards": "Rewards",
   "experience": "Experience",
   "gold": "Gold",
-  "questOwnerRewards": "Quest Owner Rewards"
+  "questOwnerRewards": "Quest Owner Rewards",
+  "guildInformationPlaceHolder": "This is our party’s description. It describes what we do in this party. If you want to learn more about what we do in this party, read the description. Party on.",
+  "updateParty": "Update Party",
+  "upgrade": "Upgrade",
+  "participants": "Participants"
 }

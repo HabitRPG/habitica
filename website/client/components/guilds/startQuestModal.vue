@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#start-quest-modal(title="Empty", size='md', hide-footer=true)
+  b-modal#start-quest-modal(title="Empty", size='md', hide-footer=true, v-if='questData')
     .quest-image(:class="'quest_' + questData.key")
     h2 {{questData.text()}}
     //- span by: Keith Holliday @TODO: Add author

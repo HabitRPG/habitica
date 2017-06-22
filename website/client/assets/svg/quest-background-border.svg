@@ -6,7 +6,7 @@
         <path id="d" d="M0 70h10v10H0z"/>
         <path id="e" d="M414 70h10v10h-10z"/>
     </defs>
-    <g fill="none" fill-rule="evenodd">
+    <g fill="#F9F9F9" fill-rule="evenodd">
         <g>
             <use fill="#F9F9F9" xlink:href="#a"/>
             <path stroke="#E1E0E3" stroke-width="4" d="M2 2h420v76H2z"/>
