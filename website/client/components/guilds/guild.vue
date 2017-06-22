@@ -336,6 +336,7 @@
       top: -89px;
       left: 15px;
       width: 32em;
+      text-align: left;
     }
   }
 
