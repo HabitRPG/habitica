@@ -80,6 +80,6 @@
     "userAlreadyInChallenge": "Användaren deltar redan i den här utmaningen.",
     "cantOnlyUnlinkChalTask": "Bara brutna utmaningars uppgifter kan avlänkas.",
     "shortNameTooShort": "Taggen måste bestå av minst 3 tecken.",
-    "joinedChallenge": "Joined a Challenge",
-    "joinedChallengeText": "This user put themselves to the test by joining a Challenge!"
+    "joinedChallenge": "Gick med i en utmaning",
+    "joinedChallengeText": "Den här användaren satte sig själva på prov genom att gå med i en utmaning!"
 }
