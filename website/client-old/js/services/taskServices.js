@@ -311,9 +311,9 @@ angular.module('habitrpg')
               $scope.task._edit.daysOfMonth = [];
               $scope.task._edit.weeksOfMonth = [week]; // @TODO: This can handle multiple weeks
 
-              if (!task._edit.repeatLastOption) task._edit.repeatLastOption = 'yes';
+              if (!task._edit.repeatLastOption) task._edit.repeatLastOption = 'last';
 
-              if (week === 4 && task._edit.repeatLastOption === 'yes') {
+              if (task._edit.repeatLastOption === 'last') {
                 $scope.task._edit.repeatLast = true;
               }
 
@@ -324,9 +324,30 @@ angular.module('habitrpg')
             }
           }, true);
 
-          $scope.isWeekFour = function () {
-            var week = Math.ceil(moment(task._edit.startDate).date() / 7) - 1;
-            return week === 4;
+          $scope.getNumberOfDays = function() {
+            let d = moment(task._edit.startDate);
+            let dayOfWeek = d.day();
+            let month = d.month();
+            let days = [];
+
+            d.startOf('month');
+
+            while (d.day() !== dayOfWeek) {
+              d.day(d.day() + 1);
+            }
+
+            while (d.month() === month) {
+              days.push(d.toDate());
+              d.day(d.day() + 7);
+            }
+
+            return days.length;
+          }
+
+          $scope.isLastWeek = function () {
+            var numberOfWeeksInMonth = $scope.getNumberOfDays();
+            var startDateWeek = Math.ceil(moment(task._edit.startDate).date() / 7);
+            return startDateWeek === numberOfWeeksInMonth;
           };
         }],
       })
@@ -386,7 +407,7 @@ angular.module('habitrpg')
         var longDay = shortDayToLongDayMap[shortDay];
 
         var repeatNumber = (week + 1);
-        if (repeatNumber === 5) repeatNumber = env.t('last');
+        if (task._edit.repeatLastOption === 'last') repeatNumber = env.t('last');
 
         summary += ' on the ' + repeatNumber + ' ' + longDay;
       }
