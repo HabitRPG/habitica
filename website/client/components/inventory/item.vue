@@ -16,13 +16,16 @@ b-popover(
   .item-wrapper
     .item
       slot(name="itemBadge", :item="item")
-      span.item-content(:class="itemContentClass")
+      span.item-content(
+        :class="itemContentClass",
+        :draggable="draggable",
+        @dragstart="onDrag"
+      )
     span.item-label(v-if="label") {{ label }}
 </template>
 
 <script>
 import bPopover from 'bootstrap-vue/lib/components/popover';
-import { mapState } from 'client/libs/store';
 
 export default {
   components: {
@@ -46,15 +49,21 @@ export default {
       type: String,
       default: 'bottom',
     },
-  },
-  computed: {
-    ...mapState({
-      ATTRIBUTES: 'constants.ATTRIBUTES',
-    }),
+    draggable: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     click () {
       this.$emit('click', this.item);
+    },
+    onDrag (ev) {
+      if (this.draggable) {
+        this.$emit('onDrag', ev);
+      } else {
+        ev.preventDefault();
+      }
     },
   },
 };

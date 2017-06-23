@@ -1,5 +1,4 @@
 {
-  "viewParty": "View Party",
   "shops": "Shops",
   "faq": "FAQ",
   "costumePopoverText": "Select \"Use Costume\" to equip items to your avatar without affecting the stats from your Battle Gear! This means that you can dress up your avatar in whatever outfit you like while still having your best Battle Gear equipped.",
@@ -25,6 +24,14 @@
   "groupBy2": "Group By",
   "quantity": "Quantity",
   "AZ": "A-Z",
+  "costumeDisabled": "You have disabled your costume.",
+  "filterByStandard": "Standard",
+  "filterByMagicPotion": "Magin Potion",
+  "filterByQuest": "Quest",
+  "standard": "Standard",
+  "sortByColor": "Color",
+  "sortByHatchable": "Hatchable",
+  "haveHatchablePet": "You have a <%= potion %> and <%= egg %> to hatch this pet! <b>Click and hold</b> the paw print to hatch.",
   "editAvatar": "Edit Avatar",
   "sort": "Sort",
   "memberCount": "Member Count",
@@ -69,5 +76,12 @@
   "sendMessage": "Send Message",
   "removeManager2": "Remove Manager",
   "promoteToLeader": "Promote to Leader",
-  "inviteFriendsParty": "Inviting friends to your party will grant you an exclusive <br/> Quest Scroll to battle the Basi-List together!"
+  "inviteFriendsParty": "Inviting friends to your party will grant you an exclusive <br/> Quest Scroll to battle the Basi-List together!",
+  "showAllAnimals": "Show All <%= color %> <%= type %>",
+  "showLessAnimals": "Show Less <%= color %> <%= type %>",
+  "quickInventory": "Quick Inventory",
+  "noFoodAvailable": "You don't have any food.",
+  "gotIt": "Got it!",
+  "welcomeStable": "Welcome to the Stable!",
+  "welcomeStableText": "I'm Matt, the Beast Master. Starting at level 3, you can hatch Pets from Eggs by using Potions you find! When you hatch a Pet from your Inventory, it will appear here! Click a Pet's to add it to your avatar. Feed them with the Food you find in your Inventory after level 3, and they'll grow into hardy Mounts."
 }
