@@ -7,11 +7,28 @@
   // Dailies and todos left side control
   .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass")
     .task-control.daily-todo-control(:class="controlClass + '-control'")
+      .svg-icon.check(v-html="icons.check", v-if="task.completed")
   // Task title, description and icons
   .task-content(:class="contentClass")
     h3.task-title(:class="{ 'has-notes': task.notes }") {{task.text}}
     .task-notes.small-text {{task.notes}}
-    .icons.small-text icons
+    .icons.small-text.d-flex.align-items-center
+      .d-flex.align-items-center(v-if="task.type === 'todo' && task.date", :class="{'due-overdue': isDueOverdue}")
+        .svg-icon.calendar(v-html="icons.calendar")
+        span {{dueIn}}
+      .icons-right.d-flex.justify-content-end
+        .d-flex.align-items-center(v-if="showStreak")
+          .svg-icon.streak(v-html="icons.streak")
+          span(v-if="task.type === 'daily'") {{task.streak}}
+          span(v-if="task.type === 'habit'")
+            span.m-0(v-if="task.up") +{{task.counterUp}}
+            span.m-0(v-if="task.up && task.down") &nbsp;|&nbsp;
+            span.m-0(v-if="task.down") -{{task.counterDown}}
+        .d-flex.align-items-center(v-if="task.challenge && task.challenge.id")
+          .svg-icon.challenge(v-html="icons.challenge")
+        .d-flex.align-items-center(v-if="task.tags && task.tags.length > 0")
+          .svg-icon.tags(v-html="icons.tags")
+
   // Habits right side control
   .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down")
     .task-control.habit-control(:class="controlClass.down + '-control'")
@@ -22,7 +39,7 @@
     .small-text {{task.value}}
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~client/assets/scss/colors.scss';
 
 .task {
@@ -54,8 +71,49 @@
 }
 
 .icons {
-  float: right;
   color: $gray-300;
+
+  &-right {
+    flex-grow: 1;
+  }
+}
+
+.icons-right .svg-icon {
+  margin-left: 8px;
+}
+
+.icons span {
+  margin-left: 4px;
+}
+
+.svg-icon.streak {
+  width: 11.6px;
+  height: 7.1px;
+}
+
+.tags.svg-icon, .calendar.svg-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.due-overdue {
+  color: $red-50;
+}
+
+.calendar.svg-icon {
+  margin-right: 2px;
+  margin-top: -2px;
+}
+
+.challenge.svg-icon {
+  width: 14px;
+  height: 12px;
+}
+
+.check.svg-icon {
+  width: 12.3px;
+  height: 9.8px;
+  margin: 8px;
 }
 
 .left-control, .right-control {
@@ -102,6 +160,8 @@
 
 .reward-control {
   flex-direction: column;
+  padding-top: 16px;
+  padding-bottom: 12px;
 
   .svg-icon {
     width: 24px;
@@ -117,9 +177,16 @@
 
 <script>
 import { mapState, mapGetters } from 'client/libs/store';
+import moment from 'moment';
+
 import positiveIcon from 'assets/svg/positive.svg';
 import negativeIcon from 'assets/svg/negative.svg';
 import goldIcon from 'assets/svg/gold.svg';
+import streakIcon from 'assets/svg/streak.svg';
+import calendarIcon from 'assets/svg/calendar.svg';
+import challengeIcon from 'assets/svg/challenge.svg';
+import tagsIcon from 'assets/svg/tags.svg';
+import checkIcon from 'assets/svg/check.svg';
 
 export default {
   props: ['task'],
@@ -129,6 +196,11 @@ export default {
         positive: positiveIcon,
         negative: negativeIcon,
         gold: goldIcon,
+        streak: streakIcon,
+        calendar: calendarIcon,
+        challenge: challengeIcon,
+        tags: tagsIcon,
+        check: checkIcon,
       }),
     };
   },
@@ -154,6 +226,18 @@ export default {
     },
     contentClass () {
       return this.getTaskClasses(this.task, 'content');
+    },
+    showStreak () {
+      if (this.task.streak !== undefined) return true;
+      if (this.task.type === 'habit' && (this.task.up || this.task.down)) return true;
+      return false;
+    },
+    isDueOverdue () {
+      return moment().diff(this.task.date, 'days') >= 0;
+    },
+    dueIn () {
+      const dueIn = moment().to(this.task.date);
+      return this.$t('dueIn', {dueIn});
     },
   },
 };

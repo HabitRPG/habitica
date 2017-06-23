@@ -10,6 +10,7 @@
   "guildBank": "Guild Bank",
   "chatPlaceHolder": "Type your message to Guild members here",
   "today": "Today",
+  "dueIn": "Due <%= dueIn %>",
   "like": "Like",
   "copyAsTodo": "Copy as To-Do",
   "report": "Report",

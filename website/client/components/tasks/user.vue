@@ -5,7 +5,9 @@
       .col-4.offset-4
         input.form-control.input-search(type="text", :placeholder="$t('search')")
       .col-1.offset-3
-        button.btn.btn-success(v-once) {{ $t('create') }}
+        button.btn.btn-success(v-once) 
+          .svg-icon.positive(v-html="icons.positive")
+          | {{ $t('create') }}
     .row
       .tasks-column.col-3(v-for="taskType in tasksTypes", :key="taskType.type")
         h2.tasks-column-title(v-once) {{ $t(taskType.string) }}
@@ -35,10 +37,20 @@
 .tasks-column-title {
   margin-bottom: 8px;
 }
+
+.positive {
+  display: inline-block;
+  width: 10px;
+  color: $green-500;
+  margin-right: 8px;
+  padding-top: 6px;
+}
 </style>
+
 <script>
 import Task from './task';
 import { mapState } from 'client/libs/store';
+import positiveIcon from 'assets/svg/positive.svg';
 
 export default {
   components: {
@@ -52,6 +64,9 @@ export default {
         {type: 'todo', string: 'todos'},
         {type: 'reward', string: 'rewards'},
       ]),
+      icons: Object.freeze({
+        positive: positiveIcon,
+      }),
     };
   },
   computed: {
