@@ -9,10 +9,7 @@
           .svg-icon.positive(v-html="icons.positive")
           | {{ $t('create') }}
     .row
-      .tasks-column.col-3(v-for="taskType in tasksTypes", :key="taskType.type")
-        h2.tasks-column-title(v-once) {{ $t(taskType.string) }}
-        .tasks-list
-          task(v-for="task in tasks[`${taskType.type}s`]", :key="task.id", :task="task")
+      task-column(v-for="column in columns", :type="column", :key="column")
 </template>
 
 <style lang="scss" scoped>
@@ -26,18 +23,6 @@
   margin-bottom: 40px;
 }
 
-.tasks-list {
-  border-radius: 4px;
-  background: $gray-600;
-  padding: 8px;
-  // not sure why but this is necessary or the last task will overflow the container
-  padding-bottom: 0.1px;
-}
-
-.tasks-column-title {
-  margin-bottom: 8px;
-}
-
 .positive {
   display: inline-block;
   width: 10px;
@@ -48,29 +33,20 @@
 </style>
 
 <script>
-import Task from './task';
-import { mapState } from 'client/libs/store';
+import Column from './column';
 import positiveIcon from 'assets/svg/positive.svg';
 
 export default {
   components: {
-    Task,
+    TaskColumn: Column,
   },
   data () {
     return {
-      tasksTypes: Object.freeze([
-        {type: 'habit', string: 'habits'},
-        {type: 'daily', string: 'dailies'},
-        {type: 'todo', string: 'todos'},
-        {type: 'reward', string: 'rewards'},
-      ]),
+      columns: ['habit', 'daily', 'todo', 'reward'],
       icons: Object.freeze({
         positive: positiveIcon,
       }),
     };
-  },
-  computed: {
-    ...mapState({tasks: 'tasks.data'}),
   },
 };
 </script>
