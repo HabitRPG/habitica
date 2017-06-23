@@ -4,11 +4,16 @@
     .seamless_stars_varied_opacity_repeat
 
   #login-form
+    .text-center
+      div
+        .svg-icon.gryphon(v-html="icons.gryphon")
+      div
+        .svg-icon.habitica-logo(v-html="icons.habiticaIcon")
     .form-group.row.text-center
       .col-6
-        .btn.btn-secondary.social-button Facebook
+        .btn.btn-secondary.social-button Sign up with Facebook
       .col-6
-        .btn.btn-secondary.social-button Google
+        .btn.btn-secondary.social-button Sign up with Google
     .form-group
       label(for='usernameInput') Username
       input#usernameInput.form-control(type='text', placeholder='e.g., HabitRabbit')
@@ -21,7 +26,7 @@
     .form-group
       label(for='confirmPasswordInput') Confirm Password
       input#confirmPasswordInput.form-control(type='password', placeholder='Make sure it’s the same password!')
-      small.form-text By clicking the button below, you are indicating that you have read and agree to the Terms of Service and Privacy Policy.
+      small.form-text By clicking the button below, you are indicating that you have read and agree to the <a href=''>Terms of Service</a> and <a href=''>Privacy Policy</a>.
     .text-center
       .btn.btn-info Join Habitica
 
@@ -34,14 +39,28 @@
   @import '~client/assets/scss/colors.scss';
 
   .form-wrapper {
-    background-color: $purple-100;
+    background-color: $purple-200;
   }
 
   #login-form {
     margin: 0 auto;
     width: 40em;
     padding-top: 5em;
-    padding-bottom: 8.5em;
+    padding-bottom: 22.5em;
+    position: relative;
+    z-index: 1;
+
+    .gryphon {
+      width: 63.2px;
+      height: 69.4px;
+    }
+
+    .habitica-logo {
+      width: 144px;
+      height: 31px;
+      margin-top: 2em;
+      margin-bottom: 2em;
+    }
 
     label {
       color: $white;
@@ -50,6 +69,24 @@
 
     input {
       margin-bottom: 2em;
+      border-radius: 2px;
+      background-color: #432874;
+      border-color: transparent;
+      height: 50px;
+      color: $purple-400;
+
+      ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        color: $purple-400;
+      }
+      ::-moz-placeholder { /* Firefox 19+ */
+        color: $purple-400;
+      }
+      :-ms-input-placeholder { /* IE 10+ */
+        color: $purple-400;
+      }
+      :-moz-placeholder { /* Firefox 18- */
+        color: $purple-400;
+      }
     }
 
     .form-text {
@@ -90,3 +127,21 @@
     }
   }
 </style>
+
+<script>
+import gryphon from 'assets/svg/gryphon.svg';
+import habiticaIcon from 'assets/svg/habitica-logo.svg';
+
+export default {
+  data () {
+    let data = {};
+
+    data.icons = Object.freeze({
+      gryphon,
+      habiticaIcon,
+    });
+
+    return data;
+  },
+};
+</script>
