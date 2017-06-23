@@ -7,6 +7,9 @@ import EmptyView from './components/emptyView';
 import ParentPage from './components/parentPage';
 import Page from './components/page';
 
+// Static Pages
+import Register from './components/auth/register';
+
 // Tasks
 import UserTasks from './components/userTasks';
 
@@ -44,6 +47,7 @@ export default new VueRouter({
     return { x: 0, y: 0 };
   },
   routes: [
+    { name: 'register', path: '/register', component: Register },
     { name: 'tasks', path: '/', component: UserTasks },
     {
       path: '/inventory',
