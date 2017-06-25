@@ -44,7 +44,6 @@ b-popover(
 
 <script>
   import bPopover from 'bootstrap-vue/lib/components/popover';
-  import {mapState} from 'client/libs/store';
 
   export default {
     components: {
@@ -81,11 +80,6 @@ b-popover(
       return {
         holdProgress: -1,
       };
-    },
-    computed: {
-      ...mapState({
-        ATTRIBUTES: 'constants.ATTRIBUTES',
-      }),
     },
     methods: {
       holdStart () {

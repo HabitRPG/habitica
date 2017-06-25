@@ -135,12 +135,13 @@
         h4(v-if="viewOptions[mountGroup.key].animalCount != 0") {{ mountGroup.label }}
 
         div.items
-          item(
+          mountItem(
             v-for="mount in mounts(mountGroup, viewOptions[mountGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled, availableContentWidth)",
             :item="mount",
-            :itemContentClass="mount.isOwned() ? ('Mount_Icon_' + mount.key) : 'PixelPaw greyedOut'",
+            :itemContentClass="mount.isOwned() ? ('Mount_Icon_' + mount.key) : 'PixelPaw GreyedOut'",
             :key="mount.key",
-            :popoverPosition="'top'"
+            :popoverPosition="'top'",
+            :emptyItem="!mount.isOwned()"
           )
             span(slot="popoverContent")
               h4.popover-content-title {{ mount.name }}
@@ -334,7 +335,7 @@
   }
 
   .last {
-    margin-right: 0;
+    margin-right: 0 !important;
   }
 </style>
 
@@ -357,6 +358,7 @@
 
   import Item from '../item';
   import PetItem from './petItem';
+  import MountItem from './mountItem.vue';
   import FoodItem from './foodItem';
   import Drawer from 'client/components/inventory/drawer';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
@@ -377,6 +379,7 @@
       PetItem,
       Item,
       FoodItem,
+      MountItem,
       Drawer,
       bDropdown,
       bDropdownItem,
@@ -460,7 +463,6 @@
             petSource: {
               special: this.content.specialPets,
             },
-            alwaysHideMissing: true,
           },
         ];
 
@@ -507,7 +509,6 @@
             petSource: {
               special: this.content.specialMounts,
             },
-            alwaysHideMissing: true,
           },
         ];
 
@@ -623,7 +624,7 @@
         let withProgress = isPetList && animalGroup.key !== 'specialPets';
 
         // 1. Filter
-        if (hideMissing || animalGroup.alwaysHideMissing) {
+        if (hideMissing) {
           animals = _filter(animals, (a) => {
             return a.isOwned();
           });
