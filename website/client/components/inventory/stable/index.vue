@@ -21,22 +21,28 @@
         .form-group
           .form-check(
             v-for="petGroup in petGroups",
-            v-if="viewOptions[petGroup.key].animalCount != 0",
             :key="petGroup.key"
           )
             label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="viewOptions[petGroup.key].selected")
+              input.custom-control-input(
+                type="checkbox",
+                v-model="viewOptions[petGroup.key].selected",
+                :disabled="viewOptions[petGroup.key].animalCount == 0"
+              )
               span.custom-control-indicator
               span.custom-control-description(v-once) {{ petGroup.label }}
         h3(v-once) {{ $t('mounts') }}
         .form-group
           .form-check(
             v-for="mountGroup in mountGroups",
-            v-if="viewOptions[mountGroup.key].animalCount != 0",
             :key="mountGroup.key"
           )
             label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="viewOptions[mountGroup.key].selected")
+              input.custom-control-input(
+                type="checkbox",
+                v-model="viewOptions[mountGroup.key].selected",
+                :disabled="viewOptions[mountGroup.key].animalCount == 0"
+              )
               span.custom-control-indicator
               span.custom-control-description(v-once) {{ mountGroup.label }}
 
