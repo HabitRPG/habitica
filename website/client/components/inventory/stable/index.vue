@@ -64,7 +64,7 @@
             b-dropdown-item(
               v-for="sort in sortByItems",
               @click="selectedSortBy = sort",
-              :active="selectedSortBy === sort",
+              :class="selectedSortBy === sort ? 'active' : 'no-focus'",
               :key="sort"
             ) {{ $t(sort) }}
 
@@ -337,6 +337,11 @@
 
   .last {
     margin-right: 0 !important;
+  }
+
+  .no-focus:focus {
+    background-color: inherit;
+    color: inherit;
   }
 </style>
 
