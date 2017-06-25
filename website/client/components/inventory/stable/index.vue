@@ -81,6 +81,7 @@
             v-drag.drop.food="pet.key",
             @dragover="onDragOver($event, pet)",
             @dropped="onDrop($event, pet)",
+            :class="pet.isLastInRow ? 'last' : ''"
           )
             petItem(
               :item="pet",
@@ -207,6 +208,10 @@
 
   @import '~client/assets/scss/colors.scss';
 
+  .standard-page .clearfix .float-right {
+    margin-right: 24px;
+  }
+
   .inventory-item-container {
     padding: 20px;
     border: 1px solid;
@@ -267,6 +272,7 @@
 
     .standard-page {
       flex: 1;
+      padding-right:0;
     }
 
     .drawer-container {
@@ -320,6 +326,10 @@
     background-color: $purple-50;
     opacity: 0.9;
   }
+
+  .last {
+    margin-right: 0;
+  }
 </style>
 
 <script>
@@ -337,6 +347,7 @@
   import _drop from 'lodash/drop';
   import _flatMap from 'lodash/flatMap';
   import _throttle from 'lodash/throttle';
+  import _last from 'lodash/last';
 
   import Item from '../item';
   import PetItem from './petItem';
@@ -547,9 +558,15 @@
                 key: specialKey,
                 eggKey,
                 potionKey,
-                pet: this.content[`${type}Info`][specialKey].text(),
+                name: this.content[`${type}Info`][specialKey].text(),
                 isOwned ()  {
-                  return [`${type}s`][this.key] > 0;
+                  return userItems[`${type}s`][this.key] > 0;
+                },
+                mountOwned () {
+                  return userItems.mounts[this.key] > 0;
+                },
+                isAllowedToFeed () {
+                  return type === 'pet' && !this.mountOwned();
                 },
                 isHatchable () {
                   return false;
@@ -573,6 +590,12 @@
                   name: this.content[`${type}Info`][animalKey].text(),
                   isOwned ()  {
                     return userItems[`${type}s`][animalKey] > 0;
+                  },
+                  mountOwned () {
+                    return userItems.mounts[this.key] > 0;
+                  },
+                  isAllowedToFeed () {
+                    return type === 'pet' && !this.mountOwned();
                   },
                   isHatchable () {
                     return userItems.eggs[egg.key] > 0 && userItems.hatchingPotions[potion.key] > 0;
@@ -630,7 +653,7 @@
 
         let animalRows = [];
 
-        let itemsPerRow = Math.floor(availableSpace / (94 + 24));
+        let itemsPerRow = Math.floor(availableSpace / (94 + 20));
 
         let rowsToShow = isOpen ? Math.ceil(animals.length / itemsPerRow) : 1;
 
@@ -646,6 +669,11 @@
               progress,
             };
           }) : row;
+
+          let lastRowItem = _last(rowWithProgressData);
+          if (lastRowItem) {
+            lastRowItem.isLastInRow = true;
+          }
 
           animalRows.push(...rowWithProgressData);
         }
@@ -679,6 +707,10 @@
           return `Pet Pet-${pet.key}`;
         }
 
+        if (pet.mountOwned()) {
+          return `GreyedOut Pet Pet-${pet.key}`;
+        }
+
         if (pet.isHatchable()) {
           return 'PixelPaw';
         }
@@ -708,7 +740,7 @@
       },
 
       onDragOver (ev, pet) {
-        if (this.userItems.mounts[pet.key]) {
+        if (!pet.isAllowedToFeed()) {
           ev.dropable = false;
         }
       },
