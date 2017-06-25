@@ -141,7 +141,8 @@
             :itemContentClass="mount.isOwned() ? ('Mount_Icon_' + mount.key) : 'PixelPaw GreyedOut'",
             :key="mount.key",
             :popoverPosition="'top'",
-            :emptyItem="!mount.isOwned()"
+            :emptyItem="!mount.isOwned()",
+            :showPopover="mount.isOwned()",
           )
             span(slot="popoverContent")
               h4.popover-content-title {{ mount.name }}
