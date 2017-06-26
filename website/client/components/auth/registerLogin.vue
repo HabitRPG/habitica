@@ -102,7 +102,7 @@
 
   #top-background {
     .seamless_stars_varied_opacity_repeat {
-      background-image: url('~assets/images/seamless_stars_varied_opacity.png');
+      background-image: url('~assets/images/auth/seamless_stars_varied_opacity.png');
       background-repeat: repeat-x;
       position: absolute;
       height: 500px;
@@ -114,7 +114,7 @@
     position: relative;
 
     .seamless_mountains_demo_repeat {
-      background-image: url('~assets/images/seamless_mountains_demo.png');
+      background-image: url('~assets/images/auth/seamless_mountains_demo.png');
       background-repeat: repeat-x;
       width: 1600px;
       height: 500px;
@@ -124,7 +124,10 @@
     }
 
     .midground_foreground_extended2 {
+      background-image: url('~assets/images/auth/midground_foreground_extended2.png');
       position: relative;
+      width: 1500px;
+      height: 150px;
     }
   }
 </style>
