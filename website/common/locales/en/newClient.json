@@ -1,4 +1,5 @@
 {
+  "viewParty": "View Party",
   "shops": "Shops",
   "faq": "FAQ",
   "costumePopoverText": "Select \"Use Costume\" to equip items to your avatar without affecting the stats from your Battle Gear! This means that you can dress up your avatar in whatever outfit you like while still having your best Battle Gear equipped.",
@@ -9,6 +10,11 @@
   "guildBank": "Guild Bank",
   "chatPlaceHolder": "Type your message to Guild members here",
   "today": "Today",
+  "theseAreYourTasks": "These are your <%= taskType %>",
+  "habitsDesc": "Habits don't have a rigid schedule. You can check them off multiple times per day.",
+  "dailysDesc": "Dailies repeat on a regular basis. Choose the schedule that works best for you!",
+  "todosDesc": "To-Dos need to be completed once. Add checklists to your To-Dos to increase their value.",
+  "rewardsDesc": "Rewards are a great way to use Habitica and complete your tasks. Try adding a few today!",
   "dueIn": "Due <%= dueIn %>",
   "complete2": "Complete",
   "custom": "Custom",

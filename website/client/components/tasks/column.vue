@@ -11,6 +11,10 @@
   .tasks-list
     task(v-for="task in tasks[`${type}s`]", :key="task.id", :task="task", v-if="activeFilter.filter(task)")
     .bottom-gradient
+    .column-background(v-if="isUser === true", :class="{'initial-description': tasks[`${type}s`].length === 0}")
+      .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
+      h3(v-once) {{$t('theseAreYourTasks', {taskType: `${type}s`})}}
+      .small-text {{$t(`${type}sDesc`)}}
 </template>
 
 <style lang="scss" scoped>
@@ -23,16 +27,14 @@
 .tasks-list {
   border-radius: 4px;
   background: $gray-600;
-  padding: 8px;
+  padding: 8px; 
   // not sure why but this is necessary or the last task will overflow the container
   padding-bottom: 0.1px;
   position: relative;
   height: calc(100% - 64px);
-  background-image: linear-gradient(to bottom, rgba(52, 49, 58, 0), #34313a);
 }
 
 .bottom-gradient {
-  display: none;
   position: absolute;
   bottom: 0px;
   left: -0px;
@@ -66,12 +68,67 @@
     padding-bottom: 6px;
   }
 }
+
+.column-background {
+  position: absolute;
+  bottom: 32px;
+  z-index: 7;
+
+  &.initial-description {
+    top: 30%;
+  }
+
+  .svg-icon {
+    margin: 0 auto;
+    margin-bottom: 12px;
+  }
+
+  h3, .small-text {
+    color: $gray-300;
+    text-align: center;
+  }
+
+  h3 {
+    font-weight: normal;
+    margin-bottom: 4px;
+  }
+
+  .small-text {
+    font-style: normal;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+.icon-habit {
+  width: 30px;
+  height: 20px;
+}
+
+.icon-daily {
+  width: 30px;
+  height: 20px;
+}
+
+.icon-todo {
+  width: 20px;
+  height: 20px;
+}
+
+.icon-reward {
+  width: 26px;
+  height: 20px;
+}
 </style>
 
 <script>
 import Task from './task';
 import { mapState } from 'client/libs/store';
 import { shouldDo } from 'common/script/cron';
+import habitIcon from 'assets/svg/habit.svg';
+import dailyIcon from 'assets/svg/daily.svg';
+import todoIcon from 'assets/svg/todo.svg';
+import rewardIcon from 'assets/svg/reward.svg';
 
 export default {
   components: {
@@ -114,9 +171,17 @@ export default {
       },
     });
 
+    const icons = Object.freeze({
+      habit: habitIcon,
+      daily: dailyIcon,
+      todo: todoIcon,
+      reward: rewardIcon,
+    });
+
     return {
       types,
       activeFilter: types[this.type].filters.find(f => f.default === true),
+      icons,
     };
   },
   computed: {
