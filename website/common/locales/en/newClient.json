@@ -69,5 +69,14 @@
   "sendMessage": "Send Message",
   "removeManager2": "Remove Manager",
   "promoteToLeader": "Promote to Leader",
-  "inviteFriendsParty": "Inviting friends to your party will grant you an exclusive <br/> Quest Scroll to battle the Basi-List together!"
+  "inviteFriendsParty": "Inviting friends to your party will grant you an exclusive <br/> Quest Scroll to battle the Basi-List together!",
+  "signUpWithSocial": "Sign up with <%= social %>",
+  "loginWithSocial": "Login with <%= social %>",
+  "confirmPassword": "Confirm Password",
+  "usernamePlaceholder": "e.g., HabitRabbit",
+  "emailPlaceholder": "e.g., rabbit@habitica.com",
+  "passwordPlaceholder": "e.g., •••••••••••• ",
+  "confirmPasswordPlaceholder": "Make sure it’s the same password!",
+  "termsAndAgreement": "By clicking the button below, you are indicating that you have read and agree to the <a href=''>Terms of Service</a> and <a href=''>Privacy Policy</a>.",
+  "joinHabitica": "Join Habitica"
 }

@@ -11,25 +11,25 @@
         .svg-icon.habitica-logo(v-html="icons.habiticaIcon")
     .form-group.row.text-center
       .col-6
-        .btn.btn-secondary.social-button(@click='socialAuth("facebook")') {{this.registering ? 'Sign up with Facebook' : 'Login with Facebook'}}
+        .btn.btn-secondary.social-button(@click='socialAuth("facebook")', v-once) {{this.registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'})}}
       .col-6
-        .btn.btn-secondary.social-button(@click='socialAuth("google")') {{this.registering ? 'Sign up with Google' : 'Login with Google'}}
+        .btn.btn-secondary.social-button(@click='socialAuth("google")', v-once) {{this.registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'})}}
     .form-group
-      label(for='usernameInput') Username
-      input#usernameInput.form-control(type='text', placeholder='e.g., HabitRabbit', v-model='username')
+      label(for='usernameInput', v-once) {{$t('username')}}
+      input#usernameInput.form-control(type='text', :placeholder='$t("usernamePlaceholder")', v-model='username')
     .form-group(v-if='registering')
-      label(for='emailInput') Email address
-      input#emailInput.form-control(type='email', placeholder='e.g., rabbit@habitica.com', v-model='email')
+      label(for='emailInput', v-once) {{$t('email')}}
+      input#emailInput.form-control(type='email', :placeholder='$t("emailPlaceholder")', v-model='email')
     .form-group
-      label(for='passwordInput') Password
-      input#passwordInput.form-control(type='password', placeholder='e.g., •••••••••••• ', v-model='password')
+      label(for='passwordInput', v-once) {{$t('password')}}
+      input#passwordInput.form-control(type='password', :placeholder='$t("passwordPlaceholder")', v-model='password')
     .form-group(v-if='registering')
-      label(for='confirmPasswordInput') Confirm Password
-      input#confirmPasswordInput.form-control(type='password', placeholder='Make sure it’s the same password!', v-model='passwordConfirm')
-      small.form-text By clicking the button below, you are indicating that you have read and agree to the <a href=''>Terms of Service</a> and <a href=''>Privacy Policy</a>.
+      label(for='confirmPasswordInput', v-once) {{$t('confirmPassword')}}
+      input#confirmPasswordInput.form-control(type='password', :placeholder='$t("confirmPasswordPlaceholder")', v-model='passwordConfirm')
+      small.form-text(v-once) {{$t('termsAndAgreement')}}
     .text-center
-      .btn.btn-info(@click='register()', v-if='registering') Join Habitica
-      .btn.btn-info(@click='login()', v-if='!registering') Login
+      .btn.btn-info(@click='register()', v-if='registering', v-once) {{$t('joinHabitica')}}
+      .btn.btn-info(@click='login()', v-if='!registering', v-once) {{$t('login')}}
 
   #bottom-background
     .seamless_mountains_demo_repeat
