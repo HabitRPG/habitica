@@ -10,6 +10,8 @@ import Page from './components/page';
 // Tasks
 import UserTasks from './components/userTasks';
 
+const CreatorIntro = () => import(/* webpackChunkName: "creator" */'./components/creatorIntro');
+
 // Except for tasks that are always loaded all the other main level
 // components are loaded in separate webpack chunks.
 // See https://webpack.js.org/guides/code-splitting-async/
@@ -44,6 +46,7 @@ export default new VueRouter({
     return { x: 0, y: 0 };
   },
   routes: [
+    { name: 'creator', path: '/creator', component: CreatorIntro },
     { name: 'tasks', path: '/', component: UserTasks },
     {
       path: '/inventory',
