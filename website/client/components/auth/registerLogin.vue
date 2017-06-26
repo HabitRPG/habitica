@@ -11,9 +11,13 @@
         .svg-icon.habitica-logo(v-html="icons.habiticaIcon")
     .form-group.row.text-center
       .col-6
-        .btn.btn-secondary.social-button(@click='socialAuth("facebook")', v-once) {{this.registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'})}}
+        .btn.btn-secondary.social-button(@click='socialAuth("facebook")', v-once)
+          .svg-icon.social-icon(v-html="icons.facebookIcon")
+          | {{this.registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'})}}
       .col-6
-        .btn.btn-secondary.social-button(@click='socialAuth("google")', v-once) {{this.registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'})}}
+        .btn.btn-secondary.social-button(@click='socialAuth("google")', v-once)
+          .svg-icon.social-icon(v-html="icons.googleIcon")
+          | {{this.registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'})}}
     .form-group
       label(for='usernameInput', v-once) {{$t('username')}}
       input#usernameInput.form-control(type='text', :placeholder='$t("usernamePlaceholder")', v-model='username')
@@ -97,6 +101,12 @@
 
     .social-button {
       width: 100%;
+      text-align: left;
+    }
+
+    .social-icon {
+      margin-right: 1em;
+      width: 13px;
     }
   }
 
@@ -137,6 +147,8 @@ import hello from 'hellojs';
 
 import gryphon from 'assets/svg/gryphon.svg';
 import habiticaIcon from 'assets/svg/habitica-logo.svg';
+import facebookIcon from 'assets/svg/facebook.svg';
+import googleIcon from 'assets/svg/google.svg';
 
 export default {
   data () {
@@ -151,6 +163,8 @@ export default {
     data.icons = Object.freeze({
       gryphon,
       habiticaIcon,
+      facebookIcon,
+      googleIcon,
     });
 
     return data;

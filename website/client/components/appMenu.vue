@@ -48,7 +48,7 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
         router-link.dropdown-item(:to="{name: 'stats'}") {{ $t('stats') }}
         router-link.dropdown-item(:to="{name: 'achievements'}") {{ $t('achievements') }}
         router-link.dropdown-item(:to="{name: 'settings'}") {{ $t('settings') }}
-        a.nav-link.dropdown-item(to="/", @click='logout()') {{ $t('logout') }}
+        a.nav-link.dropdown-item(to="/", @click.prevent='logout()') {{ $t('logout') }}
 </template>
 
 <style lang="scss" scoped>
