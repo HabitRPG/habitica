@@ -8,7 +8,8 @@ import ParentPage from './components/parentPage';
 import Page from './components/page';
 
 // Static Pages
-import Register from './components/auth/register';
+const Home = () => import(/* webpackChunkName: "static" */'./components/static/home');
+const RegisterLogin = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLogin');
 
 // Tasks
 import UserTasks from './components/userTasks';
@@ -47,7 +48,9 @@ export default new VueRouter({
     return { x: 0, y: 0 };
   },
   routes: [
-    { name: 'register', path: '/register', component: Register },
+    { name: 'home', path: '/home', component: Home },
+    { name: 'register', path: '/register', component: RegisterLogin },
+    { name: 'login', path: '/login', component: RegisterLogin },
     { name: 'tasks', path: '/', component: UserTasks },
     {
       path: '/inventory',

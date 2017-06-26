@@ -17,18 +17,19 @@
     .form-group
       label(for='usernameInput') Username
       input#usernameInput.form-control(type='text', placeholder='e.g., HabitRabbit', v-model='username')
-    .form-group
+    .form-group(v-if='registering')
       label(for='emailInput') Email address
       input#emailInput.form-control(type='email', placeholder='e.g., rabbit@habitica.com', v-model='email')
     .form-group
       label(for='passwordInput') Password
       input#passwordInput.form-control(type='password', placeholder='e.g., •••••••••••• ', v-model='password')
-    .form-group
+    .form-group(v-if='registering')
       label(for='confirmPasswordInput') Confirm Password
       input#confirmPasswordInput.form-control(type='password', placeholder='Make sure it’s the same password!', v-model='passwordConfirm')
       small.form-text By clicking the button below, you are indicating that you have read and agree to the <a href=''>Terms of Service</a> and <a href=''>Privacy Policy</a>.
     .text-center
-      .btn.btn-info(@click='register()') Join Habitica
+      .btn.btn-info(@click='register()', v-if='registering') Join Habitica
+      .btn.btn-info(@click='login()', v-if='!registering') Login
 
   #bottom-background
     .seamless_mountains_demo_repeat
@@ -139,6 +140,7 @@ export default {
       email: '',
       password: '',
       passwordConfirm: '',
+      registering: true,
     };
 
     data.icons = Object.freeze({
@@ -147,6 +149,11 @@ export default {
     });
 
     return data;
+  },
+  mounted () {
+    if (this.$route.path.startsWith('/login')) {
+      this.registering = false;
+    }
   },
   methods: {
     async register () {
@@ -173,7 +180,16 @@ export default {
         passwordConfirm: this.passwordConfirm,
       });
 
-      this.$router.push('/');
+      this.$router.go('/tasks');
+    },
+    async login () {
+      await this.$store.dispatch('auth:login', {
+        username: this.username,
+        // email: this.email,
+        password: this.password,
+      });
+
+      this.$router.go('/tasks');
     },
   },
 };
