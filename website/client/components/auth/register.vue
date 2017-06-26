@@ -16,19 +16,19 @@
         .btn.btn-secondary.social-button Sign up with Google
     .form-group
       label(for='usernameInput') Username
-      input#usernameInput.form-control(type='text', placeholder='e.g., HabitRabbit')
+      input#usernameInput.form-control(type='text', placeholder='e.g., HabitRabbit', v-model='username')
     .form-group
       label(for='emailInput') Email address
-      input#emailInput.form-control(type='email', placeholder='e.g., rabbit@habitica.com')
+      input#emailInput.form-control(type='email', placeholder='e.g., rabbit@habitica.com', v-model='email')
     .form-group
       label(for='passwordInput') Password
-      input#passwordInput.form-control(type='password', placeholder='e.g., •••••••••••• ')
+      input#passwordInput.form-control(type='password', placeholder='e.g., •••••••••••• ', v-model='password')
     .form-group
       label(for='confirmPasswordInput') Confirm Password
-      input#confirmPasswordInput.form-control(type='password', placeholder='Make sure it’s the same password!')
+      input#confirmPasswordInput.form-control(type='password', placeholder='Make sure it’s the same password!', v-model='passwordConfirm')
       small.form-text By clicking the button below, you are indicating that you have read and agree to the <a href=''>Terms of Service</a> and <a href=''>Privacy Policy</a>.
     .text-center
-      .btn.btn-info Join Habitica
+      .btn.btn-info(@click='register()') Join Habitica
 
   #bottom-background
     .seamless_mountains_demo_repeat
@@ -134,7 +134,12 @@ import habiticaIcon from 'assets/svg/habitica-logo.svg';
 
 export default {
   data () {
-    let data = {};
+    let data = {
+      username: '',
+      email: '',
+      password: '',
+      passwordConfirm: '',
+    };
 
     data.icons = Object.freeze({
       gryphon,
@@ -142,6 +147,34 @@ export default {
     });
 
     return data;
+  },
+  methods: {
+    async register () {
+      if (this.password !== this.passwordConfirm) {
+        alert('Passwords must match');
+        return;
+      }
+
+      // @TODO: implement langauge and invite accepting
+      // var url = ApiUrl.get() + "/api/v3/user/auth/local/register";
+      // if (location.search && location.search.indexOf('Invite=') !== -1) { // matches groupInvite and partyInvite
+      //   url += location.search;
+      // }
+      //
+      // if($rootScope.selectedLanguage) {
+      //   var toAppend = url.indexOf('?') !== -1 ? '&' : '?';
+      //   url = url + toAppend + 'lang=' + $rootScope.selectedLanguage.code;
+      // }
+
+      await this.$store.dispatch('auth:register', {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+        passwordConfirm: this.passwordConfirm,
+      });
+
+      this.$router.push('/');
+    },
   },
 };
 </script>

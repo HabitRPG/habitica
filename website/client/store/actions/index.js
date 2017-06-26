@@ -6,6 +6,7 @@ import * as tasks from './tasks';
 import * as guilds from './guilds';
 import * as party from './party';
 import * as members from './members';
+import * as auth from './auth';
 
 // Actions should be named as 'actionName' and can be accessed as 'namespace:actionName'
 // Example: fetch in user.js -> 'user:fetch'
@@ -17,6 +18,7 @@ const actions = flattenAndNamespace({
   guilds,
   party,
   members,
+  auth,
 });
 
 export default actions;

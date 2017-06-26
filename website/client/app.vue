@@ -2,17 +2,18 @@
 
 <template lang="pug">
 #app
-  app-menu(v-if="userLoggIn")
-  .container-fluid(v-if="userLoggIn")
+  app-menu(v-if="userLoggedIn")
+  .container-fluid(v-if="userLoggedIn")
     app-header
     router-view
 
-  router-view(v-if="!userLoggIn")
+  router-view(v-if="!userLoggedIn")
 </template>
 
 <script>
 import AppMenu from './components/appMenu';
 import AppHeader from './components/appHeader';
+import axios from 'axios';
 
 export default {
   name: 'app',
@@ -22,7 +23,7 @@ export default {
   },
   data () {
     return {
-      userLoggIn: false,
+      userLoggedIn: false,
     };
   },
   async beforeCreate () {
@@ -43,6 +44,10 @@ export default {
     let authSettings = localStorage.getItem('habit-mobile-settings');
     if (!authSettings) return;
 
+    authSettings = JSON.parse(authSettings);
+    axios.defaults.headers.common['x-api-user'] = authSettings.auth.apiId;
+    axios.defaults.headers.common['x-api-key'] = authSettings.auth.apiToken;
+
     // Load the user and the user tasks
     await Promise.all([
       this.$store.dispatch('user:fetch'),
@@ -50,6 +55,8 @@ export default {
     ]).catch((err) => {
       console.error('Impossible to fetch user. Copy into localStorage a valid habit-mobile-settings object.', err); // eslint-disable-line no-console
     });
+
+    this.userLoggedIn = true;
   },
   mounted () { // Remove the loading screen when the app is mounted
     let loadingScreen = document.getElementById('loading-screen');
