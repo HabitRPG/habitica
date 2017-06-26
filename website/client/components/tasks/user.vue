@@ -8,8 +8,8 @@
         button.btn.btn-success(v-once) 
           .svg-icon.positive(v-html="icons.positive")
           | {{ $t('create') }}
-    .row
-      task-column.col-3(v-for="column in columns", :type="column", :key="column")
+    .row.tasks-columns
+      task-column.col-3(v-for="column in columns", :type="column", :key="column", :isUser="true")
 </template>
 
 <style lang="scss" scoped>
@@ -29,6 +29,10 @@
   color: $green-500;
   margin-right: 8px;
   padding-top: 6px;
+}
+
+.tasks-columns {
+  height: 100%;
 }
 </style>
 

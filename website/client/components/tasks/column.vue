@@ -10,10 +10,15 @@
       ) {{ $t(filter.label) }}
   .tasks-list
     task(v-for="task in tasks[`${type}s`]", :key="task.id", :task="task", v-if="activeFilter.filter(task)")
+    .bottom-gradient
 </template>
 
 <style lang="scss" scoped>
 @import '~client/assets/scss/colors.scss';
+
+.tasks-column {
+  flex-grow: 1;
+}
 
 .tasks-list {
   border-radius: 4px;
@@ -21,6 +26,19 @@
   padding: 8px;
   // not sure why but this is necessary or the last task will overflow the container
   padding-bottom: 0.1px;
+  position: relative;
+  height: calc(100% - 64px);
+  background-image: linear-gradient(to bottom, rgba(52, 49, 58, 0), #34313a);
+}
+
+.bottom-gradient {
+  display: none;
+  position: absolute;
+  bottom: 0px;
+  left: -0px;
+  height: 42px;
+  background-image: linear-gradient(to bottom, rgba(52, 49, 58, 0), #34313a);
+  width: 100%;
 }
 
 .tasks-column-title {
@@ -59,7 +77,7 @@ export default {
   components: {
     Task,
   },
-  props: ['type'],
+  props: ['type', 'isUser'],
   data () {
     const types = Object.freeze({
       habit: {
