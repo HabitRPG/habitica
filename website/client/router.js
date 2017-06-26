@@ -20,7 +20,7 @@ const UserTasks = () => import(/* webpackChunkName: "userTasks" */'./components/
 const InventoryContainer = () => import(/* webpackChunkName: "inventory" */'./components/inventory/index');
 const ItemsPage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/items/index');
 const EquipmentPage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/equipment/index');
-const StablePage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/stable');
+const StablePage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/stable/index');
 
 // Social
 const InboxPage = () => import(/* webpackChunkName: "inbox" */ './components/social/inbox/index');

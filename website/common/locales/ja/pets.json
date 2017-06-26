@@ -1,5 +1,5 @@
 {
-    "stable": "Stable",
+    "stable": "動物小屋",
     "pets": "ペット",
     "activePet": "今連れているペット",
     "noActivePet": "何も連れ歩いていません",
@@ -26,7 +26,7 @@
     "royalPurpleGryphon": "青紫のグリフォン",
     "phoenix": "不死鳥",
     "magicalBee": "不思議なハチ",
-    "royalPurpleJackalope": "Royal Purple Jackalope",
+    "royalPurpleJackalope": "高貴な紫のジャッカロープ",
     "rarePetPop1": "金色の足跡をクリックすると、Habitica への貢献で、この貴重なペットを入手する詳しい方法がわかります!",
     "rarePetPop2": "このペットを手に入れる方法!",
     "potion": "<%= potionType %> ポーション",
