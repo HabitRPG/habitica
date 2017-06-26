@@ -3,7 +3,7 @@ html {
 }
 
 html, body {
-  height: 100%;
+  height: calc(100% - 56px); // 56px is the menu
   background: $gray-700;
 }
 

@@ -101,31 +101,6 @@
     margin-top: 1em;
   }
 
-  .category-box {
-    padding: 1em;
-    max-width: 400px;
-    position: absolute;
-    top: -480px;
-    padding: 2em;
-    border-radius: 2px;
-    background-color: $white;
-    box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($black, 0.1);
-  }
-
-  .category-label {
-    min-width: 100px;
-    border-radius: 100px;
-    background-color: $gray-600;
-    padding: .5em;
-    display: inline-block;
-    margin-right: .5em;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 1.33;
-    text-align: center;
-    color: $gray-300;
-  }
-
   .item-with-icon {
     display: inline-block;
 
@@ -144,21 +119,6 @@
 
   .description-count {
     margin-top: 1em;
-  }
-
-  .category-select {
-    border-radius: 2px;
-    background-color: $white;
-    box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
-    padding: 1em;
-  }
-
-  .category-select:hover {
-    cursor: pointer;
-  }
-
-  .category-wrap {
-    margin-top: .5em;
   }
 
   .icon {
