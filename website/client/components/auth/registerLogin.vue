@@ -11,9 +11,9 @@
         .svg-icon.habitica-logo(v-html="icons.habiticaIcon")
     .form-group.row.text-center
       .col-6
-        .btn.btn-secondary.social-button Sign up with Facebook
+        .btn.btn-secondary.social-button(@click='socialAuth("facebook")') {{this.registering ? 'Sign up with Facebook' : 'Login with Facebook'}}
       .col-6
-        .btn.btn-secondary.social-button Sign up with Google
+        .btn.btn-secondary.social-button(@click='socialAuth("google")') {{this.registering ? 'Sign up with Google' : 'Login with Google'}}
     .form-group
       label(for='usernameInput') Username
       input#usernameInput.form-control(type='text', placeholder='e.g., HabitRabbit', v-model='username')
@@ -130,6 +130,8 @@
 </style>
 
 <script>
+import hello from 'hellojs';
+
 import gryphon from 'assets/svg/gryphon.svg';
 import habiticaIcon from 'assets/svg/habitica-logo.svg';
 
@@ -154,6 +156,12 @@ export default {
     if (this.$route.path.startsWith('/login')) {
       this.registering = false;
     }
+
+    hello.init({
+      facebook: '',
+      // windows: WINDOWS_CLIENT_ID,
+      google: '',
+    });
   },
   methods: {
     async register () {
@@ -187,6 +195,15 @@ export default {
         username: this.username,
         // email: this.email,
         password: this.password,
+      });
+
+      this.$router.go('/tasks');
+    },
+    async socialAuth (network) {
+      let auth = await hello(network).login({scope: 'email'});
+
+      await this.$store.dispatch('auth:socialAuth', {
+        auth,
       });
 
       this.$router.go('/tasks');
