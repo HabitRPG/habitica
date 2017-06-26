@@ -9,7 +9,7 @@
           .svg-icon.positive(v-html="icons.positive")
           | {{ $t('create') }}
     .row
-      task-column(v-for="column in columns", :type="column", :key="column")
+      task-column.col-3(v-for="column in columns", :type="column", :key="column")
 </template>
 
 <style lang="scss" scoped>

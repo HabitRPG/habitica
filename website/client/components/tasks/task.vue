@@ -26,8 +26,16 @@
             span.m-0(v-if="task.down") -{{task.counterDown}}
         .d-flex.align-items-center(v-if="task.challenge && task.challenge.id")
           .svg-icon.challenge(v-html="icons.challenge")
-        .d-flex.align-items-center(v-if="task.tags && task.tags.length > 0")
-          .svg-icon.tags(v-html="icons.tags")
+        b-popover.tags-popover.no-span-margin(
+          :triggers="['hover']",
+          :placement="'bottom'",
+          :popover-style="{'max-width': '1000px'}",
+        )
+          .d-flex.align-items-center(slot="content")
+            .tags-popover-title(v-once) {{ `${$t('tags')}:` }}
+            .tag-label(v-for="tag in getTagsFor(task)") {{tag}}
+          .d-flex.align-items-center(v-if="task.tags && task.tags.length > 0")
+            .svg-icon.tags(v-html="icons.tags")
 
   // Habits right side control
   .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down")
@@ -72,6 +80,7 @@
 
 .icons {
   color: $gray-300;
+  font-style: normal;
 
   &-right {
     flex-grow: 1;
@@ -86,6 +95,10 @@
   margin-left: 4px;
 }
 
+.no-span-margin span {
+  margin-left: 0px !important; 
+}
+
 .svg-icon.streak {
   width: 11.6px;
   height: 7.1px;
@@ -94,6 +107,10 @@
 .tags.svg-icon, .calendar.svg-icon {
   width: 14px;
   height: 14px;
+}
+
+.tags:hover {
+  color: $purple-500;
 }
 
 .due-overdue {
@@ -175,6 +192,31 @@
 }
 </style>
 
+<style lang="scss"> // not working as scoped css
+@import '~client/assets/scss/colors.scss';
+
+.tags-popover {
+  white-space: nowrap;
+}
+
+.tags-popover-title {
+  margin-right: 4px;
+  display: block;
+  float: left;
+}
+
+.tag-label {
+  display: block;
+  float: left;
+  margin-left: 4px;
+  border-radius: 100px;
+  background-color: $gray-50;
+  padding: 4px 10px;
+  color: $gray-300;
+  white-space: nowrap;
+} 
+</style>
+
 <script>
 import { mapState, mapGetters } from 'client/libs/store';
 import moment from 'moment';
@@ -187,8 +229,12 @@ import calendarIcon from 'assets/svg/calendar.svg';
 import challengeIcon from 'assets/svg/challenge.svg';
 import tagsIcon from 'assets/svg/tags.svg';
 import checkIcon from 'assets/svg/check.svg';
+import bPopover from 'bootstrap-vue/lib/components/popover';
 
 export default {
+  components: {
+    bPopover,
+  },
   props: ['task'],
   data () {
     return {
