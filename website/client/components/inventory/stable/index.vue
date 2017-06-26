@@ -64,7 +64,7 @@
             b-dropdown-item(
               v-for="sort in sortByItems",
               @click="selectedSortBy = sort",
-              :class="selectedSortBy === sort ? 'active' : 'no-focus'",
+              :active="selectedSortBy === sort",
               :key="sort"
             ) {{ $t(sort) }}
 
@@ -177,13 +177,15 @@
                 )  {{ drawerTabs[1].label }}
 
               b-popover(
-                :triggers="['hover']",
+                :triggers="['click']",
                 :placement="'top'"
               )
                 span(slot="content")
-                  .popover-content-text Test Popover
+                  .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
 
-                div.float-right What does my pet like to eat?
+                div.float-right(v-once)
+                  | {{ $t('petLikeToEat') + ' ' }}
+                  .svg-icon(v-html="icons.information")
 
 
         drawer-slider(
@@ -343,6 +345,10 @@
     background-color: inherit;
     color: inherit;
   }
+
+  .popover-content-text {
+    margin-bottom: 0;
+  }
 </style>
 
 <script>
@@ -374,6 +380,8 @@
 
   import ResizeDirective from 'client/directives/resize.directive';
   import DragDropDirective from 'client/directives/dragdrop.directive';
+
+  import information from 'assets/svg/information.svg';
 
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
@@ -416,6 +424,10 @@
           'sortByColor',
           'sortByHatchable',
         ],
+
+        icons: Object.freeze({
+          information,
+        }),
 
         selectedDrawerTab: 0,
         availableContentWidth: 0,

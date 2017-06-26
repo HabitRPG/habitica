@@ -38,9 +38,10 @@
 
   &:focus {
     outline: none;
+    background-color: inherit;
   }
 
-  &:active, &:hover, &:focus, &.active {
+  &:active, &:hover, &.active {
     background-color: rgba(#d5c8ff, 0.32);
     color: $purple-200;
   }
