@@ -148,7 +148,6 @@ export default {
       // Analytics.updateUser({'partyID': party._id, 'partySize': party.memberCount});
       let response = await this.$store.dispatch('guilds:inviteToQuest', {groupId: this.group._id, key});
       let quest = response.data.data;
-      this.group.quest = quest;
       this.$store.party.quest = quest;
       this.$root.$emit('hide::modal', 'start-quest-modal');
     },
