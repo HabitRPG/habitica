@@ -21,7 +21,7 @@
             .svg-icon(v-html='icons.bodyIcon')
           strong Body
         .col-3
-          .menu-item(@click='changeTopPage("skin")')
+          .menu-item(@click='changeTopPage("skin", "color")')
             .svg-icon(v-html='icons.skinIcon')
           strong Skin
         .col-3
@@ -34,9 +34,9 @@
           strong Extra
       .section.customize-section(v-if='activeTopPage === "body"')
         .row.sub-menu
-            .col-2.offset-4(@click='changeSubPage("size")')
+            .col-2.offset-4.sub-menu-item(@click='changeSubPage("size")', :class='{active: activeSubPage === "size"}')
               strong Size
-            .col-2(@click='changeSubPage("shirt")')
+            .col-2.sub-menu-item(@click='changeSubPage("shirt")', :class='{active: activeSubPage === "shirt"}')
               strong Shirt
         .row(v-if='activeSubPage === "size"')
           .col-12.customize-options
@@ -53,7 +53,7 @@
 
       .section.customize-section(v-if='activeTopPage === "skin"')
         .row.sub-menu
-            .col-6.offset-3.text-center
+            .col-6.offset-3.text-center.sub-menu-item(:class='{active: activeSubPage === "color"}')
               strong Color
         .row
           .col-12.customize-options
@@ -68,11 +68,11 @@
 
       .section.customize-section(v-if='activeTopPage === "hair"')
         .row.sub-menu
-            .col-2.offset-3.text-center(@click='changeSubPage("color")')
+            .col-2.offset-3.text-center.sub-menu-item(@click='changeSubPage("color")', :class='{active: activeSubPage === "color"}')
               strong Color
-            .col-2.text-center(@click='changeSubPage("bangs")')
+            .col-2.text-center.sub-menu-item(@click='changeSubPage("bangs")', :class='{active: activeSubPage === "bangs"}')
               strong Bangs
-            .col-2.text-center(@click='changeSubPage("ponytail")')
+            .col-2.text-center.sub-menu-item(@click='changeSubPage("ponytail")', :class='{active: activeSubPage === "ponytail"}')
               strong Ponytail
         .row(v-if='activeSubPage === "color"')
           .col-12.customize-options
@@ -94,13 +94,13 @@
             .hair_base_1_blond.option(@click='set({"preferences.hair.base": 1})')
             .hair_base_3_blond.option(@click='set({"preferences.hair.base": 3})')
 
-      .section.customize-section(v-if='activeTopPage === "extra"')
+      .section.container.customize-section(v-if='activeTopPage === "extra"')
         .row.sub-menu
-            .col-2.offset-3.text-center(@click='changeSubPage("glasses")')
+            .col-4.text-center.sub-menu-item(@click='changeSubPage("glasses")', :class='{active: activeSubPage === "glasses"}')
               strong Glasses
-            .col-2.text-center(@click='changeSubPage("wheelchair")')
+            .col-4.text-center.sub-menu-item(@click='changeSubPage("wheelchair")', :class='{active: activeSubPage === "wheelchair"}')
               strong Wheelchair
-            .col-2.text-center(@click='changeSubPage("flower")')
+            .col-4.text-center.sub-menu-item(@click='changeSubPage("flower")', :class='{active: activeSubPage === "flower"}')
               strong Flower
         .row(v-if='activeSubPage === "glasses"')
           .col-12.customize-options
@@ -112,15 +112,21 @@
             .eyewear_special_whiteTopFrame.option(@click='equip("eyewear_special_whiteTopFrame")')
             .eyewear_special_yellowTopFrame.option(@click='equip("eyewear_special_yellowTopFrame")')
         .row(v-if='activeSubPage === "wheelchair"')
-          .col-12.customize-options
+          .col-12.customize-options.weelchairs
             .option(@click='set({"preferences.chair": "none"})')
               | None
-            .button_chair_black.option(@click='set({"preferences.chair": "black"})')
-            .button_chair_blue.option(@click='set({"preferences.chair": "blue"})')
-            .button_chair_green.option(@click='set({"preferences.chair": "green"})')
-            .button_chair_pink.option(@click='set({"preferences.chair": "pink"})')
-            .button_chair_red.option(@click='set({"preferences.chair": "red"})')
-            .button_chair_yellow.option(@click='set({"preferences.chair": "yellow"})')
+            .option(@click='set({"preferences.chair": "black"})')
+              .button_chair_black
+            .option(@click='set({"preferences.chair": "blue"})')
+              .button_chair_blue
+            .option(@click='set({"preferences.chair": "green"})')
+              .button_chair_green
+            .option(@click='set({"preferences.chair": "pink"})')
+              .button_chair_pink
+            .option(@click='set({"preferences.chair": "red"})')
+              .button_chair_red
+            .option(@click='set({"preferences.chair": "yellow"})')
+              .button_chair_yellow
         .row(v-if='activeSubPage === "flower"')
           .col-12.customize-options
             .head_0.option(@click='set({"preferences.hair.flower":0})')
@@ -131,57 +137,71 @@
             .hair_flower_5.option(@click='set({"preferences.hair.flower":5})')
             .hair_flower_6.option(@click='set({"preferences.hair.flower":6})')
 
-    div(v-if='modalPage == 3')
+    .container.interests-section(v-if='modalPage == 3')
       .section.row
-        .col-12
+        .col-12.text-center
           h2 I want to work on:
       .section.row
-        .col-6
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('guildLeaderCantBeMessaged') }}
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('guildLeaderCantBeMessaged') }}
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('guildLeaderCantBeMessaged') }}
-        .col-6
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('guildLeaderCantBeMessaged') }}
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('guildLeaderCantBeMessaged') }}
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('guildLeaderCantBeMessaged') }}
+        .col-4.offset-2
+          div
+            label.custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox")
+              span.custom-control-indicator
+              span.custom-control-description(v-once) {{ $t('work') }}
+          div
+            label.custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox")
+              span.custom-control-indicator
+              span.custom-control-description(v-once) {{ $t('excercise') }}
+          div
+            label.custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox")
+              span.custom-control-indicator
+              span.custom-control-description(v-once) {{ $t('health') }}
+          div
+            label.custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox")
+              span.custom-control-indicator
+              span.custom-control-description(v-once) {{ $t('school') }}
+        .col-4
+          div
+            label.custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox")
+              span.custom-control-indicator
+              span.custom-control-description(v-once) {{ $t('chores') }}
+          div
+            label.custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox")
+              span.custom-control-indicator
+              span.custom-control-description(v-once) {{ $t('creativity') }}
+          div
+            label.custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox")
+              span.custom-control-indicator
+              span.custom-control-description(v-once) {{ $t('budgeting') }}
 
-    .section.row.justin-message-section(v-if='modalPage == 1')
+    .section.row.justin-message-section(:class='{top: modalPage > 1}')
       .col-9
-        .justin-message
+        .justin-message(v-if='modalPage == 1')
           p Hello there! You must be new here. My name is Justin, I’ll be your guide in Habitica.
           p To start, you’ll need to create an avatar.
+        .justin-message(v-if='modalPage > 1')
+          p Great! Now, what are you interested in working on throughout this journey?
 
-    .section.row.footer
-      .col-3.offset-1.text-center
-        div(v-if='modalPage > 1', @click='prev()')
-          .prev-arrow
-          .prev Prev
-      .col-3.offset-1.text-center
-        .circle(:class="{active: modalPage === 1}")
-        .circle(:class="{active: modalPage === 2}")
-        .circle(:class="{active: modalPage === 3}")
-      .col-3.text-center
-        div(v-if='modalPage < 3', @click='next()')
-          .next Next
-          .next-arrow
+    .section.container.footer
+      .row
+        .col-3.offset-1.text-center
+          div(v-if='modalPage > 1', @click='prev()')
+            .prev-arrow
+            .prev Prev
+        .col-4.text-center.circles
+          .circle(:class="{active: modalPage === 1}")
+          .circle(:class="{active: modalPage === 2}")
+          .circle(:class="{active: modalPage === 3}")
+        .col-3.text-center
+          div(v-if='modalPage < 3', @click='next()')
+            .next Next
+            .next-arrow
 </template>
 
 <style lang="scss" scoped>
@@ -240,6 +260,15 @@
     margin-bottom: 6em;
   }
 
+  .justin-message-section.top {
+    position: absolute;
+    top: -15em;
+  }
+
+  .circles {
+    padding-left: 2em;
+  }
+
   .circle {
     width: 8px;
     height: 8px;
@@ -257,16 +286,17 @@
     .menu-item .svg-icon {
       width: 32px;
       height: 32px;
-
-      svg {
-        fill: #A5A1AC;
-      }
     }
 
-    .menu-item .svg-icon:hover {
+    svg g path {
+      // stroke: #A5A1AC;
+      fill: purple !important;
+    }
+
+    .menu-item:hover {
       cursor: pointer;
-      svg {
-        fill: purple;
+      svg path, strong {
+        stroke: purple !important;
       }
     }
   }
@@ -275,8 +305,23 @@
     cursor: pointer;
   }
 
+  .sub-menu-item {
+    text-align: center;
+  }
+
+  .sub-menu .sub-menu-item:hover, .sub-menu .sub-menu-item.active {
+    color: $purple-200;
+    border-bottom: 2px solid $purple-200;
+  }
+
   .customize-options .option {
     float: left;
+    padding: 2em;
+  }
+
+  .weelchairs .option {
+    width: 90px;
+    height: 90px;
   }
 
   .option:hover {
@@ -287,6 +332,10 @@
     background-color: #f9f9f9;
     padding-top: 1em;
     height: 250px;
+  }
+
+  .interests-section {
+    margin-top: 7em;
   }
 
   .footer {
