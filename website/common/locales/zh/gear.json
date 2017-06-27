@@ -91,7 +91,7 @@
     "weaponSpecialRoguishRainbowMessageText": "Roguish Rainbow Message",
     "weaponSpecialRoguishRainbowMessageNotes": "This sparkly envelope contains messages of encouragement from Habiticans, and a touch of magic to help speed your deliveries! Increases Perception by <%= per %>.",
     "weaponSpecialSkeletonKeyText": "骷髅钥匙",
-    "weaponSpecialSkeletonKeyNotes": "All the best Sneakthieves carry a key that can open any lock! Increases Constitution by <%= con %>.",
+    "weaponSpecialSkeletonKeyNotes": "所有最棒的潜行者都会携带一把钥匙来打开任何的锁！增加<%= con %>点体质。",
     "weaponSpecialNomadsScimitarText": "Nomad的弯刀",
     "weaponSpecialNomadsScimitarNotes": "The curved blade of this Scimitar is perfect for attacking Tasks from the back of a mount! Increases Intelligence by <%= int %>.",
     "weaponSpecialFencingFoilText": "击剑",

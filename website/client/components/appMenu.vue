@@ -14,7 +14,7 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
           router-link.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
       router-link.nav-item(tag="li", :to="{name: 'shops'}", exact)
         a.nav-link(v-once) {{ $t('shops') }}
-      router-link.nav-item(tag="li", :to="{name: 'party'}", exact)
+      router-link.nav-item.dropdown(:to="{name: 'party'}")
         a.nav-link(v-once) {{ $t('party') }}
       router-link.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/guilds')}")
         a.nav-link(v-once) {{ $t('guilds') }}
