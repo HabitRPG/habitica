@@ -79,6 +79,13 @@ describe('cron', () => {
       expect(user.purchased.plan.gemsBought).to.equal(0);
     });
 
+    it('resets plan.gemsBought on a new month if user does not have purchased.plan.dateUpdated', () => {
+      user.purchased.plan.gemsBought = 10;
+      user.purchased.plan.dateUpdated = undefined;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.gemsBought).to.equal(0);
+    });
+
     it('does not reset plan.gemsBought within the month', () => {
       let clock = sinon.useFakeTimers(moment().startOf('month').add(2, 'days').unix());
       user.purchased.plan.dateUpdated = moment().startOf('month').toDate();

@@ -47,7 +47,7 @@ export default new Vue({
 
     // Mount the app when user and tasks are loaded
     const userDataWatcher = this.$store.watch(state => [state.user.data, state.tasks.data], ([user, tasks]) => {
-      if (user && user._id && Array.isArray(tasks)) {
+      if (user && user._id && tasks && Array.isArray(tasks.habits)) {
         userDataWatcher(); // remove the watcher
         this.$mount('#app');
       }

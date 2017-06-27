@@ -7,19 +7,20 @@ import EmptyView from './components/emptyView';
 import ParentPage from './components/parentPage';
 import Page from './components/page';
 
-// Tasks
-import UserTasks from './components/userTasks';
 
-// Except for tasks that are always loaded all the other main level
+// All the main level
 // components are loaded in separate webpack chunks.
 // See https://webpack.js.org/guides/code-splitting-async/
 // for docs
+
+// Tasks
+const UserTasks = () => import(/* webpackChunkName: "userTasks" */'./components/tasks/user');
 
 // Inventory
 const InventoryContainer = () => import(/* webpackChunkName: "inventory" */'./components/inventory/index');
 const ItemsPage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/items/index');
 const EquipmentPage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/equipment/index');
-const StablePage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/stable');
+const StablePage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/stable/index');
 
 // Social
 const InboxPage = () => import(/* webpackChunkName: "inbox" */ './components/social/inbox/index');
