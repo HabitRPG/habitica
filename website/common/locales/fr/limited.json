@@ -106,7 +106,7 @@
     "spring2017SneakyBunnySet": "Lapin masqué (Voleur)",
     "summer2017SandcastleWarriorSet": "Guerrier château-de-sable (Guerrier)",
     "summer2017WhirlpoolMageSet": "Mage tourbillon (Mage)",
-    "summer2017SeashellSeahealerSet": "Seashell Seahealer (Healer)",
+    "summer2017SeashellSeahealerSet": "Poissoigneur du coquillage (Guérisseur)",
     "summer2017SeaDragonSet": "Dragon de mer (Voleur)",
     "eventAvailability": "Disponible à l'achat jusqu'au <%= date(locale) %>.",
     "dateEndApril": "19 avril",
