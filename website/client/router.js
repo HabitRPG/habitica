@@ -11,9 +11,6 @@ import Page from './components/page';
 const Home = () => import(/* webpackChunkName: "static" */'./components/static/home');
 const RegisterLogin = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLogin');
 
-// Tasks
-import UserTasks from './components/userTasks';
-
 // All the main level
 // components are loaded in separate webpack chunks.
 // See https://webpack.js.org/guides/code-splitting-async/
