@@ -59,15 +59,30 @@
 .no-party {
   .small-text {
     color: $header-color;
+    flex-wrap: nowrap;
   }
 
-  h3 {
-    color: $white;
-    margin-bottom: 4px;
+  .no-party, .party-members {
+    flex-grow: 1;
   }
 
-  button {
-    margin-top: 16px;
+  .party-members {
+    overflow-x: auto;
+  }
+
+  .no-party {
+    .small-text {
+      color: $header-color;
+    }
+
+    h3 {
+      color: $white;
+      margin-bottom: 4px;
+    }
+
+    button {
+      margin-top: 16px;
+    }
   }
 }
 </style>
@@ -75,10 +90,12 @@
 <script>
 import { mapGetters, mapActions } from 'client/libs/store';
 import MemberDetails from './memberDetails';
+import createPartyModal from './guilds/createPartyModal';
 
 export default {
   components: {
     MemberDetails,
+    createPartyModal,
   },
   data () {
     return {
@@ -101,6 +118,9 @@ export default {
       } else {
         this.expandedMember = memberId;
       }
+    },
+    launchPartyModal () {
+      this.$root.$emit('show::modal', 'create-party-modal');
     },
   },
   created () {

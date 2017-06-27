@@ -14,7 +14,7 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
           router-link.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
       router-link.nav-item(tag="li", :to="{name: 'shops'}", exact)
         a.nav-link(v-once) {{ $t('shops') }}
-      router-link.nav-item(tag="li", :to="{name: 'party'}", exact)
+      router-link.nav-item.dropdown(:to="{name: 'party'}")
         a.nav-link(v-once) {{ $t('party') }}
       router-link.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/guilds')}")
         a.nav-link(v-once) {{ $t('guilds') }}
@@ -41,7 +41,7 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
     router-link.dropdown.item-with-icon.item-user(:to="{name: 'avatar'}")
       .svg-icon(v-html="icons.user")
       .dropdown-menu.dropdown-menu-right.user-dropdown
-        router-link.dropdown-item.edit-avatar(:to="{name: 'avatar'}") 
+        router-link.dropdown-item.edit-avatar(:to="{name: 'avatar'}")
           h3 {{ user.profile.name }}
           span.small-text {{ $t('editAvatar') }}
         router-link.dropdown-item(:to="{name: 'inbox'}") {{ $t('inbox') }}
