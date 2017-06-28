@@ -1,3 +1,4 @@
+import moment from 'moment';
 import * as Tasks from '../models/task';
 import {
   BadRequest,
@@ -22,13 +23,16 @@ async function _validateTaskAlias (tasks, res) {
   });
 }
 
-export function setNextDue (task, user) {
+export function setNextDue (task, user, dueDateOption) {
   if (task.type !== 'daily') return;
 
+  let dateTaskIsDue = Date.now();
+  if (dueDateOption) dateTaskIsDue = moment(dueDateOption);
+  console.log(dueDateOption)
   let optionsForShouldDo = user.preferences.toObject();
-  task.isDue = shared.shouldDo(Date.now(), task, optionsForShouldDo);
+  task.isDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
   optionsForShouldDo.nextDue = true;
-  let nextDue = shared.shouldDo(Date.now(), task, optionsForShouldDo);
+  let nextDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
   if (nextDue && nextDue.length > 0) {
     task.nextDue = nextDue.map((dueDate) => {
       return dueDate.toISOString();
@@ -120,6 +124,7 @@ export async function getTasks (req, res, options = {}) {
     user,
     challenge,
     group,
+    dueDate,
   } = options;
 
   let query = {userId: user._id};
@@ -185,6 +190,8 @@ export async function getTasks (req, res, options = {}) {
       } else {
         orderedTasks[i] = task;
       }
+
+      if (dueDate) setNextDue(task, user, dueDate);
     });
 
     // Remove empty values from the array and add any unordered task

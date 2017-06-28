@@ -272,8 +272,9 @@ api.getUserTasks = {
     if (validationErrors) throw validationErrors;
 
     let user = res.locals.user;
+    let dueDate = req.query.dueDate;
 
-    let tasks = await getTasks(req, res, {user});
+    let tasks = await getTasks(req, res, {user, dueDate});
     return res.respond(200, tasks);
   },
 };
