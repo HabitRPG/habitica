@@ -24,26 +24,26 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~client/assets/scss/colors.scss';
-.sort-select {
-  margin: 2em;
-}
-
-.no-guilds {
-  text-align: center;
-  color: $gray-200;
-  margin-top: 15em;
-
-  p {
-    font-size: 14px;
-    line-height: 1.43;
+  @import '~client/assets/scss/colors.scss';
+  .sort-select {
+    margin: 2em;
   }
 
-  .no-guilds-wrapper {
-    width: 400px;
-    margin: 0 auto;
+  .no-guilds {
+    text-align: center;
+    color: $gray-200;
+    margin-top: 15em;
+
+    p {
+      font-size: 14px;
+      line-height: 1.43;
+    }
+
+    .no-guilds-wrapper {
+      width: 400px;
+      margin: 0 auto;
+    }
   }
-}
 </style>
 
 <script>

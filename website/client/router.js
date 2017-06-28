@@ -36,6 +36,11 @@ const MyGuilds = () => import(/* webpackChunkName: "guilds" */ './components/gui
 const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/discovery');
 const GuildPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/guild');
 
+// Challenges
+const ChallengeIndex = () => import(/* webpackChunkName: "challenges" */ './components/challenges/index');
+const MyChallenges = () => import(/* webpackChunkName: "challenges" */ './components/challenges/myChallenges');
+const FindChallenges = () => import(/* webpackChunkName: "challenges" */ './components/challenges/findChallenges');
+
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -86,7 +91,23 @@ export default new VueRouter({
         },
       ],
     },
-    { name: 'challenges', path: 'challenges', component: Page },
+    {
+      name: 'challenges',
+      path: '/challenges',
+      component: ChallengeIndex,
+      children: [
+        {
+          name: 'myChallenges',
+          path: 'myChallenges',
+          component: MyChallenges,
+        },
+        {
+          name: 'findChallenges',
+          path: 'findChallenges',
+          component: FindChallenges,
+        },
+      ],
+    },
     {
       path: '/user',
       component: ParentPage,
