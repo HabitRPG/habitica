@@ -15,11 +15,15 @@
           span(v-once) {{$t('createChallenge')}}
 
     .row
-      .no-challenges.text-center.col-md-6.offset-3
+      .no-challenges.text-center.col-md-6.offset-3(v-if='challenges.length === 0')
         .svg-icon(v-html="icons.challengeIcon")
         h2(v-once) {{$t('noChallengeTitle')}}
         p(v-once) {{$t('challengeDescription1')}}
         p(v-once) {{$t('challengeDescription2')}}
+
+    .row
+      .col-6(v-for='challenge in challenges')
+        challenge-item(:challenge='challenge')
 </template>
 
 <style lang='scss' scoped>
@@ -61,6 +65,7 @@
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Sidebar from './sidebar';
+import ChallengeItem from './challengeItem';
 
 import challengeIcon from 'assets/svg/challenge.svg';
 import positiveIcon from 'assets/svg/positive.svg';
@@ -68,15 +73,46 @@ import positiveIcon from 'assets/svg/positive.svg';
 export default {
   components: {
     Sidebar,
+    ChallengeItem,
     bDropdown,
     bDropdownItem,
- },
+  },
   data () {
     return {
       icons: Object.freeze({
         challengeIcon,
         positiveIcon,
       }),
+      challenges: [
+        {
+          title: 'I am the Night! (Official TAKE THIS Challenge June 2017)',
+          memberCount: 5261,
+          endDate: '2017-04-04',
+          tags: ['Habitica Official', 'Tag'],
+          prize: 10,
+          description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.',
+          counts: {
+            habit: 0,
+            dailies: 2,
+            todos: 2,
+            rewards: 0,
+          },
+        },
+        {
+          title: '30-Day Money Cleanse 💰',
+          memberCount: 112,
+          endDate: '2017-04-05',
+          tags: ['Owned', 'Tag'],
+          prize: 10,
+          description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.',
+          counts: {
+            habit: 0,
+            dailies: 2,
+            todos: 30,
+            rewards: 0,
+          },
+        },
+      ],
     };
   },
   methods: {
