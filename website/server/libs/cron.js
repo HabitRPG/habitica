@@ -261,6 +261,10 @@ export function cron (options = {}) {
     let EvadeTask = 0;
     let scheduleMisses = daysMissed;
 
+    // Only check one day back
+    let dailiesDaysMissed = daysMissed;
+    if (dailiesDaysMissed > 1) dailiesDaysMissed = 1;
+
     if (completed) {
       dailyChecked += 1;
       if (!atLeastOneDailyDue) { // only bother checking until the first thing is found
@@ -271,7 +275,7 @@ export function cron (options = {}) {
       // dailys repeat, so need to calculate how many they've missed according to their own schedule
       scheduleMisses = 0;
 
-      for (let i = 0; i < daysMissed; i++) {
+      for (let i = 0; i < dailiesDaysMissed; i++) {
         let thatDay = moment(now).subtract({days: i + 1});
 
         if (shouldDo(thatDay.toDate(), task, user.preferences)) {
