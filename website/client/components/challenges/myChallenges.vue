@@ -85,6 +85,7 @@ export default {
       }),
       challenges: [
         {
+          '_id': 1,
           title: 'I am the Night! (Official TAKE THIS Challenge June 2017)',
           memberCount: 5261,
           endDate: '2017-04-04',
@@ -99,6 +100,7 @@ export default {
           },
         },
         {
+          '_id': 2,
           title: '30-Day Money Cleanse 💰',
           memberCount: 112,
           endDate: '2017-04-05',

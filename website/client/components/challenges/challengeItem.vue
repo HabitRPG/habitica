@@ -1,6 +1,7 @@
 <template lang='pug'>
 .card
-  h3 {{challenge.title}}
+  router-link(:to="{ name: 'challenge', params: { challengeId: challenge._id } }")
+    h3 {{challenge.title}}
   .row
     .col-6
       div.details
