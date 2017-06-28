@@ -39,7 +39,7 @@
   bottom: 0px;
   left: -0px;
   height: 42px;
-  background-image: linear-gradient(to bottom, rgba(52, 49, 58, 0), #34313a);
+  background-image: linear-gradient(to bottom, rgba($gray-10, 0), rgba($gray-10, 0.24));
   width: 100%;
 }
 
