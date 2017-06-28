@@ -1,5 +1,6 @@
 <template lang='pug'>
 .row
+  challenge-modal
   sidebar(v-on:search="updateSearch", v-on:filter="updateFilters")
 
   .col-10.standard-page
@@ -12,7 +13,7 @@
           b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
         button.btn.btn-secondary.create-challenge-button
           .svg-icon.positive-icon(v-html="icons.positiveIcon")
-          span(v-once) {{$t('createChallenge')}}
+          span(v-once, @click='createChallenge()') {{$t('createChallenge')}}
 
     .row
       .no-challenges.text-center.col-md-6.offset-3(v-if='challenges.length === 0')
@@ -66,6 +67,7 @@ import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Sidebar from './sidebar';
 import ChallengeItem from './challengeItem';
+import ChallengeModal from './challengeModal';
 
 import challengeIcon from 'assets/svg/challenge.svg';
 import positiveIcon from 'assets/svg/positive.svg';
@@ -74,6 +76,7 @@ export default {
   components: {
     Sidebar,
     ChallengeItem,
+    ChallengeModal,
     bDropdown,
     bDropdownItem,
   },
@@ -123,6 +126,9 @@ export default {
     },
     updateFilters () {
 
+    },
+    createChallenge () {
+      this.$root.$emit('show::modal', 'challenge-modal');
     },
   },
 };

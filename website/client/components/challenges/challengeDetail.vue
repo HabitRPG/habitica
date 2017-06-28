@@ -1,5 +1,6 @@
 <template lang='pug'>
 .row
+  close-challenge-modal
   .col-8.standard-page
     .row
       .col-8
@@ -25,7 +26,7 @@
     .row
   .col-4.sidebar.standard-page
     .acitons
-      div(v-if='!isMember')
+      div(v-if='!isMember && !isLeader')
         button.btn.btn-success(v-once) {{$t('joinChallenge')}}
       div(v-if='isMember')
         button.btn.btn-danger(v-once) {{$t('leaveChallenge')}}
@@ -34,7 +35,7 @@
       div(v-if='isLeader')
         button.btn.btn-secondary(v-once) {{$t('editChallenge')}}
       div(v-if='isLeader')
-        button.btn.btn-danger(v-once) {{$t('endChallenge')}}
+        button.btn.btn-danger(v-once, @click='closeChallenge()') {{$t('endChallenge')}}
     .description-section
       h2(v-once) {{$t('challengeDescription')}}
       p {{challenge.description}}
@@ -118,12 +119,17 @@
 </style>
 
 <script>
+import closeChallengeModal from './closeChallengeModal';
+
 import gemIcon from 'assets/svg/gem.svg';
 import memberIcon from 'assets/svg/member-icon.svg';
 import calendarIcon from 'assets/svg/calendar.svg';
 
 export default {
   props: ['challengeId'],
+  components: {
+    closeChallengeModal,
+  },
   data () {
     return {
       icons: Object.freeze({
@@ -154,7 +160,12 @@ export default {
       return false;
     },
     isLeader () {
-      return false;
+      return true;
+    },
+  },
+  methods: {
+    closeChallenge () {
+      this.$root.$emit('show::modal', 'close-challenge-modal');
     },
   },
 };
