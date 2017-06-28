@@ -228,6 +228,12 @@ api.createChallenge = {
     let challengeValidationErrors = challenge.validateSync();
     if (challengeValidationErrors) throw challengeValidationErrors;
 
+    // Add achievement if user's first challenge
+    if (!user.achievements.joinedChallenge) {
+      user.achievements.joinedChallenge = true;
+      user.addNotification('CHALLENGE_JOINED_ACHIEVEMENT');
+    }
+
     let results = await Bluebird.all([challenge.save({
       validateBeforeSave: false, // already validate
     }), group.save()]);
@@ -285,6 +291,12 @@ api.joinChallenge = {
     if (!group || !challenge.hasAccess(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     challenge.memberCount += 1;
+
+    // Add achievement if user's first challenge
+    if (!user.achievements.joinedChallenge) {
+      user.achievements.joinedChallenge = true;
+      user.addNotification('CHALLENGE_JOINED_ACHIEVEMENT');
+    }
 
     // Add all challenge's tasks to user's tasks and save the challenge
     let results = await Bluebird.all([challenge.syncToUser(user), challenge.save()]);

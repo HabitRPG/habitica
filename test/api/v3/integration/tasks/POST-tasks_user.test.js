@@ -616,6 +616,18 @@ describe('POST /tasks/user', () => {
       expect((new Date(task.startDate)).getDay()).to.eql(today);
     });
 
+    it('returns an error if the start date is empty', async () => {
+      await expect(user.post('/tasks/user', {
+        text: 'test daily',
+        type: 'daily',
+        startDate: '',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'daily validation failed',
+      });
+    });
+
     it('can create checklists', async () => {
       let task = await user.post('/tasks/user', {
         text: 'test daily',

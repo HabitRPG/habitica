@@ -79,5 +79,7 @@
     "onlyChalLeaderEditTasks": "Tarefas pertencentes a um desafio só podem ser editadas pelo líder.",
     "userAlreadyInChallenge": "O usuário já está participando desse desafio.",
     "cantOnlyUnlinkChalTask": "Apenas links de desafios quebrados podem ser desfeitos.",
-    "shortNameTooShort": "O nome da etiqueta deve ter pelo menos 3 caracteres."
+    "shortNameTooShort": "O nome da etiqueta deve ter pelo menos 3 caracteres.",
+    "joinedChallenge": "Entrou num Desafio",
+    "joinedChallengeText": "Esse usuário está testando a si mesmo ao entrar em um Desafio!"
 }

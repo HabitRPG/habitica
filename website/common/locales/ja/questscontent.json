@@ -461,8 +461,8 @@
     "questMayhemMistiflying1RageTitle": "Swarm Respawn",
     "questMayhemMistiflying1RageDescription": "Swarm Respawn: This bar fills when you don't complete your Dailies. When it is full, the Air Skull Swarm will heal 30% of its remaining health!",
     "questMayhemMistiflying1RageEffect": "`Air Skull Swarm uses SWARM RESPAWN!`\n\nEmboldened by their victories, more skulls come whirling out of the clouds!",
-    "questMayhemMistiflying1DropSkeletonPotion": "Skeleton Hatching Potion",
-    "questMayhemMistiflying1DropWhitePotion": "White Hatching Potion",
+    "questMayhemMistiflying1DropSkeletonPotion": "骨のたまごがえしの薬",
+    "questMayhemMistiflying1DropWhitePotion": "白いたまごがえしの薬",
     "questMayhemMistiflying1DropArmor": "Roguish Rainbow Messenger Robes (Armor)",
     "questMayhemMistiflying2Text": "Mayhem in Mistiflying, Part 2: In Which the Wind Worsens",
     "questMayhemMistiflying2Notes": "Mistiflying dips and rocks as the magical bees keeping it afloat are buffeted by the gale. After a desperate search for the April Fool, you find him inside a cottage, blithely playing cards with an angry, trussed-up skull.<br><br>@Katy133 raises their voice over the whistling wind. “What’s causing this? We defeated the skulls, but it’s getting worse!”<br><br>“That is a pickle,” the April Fool agrees. “Please be a dear and don’t mention it to Lady Glaciate. She’s always threatening to call off our courtship on the grounds that I am ‘catastrophically irresponsible,’ and I fear that she might misread this situation.” He shuffles the deck. “Perhaps you might follow the Mistiflies? They’re immaterial, so the wind can’t blow them away, and they tend to swarm around threats.” He nods out the window, where several of the city’s patron creatures are fluttering towards the east. “Now let me concentrate — my opponent has quite the poker face.”",
@@ -475,9 +475,15 @@
     "questMayhemMistiflying3Notes": "The Mistiflies are whirling so thickly through the tornado that it’s hard to see. Squinting, you spot a many-winged silhouette floating at the center of the tremendous storm.<br><br>“Oh, dear,” the April Fool sighs, nearly drowned out by the howl of the weather. “Looks like Winny went and got himself possessed. Very relatable problem, that. Could happen to anybody.”<br><br>“The Wind-Worker!” @Beffymaroo hollers at you. “He’s Mistiflying’s most talented messenger-mage, since he’s so skilled with weather magic. Normally he’s a very polite mailman!”<br><br>As if to counteract this statement, the Wind-Worker lets out a scream of fury, and even with your magic robes, the storm nearly rips you from your mount.<br><br>“That gaudy mask is new,” the April Fool remarks. “Perhaps you should relieve him of it?”<br><br>It’s a good idea… but the enraged mage isn’t going to give it up without a fight.",
     "questMayhemMistiflying3Completion": "Just as you think you can’t withstand the wind any longer, you manage to snatch the mask from the Wind-Worker’s face. Instantly, the tornado is sucked away, leaving only balmy breezes and sunshine. The Wind-Worker looks around in bemusement. “Where did she go?”<br><br>“Who?” your friend @khdarkwolf asks.<br><br>“That sweet woman who offered to deliver a package for me. Tzina.” As he takes in the wind-swept city below him, his expression darkens. “Then again, maybe she wasn’t so sweet…”<br><br>The April Fool pats him on the back, then hands you two shimmering envelopes. “Here. Why don’t you let this distressed fellow rest, and take charge of the mail for a bit? I hear the magic in those envelopes will make them worth your while.”",
     "questMayhemMistiflying3Boss": "The Wind-Worker",
-    "questMayhemMistiflying3DropPinkCottonCandy": "Pink Cotton Candy (Food)",
+    "questMayhemMistiflying3DropPinkCottonCandy": "ピンクの綿菓子 (えさ)",
     "questMayhemMistiflying3DropShield": "Roguish Rainbow Message (Shield-Hand Weapon)",
     "questMayhemMistiflying3DropWeapon": "Roguish Rainbow Message (Weapon)",
     "featheredFriendsText": "Feathered Friends Quest Bundle",
-    "featheredFriendsNotes": "Contains 'Help! Harpy!,' 'The Night-Owl,' and 'The Birds of Preycrastination.' Available until May 31."
+    "featheredFriendsNotes": "Contains 'Help! Harpy!,' 'The Night-Owl,' and 'The Birds of Preycrastination.' Available until May 31.",
+    "questNudibranchText": "Infestation of the NowDo Nudibranches",
+    "questNudibranchNotes": "You finally get around to checking your To-dos on a lazy day in Habitica. Bright against your deepest red tasks are a gaggle of vibrant blue sea slugs. You are entranced! Their sapphire colors make your most intimidating tasks look as easy as your best Habits. In a feverish stupor you get to work, tackling one task after the other in a ceaseless frenzy...<br><br>The next thing you know, @LilithofAlfheim is pouring cold water over you. “The NowDo Nudibranches have been stinging you all over! You need to take a break!”<br><br>Shocked, you see that your skin is as bright red as your To-Do list was. \"Being productive is one thing,\" @beffymaroo says, \"but you've also got to take care of yourself. Hurry, let's get rid of them!\"",
+    "questNudibranchCompletion": "You see the last of the NowDo Nudibranches sliding off of a pile of completed tasks as @amadshade washes them away. One leaves behind a cloth bag, and you open it to reveal some gold and a few little ellipsoids you guess are eggs.",
+    "questNudibranchBoss": "NowDo Nudibranch",
+    "questNudibranchDropNudibranchEgg": "Nudibranch (Egg)",
+    "questNudibranchUnlockText": "Unlocks purchasable Nudibranch eggs in the Market"
 }

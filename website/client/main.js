@@ -36,33 +36,8 @@ if (authSettings) {
 }
 
 export default new Vue({
+  el: '#app',
   router,
   store: generateStore(),
   render: h => h(AppComponent),
-  beforeCreate () {
-    // Setup listener for title
-    this.$store.watch(state => state.title, (title) => {
-      document.title = title;
-    });
-
-    // Mount the app when user and tasks are loaded
-    const userDataWatcher = this.$store.watch(state => [state.user.data, state.tasks.data], ([user, tasks]) => {
-      if (user && user._id && Array.isArray(tasks)) {
-        userDataWatcher(); // remove the watcher
-        this.$mount('#app');
-      }
-    });
-
-    // Load the user and the user tasks
-    Promise.all([
-      this.$store.dispatch('user:fetch'),
-      this.$store.dispatch('tasks:fetchUserTasks'),
-    ]).catch((err) => {
-      console.error('Impossible to fetch user. Copy into localStorage a valid habit-mobile-settings object.', err); // eslint-disable-line no-console
-    });
-  },
-  mounted () { // Remove the loading screen when the app is mounted
-    let loadingScreen = document.getElementById('loading-screen');
-    if (loadingScreen) document.body.removeChild(loadingScreen);
-  },
 });

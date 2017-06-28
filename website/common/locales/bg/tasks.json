@@ -168,6 +168,7 @@
     "monthlyRepeatHelpContent": "Тази задача ще бъде подновявана на всеки Х месеца.",
     "yearlyRepeatHelpContent": "Тази задача ще бъде подновявана на всеки Х години.",
     "resets": "Нулира се",
-    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
-    "nextDue": "Next Due Dates"
+    "summaryStart": "Повтаря се <%= frequency %> всеки <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Следващи крайни дати",
+    "repeatDayError": "Моля, уверете се, че сте избрали поне един ден от седмицата."
 }

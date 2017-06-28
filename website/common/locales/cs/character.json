@@ -127,7 +127,7 @@
     "distributePoints": "Přiřaď nevyužité body.",
     "distributePointsPop": "Přiřadí všechny nepřidělené body v závislosti na zvoleném režimu přidělování.",
     "warriorText": "Válečníci získávají lepší \"kritické zásahy\", které náhodně dávají bonusové zlaťáky a zkušenosti a zvyšují šanci na nalezení předmětů při splnění úkolu. Také způsobují větší újmu příšerám. Hraj za válečníka, pokud tě motivují nepředvídatelné odměny nebo to chceš pořádně nandat příšerám při Výpravách!",
-    "mageText": "Mágové se rychle učí, získávají zkušenosti a postupují na vyšší úrovně rychleji než ostatní povolání. Mají také opravdu hodně many na používání speciálních schopností. Hraj za Mága, pokud si chceš užít taktický aspekt Habitica, nebo pokud tě motivuje postup na vyšší úrovně a odemykání nových pokročilých funkcí.",
+    "mageText": "Mages learn swiftly, gaining Experience and Levels faster than other classes. They also get a great deal of Mana for using special abilities. Play a Mage if you enjoy the tactical game aspects of Habitica, or if you are strongly motivated by leveling up and unlocking advanced features!",
     "rogueText": "Zloděj miluje střádání bohatství, získávání více zlata než mají ostatní, a je adeptem na nalezení náhodných předmětů. Jeho pověstná lstivost mu umožňuje uniknout důsledkům promeškání Denních úkolů. Buď zlodějem, pokud nacházíš silnou motivaci v odměnách a úspěších a usiluješ o kořist a ocenění!",
     "healerText": "Léčitel je nezranitelný a ochraňuje i ostatní. Promeškané Denní úkoly a špatné Zvyky jim moc neublíží a mají možnosti jak se zahojit. Buď léčitelem a užij si pomoc ostatním v družině, nebo pokud tě inspiruje myšlenka ošidit smrt tak, že budeš pořádně dřít!",
     "optOutOfClasses": "Odhlásit",
@@ -170,6 +170,5 @@
     "hideQuickAllocation": "Skrýt přidělení",
     "quickAllocationLevelPopover": "S každou další úrovní získáš jeden bod, který můžeš přiřadit k libovolné vlastnosti. Přiřadit body můžeš buď manuálně anebo můžeš nechat hru rozhodnout za tebe na základě některé z možností automatického přiřazení, které nalezneš v Uživatel -> Statistiky",
     "invalidAttribute": "„<%= attr %>\" není platná vlastnost.",
-    "notEnoughAttrPoints": "Nemáte dostatek bodů vlastností.",
-    "gearNotOwned": "Nevlastníte tento předmět."
+    "notEnoughAttrPoints": "Nemáte dostatek bodů vlastností."
 }

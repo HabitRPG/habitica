@@ -112,7 +112,7 @@
       a.btn.btn-show-more(
         v-if="items[group.key].length > itemsPerLine",
         @click="viewOptions[group.key].open = !viewOptions[group.key].open"
-      ) {{ viewOptions[group.key].open ? $t('showLessGearItems', { type: group.label }) : $t('showAllGearItems', { type: group.label, items: items[group.key].length }) }}
+      ) {{ viewOptions[group.key].open ? $t('showLessItems', { type: group.label }) : $t('showAllItems', { type: group.label, items: items[group.key].length }) }}
 </template>
 
 <style lang="scss" scoped>

@@ -1,0 +1,15 @@
+.svg-icon {
+  display: block;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+  transition: none !important;
+
+  svg {
+    display: block;
+  }
+
+  * {
+    transition: none !important;
+  }
+}
