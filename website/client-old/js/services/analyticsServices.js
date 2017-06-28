@@ -98,6 +98,38 @@
   }
 
   function _gatherUserStats(user, properties) {
+    // filter out animal ears from owned items
+    function _filterAnimalEars (owned) {
+      var animalEarsRegEx = new RegExp('headAccessory_special_[a-z]+Ears', 'g');
+      return Object.keys(owned).reduce(function(animalEars, item) {
+        if (item.match(animalEarsRegEx)) {
+          animalEars.push(item);
+        }
+        return animalEars;
+      }, []);
+    }
+
+    // filter out gem-purchased backgrounds from backgrounds
+    function _filterBackgrounds (owned) {
+      // current free backgrounds
+      var freeBackgrounds = Object.keys(window.habitrpgShared.content.backgrounds.incentiveBackgrounds);
+      return Object.keys(owned).reduce(function(purchased, background) {
+        if (!freeBackgrounds.includes(background)) {
+          purchased.push(background);
+        }
+        return purchased;
+      }, []);
+    }
+
+    // format hair purchases
+    function _formatHair (hair) {
+      var purchased = {};
+      Object.keys(hair).forEach(function(style) {
+        purchased[style] = Object.keys(hair[style]);
+      });
+      return purchased;
+    }
+
     if (user._id) properties.UUID = user._id;
     if (user.stats) {
       properties.Class = user.stats.class;
@@ -110,6 +142,18 @@
 
     properties.balance = user.balance;
     properties.balanceGemAmount = properties.balance * 4;
+
+    properties.gemPurchased = {};
+    if (user.items && user.items.gear && user.items.gear.owned) {
+      properties.gemPurchased.animalEars = _filterAnimalEars(user.items.gear.owned);
+    }
+
+    if (user.purchased) {
+      properties.gemPurchased.background = user.purchased.background ? _filterBackgrounds(user.purchased.background) : [];
+      properties.gemPurchased.hair = user.purchased.hair ? _formatHair(user.purchased.hair) : {};
+      properties.gemPurchased.shirt = user.purchased.shirt ? Object.keys(user.purchased.shirt) : [];
+      properties.gemPurchased.skin = user.purchased.skin ? Object.keys(user.purchased.skin) : [];
+    }
 
     properties.tutorialComplete = user.flags && user.flags.tour && user.flags.tour.intro === -2;
     if (user.habits && user.dailys && user.todos && user.rewards) {

@@ -57,7 +57,40 @@ let _lookUpItemName = (itemKey) => {
   return itemName;
 };
 
+
 let _formatUserData = (user) => {
+  // filter out animal ears from owned items
+  function _filterAnimalEars (owned) {
+    const animalEarsRegEx = new RegExp('headAccessory_special_[a-z]+Ears', 'g');
+    return Object.keys(owned).reduce((animalEars, item) => {
+      if (item.match(animalEarsRegEx)) {
+        animalEars.push(item);
+      }
+      return animalEars;
+    }, []);
+  }
+
+  // filter out gem-purchased backgrounds from backgrounds
+  function _filterBackgrounds (owned) {
+    // current free backgrounds
+    const freeBackgrounds = Object.keys(Content.backgrounds.incentiveBackgrounds);
+    return Object.keys(owned).reduce((purchased, background) => {
+      if (!freeBackgrounds.includes(background)) {
+        purchased.push(background);
+      }
+      return purchased;
+    }, []);
+  }
+
+  // format hair purchases
+  function _formatHair (hair) {
+    const purchased = {};
+    Object.keys(hair).forEach((style) => {
+      purchased[style] = Object.keys(hair[style]);
+    });
+    return purchased;
+  }
+
   let properties = {};
 
   if (user.stats) {
@@ -71,6 +104,19 @@ let _formatUserData = (user) => {
 
   properties.balance = user.balance;
   properties.balanceGemAmount = properties.balance * 4;
+
+
+  properties.gemPurchased = {};
+  if (user.items && user.items.gear && user.items.gear.owned) {
+    properties.gemPurchased.animalEars = _filterAnimalEars(user.items.gear.owned);
+  }
+
+  if (user.purchased) {
+    properties.gemPurchased.background = user.purchased.background ? _filterBackgrounds(user.purchased.background) : [];
+    properties.gemPurchased.hair = user.purchased.hair ? _formatHair(user.purchased.hair) : {};
+    properties.gemPurchased.shirt = user.purchased.shirt ? Object.keys(user.purchased.shirt) : [];
+    properties.gemPurchased.skin = user.purchased.skin ? Object.keys(user.purchased.skin) : [];
+  }
 
   properties.tutorialComplete = user.flags && user.flags.tour && user.flags.tour.intro === -2;
 

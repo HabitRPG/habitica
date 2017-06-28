@@ -193,6 +193,17 @@ describe('Analytics Service', function () {
         };
         expectedProperties.balance = 12;
         expectedProperties.balanceGemAmount = 48;
+        expectedProperties.gemPurchased = {};
+        expectedProperties.gemPurchased.animalEars = ['headAccessory_special_foxEars'];
+        expectedProperties.gemPurchased.background = ['blizzard'];
+        expectedProperties.gemPurchased.shirt = ['horizon'];
+        expectedProperties.gemPurchased.hair = {
+          base: ['1'],
+          beard: ['3'],
+          color: ['snowy'],
+          mustache: ['2'],
+        };
+        expectedProperties.gemPurchased.skin = ['snowy'];
 
         beforeEach(function() {
           user._id = 'unique-user-id';
@@ -208,6 +219,34 @@ describe('Analytics Service', function () {
           user.todos = [{_id: 'todo'}];
           user.rewards = [{_id: 'reward'}];
           user.balance = 12;
+          user.purchased.background = {
+            blizzard: true,
+            blue: true,
+          };
+          user.purchased.hair = {
+            base: {
+              1: true,
+            },
+            beard: {
+              3: true,
+            },
+            color: {
+              snowy: true,
+            },
+            mustache: {
+              2: true,
+            },
+          };
+          user.items.gear.owned = {
+            armor_special_bardRobes: true,
+            headAccessory_special_foxEars: true,
+          };
+          user.purchased.shirt = {
+            horizon: true,
+          };
+          user.purchased.skin = {
+            snowy: true,
+          };
 
           analytics.updateUser(properties);
           clock.tick();
@@ -240,10 +279,22 @@ describe('Analytics Service', function () {
             todos: 1,
             dailys: 1,
             habits: 1,
-            rewards: 1
+            rewards: 1,
           },
           balance: 12,
-          balanceGemAmount: 48
+          balanceGemAmount: 48,
+          gemPurchased: {
+            background: ['blizzard'],
+            shirt: ['horizon'],
+            hair: {
+              base: ['1'],
+              beard: ['3'],
+              color: ['snowy'],
+              mustache: ['2'],
+            },
+            skin: ['snowy'],
+            animalEars: ['headAccessory_special_foxEars'],
+          },
         };
 
         beforeEach(function() {
@@ -262,6 +313,34 @@ describe('Analytics Service', function () {
           user.todos = [{_id: 'todo'}];
           user.rewards = [{_id: 'reward'}];
           user.balance = 12;
+          user.purchased.background = {
+            blizzard: true,
+            blue: true,
+          };
+          user.purchased.hair = {
+            base: {
+              1: true,
+            },
+            beard: {
+              3: true,
+            },
+            color: {
+              snowy: true,
+            },
+            mustache: {
+              2: true,
+            },
+          };
+          user.items.gear.owned = {
+            armor_special_bardRobes: true,
+            headAccessory_special_foxEars: true,
+          };
+          user.purchased.shirt = {
+            horizon: true,
+          };
+          user.purchased.skin = {
+            snowy: true,
+          };
 
           analytics.updateUser();
           clock.tick();

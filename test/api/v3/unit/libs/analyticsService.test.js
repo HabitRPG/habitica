@@ -271,7 +271,35 @@ describe('analyticsService', () => {
         let user = {
           stats,
           contributor: { level: 1 },
-          purchased: { plan: { planId: 'foo-plan' } },
+          purchased: {
+            plan: {
+              planId: 'foo-plan',
+            },
+            background: {
+              blizzard: true,
+              blue: true,
+            },
+            shirt: {
+              horizon: true,
+            },
+            hair: {
+              base: {
+                1: true,
+              },
+              beard: {
+                3: true,
+              },
+              color: {
+                snowy: true,
+              },
+              mustache: {
+                2: true,
+              },
+            },
+            skin: {
+              snowy: true,
+            },
+          },
           flags: {tour: {intro: -2}},
           habits: [{_id: 'habit'}],
           dailys: [{_id: 'daily'}],
@@ -279,6 +307,15 @@ describe('analyticsService', () => {
           rewards: [{_id: 'reward'}],
           balance: 12,
           loginIncentives: 1,
+          items: {
+            gear: {
+              owned: {
+                armor_special_bardRobes: true,
+                headAccessory_special_foxEars: true,
+              },
+            },
+          },
+
         };
 
         data.user = user;
@@ -305,6 +342,18 @@ describe('analyticsService', () => {
                 balance: 12,
                 balanceGemAmount: 48,
                 loginIncentives: 1,
+                gemPurchased: {
+                  animalEars: ['headAccessory_special_foxEars'],
+                  background: ['blizzard'],
+                  shirt: ['horizon'],
+                  hair: {
+                    base: ['1'],
+                    beard: ['3'],
+                    color: ['snowy'],
+                    mustache: ['2'],
+                  },
+                  skin: ['snowy'],
+                },
               },
             });
           });
@@ -517,12 +566,48 @@ describe('analyticsService', () => {
         let user = {
           stats,
           contributor: { level: 1 },
-          purchased: { plan: { planId: 'foo-plan' } },
+          purchased: {
+            plan: {
+              planId: 'foo-plan',
+            },
+            background: {
+              blizzard: true,
+              blue: true,
+            },
+            shirt: {
+              horizon: true,
+            },
+            hair: {
+              base: {
+                1: true,
+              },
+              beard: {
+                3: true,
+              },
+              color: {
+                snowy: true,
+              },
+              mustache: {
+                2: true,
+              },
+            },
+            skin: {
+              snowy: true,
+            },
+          },
           flags: {tour: {intro: -2}},
           habits: [{_id: 'habit'}],
           dailys: [{_id: 'daily'}],
           todos: [{_id: 'todo'}],
           rewards: [{_id: 'reward'}],
+          items: {
+            gear: {
+              owned: {
+                armor_special_bardRobes: true,
+                headAccessory_special_foxEars: true,
+              },
+            },
+          },
         };
 
         data.user = user;
@@ -546,6 +631,18 @@ describe('analyticsService', () => {
                 },
                 contributorLevel: 1,
                 subscription: 'foo-plan',
+                gemPurchased: {
+                  animalEars: ['headAccessory_special_foxEars'],
+                  background: ['blizzard'],
+                  shirt: ['horizon'],
+                  hair: {
+                    base: ['1'],
+                    beard: ['3'],
+                    color: ['snowy'],
+                    mustache: ['2'],
+                  },
+                  skin: ['snowy'],
+                },
               },
             });
           });
