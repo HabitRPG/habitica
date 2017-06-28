@@ -7,6 +7,9 @@ import EmptyView from './components/emptyView';
 import ParentPage from './components/parentPage';
 import Page from './components/page';
 
+// Static Pages
+const Home = () => import(/* webpackChunkName: "static" */'./components/static/home');
+const RegisterLogin = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLogin');
 
 // All the main level
 // components are loaded in separate webpack chunks.
@@ -45,6 +48,9 @@ export default new VueRouter({
     return { x: 0, y: 0 };
   },
   routes: [
+    { name: 'home', path: '/home', component: Home },
+    { name: 'register', path: '/register', component: RegisterLogin },
+    { name: 'login', path: '/login', component: RegisterLogin },
     { name: 'tasks', path: '/', component: UserTasks },
     {
       path: '/inventory',
