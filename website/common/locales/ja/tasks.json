@@ -141,8 +141,8 @@
     "counterPeriodWeek": "毎週",
     "counterPeriodMonth": "毎月",
     "habitCounter": "Counter (Resets <%= frequency %>)",
-    "habitCounterUp": "Positive Counter (Resets <%= frequency %>)",
-    "habitCounterDown": "Negative Counter (Resets <%= frequency %>)",
+    "habitCounterUp": "ポジティブカウンタ(リセット<%= frequency %>)",
+    "habitCounterDown": "ネガティブカウンタ(リセット<%= frequency %>)",
     "taskRequiresApproval": "このタスクは完了する前に承認が必要です。承認の手続きはすでにはじまっています。",
     "taskApprovalHasBeenRequested": "承認手続きを送りました",
     "approvals": "承認",
@@ -167,8 +167,8 @@
     "taskNotes": "Task Notes",
     "monthlyRepeatHelpContent": "このタスクはXか月ごとに期限が訪れます。",
     "yearlyRepeatHelpContent": "このタスクはX年ごとに期限が訪れます。",
-    "resets": "Resets",
-    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
+    "resets": "リセット",
+    "summaryStart": "<%= everyX %> <%= frequencyPlural %>に<%= frequency %>回繰り返す",
     "nextDue": "次の期限",
     "repeatDayError": "曜日を最低1つは選択してください。"
 }
