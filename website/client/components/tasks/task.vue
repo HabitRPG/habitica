@@ -2,11 +2,11 @@
 .task.d-flex
   // Habits left side control
   .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.up")
-    .task-control.habit-control(:class="controlClass.up + '-control'")
+    .task-control.habit-control(:class="controlClass.up + '-control-habit'")
       .svg-icon.positive(v-html="icons.positive")
   // Dailies and todos left side control
   .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass")
-    .task-control.daily-todo-control(:class="controlClass + '-control'")
+    .task-control.daily-todo-control(:class="controlClass + '-control-daily-todo'")
       .svg-icon.check(v-html="icons.check", v-if="task.completed")
   // Task title, description and icons
   .task-content(:class="contentClass")
@@ -39,7 +39,7 @@
 
   // Habits right side control
   .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down")
-    .task-control.habit-control(:class="controlClass.down + '-control'")
+    .task-control.habit-control(:class="controlClass.down + '-control-habit'")
       .svg-icon.negative(v-html="icons.negative")
   // Rewards right side control
   .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass")
