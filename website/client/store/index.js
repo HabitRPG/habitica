@@ -29,29 +29,29 @@ if (AUTH_SETTINGS) {
 
 let existingStore;
 export default function () {
-  if (!existingStore || !IS_TEST) {
-    existingStore = new Store({
-      actions,
-      getters,
-      state: {
-        title: 'Habitica',
-        isUserLoggedIn,
-        user: asyncResourceFactory(),
-        tasks: asyncResourceFactory(), // user tasks
-        party: {
-          quest: {},
-          members: asyncResourceFactory(),
-        },
-        myGuilds: [],
-        editingGroup: {}, // TODO move to local state
-        // content data, frozen to prevent Vue from modifying it since it's static and never changes
-        // TODO apply freezing to the entire codebase (the server) and not only to the client side?
-        // NOTE this takes about 10-15ms on a fast computer
-        content: deepFreeze(content),
-        constants: deepFreeze(constants),
+  if (!IS_TEST && existingStore) return existingStore;
+
+  existingStore = new Store({
+    actions,
+    getters,
+    state: {
+      title: 'Habitica',
+      isUserLoggedIn,
+      user: asyncResourceFactory(),
+      tasks: asyncResourceFactory(), // user tasks
+      party: {
+        quest: {},
+        members: asyncResourceFactory(),
       },
-    });
-  }
+      myGuilds: [],
+      editingGroup: {}, // TODO move to local state
+      // content data, frozen to prevent Vue from modifying it since it's static and never changes
+      // TODO apply freezing to the entire codebase (the server) and not only to the client side?
+      // NOTE this takes about 10-15ms on a fast computer
+      content: deepFreeze(content),
+      constants: deepFreeze(constants),
+    },
+  });
 
   return existingStore;
 }
