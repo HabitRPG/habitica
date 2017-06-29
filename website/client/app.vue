@@ -39,7 +39,7 @@ export default {
       document.title = title;
     });
 
-    if (this.isUserLoggedIn) {
+    if (this.isUserLoggedIn && !this.isStaticPage) {
       // Load the user and the user tasks
       Promise.all([
         this.$store.dispatch('user:fetch'),
