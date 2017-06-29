@@ -1095,7 +1095,7 @@ api.hatch = {
  * @apiErrorExample {json} Item not owned or doesn't exist.
  * {"success":false,"error":"NotFound","message":"You do not own this item."}
  * {"success":false,"error":"NotFound","message":"You do not own this pet."}
- * {"success":false,"error":"NotFound","message":"String 'mountNotOwned' not found."}
+ * {"success":false,"error":"NotFound","message":"You do not own this mount."}
  *
  */
 api.equip = {
