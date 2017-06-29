@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import getStore from 'client/store';
 
 import EmptyView from './components/emptyView';
 
@@ -38,7 +39,7 @@ const GuildPage = () => import(/* webpackChunkName: "guilds" */ './components/gu
 
 Vue.use(VueRouter);
 
-export default new VueRouter({
+const router = new VueRouter({
   mode: 'history',
   base: process.env.NODE_ENV === 'production' ? '/new-app' : __dirname, // eslint-disable-line no-process-env
   linkActiveClass: 'active',
@@ -47,10 +48,11 @@ export default new VueRouter({
   scrollBehavior () {
     return { x: 0, y: 0 };
   },
+  // requiresLogin is true by default, isStatic false
   routes: [
-    { name: 'home', path: '/home', component: Home },
-    { name: 'register', path: '/register', component: RegisterLogin },
-    { name: 'login', path: '/login', component: RegisterLogin },
+    { name: 'home', path: '/home', component: Home, meta: {requiresLogin: false} },
+    { name: 'register', path: '/register', component: RegisterLogin, meta: {requiresLogin: false} },
+    { name: 'login', path: '/login', component: RegisterLogin, meta: {requiresLogin: false} },
     { name: 'tasks', path: '/', component: UserTasks },
     {
       path: '/inventory',
@@ -115,3 +117,22 @@ export default new VueRouter({
     },
   ],
 });
+
+const store = getStore();
+
+router.beforeEach(function routerGuard (to, from, next) {
+  const isUserLoggedIn = store.state.isUserLoggedIn;
+  const routeRequiresLogin = to.meta.requiresLogin !== false;
+
+  if (!isUserLoggedIn && routeRequiresLogin) {
+    // Redirect to the login page unless the user is trying to reach the
+    // root of the website, in which case show the home page.
+    // TODO when redirecting to login if user login then redirect back to initial page
+    // so if you tried to go to /party you'll be redirected to /party after login/signup
+    return next({name: to.path === '/' ? 'home' : 'login'});
+  }
+
+  next();
+});
+
+export default router;

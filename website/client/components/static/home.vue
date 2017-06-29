@@ -1,7 +1,7 @@
 <template lang="pug">
 nav
-  a(href='/login') Login
-  a(href='/register') Register
+  router-link(:to="{name: 'login'}") Login
+  router-link(:to="{name: 'register'}") Register
 </template>
 
 

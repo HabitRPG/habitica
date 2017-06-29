@@ -1,7 +1,7 @@
 <template lang="pug">
 #app-header.row
   member-details(:member="user", @click="$router.push({name: 'avatar'})")
-  .view-party
+  .view-party(v-if="user.party && user.party._id")
     // TODO button should open the party members modal
     router-link.btn.btn-primary(:active-class="''", :to="{name: 'party'}") {{ $t('viewParty') }}
   .party-members.d-flex(v-if="partyMembers && partyMembers.length > 1")
@@ -62,27 +62,13 @@
     flex-wrap: nowrap;
   }
 
-  .no-party, .party-members {
-    flex-grow: 1;
+  h3 {
+    color: $white;
+    margin-bottom: 4px;
   }
 
-  .party-members {
-    overflow-x: auto;
-  }
-
-  .no-party {
-    .small-text {
-      color: $header-color;
-    }
-
-    h3 {
-      color: $white;
-      margin-bottom: 4px;
-    }
-
-    button {
-      margin-top: 16px;
-    }
+  .btn {
+    margin-top: 16px;
   }
 }
 </style>
@@ -119,12 +105,9 @@ export default {
         this.expandedMember = memberId;
       }
     },
-    launchPartyModal () {
-      this.$root.$emit('show::modal', 'create-party-modal');
-    },
   },
   created () {
-    this.getPartyMembers();
+    if (this.user.party && this.user.party._id) this.getPartyMembers();
   },
 };
 </script>
