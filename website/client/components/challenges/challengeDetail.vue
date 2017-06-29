@@ -119,6 +119,7 @@
 </style>
 
 <script>
+import { mapState } from 'client/libs/store';
 import closeChallengeModal from './closeChallengeModal';
 
 import gemIcon from 'assets/svg/gem.svg';
@@ -156,8 +157,9 @@ export default {
     };
   },
   computed: {
+    ...mapState({user: 'user.data'}),
     isMember () {
-      return false;
+      return user.challenges.indexOf(this.challenge._id) !== -1;
     },
     isLeader () {
       return true;
@@ -179,6 +181,11 @@ export default {
     closeChallenge () {
       this.$root.$emit('show::modal', 'close-challenge-modal');
     },
+    edit () {
+      // @TODO: set working challenge
+      // this.$root.$emit('show::modal', 'challenge-modal');
+    },
+    // @TODO: view members
   },
 };
 </script>

@@ -65,6 +65,8 @@ export default {
   },
   mounted () {
     this.loadchallanges();
+
+    // @TODO: do we need to load groups for filters still?
   },
   methods: {
     updateSearch () {
@@ -72,6 +74,9 @@ export default {
     },
     updateFilters () {
 
+    },
+    createChallenge () {
+      this.$root.$emit('show::modal', 'challenge-modal');
     },
     async loadchallanges () {
       this.challenges = await this.$store.dispatch('challenges:getUserChallenges');

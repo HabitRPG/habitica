@@ -120,6 +120,29 @@ export default {
       },
     };
   },
+  computed: {
+    maxPrize () {
+      // var groupBalance = 0;
+      // var group = _.find($scope.groups, { _id: gid });
+      //
+      // if (group && group.balance && group.leader === User.user._id) {
+      //   groupBalance = group.balance * 4;
+      // }
+      //
+      // return groupBalance;
+      // return userBalance + availableGroupBalance;
+    },
+    insufficientGemsForTavernChallenge () {
+      // var balance = User.user.balance || 0;
+      // var isForTavern = $scope.newChallenge.group == TAVERN_ID;
+      //
+      // if (isForTavern) {
+      //   return balance <= 0;
+      // } else {
+      //   return false;
+      // }
+    },
+  },
   methods: {
     createChallenge () {
       // this.$store.dispatch('challenges:createChallenge', {challenge: this.workingChallenge});
