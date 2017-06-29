@@ -4,7 +4,7 @@
   .col-8.standard-page
     .row
       .col-8
-        h1 {{challenge.title}}
+        h1 {{challenge.name}}
         div
           strong(v-once) {{$t('createdBy')}}
           span {{challenge.author}}
@@ -138,20 +138,20 @@ export default {
         calendarIcon,
       }),
       challenge: {
-        '_id': 1,
-        title: 'I am the Night! (Official TAKE THIS Challenge June 2017)',
-        memberCount: 5261,
-        endDate: '2017-04-04',
-        tags: ['Habitica Official', 'Tag'],
-        prize: 10,
-        description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.',
-        counts: {
-          habit: 0,
-          dailies: 2,
-          todos: 2,
-          rewards: 0,
-        },
-        author: 'SabreCat'
+        // _id: 1,
+        // title: 'I am the Night! (Official TAKE THIS Challenge June 2017)',
+        // memberCount: 5261,
+        // endDate: '2017-04-04',
+        // tags: ['Habitica Official', 'Tag'],
+        // prize: 10,
+        // description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.',
+        // counts: {
+        //   habit: 0,
+        //   dailies: 2,
+        //   todos: 2,
+        //   rewards: 0,
+        // },
+        // author: 'SabreCat',
       },
     };
   },
@@ -163,7 +163,19 @@ export default {
       return true;
     },
   },
+  mounted () {
+    this.getChallenge();
+  },
   methods: {
+    async getChallenge () {
+      this.challenge = await this.$store.dispatch('challenges:getChallenge', {challengeId: this.challengeId});
+    },
+    async joinChallenge () {
+      // this.challenge = this.$store.dispatch('challenges:joinChallenge', {challengeId: this.challengeId});
+    },
+    async leaveChallenge () {
+      // this.challenge = this.$store.dispatch('challenges:leaveChallenge', {challengeId: this.challengeId});
+    },
     closeChallenge () {
       this.$root.$emit('show::modal', 'close-challenge-modal');
     },

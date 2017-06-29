@@ -1,7 +1,7 @@
 <template lang='pug'>
 .card
   router-link(:to="{ name: 'challenge', params: { challengeId: challenge._id } }")
-    h3 {{challenge.title}}
+    h3 {{challenge.name}}
   .row
     .col-6
       div.details
@@ -23,7 +23,7 @@
   .row.description
     .col-12
       | {{challenge.description}}
-  .container.well-wrapper
+  .container.well-wrapper(v-if='challenge.counts')
     .well.row
       .col-3
         .count-details

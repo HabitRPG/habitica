@@ -93,7 +93,6 @@ div
       margin-bottom: 2em;
     }
   }
-
 </style>
 
 <script>
@@ -120,6 +119,14 @@ export default {
         information: '',
       },
     };
+  },
+  methods: {
+    createChallenge () {
+      // this.$store.dispatch('challenges:createChallenge', {challenge: this.workingChallenge});
+    },
+    updateChallenge () {
+      // this.$store.dispatch('challenges:updateChallenge', {challenge: this.workingChallenge});
+    },
   },
 };
 </script>

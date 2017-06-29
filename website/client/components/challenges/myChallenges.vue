@@ -87,38 +87,42 @@ export default {
         positiveIcon,
       }),
       challenges: [
-        {
-          '_id': 1,
-          title: 'I am the Night! (Official TAKE THIS Challenge June 2017)',
-          memberCount: 5261,
-          endDate: '2017-04-04',
-          tags: ['Habitica Official', 'Tag'],
-          prize: 10,
-          description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.',
-          counts: {
-            habit: 0,
-            dailies: 2,
-            todos: 2,
-            rewards: 0,
-          },
-        },
-        {
-          '_id': 2,
-          title: '30-Day Money Cleanse 💰',
-          memberCount: 112,
-          endDate: '2017-04-05',
-          tags: ['Owned', 'Tag'],
-          prize: 10,
-          description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.',
-          counts: {
-            habit: 0,
-            dailies: 2,
-            todos: 30,
-            rewards: 0,
-          },
-        },
+        // {
+        //   _id: 1,
+        //   title: 'I am the Night! (Official TAKE THIS Challenge June 2017)',
+        //   memberCount: 5261,
+        //   endDate: '2017-04-04',
+        //   tags: ['Habitica Official', 'Tag'],
+        //   prize: 10,
+        //   description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.',
+        //   counts: {
+        //     habit: 0,
+        //     dailies: 2,
+        //     todos: 2,
+        //     rewards: 0,
+        //   },
+        // },
+        // {
+        //   _id: 2,
+        //   title: '30-Day Money Cleanse 💰',
+        //   memberCount: 112,
+        //   endDate: '2017-04-05',
+        //   tags: ['Owned', 'Tag'],
+        //   prize: 10,
+        //   description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.',
+        //   counts: {
+        //     habit: 0,
+        //     dailies: 2,
+        //     todos: 30,
+        //     rewards: 0,
+        //   },
+        // },
       ],
+      sortOptions: [],
     };
+  },
+  mounted () {
+    this.loadchallanges();
   },
   methods: {
     updateSearch () {
@@ -129,6 +133,9 @@ export default {
     },
     createChallenge () {
       this.$root.$emit('show::modal', 'challenge-modal');
+    },
+    async loadchallanges () {
+      this.challenges = await this.$store.dispatch('challenges:getUserChallenges');
     },
   },
 };

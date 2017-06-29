@@ -89,5 +89,16 @@ export default {
     return {
     };
   },
+  methods: {
+    closeChallenge () {
+      // this.challenge = this.$store.dispatch('challenges:selectChallengeWinner', {
+      //   challengeId: this.challengeId,
+      //   winnerId: this.winnerId,
+      // });
+    },
+    deleteChallenge () {
+      // this.challenge = this.$store.dispatch('challenges:deleteChallenge', {challengeId: this.challengeId});
+    },
+  },
 };
 </script>
