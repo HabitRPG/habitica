@@ -1,10 +1,10 @@
 <template lang="pug">
-  b-modal#guild-form(:title="title", :hide-footer="true")
+  b-modal#guild-form(:title="title", :hide-footer="true", size='lg')
     form(@submit.stop.prevent="submit")
       .form-group
         label
           strong(v-once) {{$t('name')}}*
-        b-form-input(type="text", placeholder="$t('newGuildPlaceHolder')", v-model="newGuild.name")
+        b-form-input(type="text", :placeholder="$t('newGuildPlaceHolder')", v-model="newGuild.name")
 
       .form-group(v-if='newGuild.id')
         label
@@ -29,7 +29,7 @@
           span.custom-control-description(v-once) {{ $t('guildLeaderCantBeMessaged') }}
 
         br
-        label.custom-control.custom-checkbox
+        label.custom-control.custom-checkbox(v-if='!creatingParty')
           input.custom-control-input(type="checkbox", v-model="newGuild.privateGuild")
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t('privateGuild') }}
@@ -37,7 +37,7 @@
             .svg-icon(v-html='icons.information')
 
         br
-        label.custom-control.custom-checkbox
+        label.custom-control.custom-checkbox(v-if='!creatingParty')
           input.custom-control-input(type="checkbox", v-model="newGuild.allowGuildInvationsFromNonMembers")
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t('allowGuildInvationsFromNonMembers') }}
@@ -46,14 +46,18 @@
         label
           strong(v-once) {{$t('description')}}*
         div.description-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
-        b-form-input(type="text", textarea :placeholder="$t('guildDescriptionPlaceHolder')", v-model="newGuild.description")
+        b-form-input(type="text", textarea :placeholder="creatingParty ? $t('partyDescriptionPlaceHolder') : $t('guildDescriptionPlaceHolder')", v-model="newGuild.description")
 
-      .form-group(v-if='newGuild.id')
+      .form-group(v-if='newGuild.id && !creatingParty')
         label
           strong(v-once) {{$t('guildInformation')}}*
-        b-form-input(type="text", textarea :placeholder="$t('guildInformationPlaceHolder')", v-model="newGuild.guildInformation")
+        b-form-input(type="text", textarea, :placeholder="$t('guildInformationPlaceHolder')", v-model="newGuild.guildInformation")
 
-      .form-group(style='position: relative;')
+      .form-group(v-if='creatingParty && !newGuild.id')
+        span
+          toggleSwitch(:label="$t('inviteMembersNow')", v-model='inviteMembers')
+
+      .form-group(style='position: relative;', v-if='!creatingParty')
         label
           strong(v-once) {{$t('categories')}}*
         div.category-wrap(@click.prevent="toggleCategorySelect")
@@ -70,13 +74,26 @@
               span.custom-control-description(v-once) {{ $t(group.label) }}
           button.btn.btn-primary(@click.prevent="toggleCategorySelect") {{$t('close')}}
 
+      .form-group(v-if='inviteMembers && !newGuild.id')
+        label
+          strong(v-once) Invite via Email or User ID
+          p Invite users via a valid email or 36-digit User ID. If an email isn’t registered yet, we’ll invite them to join.
+
+        div
+          div(v-for='(member, index) in membersToInvite')
+            input(type='text', v-model='member.value')
+            button(@click.prevent='removeMemberToInvite(index)') Remove
+          div
+            input(type='text', placeholder='Email address or User ID', v-model='newMemberToInvite.value')
+            button(@click.prevent='addMemberToInvite()') Add
+
       .form-group.text-center
-        div.item-with-icon
+        div.item-with-icon(v-if='!creatingParty')
           .svg-icon(v-html="icons.gem")
           span.count 4
-        button.btn.btn-primary.btn-md(v-if='!newGuild.id', :disabled='!newGuild.name || !newGuild.description') {{ $t('createGuild') }}
-        button.btn.btn-primary.btn-md(v-if='newGuild.id', :disabled='!newGuild.name || !newGuild.description') {{ $t('updateGuild') }}
-        .gem-description(v-once) {{ $t('guildGemCostInfo') }}
+        button.btn.btn-primary.btn-md(v-if='!newGuild.id', :disabled='!newGuild.name || !newGuild.description') {{ creatingParty ? $t('createParty') : $t('createGuild') }}
+        button.btn.btn-primary.btn-md(v-if='newGuild.id', :disabled='!newGuild.name || !newGuild.description') {{ creatingParty ? $t('updateParty') : $t('updateGuild') }}
+        .gem-description(v-once, v-if='!creatingParty') {{ $t('guildGemCostInfo') }}
 </template>
 
 <style lang="scss" scoped>
@@ -101,31 +118,6 @@
     margin-top: 1em;
   }
 
-  .category-box {
-    padding: 1em;
-    max-width: 400px;
-    position: absolute;
-    top: -480px;
-    padding: 2em;
-    border-radius: 2px;
-    background-color: $white;
-    box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($black, 0.1);
-  }
-
-  .category-label {
-    min-width: 100px;
-    border-radius: 100px;
-    background-color: $gray-600;
-    padding: .5em;
-    display: inline-block;
-    margin-right: .5em;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 1.33;
-    text-align: center;
-    color: $gray-300;
-  }
-
   .item-with-icon {
     display: inline-block;
 
@@ -146,21 +138,6 @@
     margin-top: 1em;
   }
 
-  .category-select {
-    border-radius: 2px;
-    background-color: $white;
-    box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
-    padding: 1em;
-  }
-
-  .category-select:hover {
-    cursor: pointer;
-  }
-
-  .category-wrap {
-    margin-top: .5em;
-  }
-
   .icon {
     margin-left: .5em;
     display: inline-block;
@@ -175,6 +152,7 @@ import bFormCheckbox from 'bootstrap-vue/lib/components/form-checkbox';
 import bFormSelect from 'bootstrap-vue/lib/components/form-select';
 import bTooltip from 'bootstrap-vue/lib/components/tooltip';
 
+import toggleSwitch from 'client/components/ui/toggleSwitch';
 import gemIcon from 'assets/svg/gem.svg';
 import informationIcon from 'assets/svg/information.svg';
 
@@ -186,6 +164,7 @@ export default {
     bFormCheckbox,
     bFormSelect,
     bTooltip,
+    toggleSwitch,
   },
   data () {
     let data = {
@@ -251,6 +230,13 @@ export default {
       ],
       showCategorySelect: false,
       members: ['one', 'two'],
+      creatingParty: true,
+      inviteMembers: false,
+      newMemberToInvite: {
+        value: '',
+        type: '',
+      },
+      membersToInvite: [],
     };
 
     let hashedCategories = {};
@@ -282,11 +268,23 @@ export default {
       return 500 - this.newGuild.description.length;
     },
     title () {
+      if (this.creatingParty) return this.$t('createParty');
       if (!this.newGuild.id) return this.$t('createGuild');
       return this.$t('updateGuild');
     },
   },
   methods: {
+    addMemberToInvite () {
+      // @TODO: determine type
+      this.membersToInvite.push(this.newMemberToInvite);
+      this.newMemberToInvite = {
+        value: '',
+        type: '',
+      };
+    },
+    removeMemberToInvite (index) {
+      this.membersToInvite.splice(index, 1);
+    },
     toggleCategorySelect () {
       this.showCategorySelect = !this.showCategorySelect;
     },
@@ -311,7 +309,7 @@ export default {
       }
 
       // @TODO: Add proper notifications
-      if (!confirm(this.$t('confirmGuild'))) return;
+      if (!this.newGuild.id && !confirm(this.$t('confirmGuild'))) return;
 
       if (!this.newGuild.privateGuild) {
         this.newGuild.privacy = 'public';
@@ -342,6 +340,8 @@ export default {
         privateGuild: true,
         allowGuildInvationsFromNonMembers: true,
       };
+
+      this.$root.$emit('hide::modal', 'guild-form');
     },
   },
 };

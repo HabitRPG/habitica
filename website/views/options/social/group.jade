@@ -107,7 +107,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             table.table.table-striped(ng-show='::group.memberCount > 1 || group.type !== "party"' bindonce='group')
               tr(ng-repeat='member in group.members track by member._id')
                 td.media
-                  // allow leaders and administrators to ban members
+                  // allow leaders and administrators to remove members
                   .pull-left(ng-show='(isAbleToEditGroup(group) && member._id != user._id)')
                     a.media-object(ng-click='removeMember(group, member, true)')
                       span.glyphicon.glyphicon-ban-circle(tooltip=env.t('banTip'))
@@ -130,7 +130,7 @@ a.pull-right.gem-wallet(ng-if='group.type!="party"', popover-trigger='mouseenter
             table.table.table-striped
               tr(ng-repeat='invite in group.invites')
                 td.media
-                  // allow leaders and administrators to ban members
+                  // allow leaders and administrators to remove members
                   .pull-left(ng-show='isAbleToEditGroup(group)')
                     a.media-object(ng-click='removeMember(group, invite, false)')
                       span.glyphicon.glyphicon-ban-circle(tooltip=env.t('banTip'))

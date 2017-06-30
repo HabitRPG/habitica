@@ -1,7 +1,7 @@
 <template lang="pug">
 #app-header.row
   member-details(:member="user", @click="$router.push({name: 'avatar'})")
-  .view-party
+  .view-party(v-if="user.party && user.party._id")
     // TODO button should open the party members modal
     router-link.btn.btn-primary(:active-class="''", :to="{name: 'party'}") {{ $t('viewParty') }}
   .party-members.d-flex(v-if="partyMembers && partyMembers.length > 1")
@@ -59,6 +59,7 @@
 .no-party {
   .small-text {
     color: $header-color;
+    flex-wrap: nowrap;
   }
 
   h3 {
@@ -66,7 +67,7 @@
     margin-bottom: 4px;
   }
 
-  button {
+  .btn {
     margin-top: 16px;
   }
 }
@@ -75,10 +76,12 @@
 <script>
 import { mapGetters, mapActions } from 'client/libs/store';
 import MemberDetails from './memberDetails';
+import createPartyModal from './guilds/createPartyModal';
 
 export default {
   components: {
     MemberDetails,
+    createPartyModal,
   },
   data () {
     return {
@@ -104,7 +107,7 @@ export default {
     },
   },
   created () {
-    this.getPartyMembers();
+    if (this.user.party && this.user.party._id) this.getPartyMembers();
   },
 };
 </script>

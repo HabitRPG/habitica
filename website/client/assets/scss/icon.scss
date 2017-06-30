@@ -1,13 +1,15 @@
 .svg-icon {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
+  display: block;
   stroke-width: 0;
   stroke: currentColor;
   fill: currentColor;
   transition: none !important;
-}
 
-.svg-icon * {
-  transition: none !important;
+  svg {
+    display: block;
+  }
+
+  * {
+    transition: none !important;
+  }
 }
