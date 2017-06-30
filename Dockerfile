@@ -9,10 +9,11 @@ WORKDIR /usr/src/habitrpg
 RUN git clone https://github.com/HabitRPG/habitica.git /usr/src/habitrpg
 RUN npm install
 RUN bower install --allow-root
+RUN gulp build:prod --force
 
 # Create Build dir
 RUN mkdir -p ./website/build
 
 # Start Habitica
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["node", "./website/transpiled-babel/index.js"]
