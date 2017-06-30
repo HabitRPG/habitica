@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Вилучити виконані",
     "lotOfToDos": "Тут показані останні 30 виконаних задач. Побачити більше ви можете за шляхом Дані > Інструмент відображення даних або Дані > Експорт даних > Дані користувача.",
-    "deleteToDosExplanation": "Якщо натиснути на кнопку внизу, то всі з виконаних Зробити та архівних Зробити будуть остаточно вилучені. Якщо хочете зберегти запис про них, спершу експортуйте їх.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addmultiple": "Додати декілька",
     "addsingle": "Додати одне",
     "habit": "Звичка",

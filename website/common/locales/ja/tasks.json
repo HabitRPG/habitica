@@ -1,7 +1,7 @@
 {
     "clearCompleted": "完了済みを削除",
     "lotOfToDos": "最近完了した 30 件の「To-Do」をここに表示します。より古いものは、「データ > データ表示ツール」または「データ > データをエクスポート > ユーザーデータ」で確認できます。",
-    "deleteToDosExplanation": "下のボタンをクリックすると、完了した「To-Do」と、アーカイブ済の「To-Do」は完全に削除されます。記録を保存しておきたい場合は、まずエクスポートしてください。",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addmultiple": "複数追加",
     "addsingle": "1件追加",
     "habit": "習慣",

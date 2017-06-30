@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Deletar Completos",
     "lotOfToDos": "Os seus 30 Afazeres concluídos mais recentes são mostrados aqui. Você pode ver os Afazeres antigos que foram concluídos em Dados > Ferramenta de Exibição de Dados ou Dados > Exportar Dados > Dados do Usuário",
-    "deleteToDosExplanation": "Se você clicar no botão abaixo, todos os seus Afazeres completos e arquivados serão apagados permanentemente. Exporte-os primeiro se quiser manter um registro deles.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addmultiple": "Adicionar Vários",
     "addsingle": "Adicionar Único",
     "habit": "Hábito",

@@ -114,7 +114,7 @@
     "messageRequired": "Een bericht is vereist.",
     "toUserIDRequired": "Een gebruikers-ID is vereist.",
     "gemAmountRequired": "Een hoeveelheid edelstenen is vereist.",
-    "notAuthorizedToSendMessageToThisUser": "Kan geen bericht versturen naar deze gebruiker.",
+    "notAuthorizedToSendMessageToThisUser": "You can't send a message to this player because they have chosen to block messages.",
     "privateMessageGiftGemsMessage": "Hallo <%= receiverName %>, <%= senderName %> heeft je <%= gemAmount %> edelstenen gestuurd!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> maanden abonnementkrediet.",
     "cannotSendGemsToYourself": "Je kunt geen edelstenen naar jezelf sturen. Probeer in plaats daarvan een abonnement. ",

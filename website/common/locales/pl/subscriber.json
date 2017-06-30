@@ -37,7 +37,7 @@
     "subscribed": "Jesteś abonentem",
     "manageSub": "Kliknij by zarządzać abonamentem",
     "cancelSub": "Anuluj abonament",
-    "cancelSubInfoGoogle": "Please go to the \"My apps & games\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
+    "cancelSubInfoGoogle": "Please go to the \"Account\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
     "cancelSubInfoApple": "Please follow <a href=\"https://support.apple.com/en-us/HT202039\">Apple’s official instructions</a> to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
     "canceledSubscription": "Anulowany Abonament",
     "cancelingSubscription": "Anulowanie abonamentu",
@@ -168,5 +168,6 @@
     "missingPaymentId": "Brakuje req.query.paymentId",
     "missingCustomerId": "Brakuje req.query.customerId",
     "missingPaypalBlock": "Brakuje req.session.paypalBlock",
-    "missingSubKey": "Brakuje req.query.sub"
+    "missingSubKey": "Brakuje req.query.sub",
+    "paypalCanceled": "Your subscription has been canceled"
 }
