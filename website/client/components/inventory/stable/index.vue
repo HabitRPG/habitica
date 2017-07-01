@@ -21,22 +21,28 @@
         .form-group
           .form-check(
             v-for="petGroup in petGroups",
-            v-if="viewOptions[petGroup.key].animalCount != 0",
             :key="petGroup.key"
           )
             label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="viewOptions[petGroup.key].selected")
+              input.custom-control-input(
+                type="checkbox",
+                v-model="viewOptions[petGroup.key].selected",
+                :disabled="viewOptions[petGroup.key].animalCount == 0"
+              )
               span.custom-control-indicator
               span.custom-control-description(v-once) {{ petGroup.label }}
         h3(v-once) {{ $t('mounts') }}
         .form-group
           .form-check(
             v-for="mountGroup in mountGroups",
-            v-if="viewOptions[mountGroup.key].animalCount != 0",
             :key="mountGroup.key"
           )
             label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="viewOptions[mountGroup.key].selected")
+              input.custom-control-input(
+                type="checkbox",
+                v-model="viewOptions[mountGroup.key].selected",
+                :disabled="viewOptions[mountGroup.key].animalCount == 0"
+              )
               span.custom-control-indicator
               span.custom-control-description(v-once) {{ mountGroup.label }}
 
@@ -81,6 +87,7 @@
             v-drag.drop.food="pet.key",
             @dragover="onDragOver($event, pet)",
             @dropped="onDrop($event, pet)",
+            :class="pet.isLastInRow ? 'last' : ''"
           )
             petItem(
               :item="pet",
@@ -128,12 +135,14 @@
         h4(v-if="viewOptions[mountGroup.key].animalCount != 0") {{ mountGroup.label }}
 
         div.items
-          item(
+          mountItem(
             v-for="mount in mounts(mountGroup, viewOptions[mountGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled, availableContentWidth)",
             :item="mount",
-            :itemContentClass="mount.isOwned() ? ('Mount_Icon_' + mount.key) : 'PixelPaw greyedOut'",
+            :itemContentClass="mount.isOwned() ? ('Mount_Icon_' + mount.key) : 'PixelPaw GreyedOut'",
             :key="mount.key",
-            :popoverPosition="'top'"
+            :popoverPosition="'top'",
+            :emptyItem="!mount.isOwned()",
+            :showPopover="mount.isOwned()",
           )
             span(slot="popoverContent")
               h4.popover-content-title {{ mount.name }}
@@ -168,13 +177,15 @@
                 )  {{ drawerTabs[1].label }}
 
               b-popover(
-                :triggers="['hover']",
+                :triggers="['click']",
                 :placement="'top'"
               )
                 span(slot="content")
-                  .popover-content-text Test Popover
+                  .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
 
-                div.float-right What does my pet like to eat?
+                div.float-right(v-once)
+                  | {{ $t('petLikeToEat') + ' ' }}
+                  .svg-icon(v-html="icons.information")
 
 
         drawer-slider(
@@ -206,6 +217,10 @@
 <style lang="scss">
 
   @import '~client/assets/scss/colors.scss';
+
+  .standard-page .clearfix .float-right {
+    margin-right: 24px;
+  }
 
   .inventory-item-container {
     padding: 20px;
@@ -267,6 +282,7 @@
 
     .standard-page {
       flex: 1;
+      padding-right:0;
     }
 
     .drawer-container {
@@ -320,6 +336,19 @@
     background-color: $purple-50;
     opacity: 0.9;
   }
+
+  .last {
+    margin-right: 0 !important;
+  }
+
+  .no-focus:focus {
+    background-color: inherit;
+    color: inherit;
+  }
+
+  .popover-content-text {
+    margin-bottom: 0;
+  }
 </style>
 
 <script>
@@ -337,9 +366,11 @@
   import _drop from 'lodash/drop';
   import _flatMap from 'lodash/flatMap';
   import _throttle from 'lodash/throttle';
+  import _last from 'lodash/last';
 
   import Item from '../item';
   import PetItem from './petItem';
+  import MountItem from './mountItem.vue';
   import FoodItem from './foodItem';
   import Drawer from 'client/components/inventory/drawer';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
@@ -349,6 +380,8 @@
 
   import ResizeDirective from 'client/directives/resize.directive';
   import DragDropDirective from 'client/directives/dragdrop.directive';
+
+  import information from 'assets/svg/information.svg';
 
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
@@ -360,6 +393,7 @@
       PetItem,
       Item,
       FoodItem,
+      MountItem,
       Drawer,
       bDropdown,
       bDropdownItem,
@@ -390,6 +424,10 @@
           'sortByColor',
           'sortByHatchable',
         ],
+
+        icons: Object.freeze({
+          information,
+        }),
 
         selectedDrawerTab: 0,
         availableContentWidth: 0,
@@ -443,7 +481,6 @@
             petSource: {
               special: this.content.specialPets,
             },
-            alwaysHideMissing: true,
           },
         ];
 
@@ -490,7 +527,6 @@
             petSource: {
               special: this.content.specialMounts,
             },
-            alwaysHideMissing: true,
           },
         ];
 
@@ -547,9 +583,15 @@
                 key: specialKey,
                 eggKey,
                 potionKey,
-                pet: this.content[`${type}Info`][specialKey].text(),
+                name: this.content[`${type}Info`][specialKey].text(),
                 isOwned ()  {
-                  return [`${type}s`][this.key] > 0;
+                  return userItems[`${type}s`][this.key] > 0;
+                },
+                mountOwned () {
+                  return userItems.mounts[this.key] > 0;
+                },
+                isAllowedToFeed () {
+                  return type === 'pet' && !this.mountOwned();
                 },
                 isHatchable () {
                   return false;
@@ -574,6 +616,12 @@
                   isOwned ()  {
                     return userItems[`${type}s`][animalKey] > 0;
                   },
+                  mountOwned () {
+                    return userItems.mounts[this.key] > 0;
+                  },
+                  isAllowedToFeed () {
+                    return type === 'pet' && !this.mountOwned();
+                  },
                   isHatchable () {
                     return userItems.eggs[egg.key] > 0 && userItems.hatchingPotions[potion.key] > 0;
                   },
@@ -594,7 +642,7 @@
         let withProgress = isPetList && animalGroup.key !== 'specialPets';
 
         // 1. Filter
-        if (hideMissing || animalGroup.alwaysHideMissing) {
+        if (hideMissing) {
           animals = _filter(animals, (a) => {
             return a.isOwned();
           });
@@ -630,7 +678,7 @@
 
         let animalRows = [];
 
-        let itemsPerRow = Math.floor(availableSpace / (94 + 24));
+        let itemsPerRow = Math.floor(availableSpace / (94 + 20));
 
         let rowsToShow = isOpen ? Math.ceil(animals.length / itemsPerRow) : 1;
 
@@ -646,6 +694,11 @@
               progress,
             };
           }) : row;
+
+          let lastRowItem = _last(rowWithProgressData);
+          if (lastRowItem) {
+            lastRowItem.isLastInRow = true;
+          }
 
           animalRows.push(...rowWithProgressData);
         }
@@ -679,6 +732,10 @@
           return `Pet Pet-${pet.key}`;
         }
 
+        if (pet.mountOwned()) {
+          return `GreyedOut Pet Pet-${pet.key}`;
+        }
+
         if (pet.isHatchable()) {
           return 'PixelPaw';
         }
@@ -708,7 +765,7 @@
       },
 
       onDragOver (ev, pet) {
-        if (this.userItems.mounts[pet.key]) {
+        if (!pet.isAllowedToFeed()) {
           ev.dropable = false;
         }
       },
