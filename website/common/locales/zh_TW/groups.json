@@ -114,7 +114,7 @@
     "messageRequired": "需要一條訊息",
     "toUserIDRequired": "需要使用者帳戶",
     "gemAmountRequired": "需要寶石的數量",
-    "notAuthorizedToSendMessageToThisUser": "無法對這名用戶傳送訊息",
+    "notAuthorizedToSendMessageToThisUser": "You can't send a message to this player because they have chosen to block messages.",
     "privateMessageGiftGemsMessage": "哈囉 <%= receiverName %>，<%= senderName %>寄了<%= gemAmount %>寶石給你！",
     "privateMessageGiftSubscriptionMessage": "已訂閱<%= numberOfMonths %>月！",
     "cannotSendGemsToYourself": "無法寄寶石給你自己。請嘗試訂閱我們。",

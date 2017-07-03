@@ -35,20 +35,6 @@
   box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($black, 0.1);
   margin-bottom: 1rem;
 
-  .category-label {
-    min-width: 100px;
-    border-radius: 100px;
-    background-color: $gray-600;
-    padding: .5em;
-    display: inline-block;
-    margin-right: .5em;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 1.33;
-    text-align: center;
-    color: $gray-300;
-  }
-
   .recommend-text {
     font-size: 12px;
     font-style: italic;

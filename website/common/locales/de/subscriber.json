@@ -37,8 +37,8 @@
     "subscribed": "Abonniert",
     "manageSub": "Klicke um Abonnements zu verwalten",
     "cancelSub": "Abonnement beenden",
-    "cancelSubInfoGoogle": "Bitte schaue in \"Konto\" > \"Abos\" nach, um Dein Abonnement zu kündigen oder um zu sehen, wann Dein Abonnement endet, wenn Du es bereits gekündigt hast. Du kannst dort aber nicht sehen, ob dein Abonnement ausgelaufen ist. ",
-    "cancelSubInfoApple": "Bitte befolge <a href=\"https://support.apple.com/en-us/HT202039\">Apple's offiziellen Anweisungen</a> um Dein Abonnement zu kündigen oder um zu sehen, wann Dein Abonnement endet, wenn Du es bereits gekündigt hast. Du kannst dort aber nicht sehen, ob Dein Abonnement ausgelaufen ist.",
+    "cancelSubInfoGoogle": "Please go to the \"Account\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
+    "cancelSubInfoApple": "Bitte befolge <a href=\"https://support.apple.com/en-us/HT202039\">Apple's offizielle Anweisungen</a> um Dein Abonnement zu kündigen oder um zu sehen, wann Dein Abonnement endet, wenn Du es bereits gekündigt hast. Du kannst dort aber nicht sehen, ob Dein Abonnement ausgelaufen ist.",
     "canceledSubscription": "Abonnement storniert",
     "cancelingSubscription": "Abonnement stornieren",
     "adminSub": "Administrator-Abonnements",
@@ -129,7 +129,7 @@
     "mysterySet201703": "Schimmer-Set",
     "mysterySet201704": "Feen-Set",
     "mysterySet201705": "Gefiedertes Kämpfer-Set",
-    "mysterySet201706": "Pirate Pioneer Set",
+    "mysterySet201706": "Piraten-Pionier Set",
     "mysterySet301404": "Steampunk-Standard-Set",
     "mysterySet301405": "Steampunk-Zubehör-Set",
     "mysterySet301703": "Pfauen-Steampunk-Set",
@@ -168,5 +168,6 @@
     "missingPaymentId": "req.query.paymentId fehlt",
     "missingCustomerId": "req.query.customerId fehlt",
     "missingPaypalBlock": "req.session.paypalBlock fehlt",
-    "missingSubKey": "req.query.sub fehlt"
+    "missingSubKey": "req.query.sub fehlt",
+    "paypalCanceled": "Your subscription has been canceled"
 }

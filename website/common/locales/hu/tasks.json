@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Törlés kész",
     "lotOfToDos": "A legutolsó 30 befejezett feladatod látható itt. A többi befejezett feladatot az Adatok > Adat kimutató eszköz vagy az Adatok > Adatok exportálása > Felhasználói adatok menü alatt találod meg.",
-    "deleteToDosExplanation": "Ha megnyomod a lenti gombot, akkor a már kész és archivált tennivalók végleg kitörlődnek. Exportáld ki őket, ha meg akarod őket őrizni.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addmultiple": "Több hozzáadása",
     "addsingle": "Egy hozzáadása",
     "habit": "Szokás",

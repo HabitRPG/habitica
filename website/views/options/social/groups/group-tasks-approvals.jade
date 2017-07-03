@@ -9,5 +9,8 @@ script(type='text/ng-template', id='partials/groups.tasks.approvals.html')
   .panel-group(ng-repeat="approval in group.approvals")
     .panel.panel-default
       .panel-heading
-        span {{approvalTitle(approval)}}
-        a.btn.btn-sm.btn-success.pull-right(ng-click="approve(approval.group.taskId, approval.userId._id, approval.userId.profile.name, $index)")=env.t('approve')
+        span 
+          div(style='padding: 1rem 1rem 2rem 2rem;')
+            markdown.pull-left(text = "approvalTitle(approval)")
+            a.btn.btn-sm.btn-success.pull-right(ng-click="approve(approval.group.taskId, approval.userId._id, approval.userId.profile.name, $index)")=env.t('approve')
+

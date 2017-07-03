@@ -114,7 +114,7 @@
     "messageRequired": "נדרש למלא הודעה.",
     "toUserIDRequired": "נדרש מספר הזהות של המשתמשים",
     "gemAmountRequired": "נדרש למלא את מספר אבני החן",
-    "notAuthorizedToSendMessageToThisUser": "לא ניתן לשלוח הודעה אל המשתמש/ת",
+    "notAuthorizedToSendMessageToThisUser": "You can't send a message to this player because they have chosen to block messages.",
     "privateMessageGiftGemsMessage": "Hello <%= receiverName %>, <%= senderName %> has sent you <%= gemAmount %> gems!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> חודשים של רישום כמנויים!",
     "cannotSendGemsToYourself": "לא ניתן לשלוח אבני חן אל עצמך. יש לנסות רישום כמנוי במקום.",

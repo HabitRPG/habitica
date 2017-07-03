@@ -14,7 +14,7 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
           router-link.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
       router-link.nav-item(tag="li", :to="{name: 'shops'}", exact)
         a.nav-link(v-once) {{ $t('shops') }}
-      router-link.nav-item(tag="li", :to="{name: 'party'}", exact)
+      router-link.nav-item(tag="li", :to="{name: 'party'}")
         a.nav-link(v-once) {{ $t('party') }}
       router-link.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/guilds')}")
         a.nav-link(v-once) {{ $t('guilds') }}
@@ -41,154 +41,154 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
     router-link.dropdown.item-with-icon.item-user(:to="{name: 'avatar'}")
       .svg-icon(v-html="icons.user")
       .dropdown-menu.dropdown-menu-right.user-dropdown
-        router-link.dropdown-item.edit-avatar(:to="{name: 'avatar'}") 
+        router-link.dropdown-item.edit-avatar(:to="{name: 'avatar'}")
           h3 {{ user.profile.name }}
           span.small-text {{ $t('editAvatar') }}
         router-link.dropdown-item(:to="{name: 'inbox'}") {{ $t('inbox') }}
         router-link.dropdown-item(:to="{name: 'stats'}") {{ $t('stats') }}
         router-link.dropdown-item(:to="{name: 'achievements'}") {{ $t('achievements') }}
         router-link.dropdown-item(:to="{name: 'settings'}") {{ $t('settings') }}
-        router-link.dropdown-item(to="/logout") {{ $t('logout') }}
+        a.nav-link.dropdown-item(to="/", @click.prevent='logout()') {{ $t('logout') }}
 </template>
 
 <style lang="scss" scoped>
-@import '~client/assets/scss/colors.scss';
-@import '~client/assets/scss/utils.scss';
+  @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/utils.scss';
 
-nav.navbar {
-  background: $purple-100 url(~assets/svg/for-css/bits.svg) right no-repeat;
-  padding-left: 25px;
-  padding-right: 12.5px;
-  height: 56px;
-  box-shadow: 0 1px 2px 0 rgba($black, 0.24);
-}
-
-.navbar-header {
-  margin-right: 48px;
-
-  .logo {
-    width: 128px;
-    height: 28px;
-  }
-}
-
-.nav-item {
-  .nav-link {
-    font-size: 16px;
-    color: $white;
-    font-weight: bold;
-    line-height: 1.5;
-    padding: 16px 24px;
-    transition: none;
+  nav.navbar {
+    background: $purple-100 url(~assets/svg/for-css/bits.svg) right no-repeat;
+    padding-left: 25px;
+    padding-right: 12.5px;
+    height: 56px;
+    box-shadow: 0 1px 2px 0 rgba($black, 0.24);
   }
 
-  &:hover {
+  .navbar-header {
+    margin-right: 48px;
+
+    .logo {
+      width: 128px;
+      height: 28px;
+    }
+  }
+
+  .nav-item {
     .nav-link {
+      font-size: 16px;
       color: $white;
-      background: $purple-200;
-    }
-  }
-
-  &.active:not(:hover) {
-    .nav-link {
-      box-shadow: 0px -4px 0px $purple-300 inset;
-    }
-  }
-}
-
-// Make the dropdown menu open on hover
-.dropdown:hover .dropdown-menu {
-  display: block;
-  margin-top: 0; // remove the gap so it doesn't close
-}
-
-.dropdown + .dropdown {
-  margin-left: 0px;
-}
-
-.dropdown-menu:not(.user-dropdown) {
-  background: $purple-200;
-  border-radius: 0px;
-  border: none;
-  box-shadow: none;
-  padding: 0px;
-
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-
-  .dropdown-item {
-    font-size: 16px;
-    box-shadow: none;
-    color: $white;
-    border: none;
-    line-height: 1.5;
-
-    &.active {
-      background: $purple-300;
+      font-weight: bold;
+      line-height: 1.5;
+      padding: 16px 24px;
+      transition: none;
     }
 
     &:hover {
-      background: $purple-300;
+      .nav-link {
+        color: $white;
+        background: $purple-200;
+      }
+    }
 
-      &:last-child {
-        border-bottom-right-radius: 5px;
-        border-bottom-left-radius: 5px;
+    &.active:not(:hover) {
+      .nav-link {
+        box-shadow: 0px -4px 0px $purple-300 inset;
       }
     }
   }
-}
 
-.item-with-icon {
-  color: $white;
-  font-size: 16px;
-  font-weight: normal;
-  padding-top: 16px;
-  padding-left: 16px;
-
-  .svg-icon {
-    vertical-align: middle;
-    width: 24px;
-    height: 24px;
-    margin-right: 8px;
-    float: left;
-  }
-}
-
-.item-notifications, .item-user {
-  padding-right: 12.5px;
-  padding-left: 12.5px;
-  color: $header-color;
-  transition: none;
-
-  &:hover {
-    color: $white;
-  }
-
-  .svg-icon {
-    margin-right: 0px;
-    color: inherit;
-  }
-}
-
-.item-notifications {
-  margin-left: 33.5px;
-}
-
-.item-user .edit-avatar {
-  h3 {
-    color: $gray-10;
-    margin-bottom: 0px;
-  }
-
-  .small-text {
-    color: $gray-200;
-    font-style: normal;
+  // Make the dropdown menu open on hover
+  .dropdown:hover .dropdown-menu {
     display: block;
+    margin-top: 0; // remove the gap so it doesn't close
   }
 
-  padding-top: 16px;
-  padding-bottom: 16px;
-}
+  .dropdown + .dropdown {
+    margin-left: 0px;
+  }
+
+  .dropdown-menu:not(.user-dropdown) {
+    background: $purple-200;
+    border-radius: 0px;
+    border: none;
+    box-shadow: none;
+    padding: 0px;
+
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+
+    .dropdown-item {
+      font-size: 16px;
+      box-shadow: none;
+      color: $white;
+      border: none;
+      line-height: 1.5;
+
+      &.active {
+        background: $purple-300;
+      }
+
+      &:hover {
+        background: $purple-300;
+
+        &:last-child {
+          border-bottom-right-radius: 5px;
+          border-bottom-left-radius: 5px;
+        }
+      }
+    }
+  }
+
+  .item-with-icon {
+    color: $white;
+    font-size: 16px;
+    font-weight: normal;
+    padding-top: 16px;
+    padding-left: 16px;
+
+    .svg-icon {
+      vertical-align: middle;
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+      float: left;
+    }
+  }
+
+  .item-notifications, .item-user {
+    padding-right: 12.5px;
+    padding-left: 12.5px;
+    color: $header-color;
+    transition: none;
+
+    &:hover {
+      color: $white;
+    }
+
+    .svg-icon {
+      margin-right: 0px;
+      color: inherit;
+    }
+  }
+
+  .item-notifications {
+    margin-left: 33.5px;
+  }
+
+  .item-user .edit-avatar {
+    h3 {
+      color: $gray-10;
+      margin-bottom: 0px;
+    }
+
+    .small-text {
+      color: $gray-200;
+      font-style: normal;
+      display: block;
+    }
+
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
 </style>
 
 <script>
@@ -216,6 +216,12 @@ export default {
       userGems: 'user:gems',
     }),
     ...mapState({user: 'user.data'}),
+  },
+  methods: {
+    logout () {
+      localStorage.removeItem('habit-mobile-settings');
+      this.$router.go('/');
+    },
   },
 };
 </script>

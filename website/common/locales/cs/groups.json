@@ -114,7 +114,7 @@
     "messageRequired": "Je požadována zpráva.",
     "toUserIDRequired": "Je požadováno ID uživatele",
     "gemAmountRequired": "Je požadován určitý počet drahokamů",
-    "notAuthorizedToSendMessageToThisUser": "Nelze posílat zprávy tomuto uživateli.",
+    "notAuthorizedToSendMessageToThisUser": "You can't send a message to this player because they have chosen to block messages.",
     "privateMessageGiftGemsMessage": "Hello <%= receiverName %>, <%= senderName %> has sent you <%= gemAmount %> gems!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> měsíců předplatného!",
     "cannotSendGemsToYourself": "Nemůžete sám sobě poslat drahokamy. Raději zkuste předplatné.",

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import getStore from 'client/store';
 
 import EmptyView from './components/emptyView';
 
@@ -7,15 +8,20 @@ import EmptyView from './components/emptyView';
 import ParentPage from './components/parentPage';
 import Page from './components/page';
 
-// Tasks
-import UserTasks from './components/userTasks';
+// Static Pages
+const Home = () => import(/* webpackChunkName: "static" */'./components/static/home');
+const RegisterLogin = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLogin');
 
 const CreatorIntro = () => import(/* webpackChunkName: "creator" */'./components/creatorIntro');
 
 // Except for tasks that are always loaded all the other main level
+// All the main level
 // components are loaded in separate webpack chunks.
 // See https://webpack.js.org/guides/code-splitting-async/
 // for docs
+
+// Tasks
+const UserTasks = () => import(/* webpackChunkName: "userTasks" */'./components/tasks/user');
 
 // Inventory
 const InventoryContainer = () => import(/* webpackChunkName: "inventory" */'./components/inventory/index');
@@ -29,14 +35,14 @@ const InboxConversationPage = () => import(/* webpackChunkName: "inbox" */ './co
 
 // Guilds
 const GuildIndex = () => import(/* webpackChunkName: "guilds" */ './components/guilds/index');
-const TavernPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/tavern');
+// const TavernPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/tavern');
 const MyGuilds = () => import(/* webpackChunkName: "guilds" */ './components/guilds/myGuilds');
 const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/discovery');
 const GuildPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/guild');
 
 Vue.use(VueRouter);
 
-export default new VueRouter({
+const router = new VueRouter({
   mode: 'history',
   base: process.env.NODE_ENV === 'production' ? '/new-app' : __dirname, // eslint-disable-line no-process-env
   linkActiveClass: 'active',
@@ -45,8 +51,12 @@ export default new VueRouter({
   scrollBehavior () {
     return { x: 0, y: 0 };
   },
+  // requiresLogin is true by default, isStatic false
   routes: [
     { name: 'creator', path: '/creator', component: CreatorIntro },
+    { name: 'home', path: '/home', component: Home, meta: {requiresLogin: false} },
+    { name: 'register', path: '/register', component: RegisterLogin, meta: {requiresLogin: false} },
+    { name: 'login', path: '/login', component: RegisterLogin, meta: {requiresLogin: false} },
     { name: 'tasks', path: '/', component: UserTasks },
     {
       path: '/inventory',
@@ -58,11 +68,12 @@ export default new VueRouter({
       ],
     },
     { name: 'shops', path: '/shops', component: Page },
+    { name: 'party', path: '/party', component: GuildPage },
     {
       path: '/guilds',
       component: GuildIndex,
       children: [
-        { name: 'tavern', path: 'tavern', component: TavernPage },
+        { name: 'tavern', path: 'tavern', component: GuildPage },
         {
           name: 'myGuilds',
           path: 'myGuilds',
@@ -82,7 +93,6 @@ export default new VueRouter({
       ],
     },
     { name: 'challenges', path: 'challenges', component: Page },
-    { name: 'party', path: 'party', component: Page },
     {
       path: '/user',
       component: ParentPage,
@@ -111,3 +121,22 @@ export default new VueRouter({
     },
   ],
 });
+
+const store = getStore();
+
+router.beforeEach(function routerGuard (to, from, next) {
+  const isUserLoggedIn = store.state.isUserLoggedIn;
+  const routeRequiresLogin = to.meta.requiresLogin !== false;
+
+  if (!isUserLoggedIn && routeRequiresLogin) {
+    // Redirect to the login page unless the user is trying to reach the
+    // root of the website, in which case show the home page.
+    // TODO when redirecting to login if user login then redirect back to initial page
+    // so if you tried to go to /party you'll be redirected to /party after login/signup
+    return next({name: to.path === '/' ? 'home' : 'login'});
+  }
+
+  next();
+});
+
+export default router;

@@ -114,7 +114,7 @@
     "messageRequired": "Нужно е съобщение.",
     "toUserIDRequired": "Нужен е потребителски идентификатор",
     "gemAmountRequired": "Нужен е брой диаманти",
-    "notAuthorizedToSendMessageToThisUser": "Не можете да изпратите съобщение до този потребител",
+    "notAuthorizedToSendMessageToThisUser": "You can't send a message to this player because they have chosen to block messages.",
     "privateMessageGiftGemsMessage": "Здравейте, <%= receiverName %>, <%= senderName %> Ви изпрати <%= gemAmount %> диамант(а)!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> месеца абонамент!",
     "cannotSendGemsToYourself": "Не можете да изпратите диаманти на себе си. Опитайте с абонамент.",

@@ -114,7 +114,7 @@
     "messageRequired": "En besked er påkrævet.",
     "toUserIDRequired": "Et Bruger-ID er påkrævet",
     "gemAmountRequired": "Et antal ædelsten er påkrævet",
-    "notAuthorizedToSendMessageToThisUser": "Kan ikke sende besked til denne bruger.",
+    "notAuthorizedToSendMessageToThisUser": "You can't send a message to this player because they have chosen to block messages.",
     "privateMessageGiftGemsMessage": "Hej <%= receiverName %>, <%= senderName %> har sendt dig <%= gemAmount %> ædelsten!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> måneders abonnement!",
     "cannotSendGemsToYourself": "Kan ikke sende ædelsten til dig selv. Prøv et abonnement i stedet.",
