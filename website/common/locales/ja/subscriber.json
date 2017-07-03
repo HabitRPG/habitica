@@ -37,7 +37,7 @@
     "subscribed": "購入した",
     "manageSub": "寄付の管理",
     "cancelSub": "寄付の中止",
-    "cancelSubInfoGoogle": "Please go to the \"Account\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
+    "cancelSubInfoGoogle": "寄付を中止する場合や、すでに中止した寄付の終了日を確認する際には、Google Play ストア アプリの「アカウント」 > \"Subscriptions\" セクションへ進んでください。この画面ではあなたの寄付が中止されたかどうかを示すことはできません。",
     "cancelSubInfoApple": "寄付を中止する場合や、すでに中止した寄付の終了日を確認する際には、<a href=\"https://support.apple.com/en-us/HT202039\">Appleの公式な手順</a>に従ってください。この画面ではあなたの寄付が中止されたかどうかを示すことはできません。",
     "canceledSubscription": "中止した寄付",
     "cancelingSubscription": "寄付の中止処理をしています",
@@ -169,5 +169,5 @@
     "missingCustomerId": "req.query.customerIdが見つかりません。",
     "missingPaypalBlock": "req.session.paypalBlockが見つかりません。",
     "missingSubKey": "req.query.subが見つかりません。",
-    "paypalCanceled": "Your subscription has been canceled"
+    "paypalCanceled": "あなたの寄付は中止されました"
 }

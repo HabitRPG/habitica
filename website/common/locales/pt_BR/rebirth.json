@@ -11,7 +11,7 @@
     "rebirthInList1": "Tarefas, histórico, equipamento e configurações permanecem.",
     "rebirthInList2": "Desafios, Guilda e Grupo permanecem.",
     "rebirthInList3": "Gemas, níveis de apoiador(a) e níveis de colaborador(a) permanecem.",
-    "rebirthInList4": "Items obtained from Gems or drops (such as pets and mounts) remain.",
+    "rebirthInList4": "Items obtidos através de Gemas ou drops (como mascotes e montarias) permanecerão. ",
     "rebirthEarnAchievement": "Você também ganha uma Conquista por começar uma nova aventura!",
     "beReborn": "Renasça",
     "rebirthAchievement": "Você iniciou uma nova aventura! Esse é o seu Renascimento número <%= number %>. O nível mais alto que você atingiu foi <%= level %>. Para acumular essa Conquista, comece sua próxima nova aventura quando atingir um Nível ainda maior!",

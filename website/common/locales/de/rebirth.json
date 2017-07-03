@@ -11,7 +11,7 @@
     "rebirthInList1": "Aufgaben, Verlauf, Ausrüstung und Einstellungen bleiben bestehen.",
     "rebirthInList2": "Wettbewerb-, Gilden- und Gruppenmitgliedschaften bleiben bestehen.",
     "rebirthInList3": "Edelsteine, Träger-Stufen, Mitwirkender-Level bleiben bestehen.",
-    "rebirthInList4": "Items obtained from Gems or drops (such as pets and mounts) remain.",
+    "rebirthInList4": "Gegenstände, die du durch Edelsteine oder Beute erhalten hast (wie z.B. Tiere und Reittiere), bleiben erhalten.",
     "rebirthEarnAchievement": "Du erhältst den Erfolg für das Beginnen eines neuen Abenteuers!",
     "beReborn": "Werde wiedergeboren",
     "rebirthAchievement": "Du hast ein neues Abenteuer begonnen! Das ist Deine <%= number %>. Wiedergeburt. Dein höchstes jemals erreichtes Level ist <%= level %>. Um diesen Erfolg zu stapeln, beginne Dein nächstes Abenteuer wenn Du ein noch höheres Level erreicht hast!",

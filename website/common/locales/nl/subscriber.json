@@ -169,5 +169,5 @@
     "missingCustomerId": "Ontbrekend req.query.customerId",
     "missingPaypalBlock": "Ontbrekend req.session.paypalBlock",
     "missingSubKey": "Ontbrekend req.query.sub",
-    "paypalCanceled": "Your subscription has been canceled"
+    "paypalCanceled": "Je abonnement is stopgezet"
 }

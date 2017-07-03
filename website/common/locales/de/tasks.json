@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Erfüllte Aufgaben entfernen",
     "lotOfToDos": "Hier siehst Du Deine 30 neuesten erledigten Aufgaben. Ältere erledigte Aufgaben kannst Du hier einsehen: Daten > Werkzeug zur Datenanzeige > Daten exportieren > Benutzerdaten.",
-    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
+    "deleteToDosExplanation": "Wenn Du auf diesen Knopf klickst, werden alle Deine erfüllten und archivierten To-Dos dauerhaft gelöscht, mit Außnahme von To-Dos aus aktiven Wettbewerben und Gruppenplänen. Exportiere sie vorher, wenn Du sie nicht verlieren möchtest.",
     "addmultiple": "Mehrere hinzufügen",
     "addsingle": "Einzelne hinzufügen",
     "habit": "Gewohnheit",
