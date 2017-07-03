@@ -3,7 +3,7 @@
   #creator-modal
     .section.row.welcome-section(v-if='modalPage == 1')
       .col-6.offset-3.text-center
-        h3 Welcome to
+        h3(v-once) {{$t('welcomeTo')}}
         .svg-icon.logo(v-html='icons.logoPurple')
 
     .section.row
@@ -14,94 +14,94 @@
     div(v-if='modalPage == 2')
       .section.row
         .col-12.text-center
-          button.btn.btn-secondary Randomize
+          button.btn.btn-secondary(v-once) {{$t('randomize')}}
       .section.row.text-center.customize-menu
         .col-3
           .menu-item(@click='changeTopPage("body", "size")')
             .svg-icon(v-html='icons.bodyIcon')
-          strong Body
+          strong(v-once) {{$t('body')}}
         .col-3
           .menu-item(@click='changeTopPage("skin", "color")')
             .svg-icon(v-html='icons.skinIcon')
-          strong Skin
+          strong(v-once) {{$t('skin')}}
         .col-3
           .menu-item(@click='changeTopPage("hair", "color")')
             .svg-icon(v-html='icons.hairIcon')
-          strong Hair
+          strong(v-once) {{$t('hair')}}
         .col-3
           .menu-item(@click='changeTopPage("extra", "glasses")')
             .svg-icon(v-html='icons.accessoriesIcon')
-          strong Extra
+          strong(v-once) {{$t('extra')}}
       .section.customize-section(v-if='activeTopPage === "body"')
         .row.sub-menu
             .col-2.offset-4.sub-menu-item(@click='changeSubPage("size")', :class='{active: activeSubPage === "size"}')
-              strong Size
+              strong(v-once) {{$t('size')}}
             .col-2.sub-menu-item(@click='changeSubPage("shirt")', :class='{active: activeSubPage === "shirt"}')
-              strong Shirt
+              strong(v-once) {{$t('shirt')}}
         .row(v-if='activeSubPage === "size"')
-          .col-12.customize-options
-            .slim_shirt_black.option(@click='set({"preferences.size":"slim"})')
-            .broad_shirt_black.option(@click='set({"preferences.size":"broad"})')
+          .col-12.customize-options.size-options
+            .slim_shirt_black.option(@click='set({"preferences.size":"slim"})', :class='{active: user.preferences.size === "slim"}')
+            .broad_shirt_black.option(@click='set({"preferences.size":"broad"})', :class='{active: user.preferences.size === "broad"}')
         .row(v-if='activeSubPage === "shirt"')
           .col-12.customize-options
-            .slim_shirt_black.option(@click='set({"preferences.shirt":"black"})')
-            .slim_shirt_blue.option(@click='set({"preferences.shirt":"blue"})')
-            .slim_shirt_green.option(@click='set({"preferences.shirt":"green"})')
-            .slim_shirt_pink.option(@click='set({"preferences.shirt":"pink"})')
-            .slim_shirt_white.option(@click='set({"preferences.shirt":"white"})')
-            .slim_shirt_yellow.option(@click='set({"preferences.shirt":"yellow"})')
+            .slim_shirt_black.option(@click='set({"preferences.shirt":"black"})', :class='{active: user.preferences.shirt === "black"}')
+            .slim_shirt_blue.option(@click='set({"preferences.shirt":"blue"})', :class='{active: user.preferences.shirt === "blue"}')
+            .slim_shirt_green.option(@click='set({"preferences.shirt":"green"})', :class='{active: user.preferences.shirt === "green"}')
+            .slim_shirt_pink.option(@click='set({"preferences.shirt":"pink"})', :class='{active: user.preferences.shirt === "pink"}')
+            .slim_shirt_white.option(@click='set({"preferences.shirt":"white"})', :class='{active: user.preferences.shirt === "white"}')
+            .slim_shirt_yellow.option(@click='set({"preferences.shirt":"yellow"})', :class='{active: user.preferences.shirt === "yellow"}')
 
       .section.customize-section(v-if='activeTopPage === "skin"')
         .row.sub-menu
             .col-6.offset-3.text-center.sub-menu-item(:class='{active: activeSubPage === "color"}')
-              strong Color
+              strong(v-once) {{$t('color')}}
         .row
           .col-12.customize-options
-            .skin_ddc994.option(@click='set({"preferences.skin":"ddc994"})')
-            .skin_f5a76e.option(@click='set({"preferences.skin":"f5a76e"})')
-            .skin_ea8349.option(@click='set({"preferences.skin":"ea8349"})')
-            .skin_c06534.option(@click='set({"preferences.skin":"c06534"})')
-            .skin_98461a.option(@click='set({"preferences.skin":"98461a"})')
-            .skin_915533.option(@click='set({"preferences.skin":"915533"})')
-            .skin_c3e1dc.option(@click='set({"preferences.skin":"c3e1dc"})')
-            .skin_6bd049.option(@click='set({"preferences.skin":"6bd049"})')
+            .skin_ddc994.option(@click='set({"preferences.skin":"ddc994"})', :class='{active: user.preferences.skin === "ddc994"}')
+            .skin_f5a76e.option(@click='set({"preferences.skin":"f5a76e"})', :class='{active: user.preferences.skin === "f5a76e"}')
+            .skin_ea8349.option(@click='set({"preferences.skin":"ea8349"})', :class='{active: user.preferences.skin === "ea8349"}')
+            .skin_c06534.option(@click='set({"preferences.skin":"c06534"})', :class='{active: user.preferences.skin === "c06534"}')
+            .skin_98461a.option(@click='set({"preferences.skin":"98461a"})', :class='{active: user.preferences.skin === "98461a"}')
+            .skin_915533.option(@click='set({"preferences.skin":"915533"})', :class='{active: user.preferences.skin === "915533"}')
+            .skin_c3e1dc.option(@click='set({"preferences.skin":"c3e1dc"})', :class='{active: user.preferences.skin === "c3e1dc"}')
+            .skin_6bd049.option(@click='set({"preferences.skin":"6bd049"})', :class='{active: user.preferences.skin === "6bd049"}')
 
       .section.customize-section(v-if='activeTopPage === "hair"')
         .row.sub-menu
             .col-2.offset-3.text-center.sub-menu-item(@click='changeSubPage("color")', :class='{active: activeSubPage === "color"}')
-              strong Color
+              strong(v-once) {{$t('color')}}
             .col-2.text-center.sub-menu-item(@click='changeSubPage("bangs")', :class='{active: activeSubPage === "bangs"}')
-              strong Bangs
+              strong(v-once) {{$t('bangs')}}
             .col-2.text-center.sub-menu-item(@click='changeSubPage("ponytail")', :class='{active: activeSubPage === "ponytail"}')
-              strong Ponytail
+              strong(v-once) {{$t('ponytail')}}
         .row(v-if='activeSubPage === "color"')
           .col-12.customize-options
-            .hair_bangs_1_white.option(@click='set({"preferences.hair.color": "white"})')
-            .hair_bangs_1_brown.option(@click='set({"preferences.hair.color": "brown"})')
-            .hair_bangs_1_blond.option(@click='set({"preferences.hair.color": "blond"})')
-            .hair_bangs_1_red.option(@click='set({"preferences.hair.color": "red"})')
-            .hair_bangs_1_black.option(@click='set({"preferences.hair.color": "black"})')
+            .hair_bangs_1_white.option(@click='set({"preferences.hair.color": "white"})', :class='{active: user.preferences.hair.color === "white"}')
+            .hair_bangs_1_brown.option(@click='set({"preferences.hair.color": "brown"})', :class='{active: user.preferences.hair.color === "brown"}')
+            .hair_bangs_1_blond.option(@click='set({"preferences.hair.color": "blond"})', :class='{active: user.preferences.hair.color === "blond"}')
+            .hair_bangs_1_red.option(@click='set({"preferences.hair.color": "red"})', :class='{active: user.preferences.hair.color === "red"}')
+            .hair_bangs_1_black.option(@click='set({"preferences.hair.color": "black"})', :class='{active: user.preferences.hair.color === "black"}')
         .row(v-if='activeSubPage === "bangs"')
           .col-12.customize-options
             .head_0.option(@click='set({"preferences.hair.bangs": 0})')
-            .hair_bangs_1_blond.option(@click='set({"preferences.hair.bangs": 1})')
-            .hair_bangs_2_blond.option(@click='set({"preferences.hair.bangs": 2})')
-            .hair_bangs_3_blond.option(@click='set({"preferences.hair.bangs": 3})')
-            .hair_bangs_4_blond.option(@click='set({"preferences.hair.bangs": 4})')
+            .option(@click='set({"preferences.hair.bangs": 1})', :class="'hair_bangs_1_' + user.preferences.hair.color")
+            .option(@click='set({"preferences.hair.bangs": 2})', :class="'hair_bangs_2_' + user.preferences.hair.color")
+            .option(@click='set({"preferences.hair.bangs": 3})', :class="'hair_bangs_3_' + user.preferences.hair.color")
+            .option(@click='set({"preferences.hair.bangs": 4})', :class="'hair_bangs_4_' + user.preferences.hair.color")
         .row(v-if='activeSubPage === "ponytail"')
           .col-12.customize-options
             .head_0.option(@click='set({"preferences.hair.base": 0})')
-            .hair_base_1_blond.option(@click='set({"preferences.hair.base": 1})')
-            .hair_base_3_blond.option(@click='set({"preferences.hair.base": 3})')
+            .hair_base_1_blond.option(@click='set({"preferences.hair.base": 1})', :class="'hair_base_1_' + user.preferences.hair.color")
+            .hair_base_3_blond.option(@click='set({"preferences.hair.base": 3})', :class="'hair_base_3_' + user.preferences.hair.color")
 
       .section.container.customize-section(v-if='activeTopPage === "extra"')
         .row.sub-menu
             .col-4.text-center.sub-menu-item(@click='changeSubPage("glasses")', :class='{active: activeSubPage === "glasses"}')
-              strong Glasses
+              strong(v-once) {{$t('glasses')}}
             .col-4.text-center.sub-menu-item(@click='changeSubPage("wheelchair")', :class='{active: activeSubPage === "wheelchair"}')
-              strong Wheelchair
+              strong(v-once) {{$t('wheelchair')}}
             .col-4.text-center.sub-menu-item(@click='changeSubPage("flower")', :class='{active: activeSubPage === "flower"}')
-              strong Flower
+              strong(v-once) {{$t('flower')}}
         .row(v-if='activeSubPage === "glasses"')
           .col-12.customize-options
             .eyewear_special_blackTopFrame.option(@click='equip("eyewear_special_blackTopFrame")')
@@ -113,29 +113,29 @@
             .eyewear_special_yellowTopFrame.option(@click='equip("eyewear_special_yellowTopFrame")')
         .row(v-if='activeSubPage === "wheelchair"')
           .col-12.customize-options.weelchairs
-            .option(@click='set({"preferences.chair": "none"})')
+            .option(@click='set({"preferences.chair": "none"})', :class='{active: user.preferences.chair === "none"}')
               | None
-            .option(@click='set({"preferences.chair": "black"})')
+            .option(@click='set({"preferences.chair": "black"})', :class='{active: user.preferences.chair === "black"}')
               .button_chair_black
-            .option(@click='set({"preferences.chair": "blue"})')
+            .option(@click='set({"preferences.chair": "blue"})', :class='{active: user.preferences.chair === "blue"}')
               .button_chair_blue
-            .option(@click='set({"preferences.chair": "green"})')
+            .option(@click='set({"preferences.chair": "green"})', :class='{active: user.preferences.chair === "green"}')
               .button_chair_green
-            .option(@click='set({"preferences.chair": "pink"})')
+            .option(@click='set({"preferences.chair": "pink"})', :class='{active: user.preferences.chair === "pink"}')
               .button_chair_pink
-            .option(@click='set({"preferences.chair": "red"})')
+            .option(@click='set({"preferences.chair": "red"})', :class='{active: user.preferences.chair === "red"}')
               .button_chair_red
-            .option(@click='set({"preferences.chair": "yellow"})')
+            .option(@click='set({"preferences.chair": "yellow"})', :class='{active: user.preferences.chair === "yellow"}')
               .button_chair_yellow
         .row(v-if='activeSubPage === "flower"')
           .col-12.customize-options
-            .head_0.option(@click='set({"preferences.hair.flower":0})')
-            .hair_flower_1.option(@click='set({"preferences.hair.flower":1})')
-            .hair_flower_2.option(@click='set({"preferences.hair.flower":2})')
-            .hair_flower_3.option(@click='set({"preferences.hair.flower":3})')
-            .hair_flower_4.option(@click='set({"preferences.hair.flower":4})')
-            .hair_flower_5.option(@click='set({"preferences.hair.flower":5})')
-            .hair_flower_6.option(@click='set({"preferences.hair.flower":6})')
+            .head_0.option(@click='set({"preferences.hair.flower":0})', :class='{active: user.preferences.hair.flower === 0}')
+            .hair_flower_1.option(@click='set({"preferences.hair.flower":1})', :class='{active: user.preferences.hair.flower === 1}')
+            .hair_flower_2.option(@click='set({"preferences.hair.flower":2})', :class='{active: user.preferences.hair.flower === 2}')
+            .hair_flower_3.option(@click='set({"preferences.hair.flower":3})', :class='{active: user.preferences.hair.flower === 3}')
+            .hair_flower_4.option(@click='set({"preferences.hair.flower":4})', :class='{active: user.preferences.hair.flower === 4}')
+            .hair_flower_5.option(@click='set({"preferences.hair.flower":5})', :class='{active: user.preferences.hair.flower === 5}')
+            .hair_flower_6.option(@click='set({"preferences.hair.flower":6})', :class='{active: user.preferences.hair.flower === 6}')
 
     .container.interests-section(v-if='modalPage == 3')
       .section.row
@@ -183,24 +183,24 @@
     .section.row.justin-message-section(:class='{top: modalPage > 1}')
       .col-9
         .justin-message(v-if='modalPage == 1')
-          p Hello there! You must be new here. My name is Justin, I’ll be your guide in Habitica.
-          p To start, you’ll need to create an avatar.
+          p(v-once) {{$t('justinIntroMessage1')}}
+          p(v-once) {{$t('justinIntroMessage2')}}
         .justin-message(v-if='modalPage > 1')
-          p Great! Now, what are you interested in working on throughout this journey?
+          p(v-once) {{$t('justinIntroMessage3')}}
 
     .section.container.footer
       .row
         .col-3.offset-1.text-center
           div(v-if='modalPage > 1', @click='prev()')
             .prev-arrow
-            .prev Prev
+            .prev(v-once) {{$t('prev')}}
         .col-4.text-center.circles
           .circle(:class="{active: modalPage === 1}")
           .circle(:class="{active: modalPage === 2}")
           .circle(:class="{active: modalPage === 3}")
         .col-3.text-center
           div(v-if='modalPage < 3', @click='next()')
-            .next Next
+            .next(v-once) {{$t('next')}}
             .next-arrow
 </template>
 
@@ -286,11 +286,7 @@
     .menu-item .svg-icon {
       width: 32px;
       height: 32px;
-    }
-
-    svg g path {
-      // stroke: #A5A1AC;
-      fill: purple !important;
+      margin: 0 auto;
     }
 
     .menu-item:hover {
@@ -315,13 +311,24 @@
   }
 
   .customize-options .option {
-    float: left;
+    display: inline-block;
     padding: 2em;
+    vertical-align: bottom;
+  }
+
+  .size-options {
+    padding-left: 9em;
   }
 
   .weelchairs .option {
     width: 90px;
     height: 90px;
+  }
+
+  .option.active {
+    border: 4px solid $purple-200;
+    border-radius: 4px;
+    margin-top: 1em;
   }
 
   .option:hover {
