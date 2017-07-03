@@ -83,16 +83,16 @@
             .hair_bangs_1_black.option(@click='set({"preferences.hair.color": "black"})', :class='{active: user.preferences.hair.color === "black"}')
         .row(v-if='activeSubPage === "bangs"')
           .col-12.customize-options
-            .head_0.option(@click='set({"preferences.hair.bangs": 0})')
-            .option(@click='set({"preferences.hair.bangs": 1})', :class="'hair_bangs_1_' + user.preferences.hair.color")
-            .option(@click='set({"preferences.hair.bangs": 2})', :class="'hair_bangs_2_' + user.preferences.hair.color")
-            .option(@click='set({"preferences.hair.bangs": 3})', :class="'hair_bangs_3_' + user.preferences.hair.color")
-            .option(@click='set({"preferences.hair.bangs": 4})', :class="'hair_bangs_4_' + user.preferences.hair.color")
+            .head_0.option(@click='set({"preferences.hair.bangs": 0})', :class="[{ active: user.preferences.hair.bangs === 0 }, 'hair_bangs_0_' + user.preferences.hair.color]")
+            .option(@click='set({"preferences.hair.bangs": 1})', :class="[{ active: user.preferences.hair.bangs === 1 }, 'hair_bangs_1_' + user.preferences.hair.color]")
+            .option(@click='set({"preferences.hair.bangs": 2})',:class="[{ active: user.preferences.hair.bangs === 2 }, 'hair_bangs_2_' + user.preferences.hair.color]")
+            .option(@click='set({"preferences.hair.bangs": 3})', :class="[{ active: user.preferences.hair.bangs === 3 }, 'hair_bangs_3_' + user.preferences.hair.color]")
+            .option(@click='set({"preferences.hair.bangs": 4})', :class="[{ active: user.preferences.hair.bangs === 4 }, 'hair_bangs_4_' + user.preferences.hair.color]")
         .row(v-if='activeSubPage === "ponytail"')
           .col-12.customize-options
-            .head_0.option(@click='set({"preferences.hair.base": 0})')
-            .hair_base_1_blond.option(@click='set({"preferences.hair.base": 1})', :class="'hair_base_1_' + user.preferences.hair.color")
-            .hair_base_3_blond.option(@click='set({"preferences.hair.base": 3})', :class="'hair_base_3_' + user.preferences.hair.color")
+            .head_0.option(@click='set({"preferences.hair.base": 0})', :class="[{ active: user.preferences.hair.base === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
+            .hair_base_1_blond.option(@click='set({"preferences.hair.base": 1})', :class="[{ active: user.preferences.hair.base === 1 }, 'hair_base_1_' + user.preferences.hair.color]")
+            .hair_base_3_blond.option(@click='set({"preferences.hair.base": 3})', :class="[{ active: user.preferences.hair.base === 3 }, 'hair_base_3_' + user.preferences.hair.color]")
 
       .section.container.customize-section(v-if='activeTopPage === "extra"')
         .row.sub-menu
@@ -104,13 +104,13 @@
               strong(v-once) {{$t('flower')}}
         .row(v-if='activeSubPage === "glasses"')
           .col-12.customize-options
-            .eyewear_special_blackTopFrame.option(@click='equip("eyewear_special_blackTopFrame")')
-            .eyewear_special_blueTopFrame.option(@click='equip("eyewear_special_blueTopFrame")')
-            .eyewear_special_greenTopFrame.option(@click='equip("eyewear_special_greenTopFrame")')
-            .eyewear_special_pinkTopFrame.option(@click='equip("eyewear_special_pinkTopFrame")')
-            .eyewear_special_redTopFrame.option(@click='equip("eyewear_special_redTopFrame")')
-            .eyewear_special_whiteTopFrame.option(@click='equip("eyewear_special_whiteTopFrame")')
-            .eyewear_special_yellowTopFrame.option(@click='equip("eyewear_special_yellowTopFrame")')
+            .eyewear_special_blackTopFrame.option(@click='equip("eyewear_special_blackTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_blackTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_blackTopFrame"}')
+            .eyewear_special_blueTopFrame.option(@click='equip("eyewear_special_blueTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_blueTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_blueTopFrame"}')
+            .eyewear_special_greenTopFrame.option(@click='equip("eyewear_special_greenTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_greenTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_greenTopFrame"}')
+            .eyewear_special_pinkTopFrame.option(@click='equip("eyewear_special_pinkTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_pinkTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_pinkTopFrame"}')
+            .eyewear_special_redTopFrame.option(@click='equip("eyewear_special_redTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_redTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_redTopFrame"}')
+            .eyewear_special_whiteTopFrame.option(@click='equip("eyewear_special_whiteTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_whiteTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_whiteTopFrame"}')
+            .eyewear_special_yellowTopFrame.option(@click='equip("eyewear_special_yellowTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_yellowTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_yellowTopFrame"}')
         .row(v-if='activeSubPage === "wheelchair"')
           .col-12.customize-options.weelchairs
             .option(@click='set({"preferences.chair": "none"})', :class='{active: user.preferences.chair === "none"}')
@@ -444,7 +444,7 @@ export default {
       this.$store.dispatch('user:set', settings);
     },
     equip (key) {
-      this.$store.dispatch('common:equip', {key});
+      this.$store.dispatch('common:equip', {key, type: 'costume'});
     },
   },
 };
