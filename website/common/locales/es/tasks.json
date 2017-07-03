@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Borrado completado",
     "lotOfToDos": "Aquí aparecen las 30 últimas tareas que has completado. Si quieres ver las tareas que completaste anteriormente, ve a Datos > Herramienta de visualización de datos o Datos > Exportar datos > Datos de usuario.",
-    "deleteToDosExplanation": "Si le das clic al botón de abajo, todas sus tareas completadas y tareas archivadas se borrarán permanentemente. Expórtalas primero si quieres llevar un registro de ellas.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addmultiple": "Añadir varias",
     "addsingle": "Añadir una",
     "habit": "Hábito",

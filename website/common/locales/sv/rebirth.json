@@ -11,7 +11,7 @@
     "rebirthInList1": "Uppgifter, historik, utrustning, och inställningar är kvar.",
     "rebirthInList2": "Utmaning-, Gille- och Sällskapsmedlemskap är kvar.",
     "rebirthInList3": "Juveler, Stödjarnivå och Medarbetarnivå är kvar.",
-    "rebirthInList4": "Föremål erhållna från Juveler eller drops (såsom husdjur eller riddjur) är kvar, men du kan inte komma åt dem innan du låser upp dem igen.",
+    "rebirthInList4": "Items obtained from Gems or drops (such as pets and mounts) remain.",
     "rebirthEarnAchievement": "Du får även en Bedrift för att du börjar på ett nytt äventyr!",
     "beReborn": "Bli pånyttfödd",
     "rebirthAchievement": "Du har börjat på ett nytt äventyr! Det här är Pånyttfödelse nummer <%= number %> för dig, och den högsta Leveln du har nått är <%= level %>. För att stapla denna Bedrift, börja ditt nästa nya äventyr när du har nått en ännu högre Level!",

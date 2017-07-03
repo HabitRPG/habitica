@@ -114,7 +114,7 @@
     "messageRequired": "Es necesario un mensaje.",
     "toUserIDRequired": "Es necesaria una ID de usuario.",
     "gemAmountRequired": "Es obligatorio indicar un número de gemas",
-    "notAuthorizedToSendMessageToThisUser": "No se puede enviar el mensaje a este usuario.",
+    "notAuthorizedToSendMessageToThisUser": "You can't send a message to this player because they have chosen to block messages.",
     "privateMessageGiftGemsMessage": "¡Hola <%= receiverName %>, <%= senderName %> te ha enviado <%= gemAmount %> gemas!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> meses de subscripción!",
     "cannotSendGemsToYourself": "No te puedes enviar gemas a ti mismo, en su lugar, intenta con una subscripción.",

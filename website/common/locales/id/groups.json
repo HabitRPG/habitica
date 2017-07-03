@@ -114,7 +114,7 @@
     "messageRequired": "Pesan harus ditulis.",
     "toUserIDRequired": "ID Pengguna dibutuhkan.",
     "gemAmountRequired": "Sejumlah permata dibutuhkan",
-    "notAuthorizedToSendMessageToThisUser": "Tidak dapat mengirim pesan pada pengguna ini.",
+    "notAuthorizedToSendMessageToThisUser": "You can't send a message to this player because they have chosen to block messages.",
     "privateMessageGiftGemsMessage": "Halo <%= receiverName %>, <%= senderName %> mengirimkanmu <%= gemAmount %> permata!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> bulan berlangganan!",
     "cannotSendGemsToYourself": "Tidak dapat mengirimkan permata kepada dirimu sendiri. Cobalah berlangganan.",
