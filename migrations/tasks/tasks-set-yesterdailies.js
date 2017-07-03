@@ -3,9 +3,7 @@ var authorName = 'TheHollidayInn'; // in case script author needs to know when t
 var authorUuid = ''; //... own data is done
 
 /*
- * Updates to achievements for June 16, 2017 biweekly merge
- * 1. Multiply various collection quest achievements based on difficulty reduction
- * 2. Award Joined Challenge achievement to those who should have it already
+ * Iterates over all tasks and sets the yseterDaily field to True
  */
 
 import monk from 'monk';
