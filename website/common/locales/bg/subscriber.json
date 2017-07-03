@@ -37,7 +37,7 @@
     "subscribed": "Абониран",
     "manageSub": "Щракнете за управление на абонамента",
     "cancelSub": "Прекратяване на абонамента",
-    "cancelSubInfoGoogle": "Please go to the \"Account\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
+    "cancelSubInfoGoogle": "Моля, идете в раздела „Профил > Абонаменти“ в магазина „Google Play“, за да прекратите абонамента си или да видите кога изтича той, ако вече сте го прекратили. Тук не можете да разберете дали абонаментът Ви е бил прекратен.",
     "cancelSubInfoApple": "Моля, следвайте <a href=\"https://support.apple.com/en-us/HT202039\">официалните инструкции на Апъл</a>, за да прекратите абонамента си, или да видите кога изтича той, ако вече сте го прекратили. Тук не можете да разберете дали абонаментът Ви е бил прекратен.",
     "canceledSubscription": "Прекратен абонамент",
     "cancelingSubscription": "Прекратяване на абонамента",
@@ -169,5 +169,5 @@
     "missingCustomerId": "Липсва „req.query.customerId“",
     "missingPaypalBlock": "Липсва „req.session.paypalBlock“",
     "missingSubKey": "Липсва „req.query.sub“",
-    "paypalCanceled": "Your subscription has been canceled"
+    "paypalCanceled": "Абонаментът Ви е прекратен"
 }
