@@ -12,6 +12,9 @@ import Page from './components/page';
 const Home = () => import(/* webpackChunkName: "static" */'./components/static/home');
 const RegisterLogin = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLogin');
 
+const CreatorIntro = () => import(/* webpackChunkName: "creator" */'./components/creatorIntro');
+
+// Except for tasks that are always loaded all the other main level
 // All the main level
 // components are loaded in separate webpack chunks.
 // See https://webpack.js.org/guides/code-splitting-async/
@@ -50,6 +53,7 @@ const router = new VueRouter({
   },
   // requiresLogin is true by default, isStatic false
   routes: [
+    { name: 'creator', path: '/creator', component: CreatorIntro },
     { name: 'home', path: '/home', component: Home, meta: {requiresLogin: false} },
     { name: 'register', path: '/register', component: RegisterLogin, meta: {requiresLogin: false} },
     { name: 'login', path: '/login', component: RegisterLogin, meta: {requiresLogin: false} },
