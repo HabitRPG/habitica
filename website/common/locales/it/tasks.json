@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Elimina attività completate",
     "lotOfToDos": "Qui puoi vedere le ultime 30 Cose Da Fare che hai portato a termine. Per vedere le altre Cose Da Fare completate, clicca su \"Dati utente > Visualizzazione dati utente\" oppure \"Dati utente > Esporta dati > Dati utente\".",
-    "deleteToDosExplanation": "Se clicchi sul pulsante sottostante, tutte le Cose Da Fare completate e quelle archiviate verranno cancellate in modo permanente. Se vuoi conservarne una copia, esportale dall'apposito menù nelle impostazioni.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addmultiple": "Aggiungi multiple",
     "addsingle": "Aggiungi singola",
     "habit": "Abitudine",

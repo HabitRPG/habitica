@@ -168,5 +168,6 @@
     "missingPaymentId": "Faltando req.query.paymentId",
     "missingCustomerId": "Faltando req.query.customerId",
     "missingPaypalBlock": "Faltando req.session.paypalBlock",
-    "missingSubKey": "Faltando req.query.sub"
+    "missingSubKey": "Faltando req.query.sub",
+    "paypalCanceled": "Sua assinatura foi cancelada"
 }

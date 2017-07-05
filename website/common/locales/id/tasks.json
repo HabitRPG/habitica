@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Hapus yang Telah Selesai",
     "lotOfToDos": "30 tugas terakhir yang Anda selesaikan ditampilkan di sini. Anda dapat melihat tugas lama yang telah Anda selesaikan dari Data > Data Display Tool or Data > Export Data > User Data.",
-    "deleteToDosExplanation": "Jika kamu menekan tombol di bawah ini, semua tugas yang telah diselesaikan dan tugas yang diarsipkan akan dibuang secara permanen. Silakan ekspor terlebih dahulu jika kamu ingin menyimpan catatan tugas tersebut.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addmultiple": "Tambah Lebih dari Satu",
     "addsingle": "Tambah satu",
     "habit": "Kebiasaan",

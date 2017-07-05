@@ -168,5 +168,6 @@
     "missingPaymentId": "req.query.paymentId manquant",
     "missingCustomerId": "req.query.customerId manquant",
     "missingPaypalBlock": "req.session.paypalBlock manquant",
-    "missingSubKey": "req.query.sub manquant"
+    "missingSubKey": "req.query.sub manquant",
+    "paypalCanceled": "Votre abonnement a été annulé"
 }

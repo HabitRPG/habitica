@@ -114,7 +114,7 @@
     "messageRequired": "メッセージが必要です。",
     "toUserIDRequired": "ユーザー ID が必要です。",
     "gemAmountRequired": "ジェムが必要です。",
-    "notAuthorizedToSendMessageToThisUser": "このユーザーへのメッセージは送れません。",
+    "notAuthorizedToSendMessageToThisUser": "このユーザーはメッセージをブロックすることを選択しているため、メッセージは送れません。",
     "privateMessageGiftGemsMessage": "こんにちは、<%= receiverName %>。<%= senderName %> から <%= gemAmount %> 個のジェムのプレゼントが届きました!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> カ月分の寄付（有料利用）が届きました!",
     "cannotSendGemsToYourself": "自分自身にジェムを送ることは出来ません。代わりの寄付を再試行してください。",

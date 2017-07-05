@@ -37,7 +37,7 @@
     "subscribed": "Suscripto",
     "manageSub": "Haz clic para administrar la suscripción",
     "cancelSub": "Cancelar la suscripción",
-    "cancelSubInfoGoogle": "Ve a la sección del Google Play Store \"Mis aplicaciones y juegos\" > \"Suscripciones\" para cancelar tu suscripción o para ver la fecha de finalización si ya la has cancelado. Esta pantalla no te puede mostrar si tu suscripción ya fue cancelada.",
+    "cancelSubInfoGoogle": "Please go to the \"Account\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
     "cancelSubInfoApple": "Sigue las <a href=\"https://support.apple.com/en-us/HT202039\">instrucciones oficiales de Apple</a> para cancelar tu suscripción o para ver la fecha de finalización si ya la has cancelado. Esta pantalla no te puede mostrar si tu suscripción ya fue cancelada.",
     "canceledSubscription": "Suscripción Cancelada",
     "cancelingSubscription": "Cancelar la suscripción",
@@ -168,5 +168,6 @@
     "missingPaymentId": "Falta req.query.paymentId",
     "missingCustomerId": "Falta req.query.customerId",
     "missingPaypalBlock": "Falta req.session.paypalBlock",
-    "missingSubKey": "Falta req.query.sub"
+    "missingSubKey": "Falta req.query.sub",
+    "paypalCanceled": "Your subscription has been canceled"
 }

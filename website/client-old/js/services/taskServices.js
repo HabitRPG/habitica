@@ -409,8 +409,8 @@ angular.module('habitrpg')
 
       var dateFormat = 'MM-DD-YYYY';
       if (user.preferences.dateFormat) dateFormat = user.preferences.dateFormat.toUpperCase();
-
-      var nextDue = nextDueDates.map(function (date) {
+      var nextDueDatesArr = angular.isArray(nextDueDates) ? nextDueDates : [];
+      var nextDue = nextDueDatesArr.map(function (date) {
         return date.format(dateFormat);
       });
 

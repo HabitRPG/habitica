@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Vymaž dokončené",
     "lotOfToDos": "Zde vidíš svých posledních 30 splněných úkolů z Úkolníčku. Starší splněné úkoly můžeš najít v Data > Nástroj zobrazení dat nebo Data > Export dat > Data uživatele.",
-    "deleteToDosExplanation": "Po kliknutí na toto tlačítko se permanentně smažou všechny tvé splněné a archivované úkoly. Chceš-li si o nich vést záznamy, nejdřív si je exportuj.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addmultiple": "Přidat více",
     "addsingle": "Přidat jeden",
     "habit": "Zvyk",

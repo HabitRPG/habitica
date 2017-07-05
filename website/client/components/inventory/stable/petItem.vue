@@ -15,7 +15,7 @@ b-popover(
     )
       slot(name="itemBadge", :item="item")
       span.item-content(:class="itemContentClass")
-      span.pet-progress-background(v-if="progress > 0")
+      span.pet-progress-background(v-if="item.isAllowedToFeed() && progress > 0")
         div.pet-progress-bar(v-bind:style="{width: 100 * progress/50 + '%' }")
       span.pet-progress-background(v-if="holdProgress > 0")
         div.pet-progress-bar.hold(v-bind:style="{width: 100 * holdProgress/5 + '%' }")
@@ -44,7 +44,6 @@ b-popover(
 
 <script>
   import bPopover from 'bootstrap-vue/lib/components/popover';
-  import {mapState} from 'client/libs/store';
 
   export default {
     components: {
@@ -81,11 +80,6 @@ b-popover(
       return {
         holdProgress: -1,
       };
-    },
-    computed: {
-      ...mapState({
-        ATTRIBUTES: 'constants.ATTRIBUTES',
-      }),
     },
     methods: {
       holdStart () {

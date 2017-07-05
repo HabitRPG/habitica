@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Удалить завершенные",
     "lotOfToDos": "Здесь показывается 30 ваших последних завершенных задач. Вы можете посмотреть более старые выполненные задачи, выбрав в меню Данные > Анализ данных или Данные > Экспорт данных > Пользовательские данные.",
-    "deleteToDosExplanation": "Если вы нажмете кнопку ниже, все завершенные и находящиеся архиве задачи будут удалены навсегда. Если вы хотите сохранить их, экспортируйте их.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addmultiple": "Добавить несколько",
     "addsingle": "Добавить одно",
     "habit": "Привычка",

@@ -3,10 +3,9 @@
 require('babel-polyfill');
 
 import Vue from 'vue';
-import axios from 'axios';
 import AppComponent from './app';
 import router from './router';
-import generateStore from './store';
+import getStore from './store';
 import StoreModule from './libs/store';
 import './filters/registerGlobals';
 import i18n from './libs/i18n';
@@ -26,18 +25,9 @@ Vue.config.productionTip = IS_PRODUCTION;
 Vue.use(i18n);
 Vue.use(StoreModule);
 
-// TODO just until we have proper authentication
-let authSettings = localStorage.getItem('habit-mobile-settings');
-
-if (authSettings) {
-  authSettings = JSON.parse(authSettings);
-  axios.defaults.headers.common['x-api-user'] = authSettings.auth.apiId;
-  axios.defaults.headers.common['x-api-key'] = authSettings.auth.apiToken;
-}
-
 export default new Vue({
   el: '#app',
   router,
-  store: generateStore(),
+  store: getStore(),
   render: h => h(AppComponent),
 });

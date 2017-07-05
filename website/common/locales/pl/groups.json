@@ -114,7 +114,7 @@
     "messageRequired": "Wymagana wiadomość.",
     "toUserIDRequired": "Wymagane ID Użytkownika",
     "gemAmountRequired": "Wymagana liczba klejnotów",
-    "notAuthorizedToSendMessageToThisUser": "Nie można wysłać wiadomości do tego użytkownika.",
+    "notAuthorizedToSendMessageToThisUser": "You can't send a message to this player because they have chosen to block messages.",
     "privateMessageGiftGemsMessage": "Cześć <%= receiverName %>, <%= senderName %> wysłał Ci <%= gemAmount %> klejnotów!",
     "privateMessageGiftSubscriptionMessage": "Miesięcy abonamentu: <%= numberOfMonths %>!",
     "cannotSendGemsToYourself": "Nie możesz wysłać sobie klejnotów. Zamiast tego wypróbuj abonament.",
