@@ -417,6 +417,16 @@ angular.module('habitrpg')
           });
         },
 
+        runCron: function () {
+          $http({
+            method: "POST",
+            url: 'api/v3/cron',
+          })
+          .then(function (response) {
+            sync();
+          })
+        },
+
         setCustomDayStart: function (dayStart) {
           $http({
             method: "POST",
