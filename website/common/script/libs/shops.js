@@ -312,6 +312,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   };
 
   const AVAILABLE_SPELLS = [
+    'seafoam',
   ];
 
   const AVAILABLE_QUESTS = [
