@@ -3,21 +3,20 @@
   .clearfix.col-8.standard-page
     .row
       .col-6.title-details
-        h1 Welcome to The Tavern!
+        h1(v-once) {{ $t('welcomeToTavern') }}
 
     .row.chat-row
       .col-12
-        h3(v-once) {{ $t('chat') }}
+        h3(v-once) {{ $t('welcomeToTavern') }}
 
         textarea(:placeholder="$t('chatPlaceHolder')")
         button.btn.btn-secondary.send-chat.float-right(v-once) {{ $t('send') }}
 
         .container.community-guidelines(v-if='communityGuidelinesAccepted')
           .row
-            div.col-8
-              | Habitica tries to create a welcoming environment for users of all ages and backgrounds, especially in public spaces like the Tavern. If you have any questions, please consult our Community Guidelines.
+            div.col-8(v-once) {{ $t('communityGuidelines') }}
             div.col-4
-              button.btn.btn-info I agree to follow the Community Guidelines
+              button.btn.btn-info(@click='acceptCommunityGuidelines()', v-once) {{ $t('acceptCommunityGuidelines') }}
 
         .hr
           .hr-middle(v-once) {{ $t('today') }}
@@ -51,36 +50,38 @@
                   .svg-icon(v-html="icons.liked")
                   | +3
 
-
   .col-md-4.sidebar
     .section
       .grassy-meadow-backdrop
-      strong Need a break? Check into Daniel’s Inn to pause some of Habitica’s more difficult game mechanics:
-      ul
-        li Missed Dailies won’t damage you
-        li Tasks won’t lose streaks or decay in color
-        li Bosses won’t do damage for your missed Dailies
-        li Your boss damage or collection Quest items will stay pending until check-out
-      button.btn.btn-secondary.pause-button Pause Damage
+
+      .sleep
+        strong(v-once) {{ $t('sleepDescription') }}
+        ul
+          li(v-once) {{ $t('sleepBullet1') }}
+          li(v-once) {{ $t('sleepBullet2') }}
+          li(v-once) {{ $t('sleepBullet3') }}
+          li(v-once) {{ $t('sleepBullet4') }}
+        button.btn.btn-secondary.pause-button(v-if='!user.preferences.sleep', @click='toggleSleep()', v-once) {{ $t('pauseDailies') }}
+        button.btn.btn-secondary.pause-button(v-if='user.preferences.sleep', @click='toggleSleep()', v-once) {{ $t('unpauseDailies') }}
 
     .section-header
       .row
         .col-10
-          h3(v-once) Staff and Moderators
+          h3(v-once) {{ $t('staffAndModerators') }}
         .col-2
           .toggle-up(@click="sections.staff = !sections.staff", v-if="sections.staff")
             .svg-icon(v-html="icons.upIcon")
           .toggle-down(@click="sections.staff = !sections.staff", v-if="!sections.staff")
             .svg-icon(v-html="icons.downIcon")
       .section.row(v-if="sections.staff")
-        .col-3.staff(v-for='user in staff')
+        .col-3.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
           .title {{user.name}}
           .type {{user.type}}
 
     .section-header
       .row
         .col-10
-          h3(v-once) Helpful Links
+          h3(v-once) {{ $t('helpfulLinks') }}
         .col-2
           .toggle-up(@click="sections.staff = !sections.staff", v-if="sections.staff")
             .svg-icon(v-html="icons.upIcon")
@@ -89,30 +90,30 @@
       .section.row(v-if="sections.staff")
         ul
           li
-            a(herf='') Community Guidelines
+            a(herf='', v-once) {{ $t('communityGuidelinesLink') }}
           li
-            a(herf='') Looking for Group (Party Wanted) Posts
+            a(herf='', v-once) {{ $t('lookingForGroup') }}
           li
-            a(herf='') FAQ
+            a(herf='', v-once) {{ $t('faq') }}
           li
-            a(herf='') Glossary
+            a(herf='', v-once) {{ $t('glossary') }}
           li
-            a(herf='') Wiki
+            a(herf='', v-once) {{ $t('wiki') }}
           li
-            a(herf='') Data Display Tool
+            a(herf='', v-once) {{ $t('dataDisplayTool') }}
           li
-            a(herf='') Report a Problem
+            a(herf='', v-once) {{ $t('reportProblem') }}
           li
-            a(herf='') Request a Feature
+            a(herf='', v-once) {{ $t('requestFeature') }}
           li
-            a(herf='') Community Forum
+            a(herf='', v-once) {{ $t('communityForum') }}
           li
-            a(herf='') Ask a Question (Habitica Help guild)
+            a(herf='', v-once) {{ $t('askQuestionGuild') }}
 
     .section-header
       .row
         .col-10
-          h3(v-once) Player Tiers
+          h3(v-once) {{ $t('playerTiers') }}
         .col-2
           .toggle-up(@click="sections.staff = !sections.staff", v-if="sections.staff")
             .svg-icon(v-html="icons.upIcon")
@@ -120,18 +121,18 @@
             .svg-icon(v-html="icons.downIcon")
       .section.row(v-if="sections.staff")
         .col-12
-          p The colored usernames you see in chat represent a person’s contributor tier. The higher the tier, the more the person has contributed to habitica through art, code, the community, or more!
+          p(v-once) {{ $t('playerTiersDesc') }}
           ul.tier-list
-            li Tier 1 (Friend)
-            li Tier 2 (Friend)
-            li Tier 3 (Elite)
-            li Tier 4 (Elite)
-            li Tier 5 (Champion)
-            li Tier 6 (Champion)
-            li Tier 7 (Legendary)
-            li Moderator (Guardian)
-            li Staff (Heroic)
-            li NPC
+            li.tier1(v-once) {{ $t('tier1') }}
+            li.tier2(v-once) {{ $t('tier2') }}
+            li.tier3(v-once) {{ $t('tier3') }}
+            li.tier4(v-once) {{ $t('tier4') }}
+            li.tier5(v-once) {{ $t('tier5') }}
+            li.tier6(v-once) {{ $t('tier6') }}
+            li.tier7(v-once) {{ $t('tier7') }}
+            li.moderator(v-once) {{ $t('tierModerator') }}
+            li.staff(v-once) {{ $t('tierStaff') }}
+            li.npc(v-once) {{ $t('tierNPC') }}
 </template>
 
 <style lang='scss' scoped>
@@ -222,6 +223,10 @@
     height: 246px;
   }
 
+  .sleep {
+    margin-top: 1em;
+  }
+
   .staff {
     margin-bottom: 1em;
 
@@ -244,6 +249,58 @@
       padding: 1em;
       margin-bottom: 1em;
     }
+
+    .tier1 {
+      color: #c42870;
+    }
+
+    .tier2 {
+      color: #b01515;
+    }
+
+    .tier3 {
+      color: #d70e14;
+    }
+
+    .tier4 {
+      color: #c24d00;
+    }
+
+    .tier5 {
+      color: #9e650f;
+    }
+
+    .tier6 {
+      color: #2b8363;
+    }
+
+    .tier7 {
+      color: #167e87;
+    }
+
+    .moderator {
+      color: #277eab;
+    }
+
+    .staff {
+      color: #6133b4;
+    }
+
+    .npc {
+      color: $black;
+    }
+  }
+
+  .staff .title {
+    color: #6133b4;
+  }
+
+  .moderator .title {
+    color: #277eab;
+  }
+
+  .bailey .title {
+    color: $black;
   }
 
 </style>
@@ -293,72 +350,72 @@ export default {
           type: 'Staff',
         },
         {
-          name: 'beffymaroo',
+          name: 'lefnire',
           type: 'Staff',
         },
         {
-          name: 'beffymaroo',
+          name: 'Lemoness',
           type: 'Staff',
         },
         {
-          name: 'beffymaroo',
+          name: 'paglias',
           type: 'Staff',
         },
         {
-          name: 'beffymaroo',
+          name: 'redphoenix',
           type: 'Staff',
         },
         {
-          name: 'beffymaroo',
+          name: 'SabreCat',
           type: 'Staff',
         },
         {
-          name: 'beffymaroo',
+          name: 'TheHollidayInn',
           type: 'Staff',
         },
         {
-          name: 'beffymaroo',
+          name: 'viirus',
           type: 'Staff',
         },
         {
-          name: 'beffymaroo',
-          type: 'Staff',
+          name: 'It\'s Bailey',
+          type: 'Moderator',
         },
         {
-          name: 'beffymaroo',
-          type: 'Staff',
+          name: 'Alys',
+          type: 'Moderator',
         },
         {
-          name: 'beffymaroo',
-          type: 'Staff',
+          name: 'Blade',
+          type: 'Moderator',
         },
         {
-          name: 'beffymaroo',
-          type: 'Staff',
+          name: 'Breadstrings',
+          type: 'Moderator',
         },
         {
-          name: 'beffymaroo',
-          type: 'Staff',
+          name: 'Cantras',
+          type: 'Moderator',
         },
         {
-          name: 'beffymaroo',
-          type: 'Staff',
+          name: 'Daniel the Bard',
+          type: 'Moderator',
         },
         {
-          name: 'beffymaroo',
-          type: 'Staff',
+          name: 'deilann 5.0.5b',
+          type: 'Moderator',
         },
         {
-          name: 'beffymaroo',
-          type: 'Staff',
+          name: 'Dewines',
+          type: 'Moderator',
         },
         {
-          name: 'beffymaroo',
-          type: 'Staff',
+          name: 'Megan',
+          type: 'Moderator',
         },
         {
-          name: 'beffymaroo',
-          type: 'Staff',
+          name: 'shanaqui',
+          type: 'Moderator',
         },
       ],
     };
@@ -366,8 +423,7 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
     communityGuidelinesAccepted () {
-      return true;
-      // return user.flags.communityGuidelinesAccepted;
+      return this.user.flags.communityGuidelinesAccepted;
     },
   },
   mounted () {
@@ -379,6 +435,12 @@ export default {
     },
     pauseDailies () {
       // @TODO:
+    },
+    acceptCommunityGuidelines () {
+      this.$store.dispatch('user:set', {'flags.communityGuidelinesAccepted': true});
+    },
+    toggleSleep () {
+      this.$store.dispatch('user:sleep');
     },
   },
 };
