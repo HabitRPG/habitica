@@ -88,7 +88,7 @@
     "weaponSpecialMammothRiderSpearNotes": "这只玫瑰石英尖矛将使你激发出古老咒语的力量。增加智力<%= int %>点。",
     "weaponSpecialPageBannerText": "一页旗帜",
     "weaponSpecialPageBannerNotes": "挥舞你的旗帜来获得信心！增加<%= str %>点力量。",
-    "weaponSpecialRoguishRainbowMessageText": "Roguish Rainbow Message",
+    "weaponSpecialRoguishRainbowMessageText": "俏皮彩虹信使",
     "weaponSpecialRoguishRainbowMessageNotes": "This sparkly envelope contains messages of encouragement from Habiticans, and a touch of magic to help speed your deliveries! Increases Perception by <%= per %>.",
     "weaponSpecialSkeletonKeyText": "骷髅钥匙",
     "weaponSpecialSkeletonKeyNotes": "所有最棒的潜行者都会携带一把钥匙来打开任何的锁！增加<%= con %>点体质。",

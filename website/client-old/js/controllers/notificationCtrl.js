@@ -3,6 +3,69 @@
 habitrpg.controller('NotificationCtrl',
   ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement', 'Social', 'Tasks',
   function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement, Social, Tasks) {
+    $rootScope.$watch('user', function (after, before) {
+      runYesterDailies();
+    });
+
+    $rootScope.$on('userUpdated', function (after, before) {
+      runYesterDailies();
+    });
+
+    function runYesterDailies() {
+      var userLastCron = moment(User.user.lastCron).local();
+      var userDayStart = moment().startOf('day').add({ hours: User.user.preferences.dayStart });
+
+      if (!User.user.needsCron) return;
+      var dailys = User.user.dailys;
+
+      if (!Boolean(dailys) || dailys.length === 0) return;
+
+      var yesterDay = moment().subtract('1', 'day').startOf('day').add({ hours: User.user.preferences.dayStart });
+      var yesterDailies = [];
+      dailys.forEach(function (task) {
+        if (task && task.group.approval && task.group.approval.requested) return;
+        if (task.completed) return;
+        var shouldDo = Shared.shouldDo(yesterDay, task);
+
+        if (task.yesterDaily && shouldDo) yesterDailies.push(task);
+      });
+
+      if (yesterDailies.length === 0) {
+        User.runCron();
+        return;
+      };
+
+      var modalScope = $rootScope.$new();
+      modalScope.obj = User.user;
+      modalScope.taskList = yesterDailies;
+      modalScope.list = {
+        showCompleted: false,
+        type: 'daily',
+      };
+      modalScope.processingYesterdailies = true;
+
+      $scope.yesterDailiesModalOpen = true;
+      $rootScope.openModal('yesterDailies', {
+        scope: modalScope,
+        backdrop: 'static',
+        controller: ['$scope', 'Tasks', 'User', '$rootScope', function ($scope, Tasks, User, $rootScope) {
+          $rootScope.$on('task:scored', function (event, data) {
+            var task = data.task;
+            var indexOfTask = _.findIndex($scope.taskList, function (taskInList) {
+              return taskInList._id === task._id;
+            });
+            if (!$scope.taskList[indexOfTask]) return;
+            $scope.taskList[indexOfTask].group.approval.requested = task.group.approval.requested;
+            if ($scope.taskList[indexOfTask].group.approval.requested) return;
+            $scope.taskList[indexOfTask].completed = task.completed;
+          });
+
+          $scope.ageDailies = function () {
+            User.runCron();
+          };
+        }],
+      });
+    }
 
     $rootScope.$watch('user.stats.hp', function (after, before) {
       if (after <= 0){

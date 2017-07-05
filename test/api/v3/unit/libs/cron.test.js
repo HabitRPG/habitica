@@ -483,6 +483,25 @@ describe('cron', () => {
 
       expect(progress.down).to.equal(-1);
     });
+
+    it('should do damage for only yesterday\'s dailies', () => {
+      daysMissed = 3;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+
+      let daily = {
+        text: 'test daily',
+        type: 'daily',
+      };
+      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
+      tasksByType.dailys.push(task);
+      tasksByType.dailys[1].startDate = moment(new Date()).subtract({days: 2});
+      tasksByType.dailys[1].everyX = 2;
+      tasksByType.dailys[1].frequency = 'daily';
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.stats.hp).to.equal(48);
+    });
   });
 
   describe('habits', () => {

@@ -169,5 +169,5 @@
     "missingCustomerId": "缺少Missing req.query.customerId",
     "missingPaypalBlock": "缺少req.session.paypalBlock",
     "missingSubKey": "缺少req.query.sub",
-    "paypalCanceled": "Your subscription has been canceled"
+    "paypalCanceled": "您的捐赠已取消"
 }

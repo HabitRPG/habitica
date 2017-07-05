@@ -85,8 +85,10 @@ export function startOfDay (options = {}) {
 
 export function daysSince (yesterday, options = {}) {
   let o = sanitizeOptions(options);
+  let startOfNow = startOfDay(defaults({ now: o.now }, o));
+  let startOfYesterday = startOfDay(defaults({ now: yesterday }, o));
 
-  return startOfDay(defaults({ now: o.now }, o)).diff(startOfDay(defaults({ now: yesterday }, o)), 'days');
+  return startOfNow.diff(startOfYesterday, 'days');
 }
 
 /*
