@@ -170,5 +170,9 @@
     "resets": "Reseta",
     "summaryStart": "Repete uma vez a cada <%= everyX %> <%= frequencyPlural %>",
     "nextDue": "Próximas Datas",
+    "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
+    "yesterDailiesCallToAction": "Start My New Day!",
+    "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
+    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
     "repeatDayError": "Por favor, garanta que você tem ao menos um dia da semana selecionado."
 }

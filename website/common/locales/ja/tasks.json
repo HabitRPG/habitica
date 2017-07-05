@@ -121,7 +121,7 @@
     "taskIdRequired": "\"taskId\" の UUID が無効です。",
     "taskAliasAlreadyUsed": "タスクの別名が、ほかのタスク名で使われています。",
     "taskNotFound": "タスクが見つかりませんでした。",
-    "invalidTaskType": "タスクは、\"習慣\", \"日課\", \"To-Do\", \"ごほうび\" のいずれかの種類でなくてはなりません。",
+    "invalidTaskType": "タスクは、\"habit\", \"daily\", \"todo\", \"reward\" のいずれかの種類でなくてはなりません。",
     "cantDeleteChallengeTasks": "チャレンジに関連したタスクは削除できません。",
     "checklistOnlyDailyTodo": "チェックリストは、日課と To Do にのみ対応しています。",
     "checklistItemNotFound": "該当する id に対応したチェックリストは見つかりませんでした。",
@@ -170,5 +170,9 @@
     "resets": "リセット",
     "summaryStart": "<%= everyX %> <%= frequencyPlural %>に<%= frequency %>回繰り返す",
     "nextDue": "次の期限",
+    "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
+    "yesterDailiesCallToAction": "Start My New Day!",
+    "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
+    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
     "repeatDayError": "曜日を最低1つは選択してください。"
 }
