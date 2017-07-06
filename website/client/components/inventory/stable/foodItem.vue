@@ -7,8 +7,8 @@ b-popover(
     h4.popover-content-title {{ item.text() }}
     div.popover-content-text(v-html="item.notes()")
 
-  .item-wrapper
-    .item
+  .item-wrapper(@click="click($event)")
+    .item(:class="{'item-active': active }")
       countBadge(
         :show="true",
         :count="itemCount"
@@ -45,6 +45,9 @@ export default {
     itemContentClass: {
       type: String,
     },
+    active: {
+      type: Boolean,
+    },
   },
   methods: {
     dragend ($event) {
@@ -52,6 +55,9 @@ export default {
     },
     dragstart ($event) {
       this.$emit('itemDragStart', $event);
+    },
+    click ($event) {
+      this.$emit('itemClick', $event);
     },
   },
 };

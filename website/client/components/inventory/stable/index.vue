@@ -1,5 +1,5 @@
 <template lang="pug">
-  .row.stable
+  .row.stable(v-mousePosition="30", @mouseMoved="mouseMoved($event)")
     .standard-sidebar
       div
         b-popover(
@@ -193,8 +193,10 @@
             foodItem(
               :item="ctx.item",
               :itemCount="userItems.food[ctx.item.key]",
+              :active="currentDraggingFood == ctx.item",
               @itemDragEnd="onDragEnd()",
-              @itemDragStart="onDragStart($event, ctx.item)"
+              @itemDragStart="onDragStart($event, ctx.item)",
+              @itemClick="onFoodClicked($event, ctx.item)"
             )
 
     b-modal#welcome-modal(
@@ -229,11 +231,17 @@
         button.btn.btn-primary(@click="hatchPet(hatchablePet)") {{ $t('hatch') }}
         button.btn.btn-secondary.btn-flat(@click="closeHatchPetDialog()") {{ $t('cancel') }}
 
-    div#dragginFoodInfo(ref="dragginFoodInfo")
+    div.foodInfo(ref="dragginFoodInfo")
       div(v-if="currentDraggingFood != null")
         div.food-icon(:class="'Pet_Food_'+currentDraggingFood.key")
         div.popover
           div.popover-content {{ $t('dragThisFood', {foodName: currentDraggingFood.text() }) }}
+
+    div.foodInfo.mouse(ref="clickFoodInfo", v-if="foodClickMode")
+      div(v-if="currentDraggingFood != null")
+        div.food-icon(:class="'Pet_Food_'+currentDraggingFood.key")
+        div.popover
+          div.popover-content {{ $t('clickOnPetToFeed', {foodName: currentDraggingFood.text() }) }}
 
 </template>
 
@@ -417,9 +425,14 @@
     margin-bottom: 0;
   }
 
-  #dragginFoodInfo {
+  .foodInfo {
     position: absolute;
     left: -500px;
+
+    &.mouse {
+      position: fixed;
+      pointer-events: none
+    }
 
     .food-icon {
       margin: 0 auto;
@@ -461,6 +474,7 @@
 
   import ResizeDirective from 'client/directives/resize.directive';
   import DragDropDirective from 'client/directives/dragdrop.directive';
+  import MouseMoveDirective from 'client/directives/mouseposition.directive';
 
   import information from 'assets/svg/information.svg';
   import close from 'assets/svg/close.svg';
@@ -489,6 +503,7 @@
     directives: {
       resize: ResizeDirective,
       drag: DragDropDirective,
+      mousePosition: MouseMoveDirective,
     },
     data () {
       return {
@@ -512,9 +527,13 @@
           close,
         }),
 
+        currentMousePosX: 0,
+        currentMousePosY: 0,
+
         highlightPet: '',
 
         hatchablePet: null,
+        foodClickMode: false,
         currentDraggingFood: null,
 
         selectedDrawerTab: 0,
@@ -886,11 +905,19 @@
       },
 
       petClicked (pet) {
-        if (pet.isOwned() || !pet.isHatchable()) {
-          return;
-        }
+        if (this.currentDraggingFood !== null && pet.isAllowedToFeed()) {
+          // food process
+          this.$store.dispatch('common:feed', {pet: pet.key, food: this.currentDraggingFood.key});
+          this.currentDraggingFood = null;
+          this.foodClickMode = false;
+        } else {
+          if (pet.isOwned() || !pet.isHatchable()) {
+            return;
+          }
 
-        this.hatchablePet = pet;
+          // opens the hatch dialog
+          this.hatchablePet = pet;
+        }
       },
 
       closeHatchPetDialog () {
@@ -900,6 +927,23 @@
       resetHatchablePet ($event) {
         if (!$event) {
           this.hatchablePet = null;
+        }
+      },
+
+      onFoodClicked ($event, food) {
+        if (this.currentDraggingFood === null || this.currentDraggingFood !== food) {
+          this.currentDraggingFood = food;
+          this.foodClickMode = true;
+        } else {
+          this.currentDraggingFood = null;
+          this.foodClickMode = false;
+        }
+      },
+
+      mouseMoved ($event) {
+        if (this.foodClickMode) {
+          this.$refs.clickFoodInfo.style.left = ($event.x-20)+'px';
+          this.$refs.clickFoodInfo.style.top = ($event.y-20)+'px';
         }
       },
     },
