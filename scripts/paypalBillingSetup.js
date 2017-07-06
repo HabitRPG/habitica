@@ -12,7 +12,7 @@ var paypal = require('paypal-rest-sdk');
 var blocks = require('../website/common').content.subscriptionBlocks;
 var live = nconf.get('PAYPAL:mode')=='live';
 
-nconf.argv().env().file('user', path.join(path.resolve(__dirname, '../../../config.json')));
+nconf.argv().env().file('user', path.join(path.resolve(__dirname, '../config.json')));
 
 var OP = 'create'; // list create update remove
 
