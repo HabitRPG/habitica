@@ -146,6 +146,13 @@ window.habitrpg = angular.module('habitrpg',
           title: env.t('groupPlansTitle')
         })
 
+        .state('options.social.newGroup', {
+          url: '/new-group',
+          templateUrl: "partials/options.social.newGroup.html",
+          controller: 'NewGroupCtrl',
+          title: env.t('newGroupTitle')
+        })
+
         .state('options.social.guilds', {
           url: '/guilds',
           templateUrl: "partials/options.social.guilds.html",
