@@ -96,21 +96,14 @@
               :popoverPosition="'top'",
               :progress="pet.progress",
               :emptyItem="!pet.isOwned()",
-              :showPopover="pet.isOwned() || pet.isHatchable()",
+              :showPopover="pet.isOwned()",
               :highlightBorder="highlightPet == pet.key",
               @hatchPet="hatchPet",
+              @click="petClicked(pet)"
             )
               span(slot="popoverContent")
                 div(v-if="pet.isOwned()")
                   h4.popover-content-title {{ pet.name }}
-                div.hatchablePopover(v-else-if="pet.isHatchable()")
-                  h4.popover-content-title {{ pet.name }}
-                  div.popover-content-text(v-html="$t('haveHatchablePet', { potion: pet.potionName, egg: pet.eggName })")
-                  div.potionEggGroup
-                    div.potionEggBackground
-                      div(:class="'Pet_HatchingPotion_'+pet.potionKey")
-                    div.potionEggBackground
-                      div(:class="'Pet_Egg_'+pet.eggKey")
 
               template(slot="itemBadge", scope="ctx")
                 starBadge(
@@ -215,6 +208,28 @@
         h1.page-header(v-once) {{ $t('welcomeStable') }}
         div.content-text(v-once) {{ $t('welcomeStableText') }}
 
+    b-modal#hatching-modal(
+      :visible="hatchablePet != null",
+      @change="resetHatchablePet($event)"
+    )
+
+      div.content(v-if="hatchablePet")
+        div.potionEggGroup
+          div.potionEggBackground
+            div(:class="'Pet_HatchingPotion_'+hatchablePet.potionKey")
+          div.potionEggBackground
+            div(:class="'Pet_Egg_'+hatchablePet.eggKey")
+
+        h4.title {{ hatchablePet.name }}
+        div.text(v-html="$t('haveHatchablePet', { potion: hatchablePet.potionName, egg: hatchablePet.eggName })")
+
+      span.svg-icon.icon-10(v-html="icons.close", slot="modal-header", @click="closeHatchPetDialog()")
+
+      div(slot="modal-footer")
+        button.btn.btn-primary() {{ $t('hatch') }}
+        button.btn.btn-secondary.btn-flat(@click="closeHatchPetDialog()") {{ $t('cancel') }}
+
+
 </template>
 
 <style lang="scss">
@@ -252,10 +267,10 @@
     display: inline-flex;
     align-items: center;
 
-    width: 64px;
-    height: 64px;
-    border-radius: 2px;
-    background-color: #4e4a57;
+    width: 112px;
+    height: 112px;
+    border-radius: 4px;
+    background-color: #f9f9f9;
 
     &:first-child {
       margin-right: 24px;
@@ -302,8 +317,7 @@
     height: 114px;
   }
 
-
-  div#welcome-modal {
+  @mixin habitModal() {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -311,6 +325,14 @@
     header, footer {
       border: 0;
     }
+
+    .modal-footer {
+      justify-content: center;
+    }
+  }
+
+  #welcome-modal {
+    @include habitModal();
 
     .npc_matt {
       margin: 0 auto 21px auto;
@@ -333,9 +355,43 @@
 
       width: 400px;
     }
+  }
 
-    .modal-footer {
-      justify-content: center;
+  #hatching-modal {
+    @include habitModal();
+
+    .content {
+      text-align: center;
+
+      margin: 9px;
+      width: 300px;
+    }
+
+    .title {
+      height: 24px;
+      margin-top: 24px;
+      font-family: Roboto;
+      font-size: 20px;
+      font-weight: bold;
+      font-stretch: condensed;
+      line-height: 1.2;
+      text-align: center;
+      color: #4e4a57;
+    }
+
+    .text {
+      height: 60px;
+      font-family: Roboto;
+      font-size: 14px;
+      line-height: 1.43;
+      text-align: center;
+      color: #686274;
+    }
+
+    span.svg-icon.icon-10 {
+      position: absolute;
+      right: 10px;
+      top: 10px;
     }
   }
 
@@ -389,6 +445,7 @@
   import DragDropDirective from 'client/directives/dragdrop.directive';
 
   import information from 'assets/svg/information.svg';
+  import close from 'assets/svg/close.svg';
 
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
@@ -434,9 +491,12 @@
 
         icons: Object.freeze({
           information,
+          close,
         }),
 
         highlightPet: '',
+
+        hatchablePet: null,
 
         selectedDrawerTab: 0,
         availableContentWidth: 0,
@@ -793,6 +853,20 @@
 
       onDragLeave () {
         this.highlightPet = '';
+      },
+
+      petClicked (pet) {
+        this.hatchablePet = pet;
+      },
+
+      closeHatchPetDialog () {
+        this.$root.$emit('hide::modal', 'hatching-modal');
+      },
+
+      resetHatchablePet ($event) {
+        if (!$event) {
+          this.hatchablePet = null;
+        }
       },
     },
   };

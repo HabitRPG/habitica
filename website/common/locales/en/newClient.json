@@ -42,6 +42,9 @@
   "sortByColor": "Color",
   "sortByHatchable": "Hatchable",
   "haveHatchablePet": "You have a <%= potion %> and <%= egg %> to hatch this pet! <b>Click and hold</b> the paw print to hatch.",
+  "hatch": "Hatch!",
+  "cancel": "Cancel",
+
   "editAvatar": "Edit Avatar",
   "sort": "Sort",
   "memberCount": "Member Count",
