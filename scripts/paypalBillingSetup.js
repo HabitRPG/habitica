@@ -1,3 +1,5 @@
+require("babel-register");
+require("babel-polyfill");
 // This file is used for creating paypal billing plans. PayPal doesn't have a web interface for setting up recurring
 // payment plan definitions, instead you have to create it via their REST SDK and keep it updated the same way. So this
 // file will be used once for initing your billing plan (then you get the resultant plan.id to store in config.json),
@@ -7,10 +9,10 @@ var path = require('path');
 var nconf = require('nconf');
 var _ = require('lodash');
 var paypal = require('paypal-rest-sdk');
-var blocks = require('../../../../common').content.subscriptionBlocks;
+var blocks = require('../website/common').content.subscriptionBlocks;
 var live = nconf.get('PAYPAL:mode')=='live';
 
-nconf.argv().env().file('user', path.join(path.resolve(__dirname, '../../../config.json')));
+nconf.argv().env().file('user', path.join(path.resolve(__dirname, '../config.json')));
 
 var OP = 'create'; // list create update remove
 
@@ -48,6 +50,8 @@ _.each(blocks, function(block){
       }
   });
 })
+
+// @TODO: Add cli library for this
 
 switch(OP) {
   case "list":
@@ -91,4 +95,17 @@ switch(OP) {
     });
     break;
   case "remove": break;
+
+  case 'create-webprofile':
+    let webexpinfo = {
+      "name": "HabiticaProfile",
+      "input_fields": {
+        "no_shipping": 1,
+      },
+    };
+
+    paypal.webProfile.create(webexpinfo, (error, result) => {
+      console.log(error, result)
+    })
+    break;
 }
