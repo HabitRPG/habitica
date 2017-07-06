@@ -24,6 +24,7 @@
           | {{challenge.prize}}
           .details(v-once) {{$t('prize')}}
     .row
+      task-column.col-6(v-for="column in columns", :type="column", :key="column")
   .col-4.sidebar.standard-page
     .acitons
       div(v-if='!isMember && !isLeader')
@@ -121,6 +122,7 @@
 <script>
 import { mapState } from 'client/libs/store';
 import closeChallengeModal from './closeChallengeModal';
+import Column from '../tasks/column';
 
 import gemIcon from 'assets/svg/gem.svg';
 import memberIcon from 'assets/svg/member-icon.svg';
@@ -130,9 +132,11 @@ export default {
   props: ['challengeId'],
   components: {
     closeChallengeModal,
+    TaskColumn: Column,
   },
   data () {
     return {
+      columns: ['habit', 'daily', 'todo', 'reward'],
       icons: Object.freeze({
         gemIcon,
         memberIcon,
@@ -159,7 +163,7 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
     isMember () {
-      return user.challenges.indexOf(this.challenge._id) !== -1;
+      return this.user.challenges.indexOf(this.challenge._id) !== -1;
     },
     isLeader () {
       return true;

@@ -16,7 +16,7 @@
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t(group.label) }}
     .form-group
-      h5 Role
+      h5 Membership
       .form-check(
         v-for="group in roleOptions",
         :key="group.key",
@@ -97,27 +97,31 @@ export default {
       roleFilters: [],
       roleOptions: [
         {
-          label: 'guildLeader',
-          key: 'guild_leader',
+          label: 'participating',
+          key: 'participating',
         },
         {
-          label: 'member',
-          key: 'member',
+          label: 'not_participating',
+          key: 'not_participating',
+        },
+        {
+          label: 'either',
+          key: 'either',
         },
       ],
       guildSizeFilters: [],
       guildSizeOptions: [
         {
-          label: 'goldTier',
-          key: 'gold_tier',
+          label: 'owned',
+          key: 'owned',
         },
         {
-          label: 'silverTier',
-          key: 'silver_tier',
+          label: 'not_owned',
+          key: 'not_owned',
         },
         {
-          label: 'bronzeTier',
-          key: 'bronze_tier',
+          label: 'either',
+          key: 'either',
         },
       ],
       searchTerm: '',

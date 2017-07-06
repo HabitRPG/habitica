@@ -22,7 +22,7 @@ nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
           router-link.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
           router-link.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
           router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
-      router-link.nav-item.dropdown(tag="li", :to="{name: 'challenges'}")
+      router-link.nav-item.dropdown(tag="li", :to="{name: 'myChallenges'}")
         a.nav-link(v-once) {{ $t('challenges') }}
         .dropdown-menu
           router-link.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}

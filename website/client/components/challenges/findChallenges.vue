@@ -12,7 +12,7 @@
           b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
         button.btn.btn-secondary.create-challenge-button
           .svg-icon.positive-icon(v-html="icons.positiveIcon")
-          span(v-once) {{$t('createChallenge')}}
+          span(v-once, @click='createChallenge()') {{$t('createChallenge')}}
     .row
       .col-6(v-for='challenge in challenges')
         challenge-item(:challenge='challenge')
