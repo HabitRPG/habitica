@@ -8,6 +8,9 @@ fieldset.option-group.advanced-option(ng-show="task.type === 'daily'")
     
     br
 
+    legend.option-title
+      span.hint(popover-title=env.t('repeatTypeHelpTitle'), popover=env.t("repeatTypeHelp"), popover-trigger='mouseenter')
+        =env.t('repeatType')
     select.form-control(ng-model='task._edit.frequency', ng-disabled='!canEdit(task)')
       option(value='daily')=env.t('daily')
       option(value='weekly')=env.t('weekly')
