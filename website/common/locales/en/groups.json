@@ -286,5 +286,6 @@
   "leaderMarker": " - Leader",
   "managerMarker": " - Manager",
   "joinedGuild": "Joined a Guild",
-  "joinedGuildText": "Ventured into the social side of Habitica by joining a Guild!"
+  "joinedGuildText": "Ventured into the social side of Habitica by joining a Guild!",
+  "badAmountOfGemsToPurchase": "Amount must be at least 1."
 }
