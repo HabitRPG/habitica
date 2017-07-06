@@ -3,10 +3,9 @@
 require('babel-polyfill');
 
 import Vue from 'vue';
-import axios from 'axios';
 import AppComponent from './app';
 import router from './router';
-import generateStore from './store';
+import getStore from './store';
 import StoreModule from './libs/store';
 import './filters/registerGlobals';
 import i18n from './libs/i18n';
@@ -26,44 +25,9 @@ Vue.config.productionTip = IS_PRODUCTION;
 Vue.use(i18n);
 Vue.use(StoreModule);
 
-// TODO just until we have proper authentication
-let authSettings = localStorage.getItem('habit-mobile-settings');
-
-if (authSettings) {
-  authSettings = JSON.parse(authSettings);
-  axios.defaults.headers.common['x-api-user'] = authSettings.auth.apiId;
-  axios.defaults.headers.common['x-api-key'] = authSettings.auth.apiToken;
-}
-
 export default new Vue({
+  el: '#app',
   router,
-  store: generateStore(),
+  store: getStore(),
   render: h => h(AppComponent),
-  beforeCreate () {
-    // Setup listener for title
-    this.$store.watch(state => state.title, (title) => {
-      document.title = title;
-    });
-
-    // Mount the app when user and tasks are loaded
-    const userDataWatcher = this.$store.watch(state => [state.user.data, state.tasks.data], ([user, tasks]) => {
-      if (user && user._id && Array.isArray(tasks)) {
-        userDataWatcher(); // remove the watcher
-        this.$mount('#app');
-      }
-    });
-
-    // Load the user and the user tasks
-    Promise.all([
-      this.$store.dispatch('user:fetch'),
-      this.$store.dispatch('tasks:fetchUserTasks'),
-    ]).catch((err) => {
-      console.error(err); // eslint-disable-line no-console
-      alert('Impossible to fetch user. Copy into localStorage a valid habit-mobile-settings object.');
-    });
-  },
-  mounted () { // Remove the loading screen when the app is mounted
-    let loadingScreen = document.getElementById('loading-screen');
-    if (loadingScreen) document.body.removeChild(loadingScreen);
-  },
 });

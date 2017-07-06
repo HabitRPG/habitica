@@ -114,7 +114,7 @@
     "messageRequired": "Нужно е съобщение.",
     "toUserIDRequired": "Нужен е потребителски идентификатор",
     "gemAmountRequired": "Нужен е брой диаманти",
-    "notAuthorizedToSendMessageToThisUser": "Не можете да изпратите съобщение до този потребител",
+    "notAuthorizedToSendMessageToThisUser": "Не можете да изпратите съобщение до този играч, защото той е избрал да блокира съобщенията.",
     "privateMessageGiftGemsMessage": "Здравейте, <%= receiverName %>, <%= senderName %> Ви изпрати <%= gemAmount %> диамант(а)!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> месеца абонамент!",
     "cannotSendGemsToYourself": "Не можете да изпратите диаманти на себе си. Опитайте с абонамент.",
@@ -184,6 +184,7 @@
     "questLeaderCannotLeaveGroup": "Не можете да напуснете групата си, след като сте започнали мисия. Първо прекратете мисията.",
     "cannotLeaveWhileActiveQuest": "Не можете да напуснете групата по време на мисия. Моля, първо се откажете от мисията.",
     "onlyLeaderCanRemoveMember": "Само водачът на групата може да премахва членове!",
+    "cannotRemoveCurrentLeader": "Не може да премахнете водача на групата. Първо изберете нов водач.",
     "memberCannotRemoveYourself": "Не можете да премахнете себе си!",
     "groupMemberNotFound": "Потребителят не е намерен сред членовете на групата",
     "mustBeGroupMember": "Трябва да бъде член на групата.",
@@ -208,6 +209,7 @@
     "onlyCreatorOrAdminCanDeleteChat": "Нямате право да изтриете това съобщение!",
     "onlyGroupLeaderCanEditTasks": "Нямате право да управлявате задачите!",
     "onlyGroupTasksCanBeAssigned": "Само групови задачи могат да бъдат зададени",
+    "chatPrivilegesRevoked": "Привилегиите Ви в чата Ви бяха отнети.",
     "newChatMessagePlainNotification": "Има ново съобщение в <%= groupName %> от <%= authorName %>. Щракнете тук, за да отворите страницата!",
     "newChatMessageTitle": "Има ново съобщение в <%= groupName %>",
     "exportInbox": "Изнасяне на съобщенията",
@@ -279,5 +281,7 @@
     "userIsNotManager": "Потребителят не е управител",
     "canOnlyApproveTaskOnce": "Тази задача е вече одобрена.",
     "leaderMarker": "— Водач",
-    "managerMarker": "— Управител"
+    "managerMarker": "— Управител",
+    "joinedGuild": "Присъединил(а) се към гилдия",
+    "joinedGuildText": "Потопил(а) се в обществената част на Хабитика чрез присъединяване към гилдия!"
 }

@@ -79,6 +79,13 @@ describe('cron', () => {
       expect(user.purchased.plan.gemsBought).to.equal(0);
     });
 
+    it('resets plan.gemsBought on a new month if user does not have purchased.plan.dateUpdated', () => {
+      user.purchased.plan.gemsBought = 10;
+      user.purchased.plan.dateUpdated = undefined;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.gemsBought).to.equal(0);
+    });
+
     it('does not reset plan.gemsBought within the month', () => {
       let clock = sinon.useFakeTimers(moment().startOf('month').add(2, 'days').unix());
       user.purchased.plan.dateUpdated = moment().startOf('month').toDate();
@@ -313,6 +320,24 @@ describe('cron', () => {
       expect(tasksByType.dailys[0].completed).to.be.false;
       expect(user.stats.hp).to.equal(healthBefore);
     });
+
+    it('sets isDue for daily', () => {
+      let daily = {
+        text: 'test daily',
+        type: 'daily',
+        frequency: 'daily',
+        everyX: 5,
+        startDate: new Date(),
+      };
+
+      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
+      tasksByType.dailys.push(task);
+      tasksByType.dailys[0].completed = true;
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(tasksByType.dailys[0].isDue).to.be.exist;
+    });
   });
 
   describe('todos', () => {
@@ -364,6 +389,14 @@ describe('cron', () => {
       tasksByType.dailys[0].startDate = moment().add(1, 'days').toDate();
       cron({user, tasksByType, daysMissed, analytics});
       expect(tasksByType.dailys[0].isDue).to.be.false;
+    });
+
+    it('computes nextDue', () => {
+      tasksByType.dailys[0].frequency = 'daily';
+      tasksByType.dailys[0].everyX = 5;
+      tasksByType.dailys[0].startDate = moment().add(1, 'days').toDate();
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(tasksByType.dailys[0].nextDue.length).to.eql(6);
     });
 
     it('should add history', () => {
@@ -449,6 +482,25 @@ describe('cron', () => {
       let progress = cron({user, tasksByType, daysMissed, analytics});
 
       expect(progress.down).to.equal(-1);
+    });
+
+    it('should do damage for only yesterday\'s dailies', () => {
+      daysMissed = 3;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+
+      let daily = {
+        text: 'test daily',
+        type: 'daily',
+      };
+      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
+      tasksByType.dailys.push(task);
+      tasksByType.dailys[1].startDate = moment(new Date()).subtract({days: 2});
+      tasksByType.dailys[1].everyX = 2;
+      tasksByType.dailys[1].frequency = 'daily';
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.stats.hp).to.equal(48);
     });
   });
 

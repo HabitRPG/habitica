@@ -114,7 +114,7 @@
     "messageRequired": "需要一條訊息",
     "toUserIDRequired": "需要使用者帳戶",
     "gemAmountRequired": "需要寶石的數量",
-    "notAuthorizedToSendMessageToThisUser": "無法對這名用戶傳送訊息",
+    "notAuthorizedToSendMessageToThisUser": "You can't send a message to this player because they have chosen to block messages.",
     "privateMessageGiftGemsMessage": "哈囉 <%= receiverName %>，<%= senderName %>寄了<%= gemAmount %>寶石給你！",
     "privateMessageGiftSubscriptionMessage": "已訂閱<%= numberOfMonths %>月！",
     "cannotSendGemsToYourself": "無法寄寶石給你自己。請嘗試訂閱我們。",
@@ -184,6 +184,7 @@
     "questLeaderCannotLeaveGroup": "You cannot leave your party when you have started a quest. Abort the quest first.",
     "cannotLeaveWhileActiveQuest": "You cannot leave party during an active quest. Please leave the quest first.",
     "onlyLeaderCanRemoveMember": "Only group leader can remove a member!",
+    "cannotRemoveCurrentLeader": "You cannot remove the group leader. Assign a new a leader first.",
     "memberCannotRemoveYourself": "想把你自己移除掉嗎？不可能的！",
     "groupMemberNotFound": "User not found among group's members",
     "mustBeGroupMember": "Must be member of the group.",
@@ -208,6 +209,7 @@
     "onlyCreatorOrAdminCanDeleteChat": "Not authorized to delete this message!",
     "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
     "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
+    "chatPrivilegesRevoked": "Your chat privileges have been revoked.",
     "newChatMessagePlainNotification": "由 <%= authorName %>發出的新訊息在 <%= groupName %> 。點擊這裡打開聊天頁面！",
     "newChatMessageTitle": "新訊息在 <%= groupName %>",
     "exportInbox": "匯出訊息",
@@ -279,5 +281,7 @@
     "userIsNotManager": "User is not manager",
     "canOnlyApproveTaskOnce": "This task has already been approved.",
     "leaderMarker": "- Leader",
-    "managerMarker": "- Manager"
+    "managerMarker": "- Manager",
+    "joinedGuild": "Joined a Guild",
+    "joinedGuildText": "Ventured into the social side of Habitica by joining a Guild!"
 }

@@ -320,6 +320,12 @@ let quests = {
     adjective: t('questEggButterflyAdjective'),
     canBuy: hasQuestAchievementFunction('butterfly'),
   },
+  Nudibranch: {
+    text: t('questEggNudibranchText'),
+    mountText: t('questEggNudibranchMountText'),
+    adjective: t('questEggNudibranchAdjective'),
+    canBuy: hasQuestAchievementFunction('nudibranch'),
+  },
 };
 
 applyEggDefaults(drops, {

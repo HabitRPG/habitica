@@ -16,6 +16,4 @@ angular.module('habitrpg')
         $scope.activePage = page;
         $window.scrollTo(0, 0);
       };
-
-
     }]);

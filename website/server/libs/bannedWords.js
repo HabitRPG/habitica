@@ -97,8 +97,9 @@ let bannedWords = [
   'motherfucking',
   'muthafucka',
   'fu',
-  'wtf',
+  'fuq',
   'dafuq',
+  'wtf',
 
   'ass',
   'arse',
@@ -158,6 +159,10 @@ let bannedWords = [
   'fap',
   'nofap',
   'fapping',
+  'masturbate',
+  'masturbates',
+  'masturbating',
+  'masturbation',
 
   'alcohol',
   'beer',

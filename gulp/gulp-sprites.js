@@ -49,7 +49,7 @@ gulp.task('sprites:checkCompiledDimensions', ['sprites:main', 'sprites:largeSpri
   });
 
   if (numberOfSheetsThatAreTooBig > 0) {
-    console.error(`${numberOfSheetsThatAreTooBig} sheets might too big for mobile Safari to be able to handle them, but there is a margin of error in these calculations so it is probably okay. Mention this to an admin so they can test a staging site on mobile Safari after your PR is merged.`); // https://github.com/HabitRPG/habitrpg/pull/6683#issuecomment-185462180
+    console.error(`${numberOfSheetsThatAreTooBig} sheets might too big for mobile Safari to be able to handle them, but there is a margin of error in these calculations so it is probably okay. Mention this to an admin so they can test a staging site on mobile Safari after your PR is merged.`); // https://github.com/HabitRPG/habitica/pull/6683#issuecomment-185462180
   } else {
     console.log('All images are within the correct dimensions');
   }

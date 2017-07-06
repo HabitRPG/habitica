@@ -37,6 +37,8 @@
     "subscribed": "Abonné",
     "manageSub": "Cliquez ici pour gérer votre abonnement",
     "cancelSub": "Annuler l'abonnement",
+    "cancelSubInfoGoogle": "Veuillez vous rendre dans la section \"Mes jeux et applications\" > \"Abonnements\" du Play Store Google pour annuler votre abonnement, ou voir la date d'expiration de votre abonnement si vous l'avez déjà annulé. Cet écran ne pourra pas vous indiquer si votre abonnement a été annulé.",
+    "cancelSubInfoApple": "Veuillez suivre les <a href=\"https://support.apple.com/en-us/HT202039\">instructions officielles d'Apple</a> pour annuler votre abonnement, ou voir la date d'expiration de votre abonnement si vous l'avez déjà annulé. Cet écran ne pourra pas vous indiquer si votre abonnement a été annulé.",
     "canceledSubscription": "Abonnement annulé",
     "cancelingSubscription": "Annulation de l'abonnement",
     "adminSub": "Abonnements Administrateur",
@@ -126,6 +128,8 @@
     "mysterySet201702": "Ensemble du voleur de cœur",
     "mysterySet201703": "Ensemble scintillant",
     "mysterySet201704": "Ensemble du conte de fées",
+    "mysterySet201705": "Ensemble de combattant à plumes",
+    "mysterySet201706": "Ensemble du pirate pionnier",
     "mysterySet301404": "Ensemble steampunk de base",
     "mysterySet301405": "Ensemble d'accessoires steampunks",
     "mysterySet301703": "Ensemble du paon steampunk",
@@ -164,5 +168,6 @@
     "missingPaymentId": "req.query.paymentId manquant",
     "missingCustomerId": "req.query.customerId manquant",
     "missingPaypalBlock": "req.session.paypalBlock manquant",
-    "missingSubKey": "req.query.sub manquant"
+    "missingSubKey": "req.query.sub manquant",
+    "paypalCanceled": "Votre abonnement a été annulé"
 }

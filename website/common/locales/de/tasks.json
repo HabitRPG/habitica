@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Erfüllte Aufgaben entfernen",
     "lotOfToDos": "Hier siehst Du Deine 30 neuesten erledigten Aufgaben. Ältere erledigte Aufgaben kannst Du hier einsehen: Daten > Werkzeug zur Datenanzeige > Daten exportieren > Benutzerdaten.",
-    "deleteToDosExplanation": "Wenn Du den Knopf unten klickst, werden alle Deine erfüllten und archivierten To-Dos dauerhaft gelöscht. Exportiere sie vorher, wenn Du sie nicht verlieren möchtest.",
+    "deleteToDosExplanation": "Wenn Du auf diesen Knopf klickst, werden alle Deine erfüllten und archivierten To-Dos dauerhaft gelöscht, mit Außnahme von To-Dos aus aktiven Wettbewerben und Gruppenplänen. Exportiere sie vorher, wenn Du sie nicht verlieren möchtest.",
     "addmultiple": "Mehrere hinzufügen",
     "addsingle": "Einzelne hinzufügen",
     "habit": "Gewohnheit",
@@ -104,7 +104,7 @@
     "habitHelp2": "Schlechte Gewohnheiten sind Aktivitäten, die Du vermeiden solltest. Sie ziehen Dir jedes mal Leben ab, wenn Du auf <%= minusIcon %> klickst.",
     "habitHelp3": "Schau Dir zur Inspiration diese <a href='http://habitica.wikia.com/wiki/Sample_Habits' target='_blank'>Gewohnheitsbeispiele</a> an!",
     "newbieGuild": "Du hast weitere Fragen? Stelle sie in der <%= linkStart %>Habitica-Help-Gilde<%= linkEnd %>!",
-    "dailyHelp1": "Tägliche Aufgaben wiederholen sich an<%= emphasisStart %>allen Tagen<%= emphasisEnd %>, an denen sie aktiv sind. Klicke den <%= pencilIcon %>, um die Tage zu ändern, an denen eine tägliche Aufgabe aktiv ist.",
+    "dailyHelp1": "Tägliche Aufgaben wiederholen sich an <%= emphasisStart %>allen Tagen<%= emphasisEnd %>, an denen sie aktiv sind. Klicke den <%= pencilIcon %>, um die Tage zu ändern, an denen eine tägliche Aufgabe aktiv ist.",
     "dailyHelp2": "Wenn Du aktive tägliche Aufgaben nicht beendest, verlierst Du am Ende des Tages Gesundheit.",
     "dailyHelp3": "Tägliche Aufgaben werden <%= emphasisStart %>röter<%= emphasisEnd %>, wenn Du sie verpasst, und <%= emphasisStart %>blauer<%= emphasisEnd %>, wenn Du sie erledigst. Je röter die tägliche Aufgabe ist, desto größer fällt Deine Belohnung aus ... oder Deine Bestrafung.",
     "dailyHelp4": "Um die Uhrzeit für den Beginn des neuen Tages festzulegen, gehe zu <%= linkStart %> Einstellungen > Seite<%= linkEnd %> > Tageswechsel einstellen.",
@@ -167,5 +167,12 @@
     "taskNotes": "Aufgabennotizen",
     "monthlyRepeatHelpContent": "Diese Aufgabe wird alle X Monate fällig werden",
     "yearlyRepeatHelpContent": "Diese Aufgabe wird alle X Jahre fällig werden ",
-    "resets": "Wird zurückgesetzt"
+    "resets": "Wird zurückgesetzt",
+    "summaryStart": "Wird <%= frequency %> alle <%= everyX %> <%= frequencyPlural %> fällig",
+    "nextDue": "Nächste Fälligkeitstermine",
+    "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
+    "yesterDailiesCallToAction": "Start My New Day!",
+    "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
+    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
+    "repeatDayError": "Bitte achte darauf, dass mindestens ein Wochentag ausgewählt ist."
 }

@@ -34,7 +34,7 @@
     "userId": "ID d'utilisateur",
     "invite": "Inviter",
     "leave": "Quitter",
-    "invitedTo": "Invité·e à rejoindre <%= name %>",
+    "invitedTo": "Invité à rejoindre <%= name %>",
     "invitedToNewParty": "On vous invite à rejoindre une équipe ! Voulez-vous quitter cette équipe et rejoindre <%= partyName %> ?",
     "invitationAcceptedHeader": "Votre invitation a été acceptée",
     "invitationAcceptedBody": "<%= username %> a accepté votre invitation pour <%= groupName %> !",
@@ -114,7 +114,7 @@
     "messageRequired": "Un message est requis.",
     "toUserIDRequired": "Un ID d'utilisateur est requis",
     "gemAmountRequired": "Un nombre de gemmes est requis",
-    "notAuthorizedToSendMessageToThisUser": "Impossible d'envoyer un message à cet utilisateur.",
+    "notAuthorizedToSendMessageToThisUser": "Vous ne pouvez pas envoyer de message à ce membre, car il ou elle a décidé de bloquer les messages.",
     "privateMessageGiftGemsMessage": "Bonjour <%= receiverName %>, <%= senderName %> vous a envoyé <%= gemAmount %> gemmes !",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> mois d'abonnement !",
     "cannotSendGemsToYourself": "Vous ne pouvez pas vous envoyer de gemmes. Essayez un abonnement à la place.",
@@ -184,6 +184,7 @@
     "questLeaderCannotLeaveGroup": "Vous ne pouvez pas quitter une équipe si vous avez démarré une quête. Abandonnez la quête d'abord.",
     "cannotLeaveWhileActiveQuest": "Vous ne pouvez pas quitter une équipe pendant une quête active. Veuillez d'abord quitter la quête.",
     "onlyLeaderCanRemoveMember": "Seul le responsable d'équipe peut supprimer un membre !",
+    "cannotRemoveCurrentLeader": "Vous ne pouvez pas retirer le responsable du groupe. Désignez d'abord un nouveau responsable.",
     "memberCannotRemoveYourself": "Vous ne pouvez pas vous supprimer vous-même !",
     "groupMemberNotFound": "Utilisateur non trouvé parmi les membres du groupe",
     "mustBeGroupMember": "Doit être un membre du groupe.",
@@ -208,6 +209,7 @@
     "onlyCreatorOrAdminCanDeleteChat": "Vous n'êtes pas autorisé à supprimer ce message !",
     "onlyGroupLeaderCanEditTasks": "Pas d'autorisation pour gérer les tâches !",
     "onlyGroupTasksCanBeAssigned": "Seules les tâches de groupe peuvent être assignées",
+    "chatPrivilegesRevoked": "Vos privilèges de discussion ont été révoqués.",
     "newChatMessagePlainNotification": "Nouveau message de <%= authorName %> dans <%= groupName %>. Cliquez ici pour ouvrir la page de discussion !",
     "newChatMessageTitle": "Nouveau message dans <%= groupName %>",
     "exportInbox": "Exporter les messages",
@@ -279,5 +281,7 @@
     "userIsNotManager": "L'utilisateur n'est pas un gestionnaire",
     "canOnlyApproveTaskOnce": "Cette tâche a déjà été approuvée.",
     "leaderMarker": "- Responsable",
-    "managerMarker": "- Gestionnaire"
+    "managerMarker": "- Gestionnaire",
+    "joinedGuild": "A rejoint une guilde",
+    "joinedGuildText": "A exploré le côté social d'Habitica en rejoignant une guilde !"
 }

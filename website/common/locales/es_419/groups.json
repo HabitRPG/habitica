@@ -21,7 +21,7 @@
     "communityGuidelines": "Normas de la Comunidad",
     "communityGuidelinesRead1": "Por favor lee nuestras",
     "communityGuidelinesRead2": "antes de chatear.",
-    "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic. Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
+    "bannedWordUsed": "¡Ups! Parece que esta publicación tiene una mala palabra, juramento o referencia a una sustancia adictiva o tema adulto. Habitica tiene usuarios muy diversos, por lo que nuestro chat se mantiene muy limpio. ¡Puedes editar tu mensaje para poder publicarlo!",
     "party": "Equipo",
     "createAParty": "Crear un Equipo",
     "updatedParty": "Ajustes de Equipo actualizados.",
@@ -114,7 +114,7 @@
     "messageRequired": "Un mensaje es requerido.",
     "toUserIDRequired": "Un ID de Usuario es requerido",
     "gemAmountRequired": "Un número de gemas es requerida.",
-    "notAuthorizedToSendMessageToThisUser": "no puede mandar un mensaje a este usuario.",
+    "notAuthorizedToSendMessageToThisUser": "You can't send a message to this player because they have chosen to block messages.",
     "privateMessageGiftGemsMessage": "¡Hola <%= receiverName %>, <%= senderName %> te ha enviado <%= gemAmount %> gemas!",
     "privateMessageGiftSubscriptionMessage": "Tienes <%= numberOfMonths %> meses de suscripción.",
     "cannotSendGemsToYourself": "No puedes enviarte gemas a ti mismo. Prueba con una suscripción en su lugar.",
@@ -184,6 +184,7 @@
     "questLeaderCannotLeaveGroup": "No puedes abandonar a tu equipo cuando empezaste una misión. Aborta la misión primero.",
     "cannotLeaveWhileActiveQuest": "No puedes abandonar a tu equipo durante una misión activa. Abandona la misión primero.",
     "onlyLeaderCanRemoveMember": "Solo el lider del grupo puede sacar un miembro.",
+    "cannotRemoveCurrentLeader": "You cannot remove the group leader. Assign a new a leader first.",
     "memberCannotRemoveYourself": "No te puedes sacar.",
     "groupMemberNotFound": "Usuario no encontrado entre los miembros del equipo.",
     "mustBeGroupMember": "Tiene que ser miembro del grupo.",
@@ -208,6 +209,7 @@
     "onlyCreatorOrAdminCanDeleteChat": "¡No autorizado a eliminar este mensaje!",
     "onlyGroupLeaderCanEditTasks": "¡No autorizado para administrar tareas!",
     "onlyGroupTasksCanBeAssigned": "Solo las tareas grupales pueden ser asignadas.",
+    "chatPrivilegesRevoked": "Your chat privileges have been revoked.",
     "newChatMessagePlainNotification": "Nuevo mensaje en <%= groupName %> por <%= authorName %>. Cliquea aquí para abrir la página de chat.",
     "newChatMessageTitle": "Nuevo mensaje en <%= groupName %>",
     "exportInbox": "Exportar mensajes",
@@ -279,5 +281,7 @@
     "userIsNotManager": "User is not manager",
     "canOnlyApproveTaskOnce": "This task has already been approved.",
     "leaderMarker": "- Leader",
-    "managerMarker": "- Manager"
+    "managerMarker": "- Manager",
+    "joinedGuild": "Joined a Guild",
+    "joinedGuildText": "Ventured into the social side of Habitica by joining a Guild!"
 }

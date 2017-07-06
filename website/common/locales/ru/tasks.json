@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Удалить завершенные",
     "lotOfToDos": "Здесь показывается 30 ваших последних завершенных задач. Вы можете посмотреть более старые выполненные задачи, выбрав в меню Данные > Анализ данных или Данные > Экспорт данных > Пользовательские данные.",
-    "deleteToDosExplanation": "Если вы нажмете кнопку ниже, все завершенные и находящиеся архиве задачи будут удалены навсегда. Если вы хотите сохранить их, экспортируйте их.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addmultiple": "Добавить несколько",
     "addsingle": "Добавить одно",
     "habit": "Привычка",
@@ -140,9 +140,9 @@
     "counterPeriodDay": "День",
     "counterPeriodWeek": "Неделя",
     "counterPeriodMonth": "Месяц",
-    "habitCounter": "Counter (Resets <%= frequency %>)",
-    "habitCounterUp": "Positive Counter (Resets <%= frequency %>)",
-    "habitCounterDown": "Negative Counter (Resets <%= frequency %>)",
+    "habitCounter": "Счётчик (Сбрасывается  <%= frequency %>)",
+    "habitCounterUp": "Положительный счётчик (Сбрасывается <%= frequency %>)",
+    "habitCounterDown": "Отрицательный счётчик (Сбрасывается <%= frequency %>)",
     "taskRequiresApproval": "Перед тем как выполнять эту задачу, она должна быть одобрена. Одобрение уже запрошено.",
     "taskApprovalHasBeenRequested": "Одобрение запрошено",
     "approvals": "Одобрения",
@@ -167,5 +167,12 @@
     "taskNotes": "Примечания к задаче",
     "monthlyRepeatHelpContent": "Это задание будет появляться каждые N месяцев",
     "yearlyRepeatHelpContent": "Это задание будет появляться каждые N лет",
-    "resets": "Resets"
+    "resets": "Сбрасывается",
+    "summaryStart": "Повторяется <%= frequency %> каждые <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Следующие сроки выполнения",
+    "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
+    "yesterDailiesCallToAction": "Start My New Day!",
+    "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
+    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
+    "repeatDayError": "Пожалуйста, убедитесь, что у вас отмечен хотя бы один день недели."
 }

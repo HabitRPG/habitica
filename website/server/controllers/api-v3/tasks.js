@@ -17,6 +17,7 @@ import {
   createTasks,
   getTasks,
   moveTask,
+  setNextDue,
 } from '../../libs/taskManager';
 import common from '../../../common';
 import Bluebird from 'bluebird';
@@ -271,8 +272,9 @@ api.getUserTasks = {
     if (validationErrors) throw validationErrors;
 
     let user = res.locals.user;
+    let dueDate = req.query.dueDate;
 
-    let tasks = await getTasks(req, res, {user});
+    let tasks = await getTasks(req, res, {user, dueDate});
     return res.respond(200, tasks);
   },
 };
@@ -456,9 +458,7 @@ api.updateTask = {
       task.group.approval.required = true;
     }
 
-    if (sanitizedObj.type === 'daily') {
-      task.isDue = common.shouldDo(Date.now(), sanitizedObj, user.preferences);
-    }
+    setNextDue(task, user);
 
     let savedTask = await task.save();
 
@@ -589,8 +589,18 @@ api.scoreTask = {
       }
     }
 
-    if (task.type === 'daily') {
-      task.isDue = common.shouldDo(Date.now(), task, user.preferences);
+    setNextDue(task, user);
+
+    if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
+      user._ABtests.counter++;
+      if (user._ABtests.counter > 1) {
+        if (user._ABtests.guildReminder.indexOf('timing1') !== -1 || user._ABtests.counter > 4) {
+          user._ABtests.counter = -1;
+          let textVariant = user._ABtests.guildReminder.indexOf('text2');
+          user.addNotification('GUILD_PROMPT', {textVariant});
+        }
+      }
+      user.markModified('_ABtests');
     }
 
     let results = await Bluebird.all([

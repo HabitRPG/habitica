@@ -25,7 +25,7 @@
     "membership": "Lidmaatschap",
     "participating": "Deelnemend",
     "notParticipating": "Niet deelnemend",
-    "either": "Een van beide",
+    "either": "Beide",
     "createChallenge": "Uitdaging aanmaken",
     "discard": "Gooi weg",
     "challengeTitle": "Titel van de uitdaging",
@@ -52,7 +52,7 @@
     "challengedOwnedFilterHeader": "Eigendom",
     "challengedOwnedFilter": "In bezit",
     "challengedNotOwnedFilter": "Niet in bezit",
-    "challengedEitherOwnedFilter": "Ofwel",
+    "challengedEitherOwnedFilter": "Beide",
     "backToChallenges": "Terug naar alle uitdagingen",
     "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %> prijs",
     "clone": "Kopiëren",
@@ -79,5 +79,7 @@
     "onlyChalLeaderEditTasks": "Taken die bij een uitdaging horen kunnen alleen aangepast worden door de leider.",
     "userAlreadyInChallenge": "Gebruiker doet al mee aan deze uitdaging.",
     "cantOnlyUnlinkChalTask": "Alleen afgebroken uitdagingstaken kunnen worden losgekoppeld.",
-    "shortNameTooShort": "Labelnaam moet bestaan uit in ieder geval 3 karakters."
+    "shortNameTooShort": "Labelnaam moet bestaan uit in ieder geval 3 karakters.",
+    "joinedChallenge": "Doet mee aan een uitdaging",
+    "joinedChallengeText": "Deze gebruiker heeft zichzelf op de proef gesteld door mee te doen aan een uitdaging!"
 }

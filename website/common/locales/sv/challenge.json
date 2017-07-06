@@ -79,5 +79,7 @@
     "onlyChalLeaderEditTasks": "Uppgifter som tillhör en utmaning kan bara redigeras av ledaren.",
     "userAlreadyInChallenge": "Användaren deltar redan i den här utmaningen.",
     "cantOnlyUnlinkChalTask": "Bara brutna utmaningars uppgifter kan avlänkas.",
-    "shortNameTooShort": "Taggen måste bestå av minst 3 tecken."
+    "shortNameTooShort": "Taggen måste bestå av minst 3 tecken.",
+    "joinedChallenge": "Gick med i en utmaning",
+    "joinedChallengeText": "Den här användaren satte sig själva på prov genom att gå med i en utmaning!"
 }

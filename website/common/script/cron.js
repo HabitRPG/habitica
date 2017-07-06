@@ -4,8 +4,10 @@
   Cron and time / day functions
   ------------------------------------------------------
  */
-import _ from 'lodash'; // eslint-disable-line lodash/import-scope
+import defaults from 'lodash/defaults';
+import invert from 'lodash/invert';
 import moment from 'moment';
+import 'moment-recur';
 
 export const DAY_MAPPING = {
   0: 'su',
@@ -17,6 +19,8 @@ export const DAY_MAPPING = {
   6: 's',
 };
 
+export const DAY_MAPPING_STRING_TO_NUMBER = invert(DAY_MAPPING);
+
 /*
   Each time we perform date maths (cron, task-due-days, etc), we need to consider user preferences.
   Specifically {dayStart} (custom day start) and {timezoneOffset}. This function sanitizes / defaults those values.
@@ -25,13 +29,14 @@ export const DAY_MAPPING = {
 
 function sanitizeOptions (o) {
   let ref = Number(o.dayStart || 0);
-  let dayStart = !_.isNaN(ref) && ref >= 0 && ref <= 24 ? ref : 0;
+  let dayStart = !Number.isNaN(ref) && ref >= 0 && ref <= 24 ? ref : 0;
 
   let timezoneOffset;
   let timezoneOffsetDefault = Number(moment().zone());
-  if (_.isFinite(o.timezoneOffsetOverride)) {
+
+  if (isFinite(o.timezoneOffsetOverride)) {
     timezoneOffset = Number(o.timezoneOffsetOverride);
-  } else if (_.isFinite(o.timezoneOffset)) {
+  } else if (Number.isFinite(o.timezoneOffset)) {
     timezoneOffset = Number(o.timezoneOffset);
   } else {
     timezoneOffset = timezoneOffsetDefault;
@@ -80,8 +85,10 @@ export function startOfDay (options = {}) {
 
 export function daysSince (yesterday, options = {}) {
   let o = sanitizeOptions(options);
+  let startOfNow = startOfDay(defaults({ now: o.now }, o));
+  let startOfYesterday = startOfDay(defaults({ now: yesterday }, o));
 
-  return startOfDay(_.defaults({ now: o.now }, o)).diff(startOfDay(_.defaults({ now: yesterday }, o)), 'days');
+  return startOfNow.diff(startOfYesterday, 'days');
 }
 
 /*
@@ -89,36 +96,132 @@ export function daysSince (yesterday, options = {}) {
  */
 
 export function shouldDo (day, dailyTask, options = {}) {
-  if (dailyTask.type !== 'daily') {
+  if (dailyTask.type !== 'daily' || dailyTask.startDate === null || dailyTask.everyX < 1 || dailyTask.everyX > 9999) {
     return false;
   }
   let o = sanitizeOptions(options);
-  let startOfDayWithCDSTime = startOfDay(_.defaults({ now: day }, o));
-
+  let startOfDayWithCDSTime = startOfDay(defaults({ now: day }, o));
   // The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it.
   // Therefore, we must also ignore the time portion of the user's day start (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
   // NB: The user's day start date has already been converted to the PREVIOUS day's date if the time portion was before CDS.
-  let taskStartDate = moment(dailyTask.startDate).zone(o.timezoneOffset);
 
-  taskStartDate = moment(taskStartDate).startOf('day');
-  if (taskStartDate > startOfDayWithCDSTime.startOf('day')) {
+  let startDate = moment(dailyTask.startDate).zone(o.timezoneOffset).startOf('day');
+
+  if (startDate > startOfDayWithCDSTime.startOf('day') && !options.nextDue) {
     return false; // Daily starts in the future
   }
-  if (dailyTask.frequency === 'daily') { // "Every X Days"
-    if (!dailyTask.everyX) {
-      return false; // error condition
-    }
-    let daysSinceTaskStart = startOfDayWithCDSTime.startOf('day').diff(taskStartDate, 'days');
 
-    return daysSinceTaskStart % dailyTask.everyX === 0;
-  } else if (dailyTask.frequency === 'weekly') { // "On Certain Days of the Week"
-    if (!dailyTask.repeat) {
-      return false; // error condition
+  let daysOfTheWeek = [];
+  if (dailyTask.repeat) {
+    for (let [repeatDay, active] of Object.entries(dailyTask.repeat)) {
+      if (!isFinite(DAY_MAPPING_STRING_TO_NUMBER[repeatDay])) continue; // eslint-disable-line no-continue
+      if (active) daysOfTheWeek.push(parseInt(DAY_MAPPING_STRING_TO_NUMBER[repeatDay], 10));
     }
-    let dayOfWeekNum = startOfDayWithCDSTime.day(); // e.g., 0 for Sunday
-
-    return dailyTask.repeat[DAY_MAPPING[dayOfWeekNum]];
-  } else {
-    return false; // error condition - unexpected frequency string
   }
+
+  if (dailyTask.frequency === 'daily') {
+    if (!dailyTask.everyX) return false; // error condition
+    let schedule = moment(startDate).recur()
+      .every(dailyTask.everyX).days();
+
+    if (options.nextDue) {
+      let filteredDates = [];
+      for (let i = 1; filteredDates.length < 6; i++) {
+        let calcDate = moment(startDate).add(dailyTask.everyX * i, 'days');
+        if (calcDate > startOfDayWithCDSTime) filteredDates.push(calcDate);
+      }
+      return filteredDates;
+    }
+
+    return schedule.matches(startOfDayWithCDSTime);
+  } else if (dailyTask.frequency === 'weekly') {
+    let schedule = moment(startDate).recur();
+
+    let differenceInWeeks = moment(startOfDayWithCDSTime).week() - moment(startDate).week();
+    let matchEveryX = differenceInWeeks % dailyTask.everyX === 0;
+
+    if (daysOfTheWeek.length === 0) return false;
+    schedule = schedule.every(daysOfTheWeek).daysOfWeek();
+    if (options.nextDue) {
+      let filteredDates = [];
+      for (let i = 0; filteredDates.length < 6; i++) {
+        for (let j = 0; j < daysOfTheWeek.length && filteredDates.length < 6; j++) {
+          let calcDate = moment(startDate).day(daysOfTheWeek[j]).add(dailyTask.everyX * i, 'weeks');
+          if (calcDate > startOfDayWithCDSTime) filteredDates.push(calcDate);
+        }
+      }
+      let sortedDates = filteredDates.sort((date1, date2) => {
+        if (date1.toDate() > date2.toDate()) return 1;
+        if (date2.toDate() > date1.toDate()) return -1;
+        return 0;
+      });
+      return sortedDates;
+    }
+
+    return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
+  } else if (dailyTask.frequency === 'monthly') {
+    let schedule = moment(startDate).recur();
+
+    let differenceInMonths = moment(startOfDayWithCDSTime).month() - moment(startDate).month();
+    let matchEveryX = differenceInMonths % dailyTask.everyX === 0;
+
+    if (dailyTask.weeksOfMonth && dailyTask.weeksOfMonth.length > 0) {
+      if (daysOfTheWeek.length === 0) return false;
+      schedule = schedule.every(daysOfTheWeek).daysOfWeek()
+        .every(dailyTask.weeksOfMonth).weeksOfMonthByDay();
+
+      if (options.nextDue) {
+        let filteredDates = [];
+        for (let i = 1; filteredDates.length < 6; i++) {
+          let recurDate = moment(startDate).add(dailyTask.everyX * i, 'months');
+          let calcDate = recurDate.clone();
+          calcDate.day(daysOfTheWeek[0]);
+
+          let startDateWeek = Math.ceil(moment(startDate).date() / 7);
+          let calcDateWeek = Math.ceil(calcDate.date() / 7);
+
+          // adjust week since weeks will rollover to other months
+          if (calcDate.month() < recurDate.month()) calcDate.add(1, 'weeks');
+          else if (calcDate.month() > recurDate.month()) calcDate.subtract(1, 'weeks');
+          else if (calcDateWeek > startDateWeek) calcDate.subtract(1, 'weeks');
+          else if (calcDateWeek < startDateWeek) calcDate.add(1, 'weeks');
+
+          calcDateWeek = Math.ceil(calcDate.date() / 7);
+
+          if (calcDate >= startOfDayWithCDSTime &&
+            calcDateWeek === startDateWeek && calcDate.month() === recurDate.month()) filteredDates.push(calcDate);
+        }
+        return filteredDates;
+      }
+      return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
+    } else if (dailyTask.daysOfMonth && dailyTask.daysOfMonth.length > 0) {
+      schedule = schedule.every(dailyTask.daysOfMonth).daysOfMonth();
+      if (options.nextDue) {
+        let filteredDates = [];
+        for (let i = 1; filteredDates.length < 6; i++) {
+          let calcDate = moment(startDate).add(dailyTask.everyX * i, 'months');
+          if (calcDate >= startOfDayWithCDSTime) filteredDates.push(calcDate);
+        }
+        return filteredDates;
+      }
+    }
+
+    return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
+  } else if (dailyTask.frequency === 'yearly') {
+    let schedule = moment(startDate).recur();
+
+    schedule = schedule.every(dailyTask.everyX).years();
+
+    if (options.nextDue) {
+      let filteredDates = [];
+      for (let i = 1; filteredDates.length < 6; i++) {
+        let calcDate = moment(startDate).add(dailyTask.everyX * i, 'years');
+        if (calcDate > startOfDayWithCDSTime) filteredDates.push(calcDate);
+      }
+      return filteredDates;
+    }
+
+    return schedule.matches(startOfDayWithCDSTime);
+  }
+  return false;
 }

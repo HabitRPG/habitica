@@ -1,3 +1,4 @@
+import moment from 'moment';
 import * as Tasks from '../models/task';
 import {
   BadRequest,
@@ -22,6 +23,22 @@ async function _validateTaskAlias (tasks, res) {
   });
 }
 
+export function setNextDue (task, user, dueDateOption) {
+  if (task.type !== 'daily') return;
+
+  let dateTaskIsDue = Date.now();
+  if (dueDateOption) dateTaskIsDue = moment(dueDateOption);
+
+  let optionsForShouldDo = user.preferences.toObject();
+  task.isDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
+  optionsForShouldDo.nextDue = true;
+  let nextDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
+  if (nextDue && nextDue.length > 0) {
+    task.nextDue = nextDue.map((dueDate) => {
+      return dueDate.toISOString();
+    });
+  }
+}
 
 /**
  * Creates tasks for a user, challenge or group.
@@ -64,7 +81,7 @@ export async function createTasks (req, res, options = {}) {
       newTask.userId = user._id;
     }
 
-    if (newTask.type === 'daily') newTask.isDue = shared.shouldDo(Date.now(), newTask, user.preferences);
+    setNextDue(newTask, user);
 
     // Validate that the task is valid and throw if it isn't
     // otherwise since we're saving user/challenge/group and task in parallel it could save the user/challenge/group with a tasksOrder that doens't match reality
@@ -107,6 +124,7 @@ export async function getTasks (req, res, options = {}) {
     user,
     challenge,
     group,
+    dueDate,
   } = options;
 
   let query = {userId: user._id};
@@ -172,6 +190,8 @@ export async function getTasks (req, res, options = {}) {
       } else {
         orderedTasks[i] = task;
       }
+
+      if (dueDate) setNextDue(task, user, dueDate);
     });
 
     // Remove empty values from the array and add any unordered task

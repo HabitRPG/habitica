@@ -1,52 +1,58 @@
 <template lang="pug">
 .avatar(:style="{width, height, paddingTop}", :class="backgroundClass")
   .character-sprites
-    template(v-if="!avatarOnly" v-once)
-      // Mount
-      span(v-if="user.items.currentMount", :class="'Mount_Body_' + user.items.currentMount")
+    template(v-if="!avatarOnly")
+      // Mount Body
+      span(v-if="member.items.currentMount", :class="'Mount_Body_' + member.items.currentMount")
 
     // Buffs that cause visual changes to avatar: Snowman, Ghost, Flower, etc
     template(v-for="(klass, item) in visualBuffs")
-      span(v-if="user.stats.buffs[item]", :class="klass")
+      span(v-if="member.stats.buffs[item]", :class="klass")
 
     // Show flower ALL THE TIME!!!
-    // See https://github.com/HabitRPG/habitrpg/issues/7133
-    span(:class="'hair_flower_' + user.preferences.hair.flower")
+    // See https://github.com/HabitRPG/habitica/issues/7133
+    span(:class="'hair_flower_' + member.preferences.hair.flower")
 
     // Show avatar only if not currently affected by visual buff
-    template(v-if!="!user.stats.buffs.snowball && !user.stats.buffs.spookySparkles && !user.stats.buffs.shinySeed && !user.stats.buffs.seafoam")
-      span(:class="'chair_' + user.preferences.chair")
-      span(:class="user.items.gear[costumeClass].back")
+    template(v-if!="!member.stats.buffs.snowball && !member.stats.buffs.spookySparkles && !member.stats.buffs.shinySeed && !member.stats.buffs.seafoam")
+      span(:class="'chair_' + member.preferences.chair")
+      span(:class="member.items.gear[costumeClass].back")
       span(:class="skinClass")
-      span(:class="user.preferences.size + '_shirt_' + user.preferences.shirt")
-      span(:class="user.preferences.size + '_' + user.items.gear[costumeClass].armor")
-      span(:class="user.items.gear[costumeClass].back_collar")
-      span(:class="user.items.gear[costumeClass].body")
+      span(:class="member.preferences.size + '_shirt_' + member.preferences.shirt")
+      span(:class="member.preferences.size + '_' + member.items.gear[costumeClass].armor")
+      span(:class="member.items.gear[costumeClass].back_collar")
+      span(:class="member.items.gear[costumeClass].body")
       span.head_0
       template(v-for="type in ['base', 'bangs', 'mustache', 'beard']")
-        span(:class="'hair_' + type + '_' + user.preferences.hair[type] + '_' + user.preferences.hair.color")
-      span(:class="user.items.gear[costumeClass].eyewear")
-      span(:class="user.items.gear[costumeClass].head")
-      span(:class="user.items.gear[costumeClass].headAccessory")
-      span(:class="'hair_flower_' + user.preferences.hair.flower")
-      span(:class="user.items.gear[costumeClass].shield")
-      span(:class="user.items.gear[costumeClass].weapon")
+        span(:class="'hair_' + type + '_' + member.preferences.hair[type] + '_' + member.preferences.hair.color")
+      span(:class="member.items.gear[costumeClass].eyewear")
+      span(:class="member.items.gear[costumeClass].head")
+      span(:class="member.items.gear[costumeClass].headAccessory")
+      span(:class="'hair_flower_' + member.preferences.hair.flower")
+      span(:class="member.items.gear[costumeClass].shield")
+      span(:class="member.items.gear[costumeClass].weapon")
 
     // Resting
-    span.zzz(v-if="user.preferences.sleep")
+    span.zzz(v-if="member.preferences.sleep")
 
-    template(v-if="!avatarOnly" v-once)
+    template(v-if="!avatarOnly")
       // Mount Head
-      span(v-if="user.items.currentMount", :class="'Mount_Head_' + user.items.currentMount")
+      span(v-if="member.items.currentMount", :class="'Mount_Head_' + member.items.currentMount")
       // Pet
-      span.current-pet(v-if="user.items.currentPet", :class="'Pet-' + user.items.currentPet")
+      span.current-pet(v-if="member.items.currentPet", :class="'Pet-' + member.items.currentPet")
+  .class-badge.d-flex.justify-content-center(v-if="hasClass")
+    .align-self-center.svg-icon(v-html="icons[member.stats.class]")
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '~client/assets/scss/colors.scss';
+
 .avatar {
   width: 140px;
   height: 147px;
   image-rendering: pixelated;
+  position: relative;
+  cursor: pointer;
 }
 
 .character-sprites {
@@ -60,16 +66,38 @@
 }
 
 .current-pet {
-  bottom: 21px;
-  left: 20px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.class-badge {
+  $badge-size: 32px;
+  position: absolute;
+  left: calc(50% - (16px));
+  bottom: -($badge-size / 2);
+
+  width: $badge-size;
+  height: $badge-size;
+  background: $white;
+  box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
+  border-radius: 100px;
+
+  .svg-icon {
+    width: 19px;
+    height: 19px;
+  }
 }
 </style>
 
 <script>
+import warriorIcon from 'assets/svg/warrior.svg';
+import rogueIcon from 'assets/svg/rogue.svg';
+import healerIcon from 'assets/svg/healer.svg';
+import wizardIcon from 'assets/svg/wizard.svg';
+
 export default {
-  name: 'avatar',
   props: {
-    user: {
+    member: {
       type: Object,
       required: true,
     },
@@ -86,22 +114,38 @@ export default {
       default: 147,
     },
   },
+  data () {
+    return {
+      icons: Object.freeze({
+        warrior: warriorIcon,
+        rogue: rogueIcon,
+        healer: healerIcon,
+        wizard: wizardIcon,
+      }),
+    };
+  },
   computed: {
+    hasClass () {
+      return this.$store.getters['members:hasClass'](this.member);
+    },
+    isBuffed () {
+      return this.$store.getters['members:isBuffed'](this.member);
+    },
     paddingTop () {
       let val = '28px';
 
       if (!this.avatarOnly) {
-        if (this.user.items.currentPet) val = '24.5px';
-        if (this.user.items.currentMount) val = '0px';
+        if (this.member.items.currentPet) val = '24.5px';
+        if (this.member.items.currentMount) val = '0px';
       }
 
       return val;
     },
     backgroundClass () {
-      let background = this.user.preferences.background;
+      let background = this.member.preferences.background;
 
       if (background && !this.avatarOnly) {
-        return `background_${this.user.preferences.background}`;
+        return `background_${this.member.preferences.background}`;
       }
 
       return '';
@@ -110,17 +154,17 @@ export default {
       return {
         snowball: 'snowman',
         spookySparkles: 'ghost',
-        shinySeed: `avatar_floral_${this.user.stats.class}`,
+        shinySeed: `avatar_floral_${this.member.stats.class}`,
         seafoam: 'seafoam_star',
       };
     },
     skinClass () {
-      let baseClass = `skin_${this.user.preferences.skin}`;
+      let baseClass = `skin_${this.member.preferences.skin}`;
 
-      return `${baseClass}${this.user.preferences.sleep ? '_sleep' : ''}`;
+      return `${baseClass}${this.member.preferences.sleep ? '_sleep' : ''}`;
     },
     costumeClass () {
-      return this.user.preferences.costume ? 'costume' : 'equipped';
+      return this.member.preferences.costume ? 'costume' : 'equipped';
     },
   },
 };

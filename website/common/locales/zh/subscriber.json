@@ -15,7 +15,7 @@
     "supportDevs": "支持开发者",
     "supportDevsText": "您的捐助使Habitica不断茁壮成长，以研发更多的新功能。对于您的慷慨捐助，我们致上最诚挚的谢意！",
     "exclusiveJackalopePet": "高级宠物",
-    "exclusiveJackalopePetText": "Get the Royal Purple Jackalope pet, available only to subscribers!",
+    "exclusiveJackalopePetText": "获得皇家紫鹿角兔宠物，定期捐赠者特有！",
     "giftSubscription": "想要赠送他人一个会员么？",
     "giftSubscriptionText1": "要打开别人的个人资料，可以点击小组成员的头像，或者是在聊天界面中点击他们的名字。",
     "giftSubscriptionText2": "点击他们资料界面右下角的“赠送”图标。",
@@ -37,6 +37,8 @@
     "subscribed": "已捐助",
     "manageSub": "按这里管理捐助",
     "cancelSub": "取消捐助",
+    "cancelSubInfoGoogle": "Please go to the \"Account\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
+    "cancelSubInfoApple": "Please follow <a href=\"https://support.apple.com/en-us/HT202039\">Apple’s official instructions</a> to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
     "canceledSubscription": "取消捐助",
     "cancelingSubscription": "取消捐助",
     "adminSub": "管理员捐助",
@@ -126,6 +128,8 @@
     "mysterySet201702": "负心人套装",
     "mysterySet201703": "微光套装",
     "mysterySet201704": "童话系列套装",
+    "mysterySet201705": "Feathered Fighter Set",
+    "mysterySet201706": "Pirate Pioneer Set",
     "mysterySet301404": "蒸汽朋克标准套装",
     "mysterySet301405": "蒸汽朋克配饰套装",
     "mysterySet301703": "孔雀蒸汽朋克套装",
@@ -164,5 +168,6 @@
     "missingPaymentId": "缺少req.query.paymentId",
     "missingCustomerId": "缺少Missing req.query.customerId",
     "missingPaypalBlock": "缺少req.session.paypalBlock",
-    "missingSubKey": "缺少req.query.sub"
+    "missingSubKey": "缺少req.query.sub",
+    "paypalCanceled": "您的捐赠已取消"
 }

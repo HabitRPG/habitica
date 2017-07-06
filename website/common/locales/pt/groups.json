@@ -114,7 +114,7 @@
     "messageRequired": "Uma mensagem é necessária.",
     "toUserIDRequired": "Um ID de usuário é necessário",
     "gemAmountRequired": "Um número de gemas é necessário",
-    "notAuthorizedToSendMessageToThisUser": "Não é possível enviar mensagem para esse usuário.",
+    "notAuthorizedToSendMessageToThisUser": "You can't send a message to this player because they have chosen to block messages.",
     "privateMessageGiftGemsMessage": "Olá <%= receiverName %>, <%= senderName %> enviou-lhe <%= gemAmount %> gemas!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> meses de assinatura!",
     "cannotSendGemsToYourself": "Não é possível enviar gemas para você mesmo. Tente uma assinatura.",
@@ -184,6 +184,7 @@
     "questLeaderCannotLeaveGroup": "Você não pode sair de sua equipe quando você iniciou uma missão. Aborte a missão primeiro.",
     "cannotLeaveWhileActiveQuest": "Você não pode sair de sua equipe durante uma missão ativa. Por favor, saia da missão primeiro.",
     "onlyLeaderCanRemoveMember": "Somente o líder do grupo pode remover um membro!",
+    "cannotRemoveCurrentLeader": "You cannot remove the group leader. Assign a new a leader first.",
     "memberCannotRemoveYourself": "Você não pode se remover!",
     "groupMemberNotFound": "Usuário não encontrado entre os membros do grupo",
     "mustBeGroupMember": "Deve ser membro do grupo.",
@@ -208,6 +209,7 @@
     "onlyCreatorOrAdminCanDeleteChat": "Não autorizado a deletar essa mensagem!",
     "onlyGroupLeaderCanEditTasks": "Não está autorizado para gerir as tarefas!",
     "onlyGroupTasksCanBeAssigned": "Apenas tarefas de grupo podem ser escolhidas!",
+    "chatPrivilegesRevoked": "Your chat privileges have been revoked.",
     "newChatMessagePlainNotification": "Nova mensagem em <%= groupName %> por <%= authorName %>. Carregue aqui para abrir a página de chat!",
     "newChatMessageTitle": "Nova mensagem em <%= groupName %>",
     "exportInbox": "Exportar suas Mensagens ",
@@ -279,5 +281,7 @@
     "userIsNotManager": "User is not manager",
     "canOnlyApproveTaskOnce": "This task has already been approved.",
     "leaderMarker": "- Leader",
-    "managerMarker": "- Manager"
+    "managerMarker": "- Manager",
+    "joinedGuild": "Joined a Guild",
+    "joinedGuildText": "Ventured into the social side of Habitica by joining a Guild!"
 }

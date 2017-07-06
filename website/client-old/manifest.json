@@ -73,8 +73,6 @@
             "js/filters/taskOrdering.js",
             "js/filters/timezoneOffsetToUtc.js",
 
-            "js/directives/close-menu.directive.js",
-            "js/directives/expand-menu.directive.js",
             "js/directives/from-now.directive.js",
             "js/directives/focus-element.directive.js",
             "js/directives/habitrpg-tasks.directive.js",
