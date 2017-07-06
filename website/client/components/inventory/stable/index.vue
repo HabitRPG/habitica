@@ -98,7 +98,6 @@
               :emptyItem="!pet.isOwned()",
               :showPopover="pet.isOwned()",
               :highlightBorder="highlightPet == pet.key",
-              @hatchPet="hatchPet",
               @click="petClicked(pet)"
             )
               span(slot="popoverContent")
@@ -227,7 +226,7 @@
       span.svg-icon.icon-10(v-html="icons.close", slot="modal-header", @click="closeHatchPetDialog()")
 
       div(slot="modal-footer")
-        button.btn.btn-primary() {{ $t('hatch') }}
+        button.btn.btn-primary(@click="hatchPet(hatchablePet)") {{ $t('hatch') }}
         button.btn.btn-secondary.btn-flat(@click="closeHatchPetDialog()") {{ $t('cancel') }}
 
     div#dragginFoodInfo(ref="dragginFoodInfo")
@@ -680,7 +679,7 @@
                   return userItems.mounts[this.key] > 0;
                 },
                 isAllowedToFeed () {
-                  return type === 'pet' && !this.mountOwned();
+                  return type === 'pet' && this.isOwned() && !this.mountOwned();
                 },
                 isHatchable () {
                   return false;
@@ -709,7 +708,7 @@
                     return userItems.mounts[this.key] > 0;
                   },
                   isAllowedToFeed () {
-                    return type === 'pet' && !this.mountOwned();
+                    return type === 'pet' && this.isOwned() && !this.mountOwned();
                   },
                   isHatchable () {
                     return userItems.eggs[egg.key] > 0 && userItems.hatchingPotions[potion.key] > 0;
@@ -887,6 +886,10 @@
       },
 
       petClicked (pet) {
+        if (pet.isOwned() || !pet.isHatchable()) {
+          return;
+        }
+
         this.hatchablePet = pet;
       },
 
