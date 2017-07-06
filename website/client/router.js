@@ -35,7 +35,7 @@ const InboxConversationPage = () => import(/* webpackChunkName: "inbox" */ './co
 
 // Guilds
 const GuildIndex = () => import(/* webpackChunkName: "guilds" */ './components/guilds/index');
-// const TavernPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/tavern');
+const TavernPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/tavern');
 const MyGuilds = () => import(/* webpackChunkName: "guilds" */ './components/guilds/myGuilds');
 const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/discovery');
 const GuildPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/guild');
@@ -73,7 +73,7 @@ const router = new VueRouter({
       path: '/guilds',
       component: GuildIndex,
       children: [
-        { name: 'tavern', path: 'tavern', component: GuildPage },
+        { name: 'tavern', path: 'tavern', component: TavernPage },
         {
           name: 'myGuilds',
           path: 'myGuilds',
