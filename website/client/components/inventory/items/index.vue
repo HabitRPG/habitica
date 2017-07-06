@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  .col-2.standard-sidebar
+  .standard-sidebar
     .form-group
       input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
@@ -16,7 +16,7 @@
             input.custom-control-input(type="checkbox", v-model="group.selected")
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t(group.key) }}
-  .col-10.standard-page
+  .standard-page
     .clearfix
       h1.float-left.mb-0.page-header(v-once) {{ $t('items') }}
       .float-right
@@ -43,7 +43,7 @@
           :itemContentClass="`${group.classPrefix}${item.key}`"
           :selected="true",
         )
-          template(slot="popoverContent", scope="ctx") 
+          template(slot="popoverContent", scope="ctx")
             h4.popover-content-title {{ ctx.item.text() }}
             .popover-content-text {{ ctx.item.notes() }}
           template(slot="itemBadge", scope="ctx")

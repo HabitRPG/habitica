@@ -299,7 +299,6 @@
   .stable {
 
     .standard-page {
-      flex: 1;
       padding-right:0;
     }
 
