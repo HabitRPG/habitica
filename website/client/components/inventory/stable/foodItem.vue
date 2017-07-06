@@ -15,7 +15,8 @@ b-popover(
       )
       span.item-content(
         :class="'Pet_Food_'+item.key",
-        v-drag.food="item.key"
+        v-drag.food="item.key",
+        @dragend="dragend($event)"
       )
 </template>
 
@@ -42,6 +43,11 @@ export default {
     },
     itemContentClass: {
       type: String,
+    },
+  },
+  methods: {
+    dragend ($event) {
+      this.$emit('dragend', $event);
     },
   },
 };

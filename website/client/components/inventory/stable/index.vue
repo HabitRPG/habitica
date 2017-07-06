@@ -87,7 +87,8 @@
             v-drag.drop.food="pet.key",
             @dragover="onDragOver($event, pet)",
             @dropped="onDrop($event, pet)",
-            :class="pet.isLastInRow ? 'last' : ''"
+            @dragleave="onDragLeave()",
+            :class="{'last': pet.isLastInRow}"
           )
             petItem(
               :item="pet",
@@ -96,6 +97,7 @@
               :progress="pet.progress",
               :emptyItem="!pet.isOwned()",
               :showPopover="pet.isOwned() || pet.isHatchable()",
+              :highlightBorder="highlightPet == pet.key",
               @hatchPet="hatchPet",
             )
               span(slot="popoverContent")
@@ -185,7 +187,7 @@
 
                 div.float-right(v-once)
                   | {{ $t('petLikeToEat') + ' ' }}
-                  .svg-icon(v-html="icons.information")
+                  span.svg-icon.inline.icon-16(v-html="icons.information")
 
 
         drawer-slider(
@@ -199,6 +201,7 @@
             foodItem(
               :item="ctx.item",
               :itemCount="userItems.food[ctx.item.key]",
+              @dragend="onDragEnd()"
             )
 
     b-modal#welcome-modal(
@@ -288,6 +291,10 @@
     .drawer-container {
       // 3% padding + 252px sidebar width
       left: calc(3% + 252px) !important;
+    }
+
+    .svg-icon.inline.icon-16 {
+      vertical-align: bottom;
     }
   }
 
@@ -428,6 +435,8 @@
         icons: Object.freeze({
           information,
         }),
+
+        highlightPet: '',
 
         selectedDrawerTab: 0,
         availableContentWidth: 0,
@@ -767,11 +776,23 @@
       onDragOver (ev, pet) {
         if (!pet.isAllowedToFeed()) {
           ev.dropable = false;
+        } else {
+          this.highlightPet = pet.key;
         }
       },
 
       onDrop (ev, pet) {
         this.$store.dispatch('common:feed', {pet: pet.key, food: ev.draggingKey});
+
+        this.highlightPet = '';
+      },
+
+      onDragEnd () {
+        this.highlightPet = '';
+      },
+
+      onDragLeave () {
+        this.highlightPet = '';
       },
     },
   };

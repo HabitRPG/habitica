@@ -8,7 +8,7 @@ b-popover(
 
   .item-wrapper
     .item(
-      :class="{'item-empty': emptyItem}",
+      :class="{'item-empty': emptyItem, 'highlight': highlightBorder}",
       @mouseup="holdStop",
       @mouseleave="holdStop",
       @mousedown.left="holdStart"
@@ -64,6 +64,10 @@ b-popover(
         default: -1,
       },
       emptyItem: {
+        type: Boolean,
+        default: false,
+      },
+      highlightBorder: {
         type: Boolean,
         default: false,
       },
