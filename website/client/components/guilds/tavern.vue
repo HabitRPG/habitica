@@ -14,7 +14,7 @@
 
         .container.community-guidelines(v-if='communityGuidelinesAccepted')
           .row
-            div.col-8(v-once) {{ $t('communityGuidelines') }}
+            div.col-8(v-once) {{ $t('communityGuidelinesIntro') }}
             div.col-4
               button.btn.btn-info(@click='acceptCommunityGuidelines()', v-once) {{ $t('acceptCommunityGuidelines') }}
 
