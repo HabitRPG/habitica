@@ -85,9 +85,9 @@
             v-for="pet in pets(petGroup, viewOptions[petGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled, availableContentWidth)",
             :key="pet.key",
             v-drag.drop.food="pet.key",
-            @dragover="onDragOver($event, pet)",
-            @dropped="onDrop($event, pet)",
-            @dragleave="onDragLeave()",
+            @itemDragOver="onDragOver($event, pet)",
+            @itemDropped="onDrop($event, pet)",
+            @itemDragLeave="onDragLeave()",
             :class="{'last': pet.isLastInRow}"
           )
             petItem(
@@ -194,7 +194,8 @@
             foodItem(
               :item="ctx.item",
               :itemCount="userItems.food[ctx.item.key]",
-              @dragend="onDragEnd()"
+              @itemDragEnd="onDragEnd()",
+              @itemDragStart="onDragStart($event, ctx.item)"
             )
 
     b-modal#welcome-modal(
@@ -229,6 +230,11 @@
         button.btn.btn-primary() {{ $t('hatch') }}
         button.btn.btn-secondary.btn-flat(@click="closeHatchPetDialog()") {{ $t('cancel') }}
 
+    div#dragginFoodInfo(ref="dragginFoodInfo")
+      div(v-if="currentDraggingFood != null")
+        div.food-icon(:class="'Pet_Food_'+currentDraggingFood.key")
+        div.popover
+          div.popover-content {{ $t('dragThisFood', {foodName: currentDraggingFood.text() }) }}
 
 </template>
 
@@ -411,6 +417,20 @@
   .popover-content-text {
     margin-bottom: 0;
   }
+
+  #dragginFoodInfo {
+    position: absolute;
+    left: -500px;
+
+    .food-icon {
+      margin: 0 auto;
+    }
+
+    .popover {
+      position: inherit;
+      width: 100px;
+    }
+  }
 </style>
 
 <script>
@@ -496,6 +516,7 @@
         highlightPet: '',
 
         hatchablePet: null,
+        currentDraggingFood: null,
 
         selectedDrawerTab: 0,
         availableContentWidth: 0,
@@ -832,6 +853,16 @@
         this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
       },
 
+      onDragStart (ev, food) {
+        this.currentDraggingFood = food;
+
+        let itemRef = this.$refs.dragginFoodInfo;
+
+        let dragEvent = ev.event;
+
+        dragEvent.dataTransfer.setDragImage(itemRef, -20, -20);
+      },
+
       onDragOver (ev, pet) {
         if (!pet.isAllowedToFeed()) {
           ev.dropable = false;
@@ -847,6 +878,7 @@
       },
 
       onDragEnd () {
+        this.currentDraggingFood = null;
         this.highlightPet = '';
       },
 

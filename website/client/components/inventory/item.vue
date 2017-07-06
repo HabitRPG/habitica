@@ -19,7 +19,7 @@ b-popover(
       span.item-content(
         :class="itemContentClass",
         :draggable="draggable",
-        @dragstart="onDrag"
+        @itemDragstart="onDrag"
       )
     span.item-label(v-if="label") {{ label }}
 </template>

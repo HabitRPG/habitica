@@ -7,15 +7,15 @@ import _without from 'lodash/without';
  * DRAG_GROUP is a static custom value
  * KEY_OF_ITEM
  *
- * v-drag.DRAG_GROUP="KEY_OF_ITEM" @dragend="optional" @dragstart="optional"
- * v-drag.drop.DRAG_GROUP="KEY_OF_ITEM" @dropped="callback" @dragover="optional"
+ * v-drag.DRAG_GROUP="KEY_OF_ITEM" @itemDragEnd="optional" @itemDragStart="optional"
+ * v-drag.drop.DRAG_GROUP="KEY_OF_ITEM" @itemDropped="callback" @itemDragOver="optional"
  */
 
-const DROPPED_EVENT_NAME = 'dropped';
-const DRAGSTART_EVENT_NAME = 'dragstart';
-const DRAGEND_EVENT_NAME = 'dragend';
-const DRAGOVER_EVENT_NAME = 'dragover';
-const DRAGLEAVE_EVENT_NAME = 'dragleave';
+const DROPPED_EVENT_NAME = 'itemDropped';
+const DRAGSTART_EVENT_NAME = 'itemDragStart';
+const DRAGEND_EVENT_NAME = 'itemDragEnd';
+const DRAGOVER_EVENT_NAME = 'itemDragOver';
+const DRAGLEAVE_EVENT_NAME = 'itemDragLeave';
 
 export default {
   bind (el, binding, vnode) {
