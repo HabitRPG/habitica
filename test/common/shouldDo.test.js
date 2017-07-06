@@ -5,6 +5,7 @@ import 'moment-recur';
 describe('shouldDo', () => {
   let day, dailyTask;
   let options = {};
+  let nextDue = [];
 
   beforeEach(() => {
     day = new Date();
@@ -223,6 +224,25 @@ describe('shouldDo', () => {
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
     });
 
+    it('should compute daily nextDue values', () => {
+      options.timezoneOffset = 0;
+      options.nextDue = true;
+
+      day = moment('2017-05-01').toDate();
+      dailyTask.frequency = 'daily';
+      dailyTask.everyX = 2;
+      dailyTask.startDate = day;
+
+      nextDue = shouldDo(day, dailyTask, options);
+      expect(nextDue.length).to.eql(6);
+      expect(moment(nextDue[0]).toDate()).to.eql(moment.utc('2017-05-03').toDate());
+      expect(moment(nextDue[1]).toDate()).to.eql(moment.utc('2017-05-05').toDate());
+      expect(moment(nextDue[2]).toDate()).to.eql(moment.utc('2017-05-07').toDate());
+      expect(moment(nextDue[3]).toDate()).to.eql(moment.utc('2017-05-09').toDate());
+      expect(moment(nextDue[4]).toDate()).to.eql(moment.utc('2017-05-11').toDate());
+      expect(moment(nextDue[5]).toDate()).to.eql(moment.utc('2017-05-13').toDate());
+    });
+
     context('On multiples of x', () => {
       it('returns true when Custom Day Start is midnight', () => {
         dailyTask.startDate = moment().subtract(7, 'days').toDate();
@@ -365,6 +385,73 @@ describe('shouldDo', () => {
 
     it('returns true if Daily on matching days of the week', () => {
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
+    });
+
+    it('should compute weekly nextDue values', () => {
+      options.timezoneOffset = 0;
+      options.nextDue = true;
+
+      day = moment('2017-05-01').toDate();
+      dailyTask.frequency = 'weekly';
+      dailyTask.everyX = 1;
+      dailyTask.repeat = {
+        su: true,
+        m: true,
+        t: true,
+        w: true,
+        th: true,
+        f: true,
+        s: true,
+      };
+      dailyTask.startDate = day;
+
+      nextDue = shouldDo(day, dailyTask, options);
+      expect(nextDue.length).to.eql(6);
+      expect(moment(nextDue[0]).toDate()).to.eql(moment.utc('2017-05-02').toDate());
+      expect(moment(nextDue[1]).toDate()).to.eql(moment.utc('2017-05-03').toDate());
+      expect(moment(nextDue[2]).toDate()).to.eql(moment.utc('2017-05-04').toDate());
+      expect(moment(nextDue[3]).toDate()).to.eql(moment.utc('2017-05-05').toDate());
+      expect(moment(nextDue[4]).toDate()).to.eql(moment.utc('2017-05-06').toDate());
+      expect(moment(nextDue[5]).toDate()).to.eql(moment.utc('2017-05-07').toDate());
+
+      dailyTask.everyX = 2;
+      dailyTask.repeat = {
+        su: true,
+        m: false,
+        t: false,
+        w: false,
+        th: false,
+        f: true,
+        s: false,
+      };
+      dailyTask.startDate = day;
+
+      nextDue = shouldDo(day, dailyTask, options);
+      expect(nextDue.length).to.eql(6);
+      expect(moment(nextDue[0]).toDate()).to.eql(moment.utc('2017-05-05').toDate());
+      expect(moment(nextDue[1]).toDate()).to.eql(moment.utc('2017-05-14').toDate());
+      expect(moment(nextDue[2]).toDate()).to.eql(moment.utc('2017-05-19').toDate());
+      expect(moment(nextDue[3]).toDate()).to.eql(moment.utc('2017-05-28').toDate());
+      expect(moment(nextDue[4]).toDate()).to.eql(moment.utc('2017-06-02').toDate());
+      expect(moment(nextDue[5]).toDate()).to.eql(moment.utc('2017-06-11').toDate());
+    });
+
+    it('should not go into an infinite loop with invalid values', () => {
+      options.nextDue = true;
+
+      day = moment('2017-05-01').toDate();
+      dailyTask.frequency = 'weekly';
+      dailyTask.everyX = 1;
+      dailyTask.startDate = null;
+
+      nextDue = shouldDo(day, dailyTask, options);
+      expect(nextDue).to.eql(false);
+
+      dailyTask.startDate = day;
+      dailyTask.everyX = 0;
+
+      nextDue = shouldDo(day, dailyTask, options);
+      expect(nextDue).to.eql(false);
     });
 
     context('Day of the week matches', () => {
@@ -626,8 +713,9 @@ describe('shouldDo', () => {
     it('leaves daily inactive if not day of the month', () => {
       dailyTask.everyX = 1;
       dailyTask.frequency = 'monthly';
-      dailyTask.daysOfMonth = [15];
-      let tomorrow = moment().add(1, 'day').toDate();// @TODO: make sure this is not the 15
+      let today = moment();
+      dailyTask.daysOfMonth = [today.date()];
+      let tomorrow = today.add(1, 'day').toDate();
 
       expect(shouldDo(tomorrow, dailyTask, options)).to.equal(false);
     });
@@ -645,8 +733,9 @@ describe('shouldDo', () => {
     it('leaves daily inactive if not on date of the x month', () => {
       dailyTask.everyX = 2;
       dailyTask.frequency = 'monthly';
-      dailyTask.daysOfMonth = [15];
-      let tomorrow = moment().add(2, 'months').add(1, 'day').toDate();
+      let today = moment();
+      dailyTask.daysOfMonth = [today.date()];
+      let tomorrow = today.add(2, 'months').add(1, 'day').toDate();
 
       expect(shouldDo(tomorrow, dailyTask, options)).to.equal(false);
     });
@@ -665,6 +754,96 @@ describe('shouldDo', () => {
       dailyTask.daysOfMonth = [15];
       day = moment().add(2, 'months').date(15).toDate();
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
+    });
+
+    it('should compute monthly nextDue values', () => {
+      options.timezoneOffset = 0;
+      options.nextDue = true;
+
+      day = moment('2017-05-01').toDate();
+
+      dailyTask.frequency = 'monthly';
+      dailyTask.everyX = 3;
+      dailyTask.startDate = day;
+      dailyTask.daysOfMonth = [1];
+      dailyTask.weeksOfMonth = [];
+      nextDue = shouldDo(day, dailyTask, options);
+      expect(nextDue.length).to.eql(6);
+      expect(moment(nextDue[0]).toDate()).to.eql(moment.utc('2017-08-01').toDate());
+      expect(moment(nextDue[1]).toDate()).to.eql(moment.utc('2017-11-01').toDate());
+      expect(moment(nextDue[2]).toDate()).to.eql(moment.utc('2018-02-01').toDate());
+      expect(moment(nextDue[3]).toDate()).to.eql(moment.utc('2018-05-01').toDate());
+      expect(moment(nextDue[4]).toDate()).to.eql(moment.utc('2018-08-01').toDate());
+      expect(moment(nextDue[5]).toDate()).to.eql(moment.utc('2018-11-01').toDate());
+
+      dailyTask.daysOfMonth = [];
+      dailyTask.weeksOfMonth = [0];
+      dailyTask.everyX = 1;
+      dailyTask.repeat = {
+        su: false,
+        m: true,
+        t: false,
+        w: false,
+        th: false,
+        f: false,
+        s: false,
+      };
+      nextDue = shouldDo(day, dailyTask, options);
+      expect(nextDue.length).to.eql(6);
+      expect(moment(nextDue[0]).toDate()).to.eql(moment.utc('2017-06-05').toDate());
+      expect(moment(nextDue[1]).toDate()).to.eql(moment.utc('2017-07-03').toDate());
+      expect(moment(nextDue[2]).toDate()).to.eql(moment.utc('2017-08-07').toDate());
+      expect(moment(nextDue[3]).toDate()).to.eql(moment.utc('2017-09-04').toDate());
+      expect(moment(nextDue[4]).toDate()).to.eql(moment.utc('2017-10-02').toDate());
+      expect(moment(nextDue[5]).toDate()).to.eql(moment.utc('2017-11-06').toDate());
+
+      day = moment('2017-05-08').toDate();
+
+      dailyTask.daysOfMonth = [];
+      dailyTask.weeksOfMonth = [1];
+      dailyTask.startDate = day;
+      dailyTask.everyX = 1;
+      dailyTask.repeat = {
+        su: false,
+        m: true,
+        t: false,
+        w: false,
+        th: false,
+        f: false,
+        s: false,
+      };
+      nextDue = shouldDo(day, dailyTask, options);
+      expect(nextDue.length).to.eql(6);
+      expect(moment(nextDue[0]).toDate()).to.eql(moment.utc('2017-06-12').toDate());
+      expect(moment(nextDue[1]).toDate()).to.eql(moment.utc('2017-07-10').toDate());
+      expect(moment(nextDue[2]).toDate()).to.eql(moment.utc('2017-08-14').toDate());
+      expect(moment(nextDue[3]).toDate()).to.eql(moment.utc('2017-09-11').toDate());
+      expect(moment(nextDue[4]).toDate()).to.eql(moment.utc('2017-10-09').toDate());
+      expect(moment(nextDue[5]).toDate()).to.eql(moment.utc('2017-11-13').toDate());
+
+      day = moment('2017-05-29').toDate();
+
+      dailyTask.daysOfMonth = [];
+      dailyTask.weeksOfMonth = [4];
+      dailyTask.startDate = day;
+      dailyTask.everyX = 1;
+      dailyTask.repeat = {
+        su: false,
+        m: true,
+        t: false,
+        w: false,
+        th: false,
+        f: false,
+        s: false,
+      };
+      nextDue = shouldDo(day, dailyTask, options);
+      expect(nextDue.length).to.eql(6);
+      expect(moment(nextDue[0]).toDate()).to.eql(moment.utc('2017-07-31').toDate());
+      expect(moment(nextDue[1]).toDate()).to.eql(moment.utc('2017-10-30').toDate());
+      expect(moment(nextDue[2]).toDate()).to.eql(moment.utc('2018-01-29').toDate());
+      expect(moment(nextDue[3]).toDate()).to.eql(moment.utc('2018-04-30').toDate());
+      expect(moment(nextDue[4]).toDate()).to.eql(moment.utc('2018-07-30').toDate());
+      expect(moment(nextDue[5]).toDate()).to.eql(moment.utc('2018-10-29').toDate());
     });
 
     context('Custom Day Start is 0 <= n < 24', () => {
@@ -731,6 +910,28 @@ describe('shouldDo', () => {
       dailyTask.frequency = 'monthly';
       day = moment('2017-02-23');
 
+      expect(shouldDo(day, dailyTask, options)).to.equal(false);
+    });
+
+    it('returns false when next due is requested and no repeats are available', () => {
+      dailyTask.repeat = {
+        su: false,
+        s: false,
+        f: false,
+        th: false,
+        w: false,
+        t: false,
+        m: false,
+      };
+
+      let today = moment('2017-05-27T17:34:40.000Z');
+      let week = today.monthWeek();
+      dailyTask.startDate = today.toDate();
+      dailyTask.weeksOfMonth = [week];
+      dailyTask.everyX = 1;
+      dailyTask.frequency = 'monthly';
+      day = moment('2017-02-23');
+      options.nextDue = true;
       expect(shouldDo(day, dailyTask, options)).to.equal(false);
     });
 
@@ -916,6 +1117,25 @@ describe('shouldDo', () => {
       day = day.add(2, 'years').toDate();
 
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
+    });
+
+    it('should compute yearly nextDue values', () => {
+      options.timezoneOffset = 0;
+      options.nextDue = true;
+
+      day = moment('2017-05-01').toDate();
+
+      dailyTask.frequency = 'yearly';
+      dailyTask.everyX = 5;
+      dailyTask.startDate = day;
+      nextDue = shouldDo(day, dailyTask, options);
+      expect(nextDue.length).to.eql(6);
+      expect(moment(nextDue[0]).toDate()).to.eql(moment.utc('2022-05-01').toDate());
+      expect(moment(nextDue[1]).toDate()).to.eql(moment.utc('2027-05-01').toDate());
+      expect(moment(nextDue[2]).toDate()).to.eql(moment.utc('2032-05-01').toDate());
+      expect(moment(nextDue[3]).toDate()).to.eql(moment.utc('2037-05-01').toDate());
+      expect(moment(nextDue[4]).toDate()).to.eql(moment.utc('2042-05-01').toDate());
+      expect(moment(nextDue[5]).toDate()).to.eql(moment.utc('2047-05-01').toDate());
     });
 
     context('Custom Day Start is 0 <= n < 24', () => {

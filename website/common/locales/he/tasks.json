@@ -1,7 +1,7 @@
 {
     "clearCompleted": "ניקוי מטלות שבוצעו",
     "lotOfToDos": "30 המשימות האחרונות מוצגות כאן. אתם יכולים לראות משימות מושלמות ישנות יותר ב מידע > כלי-הצגת-מידע או מידע > ייצוא-מידע > מידע-משתמש.",
-    "deleteToDosExplanation": "לחיצה על הכפתור למטה תמחק לצמיתות את כל המשימות הגנוזות שלכם שהושלמו. ייצאו אותן קודם לכן, אם הייתם רוצים לשמור תיעוד שלהן.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addmultiple": "הוסיפו כמה",
     "addsingle": "הוסיפו אחד/ת",
     "habit": "הרגל",
@@ -169,5 +169,10 @@
     "yearlyRepeatHelpContent": "This task will be due every X years",
     "resets": "Resets",
     "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
-    "nextDue": "Next Due Dates"
+    "nextDue": "Next Due Dates",
+    "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
+    "yesterDailiesCallToAction": "Start My New Day!",
+    "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
+    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
+    "repeatDayError": "Please ensure that you have at least one day of the week selected."
 }

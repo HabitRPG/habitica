@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Erfüllte Aufgaben entfernen",
     "lotOfToDos": "Hier siehst Du Deine 30 neuesten erledigten Aufgaben. Ältere erledigte Aufgaben kannst Du hier einsehen: Daten > Werkzeug zur Datenanzeige > Daten exportieren > Benutzerdaten.",
-    "deleteToDosExplanation": "Wenn Du den Knopf unten klickst, werden alle Deine erfüllten und archivierten To-Dos dauerhaft gelöscht. Exportiere sie vorher, wenn Du sie nicht verlieren möchtest.",
+    "deleteToDosExplanation": "Wenn Du auf diesen Knopf klickst, werden alle Deine erfüllten und archivierten To-Dos dauerhaft gelöscht, mit Außnahme von To-Dos aus aktiven Wettbewerben und Gruppenplänen. Exportiere sie vorher, wenn Du sie nicht verlieren möchtest.",
     "addmultiple": "Mehrere hinzufügen",
     "addsingle": "Einzelne hinzufügen",
     "habit": "Gewohnheit",
@@ -168,6 +168,11 @@
     "monthlyRepeatHelpContent": "Diese Aufgabe wird alle X Monate fällig werden",
     "yearlyRepeatHelpContent": "Diese Aufgabe wird alle X Jahre fällig werden ",
     "resets": "Wird zurückgesetzt",
-    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
-    "nextDue": "Next Due Dates"
+    "summaryStart": "Wird <%= frequency %> alle <%= everyX %> <%= frequencyPlural %> fällig",
+    "nextDue": "Nächste Fälligkeitstermine",
+    "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
+    "yesterDailiesCallToAction": "Start My New Day!",
+    "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
+    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
+    "repeatDayError": "Bitte achte darauf, dass mindestens ein Wochentag ausgewählt ist."
 }

@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
   generateUser,
 } from '../../../../helpers/api-integration/v3';
@@ -126,5 +127,27 @@ describe('GET /tasks/user', () => {
 
     let allCompletedTodos = await user.get('/tasks/user?type=_allCompletedTodos');
     expect(allCompletedTodos.length).to.equal(numberOfTodos);
+  });
+
+  it('returns dailies with isDue for the date specified', async () => {
+    let startDate = moment().subtract('1', 'days').toDate();
+    let createdTasks = await user.post('/tasks/user', [
+      {
+        text: 'test daily',
+        type: 'daily',
+        startDate,
+        frequency: 'daily',
+        everyX: 2,
+      },
+    ]);
+    let dailys = await user.get('/tasks/user?type=dailys');
+
+    expect(dailys.length).to.be.at.least(1);
+    expect(dailys[0]._id).to.equal(createdTasks._id);
+    expect(dailys[0].isDue).to.be.false;
+
+    let dailys2 = await user.get(`/tasks/user?type=dailys&dueDate=${startDate}`);
+    expect(dailys2[0]._id).to.equal(createdTasks._id);
+    expect(dailys2[0].isDue).to.be.true;
   });
 });

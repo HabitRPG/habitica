@@ -442,7 +442,7 @@ let quests = {
     collect: {
       lightCrystal: {
         text: t('questVice2CollectLightCrystal'),
-        count: 45,
+        count: 30,
       },
     },
     drop: {
@@ -511,7 +511,7 @@ let quests = {
     collect: {
       plainEgg: {
         text: t('questEggHuntCollectPlainEgg'),
-        count: 100,
+        count: 40,
       },
     },
     drop: {
@@ -846,7 +846,7 @@ let quests = {
     collect: {
       moonstone: {
         text: t('questMoonstone1CollectMoonstone'),
-        count: 500,
+        count: 100,
       },
     },
     drop: {
@@ -953,7 +953,7 @@ let quests = {
     collect: {
       testimony: {
         text: t('questGoldenknight1CollectTestimony'),
-        count: 300,
+        count: 60,
       },
     },
     drop: {
@@ -1396,11 +1396,11 @@ let quests = {
     collect: {
       fireCoral: {
         text: t('questDilatoryDistress1CollectFireCoral'),
-        count: 25,
+        count: 20,
       },
       blueFins: {
         text: t('questDilatoryDistress1CollectBlueFins'),
-        count: 25,
+        count: 20,
       },
     },
     drop: {
@@ -2686,6 +2686,38 @@ let quests = {
       ],
       gp: 0,
       exp: 650,
+    },
+  },
+  nudibranch: {
+    text: t('questNudibranchText'),
+    notes: t('questNudibranchNotes'),
+    completion: t('questNudibranchCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questNudibranchBoss'),
+      hp: 400,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Nudibranch',
+          text: t('questNudibranchDropNudibranchEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Nudibranch',
+          text: t('questNudibranchDropNudibranchEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Nudibranch',
+          text: t('questNudibranchDropNudibranchEgg'),
+        },
+      ],
+      gp: 31,
+      exp: 200,
+      unlock: t('questNudibranchUnlockText'),
     },
   },
 };

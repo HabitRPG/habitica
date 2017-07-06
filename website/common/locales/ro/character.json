@@ -127,7 +127,7 @@
     "distributePoints": "Repartizează Punctele Nealocate",
     "distributePointsPop": "Repartizează toate punctele nealocate în funcție de sistemul de repartizare ales.",
     "warriorText": "Războinicii dau \"lovituri critice\" mai des și mai puternice care oferă aleator bonusuri în Aur, Experiență și ale șanselor de a câștiga obiecte în cazul îndeplinirii unui țel. De asemenea, rănesc puternic monștrii speciali. Fă-te Războinic dacă ești motivat de câștiguri imprevizibile în stil jackpot sau dacă vrei să lovești masiv monștrii din aventuri!",
-    "mageText": "Magii învață rapid, câștigând Experiență și Nivele mai repede decât alte clase. Primesc și multă Mana pentru a-și folosi abilitățile speciale. Fă-te Vrăjitor dacă îți plac aspectele tactice de joc din Habit sau dacă ești puternic motivat de creșterile de nivel și deblocarea facilităților avansate!",
+    "mageText": "Mages learn swiftly, gaining Experience and Levels faster than other classes. They also get a great deal of Mana for using special abilities. Play a Mage if you enjoy the tactical game aspects of Habitica, or if you are strongly motivated by leveling up and unlocking advanced features!",
     "rogueText": "Bandiților le place să acumuleze bogății. Ei primesc mai mult Aur decât oricine altcineva și se pricep să găsească obiecte aleator. Discreția specifică le permite să scape de consecințele Cotidienelor ratate. Fă-te Bandit dacă ești puternic motivat de Răsplăți și Realizări, luptându-te pentru pradă și insigne!",
     "healerText": "Vindecătorii sunt protejați împotriva loviturilor și aplică această protecție și altora. Cotidienele ratate și obiceiurile proaste nu îi deranjează așa mult și au modalități de recuperare a sănătății în caz de eșec. Fă-te Vindecător dacă îți face plăcere să-i ajuți pe alții din echipa ta sau dacă te inspiră ideea de a trișa Moartea prin muncă asiduă!",
     "optOutOfClasses": "Refuză",
@@ -170,6 +170,5 @@
     "hideQuickAllocation": "Hide stat allocation",
     "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User -> Stats.",
     "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
-    "notEnoughAttrPoints": "You don't have enough attribute points.",
-    "gearNotOwned": "Nu detii acest obiect."
+    "notEnoughAttrPoints": "You don't have enough attribute points."
 }

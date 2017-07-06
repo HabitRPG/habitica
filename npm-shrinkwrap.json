@@ -1,6 +1,6 @@
 {
   "name": "habitica",
-  "version": "3.94.0",
+  "version": "3.101.0",
   "dependencies": {
     "@gulp-sourcemaps/map-sources": {
       "version": "1.0.0",
@@ -541,6 +541,11 @@
       "from": "babel-core@>=6.0.0 <7.0.0",
       "resolved": "https://registry.npmjs.org/babel-core/-/babel-core-6.24.1.tgz"
     },
+    "babel-eslint": {
+      "version": "7.2.3",
+      "from": "babel-eslint@latest",
+      "resolved": "https://registry.npmjs.org/babel-eslint/-/babel-eslint-7.2.3.tgz"
+    },
     "babel-generator": {
       "version": "6.24.1",
       "from": "babel-generator@>=6.24.1 <7.0.0",
@@ -629,6 +634,11 @@
       "version": "6.13.0",
       "from": "babel-plugin-syntax-async-functions@>=6.13.0 <7.0.0",
       "resolved": "https://registry.npmjs.org/babel-plugin-syntax-async-functions/-/babel-plugin-syntax-async-functions-6.13.0.tgz"
+    },
+    "babel-plugin-syntax-dynamic-import": {
+      "version": "6.18.0",
+      "from": "babel-plugin-syntax-dynamic-import@latest",
+      "resolved": "https://registry.npmjs.org/babel-plugin-syntax-dynamic-import/-/babel-plugin-syntax-dynamic-import-6.18.0.tgz"
     },
     "babel-plugin-syntax-object-rest-spread": {
       "version": "6.13.0",
@@ -5424,6 +5434,11 @@
       "from": "he@>=1.1.0 <1.2.0",
       "resolved": "https://registry.npmjs.org/he/-/he-1.1.1.tgz"
     },
+    "hellojs": {
+      "version": "1.15.1",
+      "from": "hellojs@>=1.15.1 <2.0.0",
+      "resolved": "http://registry.npmjs.org/hellojs/-/hellojs-1.15.1.tgz"
+    },
     "hmac-drbg": {
       "version": "1.0.1",
       "from": "hmac-drbg@>=1.0.0 <2.0.0",
@@ -7013,7 +7028,7 @@
     "lazy-debug-legacy": {
       "version": "0.0.1",
       "from": "lazy-debug-legacy@>=0.0.0 <0.1.0",
-      "resolved": "http://registry.npmjs.org/lazy-debug-legacy/-/lazy-debug-legacy-0.0.1.tgz"
+      "resolved": "https://registry.npmjs.org/lazy-debug-legacy/-/lazy-debug-legacy-0.0.1.tgz"
     },
     "lazy-req": {
       "version": "1.1.0",
@@ -10808,6 +10823,11 @@
       "resolved": "https://registry.npmjs.org/simple-fmt/-/simple-fmt-0.1.0.tgz",
       "dev": true
     },
+    "simple-html-tokenizer": {
+      "version": "0.1.1",
+      "from": "simple-html-tokenizer@>=0.1.1 <0.2.0",
+      "resolved": "https://registry.npmjs.org/simple-html-tokenizer/-/simple-html-tokenizer-0.1.1.tgz"
+    },
     "simple-is": {
       "version": "0.2.0",
       "from": "simple-is@>=0.2.0 <0.3.0",
@@ -11507,6 +11527,28 @@
       "from": "supports-color@>=2.0.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/supports-color/-/supports-color-2.0.0.tgz"
     },
+    "svg-inline-loader": {
+      "version": "0.7.1",
+      "from": "svg-inline-loader@latest",
+      "resolved": "https://registry.npmjs.org/svg-inline-loader/-/svg-inline-loader-0.7.1.tgz"
+    },
+    "svg-url-loader": {
+      "version": "2.0.2",
+      "from": "svg-url-loader@latest",
+      "resolved": "https://registry.npmjs.org/svg-url-loader/-/svg-url-loader-2.0.2.tgz",
+      "dependencies": {
+        "file-loader": {
+          "version": "0.10.0",
+          "from": "file-loader@0.10.0",
+          "resolved": "https://registry.npmjs.org/file-loader/-/file-loader-0.10.0.tgz"
+        },
+        "loader-utils": {
+          "version": "0.2.16",
+          "from": "loader-utils@0.2.16",
+          "resolved": "https://registry.npmjs.org/loader-utils/-/loader-utils-0.2.16.tgz"
+        }
+      }
+    },
     "svgo": {
       "version": "0.7.2",
       "from": "svgo@>=0.7.0 <0.8.0",
@@ -11531,6 +11573,18 @@
           "version": "1.2.2",
           "from": "sax@>=1.2.1 <1.3.0",
           "resolved": "https://registry.npmjs.org/sax/-/sax-1.2.2.tgz"
+        }
+      }
+    },
+    "svgo-loader": {
+      "version": "1.2.1",
+      "from": "svgo-loader@latest",
+      "resolved": "https://registry.npmjs.org/svgo-loader/-/svgo-loader-1.2.1.tgz",
+      "dependencies": {
+        "loader-utils": {
+          "version": "1.1.0",
+          "from": "loader-utils@>=1.0.3 <2.0.0",
+          "resolved": "https://registry.npmjs.org/loader-utils/-/loader-utils-1.1.0.tgz"
         }
       }
     },
@@ -12517,16 +12571,16 @@
       "resolved": "https://registry.npmjs.org/watchpack/-/watchpack-1.3.1.tgz",
       "dependencies": {
         "async": {
-          "version": "2.4.0",
-          "from": "async@>=2.1.2 <3.0.0",
-          "resolved": "https://registry.npmjs.org/async/-/async-2.4.0.tgz"
+          "version": "2.4.1",
+          "from": "async@^2.1.2",
+          "resolved": "https://registry.npmjs.org/async/-/async-2.4.1.tgz"
         }
       }
     },
     "webpack": {
-      "version": "2.5.1",
-      "from": "webpack@>=2.2.1 <3.0.0",
-      "resolved": "https://registry.npmjs.org/webpack/-/webpack-2.5.1.tgz",
+      "version": "2.6.1",
+      "from": "webpack@2.6.1",
+      "resolved": "https://registry.npmjs.org/webpack/-/webpack-2.6.1.tgz",
       "dependencies": {
         "acorn": {
           "version": "5.0.3",
@@ -12534,9 +12588,9 @@
           "resolved": "https://registry.npmjs.org/acorn/-/acorn-5.0.3.tgz"
         },
         "async": {
-          "version": "2.4.0",
+          "version": "2.4.1",
           "from": "async@>=2.1.2 <3.0.0",
-          "resolved": "https://registry.npmjs.org/async/-/async-2.4.0.tgz"
+          "resolved": "https://registry.npmjs.org/async/-/async-2.4.1.tgz"
         },
         "source-list-map": {
           "version": "1.1.2",
@@ -12549,9 +12603,9 @@
           "resolved": "https://registry.npmjs.org/supports-color/-/supports-color-3.2.3.tgz"
         },
         "uglify-js": {
-          "version": "2.8.26",
-          "from": "uglify-js@>=2.8.5 <3.0.0",
-          "resolved": "http://registry.npmjs.org/uglify-js/-/uglify-js-2.8.26.tgz",
+          "version": "2.8.28",
+          "from": "uglify-js@>=2.8.27 <3.0.0",
+          "resolved": "https://registry.npmjs.org/uglify-js/-/uglify-js-2.8.28.tgz",
           "dependencies": {
             "yargs": {
               "version": "3.10.0",

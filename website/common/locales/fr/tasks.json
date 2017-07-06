@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Supprimer les tâches accomplies",
     "lotOfToDos": "Vos 30 tâches à faire terminées les plus récentes sont montrées ici. Vous pouvez consulter les tâches plus anciennes depuis Données > Outil d'affichage des données ou Données > Exporter les données > Données utilisateur.",
-    "deleteToDosExplanation": "Si vous cliquez sur le bouton ci-dessous, toutes vos tâches A Faire complétées et archivées seront supprimées définitivement. Exportez-les d'abord si vous souhaitez en garder une trace.",
+    "deleteToDosExplanation": "Si vous cliquez sur le bouton ci-dessous, toutes vos tâches À Faire complétées et archivées seront supprimées définitivement, à l'exception des tâches de défis actifs et des offres de groupe. Exportez-les d'abord si vous souhaitez en garder une trace.",
     "addmultiple": "Ajout multiple",
     "addsingle": "Ajout unitaire",
     "habit": "Habitude",
@@ -52,7 +52,7 @@
     "todos": "À Faire",
     "newTodo": "Nouvelle tâche À faire",
     "newTodoBulk": "Nouvelles tâches À Faire (une par ligne)",
-    "dueDate": "Date d'Échéance",
+    "dueDate": "Date butoir",
     "remaining": "Actives",
     "complete": "Complétées",
     "dated": "Datées",
@@ -168,6 +168,11 @@
     "monthlyRepeatHelpContent": "Cette tâche arrivera à échéance tous les X mois",
     "yearlyRepeatHelpContent": "Cette tâche arrivera à échéance tous les X ans",
     "resets": "Réinitialisations",
-    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
-    "nextDue": "Next Due Dates"
+    "summaryStart": "Se répète <%= frequency %> tous ou toutes les <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Prochaines dates d'échéances",
+    "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
+    "yesterDailiesCallToAction": "Start My New Day!",
+    "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
+    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
+    "repeatDayError": "Merci de vérifier que vous avez au moins un jour de la semaine de sélectionné."
 }

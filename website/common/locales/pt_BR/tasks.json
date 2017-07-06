@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Deletar Completos",
     "lotOfToDos": "Os seus 30 Afazeres concluídos mais recentes são mostrados aqui. Você pode ver os Afazeres antigos que foram concluídos em Dados > Ferramenta de Exibição de Dados ou Dados > Exportar Dados > Dados do Usuário",
-    "deleteToDosExplanation": "Se você clicar no botão abaixo, todos os seus Afazeres completos e arquivados serão apagados permanentemente. Exporte-os primeiro se quiser manter um registro deles.",
+    "deleteToDosExplanation": "Se você clicar no botão abaixo, todos os seus Afazeres completados e arquivados serão apagados permanentemente, exceto os Afazeres de desafios ativos e de Planos de Grupo. Exporte-os primeiro se você quiser guardá-los para o futuro.",
     "addmultiple": "Adicionar Vários",
     "addsingle": "Adicionar Único",
     "habit": "Hábito",
@@ -21,7 +21,7 @@
     "direction/Actions": "Direção/Ações",
     "advancedOptions": "Opções Avançadas",
     "taskAlias": "Pseudônimo da Tarefa",
-    "taskAliasPopover": "O pseudônimo dessa tarefa pode ser usado ao usar sistemas de terceiros. Apenas hifens, sublinhados, letras e números são permitidos. O pseudônimo precisa ser único entre todas as suas tarefas.",
+    "taskAliasPopover": "O pseudônimo dessa tarefa pode ser usado quando integrados com sistemas de terceiros. Apenas hifens, sublinhados, letras e números são permitidos. O pseudônimo deve ser único entre todas as suas tarefas.",
     "taskAliasPlaceholder": "pseudônimo-da-sua-tarefa-aqui",
     "taskAliasPopoverWarning": "ATENÇÃO: Trocar esse valor irá quebrar qualquer integração com sistemas de terceiros que estejam utilizando o pseudônimo da tarefa.",
     "difficulty": "Dificuldade",
@@ -39,7 +39,7 @@
     "newDailyBulk": "Novas Diárias (uma por linha)",
     "streakCounter": "Contador de Combo",
     "repeat": "Repetir",
-    "repeatEvery": "Repetir Toda",
+    "repeatEvery": "Repetir a cada",
     "repeatHelpTitle": "Com que frequência esta tarefa deve ser repetida?",
     "dailyRepeatHelpContent": "Esta tarefa deve ser feita a cada X dias. Você pode escolher este valor logo abaixo.",
     "weeklyRepeatHelpContent": "Esta tarefa deve ser feita nos dias em destaque abaixo. Clique em um dia para ativá-lo/desativá-lo.",
@@ -168,6 +168,11 @@
     "monthlyRepeatHelpContent": "Esta tarefa deve ser feita a cada X meses",
     "yearlyRepeatHelpContent": "Esta tarefa deve ser feita a cada X anos",
     "resets": "Reseta",
-    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
-    "nextDue": "Next Due Dates"
+    "summaryStart": "Repete uma vez a cada <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Próximas Datas",
+    "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
+    "yesterDailiesCallToAction": "Start My New Day!",
+    "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
+    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
+    "repeatDayError": "Por favor, garanta que você tem ao menos um dia da semana selecionado."
 }

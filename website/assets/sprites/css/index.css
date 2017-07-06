@@ -1,9 +1,9 @@
 /* Comment out for holiday events */
-.npc_ian {
+/* .npc_ian {
   background: url("/npc_ian.gif") no-repeat;
   width: 78px;
   height: 135px;
-}
+} */
 
 .quest_burnout {
   background: url("/quest_burnout.gif") no-repeat;
@@ -59,6 +59,10 @@
   margin: auto;
   padding-left: 0.5em;
   padding-right: 0.5em;
+}
+
+.achievement-container {
+  height: 52px;
 }
 
 [class*="Mount_Head_"],

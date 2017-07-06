@@ -33,3 +33,4 @@ env:
     - TEST="test:common" COVERAGE=true
     - TEST="test:karma" COVERAGE=true
     - TEST="client:unit" COVERAGE=true
+    - TEST="apidoc"

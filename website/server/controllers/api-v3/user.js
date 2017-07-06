@@ -78,6 +78,10 @@ api.getUser = {
     // Remove apiToken from response TODO make it private at the user level? returned in signup/login
     delete userToJSON.apiToken;
 
+    let {daysMissed} = user.daysUserHasMissed(new Date(), req);
+    userToJSON.needsCron = false;
+    if (daysMissed > 0) userToJSON.needsCron = true;
+
     user.addComputedStatsToJSONObj(userToJSON.stats);
     return res.respond(200, userToJSON);
   },
@@ -329,7 +333,7 @@ api.deleteUser = {
     await user.remove();
 
     if (feedback) {
-      txnEmail(TECH_ASSISTANCE_EMAIL, 'admin-feedback', [
+      txnEmail({email: TECH_ASSISTANCE_EMAIL}, 'admin-feedback', [
         {name: 'PROFILE_NAME', content: user.profile.name},
         {name: 'UUID', content: user._id},
         {name: 'EMAIL', content: getUserInfo(user, ['email']).email},

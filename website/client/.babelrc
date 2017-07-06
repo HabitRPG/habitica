@@ -15,6 +15,7 @@
   "plugins": [
     "transform-object-rest-spread",
     "syntax-async-functions",
+    "syntax-dynamic-import",
     "transform-regenerator",
   ],
 }

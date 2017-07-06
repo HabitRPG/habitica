@@ -17,7 +17,7 @@
       scope: true,
       link: function($scope, element, attrs) {
         $scope.getClasses = function (task, user, list, main) {
-          return Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main);
+          return Shared.taskClasses(task, user.filters, user.preferences.dayStart, user.lastCron, list.showCompleted, main, $scope.processingYesterdailies);
         }
 
         $scope.showNoteDetails = function (task) {

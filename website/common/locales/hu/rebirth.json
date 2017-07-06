@@ -11,7 +11,7 @@
     "rebirthInList1": "Tasks, history, equipment, and settings remain.",
     "rebirthInList2": "Kihívások, céh és a csapat tagságok megmaradnak.",
     "rebirthInList3": "Drágakövek, támogatói és hozzájárulási szintek megmaradnak.",
-    "rebirthInList4": "A talált, vagy Drágakőért vásárolt tárgyak (pl.: háziállatok és hátasok) megmaradnak, de nem éred el őket, amíg fel nem oldod őket újra.",
+    "rebirthInList4": "Items obtained from Gems or drops (such as pets and mounts) remain.",
     "rebirthEarnAchievement": "Kapsz továbbá egy Kitűntetést, amiért új kalandot kezdesz!",
     "beReborn": "Szüless Újjá",
     "rebirthAchievement": "Új kalandot kezdtél! Ez a(z) <%= number %>. Újjászületésed. A legmagasabb szint, amit elértél: <%= level %>. Ahhoz, hogy halmozd ezt a Kitüntetést kezdj új kalandot, amikor elértél egy még magasabb Szintet!",
