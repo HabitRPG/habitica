@@ -476,8 +476,8 @@
   import DragDropDirective from 'client/directives/dragdrop.directive';
   import MouseMoveDirective from 'client/directives/mouseposition.directive';
 
-  import information from 'assets/svg/information.svg';
-  import close from 'assets/svg/close.svg';
+  import svgInformation from 'assets/svg/information.svg';
+  import svgClose from 'assets/svg/close.svg';
 
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
@@ -523,8 +523,8 @@
         ],
 
         icons: Object.freeze({
-          information,
-          close,
+          information: svgInformation,
+          close: svgClose,
         }),
 
         currentMousePosX: 0,
@@ -942,8 +942,8 @@
 
       mouseMoved ($event) {
         if (this.foodClickMode) {
-          this.$refs.clickFoodInfo.style.left = ($event.x-20)+'px';
-          this.$refs.clickFoodInfo.style.top = ($event.y-20)+'px';
+          this.$refs.clickFoodInfo.style.left = `${$event.x - 20}px`;
+          this.$refs.clickFoodInfo.style.top = `${$event.y - 20}px`;
         }
       },
     },
