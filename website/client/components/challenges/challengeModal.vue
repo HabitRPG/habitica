@@ -16,12 +16,11 @@ div
           strong(v-once) {{$t('guildInformation')}}*
         a.float-right {{ $t('markdownFormattingHelp') }}
         b-form-input.information-textarea(type="text", textarea, :placeholder="$t('challengeInformationPlaceHolder')", v-model="workingChallenge.information")
-      .form-group
+      .form-group(v-if='creating')
         label
           strong(v-once) {{$t('where')}}
         b-dropdown(:text="$t('sort')", right=true)
           b-dropdown-item(@click='sort(option.value)')
-            |
       .form-group
         label
           strong(v-once) {{$t('categories')}}*
@@ -119,6 +118,12 @@ export default {
         information: '',
       },
     };
+  },
+  mounted () {
+    if (this.challenge) {
+      this.workingChallenge = this.challenge;
+      this.creating = false;
+    }
   },
   computed: {
     maxPrize () {

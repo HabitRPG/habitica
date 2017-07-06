@@ -1,6 +1,8 @@
 <template lang='pug'>
 .row
+  challenge-modal(:challenge='challenge')
   close-challenge-modal
+
   .col-8.standard-page
     .row
       .col-8
@@ -34,7 +36,7 @@
       div(v-if='isLeader')
         button.btn.btn-success(v-once) {{$t('addTask')}}
       div(v-if='isLeader')
-        button.btn.btn-secondary(v-once) {{$t('editChallenge')}}
+        button.btn.btn-secondary(v-once, @click='edit()') {{$t('editChallenge')}}
       div(v-if='isLeader')
         button.btn.btn-danger(v-once, @click='closeChallenge()') {{$t('endChallenge')}}
     .description-section
@@ -123,6 +125,7 @@
 import { mapState } from 'client/libs/store';
 import closeChallengeModal from './closeChallengeModal';
 import Column from '../tasks/column';
+import ChallengeModal from './ChallengeModal';
 
 import gemIcon from 'assets/svg/gem.svg';
 import memberIcon from 'assets/svg/member-icon.svg';
@@ -132,6 +135,7 @@ export default {
   props: ['challengeId'],
   components: {
     closeChallengeModal,
+    ChallengeModal,
     TaskColumn: Column,
   },
   data () {
@@ -187,7 +191,7 @@ export default {
     },
     edit () {
       // @TODO: set working challenge
-      // this.$root.$emit('show::modal', 'challenge-modal');
+      this.$root.$emit('show::modal', 'challenge-modal');
     },
     // @TODO: view members
   },

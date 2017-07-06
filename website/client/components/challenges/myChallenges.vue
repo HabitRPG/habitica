@@ -1,5 +1,6 @@
 <template lang='pug'>
 .row
+  challenge-modal
   sidebar(v-on:search="updateSearch", v-on:filter="updateFilters")
 
   .col-10.standard-page
@@ -66,6 +67,7 @@ import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Sidebar from './sidebar';
 import ChallengeItem from './challengeItem';
+import ChallengeModal from './ChallengeModal';
 
 import challengeIcon from 'assets/svg/challenge.svg';
 import positiveIcon from 'assets/svg/positive.svg';
@@ -74,6 +76,7 @@ export default {
   components: {
     Sidebar,
     ChallengeItem,
+    ChallengeModal,
     bDropdown,
     bDropdownItem,
   },
