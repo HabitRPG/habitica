@@ -27,7 +27,14 @@ export function setNextDue (task, user, dueDateOption) {
   if (task.type !== 'daily') return;
 
   let dateTaskIsDue = Date.now();
-  if (dueDateOption) dateTaskIsDue = moment(dueDateOption);
+  if (dueDateOption) {
+    dateTaskIsDue = moment(dueDateOption);
+    // If not time is supplied. Let's assume we want start of Custom Day Start day.
+    if (dateTaskIsDue.hour() === 0 && dateTaskIsDue.minute() === 0 && dateTaskIsDue.second() === 0 && dateTaskIsDue.millisecond() === 0) {
+      dateTaskIsDue.add(user.preferences.dayStart, 'hours');
+    }
+  }
+
 
   let optionsForShouldDo = user.preferences.toObject();
   task.isDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
@@ -176,6 +183,12 @@ export async function getTasks (req, res, options = {}) {
 
   let tasks = await mQuery.exec();
 
+  if (dueDate) {
+    tasks.forEach((task) => {
+      setNextDue(task, user, dueDate);
+    });
+  }
+
   // Order tasks based on tasksOrder
   if (type && type !== 'completedTodos' && type !== '_allCompletedTodos') {
     let order = owner.tasksOrder[type];
@@ -190,8 +203,6 @@ export async function getTasks (req, res, options = {}) {
       } else {
         orderedTasks[i] = task;
       }
-
-      if (dueDate) setNextDue(task, user, dueDate);
     });
 
     // Remove empty values from the array and add any unordered task
