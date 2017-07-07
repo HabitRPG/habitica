@@ -26,6 +26,7 @@ async function _validateTaskAlias (tasks, res) {
 export function setNextDue (task, user, dueDateOption) {
   if (task.type !== 'daily') return;
 
+  let now = moment().toDate();
   let dateTaskIsDue = Date.now();
   if (dueDateOption) {
     dateTaskIsDue = moment(dueDateOption);
@@ -33,10 +34,13 @@ export function setNextDue (task, user, dueDateOption) {
     if (dateTaskIsDue.hour() === 0 && dateTaskIsDue.minute() === 0 && dateTaskIsDue.second() === 0 && dateTaskIsDue.millisecond() === 0) {
       dateTaskIsDue.add(user.preferences.dayStart, 'hours');
     }
+
+    now = dateTaskIsDue;
   }
 
 
   let optionsForShouldDo = user.preferences.toObject();
+  optionsForShouldDo.now = now;
   task.isDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
   optionsForShouldDo.nextDue = true;
   let nextDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
