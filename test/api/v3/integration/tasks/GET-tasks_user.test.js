@@ -130,7 +130,8 @@ describe('GET /tasks/user', () => {
   });
 
   it('returns dailies with isDue for the date specified', async () => {
-    let startDate = moment().subtract('1', 'days').toDate();
+    // @TODO Add required format
+    let startDate = moment().subtract('1', 'days').toISOString();
     let createdTasks = await user.post('/tasks/user', [
       {
         text: 'test daily',
