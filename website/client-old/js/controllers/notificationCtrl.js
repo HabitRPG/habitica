@@ -22,7 +22,7 @@ habitrpg.controller('NotificationCtrl',
       if (!User.user.needsCron) return;
       var dailys = User.user.dailys;
 
-      if (!Boolean(dailys) || dailys.length === 0) return;
+      if (!$rootScope.appLoaded) return;
 
       isRunningYesterdailies = true;
 
