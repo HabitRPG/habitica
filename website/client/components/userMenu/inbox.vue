@@ -8,20 +8,20 @@
               .svg-icon.envelope(v-html="icons.messageIcon")
             .col-6
               h2.text-center Messages
-            .col-2
-              button.btn.btn-secondary +
-        .col-8.to-form
+            .col-2.offset-1
+              button.btn.btn-secondary(@click='toggleClick()') +
+        .col-8.to-form(v-if='displayCreate')
           strong To:
           b-form-input
     .row
       .col-4.sidebar
         .search-section
           b-form-input(placeholder='Search')
-        .empty-messages.text-center
+        .empty-messages.text-center(v-if='conversations.length === 0')
           .svg-icon.envelope(v-html="icons.messageIcon")
           h4 You don’t have any messages
           p Send a message to start a conversation!
-        .messages
+        .conversations(v-if='conversations.length > 0')
       .col-8.messages
         .new-message-row
           b-form-input
@@ -33,15 +33,21 @@
 
   .envelope {
     color: #c3c0c7 !important;
+    margin-top: 1em;
+  }
+
+  h2 {
+    margin-top: .5em;
   }
 
   .sidebar {
     background-color: #f9f9f9;
     min-height: 600px;
+    padding: 0;
 
     .search-section {
       padding: 1em;
-      box-shadow: 1px 1px solid black;
+      box-shadow: 0 1px 2px 0 rgba(26, 24, 29, 0.24);
     }
   }
 
@@ -59,6 +65,7 @@
   .empty-messages {
     margin-top: 10em;
     color: #c3c0c7;
+    padding: 1em;
 
     h4 {
       color: #c3c0c7;
@@ -81,13 +88,20 @@
 
     input {
       display: inline-block;
-      width: 85%;
+      width: 80%;
+    }
+
+    button {
+      box-shadow: none;
+      margin-left: 1em;
     }
   }
 
 </style>
 
 <script>
+import keys from 'lodash/keys';
+
 import bModal from 'bootstrap-vue/lib/components/modal';
 import bFormInput from 'bootstrap-vue/lib/components/form-input';
 
@@ -103,7 +117,21 @@ export default {
       icons: Object.freeze({
         messageIcon,
       }),
+      displayCreate: true,
     };
+  },
+  computed: {
+    conversations () {
+      return [];
+    },
+    currentMessages () {
+      return [];
+    },
+  },
+  methods: {
+    toggleClick () {
+      this.displayCreate = !this.displayCreate;
+    },
   },
 };
 </script>
