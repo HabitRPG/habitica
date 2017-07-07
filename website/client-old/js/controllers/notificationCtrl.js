@@ -14,7 +14,7 @@ habitrpg.controller('NotificationCtrl',
     });
 
     function runYesterDailies() {
-      if (isRunningYesterdailies ) return;
+      if (isRunningYesterdailies) return;
 
       var userLastCron = moment(User.user.lastCron).local();
       var userDayStart = moment().startOf('day').add({ hours: User.user.preferences.dayStart });
@@ -22,7 +22,7 @@ habitrpg.controller('NotificationCtrl',
       if (!User.user.needsCron) return;
       var dailys = User.user.dailys;
 
-      if (!Boolean(dailys) || dailys.length === 0) return
+      if (!Boolean(dailys) || dailys.length === 0) return;
 
       isRunningYesterdailies = true;
 
@@ -37,8 +37,9 @@ habitrpg.controller('NotificationCtrl',
       });
 
       if (yesterDailies.length === 0) {
-        User.runCron();
-        isRunningYesterdailies = false;
+        User.runCron().then(function () {
+          isRunningYesterdailies = false;
+        });
         return;
       };
 
@@ -68,8 +69,10 @@ habitrpg.controller('NotificationCtrl',
           });
 
           $scope.ageDailies = function () {
-            User.runCron();
-            isRunningYesterdailies = false;
+            User.runCron()
+              .then(function () {
+                isRunningYesterdailies = false;
+              });
           };
         }],
       });

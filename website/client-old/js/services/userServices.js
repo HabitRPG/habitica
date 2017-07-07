@@ -418,7 +418,7 @@ angular.module('habitrpg')
         },
 
         runCron: function () {
-          $http({
+          return $http({
             method: "POST",
             url: 'api/v3/cron',
           })
