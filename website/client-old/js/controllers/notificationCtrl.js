@@ -18,7 +18,7 @@ habitrpg.controller('NotificationCtrl',
       if (!User.user.needsCron) return;
       var dailys = User.user.dailys;
 
-      if (!Boolean(dailys) || dailys.length === 0) return;
+      if (!$rootScope.appLoaded) return;
 
       var yesterDay = moment().subtract('1', 'day').startOf('day').add({ hours: User.user.preferences.dayStart });
       var yesterDailies = [];
