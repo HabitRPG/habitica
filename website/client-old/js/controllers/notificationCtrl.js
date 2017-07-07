@@ -3,6 +3,8 @@
 habitrpg.controller('NotificationCtrl',
   ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement', 'Social', 'Tasks',
   function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement, Social, Tasks) {
+    var isRunningYesterdailies = false;
+
     $rootScope.$watch('user', function (after, before) {
       runYesterDailies();
     });
@@ -12,6 +14,8 @@ habitrpg.controller('NotificationCtrl',
     });
 
     function runYesterDailies() {
+      if (isRunningYesterdailies) return;
+
       var userLastCron = moment(User.user.lastCron).local();
       var userDayStart = moment().startOf('day').add({ hours: User.user.preferences.dayStart });
 
@@ -19,6 +23,8 @@ habitrpg.controller('NotificationCtrl',
       var dailys = User.user.dailys;
 
       if (!Boolean(dailys) || dailys.length === 0) return;
+
+      isRunningYesterdailies = true;
 
       var yesterDay = moment().subtract('1', 'day').startOf('day').add({ hours: User.user.preferences.dayStart });
       var yesterDailies = [];
@@ -31,7 +37,9 @@ habitrpg.controller('NotificationCtrl',
       });
 
       if (yesterDailies.length === 0) {
-        User.runCron();
+        User.runCron().then(function () {
+          isRunningYesterdailies = false;
+        });
         return;
       };
 
@@ -61,7 +69,10 @@ habitrpg.controller('NotificationCtrl',
           });
 
           $scope.ageDailies = function () {
-            User.runCron();
+            User.runCron()
+              .then(function () {
+                isRunningYesterdailies = false;
+              });
           };
         }],
       });
