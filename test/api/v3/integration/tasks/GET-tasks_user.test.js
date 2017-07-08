@@ -130,7 +130,8 @@ describe('GET /tasks/user', () => {
   });
 
   it('returns dailies with isDue for the date specified', async () => {
-    let startDate = moment().subtract('1', 'days').toDate();
+    // @TODO Add required format
+    let startDate = moment().subtract('1', 'days').toISOString();
     let createdTasks = await user.post('/tasks/user', [
       {
         text: 'test daily',
@@ -149,5 +150,29 @@ describe('GET /tasks/user', () => {
     let dailys2 = await user.get(`/tasks/user?type=dailys&dueDate=${startDate}`);
     expect(dailys2[0]._id).to.equal(createdTasks._id);
     expect(dailys2[0].isDue).to.be.true;
+  });
+
+  it('returns dailies with isDue for the date specified and will add CDS offset if time is not supplied', async () => {
+    await user.update({
+      'preferences.dayStart': 7,
+    });
+    let startDate = moment().subtract('4', 'days').startOf('day').toISOString();
+    await user.post('/tasks/user', [
+      {
+        text: 'test daily',
+        type: 'daily',
+        startDate,
+        frequency: 'daily',
+        everyX: 2,
+      },
+    ]);
+
+    let today = moment().format('YYYY-MM-DD');
+    let dailys = await user.get(`/tasks/user?type=dailys&dueDate=${today}`);
+    expect(dailys[0].isDue).to.be.true;
+
+    let yesterday = moment().subtract('1', 'days').format('YYYY-MM-DD');
+    let dailys2 = await user.get(`/tasks/user?type=dailys&dueDate=${yesterday}`);
+    expect(dailys2[0].isDue).to.be.false;
   });
 });
