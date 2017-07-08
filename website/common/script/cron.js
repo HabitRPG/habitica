@@ -101,6 +101,7 @@ export function shouldDo (day, dailyTask, options = {}) {
   }
   let o = sanitizeOptions(options);
   let startOfDayWithCDSTime = startOfDay(defaults({ now: day }, o));
+
   // The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it.
   // Therefore, we must also ignore the time portion of the user's day start (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
   // NB: The user's day start date has already been converted to the PREVIOUS day's date if the time portion was before CDS.
