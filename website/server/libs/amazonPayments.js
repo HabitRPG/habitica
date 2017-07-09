@@ -98,6 +98,9 @@ api.checkout = async function checkout (options = {}) {
 
   if (gift) {
     if (gift.type === this.constants.GIFT_TYPE_GEMS) {
+      if (gift.gems.amount <= 0) {
+        throw new BadRequest(i18n.t('badAmountOfGemsToPurchase'));
+      }
       amount = gift.gems.amount / 4;
     } else if (gift.type === this.constants.GIFT_TYPE_SUBSCRIPTION) {
       amount = common.content.subscriptionBlocks[gift.subscription.key].price;

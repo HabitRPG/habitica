@@ -68,6 +68,25 @@ describe('Paypal Payments', ()  => {
       expect(link).to.eql(approvalHerf);
     });
 
+    it('should error if gem amount is too low', async () => {
+      let receivingUser = new User();
+      receivingUser.save();
+      let gift = {
+        type: 'gems',
+        gems: {
+          amount: 0,
+          uuid: receivingUser._id,
+        },
+      };
+
+      await expect(paypalPayments.checkout({gift}))
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 400,
+        message: 'Amount must be at least 1.',
+        name: 'BadRequest',
+      });
+    });
+
     it('creates a link for gifting gems', async () => {
       let receivingUser = new User();
       let gift = {

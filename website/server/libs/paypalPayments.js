@@ -37,6 +37,8 @@ paypal.configure({
   client_secret: nconf.get('PAYPAL:client_secret'),
 });
 
+let experienceProfileId = nconf.get('PAYPAL:experience_profile_id');
+
 // TODO better handling of errors
 // @TODO: Create constants
 
@@ -74,6 +76,9 @@ api.checkout = async function checkout (options = {}) {
   let description = 'Habitica Gems';
   if (gift) {
     if (gift.type === 'gems') {
+      if (gift.gems.amount <= 0) {
+        throw new BadRequest(i18n.t('badAmountOfGemsToPurchase'));
+      }
       amount = Number(gift.gems.amount / 4).toFixed(2);
       description = `${description} (Gift)`;
     } else {
@@ -106,6 +111,10 @@ api.checkout = async function checkout (options = {}) {
       description,
     }],
   };
+
+  if (experienceProfileId) {
+    createPayment.experience_profile_id = experienceProfileId;
+  }
 
   let result = await this.paypalPaymentCreate(createPayment);
   let link = _.find(result.links, { rel: 'approval_url' }).href;
