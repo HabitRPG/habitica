@@ -527,9 +527,6 @@
           close: svgClose,
         }),
 
-        currentMousePosX: 0,
-        currentMousePosY: 0,
-
         highlightPet: '',
 
         hatchablePet: null,
@@ -942,8 +939,8 @@
 
       mouseMoved ($event) {
         if (this.foodClickMode) {
-          this.$refs.clickFoodInfo.style.left = `${$event.x - 20}px`;
-          this.$refs.clickFoodInfo.style.top = `${$event.y - 20}px`;
+          this.$refs.clickFoodInfo.style.left = `${$event.x + 20}px`;
+          this.$refs.clickFoodInfo.style.top = `${$event.y + 20}px`;
         }
       },
     },

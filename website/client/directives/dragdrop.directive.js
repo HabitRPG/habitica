@@ -27,7 +27,6 @@ export default {
       el.draggable = true;
       el.handleDrag = (ev) => {
         ev.dataTransfer.setData('KEY', binding.value);
-
         let dragStartEventData = {
           event: ev,
         };
@@ -49,6 +48,7 @@ export default {
         let dragOverEventData = {
           dropable: true,
           draggingKey: ev.dataTransfer.getData('KEY'),
+          event: ev,
         };
 
         emit(vnode, DRAGOVER_EVENT_NAME, dragOverEventData);
