@@ -16,16 +16,22 @@
     .row
       .col-4.sidebar
         .search-section
-          b-form-input(placeholder='Search')
-        .empty-messages.text-center(v-if='conversations.length === 0')
+          b-form-input(placeholder='Search', v-model='search')
+        .empty-messages.text-center(v-if='filtersConversations.length === 0')
           .svg-icon.envelope(v-html="icons.messageIcon")
           h4 You don’t have any messages
           p Send a message to start a conversation!
-        .conversations(v-if='conversations.length > 0')
+        .conversations(v-if='filtersConversations.length > 0')
+          .conversation(v-for='conversation in conversations', @click='selectConversation(conversation.key)', :class="{active: selectedConversation === conversation.key}")
+            div
+             span {{conversation.name}}
+             span {{conversation.date}}
+            div {{conversation.lastMessageText}}
       .col-8.messages
-        .new-message-row
-          b-form-input
-          button.btn.btn-secondary Send
+        .message(v-for='message in currentMessages') {{message.text}}
+        .new-message-row(v-if='selectedConversation')
+          b-form-input(v-model='newMessage')
+          button.btn.btn-secondary(@click='sendPrivateMessage()') Send
 </template>
 
 <style lang="scss" scoped>
@@ -97,10 +103,24 @@
     }
   }
 
+  .conversation {
+    padding: 1.5em;
+    background: $white;
+    height: 80px;
+  }
+
+  .conversation.active {
+    border: 1px solid $purple-400;
+  }
+
+  .conversation:hover {
+    cursor: pointer;
+  }
 </style>
 
 <script>
-import keys from 'lodash/keys';
+import filter from 'lodash/filter';
+import { mapState } from 'client/libs/store';
 
 import bModal from 'bootstrap-vue/lib/components/modal';
 import bFormInput from 'bootstrap-vue/lib/components/form-input';
@@ -118,19 +138,68 @@ export default {
         messageIcon,
       }),
       displayCreate: true,
+      selectedConversation: '',
+      search: '',
+      newMessage: '',
     };
   },
   computed: {
+    ...mapState({user: 'user.data'}),
     conversations () {
-      return [];
+      let conversations = {};
+      for (let messageId in this.user.inbox.messages) {
+        let message = this.user.inbox.messages[messageId];
+        let userId = message.uuid;
+        if (!conversations[userId]) {
+          conversations[userId] = {
+            name: message.user,
+            key: userId,
+            messages: [],
+          };
+        }
+
+        conversations[userId].messages.push({
+          text: message.text,
+          timestamp: message.timestamp,
+        });
+        conversations[userId].lastMessageText = message.text;
+        conversations[userId].date = new Date(message.timestamp);
+      }
+
+      return conversations;
     },
     currentMessages () {
-      return [];
+      if (!this.selectedConversation) return;
+      return this.conversations[this.selectedConversation].messages;
+    },
+    filtersConversations () {
+      if (!this.search) return Object.values(this.conversations);
+      return filter(this.conversations, (conversation) => {
+        return conversation.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1;
+      });
     },
   },
   methods: {
     toggleClick () {
       this.displayCreate = !this.displayCreate;
+    },
+    selectConversation (key) {
+      this.selectedConversation = key;
+    },
+    sendPrivateMessage () {
+      this.$store.dispatch('members:sendPrivateMessage', {
+        toUserId: this.selectedConversation,
+        message: this.newMessage,
+      });
+
+      this.conversations[this.selectedConversation].messages.push({
+        text: this.newMessage,
+        timestamp: new Date(),
+      });
+      this.conversations[this.selectedConversation].lastMessageText = this.newMessage;
+      this.conversations[this.selectedConversation].date = new Date();
+
+      this.newMessage = '';
     },
   },
 };
