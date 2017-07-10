@@ -466,11 +466,11 @@
   import PetItem from './petItem';
   import MountItem from './mountItem.vue';
   import FoodItem from './foodItem';
-  import Drawer from 'client/components/inventory/drawer';
+  import Drawer from 'client/components/ui/drawer';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
-  import StarBadge from 'client/components/inventory/starBadge';
-  import CountBadge from './countBadge';
-  import DrawerSlider from './drawerSlider';
+  import StarBadge from 'client/components/ui/starBadge';
+  import CountBadge from 'client/components/ui/countBadge';
+  import DrawerSlider from 'client/components/ui/drawerSlider';
 
   import ResizeDirective from 'client/directives/resize.directive';
   import DragDropDirective from 'client/directives/dragdrop.directive';
