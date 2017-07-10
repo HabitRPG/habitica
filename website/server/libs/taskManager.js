@@ -29,12 +29,13 @@ export function setNextDue (task, user, dueDateOption) {
   let now = moment().toDate();
   let dateTaskIsDue = Date.now();
   if (dueDateOption) {
-    dateTaskIsDue = moment(dueDateOption);
+    // @TODO Add required ISO format
+    dateTaskIsDue = moment(dueDateOption).add(user.preferences.timezoneOffset, 'minutes');
+
     // If not time is supplied. Let's assume we want start of Custom Day Start day.
     if (dateTaskIsDue.hour() === 0 && dateTaskIsDue.minute() === 0 && dateTaskIsDue.second() === 0 && dateTaskIsDue.millisecond() === 0) {
       dateTaskIsDue.add(user.preferences.dayStart, 'hours');
     }
-
     now = dateTaskIsDue;
   }
 
