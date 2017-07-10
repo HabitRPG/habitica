@@ -46,6 +46,7 @@
   "clickOnPetToFeed": "Click on a Pet to feed <%= foodName %> and watch it grow!",
   "dragThisPotion": "Drag this <%= potionName %> to an Egg and hatch a new pet!",
   "clickOnEggToHatch": "Click on an Egg to use your <%= potionName %> and hatch a new pet!",
+  "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a tiny-armed <%= petName %> .",
   "editAvatar": "Edit Avatar",
   "sort": "Sort",
   "memberCount": "Member Count",
