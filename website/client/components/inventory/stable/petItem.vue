@@ -6,19 +6,14 @@ b-popover(
   span(slot="content")
     slot(name="popoverContent", :item="item")
 
-  .item-wrapper
+  .item-wrapper(@click="click()")
     .item(
-      :class="{'item-empty': emptyItem}",
-      @mouseup="holdStop",
-      @mouseleave="holdStop",
-      @mousedown.left="holdStart"
+      :class="{'item-empty': emptyItem, 'highlight': highlightBorder}",
     )
       slot(name="itemBadge", :item="item")
       span.item-content(:class="itemContentClass")
       span.pet-progress-background(v-if="item.isAllowedToFeed() && progress > 0")
         div.pet-progress-bar(v-bind:style="{width: 100 * progress/50 + '%' }")
-      span.pet-progress-background(v-if="holdProgress > 0")
-        div.pet-progress-bar.hold(v-bind:style="{width: 100 * holdProgress/5 + '%' }")
     span.item-label(v-if="label") {{ label }}
 </template>
 
@@ -35,10 +30,6 @@ b-popover(
   .pet-progress-bar {
     height: 4px;
     background-color: #24cc8f;
-  }
-
-  .pet-progress-bar.hold {
-    background-color: #54c3cc;
   }
 </style>
 
@@ -67,6 +58,10 @@ b-popover(
         type: Boolean,
         default: false,
       },
+      highlightBorder: {
+        type: Boolean,
+        default: false,
+      },
       popoverPosition: {
         type: String,
         default: 'bottom',
@@ -76,35 +71,9 @@ b-popover(
         default: true,
       },
     },
-    data () {
-      return {
-        holdProgress: -1,
-      };
-    },
     methods: {
-      holdStart () {
-        let pet = this.item;
-        if (pet.isOwned() || !pet.isHatchable()) {
-          return;
-        }
-
-        this.holdProgress = 1;
-
-        this.currentHoldingTimer = setInterval(() => {
-          if (this.holdProgress === 5) {
-            this.holdStop();
-            this.$emit('hatchPet', pet);
-          }
-
-          this.holdProgress += 1;
-        }, 1000);
-      },
-
-      holdStop () {
-        if (this.currentHoldingTimer) {
-          clearInterval(this.currentHoldingTimer);
-          this.holdProgress = -1;
-        }
+      click () {
+        this.$emit('click', {});
       },
     },
   };
