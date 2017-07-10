@@ -40,6 +40,10 @@ const MyGuilds = () => import(/* webpackChunkName: "guilds" */ './components/gui
 const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/discovery');
 const GuildPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/guild');
 
+// Shops
+const ShopsContainer = () => import(/* webpackChunkName: "shops" */'./components/shops/index');
+const MarketPage = () => import(/* webpackChunkName: "shops-market" */'./components/shops/market/index');
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -67,7 +71,16 @@ const router = new VueRouter({
         { name: 'stable', path: 'stable', component: StablePage },
       ],
     },
-    { name: 'shops', path: '/shops', component: Page },
+    {
+      path: '/shops',
+      component: ShopsContainer,
+      children: [
+        { name: 'market', path: 'market', component: MarketPage },
+        { name: 'quests', path: 'quests', component: Page },
+        { name: 'seasonal', path: 'seasonal', component: Page },
+        { name: 'time', path: 'time', component: Page },
+      ],
+    },
     { name: 'party', path: '/party', component: GuildPage },
     {
       path: '/guilds',
