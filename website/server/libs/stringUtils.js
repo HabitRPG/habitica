@@ -14,5 +14,5 @@ export function getMatchesByWordArray (str, wordsToMatch) {
       matchedWords.push(match[0].trim());
     }
   }
-  return matchedWords || [];
+  return matchedWords;
 }
