@@ -87,7 +87,7 @@ api.getChat = {
 };
 
 function getBannedWordsFromText (message) {
-  return getMatchesByWordArray(message, bannedWords, true);
+  return getMatchesByWordArray(message, bannedWords);
 }
 
 /**
@@ -128,11 +128,11 @@ api.postChat = {
     }
 
     if (group._id === TAVERN_ID) {
-      var matchedBadWords = getBannedWordsFromText(req.body.message);
-      if(matchedBadWords.length > 0) {
-        var message = res.t('bannedWordUsed').split(".");
-        message[0] += " (" + matchedBadWords.join(", ") + ")";
-        throw new BadRequest(message.join("."));
+      let matchedBadWords = getBannedWordsFromText(req.body.message);
+      if (matchedBadWords.length > 0) {
+        let message = res.t('bannedWordUsed').split('.');
+        message[0] += ` (${matchedBadWords.join(', ')})`;
+        throw new BadRequest(message.join('.'));
       }
     }
 

@@ -14,7 +14,10 @@ import { v4 as generateUUID } from 'uuid';
 describe('POST /chat', () => {
   let user, groupWithChat, member, additionalMember;
   let testMessage = 'Test Message';
-  let testBannedWordMessage = 'TEST_PLACEHOLDER_SWEAR_WORD_HERE';
+  let testBannedWordMessage = 'testPlaceholderSwearWordHere';
+  let bannedWordErrorMessage = t('bannedWordUsed').split('.');
+  bannedWordErrorMessage[0] += ` (${testBannedWordMessage.toLowerCase()})`;
+  bannedWordErrorMessage = bannedWordErrorMessage.join('.');
 
   before(async () => {
     let { group, groupLeader, members } = await createAndPopulateGroup({
@@ -25,7 +28,6 @@ describe('POST /chat', () => {
       },
       members: 2,
     });
-
     user = groupLeader;
     groupWithChat = group;
     member = members[0];
@@ -82,7 +84,7 @@ describe('POST /chat', () => {
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('bannedWordUsed'),
+        message: bannedWordErrorMessage,
       });
     });
 
@@ -92,7 +94,7 @@ describe('POST /chat', () => {
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('bannedWordUsed'),
+        message: bannedWordErrorMessage,
       });
     });
 
@@ -102,7 +104,7 @@ describe('POST /chat', () => {
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('bannedWordUsed'),
+        message: bannedWordErrorMessage,
       });
     });
 
