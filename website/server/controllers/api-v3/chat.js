@@ -14,6 +14,7 @@ import pusher from '../../libs/pusher';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
 import bannedWords from '../../libs/bannedWords';
+import { getMatchesByWordArray } from '../../libs/stringUtils';
 import { TAVERN_ID } from '../../models/group';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
@@ -85,26 +86,8 @@ api.getChat = {
   },
 };
 
-// @TODO: Probably move this to a library
-function matchExact (r, str) {
-  let match = str.match(r);
-  return match !== null && match[0] !== null;
-}
-
-let bannedWordRegexs = [];
-for (let i = 0; i < bannedWords.length; i += 1) {
-  let word = bannedWords[i];
-  let regEx = new RegExp(`\\b([^a-z]+)?${word.toLowerCase()}([^a-z]+)?\\b`);
-  bannedWordRegexs.push(regEx);
-}
-
-function textContainsBannedWords (message) {
-  for (let i = 0; i < bannedWordRegexs.length; i += 1) {
-    let regEx = bannedWordRegexs[i];
-    if (matchExact(regEx, message.toLowerCase())) return true;
-  }
-
-  return false;
+function getBannedWordsFromText (message) {
+  return getMatchesByWordArray(message, bannedWords, true);
 }
 
 /**
@@ -144,8 +127,13 @@ api.postChat = {
       throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
     }
 
-    if (group._id === TAVERN_ID && textContainsBannedWords(req.body.message)) {
-      throw new BadRequest(res.t('bannedWordUsed'));
+    if (group._id === TAVERN_ID) {
+      var matchedBadWords = getBannedWordsFromText(req.body.message);
+      if(matchedBadWords.length > 0) {
+        var message = res.t('bannedWordUsed').split(".");
+        message[0] += " (" + matchedBadWords.join(", ") + ")";
+        throw new BadRequest(message.join("."));
+      }
     }
 
     let lastClientMsg = req.query.previousMsg;
