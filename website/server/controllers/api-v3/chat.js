@@ -87,7 +87,7 @@ api.getChat = {
 };
 
 function getBannedWordsFromText (message) {
-  return getMatchesByWordArray(message, bannedWords, true);
+  return getMatchesByWordArray(message, bannedWords);
 }
 
 /**
