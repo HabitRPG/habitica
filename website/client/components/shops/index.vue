@@ -7,26 +7,14 @@
       router-link.nav-link(:to="{name: 'time'}") {{ $t('titleTimeTravelers') }}
     .col-12
       router-view
-
-    div {{ market }}
 </template>
 
 <script>
-  import {mapState} from 'client/libs/store';
-
   import SecondaryMenu from 'client/components/secondaryMenu';
 
   export default {
     components: {
       SecondaryMenu,
-    },
-    computed: {
-      ...mapState({
-        market: 'shops.market.data',
-      }),
-    },
-    created () {
-      this.$store.dispatch('shops:fetch');
     },
   };
 </script>
