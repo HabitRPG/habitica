@@ -7,28 +7,32 @@
             .col-2
               .svg-icon.envelope(v-html="icons.messageIcon")
             .col-6
-              h2.text-center Messages
-            .col-2.offset-1
-              button.btn.btn-secondary(@click='toggleClick()') +
-        .col-8.to-form(v-if='displayCreate')
-          strong To:
-          b-form-input
+              h2.text-center(v-once) {{$t('messages')}}
+            // @TODO: Implement this after we fix username bug
+            // .col-2.offset-1
+            //  button.btn.btn-secondary(@click='toggleClick()') +
+        // .col-8.to-form(v-if='displayCreate')
+        //   strong To:
+        // b-form-input
     .row
       .col-4.sidebar
         .search-section
-          b-form-input(placeholder='Search', v-model='search')
+          b-form-input(:placeholder="$t('search')", v-model='search')
         .empty-messages.text-center(v-if='filtersConversations.length === 0')
           .svg-icon.envelope(v-html="icons.messageIcon")
-          h4 You don’t have any messages
-          p Send a message to start a conversation!
+          h4(v-once) {{$t('emptyMessagesLine1')}}
+          p(v-once) {{$t('emptyMessagesLine2')}}
         .conversations(v-if='filtersConversations.length > 0')
           .conversation(v-for='conversation in conversations', @click='selectConversation(conversation.key)', :class="{active: selectedConversation === conversation.key}")
             div
              span {{conversation.name}}
-             span {{conversation.date}}
+             span.timeago {{conversation.date}}
             div {{conversation.lastMessageText}}
       .col-8.messages
         .message(v-for='message in currentMessages') {{message.text}}
+
+        // @TODO: Implement new message header here when we fix the above
+
         .new-message-row(v-if='selectedConversation')
           b-form-input(v-model='newMessage')
           button.btn.btn-secondary(@click='sendPrivateMessage()') Send
@@ -38,7 +42,7 @@
   @import '~client/assets/scss/colors.scss';
 
   .envelope {
-    color: #c3c0c7 !important;
+    color: $gray-400 !important;
     margin-top: 1em;
   }
 
@@ -47,7 +51,7 @@
   }
 
   .sidebar {
-    background-color: #f9f9f9;
+    background-color: $gray-700;
     min-height: 600px;
     padding: 0;
 
@@ -70,11 +74,11 @@
 
   .empty-messages {
     margin-top: 10em;
-    color: #c3c0c7;
+    color: $gray-400;
     padding: 1em;
 
     h4 {
-      color: #c3c0c7;
+      color: $gray-400;
       margin-top: 1em;
     }
 
@@ -85,7 +89,7 @@
   }
 
   .new-message-row {
-    background-color: #f9f9f9;
+    background-color: $gray-700;
     position: absolute;
     bottom: 0;
     height: 88px;
@@ -107,6 +111,10 @@
     padding: 1.5em;
     background: $white;
     height: 80px;
+
+    .timeago {
+      margin-left: 1em;
+    }
   }
 
   .conversation.active {
@@ -119,6 +127,7 @@
 </style>
 
 <script>
+import moment from 'moment';
 import filter from 'lodash/filter';
 import { mapState } from 'client/libs/store';
 
@@ -150,6 +159,9 @@ export default {
       for (let messageId in this.user.inbox.messages) {
         let message = this.user.inbox.messages[messageId];
         let userId = message.uuid;
+
+        if (!this.selectedConversation) this.selectedConversation = userId;
+
         if (!conversations[userId]) {
           conversations[userId] = {
             name: message.user,
@@ -163,7 +175,7 @@ export default {
           timestamp: message.timestamp,
         });
         conversations[userId].lastMessageText = message.text;
-        conversations[userId].date = new Date(message.timestamp);
+        conversations[userId].date = moment(new Date(message.timestamp)).fromNow();
       }
 
       return conversations;

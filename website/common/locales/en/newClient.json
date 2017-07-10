@@ -176,5 +176,8 @@
   "tier7": "Tier 7 (Legendary)",
   "tierModerator": "Moderator (Guardian)",
   "tierStaff": "Staff (Heroic)",
-  "tierNPC": "NPC"
+  "tierNPC": "NPC",
+  "messages": "Messages",
+  "emptyMessagesLine1": "You don’t have any messages",
+  "emptyMessagesLine2": "Send a message to start a conversation!"
 }
