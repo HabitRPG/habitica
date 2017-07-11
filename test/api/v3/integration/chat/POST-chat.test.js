@@ -111,7 +111,7 @@ describe('POST /chat', () => {
     });
 
     it('check all banned words are matched', async () => {
-      let message = bannedWords.join(',').replace(/\\/g, "");
+      let message = bannedWords.join(',').replace(/\\/g, '');
       let matches = getMatchesByWordArray(message, bannedWords);
       expect(matches.length).to.equal(bannedWords.length);
     });
