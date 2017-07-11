@@ -10,6 +10,8 @@ import {
   TAVERN_ID,
 } from '../../../../../website/server/models/group';
 import { v4 as generateUUID } from 'uuid';
+import { getMatchesByWordArray } from '../../../../../website/server/libs/stringUtils';
+import bannedWords from '../../../../../website/server/libs/bannedWords';
 
 describe('POST /chat', () => {
   let user, groupWithChat, member, additionalMember;
@@ -106,6 +108,12 @@ describe('POST /chat', () => {
         error: 'BadRequest',
         message: bannedWordErrorMessage,
       });
+    });
+
+    it('check all banned words are matched', async () => {
+      let message = bannedWords.join(',').replace(/\\/g, "");
+      let matches = getMatchesByWordArray(message, bannedWords);
+      expect(matches.length).to.equal(bannedWords.length);
     });
 
     it('does not error when bad word is suffix of a word', async () => {
