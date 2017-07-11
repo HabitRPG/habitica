@@ -80,6 +80,6 @@
     "userAlreadyInChallenge": "Użytkownik bierze już udział w tym wyzwaniu.",
     "cantOnlyUnlinkChalTask": "Tylko zadania skończonych wyzwań mogą być odłączone.",
     "shortNameTooShort": "Nazwa tagu musi mieć co najmniej 3 znaki.",
-    "joinedChallenge": "Joined a Challenge",
-    "joinedChallengeText": "This user put themselves to the test by joining a Challenge!"
+    "joinedChallenge": "Dołączono do Wyzwania",
+    "joinedChallengeText": "Ten użytkownik postanowił się przetestować przez dołączenie do Wyzwania!"
 }

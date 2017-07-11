@@ -370,7 +370,7 @@
     "questTaskwoodsTerror2CollectPixies": "Pixies",
     "questTaskwoodsTerror2CollectBrownies": "Brownies",
     "questTaskwoodsTerror2CollectDryads": "Dryads",
-    "questTaskwoodsTerror2DropArmor": "Pyromancer's Robes (Armor)",
+    "questTaskwoodsTerror2DropArmor": "Pyromancer's Robes (Armour)",
     "questTaskwoodsTerror3Text": "Terror in the Taskwoods, Part 3: Jacko of the Lantern",
     "questTaskwoodsTerror3Notes": "Ready for battle, your group marches to the heart of the forest, where the renegade spirit is trying to destroy an ancient apple tree surrounded by fruitful berry bushes. His pumpkin-like head radiates a terrible light wherever it turns, and in his left hand he holds a long rod, with a lantern hanging from its tip. Instead of fire or flame, however, the lantern contains a dark crystal that chills you to the very bone.<br><br>The Joyful Reaper raises a bony hand to her mouth. \"That's -- that's Jacko, the Lantern Spirit! But he's a helpful harvest ghost who guides our farmers. What could possibly drive the dear soul to act this way?\"<br><br>\"I don't know,\" says @bridgetteempress. \"But it looks like that 'dear soul' is about to attack us!\"",
     "questTaskwoodsTerror3Completion": "After a long battle, you manage to land a well-aimed blow at the lantern that Jacko carries, and the crystal within shatters. Jacko suddenly snaps back to his senses and bursts into glowing tears. \"Oh, my beautiful forest! What have I done?!\" he wails. His tears extinguish the remaining fires, and the apple tree and wild berries are saved.<br><br>After you help him relax, he explains, \"I met this charming lady named Tzina, and she gave me this glowing crystal as a gift. At her urging, I put it in my lantern... but that's the last thing I recall.\" He turns to you with a golden smile. \"Perhaps you should take it for safekeeping while I help the wild orchards to regrow.\"",
@@ -485,5 +485,7 @@
     "questNudibranchCompletion": "You see the last of the NowDo Nudibranches sliding off of a pile of completed tasks as @amadshade washes them away. One leaves behind a cloth bag, and you open it to reveal some gold and a few little ellipsoids you guess are eggs.",
     "questNudibranchBoss": "NowDo Nudibranch",
     "questNudibranchDropNudibranchEgg": "Nudibranch (Egg)",
-    "questNudibranchUnlockText": "Unlocks purchasable Nudibranch eggs in the Market"
+    "questNudibranchUnlockText": "Unlocks purchasable Nudibranch eggs in the Market",
+    "splashyPalsText": "Splashy Pals Quest Bundle",
+    "splashyPalsNotes": "Contains 'The Dilatory Derby', 'Guide the Turtle', and 'Wail of the Whale'. Available until July 31."
 }

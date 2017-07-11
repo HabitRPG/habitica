@@ -485,5 +485,7 @@
     "questNudibranchCompletion": "@amadshade lessive le dernier nudibranche cépadimanche, que vous voyez glisser d'une pile de tâches complétées. Il laisse derrière lui un sac de vêtements, que vous ouvrez et qui contient de l'or... ainsi que quelques ellipsoïdes. Sans doute des œufs !",
     "questNudibranchBoss": "Nudibranche cépadimanche",
     "questNudibranchDropNudibranchEgg": "Nudibranche (Œuf)",
-    "questNudibranchUnlockText": "Déverrouille l'achat d’œufs de nudibranche au marché"
+    "questNudibranchUnlockText": "Déverrouille l'achat d’œufs de nudibranche au marché",
+    "splashyPalsText": "Splashy Pals Quest Bundle",
+    "splashyPalsNotes": "Contains 'The Dilatory Derby', 'Guide the Turtle', and 'Wail of the Whale'. Available until July 31."
 }
