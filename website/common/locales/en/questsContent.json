@@ -563,5 +563,8 @@
   "questNudibranchCompletion": "You see the last of the NowDo Nudibranches sliding off of a pile of completed tasks as @amadshade washes them away. One leaves behind a cloth bag, and you open it to reveal some gold and a few little ellipsoids you guess are eggs.",
   "questNudibranchBoss": "NowDo Nudibranch",
   "questNudibranchDropNudibranchEgg": "Nudibranch (Egg)",
-  "questNudibranchUnlockText": "Unlocks purchasable Nudibranch eggs in the Market"
+  "questNudibranchUnlockText": "Unlocks purchasable Nudibranch eggs in the Market",
+
+  "splashyPalsText": "Splashy Pals Quest Bundle",
+  "splashyPalsNotes": "Contains 'The Dilatory Derby', 'Guide the Turtle', and 'Wail of the Whale'. Available until July 31."
 }
