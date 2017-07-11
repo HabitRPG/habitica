@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Ten en cuenta que tu nombre para mostrar, foto de perfil y sección \"Sobre mí\" deben cumplir con las <a href='https://habitica.com/static/community-guidelines' target='_blank'>Normas de la Comunidad</a> (por ej., nada de comentarios obscenos, temas inapropiados para menores de edad, insultos, etc.). Si tienes preguntas sobre si algo es apropiado o no, por favor comunícate al correo electrónico <%= hrefBlankCommunityManagerEmail %>.",
     "profile": "Perfil",
     "avatar": "Personalizar avatar",
     "other": "Otro",
@@ -127,7 +127,7 @@
     "distributePoints": "Distribuir puntos no asignados",
     "distributePointsPop": "Asigna los puntos no distribuidos según el esquema de asignación seleccionado.",
     "warriorText": "Los Guerreros consiguen más y mejores \"golpes críticos\", los cuales otorgan bonus de Oro, Experiencia y probabilidad de botín al completar una tarea. También hacen graves daños a los monstruos jefes. ¡Juega como un Guerrero si te motivan las recompensas impredecibles como al ganar la lotería o si deseas ser la fuente de daño en las Misiones!",
-    "mageText": "Los Magos aprenden rápidamente, ganando Experiencia y Niveles más rápido que otras clases. También reciben mucho Maná para usar habilidades especiales. ¡Juega como un Mago si disfrutas los aspectos tácticos de Habitica y si subir de nivel y desbloquear características avanzadas del juego te motiva!",
+    "mageText": "Los Magos aprenden rápidamente, ganando Experiencia y Niveles más rápido que otras clases. También reciben mucho Maná para usar habilidades especiales. ¡Juega como Mago si disfrutas los aspectos tácticos de Habitica y si subir de nivel y desbloquear características avanzadas del juego te motiva!",
     "rogueText": "A los Pícaros les encanta acumular riquezas, ganan más Oro que los demás y suelen encontrar objetos aleatorios. Su capacidad emblemática de Sigilo les permite esquivar las consecuencias de Diarias sin completar. ¡Juega como un Pícaro si encuentras motivación en las recompensas y los logros, esforzándote por botines y medallas!",
     "healerText": "Los Sanadores son inmunes al daño y extienden esa protección a otros. El no cumplir Diarias y los malos Hábitos no les afectan demasiado y tienen maneras de recuperar la Salud tras un fallo. ¡Juega como un Sanador si disfrutas de ayudar a otros en tu grupo o si la idea de engañar a la muerte a través del trabajo duro te inspira!",
     "optOutOfClasses": "No usar",
@@ -170,6 +170,5 @@
     "hideQuickAllocation": "Ocultar asignación de estadísticas",
     "quickAllocationLevelPopover": "Con cada nivel consigues un punto para asignar a un atributo de tu elección. Lo puedes asignar manualmente o dejar que el juego decida por ti usando una de las opciones de Asignación Automática que se encuentran en Usuario -> Estadísticas.",
     "invalidAttribute": "\"<%= attr %>\" no es un atributo válido.",
-    "notEnoughAttrPoints": "No tienes suficientes Puntos de Atributo.",
-    "gearNotOwned": "No tienes este objeto."
+    "notEnoughAttrPoints": "No tienes suficientes Puntos de Atributo."
 }

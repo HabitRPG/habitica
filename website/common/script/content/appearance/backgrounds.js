@@ -507,6 +507,34 @@ let backgrounds = {
       notes: t('backgroundOnATreeBranchNotes'),
     },
   },
+  backgrounds062017: {
+    buried_treasure: {
+      text: t('backgroundBuriedTreasureText'),
+      notes: t('backgroundBuriedTreasureNotes'),
+    },
+    ocean_sunrise: {
+      text: t('backgroundOceanSunriseText'),
+      notes: t('backgroundOceanSunriseNotes'),
+    },
+    sandcastle: {
+      text: t('backgroundSandcastleText'),
+      notes: t('backgroundSandcastleNotes'),
+    },
+  },
+  backgrounds072017: {
+    giant_seashell: {
+      text: t('backgroundGiantSeashellText'),
+      notes: t('backgroundGiantSeashellNotes'),
+    },
+    kelp_forest: {
+      text: t('backgroundKelpForestText'),
+      notes: t('backgroundKelpForestNotes'),
+    },
+    midnight_lake: {
+      text: t('backgroundMidnightLakeText'),
+      notes: t('backgroundMidnightLakeNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

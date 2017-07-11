@@ -26,3 +26,7 @@ export function set (store, changes) {
   // .then((res) => console.log('set', res))
   // .catch((err) => console.error('set', err));
 }
+
+export function sleep () {
+  // @TODO: Implemented
+}

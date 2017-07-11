@@ -11,7 +11,7 @@
     "rebirthInList1": "Tasks, history, equipment, and settings remain.",
     "rebirthInList2": "Challenge, Alliance, an' Crew memberships remain.",
     "rebirthInList3": "Gems, backer rank, an' contributor levels remain.",
-    "rebirthInList4": "Items obtained from Gems er loot (such as pets an' mounts) remain, though ye can't access 'em until ye unlock 'em again.",
+    "rebirthInList4": "Items obtained from Gems or drops (such as pets and mounts) remain.",
     "rebirthEarnAchievement": "Ye also earn an Achievement fer embarkin' on a new adventure!",
     "beReborn": "Be Reborn",
     "rebirthAchievement": "Ye've begun a new adventure! 'tis be Rebirth <%= number %> fer ye, 'n th' highest Level ye've attained be <%= level %>. To stack 'tis Achievement, begin ye next new adventure when ye've reached an even higher Level!",

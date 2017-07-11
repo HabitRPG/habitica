@@ -107,6 +107,9 @@ api.checkout = async function checkout (options, stripeInc) {
       if (gift.type === 'subscription') {
         amount = `${shared.content.subscriptionBlocks[gift.subscription.key].price * 100}`;
       } else {
+        if (gift.gems.amount <= 0) {
+          throw new BadRequest(shared.i18n.t('badAmountOfGemsToPurchase'));
+        }
         amount = `${gift.gems.amount / 4 * 100}`;
       }
     }
@@ -198,11 +201,12 @@ api.editSubscription = async function editSubscription (options, stripeInc) {
  * @param  options
  * @param  options.user  The user object who is purchasing
  * @param  options.groupId  The id of the group purchasing a subscription
+ * @param  options.cancellationReason  A text string to control sending an email
  *
  * @return undefined
  */
 api.cancelSubscription = async function cancelSubscription (options, stripeInc) {
-  let {groupId, user} = options;
+  let {groupId, user, cancellationReason} = options;
   let customerId;
 
   // @TODO: We need to mock this, but curently we don't have correct Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
@@ -252,6 +256,7 @@ api.cancelSubscription = async function cancelSubscription (options, stripeInc) 
     groupId,
     nextBill,
     paymentMethod: this.constants.PAYMENT_METHOD,
+    cancellationReason,
   });
 };
 

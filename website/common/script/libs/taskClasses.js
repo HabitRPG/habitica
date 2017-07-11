@@ -1,6 +1,7 @@
 import {
   shouldDo,
 } from '../cron';
+import moment from 'moment';
 
 /*
 Task classes given everything about the class
@@ -8,7 +9,7 @@ Task classes given everything about the class
 
 // TODO move to the client
 
-module.exports = function taskClasses (task, filters = [], dayStart = 0, lastCron = Number(new Date()), showCompleted = false, main = false) {
+module.exports = function taskClasses (task, filters = [], dayStart = 0, lastCron = Number(new Date()), showCompleted = false, main = false, processingYesterdailies = false) {
   if (!task) {
     return '';
   }
@@ -34,7 +35,9 @@ module.exports = function taskClasses (task, filters = [], dayStart = 0, lastCro
   }
 
   if (type === 'todo' || type === 'daily') {
-    let notDue = !shouldDo(Number(new Date()), task, { dayStart });
+    let dayShouldDo = moment();
+    if (processingYesterdailies) dayShouldDo.subtract(1, 'days');
+    let notDue = !shouldDo(Number(dayShouldDo), task, { dayStart });
     let isNotDueDaily = type === 'daily' && notDue;
 
     if (completed || isNotDueDaily) {

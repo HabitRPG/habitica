@@ -37,6 +37,8 @@ paypal.configure({
   client_secret: nconf.get('PAYPAL:client_secret'),
 });
 
+let experienceProfileId = nconf.get('PAYPAL:experience_profile_id');
+
 // TODO better handling of errors
 // @TODO: Create constants
 
@@ -74,6 +76,9 @@ api.checkout = async function checkout (options = {}) {
   let description = 'Habitica Gems';
   if (gift) {
     if (gift.type === 'gems') {
+      if (gift.gems.amount <= 0) {
+        throw new BadRequest(i18n.t('badAmountOfGemsToPurchase'));
+      }
       amount = Number(gift.gems.amount / 4).toFixed(2);
       description = `${description} (Gift)`;
     } else {
@@ -106,6 +111,10 @@ api.checkout = async function checkout (options = {}) {
       description,
     }],
   };
+
+  if (experienceProfileId) {
+    createPayment.experience_profile_id = experienceProfileId;
+  }
 
   let result = await this.paypalPaymentCreate(createPayment);
   let link = _.find(result.links, { rel: 'approval_url' }).href;
@@ -176,8 +185,18 @@ api.subscribeSuccess = async function subscribeSuccess (options = {}) {
   });
 };
 
+/**
+ * Cancel a PayPal Subscription
+ *
+ * @param  options
+ * @param  options.user  The user object who is canceling
+ * @param  options.groupId  The id of the group that is canceling
+ * @param  options.cancellationReason  A text string to control sending an email
+ *
+ * @return undefined
+ */
 api.subscribeCancel = async function subscribeCancel (options = {}) {
-  let {groupId, user} = options;
+  let {groupId, user, cancellationReason} = options;
 
   let customerId;
   if (groupId) {
@@ -212,6 +231,7 @@ api.subscribeCancel = async function subscribeCancel (options = {}) {
     groupId,
     paymentMethod: this.constants.PAYMENT_METHOD,
     nextBill: nextBillingDate,
+    cancellationReason,
   });
 };
 
@@ -220,7 +240,14 @@ api.ipn = async function ipnApi (options = {}) {
 
   let {txn_type, recurring_payment_id} = options;
 
-  if (['recurring_payment_profile_cancel', 'subscr_cancel'].indexOf(txn_type) === -1) return;
+  let ipnAcceptableTypes = [
+    'recurring_payment_profile_cancel',
+    'recurring_payment_failed',
+    'recurring_payment_expired',
+    'subscr_cancel',
+    'subscr_failed'];
+
+  if (ipnAcceptableTypes.indexOf(txn_type) === -1) return;
   // @TODO: Should this request billing date?
   let user = await User.findOne({ 'purchased.plan.customerId': recurring_payment_id }).exec();
   if (user) {

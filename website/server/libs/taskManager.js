@@ -1,3 +1,4 @@
+import moment from 'moment';
 import * as Tasks from '../models/task';
 import {
   BadRequest,
@@ -22,13 +23,28 @@ async function _validateTaskAlias (tasks, res) {
   });
 }
 
-export function setNextDue (task, user) {
+export function setNextDue (task, user, dueDateOption) {
   if (task.type !== 'daily') return;
 
+  let now = moment().toDate();
+  let dateTaskIsDue = Date.now();
+  if (dueDateOption) {
+    // @TODO Add required ISO format
+    dateTaskIsDue = moment(dueDateOption).add(user.preferences.timezoneOffset, 'minutes');
+
+    // If not time is supplied. Let's assume we want start of Custom Day Start day.
+    if (dateTaskIsDue.hour() === 0 && dateTaskIsDue.minute() === 0 && dateTaskIsDue.second() === 0 && dateTaskIsDue.millisecond() === 0) {
+      dateTaskIsDue.add(user.preferences.dayStart, 'hours');
+    }
+    now = dateTaskIsDue;
+  }
+
+
   let optionsForShouldDo = user.preferences.toObject();
-  task.isDue = shared.shouldDo(Date.now(), task, optionsForShouldDo);
+  optionsForShouldDo.now = now;
+  task.isDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
   optionsForShouldDo.nextDue = true;
-  let nextDue = shared.shouldDo(Date.now(), task, optionsForShouldDo);
+  let nextDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
   if (nextDue && nextDue.length > 0) {
     task.nextDue = nextDue.map((dueDate) => {
       return dueDate.toISOString();
@@ -120,6 +136,7 @@ export async function getTasks (req, res, options = {}) {
     user,
     challenge,
     group,
+    dueDate,
   } = options;
 
   let query = {userId: user._id};
@@ -170,6 +187,12 @@ export async function getTasks (req, res, options = {}) {
   if (sort) mQuery.sort(sort);
 
   let tasks = await mQuery.exec();
+
+  if (dueDate) {
+    tasks.forEach((task) => {
+      setNextDue(task, user, dueDate);
+    });
+  }
 
   // Order tasks based on tasksOrder
   if (type && type !== 'completedTodos' && type !== '_allCompletedTodos') {

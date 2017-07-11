@@ -479,5 +479,11 @@
     "questMayhemMistiflying3DropShield": "Verwegene Regenbogenbotschaft (Schildhand-Waffe)",
     "questMayhemMistiflying3DropWeapon": "Verwegene Regenbogenbotschaft (Waffe)",
     "featheredFriendsText": "\"Gefiederte Freunde\" Quest-Paket",
-    "featheredFriendsNotes": "Beinhaltet \"Hilfe! Harpyien!\", \"Die Nachteule\" und \"Die Zeitraubvögel\". Verfügbar bis zum 31.Mai. "
+    "featheredFriendsNotes": "Beinhaltet \"Hilfe! Harpyien!\", \"Die Nachteule\" und \"Die Zeitraubvögel\". Verfügbar bis zum 31.Mai. ",
+    "questNudibranchText": "Befall mit NurSofort-Nacktkiemern",
+    "questNudibranchNotes": "An einem faulen Tag in Habitica kommst Du endlich dazu, Deine To-Dos anzugehen. An Deiner dunkelrötlichsten Aufgabe leuchtet eine Horde glänzend blauer Seeschnecken. Du bist entzückt! Ihre saphirblaue Farbe lässt Deine einschüchterndsten Aufgaben so leicht wie Deine besten Gewohnheiten aussehen. In fieberhaftem Wahn machst Du Dich an die Arbeit, packst in unaufhörlicher Raserei eine Aufgabe nach der anderen an...<br><br>Das nächste, an das Du Dich erinnerst, ist wie @LilithofAlfheim Dich mit kaltem Wasser übergießt. \"Die NurSofort-Nacktkiemer haben Dich total zerstochen! Du musst eine Pause machen!\" <br><br>Schockiert stellst Du fest, dass Deine Haut genauso rot leuchtet, wie einst Deine To-Do-Liste. \"Produktiv zu sein ist eine Sache\", sagt @beffymaroo, \"aber Du musst auch auf Dich selbst achten. Beeilung, lass sie uns loswerden!\"",
+    "questNudibranchCompletion": "Du siehst, wie die letzte NurSofort-Nacktkiemerschnecke von einem Stapel erledigter Aufgaben rutscht, als @amadshade sie wegwäscht. Eine lässt einen Kleidersack zurück, und als Du ihn öffnest, findest Du etwas Gold ein paar kleine Ellipsoiden, von denen Du annimmst, dass es Eier sind.",
+    "questNudibranchBoss": "NurSofort-Nacktkiemer",
+    "questNudibranchDropNudibranchEgg": "Nacktkiemerschnecke (Ei)",
+    "questNudibranchUnlockText": "Ermöglicht den Kauf von Nacktkiemerschneckeneiern auf dem Marktplatz"
 }

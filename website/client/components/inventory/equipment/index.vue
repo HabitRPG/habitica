@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  .col-2.standard-sidebar
+  .standard-sidebar
     .form-group
       input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
@@ -17,7 +17,7 @@
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ group.label }}
 
-  .col-10.standard-page
+  .standard-page
     .clearfix
       h1.float-left.mb-0.page-header(v-once) {{ $t('equipment') }}
       .float-right
@@ -112,7 +112,7 @@
       a.btn.btn-show-more(
         v-if="items[group.key].length > itemsPerLine",
         @click="viewOptions[group.key].open = !viewOptions[group.key].open"
-      ) {{ viewOptions[group.key].open ? $t('showLessGearItems', { type: group.label }) : $t('showAllGearItems', { type: group.label, items: items[group.key].length }) }}
+      ) {{ viewOptions[group.key].open ? $t('showLessItems', { type: group.label }) : $t('showAllItems', { type: group.label, items: items[group.key].length }) }}
 </template>
 
 <style lang="scss" scoped>

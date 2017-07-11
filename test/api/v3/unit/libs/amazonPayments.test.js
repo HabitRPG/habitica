@@ -113,6 +113,25 @@ describe('Amazon Payments', () => {
       expectAmazonStubs();
     });
 
+    it('should error if gem amount is too low', async () => {
+      let receivingUser = new User();
+      receivingUser.save();
+      let gift = {
+        type: 'gems',
+        gems: {
+          amount: 0,
+          uuid: receivingUser._id,
+        },
+      };
+
+      await expect(amzLib.checkout({gift, user, orderReferenceId, headers}))
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 400,
+        message: 'Amount must be at least 1.',
+        name: 'BadRequest',
+      });
+    });
+
     it('should gift gems', async () => {
       let receivingUser = new User();
       receivingUser.save();
@@ -525,6 +544,7 @@ describe('Amazon Payments', () => {
         nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
         paymentMethod: amzLib.constants.PAYMENT_METHOD,
         headers,
+        cancellationReason: undefined,
       });
       expectAmazonStubs();
     });
@@ -555,6 +575,7 @@ describe('Amazon Payments', () => {
         nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
         paymentMethod: amzLib.constants.PAYMENT_METHOD,
         headers,
+        cancellationReason: undefined,
       });
       amzLib.closeBillingAgreement.restore();
     });
@@ -593,6 +614,7 @@ describe('Amazon Payments', () => {
         nextBill: moment(group.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
         paymentMethod: amzLib.constants.PAYMENT_METHOD,
         headers,
+        cancellationReason: undefined,
       });
       expectAmazonStubs();
     });
@@ -623,6 +645,7 @@ describe('Amazon Payments', () => {
         nextBill: moment(group.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
         paymentMethod: amzLib.constants.PAYMENT_METHOD,
         headers,
+        cancellationReason: undefined,
       });
       amzLib.closeBillingAgreement.restore();
     });

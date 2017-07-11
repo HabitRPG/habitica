@@ -304,5 +304,15 @@ describe('POST /challenges', () => {
 
       await expect(groupLeader.sync()).to.eventually.have.property('challenges').to.include(challenge._id);
     });
+
+    it('awards achievement if this is creator\'s first challenge', async () => {
+      await groupLeader.post('/challenges', {
+        group: group._id,
+        name: 'Test Challenge',
+        shortName: 'TC Label',
+      });
+      groupLeader = await groupLeader.sync();
+      expect(groupLeader.achievements.joinedChallenge).to.be.true;
+    });
   });
 });
