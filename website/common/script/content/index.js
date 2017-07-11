@@ -70,6 +70,21 @@ api.bundles = {
     type: 'quests',
     value: 7,
   },
+  splashyPals: {
+    key: 'splashyPals',
+    text: t('splashyPalsText'),
+    notes: t('splashyPalsNotes'),
+    bundleKeys: [
+      'dilatory_derby',
+      'turtle',
+      'whale',
+    ],
+    canBuy () {
+      return moment().isBetween('2017-07-11', '2017-08-02');
+    },
+    type: 'quests',
+    value: 7,
+  },
 };
 
 /*

@@ -170,9 +170,9 @@
     "resets": "Wird zurückgesetzt",
     "summaryStart": "Wird <%= frequency %> alle <%= everyX %> <%= frequencyPlural %> fällig",
     "nextDue": "Nächste Fälligkeitstermine",
-    "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
-    "yesterDailiesCallToAction": "Start My New Day!",
-    "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
-    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
+    "yesterDailiesTitle": "Du hast diese täglichen Aufgaben gestern nicht abgehakt! Willst Du einige von ihnen jetzt abhaken?",
+    "yesterDailiesCallToAction": "Starte meinen neuen Tag!",
+    "yesterDailiesOptionTitle": "Bestätige, dass diese tägliche Aufgabe nicht erledigt wurde, bevor Schaden entsteht",
+    "yesterDailiesDescription": "Falls diese Einstellung ausgewählt wird, wird Habitica Dich fragen, ob Du die tägliche Aufgabe absichtlich nicht abgehakt hast, bevor der Schaden an deinem Avatar berechnet und angewandt wird. Dies kann Dich vor unbeabsichtigtem Schaden schützen.",
     "repeatDayError": "Bitte achte darauf, dass mindestens ein Wochentag ausgewählt ist."
 }

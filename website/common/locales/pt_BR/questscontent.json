@@ -456,7 +456,7 @@
     "questButterflyUnlockText": "Desbloqueia ovos de Lagarto para compra no Mercado",
     "questMayhemMistiflying1Text": "Mayhem in Mistiflying, Part 1: In Which Mistiflying Experiences a Dreadful Bother",
     "questMayhemMistiflying1Notes": "Although local soothsayers predicted pleasant weather, the afternoon is extremely breezy, so you gratefully follow your friend @Kiwibot into their house to escape the blustery day.<br><br>Neither of you expects to find the April Fool lounging at the kitchen table.<br><br>“Oh, hello,” he says. “Fancy seeing you here. Please, let me offer you some of this delicious tea.”<br><br>“That’s…” @Kiwibot begins. “That’s MY—“<br><br>“Yes, yes, of course,” says the April Fool, helping himself to some cookies. “Just thought I’d pop indoors and get a nice reprieve from all the tornado-summoning skulls.” He takes a casual sip from his teacup. “Incidentally, the city of Mistiflying is under attack.”<br><br>Horrified, you and your friends race to the Stables and saddle your fastest winged mounts. As you soar towards the floating city, you see that a swarm of chattering, flying skulls are laying siege to the city… and several turn their attentions towards you!",
-    "questMayhemMistiflying1Completion": "The final skull drops from the sky, a shimmering set of rainbow robes clasped in its jaws, but the steady wind has not slackened. Something else is at play here. And where is that slacking April Fool? You pick up the robes, then swoop into the city.",
+    "questMayhemMistiflying1Completion": "A última caveira cai do céu, com um brilhante conjunto de roupas de arco-íris preso em sua mandíbula, mas a ventania não diminuiu. Algo mais está agindo aqui. E onde está o preguiçoso Primeiro de Abril? Você pega as roupas e entra na cidade.",
     "questMayhemMistiflying1Boss": "Enxame de caveiras voadoras ",
     "questMayhemMistiflying1RageTitle": "Retorno do Enxame",
     "questMayhemMistiflying1RageDescription": "Swarm Respawn: This bar fills when you don't complete your Dailies. When it is full, the Air Skull Swarm will heal 30% of its remaining health!",
@@ -485,5 +485,7 @@
     "questNudibranchCompletion": "You see the last of the NowDo Nudibranches sliding off of a pile of completed tasks as @amadshade washes them away. One leaves behind a cloth bag, and you open it to reveal some gold and a few little ellipsoids you guess are eggs.",
     "questNudibranchBoss": "Lesma Marinha FaçAgora",
     "questNudibranchDropNudibranchEgg": "Lesma Marinha (Ovo)",
-    "questNudibranchUnlockText": "Desbloqueia ovos de Lesma Marinha para compra no Mercado"
+    "questNudibranchUnlockText": "Desbloqueia ovos de Lesma Marinha para compra no Mercado",
+    "splashyPalsText": "Splashy Pals Quest Bundle",
+    "splashyPalsNotes": "Contains 'The Dilatory Derby', 'Guide the Turtle', and 'Wail of the Whale'. Available until July 31."
 }
