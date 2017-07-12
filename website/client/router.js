@@ -16,6 +16,7 @@ const RegisterLogin = () => import(/* webpackChunkName: "auth" */'./components/a
 const CreatorIntro = () => import(/* webpackChunkName: "creator" */'./components/creatorIntro');
 const BackgroundsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/backgrounds');
 const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
+const AchievementsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/achievements');
 
 // Except for tasks that are always loaded all the other main level
 // All the main level
@@ -119,7 +120,7 @@ const router = new VueRouter({
         },
         { name: 'backgrounds', path: 'backgrounds', component: BackgroundsPage },
         { name: 'stats', path: 'stats', component: StatsPage },
-        { name: 'achievements', path: 'achievements', component: Page },
+        { name: 'achievements', path: 'achievements', component: AchievementsPage },
         { name: 'settings', path: 'settings', component: Page },
       ],
     },
