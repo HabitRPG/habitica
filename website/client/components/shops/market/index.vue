@@ -32,7 +32,7 @@
         div.items
           shopItem(
             v-for="item in category.items",
-            :key="item.id",
+            :key="item.key",
             :item="item",
             :price="item.value",
             :priceType="item.currency",
@@ -42,11 +42,18 @@
           )
             span(slot="popoverContent")
               h4.popover-content-title {{ item.text }}
-            //template(slot="itemBadge", scope="ctx")
-             // span.badge.badge-pill.badge-item.badge-svg(
+              div {{ item }}
+              div {{ userItems[item.purchaseType][item.key] }}
+            template(slot="itemBadge", scope="ctx")
+              countBadge(
+                :show="true",
+                :count="userItems[item.purchaseType][item.key] || 0"
+              )
+
+              // span.badge.badge-pill.badge-item.badge-svg(
               //  :class="{'item-selected-badge': true}",
               //  @click="click",
-             // )
+              // )
               //  span.svg-icon.inline.icon-12(v-html="icons.pin")
 </template>
 
@@ -77,16 +84,19 @@
   import {mapState} from 'client/libs/store';
 
   import ShopItem from '../shopItem';
+  import CountBadge from 'client/components/ui/countBadge';
 
   import svgPin from 'assets/svg/pin.svg';
 
 export default {
     components: {
       ShopItem,
+      CountBadge,
     },
     computed: {
       ...mapState({
         market: 'shops.market.data',
+        userItems: 'user.data.items',
       }),
       categories () {
         if (this.market) {

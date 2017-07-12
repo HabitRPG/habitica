@@ -78,7 +78,7 @@ b-popover(
     components: {
       bPopover,
     },
-    data() {
+    data () {
       return {
         icons: Object.freeze({
           gem: svgGem,
