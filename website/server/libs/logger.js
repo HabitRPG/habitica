@@ -39,7 +39,6 @@ if (IS_PROD) {
 
 // exports a public interface insteaf of accessing directly the logger module
 let loggerInterface = {
-  logger,
   info (...args) {
     logger.info(...args);
   },
