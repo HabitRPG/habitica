@@ -28,15 +28,62 @@
         v-if="viewOptions[category.identifier].selected"
       )
         h4 {{ category.text }} - {{ category.items.length }}
+
         div.items
-          div(v-for="item in category.items")
-            div {{ item }}
+          shopItem(
+            v-for="item in category.items",
+            :key="item.id",
+            :item="item",
+            :price="item.value",
+            :priceType="item.currency",
+            :itemContentClass="item.class",
+            :emptyItem="false",
+            :popoverPosition="'top'",
+          )
+            span(slot="popoverContent")
+              h4.popover-content-title {{ item.text }}
+            //template(slot="itemBadge", scope="ctx")
+             // span.badge.badge-pill.badge-item.badge-svg(
+              //  :class="{'item-selected-badge': true}",
+              //  @click="click",
+             // )
+              //  span.svg-icon.inline.icon-12(v-html="icons.pin")
 </template>
+
+<style lang="scss">
+  @import '~client/assets/scss/colors.scss';
+
+  .badge-svg {
+    left: calc((100% - 18px) / 2);
+    cursor: pointer;
+    color: $gray-400;
+    background: $white;
+    padding: 4.5px 6px;
+
+    &.item-selected-badge {
+      background: $teal-50;
+      color: $white;
+    }
+  }
+
+  .icon-12 {
+    width: 12px;
+    height: 12px;
+  }
+</style>
+
 
 <script>
   import {mapState} from 'client/libs/store';
 
+  import ShopItem from '../shopItem';
+
+  import svgPin from 'assets/svg/pin.svg';
+
 export default {
+    components: {
+      ShopItem,
+    },
     computed: {
       ...mapState({
         market: 'shops.market.data',
@@ -59,6 +106,10 @@ export default {
     data () {
       return {
         viewOptions: {},
+
+        icons: Object.freeze({
+          pin: svgPin,
+        }),
       };
     },
     created () {
