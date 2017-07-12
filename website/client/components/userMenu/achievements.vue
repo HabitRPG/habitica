@@ -48,8 +48,8 @@
 
 <script>
 import { mapState } from 'client/libs/store';
-import achievementsLib from '../../../common/script/libs/achievements';
 
+import achievementsLib from '../../../common/script/libs/achievements';
 import Content from '../../../common/script/content';
 
 export default {
