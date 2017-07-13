@@ -1,8 +1,8 @@
 'use strict';
 
 habitrpg.controller('NotificationCtrl',
-  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement', 'Social', 'Tasks',
-  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement, Social, Tasks) {
+  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement', 'Social', 'Tasks', '$modal',
+  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement, Social, Tasks, $modal) {
     var isRunningYesterdailies = false;
 
     $rootScope.$watch('user', function (after, before) {
@@ -53,7 +53,8 @@ habitrpg.controller('NotificationCtrl',
       modalScope.processingYesterdailies = true;
 
       $scope.yesterDailiesModalOpen = true;
-      $rootScope.openModal('yesterDailies', {
+      $modal.open({
+        templateUrl: 'modals/yesterDailies.html',
         scope: modalScope,
         backdrop: 'static',
         controller: ['$scope', 'Tasks', 'User', '$rootScope', function ($scope, Tasks, User, $rootScope) {
