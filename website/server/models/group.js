@@ -76,6 +76,8 @@ export let schema = new Schema({
   leaderOnly: { // restrict group actions to leader (members can't do them)
     challenges: {type: Boolean, default: false, required: true},
     // invites: {type: Boolean, default: false, required: true},
+    // Some group plans prevent members from getting gems
+    getGems: {type: Boolean, default: false},
   },
   memberCount: {type: Number, default: 1},
   challengeCount: {type: Number, default: 0},
@@ -124,7 +126,7 @@ export let schema = new Schema({
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased', 'managers'],
+  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased', 'managers', 'blockMembersFromGettingGems'],
   private: ['purchased.plan'],
   toJSONTransform (plainObj, originalDoc) {
     if (plainObj.purchased) plainObj.purchased.active = originalDoc.isSubscribed();
