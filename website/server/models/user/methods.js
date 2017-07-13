@@ -276,10 +276,9 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
 // Determine if the user can get gems: some groups restrict their members ability to obtain them.
 // User is allowed to buy gems if no group has `leaderOnly.getGems` === true or if
 // its the group leader
-schema.methods.canGetGems = function canObtainGems () {
+schema.methods.canGetGems = async function canObtainGems () {
   const user = this;
   const plan = user.purchased.plan;
-
 
   if (!user.isSubscribed() || plan.customerId !== payments.constants.GROUP_PLAN_CUSTOMER_ID) {
     return true;
@@ -287,13 +286,12 @@ schema.methods.canGetGems = function canObtainGems () {
 
   const userGroups = user.getGroups();
 
-  return Group
+  const groups = await Group
     .find({_id: {$in: userGroups}})
     .select('leaderOnly leader')
-    .exec()
-    .then(groups => {
-      return groups.every(g => {
-        return g.leader === user._id || g.leaderOnly.getGems !== true;
-      });
-    });
+    .exec();
+
+  return groups.every(g => {
+    return g.leader === user._id || g.leaderOnly.getGems !== true;
+  });
 };

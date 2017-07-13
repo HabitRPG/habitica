@@ -110,7 +110,7 @@ api.checkout = async function checkout (options = {}) {
   }
 
   if (!gift || gift.type === this.constants.GIFT_TYPE_GEMS) {
-    const receiver = gift ? user : gift.member;
+    const receiver = gift ? gift.member : user;
     const receiverCanGetGems = await receiver.canGetGems();
     if (!receiverCanGetGems) throw new NotAuthorized(i18n.t('groupPolicyCannotGetGems', receiver.preferences.language));
   }
