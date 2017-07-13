@@ -74,7 +74,7 @@
     "earnedCompanion": "Door al jouw productiviteit heb je een nieuwe kameraad verdiend. Voer hem en laat hem groeien! ",
     "feedPet": "<%= text %> aan je <%= name %> voeren?",
     "useSaddle": "<%= pet %> zadelen?",
-    "raisedPet": "undefined",
+    "raisedPet": "Je hebt je <%= pet %> laten opgroeien!",
     "earnedSteed": "Door het voltooien van taken heb je een trouw ros verdiend!",
     "rideNow": "Berijd nu",
     "rideLater": "Berijd later",

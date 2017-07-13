@@ -1081,7 +1081,7 @@
     "shieldSpecialSummer2017WarriorText": "Scallop Shield",
     "shieldSpecialSummer2017WarriorNotes": "This shell that you just found is both decorative AND defensive! Increases Constitution by <%= con %>. Limited Edition 2017 Summer Gear.",
     "shieldSpecialSummer2017HealerText": "Щит из раковины моллюска",
-    "shieldSpecialSummer2017HealerNotes": "Этот щит волшебной устрицы постоянно порождает жемчуг так де как и защищает. Увеличивает телосложение на <%= con %>. Ограниченный выпуск лета 2017.",
+    "shieldSpecialSummer2017HealerNotes": "Этот щит волшебной устрицы постоянно порождает жемчуг, а так же защищает. Увеличивает телосложение на <%= con %>. Ограниченный выпуск лета 2017.",
     "shieldMystery201601Text": "Уничтожитель Решительности",
     "shieldMystery201601Notes": "Этот клинок может быть использован, чтобы парировать все отвлечения. Бонусов не дает. Подарок подписчикам января 2016.",
     "shieldMystery201701Text": "Время-Замораживающий Щит",

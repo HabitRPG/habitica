@@ -1,36 +1,36 @@
 .promo_android {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -1748px -176px;
+  background-position: -1748px 0px;
   width: 175px;
   height: 175px;
 }
 .promo_aquatic_potions {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -447px -148px;
+  background-position: -589px -148px;
   width: 141px;
   height: 441px;
 }
 .promo_backgrounds_armoire_201602 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -1606px 0px;
+  background-position: -1606px -295px;
   width: 141px;
   height: 294px;
 }
 .promo_backgrounds_armoire_201603 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -1606px -295px;
+  background-position: -1606px -590px;
   width: 141px;
   height: 294px;
 }
 .promo_backgrounds_armoire_201604 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: 0px -894px;
+  background-position: -1325px -441px;
   width: 140px;
   height: 441px;
 }
 .promo_backgrounds_armoire_201605 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -705px -894px;
+  background-position: -987px -894px;
   width: 140px;
   height: 441px;
 }
@@ -60,25 +60,25 @@
 }
 .promo_backgrounds_armoire_201610 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -141px -894px;
+  background-position: -282px -894px;
   width: 140px;
   height: 441px;
 }
 .promo_backgrounds_armoire_201611 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -564px -894px;
+  background-position: -141px -894px;
   width: 140px;
   height: 441px;
 }
 .promo_backgrounds_armoire_201612 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -423px -894px;
+  background-position: 0px -894px;
   width: 140px;
   height: 441px;
 }
 .promo_backgrounds_armoire_201701 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -846px -894px;
+  background-position: -705px -894px;
   width: 140px;
   height: 441px;
 }
@@ -102,31 +102,31 @@
 }
 .promo_backgrounds_armoire_201705 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -1183px -442px;
+  background-position: -447px -148px;
   width: 141px;
   height: 441px;
 }
 .promo_backgrounds_armoire_201706 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -899px -442px;
+  background-position: -1183px -442px;
   width: 141px;
   height: 441px;
 }
 .promo_backgrounds_armoire_201707 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -899px 0px;
+  background-position: -899px -442px;
   width: 141px;
   height: 441px;
 }
 .promo_bees {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -757px -442px;
+  background-position: -899px 0px;
   width: 141px;
   height: 441px;
 }
 .promo_bundle_feathered {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -140px -305px;
+  background-position: -757px -442px;
   width: 141px;
   height: 441px;
 }
@@ -150,7 +150,7 @@
 }
 .promo_checkin_incentives {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -1606px -590px;
+  background-position: -1606px 0px;
   width: 141px;
   height: 294px;
 }
@@ -162,7 +162,7 @@
 }
 .promo_classes_fall_2015 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -558px -1336px;
+  background-position: -823px -1336px;
   width: 377px;
   height: 99px;
 }
@@ -228,7 +228,7 @@
 }
 .promo_cow {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -282px -894px;
+  background-position: -564px -894px;
   width: 140px;
   height: 441px;
 }
@@ -252,7 +252,7 @@
 }
 .promo_enchanted_armoire {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -936px -1336px;
+  background-position: -1201px -1336px;
   width: 374px;
   height: 76px;
 }
@@ -270,7 +270,7 @@
 }
 .promo_enchanted_armoire_201509 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -1543px -1484px;
+  background-position: -1088px -1484px;
   width: 90px;
   height: 90px;
 }
@@ -282,13 +282,13 @@
 }
 .promo_enchanted_armoire_201601 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -1634px -1484px;
+  background-position: -906px -1484px;
   width: 90px;
   height: 90px;
 }
 .promo_fairy_potions {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -589px -148px;
+  background-position: -140px -305px;
   width: 141px;
   height: 441px;
 }
@@ -300,13 +300,13 @@
 }
 .promo_ghost_potions {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -987px -894px;
+  background-position: -846px -894px;
   width: 140px;
   height: 441px;
 }
 .promo_habitica {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -1748px 0px;
+  background-position: -1748px -176px;
   width: 175px;
   height: 175px;
 }
@@ -318,7 +318,7 @@
 }
 .promo_habitoween_2016 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -1325px -441px;
+  background-position: -423px -894px;
   width: 140px;
   height: 441px;
 }
@@ -346,6 +346,12 @@
   width: 276px;
   height: 147px;
 }
+.promo_king_manta {
+  background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
+  background-position: -558px -1336px;
+  width: 264px;
+  height: 147px;
+}
 .promo_more_checkin_incentives {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
   background-position: -306px 0px;
@@ -354,7 +360,7 @@
 }
 .promo_mystery_201405 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -906px -1484px;
+  background-position: -1543px -1484px;
   width: 90px;
   height: 90px;
 }
@@ -378,7 +384,7 @@
 }
 .promo_mystery_201409 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -341px -1585px;
+  background-position: -1634px -1484px;
   width: 90px;
   height: 90px;
 }
@@ -390,7 +396,7 @@
 }
 .promo_mystery_201411 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -815px -1484px;
+  background-position: -614px -1585px;
   width: 90px;
   height: 90px;
 }
@@ -408,7 +414,7 @@
 }
 .promo_mystery_201502 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -1088px -1484px;
+  background-position: -815px -1484px;
   width: 90px;
   height: 90px;
 }
@@ -438,13 +444,13 @@
 }
 .promo_mystery_201507 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -1467px -879px;
+  background-position: -1467px -773px;
   width: 90px;
   height: 105px;
 }
 .promo_mystery_201508 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -1467px -1167px;
+  background-position: -140px -747px;
   width: 93px;
   height: 90px;
 }
@@ -456,7 +462,7 @@
 }
 .promo_mystery_201510 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -140px -747px;
+  background-position: -721px -1484px;
   width: 93px;
   height: 90px;
 }
@@ -504,13 +510,13 @@
 }
 .promo_mystery_201606 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -1467px -773px;
+  background-position: -1467px -879px;
   width: 90px;
   height: 105px;
 }
 .promo_mystery_201607 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -614px -1585px;
+  background-position: -341px -1585px;
   width: 90px;
   height: 90px;
 }
@@ -522,7 +528,7 @@
 }
 .promo_mystery_201609 {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -721px -1484px;
+  background-position: -1467px -1167px;
   width: 93px;
   height: 90px;
 }

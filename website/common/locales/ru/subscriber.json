@@ -169,5 +169,5 @@
     "missingCustomerId": "Отсутствует req.query.customerId",
     "missingPaypalBlock": "Отсутствует req.session.paypalBlock",
     "missingSubKey": "Отсутствует req.query.sub",
-    "paypalCanceled": "Your subscription has been canceled"
+    "paypalCanceled": "Ваша подписка была отменена"
 }
