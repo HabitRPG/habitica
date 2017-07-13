@@ -106,12 +106,12 @@ describe('Stripe Payments', () => {
 
     it('should gift gems', async () => {
       let receivingUser = new User();
-      receivingUser.save();
+      await receivingUser.save();
       gift = {
         type: 'gems',
+        uuid: receivingUser._id,
         gems: {
           amount: 16,
-          uuid: receivingUser._id,
         },
       };
 
@@ -125,7 +125,6 @@ describe('Stripe Payments', () => {
         coupon,
       }, stripe);
 
-      gift.member = receivingUser;
       expect(stripeChargeStub).to.be.calledOnce;
       expect(stripeChargeStub).to.be.calledWith({
         amount: '400',

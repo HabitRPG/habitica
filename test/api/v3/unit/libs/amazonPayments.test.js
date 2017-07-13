@@ -134,18 +134,17 @@ describe('Amazon Payments', () => {
 
     it('should gift gems', async () => {
       let receivingUser = new User();
-      receivingUser.save();
+      await receivingUser.save();
       let gift = {
         type: 'gems',
+        uuid: receivingUser._id,
         gems: {
           amount: 16,
-          uuid: receivingUser._id,
         },
       };
       amount = 16 / 4;
       await amzLib.checkout({gift, user, orderReferenceId, headers});
 
-      gift.member = receivingUser;
       expect(paymentBuyGemsStub).to.be.calledOnce;
       expect(paymentBuyGemsStub).to.be.calledWith({
         user,

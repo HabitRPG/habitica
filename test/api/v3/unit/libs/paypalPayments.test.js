@@ -61,7 +61,7 @@ describe('Paypal Payments', ()  => {
     });
 
     it('creates a link for gem purchases', async () => {
-      let link = await paypalPayments.checkout();
+      let link = await paypalPayments.checkout({user: new User()});
 
       expect(paypalPaymentCreateStub).to.be.calledOnce;
       expect(paypalPaymentCreateStub).to.be.calledWith(getPaypalCreateOptions('Habitica Gems', 5.00));
@@ -89,11 +89,12 @@ describe('Paypal Payments', ()  => {
 
     it('creates a link for gifting gems', async () => {
       let receivingUser = new User();
+      await receivingUser.save();
       let gift = {
         type: 'gems',
+        uuid: receivingUser._id,
         gems: {
           amount: 16,
-          uuid: receivingUser._id,
         },
       };
 
