@@ -10,6 +10,9 @@ import Page from './components/page';
 
 // Static Pages
 const Home = () => import(/* webpackChunkName: "static" */'./components/static/home');
+const FAQPage = () => import(/* webpackChunkName: "static" */'./components/static/faq');
+const OverviewPage = () => import(/* webpackChunkName: "static" */'./components/static/overview');
+
 const RegisterLogin = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLogin');
 
 const CreatorIntro = () => import(/* webpackChunkName: "creator" */'./components/creatorIntro');
@@ -117,6 +120,14 @@ const router = new VueRouter({
         { name: 'stats', path: 'stats', component: Page },
         { name: 'achievements', path: 'achievements', component: Page },
         { name: 'settings', path: 'settings', component: Page },
+      ],
+    },
+    {
+      path: '/static',
+      component: ParentPage,
+      children: [
+        { name: 'faq', path: 'faq', component: FAQPage },
+        { name: 'overview', path: 'overview', component: OverviewPage },
       ],
     },
   ],

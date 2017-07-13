@@ -1,0 +1,15 @@
+<template lang='pug'>
+.row
+    .col-md-12
+      .page-header
+        h1=env.t('clearBrowserData')
+
+      p!=env.t('localStorageTryFirst', {linkStart: "<a href='/#/options/settings/settings' target='_blank'>", linkEnd: "</a>"})
+      br
+      p.text-center
+        button.btn.btn-lg.btn-danger(ng-click='clearLocalStorage()',
+          popover-trigger='mouseover', popover=env.t('localStorageClearExplanation'))
+          =env.t('localStorageClear')
+      br
+      p!=env.t('localStorageTryNext', {linkStart: "<a href='https://github.com/HabitRPG/habitica/issues/2760' target='_blank'>", linkEnd: "</a>"})
+</template>

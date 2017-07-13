@@ -29,9 +29,13 @@ div
         router-link.nav-item.dropdown(tag="li", to="/help", :class="{'active': $route.path.startsWith('/help')}")
           a.nav-link(v-once) {{ $t('help') }}
           .dropdown-menu
-            router-link.dropdown-item(to="/help/faq") {{ $t('faq') }}
-            router-link.dropdown-item(to="/help/report-bug") {{ $t('reportBug') }}
-            router-link.dropdown-item(to="/help/request-feature") {{ $t('requestAF') }}
+            router-link.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}
+            router-link.dropdown-item(:to="{name: 'overview'}") {{ $t('overview') }}
+            router-link.dropdown-item(to="/groups/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportBug') }}
+            router-link.dropdown-item(to="/groups/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askAQuestion') }}
+            router-link.dropdown-item(to="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents") {{ $t('requestAF') }}
+            router-link.dropdown-item(to="http://habitica.wikia.com/wiki/Contributing_to_Habitica") {{ $t('contributing') }}
+            router-link.dropdown-item(to="http://habitica.wikia.com/wiki") {{ $t('wiki') }}
       .item-with-icon
         .svg-icon(v-html="icons.gem")
         span {{userGems | roundBigNumber}}
