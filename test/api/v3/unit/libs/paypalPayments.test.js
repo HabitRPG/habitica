@@ -87,6 +87,17 @@ describe('Paypal Payments', ()  => {
       });
     });
 
+    it('should error if the user cannot get gems', async () => {
+      let user = new User();
+      sinon.stub(user, 'canGetGems').returnsPromise().resolves(false);
+
+      await expect(paypalPayments.checkout({user})).to.eventually.be.rejected.and.to.eql({
+        httpCode: 401,
+        message: i18n.t('groupPolicyCannotGetGems'),
+        name: 'NotAuthorized',
+      });
+    });
+
     it('creates a link for gifting gems', async () => {
       let receivingUser = new User();
       await receivingUser.save();

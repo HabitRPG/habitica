@@ -75,8 +75,29 @@ describe('Stripe Payments', () => {
       });
     });
 
+
+    it('should error if user cannot get gems', async () => {
+      gift = undefined;
+      sinon.stub(user, 'canGetGems').returnsPromise().resolves(false);
+
+      await expect(stripePayments.checkout({
+        token,
+        user,
+        gift,
+        groupId,
+        email,
+        headers,
+        coupon,
+      }, stripe)).to.eventually.be.rejected.and.to.eql({
+        httpCode: 401,
+        message: i18n.t('groupPolicyCannotGetGems'),
+        name: 'NotAuthorized',
+      });
+    });
+
     it('should purchase gems', async () => {
       gift = undefined;
+      sinon.stub(user, 'canGetGems').returnsPromise().resolves(true);
 
       await stripePayments.checkout({
         token,
@@ -102,6 +123,8 @@ describe('Stripe Payments', () => {
         paymentMethod: 'Stripe',
         gift,
       });
+      expect(user.canGetGems).to.be.calledOnce;
+      user.canGetGems.restore();
     });
 
     it('should gift gems', async () => {
