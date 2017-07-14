@@ -287,11 +287,13 @@ schema.methods.canGetGems = async function canObtainGems () {
   const userGroups = user.getGroups();
 
   const groups = await Group
-    .find({_id: {$in: userGroups}})
-    .select('leaderOnly leader')
+    .find({
+      _id: {$in: userGroups},
+    })
+    .select('leaderOnly leader purchased')
     .exec();
 
   return groups.every(g => {
-    return g.leader === user._id || g.leaderOnly.getGems !== true;
+    return !g.isSubscribed() || g.leader === user._id || g.leaderOnly.getGems !== true;
   });
 };
