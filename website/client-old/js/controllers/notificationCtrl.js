@@ -315,7 +315,7 @@ habitrpg.controller('NotificationCtrl',
     // are now stored in user.notifications.
     $rootScope.$watchCollection('userNotifications', function (after) {
       if (!User.user._wrapped) return;
-      if (!User.user.needsCron) return;
+      if (User.user.needsCron) return;
       handleUserNotifications(after);
     });
 
