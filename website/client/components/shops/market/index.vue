@@ -55,6 +55,46 @@
               //  @click="click",
               // )
               //  span.svg-icon.inline.icon-12(v-html="icons.pin")
+      drawer(
+        :title="$t('quickInventory')"
+      )
+        div(slot="drawer-header")
+          drawer-header-tabs(
+            :tabs="drawerTabs",
+            @changedPosition="tabSelected($event)"
+          )
+            div(slot="right-item")
+              b-popover(
+                :triggers="['click']",
+                :placement="'top'",
+              )
+                span(slot="content")
+                  .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
+
+                div.hand-cursor(v-once)
+                  | {{ $t('petLikeToEat') + ' ' }}
+                  span.svg-icon.inline.icon-16(v-html="icons.information")
+
+        drawer-slider(
+          :items="ownedItems(selectedDrawerItemType) || []",
+          slot="drawer-slider",
+          :itemWidth=94,
+          :itemMargin=24,
+        )
+          template(slot="item", scope="ctx")
+            item(
+              :item="ctx.item",
+              :itemContentClass="getItemClass(selectedDrawerItemType, ctx.item.key)",
+              popoverPosition="top",
+              @click="openSellDialog(selectedDrawerItemType, ctx.item)"
+            )
+              template(slot="itemBadge", scope="ctx")
+                countBadge(
+                  :show="true",
+                  :count="userItems[drawerTabs[selectedDrawerTab].contentType][ctx.item.key] || 0"
+                )
+              span(slot="popoverContent")
+                h4.popover-content-title {{ ctx.item.text() }}
 </template>
 
 <style lang="scss">
@@ -77,6 +117,10 @@
     width: 12px;
     height: 12px;
   }
+
+  .hand-cursor {
+    cursor: pointer;
+  }
 </style>
 
 
@@ -84,17 +128,32 @@
   import {mapState} from 'client/libs/store';
 
   import ShopItem from '../shopItem';
+  import Item from 'client/components/inventory/item';
   import CountBadge from 'client/components/ui/countBadge';
+  import Drawer from 'client/components/ui/drawer';
+  import DrawerSlider from 'client/components/ui/drawerSlider';
+  import DrawerHeaderTabs from 'client/components/ui/drawerHeaderTabs';
+
+  import bPopover from 'bootstrap-vue/lib/components/popover';
 
   import svgPin from 'assets/svg/pin.svg';
+  import svgInformation from 'assets/svg/information.svg';
+
+  import _filter from 'lodash/filter';
 
 export default {
     components: {
       ShopItem,
+      Item,
       CountBadge,
+      Drawer,
+      DrawerSlider,
+      DrawerHeaderTabs,
+      bPopover,
     },
     computed: {
       ...mapState({
+        content: 'content',
         market: 'shops.market.data',
         userItems: 'user.data.items',
       }),
@@ -112,6 +171,77 @@ export default {
           return [];
         }
       },
+      drawerTabs () {
+        return [
+          {
+            key: 'eggs',
+            contentType: 'eggs',
+            label: this.$t('eggs'),
+          },
+          {
+            key: 'food',
+            contentType: 'food',
+            label: this.$t('foodTitle'),
+          },
+          {
+            key: 'hatchingPotions',
+            contentType: 'hatchingPotions',
+            label: this.$t('hatchingPotions'),
+          },
+          {
+            key: 'special',
+            contentType: 'food',
+            label: this.$t('special'),
+          },
+        ];
+      },
+    },
+    methods: {
+      tabSelected ($event) {
+        this.selectedDrawerTab = $event;
+        this.selectedDrawerItemType = this.drawerTabs[$event].key;
+      },
+      ownedItems (type) {
+        let mappedItems = _filter(this.content[type], i => {
+          return this.userItems[type][i.key] > 0;
+        });
+
+        console.info('content', this.content);
+        console.info('userItems', this.userItems);
+
+        switch (type) {
+          case 'food':
+            return _filter(mappedItems, f => {
+              return f.key !== 'Saddle';
+            });
+          case 'special':
+            if (this.userItems.food.Saddle) {
+              return _filter(this.content.food, f => {
+                return f.key === 'Saddle';
+              });
+            } else {
+              return [];
+            }
+          default:
+            return mappedItems;
+        }
+      },
+      getItemClass (type, itemKey) {
+        switch (type) {
+          case 'food':
+          case 'special':
+            return `Pet_Food_${itemKey}`;
+          case 'eggs':
+            return `Pet_Egg_${itemKey}`;
+          case 'hatchingPotions':
+            return `Pet_HatchingPotion_${itemKey}`;
+          default:
+            return '';
+        }
+      },
+      openSellDialog (type, item) {
+        alert(item.key);
+      },
     },
     data () {
       return {
@@ -119,7 +249,11 @@ export default {
 
         icons: Object.freeze({
           pin: svgPin,
+          information: svgInformation,
         }),
+
+        selectedDrawerTab: 0,
+        selectedDrawerItemType: 'eggs',
       };
     },
     created () {

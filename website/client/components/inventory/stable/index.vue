@@ -556,7 +556,6 @@
       petGroups () {
         let petGroups = [
           {
-            label: this.$t('filterByStandard'),
             key: 'standardPets',
             petSource: {
               eggs: this.content.dropEggs,
@@ -649,7 +648,7 @@
       drawerTabs () {
         return [
           {
-            label: this.$t('food'),
+            label: this.$t('foodTitle'),
             items: _filter(this.content.food, f => {
               return f.key !== 'Saddle' && this.userItems.food[f.key];
             }),
