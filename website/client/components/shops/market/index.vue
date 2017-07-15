@@ -17,12 +17,31 @@
               span.custom-control-description(v-once) {{ category.text }}
 
     .standard-page
+      div.featuredItems
+        div.featured-label
+          span.rectangle
+          span.text Featured Items
+          span.rectangle
+
+        div.items.margin-center
+          shopItem(
+            v-for="item in featuredItems",
+            :key="item.key",
+            :item="item",
+            :price="item.value",
+            :priceType="item.currency",
+            :itemContentClass="'shop_'+item.key",
+            :emptyItem="false",
+            :popoverPosition="'top'",
+          )
+      div {{ featuredItems }}
+
+
       h1.mb-0.page-header(v-once) {{ $t('market') }}
 
       .clearfix
         h2
           | {{ $t('items') }}
-
       div(
         v-for="category in categories",
         v-if="viewOptions[category.identifier].selected"
@@ -121,6 +140,42 @@
   .hand-cursor {
     cursor: pointer;
   }
+
+  .featuredItems {
+    height: 216px;
+  }
+
+  .featured-label {
+    width: 134px;
+    height: 28px;
+    border-radius: 2px;
+    background-color: #b36213;
+    border: solid 2px #ffa623;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 24px auto;
+
+    .rectangle {
+      margin: 9px;
+      display: inline-block;
+       width: 6px;
+       height: 6px;
+       -webkit-transform: rotate(-45deg);
+       transform: rotate(-45deg);
+       background-color: #ffbe5d;
+       border: solid 2px #ffa623;
+     }
+
+    .text {
+      font-family: Roboto;
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 1.33;
+      color: #ffffff;
+      flex: 1;
+    }
+  }
 </style>
 
 
@@ -138,6 +193,8 @@
 
   import svgPin from 'assets/svg/pin.svg';
   import svgInformation from 'assets/svg/information.svg';
+
+  import featuredItems from 'common/script/content/shop-featuredItems';
 
   import _filter from 'lodash/filter';
 
@@ -195,6 +252,12 @@ export default {
           },
         ];
       },
+
+      featuredItems () {
+        return featuredItems.map(i => {
+          return this.content.gear.flat[i];
+        });
+      },
     },
     methods: {
       tabSelected ($event) {
@@ -205,9 +268,6 @@ export default {
         let mappedItems = _filter(this.content[type], i => {
           return this.userItems[type][i.key] > 0;
         });
-
-        console.info('content', this.content);
-        console.info('userItems', this.userItems);
 
         switch (type) {
           case 'food':

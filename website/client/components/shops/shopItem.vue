@@ -25,7 +25,7 @@ b-popover(
   @import '~client/assets/scss/colors.scss';
 
 .item {
-    height: auto;
+  min-height: 106px;
   }
 
   .shop-content {
@@ -36,10 +36,6 @@ b-popover(
     & > * {
       margin-top : 12px;
     }
-  }
-
-  .image {
-
   }
 
   .price {
