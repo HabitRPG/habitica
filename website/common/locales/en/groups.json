@@ -298,5 +298,6 @@
   "managerMarker": " - Manager",
   "joinedGuild": "Joined a Guild",
   "joinedGuildText": "Ventured into the social side of Habitica by joining a Guild!",
-  "badAmountOfGemsToPurchase": "Amount must be at least 1."
+  "badAmountOfGemsToPurchase": "Amount must be at least 1.",
+  "groupPolicyCannotGetGems": "The policy of one group you're part of prevents its members from obtaining gems."
 }
