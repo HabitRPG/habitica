@@ -39,6 +39,7 @@ habitrpg.controller('NotificationCtrl',
       if (yesterDailies.length === 0) {
         User.runCron().then(function () {
           isRunningYesterdailies = false;
+          handleUserNotifications(User.user);
         });
         return;
       };
@@ -73,6 +74,7 @@ habitrpg.controller('NotificationCtrl',
             User.runCron()
               .then(function () {
                 isRunningYesterdailies = false;
+                handleUserNotifications(User.user);
               });
           };
         }],
@@ -313,13 +315,14 @@ habitrpg.controller('NotificationCtrl',
     // are now stored in user.notifications.
     $rootScope.$watchCollection('userNotifications', function (after) {
       if (!User.user._wrapped) return;
+      if (User.user.needsCron) return;
       handleUserNotifications(after);
     });
 
-    var handleUserNotificationsOnFirstSync = _.once(function () {
-      handleUserNotifications($rootScope.userNotifications);
-    });
-    $rootScope.$on('userUpdated', handleUserNotificationsOnFirstSync);
+    // var handleUserNotificationsOnFirstSync = _.once(function () {
+    //   handleUserNotifications($rootScope.userNotifications);
+    // });
+    // $rootScope.$on('userUpdated', handleUserNotificationsOnFirstSync);
 
     // TODO what about this?
     $rootScope.$watch('user.achievements', function(){
