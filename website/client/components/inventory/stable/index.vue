@@ -223,7 +223,7 @@
             div(:class="'Pet_Egg_'+hatchablePet.eggKey")
 
         h4.title {{ hatchablePet.name }}
-        div.text(v-html="$t('haveHatchablePet', { potion: hatchablePet.potionName, egg: hatchablePet.eggName })")
+        div.text(v-html="$t('hatchDialogText', { potionName: hatchablePet.potionName, eggName: hatchablePet.eggName, petName: hatchablePet.name })")
 
       span.svg-icon.icon-10(v-html="icons.close", slot="modal-header", @click="closeHatchPetDialog()")
 
@@ -866,6 +866,7 @@
 
       hatchPet (pet) {
         this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
+        this.closeHatchPetDialog();
       },
 
       onDragStart (ev, food) {
@@ -911,7 +912,6 @@
           if (pet.isOwned() || !pet.isHatchable()) {
             return;
           }
-
           // opens the hatch dialog
           this.hatchablePet = pet;
         }
