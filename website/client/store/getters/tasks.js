@@ -47,8 +47,8 @@ export function getTaskClasses (store) {
             return getTaskColorByValue(task.value);
           case 'habit':
             return {
-              up: task.up ? getTaskColorByValue(task.value) : 'task-disabled',
-              down: task.down ? getTaskColorByValue(task.value) : 'task-disabled',
+              up: task.up ? getTaskColorByValue(task.value) : 'task-habit-disabled',
+              down: task.down ? getTaskColorByValue(task.value) : 'task-habit-disabled',
             };
           case 'reward':
             return 'task-reward';
