@@ -129,7 +129,7 @@
     "mysterySet201703": "Set Scintillante",
     "mysterySet201704": "Set Fiabesco",
     "mysterySet201705": "Set combattente pennuto",
-    "mysterySet201706": "Pirate Pioneer Set",
+    "mysterySet201706": "Set Pirata Pioniere",
     "mysterySet301404": "Set steampunk standard",
     "mysterySet301405": "Set accessori steampunk",
     "mysterySet301703": "Set Pavone Steampunk",
@@ -169,5 +169,5 @@
     "missingCustomerId": "Manca req.query.customerId",
     "missingPaypalBlock": "Manca req.session.paypalBlock",
     "missingSubKey": "Manca req.query.sub",
-    "paypalCanceled": "Your subscription has been canceled"
+    "paypalCanceled": "Il tuo abbonameno è stato disdetto"
 }

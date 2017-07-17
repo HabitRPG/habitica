@@ -4,6 +4,7 @@ import Bluebird from 'bluebird';
 import {
   chatDefaults,
   TAVERN_ID,
+  model as Group,
 } from '../group';
 import { defaults, map, flatten, flow, compact, uniq, partialRight } from 'lodash';
 import { model as UserNotification } from '../userNotification';
@@ -190,7 +191,7 @@ schema.methods.cancelSubscription = async function cancelSubscription (options =
   return await payments.cancelSubscription(options);
 };
 
-schema.methods.daysUserHasMissed = function  daysUserHasMissed (now, req = {}) {
+schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
   // If the user's timezone has changed (due to travel or daylight savings),
   // cron can be triggered twice in one day, so we check for that and use
   // both timezones to work out if cron should run.
@@ -270,4 +271,29 @@ schema.methods.daysUserHasMissed = function  daysUserHasMissed (now, req = {}) {
   }
 
   return {daysMissed, timezoneOffsetFromUserPrefs};
+};
+
+// Determine if the user can get gems: some groups restrict their members ability to obtain them.
+// User is allowed to buy gems if no group has `leaderOnly.getGems` === true or if
+// its the group leader
+schema.methods.canGetGems = async function canObtainGems () {
+  const user = this;
+  const plan = user.purchased.plan;
+
+  if (!user.isSubscribed() || plan.customerId !== payments.constants.GROUP_PLAN_CUSTOMER_ID) {
+    return true;
+  }
+
+  const userGroups = user.getGroups();
+
+  const groups = await Group
+    .find({
+      _id: {$in: userGroups},
+    })
+    .select('leaderOnly leader purchased')
+    .exec();
+
+  return groups.every(g => {
+    return !g.isSubscribed() || g.leader === user._id || g.leaderOnly.getGems !== true;
+  });
 };

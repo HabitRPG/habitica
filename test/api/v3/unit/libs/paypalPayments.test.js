@@ -61,7 +61,7 @@ describe('Paypal Payments', ()  => {
     });
 
     it('creates a link for gem purchases', async () => {
-      let link = await paypalPayments.checkout();
+      let link = await paypalPayments.checkout({user: new User()});
 
       expect(paypalPaymentCreateStub).to.be.calledOnce;
       expect(paypalPaymentCreateStub).to.be.calledWith(getPaypalCreateOptions('Habitica Gems', 5.00));
@@ -87,13 +87,25 @@ describe('Paypal Payments', ()  => {
       });
     });
 
+    it('should error if the user cannot get gems', async () => {
+      let user = new User();
+      sinon.stub(user, 'canGetGems').returnsPromise().resolves(false);
+
+      await expect(paypalPayments.checkout({user})).to.eventually.be.rejected.and.to.eql({
+        httpCode: 401,
+        message: i18n.t('groupPolicyCannotGetGems'),
+        name: 'NotAuthorized',
+      });
+    });
+
     it('creates a link for gifting gems', async () => {
       let receivingUser = new User();
+      await receivingUser.save();
       let gift = {
         type: 'gems',
+        uuid: receivingUser._id,
         gems: {
           amount: 16,
-          uuid: receivingUser._id,
         },
       };
 

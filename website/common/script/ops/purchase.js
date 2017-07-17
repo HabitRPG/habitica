@@ -30,6 +30,11 @@ module.exports = function purchase (user, req = {}, analytics) {
     let convCap = planGemLimits.convCap;
     convCap += user.purchased.plan.consecutive.gemCapExtra;
 
+    // Some groups limit their members ability to obtain gems
+    // The check is async so it's done on the server (in server/controllers/api-v3/user#purchase)
+    // only and not on the client,
+    // resulting in a purchase that will seem successful until the request hit the server.
+
     if (!user.purchased || !user.purchased.plan || !user.purchased.plan.customerId) {
       throw new NotAuthorized(i18n.t('mustSubscribeToPurchaseGems', req.language));
     }

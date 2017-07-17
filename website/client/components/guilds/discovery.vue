@@ -2,7 +2,7 @@
 .row
   sidebar(@search="updateSearch", @filter="updateFilters")
 
-  .col-10.standard-page
+  .standard-page
     .clearfix
         h1.page-header.float-left(v-once) {{ $t('publicGuilds') }}
         .float-right

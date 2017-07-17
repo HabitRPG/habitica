@@ -21,6 +21,9 @@ api.constants = {
 };
 
 api.verifyGemPurchase = async function verifyGemPurchase (user, receipt, headers) {
+  const userCanGetGems = await user.canGetGems();
+  if (!userCanGetGems) throw new NotAuthorized(shared.i18n.t('groupPolicyCannotGetGems', user.preferences.language));
+
   await iap.setup();
   let appleRes = await iap.validate(iap.APPLE, receipt);
   let isValidated = iap.isValidated(appleRes);

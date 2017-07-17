@@ -63,7 +63,21 @@ describe('Google Payments', ()  => {
         });
     });
 
+    it('should throw an error if user cannot purchase gems', async () => {
+      sinon.stub(user, 'canGetGems').returnsPromise().resolves(false);
+
+      await expect(googlePayments.verifyGemPurchase(user, receipt, signature, headers))
+        .to.eventually.be.rejected.and.to.eql({
+          httpCode: 401,
+          name: 'NotAuthorized',
+          message: i18n.t('groupPolicyCannotGetGems'),
+        });
+
+      user.canGetGems.restore();
+    });
+
     it('purchases gems', async () => {
+      sinon.stub(user, 'canGetGems').returnsPromise().resolves(true);
       await googlePayments.verifyGemPurchase(user, receipt, signature, headers);
 
       expect(iapSetupStub).to.be.calledOnce;
@@ -82,6 +96,8 @@ describe('Google Payments', ()  => {
         amount: 5.25,
         headers,
       });
+      expect(user.canGetGems).to.be.calledOnce;
+      user.canGetGems.restore();
     });
   });
 

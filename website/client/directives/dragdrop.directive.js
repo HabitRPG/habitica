@@ -7,12 +7,15 @@ import _without from 'lodash/without';
  * DRAG_GROUP is a static custom value
  * KEY_OF_ITEM
  *
- * v-drag.DRAG_GROUP="KEY_OF_ITEM"
- * v-drag.drop.DRAG_GROUP="KEY_OF_ITEM" @dropped="callback" @dragover="optional"
+ * v-drag.DRAG_GROUP="KEY_OF_ITEM" @itemDragEnd="optional" @itemDragStart="optional"
+ * v-drag.drop.DRAG_GROUP="KEY_OF_ITEM" @itemDropped="callback" @itemDragOver="optional"
  */
 
-const DROPPED_EVENT_NAME = 'dropped';
-const DRAGOVER_EVENT_NAME = 'dragover';
+const DROPPED_EVENT_NAME = 'itemDropped';
+const DRAGSTART_EVENT_NAME = 'itemDragStart';
+const DRAGEND_EVENT_NAME = 'itemDragEnd';
+const DRAGOVER_EVENT_NAME = 'itemDragOver';
+const DRAGLEAVE_EVENT_NAME = 'itemDragLeave';
 
 export default {
   bind (el, binding, vnode) {
@@ -24,13 +27,28 @@ export default {
       el.draggable = true;
       el.handleDrag = (ev) => {
         ev.dataTransfer.setData('KEY', binding.value);
+        let dragStartEventData = {
+          event: ev,
+        };
+
+        emit(vnode, DRAGSTART_EVENT_NAME, dragStartEventData);
       };
       el.addEventListener('dragstart', el.handleDrag);
+
+      el.handleDragEnd = () => {
+        let dragEndEventData = {};
+
+        emit(vnode, DRAGEND_EVENT_NAME, dragEndEventData);
+      };
+
+
+      el.addEventListener('dragend', el.handleDrag);
     } else {
       el.handleDragOver = (ev) => {
         let dragOverEventData = {
           dropable: true,
           draggingKey: ev.dataTransfer.getData('KEY'),
+          event: ev,
         };
 
         emit(vnode, DRAGOVER_EVENT_NAME, dragOverEventData);
@@ -47,16 +65,23 @@ export default {
         emit(vnode, DROPPED_EVENT_NAME, dropEventData);
       };
 
+      el.handleDragLeave = () => {
+        emit(vnode, DRAGLEAVE_EVENT_NAME, {});
+      };
+
       el.addEventListener('dragover', el.handleDragOver);
+      el.addEventListener('dragleave', el.handleDragLeave);
       el.addEventListener('drop', el.handleDrop);
     }
   },
 
   unbind (el) {
     if (!el.isDropHandler) {
-      el.removeEventListener('drag', el.handleDrag);
+      el.removeEventListener('dragstart', el.handleDrag);
+      el.removeEventListener('dragend', el.handleDragEnd);
     } else {
       el.removeEventListener('dragover', el.handleDragOver);
+      el.removeEventListener('dragleave', el.handleDragLeave);
       el.removeEventListener('drop', el.handleDrop);
     }
   },
