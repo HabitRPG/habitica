@@ -83,7 +83,7 @@ let api = {};
  * @apiError (400) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
  * @apiError (400) {NotAuthorized} messageGroupAlreadyInParty
  *
- * @apiSuccess {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ * @apiSuccess (201) {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
  *
  * @apiSuccessExample {json} Private Guild:
  *     HTTP/1.1 200 OK
@@ -174,7 +174,7 @@ api.createGroup = {
  * @apiName CreateGroupPlan
  * @apiGroup Group
  *
- * @apiSuccess {Object} data The created group
+ * @apiSuccess (201) {Object} data The created group
  */
 api.createGroupPlan = {
   method: 'POST',
