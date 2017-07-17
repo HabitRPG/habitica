@@ -1,5 +1,5 @@
-<template lang='pug'>
-.row
+<template lang="pug">
+  .row
     .col-md-12
       .page-header
         h1 Privacy Policy

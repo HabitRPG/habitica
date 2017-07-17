@@ -1,30 +1,30 @@
-<template lang='pug'>
-div(ng-controller='PlansCtrl')
-    +groupPlansBenefits
+<template lang="pug">
+  div
+    // @TODO: +groupPlansBenefits
 
     br
     br
     .row
       .col-sm-6.col-sm-offset-3
-        a.btn.btn-primary.btn-lg.btn-block(ng-click="goToNewGroupPage()")=env.t('getAGroupPlanToday')
+        a.btn.btn-primary.btn-lg.btn-block(ng-click="goToNewGroupPage()") {{ $t('getAGroupPlanToday') }}
 
     .row
       .col-md-6.col-md-offset-3
         br
-        .text-center=env.t('groupSubscriptionPrice')
+        .text-center {{ $t('groupSubscriptionPrice') }}
 
     hr
 
     .col-md-6.col-md-offset-3.text-center
       .row.row-margin(style="font-size: 2rem;")
-        span=env.t('enterprisePlansDescription')
+        span {{ $t('enterprisePlansDescription') }}
       .row.row-margin
-        a.btn.btn-primary.btn-lg.btn-block(href="mailto:vicky@habitica.com?subject="+env.t('enterprisePlansEmailSubject'))=env.t('enterprisePlansButton')
+        a.btn.btn-primary.btn-lg.btn-block(:href="'mailto:vicky@habitica.com?subject=' + $t('enterprisePlansEmailSubject')") {{ $t('enterprisePlansButton') }}
 
       br
 
       .row.row-margin(style="font-size: 2rem;")
-        span=env.t('familyPlansDescription')
+        span {{ $t('familyPlansDescription') }}
       .row.row-margin
-        a.btn.btn-primary.btn-lg.btn-block(href="https://docs.google.com/forms/d/e/1FAIpQLSerMKkaCg3UcgpcMvBJtlNgnF9DNY8sxCebpAT-GHeDAQASPQ/viewform?usp=sf_link")=env.t('familyPlansButton')
+        a.btn.btn-primary.btn-lg.btn-block(href="https://docs.google.com/forms/d/e/1FAIpQLSerMKkaCg3UcgpcMvBJtlNgnF9DNY8sxCebpAT-GHeDAQASPQ/viewform?usp=sf_link") {{ $t('familyPlansButton') }}
 </template>

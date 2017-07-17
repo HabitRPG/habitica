@@ -1,66 +1,72 @@
-<template lang='pug'>
+<template lang="pug">
   div.jumbotron
-      h1= env.t('presskit')
-      p= env.t('presskitText', { pressEnquiryEmail : env.EMAILS.PRESS_ENQUIRY_EMAIL })
+    h1 {{ $t('presskit') }}
+      p {{ $t('presskitText', { pressEnquiryEmail : env.EMAILS.PRESS_ENQUIRY_EMAIL }) }}
       p
         a.btn.btn-lg.btn-success(href='/presskit/presskit.zip') presskit.zip
 
-    -
-      var imgs = {
-        'Promo': [
+    div(v-for='(images, category) in imgs')
+      h2 {{ $t('pk' + category) }}
+      div(v-if='Array.isArray(images)')
+        div(v-for='img in images')
+          img.img-rendering-auto.press-img(:src="`/presskit/${category}/${img}.png`")
+      div(v-else)
+        div(v-for='(images, category) in images')
+          h3 {{ $t('pk' + category) }}
+          div(v-for='img in images')
+            img.img-rendering-auto.press-img(:src="`/presskit/#$category}/${cat}/${img}.png`")
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      imgs: {
+        Promo: [
           'Promo',
-          'Promo - Thin'
+          'Promo - Thin',
         ],
-        'Logo': [
+        Logo: [
           'Icon with Text',
           'Habitica Gryphon',
           'iOS',
-          'Android'
+          'Android',
         ],
-        'Boss': [
+        Boss: [
           'Basi-List',
           'Stagnant Dishes',
           'SnackLess Monster',
           'Laundromancer',
           'Necro-Vice',
           'Battling the Ghost Stag',
-          'Dread Drag\'on of Dilatory'
+          'Dread Drag\'on of Dilatory',
         ],
-        'Samples': {
-          'Website': [
+        Samples: {
+          Website: [
             'Tasks Page',
             'Equipment',
             'Market',
             'Guilds',
-            'Challenges'
+            'Challenges',
           ],
-          'iOS': [
+          iOS: [
             'Tasks Page',
             'Level Up',
             'Pets',
             'Party',
-            'Boss'
+            'Boss',
           ],
-          'Android': [
+          Android: [
             'User',
             'Tasks Page',
             'Reward',
             'Level Up',
             'Tavern',
-            'Party'
-          ]
-        }
-      }
-    each images, category in imgs
-      div
-        h2= env.t('pk' + category)
-        if Array.isArray(images)
-          each img in images
-            img.img-rendering-auto.press-img(src="/presskit/#{category}/#{img}.png")
-        else
-          each item, cat in images
-            div
-              h3= env.t('pk' + cat)
-              each img in item
-                img.img-rendering-auto.press-img(src="/presskit/#{category}/#{cat}/#{img}.png")
-</template>
+            'Party',
+          ],
+        },
+      },
+    };
+  },
+};
+</script>
