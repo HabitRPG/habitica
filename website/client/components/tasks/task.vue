@@ -10,8 +10,11 @@
       .svg-icon.check(v-html="icons.check", v-if="task.completed")
   // Task title, description and icons
   .task-content(:class="contentClass")
-    h3.task-title(:class="{ 'has-notes': task.notes }") {{task.text}}
-    .task-notes.small-text {{task.notes}}
+    h3.task-title(
+      :class="{ 'has-notes': task.notes }", 
+      v-html="$options.filters.markdown(task.text)"
+    )
+    .task-notes.small-text(v-html="$options.filters.markdown(task.notes)")
     .icons.small-text.d-flex.align-items-center
       .d-flex.align-items-center(v-if="task.type === 'todo' && task.date", :class="{'due-overdue': isDueOverdue}")
         .svg-icon.calendar(v-html="icons.calendar")
