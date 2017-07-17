@@ -34,14 +34,81 @@
             :emptyItem="false",
             :popoverPosition="'top'",
           )
-      div {{ featuredItems }}
+            template(slot="popoverContent", scope="ctx")
+              equipmentAttributesPopover(:item="ctx.item")
 
 
       h1.mb-0.page-header(v-once) {{ $t('market') }}
 
       .clearfix
-        h2
+        h2.float-left
+          | {{ $t('gear') }}
+
+        div.float-right
+          span.dropdown-label {{ $t('class') }}
+          b-dropdown(right=true)
+            span.dropdown-icon-item(slot="text")
+              span.svg-icon.inline.icon-16(v-html="icons[selectedGroupGearByClass]")
+              span.text {{ $t(selectedGroupGearByClass) }}
+
+            b-dropdown-item(
+              v-for="sort in content.classes",
+              @click="selectedGroupGearByClass = sort",
+              :active="selectedGroupGearByClass === sort",
+              :key="sort"
+            )
+              span.dropdown-icon-item
+                span.svg-icon.inline.icon-16(v-html="icons[sort]")
+                span.text {{ $t(sort) }}
+
+          span.dropdown-label {{ $t('sortBy') }}
+          b-dropdown(:text="$t(selectedSortGearBy)", right=true)
+            b-dropdown-item(
+              v-for="sort in sortGearBy",
+              @click="selectedSortGearBy = sort",
+              :active="selectedSortGearBy === sort",
+              :key="sort"
+            ) {{ $t(sort) }}
+
+      br
+
+      div.items
+        shopItem(
+          v-for="item in filteredGear(selectedGroupGearByClass, selectedSortGearBy, false)",
+          :key="item.key",
+          :item="item",
+          :price="item.value",
+          :priceType="item.currency",
+          :itemContentClass="'shop_'+item.key",
+          :emptyItem="userItems.gear[item.key] === undefined",
+          :popoverPosition="'top'",
+        )
+          template(slot="popoverContent", scope="ctx")
+            equipmentAttributesPopover(:item="ctx.item")
+            div {{ ctx.item }}
+
+          template(slot="itemBadge", scope="ctx")
+            span.badge.badge-pill.badge-item.badge-svg(
+              v-if="!ctx.emptyItem",
+              :class="{'item-selected-badge': true}",
+            )
+              span.svg-icon.inline.icon-12(v-html="icons.pin")
+
+      .clearfix
+        h2.float-left
           | {{ $t('items') }}
+
+        div.float-right
+          span.dropdown-label {{ $t('sortBy') }}
+          b-dropdown(:text="$t(selectedSortItemsBy)", right=true)
+            b-dropdown-item(
+            v-for="sort in sortItemsBy",
+            @click="selectedSortItemsBy = sort",
+            :active="selectedSortItemsBy === sort",
+            :key="sort"
+            ) {{ $t(sort) }}
+
+
       div(
         v-for="category in categories",
         v-if="viewOptions[category.identifier].selected"
@@ -50,7 +117,7 @@
 
         div.items
           shopItem(
-            v-for="item in category.items",
+            v-for="item in sortedMarketItems(category, selectedSortItemsBy)",
             :key="item.key",
             :item="item",
             :price="item.value",
@@ -69,11 +136,7 @@
                 :count="userItems[item.purchaseType][item.key] || 0"
               )
 
-              // span.badge.badge-pill.badge-item.badge-svg(
-              //  :class="{'item-selected-badge': true}",
-              //  @click="click",
-              // )
-              //  span.svg-icon.inline.icon-12(v-html="icons.pin")
+
       drawer(
         :title="$t('quickInventory')"
       )
@@ -127,7 +190,7 @@
     padding: 4.5px 6px;
 
     &.item-selected-badge {
-      background: $teal-50;
+      background: $purple-300;
       color: $white;
     }
   }
@@ -189,14 +252,34 @@
   import DrawerSlider from 'client/components/ui/drawerSlider';
   import DrawerHeaderTabs from 'client/components/ui/drawerHeaderTabs';
 
+  import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
+
+
   import bPopover from 'bootstrap-vue/lib/components/popover';
+  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
+  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
   import svgPin from 'assets/svg/pin.svg';
   import svgInformation from 'assets/svg/information.svg';
+  import svgWarrior from 'assets/svg/warrior.svg';
+  import svgWizard from 'assets/svg/wizard.svg';
+  import svgRogue from 'assets/svg/rogue.svg';
+  import svgHealer from 'assets/svg/healer.svg';
 
   import featuredItems from 'common/script/content/shop-featuredItems';
 
   import _filter from 'lodash/filter';
+  import _sortBy from 'lodash/sortBy';
+
+  const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
+
+  const sortGearTypeMap = {
+    sortByType: 'type',
+    sortByPrice: 'value',
+    sortByCon: 'con',
+    sortByStr: 'str',
+    sortByInt: 'int',
+  };
 
 export default {
     components: {
@@ -207,11 +290,41 @@ export default {
       DrawerSlider,
       DrawerHeaderTabs,
       bPopover,
+      bDropdown,
+      bDropdownItem,
+
+      EquipmentAttributesPopover,
+    },
+    data () {
+      return {
+        viewOptions: {},
+
+        icons: Object.freeze({
+          pin: svgPin,
+          information: svgInformation,
+          warrior: svgWarrior,
+          wizard: svgWizard,
+          rogue: svgRogue,
+          healer: svgHealer,
+        }),
+
+        selectedDrawerTab: 0,
+        selectedDrawerItemType: 'eggs',
+
+        selectedGroupGearByClass: '',
+
+        sortGearBy: sortGearTypes,
+        selectedSortGearBy: 'sortByType',
+
+        sortItemsBy: ['AZ', 'sortByType', 'sortByNumber'],
+        selectedSortItemsBy: 'AZ',
+      };
     },
     computed: {
       ...mapState({
         content: 'content',
         market: 'shops.market.data',
+        user: 'user.data.stats',
         userItems: 'user.data.items',
       }),
       categories () {
@@ -254,6 +367,7 @@ export default {
       },
 
       featuredItems () {
+          console.info('content', this.content, 'user', this.userItems);
         return featuredItems.map(i => {
           return this.content.gear.flat[i];
         });
@@ -302,22 +416,42 @@ export default {
       openSellDialog (type, item) {
         alert(item.key);
       },
-    },
-    data () {
-      return {
-        viewOptions: {},
+      openBuyDialog (type, item) {
+        alert(item.key);
+      },
+      filteredGear (groupByClass, sortBy, showAll) {
+        let result = _filter(this.content.gear.flat, ['klass', groupByClass]);
 
-        icons: Object.freeze({
-          pin: svgPin,
-          information: svgInformation,
-        }),
+        result = _sortBy(result, [sortGearTypeMap[sortBy]]);
 
-        selectedDrawerTab: 0,
-        selectedDrawerItemType: 'eggs',
-      };
+        return result;
+      },
+      sortedMarketItems(category, sortBy) {
+        let result = category.items;
+
+        switch (sortBy) {
+          case 'AZ': {
+            result = _sortBy(result, ['text']);
+
+            break;
+          }
+          case 'sortByNumber': {
+            result = _sortBy(result, i => {
+              return this.userItems[i.purchaseType][i.key] || 0;
+            });
+            break;
+          }
+        }
+
+        return result;
+      },
     },
     created () {
       this.$store.dispatch('shops:fetch');
+
+        this.selectedGroupGearByClass = this.user.class;
+        console.info('ads', this.selectedGroupGearByClass);
+
     },
   };
 </script>

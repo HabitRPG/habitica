@@ -10,7 +10,7 @@ b-popover(
     .item(
       :class="{'item-empty': emptyItem, 'highlight': highlightBorder}",
     )
-      slot(name="itemBadge", :item="item")
+      slot(name="itemBadge", :item="item", :emptyItem="emptyItem")
       div.shop-content
         div.image(:class="itemContentClass")
 
@@ -26,6 +26,12 @@ b-popover(
 
 .item {
   min-height: 106px;
+  }
+
+  .item.item-empty {
+    border-radius: 2px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
   }
 
   .shop-content {

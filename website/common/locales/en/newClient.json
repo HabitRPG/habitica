@@ -180,5 +180,12 @@
   "tier7": "Tier 7 (Legendary)",
   "tierModerator": "Moderator (Guardian)",
   "tierStaff": "Staff (Heroic)",
-  "tierNPC": "NPC"
+  "tierNPC": "NPC",
+
+  "sortByType": "Type",
+  "sortByPrice": "Price",
+  "sortByCon": "Con",
+  "sortByPer": "Per",
+  "sortByStr": "Str",
+  "sortByInt": "Int"
 }
