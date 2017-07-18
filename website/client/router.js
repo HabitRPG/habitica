@@ -21,6 +21,12 @@ const ProfilePage = () => import(/* webpackChunkName: "user" */'./components/use
 
 // Settings
 const Settings = () => import(/* webpackChunkName: "settings" */'./components/settings/index');
+const API = () => import(/* webpackChunkName: "settings" */'./components/settings/api');
+const DataExport = () => import(/* webpackChunkName: "settings" */'./components/settings/dataExport');
+const Notifications = () => import(/* webpackChunkName: "settings" */'./components/settings/notifications');
+const PromoCode = () => import(/* webpackChunkName: "settings" */'./components/settings/promoCode');
+const Site = () => import(/* webpackChunkName: "settings" */'./components/settings/site');
+const Subscription = () => import(/* webpackChunkName: "settings" */'./components/settings/subscription');
 
 // Except for tasks that are always loaded all the other main level
 // All the main level
@@ -134,32 +140,32 @@ const router = new VueRouter({
             {
               name: 'site',
               path: 'site',
-              component: Page,
+              component: Site,
             },
             {
               name: 'api',
               path: 'api',
-              component: Page,
+              component: API,
             },
             {
               name: 'dataExport',
               path: 'data-export',
-              component: Page,
+              component: DataExport,
             },
             {
               name: 'promoCode',
               path: 'promo-code',
-              component: Page,
+              component: PromoCode,
             },
             {
               name: 'subscription',
               path: 'subscription',
-              component: Page,
+              component: Subscription,
             },
             {
               name: 'notifications',
               path: 'notifications',
-              component: Page,
+              component: Notifications,
             },
           ],
         },
