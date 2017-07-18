@@ -158,7 +158,8 @@ angular.module('habitrpg')
 
         var clientMessage = clientResponse[1];
 
-        if (clientMessage) {
+        var opNamesWithoutNotification = ["readCard"];
+        if (clientMessage && opNamesWithoutNotification.indexOf(opName) === -1) {
           Notification.text(clientMessage);
         }
 
@@ -235,7 +236,7 @@ angular.module('habitrpg')
           Tasks.createUserTasks(data.body);
         },
 
-        score: function (data) {
+        score: function (data, callback) {
           try {
             $window.habitrpgShared.ops.scoreTask({user: user, task: data.params.task, direction: data.params.direction}, data.params);
           } catch (err) {
@@ -308,7 +309,32 @@ angular.module('habitrpg')
 
               // Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'acquire item','itemName':after.key,'acquireMethod':'Drop'});
             }
+
+            if (callback) {
+              callback();
+            }
+
           });
+        },
+
+        bulkScore: function (data) {
+          var scoreCallback = function () {
+            setTimeout(function() {
+              if (data.length > 0) {
+                // Remove the first task from array and call the score function
+                userServices.score(data.shift(), scoreCallback);
+              }
+              else {
+                // Only run when finished scoring
+                sync();
+              }
+            }, 150);
+          }
+
+          // First call to score
+          if (data.length > 0) {
+            userServices.score(data.shift(), scoreCallback);
+          }
         },
 
         sortTask: function (data) {
@@ -389,6 +415,16 @@ angular.module('habitrpg')
           .then(function (response) {
             Notification.text('-' + numberOfDays + ' day(s), remember to refresh');
           });
+        },
+
+        runCron: function () {
+          return $http({
+            method: "POST",
+            url: 'api/v3/cron',
+          })
+          .then(function (response) {
+            return sync();
+          })
         },
 
         setCustomDayStart: function (dayStart) {

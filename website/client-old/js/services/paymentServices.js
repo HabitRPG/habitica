@@ -1,17 +1,38 @@
 'use strict';
 
 angular.module('habitrpg').factory('Payments',
-['$rootScope', 'User', '$http', 'Content',
-function($rootScope, User, $http, Content) {
+['$rootScope', 'User', '$http', 'Content', 'Notification',
+function($rootScope, User, $http, Content, Notification) {
   var Payments = {};
   var isAmazonReady = false;
+  Payments.amazonButtonEnabled = true;
+
+  Payments.paymentMethods = {
+    AMAZON_PAYMENTS: 'Amazon Payments',
+    STRIPE: 'Stripe',
+    GOOGLE: 'Google',
+    APPLE: 'Apple',
+    PAYPAL: 'Paypal',
+    GIFT: 'Gift'
+  };
 
   window.onAmazonLoginReady = function(){
     isAmazonReady = true;
     amazon.Login.setClientId(window.env.AMAZON_PAYMENTS.CLIENT_ID);
   };
 
+  Payments.checkGemAmount = function(data) {
+    if (data && data.gift && data.gift.type === "gems" && (!data.gift.gems.amount || data.gift.gems.amount === 0)) {
+      Notification.error(window.env.t('badAmountOfGemsToPurchase'), true);
+      return false;
+    }
+    return true;
+  }
+
   Payments.showStripe = function(data) {
+
+    if(!Payments.checkGemAmount(data)) return;
+
     var sub = false;
 
     if (data.subscription) {
@@ -111,6 +132,7 @@ function($rootScope, User, $http, Content) {
   // Needs to be called everytime the modal/router is accessed
   Payments.amazonPayments.init = function(data) {
     if(!isAmazonReady) return;
+    if(!Payments.checkGemAmount(data)) return;
     if(data.type !== 'single' && data.type !== 'subscription') return;
 
     if (data.gift) {
@@ -189,14 +211,14 @@ function($rootScope, User, $http, Content) {
 
   }
 
-  Payments.amazonPayments.canCheckout = function(){
-    if(Payments.amazonPayments.type === 'single'){
+  Payments.amazonPayments.canCheckout = function() {
+    if (Payments.amazonPayments.type === 'single') {
       return Payments.amazonPayments.paymentSelected === true;
-    }else if(Payments.amazonPayments.type === 'subscription'){
+    } else if(Payments.amazonPayments.type === 'subscription') {
       return Payments.amazonPayments.paymentSelected === true &&
               // Mah.. one is a boolean the other a string...
               Payments.amazonPayments.recurringConsent === 'true';
-    }else{
+    } else {
       return false;
     }
   }
@@ -255,7 +277,8 @@ function($rootScope, User, $http, Content) {
   }
 
   Payments.amazonPayments.checkout = function() {
-    if(Payments.amazonPayments.type === 'single'){
+    Payments.amazonButtonEnabled = false;
+    if (Payments.amazonPayments.type === 'single') {
       var url = '/amazon/checkout';
       $http.post(url, {
         orderReferenceId: Payments.amazonPayments.orderReferenceId,
@@ -296,7 +319,7 @@ function($rootScope, User, $http, Content) {
   }
 
   Payments.cancelSubscription = function(config) {
-    if (config && config.group && !confirm(window.env.t('confirmCancelGroupPlan'))) return; 
+    if (config && config.group && !confirm(window.env.t('confirmCancelGroupPlan'))) return;
     if (!confirm(window.env.t('sureCancelSub'))) return;
 
     var group;
@@ -315,11 +338,31 @@ function($rootScope, User, $http, Content) {
       paymentMethod = paymentMethod.toLowerCase();
     }
 
-    var cancelUrl = '/' + paymentMethod + '/subscribe/cancel?_id=' + User.user._id + '&apiToken=' + User.settings.auth.apiToken;
+    var queryParams = {
+      _id: User.user._id,
+      apiToken: User.settings.auth.apiToken,
+      noRedirect: true,
+    };
+
     if (group) {
-      cancelUrl += '&groupId=' + group._id;
+      queryParams.groupId = group._id;
     }
-    window.location.href = cancelUrl;
+
+    var cancelUrl = '/' + paymentMethod + '/subscribe/cancel?' + $.param(queryParams);
+
+    $http.get(cancelUrl)
+      .then(function (success) {
+        alert(window.evn.t('paypalCanceled'));
+        window.location.href = '/';
+      });
+  }
+
+  Payments.payPalPayment = function(data){
+    if(!Payments.checkGemAmount(data)) return;
+
+    var gift = Payments.encodeGift(data.giftedTo, data.gift);
+    var url = '/paypal/checkout?_id=' + User.user._id + '&apiToken=' + User.settings.auth.apiToken + '&gift=' + gift;
+    $http.get(url);
   }
 
   Payments.encodeGift = function(uuid, gift) {

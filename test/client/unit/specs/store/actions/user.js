@@ -1,7 +1,7 @@
 import axios from 'axios';
 import generateStore from 'client/store';
 
-describe('tasks actions', () => {
+describe('user actions', () => {
   let store;
 
   beforeEach(() => {

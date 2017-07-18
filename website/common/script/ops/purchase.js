@@ -2,6 +2,7 @@ import content from '../content/index';
 import i18n from '../i18n';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
+import forEach from 'lodash/forEach';
 import splitWhitespace from '../libs/splitWhitespace';
 import planGemLimits from '../libs/planGemLimits';
 import {
@@ -28,6 +29,11 @@ module.exports = function purchase (user, req = {}, analytics) {
     let convRate = planGemLimits.convRate;
     let convCap = planGemLimits.convCap;
     convCap += user.purchased.plan.consecutive.gemCapExtra;
+
+    // Some groups limit their members ability to obtain gems
+    // The check is async so it's done on the server (in server/controllers/api-v3/user#purchase)
+    // only and not on the client,
+    // resulting in a purchase that will seem successful until the request hit the server.
 
     if (!user.purchased || !user.purchased.plan || !user.purchased.plan.customerId) {
       throw new NotAuthorized(i18n.t('mustSubscribeToPurchaseGems', req.language));
@@ -62,7 +68,7 @@ module.exports = function purchase (user, req = {}, analytics) {
     ];
   }
 
-  let acceptedTypes = ['eggs', 'hatchingPotions', 'food', 'quests', 'gear'];
+  let acceptedTypes = ['eggs', 'hatchingPotions', 'food', 'quests', 'gear', 'bundles'];
   if (acceptedTypes.indexOf(type) === -1) {
     throw new NotFound(i18n.t('notAccteptedType', req.language));
   }
@@ -101,6 +107,14 @@ module.exports = function purchase (user, req = {}, analytics) {
 
   if (type === 'gear') {
     user.items.gear.owned[key] = true;
+  } else if (type === 'bundles') {
+    let subType = item.type;
+    forEach(item.bundleKeys, function addBundledItems (bundledKey) {
+      if (!user.items[subType][bundledKey] || user.items[subType][key] < 0) {
+        user.items[subType][bundledKey] = 0;
+      }
+      user.items[subType][bundledKey]++;
+    });
   } else {
     if (!user.items[type][key] || user.items[type][key] < 0) {
       user.items[type][key] = 0;

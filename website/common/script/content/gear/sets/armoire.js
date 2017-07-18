@@ -235,6 +235,32 @@ let armor = {
     set: 'festivalAttire',
     canOwn: ownsItem('armor_armoire_greenFestivalYukata'),
   },
+  merchantTunic: {
+    text: t('armorArmoireMerchantTunicText'),
+    notes: t('armorArmoireMerchantTunicNotes', { per: 10 }),
+    value: 100,
+    per: 10,
+    set: 'merchant',
+    canOwn: ownsItem('armor_armoire_merchantTunic'),
+  },
+  vikingTunic: {
+    text: t('armorArmoireVikingTunicText'),
+    notes: t('armorArmoireVikingTunicNotes', { con: 6, str: 8 }),
+    value: 100,
+    con: 6,
+    str: 8,
+    set: 'viking',
+    canOwn: ownsItem('armor_armoire_vikingTunic'),
+  },
+  swanDancerTutu: {
+    text: t('armorArmoireSwanDancerTutuText'),
+    notes: t('armorArmoireSwanDancerTutuNotes', { attrs: 8 }),
+    value: 100,
+    int: 8,
+    str: 8,
+    set: 'swanDancer',
+    canOwn: ownsItem('armor_armoire_swanDancerTutu'),
+  },
 };
 
 let eyewear = {
@@ -533,6 +559,32 @@ let head = {
     set: 'mushroomDruid',
     canOwn: ownsItem('head_armoire_mushroomDruidCap'),
   },
+  merchantChaperon: {
+    text: t('headArmoireMerchantChaperonText'),
+    notes: t('headArmoireMerchantChaperonNotes', { attrs: 7 }),
+    value: 100,
+    int: 7,
+    per: 7,
+    set: 'merchant',
+    canOwn: ownsItem('head_armoire_merchantChaperon'),
+  },
+  vikingHelm: {
+    text: t('headArmoireVikingHelmText'),
+    notes: t('headArmoireVikingHelmNotes', { str: 6, per: 8 }),
+    value: 100,
+    str: 6,
+    per: 8,
+    set: 'viking',
+    canOwn: ownsItem('head_armoire_vikingHelm'),
+  },
+  swanFeatherCrown: {
+    text: t('headArmoireSwanFeatherCrownText'),
+    notes: t('headArmoireSwanFeatherCrownNotes', { int: 8 }),
+    value: 100,
+    int: 8,
+    set: 'swanDancer',
+    canOwn: ownsItem('head_armoire_swanFeatherCrown'),
+  },
 };
 
 let shield = {
@@ -633,6 +685,31 @@ let shield = {
     con: 8,
     set: 'festivalAttire',
     canOwn: ownsItem('shield_armoire_festivalParasol'),
+  },
+  vikingShield: {
+    text: t('shieldArmoireVikingShieldText'),
+    notes: t('shieldArmoireVikingShieldNotes', { per: 6, int: 8 }),
+    value: 100,
+    per: 6,
+    int: 8,
+    set: 'viking',
+    canOwn: ownsItem('shield_armoire_vikingShield'),
+  },
+  swanFeatherFan: {
+    text: t('shieldArmoireSwanFeatherFanText'),
+    notes: t('shieldArmoireSwanFeatherFanNotes', { str: 8 }),
+    value: 100,
+    str: 8,
+    set: 'swanDancer',
+    canOwn: ownsItem('shield_armoire_swanFeatherFan'),
+  },
+  goldenBaton: {
+    text: t('shieldArmoireGoldenBatonText'),
+    notes: t('shieldArmoireGoldenBatonNotes', { attrs: 4 }),
+    value: 100,
+    int: 4,
+    str: 4,
+    canOwn: ownsItem('shield_armoire_goldenBaton'),
   },
 };
 
@@ -853,6 +930,22 @@ let weapon = {
     per: 8,
     set: 'festivalAttire',
     canOwn: ownsItem('weapon_armoire_festivalFirecracker'),
+  },
+  merchantsDisplayTray: {
+    text: t('weaponArmoireMerchantsDisplayTrayText'),
+    notes: t('weaponArmoireMerchantsDisplayTrayNotes', { int: 10 }),
+    value: 100,
+    int: 10,
+    set: 'merchant',
+    canOwn: ownsItem('weapon_armoire_merchantsDisplayTray'),
+  },
+  battleAxe: {
+    text: t('weaponArmoireBattleAxeText'),
+    notes: t('weaponArmoireBattleAxeNotes', { int: 6, con: 8 }),
+    value: 100,
+    int: 6,
+    con: 8,
+    canOwn: ownsItem('weapon_armoire_battleAxe'),
   },
 };
 

@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Slet Færdiggjorte",
     "lotOfToDos": "Dine 30 senest afsluttede To-dos vises her. Du kan se ældre afsluttede To-Dos i Data > Datavisningsværktøj eller Data > Dataeksport > Brugerdata.",
-    "deleteToDosExplanation": "Hvis du trykker på knappen nedenunder vil alle dine færdiggjorte To-Dos og arkiverede To-Dos permanent blive slettet. Eksporter dem først, hvis du vil beholde en optegnelse af dem.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addmultiple": "Tilføj Flere",
     "addsingle": "Tilføj Én",
     "habit": "Vane",
@@ -140,9 +140,9 @@
     "counterPeriodDay": "Dag",
     "counterPeriodWeek": "Uge",
     "counterPeriodMonth": "Måned",
-    "habitCounter": "Tæller",
-    "habitCounterUp": "Positiv Tæller",
-    "habitCounterDown": "Negativ Tæller",
+    "habitCounter": "Tæller (Nulstilles <%= frequency %>)",
+    "habitCounterUp": "Positiv Tæller (Nulstilles <%= frequency %>)",
+    "habitCounterDown": "Negativ Tæller (Nulstilles <%= frequency %>)",
     "taskRequiresApproval": "Denne opgave skal godkendes før du kan fuldføre den. Godkendelse er allerede anmodet",
     "taskApprovalHasBeenRequested": "Godkendelse er anmodet",
     "approvals": "Godkendelser",
@@ -166,5 +166,13 @@
     "groupTasksByChallenge": "Gruppér opgaver efter udfordrings-titel.",
     "taskNotes": "Opgavenoter",
     "monthlyRepeatHelpContent": "Denne opgave vil være forfalden hver X måneder",
-    "yearlyRepeatHelpContent": "Denne opgave vil være forfalden hver X år"
+    "yearlyRepeatHelpContent": "Denne opgave vil være forfalden hver X år",
+    "resets": "Nulstilles",
+    "summaryStart": "Gentages <%= frequency %> hver <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Næste Forfaldsdatoer",
+    "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
+    "yesterDailiesCallToAction": "Start My New Day!",
+    "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
+    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
+    "repeatDayError": "Tjek venligst at du har mindst en ugedag valgt."
 }

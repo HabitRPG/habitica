@@ -1,4 +1,5 @@
 {
+    "stable": "Écurie",
     "pets": "Familiers",
     "activePet": "Familier sélectionné",
     "noActivePet": "Aucun familier sélectionné",
@@ -42,6 +43,7 @@
     "food": "Nourriture et selles",
     "noFood": "Vous n'avez ni nourriture ni selle.",
     "dropsExplanation": "Récupérez ces objets plus vite avec des gemmes, si vous ne voulez pas attendre de les recevoir comme butin. <a href=\"http://fr.habitica.wikia.com/wiki/Butins\">Apprenez-en plus sur le système de butin.</a>",
+    "dropsExplanationEggs": "Dépensez des gemmes pour obtenir des œufs plus rapidement si vous ne voulez pas attendre d'en obtenir comme butin, ou si vous souhaitez obtenir de nouveaux œufs de quête sans refaire les quêtes associées. <a href=\"http://fr.habitica.wikia.com/wiki/Butins\">Apprenez-en plus sur le système de butin.</a>",
     "premiumPotionNoDropExplanation": "Les potions d'éclosion magiques ne peuvent pas être utilisées sur les œufs reçus dans les quêtes. Le seul moyen d'obtenir des potions d'éclosion magiques est de les acheter ci-dessous, pas de les recevoir des butins.",
     "beastMasterProgress": "Progression du Maître des bêtes",
     "stableBeastMasterProgress": "Progression du Maître des bêtes : <%= number %> familiers trouvés",
@@ -65,7 +67,7 @@
     "firstDrop": "Vous avez débloqué le système de butins ! À présent lorsque vous complétez des tâches, vous avez une petite chance de trouver un objet. Vous venez de trouver un <strong><%= eggText %> Œuf </strong>! <%= eggNotes %>",
     "useGems": "Si vous voulez un familier et que vous n'en pouvez plus d'attendre de le trouver, utilisez des gemmes dans <strong>Inventaire > Marché</strong>pour l'acheter !",
     "hatchAPot": "Faire éclore un bébé <%= egg %> <%= potion %> ?",
-    "hatchedPet": "Votre bébé <%= egg %> <%= potion %> vient d'éclore !",
+    "hatchedPet": "Un bébé <%= egg %> <%= potion %> vient d'éclore !",
     "displayNow": "Afficher tout de suite",
     "displayLater": "Afficher plus tard",
     "petNotOwned": "Vous ne possédez pas ce familier.",

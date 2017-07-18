@@ -84,6 +84,10 @@ describe('POST /chat/:chatId/flag', () => {
       type: 'party',
       privacy: 'private',
     });
+    await user.post(`/groups/${privateGroup._id}/invite`, {
+      uuids: [anotherUser._id],
+    });
+    await anotherUser.post(`/groups/${privateGroup._id}/join`);
     let { message } = await user.post(`/groups/${privateGroup._id}/chat`, {message: TEST_MESSAGE});
 
     let flagResult = await admin.post(`/groups/${privateGroup._id}/chat/${message.id}/flag`);
@@ -91,7 +95,7 @@ describe('POST /chat/:chatId/flag', () => {
     expect(flagResult.flags[admin._id]).to.equal(true);
     expect(flagResult.flagCount).to.equal(5);
 
-    let groupWithFlags = await user.get(`/groups/${privateGroup._id}`);
+    let groupWithFlags = await anotherUser.get(`/groups/${privateGroup._id}`);
     let messageToCheck = find(groupWithFlags.chat, {id: message.id});
 
     expect(messageToCheck).to.not.exist;
@@ -124,5 +128,21 @@ describe('POST /chat/:chatId/flag', () => {
         error: 'NotFound',
         message: t('messageGroupChatFlagAlreadyReported'),
       });
+  });
+
+  it('shows a hidden message to the original poster', async () => {
+    let { message } = await user.post(`/groups/${group._id}/chat`, {message: TEST_MESSAGE});
+
+    await admin.post(`/groups/${group._id}/chat/${message.id}/flag`);
+
+    let groupWithFlags = await user.get(`/groups/${group._id}`);
+    let messageToCheck = find(groupWithFlags.chat, {id: message.id});
+
+    expect(messageToCheck).to.exist;
+
+    let auGroupWithFlags = await anotherUser.get(`/groups/${group._id}`);
+    let auMessageToCheck = find(auGroupWithFlags.chat, {id: message.id});
+
+    expect(auMessageToCheck).to.not.exist;
   });
 });

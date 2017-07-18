@@ -37,6 +37,8 @@
     "subscribed": "Abonneret",
     "manageSub": "Klik for at bestyre dit abonnement",
     "cancelSub": "Annullér Abonnement",
+    "cancelSubInfoGoogle": "Please go to the \"Account\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
+    "cancelSubInfoApple": "Please follow <a href=\"https://support.apple.com/en-us/HT202039\">Apple’s official instructions</a> to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
     "canceledSubscription": "Abonnement annulleret",
     "cancelingSubscription": "Annullerer abonnementet",
     "adminSub": "Administratorabonnementer",
@@ -125,7 +127,9 @@
     "mysterySet201701": "Tids-fryser-sæt",
     "mysterySet201702": "Hjertetyvs-sæt",
     "mysterySet201703": "Glimmer-sæt",
-    "mysterySet201704": "Fairytale Set",
+    "mysterySet201704": "Eventyrsæt",
+    "mysterySet201705": "Fjerklædt Kæmper Sæt",
+    "mysterySet201706": "Pirate Pioneer Set",
     "mysterySet301404": "Steampunk Standardsæt",
     "mysterySet301405": "Steampunk Tilbehørssæt",
     "mysterySet301703": "Påfugle-Steampunk-sæt",
@@ -164,5 +168,6 @@
     "missingPaymentId": "Manglende req.query.paymentId",
     "missingCustomerId": "Manglende req.query.customerId",
     "missingPaypalBlock": "Manglende req.session.paypalBlock",
-    "missingSubKey": "Manglende req.query.sub"
+    "missingSubKey": "Manglende req.query.sub",
+    "paypalCanceled": "Your subscription has been canceled"
 }

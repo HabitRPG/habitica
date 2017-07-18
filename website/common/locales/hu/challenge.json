@@ -79,5 +79,7 @@
     "onlyChalLeaderEditTasks": "Egy kihívás feladatait csak a kihívás tulajdonosa módosíthatja.",
     "userAlreadyInChallenge": "A felhasználó már részt vesz ebben a kihívásban.",
     "cantOnlyUnlinkChalTask": "Csak a hibás, kihívásokhoz kapcsolódó feladatokat lehet törölni.",
-    "shortNameTooShort": "Egy címke nevének legalább 3 betűből kell állnia."
+    "shortNameTooShort": "Egy címke nevének legalább 3 betűből kell állnia.",
+    "joinedChallenge": "Csatlakozotál egy kihíváshoz",
+    "joinedChallengeText": "Ez a felhasználó próbára tette magát azzal, hogy csatlakozott egy kihíváshoz!"
 }

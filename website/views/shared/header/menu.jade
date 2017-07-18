@@ -1,10 +1,10 @@
 nav.toolbar(ng-controller='MenuCtrl')
   .toolbar-container
     ul.toolbar-mobile-nav
-      li.toolbar-mobile
-        a(data-expand-menu, menu='mobile', ng-class='{active: _expandedMenu.menu === "mobile"}')
+      li.toolbar-mobile(dropdown)
+        a(dropdown-toggle, menu='mobile')
           span.glyphicon.glyphicon-align-justify
-        div(ng-show='_expandedMenu.menu === "mobile"', data-close-menu)
+        div.dropdown-menu
           h4=env.t('menu')
           div
             ul.toolbar-submenu
@@ -77,17 +77,17 @@ nav.toolbar(ng-controller='MenuCtrl')
             li.toolbar-subscribe-button
               button(ng-if='!user.purchased.plan.customerId',ui-sref='options.settings.subscription',popover-trigger='mouseenter',popover-placement='bottom',popover-title=env.t('subscriptions'),popover=env.t('subDescription'),popover-append-to-body='true')=env.t('subscribe')
             li.toolbar-controls-button
-              a(data-close-menu)=env.t('close')
+              a=env.t('close')
     ul.toolbar-nav
       li.toolbar-button
-        a(ui-sref='tasks', data-close-menu)
+        a(ui-sref='tasks')
           span=env.t('tasks')
-      li.toolbar-button-dropdown
-        a(ui-sref='options.profile.avatar', data-close-menu)
+      li.toolbar-button-dropdown(dropdown)
+        a(ui-sref='options.profile.avatar')
           span=env.t('user')
-        a(ng-class='{active: _expandedMenu.menu === "avatar"}', data-expand-menu, menu='avatar')
+        a(dropdown-toggle)
           span &#9776;
-        div(ng-show='_expandedMenu.menu === "avatar"', data-close-menu)
+        div.dropdown-menu
           ul.toolbar-submenu
             li
               a(ui-sref='options.profile.avatar')=env.t('avatar')
@@ -99,14 +99,14 @@ nav.toolbar(ng-controller='MenuCtrl')
               a(ui-sref='options.profile.achievements')=env.t('achievs')
             li
               a(ui-sref='options.profile.profile')=env.t('profile')
-      li.toolbar-button-dropdown
+      li.toolbar-button-dropdown(dropdown)
         a(ui-sref='options.social.inbox', ng-if='user.inbox.newMessages')
           span.badge.badge-danger {{user.inbox.newMessages}}
-        a(ui-sref='options.social.tavern', data-close-menu)
+        a(ui-sref='options.social.tavern')
           span=env.t('social')
-        a(ng-class='{active: _expandedMenu.menu === "social"}', data-expand-menu, menu='social')
+        a(dropdown-toggle)
           span &#9776;
-        div(ng-show='_expandedMenu.menu === "social"', data-close-menu)
+        div.dropdown-menu
           ul.toolbar-submenu
             li
               a(ui-sref='options.social.inbox')
@@ -124,12 +124,12 @@ nav.toolbar(ng-controller='MenuCtrl')
               a(ui-sref='options.social.hall.heroes')=env.t('hall')
             li
               a(ui-sref='options.social.groupPlans')=env.t('groupPlansTitle')
-      li.toolbar-button-dropdown
-        a(ui-sref='options.inventory.drops', data-close-menu)
+      li.toolbar-button-dropdown(dropdown)
+        a(ui-sref='options.inventory.drops')
           span=env.t('inventory')
-        a(ng-class='{active: _expandedMenu.menu === "inventory"}' data-expand-menu, menu='inventory')
+        a(dropdown-toggle)
           span  &#9776;
-        div(ng-show='_expandedMenu.menu === "inventory"', data-close-menu)
+        div.dropdown-menu
           ul.toolbar-submenu
             li
               a(ui-sref='options.inventory.drops')=env.t('market')
@@ -145,24 +145,24 @@ nav.toolbar(ng-controller='MenuCtrl')
               a(ui-sref='options.inventory.timetravelers')=env.t('timeTravelers')
             li
               a(ui-sref='options.inventory.seasonalshop')=env.t('seasonalShop')
-      li.toolbar-button-dropdown
-        a(target='_blank' ng-href='http://data.habitrpg.com?uuid={{user._id}}', data-close-menu)
+      li.toolbar-button-dropdown(dropdown)
+        a(target='_blank' ng-href='http://data.habitrpg.com?uuid={{user._id}}')
           span=env.t('data')
-        a(ng-class='{active: _expandedMenu.menu === "data"}', data-expand-menu, menu='data')
+        a(dropdown-toggle)
           span  &#9776;
-        div(ng-show='_expandedMenu.menu === "data"', data-close-menu)
+        div.dropdown-menu
           ul.toolbar-submenu
             li
               a(target='_blank' ng-href='http://data.habitrpg.com?uuid={{user._id}}')=env.t('dataTool')
             li
               a(ui-sref='options.settings.export')=env.t('exportData')
-      li.toolbar-button-dropdown.highlight
+      li.toolbar-button-dropdown.highlight(dropdown)
         a(target='_blank' href='https://habitica.com/static/faq/')
           span.glyphicon.glyphicon-question-sign
           span=env.t('help')
-        a(ng-class='{active: _expandedMenu.menu === "help"}',  data-expand-menu, menu='help')
+        a(dropdown-toggle)
           span  &#9776;
-        div(ng-show='_expandedMenu.menu === "help"', data-close-menu)
+        div.dropdown-menu
           ul.toolbar-submenu
             li
               a(target='_blank' href='https://habitica.com/static/faq/')=env.t('FAQ')
@@ -185,45 +185,45 @@ nav.toolbar(ng-controller='MenuCtrl')
       li.toolbar-quest-detail(ng-if='hasQuestProgress()')
         a(ng-click='$state.go("options.social.party");', popover-placement='bottom',popover-trigger='mouseenter',popover-title='{{getQuestInfo().title}}', popover='{{getQuestInfo().body}}',popover-append-to-body='true')
           span.glyphicon.glyphicon-screenshot
-      li.toolbar-notifs
-        a(data-expand-menu, menu='notifs')
+      li.toolbar-notifs(dropdown)
+        a(dropdown-toggle)
           span.glyphicon(ng-class='iconClasses()')
           span.notification-counter(ng-if='getNotificationsCount()') {{getNotificationsCount()}}
-        div(ng-show='_expandedMenu.menu === "notifs"')
+        div.dropdown-menu
           h4=env.t('notifications')
           div
             ul.toolbar-notifs-notifs
               li.toolbar-notifs-no-messages(ng-if='hasNoNotifications()')=env.t('noNotifications')
               li(ng-if='user.purchased.plan.mysteryItems.length')
-                a(ng-click='$state.go("options.inventory.drops"); ', data-close-menu)
+                a(ng-click='$state.go("options.inventory.drops"); ')
                   span.glyphicon.glyphicon-gift
                   span=env.t('newSubscriberItem')
               li(ng-if='user.invitations.party.id')
-                a(ui-sref='options.social.party', data-close-menu)
+                a(ui-sref='options.social.party')
                   span.glyphicon.glyphicon-user
                   span=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
               li(ng-if='user.flags.cardReceived')
-                a(ng-click='$state.go("options.inventory.drops"); ', data-close-menu)
+                a(ng-click='$state.go("options.inventory.drops"); ')
                   span.glyphicon.glyphicon-envelope
                   span=env.t('cardReceived')
                 a(ng-click='clearCards()', popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
                   span.glyphicon.glyphicon-remove-circle
               li(ng-repeat='guild in user.invitations.guilds')
-                a(ui-sref='options.social.guilds.public', data-close-menu)
+                a(ui-sref='options.social.guilds.public')
                   span.glyphicon.glyphicon-user
                   span=env.t('invitedTo', {name: '{{guild.name}}'})
               li(ng-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points')
-                a(ui-sref='options.profile.stats', data-close-menu)
+                a(ui-sref='options.profile.stats')
                   span.glyphicon.glyphicon-plus-sign
                   span=env.t('haveUnallocated', {points: '{{user.stats.points}}'})
               li(ng-repeat='(k,v) in user.newMessages', ng-if='v.value')
-                a(ng-click='(k === party._id || k === user.party._id) ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); ', data-close-menu)
+                a(ng-click='(k === party._id || k === user.party._id) ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); ')
                   span.glyphicon.glyphicon-comment
                   span {{v.name}}
                 a(ng-click='clearMessages(k)', popover=env.t('clear'),popover-placement='right',popover-trigger='mouseenter',popover-append-to-body='true')
                   span.glyphicon.glyphicon-remove-circle
               li(ng-repeat='notification in user.groupNotifications')
-                a(ng-click='viewGroupApprovalNotification(notification, $index, true)', data-close-menu)
+                a(ng-click='viewGroupApprovalNotification(notification, $index, true)')
                   span(class="{{::groupApprovalNotificationIcon(notification)}}")
                   span
                     | {{notification.data.message}}
@@ -236,29 +236,29 @@ nav.toolbar(ng-controller='MenuCtrl')
 
           ul.toolbar-controls
             li.toolbar-controls-button
-              a(data-close-menu)=env.t('close')
-      li.toolbar-audio
-        a(data-expand-menu, menu='audio')
+              a=env.t('close')
+      li.toolbar-audio(dropdown)
+        a(dropdown-toggle)
           span.glyphicon(ng-class="{'glyphicon-volume-off':user.preferences.sound === 'off', 'glyphicon-volume-up':user.preferences.sound!='off'}")
-        div(ng-show='_expandedMenu.menu === "audio"',style='min-width:150px', data-close-menu)
+        div.dropdown-menu(style='min-width:150px')
           h4=env.t('audioTheme')
           div
             ul.toolbar-submenu
-              // Using [{k,v}] instead of {k:v,k:v} to maintain order ('off' at top)
-              for theme in ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme']
+              // Using [{k,v}] instead of {k:v,k:v} to maintain order ('off' at top)            
+              for theme in ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme', 'beatscribeNesTheme', 'arashiTheme']
                 li
                   a(ng-class="{'bg-info':user.preferences.sound === '#{theme}'}", ng-click="set({'preferences.sound':'#{theme}'})")=env.t('audioTheme_'+theme)
           ul.toolbar-controls
             li.toolbar-controls-button
-              a(data-close-menu)=env.t('close')
+              a=env.t('close')
 
       li.toolbar-sync
         a(ng-click='User.sync()', popover=env.t('sync'),popover-placement='bottom',popover-trigger='mouseenter')
           span.glyphicon.glyphicon-refresh
-      li.toolbar-settings
-        a(data-expand-menu, menu='settings')
+      li.toolbar-settings(dropdown)
+        a(dropdown-toggle)
           span.glyphicon.glyphicon-cog
-        div(ng-show='_expandedMenu.menu === "settings"', data-close-menu)
+        div.dropdown-menu
           h4=env.t('settings')
           div
             ul.toolbar-submenu
@@ -282,7 +282,7 @@ nav.toolbar(ng-controller='MenuCtrl')
                 a(href='https://habitica.com/static/faq', target='_blank')=env.t('FAQ')
           ul.toolbar-controls
             li.toolbar-controls-button
-              a(data-close-menu)=env.t('close')
+              a=env.t('close')
     ul.toolbar-wallet
       li.toolbar-gems(popover-trigger='mouseenter', popover-title=env.t('gemsPopoverTitle'), popover=env.t('gemsWhatFor'), popover-placement='bottom',popover-append-to-body='true')
         a.gem-wallet(ng-click='openModal("buyGems",{track:"Gems > Toolbar"})')

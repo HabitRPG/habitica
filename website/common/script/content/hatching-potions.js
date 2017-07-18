@@ -3,7 +3,7 @@ import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import t from './translation';
 
-const CURRENT_SEASON = 'May';
+const CURRENT_SEASON = 'July';
 
 let drops = {
   Base: {
@@ -76,7 +76,13 @@ let premium = {
     value: 2,
     text: t('hatchingPotionFloral'),
     limited: true,
-    _season: 'spring',
+    _season: 'June',
+  },
+  Aquatic: {
+    value: 2,
+    text: t('hatchingPotionAquatic'),
+    limited: true,
+    _season: 'July',
   },
   Thunderstorm: {
     value: 2,

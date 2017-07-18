@@ -8,27 +8,34 @@ fieldset.option-group.advanced-option(ng-show="task.type === 'daily'")
     
     br
 
-    //- select.form-control(ng-model='task._edit.frequency', ng-disabled='!canEdit(task)')
-    //-   option(value='daily')=env.t('daily')
-    //-   option(value='weekly')=env.t('weekly')
-    //-   option(value='monthly')=env.t('monthly')
-    //-   option(value='yearly')=env.t('yearly')
-
+    legend.option-title
+      span.hint(popover-title=env.t('repeatTypeHelpTitle'), popover=env.t("repeatTypeHelp"), popover-trigger='mouseenter')
+        =env.t('repeatType')
     select.form-control(ng-model='task._edit.frequency', ng-disabled='!canEdit(task)')
-      option(value='weekly')=env.t('repeatWeek')
-      option(value='daily')=env.t('repeatDays')
+      option(value='daily')=env.t('daily')
+      option(value='weekly')=env.t('weekly')
+      option(value='monthly')=env.t('monthly')
+      option(value='yearly')=env.t('yearly')
+
+    //- select.form-control(ng-model='task._edit.frequency', ng-disabled='!canEdit(task)')
+    //-   option(value='weekly')=env.t('repeatWeek')
+    //-   option(value='daily')=env.t('repeatDays')
 
     include ./dailies/repeat_options
 
     .form-group(ng-show='task._edit.frequency === "monthly"')
       legend.option-title=env.t('repeatsOn')
       label
-        input(type="radio", ng-model='task._edit.repeatsOn', value='dayOfMonth')
+        input(type="radio", ng-model='task._edit.repeatsOn', value='dayOfMonth', ng-disabled='!canEdit(task)')
         =env.t('dayOfMonth')
       label
-        input(type="radio", ng-model='task._edit.repeatsOn', value='dayOfWeek')
+        input(type="radio", ng-model='task._edit.repeatsOn', value='dayOfWeek', ng-disabled='!canEdit(task)')
         =env.t('dayOfWeek')
 
-    //- .form-group
-    //-   legend.option-title=env.t('summary')
-    //-   div {{summary}}
+    .form-group
+      legend.option-title=env.t('summary')
+      div {{summary}}
+    
+    .form-group(ng-if='nextDue')
+      legend.option-title=env.t('nextDue')
+      div {{nextDue}}

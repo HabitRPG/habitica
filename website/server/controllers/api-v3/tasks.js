@@ -17,6 +17,7 @@ import {
   createTasks,
   getTasks,
   moveTask,
+  setNextDue,
 } from '../../libs/taskManager';
 import common from '../../../common';
 import Bluebird from 'bluebird';
@@ -85,7 +86,7 @@ let requiredGroupFields = '_id leader tasksOrder name';
  *       "priority":2
  *     }
  *
- * @apiSuccess data An object if a single task was created, otherwise an array of tasks
+ * @apiSuccess (201) data An object if a single task was created, otherwise an array of tasks
  *
  * @apiSuccessExample {json} Success-Response:
  *     {
@@ -202,7 +203,7 @@ api.createUserTasks = {
  * @apiParamExample {json} Request-Example:
  * {"type":"todo","text":"Test API Params"}
  *
- * @apiSuccess data An object if a single task was created, otherwise an array of tasks
+ * @apiSuccess (201) data An object if a single task was created, otherwise an array of tasks
  *
  * @apiSuccessExample {json} Example return:
  * {"success":true,"data":{"text":"Test API Params","type":"todo","notes":"","tags":[],"value":0,"priority":1,"attribute":"str","challenge":{"id":"f23c12f2-5830-4f15-9c36-e17fd729a812"},"group":{"assignedUsers":[],"approval":{"required":false,"approved":false,"requested":false}},"reminders":[],"_id":"4a29874c-0308-417b-a909-2a7d262b49f6","createdAt":"2017-01-13T21:23:05.949Z","updatedAt":"2017-01-13T21:23:05.949Z","checklist":[],"collapseChecklist":false,"completed":false,"id":"4a29874c-0308-417b-a909-2a7d262b49f6"},"notifications":[]}
@@ -271,8 +272,9 @@ api.getUserTasks = {
     if (validationErrors) throw validationErrors;
 
     let user = res.locals.user;
+    let dueDate = req.query.dueDate;
 
-    let tasks = await getTasks(req, res, {user});
+    let tasks = await getTasks(req, res, {user, dueDate});
     return res.respond(200, tasks);
   },
 };
@@ -431,6 +433,7 @@ api.updateTask = {
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
+
     let oldCheckList = task.checklist;
     // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
     let [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
@@ -454,6 +457,8 @@ api.updateTask = {
     if (sanitizedObj.requiresApproval) {
       task.group.approval.required = true;
     }
+
+    setNextDue(task, user);
 
     let savedTask = await task.save();
 
@@ -582,6 +587,20 @@ api.scoreTask = {
           user.tasksOrder.todos.push(task._id);
         } // If for some reason it hadn't been removed previously don't do anything
       }
+    }
+
+    setNextDue(task, user);
+
+    if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
+      user._ABtests.counter++;
+      if (user._ABtests.counter > 1) {
+        if (user._ABtests.guildReminder.indexOf('timing1') !== -1 || user._ABtests.counter > 4) {
+          user._ABtests.counter = -1;
+          let textVariant = user._ABtests.guildReminder.indexOf('text2');
+          user.addNotification('GUILD_PROMPT', {textVariant});
+        }
+      }
+      user.markModified('_ABtests');
     }
 
     let results = await Bluebird.all([

@@ -206,6 +206,20 @@ describe('Quests Service', function() {
       });
     });
 
+    context('quest bundles', function() {
+      it('sends bundle object', function(done) {
+        questsService.buyQuest('featheredFriends')
+          .then(function(res) {
+            expect(res).to.eql(content.bundles.featheredFriends);
+            expect(window.alert).to.not.be.called;
+            expect(rejectSpy).to.not.be.called;
+            done();
+          }, rejectSpy);
+
+        scope.$apply();
+      });
+    });
+
     context('all other quests', function() {
       it('sends quest object', function(done) {
         questsService.buyQuest('whale')

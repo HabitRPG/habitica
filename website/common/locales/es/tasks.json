@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Borrado completado",
     "lotOfToDos": "Aquí aparecen las 30 últimas tareas que has completado. Si quieres ver las tareas que completaste anteriormente, ve a Datos > Herramienta de visualización de datos o Datos > Exportar datos > Datos de usuario.",
-    "deleteToDosExplanation": "Si le das clic al botón de abajo, todas sus tareas completadas y tareas archivadas se borrarán permanentemente. Expórtalas primero si quieres llevar un registro de ellas.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addmultiple": "Añadir varias",
     "addsingle": "Añadir una",
     "habit": "Hábito",
@@ -140,9 +140,9 @@
     "counterPeriodDay": "Día",
     "counterPeriodWeek": "Semana",
     "counterPeriodMonth": "Mes",
-    "habitCounter": "Contador",
-    "habitCounterUp": "Contador positivo",
-    "habitCounterDown": "Contador negativo",
+    "habitCounter": "Contador (Se reinicia cada <%= frequency %>)",
+    "habitCounterUp": "Contador positivo (Se reinicia cada <%= frequency %>)",
+    "habitCounterDown": "Contador negativo (Se reinicia cada <%= frequency %>)",
     "taskRequiresApproval": "La tarea debe ser aprobada antes de que la completes. La aprobación ya ha sido pedida.",
     "taskApprovalHasBeenRequested": "La aprobacion ha sido enviada",
     "approvals": "Aprobaciones",
@@ -166,5 +166,13 @@
     "groupTasksByChallenge": "Agrupar tareas por título del desafío",
     "taskNotes": "Notas de la Tarea",
     "monthlyRepeatHelpContent": "Esta tarea vencerá cada X meses",
-    "yearlyRepeatHelpContent": "Esta tarea vencerá cada X años"
+    "yearlyRepeatHelpContent": "Esta tarea vencerá cada X años",
+    "resets": "Se reinicia",
+    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Next Due Dates",
+    "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
+    "yesterDailiesCallToAction": "Start My New Day!",
+    "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
+    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
+    "repeatDayError": "Please ensure that you have at least one day of the week selected."
 }

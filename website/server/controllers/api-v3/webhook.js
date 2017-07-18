@@ -61,13 +61,13 @@ let api = {};
  *     "url": "http://some-webhook-url.com"
  *   }
  *
- * @apiSuccess {Object} data The created webhook
- * @apiSuccess {UUID} data.id The uuid of the webhook
- * @apiSuccess {String} data.url The url of the webhook
- * @apiSuccess {String} data.label A label for you to keep track of what this webhooks is for
- * @apiSuccess {Boolean} data.enabled Whether the webhook should be sent
- * @apiSuccess {String} data.type The type of the webhook
- * @apiSuccess {Object} data.options The options for the webhook (See examples)
+ * @apiSuccess (201) {Object} data The created webhook
+ * @apiSuccess (201) {UUID} data.id The uuid of the webhook
+ * @apiSuccess (201) {String} data.url The url of the webhook
+ * @apiSuccess (201) {String} data.label A label for you to keep track of what this webhooks is for
+ * @apiSuccess (201) {Boolean} data.enabled Whether the webhook should be sent
+ * @apiSuccess (201) {String} data.type The type of the webhook
+ * @apiSuccess (201) {Object} data.options The options for the webhook (See examples)
  *
  * @apiUse WebhookBodyInvalid
  */
