@@ -19,6 +19,9 @@ const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userM
 const AchievementsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/achievements');
 const ProfilePage = () => import(/* webpackChunkName: "user" */'./components/userMenu/profile');
 
+// Settings
+const Settings = () => import(/* webpackChunkName: "settings" */'./components/settings/index');
+
 // Except for tasks that are always loaded all the other main level
 // All the main level
 // components are loaded in separate webpack chunks.
@@ -123,7 +126,43 @@ const router = new VueRouter({
         { name: 'stats', path: 'stats', component: StatsPage },
         { name: 'achievements', path: 'achievements', component: AchievementsPage },
         { name: 'profile', path: 'profile', component: ProfilePage },
-        { name: 'settings', path: 'settings', component: Page },
+        {
+          name: 'settings',
+          path: 'settings',
+          component: Settings,
+          children: [
+            {
+              name: 'site',
+              path: 'site',
+              component: Page,
+            },
+            {
+              name: 'api',
+              path: 'api',
+              component: Page,
+            },
+            {
+              name: 'dataExport',
+              path: 'data-export',
+              component: Page,
+            },
+            {
+              name: 'promoCode',
+              path: 'promo-code',
+              component: Page,
+            },
+            {
+              name: 'subscription',
+              path: 'subscription',
+              component: Page,
+            },
+            {
+              name: 'notifications',
+              path: 'notifications',
+              component: Page,
+            },
+          ],
+        },
       ],
     },
   ],
