@@ -1,7 +1,7 @@
 {
     "clearCompleted": "删除已完成任务",
     "lotOfToDos": "你最近完成的30个待办事项显示在这。你可以在数据>数据显示工具或者数据>导出数据>用户数据查看更早完成的代办事项。",
-    "deleteToDosExplanation": "点击下面的按钮后，所有已完成的和被归档的待办事项会被永久删除。如果你希望保留记录，先导出它们。",
+    "deleteToDosExplanation": "如果你点击下方的按钮，除了正在进行的挑战或者团队任务，所有你已完成的待办事项和历史记录将永远删除，如果你想留下这些记录请先把他们导出哦！",
     "addmultiple": "多个添加",
     "addsingle": "单个添加",
     "habit": "习惯",
@@ -140,9 +140,9 @@
     "counterPeriodDay": "天",
     "counterPeriodWeek": "周",
     "counterPeriodMonth": "月",
-    "habitCounter": "Counter (Resets <%= frequency %>)",
-    "habitCounterUp": "Positive Counter (Resets <%= frequency %>)",
-    "habitCounterDown": "Negative Counter (Resets <%= frequency %>)",
+    "habitCounter": "计数(Resets <%= frequency %>)",
+    "habitCounterUp": "积极计数 (重置 <%= frequency %>)",
+    "habitCounterDown": "消极计数 (重置 <%= frequency %>)",
     "taskRequiresApproval": "这项任务必须在你能完成它之前得到批准。已请求批准",
     "taskApprovalHasBeenRequested": "请求已被批准",
     "approvals": "许可",
@@ -167,7 +167,12 @@
     "taskNotes": "任务笔记",
     "monthlyRepeatHelpContent": "这个任务会每隔X月重复",
     "yearlyRepeatHelpContent": "这个任务会每隔X年重复",
-    "resets": "Resets",
+    "resets": "重置",
     "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
-    "nextDue": "Next Due Dates"
+    "nextDue": "下一个截止日",
+    "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
+    "yesterDailiesCallToAction": "Start My New Day!",
+    "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
+    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
+    "repeatDayError": "Please ensure that you have at least one day of the week selected."
 }

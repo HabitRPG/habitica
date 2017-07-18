@@ -206,8 +206,11 @@ export function cron (options = {}) {
   let perfect = true;
 
   // Reset Gold-to-Gems cap if it's the start of the month
-  if (user.purchased && user.purchased.plan && !moment(user.purchased.plan.dateUpdated).startOf('month').isSame(moment().startOf('month'))) {
+  let dateUpdatedFalse = !moment(user.purchased.plan.dateUpdated).startOf('month').isSame(moment().startOf('month')) || !user.purchased.plan.dateUpdated;
+
+  if (user.purchased && user.purchased.plan && dateUpdatedFalse) {
     user.purchased.plan.gemsBought = 0;
+    if (!user.purchased.plan.dateUpdated) user.purchased.plan.dateUpdated = moment();
   }
 
   if (user.isSubscribed()) {
@@ -261,6 +264,10 @@ export function cron (options = {}) {
     let EvadeTask = 0;
     let scheduleMisses = daysMissed;
 
+    // Only check one day back
+    let dailiesDaysMissed = daysMissed;
+    if (dailiesDaysMissed > 1) dailiesDaysMissed = 1;
+
     if (completed) {
       dailyChecked += 1;
       if (!atLeastOneDailyDue) { // only bother checking until the first thing is found
@@ -271,7 +278,7 @@ export function cron (options = {}) {
       // dailys repeat, so need to calculate how many they've missed according to their own schedule
       scheduleMisses = 0;
 
-      for (let i = 0; i < daysMissed; i++) {
+      for (let i = 0; i < dailiesDaysMissed; i++) {
         let thatDay = moment(now).subtract({days: i + 1});
 
         if (shouldDo(thatDay.toDate(), task, user.preferences)) {

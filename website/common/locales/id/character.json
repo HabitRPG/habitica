@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Ingatlah bahwa Nama Tampilan, foto profil, dan celotehmu harus mengikuti  <a href='https://habitica.com/static/community-guidelines' target='_blank'>Pedoman Komunitas</a> (misalnya, tidak menggunakan bahasa senonoh, topik dewasa, penghinaan, dsb). Jika kamu mempunyai pertanyaan apapun mengenai pantasnya sesuatu hal, silahkan email <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Ubah Tampilan Avatar",
     "other": "Lainnya",
@@ -127,7 +127,7 @@
     "distributePoints": "Distribusikan Poin yang Belum Dialokasikan",
     "distributePointsPop": "Gunakan semua poin atribut yang belum terpakai sesuai dengan skema alokasi yang dipilih.",
     "warriorText": "Para Prajurit mencetak lebih banyak \"serangan kritis\" saat menyelesaikan tugas, yang secara acak memberi tambahan Koin Emas, Pengalaman, dan memperbesar kemungkinan mendapatkan item. Prajurit juga mengakibatkan damage besar pada monster-monster bos. Mainkan Prajurit kalau kamu termotivasi oleh imbalan-imbalan berbentuk jackpot yang tidak terduga, atau ingin menghajar para monster!",
-    "mageText": "Para Penyihir belajar dengan cepat, memperoleh Pengalaman dan Level lebih cepat dari pekerjaan lainnya. Mereka juga mendapatkan banyak Mana untuk menggunakan kemampuan khusus. Mainkan Penyihir jika kamu ingin menikmati aspek permainan taktis dari Habit, atau jika kamu sangat ingin cepat naik level dan membuka banyak fitur!",
+    "mageText": "Mages learn swiftly, gaining Experience and Levels faster than other classes. They also get a great deal of Mana for using special abilities. Play a Mage if you enjoy the tactical game aspects of Habitica, or if you are strongly motivated by leveling up and unlocking advanced features!",
     "rogueText": "Para Pencuri suka mengumpulkan kekayaan, memperoleh Koin Emas lebih banyak dari siapapun, dan mahir dalam menemukan item. Kemampuan Tipuan yang hebat dapat menghindarkan mereka dari konsekuensi melewatkan Keseharian. Mainkan Pencuri jika kamu suka Imbalan dan Pencapaian, berjuang untuk hasil jarahan dan lencana!",
     "healerText": "Para Penyembuh lebih tahan terhadap luka, dan memperluas kekebalan tersebut ke teman-temannya. Melewatkan Keseharian dan Kebiasaan buruk tidak terlalu mengganggu mereka, dan mereka mempunyai berbagai cara untuk memulihkan Kesehatan akibat kegagalan. Mainkan Penyembuh jika kamu suka membantu temanmu, atau jika pemikiran untuk mengakali Kematian dengan kerja keras menginspirasimu!",
     "optOutOfClasses": "Matikan",
@@ -170,6 +170,5 @@
     "hideQuickAllocation": "Sembunyikan alokasi status",
     "quickAllocationLevelPopover": "Setiap level akan memberikanmu satu poin untuk ditambahkan ke atribut pilihanmu. Kamu dapat melakukannya secara manual, atau membiarkan permainan melakukannya untukmu dengan menggunakan salah satu pilihan Alokasi Otomatis yang dapat ditemukan di Pengguna -> Status.",
     "invalidAttribute": "\"<%= attr %>\" bukan merupakan atribut yang valid.",
-    "notEnoughAttrPoints": "Kamu tidak memiliki cukup poin atribut.",
-    "gearNotOwned": "Kamu tidak memiliki item ini."
+    "notEnoughAttrPoints": "Kamu tidak memiliki cukup poin atribut."
 }

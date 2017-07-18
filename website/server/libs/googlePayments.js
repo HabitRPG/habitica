@@ -20,6 +20,9 @@ api.constants = {
 };
 
 api.verifyGemPurchase = async function verifyGemPurchase (user, receipt, signature, headers) {
+  const userCanGetGems = await user.canGetGems();
+  if (!userCanGetGems) throw new NotAuthorized(shared.i18n.t('groupPolicyCannotGetGems', user.preferences.language));
+
   await iap.setup();
 
   let testObj = {

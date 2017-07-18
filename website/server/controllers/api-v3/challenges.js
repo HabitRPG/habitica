@@ -158,7 +158,7 @@ let api = {};
  * @apiParam (Body) {Boolean} [official=false] Whether or not a challenge is an official Habitica challenge (requires admin)
  * @apiParam (Body) {Number} [challenge.prize=0] Number of gems offered as a prize to challenge winner
  *
- * @apiSuccess {Object} challenge The newly created challenge.
+ * @apiSuccess (201) {Object} challenge The newly created challenge.
  * @apiUse SuccessfulChallengeRequest
  *
  * @apiUse ChallengeSuccessExample

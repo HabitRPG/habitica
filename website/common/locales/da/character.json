@@ -127,7 +127,7 @@
     "distributePoints": "Fordel ufordelte points",
     "distributePointsPop": "Fordel alle ufordelte attributpoint i forhold til det valgte fordelingsskema.",
     "warriorText": "Krigere scorer flere og bedre \"fuldtræffere\", der vilkårligt giver ekstra Guld, Erfaring, og dropchance når du færdiggør en opgave. De forvolder også stor skade på Boss-monstre. Spil som Kriger hvis du finder uforudsigelige, jackpotagtige belønninger motiverende, eller du virkelig vil uddele smerte i Boss-quests!",
-    "mageText": "Magikere lærer hurtigt, og får Erfaring og Niveau hurtigere end andre Klasser. De får endvidere en masse Mana til at bruge specielle evner. Spil som Magiker hvis du kan godt lide Habiticas taktiske spilaspekter, eller hvis du er stærkt motiveret af at gå op i niveau og åbne op for avancerede features!",
+    "mageText": "Magikere lærer hurtigt, og får Erfaring og Niveau hurtigere end andre klasser. De får endvidere en masse Mana ved at bruge specielle evner. Spil som Magiker hvis du kan godt lide Habitica's taktiske spilaspekter, eller hvis du er stærkt motiveret af at gå op i niveau og åbne op for avancerede features!",
     "rogueText": "Slyngler elsker at samle sig en formue, eftersom de får mere Guld end nogen anden, og de er dygtige til at finde tilfældige ting. Deres ikoniske Listeevne lader dem undgå konsekvenserne af oversprungne Daglige. Spil  som Slyngel hvis du er stærkt motiveret af Belønninger og Præstationer, og stræber efter bytte og emblemer!",
     "healerText": "Helbredere er upåvirkede af skade, og giver denne beskyttelse videre til andre. Oversprungne Daglige og dårlige Vaner tager næppe pippet fra dem, og de har metoder for at genvinde Liv fra fiaskoer. Spil som Helbreder hvis du nyder at hjælpe andre i dit Selskab, eller hvis tanken om at snyde Døden med hårdt arbejde inspirerer dig!",
     "optOutOfClasses": "Fravælg",
@@ -170,6 +170,5 @@
     "hideQuickAllocation": "Skjul stattildeling",
     "quickAllocationLevelPopover": "Hvert niveau giver dig et point du kan tildele en attribut efter eget valg. Du kan gøre det manuelt, eller lade spillet vælge for dig ved at bruge en af de automatiske stattildelinger der kan findes i Bruger > Stats.",
     "invalidAttribute": "\"<%= attr %>\" er ikke en gyldig attribut.",
-    "notEnoughAttrPoints": "Du har ikke nok attributpoint.",
-    "gearNotOwned": "Du ejer ikke denne genstand."
+    "notEnoughAttrPoints": "Du har ikke nok attributpoint."
 }

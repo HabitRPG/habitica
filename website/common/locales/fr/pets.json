@@ -67,7 +67,7 @@
     "firstDrop": "Vous avez débloqué le système de butins ! À présent lorsque vous complétez des tâches, vous avez une petite chance de trouver un objet. Vous venez de trouver un <strong><%= eggText %> Œuf </strong>! <%= eggNotes %>",
     "useGems": "Si vous voulez un familier et que vous n'en pouvez plus d'attendre de le trouver, utilisez des gemmes dans <strong>Inventaire > Marché</strong>pour l'acheter !",
     "hatchAPot": "Faire éclore un bébé <%= egg %> <%= potion %> ?",
-    "hatchedPet": "Votre bébé <%= egg %> <%= potion %> vient d'éclore !",
+    "hatchedPet": "Un bébé <%= egg %> <%= potion %> vient d'éclore !",
     "displayNow": "Afficher tout de suite",
     "displayLater": "Afficher plus tard",
     "petNotOwned": "Vous ne possédez pas ce familier.",

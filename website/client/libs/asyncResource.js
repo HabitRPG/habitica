@@ -36,8 +36,11 @@ export function loadAsyncResource ({store, path, url, deserialize, forceLoad = f
   } else if (loadingStatus === 'NOT_LOADED' || loadingStatus === 'LOADED' && forceLoad) {
     return axios.get(url).then(response => { // TODO support more params
       resource.loadingStatus = 'LOADED';
-      resource.data = deserialize(response);
-      return resource;
+      // deserialize can be a promise
+      return Promise.resolve(deserialize(response)).then(deserializedData => {
+        resource.data = deserializedData;
+        return resource;
+      });
     });
   } else {
     return Promise.reject(new Error(`Invalid loading status "${loadingStatus} for resource at "${path}".`));

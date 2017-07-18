@@ -37,6 +37,8 @@
     "subscribed": "Abbonato",
     "manageSub": "Clicca per gestire l'abbonamento",
     "cancelSub": "Annulla abbonamento",
+    "cancelSubInfoGoogle": "Please go to the \"Account\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
+    "cancelSubInfoApple": "Please follow <a href=\"https://support.apple.com/en-us/HT202039\">Apple’s official instructions</a> to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
     "canceledSubscription": "Abbonamento annullato",
     "cancelingSubscription": "Annullamento dell'abbonamento",
     "adminSub": "Abbonamento per amministratori",
@@ -127,6 +129,7 @@
     "mysterySet201703": "Set Scintillante",
     "mysterySet201704": "Set Fiabesco",
     "mysterySet201705": "Set combattente pennuto",
+    "mysterySet201706": "Set Pirata Pioniere",
     "mysterySet301404": "Set steampunk standard",
     "mysterySet301405": "Set accessori steampunk",
     "mysterySet301703": "Set Pavone Steampunk",
@@ -165,5 +168,6 @@
     "missingPaymentId": "Manca req.query.paymentId",
     "missingCustomerId": "Manca req.query.customerId",
     "missingPaypalBlock": "Manca req.session.paypalBlock",
-    "missingSubKey": "Manca req.query.sub"
+    "missingSubKey": "Manca req.query.sub",
+    "paypalCanceled": "Il tuo abbonameno è stato disdetto"
 }

@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Delete Completed",
     "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
-    "deleteToDosExplanation": "If ye click th' button below, all 'o ye completed T'-Dos 'n archived T'-Dos gunna be permanently deleted. Export 'em first if ye want t' keep a record 'o them.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addmultiple": "Ard' Multiple",
     "addsingle": "Ard' Single",
     "habit": "Habit",
@@ -169,5 +169,10 @@
     "yearlyRepeatHelpContent": "This task will be due every X years",
     "resets": "Resets",
     "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
-    "nextDue": "Next Due Dates"
+    "nextDue": "Next Due Dates",
+    "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
+    "yesterDailiesCallToAction": "Start My New Day!",
+    "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
+    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
+    "repeatDayError": "Please ensure that you have at least one day of the week selected."
 }

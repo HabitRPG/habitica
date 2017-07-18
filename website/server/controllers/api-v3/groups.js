@@ -83,7 +83,7 @@ let api = {};
  * @apiError (400) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
  * @apiError (400) {NotAuthorized} messageGroupAlreadyInParty
  *
- * @apiSuccess {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ * @apiSuccess (201) {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
  *
  * @apiSuccessExample {json} Private Guild:
  *     HTTP/1.1 200 OK
@@ -174,7 +174,7 @@ api.createGroup = {
  * @apiName CreateGroupPlan
  * @apiGroup Group
  *
- * @apiSuccess {Object} data The created group
+ * @apiSuccess (201) {Object} data The created group
  */
 api.createGroupPlan = {
   method: 'POST',
@@ -343,7 +343,6 @@ api.getGroups = {
 api.getGroup = {
   method: 'GET',
   url: '/groups/:groupId',
-  runCron: false, // Do not run cron to avoid double cronning because it's called in parallel to GET /user when the site loads
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
@@ -397,7 +396,7 @@ api.getGroup = {
  * @apiUse groupIdRequired
  * @apiUse GroupNotFound
  *
- * @apiPermission GroupLeader
+ * @apiPermission GroupLeader, Admin
  */
 api.updateGroup = {
   method: 'PUT',
@@ -410,11 +409,13 @@ api.updateGroup = {
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
+    let optionalMembership = Boolean(user.contributor.admin);
+    let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership});
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+    if (group.leader !== user._id && group.type === 'party') throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+    else if (group.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
 
     if (req.body.leader !== user._id && group.hasNotCancelled()) throw new NotAuthorized(res.t('cannotChangeLeaderWithActiveGroupPlan'));
 
@@ -473,7 +474,7 @@ api.joinGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-     // Works even if the user is not yet a member of the group
+    // Works even if the user is not yet a member of the group
     let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership: true}); // Do not fetch chat and work even if the user is not yet a member of the group
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
@@ -761,7 +762,7 @@ function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
  *
  * @apiSuccess {Object} data An empty object
  *
- * @apiPermission GroupLeader
+ * @apiPermission GroupLeader, Admin
  *
  * @apiUse groupIdRequired
  * @apiUse GroupNotFound
@@ -778,13 +779,18 @@ api.removeGroupMember = {
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
+    let optionalMembership = Boolean(user.contributor.admin);
+    let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership, fields: '-chat'}); // Do not fetch chat
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat'}); // Do not fetch chat
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let uuid = req.params.memberId;
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
+    if (group.leader !== user._id && group.type === 'party') throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
+    if (group.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
+
+    if (group.leader === uuid && user.contributor.admin) throw new NotAuthorized(res.t('cannotRemoveCurrentLeader'));
+
     if (user._id === uuid) throw new NotAuthorized(res.t('memberCannotRemoveYourself'));
 
     let member = await User.findOne({_id: uuid}).exec();
@@ -947,12 +953,12 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
   if (!invite.email) throw new BadRequest(res.t('inviteMissingEmail'));
 
   let userToContact = await User.findOne({$or: [
-    {'auth.local.email': invite.email},
-    {'auth.facebook.emails.value': invite.email},
-    {'auth.google.emails.value': invite.email},
+      {'auth.local.email': invite.email},
+      {'auth.facebook.emails.value': invite.email},
+      {'auth.google.emails.value': invite.email},
   ]})
-  .select({_id: true, 'preferences.emailNotifications': true})
-  .exec();
+    .select({_id: true, 'preferences.emailNotifications': true})
+    .exec();
 
   if (userToContact) {
     userReturnInfo = await _inviteByUUID(userToContact._id, group, inviter, req, res);

@@ -1,7 +1,7 @@
 {
-    "clearCompleted": "Verwijderen voltooid",
+    "clearCompleted": "Verwijder voltooide taken",
     "lotOfToDos": "Je meest recente 30 voltooide To-do's worden hier getoond. Je kan oudere voltooide To-do's zien via Gegevens > Gegevens weergeven of Gegevens > Gegevens exporteren > Gebruikersgegevens.",
-    "deleteToDosExplanation": "Als je op de knop hieronder klikt, worden al je voltooide en gearchiveerde To-do's permanent verwijderd. Als je ze wilt bewaren, exporteer ze dan eerst.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addmultiple": "Voeg meerdere tegelijkertijd toe",
     "addsingle": "Voeg een enkele toe",
     "habit": "Gewoonte",
@@ -62,7 +62,7 @@
     "score": "Score",
     "reward": "Beloning",
     "rewards": "Beloningen",
-    "ingamerewards": "Equipment & Skills",
+    "ingamerewards": "Uitrusting & vaardigheden",
     "gold": "Goud",
     "silver": "Zilver (100 zilver = 1 goud)",
     "newReward": "Nieuwe Beloning",
@@ -168,6 +168,11 @@
     "monthlyRepeatHelpContent": "Deze taak zul je iedere X maanden moeten doen",
     "yearlyRepeatHelpContent": "Deze taak zul je iedere X jaren moeten doen",
     "resets": "Herstart",
-    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
-    "nextDue": "Next Due Dates"
+    "summaryStart": "Herhaalt <%= frequency %> iedere <%= everyX %> <%= frequencyPlural %>",
+    "nextDue": "Toekomstige data",
+    "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
+    "yesterDailiesCallToAction": "Begin mijn nieuwe dag!",
+    "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
+    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
+    "repeatDayError": "Er moet minstens één dag van de week geselecteerd zijn."
 }

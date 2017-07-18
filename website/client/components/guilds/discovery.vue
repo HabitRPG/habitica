@@ -2,13 +2,13 @@
 .row
   sidebar(@search="updateSearch", @filter="updateFilters")
 
-  .col-10.standard-page
+  .standard-page
     .clearfix
         h1.page-header.float-left(v-once) {{ $t('publicGuilds') }}
         .float-right
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
-            b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption.value)') {{sortOption.text}}
+            b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
     .col-md-12
       public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild", :display-leave='true')
       mugen-scroll(

@@ -76,6 +76,8 @@ export let schema = new Schema({
   leaderOnly: { // restrict group actions to leader (members can't do them)
     challenges: {type: Boolean, default: false, required: true},
     // invites: {type: Boolean, default: false, required: true},
+    // Some group plans prevent members from getting gems
+    getGems: {type: Boolean, default: false},
   },
   memberCount: {type: Number, default: 1},
   challengeCount: {type: Number, default: 0},
