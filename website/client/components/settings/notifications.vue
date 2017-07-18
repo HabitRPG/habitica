@@ -56,7 +56,7 @@ export default {
         'invitedQuest',
         'importantAnnouncements',
         'weeklyRecaps',
-        'onboarding'
+        'onboarding',
       ],
     };
   },

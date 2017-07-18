@@ -1,186 +1,246 @@
 <template lang="pug">
-  .row
-    .personal-options.col-md-6
-      .panel.panel-default
-        .panel-heading
-          | {{ $t('settings') }}
-        .panel-body
+  .row.standard-page
+    h1.col-12 {{ $t('settings') }}
+    .col-6
+      .form-horizontal
+        h5 {{ $t('language') }}
+        select.form-control(v-model='selectedLanguage',
+          @change='changeLanguage()')
+          option(v-for='lang in availableLanguages', :value='lang.code') {{lang.name}}
 
-          .form-horizontal
-            h5 {{ $t('language') }}
-            select.form-control(ng-model='language.code', ng-options='lang.code as lang.name for lang in availableLanguages', ng-change='changeLanguage()')
-            small
-              | {{ $t('americanEnglishGovern') }}
-              br
-              strong
-              | {{ $t('helpWithTranslation') }}
+        small
+          | {{ $t('americanEnglishGovern') }}
+          br
+          strong(v-html="$t('helpWithTranslation')")
+      hr
 
-          hr
+      .form-horizontal
+        h5 {{ $t('dateFormat') }}
+        select.form-control(v-model='user.preferences.dateFormat',
+          @change='set({"preferences.dateFormat": user.preferences.dateFormat})')
+          option(v-for='dateFormat in availableFormats', :value='dateFormat') {{dateFormat}}
+      hr
 
-          .form-horizontal
-            h5 {{ $t('dateFormat') }}
-            select.form-control(ng-model='user.preferences.dateFormat', ng-options='DF for DF in availableFormats', ng-change='set({"preferences.dateFormat": user.preferences.dateFormat})')
+      div
+        .checkbox
+          label
+            input(type='checkbox', @click='hideHeader() ', v-model='user.preferences.hideHeader')
+            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('showHeaderPop')") {{ $t('showHeader') }}
+        .checkbox
+          label
+            input(type='checkbox', @click='toggleStickyHeader()', v-model='user.preferences.stickyHeader', :disabled="user.preferences.hideHeader")
+            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('stickyHeaderPop')") {{ $t('stickyHeader') }}
+        .checkbox
+          label
+            input(type='checkbox', v-model='user.preferences.newTaskEdit', @click='set("newTaskEdit")')
+            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('newTaskEditPop')") {{ $t('newTaskEdit') }}
+        .checkbox
+          label
+            input(type='checkbox', v-model='user.preferences.tagsCollapsed', @change='set("tagsCollapsed")')
+            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('startCollapsedPop')") {{ $t('startCollapsed') }}
+        .checkbox
+          label
+            input(type='checkbox', v-model='user.preferences.advancedCollapsed', @change='set("advancedCollapsed")')
+            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('startAdvCollapsedPop')") {{ $t('startAdvCollapsed') }}
+        .checkbox
+          label
+            input(type='checkbox', v-model='user.preferences.dailyDueDefaultView', @change='set("dailyDueDefaultView")')
+            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('dailyDueDefaultViewPop')") {{ $t('dailyDueDefaultView') }}
+        .checkbox(v-if='party.memberCount === 1')
+          label
+            input(type='checkbox', v-model='user.preferences.displayInviteToPartyWhenPartyIs1', @change='set("displayInviteToPartyWhenPartyIs1")')
+            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('displayInviteToPartyWhenPartyIs1')") {{ $t('displayInviteToPartyWhenPartyIs1') }}
+        .checkbox
+          input(type='checkbox', v-model='user.preferences.suppressModals.levelUp', @change='set("suppressModals", "levelUp")')
+          label {{ $t('suppressLevelUpModal') }}
+        .checkbox
+          input(type='checkbox', v-model='user.preferences.suppressModals.hatchPet', @change='set("suppressModals", "hatchPet")')
+          label {{ $t('suppressHatchPetModal') }}
+        .checkbox
+          input(type='checkbox', v-model='user.preferences.suppressModals.raisePet', @change='set("suppressModals", "raisePet")')
+          label {{ $t('suppressRaisePetModal') }}
+        .checkbox
+          input(type='checkbox', v-model='user.preferences.suppressModals.streak', @change='set("suppressModals", "streak")')
+          label {{ $t('suppressStreakModal') }}
+        //- .checkbox
+        //-   label {{ $t('confirmScoreNotes') }}
+        //-     input(type='checkbox', v-model='user.preferences.tasks.confirmScoreNotes', @change='set({"preferences.tasks.confirmScoreNotes": user.preferences.tasks.confirmScoreNotes ? true: false})')
 
-          hr
+        //- .checkbox
+        //-   label {{ $t('groupTasksByChallenge') }}
+        //-     input(type='checkbox', v-model='user.preferences.tasks.groupByChallenge', @change='set({"preferences.tasks.groupByChallenge": user.preferences.tasks.groupByChallenge ? true: false})')
 
-          .checkbox
-            label
-              input(type='checkbox', ng-click='hideHeader() ', ng-checked='user.preferences.hideHeader!==true')
-              span.hint(popover-trigger='mouseenter', popover-placement='right', popover {{ $t('showHeaderPop') }}) {{ $t('showHeader') }}
-          .checkbox
-            label
-              input(type='checkbox', ng-click='toggleStickyHeader()', ng-checked='user.preferences.stickyHeader!==false', ng-disabled="user.preferences.hideHeader!==false")
-              span.hint(popover-trigger='mouseenter', popover-placement='right', popover {{ $t('stickyHeaderPop') }}) {{ $t('stickyHeader') }}
-          .checkbox
-            label
-              input(type='checkbox', ng-model='user.preferences.newTaskEdit', ng-change='set({"preferences.newTaskEdit": user.preferences.newTaskEdit?true: false})')
-              span.hint(popover-trigger='mouseenter', popover-placement='right', popover {{ $t('newTaskEditPop') }}) {{ $t('newTaskEdit') }}
-          .checkbox
-            label
-              input(type='checkbox', ng-model='user.preferences.tagsCollapsed', ng-change='set({"preferences.tagsCollapsed": user.preferences.tagsCollapsed?true: false})')
-              span.hint(popover-trigger='mouseenter', popover-placement='right', popover {{ $t('startCollapsedPop') }}) {{ $t('startCollapsed') }}
-          .checkbox
-            label
-              input(type='checkbox', ng-model='user.preferences.advancedCollapsed', ng-change='set({"preferences.advancedCollapsed": user.preferences.advancedCollapsed?true: false})')
-              span.hint(popover-trigger='mouseenter', popover-placement='right', popover {{ $t('startAdvCollapsedPop') }}) {{ $t('startAdvCollapsed') }}
-          .checkbox
-            label
-              input(type='checkbox', ng-model='user.preferences.dailyDueDefaultView', ng-change='set({"preferences.dailyDueDefaultView": user.preferences.dailyDueDefaultView?true: false})')
-              span.hint(popover-trigger='mouseenter', popover-placement='right', popover {{ $t('dailyDueDefaultViewPop') }}) {{ $t('dailyDueDefaultView') }}
-          .checkbox(ng-if='party.memberCount === 1')
-            label
-              input(type='checkbox', ng-model='user.preferences.displayInviteToPartyWhenPartyIs1', ng-change='set({"preferences.displayInviteToPartyWhenPartyIs1": user.preferences.displayInviteToPartyWhenPartyIs1 ? true : false})')
-              span.hint(popover-trigger='mouseenter', popover-placement='right', popover {{ $t('displayInviteToPartyWhenPartyIs1') }}) {{ $t('displayInviteToPartyWhenPartyIs1') }}
-          .checkbox
-            label {{ $t('suppressLevelUpModal') }}
-              input(type='checkbox', ng-model='user.preferences.suppressModals.levelUp', ng-change='set({"preferences.suppressModals.levelUp": user.preferences.suppressModals.levelUp?true: false})')
-          .checkbox
-            label {{ $t('suppressHatchPetModal') }}
-              input(type='checkbox', ng-model='user.preferences.suppressModals.hatchPet', ng-change='set({"preferences.suppressModals.hatchPet": user.preferences.suppressModals.hatchPet?true: false})')
-          .checkbox
-            label {{ $t('suppressRaisePetModal') }}
-              input(type='checkbox', ng-model='user.preferences.suppressModals.raisePet', ng-change='set({"preferences.suppressModals.raisePet": user.preferences.suppressModals.raisePet?true: false})')
-          .checkbox
-            label {{ $t('suppressStreakModal') }}
-              input(type='checkbox', ng-model='user.preferences.suppressModals.streak', ng-change='set({"preferences.suppressModals.streak": user.preferences.suppressModals.streak?true: false})')
-          //- .checkbox
-          //-   label {{ $t('confirmScoreNotes') }}
-          //-     input(type='checkbox', ng-model='user.preferences.tasks.confirmScoreNotes', ng-change='set({"preferences.tasks.confirmScoreNotes": user.preferences.tasks.confirmScoreNotes ? true: false})')
+        hr
 
-          //- .checkbox
-          //-   label {{ $t('groupTasksByChallenge') }}
-          //-     input(type='checkbox', ng-model='user.preferences.tasks.groupByChallenge', ng-change='set({"preferences.tasks.groupByChallenge": user.preferences.tasks.groupByChallenge ? true: false})')
+        button.btn.btn-primary(@click='showBailey()', popover-trigger='mouseenter', popover-placement='right', :popover="$t('showBaileyPop')") {{ $t('showBailey') }}
+        button.btn.btn-primary(@click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', :popover="$t('fixValPop')") {{ $t('fixVal') }}
+        button.btn.btn-primary(v-if='user.preferences.disableClasses == true', @click='changeClass({})',
+          popover-trigger='mouseenter', popover-placement='right', :popover="$t('enableClassPop')") {{ $t('enableClass') }}
 
-          hr
+        hr
 
-          button.btn.btn-default(ng-click='showBailey()', popover-trigger='mouseenter', popover-placement='right', popover {{ $t('showBaileyPop') }}) {{ $t('showBailey') }}
-          button.btn.btn-default(ng-click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', popover {{ $t('fixValPop') }}) {{ $t('fixVal') }}
-          button.btn.btn-default(ng-if='user.preferences.disableClasses==true', ng-click='User.changeClass({})', popover-trigger='mouseenter', popover-placement='right', popover {{ $t('enableClassPop') }}) {{ $t('enableClass') }}
-
-          hr
-
+        div
           h5 {{ $t('customDayStart') }}
-          alert.alert-warning {{ $t('customDayStartInfo1') }}
-
+          .alert.alert-warning {{ $t('customDayStartInfo1') }}
           .form-horizontal
             .form-group
-              .col-sm-7
-                select.form-control(ng-model='dayStart')
-                  - var number = 0
-                  while number < 24
-                    - var value = number
-                    - var meridian = number < 12 ? 'AM' : 'PM'
-                    - var hour = number++ % 12
-                    option(value=value) #{hour ? hour : 12}:00 #{meridian}
+              .col-7
+                select.form-control(v-model='dayStart')
+                  option(v-for='option in dayStartOptions' :value='option.value') {{option.name}}
 
-              .col-sm-5
-                br.visible-xs
-                button.btn.btn-block.btn-primary(ng-click='openDayStartModal(dayStart)',
-                  ng-disabled='dayStart == user.preferences.dayStart')
+              .col-5
+                button.btn.btn-block.btn-primary(@click='openDayStartModal(dayStart)',
+                  :disabled='dayStart == user.preferences.dayStart')
                   | {{ $t('saveCustomDayStart') }}
-
           hr
 
-          h5 {{ $t('timezone') }}
-          .form-horizontal
-            .form-group
-              .col-sm-12
-                p {{ $t('timezoneUTC', {utc: "user.preferences.timezoneOffset | timezoneOffsetToUtc"}) }}
-                br
-                p {{ $t('timezoneInfo') }}
+        h5 {{ $t('timezone') }}
+        .form-horizontal
+          .form-group
+            .col-12
+              p(v-html="$t('timezoneUTC', {utc: timezoneOffsetToUtc})")
+              p(v-html="$t('timezoneInfo')")
 
-    .personal-options.col-md-6
-      .panel.panel-default
-        .panel-heading
-          span {{ $t('registration') }}
-        .panel-body
-          div
-            ul.list-inline
-              li(ng-repeat='network in SOCIAL_AUTH_NETWORKS')
-                button.btn.btn-primary(ng-if='!user.auth[network.key].id', ng-click='socialLogin(network.key, user)') {{ $t('registerWithSocial', {network: network.name}) }}
-                button.btn.btn-primary(disabled='disabled', ng-if='!hasBackupAuthOption(user, network.key) && user.auth[network.key].id') {{ $t('registeredWithSocial', {network: network.name}) }}
-                button.btn.btn-danger(ng-click='deleteSocialAuth(network.key)', ng-if='hasBackupAuthOption(user, network.key) && user.auth[network.key].id') {{ $t('detachSocial', {network: network.name}) }}
-            hr
-            div(ng-if='!user.auth.local.username')
-              p {{ $t('addLocalAuth') }}
-              form(ng-submit='http("post", "/api/v3/user/auth/local/register", localAuth, "addedLocalAuth")', ng-init='localAuth={}', name='localAuth', novalidate)
-                //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
-                .form-group
-                  input.form-control(type='text', placeholder {{ $t('username') }}, ng-model='localAuth.username', required)
-                .form-group
-                  input.form-control(type='text', placeholder {{ $t('email') }}, ng-model='localAuth.email', required)
-                .form-group
-                  input.form-control(type='password', placeholder {{ $t('password') }}, ng-model='localAuth.password', required)
-                .form-group
-                  input.form-control(type='password', placeholder {{ $t('confirmPass') }}, ng-model='localAuth.confirmPassword', required)
-                input.btn.btn-default(type='submit', ng-disabled='localAuth.$invalid', value {{ $t('submit') }})
-
-          div(ng-if='user.auth.local.username')
-            p {{ $t('username') }}
-              |: {{user.auth.local.username}}
-            p
-              small.muted
-                  | {{ $t('loginNameDescription1') }}
-                  |&nbsp;
-                  a(href='/#/options/profile/profile') {{ $t('loginNameDescription2') }}
-                  |&nbsp;
-                  | {{ $t('loginNameDescription3') }}
-            p {{ $t('email') }}
-              |: {{user.auth.local.email}}
-            hr
-
-            h5 {{ $t('changeUsername') }}
-            form(ng-submit='changeUser("username", usernameUpdates)', ng-init='usernameUpdates={}', ng-show='user.auth.local', name='changeUsername', novalidate)
+    .col-6
+      h2 {{ $t('registration') }}
+      .panel-body
+        div
+          ul.list-inline
+            li(v-for='network in SOCIAL_AUTH_NETWORKS')
+              button.btn.btn-primary(v-if='!user.auth[network.key].id', @click='socialLogin(network.key, user)') {{ $t('registerWithSocial', {network: network.name}) }}
+              button.btn.btn-primary(disabled='disabled', v-if='!hasBackupAuthOption(user, network.key) && user.auth[network.key].id') {{ $t('registeredWithSocial', {network: network.name}) }}
+              button.btn.btn-danger(@click='deleteSocialAuth(network.key)', v-if='hasBackupAuthOption(user, network.key) && user.auth[network.key].id') {{ $t('detachSocial', {network: network.name}) }}
+          hr
+          div(v-if='!user.auth.local.username')
+            p {{ $t('addLocalAuth') }}
+            form(ng-submit='http("post", "/api/v3/user/auth/local/register", localAuth, "addedLocalAuth")', ng-init='localAuth={}', name='localAuth', novalidate)
               //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
               .form-group
-                input.form-control(type='text', placeholder {{ $t('newUsername') }}, ng-model='usernameUpdates.username', required)
+                input.form-control(type='text', placeholder {{ $t('username') }}, v-model='localAuth.username', required)
               .form-group
-                input.form-control(type='password', placeholder {{ $t('password') }}, ng-model='usernameUpdates.password', required)
-              input.btn.btn-default(type='submit', ng-disabled='changeUsername.$invalid', value {{ $t('submit') }})
+                input.form-control(type='text', placeholder {{ $t('email') }}, v-model='localAuth.email', required)
+              .form-group
+                input.form-control(type='password', placeholder {{ $t('password') }}, v-model='localAuth.password', required)
+              .form-group
+                input.form-control(type='password', placeholder {{ $t('confirmPass') }}, v-model='localAuth.confirmPassword', required)
+              button.btn.btn-primary(type='submit', ng-disabled='localAuth.$invalid', value {{ $t('submit') }})
 
-            h5 {{ $t('changeEmail') }}
-            form(ng-submit='changeUser("email", emailUpdates)', ng-show='user.auth.local', name='changeEmail', novalidate)
-              .form-group
-                input.form-control(type='text', placeholder {{ $t('newEmail') }}, ng-model='emailUpdates.newEmail', required)
-              .form-group
-                input.form-control(type='password', placeholder {{ $t('password') }}, ng-model='emailUpdates.password', required)
-              input.btn.btn-default(type='submit', ng-disabled='changeEmail.$invalid', value {{ $t('submit') }})
+        .usersettings(v-if='user.auth.local.username')
+          p {{ $t('username') }}
+            |: {{user.auth.local.username}}
+          p
+            small.muted
+                | {{ $t('loginNameDescription1') }}
+                |&nbsp;
+                a(href='/#/options/profile/profile') {{ $t('loginNameDescription2') }}
+                |&nbsp;
+                | {{ $t('loginNameDescription3') }}
+          p {{ $t('email') }}
+            |: {{user.auth.local.email}}
+          hr
 
-            h5 {{ $t('changePass') }}
-            form(ng-submit='changeUser("password", passwordUpdates)', ng-show='user.auth.local', name='changePassword', novalidate)
-              .form-group
-                input.form-control(type='password', placeholder {{ $t('oldPass') }}, ng-model='passwordUpdates.password', required)
-              .form-group
-                input.form-control(type='password', placeholder {{ $t('newPass') }}, ng-model='passwordUpdates.newPassword', required)
-              .form-group
-                input.form-control(type='password', placeholder {{ $t('confirmPass') }}, ng-model='passwordUpdates.confirmPassword', required)
-              input.btn.btn-default(type='submit', ng-disabled='changePassword.$invalid', value {{ $t('submit') }})
+          h5 {{ $t('changeUsername') }}
+          .form(v-if='user.auth.local', name='changeUsername', novalidate)
+            //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
+            .form-group
+              input.form-control(type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username', required)
+            .form-group
+              input.form-control(type='password', :placeholder="$t('password')", v-model='usernameUpdates.password', required)
+            button.btn.btn-primary(type='submit', @click='changeUser("username", usernameUpdates)') {{ $t('submit') }}
+
+          h5 {{ $t('changeEmail') }}
+          .form(v-if='user.auth.local', name='changeEmail', novalidate)
+            .form-group
+              input.form-control(type='text', :placeholder="$t('newEmail')", v-model='emailUpdates.newEmail', required)
+            .form-group
+              input.form-control(type='password', :placeholder="$t('password')", v-model='emailUpdates.password', required)
+            button.btn.btn-primary(type='submit', @click='changeUser("email", emailUpdates)') {{ $t('submit') }}
+
+          h5 {{ $t('changePass') }}
+          .form(v-if='user.auth.local', name='changePassword', novalidate)
+            .form-group
+              input.form-control(type='password', :placeholder="$t('oldPass')", v-model='passwordUpdates.password', required)
+            .form-group
+              input.form-control(type='password', :placeholder="$t('newPass')", v-model='passwordUpdates.newPassword', required)
+            .form-group
+              input.form-control(type='password', :placeholder="$t('confirmPass')", v-model='passwordUpdates.confirmPassword', required)
+            button.btn.btn-primary(type='submit', @click='changeUser("password", passwordUpdates)') {{ $t('submit')  }}
 
 
-      .panel.panel-default
-        .panel-heading
-          span {{ $t('dangerZone') }}
-        .panel-body
-          a.btn.btn-danger(ng-click='openModal("reset", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover-placement='right', popover {{ $t('resetAccPop') }}) {{ $t('resetAccount') }}
-          a.btn.btn-danger(ng-click='openModal("delete", {controller:"SettingsCtrl"})', popover-trigger='mouseenter', popover {{ $t('deleteAccPop') }}) {{ $t('deleteAccount') }}
+          div
+            h5 {{ $t('dangerZone') }}
+            div
+              button.btn.btn-danger(@click='openModal("reset", {controller:"SettingsCtrl"})',
+                popover-trigger='mouseenter', popover-placement='right', popover="$t('resetAccPop')") {{ $t('resetAccount') }}
+              button.btn.btn-danger(@click='openModal("delete", {controller:"SettingsCtrl"})',
+                popover-trigger='mouseenter', :popover="$t('deleteAccPop')") {{ $t('deleteAccount') }}
 </template>
+
+<style scope>
+  .usersettings h5 {
+    margin-top: 1em;
+  }
+</style>
+
+<script>
+import { mapState } from 'client/libs/store';
+
+// @TODO: import
+// var SOCIAL_AUTH_NETWORKS = Shared.constants.SUPPORTED_SOCIAL_NETWORKS;
+// $scope.SOCIAL_AUTH_NETWORKS = SOCIAL_AUTH_NETWORKS;
+
+export default {
+  data () {
+    let dayStartOptions = [];
+    for (let number = 0; number < 24; number += 1) {
+      let meridian = number < 12 ? 'AM' : 'PM';
+      let hour = number % 12;
+      let option = {
+        value: number,
+        name: `${hour ? hour : 12}:00 ${meridian}`,
+      };
+      dayStartOptions.push(option);
+    }
+
+    return {
+      SOCIAL_AUTH_NETWORKS: [
+        {
+          name: 'Facebook',
+          key: 'facebook',
+        },
+      ],
+      // @TODO: use store
+      party: {
+        memberCount: 1,
+      },
+      // @TODO: import
+      availableLanguages: [
+        {
+          code: 'en',
+          name: 'English',
+        },
+      ],
+      availableFormats: ['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'],
+      dayStartOptions,
+      dayStart: 0, // @TODO: compute
+      usernameUpdates: {},
+      emailUpdates: {},
+      passwordUpdates: {},
+    };
+  },
+  computed: {
+    ...mapState({user: 'user.data'}),
+    timezoneOffsetToUtc () {
+      return this.user.preferences.timezoneOffset;
+    },
+    selectedLanguage () {
+      return this.user.preferences.language;
+    },
+  },
+  methods: {
+    hasBackupAuthOption () {
+      return true;
+    },
+  },
+};
+</script>
