@@ -77,14 +77,14 @@
 export default {
   data () {
     return {
-      paypalPurchaseLink: `/paypal/subscribe?_id={{user._id}}&apiToken={{User.settings.auth.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}`,
+      paypalPurchaseLink: '/paypal/subscribe?_id={{user._id}}&apiToken={{User.settings.auth.apiToken}}&sub={{_subscription.key}}{{_subscription.coupon ? "&coupon="+_subscription.coupon : ""}}',
       purchasedPlanExtraMonthsDetails: {
         months: '{{user.purchased.plan.extraMonths | number:2}',
       },
       purchasedPlanIdInfo: {
         price: 'Content.subscriptionBlocks[user.purchased.plan.planId].price',
         months: 'Content.subscriptionBlocks[user.purchased.plan.planId].months',
-        plan: 'user.purchased.plan.paymentMethod'
+        plan: 'user.purchased.plan.paymentMethod',
       },
     };
   },

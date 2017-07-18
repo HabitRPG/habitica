@@ -1,21 +1,61 @@
 <template lang="pug">
-.row
+.row.standard-page
   .col-md-6
     h2 {{ $t('promoCode') }}
-    form.form-inline(role='form',ng-submit='enterCoupon(_couponCode)')
-      input.form-control(type='text', ng-model='_couponCode', placeholder {{ $t('promoPlaceholder') }})
-      button.btn.btn-primary(type='submit') {{ $t('submit') }}
+    .form-inline(role='form')
+      input.form-control(type='text', v-model='couponCode', :placeholder="$t('promoPlaceholder')")
+      button.btn.btn-primary(@click='enterCoupon()') {{ $t('submit') }}
     div
       small {{ $t('couponText') }}
-    div(ng-if='user.contributor.sudo')
+    div(v-if='user.contributor.sudo')
       hr
       h4 {{ $t('generateCodes') }}
-      form.form(role='form',ng-submit='generateCodes(_codes)',ng-init='_codes={}')
+      .form(role='form')
         .form-group
-          input.form-control(type='text',ng-model='_codes.event',placeholder="Event code (eg, 'wondercon')")
+          input.form-control(type='text', v-model='codes.event', placeholder="Event code (eg, 'wondercon')")
         .form-group
-          input.form-control(type='number',ng-model='_codes.count',placeholder="Number of codes to generate (eg, 250)")
+          input.form-control(type='number', v-model='codes.count', placeholder="Number of codes to generate (eg, 250)")
         .form-group
-          button.btn.btn-primary(type='submit') {{ $t('generate') }}
-          a.btn.btn-default(:href='"/api/v3/coupons?_id={{user._id}}&apiToken=" + User.settings.auth.apiToken') {{ $t('getCodes') }}
+          button.btn.btn-primary(type='submit', @click='generateCodes(codes)') {{ $t('generate') }}
+          a.btn.btn-default(:href='getCodesUrl') {{ $t('getCodes') }}
 </template>
+
+<script>
+import axios from 'axios';
+import { mapState } from 'client/libs/store';
+
+export default {
+  data () {
+    return {
+      codes: {
+        event: '',
+        count: '',
+      },
+      couponCode: '',
+    };
+  },
+  computed: {
+    ...mapState({user: 'user.data'}),
+    getCodesUrl () {
+      if (!this.user) return '';
+      return `/api/v3/coupons?_id=${this.user._id}&apiToken=${this.user.apiToken}`;
+    },
+  },
+  methods: {
+    generateCodes () {
+      // $http.post(ApiUrl.get() + '/api/v2/coupons/generate/'+codes.event+'?count='+(codes.count || 1))
+      //   .success(function(res,code){
+      //     $scope._codes = {};
+      //     if (code!==200) return;
+      //     window.location.href = '/api/v2/coupons?limit='+codes.count+'&_id='+User.user._id+'&apiToken='+User.settings.auth.apiToken;
+      //   })
+    },
+    async enterCoupon () {
+      let code = await axios.get(`/api/v3/coupons/enter/${this.couponCode}`);
+      if (!code) return;
+      // @TODO: what needs to be updated? User.sync();
+      // @TODO: mixin Notification.text(env.t('promoCodeApplied'));
+    },
+  },
+};
+</script>
