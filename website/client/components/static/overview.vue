@@ -1,16 +1,16 @@
-<template lang='pug'>
-.row
-  .col-md-12
-    .page-header
-      h1 {{ $t('overview') }}
-    p {{ $t('needTips') }}
+<template lang="pug">
+  .row
+    .col-6.offset-3
+      .page-header
+        h1 {{ $t('overview') }}
+      p {{ $t('needTips') }}
 
-    div(v-for='step in stepsNum')
-      h3 {{ $t('step'+step) }}
-      p
-        //!=md.unsafeHTMLRender(env.t('webStep'+step+'Text'))
-      hr
-    //!=md.unsafeHTMLRender(env.t('overviewQuestions'))
+      div(v-for='step in stepsNum')
+        h3 {{ $t('step'+step) }}
+        // @TODO: add markdown
+        p(v-html="$t('webStep'+step+'Text')")
+        hr
+        p(v-html="$t('overviewQuestions')")
 </template>
 
 <script>

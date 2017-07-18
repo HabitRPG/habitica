@@ -18,11 +18,11 @@ const FAQPage = () => import(/* webpackChunkName: "static" */'./components/stati
 const FeaturesPage = () => import(/* webpackChunkName: "static" */'./components/static/features');
 const FrontPage = () => import(/* webpackChunkName: "static" */'./components/static/front');
 const GroupPlansPage = () => import(/* webpackChunkName: "static" */'./components/static/groupPlans');
+const MaintenancePage = () => import(/* webpackChunkName: "static" */'./components/static/maintenance');
 const MaintenanceInfoPage = () => import(/* webpackChunkName: "static" */'./components/static/maintenanceInfo');
 const MerchPage = () => import(/* webpackChunkName: "static" */'./components/static/merch');
 // const NewStuffPage = () => import(/* webpackChunkName: "static" */'./components/static/newStuff');
 const OverviewPage = () => import(/* webpackChunkName: "static" */'./components/static/overview');
-const PlansPage = () => import(/* webpackChunkName: "static" */'./components/static/plans');
 const PressKitPage = () => import(/* webpackChunkName: "static" */'./components/static/pressKit');
 const PrivacyPage = () => import(/* webpackChunkName: "static" */'./components/static/privacy');
 const TermsPage = () => import(/* webpackChunkName: "static" */'./components/static/terms');
@@ -149,11 +149,12 @@ const router = new VueRouter({
         { name: 'features', path: 'features', component: FeaturesPage },
         { name: 'front', path: 'front', component: FrontPage },
         { name: 'groupPlans', path: 'group-plans', component: GroupPlansPage },
-        { name: 'maintenance', path: 'maintenance', component: MaintenanceInfoPage },
+        { name: 'maintenance', path: 'maintenance', component: MaintenancePage },
+        { name: 'maintenance-info', path: 'maintenance-info', component: MaintenanceInfoPage },
         { name: 'merch', path: 'merch', component: MerchPage },
         // { name: 'newStuff', path: 'newStuff', component: NewStuffPage },
         { name: 'overview', path: 'overview', component: OverviewPage },
-        { name: 'plans', path: 'plans', component: PlansPage },
+        { name: 'plans', path: 'plans', component: GroupPlansPage },
         { name: 'pressKit', path: 'press-kit', component: PressKitPage },
         { name: 'privacy', path: 'privacy', component: PrivacyPage },
         { name: 'terms', path: 'terms', component: TermsPage },

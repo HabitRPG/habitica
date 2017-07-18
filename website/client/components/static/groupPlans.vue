@@ -1,21 +1,21 @@
 <template lang="pug">
   div
-    // @TODO: +groupPlansBenefits
+    // @TODO: Replace with Zeplin  +groupPlansBenefits
 
     br
     br
     .row
-      .col-sm-6.col-sm-offset-3
-        a.btn.btn-primary.btn-lg.btn-block(ng-click="goToNewGroupPage()") {{ $t('getAGroupPlanToday') }}
+      .col-6.offset-3
+        button.btn.btn-primary.btn-lg.btn-block(ng-click="goToNewGroupPage()") {{ $t('getAGroupPlanToday') }}
 
     .row
-      .col-md-6.col-md-offset-3
+      .col-6.offset-3
         br
         .text-center {{ $t('groupSubscriptionPrice') }}
 
     hr
 
-    .col-md-6.col-md-offset-3.text-center
+    .col-6.offset-3.text-center
       .row.row-margin(style="font-size: 2rem;")
         span {{ $t('enterprisePlansDescription') }}
       .row.row-margin

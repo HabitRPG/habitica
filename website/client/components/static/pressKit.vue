@@ -1,7 +1,7 @@
 <template lang="pug">
   div.jumbotron
     h1 {{ $t('presskit') }}
-      p {{ $t('presskitText', { pressEnquiryEmail : env.EMAILS.PRESS_ENQUIRY_EMAIL }) }}
+      p {{ $t('presskitText', { pressEnquiryEmail : PRESS_ENQUIRY_EMAIL }) }}
       p
         a.btn.btn-lg.btn-success(href='/presskit/presskit.zip') presskit.zip
 
@@ -18,9 +18,14 @@
 </template>
 
 <script>
+// @TODO: How to use images?
+// @TODO: EMAILS.PRESS_ENQUIRY_EMAIL
+const PRESS_ENQUIRY_EMAIL = 'admin@habitica.com';
+
 export default {
   data () {
     return {
+      PRESS_ENQUIRY_EMAIL,
       imgs: {
         Promo: [
           'Promo',
