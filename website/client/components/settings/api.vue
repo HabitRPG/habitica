@@ -1,69 +1,119 @@
 <template lang="pug">
-.row
-  .col-md-6
+.row.standard-page
+  .col-6
     h2 {{ $t('API') }}
     small {{ $t('APIText') }}
-    h6 {{ $t('userId') }}
-    pre.prettyprint {{user.id}}
-    h6 {{ $t('APIToken') }}
-    pre.prettyprint {{User.settings.auth.apiToken}}
-    small {{ $t("APITokenWarning", { hrefTechAssistanceEmail }) }}
-    br
-    h3 {{ $t('thirdPartyApps') }}
-    ul
-      li
-        a(target='_blank' href='https://www.beeminder.com/habitica') {{ $t('beeminder') }}
-        br
-        | {{ $t('beeminderDesc') }}
-      li
-        a(target='_blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb') {{ $t('chromeChatExtension') }}
-        br
-        | {{ $t('chromeChatExtensionDesc') }}
-      li
-        a(target='_blank' :href='`http://data.habitrpg.com?uuid= + user._id`') {{ $t('dataTool') }}
-        br
-        | {{ $t('dataToolDesc') }}
-      li
-        | {{ $t('otherExtensions') }}
-        br
-        | {{ $t('otherDesc') }}
 
-    hr
+    .section
+      h6 {{ $t('userId') }}
+      pre.prettyprint {{user.id}}
+      h6 {{ $t('APIToken') }}
+      pre.prettyprint {{user.apiToken}}
+      small(v-html='$t("APITokenWarning", { hrefTechAssistanceEmail })')
 
+    .section
+      h3 {{ $t('thirdPartyApps') }}
+      ul
+        li
+          a(target='_blank' href='https://www.beeminder.com/habitica') {{ $t('beeminder') }}
+          br
+          | {{ $t('beeminderDesc') }}
+        li
+          a(target='_blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb') {{ $t('chromeChatExtension') }}
+          br
+          | {{ $t('chromeChatExtensionDesc') }}
+        li
+          a(target='_blank' :href='`http://data.habitrpg.com?uuid= + user._id`') {{ $t('dataTool') }}
+          br
+          | {{ $t('dataToolDesc') }}
+        li(v-html="$t('otherExtensions')")
+          br
+          | {{ $t('otherDesc') }}
+
+      hr
+
+  .col-6
     h2 {{ $t('webhooks') }}
     table.table.table-striped
-      thead(ng-if='user.webhooks.length')
+      thead(v-if='user.webhooks.length')
         tr
           th {{ $t('enabled') }}
           th {{ $t('webhookURL') }}
           th
       tbody
-        tr(ng-repeat="webhook in user.webhooks track by $index")
+        tr(v-for="(webhook, index) in user.webhooks")
           td
-            input(type='checkbox', ng-model='webhook.enabled', ng-change='saveWebhook(webhook, $index)')
+            input(type='checkbox', v-model='webhook.enabled', @change='saveWebhook(webhook, index)')
           td
-            input.form-control(type='url', ng-model='webhook.url', ng-change='webhook._editing=true', ui-keyup="{13:'saveWebhook(webhook, $index)'}")
+            input.form-control(type='url', v-model='webhook.url')
           td
-            span.pull-left(ng-show='webhook._editing') *
-            a.checklist-icons(ng-click='deleteWebhook(webhook, $index)')
-              span.glyphicon.glyphicon-trash(tooltip {{ $t('delete') }})
+            a.btn.btn-warning.checklist-icons(@click='deleteWebhook(webhook, index)')
+              span.glyphicon.glyphicon-trash(:tooltip="$t('delete')") Delete
+            a.btn.btn-success.checklist-icons(@click='saveWebhook(webhook, index)') Update
         tr
           td(colspan=2)
-            form.form-horizontal(ng-submit='addWebhook(_newWebhook.url)')
+            .form-horizontal
               .form-group.col-sm-10
-                input.form-control(type='url', ng-model='_newWebhook.url', placeholder {{ $t('webhookURL') }})
+                input.form-control(type='url', v-model='newWebhook.url', :placeholder="$t('webhookURL')")
               .col-sm-2
-                button.btn.btn-sm.btn-primary(type='submit') {{ $t('add') }}
+                button.btn.btn-sm.btn-primary(type='submit', @click='addWebhook(newWebhook.url)') {{ $t('add') }}
 </template>
 
-<script>
+<style scope>
+  .section {
+    margin-top: 2em;
+  }
+</style>
 
+<script>
+import { mapState } from 'client/libs/store';
+import uuid from '../../../common/script/libs/uuid';
 // @TODO: env.EMAILS.TECH_ASSISTANCE_EMAIL
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
 
 export default {
   data () {
-    hrefTechAssistanceEmail:  '<a href="mailto:' + TECH_ASSISTANCE_EMAIL + '">' + TECH_ASSISTANCE_EMAIL + '</a>'
+    return {
+      newWebhook: {
+        url: '',
+      },
+      hrefTechAssistanceEmail: `<a href="mailto:${TECH_ASSISTANCE_EMAIL}">${TECH_ASSISTANCE_EMAIL}</a>`,
+    };
+  },
+  computed: {
+    ...mapState({user: 'user.data'}),
+  },
+  methods: {
+    async addWebhook (url) {
+      // @TODO: Shared.uuid()
+      let webhookInfo = {
+        id: uuid(),
+        type: 'taskActivity',
+        options: {
+          created: false,
+          updated: false,
+          deleted: false,
+          scored: true,
+        },
+        url,
+        enabled: true,
+      };
+
+      let webhook = await this.$store.dispatch('user:addWebhook', {webhookInfo});
+      this.user.webhooks.push(webhook);
+
+      this.newWebhook.url = '';
+    },
+    async saveWebhook (webhook, index) {
+      delete webhook._editing;
+      let updatedWebhook = await this.$store.dispatch('user:updateWebhook', {webhook});
+      this.user.webhooks[index] = updatedWebhook;
+    },
+    async deleteWebhook (webhook, index) {
+      delete webhook._editing;
+      await this.$store.dispatch('user:deleteWebhook', {webhook});
+      this.user.webhooks.splice(index, 1);
+    },
   },
 };
 </script>
