@@ -346,15 +346,15 @@ export function cron (options = {}) {
   // check if we've passed a day on which we should reset the habit counters, including today
   let resetWeekly = false;
   let resetMonthly = false;
-  for (let i = 0; i <= daysMissed; i++) {
+  for (let i = 0; i < daysMissed; i++) {
     if (resetWeekly === true && resetMonthly === true) {
       break;
     }
-    let thatDay = moment(now).subtract({days: i}).toDate();
-    if (thatDay.getDay() === 1) {
+    let thatDay = moment(now).zone(user.preferences.timezoneOffset + user.preferences.dayStart * 60).subtract({days: i});
+    if (thatDay.day() === 1) {
       resetWeekly = true;
     }
-    if (thatDay.getDate() === 1) {
+    if (thatDay.date() === 1) {
       resetMonthly = true;
     }
   }
