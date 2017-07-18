@@ -1,8 +1,8 @@
 'use strict';
 
 habitrpg.controller('NotificationCtrl',
-  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement', 'Social', 'Tasks',
-  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement, Social, Tasks) {
+  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement', 'Social', 'Tasks', '$modal',
+  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement, Social, Tasks, $modal) {
     var isRunningYesterdailies = false;
 
     $rootScope.$watch('user', function (after, before) {
@@ -39,6 +39,7 @@ habitrpg.controller('NotificationCtrl',
       if (yesterDailies.length === 0) {
         User.runCron().then(function () {
           isRunningYesterdailies = false;
+          handleUserNotifications(User.user);
         });
         return;
       };
@@ -53,7 +54,8 @@ habitrpg.controller('NotificationCtrl',
       modalScope.processingYesterdailies = true;
 
       $scope.yesterDailiesModalOpen = true;
-      $rootScope.openModal('yesterDailies', {
+      $modal.open({
+        templateUrl: 'modals/yesterDailies.html',
         scope: modalScope,
         backdrop: 'static',
         controller: ['$scope', 'Tasks', 'User', '$rootScope', function ($scope, Tasks, User, $rootScope) {
@@ -72,6 +74,7 @@ habitrpg.controller('NotificationCtrl',
             User.runCron()
               .then(function () {
                 isRunningYesterdailies = false;
+                handleUserNotifications(User.user);
               });
           };
         }],
@@ -312,13 +315,14 @@ habitrpg.controller('NotificationCtrl',
     // are now stored in user.notifications.
     $rootScope.$watchCollection('userNotifications', function (after) {
       if (!User.user._wrapped) return;
+      if (User.user.needsCron) return;
       handleUserNotifications(after);
     });
 
-    var handleUserNotificationsOnFirstSync = _.once(function () {
-      handleUserNotifications($rootScope.userNotifications);
-    });
-    $rootScope.$on('userUpdated', handleUserNotificationsOnFirstSync);
+    // var handleUserNotificationsOnFirstSync = _.once(function () {
+    //   handleUserNotifications($rootScope.userNotifications);
+    // });
+    // $rootScope.$on('userUpdated', handleUserNotificationsOnFirstSync);
 
     // TODO what about this?
     $rootScope.$watch('user.achievements', function(){

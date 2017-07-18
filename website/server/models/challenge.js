@@ -283,7 +283,15 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
   // Award prize to winner and notify
   if (winner) {
     winner.achievements.challenges.push(challenge.name);
-    winner.balance += challenge.prize / 4;
+
+    // If the winner cannot get gems (because of a group policy)
+    // reimburse the leader
+    const winnerCanGetGems = await winner.canGetGems();
+    if (!winnerCanGetGems) {
+      await User.update({_id: challenge.leader}, {$inc: {balance: challenge.prize / 4}}).exec();
+    } else {
+      winner.balance += challenge.prize / 4;
+    }
 
     winner.addNotification('WON_CHALLENGE');
 

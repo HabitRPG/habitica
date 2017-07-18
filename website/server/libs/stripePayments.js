@@ -76,6 +76,11 @@ api.checkout = async function checkout (options, stripeInc) {
 
   if (!token) throw new BadRequest('Missing req.body.id');
 
+  if (gift) {
+    const member = await User.findById(gift.uuid).exec();
+    gift.member = member;
+  }
+
   if (sub) {
     if (sub.discount) {
       if (!coupon) throw new BadRequest(shared.i18n.t('couponCodeRequired'));
@@ -114,6 +119,12 @@ api.checkout = async function checkout (options, stripeInc) {
       }
     }
 
+    if (!gift || gift.type === 'gems') {
+      const receiver = gift ? gift.member : user;
+      const receiverCanGetGems = await receiver.canGetGems();
+      if (!receiverCanGetGems) throw new NotAuthorized(shared.i18n.t('groupPolicyCannotGetGems', receiver.preferences.language));
+    }
+
     response = await stripeApi.charges.create({
       amount,
       currency: 'usd',
@@ -141,8 +152,6 @@ api.checkout = async function checkout (options, stripeInc) {
     };
 
     if (gift) {
-      let member = await User.findById(gift.uuid).exec();
-      gift.member = member;
       if (gift.type === 'subscription') method = 'createSubscription';
       data.paymentMethod = 'Gift';
     }

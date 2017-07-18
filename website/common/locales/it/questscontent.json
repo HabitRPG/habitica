@@ -127,7 +127,7 @@
     "questSeahorseCompletion": "Lo stallone marino, finalmente domato, nuota docile accanto a te. \"Oh, guarda!\" esclama Kiwibot, \"Vuole che ci occupiamo dei suoi cuccioli\". Ti porge tre uova, dicendo: \"Crescili bene! E sappi che sarai sempre il benvenuto al Derby Dilatorio!\"",
     "questSeahorseBoss": "Stallone Marino",
     "questSeahorseDropSeahorseEgg": "Cavalluccio Marino (uovo)",
-    "questSeahorseUnlockText": "Sblocca l'acquisto delle uova di cavalluccio marino nel Mercato",
+    "questSeahorseUnlockText": "Sblocca l'acquisto delle uova di Cavalluccio Marino nel Mercato",
     "questAtom1Text": "Attacco del Mondano, Parte 1: Disastro di Stoviglie!",
     "questAtom1Notes": "Hai raggiunto le rive del Lago Lavapiatti per un po' di relax... Ma il lago è infestato da piatti da lavare! Come sarà successo? Beh, non puoi permettere che il lago rimanga in questo stato. C'è soltanto una cosa da fare: lavare i piatti e salvare il vostro luogo di villeggiatura! Sarà meglio trovare un po' di sapone per pulire questa porcheria. Molto sapone...",
     "questAtom1CollectSoapBars": "Barrette di Sapone",
@@ -485,5 +485,7 @@
     "questNudibranchCompletion": "You see the last of the NowDo Nudibranches sliding off of a pile of completed tasks as @amadshade washes them away. One leaves behind a cloth bag, and you open it to reveal some gold and a few little ellipsoids you guess are eggs.",
     "questNudibranchBoss": "NowDo Nudibranch",
     "questNudibranchDropNudibranchEgg": "Nudibranch (Egg)",
-    "questNudibranchUnlockText": "Unlocks purchasable Nudibranch eggs in the Market"
+    "questNudibranchUnlockText": "Unlocks purchasable Nudibranch eggs in the Market",
+    "splashyPalsText": "Splashy Pals Quest Bundle",
+    "splashyPalsNotes": "Contains 'The Dilatory Derby', 'Guide the Turtle', and 'Wail of the Whale'. Available until July 31."
 }

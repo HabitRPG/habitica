@@ -423,7 +423,7 @@ angular.module('habitrpg')
             url: 'api/v3/cron',
           })
           .then(function (response) {
-            sync();
+            return sync();
           })
         },
 

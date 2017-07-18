@@ -51,8 +51,10 @@ div
             h3 {{ user.profile.name }}
             span.small-text {{ $t('editAvatar') }}
           a.nav-link.dropdown-item(@click.prevent='showInbox()') {{ $t('inbox') }}
+          router-link.dropdown-item(:to="{name: 'backgrounds'}") {{ $t('backgrounds') }}
           router-link.dropdown-item(:to="{name: 'stats'}") {{ $t('stats') }}
           router-link.dropdown-item(:to="{name: 'achievements'}") {{ $t('achievements') }}
+          router-link.dropdown-item(:to="{name: 'profile'}") {{ $t('profile') }}
           router-link.dropdown-item(:to="{name: 'settings'}") {{ $t('settings') }}
           a.nav-link.dropdown-item(to="/", @click.prevent='logout()') {{ $t('logout') }}
 </template>
