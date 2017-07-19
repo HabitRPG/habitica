@@ -71,6 +71,7 @@
     "displayNow": "Prikaži sad",
     "displayLater": "Prikaži kasnije",
     "petNotOwned": "Ne posedujete ovog ljubimca.",
+    "mountNotOwned": "You do not own this mount.",
     "earnedCompanion": "Svojom produktivnošću, zaradili ste novog pratioca. Hranite ga da bi porastao!",
     "feedPet": "Želite li da <%= name %> pojede <%= article %><%= text %>?",
     "useSaddle": "Staviti sedlo na <%= pet %>?",

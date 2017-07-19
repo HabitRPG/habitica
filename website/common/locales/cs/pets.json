@@ -71,6 +71,7 @@
     "displayNow": "Zobrazit hned",
     "displayLater": "Zobrazit později",
     "petNotOwned": "Nevlastníte tohoto mazlíčka.",
+    "mountNotOwned": "You do not own this mount.",
     "earnedCompanion": "Za svou pracovitost sis vysloužil nového kamaráda. Nakrm ho, aby vyrostl!",
     "feedPet": "Myslíš, že <%= name %> si pochutná na něčem takovém jako je <%= article %><%= text %> ?",
     "useSaddle": "Koho osedláme? Bude to <%= pet %>?",

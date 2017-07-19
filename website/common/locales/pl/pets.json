@@ -71,6 +71,7 @@
     "displayNow": "Wyświetl teraz",
     "displayLater": "Wyświetl później",
     "petNotOwned": "Nie posiadasz tego chowańca.",
+    "mountNotOwned": "You do not own this mount.",
     "earnedCompanion": "Dzięki swej produktywności masz nowego towarzysza. Nakarm go by urósł!",
     "feedPet": "Nakarmić <%= text %> twojego <%= name %>?",
     "useSaddle": "Osiodłać <%= pet %>?",

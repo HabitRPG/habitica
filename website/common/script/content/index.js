@@ -169,6 +169,11 @@ api.cardTypes = {
     messageOptions: 4,
     yearRound: true,
   },
+  goodluck: {
+    key: 'goodluck',
+    messageOptions: 3,
+    yearRound: true,
+  },
 };
 
 api.special = api.spells.special;
