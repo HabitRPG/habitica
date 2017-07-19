@@ -1,5 +1,7 @@
 <template lang="pug">
   .standard-page
+    amazon-payments-modal(:amazon-payments='amazonPayments')
+
     h1 {{ $t('subscription') }}
     .row
       .col-6
@@ -113,6 +115,7 @@ import { mapState } from 'client/libs/store';
 
 import subscriptionBlocks from '../../../common/script/content/subscriptionBlocks';
 import planGemLimits from '../../../common/script/libs/planGemLimits';
+import amazonPaymentsModal from '../payments/amazonModal';
 
 const STRIPE = 'stripe';
 const APPLE = 'apple';
@@ -127,30 +130,14 @@ const GOOGLE = 'google';
 //   GIFT: 'Gift',
 // };
 
-let amazonPayments = {};
-amazonPayments.reset = () => {
-  amazonPayments.modal.close();
-  amazonPayments.modal = null;
-  amazonPayments.type = null;
-  amazonPayments.loggedIn = false;
-  amazonPayments.gift = null;
-  amazonPayments.billingAgreementId = null;
-  amazonPayments.orderReferenceId = null;
-  amazonPayments.paymentSelected = false;
-  amazonPayments.recurringConsent = false;
-  amazonPayments.subscription = null;
-  amazonPayments.coupon = null;
-};
-
-const AMAZON_PAYMENTS = {
-  CLIENT_ID: 'testing',
-};
 const STRIPE_PUB_KEY = '';
 
 const StripeCheckout = {};
-const amazon = {};
 
 export default {
+  components: {
+    amazonPaymentsModal,
+  },
   data () {
     return {
       gemCostTranslation: {
@@ -162,12 +149,8 @@ export default {
       },
       OffAmazonPayments: {},
       isAmazonReady: false,
+      amazonPayments: {},
     };
-  },
-  mounted () {
-    this.OffAmazonPayments = window.OffAmazonPayments;
-    this.isAmazonReady = true;
-    window.amazon.Login.setClientId(AMAZON_PAYMENTS.CLIENT_ID);
   },
   filters: {
     date (value) {
@@ -357,236 +340,6 @@ export default {
       );
     },
     async cancelSubscription (config) {
-      if (config && config.group && !confirm(this.$t('confirmCancelGroupPlan'))) return;
-      if (!confirm(this.$t('sureCancelSub'))) return;
-
-      let group;
-      if (config && config.group) {
-        group = config.group;
-      }
-
-      let paymentMethod = this.user.purchased.plan.paymentMethod;
-      if (group) {
-        paymentMethod = group.purchased.plan.paymentMethod;
-      }
-
-      if (paymentMethod === 'Amazon Payments') {
-        paymentMethod = 'amazon';
-      } else {
-        paymentMethod = paymentMethod.toLowerCase();
-      }
-
-      let queryParams = {
-        _id: this.user.user._id,
-        apiToken: this.user .apiToken,
-        noRedirect: true,
-      };
-
-      if (group) {
-        queryParams.groupId = group._id;
-      }
-
-      let cancelUrl = `/${paymentMethod}/subscribe/cancel?${$.param(queryParams)}`;
-
-      await axios.get(cancelUrl);
-      // Succss
-      alert(this.$t('paypalCanceled'));
-      window.location.href = '/';
-    },
-    getCancelSubInfo () {
-      return this.$t(`cancelSubInfo${this.user.purchased.plan.paymentMethod}`);
-    },
-    amazonPaymentsInit (data) {
-      if (!this.isAmazonReady) return;
-      if (!this.checkGemAmount(data)) return;
-      if (data.type !== 'single' && data.type !== 'subscription') return;
-
-      if (data.gift) {
-        if (data.gift.gems && data.gift.gems.amount && data.gift.gems.amount <= 0) return;
-        data.gift.uuid = data.giftedTo;
-      }
-
-      if (data.subscription) {
-        amazonPayments.subscription = data.subscription;
-        amazonPayments.coupon = data.coupon;
-      }
-
-      if (data.groupId) {
-        amazonPayments.groupId = data.groupId;
-      }
-
-      if (data.groupToCreate) {
-        amazonPayments.groupToCreate = data.groupToCreate;
-      }
-
-      amazonPayments.gift = data.gift;
-      amazonPayments.type = data.type;
-
-      // @TODO: modal
-      // let modal = amazonPayments.modal = $rootScope.openModal('amazonPayments', {
-      //   // Allow the modal to be closed only by pressing cancel
-      //   // because no easy method to intercept those types of closings
-      //   // and we need to make some cleanup
-      //   keyboard: false,
-      //   backdrop: 'static'
-      // });
-      // @TODO:
-      let modal = {};
-      modal.rendered.then(() => {
-        this.OffAmazonPayments.button('AmazonPayButton', AMAZON_PAYMENTS.SELLER_ID, {
-          type: 'PwA',
-          color: 'Gold',
-          size: 'small',
-          agreementType: 'BillingAgreement',
-
-          onSignIn: async (contract) => {
-            amazonPayments.billingAgreementId = contract.getAmazonBillingAgreementId();
-
-            if (amazonPayments.type === 'subscription') {
-              amazonPayments.loggedIn = true;
-              amazonPayments.initWidgets();
-            } else {
-              let url = '/amazon/createOrderReferenceId';
-              let response = await axios.post(url, {
-                billingAgreementId: amazonPayments.billingAgreementId,
-              });
-
-              // @TODO: Success
-              amazonPayments.loggedIn = true;
-              amazonPayments.orderReferenceId = response.data.orderReferenceId;
-              amazonPayments.initWidgets();
-              // @TODO: error
-              alert(response.message);
-            }
-          },
-
-          authorization: () => {
-            amazon.Login.authorize({
-              scope: 'payments:widget',
-              popup: true,
-            }, function amazonSuccess (response) {
-              if (response.error) return alert(response.error);
-
-              let url = '/amazon/verifyAccessToken';
-              axios.post(url, response)
-                .catch((e) => {
-                  alert(e.message);
-                });
-            });
-          },
-
-          onError: this.amazonOnError,
-        });
-      });
-    },
-    amazonPaymentsCanCheckout () {
-      // if (amazonPayments.type === 'single') {
-      //   return amazonPayments.paymentSelected === true;
-      // } else if(amazonPayments.type === 'subscription') {
-      //   return amazonPayments.paymentSelected === true &&
-      //           // Mah.. one is a boolean the other a string...
-      //           amazonPayments.recurringConsent === 'true';
-      // } else {
-      //   return false;
-      // }
-    },
-    amazonInitWidgets () {
-      let walletParams = {
-        sellerId: AMAZON_PAYMENTS.SELLER_ID, // @TODO: Import
-        design: {
-          designMode: 'responsive',
-        },
-
-        onPaymentSelect: () => {
-          amazonPayments.paymentSelected = true;
-        },
-
-        onError: this.amazonOnError,
-      };
-
-      if (amazonPayments.type === 'subscription') {
-        walletParams.agreementType = 'BillingAgreement';
-
-        walletParams.billingAgreementId = amazonPayments.billingAgreementId;
-        walletParams.onReady = (billingAgreement) => {
-          amazonPayments.billingAgreementId = billingAgreement.getAmazonBillingAgreementId();
-
-          new this.OffAmazonPayments.Widgets.Consent({
-            sellerId: window.env.AMAZON_PAYMENTS.SELLER_ID,
-            amazonBillingAgreementId: amazonPayments.billingAgreementId,
-            design: {
-              designMode: 'responsive',
-            },
-
-            onReady: (consent) => {
-              let getConsent = consent.getConsentStatus;
-              amazonPayments.recurringConsent = getConsent ? getConsent() : false;
-            },
-
-            onConsent: (consent) => {
-              amazonPayments.recurringConsent = consent.getConsentStatus();
-            },
-
-            onError: this.amazonOnError,
-          }).bind('AmazonPayRecurring');
-        };
-      } else {
-        walletParams.amazonOrderReferenceId = amazonPayments.orderReferenceId;
-      }
-
-      new this.OffAmazonPayments.Widgets.Wallet(walletParams).bind('AmazonPayWallet');
-    },
-    async amazonCheckOut () {
-      this.amazonButtonEnabled = false;
-
-      if (amazonPayments.type === 'single') {
-        let url = '/amazon/checkout';
-        let response = await axios.post(url, {
-          orderReferenceId: amazonPayments.orderReferenceId,
-          gift: amazonPayments.gift,
-        });
-
-        // Success
-        amazonPayments.reset();
-        window.location.reload(true);
-
-        // Failure
-        alert(response.message);
-        amazonPayments.reset();
-      } else if (amazonPayments.type === 'subscription') {
-        let url = '/amazon/subscribe';
-
-        if (amazonPayments.groupToCreate) {
-          url = '/api/v3/groups/create-plan';
-        }
-
-        let response = await axios.post(url, {
-          billingAgreementId: amazonPayments.billingAgreementId,
-          subscription: amazonPayments.subscription,
-          coupon: amazonPayments.coupon,
-          groupId: amazonPayments.groupId,
-          groupToCreate: amazonPayments.groupToCreate,
-          paymentType: 'Amazon',
-        });
-
-        // IF success
-        amazonPayments.reset();
-        if (response && response.data && response.data._id) {
-          this.$router.push(`/groups/guilds/${response.data._id}`);
-        } else {
-          this.$router.push('/');
-        }
-
-        // if fails
-        alert(response.message);
-        amazonPayments.reset();
-      }
-    },
-    amazonOnError (error) {
-      alert(error.getErrorMessage());
-      amazonPayments.reset();
-    },
-    async cancelSubscription (config) {
       if (config && config.group && !confirm(window.env.t('confirmCancelGroupPlan'))) return;
       if (!confirm(window.env.t('sureCancelSub'))) return;
 
@@ -618,9 +371,40 @@ export default {
 
       let cancelUrl = `/${paymentMethod}/subscribe/cancel?${$.param(queryParams)}`;
       await axios.get(cancelUrl);
-
+      //  Success
       alert(this.$t('paypalCanceled'));
       this.$router.push('/');
+    },
+    getCancelSubInfo () {
+      return this.$t(`cancelSubInfo${this.user.purchased.plan.paymentMethod}`);
+    },
+    amazonPaymentsInit (data) {
+      if (!this.isAmazonReady) return;
+      if (!this.checkGemAmount(data)) return;
+      if (data.type !== 'single' && data.type !== 'subscription') return;
+
+      if (data.gift) {
+        if (data.gift.gems && data.gift.gems.amount && data.gift.gems.amount <= 0) return;
+        data.gift.uuid = data.giftedTo;
+      }
+
+      if (data.subscription) {
+        this.amazonPayments.subscription = data.subscription;
+        this.amazonPayments.coupon = data.coupon;
+      }
+
+      if (data.groupId) {
+        this.amazonPayments.groupId = data.groupId;
+      }
+
+      if (data.groupToCreate) {
+        this.amazonPayments.groupToCreate = data.groupToCreate;
+      }
+
+      this.amazonPayments.gift = data.gift;
+      this.amazonPayments.type = data.type;
+
+      this.$root.$emit('show::modal', 'amazon-payment');
     },
     payPalPayment (data) {
       if (!this.checkGemAmount(data)) return;
