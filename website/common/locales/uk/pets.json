@@ -71,6 +71,7 @@
     "displayNow": "Показати зараз",
     "displayLater": "Показати пізніше",
     "petNotOwned": "You do not own this pet.",
+    "mountNotOwned": "You do not own this mount.",
     "earnedCompanion": "With all your productivity, you've earned a new companion. Feed it to make it grow!",
     "feedPet": "Згодувати <%= article %><%= text %> Вашому <%= name %>?",
     "useSaddle": "Осідлати <%= pet %>?",

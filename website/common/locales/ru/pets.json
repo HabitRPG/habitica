@@ -71,6 +71,7 @@
     "displayNow": "Показать сейчас",
     "displayLater": "Показать позже",
     "petNotOwned": "Вы не являетесь владельцем этого питомца.",
+    "mountNotOwned": "You do not own this mount.",
     "earnedCompanion": "Вы были так продуктивны, что заработали нового спутника. Кормите его, чтобы он вырос!",
     "feedPet": "Скормить <%= article %><%= text %> вашему питомцу: <%= name %>?",
     "useSaddle": "Оседлать <%= pet %>?",
