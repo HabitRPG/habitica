@@ -186,7 +186,7 @@ let ultimateGearAchievs = ['healer', 'rogue', 'warrior', 'mage'].reduce((achievs
 }, {});
 Object.assign(achievementsData, ultimateGearAchievs);
 
-let cardAchievs = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday', 'congrats', 'getwell'].reduce((achievs, type) => {
+let cardAchievs = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday', 'congrats', 'getwell', 'goodluck'].reduce((achievs, type) => {
   achievs[`${type}Cards`] = {
     icon: `achievement-${type}`,
     titleKey: `${type}CardAchievementTitle`,
