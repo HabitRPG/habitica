@@ -183,6 +183,7 @@
 </style>
 
 <script>
+import axios from 'axios';
 import { mapState } from 'client/libs/store';
 
 // @TODO: import
@@ -246,9 +247,9 @@ export default {
       this.$store.dispatch('user:set', settings);
     },
     hideHeader () {
-      this.set({"preferences.hideHeader": !this.user.preferences.hideHeader});
+      this.set({'preferences.hideHeader': !this.user.preferences.hideHeader});
       if (!this.user.preferences.hideHeader || !this.user.preferences.stickyHeader) return;
-      this.set({"preferences.stickyHeader": false});
+      this.set({'preferences.stickyHeader': false});
 
       // @TODO: What to sync?
       // $rootScope.$on('userSynced', function(){
@@ -260,7 +261,7 @@ export default {
       // $rootScope.$on('userSynced', function(){
       //   window.location.reload();
       // });
-      this.set({"preferences.stickyHeader": !this.user.preferences.stickyHeader});
+      this.set({'preferences.stickyHeader': !this.user.preferences.stickyHeader});
     },
     showTour  () {
       // @TODO: Do we still use this?
@@ -282,7 +283,7 @@ export default {
       //   }
       // });
     },
-    openDayStartModal (dayStart) {
+    openDayStartModal () {
       // $scope.dayStart = +dayStart;
       // $scope.nextCron = _calculateNextCron();
       //
@@ -361,13 +362,11 @@ export default {
     //     content: html
     //   }).popover('show');
     // }
-    changeUser (attr, updates) {
-      // $http.put(ApiUrl.get() + '/api/v3/user/auth/update-'+attr, updates)
-      //   .success(function(){
-      //     alert(window.env.t(attr+'Success'));
-      //     _.each(updates, function(v,k){updates[k]=null;});
-      //     User.sync();
-      //   });
+    async changeUser (attribute, updates) {
+      await axios.put(`/api/v3/user/auth/update-${attribute}`, updates);
+      alert(this.$t(`${attribute} Success`));
+      // @TODO: Update the user
+      // User.sync();
     },
     openRestoreModal () {
       // $scope.restoreValues.stats = angular.copy(User.user.stats);
@@ -400,16 +399,13 @@ export default {
       // $rootScope.$state.go('tasks');
     },
     // @TODO: delete modal
-    delete (password, feedback) {
-      // $http({
-      //   url: ApiUrl.get() + '/api/v3/user',
-      //   method: 'DELETE',
-      //   data: {password: password, feedback: feedback},
-      // })
-      // .then(function(res, code) {
-      //   localStorage.clear();
-      //   window.location.href = '/logout';
-      // });
+    async delete (password, feedback) {
+      await axios.delete('/api/v3/user/', {
+        password,
+        feedback,
+      });
+      localStorage.clear();
+      this.$router.push('/');
     },
     // @TODO: Release is for the market?
     // $scope.clickRelease = function(type, $event){
@@ -454,15 +450,16 @@ export default {
     //     }
     //   });
     // };
-    deleteSocialAuth (networkKey) {
-      // var network = _.find(SOCIAL_AUTH_NETWORKS, function (network) {
+    async deleteSocialAuth (networkKey) {
+      // @TODO: What do we use this for?
+      // let networktoRemove = find(SOCIAL_AUTH_NETWORKS, function (network) {
       //   return network.key === networkKey;
       // });
-      //
-      // $http.delete(ApiUrl.get() + "/api/v3/user/auth/social/"+networkKey).success(function(){
-      //   Notification.text(env.t("detachedSocial", {network: network.name}));
-      //   User.sync();
-      // });
+
+      await axios.get(`/api/v3/user/auth/social/${networkKey}`);
+      // @TODO:
+      // Notification.text(env.t("detachedSocial", {network: network.name}));
+      // User.sync();
     },
     // @TODO: $scope.socialLogin = Social.socialLogin;
   },
