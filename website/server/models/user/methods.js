@@ -1,11 +1,13 @@
 import moment from 'moment';
 import common from '../../../common';
+
 import Bluebird from 'bluebird';
 import {
   chatDefaults,
   TAVERN_ID,
   model as Group,
 } from '../group';
+
 import { defaults, map, flatten, flow, compact, uniq, partialRight } from 'lodash';
 import { model as UserNotification } from '../userNotification';
 import schema from './schema';
