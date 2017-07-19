@@ -222,7 +222,6 @@ export default {
       ],
       availableFormats: ['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'],
       dayStartOptions,
-      dayStart: 0, // @TODO: compute
       usernameUpdates: {},
       emailUpdates: {},
       passwordUpdates: {},
@@ -236,11 +235,236 @@ export default {
     selectedLanguage () {
       return this.user.preferences.language;
     },
+    dayStart () {
+      return this.user.preferences.dayStart;
+    },
   },
   methods: {
-    hasBackupAuthOption () {
-      return true;
+    set (preferenceType, notification) {
+      let settings = {};
+      settings[`preferences.${preferenceType}.${notification}`] = this.user.preferences[preferenceType][notification];
+      this.$store.dispatch('user:set', settings);
     },
+    hideHeader () {
+      this.set({"preferences.hideHeader": !this.user.preferences.hideHeader});
+      if (!this.user.preferences.hideHeader || !this.user.preferences.stickyHeader) return;
+      this.set({"preferences.stickyHeader": false});
+
+      // @TODO: What to sync?
+      // $rootScope.$on('userSynced', function(){
+      //   window.location.reload();
+      // });
+    },
+    toggleStickyHeader () {
+      // @TODO: What to sync?
+      // $rootScope.$on('userSynced', function(){
+      //   window.location.reload();
+      // });
+      this.set({"preferences.stickyHeader": !this.user.preferences.stickyHeader});
+    },
+    showTour  () {
+      // @TODO: Do we still use this?
+      // User.set({'flags.showTour':true});
+      // Guide.goto('intro', 0, true);
+    },
+    showBailey () {
+      this.set({'flags.newStuff': true});
+    },
+    hasBackupAuthOption () {
+      // if (user.auth.local.username) {
+      //   return true;
+      // }
+      // return _.find(SOCIAL_AUTH_NETWORKS, function (network) {
+      //   if (network.key !== checkedNetworkKey) {
+      //     if (user.auth.hasOwnProperty(network.key)) {
+      //       return user.auth[network.key].id;
+      //     }
+      //   }
+      // });
+    },
+    openDayStartModal (dayStart) {
+      // $scope.dayStart = +dayStart;
+      // $scope.nextCron = _calculateNextCron();
+      //
+      // $rootScope.openModal('change-day-start', { scope: $scope });
+    },
+    _calculateNextCron () {
+      // $scope.dayStart;
+      //
+      // var nextCron = moment().hours($scope.dayStart).minutes(0).seconds(0).milliseconds(0);
+      //
+      // var currentHour = moment().format('H');
+      // if (currentHour >= $scope.dayStart) {
+      //   nextCron = nextCron.add(1, 'day');;
+      // }
+      //
+      // return +nextCron.format('x');
+    },
+    // @TODO: I thinnk this goes in the change day start modal?
+    // $scope.saveDayStart = function() {
+    //   User.setCustomDayStart(Math.floor($scope.dayStart));
+    // };
+    changeLanguage () {
+      // @TODO: What to sync?
+      // $rootScope.$on('userSynced', function(){
+      //   window.location.reload();
+      // });
+      this.set({'preferences.language': this.selectedLanguage.code});
+    },
+    // @TODO: these two were in settings but should be in market
+    // $scope.reroll = function(confirm){
+    //   $scope.popoverEl.popover('destroy');
+    //
+    //   if (confirm) {
+    //     User.reroll({});
+    //     $rootScope.$state.go('tasks');
+    //   }
+    // }
+    //
+    // $scope.clickReroll = function($event){
+    //   $scope.popoverEl = $($event.target);
+    //
+    //   var html = $compile(
+    //       '<a ng-controller="SettingsCtrl" ng-click="$close(); reroll(true)">' + window.env.t('confirm') + '</a><br/>\n<a ng-click="reroll(false)">' + window.env.t('cancel') + '</a><br/>'
+    //   )($scope);
+    //
+    //   $scope.popoverEl.popover('destroy').popover({
+    //     html: true,
+    //     placement: 'top',
+    //     trigger: 'manual',
+    //     title: window.env.t('confirmFortify'),
+    //     content: html
+    //   }).popover('show');
+    // }
+    // @TODO: REbirth also needs to be in the market
+    // $scope.rebirth = function(confirm){
+    //   $scope.popoverEl.popover('destroy');
+    //
+    //   if (confirm) {
+    //     User.rebirth({});
+    //     $rootScope.$state.go('tasks');
+    //   }
+    // }
+    //
+    // $scope.clickRebirth = function($event){
+    //   $scope.popoverEl = $($event.target);
+    //
+    //   var html = $compile(
+    //       '<a ng-controller="SettingsCtrl" ng-click="$close(); rebirth(true)">' + window.env.t('confirm') + '</a><br/>\n<a ng-click="rebirth(false)">' + window.env.t('cancel') + '</a><br/>'
+    //   )($scope);
+    //
+    //   $scope.popoverEl.popover('destroy').popover({
+    //     html: true,
+    //     placement: 'top',
+    //     trigger: 'manual',
+    //     title: window.env.t('confirmReborn'),
+    //     content: html
+    //   }).popover('show');
+    // }
+    changeUser (attr, updates) {
+      // $http.put(ApiUrl.get() + '/api/v3/user/auth/update-'+attr, updates)
+      //   .success(function(){
+      //     alert(window.env.t(attr+'Success'));
+      //     _.each(updates, function(v,k){updates[k]=null;});
+      //     User.sync();
+      //   });
+    },
+    openRestoreModal () {
+      // $scope.restoreValues.stats = angular.copy(User.user.stats);
+      // $scope.restoreValues.achievements = {streak: User.user.achievements.streak || 0};
+      // $rootScope.openModal('restore', {scope:$scope});
+    },
+    restore () {
+      // var stats = $scope.restoreValues.stats,
+      //   achievements = $scope.restoreValues.achievements;
+      //
+      // if (stats.lvl < 1) {
+      //   Notification.error(env.t('invalidLevel'), true);
+      //   return;
+      // }
+      //
+      // User.set({
+      //   'stats.hp': stats.hp,
+      //   'stats.exp': stats.exp,
+      //   'stats.gp': stats.gp,
+      //   'stats.lvl': stats.lvl,
+      //   'stats.mp': stats.mp,
+      //   'achievements.streak': achievements.streak
+      // });
+      // $modalStack.dismissAll();
+    },
+    // @TODO: reset modal
+    reset () {
+      // User.reset({});
+      // User.sync();
+      // $rootScope.$state.go('tasks');
+    },
+    // @TODO: delete modal
+    delete (password, feedback) {
+      // $http({
+      //   url: ApiUrl.get() + '/api/v3/user',
+      //   method: 'DELETE',
+      //   data: {password: password, feedback: feedback},
+      // })
+      // .then(function(res, code) {
+      //   localStorage.clear();
+      //   window.location.href = '/logout';
+      // });
+    },
+    // @TODO: Release is for the market?
+    // $scope.clickRelease = function(type, $event){
+    //   // Close other popovers if they're open
+    //   $(".release_popover").not($event.target).popover('destroy');
+    //
+    //   // Handle clicking on the gem icon
+    //   if ($event.target.nodeName == "SPAN") {
+    //     $scope.releasePopoverEl = $($event.target.parentNode);
+    //   } else {
+    //     $scope.releasePopoverEl = $($event.target);
+    //   }
+    //
+    //   var html = $compile(
+    //       '<a ng-controller="SettingsCtrl" ng-click="$close(); releaseAnimals(\'' + type + '\')">' + window.env.t('confirm') + '</a><br/>\n<a ng-click="releaseAnimals()">' + window.env.t('cancel') + '</a><br/>'
+    //   )($scope);
+    //
+    //   $scope.releasePopoverEl.popover('destroy').popover({
+    //     html: true,
+    //     placement: 'top',
+    //     trigger: 'manual',
+    //     title: window.env.t('confirmPetKey'),
+    //     content: html
+    //   }).popover('show');
+    // }
+    //
+    // $scope.releaseAnimals = function (type) {
+    //   $scope.releasePopoverEl.popover('destroy');
+    //
+    //   var releaseFunction = RELEASE_ANIMAL_TYPES[type];
+    //
+    //   if (releaseFunction) {
+    //     User[releaseFunction]({});
+    //     $rootScope.$state.go('tasks');
+    //   }
+    // }
+    // @TODO: I don't think this function is used:
+    // $scope.hasSocialAuth = function (user) {
+    //   return _.find(SOCIAL_AUTH_NETWORKS, function (network) {
+    //     if (user.auth.hasOwnProperty(network.key)) {
+    //       return user.auth[network.key].id;
+    //     }
+    //   });
+    // };
+    deleteSocialAuth (networkKey) {
+      // var network = _.find(SOCIAL_AUTH_NETWORKS, function (network) {
+      //   return network.key === networkKey;
+      // });
+      //
+      // $http.delete(ApiUrl.get() + "/api/v3/user/auth/social/"+networkKey).success(function(){
+      //   Notification.text(env.t("detachedSocial", {network: network.name}));
+      //   User.sync();
+      // });
+    },
+    // @TODO: $scope.socialLogin = Social.socialLogin;
   },
 };
 </script>
