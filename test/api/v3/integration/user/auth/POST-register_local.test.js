@@ -516,6 +516,28 @@ describe('POST /user/auth/local/register', () => {
       });
     });
 
+    it('awards achievement to inviter', async () => {
+      let { group, groupLeader } = await createAndPopulateGroup({
+        groupDetails: { type: 'party', privacy: 'private' },
+      });
+
+      let invite = encrypt(JSON.stringify({
+        id: group._id,
+        inviter: groupLeader._id,
+        sentAt: Date.now(),
+      }));
+
+      await api.post(`/user/auth/local/register?groupInvite=${invite}`, {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      await groupLeader.sync();
+      expect(groupLeader.achievements.invitedFriend).to.be.true;
+    });
+
     it('user not added to a party on expired invite', async () => {
       let { group, groupLeader } = await createAndPopulateGroup({
         groupDetails: { type: 'party', privacy: 'private' },

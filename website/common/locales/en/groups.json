@@ -149,6 +149,8 @@
   "sendInvitations": "Send Invitations",
   "invitationsSent": "Invitations sent!",
   "invitationSent": "Invitation sent!",
+  "invitedFriend": "Invited a Friend",
+  "invitedFriendText": "This user invited a friend (or friends) who joined them on their adventure!",
   "inviteAlertInfo2": "Or share this link (copy/paste):",
   "inviteLimitReached": "You have already sent the maximum number of email invitations. We have a limit to prevent spamming, however if you would like more, please contact us at <%= techAssistanceEmail %> and we'll be happy to discuss it!",
   "sendGiftHeading": "Send Gift to <%= name %>",

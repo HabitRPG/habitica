@@ -49,6 +49,14 @@ async function _handleGroupInvitation (user, invite) {
     } else {
       user.invitations.guilds.push({id: group._id, name: group.name, inviter});
     }
+
+    // award the inviter with 'Invited a Friend' achievement
+    inviter = await User.findById(inviter);
+    if (!inviter.achievements.invitedFriend) {
+      inviter.achievements.invitedFriend = true;
+      inviter.addNotification('INVITED_FRIEND_ACHIEVEMENT');
+      await inviter.save();
+    }
   } catch (err) {
     logger.error(err);
   }
