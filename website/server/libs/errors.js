@@ -16,6 +16,19 @@ export const CustomError = common.errors.CustomError;
 export const NotAuthorized = common.errors.NotAuthorized;
 
 /**
+ * @apiDefine AccountSuspended
+ * @apiError AccountSuspended The client is not authorized to make this request because the habitica user is blocked.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *     {
+ *       "error": "AccountSuspended",
+ *       "message": "{"communityManagerEmail":"COMMUNITY_MANAGER_EMAIL","userId":"USER_ID","userName":"USERNAME"}"
+ *     }
+ */
+export const AccountSuspended = common.errors.AccountSuspended;
+
+/**
  * @apiDefine BadRequest
  * @apiError BadRequest The request wasn't formatted correctly.
  *

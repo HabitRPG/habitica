@@ -23,6 +23,12 @@ export class NotAuthorized extends CustomError {
   }
 }
 
+export class AccountSuspended extends NotAuthorized {
+  constructor (customMessage) {
+    super(customMessage);
+  }
+}
+
 export class BadRequest extends CustomError {
   constructor (customMessage) {
     super();

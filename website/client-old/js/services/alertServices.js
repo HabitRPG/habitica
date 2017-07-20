@@ -6,10 +6,10 @@
     .factory('Alert', alertFactory);
 
   alertFactory.$inject = [
-    '$window'
+    '$window', '$modal'
   ];
 
-  function alertFactory($window) {
+  function alertFactory($window, $modal) {
 
     function authErrorAlert(data, status, headers, config) {
       if (status === 0) {
@@ -17,6 +17,14 @@
       } else if (status === 400 && data.errors && _.isArray(data.errors)) { // bad requests
         data.errors.forEach(function (err) {
           $window.alert(err.message);
+        });
+      } else if (data.error === 'AccountSuspended') {
+        $modal.open({ templateUrl: 'modals/account-suspended.html', controller : ['$scope', function($scope) {
+            let jadeArgs = JSON.parse(data.message);
+            $scope.managerEmail = jadeArgs["communityManagerEmail"];
+            $scope.userId = jadeArgs["userId"];
+            $scope.userName = jadeArgs["userName"];
+          }]
         });
       } else if (!!data && !!data.error) {
         $window.alert(data.message);
