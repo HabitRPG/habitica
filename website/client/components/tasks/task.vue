@@ -10,11 +10,15 @@
       .svg-icon.check(v-html="icons.check", v-if="task.completed")
   // Task title, description and icons
   .task-content(:class="contentClass")
-    h3.task-title(
-      :class="{ 'has-notes': task.notes }", 
-      v-html="$options.filters.markdown(task.text)"
-    )
-    .task-notes.small-text(v-html="$options.filters.markdown(task.notes)")
+    h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
+    .task-notes.small-text(v-markdown="task.notes")
+    .checklist(v-if="task.checklist && task.checklist.length > 0")
+        label.custom-control.custom-checkbox.checklist-item(
+          v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
+        )
+          input.custom-control-input(type="checkbox", :checked="item.completed")
+          span.custom-control-indicator
+          span.custom-control-description {{ item.text }}
     .icons.small-text.d-flex.align-items-center
       .d-flex.align-items-center(v-if="task.type === 'todo' && task.date", :class="{'due-overdue': isDueOverdue}")
         .svg-icon.calendar(v-html="icons.calendar")
@@ -75,15 +79,43 @@
 .task-notes {
   color: $gray-100;
   font-style: normal;
-  margin-bottom: 4px;
 }
 
 .task-content {
   padding: 8px;
   flex-grow: 1;
+  cursor: pointer;
+}
+
+.checklist {
+  margin-bottom: 2px;
+  margin-top: 8px;
+}
+
+.checklist-item {
+  color: $gray-50;
+  font-size: 14px;
+  line-height: 1.43;
+  margin-bottom: 10px;
+  min-height: 0px;
+
+  &-done {
+    color: $gray-300;
+    text-decoration: line-through;
+  }
+
+  .custom-control-indicator {
+    margin-top: -2px;
+  }
+
+  .custom-control-description {
+    margin-left: 6px;
+    padding-top: 0px;
+  }
 }
 
 .icons {
+  margin-top: 4px;
   color: $gray-300;
   font-style: normal;
 
@@ -237,10 +269,15 @@ import challengeIcon from 'assets/svg/challenge.svg';
 import tagsIcon from 'assets/svg/tags.svg';
 import checkIcon from 'assets/svg/check.svg';
 import bPopover from 'bootstrap-vue/lib/components/popover';
+import markdownDirective from 'client/directives/markdown';
+
 
 export default {
   components: {
     bPopover,
+  },
+  directives: {
+    markdown: markdownDirective,
   },
   props: ['task'],
   data () {
