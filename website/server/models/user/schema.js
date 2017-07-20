@@ -384,6 +384,24 @@ let schema = new Schema({
     party: {type: Schema.Types.Mixed, default: () => {
       return {};
     }},
+    parties: [{
+      id: {
+        type: String,
+        ref: 'Group',
+        required: true,
+        validate: [validator.isUUID, 'Invalid uuid.'],
+      },
+      name: {
+        type: String,
+        required: true,
+      },
+      inviter: {
+        type: String,
+        ref: 'User',
+        required: true,
+        validate: [validator.isUUID, 'Invalid uuid.'],
+      },
+    }],
   },
 
   guilds: [{type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']}],

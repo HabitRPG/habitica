@@ -46,6 +46,7 @@ async function _handleGroupInvitation (user, invite) {
 
     if (group.type === 'party') {
       user.invitations.party = {id: group._id, name: group.name, inviter};
+      user.invitations.parties.push(user.invitations.party);
     } else {
       user.invitations.guilds.push({id: group._id, name: group.name, inviter});
     }

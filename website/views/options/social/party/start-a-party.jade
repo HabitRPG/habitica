@@ -1,4 +1,4 @@
-.container.text-center(ng-hide='user.invitations.party.id')
+.container.text-center(ng-hide='user.invitations.parties.length > 0')
   .row.row-margin: .col-sm-6.col-sm-offset-3
     a.btn.btn-primary.btn-lg.btn-block(ng-click="inviteOrStartParty(group)")=env.t("startPartyWithFriends")
 
