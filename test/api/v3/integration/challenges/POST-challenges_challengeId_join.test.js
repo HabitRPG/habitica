@@ -123,5 +123,12 @@ describe('POST /challenges/:challengeId/join', () => {
 
       await expect(authorizedUser.get('/tags')).to.eventually.have.length(userTagsLength + 1);
     });
+
+    it('awards achievement if this is user\'s first challenge', async () => {
+      await authorizedUser.post(`/challenges/${challenge._id}/join`);
+
+      await authorizedUser.sync();
+      expect(authorizedUser.achievements.joinedChallenge).to.be.true;
+    });
   });
 });

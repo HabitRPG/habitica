@@ -16,6 +16,7 @@ describe('payments/index', () => {
   beforeEach(async () => {
     user = new User();
     user.profile.name = 'sender';
+    await user.save();
 
     group = generateGroup({
       name: 'test group',
@@ -504,6 +505,18 @@ describe('payments/index', () => {
         expect(daysTillTermination).to.be.within(13, 15);
       });
 
+      it('terminates at next billing date even if dateUpdated is prior to now', async () => {
+        data.nextBill = moment().add({ days: 15 });
+        data.user.purchased.plan.dateUpdated = moment().subtract({ days: 10 });
+
+        await api.cancelSubscription(data);
+
+        let now = new Date();
+        let daysTillTermination = moment(user.purchased.plan.dateTerminated).diff(now, 'days');
+
+        expect(daysTillTermination).to.be.within(13, 15);
+      });
+
       it('resets plan.extraMonths', async () => {
         user.purchased.plan.extraMonths = 5;
 
@@ -652,6 +665,33 @@ describe('payments/index', () => {
       let updatedUser = await User.findById(user._id).exec();
 
       expect(updatedUser.items.pets['Jackalope-RoyalPurple']).to.eql(5);
+    });
+
+    it('saves previously unused Mystery Items and Hourglasses for an expired subscription', async () => {
+      let planExpirationDate = new Date();
+      planExpirationDate.setDate(planExpirationDate.getDate() - 2);
+      let mysteryItem = 'item';
+      let mysteryItems = [mysteryItem];
+      let consecutive = {
+        trinkets: 3,
+      };
+
+      // set expired plan with unused items
+      plan.mysteryItems = mysteryItems;
+      plan.consecutive = consecutive;
+      plan.dateCreated = planExpirationDate;
+      plan.dateTerminated = planExpirationDate;
+      plan.customerId = null;
+
+      user.purchased.plan = plan;
+
+      await user.save();
+      await api.addSubToGroupUser(user, group);
+
+      let updatedUser = await User.findById(user._id).exec();
+
+      expect(updatedUser.purchased.plan.mysteryItems[0]).to.eql(mysteryItem);
+      expect(updatedUser.purchased.plan.consecutive.trinkets).to.equal(consecutive.trinkets);
     });
   });
 });

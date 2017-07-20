@@ -19,6 +19,7 @@ import {
   sendTxn as txnEmail,
 } from '../../libs/email';
 import nconf from 'nconf';
+import get from 'lodash/get';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 
@@ -77,6 +78,10 @@ api.getUser = {
 
     // Remove apiToken from response TODO make it private at the user level? returned in signup/login
     delete userToJSON.apiToken;
+
+    let {daysMissed} = user.daysUserHasMissed(new Date(), req);
+    userToJSON.needsCron = false;
+    if (daysMissed > 0) userToJSON.needsCron = true;
 
     user.addComputedStatsToJSONObj(userToJSON.stats);
     return res.respond(200, userToJSON);
@@ -329,7 +334,7 @@ api.deleteUser = {
     await user.remove();
 
     if (feedback) {
-      txnEmail(TECH_ASSISTANCE_EMAIL, 'admin-feedback', [
+      txnEmail({email: TECH_ASSISTANCE_EMAIL}, 'admin-feedback', [
         {name: 'PROFILE_NAME', content: user.profile.name},
         {name: 'UUID', content: user._id},
         {name: 'EMAIL', content: getUserInfo(user, ['email']).email},
@@ -1033,8 +1038,8 @@ api.buySpecialSpell = {
  *
  * @apiParam {String} egg The egg to use
  * @apiParam {String} hatchingPotion The hatching potion to use
- * @apiParamExample {URL}
- * /api/v3/user/hatch/Dragon/CottonCandyPink
+ * @apiParamExample {URL} Example-URL
+ * https://habitica.com/api/v3/user/hatch/Dragon/CottonCandyPink
  *
  * @apiSuccess {Object} data user.items
  * @apiSuccess {String} message
@@ -1077,8 +1082,8 @@ api.hatch = {
  * @apiParam {String="mount","pet","costume","equipped"} type The type of item to equip
  * @apiParam {String} key The item to equip
  *
- * @apiParamExample {URL}
- * /api/v3/user/equip/equipped/weapon_warrior_2
+ * @apiParamExample {URL} Example-URL
+ * https://habitica.com/api/v3/user/equip/equipped/weapon_warrior_2
  *
  * @apiSuccess {Object} data user.items
  * @apiSuccess {String} message Optional success message for unequipping an items
@@ -1095,7 +1100,7 @@ api.hatch = {
  * @apiErrorExample {json} Item not owned or doesn't exist.
  * {"success":false,"error":"NotFound","message":"You do not own this item."}
  * {"success":false,"error":"NotFound","message":"You do not own this pet."}
- * {"success":false,"error":"NotFound","message":"String 'mountNotOwned' not found."}
+ * {"success":false,"error":"NotFound","message":"You do not own this mount."}
  *
  */
 api.equip = {
@@ -1118,7 +1123,7 @@ api.equip = {
  * @apiParam {String} pet
  * @apiParam {String} food
  *
- * @apiParamExample {url}
+ * @apiParamExample {url} Example-URL
  * https://habitica.com/api/v3/user/feed/Armadillo-Shade/Chocolate
  *
  * @apiSuccess {Number} data The pet value
@@ -1202,12 +1207,20 @@ api.disableClasses = {
  * @apiName UserPurchase
  * @apiGroup User
  *
- * @apiParam {String} type Type of item to purchase. Must be one of: gems, eggs, hatchingPotions, food, quests, or gear
+ * @apiParam {String="gems","eggs","hatchingPotions","premiumHatchingPotions",food","quests","gear"} type Type of item to purchase.
  * @apiParam {String} key Item's key (use "gem" for purchasing gems)
  *
  * @apiSuccess {Object} data.items user.items
  * @apiSuccess {Number} data.balance user.balance
  * @apiSuccess {String} message Success message
+ *
+ * @apiError {NotAuthorized} NotAvailable Item is not available to be purchased (not unlocked for the user).
+ * @apiError {NotAuthorized} Gems Not enough gems
+ * @apiError {NotFound} Key Key not found for Content type.
+ * @apiError {NotFound} Type Type invalid.
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"This item is not currently available for purchase."}
  */
 api.purchase = {
   method: 'POST',
@@ -1215,7 +1228,18 @@ api.purchase = {
   url: '/user/purchase/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let purchaseRes = req.params.type === 'spells' ? common.ops.buySpecialSpell(user, req) : common.ops.purchase(user, req, res.analytics);
+    const type = get(req.params, 'type');
+    const key = get(req.params, 'key');
+
+    // Some groups limit their members ability to obtain gems
+    // The check is async so it's done on the server only and not on the client,
+    // resulting in a purchase that will seem successful until the request hit the server.
+    if (type === 'gems' && key === 'gem') {
+      const canGetGems = await user.canGetGems();
+      if (!canGetGems) throw new NotAuthorized(res.t('groupPolicyCannotGetGems'));
+    }
+
+    let purchaseRes = type === 'spells' ? common.ops.buySpecialSpell(user, req) : common.ops.purchase(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseRes);
   },
@@ -1226,12 +1250,19 @@ api.purchase = {
  * @apiName UserPurchaseHourglass
  * @apiGroup User
  *
- * @apiParam {String} type The type of item to purchase (pets or mounts)
- * @apiParam {String} key Ex: {MantisShrimp-Base}. The key for the mount/pet
+ * @apiParam {String="pets","mounts"} type The type of item to purchase
+ * @apiParam {String} key Ex: {Phoenix-Base}. The key for the mount/pet
  *
  * @apiSuccess {Object} data.items user.items
  * @apiSuccess {Object} data.purchasedPlanConsecutive user.purchased.plan.consecutive
  * @apiSuccess {String} message Success message
+ *
+ * @apiError {NotAuthorized} NotAvailable Item is not available to be purchased or is not valid.
+ * @apiError {NotAuthorized} Hourglasses User does not have enough Mystic Hourglasses.
+ * @apiError {NotFound} Type Type invalid.
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"You don't have enough Mystic Hourglasses."}
  */
 api.userPurchaseHourglass = {
   method: 'POST',
@@ -1250,11 +1281,40 @@ api.userPurchaseHourglass = {
  * @apiName UserReadCard
  * @apiGroup User
  *
- * @apiParam {String} cardType Type of card to read
+ * @apiParam {String} cardType Type of card to read (e.g. - birthday, greeting, nye, thankyou, valentine)
  *
  * @apiSuccess {Object} data.specialItems user.items.special
  * @apiSuccess {Boolean} data.cardReceived user.flags.cardReceived
  * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ *  {
+ *   "success": true,
+ *   "data": {
+ *     "specialItems": {
+ *       "snowball": 0,
+ *       "spookySparkles": 0,
+ *       "shinySeed": 0,
+ *       "seafoam": 0,
+ *       "valentine": 0,
+ *       "valentineReceived": [],
+ *       "nye": 0,
+ *       "nyeReceived": [],
+ *       "greeting": 0,
+ *       "greetingReceived": [
+ *          "MadPink"
+ *           ],
+ *       "thankyou": 0,
+ *       "thankyouReceived": [],
+ *       "birthday": 0,
+ *       "birthdayReceived": []
+ *     },
+ *     "cardReceived": false
+ *   },
+ *   "message": "valentine has been read"
+ * }
+ *
+ * @apiError {NotAuthorized} CardType Unknown card type.
  */
 api.readCard = {
   method: 'POST',
@@ -1275,6 +1335,28 @@ api.readCard = {
  *
  * @apiSuccess {Object} data The item obtained
  * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ * { "success": true,
+ *   "data": {
+ *     "mystery": "201612",
+ *     "value": 0,
+ *     "type": "armor",
+ *     "key": "armor_mystery_201612",
+ *     "set": "mystery-201612",
+ *     "klass": "mystery",
+ *     "index": "201612",
+ *     "str": 0,
+ *     "int": 0,
+ *     "per": 0,
+ *     "con": 0
+ *   },
+ *   "message": "Mystery item opened."
+ *
+ * @apiError {BadRequest} Empty No mystery items to open.
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"BadRequest","message":"Mystery items are empty"}
  */
 api.userOpenMysteryItem = {
   method: 'POST',
@@ -1294,6 +1376,19 @@ api.userOpenMysteryItem = {
  *
  * @apiSuccess {Object} data.items `user.items.pets`
  * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ *  {
+ *   "success": true,
+ *   "data": {
+ *   },
+ *   "message": "Pets released"
+ * }
+ *
+ * @apiError {NotAuthorized} Not enough gems
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
  */
 api.userReleasePets = {
   method: 'POST',
@@ -1311,11 +1406,38 @@ api.userReleasePets = {
  * @api {post} /api/v3/user/release-both Release pets and mounts and grants Triad Bingo
  * @apiName UserReleaseBoth
  * @apiGroup User
-
+ *
  * @apiSuccess {Object} data.achievements
  * @apiSuccess {Object} data.items
  * @apiSuccess {Number} data.balance
  * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ *  {
+ *   "success": true,
+ *   "data": {
+ *     "achievements": {
+ *       "ultimateGearSets": {},
+ *       "challenges": [],
+ *       "quests": {},
+ *       "perfect": 0,
+ *       "beastMaster": true,
+ *       "beastMasterCount": 1,
+ *       "mountMasterCount": 1,
+ *       "triadBingoCount": 1,
+ *       "mountMaster": true,
+ *       "triadBingo": true
+ *     },
+ *     "items": {}
+ *   },
+ *   "message": "Mounts and pets released"
+ * }
+ *
+ * @apiError {NotAuthorized} Not enough gems
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
+
  */
 api.userReleaseBoth = {
   method: 'POST',
@@ -1336,6 +1458,22 @@ api.userReleaseBoth = {
  *
  * @apiSuccess {Object} data user.items.mounts
  * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ *  {
+ *   "success": true,
+ *   "data": {
+ *     },
+ *     "items": {}
+ *   },
+ *   "message": "Mounts released"
+ * }
+ *
+ * @apiError {NotAuthorized} Not enough gems
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
+ *
  */
 api.userReleaseMounts = {
   method: 'POST',
@@ -1354,12 +1492,17 @@ api.userReleaseMounts = {
  * @apiName UserSell
  * @apiGroup User
  *
- * @apiParam {String} type The type of item to sell. Must be one of: eggs, hatchingPotions, or food
+ * @apiParam {String="eggs","hatchingPotions","food"} type The type of item to sell.
  * @apiParam {String} key The key of the item
  *
  * @apiSuccess {Object} data.stats
  * @apiSuccess {Object} data.items
- * @apiSuccess {String} message Success message
+ *
+ * @apiError {NotFound} InvalidKey Key not found for user.items eggs (either the key does not exist or the user has none in inventory)
+ * @apiError {NotAuthorized} InvalidType Type is not a valid type.
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"Type is not sellable. Must be one of the following eggs, hatchingPotions, food"}
  */
 api.userSell = {
   method: 'POST',
@@ -1378,12 +1521,31 @@ api.userSell = {
  * @apiName UserUnlock
  * @apiGroup User
  *
- * @apiParam {String} path Query parameter. The path to unlock
+ * @apiParam {String} path Query parameter. Full path to unlock. See "content" API call for list of items.
+ *
+ * @apiParamExample {curl}
+ * curl -x POST http://habitica.com/api/v3/user/unlock?path=background.midnight_clouds
+ * curl -x POST http://habitica.com/api/v3/user/unlock?path=hair.color.midnight
  *
  * @apiSuccess {Object} data.purchased
  * @apiSuccess {Object} data.items
  * @apiSuccess {Object} data.preferences
- * @apiSuccess {String} message
+ * @apiSuccess {String} message "Items have been unlocked"
+ *
+ * @apiSuccessExample {json}
+ * {
+ *  "success": true,
+ *  "data": {},
+ *  "message": "Items have been unlocked"
+ * }
+ *
+ * @apiError {BadRequest} Path Path to unlock not specified
+ * @apiError {NotAuthorized} Gems Not enough gems available.
+ * @apiError {NotAuthorized} Unlocked Full set already unlocked.
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"BadRequest","message":"Path string is required"}
+ 8 {"success":false,"error":"NotAuthorized","message":"Full set already unlocked."}
  */
 api.userUnlock = {
   method: 'POST',
@@ -1404,6 +1566,12 @@ api.userUnlock = {
  *
  * @apiSuccess {Object} data user.items
  * @apiSuccess {String} message Success message
+ *
+ *
+ * @apiError {NotAuthorized} NotDead Cannot revive player if player is not dead yet
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"Cannot revive if not dead"}
  */
 api.userRevive = {
   method: 'POST',
@@ -1425,6 +1593,25 @@ api.userRevive = {
  * @apiSuccess {Object} data.user
  * @apiSuccess {Array} data.tasks User's modified tasks (no rewards)
  * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ *  {
+ *   "success": true,
+ *   "data": {
+ *   },
+ *   "message": "You have been reborn!"
+ *     {
+ *       "type": "REBIRTH_ACHIEVEMENT",
+ *       "data": {},
+ *       "id": "424d69fa-3a6d-47db-96a4-6db42ed77a43"
+ *     }
+ *   ]
+ * }
+ *
+ * @apiError {NotAuthorized} Not enough gems
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
  */
 api.userRebirth = {
   method: 'POST',
@@ -1471,6 +1658,12 @@ api.userRebirth = {
  * @apiParam {UUID} uuid The uuid of the user to block / unblock
  *
  * @apiSuccess {Array} data user.inbox.blocks
+ *
+ * @apiSuccessExample {json}
+ * {"success":true,"data":["e4842579-g987-d2d2-8660-2f79e725fb79"],"notifications":[]}
+ *
+ * @apiError {BadRequest} InvalidUUID UUID is incorrect.
+ *
  */
 api.blockUser = {
   method: 'POST',
@@ -1492,6 +1685,25 @@ api.blockUser = {
  * @apiParam {UUID} id The id of the message to delete
  *
  * @apiSuccess {Object} data user.inbox.messages
+ * @apiSuccessExample {json}
+ * {
+ *   "success": true,
+ *   "data": {
+ *     "74d9a2e7-4c6e-4f3b-c3c4-517873f41592": {
+ *       "sort": 0,
+ *       "user": "MadPink",
+ *       "backer": {},
+ *       "contributor": {},
+ *       "uuid": "b0413351-405f-416f-9999-947ec1c85199",
+ *       "flagCount": 0,
+ *       "flags": {},
+ *       "likes": {},
+ *       "timestamp": 1487276826704,
+ *       "text": "Hi there!",
+ *       "id": "74d9a2e7-4c6e-4f3b-c3c4-517873f41592"
+ *     }
+ *   }
+ * }
  */
 api.deleteMessage = {
   method: 'DELETE',
@@ -1510,7 +1722,10 @@ api.deleteMessage = {
  * @apiName clearMessages
  * @apiGroup User
  *
- * @apiSuccess {Object} data user.inbox.messages
+ * @apiSuccess {Object} data user.inbox.messages which should be empty
+ *
+ * @apiSuccessExample {json}
+ * {"success":true,"data":{},"notifications":[]}
  */
 api.clearMessages = {
   method: 'DELETE',
@@ -1530,6 +1745,10 @@ api.clearMessages = {
  * @apiGroup User
  *
  * @apiSuccess {Object} data user.inbox.messages
+ *
+ * @apiSuccessExample {json}
+ * {"success":true,"data":[0,"Your private messages have been marked as read"],"notifications":[]}
+ *
  */
 api.markPmsRead = {
   method: 'POST',
@@ -1551,6 +1770,19 @@ api.markPmsRead = {
  * @apiSuccess {Object} data.user
  * @apiSuccess {Object} data.tasks User's modified tasks (no rewards)
  * @apiSuccess {Object} message Success message
+ *
+ * @apiSuccessExample {json}
+ *  {
+ *   "success": true,
+ *   "data": {
+ *   },
+ *   "message": "Fortify complete!"
+ * }
+ *
+ * @apiError {NotAuthorized} Not enough gems
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
  */
 api.userReroll = {
   method: 'POST',
@@ -1594,8 +1826,20 @@ api.userReroll = {
  * @apiGroup User
  *
  * @apiSuccess {Object} data.user
- * @apiSuccess {Object} data.tasksToRemove IDs of removed tasks
+ * @apiSuccess {Array} data.tasksToRemove IDs of removed tasks
  * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ *  {
+ *   "success": true,
+ *   "data": {--TRUNCATED--},
+ *     "tasksToRemove": [
+ *       "ebb8748c-0565-431e-9036-b908da25c6b4",
+ *       "12a1cecf-68eb-40a7-b282-4f388c32124c"
+ *     ]
+ *   },
+ *   "message": "Reset complete!"
+ * }
  */
 api.userReset = {
   method: 'POST',
@@ -1638,7 +1882,22 @@ api.userReset = {
  * @apiName setCustomDayStart
  * @apiGroup User
  *
+ *
+ * @apiParam (Body) {number} [dayStart=0] The hour number 0-23 for day to begin. If body is not included, will default to 0.
+ *
+ * @apiParamExample {json} Request-Example:
+ * {"dayStart":2}
+ *
  * @apiSuccess {Object} data An empty Object
+ * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ * {"success":true,"data":{"message":"Your custom day start has changed."},"notifications":[]}
+ *
+ * @apiError {BadRequest} Validation Value provided is not a number, or is outside the range of 0-23
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"BadRequest","message":"User validation failed","errors":[{"message":"Path `preferences.dayStart` (25) is more than maximum allowed value (23).","path":"preferences.dayStart","value":25}]}
  */
 api.setCustomDayStart = {
   method: 'POST',

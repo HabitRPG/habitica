@@ -76,6 +76,11 @@ api.checkout = async function checkout (options, stripeInc) {
 
   if (!token) throw new BadRequest('Missing req.body.id');
 
+  if (gift) {
+    const member = await User.findById(gift.uuid).exec();
+    gift.member = member;
+  }
+
   if (sub) {
     if (sub.discount) {
       if (!coupon) throw new BadRequest(shared.i18n.t('couponCodeRequired'));
@@ -107,8 +112,17 @@ api.checkout = async function checkout (options, stripeInc) {
       if (gift.type === 'subscription') {
         amount = `${shared.content.subscriptionBlocks[gift.subscription.key].price * 100}`;
       } else {
+        if (gift.gems.amount <= 0) {
+          throw new BadRequest(shared.i18n.t('badAmountOfGemsToPurchase'));
+        }
         amount = `${gift.gems.amount / 4 * 100}`;
       }
+    }
+
+    if (!gift || gift.type === 'gems') {
+      const receiver = gift ? gift.member : user;
+      const receiverCanGetGems = await receiver.canGetGems();
+      if (!receiverCanGetGems) throw new NotAuthorized(shared.i18n.t('groupPolicyCannotGetGems', receiver.preferences.language));
     }
 
     response = await stripeApi.charges.create({
@@ -138,8 +152,6 @@ api.checkout = async function checkout (options, stripeInc) {
     };
 
     if (gift) {
-      let member = await User.findById(gift.uuid).exec();
-      gift.member = member;
       if (gift.type === 'subscription') method = 'createSubscription';
       data.paymentMethod = 'Gift';
     }
@@ -198,11 +210,12 @@ api.editSubscription = async function editSubscription (options, stripeInc) {
  * @param  options
  * @param  options.user  The user object who is purchasing
  * @param  options.groupId  The id of the group purchasing a subscription
+ * @param  options.cancellationReason  A text string to control sending an email
  *
  * @return undefined
  */
 api.cancelSubscription = async function cancelSubscription (options, stripeInc) {
-  let {groupId, user} = options;
+  let {groupId, user, cancellationReason} = options;
   let customerId;
 
   // @TODO: We need to mock this, but curently we don't have correct Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
@@ -252,6 +265,7 @@ api.cancelSubscription = async function cancelSubscription (options, stripeInc) 
     groupId,
     nextBill,
     paymentMethod: this.constants.PAYMENT_METHOD,
+    cancellationReason,
   });
 };
 

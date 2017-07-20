@@ -4,7 +4,7 @@
 
 [//]: # (If you have a feature request, use "Help > Request a Feature", not GitHub or the Report a Bug guild.)
 
-[//]: # (For more guidelines see https://github.com/HabitRPG/habitrpg/issues/2760)
+[//]: # (For more guidelines see https://github.com/HabitRPG/habitica/issues/2760)
 
 [//]: # (Fill out relevant information - UUID is found in Settings -> API)
 ### General Info

@@ -127,7 +127,7 @@
     "distributePoints": "Kiosztatlan pontok szétosztása",
     "distributePointsPop": "Elosztja az elosztatlan tulajdonság pontokat a kiválasztott séma szerint.",
     "warriorText": "A Harcosok több és jobb \"kritikus csapást\" mérnek, ami véletlenszerű bónuszt ad Aranyra, Tapasztalati pontra és zsákmányolási esélyre, amikor egy feladatot elvégeztél. Ezen kívül főellenségekre is keményen sebeznek. Játssz Harcosként, ha motiválnak a kiszámíthatatlan főnyeremény-szerű jutalmak, vagy ha kemény sebzéseket akarsz kiosztani a főellenség Küldetésekben!",
-    "mageText": "A Mágusok gyorsan tanulnak, hamarabb lépnek Szintet, mint más kasztok, továbbá sokkal több Mana pontjuk van a különleges képességeikhez. Játssz Mágust, ha szereted a Habit taktikai elemeit és erősen motivál a szintlépés és a haladó funkciók feloldása.",
+    "mageText": "A mágusok gyorsan tanulnak, szereznek tapasztalati pontot, valamint gyorsabban lépnek szintet mint más kasztok. Emellett sokkal több manát szereznek ha speciális képességeket használnak. Válaszd a mágust ha a Habitica taktikai aspektusát élvezed, vagy ha az motivál a legjobban hogy gyorsan szintet tudsz lépni és haladó funkciókat feloldani!",
     "rogueText": "A Tolvajok imádnak gyűjtögetni, ezért mindenki másnál jobbak Arany szerzésében és véletlenszerű tárgyak megtalálásában. Az ikonikus Lopakodás képességük képessé teszi őket arra, hogy elkerüljék a kihagyott Napi feladatok következményeit. Játssz Tolvajt, ha motiválnak a Jutalmak és a Kitűntetések, ha igyekszel minél több zsákmányt és kitűzőt bezsebelni!",
     "healerText": "A Gyógyítók érzéketlenek a sebzésre és meg tudják védeni a többieket is. A Kihagyott Napi feladatok és rossz Szokások nem hozzák őket annyira zavarba és vannak lehetőségeik az Életerő pontok visszaszerzésére. Játssz Gyógyítót, ha szeretsz másokon segíteni a Csapatban, vagy ha inspirál, hogy kijátszhatod a Halált kemény munkával",
     "optOutOfClasses": "Kiszáll",
@@ -170,6 +170,5 @@
     "hideQuickAllocation": "Tulajdonság pont eloszlás elrelytése",
     "quickAllocationLevelPopover": "Minden szintlépés ad egy pontot, amit elkölthetsz egy általad választott tulajdonságra. Ezt teheted manuálisan, vagy a játékra is bízhatod a döntést az Automatikus elosztás menüpontban a Felhasználó -> Jellemzők alatt.",
     "invalidAttribute": "<%= attr %> nem valódi tulajdonság.",
-    "notEnoughAttrPoints": "Nincs elég tulajdonság pontod.",
-    "gearNotOwned": "Ez a tárgy nincs a birtokodban."
+    "notEnoughAttrPoints": "Nincs elég tulajdonság pontod."
 }

@@ -198,10 +198,10 @@ nav.toolbar(ng-controller='MenuCtrl')
                 a(ng-click='$state.go("options.inventory.drops"); ')
                   span.glyphicon.glyphicon-gift
                   span=env.t('newSubscriberItem')
-              li(ng-if='user.invitations.party.id')
+              li(ng-repeat='party in user.invitations.parties')
                 a(ui-sref='options.social.party')
                   span.glyphicon.glyphicon-user
-                  span=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
+                  span=env.t('invitedTo', {name: '{{party.name}}'})
               li(ng-if='user.flags.cardReceived')
                 a(ng-click='$state.go("options.inventory.drops"); ')
                   span.glyphicon.glyphicon-envelope
@@ -244,8 +244,8 @@ nav.toolbar(ng-controller='MenuCtrl')
           h4=env.t('audioTheme')
           div
             ul.toolbar-submenu
-              // Using [{k,v}] instead of {k:v,k:v} to maintain order ('off' at top)
-              for theme in ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme']
+              // Using [{k,v}] instead of {k:v,k:v} to maintain order ('off' at top)            
+              for theme in ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme', 'beatscribeNesTheme', 'arashiTheme']
                 li
                   a(ng-class="{'bg-info':user.preferences.sound === '#{theme}'}", ng-click="set({'preferences.sound':'#{theme}'})")=env.t('audioTheme_'+theme)
           ul.toolbar-controls

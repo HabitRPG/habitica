@@ -8,21 +8,21 @@ b-popover(
   v-else,
   :triggers="['hover']",
   :placement="popoverPosition",
-  @click="click",
 )
   span(slot="content")
     slot(name="popoverContent", :item="item")
 
-  .item-wrapper
+  .item-wrapper(@click="click")
     .item
       slot(name="itemBadge", :item="item")
-      span.item-content(:class="itemContentClass")
+      span.item-content(
+        :class="itemContentClass"
+      )
     span.item-label(v-if="label") {{ label }}
 </template>
 
 <script>
 import bPopover from 'bootstrap-vue/lib/components/popover';
-import { mapState } from 'client/libs/store';
 
 export default {
   components: {
@@ -46,11 +46,6 @@ export default {
       type: String,
       default: 'bottom',
     },
-  },
-  computed: {
-    ...mapState({
-      ATTRIBUTES: 'constants.ATTRIBUTES',
-    }),
   },
   methods: {
     click () {

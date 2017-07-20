@@ -14,7 +14,7 @@ angular.module('habitrpg')
 
         if (user.purchased && user.purchased.plan && user.purchased.plan.mysteryItems && user.purchased.plan.mysteryItems.length) {
           return mysteryValue;
-        } else if ((user.invitations.party && user.invitations.party.id) || (user.invitations.guilds && user.invitations.guilds.length > 0)) {
+        } else if ((user.invitations.parties && user.invitations.parties.length > 0) || (user.invitations.guilds && user.invitations.guilds.length > 0)) {
           return invitationValue;
         } else if (user.flags.cardReceived) {
           return cardValue;
@@ -76,8 +76,8 @@ angular.module('habitrpg')
       $scope.getNotificationsCount = function() {
         var count = 0;
 
-        if($scope.user.invitations.party && $scope.user.invitations.party.id){
-          count++;
+        if($scope.user.invitations.parties){
+          count += $scope.user.invitations.parties.length;
         }
 
         if($scope.user.purchased.plan && $scope.user.purchased.plan.mysteryItems.length){

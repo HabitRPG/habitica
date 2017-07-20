@@ -111,8 +111,13 @@ let schema = new Schema({
     birthday: Number,
     partyUp: Boolean,
     partyOn: Boolean,
+    congrats: Number,
+    getwell: Number,
+    goodluck: Number,
     royallyLoyal: Boolean,
     joinedGuild: Boolean,
+    joinedChallenge: Boolean,
+    invitedFriend: Boolean,
   },
 
   backer: {
@@ -122,7 +127,7 @@ let schema = new Schema({
   },
 
   contributor: {
-    // 1-9, see https://trello.com/c/wkFzONhE/277-contributor-gear https://github.com/HabitRPG/habitrpg/issues/3801
+    // 1-9, see https://trello.com/c/wkFzONhE/277-contributor-gear https://github.com/HabitRPG/habitica/issues/3801
     level: {
       type: Number,
       min: 0,
@@ -288,6 +293,12 @@ let schema = new Schema({
       thankyouReceived: Array,
       birthday: {type: Number, default: 0},
       birthdayReceived: Array,
+      congrats: {type: Number, default: 0},
+      congratsReceived: Array,
+      getwell: {type: Number, default: 0},
+      getwellReceived: Array,
+      goodluck: {type: Number, default: 0},
+      goodluckReceived: Array,
     },
 
     // -------------- Animals -------------------
@@ -373,6 +384,24 @@ let schema = new Schema({
     party: {type: Schema.Types.Mixed, default: () => {
       return {};
     }},
+    parties: [{
+      id: {
+        type: String,
+        ref: 'Group',
+        required: true,
+        validate: [validator.isUUID, 'Invalid uuid.'],
+      },
+      name: {
+        type: String,
+        required: true,
+      },
+      inviter: {
+        type: String,
+        ref: 'User',
+        required: true,
+        validate: [validator.isUUID, 'Invalid uuid.'],
+      },
+    }],
   },
 
   guilds: [{type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']}],
@@ -410,7 +439,7 @@ let schema = new Schema({
     skin: {type: String, default: '915533'},
     shirt: {type: String, default: 'blue'},
     timezoneOffset: {type: Number, default: 0},
-    sound: {type: String, default: 'rosstavoTheme', enum: ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme']},
+    sound: {type: String, default: 'rosstavoTheme', enum: ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme', 'beatscribeNesTheme', 'arashiTheme']},
     chair: {type: String, default: 'none'},
     timezoneOffsetAtLastCron: Number,
     language: String,

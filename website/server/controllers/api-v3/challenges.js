@@ -158,7 +158,7 @@ let api = {};
  * @apiParam (Body) {Boolean} [official=false] Whether or not a challenge is an official Habitica challenge (requires admin)
  * @apiParam (Body) {Number} [challenge.prize=0] Number of gems offered as a prize to challenge winner
  *
- * @apiSuccess {Object} challenge The newly created challenge.
+ * @apiSuccess (201) {Object} challenge The newly created challenge.
  * @apiUse SuccessfulChallengeRequest
  *
  * @apiUse ChallengeSuccessExample
@@ -228,6 +228,12 @@ api.createChallenge = {
     let challengeValidationErrors = challenge.validateSync();
     if (challengeValidationErrors) throw challengeValidationErrors;
 
+    // Add achievement if user's first challenge
+    if (!user.achievements.joinedChallenge) {
+      user.achievements.joinedChallenge = true;
+      user.addNotification('CHALLENGE_JOINED_ACHIEVEMENT');
+    }
+
     let results = await Bluebird.all([challenge.save({
       validateBeforeSave: false, // already validate
     }), group.save()]);
@@ -286,6 +292,12 @@ api.joinChallenge = {
 
     challenge.memberCount += 1;
 
+    // Add achievement if user's first challenge
+    if (!user.achievements.joinedChallenge) {
+      user.achievements.joinedChallenge = true;
+      user.addNotification('CHALLENGE_JOINED_ACHIEVEMENT');
+    }
+
     // Add all challenge's tasks to user's tasks and save the challenge
     let results = await Bluebird.all([challenge.syncToUser(user), challenge.save()]);
 
@@ -330,9 +342,6 @@ api.leaveChallenge = {
 
     let challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-
-    let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy'});
-    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     if (!challenge.isMember(user)) throw new NotAuthorized(res.t('challengeMemberNotFound'));
 

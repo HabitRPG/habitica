@@ -514,6 +514,90 @@ spells.special = {
       user.stats.gp -= 10;
     },
   },
+  congrats: {
+    text: t('congratsCard'),
+    mana: 0,
+    value: 10,
+    immediateUse: true,
+    silent: true,
+    target: 'user',
+    notes: t('congratsCardNotes'),
+    cast (user, target) {
+      if (user === target) {
+        if (!user.achievements.congrats) user.achievements.congrats = 0;
+        user.achievements.congrats++;
+      } else {
+        each([user, target], (u) => {
+          if (!u.achievements.congrats) u.achievements.congrats = 0;
+          u.achievements.congrats++;
+        });
+      }
+
+      if (!target.items.special.congratsReceived) target.items.special.congratsReceived = [];
+      target.items.special.congratsReceived.push(user.profile.name);
+
+      if (!target.flags) target.flags = {};
+      target.flags.cardReceived = true;
+
+      user.stats.gp -= 10;
+    },
+  },
+  getwell: {
+    text: t('getwellCard'),
+    mana: 0,
+    value: 10,
+    immediateUse: true,
+    silent: true,
+    target: 'user',
+    notes: t('getwellCardNotes'),
+    cast (user, target) {
+      if (user === target) {
+        if (!user.achievements.getwell) user.achievements.getwell = 0;
+        user.achievements.getwell++;
+      } else {
+        each([user, target], (u) => {
+          if (!u.achievements.getwell) u.achievements.getwell = 0;
+          u.achievements.getwell++;
+        });
+      }
+
+      if (!target.items.special.getwellReceived) target.items.special.getwellReceived = [];
+      target.items.special.getwellReceived.push(user.profile.name);
+
+      if (!target.flags) target.flags = {};
+      target.flags.cardReceived = true;
+
+      user.stats.gp -= 10;
+    },
+  },
+  goodluck: {
+    text: t('goodluckCard'),
+    mana: 0,
+    value: 10,
+    immediateUse: true,
+    silent: true,
+    target: 'user',
+    notes: t('goodluckCardNotes'),
+    cast (user, target) {
+      if (user === target) {
+        if (!user.achievements.goodluck) user.achievements.goodluck = 0;
+        user.achievements.goodluck++;
+      } else {
+        each([user, target], (u) => {
+          if (!u.achievements.goodluck) u.achievements.goodluck = 0;
+          u.achievements.goodluck++;
+        });
+      }
+
+      if (!target.items.special.goodluckReceived) target.items.special.goodluckReceived = [];
+      target.items.special.goodluckReceived.push(user.profile.name);
+
+      if (!target.flags) target.flags = {};
+      target.flags.cardReceived = true;
+
+      user.stats.gp -= 10;
+    },
+  },
 };
 
 each(spells, (spellClass) => {

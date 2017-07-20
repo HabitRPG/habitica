@@ -220,7 +220,7 @@ describe('POST /group/:groupId/join', () => {
       it('clears invitation from user when joining party', async () => {
         await invitedUser.post(`/groups/${party._id}/join`);
 
-        await expect(invitedUser.get('/user')).to.eventually.not.have.deep.property('invitations.party.id');
+        await expect(invitedUser.get('/user')).to.eventually.not.have.deep.property('invitations.parties[0].id');
       });
 
       it('increments memberCount when joining party', async () => {

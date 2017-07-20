@@ -68,7 +68,7 @@ module.exports = function errorHandler (err, req, res, next) { // eslint-disable
   logger.error(err, {
     method: req.method,
     originalUrl: req.originalUrl,
-    headers: omit(req.headers, ['x-api-key', 'cookie']), // don't send sensitive information that only adds noise
+    headers: omit(req.headers, ['x-api-key', 'cookie', 'password', 'confirmPassword']), // don't send sensitive information that only adds noise
     body: req.body,
     httpCode: responseErr.httpCode,
     isHandledError: responseErr.httpCode < 500,

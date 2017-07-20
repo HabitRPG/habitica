@@ -111,7 +111,7 @@ function performSleepTasks (user, tasksByType, now) {
     let thatDay = moment(now).subtract({days: 1});
 
     if (shouldDo(thatDay.toDate(), daily, user.preferences) || completed) {
-      // TODO also untick checklists if the Daily was due on previous missed days, if two or more days were missed at once -- https://github.com/HabitRPG/habitrpg/pull/7218#issuecomment-219256016
+      // TODO also untick checklists if the Daily was due on previous missed days, if two or more days were missed at once -- https://github.com/HabitRPG/habitica/pull/7218#issuecomment-219256016
       if (daily.checklist) {
         daily.checklist.forEach(box => box.completed = false);
       }
@@ -206,8 +206,11 @@ export function cron (options = {}) {
   let perfect = true;
 
   // Reset Gold-to-Gems cap if it's the start of the month
-  if (user.purchased && user.purchased.plan && !moment(user.purchased.plan.dateUpdated).startOf('month').isSame(moment().startOf('month'))) {
+  let dateUpdatedFalse = !moment(user.purchased.plan.dateUpdated).startOf('month').isSame(moment().startOf('month')) || !user.purchased.plan.dateUpdated;
+
+  if (user.purchased && user.purchased.plan && dateUpdatedFalse) {
     user.purchased.plan.gemsBought = 0;
+    if (!user.purchased.plan.dateUpdated) user.purchased.plan.dateUpdated = moment();
   }
 
   if (user.isSubscribed()) {
@@ -261,6 +264,10 @@ export function cron (options = {}) {
     let EvadeTask = 0;
     let scheduleMisses = daysMissed;
 
+    // Only check one day back
+    let dailiesDaysMissed = daysMissed;
+    if (dailiesDaysMissed > 1) dailiesDaysMissed = 1;
+
     if (completed) {
       dailyChecked += 1;
       if (!atLeastOneDailyDue) { // only bother checking until the first thing is found
@@ -271,7 +278,7 @@ export function cron (options = {}) {
       // dailys repeat, so need to calculate how many they've missed according to their own schedule
       scheduleMisses = 0;
 
-      for (let i = 0; i < daysMissed; i++) {
+      for (let i = 0; i < dailiesDaysMissed; i++) {
         let thatDay = moment(now).subtract({days: i + 1});
 
         if (shouldDo(thatDay.toDate(), task, user.preferences)) {
@@ -339,15 +346,15 @@ export function cron (options = {}) {
   // check if we've passed a day on which we should reset the habit counters, including today
   let resetWeekly = false;
   let resetMonthly = false;
-  for (let i = 0; i <= daysMissed; i++) {
+  for (let i = 0; i < daysMissed; i++) {
     if (resetWeekly === true && resetMonthly === true) {
       break;
     }
-    let thatDay = moment(now).subtract({days: i}).toDate();
-    if (thatDay.getDay() === 1) {
+    let thatDay = moment(now).zone(user.preferences.timezoneOffset + user.preferences.dayStart * 60).subtract({days: i});
+    if (thatDay.day() === 1) {
       resetWeekly = true;
     }
-    if (thatDay.getDate() === 1) {
+    if (thatDay.date() === 1) {
       resetMonthly = true;
     }
   }
@@ -391,7 +398,7 @@ export function cron (options = {}) {
 
   // preen user history so that it doesn't become a performance problem
   // also for subscribed users but differently
-  // TODO also do while resting in the inn. Note that later we'll be allowing the value/color of tasks to change while sleeping (https://github.com/HabitRPG/habitrpg/issues/5232), so the code in performSleepTasks() might be best merged back into here for that. Perhaps wait until then to do preen history for sleeping users.
+  // TODO also do while resting in the inn. Note that later we'll be allowing the value/color of tasks to change while sleeping (https://github.com/HabitRPG/habitica/issues/5232), so the code in performSleepTasks() might be best merged back into here for that. Perhaps wait until then to do preen history for sleeping users.
   preenUserHistory(user, tasksByType, user.preferences.timezoneOffset);
 
   if (perfect && atLeastOneDailyDue) {

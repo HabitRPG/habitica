@@ -48,7 +48,57 @@ describe('Stripe Payments', () => {
       payments.createSubscription.restore();
     });
 
+    it('should error if gem amount is too low', async () => {
+      let receivingUser = new User();
+      receivingUser.save();
+      gift = {
+        type: 'gems',
+        gems: {
+          amount: 0,
+          uuid: receivingUser._id,
+        },
+      };
+
+      await expect(stripePayments.checkout({
+        token,
+        user,
+        gift,
+        groupId,
+        email,
+        headers,
+        coupon,
+      }, stripe))
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 400,
+        message: 'Amount must be at least 1.',
+        name: 'BadRequest',
+      });
+    });
+
+
+    it('should error if user cannot get gems', async () => {
+      gift = undefined;
+      sinon.stub(user, 'canGetGems').returnsPromise().resolves(false);
+
+      await expect(stripePayments.checkout({
+        token,
+        user,
+        gift,
+        groupId,
+        email,
+        headers,
+        coupon,
+      }, stripe)).to.eventually.be.rejected.and.to.eql({
+        httpCode: 401,
+        message: i18n.t('groupPolicyCannotGetGems'),
+        name: 'NotAuthorized',
+      });
+    });
+
     it('should purchase gems', async () => {
+      gift = undefined;
+      sinon.stub(user, 'canGetGems').returnsPromise().resolves(true);
+
       await stripePayments.checkout({
         token,
         user,
@@ -73,16 +123,18 @@ describe('Stripe Payments', () => {
         paymentMethod: 'Stripe',
         gift,
       });
+      expect(user.canGetGems).to.be.calledOnce;
+      user.canGetGems.restore();
     });
 
     it('should gift gems', async () => {
       let receivingUser = new User();
-      receivingUser.save();
+      await receivingUser.save();
       gift = {
         type: 'gems',
+        uuid: receivingUser._id,
         gems: {
           amount: 16,
-          uuid: receivingUser._id,
         },
       };
 
@@ -96,7 +148,6 @@ describe('Stripe Payments', () => {
         coupon,
       }, stripe);
 
-      gift.member = receivingUser;
       expect(stripeChargeStub).to.be.calledOnce;
       expect(stripeChargeStub).to.be.calledWith({
         amount: '400',
@@ -683,6 +734,7 @@ describe('Stripe Payments', () => {
           groupId: undefined,
           nextBill: currentPeriodEndTimeStamp * 1000, // timestamp in seconds
           paymentMethod: 'Stripe',
+          cancellationReason: undefined,
         });
       });
 
@@ -702,6 +754,7 @@ describe('Stripe Payments', () => {
           groupId,
           nextBill: currentPeriodEndTimeStamp * 1000, // timestamp in seconds
           paymentMethod: 'Stripe',
+          cancellationReason: undefined,
         });
       });
     });
