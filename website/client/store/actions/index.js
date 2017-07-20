@@ -24,7 +24,10 @@ const actions = flattenAndNamespace({
   auth,
   quests,
   challenges,
+<<<<<<< HEAD
   chat,
+=======
+>>>>>>> upstream/develop
 });
 
 export default actions;
