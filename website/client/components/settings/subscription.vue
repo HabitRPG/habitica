@@ -130,9 +130,7 @@ const GOOGLE = 'google';
 //   GIFT: 'Gift',
 // };
 
-const STRIPE_PUB_KEY = '';
-
-const StripeCheckout = {};
+const STRIPE_PUB_KEY = 'pk_test_6pRNASCoBOKtIshFeQd4XMUh';
 
 export default {
   components: {
@@ -147,10 +145,12 @@ export default {
       subscription: {
         key: 'basic_earned',
       },
-      OffAmazonPayments: {},
-      isAmazonReady: false,
       amazonPayments: {},
+      StripeCheckout: {},
     };
+  },
+  mounted () {
+    this.StripeCheckout = window.StripeCheckout;
   },
   filters: {
     date (value) {
@@ -256,56 +256,56 @@ export default {
       subs.google_6mo.discount = false;
     },
     showStripe (data) {
-      return data; // @TODO: remove
-      // if(!Payments.checkGemAmount(data)) return;
-      //
-      // let sub = false;
-      //
-      // if (data.subscription) {
-      //   sub = data.subscription;
-      // } else if (data.gift && data.gift.type=='subscription') {
-      //   sub = data.gift.subscription.key;
-      // }
-      //
-      // sub = sub && Content.subscriptionBlocks[sub];
-      //
-      // let amount = 500;// 500 = $5
-      // if (sub) amount = sub.price * 100;
-      // if (data.gift && data.gift.type=='gems') amount = data.gift.gems.amount / 4 * 100;
-      // if (data.group) amount = (sub.price + 3 * (data.group.memberCount - 1)) * 100;
-      //
-      // StripeCheckout.open({
-      //   key: window.env.STRIPE_PUB_KEY,
-      //   address: false,
-      //   amount: amount,
-      //   name: 'Habitica',
-      //   description: sub ? window.env.t('subscribe') : window.env.t('checkout'),
-      //   image: "/apple-touch-icon-144-precomposed.png",
-      //   panelLabel: sub ? window.env.t('subscribe') : window.env.t('checkout'),
-      //   token: function(res) {
-      //     let url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
-      //
-      //     if (data.groupToCreate) {
-      //       url = '/api/v3/groups/create-plan?a=a';
-      //       res.groupToCreate = data.groupToCreate;
-      //       res.paymentType = 'Stripe';
-      //     }
-      //
-      //     if (data.gift) url += '&gift=' + Payments.encodeGift(data.uuid, data.gift);
-      //     if (data.subscription) url += '&sub='+sub.key;
-      //     if (data.coupon) url += '&coupon='+data.coupon;
-      //     if (data.groupId) url += '&groupId=' + data.groupId;
-      //     $http.post(url, res).success(function(response) {
-      //       if (response && response.data && response.data._id) {
-      //         $rootScope.hardRedirect('/#/options/groups/guilds/' + response.data._id);
-      //       } else {
-      //         window.location.reload(true);
-      //       }
-      //     }).error(function(res) {
-      //       alert(res.message);
-      //     });
-      //   }
-      // });
+      if (!this.checkGemAmount(data)) return;
+
+      let sub = false;
+
+      if (data.subscription) {
+        sub = data.subscription;
+      } else if (data.gift && data.gift.type === 'subscription') {
+        sub = data.gift.subscription.key;
+      }
+
+      sub = sub && subscriptionBlocks[sub];
+
+      let amount = 500;// 500 = $5
+      if (sub) amount = sub.price * 100;
+      if (data.gift && data.gift.type === 'gems') amount = data.gift.gems.amount / 4 * 100;
+      if (data.group) amount = (sub.price + 3 * (data.group.memberCount - 1)) * 100;
+
+      this.StripeCheckout.open({
+        key: STRIPE_PUB_KEY,
+        address: false,
+        amount,
+        name: 'Habitica',
+        description: sub ? this.$t('subscribe') : this.$t('checkout'),
+        image: '/apple-touch-icon-144-precomposed.png',
+        panelLabel: sub ? this.$t('subscribe') : this.$t('checkout'),
+        token: async (res) => {
+          let url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
+
+          if (data.groupToCreate) {
+            url = '/api/v3/groups/create-plan?a=a';
+            res.groupToCreate = data.groupToCreate;
+            res.paymentType = 'Stripe';
+          }
+
+          if (data.gift) url += `&gift=${this.encodeGift(data.uuid, data.gift)}`;
+          if (data.subscription) url += `&sub=${sub.key}`;
+          if (data.coupon) url += `&coupon=${data.coupon}`;
+          if (data.groupId) url += `&groupId=${data.groupId}`;
+
+          let response = await axios.post(url, res);
+          // Success
+          if (response && response.data && response.data._id) {
+            this.$router.push(`/#/options/groups/guilds/${response.data._id}`);
+          } else {
+            window.location.reload(true);
+          }
+          // Error
+          alert(response.message);
+        },
+      });
     },
     showStripeEdit (config) {
       let groupId;
@@ -313,12 +313,12 @@ export default {
         groupId = config.groupId;
       }
 
-      StripeCheckout.open({
+      this.StripeCheckout.open({
         key: STRIPE_PUB_KEY,
         address: false,
-        name: window.env.t('subUpdateTitle'),
-        description: window.env.t('subUpdateDescription'),
-        panelLabel: window.env.t('subUpdateCard'),
+        name: this.$t('subUpdateTitle'),
+        description: this.$t('subUpdateDescription'),
+        panelLabel: this.$t('subUpdateCard'),
         token: async (data) => {
           data.groupId = groupId;
           let url = '/stripe/subscribe/edit';
@@ -340,8 +340,8 @@ export default {
       );
     },
     async cancelSubscription (config) {
-      if (config && config.group && !confirm(window.env.t('confirmCancelGroupPlan'))) return;
-      if (!confirm(window.env.t('sureCancelSub'))) return;
+      if (config && config.group && !confirm(this.$t('confirmCancelGroupPlan'))) return;
+      if (!confirm(this.$t('sureCancelSub'))) return;
 
       let group;
       if (config && config.group) {
