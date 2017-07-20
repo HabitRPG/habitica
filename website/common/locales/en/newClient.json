@@ -184,5 +184,7 @@
   "tierNPC": "NPC",
   "messages": "Messages",
   "emptyMessagesLine1": "You don’t have any messages",
-  "emptyMessagesLine2": "Send a message to start a conversation!"
+  "emptyMessagesLine2": "Send a message to start a conversation!",
+  "contributing": "Contributing",
+  "askAQuestion": "Ask a Question"
 }
