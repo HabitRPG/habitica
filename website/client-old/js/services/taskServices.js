@@ -357,6 +357,9 @@ angular.module('habitrpg')
     var numberToShortDay = Shared.DAY_MAPPING;
 
     function generateSummary(task) {
+      if (task._edit.everyX === 0) 
+        return window.env.t('repeatZero');
+      
       var frequencyPlural = frequencyMap[task._edit.frequency];
 
       var repeatDays = '';
@@ -409,8 +412,8 @@ angular.module('habitrpg')
 
       var dateFormat = 'MM-DD-YYYY';
       if (user.preferences.dateFormat) dateFormat = user.preferences.dateFormat.toUpperCase();
-
-      var nextDue = nextDueDates.map(function (date) {
+      var nextDueDatesArr = angular.isArray(nextDueDates) ? nextDueDates : [];
+      var nextDue = nextDueDatesArr.map(function (date) {
         return date.format(dateFormat);
       });
 

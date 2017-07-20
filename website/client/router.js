@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import getStore from 'client/store';
 
 import EmptyView from './components/emptyView';
 
@@ -9,8 +10,43 @@ import Page from './components/page';
 
 // Static Pages
 const Home = () => import(/* webpackChunkName: "static" */'./components/static/home');
+const AppPage = () => import(/* webpackChunkName: "static" */'./components/static/app');
+const ClearBrowserDataPage = () => import(/* webpackChunkName: "static" */'./components/static/clearBrowserData');
+const CommunityGuidelinesPage = () => import(/* webpackChunkName: "static" */'./components/static/communityGuidelines');
+const ContactPage = () => import(/* webpackChunkName: "static" */'./components/static/contact');
+const FAQPage = () => import(/* webpackChunkName: "static" */'./components/static/faq');
+const FeaturesPage = () => import(/* webpackChunkName: "static" */'./components/static/features');
+const FrontPage = () => import(/* webpackChunkName: "static" */'./components/static/front');
+const GroupPlansPage = () => import(/* webpackChunkName: "static" */'./components/static/groupPlans');
+const MaintenancePage = () => import(/* webpackChunkName: "static" */'./components/static/maintenance');
+const MaintenanceInfoPage = () => import(/* webpackChunkName: "static" */'./components/static/maintenanceInfo');
+const MerchPage = () => import(/* webpackChunkName: "static" */'./components/static/merch');
+// const NewStuffPage = () => import(/* webpackChunkName: "static" */'./components/static/newStuff');
+const OverviewPage = () => import(/* webpackChunkName: "static" */'./components/static/overview');
+const PressKitPage = () => import(/* webpackChunkName: "static" */'./components/static/pressKit');
+const PrivacyPage = () => import(/* webpackChunkName: "static" */'./components/static/privacy');
+const TermsPage = () => import(/* webpackChunkName: "static" */'./components/static/terms');
+const VideosPage = () => import(/* webpackChunkName: "static" */'./components/static/videos');
+
 const RegisterLogin = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLogin');
 
+// User Pages
+const CreatorIntro = () => import(/* webpackChunkName: "creator" */'./components/creatorIntro');
+const BackgroundsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/backgrounds');
+const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
+const AchievementsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/achievements');
+const ProfilePage = () => import(/* webpackChunkName: "user" */'./components/userMenu/profile');
+
+// Settings
+const Settings = () => import(/* webpackChunkName: "settings" */'./components/settings/index');
+const API = () => import(/* webpackChunkName: "settings" */'./components/settings/api');
+const DataExport = () => import(/* webpackChunkName: "settings" */'./components/settings/dataExport');
+const Notifications = () => import(/* webpackChunkName: "settings" */'./components/settings/notifications');
+const PromoCode = () => import(/* webpackChunkName: "settings" */'./components/settings/promoCode');
+const Site = () => import(/* webpackChunkName: "settings" */'./components/settings/site');
+const Subscription = () => import(/* webpackChunkName: "settings" */'./components/settings/subscription');
+
+// Except for tasks that are always loaded all the other main level
 // All the main level
 // components are loaded in separate webpack chunks.
 // See https://webpack.js.org/guides/code-splitting-async/
@@ -31,7 +67,7 @@ const InboxConversationPage = () => import(/* webpackChunkName: "inbox" */ './co
 
 // Guilds
 const GuildIndex = () => import(/* webpackChunkName: "guilds" */ './components/guilds/index');
-// const TavernPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/tavern');
+const TavernPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/tavern');
 const MyGuilds = () => import(/* webpackChunkName: "guilds" */ './components/guilds/myGuilds');
 const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/discovery');
 const GuildPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/guild');
@@ -44,7 +80,7 @@ const ChallengeDetail = () => import(/* webpackChunkName: "challenges" */ './com
 
 Vue.use(VueRouter);
 
-export default new VueRouter({
+const router = new VueRouter({
   mode: 'history',
   base: process.env.NODE_ENV === 'production' ? '/new-app' : __dirname, // eslint-disable-line no-process-env
   linkActiveClass: 'active',
@@ -53,10 +89,12 @@ export default new VueRouter({
   scrollBehavior () {
     return { x: 0, y: 0 };
   },
+  // requiresLogin is true by default, isStatic false
   routes: [
-    { name: 'home', path: '/home', component: Home },
-    { name: 'register', path: '/register', component: RegisterLogin },
-    { name: 'login', path: '/login', component: RegisterLogin },
+    { name: 'creator', path: '/creator', component: CreatorIntro },
+    { name: 'home', path: '/home', component: Home, meta: {requiresLogin: false} },
+    { name: 'register', path: '/register', component: RegisterLogin, meta: {requiresLogin: false} },
+    { name: 'login', path: '/login', component: RegisterLogin, meta: {requiresLogin: false} },
     { name: 'tasks', path: '/', component: UserTasks },
     {
       path: '/inventory',
@@ -73,7 +111,7 @@ export default new VueRouter({
       path: '/guilds',
       component: GuildIndex,
       children: [
-        { name: 'tavern', path: 'tavern', component: GuildPage },
+        { name: 'tavern', path: 'tavern', component: TavernPage },
         {
           name: 'myGuilds',
           path: 'myGuilds',
@@ -136,10 +174,91 @@ export default new VueRouter({
             },
           ],
         },
-        { name: 'stats', path: 'stats', component: Page },
-        { name: 'achievements', path: 'achievements', component: Page },
-        { name: 'settings', path: 'settings', component: Page },
+        { name: 'backgrounds', path: 'backgrounds', component: BackgroundsPage },
+        { name: 'stats', path: 'stats', component: StatsPage },
+        { name: 'achievements', path: 'achievements', component: AchievementsPage },
+        { name: 'profile', path: 'profile', component: ProfilePage },
+        {
+          name: 'settings',
+          path: 'settings',
+          component: Settings,
+          children: [
+            {
+              name: 'site',
+              path: 'site',
+              component: Site,
+            },
+            {
+              name: 'api',
+              path: 'api',
+              component: API,
+            },
+            {
+              name: 'dataExport',
+              path: 'data-export',
+              component: DataExport,
+            },
+            {
+              name: 'promoCode',
+              path: 'promo-code',
+              component: PromoCode,
+            },
+            {
+              name: 'subscription',
+              path: 'subscription',
+              component: Subscription,
+            },
+            {
+              name: 'notifications',
+              path: 'notifications',
+              component: Notifications,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      path: '/static',
+      component: ParentPage,
+      children: [
+        { name: 'app', path: 'app', component: AppPage },
+        { name: 'clearBrowserData', path: 'clear-browser-data', component: ClearBrowserDataPage },
+        { name: 'communitGuidelines', path: 'community-guidelines', component: CommunityGuidelinesPage },
+        { name: 'contact', path: 'contact', component: ContactPage },
+        { name: 'faq', path: 'faq', component: FAQPage },
+        { name: 'features', path: 'features', component: FeaturesPage },
+        { name: 'front', path: 'front', component: FrontPage },
+        { name: 'groupPlans', path: 'group-plans', component: GroupPlansPage },
+        { name: 'maintenance', path: 'maintenance', component: MaintenancePage },
+        { name: 'maintenance-info', path: 'maintenance-info', component: MaintenanceInfoPage },
+        { name: 'merch', path: 'merch', component: MerchPage },
+        // { name: 'newStuff', path: 'newStuff', component: NewStuffPage },
+        { name: 'overview', path: 'overview', component: OverviewPage },
+        { name: 'plans', path: 'plans', component: GroupPlansPage },
+        { name: 'pressKit', path: 'press-kit', component: PressKitPage },
+        { name: 'privacy', path: 'privacy', component: PrivacyPage },
+        { name: 'terms', path: 'terms', component: TermsPage },
+        { name: 'videos', path: 'videos', component: VideosPage },
       ],
     },
   ],
 });
+
+const store = getStore();
+
+router.beforeEach(function routerGuard (to, from, next) {
+  const isUserLoggedIn = store.state.isUserLoggedIn;
+  const routeRequiresLogin = to.meta.requiresLogin !== false;
+
+  if (!isUserLoggedIn && routeRequiresLogin) {
+    // Redirect to the login page unless the user is trying to reach the
+    // root of the website, in which case show the home page.
+    // TODO when redirecting to login if user login then redirect back to initial page
+    // so if you tried to go to /party you'll be redirected to /party after login/signup
+    return next({name: to.path === '/' ? 'home' : 'login'});
+  }
+
+  next();
+});
+
+export default router;

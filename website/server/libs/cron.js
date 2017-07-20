@@ -264,6 +264,10 @@ export function cron (options = {}) {
     let EvadeTask = 0;
     let scheduleMisses = daysMissed;
 
+    // Only check one day back
+    let dailiesDaysMissed = daysMissed;
+    if (dailiesDaysMissed > 1) dailiesDaysMissed = 1;
+
     if (completed) {
       dailyChecked += 1;
       if (!atLeastOneDailyDue) { // only bother checking until the first thing is found
@@ -274,7 +278,7 @@ export function cron (options = {}) {
       // dailys repeat, so need to calculate how many they've missed according to their own schedule
       scheduleMisses = 0;
 
-      for (let i = 0; i < daysMissed; i++) {
+      for (let i = 0; i < dailiesDaysMissed; i++) {
         let thatDay = moment(now).subtract({days: i + 1});
 
         if (shouldDo(thatDay.toDate(), task, user.preferences)) {
@@ -342,15 +346,15 @@ export function cron (options = {}) {
   // check if we've passed a day on which we should reset the habit counters, including today
   let resetWeekly = false;
   let resetMonthly = false;
-  for (let i = 0; i <= daysMissed; i++) {
+  for (let i = 0; i < daysMissed; i++) {
     if (resetWeekly === true && resetMonthly === true) {
       break;
     }
-    let thatDay = moment(now).subtract({days: i}).toDate();
-    if (thatDay.getDay() === 1) {
+    let thatDay = moment(now).zone(user.preferences.timezoneOffset + user.preferences.dayStart * 60).subtract({days: i});
+    if (thatDay.day() === 1) {
       resetWeekly = true;
     }
-    if (thatDay.getDate() === 1) {
+    if (thatDay.date() === 1) {
       resetMonthly = true;
     }
   }

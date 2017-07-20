@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Erfüllte Aufgaben entfernen",
     "lotOfToDos": "Hier siehst Du Deine 30 neuesten erledigten Aufgaben. Ältere erledigte Aufgaben kannst Du hier einsehen: Daten > Werkzeug zur Datenanzeige > Daten exportieren > Benutzerdaten.",
-    "deleteToDosExplanation": "Wenn Du den Knopf unten klickst, werden alle Deine erfüllten und archivierten To-Dos dauerhaft gelöscht. Exportiere sie vorher, wenn Du sie nicht verlieren möchtest.",
+    "deleteToDosExplanation": "Wenn Du auf diesen Knopf klickst, werden alle Deine erfüllten und archivierten To-Dos dauerhaft gelöscht, mit Außnahme von To-Dos aus aktiven Wettbewerben und Gruppenplänen. Exportiere sie vorher, wenn Du sie nicht verlieren möchtest.",
     "addmultiple": "Mehrere hinzufügen",
     "addsingle": "Einzelne hinzufügen",
     "habit": "Gewohnheit",
@@ -147,6 +147,10 @@
     "taskApprovalHasBeenRequested": "Die Zustimmung wurde angefragt.",
     "approvals": "Zustimmungen",
     "approvalRequired": "Zustimmung benötigt",
+    "repeatZero": "Daily is never due",
+    "repeatType": "Repeat Type",
+    "repeatTypeHelpTitle": "What kind of repeat is this?",
+    "repeatTypeHelp": "Select \"Daily\" if you want this task to repeat every day or every third day, etc. Select \"Weekly\"if you want it to repeat on certain days of the week. If you select \"Monthly\" or \"Yearly\", adjust the Start Date to control which day of the month or year the task will be due on.",
     "weekly": "Wöchentlich",
     "monthly": "Monatlich",
     "yearly": "Jährlich",
@@ -170,5 +174,9 @@
     "resets": "Wird zurückgesetzt",
     "summaryStart": "Wird <%= frequency %> alle <%= everyX %> <%= frequencyPlural %> fällig",
     "nextDue": "Nächste Fälligkeitstermine",
+    "yesterDailiesTitle": "Du hast diese täglichen Aufgaben gestern nicht abgehakt! Willst Du einige von ihnen jetzt abhaken?",
+    "yesterDailiesCallToAction": "Starte meinen neuen Tag!",
+    "yesterDailiesOptionTitle": "Bestätige, dass diese tägliche Aufgabe nicht erledigt wurde, bevor Schaden entsteht",
+    "yesterDailiesDescription": "Falls diese Einstellung ausgewählt wird, wird Habitica Dich fragen, ob Du die tägliche Aufgabe absichtlich nicht abgehakt hast, bevor der Schaden an deinem Avatar berechnet und angewandt wird. Dies kann Dich vor unbeabsichtigtem Schaden schützen.",
     "repeatDayError": "Bitte achte darauf, dass mindestens ein Wochentag ausgewählt ist."
 }

@@ -23,7 +23,7 @@
     "giftSubscriptionText4": "Danke, dass Du Habitica unterstützt!",
     "monthUSD": "USD($) / Monat",
     "organization": "Organisation",
-    "groupPlans": "Gemeinschaftliche Pläne",
+    "groupPlans": "Group Plans",
     "indivPlan1": "Für Privatpersonen ist Habitica kostenlos. Auch für kleine Interessengruppen kann die kostenlose (oder günstige)",
     "indivPlan2": "verwendet werden um Teilnehmer zu motivieren ihr Verhalten zu verändern. Denke nur an Gruppen von Autoren, künstlerische Wettbewerbe und mehr.",
     "groupText1": "Aber einige Gruppenleiter wollen mehr Kontrolle, Datenschutz, Sicherheit und Unterstützung. Beispielsweise Familien, Gruppen mit Gesundheits- oder Erholungszielen, Angestelltengruppen und mehr. Diese Pläne erlauben selbstständige Instanzen von Habitica für Deine Gruppe oder Organisation, sicher und unabhängig von",
@@ -37,7 +37,7 @@
     "subscribed": "Abonniert",
     "manageSub": "Klicke um Abonnements zu verwalten",
     "cancelSub": "Abonnement beenden",
-    "cancelSubInfoGoogle": "Bitte schaue in \"Konto\" > \"Abos\" nach, um Dein Abonnement zu kündigen oder um zu sehen, wann Dein Abonnement endet, wenn Du es bereits gekündigt hast. Du kannst dort aber nicht sehen, ob dein Abonnement ausgelaufen ist. ",
+    "cancelSubInfoGoogle": "Bitte schaue in \"Konto\" > \"Abos\" im Google Play Store App nach, um Dein Abonnement zu kündigen oder um zu sehen, wann Dein Abonnement endet, wenn Du es bereits gekündigt hast. Du kannst dort aber nicht sehen, ob dein Abonnement ausgelaufen ist. ",
     "cancelSubInfoApple": "Bitte befolge <a href=\"https://support.apple.com/en-us/HT202039\">Apple's offizielle Anweisungen</a> um Dein Abonnement zu kündigen oder um zu sehen, wann Dein Abonnement endet, wenn Du es bereits gekündigt hast. Du kannst dort aber nicht sehen, ob Dein Abonnement ausgelaufen ist.",
     "canceledSubscription": "Abonnement storniert",
     "cancelingSubscription": "Abonnement stornieren",
@@ -168,5 +168,6 @@
     "missingPaymentId": "req.query.paymentId fehlt",
     "missingCustomerId": "req.query.customerId fehlt",
     "missingPaypalBlock": "req.session.paypalBlock fehlt",
-    "missingSubKey": "req.query.sub fehlt"
+    "missingSubKey": "req.query.sub fehlt",
+    "paypalCanceled": "Dein Abonnement wurde gekündigt"
 }

@@ -17,6 +17,7 @@
 
 .user-tasks-page {
   padding-top: 31px;
+  height: calc(100% - 235px); // header + padding
 }
 
 .tasks-navigation {

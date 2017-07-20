@@ -1,3 +1,5 @@
+include ./group-plans-benefits
+
 mixin gemButton(isGemsModal)
   a.pull-right.gem-wallet(ng-click=( isGemsModal ? '' : 'openModal("buyGems",{track:"Gems > Wallet"})'), popover-trigger='mouseenter', popover-title=env.t('gemsPopoverTitle'), popover=env.t('gemsWhatFor'), popover-placement='bottom')
     if !isGemsModal

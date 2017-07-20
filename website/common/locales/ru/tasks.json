@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Удалить завершенные",
     "lotOfToDos": "Здесь показывается 30 ваших последних завершенных задач. Вы можете посмотреть более старые выполненные задачи, выбрав в меню Данные > Анализ данных или Данные > Экспорт данных > Пользовательские данные.",
-    "deleteToDosExplanation": "Если вы нажмете кнопку ниже, все завершенные и находящиеся архиве задачи будут удалены навсегда. Если вы хотите сохранить их, экспортируйте их.",
+    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addmultiple": "Добавить несколько",
     "addsingle": "Добавить одно",
     "habit": "Привычка",
@@ -147,6 +147,10 @@
     "taskApprovalHasBeenRequested": "Одобрение запрошено",
     "approvals": "Одобрения",
     "approvalRequired": "Требуется одобрение",
+    "repeatZero": "Daily is never due",
+    "repeatType": "Repeat Type",
+    "repeatTypeHelpTitle": "What kind of repeat is this?",
+    "repeatTypeHelp": "Select \"Daily\" if you want this task to repeat every day or every third day, etc. Select \"Weekly\"if you want it to repeat on certain days of the week. If you select \"Monthly\" or \"Yearly\", adjust the Start Date to control which day of the month or year the task will be due on.",
     "weekly": "Еженедельно",
     "monthly": "Ежемесячно",
     "yearly": "Ежегодно",
@@ -170,5 +174,9 @@
     "resets": "Сбрасывается",
     "summaryStart": "Повторяется <%= frequency %> каждые <%= everyX %> <%= frequencyPlural %>",
     "nextDue": "Следующие сроки выполнения",
+    "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
+    "yesterDailiesCallToAction": "Запустить начало нового дня",
+    "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
+    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
     "repeatDayError": "Пожалуйста, убедитесь, что у вас отмечен хотя бы один день недели."
 }

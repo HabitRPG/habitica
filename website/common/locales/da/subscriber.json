@@ -23,7 +23,7 @@
     "giftSubscriptionText4": "Tak for støtten til Habitica!",
     "monthUSD": "US$ / Måned",
     "organization": "Organisation",
-    "groupPlans": "Forretningsplaner",
+    "groupPlans": "Group Plans",
     "indivPlan1": "For enkeltpersoner er Habitica gratis at spille. Selv for små interessegrupper, kan gratis (eller billige)",
     "indivPlan2": "bruges til at motivere deltagerne til adfærdsændringer. Tænk skrivegrupper, kunstudfordringer og andet.",
     "groupText1": "Men nogle gruppeledere vil gerne have mere kontrol, privathed, sikkerhed og støtte. Eksempler på sådanne grupper er familier, sundheds- og wellnessgrupper, medarbejdergrupper og andre. Disse abonnementer giver adgang til private udgaver af Habitica for din gruppe eller organisation, sikkert og uafhængigt af",
@@ -37,7 +37,7 @@
     "subscribed": "Abonneret",
     "manageSub": "Klik for at bestyre dit abonnement",
     "cancelSub": "Annullér Abonnement",
-    "cancelSubInfoGoogle": "Please go to the \"My apps & games\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
+    "cancelSubInfoGoogle": "Please go to the \"Account\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
     "cancelSubInfoApple": "Please follow <a href=\"https://support.apple.com/en-us/HT202039\">Apple’s official instructions</a> to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
     "canceledSubscription": "Abonnement annulleret",
     "cancelingSubscription": "Annullerer abonnementet",
@@ -168,5 +168,6 @@
     "missingPaymentId": "Manglende req.query.paymentId",
     "missingCustomerId": "Manglende req.query.customerId",
     "missingPaypalBlock": "Manglende req.session.paypalBlock",
-    "missingSubKey": "Manglende req.query.sub"
+    "missingSubKey": "Manglende req.query.sub",
+    "paypalCanceled": "Your subscription has been canceled"
 }

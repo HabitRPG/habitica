@@ -6,6 +6,7 @@ describe('Notification Controller', function() {
   beforeEach(function() {
     user = specHelper.newUser();
     user._id = "unique-user-id";
+    user.needsCron = false;
 
     var userSync = sinon.stub().returns({
       then: function then (f) { f(); }

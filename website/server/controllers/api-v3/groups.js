@@ -83,7 +83,7 @@ let api = {};
  * @apiError (400) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
  * @apiError (400) {NotAuthorized} messageGroupAlreadyInParty
  *
- * @apiSuccess {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ * @apiSuccess (201) {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
  *
  * @apiSuccessExample {json} Private Guild:
  *     HTTP/1.1 200 OK
@@ -174,7 +174,7 @@ api.createGroup = {
  * @apiName CreateGroupPlan
  * @apiGroup Group
  *
- * @apiSuccess {Object} data The created group
+ * @apiSuccess (201) {Object} data The created group
  */
 api.createGroupPlan = {
   method: 'POST',
@@ -343,7 +343,6 @@ api.getGroups = {
 api.getGroup = {
   method: 'GET',
   url: '/groups/:groupId',
-  runCron: false, // Do not run cron to avoid double cronning because it's called in parallel to GET /user when the site loads
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
@@ -481,29 +480,35 @@ api.joinGroup = {
 
     let isUserInvited = false;
 
-    if (group.type === 'party' && group._id === user.invitations.party.id) {
-      inviter = user.invitations.party.inviter;
-      user.invitations.party = {}; // Clear invite
-      user.markModified('invitations.party');
+    if (group.type === 'party') {
+      // Check if was invited to party
+      let inviterParty = _.find(user.invitations.parties, {id: group._id});
+      if (inviterParty) {
+        inviter = inviterParty.inviter;
 
-      // invite new user to pending quest
-      if (group.quest.key && !group.quest.active) {
-        user.party.quest.RSVPNeeded = true;
-        user.party.quest.key = group.quest.key;
-        group.quest.members[user._id] = null;
-        group.markModified('quest.members');
+        // Clear all invitations of new user
+        user.invitations.parties = [];
+        user.invitations.party = {};
+
+        // invite new user to pending quest
+        if (group.quest.key && !group.quest.active) {
+          user.party.quest.RSVPNeeded = true;
+          user.party.quest.key = group.quest.key;
+          group.quest.members[user._id] = null;
+          group.markModified('quest.members');
+        }
+
+        // If user was in a different party (when partying solo you can be invited to a new party)
+        // make them leave that party before doing anything
+        if (user.party._id) {
+          let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
+          if (userPreviousParty) await userPreviousParty.leave(user);
+        }
+
+        user.party._id = group._id; // Set group as user's party
+
+        isUserInvited = true;
       }
-
-      // If user was in a different party (when partying solo you can be invited to a new party)
-      // make him leave that party before doing anything
-      if (user.party._id) {
-        let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
-        if (userPreviousParty) await userPreviousParty.leave(user);
-      }
-
-      user.party._id = group._id; // Set group as user's party
-
-      isUserInvited = true;
     } else if (group.type === 'guild') {
       let hasInvitation = removeFromArray(user.invitations.guilds, { id: group._id });
 
@@ -637,8 +642,9 @@ api.rejectGroupInvite = {
     let groupId = req.params.groupId;
     let isUserInvited = false;
 
-    if (groupId === user.invitations.party.id) {
-      user.invitations.party = {};
+    let hasPartyInvitation = removeFromArray(user.invitations.parties, { id: groupId });
+    if (hasPartyInvitation) {
+      user.invitations.party = user.invitations.parties.length > 0 ? user.invitations.parties[user.invitations.parties.length - 1] : {};
       user.markModified('invitations.party');
       isUserInvited = true;
     } else {
@@ -805,7 +811,7 @@ api.removeGroupMember = {
     }
 
     let isInvited;
-    if (member.invitations.party && member.invitations.party.id === group._id) {
+    if (_.find(member.invitations.parties, {id: group._id})) {
       isInvited = 'party';
     } else if (_.findIndex(member.invitations.guilds, {id: group._id}) !== -1) {
       isInvited = 'guild';
@@ -850,7 +856,8 @@ api.removeGroupMember = {
         removeFromArray(member.invitations.guilds, { id: group._id });
       }
       if (isInvited === 'party') {
-        member.invitations.party = {};
+        removeFromArray(member.invitations.parties, { id: group._id });
+        member.invitations.party = member.invitations.parties.length > 0 ? member.invitations.parties[member.invitations.parties.length - 1] : {};
         member.markModified('invitations.party');
       }
     } else {
@@ -889,7 +896,8 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     if (group.isSubscribed() && !group.hasNotCancelled()) guildInvite.cancelledPlan = true;
     userToInvite.invitations.guilds.push(guildInvite);
   } else if (group.type === 'party') {
-    if (userToInvite.invitations.party.id) {
+    // Do not add to invitations.parties array if the user is already invited to that party
+    if (_.find(userToInvite.invitations.parties, {id: group._id})) {
       throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
     }
 
@@ -902,6 +910,8 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
 
     let partyInvite = {id: group._id, name: group.name, inviter: inviter._id};
     if (group.isSubscribed() && !group.hasNotCancelled()) partyInvite.cancelledPlan = true;
+
+    userToInvite.invitations.parties.push(partyInvite);
     userToInvite.invitations.party = partyInvite;
   }
 
@@ -944,7 +954,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
   if (group.type === 'guild') {
     return userInvited.invitations.guilds[userToInvite.invitations.guilds.length - 1];
   } else if (group.type === 'party') {
-    return userInvited.invitations.party;
+    return userInvited.invitations.parties[userToInvite.invitations.parties.length - 1];
   }
 }
 

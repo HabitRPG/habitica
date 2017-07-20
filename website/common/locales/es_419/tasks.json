@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Borrar hábitos completados",
     "lotOfToDos": "Se ven las 30 tareas completadas más recientes aquí. Se pueden ver tareas completadas anteriores por Datos >  Exportar Datos > Datos de Usario.",
-    "deleteToDosExplanation": "Si haces clic en el botón de abajo, todas tus Pendientes realizadas y tus Pendientes archivadas serán permanentemente borradas. Expórtalas primero si quieres mantener un registro de ellas.",
+    "deleteToDosExplanation": "Si haces clic en el siguiente botón, todas tus Pendientes realizadas y tus Pendientes archivadas serán borradas de forma permanente, con la excepción de Pendientes de desafíos activos y  de Planes Grupales. Expórtalas primero si quieres mantener un registro de ellas.",
     "addmultiple": "Agregar múltiples",
     "addsingle": "Agregar sólo un@",
     "habit": "Hábito",
@@ -147,6 +147,10 @@
     "taskApprovalHasBeenRequested": "La aprobación ha sido solicitada",
     "approvals": "Aprobaciones",
     "approvalRequired": "Aprobación requerida",
+    "repeatZero": "Daily is never due",
+    "repeatType": "Repeat Type",
+    "repeatTypeHelpTitle": "What kind of repeat is this?",
+    "repeatTypeHelp": "Select \"Daily\" if you want this task to repeat every day or every third day, etc. Select \"Weekly\"if you want it to repeat on certain days of the week. If you select \"Monthly\" or \"Yearly\", adjust the Start Date to control which day of the month or year the task will be due on.",
     "weekly": "Semanal",
     "monthly": "Mensual",
     "yearly": "Anual",
@@ -170,5 +174,9 @@
     "resets": "Se reinicia",
     "summaryStart": "Se repite <%= frequency %> cada <%= everyX %> <%= frequencyPlural %>",
     "nextDue": "Próximas fechas límite",
+    "yesterDailiesTitle": "¡Ayer dejaste estas tareas diarias sin marcar! ¿Quieres marcar alguna de ellas ahora?",
+    "yesterDailiesCallToAction": "¡Comenzar mi nuevo día!",
+    "yesterDailiesOptionTitle": "Confirma que esta tarea diaria no estuviera hecha antes de aplicar el daño",
+    "yesterDailiesDescription": "Si se aplica esta configuración, Habitica te preguntará si quisiste dejar la tarea diaria sin hacer antes de calcular y aplicar el daño a tu avatar. Esto te puede proteger contra daño no intencional.",
     "repeatDayError": "Asegúrate de tener al menos un día de la semana seleccionado."
 }

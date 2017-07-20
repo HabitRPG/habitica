@@ -1,7 +1,7 @@
 <template lang="pug">
 .avatar(:style="{width, height, paddingTop}", :class="backgroundClass")
   .character-sprites
-    template(v-if="!avatarOnly" v-once)
+    template(v-if="!avatarOnly")
       // Mount Body
       span(v-if="member.items.currentMount", :class="'Mount_Body_' + member.items.currentMount")
 
@@ -35,7 +35,7 @@
     // Resting
     span.zzz(v-if="member.preferences.sleep")
 
-    template(v-if="!avatarOnly" v-once)
+    template(v-if="!avatarOnly")
       // Mount Head
       span(v-if="member.items.currentMount", :class="'Mount_Head_' + member.items.currentMount")
       // Pet

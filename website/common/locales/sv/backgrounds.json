@@ -216,7 +216,7 @@
     "backgroundWindyAutumnNotes": "Jaga löv under en Blåsig Höst",
     "incentiveBackgrounds": "Vanlig bakgrund vald",
     "backgroundVioletText": "Violett",
-    "backgroundVioletNotes": "A vibrant violet backdrop.",
+    "backgroundVioletNotes": "En livfullt violett bakgrund.",
     "backgroundBlueText": "Blå",
     "backgroundBlueNotes": "En bländande blå bakgrund.",
     "backgroundGreenText": "Grön",
@@ -253,8 +253,8 @@
     "backgroundMagicBeanstalkNotes": "Klättra upp för en magisk bönstjälk",
     "backgroundMeanderingCaveText": "Slingrande Grotta",
     "backgroundMeanderingCaveNotes": "Utforska den Slingrande Grottan.",
-    "backgroundMistiflyingCircusText": "Mistiflying Circus",
-    "backgroundMistiflyingCircusNotes": "Carouse in the Mistiflying Circus.",
+    "backgroundMistiflyingCircusText": "Mystifierande Cirkus",
+    "backgroundMistiflyingCircusNotes": "Festa i den Mystifierande Cirkusen.",
     "backgrounds042017": "SET 35: Släpptes april 2017",
     "backgroundBugCoveredLogText": "Bug-Covered Log",
     "backgroundBugCoveredLogNotes": "Investigate a Bug-Covered Log.",
@@ -275,5 +275,12 @@
     "backgroundOceanSunriseText": "Ocean Sunrise",
     "backgroundOceanSunriseNotes": "Admire an Ocean Sunrise.",
     "backgroundSandcastleText": "Sandslott",
-    "backgroundSandcastleNotes": "Regera över ett sandslott."
+    "backgroundSandcastleNotes": "Regera över ett sandslott.",
+    "backgrounds072017": "SET 38: Released July 2017",
+    "backgroundGiantSeashellText": "Giant Seashell",
+    "backgroundGiantSeashellNotes": "Lounge in a Giant Seashell.",
+    "backgroundKelpForestText": "Kelp Forest",
+    "backgroundKelpForestNotes": "Swim through a Kelp Forest.",
+    "backgroundMidnightLakeText": "Midnight Lake",
+    "backgroundMidnightLakeNotes": "Rest by a Midnight Lake."
 }

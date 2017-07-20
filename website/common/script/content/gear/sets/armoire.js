@@ -252,6 +252,15 @@ let armor = {
     set: 'viking',
     canOwn: ownsItem('armor_armoire_vikingTunic'),
   },
+  swanDancerTutu: {
+    text: t('armorArmoireSwanDancerTutuText'),
+    notes: t('armorArmoireSwanDancerTutuNotes', { attrs: 8 }),
+    value: 100,
+    int: 8,
+    str: 8,
+    set: 'swanDancer',
+    canOwn: ownsItem('armor_armoire_swanDancerTutu'),
+  },
 };
 
 let eyewear = {
@@ -568,6 +577,14 @@ let head = {
     set: 'viking',
     canOwn: ownsItem('head_armoire_vikingHelm'),
   },
+  swanFeatherCrown: {
+    text: t('headArmoireSwanFeatherCrownText'),
+    notes: t('headArmoireSwanFeatherCrownNotes', { int: 8 }),
+    value: 100,
+    int: 8,
+    set: 'swanDancer',
+    canOwn: ownsItem('head_armoire_swanFeatherCrown'),
+  },
 };
 
 let shield = {
@@ -677,6 +694,22 @@ let shield = {
     int: 8,
     set: 'viking',
     canOwn: ownsItem('shield_armoire_vikingShield'),
+  },
+  swanFeatherFan: {
+    text: t('shieldArmoireSwanFeatherFanText'),
+    notes: t('shieldArmoireSwanFeatherFanNotes', { str: 8 }),
+    value: 100,
+    str: 8,
+    set: 'swanDancer',
+    canOwn: ownsItem('shield_armoire_swanFeatherFan'),
+  },
+  goldenBaton: {
+    text: t('shieldArmoireGoldenBatonText'),
+    notes: t('shieldArmoireGoldenBatonNotes', { attrs: 4 }),
+    value: 100,
+    int: 4,
+    str: 4,
+    canOwn: ownsItem('shield_armoire_goldenBaton'),
   },
 };
 

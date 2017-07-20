@@ -440,7 +440,38 @@ describe('Post /groups/:groupId/invite', () => {
       await inviter.post(`/groups/${party._id}/invite`, {
         uuids: [userToInvite._id],
       });
-      expect((await userToInvite.get('/user')).invitations.party.id).to.equal(party._id);
+      expect((await userToInvite.get('/user')).invitations.parties[0].id).to.equal(party._id);
+    });
+
+    it('allow inviting a user to 2 different parties', async () => {
+      // Create another inviter
+      let inviter2 = await generateUser();
+
+      // Create user to invite
+      let userToInvite = await generateUser();
+
+      // Create second group
+      let party2 = await inviter2.post('/groups', {
+        name: 'Test Party 2',
+        type: 'party',
+      });
+
+      // Invite to first party
+      await inviter.post(`/groups/${party._id}/invite`, {
+        uuids: [userToInvite._id],
+      });
+
+      // Invite to second party
+      await inviter2.post(`/groups/${party2._id}/invite`, {
+        uuids: [userToInvite._id],
+      });
+
+      // Get updated user
+      let invitedUser = await userToInvite.get('/user');
+
+      expect(invitedUser.invitations.parties.length).to.equal(2);
+      expect(invitedUser.invitations.parties[0].id).to.equal(party._id);
+      expect(invitedUser.invitations.parties[1].id).to.equal(party2._id);
     });
 
     it('allow inviting a user if party id is not associated with a real party', async () => {
@@ -451,7 +482,7 @@ describe('Post /groups/:groupId/invite', () => {
       await inviter.post(`/groups/${party._id}/invite`, {
         uuids: [userToInvite._id],
       });
-      expect((await userToInvite.get('/user')).invitations.party.id).to.equal(party._id);
+      expect((await userToInvite.get('/user')).invitations.parties[0].id).to.equal(party._id);
     });
 
     it('allows 30 members in a party', async () => {

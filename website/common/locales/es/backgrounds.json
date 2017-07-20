@@ -270,10 +270,17 @@
     "backgroundOnATreeBranchText": "Sobre Una Rama de un Árbol",
     "backgroundOnATreeBranchNotes": "Posarse Sobre Una Rama de un Árbol",
     "backgrounds062017": "SET 37: Released June 2017",
-    "backgroundBuriedTreasureText": "Buried Treasure",
+    "backgroundBuriedTreasureText": "Tesoro Enterrado ",
     "backgroundBuriedTreasureNotes": "Unearth Buried Treasure.",
     "backgroundOceanSunriseText": "Ocean Sunrise",
     "backgroundOceanSunriseNotes": "Admire an Ocean Sunrise.",
-    "backgroundSandcastleText": "Sandcastle",
-    "backgroundSandcastleNotes": "Rule over a Sandcastle."
+    "backgroundSandcastleText": "Castillo de arena ",
+    "backgroundSandcastleNotes": "Rule over a Sandcastle.",
+    "backgrounds072017": "SET 38: Released July 2017",
+    "backgroundGiantSeashellText": "Giant Seashell",
+    "backgroundGiantSeashellNotes": "Lounge in a Giant Seashell.",
+    "backgroundKelpForestText": "Kelp Forest",
+    "backgroundKelpForestNotes": "Swim through a Kelp Forest.",
+    "backgroundMidnightLakeText": "Midnight Lake",
+    "backgroundMidnightLakeNotes": "Rest by a Midnight Lake."
 }

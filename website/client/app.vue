@@ -1,19 +1,20 @@
-<!-- Entry point component for the entire app -->
-
 <template lang="pug">
-#app
-  app-menu(v-if="userLoggedIn")
-  .container-fluid(v-if="userLoggedIn")
-    app-header
-    router-view
-
-  router-view(v-if="!userLoggedIn")
+#app.h-100
+  router-view(v-if="!isUserLoggedIn || isStaticPage")
+  template(v-else)
+    #loading-screen.h-100.w-100.d-flex.justify-content-center.align-items-center(v-if="!isUserLoaded")
+      p Loading...
+    template(v-else)
+      app-menu
+      .container-fluid.h-100
+        app-header
+        router-view
 </template>
 
 <script>
 import AppMenu from './components/appMenu';
 import AppHeader from './components/appHeader';
-import axios from 'axios';
+import { mapState } from 'client/libs/store';
 
 export default {
   name: 'app',
@@ -23,44 +24,32 @@ export default {
   },
   data () {
     return {
-      userLoggedIn: false,
+      isUserLoaded: false,
     };
   },
-  async beforeCreate () {
+  computed: {
+    ...mapState(['isUserLoggedIn']),
+    isStaticPage () {
+      return this.$route.meta.requiresLogin === false ? true : false;
+    },
+  },
+  created () {
     // Setup listener for title
     this.$store.watch(state => state.title, (title) => {
       document.title = title;
     });
 
-    // Mount the app when user and tasks are loaded
-    const userDataWatcher = this.$store.watch(state => [state.user.data, state.tasks.data], ([user, tasks]) => {
-      if (user && user._id && Array.isArray(tasks)) {
-        userDataWatcher(); // remove the watcher
-        // this.$mount('#app');
-      }
-    });
-
-    // @TODO: Move this to store?
-    let authSettings = localStorage.getItem('habit-mobile-settings');
-    if (!authSettings) return;
-
-    authSettings = JSON.parse(authSettings);
-    axios.defaults.headers.common['x-api-user'] = authSettings.auth.apiId;
-    axios.defaults.headers.common['x-api-key'] = authSettings.auth.apiToken;
-
-    // Load the user and the user tasks
-    await Promise.all([
-      this.$store.dispatch('user:fetch'),
-      this.$store.dispatch('tasks:fetchUserTasks'),
-    ]).catch((err) => {
-      console.error('Impossible to fetch user. Copy into localStorage a valid habit-mobile-settings object.', err); // eslint-disable-line no-console
-    });
-
-    this.userLoggedIn = true;
-  },
-  mounted () { // Remove the loading screen when the app is mounted
-    let loadingScreen = document.getElementById('loading-screen');
-    if (loadingScreen) document.body.removeChild(loadingScreen);
+    if (this.isUserLoggedIn && !this.isStaticPage) {
+      // Load the user and the user tasks
+      Promise.all([
+        this.$store.dispatch('user:fetch'),
+        this.$store.dispatch('tasks:fetchUserTasks'),
+      ]).then(() => {
+        this.isUserLoaded = true;
+      }).catch((err) => {
+        console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
+      });
+    }
   },
 };
 </script>

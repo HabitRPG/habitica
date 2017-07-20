@@ -23,7 +23,7 @@
     "giftSubscriptionText4": "Habitica へのご支援に感謝します!",
     "monthUSD": "米ドル / 月",
     "organization": "組織",
-    "groupPlans": "企業プラン",
+    "groupPlans": "Group Plans",
     "indivPlan1": "個人向けには Habitica は無料でプレーできます。利益の小さい企業・団体であっても、無料 (または安価)",
     "indivPlan2": "は行動を変化させるにあたり、参加者のやる気を引き出すのに使われます。行動変容で参加者のやる気を引き出すために使用することができます。グループでの執筆、芸術分野の課題などでご検討ください。",
     "groupText1": "しかし、グループのリーダーによっては、より詳細な管理、プライバシー、セキュリティ、およびサポートを希望されます。そうしたグループの例としては、家族、健康やウェルネスのグループ、従業員グループなどです。このプランでは、あなたのグループや組織に Habitica のプライベートインスタンスを提供し、安全で独立した",
@@ -37,7 +37,7 @@
     "subscribed": "購入した",
     "manageSub": "寄付の管理",
     "cancelSub": "寄付の中止",
-    "cancelSubInfoGoogle": "寄付を中止する場合や、すでに中止した寄付の終了日を確認する際には、Google Play ストア アプリの「マイアプリ＆ゲーム」 > \"Subscriptions\" セクションへ進んでください。この画面ではあなたの寄付が中止されたかどうかを示すことはできません。",
+    "cancelSubInfoGoogle": "寄付を中止する場合や、すでに中止した寄付の終了日を確認する際には、Google Play ストア アプリの「アカウント」 > \"Subscriptions\" セクションへ進んでください。この画面ではあなたの寄付が中止されたかどうかを示すことはできません。",
     "cancelSubInfoApple": "寄付を中止する場合や、すでに中止した寄付の終了日を確認する際には、<a href=\"https://support.apple.com/en-us/HT202039\">Appleの公式な手順</a>に従ってください。この画面ではあなたの寄付が中止されたかどうかを示すことはできません。",
     "canceledSubscription": "中止した寄付",
     "cancelingSubscription": "寄付の中止処理をしています",
@@ -168,5 +168,6 @@
     "missingPaymentId": "req.query.paymentIdが見つかりません。",
     "missingCustomerId": "req.query.customerIdが見つかりません。",
     "missingPaypalBlock": "req.session.paypalBlockが見つかりません。",
-    "missingSubKey": "req.query.subが見つかりません。"
+    "missingSubKey": "req.query.subが見つかりません。",
+    "paypalCanceled": "あなたの寄付は中止されました"
 }

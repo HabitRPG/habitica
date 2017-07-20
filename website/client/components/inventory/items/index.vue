@@ -1,6 +1,6 @@
 <template lang="pug">
-.row
-  .col-2.standard-sidebar
+.row(v-mousePosition="30", @mouseMoved="mouseMoved($event)")
+  .standard-sidebar
     .form-group
       input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
@@ -16,7 +16,7 @@
             input.custom-control-input(type="checkbox", v-model="group.selected")
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t(group.key) }}
-  .col-10.standard-page
+  .standard-page
     .clearfix
       h1.float-left.mb-0.page-header(v-once) {{ $t('items') }}
       .float-right
@@ -34,16 +34,55 @@
        |
        span.badge.badge-pill.badge-default {{group.quantity}}
 
-      .items
+      .items(v-if="group.key === 'eggs'")
         item(
           v-for="({data: item, quantity}, index) in items[group.key]",
           v-if="group.open || index < itemsPerLine",
           :item="item",
           :key="item.key",
-          :itemContentClass="`${group.classPrefix}${item.key}`"
-          :selected="true",
+          :itemContentClass="`${group.classPrefix}${item.key}`",
+          v-drag.drop.hatch="item.key",
+
+          @itemDragOver="onDragOver($event, item)",
+          @itemDropped="onDrop($event, item)",
+          @itemDragLeave="onDragLeave()",
+
+          @click="onEggClicked($event, item)"
         )
-          template(slot="popoverContent", scope="ctx") 
+          template(slot="popoverContent", scope="ctx")
+            h4.popover-content-title {{ ctx.item.text() }}
+            .popover-content-text {{ ctx.item.notes() }}
+          template(slot="itemBadge", scope="ctx")
+            span.badge.badge-pill.badge-item.badge-quantity {{ quantity }}
+
+      .items(v-else-if="group.key === 'hatchingPotions'")
+        item(
+          v-for="({data: item, quantity}, index) in items[group.key]",
+          v-if="group.open || index < itemsPerLine",
+          :item="item",
+          :key="item.key",
+          :itemContentClass="`${group.classPrefix}${item.key}`",
+          v-drag.hatch="item.key",
+
+          @itemDragEnd="onDragEnd($event, item)",
+          @itemDragStart="onDragStart($event, item)",
+
+          @click="onPotionClicked($event, item)"
+        )
+          template(slot="popoverContent", scope="ctx")
+            h4.popover-content-title {{ ctx.item.text() }}
+            .popover-content-text {{ ctx.item.notes() }}
+          template(slot="itemBadge", scope="ctx")
+            span.badge.badge-pill.badge-item.badge-quantity {{ quantity }}
+      .items(v-else)
+        item(
+          v-for="({data: item, quantity}, index) in items[group.key]",
+          v-if="group.open || index < itemsPerLine",
+          :item="item",
+          :key="item.key",
+          :itemContentClass="`${group.classPrefix}${item.key}`",
+        )
+          template(slot="popoverContent", scope="ctx")
             h4.popover-content-title {{ ctx.item.text() }}
             .popover-content-text {{ ctx.item.notes() }}
           template(slot="itemBadge", scope="ctx")
@@ -55,9 +94,40 @@
         @click="group.open = !group.open"
       ) {{ group.open ? $t('showLessItems', { type: $t(group.key) }) : $t('showAllItems', { type: $t(group.key), items: items[group.key].length }) }}
 
+  div.hatchingPotionInfo(ref="draggingPotionInfo")
+    div(v-if="currentDraggingPotion != null")
+      div.potion-icon(:class="'Pet_HatchingPotion_'+currentDraggingPotion.key")
+      div.popover
+        div.popover-content {{ $t('dragThisPotion', {potionName: currentDraggingPotion.text() }) }}
+
+  div.hatchingPotionInfo.mouse(ref="clickPotionInfo", v-if="potionClickMode")
+    div(v-if="currentDraggingPotion != null")
+      div.potion-icon(:class="'Pet_HatchingPotion_'+currentDraggingPotion.key")
+      div.popover
+        div.popover-content {{ $t('clickOnEggToHatch', {potionName: currentDraggingPotion.text() }) }}
+
 </template>
 
 <style lang="scss" scoped>
+
+  .hatchingPotionInfo {
+    position: absolute;
+    left: -500px;
+
+    &.mouse {
+      position: fixed;
+      pointer-events: none
+    }
+
+    .potion-icon {
+      margin: 0 auto;
+    }
+
+    .popover {
+      position: inherit;
+      width: 100px;
+    }
+  }
 </style>
 
 <script>
@@ -70,6 +140,9 @@ import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Item from 'client/components/inventory/item';
 
 const allowedSpecialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
+
+import DragDropDirective from 'client/directives/dragdrop.directive';
+import MouseMoveDirective from 'client/directives/mouseposition.directive';
 
 const groups = [
   ['eggs', 'Pet_Egg_'],
@@ -94,6 +167,10 @@ export default {
     bDropdown,
     bDropdownItem,
   },
+  directives: {
+    drag: DragDropDirective,
+    mousePosition: MouseMoveDirective,
+  },
   data () {
     return {
       itemsPerLine: 9,
@@ -101,6 +178,10 @@ export default {
       searchTextThrottled: null,
       groups,
       sortBy: 'quantity', // or 'AZ'
+
+
+      currentDraggingPotion: null,
+      potionClickMode: false,
     };
   },
   watch: {
@@ -148,6 +229,72 @@ export default {
       });
 
       return itemsByType;
+    },
+  },
+  methods: {
+    petExists (potionKey, eggKey) {
+      let animalKey = `${eggKey}-${potionKey}`;
+
+      let result =  this.user.items.pets[animalKey] > 0;
+
+      return result;
+    },
+
+    hatchPet (potionKey, eggKey) {
+      this.$store.dispatch('common:hatch', {egg: eggKey, hatchingPotion: potionKey});
+    },
+
+    onDragEnd () {
+      this.currentDraggingPotion = null;
+    },
+    onDragStart ($event, potion) {
+      this.currentDraggingPotion = potion;
+
+      let itemRef = this.$refs.draggingPotionInfo;
+
+      let dragEvent = $event.event;
+
+      dragEvent.dataTransfer.setDragImage(itemRef, -20, -20);
+    },
+
+    onDragOver ($event, egg) {
+      let potionKey = this.currentDraggingPotion.key;
+
+      if (this.petExists(potionKey, egg.key)) {
+        $event.dropable = false;
+      }
+    },
+    onDrop ($event, egg) {
+      this.hatchPet(this.currentDraggingPotion.key, egg.key);
+    },
+    onDragLeave () {
+
+    },
+
+    onEggClicked ($event, egg) {
+      if (!this.petExists(this.currentDraggingPotion.key, egg.key)) {
+        this.hatchPet(this.currentDraggingPotion.key, egg.key);
+      }
+
+      this.currentDraggingPotion = null;
+      this.potionClickMode = false;
+    },
+
+    onPotionClicked ($event, potion) {
+      if (this.currentDraggingPotion === null || this.currentDraggingPotion !== potion) {
+        this.currentDraggingPotion = potion;
+        this.potionClickMode = true;
+      } else {
+        this.currentDraggingPotion = null;
+        this.potionClickMode = false;
+      }
+    },
+
+    mouseMoved ($event) {
+      if (this.potionClickMode) {
+        this.$refs.clickPotionInfo.style.left = `${$event.x + 20}px`;
+        this.$refs.clickPotionInfo.style.top = `${$event.y + 20}px`;
+      }
     },
   },
 };
