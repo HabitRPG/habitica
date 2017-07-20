@@ -85,7 +85,6 @@ export default {
   },
   methods: {
     async addWebhook (url) {
-      // @TODO: Shared.uuid()
       let webhookInfo = {
         id: uuid(),
         type: 'taskActivity',

@@ -117,19 +117,6 @@ import subscriptionBlocks from '../../../common/script/content/subscriptionBlock
 import planGemLimits from '../../../common/script/libs/planGemLimits';
 import amazonPaymentsModal from '../payments/amazonModal';
 
-const STRIPE = 'stripe';
-const APPLE = 'apple';
-const GOOGLE = 'google';
-
-// const paymentMethods = {
-//   AMAZON_PAYMENTS: 'Amazon Payments',
-//   STRIPE: 'Stripe',
-//   GOOGLE: 'Google',
-//   APPLE: 'Apple',
-//   PAYPAL: 'Paypal',
-//   GIFT: 'Gift',
-// };
-
 const STRIPE_PUB_KEY = 'pk_test_6pRNASCoBOKtIshFeQd4XMUh';
 
 export default {
@@ -147,6 +134,14 @@ export default {
       },
       amazonPayments: {},
       StripeCheckout: {},
+      paymentMethods: {
+        AMAZON_PAYMENTS: 'Amazon Payments',
+        STRIPE: 'Stripe',
+        GOOGLE: 'Google',
+        APPLE: 'Apple',
+        PAYPAL: 'Paypal',
+        GIFT: 'Gift',
+      },
     };
   },
   mounted () {
@@ -187,7 +182,7 @@ export default {
     canEditCardDetails () {
       return Boolean(
         !this.hasCanceledSubscription &&
-        this.user.purchased.plan.paymentMethod === STRIPE
+        this.user.purchased.plan.paymentMethod === this.paymentMethods.STRIPE
       );
     },
     hasSubscription () {
@@ -333,8 +328,8 @@ export default {
     },
     canCancelSubscription () {
       return (
-        this.user.purchased.plan.paymentMethod !== GOOGLE &&
-        this.user.purchased.plan.paymentMethod !== APPLE &&
+        this.user.purchased.plan.paymentMethod !== this.paymentMethods.GOOGLE &&
+        this.user.purchased.plan.paymentMethod !== this.paymentMethods.APPLE &&
         !this.hasCanceledSubscription &&
         !this.hasGroupPlan
       );
@@ -422,7 +417,7 @@ export default {
       let isGem = data && data.gift && data.gift.type === 'gems';
       let notEnoughGem = isGem && (!data.gift.gems.amount || data.gift.gems.amount === 0);
       if (notEnoughGem) {
-        Notification.error(window.env.t('badAmountOfGemsToPurchase'), true);
+        Notification.error(this.$t('badAmountOfGemsToPurchase'), true);
         return false;
       }
       return true;

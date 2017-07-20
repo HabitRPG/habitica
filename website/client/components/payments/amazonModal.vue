@@ -3,10 +3,6 @@
     button#AmazonPayButton
 </template>
 
-<style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
-</style>
-
 <script>
 import axios from 'axios';
 

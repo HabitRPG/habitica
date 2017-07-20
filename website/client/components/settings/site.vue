@@ -1,5 +1,8 @@
 <template lang="pug">
   .row.standard-page
+    restore-modal
+    reset-modal
+    delete-modal
     h1.col-12 {{ $t('settings') }}
     .col-6
       .form-horizontal
@@ -17,7 +20,7 @@
       .form-horizontal
         h5 {{ $t('dateFormat') }}
         select.form-control(v-model='user.preferences.dateFormat',
-          @change='set({"preferences.dateFormat": user.preferences.dateFormat})')
+          @change='set("dateFormat")')
           option(v-for='dateFormat in availableFormats', :value='dateFormat') {{dateFormat}}
       hr
 
@@ -85,12 +88,12 @@
           .form-horizontal
             .form-group
               .col-7
-                select.form-control(v-model='dayStart')
+                select.form-control(v-model='newDayStart')
                   option(v-for='option in dayStartOptions' :value='option.value') {{option.name}}
 
               .col-5
-                button.btn.btn-block.btn-primary(@click='openDayStartModal(dayStart)',
-                  :disabled='dayStart == user.preferences.dayStart')
+                button.btn.btn-block.btn-primary(@click='openDayStartModal()',
+                  :disabled='newDayStart === user.preferences.dayStart')
                   | {{ $t('saveCustomDayStart') }}
           hr
 
@@ -108,22 +111,22 @@
           ul.list-inline
             li(v-for='network in SOCIAL_AUTH_NETWORKS')
               button.btn.btn-primary(v-if='!user.auth[network.key].id', @click='socialLogin(network.key, user)') {{ $t('registerWithSocial', {network: network.name}) }}
-              button.btn.btn-primary(disabled='disabled', v-if='!hasBackupAuthOption(user, network.key) && user.auth[network.key].id') {{ $t('registeredWithSocial', {network: network.name}) }}
-              button.btn.btn-danger(@click='deleteSocialAuth(network.key)', v-if='hasBackupAuthOption(user, network.key) && user.auth[network.key].id') {{ $t('detachSocial', {network: network.name}) }}
+              button.btn.btn-primary(disabled='disabled', v-if='!hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('registeredWithSocial', {network: network.name}) }}
+              button.btn.btn-danger(@click='deleteSocialAuth(network.key)', v-if='hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('detachSocial', {network: network.name}) }}
           hr
           div(v-if='!user.auth.local.username')
             p {{ $t('addLocalAuth') }}
-            form(ng-submit='http("post", "/api/v3/user/auth/local/register", localAuth, "addedLocalAuth")', ng-init='localAuth={}', name='localAuth', novalidate)
+            form(ng-submit='http("post", "/api/v3/user/auth/local/register", localAuth, "addedLocalAuth")', name='localAuth', novalidate)
               //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
               .form-group
-                input.form-control(type='text', placeholder {{ $t('username') }}, v-model='localAuth.username', required)
+                input.form-control(type='text', placeholder="$t('username')", v-model='localAuth.username', required)
               .form-group
-                input.form-control(type='text', placeholder {{ $t('email') }}, v-model='localAuth.email', required)
+                input.form-control(type='text', placeholder="$t('email')", v-model='localAuth.email', required)
               .form-group
-                input.form-control(type='password', placeholder {{ $t('password') }}, v-model='localAuth.password', required)
+                input.form-control(type='password', placeholder="$t('password')", v-model='localAuth.password', required)
               .form-group
-                input.form-control(type='password', placeholder {{ $t('confirmPass') }}, v-model='localAuth.confirmPassword', required)
-              button.btn.btn-primary(type='submit', ng-disabled='localAuth.$invalid', value {{ $t('submit') }})
+                input.form-control(type='password', placeholder="$t('confirmPass')", v-model='localAuth.confirmPassword', required)
+              button.btn.btn-primary(type='submit', ng-disabled='localAuth.$invalid', value="$t('submit')")
 
         .usersettings(v-if='user.auth.local.username')
           p {{ $t('username') }}
@@ -166,13 +169,12 @@
               input.form-control(type='password', :placeholder="$t('confirmPass')", v-model='passwordUpdates.confirmPassword', required)
             button.btn.btn-primary(type='submit', @click='changeUser("password", passwordUpdates)') {{ $t('submit')  }}
 
-
           div
             h5 {{ $t('dangerZone') }}
             div
-              button.btn.btn-danger(@click='openModal("reset", {controller:"SettingsCtrl"})',
-                popover-trigger='mouseenter', popover-placement='right', popover="$t('resetAccPop')") {{ $t('resetAccount') }}
-              button.btn.btn-danger(@click='openModal("delete", {controller:"SettingsCtrl"})',
+              button.btn.btn-danger(@click='openResetModal()',
+                popover-trigger='mouseenter', popover-placement='right', :popover="$t('resetAccPop')") {{ $t('resetAccount') }}
+              button.btn.btn-danger(@click='openDeleteModal()',
                 popover-trigger='mouseenter', :popover="$t('deleteAccPop')") {{ $t('deleteAccount') }}
 </template>
 
@@ -183,14 +185,24 @@
 </style>
 
 <script>
+import hello from 'hellojs';
+import moment from 'moment';
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
 
-// @TODO: import
-// var SOCIAL_AUTH_NETWORKS = Shared.constants.SUPPORTED_SOCIAL_NETWORKS;
-// $scope.SOCIAL_AUTH_NETWORKS = SOCIAL_AUTH_NETWORKS;
+import restoreModal from './restoreModal';
+import resetModal from './resetModal';
+import deleteModal from './deleteModal';
+import { SUPPORTED_SOCIAL_NETWORKS } from '../../../common/script/constants';
+// @TODO: this needs our window.env fix
+// import { availableLanguages } from '../../../server/libs/i18n';
 
 export default {
+  components: {
+    restoreModal,
+    resetModal,
+    deleteModal,
+  },
   data () {
     let dayStartOptions = [];
     for (let number = 0; number < 24; number += 1) {
@@ -204,16 +216,8 @@ export default {
     }
 
     return {
-      SOCIAL_AUTH_NETWORKS: [
-        {
-          name: 'Facebook',
-          key: 'facebook',
-        },
-      ],
-      // @TODO: use store
-      party: {
-        memberCount: 1,
-      },
+      SOCIAL_AUTH_NETWORKS: [],
+      party: {},
       // @TODO: import
       availableLanguages: [
         {
@@ -223,15 +227,32 @@ export default {
       ],
       availableFormats: ['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'],
       dayStartOptions,
+      newDayStart: 0,
       usernameUpdates: {},
       emailUpdates: {},
       passwordUpdates: {},
     };
   },
+  mounted () {
+    this.SOCIAL_AUTH_NETWORKS = SUPPORTED_SOCIAL_NETWORKS;
+    // @TODO: We may need to request the party here
+    this.party = this.$store.state.party;
+    this.newDayStart = this.user.preferences.dayStart;
+  },
   computed: {
     ...mapState({user: 'user.data'}),
     timezoneOffsetToUtc () {
-      return this.user.preferences.timezoneOffset;
+      let offset = this.user.preferences.timezoneOffset;
+      let sign = offset > 0 ? '-' : '+';
+
+      offset = Math.abs(offset) / 60;
+
+      let hour = Math.floor(offset);
+
+      let minutesInt = (offset - hour) * 60;
+      let minutes = minutesInt < 10 ? `0${minutesInt}` : minutesInt;
+
+      return `UTC${sign}${hour}:${minutes}`;
     },
     selectedLanguage () {
       return this.user.preferences.language;
@@ -241,27 +262,23 @@ export default {
     },
   },
   methods: {
-    set (preferenceType, notification) {
+    set (preferenceType, subtype) {
       let settings = {};
-      settings[`preferences.${preferenceType}.${notification}`] = this.user.preferences[preferenceType][notification];
+      if (!subtype) {
+        settings[`preferences.${preferenceType}`] = this.user.preferences[preferenceType];
+      } else {
+        settings[`preferences.${preferenceType}.${subtype}`] = this.user.preferences[preferenceType][subtype];
+      }
       this.$store.dispatch('user:set', settings);
     },
     hideHeader () {
-      this.set({'preferences.hideHeader': !this.user.preferences.hideHeader});
+      this.set('hideHeader');
       if (!this.user.preferences.hideHeader || !this.user.preferences.stickyHeader) return;
-      this.set({'preferences.stickyHeader': false});
-
-      // @TODO: What to sync?
-      // $rootScope.$on('userSynced', function(){
-      //   window.location.reload();
-      // });
+      this.user.preferences.hideHeader = false;
+      this.set('stickyHeader');
     },
     toggleStickyHeader () {
-      // @TODO: What to sync?
-      // $rootScope.$on('userSynced', function(){
-      //   window.location.reload();
-      // });
-      this.set({'preferences.stickyHeader': !this.user.preferences.stickyHeader});
+      this.set('stickyHeader');
     },
     showTour  () {
       // @TODO: Do we still use this?
@@ -269,187 +286,66 @@ export default {
       // Guide.goto('intro', 0, true);
     },
     showBailey () {
-      this.set({'flags.newStuff': true});
+      this.user.flags.newStuff = true;
+      this.set('flags', 'newStuff');
     },
-    hasBackupAuthOption () {
-      // if (user.auth.local.username) {
-      //   return true;
-      // }
-      // return _.find(SOCIAL_AUTH_NETWORKS, function (network) {
-      //   if (network.key !== checkedNetworkKey) {
-      //     if (user.auth.hasOwnProperty(network.key)) {
-      //       return user.auth[network.key].id;
-      //     }
-      //   }
-      // });
+    hasBackupAuthOption (networkKeyToCheck) {
+      if (this.user.auth.local.username) {
+        return true;
+      }
+
+      return find(this.SOCIAL_AUTH_NETWORKS, (network) => {
+        if (network.key !== networkKeyToCheck) {
+          if (this.user.auth.hasOwnProperty(network.key)) {
+            return this.user.auth[network.key].id;
+          }
+        }
+      });
+    },
+    calculateNextCron () {
+      let nextCron = moment().hours(this.newDayStart).minutes(0).seconds(0).milliseconds(0);
+
+      let currentHour = moment().format('H');
+      if (currentHour >= this.newDayStart) {
+        nextCron = nextCron.add(1, 'day');
+      }
+
+      return nextCron.format('x');
     },
     openDayStartModal () {
-      // $scope.dayStart = +dayStart;
-      // $scope.nextCron = _calculateNextCron();
-      //
+      let nextCron = this.calculateNextCron();
+      // @TODO: Add generic modal
+      if (!confirm(`Are you sure you want to change cron? Next cron will be ${nextCron}`)) return;
+      this.saveDayStart();
       // $rootScope.openModal('change-day-start', { scope: $scope });
     },
-    _calculateNextCron () {
-      // $scope.dayStart;
-      //
-      // var nextCron = moment().hours($scope.dayStart).minutes(0).seconds(0).milliseconds(0);
-      //
-      // var currentHour = moment().format('H');
-      // if (currentHour >= $scope.dayStart) {
-      //   nextCron = nextCron.add(1, 'day');;
-      // }
-      //
-      // return +nextCron.format('x');
+    async saveDayStart () {
+      this.user.preferences.dayStart = this.newDayStart;
+      await axios.post('/api/v3/user/custom-day-start', {
+        dayStart: this.newDayStart,
+      });
+      // @TODO
+      // Notification.text(response.data.data.message);
     },
-    // @TODO: I thinnk this goes in the change day start modal?
-    // $scope.saveDayStart = function() {
-    //   User.setCustomDayStart(Math.floor($scope.dayStart));
-    // };
     changeLanguage () {
-      // @TODO: What to sync?
-      // $rootScope.$on('userSynced', function(){
-      //   window.location.reload();
-      // });
-      this.set({'preferences.language': this.selectedLanguage.code});
+      this.user.preferences.language = this.selectedLanguage.code;
+      this.set('language');
     },
-    // @TODO: these two were in settings but should be in market
-    // $scope.reroll = function(confirm){
-    //   $scope.popoverEl.popover('destroy');
-    //
-    //   if (confirm) {
-    //     User.reroll({});
-    //     $rootScope.$state.go('tasks');
-    //   }
-    // }
-    //
-    // $scope.clickReroll = function($event){
-    //   $scope.popoverEl = $($event.target);
-    //
-    //   var html = $compile(
-    //       '<a ng-controller="SettingsCtrl" ng-click="$close(); reroll(true)">' + window.env.t('confirm') + '</a><br/>\n<a ng-click="reroll(false)">' + window.env.t('cancel') + '</a><br/>'
-    //   )($scope);
-    //
-    //   $scope.popoverEl.popover('destroy').popover({
-    //     html: true,
-    //     placement: 'top',
-    //     trigger: 'manual',
-    //     title: window.env.t('confirmFortify'),
-    //     content: html
-    //   }).popover('show');
-    // }
-    // @TODO: REbirth also needs to be in the market
-    // $scope.rebirth = function(confirm){
-    //   $scope.popoverEl.popover('destroy');
-    //
-    //   if (confirm) {
-    //     User.rebirth({});
-    //     $rootScope.$state.go('tasks');
-    //   }
-    // }
-    //
-    // $scope.clickRebirth = function($event){
-    //   $scope.popoverEl = $($event.target);
-    //
-    //   var html = $compile(
-    //       '<a ng-controller="SettingsCtrl" ng-click="$close(); rebirth(true)">' + window.env.t('confirm') + '</a><br/>\n<a ng-click="rebirth(false)">' + window.env.t('cancel') + '</a><br/>'
-    //   )($scope);
-    //
-    //   $scope.popoverEl.popover('destroy').popover({
-    //     html: true,
-    //     placement: 'top',
-    //     trigger: 'manual',
-    //     title: window.env.t('confirmReborn'),
-    //     content: html
-    //   }).popover('show');
-    // }
     async changeUser (attribute, updates) {
       await axios.put(`/api/v3/user/auth/update-${attribute}`, updates);
-      alert(this.$t(`${attribute} Success`));
-      // @TODO: Update the user
-      // User.sync();
+      alert(this.$t(`${attribute}Success`));
+      this.user[attribute] = updates[attribute];
+      updates = {};
     },
     openRestoreModal () {
-      // $scope.restoreValues.stats = angular.copy(User.user.stats);
-      // $scope.restoreValues.achievements = {streak: User.user.achievements.streak || 0};
-      // $rootScope.openModal('restore', {scope:$scope});
+      this.$root.$emit('show::modal', 'restore');
     },
-    restore () {
-      // var stats = $scope.restoreValues.stats,
-      //   achievements = $scope.restoreValues.achievements;
-      //
-      // if (stats.lvl < 1) {
-      //   Notification.error(env.t('invalidLevel'), true);
-      //   return;
-      // }
-      //
-      // User.set({
-      //   'stats.hp': stats.hp,
-      //   'stats.exp': stats.exp,
-      //   'stats.gp': stats.gp,
-      //   'stats.lvl': stats.lvl,
-      //   'stats.mp': stats.mp,
-      //   'achievements.streak': achievements.streak
-      // });
-      // $modalStack.dismissAll();
+    openResetModal () {
+      this.$root.$emit('show::modal', 'reset');
     },
-    // @TODO: reset modal
-    reset () {
-      // User.reset({});
-      // User.sync();
-      // $rootScope.$state.go('tasks');
+    openDeleteModal () {
+      this.$root.$emit('show::modal', 'delete');
     },
-    // @TODO: delete modal
-    async delete (password, feedback) {
-      await axios.delete('/api/v3/user/', {
-        password,
-        feedback,
-      });
-      localStorage.clear();
-      this.$router.push('/');
-    },
-    // @TODO: Release is for the market?
-    // $scope.clickRelease = function(type, $event){
-    //   // Close other popovers if they're open
-    //   $(".release_popover").not($event.target).popover('destroy');
-    //
-    //   // Handle clicking on the gem icon
-    //   if ($event.target.nodeName == "SPAN") {
-    //     $scope.releasePopoverEl = $($event.target.parentNode);
-    //   } else {
-    //     $scope.releasePopoverEl = $($event.target);
-    //   }
-    //
-    //   var html = $compile(
-    //       '<a ng-controller="SettingsCtrl" ng-click="$close(); releaseAnimals(\'' + type + '\')">' + window.env.t('confirm') + '</a><br/>\n<a ng-click="releaseAnimals()">' + window.env.t('cancel') + '</a><br/>'
-    //   )($scope);
-    //
-    //   $scope.releasePopoverEl.popover('destroy').popover({
-    //     html: true,
-    //     placement: 'top',
-    //     trigger: 'manual',
-    //     title: window.env.t('confirmPetKey'),
-    //     content: html
-    //   }).popover('show');
-    // }
-    //
-    // $scope.releaseAnimals = function (type) {
-    //   $scope.releasePopoverEl.popover('destroy');
-    //
-    //   var releaseFunction = RELEASE_ANIMAL_TYPES[type];
-    //
-    //   if (releaseFunction) {
-    //     User[releaseFunction]({});
-    //     $rootScope.$state.go('tasks');
-    //   }
-    // }
-    // @TODO: I don't think this function is used:
-    // $scope.hasSocialAuth = function (user) {
-    //   return _.find(SOCIAL_AUTH_NETWORKS, function (network) {
-    //     if (user.auth.hasOwnProperty(network.key)) {
-    //       return user.auth[network.key].id;
-    //     }
-    //   });
-    // };
     async deleteSocialAuth (networkKey) {
       // @TODO: What do we use this for?
       // let networktoRemove = find(SOCIAL_AUTH_NETWORKS, function (network) {
@@ -461,7 +357,15 @@ export default {
       // Notification.text(env.t("detachedSocial", {network: network.name}));
       // User.sync();
     },
-    // @TODO: $scope.socialLogin = Social.socialLogin;
+    async socialAuth (network) {
+      let auth = await hello(network).login({scope: 'email'});
+
+      await this.$store.dispatch('auth:socialAuth', {
+        auth,
+      });
+
+      this.$router.go('/tasks');
+    },
   },
 };
 </script>
