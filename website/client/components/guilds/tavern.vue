@@ -9,8 +9,8 @@
       .col-12
         h3(v-once) {{ $t('welcomeToTavern') }}
 
-        textarea(:placeholder="$t('chatPlaceHolder')")
-        button.btn.btn-secondary.send-chat.float-right(v-once) {{ $t('send') }}
+        textarea(:placeholder="$t('chatPlaceHolder')", v-model='newMessage')
+        button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
 
         .container.community-guidelines(v-if='communityGuidelinesAccepted')
           .row
@@ -21,34 +21,7 @@
         .hr
           .hr-middle(v-once) {{ $t('today') }}
 
-        .row
-          .col-md-2
-            .svg-icon(v-html="icons.like")
-          .col-md-10
-            .card(v-for="msg in group.chat", :key="msg.id")
-              .card-block
-                h3.leader Character name
-                span 2 hours ago
-                .clearfix
-                  strong.float-left {{msg.user}}
-                  .float-right {{msg.timestamp}}
-                .text {{msg.text}}
-                hr
-                span.action(v-once)
-                  .svg-icon(v-html="icons.like")
-                  | {{$t('like')}}
-                span.action(v-once)
-                  .svg-icon(v-html="icons.copy")
-                  | {{$t('copyAsTodo')}}
-                span.action(v-once)
-                  .svg-icon(v-html="icons.report")
-                  | {{$t('report')}}
-                span.action(v-once)
-                  .svg-icon(v-html="icons.delete")
-                  | {{$t('delete')}}
-                span.action.float-right
-                  .svg-icon(v-html="icons.liked")
-                  | +3
+        chat-message(:chat='group.chat', :group-id='group._id')
 
   .col-md-4.sidebar
     .section
@@ -96,7 +69,7 @@
           li
             a(herf='', v-once) {{ $t('faq') }}
           li
-            a(herf='', v-once) {{ $t('glossary') }}
+            a(herf='', v-html="$t('glossary')")
           li
             a(herf='', v-once) {{ $t('wiki') }}
           li
@@ -106,7 +79,7 @@
           li
             a(herf='', v-once) {{ $t('requestFeature') }}
           li
-            a(herf='', v-once) {{ $t('communityForum') }}
+            a(herf='', v-html="$t('communityForum')")
           li
             a(herf='', v-once) {{ $t('askQuestionGuild') }}
 
@@ -138,7 +111,6 @@
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
 
-  // @TODO: Move chat to component
   .chat-row {
     position: relative;
 
@@ -308,11 +280,8 @@
 <script>
 import { mapState } from 'client/libs/store';
 
-import deleteIcon from 'assets/svg/delete.svg';
-import copyIcon from 'assets/svg/copy.svg';
-import likeIcon from 'assets/svg/like.svg';
-import likedIcon from 'assets/svg/liked.svg';
-import reportIcon from 'assets/svg/report.svg';
+import chatMessage from '../chat/chatMessages';
+
 import gemIcon from 'assets/svg/gem.svg';
 import questIcon from 'assets/svg/quest.svg';
 import challengeIcon from 'assets/svg/challenge.svg';
@@ -322,15 +291,13 @@ import upIcon from 'assets/svg/up.svg';
 import downIcon from 'assets/svg/down.svg';
 
 export default {
+  components: {
+    chatMessage,
+  },
   data () {
     return {
       icons: Object.freeze({
-        like: likeIcon,
-        copy: copyIcon,
-        report: reportIcon,
-        delete: deleteIcon,
         gem: gemIcon,
-        liked: likedIcon,
         questIcon,
         challengeIcon,
         information: informationIcon,
@@ -418,6 +385,7 @@ export default {
           type: 'Moderator',
         },
       ],
+      newMessage: '',
     };
   },
   computed: {
@@ -426,8 +394,9 @@ export default {
       return this.user.flags.communityGuidelinesAccepted;
     },
   },
-  mounted () {
-    // @TODO: Load tavern
+  async mounted () {
+    // @TODO: Import constant
+    this.group = await this.$store.dispatch('guilds:getGroup', {groupId: 'habitrpg'});
   },
   methods: {
     aggreeToGuideLines () {
@@ -441,6 +410,13 @@ export default {
     },
     toggleSleep () {
       this.$store.dispatch('user:sleep');
+    },
+    async sendMessage () {
+      let response = await this.$store.dispatch('chat:postChat', {
+        groupId: 'habitrpg',
+        message: this.newMessage,
+      });
+      this.group.chat.push(response.message);
     },
   },
 };
