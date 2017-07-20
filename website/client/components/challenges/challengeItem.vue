@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 .card
   router-link(:to="{ name: 'challenge', params: { challengeId: challenge._id } }")
     h3 {{challenge.name}}

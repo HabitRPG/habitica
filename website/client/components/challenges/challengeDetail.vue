@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 .row
   challenge-modal(:challenge='challenge')
   close-challenge-modal
@@ -125,7 +125,7 @@
 import { mapState } from 'client/libs/store';
 import closeChallengeModal from './closeChallengeModal';
 import Column from '../tasks/column';
-import ChallengeModal from './ChallengeModal';
+import challengeModal from './challengeModal';
 
 import gemIcon from 'assets/svg/gem.svg';
 import memberIcon from 'assets/svg/member-icon.svg';
@@ -135,7 +135,7 @@ export default {
   props: ['challengeId'],
   components: {
     closeChallengeModal,
-    ChallengeModal,
+    challengeModal,
     TaskColumn: Column,
   },
   data () {
