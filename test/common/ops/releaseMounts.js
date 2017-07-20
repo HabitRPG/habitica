@@ -14,8 +14,12 @@ describe('shared.ops.releaseMounts', () => {
 
   beforeEach(() => {
     user = generateUser();
+    for (let k in content.pets) {
+      user.items.mounts[k] = content.pets[k];
+      user.items.mounts[k] = true;
+    }
+
     user.items.currentMount = animal;
-    user.items.mounts[animal] = true;
     user.balance = 1;
   });
 
@@ -32,7 +36,7 @@ describe('shared.ops.releaseMounts', () => {
   });
 
   it('releases mounts', () => {
-    let [, message] = releaseMounts(user);
+    let message = releaseMounts(user)[1];
 
     expect(message).to.equal(i18n.t('mountsReleased'));
     expect(user.items.mounts[animal]).to.equal(null);
@@ -60,8 +64,25 @@ describe('shared.ops.releaseMounts', () => {
 
   it('increases mountMasterCount achievement', () => {
     releaseMounts(user);
-
     expect(user.achievements.mountMasterCount).to.equal(1);
+  });
+
+  it('does not increase mountMasterCount achievement if mount is missing (null)', () => {
+    let mountMasterCountBeforeRelease = user.achievements.mountMasterCount;
+    user.items.mounts[animal] = null;
+
+    releaseMounts(user);
+
+    expect(user.achievements.mountMasterCount).to.equal(mountMasterCountBeforeRelease);
+  });
+
+  it('does not increase mountMasterCount achievement if mount is missing (undefined)', () => {
+    let mountMasterCountBeforeRelease = user.achievements.mountMasterCount;
+    delete user.items.mounts[animal];
+
+    releaseMounts(user);
+
+    expect(user.achievements.mountMasterCount).to.equal(mountMasterCountBeforeRelease);
   });
 
   it('subtracts gems from balance', () => {

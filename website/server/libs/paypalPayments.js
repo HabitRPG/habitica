@@ -70,11 +70,15 @@ api.paypalBillingAgreementCancel = Bluebird.promisify(paypal.billingAgreement.ca
 api.ipnVerifyAsync = Bluebird.promisify(ipn.verify, {context: ipn});
 
 api.checkout = async function checkout (options = {}) {
-  let {gift} = options;
+  let {gift, user} = options;
 
   let amount = 5.00;
   let description = 'Habitica Gems';
+
   if (gift) {
+    const member = await User.findById(gift.uuid).exec();
+    gift.member = member;
+
     if (gift.type === 'gems') {
       if (gift.gems.amount <= 0) {
         throw new BadRequest(i18n.t('badAmountOfGemsToPurchase'));
@@ -86,6 +90,14 @@ api.checkout = async function checkout (options = {}) {
       description = 'mo. Habitica Subscription (Gift)';
     }
   }
+
+
+  if (!gift || gift.type === 'gems') {
+    const receiver = gift ? gift.member : user;
+    const receiverCanGetGems = await receiver.canGetGems();
+    if (!receiverCanGetGems) throw new NotAuthorized(shared.i18n.t('groupPolicyCannotGetGems', receiver.preferences.language));
+  }
+
 
   let createPayment = {
     intent: 'sale',

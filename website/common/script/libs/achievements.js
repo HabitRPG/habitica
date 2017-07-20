@@ -193,7 +193,7 @@ function _getBasicAchievements (user, language) {
   _addUltimateGear(result, user, {path: 'warrior', language});
   _addUltimateGear(result, user, {path: 'mage', altPath: 'wizard', language});
 
-  let cardAchievements = ['greeting', 'thankyou', 'birthday', 'congrats', 'getwell'];
+  let cardAchievements = ['greeting', 'thankyou', 'birthday', 'congrats', 'getwell', 'goodluck'];
   cardAchievements.forEach(path => {
     _addSimpleWithCount(result, user, {path, key: `${path}Cards`, language});
   });

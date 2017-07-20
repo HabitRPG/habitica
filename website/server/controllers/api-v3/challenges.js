@@ -158,7 +158,7 @@ let api = {};
  * @apiParam (Body) {Boolean} [official=false] Whether or not a challenge is an official Habitica challenge (requires admin)
  * @apiParam (Body) {Number} [challenge.prize=0] Number of gems offered as a prize to challenge winner
  *
- * @apiSuccess {Object} challenge The newly created challenge.
+ * @apiSuccess (201) {Object} challenge The newly created challenge.
  * @apiUse SuccessfulChallengeRequest
  *
  * @apiUse ChallengeSuccessExample
@@ -342,9 +342,6 @@ api.leaveChallenge = {
 
     let challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-
-    let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy'});
-    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     if (!challenge.isMember(user)) throw new NotAuthorized(res.t('challengeMemberNotFound'));
 

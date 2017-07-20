@@ -30,7 +30,7 @@ let api = {};
  * @apiParamExample {json} Example body:
  * {"name":"practicetag"}
  *
- * @apiSuccess {Object} data The newly created tag
+ * @apiSuccess (201) {Object} data The newly created tag
  *
  * @apiSuccessExample {json} Example return:
  * {"success":true,"data":{"name":"practicetag","id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"},"notifications":[]}

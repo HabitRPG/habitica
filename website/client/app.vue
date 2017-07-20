@@ -1,12 +1,12 @@
 <template lang="pug">
-#app
+#app.h-100
   router-view(v-if="!isUserLoggedIn || isStaticPage")
   template(v-else)
     #loading-screen.h-100.w-100.d-flex.justify-content-center.align-items-center(v-if="!isUserLoaded")
       p Loading...
     template(v-else)
       app-menu
-      .container-fluid
+      .container-fluid.h-100
         app-header
         router-view
 </template>

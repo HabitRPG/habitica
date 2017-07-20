@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  .col-2.standard-sidebar
+  .standard-sidebar
     .form-group
       input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
@@ -17,7 +17,7 @@
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ group.label }}
 
-  .col-10.standard-page
+  .standard-page
     .clearfix
       h1.float-left.mb-0.page-header(v-once) {{ $t('equipment') }}
       .float-right

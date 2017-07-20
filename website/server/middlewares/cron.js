@@ -5,6 +5,37 @@ import { model as Group } from '../models/group';
 import { model as User } from '../models/user';
 import { recoverCron, cron } from '../libs/cron';
 import { v4 as uuid } from 'uuid';
+import logger from '../libs/logger';
+
+async function checkForActiveCron (user, now) {
+  let _cronSignature = uuid();
+
+  // To avoid double cron we first set _cronSignature and then check that it's not changed while processing
+  let userUpdateResult = await User.update({
+    _id: user._id,
+    _cronSignature: 'NOT_RUNNING', // Check that in the meantime another cron has not started
+  }, {
+    $set: {
+      _cronSignature,
+      lastCron: now, // setting lastCron now so we don't risk re-running parts of cron if it fails
+      'auth.timestamps.loggedin': now,
+    },
+  }).exec();
+
+  // If the cron signature is already set, cron is running in another request
+  // throw an error and recover later,
+  if (userUpdateResult.nMatched === 0 || userUpdateResult.nModified === 0) {
+    throw new Error('CRON_ALREADY_RUNNING');
+  }
+}
+
+async function unlockUser (user) {
+  await User.update({
+    _id: user._id,
+  }, {
+    _cronSignature: 'NOT_RUNNING',
+  }).exec();
+}
 
 async function cronAsync (req, res) {
   let user = res.locals.user;
@@ -16,29 +47,12 @@ async function cronAsync (req, res) {
   try {
     let {daysMissed, timezoneOffsetFromUserPrefs} = user.daysUserHasMissed(now, req);
 
+    await checkForActiveCron(user, now);
+
     if (daysMissed <= 0) {
       if (user.isModified()) await user.save();
+      await unlockUser(user);
       return null;
-    }
-
-    let _cronSignature = uuid();
-
-    // To avoid double cron we first set _cronSignature and then check that it's not changed while processing
-    let userUpdateResult = await User.update({
-      _id: user._id,
-      _cronSignature: 'NOT_RUNNING', // Check that in the meantime another cron has not started
-    }, {
-      $set: {
-        _cronSignature,
-        lastCron: now, // setting lastCron now so we don't risk re-running parts of cron if it fails
-        'auth.timestamps.loggedin': now,
-      },
-    }).exec();
-
-    // If the cron signature is already set, cron is running in another request
-    // throw an error and recover later,
-    if (userUpdateResult.nMatched === 0 || userUpdateResult.nModified === 0) {
-      throw new Error('CRON_ALREADY_RUNNING');
     }
 
     let tasks = await Tasks.Task.find({
@@ -106,13 +120,17 @@ async function cronAsync (req, res) {
 
       await recoverCron(recoveryStatus, res.locals);
     } else {
+      logger.error(err, {isUserUpdateErroringDuringCron: true});
       // For any other error make sure to reset _cronSignature so that it doesn't prevent cron from running
       // at the next request
       await User.update({
         _id: user._id,
       }, {
         _cronSignature: 'NOT_RUNNING',
-      }).exec();
+      }).exec()
+      .catch((newError) => {
+        logger.error(newError, {isUserUpdateErroringDuringCron: true});
+      });
 
       throw err; // re-throw the original error
     }

@@ -71,6 +71,7 @@
     "displayNow": "Ukázať teraz",
     "displayLater": "Ukázať neskôr",
     "petNotOwned": "Nevlastníš toto zvieratko.",
+    "mountNotOwned": "You do not own this mount.",
     "earnedCompanion": "Vďaka tvojej produktivite si získal nového spoločníka. Nakŕm ho, aby vyrástol!",
     "feedPet": "Chceš nakŕmiť toto zvieratko: <%= name %> týmto: <%= article %><%= text %>?",
     "useSaddle": "Chceš osedlať toto zvieratko: <%= pet %>?",

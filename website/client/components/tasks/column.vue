@@ -32,15 +32,17 @@
   padding-bottom: 0.1px;
   position: relative;
   height: calc(100% - 64px);
+  overflow: auto;
 }
 
 .bottom-gradient {
   position: absolute;
   bottom: 0px;
-  left: -0px;
+  left: 0px;
   height: 42px;
   background-image: linear-gradient(to bottom, rgba($gray-10, 0), rgba($gray-10, 0.24));
   width: 100%;
+  z-index: 99;
 }
 
 .tasks-column-title {

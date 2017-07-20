@@ -2,7 +2,7 @@
 .row
   sidebar(v-on:search="updateSearch", v-on:filter="updateFilters")
 
-  .col-10.no-guilds.standard-page(v-if='filteredGuilds.length === 0')
+  .no-guilds.standard-page(v-if='filteredGuilds.length === 0')
     .no-guilds-wrapper
       .svg-icon(v-html='icons.greyBadge')
       h2 {{$t('noGuildsTitle')}}
@@ -10,7 +10,7 @@
       p {{$t('noGuildsParagraph2')}}
       span(v-if='loading') {{ $t('loading') }}
 
-  .col-10.standard-page(v-if='filteredGuilds.length > 0')
+  .standard-page(v-if='filteredGuilds.length > 0')
     .row
       .col-md-12
         h1.page-header.float-left(v-once) {{ $t('myGuilds') }}

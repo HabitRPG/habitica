@@ -22,6 +22,7 @@
   "communityGuidelinesRead1": "Please read our",
   "communityGuidelinesRead2": "before chatting.",
   "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic. Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
+  "bannedSlurUsed": "Your post contained inappropriate language, and your chat privileges have been revoked.",
   "party": "Party",
   "createAParty": "Create A Party",
   "updatedParty": "Party settings updated.",
@@ -300,5 +301,6 @@
   "managerMarker": " - Manager",
   "joinedGuild": "Joined a Guild",
   "joinedGuildText": "Ventured into the social side of Habitica by joining a Guild!",
-  "badAmountOfGemsToPurchase": "Amount must be at least 1."
+  "badAmountOfGemsToPurchase": "Amount must be at least 1.",
+  "groupPolicyCannotGetGems": "The policy of one group you're part of prevents its members from obtaining gems."
 }

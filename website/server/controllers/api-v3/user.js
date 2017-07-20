@@ -19,6 +19,7 @@ import {
   sendTxn as txnEmail,
 } from '../../libs/email';
 import nconf from 'nconf';
+import get from 'lodash/get';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 
@@ -1227,7 +1228,18 @@ api.purchase = {
   url: '/user/purchase/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let purchaseRes = req.params.type === 'spells' ? common.ops.buySpecialSpell(user, req) : common.ops.purchase(user, req, res.analytics);
+    const type = get(req.params, 'type');
+    const key = get(req.params, 'key');
+
+    // Some groups limit their members ability to obtain gems
+    // The check is async so it's done on the server only and not on the client,
+    // resulting in a purchase that will seem successful until the request hit the server.
+    if (type === 'gems' && key === 'gem') {
+      const canGetGems = await user.canGetGems();
+      if (!canGetGems) throw new NotAuthorized(res.t('groupPolicyCannotGetGems'));
+    }
+
+    let purchaseRes = type === 'spells' ? common.ops.buySpecialSpell(user, req) : common.ops.purchase(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseRes);
   },

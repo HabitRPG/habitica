@@ -71,6 +71,7 @@
     "displayNow": "Visa nu",
     "displayLater": "Visa senare",
     "petNotOwned": "Du har inte detta husdjur.",
+    "mountNotOwned": "You do not own this mount.",
     "earnedCompanion": "All din produktivitet har gett dig en ny kompanjon. Mata den så att den växer!",
     "feedPet": "Mata <%= article %><%= text %> till din <%= name %>?",
     "useSaddle": "Sadla <%= pet %>?",

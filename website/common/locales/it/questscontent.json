@@ -127,7 +127,7 @@
     "questSeahorseCompletion": "Lo stallone marino, finalmente domato, nuota docile accanto a te. \"Oh, guarda!\" esclama Kiwibot, \"Vuole che ci occupiamo dei suoi cuccioli\". Ti porge tre uova, dicendo: \"Crescili bene! E sappi che sarai sempre il benvenuto al Derby Dilatorio!\"",
     "questSeahorseBoss": "Stallone Marino",
     "questSeahorseDropSeahorseEgg": "Cavalluccio Marino (uovo)",
-    "questSeahorseUnlockText": "Sblocca l'acquisto delle uova di cavalluccio marino nel Mercato",
+    "questSeahorseUnlockText": "Sblocca l'acquisto delle uova di Cavalluccio Marino nel Mercato",
     "questAtom1Text": "Attacco del Mondano, Parte 1: Disastro di Stoviglie!",
     "questAtom1Notes": "Hai raggiunto le rive del Lago Lavapiatti per un po' di relax... Ma il lago è infestato da piatti da lavare! Come sarà successo? Beh, non puoi permettere che il lago rimanga in questo stato. C'è soltanto una cosa da fare: lavare i piatti e salvare il vostro luogo di villeggiatura! Sarà meglio trovare un po' di sapone per pulire questa porcheria. Molto sapone...",
     "questAtom1CollectSoapBars": "Barrette di Sapone",
@@ -378,7 +378,7 @@
     "questTaskwoodsTerror3DropStrawberry": "Fragola (cibo)",
     "questTaskwoodsTerror3DropWeapon": "Lanterna di Boscocompito (arma a due mani)",
     "questFerretText": "Il Furetto Nefando",
-    "questFerretNotes": "Passeggiando per Habit City, vedi una folla scontenta che circonda un Furetto che indossa un mantello rosso.<br><br>\"Quella pozione per la produttività che mi hai venduto è inutile!\" protesta @Beffymaroo. \"L'altra notte ho guardato la TV per tre ore invece di fare le mie faccende di casa!\"<br><br>\"Sì!\" urla @Pandah. \"E oggi ho passato un'ora a riassettare i miei libri invece di leggerli!\"<br><br>Il Furetto Nefando allarga le braccia con innocenza. \"Avete guardato TV e riorganizzato libri più di quanto facciate di solito, giusto?\"<br><br>La folla arrabbiata protesta a gran voce.<br><br>\"Nessun rimborso!\" dice compiaciuto il Furetto Nefando. Scaglia una saetta magica verso la folla, pronto a fuggire nel fumo.<br><br>\"Per favore, abitante di Habitica!\" ti dice @Faye, afferrandoti il braccio. \"Sconfiggi il furetto e costringilo a restituire quello che ha guadagnato disonestamente!\"",
+    "questFerretNotes": "Walking through Habit City, you see an unhappy crowd surrounding a red-robed Ferret.<br><br>\"That productivity potion you sold me is useless!\" @Beffymaroo complains. \"I watched three hours of TV last night instead of doing my chores!\"<br><br>\"Yeah!\" shouts @Pandah. \"And today I spent an hour rearranging my books instead of reading them!\"<br><br>The Nefarious Ferret spreads his hands innocently. \"That's more TV watching and book organizing than you'd normally get done, isn't it?\"<br><br>The crowd erupts in anger.<br><br>\"No refunds!\" crows the Nefarious Ferret. He fires a bolt of magic into the crowd, preparing to escape in the smoke.<br><br>\"Please, Habitican!\" @Faye says, grabbing your arm. \"Defeat the ferret and make him refund his dishonest earnings!\"",
     "questFerretCompletion": "Sconfiggi il truffatore dal pelo morbido e @UncommonCriminal dà alla folla i loro rimborsi. Avanza persino un po' di oro per te. Inoltre sembra che, nella fretta di scappare, il Furetto Nefando abbia lasciato cadere qualche uovo!",
     "questFerretBoss": "Furetto Nefando",
     "questFerretDropFerretEgg": "Furetto (uovo)",
@@ -425,7 +425,7 @@
     "questStoikalmCalamity1DropDesertPotion": "Pozione Deserto",
     "questStoikalmCalamity1DropArmor": "Armatura del cavaliere di mammut",
     "questStoikalmCalamity2Text": "Stoïkalm Calamity, Part 2: Seek the Icicle Caverns",
-    "questStoikalmCalamity2Notes": "The stately hall of the Mammoth Riders is an austere masterpiece of architecture, but it is also entirely empty. There's no furniture, the weapons are missing, and even the columns were picked clean of their inlays.<br><br>\"Those skulls scoured the place,\" Lady Glaciate says, and there is a blizzard brewing in her tone. \"Humiliating. Not a soul is to mention this to the April Fool, or I will never hear the end of it.\"<br><br>\"How mysterious!\" says @Beffymaroo. \"But where did they--\"<br><br>\"The icicle drake caverns.\" Lady Glaciate gestures at shining coins spilled in the snow outside. \"Sloppy.\"<br><br>\"But aren't icicle drakes honorable creatures with their own treasure hoards?\" @Beffymaroo asks. \"Why would they possibly--\"<br><br>\"Mind control,\" says Lady Glaciate, utterly unphased. \"Or something equally melodramatic and inconvenient.\" She begins to stride from the hall. \"Why are you just standing there?\"<br><br>Quickly, go follow the trail of Icicle Coins!",
+    "questStoikalmCalamity2Notes": "The stately hall of the Mammoth Riders is an austere masterpiece of architecture, but it is also entirely empty. There's no furniture, the weapons are missing, and even the columns were picked clean of their inlays.<br><br>\"Those skulls scoured the place,\" Lady Glaciate says, and there is a blizzard brewing in her tone. \"Humiliating. Not a soul is to mention this to the April Fool, or I will never hear the end of it.\"<br><br>\"How mysterious!\" says @Beffymaroo. \"But where did they--\"<br><br>\"The icicle drake caverns.\" Lady Glaciate gestures at shining coins spilled in the snow outside. \"Sloppy.\"<br><br>\"But aren't icicle drakes honorable creatures with their own treasure hoards?\" @Beffymaroo asks. \"Why would they possibly--\"<br><br>\"Mind control,\" says Lady Glaciate, utterly unfazed. \"Or something equally melodramatic and inconvenient.\" She begins to stride from the hall. \"Why are you just standing there?\"<br><br>Quickly, go follow the trail of Icicle Coins!",
     "questStoikalmCalamity2Completion": "The Icicle Coins lead you straight to the buried entrance of a cleverly hidden cavern. Though the weather outside is calm and lovely, with the sunlight sparkling across the expanse of snow, there is a howling within like a fierce winter wind. Lady Glaciate grimaces and hands you a Mammoth Rider helm. \"Wear this,\" she says. \"You'll need it.\"",
     "questStoikalmCalamity2CollectIcicleCoins": "Monete di ghiaccio",
     "questStoikalmCalamity2DropHeadgear": "Elmo del cavaliere di mammut (copricapo)",
@@ -485,5 +485,7 @@
     "questNudibranchCompletion": "You see the last of the NowDo Nudibranches sliding off of a pile of completed tasks as @amadshade washes them away. One leaves behind a cloth bag, and you open it to reveal some gold and a few little ellipsoids you guess are eggs.",
     "questNudibranchBoss": "NowDo Nudibranch",
     "questNudibranchDropNudibranchEgg": "Nudibranch (Egg)",
-    "questNudibranchUnlockText": "Unlocks purchasable Nudibranch eggs in the Market"
+    "questNudibranchUnlockText": "Unlocks purchasable Nudibranch eggs in the Market",
+    "splashyPalsText": "Splashy Pals Quest Bundle",
+    "splashyPalsNotes": "Contains 'The Dilatory Derby', 'Guide the Turtle', and 'Wail of the Whale'. Available until July 31."
 }
