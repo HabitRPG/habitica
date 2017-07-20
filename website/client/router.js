@@ -19,6 +19,15 @@ const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userM
 const AchievementsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/achievements');
 const ProfilePage = () => import(/* webpackChunkName: "user" */'./components/userMenu/profile');
 
+// Settings
+const Settings = () => import(/* webpackChunkName: "settings" */'./components/settings/index');
+const API = () => import(/* webpackChunkName: "settings" */'./components/settings/api');
+const DataExport = () => import(/* webpackChunkName: "settings" */'./components/settings/dataExport');
+const Notifications = () => import(/* webpackChunkName: "settings" */'./components/settings/notifications');
+const PromoCode = () => import(/* webpackChunkName: "settings" */'./components/settings/promoCode');
+const Site = () => import(/* webpackChunkName: "settings" */'./components/settings/site');
+const Subscription = () => import(/* webpackChunkName: "settings" */'./components/settings/subscription');
+
 // Except for tasks that are always loaded all the other main level
 // All the main level
 // components are loaded in separate webpack chunks.
@@ -123,7 +132,43 @@ const router = new VueRouter({
         { name: 'stats', path: 'stats', component: StatsPage },
         { name: 'achievements', path: 'achievements', component: AchievementsPage },
         { name: 'profile', path: 'profile', component: ProfilePage },
-        { name: 'settings', path: 'settings', component: Page },
+        {
+          name: 'settings',
+          path: 'settings',
+          component: Settings,
+          children: [
+            {
+              name: 'site',
+              path: 'site',
+              component: Site,
+            },
+            {
+              name: 'api',
+              path: 'api',
+              component: API,
+            },
+            {
+              name: 'dataExport',
+              path: 'data-export',
+              component: DataExport,
+            },
+            {
+              name: 'promoCode',
+              path: 'promo-code',
+              component: PromoCode,
+            },
+            {
+              name: 'subscription',
+              path: 'subscription',
+              component: Subscription,
+            },
+            {
+              name: 'notifications',
+              path: 'notifications',
+              component: Notifications,
+            },
+          ],
+        },
       ],
     },
   ],
