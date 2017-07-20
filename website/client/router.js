@@ -72,6 +72,12 @@ const MyGuilds = () => import(/* webpackChunkName: "guilds" */ './components/gui
 const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/discovery');
 const GuildPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/guild');
 
+// Challenges
+const ChallengeIndex = () => import(/* webpackChunkName: "challenges" */ './components/challenges/index');
+const MyChallenges = () => import(/* webpackChunkName: "challenges" */ './components/challenges/myChallenges');
+const FindChallenges = () => import(/* webpackChunkName: "challenges" */ './components/challenges/findChallenges');
+const ChallengeDetail = () => import(/* webpackChunkName: "challenges" */ './components/challenges/challengeDetail');
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -124,7 +130,29 @@ const router = new VueRouter({
         },
       ],
     },
-    { name: 'challenges', path: 'challenges', component: Page },
+    {
+      name: 'challenges',
+      path: '/challenges',
+      component: ChallengeIndex,
+      children: [
+        {
+          name: 'myChallenges',
+          path: 'myChallenges',
+          component: MyChallenges,
+        },
+        {
+          name: 'findChallenges',
+          path: 'findChallenges',
+          component: FindChallenges,
+        },
+        {
+          name: 'challenge',
+          path: 'challenges/:challengeId',
+          component: ChallengeDetail,
+          props: true,
+        },
+      ],
+    },
     {
       path: '/user',
       component: ParentPage,
