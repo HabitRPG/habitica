@@ -124,7 +124,7 @@ const router = new VueRouter({
         },
         {
           name: 'guild',
-          path: 'guild/:guildId',
+          path: 'guild/:groupId',
           component: GuildPage,
           props: true,
         },

@@ -9,6 +9,7 @@ import * as members from './members';
 import * as auth from './auth';
 import * as quests from './quests';
 import * as challenges from './challenges';
+import * as chat from './chat';
 
 // Actions should be named as 'actionName' and can be accessed as 'namespace:actionName'
 // Example: fetch in user.js -> 'user:fetch'
@@ -23,6 +24,7 @@ const actions = flattenAndNamespace({
   auth,
   quests,
   challenges,
+  chat,
 });
 
 export default actions;
