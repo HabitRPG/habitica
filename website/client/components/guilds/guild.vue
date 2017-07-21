@@ -496,7 +496,6 @@ export default {
   },
   methods: {
     async sendMessage () {
-      console.log(this.newMessage)
       let response = await this.$store.dispatch('chat:postChat', {
         groupId: this.group._id,
         message: this.newMessage,
