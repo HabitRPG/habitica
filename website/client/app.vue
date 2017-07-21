@@ -9,11 +9,13 @@
       .container-fluid.h-100
         app-header
         router-view
+        app-footer
 </template>
 
 <script>
 import AppMenu from './components/appMenu';
 import AppHeader from './components/appHeader';
+import AppFooter from './components/appFooter';
 import { mapState } from 'client/libs/store';
 
 export default {
@@ -21,6 +23,7 @@ export default {
   components: {
     AppMenu,
     AppHeader,
+    AppFooter,
   },
   data () {
     return {
