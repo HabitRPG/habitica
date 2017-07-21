@@ -1,10 +1,10 @@
 <template lang="pug">
 div
   copy-as-todo-modal(:copying-message='copyingMessage', :group-name='groupName', :group-id='groupId')
-  .row(v-for="(msg, index) in chat", :key="msg.id")
+  .row
     // .col-md-2
     // @TODO: Implement when we pull avatars .svg-icon(v-html="icons.like")
-    .col-md-12
+    .col-md-12(v-for="(msg, index) in chat", :key="msg.id")
       .card
         .card-block
           h3.leader {{msg.user}}
@@ -21,7 +21,7 @@ div
           span.action(v-once, v-if='user.contributor.admin || (!msg.sent && user.flags.communityGuidelinesAccepted)', @click='report(msg)')
             .svg-icon(v-html="icons.report")
             | {{$t('report')}}
-          span.action(v-once, v-if='msg.uuid === user._id', @click='remove(msg, index)',)
+          span.action(v-once, v-if='msg.uuid === user._id', @click='remove(msg, index)')
             .svg-icon(v-html="icons.delete")
             | {{$t('delete')}}
           span.action.float-right
@@ -90,6 +90,7 @@ export default {
         liked: likedIcon,
       }),
       copyingMessage: {},
+      messages: [],
     };
   },
   filters: {
@@ -127,6 +128,7 @@ export default {
       });
     },
     async remove (message, index) {
+      this.chat.splice(index, 1);
       await this.$store.dispatch('chat:deleteChat', {
         groupId: this.groupId,
         chatId: message.id,

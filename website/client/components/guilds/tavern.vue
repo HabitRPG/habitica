@@ -21,7 +21,7 @@
         .hr
           .hr-middle(v-once) {{ $t('today') }}
 
-        chat-message(:chat='group.chat', :group-id='group._id', group-name='group.name')
+        chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
   .col-md-4.sidebar
     .section
@@ -280,6 +280,7 @@
 <script>
 import { mapState } from 'client/libs/store';
 
+import { TAVERN_ID } from '../../../common/script/constants';
 import chatMessage from '../chat/chatMessages';
 
 import gemIcon from 'assets/svg/gem.svg';
@@ -395,8 +396,7 @@ export default {
     },
   },
   async mounted () {
-    // @TODO: Import constant
-    this.group = await this.$store.dispatch('guilds:getGroup', {groupId: 'habitrpg'});
+    this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
   },
   methods: {
     aggreeToGuideLines () {
@@ -413,10 +413,11 @@ export default {
     },
     async sendMessage () {
       let response = await this.$store.dispatch('chat:postChat', {
-        groupId: 'habitrpg',
+        groupId: TAVERN_ID,
         message: this.newMessage,
       });
-      this.group.chat.push(response.message);
+      this.group.chat.unshift(response.message);
+      this.newMessage = '';
     },
   },
 };
