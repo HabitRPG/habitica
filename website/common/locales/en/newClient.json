@@ -189,5 +189,8 @@
   "sortByInt": "Int",
   "classEquipment": "Class Equipment",
   "showAllEquipment": "Show All <%= classType %> Equipment",
-  "showLessEquipment": "Show Less <%= classType %> Equipment"
+  "showLessEquipment": "Show Less <%= classType %> Equipment",
+  "howManyToSell": "How many would you like to sell?",
+  "yourBalance": "Your balance",
+  "sell": "Sell"
 }

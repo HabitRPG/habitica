@@ -42,7 +42,7 @@
 
       .clearfix
         h2.float-left
-          | {{ $t('gear') }}
+          | {{ $t('classEquipment') }}
 
         div.float-right
           span.dropdown-label {{ $t('class') }}
@@ -108,10 +108,10 @@
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t(selectedSortItemsBy)", right=true)
             b-dropdown-item(
-            v-for="sort in sortItemsBy",
-            @click="selectedSortItemsBy = sort",
-            :active="selectedSortItemsBy === sort",
-            :key="sort"
+              v-for="sort in sortItemsBy",
+              @click="selectedSortItemsBy = sort",
+              :active="selectedSortItemsBy === sort",
+              :key="sort"
             ) {{ $t(sort) }}
 
 
@@ -174,7 +174,7 @@
               :item="ctx.item",
               :itemContentClass="getItemClass(selectedDrawerItemType, ctx.item.key)",
               popoverPosition="top",
-              @click="openSellDialog(selectedDrawerItemType, ctx.item)"
+              @click="selectedItemToSell = ctx.item"
             )
               template(slot="itemBadge", scope="ctx")
                 countBadge(
@@ -183,6 +183,23 @@
                 )
               span(slot="popoverContent")
                 h4.popover-content-title {{ ctx.item.text() }}
+
+      sellModal(
+        :item="selectedItemToSell",
+        :itemCount="selectedItemToSell != null ? userItems[drawerTabs[selectedDrawerTab].contentType][selectedItemToSell.key] : 0",
+        @change="resetItemToSell($event)"
+      )
+        template(slot="item", scope="ctx")
+          item.flat(
+            :item="ctx.item",
+            :itemContentClass="getItemClass(selectedDrawerItemType, ctx.item.key)",
+            :showPopover="false"
+          )
+            template(slot="itemBadge", scope="ctx")
+              countBadge(
+                :show="true",
+                :count="userItems[drawerTabs[selectedDrawerTab].contentType][ctx.item.key] || 0"
+              )
 </template>
 
 <style lang="scss">
@@ -261,6 +278,7 @@
 
   import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
 
+  import SellModal from './sellModal.vue';
 
   import bPopover from 'bootstrap-vue/lib/components/popover';
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
@@ -302,6 +320,7 @@ export default {
       bDropdownItem,
 
       EquipmentAttributesPopover,
+      SellModal,
     },
     data () {
       return {
@@ -326,6 +345,8 @@ export default {
 
         sortItemsBy: ['AZ', 'sortByType', 'sortByNumber'],
         selectedSortItemsBy: 'AZ',
+
+        selectedItemToSell: null,
       };
     },
     computed: {
@@ -428,9 +449,6 @@ export default {
             return '';
         }
       },
-      openSellDialog (type, item) {
-        alert(item.key);
-      },
       openBuyDialog (type, item) {
         alert(item.key);
       },
@@ -459,6 +477,11 @@ export default {
         }
 
         return result;
+      },
+      resetItemToSell ($event) {
+        if (!$event) {
+          this.selectedItemToSell = null;
+        }
       },
     },
     created () {

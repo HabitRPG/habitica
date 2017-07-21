@@ -248,6 +248,7 @@
 <style lang="scss">
 
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/modal.scss';
 
   .standard-page .clearfix .float-right {
     margin-right: 24px;
@@ -329,20 +330,6 @@
     height: 114px;
   }
 
-  @mixin habitModal() {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-
-    header, footer {
-      border: 0;
-    }
-
-    .modal-footer {
-      justify-content: center;
-    }
-  }
-
   #welcome-modal {
     @include habitModal();
 
@@ -366,6 +353,10 @@
       line-height: 1.43;
 
       width: 400px;
+    }
+
+    .modal-footer {
+      justify-content: center;
     }
   }
 
@@ -404,6 +395,10 @@
       position: absolute;
       right: 10px;
       top: 10px;
+    }
+
+    .modal-footer {
+      justify-content: center;
     }
   }
 
