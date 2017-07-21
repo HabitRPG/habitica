@@ -11,6 +11,7 @@ import * as quests from './quests';
 import * as challenges from './challenges';
 import * as chat from './chat';
 import * as notifications from './notifications';
+import * as tags from './tags';
 
 // Actions should be named as 'actionName' and can be accessed as 'namespace:actionName'
 // Example: fetch in user.js -> 'user:fetch'
@@ -27,6 +28,7 @@ const actions = flattenAndNamespace({
   challenges,
   chat,
   notifications,
+  tags,
 });
 
 export default actions;
