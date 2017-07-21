@@ -11,7 +11,7 @@
     "rebirthInList1": "Tasks, history, equipment, and settings remain.",
     "rebirthInList2": "Členství ve výzvách, družině a v ceších zůstávají.",
     "rebirthInList3": "Drahokamy, úrovně podpory a úrovně pomoci zůstanou.",
-    "rebirthInList4": "Předměty získané za drahokamy nebo za úkoly (jako mazlíčci a zkrocená zvířata) zůstávají, i když se k nim nedostaneš, dokud je znovu neodemkneš.",
+    "rebirthInList4": "Items obtained from Gems or drops (such as pets and mounts) remain.",
     "rebirthEarnAchievement": "Také dostaneš ocenění za začátek nového dobrodružství.",
     "beReborn": "Buď znovuzrozen",
     "rebirthAchievement": "Začal jsi nové dobrodružství! Tohle je Znovuzrození číslo <%= number %> a nejvyšší úroveň, které jsi dosáhl je <%= level %>. K dosažení dalšího ocenění začni nové dobrodružství až dosáhneš ještě vyšší úrovně!",

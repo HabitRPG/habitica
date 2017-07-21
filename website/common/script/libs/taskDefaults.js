@@ -25,6 +25,7 @@ module.exports = function taskDefaults (task = {}) {
     challenge: {
       shortName: 'None',
     },
+    yesterDaily: true,
     reminders: [],
     attribute: 'str',
     createdAt: new Date(), // TODO these are going to be overwritten by the server...

@@ -596,7 +596,7 @@ describe('Purchasing a group plan for group', () => {
 
     let updatedUser = await User.findById(recipient._id).exec();
 
-    expect(updatedUser.purchased.plan.extraMonths).to.within(7, 8);
+    expect(updatedUser.purchased.plan.extraMonths).to.within(7, 9);
   });
 
   it('adds months to members with existing recurring subscription and ignores existing negative extraMonths', async () => {

@@ -2,15 +2,25 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
+import content from '../../../../../website/common/script/content/index';
 
 describe('POST /user/release-pets', () => {
   let user;
   let animal = 'Wolf-Base';
 
+  const loadPets = () => {
+    let pets = {};
+    for (let p in content.pets) {
+      pets[p] = content.pets[p];
+      pets[p] = 5;
+    }
+    return pets;
+  };
+
   beforeEach(async () => {
     user = await generateUser({
       'items.currentPet': animal,
-      'items.pets': {animal: 5},
+      'items.pets': loadPets(),
     });
   });
 

@@ -1,7 +1,7 @@
 'use strict';
 
-habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social', 'Achievement', 'Members', 'Tasks',
-    function($rootScope, $scope, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social, Achievement, Members, Tasks) {
+habitrpg.controller("PartyCtrl", ['$rootScope','$scope','$window','Groups','Chat','User','Challenges','$state','$compile','Analytics','Quests','Social', 'Achievement', 'Members', 'Tasks',
+    function($rootScope, $scope, $window, Groups, Chat, User, Challenges, $state, $compile, Analytics, Quests, Social, Achievement, Members, Tasks) {
 
       var PARTY_LOADING_MESSAGES = 4;
 
@@ -126,6 +126,10 @@ habitrpg.controller("PartyCtrl", ['$rootScope','$scope','Groups','Chat','User','
 
       $scope.join = function (party) {
         if (party.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
+          return;
+        }
+
+        if (!$window.confirm(window.env.t('joinPartyConfirmationText', {partyName: party.name}))){
           return;
         }
 

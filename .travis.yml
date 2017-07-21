@@ -2,6 +2,8 @@ language: node_js
 node_js:
   - '6'
 sudo: required
+services:
+  - mongodb
 addons:
   apt:
     sources:
@@ -33,3 +35,4 @@ env:
     - TEST="test:common" COVERAGE=true
     - TEST="test:karma" COVERAGE=true
     - TEST="client:unit" COVERAGE=true
+    - TEST="apidoc"

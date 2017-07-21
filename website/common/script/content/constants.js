@@ -28,6 +28,7 @@ export const EVENTS = {
   fall2016:   { start: '2016-09-20', end: '2016-11-02' },
   winter2017: { start: '2016-12-16', end: '2017-02-02' },
   spring2017: { start: '2017-03-21', end: '2017-05-02' },
+  summer2017: { start: '2017-06-20', end: '2017-08-02' },
 };
 
 export const GEAR_TYPES = [

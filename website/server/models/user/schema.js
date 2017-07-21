@@ -113,9 +113,11 @@ let schema = new Schema({
     partyOn: Boolean,
     congrats: Number,
     getwell: Number,
+    goodluck: Number,
     royallyLoyal: Boolean,
     joinedGuild: Boolean,
     joinedChallenge: Boolean,
+    invitedFriend: Boolean,
   },
 
   backer: {
@@ -295,6 +297,8 @@ let schema = new Schema({
       congratsReceived: Array,
       getwell: {type: Number, default: 0},
       getwellReceived: Array,
+      goodluck: {type: Number, default: 0},
+      goodluckReceived: Array,
     },
 
     // -------------- Animals -------------------
@@ -380,6 +384,24 @@ let schema = new Schema({
     party: {type: Schema.Types.Mixed, default: () => {
       return {};
     }},
+    parties: [{
+      id: {
+        type: String,
+        ref: 'Group',
+        required: true,
+        validate: [validator.isUUID, 'Invalid uuid.'],
+      },
+      name: {
+        type: String,
+        required: true,
+      },
+      inviter: {
+        type: String,
+        ref: 'User',
+        required: true,
+        validate: [validator.isUUID, 'Invalid uuid.'],
+      },
+    }],
   },
 
   guilds: [{type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']}],

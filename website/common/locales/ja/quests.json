@@ -100,7 +100,7 @@
     "noActiveQuestToLeave": "進行中のクエストがないので辞退できません",
     "questLeaderCannotLeaveQuest": "クエストのリーダーはクエストを辞退できません",
     "notPartOfQuest": "クエストのメンバーではありません",
-    "noActiveQuestToAbort": "進行中のクエストがないので中段できません",
+    "noActiveQuestToAbort": "進行中のクエストがないので中止できません",
     "onlyLeaderAbortQuest": "グループ リーダーまたはクエストのリーダーだけが、クエストを中断できます。",
     "questAlreadyRejected": "あなたはこのクエストの招待をすでに拒否しました。",
     "cantCancelActiveQuest": "進行中のクエストをキャンセルすることはできませんので、中断してください。",
@@ -112,6 +112,6 @@
     "loginIncentiveQuestObtained": "<%= count %>日のログインによりこのクエストを手に入れました！",
     "loginReward": "<%= count %>日のログイン",
     "createAccountQuest": "このクエストはHabiticaに参加した時に配布されます！もしあなたの友達が参加すれば、彼らも同じように受け取るでしょう。",
-    "questBundles": "Discounted Quest Bundles",
-    "buyQuestBundle": "Buy Quest Bundle"
+    "questBundles": "割引されたクエスト セット",
+    "buyQuestBundle": "クエスト セットを買う"
 }

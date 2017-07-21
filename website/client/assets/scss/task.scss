@@ -1,0 +1,114 @@
+ .task {
+  // for editing rewards or when a task is created
+  &-purple {
+    background: $purple-300;
+  }
+
+  &-worst {
+    background: $maroon-100;
+    &-control-habit {
+      background: darken($maroon-100, 12%);
+    }
+
+    &-control-daily-todo {
+      background: $maroon-500;
+    }
+  }
+
+  &-worse {
+    background: $red-100;
+    &-control-habit {
+      background: darken($red-100, 12%);
+    }
+
+    &-control-daily-todo {
+      background: $red-500;
+    }
+  }
+
+  &-bad {
+    background: $orange-100;
+    &-control-habit {
+      background: darken($orange-100, 12%);
+    }
+
+    &-control-daily-todo {
+      background: $orange-500;
+    }
+  }
+
+  &-neutral {
+    background: $yellow-50;
+    &-control-habit {
+      background: darken($yellow-50, 12%);
+    }
+
+    &-control-daily-todo {
+      background: $yellow-500;
+    }
+  }
+
+  &-good {
+    background: $green-10;
+    &-control-habit {
+      background: darken($green-10, 12%);
+    }
+
+    &-control-daily-todo {
+      background: $green-500;
+    }
+  }
+
+  &-better {
+    background: $blue-50;
+    &-control-habit {
+      background: darken($blue-50, 12%);
+    }
+
+    &-control-daily-todo {
+      background: $blue-500;
+    }
+  }
+
+  &-best {
+    background: $teal-50;
+    &-control-habit {
+      background: darken($teal-50, 12%);
+    }
+
+    &-control-daily-todo {
+      background: $teal-500;
+    }
+  }
+
+  &-reward {
+    background: rgba($yellow-500, 0.26);
+  }
+
+  &-daily-todo-disabled {
+    background: $gray-500;
+
+    &-control-daily-todo {
+      background: $gray-400;
+      color: $gray-200;
+    }
+  }
+
+  &-daily-todo-content-disabled {
+    background: $gray-600;
+
+    * {
+      color: $gray-300 !important;
+    }
+  }
+
+  &-habit-disabled {
+    background: $gray-700;
+    color: rgba(0, 0, 0, 0.12);
+
+    &-control-habit {
+      color: rgba(0, 0, 0, 0.12) !important;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+    }
+  }
+}

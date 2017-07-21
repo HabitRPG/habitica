@@ -79,5 +79,7 @@
     "onlyChalLeaderEditTasks": "Le attività appartenenti a una sfida possono essere modificate solo dal proprietario della sfida.",
     "userAlreadyInChallenge": "L'utente sta già partecipando a questa sfida.",
     "cantOnlyUnlinkChalTask": "Solo le attività appartenenti a sfide mancanti possono essere scollegate.",
-    "shortNameTooShort": "Il nome dell'etichetta deve avere almeno 3 caratteri."
+    "shortNameTooShort": "Il nome dell'etichetta deve avere almeno 3 caratteri.",
+    "joinedChallenge": "Partecipato ad una Sfida",
+    "joinedChallengeText": "Questo utente si è messo alla prova unendosi ad una Sfida!"
 }

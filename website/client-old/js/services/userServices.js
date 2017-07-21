@@ -158,7 +158,8 @@ angular.module('habitrpg')
 
         var clientMessage = clientResponse[1];
 
-        if (clientMessage) {
+        var opNamesWithoutNotification = ["readCard"];
+        if (clientMessage && opNamesWithoutNotification.indexOf(opName) === -1) {
           Notification.text(clientMessage);
         }
 
@@ -213,7 +214,7 @@ angular.module('habitrpg')
         },
 
         changeClass: function (data) {
-          callOpsFunctionAndRequest('changeClass', 'change-class', "POST",'', data);
+          callOpsFunctionAndRequest('changeClass', 'change-class', "POST", '', data);
         },
 
         disableClasses: function () {
@@ -414,6 +415,16 @@ angular.module('habitrpg')
           .then(function (response) {
             Notification.text('-' + numberOfDays + ' day(s), remember to refresh');
           });
+        },
+
+        runCron: function () {
+          return $http({
+            method: "POST",
+            url: 'api/v3/cron',
+          })
+          .then(function (response) {
+            return sync();
+          })
         },
 
         setCustomDayStart: function (dayStart) {

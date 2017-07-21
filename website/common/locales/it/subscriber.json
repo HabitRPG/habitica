@@ -23,7 +23,7 @@
     "giftSubscriptionText4": "Habitica ti ringrazia per il supporto!",
     "monthUSD": "Dollari / Mese",
     "organization": "Organizzazione",
-    "groupPlans": "Piani per aziende",
+    "groupPlans": "Group Plans",
     "indivPlan1": "Per giocatori singoli, Habitica è completamente gratuito. Persino per i piccoli gruppi,",
     "indivPlan2": "possono essere utilizzate per motivare i partecipanti a migliorare. Pensa a gruppi di scrittura, gare artistiche, e molto altro.",
     "groupText1": "Qualche leader di un gruppo potrebbe però volere maggiore controllo, privacy, sicurezza e supporto. Esempi di questi gruppi sono le famiglie, i gruppi di salute e benessere, i gruppi di impiegati, ed altro. Questi piani forniscono istanze private di Habitica per il tuo gruppo o la tua organizzazione, sicure ed indipendenti da",
@@ -37,6 +37,8 @@
     "subscribed": "Abbonato",
     "manageSub": "Clicca per gestire l'abbonamento",
     "cancelSub": "Annulla abbonamento",
+    "cancelSubInfoGoogle": "Please go to the \"Account\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
+    "cancelSubInfoApple": "Please follow <a href=\"https://support.apple.com/en-us/HT202039\">Apple’s official instructions</a> to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
     "canceledSubscription": "Abbonamento annullato",
     "cancelingSubscription": "Annullamento dell'abbonamento",
     "adminSub": "Abbonamento per amministratori",
@@ -127,6 +129,7 @@
     "mysterySet201703": "Set Scintillante",
     "mysterySet201704": "Set Fiabesco",
     "mysterySet201705": "Set combattente pennuto",
+    "mysterySet201706": "Set Pirata Pioniere",
     "mysterySet301404": "Set steampunk standard",
     "mysterySet301405": "Set accessori steampunk",
     "mysterySet301703": "Set Pavone Steampunk",
@@ -165,5 +168,6 @@
     "missingPaymentId": "Manca req.query.paymentId",
     "missingCustomerId": "Manca req.query.customerId",
     "missingPaypalBlock": "Manca req.session.paypalBlock",
-    "missingSubKey": "Manca req.query.sub"
+    "missingSubKey": "Manca req.query.sub",
+    "paypalCanceled": "Il tuo abbonameno è stato disdetto"
 }

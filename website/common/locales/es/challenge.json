@@ -79,5 +79,7 @@
     "onlyChalLeaderEditTasks": "Solo el líder del desafío puede editar sus tareas.",
     "userAlreadyInChallenge": "El usuario ya está participando en el desafío.",
     "cantOnlyUnlinkChalTask": "Solo se pueden desvincular las tareas de los desafíos que se hayan interrumpido.",
-    "shortNameTooShort": "El nombre de la etiqueta debe tener al menos 3 caracteres."
+    "shortNameTooShort": "El nombre de la etiqueta debe tener al menos 3 caracteres.",
+    "joinedChallenge": "Se unió a un desafío ",
+    "joinedChallengeText": "¡Este usuario se puso a prueba al unirse a un desafío!"
 }

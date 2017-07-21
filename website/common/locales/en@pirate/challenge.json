@@ -79,5 +79,7 @@
     "onlyChalLeaderEditTasks": "Tasks belonging t' a challenge can only be edited by th' captain.",
     "userAlreadyInChallenge": "User is already participating in this challenge.",
     "cantOnlyUnlinkChalTask": "Only broken challenges tasks can be unlinked.",
-    "shortNameTooShort": "Tag Name must have at least 3 characters."
+    "shortNameTooShort": "Tag Name must have at least 3 characters.",
+    "joinedChallenge": "Join'd a Challenge",
+    "joinedChallengeText": "T'is user put themself to th' test by joinin' a Challenge!"
 }

@@ -2,17 +2,34 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
+import content from '../../../../../website/common/script/content/index';
 
 describe('POST /user/release-both', () => {
   let user;
   let animal = 'Wolf-Base';
+  const loadPets = () => {
+    let pets = {};
+    for (let p in content.pets) {
+      pets[p] = content.pets[p];
+      pets[p] = 5;
+    }
+    return pets;
+  };
+  const loadMounts = () => {
+    let mounts = {};
+    for (let m in content.pets) {
+      mounts[m] = content.pets[m];
+      mounts[m] = true;
+    }
+    return mounts;
+  };
 
   beforeEach(async () => {
     user = await generateUser({
       'items.currentMount': animal,
       'items.currentPet': animal,
-      'items.pets': {animal: 5},
-      'items.mounts': {animal: true},
+      'items.pets': loadPets(),
+      'items.mounts': loadMounts(),
     });
   });
 

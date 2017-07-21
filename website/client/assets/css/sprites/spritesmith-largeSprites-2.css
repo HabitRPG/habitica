@@ -1,0 +1,42 @@
+.scene_raking_leaves {
+  background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
+  background-position: -340px 0px;
+  width: 246px;
+  height: 198px;
+}
+.scene_task_list {
+  background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
+  background-position: -587px 0px;
+  width: 240px;
+  height: 195px;
+}
+.scene_todos {
+  background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
+  background-position: -587px -196px;
+  width: 240px;
+  height: 195px;
+}
+.scene_video_games {
+  background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
+  background-position: 0px 0px;
+  width: 339px;
+  height: 342px;
+}
+.welcome_basic_avatars {
+  background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
+  background-position: -271px -343px;
+  width: 246px;
+  height: 165px;
+}
+.welcome_promo_party {
+  background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
+  background-position: 0px -343px;
+  width: 270px;
+  height: 180px;
+}
+.welcome_sample_tasks {
+  background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
+  background-position: 0px -524px;
+  width: 246px;
+  height: 165px;
+}

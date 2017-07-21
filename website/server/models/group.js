@@ -76,6 +76,8 @@ export let schema = new Schema({
   leaderOnly: { // restrict group actions to leader (members can't do them)
     challenges: {type: Boolean, default: false, required: true},
     // invites: {type: Boolean, default: false, required: true},
+    // Some group plans prevent members from getting gems
+    getGems: {type: Boolean, default: false},
   },
   memberCount: {type: Number, default: 1},
   challengeCount: {type: Number, default: 0},
@@ -388,7 +390,8 @@ schema.methods.removeGroupInvitations = async function removeGroupInvitations ()
 
   let userUpdates = usersToRemoveInvitationsFrom.map(user => {
     if (group.type === 'party') {
-      user.invitations.party = {};
+      removeFromArray(user.invitations.parties, { id: group._id });
+      user.invitations.party = user.invitations.parties.length > 0 ? user.invitations.parties[user.invitations.parties.length - 1] : {};
       this.markModified('invitations.party');
     } else {
       removeFromArray(user.invitations.guilds, { id: group._id });
