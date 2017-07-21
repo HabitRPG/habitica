@@ -1,5 +1,6 @@
 <template lang="pug">
 div
+  copy-as-todo-modal(:copying-message='copyingMessage', :group-name='groupName', :group-id='groupId')
   .row(v-for="(msg, index) in chat", :key="msg.id")
     // .col-md-2
     // @TODO: Implement when we pull avatars .svg-icon(v-html="icons.like")
@@ -14,7 +15,7 @@ div
             .svg-icon(v-html="icons.like")
             span(v-if='!msg.likes[user._id]') {{ $t('like') }}
             span(v-if='msg.likes[user._id]') {{ $t('liked') }}
-          span.action(v-once)
+          span.action(v-once,  @click='copyAsTodo(msg)')
             .svg-icon(v-html="icons.copy")
             | {{$t('copyAsTodo')}}
           span.action(v-once, v-if='user.contributor.admin || (!msg.sent && user.flags.communityGuidelinesAccepted)', @click='report(msg)')
@@ -66,6 +67,8 @@ div
 import moment from 'moment';
 import { mapState } from 'client/libs/store';
 
+import copyAsTodoModal from './copyAsTodoModal';
+
 import deleteIcon from 'assets/svg/delete.svg';
 import copyIcon from 'assets/svg/copy.svg';
 import likeIcon from 'assets/svg/like.svg';
@@ -73,7 +76,10 @@ import likedIcon from 'assets/svg/liked.svg';
 import reportIcon from 'assets/svg/report.svg';
 
 export default {
-  props: ['chat', 'groupId'],
+  props: ['chat', 'groupId', 'groupName'],
+  components: {
+    copyAsTodoModal,
+  },
   data () {
     return {
       icons: Object.freeze({
@@ -83,6 +89,7 @@ export default {
         delete: deleteIcon,
         liked: likedIcon,
       }),
+      copyingMessage: {},
     };
   },
   filters: {
@@ -109,8 +116,9 @@ export default {
         chatId: message.id,
       });
     },
-    async copyAsTodo (message) {
-
+    copyAsTodo (message) {
+      this.copyingMessage = message;
+      this.$root.$emit('show::modal', 'copyAsTodo');
     },
     async report (message) {
       await this.$store.dispatch('chat:flag', {

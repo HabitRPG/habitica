@@ -21,7 +21,7 @@
         .hr
           .hr-middle(v-once) {{ $t('today') }}
 
-        chat-message(:chat='group.chat', :group-id='group._id')
+        chat-message(:chat='group.chat', :group-id='group._id', group-name='group.name')
 
   .col-md-4.sidebar
     .section
