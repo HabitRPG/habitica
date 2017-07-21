@@ -9,7 +9,11 @@
         @click="activeFilter = filter",
       ) {{ $t(filter.label) }}
   .tasks-list
-    task(v-for="task in tasks[`${type}s`]", :key="task.id", :task="task", v-if="activeFilter.filter(task)")
+    task(
+      v-for="task in tasks[`${type}s`]", 
+      :key="task.id", :task="task", 
+      v-if="filterTask(task)",
+    )
     .bottom-gradient
     .column-background(v-if="isUser === true", :class="{'initial-description': tasks[`${type}s`].length === 0}")
       .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
@@ -136,7 +140,7 @@ export default {
   components: {
     Task,
   },
-  props: ['type', 'isUser'],
+  props: ['type', 'isUser', 'searchText'],
   data () {
     const types = Object.freeze({
       habit: {
@@ -191,6 +195,25 @@ export default {
       tasks: 'tasks.data',
       userPreferences: 'user.data.preferences',
     }),
+  },
+  methods: {
+    filterTask (task) {
+      if (!this.activeFilter.filter(task)) return false;
+
+      const searchText = this.searchText;
+
+      if (!searchText) return true;
+      if (task.text.toLowerCase().indexOf(searchText) !== -1) return true;
+      if (task.notes.toLowerCase().indexOf(searchText) !== -1) return true;
+
+      if (task.checklist && task.checklist.length) {
+        const checklistItemIndex = task.checklist.findIndex(({text}) => {
+          return text.toLowerCase().indexOf(searchText) !== -1;
+        });
+
+        return checklistItemIndex !== -1;
+      }
+    },
   },
 };
 </script>

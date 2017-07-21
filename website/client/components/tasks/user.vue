@@ -3,13 +3,17 @@
   .col-12
     .row.tasks-navigation
       .col-4.offset-4
-        input.form-control.input-search(type="text", :placeholder="$t('search')")
+        input.form-control.input-search(type="text", :placeholder="$t('search')", v-model="searchText")
       .col-1.offset-3
         button.btn.btn-success(v-once) 
           .svg-icon.positive(v-html="icons.positive")
           | {{ $t('create') }}
     .row.tasks-columns
-      task-column.col-3(v-for="column in columns", :type="column", :key="column", :isUser="true")
+      task-column.col-3(
+        v-for="column in columns", 
+        :type="column", :key="column", 
+        :isUser="true", :searchText="searchTextThrottled",
+      )
 </template>
 
 <style lang="scss" scoped>
@@ -40,6 +44,7 @@
 <script>
 import Column from './column';
 import positiveIcon from 'assets/svg/positive.svg';
+import throttle from 'lodash/throttle';
 
 export default {
   components: {
@@ -48,10 +53,17 @@ export default {
   data () {
     return {
       columns: ['habit', 'daily', 'todo', 'reward'],
+      searchText: null,
+      searchTextThrottled: null,
       icons: Object.freeze({
         positive: positiveIcon,
       }),
     };
+  },
+  watch: {
+    searchText: throttle(function throttleSearch () {
+      this.searchTextThrottled = this.searchText;
+    }, 250),
   },
 };
 </script>
