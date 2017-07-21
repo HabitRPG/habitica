@@ -49,7 +49,7 @@
           b-dropdown(right=true)
             span.dropdown-icon-item(slot="text")
               span.svg-icon.inline.icon-16(v-html="icons[selectedGroupGearByClass]")
-              span.text {{ $t(selectedGroupGearByClass) }}
+              span.text {{ getClassName(selectedGroupGearByClass) }}
 
             b-dropdown-item(
               v-for="sort in content.classes",
@@ -59,7 +59,7 @@
             )
               span.dropdown-icon-item
                 span.svg-icon.inline.icon-16(v-html="icons[sort]")
-                span.text {{ $t(sort) }}
+                span.text {{ getClassName(sort) }}
 
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t(selectedSortGearBy)", right=true)
@@ -72,27 +72,33 @@
 
       br
 
-      div.items
-        shopItem(
-          v-for="item in filteredGear(selectedGroupGearByClass, selectedSortGearBy, false)",
-          :key="item.key",
-          :item="item",
-          :price="item.value",
-          :priceType="item.currency",
-          :itemContentClass="'shop_'+item.key",
-          :emptyItem="userItems.gear[item.key] === undefined",
-          :popoverPosition="'top'",
-        )
-          template(slot="popoverContent", scope="ctx")
-            equipmentAttributesPopover(:item="ctx.item")
-            div {{ ctx.item }}
+      itemRows(
+        :items="filteredGear(selectedGroupGearByClass, selectedSortGearBy, false)",
+        :itemWidth=94,
+        :itemMargin=24,
+        :showAllLabel="$t('showAllEquipment', { classType: getClassName(selectedGroupGearByClass) })",
+        :showLessLabel="$t('showLessEquipment', { classType: getClassName(selectedGroupGearByClass) })"
+      )
+        template(slot="item", scope="ctx")
+          shopItem(
+            :key="ctx.item.key",
+            :item="ctx.item",
+            :price="ctx.item.value",
+            :priceType="ctx.item.currency",
+            :itemContentClass="'shop_'+ctx.item.key",
+            :emptyItem="userItems.gear[ctx.item.key] === undefined",
+            :popoverPosition="'top'",
+          )
+            template(slot="popoverContent", scope="ctx")
+              equipmentAttributesPopover(:item="ctx.item")
+              div {{ ctx.item }}
 
-          template(slot="itemBadge", scope="ctx")
-            span.badge.badge-pill.badge-item.badge-svg(
-              v-if="!ctx.emptyItem",
-              :class="{'item-selected-badge': true}",
-            )
-              span.svg-icon.inline.icon-12(v-html="icons.pin")
+            template(slot="itemBadge", scope="ctx")
+              span.badge.badge-pill.badge-item.badge-svg(
+                v-if="!ctx.emptyItem",
+                :class="{'item-selected-badge': true}",
+              )
+                span.svg-icon.inline.icon-12(v-html="icons.pin")
 
       .clearfix
         h2.float-left
@@ -113,7 +119,7 @@
         v-for="category in categories",
         v-if="viewOptions[category.identifier].selected"
       )
-        h4 {{ category.text }} - {{ category.items.length }}
+        h4 {{ category.text }}
 
         div.items
           shopItem(
@@ -251,6 +257,7 @@
   import Drawer from 'client/components/ui/drawer';
   import DrawerSlider from 'client/components/ui/drawerSlider';
   import DrawerHeaderTabs from 'client/components/ui/drawerHeaderTabs';
+  import ItemRows from 'client/components/ui/itemRows';
 
   import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
 
@@ -289,6 +296,7 @@ export default {
       Drawer,
       DrawerSlider,
       DrawerHeaderTabs,
+      ItemRows,
       bPopover,
       bDropdown,
       bDropdownItem,
@@ -374,6 +382,13 @@ export default {
       },
     },
     methods: {
+      getClassName (classType) {
+        if(classType == 'wizard') {
+          return this.$t('mage');
+        } else {
+          return this.$t(classType);
+        }
+      },
       tabSelected ($event) {
         this.selectedDrawerTab = $event;
         this.selectedDrawerItemType = this.drawerTabs[$event].key;

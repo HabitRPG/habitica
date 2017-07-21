@@ -109,7 +109,6 @@
   "wantToJoinPartyTitle": "Want to join a Party?",
   "wantToJoinPartyDescription": "Aenean non mattis eros, quis semper ipsum. Phasellus vulputate in nibh et suscipit. In hac habitasse platea dictumst.",
   "copy": "Copy",
-  "lookingForGroup": "Looking for Group",
   "inviteToPartyOrQuest": "Invite Party to Quest",
   "inviteInformation": "Clicking “Invite” will send an invitation to your party members. When all members have accepted or denied, the Quest begins.",
   "questOwnerRewards": "Quest Owner Rewards",
@@ -187,5 +186,8 @@
   "sortByCon": "Con",
   "sortByPer": "Per",
   "sortByStr": "Str",
-  "sortByInt": "Int"
+  "sortByInt": "Int",
+  "classEquipment": "Class Equipment",
+  "showAllEquipment": "Show All <%= classType %> Equipment",
+  "showLessEquipment": "Show Less <%= classType %> Equipment"
 }
