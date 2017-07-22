@@ -24,14 +24,18 @@ div
             router-link.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
             router-link.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
             router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
-        router-link.nav-item(tag="li", :to="{name: 'challenges'}", exact)
+        router-link.nav-item(tag="li", :to="{name: 'myChallenges'}", exact)
           a.nav-link(v-once) {{ $t('challenges') }}
         router-link.nav-item.dropdown(tag="li", to="/help", :class="{'active': $route.path.startsWith('/help')}")
           a.nav-link(v-once) {{ $t('help') }}
           .dropdown-menu
-            router-link.dropdown-item(to="/help/faq") {{ $t('faq') }}
-            router-link.dropdown-item(to="/help/report-bug") {{ $t('reportBug') }}
-            router-link.dropdown-item(to="/help/request-feature") {{ $t('requestAF') }}
+            router-link.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}
+            router-link.dropdown-item(:to="{name: 'overview'}") {{ $t('overview') }}
+            router-link.dropdown-item(to="/groups/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportBug') }}
+            router-link.dropdown-item(to="/groups/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askAQuestion') }}
+            a.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
+            a.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
+            a.dropdown-item(href="http://habitica.wikia.com/wiki", target='_blank') {{ $t('wiki') }}
       .item-with-icon
         .svg-icon(v-html="icons.gem")
         span {{userGems | roundBigNumber}}
@@ -51,7 +55,7 @@ div
           router-link.dropdown-item(:to="{name: 'stats'}") {{ $t('stats') }}
           router-link.dropdown-item(:to="{name: 'achievements'}") {{ $t('achievements') }}
           router-link.dropdown-item(:to="{name: 'profile'}") {{ $t('profile') }}
-          router-link.dropdown-item(:to="{name: 'settings'}") {{ $t('settings') }}
+          router-link.dropdown-item(:to="{name: 'site'}") {{ $t('settings') }}
           a.nav-link.dropdown-item(to="/", @click.prevent='logout()') {{ $t('logout') }}
 </template>
 

@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 import changeClass from '../../../website/common/script/ops/changeClass';
 import {
   NotAuthorized,
@@ -58,7 +60,8 @@ describe('shared.ops.changeClass', () => {
 
     it('changes class', () => {
       user.stats.class = 'healer';
-      user.items.gear.owned.armor_rogue_1 = true; // eslint-disable-line camelcase
+      user.items.gear.owned.weapon_healer_3 = true;
+      user.items.gear.equipped.weapon = 'weapon_healer_3';
 
       let [data] = changeClass(user, {query: {class: 'rogue'}});
       expect(data).to.eql({
@@ -70,13 +73,10 @@ describe('shared.ops.changeClass', () => {
 
       expect(user.stats.class).to.equal('rogue');
       expect(user.flags.classSelected).to.be.true;
-      expect(user.items.gear.equipped.weapon).to.equal('weapon_rogue_0');
       expect(user.items.gear.owned.weapon_rogue_0).to.be.true;
-      expect(user.items.gear.equipped.armor).to.equal('armor_rogue_1');
-      expect(user.items.gear.owned.armor_rogue_1).to.be.true;
-      expect(user.items.gear.equipped.shield).to.equal('shield_rogue_0');
       expect(user.items.gear.owned.shield_rogue_0).to.be.true;
-      expect(user.items.gear.equipped.head).to.equal('head_base_0');
+      expect(user.items.gear.owned.weapon_healer_3).to.be.true;
+      expect(user.items.gear.equipped.weapon).to.equal('weapon_healer_3');
     });
   });
 
