@@ -25,7 +25,7 @@
 @import '~client/assets/scss/colors.scss';
 
 .tasks-column {
-  flex-grow: 1;
+  height: 556px;
 }
 
 .tasks-list {
@@ -140,7 +140,7 @@ export default {
   components: {
     Task,
   },
-  props: ['type', 'isUser', 'searchText'],
+  props: ['type', 'isUser', 'searchText', 'selectedTags'],
   data () {
     const types = Object.freeze({
       habit: {
@@ -198,8 +198,21 @@ export default {
   },
   methods: {
     filterTask (task) {
+      // View
       if (!this.activeFilter.filter(task)) return false;
 
+      // Tags
+      const selectedTags = this.selectedTags;
+
+      if (selectedTags.length > 0) {
+        const hasSelectedTag = task.tags.find(tagId => {
+          return selectedTags.indexOf(tagId) !== -1;
+        });
+
+        if (!hasSelectedTag) return false;
+      }
+
+      // Text
       const searchText = this.searchText;
 
       if (!searchText) return true;
