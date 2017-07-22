@@ -186,6 +186,9 @@
   "messages": "Messages",
   "emptyMessagesLine1": "You don’t have any messages",
   "emptyMessagesLine2": "Send a message to start a conversation!",
+  "resetFilters": "Clear all filters",
+  "applyFilters": "Apply Filters",
+  "editTags2": "Edit Tags"
   "contributing": "Contributing",
   "askAQuestion": "Ask a Question",
   "myChallenges": "My Challenges",

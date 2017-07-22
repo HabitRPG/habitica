@@ -120,6 +120,7 @@
   display: inline-block;
   margin-left: 16px;
   vertical-align: middle;
+  padding-top: 4px;
 
   .svg-icon {
     display: block;

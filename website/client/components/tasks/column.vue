@@ -9,7 +9,11 @@
         @click="activeFilter = filter",
       ) {{ $t(filter.label) }}
   .tasks-list
-    task(v-for="task in tasks[`${type}s`]", :key="task.id", :task="task", v-if="activeFilter.filter(task)")
+    task(
+      v-for="task in tasks[`${type}s`]", 
+      :key="task.id", :task="task", 
+      v-if="filterTask(task)",
+    )
     .bottom-gradient
     .column-background(v-if="isUser === true", :class="{'initial-description': tasks[`${type}s`].length === 0}")
       .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
@@ -21,7 +25,7 @@
 @import '~client/assets/scss/colors.scss';
 
 .tasks-column {
-  flex-grow: 1;
+  height: 556px;
 }
 
 .tasks-list {
@@ -136,7 +140,7 @@ export default {
   components: {
     Task,
   },
-  props: ['type', 'isUser'],
+  props: ['type', 'isUser', 'searchText', 'selectedTags'],
   data () {
     const types = Object.freeze({
       habit: {
@@ -191,6 +195,38 @@ export default {
       tasks: 'tasks.data',
       userPreferences: 'user.data.preferences',
     }),
+  },
+  methods: {
+    filterTask (task) {
+      // View
+      if (!this.activeFilter.filter(task)) return false;
+
+      // Tags
+      const selectedTags = this.selectedTags;
+
+      if (selectedTags.length > 0) {
+        const hasSelectedTag = task.tags.find(tagId => {
+          return selectedTags.indexOf(tagId) !== -1;
+        });
+
+        if (!hasSelectedTag) return false;
+      }
+
+      // Text
+      const searchText = this.searchText;
+
+      if (!searchText) return true;
+      if (task.text.toLowerCase().indexOf(searchText) !== -1) return true;
+      if (task.notes.toLowerCase().indexOf(searchText) !== -1) return true;
+
+      if (task.checklist && task.checklist.length) {
+        const checklistItemIndex = task.checklist.findIndex(({text}) => {
+          return text.toLowerCase().indexOf(searchText) !== -1;
+        });
+
+        return checklistItemIndex !== -1;
+      }
+    },
   },
 };
 </script>
