@@ -32,7 +32,7 @@
             button.btn.btn-secondary.filter-button(
               type="button", 
               @click="toggleFilterPanel()",
-              :class="{open: isFilterPanelOpen}",
+              :class="{'filter-button-open': selectedTags.length > 0}",
             )
               .d-flex.align-items-center
                 span(v-once) {{ $t('filter') }}
@@ -69,7 +69,7 @@
   padding-top: 6px;
 }
 
-.filter-button {
+button.btn.btn-secondary.filter-button {
   box-shadow: none;
   border-radius: 2px;
   border: 1px solid $gray-400 !important;
@@ -77,12 +77,21 @@
   &:hover, &:active, &:focus, &.open {
     box-shadow: none; 
     border-color: $purple-500 !important;
+    color: $gray-50 !important;
+  }
+
+  &.filter-button-open {
+    color: $purple-200 !important;
+
+    .filter-icon {
+      color: $purple-200 !important;
+    }
   }
 
   .filter-icon {
     height: 10px;
     width: 12px;
-    color: $green-500;
+    color: $gray-50;
     margin-left: 15px;
   }
 }
