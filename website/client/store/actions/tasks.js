@@ -1,5 +1,5 @@
 import { loadAsyncResource } from 'client/libs/asyncResource';
-
+import axios from 'axios';
 import compact from 'lodash/compact';
 
 export function fetchUserTasks (store, forceLoad = false) {
@@ -16,6 +16,37 @@ export function fetchUserTasks (store, forceLoad = false) {
     },
     forceLoad,
   });
+}
+
+export async function fetchCompletedTodos (store, forceLoad = false) {
+  // Wait for the user to be loaded before deserializing
+  // because user.tasksOrder is necessary
+  await store.dispatch('tasks:fetchUserTasks');
+
+  const loadStatus = store.state.completedTodosStatus;
+  if (loadStatus === 'NOT_LOADED' || forceLoad) {
+    store.state.completedTodosStatus = 'LOADING';
+
+    const response = await axios.get('/api/v3/tasks/user?type=completedTodos');
+    const completedTodos = response.data.data;
+    const tasks = store.state.tasks.data;
+    // Remove existing completed todos
+    tasks.todos = tasks.todos.filter(t => !t.completed);
+    tasks.todos.push(...completedTodos);
+
+    store.state.completedTodosStatus = 'LOADED';
+  } else if (status === 'LOADED') {
+    return;
+  } else if (loadStatus === 'LOADING') {
+    const watcher = store.watch(state => state.completedTodosStatus, (newLoadingStatus) => {
+      watcher(); // remove the watcher
+      if (newLoadingStatus === 'LOADED') {
+        return;
+      } else {
+        throw new Error(); // TODO add reason?
+      }
+    });
+  }
 }
 
 export function order (store, [rawTasks, tasksOrder]) {

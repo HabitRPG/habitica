@@ -178,6 +178,7 @@
 .left-control {
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
+  min-height: 60px;
 }
 
 .right-control {
