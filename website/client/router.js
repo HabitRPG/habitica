@@ -46,6 +46,11 @@ const PromoCode = () => import(/* webpackChunkName: "settings" */'./components/s
 const Site = () => import(/* webpackChunkName: "settings" */'./components/settings/site');
 const Subscription = () => import(/* webpackChunkName: "settings" */'./components/settings/subscription');
 
+// Hall
+const HallPage = () => import(/* webpackChunkName: "hall" */'./components/hall/index');
+const PatronsPage = () => import(/* webpackChunkName: "hall" */'./components/hall/patrons');
+const HeroesPage = () => import(/* webpackChunkName: "hall" */'./components/hall/heroes');
+
 // Except for tasks that are always loaded all the other main level
 // All the main level
 // components are loaded in separate webpack chunks.
@@ -239,6 +244,14 @@ const router = new VueRouter({
         { name: 'privacy', path: 'privacy', component: PrivacyPage },
         { name: 'terms', path: 'terms', component: TermsPage },
         { name: 'videos', path: 'videos', component: VideosPage },
+      ],
+    },
+    {
+      path: '/hall',
+      component: HallPage,
+      children: [
+        { name: 'patrons', path: 'patrons', component: PatronsPage },
+        { name: 'contributors', path: 'contributors', component: HeroesPage },
       ],
     },
   ],
