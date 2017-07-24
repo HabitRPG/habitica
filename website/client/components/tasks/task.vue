@@ -184,6 +184,7 @@
 .right-control {
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
+  min-height: 56px;
 }
 
 .task-control {
@@ -216,8 +217,8 @@
 
 .reward-control {
   flex-direction: column;
-  padding-top: 16px;
-  padding-bottom: 12px;
+  padding-top: 8px;
+  padding-bottom: 4px;
 
   .svg-icon {
     width: 24px;
