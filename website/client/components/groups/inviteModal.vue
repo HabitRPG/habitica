@@ -97,18 +97,18 @@ export default {
 
       this.inviteByMethod(inviteMethod);
     },
-    inviteByMethod (inviteMethod) {
-      let invitationDetails;
-
-      if (inviteMethod === 'email') {
-        let emails = this.getEmails();
-        invitationDetails = { inviter: this.inviter, emails };
-      } else if (inviteMethod === 'uuid') {
-        let uuids = this.getOnlyUuids();
-        invitationDetails = { uuids };
-      } else {
-        return alert('Invalid invite method.');
-      }
+    // inviteByMethod (inviteMethod) {
+      // let invitationDetails;
+      //
+      // if (inviteMethod === 'email') {
+      //   let emails = this.getEmails();
+      //   invitationDetails = { inviter: this.inviter, emails };
+      // } else if (inviteMethod === 'uuid') {
+      //   let uuids = this.getOnlyUuids();
+      //   invitationDetails = { uuids };
+      // } else {
+      //   return alert('Invalid invite method.');
+      // }
 
       // @TODO: Add dispatch
       // Groups.Group.invite(this.group._id, invitationDetails)
@@ -128,7 +128,7 @@ export default {
       //   }, function(){
       //     _resetInvitees();
       //   });
-    },
+    // },
     getOnlyUuids () {
       let uuids = map(this.invitees, 'uuid');
       let filteredUuids = filter(uuids, (id) => {

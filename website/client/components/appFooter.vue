@@ -101,7 +101,7 @@
 <script>
 import gryphon from 'assets/svg/gryphon.svg';
 
-const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
+// const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 
 export default {
   data () {

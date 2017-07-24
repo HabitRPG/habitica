@@ -5,6 +5,7 @@
     #loading-screen.h-100.w-100.d-flex.justify-content-center.align-items-center(v-if="!isUserLoaded")
       p Loading...
     template(v-else)
+      notifications
       app-menu
       .container-fluid.h-100
         app-header
@@ -16,6 +17,7 @@
 import AppMenu from './components/appMenu';
 import AppHeader from './components/appHeader';
 import AppFooter from './components/appFooter';
+import notifications from './components/notifications';
 import { mapState } from 'client/libs/store';
 
 export default {
@@ -24,6 +26,7 @@ export default {
     AppMenu,
     AppHeader,
     AppFooter,
+    notifications,
   },
   data () {
     return {
