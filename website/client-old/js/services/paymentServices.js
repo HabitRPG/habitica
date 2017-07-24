@@ -370,7 +370,7 @@ function($rootScope, User, $http, Content, Notification) {
       },
     };
 
-    $http(req);
+    return $http(req);
   }
 
   Payments.encodeGift = function(uuid, gift) {
