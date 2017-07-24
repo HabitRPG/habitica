@@ -193,5 +193,6 @@
   "howManyToSell": "How many would you like to sell?",
   "yourBalance": "Your balance",
   "sell": "Sell",
-  "buyNow": "Buy Now"
+  "buyNow": "Buy Now",
+  "sortByNumber": "Number"
 }

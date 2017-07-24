@@ -12,7 +12,7 @@
       span.svg-icon.inline.color.icon-10(v-html="icons.pin")
 
     div.close
-      span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close", @click="$root.$emit('hide::modal', 'buy-modal')")
+      span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close", @click="hideDialog()")
 
     div.content(v-if="item != null")
 
@@ -28,7 +28,7 @@
           span.svg-icon.inline.icon-32(aria-hidden="true", v-html="(priceType  === 'gems') ? icons.gem : icons.gold")
           span.value(:class="priceType") {{ item.value }}
 
-        button.btn.btn-primary() {{ $t('buyNow') }}
+        button.btn.btn-primary(@click="buyItem()") {{ $t('buyNow') }}
 
     div.clearfix(slot="modal-footer")
       span.balance.float-left {{ $t('yourBalance') }}
@@ -173,6 +173,13 @@
     methods: {
       onChange ($event) {
         this.$emit('change', $event);
+      },
+      buyItem () {
+        this.$store.dispatch('shops:buyItem', {key: this.item.key});
+        this.hideDialog();
+      },
+      hideDialog () {
+        this.$root.$emit('hide::modal', 'buy-modal');
       },
     },
     props: {

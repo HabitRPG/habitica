@@ -73,7 +73,7 @@
       br
 
       itemRows(
-        :items="filteredGear(selectedGroupGearByClass, selectedSortGearBy, false)",
+        :items="filteredGear(selectedGroupGearByClass, selectedSortGearBy)",
         :itemWidth=94,
         :itemMargin=24,
         :showAllLabel="$t('showAllEquipment', { classType: getClassName(selectedGroupGearByClass) })",
@@ -93,10 +93,12 @@
             template(slot="popoverContent", scope="ctx")
               equipmentAttributesPopover(:item="ctx.item")
               div {{ ctx.item }}
+              div {{ 'Can buy: ' + ctx.item.canBuy() }}
+              div {{ ctx.item.canOwn }}
 
             template(slot="itemBadge", scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
-                :class="{'item-selected-badge': true}",
+                :class="{'item-selected-badge': true, 'hide': !ctx.item.canBuy()}",
               )
                 span.svg-icon.inline.icon-12(v-html="icons.pin")
 
@@ -246,6 +248,16 @@
     }
   }
 
+  span.badge.badge-pill.badge-item.badge-svg.hide {
+    display: none;
+  }
+
+  .item:hover {
+    span.badge.badge-pill.badge-item.badge-svg.hide {
+      display: block;
+    }
+  }
+
   .icon-12 {
     width: 12px;
     height: 12px;
@@ -382,7 +394,7 @@ export default {
         sortGearBy: sortGearTypes,
         selectedSortGearBy: 'sortByType',
 
-        sortItemsBy: ['AZ', 'sortByType', 'sortByNumber'],
+        sortItemsBy: ['AZ', 'sortByNumber'],
         selectedSortItemsBy: 'AZ',
 
         selectedItemToSell: null,
@@ -394,7 +406,8 @@ export default {
       ...mapState({
         content: 'content',
         market: 'shops.market.data',
-        user: 'user.data.stats',
+        user: 'user.data',
+        userStats: 'user.data.stats',
         userItems: 'user.data.items',
       }),
       categories () {
@@ -492,8 +505,14 @@ export default {
       openBuyDialog (type, item) {
         alert(item.key);
       },
-      filteredGear (groupByClass, sortBy, showAll) {
+      filteredGear (groupByClass, sortBy) {
         let result = _filter(this.content.gear.flat, ['klass', groupByClass]);
+
+        console.info(this.userItems, result);
+
+        result = _filter(result, (gear) => {
+          return !this.userItems.gear.owned[gear.key];
+        });
 
         result = _sortBy(result, [sortGearTypeMap[sortBy]]);
 
@@ -523,12 +542,12 @@ export default {
           this.selectedItemToSell = null;
         }
       },
-      resetGearToBuy($event) {
+      resetGearToBuy ($event) {
         if (!$event) {
           this.selectedGearToBuy = null;
         }
       },
-      resetItemToBuy($event) {
+      resetItemToBuy ($event) {
         if (!$event) {
           this.selectedItemToBuy = null;
         }
@@ -537,9 +556,7 @@ export default {
     created () {
       this.$store.dispatch('shops:fetch');
 
-        this.selectedGroupGearByClass = this.user.class;
-        console.info('ads', this.selectedGroupGearByClass);
-
+      this.selectedGroupGearByClass = this.userStats.class;
     },
   };
 </script>

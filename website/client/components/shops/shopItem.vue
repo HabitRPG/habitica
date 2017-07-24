@@ -12,6 +12,9 @@ b-popover(
     )
       slot(name="itemBadge", :item="item", :emptyItem="emptyItem")
       div.shop-content
+        span.svg-icon.inline.lock(v-if="item.canBuy && !item.canBuy()" v-html="icons.lock")
+
+
         div.image(:class="itemContentClass")
 
         div.price
@@ -68,6 +71,15 @@ b-popover(
       color: $yellow-10
     }
   }
+
+  span.svg-icon.inline.lock {
+    height: 12px;
+    width: 10px;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    margin-top: 0;
+  }
 </style>
 
 <script>
@@ -75,6 +87,7 @@ b-popover(
 
   import svgGem from 'assets/svg/gem.svg';
   import svgGold from 'assets/svg/gold.svg';
+  import svgLock from 'assets/svg/lock.svg';
 
   export default {
     components: {
@@ -85,6 +98,7 @@ b-popover(
         icons: Object.freeze({
           gem: svgGem,
           gold: svgGold,
+          lock: svgLock,
         }),
       };
     },
