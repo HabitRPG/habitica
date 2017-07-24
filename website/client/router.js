@@ -71,11 +71,12 @@ const InboxPage = () => import(/* webpackChunkName: "inbox" */ './components/soc
 const InboxConversationPage = () => import(/* webpackChunkName: "inbox" */ './components/social/inbox/conversationPage');
 
 // Guilds
-const GuildIndex = () => import(/* webpackChunkName: "guilds" */ './components/guilds/index');
-const TavernPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/tavern');
-const MyGuilds = () => import(/* webpackChunkName: "guilds" */ './components/guilds/myGuilds');
-const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/discovery');
-const GuildPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/guild');
+const GuildIndex = () => import(/* webpackChunkName: "guilds" */ './components/groups/index');
+const TavernPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/tavern');
+const MyGuilds = () => import(/* webpackChunkName: "guilds" */ './components/groups/myGuilds');
+const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/discovery');
+const GuildPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/guild');
+const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/groupPlan');
 
 // Challenges
 const ChallengeIndex = () => import(/* webpackChunkName: "challenges" */ './components/challenges/index');
@@ -112,8 +113,9 @@ const router = new VueRouter({
     },
     { name: 'shops', path: '/shops', component: Page },
     { name: 'party', path: '/party', component: GuildPage },
+    { name: 'groupPlan', path: '/group-plans', component: GroupPlansAppPage },
     {
-      path: '/guilds',
+      path: '/groups',
       component: GuildIndex,
       children: [
         { name: 'tavern', path: 'tavern', component: TavernPage },
