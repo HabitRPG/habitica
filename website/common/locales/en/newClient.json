@@ -192,5 +192,6 @@
   "showLessEquipment": "Show Less <%= classType %> Equipment",
   "howManyToSell": "How many would you like to sell?",
   "yourBalance": "Your balance",
-  "sell": "Sell"
+  "sell": "Sell",
+  "buyNow": "Buy Now"
 }

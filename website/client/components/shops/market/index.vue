@@ -88,6 +88,7 @@
             :itemContentClass="'shop_'+ctx.item.key",
             :emptyItem="userItems.gear[ctx.item.key] === undefined",
             :popoverPosition="'top'",
+            @click="selectedGearToBuy = ctx.item"
           )
             template(slot="popoverContent", scope="ctx")
               equipmentAttributesPopover(:item="ctx.item")
@@ -95,7 +96,6 @@
 
             template(slot="itemBadge", scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
-                v-if="!ctx.emptyItem",
                 :class="{'item-selected-badge': true}",
               )
                 span.svg-icon.inline.icon-12(v-html="icons.pin")
@@ -131,6 +131,7 @@
             :itemContentClass="item.class",
             :emptyItem="false",
             :popoverPosition="'top'",
+            @click="selectedItemToBuy = item"
           )
             span(slot="popoverContent")
               h4.popover-content-title {{ item.text }}
@@ -200,6 +201,33 @@
                 :show="true",
                 :count="userItems[drawerTabs[selectedDrawerTab].contentType][ctx.item.key] || 0"
               )
+
+      buyModal(
+        :item="selectedGearToBuy",
+        priceType="gold",
+        :withPin="true",
+        @change="resetGearToBuy($event)"
+      )
+        template(slot="item", scope="ctx")
+          item.flat(
+            :item="ctx.item",
+            :itemContentClass="'shop_'+ctx.item.key",
+            :showPopover="false"
+          )
+        template(slot="additionalInfo", scope="ctx")
+          equipmentAttributesGrid.bordered(:item="ctx.item")
+
+      buyModal(
+        :item="selectedItemToBuy",
+        :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
+        @change="resetItemToBuy($event)"
+      )
+        template(slot="item", scope="ctx")
+          item.flat(
+            :item="ctx.item",
+            :itemContentClass="ctx.item.class",
+            :showPopover="false"
+          )
 </template>
 
 <style lang="scss">
@@ -262,6 +290,13 @@
       flex: 1;
     }
   }
+
+  .bordered {
+    border-radius: 2px;
+    background-color: #f9f9f9;
+    margin-bottom: 24px;
+    padding: 24px 24px 10px;
+  }
 </style>
 
 
@@ -279,6 +314,8 @@
   import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
 
   import SellModal from './sellModal.vue';
+  import BuyModal from './buyModal.vue';
+  import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
 
   import bPopover from 'bootstrap-vue/lib/components/popover';
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
@@ -321,6 +358,8 @@ export default {
 
       EquipmentAttributesPopover,
       SellModal,
+      BuyModal,
+      EquipmentAttributesGrid,
     },
     data () {
       return {
@@ -347,6 +386,8 @@ export default {
         selectedSortItemsBy: 'AZ',
 
         selectedItemToSell: null,
+        selectedGearToBuy: null,
+        selectedItemToBuy: null,
       };
     },
     computed: {
@@ -361,7 +402,6 @@ export default {
           this.market.categories.map((category) => {
             this.$set(this.viewOptions, category.identifier, {
               selected: true,
-              open: false,
             });
           });
 
@@ -481,6 +521,16 @@ export default {
       resetItemToSell ($event) {
         if (!$event) {
           this.selectedItemToSell = null;
+        }
+      },
+      resetGearToBuy($event) {
+        if (!$event) {
+          this.selectedGearToBuy = null;
+        }
+      },
+      resetItemToBuy($event) {
+        if (!$event) {
+          this.selectedItemToBuy = null;
         }
       },
     },
