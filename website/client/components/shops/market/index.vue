@@ -199,6 +199,7 @@
 
       sellModal(
         :item="selectedItemToSell",
+        :itemType="selectedDrawerItemType",
         :itemCount="selectedItemToSell != null ? userItems[drawerTabs[selectedDrawerTab].contentType][selectedItemToSell.key] : 0",
         @change="resetItemToSell($event)"
       )
@@ -470,7 +471,6 @@ export default {
       },
 
       featuredItems () {
-          console.info('content', this.content, 'user', this.userItems);
         return featuredItems.map(i => {
           return this.content.gear.flat[i];
         });
@@ -478,7 +478,7 @@ export default {
     },
     methods: {
       getClassName (classType) {
-        if(classType == 'wizard') {
+        if (classType === 'wizard') {
           return this.$t('mage');
         } else {
           return this.$t(classType);
@@ -523,9 +523,6 @@ export default {
             return '';
         }
       },
-      openBuyDialog (type, item) {
-        alert(item.key);
-      },
       filteredGear (groupByClass, sortBy, hideLocked, hidePinned) {
         let result = _filter(this.content.gear.flat, ['klass', groupByClass]);
         result = _map(result, (e) => {
@@ -548,11 +545,7 @@ export default {
           return !this.userItems.gear.owned[gear.key];
         });
 
-
-
         result = _sortBy(result, [sortGearTypeMap[sortBy]]);
-
-
 
         return result;
       },

@@ -5,7 +5,7 @@
     @change="onChange($event)"
   )
     div.close
-      span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close", @click="$root.$emit('hide::modal', 'sell-modal')")
+      span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close", @click="hideDialog()")
 
     div.content(v-if="item != null")
 
@@ -29,7 +29,7 @@
           span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons.gold")
           span.value {{ item.value }}
 
-        button.btn.btn-primary() {{ $t('sell') }}
+        button.btn.btn-primary(@click="sellItems()") {{ $t('sell') }}
 
     div.clearfix(slot="modal-footer")
       span.balance.float-left {{ $t('yourBalance') }}
@@ -158,10 +158,24 @@
       onChange ($event) {
         this.$emit('change', $event);
       },
+      sellItems () {
+        this.$store.dispatch('shops:sellItems', {
+          type: this.itemType,
+          key: this.item.key,
+          amount: this.selectedAmountToSell,
+        });
+        this.hideDialog();
+      },
+      hideDialog () {
+        this.$root.$emit('hide::modal', 'sell-modal');
+      },
     },
     props: {
       item: {
         type: Object,
+      },
+      itemType: {
+        type: String,
       },
       itemCount: {
         type: Number,

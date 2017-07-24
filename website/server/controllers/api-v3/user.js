@@ -1476,12 +1476,13 @@ api.userReleaseMounts = {
 };
 
 /**
- * @api {post} /api/v3/user/sell/:type/:key Sell a gold-sellable item owned by the user
+ * @api {post} /api/v3/user/sell/:type/:key/:amount Sell a gold-sellable item owned by the user
  * @apiName UserSell
  * @apiGroup User
  *
  * @apiParam {String="eggs","hatchingPotions","food"} type The type of item to sell.
  * @apiParam {String} key The key of the item
+ * @apiParam {Number} (optional) amount The amount to sell
  *
  * @apiSuccess {Object} data.stats
  * @apiSuccess {Object} data.items
@@ -1495,7 +1496,7 @@ api.userReleaseMounts = {
 api.userSell = {
   method: 'POST',
   middlewares: [authWithHeaders()],
-  url: '/user/sell/:type/:key',
+  url: '/user/sell/:type/:key/:amount',
   async handler (req, res) {
     let user = res.locals.user;
     let sellRes = common.ops.sell(user, req);
