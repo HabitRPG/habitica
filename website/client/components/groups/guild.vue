@@ -357,6 +357,7 @@ import quests from 'common/script/content/quests';
 import percent from 'common/script/libs/percent';
 import groupFormModal from './groupFormModal';
 import inviteModal from './inviteModal';
+import memberModal from '../members/memberModal';
 import chatMessage from '../chat/chatMessages';
 
 import bCollapse from 'bootstrap-vue/lib/components/collapse';
@@ -382,6 +383,7 @@ export default {
   props: ['groupId'],
   components: {
     membersModal,
+    memberModal,
     ownedQuestsModal,
     bCollapse,
     bCard,
