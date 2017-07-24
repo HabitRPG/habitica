@@ -12,7 +12,7 @@ b-popover(
     )
       slot(name="itemBadge", :item="item", :emptyItem="emptyItem")
       div.shop-content
-        span.svg-icon.inline.lock(v-if="item.canBuy && !item.canBuy()" v-html="icons.lock")
+        span.svg-icon.inline.lock(v-if="item.locked" v-html="icons.lock")
 
 
         div.image(:class="itemContentClass")

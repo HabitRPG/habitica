@@ -16,6 +16,18 @@
               span.custom-control-indicator
               span.custom-control-description(v-once) {{ category.text }}
 
+        div.form-group.clearfix
+          h3.float-left Hide locked
+          toggle-switch.float-right.hideMissing(
+            :label="''",
+            v-model="hideLocked",
+          )
+        div.form-group.clearfix
+          h3.float-left Hide pinned
+          toggle-switch.float-right.hideMissing(
+            :label="''",
+            v-model="hidePinned",
+          )
     .standard-page
       div.featuredItems
         div.featured-label
@@ -73,7 +85,7 @@
       br
 
       itemRows(
-        :items="filteredGear(selectedGroupGearByClass, selectedSortGearBy)",
+        :items="filteredGear(selectedGroupGearByClass, selectedSortGearBy, hideLocked, hidePinned)",
         :itemWidth=94,
         :itemMargin=24,
         :showAllLabel="$t('showAllEquipment', { classType: getClassName(selectedGroupGearByClass) })",
@@ -93,14 +105,12 @@
             template(slot="popoverContent", scope="ctx")
               equipmentAttributesPopover(:item="ctx.item")
               div {{ ctx.item }}
-              div {{ 'Can buy: ' + ctx.item.canBuy() }}
-              div {{ ctx.item.canOwn }}
 
             template(slot="itemBadge", scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
-                :class="{'item-selected-badge': true, 'hide': !ctx.item.canBuy()}",
+                :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
               )
-                span.svg-icon.inline.icon-12(v-html="icons.pin")
+                span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
       .clearfix
         h2.float-left
@@ -248,6 +258,10 @@
     }
   }
 
+  span.badge.badge-pill.badge-item.badge-svg:not(.item-selected-badge) {
+    color: #a5a1ac;
+  }
+
   span.badge.badge-pill.badge-item.badge-svg.hide {
     display: none;
   }
@@ -322,6 +336,7 @@
   import DrawerSlider from 'client/components/ui/drawerSlider';
   import DrawerHeaderTabs from 'client/components/ui/drawerHeaderTabs';
   import ItemRows from 'client/components/ui/itemRows';
+  import toggleSwitch from 'client/components/ui/toggleSwitch';
 
   import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
 
@@ -344,6 +359,7 @@
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
+  import _map from 'lodash/map';
 
   const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
@@ -364,6 +380,8 @@ export default {
       DrawerSlider,
       DrawerHeaderTabs,
       ItemRows,
+      toggleSwitch,
+
       bPopover,
       bDropdown,
       bDropdownItem,
@@ -400,6 +418,9 @@ export default {
         selectedItemToSell: null,
         selectedGearToBuy: null,
         selectedItemToBuy: null,
+
+        hideLocked: false,
+        hidePinned: false,
       };
     },
     computed: {
@@ -505,20 +526,37 @@ export default {
       openBuyDialog (type, item) {
         alert(item.key);
       },
-      filteredGear (groupByClass, sortBy) {
+      filteredGear (groupByClass, sortBy, hideLocked, hidePinned) {
         let result = _filter(this.content.gear.flat, ['klass', groupByClass]);
-
-        console.info(this.userItems, result);
+        result = _map(result, (e) => {
+          return {
+            ...e,
+            pinned: false, // TODO read pinned state
+            locked: this.isGearLocked(e),
+          };
+        });
 
         result = _filter(result, (gear) => {
+          if (hideLocked && gear.locked) {
+            return false;
+          }
+          if (hidePinned && gear.pinned) {
+            return false;
+          }
+
+          // hide already owned
           return !this.userItems.gear.owned[gear.key];
         });
 
+
+
         result = _sortBy(result, [sortGearTypeMap[sortBy]]);
+
+
 
         return result;
       },
-      sortedMarketItems(category, sortBy) {
+      sortedMarketItems (category, sortBy) {
         let result = category.items;
 
         switch (sortBy) {
@@ -551,6 +589,13 @@ export default {
         if (!$event) {
           this.selectedItemToBuy = null;
         }
+      },
+      isGearLocked (gear) {
+        if (gear.value > this.userStats.gp) {
+          return true;
+        }
+
+        return false;
       },
     },
     created () {
