@@ -362,7 +362,15 @@ function($rootScope, User, $http, Content, Notification) {
 
     var gift = Payments.encodeGift(data.giftedTo, data.gift);
     var url = '/paypal/checkout?_id=' + User.user._id + '&apiToken=' + User.settings.auth.apiToken + '&gift=' + gift;
-    $http.get(url);
+    var req = {
+      method: 'GET',
+      url: url,
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      },
+    };
+
+    $http(req);
   }
 
   Payments.encodeGift = function(uuid, gift) {
