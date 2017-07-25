@@ -1,5 +1,5 @@
 <template lang="pug">
-  .row
+  .row.market
     .standard-sidebar
       .form-group
         //input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
@@ -222,11 +222,14 @@
         @change="resetGearToBuy($event)"
       )
         template(slot="item", scope="ctx")
-          item.flat(
-            :item="ctx.item",
-            :itemContentClass="'shop_'+ctx.item.key",
-            :showPopover="false"
-          )
+          div
+            avatar(
+              :member="user",
+              :avatarOnly="true",
+              :withBackground="true",
+              :overrideAvatarGear="memberOverrideAvatarGear(selectedGearToBuy)"
+            )
+
         template(slot="additionalInfo", scope="ctx")
           equipmentAttributesGrid.bordered(:item="ctx.item")
 
@@ -324,6 +327,17 @@
     margin-bottom: 24px;
     padding: 24px 24px 10px;
   }
+
+  .market {
+    .avatar {
+      cursor: default;
+      margin: 0 auto;
+
+      .character-sprites span {
+        left: 25px;
+      }
+    }
+  }
 </style>
 
 
@@ -338,6 +352,7 @@
   import DrawerHeaderTabs from 'client/components/ui/drawerHeaderTabs';
   import ItemRows from 'client/components/ui/itemRows';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
+  import Avatar from 'client/components/avatar';
 
   import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
 
@@ -391,6 +406,7 @@ export default {
       SellModal,
       BuyModal,
       EquipmentAttributesGrid,
+      Avatar,
     },
     data () {
       return {
@@ -589,6 +605,11 @@ export default {
         }
 
         return false;
+      },
+      memberOverrideAvatarGear (gear) {
+        return {
+          [gear.type]: gear.key
+        }
       },
     },
     created () {
