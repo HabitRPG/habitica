@@ -71,7 +71,7 @@
     "displayNow": "Afficher tout de suite",
     "displayLater": "Afficher plus tard",
     "petNotOwned": "Vous ne possédez pas ce familier.",
-    "mountNotOwned": "You do not own this mount.",
+    "mountNotOwned": "Vous ne possédez pas cette monture.",
     "earnedCompanion": "Grâce à votre productivité, vous avez gagné un nouveau compagnon. Nourrissez-le pour le faire grandir !",
     "feedPet": "Donner cette <%= text %> à votre <%= name %> ?",
     "useSaddle": "Seller <%= pet %> ?",
