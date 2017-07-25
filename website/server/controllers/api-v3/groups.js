@@ -316,6 +316,16 @@ api.getGroups = {
       filters.categories = { $elemMatch: { slug: {$in: categorySlugs} } };
     }
 
+    if (req.query.minMemberCount) {
+      if (!filters.memberCount) filters.memberCount = {};
+      filters.memberCount.$gte = parseInt(req.query.minMemberCount, 10);
+    }
+
+    if (req.query.maxMemberCount) {
+      if (!filters.memberCount) filters.memberCount = {};
+      filters.memberCount.$lte = parseInt(req.query.maxMemberCount, 10);
+    }
+
     let results = await Group.getGroups({
       user, types, groupFields, sort,
       paginate, page: req.query.page, filters,

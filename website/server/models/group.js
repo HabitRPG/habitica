@@ -275,7 +275,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
           type: 'guild',
           privacy: 'public',
         };
-        _.assign(query, filters);
+        _.assign(query, filters);    console.log(query)
         let publicGuildsQuery = this.find(query).select(groupFields);
         if (populateLeader === true) publicGuildsQuery.populate('leader', nameFields);
         if (paginate === true) publicGuildsQuery.limit(GUILDS_PER_PAGE).skip(page * GUILDS_PER_PAGE);

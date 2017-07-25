@@ -120,6 +120,36 @@ describe('GET /groups', () => {
 
       expect(guilds[0]._id).to.equal(privateGuildUserIsMemberOf._id);
     });
+
+    it('filters public guilds by size', async () => {
+      await generateGroup(user, {
+        name: 'guild1',
+        type: 'guild',
+        privacy: 'public',
+        memberCount: 1,
+      });
+
+      // @TODO: anyway to set higher memberCount in tests right now?
+
+      let guilds = await user.get('/groups?type=publicGuilds&minMemberCount=3');
+
+      expect(guilds.length).to.equal(0);
+    });
+
+    it('filters private guilds by size', async () => {
+      await generateGroup(user, {
+        name: 'guild1',
+        type: 'guild',
+        privacy: 'private',
+        memberCount: 1,
+      });
+
+      // @TODO: anyway to set higher memberCount in tests right now?
+
+      let guilds = await user.get('/groups?type=privateGuilds&minMemberCount=3');
+
+      expect(guilds.length).to.equal(0);
+    });
   });
 
   describe('public guilds pagination', () => {
