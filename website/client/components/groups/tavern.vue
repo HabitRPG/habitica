@@ -283,7 +283,7 @@ import { mapState } from 'client/libs/store';
 
 import { TAVERN_ID } from '../../../common/script/constants';
 import chatMessage from '../chat/chatMessages';
-import autocomplete from '../chat/autocomplete';
+import autocomplete from '../chat/autoComplete';
 
 import gemIcon from 'assets/svg/gem.svg';
 import questIcon from 'assets/svg/quest.svg';
