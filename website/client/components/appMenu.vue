@@ -24,6 +24,8 @@ div
             router-link.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
             router-link.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
             router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
+        router-link.nav-item.dropdown(tag="li", :to="{name: 'groupPlan'}", :class="{'active': $route.path.startsWith('/group-plan')}")
+          a.nav-link(v-once) {{ $t('group') }}
         router-link.nav-item(tag="li", :to="{name: 'myChallenges'}", exact)
           a.nav-link(v-once) {{ $t('challenges') }}
         router-link.nav-item.dropdown(tag="li", to="/help", :class="{'active': $route.path.startsWith('/help')}")
@@ -42,8 +44,7 @@ div
       .item-with-icon
         .svg-icon(v-html="icons.gold")
         span {{user.stats.gp | roundBigNumber}}
-      .item-with-icon.item-notifications
-        .svg-icon(v-html="icons.notifications")
+      notification-menu
       router-link.dropdown.item-with-icon.item-user(:to="{name: 'avatar'}")
         .svg-icon(v-html="icons.user")
         .dropdown-menu.dropdown-menu-right.user-dropdown
@@ -203,21 +204,21 @@ div
 import { mapState, mapGetters } from 'client/libs/store';
 import gemIcon from 'assets/svg/gem.svg';
 import goldIcon from 'assets/svg/gold.svg';
-import notificationsIcon from 'assets/svg/notifications.svg';
 import userIcon from 'assets/svg/user.svg';
 import logo from 'assets/svg/logo.svg';
 import InboxModal from './userMenu/inbox.vue';
+import notificationMenu from './notificationMenu';
 
 export default {
   components: {
     InboxModal,
+    notificationMenu,
   },
   data () {
     return {
       icons: Object.freeze({
         gem: gemIcon,
         gold: goldIcon,
-        notifications: notificationsIcon,
         user: userIcon,
         logo,
       }),

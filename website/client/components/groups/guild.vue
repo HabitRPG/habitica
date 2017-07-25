@@ -1,6 +1,7 @@
 <template lang="pug">
 .row(v-if="group")
   group-form-modal
+  invite-modal
   .clearfix.col-8
     .row
       .col-6.title-details
@@ -40,7 +41,7 @@
         .button-container
           button.btn.btn-success(class='btn-success', v-if='!isMember') {{ $t('join') }}
         .button-container
-          button.btn.btn-primary(v-once) {{$t('invite')}}
+          button.btn.btn-primary(v-once, @click='showInviteModal()') {{$t('invite')}}
         .button-container
           button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}}
         .button-container
@@ -355,6 +356,8 @@ import ownedQuestsModal from './ownedQuestsModal';
 import quests from 'common/script/content/quests';
 import percent from 'common/script/libs/percent';
 import groupFormModal from './groupFormModal';
+import inviteModal from './inviteModal';
+import memberModal from '../members/memberModal';
 import chatMessage from '../chat/chatMessages';
 
 import bCollapse from 'bootstrap-vue/lib/components/collapse';
@@ -380,12 +383,14 @@ export default {
   props: ['groupId'],
   components: {
     membersModal,
+    memberModal,
     ownedQuestsModal,
     bCollapse,
     bCard,
     bTooltip,
     groupFormModal,
     chatMessage,
+    inviteModal,
   },
   directives: {
     bToggle,
@@ -506,6 +511,9 @@ export default {
     updateGuild () {
       this.$store.state.editingGroup = this.group;
       this.$root.$emit('show::modal', 'guild-form');
+    },
+    showInviteModal () {
+      this.$root.$emit('show::modal', 'invite-modal');
     },
     async fetchGuild () {
       let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.groupId});

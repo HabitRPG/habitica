@@ -10,6 +10,7 @@
         h3(v-once) {{ $t('welcomeToTavern') }}
 
         textarea(:placeholder="$t('chatPlaceHolder')", v-model='newMessage')
+        autocomplete(:text='newMessage', v-on:select="selectedAutocomplete")
         button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
 
         .container.community-guidelines(v-if='communityGuidelinesAccepted')
@@ -282,6 +283,7 @@ import { mapState } from 'client/libs/store';
 
 import { TAVERN_ID } from '../../../common/script/constants';
 import chatMessage from '../chat/chatMessages';
+import autocomplete from '../chat/autoComplete';
 
 import gemIcon from 'assets/svg/gem.svg';
 import questIcon from 'assets/svg/quest.svg';
@@ -294,6 +296,7 @@ import downIcon from 'assets/svg/down.svg';
 export default {
   components: {
     chatMessage,
+    autocomplete,
   },
   data () {
     return {
@@ -399,6 +402,9 @@ export default {
     this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
   },
   methods: {
+    selectedAutocomplete (newText) {
+      this.newMessage = newText;
+    },
     aggreeToGuideLines () {
       // @TODO:
     },

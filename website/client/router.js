@@ -46,6 +46,11 @@ const PromoCode = () => import(/* webpackChunkName: "settings" */'./components/s
 const Site = () => import(/* webpackChunkName: "settings" */'./components/settings/site');
 const Subscription = () => import(/* webpackChunkName: "settings" */'./components/settings/subscription');
 
+// Hall
+const HallPage = () => import(/* webpackChunkName: "hall" */'./components/hall/index');
+const PatronsPage = () => import(/* webpackChunkName: "hall" */'./components/hall/patrons');
+const HeroesPage = () => import(/* webpackChunkName: "hall" */'./components/hall/heroes');
+
 // Except for tasks that are always loaded all the other main level
 // All the main level
 // components are loaded in separate webpack chunks.
@@ -66,11 +71,12 @@ const InboxPage = () => import(/* webpackChunkName: "inbox" */ './components/soc
 const InboxConversationPage = () => import(/* webpackChunkName: "inbox" */ './components/social/inbox/conversationPage');
 
 // Guilds
-const GuildIndex = () => import(/* webpackChunkName: "guilds" */ './components/guilds/index');
-const TavernPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/tavern');
-const MyGuilds = () => import(/* webpackChunkName: "guilds" */ './components/guilds/myGuilds');
-const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/discovery');
-const GuildPage = () => import(/* webpackChunkName: "guilds" */ './components/guilds/guild');
+const GuildIndex = () => import(/* webpackChunkName: "guilds" */ './components/groups/index');
+const TavernPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/tavern');
+const MyGuilds = () => import(/* webpackChunkName: "guilds" */ './components/groups/myGuilds');
+const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/discovery');
+const GuildPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/guild');
+const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/groupPlan');
 
 // Challenges
 const ChallengeIndex = () => import(/* webpackChunkName: "challenges" */ './components/challenges/index');
@@ -107,8 +113,9 @@ const router = new VueRouter({
     },
     { name: 'shops', path: '/shops', component: Page },
     { name: 'party', path: '/party', component: GuildPage },
+    { name: 'groupPlan', path: '/group-plans', component: GroupPlansAppPage },
     {
-      path: '/guilds',
+      path: '/groups',
       component: GuildIndex,
       children: [
         { name: 'tavern', path: 'tavern', component: TavernPage },
@@ -239,6 +246,14 @@ const router = new VueRouter({
         { name: 'privacy', path: 'privacy', component: PrivacyPage },
         { name: 'terms', path: 'terms', component: TermsPage },
         { name: 'videos', path: 'videos', component: VideosPage },
+      ],
+    },
+    {
+      path: '/hall',
+      component: HallPage,
+      children: [
+        { name: 'patrons', path: 'patrons', component: PatronsPage },
+        { name: 'contributors', path: 'contributors', component: HeroesPage },
       ],
     },
   ],
