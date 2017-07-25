@@ -182,6 +182,7 @@ function _getBasicAchievements (user, language) {
   _addSimple(result, user, {path: 'joinedGuild', language});
   _addSimple(result, user, {path: 'royallyLoyal', language});
   _addSimple(result, user, {path: 'joinedChallenge', language});
+  _addSimple(result, user, {path: 'invitedFriend', language});
 
   _addSimpleWithMasterCount(result, user, {path: 'beastMaster', language});
   _addSimpleWithMasterCount(result, user, {path: 'mountMaster', language});
@@ -192,7 +193,7 @@ function _getBasicAchievements (user, language) {
   _addUltimateGear(result, user, {path: 'warrior', language});
   _addUltimateGear(result, user, {path: 'mage', altPath: 'wizard', language});
 
-  let cardAchievements = ['greeting', 'thankyou', 'birthday', 'congrats', 'getwell'];
+  let cardAchievements = ['greeting', 'thankyou', 'birthday', 'congrats', 'getwell', 'goodluck'];
   cardAchievements.forEach(path => {
     _addSimpleWithCount(result, user, {path, key: `${path}Cards`, language});
   });

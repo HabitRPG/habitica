@@ -70,6 +70,21 @@ api.bundles = {
     type: 'quests',
     value: 7,
   },
+  splashyPals: {
+    key: 'splashyPals',
+    text: t('splashyPalsText'),
+    notes: t('splashyPalsNotes'),
+    bundleKeys: [
+      'dilatory_derby',
+      'turtle',
+      'whale',
+    ],
+    canBuy () {
+      return moment().isBetween('2017-07-11', '2017-08-02');
+    },
+    type: 'quests',
+    value: 7,
+  },
 };
 
 /*
@@ -152,6 +167,11 @@ api.cardTypes = {
   getwell: {
     key: 'getwell',
     messageOptions: 4,
+    yearRound: true,
+  },
+  goodluck: {
+    key: 'goodluck',
+    messageOptions: 3,
     yearRound: true,
   },
 };

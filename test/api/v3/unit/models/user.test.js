@@ -1,6 +1,7 @@
 import Bluebird from 'bluebird';
 import moment from 'moment';
 import { model as User } from '../../../../../website/server/models/user';
+import { model as Group } from '../../../../../website/server/models/group';
 import common from '../../../../../website/common';
 
 describe('User Model', () => {
@@ -176,6 +177,75 @@ describe('User Model', () => {
       user.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
 
       expect(user.isSubscribed()).to.be.false;
+    });
+  });
+
+  context('canGetGems', () => {
+    let user;
+    let group;
+    beforeEach(() => {
+      user = new User();
+      let leader = new User();
+      group = new Group({
+        name: 'test',
+        type: 'guild',
+        privacy: 'private',
+        leader: leader._id,
+      });
+    });
+
+    it('returns true if user is not subscribed', async () => {
+      expect(await user.canGetGems()).to.equal(true);
+    });
+
+    it('returns true if user is not subscribed with a group plan', async () => {
+      user.purchased.plan.customerId = 123;
+      expect(await user.canGetGems()).to.equal(true);
+    });
+
+    it('returns true if user is subscribed with a group plan', async () => {
+      user.purchased.plan.customerId = 'group-plan';
+      expect(await user.canGetGems()).to.equal(true);
+    });
+
+    it('returns true if user is part of a group', async () => {
+      user.guilds.push(group._id);
+      expect(await user.canGetGems()).to.equal(true);
+    });
+
+    it('returns true if user is part of a group with a subscription', async () => {
+      user.guilds.push(group._id);
+      user.purchased.plan.customerId = 'group-plan';
+      group.purchased.plan.customerId = 123;
+      await group.save();
+      expect(await user.canGetGems()).to.equal(true);
+    });
+
+    it('returns true if leader is part of a group with a subscription and canGetGems: false', async () => {
+      user.guilds.push(group._id);
+      user.purchased.plan.customerId = 'group-plan';
+      group.purchased.plan.customerId = 123;
+      group.leader = user._id;
+      group.leaderOnly.getGems = true;
+      await group.save();
+      expect(await user.canGetGems()).to.equal(true);
+    });
+
+    it('returns true if user is part of a group with no subscription but canGetGems: false', async () => {
+      user.guilds.push(group._id);
+      user.purchased.plan.customerId = 'group-plan';
+      group.leaderOnly.getGems = true;
+      await group.save();
+      expect(await user.canGetGems()).to.equal(true);
+    });
+
+    it('returns false if user is part of a group with a subscription and canGetGems: false', async () => {
+      user.guilds.push(group._id);
+      user.purchased.plan.customerId = 'group-plan';
+      group.purchased.plan.customerId = 123;
+      group.leaderOnly.getGems = true;
+      await group.save();
+      expect(await user.canGetGems()).to.equal(false);
     });
   });
 

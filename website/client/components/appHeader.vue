@@ -24,59 +24,59 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/colors.scss';
 
-#app-header {
-  padding-left: 14px;
-  margin-top: 56px;
-  background: $purple-50;
-  height: 204px;
-  color: $header-color;
-  flex-wrap: nowrap;
-  position: relative;
-}
-
-.no-party, .party-members {
-  flex-grow: 1;
-}
-
-.party-members {
-}
-
-.view-party {
-  position: absolute;
-  z-index: 10;
-  right: 0;
-  padding-right: 40px;
-  height: 100%;
-  background-image: linear-gradient(to right, rgba($purple-50, 0), $purple-50);
-
-  .btn {
-    margin-top: 75%;
-  }
-}
-
-.no-party {
-  .small-text {
+  #app-header {
+    padding-left: 14px;
+    margin-top: 56px;
+    background: $purple-50;
+    height: 204px;
     color: $header-color;
     flex-wrap: nowrap;
+    position: relative;
   }
 
-  h3 {
-    color: $white;
-    margin-bottom: 4px;
+  .no-party, .party-members {
+    flex-grow: 1;
   }
 
-  .btn {
-    margin-top: 16px;
+  .party-members {
   }
-}
+
+  .view-party {
+    position: absolute;
+    z-index: 10;
+    right: 0;
+    padding-right: 40px;
+    height: 100%;
+    background-image: linear-gradient(to right, rgba($purple-50, 0), $purple-50);
+
+    .btn {
+      margin-top: 75%;
+    }
+  }
+
+  .no-party {
+    .small-text {
+      color: $header-color;
+      flex-wrap: nowrap;
+    }
+
+    h3 {
+      color: $white;
+      margin-bottom: 4px;
+    }
+
+    .btn {
+      margin-top: 16px;
+    }
+  }
 </style>
 
 <script>
 import { mapGetters, mapActions } from 'client/libs/store';
 import MemberDetails from './memberDetails';
-import createPartyModal from './guilds/createPartyModal';
+import createPartyModal from './groups/createPartyModal';
 
 export default {
   components: {

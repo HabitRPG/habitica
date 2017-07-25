@@ -97,7 +97,7 @@
     "weaponSpecialFencingFoilText": "Florete de Esgrima",
     "weaponSpecialFencingFoilNotes": "Si alguien se atreve a poner en duda tu honor, ¡estarás preparado con este excepcional florete! Aumenta la Fuerza en <%= str %>.",
     "weaponSpecialTachiText": "Tachi",
-    "weaponSpecialTachiNotes": "This light and curved sword will shred your tasks to ribbons! Increases Strength by <%= str %>.",
+    "weaponSpecialTachiNotes": "¡Esta espada ligera y curva harán tiras tus tareas a las cintas! Aumenta Fuerza por <%=str %>.",
     "weaponSpecialYetiText": "Lanza domadora de Yetis",
     "weaponSpecialYetiNotes": "Esta lanza permite que el usuario comande a cualquier yeti. Incrementa Fuerza en <%= str %>. Edición Limitada Equipo de Invierno de 2013-2014",
     "weaponSpecialSkiText": "Pértiga del Ski-asesino",

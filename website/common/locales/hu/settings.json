@@ -26,7 +26,7 @@
     "showBaileyPop": "Előhozza Bailey-t, a beharangozót a bujkálásból, így megnézheted a korábbi híreket.",
     "fixVal": "Karakter értékek helyreállítása",
     "fixValPop": "Manuálisan beállíthatod az értékeket, úgy mint életerő, szint és arany.",
-    "invalidLevel": "Invalid value: Level must be 1 or greater.",
+    "invalidLevel": "Érvénytelen érték: Az értéknek 1-nek vagy magasabbnak kell lennie.",
     "enableClass": "Kaszt-rendszer engedélyezése",
     "enableClassPop": "Kiszálltál a kaszt-rendszerből korábban. Szeretnéd bekapcsolni?",
     "classTourPop": "Kaszt-rendszer ismertetőjének mutatása",

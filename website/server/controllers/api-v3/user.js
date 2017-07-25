@@ -19,8 +19,10 @@ import {
   sendTxn as txnEmail,
 } from '../../libs/email';
 import nconf from 'nconf';
+import get from 'lodash/get';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
+const DELETE_CONFIRMATION = 'DELETE';
 
 /**
  * @apiDefine UserNotFound
@@ -302,14 +304,15 @@ api.deleteUser = {
     let password = req.body.password;
     if (!password) throw new BadRequest(res.t('missingPassword'));
 
+    if (user.auth.local.hashed_password && user.auth.local.email) {
+      let isValidPassword = await passwordUtils.compare(user, password);
+      if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
+    } else if ((user.auth.facebook.id || user.auth.google.id) && password !== DELETE_CONFIRMATION) {
+      throw new NotAuthorized(res.t('incorrectDeletePhrase'));
+    }
+
     let feedback = req.body.feedback;
     if (feedback && feedback.length > 10000) throw new BadRequest(`Account deletion feedback is limited to 10,000 characters. For lengthy feedback, email ${TECH_ASSISTANCE_EMAIL}.`);
-
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    let isValidPassword = await passwordUtils.compare(user, password);
-    if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
 
     if (plan && plan.customerId && !plan.dateTerminated) {
       throw new NotAuthorized(res.t('cannotDeleteActiveAccount'));
@@ -1227,7 +1230,18 @@ api.purchase = {
   url: '/user/purchase/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let purchaseRes = req.params.type === 'spells' ? common.ops.buySpecialSpell(user, req) : common.ops.purchase(user, req, res.analytics);
+    const type = get(req.params, 'type');
+    const key = get(req.params, 'key');
+
+    // Some groups limit their members ability to obtain gems
+    // The check is async so it's done on the server only and not on the client,
+    // resulting in a purchase that will seem successful until the request hit the server.
+    if (type === 'gems' && key === 'gem') {
+      const canGetGems = await user.canGetGems();
+      if (!canGetGems) throw new NotAuthorized(res.t('groupPolicyCannotGetGems'));
+    }
+
+    let purchaseRes = type === 'spells' ? common.ops.buySpecialSpell(user, req) : common.ops.purchase(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseRes);
   },

@@ -88,7 +88,7 @@
   &-daily-todo-disabled {
     background: $gray-500;
 
-    &-control {
+    &-control-daily-todo {
       background: $gray-400;
       color: $gray-200;
     }
@@ -106,7 +106,7 @@
     background: $gray-700;
     color: rgba(0, 0, 0, 0.12);
 
-    &-control {
+    &-control-habit {
       color: rgba(0, 0, 0, 0.12) !important;
       border: 1px solid rgba(0, 0, 0, 0.12);
     }

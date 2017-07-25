@@ -102,6 +102,7 @@ describe('Amazon Payments', () => {
     });
 
     it('should purchase gems', async () => {
+      sinon.stub(user, 'canGetGems').returnsPromise().resolves(true);
       await amzLib.checkout({user, orderReferenceId, headers});
 
       expect(paymentBuyGemsStub).to.be.calledOnce;
@@ -111,6 +112,8 @@ describe('Amazon Payments', () => {
         headers,
       });
       expectAmazonStubs();
+      expect(user.canGetGems).to.be.calledOnce;
+      user.canGetGems.restore();
     });
 
     it('should error if gem amount is too low', async () => {
@@ -132,20 +135,29 @@ describe('Amazon Payments', () => {
       });
     });
 
+    it('should error if user cannot get gems gems', async () => {
+      sinon.stub(user, 'canGetGems').returnsPromise().resolves(false);
+      await expect(amzLib.checkout({user, orderReferenceId, headers})).to.eventually.be.rejected.and.to.eql({
+        httpCode: 401,
+        message: i18n.t('groupPolicyCannotGetGems'),
+        name: 'NotAuthorized',
+      });
+      user.canGetGems.restore();
+    });
+
     it('should gift gems', async () => {
       let receivingUser = new User();
-      receivingUser.save();
+      await receivingUser.save();
       let gift = {
         type: 'gems',
+        uuid: receivingUser._id,
         gems: {
           amount: 16,
-          uuid: receivingUser._id,
         },
       };
       amount = 16 / 4;
       await amzLib.checkout({gift, user, orderReferenceId, headers});
 
-      gift.member = receivingUser;
       expect(paymentBuyGemsStub).to.be.calledOnce;
       expect(paymentBuyGemsStub).to.be.calledWith({
         user,

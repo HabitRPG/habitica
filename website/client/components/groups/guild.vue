@@ -1,6 +1,7 @@
 <template lang="pug">
 .row(v-if="group")
   group-form-modal
+  invite-modal
   .clearfix.col-8
     .row
       .col-6.title-details
@@ -20,40 +21,13 @@
       .col-12
         h3(v-once) {{ $t('chat') }}
 
-        textarea(:placeholder="$t('chatPlaceHolder')")
-        button.btn.btn-secondary.send-chat.float-right(v-once) {{ $t('send') }}
+        textarea(:placeholder="$t('chatPlaceHolder')", v-model='newMessage')
+        button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
 
         .hr
           .hr-middle(v-once) {{ $t('today') }}
 
-        .row
-          .col-md-2
-            .svg-icon(v-html="icons.like")
-          .col-md-10
-            .card(v-for="msg in group.chat", :key="msg.id")
-              .card-block
-                h3.leader Character name
-                span 2 hours ago
-                .clearfix
-                  strong.float-left {{msg.user}}
-                  .float-right {{msg.timestamp}}
-                .text {{msg.text}}
-                hr
-                span.action(v-once)
-                  .svg-icon(v-html="icons.like")
-                  | {{$t('like')}}
-                span.action(v-once)
-                  .svg-icon(v-html="icons.copy")
-                  | {{$t('copyAsTodo')}}
-                span.action(v-once)
-                  .svg-icon(v-html="icons.report")
-                  | {{$t('report')}}
-                span.action(v-once)
-                  .svg-icon(v-html="icons.delete")
-                  | {{$t('delete')}}
-                span.action.float-right
-                  .svg-icon(v-html="icons.liked")
-                  | +3
+        chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
   .col-md-4.sidebar
     .guild-background.row
@@ -67,7 +41,7 @@
         .button-container
           button.btn.btn-success(class='btn-success', v-if='!isMember') {{ $t('join') }}
         .button-container
-          button.btn.btn-primary(v-once) {{$t('invite')}}
+          button.btn.btn-primary(v-once, @click='showInviteModal()') {{$t('invite')}}
         .button-container
           button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}}
         .button-container
@@ -379,10 +353,12 @@ import groupUtilities from 'client/mixins/groupsUtilities';
 import { mapState } from 'client/libs/store';
 import membersModal from './membersModal';
 import ownedQuestsModal from './ownedQuestsModal';
-import { TAVERN_ID } from 'common/script/constants';
 import quests from 'common/script/content/quests';
 import percent from 'common/script/libs/percent';
 import groupFormModal from './groupFormModal';
+import inviteModal from './inviteModal';
+import memberModal from '../members/memberModal';
+import chatMessage from '../chat/chatMessages';
 
 import bCollapse from 'bootstrap-vue/lib/components/collapse';
 import bCard from 'bootstrap-vue/lib/components/card';
@@ -404,14 +380,17 @@ import downIcon from 'assets/svg/down.svg';
 
 export default {
   mixins: [groupUtilities],
-  props: ['guildId'],
+  props: ['groupId'],
   components: {
     membersModal,
+    memberModal,
     ownedQuestsModal,
     bCollapse,
     bCard,
     bTooltip,
     groupFormModal,
+    chatMessage,
+    inviteModal,
   },
   directives: {
     bToggle,
@@ -441,6 +420,7 @@ export default {
         information: true,
         challenges: true,
       },
+      newMessage: '',
     };
   },
   computed: {
@@ -512,8 +492,6 @@ export default {
       // Load challenges
       // Load group tasks for group plan
       // Load approvals for group plan
-    } else if (this.$route.path.startsWith('/guilds/tavern')) {
-      this.groupId = TAVERN_ID;
     }
     this.fetchGuild();
   },
@@ -522,9 +500,20 @@ export default {
     $route: 'fetchGuild',
   },
   methods: {
+    async sendMessage () {
+      let response = await this.$store.dispatch('chat:postChat', {
+        groupId: this.group._id,
+        message: this.newMessage,
+      });
+      this.group.chat.unshift(response.message);
+      this.newMessage = '';
+    },
     updateGuild () {
       this.$store.state.editingGroup = this.group;
       this.$root.$emit('show::modal', 'guild-form');
+    },
+    showInviteModal () {
+      this.$root.$emit('show::modal', 'invite-modal');
     },
     async fetchGuild () {
       let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.groupId});

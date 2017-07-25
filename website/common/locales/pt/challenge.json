@@ -80,6 +80,6 @@
     "userAlreadyInChallenge": "Usuário já está participando desse desafio.",
     "cantOnlyUnlinkChalTask": "Apenas links de desafios quebrados podem ser desfeitos.",
     "shortNameTooShort": "Nome da etiqueta deve ter pelo menos 3 caracteres.",
-    "joinedChallenge": "Joined a Challenge",
-    "joinedChallengeText": "This user put themselves to the test by joining a Challenge!"
+    "joinedChallenge": "Entrou no Desafio",
+    "joinedChallengeText": "Esse usuário se colocou ao teste se juntando a um Desafio!"
 }

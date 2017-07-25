@@ -1,5 +1,5 @@
 {
-    "npc": "ＮＰＣ",
+    "npc": "NPC",
     "npcAchievementName": "<%= key %> NPC",
     "npcAchievementText": "Kickstarter プロジェクトへ最高レベルで資金提供!",
     "mattBoch": "マット・バック",
