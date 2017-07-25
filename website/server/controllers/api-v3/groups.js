@@ -1,6 +1,7 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
+import find from 'lodash/find';
 import nconf from 'nconf';
 import {
   model as Group,

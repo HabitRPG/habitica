@@ -120,6 +120,10 @@ export let schema = new Schema({
   managers: {type: Schema.Types.Mixed, default: () => {
     return {};
   }},
+  categories: [{
+    slug: {type: String},
+    name: {type: String},
+  }],
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
