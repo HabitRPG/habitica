@@ -18,11 +18,11 @@
       span(:class="'chair_' + member.preferences.chair")
       span(:class="member.items.gear[costumeClass].back")
       span(:class="skinClass")
+      span.head_0
       span(:class="member.preferences.size + '_shirt_' + member.preferences.shirt")
       span(:class="member.preferences.size + '_' + member.items.gear[costumeClass].armor")
       span(:class="member.items.gear[costumeClass].back_collar")
       span(:class="member.items.gear[costumeClass].body")
-      span.head_0
       template(v-for="type in ['base', 'bangs', 'mustache', 'beard']")
         span(:class="'hair_' + type + '_' + member.preferences.hair[type] + '_' + member.preferences.hair.color")
       span(:class="member.items.gear[costumeClass].eyewear")
