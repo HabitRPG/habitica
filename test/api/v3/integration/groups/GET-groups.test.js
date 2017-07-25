@@ -16,6 +16,12 @@ describe('GET /groups', () => {
   const NUMBER_OF_USERS_PRIVATE_GUILDS = 1;
   const NUMBER_OF_GROUPS_USER_CAN_VIEW = 5;
   const GUILD_PER_PAGE = 30;
+  let categories = [{
+    slug: 'newCat',
+    name: 'New Category',
+  }];
+  let publicGuildNotMember;
+  let privateGuildUserIsMemberOf;
 
   before(async () => {
     await resetHabiticaDB();
@@ -31,16 +37,18 @@ describe('GET /groups', () => {
     await leader.post(`/groups/${publicGuildUserIsMemberOf._id}/invite`, { uuids: [user._id]});
     await user.post(`/groups/${publicGuildUserIsMemberOf._id}/join`);
 
-    await generateGroup(leader, {
+    publicGuildNotMember = await generateGroup(leader, {
       name: 'public guild - is not member',
       type: 'guild',
       privacy: 'public',
+      categories,
     });
 
-    let privateGuildUserIsMemberOf = await generateGroup(leader, {
+    privateGuildUserIsMemberOf = await generateGroup(leader, {
       name: 'private guild - is member',
       type: 'guild',
       privacy: 'private',
+      categories,
     });
     await leader.post(`/groups/${privateGuildUserIsMemberOf._id}/invite`, { uuids: [user._id]});
     await user.post(`/groups/${privateGuildUserIsMemberOf._id}/join`);
@@ -98,6 +106,20 @@ describe('GET /groups', () => {
   it('returns all public guilds when publicGuilds passed in as query', async () => {
     await expect(user.get('/groups?type=publicGuilds'))
       .to.eventually.have.a.lengthOf(NUMBER_OF_PUBLIC_GUILDS);
+  });
+
+  describe('filters', () => {
+    it('returns public guilds filtered by category', async () => {
+      let guilds = await user.get(`/groups?type=publicGuilds&categories=${categories[0].slug}`);
+
+      expect(guilds[0]._id).to.equal(publicGuildNotMember._id);
+    });
+
+    it('returns private guilds filtered by category', async () => {
+      let guilds = await user.get(`/groups?type=privateGuilds&categories=${categories[0].slug}`);
+
+      expect(guilds[0]._id).to.equal(privateGuildUserIsMemberOf._id);
+    });
   });
 
   describe('public guilds pagination', () => {

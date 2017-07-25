@@ -1,7 +1,6 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
-import find from 'lodash/find';
 import nconf from 'nconf';
 import {
   model as Group,
@@ -311,9 +310,15 @@ api.getGroups = {
     let groupFields = basicGroupFields.concat(' description memberCount balance');
     let sort = '-memberCount';
 
+    let filters = {};
+    if (req.query.categories) {
+      let categorySlugs = req.query.categories.split(',');
+      filters.categories = { $elemMatch: { slug: {$in: categorySlugs} } };
+    }
+
     let results = await Group.getGroups({
       user, types, groupFields, sort,
-      paginate, page: req.query.page,
+      paginate, page: req.query.page, filters,
     });
     res.respond(200, results);
   },

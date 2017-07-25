@@ -229,6 +229,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
     user, types, groupFields = basicFields,
     sort = '-memberCount', populateLeader = false,
     paginate = false, page = 0, // optional pagination for public guilds
+    filters = {},
   } = options;
   let queries = [];
 
@@ -243,21 +244,25 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         break;
       }
       case 'guilds': {
-        let userGuildsQuery = this.find({
+        let query = {
           type: 'guild',
           _id: {$in: user.guilds},
-        }).select(groupFields);
+        };
+        _.assign(query, filters);
+        let userGuildsQuery = this.find(query).select(groupFields);
         if (populateLeader === true) userGuildsQuery.populate('leader', nameFields);
         userGuildsQuery.sort(sort).exec();
         queries.push(userGuildsQuery);
         break;
       }
       case 'privateGuilds': {
-        let privateGuildsQuery = this.find({
+        let query = {
           type: 'guild',
           privacy: 'private',
           _id: {$in: user.guilds},
-        }).select(groupFields);
+        };
+        _.assign(query, filters);
+        let privateGuildsQuery = this.find(query).select(groupFields);
         if (populateLeader === true) privateGuildsQuery.populate('leader', nameFields);
         privateGuildsQuery.sort(sort).exec();
         queries.push(privateGuildsQuery);
@@ -266,10 +271,12 @@ schema.statics.getGroups = async function getGroups (options = {}) {
       // NOTE: when returning publicGuilds we use `.lean()` so all mongoose methods won't be available.
       // Docs are going to be plain javascript objects
       case 'publicGuilds': {
-        let publicGuildsQuery = this.find({
+        let query = {
           type: 'guild',
           privacy: 'public',
-        }).select(groupFields);
+        };
+        _.assign(query, filters);
+        let publicGuildsQuery = this.find(query).select(groupFields);
         if (populateLeader === true) publicGuildsQuery.populate('leader', nameFields);
         if (paginate === true) publicGuildsQuery.limit(GUILDS_PER_PAGE).skip(page * GUILDS_PER_PAGE);
         publicGuildsQuery.sort(sort).lean().exec();
