@@ -8,7 +8,7 @@
       .col-md-10
         .row
           .col-md-8
-              router-link(:to="{ name: 'guild', params: { guildId: guild._id } }")
+              router-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
                 h3 {{ guild.name }}
               p {{ guild.description }}
           .col-md-2.cta-container
