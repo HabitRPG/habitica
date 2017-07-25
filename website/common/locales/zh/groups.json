@@ -209,7 +209,7 @@
     "onlyCreatorOrAdminCanDeleteChat": "没有权利删除这个消息！",
     "onlyGroupLeaderCanEditTasks": "你没有管理任务的权限",
     "onlyGroupTasksCanBeAssigned": "只有小组任务可以被分配",
-    "chatPrivilegesRevoked": "Your chat privileges have been revoked.",
+    "chatPrivilegesRevoked": "你的聊天权利已被取消",
     "newChatMessagePlainNotification": "<%= groupName %>中有来自<%= authorName %>的消息. 点击这里进行聊天！",
     "newChatMessageTitle": "<%= groupName %> 中有新的消息",
     "exportInbox": "输出消息",
@@ -295,6 +295,6 @@
     "managerMarker": "- Manager",
     "joinedGuild": "加入一个公会",
     "joinedGuildText": "Ventured into the social side of Habitica by joining a Guild!",
-    "badAmountOfGemsToPurchase": "Amount must be at least 1.",
+    "badAmountOfGemsToPurchase": "此数量必须大于或等于1",
     "groupPolicyCannotGetGems": "The policy of one group you're part of prevents its members from obtaining gems."
 }

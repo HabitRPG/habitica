@@ -71,7 +71,7 @@
     "displayNow": "いますぐ表示",
     "displayLater": "あとで表示",
     "petNotOwned": "このペットをもっていません。",
-    "mountNotOwned": "You do not own this mount.",
+    "mountNotOwned": "この乗騎をもっていません。",
     "earnedCompanion": "あなたの前向きな行動の一つひとつから、新しい仲間が生まれました。えさをやって成長させましょう!",
     "feedPet": "<%= name %>に<%= text %>をやりますか?",
     "useSaddle": "<%= pet %>にくらをおきますか?",
