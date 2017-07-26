@@ -23,28 +23,28 @@
   .row.description
     .col-12
       | {{challenge.description}}
-  .container.well-wrapper(v-if='challenge.counts')
-    .well.row
-      .col-3
-        .count-details
-          .svg-icon.habit-icon(v-html="icons.habitIcon")
-          span.count {{challenge.counts.habit}}
-        div {{$t('habit')}}
-      .col-3
-        .count-details
-          .svg-icon.daily-icon(v-html="icons.dailyIcon")
-          span.count {{challenge.counts.dailies}}
-        div {{$t('daily')}}
-      .col-3
-        .count-details
-          .svg-icon.todo-icon(v-html="icons.todoIcon")
-          span.count {{challenge.counts.todos}}
-        div {{$t('todo')}}
-      .col-3
-        .count-details
-          .svg-icon.reward-icon(v-html="icons.rewardIcon")
-          span.count {{challenge.counts.rewards}}
-        div {{$t('reward')}}
+  .container.well-wrapper
+  .well.row
+    .col-3
+      .count-details
+        .svg-icon.habit-icon(v-html="icons.habitIcon")
+        span.count {{challenge.tasksOrder.habits.length}}
+      div {{$t('habit')}}
+    .col-3
+      .count-details
+        .svg-icon.daily-icon(v-html="icons.dailyIcon")
+        span.count {{challenge.tasksOrder.dailys.length}}
+      div {{$t('daily')}}
+    .col-3
+      .count-details
+        .svg-icon.todo-icon(v-html="icons.todoIcon")
+        span.count {{challenge.tasksOrder.todos.length}}
+      div {{$t('todo')}}
+    .col-3
+      .count-details
+        .svg-icon.reward-icon(v-html="icons.rewardIcon")
+        span.count {{challenge.tasksOrder.rewards.length}}
+      div {{$t('reward')}}
 </template>
 
 <style lang='scss' scoped>
