@@ -590,9 +590,9 @@ export default {
             return false;
           }
 
-          if(searchBy) {
+          if (searchBy) {
             let foundPosition = gear.text().toLowerCase().indexOf(searchBy);
-            if(foundPosition === -1) {
+            if (foundPosition === -1) {
               return false;
             }
           }
@@ -654,7 +654,7 @@ export default {
         };
       },
       togglePinned (item) {
-        let isPinned = !!item.pinned;
+        let isPinned = Boolean(item.pinned);
         item.pinned = !isPinned;
         this.$store.dispatch(isPinned ? 'shops:unpinGear' : 'shops:pinGear', {key: item.key});
       },
