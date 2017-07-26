@@ -2,7 +2,7 @@
   .row.market
     .standard-sidebar
       .form-group
-        //input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
+        input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
       .form
         h2(v-once) {{ $t('filter') }}
@@ -92,7 +92,7 @@
       br
 
       itemRows(
-        :items="filteredGear(selectedGroupGearByClass, selectedSortGearBy, hideLocked, hidePinned)",
+        :items="filteredGear(selectedGroupGearByClass, searchTextThrottled, selectedSortGearBy, hideLocked, hidePinned)",
         :itemWidth=94,
         :itemMargin=24,
         :showAllLabel="$t('showAllEquipment', { classType: getClassName(selectedGroupGearByClass) })",
@@ -142,7 +142,7 @@
 
         div.items
           shopItem(
-            v-for="item in sortedMarketItems(category, selectedSortItemsBy)",
+            v-for="item in sortedMarketItems(category, selectedSortItemsBy, searchTextThrottled)",
             :key="item.key",
             :item="item",
             :price="item.value",
@@ -399,6 +399,7 @@
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
   import _map from 'lodash/map';
+  import _throttle from 'lodash/throttle';
 
   const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
@@ -431,9 +432,17 @@ export default {
       EquipmentAttributesGrid,
       Avatar,
     },
+    watch: {
+      searchText: _throttle(function throttleSearch () {
+        this.searchTextThrottled = this.searchText.toLowerCase();
+      }, 250),
+    },
     data () {
       return {
         viewOptions: {},
+
+        searchText: null,
+        searchTextThrottled: null,
 
         icons: Object.freeze({
           pin: svgPin,
@@ -562,7 +571,7 @@ export default {
             return '';
         }
       },
-      filteredGear (groupByClass, sortBy, hideLocked, hidePinned) {
+      filteredGear (groupByClass, searchBy, sortBy, hideLocked, hidePinned) {
         let result = _filter(this.content.gear.flat, ['klass', groupByClass]);
         result = _map(result, (e) => {
           return {
@@ -580,6 +589,13 @@ export default {
             return false;
           }
 
+          if(searchBy) {
+            let foundPosition = gear.text().toLowerCase().indexOf(searchBy);
+            if(foundPosition === -1) {
+              return false;
+            }
+          }
+
           // hide already owned
           return !this.userItems.gear.owned[gear.key];
         });
@@ -588,8 +604,10 @@ export default {
 
         return result;
       },
-      sortedMarketItems (category, sortBy) {
-        let result = category.items;
+      sortedMarketItems (category, sortBy, searchBy) {
+        let result = _filter(category.items, (i) => {
+          return !searchBy || i.text.toLowerCase().indexOf(searchBy) !== -1;
+        });
 
         switch (sortBy) {
           case 'AZ': {
