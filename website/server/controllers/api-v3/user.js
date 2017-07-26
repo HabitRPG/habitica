@@ -1490,7 +1490,7 @@ api.userReleaseMounts = {
 };
 
 /**
- * @api {post} /api/v3/user/sell/:type/:key/:amount Sell a gold-sellable item owned by the user
+ * @api {post} /api/v3/user/sell/:type/:key?amount=1 Sell a gold-sellable item owned by the user
  * @apiName UserSell
  * @apiGroup User
  *
