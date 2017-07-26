@@ -201,8 +201,8 @@ describe('GET /groups', () => {
       await expect(user.get('/groups?type=publicGuilds&paginate=true&page=1'))
         .to.eventually.have.a.lengthOf(GUILD_PER_PAGE);
       let page2 = await expect(user.get('/groups?type=publicGuilds&paginate=true&page=2'))
-        .to.eventually.have.a.lengthOf(1 + 2); // 1 created now, 2 by other tests
-      expect(page2[2].name).to.equal('guild with less members');
+        .to.eventually.have.a.lengthOf(1 + 3); // 1 created now, 3 by other tests
+      expect(page2[3].name).to.equal('guild with less members');
     });
   });
 
