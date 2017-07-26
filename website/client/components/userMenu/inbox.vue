@@ -25,7 +25,7 @@
         .conversations(v-if='filtersConversations.length > 0')
           .conversation(v-for='conversation in conversations', @click='selectConversation(conversation.key)', :class="{active: selectedConversation === conversation.key}")
             div
-             span {{conversation.name}}
+             span {{userLevelStyle(conversation)}}
              span.timeago {{conversation.date}}
             div {{conversation.lastMessageText}}
       .col-8.messages
@@ -130,6 +130,7 @@
 import moment from 'moment';
 import filter from 'lodash/filter';
 import { mapState } from 'client/libs/store';
+import styleHelper from 'client/mixins/styleHelper';
 
 import bModal from 'bootstrap-vue/lib/components/modal';
 import bFormInput from 'bootstrap-vue/lib/components/form-input';
@@ -137,6 +138,7 @@ import bFormInput from 'bootstrap-vue/lib/components/form-input';
 import messageIcon from 'assets/svg/message.svg';
 
 export default {
+  mixins: [styleHelper],
   components: {
     bModal,
     bFormInput,

@@ -66,10 +66,6 @@ const ItemsPage = () => import(/* webpackChunkName: "inventory" */'./components/
 const EquipmentPage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/equipment/index');
 const StablePage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/stable/index');
 
-// Social
-const InboxPage = () => import(/* webpackChunkName: "inbox" */ './components/social/inbox/index');
-const InboxConversationPage = () => import(/* webpackChunkName: "inbox" */ './components/social/inbox/conversationPage');
-
 // Guilds
 const GuildIndex = () => import(/* webpackChunkName: "guilds" */ './components/groups/index');
 const TavernPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/tavern');
@@ -165,22 +161,6 @@ const router = new VueRouter({
       component: ParentPage,
       children: [
         { name: 'avatar', path: 'avatar', component: Page },
-        {
-          path: 'inbox',
-          component: EmptyView,
-          children: [
-            {
-              name: 'inbox',
-              path: '',
-              component: InboxPage,
-            },
-            {
-              name: 'conversation',
-              path: 'conversation/:id',
-              component: InboxConversationPage,
-            },
-          ],
-        },
         { name: 'backgrounds', path: 'backgrounds', component: BackgroundsPage },
         { name: 'stats', path: 'stats', component: StatsPage },
         { name: 'achievements', path: 'achievements', component: AchievementsPage },
