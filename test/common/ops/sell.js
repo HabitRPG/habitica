@@ -67,7 +67,7 @@ describe('shared.ops.sell', () => {
 
   it('returns an error when the requested amount is above the available amount', (done) => {
     try {
-      sell(user, {params: { type, key, amount: 2 } });
+      sell(user, {params: { type, key }, query: {amount: 2} });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotFound);
       expect(err.message).to.equal(i18n.t('userItemsNotEnough', {type}));
