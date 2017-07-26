@@ -1,5 +1,5 @@
 <template lang="pug">
-#app-header.row
+#app-header.row(:class='{sticky: user.preferences.stickyHeader}')
   members-modal(:group='user.party', :hide-badge="true")
   member-details(:member="user", @click="$router.push({name: 'avatar'})")
   .view-party(v-if="user.party && user.party._id")
@@ -35,6 +35,12 @@
     color: $header-color;
     flex-wrap: nowrap;
     position: relative;
+  }
+
+  .sticky {
+    position: fixed !important;
+    width: 100%;
+    z-index: 1;
   }
 
   .no-party, .party-members {
