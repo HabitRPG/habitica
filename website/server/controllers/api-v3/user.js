@@ -1494,9 +1494,9 @@ api.userReleaseMounts = {
  * @apiName UserSell
  * @apiGroup User
  *
- * @apiParam {String="eggs","hatchingPotions","food"} type The type of item to sell.
- * @apiParam {String} key The key of the item
- * @apiParam {Number} (optional) amount The amount to sell
+ * @apiParam (Path) {String="eggs","hatchingPotions","food"} type The type of item to sell.
+ * @apiParam (Path) {String} key The key of the item
+ * @apiParam (Query) {Number} (optional) amount The amount to sell
  *
  * @apiSuccess {Object} data.stats
  * @apiSuccess {Object} data.items
@@ -1510,7 +1510,7 @@ api.userReleaseMounts = {
 api.userSell = {
   method: 'POST',
   middlewares: [authWithHeaders()],
-  url: '/user/sell/:type/:key/:amount',
+  url: '/user/sell/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
     let sellRes = common.ops.sell(user, req);

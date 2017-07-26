@@ -27,9 +27,9 @@ export function buyItem (store, params) {
 
 export function sellItems (store, params) {
   const user = store.state.user.data;
-  sellOp(user, {params});
+  sellOp(user, {params, query: {amount: params.amount}});
   axios
-    .post(`/api/v3/user/sell/${params.type}/${params.key}/${params.amount}`);
+    .post(`/api/v3/user/sell/${params.type}/${params.key}?amount=${params.amount}`);
   // TODO
   // .then((res) => console.log('equip', res))
   // .catch((err) => console.error('equip', err));
