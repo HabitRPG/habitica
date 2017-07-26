@@ -1,0 +1,33 @@
+.featured-label {
+  width: auto;
+  height: 28px;
+  border-radius: 2px;
+  background-color: #b36213;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &.with-border {
+    border: solid 2px #ffa623;
+    height: 32px;
+  }
+
+  .rectangle {
+    margin: 9px;
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    background-color: #ffbe5d;
+    border: solid 2px #ffa623;
+  }
+
+  .text {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.33;
+    color: #ffffff;
+    flex: 1;
+  }
+}

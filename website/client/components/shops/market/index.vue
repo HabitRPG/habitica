@@ -30,25 +30,32 @@
           )
     .standard-page
       div.featuredItems
-        div.featured-label
-          span.rectangle
-          span.text Featured Items
-          span.rectangle
+        .background
+          div.npc
+            div.featured-label
+              span.rectangle
+              span.text Alex
+              span.rectangle
+          div.content
+            div.featured-label.with-border
+              span.rectangle
+              span.text(v-once) {{ $t('featuredItems') }}
+              span.rectangle
 
-        div.items.margin-center
-          shopItem(
-            v-for="item in featuredItems",
-            :key="item.key",
-            :item="item",
-            :price="item.value",
-            :priceType="item.currency",
-            :itemContentClass="'shop_'+item.key",
-            :emptyItem="false",
-            :popoverPosition="'top'",
-          )
-            template(slot="popoverContent", scope="ctx")
-              equipmentAttributesPopover(:item="ctx.item")
-
+            div.items.margin-center
+              shopItem(
+                v-for="item in featuredItems",
+                :key="item.key",
+                :item="item",
+                :price="item.value",
+                :priceType="item.currency",
+                :itemContentClass="'shop_'+item.key",
+                :emptyItem="false",
+                :popoverPosition="'top'",
+                @click="selectedGearToBuy = item"
+              )
+                template(slot="popoverContent", scope="ctx")
+                  equipmentAttributesPopover(:item="ctx.item")
 
       h1.mb-0.page-header(v-once) {{ $t('market') }}
 
@@ -287,38 +294,50 @@
 
   .featuredItems {
     height: 216px;
+
+    .background {
+      background: url('~assets/images/market/shop_background.png');
+
+      background-repeat: repeat-x;
+
+      width: 100%;
+      height: 216px;
+      display: block;
+      position: absolute;
+
+      top: 0;
+      left: 0;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .npc {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 216px;
+      background: url('~assets/images/market/market_banner_web_alexnpc.png');
+      background-repeat: no-repeat;
+
+      .featured-label {
+        position: absolute;
+        bottom: -14px;
+        margin: 0;
+        left: 80px;
+      }
+    }
   }
 
   .featured-label {
-    width: 134px;
-    height: 28px;
-    border-radius: 2px;
-    background-color: #b36213;
-    border: solid 2px #ffa623;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin: 24px auto;
-
-    .rectangle {
-      margin: 9px;
-      display: inline-block;
-       width: 6px;
-       height: 6px;
-       -webkit-transform: rotate(-45deg);
-       transform: rotate(-45deg);
-       background-color: #ffbe5d;
-       border: solid 2px #ffa623;
-     }
-
-    .text {
-      font-family: Roboto;
-      font-size: 12px;
-      font-weight: bold;
-      line-height: 1.33;
-      color: #ffffff;
-      flex: 1;
-    }
   }
 
   .bordered {
@@ -336,6 +355,10 @@
       .character-sprites span {
         left: 25px;
       }
+    }
+
+    .standard-page {
+      position: relative;
     }
   }
 </style>
@@ -487,7 +510,7 @@ export default {
       },
 
       featuredItems () {
-        return featuredItems.map(i => {
+        return featuredItems.market.map(i => {
           return this.content.gear.flat[i];
         });
       },
