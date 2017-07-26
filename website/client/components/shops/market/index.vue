@@ -631,8 +631,8 @@ export default {
       },
       memberOverrideAvatarGear (gear) {
         return {
-          [gear.type]: gear.key
-        }
+          [gear.type]: gear.key,
+        };
       },
     },
     created () {

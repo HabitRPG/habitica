@@ -331,7 +331,7 @@
   }
 
   #welcome-modal {
-    @include habitModal();
+    @include centeredModal();
 
     .npc_matt {
       margin: 0 auto 21px auto;
@@ -361,7 +361,7 @@
   }
 
   #hatching-modal {
-    @include habitModal();
+    @include centeredModal();
 
     .content {
       text-align: center;

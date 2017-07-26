@@ -42,7 +42,7 @@
   @import '~client/assets/scss/modal.scss';
 
   #sell-modal {
-    @include habitModal();
+    @include centeredModal();
 
     .content {
       text-align: center;

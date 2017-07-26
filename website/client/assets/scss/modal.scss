@@ -1,4 +1,4 @@
-@mixin habitModal() {
+@mixin centeredModal() {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -12,10 +12,9 @@
   .title {
     height: 24px;
     margin-top: 24px;
-    font-family: Roboto;
+    font-family: 'Roboto Condensed';
     font-size: 20px;
     font-weight: bold;
-    font-stretch: condensed;
     line-height: 1.2;
     text-align: center;
     color: #4e4a57;

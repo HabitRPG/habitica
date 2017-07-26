@@ -176,7 +176,7 @@ export default {
     },
   },
   methods: {
-    getGearClass(gearType) {
+    getGearClass (gearType) {
       let result = this.member.items.gear[this.costumeClass][gearType];
 
       if (this.overrideAvatarGear && this.overrideAvatarGear[gearType]) {
@@ -184,7 +184,7 @@ export default {
       }
 
       return result;
-    }
+    },
   },
 };
 </script>

@@ -1,4 +1,4 @@
-<template lang="pug">
+#<template lang="pug">
   div
     .svg-icon(v-html="icons.gem")
     span {{userGems | roundBigNumber}}
@@ -9,7 +9,6 @@
 <style lang="scss" scoped>
 .span {
   font-weight: normal;
-  font-family: Roboto;
   font-size: 12px;
   line-height: 1.33;
   color: #878190;
@@ -48,7 +47,7 @@
         userGems: 'user:gems',
       }),
       ...mapState({
-        userGold: 'user.data.stats.gp'
+        userGold: 'user.data.stats.gp',
       }),
     },
   };
