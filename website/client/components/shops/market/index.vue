@@ -116,6 +116,7 @@
             template(slot="itemBadge", scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
                 :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
+                @click.prevent.stop="togglePinned(ctx.item)"
               )
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
@@ -651,6 +652,11 @@ export default {
         return {
           [gear.type]: gear.key,
         };
+      },
+      togglePinned (item) {
+        let isPinned = !!item.pinned;
+        item.pinned = !isPinned;
+        this.$store.dispatch(isPinned ? 'shops:unpinGear' : 'shops:pinGear', {key: item.key});
       },
     },
     created () {

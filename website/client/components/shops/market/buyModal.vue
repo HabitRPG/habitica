@@ -46,7 +46,6 @@
 
     .content {
       text-align: center;
-
     }
 
     .item-wrapper {
