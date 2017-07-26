@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import getStore from 'client/store';
 
-import EmptyView from './components/emptyView';
+// import EmptyView from './components/emptyView';
 
 // TODO Dummy elements used as placeholder until real components are implemented
 import ParentPage from './components/parentPage';

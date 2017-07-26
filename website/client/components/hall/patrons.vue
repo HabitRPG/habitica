@@ -35,7 +35,7 @@ export default {
     ...mapState({user: 'user.data'}),
   },
   methods: {
-    //@TODO: Import member modal - clickMember()
+    //  @TODO: Import member modal - clickMember()
   },
 };
 </script>
