@@ -45,6 +45,20 @@ describe('PUT /group', () => {
     expect(updatedGroup.name).to.equal(groupUpdatedName);
   });
 
+  it('updates a group categories', async () => {
+    let categories = [{
+      slug: 'newCat',
+      name: 'New Category',
+    }];
+
+    let updatedGroup = await leader.put(`/groups/${groupToUpdate._id}`, {
+      categories,
+    });
+
+    expect(updatedGroup.categories[0].slug).to.eql(categories[0].slug);
+    expect(updatedGroup.categories[0].name).to.eql(categories[0].name);
+  });
+
   it('allows an admin to update a guild', async () => {
     let updatedGroup = await adminUser.put(`/groups/${groupToUpdate._id}`, {
       name: groupUpdatedName,

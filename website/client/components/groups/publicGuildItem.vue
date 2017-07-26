@@ -8,7 +8,7 @@
       .col-md-10
         .row
           .col-md-8
-              router-link(:to="{ name: 'guild', params: { guildId: guild._id } }")
+              router-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
                 h3 {{ guild.name }}
               p {{ guild.description }}
           .col-md-2.cta-container
@@ -22,69 +22,70 @@
           .col-md-12
             .category-label(v-for="category in guild.categories")
               | {{category}}
-            span.recommend-text Suggested because you’re new to Habitica.
+            span.recommend-text(v-if='showSuggested(guild._id)') Suggested because you’re new to Habitica.
 </template>
 
 <style lang="scss" scoped>
-@import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/colors.scss';
 
-.card {
-  height: 260px;
-  border-radius: 4px;
-  background-color: $white;
-  box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($black, 0.1);
-  margin-bottom: 1rem;
+  .card {
+    height: 260px;
+    border-radius: 4px;
+    background-color: $white;
+    box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($black, 0.1);
+    margin-bottom: 1rem;
 
-  .recommend-text {
-    font-size: 12px;
-    font-style: italic;
-    line-height: 2;
-    color: $gray-300;
-  }
-
-  .cta-container {
-    margin: 0 auto;
-    margin-top: 4em;
-  }
-
-  .item-with-icon {
-    .svg-icon {
-      height: 37px;
+    .recommend-text {
+      font-size: 12px;
+      font-style: italic;
+      line-height: 2;
+      color: $gray-300;
     }
 
-    .count {
-      font-size: 20px;
-      height: 37px;
-      width: 37px;
-      margin-left: .2em;
+    .cta-container {
+      margin: 0 auto;
+      margin-top: 4em;
+    }
+
+    .item-with-icon {
+      .svg-icon {
+        height: 37px;
+      }
+
+      .count {
+        font-size: 20px;
+        height: 37px;
+        width: 37px;
+        margin-left: .2em;
+      }
+    }
+
+    .shield {
+      width: 70px;
+    }
+
+    .guild-bank {
+      font-size: 12px;
+      line-height: 1.33;
+      color: $gray-300;
+    }
+
+    .member-count {
+      position: relative;
+      top: -3.6em;
+      left: -.1em;
+      font-size: 28px;
+      font-weight: bold;
+      font-family: 'Roboto Condensed';
+      line-height: 1.2;
+      text-align: center;
+      color: #b36213;
     }
   }
-
-  .shield {
-    width: 70px;
-  }
-
-  .guild-bank {
-    font-size: 12px;
-    line-height: 1.33;
-    color: $gray-300;
-  }
-
-  .member-count {
-    position: relative;
-    top: -3.6em;
-    left: -.1em;
-    font-size: 28px;
-    font-weight: bold;
-    font-family: 'Roboto Condensed';
-    line-height: 1.2;
-    text-align: center;
-    color: #b36213;
-  }
-}
 </style>
 
 <script>
+import moment from 'moment';
 import { mapState } from 'client/libs/store';
 import groupUtilities from 'client/mixins/groupsUtilities';
 import findIndex from 'lodash/findIndex';
@@ -109,6 +110,11 @@ export default {
     };
   },
   methods: {
+    showSuggested (guildId) {
+      let habiticaHelpingGuildId = '5481ccf3-5d2d-48a9-a871-70a7380cee5a';
+      let createdAfterRedesign = moment(this.user.auth.timestamps.created).isAfter('2017-08-01');
+      return guildId === habiticaHelpingGuildId && createdAfterRedesign;
+    },
     async join () {
       // @TODO: This needs to be in the notifications where users will now accept invites
       if (this.guild.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {

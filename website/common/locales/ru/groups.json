@@ -114,7 +114,7 @@
     "messageRequired": "Требуется сообщение.",
     "toUserIDRequired": "Tребуется ID пользователя",
     "gemAmountRequired": "Требуется количество кристаллов.",
-    "notAuthorizedToSendMessageToThisUser": "You can't send a message to this player because they have chosen to block messages.",
+    "notAuthorizedToSendMessageToThisUser": "Вы не можете посылать личные сообщения этому пользователю, так как он выбрал блокировать сообщения.",
     "privateMessageGiftGemsMessage": "Привет <%= username %>, <%= senderName %> отправил вам <%= gemAmount %> самоцветов!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> месяцев подписки!",
     "cannotSendGemsToYourself": "Не удается отправить самоцветы самому себе. Вместо этого, опробуйте купуть подписку.",
