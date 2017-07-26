@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  .item-with-icon(@click="$root.$emit('show::modal','members-modal')")
+  .item-with-icon(@click="$root.$emit('show::modal','members-modal')", v-if='!hideBadge')
     .svg-icon.shield(v-html="icons.goldGuildBadgeIcon")
     span.number {{group.memberCount}}
     div(v-once) {{ $t('members') }}
@@ -127,7 +127,7 @@ import starIcon from 'assets/members/star.svg';
 import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge.svg';
 
 export default {
-  props: ['group'],
+  props: ['group', 'hideBadge'],
   components: {
     bModal,
     bDropdown,
