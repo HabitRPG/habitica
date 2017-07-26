@@ -23,7 +23,7 @@
         p(v-once) {{$t('challengeDescription2')}}
 
     .row
-      .col-6(v-for='challenge in challenges')
+      .col-6(v-for='challenge in challenges', v-if='memberOf(challenge)')
         challenge-item(:challenge='challenge')
 </template>
 
@@ -63,6 +63,8 @@
 </style>
 
 <script>
+import { mapState } from 'client/libs/store';
+
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Sidebar from './sidebar';
@@ -87,36 +89,6 @@ export default {
         positiveIcon,
       }),
       challenges: [
-        // {
-        //   _id: 1,
-        //   title: 'I am the Night! (Official TAKE THIS Challenge June 2017)',
-        //   memberCount: 5261,
-        //   endDate: '2017-04-04',
-        //   tags: ['Habitica Official', 'Tag'],
-        //   prize: 10,
-        //   description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.',
-        //   counts: {
-        //     habit: 0,
-        //     dailies: 2,
-        //     todos: 2,
-        //     rewards: 0,
-        //   },
-        // },
-        // {
-        //   _id: 2,
-        //   title: '30-Day Money Cleanse 💰',
-        //   memberCount: 112,
-        //   endDate: '2017-04-05',
-        //   tags: ['Owned', 'Tag'],
-        //   prize: 10,
-        //   description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.',
-        //   counts: {
-        //     habit: 0,
-        //     dailies: 2,
-        //     todos: 30,
-        //     rewards: 0,
-        //   },
-        // },
       ],
       sortOptions: [],
     };
@@ -124,7 +96,13 @@ export default {
   mounted () {
     this.loadchallanges();
   },
+  computed: {
+    ...mapState({user: 'user.data'}),
+  },
   methods: {
+    memberOf (challenge) {
+      return this.user.challenges.indexOf(challenge._id) !== -1;
+    },
     updateSearch () {
 
     },

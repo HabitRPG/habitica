@@ -15,7 +15,7 @@
           .svg-icon.positive-icon(v-html="icons.positiveIcon")
           span(v-once, @click='createChallenge()') {{$t('createChallenge')}}
     .row
-      .col-6(v-for='challenge in challenges')
+      .col-6(v-for='challenge in challenges', v-if='!memberOf(challenge)')
         challenge-item(:challenge='challenge')
 </template>
 
@@ -41,6 +41,8 @@
 </style>
 
 <script>
+import { mapState } from 'client/libs/store';
+
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Sidebar from './sidebar';
@@ -71,7 +73,13 @@ export default {
 
     // @TODO: do we need to load groups for filters still?
   },
+  computed: {
+    ...mapState({user: 'user.data'}),
+  },
   methods: {
+    memberOf (challenge) {
+      return this.user.challenges.indexOf(challenge._id) !== -1;
+    },
     updateSearch () {
 
     },
