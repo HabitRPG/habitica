@@ -6,10 +6,11 @@
           strong(v-once) {{$t('name')}}*
         b-form-input(type="text", :placeholder="$t('newGuildPlaceHolder')", v-model="newGuild.name")
 
-      .form-group(v-if='newGuild.id')
+      .form-group(v-if='newGuild.id && members.length > 0')
         label
           strong(v-once) {{$t('guildLeader')}}*
-          b-form-select(v-model="newGuild.newLeader" :options="members")
+        select.form-control(v-model="newGuild.newLeader")
+          option(v-for='member in members', :value="member._id") {{ member.profile.name }}
 
       .form-group
         label
@@ -229,7 +230,7 @@ export default {
         },
       ],
       showCategorySelect: false,
-      members: ['one', 'two'],
+      members: [],
       creatingParty: true,
       inviteMembers: false,
       newMemberToInvite: {
@@ -261,6 +262,8 @@ export default {
       this.newGuild.privacy = editingGroup.privacy;
       if (editingGroup.description) this.newGuild.description = editingGroup.description;
       this.newGuild.id = editingGroup._id;
+      this.newGuild.newLeader = editingGroup.leader._id;
+      this.getMembers();
     });
   },
   computed: {
@@ -274,6 +277,14 @@ export default {
     },
   },
   methods: {
+    async getMembers () {
+      if (!this.newGuild.id) return;
+      let members = await this.$store.dispatch('members:getGroupMembers', {
+        groupId: this.newGuild.id,
+        includeAllPublicFields: true,
+      });
+      this.members = members;
+    },
     addMemberToInvite () {
       // @TODO: determine type
       this.membersToInvite.push(this.newMemberToInvite);
@@ -322,7 +333,9 @@ export default {
       }
 
       if (this.newGuild.id) {
-        await this.$store.dispatch('guilds:update', {group: this.newGuild});
+        let updatedGroup = await this.$store.dispatch('guilds:update', {group: this.newGuild});
+        // @TODO: this doesn't work because of the async resource
+        // if (updatedGroup.type === 'party') this.$store.state.party = {data: updatedGroup};
       } else {
         await this.$store.dispatch('guilds:create', {group: this.newGuild});
       }

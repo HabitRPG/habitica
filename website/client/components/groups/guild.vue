@@ -497,9 +497,7 @@ export default {
       // @TODO: Set up from old client. Decide what we need and what we don't
       // Check Desktop notifs
       // Mark Chat seen
-      // Load members
       // Load invites
-      // Load challenges
       // Load group tasks for group plan
       // Load approvals for group plan
     }
@@ -511,7 +509,7 @@ export default {
   },
   methods: {
     showMemberModal () {
-      this.$root.$emit('show::modal', 'members-modal')
+      this.$root.$emit('show::modal', 'members-modal');
     },
     async sendMessage () {
       let response = await this.$store.dispatch('chat:postChat', {

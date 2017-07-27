@@ -92,9 +92,7 @@ export async function update (store, payload) {
   let groupDetailsToSend = omit(payload.group, ['chat', 'challenges', 'members', 'invites']);
   if (groupDetailsToSend.leader && groupDetailsToSend.leader._id) groupDetailsToSend.leader = groupDetailsToSend.leader._id;
 
-  let response = await axios.put(`/api/v3/groups/${payload.group.id}`, {
-    data: groupDetailsToSend,
-  });
+  let response = await axios.put(`/api/v3/groups/${payload.group.id}`, groupDetailsToSend);
 
   let updatedGroup = response.data.data;
 
