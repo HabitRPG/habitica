@@ -11,12 +11,12 @@
         span.float-left(v-once, v-if='group.leader.profile') : {{group.leader.profile.name}}
       .col-6
         .row.icon-row
-          .col-4(v-bind:class="{ 'offset-8': isParty }")
+          .col-4.offset-4(v-bind:class="{ 'offset-8': isParty }")
             .item-with-icon(@click="showMemberModal()")
               .svg-icon.shield(v-html="icons.goldGuildBadgeIcon")
               span.number {{group.memberCount}}
               div(v-once) {{ $t('members') }}
-          .col-6(v-if='!isParty')
+          .col-4(v-if='!isParty')
             .item-with-icon
               .svg-icon.gem(v-html="icons.gem")
               span.number {{group.memberCount}}
@@ -45,11 +45,11 @@
         .button-container
           button.btn.btn-primary(v-once, @click='showInviteModal()') {{$t('invite')}}
         .button-container
-          button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}}
+          // @TODO: V2 button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}}
         .button-container
-          button.btn.btn-primary(v-once, v-if='isMember && !isParty') {{$t('donateGems')}}
+          // @TODO: V2 button.btn.btn-primary(v-once, v-if='isMember && !isParty') {{$t('donateGems')}}
 
-    .section-header
+    .section-header(v-if='isParty')
       .row
         .col-10
           h3(v-once) {{ $t('questDetailsTitle') }}

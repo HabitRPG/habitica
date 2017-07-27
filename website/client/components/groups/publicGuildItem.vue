@@ -44,6 +44,10 @@
 
     .cta-container {
       margin: 0 auto;
+
+      button {
+        margin-top: 2.5em;
+      }
     }
 
     .item-with-icon {
@@ -80,7 +84,7 @@
 
     .gem-bank {
       margin-top: 2em;
-      
+
       .gem {
         width: 25px;
         display: inline-block;
