@@ -1,6 +1,10 @@
 <template lang="pug">
 .row.user-tasks-page
-  edit-task-modal(:task="editingTask", ref="editTaskModal")
+  edit-task-modal(
+    :task="editingTask",
+    @cancel="cancelTaskEdit()", 
+    ref="editTaskModal",
+  )
   .col-12
     .row.tasks-navigation
       .col-4.offset-4
@@ -173,6 +177,7 @@ import filterIcon from 'assets/svg/filter.svg';
 
 import Vue from 'vue';
 import throttle from 'lodash/throttle';
+import cloneDeep from 'lodash/cloneDeep';
 import { mapState } from 'client/libs/store';
 
 export default {
@@ -234,11 +239,14 @@ export default {
   },
   methods: {
     editTask (task) {
-      this.editingTask = task;
+      this.editingTask = cloneDeep(task);
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
         this.$root.$emit('show::modal', 'edit-task-modal');
       });
+    },
+    cancelEditTask () {
+      this.editingTask = null;
     },
     toggleFilterPanel () {
       if (this.isFilterPanelOpen === true) {

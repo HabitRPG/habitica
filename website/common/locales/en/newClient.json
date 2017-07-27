@@ -214,5 +214,7 @@
   "where": "Where*",
   "challengeMinimum": "Minimum 1 Gem for public Challenges (helps prevent spam, it really does).",
   "editATask": "Edit a <%= type %>",
-  "notes": "Notes"
+  "notes": "Notes",
+  "positive": "Positive",
+  "negative": "Negative"
 }
