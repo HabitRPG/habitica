@@ -2,7 +2,8 @@
 .row(v-if="group")
   group-form-modal
   invite-modal
-  .clearfix.col-8
+  start-quest-modal(:group='this.group')
+  .col-8.standard-page
     .row
       .col-6.title-details
         h1 {{group.name}}
@@ -24,8 +25,6 @@
         textarea(:placeholder="$t('chatPlaceHolder')", v-model='newMessage')
         button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
 
-        .hr
-          .hr-middle(v-once) {{ $t('today') }}
 
         chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
@@ -63,7 +62,6 @@
             h4(v-once) {{ $t('yourNotOnQuest') }}
             p(v-once) {{ $t('questDescription') }}
             button.btn.btn-secondary(v-once, @click="openStartQuestModal()") {{ $t('startAQuest') }}
-            owned-quests-modal(:group='this.group')
         .row.quest-active-section(v-if='isParty && onPendingQuest && !onActiveQuest')
           h2 Pending quest
           button.btn.btn-secondary(v-once, @click="questForceStart()") {{ $t('begin') }}
@@ -150,6 +148,10 @@
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
+  h1 {
+    color: $purple-200;
+  }
+
   .button-container {
     margin-bottom: 1em;
 
@@ -168,6 +170,7 @@
   .sidebar {
     background-color: $gray-600;
     padding-top: 2em;
+    padding-bottom: 2em;
   }
 
   .card {
@@ -231,26 +234,8 @@
     }
   }
 
-  .hr {
-    width: 100%;
-    height: 20px;
-    border-bottom: 1px solid $gray-500;
-    text-align: center;
-    margin: 2em 0;
-  }
-
-  .hr-middle {
-    font-size: 16px;
-    font-weight: bold;
-    font-family: 'Roboto Condensed';
-    line-height: 1.5;
-    text-align: center;
-    color: $gray-200;
-    background-color: $gray-700;
-    padding: .2em;
-    margin-top: .2em;
-    display: inline-block;
-    width: 100px;
+  .toggle-up .svg-icon, .toggle-down .svg-icon {
+    width: 25px;
   }
 
   span.action {
@@ -280,6 +265,7 @@
     .svg-icon {
       height: 30px;
       width: 30px;
+      margin: 0 auto;
       margin-bottom: 2em;
     }
   }
@@ -350,9 +336,10 @@
 
 <script>
 import groupUtilities from 'client/mixins/groupsUtilities';
+import styleHelper from 'client/mixins/styleHelper';
 import { mapState } from 'client/libs/store';
 import membersModal from './membersModal';
-import ownedQuestsModal from './ownedQuestsModal';
+import startQuestModal from './startQuestModal';
 import quests from 'common/script/content/quests';
 import percent from 'common/script/libs/percent';
 import groupFormModal from './groupFormModal';
@@ -379,12 +366,12 @@ import upIcon from 'assets/svg/up.svg';
 import downIcon from 'assets/svg/down.svg';
 
 export default {
-  mixins: [groupUtilities],
+  mixins: [groupUtilities, styleHelper],
   props: ['groupId'],
   components: {
     membersModal,
     memberModal,
-    ownedQuestsModal,
+    startQuestModal,
     bCollapse,
     bCard,
     bTooltip,
@@ -397,6 +384,7 @@ export default {
   },
   data () {
     return {
+      searchId: null,
       group: null,
       icons: Object.freeze({
         like: likeIcon,
@@ -412,7 +400,6 @@ export default {
         upIcon,
         downIcon,
       }),
-      questData: {},
       selectedQuest: {},
       sections: {
         quest: true,
@@ -480,10 +467,15 @@ export default {
     bossHpPercent () {
       return percent(this.group.quest.progress.hp, this.questData.boss.hp);
     },
+    questData () {
+      if (!this.group.quest) return {};
+      return quests.quests[this.group.quest.key];
+    },
   },
   created () {
+    this.searchId = this.groupId;
     if (this.isParty) {
-      this.groupId = 'party';
+      this.searchId = 'party';
       // @TODO: Set up from old client. Decide what we need and what we don't
       // Check Desktop notifs
       // Mark Chat seen
@@ -516,12 +508,11 @@ export default {
       this.$root.$emit('show::modal', 'invite-modal');
     },
     async fetchGuild () {
-      let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.groupId});
+      let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
       if (this.isParty) {
         this.$store.party = group;
         this.group = this.$store.party;
         this.checkForAchievements();
-        this.questData = quests.quests[this.group.quest.key];
         return;
       }
       this.group = group;
@@ -532,7 +523,7 @@ export default {
       }
     },
     openStartQuestModal () {
-      this.$root.$emit('show::modal', 'owned-quests-modal');
+      this.$root.$emit('show::modal', 'start-quest-modal');
     },
     // inviteOrStartParty (group) {
       // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Invite Friends'});
@@ -630,7 +621,7 @@ export default {
       });
 
       if (hasQuests) {
-        this.$root.$emit('show::modal', 'owned-quests-modal');
+        this.$root.$emit('show::modal', 'start-quest-modal');
         return;
       }
       // $rootScope.$state.go('options.inventory.quests');

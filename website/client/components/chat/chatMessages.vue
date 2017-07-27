@@ -4,6 +4,10 @@ div
   .row
     // .col-md-2
     // @TODO: Implement when we pull avatars .svg-icon(v-html="icons.like")
+
+    .hr
+      .hr-middle(v-once) {{ $t('today') }}
+
     .col-md-12(v-for="(msg, index) in chat", :key="msg.id")
       .card
         .card-block
@@ -31,6 +35,28 @@ div
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .hr {
+    width: 100%;
+    height: 20px;
+    border-bottom: 1px solid $gray-500;
+    text-align: center;
+    margin: 2em 0;
+  }
+
+  .hr-middle {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Roboto Condensed';
+    line-height: 1.5;
+    text-align: center;
+    color: $gray-200;
+    background-color: $gray-700;
+    padding: .2em;
+    margin-top: .2em;
+    display: inline-block;
+    width: 100px;
+  }
 
   .card {
     margin-bottom: 1em;

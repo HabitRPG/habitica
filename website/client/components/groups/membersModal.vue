@@ -106,7 +106,7 @@ div
 
   .svg-icon.shield, .svg-icon.gem {
     width: 40px;
-    margin-right: 1em;
+    margin: 0 auto;
   }
 
   .number {
