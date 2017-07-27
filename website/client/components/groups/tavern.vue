@@ -9,26 +9,25 @@
       .col-12
         h3(v-once) {{ $t('welcomeToTavern') }}
 
-        textarea(:placeholder="$t('chatPlaceHolder')", v-model='newMessage')
-        autocomplete(:text='newMessage', v-on:select="selectedAutocomplete")
-        button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
+        .row
+          textarea(:placeholder="$t('chatPlaceHolder')", v-model='newMessage')
+          autocomplete(:text='newMessage', v-on:select="selectedAutocomplete")
+          button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
 
-        .container.community-guidelines(v-if='communityGuidelinesAccepted')
+        .container.community-guidelines(v-if='!communityGuidelinesAccepted')
           .row
             div.col-8(v-once) {{ $t('communityGuidelinesIntro') }}
             div.col-4
               button.btn.btn-info(@click='acceptCommunityGuidelines()', v-once) {{ $t('acceptCommunityGuidelines') }}
 
-        .hr
-          .hr-middle(v-once) {{ $t('today') }}
-
-        chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
+        .row
+          chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
   .col-md-4.sidebar
     .section
       .grassy-meadow-backdrop
 
-      .sleep
+      .sleep.below-header-sections
         strong(v-once) {{ $t('sleepDescription') }}
         ul
           li(v-once) {{ $t('sleepBullet1') }}
@@ -38,75 +37,76 @@
         button.btn.btn-secondary.pause-button(v-if='!user.preferences.sleep', @click='toggleSleep()', v-once) {{ $t('pauseDailies') }}
         button.btn.btn-secondary.pause-button(v-if='user.preferences.sleep', @click='toggleSleep()', v-once) {{ $t('unpauseDailies') }}
 
-    .section-header
-      .row
-        .col-10
-          h3(v-once) {{ $t('staffAndModerators') }}
-        .col-2
-          .toggle-up(@click="sections.staff = !sections.staff", v-if="sections.staff")
-            .svg-icon(v-html="icons.upIcon")
-          .toggle-down(@click="sections.staff = !sections.staff", v-if="!sections.staff")
-            .svg-icon(v-html="icons.downIcon")
-      .section.row(v-if="sections.staff")
-        .col-3.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
-          .title {{user.name}}
-          .type {{user.type}}
+    .below-header-sections
+      .section-header
+        .row
+          .col-10
+            h3(v-once) {{ $t('staffAndModerators') }}
+          .col-2
+            .toggle-up(@click="sections.staff = !sections.staff", v-if="sections.staff")
+              .svg-icon(v-html="icons.upIcon")
+            .toggle-down(@click="sections.staff = !sections.staff", v-if="!sections.staff")
+              .svg-icon(v-html="icons.downIcon")
+        .section.row(v-if="sections.staff")
+          .col-3.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
+            .title {{user.name}}
+            .type {{user.type}}
 
-    .section-header
-      .row
-        .col-10
-          h3(v-once) {{ $t('helpfulLinks') }}
-        .col-2
-          .toggle-up(@click="sections.staff = !sections.staff", v-if="sections.staff")
-            .svg-icon(v-html="icons.upIcon")
-          .toggle-down(@click="sections.staff = !sections.staff", v-if="!sections.staff")
-            .svg-icon(v-html="icons.downIcon")
-      .section.row(v-if="sections.staff")
-        ul
-          li
-            a(herf='', v-once) {{ $t('communityGuidelinesLink') }}
-          li
-            a(herf='', v-once) {{ $t('lookingForGroup') }}
-          li
-            a(herf='', v-once) {{ $t('faq') }}
-          li
-            a(herf='', v-html="$t('glossary')")
-          li
-            a(herf='', v-once) {{ $t('wiki') }}
-          li
-            a(herf='', v-once) {{ $t('dataDisplayTool') }}
-          li
-            a(herf='', v-once) {{ $t('reportProblem') }}
-          li
-            a(herf='', v-once) {{ $t('requestFeature') }}
-          li
-            a(herf='', v-html="$t('communityForum')")
-          li
-            a(herf='', v-once) {{ $t('askQuestionGuild') }}
+      .section-header
+        .row
+          .col-10
+            h3(v-once) {{ $t('helpfulLinks') }}
+          .col-2
+            .toggle-up(@click="sections.helpfulLinks = !sections.helpfulLinks", v-if="sections.helpfulLinks")
+              .svg-icon(v-html="icons.upIcon")
+            .toggle-down(@click="sections.helpfulLinks = !sections.helpfulLinks", v-if="!sections.helpfulLinks")
+              .svg-icon(v-html="icons.downIcon")
+        .section.row(v-if="sections.helpfulLinks")
+          ul
+            li
+              a(herf='', v-once) {{ $t('communityGuidelinesLink') }}
+            li
+              a(herf='', v-once) {{ $t('lookingForGroup') }}
+            li
+              a(herf='', v-once) {{ $t('faq') }}
+            li
+              a(herf='', v-html="$t('glossary')")
+            li
+              a(herf='', v-once) {{ $t('wiki') }}
+            li
+              a(herf='', v-once) {{ $t('dataDisplayTool') }}
+            li
+              a(herf='', v-once) {{ $t('reportProblem') }}
+            li
+              a(herf='', v-once) {{ $t('requestFeature') }}
+            li
+              a(herf='', v-html="$t('communityForum')")
+            li
+              a(herf='', v-once) {{ $t('askQuestionGuild') }}
 
-    .section-header
-      .row
-        .col-10
-          h3(v-once) {{ $t('playerTiers') }}
-        .col-2
-          .toggle-up(@click="sections.staff = !sections.staff", v-if="sections.staff")
-            .svg-icon(v-html="icons.upIcon")
-          .toggle-down(@click="sections.staff = !sections.staff", v-if="!sections.staff")
-            .svg-icon(v-html="icons.downIcon")
-      .section.row(v-if="sections.staff")
-        .col-12
-          p(v-once) {{ $t('playerTiersDesc') }}
-          ul.tier-list
-            li.tier1(v-once) {{ $t('tier1') }}
-            li.tier2(v-once) {{ $t('tier2') }}
-            li.tier3(v-once) {{ $t('tier3') }}
-            li.tier4(v-once) {{ $t('tier4') }}
-            li.tier5(v-once) {{ $t('tier5') }}
-            li.tier6(v-once) {{ $t('tier6') }}
-            li.tier7(v-once) {{ $t('tier7') }}
-            li.moderator(v-once) {{ $t('tierModerator') }}
-            li.staff(v-once) {{ $t('tierStaff') }}
-            li.npc(v-once) {{ $t('tierNPC') }}
+      .section-header
+        .row
+          .col-10
+            h3(v-once) {{ $t('playerTiers') }}
+          .col-2
+            .toggle-up(@click="sections.playerTiers = !sections.playerTiers", v-if="sections.playerTiers")
+              .svg-icon(v-html="icons.upIcon")
+            .toggle-down(@click="sections.playerTiers = !sections.playerTiers", v-if="!sections.playerTiers")
+              .svg-icon(v-html="icons.downIcon")
+        .section.row(v-if="sections.playerTiers")
+          .col-12
+            p(v-once) {{ $t('playerTiersDesc') }}
+            ul.tier-list
+              li.tier1(v-once) {{ $t('tier1') }}
+              li.tier2(v-once) {{ $t('tier2') }}
+              li.tier3(v-once) {{ $t('tier3') }}
+              li.tier4(v-once) {{ $t('tier4') }}
+              li.tier5(v-once) {{ $t('tier5') }}
+              li.tier6(v-once) {{ $t('tier6') }}
+              li.tier7(v-once) {{ $t('tier7') }}
+              li.moderator(v-once) {{ $t('tierModerator') }}
+              li.staff(v-once) {{ $t('tierStaff') }}
+              li.npc(v-once) {{ $t('tierNPC') }}
 </template>
 
 <style lang='scss' scoped>
@@ -169,7 +169,11 @@
 
   .sidebar {
     background-color: $gray-600;
-    padding-top: 2em;
+    padding: 0em;
+
+    .below-header-sections {
+      padding: 1em;
+    }
   }
 
   .toggle-up, .toggle-down {
@@ -192,7 +196,7 @@
 
   .grassy-meadow-backdrop {
     background-image: url('~assets/images/groups/grassy-meadow-backdrop.png');
-    width: 472px;
+    width: 100%;
     height: 246px;
   }
 
@@ -314,6 +318,8 @@ export default {
       },
       sections: {
         staff: true,
+        helpfulLinks: true,
+        playerTiers: true,
       },
       staff: [
         {
@@ -404,12 +410,6 @@ export default {
   methods: {
     selectedAutocomplete (newText) {
       this.newMessage = newText;
-    },
-    aggreeToGuideLines () {
-      // @TODO:
-    },
-    pauseDailies () {
-      // @TODO:
     },
     acceptCommunityGuidelines () {
       this.$store.dispatch('user:set', {'flags.communityGuidelinesAccepted': true});

@@ -6,9 +6,12 @@ div
     // @TODO: Implement when we pull avatars .svg-icon(v-html="icons.like")
 
     .hr
-      .hr-middle(v-once) {{ $t('today') }}
 
     .col-md-12(v-for="(msg, index) in chat", :key="msg.id")
+      // @TODO: is there a different way to do these conditionals? This creates an infinite loop
+      //.hr(v-if='displayDivider(msg)')
+        .hr-middle(v-once) {{ msg.timestamp }}
+
       .card
         .card-block
           h3.leader {{msg.user}}
@@ -117,17 +120,31 @@ export default {
       }),
       copyingMessage: {},
       messages: [],
+      currentDayDividerDisplay: moment().day(),
     };
   },
   filters: {
     timeAgo (value) {
       return moment(value).fromNow();
     },
+    date (value) {
+      // @TODO: Add user preference
+      return moment(value).toDate();
+    },
   },
   computed: {
     ...mapState({user: 'user.data'}),
   },
   methods: {
+    displayDivider (message) {
+      console.log(this.currentDayDividerDisplay, moment(message.timestamp).day())
+      if (this.currentDayDividerDisplay !== moment(message.timestamp).day()) {
+        this.currentDayDividerDisplay = moment(message.timestamp).day();
+        return true;
+      }
+
+      return false;
+    },
     likeCount (message) {
       return Object.keys(message.likes).length;
     },

@@ -1,57 +1,5 @@
 <template lang="pug">
 .standard-page
-  div(v-if='activePage === PAGES.CREATE_GROUP')
-    h2.text-center {{ $t('createAGroup') }}
-
-    .col-xs-12
-      .col-md-12.form-horizontal
-        .form-group
-          label.control-label(for='new-group-name') {{ $t('newGroupName', {groupType: 'text'}) }}
-          input.form-control#new-group-name.input-medium.option-content(required, type='text', :placeholder="$t('newGroupName', {groupType: 'text'})", v-model='newGroup.name')
-        .form-group
-          label(for='new-group-description') {{ $t('description') }}
-          textarea.form-control#new-group-description.option-content(cols='3', :placeholder="$t('description')", v-model='newGroup.description')
-        .form-group(v-if='type === "guild"')
-          .radio
-            label
-              input(type='radio', name='new-group-privacy', value='public', v-model='newGroup.privacy')
-              | {{ $t('public') }}
-          .radio
-            label
-              input(type='radio', name='new-group-privacy', value='private', v-model='newGroup.privacy')
-              | {{ $t('inviteOnly') }}
-          br
-          input.btn.btn-default(type='submit', :disabled='!newGroup.privacy && !newGroup.name', :value="$t('create')")
-          span.gem-cost {{ '4 ' + $t('gems') }}
-          p
-            small {{ $t('gemCost') }}
-        .form-group
-          .checkbox
-            label
-              input(type='checkbox', v-model='newGroup.leaderOnly.challenges')
-              | {{ $t('leaderOnlyChallenges') }}
-        .form-group(v-if='type === "party"')
-          input.btn.btn-default.form-control(type='submit', :value="$t('create')")
-    br
-    br
-    .row
-      .col-sm-6.col-sm-offset-3
-        a.btn.btn-primary.btn-lg.btn-block(@click="createGroup()", :disabled="!newGroupIsReady") {{ $t('create') }}
-
-  div(v-if='activePage === PAGES.UPGRADE_GROUP')
-    h2.text-center {{ $t('upgradeTitle') }}
-
-    .row.text-center
-      .col-6.col-offset-3
-        a.purchase.btn.btn-primary(@click='upgradeGroup(PAYMENTS.STRIPE)') {{ $t('card') }}
-        a.purchase(@click='upgradeGroup(PAYMENTS.AMAZON)')
-          img(src='https://payments.amazon.com/gp/cba/button', :alt="$t('amazonPayments')")
-        // @TODO: Add paypal
-    .row
-      .col-md-6.col-md-offset-3
-        br
-        .text-center {{ $t('groupSubscriptionPrice') }}
-
   div(v-if='activePage === PAGES.BENEFITS')
     h2.text-center {{ $t('groupBenefitsTitle') }}
       .row(style="font-size: 2rem;")
@@ -127,6 +75,58 @@
             .col-md-6.col-md-offset-3
               br
               .text-center {{ $t('groupSubscriptionPrice') }}
+
+  div(v-if='activePage === PAGES.CREATE_GROUP')
+    h2.text-center {{ $t('createAGroup') }}
+
+    .col-xs-12
+      .col-md-12.form-horizontal
+        .form-group
+          label.control-label(for='new-group-name') {{ $t('newGroupName', {groupType: 'text'}) }}
+          input.form-control#new-group-name.input-medium.option-content(required, type='text', :placeholder="$t('newGroupName', {groupType: 'text'})", v-model='newGroup.name')
+        .form-group
+          label(for='new-group-description') {{ $t('description') }}
+          textarea.form-control#new-group-description.option-content(cols='3', :placeholder="$t('description')", v-model='newGroup.description')
+        .form-group(v-if='type === "guild"')
+          .radio
+            label
+              input(type='radio', name='new-group-privacy', value='public', v-model='newGroup.privacy')
+              | {{ $t('public') }}
+          .radio
+            label
+              input(type='radio', name='new-group-privacy', value='private', v-model='newGroup.privacy')
+              | {{ $t('inviteOnly') }}
+          br
+          input.btn.btn-default(type='submit', :disabled='!newGroup.privacy && !newGroup.name', :value="$t('create')")
+          span.gem-cost {{ '4 ' + $t('gems') }}
+          p
+            small {{ $t('gemCost') }}
+        .form-group
+          .checkbox
+            label
+              input(type='checkbox', v-model='newGroup.leaderOnly.challenges')
+              | {{ $t('leaderOnlyChallenges') }}
+        .form-group(v-if='type === "party"')
+          input.btn.btn-default.form-control(type='submit', :value="$t('create')")
+    br
+    br
+    .row
+      .col-sm-6.col-sm-offset-3
+        a.btn.btn-primary.btn-lg.btn-block(@click="createGroup()", :disabled="!newGroupIsReady") {{ $t('create') }}
+
+  div(v-if='activePage === PAGES.UPGRADE_GROUP')
+    h2.text-center {{ $t('upgradeTitle') }}
+
+    .row.text-center
+      .col-6.col-offset-3
+        a.purchase.btn.btn-primary(@click='upgradeGroup(PAYMENTS.STRIPE)') {{ $t('card') }}
+        a.purchase(@click='upgradeGroup(PAYMENTS.AMAZON)')
+          img(src='https://payments.amazon.com/gp/cba/button', :alt="$t('amazonPayments')")
+        // @TODO: Add paypal
+    .row
+      .col-md-6.col-md-offset-3
+        br
+        .text-center {{ $t('groupSubscriptionPrice') }}
 </template>
 
 <script>
@@ -155,7 +155,7 @@ export default {
     };
   },
   mounted () {
-    this.activePage = this.PAGES.CREATE_GROUP;
+    this.activePage = this.PAGES.BENEFITS;
   },
   computed: {
     newGroupIsReady () {
