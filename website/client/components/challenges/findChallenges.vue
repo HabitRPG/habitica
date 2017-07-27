@@ -11,9 +11,9 @@
         span.dropdown-label {{ $t('sortBy') }}
         b-dropdown(:text="$t('sort')", right=true)
           b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
-        button.btn.btn-secondary.create-challenge-button
+        button.btn.btn-secondary.create-challenge-button(@click='createChallenge()')
           .svg-icon.positive-icon(v-html="icons.positiveIcon")
-          span(v-once, @click='createChallenge()') {{$t('createChallenge')}}
+          span(v-once) {{$t('createChallenge')}}
     .row
       .col-6(v-for='challenge in challenges', v-if='!memberOf(challenge)')
         challenge-item(:challenge='challenge')

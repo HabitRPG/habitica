@@ -11,19 +11,19 @@
         span.dropdown-label {{ $t('sortBy') }}
         b-dropdown(:text="$t('sort')", right=true)
           b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
-        button.btn.btn-secondary.create-challenge-button
+        button.btn.btn-secondary.create-challenge-button(@click='createChallenge()')
           .svg-icon.positive-icon(v-html="icons.positiveIcon")
-          span(v-once, @click='createChallenge()') {{$t('createChallenge')}}
+          span(v-once) {{$t('createChallenge')}}
 
     .row
-      .no-challenges.text-center.col-md-6.offset-3(v-if='challenges.length === 0')
+      .no-challenges.text-center.col-md-6.offset-3(v-if='filteredChallenges.length === 0')
         .svg-icon(v-html="icons.challengeIcon")
         h2(v-once) {{$t('noChallengeTitle')}}
         p(v-once) {{$t('challengeDescription1')}}
         p(v-once) {{$t('challengeDescription2')}}
 
     .row
-      .col-6(v-for='challenge in challenges', v-if='memberOf(challenge)')
+      .col-6(v-for='challenge in filteredChallenges')
         challenge-item(:challenge='challenge')
 </template>
 
@@ -88,8 +88,7 @@ export default {
         challengeIcon,
         positiveIcon,
       }),
-      challenges: [
-      ],
+      challenges: [],
       sortOptions: [],
     };
   },
@@ -98,6 +97,13 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    filteredChallenges () {
+      return this.challenges.filter((challenge) => {
+        let isMember = this.memberOf(challenge);
+        // @TODO: Other filters
+        return isMember;
+      });
+    },
   },
   methods: {
     memberOf (challenge) {

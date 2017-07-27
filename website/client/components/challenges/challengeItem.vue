@@ -8,11 +8,12 @@
         span
           .svg-icon.member-icon(v-html="icons.memberIcon")
         span {{challenge.memberCount}}
-        span
-          .svg-icon.calendar-icon(v-html="icons.calendarIcon")
-        span
-          strong End Date:
-        span {{challenge.endDate}}
+        // @TODO: Add in V2
+          span
+            .svg-icon.calendar-icon(v-html="icons.calendarIcon")
+          span
+            strong End Date:
+          span {{challenge.endDate}}
       div.tags
         span.tag(v-for='tag in challenge.tags') {{tag}}
     .col-6.prize-section
@@ -53,8 +54,9 @@
   .card {
     background-color: $white;
     box-shadow: 0 2px 2px 0 $gray-600, 0 1px 4px 0 $gray-600;
-    padding: 1em;
-    height: 372px;
+    padding: 2em;
+    height: 325px;
+    margin-bottom: 1em;
 
     .gem {
       width: 32px;
@@ -98,7 +100,6 @@
     .prize-section {
       text-align: right;
       padding-right: 2em;
-      padding-top: 1em;
     }
 
     .description {
@@ -116,6 +117,8 @@
       text-align: center;
       padding: 2em;
       border-radius: 4px;
+      margin-left: .2em;
+      margin-right: .2em;
 
       .svg-icon {
         display: inline-block;

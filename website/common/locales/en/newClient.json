@@ -228,5 +228,8 @@
   "sell": "Sell",
   "buyNow": "Buy Now",
   "sortByNumber": "Number",
-  "featuredItems": "Featured Items!"
+  "featuredItems": "Featured Items!",
+  "not_participating": "Not Participating",
+  "owned": "Owned",
+  "not_owned": "Not Owned"
 }
