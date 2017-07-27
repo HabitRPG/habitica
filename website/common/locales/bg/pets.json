@@ -71,7 +71,7 @@
     "displayNow": "Показване сега",
     "displayLater": "Показване по-късно",
     "petNotOwned": "Не притежавате този любимец.",
-    "mountNotOwned": "You do not own this mount.",
+    "mountNotOwned": "Не притежавате този прево.",
     "earnedCompanion": "Благодарение на продуктивността си се сдобихте с нов спътник. Хранете го, за да порасне!",
     "feedPet": "Искате ли да дадете <%= text %> на <%= name %>?",
     "useSaddle": "Искате ли да оседлаете <%= pet %>?",

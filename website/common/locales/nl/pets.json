@@ -71,7 +71,7 @@
     "displayNow": "Toon nu",
     "displayLater": "Toon later",
     "petNotOwned": "Je bezit dit huisdier niet.",
-    "mountNotOwned": "You do not own this mount.",
+    "mountNotOwned": "Je bezit dit rijdier niet.",
     "earnedCompanion": "Door al jouw productiviteit heb je een nieuwe kameraad verdiend. Voer hem en laat hem groeien! ",
     "feedPet": "<%= text %> aan je <%= name %> voeren?",
     "useSaddle": "<%= pet %> zadelen?",

@@ -71,7 +71,7 @@
     "displayNow": "Mostra ora",
     "displayLater": "Mostra più tardi",
     "petNotOwned": "Non possiedi questo animale.",
-    "mountNotOwned": "You do not own this mount.",
+    "mountNotOwned": "Non possiedi questa cavalcatura.",
     "earnedCompanion": "Con tutta la tua produttività, ti sei guadagnato un nuovo compagno. Nutrilo per farlo crescere!",
     "feedPet": "Dare da mangiare <%= article %><%= text %> al tuo <%= name %>?",
     "useSaddle": "Mettere la sella a <%= pet %>?",

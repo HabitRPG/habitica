@@ -71,7 +71,7 @@
     "displayNow": "Jetzt anzeigen",
     "displayLater": "Später anzeigen",
     "petNotOwned": "Du besitzt dieses Haustier nicht.",
-    "mountNotOwned": "You do not own this mount.",
+    "mountNotOwned": "Du besitzt dieses Reittier nicht.",
     "earnedCompanion": "Durch all Deine Produktivität hast Du einen neuen Begleiter erhalten. Füttere ihn damit er wächst!",
     "feedPet": "Verfüttere <%= article %><%= text %> an <%= name %>?",
     "useSaddle": "Einen magischen Sattel auf <%= pet %> anwenden?",
