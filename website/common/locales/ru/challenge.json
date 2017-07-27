@@ -11,7 +11,7 @@
     "unsubChallenge": "Разорвана связь с испытанием: это задание было частью испытания, которое вы покинули. Что делать с заданиями, входившими в это испытание?",
     "challengeWinner": "Победитель следующих испытаний",
     "challenges": "Испытания",
-    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Испытания</a>",
+    "challengesLink": "<a href='http://ru.habitica.wikia.com/wiki/Испытания' target='_blank'>Испытания</a>",
     "noChallenges": "Пока нет доступных испытаний, посетите",
     "toCreate": "для создания нового.",
     "selectWinner": "Выбрать победителя и закрыть испытание:",
@@ -79,5 +79,7 @@
     "onlyChalLeaderEditTasks": "Задания, связанные с испытанием, может редактировать только лидер.",
     "userAlreadyInChallenge": "Пользователь уже участвует в этом испытании.",
     "cantOnlyUnlinkChalTask": "Только испорченные задания испытаний могут быть откреплены.",
-    "shortNameTooShort": "Название тега должно быть по крайней мере 3 символа."
+    "shortNameTooShort": "Название тега должно быть по крайней мере 3 символа.",
+    "joinedChallenge": "Присоединился к испытанию",
+    "joinedChallengeText": "Этот пользователь проверил свои силы, присоединившись к испытанию!"
 }

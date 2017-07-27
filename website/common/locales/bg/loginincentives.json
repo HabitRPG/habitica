@@ -1,6 +1,6 @@
 {
   "unlockedReward": "Получихте <%= reward %>",
-  "earnedRewardForDevotion": "Чрез усърдието си в подобряването на собствения си живот, си заслужихте <%= reward %>.",
+  "earnedRewardForDevotion": "Получихте <%= reward %> за усърдието си в подобряването на живота Ви.",
   "nextRewardUnlocksIn": "Брой отчитания до следващата награда: <%= numberOfCheckinsLeft %>",
   "awesome": "Страхотно!",
   "totalCount": "Общо: <%= count %>",
@@ -11,6 +11,19 @@
   "unlockedCheckInReward": "Отключихте награда за отчитане!",
   "totalCheckinsTitle": "Общ брой отчитания",
   "checkinProgressTitle": "Напредък до следващата",
-  "incentiveBackgroundsUnlockedWithCheckins": "Тези фонови изображения се отключват чрез ежедневни отчитания.",
-  "moreIncentivesComingSoon": "Скоро ще бъдат добавени нови стимули за отчитане!"
+  "incentiveBackgroundsUnlockedWithCheckins": "Заключените едноцветни фонови изображения ще се отключат чрез ежедневните Ви отчитания.",
+  "checkinReceivedAllRewardsMessage": "Получили сте всички награди за отчитане! Поздравления!",
+  "oneOfAllPetEggs": "по един брой от всяко обикновено яйце за любимец",
+  "twoOfAllPetEggs": "по два броя от всяко обикновено яйце за любимец",
+  "threeOfAllPetEggs": "по три броя от всяко обикновено яйце за любимец",
+  "oneOfAllHatchingPotions": "по един брой от всяка обикновена излюпваща отвара",
+  "threeOfEachFood": "по три броя от всяка обикновена храна за любимци",
+  "fourOfEachFood": "по четири броя от всяка обикновена храна за любимци",
+  "twoSaddles": "две седла",
+  "threeSaddles": "три седла",
+  "incentiveAchievement": "постижението „Царствена преданост“",
+  "royallyLoyal": "Царствена преданост",
+  "royallyLoyalText": "Потребителят се е отчел 500 пъти и е получил всички възможни награди за това!",
+  "checkInRewards": "Награди за отчитане",
+  "backloggedCheckInRewards": "Получихте награди за отчитане! Отворете инвентара и екипировката си, за да видите новите неща."
 }

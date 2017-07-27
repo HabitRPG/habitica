@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Bitte denke daran, dass Dein angezeigter Name, Dein Profilbild und Dein Profiltext die <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community-Richtlinien</a> einhalten müssen (d.h. keine Schimpfwörter, keine sexuellen Themen, keine Beleidigungen, usw.). Wenn Du Fragen hast, ob etwas angebracht ist oder nicht, schreibe einfach eine E-Mail an <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Avatar anpassen",
     "other": "Anderes",
@@ -127,7 +127,7 @@
     "distributePoints": "Verteile freie Punkte automatisch",
     "distributePointsPop": "Verteilt alle freien Punkte gemäß Deinem gewählten Verteilungsmuster.",
     "warriorText": "Krieger verursachen mehr und stärkere \"kritische Treffer\", die zufällige Boni auf Gold, Erfahrung und Beute beim Erfüllen einer Aufgabe geben. Sie sind auch sehr stark gegen Bossmonster. Spiele einen Krieger, wenn Dich die Chance auf Belohnungen im Lottogewinn-Stil besonders reizt und Du besonders effektiv gegen Bossmonster sein willst.",
-    "mageText": "Magier lernen geschwind und erhalten Erfahrung und Level schneller als andere Klassen. Sie haben zudem eine große Menge Mana für ihre Fähigkeiten zur Verfügung. Spiele einen Magier, wenn Dich die taktischen Aspekte von Habitica ansprechen, oder wenn Dich schnelles Aufsteigen im Level und Freischalten neuer Features besonders reizt!",
+    "mageText": "Magier lernen rasch, sie erhalten schneller Erfahrung und Level als andere Klassen. Sie bekommen zudem eine große Menge an Mana, die sie für Spezialfähigkeiten einsetzen können. Entscheide dich für den Magier, wenn du die taktischen Spielaspekte von Habitica liebst oder wenn du hochmotiviert bist, Stufen aufzusteigen und weitere Features freizuschalten!",
     "rogueText": "Schurken lieben es, Reichtümer anzuhäufen, indem sie mehr Gold als Andere verdienen und geschickt darin sind, neue Gegenstände zu finden. Ihre typische Fähigkeit sich im Verborgenen zu bewegen, erlaubt Dir gelegentlich die Folgen verpasster täglicher Aufgaben zu vermeiden. Spiele einen Schurken, wenn Dich Spielbelohnungen und Erfolge besonders reizen und Du nach Beute und Ehrenabzeichen trachtest!",
     "healerText": "Heiler stehen Schaden unbeeindruckt gegenüber und erweitern diesen Schutz auf Andere. Verpasste tägliche Aufgaben und schlechte Angewohnheiten schaden ihnen nicht viel und sie haben Mittel und Wege Lebenspunkte wiederherzustellen. Spiele einen Heiler, wenn Du gerne Anderen in einer Gruppe hilfst, oder wenn es Dich besonders reizt, dem Tod durch harte Arbeit zu entkommen!",
     "optOutOfClasses": "Später entscheiden",
@@ -149,7 +149,7 @@
     "youCastTarget": "Du wendest <%= spell %> auf <%= target %> an.",
     "youCastParty": "Du wendest <%= spell %> auf Deine Gruppe an.",
     "critBonus": "Kritischer Treffer! Bonus:",
-    "displayNameDescription1": "Dies wird bei Nachrichten, die Du im Gasthaus postest, sowie im Gruppenchat und auch auf Deinem Avatar angezeigt. Um den Namen anzupassen, verwende den Bearbeiten-Knopf oben. Wenn Du stattdessen Deinen Anmeldenamen ändern willst, gehe zu",
+    "displayNameDescription1": "Dieser wird bei Nachrichten, die Du im Gasthaus postest, sowie im Gruppenchat und auch auf Deinem Avatar angezeigt. Um den Namen anzupassen, verwende den Bearbeiten-Knopf oben. Wenn Du stattdessen Deinen Anmeldenamen ändern willst, gehe zu",
     "displayNameDescription2": "Einstellungen->Seite",
     "displayNameDescription3": "und vergleiche auch den Abschnitt Registrierung.",
     "unequipBattleGear": "Kampfausrüstung ablegen",
@@ -170,6 +170,5 @@
     "hideQuickAllocation": "Statuswertverteilung ausblenden",
     "quickAllocationLevelPopover": "Mit jedem Level erhältst Du einen Punkt, den Du einem Attribut Deiner Wahl zuweisen kannst. Du kannst Deine Punkte manuell verteilen, oder das Spiel entscheiden lassen indem Du eines der vorgegebenen Verteilungsmuster unter Benutzer -> Werte&Erfolge auswählst.",
     "invalidAttribute": "\"<%= attr %>\" ist keine gültige Eigenschaft.",
-    "notEnoughAttrPoints": "Du hast nicht genügend Eigenschaftspunkte.",
-    "gearNotOwned": "Du hast diesen Gegenstand nicht."
+    "notEnoughAttrPoints": "Du hast nicht genügend Eigenschaftspunkte."
 }

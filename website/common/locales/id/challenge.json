@@ -79,5 +79,7 @@
     "onlyChalLeaderEditTasks": "Tugas yang termasuk dalam tantangan hanya dapat diganti oleh pemilik.",
     "userAlreadyInChallenge": "Pengguna telah berpartisipasi di dalam tantangan ini.",
     "cantOnlyUnlinkChalTask": "Hanya tugas tantangan rusak yang dapat diputuskan.",
-    "shortNameTooShort": "Nama Label harus setidaknya memiliki 3 karakter."
+    "shortNameTooShort": "Nama Label harus setidaknya memiliki 3 karakter.",
+    "joinedChallenge": "Bergabung dengan sebuah Tantangan",
+    "joinedChallengeText": "User ini telah mengetes dirinya dengan bergabung pada sebuah Tantangan!"
 }

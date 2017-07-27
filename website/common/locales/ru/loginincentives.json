@@ -11,6 +11,19 @@
   "unlockedCheckInReward": "Вы открыли приз за вход в игру!",
   "totalCheckinsTitle": "Всего входов",
   "checkinProgressTitle": "Прогресс до следующего",
-  "incentiveBackgroundsUnlockedWithCheckins": "Эти фоны будут доступны, если заходить в игру каждый день.",
-  "moreIncentivesComingSoon": "Новые стимулы для ежедневного входа будут скоро добавлены!"
+  "incentiveBackgroundsUnlockedWithCheckins": "Заблокированные простые фоны будут разблокированы после ежедневного посещения игры.",
+  "checkinReceivedAllRewardsMessage": "Вы получили все доступные ежедневные вознаграждения! Поздравляем!",
+  "oneOfAllPetEggs": "одно стандартное яйцо питомца",
+  "twoOfAllPetEggs": "два стандартное яйцо питомца",
+  "threeOfAllPetEggs": "три стандартное яйцо питомца",
+  "oneOfAllHatchingPotions": "один стандартный Инкубационный элексир",
+  "threeOfEachFood": "три стандартных Инкубационный элексир",
+  "fourOfEachFood": "4 корма для стандартных питомцев",
+  "twoSaddles": "два седла",
+  "threeSaddles": "три Седла",
+  "incentiveAchievement": "Достижение Королевская преданность",
+  "royallyLoyal": "Королевская преданность",
+  "royallyLoyalText": "Этот пользователь заходил более 500 раз и заработал каждый ежедневный приз!",
+  "checkInRewards": "Награды за посещение",
+  "backloggedCheckInRewards": "Вы получили ежедневный призы! Посетите свой инвентарь и снаряжение, чтобы узнать, что нового."
 }

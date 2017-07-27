@@ -16,7 +16,7 @@
   "maintenanceInfoTechDetails": "Искате ли да научите повече относно техническите подробности? Посетете <a href='http://devs.habitica.com/' target='_blank'>„Ковачницата“, нашия блог за разработката</a>.",
   "maintenanceInfoMore": "Още информация",
   "maintenanceInfoAccountChanges": "Какви промени ще видя в профила си след като пренаписването приключи?",
-  "maintenanceInfoAccountChangesText": "At first, there won’t be any notable changes aside from performance improvements for features such as Challenges. If you notice any changes that shouldn’t be there, email us at <%= hrefTechAssistanceEmail %> and we will investigate them for you!",
+  "maintenanceInfoAccountChangesText": "Отначало няма да има много забележими промени, освен подобренията по производителността на различни функционалности, като например предизвикателствата. Ако забележите промени, които не сте очаквали, моля, пишете ни на <%= hrefTechAssistanceEmail %> и ще проучим нещата!",
   "maintenanceInfoAddFeatures": "Разработката на какви функционалности в Хабитика ще улесни това?",
   "maintenanceInfoAddFeaturesText": "След завършването на това пренаписване, ние ще можем да започнем работа по подобряване на чата и гилдиите, да създадем планове за организации и семейства, както и допълнителни функционалности за продуктивност, като ежемесечни задачи и възможността за запис на вчерашната дейност! Това са отделни функционалности, така че всяка от тях ще отнеме време, но преди да приключим с това пренаписване, нямаше как дори да започнем работа по тях.",
   "maintenanceInfoHowLong": "Колко време ще продължи профилактиката?",
