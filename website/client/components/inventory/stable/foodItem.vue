@@ -25,7 +25,7 @@ b-popover(
 import bPopover from 'bootstrap-vue/lib/components/popover';
 import DragDropDirective from 'client/directives/dragdrop.directive';
 
-import CountBadge from './countBadge';
+import CountBadge from 'client/components/ui/countBadge';
 
 export default {
   components: {

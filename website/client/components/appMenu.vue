@@ -14,8 +14,13 @@ div
             router-link.dropdown-item(:to="{name: 'items'}", exact) {{ $t('items') }}
             router-link.dropdown-item(:to="{name: 'equipment'}") {{ $t('equipment') }}
             router-link.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
-        router-link.nav-item(tag="li", :to="{name: 'shops'}", exact)
+        router-link.nav-item.dropdown(tag="li", :to="{name: 'market'}", :class="{'active': $route.path.startsWith('/shop')}")
           a.nav-link(v-once) {{ $t('shops') }}
+          .dropdown-menu
+            router-link.dropdown-item(:to="{name: 'market'}", exact) {{ $t('market') }}
+            router-link.dropdown-item(:to="{name: 'quests'}") {{ $t('quests') }}
+            router-link.dropdown-item(:to="{name: 'seasonal'}") {{ $t('titleSeasonalShop') }}
+            router-link.dropdown-item(:to="{name: 'time'}") {{ $t('titleTimeTravelers') }}
         router-link.nav-item(tag="li", :to="{name: 'party'}")
           a.nav-link(v-once) {{ $t('party') }}
         router-link.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/guilds')}")

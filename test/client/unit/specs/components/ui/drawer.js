@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import DrawerComponent from 'client/components/inventory/drawer.vue';
+import DrawerComponent from 'client/components/ui/drawer.vue';
 
 describe('DrawerComponent', () => {
   it('sets the correct default data', () => {
