@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Usuń zakończone",
     "lotOfToDos": "Ostatnie 30 skończonych Zadań jest widoczne tutaj. Możesz zobaczyć starsze skończone Zadania w Dane > Narzędzie wyświetlania danych lub Dane > Eksport danych > Dane użytkownika.",
-    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
+    "deleteToDosExplanation": "Jeśli wciśniesz ten przycisk, to wszystkie twoje zakończone i zarchiwizowane Do-Zrobienia zostaną na zawsze usunięte. Nie dotyczyny do Do-Zrobienia z aktywnych wyzwań oraz planów grupowych. Eksoportuj je najpierw, jeśli chcesz je zachować.",
     "addmultiple": "Dodaj kilka",
     "addsingle": "Dodaj pojedyncze",
     "habit": "Nawyk",
@@ -147,10 +147,10 @@
     "taskApprovalHasBeenRequested": "Prośba o zatwierdzenie została wysłana",
     "approvals": "Aprobaty",
     "approvalRequired": "Wymagana aprobata",
-    "repeatZero": "Daily is never due",
-    "repeatType": "Repeat Type",
-    "repeatTypeHelpTitle": "What kind of repeat is this?",
-    "repeatTypeHelp": "Select \"Daily\" if you want this task to repeat every day or every third day, etc. Select \"Weekly\"if you want it to repeat on certain days of the week. If you select \"Monthly\" or \"Yearly\", adjust the Start Date to control which day of the month or year the task will be due on.",
+    "repeatZero": "Dzienne nigdy nie jest aktywne",
+    "repeatType": "Sposób powtarzania",
+    "repeatTypeHelpTitle": "W jaki sposób ma być to powtarzane?",
+    "repeatTypeHelp": "Wybierz \"Codzienny\" jeśli chcesz, aby to zadanie było powtarzane w każdy dzień lub np. co trzeci dzień. Wybierz \"Tygodniowo\" jeśli chcesz, aby zadanie było powtarzane w konkretne dni tygodnia. Jeśli wybierzesz \"Miesięcznie\" lub \"Rocznie\", zmień Datę Rozpoczęcia, aby konfigurować, w który dzień miesiąca albo roku zadanie ma być aktywne.",
     "weekly": "Tygodniowo",
     "monthly": "Miesięcznie",
     "yearly": "Rocznie",
@@ -174,9 +174,9 @@
     "resets": "Resetowany",
     "summaryStart": "Powtarzaj <%= frequency %> co <%= everyX %> <%= frequencyPlural %>",
     "nextDue": "Następny termin",
-    "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
-    "yesterDailiesCallToAction": "Start My New Day!",
-    "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
-    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
-    "repeatDayError": "Please ensure that you have at least one day of the week selected."
+    "yesterDailiesTitle": "Zostawiłeś wczoraj niezaznaczone Dzienne! Czy chcesz potwierdzić wykonanie któregoś z nich?",
+    "yesterDailiesCallToAction": "Rozpocznij nowy dzień!",
+    "yesterDailiesOptionTitle": "Zanim otrzymasz obrażenia potwierdź, że \"Codzienne\" nie zostało wykonany",
+    "yesterDailiesDescription": "Jeśli ta opcja jest zaznaczona, Habitica zapyta cię, czy chcesz zostawić Codzienne jako niewykonane zanim zada ci obrażenia. To może ochronić cie przed niezamierzonymi obrażeniami.",
+    "repeatDayError": "Proszę upewnij się, że chociaż jeden dzień w tygodniu jest wybrany."
 }

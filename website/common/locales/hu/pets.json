@@ -71,7 +71,7 @@
     "displayNow": "Megjelenítés most",
     "displayLater": "Megjelenítés később",
     "petNotOwned": "Ennek a háziállatnak nem te vagy a gazdája.",
-    "mountNotOwned": "You do not own this mount.",
+    "mountNotOwned": "Ennek a hátasnak nem te vagy a gazdája.",
     "earnedCompanion": "Produktivitásoddal új társaságra tettél szert! Etesd meg, hogy megnőjön!",
     "feedPet": "Megeteted a(z) <%= article %><%= text %>-t a <%= name %>-el?",
     "useSaddle": "Felnyergeled a(z) <%= pet %>-t?",

@@ -33,7 +33,7 @@
     "challengeTagPop": "Challenges appear on tag-lists & task-tooltips. So while ye'll want a descriptive title above, ye'll also need a 'short name'. Eg, 'Lose 10 pounds in 3 months' might become '-10lb' (Click fer more info).",
     "challengeDescr": "Description",
     "prize": "Treasure",
-    "prizePop": "If someone can 'win' yer challenge, ye can optionally award that winner a Sapphire prize. Th' maximum number ye can award be th' number o' sapphires ye own (plus th' number o' alliance sapphires, if ye formed this challenge's alliance). Note: This prize can't be changed later.",
+    "prizePop": "If someone can 'win' yer challenge, ye can optionally award that winner a Sapphire prize. Th' maximum number ye can award be th' number o' sapphires ye own (plus th' number o' Ship sapphires, if ye formed this challenge's Ship). Note: This prize can't be changed later.",
     "prizePopTavern": "If someone can 'win' yer challenge, ye can award tha' winner a Sapphire prize. Max = number o' sapphires ye own. Note: This prize can't be changed later an' Tavern challenges will not be refunded if the challenge is cancelled.",
     "publicChallenges": "Minimum 1 Sapphire fer <strong> public challenges </strong> (helps prevent spam, it really does).",
     "officialChallenge": "Official Habitica Challenge",
