@@ -174,7 +174,7 @@
     "resets": "Herstart",
     "summaryStart": "Herhaalt <%= frequency %> iedere <%= everyX %> <%= frequencyPlural %>",
     "nextDue": "Toekomstige data",
-    "yesterDailiesTitle": "Je hebt deze dagelijkse taken gister niet voltooid! Wil je er nu nog een paar voltooien?",
+    "yesterDailiesTitle": "Je hebt deze dagelijkse taken gisteren niet voltooid! Wil je er nu nog een paar voltooien?",
     "yesterDailiesCallToAction": "Begin mijn nieuwe dag!",
     "yesterDailiesOptionTitle": "Bevestig dat deze dagelijkse taak niet was gedaan voordat er schade is gedaan",
     "yesterDailiesDescription": "Als deze instelling is toegepast zal Habitica je vragen of je expres de dagelijkse taak ongedaan hebt gelaten voordat schade wordt berekend en toegepast wordt op je avatar. Dit kan je beschermen tegen onbedoelde schade.",

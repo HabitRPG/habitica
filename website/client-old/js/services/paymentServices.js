@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg').factory('Payments',
-['$rootScope', 'User', '$http', 'Content', 'Notification',
-function($rootScope, User, $http, Content, Notification) {
+['$rootScope', '$window', 'User', '$http', 'Content', 'Notification',
+function($rootScope, $window, User, $http, Content, Notification) {
   var Payments = {};
   var isAmazonReady = false;
   Payments.amazonButtonEnabled = true;
@@ -362,7 +362,8 @@ function($rootScope, User, $http, Content, Notification) {
 
     var gift = Payments.encodeGift(data.giftedTo, data.gift);
     var url = '/paypal/checkout?_id=' + User.user._id + '&apiToken=' + User.settings.auth.apiToken + '&gift=' + gift;
-    $http.get(url);
+
+    $window.open(url, '_blank');
   }
 
   Payments.encodeGift = function(uuid, gift) {

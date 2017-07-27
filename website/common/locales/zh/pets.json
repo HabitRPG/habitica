@@ -71,7 +71,7 @@
     "displayNow": "现在显示",
     "displayLater": "稍后显示",
     "petNotOwned": "你没有拥有这个宠物。",
-    "mountNotOwned": "You do not own this mount.",
+    "mountNotOwned": "您还未拥有这一坐骑",
     "earnedCompanion": "因为你的不懈努力，你又获得了一个新的伙伴，好好喂养它，让它成长!",
     "feedPet": "喂你的<%= name %>一个<%= article %><%= text %>？",
     "useSaddle": "把鞍用在<%= pet %>上？",

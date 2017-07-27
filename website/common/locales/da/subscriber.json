@@ -129,8 +129,8 @@
     "mysterySet201703": "Glimmer-sæt",
     "mysterySet201704": "Eventyrsæt",
     "mysterySet201705": "Fjerklædt Kæmper Sæt",
-    "mysterySet201706": "Pirate Pioneer Set",
-    "mysterySet201707": "Jellymancer Set",
+    "mysterySet201706": "Pirat Pioner Sæt",
+    "mysterySet201707": "Vandmand Sæt",
     "mysterySet301404": "Steampunk Standardsæt",
     "mysterySet301405": "Steampunk Tilbehørssæt",
     "mysterySet301703": "Påfugle-Steampunk-sæt",
@@ -170,5 +170,5 @@
     "missingCustomerId": "Manglende req.query.customerId",
     "missingPaypalBlock": "Manglende req.session.paypalBlock",
     "missingSubKey": "Manglende req.query.sub",
-    "paypalCanceled": "Your subscription has been canceled"
+    "paypalCanceled": "Dit abonnement er blevet annulleret."
 }
