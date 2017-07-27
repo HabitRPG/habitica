@@ -12,7 +12,10 @@
       .col-6
         .row.icon-row
           .col-4(v-bind:class="{ 'offset-8': isParty }")
-            members-modal(:group='group', v-if='isMember')
+            .item-with-icon(@click="showMemberModal()")
+              .svg-icon.shield(v-html="icons.goldGuildBadgeIcon")
+              span.number {{group.memberCount}}
+              div(v-once) {{ $t('members') }}
           .col-6(v-if='!isParty')
             .item-with-icon
               .svg-icon.gem(v-html="icons.gem")
@@ -77,7 +80,8 @@
                   div(:class="'quest_' + questData.key + '_' + key")
                 .col-10
                   strong {{value.text()}}
-                  .collect-progress-bar
+                  .grey-progress-bar
+                    .collect-progress-bar(:style="{width: (group.quest.progress.collect[key] / value.count) * 100 + '%'}")
                   strong {{group.quest.progress.collect[key]}} / {{value.count}}
             .boss-info(v-if='questData.boss')
               .row
@@ -87,7 +91,8 @@
                   span.float-right(v-once) {{ $t('participants') }}
               .row
                 .col-12
-                  .boss-health-bar
+                  .grey-progress-bar
+                    .boss-health-bar(:style="{width: (group.quest.progress.hp / questData.boss.hp) * 100 + '%'}")
               .row.boss-details
                   .col-6
                     span.float-left
@@ -135,7 +140,7 @@
           .toggle-down(@click="sections.challenges = !sections.challenges", v-if="!sections.challenges")
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.challenges")
-        group-challenges(:groupId='groupId')
+        group-challenges(:groupId='searchId')
     div.text-center
       button.btn.btn-primary(class='btn-danger', v-if='isMember') {{ $t('leave') }}
 </template>
@@ -160,6 +165,21 @@
     background-color: #ffffff;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     padding: 1em;
+    text-align: center;
+
+    .svg-icon.shield, .svg-icon.gem {
+      width: 40px;
+      margin: 0 auto;
+    }
+
+    .number {
+      font-size: 22px;
+      font-weight: bold;
+    }
+  }
+
+  .item-with-icon:hover {
+    cursor: pointer;
   }
 
   .sidebar {
@@ -197,11 +217,6 @@
     line-height: 1.43;
     color: $gray-300;
     padding: .5em;
-  }
-
-  .svg-icon.shield, .svg-icon.gem {
-    width: 40px;
-    margin-right: 1em;
   }
 
   .title-details {
@@ -322,10 +337,16 @@
     margin-bottom: .5em;
   }
 
+  .grey-progress-bar {
+    width: 100%;
+    height: 15px;
+    background-color: #e1e0e3;
+  }
+
   .collect-progress-bar {
     background-color: #24cc8f;
     height: 15px;
-    width: 80%;
+
   }
 </style>
 
@@ -359,6 +380,7 @@ import informationIcon from 'assets/svg/information.svg';
 import questBackground from 'assets/svg/quest-background-border.svg';
 import upIcon from 'assets/svg/up.svg';
 import downIcon from 'assets/svg/down.svg';
+import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge.svg';
 
 export default {
   mixins: [groupUtilities, styleHelper],
@@ -394,6 +416,7 @@ export default {
         questBackground,
         upIcon,
         downIcon,
+        goldGuildBadgeIcon,
       }),
       selectedQuest: {},
       sections: {
@@ -487,6 +510,9 @@ export default {
     $route: 'fetchGuild',
   },
   methods: {
+    showMemberModal () {
+      this.$root.$emit('show::modal', 'members-modal')
+    },
     async sendMessage () {
       let response = await this.$store.dispatch('chat:postChat', {
         groupId: this.group._id,
