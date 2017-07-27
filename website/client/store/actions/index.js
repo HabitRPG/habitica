@@ -13,6 +13,7 @@ import * as chat from './chat';
 import * as notifications from './notifications';
 import * as tags from './tags';
 import * as hall from './hall';
+import * as shops from './shops';
 
 // Actions should be named as 'actionName' and can be accessed as 'namespace:actionName'
 // Example: fetch in user.js -> 'user:fetch'
@@ -31,6 +32,7 @@ const actions = flattenAndNamespace({
   notifications,
   tags,
   hall,
+  shops,
 });
 
 export default actions;

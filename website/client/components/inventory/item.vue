@@ -6,7 +6,7 @@ div(v-if="emptyItem")
     span.item-label(v-if="label") {{ label }}
 b-popover(
   v-else,
-  :triggers="['hover']",
+  :triggers="[showPopover?'hover':'']",
   :placement="popoverPosition",
 )
   span(slot="content")
@@ -45,6 +45,10 @@ export default {
     popoverPosition: {
       type: String,
       default: 'bottom',
+    },
+    showPopover: {
+      type: Boolean,
+      default: true,
     },
   },
   methods: {

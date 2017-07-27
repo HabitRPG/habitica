@@ -2,7 +2,7 @@
 .drawer-container
   .drawer-title(@click="open = !open")
     | {{title}}
-    .drawer-toggle-icon.svg-icon(v-html="open ? icons.minimize : icons.expand", :class="{ closed: !open }")
+    .drawer-toggle-icon.svg-icon.icon-10(v-html="open ? icons.minimize : icons.expand", :class="{ closed: !open }")
   transition(name="slide-up", @afterLeave="adjustPagePadding", @afterEnter="adjustPagePadding")
     .drawer-content(v-show="open")
       slot(name="drawer-header")
@@ -36,6 +36,7 @@
 .drawer-toggle-icon {
   float: right;
   margin-right: 16px;
+  margin-top: 16px;
 
   &.closed {
     margin-top: 3px;
