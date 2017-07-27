@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Pamiętaj, że twoja nazwa gracza, zdjęcie profilowe oraz krótki opis muszą zgadzać się z <a href='https://habitica.com/static/community-guidelines' target='_blank'>wytycznymi społeczności</a> (np. brak profanacji, brak tematów dla dorosłych, brak obraźliwych rzeczy itd.) Jeśli masz jakieś pytania odnośnie poprawności, skontaktuj się z <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Dostosuj Awatara",
     "other": "Inne",
@@ -112,7 +112,7 @@
     "mystery": "Tajemniczy",
     "changeClass": "Zmień klasę i przywróć punkty atrybutów",
     "lvl10ChangeClass": "Aby zmienić klasę musisz być na poziomie co najmniej 10. ",
-    "invalidClass": "Niepoprawna klasa. Prosimy określić \"wojownik\", \"łotrzyk\",  \"czarownik\" czy \"medyk\"",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "Każdy zdobyty poziom daje Ci jeden punkt, który możesz przydzielić do wybranego przez siebie atrybutu. Możesz zrobić to ręcznie lub pozwolić, by gra zdecydowała za Ciebie, używając jednej z opcji automatycznego przydzielania.",
     "unallocated": "Nieprzydzielone punkty atrybutów",
     "haveUnallocated": "Nieprzydzielone Punkty Atrybutów: <%= points %>",
@@ -127,7 +127,7 @@
     "distributePoints": "Rozdziel nieprzypisane punkty",
     "distributePointsPop": "Rozdziela wszystkie nieprzypisane punkty w oparciu o wybraną przez Ciebie opcję.",
     "warriorText": "Wojownicy zadają \"trafienia krytyczne\" lepiej i wydajniej, co losowo daje im dodatkowe Złoto, Doświadczenie i szansę na łupy za ukończenie zadania. Zadają oni także duże obrażenia bossom. Graj Wojownikiem, jeśli motywują Cię nieprzewidywalne nagrody jak w hazardzie, lub chcesz serwować ból w Misjach z bossami!",
-    "mageText": "Mages learn swiftly, gaining Experience and Levels faster than other classes. They also get a great deal of Mana for using special abilities. Play a Mage if you enjoy the tactical game aspects of Habitica, or if you are strongly motivated by leveling up and unlocking advanced features!",
+    "mageText": "Magowie szybko się uczą, zdobywają więc Doświadczenie i kolejne poziomy szybciej niż inne klasy. Mają też spore zasoby Many, którą wykorzystują do zdolności specjalnych. Graj jako Mag, jeśli lubisz taktyczne podejście do gry, lub jeśli motywuje Cię zdobywanie kolejnych poziomów i odblokowywanie nowych funkcji!",
     "rogueText": "Łotrzyki z pasją gromadzą zasoby, zdobywają więc więcej Złota niż inni. Są też świetni w znajdowaniu przypadkowych przedmiotów. Specjalna zdolność skradania się pozwala im uniknąć konsekwencji za niespełnienie Codziennych. Graj jako Łotrzyk, jeśli motywują Cię nagrody i osiągnięcia, i jeśli lubisz zdobywać łup i odznaki!",
     "healerText": "Uzdrowiciele są bardzo wytrzymali i otaczają swą ochroną bliskich. Niedopełnione Codzienne i złe Nawyki nie są dla nich zbyt groźne, zawsze też mogą uzdrowić się po dotkliwej porażce. Graj jako Uzdrowiciel, jeśli lubisz pomagać członkom Drużyny, lub jeśli bawi Cię wymykanie się śmierci poprzez sumienną pracę!",
     "optOutOfClasses": "Nie teraz",
@@ -170,5 +170,6 @@
     "hideQuickAllocation": "Ukryj przydział atrybutów",
     "quickAllocationLevelPopover": "Z każdym poziomem otrzymujesz jeden punkt, który możesz przydzielić wybranemu atrybutowi. Możesz to zrobić ręcznie, lub zdać się na jedną z możliwych opcji Automatycznej Alokacji, dostępnych w Użytkownik -> Statystyki Awatara.",
     "invalidAttribute": "\"<%= attr %>\" nie jest poprawnym atrybutem.",
-    "notEnoughAttrPoints": "Nie masz wystarczająco punktów atrybutów."
+    "notEnoughAttrPoints": "Nie masz wystarczająco punktów atrybutów.",
+    "gearNotOwned": "Nie posiadasz tego przedmiotu."
 }

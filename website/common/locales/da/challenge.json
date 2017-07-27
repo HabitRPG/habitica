@@ -79,7 +79,5 @@
     "onlyChalLeaderEditTasks": "Opgaver der tilhører en udfordring kan kun redigeres af lederen.",
     "userAlreadyInChallenge": "Bruger deltager allerede i denne udfordring.",
     "cantOnlyUnlinkChalTask": "Kun defekte opgaver fra udfordringer kan få fjernet tilknytningen.",
-    "shortNameTooShort": "Tag navn skal være på mindst 3 tegn.",
-    "joinedChallenge": "Deltog i en Udfordring",
-    "joinedChallengeText": "Denne bruger testede sig selv ved at deltage i en Udfordring!"
+    "shortNameTooShort": "Tag navn skal være på mindst 3 tegn."
 }

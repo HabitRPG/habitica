@@ -36,10 +36,10 @@
     "messageInsufficientGems": "Gemas insuficientes!",
     "messageAuthPasswordMustMatch": ":password e :confirmPassword não combinam",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword requeridos",
-    "messageAuthUsernameTaken": "Nome de utilizador já registado",
+    "messageAuthUsernameTaken": "Nome de usuário já cadastrado",
     "messageAuthEmailTaken": "Email já cadastrado",
     "messageAuthNoUserFound": "Usuário não encontrado.",
-    "messageAuthMustBeLoggedIn": "Deve ter a sessão iniciada.",
+    "messageAuthMustBeLoggedIn": "Você deve estar logado.",
     "messageAuthMustIncludeTokens": "Você deve incluir o token e uid (ID do Usuário) na sua requisição",
     "messageGroupNotFound": "Grupo não encontrado ou você não tem acesso.",
     "messageGroupAlreadyInParty": "Já faz parte de uma equipa, tente recarregar.",
@@ -51,9 +51,8 @@
     "messageGroupChatFlagAlreadyReported": "Já reportou esta mensagem.",
     "messageGroupChatNotFound": "Mensagem não encontrada!",
     "messageGroupChatAdminClearFlagCount": "Somente um administrador pode remover o contador de bandeira!",
-    "messageGroupChatSpam": "Whoops, looks like you're posting too many messages! Please wait a minute and try again. The Tavern chat only holds 200 messages at a time, so Habitica encourages posting longer, more thoughtful messages and consolidating replies. Can't wait to hear what you have to say. :)",
     "messageUserOperationProtected": "caminho `<%= operation %>` não foi salvo, já que é um caminho protegido.",
     "messageUserOperationNotFound": "<%= operation %> operação não encontrada",
     "messageNotificationNotFound": "Notificação não encontrada.",
-    "notificationsRequired": "São necessárias as identificações de notificação."
+    "notificationsRequired": "Notification ids are required."
 }

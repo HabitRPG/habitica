@@ -127,7 +127,7 @@
     "distributePoints": "Raspodela neupotrebljenih poena",
     "distributePointsPop": "Raspodeliti sve poene u skladu sa izabranim sistemom raspodele.",
     "warriorText": "Ratnici postižu više kritičnih udaraca, koji daju više zlata, iskustva, i veće šanse za dobijanje predmeta. Efikasniji su u borbi protiv bosova. Postanite Ratnik ako Vas motivišu džekpot nagrade sa nepredvidivim iznosom, ili ako želite da se borite potiv bosova.",
-    "mageText": "Mages learn swiftly, gaining Experience and Levels faster than other classes. They also get a great deal of Mana for using special abilities. Play a Mage if you enjoy the tactical game aspects of Habitica, or if you are strongly motivated by leveling up and unlocking advanced features!",
+    "mageText": "Čarobnjaci brzo uče, i zato brže dobijaju iskustvo i nivoe nego ostale klase. Imaju mnogo mane za posebne veštine. Postanite Čarobnjak ako volite taktičku stranu Habitica-a ili ako Vas motiviše dotizanje viših nivoa i otključavanje naprednih funkcija.",
     "rogueText": "Odmetnici vole da skupljaju blago više nego bilo koja druga klasa. Dobijaju više zlata i vešto pronalaze predmete. Zahvaljujući veštini u Šunjanju mogu da izbegnu posledice propuštanja Svakodnevnih zadataka. Postanite odmetnik ako Vas motivišu nagrade i odlikovanja i ako želite mnogo plena i bedževa.",
     "healerText": "Vidari su zaštićeni od povreda i pružaju tu zaštitu drugima. Ne brinu mnogo zbog propuštenih Svakodenvnih zadataka i loših Navika, jer umeju da nadoknade izgubljeno zdravlje. Postanite Vidar ako želite da pomažete svojim saigračima, ili ako Vam se dopada zamisao da marljivim radom prevarite Smrt.",
     "optOutOfClasses": "Opt Out",
@@ -170,5 +170,6 @@
     "hideQuickAllocation": "Hide stat allocation",
     "quickAllocationLevelPopover": "Svaki nivo daje vam jedan poen koji možete dodeliti nekoj osobini po Vašem izboru. Možete to ručno uraditi, ili pustiti da igra odluči za vas korišćenjem opcije Automatska Alokacija koja se nalazi u User -> Stats.",
     "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
-    "notEnoughAttrPoints": "Nemate dovoljno poena za osobine."
+    "notEnoughAttrPoints": "Nemate dovoljno poena za osobine.",
+    "gearNotOwned": "Ne posedujete ovaj predmet."
 }

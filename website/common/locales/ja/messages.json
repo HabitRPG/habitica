@@ -51,7 +51,6 @@
     "messageGroupChatFlagAlreadyReported": "このメッセージは報告済みです。",
     "messageGroupChatNotFound": "メッセージが見つかりません!",
     "messageGroupChatAdminClearFlagCount": "フラグ数をクリアーできるのは管理者だけです!",
-    "messageGroupChatSpam": "おおっと!たくさんのメッセージを投稿しすぎたようです!少しだけ待ってから再度お試しください。キャンプ場では200個のメッセージまでしか一度に表示されませんので,Habiticaでは熟慮と吟味がなされた返信を奨励しています。あなたが言いかけたことを楽しみにしています。:)",
     "messageUserOperationProtected": "「<%= operation %>」パスは、保護されたパスなので保存できません。",
     "messageUserOperationNotFound": "<%= operation %> の操作は見つかりません",
     "messageNotificationNotFound": "通知はありません。",

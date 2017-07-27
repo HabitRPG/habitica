@@ -79,7 +79,5 @@
     "onlyChalLeaderEditTasks": "挑戰裡的任務只有隊長才能編輯。",
     "userAlreadyInChallenge": "用戶已參加了這個挑戰",
     "cantOnlyUnlinkChalTask": "只有壞損的挑戰才可以被斷開連結。",
-    "shortNameTooShort": "標籤名稱需要最少3個字",
-    "joinedChallenge": "Joined a Challenge",
-    "joinedChallengeText": "This user put themselves to the test by joining a Challenge!"
+    "shortNameTooShort": "標籤名稱需要最少3個字"
 }

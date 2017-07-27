@@ -9,7 +9,7 @@
     "removeThem": "消す",
     "challengeCompleted": "チャレンジ終了です！<span class=\"badge\"><%= user %></span>が勝ちました！　残されたタスクは何をしましょうか。",
     "unsubChallenge": "チャレンジのリンク切れ：このタスクはもともとチャレンジの一部でしたが、あなたがチャレンジ登録を取り消しました。残されたタスクはどうしますか？",
-    "challengeWinner": "以下のチャレンジで優勝しました。",
+    "challengeWinner": "が以下のチャレンジで優勝しました。",
     "challenges": "チャレンジ",
     "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>チャレンジ</a>",
     "noChallenges": "まだチャレンジ登録はしていません。",
@@ -79,7 +79,5 @@
     "onlyChalLeaderEditTasks": "チャレンジのタスクは、リーダーだけが編集できます。",
     "userAlreadyInChallenge": "ユーザーはすでにこのチャレンジに参加しています。",
     "cantOnlyUnlinkChalTask": "チャレンジとの連関が切れたタスクのみ、リンクを解除できます。",
-    "shortNameTooShort": "タグ名は 3 文字以上にしてください。",
-    "joinedChallenge": "チャレンジに参加済み",
-    "joinedChallengeText": "このユーザーはチャレンジに参加することで自らに試練を課しました！"
+    "shortNameTooShort": "タグ名は 3 文字以上にしてください。"
 }

@@ -1,6 +1,6 @@
 {
   "unlockedReward": "Отримано нагороду: <%= reward %>!",
-  "earnedRewardForDevotion": "You have earned <%= reward %> for being committed to improving your life.",
+  "earnedRewardForDevotion": "За вдосконалення власного життя ви отримуєте нагороду: <%= reward %>",
   "nextRewardUnlocksIn": "Check-ins until your next prize: <%= numberOfCheckinsLeft %>",
   "awesome": "Круто!",
   "totalCount": "Загалом: <%= count %>",
@@ -11,19 +11,6 @@
   "unlockedCheckInReward": "Ви отримуєте нагороду за входження у гру!",
   "totalCheckinsTitle": "Загалом входжень",
   "checkinProgressTitle": "До наступної",
-  "incentiveBackgroundsUnlockedWithCheckins": "Locked Plain Backgrounds will unlock with Daily Check-Ins.",
-  "checkinReceivedAllRewardsMessage": "You have received all the Check-In prizes available! Congratulations!",
-  "oneOfAllPetEggs": "one of each standard Pet Egg",
-  "twoOfAllPetEggs": "two of each standard Pet Egg",
-  "threeOfAllPetEggs": "three of each standard Pet Egg",
-  "oneOfAllHatchingPotions": "one of each standard Hatching Potion",
-  "threeOfEachFood": "three of each standard Pet Food",
-  "fourOfEachFood": "four of each standard Pet Food",
-  "twoSaddles": "two Saddles",
-  "threeSaddles": "three Saddles",
-  "incentiveAchievement": "the Royally Loyal achievement",
-  "royallyLoyal": "Royally Loyal",
-  "royallyLoyalText": "This user has checked in over 500 times, and has earned every Check-In Prize!",
-  "checkInRewards": "Check-In Rewards",
-  "backloggedCheckInRewards": "You received Check-In Prizes! Visit your Inventory and Equipment to see what's new."
+  "incentiveBackgroundsUnlockedWithCheckins": "Ці зображення тла відкриються за допомогою щоденних входжень у гру.",
+  "moreIncentivesComingSoon": "Нові стимули для щоденного входження у гру будуть скоро додані!"
 }

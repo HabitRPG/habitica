@@ -16,7 +16,7 @@
   "maintenanceInfoTechDetails": "Wil je meer details over de technische kant van het proces? Bezoek <a href='http://devs.habitica.com/' target='_blank'>The Forge, ons dev blog</a>.",
   "maintenanceInfoMore": "Meer informatie",
   "maintenanceInfoAccountChanges": "Wat voor veranderingen zie ik in mijn account nadat de herschrijving voltooid is?",
-  "maintenanceInfoAccountChangesText": "In het begin zullen er geen noemenswaardige veranderingen zijn behalve prestatieverbetering voor functies zoals uitdagingen. Als je veranderingen opmerkt die er niet zou moeten zijn, stuur dan een e-mail naar <%= hrefTechAssistanceEmail %> en we zullen het voor je uitzoeken!",
+  "maintenanceInfoAccountChangesText": "At first, there won’t be any notable changes aside from performance improvements for features such as Challenges. If you notice any changes that shouldn’t be there, email us at <%= hrefTechAssistanceEmail %> and we will investigate them for you!",
   "maintenanceInfoAddFeatures": "Wat voor functies zal dit Habitica in staat stellen om  toe te voegen?",
   "maintenanceInfoAddFeaturesText": "Alles herschrijven zal ons in staat stellen om een verbeterde chat in de gilden te plaatsen, plannen op te stellen voor organisaties en families, additionele productiviteitsfuncties als maandelijkse taken en de mogelijkheid om taken van gisteren af te vinken. Dit zijn allemaal op zichzelf staande functies, dus het kost tijd om ze te bouwen, maar het was onmogelijk om eraan te beginnen voordat alles herschreven is.",
   "maintenanceInfoHowLong": "Hoe lang zal dit onderhoud duren?",

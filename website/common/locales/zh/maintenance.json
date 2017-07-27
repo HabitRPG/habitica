@@ -16,7 +16,7 @@
   "maintenanceInfoTechDetails": "想要更多技术上的处理过程？访问 <a href='http://devs.habitica.com/' target='_blank'>铁匠铺，我们的开发部落格</a>。",
   "maintenanceInfoMore": "更多信息",
   "maintenanceInfoAccountChanges": "在这次改写完成后，我的账户将能看到什么样的改变？",
-  "maintenanceInfoAccountChangesText": "首先，这里不会有任何显着的变化了，除了对一些功能的改进，例如挑战。如果你注意到任何不该有的变化，请通过发送电子邮件<%= hrefTechAssistanceEmail %>来告知我们，我们会为你调查它们！",
+  "maintenanceInfoAccountChangesText": "At first, there won’t be any notable changes aside from performance improvements for features such as Challenges. If you notice any changes that shouldn’t be there, email us at <%= hrefTechAssistanceEmail %> and we will investigate them for you!",
   "maintenanceInfoAddFeatures": "这将允许Habitica添加哪种特性？",
   "maintenanceInfoAddFeaturesText": "完成这次修改后，我们就能开始建立：升级版的聊天和公会，给组织和家庭的计划，还有那些像每月任务和属性记录昨日活动这样的提高效率的特色功能！这些功能都有自己的特点，需要时间来完成它们，但除非我们完成这次重写，不然无法开始。",
   "maintenanceInfoHowLong": "维护持续多久？",

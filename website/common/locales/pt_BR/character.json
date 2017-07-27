@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Por favor, mantenha em mente que o seu Nome de Exibição, foto de perfil, e descrição devem estar de acordo com as <a href='https://habitica.com/static/community-guidelines' target='_blank'>Diretrizes da Comunidade</a> (ex.: nenhuma profanidade, nenhum tópico adulto, nenhum insulto, etc). Se você possui quaisquer dúvidas caso also seja ou não apropriado, sinta se livre para mandar um e-mail  <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Perfil",
     "avatar": "Personalizar Avatar",
     "other": "Outros",
@@ -42,7 +42,7 @@
     "spookySkins": "Peles Assustadoras",
     "supernaturalSkins": "Peles Sobrenaturais",
     "splashySkins": "Peles Aquáticas",
-    "winterySkins": "Vestimentas de Inverno",
+    "winterySkins": "Skins de Inverno",
     "rainbowColors": "Cores do Arco-Íris",
     "shimmerColors": "Cores Pastéis",
     "hauntedColors": "Cores Assombradas",
@@ -109,10 +109,10 @@
     "healer": "Curandeiro",
     "rogue": "Ladino",
     "mage": "Mago",
-    "mystery": "Mistério",
+    "mystery": "Misterioso",
     "changeClass": "Alterar classe e restituir pontos de atributos",
     "lvl10ChangeClass": "Para mudar de classe você precisa ser pelo menos nível 10.",
-    "invalidClass": "Classe inválida. Por favor, use 'guerreiro', 'ladino', 'mago', ou 'curandeiro'.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "A cada nível que alcançar você terá um ponto para distribuir para um atributo de sua escolha. Você pode fazer isso manualmente, ou deixar o jogo decidir por você usando uma das opções de Distribuição Automática.",
     "unallocated": "Pontos de Atributo não Distribuídos",
     "haveUnallocated": "Você tem <%= points %> Ponto(s) de Atributo não distribuídos",
@@ -127,7 +127,7 @@
     "distributePoints": "Distribuir Pontos não Distribuídos",
     "distributePointsPop": "Atribui todos pontos não distribuídos de acordo com o esquema de distribuição selecionado.",
     "warriorText": "Guerreiros causam mais e melhores \"golpes críticos\", que dão aleatoriamente bônus de Ouro, Experiência e chance de drop ao cumprir uma tarefa. Eles também causam muito dano aos chefões. Jogue de Guerreiro se encontra motivação em recompensas aleatórias, ou se gosta de acabar com chefões de Missões!",
-    "mageText": "Magos aprendem rápido, ganhando Experiência e Níveis mais rápido que outras classes. Eles também tem muito mais Mana para usar habilidades especiais. Jogue de Mago se você gostar dos aspectos táticos de jogo do Habitica ou se você se sentir bastante motivação por aumentar seu nível e desbloquear novas funcionalidades. ",
+    "mageText": "Magos aprendem rapidamente, ganhando Experiência e Níveis mais rápido que outras classes. Eles também possuem uma grande quantidade de Mana para usar habilidades especiais. Jogue de Mago se gostar dos aspectos táticos do Habitica, ou se possui grande motivação em subir de níveis e liberar funcionalidades avançadas!",
     "rogueText": "Ladinos amam acumular fortunas, ganhando mais Ouro que qualquer um, e são peritos em achar itens aleatórios. Sua habilidade icônica, Furtividade, os permite evitar as consequências de Diárias não feitas. Jogue de Ladino se tiver grande motivação com receber Recompensas e Conquistas, e se gostar de ganhar itens e medalhas!",
     "healerText": "Curandeiros são impenetráveis contra danos, e extendem essa proteção aos outros. Diárias perdidas e maus Hábitos não incomodam muito, e eles possuem maneiras de recuperar Vida do fracasso. Jogue de Curandeiro se gostar de ajudar os outros em seu Grupo, ou se a ideia de enganar a Morte com trabalho duro o inspira!",
     "optOutOfClasses": "Se Abster",
@@ -170,5 +170,6 @@
     "hideQuickAllocation": "Esconder distribuição de atributos",
     "quickAllocationLevelPopover": "Cada nível concederá a você um ponto para distribuir em um atributo de sua escolha. Você pode fazer isso manualmente, ou deixar o jogo decidir por você usando uma das opções de Distribuição Automática encontradas em Usuário -> Atributos.",
     "invalidAttribute": "\"<%= attr %>\" não é um atributo válido.",
-    "notEnoughAttrPoints": "Você não tem pontos de atributo suficientes."
+    "notEnoughAttrPoints": "Você não tem pontos de atributo suficientes.",
+    "gearNotOwned": "Você não possui este item."
 }

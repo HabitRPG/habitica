@@ -51,7 +51,6 @@
     "messageGroupChatFlagAlreadyReported": "Du har allerede anmeldt denne besked",
     "messageGroupChatNotFound": "Besked ikke fundet!",
     "messageGroupChatAdminClearFlagCount": "Kun en administrator kan rydde flagtælleren!",
-    "messageGroupChatSpam": "Ups, det ser ud til at du slår for mange beskeder op! Vent venligst et minut og prøv igen. Værtshuschatten kan kun indeholde 200 beskeder ad gangen, så Habitica opfordrer til at man skriver længere, mere gennemtænkte beskeder og venter på svar. Vi glæder os til at høre hvad du vil sige. :)",
     "messageUserOperationProtected": "stien `<%= operation %>` blev ikke gemt, da det er en beskyttet sti.",
     "messageUserOperationNotFound": "Funktionen <%= operation %> blev ikke fundet.",
     "messageNotificationNotFound": "Notifikation ikke fundet.",
