@@ -15,11 +15,11 @@ export async function getPublicGuilds (store, payload) {
 }
 
 export async function getMyGuilds (store) {
-  let response = await axios.get('/api/v3/groups', {
-    params: {
-      type: 'privateGuilds',
-    },
-  });
+  let params = {
+    type: 'guilds',
+  };
+
+  let response = await axios.get('/api/v3/groups', { params });
 
   let guilds = response.data.data;
   store.state.myGuilds = guilds;

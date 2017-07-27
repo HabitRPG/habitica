@@ -14,8 +14,8 @@
           .col-md-2.cta-container
             button.btn.btn-danger(v-if='isMember && displayLeave' @click='leave()', v-once) {{ $t('leave') }}
             button.btn.btn-success(v-if='!isMember'  @click='join()', v-once) {{ $t('join') }}
-            div.item-with-icon(v-if='displayGemBank')
-              .svg-icon(v-html="icons.gem")
+            div.item-with-icon.gem-bank(v-if='displayGemBank')
+              .svg-icon.gem(v-html="icons.gem")
               span.count {{ guild.balance }}
             div.guild-bank(v-if='displayGemBank', v-once) {{$t('guildBank')}}
         .row
@@ -29,7 +29,7 @@
   @import '~client/assets/scss/colors.scss';
 
   .card {
-    height: 260px;
+    height: 160px;
     border-radius: 4px;
     background-color: $white;
     box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($black, 0.1);
@@ -44,14 +44,9 @@
 
     .cta-container {
       margin: 0 auto;
-      margin-top: 4em;
     }
 
     .item-with-icon {
-      .svg-icon {
-        height: 37px;
-      }
-
       .count {
         font-size: 20px;
         height: 37px;
@@ -62,6 +57,8 @@
 
     .shield {
       width: 70px;
+      margin: 0 auto;
+      margin-top: 2em;
     }
 
     .guild-bank {
@@ -73,13 +70,23 @@
     .member-count {
       position: relative;
       top: -3.6em;
-      left: -.1em;
-      font-size: 28px;
+      font-size: 22px;
       font-weight: bold;
-      font-family: 'Roboto Condensed';
       line-height: 1.2;
       text-align: center;
       color: #b36213;
+      margin-top: 2.1em;
+    }
+
+    .gem-bank {
+      margin-top: 2em;
+      
+      .gem {
+        width: 25px;
+        display: inline-block;
+        vertical-align: bottom;
+        margin-right: .8em;
+      }
     }
   }
 </style>
