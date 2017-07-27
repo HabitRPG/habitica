@@ -2,6 +2,8 @@
   display: block;
   stroke-width: 0;
   transition: none !important;
+  stroke: currentColor;
+  fill: currentColor;
 
   svg {
     display: block;
