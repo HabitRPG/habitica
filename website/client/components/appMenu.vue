@@ -184,10 +184,6 @@ div
     }
   }
 
-  .item-notifications {
-    margin-left: 33.5px;
-  }
-
   .item-user .edit-avatar {
     h3 {
       color: $gray-10;
