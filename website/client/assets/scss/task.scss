@@ -2,6 +2,10 @@
   // for editing rewards or when a task is created
   &-purple {
     background: $purple-300;
+
+    &-modal-input {
+      color: $header-color !important;
+    }
   }
 
   &-worst {
@@ -12,6 +16,10 @@
 
     &-control-daily-todo {
       background: $maroon-500;
+    }
+
+    &-modal-input {
+      colot: $maroon-500 !important;
     }
   }
 
@@ -24,6 +32,10 @@
     &-control-daily-todo {
       background: $red-500;
     }
+
+    &-modal-input {
+      color: $red-500 !important;
+    }
   }
 
   &-bad {
@@ -34,6 +46,10 @@
 
     &-control-daily-todo {
       background: $orange-500;
+    }
+
+    &-modal-input {
+      color: $orange-500 !important;
     }
   }
 
@@ -46,6 +62,10 @@
     &-control-daily-todo {
       background: $yellow-500;
     }
+
+    &-modal-input {
+      color: $yellow-500 !important;
+    }
   }
 
   &-good {
@@ -56,6 +76,10 @@
 
     &-control-daily-todo {
       background: $green-500;
+    }
+
+    &-modal-input {
+      color: $green-500 !important;
     }
   }
 
@@ -68,6 +92,10 @@
     &-control-daily-todo {
       background: $blue-500;
     }
+
+    &-modal-input {
+      color: $blue-500 !important;
+    }
   }
 
   &-best {
@@ -78,6 +106,10 @@
 
     &-control-daily-todo {
       background: $teal-500;
+    }
+
+    &-modal-input {
+      color: $teal-500 !important;
     }
   }
 

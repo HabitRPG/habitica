@@ -9,7 +9,7 @@
     .task-control.daily-todo-control(:class="controlClass + '-control-daily-todo'")
       .svg-icon.check(v-html="icons.check", v-if="task.completed")
   // Task title, description and icons
-  .task-content(:class="contentClass")
+  .task-content(:class="contentClass", @click="edit(task)")
     h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
     .task-notes.small-text(v-markdown="task.notes")
     .checklist(v-if="task.checklist && task.checklist.length > 0")
@@ -273,7 +273,6 @@ import checkIcon from 'assets/svg/check.svg';
 import bPopover from 'bootstrap-vue/lib/components/popover';
 import markdownDirective from 'client/directives/markdown';
 
-
 export default {
   components: {
     bPopover,
@@ -330,6 +329,11 @@ export default {
     dueIn () {
       const dueIn = moment().to(this.task.date);
       return this.$t('dueIn', {dueIn});
+    },
+  },
+  methods: {
+    edit (task) {
+      this.$emit('editTask', task);
     },
   },
 };

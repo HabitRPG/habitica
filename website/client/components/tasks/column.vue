@@ -1,5 +1,7 @@
 <template lang="pug">
 .tasks-column
+  b-modal(ref="editTaskModal")
+    span Hello From My Modal!
   .d-flex
     h2.tasks-column-title(v-once) {{ $t(types[type].label) }}
     .filters.d-flex.justify-content-end
@@ -13,6 +15,7 @@
       v-for="task in tasks[`${type}s`]", 
       :key="task.id", :task="task", 
       v-if="filterTask(task)",
+      @editTask="editTask",
     )
     .bottom-gradient
     .column-background(v-if="isUser === true", :class="{'initial-description': tasks[`${type}s`].length === 0}")
@@ -135,10 +138,12 @@ import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
 import rewardIcon from 'assets/svg/reward.svg';
+import bModal from 'bootstrap-vue/lib/components/modal';
 
 export default {
   components: {
     Task,
+    bModal,
   },
   props: ['type', 'isUser', 'searchText', 'selectedTags'],
   data () {
@@ -199,6 +204,9 @@ export default {
   },
   methods: {
     ...mapActions({loadCompletedTodos: 'tasks:fetchCompletedTodos'}),
+    editTask (task) {
+      this.$emit('editTask', task);
+    },
     activateFilter (type, filter) {
       if (type === 'todo' && filter.label === 'complete2') {
         this.loadCompletedTodos();

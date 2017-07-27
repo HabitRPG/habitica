@@ -1,5 +1,6 @@
 <template lang="pug">
 .row.user-tasks-page
+  edit-task-modal(:task="editingTask", ref="editTaskModal")
   .col-12
     .row.tasks-navigation
       .col-4.offset-4
@@ -47,6 +48,7 @@
         :type="column", :key="column", 
         :isUser="true", :searchText="searchTextThrottled",
         :selectedTags="selectedTags",
+        @editTask="editTask",
       )
 </template>
 
@@ -163,15 +165,20 @@ button.btn.btn-secondary.filter-button {
 </style>
 
 <script>
-import Column from './column';
+import TaskColumn from './column';
+import EditTaskModal from './editTaskModal';
+
 import positiveIcon from 'assets/svg/positive.svg';
 import filterIcon from 'assets/svg/filter.svg';
+
+import Vue from 'vue';
 import throttle from 'lodash/throttle';
 import { mapState } from 'client/libs/store';
 
 export default {
   components: {
-    TaskColumn: Column,
+    TaskColumn,
+    EditTaskModal,
   },
   data () {
     return {
@@ -185,6 +192,7 @@ export default {
       }),
       selectedTags: [],
       temporarilySelectedTags: [],
+      editingTask: null,
     };
   },
   computed: {
@@ -225,6 +233,13 @@ export default {
     }, 250),
   },
   methods: {
+    editTask (task) {
+      this.editingTask = task;
+      // Necessary otherwise the first time the modal is not rendered
+      Vue.nextTick(() => {
+        this.$root.$emit('show::modal', 'edit-task-modal');
+      });
+    },
     toggleFilterPanel () {
       if (this.isFilterPanelOpen === true) {
         this.closeFilterPanel();
