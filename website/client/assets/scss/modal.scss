@@ -1,3 +1,7 @@
+
+@import '~client/assets/scss/colors.scss';
+
+
 @mixin centeredModal() {
   display: flex;
   justify-content: center;
@@ -17,7 +21,7 @@
     font-weight: bold;
     line-height: 1.2;
     text-align: center;
-    color: #4e4a57;
+    color: $gray-50;
   }
 
   .text {
@@ -26,7 +30,7 @@
     font-size: 14px;
     line-height: 1.43;
     text-align: center;
-    color: #686274;
+    color: $gray-100;
   }
 
 }

@@ -303,7 +303,6 @@
 
       width: 100%;
       height: 216px;
-      display: block;
       position: absolute;
 
       top: 0;

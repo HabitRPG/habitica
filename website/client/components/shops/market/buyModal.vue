@@ -102,23 +102,22 @@
     .balance {
       width: 74px;
       height: 16px;
-      font-family: Roboto;
       font-size: 12px;
       font-weight: bold;
       line-height: 1.33;
-      color: #878190;
+      color: $gray-200;
     }
 
     .modal-footer {
       height: 48px;
-      background-color: #f9f9f9;
+      background-color: $gray-700;
       border-bottom-right-radius: 8px;
       border-bottom-left-radius: 8px;
       display: block;
     }
 
     .badge-dialog {
-      color: #a5a1ac;
+      color: $gray-300;
       position: absolute;
       left: -14px;
       padding: 8px 10px;

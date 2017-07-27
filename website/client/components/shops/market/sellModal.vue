@@ -40,6 +40,7 @@
 <style lang="scss">
 
   @import '~client/assets/scss/modal.scss';
+  @import '~client/assets/scss/colors.scss';
 
   #sell-modal {
     @include centeredModal();
@@ -75,7 +76,6 @@
     .value {
       width: 28px;
       height: 32px;
-      font-family: Roboto;
       font-size: 24px;
       font-weight: bold;
       line-height: 1.33;
@@ -92,16 +92,15 @@
     .balance {
       width: 74px;
       height: 16px;
-      font-family: Roboto;
       font-size: 12px;
       font-weight: bold;
       line-height: 1.33;
-      color: #878190;
+      color: $gray-200;
     }
 
     .modal-footer {
       height: 48px;
-      background-color: #f9f9f9;
+      background-color: $gray-700;
       border-bottom-right-radius: 8px;
       border-bottom-left-radius: 8px;
       display: block;

@@ -5,7 +5,7 @@
       span.val(:class="{'no-value': item[attr] == '0'}") {{ `+${item[attr]}` }}
 </template>
 
-<style type="scss" scoped>
+<style lang="scss" scoped>
 
   @import '~client/assets/scss/colors.scss';
 
@@ -19,22 +19,21 @@
   span{
     width: 38px;
     height: 16px;
-    font-family: Roboto;
     font-size: 16px;
     font-weight: bold;
     line-height: 1.0;
   }
 
   .no-value {
-    color: #c3c0c7 !important;
+    color: $gray-400 !important;
   }
 
   .key {
-    color: #686274;
+    color: $gray-100;
   }
 
   .val {
-    color: #24cc8f;
+    color: $green-10;
   }
 </style>
 

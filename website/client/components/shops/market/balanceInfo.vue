@@ -1,4 +1,4 @@
-#<template lang="pug">
+<template lang="pug">
   div
     .svg-icon(v-html="icons.gem")
     span {{userGems | roundBigNumber}}
@@ -7,11 +7,13 @@
 </template>
 
 <style lang="scss" scoped>
-.span {
+  @import '~client/assets/scss/colors.scss';
+
+span {
   font-weight: normal;
   font-size: 12px;
   line-height: 1.33;
-  color: #878190;
+  color: $gray-200;
 
   display: inline-block;
 }
