@@ -1,11 +1,11 @@
 <template lang="pug">
 form(
   v-if="task",
-  @submit.stop.prevent="save()",
+  @submit.stop.prevent="submit()",
 )
-  b-modal#edit-task-modal(
+  b-modal#task-modal(
     size="sm",
-    @hide="cancel",
+    @hidden="cancel()",
   )
     .task-modal-header(
       slot="modal-header",
@@ -14,19 +14,21 @@ form(
       h1(v-once) {{ title }}
       .form-group
         label(v-once) {{ `${$t('title')}*` }}
-        input.form-control(type='text', :class="[`${cssClass}-modal-input`]", required, :value="task.text")
+        input.form-control(type='text', :class="[`${cssClass}-modal-input`]", required, v-model="task.text")
       .form-group
         label(v-once) {{ $t('notes') }}
-        textarea.form-control(required, :class="[`${cssClass}-modal-input`]", :value="task.notes", rows="3")
+        textarea.form-control(:class="[`${cssClass}-modal-input`]", v-model="task.notes", rows="3")
     .task-modal-content
       .d-flex.justify-content-center(v-if="task.type === 'habit'")
         .option-item(:class="{'option-item-selected': task.up === true}", @click="task.up = !task.up")
           .option-item-box
-            .svg-icon.difficulty-trivial-icon(v-html="icons.positive")
+            .task-control.habit-control(:class="controlClass.up + '-control-habit'")
+              .svg-icon.positive(v-html="icons.positive")
           .option-item-label(v-once) {{ $t('positive') }}
         .option-item(:class="{'option-item-selected': task.down === true}", @click="task.down = !task.down")
           .option-item-box
-            .svg-icon.difficulty-trivial-icon(v-html="icons.negative")
+            .task-control.habit-control(:class="controlClass.down + '-control-habit'")
+              .svg-icon.negative(v-html="icons.negative")
           .option-item-label(v-once) {{ $t('negative') }}
       label(v-once) 
         span.float-left {{ $t('difficulty') }}
@@ -48,15 +50,18 @@ form(
           .option-item-box
             .svg-icon.difficulty-hard-icon(v-html="icons.difficultyHard")
           .option-item-label(v-once) {{ $t('hard') }}
+      .option
+        label(v-once) {{ $t('tags') }}
     .task-modal-footer(slot="modal-footer")
       button.btn.btn-primary(type="submit", v-once) {{ $t('save') }}
-      span.delete-task-btn(v-once, @click="destroy()") {{ $t('delete') }}
+      span.cancel-task-btn(v-once, v-if="purpose === 'create'", @click="cancel()") {{ $t('cancel') }}
+      span.delete-task-btn(v-once, v-else, @click="destroy()") {{ $t('delete') }}
 </template>
 
 <style lang="scss">
 @import '~client/assets/scss/colors.scss';
 
-#edit-task-modal {
+#task-modal {
   .modal-dialog.modal-sm {
     max-width: 448px;
   }
@@ -136,6 +141,7 @@ form(
 
   .option-item {
     margin-right: 48px;
+    cursor: pointer;
 
     &:last-child {
       margin-right: 0px;
@@ -150,6 +156,12 @@ form(
       display: flex;
       align-items: center;
       justify-content: center;
+
+      .habit-control.task-habit-disabled-control-habit {
+        color: $white !important;
+        border: none;
+        background: $gray-300;
+      }
     }
 
     &-label {
@@ -165,14 +177,21 @@ form(
     border-top-right-radius: 8px;
     margin-top: 50px;
 
-    .delete-task-btn {
+    .delete-task-btn, .cancel-task-btn {
       margin-left: 16px;
-      color: $red-50;
       cursor: pointer;
 
       &:hover, &:focus, &:active {
         text-decoration: underline;
       }
+    }
+
+    .delete-task-btn {
+      color: $red-50;
+    }
+
+    .cancel-task-btn {
+      color: $blue-10;
     }
   }
 }
@@ -181,18 +200,20 @@ form(
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
 import { capitalizeFirstLetter } from 'client/libs/string';
-import { mapGetters } from 'client/libs/store';
+import { mapGetters, mapActions } from 'client/libs/store';
 import informationIcon from 'assets/svg/information.svg';
 import difficultyTrivialIcon from 'assets/svg/difficulty-trivial.svg';
 import difficultyMediumIcon from 'assets/svg/difficulty-medium.svg';
 import difficultyHardIcon from 'assets/svg/difficulty-hard.svg';
 import difficultyNormalIcon from 'assets/svg/difficulty-normal.svg';
+import positiveIcon from 'assets/svg/positive.svg';
+import negativeIcon from 'assets/svg/negative.svg';
 
 export default {
   components: {
     bModal,
   },
-  props: ['task'],
+  props: ['task', 'purpose'], // purpose is either create or edit, task is the task created or edited
   data () {
     return {
       icons: Object.freeze({
@@ -201,6 +222,8 @@ export default {
         difficultyTrivial: difficultyTrivialIcon,
         difficultyMedium: difficultyMediumIcon,
         difficultyHard: difficultyHardIcon,
+        negative: negativeIcon,
+        positive: positiveIcon,
       }),
     };
   },
@@ -210,18 +233,28 @@ export default {
     }),
     title () {
       const type = capitalizeFirstLetter(this.task.type);
-      return this.$t('editATask', {type});
+      return this.$t(this.purpose === 'edit' ? 'editATask' : 'createTask', {type});
     },
     cssClass () {
-      return this.getTaskClasses(this.task, 'editModal');
+      return this.getTaskClasses(this.task, this.purpose === 'edit' ? 'editModal' : 'createModal');
+    },
+    controlClass () {
+      return this.getTaskClasses(this.task, 'control');
     },
   },
   methods: {
-    save () {
-      this.$root.$emit('hide::modal', 'edit-task-modal');
+    ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
+    submit () {
+      if (this.purpose === 'create') {
+        this.createTask(this.task);
+      } else {
+        this.saveTask(this.task);
+      }
+      this.$root.$emit('hide::modal', 'task-modal');
     },
     destroy () {
-      this.$root.$emit('hide::modal', 'edit-task-modal');
+      this.destroyTask(this.task);
+      this.$root.$emit('hide::modal', 'task-modal');
     },
     cancel () {
       this.$emit('cancel');

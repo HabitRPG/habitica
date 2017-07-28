@@ -187,29 +187,6 @@
   min-height: 56px;
 }
 
-.task-control {
-  width: 28px;
-  height: 28px;
-}
-
-.habit-control {
-  border-radius: 100px;
-  color: $white;
-
-  .svg-icon {
-    width: 10px;
-    margin: 0 auto;
-  }
-
-  .positive {
-    margin-top: 9px;
-  }
-
-  .negative {
-    margin-top: 13px;
-  }
-}
-
 .daily-todo-control {
   margin-top: 16px;
   border-radius: 2px;

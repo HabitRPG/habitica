@@ -1,6 +1,7 @@
 import { loadAsyncResource } from 'client/libs/asyncResource';
 import axios from 'axios';
 import compact from 'lodash/compact';
+import omit from 'lodash/omit';
 
 export function fetchUserTasks (store, forceLoad = false) {
   return loadAsyncResource({
@@ -82,4 +83,48 @@ export function order (store, [rawTasks, tasksOrder]) {
   });
 
   return tasks;
+}
+
+function sanitizeChecklist (task) {
+  if (task.checklist) {
+    task.checklist = task.checklist.filter((i) => {
+      return Boolean(i.text);
+    });
+  }
+}
+export async function create (store, createdTask) {
+  const type = createdTask.type;
+  const list = store.state.tasks.data[`${type}s`];
+
+  sanitizeChecklist(createdTask);
+
+  list.unshift(createdTask);
+  const response = await axios.post('/api/v3/tasks/user', createdTask);
+
+  Object.assign(list[0], response.data.data);
+}
+
+export async function save (store, editedTask) {
+  const taskId = editedTask._id;
+  const type = editedTask.type;
+  const originalTask = store.state.tasks.data[`${type}s`].find(t => t._id === taskId);
+
+  sanitizeChecklist(editedTask);
+
+  Object.assign(originalTask, editedTask);
+
+  const taskDataToSend = omit(originalTask, ['challenge', 'group', 'history', 'reminders', 'tags']);
+  const response = await axios.put(`/api/v3/tasks/${originalTask._id}`, taskDataToSend);
+  Object.assign(originalTask, response.data.data);
+}
+
+export async function destroy (store, task) {
+  const list = store.state.tasks.data[`${task.type}s`];
+  const taskIndex = list.findIndex(t => t._id === task._id);
+
+  if (taskIndex > -1) {
+    list.splice(taskIndex, 1);
+  }
+
+  await axios.delete(`/api/v3/tasks/${task._id}`);
 }

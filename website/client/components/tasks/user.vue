@@ -1,9 +1,10 @@
 <template lang="pug">
 .row.user-tasks-page
-  edit-task-modal(
-    :task="editingTask",
-    @cancel="cancelTaskEdit()", 
-    ref="editTaskModal",
+  task-modal(
+    :task="editingTask || creatingTask",
+    :purpose="creatingTask ? 'create' : 'edit'",
+    @cancel="cancelTaskModal()",
+    ref="taskModal",
   )
   .col-12
     .row.tasks-navigation
@@ -43,9 +44,13 @@
                 span(v-once) {{ $t('filter') }}
                 .svg-icon.filter-icon(v-html="icons.filter")
       .col-1.offset-3
-        button.btn.btn-success(v-once) 
+        //button.btn.btn-success(v-once) 
           .svg-icon.positive(v-html="icons.positive")
           | {{ $t('create') }}
+        b-dropdown(:text="$t('create')")
+          b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
+            | {{$t(type)}}
+
     .row.tasks-columns
       task-column.col-3(
         v-for="column in columns", 
@@ -170,20 +175,25 @@ button.btn.btn-secondary.filter-button {
 
 <script>
 import TaskColumn from './column';
-import EditTaskModal from './editTaskModal';
+import TaskModal from './taskModal';
 
 import positiveIcon from 'assets/svg/positive.svg';
 import filterIcon from 'assets/svg/filter.svg';
 
 import Vue from 'vue';
+import bDropdown from 'bootstrap-vue/lib/components/dropdown';
+import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState } from 'client/libs/store';
+import taskDefaults from 'common/script/libs/taskDefaults';
 
 export default {
   components: {
     TaskColumn,
-    EditTaskModal,
+    TaskModal,
+    bDropdown,
+    bDropdownItem,
   },
   data () {
     return {
@@ -198,6 +208,7 @@ export default {
       selectedTags: [],
       temporarilySelectedTags: [],
       editingTask: null,
+      creatingTask: null,
     };
   },
   computed: {
@@ -242,11 +253,19 @@ export default {
       this.editingTask = cloneDeep(task);
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
-        this.$root.$emit('show::modal', 'edit-task-modal');
+        this.$root.$emit('show::modal', 'task-modal');
       });
     },
-    cancelEditTask () {
+    createTask (type) {
+      this.creatingTask = taskDefaults({type, text: ''});
+      // Necessary otherwise the first time the modal is not rendered
+      Vue.nextTick(() => {
+        this.$root.$emit('show::modal', 'task-modal');
+      });
+    },
+    cancelTaskModal () {
       this.editingTask = null;
+      this.creatingTask = null;
     },
     toggleFilterPanel () {
       if (this.isFilterPanelOpen === true) {
