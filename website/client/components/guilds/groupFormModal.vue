@@ -69,7 +69,7 @@
             :key="group.key",
           )
             label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", :value='group.key' v-model="newGuild.categories")
+              input.custom-control-input(type="checkbox", :value="group.key", v-model="newGuild.categories")
               span.custom-control-indicator
               span.custom-control-description(v-once) {{ $t(group.label) }}
           button.btn.btn-primary(@click.prevent="toggleCategorySelect") {{$t('close')}}

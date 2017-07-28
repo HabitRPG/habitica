@@ -39,8 +39,8 @@ export function getTaskClasses (store) {
         return type === 'reward' ? 'task-purple' : getTaskColorByValue(task.value);
       case 'controlCreate':
         return {
-          up: 'task-purple',
-          down: 'task-purple',
+          up: task.up ? 'task-purple' : 'task-habit-disabled',
+          down: task.down ? 'task-purple' : 'task-habit-disabled',
         };
       case 'control':
         switch (type) {

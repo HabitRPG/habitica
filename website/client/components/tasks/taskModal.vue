@@ -52,6 +52,26 @@ form(
           .option-item-label(v-once) {{ $t('hard') }}
       .option
         label(v-once) {{ $t('tags') }}
+        .category-wrap(@click="showTagsSelect = !showTagsSelect")
+          span.category-select(v-if='task.tags.length === 0') {{$t('none')}}
+          .category-label(v-for="tag in getTagsFor(task)") {{tag}}
+        .category-box(v-if="showTagsSelect")
+          .form-check(
+            v-for="tag in user.tags",
+            :key="tag.id",
+          )
+            label.custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox", :value="tag.id", v-model="task.tags")
+              span.custom-control-indicator
+              span.custom-control-description(v-once) {{ tag.name }}
+          button.btn.btn-primary(@click="showTagsSelect = !showTagsSelect") {{$t('close')}}
+      .option(v-if="task.type === 'habit'")
+        label(v-once) {{ $t('resetStreak') }}
+        b-dropdown(:text="task.frequency")
+          b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly']", :key="frequency", @click="task.frequency = frequency")
+            | {{frequency}}
+
+
     .task-modal-footer(slot="modal-footer")
       button.btn.btn-primary(type="submit", v-once) {{ $t('save') }}
       span.cancel-task-btn(v-once, v-if="purpose === 'create'", @click="cancel()") {{ $t('cancel') }}
@@ -139,6 +159,10 @@ form(
     height: 36px;
   }
 
+  .option {
+    position: relative;
+  }
+
   .option-item {
     margin-right: 48px;
     cursor: pointer;
@@ -199,7 +223,7 @@ form(
 
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
-import { mapGetters, mapActions } from 'client/libs/store';
+import { mapGetters, mapActions, mapState } from 'client/libs/store';
 import informationIcon from 'assets/svg/information.svg';
 import difficultyTrivialIcon from 'assets/svg/difficulty-trivial.svg';
 import difficultyMediumIcon from 'assets/svg/difficulty-medium.svg';
@@ -207,14 +231,19 @@ import difficultyHardIcon from 'assets/svg/difficulty-hard.svg';
 import difficultyNormalIcon from 'assets/svg/difficulty-normal.svg';
 import positiveIcon from 'assets/svg/positive.svg';
 import negativeIcon from 'assets/svg/negative.svg';
+import bDropdown from 'bootstrap-vue/lib/components/dropdown';
+import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
 export default {
   components: {
     bModal,
+    bDropdown,
+    bDropdownItem,
   },
   props: ['task', 'purpose'], // purpose is either create or edit, task is the task created or edited
   data () {
     return {
+      showTagsSelect: false,
       icons: Object.freeze({
         information: informationIcon,
         difficultyNormal: difficultyNormalIcon,
@@ -229,7 +258,9 @@ export default {
   computed: {
     ...mapGetters({
       getTaskClasses: 'tasks:getTaskClasses',
+      getTagsFor: 'tasks:getTagsFor',
     }),
+    ...mapState({user: 'user.data'}),
     title () {
       const type = this.$t(this.task.type);
       return this.$t(this.purpose === 'edit' ? 'editATask' : 'createTask', {type});
@@ -256,6 +287,7 @@ export default {
       this.$root.$emit('hide::modal', 'task-modal');
     },
     cancel () {
+      this.showTagsSelect = false;
       this.$emit('cancel');
     },
   },

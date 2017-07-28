@@ -93,12 +93,13 @@ function sanitizeChecklist (task) {
   }
 }
 export async function create (store, createdTask) {
-  const type = createdTask.type;
-  const list = store.state.tasks.data[`${type}s`];
+  const type = `${createdTask.type}s`;
+  const list = store.state.tasks.data[type];
 
   sanitizeChecklist(createdTask);
 
   list.unshift(createdTask);
+  store.state.user.data.tasksOrder[type].unshift(createdTask._id);
   const response = await axios.post('/api/v3/tasks/user', createdTask);
 
   Object.assign(list[0], response.data.data);
@@ -113,7 +114,7 @@ export async function save (store, editedTask) {
 
   Object.assign(originalTask, editedTask);
 
-  const taskDataToSend = omit(originalTask, ['challenge', 'group', 'history', 'reminders', 'tags']);
+  const taskDataToSend = omit(originalTask, ['history']);
   const response = await axios.put(`/api/v3/tasks/${originalTask._id}`, taskDataToSend);
   Object.assign(originalTask, response.data.data);
 }
