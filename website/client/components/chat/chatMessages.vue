@@ -7,7 +7,7 @@ div
 
     .hr
 
-    .col-md-12(v-for="(msg, index) in chat", :key="msg.id")
+    .col-md-12(v-for="(msg, index) in chat", :key="msg.id", v-if='chat')
       // @TODO: is there a different way to do these conditionals? This creates an infinite loop
       //.hr(v-if='displayDivider(msg)')
         .hr-middle(v-once) {{ msg.timestamp }}
@@ -18,7 +18,7 @@ div
           p {{msg.timestamp | timeAgo}}
           .text {{msg.text}}
           hr
-          .action(v-once, @click='like(msg)', :class='{active: msg.likes[user._id]}')
+          .action(v-once, @click='like(msg)', v-if='msg.likes', :class='{active: msg.likes[user._id]}')
             .svg-icon(v-html="icons.like")
             span(v-if='!msg.likes[user._id]') {{ $t('like') }}
             span(v-if='msg.likes[user._id]') {{ $t('liked') }}
@@ -137,7 +137,6 @@ export default {
   },
   methods: {
     displayDivider (message) {
-      console.log(this.currentDayDividerDisplay, moment(message.timestamp).day())
       if (this.currentDayDividerDisplay !== moment(message.timestamp).day()) {
         this.currentDayDividerDisplay = moment(message.timestamp).day();
         return true;
@@ -146,6 +145,7 @@ export default {
       return false;
     },
     likeCount (message) {
+      if (!message.likes) return 0;
       return Object.keys(message.likes).length;
     },
     async like (message) {
