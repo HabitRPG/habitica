@@ -208,7 +208,9 @@ export default {
     selectConversation (key) {
       this.selectedConversation = key;
       this.activeChat = this.conversations[this.selectedConversation].messages;
-      this.activeChat = sortBy(this.activeChat, [function(o) { return o.timestamp; }]);
+      this.activeChat = sortBy(this.activeChat, [(o) => {
+        return o.timestamp;
+      }]);
     },
     sendPrivateMessage () {
       this.$store.dispatch('members:sendPrivateMessage', {

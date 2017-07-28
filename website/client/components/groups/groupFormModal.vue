@@ -333,7 +333,7 @@ export default {
       }
 
       if (this.newGuild.id) {
-        let updatedGroup = await this.$store.dispatch('guilds:update', {group: this.newGuild});
+        await this.$store.dispatch('guilds:update', {group: this.newGuild});
         // @TODO: this doesn't work because of the async resource
         // if (updatedGroup.type === 'party') this.$store.state.party = {data: updatedGroup};
       } else {
