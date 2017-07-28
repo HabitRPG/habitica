@@ -2,7 +2,7 @@
 .row.user-tasks-page
   task-modal(
     :task="editingTask || creatingTask",
-    :purpose="creatingTask ? 'create' : 'edit'",
+    :purpose="creatingTask !== null ? 'create' : 'edit'",
     @cancel="cancelTaskModal()",
     ref="taskModal",
   )

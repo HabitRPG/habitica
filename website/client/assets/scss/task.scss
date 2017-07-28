@@ -3,6 +3,10 @@
   &-purple {
     background: $purple-300;
 
+    &-control-habit {
+      background: $purple-300;
+    }
+
     &-modal-input {
       color: $header-color !important;
     }

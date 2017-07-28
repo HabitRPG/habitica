@@ -11,7 +11,7 @@ form(
       slot="modal-header",
       :class="[cssClass]",
     )
-      h1(v-once) {{ title }}
+      h1 {{ title }}
       .form-group
         label(v-once) {{ `${$t('title')}*` }}
         input.form-control(type='text', :class="[`${cssClass}-modal-input`]", required, v-model="task.text")
@@ -199,7 +199,6 @@ form(
 
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
-import { capitalizeFirstLetter } from 'client/libs/string';
 import { mapGetters, mapActions } from 'client/libs/store';
 import informationIcon from 'assets/svg/information.svg';
 import difficultyTrivialIcon from 'assets/svg/difficulty-trivial.svg';
@@ -232,14 +231,14 @@ export default {
       getTaskClasses: 'tasks:getTaskClasses',
     }),
     title () {
-      const type = capitalizeFirstLetter(this.task.type);
+      const type = this.$t(this.task.type);
       return this.$t(this.purpose === 'edit' ? 'editATask' : 'createTask', {type});
     },
     cssClass () {
       return this.getTaskClasses(this.task, this.purpose === 'edit' ? 'editModal' : 'createModal');
     },
     controlClass () {
-      return this.getTaskClasses(this.task, 'control');
+      return this.getTaskClasses(this.task, this.purpose === 'edit' ? 'control' : 'controlCreate');
     },
   },
   methods: {
