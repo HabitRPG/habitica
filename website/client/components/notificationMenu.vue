@@ -56,6 +56,10 @@
     width: 25px;
   }
 
+  .item-notifications:hover {
+    cursor: pointer;
+  }
+
   /* @TODO: Move to shared css */
   .dropdown:hover .dropdown-menu {
     display: block;

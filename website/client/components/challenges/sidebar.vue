@@ -65,34 +65,6 @@ export default {
           label: 'comicsHobbies',
           key: 'comics_hobbies',
         },
-        {
-          label: 'diyCrafts',
-          key: 'diy_crafts',
-        },
-        {
-          label: 'education',
-          key: 'education',
-        },
-        {
-          label: 'foodCooking',
-          key: 'food_cooking',
-        },
-        {
-          label: 'healthFitness',
-          key: 'health_fitness',
-        },
-        {
-          label: 'music',
-          key: 'music',
-        },
-        {
-          label: 'relationship',
-          key: 'relationship',
-        },
-        {
-          label: 'scienceTech',
-          key: 'science_tech ',
-        },
       ],
       roleFilters: [],
       roleOptions: [
