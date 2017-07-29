@@ -11,19 +11,19 @@
         span.dropdown-label {{ $t('sortBy') }}
         b-dropdown(:text="$t('sort')", right=true)
           b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
-        button.btn.btn-secondary.create-challenge-button
+        button.btn.btn-secondary.create-challenge-button(@click='createChallenge()')
           .svg-icon.positive-icon(v-html="icons.positiveIcon")
-          span(v-once, @click='createChallenge()') {{$t('createChallenge')}}
+          span(v-once) {{$t('createChallenge')}}
 
     .row
-      .no-challenges.text-center.col-md-6.offset-3(v-if='challenges.length === 0')
+      .no-challenges.text-center.col-md-6.offset-3(v-if='filteredChallenges.length === 0')
         .svg-icon(v-html="icons.challengeIcon")
         h2(v-once) {{$t('noChallengeTitle')}}
         p(v-once) {{$t('challengeDescription1')}}
         p(v-once) {{$t('challengeDescription2')}}
 
     .row
-      .col-6(v-for='challenge in challenges')
+      .col-6(v-for='challenge in filteredChallenges')
         challenge-item(:challenge='challenge')
 </template>
 
@@ -63,6 +63,8 @@
 </style>
 
 <script>
+import { mapState } from 'client/libs/store';
+
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Sidebar from './sidebar';
@@ -86,45 +88,27 @@ export default {
         challengeIcon,
         positiveIcon,
       }),
-      challenges: [
-        // {
-        //   _id: 1,
-        //   title: 'I am the Night! (Official TAKE THIS Challenge June 2017)',
-        //   memberCount: 5261,
-        //   endDate: '2017-04-04',
-        //   tags: ['Habitica Official', 'Tag'],
-        //   prize: 10,
-        //   description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.',
-        //   counts: {
-        //     habit: 0,
-        //     dailies: 2,
-        //     todos: 2,
-        //     rewards: 0,
-        //   },
-        // },
-        // {
-        //   _id: 2,
-        //   title: '30-Day Money Cleanse 💰',
-        //   memberCount: 112,
-        //   endDate: '2017-04-05',
-        //   tags: ['Owned', 'Tag'],
-        //   prize: 10,
-        //   description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.',
-        //   counts: {
-        //     habit: 0,
-        //     dailies: 2,
-        //     todos: 30,
-        //     rewards: 0,
-        //   },
-        // },
-      ],
+      challenges: [],
       sortOptions: [],
     };
   },
   mounted () {
     this.loadchallanges();
   },
+  computed: {
+    ...mapState({user: 'user.data'}),
+    filteredChallenges () {
+      return this.challenges.filter((challenge) => {
+        let isMember = this.memberOf(challenge);
+        // @TODO: Other filters
+        return isMember;
+      });
+    },
+  },
   methods: {
+    memberOf (challenge) {
+      return this.user.challenges.indexOf(challenge._id) !== -1;
+    },
     updateSearch () {
 
     },

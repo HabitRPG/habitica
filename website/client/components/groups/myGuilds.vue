@@ -42,6 +42,11 @@
     .no-guilds-wrapper {
       width: 400px;
       margin: 0 auto;
+
+      .svg-icon {
+        width: 60px;
+        margin: 0 auto;
+      }
     }
   }
 </style>

@@ -27,8 +27,9 @@ export function set (store, changes) {
   // .catch((err) => console.error('set', err));
 }
 
-export function sleep () {
-  // @TODO: Implemented
+export async function sleep () {
+  let response = await axios.post('/api/v3/user/sleep');
+  return response.data.data;
 }
 
 export async function addWebhook (store, payload) {

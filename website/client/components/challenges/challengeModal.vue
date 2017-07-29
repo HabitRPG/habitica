@@ -1,5 +1,4 @@
 <template lang="pug">
-div
   b-modal#challenge-modal(:title="$t('createChallenge')", size='lg')
     form(@submit.stop.prevent="submit")
       .form-group

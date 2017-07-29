@@ -213,7 +213,6 @@
   "where": "Where*",
   "challengeMinimum": "Minimum 1 Gem for public Challenges (helps prevent spam, it really does).",
   "group": "Group",
-
   "sortByType": "Type",
   "sortByPrice": "Price",
   "sortByCon": "Con",
@@ -228,5 +227,8 @@
   "sell": "Sell",
   "buyNow": "Buy Now",
   "sortByNumber": "Number",
-  "featuredItems": "Featured Items!"
+  "featuredItems": "Featured Items!",
+  "not_participating": "Not Participating",
+  "owned": "Owned",
+  "not_owned": "Not Owned"
 }

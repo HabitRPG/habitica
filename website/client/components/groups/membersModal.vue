@@ -1,10 +1,5 @@
 <template lang="pug">
 div
-  .item-with-icon(@click="$root.$emit('show::modal','members-modal')")
-    .svg-icon.shield(v-html="icons.goldGuildBadgeIcon")
-    span.number {{group.memberCount}}
-    div(v-once) {{ $t('members') }}
-
   b-modal#members-modal(:title="$t('createGuild')", size='lg')
     .header-wrap(slot="modal-header")
       .row
@@ -40,7 +35,7 @@ div
           b-dropdown-item(@click='sort(option.value)')
             .svg-icon(v-html="icons.removeIcon")
             | {{$t('removeManager2')}}
-    .row-fluid.gradient
+    .row.gradient(v-if='members.length > 3')
 
   b-modal#remove-member(:title="$t('confirmRemoveMember')")
     button(@click='confirmRemoveMember(member)', v-once) {{$t('remove')}}
@@ -73,6 +68,7 @@ div
 
   #members-modal_modal_body {
     padding: 0;
+    max-height: 450px;
 
     .col-8 {
       margin-left: 0;
@@ -89,29 +85,19 @@ div
 
     .gradient {
       background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), #ffffff);
-      height: 200px;
+      height: 50px;
       width: 100%;
       position: absolute;
       bottom: 0px;
+      margin-left: -15px;
     }
   }
 
-  .item-with-icon {
-    border-radius: 2px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-    padding: 1em;
-    text-align: center;
-  }
-
-  .svg-icon.shield, .svg-icon.gem {
-    width: 40px;
-    margin-right: 1em;
-  }
-
-  .number {
-    font-size: 22px;
-    font-weight: bold;
+  .dropdown-menu .svg-icon {
+    width: 20px;
+    display: inline-block;
+    vertical-align: bottom;
+    margin-right: .5em;
   }
 </style>
 
@@ -127,7 +113,7 @@ import starIcon from 'assets/members/star.svg';
 import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge.svg';
 
 export default {
-  props: ['group'],
+  props: ['group', 'hideBadge'],
   components: {
     bModal,
     bDropdown,

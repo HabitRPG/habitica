@@ -9,7 +9,8 @@
       app-menu
       .container-fluid
         app-header
-        router-view
+        div(:class='{sticky: user.preferences.stickyHeader}')
+          router-view
         app-footer
 </template>
 
@@ -35,6 +36,7 @@ export default {
   },
   computed: {
     ...mapState(['isUserLoggedIn']),
+    ...mapState({user: 'user.data'}),
     isStaticPage () {
       return this.$route.meta.requiresLogin === false ? true : false;
     },

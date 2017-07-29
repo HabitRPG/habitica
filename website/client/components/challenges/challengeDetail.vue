@@ -30,9 +30,9 @@
   .col-4.sidebar.standard-page
     .acitons
       div(v-if='!isMember && !isLeader')
-        button.btn.btn-success(v-once) {{$t('joinChallenge')}}
+        button.btn.btn-success(v-once, @click='joinChallenge()') {{$t('joinChallenge')}}
       div(v-if='isMember')
-        button.btn.btn-danger(v-once) {{$t('leaveChallenge')}}
+        button.btn.btn-danger(v-once, @click='leaveChallenge()') {{$t('leaveChallenge')}}
       div(v-if='isLeader')
         button.btn.btn-success(v-once) {{$t('addTask')}}
       div(v-if='isLeader')
@@ -122,6 +122,8 @@
 </style>
 
 <script>
+import findIndex from 'lodash/findIndex';
+
 import { mapState } from 'client/libs/store';
 import closeChallengeModal from './closeChallengeModal';
 import Column from '../tasks/column';
@@ -146,22 +148,7 @@ export default {
         memberIcon,
         calendarIcon,
       }),
-      challenge: {
-        // _id: 1,
-        // title: 'I am the Night! (Official TAKE THIS Challenge June 2017)',
-        // memberCount: 5261,
-        // endDate: '2017-04-04',
-        // tags: ['Habitica Official', 'Tag'],
-        // prize: 10,
-        // description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.',
-        // counts: {
-        //   habit: 0,
-        //   dailies: 2,
-        //   todos: 2,
-        //   rewards: 0,
-        // },
-        // author: 'SabreCat',
-      },
+      challenge: {},
     };
   },
   computed: {
@@ -170,7 +157,8 @@ export default {
       return this.user.challenges.indexOf(this.challenge._id) !== -1;
     },
     isLeader () {
-      return true;
+      if (!this.leader) return false;
+      return this.user._id === this.leader.id;
     },
   },
   mounted () {
@@ -181,10 +169,15 @@ export default {
       this.challenge = await this.$store.dispatch('challenges:getChallenge', {challengeId: this.challengeId});
     },
     async joinChallenge () {
-      // this.challenge = this.$store.dispatch('challenges:joinChallenge', {challengeId: this.challengeId});
+      this.user.challenges.push(this.challengeId);
+      await this.$store.dispatch('challenges:joinChallenge', {challengeId: this.challengeId});
     },
     async leaveChallenge () {
-      // this.challenge = this.$store.dispatch('challenges:leaveChallenge', {challengeId: this.challengeId});
+      let index = findIndex(this.user.challenges, (challengeId) => {
+        return challengeId === this.challengeId;
+      });
+      this.user.challenges.splice(index, 1);
+      await this.$store.dispatch('challenges:leaveChallenge', {challengeId: this.challengeId});
     },
     closeChallenge () {
       this.$root.$emit('show::modal', 'close-challenge-modal');

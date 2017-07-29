@@ -4,9 +4,9 @@
     input.form-control.search(type="text", :placeholder="$t('search')", v-model='searchTerm')
 
   form
-    h3(v-once) {{ $t('filter') }}
+    h2(v-once) {{ $t('filter') }}
     .form-group
-      h5 Category
+      h3 Category
       .form-check(
         v-for="group in categoryOptions",
         :key="group.key",
@@ -16,7 +16,7 @@
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t(group.label) }}
     .form-group
-      h5 Role
+      h3 Role
       .form-check(
         v-for="group in roleOptions",
         :key="group.key",
@@ -26,7 +26,7 @@
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t(group.label) }}
     .form-group
-      h5 Guild Size
+      h3 Guild Size
       .form-check(
         v-for="group in guildSizeOptions",
         :key="group.key",

@@ -2,7 +2,8 @@
 .row(v-if="group")
   group-form-modal
   invite-modal
-  .clearfix.col-8
+  start-quest-modal(:group='this.group')
+  .col-8.standard-page
     .row
       .col-6.title-details
         h1 {{group.name}}
@@ -10,9 +11,12 @@
         span.float-left(v-once, v-if='group.leader.profile') : {{group.leader.profile.name}}
       .col-6
         .row.icon-row
-          .col-4(v-bind:class="{ 'offset-8': isParty }")
-            members-modal(:group='group', v-if='isMember')
-          .col-6(v-if='!isParty')
+          .col-4.offset-4(v-bind:class="{ 'offset-8': isParty }")
+            .item-with-icon(@click="showMemberModal()")
+              .svg-icon.shield(v-html="icons.goldGuildBadgeIcon")
+              span.number {{group.memberCount}}
+              div(v-once) {{ $t('members') }}
+          .col-4(v-if='!isParty')
             .item-with-icon
               .svg-icon.gem(v-html="icons.gem")
               span.number {{group.memberCount}}
@@ -24,8 +28,6 @@
         textarea(:placeholder="$t('chatPlaceHolder')", v-model='newMessage')
         button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
 
-        .hr
-          .hr-middle(v-once) {{ $t('today') }}
 
         chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
@@ -43,11 +45,11 @@
         .button-container
           button.btn.btn-primary(v-once, @click='showInviteModal()') {{$t('invite')}}
         .button-container
-          button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}}
+          // @TODO: V2 button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}}
         .button-container
-          button.btn.btn-primary(v-once, v-if='isMember && !isParty') {{$t('donateGems')}}
+          // @TODO: V2 button.btn.btn-primary(v-once, v-if='isMember && !isParty') {{$t('donateGems')}}
 
-    .section-header
+    .section-header(v-if='isParty')
       .row
         .col-10
           h3(v-once) {{ $t('questDetailsTitle') }}
@@ -63,7 +65,6 @@
             h4(v-once) {{ $t('yourNotOnQuest') }}
             p(v-once) {{ $t('questDescription') }}
             button.btn.btn-secondary(v-once, @click="openStartQuestModal()") {{ $t('startAQuest') }}
-            owned-quests-modal(:group='this.group')
         .row.quest-active-section(v-if='isParty && onPendingQuest && !onActiveQuest')
           h2 Pending quest
           button.btn.btn-secondary(v-once, @click="questForceStart()") {{ $t('begin') }}
@@ -79,7 +80,8 @@
                   div(:class="'quest_' + questData.key + '_' + key")
                 .col-10
                   strong {{value.text()}}
-                  .collect-progress-bar
+                  .grey-progress-bar
+                    .collect-progress-bar(:style="{width: (group.quest.progress.collect[key] / value.count) * 100 + '%'}")
                   strong {{group.quest.progress.collect[key]}} / {{value.count}}
             .boss-info(v-if='questData.boss')
               .row
@@ -89,7 +91,8 @@
                   span.float-right(v-once) {{ $t('participants') }}
               .row
                 .col-12
-                  .boss-health-bar
+                  .grey-progress-bar
+                    .boss-health-bar(:style="{width: (group.quest.progress.hp / questData.boss.hp) * 100 + '%'}")
               .row.boss-details
                   .col-6
                     span.float-left
@@ -137,13 +140,17 @@
           .toggle-down(@click="sections.challenges = !sections.challenges", v-if="!sections.challenges")
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.challenges")
-        group-challenges(:groupId='groupId')
+        group-challenges(:groupId='searchId')
     div.text-center
       button.btn.btn-primary(class='btn-danger', v-if='isMember') {{ $t('leave') }}
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  h1 {
+    color: $purple-200;
+  }
 
   .button-container {
     margin-bottom: 1em;
@@ -158,11 +165,27 @@
     background-color: #ffffff;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     padding: 1em;
+    text-align: center;
+
+    .svg-icon.shield, .svg-icon.gem {
+      width: 40px;
+      margin: 0 auto;
+    }
+
+    .number {
+      font-size: 22px;
+      font-weight: bold;
+    }
+  }
+
+  .item-with-icon:hover {
+    cursor: pointer;
   }
 
   .sidebar {
     background-color: $gray-600;
     padding-top: 2em;
+    padding-bottom: 2em;
   }
 
   .card {
@@ -196,11 +219,6 @@
     padding: .5em;
   }
 
-  .svg-icon.shield, .svg-icon.gem {
-    width: 40px;
-    margin-right: 1em;
-  }
-
   .title-details {
     padding-top: 1em;
     padding-left: 1em;
@@ -226,26 +244,8 @@
     }
   }
 
-  .hr {
-    width: 100%;
-    height: 20px;
-    border-bottom: 1px solid $gray-500;
-    text-align: center;
-    margin: 2em 0;
-  }
-
-  .hr-middle {
-    font-size: 16px;
-    font-weight: bold;
-    font-family: 'Roboto Condensed';
-    line-height: 1.5;
-    text-align: center;
-    color: $gray-200;
-    background-color: $gray-700;
-    padding: .2em;
-    margin-top: .2em;
-    display: inline-block;
-    width: 100px;
+  .toggle-up .svg-icon, .toggle-down .svg-icon {
+    width: 25px;
   }
 
   span.action {
@@ -275,6 +275,7 @@
     .svg-icon {
       height: 30px;
       width: 30px;
+      margin: 0 auto;
       margin-bottom: 2em;
     }
   }
@@ -336,18 +337,25 @@
     margin-bottom: .5em;
   }
 
+  .grey-progress-bar {
+    width: 100%;
+    height: 15px;
+    background-color: #e1e0e3;
+  }
+
   .collect-progress-bar {
     background-color: #24cc8f;
     height: 15px;
-    width: 80%;
+
   }
 </style>
 
 <script>
 import groupUtilities from 'client/mixins/groupsUtilities';
+import styleHelper from 'client/mixins/styleHelper';
 import { mapState } from 'client/libs/store';
 import membersModal from './membersModal';
-import ownedQuestsModal from './ownedQuestsModal';
+import startQuestModal from './startQuestModal';
 import quests from 'common/script/content/quests';
 import percent from 'common/script/libs/percent';
 import groupFormModal from './groupFormModal';
@@ -372,14 +380,15 @@ import informationIcon from 'assets/svg/information.svg';
 import questBackground from 'assets/svg/quest-background-border.svg';
 import upIcon from 'assets/svg/up.svg';
 import downIcon from 'assets/svg/down.svg';
+import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge.svg';
 
 export default {
-  mixins: [groupUtilities],
+  mixins: [groupUtilities, styleHelper],
   props: ['groupId'],
   components: {
     membersModal,
     memberModal,
-    ownedQuestsModal,
+    startQuestModal,
     bCollapse,
     bCard,
     bTooltip,
@@ -393,6 +402,7 @@ export default {
   },
   data () {
     return {
+      searchId: null,
       group: null,
       icons: Object.freeze({
         like: likeIcon,
@@ -406,8 +416,8 @@ export default {
         questBackground,
         upIcon,
         downIcon,
+        goldGuildBadgeIcon,
       }),
-      questData: {},
       selectedQuest: {},
       sections: {
         quest: true,
@@ -475,16 +485,19 @@ export default {
     bossHpPercent () {
       return percent(this.group.quest.progress.hp, this.questData.boss.hp);
     },
+    questData () {
+      if (!this.group.quest) return {};
+      return quests.quests[this.group.quest.key];
+    },
   },
   created () {
+    this.searchId = this.groupId;
     if (this.isParty) {
-      this.groupId = 'party';
+      this.searchId = 'party';
       // @TODO: Set up from old client. Decide what we need and what we don't
       // Check Desktop notifs
       // Mark Chat seen
-      // Load members
       // Load invites
-      // Load challenges
       // Load group tasks for group plan
       // Load approvals for group plan
     }
@@ -495,6 +508,9 @@ export default {
     $route: 'fetchGuild',
   },
   methods: {
+    showMemberModal () {
+      this.$root.$emit('show::modal', 'members-modal');
+    },
     async sendMessage () {
       let response = await this.$store.dispatch('chat:postChat', {
         groupId: this.group._id,
@@ -511,12 +527,11 @@ export default {
       this.$root.$emit('show::modal', 'invite-modal');
     },
     async fetchGuild () {
-      let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.groupId});
+      let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
       if (this.isParty) {
         this.$store.party = group;
         this.group = this.$store.party;
         this.checkForAchievements();
-        this.questData = quests.quests[this.group.quest.key];
         return;
       }
       this.group = group;
@@ -527,7 +542,7 @@ export default {
       }
     },
     openStartQuestModal () {
-      this.$root.$emit('show::modal', 'owned-quests-modal');
+      this.$root.$emit('show::modal', 'start-quest-modal');
     },
     // inviteOrStartParty (group) {
       // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Invite Friends'});
@@ -625,7 +640,7 @@ export default {
       });
 
       if (hasQuests) {
-        this.$root.$emit('show::modal', 'owned-quests-modal');
+        this.$root.$emit('show::modal', 'start-quest-modal');
         return;
       }
       // $rootScope.$state.go('options.inventory.quests');
