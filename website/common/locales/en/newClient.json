@@ -220,13 +220,16 @@
   "sortByPer": "Per",
   "sortByStr": "Str",
   "sortByInt": "Int",
+  "equipment": "Equipment",
   "classEquipment": "Class Equipment",
-  "showAllEquipment": "Show All <%= classType %> Equipment",
-  "showLessEquipment": "Show Less <%= classType %> Equipment",
+  "showAllGeneric": "Show All <%= type %>",
+  "showLessGeneric": "Show Less <%= type %>",
   "howManyToSell": "How many would you like to sell?",
   "yourBalance": "Your balance",
   "sell": "Sell",
   "buyNow": "Buy Now",
   "sortByNumber": "Number",
-  "featuredItems": "Featured Items!"
+  "featuredItems": "Featured Items!",
+  "hideLocked": "Hide locked",
+  "hidePinned": "Hide pinned"
 }

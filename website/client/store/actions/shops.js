@@ -3,11 +3,23 @@ import { loadAsyncResource } from 'client/libs/asyncResource';
 import buyOp from 'common/script/ops/buy';
 import sellOp from 'common/script/ops/sell';
 
-export function fetch (store, forceLoad = false) { // eslint-disable-line no-shadow
+export function fetchMarket (store, forceLoad = false) { // eslint-disable-line no-shadow
   return loadAsyncResource({
     store,
     path: 'shops.market',
     url: '/api/v3/shops/market',
+    deserialize (response) {
+      return response.data.data;
+    },
+    forceLoad,
+  });
+}
+
+export function fetchQuests (store, forceLoad = false) { // eslint-disable-line no-shadow
+  return loadAsyncResource({
+    store,
+    path: 'shops.quests',
+    url: '/api/v3/shops/quests',
     deserialize (response) {
       return response.data.data;
     },

@@ -17,14 +17,14 @@
               span.custom-control-description(v-once) {{ category.text }}
 
         div.form-group.clearfix
-          h3.float-left Hide locked
-          toggle-switch.float-right.hideMissing(
+          h3.float-left(v-once) {{ $t('hideLocked') }}
+          toggle-switch.float-right.no-margin(
             :label="''",
             v-model="hideLocked",
           )
         div.form-group.clearfix
-          h3.float-left Hide pinned
-          toggle-switch.float-right.hideMissing(
+          h3.float-left(v-once) {{ $t('hidePinned') }}
+          toggle-switch.float-right.no-margin(
             :label="''",
             v-model="hidePinned",
           )
@@ -95,8 +95,8 @@
         :items="filteredGear(selectedGroupGearByClass, searchTextThrottled, selectedSortGearBy, hideLocked, hidePinned)",
         :itemWidth=94,
         :itemMargin=24,
-        :showAllLabel="$t('showAllEquipment', { classType: getClassName(selectedGroupGearByClass) })",
-        :showLessLabel="$t('showLessEquipment', { classType: getClassName(selectedGroupGearByClass) })"
+        :showAllLabel="$t('showAllGeneric', { type: getClassName(selectedGroupGearByClass) + ' '+$t('equipment')  })",
+        :showLessLabel="$t('showLessGeneric', { type: getClassName(selectedGroupGearByClass) + ' '+$t('equipment') })"
       )
         template(slot="item", scope="ctx")
           shopItem(
@@ -297,7 +297,7 @@
     height: 216px;
 
     .background {
-      background: url('~assets/images/market/shop_background.png');
+      background: url('~assets/images/shops/shop_background.png');
 
       background-repeat: repeat-x;
 
@@ -324,7 +324,7 @@
       left: 0;
       width: 100%;
       height: 216px;
-      background: url('~assets/images/market/market_banner_web_alexnpc.png');
+      background: url('~assets/images/shops/market_banner_web_alexnpc.png');
       background-repeat: no-repeat;
 
       .featured-label {
@@ -380,7 +380,7 @@
   import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
 
   import SellModal from './sellModal.vue';
-  import BuyModal from './buyModal.vue';
+  import BuyModal from '../buyModal.vue';
   import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
 
   import bPopover from 'bootstrap-vue/lib/components/popover';
@@ -659,7 +659,7 @@ export default {
       },
     },
     created () {
-      this.$store.dispatch('shops:fetch');
+      this.$store.dispatch('shops:fetchMarket');
 
       this.selectedGroupGearByClass = this.userStats.class;
     },

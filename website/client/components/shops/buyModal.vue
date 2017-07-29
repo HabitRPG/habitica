@@ -135,7 +135,7 @@
   import svgGem from 'assets/svg/gem.svg';
   import svgPin from 'assets/svg/pin.svg';
 
-  import BalanceInfo  from './balanceInfo.vue';
+  import BalanceInfo  from './market/balanceInfo.vue';
 
   export default {
     components: {

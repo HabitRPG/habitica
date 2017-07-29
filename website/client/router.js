@@ -87,6 +87,7 @@ const ChallengeDetail = () => import(/* webpackChunkName: "challenges" */ './com
 // Shops
 const ShopsContainer = () => import(/* webpackChunkName: "shops" */'./components/shops/index');
 const MarketPage = () => import(/* webpackChunkName: "shops-market" */'./components/shops/market/index');
+const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */'./components/shops/quests/index');
 
 Vue.use(VueRouter);
 
@@ -120,7 +121,7 @@ const router = new VueRouter({
       component: ShopsContainer,
       children: [
         { name: 'market', path: 'market', component: MarketPage },
-        { name: 'quests', path: 'quests', component: Page },
+        { name: 'quests', path: 'quests', component: QuestsPage },
         { name: 'seasonal', path: 'seasonal', component: Page },
         { name: 'time', path: 'time', component: Page },
       ],
