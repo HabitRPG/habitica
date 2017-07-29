@@ -2,6 +2,7 @@ language: node_js
 node_js:
   - '6'
 sudo: required
+dist: precise
 services:
   - mongodb
 addons:
