@@ -1,5 +1,5 @@
 <template lang="pug">
-  .row.market
+  .row.quests
     .standard-sidebar
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
@@ -80,7 +80,7 @@
         v-for="category in categories",
         v-if="viewOptions[category.identifier].selected"
       )
-        h4 {{ category.text }}
+        h2 {{ category.text }}
 
         itemRows(
           v-if="category.identifier === 'pet'",
@@ -112,6 +112,33 @@
                 )
                   span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
+        div.grouped-parent(v-else-if="category.identifier === 'unlockable' || category.identifier === 'gold'")
+          div.group(v-for="(items, key) in getGrouped(questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned))")
+            h3 {{ $t(key) }}
+            div.items
+              shopItem(
+                v-for="item in items",
+                :key="item.key",
+                :item="item",
+                :price="item.value",
+                :priceType="item.currency",
+                :itemContentClass="item.class",
+                :emptyItem="false",
+                :popoverPosition="'top'",
+                @click="selectedItemToBuy = item"
+              )
+                span(slot="popoverContent")
+                  div
+                    h4.popover-content-title {{ item.text }}
+                    .popover-content-text {{ item.notes }}
+
+                template(slot="itemBadge", scope="ctx")
+                  span.badge.badge-pill.badge-item.badge-svg(
+                    :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
+                    @click.prevent.stop="togglePinned(ctx.item)"
+                  )
+                    span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+
 
         div.items(v-else)
           shopItem(
@@ -129,7 +156,6 @@
               div
                 h4.popover-content-title {{ item.text }}
                 .popover-content-text {{ item.notes }}
-              div {{ item }}
 
             template(slot="itemBadge", scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
@@ -245,16 +271,29 @@
     padding: 24px 24px 10px;
   }
 
-  .market {
-    .avatar {
-      cursor: default;
-      margin: 0 auto;
+  .group {
+    display: inline-block;
+    width: 33%;
+    margin-bottom: 24px;
 
-      .character-sprites span {
-        left: 25px;
-      }
+
+    .items {
+      border-radius: 2px;
+      background-color: #edecee;
+      display: inline-block;
+      padding: 8px;
     }
 
+    .item-wrapper {
+      margin-bottom: 0;
+    }
+
+    .items > div:not(:last-of-type) {
+      margin-right: 16px;
+    }
+  }
+
+  .quests {
     .standard-page {
       position: relative;
     }
@@ -268,9 +307,6 @@
   import ShopItem from '../shopItem';
   import Item from 'client/components/inventory/item';
   import CountBadge from 'client/components/ui/countBadge';
-  import Drawer from 'client/components/ui/drawer';
-  import DrawerSlider from 'client/components/ui/drawerSlider';
-  import DrawerHeaderTabs from 'client/components/ui/drawerHeaderTabs';
   import ItemRows from 'client/components/ui/itemRows';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
@@ -281,11 +317,6 @@
   import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
   import svgPin from 'assets/svg/pin.svg';
-  import svgInformation from 'assets/svg/information.svg';
-  import svgWarrior from 'assets/svg/warrior.svg';
-  import svgWizard from 'assets/svg/wizard.svg';
-  import svgRogue from 'assets/svg/rogue.svg';
-  import svgHealer from 'assets/svg/healer.svg';
 
   import featuredItems from 'common/script/content/shop-featuredItems';
 
@@ -293,15 +324,13 @@
   import _sortBy from 'lodash/sortBy';
   import _map from 'lodash/map';
   import _throttle from 'lodash/throttle';
+  import _groupBy from 'lodash/groupBy';
 
 export default {
     components: {
       ShopItem,
       Item,
       CountBadge,
-      Drawer,
-      DrawerSlider,
-      DrawerHeaderTabs,
       ItemRows,
       toggleSwitch,
 
@@ -326,15 +355,7 @@ export default {
 
         icons: Object.freeze({
           pin: svgPin,
-          information: svgInformation,
-          warrior: svgWarrior,
-          wizard: svgWizard,
-          rogue: svgRogue,
-          healer: svgHealer,
         }),
-
-        selectedDrawerTab: 0,
-        selectedDrawerItemType: 'eggs',
 
         sortItemsBy: ['AZ', 'sortByNumber'],
         selectedSortItemsBy: 'AZ',
@@ -348,7 +369,6 @@ export default {
     computed: {
       ...mapState({
         content: 'content',
-        market: 'shops.market.data',
         quests: 'shops.quests.data',
         user: 'user.data',
         userStats: 'user.data.stats',
@@ -401,6 +421,11 @@ export default {
           }
         }
 
+        return result;
+      },
+      getGrouped (entries) {
+        var result = _groupBy(entries, 'group');
+        console.info(entries, result);
         return result;
       },
       resetItemToSell ($event) {
