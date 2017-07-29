@@ -55,42 +55,9 @@ async function getAuthorEmailFromMessage (message) {
   }
 }
 
-// @TODO: Probably move this to a library
-function matchExact (r, str) {
-  let match = str.match(r);
-  return match !== null && match[0] !== null;
-}
-
-let bannedWordRegexs = [];
-for (let i = 0; i < bannedWords.length; i += 1) {
-  let word = bannedWords[i];
-  let regEx = new RegExp(`\\b([^a-z]+)?${word.toLowerCase()}([^a-z]+)?\\b`);
-  bannedWordRegexs.push(regEx);
-}
-
-function textContainsBannedWords (message) {
-  for (let i = 0; i < bannedWordRegexs.length; i += 1) {
-    let regEx = bannedWordRegexs[i];
-    if (matchExact(regEx, message.toLowerCase())) return true;
-  }
-
-  return false;
-}
-
-let bannedSlurRegexs = [];
-for (let i = 0; i < bannedSlurs.length; i += 1) {
-  let word = bannedSlurs[i];
-  let regEx = new RegExp(`\\b([^a-z]+)?${word.toLowerCase()}([^a-z]+)?\\b`);
-  bannedSlurRegexs.push(regEx);
-}
-
 function textContainsBannedSlur (message) {
-  for (let i = 0; i < bannedSlurRegexs.length; i += 1) {
-    let regEx = bannedSlurRegexs[i];
-    if (matchExact(regEx, message.toLowerCase())) return true;
-  }
-
-  return false;
+  let bannedSlursMatched = getMatchesByWordArray(message, bannedSlurs);
+  return bannedSlursMatched.length > 0;
 }
 
 /**
