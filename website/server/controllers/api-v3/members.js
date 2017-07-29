@@ -222,6 +222,11 @@ function _getMembersForItem (type) {
     } else if (type === 'group-members') {
       if (group.type === 'guild') {
         query.guilds = group._id;
+
+        if (req.query.includeAllPublicFields === 'true') {
+          fields = memberFields;
+          addComputedStats = true;
+        }
       } else {
         query['party._id'] = group._id; // group._id and not groupId because groupId could be === 'party'
 

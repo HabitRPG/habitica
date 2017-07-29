@@ -1,8 +1,10 @@
-.container-fluid(ng-show='user.invitations.party.id')
-  h2=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
+.container-fluid(ng-show='user.invitations.parties.length > 0')
+  h3=env.t('partyInvitationsText', {numberInvites: '{{user.invitations.parties.length}}'})
 
-  a.btn.btn-success(
-    data-type='party',
-    ng-click='join(user.invitations.party)'
-  )=env.t('accept')
-  a.btn.btn-danger(ng-click='reject(user.invitations.party)')=env.t('reject')
+  div(ng-repeat='partyInvite in user.invitations.parties')
+    h2=env.t('invitedTo', {name: '{{partyInvite.name}}'})
+    a.btn.btn-success(
+      data-type='party',
+      ng-click='join(partyInvite)'
+    )=env.t('accept')
+    a.btn.btn-danger(ng-click='reject(partyInvite)')=env.t('reject')

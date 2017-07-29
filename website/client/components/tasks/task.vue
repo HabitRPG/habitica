@@ -5,13 +5,20 @@
     .task-control.habit-control(:class="controlClass.up + '-control-habit'")
       .svg-icon.positive(v-html="icons.positive")
   // Dailies and todos left side control
-  .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass")
+  .left-control.d-flex.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass")
     .task-control.daily-todo-control(:class="controlClass + '-control-daily-todo'")
       .svg-icon.check(v-html="icons.check", v-if="task.completed")
   // Task title, description and icons
   .task-content(:class="contentClass")
-    h3.task-title(:class="{ 'has-notes': task.notes }") {{task.text}}
-    .task-notes.small-text {{task.notes}}
+    h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
+    .task-notes.small-text(v-markdown="task.notes")
+    .checklist(v-if="task.checklist && task.checklist.length > 0")
+        label.custom-control.custom-checkbox.checklist-item(
+          v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
+        )
+          input.custom-control-input(type="checkbox", :checked="item.completed")
+          span.custom-control-indicator
+          span.custom-control-description {{ item.text }}
     .icons.small-text.d-flex.align-items-center
       .d-flex.align-items-center(v-if="task.type === 'todo' && task.date", :class="{'due-overdue': isDueOverdue}")
         .svg-icon.calendar(v-html="icons.calendar")
@@ -72,15 +79,43 @@
 .task-notes {
   color: $gray-100;
   font-style: normal;
-  margin-bottom: 4px;
 }
 
 .task-content {
   padding: 8px;
   flex-grow: 1;
+  cursor: pointer;
+}
+
+.checklist {
+  margin-bottom: 2px;
+  margin-top: 8px;
+}
+
+.checklist-item {
+  color: $gray-50;
+  font-size: 14px;
+  line-height: 1.43;
+  margin-bottom: 10px;
+  min-height: 0px;
+
+  &-done {
+    color: $gray-300;
+    text-decoration: line-through;
+  }
+
+  .custom-control-indicator {
+    margin-top: -2px;
+  }
+
+  .custom-control-description {
+    margin-left: 6px;
+    padding-top: 0px;
+  }
 }
 
 .icons {
+  margin-top: 4px;
   color: $gray-300;
   font-style: normal;
 
@@ -132,7 +167,7 @@
 .check.svg-icon {
   width: 12.3px;
   height: 9.8px;
-  margin: 8px;
+  margin: 9px 8px;
 }
 
 .left-control, .right-control {
@@ -174,6 +209,7 @@
 }
 
 .daily-todo-control {
+  margin-top: 16px;
   border-radius: 2px;
 }
 
@@ -233,10 +269,15 @@ import challengeIcon from 'assets/svg/challenge.svg';
 import tagsIcon from 'assets/svg/tags.svg';
 import checkIcon from 'assets/svg/check.svg';
 import bPopover from 'bootstrap-vue/lib/components/popover';
+import markdownDirective from 'client/directives/markdown';
+
 
 export default {
   components: {
     bPopover,
+  },
+  directives: {
+    markdown: markdownDirective,
   },
   props: ['task'],
   data () {

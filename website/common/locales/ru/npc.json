@@ -14,7 +14,7 @@
     "welcomeMarket": "Заходите на рынок! Купите редкие яйца и эликсиры! Продайте то, что вам не нужно! Воспользуйтесь полезными услугами! Загляните и ознакомьтесь со всеми предложениями.",
     "welcomeMarketMobile": "Добро пожаловать на рынок! Купите редкие яйца и эликсиры! Загляните и ознакомьтесь со всеми предложениями.",
     "displayItemForGold": "Вы хотите продать <strong><%= itemType %></strong>?",
-    "displayEggForGold": "Вы хотите продать <strong><%= itemType %> яйцо</strong>?",
+    "displayEggForGold": "Вы хотите продать предмет: <strong><%= itemType %> в яйце</strong>?",
     "displayPotionForGold": "Вы хотите продать <strong><%= itemType %> эликсир</strong>?",
     "sellForGold": "Продать это за <%= gold %> золота",
     "buyGems": "Купить самоцветы",

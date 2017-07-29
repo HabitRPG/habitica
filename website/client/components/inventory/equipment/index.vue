@@ -134,8 +134,8 @@ import toggleSwitch from 'client/components/ui/toggleSwitch';
 
 import Item from 'client/components/inventory/item';
 import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
-import StarBadge from 'client/components/inventory/starBadge';
-import Drawer from 'client/components/inventory/drawer';
+import StarBadge from 'client/components/ui/starBadge';
+import Drawer from 'client/components/ui/drawer';
 
 import i18n from 'common/script/i18n';
 

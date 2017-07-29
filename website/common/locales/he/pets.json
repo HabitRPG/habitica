@@ -71,6 +71,7 @@
     "displayNow": "הצג עכשיו",
     "displayLater": "הצג מאוחר יותר",
     "petNotOwned": "חיית המחמד הזו אינה בבעלותך.",
+    "mountNotOwned": "You do not own this mount.",
     "earnedCompanion": "עם כל הפרודוקטיביות שלך, זכית במלווה חדש. האכל אותו כדי לגרום לו לגדול!",
     "feedPet": "להאכיל את ה<%= name %> שלך ב <%= text %>?",
     "useSaddle": "לשים אוכף על ה<%= pet %> שלך?",

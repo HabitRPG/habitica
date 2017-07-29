@@ -43,6 +43,9 @@ export default function () {
         quest: {},
         members: asyncResourceFactory(),
       },
+      shops: {
+        market: asyncResourceFactory(),
+      },
       myGuilds: [],
       editingGroup: {}, // TODO move to local state
       // content data, frozen to prevent Vue from modifying it since it's static and never changes

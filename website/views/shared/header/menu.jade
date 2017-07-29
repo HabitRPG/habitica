@@ -198,10 +198,10 @@ nav.toolbar(ng-controller='MenuCtrl')
                 a(ng-click='$state.go("options.inventory.drops"); ')
                   span.glyphicon.glyphicon-gift
                   span=env.t('newSubscriberItem')
-              li(ng-if='user.invitations.party.id')
+              li(ng-repeat='party in user.invitations.parties')
                 a(ui-sref='options.social.party')
                   span.glyphicon.glyphicon-user
-                  span=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
+                  span=env.t('invitedTo', {name: '{{party.name}}'})
               li(ng-if='user.flags.cardReceived')
                 a(ng-click='$state.go("options.inventory.drops"); ')
                   span.glyphicon.glyphicon-envelope

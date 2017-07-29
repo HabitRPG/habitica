@@ -112,6 +112,6 @@
     "loginIncentiveQuestObtained": "因为有了在Habitica历练 <%= count %> 天的经验，你可以去挑战这个探索任务啦！！",
     "loginReward": "<%= count %> 次签到",
     "createAccountQuest": "当你加人Habitica的时候，你会收到这个任务！如果你的朋友加入，他们也会得到一个。",
-    "questBundles": "Discounted Quest Bundles",
+    "questBundles": "打折的任务包",
     "buyQuestBundle": "购买任务包"
 }

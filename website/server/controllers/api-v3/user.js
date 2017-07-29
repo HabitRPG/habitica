@@ -22,6 +22,7 @@ import nconf from 'nconf';
 import get from 'lodash/get';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
+const DELETE_CONFIRMATION = 'DELETE';
 
 /**
  * @apiDefine UserNotFound
@@ -303,14 +304,15 @@ api.deleteUser = {
     let password = req.body.password;
     if (!password) throw new BadRequest(res.t('missingPassword'));
 
+    if (user.auth.local.hashed_password && user.auth.local.email) {
+      let isValidPassword = await passwordUtils.compare(user, password);
+      if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
+    } else if ((user.auth.facebook.id || user.auth.google.id) && password !== DELETE_CONFIRMATION) {
+      throw new NotAuthorized(res.t('incorrectDeletePhrase'));
+    }
+
     let feedback = req.body.feedback;
     if (feedback && feedback.length > 10000) throw new BadRequest(`Account deletion feedback is limited to 10,000 characters. For lengthy feedback, email ${TECH_ASSISTANCE_EMAIL}.`);
-
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    let isValidPassword = await passwordUtils.compare(user, password);
-    if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
 
     if (plan && plan.customerId && !plan.dateTerminated) {
       throw new NotAuthorized(res.t('cannotDeleteActiveAccount'));
@@ -1488,12 +1490,13 @@ api.userReleaseMounts = {
 };
 
 /**
- * @api {post} /api/v3/user/sell/:type/:key Sell a gold-sellable item owned by the user
+ * @api {post} /api/v3/user/sell/:type/:key?amount=1 Sell a gold-sellable item owned by the user
  * @apiName UserSell
  * @apiGroup User
  *
- * @apiParam {String="eggs","hatchingPotions","food"} type The type of item to sell.
- * @apiParam {String} key The key of the item
+ * @apiParam (Path) {String="eggs","hatchingPotions","food"} type The type of item to sell.
+ * @apiParam (Path) {String} key The key of the item
+ * @apiParam (Query) {Number} (optional) amount The amount to sell
  *
  * @apiSuccess {Object} data.stats
  * @apiSuccess {Object} data.items

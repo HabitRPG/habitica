@@ -16,6 +16,7 @@ import Bluebird from 'bluebird';
 import bannedWords from '../../libs/bannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
 import { TAVERN_ID } from '../../models/group';
+import bannedSlurs from '../../libs/bannedSlurs';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
@@ -52,6 +53,44 @@ async function getAuthorEmailFromMessage (message) {
   } else {
     return 'Author Account Deleted';
   }
+}
+
+// @TODO: Probably move this to a library
+function matchExact (r, str) {
+  let match = str.match(r);
+  return match !== null && match[0] !== null;
+}
+
+let bannedWordRegexs = [];
+for (let i = 0; i < bannedWords.length; i += 1) {
+  let word = bannedWords[i];
+  let regEx = new RegExp(`\\b([^a-z]+)?${word.toLowerCase()}([^a-z]+)?\\b`);
+  bannedWordRegexs.push(regEx);
+}
+
+function textContainsBannedWords (message) {
+  for (let i = 0; i < bannedWordRegexs.length; i += 1) {
+    let regEx = bannedWordRegexs[i];
+    if (matchExact(regEx, message.toLowerCase())) return true;
+  }
+
+  return false;
+}
+
+let bannedSlurRegexs = [];
+for (let i = 0; i < bannedSlurs.length; i += 1) {
+  let word = bannedSlurs[i];
+  let regEx = new RegExp(`\\b([^a-z]+)?${word.toLowerCase()}([^a-z]+)?\\b`);
+  bannedSlurRegexs.push(regEx);
+}
+
+function textContainsBannedSlur (message) {
+  for (let i = 0; i < bannedSlurRegexs.length; i += 1) {
+    let regEx = bannedSlurRegexs[i];
+    if (matchExact(regEx, message.toLowerCase())) return true;
+  }
+
+  return false;
 }
 
 /**
@@ -121,6 +160,44 @@ api.postChat = {
     if (validationErrors) throw validationErrors;
 
     let group = await Group.getGroup({user, groupId});
+
+    // Check message for banned slurs
+    if (textContainsBannedSlur(req.body.message)) {
+      let message = req.body.message;
+      user.flags.chatRevoked = true;
+      await user.save();
+
+      // Email the mods
+      let authorEmail = getUserInfo(user, ['email']).email;
+      let groupUrl = getGroupUrl(group);
+
+      let report =  [
+        {name: 'MESSAGE_TIME', content: (new Date()).toString()},
+        {name: 'MESSAGE_TEXT', content: message},
+
+        {name: 'AUTHOR_USERNAME', content: user.profile.name},
+        {name: 'AUTHOR_UUID', content: user._id},
+        {name: 'AUTHOR_EMAIL', content: authorEmail},
+        {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${user._id}`},
+
+        {name: 'GROUP_NAME', content: group.name},
+        {name: 'GROUP_TYPE', content: group.type},
+        {name: 'GROUP_ID', content: group._id},
+        {name: 'GROUP_URL', content: groupUrl},
+      ];
+
+      sendTxn(FLAG_REPORT_EMAILS, 'slur-report-to-mods', report);
+
+      // Slack the mods
+      slack.sendSlurNotification({
+        authorEmail,
+        author: user,
+        group,
+        message,
+      });
+
+      throw new BadRequest(res.t('bannedSlurUsed'));
+    }
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.privacy !== 'private' && user.flags.chatRevoked) {

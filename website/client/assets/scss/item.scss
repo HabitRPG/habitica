@@ -48,6 +48,10 @@
   }
 }
 
+.flat .item {
+  box-shadow: none;
+}
+
 .drawer-content .item:hover {
   border-color: transparent;
   box-shadow: none;

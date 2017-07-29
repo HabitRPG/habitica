@@ -16,21 +16,21 @@
     // Show avatar only if not currently affected by visual buff
     template(v-if!="!member.stats.buffs.snowball && !member.stats.buffs.spookySparkles && !member.stats.buffs.shinySeed && !member.stats.buffs.seafoam")
       span(:class="'chair_' + member.preferences.chair")
-      span(:class="member.items.gear[costumeClass].back")
+      span(:class="getGearClass('back')")
       span(:class="skinClass")
-      span(:class="member.preferences.size + '_shirt_' + member.preferences.shirt")
-      span(:class="member.preferences.size + '_' + member.items.gear[costumeClass].armor")
-      span(:class="member.items.gear[costumeClass].back_collar")
-      span(:class="member.items.gear[costumeClass].body")
       span.head_0
+      span(:class="member.preferences.size + '_shirt_' + member.preferences.shirt")
+      span(:class="member.preferences.size + '_' + getGearClass('armor')")
+      span(:class="getGearClass('back_collar')")
+      span(:class="getGearClass('body')")
       template(v-for="type in ['base', 'bangs', 'mustache', 'beard']")
         span(:class="'hair_' + type + '_' + member.preferences.hair[type] + '_' + member.preferences.hair.color")
-      span(:class="member.items.gear[costumeClass].eyewear")
-      span(:class="member.items.gear[costumeClass].head")
-      span(:class="member.items.gear[costumeClass].headAccessory")
+      span(:class="getGearClass('eyewear')")
+      span(:class="getGearClass('head')")
+      span(:class="getGearClass('headAccessory')")
       span(:class="'hair_flower_' + member.preferences.hair.flower")
-      span(:class="member.items.gear[costumeClass].shield")
-      span(:class="member.items.gear[costumeClass].weapon")
+      span(:class="getGearClass('shield')")
+      span(:class="getGearClass('weapon')")
 
     // Resting
     span.zzz(v-if="member.preferences.sleep")
@@ -105,6 +105,12 @@ export default {
       type: Boolean,
       default: false,
     },
+    withBackground: {
+      type: Boolean,
+    },
+    overrideAvatarGear: {
+      type: Object,
+    },
     width: {
       type: Number,
       default: 140,
@@ -144,7 +150,9 @@ export default {
     backgroundClass () {
       let background = this.member.preferences.background;
 
-      if (background && !this.avatarOnly) {
+      let allowToShowBackground = !this.avatarOnly || this.withBackground;
+
+      if (background && allowToShowBackground) {
         return `background_${this.member.preferences.background}`;
       }
 
@@ -165,6 +173,17 @@ export default {
     },
     costumeClass () {
       return this.member.preferences.costume ? 'costume' : 'equipped';
+    },
+  },
+  methods: {
+    getGearClass (gearType) {
+      let result = this.member.items.gear[this.costumeClass][gearType];
+
+      if (this.overrideAvatarGear && this.overrideAvatarGear[gearType]) {
+        result = this.overrideAvatarGear[gearType];
+      }
+
+      return result;
     },
   },
 };

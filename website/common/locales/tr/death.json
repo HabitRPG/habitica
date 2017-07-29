@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "Sağlığın tükendi!",
+    "dontDespair": "Umudunu kaybetme!",
+    "deathPenaltyDetails": "Bir Seviyeni, sahip olduğun Altını ve bir parça Ekipmanını kaybettin ama hepsini çok çalışarak yeniden kazanabilirsin! Bol şans--iyi iş çıkaracaksın.",
+    "refillHealthTryAgain": "Sağlığını Doldur & Tekrar Dene",
+    "dyingOftenTips": "Bu çok sık mı oluyor? <a href='http://tr.habitica.wikia.com/wiki/Ölüm_Mekanikleri#Hayatta_Kalmak_için_Stratejiler' target='_blank'>İşte birkaç tavsiye!</a>",
+    "losingHealthWarning": "Dikkat et - Sağlık Kaybediyorsun!",
+    "losingHealthWarning2": "Sağlığının sıfıra düşmesine izin verme! Eğer düşerse bir seviye, Altın, ve bir ekipman parçanı kaybedersin.",
+    "toRegainHealth": "Sağlık kazanmak için:",
+    "lowHealthTips1": "Tamamen iyileşmek için seviye atla!",
+    "lowHealthTips2": "15 Sağlık Puanı kazanmak için Ödüller sütunundan bir Sağlık İksiri satın al.",
+    "losingHealthQuickly": "Çabuk mu Sağlık kaybediyorsun?",
+    "lowHealthTips3": "Tamamlanmamış Günlük İşler geceleyin sana hasar verir, bu yüzden başlangıçta çok fazla eklememeye dikkat et!",
+    "lowHealthTips4": "Eğer bir Günlük İş belirli bir günde yapılmak zorunda değilse, kalem ikonuna tıklayarak devre dışı bırakabilirsin.",
+    "goodLuck": "İyi şanslar!",
+    "cannotRevive": "Ölü değilsen dirilemezsin"
+}
