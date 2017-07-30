@@ -173,7 +173,7 @@
         this.$emit('change', $event);
       },
       buyItem () {
-        this.$store.dispatch('shops:buyItem', {key: this.item.key});
+        this.$emit('buyPressed', this.item);
         this.hideDialog();
       },
       hideDialog () {

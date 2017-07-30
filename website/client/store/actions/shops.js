@@ -62,6 +62,16 @@ export function buyItem (store, params) {
   // .catch((err) => console.error('equip', err));
 }
 
+export function purchase (store, params) {
+  const user = store.state.user.data;
+  // buyOp(user, {params}); todo purcheOp
+  axios
+    .post(`/api/v3/user/purchase/${params.type}/${params.key}`);
+  // TODO
+  // .then((res) => console.log('equip', res))
+  // .catch((err) => console.error('equip', err));
+}
+
 export function sellItems (store, params) {
   const user = store.state.user.data;
   sellOp(user, {params, query: {amount: params.amount}});

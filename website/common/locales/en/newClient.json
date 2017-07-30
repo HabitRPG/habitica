@@ -237,5 +237,10 @@
   "namedHatchingPotion": "<%= type %> Hatching Potion",
   "not_participating": "Not Participating",
   "owned": "Owned",
-  "not_owned": "Not Owned"
+  "not_owned": "Not Owned",
+  "classArmor": "Class Armor",
+  "backCapitalized": "Back Accessory",
+  "bodyCapitalized": "Body Accessory",
+  "eyewearCapitalized": "Eyewear",
+  "featuredset": "Featured Set <%= name %>"
 }

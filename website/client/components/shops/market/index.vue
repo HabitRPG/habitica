@@ -227,7 +227,8 @@
         :item="selectedGearToBuy",
         priceType="gold",
         :withPin="true",
-        @change="resetGearToBuy($event)"
+        @change="resetGearToBuy($event)",
+        @buyPressed="buyGear($event)"
       )
         template(slot="item", scope="ctx")
           div
@@ -244,7 +245,8 @@
       buyModal(
         :item="selectedItemToBuy",
         :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
-        @change="resetItemToBuy($event)"
+        @change="resetItemToBuy($event)",
+        @buyPressed="buyItem($event)"
       )
         template(slot="item", scope="ctx")
           item.flat(
@@ -656,6 +658,12 @@ export default {
         let isPinned = Boolean(item.pinned);
         item.pinned = !isPinned;
         this.$store.dispatch(isPinned ? 'shops:unpinGear' : 'shops:pinGear', {key: item.key});
+      },
+      buyGear(item) {
+        this.$store.dispatch('shops:buyItem', {key: item.key});
+      },
+      buyItem (item) {
+        this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
       },
     },
     created () {

@@ -9,6 +9,10 @@ const featuredItems = {
       'dilatoryDistress1',
       'dilatoryDistress2',
       'dilatoryDistress3',
+    ],
+    seasonal: 'summerMage',
+    timeTravelers: [
+
     ]
 };
 

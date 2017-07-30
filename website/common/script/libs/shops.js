@@ -407,6 +407,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
       });
 
       if (category.items.length > 0) {
+        category.specialClass = category.items[0].specialClass;
         categories.push(category);
       }
     }

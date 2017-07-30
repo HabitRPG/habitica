@@ -1,5 +1,5 @@
 <template lang="pug">
-  .row.quests
+  .row.seasonal
     .standard-sidebar
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
@@ -8,20 +8,14 @@
         h2(v-once) {{ $t('filter') }}
         .form-group
           .form-check(
-            v-for="category in categories",
-            :key="category.identifier",
+            v-for="category in filterCategories",
+            :key="category.key",
           )
             label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected")
+              input.custom-control-input(type="checkbox", v-model="viewOptions[category.key].selected")
               span.custom-control-indicator
-              span.custom-control-description(v-once) {{ category.text }}
+              span.custom-control-description(v-once) {{ $t(category.localeKey+'Capitalized') }}
 
-        div.form-group.clearfix
-          h3.float-left(v-once) {{ $t('hideLocked') }}
-          toggle-switch.float-right.no-margin(
-            :label="''",
-            v-model="hideLocked",
-          )
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
           toggle-switch.float-right.no-margin(
@@ -34,36 +28,36 @@
           div.npc
             div.featured-label
               span.rectangle
-              span.text Ian
+              span.text Leslie
               span.rectangle
           div.content
             div.featured-label.with-border
               span.rectangle
-              span.text(v-once) {{ $t('featuredQuests') }}
+              span.text(v-once) {{ $t('featuredset', { name: featuredSet.text }) }}
               span.rectangle
 
             div.items.margin-center
               shopItem(
-                v-for="item in featuredItems",
+                v-for="item in featuredSet.items",
                 :key="item.key",
                 :item="item",
-                :price="item.goldValue ? item.goldValue : item.value",
-                :priceType="item.goldValue ? 'gold' : 'gem'",
-                :itemContentClass="'inventory_quest_scroll_'+item.key",
+                :price="item.value",
+                :priceType="item.currency",
+                :itemContentClass="item.class",
                 :emptyItem="false",
                 :popoverPosition="'top'",
                 @click="selectedItemToBuy = item"
               )
                 template(slot="popoverContent", scope="ctx")
                   div
-                    h4.popover-content-title {{ item.text() }}
-                    .popover-content-text {{ item.notes() }}
+                    h4.popover-content-title {{ item.text }}
+                    .popover-content-text {{ item.notes }}
 
-      h1.mb-0.page-header(v-once) {{ $t('quests') }}
+      h1.mb-0.page-header(v-once) {{ $t('seasonalShop') }}
 
       .clearfix
         h2.float-left
-          | {{ $t('items') }}
+          | {{ $t('classArmor') }}
 
         div.float-right
           span.dropdown-label {{ $t('sortBy') }}
@@ -77,47 +71,20 @@
 
 
       div(
-        v-for="category in categories",
-        v-if="viewOptions[category.identifier].selected"
+        v-for="(groupSets, categoryGroup) in getGroupedCategories(categories)",
       )
-        h2 {{ category.text }}
+        h3.classgroup
+          span.svg-icon.inline(v-html="icons[categoryGroup]")
+          span.name(:class="categoryGroup") {{ getClassName(categoryGroup) }}
 
-        itemRows(
-          v-if="category.identifier === 'pet'",
-          :items="questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned)",
-          :itemWidth=94,
-          :itemMargin=24,
-          :showAllLabel="$t('showAllGeneric', { type: category.text })",
-          :showLessLabel="$t('showLessGeneric', { type: category.text })"
-        )
-          template(slot="item", scope="ctx")
-            shopItem(
-              :key="ctx.item.key",
-              :item="ctx.item",
-              :price="ctx.item.value",
-              :priceType="ctx.item.currency",
-              :itemContentClass="ctx.item.class",
-              :emptyItem="false",
-              @click="selectedItemToBuy = ctx.item"
-            )
-              span(slot="popoverContent", scope="ctx")
-                div
-                  h4.popover-content-title {{ ctx.item.text }}
-                  .popover-content-text {{ ctx.item.notes }}
-
-              template(slot="itemBadge", scope="ctx")
-                span.badge.badge-pill.badge-item.badge-svg(
-                  :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-                  @click.prevent.stop="togglePinned(ctx.item)"
-                )
-                  span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-
-        div.grouped-parent(v-else-if="category.identifier === 'unlockable' || category.identifier === 'gold'")
-          div.group(v-for="(items, key) in getGrouped(questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned))")
-            h3 {{ $t(key) }}
+        div.grouped-parent
+          div.group(
+            v-for="category in groupSets"
+          )
+            h3 {{ category.text }}
             div.items
               shopItem(
-                v-for="item in items",
+                v-for="item in seasonalItems(category, selectedSortItemsBy, searchTextThrottled, viewOptions, hidePinned)",
                 :key="item.key",
                 :item="item",
                 :price="item.value",
@@ -131,6 +98,7 @@
                   div
                     h4.popover-content-title {{ item.text }}
                     .popover-content-text {{ item.notes }}
+                    div {{ item }}
 
                 template(slot="itemBadge", scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
@@ -140,9 +108,9 @@
                     span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
 
-        div.items(v-else)
+        div.items(v-if="false")
           shopItem(
-            v-for="item in questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned)",
+            v-for="item in seasonalItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",
             :key="item.key",
             :item="item",
             :price="item.value",
@@ -222,7 +190,7 @@
     height: 216px;
 
     .background {
-      background: url('~assets/images/shops/quest_shop__banner_background_web.png');
+      background: url('~assets/images/shops/seasonal_shop_closed_banner_web_background.png');
 
       background-repeat: repeat-x;
 
@@ -249,7 +217,7 @@
       left: 0;
       width: 100%;
       height: 216px;
-      background: url('~assets/images/shops/quest_shop__banner_web_iannpc.png');
+      background: url('~assets/images/shops/seasonal_shop_closed_banner_web_leslienpc.png');
       background-repeat: no-repeat;
 
       .featured-label {
@@ -274,7 +242,7 @@
 
   .group {
     display: inline-block;
-    width: 33%;
+    width: 50%;
     margin-bottom: 24px;
 
 
@@ -294,9 +262,37 @@
     }
   }
 
-  .quests {
+  .seasonal {
     .standard-page {
       position: relative;
+    }
+
+    h3.classgroup {
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+
+      span.svg-icon.inline {
+        height: 24px;
+        width: 24px;
+        margin-right: 8px;
+      }
+    }
+
+    .healer {
+      color: #cf8229;
+    }
+
+    .rogue {
+      color: #4f2a93;
+    }
+
+    .warrior {
+      color: #b01515;
+    }
+
+    .wizard {
+      color: #1f6ea2;
     }
   }
 </style>
@@ -312,18 +308,22 @@
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
 
-  import BuyModal from './buyQuestModal.vue';
+  import BuyModal from '../buyModal.vue';
   import bPopover from 'bootstrap-vue/lib/components/popover';
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
   import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
   import svgPin from 'assets/svg/pin.svg';
+  import svgWarrior from 'assets/svg/warrior.svg';
+  import svgWizard from 'assets/svg/wizard.svg';
+  import svgRogue from 'assets/svg/rogue.svg';
+  import svgHealer from 'assets/svg/healer.svg';
 
   import featuredItems from 'common/script/content/shop-featuredItems';
 
   import _filter from 'lodash/filter';
-  import _sortBy from 'lodash/sortBy';
   import _map from 'lodash/map';
+  import _sortBy from 'lodash/sortBy';
   import _throttle from 'lodash/throttle';
   import _groupBy from 'lodash/groupBy';
 
@@ -356,6 +356,10 @@ export default {
 
         icons: Object.freeze({
           pin: svgPin,
+          warrior: svgWarrior,
+          wizard: svgWizard,
+          rogue: svgRogue,
+          healer: svgHealer,
         }),
 
         sortItemsBy: ['AZ', 'sortByNumber'],
@@ -363,46 +367,72 @@ export default {
 
         selectedItemToBuy: null,
 
-        hideLocked: false,
         hidePinned: false,
       };
     },
     computed: {
       ...mapState({
         content: 'content',
-        quests: 'shops.quests.data',
+        seasonal: 'shops.seasonal.data',
         user: 'user.data',
         userStats: 'user.data.stats',
         userItems: 'user.data.items',
       }),
       categories () {
-        if (this.quests) {
-          this.quests.categories.map((category) => {
+        if (this.seasonal) {
+          this.seasonal.categories.map((category) => {
             this.$set(this.viewOptions, category.identifier, {
               selected: true,
             });
           });
 
-          return this.quests.categories;
+          return this.seasonal.categories;
+        } else {
+          return [];
+        }
+      },
+      filterCategories () {
+        if (this.content) {
+          let equipmentList = _filter(_map(this.content.itemList, (i, key) => {
+            return {
+              ...i,
+              key
+            };
+          }), 'isEquipment');
+
+          equipmentList.map((category) => {
+            this.$set(this.viewOptions, category.key, {
+              selected: true,
+            });
+          });
+
+          return equipmentList;
         } else {
           return [];
         }
       },
 
-      featuredItems () {
-        console.info(this.content.quests);
-        return featuredItems.quests.map(i => {
-          return this.content.quests[i];
-        });
+      featuredSet () {
+        return _filter(this.categories, (c) => {
+          return c.identifier == featuredItems.seasonal;
+        })[0];
       },
     },
     methods: {
-      questItems (category, sortBy, searchBy, hideLocked, hidePinned) {
+      getClassName (classType) {
+        if (classType === 'wizard') {
+          return this.$t('mage');
+        } else {
+          return this.$t(classType);
+        }
+      },
+      seasonalItems (category, sortBy, searchBy, viewOptions, hidePinned) {
         let result = _filter(category.items, (i) => {
-          if (hideLocked && i.locked) {
+          if (hidePinned && i.pinned) {
             return false;
           }
-          if (hidePinned && i.pinned) {
+
+          if (viewOptions[i.type] && !viewOptions[i.type].selected) {
             return false;
           }
 
@@ -424,9 +454,22 @@ export default {
 
         return result;
       },
-      getGrouped (entries) {
-        var result = _groupBy(entries, 'group');
-        console.info(entries, result);
+      getGroupedCategories (categories) {
+        let spellCategory = _filter(categories, (c) => {
+          return c.identifier == 'spells';
+        })[0];
+
+        let setCategories = _filter(categories, 'specialClass');
+
+        let result = _groupBy(setCategories, 'specialClass');
+        result['spells'] = [
+          spellCategory
+        ];
+
+
+        console.info(result);
+
+
         return result;
       },
       resetItemToBuy ($event) {
@@ -451,7 +494,7 @@ export default {
       },
     },
     created () {
-      this.$store.dispatch('shops:fetchQuests');
+      this.$store.dispatch('shops:fetchSeasonal');
     },
   };
 </script>
