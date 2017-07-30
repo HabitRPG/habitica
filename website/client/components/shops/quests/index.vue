@@ -112,6 +112,11 @@
                 )
                   span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
+                countBadge(
+                  :show="userItems.quests[ctx.item.key]",
+                  :count="userItems.quests[ctx.item.key] || 0"
+                )
+
         div.grouped-parent(v-else-if="category.identifier === 'unlockable' || category.identifier === 'gold'")
           div.group(v-for="(items, key) in getGrouped(questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned))")
             h3 {{ $t(key) }}
@@ -139,6 +144,10 @@
                   )
                     span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
+                  countBadge(
+                    :show="userItems.quests[ctx.item.key]",
+                    :count="userItems.quests[ctx.item.key] || 0"
+                  )
 
         div.items(v-else)
           shopItem(
@@ -163,6 +172,11 @@
                 @click.prevent.stop="togglePinned(ctx.item)"
               )
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+
+              countBadge(
+                :show="userItems.quests[ctx.item.key]",
+                :count="userItems.quests[ctx.item.key] || 0"
+              )
 
     buyModal(
       :item="selectedItemToBuy",
