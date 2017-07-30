@@ -1,9 +1,10 @@
 <template lang="pug">
-#app-header.row
+#app-header.row(:class='{sticky: user.preferences.stickyHeader}')
+  members-modal(:group='user.party', :hide-badge="true")
   member-details(:member="user", @click="$router.push({name: 'avatar'})")
   .view-party(v-if="user.party && user.party._id")
     // TODO button should open the party members modal
-    router-link.btn.btn-primary(:active-class="''", :to="{name: 'party'}") {{ $t('viewParty') }}
+    button.btn.btn-primary(@click='openPartyModal()') {{ $t('viewParty') }}
   .party-members.d-flex(v-if="partyMembers && partyMembers.length > 1")
     member-details(
       v-for="(member, $index) in partyMembers",
@@ -34,6 +35,12 @@
     color: $header-color;
     flex-wrap: nowrap;
     position: relative;
+  }
+
+  .sticky {
+    position: fixed !important;
+    width: 100%;
+    z-index: 1;
   }
 
   .no-party, .party-members {
@@ -77,11 +84,13 @@
 import { mapGetters, mapActions } from 'client/libs/store';
 import MemberDetails from './memberDetails';
 import createPartyModal from './groups/createPartyModal';
+import membersModal from './groups/membersModal';
 
 export default {
   components: {
     MemberDetails,
     createPartyModal,
+    membersModal,
   },
   data () {
     return {
@@ -104,6 +113,9 @@ export default {
       } else {
         this.expandedMember = memberId;
       }
+    },
+    openPartyModal () {
+      this.$root.$emit('show::modal', 'members-modal');
     },
   },
   created () {

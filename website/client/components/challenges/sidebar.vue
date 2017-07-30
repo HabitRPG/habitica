@@ -4,9 +4,9 @@
     input.form-control.search(type="text", :placeholder="$t('search')", v-model='searchTerm')
 
   form
-    h3(v-once) {{ $t('filter') }}
+    h2(v-once) {{ $t('filter') }}
     .form-group
-      h5 Category
+      h3 Category
       .form-check(
         v-for="group in categoryOptions",
         :key="group.key",
@@ -16,7 +16,7 @@
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t(group.label) }}
     .form-group
-      h5 Membership
+      h3 Membership
       .form-check(
         v-for="group in roleOptions",
         :key="group.key",
@@ -26,7 +26,7 @@
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t(group.label) }}
     .form-group
-      h5 Guild Size
+      h3 Ownership
       .form-check(
         v-for="group in guildSizeOptions",
         :key="group.key",
@@ -64,34 +64,6 @@ export default {
         {
           label: 'comicsHobbies',
           key: 'comics_hobbies',
-        },
-        {
-          label: 'diyCrafts',
-          key: 'diy_crafts',
-        },
-        {
-          label: 'education',
-          key: 'education',
-        },
-        {
-          label: 'foodCooking',
-          key: 'food_cooking',
-        },
-        {
-          label: 'healthFitness',
-          key: 'health_fitness',
-        },
-        {
-          label: 'music',
-          key: 'music',
-        },
-        {
-          label: 'relationship',
-          key: 'relationship',
-        },
-        {
-          label: 'scienceTech',
-          key: 'science_tech ',
         },
       ],
       roleFilters: [],

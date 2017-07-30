@@ -3,7 +3,7 @@
     .modal-header
       h4
         span {{profile.profile.name}}
-        span(v-if='contribText && profile.contributor.level')  - {{contribText(profile.contributor, profile.backer)}}
+        // @TODO span(v-if='contribText && profile.contributor.level')  - {{contribText(profile.contributor, profile.backer)}}
     .modal-body
       .container-fluid
         .row
@@ -16,15 +16,15 @@
                 |&nbsp;
                 | {{ $t('memberSince') }}
                 |&nbsp;
-                | {{profile.auth.timestamps.created | date:user.preferences.dateFormat}} -
+                // @TODO | {{profile.auth.timestamps.created | date:user.preferences.dateFormat}} -
               li(v-if='profile.auth.timestamps.loggedin')
                |&nbsp;
                | {{ $t('lastLoggedIn') }}
                |&nbsp;
-               | {{profile.auth.timestamps.loggedin | date:user.preferences.dateFormat}} -
+               // @TODO | {{profile.auth.timestamps.loggedin | date:user.preferences.dateFormat}} -
             h3 {{ $t('stats') }}
             // @TODO: Figure out why this isn't showing up in front page
-            .label.label-info {{ {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer")}[profile.stats.class] }}
+            // @TODO .label.label-info {{ {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer")}[profile.stats.class] }}
             // include ../profiles/stats_all
           .col-md-6
             .row

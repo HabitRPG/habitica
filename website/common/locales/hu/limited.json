@@ -53,7 +53,7 @@
     "nyeCardNotes": "Küldj egy Új évi üdvözlőkártyát az egyik csapattagodnak.",
     "seasonalItems": "Szezonális tárgyak",
     "nyeCardAchievementTitle": "Régi Ismerős",
-    "nyeCardAchievementText": "Happy New Year! Sent or received <%= count %> New Year's cards.",
+    "nyeCardAchievementText": "Boldog Új Évet! Küldött vagy kapott <%= count %> újévi kártyák. ",
     "nye0": "Boldog új évet! Pusztíts el sok rossz Szokást.",
     "nye1": "Boldog új évet! Arass sok Jutalmat.",
     "nye2": "Boldog új évet! Legyen sok Tökéletes Napod.",
@@ -110,8 +110,8 @@
     "summer2017SeaDragonSet": "Sea Dragon (Rogue)",
     "eventAvailability": "Available for purchase until <%= date(locale) %>.",
     "dateEndApril": "április 19.",
-    "dateEndMay": "May 17",
-    "dateEndJune": "June 14",
-    "dateEndJuly": "July 29",
+    "dateEndMay": "május 17.",
+    "dateEndJune": "június 14.",
+    "dateEndJuly": "júlus 29.",
     "discountBundle": "bundle"
 }

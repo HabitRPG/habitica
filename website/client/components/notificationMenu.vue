@@ -50,6 +50,59 @@
             span.glyphicon.glyphicon-remove-circle
 </template>
 
+<style lang='scss' scoped>
+  @import '~client/assets/scss/colors.scss';
+  .svg-icon {
+    width: 25px;
+  }
+
+  .item-notifications:hover {
+    cursor: pointer;
+  }
+
+  /* @TODO: Move to shared css */
+  .dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+  }
+
+  .dropdown + .dropdown {
+    margin-left: 0px;
+  }
+
+  .dropdown-menu:not(.user-dropdown) {
+    background: $purple-200;
+    border-radius: 0px;
+    border: none;
+    box-shadow: none;
+    padding: 0px;
+
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+
+    .dropdown-item {
+      font-size: 16px;
+      box-shadow: none;
+      color: $white;
+      border: none;
+      line-height: 1.5;
+
+      &.active {
+        background: $purple-300;
+      }
+
+      &:hover {
+        background: $purple-300;
+
+        &:last-child {
+          border-bottom-right-radius: 5px;
+          border-bottom-left-radius: 5px;
+        }
+      }
+    }
+  }
+</style>
+
 <script>
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';

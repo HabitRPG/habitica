@@ -25,11 +25,11 @@
         .conversations(v-if='filtersConversations.length > 0')
           .conversation(v-for='conversation in conversations', @click='selectConversation(conversation.key)', :class="{active: selectedConversation === conversation.key}")
             div
-             span {{conversation.name}}
+             span(:class="userLevelStyle(conversation)") {{conversation.name}}
              span.timeago {{conversation.date}}
             div {{conversation.lastMessageText}}
       .col-8.messages
-        .message(v-for='message in currentMessages') {{message.text}}
+        chat-message.container-fluid(:chat.sync='activeChat')
 
         // @TODO: Implement new message header here when we fix the above
 
@@ -64,6 +64,7 @@
   .messages {
     position: relative;
     padding-left: 0;
+    padding-bottom: 6em;
   }
 
   .to-form input {
@@ -129,17 +130,22 @@
 <script>
 import moment from 'moment';
 import filter from 'lodash/filter';
+import sortBy from 'lodash/sortBy';
 import { mapState } from 'client/libs/store';
+import styleHelper from 'client/mixins/styleHelper';
 
 import bModal from 'bootstrap-vue/lib/components/modal';
 import bFormInput from 'bootstrap-vue/lib/components/form-input';
 
 import messageIcon from 'assets/svg/message.svg';
+import chatMessage from '../chat/chatMessages';
 
 export default {
+  mixins: [styleHelper],
   components: {
     bModal,
     bFormInput,
+    chatMessage,
   },
   data () {
     return {
@@ -150,6 +156,7 @@ export default {
       selectedConversation: '',
       search: '',
       newMessage: '',
+      activeChat: [],
     };
   },
   computed: {
@@ -160,7 +167,10 @@ export default {
         let message = this.user.inbox.messages[messageId];
         let userId = message.uuid;
 
-        if (!this.selectedConversation) this.selectedConversation = userId;
+        if (!this.selectedConversation) {
+          this.selectedConversation = userId;
+          this.selectConversation(userId);
+        }
 
         if (!conversations[userId]) {
           conversations[userId] = {
@@ -197,6 +207,10 @@ export default {
     },
     selectConversation (key) {
       this.selectedConversation = key;
+      this.activeChat = this.conversations[this.selectedConversation].messages;
+      this.activeChat = sortBy(this.activeChat, [(o) => {
+        return o.timestamp;
+      }]);
     },
     sendPrivateMessage () {
       this.$store.dispatch('members:sendPrivateMessage', {
@@ -208,6 +222,9 @@ export default {
         text: this.newMessage,
         timestamp: new Date(),
       });
+
+      this.activeChat = this.conversations[this.selectedConversation].messages;
+
       this.conversations[this.selectedConversation].lastMessageText = this.newMessage;
       this.conversations[this.selectedConversation].date = new Date();
 

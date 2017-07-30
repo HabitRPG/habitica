@@ -213,7 +213,6 @@
   "where": "Where*",
   "challengeMinimum": "Minimum 1 Gem for public Challenges (helps prevent spam, it really does).",
   "group": "Group",
-
   "sortByType": "Type",
   "sortByPrice": "Price",
   "sortByCon": "Con",
@@ -235,5 +234,8 @@
   "featuredQuests": "Featured Quests!",
   "amountExperience": "<%= amount %> Experience",
   "amountGold": "<%= amount %> Gold",
-  "namedHatchingPotion": "<%= type %> Hatching Potion"
+  "namedHatchingPotion": "<%= type %> Hatching Potion",
+  "not_participating": "Not Participating",
+  "owned": "Owned",
+  "not_owned": "Not Owned"
 }

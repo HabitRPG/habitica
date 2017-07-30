@@ -1,37 +1,44 @@
 <template lang="pug">
 .standard-page
-  h2 Profile
   .row
-    .col-md-12(v-if='!editing')
-      button.btn.btn-default(@click='editing = true') {{ $t('edit') }}
-      h2 {{ $t('displayName') }}
-      span(v-if='user.profile.name') {{user.profile.name}}
-      p
-        small.muted {{ $t('displayNameDescription1') }}
-          | &nbsp;
-          a(href='/#/options/settings/settings') {{ $t('displayNameDescription2') }}
-          | &nbsp;
-          | {{ $t('displayNameDescription3') }}
-      span.muted(ng-hide='user.profile.name') -&nbsp;
-        | {{ $t('none') }}
-        | &nbsp;-
+    .col-8
+      .header
+        h1 {{user.profile.name}}
+        h4
+          strong User Id:
+          | {{user._id}}
+    .col-4
+      button.btn.btn-secondary(@click='editing = !editing') Edit
+  .row(v-if='!editing')
+    .col-8
+      .about
+        h2 About
+        p {{user.profile.blurb}}
+      .photo
+        h2 Photo
+        img.img-rendering-auto(v-if='user.profile.imageUrl', :src='user.profile.imageUrl')
 
-      h2 {{ $t('displayPhoto') }}
-      img.img-rendering-auto(v-if='user.profile.imageUrl', :src='user.profile.imageUrl')
-      span.muted(ng-hide='user.profile.imageUrl') -&nbsp;
-        | {{ $t('none') }}
-        | &nbsp;-
+    .col-4
+      .info
+        h2 info
+        div
+          strong Joined:
+          | {{user.auth.timestamps.created}}
+        div
+          strong Total Log Ins:
+          span {{ $t('totalCheckins', {count: user.loginIncentives}) }}
+        div
+          | {{getProgressDisplay()}}
+          .progress
+            .progress-bar(role='progressbar', :aria-valuenow='incentivesProgress', aria-valuemin='0', aria-valuemax='100', :style='{width: incentivesProgress + "%"}')
+              span.sr-only {{ incentivesProgress }}% Complete
+      // @TODO: Implement in V2 .social
 
-      h2 {{ $t('displayBlurb') }}
-      markdown(v-if='user.profile.blurb', text='user.profile.blurb')
-      span.muted(ng-hide='user.profile.blurb') -&nbsp;
-        | {{ $t('none') }}
-        | &nbsp;-
-      //{{user.profile.blurb | linky:'_blank'}}
-    .col-md-12(v-if='editing')
-      .alert.alert-info.alert-sm
-        | {{ $t("communityGuidelinesWarning", managerEmail) }}
-      button.btn.btn-primary(type='submit', @click='save()') {{ $t("save") }}
+  .row(v-if='editing')
+    h1 Edit Profile
+    .col-12
+      .alert.alert-info.alert-sm(v-html='$t("communityGuidelinesWarning", managerEmail)')
+
       // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
       .form-group
         label {{ $t('displayName') }}
@@ -40,26 +47,35 @@
         label {{ $t('photoUrl') }}
         input.form-control(type='url', v-model='editingProfile.imageUrl', :placeholder="$t('imageUrl')")
       .form-group
-        label {{ $t('displayBlurb') }}
+        label {{ $t('about') }}
         textarea.form-control(rows=5, :placeholder="$t('displayBlurbPlaceholder')", v-model='editingProfile.blurb')
         // include ../../shared/formatting-help
-  .row
-    .col-md-6
-      h2 {{ $t('totalCheckinsTitle') }}
-      span {{ $t('totalCheckins', {count: user.loginIncentives}) }}
-    .col-md-6
-      h2
-        | {{getProgressDisplay()}}
-      .progress
-        .progress-bar(role='progressbar', :aria-valuenow='incentivesProgress', aria-valuemin='0', aria-valuemax='100', :style='{width: incentivesProgress + "%"}')
-          span.sr-only {{ incentivesProgress }}% Complete
+      .form-group
+        label Facebook
+        input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.facebook')
+      .form-group
+        label Instagram
+        input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.instagram')
+      .form-group
+        label Twitter
+        input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.twitter')
+
+    .col-3.offset-6.text.center
+      button.btn.btn-primary(@click='save()') {{ $t("save") }}
+      button.btn.btn-warning(@click='editing = false') {{ $t("cancel") }}
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
-  h2 {
-    margin-top: 2em;
+  .header {
+    h1 {
+      color: #4f2a93;
+    }
+
+    h4 {
+      color: #686274;
+    }
   }
 </style>
 
