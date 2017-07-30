@@ -231,5 +231,9 @@
   "sortByNumber": "Number",
   "featuredItems": "Featured Items!",
   "hideLocked": "Hide locked",
-  "hidePinned": "Hide pinned"
+  "hidePinned": "Hide pinned",
+  "featuredQuests": "Featured Quests!",
+  "amountExperience": "<%= amount %> Experience",
+  "amountGold": "<%= amount %> Gold",
+  "namedHatchingPotion": "<%= type %> Hatching Potion"
 }

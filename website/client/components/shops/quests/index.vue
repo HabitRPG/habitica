@@ -39,7 +39,7 @@
           div.content
             div.featured-label.with-border
               span.rectangle
-              span.text(v-once) {{ $t('featuredItems') }}
+              span.text(v-once) {{ $t('featuredQuests') }}
               span.rectangle
 
             div.items.margin-center
@@ -52,7 +52,7 @@
                 :itemContentClass="'inventory_quest_scroll_'+item.key",
                 :emptyItem="false",
                 :popoverPosition="'top'",
-                @click="selectedGearToBuy = item"
+                @click="selectedItemToBuy = item"
               )
                 template(slot="popoverContent", scope="ctx")
                   div
@@ -311,7 +311,7 @@
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
 
-  import BuyModal from '../buyModal.vue';
+  import BuyModal from './buyQuestModal.vue';
   import bPopover from 'bootstrap-vue/lib/components/popover';
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
   import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
