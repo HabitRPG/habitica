@@ -27,6 +27,31 @@ export function fetchQuests (store, forceLoad = false) { // eslint-disable-line 
   });
 }
 
+export function fetchSeasonal (store, forceLoad = false) { // eslint-disable-line no-shadow
+  return loadAsyncResource({
+    store,
+    path: 'shops.seasonal',
+    url: '/api/v3/shops/seasonal',
+    deserialize (response) {
+      return response.data.data;
+    },
+    forceLoad,
+  });
+}
+
+export function fetchTimeTravel (store, forceLoad = false) { // eslint-disable-line no-shadow
+  return loadAsyncResource({
+    store,
+    path: 'shops.time-travelers',
+    url: '/api/v3/shops/time-travelers',
+    deserialize (response) {
+      return response.data.data;
+    },
+    forceLoad,
+  });
+}
+
+
 export function buyItem (store, params) {
   const user = store.state.user.data;
   buyOp(user, {params});

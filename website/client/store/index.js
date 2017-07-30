@@ -46,6 +46,8 @@ export default function () {
       shops: {
         market: asyncResourceFactory(),
         quests: asyncResourceFactory(),
+        seasonal: asyncResourceFactory(),
+        'time-travelers': asyncResourceFactory(),
       },
       myGuilds: [],
       editingGroup: {}, // TODO move to local state
