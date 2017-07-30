@@ -25,14 +25,14 @@
         slot(name="additionalInfo", :item="item")
 
         div
-          span.svg-icon.inline.icon-32(aria-hidden="true", v-html="(priceType  === 'gems') ? icons.gem : icons.gold")
-          span.value(:class="priceType") {{ item.value }}
+          span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getSvgClass()]")
+          span.value(:class="getSvgClass()") {{ item.value }}
 
         button.btn.btn-primary(@click="buyItem()") {{ $t('buyNow') }}
 
     div.clearfix(slot="modal-footer")
       span.balance.float-left {{ $t('yourBalance') }}
-      balanceInfo.float-right
+      balanceInfo(:withHourglass="getSvgClass() === 'hourglasses'").float-right
 
 
 </template>
@@ -92,6 +92,10 @@
       &.gold {
         color: $yellow-10
       }
+
+      &.hourglasses {
+        color: $blue-10;
+      }
     }
 
     button.btn.btn-primary {
@@ -133,6 +137,7 @@
   import svgClose from 'assets/svg/close.svg';
   import svgGold from 'assets/svg/gold.svg';
   import svgGem from 'assets/svg/gem.svg';
+  import svgHourglasses from 'assets/svg/hourglass.svg';
   import svgPin from 'assets/svg/pin.svg';
 
   import BalanceInfo  from './balanceInfo.vue';
@@ -147,7 +152,8 @@
         icons: Object.freeze({
           close: svgClose,
           gold: svgGold,
-          gem: svgGem,
+          gems: svgGem,
+          hourglasses: svgHourglasses,
           pin: svgPin,
         }),
       };
@@ -179,6 +185,13 @@
       hideDialog () {
         this.$root.$emit('hide::modal', 'buy-modal');
       },
+      getSvgClass () {
+        if (this.priceType && this.icons[this.priceType]) {
+          return this.priceType;
+        } else {
+          return 'gold';
+        }
+      }
     },
     props: {
       item: {

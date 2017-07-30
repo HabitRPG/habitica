@@ -186,48 +186,6 @@
     cursor: pointer;
   }
 
-  .featuredItems {
-    height: 216px;
-
-    .background {
-      background: url('~assets/images/shops/seasonal_shop_closed_banner_web_background.png');
-
-      background-repeat: repeat-x;
-
-      width: 100%;
-      height: 216px;
-      position: absolute;
-
-      top: 0;
-      left: 0;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .content {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .npc {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 216px;
-      background: url('~assets/images/shops/seasonal_shop_closed_banner_web_leslienpc.png');
-      background-repeat: no-repeat;
-
-      .featured-label {
-        position: absolute;
-        bottom: -14px;
-        margin: 0;
-        left: 70px;
-      }
-    }
-  }
 
   .featured-label {
     margin: 24px auto;
@@ -293,6 +251,49 @@
 
     .wizard {
       color: #1f6ea2;
+    }
+
+    .featuredItems {
+      height: 216px;
+
+      .background {
+        background: url('~assets/images/shops/seasonal_shop_closed_banner_web_background.png');
+
+        background-repeat: repeat-x;
+
+        width: 100%;
+        height: 216px;
+        position: absolute;
+
+        top: 0;
+        left: 0;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .npc {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 216px;
+        background: url('~assets/images/shops/seasonal_shop_closed_banner_web_leslienpc.png');
+        background-repeat: no-repeat;
+
+        .featured-label {
+          position: absolute;
+          bottom: -14px;
+          margin: 0;
+          left: 60px;
+        }
+      }
     }
   }
 </style>

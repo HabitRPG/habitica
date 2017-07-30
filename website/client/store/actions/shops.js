@@ -39,7 +39,7 @@ export function fetchSeasonal (store, forceLoad = false) { // eslint-disable-lin
   });
 }
 
-export function fetchTimeTravel (store, forceLoad = false) { // eslint-disable-line no-shadow
+export function fetchTimeTravelers (store, forceLoad = false) { // eslint-disable-line no-shadow
   return loadAsyncResource({
     store,
     path: 'shops.time-travelers',

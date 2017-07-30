@@ -15,10 +15,11 @@ b-popover(
         span.svg-icon.inline.lock(v-if="item.locked" v-html="icons.lock")
 
 
-        div.image(:class="itemContentClass")
+        div.image
+          div(:class="itemContentClass")
 
         div.price
-          span.svg-icon.inline.icon-16(v-html="(priceType  === 'gems') ? icons.gem : icons.gold")
+          span.svg-icon.inline.icon-16(v-html="icons[getSvgClass()]")
 
           span.price-label(:class="priceType") {{ price }}
 
@@ -46,6 +47,11 @@ b-popover(
       margin-top : 12px;
     }
   }
+
+  .image {
+    height: 50px;
+  }
+
 
   .price {
     .svg-icon {
@@ -87,6 +93,7 @@ b-popover(
 
   import svgGem from 'assets/svg/gem.svg';
   import svgGold from 'assets/svg/gold.svg';
+  import svgHourglasses from 'assets/svg/hourglass.svg';
   import svgLock from 'assets/svg/lock.svg';
 
   export default {
@@ -96,9 +103,10 @@ b-popover(
     data () {
       return {
         icons: Object.freeze({
-          gem: svgGem,
+          gems: svgGem,
           gold: svgGold,
           lock: svgLock,
+          hourglasses: svgHourglasses,
         }),
       };
     },
@@ -137,6 +145,13 @@ b-popover(
       click () {
         this.$emit('click', {});
       },
+      getSvgClass () {
+        if (this.priceType && this.icons[this.priceType]) {
+          return this.priceType;
+        } else {
+          return 'gold';
+        }
+      }
     },
   };
 </script>

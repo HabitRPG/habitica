@@ -1,5 +1,8 @@
 <template lang="pug">
   div
+    .svg-icon(v-if="withHourglass",v-html="icons.hourglasses")
+    span(v-if="withHourglass") {{userHourglasses | roundBigNumber}}
+
     .svg-icon(v-html="icons.gem")
     span {{userGems | roundBigNumber}}
     .svg-icon(v-html="icons.gold")
@@ -32,15 +35,17 @@ span {
 
 <script>
   import { mapState, mapGetters } from 'client/libs/store';
-  import gemIcon from 'assets/svg/gem.svg';
-  import goldIcon from 'assets/svg/gold.svg';
+  import svgGem from 'assets/svg/gem.svg';
+  import svgGold from 'assets/svg/gold.svg';
+  import svgHourglasses from 'assets/svg/hourglass.svg';
 
   export default {
     data () {
       return {
         icons: Object.freeze({
-          gem: gemIcon,
-          gold: goldIcon,
+          gem: svgGem,
+          gold: svgGold,
+          hourglasses: svgHourglasses,
         }),
       };
     },
@@ -49,8 +54,14 @@ span {
         userGems: 'user:gems',
       }),
       ...mapState({
+        userHourglasses: 'user.data.purchased.plan.consecutive.trinkets',
         userGold: 'user.data.stats.gp',
       }),
+    },
+    props: {
+      withHourglass: {
+        type: Boolean,
+      },
     },
   };
 </script>

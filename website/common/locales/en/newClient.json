@@ -242,5 +242,6 @@
   "backCapitalized": "Back Accessory",
   "bodyCapitalized": "Body Accessory",
   "eyewearCapitalized": "Eyewear",
-  "featuredset": "Featured Set <%= name %>"
+  "featuredset": "Featured Set <%= name %>",
+  "mysterySets": "Mystery Sets"
 }

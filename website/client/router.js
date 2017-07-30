@@ -85,6 +85,7 @@ const ShopsContainer = () => import(/* webpackChunkName: "shops" */'./components
 const MarketPage = () => import(/* webpackChunkName: "shops-market" */'./components/shops/market/index');
 const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */'./components/shops/quests/index');
 const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */'./components/shops/seasonal/index');
+const TimeTravelersPage = () => import(/* webpackChunkName: "shops-timetravelers" */'./components/shops/timeTravelers/index');
 
 Vue.use(VueRouter);
 
@@ -120,7 +121,7 @@ const router = new VueRouter({
         { name: 'market', path: 'market', component: MarketPage },
         { name: 'quests', path: 'quests', component: QuestsPage },
         { name: 'seasonal', path: 'seasonal', component: SeasonalPage },
-        { name: 'time', path: 'time', component: Page },
+        { name: 'time', path: 'time', component: TimeTravelersPage },
       ],
     },
     { name: 'party', path: '/party', component: GuildPage },

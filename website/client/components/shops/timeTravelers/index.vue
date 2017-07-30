@@ -1,5 +1,5 @@
 <template lang="pug">
-  .row.quests
+  .row.timeTravelers
     .standard-sidebar
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
@@ -17,12 +17,6 @@
               span.custom-control-description(v-once) {{ category.text }}
 
         div.form-group.clearfix
-          h3.float-left(v-once) {{ $t('hideLocked') }}
-          toggle-switch.float-right.no-margin(
-            :label="''",
-            v-model="hideLocked",
-          )
-        div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
           toggle-switch.float-right.no-margin(
             :label="''",
@@ -34,7 +28,7 @@
           div.npc
             div.featured-label
               span.rectangle
-              span.text Ian
+              span.text(v-once) {{ timeTravelers.text }}
               span.rectangle
           div.content
             div.featured-label.with-border
@@ -59,12 +53,9 @@
                     h4.popover-content-title {{ item.text() }}
                     .popover-content-text {{ item.notes() }}
 
-      h1.mb-0.page-header(v-once) {{ $t('quests') }}
+      h1.mb-0.page-header(v-once) {{ timeTravelers.text }}
 
       .clearfix
-        h2.float-left
-          | {{ $t('items') }}
-
         div.float-right
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t(selectedSortItemsBy)", right=true)
@@ -78,13 +69,13 @@
 
       div(
         v-for="category in categories",
-        v-if="viewOptions[category.identifier].selected"
+        v-if="viewOptions[category.identifier].selected",
+        :class="category.identifier"
       )
         h2 {{ category.text }}
 
         itemRows(
-          v-if="category.identifier === 'pet'",
-          :items="questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned)",
+          :items="travelersItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",
           :itemWidth=94,
           :itemMargin=24,
           :showAllLabel="$t('showAllGeneric', { type: category.text })",
@@ -104,6 +95,7 @@
                 div
                   h4.popover-content-title {{ ctx.item.text }}
                   .popover-content-text {{ ctx.item.notes }}
+                  div {{ ctx.item }}
 
               template(slot="itemBadge", scope="ctx")
                 span.badge.badge-pill.badge-item.badge-svg(
@@ -111,58 +103,6 @@
                   @click.prevent.stop="togglePinned(ctx.item)"
                 )
                   span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-
-        div.grouped-parent(v-else-if="category.identifier === 'unlockable' || category.identifier === 'gold'")
-          div.group(v-for="(items, key) in getGrouped(questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned))")
-            h3 {{ $t(key) }}
-            div.items
-              shopItem(
-                v-for="item in items",
-                :key="item.key",
-                :item="item",
-                :price="item.value",
-                :priceType="item.currency",
-                :itemContentClass="item.class",
-                :emptyItem="false",
-                :popoverPosition="'top'",
-                @click="selectedItemToBuy = item"
-              )
-                span(slot="popoverContent")
-                  div
-                    h4.popover-content-title {{ item.text }}
-                    .popover-content-text {{ item.notes }}
-
-                template(slot="itemBadge", scope="ctx")
-                  span.badge.badge-pill.badge-item.badge-svg(
-                    :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-                    @click.prevent.stop="togglePinned(ctx.item)"
-                  )
-                    span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-
-
-        div.items(v-else)
-          shopItem(
-            v-for="item in questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned)",
-            :key="item.key",
-            :item="item",
-            :price="item.value",
-            :priceType="item.currency",
-            :itemContentClass="item.class",
-            :emptyItem="false",
-            :popoverPosition="'top'",
-            @click="selectedItemToBuy = item"
-          )
-            span(slot="popoverContent")
-              div
-                h4.popover-content-title {{ item.text }}
-                .popover-content-text {{ item.notes }}
-
-            template(slot="itemBadge", scope="ctx")
-              span.badge.badge-pill.badge-item.badge-svg(
-                :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-                @click.prevent.stop="togglePinned(ctx.item)"
-              )
-                span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
     buyModal(
       :item="selectedItemToBuy",
@@ -219,7 +159,6 @@
   }
 
 
-
   .featured-label {
     margin: 24px auto;
   }
@@ -253,15 +192,26 @@
     }
   }
 
-  .quests {
+  .timeTravelers {
     .standard-page {
       position: relative;
     }
+
+    .mounts {
+      .shop-content .image div {
+        position: absolute;
+        top: 0;
+        left: 7px;
+        right: 0;
+        z-index: 0;
+      }
+    }
+
     .featuredItems {
       height: 216px;
 
       .background {
-        background: url('~assets/images/shops/quest_shop__banner_background_web.png');
+        background: url('~assets/images/shops/shop_background.png');
 
         background-repeat: repeat-x;
 
@@ -288,17 +238,18 @@
         left: 0;
         width: 100%;
         height: 216px;
-        background: url('~assets/images/shops/quest_shop__banner_web_iannpc.png');
+        background: url('~assets/images/shops/time_travelers_open_banner_web_tylerandvickynpcs.png');
         background-repeat: no-repeat;
 
         .featured-label {
           position: absolute;
           bottom: -14px;
           margin: 0;
-          left: 70px;
+          left: 40px;
         }
       }
     }
+
   }
 </style>
 
@@ -313,12 +264,13 @@
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
 
-  import BuyModal from './buyQuestModal.vue';
+  import BuyModal from '../buyModal.vue';
   import bPopover from 'bootstrap-vue/lib/components/popover';
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
   import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
   import svgPin from 'assets/svg/pin.svg';
+  import svgHourglass from 'assets/svg/hourglass.svg';
 
   import featuredItems from 'common/script/content/shop-featuredItems';
 
@@ -357,6 +309,7 @@ export default {
 
         icons: Object.freeze({
           pin: svgPin,
+          hourglass: svgHourglass,
         }),
 
         sortItemsBy: ['AZ', 'sortByNumber'],
@@ -364,7 +317,6 @@ export default {
 
         selectedItemToBuy: null,
 
-        hideLocked: false,
         hidePinned: false,
       };
     },
@@ -372,19 +324,42 @@ export default {
       ...mapState({
         content: 'content',
         quests: 'shops.quests.data',
+        timeTravelers: 'shops.time-travelers.data',
         user: 'user.data',
         userStats: 'user.data.stats',
         userItems: 'user.data.items',
       }),
       categories () {
-        if (this.quests) {
-          this.quests.categories.map((category) => {
+        if (this.timeTravelers) {
+          let normalGroups = _filter(this.timeTravelers.categories, (c) => {
+            return c.identifier === 'mounts' || c.identifier === 'pets';
+          });
+
+          let setGroups = _filter(this.timeTravelers.categories, (c) => {
+            return c.identifier !== 'mounts' && c.identifier !== 'pets';
+          });
+
+          let setCategory = {
+            identifier: 'sets',
+            text: this.$t('mysterySets'),
+            items: setGroups.map((c) => {
+              return {
+                ...c,
+                value: 1,
+                currency: "hourglasses",
+              };
+            })
+          };
+
+          normalGroups.push(setCategory);
+
+          normalGroups.map((category) => {
             this.$set(this.viewOptions, category.identifier, {
               selected: true,
             });
           });
 
-          return this.quests.categories;
+          return normalGroups;
         } else {
           return [];
         }
@@ -398,11 +373,8 @@ export default {
       },
     },
     methods: {
-      questItems (category, sortBy, searchBy, hideLocked, hidePinned) {
+      travelersItems (category, sortBy, searchBy, hidePinned) {
         let result = _filter(category.items, (i) => {
-          if (hideLocked && i.locked) {
-            return false;
-          }
           if (hidePinned && i.pinned) {
             return false;
           }
@@ -435,13 +407,6 @@ export default {
           this.selectedItemToBuy = null;
         }
       },
-      isGearLocked (gear) {
-        if (gear.value > this.userStats.gp) {
-          return true;
-        }
-
-        return false;
-      },
       togglePinned (item) {
         let isPinned = Boolean(item.pinned);
         item.pinned = !isPinned;
@@ -452,7 +417,7 @@ export default {
       },
     },
     created () {
-      this.$store.dispatch('shops:fetchQuests');
+      this.$store.dispatch('shops:fetchTimeTravelers');
     },
   };
 </script>

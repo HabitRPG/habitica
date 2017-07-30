@@ -295,48 +295,6 @@
     cursor: pointer;
   }
 
-  .featuredItems {
-    height: 216px;
-
-    .background {
-      background: url('~assets/images/shops/shop_background.png');
-
-      background-repeat: repeat-x;
-
-      width: 100%;
-      height: 216px;
-      position: absolute;
-
-      top: 0;
-      left: 0;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .content {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .npc {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 216px;
-      background: url('~assets/images/shops/market_banner_web_alexnpc.png');
-      background-repeat: no-repeat;
-
-      .featured-label {
-        position: absolute;
-        bottom: -14px;
-        margin: 0;
-        left: 80px;
-      }
-    }
-  }
 
   .featured-label {
     margin: 24px auto;
@@ -362,6 +320,50 @@
     .standard-page {
       position: relative;
     }
+
+    .featuredItems {
+      height: 216px;
+
+      .background {
+        background: url('~assets/images/shops/shop_background.png');
+
+        background-repeat: repeat-x;
+
+        width: 100%;
+        height: 216px;
+        position: absolute;
+
+        top: 0;
+        left: 0;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .npc {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 216px;
+        background: url('~assets/images/shops/market_banner_web_alexnpc.png');
+        background-repeat: no-repeat;
+
+        .featured-label {
+          position: absolute;
+          bottom: -14px;
+          margin: 0;
+          left: 80px;
+        }
+      }
+    }
+
   }
 </style>
 
