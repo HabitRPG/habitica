@@ -31,7 +31,7 @@
         button.btn.btn-primary(@click="buyItem()") {{ $t('buyNow') }}
 
     div.right-sidebar(v-if="item.drop")
-      h3 Rewards
+      h3(v-once) {{ $t('rewards') }}
       div.reward-item
         span.svg-icon.inline.icon(v-html="icons.experience")
         span.reward-text {{ $t('amountExperience', { amount: item.drop.exp }) }}

@@ -95,7 +95,6 @@
                 div
                   h4.popover-content-title {{ ctx.item.text }}
                   .popover-content-text {{ ctx.item.notes }}
-                  div {{ ctx.item }}
 
               template(slot="itemBadge", scope="ctx")
                 span.badge.badge-pill.badge-item.badge-svg(

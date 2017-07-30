@@ -111,7 +111,6 @@
           )
             template(slot="popoverContent", scope="ctx")
               equipmentAttributesPopover(:item="ctx.item")
-              div {{ ctx.item }}
 
             template(slot="itemBadge", scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
@@ -155,8 +154,7 @@
           )
             span(slot="popoverContent")
               h4.popover-content-title {{ item.text }}
-              div {{ item }}
-              div {{ userItems[item.purchaseType][item.key] }}
+
             template(slot="itemBadge", scope="ctx")
               countBadge(
                 :show="true",
