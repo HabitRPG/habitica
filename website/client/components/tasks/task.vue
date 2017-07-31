@@ -68,12 +68,13 @@
 }
 
 .task-title {
-  margin-bottom: 8px;
+  padding-bottom: 8px;
   color: $gray-10;
   font-weight: normal;
+  margin-bottom: 0px;
 
   &.has-notes {
-    margin-bottom: 0px;
+    padding-bottom: 0px;
   }
 }
 
@@ -99,6 +100,7 @@
   line-height: 1.43;
   margin-bottom: 10px;
   min-height: 0px;
+  width: 100%;
 
   &-done {
     color: $gray-300;

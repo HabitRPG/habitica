@@ -19,6 +19,11 @@ form(
         label(v-once) {{ $t('notes') }}
         textarea.form-control(:class="[`${cssClass}-modal-input`]", v-model="task.notes", rows="3")
     .task-modal-content
+      .option(v-if="['daily', 'todo'].indexOf(task.type) > -1")
+        label {{ $t('checklist') }}
+        br
+        input.checklist-item.form-control(v-for="item in task.checklist", type="text", :value="item.text")
+        input.checklist-item.form-control(type="text", :placeholder="$t('newChecklistItem')", @keydown.enter="addChecklistItem($event)", v-model="newChecklistItem")
       .d-flex.justify-content-center(v-if="task.type === 'habit'")
         .option-item(:class="{'option-item-selected': task.up === true}", @click="task.up = !task.up")
           .option-item-box
@@ -54,7 +59,7 @@ form(
         label(v-once) {{ $t('tags') }}
         .category-wrap(@click="showTagsSelect = !showTagsSelect")
           span.category-select(v-if='task.tags.length === 0') {{$t('none')}}
-          .category-label(v-for="tag in getTagsFor(task)") {{tag}}
+          span.category-select(v-else) {{getTagsFor(task)[0]}}
         .category-box(v-if="showTagsSelect")
           .form-check(
             v-for="tag in user.tags",
@@ -67,10 +72,9 @@ form(
           button.btn.btn-primary(@click="showTagsSelect = !showTagsSelect") {{$t('close')}}
       .option(v-if="task.type === 'habit'")
         label(v-once) {{ $t('resetStreak') }}
-        b-dropdown(:text="task.frequency")
-          b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly']", :key="frequency", @click="task.frequency = frequency")
-            | {{frequency}}
-
+        b-dropdown(:text="$t(`${task.frequency}Frequency`)")
+          b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
+            | {{ $t(`${frequency}Frequency`) }}
 
     .task-modal-footer(slot="modal-footer")
       button.btn.btn-primary(type="submit", v-once) {{ $t('save') }}
@@ -160,6 +164,8 @@ form(
   }
 
   .option {
+    margin-bottom: 12px;
+    margin-top: 12px;
     position: relative;
   }
 
@@ -193,6 +199,38 @@ form(
       text-align: center;
     }
   }
+
+  .category-wrap {
+    cursor: pointer;
+    margin-top: 0px;
+  }
+
+  .category-box {
+    bottom: 0px;
+    left: 40px;
+    top: auto;
+  }
+
+  .checklist-item {
+    background: $white;
+    border-top: 1px solid $gray-500;
+    margin-bottom: 0px;
+    color: $gray-200;
+    border-radius: none;
+
+    &:focus {
+      color: $gray-50 !important;
+    }
+
+    &:last-child {
+      background-size: 10px 10px;
+      background-image: url(~client/assets/svg/for-css/positive.svg);
+      background-repeat: no-repeat;
+      background-position: center left 10px;
+      padding-left: 36px;
+      border-bottom: 1px solid $gray-500;
+    }
+  } 
 
   .task-modal-footer {
     margin: 0 auto;
@@ -244,6 +282,7 @@ export default {
   data () {
     return {
       showTagsSelect: false,
+      newChecklistItem: null,
       icons: Object.freeze({
         information: informationIcon,
         difficultyNormal: difficultyNormalIcon,
@@ -274,6 +313,11 @@ export default {
   },
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
+    addChecklistItem (e) {
+      this.task.checklist.push({text: this.newChecklistItem, completed: false});
+      this.newChecklistItem = null;
+      e.preventDefault();
+    },
     submit () {
       if (this.purpose === 'create') {
         this.createTask(this.task);
