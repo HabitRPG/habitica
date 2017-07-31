@@ -220,7 +220,6 @@
   "sortByPer": "Per",
   "sortByStr": "Str",
   "sortByInt": "Int",
-  "equipment": "Equipment",
   "classEquipment": "Class Equipment",
   "showAllGeneric": "Show All <%= type %>",
   "showLessGeneric": "Show Less <%= type %>",
