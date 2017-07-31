@@ -87,7 +87,7 @@
               :item="ctx.item",
               :price="ctx.item.value",
               :priceType="ctx.item.currency",
-              :itemContentClass="ctx.item.class",
+              :itemContentClass="getItemClass(ctx.item)",
               :emptyItem="false",
               @click="selectedItemToBuy = ctx.item"
             )
@@ -95,6 +95,7 @@
                 div
                   h4.popover-content-title {{ ctx.item.text }}
                   .popover-content-text {{ ctx.item.notes }}
+                  div {{ ctx.item }}
 
               template(slot="itemBadge", scope="ctx")
                 span.badge.badge-pill.badge-item.badge-svg(
@@ -346,6 +347,8 @@ export default {
                 ...c,
                 value: 1,
                 currency: "hourglasses",
+                type: 'set_mystery',
+                key: c.identifier,
               };
             })
           };
@@ -365,7 +368,6 @@ export default {
       },
 
       featuredItems () {
-        console.info(this.content.quests);
         return featuredItems.quests.map(i => {
           return this.content.quests[i];
         });
@@ -414,6 +416,9 @@ export default {
       buyItem (item) {
         this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
       },
+      getItemClass (item) {
+        return `shop_${item.type}_${item.key}`;
+      }
     },
     created () {
       this.$store.dispatch('shops:fetchTimeTravelers');
