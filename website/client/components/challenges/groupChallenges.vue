@@ -1,11 +1,12 @@
 <template lang="pug">
 div
+  challenge-modal
   .row.no-quest-section(v-if='challenges.length === 0')
     .col-12.text-center
       .svg-icon.challenge-icon(v-html="icons.challengeIcon")
       h4(v-once) {{ $t('haveNoChallenges') }}
       p(v-once) {{ $t('challengeDescription') }}
-      button.btn.btn-secondary(v-once) {{ $t('createChallenge') }}
+      button.btn.btn-secondary(v-once, @click='createChallenge()') {{ $t('createChallenge') }}
   .col-12.challenge-item(v-for='challenge in challenges')
     .row
       .col-9
@@ -77,12 +78,17 @@ div
 </style>
 
 <script>
+import challengeModal from './challengeModal';
+
 import gemIcon from 'assets/svg/gem.svg';
 import memberIcon from 'assets/svg/member-icon.svg';
 import challengeIcon from 'assets/svg/challenge.svg';
 
 export default {
   props: ['groupId'],
+  components: {
+    challengeModal,
+  },
   async mounted () {
     this.challenges = await this.$store.dispatch('challenges:getGroupChallenges', {groupId: this.groupId});
   },
@@ -95,6 +101,11 @@ export default {
         gemIcon,
       }),
     };
+  },
+  methods: {
+    createChallenge () {
+      this.$root.$emit('show::modal', 'challenge-modal');
+    },
   },
 };
 </script>

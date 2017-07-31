@@ -120,8 +120,10 @@ export default {
     bDropdownItem,
     MemberDetails,
   },
-  created () {
-    this.getMembers();
+  mounted () {
+    this.$root.$on('shown::modal', () => {
+      this.getMembers();
+    });
   },
   data () {
     return {
@@ -156,11 +158,15 @@ export default {
   },
   methods: {
     async getMembers () {
-      let members = await this.$store.dispatch('members:getGroupMembers', {
-        groupId: this.group._id,
-        includeAllPublicFields: true,
-      });
-      this.members = members;
+      if (this.group._id) {
+        let members = await this.$store.dispatch('members:getGroupMembers', {
+          groupId: this.group._id,
+          includeAllPublicFields: true,
+        });
+        this.members = members;
+      }
+
+      if (this.$store.state.viewingMembers) this.members = this.$store.state.viewingMembers;
     },
     async clickMember (uid, forceShow) {
       let user = this.$store.state.user.data;

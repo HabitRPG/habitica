@@ -77,6 +77,7 @@
   "silverTier": "Silver Tier",
   "bronzeTier": "Bronze Tier",
   "privacySettings": "Privacy Settings",
+  "updateChallenge": "Update Challenge",
   "onlyLeaderCreatesChallenges": "Only the Leader can create Challenges",
   "guildLeaderCantBeMessaged": "Leader can not be messaged directly",
   "privateGuild": "Private Guild",
@@ -230,5 +231,7 @@
   "featuredItems": "Featured Items!",
   "not_participating": "Not Participating",
   "owned": "Owned",
-  "not_owned": "Not Owned"
+  "not_owned": "Not Owned",
+  "participantsTitle": "Participants",
+  "shortName": "Short Name"
 }

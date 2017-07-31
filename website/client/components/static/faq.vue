@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  .col-md-12
+  .col-6.offset-3
     .page-header
       h1 {{ $t('frequentlyAskedQuestions') }}
     p.pagemeta
@@ -9,7 +9,7 @@
       | {{ $t('January') }}
       |&nbsp;5&comma; 2016
     div(v-for='(heading, index) in headings')
-      strong.accordion(@click='setActivePage(heading)') {{ $t(`faqQuestion${index}`) }}
+      h2.accordion(@click='setActivePage(heading)') {{ $t(`faqQuestion${index}`) }}
       // @TODO: Markdown
       div(v-if='activePage === heading', v-html="$t('webFaqAnswer' + index, replacements)")
 

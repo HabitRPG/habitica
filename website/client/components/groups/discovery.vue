@@ -3,27 +3,40 @@
   sidebar(@search="updateSearch", @filter="updateFilters")
 
   .standard-page
-    .clearfix
+    .header.row
+      .col-8
         h1.page-header.float-left(v-once) {{ $t('publicGuilds') }}
-        .float-right
+      .col-4
+        // @TODO: Add when we implement recent activity .float-right
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
             b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
-    .col-md-12
-      public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild", :display-leave='true')
-      mugen-scroll(
-        :handler="fetchGuilds",
-        :should-handle="!loading && !this.hasLoadedAllGuilds",
-        :handle-on-mount="false",
-        v-show="loading",
-      )
-        span(v-once) {{ $t('loading') }}
+        button.btn.btn-secondary.create-group-button.float-right(@click='createGroup()')
+          .svg-icon.positive-icon(v-html="icons.positiveIcon")
+          span(v-once) {{$t('create')}}
+    .row
+      .col-md-12
+        public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild", :display-leave='true')
+        mugen-scroll(
+          :handler="fetchGuilds",
+          :should-handle="!loading && !this.hasLoadedAllGuilds",
+          :handle-on-mount="false",
+          v-show="loading",
+        )
+          span(v-once) {{ $t('loading') }}
 </template>
 
-<style>
-.sort-select {
-  margin: 2em;
-}
+<style scoped>
+  .sort-select {
+    margin: 2em;
+  }
+
+  .positive-icon {
+    color: $green-10;
+    width: 10px;
+    display: inline-block;
+    margin-right: .5em;
+  }
 </style>
 
 <script>
@@ -36,11 +49,16 @@ import bFormSelect from 'bootstrap-vue/lib/components/form-select';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
+import positiveIcon from 'assets/svg/positive.svg';
+
 export default {
   mixins: [groupUtilities],
   components: { PublicGuildItem, MugenScroll, Sidebar, bFormSelect, bDropdown, bDropdownItem },
   data () {
     return {
+      icons: Object.freeze({
+        positiveIcon,
+      }),
       loading: false,
       hasLoadedAllGuilds: false,
       lastPageLoaded: 0,
@@ -98,6 +116,9 @@ export default {
 
       this.lastPageLoaded++;
       this.loading = false;
+    },
+    createGroup () {
+      this.$root.$emit('show::modal', 'guild-form');
     },
   },
 };

@@ -33,7 +33,7 @@ div
           a.nav-link(v-once) {{ $t('group') }}
         router-link.nav-item(tag="li", :to="{name: 'myChallenges'}", exact)
           a.nav-link(v-once) {{ $t('challenges') }}
-        router-link.nav-item.dropdown(tag="li", to="/help", :class="{'active': $route.path.startsWith('/help')}")
+        router-link.nav-item.dropdown(tag="li", to="/help", :class="{'active': $route.path.startsWith('/help')}", :to="{name: 'faq'}")
           a.nav-link(v-once) {{ $t('help') }}
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}
