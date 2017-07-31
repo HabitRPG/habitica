@@ -30,6 +30,7 @@
     "messageAlreadyPurchasedGear": "Você comprou este equipamento no passado, mas não possuí mais o mesmo. Você pode comprá-lo novamente na coluna de recompensas na página de tarefas.",
     "messageAlreadyOwnGear": "Você já possui este item. Vista-o indo até a página de equipamentos.",
     "messageHealthAlreadyMax": "Já tem a saúde máxima.",
+    "messageHealthAlreadyMin": "Oh no! You have already run out of health so it's too late to buy a health potion, but don't worry - you can revive!",
     "armoireEquipment": "<%= image %> Encontrou uma peça de Equipamento raro no Armário: <%= dropText %>! Fantástico!",
     "armoireFood": "<%= image %> Você remexeu no Armário e encontrou <%= dropArticle %><%= dropText %>. O que aquilo estava fazendo lá?",
     "armoireExp": "Você se engalfinhou com o Armário e ganhou Experiência. Pega essa!",

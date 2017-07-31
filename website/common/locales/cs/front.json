@@ -246,6 +246,7 @@
     "missingNewPassword": "Chybějící nové heslo.",
     "invalidEmailDomain": "Nemůžeš se zaregistrovat e-mailem z následujících domén: <%= domains %>",
     "wrongPassword": "Špatné heslo.",
+    "incorrectDeletePhrase": "Please type DELETE in all caps to delete your account.",
     "notAnEmail": "Neplatná e-mailová adresa.",
     "emailTaken": "E-mailová adresa je již použita.",
     "newEmailRequired": "Chybějící e-mailová adresa.",

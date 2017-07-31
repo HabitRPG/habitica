@@ -1436,6 +1436,12 @@ let head = {
     value: 60,
     int: 7,
   },
+  namingDay2017: {
+    text: t('headSpecialNamingDay2017Text'),
+    notes: t('headSpecialNamingDay2017Notes'),
+    value: 0,
+    canOwn: ownsItem('head_special_namingDay2017'),
+  },
 };
 
 let headAccessory = {

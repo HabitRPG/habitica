@@ -740,6 +740,8 @@
   "headSpecialDandyHatNotes": "What a merry chapeau! You'll look quite fine enjoying a stroll in it. Increases Constitution by <%= con %>.",
   "headSpecialKabutoText": "Kabuto",
   "headSpecialKabutoNotes": "This helm is functional and beautiful! Your enemies will become distracted admiring it. Increases Intelligence by <%= int %>.",
+  "headSpecialNamingDay2017Text": "Royal Purple Gryphon Helm",
+  "headSpecialNamingDay2017Notes": "Happy Naming Day! Wear this fierce and feathery helm as you celebrate Habitica. Confers no benefit.",
 
   "headSpecialNyeText": "Absurd Party Hat",
   "headSpecialNyeNotes": "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",

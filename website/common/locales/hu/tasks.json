@@ -166,7 +166,7 @@
     "year": "Év",
     "years": "Évek",
     "confirmScoreNotes": "Confirm task scoring with notes",
-    "taskScoreNotesTooLong": "Task score notes must be less than 256 characters",
+    "taskScoreNotesTooLong": "Egy feladat jegyzete legfeljebb 256 betűből állhat. ",
     "groupTasksByChallenge": "Csoportosítsd a feladatokat a kihívások címe szerint",
     "taskNotes": "Feljegyzések",
     "monthlyRepeatHelpContent": "Ez a feladat minden X hónapban esedékes",

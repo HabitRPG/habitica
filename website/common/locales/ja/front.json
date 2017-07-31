@@ -246,6 +246,7 @@
     "missingNewPassword": "新しいパスワードがありません。",
     "invalidEmailDomain": "以下のドメインのメールアドレスは登録できません : <%= domains %>",
     "wrongPassword": "パスワードが間違っています。",
+    "incorrectDeletePhrase": "Please type DELETE in all caps to delete your account.",
     "notAnEmail": "メールアドレスが無効です。",
     "emailTaken": "このメールアドレスは、すでに登録されています。",
     "newEmailRequired": "新しいメールアドレスがありません。",
