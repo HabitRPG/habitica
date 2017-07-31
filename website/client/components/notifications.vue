@@ -7,8 +7,10 @@
 
 import { mapState } from 'client/libs/store';
 import welcomeModal from './achievements/welcome';
+import notifications from 'client/mixins/notifications';
 
 export default {
+  mixins: [notifications],
   components: {
     welcomeModal,
   },
@@ -85,7 +87,7 @@ export default {
       }
       if (after === before) return;
       if (this.user.stats.lvl === 0) return;
-      // @TODO: Notification.hp(after - before, 'hp');
+      this.hp(after - before, 'hp');
 
       // @TODO: I am pretty sure we no long need this with $store
       // this.$broadcast('syncPartyRequest', {
@@ -98,7 +100,7 @@ export default {
     userExp (after, before) {
       if (after === before) return;
       if (this.user.stats.lvl === 0) return;
-      // @TODO: Notification.exp(after - before);
+      this.exp(after - before);
     },
     userGp (after, before) {
       if (after === before) return;
@@ -109,12 +111,12 @@ export default {
       if (this.user._tmp) {
         bonus = this.user._tmp.streakBonus || 0;
       }
-      // @TODO: Notification.gp(money, bonus || 0);
+      this.gp(money, bonus || 0);
 
       //  Append Bonus
       if (money > 0 && Boolean(bonus)) {
         if (bonus < 0.01) bonus = 0.01;
-        // @TODO: Notification.text("+ " + Notification.coins(bonus) + ' ' + window.env.t('streakCoins'));
+        this.text("+ " + Notification.coins(bonus) + ' ' + window.env.t('streakCoins'));
         delete this.user._tmp.streakBonus;
       }
     },
@@ -122,11 +124,11 @@ export default {
       if (after === before) return;
       if (!this.user.flags.classSelected || this.user.preferences.disableClasses) return;
       // let mana = after - before;
-      // @TODO: Notification.mp(mana);
+      this.mp(mana);
     },
     userLvl (after, before) {
       if (after <= before) return;
-      // @TODO: Notification.lvl();
+      this.lvl();
       this.playSound('Level_Up');
       if (this.user._tmp && this.user._tmp.drop && this.user._tmp.drop.type === 'Quest') return;
       if (this.unlockLevels[`${after}`]) return;
@@ -286,7 +288,7 @@ export default {
             // });
             break;
           case 'STREAK_ACHIEVEMENT':
-            // @TODO: Notification.streak(this.user.achievements.streak);
+            this.streak(this.user.achievements.streak);
             this.playSound('Achievement_Unlocked');
             if (!this.user.preferences.suppressModals.streak) {
               // @TODO: Achievement.displayAchievement('streak', {size: 'md'});
@@ -383,7 +385,7 @@ export default {
               });
 
               // Show notification of task approved
-              // @TODO: Notification.markdown(scoreTaskNotification[i].data.message);
+              this.markdown(scoreTaskNotification[i].data.message);
             }
 
             // Score approved tasks

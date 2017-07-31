@@ -98,8 +98,11 @@ export default {
     round (number) {
       return Math.abs(number.toFixed(1));
     },
-    // @TODO: Implement when we have a notify library
-    //notify (html, type, icon, canHide, onClick) {
+    notify (html, type, icon, canHide, onClick) {
+      this.$notify({
+        title: 'Habitica',
+        text: html,
+      });
       // let stack_topright = {"dir1": "down", "dir2": "left", "spacing1": 15, "spacing2": 15, "firstpos1": 60};
       // let notice = $.pnotify({
       //   type: type || 'warning', //('info', 'text', 'warning', 'success', 'gp', 'xp', 'hp', 'lvl', 'death', 'mp', 'crit')
@@ -119,6 +122,6 @@ export default {
       //     onClick();
       //   }
       // });
-    //},
+    },
   },
 };
