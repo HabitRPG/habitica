@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Borrar hábitos completados",
     "lotOfToDos": "Se ven las 30 tareas completadas más recientes aquí. Se pueden ver tareas completadas anteriores por Datos >  Exportar Datos > Datos de Usario.",
-    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
+    "deleteToDosExplanation": "Si haces clic en el siguiente botón, todas tus Pendientes realizadas y tus Pendientes archivadas serán borradas de forma permanente, con la excepción de Pendientes de desafíos activos y  de Planes Grupales. Expórtalas primero si quieres mantener un registro de ellas.",
     "addmultiple": "Agregar múltiples",
     "addsingle": "Agregar sólo un@",
     "habit": "Hábito",
@@ -147,6 +147,10 @@
     "taskApprovalHasBeenRequested": "La aprobación ha sido solicitada",
     "approvals": "Aprobaciones",
     "approvalRequired": "Aprobación requerida",
+    "repeatZero": "Daily is never due",
+    "repeatType": "Repeat Type",
+    "repeatTypeHelpTitle": "What kind of repeat is this?",
+    "repeatTypeHelp": "Selecciona \"Diaria\" si quieres que esta tarea se repita cada día o cada tres días, etc. Selecciona \"Semanal\" si quieres que se repita en ciertos días de la semana. Si seleccionas \"Mensual\" o \"Anual\", ajusta la Fecha de Inicio para controlar qué día del mes o año será la fecha para tu tarea.",
     "weekly": "Semanal",
     "monthly": "Mensual",
     "yearly": "Anual",
@@ -170,9 +174,9 @@
     "resets": "Se reinicia",
     "summaryStart": "Se repite <%= frequency %> cada <%= everyX %> <%= frequencyPlural %>",
     "nextDue": "Próximas fechas límite",
-    "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
-    "yesterDailiesCallToAction": "Start My New Day!",
-    "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
-    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
+    "yesterDailiesTitle": "¡Ayer dejaste estas tareas diarias sin marcar! ¿Quieres marcar alguna de ellas ahora?",
+    "yesterDailiesCallToAction": "¡Comenzar mi nuevo día!",
+    "yesterDailiesOptionTitle": "Confirma que esta tarea diaria no estuviera hecha antes de aplicar el daño",
+    "yesterDailiesDescription": "Si se aplica esta configuración, Habitica te preguntará si quisiste dejar la tarea diaria sin hacer antes de calcular y aplicar el daño a tu avatar. Esto te puede proteger contra daño no intencional.",
     "repeatDayError": "Asegúrate de tener al menos un día de la semana seleccionado."
 }

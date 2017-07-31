@@ -26,3 +26,23 @@ export function set (store, changes) {
   // .then((res) => console.log('set', res))
   // .catch((err) => console.error('set', err));
 }
+
+export async function sleep () {
+  let response = await axios.post('/api/v3/user/sleep');
+  return response.data.data;
+}
+
+export async function addWebhook (store, payload) {
+  let response = await axios.post('/api/v3/user/webhook', payload.webhookInfo);
+  return response.data.data;
+}
+
+export async function updateWebhook (store, payload) {
+  let response = await axios.put(`/api/v3/user/webhook/${payload.webhook.id}`, payload.webhook);
+  return response.data.data;
+}
+
+export async function deleteWebhook (store, payload) {
+  let response = await axios.delete(`/api/v3/user/webhook/${payload.webhook.id}`);
+  return response.data.data;
+}

@@ -19,6 +19,10 @@ module.exports = function buyHealthPotion (user, req = {}, analytics) {
     throw new NotAuthorized(i18n.t('messageHealthAlreadyMax', req.language));
   }
 
+  if (user.stats.hp <= 0) {
+    throw new NotAuthorized(i18n.t('messageHealthAlreadyMin', req.language));
+  }
+
   user.stats.hp += 15;
   if (user.stats.hp > 50) {
     user.stats.hp = 50;

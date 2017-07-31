@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  .col-2.standard-sidebar
+  .standard-sidebar
     .form-group
       input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
@@ -17,7 +17,7 @@
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ group.label }}
 
-  .col-10.standard-page
+  .standard-page
     .clearfix
       h1.float-left.mb-0.page-header(v-once) {{ $t('equipment') }}
       .float-right
@@ -134,8 +134,8 @@ import toggleSwitch from 'client/components/ui/toggleSwitch';
 
 import Item from 'client/components/inventory/item';
 import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
-import StarBadge from 'client/components/inventory/starBadge';
-import Drawer from 'client/components/inventory/drawer';
+import StarBadge from 'client/components/ui/starBadge';
+import Drawer from 'client/components/ui/drawer';
 
 import i18n from 'common/script/i18n';
 

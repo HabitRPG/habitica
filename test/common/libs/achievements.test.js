@@ -122,7 +122,7 @@ describe('achievements', () => {
     });
 
     it('card achievements exist with counts', () => {
-      let cardTypes = ['greeting', 'thankyou', 'birthday', 'congrats', 'getwell'];
+      let cardTypes = ['greeting', 'thankyou', 'birthday', 'congrats', 'getwell', 'goodluck'];
       cardTypes.forEach((card) => {
         let cardAchiev = basicAchievs[`${card}Cards`];
 

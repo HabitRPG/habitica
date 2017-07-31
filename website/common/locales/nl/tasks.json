@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Verwijder voltooide taken",
     "lotOfToDos": "Je meest recente 30 voltooide To-do's worden hier getoond. Je kan oudere voltooide To-do's zien via Gegevens > Gegevens weergeven of Gegevens > Gegevens exporteren > Gebruikersgegevens.",
-    "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
+    "deleteToDosExplanation": "Met de onderstaande knop worden al je voltooide To-do's en gearchiveerde To-do's voorgoed verwijderd, behalve de To-do's van actieve uitdagingen en groepsplannen. Exporteer ze eerst als je ze wil bewaren.",
     "addmultiple": "Voeg meerdere tegelijkertijd toe",
     "addsingle": "Voeg een enkele toe",
     "habit": "Gewoonte",
@@ -147,6 +147,10 @@
     "taskApprovalHasBeenRequested": "Er is goedkeuring gevraagd",
     "approvals": "Goedkeuringen",
     "approvalRequired": "Goedkeuring vereist",
+    "repeatZero": "Dagelijkse taak verloopt nooit",
+    "repeatType": "Herhaal type",
+    "repeatTypeHelpTitle": "Wat voor soort herhaling is dit?",
+    "repeatTypeHelp": "Selecteer \"Dagelijks\" als je wil dat deze taak elke dag of elke derde dag, enzovoort, wordt herhaald. Selecteer \"Wekelijks\" als je wil dat het alleen op bepaalde dagen van de week wordt herhaald. Als je \"Maandelijks\" of \"Jaarlijks\" selecteert, pas dan de startdatum aan om te beheersen op welke dag van de maand of het jaar de taak verloopt.",
     "weekly": "Wekelijks",
     "monthly": "Maandelijks",
     "yearly": "Jaarlijks",
@@ -170,9 +174,9 @@
     "resets": "Herstart",
     "summaryStart": "Herhaalt <%= frequency %> iedere <%= everyX %> <%= frequencyPlural %>",
     "nextDue": "Toekomstige data",
-    "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
-    "yesterDailiesCallToAction": "Start My New Day!",
-    "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
-    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
+    "yesterDailiesTitle": "Je hebt deze dagelijkse taken gisteren niet voltooid! Wil je er nu nog een paar voltooien?",
+    "yesterDailiesCallToAction": "Begin mijn nieuwe dag!",
+    "yesterDailiesOptionTitle": "Bevestig dat deze dagelijkse taak niet was gedaan voordat er schade is gedaan",
+    "yesterDailiesDescription": "Als deze instelling is toegepast zal Habitica je vragen of je expres de dagelijkse taak ongedaan hebt gelaten voordat schade wordt berekend en toegepast wordt op je avatar. Dit kan je beschermen tegen onbedoelde schade.",
     "repeatDayError": "Er moet minstens één dag van de week geselecteerd zijn."
 }

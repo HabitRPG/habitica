@@ -7,15 +7,17 @@ b-popover(
     h4.popover-content-title {{ item.text() }}
     div.popover-content-text(v-html="item.notes()")
 
-  .item-wrapper
-    .item
+  .item-wrapper(@click="click($event)")
+    .item(:class="{'item-active': active }")
       countBadge(
         :show="true",
         :count="itemCount"
       )
       span.item-content(
         :class="'Pet_Food_'+item.key",
-        v-drag.food="item.key"
+        v-drag.food="item.key",
+        @itemDragEnd="dragend($event)",
+        @itemDragStart="dragstart($event)"
       )
 </template>
 
@@ -23,7 +25,7 @@ b-popover(
 import bPopover from 'bootstrap-vue/lib/components/popover';
 import DragDropDirective from 'client/directives/dragdrop.directive';
 
-import CountBadge from './countBadge';
+import CountBadge from 'client/components/ui/countBadge';
 
 export default {
   components: {
@@ -42,6 +44,20 @@ export default {
     },
     itemContentClass: {
       type: String,
+    },
+    active: {
+      type: Boolean,
+    },
+  },
+  methods: {
+    dragend ($event) {
+      this.$emit('itemDragEnd', $event);
+    },
+    dragstart ($event) {
+      this.$emit('itemDragStart', $event);
+    },
+    click ($event) {
+      this.$emit('itemClick', $event);
     },
   },
 };

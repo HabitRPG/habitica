@@ -76,6 +76,8 @@ export let schema = new Schema({
   leaderOnly: { // restrict group actions to leader (members can't do them)
     challenges: {type: Boolean, default: false, required: true},
     // invites: {type: Boolean, default: false, required: true},
+    // Some group plans prevent members from getting gems
+    getGems: {type: Boolean, default: false},
   },
   memberCount: {type: Number, default: 1},
   challengeCount: {type: Number, default: 0},
@@ -118,6 +120,10 @@ export let schema = new Schema({
   managers: {type: Schema.Types.Mixed, default: () => {
     return {};
   }},
+  categories: [{
+    slug: {type: String},
+    name: {type: String},
+  }],
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
@@ -223,6 +229,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
     user, types, groupFields = basicFields,
     sort = '-memberCount', populateLeader = false,
     paginate = false, page = 0, // optional pagination for public guilds
+    filters = {},
   } = options;
   let queries = [];
 
@@ -237,21 +244,25 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         break;
       }
       case 'guilds': {
-        let userGuildsQuery = this.find({
+        let query = {
           type: 'guild',
           _id: {$in: user.guilds},
-        }).select(groupFields);
+        };
+        _.assign(query, filters);
+        let userGuildsQuery = this.find(query).select(groupFields);
         if (populateLeader === true) userGuildsQuery.populate('leader', nameFields);
         userGuildsQuery.sort(sort).exec();
         queries.push(userGuildsQuery);
         break;
       }
       case 'privateGuilds': {
-        let privateGuildsQuery = this.find({
+        let query = {
           type: 'guild',
           privacy: 'private',
           _id: {$in: user.guilds},
-        }).select(groupFields);
+        };
+        _.assign(query, filters);
+        let privateGuildsQuery = this.find(query).select(groupFields);
         if (populateLeader === true) privateGuildsQuery.populate('leader', nameFields);
         privateGuildsQuery.sort(sort).exec();
         queries.push(privateGuildsQuery);
@@ -260,10 +271,12 @@ schema.statics.getGroups = async function getGroups (options = {}) {
       // NOTE: when returning publicGuilds we use `.lean()` so all mongoose methods won't be available.
       // Docs are going to be plain javascript objects
       case 'publicGuilds': {
-        let publicGuildsQuery = this.find({
+        let query = {
           type: 'guild',
           privacy: 'public',
-        }).select(groupFields);
+        };
+        _.assign(query, filters);
+        let publicGuildsQuery = this.find(query).select(groupFields);
         if (populateLeader === true) publicGuildsQuery.populate('leader', nameFields);
         if (paginate === true) publicGuildsQuery.limit(GUILDS_PER_PAGE).skip(page * GUILDS_PER_PAGE);
         publicGuildsQuery.sort(sort).lean().exec();
@@ -388,7 +401,8 @@ schema.methods.removeGroupInvitations = async function removeGroupInvitations ()
 
   let userUpdates = usersToRemoveInvitationsFrom.map(user => {
     if (group.type === 'party') {
-      user.invitations.party = {};
+      removeFromArray(user.invitations.parties, { id: group._id });
+      user.invitations.party = user.invitations.parties.length > 0 ? user.invitations.parties[user.invitations.parties.length - 1] : {};
       this.markModified('invitations.party');
     } else {
       removeFromArray(user.invitations.guilds, { id: group._id });

@@ -570,6 +570,34 @@ spells.special = {
       user.stats.gp -= 10;
     },
   },
+  goodluck: {
+    text: t('goodluckCard'),
+    mana: 0,
+    value: 10,
+    immediateUse: true,
+    silent: true,
+    target: 'user',
+    notes: t('goodluckCardNotes'),
+    cast (user, target) {
+      if (user === target) {
+        if (!user.achievements.goodluck) user.achievements.goodluck = 0;
+        user.achievements.goodluck++;
+      } else {
+        each([user, target], (u) => {
+          if (!u.achievements.goodluck) u.achievements.goodluck = 0;
+          u.achievements.goodluck++;
+        });
+      }
+
+      if (!target.items.special.goodluckReceived) target.items.special.goodluckReceived = [];
+      target.items.special.goodluckReceived.push(user.profile.name);
+
+      if (!target.flags) target.flags = {};
+      target.flags.cardReceived = true;
+
+      user.stats.gp -= 10;
+    },
+  },
 };
 
 each(spells, (spellClass) => {

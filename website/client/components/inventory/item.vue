@@ -6,20 +6,17 @@ div(v-if="emptyItem")
     span.item-label(v-if="label") {{ label }}
 b-popover(
   v-else,
-  :triggers="['hover']",
+  :triggers="[showPopover?'hover':'']",
   :placement="popoverPosition",
-  @click="click",
 )
   span(slot="content")
     slot(name="popoverContent", :item="item")
 
-  .item-wrapper
+  .item-wrapper(@click="click")
     .item
       slot(name="itemBadge", :item="item")
       span.item-content(
-        :class="itemContentClass",
-        :draggable="draggable",
-        @dragstart="onDrag"
+        :class="itemContentClass"
       )
     span.item-label(v-if="label") {{ label }}
 </template>
@@ -49,21 +46,14 @@ export default {
       type: String,
       default: 'bottom',
     },
-    draggable: {
+    showPopover: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   methods: {
     click () {
       this.$emit('click', this.item);
-    },
-    onDrag (ev) {
-      if (this.draggable) {
-        this.$emit('onDrag', ev);
-      } else {
-        ev.preventDefault();
-      }
     },
   },
 };

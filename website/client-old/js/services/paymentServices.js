@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('habitrpg').factory('Payments',
-['$rootScope', 'User', '$http', 'Content',
-function($rootScope, User, $http, Content) {
+['$rootScope', '$window', 'User', '$http', 'Content', 'Notification',
+function($rootScope, $window, User, $http, Content, Notification) {
   var Payments = {};
   var isAmazonReady = false;
   Payments.amazonButtonEnabled = true;
@@ -21,7 +21,18 @@ function($rootScope, User, $http, Content) {
     amazon.Login.setClientId(window.env.AMAZON_PAYMENTS.CLIENT_ID);
   };
 
+  Payments.checkGemAmount = function(data) {
+    if (data && data.gift && data.gift.type === "gems" && (!data.gift.gems.amount || data.gift.gems.amount === 0)) {
+      Notification.error(window.env.t('badAmountOfGemsToPurchase'), true);
+      return false;
+    }
+    return true;
+  }
+
   Payments.showStripe = function(data) {
+
+    if(!Payments.checkGemAmount(data)) return;
+
     var sub = false;
 
     if (data.subscription) {
@@ -121,6 +132,7 @@ function($rootScope, User, $http, Content) {
   // Needs to be called everytime the modal/router is accessed
   Payments.amazonPayments.init = function(data) {
     if(!isAmazonReady) return;
+    if(!Payments.checkGemAmount(data)) return;
     if(data.type !== 'single' && data.type !== 'subscription') return;
 
     if (data.gift) {
@@ -343,6 +355,15 @@ function($rootScope, User, $http, Content) {
         alert(window.evn.t('paypalCanceled'));
         window.location.href = '/';
       });
+  }
+
+  Payments.payPalPayment = function(data){
+    if(!Payments.checkGemAmount(data)) return;
+
+    var gift = Payments.encodeGift(data.giftedTo, data.gift);
+    var url = '/paypal/checkout?_id=' + User.user._id + '&apiToken=' + User.settings.auth.apiToken + '&gift=' + gift;
+
+    $window.open(url, '_blank');
   }
 
   Payments.encodeGift = function(uuid, gift) {

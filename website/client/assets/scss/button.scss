@@ -14,18 +14,18 @@
   box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
   color: $white;
 
-  &:focus {
+  &:focus:not(.btn-flat) {
     outline: none;
     border-color: $purple-400;
     @include btn-focus-hover-shadow();
   }
 
-  &:hover {
+  &:hover:not(.btn-flat) {
     @include btn-focus-hover-shadow();
     border-color: transparent;
   }
 
-  &:active, &.active {
+  &:active:not(.btn-flat), &.active:not(.btn-flat) {
     box-shadow: none;
     border: 1px solid transparent;
   }
@@ -123,4 +123,9 @@
     box-shadow: none;
     color: inherit !important;
   }
+}
+
+.btn-flat {
+  border: 0;
+  box-shadow: none;
 }

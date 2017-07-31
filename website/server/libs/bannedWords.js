@@ -61,6 +61,8 @@
 // Explanations for some blocked words:
 // 'fag' means 'subject' in some Scandinavian languages but we have decided to block it for its use as an English-language slur; hopefully the Scandinavian languages have suitable synonyms.
 // 'slut' means 'end' in Danish but is blocked for the same reason as 'fag'.
+// 'tard' means 'late' in French.
+// These words are blocked from use in the Tavern but do not appear in bannedSlurs.js because we do not want people to be automatically muted when the words are used appropriately in guilds.
 
 let bannedWords = [
   'TEST_PLACEHOLDER_SWEAR_WORD_HERE',
@@ -116,26 +118,9 @@ let bannedWords = [
   'bitching',
   'b\\*tch',
 
-  'nigger',
-  'niggers',
-  'nigga',
-  'niggas',
   'fag',
-  'fags',
-  'faggot',
-  'faggots',
-  'whore',
-  'whores',
   'slut',
-  'sluts',
-  'cunt',
-  'cunts',
-  'spic',
-  'spics',
-  'tranny',
-  'trannies',
   'tard',
-  'tards',
   'retard',
   'retards',
   'bastard',

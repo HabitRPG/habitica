@@ -214,7 +214,7 @@ angular.module('habitrpg')
         },
 
         changeClass: function (data) {
-          callOpsFunctionAndRequest('changeClass', 'change-class', "POST",'', data);
+          callOpsFunctionAndRequest('changeClass', 'change-class', "POST", '', data);
         },
 
         disableClasses: function () {
@@ -418,12 +418,12 @@ angular.module('habitrpg')
         },
 
         runCron: function () {
-          $http({
+          return $http({
             method: "POST",
             url: 'api/v3/cron',
           })
           .then(function (response) {
-            sync();
+            return sync();
           })
         },
 

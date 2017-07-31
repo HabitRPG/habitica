@@ -1,9 +1,9 @@
 .svg-icon {
   display: block;
   stroke-width: 0;
+  transition: none !important;
   stroke: currentColor;
   fill: currentColor;
-  transition: none !important;
 
   svg {
     display: block;
@@ -12,4 +12,25 @@
   * {
     transition: none !important;
   }
+
+  &.color {
+    svg path {
+      stroke: currentColor;
+      fill: currentColor;
+    }
+  }
+}
+
+.icon-16 {
+  width: 16px;
+  height: 16px;
+}
+
+.icon-10 {
+  width: 10px;
+  height: 10px;
+}
+
+.inline {
+  display: inline-block;
 }

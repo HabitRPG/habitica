@@ -1,5 +1,5 @@
 <template lang="pug">
-  .row.stable
+  .row.stable(v-mousePosition="30", @mouseMoved="mouseMoved($event)")
     .standard-sidebar
       div
         b-popover(
@@ -85,9 +85,10 @@
             v-for="pet in pets(petGroup, viewOptions[petGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled, availableContentWidth)",
             :key="pet.key",
             v-drag.drop.food="pet.key",
-            @dragover="onDragOver($event, pet)",
-            @dropped="onDrop($event, pet)",
-            :class="pet.isLastInRow ? 'last' : ''"
+            @itemDragOver="onDragOver($event, pet)",
+            @itemDropped="onDrop($event, pet)",
+            @itemDragLeave="onDragLeave()",
+            :class="{'last': pet.isLastInRow}"
           )
             petItem(
               :item="pet",
@@ -95,20 +96,13 @@
               :popoverPosition="'top'",
               :progress="pet.progress",
               :emptyItem="!pet.isOwned()",
-              :showPopover="pet.isOwned() || pet.isHatchable()",
-              @hatchPet="hatchPet",
+              :showPopover="pet.isOwned()",
+              :highlightBorder="highlightPet == pet.key",
+              @click="petClicked(pet)"
             )
               span(slot="popoverContent")
                 div(v-if="pet.isOwned()")
                   h4.popover-content-title {{ pet.name }}
-                div.hatchablePopover(v-else-if="pet.isHatchable()")
-                  h4.popover-content-title {{ pet.name }}
-                  div.popover-content-text(v-html="$t('haveHatchablePet', { potion: pet.potionName, egg: pet.eggName })")
-                  div.potionEggGroup
-                    div.potionEggBackground
-                      div(:class="'Pet_HatchingPotion_'+pet.potionKey")
-                    div.potionEggBackground
-                      div(:class="'Pet_Egg_'+pet.eggKey")
 
               template(slot="itemBadge", scope="ctx")
                 starBadge(
@@ -185,7 +179,7 @@
 
                 div.float-right(v-once)
                   | {{ $t('petLikeToEat') + ' ' }}
-                  .svg-icon(v-html="icons.information")
+                  span.svg-icon.inline.icon-16(v-html="icons.information")
 
 
         drawer-slider(
@@ -199,6 +193,10 @@
             foodItem(
               :item="ctx.item",
               :itemCount="userItems.food[ctx.item.key]",
+              :active="currentDraggingFood == ctx.item",
+              @itemDragEnd="onDragEnd()",
+              @itemDragStart="onDragStart($event, ctx.item)",
+              @itemClick="onFoodClicked($event, ctx.item)"
             )
 
     b-modal#welcome-modal(
@@ -212,11 +210,45 @@
         h1.page-header(v-once) {{ $t('welcomeStable') }}
         div.content-text(v-once) {{ $t('welcomeStableText') }}
 
+    b-modal#hatching-modal(
+      :visible="hatchablePet != null",
+      @change="resetHatchablePet($event)"
+    )
+
+      div.content(v-if="hatchablePet")
+        div.potionEggGroup
+          div.potionEggBackground
+            div(:class="'Pet_HatchingPotion_'+hatchablePet.potionKey")
+          div.potionEggBackground
+            div(:class="'Pet_Egg_'+hatchablePet.eggKey")
+
+        h4.title {{ hatchablePet.name }}
+        div.text(v-html="$t('hatchDialogText', { potionName: hatchablePet.potionName, eggName: hatchablePet.eggName, petName: hatchablePet.name })")
+
+      span.svg-icon.icon-10(v-html="icons.close", slot="modal-header", @click="closeHatchPetDialog()")
+
+      div(slot="modal-footer")
+        button.btn.btn-primary(@click="hatchPet(hatchablePet)") {{ $t('hatch') }}
+        button.btn.btn-secondary.btn-flat(@click="closeHatchPetDialog()") {{ $t('cancel') }}
+
+    div.foodInfo(ref="dragginFoodInfo")
+      div(v-if="currentDraggingFood != null")
+        div.food-icon(:class="'Pet_Food_'+currentDraggingFood.key")
+        div.popover
+          div.popover-content {{ $t('dragThisFood', {foodName: currentDraggingFood.text() }) }}
+
+    div.foodInfo.mouse(ref="clickFoodInfo", v-if="foodClickMode")
+      div(v-if="currentDraggingFood != null")
+        div.food-icon(:class="'Pet_Food_'+currentDraggingFood.key")
+        div.popover
+          div.popover-content {{ $t('clickOnPetToFeed', {foodName: currentDraggingFood.text() }) }}
+
 </template>
 
 <style lang="scss">
 
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/modal.scss';
 
   .standard-page .clearfix .float-right {
     margin-right: 24px;
@@ -249,10 +281,10 @@
     display: inline-flex;
     align-items: center;
 
-    width: 64px;
-    height: 64px;
-    border-radius: 2px;
-    background-color: #4e4a57;
+    width: 112px;
+    height: 112px;
+    border-radius: 4px;
+    background-color: #f9f9f9;
 
     &:first-child {
       margin-right: 24px;
@@ -281,7 +313,6 @@
   .stable {
 
     .standard-page {
-      flex: 1;
       padding-right:0;
     }
 
@@ -289,21 +320,18 @@
       // 3% padding + 252px sidebar width
       left: calc(3% + 252px) !important;
     }
+
+    .svg-icon.inline.icon-16 {
+      vertical-align: bottom;
+    }
   }
 
   .drawer-slider .items {
     height: 114px;
   }
 
-
-  div#welcome-modal {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-
-    header, footer {
-      border: 0;
-    }
+  #welcome-modal {
+    @include centeredModal();
 
     .npc_matt {
       margin: 0 auto 21px auto;
@@ -332,6 +360,48 @@
     }
   }
 
+  #hatching-modal {
+    @include centeredModal();
+
+    .content {
+      text-align: center;
+
+      margin: 9px;
+      width: 300px;
+    }
+
+    .title {
+      height: 24px;
+      margin-top: 24px;
+      font-family: Roboto;
+      font-size: 20px;
+      font-weight: bold;
+      font-stretch: condensed;
+      line-height: 1.2;
+      text-align: center;
+      color: #4e4a57;
+    }
+
+    .text {
+      height: 60px;
+      font-family: Roboto;
+      font-size: 14px;
+      line-height: 1.43;
+      text-align: center;
+      color: #686274;
+    }
+
+    span.svg-icon.icon-10 {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+
+    .modal-footer {
+      justify-content: center;
+    }
+  }
+
   .modal-backdrop.fade.show {
     background-color: $purple-50;
     opacity: 0.9;
@@ -348,6 +418,25 @@
 
   .popover-content-text {
     margin-bottom: 0;
+  }
+
+  .foodInfo {
+    position: absolute;
+    left: -500px;
+
+    &.mouse {
+      position: fixed;
+      pointer-events: none
+    }
+
+    .food-icon {
+      margin: 0 auto;
+    }
+
+    .popover {
+      position: inherit;
+      width: 100px;
+    }
   }
 </style>
 
@@ -372,16 +461,18 @@
   import PetItem from './petItem';
   import MountItem from './mountItem.vue';
   import FoodItem from './foodItem';
-  import Drawer from 'client/components/inventory/drawer';
+  import Drawer from 'client/components/ui/drawer';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
-  import StarBadge from 'client/components/inventory/starBadge';
-  import CountBadge from './countBadge';
-  import DrawerSlider from './drawerSlider';
+  import StarBadge from 'client/components/ui/starBadge';
+  import CountBadge from 'client/components/ui/countBadge';
+  import DrawerSlider from 'client/components/ui/drawerSlider';
 
   import ResizeDirective from 'client/directives/resize.directive';
   import DragDropDirective from 'client/directives/dragdrop.directive';
+  import MouseMoveDirective from 'client/directives/mouseposition.directive';
 
-  import information from 'assets/svg/information.svg';
+  import svgInformation from 'assets/svg/information.svg';
+  import svgClose from 'assets/svg/close.svg';
 
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
@@ -407,6 +498,7 @@
     directives: {
       resize: ResizeDirective,
       drag: DragDropDirective,
+      mousePosition: MouseMoveDirective,
     },
     data () {
       return {
@@ -426,8 +518,15 @@
         ],
 
         icons: Object.freeze({
-          information,
+          information: svgInformation,
+          close: svgClose,
         }),
+
+        highlightPet: '',
+
+        hatchablePet: null,
+        foodClickMode: false,
+        currentDraggingFood: null,
 
         selectedDrawerTab: 0,
         availableContentWidth: 0,
@@ -452,7 +551,6 @@
       petGroups () {
         let petGroups = [
           {
-            label: this.$t('filterByStandard'),
             key: 'standardPets',
             petSource: {
               eggs: this.content.dropEggs,
@@ -545,7 +643,7 @@
       drawerTabs () {
         return [
           {
-            label: this.$t('food'),
+            label: this.$t('foodTitle'),
             items: _filter(this.content.food, f => {
               return f.key !== 'Saddle' && this.userItems.food[f.key];
             }),
@@ -591,7 +689,7 @@
                   return userItems.mounts[this.key] > 0;
                 },
                 isAllowedToFeed () {
-                  return type === 'pet' && !this.mountOwned();
+                  return type === 'pet' && this.isOwned() && !this.mountOwned();
                 },
                 isHatchable () {
                   return false;
@@ -620,7 +718,7 @@
                     return userItems.mounts[this.key] > 0;
                   },
                   isAllowedToFeed () {
-                    return type === 'pet' && !this.mountOwned();
+                    return type === 'pet' && this.isOwned() && !this.mountOwned();
                   },
                   isHatchable () {
                     return userItems.eggs[egg.key] > 0 && userItems.hatchingPotions[potion.key] > 0;
@@ -762,16 +860,82 @@
 
       hatchPet (pet) {
         this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
+        this.closeHatchPetDialog();
+      },
+
+      onDragStart (ev, food) {
+        this.currentDraggingFood = food;
+
+        let itemRef = this.$refs.dragginFoodInfo;
+
+        let dragEvent = ev.event;
+
+        dragEvent.dataTransfer.setDragImage(itemRef, -20, -20);
       },
 
       onDragOver (ev, pet) {
         if (!pet.isAllowedToFeed()) {
           ev.dropable = false;
+        } else {
+          this.highlightPet = pet.key;
         }
       },
 
       onDrop (ev, pet) {
         this.$store.dispatch('common:feed', {pet: pet.key, food: ev.draggingKey});
+
+        this.highlightPet = '';
+      },
+
+      onDragEnd () {
+        this.currentDraggingFood = null;
+        this.highlightPet = '';
+      },
+
+      onDragLeave () {
+        this.highlightPet = '';
+      },
+
+      petClicked (pet) {
+        if (this.currentDraggingFood !== null && pet.isAllowedToFeed()) {
+          // food process
+          this.$store.dispatch('common:feed', {pet: pet.key, food: this.currentDraggingFood.key});
+          this.currentDraggingFood = null;
+          this.foodClickMode = false;
+        } else {
+          if (pet.isOwned() || !pet.isHatchable()) {
+            return;
+          }
+          // opens the hatch dialog
+          this.hatchablePet = pet;
+        }
+      },
+
+      closeHatchPetDialog () {
+        this.$root.$emit('hide::modal', 'hatching-modal');
+      },
+
+      resetHatchablePet ($event) {
+        if (!$event) {
+          this.hatchablePet = null;
+        }
+      },
+
+      onFoodClicked ($event, food) {
+        if (this.currentDraggingFood === null || this.currentDraggingFood !== food) {
+          this.currentDraggingFood = food;
+          this.foodClickMode = true;
+        } else {
+          this.currentDraggingFood = null;
+          this.foodClickMode = false;
+        }
+      },
+
+      mouseMoved ($event) {
+        if (this.foodClickMode) {
+          this.$refs.clickFoodInfo.style.left = `${$event.x + 20}px`;
+          this.$refs.clickFoodInfo.style.top = `${$event.y + 20}px`;
+        }
       },
     },
   };

@@ -174,3 +174,14 @@ script(id='modals/achievements/joinedChallenge.html', type='text/ng-template')
       br
       button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
     +achievementFooter
+
+// Invited Friend
+script(id='modals/achievements/invitedFriend.html', type='text/ng-template')
+  .modal-content(style='min-width:28em')
+    .modal-body.text-center
+      h3(style='margin-bottom:0')=env.t('modalAchievement')
+      +achievementAvatar('friends',0)
+      p=env.t('invitedFriendText')
+      br
+      button.btn.btn-primary(ng-click='$close()')=env.t('huzzah')
+    +achievementFooter

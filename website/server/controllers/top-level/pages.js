@@ -28,7 +28,7 @@ api.getFrontPage = {
   },
 };
 
-let staticPages = ['front', 'privacy', 'terms', 'features',
+let staticPages = ['front', 'privacy', 'terms', 'features', 'login',
                    'videos', 'contact', 'plans', 'new-stuff', 'community-guidelines',
                    'old-news', 'press-kit', 'faq', 'overview', 'apps',
                    'clear-browser-data', 'merch', 'maintenance-info'];

@@ -114,6 +114,26 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
       await expect(winningUser.sync()).to.eventually.have.property('balance', oldBalance + challenge.prize / 4);
     });
 
+    it('doesn\'t gives winner gems if group policy prevents it', async () => {
+      let oldBalance = winningUser.balance;
+      let oldLeaderBalance = (await groupLeader.sync()).balance;
+
+      await winningUser.update({
+        'purchased.plan.customerId': 'group-plan',
+      });
+      await group.update({
+        'leaderOnly.getGems': true,
+        'purchased.plan.customerId': 123,
+      });
+
+      await groupLeader.post(`/challenges/${challenge._id}/selectWinner/${winningUser._id}`);
+
+      await sleep(0.5);
+
+      await expect(winningUser.sync()).to.eventually.have.property('balance', oldBalance);
+      await expect(groupLeader.sync()).to.eventually.have.property('balance', oldLeaderBalance + challenge.prize / 4);
+    });
+
     it('doesn\'t refund gems to group leader', async () => {
       let oldBalance = (await groupLeader.sync()).balance;
 

@@ -86,7 +86,7 @@ let requiredGroupFields = '_id leader tasksOrder name';
  *       "priority":2
  *     }
  *
- * @apiSuccess data An object if a single task was created, otherwise an array of tasks
+ * @apiSuccess (201) data An object if a single task was created, otherwise an array of tasks
  *
  * @apiSuccessExample {json} Success-Response:
  *     {
@@ -203,7 +203,7 @@ api.createUserTasks = {
  * @apiParamExample {json} Request-Example:
  * {"type":"todo","text":"Test API Params"}
  *
- * @apiSuccess data An object if a single task was created, otherwise an array of tasks
+ * @apiSuccess (201) data An object if a single task was created, otherwise an array of tasks
  *
  * @apiSuccessExample {json} Example return:
  * {"success":true,"data":{"text":"Test API Params","type":"todo","notes":"","tags":[],"value":0,"priority":1,"attribute":"str","challenge":{"id":"f23c12f2-5830-4f15-9c36-e17fd729a812"},"group":{"assignedUsers":[],"approval":{"required":false,"approved":false,"requested":false}},"reminders":[],"_id":"4a29874c-0308-417b-a909-2a7d262b49f6","createdAt":"2017-01-13T21:23:05.949Z","updatedAt":"2017-01-13T21:23:05.949Z","checklist":[],"collapseChecklist":false,"completed":false,"id":"4a29874c-0308-417b-a909-2a7d262b49f6"},"notifications":[]}

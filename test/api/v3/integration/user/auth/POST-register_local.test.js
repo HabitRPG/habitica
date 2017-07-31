@@ -509,7 +509,73 @@ describe('POST /user/auth/local/register', () => {
         confirmPassword: password,
       });
 
-      expect(user.invitations.party).to.eql({
+      expect(user.invitations.parties[0].id).to.eql(group._id);
+      expect(user.invitations.parties[0].name).to.eql(group.name);
+      expect(user.invitations.parties[0].inviter).to.eql(groupLeader._id);
+    });
+
+    it('awards achievement to inviter', async () => {
+      let { group, groupLeader } = await createAndPopulateGroup({
+        groupDetails: { type: 'party', privacy: 'private' },
+      });
+
+      let invite = encrypt(JSON.stringify({
+        id: group._id,
+        inviter: groupLeader._id,
+        sentAt: Date.now(),
+      }));
+
+      await api.post(`/user/auth/local/register?groupInvite=${invite}`, {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      await groupLeader.sync();
+      expect(groupLeader.achievements.invitedFriend).to.be.true;
+    });
+
+    it('user not added to a party on expired invite', async () => {
+      let { group, groupLeader } = await createAndPopulateGroup({
+        groupDetails: { type: 'party', privacy: 'private' },
+      });
+
+      let invite = encrypt(JSON.stringify({
+        id: group._id,
+        inviter: groupLeader._id,
+        sentAt: Date.now() - 6.912e8, // 8 days old
+      }));
+
+      let user = await api.post(`/user/auth/local/register?groupInvite=${invite}`, {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      expect(user.invitations.party).to.eql({});
+    });
+
+    it('adds a user to a guild on an invite of type other than party', async () => {
+      let { group, groupLeader } = await createAndPopulateGroup({
+          groupDetails: { type: 'guild', privacy: 'private' },
+      });
+
+      let invite = encrypt(JSON.stringify({
+        id: group._id,
+        inviter: groupLeader._id,
+        sentAt: Date.now(),
+      }));
+
+      let user = await api.post(`/user/auth/local/register?groupInvite=${invite}`, {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      expect(user.invitations.guilds[0]).to.eql({
         id: group._id,
         name: group.name,
         inviter: groupLeader._id,

@@ -1,8 +1,10 @@
 'use strict';
 
 habitrpg.controller('NotificationCtrl',
-  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement', 'Social', 'Tasks',
-  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement, Social, Tasks) {
+  ['$scope', '$rootScope', 'Shared', 'Content', 'User', 'Guide', 'Notification', 'Analytics', 'Achievement', 'Social', 'Tasks', '$modal',
+  function ($scope, $rootScope, Shared, Content, User, Guide, Notification, Analytics, Achievement, Social, Tasks, $modal) {
+    var isRunningYesterdailies = false;
+
     $rootScope.$watch('user', function (after, before) {
       runYesterDailies();
     });
@@ -12,13 +14,17 @@ habitrpg.controller('NotificationCtrl',
     });
 
     function runYesterDailies() {
+      if (isRunningYesterdailies) return;
+
       var userLastCron = moment(User.user.lastCron).local();
       var userDayStart = moment().startOf('day').add({ hours: User.user.preferences.dayStart });
 
       if (!User.user.needsCron) return;
       var dailys = User.user.dailys;
 
-      if (!Boolean(dailys) || dailys.length === 0) return;
+      if (!$rootScope.appLoaded) return;
+
+      isRunningYesterdailies = true;
 
       var yesterDay = moment().subtract('1', 'day').startOf('day').add({ hours: User.user.preferences.dayStart });
       var yesterDailies = [];
@@ -31,7 +37,10 @@ habitrpg.controller('NotificationCtrl',
       });
 
       if (yesterDailies.length === 0) {
-        User.runCron();
+        User.runCron().then(function () {
+          isRunningYesterdailies = false;
+          handleUserNotifications(User.user);
+        });
         return;
       };
 
@@ -45,7 +54,8 @@ habitrpg.controller('NotificationCtrl',
       modalScope.processingYesterdailies = true;
 
       $scope.yesterDailiesModalOpen = true;
-      $rootScope.openModal('yesterDailies', {
+      $modal.open({
+        templateUrl: 'modals/yesterDailies.html',
         scope: modalScope,
         backdrop: 'static',
         controller: ['$scope', 'Tasks', 'User', '$rootScope', function ($scope, Tasks, User, $rootScope) {
@@ -61,7 +71,11 @@ habitrpg.controller('NotificationCtrl',
           });
 
           $scope.ageDailies = function () {
-            User.runCron();
+            User.runCron()
+              .then(function () {
+                isRunningYesterdailies = false;
+                handleUserNotifications(User.user);
+              });
           };
         }],
       });
@@ -214,6 +228,10 @@ habitrpg.controller('NotificationCtrl',
             $rootScope.playSound('Achievement_Unlocked');
             Achievement.displayAchievement('joinedChallenge', {size: 'md'});
             break;
+          case 'INVITED_FRIEND_ACHIEVEMENT':
+            $rootScope.playSound('Achievement_Unlocked');
+            Achievement.displayAchievement('invitedFriend', {size: 'md'});
+            break;
           case 'NEW_CONTRIBUTOR_LEVEL':
             $rootScope.playSound('Achievement_Unlocked');
             Achievement.displayAchievement('contributor', {size: 'md'});
@@ -301,13 +319,14 @@ habitrpg.controller('NotificationCtrl',
     // are now stored in user.notifications.
     $rootScope.$watchCollection('userNotifications', function (after) {
       if (!User.user._wrapped) return;
+      if (User.user.needsCron) return;
       handleUserNotifications(after);
     });
 
-    var handleUserNotificationsOnFirstSync = _.once(function () {
-      handleUserNotifications($rootScope.userNotifications);
-    });
-    $rootScope.$on('userUpdated', handleUserNotificationsOnFirstSync);
+    // var handleUserNotificationsOnFirstSync = _.once(function () {
+    //   handleUserNotifications($rootScope.userNotifications);
+    // });
+    // $rootScope.$on('userUpdated', handleUserNotificationsOnFirstSync);
 
     // TODO what about this?
     $rootScope.$watch('user.achievements', function(){

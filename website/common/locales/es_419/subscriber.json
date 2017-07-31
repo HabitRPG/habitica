@@ -23,7 +23,7 @@
     "giftSubscriptionText4": "!Gracias por ayudar a mantener a Habitica!",
     "monthUSD": "USD / mes",
     "organization": "Organización",
-    "groupPlans": "Planes corporativos",
+    "groupPlans": "Planes grupales",
     "indivPlan1": "Para individuos, jugar en Habitica es gratis. Incluso para pequeños grupos de interés,",
     "indivPlan2": "gratis o baratos pueden ser utilizados para motivar participantes a modificar su comportamiento. Considera grupos de escritura, desafíos de arte, y más.",
     "groupText1": "Aún así, algunos líderes querrán mas control, privacidad, seguridad y apoyo. Ejemplos de tales grupos son familias, grupos de salud y sanidad, grupos de empleados y más. Estos planes proveen casos privados de Habitica para tu grupo u organización, seguros e independientes de",
@@ -37,7 +37,7 @@
     "subscribed": "Suscripto",
     "manageSub": "Haz clic para administrar la suscripción",
     "cancelSub": "Cancelar la suscripción",
-    "cancelSubInfoGoogle": "Please go to the \"Account\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
+    "cancelSubInfoGoogle": "Ve a la sección de la aplicación Google Play Store \"Cuenta\" > \"Suscripciones\" para cancelar tu suscripción o para ver la fecha de finalización si ya la has cancelado. Esta pantalla no te puede mostrar si tu suscripción ya fue cancelada.",
     "cancelSubInfoApple": "Sigue las <a href=\"https://support.apple.com/en-us/HT202039\">instrucciones oficiales de Apple</a> para cancelar tu suscripción o para ver la fecha de finalización si ya la has cancelado. Esta pantalla no te puede mostrar si tu suscripción ya fue cancelada.",
     "canceledSubscription": "Suscripción Cancelada",
     "cancelingSubscription": "Cancelar la suscripción",
@@ -130,6 +130,7 @@
     "mysterySet201704": "Conjunto Cuento de hadas",
     "mysterySet201705": "Conjunto Guerrero Emplumado",
     "mysterySet201706": "Conjunto Pirata Pionero",
+    "mysterySet201707": "Jellymancer Set",
     "mysterySet301404": "Conjunto Steampunk Estándar ",
     "mysterySet301405": "Conjunto de Accesorios Steampunk",
     "mysterySet301703": "Conjunto Pavo Real Steampunk",
@@ -169,5 +170,5 @@
     "missingCustomerId": "Falta req.query.customerId",
     "missingPaypalBlock": "Falta req.session.paypalBlock",
     "missingSubKey": "Falta req.query.sub",
-    "paypalCanceled": "Your subscription has been canceled"
+    "paypalCanceled": "Tu suscripción fue cancelada."
 }
