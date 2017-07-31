@@ -45,6 +45,9 @@ export default function () {
       },
       shops: {
         market: asyncResourceFactory(),
+        quests: asyncResourceFactory(),
+        seasonal: asyncResourceFactory(),
+        'time-travelers': asyncResourceFactory(),
       },
       myGuilds: [],
       publicGuilds: [],

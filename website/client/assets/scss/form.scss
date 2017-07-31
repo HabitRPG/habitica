@@ -166,3 +166,7 @@ $bg-disabled-control: #34303a;
     border-color: $gray-400;
   }
 }
+
+.toggle-switch-container.no-margin {
+  margin-top: 0 !important;
+}

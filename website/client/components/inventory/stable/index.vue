@@ -48,7 +48,7 @@
 
         div.form-group.clearfix
           h3.float-left Hide Missing
-          toggle-switch.float-right.hideMissing(
+          toggle-switch.float-right.no-margin(
             :label="''",
             :checked="hideMissing",
             @change="updateHideMissing"
@@ -263,10 +263,6 @@
   .stable .item .item-content.Pet {
     position: absolute;
     top: -28px;
-  }
-
-  .toggle-switch-container.hideMissing {
-    margin-top: 0;
   }
 
   .hatchablePopover {

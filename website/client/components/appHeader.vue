@@ -1,7 +1,7 @@
 <template lang="pug">
 #app-header.row(:class='{sticky: user.preferences.stickyHeader}', v-if='showHeader')
   create-party-modal
-  members-modal(:group='user.party', :hide-badge="true")
+  members-modal(v-if="user.party._id", :group='user.party', :hide-badge="true")
   member-details(:member="user", @click="$router.push({name: 'avatar'})")
   .view-party(v-if="user.party && user.party._id")
     // TODO button should open the party members modal

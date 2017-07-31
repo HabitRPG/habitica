@@ -6,7 +6,6 @@ import getStore from 'client/store';
 
 // TODO Dummy elements used as placeholder until real components are implemented
 import ParentPage from './components/parentPage';
-import Page from './components/page';
 
 // Static Pages
 const AppPage = () => import(/* webpackChunkName: "static" */'./components/static/app');
@@ -82,6 +81,9 @@ const ChallengeDetail = () => import(/* webpackChunkName: "challenges" */ './com
 // Shops
 const ShopsContainer = () => import(/* webpackChunkName: "shops" */'./components/shops/index');
 const MarketPage = () => import(/* webpackChunkName: "shops-market" */'./components/shops/market/index');
+const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */'./components/shops/quests/index');
+const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */'./components/shops/seasonal/index');
+const TimeTravelersPage = () => import(/* webpackChunkName: "shops-timetravelers" */'./components/shops/timeTravelers/index');
 
 Vue.use(VueRouter);
 
@@ -115,9 +117,9 @@ const router = new VueRouter({
       component: ShopsContainer,
       children: [
         { name: 'market', path: 'market', component: MarketPage },
-        { name: 'quests', path: 'quests', component: Page },
-        { name: 'seasonal', path: 'seasonal', component: Page },
-        { name: 'time', path: 'time', component: Page },
+        { name: 'quests', path: 'quests', component: QuestsPage },
+        { name: 'seasonal', path: 'seasonal', component: SeasonalPage },
+        { name: 'time', path: 'time', component: TimeTravelersPage },
       ],
     },
     { name: 'party', path: '/party', component: GuildPage },
