@@ -12,9 +12,13 @@
 
   .standard-page(v-if='filteredGuilds.length > 0')
     .row
-      .col-md-12
+      .col-md-8
         h1.page-header.float-left(v-once) {{ $t('myGuilds') }}
-        .float-right
+      .col-4
+        button.btn.btn-secondary.create-group-button.float-right(@click='createGroup()')
+          .svg-icon.positive-icon(v-html="icons.positiveIcon")
+          span(v-once) {{$t('create')}}
+        // @TODO: Add when we implement recent activity .float-right
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
             b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
@@ -27,6 +31,13 @@
   @import '~client/assets/scss/colors.scss';
   .sort-select {
     margin: 2em;
+  }
+
+  .positive-icon {
+    color: $green-10;
+    width: 10px;
+    display: inline-block;
+    margin-right: .5em;
   }
 
   .no-guilds {
@@ -64,6 +75,7 @@ import PublicGuildItem from './publicGuildItem';
 import Sidebar from './sidebar';
 
 import greyBadgeIcon from 'assets/svg/grey-badge.svg';
+import positiveIcon from 'assets/svg/positive.svg';
 
 export default {
   mixins: [groupUtilities],
@@ -72,6 +84,7 @@ export default {
     return {
       icons: Object.freeze({
         greyBadge: greyBadgeIcon,
+        positiveIcon,
       }),
       loading: false,
       search: '',
@@ -121,6 +134,9 @@ export default {
       this.loading = true;
       await this.$store.dispatch('guilds:getMyGuilds');
       this.loading = false;
+    },
+    createGroup () {
+      this.$root.$emit('show::modal', 'guild-form');
     },
   },
 };

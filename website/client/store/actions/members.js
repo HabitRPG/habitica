@@ -26,9 +26,9 @@ export async function getGroupInvites (store, payload) {
 }
 
 export async function getChallengeMembers (store, payload) {
-  let url = `${apiV3Prefix}/challenges/${payload.challengeId}/members?includeAllMembers=true`;
+  let url = `${apiV3Prefix}/challenges/${payload.challengeId}/members?includeAllMembers=true&includeAllPublicFields=true`;
   let response = await axios.get(url);
-  return response;
+  return response.data.data;
 }
 
 export async function getChallengeMemberProgress (store, payload) {

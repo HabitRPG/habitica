@@ -28,11 +28,11 @@
     .form-group
       h3 Ownership
       .form-check(
-        v-for="group in guildSizeOptions",
+        v-for="group in ownershipOptions",
         :key="group.key",
       )
         label.custom-control.custom-checkbox
-          input.custom-control-input(type="checkbox", :value='group.key' v-model="guildSizeFilters")
+          input.custom-control-input(type="checkbox", :value='group.key' v-model="ownershipFilters")
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t(group.label) }}
 </template>
@@ -76,13 +76,13 @@ export default {
           label: 'not_participating',
           key: 'not_participating',
         },
-        {
-          label: 'either',
-          key: 'either',
-        },
+        // {
+        //   label: 'either',
+        //   key: 'either',
+        // },
       ],
-      guildSizeFilters: [],
-      guildSizeOptions: [
+      ownershipFilters: [],
+      ownershipOptions: [
         {
           label: 'owned',
           key: 'owned',
@@ -91,10 +91,10 @@ export default {
           label: 'not_owned',
           key: 'not_owned',
         },
-        {
-          label: 'either',
-          key: 'either',
-        },
+        // {
+        //   label: 'either',
+        //   key: 'either',
+        // },
       ],
       searchTerm: '',
     };
@@ -106,7 +106,7 @@ export default {
     roleFilters: function roleFilters () {
       this.emitFilters();
     },
-    guildSizeFilters: function guildSizeFilters () {
+    ownershipFilters: function ownershipFilters () {
       this.emitFilters();
     },
     searchTerm: throttle(function searchTerm (newSearch) {
@@ -120,7 +120,7 @@ export default {
       this.$emit('filter', {
         categories: this.categoryFilters,
         roles: this.roleFilters,
-        guildSize: this.guildSizeFilters,
+        ownership: this.ownershipFilters,
       });
     },
   },

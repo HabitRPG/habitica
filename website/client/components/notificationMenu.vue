@@ -4,50 +4,38 @@
   // span.glyphicon(:class='iconClasses()')
   // span.notification-counter(v-if='getNotificationsCount()') {{getNotificationsCount()}}
   .dropdown-menu.dropdown-menu-right.user-dropdown
-    a.dropdown-item test
-    h4 {{ $t('notifications') }}
-    div
-      ul.toolbar-notifs-notifs
-        li.toolbar-notifs-no-messages(v-if='hasNoNotifications()') {{ $t('noNotifications') }}
-        li(v-if='user.purchased.plan.mysteryItems.length')
-          a(@click='$state.go("options.inventory.drops"); ')
-            span.glyphicon.glyphicon-gift
-            span {{ $t('newSubscriberItem') }}
-        li(v-for='party in user.invitations.parties')
-          a(ui-sref='options.social.party')
-            span.glyphicon.glyphicon-user
-            span {{ $t('invitedTo', {name: party.name}) }}
-        li(v-if='user.flags.cardReceived')
-          a(@click='$state.go("options.inventory.drops"); ')
-            span.glyphicon.glyphicon-envelope
-            span {{ $t('cardReceived') }}
-          a(@click='clearCards()', :popover="$t('clear')", popover-placement='right', popover-trigger='mouseenter',popover-append-to-body='true')
-            span.glyphicon.glyphicon-remove-circle
-        li(v-for='guild in user.invitations.guilds')
-          a(ui-sref='options.social.guilds.public')
-            span.glyphicon.glyphicon-user
-            span {{ $t('invitedTo', {name: guild.name}) }}
-        li(v-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points')
-          a(ui-sref='options.profile.stats')
-            span.glyphicon.glyphicon-plus-sign
-            span {{ $t('haveUnallocated', {points: user.stats.points}) }}
-        li(v-for='(k,v) in user.newMessages', v-if='v.value')
-          a(@click='(k === party._id || k === user.party._id) ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); ')
-            span.glyphicon.glyphicon-comment
-            span {{v.name}}
-          a(@click='clearMessages(k)', :popover="$t('clear')", popover-placement='right', popover-trigger='mouseenter',popover-append-to-body='true')
-            span.glyphicon.glyphicon-remove-circle
-        li(v-for='notification in user.groupNotifications')
-          a(@click='viewGroupApprovalNotification(notification, $index, true)')
-            span(:class="groupApprovalNotificationIcon(notification)")
-            span
-              | {{notification.data.message}}
-          a(@click='viewGroupApprovalNotification(notification, $index)',
-            :popover="$t('clear')",
-            popover-placement='right',
-            popover-trigger='mouseenter',
-            popover-append-to-body='true')
-            span.glyphicon.glyphicon-remove-circle
+    h4.dropdown-item(v-if='!hasNoNotifications()') {{ $t('notifications') }}
+    h4.dropdown-item.toolbar-notifs-no-messages(v-if='hasNoNotifications()') {{ $t('noNotifications') }}
+    a.dropdown-item(v-if='user.purchased.plan.mysteryItems.length', @click='$state.go("options.inventory.drops"); ')
+      span.glyphicon.glyphicon-gift
+      span {{ $t('newSubscriberItem') }}
+    a.dropdown-item(v-for='party in user.invitations.parties', ui-sref='options.social.party')
+      span.glyphicon.glyphicon-user
+      span {{ $t('invitedTo', {name: party.name}) }}
+    a.dropdown-item(v-if='user.flags.cardReceived', @click='$state.go("options.inventory.drops"); ')
+      span.glyphicon.glyphicon-envelope
+      span {{ $t('cardReceived') }}
+      a.dropdown-item(@click='clearCards()', :popover="$t('clear')", popover-placement='right', popover-trigger='mouseenter',popover-append-to-body='true')
+    a.dropdown-item(v-for='guild in user.invitations.guilds', ui-sref='options.social.guilds.public')
+      span.glyphicon.glyphicon-user
+      span {{ $t('invitedTo', {name: guild.name}) }}
+    a.dropdown-item(v-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points', ui-sref='options.profile.stats')
+      span.glyphicon.glyphicon-plus-sign
+      span {{ $t('haveUnallocated', {points: user.stats.points}) }}
+    a.dropdown-item(v-for='(k,v) in user.newMessages', v-if='v.value', @click='(k === party._id || k === user.party._id) ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); ')
+      span.glyphicon.glyphicon-comment
+      span {{v.name}}
+    a.dropdown-item(@click='clearMessages(k)', :popover="$t('clear')", popover-placement='right', popover-trigger='mouseenter',popover-append-to-body='true')
+    a.dropdown-item(v-for='notification in user.groupNotifications', @click='viewGroupApprovalNotification(notification, $index, true)')
+      span(:class="groupApprovalNotificationIcon(notification)")
+      span
+        | {{notification.data.message}}
+      a.dropdown-item(@click='viewGroupApprovalNotification(notification, $index)',
+        :popover="$t('clear')",
+        popover-placement='right',
+        popover-trigger='mouseenter',
+        popover-append-to-body='true')
+        span.glyphicon.glyphicon-remove-circle
 </template>
 
 <style lang='scss' scoped>
