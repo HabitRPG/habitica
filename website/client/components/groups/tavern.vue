@@ -14,11 +14,10 @@
           autocomplete(:text='newMessage', v-on:select="selectedAutocomplete")
           button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
 
-        .container.community-guidelines(v-if='!communityGuidelinesAccepted')
-          .row
-            div.col-8(v-once) {{ $t('communityGuidelinesIntro') }}
-            div.col-4
-              button.btn.btn-info(@click='acceptCommunityGuidelines()', v-once) {{ $t('acceptCommunityGuidelines') }}
+        .row.community-guidelines(v-if='!communityGuidelinesAccepted')
+          div.col-8(v-once) {{ $t('communityGuidelinesIntro') }}
+          div.col-4
+            button.btn.btn-info(@click='acceptCommunityGuidelines()', v-once) {{ $t('acceptCommunityGuidelines') }}
 
         .row
           chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
@@ -124,7 +123,7 @@
       height: 150px;
       padding-top: 3em;
       margin-top: 2.3em;
-      width: 98%;
+      width: 100%;
       border-radius: 4px;
     }
 

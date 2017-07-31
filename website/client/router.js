@@ -9,7 +9,6 @@ import ParentPage from './components/parentPage';
 import Page from './components/page';
 
 // Static Pages
-const Home = () => import(/* webpackChunkName: "static" */'./components/static/home');
 const AppPage = () => import(/* webpackChunkName: "static" */'./components/static/app');
 const ClearBrowserDataPage = () => import(/* webpackChunkName: "static" */'./components/static/clearBrowserData');
 const CommunityGuidelinesPage = () => import(/* webpackChunkName: "static" */'./components/static/communityGuidelines');
@@ -33,8 +32,8 @@ const RegisterLogin = () => import(/* webpackChunkName: "auth" */'./components/a
 // User Pages
 const CreatorIntro = () => import(/* webpackChunkName: "creator" */'./components/creatorIntro');
 const BackgroundsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/backgrounds');
-const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
-const AchievementsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/achievements');
+// const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
+// const AchievementsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/achievements');
 const ProfilePage = () => import(/* webpackChunkName: "user" */'./components/userMenu/profile');
 
 // Settings
@@ -100,8 +99,8 @@ const router = new VueRouter({
   },
   // requiresLogin is true by default, isStatic false
   routes: [
-    { name: 'creator', path: '/creator', component: CreatorIntro },
-    { name: 'home', path: '/home', component: Home, meta: {requiresLogin: false} },
+    { name: 'avatar', path: '/avatar', component: CreatorIntro },
+    { name: 'home', path: '/home', component: FrontPage, meta: {requiresLogin: false} },
     { name: 'register', path: '/register', component: RegisterLogin, meta: {requiresLogin: false} },
     { name: 'login', path: '/login', component: RegisterLogin, meta: {requiresLogin: false} },
     { name: 'tasks', path: '/', component: UserTasks },
@@ -176,10 +175,9 @@ const router = new VueRouter({
       path: '/user',
       component: ParentPage,
       children: [
-        { name: 'avatar', path: 'avatar', component: Page },
         { name: 'backgrounds', path: 'backgrounds', component: BackgroundsPage },
-        { name: 'stats', path: 'stats', component: StatsPage },
-        { name: 'achievements', path: 'achievements', component: AchievementsPage },
+        { name: 'stats', path: 'stats', component: ProfilePage },
+        { name: 'achievements', path: 'achievements', component: ProfilePage },
         { name: 'profile', path: 'profile', component: ProfilePage },
         {
           name: 'settings',

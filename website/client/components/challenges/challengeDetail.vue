@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  challenge-modal(:challenge='challenge')
+  challenge-modal(:challenge='challenge', v-on:updatedChallenge='updatedChallenge')
   close-challenge-modal
 
   .col-8.standard-page
@@ -10,17 +10,17 @@
         div
           strong(v-once) {{$t('createdBy')}}
           span {{challenge.author}}
-          strong.margin-left(v-once)
+          // @TODO: Implement in V2 strong.margin-left(v-once)
             .svg-icon.calendar-icon(v-html="icons.calendarIcon")
             | {{$t('endDate')}}
           span {{challenge.endDate}}
         .tags
           span.tag(v-for='tag in challenge.tags') {{tag}}
       .col-4
-        .box
+        .box(@click="showMemberModal()")
           .svg-icon.member-icon(v-html="icons.memberIcon")
           | {{challenge.memberCount}}
-          .details(v-once) {{$t('participants')}}
+          .details(v-once) {{$t('participantsTitle')}}
         .box
           .svg-icon.gem-icon(v-html="icons.gemIcon")
           | {{challenge.prize}}
@@ -149,6 +149,7 @@ export default {
         calendarIcon,
       }),
       challenge: {},
+      members: [],
     };
   },
   computed: {
@@ -157,16 +158,18 @@ export default {
       return this.user.challenges.indexOf(this.challenge._id) !== -1;
     },
     isLeader () {
-      if (!this.leader) return false;
-      return this.user._id === this.leader.id;
+      if (!this.challenge.leader) return false;
+      return this.user._id === this.challenge.leader._id;
     },
   },
-  mounted () {
-    this.getChallenge();
+  async mounted () {
+    this.challenge = await this.$store.dispatch('challenges:getChallenge', {challengeId: this.challengeId});
+    this.members = await this.$store.dispatch('members:getChallengeMembers', {challengeId: this.challengeId});
   },
   methods: {
-    async getChallenge () {
-      this.challenge = await this.$store.dispatch('challenges:getChallenge', {challengeId: this.challengeId});
+    showMemberModal () {
+      this.$store.state.viewingMembers = this.members;
+      this.$root.$emit('show::modal', 'members-modal');
     },
     async joinChallenge () {
       this.user.challenges.push(this.challengeId);
@@ -187,6 +190,9 @@ export default {
       this.$root.$emit('show::modal', 'challenge-modal');
     },
     // @TODO: view members
+    updatedChallenge (eventData) {
+      Object.assign(this.challenge, eventData.challenge);
+    },
   },
 };
 </script>

@@ -31,10 +31,10 @@
 
         chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
-  .col-md-4.sidebar
+  .col-4.sidebar
     .guild-background.row
       .col-6
-        p(v-if='!isParty')  Image here
+        p(v-if='!isParty')
       .col-6
         .button-container
           button.btn.btn-success(class='btn-success', v-if='isLeader') {{ $t('upgrade') }}
@@ -142,7 +142,7 @@
       .section(v-if="sections.challenges")
         group-challenges(:groupId='searchId')
     div.text-center
-      button.btn.btn-primary(class='btn-danger', v-if='isMember') {{ $t('leave') }}
+      button.btn.btn-primary(class='btn-danger', v-if='isMember', @click='clickLeave()') {{ $t('leave') }}
 </template>
 
 <style lang="scss" scoped>
@@ -170,6 +170,7 @@
     .svg-icon.shield, .svg-icon.gem {
       width: 40px;
       margin: 0 auto;
+      display: inline-block;
     }
 
     .number {
@@ -184,7 +185,6 @@
 
   .sidebar {
     background-color: $gray-600;
-    padding-top: 2em;
     padding-bottom: 2em;
   }
 
@@ -204,7 +204,8 @@
   }
 
   .guild-background {
-    background-image: linear-gradient(to bottom, rgba($gray-600, 0), $gray-600);
+    background-image: url('~assets/images/groups/grassy-meadow-backdrop.png');
+    height: 246px;
   }
 
   textarea {
@@ -430,6 +431,9 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    partyStore () {
+      return this.$store.state.party;
+    },
     isParty () {
       return this.$route.path.startsWith('/party');
     },
@@ -490,7 +494,7 @@ export default {
       return quests.quests[this.group.quest.key];
     },
   },
-  created () {
+  mounted () {
     this.searchId = this.groupId;
     if (this.isParty) {
       this.searchId = 'party';
@@ -506,6 +510,14 @@ export default {
   watch: {
     // call again the method if the route changes (when this route is already active)
     $route: 'fetchGuild',
+    partyStore () {
+      if (this.$store.state.party._id) {
+        this.group = this.$store.state.party;
+      } else {
+        this.group = null;
+        this.$router.push('/');
+      }
+    },
   },
   methods: {
     showMemberModal () {
@@ -527,6 +539,11 @@ export default {
       this.$root.$emit('show::modal', 'invite-modal');
     },
     async fetchGuild () {
+      if (this.searchId === 'party' && !this.user.party._id) {
+        this.$root.$emit('show::modal', 'create-party-modal');
+        return;
+      }
+
       let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
       if (this.isParty) {
         this.$store.party = group;
@@ -544,28 +561,6 @@ export default {
     openStartQuestModal () {
       this.$root.$emit('show::modal', 'start-quest-modal');
     },
-    // inviteOrStartParty (group) {
-      // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Invite Friends'});
-
-      // var sendInviteText = window.env.t('sendInvitations');
-      // if (group.type !== 'party' && group.type !== 'guild') {
-      //   $location.path("/options/groups/party");
-      //   return console.log('Invalid group type.')
-      // }
-      //
-      // if (group.purchased && group.purchased.plan && group.purchased.plan.customerId) sendInviteText += window.env.t('groupAdditionalUserCost');
-      //
-      // group.sendInviteText = sendInviteText;
-      //
-      // $rootScope.openModal('invite-' + group.type, {
-      //   controller:'InviteToGroupCtrl',
-      //   resolve: {
-      //     injectedGroup: function() {
-      //       return group;
-      //     },
-      //   },
-      // });
-    // },
     checkForAchievements () {
       // Checks if user's party has reached 2 players for the first time.
       if (!this.user.achievements.partyUp && this.group.memberCount >= 2) {
@@ -602,11 +597,16 @@ export default {
     },
     async leave (keepTasks) {
       let keepChallenges = 'remain-in-challenges';
-      await this.$store.dispatch('guilds:leave', {
+
+      let data = {
         groupId: this.group._id,
         keep: keepTasks,
         keepChallenges,
-      });
+      };
+
+      if (this.isParty) data.type = 'party';
+
+      await this.$store.dispatch('guilds:leave', data);
 
       // @TODO: Implement
       // Analytics.updateUser({'partySize':null,'partyID':null});

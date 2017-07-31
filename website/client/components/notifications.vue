@@ -1,12 +1,17 @@
 <template lang="pug">
+  welcome-modal
 </template>
 
 <script>
 // import moment from 'moment';
 
 import { mapState } from 'client/libs/store';
+import welcomeModal from './achievements/welcome';
 
 export default {
+  components: {
+    welcomeModal,
+  },
   data () {
     // Levels that already display modals and should not trigger generic Level Up
     let unlockLevels = {
@@ -153,6 +158,9 @@ export default {
     },
   },
   async mounted () {
+    if (!this.user.flags.welcomed) {
+      this.$root.$emit('show::modal', 'welcome');
+    }
   },
   methods: {
     playSound () {
