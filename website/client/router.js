@@ -6,7 +6,6 @@ import getStore from 'client/store';
 
 // TODO Dummy elements used as placeholder until real components are implemented
 import ParentPage from './components/parentPage';
-import Page from './components/page';
 
 // Static Pages
 const AppPage = () => import(/* webpackChunkName: "static" */'./components/static/app');
