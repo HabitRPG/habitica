@@ -9,16 +9,17 @@
     .task-control.daily-todo-control(:class="controlClass + '-control-daily-todo'")
       .svg-icon.check(v-html="icons.check", v-if="task.completed")
   // Task title, description and icons
-  .task-content(:class="contentClass", @click="edit(task)")
-    h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
-    .task-notes.small-text(v-markdown="task.notes")
+  .task-content(:class="contentClass")
+    .task-clickable-area(@click="edit($event, task)")
+      h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
+      .task-notes.small-text(v-markdown="task.notes")
     .checklist(v-if="task.checklist && task.checklist.length > 0")
-        label.custom-control.custom-checkbox.checklist-item(
-          v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
-        )
-          input.custom-control-input(type="checkbox", :checked="item.completed")
-          span.custom-control-indicator
-          span.custom-control-description {{ item.text }}
+      label.custom-control.custom-checkbox.checklist-item(
+        v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
+      )
+        input.custom-control-input(type="checkbox", :checked="item.completed")
+        span.custom-control-indicator
+        span.custom-control-description {{ item.text }}
     .icons.small-text.d-flex.align-items-center
       .d-flex.align-items-center(v-if="task.type === 'todo' && task.date", :class="{'due-overdue': isDueOverdue}")
         .svg-icon.calendar(v-html="icons.calendar")
@@ -309,8 +310,15 @@ export default {
     },
   },
   methods: {
-    edit (task) {
-      this.$emit('editTask', task);
+    edit (e, task) {
+      // Prevent clicking on a link from opening the edit modal
+      const target = e.target || e.srcElement;
+
+      if (target.tagName === 'A') { // Link
+        return;
+      } else {
+        this.$emit('editTask', task);
+      }
     },
   },
 };
