@@ -151,7 +151,7 @@ b-popover(
         } else {
           return 'gold';
         }
-      }
+      },
     },
   };
 </script>

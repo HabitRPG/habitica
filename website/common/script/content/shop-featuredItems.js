@@ -12,8 +12,8 @@ const featuredItems = {
     ],
     seasonal: 'summerMage',
     timeTravelers: [
-
-    ]
+      // TODO
+    ],
 };
 
 export default featuredItems;

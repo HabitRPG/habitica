@@ -191,7 +191,7 @@
         } else {
           return 'gold';
         }
-      }
+      },
     },
     props: {
       item: {

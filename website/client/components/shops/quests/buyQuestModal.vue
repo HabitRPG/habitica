@@ -243,23 +243,23 @@
         this.$root.$emit('hide::modal', 'buy-quest-modal');
       },
       getDropIcon (drop) {
-        switch(drop.type) {
+        switch (drop.type) {
           case 'gear':
-            return 'shop_'+drop.key;
+            return `shop_${drop.key}`;
           case 'hatchingPotions':
-            return 'Pet_HatchingPotion_'+drop.key;
+            return `Pet_HatchingPotion_${drop.key}`;
           case 'food':
-            return 'Pet_Food_'+drop.key;
+            return `Pet_Food_${drop.key}`;
           case 'eggs':
-            return 'Pet_Egg_'+drop.key;
+            return `Pet_Egg_${drop.key}`;
           case 'quests':
-            return 'inventory_quest_scroll_'+drop.key;
+            return `inventory_quest_scroll_${drop.key}`;
           default:
             return '';
         }
       },
       getDropName (drop) {
-        switch(drop.type) {
+        switch (drop.type) {
           case 'gear':
             return this.content.gear.flat[drop.key].text();
           case 'quests':
@@ -271,9 +271,9 @@
           case 'eggs':
             return this.content.eggs[drop.key].text();
           default:
-            return 'Unknown type: '+ drop.type;
+            return `Unknown type: ${drop.type}`;
         }
-      }
+      },
     },
     props: {
       item: {

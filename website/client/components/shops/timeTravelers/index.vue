@@ -30,7 +30,7 @@
               span.rectangle
               span.text(v-once) {{ timeTravelers.text }}
               span.rectangle
-          div.content
+          div.content(v-if="false")
             div.featured-label.with-border
               span.rectangle
               span.text(v-once) {{ $t('featuredQuests') }}
@@ -276,7 +276,6 @@
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
-  import _map from 'lodash/map';
   import _throttle from 'lodash/throttle';
   import _groupBy from 'lodash/groupBy';
 
@@ -346,11 +345,11 @@ export default {
               return {
                 ...c,
                 value: 1,
-                currency: "hourglasses",
+                currency: 'hourglasses',
                 type: 'set_mystery',
                 key: c.identifier,
               };
-            })
+            }),
           };
 
           normalGroups.push(setCategory);
@@ -399,9 +398,7 @@ export default {
         return result;
       },
       getGrouped (entries) {
-        var result = _groupBy(entries, 'group');
-        console.info(entries, result);
-        return result;
+        return _groupBy(entries, 'group');
       },
       resetItemToBuy ($event) {
         if (!$event) {
@@ -418,7 +415,7 @@ export default {
       },
       getItemClass (item) {
         return `shop_${item.type}_${item.key}`;
-      }
+      },
     },
     created () {
       this.$store.dispatch('shops:fetchTimeTravelers');

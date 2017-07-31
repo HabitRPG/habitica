@@ -396,7 +396,7 @@ export default {
           let equipmentList = _filter(_map(this.content.itemList, (i, key) => {
             return {
               ...i,
-              key
+              key,
             };
           }), 'isEquipment');
 
@@ -414,7 +414,7 @@ export default {
 
       featuredSet () {
         return _filter(this.categories, (c) => {
-          return c.identifier == featuredItems.seasonal;
+          return c.identifier === featuredItems.seasonal;
         })[0];
       },
     },
@@ -456,19 +456,15 @@ export default {
       },
       getGroupedCategories (categories) {
         let spellCategory = _filter(categories, (c) => {
-          return c.identifier == 'spells';
+          return c.identifier === 'spells';
         })[0];
 
         let setCategories = _filter(categories, 'specialClass');
 
         let result = _groupBy(setCategories, 'specialClass');
-        result['spells'] = [
-          spellCategory
+        result.spells = [
+          spellCategory,
         ];
-
-
-        console.info(result);
-
 
         return result;
       },

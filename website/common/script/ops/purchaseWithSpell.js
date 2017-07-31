@@ -4,7 +4,6 @@ import get from 'lodash/get';
 
 module.exports = function purchaseWithSpell (user, req = {}, analytics) {
   const type = get(req.params, 'type');
-  const key = get(req.params, 'key');
 
   return type === 'spells' ? buySpecialSpellOp(user, req) : purchaseOp(user, req, analytics);
-}
+};

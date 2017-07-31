@@ -338,7 +338,6 @@
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
-  import _map from 'lodash/map';
   import _throttle from 'lodash/throttle';
   import _groupBy from 'lodash/groupBy';
 
@@ -439,8 +438,7 @@ export default {
         return result;
       },
       getGrouped (entries) {
-        var result = _groupBy(entries, 'group');
-        return result;
+        return _groupBy(entries, 'group');
       },
       resetItemToBuy ($event) {
         if (!$event) {
