@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "请注意您的用户名、图片和简介，它们必须遵从<a href='https://habitica.com/static/community-guidelines' target='_blank'>社区指南</a>(例如，没有亵渎言论，没有成人话题，没有侮辱言论)。如果您对某件事是否适当有任何问题，欢迎发送电子邮件给 <%= hrefBlankCommunityManagerEmail %>！",
+    "communityGuidelinesWarning": "请注意您的用户名、头像和简介，必须遵从<a href='https://habitica.com/static/community-guidelines' target='_blank'>社区指南</a>(例如，不能包含亵渎言论、成人话题及侮辱言论)。如果您对某件事是否适当有任何问题，欢迎发送电子邮件到 <%= hrefBlankCommunityManagerEmail %>！",
     "profile": "角色信息",
     "avatar": "自订形象",
     "other": "其他",
@@ -69,7 +69,7 @@
     "levelUp": "升级了！",
     "gainedLevel": "你提升了一个等级!",
     "leveledUp": "藉由完成你现实生活中的目标，你已经提升到<strong>等级 <%= level %>!</strong>",
-    "fullyHealed": "你的生命值已經完全恢復了!",
+    "fullyHealed": "你的生命值已經完全恢復!",
     "huzzah": "了解!",
     "mana": "魔法值",
     "hp": "生命值",

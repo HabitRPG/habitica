@@ -246,6 +246,7 @@
     "missingNewPassword": "Nouveau mot de passe manquant.",
     "invalidEmailDomain": "Vous ne pouvez pas vous enregistrer avec une adresse courriel appartenant aux domaines suivants : %= domains %>",
     "wrongPassword": "Mauvais mot de passe.",
+    "incorrectDeletePhrase": "Please type DELETE in all caps to delete your account.",
     "notAnEmail": "Adresse courriel invalide.",
     "emailTaken": "Adresse courriel déjà utilisée par un utilisateur.",
     "newEmailRequired": "Nouvelle adresse courriel manquante.",

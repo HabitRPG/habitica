@@ -246,6 +246,7 @@
     "missingNewPassword": "Отсутствует новый пароль.",
     "invalidEmailDomain": "Нельзя регистрироваться с электронной почтой этих доменов: <%= domains %>",
     "wrongPassword": "Неправильный пароль.",
+    "incorrectDeletePhrase": "Please type DELETE in all caps to delete your account.",
     "notAnEmail": "Неверный адрес электронной почты.",
     "emailTaken": "Адрес электронной почты уже используется в аккаунте.",
     "newEmailRequired": "Отсутствует новый адрес электронной почты.",

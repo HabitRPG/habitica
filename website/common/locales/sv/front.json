@@ -246,6 +246,7 @@
     "missingNewPassword": "Saknar nytt lösenord.",
     "invalidEmailDomain": "You cannot register with emails with the following domains: <%= domains %>",
     "wrongPassword": "Fel lösenord.",
+    "incorrectDeletePhrase": "Please type DELETE in all caps to delete your account.",
     "notAnEmail": "Ogiltig E-postadress.",
     "emailTaken": "E-postadressen används redan av ett annat konto.",
     "newEmailRequired": "Saknar ny E-postadress.",

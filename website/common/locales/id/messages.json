@@ -30,6 +30,7 @@
     "messageAlreadyPurchasedGear": "Kamu pernah membeli perlengkapan ini, tetapi sekarang tidak memilikinya. Kamu bisa membelinya lagi di kolom hadiah pada halaman tugas.",
     "messageAlreadyOwnGear": "Kamu sudah memiliki item ini. Kamu bisa memakainya dengan pergi ke halaman perlengkapan.",
     "messageHealthAlreadyMax": "You already have maximum health.",
+    "messageHealthAlreadyMin": "Oh no! You have already run out of health so it's too late to buy a health potion, but don't worry - you can revive!",
     "armoireEquipment": "<%= image %> Kamu menemukan bagian dari perlengkapan yang langka di Armoire: <%= dropText %>! Keren!",
     "armoireFood": "<%= image %> Kamu mengobrak-abrik Airmore dan menemukan <%= dropArticle %><%= dropText %>. Kenapa bisa ada di sini?",
     "armoireExp": "Kamu menghajar Armoire dan mendapatkan Pengalaman. Rasakan itu!",

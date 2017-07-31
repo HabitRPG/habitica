@@ -246,6 +246,7 @@
     "missingNewPassword": "Kata sandi baru hilang.",
     "invalidEmailDomain": "Kamu tidak dapat mendaftar menggunakan email dengan domain berikut ini: <%= domains %>",
     "wrongPassword": "Kata sandi salah.",
+    "incorrectDeletePhrase": "Please type DELETE in all caps to delete your account.",
     "notAnEmail": "Alamat email salah.",
     "emailTaken": "Alamat email telah digunakan oleh akun lain.",
     "newEmailRequired": "Alamat email baru hilang.",

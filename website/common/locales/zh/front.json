@@ -246,6 +246,7 @@
     "missingNewPassword": "缺少新密码。",
     "invalidEmailDomain": "你不能使用下列邮件供应商提供的邮箱注册 Habitica: <%= domains %>",
     "wrongPassword": "密码错误。",
+    "incorrectDeletePhrase": "Please type DELETE in all caps to delete your account.",
     "notAnEmail": "无效的电子邮件地址。",
     "emailTaken": "邮件地址已经在现有账号中存在",
     "newEmailRequired": "缺少新的邮件地址",
