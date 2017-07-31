@@ -143,6 +143,7 @@ import equip from './ops/equip';
 import changeClass from './ops/changeClass';
 import disableClasses from './ops/disableClasses';
 import purchase from './ops/purchase';
+import purchaseWithSpell from './ops/purchaseWithSpell';
 import purchaseHourglass from './ops/hourglassPurchase';
 import readCard from './ops/readCard';
 import openMysteryItem from './ops/openMysteryItem';
@@ -179,6 +180,7 @@ api.ops = {
   changeClass,
   disableClasses,
   purchase,
+  purchaseWithSpell,
   purchaseHourglass,
   readCard,
   openMysteryItem,

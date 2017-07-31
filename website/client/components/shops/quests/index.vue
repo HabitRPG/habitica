@@ -440,7 +440,6 @@ export default {
       },
       getGrouped (entries) {
         var result = _groupBy(entries, 'group');
-        console.info(entries, result);
         return result;
       },
       resetItemToBuy ($event) {

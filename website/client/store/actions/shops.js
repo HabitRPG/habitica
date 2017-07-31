@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { loadAsyncResource } from 'client/libs/asyncResource';
 import buyOp from 'common/script/ops/buy';
+import purchaseOp from 'common/script/ops/purchaseWithSpell';
 import sellOp from 'common/script/ops/sell';
 
 export function fetchMarket (store, forceLoad = false) { // eslint-disable-line no-shadow
@@ -64,7 +65,7 @@ export function buyItem (store, params) {
 
 export function purchase (store, params) {
   const user = store.state.user.data;
-  // buyOp(user, {params}); todo purcheOp
+  purchaseOp(user, {params});
   axios
     .post(`/api/v3/user/purchase/${params.type}/${params.key}`);
   // TODO

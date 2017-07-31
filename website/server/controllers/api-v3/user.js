@@ -1241,7 +1241,7 @@ api.purchase = {
       if (!canGetGems) throw new NotAuthorized(res.t('groupPolicyCannotGetGems'));
     }
 
-    let purchaseRes = type === 'spells' ? common.ops.buySpecialSpell(user, req) : common.ops.purchase(user, req, res.analytics);
+    let purchaseRes = common.ops.purchaseWithSpell(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseRes);
   },
