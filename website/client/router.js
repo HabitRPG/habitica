@@ -34,7 +34,7 @@ const CreatorIntro = () => import(/* webpackChunkName: "creator" */'./components
 const BackgroundsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/backgrounds');
 // const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
 // const AchievementsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/achievements');
-const ProfilePage = () => import(/* webpackChunkName: "user" */'./components/userMenu/profile');
+const ProfilePage = () => import(/* webpackChunkName: "user" */'./components/userMenu/profilePage');
 
 // Settings
 const Settings = () => import(/* webpackChunkName: "settings" */'./components/settings/index');

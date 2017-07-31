@@ -50,6 +50,7 @@ export default function () {
       publicGuilds: [],
       groupFormOptions: {
         creatingParty: false,
+        groupId: '',
       },
       editingGroup: {}, // TODO move to local state
       // content data, frozen to prevent Vue from modifying it since it's static and never changes
