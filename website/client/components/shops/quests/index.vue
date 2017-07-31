@@ -57,7 +57,7 @@
                 template(slot="popoverContent", scope="ctx")
                   div
                     h4.popover-content-title {{ item.text() }}
-                    .popover-content-text {{ item.notes() }}
+                    .popover-content-text(v-html="item.notes()")
 
       h1.mb-0.page-header(v-once) {{ $t('quests') }}
 
@@ -103,7 +103,7 @@
               span(slot="popoverContent", scope="ctx")
                 div
                   h4.popover-content-title {{ ctx.item.text }}
-                  .popover-content-text {{ ctx.item.notes }}
+                  .popover-content-text(v-html="ctx.item.notes")
 
               template(slot="itemBadge", scope="ctx")
                 span.badge.badge-pill.badge-item.badge-svg(
@@ -113,7 +113,7 @@
                   span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
                 countBadge(
-                  :show="userItems.quests[ctx.item.key]",
+                  :show="userItems.quests[ctx.item.key] > 0",
                   :count="userItems.quests[ctx.item.key] || 0"
                 )
 
@@ -135,7 +135,7 @@
                 span(slot="popoverContent")
                   div
                     h4.popover-content-title {{ item.text }}
-                    .popover-content-text {{ item.notes }}
+                    .popover-content-text(v-html="item.notes")
 
                 template(slot="itemBadge", scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
@@ -145,7 +145,7 @@
                     span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
                   countBadge(
-                    :show="userItems.quests[ctx.item.key]",
+                    :show="userItems.quests[ctx.item.key] > 0",
                     :count="userItems.quests[ctx.item.key] || 0"
                   )
 
@@ -164,7 +164,7 @@
             span(slot="popoverContent")
               div
                 h4.popover-content-title {{ item.text }}
-                .popover-content-text {{ item.notes }}
+                .popover-content-text(v-html="item.notes")
 
             template(slot="itemBadge", scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
@@ -174,7 +174,7 @@
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
               countBadge(
-                :show="userItems.quests[ctx.item.key]",
+                :show="userItems.quests[ctx.item.key] > 0",
                 :count="userItems.quests[ctx.item.key] || 0"
               )
 
@@ -405,7 +405,6 @@ export default {
       },
 
       featuredItems () {
-        console.info(this.content.quests);
         return featuredItems.quests.map(i => {
           return this.content.quests[i];
         });

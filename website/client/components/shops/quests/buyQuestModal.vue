@@ -20,7 +20,7 @@
         slot(name="item", :item="item")
 
         h4.title {{ itemText }}
-        div.text {{ itemNotes }}
+        div.text(v-html="itemNotes")
 
         slot(name="additionalInfo", :item="item")
 
