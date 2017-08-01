@@ -22,7 +22,10 @@ form(
       .option(v-if="['daily', 'todo'].indexOf(task.type) > -1")
         label(v-once) {{ $t('checklist') }}
         br
-        input.checklist-item.form-control(v-for="item in task.checklist", type="text", :value="item.text")
+        .checklist-group.input-group(v-for="(item, $index) in task.checklist")
+          input.checklist-item.form-control(type="text", :value="item.text")
+          span.input-group-btn(@click="removeChecklistItem($index)")
+            .svg-icon.destroy-icon(v-html="icons.destroy")
         input.checklist-item.form-control(type="text", :placeholder="$t('newChecklistItem')", @keydown.enter="addChecklistItem($event)", v-model="newChecklistItem")
       .d-flex.justify-content-center(v-if="task.type === 'habit'")
         .option-item(:class="{'option-item-selected': task.up === true}", @click="task.up = !task.up")
@@ -55,6 +58,9 @@ form(
           .option-item-box
             .svg-icon.difficulty-hard-icon(v-html="icons.difficultyHard")
           .option-item-label(v-once) {{ $t('hard') }}
+      .option(v-if="task.type === 'todo'")
+        label(v-once) {{ $t('dueDate') }}
+        datepicker(v-model="task.date")
       .option(v-if="task.type === 'daily'")
         label(v-once) {{ $t('startDate') }}
         datepicker(v-model="task.startDate")
@@ -68,7 +74,7 @@ form(
         | {{ repeatSuffix }}
         template(v-if="task.frequency === 'weekly'")
           .form-check(
-            v-for="(day, dayNumber) in daysMapping",
+            v-for="(day, dayNumber) in dayMapping",
             :key="dayNumber",
           )
             label.custom-control.custom-checkbox
@@ -251,20 +257,34 @@ form(
     top: auto;
   }
 
+  .checklist-group {
+    border-top: 1px solid $gray-500;
+
+    .input-group-btn {
+      cursor: pointer;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .destroy-icon {
+      width: 14px;
+      height: 16px;
+    }
+  }
+
   .checklist-item {
     margin-bottom: 0px;
     border-radius: 0px;
-    border-bottom: none !important;
-    border-left: none !important;
-    border-right: none !important;
+    border: none !important;
+    padding-left: 36px;
 
     &:last-child {
       background-size: 10px 10px;
       background-image: url(~client/assets/svg/for-css/positive.svg);
       background-repeat: no-repeat;
       background-position: center left 10px;
-      padding-left: 36px;
-      border-bottom: 1px solid $gray-500;
+      border-top: 1px solid $gray-500 !important;
+      border-bottom: 1px solid $gray-500 !important;
     }
   } 
 
@@ -298,6 +318,11 @@ form(
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
 import { mapGetters, mapActions, mapState } from 'client/libs/store';
+import bDropdown from 'bootstrap-vue/lib/components/dropdown';
+import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
+import Datepicker from 'vuejs-datepicker';
+import moment from 'moment';
+
 import informationIcon from 'assets/svg/information.svg';
 import difficultyTrivialIcon from 'assets/svg/difficulty-trivial.svg';
 import difficultyMediumIcon from 'assets/svg/difficulty-medium.svg';
@@ -305,10 +330,7 @@ import difficultyHardIcon from 'assets/svg/difficulty-hard.svg';
 import difficultyNormalIcon from 'assets/svg/difficulty-normal.svg';
 import positiveIcon from 'assets/svg/positive.svg';
 import negativeIcon from 'assets/svg/negative.svg';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
-import Datepicker from 'vuejs-datepicker';
-import moment from 'moment';
+import deleteIcon from 'assets/svg/delete.svg';
 
 export default {
   components: {
@@ -322,15 +344,6 @@ export default {
     return {
       showTagsSelect: false,
       newChecklistItem: null,
-      daysMapping: Object.freeze({
-        0: 'su',
-        1: 'm',
-        2: 't',
-        3: 'w',
-        4: 'th',
-        5: 'f',
-        6: 's',
-      }),
       icons: Object.freeze({
         information: informationIcon,
         difficultyNormal: difficultyNormalIcon,
@@ -339,6 +352,7 @@ export default {
         difficultyHard: difficultyHardIcon,
         negative: negativeIcon,
         positive: positiveIcon,
+        destroy: deleteIcon,
       }),
     };
   },
@@ -347,7 +361,10 @@ export default {
       getTaskClasses: 'tasks:getTaskClasses',
       getTagsFor: 'tasks:getTagsFor',
     }),
-    ...mapState({user: 'user.data'}),
+    ...mapState({
+      user: 'user.data',
+      dayMapping: 'constants.DAY_MAPPING',
+    }),
     title () {
       const type = this.$t(this.task.type);
       return this.$t(this.purpose === 'edit' ? 'editATask' : 'createTask', {type});
@@ -391,7 +408,7 @@ export default {
         } else if (task.frequency === 'monthly' && newValue === 'dayOfWeek') {
           const week = Math.ceil(moment(task.startDate).date() / 7) - 1;
           const dayOfWeek = moment(task.startDate).day();
-          const shortDay = this.daysMapping[dayOfWeek];
+          const shortDay = this.dayMapping[dayOfWeek];
           task.daysOfMonth = [];
           task.weeksOfMonth = [week];
           for (let key in task.repeat) {
@@ -408,6 +425,9 @@ export default {
       this.task.checklist.push({text: this.newChecklistItem, completed: false});
       this.newChecklistItem = null;
       e.preventDefault();
+    },
+    removeChecklistItem (i) {
+      this.task.checklist.splice(i, 1);
     },
     weekdaysMin (dayNumber) {
       return moment.weekdaysMin(dayNumber);
