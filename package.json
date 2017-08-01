@@ -40,7 +40,7 @@
     "coupon-code": "^0.4.5",
     "css-loader": "^0.28.0",
     "csv-stringify": "^1.0.2",
-    "cwait": "^1.0.0",
+    "cwait": "~1.0.1",
     "domain-middleware": "~0.1.0",
     "estraverse": "^4.1.1",
     "express": "~4.14.0",

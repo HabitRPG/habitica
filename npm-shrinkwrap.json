@@ -1743,11 +1743,6 @@
         }
       }
     },
-    "cdata": {
-      "version": "0.1.1",
-      "from": "cdata@>=0.1.1 <0.2.0",
-      "resolved": "https://registry.npmjs.org/cdata/-/cdata-0.1.1.tgz"
-    },
     "center-align": {
       "version": "0.1.3",
       "from": "center-align@>=0.1.1 <0.2.0",
@@ -2582,9 +2577,9 @@
       "dev": true
     },
     "cwait": {
-      "version": "1.1.0",
-      "from": "cwait@>=1.0.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/cwait/-/cwait-1.1.0.tgz"
+      "version": "1.0.1",
+      "from": "cwait@1.0.1",
+      "resolved": "https://registry.npmjs.org/cwait/-/cwait-1.0.1.tgz"
     },
     "cwise": {
       "version": "1.0.10",
