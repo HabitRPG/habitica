@@ -275,7 +275,7 @@
       height: 216px;
 
       .background {
-        background: url('~assets/images/shops/quest_shop__banner_background_web.png');
+        background: url('~assets/images/shops/quest_shop_banner_background.png');
 
         background-repeat: repeat-x;
 
