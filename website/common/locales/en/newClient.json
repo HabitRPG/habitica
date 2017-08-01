@@ -219,8 +219,6 @@
   "positive": "Positive",
   "negative": "Negative",
   "resetStreak": "Reset Streak",
-  "dailyFrequency": "Daily",
-  "weeklyFrequency": "Weekly",
-  "monthlyFrequency": "Monthly",
-  "newChecklistItem": "New checklist item"
+  "newChecklistItem": "New checklist item",
+  "repeats": "Repeats"
 }

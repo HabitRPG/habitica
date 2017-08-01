@@ -20,7 +20,7 @@ form(
         textarea.form-control(:class="[`${cssClass}-modal-input`]", v-model="task.notes", rows="3")
     .task-modal-content
       .option(v-if="['daily', 'todo'].indexOf(task.type) > -1")
-        label {{ $t('checklist') }}
+        label(v-once) {{ $t('checklist') }}
         br
         input.checklist-item.form-control(v-for="item in task.checklist", type="text", :value="item.text")
         input.checklist-item.form-control(type="text", :placeholder="$t('newChecklistItem')", @keydown.enter="addChecklistItem($event)", v-model="newChecklistItem")
@@ -55,6 +55,36 @@ form(
           .option-item-box
             .svg-icon.difficulty-hard-icon(v-html="icons.difficultyHard")
           .option-item-label(v-once) {{ $t('hard') }}
+      .option(v-if="task.type === 'daily'")
+        label(v-once) {{ $t('startDate') }}
+        datepicker(v-model="task.startDate")
+      .option(v-if="task.type === 'daily'")
+        label(v-once) {{ $t('repeats') }}
+        b-dropdown(:text="$t(task.frequency)")
+          b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly', 'yearly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
+            | {{ $t(frequency) }}
+        label(v-once) {{ $t('repeatEvery') }}
+        input.form-control(type='number', v-model='task.everyX', min='0', required)
+        | {{ repeatSuffix }}
+        template(v-if="task.frequency === 'weekly'")
+          .form-check(
+            v-for="(day, dayNumber) in daysMapping",
+            :key="dayNumber",
+          )
+            label.custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox", v-model="task.repeat[day]")
+              span.custom-control-indicator
+              span.custom-control-description(v-once) {{ weekdaysMin(dayNumber) }}
+        template(v-if="task.frequency === 'monthly'")
+          label.custom-control.custom-radio
+            input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfMonth") 
+            span.custom-control-indicator
+            span.custom-control-description {{ $t('dayOfMonth') }}
+          label.custom-control.custom-radio
+            input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfWeek") 
+            span.custom-control-indicator
+            span.custom-control-description {{ $t('dayOfWeek') }}
+
       .option
         label(v-once) {{ $t('tags') }}
         .category-wrap(@click="showTagsSelect = !showTagsSelect")
@@ -72,9 +102,9 @@ form(
           button.btn.btn-primary(@click="showTagsSelect = !showTagsSelect") {{$t('close')}}
       .option(v-if="task.type === 'habit'")
         label(v-once) {{ $t('resetStreak') }}
-        b-dropdown(:text="$t(`${task.frequency}Frequency`)")
+        b-dropdown(:text="$t(task.frequency)")
           b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
-            | {{ $t(`${frequency}Frequency`) }}
+            | {{ $t(frequency) }}
 
     .task-modal-footer(slot="modal-footer")
       button.btn.btn-primary(type="submit", v-once) {{ $t('save') }}
@@ -133,6 +163,16 @@ form(
 
   .task-modal-content {
     padding-top: 24px;
+
+    input {
+      background: $white;
+      border: 1px solid $gray-500;
+      color: $gray-200;
+
+      &:focus {
+        color: $gray-50 !important;
+      }
+    }
   }
 
   .info-icon {
@@ -212,15 +252,11 @@ form(
   }
 
   .checklist-item {
-    background: $white;
-    border-top: 1px solid $gray-500;
     margin-bottom: 0px;
-    color: $gray-200;
-    border-radius: none;
-
-    &:focus {
-      color: $gray-50 !important;
-    }
+    border-radius: 0px;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
 
     &:last-child {
       background-size: 10px 10px;
@@ -271,18 +307,30 @@ import positiveIcon from 'assets/svg/positive.svg';
 import negativeIcon from 'assets/svg/negative.svg';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
+import Datepicker from 'vuejs-datepicker';
+import moment from 'moment';
 
 export default {
   components: {
     bModal,
     bDropdown,
     bDropdownItem,
+    Datepicker,
   },
   props: ['task', 'purpose'], // purpose is either create or edit, task is the task created or edited
   data () {
     return {
       showTagsSelect: false,
       newChecklistItem: null,
+      daysMapping: Object.freeze({
+        0: 'su',
+        1: 'm',
+        2: 't',
+        3: 'w',
+        4: 'th',
+        5: 'f',
+        6: 's',
+      }),
       icons: Object.freeze({
         information: informationIcon,
         difficultyNormal: difficultyNormalIcon,
@@ -310,6 +358,49 @@ export default {
     controlClass () {
       return this.getTaskClasses(this.task, this.purpose === 'edit' ? 'control' : 'controlCreate');
     },
+    repeatSuffix () {
+      const task = this.task;
+
+      if (task.frequency === 'daily') {
+        return task.everyX === 1 ? this.$t('day') : this.$t('days');
+      } else if (task.frequency === 'weekly') {
+        return task.everyX === 1 ? this.$t('week') : this.$t('weeks');
+      } else if (task.frequency === 'monthly') {
+        return task.everyX === 1 ? this.$t('month') : this.$t('months');
+      } else if (task.frequency === 'yearly') {
+        return task.everyX === 1 ? this.$t('year') : this.$t('years');
+      }
+    },
+    repeatsOn: {
+      get () {
+        let repeatsOn = 'dayOfMonth';
+
+        if (this.task.type === 'daily' && this.task.weeksOfMonth && this.task.weeksOfMonth.length > 0) {
+          repeatsOn = 'dayOfWeek';
+        }
+
+        return repeatsOn;
+      },
+      set (newValue) {
+        const task = this.task;
+
+        if (task.frequency === 'monthly' && newValue === 'dayOfMonth') {
+          const date = moment(task.startDate).date();
+          task.weeksOfMonth = [];
+          task.daysOfMonth = [date];
+        } else if (task.frequency === 'monthly' && newValue === 'dayOfWeek') {
+          const week = Math.ceil(moment(task.startDate).date() / 7) - 1;
+          const dayOfWeek = moment(task.startDate).day();
+          const shortDay = this.daysMapping[dayOfWeek];
+          task.daysOfMonth = [];
+          task.weeksOfMonth = [week];
+          for (let key in task.repeat) {
+            task.repeat[key] = false;
+          }
+          task.repeat[shortDay] = true;
+        }
+      },
+    },
   },
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
@@ -317,6 +408,9 @@ export default {
       this.task.checklist.push({text: this.newChecklistItem, completed: false});
       this.newChecklistItem = null;
       e.preventDefault();
+    },
+    weekdaysMin (dayNumber) {
+      return moment.weekdaysMin(dayNumber);
     },
     submit () {
       if (this.purpose === 'create') {

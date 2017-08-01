@@ -128,6 +128,7 @@
     "vue-router": "^2.0.0-rc.5",
     "vue-style-loader": "^3.0.0",
     "vue-template-compiler": "^2.1.10",
+    "vuejs-datepicker": "^0.9.4",
     "webpack": "^2.2.1",
     "webpack-merge": "^4.0.0",
     "winston": "^2.1.0",
