@@ -154,11 +154,11 @@ function _addTiered (result, user, data) {
   let key = data.key || data.path;
   let thisContent = achievsContent[key];
 
-  let achievLevel = thisContent.breakpoints[findLastIndex(thisContent.breakpoints, function findAchievLevel (pt) { 
+  let achievLevel = thisContent.breakpoints[findLastIndex(thisContent.breakpoints, function findAchievLevel (pt) {
     return value >= pt;
   })];
 
-  let titleKey
+  let titleKey;
   let textKey;
   if (achievLevel === 1) {
     titleKey = thisContent.singularTitleKey;
