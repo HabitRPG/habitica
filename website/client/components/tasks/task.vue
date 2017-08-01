@@ -10,15 +10,16 @@
       .svg-icon.check(v-html="icons.check", v-if="task.completed")
   // Task title, description and icons
   .task-content(:class="contentClass")
-    h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
-    .task-notes.small-text(v-markdown="task.notes")
+    .task-clickable-area(@click="edit($event, task)")
+      h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
+      .task-notes.small-text(v-markdown="task.notes")
     .checklist(v-if="task.checklist && task.checklist.length > 0")
-        label.custom-control.custom-checkbox.checklist-item(
-          v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
-        )
-          input.custom-control-input(type="checkbox", :checked="item.completed")
-          span.custom-control-indicator
-          span.custom-control-description {{ item.text }}
+      label.custom-control.custom-checkbox.checklist-item(
+        v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
+      )
+        input.custom-control-input(type="checkbox", :checked="item.completed")
+        span.custom-control-indicator
+        span.custom-control-description {{ item.text }}
     .icons.small-text.d-flex.align-items-center
       .d-flex.align-items-center(v-if="task.type === 'todo' && task.date", :class="{'due-overdue': isDueOverdue}")
         .svg-icon.calendar(v-html="icons.calendar")
@@ -67,12 +68,13 @@
 }
 
 .task-title {
-  margin-bottom: 8px;
+  padding-bottom: 8px;
   color: $gray-10;
   font-weight: normal;
+  margin-bottom: 0px;
 
   &.has-notes {
-    margin-bottom: 0px;
+    padding-bottom: 0px;
   }
 }
 
@@ -98,6 +100,7 @@
   line-height: 1.43;
   margin-bottom: 10px;
   min-height: 0px;
+  width: 100%;
 
   &-done {
     color: $gray-300;
@@ -178,34 +181,13 @@
 .left-control {
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
+  min-height: 60px;
 }
 
 .right-control {
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
-}
-
-.task-control {
-  width: 28px;
-  height: 28px;
-}
-
-.habit-control {
-  border-radius: 100px;
-  color: $white;
-
-  .svg-icon {
-    width: 10px;
-    margin: 0 auto;
-  }
-
-  .positive {
-    margin-top: 9px;
-  }
-
-  .negative {
-    margin-top: 13px;
-  }
+  min-height: 56px;
 }
 
 .daily-todo-control {
@@ -215,8 +197,8 @@
 
 .reward-control {
   flex-direction: column;
-  padding-top: 16px;
-  padding-bottom: 12px;
+  padding-top: 8px;
+  padding-bottom: 4px;
 
   .svg-icon {
     width: 24px;
@@ -270,7 +252,6 @@ import tagsIcon from 'assets/svg/tags.svg';
 import checkIcon from 'assets/svg/check.svg';
 import bPopover from 'bootstrap-vue/lib/components/popover';
 import markdownDirective from 'client/directives/markdown';
-
 
 export default {
   components: {
@@ -328,6 +309,18 @@ export default {
     dueIn () {
       const dueIn = moment().to(this.task.date);
       return this.$t('dueIn', {dueIn});
+    },
+  },
+  methods: {
+    edit (e, task) {
+      // Prevent clicking on a link from opening the edit modal
+      const target = e.target || e.srcElement;
+
+      if (target.tagName === 'A') { // Link
+        return;
+      } else {
+        this.$emit('editTask', task);
+      }
     },
   },
 };

@@ -1,5 +1,11 @@
 <template lang="pug">
 .row.user-tasks-page
+  task-modal(
+    :task="editingTask || creatingTask",
+    :purpose="creatingTask !== null ? 'create' : 'edit'",
+    @cancel="cancelTaskModal()",
+    ref="taskModal",
+  )
   .col-12
     .row.tasks-navigation
       .col-4.offset-4
@@ -32,21 +38,26 @@
             button.btn.btn-secondary.filter-button(
               type="button", 
               @click="toggleFilterPanel()",
-              :class="{open: isFilterPanelOpen}",
+              :class="{'filter-button-open': selectedTags.length > 0}",
             )
               .d-flex.align-items-center
                 span(v-once) {{ $t('filter') }}
                 .svg-icon.filter-icon(v-html="icons.filter")
       .col-1.offset-3
-        button.btn.btn-success(v-once) 
+        //button.btn.btn-success(v-once) 
           .svg-icon.positive(v-html="icons.positive")
           | {{ $t('create') }}
+        b-dropdown(:text="$t('create')")
+          b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
+            | {{$t(type)}}
+
     .row.tasks-columns
       task-column.col-3(
         v-for="column in columns", 
         :type="column", :key="column", 
         :isUser="true", :searchText="searchTextThrottled",
         :selectedTags="selectedTags",
+        @editTask="editTask",
       )
 </template>
 
@@ -69,7 +80,7 @@
   padding-top: 6px;
 }
 
-.filter-button {
+button.btn.btn-secondary.filter-button {
   box-shadow: none;
   border-radius: 2px;
   border: 1px solid $gray-400 !important;
@@ -77,12 +88,21 @@
   &:hover, &:active, &:focus, &.open {
     box-shadow: none; 
     border-color: $purple-500 !important;
+    color: $gray-50 !important;
+  }
+
+  &.filter-button-open {
+    color: $purple-200 !important;
+
+    .filter-icon {
+      color: $purple-200 !important;
+    }
   }
 
   .filter-icon {
     height: 10px;
     width: 12px;
-    color: $green-500;
+    color: $gray-50;
     margin-left: 15px;
   }
 }
@@ -154,15 +174,26 @@
 </style>
 
 <script>
-import Column from './column';
+import TaskColumn from './column';
+import TaskModal from './taskModal';
+
 import positiveIcon from 'assets/svg/positive.svg';
 import filterIcon from 'assets/svg/filter.svg';
+
+import Vue from 'vue';
+import bDropdown from 'bootstrap-vue/lib/components/dropdown';
+import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import throttle from 'lodash/throttle';
+import cloneDeep from 'lodash/cloneDeep';
 import { mapState } from 'client/libs/store';
+import taskDefaults from 'common/script/libs/taskDefaults';
 
 export default {
   components: {
-    TaskColumn: Column,
+    TaskColumn,
+    TaskModal,
+    bDropdown,
+    bDropdownItem,
   },
   data () {
     return {
@@ -176,6 +207,8 @@ export default {
       }),
       selectedTags: [],
       temporarilySelectedTags: [],
+      editingTask: null,
+      creatingTask: null,
     };
   },
   computed: {
@@ -216,6 +249,24 @@ export default {
     }, 250),
   },
   methods: {
+    editTask (task) {
+      this.editingTask = cloneDeep(task);
+      // Necessary otherwise the first time the modal is not rendered
+      Vue.nextTick(() => {
+        this.$root.$emit('show::modal', 'task-modal');
+      });
+    },
+    createTask (type) {
+      this.creatingTask = taskDefaults({type, text: ''});
+      // Necessary otherwise the first time the modal is not rendered
+      Vue.nextTick(() => {
+        this.$root.$emit('show::modal', 'task-modal');
+      });
+    },
+    cancelTaskModal () {
+      this.editingTask = null;
+      this.creatingTask = null;
+    },
     toggleFilterPanel () {
       if (this.isFilterPanelOpen === true) {
         this.closeFilterPanel();

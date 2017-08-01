@@ -1,7 +1,8 @@
 import Store from 'client/libs/store';
 import deepFreeze from 'client/libs/deepFreeze';
 import content from 'common/script/content/index';
-import * as constants from 'common/script/constants';
+import * as commonConstants from 'common/script/constants';
+import { DAY_MAPPING } from 'common/script/cron';
 import { asyncResourceFactory } from 'client/libs/asyncResource';
 import axios from 'axios';
 
@@ -39,6 +40,7 @@ export default function () {
       isUserLoggedIn,
       user: asyncResourceFactory(),
       tasks: asyncResourceFactory(), // user tasks
+      completedTodosStatus: 'NOT_LOADED',
       party: {
         quest: {},
         members: asyncResourceFactory(),
@@ -59,7 +61,7 @@ export default function () {
       // TODO apply freezing to the entire codebase (the server) and not only to the client side?
       // NOTE this takes about 10-15ms on a fast computer
       content: deepFreeze(content),
-      constants: deepFreeze(constants),
+      constants: deepFreeze({...commonConstants, DAY_MAPPING}),
       hideHeader: false,
       viewingMembers: [],
     },

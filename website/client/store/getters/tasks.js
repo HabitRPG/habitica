@@ -37,6 +37,11 @@ export function getTaskClasses (store) {
         return 'task-purple';
       case 'editModal':
         return type === 'reward' ? 'task-purple' : getTaskColorByValue(task.value);
+      case 'controlCreate':
+        return {
+          up: task.up ? 'task-purple' : 'task-habit-disabled',
+          down: task.down ? 'task-purple' : 'task-habit-disabled',
+        };
       case 'control':
         switch (type) {
           case 'daily':
