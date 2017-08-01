@@ -19,6 +19,9 @@ form(
         label(v-once) {{ $t('notes') }}
         textarea.form-control(:class="[`${cssClass}-modal-input`]", v-model="task.notes", rows="3")
     .task-modal-content
+      .option(v-if="task.type === 'reward'")
+        label(v-once) {{ $t('cost') }}
+        input(type="number", v-model="task.value", required, min="0")
       .option(v-if="['daily', 'todo'].indexOf(task.type) > -1")
         label(v-once) {{ $t('checklist') }}
         br
@@ -38,26 +41,27 @@ form(
             .task-control.habit-control(:class="controlClass.down + '-control-habit'")
               .svg-icon.negative(v-html="icons.negative")
           .option-item-label(v-once) {{ $t('negative') }}
-      label(v-once) 
-        span.float-left {{ $t('difficulty') }}
-        .svg-icon.info-icon(v-html="icons.information")
-      .d-flex.justify-content-center
-        .option-item(:class="{'option-item-selected': task.priority === 0.1}", @click="task.priority = 0.1")
-          .option-item-box
-            .svg-icon.difficulty-trivial-icon(v-html="icons.difficultyTrivial")
-          .option-item-label(v-once) {{ $t('trivial') }}
-        .option-item(:class="{'option-item-selected': task.priority === 1}", @click="task.priority = 1")
-          .option-item-box
-            .svg-icon.difficulty-normal-icon(v-html="icons.difficultyNormal")
-          .option-item-label(v-once) {{ $t('easy') }}
-        .option-item(:class="{'option-item-selected': task.priority === 1.5}", @click="task.priority = 1.5")
-          .option-item-box
-            .svg-icon.difficulty-medium-icon(v-html="icons.difficultyMedium")
-          .option-item-label(v-once) {{ $t('medium') }}
-        .option-item(:class="{'option-item-selected': task.priority === 2}", @click="task.priority = 2")
-          .option-item-box
-            .svg-icon.difficulty-hard-icon(v-html="icons.difficultyHard")
-          .option-item-label(v-once) {{ $t('hard') }}
+      template(v-if="task.type !== 'reward'")
+        label(v-once) 
+          span.float-left {{ $t('difficulty') }}
+          .svg-icon.info-icon(v-html="icons.information")
+        .d-flex.justify-content-center
+          .option-item(:class="{'option-item-selected': task.priority === 0.1}", @click="task.priority = 0.1")
+            .option-item-box
+              .svg-icon.difficulty-trivial-icon(v-html="icons.difficultyTrivial")
+            .option-item-label(v-once) {{ $t('trivial') }}
+          .option-item(:class="{'option-item-selected': task.priority === 1}", @click="task.priority = 1")
+            .option-item-box
+              .svg-icon.difficulty-normal-icon(v-html="icons.difficultyNormal")
+            .option-item-label(v-once) {{ $t('easy') }}
+          .option-item(:class="{'option-item-selected': task.priority === 1.5}", @click="task.priority = 1.5")
+            .option-item-box
+              .svg-icon.difficulty-medium-icon(v-html="icons.difficultyMedium")
+            .option-item-label(v-once) {{ $t('medium') }}
+          .option-item(:class="{'option-item-selected': task.priority === 2}", @click="task.priority = 2")
+            .option-item-box
+              .svg-icon.difficulty-hard-icon(v-html="icons.difficultyHard")
+            .option-item-label(v-once) {{ $t('hard') }}
       .option(v-if="task.type === 'todo'")
         label(v-once) {{ $t('dueDate') }}
         datepicker(v-model="task.date")
@@ -70,7 +74,7 @@ form(
           b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly', 'yearly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
             | {{ $t(frequency) }}
         label(v-once) {{ $t('repeatEvery') }}
-        input.form-control(type='number', v-model='task.everyX', min='0', required)
+        input.form-control(type="number", v-model="task.everyX", min="0", required)
         | {{ repeatSuffix }}
         template(v-if="task.frequency === 'weekly'")
           .form-check(
