@@ -246,6 +246,7 @@
     "missingNewPassword": "Manglende nyt kodeord.",
     "invalidEmailDomain": "Du kan ikke registrere med emails med følgende domæner: <%= domains %>",
     "wrongPassword": "Forkert kodeord.",
+    "incorrectDeletePhrase": "Please type DELETE in all caps to delete your account.",
     "notAnEmail": "Ugyldig e-mailadresse.",
     "emailTaken": "E-mailadressen er allerede brugt til en konto.",
     "newEmailRequired": "Manglende ny e-mailadresse.",

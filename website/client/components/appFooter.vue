@@ -1,0 +1,244 @@
+<template lang='pug'>
+.row
+  modify-inventory
+  footer.container-fluid
+    .row
+      .col-2
+        h3
+          a(href='https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8', target='_blank') iOS App
+        h3
+          a(href='https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica', target='_blank') Android App
+      .col-2
+        h3 Company
+        ul
+          li
+            a(href='/static/features') How it Works
+          li
+            a(href='https://habitica.wordpress.com/') Blog
+          li
+            a(href='http://blog.habitrpg.com/') Tumblr
+          li
+            a(href='/static/faq') FAQ
+          li
+            a(href='/static/old-news') News
+          li
+            a(href='/static/merch') Merchandise
+          li
+            a(href='/static/press-kit') Press Kit
+          li
+            a(href='/static/contact') Contact Us
+      .col-2
+        h3 Community
+        ul
+          li
+            a(href='/static/community-guidelines') Community Guidelines
+          li
+            router-link(to='/groups/a29da26b-37de-4a71-b0c6-48e72a900dac') Submit a Bug
+          li
+            a(href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents', target='_blank') Request a Feature
+          li
+            a(href='http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations', target='_blank') Add-Ons & Extensions
+          li
+            a(href='http://habitica.wikia.com/wiki/Special:Forum', target='_blank') Forum
+          li
+            a(href='https://www.kickstarter.com/projects/lefnire/habitrpg-mobile', target='_blank') Kickstarter
+          li
+            a(href='https://www.facebook.com/Habitica', target='_blank') Facebook
+          li
+            a(href='https://www.reddit.com/r/habitrpg/', target='_blank') Reddit
+      .col-6
+        .row
+          .col-6
+            h3 Developers
+            ul
+              li
+                a(href='/apidoc', target='_blank') APIv3
+              li
+                a(href='http://data.habitrpg.com/?uuid=', target='_blank') Data Display Tool
+              li
+                a(href='http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths', target='_blank') Guidance for Blacksmiths
+              li
+                a(href='http://devs.habitica.com/', target='_blank') The Forge - Developer Blog
+          .col-6
+            h3 Social
+            .social-circle
+              a(href='https://twitter.com/habitica', target='_blank') Twitter
+            .social-circle
+              a(href='https://www.instagram.com/habitica/', target='_blank') Instagram
+            .social-circle
+              a(href='https://www.facebook.com/Habitica', target='_blank') Facebook
+        .row
+          .col-10
+            | We’re an open source project that depends on our users for support. The money you donate helps us keep the servers running, maintain a small staff, develop new features, and provide incentives for our volunteers.
+          .col-2
+            button.btn.btn-primary Donate
+    .row
+      hr.col-12
+    .row
+      .col-4
+        | © 2017 Habitica. All rights reserved.
+      .col-4.text-center
+        .logo.svg-icon(v-html='icons.gryphon')
+      .col-4.text-right
+        span Privacy Policy
+        span Terms of Use
+    .row
+      h4 Debug
+      .btn-group-vertical
+        a.btn.btn-default(@click='setHealthLow()') Health = 1
+        a.btn.btn-default(@click='addMissedDay(1)') +1 Missed Day
+        a.btn.btn-default(@click='addMissedDay(2)') +2 Missed Days
+        a.btn.btn-default(@click='addMissedDay(8)') +8 Missed Days
+        a.btn.btn-default(@click='addMissedDay(32)') +32 Missed Days
+        a.btn.btn-default(@click='addTenGems()') +10 Gems
+        a.btn.btn-default(@click='addHourglass()') +1 Mystic Hourglass
+        a.btn.btn-default(@click='addGold()') +500GP
+        a.btn.btn-default(@click='addMana()') +MP
+        a.btn.btn-default(@click='addLevelsAndGold()') +Exp +GP +MP
+        a.btn.btn-default(@click='addOneLevel()') +1 Level
+        a.btn.btn-default(@click='addQuestProgress()' tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
+        a.btn.btn-default(@click='makeAdmin()') Make Admin
+        a.btn.btn-default(@click='openModifyInventoryModal()') Modify Inventory
+</template>
+
+<style scoped>
+  footer {
+    background-color: #e1e0e3;
+    height: 376px;
+    padding-left: 6em;
+    padding-right: 6em;
+    padding-top: 3em;
+    margin: 0;
+    color: #878190;
+  }
+
+  h3 {
+    color: #878190;
+  }
+
+  ul {
+    padding-left: 0;
+    list-style-type: none;
+  }
+
+  li {
+    margin-bottom: .5em;
+  }
+
+  .social-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #c3c0c7;
+    display: inline-block;
+    margin-right: 1em;
+  }
+
+  .logo.svg-icon {
+    width: 24px;
+    margin: 0 auto;
+    color: #c3c0c7;
+  }
+</style>
+
+<script>
+import axios from 'axios';
+import moment from 'moment';
+import { mapState } from 'client/libs/store';
+import gryphon from 'assets/svg/gryphon.svg';
+
+import modifyInventory from './modifyInventory';
+
+// const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
+
+export default {
+  components: {
+    modifyInventory,
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        gryphon,
+      }),
+    };
+  },
+  computed: {
+    ...mapState({user: 'user.data'}),
+  },
+  methods: {
+    setHealthLow () {
+      this.$store.dispatch('user:set', {
+        'stats.hp': 1,
+      });
+    },
+    async addMissedDay (numberOfDays) {
+      if (!confirm(`Are you sure you want to reset the day by ${numberOfDays} day(s)?`)) return;
+
+      let date = moment(this.user.lastCron).subtract(numberOfDays, 'days').toDate();
+
+      await axios.post('/api/v3/debug/set-cron', {
+        lastCron: date,
+      });
+
+      // @TODO: Notification.text('-' + numberOfDays + ' day(s), remember to refresh');
+      // @TODO: Sync user?
+    },
+    async addTenGems () {
+      // @TODO: User.addTenGems();
+      await axios.post('/api/v3/debug/add-ten-gems');
+      // @TODO: Notification.text('+10 Gems!');
+      this.user.balance += 2.5;
+    },
+    async addHourglass () {
+      await axios.post('/api/v3/debug/add-hourglass');
+      // @TODO: Sync?
+    },
+    addGold () {
+      this.$store.dispatch('user:set', {
+        'stats.gp': this.user.stats.gp + 500,
+      });
+    },
+    addMana () {
+      this.$store.dispatch('user:set', {
+        'stats.mp': this.user.stats.mp + 500,
+      });
+    },
+    addLevelsAndGold () {
+      this.$store.dispatch('user:set', {
+        'stats.exp': this.user.stats.exp + 10000,
+        'stats.gp': this.user.stats.gp  + 10000,
+        'stats.mp': this.user.stats.mp  + 10000,
+      });
+    },
+    addOneLevel () {
+      // @TODO: Name these variables better
+      let exp = 0;
+      let five = 10 * this.user.stats.lvl;
+      let four = Math.pow(this.user.stats.lvl, 2) * 0.25;
+      let three = four + five + 139.75;
+      let two = three / 10;
+      let one = Math.round(two) * 10;
+      exp = this.user.stats.exp + one;
+
+      this.$store.dispatch('user:set', {
+        'stats.exp': exp,
+      });
+    },
+    async addQuestProgress () {
+      await axios.post('/api/v3/debug/quest-progress');
+
+      //  @TODO:  Notification.text('Quest progress increased');
+      //  @TODO:  User.sync();
+    },
+    async makeAdmin  () {
+      await axios.post('/api/v3/debug/make-admin');
+
+      // @TODO: Notification.text('You are now an admin! Go to the Hall of Heroes to change your contributor level.');
+      // @TODO: sync()
+    },
+    openModifyInventoryModal  () {
+      this.$root.$emit('show::modal', 'modify-inventory');
+    },
+  },
+};
+</script>

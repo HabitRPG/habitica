@@ -45,13 +45,25 @@ export default function () {
         quest: {},
         members: asyncResourceFactory(),
       },
+      shops: {
+        market: asyncResourceFactory(),
+        quests: asyncResourceFactory(),
+        seasonal: asyncResourceFactory(),
+        'time-travelers': asyncResourceFactory(),
+      },
       myGuilds: [],
+      publicGuilds: [],
+      groupFormOptions: {
+        creatingParty: false,
+      },
       editingGroup: {}, // TODO move to local state
       // content data, frozen to prevent Vue from modifying it since it's static and never changes
       // TODO apply freezing to the entire codebase (the server) and not only to the client side?
       // NOTE this takes about 10-15ms on a fast computer
       content: deepFreeze(content),
       constants: deepFreeze({...commonConstants, DAY_MAPPING}),
+      hideHeader: false,
+      viewingMembers: [],
     },
   });
 

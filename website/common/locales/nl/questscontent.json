@@ -281,7 +281,7 @@
     "questUnicornDropUnicornEgg": "Eenhoorn (ei)",
     "questUnicornUnlockText": "Maakt het kopen van eenhoorneieren op de markt mogelijk",
     "questSabretoothText": "De Sabelkat",
-    "questSabretoothNotes": "Een brullend monster terroriseert Habitica! Het schepsel sluipt door de wildernis en bossen, om aan te vallen en weer te verdwijnen. Het is op onschuldige panda's aan het jagen en jaagt de vliegende varkens de stuipen op het lijf, zodat ze de hokken verlaten en neerstrijken in de bomen. @Inventrix en @icefelis leggen uit dat de Zombie Sabelkat vrij werd gelaten toen zij bezig waren met een opgraving in de antieke, onaangeraakte ijsvelden van de Stoikalm Steppes. \"Hij was volkomen vriendelijk in het begin - Ik weet niet wat er is gebeurd. Alstublieft, je moet ons helpen om het te vangen! Alleen een kampioen van Habitica kan dit prehistorische beest onderwerpen!",
+    "questSabretoothNotes": "A roaring monster is terrorizing Habitica! The creature stalks through the wilds and woods, then bursts forth to attack before vanishing again. It's been hunting innocent pandas and frightening the flying pigs into fleeing their pens to roost in the trees. @Inventrix and @icefelis explain that the Zombie Sabre Cat was set free while they were excavating in the ancient, untouched ice-fields of the Stoïkalm Steppes. \"It was perfectly friendly at first – I don't know what happened. Please, you have to help us recapture it! Only a champion of Habitica can subdue this prehistoric beast!\"",
     "questSabretoothCompletion": "Na een lang en vermoeiend gevecht, worstel je de Zombie Sabelkat naar de grond. Als je het eindelijk kan benaderen, merk je een naar gat op in een van zijn sabel tanden. Na het realiseren van de ware oorzaak van de woede van de kat, lukt het je om het gat te laten vullen door @Fandekasp, en adviseer je iedereen om het monster in de toekomst geen zoetigheid meer te voeren. De Sabelkat bloeit op, en in dankbaarheid sturen zijn temmers jou een royale beloning -  een partij sabeltand-eieren!",
     "questSabretoothBoss": "Zombie Sabelkat",
     "questSabretoothDropSabretoothEgg": "Sabeltand (Ei)",
@@ -415,7 +415,7 @@
     "questTriceratopsDropTriceratopsEgg": "Triceratops (Ei)",
     "questTriceratopsUnlockText": "Maakt het kopen van Triceratops eieren in de markt mogelijk",
     "questStoikalmCalamity1Text": "Stoïkalmse Calamiteit , Deel 1: Aardse vijanden",
-    "questStoikalmCalamity1Notes": "Een bondige brief van @Kiwibot arriveert en de vorstkorstige rol beangstigt je hart en vingertoppen. \"Stoikalmse Steppen bezoeken -- monsters barsten vanuit de aarde -- stuur hulp!\" Je verzamelt je groep en rijd naar het noorden, maar het moment dat je van de bergen afgaat, ontploft de sneeuw onder je voeten en gruwelijke grijnzende schedels omringen jullie!<br><br>Plotseling vaart een speer langs jullie, die zichzelf in een schedel boort die zich in de sneeuw verstopte om jullie te verassen. Een lange vrouw in fijn gemaakt harnas galoppeert in het gevecht op de rug van een mastodont, haar lange vlecht die slingert terwijl ze zonder pardon de speer uit het verbrijzelde beest trekt. Het is tijd om deze vijanden  te bevechten met de hulp van Vrouwe Glaciate, de leider van de Mammoetrijders!",
+    "questStoikalmCalamity1Notes": "A terse missive arrives from @Kiwibot, and the frost-crusted scroll chills your heart as well as your fingertips. \"Visiting Stoïkalm Steppes -- monsters bursting from earth -- send help!\" You gather your party and ride north, but as soon as you venture down from the mountains, the snow beneath your feet explodes and gruesomely grinning skulls surround you!<br><br>Suddenly, a spear sails past, burying itself in a skull that was burrowing through the snow in an attempt to catch you unawares. A tall woman in finely-crafted armor gallops into the fray on the back of a mastodon, her long braid swinging as she yanks the spear unceremoniously from the crushed beast. It's time to fight off these foes with the help of Lady Glaciate, the leader of the Mammoth Riders!",
     "questStoikalmCalamity1Completion": "Terwijl je een laatste klap levert aan de schedels, verdrijven ze in een poef van magie. \"De vervloekte zwerm mag dan weg zijn,\" zegt Vrouwe Glaciate, \"maar we hebben grotere problemen. Volg me.\" Ze gooit een dekmantel naar jullie om jullie te beschermen tegen de koude lucht en jullie rijden achter haar aan.",
     "questStoikalmCalamity1Boss": "Schedelzwerm van aarde",
     "questStoikalmCalamity1RageTitle": "De zwerm laten herrijzen",
@@ -486,6 +486,6 @@
     "questNudibranchBoss": "NowDo Zeenaaktslak",
     "questNudibranchDropNudibranchEgg": "Zeenaaktslak (Ei)",
     "questNudibranchUnlockText": "Maakt het kopen van zeenaaktslakeieren in de markt mogelijk",
-    "splashyPalsText": "Splashy Pals Quest Bundle",
-    "splashyPalsNotes": "Contains 'The Dilatory Derby', 'Guide the Turtle', and 'Wail of the Whale'. Available until July 31."
+    "splashyPalsText": "Spetterende Vrienden Queeste Bundel ",
+    "splashyPalsNotes": "Bevat 'De Derby van Dralen', 'Begeleid de schildpad', en 'De Weeklacht van de Walvis'. Beschikbaar tot 31 juli."
 }

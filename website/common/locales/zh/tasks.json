@@ -148,9 +148,9 @@
     "approvals": "许可",
     "approvalRequired": "请求许可",
     "repeatZero": "Daily is never due",
-    "repeatType": "Repeat Type",
+    "repeatType": "重复类型",
     "repeatTypeHelpTitle": "What kind of repeat is this?",
-    "repeatTypeHelp": "Select \"Daily\" if you want this task to repeat every day or every third day, etc. Select \"Weekly\"if you want it to repeat on certain days of the week. If you select \"Monthly\" or \"Yearly\", adjust the Start Date to control which day of the month or year the task will be due on.",
+    "repeatTypeHelp": "每天：任务将每天/每若干天重复一次。每周：任务将在一周内重复若干次。每月/每年：您将自己选定这一重复任务将在在每月的那一天/每年的哪一天",
     "weekly": "每周",
     "monthly": "每月",
     "yearly": "每年",
@@ -175,8 +175,8 @@
     "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
     "nextDue": "下一个截止日",
     "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
-    "yesterDailiesCallToAction": "Start My New Day!",
+    "yesterDailiesCallToAction": "开始新的一天！",
     "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
     "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
-    "repeatDayError": "Please ensure that you have at least one day of the week selected."
+    "repeatDayError": "请在一周中至少选择一天"
 }

@@ -2,6 +2,27 @@
   .standard-page
     h1 Stats
     .row
+      .col-6
+        h2.text-center Equipment
+        .well.row
+          .col-4
+      .col-6
+        h2.text-center Costume
+    .row
+      .col-6
+        h2.text-center Pet
+      .col-6
+        h2.text-center Mount
+    .row
+      hr.col-12
+      h2.col-12 Attributes
+      .col-6
+      .col-6
+    .row
+      .col-6
+      .col-6
+
+    .row
       .col-4
         div
           h3 Basics
@@ -147,13 +168,11 @@
                   :popover='$t(statInfo.allocatepop)') +
 </template>
 
-<style lang='scss' scoped>
-
+<style lang="scss" scoped>
   .btn-xs {
     font-size: 12px;
     padding: .2em;
   }
-
 </style>
 
 <script>

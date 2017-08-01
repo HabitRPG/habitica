@@ -90,7 +90,7 @@
     "leveledUpReceivedQuest": "Ye leveled up t' <strong>Level <%= level %></strong> an' received a quest scroll!",
     "questInvitationDoesNotExist": "No quest invitation has been sent out yet.",
     "questInviteNotFound": "No quest invitation found.",
-    "guildQuestsNotSupported": "Guilds cannot be invited on quests.",
+    "guildQuestsNotSupported": "Ships cannot sail to adventures without a crew.",
     "questNotFound": "Quest \"<%= key %>\" not found.",
     "questNotOwned": "You don't own that quest scroll.",
     "questNotGoldPurchasable": "Quest \"<%= key %>\" is not a Gold-purchasable quest.",

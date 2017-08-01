@@ -1,17 +1,20 @@
 <template lang="pug">
-div
   b-modal#challenge-modal(:title="$t('createChallenge')", size='lg')
-    form(@submit.stop.prevent="submit")
+    .form
       .form-group
         label
           strong(v-once) {{$t('name')}}*
         b-form-input(type="text", :placeholder="$t('challengeNamePlaceHolder')", v-model="workingChallenge.name")
       .form-group
         label
+          strong(v-once) {{$t('shortName')}}*
+        b-form-input(type="text", :placeholder="$t('challengeNamePlaceHolder')", v-model="workingChallenge.shortName")
+      .form-group
+        label
           strong(v-once) {{$t('description')}}*
         div.description-count.float-right {{charactersRemaining}} {{ $t('charactersRemaining') }}
         b-form-input.description-textarea(type="text", textarea, :placeholder="$t('challengeDescriptionPlaceHolder')", v-model="workingChallenge.description")
-      .form-group
+      // @TODO: Implemenet in V2 .form-group
         label
           strong(v-once) {{$t('guildInformation')}}*
         a.float-right {{ $t('markdownFormattingHelp') }}
@@ -19,27 +22,38 @@ div
       .form-group(v-if='creating')
         label
           strong(v-once) {{$t('where')}}
-        b-dropdown(:text="$t('sort')", right=true)
-          b-dropdown-item(@click='sort(option.value)')
-      .form-group
+        select.form-control(v-model='workingChallenge.group')
+          option(v-for='group in groups', :value='group._id') {{group.name}}
+      .form-group(v-if='workingChallenge.categories')
         label
           strong(v-once) {{$t('categories')}}*
-        b-dropdown(:text="$t('sort')", right=true)
-          b-dropdown-item(@click='sort(option.value)')
-            | Member
-      .form-group
+        div.category-wrap(@click.prevent="toggleCategorySelect")
+          span.category-select(v-if='workingChallenge.categories.length === 0') {{$t('none')}}
+          .category-label(v-for='category in workingChallenge.categories') {{$t(categoriesHashByKey[category])}}
+        .category-box(v-if="showCategorySelect")
+          .form-check(
+            v-for="group in categoryOptions",
+            :key="group.key",
+          )
+            label.custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox", :value='group.key' v-model="workingChallenge.categories")
+              span.custom-control-indicator
+              span.custom-control-description(v-once) {{ $t(group.label) }}
+          button.btn.btn-primary(@click.prevent="toggleCategorySelect") {{$t('close')}}
+      // @TODO: Implement in V2 .form-group
         label
           strong(v-once) {{$t('endDate')}}
         b-form-input.end-date-input
       .form-group
         label
           strong(v-once) {{$t('prize')}}
-        b-dropdown(:text="$t('sort')", right=true)
-          b-dropdown-item(@click='sort(option.value)')
-            | Member
+        input(type='number', min='1', :max='maxPrize')
       .row.footer-wrap
         .col-12.text-center.submit-button-wrapper
-          button.btn.btn-primary(v-once) {{$t('createChallenge')}}
+          .alert.alert-warning(v-if='insufficientGemsForTavernChallenge')
+            You do not have enough gems to create a Tavern challenge
+          button.btn.btn-primary(v-once, v-if='creating', @click='createChallenge()') {{$t('createChallenge')}}
+          button.btn.btn-primary(v-once, v-if='!creating', @click='updateChallenge()') {{$t('updateChallenge')}}
         .col-12.text-center
           p(v-once) {{$t('challengeMinimum')}}
 </template>
@@ -91,6 +105,14 @@ div
       margin-top: 2em;
       margin-bottom: 2em;
     }
+
+    .category-wrap {
+      position: relative;
+    }
+
+    .category-box {
+      top: -40px !important;
+    }
   }
 </style>
 
@@ -99,6 +121,9 @@ import bModal from 'bootstrap-vue/lib/components/modal';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import bFormInput from 'bootstrap-vue/lib/components/form-input';
+
+import { TAVERN_ID } from '../../../common/script/constants';
+import { mapState } from 'client/libs/store';
 
 export default {
   props: ['challenge'],
@@ -109,51 +134,151 @@ export default {
     bFormInput,
   },
   data () {
+    let categoryOptions = [
+      {
+        label: 'animals',
+        key: 'animals',
+      },
+      {
+        label: 'artDesign',
+        key: 'art_design',
+      },
+      {
+        label: 'booksWriting',
+        key: 'books_writing',
+      },
+      {
+        label: 'comicsHobbies',
+        key: 'comics_hobbies',
+      },
+      {
+        label: 'diyCrafts',
+        key: 'diy_crafts',
+      },
+      {
+        label: 'education',
+        key: 'education',
+      },
+      {
+        label: 'foodCooking',
+        key: 'food_cooking',
+      },
+      {
+        label: 'healthFitness',
+        key: 'health_fitness',
+      },
+      {
+        label: 'music',
+        key: 'music',
+      },
+      {
+        label: 'relationship',
+        key: 'relationship',
+      },
+      {
+        label: 'scienceTech',
+        key: 'science_tech ',
+      },
+    ];
+    let hashedCategories = {};
+    categoryOptions.forEach((category) => {
+      hashedCategories[category.key] = category.label;
+    });
+    let categoriesHashByKey = hashedCategories;
+
     return {
       creating: true,
       charactersRemaining: 250,
-      workingChallenge: {
-        name: '',
-        description: '',
-        information: '',
-      },
+      workingChallenge: {},
+      showCategorySelect: false,
+      categoryOptions,
+      categoriesHashByKey,
+      groups: [],
     };
   },
-  mounted () {
-    if (this.challenge) {
-      this.workingChallenge = this.challenge;
-      this.creating = false;
-    }
+  async mounted () {
+    this.$root.$on('shown::modal', () => {
+      if (this.challenge) {
+        Object.assign(this.workingChallenge, this.challenge);
+        this.workingChallenge.categories = [];
+        this.creating = false;
+      }
+    });
+
+    this.groups = await this.$store.dispatch('guilds:getMyGuilds');
+    this.ressetWorkingChallenge();
+  },
+  watch: {
+    user () {
+      if (!this.challenge) this.workingChallenge.leader = this.user._id;
+    },
   },
   computed: {
+    ...mapState({user: 'user.data'}),
     maxPrize () {
-      // var groupBalance = 0;
-      // var group = _.find($scope.groups, { _id: gid });
-      //
-      // if (group && group.balance && group.leader === User.user._id) {
-      //   groupBalance = group.balance * 4;
-      // }
-      //
-      // return groupBalance;
-      // return userBalance + availableGroupBalance;
+      let userBalance = this.user.balance || 0;
+      userBalance = userBalance * 4;
+
+      let groupBalance = 0;
+      let group = find(this.groups, { _id: this.workingChallenge.group });
+
+      if (group && group.balance && group.leader === this.user._id) {
+        groupBalance = group.balance * 4;
+      }
+
+      return userBalance + groupBalance;
     },
     insufficientGemsForTavernChallenge () {
-      // var balance = User.user.balance || 0;
-      // var isForTavern = $scope.newChallenge.group == TAVERN_ID;
-      //
-      // if (isForTavern) {
-      //   return balance <= 0;
-      // } else {
-      //   return false;
-      // }
+      let balance = this.user.balance || 0;
+      let isForTavern = this.workingChallenge.group === TAVERN_ID;
+
+      if (isForTavern) {
+        return balance <= 0;
+      } else {
+        return false;
+      }
     },
   },
   methods: {
+    ressetWorkingChallenge () {
+      this.workingChallenge = {
+        name: '',
+        description: '',
+        information: '',
+        categories: [],
+        group: '',
+        dailys: [],
+        habits: [],
+        leader: '',
+        members: [],
+        official: false,
+        prize: 1,
+        rewards: [],
+        shortName: '',
+        todos: [],
+      };
+    },
     createChallenge () {
-      // this.$store.dispatch('challenges:createChallenge', {challenge: this.workingChallenge});
+      if (!this.workingChallenge.name) alert('Name is required');
+      if (!this.workingChallenge.description) alert('Description is required');
+
+      this.workingChallenge.timestamp = new Date().getTime();
+
+      this.$store.dispatch('challenges:createChallenge', {challenge: this.workingChallenge});
+
+      this.ressetWorkingChallenge();
+      this.$root.$emit('hide::modal', 'challenge-modal');
     },
     updateChallenge () {
-      // this.$store.dispatch('challenges:updateChallenge', {challenge: this.workingChallenge});
+      this.$emit('updatedChallenge', {
+        challenge: this.workingChallenge,
+      });
+      this.$store.dispatch('challenges:updateChallenge', {challenge: this.workingChallenge});
+      this.ressetWorkingChallenge();
+      this.$root.$emit('hide::modal', 'challenge-modal');
+    },
+    toggleCategorySelect () {
+      this.showCategorySelect = !this.showCategorySelect;
     },
   },
 };

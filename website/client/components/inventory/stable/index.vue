@@ -48,7 +48,7 @@
 
         div.form-group.clearfix
           h3.float-left Hide Missing
-          toggle-switch.float-right.hideMissing(
+          toggle-switch.float-right.no-margin(
             :label="''",
             :checked="hideMissing",
             @change="updateHideMissing"
@@ -248,6 +248,7 @@
 <style lang="scss">
 
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/modal.scss';
 
   .standard-page .clearfix .float-right {
     margin-right: 24px;
@@ -262,10 +263,6 @@
   .stable .item .item-content.Pet {
     position: absolute;
     top: -28px;
-  }
-
-  .toggle-switch-container.hideMissing {
-    margin-top: 0;
   }
 
   .hatchablePopover {
@@ -329,22 +326,8 @@
     height: 114px;
   }
 
-  @mixin habitModal() {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-
-    header, footer {
-      border: 0;
-    }
-
-    .modal-footer {
-      justify-content: center;
-    }
-  }
-
   #welcome-modal {
-    @include habitModal();
+    @include centeredModal();
 
     .npc_matt {
       margin: 0 auto 21px auto;
@@ -367,10 +350,14 @@
 
       width: 400px;
     }
+
+    .modal-footer {
+      justify-content: center;
+    }
   }
 
   #hatching-modal {
-    @include habitModal();
+    @include centeredModal();
 
     .content {
       text-align: center;
@@ -404,6 +391,10 @@
       position: absolute;
       right: 10px;
       top: 10px;
+    }
+
+    .modal-footer {
+      justify-content: center;
     }
   }
 
@@ -466,11 +457,11 @@
   import PetItem from './petItem';
   import MountItem from './mountItem.vue';
   import FoodItem from './foodItem';
-  import Drawer from 'client/components/inventory/drawer';
+  import Drawer from 'client/components/ui/drawer';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
-  import StarBadge from 'client/components/inventory/starBadge';
-  import CountBadge from './countBadge';
-  import DrawerSlider from './drawerSlider';
+  import StarBadge from 'client/components/ui/starBadge';
+  import CountBadge from 'client/components/ui/countBadge';
+  import DrawerSlider from 'client/components/ui/drawerSlider';
 
   import ResizeDirective from 'client/directives/resize.directive';
   import DragDropDirective from 'client/directives/dragdrop.directive';
@@ -556,7 +547,6 @@
       petGroups () {
         let petGroups = [
           {
-            label: this.$t('filterByStandard'),
             key: 'standardPets',
             petSource: {
               eggs: this.content.dropEggs,
@@ -649,7 +639,7 @@
       drawerTabs () {
         return [
           {
-            label: this.$t('food'),
+            label: this.$t('foodTitle'),
             items: _filter(this.content.food, f => {
               return f.key !== 'Saddle' && this.userItems.food[f.key];
             }),

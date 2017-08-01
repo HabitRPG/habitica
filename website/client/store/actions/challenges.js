@@ -2,9 +2,7 @@ import axios from 'axios';
 import omit from 'lodash/omit';
 
 export async function createChallenge (store, payload) {
-  let response = await axios.post('/api/v3/challenges', {
-    data: payload.challenge,
-  });
+  let response = await axios.post('/api/v3/challenges', payload.challenge);
 
   return response.data.data;
 }
@@ -16,7 +14,7 @@ export async function joinChallenge (store, payload) {
 }
 
 export async function leaveChallenge (store, payload) {
-  let response = await axios.post(`/api/v3/challenges/${payload.challengeId}/join`, {
+  let response = await axios.post(`/api/v3/challenges/${payload.challengeId}/leave`, {
     data: {
       keep: payload.keep,
     },
@@ -55,9 +53,7 @@ export async function updateChallenge (store, payload) {
 
   if (challengeDataToSend.leader && challengeDataToSend.leader._id) challengeDataToSend.leader = challengeDataToSend.leader._id;
 
-  let response = await axios.post(`/api/v3/challenges/${payload.challenge._id}`, {
-    data: challengeDataToSend,
-  });
+  let response = await axios.put(`/api/v3/challenges/${payload.challenge._id}`, challengeDataToSend);
 
   return response.data.data;
 }

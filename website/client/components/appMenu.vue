@@ -14,8 +14,13 @@ div
             router-link.dropdown-item(:to="{name: 'items'}", exact) {{ $t('items') }}
             router-link.dropdown-item(:to="{name: 'equipment'}") {{ $t('equipment') }}
             router-link.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
-        router-link.nav-item(tag="li", :to="{name: 'shops'}", exact)
+        router-link.nav-item.dropdown(tag="li", :to="{name: 'market'}", :class="{'active': $route.path.startsWith('/shop')}")
           a.nav-link(v-once) {{ $t('shops') }}
+          .dropdown-menu
+            router-link.dropdown-item(:to="{name: 'market'}", exact) {{ $t('market') }}
+            router-link.dropdown-item(:to="{name: 'quests'}") {{ $t('quests') }}
+            router-link.dropdown-item(:to="{name: 'seasonal'}") {{ $t('titleSeasonalShop') }}
+            router-link.dropdown-item(:to="{name: 'time'}") {{ $t('titleTimeTravelers') }}
         router-link.nav-item(tag="li", :to="{name: 'party'}")
           a.nav-link(v-once) {{ $t('party') }}
         router-link.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/guilds')}")
@@ -24,9 +29,11 @@ div
             router-link.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
             router-link.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
             router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
+        router-link.nav-item.dropdown(tag="li", :to="{name: 'groupPlan'}", :class="{'active': $route.path.startsWith('/group-plan')}")
+          a.nav-link(v-once) {{ $t('group') }}
         router-link.nav-item(tag="li", :to="{name: 'myChallenges'}", exact)
           a.nav-link(v-once) {{ $t('challenges') }}
-        router-link.nav-item.dropdown(tag="li", to="/help", :class="{'active': $route.path.startsWith('/help')}")
+        router-link.nav-item.dropdown(tag="li", to="/help", :class="{'active': $route.path.startsWith('/help')}", :to="{name: 'faq'}")
           a.nav-link(v-once) {{ $t('help') }}
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}
@@ -42,8 +49,7 @@ div
       .item-with-icon
         .svg-icon(v-html="icons.gold")
         span {{user.stats.gp | roundBigNumber}}
-      .item-with-icon.item-notifications
-        .svg-icon(v-html="icons.notifications")
+      notification-menu
       router-link.dropdown.item-with-icon.item-user(:to="{name: 'avatar'}")
         .svg-icon(v-html="icons.user")
         .dropdown-menu.dropdown-menu-right.user-dropdown
@@ -178,10 +184,6 @@ div
     }
   }
 
-  .item-notifications {
-    margin-left: 33.5px;
-  }
-
   .item-user .edit-avatar {
     h3 {
       color: $gray-10;
@@ -203,21 +205,21 @@ div
 import { mapState, mapGetters } from 'client/libs/store';
 import gemIcon from 'assets/svg/gem.svg';
 import goldIcon from 'assets/svg/gold.svg';
-import notificationsIcon from 'assets/svg/notifications.svg';
 import userIcon from 'assets/svg/user.svg';
 import logo from 'assets/svg/logo.svg';
 import InboxModal from './userMenu/inbox.vue';
+import notificationMenu from './notificationMenu';
 
 export default {
   components: {
     InboxModal,
+    notificationMenu,
   },
   data () {
     return {
       icons: Object.freeze({
         gem: gemIcon,
         gold: goldIcon,
-        notifications: notificationsIcon,
         user: userIcon,
         logo,
       }),

@@ -1241,7 +1241,7 @@ api.purchase = {
       if (!canGetGems) throw new NotAuthorized(res.t('groupPolicyCannotGetGems'));
     }
 
-    let purchaseRes = type === 'spells' ? common.ops.buySpecialSpell(user, req) : common.ops.purchase(user, req, res.analytics);
+    let purchaseRes = common.ops.purchaseWithSpell(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseRes);
   },
@@ -1490,12 +1490,13 @@ api.userReleaseMounts = {
 };
 
 /**
- * @api {post} /api/v3/user/sell/:type/:key Sell a gold-sellable item owned by the user
+ * @api {post} /api/v3/user/sell/:type/:key?amount=1 Sell a gold-sellable item owned by the user
  * @apiName UserSell
  * @apiGroup User
  *
- * @apiParam {String="eggs","hatchingPotions","food"} type The type of item to sell.
- * @apiParam {String} key The key of the item
+ * @apiParam (Path) {String="eggs","hatchingPotions","food"} type The type of item to sell.
+ * @apiParam (Path) {String} key The key of the item
+ * @apiParam (Query) {Number} (optional) amount The amount to sell
  *
  * @apiSuccess {Object} data.stats
  * @apiSuccess {Object} data.items

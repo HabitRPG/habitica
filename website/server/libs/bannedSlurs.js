@@ -58,6 +58,8 @@
 
 
 
+// Some words that are slurs in English are not included here because they are valid words in other languages and so must not cause an automatic mute.
+// See the comments in bannedWords.js for details.
 
 let bannedSlurs = [
   'TEST_PLACEHOLDER_SLUR_WORD_HERE',
@@ -66,13 +68,11 @@ let bannedSlurs = [
   'niggers',
   'nigga',
   'niggas',
-  'fag',
   'fags',
   'faggot',
   'faggots',
   'whore',
   'whores',
-  'slut',
   'sluts',
   'cunt',
   'cunts',
@@ -80,7 +80,6 @@ let bannedSlurs = [
   'spics',
   'tranny',
   'trannies',
-  'tard',
   'tards',
 ];
 

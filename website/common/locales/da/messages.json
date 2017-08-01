@@ -30,6 +30,7 @@
     "messageAlreadyPurchasedGear": "Du har engang købt dette udstyr, men ejer det ikke på nuværende tidspunkt. Du kan købe det igen i belønningskolonnen på opgavesiden.",
     "messageAlreadyOwnGear": "Du ejer allerede denne ting. Tag det på ved at gå til udstyrssiden.",
     "messageHealthAlreadyMax": "Du har allerede fuldt liv.",
+    "messageHealthAlreadyMin": "Oh no! You have already run out of health so it's too late to buy a health potion, but don't worry - you can revive!",
     "armoireEquipment": "<%= image %> Du har fundet sjældent Udstyr i Klædeskabet: <%= dropText %>! Fantastisk!",
     "armoireFood": "<%= image %> Du roder rundt i bunden af Klædeskabet. Pludselig finder du <%= dropText %>. Gad vide hvad den laver her?",
     "armoireExp": "Du kæmper med Klædeskabet og får Erfaring. Sådan!",

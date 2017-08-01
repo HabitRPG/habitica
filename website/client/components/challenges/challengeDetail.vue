@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  challenge-modal(:challenge='challenge')
+  challenge-modal(:challenge='challenge', v-on:updatedChallenge='updatedChallenge')
   close-challenge-modal
 
   .col-8.standard-page
@@ -10,17 +10,17 @@
         div
           strong(v-once) {{$t('createdBy')}}
           span {{challenge.author}}
-          strong.margin-left(v-once)
+          // @TODO: Implement in V2 strong.margin-left(v-once)
             .svg-icon.calendar-icon(v-html="icons.calendarIcon")
             | {{$t('endDate')}}
           span {{challenge.endDate}}
         .tags
           span.tag(v-for='tag in challenge.tags') {{tag}}
       .col-4
-        .box
+        .box(@click="showMemberModal()")
           .svg-icon.member-icon(v-html="icons.memberIcon")
           | {{challenge.memberCount}}
-          .details(v-once) {{$t('participants')}}
+          .details(v-once) {{$t('participantsTitle')}}
         .box
           .svg-icon.gem-icon(v-html="icons.gemIcon")
           | {{challenge.prize}}
@@ -30,9 +30,9 @@
   .col-4.sidebar.standard-page
     .acitons
       div(v-if='!isMember && !isLeader')
-        button.btn.btn-success(v-once) {{$t('joinChallenge')}}
+        button.btn.btn-success(v-once, @click='joinChallenge()') {{$t('joinChallenge')}}
       div(v-if='isMember')
-        button.btn.btn-danger(v-once) {{$t('leaveChallenge')}}
+        button.btn.btn-danger(v-once, @click='leaveChallenge()') {{$t('leaveChallenge')}}
       div(v-if='isLeader')
         button.btn.btn-success(v-once) {{$t('addTask')}}
       div(v-if='isLeader')
@@ -122,6 +122,8 @@
 </style>
 
 <script>
+import findIndex from 'lodash/findIndex';
+
 import { mapState } from 'client/libs/store';
 import closeChallengeModal from './closeChallengeModal';
 import Column from '../tasks/column';
@@ -146,22 +148,8 @@ export default {
         memberIcon,
         calendarIcon,
       }),
-      challenge: {
-        // _id: 1,
-        // title: 'I am the Night! (Official TAKE THIS Challenge June 2017)',
-        // memberCount: 5261,
-        // endDate: '2017-04-04',
-        // tags: ['Habitica Official', 'Tag'],
-        // prize: 10,
-        // description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.',
-        // counts: {
-        //   habit: 0,
-        //   dailies: 2,
-        //   todos: 2,
-        //   rewards: 0,
-        // },
-        // author: 'SabreCat',
-      },
+      challenge: {},
+      members: [],
     };
   },
   computed: {
@@ -170,21 +158,29 @@ export default {
       return this.user.challenges.indexOf(this.challenge._id) !== -1;
     },
     isLeader () {
-      return true;
+      if (!this.challenge.leader) return false;
+      return this.user._id === this.challenge.leader._id;
     },
   },
-  mounted () {
-    this.getChallenge();
+  async mounted () {
+    this.challenge = await this.$store.dispatch('challenges:getChallenge', {challengeId: this.challengeId});
+    this.members = await this.$store.dispatch('members:getChallengeMembers', {challengeId: this.challengeId});
   },
   methods: {
-    async getChallenge () {
-      this.challenge = await this.$store.dispatch('challenges:getChallenge', {challengeId: this.challengeId});
+    showMemberModal () {
+      this.$store.state.viewingMembers = this.members;
+      this.$root.$emit('show::modal', 'members-modal');
     },
     async joinChallenge () {
-      // this.challenge = this.$store.dispatch('challenges:joinChallenge', {challengeId: this.challengeId});
+      this.user.challenges.push(this.challengeId);
+      await this.$store.dispatch('challenges:joinChallenge', {challengeId: this.challengeId});
     },
     async leaveChallenge () {
-      // this.challenge = this.$store.dispatch('challenges:leaveChallenge', {challengeId: this.challengeId});
+      let index = findIndex(this.user.challenges, (challengeId) => {
+        return challengeId === this.challengeId;
+      });
+      this.user.challenges.splice(index, 1);
+      await this.$store.dispatch('challenges:leaveChallenge', {challengeId: this.challengeId});
     },
     closeChallenge () {
       this.$root.$emit('show::modal', 'close-challenge-modal');
@@ -194,6 +190,9 @@ export default {
       this.$root.$emit('show::modal', 'challenge-modal');
     },
     // @TODO: view members
+    updatedChallenge (eventData) {
+      Object.assign(this.challenge, eventData.challenge);
+    },
   },
 };
 </script>
