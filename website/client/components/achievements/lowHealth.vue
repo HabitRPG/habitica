@@ -74,7 +74,7 @@ export default {
       };
     },
     healthLeft () {
-      return `${Math.ceil(this.user.stats.hp)} / ${Shared.maxHealth}`;
+      return `${Math.ceil(this.user.stats.hp)} / ${this.maxHealth}`;
     }
   },
   methods: {

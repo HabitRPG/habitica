@@ -19,6 +19,8 @@ import lowHealth from './achievements/lowHealth';
 import levelUp from './achievements/levelUp';
 import chooseClass from './achievements/chooseClass';
 import armoireEmpty from './achievements/armoireEmpty';
+import questCompleted from './achievements/questCompleted';
+import questInvitation from './achievements/questInvitation';
 import notifications from 'client/mixins/notifications';
 
 export default {
@@ -31,6 +33,8 @@ export default {
     levelUp,
     chooseClass,
     armoireEmpty,
+    questCompleted,
+    questInvitation,
   },
   data () {
     // Levels that already display modals and should not trigger generic Level Up
@@ -176,11 +180,11 @@ export default {
     },
     questCompleted (after) {
       if (!after) return;
-      // @TODO: this.openModal('questCompleted', {controller:'InventoryCtrl'});
+      this.$root.$emit('show::modal', 'quest-completed');
     },
     invitedToQuest (after) {
       if (after !== true) return;
-      // @TODO: this.openModal('questInvitation', {controller:'PartyCtrl'});
+      this.$root.$emit('show::modal', 'quest-invitation');
     },
     userDailies () {
       this.runYesterDailies();
