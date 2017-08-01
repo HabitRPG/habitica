@@ -1,6 +1,7 @@
 <template lang="pug">
 div
   inbox-modal
+  creator-intro
   nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
     .navbar-header
       .logo.svg-icon(v-html="icons.logo")
@@ -50,10 +51,10 @@ div
         .svg-icon(v-html="icons.gold")
         span {{user.stats.gp | roundBigNumber}}
       notification-menu
-      router-link.dropdown.item-with-icon.item-user(:to="{name: 'avatar'}")
+      a.dropdown.item-with-icon.item-user(@click='showAvatar()')
         .svg-icon(v-html="icons.user")
         .dropdown-menu.dropdown-menu-right.user-dropdown
-          router-link.dropdown-item.edit-avatar(:to="{name: 'avatar'}")
+          a.dropdown-item.edit-avatar(@click='showAvatar()')
             h3 {{ user.profile.name }}
             span.small-text {{ $t('editAvatar') }}
           a.nav-link.dropdown-item(@click.prevent='showInbox()') {{ $t('inbox') }}
@@ -180,7 +181,7 @@ div
 
     .svg-icon {
       margin-right: 0px;
-      color: inherit;
+      color: $white;
     }
   }
 
@@ -209,11 +210,13 @@ import userIcon from 'assets/svg/user.svg';
 import logo from 'assets/svg/logo.svg';
 import InboxModal from './userMenu/inbox.vue';
 import notificationMenu from './notificationMenu';
+import creatorIntro from './creatorIntro';
 
 export default {
   components: {
     InboxModal,
     notificationMenu,
+    creatorIntro,
   },
   data () {
     return {
@@ -238,6 +241,10 @@ export default {
     },
     showInbox () {
       this.$root.$emit('show::modal', 'inbox-modal');
+    },
+    showAvatar () {
+      this.$store.state.avatarEditorOptions.editingUser = true;
+      this.$root.$emit('show::modal', 'avatar-modal');
     },
   },
 };
