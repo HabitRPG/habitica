@@ -24,7 +24,7 @@
       @click='go("/user/profile")')
       span.glyphicon.glyphicon-plus-sign
       span {{ $t('haveUnallocated', {points: user.stats.points}) }}
-    a.dropdown-item(v-for='(k,v) in user.newMessages', v-if='v.value', @click='(k === party._id || k === user.party._id) ? go("/party") : go("/groups/guild/" + k}); ')
+    a.dropdown-item(v-for='(k,v) in user.newMessages', v-if='v.value', @click='navigateToGroup(k)')
       span.glyphicon.glyphicon-comment
       span {{v.name}}
       a.dropdown-item(@click='clearMessages(k)', :popover="$t('clear')", popover-placement='right', popover-trigger='mouseenter',popover-append-to-body='true')
@@ -238,6 +238,13 @@ export default {
     },
     go (path) {
       this.$route.push(path);
+    },
+    navigateToGroup (key) {
+      if (key === this.party._id || key === this.user.party._id) {
+        this.go('/party');
+        return;
+      }
+      this.go(`/groups/guild/${key}`);
     },
   },
 };

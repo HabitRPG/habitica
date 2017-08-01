@@ -116,14 +116,14 @@ export default {
       //  Append Bonus
       if (money > 0 && Boolean(bonus)) {
         if (bonus < 0.01) bonus = 0.01;
-        this.text("+ " + Notification.coins(bonus) + ' ' + window.env.t('streakCoins'));
+        this.text(`+ ${Notification.coins(bonus)} ${this.$t('streakCoins')}`);
         delete this.user._tmp.streakBonus;
       }
     },
     userMp (after, before) {
       if (after === before) return;
       if (!this.user.flags.classSelected || this.user.preferences.disableClasses) return;
-      // let mana = after - before;
+      let mana = after - before;
       this.mp(mana);
     },
     userLvl (after, before) {

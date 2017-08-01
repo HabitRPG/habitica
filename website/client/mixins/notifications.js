@@ -98,7 +98,8 @@ export default {
     round (number) {
       return Math.abs(number.toFixed(1));
     },
-    notify (html, type, icon, canHide, onClick) {
+    notify (html) {
+      // @TODO: try these params type, icon, canHide, onClick
       this.$notify({
         title: 'Habitica',
         text: html,

@@ -428,7 +428,6 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
 </style>
 
 <script>
-import axios from 'axios';
 import map from 'lodash/map';
 import get from 'lodash/get';
 import { mapState } from 'client/libs/store';
@@ -570,8 +569,11 @@ export default {
       }
       // @TODO: Add when we implment the user calls
       // let response = await axios.post('/api/v3/user/unlock');
-      console.log(path)
-      unlock(this.user, { query:{ path } });
+      unlock(this.user, {
+        query: {
+          path,
+        },
+      });
     },
     setKeys (type, _set) {
       return map(_set, (v, k) => {
