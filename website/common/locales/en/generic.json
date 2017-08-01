@@ -156,8 +156,8 @@
     "achievementBewilder": "Savior of Mistiflying",
     "achievementBewilderText": "Helped defeat the Be-Wilder during the 2016 Spring Fling Event!",
     "checkOutProgress": "Check out my progress in Habitica!",
-    "checkedAchievementTitle": "Checked off <%= tasks %> Tasks",
-    "checkedAchievementText": "This productive user has checked off <%= tasks %> tasks! Great job!"
+    "checkedTitle": "Checked off <%= tasks %> Tasks",
+    "checkedText": "This productive user has checked off <%= tasks %> tasks! Great job!"
     "cards": "Cards",
     "cardReceived": "Received a card!",
     "cardReceivedFrom": "<%= cardType %> from <%= userName %>",
