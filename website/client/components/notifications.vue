@@ -6,6 +6,10 @@ div
   low-health
   level-up
   choose-class
+  testing
+  testingletiant
+  rebirth-enabled
+  drops-enabled
 </template>
 
 <script>
@@ -21,6 +25,10 @@ import chooseClass from './achievements/chooseClass';
 import armoireEmpty from './achievements/armoireEmpty';
 import questCompleted from './achievements/questCompleted';
 import questInvitation from './achievements/questInvitation';
+import testing from './achievements/testing';
+import testingletiant from './achievements/testingletiant';
+import rebirthEnabled from './achievements/rebirthEnabled';
+import dropsEnabled from './achievements/dropsEnabled';
 import notifications from 'client/mixins/notifications';
 
 export default {
@@ -35,6 +43,10 @@ export default {
     armoireEmpty,
     questCompleted,
     questInvitation,
+    testing,
+    testingletiant,
+    rebirthEnabled,
+    dropsEnabled,
   },
   data () {
     // Levels that already display modals and should not trigger generic Level Up
@@ -301,23 +313,21 @@ export default {
         // @TODO: Use factory function instead
         switch (notification.type) {
           case 'GUILD_PROMPT':
+            // @TODO: I'm pretty sure we can find better names for these
             if (notification.data.textletiant === -1) {
-              // @TODO: this.openModal('testing');
+              this.$root.$emit('show::modal', 'testing');
             } else {
-              // @TODO: this.openModal('testingletiant');
+              this.$root.$emit('show::modal', 'testingletiant');
             }
             break;
           case 'DROPS_ENABLED':
-            // @TODO: this.openModal('dropsEnabled');
+            this.$root.$emit('show::modal', 'drops-enabled');
             break;
           case 'REBIRTH_ENABLED':
-            // @TODO: this.openModal('rebirthEnabled');
+            this.$root.$emit('show::modal', 'rebirth-enabled');
             break;
           case 'WON_CHALLENGE':
-            // @TODO:
-            // User.sync().then( function() {
-            //   Achievement.displayAchievement('wonChallenge');
-            // });
+            // Achievement.displayAchievement('wonChallenge');
             break;
           case 'STREAK_ACHIEVEMENT':
             this.streak(this.user.achievements.streak);
@@ -352,8 +362,8 @@ export default {
             break;
           case 'CRON':
             if (notification.data) {
-              // @TODO: if (notification.data.hp) Notification.hp(notification.data.hp, 'hp');
-              // @TODO: if (notification.data.mp) Notification.mp(notification.data.mp);
+              if (notification.data.hp) this.hp(notification.data.hp, 'hp');
+              if (notification.data.mp) this.mp(notification.data.mp);
             }
             break;
           case 'GROUP_TASK_APPROVAL':
