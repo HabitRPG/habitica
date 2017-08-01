@@ -93,6 +93,7 @@ let schema = new Schema({
     shinySeed: Number,
     seafoam: Number,
     streak: Number,
+    checked: Number,
     challenges: Array,
     quests: {type: Schema.Types.Mixed, default: () => {
       return {};
