@@ -28,8 +28,8 @@ export default {
 
     return {
       baileyClass: {
-        'npc_bailey_broken': worldDmg.bailey,
-        'npc_bailey': !worldDmg.bailey,
+        'npc_bailey_broken': worldDmg.bailey, // eslint-disable-line
+        'npc_bailey': !worldDmg.bailey, // eslint-disable-line
       },
     };
   },

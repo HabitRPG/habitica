@@ -20,10 +20,8 @@
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
 
-import quests from 'common/script/content/quests';
 import Avatar from '../avatar';
 import { mapState } from 'client/libs/store';
-import revive from '../../../common/script/ops/revive';
 import percent from '../../../common/script/libs/percent';
 import {maxHealth} from '../../../common/script/index';
 

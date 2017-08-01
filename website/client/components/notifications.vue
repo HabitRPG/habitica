@@ -10,12 +10,22 @@ div
   testingletiant
   rebirth-enabled
   drops-enabled
+  contributor
+  won-challenge
+  ultimate-gear
+  streak
+  rebirth
+  joined-guild
+  joined-challenge
+  invited-friend
 </template>
 
 <script>
 // import moment from 'moment';
 
 import { mapState } from 'client/libs/store';
+import notifications from 'client/mixins/notifications';
+
 import welcomeModal from './achievements/welcome';
 import newStuff from './achievements/newStuff';
 import death from './achievements/death';
@@ -29,11 +39,25 @@ import testing from './achievements/testing';
 import testingletiant from './achievements/testingletiant';
 import rebirthEnabled from './achievements/rebirthEnabled';
 import dropsEnabled from './achievements/dropsEnabled';
-import notifications from 'client/mixins/notifications';
+import contributor from './achievements/contributor';
+import invitedFriend from './achievements/invitedFriend';
+import joinedChallenge from './achievements/joinedChallenge';
+import joinedGuild from './achievements/joinedGuild';
+import rebirth from './achievements/rebirth';
+import streak from './achievements/streak';
+import ultimateGear from './achievements/ultimateGear';
+import wonChallenge from './achievements/wonChallenge';
 
 export default {
   mixins: [notifications],
   components: {
+    wonChallenge,
+    ultimateGear,
+    streak,
+    rebirth,
+    joinedGuild,
+    joinedChallenge,
+    invitedFriend,
     welcomeModal,
     newStuff,
     death,
@@ -47,6 +71,7 @@ export default {
     testingletiant,
     rebirthEnabled,
     dropsEnabled,
+    contributor,
   },
   data () {
     // Levels that already display modals and should not trigger generic Level Up
@@ -327,38 +352,38 @@ export default {
             this.$root.$emit('show::modal', 'rebirth-enabled');
             break;
           case 'WON_CHALLENGE':
-            // Achievement.displayAchievement('wonChallenge');
+            this.$root.$emit('show::modal', 'won-challenge');
             break;
           case 'STREAK_ACHIEVEMENT':
             this.streak(this.user.achievements.streak);
             this.playSound('Achievement_Unlocked');
             if (!this.user.preferences.suppressModals.streak) {
-              // @TODO: Achievement.displayAchievement('streak', {size: 'md'});
+              this.$root.$emit('show::modal', 'streak');
             }
             break;
           case 'ULTIMATE_GEAR_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
-            // @TODO: Achievement.displayAchievement('ultimateGear', {size: 'md'});
+            this.$root.$emit('show::modal', 'ultimate-gear');
             break;
           case 'REBIRTH_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
-            // @TODO: Achievement.displayAchievement('rebirth');
+            this.$root.$emit('show::modal', 'rebirth');
             break;
           case 'GUILD_JOINED_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
-            // @TODO: Achievement.displayAchievement('joinedGuild', {size: 'md'});
+            this.$root.$emit('show::modal', 'joined-guild');
             break;
           case 'CHALLENGE_JOINED_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
-            // @TODO: Achievement.displayAchievement('joinedChallenge', {size: 'md'});
+            this.$root.$emit('show::modal', 'joined-challenge');
             break;
           case 'INVITED_FRIEND_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
-            // @TODO: Achievement.displayAchievement('invitedFriend', {size: 'md'});
+            this.$root.$emit('show::modal', 'invited-friend');
             break;
           case 'NEW_CONTRIBUTOR_LEVEL':
             this.playSound('Achievement_Unlocked');
-            // @TODO: Achievement.displayAchievement('contributor', {size: 'md'});
+            this.$root.$emit('show::modal', 'contributor');
             break;
           case 'CRON':
             if (notification.data) {
