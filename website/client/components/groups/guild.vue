@@ -1,7 +1,7 @@
 <template lang="pug">
 .row(v-if="group")
   group-form-modal
-  invite-modal
+  invite-modal(:group='this.group')
   start-quest-modal(:group='this.group')
   .col-8.standard-page
     .row
@@ -361,7 +361,6 @@ import quests from 'common/script/content/quests';
 import percent from 'common/script/libs/percent';
 import groupFormModal from './groupFormModal';
 import inviteModal from './inviteModal';
-import memberModal from '../members/memberModal';
 import chatMessage from '../chat/chatMessages';
 import groupChallenges from '../challenges/groupChallenges';
 
@@ -388,7 +387,6 @@ export default {
   props: ['groupId'],
   components: {
     membersModal,
-    memberModal,
     startQuestModal,
     bCollapse,
     bCard,
@@ -521,6 +519,7 @@ export default {
   },
   methods: {
     showMemberModal () {
+      this.$store.state.groupId = this.group._id;
       this.$root.$emit('show::modal', 'members-modal');
     },
     async sendMessage () {

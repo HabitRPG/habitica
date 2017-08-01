@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 .row
   modify-inventory
   footer.container-fluid
@@ -93,6 +93,7 @@
         a.btn.btn-default(@click='addTenGems()') +10 Gems
         a.btn.btn-default(@click='addHourglass()') +1 Mystic Hourglass
         a.btn.btn-default(@click='addGold()') +500GP
+        a.btn.btn-default(@click='plusTenHealth()') + 10HP
         a.btn.btn-default(@click='addMana()') +MP
         a.btn.btn-default(@click='addLevelsAndGold()') +Exp +GP +MP
         a.btn.btn-default(@click='addOneLevel()') +1 Level
@@ -166,6 +167,11 @@ export default {
     ...mapState({user: 'user.data'}),
   },
   methods: {
+    plusTenHealth () {
+      this.$store.dispatch('user:set', {
+        'stats.hp': this.user.stats.hp += 10,
+      });
+    },
     setHealthLow () {
       this.$store.dispatch('user:set', {
         'stats.hp': 1,

@@ -29,11 +29,10 @@ const VideosPage = () => import(/* webpackChunkName: "static" */'./components/st
 const RegisterLogin = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLogin');
 
 // User Pages
-const CreatorIntro = () => import(/* webpackChunkName: "creator" */'./components/creatorIntro');
 const BackgroundsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/backgrounds');
 // const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
 // const AchievementsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/achievements');
-const ProfilePage = () => import(/* webpackChunkName: "user" */'./components/userMenu/profile');
+const ProfilePage = () => import(/* webpackChunkName: "user" */'./components/userMenu/profilePage');
 
 // Settings
 const Settings = () => import(/* webpackChunkName: "settings" */'./components/settings/index');
@@ -98,7 +97,6 @@ const router = new VueRouter({
   },
   // requiresLogin is true by default, isStatic false
   routes: [
-    { name: 'avatar', path: '/avatar', component: CreatorIntro },
     { name: 'home', path: '/home', component: FrontPage, meta: {requiresLogin: false} },
     { name: 'register', path: '/register', component: RegisterLogin, meta: {requiresLogin: false} },
     { name: 'login', path: '/login', component: RegisterLogin, meta: {requiresLogin: false} },

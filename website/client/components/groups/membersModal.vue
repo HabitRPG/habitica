@@ -102,6 +102,7 @@ div
 </style>
 
 <script>
+// @TODO: Move this under members directory
 import bModal from 'bootstrap-vue/lib/components/modal';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
@@ -158,15 +159,16 @@ export default {
   },
   methods: {
     async getMembers () {
-      if (this.group._id) {
+      let groupId = this.group._id || this.$store.state.groupId;
+      if (groupId) {
         let members = await this.$store.dispatch('members:getGroupMembers', {
-          groupId: this.group._id,
+          groupId,
           includeAllPublicFields: true,
         });
         this.members = members;
       }
 
-      if (this.$store.state.viewingMembers) this.members = this.$store.state.viewingMembers;
+      if (this.$store.state.viewingMembers.length > 1) this.members = this.$store.state.viewingMembers;
     },
     async clickMember (uid, forceShow) {
       let user = this.$store.state.user.data;

@@ -10,6 +10,7 @@ import StoreModule from './libs/store';
 import './filters/registerGlobals';
 import i18n from './libs/i18n';
 import axios from 'axios';
+import Notifications from 'vue-notification';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 
@@ -33,6 +34,7 @@ axios.interceptors.response.use((response) => {
   return Promise.reject(error);
 });
 
+Vue.use(Notifications);
 Vue.use(i18n);
 Vue.use(StoreModule);
 
