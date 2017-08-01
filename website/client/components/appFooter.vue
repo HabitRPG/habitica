@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 .row
   modify-inventory
   footer.container-fluid

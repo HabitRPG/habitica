@@ -1,5 +1,11 @@
 <template lang="pug">
+div
   welcome-modal
+  new-stuff
+  death
+  low-health
+  level-up
+  choose-class
 </template>
 
 <script>
@@ -7,12 +13,24 @@
 
 import { mapState } from 'client/libs/store';
 import welcomeModal from './achievements/welcome';
+import newStuff from './achievements/newStuff';
+import death from './achievements/death';
+import lowHealth from './achievements/lowHealth';
+import levelUp from './achievements/levelUp';
+import chooseClass from './achievements/chooseClass';
+import armoireEmpty from './achievements/armoireEmpty';
 import notifications from 'client/mixins/notifications';
 
 export default {
   mixins: [notifications],
   components: {
     welcomeModal,
+    newStuff,
+    death,
+    lowHealth,
+    levelUp,
+    chooseClass,
+    armoireEmpty,
   },
   data () {
     // Levels that already display modals and should not trigger generic Level Up
@@ -73,17 +91,22 @@ export default {
     invitedToQuest () {
       return this.user.party.quest.RSVPNeeded && !this.user.party.quest.completed;
     },
+    userDailies () {
+      return this.$store.state.tasks.data.dailys;
+    },
   },
   watch: {
     baileyShouldShow () {
-      // @TODO: this.openModal('newStuff', {size:'lg'});
+      this.$root.$emit('show:modal', 'new-stuff');
     },
     userHp (after, before) {
       if (after <= 0) {
         this.playSound('Death');
-        // @TODO: this.openModal('death', {keyboard:false, backdrop:'static'});
+        this.$root.$emit('show:modal', 'death');
+        // @TODO: {keyboard:false, backdrop:'static'}
       } else if (after <= 30 && !this.user.flags.warnedLowHealth) {
-        // @TODO: this.openModal('lowHealth', {keyboard:false, backdrop:'static', controller:'UserCtrl', track:'Health Warning'});
+        this.$root.$emit('show:modal', 'low-health');
+        // @TODO: {keyboard:false, backdrop:'static', controller:'UserCtrl', track:'Health Warning'}
       }
       if (after === before) return;
       if (this.user.stats.lvl === 0) return;
@@ -132,11 +155,12 @@ export default {
       this.playSound('Level_Up');
       if (this.user._tmp && this.user._tmp.drop && this.user._tmp.drop.type === 'Quest') return;
       if (this.unlockLevels[`${after}`]) return;
-      // @TODO: if (!this.user.preferences.suppressModals.levelUp) this.openModal('levelUp', {controller:'UserCtrl', size:'sm'});
+      if (!this.user.preferences.suppressModals.levelUp) this.$root.$emit('show:modal', 'level-up');
     },
     userClassSelect (after) {
       if (!after) return;
-      // @TODO: this.openModal('chooseClass', {controller:'UserCtrl', keyboard:false, backdrop:'static'});
+      this.$root.$emit('show::modal', 'choose-class');
+      // @TODO: {controller:'UserCtrl', keyboard:false, backdrop:'static'}
     },
     userNotifications (after) {
       if (!this.user._wrapped) return;
@@ -148,7 +172,7 @@ export default {
     },
     armoireEmpty (after, before) {
       if (after === before || after === false) return;
-      // @TODO: this.openModal('armoireEmpty');
+      this.$root.$emit('show::modal', 'armoire-empty');
     },
     questCompleted (after) {
       if (!after) return;
@@ -157,6 +181,9 @@ export default {
     invitedToQuest (after) {
       if (after !== true) return;
       // @TODO: this.openModal('questInvitation', {controller:'PartyCtrl'});
+    },
+    userDailies () {
+      this.runYesterDailies();
     },
   },
   async mounted () {
@@ -176,9 +203,10 @@ export default {
       // let userDayStart = moment().startOf('day').add({ hours: this.user.preferences.dayStart });
 
       if (!this.user.needsCron) return;
-      let dailys = this.user.dailys;
 
-      if (!this.appLoaded) return;
+      let dailys = this.$store.state.tasks.data.dailys;
+
+      // @TODO: How do we check this now? if (!this.appLoaded) return;
 
       this.isRunningYesterdailies = true;
 
