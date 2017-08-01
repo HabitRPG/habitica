@@ -1,7 +1,7 @@
 <template lang="pug">
 .row(v-if="group")
   group-form-modal
-  invite-modal
+  invite-modal(:group='this.group')
   start-quest-modal(:group='this.group')
   .col-8.standard-page
     .row
