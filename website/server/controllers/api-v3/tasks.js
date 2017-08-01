@@ -603,6 +603,9 @@ api.scoreTask = {
       user.markModified('_ABtests');
     }
 
+    if (!user.achievements.checked) user.achievements.checked = 0;
+    direction === 'up' ? user.achievements.checked++ : user.achievements.checked--;
+
     let results = await Bluebird.all([
       user.save(),
       task.save(),

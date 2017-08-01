@@ -168,10 +168,9 @@ function _addTiered (result, user, data) {
   _add(result, {
     title: i18n.t(titleKey, {count: achievLevel}, data.language),
     text: i18n.t(textKey, {count: achievLevel}, data.language),
-    icon: `${thisContent.icon}-${achievLevel}`,
+    icon: `${thisContent.icon}-${achievLevel}-`,
     key,
     value,
-    optionalCount: value,
     earned: Boolean(value),
   });
 }
