@@ -12,6 +12,9 @@
       v-if="items.length > itemsPerRow()"
     ) {{ showAll ? showLessLabel : showAllLabel }}
 
+    div(v-if="items.length === 0")
+      p(v-once) {{ noItemsLabel }}
+
 </template>
 
 <script>
@@ -64,6 +67,9 @@
         type: String,
       },
       showLessLabel: {
+        type: String,
+      },
+      noItemsLabel: {
         type: String,
       },
     },
