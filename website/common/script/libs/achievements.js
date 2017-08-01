@@ -154,9 +154,12 @@ function _addTiered (result, user, data) {
   let key = data.key || data.path;
   let thisContent = achievsContent[key];
 
-  let achievLevel = thisContent.breakpoints[findLastIndex(thisContent.breakpoints, function (pt) { return value >= pt })];
+  let achievLevel = thisContent.breakpoints[findLastIndex(thisContent.breakpoints, function findAchievLevel (pt) { 
+    return value >= pt;
+  })];
 
-  let titleKey, textKey;
+  let titleKey
+  let textKey;
   if (achievLevel === 1) {
     titleKey = thisContent.singularTitleKey;
     textKey = thisContent.singularTextKey;
@@ -171,6 +174,7 @@ function _addTiered (result, user, data) {
     icon: `${thisContent.icon}-${achievLevel}-`,
     key,
     value,
+    optionalCount: value,
     earned: Boolean(value),
   });
 }
@@ -205,7 +209,7 @@ function _getBasicAchievements (user, language) {
   _addPlural(result, user, {path: 'streak', language});
   _addPlural(result, user, {path: 'perfect', language});
 
-  _addTiered(result, user, {path: 'checked', language})
+  _addTiered(result, user, {path: 'checked', language});
 
   _addSimple(result, user, {path: 'partyUp', language});
   _addSimple(result, user, {path: 'partyOn', language});

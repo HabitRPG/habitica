@@ -604,7 +604,7 @@ api.scoreTask = {
     }
 
     if (!user.achievements.checked) user.achievements.checked = 0;
-    direction === 'up' ? user.achievements.checked++ : user.achievements.checked--;
+    user.achievements.checked += direction === 'up' ? 1 : -1;
 
     let results = await Bluebird.all([
       user.save(),
