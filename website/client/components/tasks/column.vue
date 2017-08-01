@@ -1,18 +1,21 @@
 <template lang="pug">
 .tasks-column
+  b-modal(ref="editTaskModal")
+    span Hello From My Modal!
   .d-flex
     h2.tasks-column-title(v-once) {{ $t(types[type].label) }}
     .filters.d-flex.justify-content-end
       .filter.small-text(
         v-for="filter in types[type].filters",
         :class="{active: activeFilter.label === filter.label}",
-        @click="activeFilter = filter",
+        @click="activateFilter(type, filter)",
       ) {{ $t(filter.label) }}
   .tasks-list
     task(
       v-for="task in tasks[`${type}s`]", 
       :key="task.id", :task="task", 
       v-if="filterTask(task)",
+      @editTask="editTask",
     )
     .bottom-gradient
     .column-background(v-if="isUser === true", :class="{'initial-description': tasks[`${type}s`].length === 0}")
@@ -129,16 +132,18 @@
 
 <script>
 import Task from './task';
-import { mapState } from 'client/libs/store';
+import { mapState, mapActions } from 'client/libs/store';
 import { shouldDo } from 'common/script/cron';
 import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
 import rewardIcon from 'assets/svg/reward.svg';
+import bModal from 'bootstrap-vue/lib/components/modal';
 
 export default {
   components: {
     Task,
+    bModal,
   },
   props: ['type', 'isUser', 'searchText', 'selectedTags'],
   data () {
@@ -188,6 +193,7 @@ export default {
       types,
       activeFilter: types[this.type].filters.find(f => f.default === true),
       icons,
+      openedCompletedTodos: false,
     };
   },
   computed: {
@@ -197,6 +203,16 @@ export default {
     }),
   },
   methods: {
+    ...mapActions({loadCompletedTodos: 'tasks:fetchCompletedTodos'}),
+    editTask (task) {
+      this.$emit('editTask', task);
+    },
+    activateFilter (type, filter) {
+      if (type === 'todo' && filter.label === 'complete2') {
+        this.loadCompletedTodos();
+      }
+      this.activeFilter = filter;
+    },
     filterTask (task) {
       // View
       if (!this.activeFilter.filter(task)) return false;
