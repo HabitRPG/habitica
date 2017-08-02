@@ -42,7 +42,7 @@ form(
               .svg-icon.negative(v-html="icons.negative")
           .option-item-label(v-once) {{ $t('negative') }}
       template(v-if="task.type !== 'reward'")
-        label(v-once) 
+        label(v-once)
           span.float-left {{ $t('difficulty') }}
           .svg-icon.info-icon(v-html="icons.information")
         .d-flex.justify-content-center
@@ -87,18 +87,18 @@ form(
               span.custom-control-description(v-once) {{ weekdaysMin(dayNumber) }}
         template(v-if="task.frequency === 'monthly'")
           label.custom-control.custom-radio
-            input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfMonth") 
+            input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfMonth")
             span.custom-control-indicator
             span.custom-control-description {{ $t('dayOfMonth') }}
           label.custom-control.custom-radio
-            input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfWeek") 
+            input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfWeek")
             span.custom-control-indicator
             span.custom-control-description {{ $t('dayOfWeek') }}
 
       .option
         label(v-once) {{ $t('tags') }}
         .category-wrap(@click="showTagsSelect = !showTagsSelect")
-          span.category-select(v-if='task.tags.length === 0') {{$t('none')}}
+          span.category-select(v-if='task.tags && task.tags.length === 0') {{$t('none')}}
           span.category-select(v-else) {{getTagsFor(task)[0]}}
         .category-box(v-if="showTagsSelect")
           .form-check(
@@ -123,200 +123,200 @@ form(
 </template>
 
 <style lang="scss">
-@import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/colors.scss';
 
-#task-modal {
-  .modal-dialog.modal-sm {
-    max-width: 448px;
-  }
-
-  label {
-    font-weight: bold;
-  }
-
-  input, textarea {
-    border: none;
-    background-color: rgba(0, 0, 0, 0.16);
-
-    &:focus {
-      color: $white !important;
+  #task-modal {
+    .modal-dialog.modal-sm {
+      max-width: 448px;
     }
-  }
 
-  .modal-content {
-    border-radius: 8px;
-    border: none;
-  }
-
-  .modal-header, .modal-body, .modal-footer {
-    padding: 0px;
-    border: none;
-  }
-
-  .task-modal-content, .task-modal-header {
-    padding-left: 23px;
-    padding-right: 23px;
-  }
-
-  .task-modal-header {
-    color: $white;
-    width: 100%;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    padding-top: 16px;
-    padding-bottom: 24px;
-
-    h1 {
-      color: $white;
+    label {
+      font-weight: bold;
     }
-  }
 
-  .task-modal-content {
-    padding-top: 24px;
-
-    input {
-      background: $white;
-      border: 1px solid $gray-500;
-      color: $gray-200;
+    input, textarea {
+      border: none;
+      background-color: rgba(0, 0, 0, 0.16);
 
       &:focus {
-        color: $gray-50 !important;
-      }
-    }
-  }
-
-  .info-icon {
-    float: left;
-    height: 16px;
-    width: 16px;
-    margin-left: 8px;
-    margin-top: 2px;
-  }
-
-  .difficulty-trivial-icon {
-    width: 16px;
-    height: 16px;
-  }
-
-  .difficulty-normal-icon {
-    width: 36px;
-    height: 16px;
-  }
-
-  .difficulty-medium-icon {
-    width: 36px;
-    height: 32px;
-  }
-
-  .difficulty-hard-icon {
-    width: 36px;
-    height: 36px;
-  }
-
-  .option {
-    margin-bottom: 12px;
-    margin-top: 12px;
-    position: relative;
-  }
-
-  .option-item {
-    margin-right: 48px;
-    cursor: pointer;
-
-    &:last-child {
-      margin-right: 0px;
-    }
-
-    &-box {
-      width: 64px;
-      height: 64px;
-      border-radius: 2px;
-      background: $gray-600;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .habit-control.task-habit-disabled-control-habit {
         color: $white !important;
-        border: none;
-        background: $gray-300;
       }
     }
 
-    &-label {
-      color: $gray-50;
-      text-align: center;
-    }
-  }
-
-  .category-wrap {
-    cursor: pointer;
-    margin-top: 0px;
-  }
-
-  .category-box {
-    bottom: 0px;
-    left: 40px;
-    top: auto;
-  }
-
-  .checklist-group {
-    border-top: 1px solid $gray-500;
-
-    .input-group-btn {
-      cursor: pointer;
-      padding-left: 10px;
-      padding-right: 10px;
+    .modal-content {
+      border-radius: 8px;
+      border: none;
     }
 
-    .destroy-icon {
-      width: 14px;
+    .modal-header, .modal-body, .modal-footer {
+      padding: 0px;
+      border: none;
+    }
+
+    .task-modal-content, .task-modal-header {
+      padding-left: 23px;
+      padding-right: 23px;
+    }
+
+    .task-modal-header {
+      color: $white;
+      width: 100%;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      padding-top: 16px;
+      padding-bottom: 24px;
+
+      h1 {
+        color: $white;
+      }
+    }
+
+    .task-modal-content {
+      padding-top: 24px;
+
+      input {
+        background: $white;
+        border: 1px solid $gray-500;
+        color: $gray-200;
+
+        &:focus {
+          color: $gray-50 !important;
+        }
+      }
+    }
+
+    .info-icon {
+      float: left;
+      height: 16px;
+      width: 16px;
+      margin-left: 8px;
+      margin-top: 2px;
+    }
+
+    .difficulty-trivial-icon {
+      width: 16px;
       height: 16px;
     }
-  }
 
-  .checklist-item {
-    margin-bottom: 0px;
-    border-radius: 0px;
-    border: none !important;
-    padding-left: 36px;
-
-    &:last-child {
-      background-size: 10px 10px;
-      background-image: url(~client/assets/svg/for-css/positive.svg);
-      background-repeat: no-repeat;
-      background-position: center left 10px;
-      border-top: 1px solid $gray-500 !important;
-      border-bottom: 1px solid $gray-500 !important;
+    .difficulty-normal-icon {
+      width: 36px;
+      height: 16px;
     }
-  } 
 
-  .task-modal-footer {
-    margin: 0 auto;
-    padding-bottom: 24px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    margin-top: 50px;
+    .difficulty-medium-icon {
+      width: 36px;
+      height: 32px;
+    }
 
-    .delete-task-btn, .cancel-task-btn {
-      margin-left: 16px;
+    .difficulty-hard-icon {
+      width: 36px;
+      height: 36px;
+    }
+
+    .option {
+      margin-bottom: 12px;
+      margin-top: 12px;
+      position: relative;
+    }
+
+    .option-item {
+      margin-right: 48px;
       cursor: pointer;
 
-      &:hover, &:focus, &:active {
-        text-decoration: underline;
+      &:last-child {
+        margin-right: 0px;
+      }
+
+      &-box {
+        width: 64px;
+        height: 64px;
+        border-radius: 2px;
+        background: $gray-600;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .habit-control.task-habit-disabled-control-habit {
+          color: $white !important;
+          border: none;
+          background: $gray-300;
+        }
+      }
+
+      &-label {
+        color: $gray-50;
+        text-align: center;
       }
     }
 
-    .delete-task-btn {
-      color: $red-50;
+    .category-wrap {
+      cursor: pointer;
+      margin-top: 0px;
     }
 
-    .cancel-task-btn {
-      color: $blue-10;
+    .category-box {
+      bottom: 0px;
+      left: 40px;
+      top: auto;
+    }
+
+    .checklist-group {
+      border-top: 1px solid $gray-500;
+
+      .input-group-btn {
+        cursor: pointer;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .destroy-icon {
+        width: 14px;
+        height: 16px;
+      }
+    }
+
+    .checklist-item {
+      margin-bottom: 0px;
+      border-radius: 0px;
+      border: none !important;
+      padding-left: 36px;
+
+      &:last-child {
+        background-size: 10px 10px;
+        background-image: url(~client/assets/svg/for-css/positive.svg);
+        background-repeat: no-repeat;
+        background-position: center left 10px;
+        border-top: 1px solid $gray-500 !important;
+        border-bottom: 1px solid $gray-500 !important;
+      }
+    }
+
+    .task-modal-footer {
+      margin: 0 auto;
+      padding-bottom: 24px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      margin-top: 50px;
+
+      .delete-task-btn, .cancel-task-btn {
+        margin-left: 16px;
+        cursor: pointer;
+
+        &:hover, &:focus, &:active {
+          text-decoration: underline;
+        }
+      }
+
+      .delete-task-btn {
+        color: $red-50;
+      }
+
+      .cancel-task-btn {
+        color: $blue-10;
+      }
     }
   }
-}
 </style>
 
 <script>
@@ -343,7 +343,7 @@ export default {
     bDropdownItem,
     Datepicker,
   },
-  props: ['task', 'purpose'], // purpose is either create or edit, task is the task created or edited
+  props: ['task', 'purpose', 'challengeId'], // purpose is either create or edit, task is the task created or edited
   data () {
     return {
       showTagsSelect: false,
@@ -438,7 +438,15 @@ export default {
     },
     submit () {
       if (this.purpose === 'create') {
-        this.createTask(this.task);
+        if (this.challengeId) {
+          this.$store.dispatch('tasks:createChallengeTasks', {
+            challengeId: this.challengeId,
+            tasks: [this.task],
+          });
+          this.$emit('taskCreated', this.task);
+        } else {
+          this.createTask(this.task);
+        }
       } else {
         this.saveTask(this.task);
       }

@@ -129,3 +129,13 @@ export async function destroy (store, task) {
 
   await axios.delete(`/api/v3/tasks/${task._id}`);
 }
+
+export async function getChallengeTasks (store, payload) {
+  let response = await axios.get(`/api/v3/tasks/challenge/${payload.challengeId}`);
+  return response.data.data;
+}
+
+export async function createChallengeTasks (store, payload) {
+  let response = await axios.post(`/api/v3/tasks/challenge/${payload.challengeId}`, payload.tasks);
+  return response.data.data;
+}
