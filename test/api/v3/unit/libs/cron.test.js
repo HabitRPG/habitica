@@ -189,6 +189,57 @@ describe('cron', () => {
       expect(user.purchased.plan.consecutive.count).to.be.empty;
       expect(user.purchased.plan.consecutive.offset).to.be.empty;
     });
+
+    it('adds 6 month perks on renewed subscription', () => {
+      user.purchased.plan.dateUpdated = moment().subtract(1, 'months').toDate();
+      user.purchased.plan.dateCreated = moment().subtract(6, 'months').toDate();
+
+      user.purchased.plan.planId = 'basic_6mo';
+      user.purchased.plan.dateTerminated = null;
+      user.purchased.plan.extraMonths = 0;
+      user.purchased.plan.consecutive.trinkets = 1;
+
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.trinkets).to.equal(3);
+    });
+
+    it('does not add 6 month perks on cancelled subscription', () => {
+      user.purchased.plan.planId = 'basic_6mo';
+      user.purchased.plan.consecutive.trinkets = 1;
+
+      user.purchased.plan.dateUpdated = moment().subtract(1, 'months').toDate();
+      user.purchased.plan.dateCreated = moment().subtract(6, 'months').toDate();
+
+      user.purchased.plan.dateTerminated = moment(new Date()).subtract({days: 1});
+
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.trinkets).to.equal(1);
+    });
+
+    it('adds 12 month perks on renewed subscription', () => {
+      user.purchased.plan.planId = 'basic_12mo';
+      user.purchased.plan.consecutive.trinkets = 1;
+      user.purchased.plan.dateUpdated = moment().subtract(1, 'months').toDate();
+      user.purchased.plan.dateCreated = moment().subtract(12, 'months').toDate();
+
+      user.purchased.plan.dateTerminated = null;
+      user.purchased.plan.extraMonths = 0;
+
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.trinkets).to.equal(5);
+    });
+
+    it('does not add 12 month perks on cancelled subscription', () => {
+      user.purchased.plan.planId = 'basic_12mo';
+      user.purchased.plan.consecutive.trinkets = 1;
+      user.purchased.plan.dateUpdated = moment().subtract(1, 'months').toDate();
+      user.purchased.plan.dateCreated = moment().subtract(12, 'months').toDate();
+
+      user.purchased.plan.dateTerminated = moment(new Date()).subtract({days: 1});
+
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.trinkets).to.equal(1);
+    });
   });
 
   describe('end of the month perks when user is not subscribed', () => {

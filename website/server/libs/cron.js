@@ -66,20 +66,37 @@ function grantEndOfTheMonthPerks (user, now) {
 
   if (elapsedMonths > 0) {
     plan.dateUpdated = now;
-    // For every month, inc their "consecutive months" counter. Give perks based on consecutive blocks
-    // If they already got perks for those blocks (eg, 6mo subscription, subscription gifts, etc) - then dec the offset until it hits 0
-    _.defaults(plan.consecutive, {count: 0, offset: 0, trinkets: 0, gemCapExtra: 0});
 
-    for (let i = 0; i < elapsedMonths; i++) {
-      plan.consecutive.count++;
+    let dateCreatedMoment = moment(plan.dateCreated).startOf('month');
+    let elapsedSubscriptionMonths = moment(now).startOf('month').diff(dateCreatedMoment, 'months');
+    // if a 6 or 12 month subscription is still active X months after it was created, that means it was renewed and
+    // should get subscription perks upfront
+    if (elapsedSubscriptionMonths === 6 && plan.planId === 'basic_6mo' && plan.extraMonths === 0 &&
+      (plan.dateTerminated === null || plan.dateTerminated.isAfter())) {
+      plan.consecutive.trinkets += 2;
+      plan.consecutive.gemCapExtra = plan.consecutive.gemCapExtra < 35 ? 35 : plan.consecutive.gemCapExtra;
+      plan.consecutive.offset += 6;
+    } else if (elapsedSubscriptionMonths === 12 && plan.planId === 'basic_12mo' && plan.extraMonths === 0 &&
+      (plan.dateTerminated === null || plan.dateTerminated.isAfter())) {
+      plan.consecutive.trinkets += 4;
+      plan.consecutive.gemCapExtra = plan.consecutive.gemCapExtra < 45 ? 45 : plan.consecutive.gemCapExtra;
+      plan.consecutive.offset += 12;
+    } else {
+      // For every month, inc their "consecutive months" counter. Give perks based on consecutive blocks
+      // If they already got perks for those blocks (eg, 6mo subscription, subscription gifts, etc) - then dec the offset until it hits 0
+      _.defaults(plan.consecutive, {count: 0, offset: 0, trinkets: 0, gemCapExtra: 0});
 
-      if (plan.consecutive.offset > 1) {
-        plan.consecutive.offset--;
-      } else if (plan.consecutive.count % 3 === 0) { // every 3 months
-        if (plan.consecutive.offset === 1) plan.consecutive.offset--;
-        plan.consecutive.trinkets++;
-        plan.consecutive.gemCapExtra += 5;
-        if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25; // cap it at 50 (hard 25 limit + extra 25)
+      for (let i = 0; i < elapsedMonths; i++) {
+        plan.consecutive.count++;
+
+        if (plan.consecutive.offset > 1) {
+          plan.consecutive.offset--;
+        } else if (plan.consecutive.count % 3 === 0) { // every 3 months
+          if (plan.consecutive.offset === 1) plan.consecutive.offset--;
+          plan.consecutive.trinkets++;
+          plan.consecutive.gemCapExtra += 5;
+          if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25; // cap it at 50 (hard 25 limit + extra 25)
+        }
       }
     }
   }
