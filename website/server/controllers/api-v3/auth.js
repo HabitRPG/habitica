@@ -436,8 +436,8 @@ api.pusherAuth = {
  * @apiName UpdateUsername
  * @apiGroup User
  *
- * @apiParam {String} password Body parameter - The current user password
- * @apiParam {String} username Body parameter - The new username
+ * @apiParam (Body) {String} password The current user password
+ * @apiParam (Body) {String} username The new username
 
  * @apiSuccess {String} data.username The new username
  **/
@@ -543,7 +543,7 @@ api.updatePassword = {
  * @apiName ResetPassword
  * @apiGroup User
  *
- * @apiParam {String} email Body parameter - The email address of the user
+ * @apiParam (Body) {String} email The email address of the user
  *
  * @apiSuccess {String} message The localized success message
  **/

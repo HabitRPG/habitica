@@ -25,7 +25,7 @@ let api = {};
  * @apiName CreateTag
  * @apiGroup Tag
  *
- * @apiParam (body) {string} name The name of the tag to be added.
+ * @apiParam (Body) {string} name The name of the tag to be added.
  *
  * @apiParamExample {json} Example body:
  * {"name":"practicetag"}
@@ -110,7 +110,7 @@ api.getTag = {
  * @apiGroup Tag
  *
  * @apiParam {UUID} tagId The tag _id
- * @apiParam (body) {string} name The new name of the tag.
+ * @apiParam (Body) {string} name The new name of the tag.
  *
  * @apiParamExample {json} Example body:
  * {"name":"prac-tag"}
@@ -152,8 +152,8 @@ api.updateTag = {
  * @apiName ReorderTags
  * @apiGroup Tag
  *
- * @apiParam (body) {UUID} tagId Id of the tag to move
- * @apiParam (body) {Number} to Position the tag is moving to
+ * @apiParam (Body) {UUID} tagId Id of the tag to move
+ * @apiParam (Body) {Number} to Position the tag is moving to
  *
  * @apiParamExample {json} Example request:
  * {"tagId":"c6855fae-ca15-48af-a88b-86d0c65ead47","to":0}

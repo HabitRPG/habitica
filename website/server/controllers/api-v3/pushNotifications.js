@@ -12,8 +12,8 @@ let api = {};
  * @apiName UserAddPushDevice
  * @apiGroup User
  *
- * @apiParam {String} regId The id of the push device
- * @apiParam {String} type The type of push device
+ * @apiParam (Body) {String} regId The id of the push device
+ * @apiParam (Body) {String} type The type of push device
  *
  * @apiSuccess {Object} data List of push devices
  * @apiSuccess {String} message Success message
