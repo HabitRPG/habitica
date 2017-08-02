@@ -105,11 +105,9 @@
       div.potion-icon(:class="'Pet_HatchingPotion_'+currentDraggingPotion.key")
       div.popover
         div.popover-content {{ $t('clickOnEggToHatch', {potionName: currentDraggingPotion.text() }) }}
-
 </template>
 
 <style lang="scss" scoped>
-
   .hatchingPotionInfo {
     position: absolute;
     left: -500px;
