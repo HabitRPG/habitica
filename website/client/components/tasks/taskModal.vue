@@ -449,6 +449,7 @@ export default {
         }
       } else {
         this.saveTask(this.task);
+        this.$emit('taskEdited', this.task);
       }
       this.$root.$emit('hide::modal', 'task-modal');
     },

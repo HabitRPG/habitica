@@ -136,7 +136,7 @@
 }
 
 .no-span-margin span {
-  margin-left: 0px !important; 
+  margin-left: 0px !important;
 }
 
 .svg-icon.streak {
@@ -235,7 +235,7 @@
   padding: 4px 10px;
   color: $gray-300;
   white-space: nowrap;
-} 
+}
 </style>
 
 <script>

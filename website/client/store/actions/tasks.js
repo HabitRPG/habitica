@@ -112,11 +112,11 @@ export async function save (store, editedTask) {
 
   sanitizeChecklist(editedTask);
 
-  Object.assign(originalTask, editedTask);
+  if (originalTask) Object.assign(originalTask, editedTask);
 
-  const taskDataToSend = omit(originalTask, ['history']);
-  const response = await axios.put(`/api/v3/tasks/${originalTask._id}`, taskDataToSend);
-  Object.assign(originalTask, response.data.data);
+  const taskDataToSend = omit(editedTask, ['history']);
+  const response = await axios.put(`/api/v3/tasks/${editedTask._id}`, taskDataToSend);
+  if (originalTask) Object.assign(originalTask, response.data.data);
 }
 
 export async function destroy (store, task) {

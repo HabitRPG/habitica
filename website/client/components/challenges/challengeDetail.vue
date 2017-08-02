@@ -26,7 +26,12 @@
           | {{challenge.prize}}
           .details(v-once) {{$t('prize')}}
     .row
-      task-column.col-6(v-for="column in columns", :type="column", :key="column", :taskListOverride='tasksByType[column]')
+      task-column.col-6(
+        v-for="column in columns",
+        :type="column",
+        :key="column",
+        :taskListOverride='tasksByType[column]',
+        v-on:editTask="editTask")
   .col-4.sidebar.standard-page
     .acitons
       div(v-if='!isMember && !isLeader')
@@ -39,12 +44,13 @@
             | {{$t(type)}}
         //- button.btn.btn-success(v-once) {{$t('addTask')}}
         task-modal(
-          :task="editingTask || creatingTask",
-          :purpose="creatingTask !== null ? 'create' : 'edit'",
+          :task="workingTask",
+          :purpose="taskFormPurpose",
           @cancel="cancelTaskModal()",
           ref="taskModal",
           :challengeId="challengeId",
           v-on:taskCreated='taskCreated',
+          v-on:taskEdited='taskEdited',
         )
       div(v-if='isLeader')
         button.btn.btn-secondary(v-once, @click='edit()') {{$t('editChallenge')}}
@@ -137,6 +143,7 @@ import Vue from 'vue';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import findIndex from 'lodash/findIndex';
+import cloneDeep from 'lodash/cloneDeep';
 
 import { mapState } from 'client/libs/store';
 import closeChallengeModal from './closeChallengeModal';
@@ -176,8 +183,10 @@ export default {
         todo: [],
         reward: [],
       },
-      editingTask: false,
+      editingTask: {},
       creatingTask: {},
+      workingTask: {},
+      taskFormPurpose: 'create',
     };
   },
   computed: {
@@ -199,8 +208,19 @@ export default {
     });
   },
   methods: {
+    editTask (task) {
+      this.taskFormPurpose = 'edit';
+      this.editingTask = cloneDeep(task);
+      this.workingTask = this.editingTask;
+      // Necessary otherwise the first time the modal is not rendered
+      Vue.nextTick(() => {
+        this.$root.$emit('show::modal', 'task-modal');
+      });
+    },
     createTask (type) {
+      this.taskFormPurpose = 'create';
       this.creatingTask = taskDefaults({type, text: ''});
+      this.workingTask = this.editingTask;
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
         this.$root.$emit('show::modal', 'task-modal');
@@ -212,6 +232,12 @@ export default {
     },
     taskCreated (task) {
       this.tasksByType[task.type].push(task);
+    },
+    taskEdited (task) {
+      let index = findIndex(this.tasksByType[task.type], (taskItem) => {
+        return taskItem._id === task._id;
+      });
+      this.tasksByType[task.type].splice(index, 1, task);
     },
     showMemberModal () {
       this.$store.state.viewingMembers = this.members;
