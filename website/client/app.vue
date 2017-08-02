@@ -63,6 +63,7 @@ export default {
 };
 </script>
 
+<style src="intro.js/minified/introjs.min.css"></style>
 <style src="bootstrap/scss/bootstrap.scss" lang="scss"></style>
 <style src="assets/scss/index.scss" lang="scss"></style>
 <style src="assets/css/index.css"></style>
