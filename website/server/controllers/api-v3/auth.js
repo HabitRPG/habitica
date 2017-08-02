@@ -81,10 +81,10 @@ function hasBackupAuth (user, networkToRemove) {
  * @apiName UserRegisterLocal
  * @apiGroup User
  *
- * @apiParam {String} username Body parameter - Username of the new user
- * @apiParam {String} email Body parameter - Email address of the new user
- * @apiParam {String} password Body parameter - Password for the new user
- * @apiParam {String} confirmPassword Body parameter - Password confirmation
+ * @apiParam (Body) {String} username Username of the new user
+ * @apiParam (Body) {String} email Email address of the new user
+ * @apiParam (Body) {String} password Password for the new user
+ * @apiParam (Body) {String} confirmPassword Password confirmation
  *
  * @apiSuccess {Object} data The user object, if local auth was just attached to a social user then only user.auth.local
  */
@@ -206,8 +206,8 @@ function _loginRes (user, req, res) {
  * @apiName UserLoginLocal
  * @apiGroup User
  *
- * @apiParam {String} username Body parameter - Username or email of the user
- * @apiParam {String} password Body parameter - The user's password
+ * @apiParam (Body) {String} username Username or email of the user
+ * @apiParam (Body) {String} password The user's password
  *
  * @apiSuccess {String} data._id The user's unique identifier
  * @apiSuccess {String} data.apiToken The user's api token that must be used to authenticate requests.
@@ -368,8 +368,8 @@ api.loginSocial = {
  * @apiName UserAuthPusher
  * @apiGroup User
  *
- * @apiParam {String} socket_id Body parameter
- * @apiParam {String} channel_name Body parameter
+ * @apiParam (Body) {String} socket_id A unique identifier for the specific client connection to Pusher
+ * @apiParam (Body) {String} channel_name The name of the channel being subscribed to
  *
  * @apiSuccess {String} auth The authentication token
  */
