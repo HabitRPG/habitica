@@ -15,6 +15,7 @@ import payments from '../../libs/payments';
 import amazonPayments from '../../libs/amazonPayments';
 import stripePayments from '../../libs/stripePayments';
 import paypalPayments from '../../libs/paypalPayments';
+import {removeFromArray} from "../../libs/collectionManipulators";
 
 const daysSince = common.daysSince;
 
@@ -310,13 +311,18 @@ schema.methods.togglePinnedItem = function togglePinnedItem (type, key) {
 
   if (foundIndex >= 0) {
     let item = this.pinnedItems[foundIndex];
-    item.unpin = !item.unpin;
 
-    //removeFromArray(this.pinnedItems, obj);
+    if (item.src !== 'habitica') {
+      removeFromArray(this.pinnedItems, obj);
+    } else {
+      // just unpin a suggested item
+      item.unpin = !item.unpin;
+    }
   } else {
     this.pinnedItems.push({
       type,
       key,
+      src: 'user',
     });
   }
 };

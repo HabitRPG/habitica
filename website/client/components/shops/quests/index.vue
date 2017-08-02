@@ -108,7 +108,7 @@
               template(slot="itemBadge", scope="ctx")
                 span.badge.badge-pill.badge-item.badge-svg(
                   :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-                  @click.prevent.stop="togglePinned(ctx.item)"
+                  @click.prevent.stop="togglePinned(ctx.item.key, 'quests')"
                 )
                   span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
@@ -140,7 +140,7 @@
                 template(slot="itemBadge", scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-                    @click.prevent.stop="togglePinned(ctx.item)"
+                    @click.prevent.stop="togglePinned(ctx.item.key, 'quests')"
                   )
                     span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
@@ -169,7 +169,7 @@
             template(slot="itemBadge", scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
                 :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-                @click.prevent.stop="togglePinned(ctx.item)"
+                @click.prevent.stop="togglePinned(ctx.item.key, 'quests')"
               )
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
@@ -336,10 +336,13 @@
 
   import featuredItems from 'common/script/content/shop-featuredItems';
 
+  import _isPinned from '../_isPinned';
+
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
   import _throttle from 'lodash/throttle';
   import _groupBy from 'lodash/groupBy';
+  import _map from 'lodash/map';
 
 export default {
     components: {
@@ -411,7 +414,14 @@ export default {
     },
     methods: {
       questItems (category, sortBy, searchBy, hideLocked, hidePinned) {
-        let result = _filter(category.items, (i) => {
+        let result = _map(category.items, (e) => {
+          return {
+            ...e,
+            pinned: _isPinned(this.user, e.key, 'quests'),
+          };
+        });
+
+        result = _filter(result, (i) => {
           if (hideLocked && i.locked) {
             return false;
           }
@@ -452,10 +462,8 @@ export default {
 
         return false;
       },
-      togglePinned (item) {
-        let isPinned = Boolean(item.pinned);
-        item.pinned = !isPinned;
-        this.$store.dispatch(isPinned ? 'shops:unpinGear' : 'shops:pinGear', {key: item.key});
+      async togglePinned (key, type) {
+        await this.$store.dispatch('user:togglePinnedItemAsync', {key, type});
       },
       buyItem (item) {
         this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});

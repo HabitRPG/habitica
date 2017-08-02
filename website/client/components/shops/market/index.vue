@@ -408,7 +408,8 @@
   import _sortBy from 'lodash/sortBy';
   import _map from 'lodash/map';
   import _throttle from 'lodash/throttle';
-  import _findIndex from 'lodash/findIndex';
+
+  import _isPinned from '../_isPinned';
 
   const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
@@ -580,15 +581,12 @@ export default {
             return '';
         }
       },
-      isPinned (key) {
-        return _findIndex(this.user.pinnedItems, {key, unpin: false}) >= 0;
-      },
       filteredGear (groupByClass, searchBy, sortBy, hideLocked, hidePinned) {
         let result = _filter(this.content.gear.flat, ['klass', groupByClass]);
         result = _map(result, (e) => {
           return {
             ...e,
-            pinned: this.isPinned(e.key),
+            pinned: _isPinned(this.user, e.key, 'gear'),
             locked: this.isGearLocked(e),
           };
         });
@@ -620,7 +618,7 @@ export default {
         let result = _map(category.items, (e) => {
           return {
             ...e,
-            pinned: this.isPinned(e.key),
+            pinned: _isPinned(this.user, e.key, e.purchaseType),
           };
         });
 

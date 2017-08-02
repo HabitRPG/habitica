@@ -587,6 +587,7 @@ let schema = new Schema({
       type: {type: String},
       key: {type: String},
       unpin: {type: Boolean, default: false},
+      src: {type: String},
     }
   ]
 }, {
