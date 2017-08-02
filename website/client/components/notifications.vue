@@ -239,7 +239,7 @@ export default {
     window.setTimeout(() => {
       this.initTour();
       if (this.user.flags.tour.intro === this.TOUR_END) return;
-      this.goto('intro', 1, true);
+      this.goto('intro', 0);
     }, 2000);
   },
   methods: {
