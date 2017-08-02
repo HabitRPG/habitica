@@ -8,14 +8,14 @@
       .col-md-8.text-left
         h1(v-once) {{$t('findChallenges')}}
       .col-md-4
-        span.dropdown-label {{ $t('sortBy') }}
-        b-dropdown(:text="$t('sort')", right=true)
-          b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
-        button.btn.btn-secondary.create-challenge-button
+        // @TODO: implement sorting span.dropdown-label {{ $t('sortBy') }}
+          b-dropdown(:text="$t('sort')", right=true)
+            b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
+        button.btn.btn-secondary.create-challenge-button(@click='createChallenge()')
           .svg-icon.positive-icon(v-html="icons.positiveIcon")
-          span(v-once, @click='createChallenge()') {{$t('createChallenge')}}
+          span(v-once) {{$t('createChallenge')}}
     .row
-      .col-6(v-for='challenge in challenges')
+      .col-6(v-for='challenge in filteredChallenges', v-if='!memberOf(challenge)')
         challenge-item(:challenge='challenge')
 </template>
 
@@ -41,15 +41,19 @@
 </style>
 
 <script>
+import { mapState } from 'client/libs/store';
+
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Sidebar from './sidebar';
 import ChallengeItem from './challengeItem';
 import challengeModal from './challengeModal';
+import challengeUtilities from 'client/mixins/challengeUtilities';
 
 import positiveIcon from 'assets/svg/positive.svg';
 
 export default {
+  mixins: [challengeUtilities],
   components: {
     Sidebar,
     ChallengeItem,
@@ -63,7 +67,31 @@ export default {
         positiveIcon,
       }),
       challenges: [],
-      sortOptions: [],
+      sort: 'none',
+      sortOptions: [
+        {
+          text: this.$t('none'),
+          value: 'none',
+        },
+        {
+          text: this.$t('participants'),
+          value: 'participants',
+        },
+        {
+          text: this.$t('name'),
+          value: 'name',
+        },
+        {
+          text: this.$t('end_date'),
+          value: 'end_date',
+        },
+        {
+          text: this.$t('start_date'),
+          value: 'start_date',
+        },
+      ],
+      search: '',
+      filters: {},
     };
   },
   mounted () {
@@ -71,12 +99,27 @@ export default {
 
     // @TODO: do we need to load groups for filters still?
   },
-  methods: {
-    updateSearch () {
-
+  computed: {
+    ...mapState({user: 'user.data'}),
+    filteredChallenges () {
+      let search = this.search;
+      let filters = this.filters;
+      let user = this.$store.state.user.data;
+      // @TODO: Move this to the server
+      return this.challenges.filter((challenge) => {
+        return this.filterChallenge(challenge, filters, search, user);
+      });
     },
-    updateFilters () {
-
+  },
+  methods: {
+    memberOf (challenge) {
+      return this.user.challenges.indexOf(challenge._id) !== -1;
+    },
+    updateSearch (eventData) {
+      this.search = eventData.searchTerm;
+    },
+    updateFilters (eventData) {
+      this.filters = eventData;
     },
     createChallenge () {
       this.$root.$emit('show::modal', 'challenge-modal');

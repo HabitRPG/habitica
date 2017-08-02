@@ -30,6 +30,7 @@
     "messageAlreadyPurchasedGear": "Bu ekipmanı daha önce satın aldın ama şu anda sahip değilsin. İşler sayfasındaki ödüller sütunundan tekrar satın alabilirsin.",
     "messageAlreadyOwnGear": "Bu eşyaya zaten sahipsin. Ekipman sayfasına giderek kuşanabilirsin.",
     "messageHealthAlreadyMax": "Zaten maksimum sağlığa sahipsin.",
+    "messageHealthAlreadyMin": "Oh no! You have already run out of health so it's too late to buy a health potion, but don't worry - you can revive!",
     "armoireEquipment": "<%= image %> Efsunlu Gardıropta nadide bir ekipman buldun: <%= dropText %>! Muhteşem!",
     "armoireFood": "<%= image %> Efsunlu Gardırobu karıştırırken bir <%= dropArticle %><%= dropText %> buldun. Ne işi varmış onun orada?",
     "armoireExp": "Efsunlu Gardırop ile güreş tuttun ve Tecrübe kazandın. Oh olsun!",

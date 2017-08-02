@@ -4,14 +4,21 @@ div
   .row
     // .col-md-2
     // @TODO: Implement when we pull avatars .svg-icon(v-html="icons.like")
-    .col-md-12(v-for="(msg, index) in chat", :key="msg.id")
+
+    .hr
+
+    .col-md-12(v-for="(msg, index) in chat", :key="msg.id", v-if='chat')
+      // @TODO: is there a different way to do these conditionals? This creates an infinite loop
+      //.hr(v-if='displayDivider(msg)')
+        .hr-middle(v-once) {{ msg.timestamp }}
+
       .card
         .card-block
           h3.leader {{msg.user}}
           p {{msg.timestamp | timeAgo}}
           .text {{msg.text}}
           hr
-          .action(v-once, @click='like(msg)', :class='{active: msg.likes[user._id]}')
+          .action(v-once, @click='like(msg)', v-if='msg.likes', :class='{active: msg.likes[user._id]}')
             .svg-icon(v-html="icons.like")
             span(v-if='!msg.likes[user._id]') {{ $t('like') }}
             span(v-if='msg.likes[user._id]') {{ $t('liked') }}
@@ -31,6 +38,28 @@ div
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .hr {
+    width: 100%;
+    height: 20px;
+    border-bottom: 1px solid $gray-500;
+    text-align: center;
+    margin: 2em 0;
+  }
+
+  .hr-middle {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Roboto Condensed';
+    line-height: 1.5;
+    text-align: center;
+    color: $gray-200;
+    background-color: $gray-700;
+    padding: .2em;
+    margin-top: .2em;
+    display: inline-block;
+    width: 100px;
+  }
 
   .card {
     margin-bottom: 1em;
@@ -91,18 +120,32 @@ export default {
       }),
       copyingMessage: {},
       messages: [],
+      currentDayDividerDisplay: moment().day(),
     };
   },
   filters: {
     timeAgo (value) {
       return moment(value).fromNow();
     },
+    date (value) {
+      // @TODO: Add user preference
+      return moment(value).toDate();
+    },
   },
   computed: {
     ...mapState({user: 'user.data'}),
   },
   methods: {
+    displayDivider (message) {
+      if (this.currentDayDividerDisplay !== moment(message.timestamp).day()) {
+        this.currentDayDividerDisplay = moment(message.timestamp).day();
+        return true;
+      }
+
+      return false;
+    },
     likeCount (message) {
+      if (!message.likes) return 0;
       return Object.keys(message.likes).length;
     },
     async like (message) {

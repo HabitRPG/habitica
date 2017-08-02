@@ -17,14 +17,14 @@
               span.custom-control-description(v-once) {{ category.text }}
 
         div.form-group.clearfix
-          h3.float-left Hide locked
-          toggle-switch.float-right.hideMissing(
+          h3.float-left(v-once) {{ $t('hideLocked') }}
+          toggle-switch.float-right.no-margin(
             :label="''",
             v-model="hideLocked",
           )
         div.form-group.clearfix
-          h3.float-left Hide pinned
-          toggle-switch.float-right.hideMissing(
+          h3.float-left(v-once) {{ $t('hidePinned') }}
+          toggle-switch.float-right.no-margin(
             :label="''",
             v-model="hidePinned",
           )
@@ -95,8 +95,8 @@
         :items="filteredGear(selectedGroupGearByClass, searchTextThrottled, selectedSortGearBy, hideLocked, hidePinned)",
         :itemWidth=94,
         :itemMargin=24,
-        :showAllLabel="$t('showAllEquipment', { classType: getClassName(selectedGroupGearByClass) })",
-        :showLessLabel="$t('showLessEquipment', { classType: getClassName(selectedGroupGearByClass) })"
+        :showAllLabel="$t('showAllGeneric', { type: getClassName(selectedGroupGearByClass) + ' '+$t('equipment')  })",
+        :showLessLabel="$t('showLessGeneric', { type: getClassName(selectedGroupGearByClass) + ' '+$t('equipment') })"
       )
         template(slot="item", scope="ctx")
           shopItem(
@@ -111,7 +111,6 @@
           )
             template(slot="popoverContent", scope="ctx")
               equipmentAttributesPopover(:item="ctx.item")
-              div {{ ctx.item }}
 
             template(slot="itemBadge", scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
@@ -155,8 +154,7 @@
           )
             span(slot="popoverContent")
               h4.popover-content-title {{ item.text }}
-              div {{ item }}
-              div {{ userItems[item.purchaseType][item.key] }}
+
             template(slot="itemBadge", scope="ctx")
               countBadge(
                 :show="true",
@@ -227,7 +225,8 @@
         :item="selectedGearToBuy",
         priceType="gold",
         :withPin="true",
-        @change="resetGearToBuy($event)"
+        @change="resetGearToBuy($event)",
+        @buyPressed="buyGear($event)"
       )
         template(slot="item", scope="ctx")
           div
@@ -244,7 +243,8 @@
       buyModal(
         :item="selectedItemToBuy",
         :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
-        @change="resetItemToBuy($event)"
+        @change="resetItemToBuy($event)",
+        @buyPressed="buyItem($event)"
       )
         template(slot="item", scope="ctx")
           item.flat(
@@ -293,48 +293,6 @@
     cursor: pointer;
   }
 
-  .featuredItems {
-    height: 216px;
-
-    .background {
-      background: url('~assets/images/market/shop_background.png');
-
-      background-repeat: repeat-x;
-
-      width: 100%;
-      height: 216px;
-      position: absolute;
-
-      top: 0;
-      left: 0;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .content {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .npc {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 216px;
-      background: url('~assets/images/market/market_banner_web_alexnpc.png');
-      background-repeat: no-repeat;
-
-      .featured-label {
-        position: absolute;
-        bottom: -14px;
-        margin: 0;
-        left: 80px;
-      }
-    }
-  }
 
   .featured-label {
     margin: 24px auto;
@@ -360,6 +318,50 @@
     .standard-page {
       position: relative;
     }
+
+    .featuredItems {
+      height: 216px;
+
+      .background {
+        background: url('~assets/images/shops/shop_background.png');
+
+        background-repeat: repeat-x;
+
+        width: 100%;
+        height: 216px;
+        position: absolute;
+
+        top: 0;
+        left: 0;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .npc {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 216px;
+        background: url('~assets/images/shops/market_banner_web_alexnpc.png');
+        background-repeat: no-repeat;
+
+        .featured-label {
+          position: absolute;
+          bottom: -14px;
+          margin: 0;
+          left: 80px;
+        }
+      }
+    }
+
   }
 </style>
 
@@ -380,7 +382,7 @@
   import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
 
   import SellModal from './sellModal.vue';
-  import BuyModal from './buyModal.vue';
+  import BuyModal from '../buyModal.vue';
   import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
 
   import bPopover from 'bootstrap-vue/lib/components/popover';
@@ -657,9 +659,15 @@ export default {
         item.pinned = !isPinned;
         this.$store.dispatch(isPinned ? 'shops:unpinGear' : 'shops:pinGear', {key: item.key});
       },
+      buyGear (item) {
+        this.$store.dispatch('shops:buyItem', {key: item.key});
+      },
+      buyItem (item) {
+        this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
+      },
     },
     created () {
-      this.$store.dispatch('shops:fetch');
+      this.$store.dispatch('shops:fetchMarket');
 
       this.selectedGroupGearByClass = this.userStats.class;
     },

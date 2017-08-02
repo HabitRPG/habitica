@@ -1,12 +1,78 @@
 <template lang="pug">
+div
+  welcome-modal
+  new-stuff
+  death
+  low-health
+  level-up
+  choose-class
+  testing
+  testingletiant
+  rebirth-enabled
+  drops-enabled
+  contributor
+  won-challenge
+  ultimate-gear
+  streak
+  rebirth
+  joined-guild
+  joined-challenge
+  invited-friend
 </template>
 
 <script>
 // import moment from 'moment';
 
 import { mapState } from 'client/libs/store';
+import notifications from 'client/mixins/notifications';
+
+import welcomeModal from './achievements/welcome';
+import newStuff from './achievements/newStuff';
+import death from './achievements/death';
+import lowHealth from './achievements/lowHealth';
+import levelUp from './achievements/levelUp';
+import chooseClass from './achievements/chooseClass';
+import armoireEmpty from './achievements/armoireEmpty';
+import questCompleted from './achievements/questCompleted';
+import questInvitation from './achievements/questInvitation';
+import testing from './achievements/testing';
+import testingletiant from './achievements/testingletiant';
+import rebirthEnabled from './achievements/rebirthEnabled';
+import dropsEnabled from './achievements/dropsEnabled';
+import contributor from './achievements/contributor';
+import invitedFriend from './achievements/invitedFriend';
+import joinedChallenge from './achievements/joinedChallenge';
+import joinedGuild from './achievements/joinedGuild';
+import rebirth from './achievements/rebirth';
+import streak from './achievements/streak';
+import ultimateGear from './achievements/ultimateGear';
+import wonChallenge from './achievements/wonChallenge';
 
 export default {
+  mixins: [notifications],
+  components: {
+    wonChallenge,
+    ultimateGear,
+    streak,
+    rebirth,
+    joinedGuild,
+    joinedChallenge,
+    invitedFriend,
+    welcomeModal,
+    newStuff,
+    death,
+    lowHealth,
+    levelUp,
+    chooseClass,
+    armoireEmpty,
+    questCompleted,
+    questInvitation,
+    testing,
+    testingletiant,
+    rebirthEnabled,
+    dropsEnabled,
+    contributor,
+  },
   data () {
     // Levels that already display modals and should not trigger generic Level Up
     let unlockLevels = {
@@ -66,21 +132,26 @@ export default {
     invitedToQuest () {
       return this.user.party.quest.RSVPNeeded && !this.user.party.quest.completed;
     },
+    userDailies () {
+      return this.$store.state.tasks.data.dailys;
+    },
   },
   watch: {
     baileyShouldShow () {
-      // @TODO: this.openModal('newStuff', {size:'lg'});
+      this.$root.$emit('show:modal', 'new-stuff');
     },
     userHp (after, before) {
       if (after <= 0) {
         this.playSound('Death');
-        // @TODO: this.openModal('death', {keyboard:false, backdrop:'static'});
+        this.$root.$emit('show:modal', 'death');
+        // @TODO: {keyboard:false, backdrop:'static'}
       } else if (after <= 30 && !this.user.flags.warnedLowHealth) {
-        // @TODO: this.openModal('lowHealth', {keyboard:false, backdrop:'static', controller:'UserCtrl', track:'Health Warning'});
+        this.$root.$emit('show:modal', 'low-health');
+        // @TODO: {keyboard:false, backdrop:'static', controller:'UserCtrl', track:'Health Warning'}
       }
       if (after === before) return;
       if (this.user.stats.lvl === 0) return;
-      // @TODO: Notification.hp(after - before, 'hp');
+      this.hp(after - before, 'hp');
 
       // @TODO: I am pretty sure we no long need this with $store
       // this.$broadcast('syncPartyRequest', {
@@ -93,7 +164,7 @@ export default {
     userExp (after, before) {
       if (after === before) return;
       if (this.user.stats.lvl === 0) return;
-      // @TODO: Notification.exp(after - before);
+      this.exp(after - before);
     },
     userGp (after, before) {
       if (after === before) return;
@@ -104,32 +175,33 @@ export default {
       if (this.user._tmp) {
         bonus = this.user._tmp.streakBonus || 0;
       }
-      // @TODO: Notification.gp(money, bonus || 0);
+      this.gp(money, bonus || 0);
 
       //  Append Bonus
       if (money > 0 && Boolean(bonus)) {
         if (bonus < 0.01) bonus = 0.01;
-        // @TODO: Notification.text("+ " + Notification.coins(bonus) + ' ' + window.env.t('streakCoins'));
+        this.text(`+ ${Notification.coins(bonus)} ${this.$t('streakCoins')}`);
         delete this.user._tmp.streakBonus;
       }
     },
     userMp (after, before) {
       if (after === before) return;
       if (!this.user.flags.classSelected || this.user.preferences.disableClasses) return;
-      // let mana = after - before;
-      // @TODO: Notification.mp(mana);
+      let mana = after - before;
+      this.mp(mana);
     },
     userLvl (after, before) {
       if (after <= before) return;
-      // @TODO: Notification.lvl();
+      this.lvl();
       this.playSound('Level_Up');
       if (this.user._tmp && this.user._tmp.drop && this.user._tmp.drop.type === 'Quest') return;
       if (this.unlockLevels[`${after}`]) return;
-      // @TODO: if (!this.user.preferences.suppressModals.levelUp) this.openModal('levelUp', {controller:'UserCtrl', size:'sm'});
+      if (!this.user.preferences.suppressModals.levelUp) this.$root.$emit('show:modal', 'level-up');
     },
     userClassSelect (after) {
       if (!after) return;
-      // @TODO: this.openModal('chooseClass', {controller:'UserCtrl', keyboard:false, backdrop:'static'});
+      this.$root.$emit('show::modal', 'choose-class');
+      // @TODO: {controller:'UserCtrl', keyboard:false, backdrop:'static'}
     },
     userNotifications (after) {
       if (!this.user._wrapped) return;
@@ -141,18 +213,24 @@ export default {
     },
     armoireEmpty (after, before) {
       if (after === before || after === false) return;
-      // @TODO: this.openModal('armoireEmpty');
+      this.$root.$emit('show::modal', 'armoire-empty');
     },
     questCompleted (after) {
       if (!after) return;
-      // @TODO: this.openModal('questCompleted', {controller:'InventoryCtrl'});
+      this.$root.$emit('show::modal', 'quest-completed');
     },
     invitedToQuest (after) {
       if (after !== true) return;
-      // @TODO: this.openModal('questInvitation', {controller:'PartyCtrl'});
+      this.$root.$emit('show::modal', 'quest-invitation');
+    },
+    userDailies () {
+      this.runYesterDailies();
     },
   },
   async mounted () {
+    if (!this.user.flags.welcomed) {
+      this.$root.$emit('show::modal', 'welcome');
+    }
   },
   methods: {
     playSound () {
@@ -166,9 +244,10 @@ export default {
       // let userDayStart = moment().startOf('day').add({ hours: this.user.preferences.dayStart });
 
       if (!this.user.needsCron) return;
-      let dailys = this.user.dailys;
 
-      if (!this.appLoaded) return;
+      let dailys = this.$store.state.tasks.data.dailys;
+
+      // @TODO: How do we check this now? if (!this.appLoaded) return;
 
       this.isRunningYesterdailies = true;
 
@@ -259,59 +338,57 @@ export default {
         // @TODO: Use factory function instead
         switch (notification.type) {
           case 'GUILD_PROMPT':
+            // @TODO: I'm pretty sure we can find better names for these
             if (notification.data.textletiant === -1) {
-              // @TODO: this.openModal('testing');
+              this.$root.$emit('show::modal', 'testing');
             } else {
-              // @TODO: this.openModal('testingletiant');
+              this.$root.$emit('show::modal', 'testingletiant');
             }
             break;
           case 'DROPS_ENABLED':
-            // @TODO: this.openModal('dropsEnabled');
+            this.$root.$emit('show::modal', 'drops-enabled');
             break;
           case 'REBIRTH_ENABLED':
-            // @TODO: this.openModal('rebirthEnabled');
+            this.$root.$emit('show::modal', 'rebirth-enabled');
             break;
           case 'WON_CHALLENGE':
-            // @TODO:
-            // User.sync().then( function() {
-            //   Achievement.displayAchievement('wonChallenge');
-            // });
+            this.$root.$emit('show::modal', 'won-challenge');
             break;
           case 'STREAK_ACHIEVEMENT':
-            // @TODO: Notification.streak(this.user.achievements.streak);
+            this.streak(this.user.achievements.streak);
             this.playSound('Achievement_Unlocked');
             if (!this.user.preferences.suppressModals.streak) {
-              // @TODO: Achievement.displayAchievement('streak', {size: 'md'});
+              this.$root.$emit('show::modal', 'streak');
             }
             break;
           case 'ULTIMATE_GEAR_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
-            // @TODO: Achievement.displayAchievement('ultimateGear', {size: 'md'});
+            this.$root.$emit('show::modal', 'ultimate-gear');
             break;
           case 'REBIRTH_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
-            // @TODO: Achievement.displayAchievement('rebirth');
+            this.$root.$emit('show::modal', 'rebirth');
             break;
           case 'GUILD_JOINED_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
-            // @TODO: Achievement.displayAchievement('joinedGuild', {size: 'md'});
+            this.$root.$emit('show::modal', 'joined-guild');
             break;
           case 'CHALLENGE_JOINED_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
-            // @TODO: Achievement.displayAchievement('joinedChallenge', {size: 'md'});
+            this.$root.$emit('show::modal', 'joined-challenge');
             break;
           case 'INVITED_FRIEND_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
-            // @TODO: Achievement.displayAchievement('invitedFriend', {size: 'md'});
+            this.$root.$emit('show::modal', 'invited-friend');
             break;
           case 'NEW_CONTRIBUTOR_LEVEL':
             this.playSound('Achievement_Unlocked');
-            // @TODO: Achievement.displayAchievement('contributor', {size: 'md'});
+            this.$root.$emit('show::modal', 'contributor');
             break;
           case 'CRON':
             if (notification.data) {
-              // @TODO: if (notification.data.hp) Notification.hp(notification.data.hp, 'hp');
-              // @TODO: if (notification.data.mp) Notification.mp(notification.data.mp);
+              if (notification.data.hp) this.hp(notification.data.hp, 'hp');
+              if (notification.data.mp) this.mp(notification.data.mp);
             }
             break;
           case 'GROUP_TASK_APPROVAL':
@@ -375,7 +452,7 @@ export default {
               });
 
               // Show notification of task approved
-              // @TODO: Notification.markdown(scoreTaskNotification[i].data.message);
+              this.markdown(scoreTaskNotification[i].data.message);
             }
 
             // Score approved tasks

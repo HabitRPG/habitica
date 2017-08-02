@@ -246,6 +246,7 @@
     "missingNewPassword": "Falta la contraseña nueva.",
     "invalidEmailDomain": "You cannot register with emails with the following domains: <%= domains %>",
     "wrongPassword": "Contraseña incorrecta.",
+    "incorrectDeletePhrase": "Please type DELETE in all caps to delete your account.",
     "notAnEmail": "Dirección de correo electrónico inválida.",
     "emailTaken": "Esta dirección de correo electrónico ya está en uso.",
     "newEmailRequired": "El nuevo correo electronico no puede ser encontrado.",

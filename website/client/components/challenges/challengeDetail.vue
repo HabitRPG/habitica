@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  challenge-modal(:challenge='challenge')
+  challenge-modal(:challenge='challenge', v-on:updatedChallenge='updatedChallenge')
   close-challenge-modal
 
   .col-8.standard-page
@@ -10,31 +10,48 @@
         div
           strong(v-once) {{$t('createdBy')}}
           span {{challenge.author}}
-          strong.margin-left(v-once)
+          // @TODO: Implement in V2 strong.margin-left(v-once)
             .svg-icon.calendar-icon(v-html="icons.calendarIcon")
             | {{$t('endDate')}}
           span {{challenge.endDate}}
         .tags
           span.tag(v-for='tag in challenge.tags') {{tag}}
       .col-4
-        .box
+        .box(@click="showMemberModal()")
           .svg-icon.member-icon(v-html="icons.memberIcon")
           | {{challenge.memberCount}}
-          .details(v-once) {{$t('participants')}}
+          .details(v-once) {{$t('participantsTitle')}}
         .box
           .svg-icon.gem-icon(v-html="icons.gemIcon")
           | {{challenge.prize}}
           .details(v-once) {{$t('prize')}}
     .row
-      task-column.col-6(v-for="column in columns", :type="column", :key="column")
+      task-column.col-6(
+        v-for="column in columns",
+        :type="column",
+        :key="column",
+        :taskListOverride='tasksByType[column]',
+        v-on:editTask="editTask")
   .col-4.sidebar.standard-page
     .acitons
       div(v-if='!isMember && !isLeader')
-        button.btn.btn-success(v-once) {{$t('joinChallenge')}}
+        button.btn.btn-success(v-once, @click='joinChallenge()') {{$t('joinChallenge')}}
       div(v-if='isMember')
-        button.btn.btn-danger(v-once) {{$t('leaveChallenge')}}
+        button.btn.btn-danger(v-once, @click='leaveChallenge()') {{$t('leaveChallenge')}}
       div(v-if='isLeader')
-        button.btn.btn-success(v-once) {{$t('addTask')}}
+        b-dropdown(:text="$t('create')")
+          b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
+            | {{$t(type)}}
+        //- button.btn.btn-success(v-once) {{$t('addTask')}}
+        task-modal(
+          :task="workingTask",
+          :purpose="taskFormPurpose",
+          @cancel="cancelTaskModal()",
+          ref="taskModal",
+          :challengeId="challengeId",
+          v-on:taskCreated='taskCreated',
+          v-on:taskEdited='taskEdited',
+        )
       div(v-if='isLeader')
         button.btn.btn-secondary(v-once, @click='edit()') {{$t('editChallenge')}}
       div(v-if='isLeader')
@@ -122,10 +139,19 @@
 </style>
 
 <script>
+import Vue from 'vue';
+import bDropdown from 'bootstrap-vue/lib/components/dropdown';
+import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
+import findIndex from 'lodash/findIndex';
+import cloneDeep from 'lodash/cloneDeep';
+
 import { mapState } from 'client/libs/store';
 import closeChallengeModal from './closeChallengeModal';
 import Column from '../tasks/column';
+import TaskModal from '../tasks/taskModal';
 import challengeModal from './challengeModal';
+
+import taskDefaults from 'common/script/libs/taskDefaults';
 
 import gemIcon from 'assets/svg/gem.svg';
 import memberIcon from 'assets/svg/member-icon.svg';
@@ -137,6 +163,9 @@ export default {
     closeChallengeModal,
     challengeModal,
     TaskColumn: Column,
+    TaskModal,
+    bDropdown,
+    bDropdownItem,
   },
   data () {
     return {
@@ -146,22 +175,18 @@ export default {
         memberIcon,
         calendarIcon,
       }),
-      challenge: {
-        // _id: 1,
-        // title: 'I am the Night! (Official TAKE THIS Challenge June 2017)',
-        // memberCount: 5261,
-        // endDate: '2017-04-04',
-        // tags: ['Habitica Official', 'Tag'],
-        // prize: 10,
-        // description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.',
-        // counts: {
-        //   habit: 0,
-        //   dailies: 2,
-        //   todos: 2,
-        //   rewards: 0,
-        // },
-        // author: 'SabreCat',
+      challenge: {},
+      members: [],
+      tasksByType: {
+        habit: [],
+        daily: [],
+        todo: [],
+        reward: [],
       },
+      editingTask: {},
+      creatingTask: {},
+      workingTask: {},
+      taskFormPurpose: 'create',
     };
   },
   computed: {
@@ -170,21 +195,64 @@ export default {
       return this.user.challenges.indexOf(this.challenge._id) !== -1;
     },
     isLeader () {
-      return true;
+      if (!this.challenge.leader) return false;
+      return this.user._id === this.challenge.leader._id;
     },
   },
-  mounted () {
-    this.getChallenge();
+  async mounted () {
+    this.challenge = await this.$store.dispatch('challenges:getChallenge', {challengeId: this.challengeId});
+    this.members = await this.$store.dispatch('members:getChallengeMembers', {challengeId: this.challengeId});
+    let tasks = await this.$store.dispatch('tasks:getChallengeTasks', {challengeId: this.challengeId});
+    tasks.forEach((task) => {
+      this.tasksByType[task.type].push(task);
+    });
   },
   methods: {
-    async getChallenge () {
-      this.challenge = await this.$store.dispatch('challenges:getChallenge', {challengeId: this.challengeId});
+    editTask (task) {
+      this.taskFormPurpose = 'edit';
+      this.editingTask = cloneDeep(task);
+      this.workingTask = this.editingTask;
+      // Necessary otherwise the first time the modal is not rendered
+      Vue.nextTick(() => {
+        this.$root.$emit('show::modal', 'task-modal');
+      });
+    },
+    createTask (type) {
+      this.taskFormPurpose = 'create';
+      this.creatingTask = taskDefaults({type, text: ''});
+      this.workingTask = this.editingTask;
+      // Necessary otherwise the first time the modal is not rendered
+      Vue.nextTick(() => {
+        this.$root.$emit('show::modal', 'task-modal');
+      });
+    },
+    cancelTaskModal () {
+      this.editingTask = null;
+      this.creatingTask = null;
+    },
+    taskCreated (task) {
+      this.tasksByType[task.type].push(task);
+    },
+    taskEdited (task) {
+      let index = findIndex(this.tasksByType[task.type], (taskItem) => {
+        return taskItem._id === task._id;
+      });
+      this.tasksByType[task.type].splice(index, 1, task);
+    },
+    showMemberModal () {
+      this.$store.state.viewingMembers = this.members;
+      this.$root.$emit('show::modal', 'members-modal');
     },
     async joinChallenge () {
-      // this.challenge = this.$store.dispatch('challenges:joinChallenge', {challengeId: this.challengeId});
+      this.user.challenges.push(this.challengeId);
+      await this.$store.dispatch('challenges:joinChallenge', {challengeId: this.challengeId});
     },
     async leaveChallenge () {
-      // this.challenge = this.$store.dispatch('challenges:leaveChallenge', {challengeId: this.challengeId});
+      let index = findIndex(this.user.challenges, (challengeId) => {
+        return challengeId === this.challengeId;
+      });
+      this.user.challenges.splice(index, 1);
+      await this.$store.dispatch('challenges:leaveChallenge', {challengeId: this.challengeId});
     },
     closeChallenge () {
       this.$root.$emit('show::modal', 'close-challenge-modal');
@@ -194,6 +262,9 @@ export default {
       this.$root.$emit('show::modal', 'challenge-modal');
     },
     // @TODO: view members
+    updatedChallenge (eventData) {
+      Object.assign(this.challenge, eventData.challenge);
+    },
   },
 };
 </script>

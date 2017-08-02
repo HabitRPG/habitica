@@ -30,6 +30,7 @@
     "messageAlreadyPurchasedGear": "רכשתם את החפץ הזה בעבר, אך כעת הוא לא ברשותכם. תוכלו לרכוש אותו שוב בעמודת הפרסים בדף המשימות.",
     "messageAlreadyOwnGear": "כבר יש לכם את החפץ הזה. הצטיידו בו בדף הציוד.",
     "messageHealthAlreadyMax": "כבר יש לכם את הבריאות המקסימלית.",
+    "messageHealthAlreadyMin": "Oh no! You have already run out of health so it's too late to buy a health potion, but don't worry - you can revive!",
     "armoireEquipment": "<%= image %> מצאתם ציוד נדיר בארמואר: <%= dropText %>! מגניב!",
     "armoireFood": "<%= image %> אתם נוברים בארמואר ומוצאים <%= dropArticle %><%= dropText %>. מה זה עושה פה?",
     "armoireExp": "אתם נאבקים בארמואר ומרוויחים ניסיון. קבלו!",

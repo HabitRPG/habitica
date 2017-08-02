@@ -127,6 +127,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
    *     key: 'bundleName',
    *     text: t('bundleNameText'),
    *     notes: t('bundleNameNotes'),
+   *     group: 'group',
    *     bundleKeys: [
    *       'quest1',
    *       'quest2',
@@ -154,6 +155,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
    *         key: 'bundleName',
    *         text: 'i18ned string for bundle title',
    *         notes: 'i18ned string for bundle description',
+   *         group: 'group',
    *         value: 7,
    *         currency: 'gems',
    *         class: 'quest_bundle_bundleName',
@@ -205,6 +207,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
           key: quest.key,
           text: quest.text(language),
           notes: quest.notes(language),
+          group: quest.group,
           value: quest.goldValue ? quest.goldValue : quest.value,
           currency: quest.goldValue ? 'gold' : 'gems',
           locked,
@@ -404,6 +407,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
       });
 
       if (category.items.length > 0) {
+        category.specialClass = category.items[0].specialClass;
         categories.push(category);
       }
     }

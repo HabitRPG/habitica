@@ -1,23 +1,33 @@
 <template lang="pug">
-  b-modal#start-quest-modal(title="Empty", size='md', hide-footer=true, v-if='questData')
-    .quest-image(:class="'quest_' + questData.key")
-    h2 {{questData.text()}}
-    //- span by: Keith Holliday @TODO: Add author
-    p {{questData.notes()}}
-    div.quest-details
-      div(v-if=' questData.collect')
-        Strong {{$t('collect')}}: &nbsp;
-        span(v-for="(value, key, index) in questData.collect")
-          | {{$t('collectionItems', { number: questData.collect[key].count, items: questData.collect[key].text() })}}
-      div
-        Strong {{$t('collect')}}: &nbsp;
-        span
-          .svg-icon(v-html="icons.difficultyStarIcon")
-    div
+  b-modal#start-quest-modal(title="Empty", size='md', :hide-footer="true", :hide-header="true")
+    .left-panel.content
+      h3.text-center Quests
+      .row
+        .col-4.quest-col(v-for='(value, key, index) in user.items.quests', @click='selectQuest(key)', :class="{selected: key === selectedQuest}")
+          .quest-wrapper
+            .quest(:class="'inventory_quest_scroll_' + key")
+      .row
+        .col-10.offset-1.text-center
+          span.description Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!
+    div(v-if='questData')
+      .quest-image(:class="'quest_' + questData.key")
+      h2.text-center {{questData.text()}}
+      //- span by: Keith Holliday @TODO: Add author
+      p(v-html="questData.notes()")
+      div.quest-details
+        div(v-if=' questData.collect')
+          Strong {{$t('collect')}}: &nbsp;
+          span(v-for="(value, key, index) in questData.collect")
+            | {{$t('collectionItems', { number: questData.collect[key].count, items: questData.collect[key].text() })}}
+        div
+          Strong {{$t('difficulty')}}: &nbsp;
+          span
+            .svg-icon.difficulty-star(v-html="icons.difficultyStarIcon")
+    div.text-center
       button.btn.btn-primary(@click='questInit()') {{$t('inviteToPartyOrQuest')}}
-    div
+    div.text-center
       p {{$t('inviteInformation')}}
-    .side-panel
+    .side-panel(v-if='questData')
       h4.text-center {{$t('rewards')}}
       .box
         .svg-icon.rewards-icon(v-html="icons.starIcon")
@@ -47,6 +57,7 @@
   .quest-image {
     margin: 0 auto;
     margin-bottom: 1em;
+    margin-top: 1.5em;
   }
 
   .quest-details {
@@ -59,12 +70,49 @@
     margin: 1em 0;
   }
 
+  .left-panel {
+    background: #4e4a57;
+    color: $white;
+    position: absolute;
+    height: 460px;
+    width: 320px;
+    top: 2.5em;
+    left: -22em;
+    z-index: -1;
+    padding: 2em;
+
+    h3 {
+      color: $white;
+    }
+
+    .selected .quest-wrapper {
+      border: solid 1.5px #9a62ff;
+    }
+
+    .quest-wrapper:hover {
+      cursor: pointer;
+    }
+
+    .quest-col .quest-wrapper {
+      background: $white;
+      padding: .7em;
+      margin-bottom: 1em;
+      border-radius: 3px;
+    }
+
+    .description {
+      text-align: center;
+      color: #a5a1ac;
+      font-size: 12px;
+    }
+  }
+
   .side-panel {
     background: #edecee;
     position: absolute;
     height: 460px;
     width: 320px;
-    top: -1.8em;
+    top: 2.5em;
     left: 35em;
     z-index: -1;
     padding-top: 1em;
@@ -101,9 +149,16 @@
       padding: 1em;
     }
   }
+
+  .difficulty-star {
+    width: 20px;
+    display: inline-block;
+    vertical-align: bottom;
+  }
 </style>
 
 <script>
+import { mapState } from 'client/libs/store';
 import bModal from 'bootstrap-vue/lib/components/modal';
 
 import quests from 'common/script/content/quests';
@@ -118,12 +173,13 @@ import goldIcon from 'assets/svg/gold.svg';
 import difficultyStarIcon from 'assets/svg/difficulty-star.svg';
 
 export default {
-  props: ['group', 'selectedQuest'],
+  props: ['group'],
   components: {
     bModal,
   },
   data () {
     return {
+      selectedQuest: {},
       icons: Object.freeze({
         copy: copyIcon,
         greyBadge: greyBadgeIcon,
@@ -137,12 +193,20 @@ export default {
       shareUserIdShown: false,
     };
   },
+  mounted () {
+    let questKeys = Object.keys(this.user.items.quests);
+    this.selectedQuest = questKeys[0];
+  },
   computed: {
+    ...mapState({user: 'user.data'}),
     questData () {
       return quests.quests[this.selectedQuest];
     },
   },
   methods: {
+    selectQuest (quest) {
+      this.selectedQuest = quest;
+    },
     async questInit () {
       let key = this.selectedQuest;
       // Analytics.updateUser({'partyID': party._id, 'partySize': party.memberCount});

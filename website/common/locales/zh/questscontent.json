@@ -281,7 +281,7 @@
     "questUnicornDropUnicornEgg": "独角兽(宠物蛋)",
     "questUnicornUnlockText": "解锁独角兽蛋购买功能",
     "questSabretoothText": "剑齿猫",
-    "questSabretoothNotes": "咆哮的怪兽让Habitica颤抖！怪兽昂首阔步地走过荒野和森林，在再次消失前爆发出攻击。它在狩猎无辜的熊猫，吓得飞猪逃离它们树上的栖息围栏。 @Inventrix 和 @icefelis 交待他们在古代的Stoikalm草原的冰原挖掘的时候释放了僵尸剑齿猫。“最初，它非常友好 – 我不知道发生了什么。请你一定要帮帮我们再次抓到它！只有Habitica赢家能征服这个史前野兽！”",
+    "questSabretoothNotes": "A roaring monster is terrorizing Habitica! The creature stalks through the wilds and woods, then bursts forth to attack before vanishing again. It's been hunting innocent pandas and frightening the flying pigs into fleeing their pens to roost in the trees. @Inventrix and @icefelis explain that the Zombie Sabre Cat was set free while they were excavating in the ancient, untouched ice-fields of the Stoïkalm Steppes. \"It was perfectly friendly at first – I don't know what happened. Please, you have to help us recapture it! Only a champion of Habitica can subdue this prehistoric beast!\"",
     "questSabretoothCompletion": "长时间艰苦的战斗后，你和僵尸剑齿猫扭打到了地上。在你最终接近的时候，你发现它的剑齿上有一个讨厌的洞。突然你意识到什么导致了猫的愤怒，你能够用 @Fandekasp 补上洞，然后建议每一个人不要在以后给他们的朋友甜食了。剑齿猫猫好起来，出于感激，它的 Cat flourishes送给你一份厚报 – 一组剑齿虎蛋！",
     "questSabretoothBoss": "僵尸剑齿猫",
     "questSabretoothDropSabretoothEgg": "剑齿虎(蛋)",
@@ -415,7 +415,7 @@
     "questTriceratopsDropTriceratopsEgg": "三角龙 (宠物蛋)",
     "questTriceratopsUnlockText": "解锁三角龙蛋购买功能",
     "questStoikalmCalamity1Text": "Stoïkalm灾难，第1部分：地上的敌人",
-    "questStoikalmCalamity1Notes": "@Kiwibot 寄来了一封简短的信件，看着结了霜的卷轴，你的心和你的指尖一样寒冷。“来冷静草原——怪物爆发——求救！”你集合了队伍向北骑行，但刚从山上冒险下来，脚下的雪就炸开了，可怖的骷髅群笑嘻嘻的围住你了！<br><br>突然，一只矛掠过，穿过令你惊慌无措的漫天白雪，刺中了一只想要偷袭的骷髅怪。一名穿着精制护甲的高大女子杀入战场，同时后面还跟着一头乳齿象，她的长辫随着猛拉长矛的动作活泼地甩动，只留下碎了一地的骷髅尸体。该反击了，habiticans！跟着凛冬女王——猛犸骑士团的首领！",
+    "questStoikalmCalamity1Notes": "A terse missive arrives from @Kiwibot, and the frost-crusted scroll chills your heart as well as your fingertips. \"Visiting Stoïkalm Steppes -- monsters bursting from earth -- send help!\" You gather your party and ride north, but as soon as you venture down from the mountains, the snow beneath your feet explodes and gruesomely grinning skulls surround you!<br><br>Suddenly, a spear sails past, burying itself in a skull that was burrowing through the snow in an attempt to catch you unawares. A tall woman in finely-crafted armor gallops into the fray on the back of a mastodon, her long braid swinging as she yanks the spear unceremoniously from the crushed beast. It's time to fight off these foes with the help of Lady Glaciate, the leader of the Mammoth Riders!",
     "questStoikalmCalamity1Completion": "当你对头骨进行最后一击时，他们会在一阵魔法中消散。 “讨厌的人们可能走了，”凛冬女王说，“但我们有更大的问题，跟我来。 她扔你一个斗篷，保护你远离寒冷的空气，你跟随在她身后。",
     "questStoikalmCalamity1Boss": "土地骷髅群",
     "questStoikalmCalamity1RageTitle": "骷髅群的重生",
@@ -487,5 +487,5 @@
     "questNudibranchDropNudibranchEgg": "Nudibranch (Egg)",
     "questNudibranchUnlockText": "Unlocks purchasable Nudibranch eggs in the Market",
     "splashyPalsText": "Splashy Pals Quest Bundle",
-    "splashyPalsNotes": "Contains 'The Dilatory Derby', 'Guide the Turtle', and 'Wail of the Whale'. Available until July 31."
+    "splashyPalsNotes": "包含“拖拉比赛”，“引导海龟”和“鲸之哀嚎”。7月31日前可购买。"
 }

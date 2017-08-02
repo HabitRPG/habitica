@@ -15,11 +15,11 @@ export async function getPublicGuilds (store, payload) {
 }
 
 export async function getMyGuilds (store) {
-  let response = await axios.get('/api/v3/groups', {
-    params: {
-      type: 'privateGuilds',
-    },
-  });
+  let params = {
+    type: 'guilds',
+  };
+
+  let response = await axios.get('/api/v3/groups', { params });
 
   let guilds = response.data.data;
   store.state.myGuilds = guilds;
@@ -58,16 +58,19 @@ export async function leave (store, payload) {
     keep: payload.keep,
     keepChallenges: payload.keepChallenges,
   };
-  let response = await axios.post(`/api/v3/groups/${payload.guildId}/leave`, data);
+  let response = await axios.post(`/api/v3/groups/${payload.groupId}/leave`, data);
 
   // @TODO: update for party
-  let index = store.state.user.data.guilds.indexOf(payload.guildId);
+  let index = store.state.user.data.guilds.indexOf(payload.groupId);
   store.state.user.data.guilds.splice(index, 1);
   if (payload.type === 'myGuilds') {
     let guildIndex = findIndex(store.state.myGuilds, (guild) => {
-      return guild._id === payload.guildId;
+      return guild._id === payload.groupId;
     });
     store.state.myGuilds.splice(guildIndex, 1);
+  } else if (payload.type === 'party') {
+    store.state.user.data.party._id = null;
+    store.state.party = {};
   }
 
   return response.data.data;
@@ -80,9 +83,13 @@ export async function create (store, payload) {
   // @TODO: Add party
   if (newGroup.privacy === 'public') {
     store.state.publicGuilds.push(newGroup);
-  } else if (newGroup.privacy === 'private') {
+  }
+
+  if (newGroup.leader._id === store.state.user.data._id || newGroup.privacy === 'private') {
     store.state.myGuilds.push(newGroup);
   }
+
+  store.state.user.data.guilds.push(newGroup._id);
 
   return newGroup;
 }
@@ -92,9 +99,7 @@ export async function update (store, payload) {
   let groupDetailsToSend = omit(payload.group, ['chat', 'challenges', 'members', 'invites']);
   if (groupDetailsToSend.leader && groupDetailsToSend.leader._id) groupDetailsToSend.leader = groupDetailsToSend.leader._id;
 
-  let response = await axios.put(`/api/v3/groups/${payload.group.id}`, {
-    data: groupDetailsToSend,
-  });
+  let response = await axios.put(`/api/v3/groups/${payload.group.id}`, groupDetailsToSend);
 
   let updatedGroup = response.data.data;
 

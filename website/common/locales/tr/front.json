@@ -246,6 +246,7 @@
     "missingNewPassword": "Yeni şifre eksik.",
     "invalidEmailDomain": "Bu alan adına sahip e-posta adresleri ile kaydolamazsın: <%= domains %>",
     "wrongPassword": "Yanlış şifre.",
+    "incorrectDeletePhrase": "Please type DELETE in all caps to delete your account.",
     "notAnEmail": "Geçersiz e-posta adresi.",
     "emailTaken": "Bu e-posta adresi zaten bir kullanıcı hesabında kayıtlı.",
     "newEmailRequired": "Yeni e-posta adresi eksik.",

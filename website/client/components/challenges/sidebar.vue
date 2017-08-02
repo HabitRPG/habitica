@@ -4,9 +4,9 @@
     input.form-control.search(type="text", :placeholder="$t('search')", v-model='searchTerm')
 
   form
-    h3(v-once) {{ $t('filter') }}
+    h2(v-once) {{ $t('filter') }}
     .form-group
-      h5 Category
+      h3 Category
       .form-check(
         v-for="group in categoryOptions",
         :key="group.key",
@@ -16,7 +16,7 @@
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t(group.label) }}
     .form-group
-      h5 Membership
+      h3 Membership
       .form-check(
         v-for="group in roleOptions",
         :key="group.key",
@@ -26,13 +26,13 @@
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t(group.label) }}
     .form-group
-      h5 Guild Size
+      h3 Ownership
       .form-check(
-        v-for="group in guildSizeOptions",
+        v-for="group in ownershipOptions",
         :key="group.key",
       )
         label.custom-control.custom-checkbox
-          input.custom-control-input(type="checkbox", :value='group.key' v-model="guildSizeFilters")
+          input.custom-control-input(type="checkbox", :value='group.key' v-model="ownershipFilters")
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t(group.label) }}
 </template>
@@ -65,34 +65,6 @@ export default {
           label: 'comicsHobbies',
           key: 'comics_hobbies',
         },
-        {
-          label: 'diyCrafts',
-          key: 'diy_crafts',
-        },
-        {
-          label: 'education',
-          key: 'education',
-        },
-        {
-          label: 'foodCooking',
-          key: 'food_cooking',
-        },
-        {
-          label: 'healthFitness',
-          key: 'health_fitness',
-        },
-        {
-          label: 'music',
-          key: 'music',
-        },
-        {
-          label: 'relationship',
-          key: 'relationship',
-        },
-        {
-          label: 'scienceTech',
-          key: 'science_tech ',
-        },
       ],
       roleFilters: [],
       roleOptions: [
@@ -104,13 +76,13 @@ export default {
           label: 'not_participating',
           key: 'not_participating',
         },
-        {
-          label: 'either',
-          key: 'either',
-        },
+        // {
+        //   label: 'either',
+        //   key: 'either',
+        // },
       ],
-      guildSizeFilters: [],
-      guildSizeOptions: [
+      ownershipFilters: [],
+      ownershipOptions: [
         {
           label: 'owned',
           key: 'owned',
@@ -119,10 +91,10 @@ export default {
           label: 'not_owned',
           key: 'not_owned',
         },
-        {
-          label: 'either',
-          key: 'either',
-        },
+        // {
+        //   label: 'either',
+        //   key: 'either',
+        // },
       ],
       searchTerm: '',
     };
@@ -134,7 +106,7 @@ export default {
     roleFilters: function roleFilters () {
       this.emitFilters();
     },
-    guildSizeFilters: function guildSizeFilters () {
+    ownershipFilters: function ownershipFilters () {
       this.emitFilters();
     },
     searchTerm: throttle(function searchTerm (newSearch) {
@@ -148,7 +120,7 @@ export default {
       this.$emit('filter', {
         categories: this.categoryFilters,
         roles: this.roleFilters,
-        guildSize: this.guildSizeFilters,
+        ownership: this.ownershipFilters,
       });
     },
   },

@@ -8,11 +8,12 @@
         span
           .svg-icon.member-icon(v-html="icons.memberIcon")
         span {{challenge.memberCount}}
-        span
-          .svg-icon.calendar-icon(v-html="icons.calendarIcon")
-        span
-          strong End Date:
-        span {{challenge.endDate}}
+        // @TODO: Add in V2
+          span
+            .svg-icon.calendar-icon(v-html="icons.calendarIcon")
+          span
+            strong End Date:
+          span {{challenge.endDate}}
       div.tags
         span.tag(v-for='tag in challenge.tags') {{tag}}
     .col-6.prize-section
@@ -23,28 +24,28 @@
   .row.description
     .col-12
       | {{challenge.description}}
-  .container.well-wrapper(v-if='challenge.counts')
-    .well.row
-      .col-3
-        .count-details
-          .svg-icon.habit-icon(v-html="icons.habitIcon")
-          span.count {{challenge.counts.habit}}
-        div {{$t('habit')}}
-      .col-3
-        .count-details
-          .svg-icon.daily-icon(v-html="icons.dailyIcon")
-          span.count {{challenge.counts.dailies}}
-        div {{$t('daily')}}
-      .col-3
-        .count-details
-          .svg-icon.todo-icon(v-html="icons.todoIcon")
-          span.count {{challenge.counts.todos}}
-        div {{$t('todo')}}
-      .col-3
-        .count-details
-          .svg-icon.reward-icon(v-html="icons.rewardIcon")
-          span.count {{challenge.counts.rewards}}
-        div {{$t('reward')}}
+  .container.well-wrapper
+  .well.row
+    .col-3
+      .count-details
+        .svg-icon.habit-icon(v-html="icons.habitIcon")
+        span.count {{challenge.tasksOrder.habits.length}}
+      div {{$t('habit')}}
+    .col-3
+      .count-details
+        .svg-icon.daily-icon(v-html="icons.dailyIcon")
+        span.count {{challenge.tasksOrder.dailys.length}}
+      div {{$t('daily')}}
+    .col-3
+      .count-details
+        .svg-icon.todo-icon(v-html="icons.todoIcon")
+        span.count {{challenge.tasksOrder.todos.length}}
+      div {{$t('todo')}}
+    .col-3
+      .count-details
+        .svg-icon.reward-icon(v-html="icons.rewardIcon")
+        span.count {{challenge.tasksOrder.rewards.length}}
+      div {{$t('reward')}}
 </template>
 
 <style lang='scss' scoped>
@@ -53,8 +54,9 @@
   .card {
     background-color: $white;
     box-shadow: 0 2px 2px 0 $gray-600, 0 1px 4px 0 $gray-600;
-    padding: 1em;
-    height: 372px;
+    padding: 2em;
+    height: 325px;
+    margin-bottom: 1em;
 
     .gem {
       width: 32px;
@@ -98,7 +100,6 @@
     .prize-section {
       text-align: right;
       padding-right: 2em;
-      padding-top: 1em;
     }
 
     .description {
@@ -116,6 +117,8 @@
       text-align: center;
       padding: 2em;
       border-radius: 4px;
+      margin-left: .2em;
+      margin-right: .2em;
 
       .svg-icon {
         display: inline-block;

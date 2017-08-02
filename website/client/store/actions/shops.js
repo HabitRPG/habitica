@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { loadAsyncResource } from 'client/libs/asyncResource';
 import buyOp from 'common/script/ops/buy';
+import purchaseOp from 'common/script/ops/purchaseWithSpell';
 import sellOp from 'common/script/ops/sell';
 
-export function fetch (store, forceLoad = false) { // eslint-disable-line no-shadow
+export function fetchMarket (store, forceLoad = false) { // eslint-disable-line no-shadow
   return loadAsyncResource({
     store,
     path: 'shops.market',
@@ -15,11 +16,58 @@ export function fetch (store, forceLoad = false) { // eslint-disable-line no-sha
   });
 }
 
+export function fetchQuests (store, forceLoad = false) { // eslint-disable-line no-shadow
+  return loadAsyncResource({
+    store,
+    path: 'shops.quests',
+    url: '/api/v3/shops/quests',
+    deserialize (response) {
+      return response.data.data;
+    },
+    forceLoad,
+  });
+}
+
+export function fetchSeasonal (store, forceLoad = false) { // eslint-disable-line no-shadow
+  return loadAsyncResource({
+    store,
+    path: 'shops.seasonal',
+    url: '/api/v3/shops/seasonal',
+    deserialize (response) {
+      return response.data.data;
+    },
+    forceLoad,
+  });
+}
+
+export function fetchTimeTravelers (store, forceLoad = false) { // eslint-disable-line no-shadow
+  return loadAsyncResource({
+    store,
+    path: 'shops.time-travelers',
+    url: '/api/v3/shops/time-travelers',
+    deserialize (response) {
+      return response.data.data;
+    },
+    forceLoad,
+  });
+}
+
+
 export function buyItem (store, params) {
   const user = store.state.user.data;
   buyOp(user, {params});
   axios
     .post(`/api/v3/user/buy/${params.key}`);
+  // TODO
+  // .then((res) => console.log('equip', res))
+  // .catch((err) => console.error('equip', err));
+}
+
+export function purchase (store, params) {
+  const user = store.state.user.data;
+  purchaseOp(user, {params});
+  axios
+    .post(`/api/v3/user/purchase/${params.type}/${params.key}`);
   // TODO
   // .then((res) => console.log('equip', res))
   // .catch((err) => console.error('equip', err));
@@ -36,16 +84,16 @@ export function sellItems (store, params) {
 }
 
 
-export function pinGear (store, params) {
-  //axios
+export function pinGear () {
+  // axios
   //  .post(`/api/v3/user/pin/${params.key}`);
   // TODO
   // .then((res) => console.log('equip', res))
   // .catch((err) => console.error('equip', err));
 }
 
-export function unpinGear (store, params) {
-  //axios
+export function unpinGear () {
+  // axios
   //  .post(`/api/v3/user/unpin/${params.key}`);
   // TODO
   // .then((res) => console.log('equip', res))

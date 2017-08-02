@@ -122,7 +122,7 @@
   import svgGold from 'assets/svg/gold.svg';
   import svgGem from 'assets/svg/gem.svg';
 
-  import BalanceInfo  from './balanceInfo.vue';
+  import BalanceInfo  from '../balanceInfo.vue';
 
   export default {
     components: {

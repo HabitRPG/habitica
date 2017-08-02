@@ -30,6 +30,7 @@
     "messageAlreadyPurchasedGear": "Du har köpt den här utrustning förrut, men äger den inte just nu. Du kan köpa den igen i belönings-kolumnen på uppgifts-sidan.",
     "messageAlreadyOwnGear": "Du äger redan det här föremålet. Utrusta dig med den genom att gå till utrustningssidan.",
     "messageHealthAlreadyMax": "Du har redan maximal hälsa.",
+    "messageHealthAlreadyMin": "Oh no! You have already run out of health so it's too late to buy a health potion, but don't worry - you can revive!",
     "armoireEquipment": "<%= image %> Du hittade en bit sällsynt utrustning i vapenskåpet:  <%= dropText %>! Grymt!",
     "armoireFood": "<%= image %> Du rotar igenom vapenskåpet och hittar <%= dropArticle %><%= dropText %>. Vad gör den här?",
     "armoireExp": "Du brottas med vapenskåpet och tjänar erfarenhet. Ta det! ",

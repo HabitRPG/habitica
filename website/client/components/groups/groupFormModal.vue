@@ -4,41 +4,42 @@
       .form-group
         label
           strong(v-once) {{$t('name')}}*
-        b-form-input(type="text", :placeholder="$t('newGuildPlaceHolder')", v-model="newGuild.name")
+        b-form-input(type="text", :placeholder="$t('newGuildPlaceHolder')", v-model="workingGuild.name")
 
-      .form-group(v-if='newGuild.id')
+      .form-group(v-if='workingGuild.id && members.length > 0')
         label
           strong(v-once) {{$t('guildLeader')}}*
-          b-form-select(v-model="newGuild.newLeader" :options="members")
+        select.form-control(v-model="workingGuild.newLeader")
+          option(v-for='member in members', :value="member._id") {{ member.profile.name }}
 
       .form-group
         label
           strong(v-once) {{$t('privacySettings')}}*
         br
         label.custom-control.custom-checkbox
-          input.custom-control-input(type="checkbox", v-model="newGuild.onlyLeaderCreatesChallenges")
+          input.custom-control-input(type="checkbox", v-model="workingGuild.onlyLeaderCreatesChallenges")
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t('onlyLeaderCreatesChallenges') }}
           b-tooltip.icon(:content="$t('privateDescription')")
             .svg-icon(v-html='icons.information')
 
-        br
-        label.custom-control.custom-checkbox
-          input.custom-control-input(type="checkbox", v-model="newGuild.guildLeaderCantBeMessaged")
+        // br
+        // @TODO Implement in V2 label.custom-control.custom-checkbox
+          input.custom-control-input(type="checkbox", v-model="workingGuild.guildLeaderCantBeMessaged")
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t('guildLeaderCantBeMessaged') }}
 
         br
         label.custom-control.custom-checkbox(v-if='!creatingParty')
-          input.custom-control-input(type="checkbox", v-model="newGuild.privateGuild")
+          input.custom-control-input(type="checkbox", v-model="workingGuild.privateGuild")
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t('privateGuild') }}
           b-tooltip.icon(:content="$t('privateDescription')")
             .svg-icon(v-html='icons.information')
 
-        br
-        label.custom-control.custom-checkbox(v-if='!creatingParty')
-          input.custom-control-input(type="checkbox", v-model="newGuild.allowGuildInvationsFromNonMembers")
+        // br
+        // @TODO: Implement in v2 label.custom-control.custom-checkbox(v-if='!creatingParty')
+          input.custom-control-input(type="checkbox", v-model="workingGuild.allowGuildInvationsFromNonMembers")
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t('allowGuildInvationsFromNonMembers') }}
 
@@ -46,14 +47,14 @@
         label
           strong(v-once) {{$t('description')}}*
         div.description-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
-        b-form-input(type="text", textarea :placeholder="creatingParty ? $t('partyDescriptionPlaceHolder') : $t('guildDescriptionPlaceHolder')", v-model="newGuild.description")
+        b-form-input(type="text", textarea :placeholder="creatingParty ? $t('partyDescriptionPlaceHolder') : $t('guildDescriptionPlaceHolder')", v-model="workingGuild.description")
 
-      .form-group(v-if='newGuild.id && !creatingParty')
+      .form-group(v-if='workingGuild.id && !creatingParty')
         label
           strong(v-once) {{$t('guildInformation')}}*
-        b-form-input(type="text", textarea, :placeholder="$t('guildInformationPlaceHolder')", v-model="newGuild.guildInformation")
+        b-form-input(type="text", textarea, :placeholder="$t('guildInformationPlaceHolder')", v-model="workingGuild.guildInformation")
 
-      .form-group(v-if='creatingParty && !newGuild.id')
+      .form-group(v-if='creatingParty && !workingGuild.id')
         span
           toggleSwitch(:label="$t('inviteMembersNow')", v-model='inviteMembers')
 
@@ -61,20 +62,20 @@
         label
           strong(v-once) {{$t('categories')}}*
         div.category-wrap(@click.prevent="toggleCategorySelect")
-          span.category-select(v-if='newGuild.categories.length === 0') {{$t('none')}}
-          .category-label(v-for='category in newGuild.categories') {{$t(categoriesHashByKey[category])}}
+          span.category-select(v-if='workingGuild.categories.length === 0') {{$t('none')}}
+          .category-label(v-for='category in workingGuild.categories') {{$t(categoriesHashByKey[category])}}
         .category-box(v-if="showCategorySelect")
           .form-check(
             v-for="group in categoryOptions",
             :key="group.key",
           )
             label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", :value='group.key' v-model="newGuild.categories")
+              input.custom-control-input(type="checkbox", :value="group.key", v-model="workingGuild.categories")
               span.custom-control-indicator
               span.custom-control-description(v-once) {{ $t(group.label) }}
           button.btn.btn-primary(@click.prevent="toggleCategorySelect") {{$t('close')}}
 
-      .form-group(v-if='inviteMembers && !newGuild.id')
+      .form-group(v-if='inviteMembers && !workingGuild.id')
         label
           strong(v-once) Invite via Email or User ID
           p Invite users via a valid email or 36-digit User ID. If an email isn’t registered yet, we’ll invite them to join.
@@ -91,8 +92,8 @@
         div.item-with-icon(v-if='!creatingParty')
           .svg-icon(v-html="icons.gem")
           span.count 4
-        button.btn.btn-primary.btn-md(v-if='!newGuild.id', :disabled='!newGuild.name || !newGuild.description') {{ creatingParty ? $t('createParty') : $t('createGuild') }}
-        button.btn.btn-primary.btn-md(v-if='newGuild.id', :disabled='!newGuild.name || !newGuild.description') {{ creatingParty ? $t('updateParty') : $t('updateGuild') }}
+        button.btn.btn-primary.btn-md(v-if='!workingGuild.id', :disabled='!workingGuild.name || !workingGuild.description') {{ creatingParty ? $t('createParty') : $t('createGuild') }}
+        button.btn.btn-primary.btn-md(v-if='workingGuild.id', :disabled='!workingGuild.name || !workingGuild.description') {{ creatingParty ? $t('updateParty') : $t('updateGuild') }}
         .gem-description(v-once, v-if='!creatingParty') {{ $t('guildGemCostInfo') }}
 </template>
 
@@ -156,6 +157,12 @@ import toggleSwitch from 'client/components/ui/toggleSwitch';
 import gemIcon from 'assets/svg/gem.svg';
 import informationIcon from 'assets/svg/information.svg';
 
+// @TODO: Not sure the best way to pass party creating status
+// Since we need the modal in the header, passing props doesn't work
+// because we can't import the create group in the index of groups
+// I think state is the correct spot, but maybe we should separate into
+// two modals?
+
 export default {
   components: {
     bModal,
@@ -168,7 +175,7 @@ export default {
   },
   data () {
     let data = {
-      newGuild: {
+      workingGuild: {
         id: '',
         name: '',
         type: 'guild',
@@ -229,8 +236,7 @@ export default {
         },
       ],
       showCategorySelect: false,
-      members: ['one', 'two'],
-      creatingParty: true,
+      members: [],
       inviteMembers: false,
       newMemberToInvite: {
         value: '',
@@ -253,27 +259,41 @@ export default {
     return data;
   },
   mounted () {
+    // @TODO: do we need this? Maybe us computed. If we need, then make it on show a specific modal
     this.$root.$on('shown::modal', () => {
       let editingGroup = this.$store.state.editingGroup;
-      if (!editingGroup) return;
-      this.newGuild.name = editingGroup.name;
-      this.newGuild.type = editingGroup.type;
-      this.newGuild.privacy = editingGroup.privacy;
-      if (editingGroup.description) this.newGuild.description = editingGroup.description;
-      this.newGuild.id = editingGroup._id;
+      if (!editingGroup._id) return;
+      this.workingGuild.name = editingGroup.name;
+      this.workingGuild.type = editingGroup.type;
+      this.workingGuild.privacy = editingGroup.privacy;
+      if (editingGroup.description) this.workingGuild.description = editingGroup.description;
+      if (editingGroup._id) this.workingGuild.id = editingGroup._id;
+      if (editingGroup.leader._id) this.workingGuild.newLeader = editingGroup.leader._id;
+      if (editingGroup._id) this.getMembers();
     });
   },
   computed: {
     charactersRemaining () {
-      return 500 - this.newGuild.description.length;
+      return 500 - this.workingGuild.description.length;
     },
     title () {
       if (this.creatingParty) return this.$t('createParty');
-      if (!this.newGuild.id) return this.$t('createGuild');
+      if (!this.workingGuild.id) return this.$t('createGuild');
       return this.$t('updateGuild');
+    },
+    creatingParty () {
+      return this.$store.state.groupFormOptions.createParty;
     },
   },
   methods: {
+    async getMembers () {
+      if (!this.workingGuild.id) return;
+      let members = await this.$store.dispatch('members:getGroupMembers', {
+        groupId: this.workingGuild.id,
+        includeAllPublicFields: true,
+      });
+      this.members = members;
+    },
     addMemberToInvite () {
       // @TODO: determine type
       this.membersToInvite.push(this.newMemberToInvite);
@@ -289,47 +309,50 @@ export default {
       this.showCategorySelect = !this.showCategorySelect;
     },
     async submit () {
-      if (this.$store.state.user.data.balance < 1 && !this.newGuild.id) {
+      if (this.$store.state.user.data.balance < 1 && !this.workingGuild.id) {
         // @TODO: Add proper notifications
         alert('Not enough gems');
         return;
         // @TODO return $rootScope.openModal('buyGems', {track:"Gems > Create Group"});
       }
 
-      if (!this.newGuild.name || !this.newGuild.description) {
+      if (!this.workingGuild.name || !this.workingGuild.description) {
         // @TODO: Add proper notifications
         alert('Enter a name and description');
         return;
       }
 
-      if (this.newGuild.description.length > 500) {
+      if (this.workingGuild.description.length > 500) {
         // @TODO: Add proper notifications
         alert('Description is too long');
         return;
       }
 
       // @TODO: Add proper notifications
-      if (!this.newGuild.id && !confirm(this.$t('confirmGuild'))) return;
+      if (!this.workingGuild.id && !confirm(this.$t('confirmGuild'))) return;
 
-      if (!this.newGuild.privateGuild) {
-        this.newGuild.privacy = 'public';
+      if (!this.workingGuild.privateGuild) {
+        this.workingGuild.privacy = 'public';
       }
 
-      if (!this.newGuild.onlyLeaderCreatesChallenges) {
-        this.newGuild.leaderOnly = {
+      if (!this.workingGuild.onlyLeaderCreatesChallenges) {
+        this.workingGuild.leaderOnly = {
           challenges: true,
         };
       }
 
-      if (this.newGuild.id) {
-        await this.$store.dispatch('guilds:update', {group: this.newGuild});
+      if (this.workingGuild.id) {
+        await this.$store.dispatch('guilds:update', {group: this.workingGuild});
+        // @TODO: this doesn't work because of the async resource
+        // if (updatedGroup.type === 'party') this.$store.state.party = {data: updatedGroup};
       } else {
-        await this.$store.dispatch('guilds:create', {group: this.newGuild});
+        await this.$store.dispatch('guilds:create', {group: this.workingGuild});
+        this.$store.state.user.balance -= 1;
       }
 
       this.$store.state.editingGroup = {};
 
-      this.newGuild = {
+      this.workingGuild = {
         name: '',
         type: 'guild',
         privacy: 'private',

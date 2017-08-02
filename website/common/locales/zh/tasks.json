@@ -148,7 +148,7 @@
     "approvals": "许可",
     "approvalRequired": "请求许可",
     "repeatZero": "Daily is never due",
-    "repeatType": "Repeat Type",
+    "repeatType": "重复类型",
     "repeatTypeHelpTitle": "What kind of repeat is this?",
     "repeatTypeHelp": "每天：任务将每天/每若干天重复一次。每周：任务将在一周内重复若干次。每月/每年：您将自己选定这一重复任务将在在每月的那一天/每年的哪一天",
     "weekly": "每周",
