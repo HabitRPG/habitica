@@ -1,0 +1,10 @@
+<style>
+	@media screen and (max-width: 767px){
+		.popover.ng-isolate-scope.bottom.fade.in{
+	            left: 0px !important;
+            }
+		.popover.bottom .arrow{
+			left: 25% !important;
+		}
+    }
+</style>
