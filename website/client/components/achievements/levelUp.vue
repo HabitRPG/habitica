@@ -93,6 +93,7 @@ export default {
   data () {
     let tweet = this.$t('levelUpShare');
     return {
+      statsAllocationBoxIsOpen: true,
       maxHealth,
       tweet,
       socialLevelLink: `${BASE_URL}/social/level-up`,

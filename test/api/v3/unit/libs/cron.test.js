@@ -566,6 +566,17 @@ describe('cron', () => {
         expect(tasksByType.habits[0].counterDown).to.equal(0);
       });
 
+      it('should reset habit counters even if user is resting in the Inn', () => {
+        user.preferences.sleep = true;
+        tasksByType.habits[0].counterUp = 1;
+        tasksByType.habits[0].counterDown = 1;
+
+        cron({user, tasksByType, daysMissed, analytics});
+
+        expect(tasksByType.habits[0].counterUp).to.equal(0);
+        expect(tasksByType.habits[0].counterDown).to.equal(0);
+      });
+
       it('should reset a weekly habit counter each Monday', () => {
         tasksByType.habits[0].frequency = 'weekly';
         tasksByType.habits[0].counterUp = 1;

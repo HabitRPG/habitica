@@ -103,7 +103,42 @@ function removeTerminatedSubscription (user) {
   user.markModified('purchased.plan');
 }
 
-function performSleepTasks (user, tasksByType, now) {
+function resetHabitCounters (user, tasksByType, now, daysMissed) {
+  // check if we've passed a day on which we should reset the habit counters, including today
+  let resetWeekly = false;
+  let resetMonthly = false;
+  for (let i = 0; i < daysMissed; i++) {
+    if (resetWeekly === true && resetMonthly === true) {
+      break;
+    }
+    let thatDay = moment(now).zone(user.preferences.timezoneOffset + user.preferences.dayStart * 60).subtract({days: i});
+    if (thatDay.day() === 1) {
+      resetWeekly = true;
+    }
+    if (thatDay.date() === 1) {
+      resetMonthly = true;
+    }
+  }
+
+  tasksByType.habits.forEach((task) => {
+    // reset counters if appropriate
+
+    let reset = false;
+    if (task.frequency === 'daily') {
+      reset = true;
+    } else if (task.frequency === 'weekly' && resetWeekly === true) {
+      reset = true;
+    } else if (task.frequency === 'monthly' && resetMonthly === true) {
+      reset = true;
+    }
+    if (reset === true) {
+      task.counterUp = 0;
+      task.counterDown = 0;
+    }
+  });
+}
+
+function performSleepTasks (user, tasksByType, now, daysMissed) {
   user.stats.buffs = _.cloneDeep(CLEAR_BUFFS);
 
   tasksByType.dailys.forEach((daily) => {
@@ -120,6 +155,8 @@ function performSleepTasks (user, tasksByType, now) {
     daily.completed = false;
     setIsDueNextDue(daily, user, now);
   });
+
+  resetHabitCounters(user, tasksByType, now, daysMissed);
 }
 
 function trackCronAnalytics (analytics, user, _progress, options) {
@@ -228,7 +265,7 @@ export function cron (options = {}) {
   // User is resting at the inn.
   // On cron, buffs are cleared and all dailies are reset without performing damage
   if (user.preferences.sleep === true) {
-    performSleepTasks(user, tasksByType, now);
+    performSleepTasks(user, tasksByType, now, daysMissed);
     trackCronAnalytics(analytics, user, _progress, options);
     return;
   }
@@ -343,39 +380,9 @@ export function cron (options = {}) {
     }
   });
 
-  // check if we've passed a day on which we should reset the habit counters, including today
-  let resetWeekly = false;
-  let resetMonthly = false;
-  for (let i = 0; i < daysMissed; i++) {
-    if (resetWeekly === true && resetMonthly === true) {
-      break;
-    }
-    let thatDay = moment(now).zone(user.preferences.timezoneOffset + user.preferences.dayStart * 60).subtract({days: i});
-    if (thatDay.day() === 1) {
-      resetWeekly = true;
-    }
-    if (thatDay.date() === 1) {
-      resetMonthly = true;
-    }
-  }
+  resetHabitCounters(user, tasksByType, now, daysMissed);
 
   tasksByType.habits.forEach((task) => {
-    // reset counters if appropriate
-
-    // this enormously clunky thing brought to you by lint
-    let reset = false;
-    if (task.frequency === 'daily') {
-      reset = true;
-    } else if (task.frequency === 'weekly' && resetWeekly === true) {
-      reset = true;
-    } else if (task.frequency === 'monthly' && resetMonthly === true) {
-      reset = true;
-    }
-    if (reset === true) {
-      task.counterUp = 0;
-      task.counterDown = 0;
-    }
-
     // slowly reset value to 0 for "onlies" (Habits with + or - but not both)
     // move singleton Habits towards yellow.
     if (task.up === false || task.down === false) {

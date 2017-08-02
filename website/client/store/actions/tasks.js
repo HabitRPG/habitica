@@ -112,11 +112,11 @@ export async function save (store, editedTask) {
 
   sanitizeChecklist(editedTask);
 
-  Object.assign(originalTask, editedTask);
+  if (originalTask) Object.assign(originalTask, editedTask);
 
-  const taskDataToSend = omit(originalTask, ['history']);
-  const response = await axios.put(`/api/v3/tasks/${originalTask._id}`, taskDataToSend);
-  Object.assign(originalTask, response.data.data);
+  const taskDataToSend = omit(editedTask, ['history']);
+  const response = await axios.put(`/api/v3/tasks/${editedTask._id}`, taskDataToSend);
+  if (originalTask) Object.assign(originalTask, response.data.data);
 }
 
 export async function destroy (store, task) {
@@ -128,4 +128,14 @@ export async function destroy (store, task) {
   }
 
   await axios.delete(`/api/v3/tasks/${task._id}`);
+}
+
+export async function getChallengeTasks (store, payload) {
+  let response = await axios.get(`/api/v3/tasks/challenge/${payload.challengeId}`);
+  return response.data.data;
+}
+
+export async function createChallengeTasks (store, payload) {
+  let response = await axios.post(`/api/v3/tasks/challenge/${payload.challengeId}`, payload.tasks);
+  return response.data.data;
 }
