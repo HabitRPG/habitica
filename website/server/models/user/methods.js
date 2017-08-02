@@ -8,7 +8,7 @@ import {
   model as Group,
 } from '../group';
 
-import { defaults, map, flatten, flow, compact, uniq, partialRight } from 'lodash';
+import { defaults, map, flatten, flow, compact, uniq, partialRight, findIndex } from 'lodash';
 import { model as UserNotification } from '../userNotification';
 import schema from './schema';
 import payments from '../../libs/payments';
@@ -298,4 +298,25 @@ schema.methods.canGetGems = async function canObtainGems () {
   return groups.every(g => {
     return !g.isSubscribed() || g.leader === user._id || g.leaderOnly.getGems !== true;
   });
+};
+
+schema.methods.togglePinnedItem = function togglePinnedItem (type, key) {
+  let obj = {
+    type,
+    key,
+  };
+
+  let foundIndex = findIndex(this.pinnedItems, obj);
+
+  if (foundIndex >= 0) {
+    let item = this.pinnedItems[foundIndex];
+    item.unpin = !item.unpin;
+
+    //removeFromArray(this.pinnedItems, obj);
+  } else {
+    this.pinnedItems.push({
+      type,
+      key,
+    });
+  }
 };

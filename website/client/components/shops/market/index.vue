@@ -115,7 +115,7 @@
             template(slot="itemBadge", scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
                 :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-                @click.prevent.stop="togglePinned(ctx.item)"
+                @click.prevent.stop="togglePinned(ctx.item.key, 'gear')"
               )
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
@@ -142,7 +142,7 @@
 
         div.items
           shopItem(
-            v-for="item in sortedMarketItems(category, selectedSortItemsBy, searchTextThrottled)",
+            v-for="item in sortedMarketItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",
             :key="item.key",
             :item="item",
             :price="item.value",
@@ -160,6 +160,12 @@
                 :show="true",
                 :count="userItems[item.purchaseType][item.key] || 0"
               )
+
+              span.badge.badge-pill.badge-item.badge-svg(
+                :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
+                @click.prevent.stop="togglePinned(ctx.item.key, ctx.item.purchaseType)"
+              )
+                span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
 
       drawer(
@@ -402,6 +408,7 @@
   import _sortBy from 'lodash/sortBy';
   import _map from 'lodash/map';
   import _throttle from 'lodash/throttle';
+  import _findIndex from 'lodash/findIndex';
 
   const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
@@ -573,12 +580,15 @@ export default {
             return '';
         }
       },
+      isPinned (key) {
+        return _findIndex(this.user.pinnedItems, {key, unpin: false}) >= 0;
+      },
       filteredGear (groupByClass, searchBy, sortBy, hideLocked, hidePinned) {
         let result = _filter(this.content.gear.flat, ['klass', groupByClass]);
         result = _map(result, (e) => {
           return {
             ...e,
-            pinned: false, // TODO read pinned state
+            pinned: this.isPinned(e.key),
             locked: this.isGearLocked(e),
           };
         });
@@ -606,9 +616,27 @@ export default {
 
         return result;
       },
-      sortedMarketItems (category, sortBy, searchBy) {
-        let result = _filter(category.items, (i) => {
-          return !searchBy || i.text.toLowerCase().indexOf(searchBy) !== -1;
+      sortedMarketItems (category, sortBy, searchBy, hidePinned) {
+        let result = _map(category.items, (e) => {
+          return {
+            ...e,
+            pinned: this.isPinned(e.key),
+          };
+        });
+
+        result = _filter(result, (item) => {
+          if (hidePinned && item.pinned) {
+            return false;
+          }
+
+          if (searchBy) {
+            let foundPosition = item.text().toLowerCase().indexOf(searchBy);
+            if (foundPosition === -1) {
+              return false;
+            }
+          }
+
+          return true;
         });
 
         switch (sortBy) {
@@ -654,10 +682,8 @@ export default {
           [gear.type]: gear.key,
         };
       },
-      togglePinned (item) {
-        let isPinned = Boolean(item.pinned);
-        item.pinned = !isPinned;
-        this.$store.dispatch(isPinned ? 'shops:unpinGear' : 'shops:pinGear', {key: item.key});
+      async togglePinned (key, type) {
+        await this.$store.dispatch('user:togglePinnedItemAsync', {key, type});
       },
       buyGear (item) {
         this.$store.dispatch('shops:buyItem', {key: item.key});

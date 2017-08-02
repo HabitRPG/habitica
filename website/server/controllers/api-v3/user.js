@@ -1921,4 +1921,42 @@ api.setCustomDayStart = {
   },
 };
 
+/**
+ * @api {get} /user/toggle-pinned-item/:type/:key Toggle an item to be pinned
+ * @apiName togglePinnedItem
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data Pinned items array
+ *
+ * @apiSuccessExample {json} Result:
+ *  {
+ *   "success": true,
+ *   "data": {
+ *     "pinnedItems": [
+ *        "type": "gear",
+ *        "key": "weapon_1"
+ *     ]
+ *   }
+ * }
+ *
+ */
+api.togglePinnedItem = {
+  method: 'GET',
+  middlewares: [authWithHeaders()],
+  url: '/user/toggle-pinned-item/:type/:key',
+  async handler (req, res) {
+    let user = res.locals.user;
+    const type = get(req.params, 'type');
+    const key = get(req.params, 'key');
+
+    user.togglePinnedItem(type, key);
+
+    await user.save();
+
+    res.respond(200, {
+      pinnedItems: user.toJSON().pinnedItems,
+    });
+  },
+};
+
 module.exports = api;

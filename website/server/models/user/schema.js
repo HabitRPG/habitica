@@ -581,6 +581,14 @@ let schema = new Schema({
   webhooks: [WebhookSchema],
   loginIncentives: {type: Number, default: 0},
   invitesSent: {type: Number, default: 0},
+
+  pinnedItems: [
+    {
+      type: {type: String},
+      key: {type: String},
+      unpin: {type: Boolean, default: false},
+    }
+  ]
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

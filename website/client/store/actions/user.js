@@ -46,3 +46,11 @@ export async function deleteWebhook (store, payload) {
   let response = await axios.delete(`/api/v3/user/webhook/${payload.webhook.id}`);
   return response.data.data;
 }
+
+
+export async function togglePinnedItemAsync (store, params) {
+  let response = await axios.get(`/api/v3/user/toggle-pinned-item/${params.type}/${params.key}`);
+  const user = store.state.user.data;
+  user.pinnedItems = response.data.pinnedItems;
+  return response.data.pinnedItems;
+}

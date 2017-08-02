@@ -82,20 +82,3 @@ export function sellItems (store, params) {
   // .then((res) => console.log('equip', res))
   // .catch((err) => console.error('equip', err));
 }
-
-
-export function pinGear () {
-  // axios
-  //  .post(`/api/v3/user/pin/${params.key}`);
-  // TODO
-  // .then((res) => console.log('equip', res))
-  // .catch((err) => console.error('equip', err));
-}
-
-export function unpinGear () {
-  // axios
-  //  .post(`/api/v3/user/unpin/${params.key}`);
-  // TODO
-  // .then((res) => console.log('equip', res))
-  // .catch((err) => console.error('equip', err));
-}
