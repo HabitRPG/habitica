@@ -309,6 +309,8 @@ angular.module('habitrpg')
             $scope.summary = generateSummary($scope.task);
             $scope.nextDue = generateNextDue($scope.task._edit, $scope.user);
 
+            $scope.task._edit.repeatLast = false; // Ensure this is reset every time
+
             $scope.repeatSuffix = generateRepeatSuffix($scope.task);
             if (task._edit.frequency === 'monthly' && $scope.task._edit.repeatsOn == 'dayOfMonth') {
               var date = moment(task._edit.startDate).date();
@@ -320,12 +322,45 @@ angular.module('habitrpg')
               var shortDay = numberToShortDay[dayOfWeek];
               $scope.task._edit.daysOfMonth = [];
               $scope.task._edit.weeksOfMonth = [week]; // @TODO: This can handle multiple weeks
+
+              if (!task._edit.repeatLastOption) task._edit.repeatLastOption = 'last';
+
+              if (task._edit.repeatLastOption === 'last') {
+                $scope.task._edit.repeatLast = true;
+              }
+
               for (var key in $scope.task._edit.repeat) {
                 $scope.task._edit.repeat[key] = false;
               }
               $scope.task._edit.repeat[shortDay] = true;
             }
           }, true);
+
+          $scope.getNumberOfDays = function() {
+            let d = moment(task._edit.startDate);
+            let dayOfWeek = d.day();
+            let month = d.month();
+            let days = [];
+
+            d.startOf('month');
+
+            while (d.day() !== dayOfWeek) {
+              d.day(d.day() + 1);
+            }
+
+            while (d.month() === month) {
+              days.push(d.toDate());
+              d.day(d.day() + 7);
+            }
+
+            return days.length;
+          }
+
+          $scope.isLastWeek = function () {
+            var numberOfWeeksInMonth = $scope.getNumberOfDays();
+            var startDateWeek = Math.ceil(moment(task._edit.startDate).date() / 7);
+            return startDateWeek === numberOfWeeksInMonth;
+          };
         }],
       })
       .result.catch(function() {
@@ -386,7 +421,10 @@ angular.module('habitrpg')
         var shortDay = numberToShortDay[dayOfWeek];
         var longDay = shortDayToLongDayMap[shortDay];
 
-        summary += ' on the ' + (week + 1) + ' ' + longDay;
+        var repeatNumber = (week + 1);
+        if (task._edit.repeatLastOption === 'last') repeatNumber = env.t('last');
+
+        summary += ' on the ' + repeatNumber + ' ' + longDay;
       }
 
       return summary;

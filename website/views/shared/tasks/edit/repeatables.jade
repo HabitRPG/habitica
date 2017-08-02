@@ -7,7 +7,7 @@ fieldset.option-group.advanced-option(ng-show="task.type === 'daily'")
       ng-click='datepickerOpened = true', ng-disabled='!canEdit(task)')
     
     br
-
+      
     legend.option-title
       span.hint(popover-title=env.t('repeatTypeHelpTitle'), popover=env.t("repeatTypeHelp"), popover-trigger='mouseenter')
         =env.t('repeatType')
@@ -31,6 +31,19 @@ fieldset.option-group.advanced-option(ng-show="task.type === 'daily'")
       label
         input(type="radio", ng-model='task._edit.repeatsOn', value='dayOfWeek', ng-disabled='!canEdit(task)')
         =env.t('dayOfWeek')
+      | {{getWeekNum()}}
+    
+    .form-group(ng-show='task._edit.frequency === "monthly" && task._edit.repeatsOn == "dayOfWeek" && isLastWeek()')
+      legend.option-title=env.t('repeatLast')
+      label(ng-if='getNumberOfDays() === 4')
+        input(type="radio", ng-model='task._edit.repeatLastOption', value='fourth', ng-disabled='!canEdit(task)')
+        =env.t('repeatFourthOfWeek')
+      label(ng-if='getNumberOfDays() === 5')
+        input(type="radio", ng-model='task._edit.repeatLastOption', value='fifth', ng-disabled='!canEdit(task)')
+        =env.t('repeatFifthOfWeek')
+      label
+        input(type="radio", ng-model='task._edit.repeatLastOption', value='last', ng-disabled='!canEdit(task)')
+        =env.t('repeatLastOfWeek')
 
     .form-group
       legend.option-title=env.t('summary')

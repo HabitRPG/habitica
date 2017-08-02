@@ -56,6 +56,25 @@ function sanitizeOptions (o) {
   };
 }
 
+function getNumbeOfDays (date, dayOfWeek) {
+  let d = date;
+  let month = d.month();
+  let days = [];
+
+  d.startOf('month');
+
+  while (d.day() !== dayOfWeek) {
+    d.day(d.day() + 1);
+  }
+
+  while (d.month() === month) {
+    days.push(d.toDate());
+    d.day(d.day() + 7);
+  }
+
+  return days.length;
+}
+
 export function startOfWeek (options = {}) {
   let o = sanitizeOptions(options);
 
@@ -165,11 +184,17 @@ export function shouldDo (day, dailyTask, options = {}) {
 
     let differenceInMonths = moment(startOfDayWithCDSTime).month() - moment(startDate).month();
     let matchEveryX = differenceInMonths % dailyTask.everyX === 0;
+    let weeksOfMonth = dailyTask.weeksOfMonth;
+
+    if (dailyTask.repeatLast) {
+      let monthCount = getNumbeOfDays(moment(startOfDayWithCDSTime.toDate()), moment(startDate).day());
+      if (monthCount < 5) weeksOfMonth = [3];
+    }
 
     if (dailyTask.weeksOfMonth && dailyTask.weeksOfMonth.length > 0) {
       if (daysOfTheWeek.length === 0) return false;
       schedule = schedule.every(daysOfTheWeek).daysOfWeek()
-        .every(dailyTask.weeksOfMonth).weeksOfMonthByDay();
+        .every(weeksOfMonth).weeksOfMonthByDay();
 
       if (options.nextDue) {
         let filteredDates = [];

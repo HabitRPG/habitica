@@ -1009,6 +1009,48 @@ describe('shouldDo', () => {
       expect(shouldDo(day, dailyTask, options)).to.equal(true);
     });
 
+    it('activates Daily on the last of each month', () => {
+      dailyTask.repeat = {
+        su: false,
+        s: false,
+        f: false,
+        th: false,
+        w: false,
+        t: false,
+        m: false,
+      };
+
+      let today = moment('2017-03-29'); // Start from the first 5 wednesday
+      let week = today.monthWeek();
+      let dayOfWeek = today.day();
+      dailyTask.startDate = today.toDate();
+      dailyTask.weeksOfMonth = [week];
+      dailyTask.repeat[DAY_MAPPING[dayOfWeek]] = true;
+      dailyTask.everyX = 1;
+      dailyTask.frequency = 'monthly';
+      dailyTask.repeatLast = true;
+
+      let lastWednesdays = [
+        '2017-03-29',
+        '2017-04-26',
+        '2017-05-31',
+        '2017-06-28',
+        '2017-07-26',
+        '2017-08-30',
+        '2017-09-27',
+        '2017-10-25',
+        '2017-11-29',
+        '2017-12-27',
+        '2018-01-31',
+        '2018-02-28',
+      ];
+
+      lastWednesdays.forEach((wednesday) => {
+        day = moment(wednesday);
+        expect(shouldDo(day, dailyTask, options)).to.equal(true);
+      });
+    });
+
     it('activates Daily on start date', () => {
       dailyTask.repeat = {
         su: false,
