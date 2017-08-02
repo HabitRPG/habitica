@@ -227,8 +227,6 @@ export default {
     userTasks () {
       // @TODO: Is this the best way to check for loaded?
       this.runYesterDailies();
-
-
     },
   },
   async mounted () {
