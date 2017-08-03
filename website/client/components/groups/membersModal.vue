@@ -159,16 +159,16 @@ export default {
   },
   methods: {
     async getMembers () {
-      let groupId = this.group._id || this.$store.state.groupId;
+      let groupId = this.$store.state.groupId || this.group._id;
       if (groupId) {
         let members = await this.$store.dispatch('members:getGroupMembers', {
           groupId,
           includeAllPublicFields: true,
         });
         this.members = members;
+      } else if (this.$store.state.viewingMembers.length > 1) {
+        this.members = this.$store.state.viewingMembers;
       }
-
-      if (this.$store.state.viewingMembers.length > 1) this.members = this.$store.state.viewingMembers;
     },
     async clickMember (uid, forceShow) {
       let user = this.$store.state.user.data;
