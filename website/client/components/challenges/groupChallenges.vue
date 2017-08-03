@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  challenge-modal
+  challenge-modal(:groupId='groupId', v-on:createChallenge='challengeCreated')
   .row.no-quest-section(v-if='challenges.length === 0')
     .col-12.text-center
       .svg-icon.challenge-icon(v-html="icons.challengeIcon")
@@ -22,6 +22,8 @@ div
             span.svg-icon.gem(v-html="icons.gemIcon")
             span.prize {{challenge.prize}}
           div.prize-title Prize
+  .col-12.text-center
+    button.btn.btn-secondary(@click='createChallenge()') {{ $t('createChallenge') }}
 </template>
 
 <style>
@@ -80,6 +82,7 @@ div
 
 <script>
 import challengeModal from './challengeModal';
+import { mapState } from 'client/libs/store';
 
 import gemIcon from 'assets/svg/gem.svg';
 import memberIcon from 'assets/svg/member-icon.svg';
@@ -90,8 +93,13 @@ export default {
   components: {
     challengeModal,
   },
+  computed: {
+    ...mapState({user: 'user.data'}),
+  },
   async mounted () {
-    this.challenges = await this.$store.dispatch('challenges:getGroupChallenges', {groupId: this.groupId});
+    this.groupIdForChallenges = this.groupId;
+    if (this.user.party._id) this.groupIdForChallenges = this.user.party._id;
+    this.challenges = await this.$store.dispatch('challenges:getGroupChallenges', {groupId: this.groupIdForChallenges});
   },
   data () {
     return {
@@ -101,11 +109,16 @@ export default {
         memberIcon,
         gemIcon,
       }),
+      groupIdForChallenges: '',
     };
   },
   methods: {
     createChallenge () {
       this.$root.$emit('show::modal', 'challenge-modal');
+    },
+    challengeCreated (challenge) {
+      if (challenge.group._id !== this.groupIdForChallenges) return;
+      this.challenges.push(challenge);
     },
   },
 };
