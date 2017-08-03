@@ -33,6 +33,8 @@ import timeTravelers from './time-travelers';
 
 import loginIncentives from './loginIncentives';
 
+import officialPinnedItems from './officialPinnedItems';
+
 api.achievements = achievements;
 
 api.quests = quests;
@@ -47,6 +49,8 @@ api.subscriptionBlocks = subscriptionBlocks;
 
 api.mystery = timeTravelers.mystery;
 api.timeTravelerStore = timeTravelers.timeTravelerStore;
+
+api.officialPinnedItems = officialPinnedItems;
 
 /*
    ---------------------------------------------------------------

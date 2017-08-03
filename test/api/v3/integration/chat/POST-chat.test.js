@@ -10,6 +10,8 @@ import {
   TAVERN_ID,
 } from '../../../../../website/server/models/group';
 import { v4 as generateUUID } from 'uuid';
+import { getMatchesByWordArray, removePunctuationFromString } from '../../../../../website/server/libs/stringUtils';
+import bannedWords from '../../../../../website/server/libs/bannedWords';
 import * as email from '../../../../../website/server/libs/email';
 import { IncomingWebhook } from '@slack/client';
 import nconf from 'nconf';
@@ -21,6 +23,9 @@ describe('POST /chat', () => {
   let testMessage = 'Test Message';
   let testBannedWordMessage = 'TEST_PLACEHOLDER_SWEAR_WORD_HERE';
   let testSlurMessage = 'message with TEST_PLACEHOLDER_SLUR_WORD_HERE';
+  let bannedWordErrorMessage = t('bannedWordUsed').split('.');
+  bannedWordErrorMessage[0] += ` (${removePunctuationFromString(testBannedWordMessage.toLowerCase())})`;
+  bannedWordErrorMessage = bannedWordErrorMessage.join('.');
 
   before(async () => {
     let { group, groupLeader, members } = await createAndPopulateGroup({
@@ -31,7 +36,6 @@ describe('POST /chat', () => {
       },
       members: 2,
     });
-
     user = groupLeader;
     groupWithChat = group;
     member = members[0];
@@ -85,11 +89,11 @@ describe('POST /chat', () => {
   context('banned word', () => {
     it('returns an error when chat message contains a banned word in tavern', async () => {
       await expect(user.post('/groups/habitrpg/chat', { message: testBannedWordMessage}))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('bannedWordUsed'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: bannedWordErrorMessage,
+        });
     });
 
     it('errors when word is part of a phrase', async () => {
@@ -98,7 +102,7 @@ describe('POST /chat', () => {
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('bannedWordUsed'),
+        message: bannedWordErrorMessage,
       });
     });
 
@@ -108,8 +112,24 @@ describe('POST /chat', () => {
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('bannedWordUsed'),
+        message: bannedWordErrorMessage,
       });
+    });
+
+    it('checks error message has the banned words used', async () => {
+      let randIndex = Math.floor(Math.random() * (bannedWords.length + 1));
+      let testBannedWords = bannedWords.slice(randIndex, randIndex + 2).map((w) => w.replace(/\\/g, ''));
+      let chatMessage = `Mixing ${testBannedWords[0]} and ${testBannedWords[1]} is bad for you.`;
+      await expect(user.post('/groups/habitrpg/chat', { message: chatMessage}))
+        .to.eventually.be.rejected
+        .and.have.property('message')
+        .that.includes(testBannedWords.join(', '));
+    });
+
+    it('check all banned words are matched', async () => {
+      let message = bannedWords.join(',').replace(/\\/g, '');
+      let matches = getMatchesByWordArray(message, bannedWords);
+      expect(matches.length).to.equal(bannedWords.length);
     });
 
     it('does not error when bad word is suffix of a word', async () => {

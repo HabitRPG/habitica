@@ -133,6 +133,50 @@ api.getBuyList = {
   },
 };
 
+/**
+ * @api {get} /api/v3/user/in-app-rewards Get the in app items appaearing in the user's reward column
+ * @apiName UserGetInAppRewards
+ * @apiGroup User
+ *
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *   "success": true,
+ *   "data": [
+ *     {
+ *       "text": "Training Sword",
+ *       "notes": "Practice weapon. Confers no benefit.",
+ *       "value": 1,
+ *       "type": "weapon",
+ *       "key": "weapon_warrior_0",
+ *       "set": "warrior-0",
+ *       "klass": "warrior",
+ *       "index": "0",
+ *       "str": 0,
+ *       "int": 0,
+ *       "per": 0,
+ *       "con": 0
+ *     }
+ *   ]
+ * }
+ */
+api.getInAppRewardsList = {
+  method: 'GET',
+  middlewares: [authWithHeaders()],
+  url: '/user/in-app-rewards',
+  async handler (req, res) {
+    let list = _.cloneDeep(common.inAppRewards(res.locals.user));
+
+    // return text and notes strings
+    _.each(list, item => {
+      _.each(item, (itemPropVal, itemPropKey) => {
+        if (_.isFunction(itemPropVal) && itemPropVal.i18nLangFunc) item[itemPropKey] = itemPropVal(req.language);
+      });
+    });
+
+    res.respond(200, list);
+  },
+};
+
 let updatablePaths = [
   '_ABtests.counter',
 

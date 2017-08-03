@@ -25,6 +25,7 @@ div
 
 import { mapState } from 'client/libs/store';
 import notifications from 'client/mixins/notifications';
+import guide from 'client/mixins/guide';
 
 import welcomeModal from './achievements/welcome';
 import newStuff from './achievements/newStuff';
@@ -49,7 +50,7 @@ import ultimateGear from './achievements/ultimateGear';
 import wonChallenge from './achievements/wonChallenge';
 
 export default {
-  mixins: [notifications],
+  mixins: [notifications, guide],
   components: {
     wonChallenge,
     ultimateGear,
@@ -132,8 +133,8 @@ export default {
     invitedToQuest () {
       return this.user.party.quest.RSVPNeeded && !this.user.party.quest.completed;
     },
-    userDailies () {
-      return this.$store.state.tasks.data.dailys;
+    userTasks () {
+      return this.$store.state.tasks.data;
     },
   },
   watch: {
@@ -223,7 +224,8 @@ export default {
       if (after !== true) return;
       this.$root.$emit('show::modal', 'quest-invitation');
     },
-    userDailies () {
+    userTasks () {
+      // @TODO: Is this the best way to check for loaded?
       this.runYesterDailies();
     },
   },
@@ -231,6 +233,12 @@ export default {
     if (!this.user.flags.welcomed) {
       this.$root.$emit('show::modal', 'welcome');
     }
+
+    window.setTimeout(() => {
+      this.initTour();
+      if (this.user.flags.tour.intro === this.TOUR_END) return;
+      this.goto('intro', 0);
+    }, 2000);
   },
   methods: {
     playSound () {

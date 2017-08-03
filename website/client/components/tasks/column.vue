@@ -1,5 +1,5 @@
 <template lang="pug">
-.tasks-column
+.tasks-column(:class='type')
   b-modal(ref="editTaskModal")
     span Hello From My Modal!
   .d-flex

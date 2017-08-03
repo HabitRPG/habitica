@@ -64,6 +64,9 @@ api.preenTodos = preenTodos;
 import updateStore from './libs/updateStore';
 api.updateStore = updateStore;
 
+import inAppRewards from './libs/inAppRewards';
+api.inAppRewards = inAppRewards;
+
 import uuid from './libs/uuid';
 api.uuid = uuid;
 

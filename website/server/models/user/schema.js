@@ -582,14 +582,10 @@ let schema = new Schema({
   loginIncentives: {type: Number, default: 0},
   invitesSent: {type: Number, default: 0},
 
-  pinnedItems: [
-    {
-      type: {type: String},
-      key: {type: String},
-      unpin: {type: Boolean, default: false},
-      src: {type: String},
-    }
-  ]
+  // Items manually pinned by the user
+  pinnedItems: [String],
+  // Items the user manually unpinned from the ones suggested by Habitica
+  unpinnedItems: [String],
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

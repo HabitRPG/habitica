@@ -5189,6 +5189,11 @@
       "from": "intersect@>=0.0.3 <0.1.0",
       "resolved": "https://registry.npmjs.org/intersect/-/intersect-0.0.3.tgz"
     },
+    "intro.js": {
+      "version": "2.6.0",
+      "from": "intro.js@latest",
+      "resolved": "http://registry.npmjs.org/intro.js/-/intro.js-2.6.0.tgz"
+    },
     "invariant": {
       "version": "2.2.2",
       "from": "invariant@>=2.2.0 <3.0.0",
