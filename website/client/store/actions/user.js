@@ -49,8 +49,10 @@ export async function deleteWebhook (store, payload) {
 
 
 export async function togglePinnedItemAsync (store, params) {
-  let response = await axios.get(`/api/v3/user/toggle-pinned-item/${params.type}/${params.key}`);
+  let response = await axios.get(`/api/v3/user/toggle-pinned-item/${params.key}`);
   const user = store.state.user.data;
   user.pinnedItems = response.data.data.pinnedItems;
+  user.unpinnedItems = response.data.data.unpinnedItems;
+
   return user.pinnedItems;
 }

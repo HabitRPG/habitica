@@ -1966,7 +1966,7 @@ api.setCustomDayStart = {
 };
 
 /**
- * @api {get} /user/toggle-pinned-item/:type/:key Toggle an item to be pinned
+ * @api {get} /user/toggle-pinned-item/:key Toggle an item to be pinned
  * @apiName togglePinnedItem
  * @apiGroup User
  *
@@ -1987,18 +1987,20 @@ api.setCustomDayStart = {
 api.togglePinnedItem = {
   method: 'GET',
   middlewares: [authWithHeaders()],
-  url: '/user/toggle-pinned-item/:type/:key',
+  url: '/user/toggle-pinned-item/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    const type = get(req.params, 'type');
     const key = get(req.params, 'key');
 
-    user.togglePinnedItem(type, key);
+    user.togglePinnedItem(key);
 
     await user.save();
 
+    let userJson = user.toJSON();
+
     res.respond(200, {
-      pinnedItems: user.toJSON().pinnedItems,
+      pinnedItems: userJson.pinnedItems,
+      unpinnedItems: userJson.unpinnedItems,
     });
   },
 };

@@ -1,5 +1,5 @@
-import _findIndex from 'lodash/findIndex';
+export default function _isPinned (user, key) {
+  let result = user.pinnedItems.includes(key) && !user.unpinnedItems.includes(key);
 
-export default function _isPinned (user, key, type) {
-  return _findIndex(user.pinnedItems, {key, type, unpin: false}) >= 0;
+  return result;
 }

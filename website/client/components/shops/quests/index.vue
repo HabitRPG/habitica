@@ -108,7 +108,7 @@
               template(slot="itemBadge", scope="ctx")
                 span.badge.badge-pill.badge-item.badge-svg(
                   :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-                  @click.prevent.stop="togglePinned(ctx.item.key, 'quests')"
+                  @click.prevent.stop="togglePinned(ctx.item)"
                 )
                   span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
@@ -140,7 +140,7 @@
                 template(slot="itemBadge", scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-                    @click.prevent.stop="togglePinned(ctx.item.key, 'quests')"
+                    @click.prevent.stop="togglePinned(ctx.item)"
                   )
                     span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
@@ -169,7 +169,7 @@
             template(slot="itemBadge", scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
                 :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-                @click.prevent.stop="togglePinned(ctx.item.key, 'quests')"
+                @click.prevent.stop="togglePinned(ctx.item)"
               )
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
@@ -413,11 +413,14 @@ export default {
       },
     },
     methods: {
+      getPinKey (item) {
+        return `${item.purchaseType}.${item.key}`;
+      },
       questItems (category, sortBy, searchBy, hideLocked, hidePinned) {
         let result = _map(category.items, (e) => {
           return {
             ...e,
-            pinned: _isPinned(this.user, e.key, 'quests'),
+            pinned: _isPinned(this.user, this.getPinKey(e)),
           };
         });
 
@@ -462,8 +465,8 @@ export default {
 
         return false;
       },
-      async togglePinned (key, type) {
-        await this.$store.dispatch('user:togglePinnedItemAsync', {key, type});
+      togglePinned (item) {
+        return this.$store.dispatch('user:togglePinnedItemAsync', {key: this.getPinKey(item)});
       },
       buyItem (item) {
         this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});

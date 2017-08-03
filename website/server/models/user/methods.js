@@ -301,28 +301,23 @@ schema.methods.canGetGems = async function canObtainGems () {
   });
 };
 
-schema.methods.togglePinnedItem = function togglePinnedItem (type, key) {
-  let obj = {
-    type,
-    key,
-  };
+const officialPinnedItems = common.content.officialPinnedItems;
 
-  let foundIndex = findIndex(this.pinnedItems, obj);
+schema.methods.togglePinnedItem = function togglePinnedItem (key) {
+  let arrayToChange = [];
+  let isOfficialPinned = officialPinnedItems.indexOf(key) >= 0;
+
+  if (isOfficialPinned) {
+    arrayToChange = this.unpinnedItems;
+  } else {
+    arrayToChange = this.pinnedItems;
+  }
+
+  let foundIndex = arrayToChange.indexOf(key);
 
   if (foundIndex >= 0) {
-    let item = this.pinnedItems[foundIndex];
-
-    if (item.src !== 'habitica') {
-      removeFromArray(this.pinnedItems, obj);
-    } else {
-      // just unpin a suggested item
-      item.unpin = !item.unpin;
-    }
+    removeFromArray(arrayToChange, key);
   } else {
-    this.pinnedItems.push({
-      type,
-      key,
-      src: 'user',
-    });
+    arrayToChange.push(key);
   }
 };
