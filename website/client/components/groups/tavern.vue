@@ -10,7 +10,7 @@
         h3(v-once) {{ $t('welcomeToTavern') }}
 
         .row
-          textarea(:placeholder="$t('chatPlaceHolder')", v-model='newMessage')
+          textarea(placeholder="Type a message to Habiticans here", v-model='newMessage')
           autocomplete(:text='newMessage', v-on:select="selectedAutocomplete")
           button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
 
