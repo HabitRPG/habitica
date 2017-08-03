@@ -232,7 +232,8 @@
         priceType="gold",
         :withPin="true",
         @change="resetGearToBuy($event)",
-        @buyPressed="buyGear($event)"
+        @buyPressed="buyGear($event)",
+        @togglePinned="togglePinned($event)"
       )
         template(slot="item", scope="ctx")
           div
@@ -250,7 +251,8 @@
         :item="selectedItemToBuy",
         :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
         @change="resetItemToBuy($event)",
-        @buyPressed="buyItem($event)"
+        @buyPressed="buyItem($event)",
+        @togglePinned="togglePinned($event)"
       )
         template(slot="item", scope="ctx")
           item.flat(

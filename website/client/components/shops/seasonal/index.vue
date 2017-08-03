@@ -111,7 +111,8 @@
       :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
       :withPin="true",
       @change="resetItemToBuy($event)",
-      @buyPressed="buyItem($event)"
+      @buyPressed="buyItem($event)",
+      @togglePinned="togglePinned($event)"
     )
       template(slot="item", scope="ctx")
         item.flat(
