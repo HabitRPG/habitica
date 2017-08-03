@@ -19,7 +19,7 @@
           .col-4(v-if='!isParty')
             .item-with-icon
               .svg-icon.gem(v-html="icons.gem")
-              span.number {{group.memberCount}}
+              span.number {{group.balance}}
               div(v-once) {{ $t('guildBank') }}
     .row.chat-row
       .col-12
