@@ -248,11 +248,12 @@
   "owned": "Owned",
   "not_owned": "Not Owned",
   "participantsTitle": "Participants",
-  "shortName": "Short Name",
+  "shortName": "What short tag should be used to identify your Challenge?",
   "classArmor": "Class Armor",
   "backCapitalized": "Back Accessory",
   "bodyCapitalized": "Body Accessory",
   "eyewearCapitalized": "Eyewear",
   "featuredset": "Featured Set <%= name %>",
-  "mysterySets": "Mystery Sets"
+  "mysterySets": "Mystery Sets",
+  "fetchRecentMessages": "Fetch Recent Messages"
 }

@@ -6,7 +6,7 @@ div
         .col-6
           h1(v-once) {{$t('members')}}
         .col-6
-          button(type="button" aria-label="Close" class="close")
+          button(type="button" aria-label="Close" class="close", @click='close()')
             span(aria-hidden="true") ×
       .row
         .form-group.col-6
@@ -15,7 +15,7 @@ div
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
             b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption.value)', :key='sortOption.value') {{sortOption.text}}
-    .row(v-for='member in members', :key='member', )
+    .row(v-for='member in members')
       .col-8.offset-1
         member-details(:member='member')
       .col-3.actions
@@ -159,16 +159,16 @@ export default {
   },
   methods: {
     async getMembers () {
-      let groupId = this.group._id || this.$store.state.groupId;
+      let groupId = this.$store.state.groupId || this.group._id;
       if (groupId) {
         let members = await this.$store.dispatch('members:getGroupMembers', {
           groupId,
           includeAllPublicFields: true,
         });
         this.members = members;
+      } else if (this.$store.state.viewingMembers.length > 1) {
+        this.members = this.$store.state.viewingMembers;
       }
-
-      if (this.$store.state.viewingMembers.length > 1) this.members = this.$store.state.viewingMembers;
     },
     async clickMember (uid, forceShow) {
       let user = this.$store.state.user.data;
@@ -224,6 +224,9 @@ export default {
       await this.$store.dispatch('group:removeManager', {
         memberId,
       });
+    },
+    close () {
+      this.$root.$emit('hide::modal', 'members-modal');
     },
   },
 };

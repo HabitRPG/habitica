@@ -84,7 +84,6 @@
     }
 
     label {
-      width: 130px;
       margin-right: .5em;
     }
 
@@ -126,7 +125,7 @@ import { TAVERN_ID } from '../../../common/script/constants';
 import { mapState } from 'client/libs/store';
 
 export default {
-  props: ['challenge'],
+  props: ['challenge', 'groupId'],
   components: {
     bModal,
     bDropdown,
@@ -206,6 +205,17 @@ export default {
     });
 
     this.groups = await this.$store.dispatch('guilds:getMyGuilds');
+    let party = await this.$store.dispatch('guilds:getGroup', {groupId: 'party'});
+    this.groups.push({
+      name: party.name,
+      _id: party._id,
+    });
+
+    this.groups.push({
+      name: 'Public',
+      _id: TAVERN_ID,
+    });
+
     this.ressetWorkingChallenge();
   },
   watch: {
@@ -258,14 +268,14 @@ export default {
         todos: [],
       };
     },
-    createChallenge () {
+    async createChallenge () {
       if (!this.workingChallenge.name) alert('Name is required');
       if (!this.workingChallenge.description) alert('Description is required');
 
       this.workingChallenge.timestamp = new Date().getTime();
 
-      this.$store.dispatch('challenges:createChallenge', {challenge: this.workingChallenge});
-
+      let challenge = await this.$store.dispatch('challenges:createChallenge', {challenge: this.workingChallenge});
+      this.$emit('createChallenge', challenge);
       this.ressetWorkingChallenge();
       this.$root.$emit('hide::modal', 'challenge-modal');
     },
