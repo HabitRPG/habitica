@@ -31,9 +31,8 @@
         chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
   .col-4.sidebar
-    .guild-background.row
+    .row(:class='{"guild-background": !isParty}')
       .col-6
-        p(v-if='!isParty')
       .col-6
         .button-container
           button.btn.btn-success(class='btn-success', v-if='isLeader') {{ $t('upgrade') }}
