@@ -63,25 +63,25 @@
         .section.row(v-if="sections.helpfulLinks")
           ul
             li
-              a(herf='', v-once) {{ $t('communityGuidelinesLink') }}
+              a(href='/static/community-guidelines', v-once) {{ $t('communityGuidelinesLink') }}
             li
-              a(herf='', v-once) {{ $t('lookingForGroup') }}
+              a(href='/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601', v-once) {{ $t('lookingForGroup') }}
             li
-              a(herf='', v-once) {{ $t('faq') }}
+              a(href='/static/faq', v-once) {{ $t('faq') }}
             li
-              a(herf='', v-html="$t('glossary')")
+              a(href='', v-html="$t('glossary')")
             li
-              a(herf='', v-once) {{ $t('wiki') }}
+              a(href='http://habitica.wikia.com/wiki/Wiki', v-once) {{ $t('wiki') }}
             li
-              a(herf='', v-once) {{ $t('dataDisplayTool') }}
+              a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', v-once) {{ $t('dataDisplayTool') }}
             li
-              a(herf='', v-once) {{ $t('reportProblem') }}
+              a(href='/groups/guilds/a29da26b-37de-4a71-b0c6-48e72a900dac', v-once) {{ $t('reportProblem') }}
             li
-              a(herf='', v-once) {{ $t('requestFeature') }}
+              a(href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents', v-once) {{ $t('requestFeature') }}
             li
-              a(herf='', v-html="$t('communityForum')")
+              a(href='', v-html="$t('communityForum')")
             li
-              a(herf='', v-once) {{ $t('askQuestionGuild') }}
+              a(href='/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a', v-once) {{ $t('askQuestionGuild') }}
 
       .section-header
         .row
