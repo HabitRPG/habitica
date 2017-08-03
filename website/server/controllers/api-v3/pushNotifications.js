@@ -52,11 +52,11 @@ api.addPushDevice = {
 
 /**
  * @apiIgnore
- * @api {delete} /api/v3/user/push-devices remove a push device from a user
+ * @api {delete} /api/v3/user/push-devices/:regId remove a push device from a user
  * @apiName UserRemovePushDevice
  * @apiGroup User
  *
- * @apiParam {String} regId The id of the push device
+ * @apiParam (Path) {String} regId The id of the push device
  *
  * @apiSuccess {Object} data List of push devices
  * @apiSuccess {String} message Success message

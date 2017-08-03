@@ -489,9 +489,9 @@ api.updateUsername = {
  * @apiName UpdatePassword
  * @apiGroup User
  *
- * @apiParam {String} password Body parameter - The old password
- * @apiParam {String} newPassword Body parameter - The new password
- * @apiParam {String} confirmPassword Body parameter - New password confirmation
+ * @apiParam (Body) {String} password The old password
+ * @apiParam (Body) {String} newPassword The new password
+ * @apiParam (Body) {String} confirmPassword New password confirmation
  *
  * @apiSuccess {Object} data An empty object
  **/
@@ -600,8 +600,8 @@ api.resetPassword = {
  * @apiName UpdateEmail
  * @apiGroup User
  *
- * @apiParam {String} Body parameter - newEmail The new email address.
- * @apiParam {String} Body parameter - password The user password.
+ * @apiParam (Body) {String} newEmail The new email address.
+ * @apiParam (Body) {String} password The user password.
  *
  * @apiSuccess {String} data.email The updated email address
  */

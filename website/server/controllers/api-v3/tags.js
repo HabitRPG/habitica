@@ -109,7 +109,7 @@ api.getTag = {
  * @apiName UpdateTag
  * @apiGroup Tag
  *
- * @apiParam {UUID} tagId The tag _id
+ * @apiParam (Path) {UUID} tagId The tag _id
  * @apiParam (Body) {string} name The new name of the tag.
  *
  * @apiParamExample {json} Example body:
@@ -194,7 +194,7 @@ api.reorderTags = {
  * @apiName DeleteTag
  * @apiGroup Tag
  *
- * @apiParam {UUID} tagId The tag _id
+ * @apiParam (Path) {UUID} tagId The tag _id
  *
  * @apiSuccess {Object} data An empty object
  *

@@ -264,8 +264,8 @@ api.updateUser = {
  * @apiName UserDelete
  * @apiGroup User
  *
- * @apiParam {String} password The user's password if the account uses local authentication
- * @apiParam {String} feedback User's optional feedback explaining reasons for deletion
+ * @apiParam (Body) {String} password The user's password if the account uses local authentication
+ * @apiParam (Body) {String} feedback User's optional feedback explaining reasons for deletion
  *
  * @apiSuccess {Object} data An empty Object
  *
