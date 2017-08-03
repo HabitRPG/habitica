@@ -191,7 +191,7 @@
         this.$emit('buyPressed', this.item);
         this.hideDialog();
       },
-      togglePinned(item){
+      togglePinned (item){
         this.$emit('togglePinned', this.item);
       },
       hideDialog () {

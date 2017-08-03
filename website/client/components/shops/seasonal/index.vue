@@ -304,7 +304,6 @@
   import _groupBy from 'lodash/groupBy';
 
   import _isPinned from '../_isPinned';
-  import _getPinKey from '../_getPinKey';
 
   export default {
     components: {
@@ -408,7 +407,7 @@
         let result = _map(category.items, (e) => {
           return {
             ...e,
-            pinned: _isPinned(this.user, _getPinKey(e)),
+            pinned: _isPinned(this.user, e.pinKey),
           };
         });
 
@@ -466,7 +465,7 @@
         return false;
       },
       togglePinned (item) {
-        return this.$store.dispatch('user:togglePinnedItemAsync', {key: _getPinKey(item)});
+        return this.$store.dispatch('user:togglePinnedItemAsync', {key: item.pinKey});
       },
       buyItem (item) {
         this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});

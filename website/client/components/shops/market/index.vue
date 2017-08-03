@@ -412,7 +412,6 @@
   import _throttle from 'lodash/throttle';
 
   import _isPinned from '../_isPinned';
-  import _getPinKey from '../_getPinKey';
 
   const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
@@ -593,7 +592,7 @@ export default {
             currency: 'gold'
           };
 
-          newItem.pinned = _isPinned(this.user, _getPinKey(newItem));
+          newItem.pinned = _isPinned(this.user, newItem.pinKey);
           newItem.locked = this.isGearLocked(newItem);
 
           return newItem;
@@ -626,7 +625,7 @@ export default {
         let result = _map(category.items, (e) => {
           return {
             ...e,
-            pinned: _isPinned(this.user, this.getPinKey(e)),
+            pinned: _isPinned(this.user, e.pinKey),
           };
         });
 
@@ -689,7 +688,7 @@ export default {
         };
       },
       togglePinned (item) {
-        return this.$store.dispatch('user:togglePinnedItemAsync', {key: _getPinKey(item)});
+        return this.$store.dispatch('user:togglePinnedItemAsync', {key: item.pinKey});
       },
       buyGear (item) {
         this.$store.dispatch('shops:buyItem', {key: item.key});
