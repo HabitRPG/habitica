@@ -1,5 +1,5 @@
-import each from 'lodash/each';
-import flattenDeep from 'lodash/flattenDeep';
+// import each from 'lodash/each';
+// import flattenDeep from 'lodash/flattenDeep';
 import times from 'lodash/times';
 import Intro from 'intro.js/';
 
@@ -187,7 +187,7 @@ export default {
           },
         ]],
       };
-      let chapters = this.chapters;
+      // let chapters = this.chapters;
       // each(chapters, (chapter, k) => {
       //   flattenDeep(chapter).forEach((step, i) => {
       //     // @TODO: (env.worldDmg.guide ? 'npc_justin_broken' : 'npc_justin')
@@ -203,48 +203,48 @@ export default {
       //   });
       // });
 
-      let tour = this.tour;
-      each(chapters, (v, k) => {
-        tour[k] = new Tour({
-          name: k,
-          backdrop: true,
-          template: (i, step) => {
-            let showFinish = step.final || k === 'classes';
-            let showCounter = k === 'intro' && !step.final;
-            // TODO: we can probably create a component for all this
-
-            let counterSpan = '';
-            if (showCounter) counterSpan = `<span style="float:right;">${i + 1} of ${flattenDeep(chapters[k]).length}</span>`;
-
-            let prevButton = '';
-            if (!step.hideNavigation) prevButton = '<button class="btn btn-sm btn-default" data-role="prev">&laquo; Previous</button>';
-
-            let nextButton = '';
-            let stepProceedText = 'Next';
-            if (step.proceed) stepProceedText = step.proceed;
-            if (!step.hideNavigation) nextButton = `<button class="btn btn-sm btn-primary" data-role="next">${stepProceedText} &raquo;</button>`;
-            let stepFinishText = 'Finish Tour';
-            if (step.proceed) stepFinishText = step.proceed;
-            if (showFinish) nextButton = `<button class="btn btn-sm btn-primary" data-role="end" style="float:none;">${stepFinishText}</button>`;
-
-            return `<div class="popover" role="tooltip"> \
-              <div class="arrow"></div> \
-              <h3 class="popover-title"></h3> \
-              <div class="popover-content"></div> \
-              <div class="popover-navigation"> \
-                ${counterSpan} \
-                <div class="btn-group"> \
-                  ${prevButton} \
-                  ${nextButton} \
-                  <button class="btn btn-sm btn-default" \
-                  data-role="pause-resume" data-pause-text="Pause" data-resume-text="Resume">Pause</button> \
-              </div> \
-              </div> \
-              </div>`;
-          },
-          storage: false,
-        });
-      });
+      // let tour = this.tour;
+      // each(chapters, (v, k) => {
+      //   tour[k] = new Tour({
+      //     name: k,
+      //     backdrop: true,
+      //     template: (i, step) => {
+      //       let showFinish = step.final || k === 'classes';
+      //       let showCounter = k === 'intro' && !step.final;
+      //       // TODO: we can probably create a component for all this
+      //
+      //       let counterSpan = '';
+      //       if (showCounter) counterSpan = `<span style="float:right;">${i + 1} of ${flattenDeep(chapters[k]).length}</span>`;
+      //
+      //       let prevButton = '';
+      //       if (!step.hideNavigation) prevButton = '<button class="btn btn-sm btn-default" data-role="prev">&laquo; Previous</button>';
+      //
+      //       let nextButton = '';
+      //       let stepProceedText = 'Next';
+      //       if (step.proceed) stepProceedText = step.proceed;
+      //       if (!step.hideNavigation) nextButton = `<button class="btn btn-sm btn-primary" data-role="next">${stepProceedText} &raquo;</button>`;
+      //       let stepFinishText = 'Finish Tour';
+      //       if (step.proceed) stepFinishText = step.proceed;
+      //       if (showFinish) nextButton = `<button class="btn btn-sm btn-primary" data-role="end" style="float:none;">${stepFinishText}</button>`;
+      //
+      //       return `<div class="popover" role="tooltip"> \
+      //         <div class="arrow"></div> \
+      //         <h3 class="popover-title"></h3> \
+      //         <div class="popover-content"></div> \
+      //         <div class="popover-navigation"> \
+      //           ${counterSpan} \
+      //           <div class="btn-group"> \
+      //             ${prevButton} \
+      //             ${nextButton} \
+      //             <button class="btn btn-sm btn-default" \
+      //             data-role="pause-resume" data-pause-text="Pause" data-resume-text="Resume">Pause</button> \
+      //         </div> \
+      //         </div> \
+      //         </div>`;
+      //     },
+      //     storage: false,
+      //   });
+      // });
       this.loaded = true;
     },
     routeChange () {
