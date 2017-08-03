@@ -133,9 +133,6 @@ export default {
     invitedToQuest () {
       return this.user.party.quest.RSVPNeeded && !this.user.party.quest.completed;
     },
-    userTasks () {
-      return this.$store.state.tasks.data;
-    },
   },
   watch: {
     baileyShouldShow () {
@@ -224,15 +221,16 @@ export default {
       if (after !== true) return;
       this.$root.$emit('show::modal', 'quest-invitation');
     },
-    userTasks () {
-      // @TODO: Is this the best way to check for loaded?
-      this.runYesterDailies();
-    },
   },
   async mounted () {
     if (!this.user.flags.welcomed) {
       this.$root.$emit('show::modal', 'welcome');
     }
+
+    Promise.all(['user.fetch', 'tasks.fetchUserTasks'])
+      .then(() => {
+        this.runYesterDailies();
+      });
 
     window.setTimeout(() => {
       this.initTour();
