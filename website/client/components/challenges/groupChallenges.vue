@@ -7,20 +7,21 @@ div
       h4(v-once) {{ $t('haveNoChallenges') }}
       p(v-once) {{ $t('challengeDescription') }}
       button.btn.btn-secondary(v-once, @click='createChallenge()') {{ $t('createChallenge') }}
-  .col-12.challenge-item(v-for='challenge in challenges')
-    .row
-      .col-9
-        router-link.title(:to="{ name: 'challenge', params: { challengeId: challenge._id } }")
-          strong {{challenge.name}}
-        p {{challenge.description}}
-        div
-          .svg-icon.member-icon(v-html="icons.memberIcon")
-          .member-count {{challenge.memberCount}}
-      .col-3
-        div
-          span.svg-icon.gem(v-html="icons.gemIcon")
-          span.prize {{challenge.prize}}
-        div.prize-title Prize
+  router-link.title(:to="{ name: 'challenge', params: { challengeId: challenge._id } }", v-for='challenge in challenges')
+    .col-12.challenge-item
+      .row
+        .col-9
+          router-link.title(:to="{ name: 'challenge', params: { challengeId: challenge._id } }")
+            strong {{challenge.name}}
+          p {{challenge.description}}
+          div
+            .svg-icon.member-icon(v-html="icons.memberIcon")
+            .member-count {{challenge.memberCount}}
+        .col-3
+          div
+            span.svg-icon.gem(v-html="icons.gemIcon")
+            span.prize {{challenge.prize}}
+          div.prize-title Prize
 </template>
 
 <style>
