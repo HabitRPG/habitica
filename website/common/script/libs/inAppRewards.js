@@ -1,4 +1,5 @@
 import content from '../content/index';
+import get from 'lodash/get';
 
 const officialPinnedItems = content.officialPinnedItems;
 
@@ -7,9 +8,8 @@ module.exports = function updateStore (user) {
     return user.unpinnedItems.indexOf(officialPin) === -1;
   }));
 
-  // TODO map item key to item data in content
   return itemsKeys.map(itemKey => {
-    return itemKey;
+    return get(content, itemKey);
   });
 
   // TODO sort

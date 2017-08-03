@@ -1,4 +1,3 @@
 export default [
-  'item1',
-  'item2',
+  'backgrounds.backgrounds052015',
 ];
