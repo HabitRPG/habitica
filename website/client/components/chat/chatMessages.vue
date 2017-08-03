@@ -8,7 +8,7 @@ div
 
     .hr
 
-    .col-md-12(v-for="(msg, index) in chat", :key="msg.id", v-if='chat')
+    .col-md-12(v-for="(msg, index) in chat", v-if='chat')
       // @TODO: is there a different way to do these conditionals? This creates an infinite loop
       //.hr(v-if='displayDivider(msg)')
         .hr-middle(v-once) {{ msg.timestamp }}
@@ -19,17 +19,17 @@ div
           p {{msg.timestamp | timeAgo}}
           .text {{msg.text}}
           hr
-          .action(v-once, @click='like(msg, index)', v-if='msg.likes', :class='{active: msg.likes[user._id]}')
+          .action(@click='like(msg, index)', v-if='msg.likes', :class='{active: msg.likes[user._id]}')
             .svg-icon(v-html="icons.like")
             span(v-if='!msg.likes[user._id]') {{ $t('like') }}
             span(v-if='msg.likes[user._id]') {{ $t('liked') }}
-          span.action(v-once,  @click='copyAsTodo(msg)')
+          span.action( @click='copyAsTodo(msg)')
             .svg-icon(v-html="icons.copy")
             | {{$t('copyAsTodo')}}
-          span.action(v-once, v-if='user.contributor.admin || (!msg.sent && user.flags.communityGuidelinesAccepted)', @click='report(msg)')
+          span.action(v-if='user.contributor.admin || (!msg.sent && user.flags.communityGuidelinesAccepted)', @click='report(msg)')
             .svg-icon(v-html="icons.report")
             | {{$t('report')}}
-          span.action(v-once, v-if='msg.uuid === user._id', @click='remove(msg, index)')
+          span.action(v-if='msg.uuid === user._id', @click='remove(msg, index)')
             .svg-icon(v-html="icons.delete")
             | {{$t('delete')}}
           span.action.float-right
@@ -157,6 +157,11 @@ export default {
     async like (messageToLike, index) {
       let message = cloneDeep(messageToLike);
 
+      await this.$store.dispatch('chat:like', {
+        groupId: this.groupId,
+        chatId: message.id,
+      });
+
       if (!message.likes[this.user._id]) {
         message.likes[this.user._id] = true;
       } else {
@@ -164,11 +169,6 @@ export default {
       }
 
       this.chat.splice(index, 1, message);
-
-      await this.$store.dispatch('chat:like', {
-        groupId: this.groupId,
-        chatId: message.id,
-      });
     },
     copyAsTodo (message) {
       this.copyingMessage = message;
