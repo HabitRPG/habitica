@@ -120,6 +120,11 @@ export default {
       }
     },
     openPartyModal () {
+      if (this.user.party._id) {
+        this.$store.state.groupId = this.user.party._id;
+        this.$root.$emit('show::modal', 'members-modal');
+        return;
+      }
       this.$root.$emit('show::modal', 'create-party-modal');
     },
   },
