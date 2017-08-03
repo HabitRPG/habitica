@@ -1,7 +1,6 @@
 import each from 'lodash/each';
 import flattenDeep from 'lodash/flattenDeep';
 import times from 'lodash/times';
-import Tour from 'bootstrap-tour';
 import Intro from 'intro.js/';
 
 export default {
