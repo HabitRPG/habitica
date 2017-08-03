@@ -10,19 +10,20 @@
       |&nbsp;5&comma; 2016
     div(v-for='(heading, index) in headings')
       h2.accordion(@click='setActivePage(heading)') {{ $t(`faqQuestion${index}`) }}
-      // @TODO: Markdown
-      div(v-if='activePage === heading', v-html="$t('webFaqAnswer' + index, replacements)")
-
+      div(v-if='activePage === heading', v-markdown="$t('webFaqAnswer' + index, replacements)")
     hr
-    // @TODO markdown
-    div(v-html="$t('webFaqStillNeedHelp')")
+    div(v-markdown="$t('webFaqStillNeedHelp')")
 </template>
 
 <script>
 // @TODO:  env.EMAILS.TECH_ASSISTANCE_EMAIL
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
+import markdownDirective from 'client/directives/markdown';
 
 export default {
+  directives: {
+    markdown: markdownDirective,
+  },
   data () {
     return {
       activePage: '',
