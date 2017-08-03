@@ -77,29 +77,29 @@
     .row
       .col-4
         | © 2017 Habitica. All rights reserved.
+        .debug.float-left(v-if='!IS_PRODUCTION')
+          button.btn.btn-primary(@click='debugMenuShown = !debugMenuShown') Toggle Debug Menu
+          .debug-group(v-if='debugMenuShown')
+            a.btn.btn-default(@click='setHealthLow()') Health = 1
+            a.btn.btn-default(@click='addMissedDay(1)') +1 Missed Day
+            a.btn.btn-default(@click='addMissedDay(2)') +2 Missed Days
+            a.btn.btn-default(@click='addMissedDay(8)') +8 Missed Days
+            a.btn.btn-default(@click='addMissedDay(32)') +32 Missed Days
+            a.btn.btn-default(@click='addTenGems()') +10 Gems
+            a.btn.btn-default(@click='addHourglass()') +1 Mystic Hourglass
+            a.btn.btn-default(@click='addGold()') +500GP
+            a.btn.btn-default(@click='plusTenHealth()') + 10HP
+            a.btn.btn-default(@click='addMana()') +MP
+            a.btn.btn-default(@click='addLevelsAndGold()') +Exp +GP +MP
+            a.btn.btn-default(@click='addOneLevel()') +1 Level
+            a.btn.btn-default(@click='addQuestProgress()' tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
+            a.btn.btn-default(@click='makeAdmin()') Make Admin
+            a.btn.btn-default(@click='openModifyInventoryModal()') Modify Inventory
       .col-4.text-center
         .logo.svg-icon(v-html='icons.gryphon')
       .col-4.text-right
         span Privacy Policy
         span Terms of Use
-    .row
-      h4 Debug
-      .btn-group-vertical
-        a.btn.btn-default(@click='setHealthLow()') Health = 1
-        a.btn.btn-default(@click='addMissedDay(1)') +1 Missed Day
-        a.btn.btn-default(@click='addMissedDay(2)') +2 Missed Days
-        a.btn.btn-default(@click='addMissedDay(8)') +8 Missed Days
-        a.btn.btn-default(@click='addMissedDay(32)') +32 Missed Days
-        a.btn.btn-default(@click='addTenGems()') +10 Gems
-        a.btn.btn-default(@click='addHourglass()') +1 Mystic Hourglass
-        a.btn.btn-default(@click='addGold()') +500GP
-        a.btn.btn-default(@click='plusTenHealth()') + 10HP
-        a.btn.btn-default(@click='addMana()') +MP
-        a.btn.btn-default(@click='addLevelsAndGold()') +Exp +GP +MP
-        a.btn.btn-default(@click='addOneLevel()') +1 Level
-        a.btn.btn-default(@click='addQuestProgress()' tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
-        a.btn.btn-default(@click='makeAdmin()') Make Admin
-        a.btn.btn-default(@click='openModifyInventoryModal()') Modify Inventory
 </template>
 
 <style scoped>
@@ -140,6 +140,14 @@
     margin: 0 auto;
     color: #c3c0c7;
   }
+
+  .debug-group {
+    position: absolute;
+    background: #fff;
+    top: -300px;
+    border-radius: 2px;
+    padding: 2em;
+  }
 </style>
 
 <script>
@@ -150,7 +158,7 @@ import gryphon from 'assets/svg/gryphon.svg';
 
 import modifyInventory from './modifyInventory';
 
-// const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
+const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 
 export default {
   components: {
@@ -161,6 +169,8 @@ export default {
       icons: Object.freeze({
         gryphon,
       }),
+      debugMenuShown: false,
+      IS_PRODUCTION,
     };
   },
   computed: {
@@ -190,7 +200,6 @@ export default {
       // @TODO: Sync user?
     },
     async addTenGems () {
-      // @TODO: User.addTenGems();
       await axios.post('/api/v3/debug/add-ten-gems');
       // @TODO: Notification.text('+10 Gems!');
       this.user.balance += 2.5;
