@@ -46,9 +46,9 @@ module.exports = function randomDrop (user, options, req = {}) {
   chance = diminishingReturns(chance, 0.75);
 
   if (predictableRandom() < chance) {
-    if (!user.party.quest.progress.collectedItems) user.party.quest.progress.collectedItems = 0;
+    user.party.quest.progress.collectedItems = user.party.quest.progress.collectedItems || 0;
     user.party.quest.progress.collectedItems++;
-    if (!user._tmp.quest) user._tmp.quest = {};
+    user._tmp.quest = user._tmp.quest || {};
     user._tmp.quest.collection = 1;
     user.markModified('party.quest.progress');
   }
@@ -72,9 +72,7 @@ module.exports = function randomDrop (user, options, req = {}) {
         canDrop: true,
       })));
 
-      if (!user.items.food[drop.key]) {
-        user.items.food[drop.key] = 0;
-      }
+      user.items.food[drop.key] = user.items.food[drop.key] || 0;
       user.items.food[drop.key] += 1;
       drop.type = 'Food';
       drop.dialog = i18n.t('messageDropFood', {
@@ -84,9 +82,7 @@ module.exports = function randomDrop (user, options, req = {}) {
       }, req.language);
     } else if (rarity > 0.3) { // eggs 30% chance
       drop = cloneDropItem(randomVal(content.dropEggs));
-      if (!user.items.eggs[drop.key]) {
-        user.items.eggs[drop.key] = 0;
-      }
+      user.items.eggs[drop.key] = user.items.eggs[drop.key] || 0;
       user.items.eggs[drop.key]++;
       drop.type = 'Egg';
       drop.dialog = i18n.t('messageDropEgg', {
@@ -106,9 +102,7 @@ module.exports = function randomDrop (user, options, req = {}) {
       drop = cloneDropItem(randomVal(pickBy(content.hatchingPotions, (v, k) => {
         return acceptableDrops.indexOf(k) >= 0;
       })));
-      if (!user.items.hatchingPotions[drop.key]) {
-        user.items.hatchingPotions[drop.key] = 0;
-      }
+      user.items.hatchingPotions[drop.key] = user.items.hatchingPotions[drop.key] || 0;
       user.items.hatchingPotions[drop.key]++;
       drop.type = 'HatchingPotion';
       drop.dialog = i18n.t('messageDropPotion', {
