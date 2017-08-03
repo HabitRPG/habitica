@@ -344,7 +344,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
         type: 'special',
         currency: 'gold',
         locked: false,
-        purchaseType: 'spells',
+        purchaseType: 'spells.special',
         class: `inventory_special_${key}`,
       };
     });

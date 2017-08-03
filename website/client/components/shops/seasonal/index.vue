@@ -30,7 +30,7 @@
               span.rectangle
               span.text Leslie
               span.rectangle
-          div.content
+          div.content(v-if="featuredSet")
             div.featured-label.with-border
               span.rectangle
               span.text(v-once) {{ $t('featuredset', { name: featuredSet.text }) }}
@@ -105,31 +105,6 @@
                     @click.prevent.stop="togglePinned(ctx.item)"
                   )
                     span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-
-
-        div.items(v-if="false")
-          shopItem(
-            v-for="item in seasonalItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",
-            :key="item.key",
-            :item="item",
-            :price="item.value",
-            :priceType="item.currency",
-            :itemContentClass="item.class",
-            :emptyItem="false",
-            :popoverPosition="'top'",
-            @click="selectedItemToBuy = item"
-          )
-            span(slot="popoverContent")
-              div
-                h4.popover-content-title {{ item.text }}
-                .popover-content-text {{ item.notes }}
-
-            template(slot="itemBadge", scope="ctx")
-              span.badge.badge-pill.badge-item.badge-svg(
-                :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-                @click.prevent.stop="togglePinned(ctx.item)"
-              )
-                span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
     buyModal(
       :item="selectedItemToBuy",
@@ -327,7 +302,10 @@
   import _throttle from 'lodash/throttle';
   import _groupBy from 'lodash/groupBy';
 
-export default {
+  import _isPinned from '../_isPinned';
+  import _getPinKey from '../_getPinKey';
+
+  export default {
     components: {
       ShopItem,
       Item,
@@ -376,7 +354,6 @@ export default {
         seasonal: 'shops.seasonal.data',
         user: 'user.data',
         userStats: 'user.data.stats',
-        userItems: 'user.data.items',
       }),
       categories () {
         if (this.seasonal) {
@@ -427,7 +404,14 @@ export default {
         }
       },
       seasonalItems (category, sortBy, searchBy, viewOptions, hidePinned) {
-        let result = _filter(category.items, (i) => {
+        let result = _map(category.items, (e) => {
+          return {
+            ...e,
+            pinned: _isPinned(this.user, _getPinKey(e)),
+          };
+        });
+
+        result = _filter(result, (i) => {
           if (hidePinned && i.pinned) {
             return false;
           }
@@ -481,9 +465,7 @@ export default {
         return false;
       },
       togglePinned (item) {
-        let isPinned = Boolean(item.pinned);
-        item.pinned = !isPinned;
-        this.$store.dispatch(isPinned ? 'shops:unpinGear' : 'shops:pinGear', {key: item.key});
+        return this.$store.dispatch('user:togglePinnedItemAsync', {key: _getPinKey(item)});
       },
       buyItem (item) {
         this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});

@@ -337,6 +337,7 @@
   import featuredItems from 'common/script/content/shop-featuredItems';
 
   import _isPinned from '../_isPinned';
+  import _getPinKey from '../_getPinKey';
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
@@ -413,14 +414,11 @@ export default {
       },
     },
     methods: {
-      getPinKey (item) {
-        return `${item.purchaseType}.${item.key}`;
-      },
       questItems (category, sortBy, searchBy, hideLocked, hidePinned) {
         let result = _map(category.items, (e) => {
           return {
             ...e,
-            pinned: _isPinned(this.user, this.getPinKey(e)),
+            pinned: _isPinned(this.user, _getPinKey(e)),
           };
         });
 
@@ -466,7 +464,7 @@ export default {
         return false;
       },
       togglePinned (item) {
-        return this.$store.dispatch('user:togglePinnedItemAsync', {key: this.getPinKey(item)});
+        return this.$store.dispatch('user:togglePinnedItemAsync', {key: _getPinKey(item)});
       },
       buyItem (item) {
         this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
