@@ -142,7 +142,7 @@ const heroAdminFields = 'contributor balance profile.name purchased items auth f
 
 /**
  * @api {get} /api/v3/hall/heroes/:heroId Get any user ("hero") given the UUID
- * @apiParam {UUID} heroId user ID
+ * @apiParam (Path) {UUID} heroId user ID
  * @apiName GetHero
  * @apiGroup Hall
  * @apiPermission Admin

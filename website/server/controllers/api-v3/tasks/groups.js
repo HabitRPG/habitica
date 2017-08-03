@@ -339,7 +339,7 @@ api.approveTask = {
  * @apiName GetGroupApprovals
  * @apiGroup Task
  *
- * @apiParam {UUID} groupId The id of the group from which to retrieve the approvals
+ * @apiParam (Path) {UUID} groupId The id of the group from which to retrieve the approvals
  *
  * @apiSuccess {Array} data An array of tasks
  */

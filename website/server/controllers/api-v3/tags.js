@@ -76,7 +76,7 @@ api.getTags = {
  * @apiName GetTag
  * @apiGroup Tag
  *
- * @apiParam {UUID} tagId The tag _id
+ * @apiParam (Path) {UUID} tagId The tag _id
  *
  * @apiSuccess {Object} data The tag object
  *
