@@ -30,7 +30,7 @@
     "messageAlreadyPurchasedGear": "Ten element wyposażenia został zakupiony, ale już go nie posiadasz. Możesz kupić go ponownie w sekcji nagród na stronie z zadaniami.",
     "messageAlreadyOwnGear": "Już posiadasz ten przedmiot. Przejdź do strony z wyposażeniem, aby zacząć go używać.",
     "messageHealthAlreadyMax": "Już masz maksymalny poziom zdrowia.",
-    "messageHealthAlreadyMin": "Oh no! You have already run out of health so it's too late to buy a health potion, but don't worry - you can revive!",
+    "messageHealthAlreadyMin": "O nie! Skończyły ci sie punkty życia, więc jest już za późno, aby kupić eliksir uzdrawiający, ale nie martw się - możesz się odrodzić!",
     "armoireEquipment": "<%= image %> Znalazłeś część rzadkiego wyposażenia w Zaczarowanej Szafie: <%= dropText %>! Fantastycznie!",
     "armoireFood": "<%= image %> Przeszukując Zaczarowaną Szafę znaleziono <%= dropArticle %><%= dropText %>. Co to tutaj robi?",
     "armoireExp": "Mocujesz się z Zaczarowaną Szafą i zyskujesz doświadczenie. Masz za swoje!",

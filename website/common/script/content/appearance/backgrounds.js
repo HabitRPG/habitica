@@ -535,6 +535,20 @@ let backgrounds = {
       notes: t('backgroundMidnightLakeNotes'),
     },
   },
+  backgrounds082017: {
+    back_of_giant_beast: {
+      text: t('backgroundBackOfGiantBeastText'),
+      notes: t('backgroundBackOfGiantBeastNotes'),
+    },
+    desert_dunes: {
+      text: t('backgroundDesertDunesText'),
+      notes: t('backgroundDesertDunesNotes'),
+    },
+    summer_fireworks: {
+      text: t('backgroundSummerFireworksText'),
+      notes: t('backgroundSummerFireworksNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

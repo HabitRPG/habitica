@@ -58,7 +58,7 @@
     "conLearnHow": "Как внести свой вклад в Habitica",
     "conLearnURL": "http://habitica.wikia.com/wiki/Contributing_to_Habitica",
     "conRewardsURL": "http://habitica.wikia.com/wiki/Contributor_Rewards",
-    "surveysSingle": "Помогли развитию стране Habitica, либо заполнив анкету, или помогая с основным усилием тестирования. Спасибо!",
+    "surveysSingle": "Помогли развитию страны Habitica, заполнив анкету, или приняв активное участие в тестировании. Спасибо!",
     "surveysMultiple": "Помогли развитию Habitica <%= count %> раз, заполнив анкету, или помогая тестировать. Спасибо!",
     "currentSurvey": "Текущий опрос",
     "surveyWhen": "Участники получат этот значок после обработки опросов, в конце марта.",
