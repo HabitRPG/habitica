@@ -254,5 +254,6 @@
   "bodyCapitalized": "Body Accessory",
   "eyewearCapitalized": "Eyewear",
   "featuredset": "Featured Set <%= name %>",
-  "mysterySets": "Mystery Sets"
+  "mysterySets": "Mystery Sets",
+  "fetchRecentMessages": "Fetch Recent Messages"
 }

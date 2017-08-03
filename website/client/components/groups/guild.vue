@@ -27,6 +27,7 @@
 
         textarea(:placeholder="$t('chatPlaceHolder')", v-model='newMessage')
         button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
+        button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
 
         chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
@@ -525,6 +526,9 @@ export default {
       });
       this.group.chat.unshift(response.message);
       this.newMessage = '';
+    },
+    fetchRecentMessages () {
+      this.fetchGuild();
     },
     updateGuild () {
       this.$store.state.editingGroup = this.group;
