@@ -62,11 +62,14 @@
           .col-6
             h3 Social
             .social-circle
-              a(href='https://twitter.com/habitica', target='_blank') Twitter
+              a(href='https://twitter.com/habitica', target='_blank')
+                .social-icon.svg-icon(v-html='icons.twitter')
             .social-circle
-              a(href='https://www.instagram.com/habitica/', target='_blank') Instagram
+              a(href='https://www.instagram.com/habitica/', target='_blank')
+                .social-icon.svg-icon(v-html='icons.instagram')
             .social-circle
-              a(href='https://www.facebook.com/Habitica', target='_blank') Facebook
+              a(href='https://www.facebook.com/Habitica', target='_blank')
+                .social-icon.facebook.svg-icon(v-html='icons.facebook')
         .row
           .col-10
             | We’re an open source project that depends on our users for support. The money you donate helps us keep the servers running, maintain a small staff, develop new features, and provide incentives for our volunteers.
@@ -102,7 +105,7 @@
         span Terms of Use
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
   footer {
     background-color: #e1e0e3;
     height: 376px;
@@ -133,6 +136,17 @@
     background-color: #c3c0c7;
     display: inline-block;
     margin-right: 1em;
+
+    .social-icon {
+      color: #e1e0e3;
+      width: 16px;
+      margin: 0 auto;
+      margin-top: 1em;
+    }
+
+    .svg-icon.facebook svg {
+      height: 20px;
+    }
   }
 
   .logo.svg-icon {
@@ -154,7 +168,11 @@
 import axios from 'axios';
 import moment from 'moment';
 import { mapState } from 'client/libs/store';
+
 import gryphon from 'assets/svg/gryphon.svg';
+import twitter from 'assets/svg/twitter.svg';
+import facebook from 'assets/svg/facebook.svg';
+import instagram from 'assets/svg/instagram.svg';
 
 import modifyInventory from './modifyInventory';
 
@@ -168,6 +186,9 @@ export default {
     return {
       icons: Object.freeze({
         gryphon,
+        twitter,
+        facebook,
+        instagram,
       }),
       debugMenuShown: false,
       IS_PRODUCTION,
