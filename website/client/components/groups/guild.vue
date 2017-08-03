@@ -28,7 +28,6 @@
         textarea(:placeholder="$t('chatPlaceHolder')", v-model='newMessage')
         button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
 
-
         chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
   .col-4.sidebar
@@ -112,7 +111,6 @@
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.description")
         p(v-once) {{ group.description }}
-        p Life hacks are tricks, shortcuts, or methods that help increase productivity, efficiency, health, and so on. Generally, they get you to a better state of life. Life hacking is the process of utilizing and implementing these secrets. And, in this guild, we want to help everyone discover these improved ways of doing things.
 
     .section-header
       .row
@@ -124,8 +122,7 @@
           .toggle-down(@click="sections.information = !sections.information", v-if="!sections.information")
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.information")
-        h4 Welcome
-        p Below are some resources that some members might find useful. Consider checking them out before posting any questions, as they just might help answer some of them! Feel free to share your life hacks in the guild chat, or ask any questions that you might have. Please peruse at your leisure, and remember: this guild is meant to help guide you in the right direction. Only you will know what works best for you.
+        p(v-once) {{ group.information }}
 
     .section-header.challenge
       .row

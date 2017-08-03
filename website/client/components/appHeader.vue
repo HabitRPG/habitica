@@ -1,5 +1,5 @@
 <template lang="pug">
-#app-header
+#app-header.row
   create-party-modal
   members-modal(v-if="user.party._id", :group='user.party', :hide-badge="true")
   member-details(:member="user", @click="$router.push({name: 'avatar'})")
