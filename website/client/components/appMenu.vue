@@ -51,7 +51,7 @@ div
         .svg-icon(v-html="icons.gold")
         span {{user.stats.gp | roundBigNumber}}
       notification-menu
-      a.dropdown.item-with-icon.item-user(@click='showAvatar()')
+      a.dropdown.item-with-icon.item-user
         .svg-icon(v-html="icons.user")
         .dropdown-menu.dropdown-menu-right.user-dropdown
           a.dropdown-item.edit-avatar(@click='showAvatar()')
