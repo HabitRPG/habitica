@@ -1,6 +1,7 @@
 <template lang="pug">
 div
   copy-as-todo-modal(:copying-message='copyingMessage', :group-name='groupName', :group-id='groupId')
+  report-flag-modal
   .row
     // .col-md-2
     // @TODO: Implement when we pull avatars .svg-icon(v-html="icons.like")
@@ -18,7 +19,7 @@ div
           p {{msg.timestamp | timeAgo}}
           .text {{msg.text}}
           hr
-          .action(v-once, @click='like(msg)', v-if='msg.likes', :class='{active: msg.likes[user._id]}')
+          .action(v-once, @click='like(msg, index)', v-if='msg.likes', :class='{active: msg.likes[user._id]}')
             .svg-icon(v-html="icons.like")
             span(v-if='!msg.likes[user._id]') {{ $t('like') }}
             span(v-if='msg.likes[user._id]') {{ $t('liked') }}
@@ -94,9 +95,11 @@ div
 
 <script>
 import moment from 'moment';
+import cloneDeep from 'lodash/cloneDeep';
 import { mapState } from 'client/libs/store';
 
 import copyAsTodoModal from './copyAsTodoModal';
+import reportFlagModal from './reportFlagModal';
 
 import deleteIcon from 'assets/svg/delete.svg';
 import copyIcon from 'assets/svg/copy.svg';
@@ -108,6 +111,7 @@ export default {
   props: ['chat', 'groupId', 'groupName'],
   components: {
     copyAsTodoModal,
+    reportFlagModal,
   },
   data () {
     return {
@@ -119,7 +123,6 @@ export default {
         liked: likedIcon,
       }),
       copyingMessage: {},
-      messages: [],
       currentDayDividerDisplay: moment().day(),
     };
   },
@@ -134,6 +137,9 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    messages () {
+      return this.chat;
+    },
   },
   methods: {
     displayDivider (message) {
@@ -148,12 +154,16 @@ export default {
       if (!message.likes) return 0;
       return Object.keys(message.likes).length;
     },
-    async like (message) {
+    async like (messageToLike, index) {
+      let message = cloneDeep(messageToLike);
+
       if (!message.likes[this.user._id]) {
         message.likes[this.user._id] = true;
       } else {
         message.likes[this.user._id] = !message.likes[this.user._id];
       }
+
+      this.chat.splice(index, 1, message);
 
       await this.$store.dispatch('chat:like', {
         groupId: this.groupId,
@@ -165,10 +175,10 @@ export default {
       this.$root.$emit('show::modal', 'copyAsTodo');
     },
     async report (message) {
-      await this.$store.dispatch('chat:flag', {
-        groupId: this.groupId,
-        chatId: message.id,
-      });
+      this.$store.state.flagChatOptions.message = message;
+      this.$store.state.flagChatOptions.groupId = this.groupId;
+
+      this.$root.$emit('show::modal', 'report-flag');
     },
     async remove (message, index) {
       this.chat.splice(index, 1);
