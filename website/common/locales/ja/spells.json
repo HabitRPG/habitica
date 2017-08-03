@@ -31,7 +31,7 @@
     "spellHealerBrightnessText": "焼けるような輝き",
     "spellHealerBrightnessNotes": "飛び出した光がタスクを隠します。あなたのタスクがより青く、または赤みが軽減されます。(基準 : 知能 )",
     "spellHealerProtectAuraText": "守りのオーラ",
-    "spellHealerProtectAuraNotes": "ダメージからパーティを守ります。パーティの全員の体質に勢いのボーナスがつきます!　( 基準 : 勢いなしの性格値 )",
+    "spellHealerProtectAuraNotes": "ダメージからパーティを守ります。パーティの全員の体質に勢いのボーナスがつきます!　( 基準 : 勢いなしの体質値 )",
     "spellHealerHealAllText": "おまじない",
     "spellHealerHealAllNotes": "なだめるようなオーラがあなたのパーティーを包みこみます。パーティーのメンバーの体力を回復します。( 基準 : 体質と知能 )",
     "spellSpecialSnowballAuraText": "雪玉",

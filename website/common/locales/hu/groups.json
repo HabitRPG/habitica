@@ -211,7 +211,7 @@
     "emailsMustBeAnArray": "Email address invites must be an array.",
     "canOnlyInviteMaxInvites": "You can only invite \"<%= maxInvites %>\" at a time",
     "partyExceedsMembersLimit": "Party size is limited to <%= maxMembersParty %> members",
-    "onlyCreatorOrAdminCanDeleteChat": "Not authorized to delete this message!",
+    "onlyCreatorOrAdminCanDeleteChat": "Nincs felhatalmazásod hogy töröld ezt az üzenetet!",
     "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
     "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
     "chatPrivilegesRevoked": "Your chat privileges have been revoked.",
