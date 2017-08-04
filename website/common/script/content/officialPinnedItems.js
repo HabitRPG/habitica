@@ -1,3 +1,5 @@
 export default [
-  'backgrounds.backgrounds052015',
+  'backgrounds.backgrounds062014.beach',
+  'gear.flat.weapon_armoire_battleAxe',
+  'quests.dilatory',
 ];

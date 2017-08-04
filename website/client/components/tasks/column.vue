@@ -17,6 +17,8 @@
       v-if="filterTask(task)",
       @editTask="editTask",
     )
+    template(v-if="isUser === true && type === 'reward' && activeFilter.label !== 'custom'")
+      span {{ inAppRewards }}
     .bottom-gradient
     .column-background(v-if="isUser === true", :class="{'initial-description': tasks[`${type}s`].length === 0}")
       .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
@@ -134,6 +136,7 @@
 import Task from './task';
 import { mapState, mapActions } from 'client/libs/store';
 import { shouldDo } from 'common/script/cron';
+import inAppRewards from 'common/script/libs/inAppRewards';
 import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
@@ -199,11 +202,15 @@ export default {
   computed: {
     ...mapState({
       tasks: 'tasks.data',
+      user: 'user.data',
       userPreferences: 'user.data.preferences',
     }),
     taskList () {
       if (this.taskListOverride) return this.taskListOverride;
       return this.tasks[`${this.type}s`];
+    },
+    inAppRewards () {
+      return inAppRewards(this.user);
     },
   },
   methods: {

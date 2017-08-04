@@ -164,7 +164,7 @@ api.getInAppRewardsList = {
   middlewares: [authWithHeaders()],
   url: '/user/in-app-rewards',
   async handler (req, res) {
-    let list = _.cloneDeep(common.inAppRewards(res.locals.user));
+    let list = common.inAppRewards(res.locals.user);
 
     // return text and notes strings
     _.each(list, item => {

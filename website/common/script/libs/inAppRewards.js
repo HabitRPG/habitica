@@ -1,5 +1,6 @@
 import content from '../content/index';
 import get from 'lodash/get';
+import cloneDeep from 'lodash/cloneDeep';
 
 const officialPinnedItems = content.officialPinnedItems;
 
@@ -9,7 +10,9 @@ module.exports = function updateStore (user) {
   }));
 
   return itemsKeys.map(itemKey => {
-    return get(content, itemKey);
+    const item = cloneDeep(get(content, itemKey));
+    item.fullPath = itemKey;
+    return item;
   });
 
   // TODO sort
