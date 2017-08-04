@@ -240,6 +240,7 @@ export default {
       this.tasksByType[task.type].splice(index, 1, task);
     },
     showMemberModal () {
+      this.$store.state.groupId = 'challenge'; // @TODO: change these terrible settings
       this.$store.state.viewingMembers = this.members;
       this.$root.$emit('show::modal', 'members-modal');
     },
