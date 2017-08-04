@@ -94,8 +94,6 @@
         :items="items[group.key]",
         :itemWidth=94,
         :itemMargin=24,
-        :showAllLabel="$t('showAllItems', { type: group.label, items: items[group.key].length })",
-        :showLessLabel="$t('showLessItems', { type: group.label })",
         :noItemsLabel="$t('noGearItemsOfType', { type: group.label })"
       )
         template(slot="item", scope="ctx")

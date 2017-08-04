@@ -54,8 +54,6 @@
   "memberCount": "Member Count",
   "recentActivity": "Recent Activity",
   "gearNotOwned": "You do not own this item.",
-  "showAllItems": "Show All <%= items %> <%= type %> Items",
-  "showLessItems": "Show Less <%= type %> Items",
   "noGearItemsOfType": "You don't own any pieces of <%= type %>.",
   "myGuilds": "My Guilds",
   "guildsDiscovery": "Discover Guilds",
@@ -255,5 +253,7 @@
   "eyewearCapitalized": "Eyewear",
   "featuredset": "Featured Set <%= name %>",
   "mysterySets": "Mystery Sets",
-  "fetchRecentMessages": "Fetch Recent Messages"
+  "fetchRecentMessages": "Fetch Recent Messages",
+  "showMore": "Show More",
+  "showLess": "Show Less"
 }

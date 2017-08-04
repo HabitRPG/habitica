@@ -34,65 +34,77 @@
        |
        span.badge.badge-pill.badge-default {{group.quantity}}
 
-      .items(v-if="group.key === 'eggs'")
-        item(
-          v-for="({data: item, quantity}, index) in items[group.key]",
-          v-if="group.open || index < itemsPerLine",
-          :item="item",
-          :key="item.key",
-          :itemContentClass="`${group.classPrefix}${item.key}`",
-          v-drag.drop.hatch="item.key",
 
-          @itemDragOver="onDragOver($event, item)",
-          @itemDropped="onDrop($event, item)",
-          @itemDragLeave="onDragLeave()",
+      itemRows(
+        v-if="group.key === 'eggs'",
+        :items="items[group.key]",
+        :itemWidth=94,
+        :itemMargin=24,
+        :noItemsLabel="$t('noGearItemsOfType', { type: $t(group.key) })"
+      )
+        template(slot="item", scope="ctx")
+          item(
+            :item="ctx.item",
+            :key="ctx.item.key",
+            :itemContentClass="`${group.classPrefix}${ctx.item.key}`",
+            v-drag.drop.hatch="ctx.item.key",
 
-          @click="onEggClicked($event, item)"
-        )
-          template(slot="popoverContent", scope="ctx")
-            h4.popover-content-title {{ ctx.item.text() }}
-            .popover-content-text {{ ctx.item.notes() }}
-          template(slot="itemBadge", scope="ctx")
-            span.badge.badge-pill.badge-item.badge-quantity {{ quantity }}
+            @itemDragOver="onDragOver($event, ctx.item)",
+            @itemDropped="onDrop($event, ctx.item)",
+            @itemDragLeave="onDragLeave()",
 
-      .items(v-else-if="group.key === 'hatchingPotions'")
-        item(
-          v-for="({data: item, quantity}, index) in items[group.key]",
-          v-if="group.open || index < itemsPerLine",
-          :item="item",
-          :key="item.key",
-          :itemContentClass="`${group.classPrefix}${item.key}`",
-          v-drag.hatch="item.key",
+            @click="onEggClicked($event, ctx.item)"
+          )
+            template(slot="popoverContent", scope="ctx")
+              h4.popover-content-title {{ ctx.item.text() }}
+              .popover-content-text {{ ctx.item.notes() }}
+            template(slot="itemBadge", scope="ctx")
+              span.badge.badge-pill.badge-item.badge-quantity {{ ctx.item.quantity }}
 
-          @itemDragEnd="onDragEnd($event, item)",
-          @itemDragStart="onDragStart($event, item)",
+      itemRows(
+        v-else-if="group.key === 'hatchingPotions'",
+        :items="items[group.key]",
+        :itemWidth=94,
+        :itemMargin=24,
+        :noItemsLabel="$t('noGearItemsOfType', { type: $t(group.key) })"
+      )
+        template(slot="item", scope="ctx")
+          item(
+            :item="ctx.item",
+            :key="ctx.item.key",
+            :itemContentClass="`${group.classPrefix}${ctx.item.key}`",
+            v-drag.hatch="ctx.item.key",
 
-          @click="onPotionClicked($event, item)"
-        )
-          template(slot="popoverContent", scope="ctx")
-            h4.popover-content-title {{ ctx.item.text() }}
-            .popover-content-text {{ ctx.item.notes() }}
-          template(slot="itemBadge", scope="ctx")
-            span.badge.badge-pill.badge-item.badge-quantity {{ quantity }}
-      .items(v-else)
-        item(
-          v-for="({data: item, quantity}, index) in items[group.key]",
-          v-if="group.open || index < itemsPerLine",
-          :item="item",
-          :key="item.key",
-          :itemContentClass="`${group.classPrefix}${item.key}`",
-        )
-          template(slot="popoverContent", scope="ctx")
-            h4.popover-content-title {{ ctx.item.text() }}
-            .popover-content-text {{ ctx.item.notes() }}
-          template(slot="itemBadge", scope="ctx")
-            span.badge.badge-pill.badge-item.badge-quantity {{ quantity }}
-      div(v-if="items[group.key].length === 0")
-        p(v-once) {{ $t('noGearItemsOfType', { type: $t(group.key) }) }}
-      a.btn.btn-show-more(
-        v-if="items[group.key].length > itemsPerLine",
-        @click="group.open = !group.open"
-      ) {{ group.open ? $t('showLessItems', { type: $t(group.key) }) : $t('showAllItems', { type: $t(group.key), items: items[group.key].length }) }}
+            @itemDragEnd="onDragEnd($event, ctx.item)",
+            @itemDragStart="onDragStart($event, ctx.item)",
+
+            @click="onPotionClicked($event, ctx.item)"
+          )
+            template(slot="popoverContent", scope="ctx")
+              h4.popover-content-title {{ ctx.item.text() }}
+              .popover-content-text {{ ctx.item.notes() }}
+            template(slot="itemBadge", scope="ctx")
+              span.badge.badge-pill.badge-item.badge-quantity {{ ctx.item.quantity }}
+
+      itemRows(
+        v-else,
+        :items="items[group.key]",
+        :itemWidth=94,
+        :itemMargin=24,
+        :noItemsLabel="$t('noGearItemsOfType', { type: $t(group.key) })"
+      )
+        template(slot="item", scope="ctx")
+          item(
+            :item="ctx.item",
+            :key="ctx.item.key",
+            :itemContentClass="`${group.classPrefix}${ctx.item.key}`",
+          )
+            template(slot="popoverContent", scope="ctx")
+              h4.popover-content-title {{ ctx.item.text() }}
+              .popover-content-text {{ ctx.item.notes() }}
+            template(slot="itemBadge", scope="ctx")
+              span.badge.badge-pill.badge-item.badge-quantity {{ ctx.item.quantity }}
+
 
   div.hatchingPotionInfo(ref="draggingPotionInfo")
     div(v-if="currentDraggingPotion != null")
@@ -136,6 +148,7 @@ import throttle from 'lodash/throttle';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Item from 'client/components/inventory/item';
+import ItemRows from 'client/components/ui/itemRows';
 
 const allowedSpecialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
 
@@ -152,7 +165,6 @@ const groups = [
     key: group,
     quantity: 0,
     selected: true,
-    open: false,
     classPrefix,
     allowedItems,
   };
@@ -162,6 +174,7 @@ export default {
   name: 'Items',
   components: {
     Item,
+    ItemRows,
     bDropdown,
     bDropdownItem,
   },
@@ -171,12 +184,10 @@ export default {
   },
   data () {
     return {
-      itemsPerLine: 9,
       searchText: null,
       searchTextThrottled: null,
       groups,
       sortBy: 'quantity', // or 'AZ'
-
 
       currentDraggingPotion: null,
       potionClickMode: false,
@@ -198,6 +209,7 @@ export default {
 
       this.groups.forEach(group => {
         const groupKey = group.key;
+        group.quantity = 0; // reset the count
         let itemsArray = itemsByType[groupKey] = [];
         const contentItems = this.content[groupKey];
 
@@ -208,7 +220,7 @@ export default {
             const isSearched = !searchText || item.text().toLowerCase().indexOf(searchText) !== -1;
             if (isSearched) {
               itemsArray.push({
-                data: item,
+                ...item,
                 quantity: itemQuantity,
               });
 
