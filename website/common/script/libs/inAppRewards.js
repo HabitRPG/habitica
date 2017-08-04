@@ -1,7 +1,7 @@
 import content from '../content/index';
 import get from 'lodash/get';
 import cloneDeep from 'lodash/cloneDeep';
-import pinning from '../pinning';
+import pinning from './pinning';
 
 const officialPinnedItems = content.officialPinnedItems;
 
