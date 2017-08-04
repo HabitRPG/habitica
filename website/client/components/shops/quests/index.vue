@@ -87,8 +87,6 @@
           :items="questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned)",
           :itemWidth=94,
           :itemMargin=24,
-          :showAllLabel="$t('showAllGeneric', { type: category.text })",
-          :showLessLabel="$t('showLessGeneric', { type: category.text })"
         )
           template(slot="item", scope="ctx")
             shopItem(
