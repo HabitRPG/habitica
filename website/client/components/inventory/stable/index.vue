@@ -54,7 +54,7 @@
             @change="updateHideMissing"
           )
 
-    .standard-page(v-resize="500", @resized="availableContentWidth = $event.width - 48")
+    .standard-page
       .clearfix
         h1.float-left.mb-0.page-header(v-once) {{ $t('stable') }}
 
@@ -80,41 +80,39 @@
       )
         h4(v-if="viewOptions[petGroup.key].animalCount != 0") {{ petGroup.label }}
 
-        div.items
-          div(
-            v-for="pet in pets(petGroup, viewOptions[petGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled, availableContentWidth)",
-            :key="pet.key",
-            v-drag.drop.food="pet.key",
-            @itemDragOver="onDragOver($event, pet)",
-            @itemDropped="onDrop($event, pet)",
-            @itemDragLeave="onDragLeave()",
-            :class="{'last': pet.isLastInRow}"
-          )
-            petItem(
-              :item="pet",
-              :itemContentClass="getPetItemClass(pet)",
-              :popoverPosition="'top'",
-              :progress="pet.progress",
-              :emptyItem="!pet.isOwned()",
-              :showPopover="pet.isOwned()",
-              :highlightBorder="highlightPet == pet.key",
-              @click="petClicked(pet)"
+        itemRows(
+          :items="pets(petGroup, hideMissing, selectedSortBy, searchTextThrottled)",
+          :itemWidth=94,
+          :itemMargin=24,
+        )
+          template(slot="item", scope="ctx")
+            div(
+              v-drag.drop.food="ctx.item.key",
+              @itemDragOver="onDragOver($event, ctx.item)",
+              @itemDropped="onDrop($event, ctx.item)",
+              @itemDragLeave="onDragLeave()",
+              :class="{'last': ctx.item.isLastInRow}"
             )
-              span(slot="popoverContent")
-                div(v-if="pet.isOwned()")
-                  h4.popover-content-title {{ pet.name }}
+              petItem(
+                :item="ctx.item",
+                :itemContentClass="getPetItemClass(ctx.item)",
+                :popoverPosition="'top'",
+                :progress="ctx.item.progress",
+                :emptyItem="!ctx.item.isOwned()",
+                :showPopover="ctx.item.isOwned()",
+                :highlightBorder="highlightPet == ctx.item.key",
+                @click="petClicked(ctx.item)"
+              )
+                span(slot="popoverContent")
+                  div(v-if="ctx.item.isOwned()")
+                    h4.popover-content-title {{ ctx.item.name }}
 
-              template(slot="itemBadge", scope="ctx")
-                starBadge(
-                  :selected="ctx.item.key === currentPet",
-                  :show="ctx.item.isOwned()",
-                  @click="selectPet(ctx.item)",
-                )
-
-        .btn.btn-show-more(
-          @click="viewOptions[petGroup.key].open = !viewOptions[petGroup.key].open",
-          v-if="viewOptions[petGroup.key].animalCount != 0"
-        ) {{ $t(viewOptions[petGroup.key].open ? 'showLessAnimals' : 'showAllAnimals', { color: petGroup.label, type: $t('pets')}) }}
+                template(slot="itemBadge", scope="ctx")
+                  starBadge(
+                    :selected="ctx.item.key === currentPet",
+                    :show="ctx.item.isOwned()",
+                    @click="selectPet(ctx.item)",
+                  )
 
       h2
         | {{ $t('mounts') }}
@@ -128,29 +126,28 @@
       )
         h4(v-if="viewOptions[mountGroup.key].animalCount != 0") {{ mountGroup.label }}
 
-        div.items
-          mountItem(
-            v-for="mount in mounts(mountGroup, viewOptions[mountGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled, availableContentWidth)",
-            :item="mount",
-            :itemContentClass="mount.isOwned() ? ('Mount_Icon_' + mount.key) : 'PixelPaw GreyedOut'",
-            :key="mount.key",
-            :popoverPosition="'top'",
-            :emptyItem="!mount.isOwned()",
-            :showPopover="mount.isOwned()",
-          )
-            span(slot="popoverContent")
-              h4.popover-content-title {{ mount.name }}
-            template(slot="itemBadge", scope="ctx")
-              starBadge(
-                :selected="ctx.item.key === currentMount",
-                :show="mount.isOwned()",
-                @click="selectMount(ctx.item)",
-              )
-
-        .btn.btn-show-more(
-          @click="viewOptions[mountGroup.key].open = !viewOptions[mountGroup.key].open",
-          v-if="viewOptions[mountGroup.key].animalCount != 0"
-        ) {{ $t(viewOptions[mountGroup.key].open ? 'showLessAnimals' : 'showAllAnimals', { color: mountGroup.label, type: $t('mounts')}) }}
+        itemRows(
+          :items="mounts(mountGroup, hideMissing, selectedSortBy, searchTextThrottled)",
+          :itemWidth=94,
+          :itemMargin=24,
+        )
+          template(slot="item", scope="ctx")
+            mountItem(
+              :item="ctx.item",
+              :itemContentClass="ctx.item.isOwned() ? ('Mount_Icon_' + ctx.item.key) : 'PixelPaw GreyedOut'",
+              :key="ctx.item.key",
+              :popoverPosition="'top'",
+              :emptyItem="!ctx.item.isOwned()",
+              :showPopover="ctx.item.isOwned()",
+            )
+              span(slot="popoverContent")
+                h4.popover-content-title {{ ctx.item.name }}
+              template(slot="itemBadge", scope="ctx")
+                starBadge(
+                  :selected="ctx.item.key === currentMount",
+                  :show="ctx.item.isOwned()",
+                  @click="selectMount(ctx.item)",
+                )
 
       drawer(
         :title="$t('quickInventory')",
@@ -446,14 +443,12 @@
 
   import _each from 'lodash/each';
   import _sortBy from 'lodash/sortBy';
-  import _take from 'lodash/take';
   import _filter from 'lodash/filter';
-  import _drop from 'lodash/drop';
   import _flatMap from 'lodash/flatMap';
   import _throttle from 'lodash/throttle';
-  import _last from 'lodash/last';
 
   import Item from '../item';
+  import ItemRows from 'client/components/ui/itemRows';
   import PetItem from './petItem';
   import MountItem from './mountItem.vue';
   import FoodItem from './foodItem';
@@ -479,6 +474,7 @@
     components: {
       PetItem,
       Item,
+      ItemRows,
       FoodItem,
       MountItem,
       Drawer,
@@ -525,7 +521,6 @@
         currentDraggingFood: null,
 
         selectedDrawerTab: 0,
-        availableContentWidth: 0,
       };
     },
     watch: {
@@ -581,7 +576,6 @@
         petGroups.map((petGroup) => {
           this.$set(this.viewOptions, petGroup.key, {
             selected: true,
-            open: false,
             animalCount: 0,
           });
         });
@@ -627,7 +621,6 @@
         mountGroups.map((mountGroup) => {
           this.$set(this.viewOptions, mountGroup.key, {
             selected: true,
-            open: false,
             animalCount: 0,
           });
         });
@@ -730,7 +723,7 @@
         return animals;
       },
 
-      listAnimals (animalGroup, type, isOpen, hideMissing, sort, searchText, availableSpace) {
+      listAnimals (animalGroup, type, hideMissing, sort, searchText) {
         let animals = this.getAnimalList(animalGroup, type);
         let isPetList = type === 'pet';
         let withProgress = isPetList && animalGroup.key !== 'specialPets';
@@ -770,32 +763,14 @@
           }
         }
 
-        let animalRows = [];
+        let animalRows = withProgress ? _flatMap(animals, (a) => {
+          let progress = this.userItems[`${type}s`][a.key];
 
-        let itemsPerRow = Math.floor(availableSpace / (94 + 20));
-
-        let rowsToShow = isOpen ? Math.ceil(animals.length / itemsPerRow) : 1;
-
-        for (let i = 0; i < rowsToShow; i++) {
-          let skipped = _drop(animals, i * itemsPerRow);
-          let row = _take(skipped, itemsPerRow);
-
-          let rowWithProgressData = withProgress ? _flatMap(row, (a) => {
-            let progress = this.userItems[`${type}s`][a.key];
-
-            return {
-              ...a,
-              progress,
-            };
-          }) : row;
-
-          let lastRowItem = _last(rowWithProgressData);
-          if (lastRowItem) {
-            lastRowItem.isLastInRow = true;
-          }
-
-          animalRows.push(...rowWithProgressData);
-        }
+          return {
+            ...a,
+            progress,
+          };
+        }) : animals;
 
         this.viewOptions[animalGroup.key].animalCount = animals.length;
 
@@ -813,12 +788,12 @@
         return `${countOwned.length}/${countAll}`;
       },
 
-      pets (animalGroup, showAll, hideMissing, sortBy, searchText, availableSpace) {
-        return this.listAnimals(animalGroup, 'pet', showAll, hideMissing, sortBy, searchText, availableSpace);
+      pets (animalGroup, hideMissing, sortBy, searchText) {
+        return this.listAnimals(animalGroup, 'pet', hideMissing, sortBy, searchText);
       },
 
-      mounts (animalGroup, showAll, hideMissing, sortBy, searchText, availableSpace) {
-        return this.listAnimals(animalGroup, 'mount', showAll, hideMissing, sortBy, searchText, availableSpace);
+      mounts (animalGroup, hideMissing, sortBy, searchText) {
+        return this.listAnimals(animalGroup, 'mount', hideMissing, sortBy, searchText);
       },
 
       getPetItemClass (pet) {

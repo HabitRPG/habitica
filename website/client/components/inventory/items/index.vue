@@ -289,7 +289,7 @@ export default {
     },
 
     onEggClicked ($event, egg) {
-      if (this.currentDraggingPotion == null) {
+      if (this.currentDraggingPotion === null) {
         return;
       }
 
@@ -306,7 +306,7 @@ export default {
         this.currentDraggingPotion = potion;
         this.potionClickMode = true;
 
-        this.$nextTick(function() {
+        this.$nextTick(() => {
           this.mouseMoved(lastMouseMoveEvent);
         });
       } else {
