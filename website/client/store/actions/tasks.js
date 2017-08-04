@@ -119,16 +119,8 @@ export async function save (store, editedTask) {
   if (originalTask) Object.assign(originalTask, response.data.data);
 }
 
-// Used to send a local task data directly to the server and not an edited copy
-// For example when a checklist item is checked
-export async function updateDirectly (store, localTask) {
-  const taskId = localTask._id;
-
-  sanitizeChecklist(localTask);
-
-  const taskDataToSend = omit(localTask, ['history']);
-  const response = await axios.put(`/api/v3/tasks/${taskId}`, taskDataToSend);
-  Object.assign(localTask, response.data.data);
+export async function scoreChecklistItem (store, {taskId, itemId}) {
+  await axios.post(`/api/v3/tasks/${taskId}/checklist/${itemId}/score`);
 }
 
 export async function destroy (store, task) {

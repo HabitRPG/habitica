@@ -321,10 +321,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions({updateTask: 'tasks:updateDirectly'}),
+    ...mapActions({scoreChecklistItem: 'tasks:scoreChecklistItem'}),
     toggleChecklistItem (item) {
       item.completed = !item.completed;
-      this.updateTask(this.task);
+      this.scoreChecklistItem({taskId: this.task._id, itemId: item.id});
     },
     edit (e, task) {
       // Prevent clicking on a link from opening the edit modal
@@ -348,6 +348,8 @@ export default {
         this.text(err.message);
         return;
       }
+
+      if (task.group.approval.required) task.group.approval.requested = true;
 
       const response = await axios.post(`/api/v3/tasks/${task._id}/score/${direction}`);
       const tmp = response.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
