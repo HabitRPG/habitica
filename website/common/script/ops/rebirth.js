@@ -93,7 +93,7 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
     user.achievements.rebirthLevel = lvl;
   }
 
-  user.addNotification('REBIRTH_ACHIEVEMENT');
+  if (user.addNotification) user.addNotification('REBIRTH_ACHIEVEMENT');
 
   user.stats.buffs = {};
 
