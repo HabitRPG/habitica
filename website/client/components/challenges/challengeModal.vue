@@ -110,7 +110,8 @@
     }
 
     .category-box {
-      top: -40px !important;
+      top: -120px !important;
+      z-index: 10;
     }
   }
 </style>
@@ -135,48 +136,100 @@ export default {
   data () {
     let categoryOptions = [
       {
+        label: 'Habitica Official',
+        key: 'habitica_official',
+      },
+      {
+        label: 'Academic',
+        key: 'academic',
+      },
+      {
+        label: 'Accountability',
+        key: 'accountability',
+      },
+      {
+        label: 'Advocacy & Causes',
+        key: 'advocacy_causes',
+      },
+      {
         label: 'animals',
         key: 'animals',
       },
       {
-        label: 'artDesign',
-        key: 'art_design',
+        label: 'Creativity',
+        key: 'creativity',
       },
       {
-        label: 'booksWriting',
-        key: 'books_writing',
+        label: 'Entertainment & Fandom',
+        key: 'entertainment_fandom',
       },
       {
-        label: 'comicsHobbies',
-        key: 'comics_hobbies',
+        label: 'Finance',
+        key: 'finance',
       },
       {
-        label: 'diyCrafts',
-        key: 'diy_crafts',
-      },
-      {
-        label: 'education',
-        key: 'education',
-      },
-      {
-        label: 'foodCooking',
+        label: 'Food & Cooking',
         key: 'food_cooking',
       },
       {
-        label: 'healthFitness',
+        label: 'Games & Gaming',
+        key: 'games_gaming',
+      },
+      {
+        label: 'Health + Fitness',
         key: 'health_fitness',
       },
       {
-        label: 'music',
-        key: 'music',
+        label: 'Hobbies',
+        key: 'hobbies',
       },
       {
-        label: 'relationship',
-        key: 'relationship',
+        label: 'Language & Literature',
+        key: 'language_literature',
       },
       {
-        label: 'scienceTech',
-        key: 'science_tech ',
+        label: 'Location-based',
+        key: 'location_based',
+      },
+      {
+        label: 'Mental Health',
+        key: 'mental_health ',
+      },
+      {
+        label: 'Occupations',
+        key: 'occupations ',
+      },
+      {
+        label: 'Online Communities',
+        key: 'online_communities ',
+      },
+      {
+        label: 'Getting Organized',
+        key: 'getting_organized ',
+      },
+      {
+        label: 'Recovery',
+        key: 'recovery ',
+      },
+      {
+        label: 'Role-Play',
+        key: 'role_play ',
+      },
+      {
+        label: 'Self-Care',
+        key: 'self_care ',
+      },
+      {
+        label: 'Self-Improvement',
+        key: 'self_improvement ',
+      },
+      {
+        label: 'Spirituality',
+        key: 'spirituality ',
+      },
+      {
+        label: 'Time-Management',
+        key: 'time_management',
       },
     ];
     let hashedCategories = {};
