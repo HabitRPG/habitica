@@ -1992,7 +1992,7 @@ api.togglePinnedItem = {
     let user = res.locals.user;
     const key = get(req.params, 'key');
 
-    user.togglePinnedItem(key);
+    common.ops.togglePinnedItem(user, key);
 
     await user.save();
 

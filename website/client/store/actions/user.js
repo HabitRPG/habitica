@@ -2,6 +2,8 @@ import { loadAsyncResource } from 'client/libs/asyncResource';
 import setProps from 'lodash/set';
 import axios from 'axios';
 
+import togglePinnedItemOp from 'common/script/ops/togglePinnedItem';
+
 export function fetch (store, forceLoad = false) { // eslint-disable-line no-shadow
   return loadAsyncResource({
     store,
@@ -48,11 +50,15 @@ export async function deleteWebhook (store, payload) {
 }
 
 
-export async function togglePinnedItemAsync (store, params) {
-  let response = await axios.get(`/api/v3/user/toggle-pinned-item/${params.key}`);
+export function togglePinnedItem (store, params) {
   const user = store.state.user.data;
-  user.pinnedItems = response.data.data.pinnedItems;
-  user.unpinnedItems = response.data.data.unpinnedItems;
+
+  togglePinnedItemOp(user, params.key);
+
+  axios.get(`/api/v3/user/toggle-pinned-item/${params.key}`)
+  // TODO
+  // .then((res) => console.log('equip', res))
+  // .catch((err) => console.error('equip', err));
 
   return user.pinnedItems;
 }

@@ -688,7 +688,7 @@ export default {
         };
       },
       togglePinned (item) {
-        return this.$store.dispatch('user:togglePinnedItemAsync', {key: item.pinKey});
+        return this.$store.dispatch('user:togglePinnedItem', {key: item.pinKey});
       },
       buyGear (item) {
         this.$store.dispatch('shops:buyItem', {key: item.key});

@@ -8,14 +8,13 @@ import {
   model as Group,
 } from '../group';
 
-import { defaults, map, flatten, flow, compact, uniq, partialRight, findIndex } from 'lodash';
+import { defaults, map, flatten, flow, compact, uniq, partialRight } from 'lodash';
 import { model as UserNotification } from '../userNotification';
 import schema from './schema';
 import payments from '../../libs/payments';
 import amazonPayments from '../../libs/amazonPayments';
 import stripePayments from '../../libs/stripePayments';
 import paypalPayments from '../../libs/paypalPayments';
-import {removeFromArray} from "../../libs/collectionManipulators";
 
 const daysSince = common.daysSince;
 
@@ -299,25 +298,4 @@ schema.methods.canGetGems = async function canObtainGems () {
   return groups.every(g => {
     return !g.isSubscribed() || g.leader === user._id || g.leaderOnly.getGems !== true;
   });
-};
-
-const officialPinnedItems = common.content.officialPinnedItems;
-
-schema.methods.togglePinnedItem = function togglePinnedItem (key) {
-  let arrayToChange = [];
-  let isOfficialPinned = officialPinnedItems.indexOf(key) >= 0;
-
-  if (isOfficialPinned) {
-    arrayToChange = this.unpinnedItems;
-  } else {
-    arrayToChange = this.pinnedItems;
-  }
-
-  let foundIndex = arrayToChange.indexOf(key);
-
-  if (foundIndex >= 0) {
-    removeFromArray(arrayToChange, key);
-  } else {
-    arrayToChange.push(key);
-  }
 };
