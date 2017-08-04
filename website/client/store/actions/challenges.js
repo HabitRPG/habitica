@@ -3,8 +3,11 @@ import omit from 'lodash/omit';
 
 export async function createChallenge (store, payload) {
   let response = await axios.post('/api/v3/challenges', payload.challenge);
+  let newChallenge = response.data.data;
 
-  return response.data.data;
+  store.state.user.data.challenges.push(newChallenge._id);
+
+  return newChallenge;
 }
 
 export async function joinChallenge (store, payload) {

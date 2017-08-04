@@ -220,7 +220,7 @@ export default {
     createTask (type) {
       this.taskFormPurpose = 'create';
       this.creatingTask = taskDefaults({type, text: ''});
-      this.workingTask = this.editingTask;
+      this.workingTask = this.creatingTask;
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
         this.$root.$emit('show::modal', 'task-modal');
