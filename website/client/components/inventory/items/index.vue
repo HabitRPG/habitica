@@ -47,6 +47,7 @@
             :item="ctx.item",
             :key="ctx.item.key",
             :itemContentClass="`${group.classPrefix}${ctx.item.key}`",
+            :showPopover="currentDraggingPotion == null",
             v-drag.drop.hatch="ctx.item.key",
 
             @itemDragOver="onDragOver($event, ctx.item)",
@@ -73,6 +74,7 @@
             :item="ctx.item",
             :key="ctx.item.key",
             :itemContentClass="`${group.classPrefix}${ctx.item.key}`",
+            :showPopover="currentDraggingPotion == null",
             v-drag.hatch="ctx.item.key",
 
             @itemDragEnd="onDragEnd($event, ctx.item)",
@@ -98,6 +100,7 @@
             :item="ctx.item",
             :key="ctx.item.key",
             :itemContentClass="`${group.classPrefix}${ctx.item.key}`",
+            :showPopover="currentDraggingPotion == null"
           )
             template(slot="popoverContent", scope="ctx")
               h4.popover-content-title {{ ctx.item.text() }}
@@ -123,6 +126,8 @@
   .hatchingPotionInfo {
     position: absolute;
     left: -500px;
+
+    z-index: 1080;
 
     &.mouse {
       position: fixed;
@@ -169,6 +174,8 @@ const groups = [
     allowedItems,
   };
 });
+
+let lastMouseMoveEvent = {};
 
 export default {
   name: 'Items',
@@ -282,6 +289,10 @@ export default {
     },
 
     onEggClicked ($event, egg) {
+      if (this.currentDraggingPotion == null) {
+        return;
+      }
+
       if (!this.petExists(this.currentDraggingPotion.key, egg.key)) {
         this.hatchPet(this.currentDraggingPotion.key, egg.key);
       }
@@ -294,6 +305,10 @@ export default {
       if (this.currentDraggingPotion === null || this.currentDraggingPotion !== potion) {
         this.currentDraggingPotion = potion;
         this.potionClickMode = true;
+
+        this.$nextTick(function() {
+          this.mouseMoved(lastMouseMoveEvent);
+        });
       } else {
         this.currentDraggingPotion = null;
         this.potionClickMode = false;
@@ -304,6 +319,8 @@ export default {
       if (this.potionClickMode) {
         this.$refs.clickPotionInfo.style.left = `${$event.x + 20}px`;
         this.$refs.clickPotionInfo.style.top = `${$event.y + 20}px`;
+      } else {
+        lastMouseMoveEvent = $event;
       }
     },
   },
