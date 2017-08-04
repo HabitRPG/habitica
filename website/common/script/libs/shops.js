@@ -41,7 +41,7 @@ shops.getMarketCategories = function getMarket (user, language) {
         locked: false,
         currency: 'gems',
         purchaseType: 'eggs',
-        pinKey: `eggs.${egg.key}`
+        pinKey: `eggs.${egg.key}`,
       };
     }), 'key');
   categories.push(eggsCategory);
@@ -63,7 +63,7 @@ shops.getMarketCategories = function getMarket (user, language) {
         locked: false,
         currency: 'gems',
         purchaseType: 'hatchingPotions',
-        pinKey: `hatchingPotions.${hatchingPotion.key}`
+        pinKey: `hatchingPotions.${hatchingPotion.key}`,
       };
     }), 'key');
   categories.push(hatchingPotionsCategory);
@@ -85,7 +85,7 @@ shops.getMarketCategories = function getMarket (user, language) {
         locked: false,
         currency: 'gems',
         purchaseType: 'hatchingPotions',
-        pinKey: `premiumHatchingPotions.${premiumHatchingPotion.key}`
+        pinKey: `premiumHatchingPotions.${premiumHatchingPotion.key}`,
       };
     }), 'key');
   if (premiumHatchingPotionsCategory.items.length > 0) {
@@ -109,7 +109,7 @@ shops.getMarketCategories = function getMarket (user, language) {
         locked: false,
         currency: 'gems',
         purchaseType: 'food',
-        pinKey: `food.${foodItem.key}`
+        pinKey: `food.${foodItem.key}`,
       };
     }), 'key');
   categories.push(foodCategory);
@@ -190,7 +190,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
         currency: 'gems',
         class: `quest_bundle_${bundle.key}`,
         purchaseType: 'bundles',
-        pinKey: `bundles.${bundle.key}`
+        pinKey: `bundles.${bundle.key}`,
       };
     }));
 
@@ -223,7 +223,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
           lvl: quest.lvl,
           class: locked ? `inventory_quest_scroll_locked inventory_quest_scroll_${quest.key}_locked` : `inventory_quest_scroll inventory_quest_scroll_${quest.key}`,
           purchaseType: 'quests',
-          pinKey: `quests.${quest.key}`
+          pinKey: `quests.${quest.key}`,
         };
       });
 
@@ -257,7 +257,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
               notes: '',
               locked: false,
               currency: 'hourglasses',
-              pinKey: `TODO`
+              pinKey: 'TODO',
             };
             category.items.push(item);
           }
@@ -290,7 +290,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
           locked: false,
           currency: 'hourglasses',
           class: `shop_${item.key}`,
-          pinKey: `timeTravelers!gear.flat.${i}`
+          pinKey: `timeTravelers!gear.flat.${item.key}`,
         };
       });
       if (category.items.length > 0) {
@@ -444,7 +444,7 @@ shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
         value: background.price,
         currency: background.currency || 'gems',
         purchaseType: 'backgrounds',
-        pinKey: `backgrounds.${bgKey}`
+        pinKey: `backgrounds.${bgKey}`,
       };
     });
 
