@@ -1,6 +1,6 @@
 module.exports = function clearPMs (user) {
   user.inbox.messages = {};
-  user.markModified('inbox.messages');
+  if (user.markModified) user.markModified('inbox.messages');
   return [
     user.inbox.messages,
   ];

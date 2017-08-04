@@ -9,6 +9,7 @@ import i18n from '../i18n';
 import { daysSince } from '../cron';
 import { diminishingReturns } from '../statHelpers';
 import randomVal from '../libs/randomVal';
+import statsComputed from '../libs/statsComputed';
 
 // TODO This is only used on the server
 // move to user model as an instance method?
@@ -36,7 +37,7 @@ module.exports = function randomDrop (user, options, req = {}) {
   let chance = min([Math.abs(task.value - 21.27), 37.5]) / 150 + 0.02;
   chance *= task.priority *                             // Task priority: +50% for Medium, +100% for Hard
     (1 + (task.streak / 100 || 0)) *                    // Streak bonus: +1% per streak
-    (1 + user._statsComputed.per / 100) *               // PERception: +1% per point
+    (1 + statsComputed(user).per / 100) *               // PERception: +1% per point
     (1 + (user.contributor.level / 40 || 0)) *          // Contrib levels: +2.5% per level
     (1 + (user.achievements.rebirths / 20 || 0)) *      // Rebirths: +5% per achievement
     (1 + (user.achievements.streak / 200 || 0)) *       // Streak achievements: +0.5% per achievement
@@ -50,7 +51,7 @@ module.exports = function randomDrop (user, options, req = {}) {
     user.party.quest.progress.collectedItems++;
     user._tmp.quest = user._tmp.quest || {};
     user._tmp.quest.collection = 1;
-    user.markModified('party.quest.progress');
+    if (user.markModified) user.markModified('party.quest.progress');
   }
 
   if (user.purchased && user.purchased.plan && user.purchased.plan.customerId) {
@@ -60,7 +61,7 @@ module.exports = function randomDrop (user, options, req = {}) {
   }
 
   if (daysSince(user.items.lastDrop.date, user.preferences) === 0 &&
-      user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(user._statsComputed.per / 25) + (user.contributor.level || 0))) {
+      user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(statsComputed(user).per / 25) + (user.contributor.level || 0))) {
     return;
   }
 
