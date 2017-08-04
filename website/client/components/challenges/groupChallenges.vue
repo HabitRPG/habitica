@@ -7,7 +7,7 @@ div
       h4(v-once) {{ $t('haveNoChallenges') }}
       p(v-once) {{ $t('challengeDescription') }}
       button.btn.btn-secondary(v-once, @click='createChallenge()') {{ $t('createChallenge') }}
-  router-link.title(:to="{ name: 'challenge', params: { challengeId: challenge._id } }", v-for='challenge in challenges')
+  router-link.title(:to="{ name: 'challenge', params: { challengeId: challenge._id } }", v-for='challenge in challenges',:key='challenge._id')
     .col-12.challenge-item
       .row
         .col-9

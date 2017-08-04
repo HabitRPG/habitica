@@ -25,7 +25,8 @@
       .col-12
         h3(v-once) {{ $t('chat') }}
 
-        textarea(:placeholder="$t('chatPlaceHolder')", v-model='newMessage')
+        textarea(:placeholder="$t('chatPlaceHolder')", v-model='newMessage', @keydown='updateCarretPosition')
+        autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :groupId='groupId')
         button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
         button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
 
@@ -359,6 +360,7 @@ import percent from 'common/script/libs/percent';
 import groupFormModal from './groupFormModal';
 import inviteModal from './inviteModal';
 import chatMessage from '../chat/chatMessages';
+import autocomplete from '../chat/autoComplete';
 import groupChallenges from '../challenges/groupChallenges';
 
 import bCollapse from 'bootstrap-vue/lib/components/collapse';
@@ -392,6 +394,7 @@ export default {
     chatMessage,
     inviteModal,
     groupChallenges,
+    autocomplete,
   },
   directives: {
     bToggle,
@@ -422,6 +425,10 @@ export default {
         challenges: true,
       },
       newMessage: '',
+      coords: {
+        TOP: 0,
+        LEFT: 0,
+      },
     };
   },
   computed: {
@@ -515,6 +522,36 @@ export default {
     },
   },
   methods: {
+    // @TODO: abstract autocomplete
+    // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
+    getCoord (e, text) {
+      let carPos = text.selectionEnd;
+      let div = document.createElement('div');
+      let span = document.createElement('span');
+      let copyStyle = getComputedStyle(text);
+
+      [].forEach.call(copyStyle, (prop) => {
+        div.style[prop] = copyStyle[prop];
+      });
+
+      div.style.position = 'absolute';
+      document.body.appendChild(div);
+      div.textContent = text.value.substr(0, carPos);
+      span.textContent = text.value.substr(carPos) || '.';
+      div.appendChild(span);
+      this.coords = {
+        TOP: span.offsetTop,
+        LEFT: span.offsetLeft,
+      };
+      document.body.removeChild(div);
+    },
+    updateCarretPosition (eventUpdate) {
+      let text = eventUpdate.target;
+      this.getCoord(eventUpdate, text);
+    },
+    selectedAutocomplete (newText) {
+      this.newMessage = newText;
+    },
     showMemberModal () {
       this.$store.state.groupId = this.group._id;
       this.$root.$emit('show::modal', 'members-modal');

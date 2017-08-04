@@ -11,7 +11,7 @@
 
         .row
           textarea(placeholder="Type a message to Habiticans here", v-model='newMessage', @keydown='updateCarretPosition')
-          autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", v-bind:style="autocompleteStyle")
+          autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :groupId='groupId')
           button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
 
         .row.community-guidelines(v-if='!communityGuidelinesAccepted')
@@ -303,6 +303,7 @@ export default {
   },
   data () {
     return {
+      groupId: TAVERN_ID,
       icons: Object.freeze({
         gem: gemIcon,
         questIcon,
@@ -406,20 +407,6 @@ export default {
     communityGuidelinesAccepted () {
       return this.user.flags.communityGuidelinesAccepted;
     },
-    autocompleteStyle () {
-      let color = '';
-      if (this.coords.LEFT > 10) color = 'red';
-      return {
-        top: this.coords.TOP + 'px',
-        left: this.coords.LEFT + 'px',
-        color,
-        position: 'absolute',
-        width: '100px',
-        height: '100px',
-        zIndex: 100,
-        backgroundColor: 'white',
-      };
-    },
   },
   async mounted () {
     this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
@@ -427,13 +414,15 @@ export default {
   methods: {
     // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
     getCoord (e, text) {
-      var carPos = text.selectionEnd,
-        div = document.createElement('div'),
-        span = document.createElement('span'),
-        copyStyle = getComputedStyle(text);
-      [].forEach.call(copyStyle, function(prop){
+      let carPos = text.selectionEnd;
+      let div = document.createElement('div');
+      let span = document.createElement('span');
+      let copyStyle = getComputedStyle(text);
+
+      [].forEach.call(copyStyle, (prop) => {
         div.style[prop] = copyStyle[prop];
       });
+
       div.style.position = 'absolute';
       document.body.appendChild(div);
       div.textContent = text.value.substr(0, carPos);
@@ -441,16 +430,13 @@ export default {
       div.appendChild(span);
       this.coords = {
         TOP: span.offsetTop,
-        LEFT: span.offsetLeft
+        LEFT: span.offsetLeft,
       };
-      // console.log(this.coords)
-      // indicator.style.left = text.offsetLeft — text.scrollLeft + coords.LEFT + 'px';
-      // indicator.style.top = text.offsetTop — text.scrollTop + coords.TOP + copyStyle.fontSize + 'px';
       document.body.removeChild(div);
     },
-    updateCarretPosition (event) {
-      let text = event.target;
-      this.getCoord(event, text);
+    updateCarretPosition (eventUpdate) {
+      let text = eventUpdate.target;
+      this.getCoord(eventUpdate, text);
     },
     selectedAutocomplete (newText) {
       this.newMessage = newText;
