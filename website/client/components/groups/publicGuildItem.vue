@@ -1,32 +1,41 @@
 <template lang="pug">
-.card
-  .card-block
-    .row
-      .col-md-2
-        .svg-icon.shield(v-html="icons.goldGuildBadge")
-        .member-count {{guild.memberCount}}
-      .col-md-10
-        .row
-          .col-md-8
-              router-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
-                h3 {{ guild.name }}
-              p {{ guild.description }}
-          .col-md-2.cta-container
-            button.btn.btn-danger(v-if='isMember && displayLeave' @click='leave()', v-once) {{ $t('leave') }}
-            button.btn.btn-success(v-if='!isMember'  @click='join()', v-once) {{ $t('join') }}
-            div.item-with-icon.gem-bank(v-if='displayGemBank')
-              .svg-icon.gem(v-html="icons.gem")
-              span.count {{ guild.balance }}
-            div.guild-bank(v-if='displayGemBank', v-once) {{$t('guildBank')}}
-        .row
-          .col-md-12
-            .category-label(v-for="category in guild.categories")
-              | {{category}}
-            span.recommend-text(v-if='showSuggested(guild._id)') Suggested because you’re new to Habitica.
+router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
+  .card
+    .card-block
+      .row
+        .col-md-2
+          .svg-icon.shield(v-html="icons.goldGuildBadge")
+          .member-count {{guild.memberCount}}
+        .col-md-10
+          .row
+            .col-md-8
+                router-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
+                  h3 {{ guild.name }}
+                p {{ guild.description }}
+            .col-md-2.cta-container
+              button.btn.btn-danger(v-if='isMember && displayLeave' @click='leave()', v-once) {{ $t('leave') }}
+              button.btn.btn-success(v-if='!isMember'  @click='join()', v-once) {{ $t('join') }}
+              div.item-with-icon.gem-bank(v-if='displayGemBank')
+                .svg-icon.gem(v-html="icons.gem")
+                span.count {{ guild.balance }}
+              div.guild-bank(v-if='displayGemBank', v-once) {{$t('guildBank')}}
+          .row
+            .col-md-12
+              .category-label(v-for="category in guild.categories")
+                | {{category}}
+              span.recommend-text(v-if='showSuggested(guild._id)') Suggested because you’re new to Habitica.
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .card-link {
+    color: #4E4A57 !important;
+  }
+
+  .card-link:hover {
+    text-decoration: none !important;
+  }
 
   .card {
     height: 160px;

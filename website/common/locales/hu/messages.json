@@ -30,7 +30,7 @@
     "messageAlreadyPurchasedGear": "A múltban már megvetted ezt a felszerelést, de jelenleg nincs a birtokodban. Újra megvásárolhatod a jutalmak oszlopában a feladatok lapon.",
     "messageAlreadyOwnGear": "Már rendelkezel ezzel a tárggyal. A felszerelés lapon felszerelheted.",
     "messageHealthAlreadyMax": "Már maximumon van az életerőd. ",
-    "messageHealthAlreadyMin": "Oh no! You have already run out of health so it's too late to buy a health potion, but don't worry - you can revive!",
+    "messageHealthAlreadyMin": "Jajj ne! Nincs több életed ezért már nem tudsz gyógyitalt használni. De ne aggódj - újraéledhetsz!",
     "armoireEquipment": "<%= image %> Találtál egy ritka felszerelést a Szekrényben: <%= dropText %>! Hihetetlen!",
     "armoireFood": "<%= image %> Átkutattad a ládát és találtál <%= dropArticle %><%= dropText %>. Mégis mit keres ez itt?",
     "armoireExp": "Megküzdöttél a ládával és értékes tapasztalatot szereztél. Erre varj gombot!",

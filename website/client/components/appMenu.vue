@@ -39,8 +39,8 @@ div
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}
             router-link.dropdown-item(:to="{name: 'overview'}") {{ $t('overview') }}
-            router-link.dropdown-item(to="/groups/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportBug') }}
-            router-link.dropdown-item(to="/groups/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askAQuestion') }}
+            router-link.dropdown-item(to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportBug') }}
+            router-link.dropdown-item(to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askAQuestion') }}
             a.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki", target='_blank') {{ $t('wiki') }}
@@ -51,7 +51,7 @@ div
         .svg-icon(v-html="icons.gold")
         span {{user.stats.gp | roundBigNumber}}
       notification-menu
-      a.dropdown.item-with-icon.item-user(@click='showAvatar()')
+      a.dropdown.item-with-icon.item-user
         .svg-icon(v-html="icons.user")
         .dropdown-menu.dropdown-menu-right.user-dropdown
           a.dropdown-item.edit-avatar(@click='showAvatar()')

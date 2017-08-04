@@ -84,10 +84,10 @@
       v-for="group in itemsGroups",
       v-if="viewOptions[group.key].selected",
       :key="group.key",
+      :class='group.key',
     )
       h2
        | {{ group.label }}
-       |
        span.badge.badge-pill.badge-default {{items[group.key].length}}
 
       itemRows(
