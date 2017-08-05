@@ -75,6 +75,7 @@
             :key="ctx.item.key",
             :itemContentClass="`${group.classPrefix}${ctx.item.key}`",
             :showPopover="currentDraggingPotion == null",
+            :active="currentDraggingPotion == ctx.item",
             v-drag.hatch="ctx.item.key",
 
             @itemDragEnd="onDragEnd($event, ctx.item)",

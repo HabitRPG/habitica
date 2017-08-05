@@ -417,6 +417,8 @@
     position: absolute;
     left: -500px;
 
+    z-index: 1080;
+
     &.mouse {
       position: fixed;
       pointer-events: none
@@ -469,6 +471,8 @@
   // import Store from 'client/store';
   // import deepFreeze from 'client/libs/deepFreeze';
   // const specialMounts =
+
+  let lastMouseMoveEvent = {};
 
   export default {
     components: {
@@ -896,6 +900,10 @@
         if (this.currentDraggingFood === null || this.currentDraggingFood !== food) {
           this.currentDraggingFood = food;
           this.foodClickMode = true;
+
+          this.$nextTick(() => {
+            this.mouseMoved(lastMouseMoveEvent);
+          });
         } else {
           this.currentDraggingFood = null;
           this.foodClickMode = false;
@@ -906,6 +914,8 @@
         if (this.foodClickMode) {
           this.$refs.clickFoodInfo.style.left = `${$event.x + 20}px`;
           this.$refs.clickFoodInfo.style.top = `${$event.y + 20}px`;
+        } else {
+          lastMouseMoveEvent = $event;
         }
       },
     },
