@@ -21,7 +21,7 @@ b-popover(
         div.price
           span.svg-icon.inline.icon-16(v-html="icons[getSvgClass()]")
 
-          span.price-label(:class="priceType") {{ price }}
+          span.price-label(:class="getSvgClass()") {{ price }}
 
 </template>
 
@@ -75,6 +75,10 @@ b-popover(
 
     &.gold {
       color: $yellow-10
+    }
+
+    &.hourglasses {
+      color: $blue-10;
     }
   }
 
