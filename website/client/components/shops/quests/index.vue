@@ -296,12 +296,14 @@
       }
 
       .npc {
+        width: 100%;
         position: absolute;
         left: 0;
-        width: 100%;
-        height: 216px;
+        top: 0;
+        height: 100%;
         background: url('~assets/images/shops/quest_shop__banner_web_iannpc.png');
         background-repeat: no-repeat;
+
 
         .featured-label {
           position: absolute;

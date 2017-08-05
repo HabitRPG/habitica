@@ -234,6 +234,7 @@
       .npc {
         position: absolute;
         left: 0;
+        top: 0;
         width: 100%;
         height: 216px;
         background: url('~assets/images/shops/time_travelers_open_banner_web_tylerandvickynpcs.png');
