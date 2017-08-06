@@ -94,8 +94,6 @@
               span(slot="popoverContent", scope="ctx")
                 div
                   h4.popover-content-title {{ ctx.item.text }}
-                  .popover-content-text {{ ctx.item.notes }}
-                  div {{ ctx.item }}
 
               template(slot="itemBadge", scope="ctx")
                 span.badge.badge-pill.badge-item.badge-svg(
@@ -278,6 +276,9 @@
   import _sortBy from 'lodash/sortBy';
   import _throttle from 'lodash/throttle';
   import _groupBy from 'lodash/groupBy';
+  import _map from 'lodash/map';
+
+  import _isPinned from '../_isPinned';
 
 export default {
     components: {
@@ -373,7 +374,14 @@ export default {
     },
     methods: {
       travelersItems (category, sortBy, searchBy, hidePinned) {
-        let result = _filter(category.items, (i) => {
+        let result = _map(category.items, (e) => {
+          return {
+            ...e,
+            pinned: _isPinned(this.user, e),
+          };
+        });
+
+        result = _filter(result, (i) => {
           if (hidePinned && i.pinned) {
             return false;
           }

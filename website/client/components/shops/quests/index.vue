@@ -418,7 +418,7 @@ export default {
         let result = _map(category.items, (e) => {
           return {
             ...e,
-            pinned: _isPinned(this.user, e.pinType),
+            pinned: _isPinned(this.user, e),
           };
         });
 

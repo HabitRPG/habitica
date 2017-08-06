@@ -1,5 +1,6 @@
-export default function _isPinned (user, key) {
-  let result = user.pinnedItems.includes(key) && !user.unpinnedItems.includes(key);
+export default function _isPinned (user, item) {
+  const isUnpinned = user.unpinnedItems.findIndex(unpinned => unpinned.path === item.path) > -1;
+  const isPinned = user.pinnedItems.findIndex(pinned => pinned.path === item.path) > -1;
 
-  return result;
+  return isPinned && !isUnpinned;
 }
