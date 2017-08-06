@@ -593,7 +593,7 @@ export default {
             currency: 'gold',
           };
 
-          newItem.pinned = _isPinned(this.user, newItem.pinKey);
+          newItem.pinned = _isPinned(this.user, newItem.pinType);
           newItem.locked = this.isGearLocked(newItem);
 
           return newItem;
@@ -626,7 +626,7 @@ export default {
         let result = _map(category.items, (e) => {
           return {
             ...e,
-            pinned: _isPinned(this.user, e.pinKey),
+            pinned: _isPinned(this.user, e.pinType),
           };
         });
 
