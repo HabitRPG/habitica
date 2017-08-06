@@ -1978,7 +1978,7 @@ api.setCustomDayStart = {
  *   "data": {
  *     "pinnedItems": [
  *        "type": "gear",
- *        "key": "weapon_1"
+ *        "path": "gear.flat.weapon_1"
  *     ]
  *   }
  * }
@@ -1987,12 +1987,13 @@ api.setCustomDayStart = {
 api.togglePinnedItem = {
   method: 'GET',
   middlewares: [authWithHeaders()],
-  url: '/user/toggle-pinned-item/:key',
+  url: '/user/toggle-pinned-item/:type/:path',
   async handler (req, res) {
     let user = res.locals.user;
-    const key = get(req.params, 'key');
+    const path = get(req.params, 'path');
+    const type = get(req.params, 'type');
 
-    common.ops.togglePinnedItem(user, key);
+    common.ops.togglePinnedItem(user, {type, path}, req);
 
     await user.save();
 

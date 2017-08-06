@@ -1,18 +1,18 @@
 import content from '../content/index';
 import get from 'lodash/get';
 import cloneDeep from 'lodash/cloneDeep';
-import pinning from './pinning';
 
 const officialPinnedItems = content.officialPinnedItems;
 
-module.exports = function updateStore (user) {
-  const itemsPinKeys = user.pinnedItems.concat(officialPinnedItems.filter(officialPin => {
-    return user.unpinnedItems.indexOf(officialPin) === -1;
-  }));
-
-  return itemsPinKeys.map(itemPinKey => {
-    return cloneDeep(get(content, pinning.getItemPathFromPinKey(itemPinKey)));
+module.exports = function getPinnedItems (user) {
+  const officialPinnedItemsNotUnpinned = officialPinnedItems.filter(officialPin => {
+    const isUnpinned = user.unpinnedItems.findIndex(unpinned => unpinned.path === officialPin.path) > -1;
+    return !isUnpinned;
   });
 
-  // TODO sort
+  const pinnedItems = user.pinnedItems.concat(officialPinnedItemsNotUnpinned);
+
+  return pinnedItems.map(pinnedItem => {
+    return cloneDeep(get(content, pinnedItem.path));
+  });
 };

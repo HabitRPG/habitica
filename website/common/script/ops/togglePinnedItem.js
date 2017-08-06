@@ -1,11 +1,24 @@
 import content from '../content/index';
+import getItemInfo from '../libs/getItemInfo';
+import get from 'lodash/get';
 
 const officialPinnedItems = content.officialPinnedItems;
 
-module.exports = function togglePinnedItem (user, {path, type}) {
+module.exports = function togglePinnedItem (user, {item, type, path}, req = {}) {
   let arrayToChange;
-  let isOfficialPinned = officialPinnedItems.find((item) => {
-    return item.path === path;
+
+  if (!path) { // If path isn't passed it means an item was passed
+    if (type === 'quest') {
+      path = getItemInfo.quest(item, user, req.language).path;
+    } else {
+      path = getItemInfo[type](item, req.language).path;
+    }
+  }
+
+  if (!item) item = get(content, path);
+
+  let isOfficialPinned = officialPinnedItems.find(officialPinnedItem => {
+    return officialPinnedItem.path === path;
   }) !== undefined;
 
   if (isOfficialPinned) {
@@ -14,8 +27,8 @@ module.exports = function togglePinnedItem (user, {path, type}) {
     arrayToChange = user.pinnedItems;
   }
 
-  const foundIndex = arrayToChange.findIndex(item => {
-    return item.path === path;
+  const foundIndex = arrayToChange.findIndex(pinnedItem => {
+    return pinnedItem.path === path;
   });
 
   if (foundIndex >= 0) {
