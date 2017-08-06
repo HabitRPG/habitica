@@ -12,6 +12,7 @@ types.egg = function getEggInfo (egg, language = 'en') {
     locked: false,
     currency: 'gems',
     purchaseType: 'eggs',
+    path: `eggs.${egg.key}`,
   };
 };
 
@@ -25,6 +26,7 @@ types.hatchingPotion = function getHatchingPotionInfo (hatchingPotion, language 
     locked: false,
     currency: 'gems',
     purchaseType: 'hatchingPotions',
+    path: `hatchingPotions.${hatchingPotion.key}`,
   };
 };
 
@@ -38,6 +40,7 @@ types.premiumHatchingPotion = function getPremiumHatchingPotionInfo (premiumHatc
     locked: false,
     currency: 'gems',
     purchaseType: 'hatchingPotions',
+    path: `premiumHatchingPotions.${premiumHatchingPotion.key}`,
   };
 };
 
@@ -51,6 +54,7 @@ types.food = function getFoodInfo (foodItem, language = 'en') {
     locked: false,
     currency: 'gems',
     purchaseType: 'food',
+    path: `food.${foodItem.key}`,
   };
 };
 
@@ -63,6 +67,7 @@ types.questBundle = function getQuestBundleInfo (bundle, language = 'en') {
     currency: 'gems',
     class: `quest_bundle_${bundle.key}`,
     purchaseType: 'bundles',
+    path: `bundles.${bundle.key}`,
   };
 };
 
@@ -93,35 +98,15 @@ types.quest = function getQuestInfo (quest, user, language = 'en') {
     lvl: quest.lvl,
     class: locked ? `inventory_quest_scroll_locked inventory_quest_scroll_${quest.key}_locked` : `inventory_quest_scroll inventory_quest_scroll_${quest.key}`,
     purchaseType: 'quests',
-  };
-};
-
-types.quest = function getQuestInfo (quest, user, language = 'en') {
-  const locked = lockQuest(quest, user);
-
-  return {
-    key: quest.key,
-    text: quest.text(language),
-    notes: quest.notes(language),
-    group: quest.group,
-    value: quest.goldValue ? quest.goldValue : quest.value,
-    currency: quest.goldValue ? 'gold' : 'gems',
-    locked,
-    unlockCondition: quest.unlockCondition,
-    drop: quest.drop,
-    boss: quest.boss,
-    collect: quest.collect,
-    lvl: quest.lvl,
-    class: locked ? `inventory_quest_scroll_locked inventory_quest_scroll_${quest.key}_locked` : `inventory_quest_scroll inventory_quest_scroll_${quest.key}`,
-    purchaseType: 'quests',
+    path: `quests.${quest.key}`,
   };
 };
 
 // TODO time travelers
 
-types.seasonalSpell = function getSeasonalSpellInfo (spell, spellKey, language = 'en') {
+types.seasonalSpell = function getSeasonalSpellInfo (spell, language = 'en') {
   return {
-    spellKey,
+    key: spell.keyspellKey,
     text: spell.text(language),
     notes: spell.notes(language),
     value: spell.value,
@@ -129,13 +114,14 @@ types.seasonalSpell = function getSeasonalSpellInfo (spell, spellKey, language =
     currency: 'gold',
     locked: false,
     purchaseType: 'spells',
-    class: `inventory_special_${spellKey}`,
+    class: `inventory_special_${spell.key}`,
+    path: `spells.special.${spell.key}`,
   };
 };
 
-types.seasonalQuest = function getSeasonalQuestInfo (quest, questKey, language = 'en') {
+types.seasonalQuest = function getSeasonalQuestInfo (quest, language = 'en') {
   return {
-    questKey,
+    key: quest.key,
     text: quest.text(language),
     notes: quest.notes(language),
     value: quest.value,
@@ -145,9 +131,9 @@ types.seasonalQuest = function getSeasonalQuestInfo (quest, questKey, language =
     drop: quest.drop,
     boss: quest.boss,
     collect: quest.collect,
-    class: `inventory_quest_scroll_${questKey}`,
+    class: `inventory_quest_scroll_${quest.key}`,
     purchaseType: 'quests',
-    pinKey: `seasonal!quests.${questKey}`,
+    path: `quests.${quest.key}`,
   };
 };
 
@@ -163,18 +149,19 @@ types.gear = function getGearInfo (gear, language = 'en') {
     currency: 'gems',
     purchaseType: 'gear',
     class: `shop_${gear.key}`,
+    path: `gear.flat.${gear.key}`,
   };
 };
 
-types.backgrund = function getBackgroundInfo (background, bgKey, language = 'en') {
+types.backgrund = function getBackgroundInfo (background, language = 'en') {
   return {
-    key: bgKey,
+    key: background.key,
     text: background.text(language),
     notes: background.notes(language),
     value: background.price,
     currency: background.currency || 'gems',
     purchaseType: 'backgrounds',
-    pinKey: `backgrounds.${bgKey}`,
+    path: `backgrounds.${background.set}.${background.key}`,
   };
 };
 

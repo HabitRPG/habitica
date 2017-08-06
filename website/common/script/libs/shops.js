@@ -269,8 +269,8 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
       text: i18n.t('seasonalItems', language),
     };
 
-    category.items = map(spells, (spell, key) => {
-      return getItemInfo.seasonalSpell(spell, key);
+    category.items = map(spells, (spell) => {
+      return getItemInfo.seasonalSpell(spell);
     });
 
     categories.push(category);
@@ -286,8 +286,8 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
       text: i18n.t('quests', language),
     };
 
-    category.items = map(quests, (quest, key) => {
-      return getItemInfo.seasonalQuest(quest, key);
+    category.items = map(quests, (quest) => {
+      return getItemInfo.seasonalQuest(quest);
     });
 
     categories.push(category);
@@ -325,8 +325,8 @@ shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
       text: i18n.t(key, language),
     };
 
-    set.items = map(group, (background, bgKey) => {
-      return getItemInfo.background(background, bgKey, language);
+    set.items = map(group, (background) => {
+      return getItemInfo.background(background, language);
     });
 
     sets.push(set);
