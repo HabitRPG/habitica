@@ -1,11 +1,12 @@
 import content from '../content/index';
-import { removeFromArray } from '../../../server/libs/collectionManipulators';
 
 const officialPinnedItems = content.officialPinnedItems;
 
-module.exports = function togglePinnedItem (user, key) {
-  let arrayToChange = [];
-  let isOfficialPinned = officialPinnedItems.indexOf(key) >= 0;
+module.exports = function togglePinnedItem (user, {path, type}) {
+  let arrayToChange;
+  let isOfficialPinned = officialPinnedItems.find((item) => {
+    return item.path === path;
+  }) !== undefined;
 
   if (isOfficialPinned) {
     arrayToChange = user.unpinnedItems;
@@ -13,11 +14,13 @@ module.exports = function togglePinnedItem (user, key) {
     arrayToChange = user.pinnedItems;
   }
 
-  let foundIndex = arrayToChange.indexOf(key);
+  const foundIndex = arrayToChange.findIndex(item => {
+    return item.path === path;
+  });
 
   if (foundIndex >= 0) {
-    removeFromArray(arrayToChange, key);
+    arrayToChange.splice(foundIndex, 1);
   } else {
-    arrayToChange.push(key);
+    arrayToChange.push({path, type});
   }
 };

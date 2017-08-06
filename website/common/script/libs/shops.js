@@ -8,17 +8,9 @@ import pickBy from 'lodash/pickBy';
 import sortBy from 'lodash/sortBy';
 import content from '../content/index';
 import i18n from '../i18n';
+import getItemInfo from './getItemInfo';
 
 let shops = {};
-
-function lockQuest (quest, user) {
-  if (quest.lvl && user.stats.lvl < quest.lvl) return true;
-  if (quest.unlockCondition && (quest.key === 'moon1' || quest.key === 'moon2' || quest.key === 'moon3')) {
-    return user.loginIncentives < quest.unlockCondition.incentiveThreshold;
-  }
-  if (user.achievements.quests) return quest.previous && !user.achievements.quests[quest.previous];
-  return quest.previous;
-}
 
 shops.getMarketCategories = function getMarket (user, language) {
   let categories = [];
@@ -32,17 +24,7 @@ shops.getMarketCategories = function getMarket (user, language) {
     .filter(egg => egg.canBuy(user))
     .concat(values(content.dropEggs))
     .map(egg => {
-      return {
-        key: egg.key,
-        text: i18n.t('egg', {eggType: egg.text()}, language),
-        notes: egg.notes(language),
-        value: egg.value,
-        class: `Pet_Egg_${egg.key}`,
-        locked: false,
-        currency: 'gems',
-        purchaseType: 'eggs',
-        pinKey: `eggs.${egg.key}`,
-      };
+      return getItemInfo.egg(egg, language);
     }), 'key');
   categories.push(eggsCategory);
 
@@ -54,17 +36,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   hatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
     .filter(hp => !hp.limited)
     .map(hatchingPotion => {
-      return {
-        key: hatchingPotion.key,
-        text: i18n.t('potion', {potionType: hatchingPotion.text(language)}),
-        notes: hatchingPotion.notes(language),
-        class: `Pet_HatchingPotion_${hatchingPotion.key}`,
-        value: hatchingPotion.value,
-        locked: false,
-        currency: 'gems',
-        purchaseType: 'hatchingPotions',
-        pinKey: `hatchingPotions.${hatchingPotion.key}`,
-      };
+      return getItemInfo.hatchingPotion(hatchingPotion, language);
     }), 'key');
   categories.push(hatchingPotionsCategory);
 
@@ -76,17 +48,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   premiumHatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
     .filter(hp => hp.limited && hp.canBuy())
     .map(premiumHatchingPotion => {
-      return {
-        key: premiumHatchingPotion.key,
-        text: i18n.t('potion', {potionType: premiumHatchingPotion.text(language)}),
-        notes: `${premiumHatchingPotion.notes(language)} ${premiumHatchingPotion._addlNotes(language)}`,
-        class: `Pet_HatchingPotion_${premiumHatchingPotion.key}`,
-        value: premiumHatchingPotion.value,
-        locked: false,
-        currency: 'gems',
-        purchaseType: 'hatchingPotions',
-        pinKey: `premiumHatchingPotions.${premiumHatchingPotion.key}`,
-      };
+      return getItemInfo.premiumHatchingPotion(premiumHatchingPotion, language);
     }), 'key');
   if (premiumHatchingPotionsCategory.items.length > 0) {
     categories.push(premiumHatchingPotionsCategory);
@@ -100,17 +62,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   foodCategory.items = sortBy(values(content.food)
     .filter(food => food.canDrop || food.key === 'Saddle')
     .map(foodItem => {
-      return {
-        key: foodItem.key,
-        text: foodItem.text(language),
-        notes: foodItem.notes(language),
-        class: `Pet_Food_${foodItem.key}`,
-        value: foodItem.value,
-        locked: false,
-        currency: 'gems',
-        purchaseType: 'food',
-        pinKey: `food.${foodItem.key}`,
-      };
+      return getItemInfo.food(foodItem, language);
     }), 'key');
   categories.push(foodCategory);
 
@@ -182,16 +134,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
   bundleCategory.items = sortBy(values(content.bundles)
     .filter(bundle => bundle.type === 'quests' && bundle.canBuy())
     .map(bundle => {
-      return {
-        key: bundle.key,
-        text: bundle.text(language),
-        notes: bundle.notes(language),
-        value: bundle.value,
-        currency: 'gems',
-        class: `quest_bundle_${bundle.key}`,
-        purchaseType: 'bundles',
-        pinKey: `bundles.${bundle.key}`,
-      };
+      return getItemInfo.questBundle(bundle, language);
     }));
 
   if (bundleCategory.items.length > 0) {
@@ -207,24 +150,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
     category.items = content.questsByLevel
       .filter(quest => quest.canBuy(user) && quest.category === type)
       .map(quest => {
-        let locked = lockQuest(quest, user);
-        return {
-          key: quest.key,
-          text: quest.text(language),
-          notes: quest.notes(language),
-          group: quest.group,
-          value: quest.goldValue ? quest.goldValue : quest.value,
-          currency: quest.goldValue ? 'gold' : 'gems',
-          locked,
-          unlockCondition: quest.unlockCondition,
-          drop: quest.drop,
-          boss: quest.boss,
-          collect: quest.collect,
-          lvl: quest.lvl,
-          class: locked ? `inventory_quest_scroll_locked inventory_quest_scroll_${quest.key}_locked` : `inventory_quest_scroll inventory_quest_scroll_${quest.key}`,
-          purchaseType: 'quests',
-          pinKey: `quests.${quest.key}`,
-        };
+        return getItemInfo.quest(quest, user, language);
       });
 
     categories.push(category);
@@ -344,18 +270,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     };
 
     category.items = map(spells, (spell, key) => {
-      return {
-        key,
-        text: spell.text(language),
-        notes: spell.notes(language),
-        value: spell.value,
-        type: 'special',
-        currency: 'gold',
-        locked: false,
-        purchaseType: 'spells',
-        pinKey: `seasonal!spells.special.${key}`,
-        class: `inventory_special_${key}`,
-      };
+      return getItemInfo.seasonalSpell(spell, key);
     });
 
     categories.push(category);
@@ -372,21 +287,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     };
 
     category.items = map(quests, (quest, key) => {
-      return {
-        key,
-        text: quest.text(language),
-        notes: quest.notes(language),
-        value: quest.value,
-        type: 'quests',
-        currency: 'gems',
-        locked: false,
-        drop: quest.drop,
-        boss: quest.boss,
-        collect: quest.collect,
-        class: `inventory_quest_scroll_${key}`,
-        purchaseType: 'quests',
-        pinKey: `seasonal!quests.${key}`,
-      };
+      return getItemInfo.seasonalQuest(quest, key);
     });
 
     categories.push(category);
@@ -402,23 +303,11 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
       category.items = flatGearArray.filter((gear) => {
         return user.items.gear.owned[gear.key] === undefined && gear.index === key;
       }).map(gear => {
-        return {
-          key: gear.key,
-          text: gear.text(language),
-          notes: gear.notes(language),
-          value: gear.twoHanded ? 2 : 1,
-          type: gear.type,
-          specialClass: gear.specialClass,
-          locked: false,
-          currency: 'gems',
-          purchaseType: 'gear',
-          class: `shop_${gear.key}`,
-        };
+        return getItemInfo.gear(gear, language);
       });
 
       if (category.items.length > 0) {
         category.specialClass = category.items[0].specialClass;
-        category.pinKey = 'seasonal!TODO';
         categories.push(category);
       }
     }
@@ -437,15 +326,7 @@ shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
     };
 
     set.items = map(group, (background, bgKey) => {
-      return {
-        key: bgKey,
-        text: background.text(language),
-        notes: background.notes(language),
-        value: background.price,
-        currency: background.currency || 'gems',
-        purchaseType: 'backgrounds',
-        pinKey: `backgrounds.${bgKey}`,
-      };
+      return getItemInfo.background(background, bgKey, language);
     });
 
     sets.push(set);

@@ -1,5 +1,14 @@
 export default [
-  'backgrounds.backgrounds062014.beach',
-  'gear.flat.weapon_armoire_battleAxe',
-  'quests.dilatory',
+  {
+    type: 'background',
+    path: 'backgrounds.backgrounds062014.beach',
+  },
+  {
+    type: 'gear',
+    path: 'gear.flat.weapon_armoire_battleAxe',
+  },
+  {
+    type: 'quest',
+    path: 'quests.dilatory',
+  },
 ];
