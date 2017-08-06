@@ -588,7 +588,8 @@ export default {
         result = _map(result, (e) => {
           let newItem = {
             ...e,
-            purchaseType: 'gear.flat',
+            path: `gear.flat.${e.key}`,
+            pinType: 'marketGear',
             currency: 'gold',
           };
 
@@ -688,7 +689,6 @@ export default {
         };
       },
       togglePinned (item) {
-        console.info(item);
         return this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path});
       },
       buyGear (item) {

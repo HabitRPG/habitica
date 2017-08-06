@@ -145,6 +145,21 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         path: `gear.flat.${item.key}`,
         pinType: 'gear',
       };
+    case 'marketGear':
+      return {
+        key: item.key,
+        text: item.text(language),
+        notes: item.notes(language),
+        value: item.value,
+        type: item.type,
+        specialClass: item.specialClass,
+        locked: false,
+        currency: 'gold',
+        purchaseType: 'gear',
+        class: `shop_${item.key}`,
+        path: `gear.flat.${item.key}`,
+        pinType: 'marketGear',
+      };
     case 'background':
       return {
         key: item.key,
