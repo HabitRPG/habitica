@@ -465,7 +465,7 @@
         return false;
       },
       togglePinned (item) {
-        return this.$store.dispatch('user:togglePinnedItem', {key: item.pinKey});
+        return this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path});
       },
       buyItem (item) {
         this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});

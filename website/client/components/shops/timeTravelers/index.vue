@@ -406,9 +406,7 @@ export default {
         }
       },
       togglePinned (item) {
-        let isPinned = Boolean(item.pinned);
-        item.pinned = !isPinned;
-        this.$store.dispatch(isPinned ? 'shops:unpinGear' : 'shops:pinGear', {key: item.key});
+        return this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path});
       },
       buyItem (item) {
         this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});

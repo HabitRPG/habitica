@@ -688,7 +688,8 @@ export default {
         };
       },
       togglePinned (item) {
-        return this.$store.dispatch('user:togglePinnedItem', {key: item.pinKey});
+        console.info(item);
+        return this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path});
       },
       buyGear (item) {
         this.$store.dispatch('shops:buyItem', {key: item.key});

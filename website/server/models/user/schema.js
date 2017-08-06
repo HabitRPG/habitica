@@ -584,13 +584,13 @@ let schema = new Schema({
 
   // Items manually pinned by the user
   pinnedItems: [{
-    path: String,
-    type: String,
+    path: {type: String},
+    type: {type: String},
   }],
   // Items the user manually unpinned from the ones suggested by Habitica
   unpinnedItems: [{
-    path: String,
-    type: String,
+    path: {type: String},
+    type: {type: String},
   }],
 }, {
   strict: true,
