@@ -183,7 +183,7 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
               notes: '',
               locked: false,
               currency: 'hourglasses',
-              pinType: 'TODO',
+              pinType: 'IGNORE',
             };
             category.items.push(item);
           }

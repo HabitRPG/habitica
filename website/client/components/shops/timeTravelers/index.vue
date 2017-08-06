@@ -97,6 +97,7 @@
 
               template(slot="itemBadge", scope="ctx")
                 span.badge.badge-pill.badge-item.badge-svg(
+                  v-if="ctx.item.pinType !== 'IGNORE'",
                   :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                   @click.prevent.stop="togglePinned(ctx.item)"
                 )
