@@ -700,7 +700,6 @@ export default {
     },
     created () {
       this.$store.dispatch('shops:fetchMarket');
-
       this.selectedGroupGearByClass = this.userStats.class;
     },
   };

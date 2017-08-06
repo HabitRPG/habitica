@@ -202,6 +202,8 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
       let category = {
         identifier: set.key,
         text: set.text(language),
+        path: `mystery.${set.key}`,
+        pinType: 'mystery_set',
         purchaseAll: true,
       };
 

@@ -346,7 +346,6 @@ export default {
                 ...c,
                 value: 1,
                 currency: 'hourglasses',
-                type: 'set_mystery',
                 key: c.identifier,
               };
             }),

@@ -171,5 +171,15 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         path: `backgrounds.${item.set}.${item.key}`,
         pinType: 'background',
       };
+    case 'mystery_set':
+      return {
+        key: item.key,
+        text: item.text(language),
+        value: 1,
+        currency: 'hourglasses',
+        purchaseType: 'mystery_set',
+        path: `mystery.${item.key}`,
+        pinType: 'mystery_set',
+      };
   }
 };
