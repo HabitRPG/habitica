@@ -8,11 +8,7 @@ module.exports = function togglePinnedItem (user, {item, type, path}, req = {}) 
   let arrayToChange;
 
   if (!path) { // If path isn't passed it means an item was passed
-    if (type === 'quest') {
-      path = getItemInfo.quest(item, user, req.language).path;
-    } else {
-      path = getItemInfo[type](item, req.language).path;
-    }
+    path = getItemInfo(user, type, item, req.language).path;
   }
 
   if (!item) item = get(content, path);

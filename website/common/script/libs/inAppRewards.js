@@ -1,6 +1,6 @@
 import content from '../content/index';
 import get from 'lodash/get';
-import cloneDeep from 'lodash/cloneDeep';
+import getItemInfo from './getItemInfo';
 
 const officialPinnedItems = content.officialPinnedItems;
 
@@ -12,7 +12,7 @@ module.exports = function getPinnedItems (user) {
 
   const pinnedItems = user.pinnedItems.concat(officialPinnedItemsNotUnpinned);
 
-  return pinnedItems.map(pinnedItem => {
-    return cloneDeep(get(content, pinnedItem.path));
+  return pinnedItems.map(({type, path}) => {
+    return getItemInfo(user, type, get(content, path));
   });
 };

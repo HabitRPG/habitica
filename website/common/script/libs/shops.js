@@ -24,7 +24,7 @@ shops.getMarketCategories = function getMarket (user, language) {
     .filter(egg => egg.canBuy(user))
     .concat(values(content.dropEggs))
     .map(egg => {
-      return getItemInfo.egg(egg, language);
+      return getItemInfo(user, 'egg', egg, language);
     }), 'key');
   categories.push(eggsCategory);
 
@@ -36,7 +36,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   hatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
     .filter(hp => !hp.limited)
     .map(hatchingPotion => {
-      return getItemInfo.hatchingPotion(hatchingPotion, language);
+      return getItemInfo(user, 'hatchingPotion', hatchingPotion, language);
     }), 'key');
   categories.push(hatchingPotionsCategory);
 
@@ -48,7 +48,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   premiumHatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
     .filter(hp => hp.limited && hp.canBuy())
     .map(premiumHatchingPotion => {
-      return getItemInfo.premiumHatchingPotion(premiumHatchingPotion, language);
+      return getItemInfo(user, 'premiumHatchingPotion', premiumHatchingPotion, language);
     }), 'key');
   if (premiumHatchingPotionsCategory.items.length > 0) {
     categories.push(premiumHatchingPotionsCategory);
@@ -62,7 +62,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   foodCategory.items = sortBy(values(content.food)
     .filter(food => food.canDrop || food.key === 'Saddle')
     .map(foodItem => {
-      return getItemInfo.food(foodItem, language);
+      return getItemInfo(user, 'food', foodItem, language);
     }), 'key');
   categories.push(foodCategory);
 
@@ -134,7 +134,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
   bundleCategory.items = sortBy(values(content.bundles)
     .filter(bundle => bundle.type === 'quests' && bundle.canBuy())
     .map(bundle => {
-      return getItemInfo.questBundle(bundle, language);
+      return getItemInfo(user, 'questBundle', bundle, language);
     }));
 
   if (bundleCategory.items.length > 0) {
@@ -150,7 +150,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
     category.items = content.questsByLevel
       .filter(quest => quest.canBuy(user) && quest.category === type)
       .map(quest => {
-        return getItemInfo.quest(quest, user, language);
+        return getItemInfo(user, 'quest', quest, language);
       });
 
     categories.push(category);
@@ -270,7 +270,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     };
 
     category.items = map(spells, (spell) => {
-      return getItemInfo.seasonalSpell(spell);
+      return getItemInfo(user, 'seasonalSpell', spell, language);
     });
 
     categories.push(category);
@@ -287,7 +287,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     };
 
     category.items = map(quests, (quest) => {
-      return getItemInfo.seasonalQuest(quest);
+      return getItemInfo(user, 'seasonalQuest', quest, language);
     });
 
     categories.push(category);
@@ -303,7 +303,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
       category.items = flatGearArray.filter((gear) => {
         return user.items.gear.owned[gear.key] === undefined && gear.index === key;
       }).map(gear => {
-        return getItemInfo.gear(gear, language);
+        return getItemInfo(null, 'gear', gear, language);
       });
 
       if (category.items.length > 0) {
@@ -326,7 +326,7 @@ shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
     };
 
     set.items = map(group, (background) => {
-      return getItemInfo.background(background, language);
+      return getItemInfo(null, 'background', background, language);
     });
 
     sets.push(set);

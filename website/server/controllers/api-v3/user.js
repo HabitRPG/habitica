@@ -143,18 +143,17 @@ api.getBuyList = {
  *   "success": true,
  *   "data": [
  *     {
- *       "text": "Training Sword",
- *       "notes": "Practice weapon. Confers no benefit.",
- *       "value": 1,
- *       "type": "weapon",
- *       "key": "weapon_warrior_0",
- *       "set": "warrior-0",
- *       "klass": "warrior",
- *       "index": "0",
- *       "str": 0,
- *       "int": 0,
- *       "per": 0,
- *       "con": 0
+ *       "key":"weapon_armoire_battleAxe",
+ *       "text":"Battle Axe",
+ *       "notes":"This fine iron axe is well-suited to battling your fiercest foes or your most difficult tasks. Increases Intelligence by 6 and Constitution by 8. Enchanted Armoire: Independent Item.",
+ *       "value":1,
+ *       "type":"weapon",
+ *       "locked":false,
+ *       "currency":"gems",
+ *       "purchaseType":"gear",
+ *       "class":"shop_weapon_armoire_battleAxe",
+ *       "path":"gear.flat.weapon_armoire_battleAxe",
+ *       "pinType":"gear"
  *     }
  *   ]
  * }
