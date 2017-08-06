@@ -589,7 +589,7 @@ export default {
           let newItem = {
             ...e,
             purchaseType: 'gear.flat',
-            currency: 'gold'
+            currency: 'gold',
           };
 
           newItem.pinned = _isPinned(this.user, newItem.pinKey);

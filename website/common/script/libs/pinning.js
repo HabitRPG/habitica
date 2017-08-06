@@ -10,7 +10,7 @@ api.getItemPathFromPinKey = function getItemPathFromPinKey (pinKey) {
 };
 
 api.getCategoryFromPinKey = function getItemPathFromPinKey (pinKey) {
-
+  return pinKey;
 };
 
 module.exports = api;

@@ -8,7 +8,7 @@
     span.badge.badge-pill.badge-dialog(
       :class="{'item-selected-badge': item.pinned}",
       v-if="withPin",
-      @click.prevent.stop="togglePinned(item)"
+      @click.prevent.stop="togglePinned()"
     )
       span.svg-icon.inline.color.icon-10(v-html="icons.pin")
 
@@ -246,7 +246,7 @@
         this.$emit('buyPressed', this.item);
         this.hideDialog();
       },
-      togglePinned (item){
+      togglePinned () {
         this.$emit('togglePinned', this.item);
       },
       hideDialog () {

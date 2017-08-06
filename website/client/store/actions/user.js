@@ -55,7 +55,7 @@ export function togglePinnedItem (store, params) {
 
   togglePinnedItemOp(user, params.key);
 
-  axios.get(`/api/v3/user/toggle-pinned-item/${params.key}`)
+  axios.get(`/api/v3/user/toggle-pinned-item/${params.key}`);
   // TODO
   // .then((res) => console.log('equip', res))
   // .catch((err) => console.error('equip', err));
