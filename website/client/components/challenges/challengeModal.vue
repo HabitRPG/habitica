@@ -8,7 +8,7 @@
       .form-group
         label
           strong(v-once) {{$t('shortName')}}*
-        b-form-input(type="text", :placeholder="$t('challengeNamePlaceHolder')", v-model="workingChallenge.shortName")
+        b-form-input(type="text", :placeholder="$t('shortNamePlaceholder')", v-model="workingChallenge.shortName")
       .form-group
         label
           strong(v-once) {{$t('description')}}*
