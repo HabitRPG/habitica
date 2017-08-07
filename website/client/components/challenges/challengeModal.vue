@@ -258,11 +258,13 @@ export default {
     });
 
     this.groups = await this.$store.dispatch('guilds:getMyGuilds');
-    let party = await this.$store.dispatch('guilds:getGroup', {groupId: 'party'});
-    this.groups.push({
-      name: party.name,
-      _id: party._id,
-    });
+    if (this.user.party._id) {
+      let party = await this.$store.dispatch('guilds:getGroup', {groupId: 'party'});
+      this.groups.push({
+        name: party.name,
+        _id: party._id,
+      });
+    }
 
     this.groups.push({
       name: 'Public',
