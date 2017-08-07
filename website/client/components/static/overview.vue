@@ -9,7 +9,7 @@
         h3 {{ $t('step'+step) }}
         p(v-markdown="$t('webStep'+step+'Text')")
         hr
-        p(v-html="$t('overviewQuestions')")
+      p(v-markdown="$t('overviewQuestions')")
 </template>
 
 <script>
