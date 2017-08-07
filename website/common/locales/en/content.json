@@ -203,6 +203,18 @@
   "questEggGuineaPigMountText": "Guinea Pig",
   "questEggGuineaPigAdjective": "a giddy",
 
+  "questEggPeacockText": "Peacock",
+  "questEggPeacockMountText": "Peacock",
+  "questEggPeacockAdjective": "a proud",
+
+  "questEggButterflyText": "Caterpillar",
+  "questEggButterflyMountText": "Butterfly",
+  "questEggButterflyAdjective": "a cute",
+
+  "questEggNudibranchText": "Nudibranch",
+  "questEggNudibranchMountText": "Nudibranch",
+  "questEggNudibranchAdjective": "a nifty",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
@@ -218,11 +230,14 @@
   "hatchingPotionSpooky": "Spooky",
   "hatchingPotionPeppermint": "Peppermint",
   "hatchingPotionFloral": "Floral",
+  "hatchingPotionAquatic": "Aquatic",
   "hatchingPotionThunderstorm": "Thunderstorm",
   "hatchingPotionGhost": "Ghost",
   "hatchingPotionRoyalPurple": "Royal Purple",
   "hatchingPotionHolly": "Holly",
   "hatchingPotionCupid": "Cupid",
+  "hatchingPotionShimmer": "Shimmer",
+  "hatchingPotionFairy": "Fairy",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
   "premiumPotionAddlNotes": "Not usable on quest pet eggs.",

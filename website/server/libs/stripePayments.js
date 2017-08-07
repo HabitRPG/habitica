@@ -2,7 +2,7 @@ import stripeModule from 'stripe';
 import nconf from 'nconf';
 import cc from 'coupon-code';
 import moment from 'moment';
-
+import logger from './logger';
 import {
   BadRequest,
   NotAuthorized,
@@ -76,6 +76,11 @@ api.checkout = async function checkout (options, stripeInc) {
 
   if (!token) throw new BadRequest('Missing req.body.id');
 
+  if (gift) {
+    const member = await User.findById(gift.uuid).exec();
+    gift.member = member;
+  }
+
   if (sub) {
     if (sub.discount) {
       if (!coupon) throw new BadRequest(shared.i18n.t('couponCodeRequired'));
@@ -92,6 +97,9 @@ api.checkout = async function checkout (options, stripeInc) {
 
     if (groupId) {
       customerObject.quantity = sub.quantity;
+      let groupFields = basicGroupFields.concat(' purchased');
+      let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+      customerObject.quantity = group.memberCount + sub.quantity - 1;
     }
 
     response = await stripeApi.customers.create(customerObject);
@@ -104,8 +112,17 @@ api.checkout = async function checkout (options, stripeInc) {
       if (gift.type === 'subscription') {
         amount = `${shared.content.subscriptionBlocks[gift.subscription.key].price * 100}`;
       } else {
+        if (gift.gems.amount <= 0) {
+          throw new BadRequest(shared.i18n.t('badAmountOfGemsToPurchase'));
+        }
         amount = `${gift.gems.amount / 4 * 100}`;
       }
+    }
+
+    if (!gift || gift.type === 'gems') {
+      const receiver = gift ? gift.member : user;
+      const receiverCanGetGems = await receiver.canGetGems();
+      if (!receiverCanGetGems) throw new NotAuthorized(shared.i18n.t('groupPolicyCannotGetGems', receiver.preferences.language));
     }
 
     response = await stripeApi.charges.create({
@@ -135,8 +152,6 @@ api.checkout = async function checkout (options, stripeInc) {
     };
 
     if (gift) {
-      let member = await User.findById(gift.uuid).exec();
-      gift.member = member;
       if (gift.type === 'subscription') method = 'createSubscription';
       data.paymentMethod = 'Gift';
     }
@@ -195,11 +210,12 @@ api.editSubscription = async function editSubscription (options, stripeInc) {
  * @param  options
  * @param  options.user  The user object who is purchasing
  * @param  options.groupId  The id of the group purchasing a subscription
+ * @param  options.cancellationReason  A text string to control sending an email
  *
  * @return undefined
  */
 api.cancelSubscription = async function cancelSubscription (options, stripeInc) {
-  let {groupId, user} = options;
+  let {groupId, user, cancellationReason} = options;
   let customerId;
 
   // @TODO: We need to mock this, but curently we don't have correct Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
@@ -249,6 +265,7 @@ api.cancelSubscription = async function cancelSubscription (options, stripeInc) 
     groupId,
     nextBill,
     paymentMethod: this.constants.PAYMENT_METHOD,
+    cancellationReason,
   });
 };
 
@@ -266,5 +283,76 @@ api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMemb
 
   group.purchased.plan.quantity = group.memberCount + plan.quantity - 1;
 };
+
+/**
+ * Handle webhooks from stripes
+ *
+ * @param  options
+ * @param  options.user  The user object who is purchasing
+ * @param  options.groupId  The id of the group purchasing a subscription
+ *
+ * @return undefined
+ */
+api.handleWebhooks = async function handleWebhooks (options, stripeInc) {
+  let {requestBody} = options;
+
+  // @TODO: We need to mock this, but curently we don't have correct Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
+  let stripeApi = stripe;
+  if (stripeInc) stripeApi = stripeInc;
+
+  // Verify the event by fetching it from Stripe
+  const event = await stripeApi.events.retrieve(requestBody.id);
+
+  switch (event.type) {
+    case 'customer.subscription.deleted': {
+      // event.request !== null means that the user itself cancelled the subscrioption,
+      // the cancellation on our side has been already handled
+      if (event.request !== null) break;
+
+      const subscription = event.data.object;
+      const customerId = subscription.customer;
+      const isGroupSub = shared.content.subscriptionBlocks[subscription.plan.id].target === 'group';
+
+      let user;
+      let groupId;
+
+      if (isGroupSub) {
+        let groupFields = basicGroupFields.concat(' purchased');
+        let group = await Group.findOne({
+          'purchased.plan.customerId': customerId,
+          'purchased.plan.paymentMethod': this.constants.PAYMENT_METHOD,
+        }).select(groupFields).exec();
+
+        if (!group) throw new NotFound(i18n.t('groupNotFound'));
+        groupId = group._id;
+
+        user = await User.findById(group.leader).exec();
+      } else {
+        user = await User.findOne({
+          'purchased.plan.customerId': customerId,
+          'purchased.plan.paymentMethod': this.constants.PAYMENT_METHOD,
+        }).exec();
+      }
+
+      if (!user) throw new NotFound(i18n.t('userNotFound'));
+
+      await stripeApi.customers.del(customerId);
+
+      await payments.cancelSubscription({
+        user,
+        groupId,
+        paymentMethod: this.constants.PAYMENT_METHOD,
+        // Give three extra days to allow the user to resubscribe without losing benefits
+        nextBill: moment().add({days: 3}).toDate(),
+      });
+
+      break;
+    }
+    default: {
+      logger.error(new Error(`Missing handler for Stripe webhook ${event.type}`), {event});
+    }
+  }
+};
+
 
 module.exports = api;

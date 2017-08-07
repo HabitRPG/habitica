@@ -18,6 +18,7 @@ import blockUser from './blockUser';
 import feed from './feed';
 import buySpecialSpell from './buySpecialSpell';
 import purchase from './purchase';
+import purchaseWithSpell from './purchaseWithSpell';
 import releasePets from './releasePets';
 import releaseMounts from './releaseMounts';
 import releaseBoth from './releaseBoth';
@@ -61,6 +62,7 @@ module.exports = {
   feed,
   buySpecialSpell,
   purchase,
+  purchaseWithSpell,
   releasePets,
   releaseMounts,
   releaseBoth,

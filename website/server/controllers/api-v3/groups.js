@@ -1,6 +1,7 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
+import nconf from 'nconf';
 import {
   model as Group,
   basicFields as basicGroupFields,
@@ -25,7 +26,10 @@ import payments from '../../libs/payments';
 import stripePayments from '../../libs/stripePayments';
 import amzLib from '../../libs/amazonPayments';
 import shared from '../../../common';
+import apiMessages from '../../libs/apiMessages';
 
+const MAX_EMAIL_INVITES_BY_USER = 200;
+const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 
 /**
  * @apiDefine GroupBodyInvalid
@@ -79,7 +83,7 @@ let api = {};
  * @apiError (400) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
  * @apiError (400) {NotAuthorized} messageGroupAlreadyInParty
  *
- * @apiSuccess {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ * @apiSuccess (201) {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
  *
  * @apiSuccessExample {json} Private Guild:
  *     HTTP/1.1 200 OK
@@ -118,6 +122,14 @@ api.createGroup = {
 
       user.balance--;
       user.guilds.push(group._id);
+      if (!user.achievements.joinedGuild) {
+        user.achievements.joinedGuild = true;
+        user.addNotification('GUILD_JOINED_ACHIEVEMENT');
+      }
+      if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
+        user._ABtests.counter = -1;
+        user.markModified('_ABtests');
+      }
     } else {
       if (group.privacy !== 'private') throw new NotAuthorized(res.t('partyMustbePrivate'));
       if (user.party._id) throw new NotAuthorized(res.t('messageGroupAlreadyInParty'));
@@ -162,7 +174,7 @@ api.createGroup = {
  * @apiName CreateGroupPlan
  * @apiGroup Group
  *
- * @apiSuccess {Object} data The created group
+ * @apiSuccess (201) {Object} data The created group
  */
 api.createGroupPlan = {
   method: 'POST',
@@ -252,6 +264,8 @@ api.createGroupPlan = {
  * @apiGroup Group
  *
  * @apiParam {String} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, guilds, privateGuilds, publicGuilds, tavern
+ * @apiParam {String="true","false"} [paginate] Public guilds support pagination. When true guilds are returned in groups of 30
+ * @apiParam {Number} [page] When pagination is enabled for public guilds this parameter can be used to specify the page number (the initial page is number 0 and not required)
  *
  * @apiParamExample {json} Private Guilds, Tavern:
  *     {
@@ -259,6 +273,9 @@ api.createGroupPlan = {
  *     }
  *
  * @apiError (400) {BadRequest} groupTypesRequired Group types are required
+ * @apiError (400) {BadRequest} guildsPaginateBooleanString Paginate query parameter must be a boolean (true or false)
+ * @apiError (400) {BadRequest} guildsPageInteger Page query parameter must be a positive integer
+ * @apiError (400) {BadRequest} guildsOnlyPaginate Only public guilds support pagination
  *
  * @apiSuccess {Object[]} data An array of the requested groups (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
  *
@@ -276,15 +293,43 @@ api.getGroups = {
     let user = res.locals.user;
 
     req.checkQuery('type', res.t('groupTypesRequired')).notEmpty();
+    // pagination options, can only be used with public guilds
+    req.checkQuery('paginate').optional().isIn(['true', 'false'], apiMessages('guildsPaginateBooleanString'));
+    req.checkQuery('page').optional().isInt({min: 0}, apiMessages('guildsPageInteger'));
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     let types = req.query.type.split(',');
+
+    let paginate = req.query.paginate === 'true' ? true : false;
+    if (paginate && !_.includes(types, 'publicGuilds')) {
+      throw new BadRequest(apiMessages('guildsOnlyPaginate'));
+    }
+
     let groupFields = basicGroupFields.concat(' description memberCount balance');
     let sort = '-memberCount';
 
-    let results = await Group.getGroups({user, types, groupFields, sort});
+    let filters = {};
+    if (req.query.categories) {
+      let categorySlugs = req.query.categories.split(',');
+      filters.categories = { $elemMatch: { slug: {$in: categorySlugs} } };
+    }
+
+    if (req.query.minMemberCount) {
+      if (!filters.memberCount) filters.memberCount = {};
+      filters.memberCount.$gte = parseInt(req.query.minMemberCount, 10);
+    }
+
+    if (req.query.maxMemberCount) {
+      if (!filters.memberCount) filters.memberCount = {};
+      filters.memberCount.$lte = parseInt(req.query.maxMemberCount, 10);
+    }
+
+    let results = await Group.getGroups({
+      user, types, groupFields, sort,
+      paginate, page: req.query.page, filters,
+    });
     res.respond(200, results);
   },
 };
@@ -314,7 +359,6 @@ api.getGroups = {
 api.getGroup = {
   method: 'GET',
   url: '/groups/:groupId',
-  runCron: false, // Do not run cron to avoid double cronning because it's called in parallel to GET /user when the site loads
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
@@ -368,7 +412,7 @@ api.getGroup = {
  * @apiUse groupIdRequired
  * @apiUse GroupNotFound
  *
- * @apiPermission GroupLeader
+ * @apiPermission GroupLeader, Admin
  */
 api.updateGroup = {
   method: 'PUT',
@@ -381,11 +425,13 @@ api.updateGroup = {
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
+    let optionalMembership = Boolean(user.contributor.admin);
+    let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership});
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+    if (group.leader !== user._id && group.type === 'party') throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+    else if (group.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
 
     if (req.body.leader !== user._id && group.hasNotCancelled()) throw new NotAuthorized(res.t('cannotChangeLeaderWithActiveGroupPlan'));
 
@@ -444,35 +490,41 @@ api.joinGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-     // Works even if the user is not yet a member of the group
+    // Works even if the user is not yet a member of the group
     let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership: true}); // Do not fetch chat and work even if the user is not yet a member of the group
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let isUserInvited = false;
 
-    if (group.type === 'party' && group._id === user.invitations.party.id) {
-      inviter = user.invitations.party.inviter;
-      user.invitations.party = {}; // Clear invite
-      user.markModified('invitations.party');
+    if (group.type === 'party') {
+      // Check if was invited to party
+      let inviterParty = _.find(user.invitations.parties, {id: group._id});
+      if (inviterParty) {
+        inviter = inviterParty.inviter;
 
-      // invite new user to pending quest
-      if (group.quest.key && !group.quest.active) {
-        user.party.quest.RSVPNeeded = true;
-        user.party.quest.key = group.quest.key;
-        group.quest.members[user._id] = null;
-        group.markModified('quest.members');
+        // Clear all invitations of new user
+        user.invitations.parties = [];
+        user.invitations.party = {};
+
+        // invite new user to pending quest
+        if (group.quest.key && !group.quest.active) {
+          user.party.quest.RSVPNeeded = true;
+          user.party.quest.key = group.quest.key;
+          group.quest.members[user._id] = null;
+          group.markModified('quest.members');
+        }
+
+        // If user was in a different party (when partying solo you can be invited to a new party)
+        // make them leave that party before doing anything
+        if (user.party._id) {
+          let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
+          if (userPreviousParty) await userPreviousParty.leave(user);
+        }
+
+        user.party._id = group._id; // Set group as user's party
+
+        isUserInvited = true;
       }
-
-      // If user was in a different party (when partying solo you can be invited to a new party)
-      // make him leave that party before doing anything
-      if (user.party._id) {
-        let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
-        if (userPreviousParty) await userPreviousParty.leave(user);
-      }
-
-      user.party._id = group._id; // Set group as user's party
-
-      isUserInvited = true;
     } else if (group.type === 'guild') {
       let hasInvitation = removeFromArray(user.invitations.guilds, { id: group._id });
 
@@ -489,6 +541,14 @@ api.joinGroup = {
         throw new NotAuthorized(res.t('userAlreadyInGroup'));
       }
       user.guilds.push(group._id); // Add group to user's guilds
+      if (!user.achievements.joinedGuild) {
+        user.achievements.joinedGuild = true;
+        user.addNotification('GUILD_JOINED_ACHIEVEMENT');
+      }
+      if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
+        user._ABtests.counter = -1;
+        user.markModified('_ABtests');
+      }
     }
     if (!isUserInvited) throw new NotAuthorized(res.t('messageGroupRequiresInvite'));
 
@@ -598,8 +658,9 @@ api.rejectGroupInvite = {
     let groupId = req.params.groupId;
     let isUserInvited = false;
 
-    if (groupId === user.invitations.party.id) {
-      user.invitations.party = {};
+    let hasPartyInvitation = removeFromArray(user.invitations.parties, { id: groupId });
+    if (hasPartyInvitation) {
+      user.invitations.party = user.invitations.parties.length > 0 ? user.invitations.parties[user.invitations.parties.length - 1] : {};
       user.markModified('invitations.party');
       isUserInvited = true;
     } else {
@@ -724,7 +785,7 @@ function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
  *
  * @apiSuccess {Object} data An empty object
  *
- * @apiPermission GroupLeader
+ * @apiPermission GroupLeader, Admin
  *
  * @apiUse groupIdRequired
  * @apiUse GroupNotFound
@@ -741,13 +802,18 @@ api.removeGroupMember = {
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
+    let optionalMembership = Boolean(user.contributor.admin);
+    let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership, fields: '-chat'}); // Do not fetch chat
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat'}); // Do not fetch chat
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let uuid = req.params.memberId;
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
+    if (group.leader !== user._id && group.type === 'party') throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
+    if (group.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
+
+    if (group.leader === uuid && user.contributor.admin) throw new NotAuthorized(res.t('cannotRemoveCurrentLeader'));
+
     if (user._id === uuid) throw new NotAuthorized(res.t('memberCannotRemoveYourself'));
 
     let member = await User.findOne({_id: uuid}).exec();
@@ -761,7 +827,7 @@ api.removeGroupMember = {
     }
 
     let isInvited;
-    if (member.invitations.party && member.invitations.party.id === group._id) {
+    if (_.find(member.invitations.parties, {id: group._id})) {
       isInvited = 'party';
     } else if (_.findIndex(member.invitations.guilds, {id: group._id}) !== -1) {
       isInvited = 'guild';
@@ -806,7 +872,8 @@ api.removeGroupMember = {
         removeFromArray(member.invitations.guilds, { id: group._id });
       }
       if (isInvited === 'party') {
-        member.invitations.party = {};
+        removeFromArray(member.invitations.parties, { id: group._id });
+        member.invitations.party = member.invitations.parties.length > 0 ? member.invitations.parties[member.invitations.parties.length - 1] : {};
         member.markModified('invitations.party');
       }
     } else {
@@ -845,7 +912,8 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     if (group.isSubscribed() && !group.hasNotCancelled()) guildInvite.cancelledPlan = true;
     userToInvite.invitations.guilds.push(guildInvite);
   } else if (group.type === 'party') {
-    if (userToInvite.invitations.party.id) {
+    // Do not add to invitations.parties array if the user is already invited to that party
+    if (_.find(userToInvite.invitations.parties, {id: group._id})) {
       throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
     }
 
@@ -858,6 +926,8 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
 
     let partyInvite = {id: group._id, name: group.name, inviter: inviter._id};
     if (group.isSubscribed() && !group.hasNotCancelled()) partyInvite.cancelledPlan = true;
+
+    userToInvite.invitations.parties.push(partyInvite);
     userToInvite.invitations.party = partyInvite;
   }
 
@@ -900,7 +970,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
   if (group.type === 'guild') {
     return userInvited.invitations.guilds[userToInvite.invitations.guilds.length - 1];
   } else if (group.type === 'party') {
-    return userInvited.invitations.party;
+    return userInvited.invitations.parties[userToInvite.invitations.parties.length - 1];
   }
 }
 
@@ -910,12 +980,12 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
   if (!invite.email) throw new BadRequest(res.t('inviteMissingEmail'));
 
   let userToContact = await User.findOne({$or: [
-    {'auth.local.email': invite.email},
-    {'auth.facebook.emails.value': invite.email},
-    {'auth.google.emails.value': invite.email},
+      {'auth.local.email': invite.email},
+      {'auth.facebook.emails.value': invite.email},
+      {'auth.google.emails.value': invite.email},
   ]})
-  .select({_id: true, 'preferences.emailNotifications': true})
-  .exec();
+    .select({_id: true, 'preferences.emailNotifications': true})
+    .exec();
 
   if (userToContact) {
     userReturnInfo = await _inviteByUUID(userToContact._id, group, inviter, req, res);
@@ -1021,6 +1091,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  * @apiError (400) {BadRequest} MustBeArray The `uuids` or `emails` body param was not an array.
  * @apiError (400) {BadRequest} TooManyInvites A max of 100 invites (combined emails and user ids) can
  * be sent out at a time.
+ * @apiError (400) {BadRequest} ExceedsMembersLimit A max of 30 members can join a party.
  *
  * @apiError (401) {NotAuthorized} UserAlreadyInvited The user has already been invited to the group.
  * @apiError (401) {NotAuthorized} UserAlreadyInGroup The user is already a member of the group.
@@ -1038,6 +1109,8 @@ api.inviteToGroup = {
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
 
+    if (user.invitesSent >= MAX_EMAIL_INVITES_BY_USER) throw new NotAuthorized(res.t('inviteLimitReached', { techAssistanceEmail: TECH_ASSISTANCE_EMAIL }));
+
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
@@ -1049,7 +1122,7 @@ api.inviteToGroup = {
     let uuids = req.body.uuids;
     let emails = req.body.emails;
 
-    Group.validateInvitations(uuids, emails, res);
+    await Group.validateInvitations(uuids, emails, res, group);
 
     let results = [];
 
@@ -1061,11 +1134,117 @@ api.inviteToGroup = {
 
     if (emails) {
       let emailInvites = emails.map((invite) => _inviteByEmail(invite, group, user, req, res));
+      user.invitesSent += emails.length;
+      await user.save();
       let emailResults = await Bluebird.all(emailInvites);
       results.push(...emailResults);
     }
 
     res.respond(200, results);
+  },
+};
+
+/**
+ * @api {post} /api/v3/groups/:groupId/add-manager Add a manager to a group
+ * @apiName AddGroupManager
+ * @apiGroup Group
+ *
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ *
+ * @apiParamExample {String} party:
+ *     /api/v3/groups/party/add-manager
+ *
+ * @apiBody (Body) {UUID} managerId The user _id of the member to promote to manager
+ *
+ * @apiSuccess {Object} data An empty object
+ *
+ * @apiError (400) {NotAuthorized} managerId req.body.managerId is required
+ * @apiUse groupIdRequired
+ */
+api.addGroupManager = {
+  method: 'POST',
+  url: '/groups/:groupId/add-manager',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let managerId = req.body.managerId;
+
+    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkBody('managerId', apiMessages('managerIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let newManager = await User.findById(managerId, 'guilds party').exec();
+    let groupFields = basicGroupFields.concat(' managers');
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: groupFields});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+
+    let isMember = group.isMember(newManager);
+    if (!isMember) throw new NotAuthorized(res.t('userMustBeMember'));
+
+    group.managers[managerId] = true;
+    group.markModified('managers');
+    await group.save();
+
+    res.respond(200, group);
+  },
+};
+
+/**
+ * @api {post} /api/v3/groups/:groupId/remove-manager Remove a manager from a group
+ * @apiName RemoveGroupManager
+ * @apiGroup Group
+ *
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ *
+ * @apiParamExample {String} party:
+ *     /api/v3/groups/party/add-manager
+ *
+ * @apiBody (Body) {UUID} managerId The user _id of the member to remove
+ *
+ * @apiSuccess {Object} group The group
+ *
+ * @apiError (400) {NotAuthorized} managerId req.body.managerId is required
+ * @apiUse groupIdRequired
+ */
+api.removeGroupManager = {
+  method: 'POST',
+  url: '/groups/:groupId/remove-manager',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+    let managerId = req.body.managerId;
+
+    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkBody('managerId', apiMessages('managerIdRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let groupFields = basicGroupFields.concat(' managers');
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: groupFields});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
+
+    if (!group.managers[managerId]) throw new NotAuthorized(res.t('userIsNotManager'));
+
+    delete group.managers[managerId];
+    group.markModified('managers');
+    await group.save();
+
+    let manager = await User.findById(managerId, 'notifications').exec();
+    let newNotifications = manager.notifications.filter((notification) => {
+      return notification.type !== 'GROUP_TASK_APPROVAL';
+    });
+    manager.notifications = newNotifications;
+    manager.markModified('notifications');
+    await manager.save();
+
+    res.respond(200, group);
   },
 };
 

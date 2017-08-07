@@ -2,11 +2,14 @@ import moment from 'moment';
 import { v4 as generateUUID } from 'uuid';
 import validator from 'validator';
 import { sleep } from '../../../../helpers/api-unit.helper';
-import { model as Group, INVITES_LIMIT } from '../../../../../website/server/models/group';
-import { model as User } from '../../../../../website/server/models/user';
 import {
-  BadRequest,
- } from '../../../../../website/server/libs/errors';
+  SPAM_MESSAGE_LIMIT,
+  SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
+  SPAM_WINDOW_LENGTH,
+  INVITES_LIMIT,
+  model as Group,
+} from '../../../../../website/server/models/group';
+import { model as User } from '../../../../../website/server/models/user';
 import { quests as questScrolls } from '../../../../../website/common/script/content';
 import { groupChatReceivedWebhook } from '../../../../../website/server/libs/webhook';
 import * as email from '../../../../../website/server/libs/email';
@@ -225,7 +228,7 @@ describe('Group Model', () => {
         });
 
         it('applies damage only to participating members of party even under buggy conditions', async () => {
-          // stops unfair damage from mbugs like https://github.com/HabitRPG/habitrpg/issues/7653
+          // stops unfair damage from mbugs like https://github.com/HabitRPG/habitica/issues/7653
           party.quest.members = {
             [questLeader._id]: true,
             [participatingMember._id]: true,
@@ -460,73 +463,67 @@ describe('Group Model', () => {
         };
       });
 
-      it('throws an error if no uuids or emails are passed in', (done) => {
-        try {
-          Group.validateInvitations(null, null, res);
-        } catch (err) {
-          expect(err).to.be.an.instanceof(BadRequest);
-          expect(res.t).to.be.calledOnce;
-          expect(res.t).to.be.calledWith('canOnlyInviteEmailUuid');
-          done();
-        }
+      it('throws an error if no uuids or emails are passed in', async () => {
+        await expect(Group.validateInvitations(null, null, res)).to.eventually.be.rejected.and.eql({
+          httpCode: 400,
+          message: 'Bad request.',
+          name: 'BadRequest',
+        });
+        expect(res.t).to.be.calledOnce;
+        expect(res.t).to.be.calledWith('canOnlyInviteEmailUuid');
       });
 
-      it('throws an error if only uuids are passed in, but they are not an array', (done) => {
-        try {
-          Group.validateInvitations({ uuid: 'user-id'}, null, res);
-        } catch (err) {
-          expect(err).to.be.an.instanceof(BadRequest);
-          expect(res.t).to.be.calledOnce;
-          expect(res.t).to.be.calledWith('uuidsMustBeAnArray');
-          done();
-        }
+      it('throws an error if only uuids are passed in, but they are not an array', async () => {
+        await expect(Group.validateInvitations({ uuid: 'user-id'}, null, res)).to.eventually.be.rejected.and.eql({
+          httpCode: 400,
+          message: 'Bad request.',
+          name: 'BadRequest',
+        });
+        expect(res.t).to.be.calledOnce;
+        expect(res.t).to.be.calledWith('uuidsMustBeAnArray');
       });
 
-      it('throws an error if only emails are passed in, but they are not an array', (done) => {
-        try {
-          Group.validateInvitations(null, { emails: 'user@example.com'}, res);
-        } catch (err) {
-          expect(err).to.be.an.instanceof(BadRequest);
-          expect(res.t).to.be.calledOnce;
-          expect(res.t).to.be.calledWith('emailsMustBeAnArray');
-          done();
-        }
+      it('throws an error if only emails are passed in, but they are not an array', async () => {
+        await expect(Group.validateInvitations(null, { emails: 'user@example.com'}, res)).to.eventually.be.rejected.and.eql({
+          httpCode: 400,
+          message: 'Bad request.',
+          name: 'BadRequest',
+        });
+        expect(res.t).to.be.calledOnce;
+        expect(res.t).to.be.calledWith('emailsMustBeAnArray');
       });
 
-      it('throws an error if emails are not passed in, and uuid array is empty', (done) => {
-        try {
-          Group.validateInvitations([], null, res);
-        } catch (err) {
-          expect(err).to.be.an.instanceof(BadRequest);
-          expect(res.t).to.be.calledOnce;
-          expect(res.t).to.be.calledWith('inviteMissingUuid');
-          done();
-        }
+      it('throws an error if emails are not passed in, and uuid array is empty', async () => {
+        await expect(Group.validateInvitations([], null, res)).to.eventually.be.rejected.and.eql({
+          httpCode: 400,
+          message: 'Bad request.',
+          name: 'BadRequest',
+        });
+        expect(res.t).to.be.calledOnce;
+        expect(res.t).to.be.calledWith('inviteMissingUuid');
       });
 
-      it('throws an error if uuids are not passed in, and email array is empty', (done) => {
-        try {
-          Group.validateInvitations(null, [], res);
-        } catch (err) {
-          expect(err).to.be.an.instanceof(BadRequest);
-          expect(res.t).to.be.calledOnce;
-          expect(res.t).to.be.calledWith('inviteMissingEmail');
-          done();
-        }
+      it('throws an error if uuids are not passed in, and email array is empty', async () => {
+        await expect(Group.validateInvitations(null, [], res)).to.eventually.be.rejected.and.eql({
+          httpCode: 400,
+          message: 'Bad request.',
+          name: 'BadRequest',
+        });
+        expect(res.t).to.be.calledOnce;
+        expect(res.t).to.be.calledWith('inviteMissingEmail');
       });
 
-      it('throws an error if uuids and emails are passed in as empty arrays', (done) => {
-        try {
-          Group.validateInvitations([], [], res);
-        } catch (err) {
-          expect(err).to.be.an.instanceof(BadRequest);
-          expect(res.t).to.be.calledOnce;
-          expect(res.t).to.be.calledWith('inviteMustNotBeEmpty');
-          done();
-        }
+      it('throws an error if uuids and emails are passed in as empty arrays', async () => {
+        await expect(Group.validateInvitations([], [], res)).to.eventually.be.rejected.and.eql({
+          httpCode: 400,
+          message: 'Bad request.',
+          name: 'BadRequest',
+        });
+        expect(res.t).to.be.calledOnce;
+        expect(res.t).to.be.calledWith('inviteMustNotBeEmpty');
       });
 
-      it('throws an error if total invites exceed max invite constant', (done) => {
+      it('throws an error if total invites exceed max invite constant', async () => {
         let uuids = [];
         let emails = [];
 
@@ -537,17 +534,16 @@ describe('Group Model', () => {
 
         uuids.push('one-more-uuid'); // to put it over the limit
 
-        try {
-          Group.validateInvitations(uuids, emails, res);
-        } catch (err) {
-          expect(err).to.be.an.instanceof(BadRequest);
-          expect(res.t).to.be.calledOnce;
-          expect(res.t).to.be.calledWith('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT });
-          done();
-        }
+        await expect(Group.validateInvitations(uuids, emails, res)).to.eventually.be.rejected.and.eql({
+          httpCode: 400,
+          message: 'Bad request.',
+          name: 'BadRequest',
+        });
+        expect(res.t).to.be.calledOnce;
+        expect(res.t).to.be.calledWith('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT });
       });
 
-      it('does not throw error if number of invites matches max invite limit', () => {
+      it('does not throw error if number of invites matches max invite limit', async () => {
         let uuids = [];
         let emails = [];
 
@@ -556,49 +552,33 @@ describe('Group Model', () => {
           emails.push(`user-${i}@example.com`);
         }
 
-        expect(function () {
-          Group.validateInvitations(uuids, emails, res);
-        }).to.not.throw();
-      });
-
-
-      it('does not throw an error if only user ids are passed in', () => {
-        expect(function () {
-          Group.validateInvitations(['user-id', 'user-id2'], null, res);
-        }).to.not.throw();
-
+        await Group.validateInvitations(uuids, emails, res);
         expect(res.t).to.not.be.called;
       });
 
-      it('does not throw an error if only emails are passed in', () => {
-        expect(function () {
-          Group.validateInvitations(null, ['user1@example.com', 'user2@example.com'], res);
-        }).to.not.throw();
 
+      it('does not throw an error if only user ids are passed in', async () => {
+        await Group.validateInvitations(['user-id', 'user-id2'], null, res);
         expect(res.t).to.not.be.called;
       });
 
-      it('does not throw an error if both uuids and emails are passed in', () => {
-        expect(function () {
-          Group.validateInvitations(['user-id', 'user-id2'], ['user1@example.com', 'user2@example.com'], res);
-        }).to.not.throw();
-
+      it('does not throw an error if only emails are passed in', async () => {
+        await Group.validateInvitations(null, ['user1@example.com', 'user2@example.com'], res);
         expect(res.t).to.not.be.called;
       });
 
-      it('does not throw an error if uuids are passed in and emails are an empty array', () => {
-        expect(function () {
-          Group.validateInvitations(['user-id', 'user-id2'], [], res);
-        }).to.not.throw();
-
+      it('does not throw an error if both uuids and emails are passed in', async () => {
+        await Group.validateInvitations(['user-id', 'user-id2'], ['user1@example.com', 'user2@example.com'], res);
         expect(res.t).to.not.be.called;
       });
 
-      it('does not throw an error if emails are passed in and uuids are an empty array', () => {
-        expect(function () {
-          Group.validateInvitations([], ['user1@example.com', 'user2@example.com'], res);
-        }).to.not.throw();
+      it('does not throw an error if uuids are passed in and emails are an empty array', async () => {
+        await Group.validateInvitations(['user-id', 'user-id2'], [], res);
+        expect(res.t).to.not.be.called;
+      });
 
+      it('does not throw an error if emails are passed in and uuids are an empty array', async () => {
+        await Group.validateInvitations([], ['user1@example.com', 'user2@example.com'], res);
         expect(res.t).to.not.be.called;
       });
     });
@@ -618,6 +598,99 @@ describe('Group Model', () => {
           participatingMember._id,
           questLeader._id,
         ]);
+      });
+    });
+
+    describe('#checkChatSpam', () => {
+      let testUser, testTime, tavern;
+      let testUserID = '1';
+      beforeEach(async () => {
+        testTime = Date.now();
+
+        tavern = new Group({
+          name: 'test tavern',
+          type: 'guild',
+          privacy: 'public',
+        });
+        tavern._id = TAVERN_ID;
+
+        testUser = {
+          _id: testUserID,
+        };
+      });
+
+      function generateTestMessage (overrides = {}) {
+        return Object.assign({}, {
+          text: 'test message',
+          uuid: testUserID,
+          timestamp: testTime,
+        }, overrides);
+      }
+
+      it('group that is not the tavern returns false, while tavern returns true', async () => {
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
+          party.chat.push(generateTestMessage());
+        }
+        expect(party.checkChatSpam(testUser)).to.eql(false);
+
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
+          tavern.chat.push(generateTestMessage());
+        }
+        expect(tavern.checkChatSpam(testUser)).to.eql(true);
+      });
+
+      it('high enough contributor returns false', async () => {
+        let highContributor = testUser;
+        highContributor.contributor = {
+          level: SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
+        };
+
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
+          tavern.chat.push(generateTestMessage());
+        }
+
+        expect(tavern.checkChatSpam(highContributor)).to.eql(false);
+      });
+
+      it('chat with no messages returns false', async () => {
+        expect(tavern.chat.length).to.eql(0);
+        expect(tavern.checkChatSpam(testUser)).to.eql(false);
+      });
+
+      it('user has not reached limit but another one has returns false', async () => {
+        let otherUserID = '2';
+
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
+          tavern.chat.push(generateTestMessage({uuid: otherUserID}));
+        }
+
+        expect(tavern.checkChatSpam(testUser)).to.eql(false);
+      });
+
+      it('user messages is less than the limit returns false', async () => {
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT - 1; i++) {
+          tavern.chat.push(generateTestMessage());
+        }
+
+        expect(tavern.checkChatSpam(testUser)).to.eql(false);
+      });
+
+      it('user has reached the message limit outside of window returns false', async () => {
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT - 1; i++) {
+          tavern.chat.push(generateTestMessage());
+        }
+        let earlierTimestamp = testTime - SPAM_WINDOW_LENGTH - 1;
+        tavern.chat.push(generateTestMessage({timestamp: earlierTimestamp}));
+
+        expect(tavern.checkChatSpam(testUser)).to.eql(false);
+      });
+
+      it('user has posted too many messages in limit returns true', async () => {
+        for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
+          tavern.chat.push(generateTestMessage());
+        }
+
+        expect(tavern.checkChatSpam(testUser)).to.eql(true);
       });
     });
 

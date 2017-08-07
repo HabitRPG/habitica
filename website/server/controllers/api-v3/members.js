@@ -4,6 +4,9 @@ import {
   publicFields as memberFields,
   nameFields,
 } from '../../models/user';
+import {
+  KNOWN_INTERACTIONS,
+} from '../../models/user/methods';
 import { model as Group } from '../../models/group';
 import { model as Challenge } from '../../models/challenge';
 import {
@@ -216,9 +219,19 @@ function _getMembersForItem (type) {
 
     if (type === 'challenge-members') {
       query.challenges = challenge._id;
+
+      if (req.query.includeAllPublicFields === 'true') {
+        fields = memberFields;
+        addComputedStats = true;
+      }
     } else if (type === 'group-members') {
       if (group.type === 'guild') {
         query.guilds = group._id;
+
+        if (req.query.includeAllPublicFields === 'true') {
+          fields = memberFields;
+          addComputedStats = true;
+        }
       } else {
         query['party._id'] = group._id; // group._id and not groupId because groupId could be === 'party'
 
@@ -386,6 +399,39 @@ api.getChallengeMemberProgress = {
 };
 
 /**
+ * @api {get} /api/v3/members/:toUserId/objections/:interaction Get any objections that would occur if the given interaction was attempted - BETA
+ * @apiVersion 3.0.0
+ * @apiName GetObjectionsToInteraction
+ * @apiGroup Member
+ *
+ * @apiParam {UUID} toUserId The user to interact with
+ * @apiParam {String="send-private-message","transfer-gems"} interaction Name of the interaction to query
+ *
+ * @apiSuccess {Array} data Return an array of objections, if the interaction would be blocked; otherwise an empty array
+ */
+api.getObjectionsToInteraction = {
+  method: 'GET',
+  url: '/members/:toUserId/objections/:interaction',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    req.checkParams('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();
+    req.checkParams('interaction', res.t('interactionRequired')).notEmpty().isIn(KNOWN_INTERACTIONS);
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let sender = res.locals.user;
+    let receiver = await User.findById(req.params.toUserId).exec();
+    if (!receiver) throw new NotFound(res.t('userWithIDNotFound', {userId: req.params.toUserId}));
+
+    let interaction = req.params.interaction;
+    let response = sender.getObjectionsToInteraction(interaction, receiver);
+
+    res.respond(200, response.map(res.t));
+  },
+};
+
+/**
  * @api {posts} /api/v3/members/send-private-message Send a private message to a member
  * @apiName SendPrivateMessage
  * @apiGroup Member
@@ -410,17 +456,11 @@ api.sendPrivateMessage = {
 
     let sender = res.locals.user;
     let message = req.body.message;
-
     let receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
 
-    let userBlockedSender = receiver.inbox.blocks.indexOf(sender._id) !== -1;
-    let userIsBlockBySender = sender.inbox.blocks.indexOf(receiver._id) !== -1;
-    let userOptedOutOfMessaging = receiver.inbox.optOut;
-
-    if (userBlockedSender || userIsBlockBySender || userOptedOutOfMessaging) {
-      throw new NotAuthorized(res.t('notAuthorizedToSendMessageToThisUser'));
-    }
+    let objections = sender.getObjectionsToInteraction('send-private-message', receiver);
+    if (objections.length > 0) throw new NotAuthorized(res.t(objections[0]));
 
     await sender.sendMessage(receiver, { receiverMsg: message });
 
@@ -472,13 +512,11 @@ api.transferGems = {
     if (validationErrors) throw validationErrors;
 
     let sender = res.locals.user;
-
     let receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
 
-    if (receiver._id === sender._id) {
-      throw new NotAuthorized(res.t('cannotSendGemsToYourself'));
-    }
+    let objections = sender.getObjectionsToInteraction('transfer-gems', receiver);
+    if (objections.length > 0) throw new NotAuthorized(res.t(objections[0]));
 
     let gemAmount = req.body.gemAmount;
     let amount = gemAmount / 4;

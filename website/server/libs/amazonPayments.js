@@ -97,11 +97,22 @@ api.checkout = async function checkout (options = {}) {
   let amount = 5;
 
   if (gift) {
+    gift.member = await User.findById(gift.uuid).exec();
+
     if (gift.type === this.constants.GIFT_TYPE_GEMS) {
+      if (gift.gems.amount <= 0) {
+        throw new BadRequest(i18n.t('badAmountOfGemsToPurchase'));
+      }
       amount = gift.gems.amount / 4;
     } else if (gift.type === this.constants.GIFT_TYPE_SUBSCRIPTION) {
       amount = common.content.subscriptionBlocks[gift.subscription.key].price;
     }
+  }
+
+  if (!gift || gift.type === this.constants.GIFT_TYPE_GEMS) {
+    const receiver = gift ? gift.member : user;
+    const receiverCanGetGems = await receiver.canGetGems();
+    if (!receiverCanGetGems) throw new NotAuthorized(i18n.t('groupPolicyCannotGetGems', receiver.preferences.language));
   }
 
   await this.setOrderReferenceDetails({
@@ -161,11 +172,12 @@ api.checkout = async function checkout (options = {}) {
  * @param  options.user  The user object who is canceling
  * @param  options.groupId  The id of the group that is canceling
  * @param  options.headers  The request headers
+ * @param  options.cancellationReason  A text string to control sending an email
  *
  * @return undefined
  */
 api.cancelSubscription = async function cancelSubscription (options = {}) {
-  let {user, groupId, headers} = options;
+  let {user, groupId, headers, cancellationReason} = options;
 
   let billingAgreementId;
   let planId;
@@ -218,6 +230,7 @@ api.cancelSubscription = async function cancelSubscription (options = {}) {
     nextBill: moment(lastBillingDate).add({ days: subscriptionLength }),
     paymentMethod: this.constants.PAYMENT_METHOD,
     headers,
+    cancellationReason,
   });
 };
 
@@ -252,6 +265,17 @@ api.subscribe = async function subscribe (options) {
     if (!result) throw new NotAuthorized(i18n.t('invalidCoupon'));
   }
 
+  let amount = sub.price;
+  let leaderCount = 1;
+  let priceOfSingleMember = 3;
+
+  if (groupId) {
+    let groupFields = basicGroupFields.concat(' purchased');
+    let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+
+    amount = sub.price + (group.memberCount - leaderCount) * priceOfSingleMember;
+  }
+
   await this.setBillingAgreementDetails({
     AmazonBillingAgreementId: billingAgreementId,
     BillingAgreementAttributes: {
@@ -273,7 +297,7 @@ api.subscribe = async function subscribe (options) {
     AuthorizationReferenceId: common.uuid().substring(0, 32),
     AuthorizationAmount: {
       CurrencyCode: this.constants.CURRENCY_CODE,
-      Amount: sub.price,
+      Amount: amount,
     },
     SellerAuthorizationNote: this.constants.SELLER_NOTE_ATHORIZATION_SUBSCRIPTION,
     TransactionTimeout: 0,

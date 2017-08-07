@@ -1,0 +1,17 @@
+include ./login-mixins
+
+extends ./layout
+
+block vars
+  - var layoutEnv = env
+
+block title
+  title=env.t('loginAndReg')
+
+block content
+  .row
+    .col-sm-6.col-sm-offset-3
+      .header
+        h4=env.t('loginAndReg')
+      .body(ng-controller='AuthCtrl')
+        +loginBody

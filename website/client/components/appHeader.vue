@@ -1,120 +1,135 @@
 <template lang="pug">
 #app-header.row
-  avatar#header-avatar(:user="$store.state.user")
-  div
-    span.character-name {{user.profile.name}}
-    span.character-level Lvl {{user.stats.lvl}}
-    .progress-container.d-flex
-      img.icon(src="~assets/header/png/health@3x.png")
-      .progress
-        .progress-bar.bg-danger(:style="{width: `${percent(user.stats.hp, maxHealth)}%`}")
-      span {{user.stats.hp | round}} / {{maxHealth}}
-    .progress-container.d-flex
-      img.icon(src="~assets/header/png/experience@3x.png")
-      .progress
-        .progress-bar.bg-warning(:style="{width: `${percent(user.stats.exp, toNextLevel)}%`}")
-      span {{user.stats.exp | round}} / {{toNextLevel}}
-    .progress-container.d-flex(ng-if="user.flags.classSelected && !user.preferences.disableClasses")
-      img.icon(src="~assets/header/png/magic@3x.png")
-      .progress
-        .progress-bar(:style="{width: `${percent(user.stats.mp, maxMP)}%`}")
-      span {{user.stats.mp | round}} / {{maxMP}}
+  create-party-modal
+  members-modal(v-if="user.party._id", :group='user.party', :hide-badge="true")
+  member-details(:member="user", @click="$router.push({name: 'avatar'})")
+  .view-party(v-if="user.party && user.party._id")
+    // TODO button should open the party members modal
+    button.btn.btn-primary(@click='openPartyModal()') {{ $t('viewParty') }}
+  .party-members.d-flex(v-if="partyMembers && partyMembers.length > 1")
+    member-details(
+      v-for="(member, $index) in partyMembers",
+      :key="member._id",
+      v-if="member._id !== user._id && $index < 10",
+      :member="member",
+      condensed=true,
+      @onHover="expandMember(member._id)",
+      :expanded="member._id === expandedMember",
+    )
+  .no-party.d-flex.justify-content-center.text-center(v-else)
+    .align-self-center(v-once)
+      h3 {{ $t('battleWithFriends') }}
+      span.small-text(v-html="$t('inviteFriendsParty')")
+      br
+      // TODO link to party creation or party page if partying solo
+      router-link.btn.btn-primary(:active-class="''", :to="{name: 'party'}") {{ $t('startAParty') }}
 </template>
 
-<style scoped>
-/* TODO refactor: only partially ported from SemanticUI; */
-#app-header {
-  padding-left: 14px;
-  margin-top: 56px;
-  background: #36205d;
-  height: 192px;
-  color: #d5c8ff;
-}
+<style lang="scss" scoped>
+  @import '~client/assets/scss/colors.scss';
 
-.character-name {
-  display: block;
-  font-size: 16px;
-  margin-top: 32px;
-  line-height: 1.5;
-  color: #fff;
-  font-weight: bold;
-}
+  #app-header {
+    padding-left: 14px;
+    margin-top: 56px;
+    background: $purple-50;
+    height: 204px;
+    color: $header-color;
+    flex-wrap: nowrap;
+    position: relative;
+  }
 
-.character-level {
-  display: block;
-  font-size: 12px;
-  margin-top: 4px;
-  margin-bottom: 20px;
-  line-height: 1;
-}
+  .sticky {
+    position: fixed !important;
+    width: 100%;
+    z-index: 1;
+  }
 
-#header-avatar {
-  margin-top: 24px;
-  margin-right: 1rem;
-  box-shadow: 0 2px 4px 0 rgba(53, 32, 93, 0.4);
-}
+  .no-party, .party-members {
+    flex-grow: 1;
+  }
 
-.progress-container {
-  margin-bottom: 12px;
-}
+  .party-members {
+  }
 
-.progress-container > span {
-  font-size: 12px;
-  margin-left: 10px;
-  line-height: 1em;
-}
+  .view-party {
+    position: absolute;
+    z-index: 10;
+    right: 0;
+    padding-right: 40px;
+    height: 100%;
+    background-image: linear-gradient(to right, rgba($purple-50, 0), $purple-50);
 
-.progress-container > .icon {
-  width: 12px;
-  height: 12px;
-  margin-right: 10px;
-}
+    .btn {
+      margin-top: 75%;
+    }
+  }
 
-.progress-container > .progress {
-  width: 203px;
-  margin: 0px;
-  border-radius: 0px;
-  height: 12px;
-  background-color: rgba(0, 0, 0, 0.35);
-}
+  .no-party {
+    .small-text {
+      color: $header-color;
+      flex-wrap: nowrap;
+    }
 
-.progress-container > .progress > .progress-bar {
-  border-radius: 0px;
-  height: 12px;
-  min-width: 0px;
-}
+    h3 {
+      color: $white;
+      margin-bottom: 4px;
+    }
+
+    .btn {
+      margin-top: 16px;
+    }
+  }
 </style>
 
 <script>
-import Avatar from './avatar';
-import { mapState } from '../store';
-
-import { toNextLevel } from '../../common/script/statHelpers';
-import { MAX_HEALTH as maxHealth } from '../../common/script/constants';
-import statsComputed from '../../common/script/libs/statsComputed';
-import percent from '../../common/script/libs/percent';
+import { mapGetters, mapActions } from 'client/libs/store';
+import MemberDetails from './memberDetails';
+import createPartyModal from './groups/createPartyModal';
+import membersModal from './groups/membersModal';
 
 export default {
-  name: 'header',
   components: {
-    Avatar,
-  },
-  methods: {
-    percent,
+    MemberDetails,
+    createPartyModal,
+    membersModal,
   },
   data () {
     return {
-      maxHealth,
+      expandedMember: null,
     };
   },
   computed: {
-    ...mapState(['user']),
-    maxMP () {
-      return statsComputed(this.user).maxMP;
+    ...mapGetters({
+      user: 'user:data',
+      partyMembers: 'party:members',
+    }),
+    showHeader () {
+      if (this.$store.state.hideHeader) return false;
+      return true;
     },
-    toNextLevel () { // Exp to next level
-      return toNextLevel(this.user.stats.lvl);
+  },
+  methods: {
+    ...mapActions({
+      getPartyMembers: 'party:getMembers',
+    }),
+    expandMember (memberId) {
+      if (this.expandedMember === memberId) {
+        this.expandedMember = null;
+      } else {
+        this.expandedMember = memberId;
+      }
     },
+    openPartyModal () {
+      if (this.user.party._id) {
+        this.$store.state.groupId = this.user.party._id;
+        this.$root.$emit('show::modal', 'members-modal');
+        return;
+      }
+      this.$root.$emit('show::modal', 'create-party-modal');
+    },
+  },
+  created () {
+    if (this.user.party && this.user.party._id) this.getPartyMembers();
   },
 };
 </script>

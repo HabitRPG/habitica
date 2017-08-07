@@ -102,6 +102,7 @@ describe('Amazon Payments', () => {
     });
 
     it('should purchase gems', async () => {
+      sinon.stub(user, 'canGetGems').returnsPromise().resolves(true);
       await amzLib.checkout({user, orderReferenceId, headers});
 
       expect(paymentBuyGemsStub).to.be.calledOnce;
@@ -111,22 +112,52 @@ describe('Amazon Payments', () => {
         headers,
       });
       expectAmazonStubs();
+      expect(user.canGetGems).to.be.calledOnce;
+      user.canGetGems.restore();
     });
 
-    it('should gift gems', async () => {
+    it('should error if gem amount is too low', async () => {
       let receivingUser = new User();
       receivingUser.save();
       let gift = {
         type: 'gems',
         gems: {
-          amount: 16,
+          amount: 0,
           uuid: receivingUser._id,
+        },
+      };
+
+      await expect(amzLib.checkout({gift, user, orderReferenceId, headers}))
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 400,
+        message: 'Amount must be at least 1.',
+        name: 'BadRequest',
+      });
+    });
+
+    it('should error if user cannot get gems gems', async () => {
+      sinon.stub(user, 'canGetGems').returnsPromise().resolves(false);
+      await expect(amzLib.checkout({user, orderReferenceId, headers})).to.eventually.be.rejected.and.to.eql({
+        httpCode: 401,
+        message: i18n.t('groupPolicyCannotGetGems'),
+        name: 'NotAuthorized',
+      });
+      user.canGetGems.restore();
+    });
+
+    it('should gift gems', async () => {
+      let receivingUser = new User();
+      await receivingUser.save();
+      let gift = {
+        type: 'gems',
+        uuid: receivingUser._id,
+        gems: {
+          amount: 16,
         },
       };
       amount = 16 / 4;
       await amzLib.checkout({gift, user, orderReferenceId, headers});
 
-      gift.member = receivingUser;
       expect(paymentBuyGemsStub).to.be.calledOnce;
       expect(paymentBuyGemsStub).to.be.calledWith({
         user,
@@ -383,6 +414,72 @@ describe('Amazon Payments', () => {
         groupId,
       });
     });
+
+    it('subscribes with amazon with price to existing users', async () => {
+      user = new User();
+      user.guilds.push(groupId);
+      await user.save();
+      group.memberCount = 2;
+      await group.save();
+      sub.key = 'group_monthly';
+      sub.price = 9;
+      amount = 12;
+
+      await amzLib.subscribe({
+        billingAgreementId,
+        sub,
+        coupon,
+        user,
+        groupId,
+        headers,
+      });
+
+      expect(amazonSetBillingAgreementDetailsSpy).to.be.calledOnce;
+      expect(amazonSetBillingAgreementDetailsSpy).to.be.calledWith({
+        AmazonBillingAgreementId: billingAgreementId,
+        BillingAgreementAttributes: {
+          SellerNote: amzLib.constants.SELLER_NOTE_SUBSCRIPTION,
+          SellerBillingAgreementAttributes: {
+            SellerBillingAgreementId: common.uuid(),
+            StoreName: amzLib.constants.STORE_NAME,
+            CustomInformation: amzLib.constants.SELLER_NOTE_SUBSCRIPTION,
+          },
+        },
+      });
+
+      expect(amazonConfirmBillingAgreementSpy).to.be.calledOnce;
+      expect(amazonConfirmBillingAgreementSpy).to.be.calledWith({
+        AmazonBillingAgreementId: billingAgreementId,
+      });
+
+      expect(amazongAuthorizeOnBillingAgreementSpy).to.be.calledOnce;
+      expect(amazongAuthorizeOnBillingAgreementSpy).to.be.calledWith({
+        AmazonBillingAgreementId: billingAgreementId,
+        AuthorizationReferenceId: common.uuid().substring(0, 32),
+        AuthorizationAmount: {
+          CurrencyCode: amzLib.constants.CURRENCY_CODE,
+          Amount: amount,
+        },
+        SellerAuthorizationNote: amzLib.constants.SELLER_NOTE_ATHORIZATION_SUBSCRIPTION,
+        TransactionTimeout: 0,
+        CaptureNow: true,
+        SellerNote: amzLib.constants.SELLER_NOTE_ATHORIZATION_SUBSCRIPTION,
+        SellerOrderAttributes: {
+          SellerOrderId: common.uuid(),
+          StoreName: amzLib.constants.STORE_NAME,
+        },
+      });
+
+      expect(createSubSpy).to.be.calledOnce;
+      expect(createSubSpy).to.be.calledWith({
+        user,
+        customerId: billingAgreementId,
+        paymentMethod: amzLib.constants.PAYMENT_METHOD,
+        sub,
+        headers,
+        groupId,
+      });
+    });
   });
 
   describe('cancelSubscription', () => {
@@ -459,6 +556,7 @@ describe('Amazon Payments', () => {
         nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
         paymentMethod: amzLib.constants.PAYMENT_METHOD,
         headers,
+        cancellationReason: undefined,
       });
       expectAmazonStubs();
     });
@@ -489,6 +587,7 @@ describe('Amazon Payments', () => {
         nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
         paymentMethod: amzLib.constants.PAYMENT_METHOD,
         headers,
+        cancellationReason: undefined,
       });
       amzLib.closeBillingAgreement.restore();
     });
@@ -527,6 +626,7 @@ describe('Amazon Payments', () => {
         nextBill: moment(group.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
         paymentMethod: amzLib.constants.PAYMENT_METHOD,
         headers,
+        cancellationReason: undefined,
       });
       expectAmazonStubs();
     });
@@ -557,6 +657,7 @@ describe('Amazon Payments', () => {
         nextBill: moment(group.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
         paymentMethod: amzLib.constants.PAYMENT_METHOD,
         headers,
+        cancellationReason: undefined,
       });
       amzLib.closeBillingAgreement.restore();
     });

@@ -26,12 +26,16 @@ import {
   TAVERN_ID,
   LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
   SUPPORTED_SOCIAL_NETWORKS,
+  GUILDS_PER_PAGE,
+  PARTY_LIMIT_MEMBERS,
 } from './constants';
 
 api.constants = {
   MAX_INCENTIVES,
   LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
   SUPPORTED_SOCIAL_NETWORKS,
+  GUILDS_PER_PAGE,
+  PARTY_LIMIT_MEMBERS,
 };
 // TODO Move these under api.constants
 api.maxLevel = MAX_LEVEL;
@@ -139,6 +143,7 @@ import equip from './ops/equip';
 import changeClass from './ops/changeClass';
 import disableClasses from './ops/disableClasses';
 import purchase from './ops/purchase';
+import purchaseWithSpell from './ops/purchaseWithSpell';
 import purchaseHourglass from './ops/hourglassPurchase';
 import readCard from './ops/readCard';
 import openMysteryItem from './ops/openMysteryItem';
@@ -175,6 +180,7 @@ api.ops = {
   changeClass,
   disableClasses,
   purchase,
+  purchaseWithSpell,
   purchaseHourglass,
   readCard,
   openMysteryItem,

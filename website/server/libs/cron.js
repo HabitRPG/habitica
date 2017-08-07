@@ -4,6 +4,7 @@ import { model as User } from '../models/user';
 import common from '../../common/';
 import { preenUserHistory } from '../libs/preening';
 import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import nconf from 'nconf';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
@@ -14,6 +15,16 @@ const scoreTask = common.ops.scoreTask;
 const i18n = common.i18n;
 const loginIncentives = common.content.loginIncentives;
 // const maxPMs = 200;
+
+function setIsDueNextDue (task, user, now) {
+  let optionsForShouldDo = cloneDeep(user.preferences.toObject());
+  task.isDue = common.shouldDo(now, task, optionsForShouldDo);
+  optionsForShouldDo.nextDue = true;
+  let nextDue = common.shouldDo(now, task, optionsForShouldDo);
+  if (nextDue && nextDue.length > 0) {
+    task.nextDue = nextDue;
+  }
+}
 
 export async function recoverCron (status, locals) {
   let {user} = locals;
@@ -92,7 +103,42 @@ function removeTerminatedSubscription (user) {
   user.markModified('purchased.plan');
 }
 
-function performSleepTasks (user, tasksByType, now) {
+function resetHabitCounters (user, tasksByType, now, daysMissed) {
+  // check if we've passed a day on which we should reset the habit counters, including today
+  let resetWeekly = false;
+  let resetMonthly = false;
+  for (let i = 0; i < daysMissed; i++) {
+    if (resetWeekly === true && resetMonthly === true) {
+      break;
+    }
+    let thatDay = moment(now).zone(user.preferences.timezoneOffset + user.preferences.dayStart * 60).subtract({days: i});
+    if (thatDay.day() === 1) {
+      resetWeekly = true;
+    }
+    if (thatDay.date() === 1) {
+      resetMonthly = true;
+    }
+  }
+
+  tasksByType.habits.forEach((task) => {
+    // reset counters if appropriate
+
+    let reset = false;
+    if (task.frequency === 'daily') {
+      reset = true;
+    } else if (task.frequency === 'weekly' && resetWeekly === true) {
+      reset = true;
+    } else if (task.frequency === 'monthly' && resetMonthly === true) {
+      reset = true;
+    }
+    if (reset === true) {
+      task.counterUp = 0;
+      task.counterDown = 0;
+    }
+  });
+}
+
+function performSleepTasks (user, tasksByType, now, daysMissed) {
   user.stats.buffs = _.cloneDeep(CLEAR_BUFFS);
 
   tasksByType.dailys.forEach((daily) => {
@@ -100,14 +146,17 @@ function performSleepTasks (user, tasksByType, now) {
     let thatDay = moment(now).subtract({days: 1});
 
     if (shouldDo(thatDay.toDate(), daily, user.preferences) || completed) {
-      // TODO also untick checklists if the Daily was due on previous missed days, if two or more days were missed at once -- https://github.com/HabitRPG/habitrpg/pull/7218#issuecomment-219256016
+      // TODO also untick checklists if the Daily was due on previous missed days, if two or more days were missed at once -- https://github.com/HabitRPG/habitica/pull/7218#issuecomment-219256016
       if (daily.checklist) {
         daily.checklist.forEach(box => box.completed = false);
       }
     }
 
     daily.completed = false;
+    setIsDueNextDue(daily, user, now);
   });
+
+  resetHabitCounters(user, tasksByType, now, daysMissed);
 }
 
 function trackCronAnalytics (analytics, user, _progress, options) {
@@ -157,12 +206,17 @@ function awardLoginIncentives (user) {
           notificationData.rewardText = i18n.t('potion', {potionType: notificationData.rewardText}, user.preferences.language);
         }
       } else if (loginIncentive.rewardKey[0] === 'background_blue') {
-        notificationData.rewardText = i18n.t('incentiveBackgrounds');
+        notificationData.rewardText = i18n.t('incentiveBackgrounds', user.preferences.language);
       }
 
       if (loginIncentive.reward.length > 0 && count < loginIncentive.reward.length - 1) notificationData.rewardText += ', ';
 
       count += 1;
+    }
+
+    // Overwrite notificationData.rewardText if rewardName was explicitly declared
+    if (loginIncentive.rewardName) {
+      notificationData.rewardText = i18n.t(loginIncentive.rewardName, user.preferences.language);
     }
 
     notificationData.rewardKey = loginIncentive.rewardKey;
@@ -189,8 +243,11 @@ export function cron (options = {}) {
   let perfect = true;
 
   // Reset Gold-to-Gems cap if it's the start of the month
-  if (user.purchased && user.purchased.plan && !moment(user.purchased.plan.dateUpdated).startOf('month').isSame(moment().startOf('month'))) {
+  let dateUpdatedFalse = !moment(user.purchased.plan.dateUpdated).startOf('month').isSame(moment().startOf('month')) || !user.purchased.plan.dateUpdated;
+
+  if (user.purchased && user.purchased.plan && dateUpdatedFalse) {
     user.purchased.plan.gemsBought = 0;
+    if (!user.purchased.plan.dateUpdated) user.purchased.plan.dateUpdated = moment();
   }
 
   if (user.isSubscribed()) {
@@ -208,7 +265,7 @@ export function cron (options = {}) {
   // User is resting at the inn.
   // On cron, buffs are cleared and all dailies are reset without performing damage
   if (user.preferences.sleep === true) {
-    performSleepTasks(user, tasksByType, now);
+    performSleepTasks(user, tasksByType, now, daysMissed);
     trackCronAnalytics(analytics, user, _progress, options);
     return;
   }
@@ -244,6 +301,10 @@ export function cron (options = {}) {
     let EvadeTask = 0;
     let scheduleMisses = daysMissed;
 
+    // Only check one day back
+    let dailiesDaysMissed = daysMissed;
+    if (dailiesDaysMissed > 1) dailiesDaysMissed = 1;
+
     if (completed) {
       dailyChecked += 1;
       if (!atLeastOneDailyDue) { // only bother checking until the first thing is found
@@ -254,7 +315,7 @@ export function cron (options = {}) {
       // dailys repeat, so need to calculate how many they've missed according to their own schedule
       scheduleMisses = 0;
 
-      for (let i = 0; i < daysMissed; i++) {
+      for (let i = 0; i < dailiesDaysMissed; i++) {
         let thatDay = moment(now).subtract({days: i + 1});
 
         if (shouldDo(thatDay.toDate(), task, user.preferences)) {
@@ -310,6 +371,8 @@ export function cron (options = {}) {
     });
     task.completed = false;
 
+    setIsDueNextDue(task, user, now);
+
     if (completed || scheduleMisses > 0) {
       if (task.checklist) {
         task.checklist.forEach(i => i.completed = false);
@@ -317,39 +380,9 @@ export function cron (options = {}) {
     }
   });
 
-  // check if we've passed a day on which we should reset the habit counters, including today
-  let resetWeekly = false;
-  let resetMonthly = false;
-  for (let i = 0; i <= daysMissed; i++) {
-    if (resetWeekly === true && resetMonthly === true) {
-      break;
-    }
-    let thatDay = moment(now).subtract({days: i}).toDate();
-    if (thatDay.getDay() === 1) {
-      resetWeekly = true;
-    }
-    if (thatDay.getDate() === 1) {
-      resetMonthly = true;
-    }
-  }
+  resetHabitCounters(user, tasksByType, now, daysMissed);
 
   tasksByType.habits.forEach((task) => {
-    // reset counters if appropriate
-
-    // this enormously clunky thing brought to you by lint
-    let reset = false;
-    if (task.frequency === 'daily') {
-      reset = true;
-    } else if (task.frequency === 'weekly' && resetWeekly === true) {
-      reset = true;
-    } else if (task.frequency === 'monthly' && resetMonthly === true) {
-      reset = true;
-    }
-    if (reset === true) {
-      task.counterUp = 0;
-      task.counterDown = 0;
-    }
-
     // slowly reset value to 0 for "onlies" (Habits with + or - but not both)
     // move singleton Habits towards yellow.
     if (task.up === false || task.down === false) {
@@ -372,7 +405,7 @@ export function cron (options = {}) {
 
   // preen user history so that it doesn't become a performance problem
   // also for subscribed users but differently
-  // TODO also do while resting in the inn. Note that later we'll be allowing the value/color of tasks to change while sleeping (https://github.com/HabitRPG/habitrpg/issues/5232), so the code in performSleepTasks() might be best merged back into here for that. Perhaps wait until then to do preen history for sleeping users.
+  // TODO also do while resting in the inn. Note that later we'll be allowing the value/color of tasks to change while sleeping (https://github.com/HabitRPG/habitica/issues/5232), so the code in performSleepTasks() might be best merged back into here for that. Perhaps wait until then to do preen history for sleeping users.
   preenUserHistory(user, tasksByType, user.preferences.timezoneOffset);
 
   if (perfect && atLeastOneDailyDue) {

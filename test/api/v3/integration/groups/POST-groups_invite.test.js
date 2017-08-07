@@ -4,8 +4,11 @@ import {
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
+import nconf from 'nconf';
 
 const INVITES_LIMIT = 100;
+const PARTY_LIMIT_MEMBERS = 30;
+const MAX_EMAIL_INVITES_BY_USER = 200;
 
 describe('Post /groups/:groupId/invite', () => {
   let inviter;
@@ -204,13 +207,37 @@ describe('Post /groups/:groupId/invite', () => {
       });
     });
 
+    it('returns an error when a user has sent the max number of email invites', async () => {
+      let inviterWithMax = await generateUser({
+        invitesSent: MAX_EMAIL_INVITES_BY_USER,
+        balance: 4,
+      });
+      let tmpGroup = await inviterWithMax.post('/groups', {
+        name: groupName,
+        type: 'guild',
+      });
+
+      await expect(inviterWithMax.post(`/groups/${tmpGroup._id}/invite`, {
+        emails: [testInvite],
+        inviter: 'inviter name',
+      }))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('inviteLimitReached', {techAssistanceEmail: nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL')}),
+      });
+    });
+
     it('invites a user to a group by email', async () => {
       let res = await inviter.post(`/groups/${group._id}/invite`, {
         emails: [testInvite],
         inviter: 'inviter name',
       });
 
+      let updatedUser = await inviter.sync();
+
       expect(res).to.exist;
+      expect(updatedUser.invitesSent).to.eql(1);
     });
 
     it('invites multiple users to a group by email', async () => {
@@ -218,7 +245,10 @@ describe('Post /groups/:groupId/invite', () => {
         emails: [testInvite, {name: 'test2', email: 'test2@habitica.com'}],
       });
 
+      let updatedUser = await inviter.sync();
+
       expect(res).to.exist;
+      expect(updatedUser.invitesSent).to.eql(2);
     });
   });
 
@@ -321,6 +351,19 @@ describe('Post /groups/:groupId/invite', () => {
       });
     });
 
+    it('allows 30+ members in a guild', async () => {
+      let invitesToGenerate = [];
+      // Generate 30 users to invite (30 + leader = 31 members)
+      for (let i = 0; i < PARTY_LIMIT_MEMBERS; i++) {
+        invitesToGenerate.push(generateUser());
+      }
+      let generatedInvites = await Promise.all(invitesToGenerate);
+      // Invite users
+      expect(await inviter.post(`/groups/${group._id}/invite`, {
+        uuids: generatedInvites.map(invite => invite._id),
+      })).to.be.an('array');
+    });
+
     // @TODO: Add this after we are able to mock the group plan route
     xit('returns an error when a non-leader invites to a group plan', async () => {
       let userToInvite = await generateUser();
@@ -397,7 +440,38 @@ describe('Post /groups/:groupId/invite', () => {
       await inviter.post(`/groups/${party._id}/invite`, {
         uuids: [userToInvite._id],
       });
-      expect((await userToInvite.get('/user')).invitations.party.id).to.equal(party._id);
+      expect((await userToInvite.get('/user')).invitations.parties[0].id).to.equal(party._id);
+    });
+
+    it('allow inviting a user to 2 different parties', async () => {
+      // Create another inviter
+      let inviter2 = await generateUser();
+
+      // Create user to invite
+      let userToInvite = await generateUser();
+
+      // Create second group
+      let party2 = await inviter2.post('/groups', {
+        name: 'Test Party 2',
+        type: 'party',
+      });
+
+      // Invite to first party
+      await inviter.post(`/groups/${party._id}/invite`, {
+        uuids: [userToInvite._id],
+      });
+
+      // Invite to second party
+      await inviter2.post(`/groups/${party2._id}/invite`, {
+        uuids: [userToInvite._id],
+      });
+
+      // Get updated user
+      let invitedUser = await userToInvite.get('/user');
+
+      expect(invitedUser.invitations.parties.length).to.equal(2);
+      expect(invitedUser.invitations.parties[0].id).to.equal(party._id);
+      expect(invitedUser.invitations.parties[1].id).to.equal(party2._id);
     });
 
     it('allow inviting a user if party id is not associated with a real party', async () => {
@@ -408,7 +482,38 @@ describe('Post /groups/:groupId/invite', () => {
       await inviter.post(`/groups/${party._id}/invite`, {
         uuids: [userToInvite._id],
       });
-      expect((await userToInvite.get('/user')).invitations.party.id).to.equal(party._id);
+      expect((await userToInvite.get('/user')).invitations.parties[0].id).to.equal(party._id);
+    });
+
+    it('allows 30 members in a party', async () => {
+      let invitesToGenerate = [];
+      // Generate 29 users to invite (29 + leader = 30 members)
+      for (let i = 0; i < PARTY_LIMIT_MEMBERS - 1; i++) {
+        invitesToGenerate.push(generateUser());
+      }
+      let generatedInvites = await Promise.all(invitesToGenerate);
+      // Invite users
+      expect(await inviter.post(`/groups/${party._id}/invite`, {
+        uuids: generatedInvites.map(invite => invite._id),
+      })).to.be.an('array');
+    });
+
+    it('does not allow 30+ members in a party', async () => {
+      let invitesToGenerate = [];
+      // Generate 30 users to invite (30 + leader = 31 members)
+      for (let i = 0; i < PARTY_LIMIT_MEMBERS; i++) {
+        invitesToGenerate.push(generateUser());
+      }
+      let generatedInvites = await Promise.all(invitesToGenerate);
+      // Invite users
+      await expect(inviter.post(`/groups/${party._id}/invite`, {
+        uuids: generatedInvites.map(invite => invite._id),
+      }))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('partyExceedsMembersLimit', {maxMembersParty: PARTY_LIMIT_MEMBERS}),
+      });
     });
   });
 });

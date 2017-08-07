@@ -1,0 +1,11 @@
+script(type='text/ng-template', id='modals/yesterDailies.html')
+  .modal-header
+    h3.text-center=env.t('yesterDailiesTitle')
+  .modal-body
+    .container-fluid
+      .row
+        .col-md-8.col-md-offset-2
+          .task-column.dailys
+            task-list
+    .modal-footer
+      a.btn.btn-info.btn-lg.flex-column.btn-wrap(ng-click='ageDailies();$close()')=env.t('yesterDailiesCallToAction')

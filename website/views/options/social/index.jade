@@ -9,10 +9,11 @@ include ./party
 include ./groups/group-tasks
 include ./groups/group-plans
 include ./groups/create-group
+include ./groups/new-group
 
 script(type='text/ng-template', id='partials/options.social.inbox.html')
   .options-blurbmenu
-    small.muted!=env.t('blurbInbox')
+    small.muted!=env.t('blurbInbox', { hrefCommunityManagerEmail : '<a href="mailto:' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '">' + env.EMAILS.COMMUNITY_MANAGER_EMAIL + '</a>' })
 
   .container-fluid
     .row

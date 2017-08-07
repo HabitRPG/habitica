@@ -16,7 +16,7 @@
   "maintenanceInfoTechDetails": "技術的なプロセスについての詳細情報は、<a href='http://devs.habitica.com/' target='_blank'>開発ブログ</a>を参照してください。",
   "maintenanceInfoMore": "詳細情報",
   "maintenanceInfoAccountChanges": "書き換え完了後、私のアカウントにどんな変化が見られますか?",
-  "maintenanceInfoAccountChangesText": "まず、チャレンジ機能などでの性能向上以外に、特筆すべきものはありません。それ以外にあってはならない変化が見られたら、<a href='mailto:admin@habitica.com'>admin@habitica.com</a> にメールでお知らせください。提案にもとづいて調査を行います!",
+  "maintenanceInfoAccountChangesText": "まず、チャレンジ機能などでの性能向上以外に、特筆すべきものはありません。それ以外にあってはならない変化が見られたら、 <%= hrefTechAssistanceEmail %> にメールでお知らせください。提案にもとづいて調査を行います！",
   "maintenanceInfoAddFeatures": "今回の更新で、どんな機能拡張ができるようになったのですか?",
   "maintenanceInfoAddFeaturesText": "今回の書き換えが完了すると、新たな機能追加・改善に着手できるようになります!　組織や団体・家族向けの計画機能、毎月のタスクや前日の行動の記録といったさらに生産性を上げるための機能を予定しています。それぞれの開発工程は関連しあっており、完成には時間がかかります。しかし、今回の書き換えを完了しないと、それをはじめることさえ、できないのです。",
   "maintenanceInfoHowLong": "メンテナンスにはどれぐらい時間がかかりますか?",

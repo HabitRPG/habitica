@@ -10,7 +10,7 @@ module.exports = {
     index: path.resolve(__dirname, '../../dist-client/index.html'),
     assetsRoot: path.resolve(__dirname, '../../dist-client'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/new-app',
+    assetsPublicPath: '/new-app/',
     staticAssetsDirectory,
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
@@ -35,6 +35,18 @@ module.exports = {
     proxyTable: {
       // proxy all requests starting with /api/v3 to localhost:3000
       '/api/v3': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+      '/stripe': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+      '/amazon': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+      '/paypal': {
         target: 'http://localhost:3000',
         changeOrigin: true,
       },

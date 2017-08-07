@@ -1,15 +1,50 @@
-import _ from 'lodash';
 import moment from 'moment';
-import common from '../../common';
 import * as Tasks from '../models/task';
 import Bluebird from 'bluebird';
 import { model as Group } from '../models/group';
 import { model as User } from '../models/user';
 import { recoverCron, cron } from '../libs/cron';
+import { v4 as uuid } from 'uuid';
+import logger from '../libs/logger';
 
-const daysSince = common.daysSince;
 // Wait this length of time in ms before attempting another cron
 const CRON_TIMEOUT_WAIT = new Date(60 * 60 * 1000).getTime();
+
+async function checkForActiveCron (user, now) {
+  // set _cronSignature to current time in ms since epoch time so we can make sure to wait at least CRONT_TIMEOUT_WAIT before attempting another cron
+  let _cronSignature = now.getTime();
+  // Calculate how long ago cron must have been attempted to try again
+  let cronRetryTime = _cronSignature - CRON_TIMEOUT_WAIT;
+
+  // To avoid double cron we first set _cronSignature and then check that it's not changed while processing
+  let userUpdateResult = await User.update({
+    _id: user._id,
+    $or: [ // Make sure last cron was successful or failed before cronRetryTime
+      {_cronSignature: 'NOT_RUNNING'},
+      {_cronSignature: {$lt: cronRetryTime}},
+    ],
+  }, {
+    $set: {
+      _cronSignature,
+      lastCron: now, // setting lastCron now so we don't risk re-running parts of cron if it fails
+      'auth.timestamps.loggedin': now,
+    },
+  }).exec();
+
+  // If the cron signature is already set, cron is running in another request
+  // throw an error and recover later,
+  if (userUpdateResult.nMatched === 0 || userUpdateResult.nModified === 0) {
+    throw new Error('CRON_ALREADY_RUNNING');
+  }
+}
+
+async function unlockUser (user) {
+  await User.update({
+    _id: user._id,
+  }, {
+    _cronSignature: 'NOT_RUNNING',
+  }).exec();
+}
 
 async function cronAsync (req, res) {
   let user = res.locals.user;
@@ -19,113 +54,14 @@ async function cronAsync (req, res) {
   let now = new Date();
 
   try {
-    // If the user's timezone has changed (due to travel or daylight savings),
-    // cron can be triggered twice in one day, so we check for that and use
-    // both timezones to work out if cron should run.
-    // CDS = Custom Day Start time.
-    let timezoneOffsetFromUserPrefs = user.preferences.timezoneOffset;
-    let timezoneOffsetAtLastCron = _.isFinite(user.preferences.timezoneOffsetAtLastCron) ? user.preferences.timezoneOffsetAtLastCron : timezoneOffsetFromUserPrefs;
-    let timezoneOffsetFromBrowser = Number(req.header('x-user-timezoneoffset'));
-    timezoneOffsetFromBrowser = _.isFinite(timezoneOffsetFromBrowser) ? timezoneOffsetFromBrowser : timezoneOffsetFromUserPrefs;
-    // NB: All timezone offsets can be 0, so can't use `... || ...` to apply non-zero defaults
+    let {daysMissed, timezoneOffsetFromUserPrefs} = user.daysUserHasMissed(now, req);
 
-    if (timezoneOffsetFromBrowser !== timezoneOffsetFromUserPrefs) {
-      // The user's browser has just told Habitica that the user's timezone has
-      // changed so store and use the new zone.
-      user.preferences.timezoneOffset = timezoneOffsetFromBrowser;
-      timezoneOffsetFromUserPrefs = timezoneOffsetFromBrowser;
-    }
-
-    // How many days have we missed using the user's current timezone:
-    let daysMissed = daysSince(user.lastCron, _.defaults({now}, user.preferences));
-
-    if (timezoneOffsetAtLastCron !== timezoneOffsetFromUserPrefs) {
-      // Since cron last ran, the user's timezone has changed.
-      // How many days have we missed using the old timezone:
-      let daysMissedNewZone = daysMissed;
-      let daysMissedOldZone = daysSince(user.lastCron, _.defaults({
-        now,
-        timezoneOffsetOverride: timezoneOffsetAtLastCron,
-      }, user.preferences));
-
-      if (timezoneOffsetAtLastCron < timezoneOffsetFromUserPrefs) {
-        // The timezone change was in the unsafe direction.
-        // E.g., timezone changes from UTC+1 (offset -60) to UTC+0 (offset 0).
-        //    or timezone changes from UTC-4 (offset 240) to UTC-5 (offset 300).
-        // Local time changed from, for example, 03:00 to 02:00.
-
-        if (daysMissedOldZone > 0 && daysMissedNewZone > 0) {
-          // Both old and new timezones indicate that we SHOULD run cron, so
-          // it is safe to do so immediately.
-          daysMissed = Math.min(daysMissedOldZone, daysMissedNewZone);
-          // use minimum value to be nice to user
-        } else if (daysMissedOldZone > 0) {
-          // The old timezone says that cron should run; the new timezone does not.
-          // This should be impossible for this direction of timezone change, but
-          // just in case I'm wrong...
-          // TODO
-          // console.log("zone has changed - old zone says run cron, NEW zone says no - stop cron now only -- SHOULD NOT HAVE GOT TO HERE", timezoneOffsetAtLastCron, timezoneOffsetFromUserPrefs, now); // used in production for confirming this never happens
-        } else if (daysMissedNewZone > 0) {
-          // The old timezone says that cron should NOT run -- i.e., cron has
-          // already run today, from the old timezone's point of view.
-          // The new timezone says that cron SHOULD run, but this is almost
-          // certainly incorrect.
-          // This happens when cron occurred at a time soon after the CDS. When
-          // you reinterpret that time in the new timezone, it looks like it
-          // was before the CDS, because local time has stepped backwards.
-          // To fix this, rewrite the cron time to a time that the new
-          // timezone interprets as being in today.
-
-          daysMissed = 0; // prevent cron running now
-          let timezoneOffsetDiff = timezoneOffsetAtLastCron - timezoneOffsetFromUserPrefs;
-          // e.g., for dangerous zone change: 240 - 300 = -60 or  -660 - -600 = -60
-
-          user.lastCron = moment(user.lastCron).subtract(timezoneOffsetDiff, 'minutes');
-          // NB: We don't change user.auth.timestamps.loggedin so that will still record the time that the previous cron actually ran.
-          // From now on we can ignore the old timezone:
-          user.preferences.timezoneOffsetAtLastCron = timezoneOffsetFromUserPrefs;
-        } else {
-          // Both old and new timezones indicate that cron should
-          // NOT run.
-          daysMissed = 0; // prevent cron running now
-        }
-      } else if (timezoneOffsetAtLastCron > timezoneOffsetFromUserPrefs) {
-        daysMissed = daysMissedNewZone;
-        // TODO: Either confirm that there is nothing that could possibly go wrong here and remove the need for this else branch, or fix stuff.
-        // There are probably situations where the Dailies do not reset early enough for a user who was expecting the zone change and wants to use all their Dailies immediately in the new zone;
-        // if so, we should provide an option for easy reset of Dailies (can't be automatic because there will be other situations where the user was not prepared).
-      }
-    }
+    await checkForActiveCron(user, now);
 
     if (daysMissed <= 0) {
       if (user.isModified()) await user.save();
+      await unlockUser(user);
       return null;
-    }
-
-    // set _cronSignature to current time in ms since epoch time so we can make sure to wait at least CRONT_TIMEOUT_WAIT before attempting another cron
-    let _cronSignature = now.getTime();
-    // Calculate how long ago cron must have been attempted to try again
-    let cronRetryTime = _cronSignature - CRON_TIMEOUT_WAIT;
-
-    // To avoid double cron we first set _cronSignature and then check that it's not changed while processing
-    let userUpdateResult = await User.update({
-      _id: user._id,
-      $or: [ // Make sure last cron was successful or failed before cronRetryTime
-        {_cronSignature: 'NOT_RUNNING'},
-        {_cronSignature: {$lt: cronRetryTime}},
-      ],
-    }, {
-      $set: {
-        _cronSignature,
-        lastCron: now, // setting lastCron now so we don't risk re-running parts of cron if it fails
-        'auth.timestamps.loggedin': now,
-      },
-    }).exec();
-
-    // If the cron signature is already set, cron is running in another request
-    // throw an error and recover later,
-    if (userUpdateResult.nMatched === 0 || userUpdateResult.nModified === 0) {
-      throw new Error('CRON_ALREADY_RUNNING');
     }
 
     let tasks = await Tasks.Task.find({
@@ -193,13 +129,17 @@ async function cronAsync (req, res) {
 
       await recoverCron(recoveryStatus, res.locals);
     } else {
+      logger.error(err, {isUserUpdateErroringDuringCron: true});
       // For any other error make sure to reset _cronSignature so that it doesn't prevent cron from running
       // at the next request
       await User.update({
         _id: user._id,
       }, {
         _cronSignature: 'NOT_RUNNING',
-      }).exec();
+      }).exec()
+      .catch((newError) => {
+        logger.error(newError, {isUserUpdateErroringDuringCron: true});
+      });
 
       throw err; // re-throw the original error
     }

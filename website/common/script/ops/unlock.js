@@ -93,7 +93,7 @@ module.exports = function unlock (user, req = {}, analytics) {
 
   if (!alreadyOwns) {
     if (path.indexOf('gear.') === -1) {
-      user.markModified('purchased');
+      if (user.markModified) user.markModified('purchased');
     }
 
     user.balance -= cost;

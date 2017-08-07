@@ -66,7 +66,8 @@
         },
         "mode":"sandbox",
         "client_id":"client_id",
-        "client_secret":"client_secret"
+        "client_secret":"client_secret",
+        "experience_profile_id": ""
     },
     "IAP_GOOGLE_KEYDIR": "/path/to/google/public/key/dir/",
     "LOGGLY_TOKEN": "token",
@@ -75,6 +76,11 @@
         "GCM_SERVER_API_KEY": "",
         "APN_ENABLED": "false",
         "FCM_SERVER_API_KEY": ""
+    },
+    "SITE_HTTP_AUTH": {
+        "ENABLED": "false",
+        "USERNAME": "admin",
+        "PASSWORD": "password"
     },
     "PUSHER": {
         "ENABLED": "false",
@@ -87,5 +93,14 @@
         "FLAGGING_FOOTER_LINK": "https://habitrpg.github.io/flag-o-rama/",
         "SUBSCRIPTIONS_URL": "https://hooks.slack.com/services/id/id/id"
     },
-    "ITUNES_SHARED_SECRET": "aaaabbbbccccddddeeeeffff00001111"
+    "ITUNES_SHARED_SECRET": "aaaabbbbccccddddeeeeffff00001111",
+    "EMAILS" : {
+        "COMMUNITY_MANAGER_EMAIL" : "leslie@habitica.com",
+        "TECH_ASSISTANCE_EMAIL" : "admin@habitica.com",
+        "PRESS_ENQUIRY_EMAIL" : "leslie@habitica.com"
+    },
+    "LOGGLY" : {
+        "TOKEN" : "example-token",
+        "SUBDOMAIN" : "exmaple-subdomain"
+    }
 }

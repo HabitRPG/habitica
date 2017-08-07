@@ -1,6 +1,9 @@
+/* eslint-disable camelcase */
+
 import changeClass from '../../../website/common/script/ops/changeClass';
 import {
   NotAuthorized,
+  BadRequest,
 } from '../../../website/common/script/libs/errors';
 import i18n from '../../../website/common/script/i18n';
 import {
@@ -27,6 +30,19 @@ describe('shared.ops.changeClass', () => {
     }
   });
 
+  it('req.query.class is an invalid class', (done) => {
+    user.flags.classSelected = false;
+    user.preferences.disableClasses = false;
+
+    try {
+      changeClass(user, {query: {class: 'cellist'}});
+    } catch (err) {
+      expect(err).to.be.an.instanceof(BadRequest);
+      expect(err.message).to.equal(i18n.t('invalidClass'));
+      done();
+    }
+  });
+
   context('req.query.class is a valid class', () => {
     it('errors if user.stats.flagSelected is true and user.balance < 0.75', (done) => {
       user.flags.classSelected = true;
@@ -44,7 +60,8 @@ describe('shared.ops.changeClass', () => {
 
     it('changes class', () => {
       user.stats.class = 'healer';
-      user.items.gear.owned.armor_rogue_1 = true; // eslint-disable-line camelcase
+      user.items.gear.owned.weapon_healer_3 = true;
+      user.items.gear.equipped.weapon = 'weapon_healer_3';
 
       let [data] = changeClass(user, {query: {class: 'rogue'}});
       expect(data).to.eql({
@@ -56,13 +73,10 @@ describe('shared.ops.changeClass', () => {
 
       expect(user.stats.class).to.equal('rogue');
       expect(user.flags.classSelected).to.be.true;
-      expect(user.items.gear.equipped.weapon).to.equal('weapon_rogue_0');
       expect(user.items.gear.owned.weapon_rogue_0).to.be.true;
-      expect(user.items.gear.equipped.armor).to.equal('armor_rogue_1');
-      expect(user.items.gear.owned.armor_rogue_1).to.be.true;
-      expect(user.items.gear.equipped.shield).to.equal('shield_rogue_0');
       expect(user.items.gear.owned.shield_rogue_0).to.be.true;
-      expect(user.items.gear.equipped.head).to.equal('head_base_0');
+      expect(user.items.gear.owned.weapon_healer_3).to.be.true;
+      expect(user.items.gear.equipped.weapon).to.equal('weapon_healer_3');
     });
   });
 

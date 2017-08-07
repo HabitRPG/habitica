@@ -1,9 +1,11 @@
+import moment from 'moment';
 import * as Tasks from '../models/task';
 import {
   BadRequest,
 } from './errors';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
+import shared from '../../common';
 
 async function _validateTaskAlias (tasks, res) {
   let tasksWithAliases = tasks.filter(task => task.alias);
@@ -21,6 +23,36 @@ async function _validateTaskAlias (tasks, res) {
   });
 }
 
+export function setNextDue (task, user, dueDateOption) {
+  if (task.type !== 'daily') return;
+
+  let now = moment().toDate();
+  let dateTaskIsDue = Date.now();
+  if (dueDateOption) {
+    // @TODO Add required ISO format
+    dateTaskIsDue = moment(dueDateOption);
+
+    // If not time is supplied. Let's assume we want start of Custom Day Start day.
+    if (dateTaskIsDue.hour() === 0 && dateTaskIsDue.minute() === 0 && dateTaskIsDue.second() === 0 && dateTaskIsDue.millisecond() === 0) {
+      dateTaskIsDue.add(user.preferences.timezoneOffset, 'minutes');
+      dateTaskIsDue.add(user.preferences.dayStart, 'hours');
+    }
+
+    now = dateTaskIsDue;
+  }
+
+
+  let optionsForShouldDo = user.preferences.toObject();
+  optionsForShouldDo.now = now;
+  task.isDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
+  optionsForShouldDo.nextDue = true;
+  let nextDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
+  if (nextDue && nextDue.length > 0) {
+    task.nextDue = nextDue.map((dueDate) => {
+      return dueDate.toISOString();
+    });
+  }
+}
 
 /**
  * Creates tasks for a user, challenge or group.
@@ -63,6 +95,8 @@ export async function createTasks (req, res, options = {}) {
       newTask.userId = user._id;
     }
 
+    setNextDue(newTask, user);
+
     // Validate that the task is valid and throw if it isn't
     // otherwise since we're saving user/challenge/group and task in parallel it could save the user/challenge/group with a tasksOrder that doens't match reality
     let validationErrors = newTask.validateSync();
@@ -104,6 +138,7 @@ export async function getTasks (req, res, options = {}) {
     user,
     challenge,
     group,
+    dueDate,
   } = options;
 
   let query = {userId: user._id};
@@ -155,6 +190,12 @@ export async function getTasks (req, res, options = {}) {
 
   let tasks = await mQuery.exec();
 
+  if (dueDate) {
+    tasks.forEach((task) => {
+      setNextDue(task, user, dueDate);
+    });
+  }
+
   // Order tasks based on tasksOrder
   if (type && type !== 'completedTodos' && type !== '_allCompletedTodos') {
     let order = owner.tasksOrder[type];
@@ -184,7 +225,7 @@ export async function getTasks (req, res, options = {}) {
 export function syncableAttrs (task) {
   let t = task.toObject(); // lodash doesn't seem to like _.omit on Document
   // only sync/compare important attrs
-  let omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt', 'group', 'checklist'];
+  let omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt', 'createdAt', 'group', 'checklist', 'attribute'];
   if (t.type !== 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
 }

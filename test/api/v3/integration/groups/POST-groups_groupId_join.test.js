@@ -68,6 +68,12 @@ describe('POST /group/:groupId/join', () => {
 
       await expect(joiningUser.get(`/groups/${publicGuild._id}`)).to.eventually.have.property('memberCount', oldMemberCount + 1);
     });
+
+    it('awards Joined Guild achievement', async () => {
+      await joiningUser.post(`/groups/${publicGuild._id}/join`);
+
+      await expect(joiningUser.get('/user')).to.eventually.have.deep.property('achievements.joinedGuild', true);
+    });
   });
 
   context('Joining a private guild', () => {
@@ -147,8 +153,14 @@ describe('POST /group/:groupId/join', () => {
           }),
         };
 
-        expect(inviter.notifications[0].type).to.eql('GROUP_INVITE_ACCEPTED');
-        expect(inviter.notifications[0].data).to.eql(expectedData);
+        expect(inviter.notifications[1].type).to.eql('GROUP_INVITE_ACCEPTED');
+        expect(inviter.notifications[1].data).to.eql(expectedData);
+      });
+
+      it('awards Joined Guild achievement', async () => {
+        await invitedUser.post(`/groups/${guild._id}/join`);
+
+        await expect(invitedUser.get('/user')).to.eventually.have.deep.property('achievements.joinedGuild', true);
       });
     });
   });
@@ -208,7 +220,7 @@ describe('POST /group/:groupId/join', () => {
       it('clears invitation from user when joining party', async () => {
         await invitedUser.post(`/groups/${party._id}/join`);
 
-        await expect(invitedUser.get('/user')).to.eventually.not.have.deep.property('invitations.party.id');
+        await expect(invitedUser.get('/user')).to.eventually.not.have.deep.property('invitations.parties[0].id');
       });
 
       it('increments memberCount when joining party', async () => {

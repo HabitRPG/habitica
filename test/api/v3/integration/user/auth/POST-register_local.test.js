@@ -34,25 +34,209 @@ describe('POST /user/auth/local/register', () => {
       expect(user.apiToken).to.exist;
       expect(user.auth.local.username).to.eql(username);
       expect(user.profile.name).to.eql(username);
+      expect(user.newUser).to.eql(true);
     });
 
-    it('provides default tags and tasks', async () => {
-      let username = generateRandomUserName();
-      let email = `${username}@example.com`;
-      let password = 'password';
+    context('provides default tags and tasks', async () => {
+      it('for a generic API consumer', async () => {
+        let username = generateRandomUserName();
+        let email = `${username}@example.com`;
+        let password = 'password';
 
-      let user = await api.post('/user/auth/local/register', {
-        username,
-        email,
-        password,
-        confirmPassword: password,
+        let user = await api.post('/user/auth/local/register', {
+          username,
+          email,
+          password,
+          confirmPassword: password,
+        });
+
+        let requests = new ApiUser(user);
+
+        let habits = await requests.get('/tasks/user?type=habits');
+        let dailys = await requests.get('/tasks/user?type=dailys');
+        let todos = await requests.get('/tasks/user?type=todos');
+        let rewards = await requests.get('/tasks/user?type=rewards');
+        let tags = await requests.get('/tags');
+
+        expect(habits).to.have.a.lengthOf(0);
+
+        expect(dailys).to.have.a.lengthOf(0);
+
+        expect(todos).to.have.a.lengthOf(1);
+        expect(todos[0].text).to.eql(t('defaultTodo1Text'));
+        expect(todos[0].notes).to.eql(t('defaultTodoNotes'));
+
+        expect(rewards).to.have.a.lengthOf(0);
+
+        expect(tags).to.have.a.lengthOf(7);
+        expect(tags[0].name).to.eql(t('defaultTag1'));
+        expect(tags[1].name).to.eql(t('defaultTag2'));
+        expect(tags[2].name).to.eql(t('defaultTag3'));
+        expect(tags[3].name).to.eql(t('defaultTag4'));
+        expect(tags[4].name).to.eql(t('defaultTag5'));
+        expect(tags[5].name).to.eql(t('defaultTag6'));
+        expect(tags[6].name).to.eql(t('defaultTag7'));
       });
 
-      expect(user.tags).to.have.a.lengthOf(7);
-      expect(user.tasksOrder.todos).to.have.a.lengthOf(1);
-      expect(user.tasksOrder.dailys).to.have.a.lengthOf(0);
-      expect(user.tasksOrder.rewards).to.have.a.lengthOf(0);
-      expect(user.tasksOrder.habits).to.have.a.lengthOf(0);
+      it('for Web', async () => {
+        api = requester(
+          null,
+          {'x-client': 'habitica-web'},
+        );
+        let username = generateRandomUserName();
+        let email = `${username}@example.com`;
+        let password = 'password';
+
+        let user = await api.post('/user/auth/local/register', {
+          username,
+          email,
+          password,
+          confirmPassword: password,
+        });
+
+        let requests = new ApiUser(user);
+
+        let habits = await requests.get('/tasks/user?type=habits');
+        let dailys = await requests.get('/tasks/user?type=dailys');
+        let todos = await requests.get('/tasks/user?type=todos');
+        let rewards = await requests.get('/tasks/user?type=rewards');
+        let tags = await requests.get('/tags');
+
+        expect(habits).to.have.a.lengthOf(3);
+        expect(habits[0].text).to.eql(t('defaultHabit1Text'));
+        expect(habits[0].notes).to.eql('');
+        expect(habits[1].text).to.eql(t('defaultHabit2Text'));
+        expect(habits[1].notes).to.eql('');
+        expect(habits[2].text).to.eql(t('defaultHabit3Text'));
+        expect(habits[2].notes).to.eql('');
+
+        expect(dailys).to.have.a.lengthOf(0);
+
+        expect(todos).to.have.a.lengthOf(1);
+        expect(todos[0].text).to.eql(t('defaultTodo1Text'));
+        expect(todos[0].notes).to.eql(t('defaultTodoNotes'));
+
+        expect(rewards).to.have.a.lengthOf(1);
+        expect(rewards[0].text).to.eql(t('defaultReward1Text'));
+        expect(rewards[0].notes).to.eql('');
+
+        expect(tags).to.have.a.lengthOf(7);
+        expect(tags[0].name).to.eql(t('defaultTag1'));
+        expect(tags[1].name).to.eql(t('defaultTag2'));
+        expect(tags[2].name).to.eql(t('defaultTag3'));
+        expect(tags[3].name).to.eql(t('defaultTag4'));
+        expect(tags[4].name).to.eql(t('defaultTag5'));
+        expect(tags[5].name).to.eql(t('defaultTag6'));
+        expect(tags[6].name).to.eql(t('defaultTag7'));
+      });
+
+      it('for Android', async () => {
+        api = requester(
+          null,
+          {'x-client': 'habitica-android'},
+        );
+        let username = generateRandomUserName();
+        let email = `${username}@example.com`;
+        let password = 'password';
+
+        let user = await api.post('/user/auth/local/register', {
+          username,
+          email,
+          password,
+          confirmPassword: password,
+        });
+
+        let requests = new ApiUser(user);
+
+        let habits = await requests.get('/tasks/user?type=habits');
+        let dailys = await requests.get('/tasks/user?type=dailys');
+        let todos = await requests.get('/tasks/user?type=todos');
+        let rewards = await requests.get('/tasks/user?type=rewards');
+        let tags = await requests.get('/tags');
+
+        expect(habits).to.have.a.lengthOf(2);
+        expect(habits[0].text).to.eql(t('defaultHabit4Text'));
+        expect(habits[0].notes).to.eql(t('defaultHabit4Notes'));
+        expect(habits[1].text).to.eql(t('defaultHabit5Text'));
+        expect(habits[1].notes).to.eql(t('defaultHabit5Notes'));
+
+        expect(dailys).to.have.a.lengthOf(1);
+        expect(dailys[0].text).to.eql(t('defaultDaily1Text'));
+        expect(dailys[0].notes).to.eql('');
+
+        expect(todos).to.have.a.lengthOf(2);
+        expect(todos[0].text).to.eql(t('defaultTodo1Text'));
+        expect(todos[0].notes).to.eql(t('defaultTodoNotes'));
+        expect(todos[1].text).to.eql(t('defaultTodo2Text'));
+        expect(todos[1].notes).to.eql(t('defaultTodo2Notes'));
+
+        expect(rewards).to.have.a.lengthOf(1);
+        expect(rewards[0].text).to.eql(t('defaultReward2Text'));
+        expect(rewards[0].notes).to.eql(t('defaultReward2Notes'));
+
+        expect(tags).to.have.a.lengthOf(7);
+        expect(tags[0].name).to.eql(t('defaultTag1'));
+        expect(tags[1].name).to.eql(t('defaultTag2'));
+        expect(tags[2].name).to.eql(t('defaultTag3'));
+        expect(tags[3].name).to.eql(t('defaultTag4'));
+        expect(tags[4].name).to.eql(t('defaultTag5'));
+        expect(tags[5].name).to.eql(t('defaultTag6'));
+        expect(tags[6].name).to.eql(t('defaultTag7'));
+      });
+
+      it('for iOS', async () => {
+        api = requester(
+          null,
+          {'x-client': 'habitica-ios'},
+        );
+        let username = generateRandomUserName();
+        let email = `${username}@example.com`;
+        let password = 'password';
+
+        let user = await api.post('/user/auth/local/register', {
+          username,
+          email,
+          password,
+          confirmPassword: password,
+        });
+
+        let requests = new ApiUser(user);
+
+        let habits = await requests.get('/tasks/user?type=habits');
+        let dailys = await requests.get('/tasks/user?type=dailys');
+        let todos = await requests.get('/tasks/user?type=todos');
+        let rewards = await requests.get('/tasks/user?type=rewards');
+        let tags = await requests.get('/tags');
+
+        expect(habits).to.have.a.lengthOf(2);
+        expect(habits[0].text).to.eql(t('defaultHabit4Text'));
+        expect(habits[0].notes).to.eql(t('defaultHabit4Notes'));
+        expect(habits[1].text).to.eql(t('defaultHabit5Text'));
+        expect(habits[1].notes).to.eql(t('defaultHabit5Notes'));
+
+        expect(dailys).to.have.a.lengthOf(1);
+        expect(dailys[0].text).to.eql(t('defaultDaily1Text'));
+        expect(dailys[0].notes).to.eql('');
+
+        expect(todos).to.have.a.lengthOf(2);
+        expect(todos[0].text).to.eql(t('defaultTodo1Text'));
+        expect(todos[0].notes).to.eql(t('defaultTodoNotes'));
+        expect(todos[1].text).to.eql(t('defaultTodo2Text'));
+        expect(todos[1].notes).to.eql(t('defaultTodo2Notes'));
+
+        expect(rewards).to.have.a.lengthOf(1);
+        expect(rewards[0].text).to.eql(t('defaultReward2Text'));
+        expect(rewards[0].notes).to.eql(t('defaultReward2Notes'));
+
+        expect(tags).to.have.a.lengthOf(7);
+        expect(tags[0].name).to.eql(t('defaultTag1'));
+        expect(tags[1].name).to.eql(t('defaultTag2'));
+        expect(tags[2].name).to.eql(t('defaultTag3'));
+        expect(tags[3].name).to.eql(t('defaultTag4'));
+        expect(tags[4].name).to.eql(t('defaultTag5'));
+        expect(tags[5].name).to.eql(t('defaultTag6'));
+        expect(tags[6].name).to.eql(t('defaultTag7'));
+      });
     });
 
     it('enrolls new users in an A/B test', async () => {
@@ -67,8 +251,24 @@ describe('POST /user/auth/local/register', () => {
         confirmPassword: password,
       });
 
-      await expect(getProperty('users', user._id, '_ABtest')).to.eventually.be.a('string');
       await expect(getProperty('users', user._id, '_ABtests')).to.eventually.be.a('object');
+    });
+
+    it('includes items awarded by default when creating a new user', async () => {
+      let username = generateRandomUserName();
+      let email = `${username}@example.com`;
+      let password = 'password';
+
+      let user = await api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      expect(user.items.quests.dustbunnies).to.equal(1);
+      expect(user.purchased.background.violet).to.be.ok;
+      expect(user.preferences.background).to.equal('violet');
     });
 
     it('requires password and confirmPassword to match', async () => {
@@ -309,7 +509,73 @@ describe('POST /user/auth/local/register', () => {
         confirmPassword: password,
       });
 
-      expect(user.invitations.party).to.eql({
+      expect(user.invitations.parties[0].id).to.eql(group._id);
+      expect(user.invitations.parties[0].name).to.eql(group.name);
+      expect(user.invitations.parties[0].inviter).to.eql(groupLeader._id);
+    });
+
+    it('awards achievement to inviter', async () => {
+      let { group, groupLeader } = await createAndPopulateGroup({
+        groupDetails: { type: 'party', privacy: 'private' },
+      });
+
+      let invite = encrypt(JSON.stringify({
+        id: group._id,
+        inviter: groupLeader._id,
+        sentAt: Date.now(),
+      }));
+
+      await api.post(`/user/auth/local/register?groupInvite=${invite}`, {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      await groupLeader.sync();
+      expect(groupLeader.achievements.invitedFriend).to.be.true;
+    });
+
+    it('user not added to a party on expired invite', async () => {
+      let { group, groupLeader } = await createAndPopulateGroup({
+        groupDetails: { type: 'party', privacy: 'private' },
+      });
+
+      let invite = encrypt(JSON.stringify({
+        id: group._id,
+        inviter: groupLeader._id,
+        sentAt: Date.now() - 6.912e8, // 8 days old
+      }));
+
+      let user = await api.post(`/user/auth/local/register?groupInvite=${invite}`, {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      expect(user.invitations.party).to.eql({});
+    });
+
+    it('adds a user to a guild on an invite of type other than party', async () => {
+      let { group, groupLeader } = await createAndPopulateGroup({
+          groupDetails: { type: 'guild', privacy: 'private' },
+      });
+
+      let invite = encrypt(JSON.stringify({
+        id: group._id,
+        inviter: groupLeader._id,
+        sentAt: Date.now(),
+      }));
+
+      let user = await api.post(`/user/auth/local/register?groupInvite=${invite}`, {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      expect(user.invitations.guilds[0]).to.eql({
         id: group._id,
         name: group.name,
         inviter: groupLeader._id,

@@ -1,6 +1,7 @@
 import Bluebird from 'bluebird';
 import moment from 'moment';
 import { model as User } from '../../../../../website/server/models/user';
+import { model as Group } from '../../../../../website/server/models/group';
 import common from '../../../../../website/common';
 
 describe('User Model', () => {
@@ -179,6 +180,75 @@ describe('User Model', () => {
     });
   });
 
+  context('canGetGems', () => {
+    let user;
+    let group;
+    beforeEach(() => {
+      user = new User();
+      let leader = new User();
+      group = new Group({
+        name: 'test',
+        type: 'guild',
+        privacy: 'private',
+        leader: leader._id,
+      });
+    });
+
+    it('returns true if user is not subscribed', async () => {
+      expect(await user.canGetGems()).to.equal(true);
+    });
+
+    it('returns true if user is not subscribed with a group plan', async () => {
+      user.purchased.plan.customerId = 123;
+      expect(await user.canGetGems()).to.equal(true);
+    });
+
+    it('returns true if user is subscribed with a group plan', async () => {
+      user.purchased.plan.customerId = 'group-plan';
+      expect(await user.canGetGems()).to.equal(true);
+    });
+
+    it('returns true if user is part of a group', async () => {
+      user.guilds.push(group._id);
+      expect(await user.canGetGems()).to.equal(true);
+    });
+
+    it('returns true if user is part of a group with a subscription', async () => {
+      user.guilds.push(group._id);
+      user.purchased.plan.customerId = 'group-plan';
+      group.purchased.plan.customerId = 123;
+      await group.save();
+      expect(await user.canGetGems()).to.equal(true);
+    });
+
+    it('returns true if leader is part of a group with a subscription and canGetGems: false', async () => {
+      user.guilds.push(group._id);
+      user.purchased.plan.customerId = 'group-plan';
+      group.purchased.plan.customerId = 123;
+      group.leader = user._id;
+      group.leaderOnly.getGems = true;
+      await group.save();
+      expect(await user.canGetGems()).to.equal(true);
+    });
+
+    it('returns true if user is part of a group with no subscription but canGetGems: false', async () => {
+      user.guilds.push(group._id);
+      user.purchased.plan.customerId = 'group-plan';
+      group.leaderOnly.getGems = true;
+      await group.save();
+      expect(await user.canGetGems()).to.equal(true);
+    });
+
+    it('returns false if user is part of a group with a subscription and canGetGems: false', async () => {
+      user.guilds.push(group._id);
+      user.purchased.plan.customerId = 'group-plan';
+      group.purchased.plan.customerId = 123;
+      group.leaderOnly.getGems = true;
+      await group.save();
+      expect(await user.canGetGems()).to.equal(false);
+    });
+  });
+
   context('hasNotCancelled', () => {
     let user;
     beforeEach(() => {
@@ -208,6 +278,49 @@ describe('User Model', () => {
       user.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
 
       expect(user.hasNotCancelled()).to.be.false;
+    });
+  });
+
+  context('pre-save hook', () => {
+    it('does not try to award achievements when achievements or items not selected in query', async () => {
+      let user = new User();
+      user = await user.save(); // necessary for user.isSelected to work correctly
+
+      // Create conditions for the Beast Master achievement to be awarded
+      user.achievements.beastMasterCount = 3;
+      expect(user.achievements.beastMaster).to.not.equal(true); // verify that it was not awarded initially
+
+      user = await user.save();
+      // verify that it's been awarded
+      expect(user.achievements.beastMaster).to.equal(true);
+
+      // reset the user
+      user.achievements.beastMasterCount = 0;
+      user.achievements.beastMaster = false;
+
+      user = await user.save();
+      // verify it's been removed
+      expect(user.achievements.beastMaster).to.equal(false);
+
+      // fetch the user without selecting the 'items' field
+      user = await User.findById(user._id).select('-items').exec();
+      expect(user.isSelected('items')).to.equal(false);
+
+      // create the conditions for the beast master achievement but this time it should not be awarded
+      user.achievements.beastMasterCount = 3;
+      user = await user.save();
+      expect(user.achievements.beastMaster).to.equal(false);
+
+      // reset
+      user.achievements.beastMasterCount = 0;
+      user = await user.save();
+
+      // this time with achievements not selected
+      user = await User.findById(user._id).select('-achievements').exec();
+      expect(user.isSelected('achievements')).to.equal(false);
+      user.achievements.beastMasterCount = 3;
+      user = await user.save();
+      expect(user.achievements.beastMaster).to.not.equal(true);
     });
   });
 });

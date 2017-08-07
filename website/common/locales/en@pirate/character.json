@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profile",
     "avatar": "Customize Avatar",
     "other": "Other",
@@ -112,6 +112,7 @@
     "mystery": "Mystery",
     "changeClass": "Change Class, Refund Attribute Points",
     "lvl10ChangeClass": "T'\u001d change class ye must be at least level 10.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "Each level earns ye one point to assign to an attribute 'o ye choice. ye can do so manually, or let th' game decide fer ye usin' one 'o th' Automatic Allocation options.",
     "unallocated": "Unallocated Attribute Points",
     "haveUnallocated": "Ye have <%= points %> unallocated Attribute Point(s)",
@@ -126,7 +127,7 @@
     "distributePoints": "Distribute Unallocated Points",
     "distributePointsPop": "Assigns all unallocated attribute points accordin' to th' selected allocation scheme.",
     "warriorText": "Warriors score more 'n better \"critical hits\", which randomly gift bonus Doubloons, Experience, 'n loot chance fer scorin' a task. They also deal heavy damage to boss monsters. Play a Warrior if ye find motivation from unpredictable jackpot-style rewards, or want to dish out th' hurt in boss Quests!",
-    "mageText": "Magicians learn swiftly, gainin' Experience 'n Levels faster than other classes. They also get a great deal 'o Mana fer usin' special abilities. Play a Magician if ye heartly enjoy th' tactical game aspects 'o Habit, or if ye be strongly motivated by levelin' up 'n unlockin' advanced weapons!",
+    "mageText": "Mages learn swiftly, gaining Experience and Levels faster than other classes. They also get a great deal of Mana for using special abilities. Play a Mage if you enjoy the tactical game aspects of Habitica, or if you are strongly motivated by leveling up and unlocking advanced features!",
     "rogueText": "Scallywags be wantin' riches most of all, gainin' more Doubloons than anyone else, 'n be adept at findin' random items. Their iconic Stealth ability lets 'em duck the consequences o' missed Dailies. Play a Scallywag if ye find strong motivation from Rewards 'n Achievements, strivin' fer loot 'n medals!",
     "healerText": "Docs stand impervious against harm, 'n extend that protection to others. Missed Dailies 'n bad Habits don't faze them much, 'n they have ways to recover Health from failure. Play a Doc if ye heartly enjoy assistin' others in ye crew, or if th' idea 'o cheatin' Davy Jones' through harrrd work inspires ye!",
     "optOutOfClasses": "Opt Out",
@@ -169,6 +170,5 @@
     "hideQuickAllocation": "Hide stat allocation",
     "quickAllocationLevelPopover": "Each level earns ye one point t' assign t' an attribute o' yer choice. Ye can do so manually, or let th' game decide for ye using one o' th' Automatic Allocation options found in User -> Stats.",
     "invalidAttribute": "\"<%= attr %>\" is not a valid attribute.",
-    "notEnoughAttrPoints": "Ye don't have enough attribute points.",
-    "gearNotOwned": "Ye don't own this item."
+    "notEnoughAttrPoints": "Ye don't have enough attribute points."
 }

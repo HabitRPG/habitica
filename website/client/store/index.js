@@ -1,76 +1,79 @@
-import Vue from 'vue';
-import state from './state';
+import Store from 'client/libs/store';
+import deepFreeze from 'client/libs/deepFreeze';
+import content from 'common/script/content/index';
+import * as commonConstants from 'common/script/constants';
+import { DAY_MAPPING } from 'common/script/cron';
+import { asyncResourceFactory } from 'client/libs/asyncResource';
+import axios from 'axios';
+
 import actions from './actions';
 import getters from './getters';
 
-// Central application store for Habitica
-// Heavily inspired to Vuex (https://github.com/vuejs/vuex) with a very
-// similar internal implementation (thanks!), main difference is the absence of mutations.
+const IS_TEST = process.env.NODE_ENV === 'test'; // eslint-disable-line no-process-env
 
-// Create a Vue instance (defined below) detatched from any DOM element to handle app data
-let _vm;
+// Load user auth parameters and determine if it's logged in
+// before trying to load data
+let isUserLoggedIn = false;
 
-// The actual store interface
-const store = {
-  // App wide computed properties, calculated as computed properties in the internal VM
-  getters: {},
-  // Return the store's state
-  get state () {
-    return _vm.$data.state;
-  },
-  // Actions should be called using store.dispatch(ACTION_NAME, ...ARGS)
-  // They get passed the store instance and any additional argument passed to dispatch()
-  dispatch (type, ...args) {
-    let action = actions[type];
+let AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
 
-    if (!action) throw new Error(`Action "${type}" not found.`);
-    return action(store, ...args);
-  },
-  // Watch data on the store's state
-  // Internally it uses vm.$watch and accept the same argument except
-  // for the first one that must be a getter function to which the state is passed
-  // For documentation see https://vuejs.org/api/#vm-watch
-  watch (getter, cb, options) {
-    if (typeof getter !== 'function') {
-      throw new Error('The first argument of store.watch must be a function.');
-    }
+if (AUTH_SETTINGS) {
+  AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS);
+  axios.defaults.headers.common['x-api-user'] = AUTH_SETTINGS.auth.apiId;
+  axios.defaults.headers.common['x-api-key'] = AUTH_SETTINGS.auth.apiToken;
+  isUserLoggedIn = true;
+}
 
-    return _vm.$watch(() => getter(state), cb, options);
-  },
-};
+// Export a function that generates the store and not the store directly
+// so that we can regenerate it multiple times for testing, when not testing
+// always export the same route
 
-// Setup getters
-const _computed = {};
+let existingStore;
+export default function () {
+  if (!IS_TEST && existingStore) return existingStore;
 
-Object.keys(getters).forEach(key => {
-  let getter = getters[key];
-
-  // Each getter is compiled to a computed property on the internal VM
-  _computed[key] = () => getter(store);
-
-  Object.defineProperty(store.getters, key, {
-    get: () => _vm[key],
+  existingStore = new Store({
+    actions,
+    getters,
+    state: {
+      title: 'Habitica',
+      isUserLoggedIn,
+      user: asyncResourceFactory(),
+      tasks: asyncResourceFactory(), // user tasks
+      completedTodosStatus: 'NOT_LOADED',
+      party: {
+        quest: {},
+        members: asyncResourceFactory(),
+      },
+      shops: {
+        market: asyncResourceFactory(),
+        quests: asyncResourceFactory(),
+        seasonal: asyncResourceFactory(),
+        'time-travelers': asyncResourceFactory(),
+      },
+      myGuilds: [],
+      publicGuilds: [],
+      groupFormOptions: {
+        creatingParty: false,
+        groupId: '',
+      },
+      avatarEditorOptions: {
+        editingUser: false,
+      },
+      flagChatOptions: {
+        message: {},
+        groupId: '',
+      },
+      editingGroup: {}, // TODO move to local state
+      // content data, frozen to prevent Vue from modifying it since it's static and never changes
+      // TODO apply freezing to the entire codebase (the server) and not only to the client side?
+      // NOTE this takes about 10-15ms on a fast computer
+      content: deepFreeze(content),
+      constants: deepFreeze({...commonConstants, DAY_MAPPING}),
+      hideHeader: false,
+      viewingMembers: [],
+    },
   });
-});
 
-export default store;
-
-export {
-  mapState,
-  mapGetters,
-  mapActions,
-} from './helpers/public';
-
-// Setup internal Vue instance to make state and getters reactive
-_vm = new Vue({
-  data: { state },
-  computed: _computed,
-});
-
-// Inject the store into all components as this.$store
-Vue.mixin({
-  beforeCreate () {
-    this.$store = store;
-  },
-});
-
+  return existingStore;
+}

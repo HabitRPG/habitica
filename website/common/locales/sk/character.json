@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Prosím, pamätaj si, že tvoje zobrazované meno, profilová fotka a informácie o tebe musia splňovať <a href='https://habitica.com/static/community-guidelines' target='_blank'>Komunitné pravidlá</a> (napr. žiadne vulgarizmy, témy len pre dospelých, urážky a pod.). Ak máš nejaké otázky ohľadom toho, či je niečo vhodné alebo nevhodné, napíš na <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "Prosím, maj na pamäti, že tvoje zobrazené meno, profilová fotka, a sekcia \"O mne\" musia splňovať <a href='https://habitica.com/static/community-guidelines' target='_blank'>Komunitné pravidlá</a> (napr. žiadne nadávky, témy pre dospelých, urážky a pod.). Ak máš akékoľvek otázky ohľadom vhodnosti alebo nevhodnosti čohokoľvek, kľudne napíš mail na <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Prispôsobiť avatara",
     "other": "Ostatné",
@@ -30,7 +30,7 @@
     "hairBase": "Základ",
     "hairSet1": "1. sada účesov",
     "hairSet2": "2. sada účesov",
-    "hairSet3": "Hairstyle Set 3",
+    "hairSet3": "3. sada účesov",
     "bodyFacialHair": "Zarastenie",
     "beard": "Brada",
     "mustache": "Fúzy",
@@ -42,7 +42,7 @@
     "spookySkins": "Strašidelné pokožky",
     "supernaturalSkins": "Nadprirodzené pokožky",
     "splashySkins": "Škvrnité pokožky",
-    "winterySkins": "Wintery Skins",
+    "winterySkins": "Studené pokožky",
     "rainbowColors": "Dúhové farby",
     "shimmerColors": "Trblietavé farby",
     "hauntedColors": "Strašidelné farby",
@@ -112,6 +112,7 @@
     "mystery": "Záhada",
     "changeClass": "Zmeniť povolanie, vrátiť pridelené body vlastností",
     "lvl10ChangeClass": "Aby si mohol zmeniť povolanie, musíš byť aspoň level 10.",
+    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "S každým levelom získaš jeden bod, ktorý môžeš priradiť do atribútu. Môžeš tak robiť ručne alebo nechať hru, aby rozhodla za teba, použitím možnosti \"automatické pridelenie\".",
     "unallocated": "Nepridelené body atribútov",
     "haveUnallocated": "Máš <%= points %> nepriradených bodov atribútov",
@@ -126,7 +127,7 @@
     "distributePoints": "Rozdelenie nepridelených bodov",
     "distributePointsPop": "Pridelí všetky nepriradené body atribútov v závislosti od zvoleného spôsobu rozdelenia.",
     "warriorText": "Bojovníci ľahšie udelia \"kritický zásah\", ktorý náhodne dáva zlato, skúsenosti a zvyšuje šancu na získanie predmetov pri plnení úloh. Kritický zásah taktiež uštedrí silnú ranu boss monštrám. Hraj za bojovníka, ak ťa motivujú nepredvídateľné odmeny, ako keď vyhráš jackpot, alebo chceš naservírovať bossom riadne rany na výpravách!",
-    "mageText": "Mágovia sa rýchlo učia, získavajú skúsenosti a levely rýchlejšie ako iné triedy. Taktiež majú veľké množstvo many na používanie svojich schopností. Hraj za mága, ak ťa baví taktické hranie Habitu, alebo ak ťa silne motivuje levelovanie a odomykanie rôznych funkcií.",
+    "mageText": "Mages learn swiftly, gaining Experience and Levels faster than other classes. They also get a great deal of Mana for using special abilities. Play a Mage if you enjoy the tactical game aspects of Habitica, or if you are strongly motivated by leveling up and unlocking advanced features!",
     "rogueText": "Zlodeji milujú hromadenie bohatstva, získavajú viac zlata ako ktokoľvek iný a sú odborníci na získavanie náhodných predmetov. Ich výborná schopnosť zakrádania im dáva možnosť vyhnúť sa následkom nesplnených denných úloh. Hraj za zlodeja, ak ťa silne motivujú odmeny a odznaky a chceš nahromadiť lup!",
     "healerText": "Liečitelia sú chránení pred zraneniami a svoju ochranu rozširujú aj na ostatných. Z nestihnutých denných úloh a zlých návykov si veľa nerobia a majú prostriedky ako si obnoviť zdravie v prípade zlyhania. Hraj za liečiteľa, ak ťa baví pomáhať ostatným v družine, alebo ak rád utekáš zubatej z lopaty!",
     "optOutOfClasses": "Zrušiť výber povolania",
@@ -169,6 +170,5 @@
     "hideQuickAllocation": "Skryť rozdelenie štatistík",
     "quickAllocationLevelPopover": "S každým levelom získaš jeden bod, ktorý môžeš priradiť do vlastnosti podľa svojho výberu. Môžeš tak robiť ručne alebo nechať hru, aby rozhodla za teba, použitím možnosti \"automatické pridelenie\", ktorú môžeš nájsť v časti Užívateľ -> Štatistiky.",
     "invalidAttribute": "\"<%= attr %>\" nie je platná vlastnosť.",
-    "notEnoughAttrPoints": "Nemáš dosť bodov vlastností.",
-    "gearNotOwned": "Nevlastníš tento predmet."
+    "notEnoughAttrPoints": "Nemáš dosť bodov vlastností."
 }

@@ -25,7 +25,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   let eggsCategory = {
     identifier: 'eggs',
     text: i18n.t('eggs', language),
-    notes: i18n.t('dropsExplanation', language),
+    notes: i18n.t('dropsExplanationEggs', language),
   };
 
   eggsCategory.items = sortBy(values(content.questEggs)
@@ -55,7 +55,7 @@ shops.getMarketCategories = function getMarket (user, language) {
     .map(hatchingPotion => {
       return {
         key: hatchingPotion.key,
-        text: hatchingPotion.text(language),
+        text: i18n.t('potion', {potionType: hatchingPotion.text(language)}),
         notes: hatchingPotion.notes(language),
         class: `Pet_HatchingPotion_${hatchingPotion.key}`,
         value: hatchingPotion.value,
@@ -76,7 +76,7 @@ shops.getMarketCategories = function getMarket (user, language) {
     .map(premiumHatchingPotion => {
       return {
         key: premiumHatchingPotion.key,
-        text: premiumHatchingPotion.text(language),
+        text: i18n.t('potion', {potionType: premiumHatchingPotion.text(language)}),
         notes: `${premiumHatchingPotion.notes(language)} ${premiumHatchingPotion._addlNotes(language)}`,
         class: `Pet_HatchingPotion_${premiumHatchingPotion.key}`,
         value: premiumHatchingPotion.value,
@@ -85,7 +85,9 @@ shops.getMarketCategories = function getMarket (user, language) {
         purchaseType: 'hatchingPotions',
       };
     }), 'key');
-  categories.push(premiumHatchingPotionsCategory);
+  if (premiumHatchingPotionsCategory.items.length > 0) {
+    categories.push(premiumHatchingPotionsCategory);
+  }
 
   let foodCategory = {
     identifier: 'food',
@@ -114,6 +116,83 @@ shops.getMarketCategories = function getMarket (user, language) {
 shops.getQuestShopCategories = function getQuestShopCategories (user, language) {
   let categories = [];
 
+  /*
+   * ---------------------------------------------------------------
+   * Quest Bundles
+   * ---------------------------------------------------------------
+   *
+   * These appear in the Content index.js as follows:
+   * {
+   *   bundleName: {
+   *     key: 'bundleName',
+   *     text: t('bundleNameText'),
+   *     notes: t('bundleNameNotes'),
+   *     group: 'group',
+   *     bundleKeys: [
+   *       'quest1',
+   *       'quest2',
+   *       'quest3',
+   *     ],
+   *     canBuy () {
+   *       return true when bundle is available for purchase;
+   *     },
+   *   type: 'quests',
+   *   value: 7,
+   *   },
+   *   secondBundleName: {
+   *     ...
+   *   },
+   * }
+   *
+   * After filtering and mapping, the Shop will produce:
+   *
+   * [
+   *   {
+   *     identifier: 'bundle',
+   *     text: 'i18ned string for bundles category',
+   *     items: [
+   *       {
+   *         key: 'bundleName',
+   *         text: 'i18ned string for bundle title',
+   *         notes: 'i18ned string for bundle description',
+   *         group: 'group',
+   *         value: 7,
+   *         currency: 'gems',
+   *         class: 'quest_bundle_bundleName',
+   *         purchaseType: 'bundles',
+   *       },
+   *       { second bundle },
+   *     ],
+   *   },
+   *   { main quest category 1 },
+   *   ...
+   * ]
+   *
+   */
+
+  let bundleCategory = {
+    identifier: 'bundle',
+    text: i18n.t('questBundles', language),
+  };
+
+  bundleCategory.items = sortBy(values(content.bundles)
+    .filter(bundle => bundle.type === 'quests' && bundle.canBuy())
+    .map(bundle => {
+      return {
+        key: bundle.key,
+        text: bundle.text(language),
+        notes: bundle.notes(language),
+        value: bundle.value,
+        currency: 'gems',
+        class: `quest_bundle_${bundle.key}`,
+        purchaseType: 'bundles',
+      };
+    }));
+
+  if (bundleCategory.items.length > 0) {
+    categories.push(bundleCategory);
+  }
+
   each(content.userCanOwnQuestCategories, type => {
     let category = {
       identifier: type,
@@ -128,6 +207,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
           key: quest.key,
           text: quest.text(language),
           notes: quest.notes(language),
+          group: quest.group,
           value: quest.goldValue ? quest.goldValue : quest.value,
           currency: quest.goldValue ? 'gold' : 'gems',
           locked,
@@ -149,7 +229,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
 
 shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, language) {
   let categories = [];
-  let stable = {pets: 'Pet-', mounts: 'Mount_Head_'};
+  let stable = {pets: 'Pet-', mounts: 'Mount_Icon_'};
   for (let type in stable) {
     if (stable.hasOwnProperty(type)) {
       let category = {
@@ -314,6 +394,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
       });
 
       if (category.items.length > 0) {
+        category.specialClass = category.items[0].specialClass;
         categories.push(category);
       }
     }

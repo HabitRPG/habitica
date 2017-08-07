@@ -16,7 +16,7 @@
   "maintenanceInfoTechDetails": "¿Quieres más detalles sobre el lado técnico del proceso? Visita <a href='http://devs.habitica.com/' target='_blank'>La Forja, nuestro blog de desarrolladores</a>.",
   "maintenanceInfoMore": "Más información",
   "maintenanceInfoAccountChanges": "¿Qué cambios notaré en mi cuenta cuando el mantenimiento termine?",
-  "maintenanceInfoAccountChangesText": "Al principio, no habrá cambios importantes aparte de las mejoras en el rendimiento de algunas funciones, como los desafíos. Si observas algún cambio que no debería haber aparecido, escríbenos a <a href='mailto:admin@habitica.com'>admin@habitica.com</a> ¡y nos encargaremos de investigarlo!",
+  "maintenanceInfoAccountChangesText": "Inicialmente, no habrá cambios importantes aparte de las mejoras en el rendimiento de algunas funciones, como los desafíos. Si observas algún cambio que no debería haber aparecido, mándanos un email a <%= hrefTechAssistanceEmail %> ¡Y nos encargaremos de investigarlo!",
   "maintenanceInfoAddFeatures": "¿Qué tipo de funciones se podrán añadir a Habitica después de esto?",
   "maintenanceInfoAddFeaturesText": "Al completar el mantenimiento, podremos empezar a crear un chat y unos gremios mejorados, planes para organizaciones y familias, y funciones de productividad adicionales, ¡como tareas mensuales y la posibilidad de registrar lo que hiciste el día anterior! Todas estas funciones son bastante complejas, de modo que llevará tiempo desarrollarlas, pero sin tener terminada esta reescritura, es imposible empezar con ello.",
   "maintenanceInfoHowLong": "¿Cuánto durará el mantenimiento?",

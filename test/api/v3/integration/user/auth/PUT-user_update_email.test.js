@@ -8,6 +8,8 @@ import {
   sha1Encrypt as sha1EncryptPassword,
 } from '../../../../../../website/server/libs/password';
 
+import nconf from 'nconf';
+
 const ENDPOINT = '/user/auth/update-email';
 
 describe('PUT /user/auth/update-email', () => {
@@ -68,7 +70,7 @@ describe('PUT /user/auth/update-email', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('cannotFulfillReq'),
+        message: t('cannotFulfillReq', { techAssistanceEmail: nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL') }),
       });
     });
 

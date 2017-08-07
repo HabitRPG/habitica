@@ -55,17 +55,35 @@ script(type='text/ng-template', id='modals/restore.html')
       a.btn.btn-sm.btn-warning(ng-controller='FooterCtrl', ng-click='addMissedDay(1)')=env.t('triggerDay')
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('discardChanges')
-    button.btn.btn-primary(ng-click='restore(); $close();')=env.t('saveAndClose')
+    button.btn.btn-primary(ng-click='restore()')=env.t('saveAndClose')
 
-script(type='text/ng-template', id='modals/delete.html')
+script(type='text/ng-template', id='modals/deletelocal.html')
   .modal-header
     h4=env.t('deleteAccount')
   .modal-body
-    p!=env.t('deleteLocalAccountText')
+    strong=env.t('deleteLocalAccountText')
     br
     .row
       .col-md-6
         input.form-control(type='password', ng-model='_deleteAccount')
+    br
+    .row
+      #feedback.col-xs-12.form-group
+        label(for='feedbackTextArea')=env.t('feedback')
+        textarea#feedbackTextArea.form-control(ng-model='feedback')
   .modal-footer
     button.btn.btn-default(ng-click='$close()')=env.t('neverMind')
-    button.btn.btn-danger(ng-disabled='!_deleteAccount', ng-click='$close(); delete(_deleteAccount)')=env.t('deleteDo')
+    button.btn.btn-danger(ng-disabled='!_deleteAccount', ng-click='$close(); delete(_deleteAccount, feedback)')=env.t('deleteDo')
+
+script(type='text/ng-template', id='modals/deletesocial.html')
+  .modal-header
+    h4=env.t('deleteAccount')
+  .modal-body
+    p!=env.t('deleteSocialAccountText')
+    br
+    .row
+      .col-md-6
+        input.form-control(type='text', ng-model='_deleteAccount')
+  .modal-footer
+    button.btn.btn-default(ng-click='$close()')=env.t('neverMind')
+    button.btn.btn-danger(ng-disabled='!_deleteAccount', ng-click='$close(); delete(_deleteAccount, feedback)')=env.t('deleteDo')

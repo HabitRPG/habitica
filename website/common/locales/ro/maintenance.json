@@ -16,7 +16,7 @@
   "maintenanceInfoTechDetails": "Want more details on the technical side of the process? Visit <a href='http://devs.habitica.com/' target='_blank'>The Forge, our dev blog</a>.",
   "maintenanceInfoMore": "More Information",
   "maintenanceInfoAccountChanges": "What changes will I see to my account after the rewrite is complete?",
-  "maintenanceInfoAccountChangesText": "At first, there won’t be any notable changes aside from performance improvements for features such as Challenges. If you notice any changes that shouldn’t be there, email us at <a href='mailto:admin@habitica.com'>admin@habitica.com</a> and we will investigate them for you!",
+  "maintenanceInfoAccountChangesText": "At first, there won’t be any notable changes aside from performance improvements for features such as Challenges. If you notice any changes that shouldn’t be there, email us at <%= hrefTechAssistanceEmail %> and we will investigate them for you!",
   "maintenanceInfoAddFeatures": "What kind of features will this allow Habitica to add?",
   "maintenanceInfoAddFeaturesText": "Completing this rewrite will allow us to start building out improved chat and Guilds, plans for organizations and families, and additional productivity features like Monthlies and the ability to record yesterday’s activity! Those are all involved features on their own, so it will take time to build them, but until we were finished with this rewrite, there was no way we could start them.",
   "maintenanceInfoHowLong": "How long will the maintenance take?",

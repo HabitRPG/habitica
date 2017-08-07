@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "請記得你的角色名稱，簡介頭像以及簡介內容必須遵守<a href='https://habitica.com/static/community-guidelines' target='_blank'>使用者規範</a>(比如說:不可有猥褻行為、不可有成人議題、不可汙辱他人等等)。如果你不確定某些事有沒有合乎規定，歡迎來信到 <a href='mailto:leslie@habitica.com' target='blank'>leslie@habitica.com</a>!",
+    "communityGuidelinesWarning": "請記得你的角色名稱，簡介頭像以及簡介內容必須遵守<a href='https://habitica.com/static/community-guidelines' target='_blank'>使用者規範</a>(比如說:不可有猥褻行為、不可有成人議題、不可汙辱他人等等)。如果你不確定某些事有沒有合乎規定，歡迎來信到 <%= hrefCommunityManagerEmail %>!",
     "profile": "基本資料",
     "avatar": "客制化角色圖像",
     "other": "其他",
@@ -112,6 +112,7 @@
     "mystery": "神秘",
     "changeClass": "變更職業並重新分配屬性點",
     "lvl10ChangeClass": "你必須達到10級才能改變職業。",
+    "invalidClass": "此職業不存在。請指定\"戰士\"、\"盜賊\"、\"法師\"、或\"醫者\"。",
     "levelPopover": "每升一級你都能得到一點並分配到你想要的屬性。你可以手動分配，或讓系統幫你自動完成。",
     "unallocated": "未分配的屬性點",
     "haveUnallocated": "你有( <%= points %> )點未分配的屬性點",
@@ -126,7 +127,7 @@
     "distributePoints": "分配未使用的屬性點",
     "distributePointsPop": "根據所選擇的分配方法分配所有未分配的屬性點。",
     "warriorText": "戰士有更大的機率觸發「會心一擊」，並在完成任務時隨機獲得額外的金幣、經驗和掉落率。他們還能對 Boss造成嚴重的傷害。如果你希望獲得隨機的高額獎勵，或者在 Boss任務中重創 Boss，來玩戰士吧！",
-    "mageText": "法師善於學習，獲得經驗值和升級比其他職業快。他們還有大量的魔力以使用特殊的法術。如果你如果你喜歡玩得有策略性，或者你強烈地希望升級解鎖更多的遊戲內容，來玩法師吧！",
+    "mageText": "Mages learn swiftly, gaining Experience and Levels faster than other classes. They also get a great deal of Mana for using special abilities. Play a Mage if you enjoy the tactical game aspects of Habitica, or if you are strongly motivated by leveling up and unlocking advanced features!",
     "rogueText": "盜賊熱衷於積累財富，比其他人獲得更多的金幣，還擅長尋找隨機物品。他們特有的匿蹤技能使得他們能夠躲避未完成的每日任務帶來的傷害。如果你希望獲得更多的獎勵、成就並渴求戰利品及徽章，來玩盜賊吧！",
     "healerText": "醫者頑強地對抗突如其來的傷害，並且保護其他的人。錯過的日常任務和一些壞習慣不太能影響他們，他們總是想方設法幫你治療。如果你熱衷於輔助其他的隊友或者是享受那種從死神手裡奪回生命的快感，那就成為一名醫者吧！",
     "optOutOfClasses": "暫時不選擇",
@@ -148,7 +149,7 @@
     "youCastTarget": "你對 <%= target %>施放了 <%= spell %>。",
     "youCastParty": "你對整個隊伍施放了 <%= spell %>。",
     "critBonus": "會心一擊！額外加成：",
-    "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. To change it, click the Edit button above. If instead you want to change your login name, go to",
+    "displayNameDescription1": "此訊息與你的角色圖像會一併顯示在你酒館、公會與隊伍聊天室的貼文中。如果要更改，請按上面的\"更改\"按鈕。而如果你想要更改登入名稱，請至",
     "displayNameDescription2": "設定->網站",
     "displayNameDescription3": "並查看註冊部分。",
     "unequipBattleGear": "卸下戰鬥裝備",
@@ -169,6 +170,5 @@
     "hideQuickAllocation": "關閉分配狀態",
     "quickAllocationLevelPopover": "每升一級你都能得到一點並分配到你想要的屬性。你可以手動分配，或讓系統在使用者->屬性下幫你自動完成。",
     "invalidAttribute": "\"<%= attr %>\" 並不是有效的屬性。",
-    "notEnoughAttrPoints": "你沒有足夠的屬性點數。",
-    "gearNotOwned": "你不擁有這項物品。"
+    "notEnoughAttrPoints": "你沒有足夠的屬性點數。"
 }

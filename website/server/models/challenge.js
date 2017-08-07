@@ -81,7 +81,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
   // Add challenge to user.challenges
   if (!_.includes(user.challenges, challenge._id)) {
     // using concat because mongoose's protection against concurrent array modification isn't working as expected.
-    // see https://github.com/HabitRPG/habitrpg/pull/7787#issuecomment-232972394
+    // see https://github.com/HabitRPG/habitica/pull/7787#issuecomment-232972394
     user.challenges = user.challenges.concat([challenge._id]);
   }
   // Sync tags
@@ -283,7 +283,15 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
   // Award prize to winner and notify
   if (winner) {
     winner.achievements.challenges.push(challenge.name);
-    winner.balance += challenge.prize / 4;
+
+    // If the winner cannot get gems (because of a group policy)
+    // reimburse the leader
+    const winnerCanGetGems = await winner.canGetGems();
+    if (!winnerCanGetGems) {
+      await User.update({_id: challenge.leader}, {$inc: {balance: challenge.prize / 4}}).exec();
+    } else {
+      winner.balance += challenge.prize / 4;
+    }
 
     winner.addNotification('WON_CHALLENGE');
 

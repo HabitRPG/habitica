@@ -11,9 +11,9 @@ mixin groupSubscription()
             br
             table.table.alert.alert-info(ng-if='group.purchased.plan.customerId')
               tr(ng-if='group.purchased.plan.dateTerminated'): td.alert.alert-warning
-                span.noninteractive-button.btn-danger=env.t('canceledSubscription')
+                span.noninteractive-button.btn-danger=env.t('canceledGroupPlan')
                 i.glyphicon.glyphicon-time
-                |  #{env.t('subCanceled')} <strong>{{moment(group.purchased.plan.dateTerminated).format('MM/DD/YYYY')}}</strong>
+                |  #{env.t('groupPlanCanceled')} <strong>{{group.purchased.plan.dateTerminated | date:user.preferences.dateFormat}}</strong>
               tr(ng-if='!group.purchased.plan.dateTerminated'): td
                 h3=env.t('paymentDetails')
                 p(ng-if='group.purchased.plan.planId')=env.t('groupSubscriptionPrice')

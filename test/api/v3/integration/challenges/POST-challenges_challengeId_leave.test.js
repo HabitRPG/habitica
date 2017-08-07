@@ -32,18 +32,20 @@ describe('POST /challenges/:challengeId/leave', () => {
     let group;
     let challenge;
     let notInChallengeUser;
+    let notInGroupLeavingUser;
     let leavingUser;
     let taskText;
 
     beforeEach(async () => {
       let populatedGroup = await createAndPopulateGroup({
-        members: 2,
+        members: 3,
       });
 
       groupLeader = populatedGroup.groupLeader;
       group = populatedGroup.group;
       leavingUser = populatedGroup.members[0];
       notInChallengeUser = populatedGroup.members[1];
+      notInGroupLeavingUser = populatedGroup.members[2];
 
       challenge = await generateChallenge(groupLeader, group);
 
@@ -55,17 +57,16 @@ describe('POST /challenges/:challengeId/leave', () => {
 
       await leavingUser.post(`/challenges/${challenge._id}/join`);
 
+      await notInGroupLeavingUser.post(`/challenges/${challenge._id}/join`);
+      await notInGroupLeavingUser.post(`/groups/${group._id}/leave`, {
+        keepChallenges: 'remain-in-challenges',
+      });
+
       await challenge.sync();
     });
 
-    it('returns an error when user doesn\'t have permissions to view the challenge', async () => {
-      let unauthorizedUser = await generateUser();
-
-      await expect(unauthorizedUser.post(`/challenges/${challenge._id}/leave`)).to.eventually.be.rejected.and.eql({
-        code: 404,
-        error: 'NotFound',
-        message: t('challengeNotFound'),
-      });
+    it('lets user leave when not a member of the challenge group', async () => {
+      await expect(notInGroupLeavingUser.post(`/challenges/${challenge._id}/leave`)).to.eventually.be.ok;
     });
 
     it('returns an error when user isn\'t a member of the challenge', async () => {

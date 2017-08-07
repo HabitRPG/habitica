@@ -1,6 +1,6 @@
 "use strict";
 
-habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$http', '$state', 'Guide', 'Shared', 'Content', 'Stats', 'Social', 'Costume',
+habitrpg.controller('UserCtrl', ['$rootScope', '$scope', '$location', 'User', '$http', '$state', 'Guide', 'Shared', 'Content', 'Stats', 'Social', 'Costume',
   function($rootScope, $scope, $location, User, $http, $state, Guide, Shared, Content, Stats, Social, Costume) {
     $scope.profile = User.user;
 
@@ -23,16 +23,18 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
     }
 
     $scope.changeClass = function(klass){
-      if (!klass) {
-        if (!confirm(window.env.t('sureReset')))
-          return;
-        return User.changeClass({});
-      }
-
       User.changeClass({query:{class:klass}});
-      $scope.selectedClass = undefined;
       Shared.updateStore(User.user);
-      Guide.goto('classes', 0,true);
+      
+      Guide.goto('classes', 0, true);
+    }
+
+    $scope.enableClasses = function(){
+      return User.changeClass({});
+    }
+
+    $scope.payForNewClass = function(){
+      if (confirm(window.env.t('sureReset'))) return User.changeClass({});
     }
 
     $scope.save = function(){
@@ -65,7 +67,9 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
           (fullSet ? 3.75 : 1.75) : // (Backgrounds) 15G per set, 7G per individual
           (fullSet ? 1.25 : 0.5); // (Hair, skin, etc) 5G per set, 2G per individual
 
-      if (path.indexOf('background.blue') === -1 && path.indexOf('background.green') === -1 && path.indexOf('background.red') === -1 && path.indexOf('background.purple') === -1 && path.indexOf('background.yellow') === -1) {
+      if (path.indexOf('background.blue') === -1 && path.indexOf('background.green') === -1 &&
+          path.indexOf('background.red') === -1 && path.indexOf('background.purple') === -1 &&
+          path.indexOf('background.yellow') === -1 && path.indexOf('background.violet') === -1) {
         if (fullSet) {
           if (confirm(window.env.t('purchaseFor',{cost:cost*4})) !== true) return;
           if (User.user.balance < cost) return $rootScope.openModal('buyGems');
@@ -84,6 +88,10 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
       });
     };
 
+    $scope.showPlainBackgroundBlurb = function(identifier, set) {
+      return identifier === 'incentiveBackgrounds' && !$scope.ownsSet('background', set);
+    };
+
     $scope.setKeys = function(type, _set) {
       return _.map(_set, function(v,k) {
         if (type === 'background') k = v.key;
@@ -93,9 +101,11 @@ habitrpg.controller("UserCtrl", ['$rootScope', '$scope', '$location', 'User', '$
 
     $scope.getProgressDisplay = function () {
       var currentLoginDay = Content.loginIncentives[$scope.profile.loginIncentives];
-      if (!currentLoginDay) return env.t('moreIncentivesComingSoon');
+      if (!currentLoginDay) return env.t('checkinReceivedAllRewardsMessage');
       var nextRewardAt = currentLoginDay.nextRewardAt;
       if (!nextRewardAt) return env.t('moreIncentivesComingSoon');
+      // if we are on a reward day, let's show progress relative to this
+      if (currentLoginDay.reward) currentLoginDay.prevRewardKey = $scope.profile.loginIncentives;
       if (!currentLoginDay.prevRewardKey) currentLoginDay.prevRewardKey = 0;
       return env.t('checkinProgressTitle') + ' ' + ($scope.profile.loginIncentives - currentLoginDay.prevRewardKey) + '/' + (nextRewardAt - currentLoginDay.prevRewardKey);
     };

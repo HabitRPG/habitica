@@ -107,7 +107,7 @@ describe('POST /group/:groupId/reject-invite', () => {
     it('clears invitation from user', async () => {
       await invitedUser.post(`/groups/${party._id}/reject-invite`);
 
-      await expect(invitedUser.get('/user')).to.eventually.not.have.deep.property('invitations.party.id');
+      await expect(invitedUser.get('/user')).to.eventually.not.have.deep.property('invitations.parties[0].id');
     });
   });
 });

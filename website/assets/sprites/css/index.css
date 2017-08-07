@@ -61,6 +61,10 @@
   padding-right: 0.5em;
 }
 
+.achievement-container {
+  height: 52px;
+}
+
 [class*="Mount_Head_"],
 [class*="Mount_Body_"] {
   margin-top:18px; /* Sprite accommodates 105x123 box */

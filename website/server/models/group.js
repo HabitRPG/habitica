@@ -35,15 +35,26 @@ import stripePayments from '../libs/stripePayments';
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
 
-export const INVITES_LIMIT = 100;
+export const INVITES_LIMIT = 100; // must not be greater than MAX_EMAIL_INVITES_BY_USER
 export const TAVERN_ID = shared.TAVERN_ID;
 
 const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
 const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = shared.constants.LARGE_GROUP_COUNT_MESSAGE_CUTOFF;
+const GUILDS_PER_PAGE = shared.constants.GUILDS_PER_PAGE;
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 const MAX_UPDATE_RETRIES = 5;
+
+/*
+#  Spam constants to limit people from sending too many messages too quickly
+#    SPAM_MESSAGE_LIMIT - The amount of messages that can be sent in a time window
+#    SPAM_WINDOW_LENGTH - The window length for spam protection in milliseconds
+#    SPAM_MIN_EXEMPT_CONTRIB_LEVEL - Anyone at or above this level is exempt
+*/
+export const SPAM_MESSAGE_LIMIT = 2;
+export const SPAM_WINDOW_LENGTH = 60000; // 1 minute
+export const SPAM_MIN_EXEMPT_CONTRIB_LEVEL = 4;
 
 export let schema = new Schema({
   name: {type: String, required: true},
@@ -65,6 +76,8 @@ export let schema = new Schema({
   leaderOnly: { // restrict group actions to leader (members can't do them)
     challenges: {type: Boolean, default: false, required: true},
     // invites: {type: Boolean, default: false, required: true},
+    // Some group plans prevent members from getting gems
+    getGems: {type: Boolean, default: false},
   },
   memberCount: {type: Number, default: 1},
   challengeCount: {type: Number, default: 0},
@@ -104,13 +117,20 @@ export let schema = new Schema({
       return {};
     }},
   },
+  managers: {type: Schema.Types.Mixed, default: () => {
+    return {};
+  }},
+  categories: [{
+    slug: {type: String},
+    name: {type: String},
+  }],
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased'],
+  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased', 'managers'],
   private: ['purchased.plan'],
   toJSONTransform (plainObj, originalDoc) {
     if (plainObj.purchased) plainObj.purchased.active = originalDoc.isSubscribed();
@@ -205,7 +225,12 @@ schema.statics.getGroup = async function getGroup (options = {}) {
 export const VALID_QUERY_TYPES = ['party', 'guilds', 'privateGuilds', 'publicGuilds', 'tavern'];
 
 schema.statics.getGroups = async function getGroups (options = {}) {
-  let {user, types, groupFields = basicFields, sort = '-memberCount', populateLeader = false} = options;
+  let {
+    user, types, groupFields = basicFields,
+    sort = '-memberCount', populateLeader = false,
+    paginate = false, page = 0, // optional pagination for public guilds
+    filters = {},
+  } = options;
   let queries = [];
 
   // Throw error if an invalid type is supplied
@@ -219,21 +244,25 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         break;
       }
       case 'guilds': {
-        let userGuildsQuery = this.find({
+        let query = {
           type: 'guild',
           _id: {$in: user.guilds},
-        }).select(groupFields);
+        };
+        _.assign(query, filters);
+        let userGuildsQuery = this.find(query).select(groupFields);
         if (populateLeader === true) userGuildsQuery.populate('leader', nameFields);
         userGuildsQuery.sort(sort).exec();
         queries.push(userGuildsQuery);
         break;
       }
       case 'privateGuilds': {
-        let privateGuildsQuery = this.find({
+        let query = {
           type: 'guild',
           privacy: 'private',
           _id: {$in: user.guilds},
-        }).select(groupFields);
+        };
+        _.assign(query, filters);
+        let privateGuildsQuery = this.find(query).select(groupFields);
         if (populateLeader === true) privateGuildsQuery.populate('leader', nameFields);
         privateGuildsQuery.sort(sort).exec();
         queries.push(privateGuildsQuery);
@@ -242,11 +271,14 @@ schema.statics.getGroups = async function getGroups (options = {}) {
       // NOTE: when returning publicGuilds we use `.lean()` so all mongoose methods won't be available.
       // Docs are going to be plain javascript objects
       case 'publicGuilds': {
-        let publicGuildsQuery = this.find({
+        let query = {
           type: 'guild',
           privacy: 'public',
-        }).select(groupFields);
+        };
+        _.assign(query, filters);
+        let publicGuildsQuery = this.find(query).select(groupFields);
         if (populateLeader === true) publicGuildsQuery.populate('leader', nameFields);
+        if (paginate === true) publicGuildsQuery.limit(GUILDS_PER_PAGE).skip(page * GUILDS_PER_PAGE);
         publicGuildsQuery.sort(sort).lean().exec();
         queries.push(publicGuildsQuery);
         break;
@@ -269,7 +301,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
 };
 
 // When converting to json remove chat messages with more than 1 flag and remove all flags info
-// unless the user is an admin
+// unless the user is an admin or said chat is posted by that user
 // Not putting into toJSON because there we can't access user
 // It also removes the _meta field that can be stored inside a chat message
 schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
@@ -279,7 +311,7 @@ schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
     _.remove(toJSON.chat, chatMsg => {
       chatMsg.flags = {};
       if (chatMsg._meta) chatMsg._meta = undefined;
-      return chatMsg.flagCount >= 2;
+      return user._id !== chatMsg.uuid && chatMsg.flagCount >= 2;
     });
   }
 
@@ -294,7 +326,7 @@ schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
  * @param  res  Express res object for use with translations
  * @throws BadRequest An error describing the issue with the invitations
  */
-schema.statics.validateInvitations = function getInvitationError (uuids, emails, res) {
+schema.statics.validateInvitations = async function getInvitationError (uuids, emails, res, group = null) {
   let uuidsIsArray = Array.isArray(uuids);
   let emailsIsArray = Array.isArray(emails);
   let emptyEmails = emailsIsArray && emails.length < 1;
@@ -333,6 +365,27 @@ schema.statics.validateInvitations = function getInvitationError (uuids, emails,
   if (totalInvites > INVITES_LIMIT) {
     throw new BadRequest(res.t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}));
   }
+
+  // If party, check the limit of members
+  if (group && group.type === 'party') {
+    let memberCount = 0;
+
+    // Counting the members that already joined the party
+    memberCount += group.memberCount;
+
+    // Count how many invitations currently exist in the party
+    let query = {};
+    query['invitations.party.id'] = group._id;
+    let groupInvites = await User.count(query).exec();
+    memberCount += groupInvites;
+
+    // Counting the members that are going to be invited by email and uuids
+    memberCount += totalInvites;
+
+    if (memberCount > shared.constants.PARTY_LIMIT_MEMBERS) {
+      throw new BadRequest(res.t('partyExceedsMembersLimit', {maxMembersParty: shared.constants.PARTY_LIMIT_MEMBERS}));
+    }
+  }
 };
 
 schema.methods.getParticipatingQuestMembers = function getParticipatingQuestMembers () {
@@ -348,7 +401,8 @@ schema.methods.removeGroupInvitations = async function removeGroupInvitations ()
 
   let userUpdates = usersToRemoveInvitationsFrom.map(user => {
     if (group.type === 'party') {
-      user.invitations.party = {};
+      removeFromArray(user.invitations.parties, { id: group._id });
+      user.invitations.party = user.invitations.parties.length > 0 ? user.invitations.parties[user.invitations.parties.length - 1] : {};
       this.markModified('invitations.party');
     } else {
       removeFromArray(user.invitations.guilds, { id: group._id });
@@ -1170,6 +1224,31 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
   }, {
     $set: {'group.broken': 'TASK_DELETED'},
   }, {multi: true}).exec();
+};
+
+// Returns true if the user has reached the spam message limit
+schema.methods.checkChatSpam = function groupCheckChatSpam (user) {
+  if (this._id !== TAVERN_ID) {
+    return false;
+  } else if (user.contributor && user.contributor.level >= SPAM_MIN_EXEMPT_CONTRIB_LEVEL) {
+    return false;
+  }
+
+  let currentTime = Date.now();
+  let userMessages = 0;
+  for (let i = 0; i < this.chat.length; i++) {
+    let message = this.chat[i];
+    if (message.uuid === user._id && currentTime - message.timestamp <= SPAM_WINDOW_LENGTH) {
+      userMessages++;
+      if (userMessages >= SPAM_MESSAGE_LIMIT) {
+        return true;
+      }
+    } else if (currentTime - message.timestamp > SPAM_WINDOW_LENGTH) {
+      break;
+    }
+  }
+
+  return false;
 };
 
 schema.methods.isSubscribed = function isSubscribed () {
