@@ -15,25 +15,33 @@
             .tags-category.d-flex(v-for="tagsType in tagsByType", v-if="tagsType.tags.length > 0", :key="tagsType.key")
               .tags-header(v-once)
                 strong {{ $t(tagsType.key) }}
-                a.d-block(v-if="tagsType.key === 'tags'", v-once) {{ $t('editTags2') }}
+                a.d-block(v-if="tagsType.key === 'tags' && !editingTags", v-once, @click="editingTags = true") {{ $t('editTags2') }}
               .tags-list.container
                 .row.no-gutters
-                  .col-6(v-for="tag in tagsType.tags",)
-                    label.custom-control.custom-checkbox
-                      input.custom-control-input(
-                        type="checkbox",
-                        :checked="isTagSelected(tag)",
-                        @change="toggleTag(tag)",
-                      )
-                      span.custom-control-indicator
-                      span.custom-control-description {{ tag.name }}
+                  template(v-if="editingTags")
+                    span editing
+                  template(v-else)
+                    .col-6(v-for="tag in tagsType.tags")
+                      label.custom-control.custom-checkbox
+                        input.custom-control-input(
+                          type="checkbox",
+                          :checked="isTagSelected(tag)",
+                          @change="toggleTag(tag)",
+                        )
+                        span.custom-control-indicator
+                        span.custom-control-description {{ tag.name }}
 
             .filter-panel-footer.clearfix
-              .float-left
-                a.reset-filters(@click="resetFilters()", v-once) {{ $t('resetFilters') }}
-              .float-right
-                a.mr-3.apply-filters(@click="applyFilters()", v-once) {{ $t('applyFilters') }}
-                a.cancel-filters(@click="closeFilterPanel()", v-once) {{ $t('cancel') }}
+              template(v-if="editingTags === true")
+                .text-center
+                  a.mr-3.btn-filters-primary(@click="saveTags()", v-once) {{ $t('saveEdits') }}
+                  a.btn-filters-secondary(@click="finishEditingTags()", v-once) {{ $t('cancel') }}
+              template(v-else)
+                .float-left
+                  a.btn-filters-danger(@click="resetFilters()", v-once) {{ $t('resetFilters') }}
+                .float-right
+                  a.mr-3.btn-filters-primary(@click="applyFilters()", v-once) {{ $t('applyFilters') }}
+                  a.btn-filters-secondary(@click="closeFilterPanel()", v-once) {{ $t('cancel') }}
           span.input-group-btn
             button.btn.btn-secondary.filter-button(
               type="button",
@@ -158,15 +166,15 @@
         }
       }
 
-      .reset-filters {
+      .btn-filters-danger {
         color: $red-50;
       }
 
-      .apply-filters {
+      .btn-filters-primary {
         color: $blue-10;
       }
 
-      .cancel-filters {
+      .btn-filters-secondary {
         color: $gray-300;
       }
     }
@@ -207,6 +215,7 @@ export default {
       }),
       selectedTags: [],
       temporarilySelectedTags: [],
+      editingTags: false,
       editingTask: null,
       creatingTask: null,
     };

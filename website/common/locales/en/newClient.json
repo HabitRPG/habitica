@@ -255,5 +255,6 @@
   "eyewearCapitalized": "Eyewear",
   "featuredset": "Featured Set <%= name %>",
   "mysterySets": "Mystery Sets",
-  "fetchRecentMessages": "Fetch Recent Messages"
+  "fetchRecentMessages": "Fetch Recent Messages",
+  "saveEdits": "Save Edits"
 }
