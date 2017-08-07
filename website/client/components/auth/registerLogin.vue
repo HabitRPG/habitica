@@ -233,7 +233,7 @@ export default {
         password: this.password,
       });
 
-      this.$router.push('/tasks');
+      this.$router.replace('/');
     },
     async socialAuth (network) {
       let auth = await hello(network).login({scope: 'email'});
@@ -242,7 +242,7 @@ export default {
         auth,
       });
 
-      this.$router.push('/tasks');
+      this.$router.replace('/');
     },
   },
 };
