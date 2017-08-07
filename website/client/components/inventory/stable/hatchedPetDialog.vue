@@ -82,8 +82,6 @@
         this.$emit('closed', this.item);
         this.$root.$emit('hide::modal', 'hatchedPet-modal');
       },
-      hideDialog () {
-      },
     },
     props: {
       pet: {
@@ -91,7 +89,7 @@
       },
       hideText: {
         type: Boolean,
-      }
+      },
     },
-  }
+  };
 </script>

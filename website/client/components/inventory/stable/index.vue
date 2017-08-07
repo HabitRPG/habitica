@@ -85,33 +85,33 @@
           :itemWidth=94,
           :itemMargin=24,
         )
-          template(slot="item", scope="ctx")
+          template(slot="item", scope="context")
             div(
-              v-drag.drop.food="ctx.item.key",
-              @itemDragOver="onDragOver($event, ctx.item)",
-              @itemDropped="onDrop($event, ctx.item)",
+              v-drag.drop.food="context.item.key",
+              @itemDragOver="onDragOver($event, context.item)",
+              @itemDropped="onDrop($event, context.item)",
               @itemDragLeave="onDragLeave()",
-              :class="{'last': ctx.item.isLastInRow}"
+              :class="{'last': context.item.isLastInRow}"
             )
               petItem(
-                :item="ctx.item",
-                :itemContentClass="getPetItemClass(ctx.item)",
+                :item="context.item",
+                :itemContentClass="getPetItemClass(context.item)",
                 :popoverPosition="'top'",
-                :progress="ctx.item.progress",
-                :emptyItem="!ctx.item.isOwned()",
-                :showPopover="ctx.item.isOwned()",
-                :highlightBorder="highlightPet == ctx.item.key",
-                @click="petClicked(ctx.item)"
+                :progress="context.item.progress",
+                :emptyItem="!context.item.isOwned()",
+                :showPopover="context.item.isOwned()",
+                :highlightBorder="highlightPet == context.item.key",
+                @click="petClicked(context.item)"
               )
                 span(slot="popoverContent")
-                  div(v-if="ctx.item.isOwned()")
-                    h4.popover-content-title {{ ctx.item.name }}
+                  div(v-if="context.item.isOwned()")
+                    h4.popover-content-title {{ context.item.name }}
 
-                template(slot="itemBadge", scope="ctx")
+                template(slot="itemBadge", scope="context")
                   starBadge(
-                    :selected="ctx.item.key === currentPet",
-                    :show="ctx.item.isOwned()",
-                    @click="selectPet(ctx.item)",
+                    :selected="context.item.key === currentPet",
+                    :show="context.item.isOwned()",
+                    @click="selectPet(context.item)",
                   )
 
       h2
@@ -131,22 +131,22 @@
           :itemWidth=94,
           :itemMargin=24,
         )
-          template(slot="item", scope="ctx")
+          template(slot="item", scope="context")
             mountItem(
-              :item="ctx.item",
-              :itemContentClass="ctx.item.isOwned() ? ('Mount_Icon_' + ctx.item.key) : 'PixelPaw GreyedOut'",
-              :key="ctx.item.key",
+              :item="context.item",
+              :itemContentClass="context.item.isOwned() ? ('Mount_Icon_' + context.item.key) : 'PixelPaw GreyedOut'",
+              :key="context.item.key",
               :popoverPosition="'top'",
-              :emptyItem="!ctx.item.isOwned()",
-              :showPopover="ctx.item.isOwned()",
+              :emptyItem="!context.item.isOwned()",
+              :showPopover="context.item.isOwned()",
             )
               span(slot="popoverContent")
-                h4.popover-content-title {{ ctx.item.name }}
-              template(slot="itemBadge", scope="ctx")
+                h4.popover-content-title {{ context.item.name }}
+              template(slot="itemBadge", scope="context")
                 starBadge(
-                  :selected="ctx.item.key === currentMount",
-                  :show="ctx.item.isOwned()",
-                  @click="selectMount(ctx.item)",
+                  :selected="context.item.key === currentMount",
+                  :show="context.item.isOwned()",
+                  @click="selectMount(context.item)",
                 )
 
       drawer(
@@ -186,14 +186,14 @@
           :itemWidth=94,
           :itemMargin=24,
         )
-          template(slot="item", scope="ctx")
+          template(slot="item", scope="context")
             foodItem(
-              :item="ctx.item",
-              :itemCount="userItems.food[ctx.item.key]",
-              :active="currentDraggingFood == ctx.item",
+              :item="context.item",
+              :itemCount="userItems.food[context.item.key]",
+              :active="currentDraggingFood == context.item",
               @itemDragEnd="onDragEnd()",
-              @itemDragStart="onDragStart($event, ctx.item)",
-              @itemClick="onFoodClicked($event, ctx.item)"
+              @itemDragStart="onDragStart($event, context.item)",
+              @itemClick="onFoodClicked($event, context.item)"
             )
 
     b-modal#welcome-modal(

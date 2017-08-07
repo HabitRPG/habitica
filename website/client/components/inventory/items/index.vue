@@ -42,25 +42,25 @@
         :itemMargin=24,
         :noItemsLabel="$t('noGearItemsOfType', { type: $t(group.key) })"
       )
-        template(slot="item", scope="ctx")
+        template(slot="item", scope="context")
           item(
-            :item="ctx.item",
-            :key="ctx.item.key",
-            :itemContentClass="`${group.classPrefix}${ctx.item.key}`",
+            :item="context.item",
+            :key="context.item.key",
+            :itemContentClass="`${group.classPrefix}${context.item.key}`",
             :showPopover="currentDraggingPotion == null",
-            v-drag.drop.hatch="ctx.item.key",
+            v-drag.drop.hatch="context.item.key",
 
-            @itemDragOver="onDragOver($event, ctx.item)",
-            @itemDropped="onDrop($event, ctx.item)",
+            @itemDragOver="onDragOver($event, context.item)",
+            @itemDropped="onDrop($event, context.item)",
             @itemDragLeave="onDragLeave()",
 
-            @click="onEggClicked($event, ctx.item)"
+            @click="onEggClicked($event, context.item)"
           )
-            template(slot="popoverContent", scope="ctx")
-              h4.popover-content-title {{ ctx.item.text() }}
-              .popover-content-text {{ ctx.item.notes() }}
-            template(slot="itemBadge", scope="ctx")
-              span.badge.badge-pill.badge-item.badge-quantity {{ ctx.item.quantity }}
+            template(slot="popoverContent", scope="context")
+              h4.popover-content-title {{ context.item.text() }}
+              .popover-content-text {{ context.item.notes() }}
+            template(slot="itemBadge", scope="context")
+              span.badge.badge-pill.badge-item.badge-quantity {{ context.item.quantity }}
 
       itemRows(
         v-else-if="group.key === 'hatchingPotions'",
@@ -69,25 +69,25 @@
         :itemMargin=24,
         :noItemsLabel="$t('noGearItemsOfType', { type: $t(group.key) })"
       )
-        template(slot="item", scope="ctx")
+        template(slot="item", scope="context")
           item(
-            :item="ctx.item",
-            :key="ctx.item.key",
-            :itemContentClass="`${group.classPrefix}${ctx.item.key}`",
+            :item="context.item",
+            :key="context.item.key",
+            :itemContentClass="`${group.classPrefix}${context.item.key}`",
             :showPopover="currentDraggingPotion == null",
-            :active="currentDraggingPotion == ctx.item",
-            v-drag.hatch="ctx.item.key",
+            :active="currentDraggingPotion == context.item",
+            v-drag.hatch="context.item.key",
 
-            @itemDragEnd="onDragEnd($event, ctx.item)",
-            @itemDragStart="onDragStart($event, ctx.item)",
+            @itemDragEnd="onDragEnd($event, context.item)",
+            @itemDragStart="onDragStart($event, context.item)",
 
-            @click="onPotionClicked($event, ctx.item)"
+            @click="onPotionClicked($event, context.item)"
           )
-            template(slot="popoverContent", scope="ctx")
-              h4.popover-content-title {{ ctx.item.text() }}
-              .popover-content-text {{ ctx.item.notes() }}
-            template(slot="itemBadge", scope="ctx")
-              span.badge.badge-pill.badge-item.badge-quantity {{ ctx.item.quantity }}
+            template(slot="popoverContent", scope="context")
+              h4.popover-content-title {{ context.item.text() }}
+              .popover-content-text {{ context.item.notes() }}
+            template(slot="itemBadge", scope="context")
+              span.badge.badge-pill.badge-item.badge-quantity {{ context.item.quantity }}
 
       itemRows(
         v-else,
@@ -96,18 +96,18 @@
         :itemMargin=24,
         :noItemsLabel="$t('noGearItemsOfType', { type: $t(group.key) })"
       )
-        template(slot="item", scope="ctx")
+        template(slot="item", scope="context")
           item(
-            :item="ctx.item",
-            :key="ctx.item.key",
-            :itemContentClass="`${group.classPrefix}${ctx.item.key}`",
+            :item="context.item",
+            :key="context.item.key",
+            :itemContentClass="`${group.classPrefix}${context.item.key}`",
             :showPopover="currentDraggingPotion == null"
           )
-            template(slot="popoverContent", scope="ctx")
-              h4.popover-content-title {{ ctx.item.text() }}
-              .popover-content-text {{ ctx.item.notes() }}
-            template(slot="itemBadge", scope="ctx")
-              span.badge.badge-pill.badge-item.badge-quantity {{ ctx.item.quantity }}
+            template(slot="popoverContent", scope="context")
+              h4.popover-content-title {{ context.item.text() }}
+              .popover-content-text {{ context.item.notes() }}
+            template(slot="itemBadge", scope="context")
+              span.badge.badge-pill.badge-item.badge-quantity {{ context.item.quantity }}
 
   hatchedPetDialog(
     :pet="hatchedPet",

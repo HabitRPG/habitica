@@ -72,13 +72,13 @@
           :label="label",
           :popoverPosition="'top'",
         )
-          template(slot="popoverContent", scope="ctx")
-            equipmentAttributesPopover(:item="ctx.item")
-          template(slot="itemBadge", scope="ctx")
+          template(slot="popoverContent", scope="context")
+            equipmentAttributesPopover(:item="context.item")
+          template(slot="itemBadge", scope="context")
             starBadge(
               :selected="true",
               :show="!costume || user.preferences.costume",
-              @click="equip(ctx.item)",
+              @click="equip(context.item)",
             )
     div(
       v-for="group in itemsGroups",
@@ -96,21 +96,21 @@
         :itemMargin=24,
         :noItemsLabel="$t('noGearItemsOfType', { type: group.label })"
       )
-        template(slot="item", scope="ctx")
+        template(slot="item", scope="context")
           item(
-            :item="ctx.item",
-            :itemContentClass="'shop_' + ctx.item.key",
-            :emptyItem="!ctx.item || ctx.item.key.indexOf('_base_0') !== -1",
-            :key="ctx.item.key",
+            :item="context.item",
+            :itemContentClass="'shop_' + context.item.key",
+            :emptyItem="!context.item || context.item.key.indexOf('_base_0') !== -1",
+            :key="context.item.key",
           )
-            template(slot="itemBadge", scope="ctx")
+            template(slot="itemBadge", scope="context")
               starBadge(
-                :selected="activeItems[ctx.item.type] === ctx.item.key",
+                :selected="activeItems[context.item.type] === context.item.key",
                 :show="!costume || user.preferences.costume",
-                @click="equip(ctx.item)",
+                @click="equip(context.item)",
               )
-            template(slot="popoverContent", scope="ctx")
-              equipmentAttributesPopover(:item="ctx.item")
+            template(slot="popoverContent", scope="context")
+              equipmentAttributesPopover(:item="context.item")
 </template>
 
 <style lang="scss" scoped>
