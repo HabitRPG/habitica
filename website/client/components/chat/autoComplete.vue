@@ -21,12 +21,6 @@ export default {
       tmpSelections: [],
     };
   },
-  async mounted () {
-    let members = await this.$store.dispatch('members:getGroupMembers', {groupId: this.groupId});
-    this.tmpSelections = members.map((member) => {
-      return member.profile.name;
-    });
-  },
   computed: {
     autocompleteStyle () {
       return {
@@ -52,6 +46,13 @@ export default {
       if (newText[newText.length - 1] !== '@') return;
       this.searchActive = true;
       this.currentSearchPosition = newText.length - 1;
+    },
+    async groupId () {
+      if (!this.groupId) return;
+      let members = await this.$store.dispatch('members:getGroupMembers', {groupId: this.groupId});
+      this.tmpSelections = members.map((member) => {
+        return member.profile.name;
+      });
     },
   },
   methods: {

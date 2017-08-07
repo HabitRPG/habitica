@@ -257,5 +257,6 @@
   "featuredset": "Featured Set <%= name %>",
   "mysterySets": "Mystery Sets",
   "fetchRecentMessages": "Fetch Recent Messages",
-  "tavernChat": "Tavern Chat"
+  "tavernChat": "Tavern Chat",
+  "partyChatPlaceholder": "Type message to Party members here"
 }

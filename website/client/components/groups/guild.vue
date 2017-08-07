@@ -25,7 +25,7 @@
       .col-12
         h3(v-once) {{ $t('chat') }}
 
-        textarea(:placeholder="$t('chatPlaceHolder')", v-model='newMessage', @keydown='updateCarretPosition')
+        textarea(:placeholder="!isParty ? $t('chatPlaceHolder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition')
         autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :groupId='groupId')
         button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
         button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
@@ -88,7 +88,7 @@
                 .col-6
                   h4.float-left(v-once) {{ questData.boss.name() }}
                 .col-6
-                  span.float-right(v-once) {{ $t('participants') }}
+                  span.float-right(v-once) {{ $t('participantsTitle') }}
               .row
                 .col-12
                   .grey-progress-bar
@@ -96,9 +96,9 @@
               .row.boss-details
                   .col-6
                     span.float-left
-                      | {{group.quest.progress.hp}} / {{questData.boss.hp}}
+                      | {{parseFloat(group.quest.progress.hp).toFixed(2)}} / {{parseFloat(questData.boss.hp).toFixed(2)}}
                   .col-6
-                    span.float-right 30 pending damage
+                    span.float-right {{group.quest.progress.up || 0}} pending damage
             button.btn.btn-secondary(v-once, @click="questAbort()") {{ $t('abort') }}
 
     .section-header
@@ -212,10 +212,22 @@
     background-color: $white;
     border: solid 1px $gray-400;
     font-size: 16px;
-    font-style: italic;
     line-height: 1.43;
     color: $gray-300;
     padding: .5em;
+  }
+
+  textarea::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-style: italic;
+  }
+  textarea::-moz-placeholder { /* Firefox 19+ */
+    font-style: italic;
+  }
+  textarea:-ms-input-placeholder { /* IE 10+ */
+    font-style: italic;
+  }
+  textarea:-moz-placeholder { /* Firefox 18- */
+    font-style: italic;
   }
 
   .title-details {
@@ -285,7 +297,8 @@
     }
 
     .tooltip-wrapper {
-      margin-left: 2.2em;
+      width: 15px;
+      margin-left: 1.2em;
     }
   }
 
