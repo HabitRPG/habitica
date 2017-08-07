@@ -258,5 +258,6 @@
   "mysterySets": "Mystery Sets",
   "fetchRecentMessages": "Fetch Recent Messages",
   "tavernChat": "Tavern Chat",
-  "partyChatPlaceholder": "Type message to Party members here"
+  "partyChatPlaceholder": "Type message to Party members here",
+  "done": "Done"
 }
