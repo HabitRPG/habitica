@@ -26,7 +26,7 @@ div
     button.btn.btn-secondary(@click='createChallenge()') {{ $t('createChallenge') }}
 </template>
 
-<style>
+<style scoped>
   .title {
     color: #4E4A57;
   }
