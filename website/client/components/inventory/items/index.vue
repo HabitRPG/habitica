@@ -109,6 +109,10 @@
             template(slot="itemBadge", scope="ctx")
               span.badge.badge-pill.badge-item.badge-quantity {{ ctx.item.quantity }}
 
+  hatchedPetDialog(
+    :pet="hatchedPet",
+    @closed="closeHatchedPetDialog()"
+  )
 
   div.hatchingPotionInfo(ref="draggingPotionInfo")
     div(v-if="currentDraggingPotion != null")
@@ -156,6 +160,11 @@ import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Item from 'client/components/inventory/item';
 import ItemRows from 'client/components/ui/itemRows';
 
+import HatchedPetDialog from '../stable/hatchedPetDialog';
+
+import createAnimal from 'client/libs/createAnimal';
+
+
 const allowedSpecialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
 
 import DragDropDirective from 'client/directives/dragdrop.directive';
@@ -185,6 +194,7 @@ export default {
     ItemRows,
     bDropdown,
     bDropdownItem,
+    HatchedPetDialog,
   },
   directives: {
     drag: DragDropDirective,
@@ -199,6 +209,7 @@ export default {
 
       currentDraggingPotion: null,
       potionClickMode: false,
+      hatchedPet: null,
     };
   },
   watch: {
@@ -258,8 +269,9 @@ export default {
       return result;
     },
 
-    hatchPet (potionKey, eggKey) {
-      this.$store.dispatch('common:hatch', {egg: eggKey, hatchingPotion: potionKey});
+    hatchPet (potion, egg) {
+      this.$store.dispatch('common:hatch', {egg: egg.key, hatchingPotion: potion.key});
+      this.hatchedPet = createAnimal(egg, potion, 'pet', this.content, this.user.items);
     },
 
     onDragEnd () {
@@ -283,7 +295,7 @@ export default {
       }
     },
     onDrop ($event, egg) {
-      this.hatchPet(this.currentDraggingPotion.key, egg.key);
+      this.hatchPet(this.currentDraggingPotion, egg);
     },
     onDragLeave () {
 
@@ -295,7 +307,7 @@ export default {
       }
 
       if (!this.petExists(this.currentDraggingPotion.key, egg.key)) {
-        this.hatchPet(this.currentDraggingPotion.key, egg.key);
+        this.hatchPet(this.currentDraggingPotion, egg);
       }
 
       this.currentDraggingPotion = null;
@@ -315,6 +327,11 @@ export default {
         this.potionClickMode = false;
       }
     },
+
+    closeHatchedPetDialog () {
+      this.hatchedPet = null;
+    },
+
 
     mouseMoved ($event) {
       if (this.potionClickMode) {

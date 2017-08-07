@@ -228,6 +228,12 @@
         button.btn.btn-primary(@click="hatchPet(hatchablePet)") {{ $t('hatch') }}
         button.btn.btn-secondary.btn-flat(@click="closeHatchPetDialog()") {{ $t('cancel') }}
 
+    hatchedPetDialog(
+      :pet="hatchedPet",
+      :hideText="true",
+      @closed="closeHatchedPetDialog()"
+    )
+
     div.foodInfo(ref="dragginFoodInfo")
       div(v-if="currentDraggingFood != null")
         div.food-icon(:class="'Pet_Food_'+currentDraggingFood.key")
@@ -454,6 +460,7 @@
   import PetItem from './petItem';
   import MountItem from './mountItem.vue';
   import FoodItem from './foodItem';
+  import HatchedPetDialog from './hatchedPetDialog';
   import Drawer from 'client/components/ui/drawer';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import StarBadge from 'client/components/ui/starBadge';
@@ -463,6 +470,8 @@
   import ResizeDirective from 'client/directives/resize.directive';
   import DragDropDirective from 'client/directives/dragdrop.directive';
   import MouseMoveDirective from 'client/directives/mouseposition.directive';
+
+  import createAnimal from 'client/libs/createAnimal';
 
   import svgInformation from 'assets/svg/information.svg';
   import svgClose from 'assets/svg/close.svg';
@@ -490,6 +499,7 @@
       StarBadge,
       CountBadge,
       DrawerSlider,
+      HatchedPetDialog,
     },
     directives: {
       resize: ResizeDirective,
@@ -521,6 +531,7 @@
         highlightPet: '',
 
         hatchablePet: null,
+        hatchedPet: null,
         foodClickMode: false,
         currentDraggingFood: null,
 
@@ -695,28 +706,7 @@
           default: {
             _each(animalGroup.petSource.eggs, (egg) => {
               _each(animalGroup.petSource.potions, (potion) => {
-                let animalKey = `${egg.key}-${potion.key}`;
-
-                animals.push({
-                  key: animalKey,
-                  eggKey: egg.key,
-                  eggName: egg.text(),
-                  potionKey: potion.key,
-                  potionName: potion.text(),
-                  name: this.content[`${type}Info`][animalKey].text(),
-                  isOwned ()  {
-                    return userItems[`${type}s`][animalKey] > 0;
-                  },
-                  mountOwned () {
-                    return userItems.mounts[this.key] > 0;
-                  },
-                  isAllowedToFeed () {
-                    return type === 'pet' && this.isOwned() && !this.mountOwned();
-                  },
-                  isHatchable () {
-                    return userItems.eggs[egg.key] > 0 && userItems.hatchingPotions[potion.key] > 0;
-                  },
-                });
+                animals.push(createAnimal(egg, potion, type, this.content, userItems));
               });
             });
           }
@@ -835,6 +825,7 @@
 
       hatchPet (pet) {
         this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
+        this.hatchedPet = pet;
         this.closeHatchPetDialog();
       },
 
@@ -888,6 +879,9 @@
 
       closeHatchPetDialog () {
         this.$root.$emit('hide::modal', 'hatching-modal');
+      },
+      closeHatchedPetDialog () {
+        this.hatchedPet = null;
       },
 
       resetHatchablePet ($event) {
