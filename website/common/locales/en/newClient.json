@@ -125,7 +125,7 @@
   "emailPlaceholder": "e.g., rabbit@habitica.com",
   "passwordPlaceholder": "e.g., •••••••••••• ",
   "confirmPasswordPlaceholder": "Make sure it’s the same password!",
-  "termsAndAgreement": "By clicking the button below, you are indicating that you have read and agree to the <a href=''>Terms of Service</a> and <a href=''>Privacy Policy</a>.",
+  "termsAndAgreement": "By clicking the button below, you are indicating that you have read and agree to the <a href='/static/terms'>Terms of Service</a> and <a href='/static/privacy'>Privacy Policy</a>.",
   "joinHabitica": "Join Habitica",
   "showAllAnimals": "Show All <%= color %> <%= type %>",
   "showLessAnimals": "Show Less <%= color %> <%= type %>",

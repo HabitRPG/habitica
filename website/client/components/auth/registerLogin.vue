@@ -34,10 +34,11 @@
     .text-center
       .btn.btn-info(@click='register()', v-if='registering', v-once) {{$t('joinHabitica')}}
       .btn.btn-info(@click='login()', v-if='!registering', v-once) {{$t('login')}}
-      router-link(tag="li", :to="{name: 'login'}", v-if='registering', exact)
-        a(v-once) {{ $t('login') }}
-      router-link(tag="li", :to="{name: 'register'}",  v-if='!registering', exact)
-        a(v-once) {{ $t('joinHabitica') }}
+      .toggle-links
+        router-link(:to="{name: 'login'}", v-if='registering', exact)
+          a.toggle-link(v-once) {{ $t('login') }}
+        router-link(:to="{name: 'register'}",  v-if='!registering', exact)
+          a.toggle-link(v-once) Don't have an account? Join Habitica!
 
   #bottom-background
     .seamless_mountains_demo_repeat
@@ -51,11 +52,24 @@
     background-color: $purple-200;
   }
 
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: $purple-400;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: $purple-400;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    color: $purple-400;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    color: $purple-400;
+  }
+
   #login-form {
     margin: 0 auto;
     width: 40em;
     padding-top: 5em;
-    padding-bottom: 22.5em;
+    padding-bottom: 4em;
     position: relative;
     z-index: 1;
 
@@ -83,20 +97,7 @@
       background-color: #432874;
       border-color: transparent;
       height: 50px;
-      color: $purple-400;
-
-      ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-        color: $purple-400;
-      }
-      ::-moz-placeholder { /* Firefox 19+ */
-        color: $purple-400;
-      }
-      :-ms-input-placeholder { /* IE 10+ */
-        color: $purple-400;
-      }
-      :-moz-placeholder { /* Firefox 18- */
-        color: $purple-400;
-      }
+      color: $white;
     }
 
     .form-text {
@@ -123,7 +124,7 @@
       background-repeat: repeat-x;
       position: absolute;
       height: 500px;
-      width: 1600px;
+      width: 1517px;
     }
   }
 
@@ -133,7 +134,7 @@
     .seamless_mountains_demo_repeat {
       background-image: url('~assets/images/auth/seamless_mountains_demo.png');
       background-repeat: repeat-x;
-      width: 1600px;
+      width: 1517px;
       height: 500px;
       position: absolute;
       z-index: 0;
@@ -146,6 +147,14 @@
       width: 1500px;
       height: 150px;
     }
+  }
+
+  .toggle-links {
+    margin-top: 1em;
+  }
+
+  .toggle-link {
+    color: #fff !important;
   }
 </style>
 
