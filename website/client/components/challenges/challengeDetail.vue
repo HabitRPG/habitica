@@ -1,7 +1,7 @@
 <template lang="pug">
 .row
   challenge-modal(:challenge='challenge', v-on:updatedChallenge='updatedChallenge')
-  close-challenge-modal
+  close-challenge-modal(:members='members', :challengeId='challenge._id')
 
   .col-8.standard-page
     .row
