@@ -7,7 +7,7 @@
 
     .row.chat-row
       .col-12
-        h3(v-once) {{ $t('welcomeToTavern') }}
+        h3(v-once) {{ $t('tavernChat') }}
 
         .row
           textarea(placeholder="Type a message to Habiticans here", v-model='newMessage', @keydown='updateCarretPosition')
@@ -50,6 +50,7 @@
           .col-3.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
             .title {{user.name}}
             .type {{user.type}}
+            .svg-icon(v-html="icons.tierChampionIcon")
 
       .section-header
         .row
@@ -194,7 +195,7 @@
   }
 
   .grassy-meadow-backdrop {
-    background-image: url('~assets/images/groups/grassy-meadow-backdrop.png');
+    background-image: url('~assets/images/tavern_backdrop_web.png');
     width: 100%;
     height: 246px;
   }
@@ -296,6 +297,17 @@ import questBackground from 'assets/svg/quest-background-border.svg';
 import upIcon from 'assets/svg/up.svg';
 import downIcon from 'assets/svg/down.svg';
 
+import tierChampionIcon from 'assets/svg/tier-champion-icon.svg';
+import tierChampion2Icon from 'assets/svg/tier-champion-2-icon.svg';
+import tierEliteIcon from 'assets/svg/tier-elite-icon.svg';
+import tierElite2Icon from 'assets/svg/tier-elite-2-icon.svg';
+import tierFriendIcon from 'assets/svg/tier-friend-icon.svg';
+import tierFriend2Icon from 'assets/svg/tier-friend-2-icon.svg';
+import tierLegendaryIcon from 'assets/svg/tier-legendary-icon.svg';
+import tierModIcon from 'assets/svg/tier-mod-icon.svg';
+import tierNPCIcon from 'assets/svg/tier-npc-icon.svg';
+import tierStaffIcon from 'assets/svg/tier-staff-icon.svg';
+
 export default {
   components: {
     chatMessage,
@@ -305,6 +317,16 @@ export default {
     return {
       groupId: TAVERN_ID,
       icons: Object.freeze({
+        tierStaffIcon,
+        tierNPCIcon,
+        tierModIcon,
+        tierLegendaryIcon,
+        tierFriend2Icon,
+        tierFriendIcon,
+        tierElite2Icon,
+        tierEliteIcon,
+        tierChampion2Icon,
+        tierChampionIcon,
         gem: gemIcon,
         questIcon,
         challengeIcon,
