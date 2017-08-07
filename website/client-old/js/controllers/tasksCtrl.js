@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','Notification', '$http', 'ApiUrl', '$timeout', 'Content', 'Shared', 'Guide', 'Tasks', 'Analytics', '$modal',
   function($scope, $rootScope, $location, User, Notification, $http, ApiUrl, $timeout, Content, Shared, Guide, Tasks, Analytics, $modal) {
@@ -344,8 +344,8 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
 
     $scope.spellDisabled = function (skill) {
       if (skill === 'frost' && $scope.user.stats.buffs.streaks) {
-        return true;
-      } else if (skill === 'stealth' && $scope.user.stats.buffs.stealth >= $scope.user.dailys.length) {
+            return true;
+        } else if (skill === 'stealth' && ($scope.user.stats.buffs.stealth >= $scope.user.dailys.length /*0*/ && false|| /*1*/true && $scope.user.stats.buffs.stealth >= $scope.user.dailys.length / 2)) {
         return true;
       }
 
@@ -360,11 +360,26 @@ habitrpg.controller("TasksCtrl", ['$scope', '$rootScope', '$location', 'User','N
       } else if (skill.key === 'stealth' && $scope.spellDisabled(skill.key)) {
         notes = window.env.t('spellRogueStealthMaxedOut');
       } else if (skill.key === 'stealth') {
-        notes = window.env.t('spellRogueStealthDaliesAvoided', { originalText: notes, number: $scope.user.stats.buffs.stealth });
+          if (true)
+              notes = window.env.t('spellRogueStealthDaliesAvoided', { originalText: notes, number: $scope.user.stats.buffs.stealth });
+          else
+              notes = window.env.t('spellRogueStealthDaliesAvoided', { originalText: notes, number: diminishingReturns(user._statsComputed.per * $scope.user.stats.buffs.stealth * 3, countDues() /2, 55)});
       }
 
       return notes;
     };
+    function countDues() {
+        var dues = 0;
+        tasksByType.dailys.forEach((task) => {
+            if (task.isDue)
+                dues++;
+        });
+
+    }
+    function diminishingReturns(bonus, max, halfway) {
+        if (!halfway) halfway = max / 2;
+        return max * (bonus / (bonus + halfway));
+    }
 
     /*
      * Task Details
