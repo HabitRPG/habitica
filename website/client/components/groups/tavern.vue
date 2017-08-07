@@ -7,11 +7,11 @@
 
     .row.chat-row
       .col-12
-        h3(v-once) {{ $t('welcomeToTavern') }}
+        h3(v-once) {{ $t('tavernChat') }}
 
         .row
-          textarea(placeholder="Type a message to Habiticans here", v-model='newMessage')
-          autocomplete(:text='newMessage', v-on:select="selectedAutocomplete")
+          textarea(placeholder="Type a message to Habiticans here", v-model='newMessage', @keydown='updateCarretPosition')
+          autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :groupId='groupId')
           button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
 
         .row.community-guidelines(v-if='!communityGuidelinesAccepted')
@@ -50,6 +50,7 @@
           .col-3.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
             .title {{user.name}}
             .type {{user.type}}
+            .svg-icon(v-html="icons.tierChampionIcon")
 
       .section-header
         .row
@@ -194,7 +195,7 @@
   }
 
   .grassy-meadow-backdrop {
-    background-image: url('~assets/images/groups/grassy-meadow-backdrop.png');
+    background-image: url('~assets/images/tavern_backdrop_web.png');
     width: 100%;
     height: 246px;
   }
@@ -296,6 +297,17 @@ import questBackground from 'assets/svg/quest-background-border.svg';
 import upIcon from 'assets/svg/up.svg';
 import downIcon from 'assets/svg/down.svg';
 
+import tierChampionIcon from 'assets/svg/tier-champion-icon.svg';
+import tierChampion2Icon from 'assets/svg/tier-champion-2-icon.svg';
+import tierEliteIcon from 'assets/svg/tier-elite-icon.svg';
+import tierElite2Icon from 'assets/svg/tier-elite-2-icon.svg';
+import tierFriendIcon from 'assets/svg/tier-friend-icon.svg';
+import tierFriend2Icon from 'assets/svg/tier-friend-2-icon.svg';
+import tierLegendaryIcon from 'assets/svg/tier-legendary-icon.svg';
+import tierModIcon from 'assets/svg/tier-mod-icon.svg';
+import tierNPCIcon from 'assets/svg/tier-npc-icon.svg';
+import tierStaffIcon from 'assets/svg/tier-staff-icon.svg';
+
 export default {
   components: {
     chatMessage,
@@ -303,7 +315,18 @@ export default {
   },
   data () {
     return {
+      groupId: TAVERN_ID,
       icons: Object.freeze({
+        tierStaffIcon,
+        tierNPCIcon,
+        tierModIcon,
+        tierLegendaryIcon,
+        tierFriend2Icon,
+        tierFriendIcon,
+        tierElite2Icon,
+        tierEliteIcon,
+        tierChampion2Icon,
+        tierChampionIcon,
         gem: gemIcon,
         questIcon,
         challengeIcon,
@@ -395,6 +418,10 @@ export default {
         },
       ],
       newMessage: '',
+      coords: {
+        TOP: 0,
+        LEFT: 0,
+      },
     };
   },
   computed: {
@@ -407,6 +434,32 @@ export default {
     this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
   },
   methods: {
+    // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
+    getCoord (e, text) {
+      let carPos = text.selectionEnd;
+      let div = document.createElement('div');
+      let span = document.createElement('span');
+      let copyStyle = getComputedStyle(text);
+
+      [].forEach.call(copyStyle, (prop) => {
+        div.style[prop] = copyStyle[prop];
+      });
+
+      div.style.position = 'absolute';
+      document.body.appendChild(div);
+      div.textContent = text.value.substr(0, carPos);
+      span.textContent = text.value.substr(carPos) || '.';
+      div.appendChild(span);
+      this.coords = {
+        TOP: span.offsetTop,
+        LEFT: span.offsetLeft,
+      };
+      document.body.removeChild(div);
+    },
+    updateCarretPosition (eventUpdate) {
+      let text = eventUpdate.target;
+      this.getCoord(eventUpdate, text);
+    },
     selectedAutocomplete (newText) {
       this.newMessage = newText;
     },

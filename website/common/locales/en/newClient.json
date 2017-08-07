@@ -125,7 +125,7 @@
   "emailPlaceholder": "e.g., rabbit@habitica.com",
   "passwordPlaceholder": "e.g., •••••••••••• ",
   "confirmPasswordPlaceholder": "Make sure it’s the same password!",
-  "termsAndAgreement": "By clicking the button below, you are indicating that you have read and agree to the <a href=''>Terms of Service</a> and <a href=''>Privacy Policy</a>.",
+  "termsAndAgreement": "By clicking the button below, you are indicating that you have read and agree to the <a href='/static/terms'>Terms of Service</a> and <a href='/static/privacy'>Privacy Policy</a>.",
   "joinHabitica": "Join Habitica",
   "showAllAnimals": "Show All <%= color %> <%= type %>",
   "showLessAnimals": "Show Less <%= color %> <%= type %>",
@@ -248,12 +248,16 @@
   "owned": "Owned",
   "not_owned": "Not Owned",
   "participantsTitle": "Participants",
-  "shortName": "What short tag should be used to identify your Challenge?",
+  "shortName": "Short Name",
+  "shortNamePlaceholder": "What short tag should be used to identify your Challenge?",
   "classArmor": "Class Armor",
   "backCapitalized": "Back Accessory",
   "bodyCapitalized": "Body Accessory",
   "eyewearCapitalized": "Eyewear",
   "featuredset": "Featured Set <%= name %>",
   "mysterySets": "Mystery Sets",
-  "fetchRecentMessages": "Fetch Recent Messages"
+  "fetchRecentMessages": "Fetch Recent Messages",
+  "tavernChat": "Tavern Chat",
+  "partyChatPlaceholder": "Type message to Party members here",
+  "done": "Done"
 }

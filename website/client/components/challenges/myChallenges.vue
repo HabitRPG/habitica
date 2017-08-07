@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  challenge-modal
+  challenge-modal(v-on:createChallenge='challengeCreated')
   sidebar(v-on:search="updateSearch", v-on:filter="updateFilters")
 
   .col-10.standard-page
@@ -150,6 +150,9 @@ export default {
     },
     async loadchallanges () {
       this.challenges = await this.$store.dispatch('challenges:getUserChallenges');
+    },
+    challengeCreated (challenge) {
+      this.challenges.push(challenge);
     },
   },
 };
