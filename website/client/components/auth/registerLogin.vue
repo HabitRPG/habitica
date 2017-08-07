@@ -224,7 +224,7 @@ export default {
         passwordConfirm: this.passwordConfirm,
       });
 
-      this.$router.push('/tasks');
+      window.location.href = '/';
     },
     async login () {
       await this.$store.dispatch('auth:login', {
@@ -233,7 +233,7 @@ export default {
         password: this.password,
       });
 
-      this.$router.replace('/');
+      window.location.href = '/';
     },
     async socialAuth (network) {
       let auth = await hello(network).login({scope: 'email'});
@@ -242,7 +242,7 @@ export default {
         auth,
       });
 
-      this.$router.replace('/');
+      window.location.href = '/';
     },
   },
 };
