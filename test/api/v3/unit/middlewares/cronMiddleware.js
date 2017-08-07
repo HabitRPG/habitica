@@ -13,6 +13,9 @@ import analyticsService from '../../../../../website/server/libs/analyticsServic
 import * as cronLib from '../../../../../website/server/libs/cron';
 import { v4 as generateUUID } from 'uuid';
 
+const CRON_TIMEOUT_WAIT = new Date(60 * 60 * 1000).getTime();
+const CRON_TIMEOUT_UNIT = new Date(60 * 1000).getTime();
+
 describe('cron middleware', () => {
   let res, req;
   let user;
@@ -265,17 +268,17 @@ describe('cron middleware', () => {
       _id: user._id,
     }, {
       $set: {
-        _cronSignature: now.getTime() - 3500000,
+        _cronSignature: now.getTime() - CRON_TIMEOUT_WAIT + CRON_TIMEOUT_UNIT,
       },
     }).exec();
     await user.save();
+    let expected_err_message = 'Impossible to recover from cron for user ' + user._id + '.';
 
     await new Promise((resolve, reject) => {
       cronMiddleware(req, res, (err) => {
-        if (err) {
-          return resolve();
-        }
-        reject(new Error('Should not have cronned'));
+        expect(err).to.exist;
+        expect(err.message).to.be.equal(expected_err_message);
+        resolve();
       });
     });
   });
@@ -287,7 +290,7 @@ describe('cron middleware', () => {
       _id: user._id,
     }, {
       $set: {
-        _cronSignature: now.getTime() - 3700000,
+        _cronSignature: now.getTime() - CRON_TIMEOUT_WAIT - CRON_TIMEOUT_UNIT,
       },
     }).exec();
     await user.save();
