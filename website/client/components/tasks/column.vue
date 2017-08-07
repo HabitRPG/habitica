@@ -1,7 +1,6 @@
 <template lang="pug">
 .tasks-column(:class='type')
   b-modal(ref="editTaskModal")
-    span Hello From My Modal!
   .d-flex
     h2.tasks-column-title(v-once) {{ $t(types[type].label) }}
     .filters.d-flex.justify-content-end
@@ -15,6 +14,7 @@
       v-for="task in taskList",
       :key="task.id", :task="task",
       v-if="filterTask(task)",
+      :isUser="isUser",
       @editTask="editTask",
     )
     .bottom-gradient

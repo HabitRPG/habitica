@@ -123,7 +123,7 @@
   "emailPlaceholder": "e.g., rabbit@habitica.com",
   "passwordPlaceholder": "e.g., •••••••••••• ",
   "confirmPasswordPlaceholder": "Make sure it’s the same password!",
-  "termsAndAgreement": "By clicking the button below, you are indicating that you have read and agree to the <a href=''>Terms of Service</a> and <a href=''>Privacy Policy</a>.",
+  "termsAndAgreement": "By clicking the button below, you are indicating that you have read and agree to the <a href='/static/terms'>Terms of Service</a> and <a href='/static/privacy'>Privacy Policy</a>.",
   "joinHabitica": "Join Habitica",
   "quickInventory": "Quick Inventory",
   "noFoodAvailable": "You don't have any food.",
@@ -242,7 +242,8 @@
   "owned": "Owned",
   "not_owned": "Not Owned",
   "participantsTitle": "Participants",
-  "shortName": "What short tag should be used to identify your Challenge?",
+  "shortName": "Short Name",
+  "shortNamePlaceholder": "What short tag should be used to identify your Challenge?",
   "classArmor": "Class Armor",
   "backCapitalized": "Back Accessory",
   "bodyCapitalized": "Body Accessory",
@@ -254,5 +255,8 @@
   "showLess": "Show Less",
   "hatchedPetNotesPart1": "Visit the ",
   "hatchedPetNotesPart2": "to feed and equip your newest pet!",
-  "onward": "Onward!"
+  "onward": "Onward!",
+  "tavernChat": "Tavern Chat",
+  "partyChatPlaceholder": "Type message to Party members here",
+  "done": "Done"
 }

@@ -14,7 +14,7 @@ module.exports = function blockUser (user, req = {}) {
     user.inbox.blocks.splice(i, 1);
   }
 
-  user.markModified('inbox.blocks');
+  if (user.markModified) user.markModified('inbox.blocks');
   return [
     user.inbox.blocks,
   ];
