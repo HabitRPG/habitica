@@ -353,13 +353,15 @@ export default {
         };
       }
 
+      let newgroup;
+
       if (this.workingGuild.id) {
         await this.$store.dispatch('guilds:update', {group: this.workingGuild});
         // @TODO: this doesn't work because of the async resource
         // if (updatedGroup.type === 'party') this.$store.state.party = {data: updatedGroup};
       } else {
-        await this.$store.dispatch('guilds:create', {group: this.workingGuild});
-        this.$store.state.user.balance -= 1;
+        newgroup = await this.$store.dispatch('guilds:create', {group: this.workingGuild});
+        this.$store.state.user.data.balance -= 1;
       }
 
       this.$store.state.editingGroup = {};
@@ -376,6 +378,9 @@ export default {
         allowGuildInvationsFromNonMembers: true,
       };
 
+      if (newgroup && newgroup._id) {
+        this.$router.push(`/groups/guild/${newgroup._id}`);
+      }
       this.$root.$emit('hide::modal', 'guild-form');
     },
   },
