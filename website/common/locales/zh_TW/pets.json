@@ -66,7 +66,7 @@
     "itemDrop": "你獲得一件物品！",
     "firstDrop": "你解鎖了掉落物系統！你現在每完成一項任務，就有機會找到物品，包括蛋、孵化藥水、或是食物！你剛剛發現了<strong><%= eggText %>蛋</strong>! <%= eggNotes %>",
     "useGems": "如果你很想要某之寵物，但又不想慢慢等蛋掉落的話，可以在<strong>背包 >市集</strong>使用寶石買下它！",
-    "hatchAPot": "孵化一隻<%= potion %><%= egg %>？",
+    "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
     "hatchedPet": "You hatched a new <%= potion %> <%= egg %>!",
     "displayNow": "現在顯示",
     "displayLater": "稍後顯示",

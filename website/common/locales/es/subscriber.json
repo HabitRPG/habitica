@@ -23,7 +23,7 @@
     "giftSubscriptionText4": "¡Gracias por ayudar a Habitica!",
     "monthUSD": "USD / mes",
     "organization": "Organización",
-    "groupPlans": "Group Plans",
+    "groupPlans": "Planes de Grupo",
     "indivPlan1": "Para individuos, Habitica es gratis. Incluso para pequeños grupos de interés es gratis (o barato)",
     "indivPlan2": "puede ser utilizado para motivar a los participantes a modificar su comportamiento. Puede ser utilizado con grupos de escritura, o en desafíos de arte, entre otros.",
     "groupText1": "Aún así, algunos líderes querrán más control, privacidad, seguridad,  y apoyo. Algunos ejemplos de tales grupos son familias, grupos de salud y sanidad, grupos de empleados, y demás. Estos planes proveen grupos privados de Habitica para tu grupo u organización, completamente seguros e independientes",
@@ -37,8 +37,8 @@
     "subscribed": "Suscrito",
     "manageSub": "Clic para modificar tu suscripción",
     "cancelSub": "Cancelar suscripción",
-    "cancelSubInfoGoogle": "Please go to the \"Account\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
-    "cancelSubInfoApple": "Please follow <a href=\"https://support.apple.com/en-us/HT202039\">Apple’s official instructions</a> to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
+    "cancelSubInfoGoogle": "Por favor, dirígete a la sección \"Cuenta\" > \"Suscripciones\" de la aplicación Google Play Store para cancelar tu suscripción o para ver la fechar de anulación si ya la has cancelado. Esta pantalla no es capaz de mostrarte si tu suscripción ha sido cancelada.",
+    "cancelSubInfoApple": "Por favor sigue <a href=\"https://support.apple.com/en-us/HT202039\">instrucciones oficiales de Apple</a> para cancelar tu suscripción o para ver la fechar de anulación si ya la has cancelado. Esta pantalla no es capaz de mostrarte si tu suscripción ha sido cancelada.",
     "canceledSubscription": "Suscripciones canceladas",
     "cancelingSubscription": "Cancelando la suscripción",
     "adminSub": "Suscripciones de administradores",
@@ -129,8 +129,8 @@
     "mysterySet201703": "Conjunto Resplandeciente",
     "mysterySet201704": "Set Cuento de Hadas",
     "mysterySet201705": "Set Luchador Plumífero",
-    "mysterySet201706": "Pirate Pioneer Set",
-    "mysterySet201707": "Jellymancer Set",
+    "mysterySet201706": "Conjunto Pirata Pionero",
+    "mysterySet201707": "Conjunto Encantamedusas",
     "mysterySet301404": "El Conjunto Steampunk",
     "mysterySet301405": "Accesorios Steampunk",
     "mysterySet301703": "Conjunto de Pavo real Steampunk",
@@ -170,5 +170,5 @@
     "missingCustomerId": "Falta req.query.customerId",
     "missingPaypalBlock": "Falta req.session.paypalBlock",
     "missingSubKey": "Falta req.query.sub",
-    "paypalCanceled": "Your subscription has been canceled"
+    "paypalCanceled": "Tu suscripción ha sido cancelada"
 }

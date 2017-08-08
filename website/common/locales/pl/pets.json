@@ -66,7 +66,7 @@
     "itemDrop": "Znaleziono łup!",
     "firstDrop": "Odblokowałeś System Zdobyczy! Od teraz po ukończeniu zadań, masz niewielką szansę znalezienia przedmiotu, włączając w to jaja, eliksiry i jedzenie! Właśnie znalazłeś <strong><%= eggText %> Jajo</strong>! <%= eggNotes %>",
     "useGems": "Jeśli masz na oku zwierzaka, ale nie możesz się doczekać jego zdobycia, użyj Klejnotów w <strong>Ekwipunek > Targ</strong>, by go kupić!",
-    "hatchAPot": "Wykluć <%= potion %> <%= egg %>?",
+    "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
     "hatchedPet": "Wyklułeś <%= potion %> <%= egg %>!",
     "displayNow": "Wyświetl teraz",
     "displayLater": "Wyświetl później",
