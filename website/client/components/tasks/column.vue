@@ -20,7 +20,7 @@
     .bottom-gradient
     .column-background(v-if="isUser === true", :class="{'initial-description': tasks[`${type}s`].length === 0}")
       .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
-      h3(v-once) {{$t('theseAreYourTasks', {taskType: `${type}s`})}}
+      h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(types[type].label)})}}
       .small-text {{$t(`${type}sDesc`)}}
 </template>
 
