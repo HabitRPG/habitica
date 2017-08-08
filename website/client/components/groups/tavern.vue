@@ -10,7 +10,7 @@
         h3(v-once) {{ $t('tavernChat') }}
 
         .row
-          textarea(placeholder="Type a message to Habiticans here", v-model='newMessage', @keydown='updateCarretPosition')
+          textarea(placeholder="Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.", v-model='newMessage', @keydown='updateCarretPosition')
           autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :groupId='groupId')
           button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
 
@@ -66,7 +66,7 @@
             li
               a(href='/static/community-guidelines', v-once) {{ $t('communityGuidelinesLink') }}
             li
-              a(href='/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601', v-once) {{ $t('lookingForGroup') }}
+              router-link(to="/groups/guild/f2db2a7f-13c5-454d-b3ee-ea1f5089e601") {{ $t('lookingForGroup') }}
             li
               a(href='/static/faq', v-once) {{ $t('faq') }}
             li
@@ -76,13 +76,13 @@
             li
               a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', v-once) {{ $t('dataDisplayTool') }}
             li
-              a(href='/groups/guilds/a29da26b-37de-4a71-b0c6-48e72a900dac', v-once) {{ $t('reportProblem') }}
+              router-link(to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportProblem') }}
             li
               a(href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents', v-once) {{ $t('requestFeature') }}
             li
               a(href='', v-html="$t('communityForum')")
             li
-              a(href='/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a', v-once) {{ $t('askQuestionGuild') }}
+              router-link(to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askQuestionGuild') }}
 
       .section-header
         .row
