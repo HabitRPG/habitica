@@ -66,7 +66,7 @@
     "itemDrop": "En ting er droppet!",
     "firstDrop": "Du har nu adgang til dropsystemet! Når du nu fuldender opgaver, har du en lille chance for at finde en ting, bl.a. æg, eliksirer og mad. Du har lige fundet et <strong><%= eggText %>-æg</strong>! <%= eggNotes %>",
     "useGems": "Hvis du gerne vil have et bestemt kæledyr, men ikke vil vente på at du finder det, så brug ædelsten i <strong>Inventar > Marked</strong> til at købe det!",
-    "hatchAPot": "Vil du udruge et <%= potion %> <%= egg %>?",
+    "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
     "hatchedPet": "Du har udruger en ny <%= potion %> <%= egg %>!",
     "displayNow": "Vis nu",
     "displayLater": "Vis senere",

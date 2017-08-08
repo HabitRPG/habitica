@@ -66,7 +66,7 @@
     "itemDrop": "Nađen predmet!",
     "firstDrop": "Sistem nalaženja predmeta je otključan! Ubuduće, kad završite zadatak, imaćete malu šansu da nađete predmete, uključujući jaja, napitke, i hranu. Upravi ste našli <strong><%= eggText %> Jaje</strong>! <%= eggNotes %>",
     "useGems": "Ako želite neku zver i ne možete više da čekate da je nađete, u <strong>Inventar > Pijaca</strong> možete da ih kupite za dragulje.",
-    "hatchAPot": "Želite li da se izlegne <%= potion %> <%= egg %>?",
+    "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
     "hatchedPet": "You hatched a new <%= potion %> <%= egg %>!",
     "displayNow": "Prikaži sad",
     "displayLater": "Prikaži kasnije",

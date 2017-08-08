@@ -71,7 +71,7 @@
     "monsterOfScienceSet": "科学のモンスター (戦士)",
     "witchyWizardSet": "魔女のような魔法使い (魔道士)",
     "mummyMedicSet": "ミイラの衛生兵 (治療師)",
-    "vampireSmiterSet": "吸血鬼のボクサー (盗賊)",
+    "vampireSmiterSet": "吸血鬼ハンター (盗賊)",
     "bewareDogSet": "注意すべき猛犬 (戦士)",
     "magicianBunnySet": "魔術師のウサギ (魔道士)",
     "comfortingKittySet": "くつろいだネコ (治療師)",
@@ -113,5 +113,6 @@
     "dateEndMay": "5月17日",
     "dateEndJune": "6月14日",
     "dateEndJuly": "7月29日",
+    "dateEndAugust": "August 31",
     "discountBundle": "パック"
 }
