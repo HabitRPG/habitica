@@ -13,6 +13,7 @@
           textarea(placeholder="Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.", v-model='newMessage', @keydown='updateCarretPosition')
           autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :groupId='groupId')
           button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
+          button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
 
         .row.community-guidelines(v-if='!communityGuidelinesAccepted')
           div.col-8(v-once) {{ $t('communityGuidelinesIntro') }}
@@ -72,7 +73,7 @@
             li
               a(href='', v-html="$t('glossary')")
             li
-              a(href='http://habitica.wikia.com/wiki/Wiki', v-once) {{ $t('wiki') }}
+              a(href='http://habitica.wikia.com/wiki/Habitica_Wiki', v-once) {{ $t('wiki') }}
             li
               a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', v-once) {{ $t('dataDisplayTool') }}
             li
@@ -477,6 +478,9 @@ export default {
       });
       this.group.chat.unshift(response.message);
       this.newMessage = '';
+    },
+    async fetchRecentMessages () {
+      this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
     },
   },
 };
