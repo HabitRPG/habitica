@@ -13,15 +13,21 @@
           input.form-control.input-search(type="text", :placeholder="$t('search')", v-model="searchText")
           .filter-panel(v-if="isFilterPanelOpen")
             .tags-category.d-flex(v-for="tagsType in tagsByType", v-if="tagsType.tags.length > 0", :key="tagsType.key")
-              .tags-header(v-once)
-                strong {{ $t(tagsType.key) }}
-                a.d-block(v-if="tagsType.key === 'tags' && !editingTags", v-once, @click="editingTags = true") {{ $t('editTags2') }}
+              .tags-header
+                strong(v-once) {{ $t(tagsType.key) }}
+                a.d-block(v-if="tagsType.key === 'tags' && !editingTags", @click="editTags()") {{ $t('editTags2') }}
               .tags-list.container
-                .row.no-gutters
-                  template(v-if="editingTags")
-                    span editing
+                .row(:class="{'no-gutters': !editingTags}")
+                  template(v-if="editingTags && tagsType.key === 'tags'")
+                    .col-6(v-for="(tag, tagIndex) in tagsSnap")
+                      .inline-edit-input-group.tag-edit-item.input-group
+                        input.tag-edit-input.inline-edit-input.form-control(type="text", :value="tag.name")
+                        span.input-group-btn(@click="removeTag(tagIndex)")
+                          .svg-icon.destroy-icon(v-html="icons.destroy")
+                    .col-6
+                      input.new-tag-item.edit-tag-item.inline-edit-input.form-control(type="text", :placeholder="$t('newTag')", @keydown.enter="addTag($event)", v-model="newTag")
                   template(v-else)
-                    .col-6(v-for="tag in tagsType.tags")
+                    .col-6(v-for="(tag, tagIndex) in tagsType.tags")
                       label.custom-control.custom-checkbox
                         input.custom-control-input(
                           type="checkbox",
@@ -35,7 +41,7 @@
               template(v-if="editingTags === true")
                 .text-center
                   a.mr-3.btn-filters-primary(@click="saveTags()", v-once) {{ $t('saveEdits') }}
-                  a.btn-filters-secondary(@click="finishEditingTags()", v-once) {{ $t('cancel') }}
+                  a.btn-filters-secondary(@click="cancelTagsEditing()", v-once) {{ $t('cancel') }}
               template(v-else)
                 .float-left
                   a.btn-filters-danger(@click="resetFilters()", v-once) {{ $t('resetFilters') }}
@@ -152,6 +158,32 @@
       }
     }
 
+    .tag-edit-input {
+      border-bottom: 1px solid $gray-500 !important;
+
+      &:focus, &:focus ~ .input-group-btn {
+        border-color: $purple-500 !important;
+      }
+    }
+
+    .new-tag-item {
+      width: 100%;
+      background-repeat: no-repeat;
+      background-position: center left 10px;
+      border-bottom: 1px solid $gray-500 !important;
+      background-size: 10px 10px;
+      padding-left: 40px;
+      background-image: url(~client/assets/svg/for-css/positive.svg);
+    }
+
+    .tag-edit-item .input-group-btn {
+      border-bottom: 1px solid $gray-500 !important;
+
+      &:focus {
+        border-color: $purple-500;
+      }
+    }
+
     .custom-control-description {
       margin-left: 10px;
     }
@@ -187,13 +219,15 @@ import TaskModal from './taskModal';
 
 import positiveIcon from 'assets/svg/positive.svg';
 import filterIcon from 'assets/svg/filter.svg';
+import deleteIcon from 'assets/svg/delete.svg';
+import uuid from 'uuid';
 
 import Vue from 'vue';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
-import { mapState } from 'client/libs/store';
+import { mapState, mapActions } from 'client/libs/store';
 import taskDefaults from 'common/script/libs/taskDefaults';
 
 export default {
@@ -212,10 +246,13 @@ export default {
       icons: Object.freeze({
         positive: positiveIcon,
         filter: filterIcon,
+        destroy: deleteIcon,
       }),
       selectedTags: [],
       temporarilySelectedTags: [],
+      tagsSnap: null, // tags snapshot when being edited
       editingTags: false,
+      newTag: null,
       editingTask: null,
       creatingTask: null,
     };
@@ -258,6 +295,28 @@ export default {
     }, 250),
   },
   methods: {
+    ...mapActions({setUser: 'user:set'}),
+    editTags () {
+      // clone the arrays being edited so that we can revert if needed
+      this.tagsSnap = this.tagsByType.user.tags.slice();
+      this.editingTags = true;
+    },
+    addTag () {
+      this.tagsSnap.push({id: uuid.v4(), name: this.newTag});
+      this.newTag = null;
+    },
+    removeTag (index) {
+      this.tagsSnap.splice(index, 1);
+    },
+    saveTags () {
+      this.setUser({tags: this.tagsSnap});
+      this.cancelTagsEditing();
+    },
+    cancelTagsEditing () {
+      this.editingTags = false;
+      this.tagsSnap = null;
+      this.newTag = null;
+    },
     editTask (task) {
       this.editingTask = cloneDeep(task);
       // Necessary otherwise the first time the modal is not rendered
