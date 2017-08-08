@@ -1,6 +1,8 @@
 import t from './translation';
 import each from 'lodash/each';
 import { NotAuthorized } from '../libs/errors';
+import statsComputed from '../libs/statsComputed';
+
 /*
   ---------------------------------------------------------------
   Spells
@@ -41,11 +43,11 @@ spells.wizard = {
     target: 'task',
     notes: t('spellWizardFireballNotes'),
     cast (user, target, req) {
-      let bonus = user._statsComputed.int * user.fns.crit('per');
+      let bonus = statsComputed(user).int * user.fns.crit('per');
       bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * 0.075);
       user.stats.exp += diminishingReturns(bonus, 75);
       if (!user.party.quest.progress.up) user.party.quest.progress.up = 0;
-      user.party.quest.progress.up += Math.ceil(user._statsComputed.int * 0.1);
+      user.party.quest.progress.up += Math.ceil(statsComputed(user).int * 0.1);
       user.fns.updateStats(user.stats, req);
     },
   },
@@ -57,7 +59,7 @@ spells.wizard = {
     notes: t('spellWizardMPHealNotes'),
     cast (user, target) {
       each(target, (member) => {
-        let bonus = user._statsComputed.int;
+        let bonus = statsComputed(user).int;
         if (user._id !== member._id) {
           member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125));
         }
@@ -72,7 +74,7 @@ spells.wizard = {
     notes: t('spellWizardEarthNotes'),
     cast (user, target) {
       each(target, (member) => {
-        let bonus = user._statsComputed.int - user.stats.buffs.int;
+        let bonus = statsComputed(user).int - user.stats.buffs.int;
         if (!member.stats.buffs.int) member.stats.buffs.int = 0;
         member.stats.buffs.int += Math.ceil(diminishingReturns(bonus, 30, 200));
       });
@@ -98,7 +100,7 @@ spells.warrior = {
     target: 'task',
     notes: t('spellWarriorSmashNotes'),
     cast (user, target) {
-      let bonus = user._statsComputed.str * user.fns.crit('con');
+      let bonus = statsComputed(user).str * user.fns.crit('con');
       target.value += diminishingReturns(bonus, 2.5, 35);
       if (!user.party.quest.progress.up) user.party.quest.progress.up = 0;
       user.party.quest.progress.up += diminishingReturns(bonus, 55, 70);
@@ -111,7 +113,7 @@ spells.warrior = {
     target: 'self',
     notes: t('spellWarriorDefensiveStanceNotes'),
     cast (user) {
-      let bonus = user._statsComputed.con - user.stats.buffs.con;
+      let bonus = statsComputed(user).con - user.stats.buffs.con;
       if (!user.stats.buffs.con) user.stats.buffs.con = 0;
       user.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 40, 200));
     },
@@ -124,7 +126,7 @@ spells.warrior = {
     notes: t('spellWarriorValorousPresenceNotes'),
     cast (user, target) {
       each(target, (member) => {
-        let bonus = user._statsComputed.str - user.stats.buffs.str;
+        let bonus = statsComputed(user).str - user.stats.buffs.str;
         if (!member.stats.buffs.str) member.stats.buffs.str = 0;
         member.stats.buffs.str += Math.ceil(diminishingReturns(bonus, 20, 200));
       });
@@ -138,7 +140,7 @@ spells.warrior = {
     notes: t('spellWarriorIntimidateNotes'),
     cast (user, target) {
       each(target, (member) => {
-        let bonus = user._statsComputed.con - user.stats.buffs.con;
+        let bonus = statsComputed(user).con - user.stats.buffs.con;
         if (!member.stats.buffs.con) member.stats.buffs.con = 0;
         member.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 24, 200));
       });
@@ -154,7 +156,7 @@ spells.rogue = {
     target: 'task',
     notes: t('spellRoguePickPocketNotes'),
     cast (user, target) {
-      let bonus = calculateBonus(target.value, user._statsComputed.per);
+      let bonus = calculateBonus(target.value, statsComputed(user).per);
       user.stats.gp += diminishingReturns(bonus, 25, 75);
     },
   },
@@ -166,7 +168,7 @@ spells.rogue = {
     notes: t('spellRogueBackStabNotes'),
     cast (user, target, req) {
       let _crit = user.fns.crit('str', 0.3);
-      let bonus = calculateBonus(target.value, user._statsComputed.str, _crit);
+      let bonus = calculateBonus(target.value, statsComputed(user).str, _crit);
       user.stats.exp += diminishingReturns(bonus, 75, 50);
       user.stats.gp += diminishingReturns(bonus, 18, 75);
       user.fns.updateStats(user.stats, req);
@@ -180,7 +182,7 @@ spells.rogue = {
     notes: t('spellRogueToolsOfTradeNotes'),
     cast (user, target) {
       each(target, (member) => {
-        let bonus = user._statsComputed.per - user.stats.buffs.per;
+        let bonus = statsComputed(user).per - user.stats.buffs.per;
         if (!member.stats.buffs.per) member.stats.buffs.per = 0;
         member.stats.buffs.per += Math.ceil(diminishingReturns(bonus, 100, 50));
       });
@@ -194,7 +196,7 @@ spells.rogue = {
     notes: t('spellRogueStealthNotes'),
     cast (user) {
       if (!user.stats.buffs.stealth) user.stats.buffs.stealth = 0;
-      user.stats.buffs.stealth += Math.ceil(diminishingReturns(user._statsComputed.per, user.tasksOrder.dailys.length * 0.64, 55));
+      user.stats.buffs.stealth += Math.ceil(diminishingReturns(statsComputed(user).per, user.tasksOrder.dailys.length * 0.64, 55));
     },
   },
 };
@@ -207,7 +209,7 @@ spells.healer = {
     target: 'self',
     notes: t('spellHealerHealNotes'),
     cast (user) {
-      user.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * 0.075;
+      user.stats.hp += (statsComputed(user).con + statsComputed(user).int + 5) * 0.075;
       if (user.stats.hp > 50) user.stats.hp = 50;
     },
   },
@@ -220,7 +222,7 @@ spells.healer = {
     cast (user, tasks) {
       each(tasks, (task) => {
         if (task.type !== 'reward') {
-          task.value += 4 * (user._statsComputed.int / (user._statsComputed.int + 40));
+          task.value += 4 * (statsComputed(user).int / (statsComputed(user).int + 40));
         }
       });
     },
@@ -233,7 +235,7 @@ spells.healer = {
     notes: t('spellHealerProtectAuraNotes'),
     cast (user, target) {
       each(target, (member) => {
-        let bonus = user._statsComputed.con - user.stats.buffs.con;
+        let bonus = statsComputed(user).con - user.stats.buffs.con;
         if (!member.stats.buffs.con) member.stats.buffs.con = 0;
         member.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 200, 200));
       });
@@ -247,7 +249,7 @@ spells.healer = {
     notes: t('spellHealerHealAllNotes'),
     cast (user, target) {
       each(target, (member) => {
-        member.stats.hp += (user._statsComputed.con + user._statsComputed.int + 5) * 0.04;
+        member.stats.hp += (statsComputed(user).con + statsComputed(user).int + 5) * 0.04;
         if (member.stats.hp > 50) member.stats.hp = 50;
       });
     },

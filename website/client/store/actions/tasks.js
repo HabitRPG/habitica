@@ -115,8 +115,12 @@ export async function save (store, editedTask) {
   if (originalTask) Object.assign(originalTask, editedTask);
 
   const taskDataToSend = omit(editedTask, ['history']);
-  const response = await axios.put(`/api/v3/tasks/${editedTask._id}`, taskDataToSend);
+  const response = await axios.put(`/api/v3/tasks/${taskId}`, taskDataToSend);
   if (originalTask) Object.assign(originalTask, response.data.data);
+}
+
+export async function scoreChecklistItem (store, {taskId, itemId}) {
+  await axios.post(`/api/v3/tasks/${taskId}/checklist/${itemId}/score`);
 }
 
 export async function destroy (store, task) {

@@ -3,7 +3,7 @@
     .modal-content(style='min-width:28em')
       .modal-body.text-center
         h3(style='margin-bottom: 0') {{ $t('wonChallenge') }}
-        // @TODO: h4: markdown(text='user.achievements.challenges[user.achievements.challenges.length - 1]')
+        h4(v-markdown='user.achievements.challenges[user.achievements.challenges.length - 1]')
         .container-fluid
           .row(style='margin-bottom:1em')
             .col-xs-4(style='padding:0')
@@ -43,11 +43,19 @@
 </style>
 
 <script>
+import { mapState } from 'client/libs/store';
 import bModal from 'bootstrap-vue/lib/components/modal';
+import markdownDirective from 'client/directives/markdown';
 
 export default {
   components: {
     bModal,
+  },
+  directives: {
+    markdown: markdownDirective,
+  },
+  computed: {
+    ...mapState({user: 'user.data'}),
   },
   data () {
     let tweet = this.$t('wonChallengeShare');

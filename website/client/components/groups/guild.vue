@@ -19,22 +19,22 @@
           .col-4(v-if='!isParty')
             .item-with-icon
               .svg-icon.gem(v-html="icons.gem")
-              span.number {{group.memberCount}}
+              span.number {{group.balance}}
               div(v-once) {{ $t('guildBank') }}
     .row.chat-row
       .col-12
         h3(v-once) {{ $t('chat') }}
 
-        textarea(:placeholder="$t('chatPlaceHolder')", v-model='newMessage')
+        textarea(:placeholder="!isParty ? $t('chatPlaceHolder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition')
+        autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :groupId='groupId')
         button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
-
+        button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
 
         chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
   .col-4.sidebar
-    .guild-background.row
+    .row(:class='{"guild-background": !isParty}')
       .col-6
-        p(v-if='!isParty')
       .col-6
         .button-container
           button.btn.btn-success(class='btn-success', v-if='isLeader') {{ $t('upgrade') }}
@@ -88,7 +88,7 @@
                 .col-6
                   h4.float-left(v-once) {{ questData.boss.name() }}
                 .col-6
-                  span.float-right(v-once) {{ $t('participants') }}
+                  span.float-right(v-once) {{ $t('participantsTitle') }}
               .row
                 .col-12
                   .grey-progress-bar
@@ -96,9 +96,9 @@
               .row.boss-details
                   .col-6
                     span.float-left
-                      | {{group.quest.progress.hp}} / {{questData.boss.hp}}
+                      | {{parseFloat(group.quest.progress.hp).toFixed(2)}} / {{parseFloat(questData.boss.hp).toFixed(2)}}
                   .col-6
-                    span.float-right 30 pending damage
+                    span.float-right {{group.quest.progress.up || 0}} pending damage
             button.btn.btn-secondary(v-once, @click="questAbort()") {{ $t('abort') }}
 
     .section-header
@@ -112,7 +112,6 @@
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.description")
         p(v-once) {{ group.description }}
-        p Life hacks are tricks, shortcuts, or methods that help increase productivity, efficiency, health, and so on. Generally, they get you to a better state of life. Life hacking is the process of utilizing and implementing these secrets. And, in this guild, we want to help everyone discover these improved ways of doing things.
 
     .section-header
       .row
@@ -124,8 +123,7 @@
           .toggle-down(@click="sections.information = !sections.information", v-if="!sections.information")
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.information")
-        h4 Welcome
-        p Below are some resources that some members might find useful. Consider checking them out before posting any questions, as they just might help answer some of them! Feel free to share your life hacks in the guild chat, or ask any questions that you might have. Please peruse at your leisure, and remember: this guild is meant to help guide you in the right direction. Only you will know what works best for you.
+        p(v-once) {{ group.information }}
 
     .section-header.challenge
       .row
@@ -214,10 +212,22 @@
     background-color: $white;
     border: solid 1px $gray-400;
     font-size: 16px;
-    font-style: italic;
     line-height: 1.43;
     color: $gray-300;
     padding: .5em;
+  }
+
+  textarea::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-style: italic;
+  }
+  textarea::-moz-placeholder { /* Firefox 19+ */
+    font-style: italic;
+  }
+  textarea:-ms-input-placeholder { /* IE 10+ */
+    font-style: italic;
+  }
+  textarea:-moz-placeholder { /* Firefox 18- */
+    font-style: italic;
   }
 
   .title-details {
@@ -287,7 +297,8 @@
     }
 
     .tooltip-wrapper {
-      margin-left: 2.2em;
+      width: 15px;
+      margin-left: 1.2em;
     }
   }
 
@@ -362,6 +373,7 @@ import percent from 'common/script/libs/percent';
 import groupFormModal from './groupFormModal';
 import inviteModal from './inviteModal';
 import chatMessage from '../chat/chatMessages';
+import autocomplete from '../chat/autoComplete';
 import groupChallenges from '../challenges/groupChallenges';
 
 import bCollapse from 'bootstrap-vue/lib/components/collapse';
@@ -395,6 +407,7 @@ export default {
     chatMessage,
     inviteModal,
     groupChallenges,
+    autocomplete,
   },
   directives: {
     bToggle,
@@ -425,6 +438,10 @@ export default {
         challenges: true,
       },
       newMessage: '',
+      coords: {
+        TOP: 0,
+        LEFT: 0,
+      },
     };
   },
   computed: {
@@ -518,6 +535,36 @@ export default {
     },
   },
   methods: {
+    // @TODO: abstract autocomplete
+    // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
+    getCoord (e, text) {
+      let carPos = text.selectionEnd;
+      let div = document.createElement('div');
+      let span = document.createElement('span');
+      let copyStyle = getComputedStyle(text);
+
+      [].forEach.call(copyStyle, (prop) => {
+        div.style[prop] = copyStyle[prop];
+      });
+
+      div.style.position = 'absolute';
+      document.body.appendChild(div);
+      div.textContent = text.value.substr(0, carPos);
+      span.textContent = text.value.substr(carPos) || '.';
+      div.appendChild(span);
+      this.coords = {
+        TOP: span.offsetTop,
+        LEFT: span.offsetLeft,
+      };
+      document.body.removeChild(div);
+    },
+    updateCarretPosition (eventUpdate) {
+      let text = eventUpdate.target;
+      this.getCoord(eventUpdate, text);
+    },
+    selectedAutocomplete (newText) {
+      this.newMessage = newText;
+    },
     showMemberModal () {
       this.$store.state.groupId = this.group._id;
       this.$root.$emit('show::modal', 'members-modal');
@@ -529,6 +576,9 @@ export default {
       });
       this.group.chat.unshift(response.message);
       this.newMessage = '';
+    },
+    fetchRecentMessages () {
+      this.fetchGuild();
     },
     updateGuild () {
       this.$store.state.editingGroup = this.group;

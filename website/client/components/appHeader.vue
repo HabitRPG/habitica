@@ -1,5 +1,5 @@
 <template lang="pug">
-#app-header.row(:class='{sticky: user.preferences.stickyHeader}', v-if='showHeader')
+#app-header.row
   create-party-modal
   members-modal(v-if="user.party._id", :group='user.party', :hide-badge="true")
   member-details(:member="user", @click="$router.push({name: 'avatar'})")
@@ -120,6 +120,11 @@ export default {
       }
     },
     openPartyModal () {
+      if (this.user.party._id) {
+        this.$store.state.groupId = this.user.party._id;
+        this.$root.$emit('show::modal', 'members-modal');
+        return;
+      }
       this.$root.$emit('show::modal', 'create-party-modal');
     },
   },

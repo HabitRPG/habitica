@@ -1,6 +1,5 @@
 <template lang="pug">
 div
-  welcome-modal
   new-stuff
   death
   low-health
@@ -133,9 +132,6 @@ export default {
     invitedToQuest () {
       return this.user.party.quest.RSVPNeeded && !this.user.party.quest.completed;
     },
-    userTasks () {
-      return this.$store.state.tasks.data;
-    },
   },
   watch: {
     baileyShouldShow () {
@@ -224,21 +220,24 @@ export default {
       if (after !== true) return;
       this.$root.$emit('show::modal', 'quest-invitation');
     },
-    userTasks () {
-      // @TODO: Is this the best way to check for loaded?
-      this.runYesterDailies();
-    },
   },
   async mounted () {
-    if (!this.user.flags.welcomed) {
-      this.$root.$emit('show::modal', 'welcome');
-    }
+    Promise.all(['user.fetch', 'tasks.fetchUserTasks'])
+      .then(() => {
+        if (!this.user.flags.welcomed) {
+          this.$store.state.avatarEditorOptions.editingUser = false;
+          this.$root.$emit('show::modal', 'avatar-modal');
+        }
 
-    window.setTimeout(() => {
-      this.initTour();
-      if (this.user.flags.tour.intro === this.TOUR_END) return;
-      this.goto('intro', 0);
-    }, 2000);
+        // @TODO: This is a timeout to ensure dom is loaded
+        window.setTimeout(() => {
+          this.initTour();
+          if (this.user.flags.tour.intro === this.TOUR_END || !this.user.flags.welcomed) return;
+          this.goto('intro', 0);
+        }, 2000);
+
+        this.runYesterDailies();
+      });
   },
   methods: {
     playSound () {

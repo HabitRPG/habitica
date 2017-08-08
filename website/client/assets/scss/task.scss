@@ -1,4 +1,21 @@
- .task {
+.daily-todo-control {
+
+  &:hover {
+    .svg-icon.check {
+      display: block;
+    }
+  }
+
+  .svg-icon.check {
+    display: none;
+
+    &.display-check-icon {
+      display: block;
+    }
+  }
+}
+
+.task {
   // for editing rewards or when a task is created
   &-purple {
     background: $purple-300;
@@ -20,6 +37,7 @@
 
     &-control-daily-todo {
       background: $maroon-500;
+      background: $maroon-100;
     }
 
     &-modal-input {
@@ -35,6 +53,7 @@
 
     &-control-daily-todo {
       background: $red-500;
+      color: $red-100;
     }
 
     &-modal-input {
@@ -50,6 +69,7 @@
 
     &-control-daily-todo {
       background: $orange-500;
+      color: $orange-100;
     }
 
     &-modal-input {
@@ -58,13 +78,14 @@
   }
 
   &-neutral {
-    background: $yellow-50;
+    background: $yellow-100;
     &-control-habit {
-      background: darken($yellow-50, 12%);
+      background: darken($yellow-100, 12%);
     }
 
     &-control-daily-todo {
       background: $yellow-500;
+      color: $yellow-100;
     }
 
     &-modal-input {
@@ -80,6 +101,7 @@
 
     &-control-daily-todo {
       background: $green-500;
+      color: $green-10;
     }
 
     &-modal-input {
@@ -95,6 +117,7 @@
 
     &-control-daily-todo {
       background: $blue-500;
+      color: $blue-50;
     }
 
     &-modal-input {
@@ -110,6 +133,7 @@
 
     &-control-daily-todo {
       background: $teal-500;
+      color: $teal-50;
     }
 
     &-modal-input {

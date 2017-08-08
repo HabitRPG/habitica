@@ -87,8 +87,6 @@
           :items="questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned)",
           :itemWidth=94,
           :itemMargin=24,
-          :showAllLabel="$t('showAllGeneric', { type: category.text })",
-          :showLessLabel="$t('showLessGeneric', { type: category.text })"
         )
           template(slot="item", scope="ctx")
             shopItem(
@@ -276,7 +274,7 @@
       height: 216px;
 
       .background {
-        background: url('~assets/images/shops/quest_shop__banner_background_web.png');
+        background: url('~assets/images/shops/quest_shop_banner_background.png');
 
         background-repeat: repeat-x;
 
@@ -299,12 +297,14 @@
       }
 
       .npc {
+        width: 100%;
         position: absolute;
         left: 0;
-        width: 100%;
-        height: 216px;
+        top: 0;
+        height: 100%;
         background: url('~assets/images/shops/quest_shop__banner_web_iannpc.png');
         background-repeat: no-repeat;
+
 
         .featured-label {
           position: absolute;

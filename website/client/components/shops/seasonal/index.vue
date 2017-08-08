@@ -257,6 +257,7 @@
       .npc {
         position: absolute;
         left: 0;
+        top: 0;
         width: 100%;
         height: 216px;
         background: url('~assets/images/shops/seasonal_shop_closed_banner_web_leslienpc.png');

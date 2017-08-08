@@ -14,6 +14,7 @@ const IS_TEST = process.env.NODE_ENV === 'test'; // eslint-disable-line no-proce
 // Load user auth parameters and determine if it's logged in
 // before trying to load data
 let isUserLoggedIn = false;
+axios.defaults.headers.common['x-client'] = 'habitica-web';
 
 let AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
 
@@ -59,6 +60,10 @@ export default function () {
       },
       avatarEditorOptions: {
         editingUser: false,
+      },
+      flagChatOptions: {
+        message: {},
+        groupId: '',
       },
       editingGroup: {}, // TODO move to local state
       // content data, frozen to prevent Vue from modifying it since it's static and never changes

@@ -59,7 +59,7 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
   }
   if (!user.flags.dropsEnabled && user.stats.lvl >= 3) {
     user.flags.dropsEnabled = true;
-    user.addNotification('DROPS_ENABLED');
+    if (user.addNotification) user.addNotification('DROPS_ENABLED');
 
     if (user.items.eggs.Wolf > 0) {
       user.items.eggs.Wolf++;
@@ -78,7 +78,7 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
       if (!user.items.quests[k])
         user.items.quests[k] = 0;
       user.items.quests[k]++;
-      user.markModified('flags.levelDrops');
+      if (user.markModified) user.markModified('flags.levelDrops');
       if (analytics) {
         analytics.track('acquire item', {
           uuid: user._id,
@@ -95,7 +95,7 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
     }
   });
   if (!user.flags.rebirthEnabled && user.stats.lvl >= 50) {
-    user.addNotification('REBIRTH_ENABLED');
+    if (user.addNotification) user.addNotification('REBIRTH_ENABLED');
     user.flags.rebirthEnabled = true;
   }
 };

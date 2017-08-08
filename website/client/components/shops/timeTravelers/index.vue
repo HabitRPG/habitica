@@ -78,8 +78,6 @@
           :items="travelersItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",
           :itemWidth=94,
           :itemMargin=24,
-          :showAllLabel="$t('showAllGeneric', { type: category.text })",
-          :showLessLabel="$t('showLessGeneric', { type: category.text })"
         )
           template(slot="item", scope="ctx")
             shopItem(
@@ -235,6 +233,7 @@
       .npc {
         position: absolute;
         left: 0;
+        top: 0;
         width: 100%;
         height: 216px;
         background: url('~assets/images/shops/time_travelers_open_banner_web_tylerandvickynpcs.png');
