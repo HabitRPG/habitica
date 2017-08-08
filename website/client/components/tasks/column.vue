@@ -18,7 +18,12 @@
       @editTask="editTask",
     )
     template(v-if="isUser === true && type === 'reward' && activeFilter.label !== 'custom'")
-      span {{ inAppRewards }}
+      div.items
+        shopItem(
+          v-for="reward in inAppRewards",
+          :item="reward",
+        )
+
     .bottom-gradient
     .column-background(v-if="isUser === true", :class="{'initial-description': tasks[`${type}s`].length === 0}")
       .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
@@ -142,11 +147,13 @@ import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
 import rewardIcon from 'assets/svg/reward.svg';
 import bModal from 'bootstrap-vue/lib/components/modal';
+import shopItem from '../shops/shopItem';
 
 export default {
   components: {
     Task,
     bModal,
+    shopItem,
   },
   props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride'],
   data () {

@@ -16,7 +16,7 @@ b-popover(
 
 
         div.image
-          div(:class="itemContentClass")
+          div(:class="item.class")
 
         div.price
           span.svg-icon.inline.icon-16(v-html="icons[getSvgClass()]")
@@ -113,9 +113,6 @@ b-popover(
     props: {
       item: {
         type: Object,
-      },
-      itemContentClass: {
-        type: String,
       },
       price: {
         type: Number,
