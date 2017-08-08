@@ -13,7 +13,7 @@ b-popover(
     slot(name="popoverContent", :item="item")
 
   .item-wrapper(@click="click")
-    .item
+    .item(:class="{'item-active': active }")
       slot(name="itemBadge", :item="item")
       span.item-content(
         :class="itemContentClass"
@@ -49,6 +49,9 @@ export default {
     showPopover: {
       type: Boolean,
       default: true,
+    },
+    active: {
+      type: Boolean,
     },
   },
   methods: {

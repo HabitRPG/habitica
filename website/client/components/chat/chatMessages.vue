@@ -17,7 +17,7 @@ div
         .card-block
           h3.leader {{msg.user}}
           p {{msg.timestamp | timeAgo}}
-          .text {{msg.text}}
+          .text(v-markdown='msg.text')
           hr
           .action(@click='like(msg, index)', v-if='msg.likes', :class='{active: msg.likes[user._id]}')
             .svg-icon(v-html="icons.like")
@@ -97,6 +97,7 @@ div
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState } from 'client/libs/store';
+import markdownDirective from 'client/directives/markdown';
 
 import copyAsTodoModal from './copyAsTodoModal';
 import reportFlagModal from './reportFlagModal';
@@ -112,6 +113,9 @@ export default {
   components: {
     copyAsTodoModal,
     reportFlagModal,
+  },
+  directives: {
+    markdown: markdownDirective,
   },
   data () {
     return {

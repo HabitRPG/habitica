@@ -434,6 +434,7 @@ import { mapState } from 'client/libs/store';
 import avatar from './avatar';
 import { getBackgroundShopSets } from '../../common/script/libs/shops';
 import unlock from '../../common/script/ops/unlock';
+import guide from 'client/mixins/guide';
 
 import bModal from 'bootstrap-vue/lib/components/modal';
 
@@ -445,6 +446,7 @@ import hairIcon from 'assets/svg/hair.svg';
 import backgroundsIcon from 'assets/svg/backgrounds.svg';
 
 export default {
+  mixins: [guide],
   components: {
     avatar,
     bModal,
@@ -518,6 +520,15 @@ export default {
     done () {
       this.$root.$emit('hide::modal', 'avatar-modal');
       this.$router.push('/');
+      this.$store.dispatch('user:set', {
+        'flags.welcomed': true,
+      });
+
+      // @TODO: This is a timeout to ensure dom is loaded
+      window.setTimeout(() => {
+        this.initTour();
+        this.goto('intro', 0);
+      }, 1000);
     },
     showPlainBackgroundBlurb (identifier, set) {
       return identifier === 'incentiveBackgrounds' && !this.ownsSet('background', set);

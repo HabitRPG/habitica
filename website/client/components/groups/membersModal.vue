@@ -162,13 +162,15 @@ export default {
   methods: {
     async getMembers () {
       let groupId = this.$store.state.groupId || this.group._id;
-      if (groupId) {
+      if (groupId && groupId !== 'challenge') {
         let members = await this.$store.dispatch('members:getGroupMembers', {
           groupId,
           includeAllPublicFields: true,
         });
         this.members = members;
-      } else if (this.$store.state.viewingMembers.length > 1) {
+      }
+
+      if (this.$store.state.viewingMembers.length > 0) {
         this.members = this.$store.state.viewingMembers;
       }
     },

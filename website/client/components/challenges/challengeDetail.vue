@@ -1,7 +1,7 @@
 <template lang="pug">
 .row
   challenge-modal(:challenge='challenge', v-on:updatedChallenge='updatedChallenge')
-  close-challenge-modal
+  close-challenge-modal(:members='members', :challengeId='challenge._id')
 
   .col-8.standard-page
     .row
@@ -39,10 +39,9 @@
       div(v-if='isMember')
         button.btn.btn-danger(v-once, @click='leaveChallenge()') {{$t('leaveChallenge')}}
       div(v-if='isLeader')
-        b-dropdown(:text="$t('create')")
+        b-dropdown.create-dropdown(:text="$t('create')")
           b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
             | {{$t(type)}}
-        //- button.btn.btn-success(v-once) {{$t('addTask')}}
         task-modal(
           :task="workingTask",
           :purpose="taskFormPurpose",
@@ -129,12 +128,21 @@
     div, button {
       width: 60%;
       margin: 0 auto;
+      margin-bottom: .5em;
       text-align: center;
     }
   }
 
   .description-section {
     margin-top: 2em;
+  }
+</style>
+
+<style>
+  .create-dropdown button {
+    width: 100%;
+    font-size: 16px !important;
+    font-weight: bold !important;
   }
 </style>
 
@@ -220,7 +228,7 @@ export default {
     createTask (type) {
       this.taskFormPurpose = 'create';
       this.creatingTask = taskDefaults({type, text: ''});
-      this.workingTask = this.editingTask;
+      this.workingTask = this.creatingTask;
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
         this.$root.$emit('show::modal', 'task-modal');
@@ -240,6 +248,7 @@ export default {
       this.tasksByType[task.type].splice(index, 1, task);
     },
     showMemberModal () {
+      this.$store.state.groupId = 'challenge'; // @TODO: change these terrible settings
       this.$store.state.viewingMembers = this.members;
       this.$root.$emit('show::modal', 'members-modal');
     },

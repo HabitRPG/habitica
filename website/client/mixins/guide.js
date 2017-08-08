@@ -37,7 +37,7 @@ export default {
               // state: 'options.profile.avatar',
               element: '.member-details',
               intro: this.$t('tourAvatar'),
-              // placement: 'top',
+              // position: 'top',
               // proceed: this.$t('tourAvatarProceed'),
               // backdrop: false,
               // orphan: true,
@@ -48,7 +48,7 @@ export default {
               // state: 'tasks',
               element: '.todo',
               intro: this.$t('tourToDosBrief'),
-              placement: 'top',
+              position: 'left',
               // proceed: this.$t('tourOkay'),
               // gold: 4,
               // experience: 29,
@@ -57,7 +57,7 @@ export default {
               // state: 'tasks',
               element: '.daily',
               intro: this.$t('tourDailiesBrief'),
-              placement: 'top',
+              position: 'right',
               // proceed: this.$t('tourDailiesProceed'),
               // gold: 4,
               // experience: 29,
@@ -66,7 +66,7 @@ export default {
               // state: 'tasks',
               element: '.habit',
               intro: this.$t('tourHabitsBrief'),
-              placement: 'top',
+              position: 'right',
               // proceed: this.$t('tourHabitsProceed'),
               // gold: 4,
               // experience: 29,
@@ -75,7 +75,7 @@ export default {
               // state: 'tasks',
               element: '.reward',
               intro: this.user.flags.armoireEnabled ? this.$t('tourRewardsArmoire') : this.$t('tourRewardsBrief'),
-              placement: 'left',
+              position: 'left',
               // proceed: this.$t('tourRewardsProceed'),
               // gold: 4,
               // experience: 29,
@@ -276,11 +276,12 @@ export default {
       if (page === -1) page = 0;
       let curr = this.user.flags.tour[chapter];
       if (page !== curr + 1 && !force) return;
-      let chap = this.tour[chapter];
-      if (!chap) return;
-      let opts = chap._options;
-      opts.steps = [];
 
+      // let chap = this.tour[chapter];
+      // if (!chap) return;
+
+      let opts = {}; // @TODO: chap._options;
+      opts.steps = [];
       page += 1;
       times(page, (p) => {
         opts.steps  = opts.steps.concat(this.chapters[chapter][p]);
