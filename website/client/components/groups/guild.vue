@@ -41,7 +41,7 @@
         .button-container
           button.btn.btn-primary(b-btn, @click="updateGuild", v-once, v-if='isLeader') {{ $t('edit') }}
         .button-container
-          button.btn.btn-success(class='btn-success', v-if='!isMember') {{ $t('join') }}
+          button.btn.btn-success(class='btn-success', v-if='!isMember', @click='join()') {{ $t('join') }}
         .button-container
           button.btn.btn-primary(v-once, @click='showInviteModal()') {{$t('invite')}}
         .button-container
@@ -625,22 +625,18 @@ export default {
         // Achievement.displayAchievement('partyOn');
       }
     },
-    // @TODO: This should be moved to notifications component
     async join () {
-      if (this.group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
+      // @TODO: This needs to be in the notifications where users will now accept invites
+      if (this.group.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
-
-      await this.$store.dispatch('guilds:join', {groupId: this.group._id});
-
-      // @TODO: Implement
-      // User.sync();
-      // Analytics.updateUser({'partyID': party.id});
-      // $rootScope.hardRedirect('/#/options/groups/party');
+      await this.$store.dispatch('guilds:join', {guildId: this.group._id, type: 'myGuilds'});
+      this.user.guilds.push(this.group._id);
     },
     clickLeave () {
       // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Leave Party'});
       // @TODO: Get challenges and ask to keep or remove
+      if (!confirm('Are you sure you want to leave?')) return;
       let keep = true;
       this.leave(keep);
     },
