@@ -5,7 +5,13 @@ b-popover(
 )
   span(slot="content")
     slot(name="popoverContent", :item="item")
-
+      equipmentAttributesPopover(
+        v-if="item.purchaseType==='gear'",
+        :item="item"
+      )
+      div(v-else)
+        h4.popover-content-title {{ item.text }}
+      
   .item-wrapper(@click="click()")
     .item(
       :class="{'item-empty': emptyItem, 'highlight': highlightBorder}",
@@ -14,14 +20,13 @@ b-popover(
       div.shop-content
         span.svg-icon.inline.lock(v-if="item.locked" v-html="icons.lock")
 
-
         div.image
           div(:class="item.class")
 
         div.price
           span.svg-icon.inline.icon-16(v-html="icons[getSvgClass()]")
 
-          span.price-label(:class="getSvgClass()") {{ price }}
+          span.price-label(:class="getSvgClass()") {{ getPrice() }}
 
 </template>
 
@@ -50,6 +55,8 @@ b-popover(
 
   .image {
     height: 50px;
+    overflow: hidden;
+    max-width: 100%;
   }
 
 
@@ -100,9 +107,12 @@ b-popover(
   import svgHourglasses from 'assets/svg/hourglass.svg';
   import svgLock from 'assets/svg/lock.svg';
 
+  import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
+
   export default {
     components: {
       bPopover,
+      EquipmentAttributesPopover,
     },
     data () {
       return {
@@ -121,9 +131,6 @@ b-popover(
       price: {
         type: Number,
         default: -1,
-      },
-      priceType: {
-        type: String,
       },
       emptyItem: {
         type: Boolean,
@@ -147,10 +154,17 @@ b-popover(
         this.$emit('click', {});
       },
       getSvgClass () {
-        if (this.priceType && this.icons[this.priceType]) {
-          return this.priceType;
+        if (this.item.currency && this.icons[this.item.currency]) {
+          return this.item.currency;
         } else {
           return 'gold';
+        }
+      },
+      getPrice () {
+        if (this.price === -1) {
+          return this.item.value;
+        } else {
+          return this.price;
         }
       },
     },

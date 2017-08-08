@@ -18,10 +18,11 @@
       @editTask="editTask",
     )
     template(v-if="isUser === true && type === 'reward' && activeFilter.label !== 'custom'")
-      div.items
+      div.reward-items
         shopItem(
           v-for="reward in inAppRewards",
           :item="reward",
+          :key="reward.key"
         )
 
     .bottom-gradient
@@ -36,6 +37,12 @@
 
   .tasks-column {
     height: 556px;
+  }
+
+  .reward-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 
   .tasks-list {

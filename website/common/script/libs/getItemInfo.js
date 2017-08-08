@@ -9,6 +9,24 @@ function lockQuest (quest, user) {
   return quest.previous;
 }
 
+function getDefaultGearProps (item, language) {
+  return {
+    key: item.key,
+    text: item.text(language),
+    notes: item.notes(language),
+    type: item.type,
+    specialClass: item.specialClass,
+    locked: false,
+    purchaseType: 'gear',
+    class: `shop_${item.key}`,
+    path: `gear.flat.${item.key}`,
+    str: item.str,
+    int: item.int,
+    per: item.per,
+    con: item.con,
+  };
+}
+
 module.exports = function getItemInfo (user, type, item, language = 'en') {
   switch (type) {
     case 'egg':
@@ -131,40 +149,24 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         pinType: 'seasonalQuest',
       };
     case 'gear':
-      return {
-        key: item.key,
-        text: item.text(language),
-        notes: item.notes(language),
+      // spread operator not available
+      return Object.assign(getDefaultGearProps(item, language), {
         value: item.twoHanded ? 2 : 1,
-        type: item.type,
-        specialClass: item.specialClass,
-        locked: false,
         currency: 'gems',
-        purchaseType: 'gear',
-        class: `shop_${item.key}`,
-        path: `gear.flat.${item.key}`,
         pinType: 'gear',
-      };
+      });
     case 'marketGear':
-      return {
-        key: item.key,
-        text: item.text(language),
-        notes: item.notes(language),
+      return Object.assign(getDefaultGearProps(item, language), {
         value: item.value,
-        type: item.type,
-        specialClass: item.specialClass,
-        locked: false,
         currency: 'gold',
-        purchaseType: 'gear',
-        class: `shop_${item.key}`,
-        path: `gear.flat.${item.key}`,
         pinType: 'marketGear',
-      };
+      });
     case 'background':
       return {
         key: item.key,
         text: item.text(language),
         notes: item.notes(language),
+        class: `icon_background_${item.key}`,
         value: item.price,
         currency: item.currency || 'gems',
         purchaseType: 'backgrounds',

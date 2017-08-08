@@ -48,14 +48,11 @@
                 :key="item.key",
                 :item="item",
                 :price="item.value",
-                :priceType="item.currency",
                 :itemContentClass="'shop_'+item.key",
                 :emptyItem="false",
                 :popoverPosition="'top'",
                 @click="selectedGearToBuy = item"
               )
-                template(slot="popoverContent", scope="ctx")
-                  equipmentAttributesPopover(:item="ctx.item")
 
       h1.mb-0.page-header(v-once) {{ $t('market') }}
 
@@ -102,15 +99,10 @@
           shopItem(
             :key="ctx.item.key",
             :item="ctx.item",
-            :price="ctx.item.value",
-            :priceType="ctx.item.currency",
-            :itemContentClass="'shop_'+ctx.item.key",
             :emptyItem="userItems.gear[ctx.item.key] === undefined",
             :popoverPosition="'top'",
             @click="selectedGearToBuy = ctx.item"
           )
-            template(slot="popoverContent", scope="ctx")
-              equipmentAttributesPopover(:item="ctx.item")
 
             template(slot="itemBadge", scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
@@ -145,9 +137,6 @@
             v-for="item in sortedMarketItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",
             :key="item.key",
             :item="item",
-            :price="item.value",
-            :priceType="item.currency",
-            :itemContentClass="item.class",
             :emptyItem="false",
             :popoverPosition="'top'",
             @click="selectedItemToBuy = item"
@@ -388,8 +377,6 @@
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
 
-  import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
-
   import SellModal from './sellModal.vue';
   import BuyModal from '../buyModal.vue';
   import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
@@ -439,7 +426,6 @@ export default {
       bDropdown,
       bDropdownItem,
 
-      EquipmentAttributesPopover,
       SellModal,
       BuyModal,
       EquipmentAttributesGrid,

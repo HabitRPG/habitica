@@ -42,8 +42,6 @@
                 :key="item.key",
                 :item="item",
                 :price="item.value",
-                :priceType="item.currency",
-                :itemContentClass="item.class",
                 :emptyItem="false",
                 :popoverPosition="'top'",
                 @click="selectedItemToBuy = item"
@@ -88,8 +86,6 @@
                 :key="item.key",
                 :item="item",
                 :price="item.value",
-                :priceType="item.currency",
-                :itemContentClass="item.class",
                 :emptyItem="false",
                 :popoverPosition="'top'",
                 @click="selectedItemToBuy = item"
