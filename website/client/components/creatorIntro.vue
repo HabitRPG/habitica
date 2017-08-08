@@ -31,7 +31,7 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
         .menu-item(@click='changeTopPage("extra", "glasses")')
           .svg-icon(v-html='icons.accessoriesIcon')
         strong(v-once) {{$t('extra')}}
-      .col-3
+      .col-3(v-if='editing')
         .menu-item(@click='changeTopPage("backgrounds", "2017")')
           .svg-icon(v-html='icons.backgroundsIcon')
         strong(v-once) {{$t('backgrounds')}}
@@ -515,7 +515,8 @@ export default {
       this.$store.dispatch('user:set', settings);
     },
     equip (key) {
-      this.$store.dispatch('common:equip', {key, type: 'costume'});
+      this.$store.dispatch('common:equip', {key, type: 'equipped'});
+      this.user.items.gear.equipped[key] = !this.user.items.gear.equipped[key];
     },
     done () {
       this.$root.$emit('hide::modal', 'avatar-modal');
