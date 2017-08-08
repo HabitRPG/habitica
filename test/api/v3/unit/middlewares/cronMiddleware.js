@@ -272,12 +272,12 @@ describe('cron middleware', () => {
       },
     }).exec();
     await user.save();
-    let expected_err_message = 'Impossible to recover from cron for user ' + user._id + '.';
+    let expectedErrMessage = `Impossible to recover from cron for user ${user._id}.`;
 
     await new Promise((resolve, reject) => {
       cronMiddleware(req, res, (err) => {
-        expect(err).to.exist;
-        expect(err.message).to.be.equal(expected_err_message);
+        if (!err) return reject(new Error('Cron should have failed.'));
+        expect(err.message).to.be.equal(expectedErrMessage);
         resolve();
       });
     });
