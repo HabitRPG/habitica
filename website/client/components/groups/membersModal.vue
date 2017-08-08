@@ -21,20 +21,25 @@ div
       .col-3.actions
         b-dropdown(:text="$t('sort')", right=true)
           b-dropdown-item(@click='sort(option.value)')
-            .svg-icon(v-html="icons.removeIcon")
-            | {{$t('removeMember')}}
+            span.dropdown-icon-item
+              .svg-icon.inline(v-html="icons.removeIcon")
+              span.text {{$t('removeMember')}}
           b-dropdown-item(@click='sort(option.value)')
-            .svg-icon(v-html="icons.messageIcon")
-            | {{$t('sendMessage')}}
+            span.dropdown-icon-item
+              .svg-icon.inline(v-html="icons.messageIcon")
+              span.text {{$t('sendMessage')}}
           b-dropdown-item(@click='sort(option.value)')
-            .svg-icon(v-html="icons.starIcon")
-            | {{$t('promoteToLeader')}}
+            span.dropdown-icon-item
+              .svg-icon.inline(v-html="icons.starIcon")
+              span.text {{$t('promoteToLeader')}}
           b-dropdown-item(@click='sort(option.value)')
-            .svg-icon(v-html="icons.starIcon")
-            | {{$t('addManager')}}
+            span.dropdown-icon-item
+              .svg-icon.inline(v-html="icons.starIcon")
+              span.text {{$t('addManager')}}
           b-dropdown-item(@click='sort(option.value)')
-            .svg-icon(v-html="icons.removeIcon")
-            | {{$t('removeManager2')}}
+            span.dropdown-icon-item
+              .svg-icon.inline(v-html="icons.removeIcon")
+              span.text {{$t('removeManager2')}}
     .row.gradient(v-if='members.length > 3')
 
   b-modal#remove-member(:title="$t('confirmRemoveMember')")
@@ -93,11 +98,8 @@ div
     }
   }
 
-  .dropdown-menu .svg-icon {
+  .dropdown-icon-item .svg-icon {
     width: 20px;
-    display: inline-block;
-    vertical-align: bottom;
-    margin-right: .5em;
   }
 </style>
 

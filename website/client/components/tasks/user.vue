@@ -57,13 +57,15 @@
               .d-flex.align-items-center
                 span(v-once) {{ $t('filter') }}
                 .svg-icon.filter-icon(v-html="icons.filter")
-      .col-1.offset-3
-        //button.btn.btn-success(v-once)
-          .svg-icon.positive(v-html="icons.positive")
-          | {{ $t('create') }}
-        b-dropdown(:text="$t('create')")
+      #create-dropdown.col-1.offset-3
+        b-dropdown(:right="true", :variant="'success'")
+          div(slot="button-content")
+            .svg-icon.positive(v-html="icons.positive")
+            | {{ $t('create') }}
           b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
-            | {{$t(type)}}
+            span.dropdown-icon-item(v-once)
+              span.svg-icon.inline(v-html="icons[type]")
+              span.text {{$t(type)}}
 
     .row.tasks-columns
       task-column.col-3(
@@ -74,6 +76,12 @@
         @editTask="editTask",
       )
 </template>
+
+<style lang="scss">
+#create-dropdown .dropdown-toggle::after {
+  display: none;
+}
+</style>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
@@ -92,6 +100,10 @@
     color: $green-500;
     margin-right: 8px;
     padding-top: 6px;
+  }
+
+  .dropdown-icon-item .svg-icon {
+    width: 16px;
   }
 
   button.btn.btn-secondary.filter-button {
@@ -220,8 +232,12 @@ import TaskModal from './taskModal';
 import positiveIcon from 'assets/svg/positive.svg';
 import filterIcon from 'assets/svg/filter.svg';
 import deleteIcon from 'assets/svg/delete.svg';
-import uuid from 'uuid';
+import habitIcon from 'assets/svg/habit.svg';
+import dailyIcon from 'assets/svg/daily.svg';
+import todoIcon from 'assets/svg/todo.svg';
+import rewardIcon from 'assets/svg/reward.svg';
 
+import uuid from 'uuid';
 import Vue from 'vue';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
@@ -247,6 +263,10 @@ export default {
         positive: positiveIcon,
         filter: filterIcon,
         destroy: deleteIcon,
+        habit: habitIcon,
+        daily: dailyIcon,
+        todo: todoIcon,
+        reward: rewardIcon,
       }),
       selectedTags: [],
       temporarilySelectedTags: [],
