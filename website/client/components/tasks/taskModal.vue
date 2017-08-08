@@ -31,12 +31,12 @@ form(
             .svg-icon.destroy-icon(v-html="icons.destroy")
         input.inline-edit-input.checklist-item.form-control(type="text", :placeholder="$t('newChecklistItem')", @keydown.enter="addChecklistItem($event)", v-model="newChecklistItem")
       .d-flex.justify-content-center(v-if="task.type === 'habit'")
-        .option-item(:class="{'option-item-selected': task.up === true}", @click="task.up = !task.up")
+        .option-item(:class="optionClass(task.up === true)", @click="task.up = !task.up")
           .option-item-box
             .task-control.habit-control(:class="controlClass.up + '-control-habit'")
               .svg-icon.positive(v-html="icons.positive")
           .option-item-label(v-once) {{ $t('positive') }}
-        .option-item(:class="{'option-item-selected': task.down === true}", @click="task.down = !task.down")
+        .option-item(:class="optionClass(task.down === true)", @click="task.down = !task.down")
           .option-item-box
             .task-control.habit-control(:class="controlClass.down + '-control-habit'")
               .svg-icon.negative(v-html="icons.negative")
@@ -46,19 +46,19 @@ form(
           span.float-left {{ $t('difficulty') }}
           .svg-icon.info-icon(v-html="icons.information")
         .d-flex.justify-content-center
-          .option-item(:class="{'option-item-selected': task.priority === 0.1}", @click="task.priority = 0.1")
+          .option-item(:class="optionClass(task.priority === 0.1)", @click="task.priority = 0.1")
             .option-item-box
               .svg-icon.difficulty-trivial-icon(v-html="icons.difficultyTrivial")
             .option-item-label(v-once) {{ $t('trivial') }}
-          .option-item(:class="{'option-item-selected': task.priority === 1}", @click="task.priority = 1")
+          .option-item(:class="optionClass(task.priority === 1)", @click="task.priority = 1")
             .option-item-box
               .svg-icon.difficulty-normal-icon(v-html="icons.difficultyNormal")
             .option-item-label(v-once) {{ $t('easy') }}
-          .option-item(:class="{'option-item-selected': task.priority === 1.5}", @click="task.priority = 1.5")
+          .option-item(:class="optionClass(task.priority === 1.5)", @click="task.priority = 1.5")
             .option-item-box
               .svg-icon.difficulty-medium-icon(v-html="icons.difficultyMedium")
             .option-item-label(v-once) {{ $t('medium') }}
-          .option-item(:class="{'option-item-selected': task.priority === 2}", @click="task.priority = 2")
+          .option-item(:class="optionClass(task.priority === 2)", @click="task.priority = 2")
             .option-item-box
               .svg-icon.difficulty-hard-icon(v-html="icons.difficultyHard")
             .option-item-label(v-once) {{ $t('hard') }}
@@ -225,6 +225,12 @@ form(
 
       &:last-child {
         margin-right: 0px;
+      }
+
+      &-selected {
+        .option-item-label {
+          color: inherit !important;
+        }
       }
 
       &-box {
@@ -415,6 +421,13 @@ export default {
   },
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
+    optionClass (activeCondition) {
+      if (activeCondition) {
+        return [`${this.cssClass}-color`, 'option-item-selected'];
+      } else {
+        return [];
+      }
+    },
     addChecklistItem (e) {
       this.task.checklist.push({
         id: uuid.v4(),
