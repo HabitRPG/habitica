@@ -4,7 +4,6 @@ import Bluebird from 'bluebird';
 import { model as Group } from '../models/group';
 import { model as User } from '../models/user';
 import { recoverCron, cron } from '../libs/cron';
-import { v4 as uuid } from 'uuid';
 import logger from '../libs/logger';
 
 // Wait this length of time in ms before attempting another cron
