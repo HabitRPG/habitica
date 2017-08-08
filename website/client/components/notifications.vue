@@ -1,5 +1,6 @@
 <template lang="pug">
 div
+  yesterdaily-model(:yesterDailies='yesterDailies')
   new-stuff
   death
   low-health
@@ -20,12 +21,15 @@ div
 </template>
 
 <script>
-// import moment from 'moment';
+import axios from 'axios';
+import moment from 'moment';
 
+import { shouldDo } from '../../common/script/cron';
 import { mapState } from 'client/libs/store';
 import notifications from 'client/mixins/notifications';
 import guide from 'client/mixins/guide';
 
+import yesterdailyModel from './yesterdailyModel';
 import welcomeModal from './achievements/welcome';
 import newStuff from './achievements/newStuff';
 import death from './achievements/death';
@@ -51,6 +55,7 @@ import wonChallenge from './achievements/wonChallenge';
 export default {
   mixins: [notifications, guide],
   components: {
+    yesterdailyModel,
     wonChallenge,
     ultimateGear,
     streak,
@@ -86,6 +91,7 @@ export default {
     let alreadyReadNotification = [];
 
     return {
+      yesterDailies: [],
       unlockLevels,
       lastShownNotifications,
       alreadyReadNotification,
@@ -243,77 +249,33 @@ export default {
     playSound () {
       // @TODO:
     },
-    runYesterDailies () {
+    async runYesterDailies () {
       // @TODO: Hopefully we don't need this even we load correctly
       if (this.isRunningYesterdailies) return;
-
-      // let userLastCron = moment(this.user.lastCron).local();
-      // let userDayStart = moment().startOf('day').add({ hours: this.user.preferences.dayStart });
-
-      if (!this.user.needsCron) return;
+      if (!this.user.needsCron) {
+        this.handleUserNotifications(this.user);
+        return;
+      };
 
       let dailys = this.$store.state.tasks.data.dailys;
-
-      // @TODO: How do we check this now? if (!this.appLoaded) return;
-
       this.isRunningYesterdailies = true;
 
-      // let yesterDay = moment().subtract('1', 'day').startOf('day').add({ hours: this.user.preferences.dayStart });
-      let yesterDailies = [];
+      let yesterDay = moment().subtract('1', 'day').startOf('day').add({ hours: this.user.preferences.dayStart });
       dailys.forEach((task) => {
         if (task && task.group.approval && task.group.approval.requested) return;
         if (task.completed) return;
-        // @TODO: let shouldDo = Shared.shouldDo(yesterDay, task);
-        let shouldDo = false;
-
-        if (task.yesterDaily && shouldDo) yesterDailies.push(task);
+        let due = shouldDo(yesterDay, task);
+        if (task.yesterDaily && due) this.yesterDailies.push(task);
       });
 
-      if (yesterDailies.length === 0) {
-        // @TODO:
-        // User.runCron().then(function () {
-        //   isRunningYesterdailies = false;
-        //   handleUserNotifications(this.user);
-        // });
+      if (this.yesterDailies.length === 0) {
+        this.isRunningYesterdailies = false;
+        await axios.post('/api/v3/cron');
+        this.handleUserNotifications(this.user);
         return;
       }
 
-      // @TODO:
-      // let modalScope = this.$new();
-      // modalScope.obj = this.user;
-      // modalScope.taskList = yesterDailies;
-      // modalScope.list = {
-      //   showCompleted: false,
-      //   type: 'daily',
-      // };
-      // modalScope.processingYesterdailies = true;
-      //
-      // $scope.yesterDailiesModalOpen = true;
-      // $modal.open({
-      //   templateUrl: 'modals/yesterDailies.html',
-      //   scope: modalScope,
-      //   backdrop: 'static',
-      //   controller: ['$scope', 'Tasks', 'User', '$rootScope', function ($scope, Tasks, User, $rootScope) {
-      //     this.$on('task:scored', function (event, data) {
-      //       let task = data.task;
-      //       let indexOfTask = _.findIndex($scope.taskList, function (taskInList) {
-      //         return taskInList._id === task._id;
-      //       });
-      //       if (!$scope.taskList[indexOfTask]) return;
-      //       $scope.taskList[indexOfTask].group.approval.requested = task.group.approval.requested;
-      //       if ($scope.taskList[indexOfTask].group.approval.requested) return;
-      //       $scope.taskList[indexOfTask].completed = task.completed;
-      //     });
-      //
-      //     $scope.ageDailies = function () {
-      //       User.runCron()
-      //         .then(function () {
-      //           isRunningYesterdailies = false;
-      //           handleUserNotifications(this.user);
-      //         });
-      //     };
-      //   }],
-      // });
+      this.$root.$emit('show::modal', 'yesterdaily');
     },
     transferGroupNotification (notification) {
       if (!this.user.groupNotifications) this.user.groupNotifications = [];
