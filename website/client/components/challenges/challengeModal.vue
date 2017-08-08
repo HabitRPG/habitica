@@ -47,7 +47,7 @@
       .form-group
         label
           strong(v-once) {{$t('prize')}}
-        input(type='number', min='1', :max='maxPrize')
+        input(type='number', min='1', :max='maxPrize', v-model="workingChallenge.prize")
       .row.footer-wrap
         .col-12.text-center.submit-button-wrapper
           .alert.alert-warning(v-if='insufficientGemsForTavernChallenge')
@@ -290,6 +290,9 @@ export default {
       this.workingChallenge.timestamp = new Date().getTime();
 
       let challenge = await this.$store.dispatch('challenges:createChallenge', {challenge: this.workingChallenge});
+      // @TODO: When to remove from guild instead?
+      this.user.balance -= this.workingChallenge.prize / 4;
+
       this.$emit('createChallenge', challenge);
       this.ressetWorkingChallenge();
       this.$root.$emit('hide::modal', 'challenge-modal');
