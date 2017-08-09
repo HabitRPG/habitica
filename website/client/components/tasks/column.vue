@@ -22,7 +22,8 @@
         shopItem(
           v-for="reward in inAppRewards",
           :item="reward",
-          :key="reward.key"
+          :key="reward.key",
+          @click="openBuyDialog(reward)"
         )
 
     .bottom-gradient
@@ -300,6 +301,9 @@ export default {
 
         return checklistItemIndex !== -1;
       }
+    },
+    openBuyDialog (rewardItem) {
+      this.$emit('openBuyDialog', rewardItem);
     },
   },
 };

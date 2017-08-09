@@ -180,6 +180,7 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         value: 1,
         currency: 'hourglasses',
         purchaseType: 'mystery_set',
+        class: `shop_set_mystery_${item.key}`,
         path: `mystery.${item.key}`,
         pinType: 'mystery_set',
       };
