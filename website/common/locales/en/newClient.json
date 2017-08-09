@@ -251,6 +251,7 @@
   "featuredset": "Featured Set <%= name %>",
   "mysterySets": "Mystery Sets",
   "fetchRecentMessages": "Fetch Recent Messages",
+  "saveEdits": "Save Edits",
   "showMore": "Show More",
   "showLess": "Show Less",
   "hatchedPetNotesPart1": "Visit the ",

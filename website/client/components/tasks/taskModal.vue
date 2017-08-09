@@ -25,18 +25,18 @@ form(
       .option(v-if="['daily', 'todo'].indexOf(task.type) > -1")
         label(v-once) {{ $t('checklist') }}
         br
-        .checklist-group.input-group(v-for="(item, $index) in task.checklist")
-          input.checklist-item.form-control(type="text", :value="item.text")
+        .inline-edit-input-group.checklist-group.input-group(v-for="(item, $index) in task.checklist")
+          input.inline-edit-input.checklist-item.form-control(type="text", :value="item.text")
           span.input-group-btn(@click="removeChecklistItem($index)")
             .svg-icon.destroy-icon(v-html="icons.destroy")
-        input.checklist-item.form-control(type="text", :placeholder="$t('newChecklistItem')", @keydown.enter="addChecklistItem($event)", v-model="newChecklistItem")
+        input.inline-edit-input.checklist-item.form-control(type="text", :placeholder="$t('newChecklistItem')", @keydown.enter="addChecklistItem($event)", v-model="newChecklistItem")
       .d-flex.justify-content-center(v-if="task.type === 'habit'")
-        .option-item(:class="{'option-item-selected': task.up === true}", @click="task.up = !task.up")
+        .option-item(:class="optionClass(task.up === true)", @click="task.up = !task.up")
           .option-item-box
             .task-control.habit-control(:class="controlClass.up + '-control-habit'")
               .svg-icon.positive(v-html="icons.positive")
           .option-item-label(v-once) {{ $t('positive') }}
-        .option-item(:class="{'option-item-selected': task.down === true}", @click="task.down = !task.down")
+        .option-item(:class="optionClass(task.down === true)", @click="task.down = !task.down")
           .option-item-box
             .task-control.habit-control(:class="controlClass.down + '-control-habit'")
               .svg-icon.negative(v-html="icons.negative")
@@ -46,19 +46,19 @@ form(
           span.float-left {{ $t('difficulty') }}
           .svg-icon.info-icon(v-html="icons.information")
         .d-flex.justify-content-center
-          .option-item(:class="{'option-item-selected': task.priority === 0.1}", @click="task.priority = 0.1")
+          .option-item(:class="optionClass(task.priority === 0.1)", @click="task.priority = 0.1")
             .option-item-box
               .svg-icon.difficulty-trivial-icon(v-html="icons.difficultyTrivial")
             .option-item-label(v-once) {{ $t('trivial') }}
-          .option-item(:class="{'option-item-selected': task.priority === 1}", @click="task.priority = 1")
+          .option-item(:class="optionClass(task.priority === 1)", @click="task.priority = 1")
             .option-item-box
               .svg-icon.difficulty-normal-icon(v-html="icons.difficultyNormal")
             .option-item-label(v-once) {{ $t('easy') }}
-          .option-item(:class="{'option-item-selected': task.priority === 1.5}", @click="task.priority = 1.5")
+          .option-item(:class="optionClass(task.priority === 1.5)", @click="task.priority = 1.5")
             .option-item-box
               .svg-icon.difficulty-medium-icon(v-html="icons.difficultyMedium")
             .option-item-label(v-once) {{ $t('medium') }}
-          .option-item(:class="{'option-item-selected': task.priority === 2}", @click="task.priority = 2")
+          .option-item(:class="optionClass(task.priority === 2)", @click="task.priority = 2")
             .option-item-box
               .svg-icon.difficulty-hard-icon(v-html="icons.difficultyHard")
             .option-item-label(v-once) {{ $t('hard') }}
@@ -227,6 +227,12 @@ form(
         margin-right: 0px;
       }
 
+      &-selected {
+        .option-item-label {
+          color: inherit !important;
+        }
+      }
+
       &-box {
         width: 64px;
         height: 64px;
@@ -263,17 +269,6 @@ form(
 
     .checklist-group {
       border-top: 1px solid $gray-500;
-
-      .input-group-btn {
-        cursor: pointer;
-        padding-left: 10px;
-        padding-right: 10px;
-      }
-
-      .destroy-icon {
-        width: 14px;
-        height: 16px;
-      }
     }
 
     .checklist-item {
@@ -283,12 +278,12 @@ form(
       padding-left: 36px;
 
       &:last-child {
-        background-size: 10px 10px;
-        background-image: url(~client/assets/svg/for-css/positive.svg);
         background-repeat: no-repeat;
         background-position: center left 10px;
         border-top: 1px solid $gray-500 !important;
         border-bottom: 1px solid $gray-500 !important;
+        background-size: 10px 10px;
+        background-image: url(~client/assets/svg/for-css/positive.svg);
       }
     }
 
@@ -326,6 +321,7 @@ import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Datepicker from 'vuejs-datepicker';
 import moment from 'moment';
+import uuid from 'uuid';
 
 import informationIcon from 'assets/svg/information.svg';
 import difficultyTrivialIcon from 'assets/svg/difficulty-trivial.svg';
@@ -425,8 +421,19 @@ export default {
   },
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
+    optionClass (activeCondition) {
+      if (activeCondition) {
+        return [`${this.cssClass}-color`, 'option-item-selected'];
+      } else {
+        return [];
+      }
+    },
     addChecklistItem (e) {
-      this.task.checklist.push({text: this.newChecklistItem, completed: false});
+      this.task.checklist.push({
+        id: uuid.v4(),
+        text: this.newChecklistItem,
+        completed: false,
+      });
       this.newChecklistItem = null;
       e.preventDefault();
     },

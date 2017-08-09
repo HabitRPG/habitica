@@ -61,10 +61,18 @@
 .task {
   margin-bottom: 8px;
   box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
-  background: $white;
+  background: transparent;
   border-radius: 2px;
   z-index: 9;
   position: relative;
+
+  &:hover {
+    box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
+
+    .left-control, .right-control, .task-content {
+      border-color: $purple-500;
+    }
+  }
 }
 
 .task-title {
@@ -87,6 +95,12 @@
   padding: 8px;
   flex-grow: 1;
   cursor: pointer;
+  background: $white;
+  border: 1px solid transparent;
+
+  &.no-right-border {
+    border-right: none !important;
+  }
 }
 
 .checklist {
@@ -182,12 +196,20 @@
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
   min-height: 60px;
+  border: 1px solid transparent;
+  border-right: none;
+
+  & + .task-content {
+    border-left: none;
+  }
 }
 
 .right-control {
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
   min-height: 56px;
+  border: 1px solid transparent;
+  border-left: none;
 }
 
 .task-control, .reward-control {
@@ -315,7 +337,12 @@ export default {
       return this.getTaskClasses(this.task, 'control');
     },
     contentClass () {
-      return this.getTaskClasses(this.task, 'content');
+      const classes = [];
+      classes.push(this.getTaskClasses(this.task, 'content'));
+      if (this.task.type === 'reward' || this.task.type === 'habit') {
+        classes.push('no-right-border');
+      }
+      return classes;
     },
     showStreak () {
       if (this.task.streak !== undefined) return true;

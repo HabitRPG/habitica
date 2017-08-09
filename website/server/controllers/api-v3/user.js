@@ -20,6 +20,7 @@ import {
 } from '../../libs/email';
 import nconf from 'nconf';
 import get from 'lodash/get';
+import { model as Tag } from '../../models/tag';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 const DELETE_CONFIRMATION = 'DELETE';
@@ -157,6 +158,7 @@ let updatablePaths = [
   'profile',
   'stats',
   'inbox.optOut',
+  'tags',
 ];
 
 // This tells us for which paths users can call `PUT /user`.
@@ -247,8 +249,43 @@ api.updateUser = {
         throw new NotAuthorized(res.t('mustPurchaseToSet', { val, key }));
       }
 
-      if (acceptablePUTPaths[key]) {
+      if (acceptablePUTPaths[key] && key !== 'tags') {
         _.set(user, key, val);
+      } else if (key === 'tags') {
+        if (!Array.isArray(val)) throw new BadRequest('mustBeArray');
+
+        const removedTagsIds = [];
+
+        const oldTags = [];
+
+        // Keep challenge and group tags
+        user.tags.forEach(t => {
+          if (t.group || t.challenge) {
+            oldTags.push(t);
+          } else {
+            removedTagsIds.push(t.id);
+          }
+        });
+
+        user.tags = oldTags;
+
+        val.forEach(t => {
+          let oldI = removedTagsIds.findIndex(id => id === t.id);
+          if (oldI > -1) {
+            removedTagsIds.splice(oldI, 1);
+          }
+
+          user.tags.push(Tag.sanitize(t));
+        });
+
+        // Remove from all the tasks TODO test
+        Tasks.Task.update({
+          userId: user._id,
+        }, {
+          $pull: {
+            tags: {$in: [removedTagsIds]},
+          },
+        }, {multi: true}).exec();
       } else {
         throw new NotAuthorized(res.t('messageUserOperationProtected', { operation: key }));
       }
