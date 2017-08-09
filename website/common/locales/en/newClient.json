@@ -274,5 +274,7 @@
   "self_improvement": "Self-Improvement",
   "spirituality": "Spirituality",
   "time_management": "Time-Management + Accountability",
-  "recovery_support_groups": "Recovery + Support Groups"
+  "recovery_support_groups": "Recovery + Support Groups",
+  "equip": "Equip",
+  "unequip": "Unequip"
 }

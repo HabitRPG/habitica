@@ -88,6 +88,7 @@
     )
       h2
        | {{ group.label }}
+       |
        span.badge.badge-pill.badge-default {{items[group.key].length}}
 
       itemRows(
@@ -102,22 +103,25 @@
             :itemContentClass="'shop_' + context.item.key",
             :emptyItem="!context.item || context.item.key.indexOf('_base_0') !== -1",
             :key="context.item.key",
+            @click="openEquipDialog(context.item)"
           )
             template(slot="itemBadge", scope="context")
               starBadge(
                 :selected="activeItems[context.item.type] === context.item.key",
                 :show="!costume || user.preferences.costume",
-                @click="equip(context.item)",
+                @click="openEquipDialog(context.item)",
               )
             template(slot="popoverContent", scope="context")
               equipmentAttributesPopover(:item="context.item")
-</template>
 
-<style lang="scss" scoped>
-h2 {
-  margin-top: 24px;
-}
-</style>
+  equipGearModal(
+    :item="gearToEquip",
+    @equipItem="equipItem($event)",
+    @change="changeModalState($event)",
+    :costumeMode="costume",
+    :isEquipped="gearToEquip == null ? false : activeItems[gearToEquip.type] === gearToEquip.key"
+  )
+</template>
 
 <script>
 import { mapState } from 'client/libs/store';
@@ -138,6 +142,8 @@ import Drawer from 'client/components/ui/drawer';
 
 import i18n from 'common/script/i18n';
 
+import EquipGearModal from './equipGearModal';
+
 export default {
   name: 'Equipment',
   components: {
@@ -150,6 +156,7 @@ export default {
     bDropdownItem,
     bPopover,
     toggleSwitch,
+    EquipGearModal,
   },
   data () {
     return {
@@ -178,6 +185,7 @@ export default {
         armoire: i18n.t('armoireText'),
       }),
       viewOptions: {},
+      gearToEquip: null,
     };
   },
   watch: {
@@ -186,8 +194,17 @@ export default {
     }, 250),
   },
   methods: {
-    equip (item) {
+    openEquipDialog (item) {
+      this.gearToEquip = item;
+    },
+    changeModalState (visible) {
+      if (!visible) {
+        this.gearToEquip = null;
+      }
+    },
+    equipItem (item) {
       this.$store.dispatch('common:equip', {key: item.key, type: this.costume ? 'costume' : 'equipped'});
+      this.gearToEquip = null;
     },
     changeDrawerPreference (newVal) {
       this.$store.dispatch('user:set', {
