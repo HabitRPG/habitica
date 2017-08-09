@@ -7,13 +7,15 @@
         .herobox(:style="`${margin}em`")
           .character-sprites
             //- +generatedAvatar({sleep: false})
-            //- avatar
+            avatar(:member='user')
       .col-4
         div(:class='achievementClass' style='margin: 2em auto')
 </template>
 
 <script>
+import { mapState } from 'client/libs/store';
 import Avatar from '../avatar';
+
 export default {
   components: {
     Avatar,
@@ -23,6 +25,11 @@ export default {
     return {
       achievementClass: `achievement-${this.badge}2x`,
     };
+  },
+  computed: {
+    ...mapState({
+      user: 'user.data',
+    }),
   },
 };
 </script>
