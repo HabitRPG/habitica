@@ -48,13 +48,14 @@
             :key="context.item.key",
             :itemContentClass="`${group.classPrefix}${context.item.key}`",
             :showPopover="currentDraggingPotion == null",
+            :highlightBorder="currentDraggingPotion != null",
             v-drag.drop.hatch="context.item.key",
 
             @itemDragOver="onDragOver($event, context.item)",
             @itemDropped="onDrop($event, context.item)",
             @itemDragLeave="onDragLeave()",
 
-            @click="onEggClicked($event, context.item)"
+            @click="onEggClicked($event, context.item)",
           )
             template(slot="popoverContent", scope="context")
               h4.popover-content-title {{ context.item.text() }}
