@@ -253,9 +253,9 @@ export default {
       // @TODO: Hopefully we don't need this even we load correctly
       if (this.isRunningYesterdailies) return;
       if (!this.user.needsCron) {
-        this.handleUserNotifications(this.user);
+        this.handleUserNotifications(this.user.notifications);
         return;
-      };
+      }
 
       let dailys = this.$store.state.tasks.data.dailys;
       this.isRunningYesterdailies = true;
