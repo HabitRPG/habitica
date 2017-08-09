@@ -112,7 +112,6 @@ import MemberDetails from '../memberDetails';
 import removeIcon from 'assets/members/remove.svg';
 import messageIcon from 'assets/members/message.svg';
 import starIcon from 'assets/members/star.svg';
-import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge.svg';
 
 export default {
   props: ['group', 'hideBadge'],
@@ -155,7 +154,6 @@ export default {
         removeIcon,
         messageIcon,
         starIcon,
-        goldGuildBadgeIcon,
       }),
     };
   },
