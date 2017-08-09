@@ -252,7 +252,7 @@ api.updateUser = {
       if (acceptablePUTPaths[key] && key !== 'tags') {
         _.set(user, key, val);
       } else if (key === 'tags') {
-        if (!Array.isArray(val)) throw new BadRequest('mustBeArray'); //FIXME
+        if (!Array.isArray(val)) throw new BadRequest('mustBeArray');
 
         const removedTagsIds = [];
 
@@ -270,7 +270,7 @@ api.updateUser = {
         user.tags = oldTags;
 
         val.forEach(t => {
-          let oldI = removedTagsIds.findIndex(t.id);
+          let oldI = removedTagsIds.findIndex(id => id === t.id);
           if (oldI > -1) {
             removedTagsIds.splice(oldI, 1);
           }
@@ -278,12 +278,12 @@ api.updateUser = {
           user.tags.push(Tag.sanitize(t));
         });
 
-        //Remove from all the tasks TODO test
+        // Remove from all the tasks TODO test
         Tasks.Task.update({
           userId: user._id,
         }, {
           $pull: {
-            tags: [removedTagsIds],
+            tags: {$in: [removedTagsIds]},
           },
         }, {multi: true}).exec();
       } else {
