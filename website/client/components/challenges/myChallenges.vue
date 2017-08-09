@@ -116,7 +116,7 @@ export default {
       ],
       search: '',
       filters: {
-        roles: ['member'], // This is required for my challenges
+        roles: ['participating'], // This is required for my challenges
       },
     };
   },
@@ -129,6 +129,10 @@ export default {
       let search = this.search;
       let filters = this.filters;
       let user = this.$store.state.user.data;
+
+      // Always filter by member on this page:
+      filters.roles = ['participating'];
+
       // @TODO: Move this to the server
       return this.challenges.filter((challenge) => {
         return this.filterChallenge(challenge, filters, search, user);

@@ -645,7 +645,7 @@ export default {
   },
   methods: {
     playButtonClick () {
-      this.$router.push('/login');
+      this.$router.push('/register');
     },
   },
 };

@@ -1,13 +1,14 @@
 <template lang="pug">
-  b-modal#testing(:title="$t('guildReminderTitle')", size='lg', :hide-footer="true")
+  b-modal#invite-friend(:title="$t('guildReminderTitle')", size='lg', :hide-footer="true")
     .modal-content(style='min-width:28em')
     .modal-body.text-center
       h3(style='margin-bottom:0') {{ $t('modalAchievement') }}
       // @TODO: +achievementAvatar('friends',0)
+      achievement-avatar
       p {{ $t('invitedFriendText') }}
       br
       button.btn.btn-primary(@click='close()') {{ $t('huzzah') }}
-    // @TODO: +achievementFooter
+    achievement-footer
 </template>
 
 <style scope>
@@ -18,14 +19,18 @@
 
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
+import achievementFooter from './achievementFooter';
+import achievementAvatar from './achievementAvatar';
 
 export default {
   components: {
     bModal,
+    achievementFooter,
+    achievementAvatar,
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'testing');
+      this.$root.$emit('hide::modal', 'invite-friend');
     },
   },
 };
