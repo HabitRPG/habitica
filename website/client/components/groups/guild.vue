@@ -13,7 +13,9 @@
         .row.icon-row
           .col-4.offset-4(v-bind:class="{ 'offset-8': isParty }")
             .item-with-icon(@click="showMemberModal()")
-              .svg-icon.shield(v-html="icons.goldGuildBadgeIcon")
+              .svg-icon.shield(v-html="icons.goldGuildBadge", v-if='group.memberCount > 1000')
+              .svg-icon.shield(v-html="icons.silverGuildBadgeIcon", v-if='group.memberCount > 100 && group.memberCount < 999')
+              .svg-icon.shield(v-html="icons.bronzeGuildBadgeIcon", v-if='group.memberCount < 100')
               span.number {{group.memberCount}}
               div(v-once) {{ $t('members') }}
           .col-4(v-if='!isParty')
@@ -392,7 +394,9 @@ import informationIcon from 'assets/svg/information.svg';
 import questBackground from 'assets/svg/quest-background-border.svg';
 import upIcon from 'assets/svg/up.svg';
 import downIcon from 'assets/svg/down.svg';
-import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge.svg';
+import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge-small.svg';
+import silverGuildBadgeIcon from 'assets/svg/silver-guild-badge-small.svg';
+import bronzeGuildBadgeIcon from 'assets/svg/bronze-guild-badge-small.svg';
 
 export default {
   mixins: [groupUtilities, styleHelper],
@@ -429,6 +433,8 @@ export default {
         upIcon,
         downIcon,
         goldGuildBadgeIcon,
+        silverGuildBadgeIcon,
+        bronzeGuildBadgeIcon,
       }),
       selectedQuest: {},
       sections: {

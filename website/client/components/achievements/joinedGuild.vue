@@ -3,6 +3,7 @@
     .modal-body.text-center
       h3(style='margin-bottom:0') {{ $t('modalAchievement') }}
       // @TODO: +achievementAvatar('guild',0)
+      achievement-avatar
       p {{ $t('joinedGuildText') }}
       br
       button.btn.btn-primary(@click='close()') {{ $t('huzzah') }}
@@ -18,11 +19,13 @@
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
 import achievementFooter from './achievementFooter';
+import achievementAvatar from './achievementAvatar';
 
 export default {
   components: {
     bModal,
     achievementFooter,
+    achievementAvatar,
   },
   methods: {
     close () {

@@ -112,9 +112,9 @@ import { mapState } from 'client/libs/store';
 import groupUtilities from 'client/mixins/groupsUtilities';
 import findIndex from 'lodash/findIndex';
 import gemIcon from 'assets/svg/gem.svg';
-import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge.svg';
-import silverGuildBadgeIcon from 'assets/svg/silver-guild-badge.svg';
-import bronzeGuildBadgeIcon from 'assets/svg/bronze-guild-badge.svg';
+import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge-large.svg';
+import silverGuildBadgeIcon from 'assets/svg/silver-guild-badge-large.svg';
+import bronzeGuildBadgeIcon from 'assets/svg/bronze-guild-badge-large.svg';
 
 export default {
   mixins: [groupUtilities],
