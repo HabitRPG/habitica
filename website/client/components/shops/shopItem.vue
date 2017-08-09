@@ -11,7 +11,7 @@ b-popover(
       )
       div(v-else)
         h4.popover-content-title {{ item.text }}
-      
+
   .item-wrapper(@click="click()")
     .item(
       :class="{'item-empty': emptyItem, 'highlight': highlightBorder}",
@@ -55,8 +55,6 @@ b-popover(
 
   .image {
     height: 50px;
-    overflow: hidden;
-    max-width: 100%;
   }
 
 
