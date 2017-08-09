@@ -281,7 +281,7 @@ export default {
       if (!this.user.groupNotifications) this.user.groupNotifications = [];
       this.user.groupNotifications.push(notification);
     },
-    handleUserNotifications (after) {
+    async handleUserNotifications (after) {
       if (!after || after.length === 0) return;
 
       let notificationsToRead = [];
@@ -404,7 +404,12 @@ export default {
       });
 
       let userReadNotifsPromise = false;
-      // @TODO: User.readNotifications(notificationsToRead);
+
+      if (notificationsToRead.length >= 0) {
+        await axios.post('/api/v3/notifications/read', {
+          notificationIds: notificationsToRead,
+        });
+      }
 
       if (userReadNotifsPromise) {
         userReadNotifsPromise.then(() => {
