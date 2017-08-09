@@ -557,6 +557,7 @@
       petGroups () {
         let petGroups = [
           {
+            label: this.$t('filterByStandard'),
             key: 'standardPets',
             petSource: {
               eggs: this.content.dropEggs,
