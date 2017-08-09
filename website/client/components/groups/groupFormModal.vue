@@ -191,48 +191,60 @@ export default {
       },
       categoryOptions: [
         {
-          label: 'animals',
-          key: 'animals',
+          label: 'habitica_official',
+          key: 'habitica_official',
         },
         {
-          label: 'artDesign',
-          key: 'art_design',
+          label: 'academics',
+          key: 'academics',
         },
         {
-          label: 'booksWriting',
-          key: 'books_writing',
+          label: 'advocacy_causes',
+          key: 'advocacy_causes',
         },
         {
-          label: 'comicsHobbies',
-          key: 'comics_hobbies',
+          label: 'creativity',
+          key: 'creativity',
         },
         {
-          label: 'diyCrafts',
-          key: 'diy_crafts',
+          label: 'entertainment',
+          key: 'entertainment',
         },
         {
-          label: 'education',
-          key: 'education',
+          label: 'finance',
+          key: 'finance',
         },
         {
-          label: 'foodCooking',
-          key: 'food_cooking',
-        },
-        {
-          label: 'healthFitness',
+          label: 'health_fitness',
           key: 'health_fitness',
         },
         {
-          label: 'music',
-          key: 'music',
+          label: 'hobbies_occupations',
+          key: 'hobbies_occupations',
         },
         {
-          label: 'relationship',
-          key: 'relationship',
+          label: 'location_based',
+          key: 'location_based',
         },
         {
-          label: 'scienceTech',
-          key: 'science_tech ',
+          label: 'mental_health',
+          key: 'mental_health ',
+        },
+        {
+          label: 'organization',
+          key: 'organization ',
+        },
+        {
+          label: 'Recovery + Support Groups',
+          key: 'recovery_support_groups ',
+        },
+        {
+          label: 'spirituality',
+          key: 'spirituality ',
+        },
+        {
+          label: 'time_management',
+          key: 'time_management',
         },
       ],
       showCategorySelect: false,
@@ -341,13 +353,15 @@ export default {
         };
       }
 
+      let newgroup;
+
       if (this.workingGuild.id) {
         await this.$store.dispatch('guilds:update', {group: this.workingGuild});
         // @TODO: this doesn't work because of the async resource
         // if (updatedGroup.type === 'party') this.$store.state.party = {data: updatedGroup};
       } else {
-        await this.$store.dispatch('guilds:create', {group: this.workingGuild});
-        this.$store.state.user.balance -= 1;
+        newgroup = await this.$store.dispatch('guilds:create', {group: this.workingGuild});
+        this.$store.state.user.data.balance -= 1;
       }
 
       this.$store.state.editingGroup = {};
@@ -364,6 +378,9 @@ export default {
         allowGuildInvationsFromNonMembers: true,
       };
 
+      if (newgroup && newgroup._id) {
+        this.$router.push(`/groups/guild/${newgroup._id}`);
+      }
       this.$root.$emit('hide::modal', 'guild-form');
     },
   },

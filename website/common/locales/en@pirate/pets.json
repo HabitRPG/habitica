@@ -66,7 +66,7 @@
     "itemDrop": "An item 'as been looted!",
     "firstDrop": "Ye've unlocked th' Drop System! Now when ye complete tasks, ye have a small chance o' findin' an item, includin' eggs, potions, an' food! Ye just found a <strong><%= eggText %> Egg</strong>! <%= eggNotes %>",
     "useGems": "If ye've got yer eye on a pet, but can't wait any longer fer it t' drop, use Sapphires in <strong>Inventory > Market</strong> t' buy one!",
-    "hatchAPot": "Hatch a <%= potion %> <%= egg %>?",
+    "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
     "hatchedPet": "You hatched a new <%= potion %> <%= egg %>!",
     "displayNow": "Display Now",
     "displayLater": "Display Later",

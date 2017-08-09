@@ -66,7 +66,7 @@
     "itemDrop": "Nalezen předmět",
     "firstDrop": "Odemknuto nalézání předmětů! Od teď máš malou šanci nalézt předmět při dokončení úkolů, včetně vajec, lektvarů a jídla! Právě nalezeno <strong> vejce zvířátka <%= eggText %></strong>! <%= eggNotes %>",
     "useGems": "Pokud ti padlo oko na zvířátko a nemůžeš se dočkat až ti padne, použij Drahokamy v  <strong> Inventář > Trh </strong>  a kup si ho!",
-    "hatchAPot": "<%= potion %> <%= egg %>, jsi si jistý?",
+    "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
     "hatchedPet": "You hatched a new <%= potion %> <%= egg %>!",
     "displayNow": "Zobrazit hned",
     "displayLater": "Zobrazit později",

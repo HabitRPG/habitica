@@ -13,13 +13,15 @@
         .row.icon-row
           .col-4.offset-4(v-bind:class="{ 'offset-8': isParty }")
             .item-with-icon(@click="showMemberModal()")
-              .svg-icon.shield(v-html="icons.goldGuildBadgeIcon")
+              .svg-icon.shield(v-html="icons.goldGuildBadgeIcon", v-if='group.memberCount > 1000')
+              .svg-icon.shield(v-html="icons.silverGuildBadgeIcon", v-if='group.memberCount > 100 && group.memberCount < 999')
+              .svg-icon.shield(v-html="icons.bronzeGuildBadgeIcon", v-if='group.memberCount < 100')
               span.number {{group.memberCount}}
               div(v-once) {{ $t('members') }}
           .col-4(v-if='!isParty')
             .item-with-icon
               .svg-icon.gem(v-html="icons.gem")
-              span.number {{group.balance}}
+              span.number {{group.balance * 4}}
               div(v-once) {{ $t('guildBank') }}
     .row.chat-row
       .col-12
@@ -41,7 +43,7 @@
         .button-container
           button.btn.btn-primary(b-btn, @click="updateGuild", v-once, v-if='isLeader') {{ $t('edit') }}
         .button-container
-          button.btn.btn-success(class='btn-success', v-if='!isMember') {{ $t('join') }}
+          button.btn.btn-success(class='btn-success', v-if='!isMember', @click='join()') {{ $t('join') }}
         .button-container
           button.btn.btn-primary(v-once, @click='showInviteModal()') {{$t('invite')}}
         .button-container
@@ -392,7 +394,9 @@ import informationIcon from 'assets/svg/information.svg';
 import questBackground from 'assets/svg/quest-background-border.svg';
 import upIcon from 'assets/svg/up.svg';
 import downIcon from 'assets/svg/down.svg';
-import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge.svg';
+import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge-small.svg';
+import silverGuildBadgeIcon from 'assets/svg/silver-guild-badge-small.svg';
+import bronzeGuildBadgeIcon from 'assets/svg/bronze-guild-badge-small.svg';
 
 export default {
   mixins: [groupUtilities, styleHelper],
@@ -429,6 +433,8 @@ export default {
         upIcon,
         downIcon,
         goldGuildBadgeIcon,
+        silverGuildBadgeIcon,
+        bronzeGuildBadgeIcon,
       }),
       selectedQuest: {},
       sections: {
@@ -625,22 +631,18 @@ export default {
         // Achievement.displayAchievement('partyOn');
       }
     },
-    // @TODO: This should be moved to notifications component
     async join () {
-      if (this.group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
+      // @TODO: This needs to be in the notifications where users will now accept invites
+      if (this.group.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
-
-      await this.$store.dispatch('guilds:join', {groupId: this.group._id});
-
-      // @TODO: Implement
-      // User.sync();
-      // Analytics.updateUser({'partyID': party.id});
-      // $rootScope.hardRedirect('/#/options/groups/party');
+      await this.$store.dispatch('guilds:join', {guildId: this.group._id, type: 'myGuilds'});
+      this.user.guilds.push(this.group._id);
     },
     clickLeave () {
       // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Leave Party'});
       // @TODO: Get challenges and ask to keep or remove
+      if (!confirm('Are you sure you want to leave?')) return;
       let keep = true;
       this.leave(keep);
     },

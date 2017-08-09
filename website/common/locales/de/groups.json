@@ -151,7 +151,7 @@
     "sendInvitations": "Einladungen verschicken",
     "invitationsSent": "Einladungen verschickt!",
     "invitationSent": "Einladung verschickt!",
-    "invitedFriend": "Lade einen Freund ein",
+    "invitedFriend": "Hat einen Freund eingeladen",
     "invitedFriendText": "Dieser Benutzer hat einen Freund (oder Freunde) eingeladen, die ihn nun bei diesem Abenteuer begleiten.",
     "inviteAlertInfo2": "Oder teile diesen Link (kopieren/einfügen):",
     "inviteLimitReached": "Du hast bereits die maximale Anzahl an E-Mail-Einladungen verschickt. Wir haben ein Limit, um Spam-Mails zu vermeiden. Wenn du mehr Einladungen versenden möchtest, schreibe uns unter <%= techAssistanceEmail %> und wir werden eine gemeinsame Lösung finden!",

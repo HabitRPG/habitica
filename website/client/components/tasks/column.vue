@@ -9,7 +9,7 @@
         :class="{active: activeFilter.label === filter.label}",
         @click="activateFilter(type, filter)",
       ) {{ $t(filter.label) }}
-  .tasks-list
+  .tasks-list(ref="taskList")
     task(
       v-for="task in taskList",
       :key="task.id", :task="task",
@@ -26,7 +26,11 @@
         )
 
     .bottom-gradient
-    .column-background(v-if="isUser === true", :class="{'initial-description': tasks[`${type}s`].length === 0}")
+    .column-background(
+      v-if="isUser === true",
+      :class="{'initial-description': tasks[`${type}s`].length === 0}",
+      ref="columnBackground",
+    )
       .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
       h3(v-once) {{$t('theseAreYourTasks', {taskType: `${type}s`})}}
       .small-text {{$t(`${type}sDesc`)}}
@@ -155,6 +159,7 @@ import todoIcon from 'assets/svg/todo.svg';
 import rewardIcon from 'assets/svg/reward.svg';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import shopItem from '../shops/shopItem';
+import throttle from 'lodash/throttle';
 
 export default {
   components: {
@@ -227,6 +232,17 @@ export default {
       return inAppRewards(this.user);
     },
   },
+  watch: {
+    taskList: {
+      handler: throttle(function setColumnBackgroundVisibility () {
+        this.setColumnBackgroundVisibility();
+      }, 250),
+      deep: true,
+    },
+  },
+  mounted () {
+    this.setColumnBackgroundVisibility();
+  },
   methods: {
     ...mapActions({loadCompletedTodos: 'tasks:fetchCompletedTodos'}),
     editTask (task) {
@@ -237,6 +253,23 @@ export default {
         this.loadCompletedTodos();
       }
       this.activeFilter = filter;
+    },
+    setColumnBackgroundVisibility () {
+      this.$nextTick(() => {
+        const taskListEl = this.$refs.taskList;
+        const tasklistHeight = taskListEl.offsetHeight;
+        let combinedTasksHeights = 0;
+        Array.from(taskListEl.getElementsByClassName('task')).forEach(el => {
+          combinedTasksHeights += el.offsetHeight;
+        });
+        const columnBackgroundStyle = this.$refs.columnBackground.style;
+
+        if (tasklistHeight - combinedTasksHeights < 150) {
+          columnBackgroundStyle.display = 'none';
+        } else {
+          columnBackgroundStyle.display = 'block';
+        }
+      });
     },
     filterTask (task) {
       // View

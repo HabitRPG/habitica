@@ -47,7 +47,7 @@
       .form-group
         label
           strong(v-once) {{$t('prize')}}
-        input(type='number', min='1', :max='maxPrize')
+        input(type='number', min='1', :max='maxPrize', v-model="workingChallenge.prize")
       .row.footer-wrap
         .col-12.text-center.submit-button-wrapper
           .alert.alert-warning(v-if='insufficientGemsForTavernChallenge')
@@ -136,99 +136,59 @@ export default {
   data () {
     let categoryOptions = [
       {
-        label: 'Habitica Official',
+        label: 'habitica_official',
         key: 'habitica_official',
       },
       {
-        label: 'Academic',
-        key: 'academic',
+        label: 'academics',
+        key: 'academics',
       },
       {
-        label: 'Accountability',
-        key: 'accountability',
-      },
-      {
-        label: 'Advocacy & Causes',
+        label: 'advocacy_causes',
         key: 'advocacy_causes',
       },
       {
-        label: 'animals',
-        key: 'animals',
-      },
-      {
-        label: 'Creativity',
+        label: 'creativity',
         key: 'creativity',
       },
       {
-        label: 'Entertainment & Fandom',
-        key: 'entertainment_fandom',
+        label: 'entertainment',
+        key: 'entertainment',
       },
       {
-        label: 'Finance',
+        label: 'finance',
         key: 'finance',
       },
       {
-        label: 'Food & Cooking',
-        key: 'food_cooking',
-      },
-      {
-        label: 'Games & Gaming',
-        key: 'games_gaming',
-      },
-      {
-        label: 'Health + Fitness',
+        label: 'health_fitness',
         key: 'health_fitness',
       },
       {
-        label: 'Hobbies',
-        key: 'hobbies',
+        label: 'hobbies_occupations',
+        key: 'hobbies_occupations',
       },
       {
-        label: 'Language & Literature',
-        key: 'language_literature',
-      },
-      {
-        label: 'Location-based',
+        label: 'location_based',
         key: 'location_based',
       },
       {
-        label: 'Mental Health',
+        label: 'mental_health',
         key: 'mental_health ',
       },
       {
-        label: 'Occupations',
-        key: 'occupations ',
-      },
-      {
-        label: 'Online Communities',
-        key: 'online_communities ',
-      },
-      {
-        label: 'Getting Organized',
+        label: 'getting_organized',
         key: 'getting_organized ',
       },
       {
-        label: 'Recovery',
-        key: 'recovery ',
-      },
-      {
-        label: 'Role-Play',
-        key: 'role_play ',
-      },
-      {
-        label: 'Self-Care',
-        key: 'self_care ',
-      },
-      {
-        label: 'Self-Improvement',
+        label: 'self_improvement',
         key: 'self_improvement ',
       },
       {
-        label: 'Spirituality',
+        label: 'spirituality',
         key: 'spirituality ',
       },
       {
-        label: 'Time-Management',
+        label: 'time_management',
         key: 'time_management',
       },
     ];
@@ -330,6 +290,9 @@ export default {
       this.workingChallenge.timestamp = new Date().getTime();
 
       let challenge = await this.$store.dispatch('challenges:createChallenge', {challenge: this.workingChallenge});
+      // @TODO: When to remove from guild instead?
+      this.user.balance -= this.workingChallenge.prize / 4;
+
       this.$emit('createChallenge', challenge);
       this.ressetWorkingChallenge();
       this.$root.$emit('hide::modal', 'challenge-modal');

@@ -20,7 +20,16 @@ export function set (store, changes) {
   const user = store.state.user.data;
 
   for (let key in changes) {
-    setProps(user, key, changes[key]);
+    if (key === 'tags') {
+      // Keep challenge and group tags
+      const oldTags = user.tags.filter(t => {
+        return t.group || t.challenge;
+      });
+
+      user.tags = changes[key].concat(oldTags);
+    } else {
+      setProps(user, key, changes[key]);
+    }
   }
 
   axios.put('/api/v3/user', changes);
