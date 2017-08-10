@@ -139,6 +139,7 @@
               :popoverPosition="'top'",
               :emptyItem="!context.item.isOwned()",
               :showPopover="context.item.isOwned()",
+              @click="selectMount(context.item)"
             )
               span(slot="popoverContent")
                 h4.popover-content-title {{ context.item.name }}
@@ -873,7 +874,12 @@
           this.currentDraggingFood = null;
           this.foodClickMode = false;
         } else {
-          if (pet.isOwned() || !pet.isHatchable()) {
+          if (pet.isOwned()) {
+            this.selectPet(pet);
+            return;
+          }
+
+          if (!pet.isHatchable()) {
             return;
           }
           // opens the hatch dialog
