@@ -1,6 +1,9 @@
 import axios from 'axios';
 
 const STRIPE_PUB_KEY = 'pk_test_H2UTCXDnMnLk4fenwedAlFty'; // @TODO: load from env
+const AMAZON_PAYMENTS = {
+  SELLER_ID: 'A3SJVJ393CDLJF',
+};
 import subscriptionBlocks from '../../common/script/content/subscriptionBlocks';
 
 export default {
@@ -47,8 +50,8 @@ export default {
 
           let response = await axios.post(url, res);
 
-          let status = response.status;
-          if (status >= 400) {
+          let responseStatus = response.status;
+          if (responseStatus >= 400) {
             alert(`Error: ${response.message}`);
             return;
           }
@@ -72,6 +75,34 @@ export default {
         return false;
       }
       return true;
+    },
+    amazonPaymentsInit (data) {
+      // @TODO: Do we need this? if (!this.isAmazonReady) return;
+      if (!this.checkGemAmount(data)) return;
+      if (data.type !== 'single' && data.type !== 'subscription') return;
+
+      if (data.gift) {
+        if (data.gift.gems && data.gift.gems.amount && data.gift.gems.amount <= 0) return;
+        data.gift.uuid = data.giftedTo;
+      }
+
+      if (data.subscription) {
+        this.amazonPayments.subscription = data.subscription;
+        this.amazonPayments.coupon = data.coupon;
+      }
+
+      if (data.groupId) {
+        this.amazonPayments.groupId = data.groupId;
+      }
+
+      if (data.groupToCreate) {
+        this.amazonPayments.groupToCreate = data.groupToCreate;
+      }
+
+      this.amazonPayments.gift = data.gift;
+      this.amazonPayments.type = data.type;
+
+      this.$root.$emit('show::modal', 'amazon-payment');
     },
   },
 };

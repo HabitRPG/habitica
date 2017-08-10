@@ -1,5 +1,6 @@
 <template lang="pug">
 div
+  amazon-payments-modal(:amazon-payments='amazonPayments')
   div(v-if='activePage === PAGES.BENEFITS')
     .header
       h1.text-center Need more for your Group?
@@ -164,12 +165,17 @@ div
 
 <script>
 import paymentsMixin from '../../mixins/payments';
+import amazonPaymentsModal from '../payments/amazonModal';
 
 export default {
   mixins: [paymentsMixin],
+  components: {
+    amazonPaymentsModal,
+  },
   data () {
     return {
-      StripeCheckout,
+      StripeCheckout: {},
+      amazonPayments: {},
       PAGES: {
         CREATE_GROUP: 'create-group',
         UPGRADE_GROUP: 'upgrade-group',
@@ -218,21 +224,20 @@ export default {
       this.changePage(this.PAGES.CREATE_GROUP);
     },
     pay () {
-      console.log(this.paymentMethod)
       let subscriptionKey = 'group_monthly'; // @TODO: Get from content API?
       if (this.paymentMethod === this.PAYMENTS.STRIPE) {
         this.showStripe({
           subscription: subscriptionKey,
           coupon: null,
-          groupToCreate: this.newGroup
+          groupToCreate: this.newGroup,
         });
       } else if (this.paymentMethod === this.PAYMENTS.AMAZON) {
-        // Payments.amazonPayments.init({
-        //   type: 'subscription',
-        //   subscription: subscriptionKey,
-        //   coupon: null,
-        //   groupToCreate: this.newGroup
-        // });
+        this.amazonPaymentsInit({
+          type: 'subscription',
+          subscription: subscriptionKey,
+          coupon: null,
+          groupToCreate: this.newGroup,
+        });
       }
     },
   },

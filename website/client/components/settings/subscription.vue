@@ -323,34 +323,6 @@ export default {
     getCancelSubInfo () {
       return this.$t(`cancelSubInfo${this.user.purchased.plan.paymentMethod}`);
     },
-    amazonPaymentsInit (data) {
-      if (!this.isAmazonReady) return;
-      if (!this.checkGemAmount(data)) return;
-      if (data.type !== 'single' && data.type !== 'subscription') return;
-
-      if (data.gift) {
-        if (data.gift.gems && data.gift.gems.amount && data.gift.gems.amount <= 0) return;
-        data.gift.uuid = data.giftedTo;
-      }
-
-      if (data.subscription) {
-        this.amazonPayments.subscription = data.subscription;
-        this.amazonPayments.coupon = data.coupon;
-      }
-
-      if (data.groupId) {
-        this.amazonPayments.groupId = data.groupId;
-      }
-
-      if (data.groupToCreate) {
-        this.amazonPayments.groupToCreate = data.groupToCreate;
-      }
-
-      this.amazonPayments.gift = data.gift;
-      this.amazonPayments.type = data.type;
-
-      this.$root.$emit('show::modal', 'amazon-payment');
-    },
     payPalPayment (data) {
       if (!this.checkGemAmount(data)) return;
 
