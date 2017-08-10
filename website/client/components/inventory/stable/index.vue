@@ -99,13 +99,21 @@
                 :popoverPosition="'top'",
                 :progress="context.item.progress",
                 :emptyItem="!context.item.isOwned()",
-                :showPopover="context.item.isOwned()",
+                :showPopover="context.item.isOwned() || context.item.isHatchable()",
                 :highlightBorder="highlightPet == context.item.key",
                 @click="petClicked(context.item)"
               )
                 span(slot="popoverContent")
                   div(v-if="context.item.isOwned()")
                     h4.popover-content-title {{ context.item.name }}
+                  div.hatchablePopover(v-else-if="context.item.isHatchable()")
+                    h4.popover-content-title {{ context.item.name }}
+                    div.popover-content-text(v-html="$t('haveHatchablePet', { potion: context.item.potionName, egg: context.item.eggName })")
+                    div.potionEggGroup
+                      div.potionEggBackground
+                        div(:class="'Pet_HatchingPotion_'+context.item.potionKey")
+                      div.potionEggBackground
+                        div(:class="'Pet_Egg_'+context.item.eggKey")
 
                 template(slot="itemBadge", scope="context")
                   starBadge(
@@ -439,6 +447,33 @@
     .popover {
       position: inherit;
       width: 100px;
+    }
+  }
+
+  .hatchablePopover {
+    width: 180px;
+
+    .potionEggGroup {
+      margin: 0 auto;
+      margin-top: 10px;
+    }
+
+    .potionEggBackground {
+      display: inline-flex;
+      align-items: center;
+
+      width: 64px;
+      height: 64px;
+      border-radius: 2px;
+      background-color: #4e4a57;
+
+      &:first-child {
+        margin-right: 24px;
+      }
+
+      & div {
+        margin: 0 auto;
+      }
     }
   }
 </style>
