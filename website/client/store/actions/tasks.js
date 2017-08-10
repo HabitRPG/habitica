@@ -143,3 +143,13 @@ export async function createChallengeTasks (store, payload) {
   let response = await axios.post(`/api/v3/tasks/challenge/${payload.challengeId}`, payload.tasks);
   return response.data.data;
 }
+
+export async function getGroupTasks (store, payload) {
+  let response = await axios.get(`/api/v3/tasks/group/${payload.groupId}`);
+  return response.data.data;
+}
+
+export async function createGroupTasks (store, payload) {
+  let response = await axios.post(`/api/v3/tasks/group/${payload.groupId}`, payload.taskDetails);
+  return response.data.data;
+}

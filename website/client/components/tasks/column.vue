@@ -19,7 +19,7 @@
     )
     .bottom-gradient
     .column-background(
-      v-if="isUser === true", 
+      v-if="isUser === true",
       :class="{'initial-description': tasks[`${type}s`].length === 0}",
       ref="columnBackground",
     )
@@ -241,6 +241,9 @@ export default {
         Array.from(taskListEl.getElementsByClassName('task')).forEach(el => {
           combinedTasksHeights += el.offsetHeight;
         });
+
+        if (!this.$refs.columnBackground) return;
+
         const columnBackgroundStyle = this.$refs.columnBackground.style;
 
         if (tasklistHeight - combinedTasksHeights < 150) {
