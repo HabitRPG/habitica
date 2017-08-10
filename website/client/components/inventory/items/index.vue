@@ -47,7 +47,6 @@
             :item="context.item",
             :key="context.item.key",
             :itemContentClass="`${group.classPrefix}${context.item.key}`",
-            :showPopover="currentDraggingPotion == null",
             :highlightBorder="currentDraggingPotion != null",
             v-drag.drop.hatch="context.item.key",
 
@@ -59,7 +58,7 @@
           )
             template(slot="popoverContent", scope="context")
               h4.popover-content-title {{ context.item.text() }}
-              .popover-content-text {{ context.item.notes() }}
+              .popover-content-text(v-if="currentDraggingPotion == null") {{ context.item.notes() }}
             template(slot="itemBadge", scope="context")
               span.badge.badge-pill.badge-item.badge-quantity {{ context.item.quantity }}
 
