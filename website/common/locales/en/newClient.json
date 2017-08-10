@@ -276,5 +276,6 @@
   "time_management": "Time-Management + Accountability",
   "recovery_support_groups": "Recovery + Support Groups",
   "equip": "Equip",
-  "unequip": "Unequip"
+  "unequip": "Unequip",
+  "sortByName": "Name"
 }
