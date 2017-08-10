@@ -1277,8 +1277,8 @@ api.getGroupPlans = {
       .select('leaderOnly leader purchased name')
       .exec();
 
-    let groupPlans = groups.filter(g => {
-      return g.isSubscribed();
+    let groupPlans = groups.filter(group => {
+      return group.isSubscribed();
     });
 
     res.respond(200, groupPlans);

@@ -1,9 +1,6 @@
 import axios from 'axios';
 
 const STRIPE_PUB_KEY = 'pk_test_H2UTCXDnMnLk4fenwedAlFty'; // @TODO: load from env
-const AMAZON_PAYMENTS = {
-  SELLER_ID: 'A3SJVJ393CDLJF',
-};
 import subscriptionBlocks from '../../common/script/content/subscriptionBlocks';
 
 export default {

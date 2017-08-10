@@ -71,6 +71,10 @@ const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ './com
 const GuildPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/guild');
 const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/groupPlan');
 
+// Group Plans
+const GroupPlanIndex = () => import(/* webpackChunkName: "group-plans" */ './components/group-plans/index');
+const GroupPlanTaskInformation = () => import(/* webpackChunkName: "group-plans" */ './components/group-plans/taskInformation');
+
 // Challenges
 const ChallengeIndex = () => import(/* webpackChunkName: "challenges" */ './components/challenges/index');
 const MyChallenges = () => import(/* webpackChunkName: "challenges" */ './components/challenges/myChallenges');
@@ -122,6 +126,26 @@ const router = new VueRouter({
     },
     { name: 'party', path: '/party', component: GuildPage },
     { name: 'groupPlan', path: '/group-plans', component: GroupPlansAppPage },
+    {
+      name: 'groupPlanDetail',
+      path: '/group-plans/:groupId',
+      component: GroupPlanIndex,
+      props: true,
+      children: [
+        {
+          name: 'groupPlanDetailTaskInformation',
+          path: '/group-plans/:groupId/task-information',
+          component: GroupPlanTaskInformation,
+          props: true,
+        },
+        {
+          name: 'groupPlanDetailInformation',
+          path: '/group-plans/:groupId/information',
+          component: GuildPage,
+          props: true,
+        },
+      ],
+    },
     {
       path: '/groups',
       component: GuildIndex,
