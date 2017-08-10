@@ -107,7 +107,7 @@ export default {
     amazonPaymentsCanCheckout () {
       if (this.amazonPayments.type === 'single') {
         return this.amazonPaymentspaymentSelected === true;
-      } else if(this.amazonPayments.type === 'subscription') {
+      } else if (this.amazonPayments.type === 'subscription') {
         return this.amazonPaymentspaymentSelected === true &&
                 // Mah.. one is a boolean the other a string...
                 this.amazonPaymentsrecurringConsent === 'true';
