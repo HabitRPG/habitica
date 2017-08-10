@@ -477,6 +477,8 @@
   import svgInformation from 'assets/svg/information.svg';
   import svgClose from 'assets/svg/close.svg';
 
+  import notifications from 'client/mixins/notifications';
+
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
   // import deepFreeze from 'client/libs/deepFreeze';
@@ -485,6 +487,7 @@
   let lastMouseMoveEvent = {};
 
   export default {
+    mixins: [notifications],
     components: {
       PetItem,
       Item,
@@ -848,10 +851,10 @@
         }
       },
 
-      onDrop (ev, pet) {
-        this.$store.dispatch('common:feed', {pet: pet.key, food: ev.draggingKey});
-
+      async onDrop (ev, pet) {
         this.highlightPet = '';
+
+        this.feedAction(pet.key, ev.draggingKey);
       },
 
       onDragEnd () {
@@ -866,7 +869,7 @@
       petClicked (pet) {
         if (this.currentDraggingFood !== null && pet.isAllowedToFeed()) {
           // food process
-          this.$store.dispatch('common:feed', {pet: pet.key, food: this.currentDraggingFood.key});
+          this.feedAction(pet.key, this.currentDraggingFood.key);
           this.currentDraggingFood = null;
           this.foodClickMode = false;
         } else {
@@ -875,6 +878,14 @@
           }
           // opens the hatch dialog
           this.hatchablePet = pet;
+        }
+      },
+
+      async feedAction (petKey, foodKey) {
+        let result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
+
+        if (result.message) {
+          this.text(result.message);
         }
       },
 
