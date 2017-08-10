@@ -1,7 +1,20 @@
 <template lang="pug">
   b-modal#amazon-payment(title="Amazon", :hide-footer="true", size='lg')
     button#AmazonPayButton
+    #AmazonPayWallet(v-if="amazonPayments.loggedIn", style="width: 400px; height: 228px;")
+    #AmazonPayRecurring(v-if="amazonPayments.loggedIn && amazonPayments.type === 'subscription'",
+                        style="width: 400px; height: 140px;")
+    .modal-footer
+      .btn.btn-primary(:disabled="amazonPaymentsCanCheckout() || !amazonButtonEnabled",
+        @click="amazonCheckOut()") {{ $t('checkout') }}
 </template>
+
+<style scoped>
+  #AmazonPayRecurring {
+    height: 200px;
+    width: 500px;
+  }
+</style>
 
 <script>
 import axios from 'axios';
@@ -22,6 +35,10 @@ export default {
     return {
       OffAmazonPayments: {},
       isAmazonReady: false,
+      amazonButtonEnabled: false,
+      amazonPaymentsbillingAgreementId: '',
+      amazonPaymentspaymentSelected: false,
+      amazonPaymentsrecurringConsent: 'false',
     };
   },
   mounted () {
@@ -51,7 +68,7 @@ export default {
           this.amazonPaymentsbillingAgreementId = contract.getAmazonBillingAgreementId();
 
           if (this.amazonPayments.type === 'subscription') {
-            this.amazonPaymentsloggedIn = true;
+            this.amazonPayments.loggedIn = true;
             this.amazonPaymentsinitWidgets();
           } else {
             let url = '/amazon/createOrderReferenceId';
@@ -60,7 +77,7 @@ export default {
             });
 
             // @TODO: Success
-            this.amazonPaymentsloggedIn = true;
+            this.amazonPayments.loggedIn = true;
             this.amazonPaymentsorderReferenceId = response.data.orderReferenceId;
             this.OffAmazonPayments.amazonPaymentsinitWidgets();
             // @TODO: error
@@ -88,15 +105,15 @@ export default {
   },
   methods: {
     amazonPaymentsCanCheckout () {
-      // if (this.amazonPayments.type === 'single') {
-      //   return this.amazonPaymentspaymentSelected === true;
-      // } else if(this.amazonPayments.type === 'subscription') {
-      //   return this.amazonPaymentspaymentSelected === true &&
-      //           // Mah.. one is a boolean the other a string...
-      //           this.amazonPaymentsrecurringConsent === 'true';
-      // } else {
-      //   return false;
-      // }
+      if (this.amazonPayments.type === 'single') {
+        return this.amazonPaymentspaymentSelected === true;
+      } else if(this.amazonPayments.type === 'subscription') {
+        return this.amazonPaymentspaymentSelected === true &&
+                // Mah.. one is a boolean the other a string...
+                this.amazonPaymentsrecurringConsent === 'true';
+      } else {
+        return false;
+      }
     },
     amazonInitWidgets () {
       let walletParams = {
@@ -164,29 +181,34 @@ export default {
       } else if (this.amazonPayments.type === 'subscription') {
         let url = '/amazon/subscribe';
 
-        if (this.amazonPaymentsgroupToCreate) {
+        if (this.amazonPayments.groupToCreate) {
           url = '/api/v3/groups/create-plan';
         }
 
         let response = await axios.post(url, {
           billingAgreementId: this.amazonPaymentsbillingAgreementId,
-          subscription: this.amazonPaymentssubscription,
-          coupon: this.amazonPaymentscoupon,
-          groupId: this.amazonPaymentsgroupId,
-          groupToCreate: this.amazonPaymentsgroupToCreate,
+          subscription: this.amazonPayments.subscription,
+          coupon: this.amazonPayments.coupon,
+          groupId: this.amazonPayments.groupId,
+          groupToCreate: this.amazonPayments.groupToCreate,
           paymentType: 'Amazon',
         });
 
-        // IF success
-        this.amazonPaymentsreset();
-        if (response && response.data && response.data._id) {
-          this.$router.push(`/groups/guilds/${response.data._id}`);
-        } else {
-          this.$router.push('/');
+        let responseStatus = response.status;
+        if (responseStatus >= 400) {
+          alert(`Error: ${response.message}`);
+          // @TODO: do we need this? this.amazonPaymentsreset();
+          return;
         }
 
-        // if fails
-        alert(response.message);
+        let newGroup = response.data.data;
+        if (newGroup && newGroup._id) {
+          // @TODO: Just append? or $emit?
+          this.$router.push(`/groups/guild/${newGroup._id}`);
+          return;
+        }
+
+        window.location.reload(true);
         this.amazonPaymentsreset();
       }
     },
@@ -244,7 +266,7 @@ export default {
       this.amazonPaymentsmodal.close(); // @TODO:  this.$root.$emit('hide::modal', 'guild-form');
       this.amazonPaymentsmodal = null;
       this.amazonPayments.type = null;
-      this.amazonPaymentsloggedIn = false;
+      this.amazonPayments.loggedIn = false;
       this.amazonPaymentsgift = null;
       this.amazonPaymentsbillingAgreementId = null;
       this.amazonPaymentsorderReferenceId = null;
