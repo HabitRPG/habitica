@@ -127,15 +127,8 @@
           return false;
         }
 
-        if (this.item.str === 0
-          && this.item.int === 0
-          && this.item.per === 0
-          && this.item.con === 0) {
-          return false;
-        }
-
         return true;
-      }
+      },
     },
     methods: {
       onChange ($event) {
