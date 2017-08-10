@@ -66,7 +66,7 @@
     "itemDrop": "Bir eşya buldun!",
     "firstDrop": "Düşürme Sistemine erişim kazandın! Artık tamamladığın her iş için yumurta, iksir ve yiyecek bulmak için küçük bir şansın olacak! Hatta az önce bir <strong><%= eggText %> Yumurtası buldun</strong>! <%= eggNotes %>",
     "useGems": "Eğer bir hayvanı gözüne kestirdiysen ama bulmayı daha fazla beklemek istemiyorsan, <strong>Envanter > Pazar</strong> sayfasından bir tane satın alabilirsin!",
-    "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
+    "hatchAPot": "Bir <%= potion %> <%= egg %> oluşturulsun mu?",
     "hatchedPet": "Yumurtadan bir <%= potion %> <%= egg %> çıktı!",
     "displayNow": "Şimdi Görüntüle",
     "displayLater": "Sonra Görüntüle",
