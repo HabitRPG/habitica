@@ -330,7 +330,7 @@ let quests = {
     text: t('questEggHippoText'),
     mountText: t('questEggHippoMountText'),
     adjective: t('questEggHippoAdjective'),
-    canBuy: hasQuestAchievementFunction('nudibranch'),
+    canBuy: hasQuestAchievementFunction('hippo'),
   },
 };
 
