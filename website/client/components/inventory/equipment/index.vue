@@ -229,7 +229,6 @@ export default {
       });
     },
     sortItems (items, sortBy) {
-      console.info('sort', items, sortBy);
       return _sortBy(items, sortGearTypeMap[sortBy]);
     },
   },

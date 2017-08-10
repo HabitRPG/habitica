@@ -200,7 +200,8 @@
       :ok-only="true",
       :ok-title="$t('gotIt')",
       :visible="!hideDialog",
-      :hide-header="true"
+      :hide-header="true",
+      @hide="hideFlag()"
     )
       div.content
         div.npc_matt
@@ -911,6 +912,12 @@
         } else {
           lastMouseMoveEvent = $event;
         }
+      },
+
+      hideFlag () {
+        this.$store.dispatch('user:set', {
+          ['flags.tutorial.common.mounts']: true,
+        });
       },
     },
   };
