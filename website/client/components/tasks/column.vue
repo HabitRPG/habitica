@@ -18,7 +18,7 @@
       @editTask="editTask",
     )
     template(v-if="isUser === true && type === 'reward' && activeFilter.label !== 'custom'")
-      div.reward-items
+      .reward-items
         shopItem(
           v-for="reward in inAppRewards",
           :item="reward",
@@ -263,6 +263,12 @@ export default {
         Array.from(taskListEl.getElementsByClassName('task')).forEach(el => {
           combinedTasksHeights += el.offsetHeight;
         });
+
+        const rewardsList = taskListEl.getElementsByClassName('reward-items')[0];
+        if (rewardsList) {
+          combinedTasksHeights += rewardsList.offsetHeight;
+        }
+
         const columnBackgroundStyle = this.$refs.columnBackground.style;
 
         if (tasklistHeight - combinedTasksHeights < 150) {

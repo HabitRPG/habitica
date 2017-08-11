@@ -33,8 +33,12 @@ b-popover(
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
-.item {
-  min-height: 106px;
+  .item-wrapper {
+    z-index: 10;
+  }
+
+  .item {
+    min-height: 106px;
   }
 
   .item.item-empty {
