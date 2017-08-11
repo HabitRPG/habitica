@@ -76,8 +76,9 @@ form(
         label(v-once) {{ $t('repeatEvery') }}
         input.form-control(type="number", v-model="task.everyX", min="0", required)
         | {{ repeatSuffix }}
+        br
         template(v-if="task.frequency === 'weekly'")
-          .form-check(
+          .form-check-inline.weekday-check(
             v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']",
             :key="dayNumber",
           )
@@ -310,6 +311,11 @@ form(
       .cancel-task-btn {
         color: $blue-10;
       }
+    }
+
+    .weekday-check {
+      margin-left: 0px;
+      width: 57px;
     }
   }
 </style>
