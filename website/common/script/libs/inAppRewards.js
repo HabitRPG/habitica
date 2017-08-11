@@ -10,7 +10,7 @@ module.exports = function getPinnedItems (user) {
     return !isUnpinned;
   });
 
-  const pinnedItems = user.pinnedItems.concat(officialPinnedItemsNotUnpinned);
+  const pinnedItems = officialPinnedItemsNotUnpinned.concat(user.pinnedItems);
 
   return pinnedItems.map(({type, path}) => {
     return getItemInfo(user, type, get(content, path));

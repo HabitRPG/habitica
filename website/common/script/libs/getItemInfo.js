@@ -209,6 +209,29 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         pinType: 'mystery_set',
       };
       break;
+    case 'potion':
+      itemInfo = {
+        key: item.key,
+        text: item.text(language),
+        value: item.value,
+        currency: 'gold',
+        purchaseType: 'potions',
+        class: `shop_${item.key}`,
+        path: 'potion',
+        pinType: 'potion',
+      };
+      break;
+    case 'armoire':
+      itemInfo = {
+        key: item.key,
+        text: item.text(language),
+        value: item.value,
+        currency: 'gold',
+        purchaseType: 'armoire',
+        class: `shop_${item.key}`,
+        path: 'armoire',
+        pinType: 'armoire',
+      };
   }
 
   if (itemInfo) {
