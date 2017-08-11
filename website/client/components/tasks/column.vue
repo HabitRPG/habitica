@@ -207,6 +207,7 @@ export default {
       userPreferences: 'user.data.preferences',
     }),
     taskList () {
+      // @TODO: This should not default to user's tasks. It should require that you pass options in
       if (this.taskListOverride) return this.taskListOverride;
       return this.tasks[`${this.type}s`];
     },

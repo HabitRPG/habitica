@@ -62,6 +62,15 @@
           span.dropdown-icon-item(v-once)
             span.svg-icon.inline(v-html="icons[type]")
             span.text {{$t(type)}}
+      task-modal(
+        :task="workingTask",
+        :purpose="taskFormPurpose",
+        @cancel="cancelTaskModal()",
+        ref="taskModal",
+        :groupId="groupId",
+        v-on:taskCreated='taskCreated',
+        v-on:taskEdited='taskEdited',
+      )
   .row
     task-column.col-3(
       v-for="column in columns",
@@ -72,7 +81,9 @@
 </template>
 
 <script>
+import taskDefaults from 'common/script/libs/taskDefaults';
 import TaskColumn from '../tasks/column';
+import TaskModal from '../tasks/taskModal';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
@@ -87,12 +98,14 @@ import rewardIcon from 'assets/svg/reward.svg';
 import Vue from 'vue';
 import cloneDeep from 'lodash/cloneDeep';
 import groupBy from 'lodash/groupBy';
+import findIndex from 'lodash/findIndex';
 import { mapState } from 'client/libs/store';
 
 export default {
   props: ['groupId'],
   components: {
     TaskColumn,
+    TaskModal,
     bDropdown,
     bDropdownItem,
   },
@@ -100,7 +113,9 @@ export default {
     let tasks = await this.$store.dispatch('tasks:getGroupTasks', {
       groupId: this.groupId,
     });
-    if (tasks.length > 0) this.tasksByType = groupBy(tasks, 'type');
+    tasks.forEach((task) => {
+      this.tasksByType[task.type].push(task);
+    });
   },
   data () {
     return {
@@ -111,6 +126,10 @@ export default {
         todo: [],
         reward: [],
       },
+      editingTask: {},
+      creatingTask: {},
+      workingTask: {},
+      taskFormPurpose: 'create',
       // @TODO: Separate component?
       searchText: '',
       selectedTags: [],
@@ -162,11 +181,36 @@ export default {
   },
   methods: {
     editTask (task) {
+      this.taskFormPurpose = 'edit';
       this.editingTask = cloneDeep(task);
+      this.workingTask = this.editingTask;
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
         this.$root.$emit('show::modal', 'task-modal');
       });
+    },
+    createTask (type) {
+      this.taskFormPurpose = 'create';
+      this.creatingTask = taskDefaults({type, text: ''});
+      this.workingTask = this.creatingTask;
+      // Necessary otherwise the first time the modal is not rendered
+      Vue.nextTick(() => {
+        this.$root.$emit('show::modal', 'task-modal');
+      });
+    },
+    taskCreated (task) {
+      this.tasksByType[task.type].push(task);
+    },
+    taskEdited (task) {
+      let index = findIndex(this.tasksByType[task.type], (taskItem) => {
+        return taskItem._id === task._id;
+      });
+      this.tasksByType[task.type].splice(index, 1, task);
+    },
+    cancelTaskModal () {
+      this.editingTask = null;
+      this.creatingTask = null;
+      this.workingTask = {};
     },
     toggleFilterPanel () {
       if (this.isFilterPanelOpen === true) {

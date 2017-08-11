@@ -150,6 +150,6 @@ export async function getGroupTasks (store, payload) {
 }
 
 export async function createGroupTasks (store, payload) {
-  let response = await axios.post(`/api/v3/tasks/group/${payload.groupId}`, payload.taskDetails);
+  let response = await axios.post(`/api/v3/tasks/group/${payload.groupId}`, payload.tasks);
   return response.data.data;
 }
