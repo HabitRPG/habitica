@@ -1,6 +1,7 @@
 import i18n from '../i18n';
 import content from '../content/index';
 import { BadRequest } from './errors';
+import count from '../count';
 
 function lockQuest (quest, user) {
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
@@ -213,6 +214,7 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
       itemInfo = {
         key: item.key,
         text: item.text(language),
+        notes: item.notes(language),
         value: item.value,
         currency: 'gold',
         purchaseType: 'potions',
@@ -225,6 +227,7 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
       itemInfo = {
         key: item.key,
         text: item.text(language),
+        notes: item.notes(user, count.remainingGearInSet(user.items.gear.owned, 'armoire')), // TODO count
         value: item.value,
         currency: 'gold',
         purchaseType: 'armoire',

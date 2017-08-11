@@ -62,7 +62,14 @@ function updateUser (user) {
 
   var oldRewardsList = updateStore(user);
   var newPinnedItems = [
-    // TODO add Potion and Armoire to everyone
+    {
+      type: 'armoire',
+      path: 'armoire',
+    },
+    {
+      type: 'potion',
+      path: 'potion',
+    },
   ];
 
   oldRewardsList.forEach(item => {

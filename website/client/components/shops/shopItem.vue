@@ -11,6 +11,7 @@ b-popover(
       )
       div(v-else)
         h4.popover-content-title {{ item.text }}
+        .popover-content-text(v-if="showNotes") {{ item.notes }}
 
   .item-wrapper(@click="click()")
     .item(
@@ -149,6 +150,11 @@ b-popover(
       showPopover: {
         type: Boolean,
         default: true,
+      },
+    },
+    computed: {
+      showNotes () {
+        if (['armoire', 'potion'].indexOf(this.item.path) > -1) return true;
       },
     },
     methods: {
