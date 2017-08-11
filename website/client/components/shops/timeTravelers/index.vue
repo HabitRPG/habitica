@@ -348,7 +348,7 @@ export default {
                 value: 1,
                 currency: 'hourglasses',
                 key: c.identifier,
-                class: `shop_set_mystery_${c.identifier}`
+                class: `shop_set_mystery_${c.identifier}`,
               };
             }),
           };

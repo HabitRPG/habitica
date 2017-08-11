@@ -1,4 +1,6 @@
 import i18n from '../i18n';
+import content from '../content/index';
+import { BadRequest } from './errors';
 
 function lockQuest (quest, user) {
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
@@ -7,6 +9,14 @@ function lockQuest (quest, user) {
   }
   if (user.achievements.quests) return quest.previous && !user.achievements.quests[quest.previous];
   return quest.previous;
+}
+
+const officialPinnedItems = content.officialPinnedItems;
+
+function isItemSuggested (itemInfo) {
+  return officialPinnedItems.findIndex(officialItem => {
+    return officialItem.type === itemInfo.type && officialItem.path === itemInfo.path;
+  }) > -1;
 }
 
 function getDefaultGearProps (item, language) {
@@ -28,9 +38,11 @@ function getDefaultGearProps (item, language) {
 }
 
 module.exports = function getItemInfo (user, type, item, language = 'en') {
+  let itemInfo;
+
   switch (type) {
     case 'egg':
-      return {
+      itemInfo = {
         key: item.key,
         text: i18n.t('egg', {eggType: item.text(language)}, language),
         notes: item.notes(language),
@@ -42,8 +54,9 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         path: `eggs.${item.key}`,
         pinType: 'egg',
       };
+      break;
     case 'hatchingPotion':
-      return {
+      itemInfo = {
         key: item.key,
         text: i18n.t('potion', {potionType: item.text(language)}),
         notes: item.notes(language),
@@ -55,8 +68,9 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         path: `hatchingPotions.${item.key}`,
         pinType: 'hatchingPotion',
       };
+      break;
     case 'premiumHatchingPotion':
-      return {
+      itemInfo = {
         key: item.key,
         text: i18n.t('potion', {potionType: item.text(language)}),
         notes: `${item.notes(language)} ${item._addlNotes(language)}`,
@@ -68,8 +82,9 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         path: `premiumHatchingPotions.${item.key}`,
         pinType: 'premiumHatchingPotion',
       };
+      break;
     case 'food':
-      return {
+      itemInfo = {
         key: item.key,
         text: item.text(language),
         notes: item.notes(language),
@@ -81,8 +96,9 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         path: `food.${item.key}`,
         pinType: 'food',
       };
+      break;
     case 'questBundle':
-      return {
+      itemInfo = {
         key: item.key,
         text: item.text(language),
         notes: item.notes(language),
@@ -93,10 +109,11 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         path: `bundles.${item.key}`,
         pinType: 'questBundle',
       };
+      break;
     case 'quest': // eslint-disable-line no-case-declarations
       const locked = lockQuest(item, user);
 
-      return {
+      itemInfo = {
         key: item.key,
         text: item.text(language),
         notes: item.notes(language),
@@ -114,11 +131,13 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         path: `quests.${item.key}`,
         pinType: 'quest',
       };
+      break;
     case 'timeTravelers':
       // TODO
-      return {};
+      itemInfo = {};
+      break;
     case 'seasonalSpell':
-      return {
+      itemInfo = {
         key: item.keyspellKey,
         text: item.text(language),
         notes: item.notes(language),
@@ -131,8 +150,9 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         path: `spells.special.${item.key}`,
         pinType: 'seasonalSpell',
       };
+      break;
     case 'seasonalQuest':
-      return {
+      itemInfo = {
         key: item.key,
         text: item.text(language),
         notes: item.notes(language),
@@ -148,21 +168,24 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         path: `quests.${item.key}`,
         pinType: 'seasonalQuest',
       };
+      break;
     case 'gear':
       // spread operator not available
-      return Object.assign(getDefaultGearProps(item, language), {
+      itemInfo = Object.assign(getDefaultGearProps(item, language), {
         value: item.twoHanded ? 2 : 1,
         currency: 'gems',
         pinType: 'gear',
       });
+      break;
     case 'marketGear':
-      return Object.assign(getDefaultGearProps(item, language), {
+      itemInfo = Object.assign(getDefaultGearProps(item, language), {
         value: item.value,
         currency: 'gold',
         pinType: 'marketGear',
       });
+      break;
     case 'background':
-      return {
+      itemInfo = {
         key: item.key,
         text: item.text(language),
         notes: item.notes(language),
@@ -173,8 +196,9 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         path: `backgrounds.${item.set}.${item.key}`,
         pinType: 'background',
       };
+      break;
     case 'mystery_set':
-      return {
+      itemInfo = {
         key: item.key,
         text: item.text(language),
         value: 1,
@@ -184,5 +208,14 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         path: `mystery.${item.key}`,
         pinType: 'mystery_set',
       };
+      break;
   }
+
+  if (itemInfo) {
+    itemInfo.isSuggested = isItemSuggested(itemInfo);
+  } else {
+    throw new BadRequest(i18n.t('wrongItemType', {type}, language));
+  }
+
+  return itemInfo;
 };
