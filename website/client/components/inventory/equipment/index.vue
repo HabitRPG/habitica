@@ -72,47 +72,45 @@
           :label="label",
           :popoverPosition="'top'",
         )
-          template(slot="popoverContent", scope="ctx")
-            equipmentAttributesPopover(:item="ctx.item")
-          template(slot="itemBadge", scope="ctx")
+          template(slot="popoverContent", scope="context")
+            equipmentAttributesPopover(:item="context.item")
+          template(slot="itemBadge", scope="context")
             starBadge(
               :selected="true",
               :show="!costume || user.preferences.costume",
-              @click="equip(ctx.item)",
+              @click="equip(context.item)",
             )
     div(
       v-for="group in itemsGroups",
       v-if="viewOptions[group.key].selected",
       :key="group.key",
+      :class='group.key',
     )
       h2
        | {{ group.label }}
-       |
        span.badge.badge-pill.badge-default {{items[group.key].length}}
 
-      .items
-        item(
-          v-for="(item, index) in items[group.key]",
-          v-if="viewOptions[group.key].open || index < itemsPerLine",
-          :item="item",
-          :itemContentClass="'shop_' + item.key",
-          :emptyItem="!item || item.key.indexOf('_base_0') !== -1",
-          :key="item.key",
-        )
-          template(slot="itemBadge", scope="ctx")
-            starBadge(
-              :selected="activeItems[ctx.item.type] === ctx.item.key",
-              :show="!costume || user.preferences.costume",
-              @click="equip(ctx.item)",
-            )
-          template(slot="popoverContent", scope="ctx")
-            equipmentAttributesPopover(:item="ctx.item")
-      div(v-if="items[group.key].length === 0")
-        p(v-once) {{ $t('noGearItemsOfType', { type: group.label }) }}
-      a.btn.btn-show-more(
-        v-if="items[group.key].length > itemsPerLine",
-        @click="viewOptions[group.key].open = !viewOptions[group.key].open"
-      ) {{ viewOptions[group.key].open ? $t('showLessItems', { type: group.label }) : $t('showAllItems', { type: group.label, items: items[group.key].length }) }}
+      itemRows(
+        :items="items[group.key]",
+        :itemWidth=94,
+        :itemMargin=24,
+        :noItemsLabel="$t('noGearItemsOfType', { type: group.label })"
+      )
+        template(slot="item", scope="context")
+          item(
+            :item="context.item",
+            :itemContentClass="'shop_' + context.item.key",
+            :emptyItem="!context.item || context.item.key.indexOf('_base_0') !== -1",
+            :key="context.item.key",
+          )
+            template(slot="itemBadge", scope="context")
+              starBadge(
+                :selected="activeItems[context.item.type] === context.item.key",
+                :show="!costume || user.preferences.costume",
+                @click="equip(context.item)",
+              )
+            template(slot="popoverContent", scope="context")
+              equipmentAttributesPopover(:item="context.item")
 </template>
 
 <style lang="scss" scoped>
@@ -133,6 +131,7 @@ import bPopover from 'bootstrap-vue/lib/components/popover';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 
 import Item from 'client/components/inventory/item';
+import ItemRows from 'client/components/ui/itemRows';
 import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
 import StarBadge from 'client/components/ui/starBadge';
 import Drawer from 'client/components/ui/drawer';
@@ -143,6 +142,7 @@ export default {
   name: 'Equipment',
   components: {
     Item,
+    ItemRows,
     EquipmentAttributesPopover,
     StarBadge,
     Drawer,

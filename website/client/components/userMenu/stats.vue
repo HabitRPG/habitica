@@ -169,12 +169,10 @@
 </template>
 
 <style lang="scss" scoped>
-
   .btn-xs {
     font-size: 12px;
     padding: .2em;
   }
-
 </style>
 
 <script>

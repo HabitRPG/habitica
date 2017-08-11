@@ -1,7 +1,7 @@
 <template lang="pug">
 .row(v-if="group")
   group-form-modal
-  invite-modal
+  invite-modal(:group='this.group')
   start-quest-modal(:group='this.group')
   .col-8.standard-page
     .row
@@ -13,35 +13,37 @@
         .row.icon-row
           .col-4.offset-4(v-bind:class="{ 'offset-8': isParty }")
             .item-with-icon(@click="showMemberModal()")
-              .svg-icon.shield(v-html="icons.goldGuildBadgeIcon")
+              .svg-icon.shield(v-html="icons.goldGuildBadgeIcon", v-if='group.memberCount > 1000')
+              .svg-icon.shield(v-html="icons.silverGuildBadgeIcon", v-if='group.memberCount > 100 && group.memberCount < 999')
+              .svg-icon.shield(v-html="icons.bronzeGuildBadgeIcon", v-if='group.memberCount < 100')
               span.number {{group.memberCount}}
               div(v-once) {{ $t('members') }}
           .col-4(v-if='!isParty')
             .item-with-icon
               .svg-icon.gem(v-html="icons.gem")
-              span.number {{group.memberCount}}
+              span.number {{group.balance * 4}}
               div(v-once) {{ $t('guildBank') }}
     .row.chat-row
       .col-12
         h3(v-once) {{ $t('chat') }}
 
-        textarea(:placeholder="$t('chatPlaceHolder')", v-model='newMessage')
+        textarea(:placeholder="!isParty ? $t('chatPlaceHolder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition')
+        autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :groupId='groupId')
         button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
-
+        button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
 
         chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
-  .col-md-4.sidebar
-    .guild-background.row
+  .col-4.sidebar
+    .row(:class='{"guild-background": !isParty}')
       .col-6
-        p(v-if='!isParty')  Image here
       .col-6
         .button-container
           button.btn.btn-success(class='btn-success', v-if='isLeader') {{ $t('upgrade') }}
         .button-container
           button.btn.btn-primary(b-btn, @click="updateGuild", v-once, v-if='isLeader') {{ $t('edit') }}
         .button-container
-          button.btn.btn-success(class='btn-success', v-if='!isMember') {{ $t('join') }}
+          button.btn.btn-success(class='btn-success', v-if='!isMember', @click='join()') {{ $t('join') }}
         .button-container
           button.btn.btn-primary(v-once, @click='showInviteModal()') {{$t('invite')}}
         .button-container
@@ -88,7 +90,7 @@
                 .col-6
                   h4.float-left(v-once) {{ questData.boss.name() }}
                 .col-6
-                  span.float-right(v-once) {{ $t('participants') }}
+                  span.float-right(v-once) {{ $t('participantsTitle') }}
               .row
                 .col-12
                   .grey-progress-bar
@@ -96,9 +98,9 @@
               .row.boss-details
                   .col-6
                     span.float-left
-                      | {{group.quest.progress.hp}} / {{questData.boss.hp}}
+                      | {{parseFloat(group.quest.progress.hp).toFixed(2)}} / {{parseFloat(questData.boss.hp).toFixed(2)}}
                   .col-6
-                    span.float-right 30 pending damage
+                    span.float-right {{group.quest.progress.up || 0}} pending damage
             button.btn.btn-secondary(v-once, @click="questAbort()") {{ $t('abort') }}
 
     .section-header
@@ -112,7 +114,6 @@
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.description")
         p(v-once) {{ group.description }}
-        p Life hacks are tricks, shortcuts, or methods that help increase productivity, efficiency, health, and so on. Generally, they get you to a better state of life. Life hacking is the process of utilizing and implementing these secrets. And, in this guild, we want to help everyone discover these improved ways of doing things.
 
     .section-header
       .row
@@ -124,8 +125,7 @@
           .toggle-down(@click="sections.information = !sections.information", v-if="!sections.information")
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.information")
-        h4 Welcome
-        p Below are some resources that some members might find useful. Consider checking them out before posting any questions, as they just might help answer some of them! Feel free to share your life hacks in the guild chat, or ask any questions that you might have. Please peruse at your leisure, and remember: this guild is meant to help guide you in the right direction. Only you will know what works best for you.
+        p(v-once) {{ group.information }}
 
     .section-header.challenge
       .row
@@ -142,7 +142,7 @@
       .section(v-if="sections.challenges")
         group-challenges(:groupId='searchId')
     div.text-center
-      button.btn.btn-primary(class='btn-danger', v-if='isMember') {{ $t('leave') }}
+      button.btn.btn-primary(class='btn-danger', v-if='isMember', @click='clickLeave()') {{ $t('leave') }}
 </template>
 
 <style lang="scss" scoped>
@@ -170,6 +170,7 @@
     .svg-icon.shield, .svg-icon.gem {
       width: 40px;
       margin: 0 auto;
+      display: inline-block;
     }
 
     .number {
@@ -184,7 +185,6 @@
 
   .sidebar {
     background-color: $gray-600;
-    padding-top: 2em;
     padding-bottom: 2em;
   }
 
@@ -204,7 +204,8 @@
   }
 
   .guild-background {
-    background-image: linear-gradient(to bottom, rgba($gray-600, 0), $gray-600);
+    background-image: url('~assets/images/groups/grassy-meadow-backdrop.png');
+    height: 246px;
   }
 
   textarea {
@@ -213,10 +214,22 @@
     background-color: $white;
     border: solid 1px $gray-400;
     font-size: 16px;
-    font-style: italic;
     line-height: 1.43;
     color: $gray-300;
     padding: .5em;
+  }
+
+  textarea::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-style: italic;
+  }
+  textarea::-moz-placeholder { /* Firefox 19+ */
+    font-style: italic;
+  }
+  textarea:-ms-input-placeholder { /* IE 10+ */
+    font-style: italic;
+  }
+  textarea:-moz-placeholder { /* Firefox 18- */
+    font-style: italic;
   }
 
   .title-details {
@@ -286,7 +299,8 @@
     }
 
     .tooltip-wrapper {
-      margin-left: 2.2em;
+      width: 15px;
+      margin-left: 1.2em;
     }
   }
 
@@ -360,8 +374,8 @@ import quests from 'common/script/content/quests';
 import percent from 'common/script/libs/percent';
 import groupFormModal from './groupFormModal';
 import inviteModal from './inviteModal';
-import memberModal from '../members/memberModal';
 import chatMessage from '../chat/chatMessages';
+import autocomplete from '../chat/autoComplete';
 import groupChallenges from '../challenges/groupChallenges';
 
 import bCollapse from 'bootstrap-vue/lib/components/collapse';
@@ -380,14 +394,15 @@ import informationIcon from 'assets/svg/information.svg';
 import questBackground from 'assets/svg/quest-background-border.svg';
 import upIcon from 'assets/svg/up.svg';
 import downIcon from 'assets/svg/down.svg';
-import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge.svg';
+import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge-small.svg';
+import silverGuildBadgeIcon from 'assets/svg/silver-guild-badge-small.svg';
+import bronzeGuildBadgeIcon from 'assets/svg/bronze-guild-badge-small.svg';
 
 export default {
   mixins: [groupUtilities, styleHelper],
   props: ['groupId'],
   components: {
     membersModal,
-    memberModal,
     startQuestModal,
     bCollapse,
     bCard,
@@ -396,6 +411,7 @@ export default {
     chatMessage,
     inviteModal,
     groupChallenges,
+    autocomplete,
   },
   directives: {
     bToggle,
@@ -417,6 +433,8 @@ export default {
         upIcon,
         downIcon,
         goldGuildBadgeIcon,
+        silverGuildBadgeIcon,
+        bronzeGuildBadgeIcon,
       }),
       selectedQuest: {},
       sections: {
@@ -426,10 +444,17 @@ export default {
         challenges: true,
       },
       newMessage: '',
+      coords: {
+        TOP: 0,
+        LEFT: 0,
+      },
     };
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    partyStore () {
+      return this.$store.state.party;
+    },
     isParty () {
       return this.$route.path.startsWith('/party');
     },
@@ -490,7 +515,7 @@ export default {
       return quests.quests[this.group.quest.key];
     },
   },
-  created () {
+  mounted () {
     this.searchId = this.groupId;
     if (this.isParty) {
       this.searchId = 'party';
@@ -506,9 +531,48 @@ export default {
   watch: {
     // call again the method if the route changes (when this route is already active)
     $route: 'fetchGuild',
+    partyStore () {
+      if (this.$store.state.party._id) {
+        this.group = this.$store.state.party;
+      } else {
+        this.group = null;
+        this.$router.push('/');
+      }
+    },
   },
   methods: {
+    // @TODO: abstract autocomplete
+    // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
+    getCoord (e, text) {
+      let carPos = text.selectionEnd;
+      let div = document.createElement('div');
+      let span = document.createElement('span');
+      let copyStyle = getComputedStyle(text);
+
+      [].forEach.call(copyStyle, (prop) => {
+        div.style[prop] = copyStyle[prop];
+      });
+
+      div.style.position = 'absolute';
+      document.body.appendChild(div);
+      div.textContent = text.value.substr(0, carPos);
+      span.textContent = text.value.substr(carPos) || '.';
+      div.appendChild(span);
+      this.coords = {
+        TOP: span.offsetTop,
+        LEFT: span.offsetLeft,
+      };
+      document.body.removeChild(div);
+    },
+    updateCarretPosition (eventUpdate) {
+      let text = eventUpdate.target;
+      this.getCoord(eventUpdate, text);
+    },
+    selectedAutocomplete (newText) {
+      this.newMessage = newText;
+    },
     showMemberModal () {
+      this.$store.state.groupId = this.group._id;
       this.$root.$emit('show::modal', 'members-modal');
     },
     async sendMessage () {
@@ -519,6 +583,9 @@ export default {
       this.group.chat.unshift(response.message);
       this.newMessage = '';
     },
+    fetchRecentMessages () {
+      this.fetchGuild();
+    },
     updateGuild () {
       this.$store.state.editingGroup = this.group;
       this.$root.$emit('show::modal', 'guild-form');
@@ -527,6 +594,11 @@ export default {
       this.$root.$emit('show::modal', 'invite-modal');
     },
     async fetchGuild () {
+      if (this.searchId === 'party' && !this.user.party._id) {
+        this.$root.$emit('show::modal', 'create-party-modal');
+        return;
+      }
+
       let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
       if (this.isParty) {
         this.$store.party = group;
@@ -544,28 +616,6 @@ export default {
     openStartQuestModal () {
       this.$root.$emit('show::modal', 'start-quest-modal');
     },
-    // inviteOrStartParty (group) {
-      // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Invite Friends'});
-
-      // var sendInviteText = window.env.t('sendInvitations');
-      // if (group.type !== 'party' && group.type !== 'guild') {
-      //   $location.path("/options/groups/party");
-      //   return console.log('Invalid group type.')
-      // }
-      //
-      // if (group.purchased && group.purchased.plan && group.purchased.plan.customerId) sendInviteText += window.env.t('groupAdditionalUserCost');
-      //
-      // group.sendInviteText = sendInviteText;
-      //
-      // $rootScope.openModal('invite-' + group.type, {
-      //   controller:'InviteToGroupCtrl',
-      //   resolve: {
-      //     injectedGroup: function() {
-      //       return group;
-      //     },
-      //   },
-      // });
-    // },
     checkForAchievements () {
       // Checks if user's party has reached 2 players for the first time.
       if (!this.user.achievements.partyUp && this.group.memberCount >= 2) {
@@ -581,32 +631,33 @@ export default {
         // Achievement.displayAchievement('partyOn');
       }
     },
-    // @TODO: This should be moved to notifications component
     async join () {
-      if (this.group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
+      // @TODO: This needs to be in the notifications where users will now accept invites
+      if (this.group.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
-
-      await this.$store.dispatch('guilds:join', {groupId: this.group._id});
-
-      // @TODO: Implement
-      // User.sync();
-      // Analytics.updateUser({'partyID': party.id});
-      // $rootScope.hardRedirect('/#/options/groups/party');
+      await this.$store.dispatch('guilds:join', {guildId: this.group._id, type: 'myGuilds'});
+      this.user.guilds.push(this.group._id);
     },
     clickLeave () {
       // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Leave Party'});
       // @TODO: Get challenges and ask to keep or remove
+      if (!confirm('Are you sure you want to leave?')) return;
       let keep = true;
       this.leave(keep);
     },
     async leave (keepTasks) {
       let keepChallenges = 'remain-in-challenges';
-      await this.$store.dispatch('guilds:leave', {
+
+      let data = {
         groupId: this.group._id,
         keep: keepTasks,
         keepChallenges,
-      });
+      };
+
+      if (this.isParty) data.type = 'party';
+
+      await this.$store.dispatch('guilds:leave', data);
 
       // @TODO: Implement
       // Analytics.updateUser({'partySize':null,'partyID':null});

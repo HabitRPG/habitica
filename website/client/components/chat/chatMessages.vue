@@ -1,13 +1,14 @@
 <template lang="pug">
 div
   copy-as-todo-modal(:copying-message='copyingMessage', :group-name='groupName', :group-id='groupId')
+  report-flag-modal
   .row
     // .col-md-2
     // @TODO: Implement when we pull avatars .svg-icon(v-html="icons.like")
 
     .hr
 
-    .col-md-12(v-for="(msg, index) in chat", :key="msg.id", v-if='chat')
+    .col-md-12(v-for="(msg, index) in chat", v-if='chat')
       // @TODO: is there a different way to do these conditionals? This creates an infinite loop
       //.hr(v-if='displayDivider(msg)')
         .hr-middle(v-once) {{ msg.timestamp }}
@@ -16,19 +17,19 @@ div
         .card-block
           h3.leader {{msg.user}}
           p {{msg.timestamp | timeAgo}}
-          .text {{msg.text}}
+          .text(v-markdown='msg.text')
           hr
-          .action(v-once, @click='like(msg)', v-if='msg.likes', :class='{active: msg.likes[user._id]}')
+          .action(@click='like(msg, index)', v-if='msg.likes', :class='{active: msg.likes[user._id]}')
             .svg-icon(v-html="icons.like")
             span(v-if='!msg.likes[user._id]') {{ $t('like') }}
             span(v-if='msg.likes[user._id]') {{ $t('liked') }}
-          span.action(v-once,  @click='copyAsTodo(msg)')
+          span.action( @click='copyAsTodo(msg)')
             .svg-icon(v-html="icons.copy")
             | {{$t('copyAsTodo')}}
-          span.action(v-once, v-if='user.contributor.admin || (!msg.sent && user.flags.communityGuidelinesAccepted)', @click='report(msg)')
+          span.action(v-if='user.contributor.admin || (!msg.sent && user.flags.communityGuidelinesAccepted)', @click='report(msg)')
             .svg-icon(v-html="icons.report")
             | {{$t('report')}}
-          span.action(v-once, v-if='msg.uuid === user._id', @click='remove(msg, index)')
+          span.action(v-if='msg.uuid === user._id', @click='remove(msg, index)')
             .svg-icon(v-html="icons.delete")
             | {{$t('delete')}}
           span.action.float-right
@@ -94,9 +95,12 @@ div
 
 <script>
 import moment from 'moment';
+import cloneDeep from 'lodash/cloneDeep';
 import { mapState } from 'client/libs/store';
+import markdownDirective from 'client/directives/markdown';
 
 import copyAsTodoModal from './copyAsTodoModal';
+import reportFlagModal from './reportFlagModal';
 
 import deleteIcon from 'assets/svg/delete.svg';
 import copyIcon from 'assets/svg/copy.svg';
@@ -108,6 +112,10 @@ export default {
   props: ['chat', 'groupId', 'groupName'],
   components: {
     copyAsTodoModal,
+    reportFlagModal,
+  },
+  directives: {
+    markdown: markdownDirective,
   },
   data () {
     return {
@@ -119,7 +127,6 @@ export default {
         liked: likedIcon,
       }),
       copyingMessage: {},
-      messages: [],
       currentDayDividerDisplay: moment().day(),
     };
   },
@@ -134,6 +141,9 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    messages () {
+      return this.chat;
+    },
   },
   methods: {
     displayDivider (message) {
@@ -148,27 +158,31 @@ export default {
       if (!message.likes) return 0;
       return Object.keys(message.likes).length;
     },
-    async like (message) {
+    async like (messageToLike, index) {
+      let message = cloneDeep(messageToLike);
+
+      await this.$store.dispatch('chat:like', {
+        groupId: this.groupId,
+        chatId: message.id,
+      });
+
       if (!message.likes[this.user._id]) {
         message.likes[this.user._id] = true;
       } else {
         message.likes[this.user._id] = !message.likes[this.user._id];
       }
 
-      await this.$store.dispatch('chat:like', {
-        groupId: this.groupId,
-        chatId: message.id,
-      });
+      this.chat.splice(index, 1, message);
     },
     copyAsTodo (message) {
       this.copyingMessage = message;
       this.$root.$emit('show::modal', 'copyAsTodo');
     },
     async report (message) {
-      await this.$store.dispatch('chat:flag', {
-        groupId: this.groupId,
-        chatId: message.id,
-      });
+      this.$store.state.flagChatOptions.message = message;
+      this.$store.state.flagChatOptions.groupId = this.groupId;
+
+      this.$root.$emit('show::modal', 'report-flag');
     },
     async remove (message, index) {
       this.chat.splice(index, 1);

@@ -1,24 +1,25 @@
 <template lang="pug">
-.task.d-flex
+.task.d-flex(:class="{'task-not-scoreable': isUser !== true}")
   // Habits left side control
   .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.up")
-    .task-control.habit-control(:class="controlClass.up + '-control-habit'")
+    .task-control.habit-control(:class="controlClass.up + '-control-habit'", @click="isUser ? score('up') : null")
       .svg-icon.positive(v-html="icons.positive")
   // Dailies and todos left side control
   .left-control.d-flex.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass")
-    .task-control.daily-todo-control(:class="controlClass + '-control-daily-todo'")
-      .svg-icon.check(v-html="icons.check", v-if="task.completed")
+    .task-control.daily-todo-control(:class="controlClass + '-control-daily-todo'", @click="isUser ? score(task.completed ? 'down' : 'up') : null")
+      .svg-icon.check(v-html="icons.check", :class="{'display-check-icon': task.completed}")
   // Task title, description and icons
   .task-content(:class="contentClass")
-    h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
-    .task-notes.small-text(v-markdown="task.notes")
+    .task-clickable-area(@click="edit($event, task)")
+      h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
+      .task-notes.small-text(v-markdown="task.notes")
     .checklist(v-if="task.checklist && task.checklist.length > 0")
-        label.custom-control.custom-checkbox.checklist-item(
-          v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
-        )
-          input.custom-control-input(type="checkbox", :checked="item.completed")
-          span.custom-control-indicator
-          span.custom-control-description {{ item.text }}
+      label.custom-control.custom-checkbox.checklist-item(
+        v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
+      )
+        input.custom-control-input(type="checkbox", :checked="item.completed", @change="toggleChecklistItem(item)")
+        span.custom-control-indicator
+        span.custom-control-description {{ item.text }}
     .icons.small-text.d-flex.align-items-center
       .d-flex.align-items-center(v-if="task.type === 'todo' && task.date", :class="{'due-overdue': isDueOverdue}")
         .svg-icon.calendar(v-html="icons.calendar")
@@ -46,10 +47,10 @@
 
   // Habits right side control
   .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down")
-    .task-control.habit-control(:class="controlClass.down + '-control-habit'")
+    .task-control.habit-control(:class="controlClass.down + '-control-habit'", @click="isUser ? score('down') : null")
       .svg-icon.negative(v-html="icons.negative")
   // Rewards right side control
-  .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass")
+  .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass", @click="isUser ? score('down') : null")
     .svg-icon(v-html="icons.gold")
     .small-text {{task.value}}
 </template>
@@ -60,19 +61,28 @@
 .task {
   margin-bottom: 8px;
   box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
-  background: $white;
+  background: transparent;
   border-radius: 2px;
   z-index: 9;
   position: relative;
+
+  &:hover {
+    box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
+
+    .left-control, .right-control, .task-content {
+      border-color: $purple-500;
+    }
+  }
 }
 
 .task-title {
-  margin-bottom: 8px;
+  padding-bottom: 8px;
   color: $gray-10;
   font-weight: normal;
+  margin-bottom: 0px;
 
   &.has-notes {
-    margin-bottom: 0px;
+    padding-bottom: 0px;
   }
 }
 
@@ -85,6 +95,12 @@
   padding: 8px;
   flex-grow: 1;
   cursor: pointer;
+  background: $white;
+  border: 1px solid transparent;
+
+  &.no-right-border {
+    border-right: none !important;
+  }
 }
 
 .checklist {
@@ -98,6 +114,7 @@
   line-height: 1.43;
   margin-bottom: 10px;
   min-height: 0px;
+  width: 100%;
 
   &-done {
     color: $gray-300;
@@ -133,7 +150,7 @@
 }
 
 .no-span-margin span {
-  margin-left: 0px !important; 
+  margin-left: 0px !important;
 }
 
 .svg-icon.streak {
@@ -178,33 +195,34 @@
 .left-control {
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
+  min-height: 60px;
+  border: 1px solid transparent;
+  border-right: none;
+
+  & + .task-content {
+    border-left: none;
+  }
 }
 
 .right-control {
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
+  min-height: 56px;
+  border: 1px solid transparent;
+  border-left: none;
 }
 
-.task-control {
-  width: 28px;
-  height: 28px;
+.task-control, .reward-control {
+  cursor: pointer;
 }
 
-.habit-control {
-  border-radius: 100px;
-  color: $white;
-
-  .svg-icon {
-    width: 10px;
-    margin: 0 auto;
+.task-not-scoreable {
+  .task-control, .reward-control {
+    cursor: default !important;
   }
 
-  .positive {
-    margin-top: 9px;
-  }
-
-  .negative {
-    margin-top: 13px;
+  .svg-icon.check {
+    display: none !important;
   }
 }
 
@@ -215,8 +233,8 @@
 
 .reward-control {
   flex-direction: column;
-  padding-top: 16px;
-  padding-bottom: 12px;
+  padding-top: 8px;
+  padding-bottom: 4px;
 
   .svg-icon {
     width: 24px;
@@ -253,12 +271,15 @@
   padding: 4px 10px;
   color: $gray-300;
   white-space: nowrap;
-} 
+}
 </style>
 
 <script>
-import { mapState, mapGetters } from 'client/libs/store';
+import { mapState, mapGetters, mapActions } from 'client/libs/store';
 import moment from 'moment';
+import axios from 'axios';
+import scoreTask from 'common/script/ops/scoreTask';
+import Vue from 'vue';
 
 import positiveIcon from 'assets/svg/positive.svg';
 import negativeIcon from 'assets/svg/negative.svg';
@@ -270,16 +291,17 @@ import tagsIcon from 'assets/svg/tags.svg';
 import checkIcon from 'assets/svg/check.svg';
 import bPopover from 'bootstrap-vue/lib/components/popover';
 import markdownDirective from 'client/directives/markdown';
-
+import notifications from 'client/mixins/notifications';
 
 export default {
+  mixins: [notifications],
   components: {
     bPopover,
   },
   directives: {
     markdown: markdownDirective,
   },
-  props: ['task'],
+  props: ['task', 'isUser'],
   data () {
     return {
       icons: Object.freeze({
@@ -315,7 +337,12 @@ export default {
       return this.getTaskClasses(this.task, 'control');
     },
     contentClass () {
-      return this.getTaskClasses(this.task, 'content');
+      const classes = [];
+      classes.push(this.getTaskClasses(this.task, 'content'));
+      if (this.task.type === 'reward' || this.task.type === 'habit') {
+        classes.push('no-right-border');
+      }
+      return classes;
     },
     showStreak () {
       if (this.task.streak !== undefined) return true;
@@ -328,6 +355,104 @@ export default {
     dueIn () {
       const dueIn = moment().to(this.task.date);
       return this.$t('dueIn', {dueIn});
+    },
+  },
+  methods: {
+    ...mapActions({scoreChecklistItem: 'tasks:scoreChecklistItem'}),
+    toggleChecklistItem (item) {
+      item.completed = !item.completed;
+      this.scoreChecklistItem({taskId: this.task._id, itemId: item.id});
+    },
+    edit (e, task) {
+      // Prevent clicking on a link from opening the edit modal
+      const target = e.target || e.srcElement;
+
+      if (target.tagName === 'A') { // Link
+        return;
+      } else {
+        this.$emit('editTask', task);
+      }
+    },
+    async score (direction) {
+      // TODO move to an action
+      const Content = this.$store.state.content;
+      const user = this.user;
+      const task = this.task;
+
+      try {
+        scoreTask({task, user, direction});
+      } catch (err) {
+        this.text(err.message);
+        return;
+      }
+
+      if (task.group.approval.required) task.group.approval.requested = true;
+
+      const response = await axios.post(`/api/v3/tasks/${task._id}/score/${direction}`);
+      const tmp = response.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
+      const crit = tmp.crit;
+      const drop = tmp.drop;
+      const quest = tmp.quest;
+
+      if (crit) {
+        const critBonus = crit * 100 - 100;
+        this.crit(critBonus);
+      }
+
+      if (quest && user.party.quest && user.party.quest.key) {
+        const userQuest = Content.quests[user.party.quest.key];
+        if (quest.progressDelta && userQuest.boss) {
+          this.quest('questDamage', quest.progressDelta.toFixed(1));
+        } else if (quest.collection && userQuest.collect) {
+          user.party.quest.progress.collectedItems++;
+          this.quest('questCollection', quest.collection);
+        }
+      }
+
+      if (drop) {
+        let text;
+        let notes;
+        let type;
+        // TODO $rootScope.playSound('Item_Drop');
+
+        // Note: For Mystery Item gear, drop.type will be 'head', 'armor', etc
+        // so we use drop.notificationType below.
+
+        if (drop.type !== 'gear' && drop.type !== 'Quest' && drop.notificationType !== 'Mystery') {
+          if (drop.type === 'Food') {
+            type = 'food';
+          } else if (drop.type === 'HatchingPotion') {
+            type = 'hatchingPotions';
+          } else {
+            type = `${drop.type.toLowerCase()}s`;
+          }
+
+          if (!user.items[type][drop.key]) {
+            Vue.set(user, `items.${type}.${drop.key}`, 0);
+          }
+          user.items[type][drop.key]++;
+        }
+
+        if (drop.type === 'HatchingPotion') {
+          text = Content.hatchingPotions[drop.key].text();
+          notes = Content.hatchingPotions[drop.key].notes();
+          this.drop(this.$t('messageDropPotion', {dropText: text, dropNotes: notes}), drop);
+        } else if (drop.type === 'Egg') {
+          text = Content.eggs[drop.key].text();
+          notes = Content.eggs[drop.key].notes();
+          this.drop(this.$t('messageDropEgg', {dropText: text, dropNotes: notes}), drop);
+        } else if (drop.type === 'Food') {
+          text = Content.food[drop.key].text();
+          notes = Content.food[drop.key].notes();
+          this.drop(this.$t('messageDropFood', {dropArticle: drop.article, dropText: text, dropNotes: notes}), drop);
+        } else if (drop.type === 'Quest') {
+          // TODO $rootScope.selectedQuest = Content.quests[drop.key];
+          // $rootScope.openModal('questDrop', {controller:'PartyCtrl', size:'sm'});
+        } else {
+          // Keep support for another type of drops that might be added
+          this.drop(drop.dialog);
+        }
+      }
     },
   },
 };

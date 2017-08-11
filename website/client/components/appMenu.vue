@@ -1,6 +1,7 @@
 <template lang="pug">
 div
   inbox-modal
+  creator-intro
   nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
     .navbar-header
       .logo.svg-icon(v-html="icons.logo")
@@ -33,16 +34,16 @@ div
           a.nav-link(v-once) {{ $t('group') }}
         router-link.nav-item(tag="li", :to="{name: 'myChallenges'}", exact)
           a.nav-link(v-once) {{ $t('challenges') }}
-        router-link.nav-item.dropdown(tag="li", to="/help", :class="{'active': $route.path.startsWith('/help')}")
+        router-link.nav-item.dropdown(tag="li", to="/help", :class="{'active': $route.path.startsWith('/help')}", :to="{name: 'faq'}")
           a.nav-link(v-once) {{ $t('help') }}
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}
             router-link.dropdown-item(:to="{name: 'overview'}") {{ $t('overview') }}
-            router-link.dropdown-item(to="/groups/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportBug') }}
-            router-link.dropdown-item(to="/groups/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askAQuestion') }}
+            router-link.dropdown-item(to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportBug') }}
+            router-link.dropdown-item(to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askAQuestion') }}
             a.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
-            a.dropdown-item(href="http://habitica.wikia.com/wiki", target='_blank') {{ $t('wiki') }}
+            a.dropdown-item(href="http://habitica.wikia.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
       .item-with-icon
         .svg-icon(v-html="icons.gem")
         span {{userGems | roundBigNumber}}
@@ -50,10 +51,10 @@ div
         .svg-icon(v-html="icons.gold")
         span {{user.stats.gp | roundBigNumber}}
       notification-menu
-      router-link.dropdown.item-with-icon.item-user(:to="{name: 'avatar'}")
+      a.dropdown.item-with-icon.item-user
         .svg-icon(v-html="icons.user")
         .dropdown-menu.dropdown-menu-right.user-dropdown
-          router-link.dropdown-item.edit-avatar(:to="{name: 'avatar'}")
+          a.dropdown-item.edit-avatar(@click='showAvatar()')
             h3 {{ user.profile.name }}
             span.small-text {{ $t('editAvatar') }}
           a.nav-link.dropdown-item(@click.prevent='showInbox()') {{ $t('inbox') }}
@@ -180,7 +181,7 @@ div
 
     .svg-icon {
       margin-right: 0px;
-      color: inherit;
+      color: $white;
     }
   }
 
@@ -209,11 +210,13 @@ import userIcon from 'assets/svg/user.svg';
 import logo from 'assets/svg/logo.svg';
 import InboxModal from './userMenu/inbox.vue';
 import notificationMenu from './notificationMenu';
+import creatorIntro from './creatorIntro';
 
 export default {
   components: {
     InboxModal,
     notificationMenu,
+    creatorIntro,
   },
   data () {
     return {
@@ -238,6 +241,10 @@ export default {
     },
     showInbox () {
       this.$root.$emit('show::modal', 'inbox-modal');
+    },
+    showAvatar () {
+      this.$store.state.avatarEditorOptions.editingUser = true;
+      this.$root.$emit('show::modal', 'avatar-modal');
     },
   },
 };

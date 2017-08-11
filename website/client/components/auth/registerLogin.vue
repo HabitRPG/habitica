@@ -13,11 +13,11 @@
       .col-6
         .btn.btn-secondary.social-button(@click='socialAuth("facebook")', v-once)
           .svg-icon.social-icon(v-html="icons.facebookIcon")
-          | {{this.registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'})}}
+          span {{this.registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'})}}
       .col-6
         .btn.btn-secondary.social-button(@click='socialAuth("google")', v-once)
           .svg-icon.social-icon(v-html="icons.googleIcon")
-          | {{this.registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'})}}
+          span {{this.registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'})}}
     .form-group
       label(for='usernameInput', v-once) {{$t('username')}}
       input#usernameInput.form-control(type='text', :placeholder='$t("usernamePlaceholder")', v-model='username')
@@ -30,10 +30,15 @@
     .form-group(v-if='registering')
       label(for='confirmPasswordInput', v-once) {{$t('confirmPassword')}}
       input#confirmPasswordInput.form-control(type='password', :placeholder='$t("confirmPasswordPlaceholder")', v-model='passwordConfirm')
-      small.form-text(v-once) {{$t('termsAndAgreement')}}
+      small.form-text(v-once, v-html="$t('termsAndAgreement')")
     .text-center
       .btn.btn-info(@click='register()', v-if='registering', v-once) {{$t('joinHabitica')}}
       .btn.btn-info(@click='login()', v-if='!registering', v-once) {{$t('login')}}
+      .toggle-links
+        router-link(:to="{name: 'login'}", v-if='registering', exact)
+          a.toggle-link(v-once) {{ $t('login') }}
+        router-link(:to="{name: 'register'}",  v-if='!registering', exact)
+          a.toggle-link(v-once) Don't have an account? Join Habitica!
 
   #bottom-background
     .seamless_mountains_demo_repeat
@@ -47,24 +52,38 @@
     background-color: $purple-200;
   }
 
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: $purple-400;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: $purple-400;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    color: $purple-400;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    color: $purple-400;
+  }
+
   #login-form {
     margin: 0 auto;
     width: 40em;
     padding-top: 5em;
-    padding-bottom: 22.5em;
+    padding-bottom: 4em;
     position: relative;
     z-index: 1;
 
     .gryphon {
       width: 63.2px;
       height: 69.4px;
+      color: $white;
+      margin: 0 auto;
     }
 
     .habitica-logo {
       width: 144px;
       height: 31px;
-      margin-top: 2em;
-      margin-bottom: 2em;
+      margin: 2em auto;
     }
 
     label {
@@ -78,20 +97,7 @@
       background-color: #432874;
       border-color: transparent;
       height: 50px;
-      color: $purple-400;
-
-      ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-        color: $purple-400;
-      }
-      ::-moz-placeholder { /* Firefox 19+ */
-        color: $purple-400;
-      }
-      :-ms-input-placeholder { /* IE 10+ */
-        color: $purple-400;
-      }
-      :-moz-placeholder { /* Firefox 18- */
-        color: $purple-400;
-      }
+      color: $white;
     }
 
     .form-text {
@@ -107,6 +113,8 @@
     .social-icon {
       margin-right: 1em;
       width: 13px;
+      display: inline-block;
+      height: 13px;
     }
   }
 
@@ -116,7 +124,7 @@
       background-repeat: repeat-x;
       position: absolute;
       height: 500px;
-      width: 1600px;
+      width: 1517px;
     }
   }
 
@@ -126,7 +134,7 @@
     .seamless_mountains_demo_repeat {
       background-image: url('~assets/images/auth/seamless_mountains_demo.png');
       background-repeat: repeat-x;
-      width: 1600px;
+      width: 1517px;
       height: 500px;
       position: absolute;
       z-index: 0;
@@ -139,6 +147,14 @@
       width: 1500px;
       height: 150px;
     }
+  }
+
+  .toggle-links {
+    margin-top: 1em;
+  }
+
+  .toggle-link {
+    color: #fff !important;
   }
 </style>
 
@@ -157,7 +173,6 @@ export default {
       email: '',
       password: '',
       passwordConfirm: '',
-      registering: true,
     };
 
     data.icons = Object.freeze({
@@ -169,11 +184,15 @@ export default {
 
     return data;
   },
+  computed: {
+    registering () {
+      if (this.$route.path.startsWith('/login')) {
+        return false;
+      }
+      return true;
+    },
+  },
   mounted () {
-    if (this.$route.path.startsWith('/login')) {
-      this.registering = false;
-    }
-
     hello.init({
       facebook: '',
       // windows: WINDOWS_CLIENT_ID,
@@ -205,7 +224,7 @@ export default {
         passwordConfirm: this.passwordConfirm,
       });
 
-      this.$router.go('/tasks');
+      window.location.href = '/';
     },
     async login () {
       await this.$store.dispatch('auth:login', {
@@ -214,7 +233,7 @@ export default {
         password: this.password,
       });
 
-      this.$router.go('/tasks');
+      window.location.href = '/';
     },
     async socialAuth (network) {
       let auth = await hello(network).login({scope: 'email'});
@@ -223,7 +242,7 @@ export default {
         auth,
       });
 
-      this.$router.go('/tasks');
+      window.location.href = '/';
     },
   },
 };

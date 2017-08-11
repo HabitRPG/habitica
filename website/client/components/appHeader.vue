@@ -1,5 +1,6 @@
 <template lang="pug">
-#app-header.row(:class='{sticky: user.preferences.stickyHeader}')
+#app-header.row
+  create-party-modal
   members-modal(:group='user.party', :hide-badge="true")
   member-details(:member="user", @click="$router.push({name: 'avatar'})")
   .view-party(v-if="user.party && user.party._id")
@@ -102,6 +103,10 @@ export default {
       user: 'user:data',
       partyMembers: 'party:members',
     }),
+    showHeader () {
+      if (this.$store.state.hideHeader) return false;
+      return true;
+    },
   },
   methods: {
     ...mapActions({
@@ -115,7 +120,12 @@ export default {
       }
     },
     openPartyModal () {
-      this.$root.$emit('show::modal', 'members-modal');
+      if (this.user.party._id) {
+        this.$store.state.groupId = this.user.party._id;
+        this.$root.$emit('show::modal', 'members-modal');
+        return;
+      }
+      this.$root.$emit('show::modal', 'create-party-modal');
     },
   },
   created () {

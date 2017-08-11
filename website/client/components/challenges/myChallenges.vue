@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  challenge-modal
+  challenge-modal(v-on:createChallenge='challengeCreated')
   sidebar(v-on:search="updateSearch", v-on:filter="updateFilters")
 
   .col-10.standard-page
@@ -8,9 +8,9 @@
       .col-md-8.text-left
         h1(v-once) {{$t('myChallenges')}}
       .col-md-4
-        span.dropdown-label {{ $t('sortBy') }}
-        b-dropdown(:text="$t('sort')", right=true)
-          b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
+        // @TODO: implement sorting span.dropdown-label {{ $t('sortBy') }}
+          b-dropdown(:text="$t('sort')", right=true)
+            b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
         button.btn.btn-secondary.create-challenge-button(@click='createChallenge()')
           .svg-icon.positive-icon(v-html="icons.positiveIcon")
           span(v-once) {{$t('createChallenge')}}
@@ -70,11 +70,13 @@ import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Sidebar from './sidebar';
 import ChallengeItem from './challengeItem';
 import challengeModal from './challengeModal';
+import challengeUtilities from 'client/mixins/challengeUtilities';
 
 import challengeIcon from 'assets/svg/challenge.svg';
 import positiveIcon from 'assets/svg/positive.svg';
 
 export default {
+  mixins: [challengeUtilities],
   components: {
     Sidebar,
     ChallengeItem,
@@ -89,7 +91,33 @@ export default {
         positiveIcon,
       }),
       challenges: [],
-      sortOptions: [],
+      sort: 'none',
+      sortOptions: [
+        {
+          text: this.$t('none'),
+          value: 'none',
+        },
+        {
+          text: this.$t('participants'),
+          value: 'participants',
+        },
+        {
+          text: this.$t('name'),
+          value: 'name',
+        },
+        {
+          text: this.$t('end_date'),
+          value: 'end_date',
+        },
+        {
+          text: this.$t('start_date'),
+          value: 'start_date',
+        },
+      ],
+      search: '',
+      filters: {
+        roles: ['participating'], // This is required for my challenges
+      },
     };
   },
   mounted () {
@@ -98,10 +126,16 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
     filteredChallenges () {
+      let search = this.search;
+      let filters = this.filters;
+      let user = this.$store.state.user.data;
+
+      // Always filter by member on this page:
+      filters.roles = ['participating'];
+
+      // @TODO: Move this to the server
       return this.challenges.filter((challenge) => {
-        let isMember = this.memberOf(challenge);
-        // @TODO: Other filters
-        return isMember;
+        return this.filterChallenge(challenge, filters, search, user);
       });
     },
   },
@@ -109,17 +143,20 @@ export default {
     memberOf (challenge) {
       return this.user.challenges.indexOf(challenge._id) !== -1;
     },
-    updateSearch () {
-
+    updateSearch (eventData) {
+      this.search = eventData.searchTerm;
     },
-    updateFilters () {
-
+    updateFilters (eventData) {
+      this.filters = eventData;
     },
     createChallenge () {
       this.$root.$emit('show::modal', 'challenge-modal');
     },
     async loadchallanges () {
       this.challenges = await this.$store.dispatch('challenges:getUserChallenges');
+    },
+    challengeCreated (challenge) {
+      this.challenges.push(challenge);
     },
   },
 };

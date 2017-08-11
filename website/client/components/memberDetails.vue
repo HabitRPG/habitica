@@ -1,32 +1,33 @@
 <template lang="pug">
-.d-flex.member-details(:class="{ condensed, expanded }", @click='showMemberModal()')
-  avatar(:member="member",
-    @click.native="$emit('click')",
-    @mouseover.native="$emit('onHover')",
-    @mouseout.native="$emit('onHover')",
-  )
-  member-modal(:profile='member')
-  .member-stats
-    h3.character-name
-      | {{member.profile.name}}
-      .is-buffed(v-if="isBuffed")
-        .svg-icon(v-html="icons.buff")
-    span.small-text.character-level {{ characterLevel }}
-    .progress-container.d-flex
-      .svg-icon(v-html="icons.health")
-      .progress
-        .progress-bar.bg-health(:style="{width: `${percent(member.stats.hp, MAX_HEALTH)}%`}")
-      span.small-text {{member.stats.hp | round}} / {{MAX_HEALTH}}
-    .progress-container.d-flex
-      .svg-icon(v-html="icons.experience")
-      .progress
-        .progress-bar.bg-experience(:style="{width: `${percent(member.stats.exp, toNextLevel)}%`}")
-      span.small-text {{member.stats.exp | round}} / {{toNextLevel}}
-    .progress-container.d-flex(v-if="hasClass")
-      .svg-icon(v-html="icons.mana")
-      .progress
-        .progress-bar.bg-mana(:style="{width: `${percent(member.stats.mp, maxMP)}%`}")
-      span.small-text {{member.stats.mp | round}} / {{maxMP}}
+div
+  profile
+  .d-flex.member-details(:class="{ condensed, expanded }", @click='showMemberModal()')
+    avatar(:member="member",
+      @click.native="$emit('click')",
+      @mouseover.native="$emit('onHover')",
+      @mouseout.native="$emit('onHover')",
+    )
+    .member-stats
+      h3.character-name
+        | {{member.profile.name}}
+        .is-buffed(v-if="isBuffed")
+          .svg-icon(v-html="icons.buff")
+      span.small-text.character-level {{ characterLevel }}
+      .progress-container.d-flex
+        .svg-icon(v-html="icons.health")
+        .progress
+          .progress-bar.bg-health(:style="{width: `${percent(member.stats.hp, MAX_HEALTH)}%`}")
+        span.small-text {{member.stats.hp | round}} / {{MAX_HEALTH}}
+      .progress-container.d-flex
+        .svg-icon(v-html="icons.experience")
+        .progress
+          .progress-bar.bg-experience(:style="{width: `${percent(member.stats.exp, toNextLevel)}%`}")
+        span.small-text {{member.stats.exp | round}} / {{toNextLevel}}
+      .progress-container.d-flex(v-if="hasClass")
+        .svg-icon(v-html="icons.mana")
+        .progress
+          .progress-bar.bg-mana(:style="{width: `${percent(member.stats.mp, maxMP)}%`}")
+        span.small-text {{member.stats.mp | round}} / {{maxMP}}
 </template>
 
 <style lang="scss" scoped>
@@ -170,7 +171,7 @@
 <script>
 import Avatar from './avatar';
 import { mapState } from 'client/libs/store';
-import memberModal from './members/memberModal';
+import profile from './userMenu/profile';
 
 import { toNextLevel } from '../../common/script/statHelpers';
 import statsComputed from '../../common/script/libs/statsComputed';
@@ -184,7 +185,7 @@ import manaIcon from 'assets/svg/mana.svg';
 export default {
   components: {
     Avatar,
-    memberModal,
+    profile,
   },
   props: {
     member: {
@@ -212,6 +213,10 @@ export default {
   },
   methods: {
     percent,
+    showMemberModal () {
+      // @TODO: set viewing users in $store?
+      this.$root.$emit('show::modal', 'profile');
+    },
   },
   computed: {
     ...mapState({
@@ -233,10 +238,6 @@ export default {
     },
     hasClass () {
       return this.$store.getters['members:hasClass'](this.member);
-    },
-    showMemberModal () {
-      // @TODO: set viewing users in $store?
-      this.$root.$emit('show::modal', 'member-detail-modal');
     },
   },
 };
