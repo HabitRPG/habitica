@@ -62,12 +62,12 @@ export async function deleteWebhook (store, payload) {
 export function togglePinnedItem (store, params) {
   const user = store.state.user.data;
 
-  togglePinnedItemOp(user, params);
+  let addedItem = togglePinnedItemOp(user, params);
 
   axios.get(`/api/v3/user/toggle-pinned-item/${params.type}/${params.path}`);
   // TODO
   // .then((res) => console.log('equip', res))
   // .catch((err) => console.error('equip', err));
 
-  return user.pinnedItems;
+  return addedItem;
 }

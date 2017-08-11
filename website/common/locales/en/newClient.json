@@ -275,5 +275,6 @@
   "spirituality": "Spirituality",
   "time_management": "Time-Management + Accountability",
   "recovery_support_groups": "Recovery + Support Groups",
-  "wrongItemType": "The item type \"<%= type %>\" is not valid."
+  "wrongItemType": "The item type \"<%= type %>\" is not valid.",
+  "unpinnedItem": "You unpinned <%= item %>! It will no longer display in your Rewards column."
 }

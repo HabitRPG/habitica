@@ -4,6 +4,9 @@ import get from 'lodash/get';
 
 const officialPinnedItems = content.officialPinnedItems;
 
+/**
+ * @returns {boolean} TRUE added the item / FALSE removed it
+ */
 module.exports = function togglePinnedItem (user, {item, type, path}, req = {}) {
   let arrayToChange;
 
@@ -29,7 +32,9 @@ module.exports = function togglePinnedItem (user, {item, type, path}, req = {}) 
 
   if (foundIndex >= 0) {
     arrayToChange.splice(foundIndex, 1);
+    return isOfficialPinned;
   } else {
     arrayToChange.push({path, type});
+    return !isOfficialPinned;
   }
 };

@@ -414,7 +414,9 @@ export default {
         }
       },
       togglePinned (item) {
-        return this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path});
+        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
+          this.$parent.showUnpinNotification(item);
+        }
       },
       buyItem (item) {
         this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
