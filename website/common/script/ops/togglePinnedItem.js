@@ -1,6 +1,8 @@
 import content from '../content/index';
 import getItemInfo from '../libs/getItemInfo';
 import get from 'lodash/get';
+import { BadRequest } from '../libs/errors';
+import i18n from '../i18n';
 
 const officialPinnedItems = content.officialPinnedItems;
 
@@ -12,6 +14,10 @@ module.exports = function togglePinnedItem (user, {item, type, path}, req = {}) 
   }
 
   if (!item) item = get(content, path);
+
+  if (path === 'armoire' || path === 'potion') {
+    throw new BadRequest(i18n.t('cannotUpinArmoirPotion', req.language));
+  }
 
   let isOfficialPinned = officialPinnedItems.find(officialPinnedItem => {
     return officialPinnedItem.path === path;
