@@ -3,7 +3,7 @@ import { shouldDo } from 'common/script/cron';
 // Return all the tags belonging to an user task
 export function getTagsFor (store) {
   return (task) => store.state.user.data.tags
-    .filter(tag => task.tags.indexOf(tag.id) !== -1)
+    .filter(tag => task.tags && task.tags.indexOf(tag.id) !== -1)
     .map(tag => tag.name);
 }
 
@@ -37,6 +37,11 @@ export function getTaskClasses (store) {
         return 'task-purple';
       case 'editModal':
         return type === 'reward' ? 'task-purple' : getTaskColorByValue(task.value);
+      case 'controlCreate':
+        return {
+          up: task.up ? 'task-purple' : 'task-habit-disabled',
+          down: task.down ? 'task-purple' : 'task-habit-disabled',
+        };
       case 'control':
         switch (type) {
           case 'daily':

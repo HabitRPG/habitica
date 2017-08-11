@@ -119,6 +119,26 @@ $bg-disabled-control: #34303a;
   }
 }
 
+.inline-edit-input-group {
+  .input-group-btn {
+    cursor: pointer;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .destroy-icon {
+    width: 14px;
+    height: 16px;
+  }
+}
+
+.inline-edit-input {
+  margin-bottom: 0px;
+  border-radius: 0px;
+  border: none !important;
+  padding-left: 36px;
+}
+
 @mixin custom-radio-checked-icon ($bg-color) {
   background-image: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='#{$bg-color}'/%3E%3C/svg%3E"), "#", "%23");
 }
@@ -165,4 +185,8 @@ $bg-disabled-control: #34303a;
   &:focus:disabled:checked~.custom-control-indicator, &:active:disabled:checked~.custom-control-indicator  {
     border-color: $gray-400;
   }
+}
+
+.toggle-switch-container.no-margin {
+  margin-top: 0 !important;
 }

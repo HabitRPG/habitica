@@ -39,12 +39,14 @@ export default {
       this.$root.$emit('hide::modal', 'reset');
     },
     async deleteAccount () {
-      await axios.delete('/api/v3/user/', {
-        password: this.password,
-        feedback: this.feedback,
+      await axios.delete('/api/v3/user', {
+        data: {
+          password: this.password,
+          feedback: this.feedback,
+        },
       });
       localStorage.clear();
-      this.$router.push('/');
+      this.$router.push('/home');
       this.$root.$emit('hide::modal', 'reset');
     },
   },

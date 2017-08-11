@@ -83,6 +83,7 @@ div
 <style lang="scss" scoped>
   .header {
     margin-bottom: 3em;
+    margin-top: 4em;
     background-color: #4f2a93;
     color: #fff;
     padding: 2em;
@@ -189,6 +190,11 @@ export default {
   },
   mounted () {
     this.activePage = this.PAGES.BENEFITS;
+    this.$store.state.hideHeader = true;
+  },
+  destroyed () {
+    // @TODO: going from the page back to party modal does not show
+    this.$store.state.hideHeader = false;
   },
   computed: {
     newGroupIsReady () {

@@ -6,10 +6,8 @@ import getStore from 'client/store';
 
 // TODO Dummy elements used as placeholder until real components are implemented
 import ParentPage from './components/parentPage';
-import Page from './components/page';
 
 // Static Pages
-const Home = () => import(/* webpackChunkName: "static" */'./components/static/home');
 const AppPage = () => import(/* webpackChunkName: "static" */'./components/static/app');
 const ClearBrowserDataPage = () => import(/* webpackChunkName: "static" */'./components/static/clearBrowserData');
 const CommunityGuidelinesPage = () => import(/* webpackChunkName: "static" */'./components/static/communityGuidelines');
@@ -31,11 +29,10 @@ const VideosPage = () => import(/* webpackChunkName: "static" */'./components/st
 const RegisterLogin = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLogin');
 
 // User Pages
-const CreatorIntro = () => import(/* webpackChunkName: "creator" */'./components/creatorIntro');
 const BackgroundsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/backgrounds');
-const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
-const AchievementsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/achievements');
-const ProfilePage = () => import(/* webpackChunkName: "user" */'./components/userMenu/profile');
+// const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
+// const AchievementsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/achievements');
+const ProfilePage = () => import(/* webpackChunkName: "user" */'./components/userMenu/profilePage');
 
 // Settings
 const Settings = () => import(/* webpackChunkName: "settings" */'./components/settings/index');
@@ -83,6 +80,9 @@ const ChallengeDetail = () => import(/* webpackChunkName: "challenges" */ './com
 // Shops
 const ShopsContainer = () => import(/* webpackChunkName: "shops" */'./components/shops/index');
 const MarketPage = () => import(/* webpackChunkName: "shops-market" */'./components/shops/market/index');
+const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */'./components/shops/quests/index');
+const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */'./components/shops/seasonal/index');
+const TimeTravelersPage = () => import(/* webpackChunkName: "shops-timetravelers" */'./components/shops/timeTravelers/index');
 
 Vue.use(VueRouter);
 
@@ -97,8 +97,7 @@ const router = new VueRouter({
   },
   // requiresLogin is true by default, isStatic false
   routes: [
-    { name: 'creator', path: '/creator', component: CreatorIntro },
-    { name: 'home', path: '/home', component: Home, meta: {requiresLogin: false} },
+    { name: 'home', path: '/home', component: FrontPage, meta: {requiresLogin: false} },
     { name: 'register', path: '/register', component: RegisterLogin, meta: {requiresLogin: false} },
     { name: 'login', path: '/login', component: RegisterLogin, meta: {requiresLogin: false} },
     { name: 'tasks', path: '/', component: UserTasks },
@@ -116,9 +115,9 @@ const router = new VueRouter({
       component: ShopsContainer,
       children: [
         { name: 'market', path: 'market', component: MarketPage },
-        { name: 'quests', path: 'quests', component: Page },
-        { name: 'seasonal', path: 'seasonal', component: Page },
-        { name: 'time', path: 'time', component: Page },
+        { name: 'quests', path: 'quests', component: QuestsPage },
+        { name: 'seasonal', path: 'seasonal', component: SeasonalPage },
+        { name: 'time', path: 'time', component: TimeTravelersPage },
       ],
     },
     { name: 'party', path: '/party', component: GuildPage },
@@ -173,10 +172,9 @@ const router = new VueRouter({
       path: '/user',
       component: ParentPage,
       children: [
-        { name: 'avatar', path: 'avatar', component: Page },
         { name: 'backgrounds', path: 'backgrounds', component: BackgroundsPage },
-        { name: 'stats', path: 'stats', component: StatsPage },
-        { name: 'achievements', path: 'achievements', component: AchievementsPage },
+        { name: 'stats', path: 'stats', component: ProfilePage },
+        { name: 'achievements', path: 'achievements', component: ProfilePage },
         { name: 'profile', path: 'profile', component: ProfilePage },
         {
           name: 'settings',
@@ -236,8 +234,8 @@ const router = new VueRouter({
         { name: 'overview', path: 'overview', component: OverviewPage },
         { name: 'plans', path: 'plans', component: GroupPlansPage },
         { name: 'pressKit', path: 'press-kit', component: PressKitPage },
-        { name: 'privacy', path: 'privacy', component: PrivacyPage },
-        { name: 'terms', path: 'terms', component: TermsPage },
+        { name: 'privacy', path: 'privacy', component: PrivacyPage, meta: {requiresLogin: false}},
+        { name: 'terms', path: 'terms', component: TermsPage, meta: {requiresLogin: false}},
         { name: 'videos', path: 'videos', component: VideosPage },
       ],
     },

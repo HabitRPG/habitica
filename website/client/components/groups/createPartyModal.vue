@@ -11,7 +11,7 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
       img
       h3(v-once) {{$t('startYourOwnPartyTitle')}}
       p(v-once) {{$t('startYourOwnPartyDescription')}}
-      button.btn.btn-primary(v-once) {{$t('createParty')}}
+      button.btn.btn-primary(v-once, @click='createParty()') {{$t('createParty')}}
     .col-6
       div.text-center
         img
@@ -39,6 +39,14 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
 <style lang='scss'>
   @import '~client/assets/scss/colors.scss';
 
+  .header-wrap {
+    color: #4e4a57;
+
+    h2 {
+      color: #4f2a93;
+    }
+  }
+
   .modal-body {
     padding-bottom: 0;
     padding-top: 0;
@@ -46,6 +54,7 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
 
   .grey-row {
     background-color: $gray-700;
+    color: #4e4a57;
     padding: 2em;
     border-radius: 0px 0px 2px 2px;
   }
@@ -81,6 +90,8 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
 </style>
 
 <script>
+import { mapState } from 'client/libs/store';
+
 import bModal from 'bootstrap-vue/lib/components/modal';
 
 import copyIcon from 'assets/svg/copy.svg';
@@ -105,16 +116,20 @@ export default {
       shareUserIdShown: false,
     };
   },
+  computed: {
+    ...mapState({user: 'user.data'}),
+  },
   methods: {
-    createParty () {
-      // group.loadingParty = true;
-      //
-      // if (!group.name) group.name = env.t('possessiveParty', {name: User.user.profile.name});
-      // Groups.Group.create(group)
-      //   .then(function(response) {
-      //     Analytics.updateUser({'partyID': $scope.group ._id, 'partySize': 1});
-      //     $rootScope.hardRedirect('/#/options/groups/party');
-      //   });
+    async createParty () {
+      let group = {
+        type: 'party',
+      };
+      group.name = this.$t('possessiveParty', {name: this.user.profile.name});
+      let party = await this.$store.dispatch('guilds:create', {group});
+      this.$store.state.party = party;
+      this.user.party._id = party._id;
+      this.$root.$emit('hide::modal', 'create-party-modal');
+      //  @TODO: Analytics.updateUser({'partyID': $scope.group ._id, 'partySize': 1});
     },
   },
 };

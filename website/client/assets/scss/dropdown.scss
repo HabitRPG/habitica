@@ -6,7 +6,7 @@
   line-height: 1.43;
 }
 
-.dropdown.show > .dropdown-toggle {
+.dropdown.show > .dropdown-toggle:not(.btn-success) {
   color: $purple-200;
   border-color: $purple-500 !important;
   box-shadow: none;

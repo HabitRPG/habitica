@@ -1,11 +1,12 @@
 <template lang="pug">
 #app
+  notifications
   router-view(v-if="!isUserLoggedIn || isStaticPage")
   template(v-else)
     #loading-screen.h-100.w-100.d-flex.justify-content-center.align-items-center(v-if="!isUserLoaded")
       p Loading...
     template(v-else)
-      notifications
+      notifications-display
       app-menu
       .container-fluid
         app-header
@@ -18,7 +19,7 @@
 import AppMenu from './components/appMenu';
 import AppHeader from './components/appHeader';
 import AppFooter from './components/appFooter';
-import notifications from './components/notifications';
+import notificationsDisplay from './components/notifications';
 import { mapState } from 'client/libs/store';
 
 export default {
@@ -27,7 +28,7 @@ export default {
     AppMenu,
     AppHeader,
     AppFooter,
-    notifications,
+    notificationsDisplay,
   },
   data () {
     return {
@@ -62,6 +63,7 @@ export default {
 };
 </script>
 
+<style src="intro.js/minified/introjs.min.css"></style>
 <style src="bootstrap/scss/bootstrap.scss" lang="scss"></style>
 <style src="assets/scss/index.scss" lang="scss"></style>
 <style src="assets/css/index.css"></style>

@@ -26,6 +26,9 @@ export default {
       let hasCategories = true;
       let isMember = true;
       let isLeader = true;
+      let correctSize = true;
+
+      if (group._id === this.$store.state.constants.TAVERN_ID) return false;
 
       if (search) {
         passedSearch = group.name.toLowerCase().indexOf(search.toLowerCase()) >= 0;
@@ -37,17 +40,27 @@ export default {
       }
 
       let filteringRole = filters.roles && filters.roles.length > 0;
-      if (filteringRole && filters.roles.indexOf('member')) {
+      if (filteringRole && filters.roles.indexOf('member') !== -1) {
         isMember = this.isMemberOfGroup(user, group);
       }
 
-      if (filteringRole && filters.roles.indexOf('guild_leader')) {
+      if (filteringRole && filters.roles.indexOf('guild_leader') !== -1) {
         isLeader = this.isLeaderOfGroup(user, group);
       }
 
-      // @TODO: Tier filters
+      if (filters.guildSize && filters.guildSize.indexOf('gold_tier') !== -1) {
+        correctSize = group.memberCount > 1000;
+      }
 
-      return passedSearch && hasCategories && isMember && isLeader;
+      if (filters.guildSize && filters.guildSize.indexOf('silver_tier') !== -1) {
+        correctSize = group.memberCount > 100 && group.memberCount < 999;
+      }
+
+      if (filters.guildSize && filters.guildSize.indexOf('bronze_tier') !== -1) {
+        correctSize = group.memberCount < 99;
+      }
+
+      return passedSearch && hasCategories && isMember && isLeader && correctSize;
     },
   },
 };
