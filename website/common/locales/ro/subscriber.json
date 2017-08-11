@@ -3,7 +3,7 @@
     "subscriptions": "Abonamente",
     "subDescription": "Cumpără nestemate cu aur, obține articole misterioase în fiecare lună, păstrează istoricul progresului, dublează limitele zilnice de picări, sprijină dezvoltatorii. Clic pentru mai multe informații.",
     "buyGemsGold": "Cumpără Nestemate cu Aur",
-    "buyGemsGoldText": "Alexandru Negustoru îți va vinde nestematele la un preț de <%= gemCost %> aur pe nestemată. Livrările sale lunare sunt limitate inițial la <%= gemLimit %> nestemate pe lună, dar această limită crește cu câte 5 nestemate la fiecare trei luni de abonament consecuriv, până la un maxim de 50 de nestemate pe lună!",
+    "buyGemsGoldText": "Alexander the Merchant will sell you Gems at a cost of 20 Gold per Gem. His monthly shipments are initially capped at 25 Gems per month, but for every 3 consecutive months that you are subscribed, this cap increases by 5 Gems, up to a maximum of 50 Gems per month!",
     "mustSubscribeToPurchaseGems": "Must subscribe to purchase gems with GP",
     "reachedGoldToGemCap": "You've reached the Gold=>Gem conversion cap <%= convCap %> for this month. We have this to prevent abuse / farming. The cap resets within the first three days of each month.",
     "retainHistory": "Reține mai mult din istoric",
