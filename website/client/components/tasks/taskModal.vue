@@ -78,7 +78,7 @@ form(
         | {{ repeatSuffix }}
         template(v-if="task.frequency === 'weekly'")
           .form-check(
-            v-for="(day, dayNumber) in dayMapping",
+            v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']",
             :key="dayNumber",
           )
             label.custom-control.custom-checkbox
