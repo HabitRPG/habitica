@@ -3,7 +3,7 @@
     "subscriptions": "Subscriptions",
     "subDescription": "Buy Gems wit' gold, get monthly mystery loot, retain progress history, double daily drop-caps, support th' devs. Click fer more info.",
     "buyGemsGold": "Buy Gems with Doubloons",
-    "buyGemsGoldText": "Alexander th' Merchant 'll sell ye gems at a cost of <%= gemCost %> gold a gem. His monthly shipments are initially capped at &lt;%= gemLimit %>; gems a month, but this cap goes up by 5 gems f'r every three months of consecutive subscription, up to a maximum of 50 gems a month!",
+    "buyGemsGoldText": "Alexander the Merchant will sell you Gems at a cost of 20 Gold per Gem. His monthly shipments are initially capped at 25 Gems per month, but for every 3 consecutive months that you are subscribed, this cap increases by 5 Gems, up to a maximum of 50 Gems per month!",
     "mustSubscribeToPurchaseGems": "Must subscribe t' purchase sapphires with Doubloons",
     "reachedGoldToGemCap": "You've reached the Gold=>Gem conversion cap <%= convCap %> for this month. We have this to prevent abuse / farming. The cap resets within the first three days of each month.",
     "retainHistory": "Retain additional history entries",

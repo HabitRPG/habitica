@@ -3,7 +3,7 @@
     "subscriptions": "Abbonamenti",
     "subDescription": "Compra le Gemme con l'oro, ottieni oggetti misteriosi ogni mese, mantieni i dati sui progressi delle attività, raddoppia il limite di drop giornaliero di oggetti, supporta gli sviluppatori. Clicca per avere maggiori informazioni.",
     "buyGemsGold": "Acquista Gemme usando l'oro",
-    "buyGemsGoldText": "Alexander il Mercante ti venderà Gemme al prezzo di <%= gemCost %> Oro per ogni gemma. Le sue consegne mensili saranno inizialmente limitate a <%= gemLimit %> gemme al mese, ma questo limite aumenta di 5 gemme per ogni tre mesi di abbonamento consecutivi, fino a un massimo di 50 gemme al mese!",
+    "buyGemsGoldText": "Alexander the Merchant will sell you Gems at a cost of 20 Gold per Gem. His monthly shipments are initially capped at 25 Gems per month, but for every 3 consecutive months that you are subscribed, this cap increases by 5 Gems, up to a maximum of 50 Gems per month!",
     "mustSubscribeToPurchaseGems": "Devi abbonarti per poter convertire l'oro in gemme.",
     "reachedGoldToGemCap": "Hai raggiunto il tuo limite di conversione Oro=>Gemme (<%= convCap %>) per questo mese. Questo limite serve a prevenire l'abuso di questa funzione, il cosiddetto \"farming\". Il limite viene resettato entro i primi tre giorni di ogni mese.",
     "retainHistory": "Conserva più dati nella cronologia",
