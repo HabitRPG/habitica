@@ -968,7 +968,7 @@
 
       hideFlag () {
         this.$store.dispatch('user:set', {
-          ['flags.tutorial.common.mounts']: true,
+          'flags.tutorial.common.mounts': true,
         });
       },
     },
