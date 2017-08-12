@@ -86,7 +86,7 @@
   )
       template(slot="item", scope="ctx")
         div(v-if="ctx.item.purchaseType === 'gear'")
-          avatar(
+          avatar.inline(
             :member="user",
             :avatarOnly="true",
             :withBackground="true",

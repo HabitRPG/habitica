@@ -393,6 +393,7 @@
   import svgHealer from 'assets/svg/healer.svg';
 
   import featuredItems from 'common/script/content/shop-featuredItems';
+  import getItemInfo from 'common/script/libs/getItemInfo';
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
@@ -519,7 +520,7 @@ export default {
 
       featuredItems () {
         return featuredItems.market.map(i => {
-          return this.content.gear.flat[i];
+          return getItemInfo(this.user, 'marketGear', this.content.gear.flat[i]);
         });
       },
     },
@@ -573,12 +574,7 @@ export default {
       filteredGear (groupByClass, searchBy, sortBy, hideLocked, hidePinned) {
         let result = _filter(this.content.gear.flat, ['klass', groupByClass]);
         result = _map(result, (e) => {
-          let newItem = {
-            ...e,
-            path: `gear.flat.${e.key}`,
-            pinType: 'marketGear',
-            currency: 'gold',
-          };
+          let newItem = getItemInfo(this.user, 'marketGear', e);
 
           newItem.pinned = _isPinned(this.user, newItem);
           newItem.locked = this.isGearLocked(newItem);

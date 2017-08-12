@@ -7,11 +7,10 @@ import {
   NotAuthorized,
   BadRequest,
 } from '../libs/errors';
-import removePinnedGear from './removePinnedGear';
-import addPinnedGear from './addPinnedGear';
+import { removePinnedGearByClass, addPinnedGearByClass } from './pinnedGearUtils';
 
 function resetClass (user, req = {}) {
-  removePinnedGear(user);
+  removePinnedGearByClass(user);
 
   if (user.preferences.disableClasses) {
     user.preferences.disableClasses = false;
@@ -45,7 +44,7 @@ module.exports = function changeClass (user, req = {}, analytics) {
     user.stats.class = klass;
     user.flags.classSelected = true;
 
-    addPinnedGear(user);
+    addPinnedGearByClass(user);
 
     user.items.gear.owned[`weapon_${klass}_0`] = true;
     if (klass === 'rogue')  user.items.gear.owned[`shield_${klass}_0`] = true;

@@ -56,8 +56,8 @@
               )
                 template(slot="popoverContent", scope="ctx")
                   div
-                    h4.popover-content-title {{ item.text() }}
-                    .popover-content-text(v-html="item.notes()")
+                    h4.popover-content-title {{ item.text }}
+                    .popover-content-text(v-html="item.notes")
 
       h1.mb-0.page-header(v-once) {{ $t('quests') }}
 
@@ -332,6 +332,7 @@
   import svgPin from 'assets/svg/pin.svg';
 
   import featuredItems from 'common/script/content/shop-featuredItems';
+  import getItemInfo from 'common/script/libs/getItemInfo';
 
   import _isPinned from '../_isPinned';
 
@@ -405,7 +406,7 @@ export default {
 
       featuredItems () {
         return featuredItems.quests.map(i => {
-          return this.content.quests[i];
+          return getItemInfo(this.user, 'quest', this.content.quests[i]);
         });
       },
     },

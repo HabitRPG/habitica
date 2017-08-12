@@ -2,7 +2,7 @@ import { loadAsyncResource } from 'client/libs/asyncResource';
 import setProps from 'lodash/set';
 import axios from 'axios';
 
-import togglePinnedItemOp from 'common/script/ops/togglePinnedItem';
+import { togglePinnedItem as togglePinnedItemOp } from 'common/script/ops/pinnedGearUtils';
 
 export function fetch (store, forceLoad = false) { // eslint-disable-line no-shadow
   return loadAsyncResource({

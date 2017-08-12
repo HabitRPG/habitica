@@ -40,7 +40,7 @@ import readCard from './readCard';
 import openMysteryItem from './openMysteryItem';
 import scoreTask from './scoreTask';
 import markPmsRead from './markPMSRead';
-import togglePinnedItem from './togglePinnedItem';
+import * as pinnedGearUtils from './pinnedGearUtils';
 
 module.exports = {
   sleep,
@@ -85,5 +85,5 @@ module.exports = {
   openMysteryItem,
   scoreTask,
   markPmsRead,
-  togglePinnedItem,
+  pinnedGearUtils,
 };

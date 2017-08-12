@@ -164,7 +164,7 @@ import deletePM from './ops/deletePM';
 import reroll from './ops/reroll';
 import reset from './ops/reset';
 import markPmsRead from './ops/markPMSRead';
-import togglePinnedItem from './ops/togglePinnedItem';
+import pinnedGearUtils from './ops/pinnedGearUtils';
 
 api.ops = {
   scoreTask,
@@ -202,7 +202,7 @@ api.ops = {
   reroll,
   reset,
   markPmsRead,
-  togglePinnedItem,
+  pinnedGearUtils,
 };
 
 /*

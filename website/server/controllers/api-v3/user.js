@@ -2029,7 +2029,7 @@ api.togglePinnedItem = {
     const path = get(req.params, 'path');
     const type = get(req.params, 'type');
 
-    common.ops.togglePinnedItem(user, {type, path}, req);
+    common.ops.pinnedGearUtils.togglePinnedItem(user, {type, path}, req);
 
     await user.save();
 
