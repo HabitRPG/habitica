@@ -33,7 +33,7 @@
       ref="columnBackground",
     )
       .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
-      h3(v-once) {{$t('theseAreYourTasks', {taskType: `${type}s`})}}
+      h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(types[type].label)})}}
       .small-text {{$t(`${type}sDesc`)}}
 </template>
 
