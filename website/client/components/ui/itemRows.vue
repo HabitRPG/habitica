@@ -10,7 +10,7 @@
     div(v-if="items.length === 0")
       p(v-once) {{ noItemsLabel }}
 
-    .btn.btn-show-more(
+    .btn-flat.btn-show-more(
       @click="showAll = !showAll",
       v-if="items.length > itemsPerRow()"
     ) {{ showAll ? $t('showLess') : $t('showMore') }}

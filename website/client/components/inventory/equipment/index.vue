@@ -22,10 +22,14 @@
       h1.float-left.mb-0.page-header(v-once) {{ $t('equipment') }}
       .float-right
         span.dropdown-label {{ $t('sortBy') }}
-        b-dropdown(:text="'Sort 1'", right=true)
-          b-dropdown-item(href="#") Option 1
-          b-dropdown-item(href="#") Option 2
-          b-dropdown-item(href="#") Option 3
+        b-dropdown(:text="$t(selectedSortGearBy)", right=true)
+          b-dropdown-item(
+            v-for="sort in sortGearBy",
+            @click="selectedSortGearBy = sort",
+            :active="selectedSortGearBy === sort",
+            :key="sort"
+          ) {{ $t(sort) }}
+
         span.dropdown-label {{ $t('groupBy2') }}
         b-dropdown(:text="$t(groupBy === 'type' ? 'equipmentType' : 'class')", right=true)
           b-dropdown-item(@click="groupBy = 'type'", :active="groupBy === 'type'") {{ $t('equipmentType') }}
@@ -88,10 +92,11 @@
     )
       h2
        | {{ group.label }}
+       |
        span.badge.badge-pill.badge-default {{items[group.key].length}}
 
       itemRows(
-        :items="items[group.key]",
+        :items="sortItems(items[group.key], selectedSortGearBy)",
         :itemWidth=94,
         :itemMargin=24,
         :noItemsLabel="$t('noGearItemsOfType', { type: group.label })"
@@ -102,28 +107,32 @@
             :itemContentClass="'shop_' + context.item.key",
             :emptyItem="!context.item || context.item.key.indexOf('_base_0') !== -1",
             :key="context.item.key",
+            @click="openEquipDialog(context.item)"
           )
             template(slot="itemBadge", scope="context")
               starBadge(
                 :selected="activeItems[context.item.type] === context.item.key",
                 :show="!costume || user.preferences.costume",
-                @click="equip(context.item)",
+                @click="openEquipDialog(context.item)",
               )
             template(slot="popoverContent", scope="context")
               equipmentAttributesPopover(:item="context.item")
-</template>
 
-<style lang="scss" scoped>
-h2 {
-  margin-top: 24px;
-}
-</style>
+  equipGearModal(
+    :item="gearToEquip",
+    @equipItem="equipItem($event)",
+    @change="changeModalState($event)",
+    :costumeMode="costume",
+    :isEquipped="gearToEquip == null ? false : activeItems[gearToEquip.type] === gearToEquip.key"
+  )
+</template>
 
 <script>
 import { mapState } from 'client/libs/store';
 import each from 'lodash/each';
 import map from 'lodash/map';
 import throttle from 'lodash/throttle';
+import _sortBy from 'lodash/sortBy';
 
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
@@ -138,6 +147,18 @@ import Drawer from 'client/components/ui/drawer';
 
 import i18n from 'common/script/i18n';
 
+import EquipGearModal from './equipGearModal';
+
+
+const sortGearTypes = ['sortByName', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
+
+const sortGearTypeMap = {
+  sortByName: (i) => i.text(),
+  sortByCon: 'con',
+  sortByStr: 'str',
+  sortByInt: 'int',
+};
+
 export default {
   name: 'Equipment',
   components: {
@@ -150,6 +171,7 @@ export default {
     bDropdownItem,
     bPopover,
     toggleSwitch,
+    EquipGearModal,
   },
   data () {
     return {
@@ -178,6 +200,9 @@ export default {
         armoire: i18n.t('armoireText'),
       }),
       viewOptions: {},
+      gearToEquip: null,
+      sortGearBy: sortGearTypes,
+      selectedSortGearBy: 'sortByName',
     };
   },
   watch: {
@@ -186,13 +211,25 @@ export default {
     }, 250),
   },
   methods: {
-    equip (item) {
+    openEquipDialog (item) {
+      this.gearToEquip = item;
+    },
+    changeModalState (visible) {
+      if (!visible) {
+        this.gearToEquip = null;
+      }
+    },
+    equipItem (item) {
       this.$store.dispatch('common:equip', {key: item.key, type: this.costume ? 'costume' : 'equipped'});
+      this.gearToEquip = null;
     },
     changeDrawerPreference (newVal) {
       this.$store.dispatch('user:set', {
         [`preferences.${this.drawerPreference}`]: newVal,
       });
+    },
+    sortItems (items, sortBy) {
+      return _sortBy(items, sortGearTypeMap[sortBy]);
     },
   },
   computed: {
