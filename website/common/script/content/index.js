@@ -1,6 +1,5 @@
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
-import includes from 'lodash/includes';
 import moment from 'moment';
 import t from './translation';
 
@@ -116,8 +115,8 @@ api.armoire = {
   },
   value: 100,
   key: 'armoire',
-  canOwn (u) {
-    return includes(u.achievements.ultimateGearSets, true);
+  canOwn () {
+    return true;
   },
 };
 
