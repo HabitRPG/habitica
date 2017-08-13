@@ -99,13 +99,21 @@
                 :popoverPosition="'top'",
                 :progress="context.item.progress",
                 :emptyItem="!context.item.isOwned()",
-                :showPopover="context.item.isOwned()",
+                :showPopover="context.item.isOwned() || context.item.isHatchable()",
                 :highlightBorder="highlightPet == context.item.key",
                 @click="petClicked(context.item)"
               )
                 span(slot="popoverContent")
                   div(v-if="context.item.isOwned()")
                     h4.popover-content-title {{ context.item.name }}
+                  div.hatchablePopover(v-else-if="context.item.isHatchable()")
+                    h4.popover-content-title {{ context.item.name }}
+                    div.popover-content-text(v-html="$t('haveHatchablePet', { potion: context.item.potionName, egg: context.item.eggName })")
+                    div.potionEggGroup
+                      div.potionEggBackground
+                        div(:class="'Pet_HatchingPotion_'+context.item.potionKey")
+                      div.potionEggBackground
+                        div(:class="'Pet_Egg_'+context.item.eggKey")
 
                 template(slot="itemBadge", scope="context")
                   starBadge(
@@ -139,6 +147,7 @@
               :popoverPosition="'top'",
               :emptyItem="!context.item.isOwned()",
               :showPopover="context.item.isOwned()",
+              @click="selectMount(context.item)"
             )
               span(slot="popoverContent")
                 h4.popover-content-title {{ context.item.name }}
@@ -200,7 +209,8 @@
       :ok-only="true",
       :ok-title="$t('gotIt')",
       :visible="!hideDialog",
-      :hide-header="true"
+      :hide-header="true",
+      @hide="hideFlag()"
     )
       div.content
         div.npc_matt
@@ -439,6 +449,33 @@
       width: 100px;
     }
   }
+
+  .hatchablePopover {
+    width: 180px;
+
+    .potionEggGroup {
+      margin: 0 auto;
+      margin-top: 10px;
+    }
+
+    .potionEggBackground {
+      display: inline-flex;
+      align-items: center;
+
+      width: 64px;
+      height: 64px;
+      border-radius: 2px;
+      background-color: #4e4a57;
+
+      &:first-child {
+        margin-right: 24px;
+      }
+
+      & div {
+        margin: 0 auto;
+      }
+    }
+  }
 </style>
 
 <script>
@@ -476,6 +513,8 @@
   import svgInformation from 'assets/svg/information.svg';
   import svgClose from 'assets/svg/close.svg';
 
+  import notifications from 'client/mixins/notifications';
+
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
   // import deepFreeze from 'client/libs/deepFreeze';
@@ -484,6 +523,7 @@
   let lastMouseMoveEvent = {};
 
   export default {
+    mixins: [notifications],
     components: {
       PetItem,
       Item,
@@ -739,7 +779,7 @@
         // 2. Sort
         switch (sort) {
           case 'AZ':
-            animals = _sortBy(animals, ['pet']);
+            animals = _sortBy(animals, ['name']);
             break;
 
           case 'sortByColor':
@@ -848,10 +888,10 @@
         }
       },
 
-      onDrop (ev, pet) {
-        this.$store.dispatch('common:feed', {pet: pet.key, food: ev.draggingKey});
-
+      async onDrop (ev, pet) {
         this.highlightPet = '';
+
+        this.feedAction(pet.key, ev.draggingKey);
       },
 
       onDragEnd () {
@@ -866,15 +906,28 @@
       petClicked (pet) {
         if (this.currentDraggingFood !== null && pet.isAllowedToFeed()) {
           // food process
-          this.$store.dispatch('common:feed', {pet: pet.key, food: this.currentDraggingFood.key});
+          this.feedAction(pet.key, this.currentDraggingFood.key);
           this.currentDraggingFood = null;
           this.foodClickMode = false;
         } else {
-          if (pet.isOwned() || !pet.isHatchable()) {
+          if (pet.isOwned()) {
+            this.selectPet(pet);
+            return;
+          }
+
+          if (!pet.isHatchable()) {
             return;
           }
           // opens the hatch dialog
           this.hatchablePet = pet;
+        }
+      },
+
+      async feedAction (petKey, foodKey) {
+        let result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
+
+        if (result.message) {
+          this.text(result.message);
         }
       },
 
@@ -912,6 +965,12 @@
         } else {
           lastMouseMoveEvent = $event;
         }
+      },
+
+      hideFlag () {
+        this.$store.dispatch('user:set', {
+          'flags.tutorial.common.mounts': true,
+        });
       },
     },
   };
