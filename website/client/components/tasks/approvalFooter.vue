@@ -55,7 +55,6 @@ export default {
       if (this.task.approvals && this.task.approvals.length === 1) return true;
     },
     multipleApprovalsRequested () {
-      return true;
       if (this.task.approvals && this.task.approvals.length > 1) return true;
     },
   },
