@@ -2747,6 +2747,38 @@ let quests = {
       unlock: t('questNudibranchUnlockText'),
     },
   },
+  hippo: {
+    text: t('questHippoText'),
+    notes: t('questHippoNotes'),
+    completion: t('questHippoCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questHippoBoss'),
+      hp: 800,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Hippo',
+          text: t('questHippoDropHippoEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Hippo',
+          text: t('questHippoDropHippoEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Hippo',
+          text: t('questHippoDropHippoEgg'),
+        },
+      ],
+      gp: 55,
+      exp: 500,
+      unlock: t('questHippoUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {

@@ -454,6 +454,7 @@ api.updateTask = {
     // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
     // see https://github.com/Automattic/mongoose/issues/2749
 
+    task.group.approval.required = false;
     if (sanitizedObj.requiresApproval) {
       task.group.approval.required = true;
     }

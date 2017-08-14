@@ -3,7 +3,7 @@
     "subscriptions": "Berlangganan",
     "subDescription": "Beli permata dengan koin emas, mendapatkan item misteri bulanan, menyimpan riwayat kemajuan, melipatgandakan batas hadiah harian, mendukung para pengembang. Klik untuk info lebih lanjut.",
     "buyGemsGold": "Beli Permata dengan Koin Emas",
-    "buyGemsGoldText": "Alexander sang Saudagar akan menjual Permata seharga <%= gemCost %> per Permata. Setiap bulan, batas permata yang dapat dimiliki adalah <%= gemLimit %>, tetapi batas ini meningkat sebanyak 5 Permata setiap bulan untuk langganan yang terus menerus, hingga maksimal 50 Permata setiap bulan!",
+    "buyGemsGoldText": "Alexander the Merchant will sell you Gems at a cost of 20 Gold per Gem. His monthly shipments are initially capped at 25 Gems per month, but for every 3 consecutive months that you are subscribed, this cap increases by 5 Gems, up to a maximum of 50 Gems per month!",
     "mustSubscribeToPurchaseGems": "Harus berlangganan untuk membeli Permata menggunakan GP",
     "reachedGoldToGemCap": "Kamu telah mencapai batas konversi Emas=>Permata <%= convCap %> untuk bulan ini. Kami menerapkan ini untuk mencegah penyalahgunaan. Batas akan direset pada 3 hari pertama dari setiap bulan.",
     "retainHistory": "Mendapatkan riwayat tambahan",

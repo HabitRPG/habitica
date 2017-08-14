@@ -66,7 +66,7 @@
     "itemDrop": "アイテムが落ちました!",
     "firstDrop": "落とし物のしくみがアンロックされました!　今後タスクを達成すると、たまごなどのアイテムや、薬、そしてエサの落とし物を発見するちょっとしたチャンスが訪れます。あなたは今<strong><%= eggText %>たまご</strong>を見つけました！ <%= eggNotes %>",
     "useGems": "もしお目当てのペットがいて、これ以上ドロップを待てないのであれば、ジェムを使って<strong>所持品 > 市場</strong> で買ってください！",
-    "hatchAPot": "<%= potion %><%= egg %>をかえしますか?",
+    "hatchAPot": "新しい<%= potion %><%= egg %>をかえしますか?",
     "hatchedPet": "<%= potion %><%= egg %> が生まれました!",
     "displayNow": "いますぐ表示",
     "displayLater": "あとで表示",

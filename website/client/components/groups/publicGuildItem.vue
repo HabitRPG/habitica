@@ -4,7 +4,9 @@ router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
     .card-block
       .row
         .col-md-2
-          .svg-icon.shield(v-html="icons.goldGuildBadge")
+          .svg-icon.shield(v-html="icons.goldGuildBadge", v-if='guild.memberCount > 1000')
+          .svg-icon.shield(v-html="icons.silverGuildBadgeIcon", v-if='guild.memberCount > 100 && guild.memberCount < 999')
+          .svg-icon.shield(v-html="icons.bronzeGuildBadgeIcon", v-if='guild.memberCount < 100')
           .member-count {{guild.memberCount}}
         .col-md-10
           .row
@@ -110,7 +112,9 @@ import { mapState } from 'client/libs/store';
 import groupUtilities from 'client/mixins/groupsUtilities';
 import findIndex from 'lodash/findIndex';
 import gemIcon from 'assets/svg/gem.svg';
-import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge.svg';
+import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge-large.svg';
+import silverGuildBadgeIcon from 'assets/svg/silver-guild-badge-large.svg';
+import bronzeGuildBadgeIcon from 'assets/svg/bronze-guild-badge-large.svg';
 
 export default {
   mixins: [groupUtilities],
@@ -126,6 +130,8 @@ export default {
       icons: Object.freeze({
         gem: gemIcon,
         goldGuildBadge: goldGuildBadgeIcon,
+        silverGuildBadgeIcon,
+        bronzeGuildBadgeIcon,
       }),
     };
   },

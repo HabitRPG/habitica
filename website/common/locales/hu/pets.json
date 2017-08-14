@@ -66,7 +66,7 @@
     "itemDrop": "Egy tárgyat találtál.",
     "firstDrop": "Elérted a jutalmazási rendszert! Ha befejezel egy feladatot, akkor lesz egy kis esélyed, hogy valamilyen felszerelést találj, beleértve tojásokat, főzeteket és ételt. Találtál egy <strong><%= eggText %> Tojást</strong>! <%= eggNotes %>",
     "useGems": "Ha megtetszik egy háziállat, de nem tudsz tovább várni arra, hogy megtaláld, használj Drágaköveket itt:  <strong>Tárgylista > Piac</strong> a vásárláshoz!",
-    "hatchAPot": "Kelteted a(z) <%= egg %>-t a(z) <%= potion %> -al?",
+    "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
     "hatchedPet": "Egy új <%= potion %> <%= egg %> keltettél ki!",
     "displayNow": "Megjelenítés most",
     "displayLater": "Megjelenítés később",

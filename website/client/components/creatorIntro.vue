@@ -31,7 +31,7 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
         .menu-item(@click='changeTopPage("extra", "glasses")')
           .svg-icon(v-html='icons.accessoriesIcon')
         strong(v-once) {{$t('extra')}}
-      .col-3
+      .col-3(v-if='editing')
         .menu-item(@click='changeTopPage("backgrounds", "2017")')
           .svg-icon(v-html='icons.backgroundsIcon')
         strong(v-once) {{$t('backgrounds')}}
@@ -434,6 +434,7 @@ import { mapState } from 'client/libs/store';
 import avatar from './avatar';
 import { getBackgroundShopSets } from '../../common/script/libs/shops';
 import unlock from '../../common/script/ops/unlock';
+import guide from 'client/mixins/guide';
 
 import bModal from 'bootstrap-vue/lib/components/modal';
 
@@ -445,6 +446,7 @@ import hairIcon from 'assets/svg/hair.svg';
 import backgroundsIcon from 'assets/svg/backgrounds.svg';
 
 export default {
+  mixins: [guide],
   components: {
     avatar,
     bModal,
@@ -513,11 +515,21 @@ export default {
       this.$store.dispatch('user:set', settings);
     },
     equip (key) {
-      this.$store.dispatch('common:equip', {key, type: 'costume'});
+      this.$store.dispatch('common:equip', {key, type: 'equipped'});
+      this.user.items.gear.equipped[key] = !this.user.items.gear.equipped[key];
     },
     done () {
       this.$root.$emit('hide::modal', 'avatar-modal');
       this.$router.push('/');
+      this.$store.dispatch('user:set', {
+        'flags.welcomed': true,
+      });
+
+      // @TODO: This is a timeout to ensure dom is loaded
+      window.setTimeout(() => {
+        this.initTour();
+        this.goto('intro', 0);
+      }, 1000);
     },
     showPlainBackgroundBlurb (identifier, set) {
       return identifier === 'incentiveBackgrounds' && !this.ownsSet('background', set);

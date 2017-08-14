@@ -20,6 +20,7 @@ import {
 } from '../../libs/email';
 import nconf from 'nconf';
 import get from 'lodash/get';
+import { model as Tag } from '../../models/tag';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 const DELETE_CONFIRMATION = 'DELETE';
@@ -133,6 +134,49 @@ api.getBuyList = {
   },
 };
 
+/**
+ * @api {get} /api/v3/user/in-app-rewards Get the in app items appaearing in the user's reward column
+ * @apiName UserGetInAppRewards
+ * @apiGroup User
+ *
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *   "success": true,
+ *   "data": [
+ *     {
+ *       "key":"weapon_armoire_battleAxe",
+ *       "text":"Battle Axe",
+ *       "notes":"This fine iron axe is well-suited to battling your fiercest foes or your most difficult tasks. Increases Intelligence by 6 and Constitution by 8. Enchanted Armoire: Independent Item.",
+ *       "value":1,
+ *       "type":"weapon",
+ *       "locked":false,
+ *       "currency":"gems",
+ *       "purchaseType":"gear",
+ *       "class":"shop_weapon_armoire_battleAxe",
+ *       "path":"gear.flat.weapon_armoire_battleAxe",
+ *       "pinType":"gear"
+ *     }
+ *   ]
+ * }
+ */
+api.getInAppRewardsList = {
+  method: 'GET',
+  middlewares: [authWithHeaders()],
+  url: '/user/in-app-rewards',
+  async handler (req, res) {
+    let list = common.inAppRewards(res.locals.user);
+
+    // return text and notes strings
+    _.each(list, item => {
+      _.each(item, (itemPropVal, itemPropKey) => {
+        if (_.isFunction(itemPropVal) && itemPropVal.i18nLangFunc) item[itemPropKey] = itemPropVal(req.language);
+      });
+    });
+
+    res.respond(200, list);
+  },
+};
+
 let updatablePaths = [
   '_ABtests.counter',
 
@@ -157,6 +201,7 @@ let updatablePaths = [
   'profile',
   'stats',
   'inbox.optOut',
+  'tags',
 ];
 
 // This tells us for which paths users can call `PUT /user`.
@@ -247,8 +292,43 @@ api.updateUser = {
         throw new NotAuthorized(res.t('mustPurchaseToSet', { val, key }));
       }
 
-      if (acceptablePUTPaths[key]) {
+      if (acceptablePUTPaths[key] && key !== 'tags') {
         _.set(user, key, val);
+      } else if (key === 'tags') {
+        if (!Array.isArray(val)) throw new BadRequest('mustBeArray');
+
+        const removedTagsIds = [];
+
+        const oldTags = [];
+
+        // Keep challenge and group tags
+        user.tags.forEach(t => {
+          if (t.group || t.challenge) {
+            oldTags.push(t);
+          } else {
+            removedTagsIds.push(t.id);
+          }
+        });
+
+        user.tags = oldTags;
+
+        val.forEach(t => {
+          let oldI = removedTagsIds.findIndex(id => id === t.id);
+          if (oldI > -1) {
+            removedTagsIds.splice(oldI, 1);
+          }
+
+          user.tags.push(Tag.sanitize(t));
+        });
+
+        // Remove from all the tasks TODO test
+        Tasks.Task.update({
+          userId: user._id,
+        }, {
+          $pull: {
+            tags: {$in: [removedTagsIds]},
+          },
+        }, {multi: true}).exec();
       } else {
         throw new NotAuthorized(res.t('messageUserOperationProtected', { operation: key }));
       }
@@ -1917,6 +1997,47 @@ api.setCustomDayStart = {
 
     res.respond(200, {
       message: res.t('customDayStartHasChanged'),
+    });
+  },
+};
+
+/**
+ * @api {get} /user/toggle-pinned-item/:key Toggle an item to be pinned
+ * @apiName togglePinnedItem
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data Pinned items array
+ *
+ * @apiSuccessExample {json} Result:
+ *  {
+ *   "success": true,
+ *   "data": {
+ *     "pinnedItems": [
+ *        "type": "gear",
+ *        "path": "gear.flat.weapon_1"
+ *     ]
+ *   }
+ * }
+ *
+ */
+api.togglePinnedItem = {
+  method: 'GET',
+  middlewares: [authWithHeaders()],
+  url: '/user/toggle-pinned-item/:type/:path',
+  async handler (req, res) {
+    let user = res.locals.user;
+    const path = get(req.params, 'path');
+    const type = get(req.params, 'type');
+
+    common.ops.pinnedGearUtils.togglePinnedItem(user, {type, path}, req);
+
+    await user.save();
+
+    let userJson = user.toJSON();
+
+    res.respond(200, {
+      pinnedItems: userJson.pinnedItems,
+      unpinnedItems: userJson.unpinnedItems,
     });
   },
 };

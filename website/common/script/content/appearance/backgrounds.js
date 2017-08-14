@@ -584,9 +584,11 @@ let backgrounds = {
 };
 /* eslint-enable quote-props */
 
-forOwn(backgrounds, function prefillBackgroundSet (value) {
-  forOwn(value, function prefillBackground (bgObject) {
-    bgObject.price = 7;
+forOwn(backgrounds, function prefillBackgroundSet (backgroundsInSet, set) {
+  forOwn(backgroundsInSet, function prefillBackground (background, bgKey) {
+    background.key = bgKey;
+    background.set = set;
+    background.price = 7;
   });
 });
 

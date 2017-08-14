@@ -11,6 +11,8 @@ import {
 import handleTwoHanded from '../fns/handleTwoHanded';
 import ultimateGear from '../fns/ultimateGear';
 
+import { removePinnedGearAddPossibleNewOnes } from './pinnedGearUtils';
+
 module.exports = function buyGear (user, req = {}, analytics) {
   let key = get(req, 'params.key');
   if (!key) throw new BadRequest(i18n.t('missingKeyParam', req.language));
@@ -38,6 +40,7 @@ module.exports = function buyGear (user, req = {}, analytics) {
     message = handleTwoHanded(user, item, undefined, req);
   }
 
+  removePinnedGearAddPossibleNewOnes(user, `gear.flat.${item.key}`);
   user.items.gear.owned[item.key] = true;
 
   if (item.last) ultimateGear(user);

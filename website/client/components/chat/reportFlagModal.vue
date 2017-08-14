@@ -4,7 +4,7 @@
       h4(v-html="$t('abuseFlagModalHeading', reportData)")
     .modal-body
       blockquote
-        // @TODO: markdown(text='abuseObject.text')
+        div(v-markdown='abuseObject.text')
       p(v-html="$t('abuseFlagModalBody', abuseFlagModalBody)")
     .modal-footer
       button.pull-left.btn.btn-danger(@click='clearFlagCount()', v-if='user.contributor.admin && abuseObject.flagCount > 0')
@@ -17,11 +17,15 @@
 import bModal from 'bootstrap-vue/lib/components/modal';
 import { mapState } from 'client/libs/store';
 import notifications from 'client/mixins/notifications';
+import markdownDirective from 'client/directives/markdown';
 
 export default {
   mixins: [notifications],
   components: {
     bModal,
+  },
+  directives: {
+    markdown: markdownDirective,
   },
   computed: {
     ...mapState({user: 'user.data'}),

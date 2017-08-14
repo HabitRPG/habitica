@@ -25,7 +25,7 @@
     "bannedSlurUsed": "Your post contained inappropriate language, and your chat privileges have been revoked.",
     "party": "Csapat",
     "createAParty": "Csapat létrehozása",
-    "updatedParty": "Csoport beállítások megváltoztatva.",
+    "updatedParty": "Csapat beállítások megváltoztatva.",
     "noPartyText": "Vagy nem vagy csapatban, vagy a csapat elég lassan töltődik be. Létrehozhatsz egy újat és meghívhatod a barátaidat, vagy csatlakozhatsz egy már létező csapathoz. Ez esetben kérd meg őket, hogy az egyedi Felhasználói Azonosítódat írják be ide, majd gyere vissza és várd meg, hogy megérkezzen a meghívó.",
     "LFG": "Menj a <%= linkStart %>Csoport kerestetik (Csoportot keresek)<%= linkEnd %> céhbe, ha a csoportod szeretnéd hirdetni, vagy ha azt keresel.",
     "wantExistingParty": "Szeretnél egy meglévő csapathoz csatlakozni? Menj a <%= linkStart %>'Party Wanted Guild'<%= linkEnd %> nevű céhbe és posztold el ezt a felhasználói azonosítót:",

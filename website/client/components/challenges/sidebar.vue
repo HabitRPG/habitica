@@ -46,24 +46,60 @@ export default {
       categoryFilters: [],
       categoryOptions: [
         {
-          label: 'habiticaOfficial',
-          key: 'official',
+          label: 'habitica_official',
+          key: 'habitica_official',
         },
         {
-          label: 'animals',
-          key: 'animals',
+          label: 'academics',
+          key: 'academics',
         },
         {
-          label: 'artDesign',
-          key: 'art_design',
+          label: 'advocacy_causes',
+          key: 'advocacy_causes',
         },
         {
-          label: 'booksWriting',
-          key: 'books_writing',
+          label: 'creativity',
+          key: 'creativity',
         },
         {
-          label: 'comicsHobbies',
-          key: 'comics_hobbies',
+          label: 'entertainment',
+          key: 'entertainment',
+        },
+        {
+          label: 'finance',
+          key: 'finance',
+        },
+        {
+          label: 'health_fitness',
+          key: 'health_fitness',
+        },
+        {
+          label: 'hobbies_occupations',
+          key: 'hobbies_occupations',
+        },
+        {
+          label: 'location_based',
+          key: 'location_based',
+        },
+        {
+          label: 'mental_health',
+          key: 'mental_health ',
+        },
+        {
+          label: 'getting_organized',
+          key: 'getting_organized ',
+        },
+        {
+          label: 'self_improvement',
+          key: 'self_improvement ',
+        },
+        {
+          label: 'spirituality',
+          key: 'spirituality ',
+        },
+        {
+          label: 'time_management',
+          key: 'time_management',
         },
       ],
       roleFilters: [],

@@ -7,12 +7,13 @@
 
     .row.chat-row
       .col-12
-        h3(v-once) {{ $t('welcomeToTavern') }}
+        h3(v-once) {{ $t('tavernChat') }}
 
         .row
-          textarea(placeholder="Type a message to Habiticans here", v-model='newMessage')
-          autocomplete(:text='newMessage', v-on:select="selectedAutocomplete")
+          textarea(placeholder="Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.", v-model='newMessage', @keydown='updateCarretPosition')
+          autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :groupId='groupId')
           button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
+          button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
 
         .row.community-guidelines(v-if='!communityGuidelinesAccepted')
           div.col-8(v-once) {{ $t('communityGuidelinesIntro') }}
@@ -50,6 +51,7 @@
           .col-3.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
             .title {{user.name}}
             .type {{user.type}}
+            .svg-icon(v-html="icons.tierChampionIcon")
 
       .section-header
         .row
@@ -65,23 +67,23 @@
             li
               a(href='/static/community-guidelines', v-once) {{ $t('communityGuidelinesLink') }}
             li
-              a(href='/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601', v-once) {{ $t('lookingForGroup') }}
+              router-link(to="/groups/guild/f2db2a7f-13c5-454d-b3ee-ea1f5089e601") {{ $t('lookingForGroup') }}
             li
               a(href='/static/faq', v-once) {{ $t('faq') }}
             li
               a(href='', v-html="$t('glossary')")
             li
-              a(href='http://habitica.wikia.com/wiki/Wiki', v-once) {{ $t('wiki') }}
+              a(href='http://habitica.wikia.com/wiki/Habitica_Wiki', v-once) {{ $t('wiki') }}
             li
               a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', v-once) {{ $t('dataDisplayTool') }}
             li
-              a(href='/groups/guilds/a29da26b-37de-4a71-b0c6-48e72a900dac', v-once) {{ $t('reportProblem') }}
+              router-link(to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportProblem') }}
             li
               a(href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents', v-once) {{ $t('requestFeature') }}
             li
               a(href='', v-html="$t('communityForum')")
             li
-              a(href='/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a', v-once) {{ $t('askQuestionGuild') }}
+              router-link(to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askQuestionGuild') }}
 
       .section-header
         .row
@@ -194,7 +196,7 @@
   }
 
   .grassy-meadow-backdrop {
-    background-image: url('~assets/images/groups/grassy-meadow-backdrop.png');
+    background-image: url('~assets/images/tavern_backdrop_web.png');
     width: 100%;
     height: 246px;
   }
@@ -296,6 +298,17 @@ import questBackground from 'assets/svg/quest-background-border.svg';
 import upIcon from 'assets/svg/up.svg';
 import downIcon from 'assets/svg/down.svg';
 
+import tierChampionIcon from 'assets/svg/tier-champion-icon.svg';
+import tierChampion2Icon from 'assets/svg/tier-champion-2-icon.svg';
+import tierEliteIcon from 'assets/svg/tier-elite-icon.svg';
+import tierElite2Icon from 'assets/svg/tier-elite-2-icon.svg';
+import tierFriendIcon from 'assets/svg/tier-friend-icon.svg';
+import tierFriend2Icon from 'assets/svg/tier-friend-2-icon.svg';
+import tierLegendaryIcon from 'assets/svg/tier-legendary-icon.svg';
+import tierModIcon from 'assets/svg/tier-mod-icon.svg';
+import tierNPCIcon from 'assets/svg/tier-npc-icon.svg';
+import tierStaffIcon from 'assets/svg/tier-staff-icon.svg';
+
 export default {
   components: {
     chatMessage,
@@ -303,7 +316,18 @@ export default {
   },
   data () {
     return {
+      groupId: TAVERN_ID,
       icons: Object.freeze({
+        tierStaffIcon,
+        tierNPCIcon,
+        tierModIcon,
+        tierLegendaryIcon,
+        tierFriend2Icon,
+        tierFriendIcon,
+        tierElite2Icon,
+        tierEliteIcon,
+        tierChampion2Icon,
+        tierChampionIcon,
         gem: gemIcon,
         questIcon,
         challengeIcon,
@@ -395,6 +419,10 @@ export default {
         },
       ],
       newMessage: '',
+      coords: {
+        TOP: 0,
+        LEFT: 0,
+      },
     };
   },
   computed: {
@@ -407,6 +435,32 @@ export default {
     this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
   },
   methods: {
+    // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
+    getCoord (e, text) {
+      let carPos = text.selectionEnd;
+      let div = document.createElement('div');
+      let span = document.createElement('span');
+      let copyStyle = getComputedStyle(text);
+
+      [].forEach.call(copyStyle, (prop) => {
+        div.style[prop] = copyStyle[prop];
+      });
+
+      div.style.position = 'absolute';
+      document.body.appendChild(div);
+      div.textContent = text.value.substr(0, carPos);
+      span.textContent = text.value.substr(carPos) || '.';
+      div.appendChild(span);
+      this.coords = {
+        TOP: span.offsetTop,
+        LEFT: span.offsetLeft,
+      };
+      document.body.removeChild(div);
+    },
+    updateCarretPosition (eventUpdate) {
+      let text = eventUpdate.target;
+      this.getCoord(eventUpdate, text);
+    },
     selectedAutocomplete (newText) {
       this.newMessage = newText;
     },
@@ -424,6 +478,9 @@ export default {
       });
       this.group.chat.unshift(response.message);
       this.newMessage = '';
+    },
+    async fetchRecentMessages () {
+      this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
     },
   },
 };

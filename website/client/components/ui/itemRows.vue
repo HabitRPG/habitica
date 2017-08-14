@@ -7,12 +7,23 @@
           :item="item",
         )
 
-    .btn.btn-show-more(
+    div(v-if="items.length === 0")
+      p(v-once) {{ noItemsLabel }}
+
+    .btn-flat.btn-show-more(
       @click="showAll = !showAll",
       v-if="items.length > itemsPerRow()"
-    ) {{ showAll ? showLessLabel : showAllLabel }}
+    ) {{ showAll ? $t('showLess') : $t('showMore') }}
+
+    div.fill-height(v-else)
 
 </template>
+
+<style lang="scss" scoped>
+  .fill-height {
+    height: 38px; // button + margin + padding
+  }
+</style>
 
 <script>
   import ResizeDirective from 'client/directives/resize.directive';
@@ -60,10 +71,7 @@
       itemMargin: {
         type: Number,
       },
-      showAllLabel: {
-        type: String,
-      },
-      showLessLabel: {
+      noItemsLabel: {
         type: String,
       },
     },

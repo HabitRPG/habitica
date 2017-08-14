@@ -89,7 +89,7 @@
 
   "questEggSpiderText": "Spider",
   "questEggSpiderMountText": "Spider",
-  "questEggSpiderAdjective": "a creepy",
+  "questEggSpiderAdjective": "an artistic",
 
   "questEggOwlText": "Owl",
   "questEggOwlMountText": "Owl",
@@ -205,7 +205,7 @@
 
   "questEggPeacockText": "Peacock",
   "questEggPeacockMountText": "Peacock",
-  "questEggPeacockAdjective": "a proud",
+  "questEggPeacockAdjective": "a prancing",
 
   "questEggButterflyText": "Caterpillar",
   "questEggButterflyMountText": "Butterfly",
@@ -214,6 +214,10 @@
   "questEggNudibranchText": "Nudibranch",
   "questEggNudibranchMountText": "Nudibranch",
   "questEggNudibranchAdjective": "a nifty",
+
+  "questEggHippoText": "Hippo",
+  "questEggHippoMountText": "Hippo",
+  "questEggHippoAdjective": "a happy",
 
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
@@ -231,6 +235,7 @@
   "hatchingPotionPeppermint": "Peppermint",
   "hatchingPotionFloral": "Floral",
   "hatchingPotionAquatic": "Aquatic",
+  "hatchingPotionEmber": "Ember",
   "hatchingPotionThunderstorm": "Thunderstorm",
   "hatchingPotionGhost": "Ghost",
   "hatchingPotionRoyalPurple": "Royal Purple",

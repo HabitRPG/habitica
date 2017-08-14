@@ -1,5 +1,6 @@
 <template lang="pug">
 div
+  amazon-payments-modal(:amazon-payments='amazonPayments')
   div(v-if='activePage === PAGES.BENEFITS')
     .header
       h1.text-center Need more for your Group?
@@ -75,9 +76,9 @@ div
             input(type='checkbox', v-model='newGroup.leaderOnly.challenges')
             | {{ $t('leaderOnlyChallenges') }}
       .form-group(v-if='type === "party"')
-        input.btn.btn-default.form-control(type='submit', :value="$t('create')")
+        button.btn.btn-default.form-control(@click='pay()', :value="$t('create')")
       .form-group
-        button.btn.btn-primary.btn-lg.btn-block(@click="upgrade()", :disabled="!newGroupIsReady") {{ $t('create') }}
+        button.btn.btn-primary.btn-lg.btn-block(@click="pay()", :disabled="!newGroupIsReady") {{ $t('create') }}
 </template>
 
 <style lang="scss" scoped>
@@ -163,9 +164,18 @@ div
 </style>
 
 <script>
+import paymentsMixin from '../../mixins/payments';
+import amazonPaymentsModal from '../payments/amazonModal';
+
 export default {
+  mixins: [paymentsMixin],
+  components: {
+    amazonPaymentsModal,
+  },
   data () {
     return {
+      StripeCheckout: {},
+      amazonPayments: {},
       PAGES: {
         CREATE_GROUP: 'create-group',
         UPGRADE_GROUP: 'upgrade-group',
@@ -191,6 +201,9 @@ export default {
   mounted () {
     this.activePage = this.PAGES.BENEFITS;
     this.$store.state.hideHeader = true;
+
+    // @TODO: can this be in a mixin?
+    this.StripeCheckout = window.StripeCheckout;
   },
   destroyed () {
     // @TODO: going from the page back to party modal does not show
@@ -210,21 +223,21 @@ export default {
       this.paymentMethod = paymentType;
       this.changePage(this.PAGES.CREATE_GROUP);
     },
-    upgrade () {
-      //  let subscriptionKey = 'group_monthly'; // @TODO: Get from content API?
+    pay () {
+      let subscriptionKey = 'group_monthly'; // @TODO: Get from content API?
       if (this.paymentMethod === this.PAYMENTS.STRIPE) {
-        // Payments.showStripe({
-        //   subscription: subscriptionKey,
-        //   coupon: null,
-        //   groupToCreate: this.newGroup
-        // });
+        this.showStripe({
+          subscription: subscriptionKey,
+          coupon: null,
+          groupToCreate: this.newGroup,
+        });
       } else if (this.paymentMethod === this.PAYMENTS.AMAZON) {
-        // Payments.amazonPayments.init({
-        //   type: 'subscription',
-        //   subscription: subscriptionKey,
-        //   coupon: null,
-        //   groupToCreate: this.newGroup
-        // });
+        this.amazonPaymentsInit({
+          type: 'subscription',
+          subscription: subscriptionKey,
+          coupon: null,
+          groupToCreate: this.newGroup,
+        });
       }
     },
   },

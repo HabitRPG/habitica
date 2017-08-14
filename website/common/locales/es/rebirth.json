@@ -11,7 +11,7 @@
     "rebirthInList1": "Las tareas, el historial, el equipamiento y la configuración se conservan.",
     "rebirthInList2": "Los Desafíos, Gremios, y Grupos permanecen.",
     "rebirthInList3": "Las gemas, los niveles de patrocinador y los niveles de colaborador permanecen.",
-    "rebirthInList4": "Items obtained from Gems or drops (such as pets and mounts) remain.",
+    "rebirthInList4": "Objetos obtenidos de Gemas o botines (como mascotas y monturas), permanecen.",
     "rebirthEarnAchievement": "¡También recibirás un Logro por haber empezado una nueva aventura!",
     "beReborn": "Renacer",
     "rebirthAchievement": "¡Has comenzado una nueva aventura! Este es Renacimiento <%= number %> para ti, y el Nivel más alto que has conseguido es <%= level %>. Para apilar este Logro, ¡empieza tu aventura siguiente después de haber conseguido un  nivel más alto!",

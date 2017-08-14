@@ -46,6 +46,10 @@
   &.highlight {
     box-shadow: 0 0 8px 8px rgba($black, 0.16), 0 5px 10px 0 rgba($black, 0.12) !important;
   }
+
+  &.highlight-border {
+    border-color: $purple-500;
+  }
 }
 
 .flat .item {

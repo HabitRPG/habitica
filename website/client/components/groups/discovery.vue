@@ -26,7 +26,9 @@
           span(v-once) {{ $t('loading') }}
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import '~client/assets/scss/colors.scss';
+  
   .sort-select {
     margin: 2em;
   }

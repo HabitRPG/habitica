@@ -1,7 +1,5 @@
-import {
-  findIndex,
-  isPlainObject,
-} from 'lodash';
+import findIndex from 'lodash/findIndex';
+import isPlainObject from 'lodash/isPlainObject';
 
 export function removeFromArray (array, element) {
   let elementIndex;

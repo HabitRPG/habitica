@@ -662,8 +662,8 @@
   "armorArmoireYellowPartyDressText": "Yellow Party Dress",
   "armorArmoireYellowPartyDressNotes": "Yellow Party Dress: You're perceptive, strong, smart, and so fashionable! Increases Perception, Strength, and Intelligence by <%= attrs %> each. Enchanted Armoire: Yellow Hairbow Set (Item 2 of 2).",
 
-  "headgear": "headgear",
-  "headgearCapitalized": "Headgear",
+  "headgear": "helm",
+  "headgearCapitalized": "Helm",
 
   "headBase0Text": "No Helm",
   "headBase0Notes": "No headgear.",

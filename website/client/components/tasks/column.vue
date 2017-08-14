@@ -9,18 +9,33 @@
         :class="{active: activeFilter.label === filter.label}",
         @click="activateFilter(type, filter)",
       ) {{ $t(filter.label) }}
-  .tasks-list
+  .tasks-list(ref="taskList")
     task(
       v-for="task in taskList",
       :key="task.id", :task="task",
       v-if="filterTask(task)",
       :isUser="isUser",
       @editTask="editTask",
+      :group='group',
     )
+    template(v-if="isUser === true && type === 'reward' && activeFilter.label !== 'custom'")
+      .reward-items
+        shopItem(
+          v-for="reward in inAppRewards",
+          :item="reward",
+          :key="reward.key",
+          :highlightBorder="reward.isSuggested",
+          @click="openBuyDialog(reward)"
+        )
+
     .bottom-gradient
-    .column-background(v-if="isUser === true", :class="{'initial-description': tasks[`${type}s`].length === 0}")
+    .column-background(
+      v-if="isUser === true",
+      :class="{'initial-description': tasks[`${type}s`].length === 0}",
+      ref="columnBackground",
+    )
       .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
-      h3(v-once) {{$t('theseAreYourTasks', {taskType: `${type}s`})}}
+      h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(types[type].label)})}}
       .small-text {{$t(`${type}sDesc`)}}
 </template>
 
@@ -29,6 +44,12 @@
 
   .tasks-column {
     height: 556px;
+  }
+
+  .reward-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 
   .tasks-list {
@@ -134,18 +155,22 @@
 import Task from './task';
 import { mapState, mapActions } from 'client/libs/store';
 import { shouldDo } from 'common/script/cron';
+import inAppRewards from 'common/script/libs/inAppRewards';
 import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
 import rewardIcon from 'assets/svg/reward.svg';
 import bModal from 'bootstrap-vue/lib/components/modal';
+import shopItem from '../shops/shopItem';
+import throttle from 'lodash/throttle';
 
 export default {
   components: {
     Task,
     bModal,
+    shopItem,
   },
-  props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride'],
+  props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
   data () {
     const types = Object.freeze({
       habit: {
@@ -199,12 +224,28 @@ export default {
   computed: {
     ...mapState({
       tasks: 'tasks.data',
+      user: 'user.data',
       userPreferences: 'user.data.preferences',
     }),
     taskList () {
+      // @TODO: This should not default to user's tasks. It should require that you pass options in
       if (this.taskListOverride) return this.taskListOverride;
       return this.tasks[`${this.type}s`];
     },
+    inAppRewards () {
+      return inAppRewards(this.user);
+    },
+  },
+  watch: {
+    taskList: {
+      handler: throttle(function setColumnBackgroundVisibility () {
+        this.setColumnBackgroundVisibility();
+      }, 250),
+      deep: true,
+    },
+  },
+  mounted () {
+    this.setColumnBackgroundVisibility();
   },
   methods: {
     ...mapActions({loadCompletedTodos: 'tasks:fetchCompletedTodos'}),
@@ -216,6 +257,31 @@ export default {
         this.loadCompletedTodos();
       }
       this.activeFilter = filter;
+    },
+    setColumnBackgroundVisibility () {
+      this.$nextTick(() => {
+        const taskListEl = this.$refs.taskList;
+        const tasklistHeight = taskListEl.offsetHeight;
+        let combinedTasksHeights = 0;
+        Array.from(taskListEl.getElementsByClassName('task')).forEach(el => {
+          combinedTasksHeights += el.offsetHeight;
+        });
+
+        if (!this.$refs.columnBackground) return;
+
+        const rewardsList = taskListEl.getElementsByClassName('reward-items')[0];
+        if (rewardsList) {
+          combinedTasksHeights += rewardsList.offsetHeight;
+        }
+
+        const columnBackgroundStyle = this.$refs.columnBackground.style;
+
+        if (tasklistHeight - combinedTasksHeights < 150) {
+          columnBackgroundStyle.display = 'none';
+        } else {
+          columnBackgroundStyle.display = 'block';
+        }
+      });
     },
     filterTask (task) {
       // View
@@ -246,6 +312,9 @@ export default {
 
         return checklistItemIndex !== -1;
       }
+    },
+    openBuyDialog (rewardItem) {
+      this.$emit('openBuyDialog', rewardItem);
     },
   },
 };

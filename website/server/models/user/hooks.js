@@ -90,6 +90,23 @@ function _populateDefaultTasks (user, taskTypes) {
     });
 }
 
+function pinBaseItems (user) {
+  const itemsPaths = [
+    'weapon_warrior_0', 'armor_warrior_1',
+    'shield_warrior_1', 'head_warrior_1',
+  ];
+
+  itemsPaths.map(p => user.pinnedItems.push({
+    type: 'marketGear',
+    path: `gear.flat.${p}`,
+  }));
+
+  user.pinnedItems.push(
+    {type: 'potion', path: 'potion'},
+    {type: 'armoire', path: 'armoire'},
+  );
+}
+
 function _setUpNewUser (user) {
   let taskTypes;
   let iterableFlags = user.flags.toObject();
@@ -137,6 +154,7 @@ function _setUpNewUser (user) {
     }
   }
 
+  pinBaseItems(user);
   return _populateDefaultTasks(user, taskTypes);
 }
 

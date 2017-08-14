@@ -1,255 +1,281 @@
 <template lang="pug">
-.task.d-flex(:class="{'task-not-scoreable': isUser !== true}")
-  // Habits left side control
-  .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.up")
-    .task-control.habit-control(:class="controlClass.up + '-control-habit'", @click="isUser ? score('up') : null")
-      .svg-icon.positive(v-html="icons.positive")
-  // Dailies and todos left side control
-  .left-control.d-flex.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass")
-    .task-control.daily-todo-control(:class="controlClass + '-control-daily-todo'", @click="isUser ? score(task.completed ? 'down' : 'up') : null")
-      .svg-icon.check(v-html="icons.check", :class="{'display-check-icon': task.completed}")
-  // Task title, description and icons
-  .task-content(:class="contentClass")
-    .task-clickable-area(@click="edit($event, task)")
-      h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
-      .task-notes.small-text(v-markdown="task.notes")
-    .checklist(v-if="task.checklist && task.checklist.length > 0")
-      label.custom-control.custom-checkbox.checklist-item(
-        v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
-      )
-        input.custom-control-input(type="checkbox", :checked="item.completed", @change="toggleChecklistItem(item)")
-        span.custom-control-indicator
-        span.custom-control-description {{ item.text }}
-    .icons.small-text.d-flex.align-items-center
-      .d-flex.align-items-center(v-if="task.type === 'todo' && task.date", :class="{'due-overdue': isDueOverdue}")
-        .svg-icon.calendar(v-html="icons.calendar")
-        span {{dueIn}}
-      .icons-right.d-flex.justify-content-end
-        .d-flex.align-items-center(v-if="showStreak")
-          .svg-icon.streak(v-html="icons.streak")
-          span(v-if="task.type === 'daily'") {{task.streak}}
-          span(v-if="task.type === 'habit'")
-            span.m-0(v-if="task.up") +{{task.counterUp}}
-            span.m-0(v-if="task.up && task.down") &nbsp;|&nbsp;
-            span.m-0(v-if="task.down") -{{task.counterDown}}
-        .d-flex.align-items-center(v-if="task.challenge && task.challenge.id")
-          .svg-icon.challenge(v-html="icons.challenge")
-        b-popover.tags-popover.no-span-margin(
-          :triggers="['hover']",
-          :placement="'bottom'",
-          :popover-style="{'max-width': '1000px'}",
+.task
+  approval-header(:task='task', v-if='this.task.group.id', :group='group')
+  .d-flex(:class="{'task-not-scoreable': isUser !== true}")
+    // Habits left side control
+    .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.up")
+      .task-control.habit-control(:class="controlClass.up + '-control-habit'", @click="isUser ? score('up') : null")
+        .svg-icon.positive(v-html="icons.positive")
+    // Dailies and todos left side control
+    .left-control.d-flex.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass")
+      .task-control.daily-todo-control(:class="controlClass + '-control-daily-todo'", @click="isUser ? score(task.completed ? 'down' : 'up') : null")
+        .svg-icon.check(v-html="icons.check", :class="{'display-check-icon': task.completed}")
+    // Task title, description and icons
+    .task-content(:class="contentClass")
+      .task-clickable-area(@click="edit($event, task)")
+        h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
+        .task-notes.small-text(v-markdown="task.notes")
+      .checklist(v-if="task.checklist && task.checklist.length > 0")
+        label.custom-control.custom-checkbox.checklist-item(
+          v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
         )
-          .d-flex.align-items-center(slot="content")
-            .tags-popover-title(v-once) {{ `${$t('tags')}:` }}
-            .tag-label(v-for="tag in getTagsFor(task)") {{tag}}
-          .d-flex.align-items-center(v-if="task.tags && task.tags.length > 0")
-            .svg-icon.tags(v-html="icons.tags")
+          input.custom-control-input(type="checkbox", :checked="item.completed", @change="toggleChecklistItem(item)")
+          span.custom-control-indicator
+          span.custom-control-description {{ item.text }}
+      .icons.small-text.d-flex.align-items-center
+        .d-flex.align-items-center(v-if="task.type === 'todo' && task.date", :class="{'due-overdue': isDueOverdue}")
+          .svg-icon.calendar(v-html="icons.calendar")
+          span {{dueIn}}
+        .icons-right.d-flex.justify-content-end
+          .d-flex.align-items-center(v-if="showStreak")
+            .svg-icon.streak(v-html="icons.streak")
+            span(v-if="task.type === 'daily'") {{task.streak}}
+            span(v-if="task.type === 'habit'")
+              span.m-0(v-if="task.up") +{{task.counterUp}}
+              span.m-0(v-if="task.up && task.down") &nbsp;|&nbsp;
+              span.m-0(v-if="task.down") -{{task.counterDown}}
+          .d-flex.align-items-center(v-if="task.challenge && task.challenge.id")
+            .svg-icon.challenge(v-html="icons.challenge")
+          b-popover.tags-popover.no-span-margin(
+            :triggers="['hover']",
+            :placement="'bottom'",
+            :popover-style="{'max-width': '1000px'}",
+          )
+            .d-flex.align-items-center(slot="content")
+              .tags-popover-title(v-once) {{ `${$t('tags')}:` }}
+              .tag-label(v-for="tag in getTagsFor(task)") {{tag}}
+            .d-flex.align-items-center(v-if="task.tags && task.tags.length > 0")
+              .svg-icon.tags(v-html="icons.tags")
 
-  // Habits right side control
-  .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down")
-    .task-control.habit-control(:class="controlClass.down + '-control-habit'", @click="isUser ? score('down') : null")
-      .svg-icon.negative(v-html="icons.negative")
-  // Rewards right side control
-  .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass", @click="isUser ? score('down') : null")
-    .svg-icon(v-html="icons.gold")
-    .small-text {{task.value}}
+    // Habits right side control
+    .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down")
+      .task-control.habit-control(:class="controlClass.down + '-control-habit'", @click="isUser ? score('down') : null")
+        .svg-icon.negative(v-html="icons.negative")
+    // Rewards right side control
+    .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass", @click="isUser ? score('down') : null")
+      .svg-icon(v-html="icons.gold")
+      .small-text {{task.value}}
+  approval-footer(:task='task', v-if='this.task.group.id', :group='group')
 </template>
 
 <style lang="scss">
-@import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/colors.scss';
 
-.task {
-  margin-bottom: 8px;
-  box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
-  background: $white;
-  border-radius: 2px;
-  z-index: 9;
-  position: relative;
-}
+  .task {
+    margin-bottom: 8px;
+    box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
+    background: transparent;
+    border-radius: 2px;
+    z-index: 9;
+    position: relative;
 
-.task-title {
-  padding-bottom: 8px;
-  color: $gray-10;
-  font-weight: normal;
-  margin-bottom: 0px;
+    &:hover {
+      box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
 
-  &.has-notes {
-    padding-bottom: 0px;
+      .left-control, .right-control, .task-content {
+        border-color: $purple-500;
+      }
+    }
   }
-}
 
-.task-notes {
-  color: $gray-100;
-  font-style: normal;
-}
+  .task-title {
+    padding-bottom: 8px;
+    color: $gray-10;
+    font-weight: normal;
+    margin-bottom: 0px;
 
-.task-content {
-  padding: 8px;
-  flex-grow: 1;
-  cursor: pointer;
-}
+    &.has-notes {
+      padding-bottom: 0px;
+    }
+  }
 
-.checklist {
-  margin-bottom: 2px;
-  margin-top: 8px;
-}
+  .task-notes {
+    color: $gray-100;
+    font-style: normal;
+  }
 
-.checklist-item {
-  color: $gray-50;
-  font-size: 14px;
-  line-height: 1.43;
-  margin-bottom: 10px;
-  min-height: 0px;
-  width: 100%;
+  .task-content {
+    padding: 8px;
+    flex-grow: 1;
+    cursor: pointer;
+    background: $white;
+    border: 1px solid transparent;
 
-  &-done {
+    &.no-right-border {
+      border-right: none !important;
+    }
+  }
+
+  .checklist {
+    margin-bottom: 2px;
+    margin-top: 8px;
+  }
+
+  .checklist-item {
+    color: $gray-50;
+    font-size: 14px;
+    line-height: 1.43;
+    margin-bottom: 10px;
+    min-height: 0px;
+    width: 100%;
+
+    &-done {
+      color: $gray-300;
+      text-decoration: line-through;
+    }
+
+    .custom-control-indicator {
+      margin-top: -2px;
+    }
+
+    .custom-control-description {
+      margin-left: 6px;
+      padding-top: 0px;
+    }
+  }
+
+  .icons {
+    margin-top: 4px;
     color: $gray-300;
-    text-decoration: line-through;
+    font-style: normal;
+
+    &-right {
+      flex-grow: 1;
+    }
   }
 
-  .custom-control-indicator {
+  .icons-right .svg-icon {
+    margin-left: 8px;
+  }
+
+  .icons span {
+    margin-left: 4px;
+  }
+
+  .no-span-margin span {
+    margin-left: 0px !important;
+  }
+
+  .svg-icon.streak {
+    width: 11.6px;
+    height: 7.1px;
+  }
+
+  .tags.svg-icon, .calendar.svg-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .tags:hover {
+    color: $purple-500;
+  }
+
+  .due-overdue {
+    color: $red-50;
+  }
+
+  .calendar.svg-icon {
+    margin-right: 2px;
     margin-top: -2px;
   }
 
-  .custom-control-description {
-    margin-left: 6px;
-    padding-top: 0px;
+  .challenge.svg-icon {
+    width: 14px;
+    height: 12px;
   }
-}
 
-.icons {
-  margin-top: 4px;
-  color: $gray-300;
-  font-style: normal;
-
-  &-right {
-    flex-grow: 1;
+  .check.svg-icon {
+    width: 12.3px;
+    height: 9.8px;
+    margin: 9px 8px;
   }
-}
 
-.icons-right .svg-icon {
-  margin-left: 8px;
-}
+  .left-control, .right-control {
+    width: 40px;
+    flex-shrink: 0;
+  }
 
-.icons span {
-  margin-left: 4px;
-}
+  .left-control {
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    min-height: 60px;
+    border: 1px solid transparent;
+    border-right: none;
 
-.no-span-margin span {
-  margin-left: 0px !important;
-}
+    & + .task-content {
+      border-left: none;
+    }
+  }
 
-.svg-icon.streak {
-  width: 11.6px;
-  height: 7.1px;
-}
+  .right-control {
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    min-height: 56px;
+    border: 1px solid transparent;
+    border-left: none;
+  }
 
-.tags.svg-icon, .calendar.svg-icon {
-  width: 14px;
-  height: 14px;
-}
-
-.tags:hover {
-  color: $purple-500;
-}
-
-.due-overdue {
-  color: $red-50;
-}
-
-.calendar.svg-icon {
-  margin-right: 2px;
-  margin-top: -2px;
-}
-
-.challenge.svg-icon {
-  width: 14px;
-  height: 12px;
-}
-
-.check.svg-icon {
-  width: 12.3px;
-  height: 9.8px;
-  margin: 9px 8px;
-}
-
-.left-control, .right-control {
-  width: 40px;
-  flex-shrink: 0;
-}
-
-.left-control {
-  border-top-left-radius: 2px;
-  border-bottom-left-radius: 2px;
-  min-height: 60px;
-}
-
-.right-control {
-  border-top-right-radius: 2px;
-  border-bottom-right-radius: 2px;
-  min-height: 56px;
-}
-
-.task-control, .reward-control {
-  cursor: pointer;
-}
-
-.task-not-scoreable {
   .task-control, .reward-control {
-    cursor: default !important;
+    cursor: pointer;
   }
 
-  .svg-icon.check {
-    display: none !important;
-  }
-}
+  .task-not-scoreable {
+    .task-control, .reward-control {
+      cursor: default !important;
+    }
 
-.daily-todo-control {
-  margin-top: 16px;
-  border-radius: 2px;
-}
-
-.reward-control {
-  flex-direction: column;
-  padding-top: 8px;
-  padding-bottom: 4px;
-
-  .svg-icon {
-    width: 24px;
-    height: 24px;
+    .svg-icon.check {
+      display: none !important;
+    }
   }
 
-  .small-text {
-    margin-top: 4px;
-    color: $yellow-10;
+  .daily-todo-control {
+    margin-top: 16px;
+    border-radius: 2px;
   }
-}
+
+  .reward-control {
+    flex-direction: column;
+    padding-top: 8px;
+    padding-bottom: 4px;
+
+    .svg-icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .small-text {
+      margin-top: 4px;
+      color: $yellow-10;
+    }
+  }
 </style>
 
-<style lang="scss"> // not working as scoped css
-@import '~client/assets/scss/colors.scss';
+<style lang="scss">
+  // not working as scoped css
+  @import '~client/assets/scss/colors.scss';
 
-.tags-popover {
-  // TODO fix padding, see https://github.com/bootstrap-vue/bootstrap-vue/issues/559#issuecomment-311150335
-  white-space: nowrap;
-}
+  .tags-popover {
+    // TODO fix padding, see https://github.com/bootstrap-vue/bootstrap-vue/issues/559#issuecomment-311150335
+    white-space: nowrap;
+  }
 
-.tags-popover-title {
-  margin-right: 4px;
-  display: block;
-  float: left;
-}
+  .tags-popover-title {
+    margin-right: 4px;
+    display: block;
+    float: left;
+  }
 
-.tag-label {
-  display: block;
-  float: left;
-  margin-left: 4px;
-  border-radius: 100px;
-  background-color: $gray-50;
-  padding: 4px 10px;
-  color: $gray-300;
-  white-space: nowrap;
-}
+  .tag-label {
+    display: block;
+    float: left;
+    margin-left: 4px;
+    border-radius: 100px;
+    background-color: $gray-50;
+    padding: 4px 10px;
+    color: $gray-300;
+    white-space: nowrap;
+  }
 </style>
 
 <script>
@@ -270,16 +296,20 @@ import checkIcon from 'assets/svg/check.svg';
 import bPopover from 'bootstrap-vue/lib/components/popover';
 import markdownDirective from 'client/directives/markdown';
 import notifications from 'client/mixins/notifications';
+import approvalHeader from './approvalHeader';
+import approvalFooter from './approvalFooter';
 
 export default {
   mixins: [notifications],
   components: {
     bPopover,
+    approvalFooter,
+    approvalHeader,
   },
   directives: {
     markdown: markdownDirective,
   },
-  props: ['task', 'isUser'],
+  props: ['task', 'isUser', 'group'], // @TODO: maybe we should store the group on state?
   data () {
     return {
       icons: Object.freeze({
@@ -315,7 +345,12 @@ export default {
       return this.getTaskClasses(this.task, 'control');
     },
     contentClass () {
-      return this.getTaskClasses(this.task, 'content');
+      const classes = [];
+      classes.push(this.getTaskClasses(this.task, 'content'));
+      if (this.task.type === 'reward' || this.task.type === 'habit') {
+        classes.push('no-right-border');
+      }
+      return classes;
     },
     showStreak () {
       if (this.task.streak !== undefined) return true;
