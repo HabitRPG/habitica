@@ -81,6 +81,148 @@
       :group='group')
 </template>
 
+<style lang="scss" scoped>
+  @import '~client/assets/scss/colors.scss';
+
+  .user-tasks-page {
+    padding-top: 31px;
+  }
+
+  .tasks-navigation {
+    margin-bottom: 40px;
+  }
+
+  .positive {
+    display: inline-block;
+    width: 10px;
+    color: $green-500;
+    margin-right: 8px;
+    padding-top: 6px;
+  }
+
+  .dropdown-icon-item .svg-icon {
+    width: 16px;
+  }
+
+  button.btn.btn-secondary.filter-button {
+    box-shadow: none;
+    border-radius: 2px;
+    border: 1px solid $gray-400 !important;
+
+    &:hover, &:active, &:focus, &.open {
+      box-shadow: none;
+      border-color: $purple-500 !important;
+      color: $gray-50 !important;
+    }
+
+    &.filter-button-open {
+      color: $purple-200 !important;
+
+      .filter-icon {
+        color: $purple-200 !important;
+      }
+    }
+
+    .filter-icon {
+      height: 10px;
+      width: 12px;
+      color: $gray-50;
+      margin-left: 15px;
+    }
+  }
+
+  .filter-panel {
+    position: absolute;
+    padding-left: 24px;
+    padding-right: 24px;
+    max-width: 40vw;
+    z-index: 9999;
+    background: $white;
+    border-radius: 2px;
+    box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
+    top: 44px;
+    left: 20vw;
+    font-size: 14px;
+    line-height: 1.43;
+    text-overflow: ellipsis;
+
+    .tags-category {
+      border-bottom: 1px solid $gray-600;
+      padding-bottom: 24px;
+      padding-top: 24px;
+    }
+
+    .tags-header {
+       flex-basis: 96px;
+       flex-shrink: 0;
+
+      a {
+        font-size: 12px;
+        line-height: 1.33;
+        color: $blue-10;
+        margin-top: 4px;
+
+        &:focus, &:hover, &:active {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .tag-edit-input {
+      border-bottom: 1px solid $gray-500 !important;
+
+      &:focus, &:focus ~ .input-group-btn {
+        border-color: $purple-500 !important;
+      }
+    }
+
+    .new-tag-item {
+      width: 100%;
+      background-repeat: no-repeat;
+      background-position: center left 10px;
+      border-bottom: 1px solid $gray-500 !important;
+      background-size: 10px 10px;
+      padding-left: 40px;
+      background-image: url(~client/assets/svg/for-css/positive.svg);
+    }
+
+    .tag-edit-item .input-group-btn {
+      border-bottom: 1px solid $gray-500 !important;
+
+      &:focus {
+        border-color: $purple-500;
+      }
+    }
+
+    .custom-control-description {
+      margin-left: 10px;
+    }
+
+    .filter-panel-footer {
+      padding-top: 16px;
+      padding-bottom: 16px;
+
+      a {
+        &:focus, &:hover, &:active {
+          text-decoration: underline;
+        }
+      }
+
+      .btn-filters-danger {
+        color: $red-50;
+      }
+
+      .btn-filters-primary {
+        color: $blue-10;
+      }
+
+      .btn-filters-secondary {
+        color: $gray-300;
+      }
+    }
+  }
+</style>
+
 <script>
 import taskDefaults from 'common/script/libs/taskDefaults';
 import TaskColumn from '../tasks/column';
@@ -248,6 +390,20 @@ export default {
       const temporarilySelectedTags = this.temporarilySelectedTags;
       this.selectedTags = temporarilySelectedTags.slice();
       this.closeFilterPanel();
+    },
+    toggleTag (tag) {
+      const temporarilySelectedTags = this.temporarilySelectedTags;
+      const tagI = temporarilySelectedTags.indexOf(tag.id);
+      if (tagI === -1) {
+        temporarilySelectedTags.push(tag.id);
+      } else {
+        temporarilySelectedTags.splice(tagI, 1);
+      }
+    },
+    isTagSelected (tag) {
+      const tagId = tag.id;
+      if (this.temporarilySelectedTags.indexOf(tagId) !== -1) return true;
+      return false;
     },
   },
 };
