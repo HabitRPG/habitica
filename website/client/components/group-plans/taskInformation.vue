@@ -97,7 +97,6 @@ import rewardIcon from 'assets/svg/reward.svg';
 
 import Vue from 'vue';
 import cloneDeep from 'lodash/cloneDeep';
-import groupBy from 'lodash/groupBy';
 import findIndex from 'lodash/findIndex';
 import { mapState } from 'client/libs/store';
 

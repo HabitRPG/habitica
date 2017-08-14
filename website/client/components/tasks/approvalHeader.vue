@@ -20,18 +20,18 @@ export default {
       let userIsRequesting = approvals.indexOf(this.user._id) !== -1;
 
       if (approvalsLength === 1 && !userIsRequesting) {
-        return `${assignedUsers} requesting`;
+        return `${approvals} requesting`;
       } else if (approvalsLength > 1 && !userIsRequesting) {
-        return `${assignedUsersLength} members`;
+        return `${approvalsLength} members`;
       } else if (approvalsLength === 1 && userIsRequesting) {
-        return `You are requesting approval`;
+        return 'You are requesting approval';
       }
     },
     approvalRequested () {
-      if (this.approvals && this.approvals.length === 1) return true;
+      if (this.task.approvals && this.task.approvals.length === 1) return true;
     },
     multipleApprovalsRequested () {
-      if (this.approvals && this.approvals.length > 1) return true;
+      if (this.task.approvals && this.task.approvals.length > 1) return true;
     },
   },
   mounted () {
