@@ -77,7 +77,8 @@
       :type="column",
       :key="column",
       :taskListOverride='tasksByType[column]',
-      v-on:editTask="editTask")
+      v-on:editTask="editTask",
+      :group='group')
 </template>
 
 <script>
@@ -98,6 +99,7 @@ import rewardIcon from 'assets/svg/reward.svg';
 import Vue from 'vue';
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
+import groupBy from 'lodash/groupBy';
 import { mapState } from 'client/libs/store';
 
 export default {
@@ -107,14 +109,6 @@ export default {
     TaskModal,
     bDropdown,
     bDropdownItem,
-  },
-  async mounted () {
-    let tasks = await this.$store.dispatch('tasks:getGroupTasks', {
-      groupId: this.groupId,
-    });
-    tasks.forEach((task) => {
-      this.tasksByType[task.type].push(task);
-    });
   },
   data () {
     return {
@@ -144,7 +138,27 @@ export default {
         reward: rewardIcon,
       }),
       editingTags: false,
+      group: {},
     };
+  },
+  async mounted () {
+    this.group = await this.$store.dispatch('guilds:getGroup', {
+      groupId: this.groupId,
+    });
+
+    let tasks = await this.$store.dispatch('tasks:getGroupTasks', {
+      groupId: this.groupId,
+    });
+
+    let approvalRequests = await this.$store.dispatch('tasks:getGroupApprovals', {
+      groupId: this.groupId,
+    });
+    let groupedApprovals = groupBy(approvalRequests, 'group.taskId');
+
+    tasks.forEach((task) => {
+      task.approvals = groupedApprovals[task._id];
+      this.tasksByType[task.type].push(task);
+    });
   },
   computed: {
     ...mapState({user: 'user.data'}),

@@ -163,3 +163,13 @@ export async function unassignTask (store, payload) {
   let response = await axios.post(`/api/v3/tasks/${payload.taskId}/unassign/${payload.userId}`);
   return response.data.data;
 }
+
+export async function getGroupApprovals (store, payload) {
+  let response = await axios.get(`/api/v3/approvals/group/${payload.groupId}`);
+  return response.data.data;
+}
+
+export async function approve (store, payload) {
+  let response = await axios.post(`/api/v3/tasks/${payload.taskId}/approve/${payload.userId}`);
+  return response.data.data;
+}

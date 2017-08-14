@@ -1,6 +1,6 @@
 <template lang="pug">
 .task
-  approval-header(:task='task', v-if='this.task.group.id')
+  approval-header(:task='task', v-if='this.task.group.id', :group='group')
   .d-flex(:class="{'task-not-scoreable': isUser !== true}")
     // Habits left side control
     .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.up")
@@ -55,7 +55,7 @@
     .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass", @click="isUser ? score('down') : null")
       .svg-icon(v-html="icons.gold")
       .small-text {{task.value}}
-  approval-footer(:task='task', v-if='this.task.group.id')
+  approval-footer(:task='task', v-if='this.task.group.id', :group='group')
 </template>
 
 <style lang="scss">
@@ -309,7 +309,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  props: ['task', 'isUser'],
+  props: ['task', 'isUser', 'group'], // @TODO: maybe we should store the group on state?
   data () {
     return {
       icons: Object.freeze({

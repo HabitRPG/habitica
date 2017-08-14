@@ -16,6 +16,7 @@
       v-if="filterTask(task)",
       :isUser="isUser",
       @editTask="editTask",
+      :group='group',
     )
     .bottom-gradient
     .column-background(
@@ -150,7 +151,7 @@ export default {
     Task,
     bModal,
   },
-  props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride'],
+  props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
   data () {
     const types = Object.freeze({
       habit: {
