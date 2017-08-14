@@ -78,7 +78,8 @@
       :key="column",
       :taskListOverride='tasksByType[column]',
       v-on:editTask="editTask",
-      :group='group')
+      :group='group',
+      :searchText="searchText")
 </template>
 
 <style lang="scss" scoped>
