@@ -16,7 +16,7 @@ const officialPinnedItems = content.officialPinnedItems;
 
 function isItemSuggested (itemInfo) {
   return officialPinnedItems.findIndex(officialItem => {
-    return officialItem.type === itemInfo.type && officialItem.path === itemInfo.path;
+    return officialItem.type === itemInfo.pinType && officialItem.path === itemInfo.path;
   }) > -1;
 }
 

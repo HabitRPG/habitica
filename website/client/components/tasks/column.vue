@@ -23,6 +23,7 @@
           v-for="reward in inAppRewards",
           :item="reward",
           :key="reward.key",
+          :highlightBorder="reward.isSuggested",
           @click="openBuyDialog(reward)"
         )
 

@@ -15,7 +15,7 @@ b-popover(
 
   .item-wrapper(@click="click()")
     .item(
-      :class="{'item-empty': emptyItem, 'highlight': highlightBorder}",
+      :class="{'item-empty': emptyItem, 'highlight-border': highlightBorder}",
     )
       slot(name="itemBadge", :item="item", :emptyItem="emptyItem")
       div.shop-content
