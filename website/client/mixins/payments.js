@@ -56,7 +56,7 @@ export default {
           let newGroup = response.data.data;
           if (newGroup && newGroup._id) {
             // @TODO: Just append? or $emit?
-            this.$router.push(`/groups/guild/${newGroup._id}`);
+            this.$router.push(`/group-plans/${newGroup._id}/task-information`);
             return;
           }
 
