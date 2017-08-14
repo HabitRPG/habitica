@@ -76,9 +76,10 @@
           label(v-once) {{ $t('repeatEvery') }}
           input.form-control(type="number", v-model="task.everyX", min="0", required)
           | {{ repeatSuffix }}
+          br
           template(v-if="task.frequency === 'weekly'")
-            .form-check(
-              v-for="(day, dayNumber) in dayMapping",
+            .form-check-inline.weekday-check(
+              v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']",
               :key="dayNumber",
             )
               label.custom-control.custom-checkbox
@@ -88,38 +89,6 @@
           template(v-if="task.frequency === 'monthly'")
             label.custom-control.custom-radio
               input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfMonth")
-              .svg-icon.difficulty-normal-icon(v-html="icons.difficultyNormal")
-            .option-item-label(v-once) {{ $t('easy') }}
-          .option-item(:class="optionClass(task.priority === 1.5)", @click="task.priority = 1.5")
-            .option-item-box
-              .svg-icon.difficulty-medium-icon(v-html="icons.difficultyMedium")
-            .option-item-label(v-once) {{ $t('medium') }}
-          .option-item(:class="optionClass(task.priority === 2)", @click="task.priority = 2")
-            .option-item-box
-              .svg-icon.difficulty-hard-icon(v-html="icons.difficultyHard")
-            .option-item-label(v-once) {{ $t('hard') }}
-      .option(v-if="task.type === 'todo'")
-        label(v-once) {{ $t('dueDate') }}
-        datepicker(v-model="task.date")
-      .option(v-if="task.type === 'daily'")
-        label(v-once) {{ $t('startDate') }}
-        datepicker(v-model="task.startDate")
-      .option(v-if="task.type === 'daily'")
-        label(v-once) {{ $t('repeats') }}
-        b-dropdown(:text="$t(task.frequency)")
-          b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly', 'yearly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
-            | {{ $t(frequency) }}
-        label(v-once) {{ $t('repeatEvery') }}
-        input.form-control(type="number", v-model="task.everyX", min="0", required)
-        | {{ repeatSuffix }}
-        br
-        template(v-if="task.frequency === 'weekly'")
-          .form-check-inline.weekday-check(
-            v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']",
-            :key="dayNumber",
-          )
-            label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="task.repeat[day]")
               span.custom-control-indicator
               span.custom-control-description {{ $t('dayOfMonth') }}
             label.custom-control.custom-radio
