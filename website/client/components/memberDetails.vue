@@ -17,17 +17,17 @@ div
         .svg-icon(v-html="icons.health")
         .progress
           .progress-bar.bg-health(:style="{width: `${percent(member.stats.hp, MAX_HEALTH)}%`}")
-        span.small-text {{member.stats.hp | round}} / {{MAX_HEALTH}}
+        span.small-text {{member.stats.hp | floor}} / {{MAX_HEALTH}}
       .progress-container.d-flex
         .svg-icon(v-html="icons.experience")
         .progress
           .progress-bar.bg-experience(:style="{width: `${percent(member.stats.exp, toNextLevel)}%`}")
-        span.small-text {{member.stats.exp | round}} / {{toNextLevel}}
+        span.small-text {{member.stats.exp | floor}} / {{toNextLevel}}
       .progress-container.d-flex(v-if="hasClass")
         .svg-icon(v-html="icons.mana")
         .progress
           .progress-bar.bg-mana(:style="{width: `${percent(member.stats.mp, maxMP)}%`}")
-        span.small-text {{member.stats.mp | round}} / {{maxMP}}
+        span.small-text {{member.stats.mp | floor}} / {{maxMP}}
 </template>
 
 <style lang="scss" scoped>
@@ -210,6 +210,11 @@ export default {
         mana: manaIcon,
       }),
     };
+  },
+  filters: {
+    floor (value) {
+      return Math.floor(value);
+    },
   },
   methods: {
     percent,

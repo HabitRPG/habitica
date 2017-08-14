@@ -274,5 +274,13 @@
   "self_improvement": "Self-Improvement",
   "spirituality": "Spirituality",
   "time_management": "Time-Management + Accountability",
-  "recovery_support_groups": "Recovery + Support Groups"
+  "recovery_support_groups": "Recovery + Support Groups",
+  "wrongItemType": "The item type \"<%= type %>\" is not valid.",
+  "unpinnedItem": "You unpinned <%= item %>! It will no longer display in your Rewards column.",
+  "cannotUpinArmoirPotion": "The Health Potion and Enchanted Armoire cannot be unpinned.",
+  "recovery_support_groups": "Recovery + Support Groups",
+  "equip": "Equip",
+  "unequip": "Unequip",
+  "sortByName": "Name",
+  "haveHatchablePet": "You have a <%= potion %> hatching potion and <%= egg %> egg to hatch this pet! <b>Click</b> the paw print to hatch."
 }

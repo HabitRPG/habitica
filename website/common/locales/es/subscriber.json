@@ -3,7 +3,7 @@
     "subscriptions": "Suscripciones",
     "subDescription": "Comprar Joyas con Oro",
     "buyGemsGold": "Comprar Gemas con oro",
-    "buyGemsGoldText": "Alejandro el Mercader te venderá Gemas por <%= gemCost %> oros cada una. Sus envíos mensuales tienen un límite inicial de <%= gemLimit %> Gemas al mes. Sin embargo, este límite aumenta en 5 Gemas cada tres meses de suscripción consecutiva, ¡hasta un máximo de 50 Gemas al mes!",
+    "buyGemsGoldText": "Alexander the Merchant will sell you Gems at a cost of 20 Gold per Gem. His monthly shipments are initially capped at 25 Gems per month, but for every 3 consecutive months that you are subscribed, this cap increases by 5 Gems, up to a maximum of 50 Gems per month!",
     "mustSubscribeToPurchaseGems": "Debes estar suscrito para conseguir gemas con oro.",
     "reachedGoldToGemCap": "Has alcanzado el límite de <%= convCap %> conversiones Oro=>Gemas de este mes. Imponemos este límite para evitar abusos / farming. Este límite se reinicia en los tres primeros días de cada mes.",
     "retainHistory": "Retener entradas adicionales al historial",

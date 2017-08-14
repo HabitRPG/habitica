@@ -196,6 +196,7 @@ let mysterySets = {
 each(mysterySets, (value, key) => {
   value.key = key;
   value.text = t(`mysterySet${key}`);
+  value.class = `shop_set_mystery_${key}`;
 });
 
 module.exports = mysterySets;

@@ -56,7 +56,7 @@
   }
 
   .character-sprites {
-    margin: 0 auto;
+    margin: 0 auto 0 24px;
     width: 90px;
     height: 90px;
   }

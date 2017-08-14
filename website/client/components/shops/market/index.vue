@@ -48,14 +48,11 @@
                 :key="item.key",
                 :item="item",
                 :price="item.value",
-                :priceType="item.currency",
                 :itemContentClass="'shop_'+item.key",
                 :emptyItem="false",
                 :popoverPosition="'top'",
                 @click="selectedGearToBuy = item"
               )
-                template(slot="popoverContent", scope="ctx")
-                  equipmentAttributesPopover(:item="ctx.item")
 
       h1.mb-0.page-header(v-once) {{ $t('market') }}
 
@@ -102,15 +99,10 @@
           shopItem(
             :key="ctx.item.key",
             :item="ctx.item",
-            :price="ctx.item.value",
-            :priceType="ctx.item.currency",
-            :itemContentClass="'shop_'+ctx.item.key",
             :emptyItem="userItems.gear[ctx.item.key] === undefined",
             :popoverPosition="'top'",
             @click="selectedGearToBuy = ctx.item"
           )
-            template(slot="popoverContent", scope="ctx")
-              equipmentAttributesPopover(:item="ctx.item")
 
             template(slot="itemBadge", scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
@@ -142,12 +134,9 @@
 
         div.items
           shopItem(
-            v-for="item in sortedMarketItems(category, selectedSortItemsBy, searchTextThrottled)",
+            v-for="item in sortedMarketItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",
             :key="item.key",
             :item="item",
-            :price="item.value",
-            :priceType="item.currency",
-            :itemContentClass="item.class",
             :emptyItem="false",
             :popoverPosition="'top'",
             @click="selectedItemToBuy = item"
@@ -160,6 +149,12 @@
                 :show="true",
                 :count="userItems[item.purchaseType][item.key] || 0"
               )
+
+              span.badge.badge-pill.badge-item.badge-svg(
+                :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
+                @click.prevent.stop="togglePinned(ctx.item)"
+              )
+                span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
 
       drawer(
@@ -226,7 +221,8 @@
         priceType="gold",
         :withPin="true",
         @change="resetGearToBuy($event)",
-        @buyPressed="buyGear($event)"
+        @buyPressed="buyGear($event)",
+        @togglePinned="togglePinned($event)"
       )
         template(slot="item", scope="ctx")
           div
@@ -244,7 +240,8 @@
         :item="selectedItemToBuy",
         :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
         @change="resetItemToBuy($event)",
-        @buyPressed="buyItem($event)"
+        @buyPressed="buyItem($event)",
+        @togglePinned="togglePinned($event)"
       )
         template(slot="item", scope="ctx")
           item.flat(
@@ -380,8 +377,6 @@
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
 
-  import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
-
   import SellModal from './sellModal.vue';
   import BuyModal from '../buyModal.vue';
   import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
@@ -398,11 +393,14 @@
   import svgHealer from 'assets/svg/healer.svg';
 
   import featuredItems from 'common/script/content/shop-featuredItems';
+  import getItemInfo from 'common/script/libs/getItemInfo';
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
   import _map from 'lodash/map';
   import _throttle from 'lodash/throttle';
+
+  import _isPinned from '../_isPinned';
 
   const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
@@ -429,7 +427,6 @@ export default {
       bDropdown,
       bDropdownItem,
 
-      EquipmentAttributesPopover,
       SellModal,
       BuyModal,
       EquipmentAttributesGrid,
@@ -523,7 +520,7 @@ export default {
 
       featuredItems () {
         return featuredItems.market.map(i => {
-          return this.content.gear.flat[i];
+          return getItemInfo(this.user, 'marketGear', this.content.gear.flat[i]);
         });
       },
     },
@@ -577,11 +574,12 @@ export default {
       filteredGear (groupByClass, searchBy, sortBy, hideLocked, hidePinned) {
         let result = _filter(this.content.gear.flat, ['klass', groupByClass]);
         result = _map(result, (e) => {
-          return {
-            ...e,
-            pinned: false, // TODO read pinned state
-            locked: this.isGearLocked(e),
-          };
+          let newItem = getItemInfo(this.user, 'marketGear', e);
+
+          newItem.pinned = _isPinned(this.user, newItem);
+          newItem.locked = this.isGearLocked(newItem);
+
+          return newItem;
         });
 
         result = _filter(result, (gear) => {
@@ -607,9 +605,27 @@ export default {
 
         return result;
       },
-      sortedMarketItems (category, sortBy, searchBy) {
-        let result = _filter(category.items, (i) => {
-          return !searchBy || i.text.toLowerCase().indexOf(searchBy) !== -1;
+      sortedMarketItems (category, sortBy, searchBy, hidePinned) {
+        let result = _map(category.items, (e) => {
+          return {
+            ...e,
+            pinned: _isPinned(this.user, e),
+          };
+        });
+
+        result = _filter(result, (item) => {
+          if (hidePinned && item.pinned) {
+            return false;
+          }
+
+          if (searchBy) {
+            let foundPosition = item.text().toLowerCase().indexOf(searchBy);
+            if (foundPosition === -1) {
+              return false;
+            }
+          }
+
+          return true;
         });
 
         switch (sortBy) {
@@ -656,9 +672,9 @@ export default {
         };
       },
       togglePinned (item) {
-        let isPinned = Boolean(item.pinned);
-        item.pinned = !isPinned;
-        this.$store.dispatch(isPinned ? 'shops:unpinGear' : 'shops:pinGear', {key: item.key});
+        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
+          this.$parent.showUnpinNotification(item);
+        }
       },
       buyGear (item) {
         this.$store.dispatch('shops:buyItem', {key: item.key});
@@ -669,7 +685,6 @@ export default {
     },
     created () {
       this.$store.dispatch('shops:fetchMarket');
-
       this.selectedGroupGearByClass = this.userStats.class;
     },
   };

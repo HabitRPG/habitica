@@ -3,7 +3,7 @@
     "subscriptions": "Абонаменти",
     "subDescription": "Купувате диаманти със злато, получавате месечни тайнствени предмети, запазвате историята на напредъка си, удвоявате максималния брой дневни падания, подкрепяте разработчиците. Щракнете за повече информация.",
     "buyGemsGold": "Купувате диаманти със злато",
-    "buyGemsGoldText": "Александър Търговеца ще Ви продава диаманти на цената от <%= gemCost %> злато за диамант. Месечните му доставки първоначално са ограничени до <%= gemLimit %> диаманта на месец, но това ограничение се увеличава с 5 диаманта за всеки три месеца на непрекъснат абонамент, докато достигне 50 диаманта на месец!",
+    "buyGemsGoldText": "Alexander the Merchant will sell you Gems at a cost of 20 Gold per Gem. His monthly shipments are initially capped at 25 Gems per month, but for every 3 consecutive months that you are subscribed, this cap increases by 5 Gems, up to a maximum of 50 Gems per month!",
     "mustSubscribeToPurchaseGems": "Купуването на диаманти със злато изисква абонамент",
     "reachedGoldToGemCap": "Достигнахте месечното ограничение на златото, което може да бъде превърнато в диаманти: <%= convCap %>. Целта на това е да предотвратим злоупотребите. Ограничението се нулира през първите три дни на всеки месец.",
     "retainHistory": "Запазвате по-голяма история",
