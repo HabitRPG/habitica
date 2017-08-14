@@ -17,6 +17,17 @@
       :isUser="isUser",
       @editTask="editTask",
     )
+    template(v-if="isUser === true && type === 'reward' && activeFilter.label !== 'custom'")
+      .reward-items
+        shopItem(
+          v-for="reward in inAppRewards",
+          :item="reward",
+          :key="reward.key",
+          :highlightBorder="reward.isSuggested",
+          @click="openBuyDialog(reward)"
+        )
+
+    .bottom-gradient
     .column-background(
       v-if="isUser === true",
       :class="{'initial-description': tasks[`${type}s`].length === 0}",
@@ -32,6 +43,12 @@
 
   .tasks-column {
     height: 556px;
+  }
+
+  .reward-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 
   .tasks-list {
@@ -137,17 +154,20 @@
 import Task from './task';
 import { mapState, mapActions } from 'client/libs/store';
 import { shouldDo } from 'common/script/cron';
+import inAppRewards from 'common/script/libs/inAppRewards';
 import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
 import rewardIcon from 'assets/svg/reward.svg';
 import bModal from 'bootstrap-vue/lib/components/modal';
+import shopItem from '../shops/shopItem';
 import throttle from 'lodash/throttle';
 
 export default {
   components: {
     Task,
     bModal,
+    shopItem,
   },
   props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride'],
   data () {
@@ -203,11 +223,15 @@ export default {
   computed: {
     ...mapState({
       tasks: 'tasks.data',
+      user: 'user.data',
       userPreferences: 'user.data.preferences',
     }),
     taskList () {
       if (this.taskListOverride) return this.taskListOverride;
       return this.tasks[`${this.type}s`];
+    },
+    inAppRewards () {
+      return inAppRewards(this.user);
     },
   },
   watch: {
@@ -240,6 +264,12 @@ export default {
         Array.from(taskListEl.getElementsByClassName('task')).forEach(el => {
           combinedTasksHeights += el.offsetHeight;
         });
+
+        const rewardsList = taskListEl.getElementsByClassName('reward-items')[0];
+        if (rewardsList) {
+          combinedTasksHeights += rewardsList.offsetHeight;
+        }
+
         const columnBackgroundStyle = this.$refs.columnBackground.style;
 
         if (tasklistHeight - combinedTasksHeights < 150) {
@@ -278,6 +308,9 @@ export default {
 
         return checklistItemIndex !== -1;
       }
+    },
+    openBuyDialog (rewardItem) {
+      this.$emit('openBuyDialog', rewardItem);
     },
   },
 };

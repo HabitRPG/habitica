@@ -56,8 +56,8 @@
               )
                 template(slot="popoverContent", scope="ctx")
                   div
-                    h4.popover-content-title {{ item.text() }}
-                    .popover-content-text(v-html="item.notes()")
+                    h4.popover-content-title {{ item.text }}
+                    .popover-content-text(v-html="item.notes")
 
       h1.mb-0.page-header(v-once) {{ $t('quests') }}
 
@@ -124,8 +124,6 @@
                 :key="item.key",
                 :item="item",
                 :price="item.value",
-                :priceType="item.currency",
-                :itemContentClass="item.class",
                 :emptyItem="false",
                 :popoverPosition="'top'",
                 @click="selectedItemToBuy = item"
@@ -153,8 +151,6 @@
             :key="item.key",
             :item="item",
             :price="item.value",
-            :priceType="item.currency",
-            :itemContentClass="item.class",
             :emptyItem="false",
             :popoverPosition="'top'",
             @click="selectedItemToBuy = item"
@@ -181,7 +177,8 @@
       :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
       :withPin="true",
       @change="resetItemToBuy($event)",
-      @buyPressed="buyItem($event)"
+      @buyPressed="buyItem($event)",
+      @togglePinned="togglePinned($event)"
     )
       template(slot="item", scope="ctx")
         item.flat(
@@ -335,11 +332,15 @@
   import svgPin from 'assets/svg/pin.svg';
 
   import featuredItems from 'common/script/content/shop-featuredItems';
+  import getItemInfo from 'common/script/libs/getItemInfo';
+
+  import _isPinned from '../_isPinned';
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
   import _throttle from 'lodash/throttle';
   import _groupBy from 'lodash/groupBy';
+  import _map from 'lodash/map';
 
 export default {
     components: {
@@ -405,13 +406,20 @@ export default {
 
       featuredItems () {
         return featuredItems.quests.map(i => {
-          return this.content.quests[i];
+          return getItemInfo(this.user, 'quest', this.content.quests[i]);
         });
       },
     },
     methods: {
       questItems (category, sortBy, searchBy, hideLocked, hidePinned) {
-        let result = _filter(category.items, (i) => {
+        let result = _map(category.items, (e) => {
+          return {
+            ...e,
+            pinned: _isPinned(this.user, e),
+          };
+        });
+
+        result = _filter(result, (i) => {
           if (hideLocked && i.locked) {
             return false;
           }
@@ -453,9 +461,9 @@ export default {
         return false;
       },
       togglePinned (item) {
-        let isPinned = Boolean(item.pinned);
-        item.pinned = !isPinned;
-        this.$store.dispatch(isPinned ? 'shops:unpinGear' : 'shops:pinGear', {key: item.key});
+        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
+          this.$parent.showUnpinNotification(item);
+        }
       },
       buyItem (item) {
         this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});

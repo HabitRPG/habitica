@@ -6,8 +6,9 @@
     @change="onChange($event)"
   )
     span.badge.badge-pill.badge-dialog(
-      :class="{'item-selected-badge': true}",
-      v-if="withPin"
+      :class="{'item-selected-badge': item.pinned}",
+      v-if="withPin",
+      @click.prevent.stop="togglePinned()"
     )
       span.svg-icon.inline.color.icon-10(v-html="icons.pin")
 
@@ -127,7 +128,15 @@
       padding: 8px 10px;
       top: -12px;
       background: white;
+      cursor: pointer;
+
+      &.item-selected-badge {
+        background: $purple-300;
+        color: $white;
+      }
     }
+
+
   }
 </style>
 
@@ -181,6 +190,9 @@
       buyItem () {
         this.$emit('buyPressed', this.item);
         this.hideDialog();
+      },
+      togglePinned () {
+        this.$emit('togglePinned', this.item);
       },
       hideDialog () {
         this.$root.$emit('hide::modal', 'buy-modal');

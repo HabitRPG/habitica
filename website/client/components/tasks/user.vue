@@ -74,7 +74,38 @@
         :isUser="true", :searchText="searchTextThrottled",
         :selectedTags="selectedTags",
         @editTask="editTask",
+        @openBuyDialog="openBuyDialog($event)"
       )
+
+  buyModal(
+    :item="selectedItemToBuy",
+    :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
+    @change="resetItemToBuy($event)",
+    @buyPressed="buyItem($event)",
+    @togglePinned="togglePinned($event)"
+  )
+      template(slot="item", scope="ctx")
+        div(v-if="ctx.item.purchaseType === 'gear'")
+          avatar.inline(
+            :member="user",
+            :avatarOnly="true",
+            :withBackground="true",
+            :overrideAvatarGear="memberOverrideAvatarGear(ctx.item)"
+          )
+
+        item.flat(
+          :item="ctx.item",
+          :itemContentClass="ctx.item.class",
+          :showPopover="false",
+          v-else
+        )
+
+      template(slot="additionalInfo", scope="ctx")
+        equipmentAttributesGrid.bordered(
+          :item="ctx.item",
+          v-if="ctx.item.purchaseType === 'gear'"
+        )
+
 </template>
 
 <style lang="scss">
@@ -246,12 +277,21 @@ import cloneDeep from 'lodash/cloneDeep';
 import { mapState, mapActions } from 'client/libs/store';
 import taskDefaults from 'common/script/libs/taskDefaults';
 
+import BuyModal from 'client/components/shops/buyModal.vue';
+import Item from 'client/components/inventory/item.vue';
+import Avatar from 'client/components/avatar';
+import EquipmentAttributesGrid from 'client/components/shops/market/equipmentAttributesGrid.vue';
+
 export default {
   components: {
     TaskColumn,
     TaskModal,
     bDropdown,
     bDropdownItem,
+    BuyModal,
+    Item,
+    Avatar,
+    EquipmentAttributesGrid,
   },
   data () {
     return {
@@ -275,6 +315,8 @@ export default {
       newTag: null,
       editingTask: null,
       creatingTask: null,
+
+      selectedItemToBuy: null,
     };
   },
   computed: {
@@ -392,6 +434,26 @@ export default {
       const tagId = tag.id;
       if (this.temporarilySelectedTags.indexOf(tagId) !== -1) return true;
       return false;
+    },
+    resetItemToBuy ($event) {
+      if (!$event) {
+        this.selectedItemToBuy = null;
+      }
+    },
+    memberOverrideAvatarGear (gear) {
+      return {
+        [gear.type]: gear.key,
+      };
+    },
+    buyItem (item) {
+      if (item.currency === 'gold') {
+        this.$store.dispatch('shops:buyItem', {key: item.key});
+      } else {
+        this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
+      }
+    },
+    openBuyDialog (rewardItem) {
+      this.selectedItemToBuy = rewardItem;
     },
   },
 };
