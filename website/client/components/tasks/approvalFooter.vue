@@ -1,16 +1,18 @@
 <template lang="pug">
-.claim-bottom-message.col-12
-  .task-unclaimed(v-if='!approvalRequested && !multipleApprovalsRequested')
-    | {{ message }}
-    a(@click='claim()', v-if='!userIsAssigned') Claim
-    a(@click='unassign()', v-if='userIsAssigned') Remove Claim
-  .row.task-single-approval(v-if='approvalRequested')
-    .col-6.text-center
-      a(@click='approve()') Approve Task
-    .col-6.text-center
-      a Needs work
-  .text-center.task-multi-approval(v-if='multipleApprovalsRequested')
-    a(@click='showRequests()') View Requests
+div
+  approval-modal(:task='task')
+  .claim-bottom-message.col-12
+    .task-unclaimed(v-if='!approvalRequested && !multipleApprovalsRequested')
+      | {{ message }}
+      a(@click='claim()', v-if='!userIsAssigned') Claim
+      a(@click='unassign()', v-if='userIsAssigned') Remove Claim
+    .row.task-single-approval(v-if='approvalRequested')
+      .col-6.text-center
+        a(@click='approve()') Approve Task
+      .col-6.text-center
+        a Needs work
+    .text-center.task-multi-approval(v-if='multipleApprovalsRequested')
+      a(@click='showRequests()') View Requests
 </template>
 
 <style scoped>
@@ -21,8 +23,13 @@
 
 <script>
 import { mapState } from 'client/libs/store';
+import approvalModal from './approvalModal';
+
 export default {
   props: ['task', 'group'],
+  components: {
+    approvalModal,
+  },
   computed: {
     ...mapState({user: 'user.data'}),
     userIsAssigned () {
@@ -48,6 +55,7 @@ export default {
       if (this.task.approvals && this.task.approvals.length === 1) return true;
     },
     multipleApprovalsRequested () {
+      return true;
       if (this.task.approvals && this.task.approvals.length > 1) return true;
     },
   },
@@ -85,7 +93,7 @@ export default {
 
     },
     showRequests () {
-
+      this.$root.$emit('show::modal', 'approval-modal');
     },
   },
 };
