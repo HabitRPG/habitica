@@ -1,20 +1,21 @@
 <template lang="pug">
-div
-  copy-as-todo-modal(:copying-message='copyingMessage', :group-name='groupName', :group-id='groupId')
-  report-flag-modal
+.container
   .row
-    // .col-md-2
-    // @TODO: Implement when we pull avatars .svg-icon(v-html="icons.like")
+    .col-12
+      copy-as-todo-modal(:copying-message='copyingMessage', :group-name='groupName', :group-id='groupId')
+      report-flag-modal
+  .row
+    .hr.col-12
 
-    .hr
+  .row(v-for="(msg, index) in chat", v-if='chat && Object.keys(cachedProfileData).length > 0')
+    // @TODO: is there a different way to do these conditionals? This creates an infinite loop
+    //.hr(v-if='displayDivider(msg)')
+      .hr-middle(v-once) {{ msg.timestamp }}
+    .col-2
+      avatar(v-if='cachedProfileData[msg.uuid]', :member="cachedProfileData[msg.uuid]", :avatarOnly="true")
 
-    .col-md-12(v-for="(msg, index) in chat", v-if='chat')
-      // @TODO: is there a different way to do these conditionals? This creates an infinite loop
-      //.hr(v-if='displayDivider(msg)')
-        .hr-middle(v-once) {{ msg.timestamp }}
-
-      .card
-        .card-block
+    .card.col-10
+      .card-block
           h3.leader {{msg.user}}
           p {{msg.timestamp | timeAgo}}
           .text(v-markdown='msg.text')
@@ -94,10 +95,13 @@ div
 </style>
 
 <script>
+import axios from 'axios';
+import Bluebird from 'bluebird';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState } from 'client/libs/store';
 import markdownDirective from 'client/directives/markdown';
+import Avatar from '../avatar';
 
 import copyAsTodoModal from './copyAsTodoModal';
 import reportFlagModal from './reportFlagModal';
@@ -113,9 +117,13 @@ export default {
   components: {
     copyAsTodoModal,
     reportFlagModal,
+    Avatar,
   },
   directives: {
     markdown: markdownDirective,
+  },
+  mounted () {
+    this.loadProfileCache();
   },
   data () {
     return {
@@ -128,6 +136,7 @@ export default {
       }),
       copyingMessage: {},
       currentDayDividerDisplay: moment().day(),
+      cachedProfileData: {},
     };
   },
   filters: {
@@ -145,7 +154,29 @@ export default {
       return this.chat;
     },
   },
+  watch: {
+    messages () {
+      // @TODO: MAybe we should watch insert and remove?
+      this.loadProfileCache();
+    },
+  },
   methods: {
+    async loadProfileCache () {
+      let promises = [];
+
+      this.messages.forEach(message => {
+        let uuid = message.uuid;
+        if (!this.cachedProfileData[uuid]) {
+          promises.push(axios.get(`/api/v3/members/${uuid}`));
+        }
+      });
+
+      let results = await Bluebird.all(promises);
+      results.forEach(result => {
+        let userData = result.data.data;
+        this.$set(this.cachedProfileData, userData._id, userData);
+      });
+    },
     displayDivider (message) {
       if (this.currentDayDividerDisplay !== moment(message.timestamp).day()) {
         this.currentDayDividerDisplay = moment(message.timestamp).day();

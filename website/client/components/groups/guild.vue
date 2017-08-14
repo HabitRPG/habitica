@@ -31,7 +31,7 @@
         autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :groupId='groupId')
         button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
         button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
-
+      .col-12
         chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
   .col-4.sidebar
