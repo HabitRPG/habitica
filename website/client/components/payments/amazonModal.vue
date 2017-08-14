@@ -21,10 +21,7 @@ import axios from 'axios';
 
 import bModal from 'bootstrap-vue/lib/components/modal';
 
-const AMAZON_PAYMENTS = {
-  CLIENT_ID: 'amzn1.application-oa2-client.403d4b4cd3cd4545a3b4b72be8a42a62',
-  SELLER_ID: 'A3SJVJ393CDLJF',
-};
+const AMAZON_PAYMENTS = process.env.AMAZON_PAYMENTS;
 
 export default {
   components: {

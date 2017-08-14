@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const STRIPE_PUB_KEY = 'pk_test_H2UTCXDnMnLk4fenwedAlFty'; // @TODO: load from env
+const STRIPE_PUB_KEY = process.env.STRIPE_PUB_KEY; // eslint-disable-line
 import subscriptionBlocks from '../../common/script/content/subscriptionBlocks';
 
 export default {
