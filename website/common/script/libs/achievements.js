@@ -1,6 +1,7 @@
 import content from '../content/index';
 import i18n from '../i18n';
 import get from 'lodash/get';
+import findLastIndex from 'lodash/findLastIndex';
 
 let achievs = {};
 let achievsContent = content.achievements;
@@ -147,6 +148,37 @@ function _addPlural (result, user, data) {
   });
 }
 
+function _addTiered (result, user, data) {
+  let value = user.achievements[data.path] || 0;
+
+  let key = data.key || data.path;
+  let thisContent = achievsContent[key];
+
+  let achievLevel = thisContent.breakpoints[findLastIndex(thisContent.breakpoints, function findAchievLevel (pt) {
+    return value >= pt;
+  })];
+
+  let titleKey;
+  let textKey;
+  if (achievLevel === 1) {
+    titleKey = thisContent.singularTitleKey;
+    textKey = thisContent.singularTextKey;
+  } else {
+    titleKey = thisContent.pluralTitleKey;
+    textKey = thisContent.pluralTextKey;
+  }
+
+  _add(result, {
+    title: i18n.t(titleKey, {count: achievLevel}, data.language),
+    text: i18n.t(textKey, {count: achievLevel}, data.language),
+    icon: `${thisContent.icon}-${achievLevel}-`,
+    key,
+    value,
+    optionalCount: value,
+    earned: Boolean(value),
+  });
+}
+
 function _addUltimateGear (result, user, data) {
   if (!data.altPath) {
     data.altPath = data.path;
@@ -176,6 +208,8 @@ function _getBasicAchievements (user, language) {
 
   _addPlural(result, user, {path: 'streak', language});
   _addPlural(result, user, {path: 'perfect', language});
+
+  _addTiered(result, user, {path: 'checked', language});
 
   _addSimple(result, user, {path: 'partyUp', language});
   _addSimple(result, user, {path: 'partyOn', language});
