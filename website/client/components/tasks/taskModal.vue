@@ -116,6 +116,29 @@
             b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
               | {{ $t(frequency) }}
 
+        .option.group-options(v-if='groupId')
+          label(v-once) Assigned To
+          .category-wrap(@click="showAssignedSelect = !showAssignedSelect")
+            span.category-select(v-if='assignedMembers && assignedMembers.length === 0') {{$t('none')}}
+            span.category-select(v-else)
+              span(v-for='memberId in assignedMembers') {{memberNamesById[memberId]}}
+          .category-box(v-if="showAssignedSelect")
+            .form-check(
+              v-for="member in members",
+              :key="member._id",
+            )
+              label.custom-control.custom-checkbox
+                input.custom-control-input(type="checkbox", :value="member._id", v-model="assignedMembers", @change='toggleAssignment(member._id)')
+                span.custom-control-indicator
+                span.custom-control-description(v-once) {{ member.profile.name }}
+            button.btn.btn-primary(@click="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
+
+        .option.group-options(v-if='groupId')
+          label(v-once) Needs Approval
+          toggle-switch(:label='""',
+            :checked="requiresApproval",
+            @change="updateRequiresApproval")
+
       .task-modal-footer(slot="modal-footer")
         button.btn.btn-primary(type="submit", v-once) {{ $t('save') }}
         span.cancel-task-btn(v-once, v-if="purpose === 'create'", @click="cancel()") {{ $t('cancel') }}
@@ -319,6 +342,7 @@ import bModal from 'bootstrap-vue/lib/components/modal';
 import { mapGetters, mapActions, mapState } from 'client/libs/store';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
+import toggleSwitch from 'client/components/ui/toggleSwitch';
 import Datepicker from 'vuejs-datepicker';
 import moment from 'moment';
 import uuid from 'uuid';
@@ -338,11 +362,13 @@ export default {
     bDropdown,
     bDropdownItem,
     Datepicker,
+    toggleSwitch,
   },
   props: ['task', 'purpose', 'challengeId', 'groupId'], // purpose is either create or edit, task is the task created or edited
   data () {
     return {
       showTagsSelect: false,
+      showAssignedSelect: false,
       newChecklistItem: null,
       icons: Object.freeze({
         information: informationIcon,
@@ -354,7 +380,30 @@ export default {
         positive: positiveIcon,
         destroy: deleteIcon,
       }),
+      requiresApproval: false, // We can't set task.group fields so we use this field to toggle
+      members: [],
+      memberNamesById: {},
+      assignedMembers: [],
     };
+  },
+  watch: {
+    async task () {
+      if (this.groupId && this.task.group && this.task.group.approval.required) {
+        this.requiresApproval = true;
+      }
+
+      if (this.groupId) {
+        let members = await this.$store.dispatch('members:getGroupMembers', {
+          groupId: this.groupId,
+          includeAllPublicFields: true,
+        });
+        this.members = members;
+        this.members.forEach(member => {
+          this.memberNamesById[member._id] = member.profile.name;
+        });
+        this.assignedMembers = this.task.group.assignedUsers;
+      }
+    },
   },
   computed: {
     ...mapGetters({
@@ -461,6 +510,11 @@ export default {
           this.createTask(this.task);
         }
       } else {
+        if (this.groupId) {
+          this.task.group.assignedUsers = this.assignedMembers;
+          this.task.requiresApproval = this.requiresApproval;
+        }
+
         this.saveTask(this.task);
         this.$emit('taskEdited', this.task);
       }
@@ -473,6 +527,24 @@ export default {
     cancel () {
       this.showTagsSelect = false;
       this.$emit('cancel');
+    },
+    updateRequiresApproval (newValue) {
+      let truthy = true;
+      if (!newValue) truthy = false; // This return undefined instad of false
+      this.requiresApproval = truthy;
+    },
+    async toggleAssignment (memberId) {
+      if (this.assignedMembers.indexOf(memberId) === -1) {
+        await this.$store.dispatch('tasks:unassignTask', {
+          taskId: this.task._id,
+          userId: this.user._id,
+        });
+        return;
+      }
+      await this.$store.dispatch('tasks:assignTask', {
+        taskId: this.task._id,
+        userId: this.user._id,
+      });
     },
   },
 };
