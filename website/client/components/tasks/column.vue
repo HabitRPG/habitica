@@ -16,6 +16,7 @@
       v-if="filterTask(task)",
       :isUser="isUser",
       @editTask="editTask",
+      :group='group',
     )
     template(v-if="isUser === true && type === 'reward' && activeFilter.label !== 'custom'")
       .reward-items
@@ -169,7 +170,7 @@ export default {
     bModal,
     shopItem,
   },
-  props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride'],
+  props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
   data () {
     const types = Object.freeze({
       habit: {
@@ -227,6 +228,7 @@ export default {
       userPreferences: 'user.data.preferences',
     }),
     taskList () {
+      // @TODO: This should not default to user's tasks. It should require that you pass options in
       if (this.taskListOverride) return this.taskListOverride;
       return this.tasks[`${this.type}s`];
     },
@@ -264,6 +266,8 @@ export default {
         Array.from(taskListEl.getElementsByClassName('task')).forEach(el => {
           combinedTasksHeights += el.offsetHeight;
         });
+
+        if (!this.$refs.columnBackground) return;
 
         const rewardsList = taskListEl.getElementsByClassName('reward-items')[0];
         if (rewardsList) {

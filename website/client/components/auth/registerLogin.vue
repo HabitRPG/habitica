@@ -194,9 +194,9 @@ export default {
   },
   mounted () {
     hello.init({
-      facebook: '',
+      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
       // windows: WINDOWS_CLIENT_ID,
-      google: '',
+      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });
   },
   methods: {

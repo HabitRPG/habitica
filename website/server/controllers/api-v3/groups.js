@@ -1248,4 +1248,41 @@ api.removeGroupManager = {
   },
 };
 
+/**
+ * @api {get} /api/v3/group-plans Get group plans for a user
+ * @apiName GetGroupPlans
+ * @apiGroup Group
+ *
+ * @apiSuccess {Object[]} data An array of the requested groups with a group plan (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ *
+ * @apiSuccessExample {json} Groups the user is in with a group plan:
+ *     HTTP/1.1 200 OK
+ *     [
+ *       {groupPlans}
+ *     ]
+ */
+api.getGroupPlans = {
+  method: 'GET',
+  url: '/group-plans',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    const userGroups = user.getGroups();
+
+    const groups = await Group
+      .find({
+        _id: {$in: userGroups},
+      })
+      .select('leaderOnly leader purchased name')
+      .exec();
+
+    let groupPlans = groups.filter(group => {
+      return group.isSubscribed();
+    });
+
+    res.respond(200, groupPlans);
+  },
+};
+
 module.exports = api;
