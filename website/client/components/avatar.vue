@@ -186,9 +186,8 @@ export default {
       return result;
     },
     castEnd (e) {
-      if (this.$store.state.castingSpell) {
-        this.$root.$emit('castEnd', this.member, "user", e);
-      };
+      if (!this.$store.state.castingSpell) return;
+      this.$root.$emit('castEnd', this.member, 'user', e);
     },
   },
 };

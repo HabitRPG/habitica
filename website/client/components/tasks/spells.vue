@@ -94,6 +94,7 @@ import spells from '../../../common/script/content/spells';
 import notifications from 'client/mixins/notifications';
 import Drawer from 'client/components/ui/drawer';
 import mana from 'assets/svg/mana.svg';
+import quests from 'common/script/content/quests';
 
 export default {
   mixins: [notifications],
@@ -103,6 +104,7 @@ export default {
   data () {
     return {
       spells,
+      quests,
       applyingAction: false,
       spell: {},
       icons: Object.freeze({
@@ -156,7 +158,7 @@ export default {
       this.applyingAction = true;
       this.$store.state.castingSpell = true;
       this.spell = spell;
-      document.querySelector("body").style.cursor = 'crosshair';
+      document.querySelector('body').style.cursor = 'crosshair';
 
       if (spell.target === 'self') {
         this.castEnd(null, 'self');
@@ -182,15 +184,14 @@ export default {
         // this.castEnd(tasks, 'tasks');
       }
     },
-    async castEnd (target, type, $event) {
+    async castEnd (target, type) {
       if (!this.$store.state.castingSpell) return;
       let beforeQuestProgress = this.questProgress();
 
       if (!this.applyingAction) return 'No applying action';
-      $event && ($event.stopPropagation(), $event.preventDefault());
 
       if (this.spell.target !== type) return this.text(this.$t('invalidTarget'));
-      document.querySelector("body").style.cursor = 'initial';
+      document.querySelector('body').style.cursor = 'initial';
       this.$store.state.castingSpell = false;
 
       this.spell.cast(this.user, target);
@@ -231,16 +232,16 @@ export default {
 
       this.markdown(msg); // @TODO: mardown directive?
       // @TODO:
-      // let questProgress = this.questProgress() - beforeQuestProgress;
-      // if (questProgress > 0) {
-      //   let userQuest = Content.quests[user.party.quest.key];
-      //   if (userQuest.boss) {
-      //     Notification.quest('questDamage', questProgress.toFixed(1));
-      //   } else if (quest.collection && userQuest.collect) {
-      //     Notification.quest('questCollection', questProgress);
-      //   }
-      // }
-      // User.sync();
+      let questProgress = this.questProgress() - beforeQuestProgress;
+      if (questProgress > 0) {
+        let userQuest = this.quests[this.user.party.quest.key];
+        if (userQuest.boss) {
+          this.quest('questDamage', questProgress.toFixed(1));
+        } else if (userQuest.collection && userQuest.collect) {
+          this.quest('questCollection', questProgress);
+        }
+      }
+      // @TOOD: User.sync();
     },
     castCancel () {
       this.applyingAction = false;
@@ -248,19 +249,22 @@ export default {
     },
     questProgress () {
       let user = this.user;
-      // if (user.party.quest) {
-      //   let userQuest = Content.quests[user.party.quest.key];
-      //
-      //   if (!userQuest) {
-      //     return 0;
-      //   }
-      //   if (userQuest.boss && user.party.quest.progress.up > 0) {
-      //     return user.party.quest.progress.up;
-      //   }
-      //   if (userQuest.collect && user.party.quest.progress.collectedItems > 0) {
-      //     return user.party.quest.progress.collectedItems;
-      //   }
-      // }
+      if (!user.party.quest) return 0;
+
+      let userQuest = this.quests[user.party.quest.key];
+
+      if (!userQuest) {
+        return 0;
+      }
+
+      if (userQuest.boss && user.party.quest.progress.up > 0) {
+        return user.party.quest.progress.up;
+      }
+
+      if (userQuest.collect && user.party.quest.progress.collectedItems > 0) {
+        return user.party.quest.progress.collectedItems;
+      }
+
       return 0;
     },
   },

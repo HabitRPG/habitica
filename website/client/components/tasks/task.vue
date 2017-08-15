@@ -381,7 +381,7 @@ export default {
         this.$emit('editTask', task);
       }
 
-      this.$root.$emit('castEnd', task, "task", e);
+      this.$root.$emit('castEnd', task, 'task', e);
     },
     async score (direction) {
       // TODO move to an action
