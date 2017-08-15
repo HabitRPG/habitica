@@ -146,7 +146,7 @@
 
             template(slot="itemBadge", scope="ctx")
               countBadge(
-                :show="userItems[item.purchaseType][item.key]",
+                :show="userItems[item.purchaseType][item.key] != 0",
                 :count="userItems[item.purchaseType][item.key] || 0"
               )
 
@@ -398,6 +398,7 @@
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
   import _map from 'lodash/map';
+  import _get from 'lodash/get';
   import _throttle from 'lodash/throttle';
 
   import _isPinned from '../_isPinned';
@@ -520,7 +521,7 @@ export default {
 
       featuredItems () {
         return featuredItems.market.map(i => {
-          return getItemInfo(this.user, 'marketGear', this.content.gear.flat[i]);
+          return getItemInfo(this.user, i.type, _get(this.content, i.path));
         });
       },
     },

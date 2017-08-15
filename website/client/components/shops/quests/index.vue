@@ -341,6 +341,7 @@
   import _throttle from 'lodash/throttle';
   import _groupBy from 'lodash/groupBy';
   import _map from 'lodash/map';
+  import _get from 'lodash/get';
 
 export default {
     components: {
@@ -406,7 +407,7 @@ export default {
 
       featuredItems () {
         return featuredItems.quests.map(i => {
-          return getItemInfo(this.user, 'quest', this.content.quests[i]);
+          return getItemInfo(this.user, i.type, _get(this.content, i.path));
         });
       },
     },
