@@ -62,7 +62,7 @@ div
       a.dropdown.item-with-icon.item-user
         .svg-icon(v-html="icons.user")
         .dropdown-menu.dropdown-menu-right.user-dropdown
-          a.dropdown-item.edit-avatar(@click='showAvatar()')
+          a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
             h3 {{ user.profile.name }}
             span.small-text {{ $t('editAvatar') }}
           a.nav-link.dropdown-item(@click.prevent='showInbox()') {{ $t('inbox') }}
@@ -127,6 +127,10 @@ div
 
   .dropdown + .dropdown {
     margin-left: 0px;
+  }
+
+  .dropdown-separated {
+    border-bottom: 1px solid $gray-500;
   }
 
   .dropdown-menu:not(.user-dropdown) {

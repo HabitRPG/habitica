@@ -4,7 +4,7 @@
   // span.glyphicon(:class='iconClasses()')
   // span.notification-counter(v-if='getNotificationsCount()') {{getNotificationsCount()}}
   .dropdown-menu.dropdown-menu-right.user-dropdown
-    h4.dropdown-item(v-if='!hasNoNotifications()') {{ $t('notifications') }}
+    h4.dropdown-item.dropdown-separated(v-if='!hasNoNotifications()') {{ $t('notifications') }}
     h4.dropdown-item.toolbar-notifs-no-messages(v-if='hasNoNotifications()') {{ $t('noNotifications') }}
     a.dropdown-item(v-if='user.purchased.plan.mysteryItems.length', @click='go("/inventory/items")')
       span.glyphicon.glyphicon-gift
@@ -58,6 +58,10 @@
 
   .dropdown + .dropdown {
     margin-left: 0px;
+  }
+
+  .dropdown-separated {
+    border-bottom: 1px solid $gray-500;
   }
 
   .dropdown-menu:not(.user-dropdown) {
