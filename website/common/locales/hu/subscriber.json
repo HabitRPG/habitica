@@ -3,7 +3,7 @@
     "subscriptions": "Előfizetések",
     "subDescription": "Vásárolj drágaköveket arany fejében, juss hozzá havonta rejtélyes tárgyakhoz, őrizd meg a haladásod előzményeit, duplázd meg a napi tárgyszerzési limited, támogasd a fejlesztőket! Kattints további információkért!",
     "buyGemsGold": "Drágakő vásárlása aranyért",
-    "buyGemsGoldText": "Alexander the Merchant will sell you Gems at a cost of 20 Gold per Gem. His monthly shipments are initially capped at 25 Gems per month, but for every 3 consecutive months that you are subscribed, this cap increases by 5 Gems, up to a maximum of 50 Gems per month!",
+    "buyGemsGoldText": "Alexander, a kereskedőtől vehetsz drágaköveket, 20 aranyért egyet. A havi szállítmánya kezdetben 25 drágakő, de minden egymást követő 3 hónapban, amikor előfizettél, ez a csomag 5 drágakővel növekszik, maximum 50 drágakőért per hónap.",
     "mustSubscribeToPurchaseGems": "Drágakövek vásárlása arannyal csak előfizetés után lehetséges",
     "reachedGoldToGemCap": "Elérted az arany=>drágakő átváltás határát <%= convCap %> erre a hónapra. Ez a visszaélések/farmolás megelőzésére van.  Az átváltás újraindul a hónap első három napján",
     "retainHistory": "További bejegyzések megőrzése",

@@ -66,7 +66,7 @@
     "itemDrop": "Je hebt iets gevonden!",
     "firstDrop": "Je hebt het vondstensysteem vrijgespeeld! Als je nu een taak volbrengt, heb je een kleine kans om een voorwerp te vinden, zoals eieren, drankjes en voedsel! Je hebt net een <strong><%= eggText %> ei</strong> gevonden! <%= eggNotes %>",
     "useGems": "Als je je oog hebt laten vallen op een huisdier, maar niet wilt wachten tot je het juiste ei of drankje vindt, gebruik dan edelstenen in <strong>Boedel > Markt</strong> om er één te kopen!",
-    "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
+    "hatchAPot": "Wil je een nieuwe<%= potion %><%= egg %>uitbroeden? ",
     "hatchedPet": "Je hebt een <%= potion %> <%= egg %> uitgebroed!",
     "displayNow": "Toon nu",
     "displayLater": "Toon later",
