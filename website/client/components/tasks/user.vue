@@ -219,11 +219,21 @@
       background-image: url(~client/assets/svg/for-css/positive.svg);
     }
 
-    .tag-edit-item .input-group-btn {
-      border-bottom: 1px solid $gray-500 !important;
+    .tag-edit-item {
+      .input-group-btn {
+        border-bottom: 1px solid $gray-500 !important;
 
-      &:focus {
-        border-color: $purple-500;
+        &:focus {
+          border-color: $purple-500;
+        }
+      }
+
+      .destroy-icon {
+        display: none;
+      }
+
+      &:hover .destroy-icon {
+        display: inline;
       }
     }
 
