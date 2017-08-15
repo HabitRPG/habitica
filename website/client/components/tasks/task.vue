@@ -377,9 +377,11 @@ export default {
 
       if (target.tagName === 'A') { // Link
         return;
-      } else {
+      } else if (!this.$store.state.castingSpell) {
         this.$emit('editTask', task);
       }
+
+      this.$root.$emit('castEnd', task, 'task', e);
     },
     async score (direction) {
       // TODO move to an action
