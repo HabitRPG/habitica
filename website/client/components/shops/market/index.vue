@@ -146,7 +146,7 @@
 
             template(slot="itemBadge", scope="ctx")
               countBadge(
-                :show="true",
+                :show="userItems[item.purchaseType][item.key]",
                 :count="userItems[item.purchaseType][item.key] || 0"
               )
 
