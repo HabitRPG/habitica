@@ -1,27 +1,90 @@
 <template lang="pug">
-ul.items(ng-if='user.stats.class && !user.preferences.disableClasses')
-  li.task.reward-item.list-group-item(
-    v-for='(skill, key) in spells[user.stats.class]',
-    v-if='user.stats.lvl >= skill.lvl',
-    popover-trigger='mouseenter',
-    popover-placement='top',
-    :popover='skillNotes(skill)')
-
-    .task-meta-controls
-      span.task-notes
-        span.glyphicon.glyphicon-comment
-
-    .task-controls.task-primary
-      a.money.btn-buy.item-btn(@click='castStart(skill)', :class='{"disabled": spellDisabled(key)}')
-        span.reward-cost
-          strong {{skill.mana}}
-          | {{ $t('mp') }}
-
-    span(:class='`shop_${skill.key} shop-sprite item-img`').reward-img
-    p.task-text {{skill.text()}}
+drawer(:title="$t('spells')", c-if='user.stats.class && !user.preferences.disableClasses')
+  div(slot="drawer-slider")
+    .container.spell-container
+      .row
+        .col-3(
+          @click='castStart(skill)',
+          v-for='(skill, key) in spells[user.stats.class]',
+          v-if='user.stats.lvl >= skill.lvl',
+          popover-trigger='mouseenter',
+          popover-placement='top',
+          :popover='skillNotes(skill)')
+          .spell.col-12.row
+            .col-8.details
+              a(:class='{"disabled": spellDisabled(key)}')
+              p.title {{skill.text()}}
+              p.notes {{skill.notes()}}
+            .col-4.mana
+              .img(:class='`shop_${skill.key} shop-sprite item-img`')
+              .mana-text
+                .svg-icon(v-html="icons.mana")
+                div {{skill.mana}}
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+  .drawer-container {
+    left: 19%;
+  }
+
+  .drawer-slider {
+    margin-top: 1em;
+  }
+
+  .spell-container {
+    margin-top: .5em;
+    white-space: initial;
+  }
+
+  .spell {
+    background: #ffffff;
+    margin-bottom: 1em;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+    border-radius: 2px;
+    color: #4e4a57;
+    padding-right: 0;
+    padding-left: 0;
+
+    .details {
+      text-align: left;
+      padding-top: .5em;
+
+      p {
+        margin-bottom: .5em;
+      }
+
+      .notes {
+        font-weight: normal;
+        color: #686274;
+      }
+    }
+
+    .img {
+      margin: 0 auto;
+    }
+
+    .mana-text {
+      margin-bottom: .2em;
+
+      div {
+        display: inline-block;
+        vertical-align: bottom;
+      }
+
+      .svg-icon {
+        width: 16px;
+        margin-right: .2em;
+      }
+    }
+
+    .mana {
+      padding: .2em;
+      background-color: rgba(70, 167, 217, 0.24);
+      color: #2995cd;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
 </style>
 
 <script>
@@ -29,14 +92,22 @@ import axios from 'axios';
 import { mapState } from 'client/libs/store';
 import spells from '../../../common/script/content/spells';
 import notifications from 'client/mixins/notifications';
+import Drawer from 'client/components/ui/drawer';
+import mana from 'assets/svg/mana.svg';
 
 export default {
   mixins: [notifications],
+  components: {
+    Drawer,
+  },
   data () {
     return {
       spells,
       applyingAction: false,
       spell: {},
+      icons: Object.freeze({
+        mana,
+      }),
     };
   },
   mounted () {
