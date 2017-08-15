@@ -1,25 +1,36 @@
 <template lang="pug">
-drawer(:title="$t('spells')", c-if='user.stats.class && !user.preferences.disableClasses')
-  div(slot="drawer-slider")
-    .container.spell-container
-      .row
-        .col-3(
-          @click='castStart(skill)',
-          v-for='(skill, key) in spells[user.stats.class]',
-          v-if='user.stats.lvl >= skill.lvl',
-          popover-trigger='mouseenter',
-          popover-placement='top',
-          :popover='skillNotes(skill)')
-          .spell.col-12.row
-            .col-8.details
-              a(:class='{"disabled": spellDisabled(key)}')
-              p.title {{skill.text()}}
-              p.notes {{skill.notes()}}
-            .col-4.mana
-              .img(:class='`shop_${skill.key} shop-sprite item-img`')
-              .mana-text
-                .svg-icon(v-html="icons.mana")
-                div {{skill.mana}}
+div
+  div.dragInfo.mouse(ref="clickPotionInfo", v-if="potionClickMode")
+    .spell.col-12.row
+      .col-8.details
+        p.title {{spell.text()}}
+        p.notes {{ `Click on a ${spell.target} to cast!`}}
+      .col-4.mana
+        .img(:class='`shop_${spell.key} shop-sprite item-img`')
+
+  drawer(:title="$t('spells')",
+    v-if='user.stats.class && !user.preferences.disableClasses',
+    v-mousePosition="30", @mouseMoved="mouseMoved($event)")
+    div(slot="drawer-slider")
+      .container.spell-container
+        .row
+          .col-3(
+            @click='castStart(skill)',
+            v-for='(skill, key) in spells[user.stats.class]',
+            v-if='user.stats.lvl >= skill.lvl',
+            popover-trigger='mouseenter',
+            popover-placement='top',
+            :popover='skillNotes(skill)')
+            .spell.col-12.row
+              .col-8.details
+                a(:class='{"disabled": spellDisabled(key)}')
+                p.title {{skill.text()}}
+                p.notes {{skill.notes()}}
+              .col-4.mana
+                .img(:class='`shop_${skill.key} shop-sprite item-img`')
+                .mana-text
+                  .svg-icon(v-html="icons.mana")
+                  div {{skill.mana}}
 </template>
 
 <style lang="scss" scoped>
@@ -85,6 +96,40 @@ drawer(:title="$t('spells')", c-if='user.stats.class && !user.preferences.disabl
       text-align: center;
     }
   }
+
+  .dragInfo {
+    position: absolute;
+    left: -500px;
+    z-index: 1080;
+
+    .spell {
+      border-radius: 1000px;
+      min-width: 224px;
+      height: 52px;
+      font-size: 12px;
+      padding-left: .5em;
+
+      .title {
+        font-weight: bold;
+      }
+    }
+
+    .mana {
+      border-radius: 0 1000px 1000px 0;
+    }
+
+    &.mouse {
+      position: fixed;
+      pointer-events: none
+    }
+    .potion-icon {
+      margin: 0 auto;
+    }
+    .popover {
+      position: inherit;
+      width: 100px;
+    }
+  }
 </style>
 
 <script>
@@ -98,6 +143,8 @@ import updateStats from '../../../common/script/fns/updateStats';
 import { mapState } from 'client/libs/store';
 import notifications from 'client/mixins/notifications';
 import Drawer from 'client/components/ui/drawer';
+import MouseMoveDirective from 'client/directives/mouseposition.directive';
+
 import mana from 'assets/svg/mana.svg';
 import quests from 'common/script/content/quests';
 
@@ -105,6 +152,9 @@ export default {
   mixins: [notifications],
   components: {
     Drawer,
+  },
+  directives: {
+    mousePosition: MouseMoveDirective,
   },
   data () {
     return {
@@ -115,6 +165,8 @@ export default {
       icons: Object.freeze({
         mana,
       }),
+      lastMouseMoveEvent: {},
+      potionClickMode: false,
     };
   },
   mounted () {
@@ -165,6 +217,7 @@ export default {
         return this.text('Not enough gold.');
       }
 
+      this.potionClickMode = true;
       this.applyingAction = true;
       this.$store.state.castingSpell = true;
       this.spell = spell;
@@ -203,8 +256,11 @@ export default {
       if (!this.applyingAction) return 'No applying action';
 
       if (this.spell.target !== type) return this.text(this.$t('invalidTarget'));
+
+      // @TODO: just call castCancel?
       document.querySelector('body').style.cursor = 'initial';
       this.$store.state.castingSpell = false;
+      this.potionClickMode = false;
 
       // @TODO: We no longer wrap the users (or at least we should not), but some common code
       // expects the user to be wrapped. For now, just manually set. But we need to fix the common code
@@ -267,6 +323,7 @@ export default {
       // @TOOD: User.sync();
     },
     castCancel () {
+      this.potionClickMode = false;
       this.applyingAction = false;
       this.spell = null;
       document.querySelector('body').style.cursor = 'initial';
@@ -291,6 +348,16 @@ export default {
       }
 
       return 0;
+    },
+    // @TODO: Move to mouse move component??
+    mouseMoved ($event) {
+      // @TODO: throttle
+      if (this.potionClickMode) {
+        this.$refs.clickPotionInfo.style.left = `${$event.x + 20}px`;
+        this.$refs.clickPotionInfo.style.top = `${$event.y + 20}px`;
+      } else {
+        this.lastMouseMoveEvent = $event;
+      }
     },
   },
 };
