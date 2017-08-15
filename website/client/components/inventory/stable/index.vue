@@ -273,9 +273,16 @@
     display: inline-block;
   }
 
-  .stable .item .item-content.Pet {
-    position: absolute;
+  .stable .item .item-content.Pet:not(.FlyingPig) {
     top: -28px;
+  }
+
+  .stable .item .item-content.FlyingPig {
+    top: 7px;
+  }
+
+  .stable .item .item-content.Pet-Dragon-Hydra {
+    top: -16px !important;
   }
 
   .hatchablePopover {
@@ -833,7 +840,7 @@
 
       getPetItemClass (pet) {
         if (pet.isOwned()) {
-          return `Pet Pet-${pet.key}`;
+          return `Pet Pet-${pet.key} ${pet.eggKey}`;
         }
 
         if (pet.mountOwned()) {
