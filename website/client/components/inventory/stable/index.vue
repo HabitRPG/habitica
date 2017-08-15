@@ -99,14 +99,12 @@
                 :popoverPosition="'top'",
                 :progress="context.item.progress",
                 :emptyItem="!context.item.isOwned()",
-                :showPopover="context.item.isOwned() || context.item.isHatchable()",
+                :showPopover="true",
                 :highlightBorder="highlightPet == context.item.key",
                 @click="petClicked(context.item)"
               )
                 span(slot="popoverContent")
-                  div(v-if="context.item.isOwned()")
-                    h4.popover-content-title {{ context.item.name }}
-                  div.hatchablePopover(v-else-if="context.item.isHatchable()")
+                  div.hatchablePopover(v-if="context.item.isHatchable()")
                     h4.popover-content-title {{ context.item.name }}
                     div.popover-content-text(v-html="$t('haveHatchablePet', { potion: context.item.potionName, egg: context.item.eggName })")
                     div.potionEggGroup
@@ -114,6 +112,9 @@
                         div(:class="'Pet_HatchingPotion_'+context.item.potionKey")
                       div.potionEggBackground
                         div(:class="'Pet_Egg_'+context.item.eggKey")
+
+                  div(v-else)
+                    h4.popover-content-title {{ context.item.name }}
 
                 template(slot="itemBadge", scope="context")
                   starBadge(
@@ -146,7 +147,7 @@
               :key="context.item.key",
               :popoverPosition="'top'",
               :emptyItem="!context.item.isOwned()",
-              :showPopover="context.item.isOwned()",
+              :showPopover="true",
               @click="selectMount(context.item)"
             )
               span(slot="popoverContent")
