@@ -372,15 +372,16 @@ export default {
       this.scoreChecklistItem({taskId: this.task._id, itemId: item.id});
     },
     edit (e, task) {
-      this.$root.$emit('castEnd', task);
       // Prevent clicking on a link from opening the edit modal
       const target = e.target || e.srcElement;
 
       if (target.tagName === 'A') { // Link
         return;
-      } else {
+      } else if (!this.$store.state.castingSpell) {
         this.$emit('editTask', task);
       }
+
+      this.$root.$emit('castEnd', task, "task", e);
     },
     async score (direction) {
       // TODO move to an action

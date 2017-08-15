@@ -1,5 +1,5 @@
 <template lang="pug">
-.avatar(:style="{width, height, paddingTop}", :class="backgroundClass")
+.avatar(:style="{width, height, paddingTop}", :class="backgroundClass", @click.prevent='castEnd()')
   .character-sprites
     template(v-if="!avatarOnly")
       // Mount Body
@@ -184,6 +184,11 @@ export default {
       }
 
       return result;
+    },
+    castEnd (e) {
+      if (this.$store.state.castingSpell) {
+        this.$root.$emit('castEnd', this.member, "user", e);
+      };
     },
   },
 };

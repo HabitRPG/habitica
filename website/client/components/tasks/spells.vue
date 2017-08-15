@@ -40,8 +40,8 @@ export default {
     };
   },
   mounted () {
-    this.$root.$on('castEnd', (msg) => {
-      console.log(msg)
+    this.$root.$on('castEnd', (target, type, $event) => {
+      this.castEnd(target, type, $event);
     });
   },
   computed: {
@@ -83,6 +83,7 @@ export default {
       }
 
       this.applyingAction = true;
+      this.$store.state.castingSpell = true;
       this.spell = spell;
       document.querySelector("body").style.cursor = 'crosshair';
 
@@ -111,12 +112,16 @@ export default {
       }
     },
     async castEnd (target, type, $event) {
+      if (!this.$store.state.castingSpell) return;
       let beforeQuestProgress = this.questProgress();
 
       if (!this.applyingAction) return 'No applying action';
       $event && ($event.stopPropagation(), $event.preventDefault());
 
       if (this.spell.target !== type) return this.text(this.$t('invalidTarget'));
+      document.querySelector("body").style.cursor = 'initial';
+      this.$store.state.castingSpell = false;
+
       this.spell.cast(this.user, target);
       // User.save(); // @TODO:
 
