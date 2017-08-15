@@ -19,7 +19,7 @@ export default function createAnimal (egg, potion, type, content, userItems) {
       return type === 'pet' && this.isOwned() && !this.mountOwned();
     },
     isHatchable () {
-      return userItems.eggs[egg.key] > 0 && userItems.hatchingPotions[potion.key] > 0;
+      return !this.isOwned() & userItems.eggs[egg.key] > 0 && userItems.hatchingPotions[potion.key] > 0;
     },
   };
 }
