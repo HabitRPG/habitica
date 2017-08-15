@@ -89,8 +89,13 @@ drawer(:title="$t('spells')", c-if='user.stats.class && !user.preferences.disabl
 
 <script>
 import axios from 'axios';
-import { mapState } from 'client/libs/store';
+import isArray from 'lodash/isArray';
+
 import spells from '../../../common/script/content/spells';
+import { crit } from '../../../common/script/fns/crit';
+import updateStats from '../../../common/script/fns/updateStats';
+
+import { mapState } from 'client/libs/store';
 import notifications from 'client/mixins/notifications';
 import Drawer from 'client/components/ui/drawer';
 import mana from 'assets/svg/mana.svg';
@@ -117,8 +122,8 @@ export default {
       this.castEnd(target, type, $event);
     });
 
-    document.addEventListener("keyup", event => {
-      if (event.keyCode !== 27) return;
+    document.addEventListener('keyup', keyEvent => {
+      if (keyEvent.keyCode !== 27) return;
       this.castCancel();
     });
   },
@@ -153,7 +158,7 @@ export default {
 
       return notes;
     },
-    castStart (spell) {
+    async castStart (spell) {
       if (this.user.stats.mp < spell.mana) return this.text(this.$t('notEnoughMana'));
 
       if (spell.immediateUse && this.user.stats.gp < spell.value) {
@@ -168,25 +173,27 @@ export default {
       if (spell.target === 'self') {
         this.castEnd(null, 'self');
       } else if (spell.target === 'party') {
-        // Groups.party()
-        //   .then(function (party) {
-        //     party = (_.isArray(party) ? party : []).concat(this.user);
-        //     this.castEnd(party, 'party');
-        //   })
-        //   .catch(function (party) { // not in a party, act as a solo party
-        //     if (party && party.type === 'party') {
-        //       party = [this.user];
-        //       this.castEnd(party, 'party');
-        //     }
-        //   });
+        if (!this.user.party._id) {
+          let party = [this.user];
+          this.castEnd(party, 'party');
+          return;
+        }
+
+        // @TODO: do we need to fetcht the party everytime? We should probably just check store
+        let party = await this.$store.dispatch('guilds:getGroup', {groupId: 'party'});
+        party = isArray(party) ? party : [];
+        party = party.concat(this.user);
+        this.castEnd(party, 'party');
       } else if (spell.target === 'tasks') {
-        // let tasks = this.user.habits.concat(this.user.dailys).concat(this.user.rewards).concat(this.user.todos);
-        // // exclude challenge tasks
-        // tasks = tasks.filter(function (task) {
-        //   if (!task.challenge) return true;
-        //   return (!task.challenge.id || task.challenge.broken);
-        // });
-        // this.castEnd(tasks, 'tasks');
+        let tasks = this.$store.state.tasks.habits.concat(this.user.dailys)
+          .concat(this.$store.state.tasks.rewards)
+          .concat(this.$store.state.tasks.todos);
+        // exclude challenge tasks
+        tasks = tasks.filter((task) => {
+          if (!task.challenge) return true;
+          return !task.challenge.id || task.challenge.broken;
+        });
+        this.castEnd(tasks, 'tasks');
       }
     },
     async castEnd (target, type) {
@@ -198,6 +205,17 @@ export default {
       if (this.spell.target !== type) return this.text(this.$t('invalidTarget'));
       document.querySelector('body').style.cursor = 'initial';
       this.$store.state.castingSpell = false;
+
+      // @TODO: We no longer wrap the users (or at least we should not), but some common code
+      // expects the user to be wrapped. For now, just manually set. But we need to fix the common code
+      this.user.fns = {
+        crit: (...args) => {
+          return crit(this.user, ...args);
+        },
+        updateStats: (...args) => {
+          return updateStats(this.user, ...args);
+        },
+      };
 
       this.spell.cast(this.user, target);
       // User.save(); // @TODO:
