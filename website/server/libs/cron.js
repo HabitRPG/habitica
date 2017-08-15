@@ -306,6 +306,7 @@ export function cron (options = {}) {
     if (dailiesDaysMissed > 1) dailiesDaysMissed = 1;
 
     if (completed) {
+      task.lastCompleted =  moment(now).subtract({days: 1}).toDate();
       dailyChecked += 1;
       if (!atLeastOneDailyDue) { // only bother checking until the first thing is found
         let thatDay = moment(now).subtract({days: daysMissed});

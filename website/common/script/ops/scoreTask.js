@@ -243,6 +243,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
           if (user.addNotification) user.addNotification('STREAK_ACHIEVEMENT');
         }
         task.completed = true;
+        task.lastTicked = Number(new Date());
       } else if (direction === 'down') {
         // Remove a streak achievement if streak was a multiple of 21 and the daily was undone
         if (task.streak % 21 === 0) user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;

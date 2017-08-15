@@ -122,19 +122,39 @@ export function shouldDo (day, dailyTask, options = {}) {
 
   if (dailyTask.frequency === 'daily') {
     if (!dailyTask.everyX) return false; // error condition
-    let schedule = moment(startDate).recur()
-      .every(dailyTask.everyX).days();
+    let lastCompletedDate;
+    if (dailyTask.repeatAfterCompletion && dailyTask.lastCompleted) {
+      lastCompletedDate = moment(dailyTask.lastCompleted).zone(o.timezoneOffset).startOf('day');
+    }
 
     if (options.nextDue) {
       let filteredDates = [];
       for (let i = 1; filteredDates.length < 6; i++) {
-        let calcDate = moment(startDate).add(dailyTask.everyX * i, 'days');
+        let calcDate;
+        if (dailyTask.repeatAfterCompletion) {
+          if (lastCompletedDate) {
+            calcDate = moment(lastCompletedDate).add(dailyTask.everyX + i - 1, 'days');
+          } else {
+            calcDate = moment(startDate).add(i, 'days');
+          }
+        } else {
+          calcDate = moment(startDate).add(dailyTask.everyX * i, 'days');
+        }
         if (calcDate > startOfDayWithCDSTime) filteredDates.push(calcDate);
       }
       return filteredDates;
     }
 
-    return schedule.matches(startOfDayWithCDSTime);
+    if (dailyTask.repeatAfterCompletion) {
+      if (lastCompletedDate) {
+        return moment(lastCompletedDate).add(dailyTask.everyX, 'days').isSameOrBefore(startOfDayWithCDSTime);
+      } else {
+        return moment(startDate).isSameOrBefore(startOfDayWithCDSTime);
+      }
+    } else {
+      let schedule = moment(startDate).recur().every(dailyTask.everyX).days();
+      return schedule.matches(startOfDayWithCDSTime);
+    }
   } else if (dailyTask.frequency === 'weekly') {
     let schedule = moment(startDate).recur();
 
