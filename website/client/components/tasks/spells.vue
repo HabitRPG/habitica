@@ -116,6 +116,11 @@ export default {
     this.$root.$on('castEnd', (target, type, $event) => {
       this.castEnd(target, type, $event);
     });
+
+    document.addEventListener("keyup", event => {
+      if (event.keyCode !== 27) return;
+      this.castCancel();
+    });
   },
   computed: {
     ...mapState({user: 'user.data'}),
@@ -246,6 +251,8 @@ export default {
     castCancel () {
       this.applyingAction = false;
       this.spell = null;
+      document.querySelector('body').style.cursor = 'initial';
+      this.$store.state.castingSpell = false;
     },
     questProgress () {
       let user = this.user;
