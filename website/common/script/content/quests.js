@@ -1054,6 +1054,7 @@ let quests = {
   basilist: {
     text: t('questBasilistText'),
     notes: t('questBasilistNotes'),
+    group: 'questGroupEarnable',
     completion: t('questBasilistCompletion'),
     value: 4,
     category: 'unlockable',
@@ -2224,6 +2225,7 @@ let quests = {
   dustbunnies: {
     text: t('questDustBunniesText'),
     notes: t('questDustBunniesNotes'),
+    group: 'questGroupEarnable',
     completion: t('questDustBunniesCompletion'),
     value: 4,
     category: 'unlockable',
