@@ -87,6 +87,7 @@
           :items="questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned)",
           :itemWidth=94,
           :itemMargin=24,
+          :type="'pet_quests'",
         )
           template(slot="item", scope="ctx")
             shopItem(

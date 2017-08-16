@@ -78,6 +78,7 @@
           :items="travelersItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",
           :itemWidth=94,
           :itemMargin=24,
+          :type="category.identifier",
         )
           template(slot="item", scope="ctx")
             shopItem(

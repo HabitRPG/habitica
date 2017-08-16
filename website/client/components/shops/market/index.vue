@@ -92,8 +92,7 @@
         :items="filteredGear(selectedGroupGearByClass, searchTextThrottled, selectedSortGearBy, hideLocked, hidePinned)",
         :itemWidth=94,
         :itemMargin=24,
-        :showAllLabel="$t('showAllGeneric', { type: getClassName(selectedGroupGearByClass) + ' '+$t('equipment')  })",
-        :showLessLabel="$t('showLessGeneric', { type: getClassName(selectedGroupGearByClass) + ' '+$t('equipment') })"
+        :type="'gear'",
       )
         template(slot="item", scope="ctx")
           shopItem(

@@ -84,6 +84,7 @@
           :items="pets(petGroup, hideMissing, selectedSortBy, searchTextThrottled)",
           :itemWidth=94,
           :itemMargin=24,
+          :type="petGroup.key",
         )
           template(slot="item", scope="context")
             div(
@@ -139,6 +140,7 @@
           :items="mounts(mountGroup, hideMissing, selectedSortBy, searchTextThrottled)",
           :itemWidth=94,
           :itemMargin=24,
+          :type="mountGroup.key",
         )
           template(slot="item", scope="context")
             mountItem(
