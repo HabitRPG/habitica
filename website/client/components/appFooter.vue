@@ -234,6 +234,7 @@ const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-l
 export default {
   components: {
     modifyInventory,
+    buyGemsModal,
   },
   data () {
     return {
