@@ -125,6 +125,7 @@
   "confirmPasswordPlaceholder": "Make sure it’s the same password!",
   "termsAndAgreement": "By clicking the button below, you are indicating that you have read and agree to the <a href='/static/terms'>Terms of Service</a> and <a href='/static/privacy'>Privacy Policy</a>.",
   "joinHabitica": "Join Habitica",
+  "alreadyHaveAccountLogin": "Already have a Habitica account? Log in",
   "quickInventory": "Quick Inventory",
   "noFoodAvailable": "You don't have any food.",
   "gotIt": "Got it!",
